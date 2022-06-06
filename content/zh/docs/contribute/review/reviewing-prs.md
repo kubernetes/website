@@ -1,5 +1,5 @@
 ---
-title: 评阅 PRs
+title: 评审 PR
 content_type: concept
 main_menu: true
 weight: 10
@@ -25,14 +25,14 @@ Before reviewing, it's a good idea to:
 [style guide](/docs/contribute/style/style-guide/) so you can leave informed comments.
 - Understand the different [roles and responsibilities](/docs/contribute/participating/#roles-and-responsibilities) in the Kubernetes documentation community.
 -->
-任何人均可评阅文档的拉取请求。访问 Kubernetes 网站仓库的
-[pull requests](https://github.com/kubernetes/website/pulls)
-部分可以查看所有待处理的拉取请求（PRs）。
+任何人均可评审文档的拉取请求。
+访问 Kubernetes 网站仓库的 [pull requests](https://github.com/kubernetes/website/pulls) 部分，
+可以查看所有待处理的拉取请求（PR）。
 
-评阅文档 PR 是将你自己介绍给 Kubernetes 社区的一种很好的方式。
+评审文档 PR 是将你自己介绍给 Kubernetes 社区的一种很好的方式。
 它将有助于你学习代码库并与其他贡献者之间建立相互信任关系。
 
-在评阅之前，可以考虑：
+在评审之前，可以考虑：
 
 - 阅读[内容指南](/zh/docs/contribute/style/content-guide/)和 
   [样式指南](/zh/docs/contribute/style/style-guide/)以便给出有价值的评论。
@@ -53,21 +53,62 @@ Before you start a review:
 -->
 ## 准备工作 {#before-you-begin}
 
-在你开始评阅之前：
+在你开始评审之前：
 
-- 阅读 [CNCF 行为准则](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)
-  确保你会始终遵从其中约定；
-- 保持有礼貌、体谅他人，怀助人为乐初心；
-- 评论时若给出修改建议，也要兼顾 PR 的积极方面
-- 保持同理心，多考虑他人收到评阅意见时的可能反应
-- 假定大家都是好意的，通过问问题澄清意图
-- 如果你是有经验的贡献者，请考虑和新贡献者一起合作，提高其产出质量
+- 阅读 [CNCF 行为准则](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)。
+  确保你会始终遵从其中约定。
+- 保持有礼貌、体谅他人，怀助人为乐初心。
+- 评论时若给出修改建议，也要兼顾 PR 的积极方面。
+- 保持同理心，多考虑他人收到评审意见时的可能反应。
+- 假定大家都是好意的，通过问问题澄清意图。
+- 如果你是有经验的贡献者，请考虑和新贡献者一起合作，提高其产出质量。
 
-<!--
+<!-- 
 ## Review process
 
-In general, review pull requests for content and style in English.
+In general, review pull requests for content and style in English. Figure 1 outlines the steps for the review process. The details for each step follow.
+-->
+## 评审过程  {#review-process}
 
+一般而言，应该使用英语来评审 PR 的内容和样式。
+图 1 概述了评审流程的各个步骤。
+每个步骤的详细信息如下。
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+    subgraph fourth[开始评审]
+    direction TB
+    S[ ] -.-
+    M[添加评论] --> N[评审变更]
+    N --> O[新手应该<br>选择 Comment]
+    end
+    subgraph third[选择 PR]
+    direction TB
+    T[ ] -.-
+    J[阅读描述<br>和评论]--> K[通过 Netlify 预览构建<br>来预览变更]
+    end
+ 
+  A[查阅待处理的 PR 清单]--> B[通过标签过滤<br>待处理的 PR]
+  B --> third --> fourth
+     
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class A,B,J,K,M,N,O grey
+class S,T spacewhite
+class third,fourth white
+{{</ mermaid >}}
+
+<!-- 
+Figure 1. Review process steps.
+-->
+图 1. 评审流程步骤。
+
+<!--
 1.  Go to
     [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
     You see a list of every open pull request against the Kubernetes website and
@@ -80,61 +121,74 @@ In general, review pull requests for content and style in English.
 
     Additionally, ensure the PR isn't marked as a work in progress. PRs using the `work in progress` label are not ready for review yet.
 -->
-## 评阅过程  {#review-process}
-
-一般而言，应该使用英语来评阅 PR 的内容和样式。
-
 1. 前往 [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls)，
-   你会看到所有针对 Kubernetes 网站和文档的待处理 PRs。
+   你会看到所有针对 Kubernetes 网站和文档的待处理 PR。
 
-2. 使用以下标签（组合）对待处理 PRs 进行过滤：
+2. 使用以下标签（组合）对待处理 PR 进行过滤：
 
-    - `cncf-cla: yes` （建议）：由尚未签署 CLA 的贡献者所发起的 PRs 不可以合并。
+    - `cncf-cla: yes` （建议）：由尚未签署 CLA 的贡献者所发起的 PR 不可以合并。
       参考[签署 CLA](/zh/docs/contribute/new-content/overview/#sign-the-cla) 以了解更多信息。
-    - `language/en` （建议）：仅查看英语语言的 PRs。
-    - `size/<尺寸>`：过滤特定尺寸（规模）的 PRs。如果你刚入门，可以从较小的 PR 开始。
+    - `language/en` （建议）：仅查看英语语言的 PR。
+    - `size/<尺寸>`：过滤特定尺寸（规模）的 PR。
+      如果你刚入门，可以从较小的 PR 开始。
 
     此外，确保 PR 没有标记为尚未完成（Work in Progress）。
-    包含 `work in progress` 的 PRs 通常还没准备好被评阅。
+    包含 `work in progress` 的 PR 通常还没准备好被评审。
 
-<!--
+<!-- 
 3.  Once you've selected a PR to review, understand the change by:
     - Reading the PR description to understand the changes made, and read any linked issues
     - Reading any comments by other reviewers
     - Clicking the **Files changed** tab to see the files and lines changed
-    - Previewing the changes in the Netlify preview build by scrolling to the PR's build check section at the bottom of the **Conversation** tab and clicking the **deploy/netlify** line's **Details** link.
+    - Previewing the changes in the Netlify preview build by scrolling to the PR's build check section at the bottom of the **Conversation** tab.
+      Here's a screenshot (this shows GitHub's desktop site; if you're reviewing
+      on a tablet or smartphone device, the GitHub web UI is slightly different):
+      {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub pull request details including link to Netlify preview" >}}
+      To open the preview, click on the  **Details** link of the **deploy/netlify** line in the list of checks.
+-->
+3. 选定 PR 评审之后，可以通过以下方式理解所作的变更：
 
+   - 阅读 PR 描述以理解所作变更，并且阅读所有关联的 Issues。
+   - 阅读其他评审人给出的评论。
+   - 点击 **Files changed** Tab 页面，查看被改变的文件和代码行。
+   - 滚动到 **Conversation** Tab 页面下端的 PR 构建检查节区，
+     预览 Netlify 预览构建中的变更。
+     以下是一个屏幕截图（这显示了 GitHub 的桌面版外观；
+     如果你在平板电脑或智能手机设备上进行评审，
+     GitHub 的 Web UI 会略有不同）：
+     {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub PR 详细信息，包括 Netlify 预览链接" >}}
+    要打开预览，请点击 **deploy/netlify** 行的 **Details** 链接。
+
+<!--
 4.  Go to the **Files changed** tab to start your review.
     1. Click on the `+` symbol  beside the line you want to comment on.
     2. Fill in any comments you have about the line and click either **Add single comment** (if you have only one comment to make) or  **Start a review** (if you have multiple comments to make).
     3. When finished, click **Review changes** at the top of the page. Here, you can add
-       add a summary of your review (and leave some positive comments for the contributor!),
+      a summary of your review (and leave some positive comments for the contributor!),
       approve the PR, comment or request changes as needed. New contributors should always
       choose **Comment**.
 -->
-3. 选定 PR 评阅之后，可以通过以下方式理解所作的变更：
+4. 前往 **Files changed** Tab 页面，开始你的评审工作。
 
-   - 阅读 PR 描述以理解所作变更，并且阅读所有关联的 Issues
-   - 阅读其他评阅人给出的评论
-   - 点击 **Files changed** Tab 页面，查看被改变的文件和代码行
-   - 滚动到 **Conversation** Tab 页面下端的 PR 构建检查节区，点击
-     **deploy/netlify** 行的 **Details** 链接，预览 Netlify
-     预览构建所生成的结果
-
-4. 前往 **Files changed** Tab 页面，开始你的评阅工作
-
-   1. 点击你希望评论的行旁边的 `+` 号
-   2. 填写你对该行的评论，之后或者选择**Add single comment** （如果你只有一条评论）
-      或者 **Start a review** （如果你还有其他评论要添加）
-   3. 评论结束时，点击页面顶部的 **Review changes**。这里你可以添加你的评论结语
-      （记得留下一些正能量的评论！）、根据需要批准 PR、请求作者进一步修改等等。
+   1. 点击你希望评论的行旁边的 `+` 号。
+   2. 填写你对该行的评论，
+      之后选择 **Add single comment**（如果你只有一条评论）
+      或者 **Start a review**（如果你还有其他评论要添加）。
+   3. 评论结束时，点击页面顶部的 **Review changes**。
+      这里你可以添加你的评论结语（记得留下一些正能量的评论！）、
+      根据需要批准 PR、请求作者进一步修改等等。
       新手应该选择 **Comment**。
 
-<!--
+<!-- 
 ## Reviewing checklist
 
 When reviewing, use the following as a starting point.
+-->
+## 评审清单  {#reviewing-checklist}
 
+评审 PR 时可以从下面的条目入手。
+
+<!--
 ### Language and grammar
 
 - Are there any obvious errors in language or grammar? Is there a better way to phrase something?
@@ -144,10 +198,6 @@ When reviewing, use the following as a starting point.
 - Are there long sentences which could be shorter or less complex?
 - Are there any long paragraphs which might work better as a list or table?
 -->
-## 评阅清单  {#reviewing-checklist}
-
-评阅 PR 时可以从下面的条目入手。
-
 ### 语言和语法 {#language-and-grammar}
 
 - 是否存在明显的语言或语法错误？对某事的描述有更好的方式？
@@ -177,10 +227,6 @@ When reviewing, use the following as a starting point.
   - Does the page appear correctly in the section's side navigation (or at all)?
   - Should the page appear on the [Docs Home](/docs/home/) listing?
 - Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code blocks, tables, notes and images.
-
-### Other
-
-For small issues with a PR, like typos or whitespace, prefix your comments with `nit:`.  This lets the author know the issue is non-critical.
 -->
 ### 网站 {#Website}
 
@@ -193,10 +239,15 @@ For small issues with a PR, like typos or whitespace, prefix your comments with 
   - 该页面能否在对应章节的侧面导航中显示？显示得正确么？
   - 该页面是否应出现在[网站主页面](/zh/docs/home/)的列表中？
 - 变更是否正确出现在 Netlify 预览中了？
-  要对列表、代码段、表格、注释和图像等元素格外留心
+  要对列表、代码段、表格、注释和图像等元素格外留心。
 
+<!--
+### Other
+
+For small issues with a PR, like typos or whitespace, prefix your comments with `nit:`.  This lets the author know the issue is non-critical.
+-->
 ### 其他 {#other}
 
-对于 PR 中的小问题，例如拼写错误或者空格问题，可以在你的评论前面加上 `nit:`。
+对于 PR 中的小问题，例如拼写错误或者空格问题，
+可以在你的评论前面加上 `nit:`。
 这样做可以让作者知道该问题不是一个不得了的大问题。
-

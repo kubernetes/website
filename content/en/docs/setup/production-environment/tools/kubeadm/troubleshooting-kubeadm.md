@@ -93,11 +93,12 @@ This may be caused by a number of problems. The most common are:
 configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 - control plane containers are crashlooping or hanging. You can check this by running `docker ps`
 and investigating each container by running `docker logs`. For other container runtime see
-[Debugging Kubernetes nodes with crictl](/docs/tasks/debug-application-cluster/crictl/).
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 
 ## kubeadm blocks when removing managed containers
 
-The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
+The following could happen if the container runtime halts and does not remove
+any Kubernetes-managed containers:
 
 ```shell
 sudo kubeadm reset
@@ -111,18 +112,9 @@ sudo kubeadm reset
 (block)
 ```
 
-A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
-
-```shell
-sudo systemctl restart docker.service
-sudo kubeadm reset
-```
-
-Inspecting the logs for docker may also be useful:
-
-```shell
-journalctl -u docker
-```
+A possible solution is to restart the container runtime and then re-run `kubeadm reset`.
+You can also use `crictl` to debug the state of the container runtime. See
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 
 ## Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
 
@@ -136,10 +128,6 @@ Right after `kubeadm init` there should not be any pods in these states.
   it's very likely that the Pod Network add-on that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
-- If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
-  when booting `dockerd` with `systemd` and restart `docker`. You can see the MountFlags in `/usr/lib/systemd/system/docker.service`.
-  MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
-  The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 
 ## `coredns` is stuck in the `Pending` state
 
@@ -163,7 +151,7 @@ services](/docs/concepts/services-networking/service/#type-nodeport) or use `Hos
 
 ## Pods are not accessible via their Service IP
 
-- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.
@@ -363,7 +351,7 @@ A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on 
 nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
 conditions abate:
 ```
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).

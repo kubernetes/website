@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Install the kube-proxy addon to a Kubernetes cluster 
+-->
+将 kube-proxy 插件安装到 Kubernetes 集群
 
 <!--
 ### Synopsis
@@ -34,9 +49,9 @@ kubeadm init phase addon kube-proxy [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
+<p>The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p>
 -->
-API 服务器所公布的其正在监听的 IP 地址。如果未设置，则将使用默认网络接口。
+<p>API 服务器所公布的其正在监听的 IP 地址。如果未设置，则将使用默认网络接口。</p>
 </td>
 </tr>
 
@@ -51,9 +66,9 @@ API 服务器所公布的其正在监听的 IP 地址。如果未设置，则将
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Port for the API Server to bind to.
+<p>Port for the API Server to bind to.</p>
 -->
-API 服务器绑定的端口。
+<p>API 服务器绑定的端口。</p>
 </td>
 </tr>
 
@@ -63,9 +78,9 @@ API 服务器绑定的端口。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to kubeadm config file.
+<p>Path to kubeadm config file.</p>
 -->
-kubeadm 配置文件的路径。
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -75,9 +90,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specify a stable IP address or DNS name for the control plane.
+<p>Specify a stable IP address or DNS name for the control plane.</p>
 -->
-为控制平面指定一个稳定的 IP 地址或 DNS 名称。
+<p>为控制平面指定一个稳定的 IP 地址或 DNS 名称。</p>
 </td>
 </tr>
 
@@ -87,9 +102,9 @@ Specify a stable IP address or DNS name for the control plane.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for kube-proxy
+<p>help for kube-proxy</p>
 -->
-kube-proxy 操作的帮助命令
+<p>kube-proxy 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -104,9 +119,9 @@ kube-proxy 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Choose a container registry to pull control plane images from
+<p>Choose a container registry to pull control plane images from</p>
 -->
-选择用于拉取控制平面镜像的容器仓库
+<p>选择用于拉取控制平面镜像的容器仓库</p>
 </td>
 </tr>
 
@@ -121,9 +136,9 @@ Choose a container registry to pull control plane images from
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+<p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
+<p>与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。</p>
 </td>
 </tr>
 
@@ -138,9 +153,9 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面选择特定的 Kubernetes 版本。
+<p>为控制平面选择特定的 Kubernetes 版本。</p>
 </td>
 </tr>
 
@@ -150,9 +165,9 @@ Choose a specific Kubernetes version for the control plane.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
+<p>Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.</p>
 -->
-指定 Pod 网络的 IP 地址范围。如果已设置，控制平面将自动为每个节点分配 CIDR。
+<p>指定 Pod 网络的 IP 地址范围。如果已设置，控制平面将自动为每个节点分配 CIDR。</p>
 </td>
 </tr>
 
@@ -178,9 +193,9 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 

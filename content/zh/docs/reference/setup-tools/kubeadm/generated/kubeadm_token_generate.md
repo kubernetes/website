@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generate and print a bootstrap token, but do not create it on the server 
+-->
+生成并打印一个引导令牌，但不要在服务器上创建它
 
 <!--
 ### Synopsis
@@ -44,9 +59,9 @@ kubeadm token generate [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for generate
+<p>help for generate</p>
 -->
-generate 操作的帮助命令
+<p>generate 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -71,8 +86,11 @@ generate 操作的帮助命令
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- Whether to enable dry-run mode or not -->
-是否启用 `dry-run` 运行模式</td>
+<!-- 
+<p>Whether to enable dry-run mode or not</p> 
+-->
+<p>是否启用 `dry-run` 运行模式</p>
+</td>
 </tr>
 
 <tr>
@@ -86,9 +104,9 @@ generate 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+<p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。
+<p>用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。</p>
 </td>
 </tr>
 
@@ -97,8 +115,10 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- [EXPERIMENTAL] The path to the 'real' host root filesystem.  -->
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+<!-- 
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>  
+-->
+<p>[实验] 指向 '真实' 宿主机根文件系统的路径。</p>
 </td>
 </tr>
 

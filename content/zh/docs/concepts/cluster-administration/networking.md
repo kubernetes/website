@@ -1,10 +1,15 @@
 ---
-reviewers:
-- thockin
 title: 集群网络系统
 content_type: concept
 weight: 50
 ---
+<!--
+reviewers:
+- thockin
+title: Cluster Networking
+content_type: concept
+weight: 50
+-->
 
 <!-- overview -->
 <!--
@@ -23,9 +28,9 @@ problems to address:
 
 1. 高度耦合的容器间通信：这个已经被 {{< glossary_tooltip text="Pods" term_id="pod" >}}
    和 `localhost` 通信解决了。
-2. Pod 间通信：这个是本文档的重点要讲述的。
-3. Pod 和服务间通信：这个已经在[服务](/zh/docs/concepts/services-networking/service/)里讲述过了。
-4. 外部和服务间通信：这也已经在[服务](/zh/docs/concepts/services-networking/service/)讲述过了。
+2. Pod 间通信：本文档讲述重点。
+3. Pod 和服务间通信：由[服务](/zh/docs/concepts/services-networking/service/)负责。
+4. 外部和服务间通信：也由[服务](/zh/docs/concepts/services-networking/service/)负责。
 
 <!-- body -->
 
@@ -62,7 +67,7 @@ as an introduction to various technologies and serves as a jumping-off point.
 The following networking options are sorted alphabetically - the order does not
 imply any preferential status.
 -->
-## 如何实现 Kubernetes 的网络模型
+## 如何实现 Kubernetes 的网络模型    {#how-to-implement-the-kubernetes-networking-model}
 
 有很多种方式可以实现这种网络模型，本文档并不是对各种实现技术的详细研究，
 但是希望可以作为对各种技术的详细介绍，并且成为你研究的起点。
@@ -105,7 +110,7 @@ Using this CNI plugin allows Kubernetes pods to have the same IP address inside 
 
 Additionally, the CNI can be run alongside [Calico for network policy enforcement](https://docs.aws.amazon.com/eks/latest/userguide/calico.html). The AWS VPC CNI project is open source with [documentation on GitHub](https://github.com/aws/amazon-vpc-cni-k8s).
 -->
-### Kubernetes 的 AWS VPC CNI 
+### Kubernetes 的 AWS VPC CNI     {#aws-vpc-cni-for-kubernetes}
 
 [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s) 为 Kubernetes 集群提供了集成的
 AWS 虚拟私有云（VPC）网络。该 CNI 插件提供了高吞吐量和可用性，低延迟以及最小的网络抖动。
@@ -113,7 +118,7 @@ AWS 虚拟私有云（VPC）网络。该 CNI 插件提供了高吞吐量和可�
 这包括使用 VPC 流日志、VPC 路由策略和安全组进行网络流量隔离的功能。
 
 使用该 CNI 插件，可使 Kubernetes Pod 拥有与在 VPC 网络上相同的 IP 地址。
-CNI 将 AWS 弹性网络接口（ENI）分配给每个 Kubernetes 节点，并将每个 ENI 的辅助 IP 范围用于该节点上的 Pod 。
+CNI 将 AWS 弹性网络接口（ENI）分配给每个 Kubernetes 节点，并将每个 ENI 的辅助 IP 范围用于该节点上的 Pod。
 CNI 包含用于 ENI 和 IP 地址的预分配的控件，以便加快 Pod 的启动时间，并且能够支持多达 2000 个节点的大型集群。
 
 此外，CNI 可以与
@@ -121,20 +126,20 @@ CNI 包含用于 ENI 和 IP 地址的预分配的控件，以便加快 Pod 的�
 AWS VPC CNI 项目是开源的，请查看 [GitHub 上的文档](https://github.com/aws/amazon-vpc-cni-k8s)。
 
 <!--
-### Azure CNI for Kubernetes 
+### Azure CNI for Kubernetes
 [Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
 
 Azure CNI is available natively in the [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
 -->
-### Kubernetes 的 Azure CNI 
+### Kubernetes 的 Azure CNI     {#azure-cni-for-kubernetes}
 
 [Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview)
 是一个[开源插件](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md)，
 将 Kubernetes Pods 和 Azure 虚拟网络（也称为 VNet）集成在一起，可提供与 VM 相当的网络性能。
-Pod 可以通过 Express Route 或者 站点到站点的 VPN 来连接到对等的 VNet ，
+Pod 可以通过 Express Route 或者 站点到站点的 VPN 来连接到对等的 VNet，
 也可以从这些网络来直接访问 Pod。Pod 可以访问受服务端点或者受保护链接的 Azure 服务，比如存储和 SQL。
 你可以使用 VNet 安全策略和路由来筛选 Pod 流量。
-该插件通过利用在 Kubernetes 节点的网络接口上预分配的辅助 IP 池将 VNet 分配给 Pod 。
+该插件通过利用在 Kubernetes 节点的网络接口上预分配的辅助 IP 池将 VNet 分配给 Pod。
 
 Azure CNI 可以在
 [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni) 中获得。
@@ -142,7 +147,7 @@ Azure CNI 可以在
 <!--
 ### Calico
 
-[Calico](https://projectcalico.docs.tigera.io/about/about-calico/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Calico provides a full networking stack but can also be used in conjunction with [cloud provider CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) to provide network policy enforcement.
+[Calico](https://projectcalico.docs.tigera.io/about/about-calico/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Calico provides a full networking stack but can also be used in conjunction with [cloud provider CNIs](https://projectcalico.docs.tigera.io/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) to provide network policy enforcement.
 -->
 ### Calico
 
@@ -150,7 +155,8 @@ Azure CNI 可以在
 用于基于容器、虚拟机和本地主机的工作负载。
 Calico 支持多个数据面，包括：纯 Linux eBPF 的数据面、标准的 Linux 联网数据面
 以及 Windows HNS 数据面。Calico 在提供完整的联网堆栈的同时，还可与
-[云驱动 CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) 联合使用，以保证网络策略实施。
+[云驱动 CNIs](https://projectcalico.docs.tigera.io/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations)
+联合使用，以保证网络策略实施。
 
 <!--
 ### Cilium
@@ -170,18 +176,18 @@ Cilium 支持 L7/HTTP，可以在 L3-L7 上通过使用与网络分离的基于�
 <!--
 ### CNI-Genie from Huawei
 
-[CNI-Genie](https://github.com/cni-genie/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](https://projectcalico.docs.tigera.io/about/about-calico/), [Weave-net](https://www.weave.works/oss/net/).
+[CNI-Genie](https://github.com/cni-genie/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/flannel-io/flannel#flannel), [Calico](https://projectcalico.docs.tigera.io/about/about-calico/), [Weave-net](https://www.weave.works/oss/net/).
 
 CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 -->
-### 华为的 CNI-Genie
+### 华为的 CNI-Genie    {#cni-genie-from-huawei}
 
 [CNI-Genie](https://github.com/cni-genie/CNI-Genie) 是一个 CNI 插件，
 可以让 Kubernetes 在运行时使用不同的[网络模型](#the-kubernetes-network-model)的
 [实现同时被访问](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)。
 这包括以
 [CNI 插件](https://github.com/containernetworking/cni#3rd-party-plugins)运行的任何实现，比如
-[Flannel](https://github.com/coreos/flannel#flannel)、
+[Flannel](https://github.com/flannel-io/flannel#flannel)、
 [Calico](https://projectcalico.docs.tigera.io/about/about-calico/)、
 [Weave-net](https://www.weave.works/oss/net/)。
 
@@ -240,13 +246,11 @@ Kubernetes, using the [fd.io](https://fd.io/) data plane.
 ### Contiv-VPP
 [Contiv-VPP](https://contivpp.io/) 是用于 Kubernetes 的用户空间、面向性能的网络插件，使用 [fd.io](https://fd.io/) 数据平面。
 
-<!--
-### Contrail/Tungsten Fabric
+### Contrail / Tungsten Fabric
 
+<!--
 [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [Tungsten Fabric](https://tungsten.io), is a truly open, multi-cloud network virtualization and policy management platform. Contrail and Tungsten Fabric are integrated with various orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provide different isolation modes for virtual machines, containers/pods and bare metal workloads.
 -->
-### Contrail/Tungsten Fabric
-
 [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)
 是基于 [Tungsten Fabric](https://tungsten.io) 的，真正开放的多云网络虚拟化和策略管理平台。
 Contrail 和 Tungsten Fabric 与各种编排系统集成在一起，例如 Kubernetes、OpenShift、OpenStack 和 Mesos，
@@ -271,7 +275,7 @@ With this toolset DANM is able to provide multiple separated network interfaces,
 它由以下几个组件构成：
 
 * 能够配置具有高级功能的 IPVLAN 接口的 CNI 插件
-* 一个内置的 IPAM 模块，能够管理多个、群集内的、不连续的 L3 网络，并按请求提供动态、静态或无 IP 分配方案
+* 一个内置的 IPAM 模块，能够管理多个、集群内的、不连续的 L3 网络，并按请求提供动态、静态或无 IP 分配方案
 * CNI 元插件能够通过自己的 CNI 或通过将任务授权给其他任何流行的 CNI 解决方案（例如 SRI-OV 或 Flannel）来实现将多个网络接口连接到容器
 * Kubernetes 控制器能够集中管理所有 Kubernetes 主机的 VxLAN 和 VLAN 接口
 * 另一个 Kubernetes 控制器扩展了 Kubernetes 的基于服务的服务发现概念，以在 Pod 的所有网络接口上工作
@@ -298,7 +302,7 @@ Kubernetes 所需要的覆盖网络。已经有许多人报告了使用 Flannel 
 ### Hybridnet
 
 [Hybridnet](https://github.com/alibaba/hybridnet) 是一个为混合云设计的开源 CNI 插件，
-它为一个或多个集群中的容器提供覆盖和底层网络。 Overlay 和 underlay 容器可以在同一个节点上运行，
+它为一个或多个集群中的容器提供覆盖和底层网络。Overlay 和 underlay 容器可以在同一个节点上运行，
 并具有集群范围的双向网络连接。
 
 <!--
@@ -339,7 +343,7 @@ Jaguar 使用 vxlan 提供覆盖网络，而 Jaguar CNIPlugin 为每个 Pod 提�
 ### Kube-OVN
 
 [Kube-OVN](https://github.com/alauda/kube-ovn) 是一个基于 OVN 的用于企业的 Kubernetes 网络架构。
-借助于 OVN/OVS ，它提供了一些高级覆盖网络功能，例如子网、QoS、静态 IP 分配、流量镜像、网关、
+借助于 OVN/OVS，它提供了一些高级覆盖网络功能，例如子网、QoS、静态 IP 分配、流量镜像、网关、
 基于 openflow 的网络策略和服务代理。
 
 <!--
@@ -350,7 +354,7 @@ Jaguar 使用 vxlan 提供覆盖网络，而 Jaguar CNIPlugin 为每个 Pod 提�
 ### Kube-router
 
 [Kube-router](https://github.com/cloudnativelabs/kube-router) 是 Kubernetes 的专用网络解决方案，
-旨在提供高性能和易操作性。 
+旨在提供高性能和易操作性。
 Kube-router 提供了一个基于 Linux [LVS/IPVS](https://www.linuxvirtualserver.org/software/ipvs.html)
 的服务代理、一个基于 Linux 内核转发的无覆盖 Pod-to-Pod 网络解决方案和基于 iptables/ipset 的网络策略执行器。
 
@@ -363,17 +367,17 @@ Note that these instructions have only been tried very casually - it seems to
 work, but has not been thoroughly tested.  If you use this technique and
 perfect the process, please let us know.
 
-Follow the "With Linux Bridge devices" section of [this very nice
-tutorial](https://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) from
+Follow the "With Linux Bridge devices" section of
+[this very nice tutorial](https://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) from
 Lars Kellogg-Stedman.
 -->
 ### L2 networks and linux bridging
 
-如果你具有一个“哑”的L2网络，例如“裸机”环境中的简单交换机，则应该能够执行与上述 GCE 设置类似的操作。
+如果你具有一个“哑”的 L2 网络，例如“裸机”环境中的简单交换机，则应该能够执行与上述 GCE 设置类似的操作。
 请注意，这些说明仅是非常简单的尝试过-似乎可行，但尚未经过全面测试。
-如果您使用此技术并完善了流程，请告诉我们。
+如果你使用此技术并完善了流程，请告诉我们。
 
-根据 Lars Kellogg-Stedman 的这份非常不错的“Linux 网桥设备”
+根据 Lars Kellogg-Stedman 的这份非常不错的 “Linux 网桥设备”
 [使用说明](https://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/)来进行操作。
 
 <!--
@@ -397,11 +401,23 @@ Multus 支持所有[参考插件](https://github.com/containernetworking/plugins
 [Weave](https://github.com/weaveworks/weave)、
 [Cilium](https://github.com/cilium/cilium)、
 [Contiv](https://github.com/contiv/netplugin)）。
-除此之外， Multus 还支持
+除此之外，Multus 还支持
 [SRIOV](https://github.com/hustcat/sriov-cni)、
 [DPDK](https://github.com/Intel-Corp/sriov-cni)、
 [OVS-DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) 的工作负载，
 以及 Kubernetes 中基于云的本机应用程序和基于 NFV 的应用程序。
+
+<!--
+### OVN4NFV-K8s-Plugin (OVN based CNI controller & plugin)
+
+[OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) is OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC), Multiple OVN overlay networking, dynamic subnet creation, dynamic creation of virtual networks, VLAN Provider network, Direct provider network and pluggable with other Multi-network plugins, ideal for edge based cloud native workloads in Multi-cluster networking
+-->
+### OVN4NFV-K8s-Plugin（基于 OVN 的 CNI 控制器和插件）    {#ovn4nfv-k8s-plugin-ovn-based-cni-controller-plugin}
+
+[OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) 是基于 OVN 的
+CNI 控制器插件，提供基于云原生的服务功能链 (SFC)、多个 OVN
+覆盖网络、动态子网创建、虚拟网络的动态创建、VLAN Provider 网络、Direct Provider
+网络且可与其他多网络插件组合，非常适合多集群网络中基于边缘的云原生工作负载。
 
 <!--
 ### NSX-T
@@ -429,11 +445,12 @@ stateful ACLs, load-balancers etc to build different virtual networking
 topologies.  The project has a specific Kubernetes plugin and documentation
 at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 -->
-### OVN (开放式虚拟网络)
+### OVN（开放式虚拟网络）    {#ovn-open-virtual-networking}
 
 OVN 是一个由 Open vSwitch 社区开发的开源的网络虚拟化解决方案。
 它允许创建逻辑交换器、逻辑路由、状态 ACL、负载均衡等等来建立不同的虚拟网络拓扑。
-该项目有一个特定的Kubernetes插件和文档 [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)。
+该项目在 [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)
+提供特定的 Kubernetes 插件和文档。
 
 <!--
 ### Weave Net from Weaveworks
@@ -444,10 +461,10 @@ Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-pl
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 -->
-### Weaveworks 的 Weave Net
+### Weaveworks 的 Weave Net    {#weave-net-from-weaveworks}
 
-[Weave Net](https://www.weave.works/oss/net/) 是 Kubernetes 及其
-托管应用程序的弹性且易于使用的网络系统。
+[Weave Net](https://www.weave.works/oss/net/) 为 Kubernetes
+及其托管应用提供的、弹性且易用的网络系统。
 Weave Net 可以作为 [CNI 插件](https://www.weave.works/docs/net/latest/cni-plugin/) 运行或者独立运行。
 在这两种运行方式里，都不需要任何配置或额外的代码即可运行，并且在两种情况下，
 网络都为每个 Pod 提供一个 IP 地址 -- 这是 Kubernetes 的标准配置。
@@ -456,9 +473,8 @@ Weave Net 可以作为 [CNI 插件](https://www.weave.works/docs/net/latest/cni-
 
 <!--
 The early design of the networking model and its rationale, and some future
-plans are described in more detail in the [networking design
-document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
+plans are described in more detail in the
+[networking design document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
 -->
-网络模型的早期设计、运行原理以及未来的一些计划，都在
-[联网设计文档](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)
-里有更详细的描述。
+网络模型的早期设计、运行原理以及未来的一些计划，
+都在[联网设计文档](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)里有更详细的描述。

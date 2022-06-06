@@ -47,7 +47,6 @@ For information on how to create a cluster with kubeadm once you have performed 
 * 开启机器上的某些端口。请参见[这里](#check-required-ports) 了解更多详细信息。
 * 禁用交换分区。为了保证 kubelet 正常工作，你 **必须** 禁用交换分区。
 
-
 <!-- steps -->
 
 <!--
@@ -117,19 +116,19 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 ## Check required ports
 These
 [required ports](/docs/reference/ports-and-protocols/)
-need to be open in order for Kubernetes components to communicate with each other. You can use telnet to check if a port is open. For example:
+need to be open in order for Kubernetes components to communicate with each other. You can use tools like netcat to check if a port is open. For example:
 -->
 
 ## 检查所需端口{#check-required-ports}
 
-启用这些[必要的端口](/zh/docs/reference/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。可以使用 telnet 来检查端口是否启用，例如：
+启用这些[必要的端口](/zh/docs/reference/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。可以使用 netcat 之类的工具来检查端口是否启用，例如：
 
 ```shell
-telnet 127.0.0.1 6443
+nc 127.0.0.1 6443
 ```
 
 <!--
-The pod network plugin you use (see below) may also require certain ports to be
+The pod network plugin you use may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 -->
@@ -137,86 +136,103 @@ documentation for the plugins about what port(s) those need.
 请参阅他们各自文档中对端口的要求。
 
 <!--
-## Installing runtime {#installing-runtime}
+## Installing a container runtime {#installing-runtime}
 
 To run containers in Pods, Kubernetes uses a
 {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}.
 -->
-## 安装 runtime{#installing-runtime}
+## 安装容器运行时{#installing-runtime}
 
 为了在 Pod 中运行容器，Kubernetes 使用
 {{< glossary_tooltip term_id="container-runtime" text="容器运行时（Container Runtime）" >}}。
 
-{{< tabs name="container-runtimes" >}}
-{{% tab name="Linux 节点" %}}
 <!--
 By default, Kubernetes uses the
 {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI)
 to interface with your chosen container runtime.
 
 If you don't specify a runtime, kubeadm automatically tries to detect an installed
-container runtime by scanning through a list of well known Unix domain sockets.
-The following table lists container runtimes and their associated socket paths:
-
-| Runtime    | Domain Socket                   |
-|------------|---------------------------------|
-| Docker     | /var/run/dockershim.sock            |
-| containerd | /run/containerd/containerd.sock |
-| CRI-O      | /var/run/crio/crio.sock         |
+container runtime by scanning through a list of known endpoints.
 -->
 默认情况下，Kubernetes 使用
 {{< glossary_tooltip term_id="cri" text="容器运行时接口（Container Runtime Interface，CRI）" >}}
 来与你所选择的容器运行时交互。
 
-如果你不指定运行时，则 kubeadm 会自动尝试检测到系统上已经安装的运行时，
-方法是扫描一组众所周知的 Unix 域套接字。
-下面的表格列举了一些容器运行时及其对应的套接字路径：
-
-| 运行时     | 域套接字                         |
-|------------|----------------------------------|
-| Docker     | /var/run/dockershim.sock             |
-| containerd | /run/containerd/containerd.sock  |
-| CRI-O      | /var/run/crio/crio.sock          |
+如果你不指定运行时，kubeadm 会自动尝试通过扫描已知的端点列表来检测已安装的容器运行时。
 
 <!--
-<br />
-If both Docker and containerd are detected, Docker takes precedence. This is
-needed because Docker 18.09 ships with containerd and both are detectable even if you only
-installed Docker.
-If any other two or more runtimes are detected, kubeadm exits with an error.
-
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
+If multiple or no container runtimes are detected kubeadm will throw an error
+and will request that you specify which one you want to use.
 
 See [container runtimes](/docs/setup/production-environment/container-runtimes/)
 for more information.
 -->
-<br/>
-如果同时检测到 Docker 和 containerd，则优先选择 Docker。
-这是必然的，因为 Docker 18.09 附带了 containerd 并且两者都是可以检测到的，
-即使你仅安装了 Docker。
-如果检测到其他两个或多个运行时，kubeadm 输出错误信息并退出。
-
-kubelet 通过内置的 `dockershim` CRI 实现与 Docker 集成。
+如果检测到有多个或者没有容器运行时，kubeadm 将抛出一个错误并要求你指定一个想要使用的运行时。
 
 参阅[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
 以了解更多信息。
 
-{{% /tab %}}
-{{% tab name="其它操作系统" %}}
 <!--
-By default, kubeadm uses {{< glossary_tooltip term_id="docker" >}} as the container runtime.
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
-
-See [container runtimes](/docs/setup/production-environment/container-runtimes/)
-for more information.
+{{< note >}}
+Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
+which is a requirement for a container runtime to work with Kubernetes.
+For that reason, an additional service [cri-dockerd](https://github.com/Mirantis/cri-dockerd)
+has to be installed. cri-dockerd is a project based on the legacy built-in
+Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
 -->
-默认情况下， kubeadm 使用 {{< glossary_tooltip term_id="docker" >}} 作为容器运行时。
-kubelet 通过内置的 `dockershim` CRI 实现与 Docker 集成。
-参阅[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
-以了解更多信息。
 
-{{% /tab %}}
-{{< /tabs >}}
+{{< note >}}
+Docker Engine 没有实现 [CRI](/zh/docs/concepts/architecture/cri/)，而这是容器运行时在 Kubernetes 中工作所需要的。
+为此，必须安装一个额外的服务 [cri-dockerd](https://github.com/Mirantis/cri-dockerd)。
+cri-dockerd 是一个基于传统的内置Docker引擎支持的项目，它在 1.24 版本从 kubelet 中[移除](/zh/dockershim)。
+{{< /note >}}
+
+<!--
+The tables below include the known endpoints for supported operating systems:
+
+{{< tabs name="container_runtime" >}}
+{{% tab name="Linux" %}}
+-->
+下面的表格包括被支持的操作系统的已知端点。
+
+{{< tabs name="container_runtime" >}}
+{{% tab name="Linux" %}}
+
+<!--
+{{< table >}}
+| Runtime                            | Path to Unix domain socket                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `unix:///var/run/containerd/containerd.sock` |
+| CRI-O                              | `unix:///var/run/crio/crio.sock`             |
+| Docker Engine (using cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
+{{< /table >}}
+-->
+{{< table >}}
+| 运行时                              | Unix 域套接字                                     |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `unix:///var/run/containerd/containerd.sock` |
+| CRI-O                              | `unix:///var/run/crio/crio.sock`             |
+| Docker Engine (使用 cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
+{{< /table >}}
+
+<!--
+{{% tab name="Windows" %}}
+
+{{< table >}}
+| Runtime                            | Path to Windows named pipe                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `npipe:////./pipe/containerd-containerd`     |
+| Docker Engine (using cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
+{{< /table >}}
+-->
+{{% tab name="Windows" %}}
+
+{{< table >}}
+| 运行时                              |  Windows 命名管道路径                         |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `npipe:////./pipe/containerd-containerd`     |
+| Docker Engine (使用 cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
+{{< /table >}}
 
 <!--
 ## Installing kubeadm, kubelet and kubectl
@@ -355,6 +371,9 @@ sudo systemctl enable --now kubelet
     You have to do this until SELinux support is improved in the kubelet.
 
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
+  - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
+    Type `uname -m` to see that value.
+    For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
 -->
 **请注意：**
 
@@ -365,6 +384,9 @@ sudo systemctl enable --now kubelet
   你必须这么做，直到 kubelet 做出对 SELinux 的支持进行升级为止。
 
 - 如果你知道如何配置 SELinux 则可以将其保持启用状态，但可能需要设定 kubeadm 不支持的部分配置
+- 如果由于该 Red Hat 的发行版无法解析 `basearch` 导致获取 `baseurl` 失败，请将 `\$basearch` 替换为你计算机的架构。
+  输入 `uname -m` 以查看该值。
+  例如，`x86_64` 的 `baseurl` URL 可以是：`https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`。
 
 {{% /tab %}}
 {{% tab name="无包管理器的情况" %}}
@@ -382,7 +404,7 @@ curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_
 ```
 
 <!--
-Define the directory to download command files  
+Define the directory to download command files
 -->
 定义要下载命令文件的目录。
 
@@ -468,7 +490,7 @@ for the management of cgroups on Linux machines.
 -->
 ## 配置 cgroup 驱动程序  {#configure-cgroup-driver}
 
-容器运行时和 kubelet 都具有名字为 
+容器运行时和 kubelet 都具有名字为
 ["cgroup driver"](/zh/docs/setup/production-environment/container-runtimes/)
 的属性，该属性对于在 Linux 机器上管理 CGroups 而言非常重要。
 
@@ -500,4 +522,3 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 -->
 * [使用 kubeadm 创建集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-

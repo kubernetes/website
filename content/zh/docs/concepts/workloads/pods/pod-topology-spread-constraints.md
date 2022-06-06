@@ -10,11 +10,6 @@ content_type: concept
 weight: 40
 -->
 
-{{< feature-state for_k8s_version="v1.19" state="stable" >}}
-<!--
-leave this shortcode in place until the note about EvenPodsSpread is obsolete
--->
-
 <!-- overview -->
 
 <!--
@@ -123,29 +118,76 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
   - when `whenUnsatisfiable` equals to "DoNotSchedule", `maxSkew` is the maximum
     permitted difference between the number of matching pods in the target
     topology and the global minimum.
+    (the minimum number of pods that match the label selector in a topology domain.
+    For example, if you have 3 zones with 0, 2 and 3 matching pods respectively,
+    The global minimum is 0).
   - when `whenUnsatisfiable` equals to "ScheduleAnyway", scheduler gives higher
     precedence to topologies that would help reduce the skew.
-- **topologyKey** is the key of node labels. If two Nodes are labelled with this key and have identical values for that label, the scheduler treats both Nodes as being in the same topology. The scheduler tries to place a balanced number of Pods into each topology domain.
-- **whenUnsatisfiable** indicates how to deal with a Pod if it doesn't satisfy the spread constraint:
-    - `DoNotSchedule` (default) tells the scheduler not to schedule it.
-    - `ScheduleAnyway` tells the scheduler to still schedule it while prioritizing nodes that minimize the skew.
-- **labelSelector** is used to find matching Pods. Pods that match this label selector are counted to determine the number of Pods in their corresponding topology domain. See [Label Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) for more details.
 -->
 
 - **maxSkew** 描述 Pod 分布不均的程度。这是给定拓扑类型中任意两个拓扑域中
   匹配的 pod 之间的最大允许差值。它必须大于零。取决于 `whenUnsatisfiable` 的
   取值，其语义会有不同。
   - 当 `whenUnsatisfiable` 等于 "DoNotSchedule" 时，`maxSkew` 是目标拓扑域
-    中匹配的 Pod 数与全局最小值之间可存在的差异。
+    中匹配的 Pod 数与全局最小值（一个拓扑域中与标签选择器匹配的 Pod 的最小数量。例如，如果你有
+    3 个区域，分别具有 0 个、2 个 和 3 个匹配的 Pod，则全局最小值为 0。）之间可存在的差异。
   - 当 `whenUnsatisfiable` 等于 "ScheduleAnyway" 时，调度器会更为偏向能够降低
     偏差值的拓扑域。
+
+<!--
+- **minDomains** indicates a minimum number of eligible domains.
+  A domain is a particular instance of a topology. An eligible domain is a domain whose
+  nodes match the node selector.
+
+  - The value of `minDomains` must be greater than 0, when specified.
+  - When the number of eligible domains with match topology keys is less than `minDomains`,
+    Pod topology spread treats "global minimum" as 0, and then the calculation of `skew` is performed.
+    The "global minimum" is the minimum number of matching Pods in an eligible domain,
+    or zero if the number of eligible domains is less than `minDomains`.
+  - When the number of eligible domains with matching topology keys equals or is greater than 
+    `minDomains`, this value has no effect on scheduling.
+  - When `minDomains` is nil, the constraint behaves as if `minDomains` is 1.
+  - When `minDomains` is not nil, the value of `whenUnsatisfiable` must be "`DoNotSchedule`".
+-->
+- **minDomains** 表示符合条件的域的最小数量。域是拓扑的一个特定实例。
+  符合条件的域是其节点与节点选择器匹配的域。
+
+  - 指定的 `minDomains` 的值必须大于 0。
+  - 当符合条件的、拓扑键匹配的域的数量小于 `minDomains` 时，Pod 拓扑分布将“全局最小值”（global minimum） 设为
+    0，然后进行 `skew` 计算。“全局最小值”是一个符合条件的域中匹配 Pods 的最小数量，
+    如果符合条件的域的数量小于 `minDomains`，则全局最小值为零。
+  - 当符合条件的拓扑键匹配域的个数等于或大于 `minDomains` 时，该值对调度没有影响。
+  - 当 `minDomains` 为 nil 时，约束的行为等于 `minDomains` 为 1。
+  - 当 `minDomains` 不为 nil 时，`whenUnsatisfiable` 的值必须为 "`DoNotSchedule`" 。
+
+  {{< note >}}
+  <!--
+  The `minDomains` field is an alpha field added in 1.24. You have to enable the
+  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  in order to use it.
+  -->
+  `minDomains` 字段是在 1.24 版本中新增的 alpha 字段。你必须启用
+  `MinDomainsInPodToplogySpread` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)才能使用它。
+  {{< /note >}}
+
+<!--
+- **topologyKey** is the key of node labels. If two Nodes are labelled with this key and have identical values for that label, the scheduler treats both Nodes as being in the same topology. The scheduler tries to place a balanced number of Pods into each topology domain.
+
+- **whenUnsatisfiable** indicates how to deal with a Pod if it doesn't satisfy the spread constraint:
+    - `DoNotSchedule` (default) tells the scheduler not to schedule it.
+    - `ScheduleAnyway` tells the scheduler to still schedule it while prioritizing nodes that minimize the skew.
+
+- **labelSelector** is used to find matching Pods. Pods that match this label selector are counted to determine the number of Pods in their corresponding topology domain. See [Label Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) for more details.
+-->
 - **topologyKey** 是节点标签的键。如果两个节点使用此键标记并且具有相同的标签值，
   则调度器会将这两个节点视为处于同一拓扑域中。调度器试图在每个拓扑域中放置数量
   均衡的 Pod。
+
 - **whenUnsatisfiable** 指示如果 Pod 不满足分布约束时如何处理：
   - `DoNotSchedule`（默认）告诉调度器不要调度。
   - `ScheduleAnyway` 告诉调度器仍然继续调度，只是根据如何能将偏差最小化来对
     节点进行排序。
+
 - **labelSelector** 用于查找匹配的 pod。匹配此标签的 Pod 将被统计，以确定相应
   拓扑域中 Pod 的数量。
   有关详细信息，请参考[标签选择算符](/zh/docs/concepts/overview/working-with-objects/labels/#label-selectors)。
@@ -498,7 +540,8 @@ apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
-  - pluginConfig:
+  - schedulerName: default-scheduler
+    pluginConfig:
       - name: PodTopologySpread
         args:
           defaultConstraints:
@@ -510,16 +553,12 @@ profiles:
 
 {{< note >}}
 <!--
-The score produced by default scheduling constraints might conflict with the
-score produced by the
-[`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins).
-It is recommended that you disable this plugin in the scheduling profile when
-using default constraints for `PodTopologySpread`.
+[`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
+is disabled by default. It's recommended to use `PodTopologySpread` to achieve similar
+behavior.
 -->
-默认调度约束所生成的评分可能与
-[`SelectorSpread` 插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)
-所生成的评分有冲突。
-建议你在为 `PodTopologySpread` 设置默认约束是禁用调度方案中的该插件。
+[`SelectorSpread` 插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)默认是被禁用的。
+建议使用 `PodTopologySpread` 来实现类似的行为。
 {{< /note >}}
 
 <!--
@@ -527,18 +566,14 @@ using default constraints for `PodTopologySpread`.
 -->
 #### 内部默认约束    {#internal-default-constraints}
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
-With the `DefaultPodTopologySpread` feature gate, enabled by default, the
-legacy `SelectorSpread` plugin is disabled.
-kube-scheduler uses the following default topology constraints for the
-`PodTopologySpread` plugin configuration:
+If you don't configure any cluster-level default constraints for pod topology spreading,
+then kube-scheduler acts as if you specified the following default topology constraints:
 -->
-当你使用了默认启用的 `DefaultPodTopologySpread` 特性门控时，原来的
-`SelectorSpread` 插件会被禁用。
-kube-scheduler 会使用下面的默认拓扑约束作为 `PodTopologySpread` 插件的
-配置：
+如果你没有为 Pod 拓扑分布配置任何集群级别的默认约束，
+kube-scheduler 的行为就像你指定了以下默认拓扑约束一样：
 
 ```yaml
 defaultConstraints:
@@ -552,9 +587,9 @@ defaultConstraints:
 
 <!--
 Also, the legacy `SelectorSpread` plugin, which provides an equivalent behavior,
-is disabled.
+is disabled by default.
 -->
-此外，原来用于提供等同行为的 `SelectorSpread` 插件也会被禁用。
+此外，原来用于提供等同行为的 `SelectorSpread` 插件默认被禁用。
 
 {{< note >}}
 <!--
@@ -589,7 +624,8 @@ apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
-  - pluginConfig:
+  - schedulerName: default-scheduler
+    pluginConfig:
       - name: PodTopologySpread
         args:
           defaultConstraints: []

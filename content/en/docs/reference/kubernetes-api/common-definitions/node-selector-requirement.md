@@ -38,13 +38,7 @@ A node selector requirement is a selector that contains values, a key, and an op
 
   Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
   
-  Possible enum values:
-   - `"DoesNotExist"`
-   - `"Exists"`
-   - `"Gt"`
-   - `"In"`
-   - `"Lt"`
-   - `"NotIn"`
+  
 
 - **values** ([]string)
 

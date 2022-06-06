@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generate the manifests for the new control plane components 
+-->
+为新的控制平面组件生成清单
 
 <!--
 ### Synopsis
@@ -34,9 +49,9 @@ kubeadm join phase control-plane-prepare control-plane [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
+<p>If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p>
 -->
-对于将要托管新的控制平面实例的节点，指定 API 服务器将公布的其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。
+<p>对于将要托管新的控制平面实例的节点，指定 API 服务器将公布的其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。</p>
 </td>
 </tr>
 
@@ -51,9 +66,9 @@ If the node should host a new control plane instance, the IP address the API Ser
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If the node should host a new control plane instance, the port for the API Server to bind to.
+<p>If the node should host a new control plane instance, the port for the API Server to bind to.</p>
 -->
-针对将要托管新的控制平面实例的节点，设置 API 服务器要绑定的端口。
+<p>针对将要托管新的控制平面实例的节点，设置 API 服务器要绑定的端口。</p>
 </td>
 </tr>
 
@@ -63,9 +78,9 @@ If the node should host a new control plane instance, the port for the API Serve
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to kubeadm config file.
+<p>Path to kubeadm config file.</p>
 -->
-kubeadm 配置文件的路径。
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -75,25 +90,9 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Create a new control plane instance on this node
+<p>Create a new control plane instance on this node</p>
 -->
-在此节点上创建一个新的控制平面实例
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--experimental-patches string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--  
-Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
--->
-包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
-例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
-"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
-默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
-"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
+<p>在此节点上创建一个新的控制平面实例</p>
 </td>
 </tr>
 
@@ -103,9 +102,25 @@ Path to a directory that contains files named "target[suffix][+patchtype].extens
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for control-plane
+<p>help for control-plane</p>
 -->
-control-plane 操作的帮助命令
+<p>control-plane 操作的帮助命令</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--patches string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+<p>Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.</p>
+-->
+<p>包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
+例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
+"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
+默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
+"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。</p>
 </td>
 </tr>
 
@@ -131,9 +146,9 @@ control-plane 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+<p>[实验] 指向 '真实' 宿主机根文件系统的路径。</p>
 </td>
 </tr>
 

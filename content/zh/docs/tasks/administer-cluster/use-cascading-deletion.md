@@ -217,7 +217,7 @@ For details, read the [documentation for your Kubernetes version](/docs/home/sup
 1. Use either `kubectl` or the Kubernetes API to delete the Deployment,
    depending on the Kubernetes version your cluster runs. {{<version-check>}}
 -->
-1. [创建一个 Deployment 示例](zh/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)。
+1. [创建一个 Deployment 示例](/zh/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)。
 1. 基于你的集群所运行的 Kubernetes 版本，使用 `kubectl` 或者 Kubernetes API 来删除 Deployment。
    {{<version-check>}}
 

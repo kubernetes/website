@@ -256,22 +256,36 @@ For more details, see the [`azureDisk` volume plugin](https://github.com/kuberne
 -->
 #### azureDisk 的 CSI 迁移  {#azuredisk-csi-migration}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 The `CSIMigration` feature for `azureDisk`, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `disk.csi.azure.com` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Azure Disk CSI
-Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureDisk`
-features must be enabled.
+Storage Interface (CSI) Driver. In order to use this feature, the
+[Azure Disk CSI Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
+must be installed on the cluster and the `CSIMigration` feature must be enabled.
 -->
 
-启用 `azureDisk` 的 `CSIMigration` 功能后，所有插件操作从现有的树内插件重定向到
+启用 `azureDisk` 的 `CSIMigration` 特性后，所有插件操作从现有的树内插件重定向到
 `disk.csi.azure.com` 容器存储接口（CSI）驱动程序。
-为了使用此功能，必须在集群中安装
+为了使用此特性，必须在集群中安装
 [Azure 磁盘 CSI 驱动程序](https://github.com/kubernetes-sigs/azuredisk-csi-driver)，
-并且 `CSIMigration` 和 `CSIMigrationAzureDisk` 功能必须被启用。
+并且 `CSIMigration` 特性必须被启用。
+
+<!--
+#### azureDisk CSI migration complete
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+To disable the `azureDisk` storage plugin from being loaded by the controller manager
+and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
+-->
+#### azureDisk CSI 迁移完成
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+要禁止控制器管理器和 kubelet 加载 `azureDisk` 存储插件，
+请将 `InTreePluginAzureDiskUnregister` 标志设置为 `true`。
 
 ### azureFile {#azurefile}
 
@@ -299,18 +313,34 @@ Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
 -->
-启用 `azureFile` 的 `CSIMigration` 功能后，所有插件操作将从现有的树内插件重定向到
-`file.csi.azure.com` 容器存储接口（CSI）驱动程序。要使用此功能，必须在集群中安装
+启用 `azureFile` 的 `CSIMigration` 特性后，所有插件操作将从现有的树内插件重定向到
+`file.csi.azure.com` 容器存储接口（CSI）驱动程序。要使用此特性，必须在集群中安装
 [Azure 文件 CSI 驱动程序](https://github.com/kubernetes-sigs/azurefile-csi-driver)，
 并且 `CSIMigration` 和 `CSIMigrationAzureFile`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
 必须被启用。
 
 <!--
-Azure File CSI driver does not support using same volume with different fsgroups, if Azurefile CSI migration is enabled, using same volume with different fsgroups won't be supported at all.
+Azure File CSI driver does not support using same volume with different fsgroups. If
+`CSIMigrationAzureFile` is enabled, using same volume with different fsgroups won't be supported at all.
 -->
 Azure 文件 CSI 驱动尚不支持为同一卷设置不同的 fsgroup。
-如果 AzureFile CSI 迁移被启用，用不同的 fsgroup 来使用同一卷也是不被支持的。
+如果 `CSIMigrationAzureFile` 特性被启用，用不同的 fsgroup 来使用同一卷也是不被支持的。
+
+<!--
+#### azureDisk CSI migration complete
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+To disable the `azureDisk` storage plugin from being loaded by the controller manager
+and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
+-->
+#### azureDisk CSI 迁移完成
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+要禁止控制器管理器和 kubelet 加载 `azureDisk` 存储插件，
+请将 `InTreePluginAzureDiskUnregister` 标志设置为 `true`。
 
 ### cephfs {#cephfs}
 
@@ -383,29 +413,31 @@ spec:
 -->
 #### OpenStack CSI 迁移
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
-The `CSIMigration` feature for Cinder is enabled by default in Kubernetes 1.21.
+The `CSIMigration` feature for Cinder is enabled by default since Kubernetes 1.21.
 It redirects all plugin operations from the existing in-tree plugin to the
 `cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
 [OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster.
-You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
-If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
-for all aspects of Cinder volume storage management.
 -->
-Cinder 的 `CSIMigration` 功能在 Kubernetes 1.21 版本中是默认被启用的。
+自 Kubernetes 1.21 版本起，Cinder 的 `CSIMigration` 特性是默认被启用的。
 此特性会将插件的所有操作从现有的树内插件重定向到
 `cinder.csi.openstack.org` 容器存储接口（CSI）驱动程序。
-为了使用此功能，必须在集群中安装
+为了使用此特性，必须在集群中安装
 [OpenStack Cinder CSI 驱动程序](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)，
 你可以通过设置 `CSIMigrationOpenStack`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
 为 `false` 来禁止 Cinder CSI 迁移。
-如果你禁用了 `CSIMigrationOpenStack` 功能特性，则树内的 Cinder 卷插件
-会负责 Cinder 卷存储管理的方方面面。
+
+<!--
+To disable the in-tree Cinder plugin from being loaded by the controller manager
+and the kubelet, you can enable the `InTreePluginOpenStackUnregister`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+-->
+要禁止控制器管理器和 kubelet 加载树内 Cinder 插件，你可以启用
+`InTreePluginOpenStackUnregister` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 
 ### configMap
 
@@ -753,8 +785,8 @@ within the same region. In order to use this feature, the volume must be provisi
 as a PersistentVolume; referencing the volume directly from a Pod is not supported.
 -->
 [区域持久盘](https://cloud.google.com/compute/docs/disks/#repds)
-功能允许你创建能在同一区域的两个可用区中使用的持久盘。
-要使用这个功能，必须以持久卷（PersistentVolume）的方式提供卷；直接从
+特性允许你创建能在同一区域的两个可用区中使用的持久盘。
+要使用这个特性，必须以持久卷（PersistentVolume）的方式提供卷；直接从
 Pod 引用这种卷是不可以的。
 
 <!--
@@ -821,11 +853,11 @@ Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-drive
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationGCE`
 beta features must be enabled.
 -->
-启用 GCE PD 的 `CSIMigration` 功能后，所有插件操作将从现有的树内插件重定向到
+启用 GCE PD 的 `CSIMigration` 特性后，所有插件操作将从现有的树内插件重定向到
 `pd.csi.storage.gke.io` 容器存储接口（ CSI ）驱动程序。
-为了使用此功能，必须在集群中上安装
+为了使用此特性，必须在集群中上安装
 [GCE PD CSI驱动程序](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)，
-并且 `CSIMigration` 和 `CSIMigrationGCE` Beta 功能必须被启用。
+并且 `CSIMigration` 和 `CSIMigrationGCE` Beta 特性必须被启用。
 
 <!-- 
 #### GCE CSI migration complete
@@ -1426,9 +1458,9 @@ must be installed on the cluster and the `CSIMigration` and `csiMigrationRBD`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
 must be enabled.
 -->
-启用 RBD 的 `CSIMigration` 功能后，所有插件操作从现有的树内插件重定向到
+启用 RBD 的 `CSIMigration` 特性后，所有插件操作从现有的树内插件重定向到
 `rbd.csi.ceph.com` {{<glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序。
-要使用该功能，必须在集群内安装
+要使用该特性，必须在集群内安装
 [Ceph CSI 驱动](https://github.com/ceph/ceph-csi)，并启用 `CSIMigration` 和 `csiMigrationRBD` 
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 
@@ -1571,15 +1603,13 @@ For more information about StorageOS, dynamic provisioning, and PersistentVolume
 关于 StorageOS 的进一步信息、动态供应和持久卷申领等等，请参考
 [StorageOS 示例](https://github.com/kubernetes/examples/blob/master/volumes/storageos)。
 
-### vsphereVolume {#vspherevolume}
+### vsphereVolume（弃用） {#vspherevolume}
 
 <!--
-You must configure the Kubernetes vSphere Cloud Provider. For cloudprovider
-configuration, refer to the [vSphere Getting Started guide](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/).
+We recommend to use vSphere CSI out-of-tree driver instead.
 -->
 {{< note >}}
-你必须配置 Kubernetes 的 vSphere 云驱动。云驱动的配置方法请参考
-[vSphere 使用指南](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)。
+建议你改用 vSphere CSI 树外驱动程序。
 {{< /note >}}
 
 <!--
@@ -1589,68 +1619,6 @@ of a volume are preserved when it is unmounted. It supports both VMFS and VSAN d
 `vsphereVolume` 用来将 vSphere VMDK 卷挂载到你的 Pod 中。
 在卸载卷时，卷的内容会被保留。
 vSphereVolume 卷类型支持 VMFS 和 VSAN 数据仓库。
-
-<!--
-You must create VMDK using one of the following methods before using with Pod.
--->
-{{< caution >}}
-在挂载到 Pod 之前，你必须用下列方式之一创建 VMDK。
-{{< /caution >}}
-
-<!--
-#### Creating a VMDK volume {#creating-vmdk-volume}
-
-Choose one of the following methods to create a VMDK.
--->
-#### 创建 VMDK 卷  {#creating-vmdk-volume}
-
-选择下列方式之一创建 VMDK。
-
-{{< tabs name="tabs_volumes" >}}
-{{% tab name="使用 vmkfstools 创建" %}}
-
-首先 ssh 到 ESX，然后使用下面的命令来创建 VMDK：
-
-```shell
-vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
-```
-{{% /tab %}}
-{{% tab name="使用 vmware-vdiskmanager 创建" %}}
-
-使用下面的命令创建 VMDK：
-
-```shell
-vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
-```
-{{% /tab %}}
-
-{{< /tabs >}}
-
-
-<!--
-#### vSphere VMDK configuration example {#vsphere-vmdk-configuration}
--->
-#### vSphere VMDK 配置示例    {#vsphere-vmdk-configuration}
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-vmdk
-spec:
-  containers:
-  - image: k8s.gcr.io/test-webserver
-    name: test-container
-    volumeMounts:
-    - mountPath: /test-vmdk
-      name: test-volume
-  volumes:
-  - name: test-volume
-    # 此 VMDK 卷必须已经存在
-    vsphereVolume:
-      volumePath: "[DatastoreName] volumes/myDisk"
-      fsType: ext4
-```
 
 <!--
 For more information, see the [vSphere volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) examples.
@@ -1680,10 +1648,26 @@ must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
-This also requires minimum vSphere vCenter/ESXi Version to be 7.0u1 and minimum HW Version to be VM version 15.
+You can find additional advice on how to migrate in VMware's
+documentation page [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
 -->
-此特性还要求 vSphere vCenter/ESXi 的版本至少为 7.0u1，且 HW 版本至少为
-VM version 15。
+你可以在 VMware 的文档页面
+[迁移树内 vSphere 卷插件到 vSphere 容器存储插件](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html)
+中找到有关如何迁移的其他建议。
+<!--
+Kubernetes v{{< skew currentVersion >}} requires that you are using vSphere 7.0u2 or later
+in order to migrate to the out-of-tree CSI driver.
+If you are running a version of Kubernetes other than v{{< skew currentVersion >}}, consult
+the documentation for that version of Kubernetes.
+If you are running Kubernetes v{{< skew currentVersion >}} and an older version of vSphere,
+consider upgrading to at least vSphere 7.0u2.
+-->
+为了迁移到树外 CSI 驱动程序，Kubernetes v{{< skew currentVersion >}}
+要求你使用 vSphere 7.0u2 或更高版本。
+如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，
+请查阅该 Kubernetes 版本的文档。
+如果你正在运行 Kubernetes v{{< skew currentVersion >}} 和旧版本的 vSphere，
+请考虑至少升级到 vSphere 7.0u2。
 
 {{< note >}}
 <!--
@@ -1737,12 +1721,12 @@ It redirects all plugin operations from the existing in-tree plugin to the
 must be installed on the cluster.
 To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet.
 -->
-Kubernetes 1.23 中加入了 Portworx 的 `CSIMigration` 功能，但默认不会启用，因为该功能仍处于 alpha 阶段。
-该功能会将所有的插件操作从现有的树内插件重定向到
+Kubernetes 1.23 中加入了 Portworx 的 `CSIMigration` 特性，但默认不会启用，因为该特性仍处于 alpha 阶段。
+该特性会将所有的插件操作从现有的树内插件重定向到
 `pxd.portworx.com` 容器存储接口（Container Storage Interface, CSI）驱动程序。
 集群中必须安装
 [Portworx CSI 驱动](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)。
-要启用此功能，请在 kube-controller-manager 和 kubelet 中设置 `CSIMigrationPortworx=true`。
+要启用此特性，请在 kube-controller-manager 和 kubelet 中设置 `CSIMigrationPortworx=true`。
 
 <!--
 ## Using subPath {#using-subpath}
@@ -2144,10 +2128,10 @@ provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 In-tree plugins that support `CSIMigration` and have a corresponding CSI driver implemented
 are listed in [Types of Volumes](#volume-types).
 -->
-启用 `CSIMigration` 功能后，针对现有树内插件的操作会被重定向到相应的 CSI 插件（应已安装和配置）。
+启用 `CSIMigration` 特性后，针对现有树内插件的操作会被重定向到相应的 CSI 插件（应已安装和配置）。
 因此，操作员在过渡到取代树内插件的 CSI 驱动时，无需对现有存储类、PV 或 PVC（指树内插件）进行任何配置更改。
 
-所支持的操作和功能包括：配备（Provisioning）/删除、挂接（Attach）/解挂（Detach）、
+所支持的操作和特性包括：配备（Provisioning）/删除、挂接（Attach）/解挂（Detach）、
 挂载（Mount）/卸载（Unmount）和调整卷大小。
 
 上面的[卷类型](#volume-types)节列出了支持 `CSIMigration` 并已实现相应 CSI

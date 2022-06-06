@@ -21,7 +21,8 @@ If your problem is not listed below, please follow the following steps:
   - Go to [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues) and search for existing issues.
   - If no issue exists, please [open one](https://github.com/kubernetes/kubeadm/issues/new) and follow the issue template.
 
-- If you are unsure about how kubeadm works, you can ask on [Slack](http://slack.k8s.io/) in #kubeadm, or open a question on [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Please include
+- If you are unsure about how kubeadm works, you can ask on [Slack](https://slack.k8s.io/) in `#kubeadm`,
+  or open a question on [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Please include
   relevant tags like `#kubernetes` and `#kubeadm` so folks can help you.
 -->
 与任何程序一样，你可能会在安装或者运行 kubeadm 时遇到错误。
@@ -33,12 +34,72 @@ If your problem is not listed below, please follow the following steps:
   - 转到 [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues) 并搜索存在的问题。
   - 如果没有问题，请 [打开](https://github.com/kubernetes/kubeadm/issues/new) 并遵循问题模板。
 
-- 如果你对 kubeadm 的工作方式有疑问，可以在 [Slack](https://slack.k8s.io/) 上的 #kubeadm 频道提问，
+- 如果你对 kubeadm 的工作方式有疑问，可以在 [Slack](https://slack.k8s.io/) 上的 `#kubeadm` 频道提问，
 或者在 [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes) 上提问。
 请加入相关标签，例如 `#kubernetes` 和 `#kubeadm`，这样其他人可以帮助你。
 
-
 <!-- body -->
+
+<!--
+## Not possible to join a v1.18 Node to a v1.17 cluster due to missing RBAC
+-->
+## 由于缺少 RBAC，无法将 v1.18 Node 加入 v1.17 集群
+
+<!--
+In v1.18 kubeadm added prevention for joining a Node in the cluster if a Node with the same name already exists.
+This required adding RBAC for the bootstrap-token user to be able to GET a Node object.
+
+However this causes an issue where `kubeadm join` from v1.18 cannot join a cluster created by kubeadm v1.17.
+-->
+自从 v1.18 后，如果集群中已存在同名 Node，kubeadm 将禁止 Node 加入集群。
+这需要为 bootstrap-token 用户添加 RBAC 才能 GET Node 对象。
+
+但这会导致一个问题，v1.18 的 `kubeadm join` 无法加入由 kubeadm v1.17 创建的集群。
+
+<!--
+To workaround the issue you have two options:
+
+Execute `kubeadm init phase bootstrap-token` on a control-plane node using kubeadm v1.18.
+Note that this enables the rest of the bootstrap-token permissions as well.
+
+or
+
+Apply the following RBAC manually using `kubectl apply -f ...`:
+-->
+要解决此问题，你有两种选择：
+
+使用 kubeadm v1.18 在控制平面节点上执行 `kubeadm init phase bootstrap-token`。
+请注意，这也会启用 bootstrap-token 的其余权限。
+
+或者，也可以使用 `kubectl apply -f ...` 手动应用以下 RBAC：
+
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubeadm:get-nodes
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubeadm:get-nodes
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubeadm:get-nodes
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:bootstrappers:kubeadm:default-node-token
+```
 
 <!--
 ## `ebtables` or some similar executable not found during installation
@@ -95,20 +156,21 @@ This may be caused by a number of problems. The most common are:
 configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 - control plane containers are crashlooping or hanging. You can check this by running `docker ps`
 and investigating each container by running `docker logs`. For other container runtime see
-[Debugging Kubernetes nodes with crictl](/docs/tasks/debug-application-cluster/crictl/).
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 -->
 这可能是由许多问题引起的。最常见的是：
 
 - 网络连接问题。在继续之前，请检查你的计算机是否具有全部联通的网络连接。
 - 容器运行时的 cgroup 驱动不同于 kubelet 使用的 cgroup 驱动。要了解如何正确配置 cgroup 驱动，
-  请参阅[配置 cgroup 驱动](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
+  请参阅[配置 cgroup 驱动](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
 - 控制平面上的 Docker 容器持续进入崩溃状态或（因其他原因）挂起。你可以运行 `docker ps` 命令来检查以及 `docker logs` 命令来检视每个容器的运行日志。
-  对于其他容器运行时，请参阅[使用 crictl 对 Kubernetes 节点进行调试](/zh/docs/tasks/debug-application-cluster/crictl/)。
+  对于其他容器运行时，请参阅[使用 crictl 对 Kubernetes 节点进行调试](/zh/docs/tasks/debug/debug-cluster/crictl/)。
 
 <!--
 ## kubeadm blocks when removing managed containers
 
-The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
+The following could happen if the container runtime halts and does not remove
+any Kubernetes-managed containers:
 
 ```shell
 sudo kubeadm reset
@@ -122,22 +184,13 @@ sudo kubeadm reset
 (block)
 ```
 
-A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
-
-```shell
-sudo systemctl restart docker.service
-sudo kubeadm reset
-```
-
-Inspecting the logs for docker may also be useful:
-
-```shell
-journalctl -ul docker
-```
+A possible solution is to restart the container runtime and then re-run `kubeadm reset`.
+You can also use `crictl` to debug the state of the container runtime. See
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 -->
 ## 当删除托管容器时 kubeadm 阻塞
 
-如果 Docker 停止并且不删除 Kubernetes 所管理的所有容器，可能发生以下情况：
+如果容器运行时停止并且未删除 Kubernetes 所管理的容器，可能发生以下情况：
 
 ```shell
 sudo kubeadm reset
@@ -152,17 +205,8 @@ sudo kubeadm reset
 ```
 
 一个可行的解决方案是重新启动 Docker 服务，然后重新运行 `kubeadm reset`：
-
-```shell
-sudo systemctl restart docker.service
-sudo kubeadm reset
-```
-
-检查 docker 的日志也可能有用：
-
-```shell
-journalctl -ul docker
-```
+你也可以使用 `crictl` 来调试容器运行时的状态。
+参见[使用 CRICTL 调试 Kubernetes 节点](/zh/docs/tasks/debug/debug-cluster/crictl/)。
 
 <!--
 ## Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
@@ -177,10 +221,6 @@ Right after `kubeadm init` there should not be any pods in these states.
   it's very likely that the Pod Network add-on that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
-- If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
-  when booting `dockerd` with `systemd` and restart `docker`. You can see the MountFlags in `/usr/lib/systemd/system/docker.service`.
-  MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
-  The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 -->
 ## Pods 处于 `RunContainerError`、`CrashLoopBackOff` 或者 `Error` 状态
 
@@ -191,7 +231,7 @@ Right after `kubeadm init` there should not be any pods in these states.
   直到你部署了网络插件为止。
 
 - 如果在部署完网络插件之后，有 Pods 处于 `RunContainerError`、`CrashLoopBackOff`
-  或 `Error` 状态之一，并且`coredns` （或者 `kube-dns`）仍处于 `Pending` 状态，
+  或 `Error` 状态之一，并且 `coredns` （或者 `kube-dns`）仍处于 `Pending` 状态，
   那很可能是你安装的网络插件由于某种原因无法工作。你或许需要授予它更多的
   RBAC 特权或使用较新的版本。请在 Pod Network 提供商的问题跟踪器中提交问题，
   然后在此处分类问题。
@@ -199,7 +239,7 @@ Right after `kubeadm init` there should not be any pods in these states.
 - 如果你安装的 Docker 版本早于 1.12.1，请在使用 `systemd` 来启动 `dockerd` 和重启 `docker` 时，
   删除 `MountFlags=slave` 选项。
   你可以在 `/usr/lib/systemd/system/docker.service` 中看到 MountFlags。
-  MountFlags 可能会干扰 Kubernetes 挂载的卷， 并使 Pods 处于 `CrashLoopBackOff` 状态。
+  MountFlags 可能会干扰 Kubernetes 挂载的卷，并使 Pods 处于 `CrashLoopBackOff` 状态。
   当 Kubernetes 不能找到 `var/run/secrets/kubernetes.io/serviceaccount` 文件时会发生错误。
 
 <!--
@@ -248,7 +288,7 @@ services](/docs/concepts/services-networking/service/#type-nodeport) or use `Hos
 <!--
 ## Pods are not accessible via their Service IP
 
-- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.
@@ -261,7 +301,7 @@ services](/docs/concepts/services-networking/service/#type-nodeport) or use `Hos
 -->
 ## 无法通过其服务 IP 访问 Pod
 
-- 许多网络附加组件尚未启用 [hairpin 模式](/zh/docs/tasks/debug-application-cluster/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
+- 许多网络附加组件尚未启用 [hairpin 模式](/zh/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   该模式允许 Pod 通过其服务 IP 进行访问。这是与 [CNI](https://github.com/containernetworking/cni/issues/476) 有关的问题。
   请与网络附加组件提供商联系，以获取他们所提供的 hairpin 模式的最新状态。
 
@@ -281,7 +321,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 
 - Verify that the `$HOME/.kube/config` file contains a valid certificate, and
   regenerate a certificate if necessary. The certificates in a kubeconfig file
-  are base64 encoded. The `base64 -d` command can be used to decode the certificate
+  are base64 encoded. The `base64 --decode` command can be used to decode the certificate
   and `openssl x509 -text -noout` can be used for viewing the certificate information.
 - Unset the `KUBECONFIG` environment variable using:
 
@@ -315,7 +355,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 
 - 验证 `$HOME/.kube/config` 文件是否包含有效证书，并
   在必要时重新生成证书。在 kubeconfig 文件中的证书是 base64 编码的。
-  该 `base64 -d` 命令可以用来解码证书，`openssl x509 -text -noout` 命令
+  该 `base64 --decode` 命令可以用来解码证书，`openssl x509 -text -noout` 命令
   可以用于查看证书信息。
 - 使用如下方法取消设置 `KUBECONFIG` 环境变量的值：
 
@@ -329,7 +369,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   export KUBECONFIG=/etc/kubernetes/admin.conf
   ```
 
-- 另一个方法是覆盖 `kubeconfig` 的现有用户 "管理员" ：
+- 另一个方法是覆盖 `kubeconfig` 的现有用户 "管理员"：
 
   ```shell
   mv  $HOME/.kube $HOME/.kube.bak
@@ -337,22 +377,6 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
   ```
-
-<!--
-## Default NIC When using flannel as the pod network in Vagrant
-
-The following error might indicate that something was wrong in the pod network:
-
-```sh
-Error from server (NotFound): the server could not find the requested resource
-```
-
-- If you're using flannel as the pod network inside Vagrant, then you will have to specify the default interface name for flannel.
-
-  Vagrant typically assigns two interfaces to all VMs. The first, for which all hosts are assigned the IP address `10.0.2.15`, is for external traffic that gets NATed.
-
-  This may lead to problems with flannel, which defaults to the first interface on a host. This leads to all hosts thinking they have the same public IP address. To prevent this, pass the `-iface eth1` flag to flannel so that the second interface is chosen.
--->
 
 <!--
 ## Kubelet client certificate rotation fails {#kubelet-client-cert}
@@ -407,6 +431,22 @@ the `ca.key` you must sign the embedded certificates in the `kubelet.conf` exter
 6. 重新启动 kubelet。
 7. 确保节点状况变为 `Ready`。
 
+<!--
+## Default NIC When using flannel as the pod network in Vagrant
+
+The following error might indicate that something was wrong in the pod network:
+
+```sh
+Error from server (NotFound): the server could not find the requested resource
+```
+
+- If you're using flannel as the pod network inside Vagrant, then you will have to specify the default interface name for flannel.
+
+  Vagrant typically assigns two interfaces to all VMs. The first, for which all hosts are assigned the IP address `10.0.2.15`, is for external traffic that gets NATed.
+
+  This may lead to problems with flannel, which defaults to the first interface on a host. This leads to all hosts thinking they have the same public IP address. To prevent this, pass the `--iface eth1` flag to flannel so that the second interface is chosen.
+-->
+
 ## 在 Vagrant 中使用 flannel 作为 pod 网络时的默认 NIC
 
 以下错误可能表明 Pod 网络中出现问题：
@@ -432,9 +472,9 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 ```
 
 - This may be due to Kubernetes using an IP that can not communicate with other IPs on the seemingly same subnet, possibly by policy of the machine provider.
-- Digital Ocean assigns a public IP to `eth0` as well as a private one to be used internally as anchor for their floating IP feature, yet `kubelet` will pick the latter as the node's `InternalIP` instead of the public one.
+- DigitalOcean assigns a public IP to `eth0` as well as a private one to be used internally as anchor for their floating IP feature, yet `kubelet` will pick the latter as the node's `InternalIP` instead of the public one.
 
-  Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will not display the offending alias IP address. Alternatively an API endpoint specific to Digital Ocean allows to query for the anchor IP from the droplet:
+  Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will not display the offending alias IP address. Alternatively an API endpoint specific to DigitalOcean allows to query for the anchor IP from the droplet:
 
   ```sh
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
@@ -446,7 +486,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   private network. The `kubeletExtraArgs` section of the kubeadm
   [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
   can be used for this.
-  
+
   Then restart `kubelet`:
 
   ```sh
@@ -464,20 +504,20 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
 - 这或许是由于 Kubernetes 使用的 IP 无法与看似相同的子网上的其他 IP 进行通信的缘故，
 可能是由机器提供商的政策所导致的。
-- Digital Ocean 既分配一个共有 IP 给 `eth0`，也分配一个私有 IP 在内部用作其浮动 IP 功能的锚点，
+- DigitalOcean 既分配一个共有 IP 给 `eth0`，也分配一个私有 IP 在内部用作其浮动 IP 功能的锚点，
 然而 `kubelet` 将选择后者作为节点的 `InternalIP` 而不是公共 IP
 
   使用 `ip addr show` 命令代替 `ifconfig` 命令去检查这种情况，因为 `ifconfig` 命令
-  不会显示有问题的别名 IP 地址。或者指定的 Digital Ocean 的 API 端口允许从 droplet 中
+  不会显示有问题的别名 IP 地址。或者指定的 DigitalOcean 的 API 端口允许从 droplet 中
   查询 anchor IP：
 
   ```sh
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
   ```
 
-  解决方法是通知 `kubelet` 使用哪个 `--node-ip`。当使用 Digital Ocean 时，可以是公网IP（分配给 `eth0`的），
+  解决方法是通知 `kubelet` 使用哪个 `--node-ip`。当使用 DigitalOcean 时，可以是公网IP（分配给 `eth0` 的），
   或者是私网IP（分配给 `eth1` 的）。私网 IP 是可选的。
-  [kubadm `NodeRegistrationOptions` 结构](/zh/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions) 
+  [kubadm `NodeRegistrationOptions` 结构](/zh/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
   的 `KubeletExtraArgs` 部分被用来处理这种情况。
 
   然后重启 `kubelet`：
@@ -557,7 +597,7 @@ yum downgrade docker-1.13.1-75.git8633870.el7.centos.x86_64 docker-client-1.13.1
 
 - Install one of the more recent recommended versions, such as 18.06:
 ```bash
-sudo yum-config-manager -add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum install docker-ce-18.06.1.ce-3.el7.x86_64
 ```
 -->
@@ -565,7 +605,7 @@ yum install docker-ce-18.06.1.ce-3.el7.x86_64
 
 如果你遇到以下错误：
 
-```
+```console
 rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:247: starting container process caused "process_linux.go:110: decoding init error from pipe caused \"read parent: connection reset by peer\""
 ```
 
@@ -595,13 +635,13 @@ component like the kube-apiserver. However, this mechanism is limited due to the
 the values (`mapStringString`).
 
 If you decide to pass an argument that supports multiple, comma-separated values such as
-`-apiserver-extra-args "enable-admission-plugins=LimitRanger,NamespaceExists"` this flag will fail with
+`--apiserver-extra-args "enable-admission-plugins=LimitRanger,NamespaceExists"` this flag will fail with
 `flag: malformed pair, expect string=string`. This happens because the list of arguments for
-`-apiserver-extra-args` expects `key=value` pairs and in this case `NamespacesExists` is considered
+`--apiserver-extra-args` expects `key=value` pairs and in this case `NamespacesExists` is considered
 as a key that is missing a value.
 
 Alternatively, you can try separating the `key=value` pairs like so:
-`-apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
+`--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
 A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
@@ -642,7 +682,7 @@ A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on 
 nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
 conditions abate:
 ```
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
@@ -654,7 +694,7 @@ The tracking issue for this problem is [here](https://github.com/kubernetes/kube
 
 在 kube-proxy Pod 中可以看到以下错误：
 
-```
+```console
 server.go:610] Failed to retrieve node IP: host IP unknown; known addresses: []
 proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 ```
@@ -663,7 +703,7 @@ proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 而不管它们的条件如何，将其与其他节点保持隔离，直到它们的初始保护条件消除：
 
 ```shell
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 此问题的跟踪[在这里](https://github.com/kubernetes/kubeadm/issues/1027)。
@@ -681,7 +721,7 @@ for the feature to work.
 ## 节点上的 `/usr` 被以只读方式挂载 {#usr-mounted-read-only}
 
 在类似 Fedora CoreOS 或者 Flatcar Container Linux 这类 Linux 发行版本中，
-目录 `/usr` 是以只读文件系统的形式挂载的。 
+目录 `/usr` 是以只读文件系统的形式挂载的。
 在支持 [FlexVolume](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md)时，
 类似 kubelet 和 kube-controller-manager 这类 Kubernetes 组件使用默认路径
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`，
@@ -695,9 +735,9 @@ To workaround this issue you can configure the flex-volume directory using the k
 On the primary control-plane Node (created using `kubeadm init`) pass the following
 file using `--config`:
 -->
-为了解决这个问题，你可以使用 kubeadm 的[配置文件](/docs/reference/config-api/kubeadm-config.v1beta3/) 来配置 FlexVolume 的目录。
+为了解决这个问题，你可以使用 kubeadm 的[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta3/) 来配置 FlexVolume 的目录。
 
-在（使用 `kubeadm init` 创建的）主控制节点上，使用 `-config`
+在（使用 `kubeadm init` 创建的）主控制节点上，使用 `--config`
 参数传入如下文件：
 
 ```yaml
@@ -789,7 +829,7 @@ on the side of the metrics-server:
 kubeadm 为 kubelet 部署的是自签名的服务证书。这可能会导致 metrics-server
 端报告下面的错误信息：
 
-```
+```console
 x509: certificate signed by unknown authority
 x509: certificate is valid for IP-foo not IP-bar
 ```
@@ -803,5 +843,4 @@ Also see [How to run the metrics-server securely](https://github.com/kubernetes-
 参见[为 kubelet 启用签名的服务证书](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)
 以进一步了解如何在 kubeadm 集群中配置 kubelet 使用正确签名了的服务证书。
 
-另请参阅[How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely)。
-
+另请参阅 [How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely)。

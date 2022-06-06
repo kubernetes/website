@@ -59,7 +59,7 @@ and restarts it.
 When the container starts, it executes this command:
 
 ```shell
-/bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
+/bin/sh -c "touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600"
 ```
 
 For the first 30 seconds of the container's life, there is a `/tmp/healthy` file.
@@ -223,7 +223,7 @@ kubectl describe pod goproxy
 
 ## Define a gRPC liveness probe
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 If your application implements [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
 kubelet can be configured to use it for application liveness checks.
@@ -233,7 +233,7 @@ in order to configure checks that rely on gRPC.
 
 Here is an example manifest:
 
-{{< codenew file="pods/probe/grpc-liveness.yaml">}}
+{{< codenew file="pods/probe/grpc-liveness.yaml" >}}
 
 To use a gRPC probe, `port` must be configured. If the health endpoint is configured
 on a non-default service, you must also specify the `service`.

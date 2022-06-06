@@ -5,11 +5,9 @@ date:   2018-08-02
 ---
 
 <!--
----
 layout: blog
 title:  'Dynamically Expand Volume with CSI and Kubernetes'
 date:   2018-08-02
----
 -->
 
 <!--
@@ -126,7 +124,7 @@ This diagram depicts a kind of high-level Kubernetes archetypes integrated with 
 For more details, please visit: https://github.com/container-storage-interface/spec/blob/master/spec.md
 -->
 
-更多详细信息，请访问：https://github.com/container-storage-interface/spec/blob/master/spec.md
+更多详细信息，请访问： https://github.com/container-storage-interface/spec/blob/master/spec.md
 
 <!--
 ## Extend CSI and Kubernetes

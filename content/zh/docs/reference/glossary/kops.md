@@ -56,7 +56,7 @@ Support for using kops with GCE and VMware vSphere are in alpha.
   * The ability to directly provision, or to generate Terraform manifests
 -->
 
-`kops` 为您的集群提供了：
+`kops` 为你的集群提供了：
 
   * 全自动化安装
   * 基于 DNS 的集群标识
@@ -69,4 +69,5 @@ Support for using kops with GCE and VMware vSphere are in alpha.
 You can also build your own cluster using {{< glossary_tooltip term_id="kubeadm" >}} as a building block. `kops` builds on the kubeadm work.
 -->
 
-您也可以将自己的集群作为一个构造块，使用 {{< glossary_tooltip term_id="kubeadm" >}} 构造集群。`kops` 是建立在 kubeadm 之上的。
+你也可以将自己的集群作为一个构造块，使用 {{< glossary_tooltip term_id="kubeadm" >}} 构造集群。
+`kops` 是建立在 kubeadm 之上的。

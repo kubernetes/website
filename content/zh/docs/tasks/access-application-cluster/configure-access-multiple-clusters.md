@@ -22,14 +22,16 @@ configuration files. After your clusters, users, and contexts are defined in
 one or more configuration files, you can quickly switch between clusters by using the
 `kubectl config use-context` command.
 -->
-本文展示如何使用配置文件来配置对多个集群的访问。 在将集群、用户和上下文定义在一个或多个配置文件中之后，用户可以使用 `kubectl config use-context` 命令快速地在集群之间进行切换。
+本文展示如何使用配置文件来配置对多个集群的访问。
+在将集群、用户和上下文定义在一个或多个配置文件中之后，用户可以使用
+`kubectl config use-context` 命令快速地在集群之间进行切换。
 
+{{< note >}}
 <!--
 A file that is used to configure access to a cluster is sometimes called
 a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 -->
-{{< note >}}
 用于配置集群访问的文件有时被称为 *kubeconfig 文件*。
 这是一种引用配置文件的通用方式，并不意味着存在一个名为 `kubeconfig` 的文件。
 {{< /note >}}
@@ -63,6 +65,7 @@ kubectl 的版本应该与集群的 API 服务器
 [使用同一次版本号](/zh/releases/version-skew-policy/#kubectl)。
 
 <!-- steps -->
+
 <!--
 ## Define clusters, users, and contexts
 
@@ -76,16 +79,16 @@ to the scratch cluster requires authentication by username and password.
 Create a directory named `config-exercise`. In your
 `config-exercise` directory, create a file named `config-demo` with this content:
 -->
-## 定义集群、用户和上下文
+## 定义集群、用户和上下文    {#define-clusters-users-and-contexts}
 
 假设用户有两个集群，一个用于正式开发工作，一个用于其它临时用途（scratch）。
 在 `development` 集群中，前端开发者在名为 `frontend` 的名字空间下工作，
-存储开发者在名为 `storage` 的名字空间下工作。 在 `scratch` 集群中，
-开发人员可能在默认名字空间下工作，也可能视情况创建附加的名字空间。 
+存储开发者在名为 `storage` 的名字空间下工作。在 `scratch` 集群中，
+开发人员可能在默认名字空间下工作，也可能视情况创建附加的名字空间。
 访问开发集群需要通过证书进行认证。
 访问其它临时用途的集群需要通过用户名和密码进行认证。
 
-创建名为 `config-exercise` 的目录。 在
+创建名为 `config-exercise` 的目录。在
 `config-exercise` 目录中，创建名为 `config-demo` 的文件，其内容为：
 
 ```yaml
@@ -122,7 +125,7 @@ your configuration file:
 配置文件描述了集群、用户名和上下文。`config-demo` 文件中含有描述两个集群、
 两个用户和三个上下文的框架。
 
-进入 `config-exercise` 目录。输入以下命令，将群集详细信息添加到配置文件中：
+进入 `config-exercise` 目录。输入以下命令，将集群详细信息添加到配置文件中：
 
 ```shell
 kubectl config --kubeconfig=config-demo set-cluster development --server=https://1.2.3.4 --certificate-authority=fake-ca-file
@@ -139,16 +142,16 @@ kubectl config --kubeconfig=config-demo set-credentials developer --client-certi
 kubectl config --kubeconfig=config-demo set-credentials experimenter --username=exp --password=some-password
 ```
 
+{{< note >}}
 <!--
 - To delete a user you can run `kubectl --kubeconfig=config-demo config unset users.<name>`
 - To remove a cluster, you can run `kubectl --kubeconfig=config-demo config unset clusters.<name>`
 - To remove a context, you can run `kubectl --kubeconfig=config-demo config unset contexts.<name>`
 -->
-
-注意：
 - 要删除用户，可以运行 `kubectl --kubeconfig=config-demo config unset users.<name>`
 - 要删除集群，可以运行 `kubectl --kubeconfig=config-demo config unset clusters.<name>`
 - 要删除上下文，可以运行 `kubectl --kubeconfig=config-demo config unset contexts.<name>`
+{{< /note >}}
 
 <!--
 Add context details to your configuration file:
@@ -165,7 +168,7 @@ kubectl config --kubeconfig=config-demo set-context exp-scratch --cluster=scratc
 Open your `config-demo` file to see the added details. As an alternative to opening the
 `config-demo` file, you can use the `config view` command.
 -->
-打开 `config-demo` 文件查看添加的详细信息。 也可以使用 `config view`
+打开 `config-demo` 文件查看添加的详细信息。也可以使用 `config view`
 命令进行查看：
 
 ```shell
@@ -355,7 +358,7 @@ kubectl config --kubeconfig=config-demo view --minify
 In your `config-exercise` directory, create a file named `config-demo-2` with this content:
 -->
 
-## 创建第二个配置文件
+## 创建第二个配置文件    {#create-a-second-configuration-file}
 
 在 `config-exercise` 目录中，创建名为 `config-demo-2` 的文件，其中包含以下内容：
 
@@ -384,7 +387,7 @@ See whether you have an environment variable named `KUBECONFIG`. If so, save the
 current value of your `KUBECONFIG` environment variable, so you can restore it later.
 For example:
 -->
-## 设置 KUBECONFIG 环境变量
+## 设置 KUBECONFIG 环境变量    {#set-the-kubeconfig-environment-variable}
 
 查看是否有名为 `KUBECONFIG` 的环境变量。
 如有，保存 `KUBECONFIG` 环境变量当前的值，以便稍后恢复。
@@ -414,12 +417,12 @@ Temporarily append two paths to your `KUBECONFIG` environment variable. For exam
 在 Windows 中以分号分隔。
 如果有 `KUBECONFIG` 环境变量，请熟悉列表中的配置文件。
 
-临时添加两条路径到 `KUBECONFIG` 环境变量中。 例如：
+临时添加两条路径到 `KUBECONFIG` 环境变量中。例如：
 
 ### Linux
 
 ```shell
-export  KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
+export KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
 ```
 
 ### Windows PowerShell
@@ -489,7 +492,7 @@ Go to `$HOME/.kube`, and see what files are there. Typically, there is a file na
 `config`. There might also be other configuration files in this directory. Briefly
 familiarize yourself with the contents of these files.
 -->
-## 探索 $HOME/.kube 目录
+## 探索 $HOME/.kube 目录    {#explore-the-home-kube-directory}
 
 如果用户已经拥有一个集群，可以使用 `kubectl` 与集群进行交互，
 那么很可能在 `$HOME/.kube` 目录下有一个名为 `config` 的文件。
@@ -504,7 +507,7 @@ If you have a `$HOME/.kube/config` file, and it's not already listed in your
 `KUBECONFIG` environment variable, append it to your `KUBECONFIG` environment variable now.
 For example:
 -->
-## 将 $HOME/.kube/config 追加到 KUBECONFIG 环境变量中
+## 将 $HOME/.kube/config 追加到 KUBECONFIG 环境变量中    {#append-home-kube-config-to-your-kubeconfig-environment-variable}
 
 如果有 `$HOME/.kube/config` 文件，并且还未列在 `KUBECONFIG` 环境变量中，
 那么现在将它追加到 `KUBECONFIG` 环境变量中。
@@ -535,11 +538,11 @@ kubectl config view
 <!--
 ## Clean up
 
-Return your `KUBECONFIG` environment variable to its original value. For example:
+Return your `KUBECONFIG` environment variable to its original value. For example:<br>
 -->
-## 清理
+## 清理    {#clean-up}
 
-将 `KUBECONFIG` 环境变量还原为原始值。 例如：
+将 `KUBECONFIG` 环境变量还原为原始值。例如：
 
 ### Linux
 

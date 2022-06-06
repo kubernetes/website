@@ -9,9 +9,9 @@ content_type: task
 
 <!-- overview -->
 <!--
-This page shows how to configure and enable the ip-masq-agent.
+This page shows how to configure and enable the `ip-masq-agent`.
 -->
-此页面展示如何配置和启用 ip-masq-agent。
+此页面展示如何配置和启用 `ip-masq-agent`。
 
 ## {{% heading "prerequisites" %}}
 
@@ -24,9 +24,9 @@ This page shows how to configure and enable the ip-masq-agent.
 ## IP Masquerade Agent 用户指南
 
 <!--
-The ip-masq-agent configures iptables rules to hide a pod's IP address behind the cluster node's IP address. This is typically done when sending traffic to destinations outside the cluster's pod [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range.
+The `ip-masq-agent` configures iptables rules to hide a pod's IP address behind the cluster node's IP address. This is typically done when sending traffic to destinations outside the cluster's pod [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range.
 -->
-ip-masq-agent 配置 iptables 规则以隐藏位于集群节点 IP 地址后面的 Pod 的 IP 地址。
+`ip-masq-agent` 配置 iptables 规则以隐藏位于集群节点 IP 地址后面的 Pod 的 IP 地址。
 这通常在将流量发送到集群的 Pod
 [CIDR](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1)
 范围之外的目的地时使用。
@@ -96,23 +96,26 @@ The agent configuration file must be written in YAML or JSON syntax, and may con
 代理配置文件必须使用 YAML 或 JSON 语法编写，并且可能包含三个可选值：
 
 <!--
-*   **nonMasqueradeCIDRs:** A list of strings in [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation that specify the non-masquerade ranges.
+* `nonMasqueradeCIDRs`: A list of strings in
+  [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation that specify the non-masquerade ranges.
 -->
-* **nonMasqueradeCIDRs:**
+* `nonMasqueradeCIDRs`：
   [CIDR](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1)
   表示法中的字符串列表，用于指定不需伪装的地址范围。
 
 <!--
-*   **masqLinkLocal:** A Boolean (true / false) which indicates whether to masquerade traffic to the link local prefix 169.254.0.0/16. False by default.
+* `masqLinkLocal`: A Boolean (true/false) which indicates whether to masquerade traffic to the
+  link local prefix `169.254.0.0/16`. False by default.
 -->
-* **masqLinkLocal:** 布尔值 (true / false)，表示是否将流量伪装到
-  本地链路前缀 169.254.0.0/16。默认为 false。
+* `masqLinkLocal`：布尔值 (true/false)，表示是否为本地链路前缀 169.254.0.0/16 的流量提供伪装。
+  默认为 false。
 
 <!--
-*   **resyncInterval:** An interval at which the agent attempts to reload config from disk. e.g. '30s' where 's' is seconds, 'ms' is milliseconds etc...
+* `resyncInterval`: A time interval at which the agent attempts to reload config from disk.
+  For example: '30s', where 's' means seconds, 'ms' means milliseconds.
 -->
-* **resyncInterval:** 代理尝试从磁盘重新加载配置的时间间隔。
-  例如 '30s'，其中 's' 是秒，'ms' 是毫秒等...
+* `resyncInterval`：代理从磁盘重新加载配置的重试时间间隔。
+  例如 '30s'，其中 's' 是秒，'ms' 是毫秒。
 
 <!--
 Traffic to 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16) ranges will NOT be masqueraded. Any other traffic (assumed to be internet) will be masqueraded.  An example of a local destination from a pod could be its Node's IP address as well as another node's address or one of the IP addresses in Cluster's IP range.   Any other traffic will be masqueraded by default.  The below entries show the default set of rules that are applied by the ip-masq-agent:
@@ -122,8 +125,11 @@ Traffic to 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16) ranges will NOT be masq
 Pod 访问本地目的地的例子，可以是其节点的 IP 地址、另一节点的地址或集群的 IP 地址范围内的一个 IP 地址。
 默认情况下，任何其他流量都将伪装。以下条目展示了 ip-masq-agent 的默认使用的规则：
 
-```
+```shell
 iptables -t nat -L IP-MASQ-AGENT
+```
+
+```none
 RETURN     all  --  anywhere             169.254.0.0/16       /* ip-masq-agent: cluster-local traffic should not be subject to MASQUERADE */ ADDRTYPE match dst-type !LOCAL
 RETURN     all  --  anywhere             10.0.0.0/8           /* ip-masq-agent: cluster-local traffic should not be subject to MASQUERADE */ ADDRTYPE match dst-type !LOCAL
 RETURN     all  --  anywhere             172.16.0.0/12        /* ip-masq-agent: cluster-local traffic should not be subject to MASQUERADE */ ADDRTYPE match dst-type !LOCAL
@@ -133,13 +139,17 @@ MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent:
 ```
 
 <!--
-By default, in GCE/Google Kubernetes Engine starting with Kubernetes version 1.7.0, if network policy is enabled or you are using a cluster CIDR not in the 10.0.0.0/8 range, the ip-masq-agent will run in your cluster.  If you are running in another environment, you can add the ip-masq-agent [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) to your cluster:
+By default, in GCE/Google Kubernetes Engine, if network policy is enabled or
+you are using a cluster CIDR not in the 10.0.0.0/8 range, the `ip-masq-agent`
+will run in your cluster. If you are running in another environment,
+you can add the `ip-masq-agent` [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+to your cluster.
 -->
-默认情况下，从 Kubernetes 1.7.0 版本开始的 GCE/Google Kubernetes Engine 中，
-如果启用了网络策略，或者你使用的集群 CIDR 不在 10.0.0.0/8 范围内，
-则 ip-masq-agent 将在你的集群中运行。
-如果你在其他环境中运行，则可以将 ip-masq-agent 
-[DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/) 添加到你的集群：
+默认情况下，在 GCE/Google Kubernetes Engine 中，如果启用了网络策略，
+或者你使用的集群 CIDR 不在 10.0.0.0/8 范围内，
+则 `ip-masq-agent` 将在你的集群中运行。
+如果你在其他环境中运行，可以将 `ip-masq-agent`
+[DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/) 添加到你的集群中。
 
 <!-- steps -->
 
@@ -172,7 +182,7 @@ More information can be found in the ip-masq-agent documentation [here](https://
 <!--
 In most cases, the default set of rules should be sufficient; however, if this is not the case for your cluster, you can create and apply a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to customize the IP ranges that are affected.  For example, to allow only 10.0.0.0/8 to be considered by the ip-masq-agent, you can create the following [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) in a file called "config".
 -->
-在大多数情况下，默认的规则集应该足够；但是，如果你的群集不是这种情况，则可以创建并应用
+在大多数情况下，默认的规则集应该足够；但是，如果你的集群不是这种情况，则可以创建并应用
 [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
 来自定义受影响的 IP 范围。
 例如，要允许 ip-masq-agent 仅作用于 10.0.0.0/8，你可以在一个名为 “config” 的文件中创建以下
@@ -180,12 +190,12 @@ In most cases, the default set of rules should be sufficient; however, if this i
 
 {{< note >}}
 <!--
-It is important that the file is called config since, by default, that will be used as the key for lookup by the ip-masq-agent:
+It is important that the file is called config since, by default, that will be used as the key for lookup by the `ip-masq-agent`:
 -->
 重要的是，该文件之所以被称为 config，因为默认情况下，该文件将被用作
-ip-masq-agent 查找的主键：
+`ip-masq-agent` 查找的主键：
 
-```
+```yaml
 nonMasqueradeCIDRs:
   - 10.0.0.0/8
 resyncInterval: 60s
@@ -195,22 +205,25 @@ resyncInterval: 60s
 <!--
 Run the following command to add the config map to your cluster:
 -->
-运行以下命令将配置映射添加到你的集群：
+运行以下命令将 ConfigMap 添加到你的集群：
 
-```
+```shell
 kubectl create configmap ip-masq-agent --from-file=config --namespace=kube-system
 ```
 
 <!--
-This will update a file located at */etc/config/ip-masq-agent* which is periodically checked every *resyncInterval* and applied to the cluster node.
+This will update a file located at `/etc/config/ip-masq-agent` which is periodically checked every `resyncInterval` and applied to the cluster node.
 After the resync interval has expired, you should see the iptables rules reflect your changes:
 -->
-这将更新位于 */etc/config/ip-masq-agent* 的一个文件，该文件以 *resyncInterval* 
+这将更新位于 `/etc/config/ip-masq-agent` 的一个文件，该文件以 `resyncInterval`
 为周期定期检查并应用于集群节点。
 重新同步间隔到期后，你应该看到你的更改在 iptables 规则中体现：
 
-```
+```shell
 iptables -t nat -L IP-MASQ-AGENT
+```
+
+```none
 Chain IP-MASQ-AGENT (1 references)
 target     prot opt source               destination
 RETURN     all  --  anywhere             169.254.0.0/16       /* ip-masq-agent: cluster-local traffic should not be subject to MASQUERADE */ ADDRTYPE match dst-type !LOCAL
@@ -219,13 +232,13 @@ MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent:
 ```
 
 <!--
-By default, the link local range (169.254.0.0/16) is also handled by the ip-masq agent, which sets up the appropriate iptables rules.  To have the ip-masq-agent ignore link local, you can set *masqLinkLocal*  to true in the config map.
+By default, the link local range (169.254.0.0/16) is also handled by the ip-masq agent, which sets up the appropriate iptables rules.  To have the ip-masq-agent ignore link local, you can set `masqLinkLocal` to true in the ConfigMap.
 -->
 默认情况下，本地链路范围 (169.254.0.0/16) 也由 ip-masq agent 处理，
 该代理设置适当的 iptables 规则。 要使 ip-masq-agent 忽略本地链路，
-可以在配置映射中将 *masqLinkLocal* 设置为 true。
+可以在 ConfigMap 中将 `masqLinkLocal` 设置为 true。
 
-```
+```yaml
 nonMasqueradeCIDRs:
   - 10.0.0.0/8
 resyncInterval: 60s

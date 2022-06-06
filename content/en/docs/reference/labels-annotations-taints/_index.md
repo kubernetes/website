@@ -15,6 +15,76 @@ This document serves both as a reference to the values and as a coordination poi
 
 ## Labels, annotations and taints used on API objects
 
+### app.kubernetes.io/component
+
+Example: `app.kubernetes.io/component=database`
+
+Used on: All Objects
+
+The component within the architecture.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/created-by
+
+Example: `app.kubernetes.io/created-by=controller-manager`
+
+Used on: All Objects
+
+The controller/user who created this resource.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/instance
+
+Example: `app.kubernetes.io/instance=mysql-abcxzy`
+
+Used on: All Objects
+
+A unique name identifying the instance of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/managed-by
+
+Example: `app.kubernetes.io/managed-by=helm`
+
+Used on: All Objects
+
+The tool being used to manage the operation of an application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/name
+
+Example: `app.kubernetes.io/name=mysql`
+
+Used on: All Objects
+
+The name of the application.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/part-of
+
+Example: `app.kubernetes.io/part-of=wordpress`
+
+Used on: All Objects
+
+The name of a higher level application this one is part of.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### app.kubernetes.io/version
+
+Example: `app.kubernetes.io/version="5.7.21"`
+
+Used on: All Objects
+
+The current version of the application (e.g., a semantic version, revision hash, etc.).
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
 ### kubernetes.io/arch
 
 Example: `kubernetes.io/arch=amd64`
@@ -97,6 +167,44 @@ Used on: Pod
 
 This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
 which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
+
+### kubernetes.io/ingress-bandwidth
+
+{{< note >}}
+Ingress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+{{< /note >}}
+
+Example: `kubernetes.io/ingress-bandwidth: 10M`
+
+Used on: Pod
+
+You can apply quality-of-service traffic shaping to a pod and effectively limit its available bandwidth.
+Ingress traffic (to the pod) is handled by shaping queued packets to effectively handle data.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/ingress-bandwidth` annotation. The unit used for specifying ingress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second.
+
+### kubernetes.io/egress-bandwidth
+
+{{< note >}}
+Egress traffic shaping annotation is an experimental feature.
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+{{< /note >}}
+
+Example: `kubernetes.io/egress-bandwidth: 10M`
+
+Used on: Pod
+
+Egress traffic (from the pod) is handled by policing, which simply drops packets in excess of the configured rate.
+The limits you place on a pod do not affect the bandwidth of other pods.
+To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
+speed using `kubernetes.io/egress-bandwidth` annotation. The unit used for specifying egress
+rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second.
 
 ### beta.kubernetes.io/instance-type (deprecated)
 
@@ -225,6 +333,24 @@ Example: `kubernetes.io/service-name="nginx"`
 Used on: Service
 
 Kubernetes uses this label to differentiate multiple Services. Used currently for `ELB`(Elastic Load Balancer) only.
+
+### kubernetes.io/service-account.name
+
+Example: `kubernetes.io/service-account.name: "sa-name"`
+
+Used on: Secret
+
+This annotation records the {{< glossary_tooltip term_id="name" text="name">}} of the
+ServiceAccount that the token (stored in the Secret of type `kubernetes.io/service-account-token`) represents.
+
+### kubernetes.io/service-account.uid
+
+Example: `kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800da`
+
+Used on: Secret
+
+This annotation records the {{< glossary_tooltip term_id="uid" text="unique ID" >}} of the
+ServiceAccount that the token (stored in the Secret of type `kubernetes.io/service-account-token`) represents.
 
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
@@ -381,6 +507,21 @@ Example: `node.kubernetes.io/pid-pressure:NoSchedule`
 
 The kubelet checks D-value of the size of `/proc/sys/kernel/pid_max` and the PIDs consumed by Kubernetes on a node to get the number of available PIDs that referred to as the `pid.available` metric. The metric is then compared to the corresponding threshold that can be set on the kubelet to determine if the node condition and taint should be added/removed.
 
+### node.kubernetes.io/out-of-service
+
+Example: `node.kubernetes.io/out-of-service:NoExecute`
+
+A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled on
+`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node. 
+
+{{< caution >}}
+Refer to
+[Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
+for further details about when and how to use this taint.
+{{< /caution >}}
+
+
 ### node.cloudprovider.kubernetes.io/uninitialized
 
 Example: `node.cloudprovider.kubernetes.io/uninitialized:NoSchedule`
@@ -493,12 +634,93 @@ you through the steps you follow to apply a seccomp profile to a Pod or to one o
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.
 
+### snapshot.storage.kubernetes.io/allowVolumeModeChange
+
+Example: `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+
+Used on: VolumeSnapshotContent
+
+Value can either be `true` or `false`.
+This determines whether a user can modify the mode of the source volume when a
+{{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} is being
+created from a VolumeSnapshot.
+
+Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode) 
+and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/) for more information.
+
 ## Annotations used for audit
 
+<!-- sorted by annotation -->
 - [`authorization.k8s.io/decision`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
 - [`authorization.k8s.io/reason`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
+- [`insecure-sha1.invalid-cert.kubernetes.io/$hostname`](/docs/reference/labels-annotations-taints/audit-annotations/#insecure-sha1-invalid-cert-kubernetes-io-hostname)
+- [`missing-san.invalid-cert.kubernetes.io/$hostname`](/docs/reference/labels-annotations-taints/audit-annotations/#missing-san-invalid-cert-kubernetes-io-hostname)
 - [`pod-security.kubernetes.io/audit-violations`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
 - [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
 - [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 
 See more details on the [Audit Annotations](/docs/reference/labels-annotations-taints/audit-annotations/) page.
+
+## kubeadm
+
+### kubeadm.alpha.kubernetes.io/cri-socket
+
+Example: `kubeadm.alpha.kubernetes.io/cri-socket: unix:///run/containerd/container.sock`
+
+Used on: Node
+
+Annotation that kubeadm uses to preserve the CRI socket information given to kubeadm at `init`/`join` time for later use.
+kubeadm annotates the Node object with this information. The annotation remains "alpha", since ideally this should
+be a field in KubeletConfiguration instead.
+
+### kubeadm.kubernetes.io/etcd.advertise-client-urls
+
+Example: `kubeadm.kubernetes.io/etcd.advertise-client-urls: https://172.17.0.18:2379`
+
+Used on: Pod
+
+Annotation that kubeadm places on locally managed etcd pods to keep track of a list of URLs where etcd clients
+should connect to. This is used mainly for etcd cluster health check purposes.
+
+### kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint
+
+Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+
+Used on: Pod
+
+Annotation that kubeadm places on locally managed kube-apiserver pods to keep track of the exposed advertise
+address/port endpoint for that API server instance.
+
+### kubeadm.kubernetes.io/component-config.hash
+
+Used on: ConfigMap
+
+Example: `kubeadm.kubernetes.io/component-config.hash: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae`
+
+Annotation that kubeadm places on ConfigMaps that it manages for configuring components. It contains a hash (SHA-256)
+used to determine if the user has applied settings different from the kubeadm defaults for a particular component.
+
+### node-role.kubernetes.io/control-plane
+
+Used on: Node
+
+Label that kubeadm applies on the control plane nodes that it manages.
+
+### node-role.kubernetes.io/control-plane
+
+Used on: Node
+
+Example: `node-role.kubernetes.io/control-plane:NoSchedule`
+
+Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+
+### node-role.kubernetes.io/master
+
+Used on: Node
+
+Example: `node-role.kubernetes.io/master:NoSchedule`
+
+Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+
+{{< note >}} Starting in v1.20, this taint is deprecated in favor of `node-role.kubernetes.io/control-plane`
+and will be removed in v1.25.{{< /note >}}

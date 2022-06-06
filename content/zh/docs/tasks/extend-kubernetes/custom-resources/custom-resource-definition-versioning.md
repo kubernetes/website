@@ -1384,8 +1384,8 @@ procedure.
 <!--
 *Option 1:* Use the Storage Version Migrator
 
-1. Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
-2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
+1.  Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
+2.  Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
 -->
 
 *选项 1：* 使用存储版本迁移程序（Storage Version Migrator）
@@ -1409,13 +1409,29 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
 2.  Write an upgrade procedure to list all existing objects and write them with
     the same content. This forces the backend to write objects in the current
     storage version, which is `v1`.
-3.  Update the CustomResourceDefinition `Status` by removing `v1beta1` from
-    `storedVersions` field.
+3.  Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 -->
 1.  在 CustomResourceDefinition 文件中将 `v1` 设置为存储版本，并使用 kubectl 应用它。
     `storedVersions`现在是`v1beta1, v1`。
 2.  编写升级过程以列出所有现有对象并使用相同内容将其写回存储。
     这会强制后端使用当前存储版本（即 `v1`）写入对象。
-3.  通过从 `storedVersions` 字段中删除 `v1beta1` 来更新 CustomResourceDefinition
-    的`Status`。 
+3.  从 CustomResourceDefinition  的 `status.storedVersions` 字段中删除 `v1beta1`。
 
+<!--
+The `kubectl` tool currently cannot be used to edit or patch the `status` subresource on a CRD: see the [Kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource) for more details.
+
+The easier way to patch the status subresource from the CLI is directly interacting with the API server using the `curl` tool, in this example:
+-->
+{{< note >}}
+`kubectl` 工具目前不能用于编辑或修补 CRD 上的 `status` 子资源：请参阅
+[kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource)
+了解更多细节。
+
+从 CLI 给 `status` 子资源打补丁的更简单的方法是使用 `curl` 工具直接与 API 服务器交互，示例:
+```bash
+kubectl proxy &
+curl --header "Content-Type: application/json-patch+json" \
+  --request PATCH http://localhost:8001/apis/apiextensions.k8s.io/v1/customresourcedefinitions/<your CRD name here>/status \
+  --data '[{"op": "replace", "path": "/status/storedVersions", "value":["v1"]}]'
+```
+{{< /note >}}

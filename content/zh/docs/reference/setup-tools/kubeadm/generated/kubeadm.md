@@ -1,8 +1,11 @@
 
 <!-- 
+kubeadm: easily bootstrap a secure Kubernetes cluster
+
 ### Synopsis 
 -->
 
+kubeadm: 轻松创建一个安全的 Kubernetes 集群
 ### 摘要
 
 <!--
@@ -37,7 +40,7 @@ Example usage:
     (where your workloads, like Pods and Deployments run). 
 -->
 
-创建一个有两台机器的集群，包含一个主节点（用来控制集群），和一个工作节点（运行您的工作负载，像 Pod 和 Deployment）。
+创建一个有两台机器的集群，包含一个主节点（用来控制集群），和一个工作节点（运行你的工作负载，像 Pod 和 Deployment）。
 
 <!--
     ┌──────────────────────────────────────────────────────────┐
@@ -69,7 +72,7 @@ Example usage:
 └──────────────────────────────────────────────────────────┘
 ```
 
-您可以重复第二步，向集群添加更多机器。
+你可以重复第二步，向集群添加更多机器。
 
 <!-- 
 ### Options 
@@ -90,9 +93,9 @@ Example usage:
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for kubeadm
+<p>help for kubeadm</p>
 -->
-kubeadm 操作的帮助信息 
+<p>kubeadm 操作的帮助信息<p>
 </td>
 </tr>
 
@@ -102,9 +105,9 @@ kubeadm 操作的帮助信息
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+<p>[实验] 指向 '真实' 宿主机根文件系统的路径。<p>
 </td>
 </tr>
 

@@ -43,7 +43,7 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
      Kubernetes versions, refer to the documentation for that version
      of Kubernetes.
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-   * A network plugin that supports dual-stack (such as Kubenet or Calico)
+   * A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking.
 
 ## Configure IPv4/IPv6 dual-stack
 
@@ -238,6 +238,21 @@ If you want to enable egress traffic in order to reach off-cluster destinations 
 {{< note >}}
 Ensure your {{< glossary_tooltip text="CNI" term_id="cni" >}} provider supports IPv6.
 {{< /note >}}
+
+## Windows support
+
+Kubernetes on Windows does not support single-stack "IPv6-only" networking. However,
+dual-stack IPv4/IPv6 networking for pods and nodes with single-family services
+is supported.
+
+You can use IPv4/IPv6 dual-stack networking with `l2bridge` networks.
+
+{{< note >}}
+Overlay (VXLAN) networks on Windows **do not** support dual-stack networking.
+{{< /note >}}
+
+You can read more about the different network modes for Windows within the
+[Networking on Windows](/docs/concepts/services-networking/windows-networking#network-modes) topic.
 
 ## {{% heading "whatsnext" %}}
 

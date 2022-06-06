@@ -1,3 +1,18 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generate the certificate the apiserver uses to access etcd 
+-->
+生成 apiserver 用来访问 etcd 的证书
 
 <!--
 ### Synopsis
@@ -6,10 +21,10 @@
 ### 概要
 
 <!--
-Generate the certificate the apiserver uses to access etcd, and save them into apiserver-etcd-client.cert and apiserver-etcd-client.key files.
+Generate the certificate the apiserver uses to access etcd, and save them into apiserver-etcd-client.crt and apiserver-etcd-client.key files.
 -->
 
-生成 apiserver 用于访问 etcd 的证书，并将其保存到 apiserver-etcd-client.cert 和 apiserver-etcd-client.key 文件中。
+生成 apiserver 用于访问 etcd 的证书，并将其保存到 apiserver-etcd-client.crt 和 apiserver-etcd-client.key 文件中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
@@ -50,8 +65,10 @@ kubeadm init phase certs apiserver-etcd-client [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- The path where to save and store the certificates.  -->
-证书的存储路径。
+<!-- 
+<p>The path where to save and store the certificates.</p>
+-->
+<p>证书的存储路径。</p>
 </td>
 </tr>
 
@@ -60,8 +77,10 @@ kubeadm init phase certs apiserver-etcd-client [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- Path to a kubeadm configuration file.  -->
-kubeadm 配置文件的路径。
+<!-- 
+<p>Path to a kubeadm configuration file.</p>
+-->
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -70,8 +89,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- help for apiserver-etcd-client -->
-apiserver-etcd-client 操作的帮助命令
+<!-- 
+<p>help for apiserver-etcd-client</p>
+-->
+<p>apiserver-etcd-client 操作的帮助命令</p>
 </td>
 </tr>
 
@@ -84,9 +105,9 @@ apiserver-etcd-client 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面指定特定的 Kubernetes 版本。
+<p>为控制平面指定特定的 Kubernetes 版本。</p>
 </td>
 </tr>
 
@@ -111,8 +132,10 @@ Choose a specific Kubernetes version for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- [EXPERIMENTAL] The path to the 'real' host root filesystem. -->
-[实验] 到 '真实' 主机根文件系统的路径。
+<!-- 
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+-->
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 

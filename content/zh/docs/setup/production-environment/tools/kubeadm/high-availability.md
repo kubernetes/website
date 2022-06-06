@@ -379,7 +379,7 @@ option. Your cluster requirements may need a different configuration.
    As stated in the command output, the certificate key gives access to cluster sensitive data, keep it secret!
    -->
    {{< caution >}}
-   正如命令输出中所述，证书密钥可访问群集敏感数据。请妥善保管！
+   正如命令输出中所述，证书密钥可访问集群敏感数据。请妥善保管！
    {{< /caution >}}
 
 <!--

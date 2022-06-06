@@ -15,12 +15,14 @@ in Kubernetes 1.20, there were questions on how this will affect various workloa
 installations. Our [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/) is there to help you
 to understand the problem better.
 
-<!-- body -->
-
-If you use Docker via dockershim as your container runtime, the Kubernetes project
-recommends that you migrate to an alternative container runtime.
-If you're not sure whether you are using Docker,
-[find out what container runtime is used on a node](/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/).
+Dockershim was removed from Kubernetes with the release of v1.24.
+If you use Docker Engine via dockershim as your container runtime, and wish to upgrade to v1.24,
+it is recommended that you either migrate to another runtime or find an alternative means to obtain Docker Engine support.
+Check out [container runtimes](/docs/setup/production-environment/container-runtimes/)
+section to know your options. Make sure to
+[report issues](https://github.com/kubernetes/kubernetes/issues) you encountered
+with the migration. So the issue can be fixed in a timely manner and your cluster would be
+ready for dockershim removal.
 
 Your cluster might have more than one kind of node, although this is not a common
 configuration.
@@ -28,7 +30,7 @@ configuration.
 These tasks will help you to migrate:
 
 * [Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-* [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/)
+* [Migrate Docker Engine nodes from dockershim to cri-dockerd](/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/)
 * [Migrating telemetry and security agents from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents/)
 
 
@@ -42,3 +44,4 @@ These tasks will help you to migrate:
 * If you found a defect or other technical concern relating to migrating away from dockershim,
   you can [report an issue](https://github.com/kubernetes/kubernetes/issues/new/choose)
   to the Kubernetes project.
+

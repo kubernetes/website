@@ -34,7 +34,9 @@ auto_generated: true
 <!--
 Event captures all the information that can be included in an API audit log.
 -->
+<p>
 Event 结构包含可出现在 API 审计日志中的所有信息。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -48,16 +50,20 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </td>
 <td>
    <!--AuditLevel at which event was generated-->
+   <p>
    生成事件所对应的审计级别。
+   </p>
 </td>
 </tr>
     
 <tr><td><code>auditID</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
    <!--Unique audit ID, generated for each request.-->
+   <p>
    为每个请求所生成的唯一审计 ID。
+   </p>
 </td>
 </tr>
     
@@ -66,7 +72,9 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </td>
 <td>
    <!--Stage of the request handling when this event instance was generated.-->
+   <p>
    生成此事件时请求的处理阶段。
+   </p>
 </td>
 </tr>
     
@@ -75,7 +83,9 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </td>
 <td>
    <!--RequestURI is the request URI as sent by the client to a server.-->
+   <p>
    requestURI 是客户端发送到服务器端的请求 URI。
+   </p>
 </td>
 </tr>
     
@@ -86,7 +96,9 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 <td>
    <!--Verb is the kubernetes verb associated with the request.
    For non-resource requests, this is the lower-cased HTTP method.-->
+   <p>
    verb 是与请求对应的 Kubernetes 动词。对于非资源请求，此字段为 HTTP 方法的小写形式。
+   </p>
 </td>
 </tr>
     
@@ -95,7 +107,9 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </td>
 <td>
    <!--Authenticated user information.-->
+   <p>
    关于认证用户的信息。
+   </p>
 </td>
 </tr>
 
@@ -104,7 +118,9 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </td>
 <td>
    <!--Impersonated user information.-->
+   <p>
    关于所伪装（impersonated）的用户的信息。
+   </p>
 </td>
 </tr>
 
@@ -112,8 +128,37 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 <code>[]string</code>
 </td>
 <td>
-   <!--Source IPs, from where the request originated and intermediate proxies.-->
+   <!--
+   Source IPs, from where the request originated and intermediate proxies.
+   The source IPs are listed from (in order):
+   -->
+   <p>
    发起请求和中间代理的源 IP 地址。
+   源 IP 从以下（按顺序）列出：
+   </p>
+<ol>
+<li>
+<!--
+X-Forwarded-For request header IPs
+-->
+X-Forwarded-For 请求标头 IP
+</li>
+<li>
+<!--
+X-Real-Ip header, if not present in the X-Forwarded-For list
+-->
+X-Real-Ip 标头，如果 X-Forwarded-For 列表中不存在
+</li>
+<li>
+<!--
+The remote address for the connection, if it doesn't match the last
+IP in the list up to here (X-Forwarded-For or X-Real-Ip).
+Note: All but the last IP can be arbitrarily set by the client.
+-->
+连接的远程地址，如果它无法与此处列表中的最后一个 IP（X-Forwarded-For 或 X-Real-Ip）匹配。
+注意：除最后一个 IP 外的所有 IP 均可由客户端任意设置。
+</li>
+</ol>
 </td>
 </tr>
 
@@ -124,8 +169,10 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 <td>
    <!--UserAgent records the user agent string reported by the client.
    Note that the UserAgent is provided by the client, and must not be trusted.-->
+   <p>
    userAgent 中记录客户端所报告的用户代理（User Agent）字符串。
    注意 userAgent 信息是由客户端提供的，一定不要信任。
+   </p>
 </td>
 </tr>
 
@@ -135,7 +182,9 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 <td>
    <!-- Object reference this request is targeted at.
    Does not apply for List-type requests, or non-resource requests.-->
+   <p>
    此请求所指向的对象引用。对于 List 类型的请求或者非资源请求，此字段可忽略。
+   </p>
 </td>
 </tr>
 
@@ -146,40 +195,46 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
    <!--The response status, populated even when the ResponseObject is not a Status type.
    For successful responses, this will only include the Code and StatusSuccess.
    For non-status type error responses, this will be auto-populated with the error Message.-->
+   <p>
    响应的状态，当 responseObject 不是 Status 类型时被赋值。
    对于成功的请求，此字段仅包含 code 和 statusSuccess。
    对于非 Status 类型的错误响应，此字段会被自动赋值为出错信息。
+   </p>
 </td>
 </tr>
 
 <tr><td><code>requestObject</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
 </td>
 <td>
    <!--API object from the request, in JSON format. The RequestObject is recorded as-is in the request
 (possibly re-encoded as JSON), prior to version conversion, defaulting, admission or
 merging. It is an external versioned object type, and may not be a valid object on its own.
 Omitted for non-resource requests.  Only logged at Request Level and higher.-->
+   <p>
    来自请求的 API 对象，以 JSON 格式呈现。requestObject 在请求中按原样记录
    （可能会采用 JSON 重新编码），之后会进入版本转换、默认值填充、准入控制以及
    配置信息合并等阶段。此对象为外部版本化的对象类型，甚至其自身可能并不是一个
    合法的对象。对于非资源请求，此字段被忽略。
-   只有当审计级别为 Request 或更高的时候才会记录。   
+   只有当审计级别为 Request 或更高的时候才会记录。 
+   </p>  
 </td>
 </tr>
     
   
 <tr><td><code>responseObject</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
 </td>
 <td>
    <!--API object returned in the response, in JSON. The ResponseObject is recorded after conversion
 to the external type, and serialized as JSON.  Omitted for non-resource requests.  Only logged
 at Response Level.-->
+   <p>
    响应中包含的 API 对象，以 JSON 格式呈现。requestObject 是在被转换为外部类型
    并序列化为 JSON 格式之后才被记录的。
    对于非资源请求，此字段会被忽略。
    只有审计级别为 Response 时才会记录。
+   </p>
 </td>
 </tr>
 
@@ -188,7 +243,9 @@ at Response Level.-->
 </td>
 <td>
    <!--Time the request reached the apiserver.-->
+   <p>
    请求到达 API 服务器时的时间。
+   </p>
 </td>
 </tr>
 
@@ -197,7 +254,9 @@ at Response Level.-->
 </td>
 <td>
    <!--Time the request reached current audit stage.-->
+   <p>
    请求到达当前审计阶段时的时间。
+   </p>
 </td>
 </tr>
 
@@ -211,6 +270,7 @@ at Response Level.-->
    to the metadata.annotations of the submitted object. Keys should uniquely identify the informing
    component to avoid name collisions (e.g. podsecuritypolicy.admission.k8s.io/policy). Values
    should be short. Annotations are included in the Metadata level.-->
+   <p>
    annotations 是一个无结构的键-值映射，其中保存的是一个审计事件。
    该事件可以由请求处理链路上的插件来设置，包括身份认证插件、鉴权插件以及
    准入控制插件等。
@@ -220,6 +280,7 @@ at Response Level.-->
    （例如 podsecuritypolicy.admission.k8s.io/policy）。
    映射中的键值应该比较简洁。
    当审计级别为 Metadata 时会包含 annotations 字段。
+   </p>
 </td>
 </tr>
 </tbody>
@@ -230,7 +291,9 @@ at Response Level.-->
 <!--    
 EventList is a list of audit Events.
 -->
+<p>
 EventList 是审计事件（Event）的列表。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -270,7 +333,9 @@ EventList 是审计事件（Event）的列表。
 Policy defines the configuration of audit logging, and the rules for how different request
 categories are logged.
 -->
+<p>
 Policy 定义的是审计日志的配置以及不同类型请求的日志记录规则。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -284,7 +349,9 @@ Policy 定义的是审计日志的配置以及不同类型请求的日志记录�
 </td>
 <td>
    <!--ObjectMeta is included for interoperability with API infrastructure.Refer to the Kubernetes API documentation for the fields of the <code>metadata</code> field.-->
+   <p>
    包含 <code>metadata</code> 字段是为了便于与 API 基础设施之间实现互操作。
+   </p>
    参考 Kubernetes API 文档了解 <code>metadata</code> 字段的详细信息。
 </td>
 </tr>
@@ -297,11 +364,13 @@ Policy 定义的是审计日志的配置以及不同类型请求的日志记录�
 A request may match multiple rules, in which case the FIRST matching rule is used.
 The default audit level is None, but can be overridden by a catch-all rule at the end of the list.
 PolicyRules are strictly ordered.-->
+   <p>
    字段 rules 设置请求要被记录的审计级别（level）。
    每个请求可能会与多条规则相匹配；发生这种状况时遵从第一条匹配规则。
    默认的审计级别是 None，不过可以在列表的末尾使用一条全抓（catch-all）规则
    重载其设置。
    列表中的规则（PolicyRule）是严格有序的。
+   </p>
 </td>
 </tr>
 
@@ -311,9 +380,34 @@ PolicyRules are strictly ordered.-->
 <td>
    <!--OmitStages is a list of stages for which no events are created. Note that this can also
    be specified per rule in which case the union of both are omitted.-->
+   <p>
    字段 omitStages 是一个阶段（Stage）列表，其中包含无须生成事件的阶段。
    注意这一选项也可以通过每条规则来设置。
    审计组件最终会忽略出现在 omitStages 中阶段，也会忽略规则中的阶段。
+   </p>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>omitManagedFields</code><br/>
+<code>bool</code>
+</td>
+<td>
+<!--
+OmitManagedFields indicates whether to omit the managed fields of the request
+and response bodies from being written to the API audit log.
+This is used as a global default - a value of 'true' will omit the managed fileds,
+otherwise the managed fields will be included in the API audit log.
+Note that this can also be specified per rule in which case the value specified
+in a rule will override the global default.
+-->
+<p>
+omitManagedFields 标明将请求和响应主体写入 API 审计日志时，是否省略其托管字段。
+此字段值用作全局默认值 - 'true' 值将省略托管字段，否则托管字段将包含在 API 审计日志中。
+请注意，也可以按规则指定此值，在这种情况下，规则中指定的值将覆盖全局默认值。
+</p>
 </td>
 </tr>
 </tbody>
@@ -324,7 +418,9 @@ PolicyRules are strictly ordered.-->
 <!--
 PolicyList is a list of audit Policies.
 -->
+<p>
 PolicyList 是由审计策略（Policy）组成的列表。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -363,7 +459,9 @@ PolicyList 是由审计策略（Policy）组成的列表。
 <!--
 GroupResources represents resource kinds in an API group.
 -->
+<p>
 GroupResources 代表的是某 API 组中的资源类别。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -384,28 +482,39 @@ GroupResources 代表的是某 API 组中的资源类别。
 <code>[]string</code>
 </td>
 <td>
-   <!--Resources is a list of resources this rule applies to.
-
+<!--
+Resources is a list of resources this rule applies to.
 For example:
 'pods' matches pods.
 'pods/log' matches the log subresource of pods.
 '&lowast;' matches all resources and their subresources.
 'pods/&lowast;' matches all subresources of pods.
-'&lowast;/scale' matches all scale subresources.-->
-   字段 resources 是此规则所适用的资源的列表。<br/>
+'&lowast;/scale' matches all scale subresources.
+-->
+   <p>
+   字段 resources 是此规则所适用的资源的列表。
+   </p>
+   <br/>
+   <p>
    例如：<br/>
    'pods' 匹配 Pods；<br/>
    'pods/log' 匹配 Pods 的 log 子资源；<br/>
    '&lowast;' 匹配所有资源及其子资源；<br/>
    'pods/&lowast;' 匹配 Pods 的所有子资源；<br/>
    '&lowast;/scale' 匹配所有的 scale 子资源。<br/><br/>
+   </p>
 
    <!--If wildcard is present, the validation rule will ensure resources do not
    overlap with each other.
 
    An empty list implies all resources and subresources in this API groups apply.-->
-   如果存在通配符，则合法性检查逻辑会确保 resources 中的条目不会彼此重叠。<br/>
+   <p>
+   如果存在通配符，则合法性检查逻辑会确保 resources 中的条目不会彼此重叠。
+   </p>
+   <br/>
+   <p>
    空的列表意味着规则适用于该 API 组中的所有资源及其子资源。
+   </p>
 </td>
 </tr>
 
@@ -416,9 +525,11 @@ For example:
    <!--ResourceNames is a list of resource instance names that the policy matches.
    Using this field requires Resources to be specified.
    An empty list implies that every instance of the resource is matched.-->
+   <p>
    字段 resourceNames 是策略将匹配的资源实例名称列表。
    使用此字段时，<code>resources</code> 必须指定。
    空的 resourceNames 列表意味着资源的所有实例都会匹配到此策略。
+   </p>
 </td>
 </tr>
 </tbody>
@@ -442,7 +553,9 @@ For example:
 <!--
 Level defines the amount of information logged during auditing
 -->
+<p>
 Level 定义的是审计过程中在日志内记录的信息量。
+</p>
 
 ## `ObjectReference`     {#audit-k8s-io-v1-ObjectReference}
 
@@ -456,7 +569,9 @@ Level 定义的是审计过程中在日志内记录的信息量。
 <!--
 ObjectReference contains enough information to let you inspect or modify the referred object.
 -->
+<p>
 ObjectReference 包含的是用来检查或修改所引用对象时将需要的全部信息。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -487,7 +602,7 @@ ObjectReference 包含的是用来检查或修改所引用对象时将需要的�
 </tr>
 
 <tr><td><code>uid</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->资源对象的唯一标识（UID）。</span>
@@ -500,8 +615,10 @@ ObjectReference 包含的是用来检查或修改所引用对象时将需要的�
 <td>
    <!--APIGroup is the name of the API group that contains the referred object.
    The empty string represents the core API group.-->
+   <p>
    字段 apiGroup 给出包含所引用对象的 API 组的名称。
    空字符串代表 <code>core</code> API 组。
+   </p>
 </td>
 </tr>
 
@@ -510,7 +627,9 @@ ObjectReference 包含的是用来检查或修改所引用对象时将需要的�
 </td>
 <td>
    <!--APIVersion is the version of the API group that contains the referred object.-->
+   <p>
    字段 apiVersion 是包含所引用对象的 API 组的版本。
+   </p>
 </td>
 </tr>
 
@@ -545,8 +664,10 @@ ObjectReference 包含的是用来检查或修改所引用对象时将需要的�
 PolicyRule maps requests based off metadata to an audit Level.
 Requests must match the rules of every field (an intersection of rules).
 -->
+<p>
 PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别。
 请求必须与每个字段所定义的规则都匹配（即 rules 的交集）才被视为匹配。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -557,7 +678,9 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 </td>
 <td>
    <!--The Level that requests matching this rule are recorded at.-->
+   <p>
    与此规则匹配的请求所对应的日志记录级别（Level）。
+   </p>
 </td>
 </tr>
 
@@ -567,8 +690,10 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 <td>
    <!--The users (by authenticated user name) this rule applies to.
    An empty list implies every user.-->
+   <p>
    根据身份认证所确定的用户名的列表，给出此规则所适用的用户。
    空列表意味着适用于所有用户。
+   </p>
 </td>
 </tr>
 
@@ -579,8 +704,10 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
    <!--The user groups this rule applies to. A user is considered matching
    if it is a member of any of the UserGroups.
    An empty list implies every user group.-->
+   <p>
    此规则所适用的用户组的列表。如果用户是所列用户组中任一用户组的成员，则视为匹配。
    空列表意味着适用于所有用户组。
+   </p>
 </td>
 </tr>
 
@@ -590,8 +717,10 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 <td>
    <!--The verbs that match this rule.
    An empty list implies every verb.-->
+   <p>
    此规则所适用的动词（verb）列表。
    空列表意味着适用于所有动词。
+   </p>
 </td>
 </tr>
 
@@ -600,8 +729,10 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 </td>
 <td>
    <!--Resources that this rule matches. An empty list implies all kinds in all API groups.-->
+   <p>
    此规则所适用的资源类别列表。
    空列表意味着适用于 API 组中的所有资源类别。
+   </p>
 </td>
 </tr>
 
@@ -610,12 +741,14 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 </td>
 <td>
    <!--Namespaces that this rule matches.
-   The empty string "" matches non-namespaced resources.
+   The empty string &quot;&quot; matches non-namespaced resources.
    An empty list implies every namespace.-->
    </td>
+   <p>
    此规则所适用的名字空间列表。
-   空字符串（""）意味着适用于非名字空间作用域的资源。
+   空字符串（&quot;&quot;）意味着适用于非名字空间作用域的资源。
    空列表意味着适用于所有名字空间。
+   </p>
 </tr>
 
 <tr><td><code>nonResourceURLs</code><br/>
@@ -627,11 +760,13 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
    Examples:
    "/metrics" - Log requests for apiserver metrics
    "/healthz&lowast;" - Log all health checks-->
+   <p>
    字段 nonResourceURLs 给出一组需要被审计的 URL 路径。
    允许使用 &lowast;，但只能作为路径中最后一个完整分段。<br/>
    例如：<br/>
    "/metrics" - 记录对 API 服务器度量值（metrics）的所有请求；<br/>
    "/healthz&lowast;" - 记录所有健康检查请求。
+   </p>
 </td>
 </tr>
 
@@ -642,12 +777,44 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
    <!--OmitStages is a list of stages for which no events are created. Note that this can also
    be specified policy wide in which case the union of both are omitted.
    An empty list means no restrictions will apply.-->
+   <p>
    字段 omitStages 是一个阶段（Stage）列表，针对所列的阶段服务器不会生成审计事件。
    注意这一选项也可以在策略（Policy）级别指定。服务器审计组件会忽略
    omitStages 中给出的阶段，也会忽略策略中给出的阶段。
    空列表意味着不对阶段作任何限制。
+   </p>
 </td>
 </tr>
+
+
+ <tr>
+ <td><code>omitManagedFields</code><br/>
+ <code>bool</code>
+ </td>
+ <td>
+ <!--
+ OmitManagedFields indicates whether to omit the managed fields of the request
+ and response bodies from being written to the API audit log.
+ a value of 'true' will drop the managed fields from the API audit log
+ a value of 'false' indicates that the managed fileds should be included in the API audit log
+ Note that the value, if specified, in this rule will override the global default
+ If a value is not specified then the global default specified in
+ Policy.OmitManagedFields will stand.
+ -->
+ <p>
+ omitManagedFields 决定将请求和响应主体写入 API 审计日志时，是否省略其托管字段。
+ </p>
+ <ul>
+ <li>值为 'true' 将从 API 审计日志中删除托管字段</li>
+ <li>
+ 值为 'false' 表示托管字段应包含在 API 审计日志中
+ 请注意，如果指定此规则中的值将覆盖全局默认值。
+ 如果未指定，则使用 policy.omitManagedFields 中指定的全局默认值。
+ </li>
+ </ul>
+ </td>
+ </tr>
+
 </tbody>
 </table>
 
@@ -670,5 +837,7 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 <!--
 Stage defines the stages in request handling that audit events may be generated.
 -->
+<p>
 Stage 定义在请求处理过程中可以生成审计事件的阶段。
+</p>
 

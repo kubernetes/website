@@ -61,7 +61,7 @@ For example, you can enforce policies like:
 <!--
 Kubernetes allows decoupling policy decisions from the API server by means of [admission controller webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) to intercept admission requests before they are persisted as objects in Kubernetes. [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) was created to enable users to customize admission control via configuration, not code and to bring awareness of the cluster’s state, not just the single object under evaluation at admission time. Gatekeeper is a customizable admission webhook for Kubernetes that enforces policies executed by the [Open Policy Agent (OPA)](https://www.openpolicyagent.org), a policy engine for Cloud Native environments hosted by CNCF.
 --->
-在接收请求被持久化为 Kubernetes 中的对象之前，Kubernetes 允许通过 [admission controller webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) 将策略决策与 API 服务器分离，从而拦截这些请求。[Gatekeeper](https://github.com/open-policy-agent/gatekeeper) 创建的目的是使用户能够通过配置（而不是代码）自定义控制许可，并使用户了解群集的状态，而不仅仅是针对评估状态的单个对象，在这些对象准许加入的时候。Gatekeeper 是 Kubernetes 的一个可定制的许可 webhook ，它由 [Open Policy Agent (OPA)](https://www.openpolicyagent.org) 强制执行， OPA 是 Cloud Native 环境下的策略引擎，由 CNCF 主办。
+在接收请求被持久化为 Kubernetes 中的对象之前，Kubernetes 允许通过 [admission controller webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) 将策略决策与 API 服务器分离，从而拦截这些请求。[Gatekeeper](https://github.com/open-policy-agent/gatekeeper) 创建的目的是使用户能够通过配置（而不是代码）自定义控制许可，并使用户了解集群的状态，而不仅仅是针对评估状态的单个对象，在这些对象准许加入的时候。Gatekeeper 是 Kubernetes 的一个可定制的许可 webhook ，它由 [Open Policy Agent (OPA)](https://www.openpolicyagent.org) 强制执行， OPA 是 Cloud Native 环境下的策略引擎，由 CNCF 主办。
 
 <!--
 ## Evolution 
@@ -206,7 +206,7 @@ As you can see, with the Constraint framework, we can reliably share Regos via t
 The audit functionality enables periodic evaluations of replicated resources against the Constraints enforced in the cluster to detect pre-existing misconfigurations. Gatekeeper stores audit results as `violations` listed in the `status` field of the relevant Constraint.  --->
 ### 审核 
 
-根据群集中强制执行的 Constraint，审核功能可定期评估复制的资源，并检测先前存在的错误配置。Gatekeeper 将审核结果存储为 `violations`，在相关 Constraint 的 `status` 字段中列出。
+根据集群中强制执行的 Constraint，审核功能可定期评估复制的资源，并检测先前存在的错误配置。Gatekeeper 将审核结果存储为 `violations`，在相关 Constraint 的 `status` 字段中列出。
 
 ```yaml
 apiVersion: constraints.gatekeeper.sh/v1beta1

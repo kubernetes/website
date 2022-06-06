@@ -59,7 +59,7 @@ reviewerとapproverが最もよく使うprowコマンドには、以下のよう
 {{< table caption="Prow commands for reviewing" >}}
 Prowコマンド | Roleの制限 | 説明
 :------------|:------------------|:-----------
-`/lgtm` | 誰でも。ただし、オートメーションがトリガされるのはReviewerまたはApproverが使用したときのみ。 | PRのレビューが完了し、変更に納得したことを知らせる。
+`/lgtm` | Organizationメンバー | PRのレビューが完了し、変更に納得したことを知らせる。
 `/approve` | Approver | PRをマージすることを承認する。
 `/assign` | ReviewerまたはApprover | PRのレビューまたは承認するひとを割り当てる。
 `/close` | ReviewerまたはApprover | issueまたはPRをcloseする。
@@ -93,7 +93,7 @@ PRで利用できるすべてのコマンド一覧を確認するには、[Prow�
   `priority/important-longterm` | 6ヶ月以内に取り組む。
   `priority/backlog` | 無期限に延期可能。リソースに余裕がある時に取り組む。
   `priority/awaiting-more-evidence` | よいissueの可能性があるissueを見失わないようにするためのプレースホルダー。
-  `help`または`good first issue` | KubernetesまたはSIG Docsでほとんど経験がない人に適したissue。より詳しい情報は、[Help WantedとGood First Issueラベル](https://github.com/kubernetes/community/blob/master/contributors/guide/help-wanted.md)を読んでください。
+  `help`または`good first issue` | KubernetesまたはSIG Docsでほとんど経験がない人に適したissue。より詳しい情報は、[Help WantedとGood First Issueラベル](https://kubernetes.dev/docs/guide/help-wanted/)を読んでください。
   {{< /table >}}
 
   あなたの裁量で、issueのオーナーシップを取り、issueに対するPRを提出してください(簡単なissueや、自分がすでに行った作業に関連するissueである場合は特に)。

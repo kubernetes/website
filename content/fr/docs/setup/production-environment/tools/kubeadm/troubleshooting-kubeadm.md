@@ -102,26 +102,26 @@ L'inspection des journaux de Docker peut également être utile:
 journalctl -ul docker
 ```
 
-## Pods dans l'état `RunContainerError`,` CrashLoopBackOff` ou `Error`
+## Pods dans l'état `RunContainerError`, `CrashLoopBackOff` ou `Error`
 
 Juste après `kubeadm init`, il ne devrait pas y avoir de pods dans ces états.
 
 - S'il existe des pods dans l'un de ces états _juste après_ `kubeadm init`, veuillez ouvrir un
   issue dans le dépôt de Kubeadm. `coredns` (ou` kube-dns`) devrait être dans l'état `Pending`
   jusqu'à ce que vous ayez déployé la solution réseau.
-- Si vous voyez des pods dans les états `RunContainerError`,` CrashLoopBackOff` ou `Error`
+- Si vous voyez des pods dans les états `RunContainerError`, `CrashLoopBackOff` ou `Error`
   après le déploiement de la solution réseau et que rien ne se passe pour `coredns` (ou` kube-dns`),
   il est très probable que la solution Pod Network que vous avez installée est en quelque sorte
 endommagée. Vous devrez peut-être lui accorder plus de privilèges RBAC ou utiliser une version
 plus récente. S'il vous plaît créez une issue dans le dépôt du fournisseur de réseau de Pod.
 - Si vous installez une version de Docker antérieure à 1.12.1, supprimez l'option `MountFlags = slave`
-  lors du démarrage de `dockerd` avec` systemd` et redémarrez `docker`. Vous pouvez voir les options
+  lors du démarrage de `dockerd` avec `systemd` et redémarrez `docker`. Vous pouvez voir les options
 de montage dans `/usr/lib/systemd/system/docker.service`.
   Les options de montage peuvent interférer avec les volumes montés par Kubernetes et mettre les
-  pods dans l'état`CrashLoopBackOff`. L'erreur se produit lorsque Kubernetes ne trouve pas les fichiers
+  pods dans l'état `CrashLoopBackOff`. L'erreur se produit lorsque Kubernetes ne trouve pas les fichiers
 `var/run/secrets/kubernetes.io/serviceaccount`.
 
-## `coredns` (ou` kube-dns`) est bloqué dans l'état `Pending`
+## `coredns` (ou `kube-dns`) est bloqué dans l'état `Pending`
 
 Ceci est **prévu** et fait partie du design. kubeadm est agnostique vis-à-vis du fournisseur
 de réseau, ainsi l'administrateur devrait [installer la solution réseau pod](/docs/concepts/cluster-administration/addons/)
@@ -132,7 +132,7 @@ D'où l' état `Pending` avant la mise en place du réseau.
 
 Les fonctionnalités `HostPort` et `HostIP` sont disponibles en fonction de votre fournisseur
 de réseau de pod. Veuillez contacter l’auteur de la solution de réseau de Pod pour savoir si
-Les fonctionnalités `HostPort` et` HostIP` sont disponibles.
+Les fonctionnalités `HostPort` et `HostIP` sont disponibles.
 
 Les fournisseurs de CNI Calico, Canal, et Flannel supportent HostPort.
 
@@ -151,7 +151,7 @@ Si votre fournisseur de réseau ne prend pas en charge le plug-in portmap CNI, v
 
 - Si vous utilisez VirtualBox (directement ou via Vagrant), vous devrez vous assurez que
 `hostname -i` renvoie une adresse IP routable. Par défaut la première interface est connectée
-à un réseau d’`hôte uniquement` non routable. En contournement vous pouvez modifier`/etc/hosts`,
+à un réseau d’ `hôte uniquement` non routable. En contournement vous pouvez modifier `/etc/hosts`,
  jetez un œil à ce [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11) par exemple.
 
 ## Erreurs de certificats TLS
@@ -198,7 +198,7 @@ pour que la deuxième interface soit choisie.
 
 ## IP non publique utilisée pour les conteneurs
 
-Dans certaines situations, les commandes `kubectl logs` et` kubectl run` peuvent
+Dans certaines situations, les commandes `kubectl logs` et `kubectl run` peuvent
 renvoyer les erreurs suivantes dans un cluster par ailleurs fonctionnel:
 
 ```sh
@@ -211,9 +211,9 @@ avec d’autres adresses IP même sous-réseau, éventuellement à cause d'une p
 par le fournisseur de la machine.
 - Digital Ocean attribue une adresse IP publique à `eth0` ainsi qu’une adresse privée à
 utiliser en interne comme IP d'ancrage pour leur fonction IP flottante, mais `kubelet` choisira cette
-dernière comme` InternalIP` du noeud au lieu du public.
+dernière comme `InternalIP` du noeud au lieu du public.
 
-  Utilisez `ip addr show` pour verifier ce scénario au lieu de` ifconfig` car `ifconfig` n'affichera pas
+  Utilisez `ip addr show` pour verifier ce scénario au lieu de `ifconfig` car `ifconfig` n'affichera pas
   l'alias de l'adresse IP incriminée. Sinon, une API spécifique à Digital Ocean 
  permet de rechercher l'adresse IP d'ancrage à partir du droplet:
 
@@ -253,7 +253,7 @@ Pod de CoreDNS déployé dans Kubernetes détecte une boucle. [Un certain nombre
 sont disponibles pour éviter que Kubernetes ne tente de redémarrer le pod CoreDNS chaque fois que CoreDNS détecte une boucle et s'arrête.
 
 {{< warning >}}
-Désactiver SELinux ou paramètrer `allowPrivilegeEscalation` sur` true` peut compromettre
+Désactiver SELinux ou paramètrer `allowPrivilegeEscalation` sur `true` peut compromettre
 la sécurité de votre cluster.
 {{< /warning >}}
 

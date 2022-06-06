@@ -18,9 +18,9 @@ In Kubernetes, some objects are *owners* of other objects. For example, a
 of their owner. 
 -->
 
-在 Kubernetes 中，一些对象是其他对象的*属主（Owner）*。
+在 Kubernetes 中，一些对象是其他对象的“属主（Owner）”。
 例如，{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} 是一组 Pod 的属主。
-具有属主的对象是属主的*附属（Dependent）* 。
+具有属主的对象是属主的“附属（Dependent）”。
 
 <!--
 Ownership is different from the [labels and selectors](/docs/concepts/overview/working-with-objects/labels/)
@@ -56,7 +56,7 @@ automatically manage the relationships.
 Kubernetes 自动为一些对象的附属资源设置属主引用的值，
 这些对象包含 ReplicaSet、DaemonSet、Deployment、Job、CronJob、ReplicationController 等。
 你也可以通过改变这个字段的值，来手动配置这些关系。
-然而，你通常不需要这么做，你可以让 Kubernetes 自动管理附属关系。
+然而，通常不需要这么做，你可以让 Kubernetes 自动管理附属关系。
 
 <!--
 Dependent objects also have an `ownerReferences.blockOwnerDeletion` field that

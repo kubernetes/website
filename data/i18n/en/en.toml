@@ -36,6 +36,9 @@ other = " documentation is no longer actively maintained. The version you are cu
 [deprecation_file_warning]
 other = "Deprecated"
 
+[dockershim_message]
+other = """Dockershim has been removed from the Kubernetes project as of release 1.24. Read the <a href="/dockershim">Dockershim Removal FAQ</a> for further details."""
+
 [docs_label_browse]
 other = "Browse Docs"
 
@@ -92,6 +95,9 @@ other = "email address"
 
 [javascript_required]
 other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
+
+[katacoda_removal_warning]
+other = """This online tutorial on this page uses functionality that will [not be available](https://www.oreilly.com/online-learning/leveraging-katacoda-technology.html) past <time datetime="2022-06-15">June 15th, 2022</time>."""
 
 [latest_release]
 other = "Latest Release:"

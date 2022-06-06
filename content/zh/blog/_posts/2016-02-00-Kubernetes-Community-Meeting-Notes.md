@@ -4,17 +4,15 @@ date: 2016-02-09
 slug: kubernetes-community-meeting-notes
 ---
 <!--
----
 title: " Kubernetes community meeting notes - 20160204 "
 date: 2016-02-09
 slug: kubernetes-community-meeting-notes
 url: /zh/blog/2016/02/Kubernetes-Community-Meeting-Notes
----
 -->
 <!--
 ####  February 4th - rkt demo (congratulations on the 1.0, CoreOS!), eBay puts k8s on Openstack and considers Openstack on k8s, SIGs, and flaky test surge makes progress.
 -->
-####  2月4日 - rkt演示（祝贺 1.0 版本， CoreOS！）， eBay 将 k8s 放在 Openstack 上并认为 Openstack 在 k8s， SIG 和片状测试激增方面取得了进展。
+####  2 月 4 日 - rkt 演示（祝贺 1.0 版本，CoreOS！），eBay 将 k8s 放在 Openstack 上并认为 Openstack 在 k8s，SIG 和片状测试激增方面取得了进展。
 
 <!--
 The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss the project's status via a videoconference. Here are the notes from the latest meeting.
@@ -35,13 +33,13 @@ Kubernetes 贡献社区在每周四 10:00 PT 开会,通过视频会议讨论项�
             * But need more work on e2e test suites
 -->
 * 书记员：Rob Hirschfeld
-* 演示视频（20分钟）：CoreOS rkt + Kubernetes[Shaya Potter]
-    * 期待在未来几个月内看到与rkt和k8s的整合（“rkt-netes”）。 还没有集成到 v1.2版本中。
+* 演示视频（20 分钟）：CoreOS rkt + Kubernetes [Shaya Potter]
+    * 期待在未来几个月内看到与rkt和k8s的整合（“rkt-netes”）。 还没有集成到 v1.2 版本中。
     * Shaya 做了一个演示（8分钟的会议视频参考）
-        * rkt的CLI显示了旋转容器
+        * rkt 的 CLI 显示了旋转容器
         * [注意：音频在点数上是乱码]
         * 关于 k8s&rkt 整合的讨论
-        * 下周 rkt 社区同步：https://groups.google.com/forum/#!topic/rkt-dev/FlwZVIEJGbY
+        * 下周 rkt 社区同步： https://groups.google.com/forum/#!topic/rkt-dev/FlwZVIEJGbY
         * Dawn Chen:
             * 将 rkt 与 kubernetes 集成的其余问题：1）cadivsor 2） DNS 3）与日志记录相关的错误
             * 但是需要在 e2e 测试套件上做更多的工作
@@ -103,13 +101,16 @@ Kubernetes 贡献社区在每周四 10:00 PT 开会,通过视频会议讨论项�
 <!--
 To get involved in the Kubernetes community consider joining our [Slack channel][2], taking a look at the [Kubernetes project][3] on GitHub, or join the [Kubernetes-dev Google group][4]. If you're really excited, you can do all of the above and join us for the next community conversation -- February 11th, 2016. Please add yourself or a topic you want to know about to the [agenda][5] and get a calendar invitation by joining [this group][6].
 -->
-要参与 Kubernetes 社区，请考虑加入我们的[Slack 频道][2]，查看 GitHub上的 [Kubernetes 项目][3]，或加入[Kubernetes-dev Google 小组][4]。如果你真的很兴奋，你可以完成上述所有工作并加入我们的下一次社区对话-2016年2月11日。请将您自己或您想要了解的主题添加到[议程][5]并通过加入[此组][6]来获取日历邀请。
+要参与 Kubernetes 社区，请考虑加入我们的 [Slack 频道][2]，查看 GitHub 上的
+[Kubernetes 项目][3]，或加入 [Kubernetes-dev Google 小组][4]。
+如果你真的很兴奋，你可以完成上述所有工作并加入我们的下一次社区对话 - 2016 年 2 月 11 日。
+请将你自己或你想要了解的主题添加到[议程][5]并通过加入[此组][6]来获取日历邀请。
 
  "https://youtu.be/IScpP8Cj0hw?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ"
 
 
 [1]: https://github.com/kubernetes/kubernetes/pull/19714
-[2]: http://slack.k8s.io/
+[2]: https://slack.k8s.io/
 [3]: https://github.com/kubernetes/
 [4]: https://groups.google.com/forum/#!forum/kubernetes-dev
 [5]: https://docs.google.com/document/d/1VQDIAB0OqiSjIHI8AWMvSdceWhnz56jNpZrLs6o7NJY/edit#

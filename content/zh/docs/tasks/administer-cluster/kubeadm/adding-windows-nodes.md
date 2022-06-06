@@ -26,8 +26,7 @@ You can use Kubernetes to run a mixture of Linux and Windows nodes, so you can m
 本页面展示如何将 Windows 节点注册到你的集群。
 
 ## {{% heading "prerequisites" %}}
-
-{{< version-check >}}
+ {{< version-check >}}
 
 <!--
 * Obtain a [Windows Server 2019 license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)
@@ -36,6 +35,7 @@ If you are using VXLAN/Overlay networking you must have also have [KB4489899](ht
 
 * A Linux-based Kubernetes kubeadm cluster in which you have access to the control plane (see [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)).
 -->
+
 * 获取 [Windows Server 2019 或更高版本的授权](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)
   以便配置托管 Windows 容器的 Windows 节点。
   如果你在使用 VXLAN/覆盖（Overlay）联网设施，则你还必须安装 [KB4489899](https://support.microsoft.com/help/4489899)。
@@ -275,55 +275,12 @@ Windows 工作节点上具有提升的权限（Administrator）。
 {{< /note >}}
 
 {{< tabs name="tab-windows-kubeadm-runtime-installation" >}}
-{{% tab name="Docker EE" %}}
 
-<!--
-#### Install Docker EE
-
-Install the `Containers` feature
--->
-#### 安装 Docker EE
-
-```powershell
-Install-WindowsFeature -Name containers
-```
-<!--
-Install Docker
-Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker).
--->
-安装 Docker
-操作指南在 [Install Docker Engine - Enterprise on Windows Servers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker)。
-
-<!--
-#### Install wins, kubelet, and kubeadm.
--->
-#### 安装 wins、kubelet 和 kubeadm
-
-   ```PowerShell
-   curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
-   .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
-   ```
-
-<!--
-#### Run `kubeadm` to join the node
-
-    Use the command that was given to you when you ran `kubeadm init` on a control plane host.
-    If you no longer have this command, or the token has expired, you can run `kubeadm token create -print-join-command`
-    (on a control plane host) to generate a new token and join command.
--->
-#### 运行 `kubeadm` 添加节点
-
-   当你在控制面主机上运行 `kubeadm init` 时，输出了一个命令。现在运行这个命令。
-   如果你找不到这个命令，或者命令中对应的令牌已经过期，你可以（在一个控制面主机上）运行
-   `kubeadm token create --print-join-command` 来生成新的令牌和 join 命令。
-
-{{% /tab %}}
 {{% tab name="CRI-containerD" %}}
 
 <!--
 #### Install containerD
 -->
-
 #### 安装 containerD
 
 ```powershell
@@ -335,16 +292,12 @@ curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/lates
 <!--
 To install a specific version of containerD specify the version with -ContainerDVersion.
 -->
-要安装特定版本的 containerD，使用参数 -ContainerDVersion指定版本。
+要安装特定版本的 containerD，使用参数 -ContainerDVersion 指定版本。
 
 ```powershell
 # Example
 .\Install-Containerd.ps1 -ContainerDVersion 1.4.1
 ```
-
-{{< /note >}}
-
-{{< note >}}
 <!--
 If you're using a different interface rather than Ethernet (i.e. "Ethernet0 2") on the Windows nodes, specify the name with `-netAdapterName`.
 -->
@@ -360,12 +313,18 @@ If you're using a different interface rather than Ethernet (i.e. "Ethernet0 2") 
 <!--
 #### Install wins, kubelet, and kubeadm
 -->
-#### 安装 wins，kubelet 和 kubeadm
+#### 安装 wins、kubelet 和 kubeadm
 
 ```PowerShell
 curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
 .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}} -ContainerRuntime containerD
 ```
+<!--
+Install `crictl` from the [cri-tools project](https://github.com/kubernetes-sigs/cri-tools)
+which is required so that kubeadm can talk to the CRI endpoint.
+-->
+从 [cri-tools](https://github.com/kubernetes-sigs/cri-tools) 项目安装 `crtctl`。
+`crictl` 是必需的，kubeadm 使用它与 CRI 端点通信。
 
 <!--
 #### Run `kubeadm` to join the node
@@ -376,13 +335,91 @@ If you no longer have this command, or the token has expired, you can run `kubea
 -->
 #### 运行 `kubeadm` 添加节点
 
-   使用当你在控制面主机上运行 `kubeadm init` 时得到的命令。
-   如果你找不到这个命令，或者命令中对应的令牌已经过期，你可以（在一个控制面主机上）运行
-   `kubeadm token create --print-join-command` 来生成新的令牌和 join 命令。
+ 使用当你在控制面主机上运行 `kubeadm init` 时得到的命令。
+ 如果你找不到这个命令，或者命令中对应的令牌已经过期，你可以（在一个控制面主机上）运行
+ `kubeadm token create --print-join-command` 来生成新的令牌和 join 命令。
 
+
+{{% /tab %}}
+
+
+{{% tab name="Docker Engine" %}}
+
+<!--
+#### Install Docker Engine
+
+Install the `Containers` feature
+-->
+
+#### 安装 Docker Engine
+
+安装 `Containers` 功能特性
+
+```powershell
+Install-WindowsFeature -Name containers
+```
+
+<!--
+Install Docker
+Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker).
+-->
+
+安装 Docker
+
+操作指南在
+[Install Docker Engine - Enterprise on Windows Servers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment?tabs=Windows-Server#install-docker)。
+
+<!--
+[Install cri-dockerd](https://github.com/Mirantis/cri-dockerd) which is required so that the kubelet
+can communicate with Docker on a CRI compatible endpoint.
+-->
+
+[安装 cri-dockerd](https://github.com/Mirantis/cri-dockerd)。kubelet 可以通过 cri-dockerd
+在 CRI 兼容的节点上与 Docker 通信。
+ 
 {{< note >}}
-If using **CRI-containerD** add `--cri-socket "npipe:////./pipe/containerd-containerd"` to the kubeadm call
+<!--
+Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
+which is a requirement for a container runtime to work with Kubernetes.
+For that reason, an additional service [cri-dockerd](https://github.com/Mirantis/cri-dockerd)
+has to be installed. cri-dockerd is a project based on the legacy built-in
+Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
+-->
+Docker Engine 没有实现 [CRI](/zh/docs/concepts/architecture/cri/)，
+而 CRI 是容器运行时能够与 Kubernetes 一起工作的要求。
+出于这个原因，必须安装一个额外的服务 [cri-dockerd](https://github.com/Mirantis/cri-dockerd)。
+cri-dockerd 是一个基于原来的内置 Docker Engine 支持的项目，
+而这一支持在 1.24 版本的 kubelet 中[已被移除](/zh/dockershim)。
 {{< /note >}}
+
+<!--
+Install `crictl` from the [cri-tools project](https://github.com/kubernetes-sigs/cri-tools)
+which is required so that kubeadm can talk to the CRI endpoint.
+-->
+从 [cri-tools](https://github.com/kubernetes-sigs/cri-tools) 项目安装 `crictl`。
+kubeadm 需要 `crictl` 才能与 CRI 端点通信。
+
+<!--
+#### Install wins, kubelet, and kubeadm.
+-->
+#### 安装 wins、kubelet 和 kubeadm
+
+```PowerShell
+curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
+.\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
+```
+<!--
+# ### Run `kubeadm` to join the node
+
+Use the command that was given to you when you ran `kubeadm init` on a control plane host.
+If you no longer have this command, or the token has expired, you can run `kubeadm token create -print-join-command`
+(on a control plane host) to generate a new token and join command.
+-->
+#### 运行 `kubeadm` 添加节点
+
+当你在控制面主机上运行 `kubeadm init` 时，输出了一个命令。现在运行这个命令。
+如果你找不到这个命令，或者命令中对应的令牌已经过期，你可以（在一个控制面主机上）运行
+`kubeadm token create --print-join-command` 来生成新的令牌和 join 命令。
 
 {{% /tab %}}
 {{< /tabs >}}
