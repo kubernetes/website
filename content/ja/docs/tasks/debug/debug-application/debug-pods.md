@@ -1,13 +1,14 @@
 ---
 title: アプリケーションのトラブルシューティング
 content_type: concept
+weight: 10
 ---
 
 <!-- overview -->
 
 このガイドは、Kubernetesにデプロイされ、正しく動作しないアプリケーションをユーザーがデバッグするためのものです。
 これは、自分のクラスターをデバッグしたい人のためのガイドでは *ありません*。
-そのためには、[debug-cluster](/docs/tasks/debug-application-cluster/debug-cluster)を確認する必要があります。
+そのためには、[debug-cluster](/docs/tasks/debug/debug-cluster)を確認する必要があります。
 
 <!-- body -->
 
@@ -59,7 +60,7 @@ Podが`Waiting`状態で止まっている場合、ワーカーノードにス�
 
 #### Podがクラッシュするなどの不健全な状態
 
-Podがスケジュールされると、[Debug Running Pods](/docs/tasks/debug-application-cluster/debug-running-pod/)で説明されている方法がデバッグに利用できるようになります。
+Podがスケジュールされると、[Debug Running Pods](/docs/tasks/debug/debug-application/debug-running-pod/)で説明されている方法がデバッグに利用できるようになります。
 
 #### Podが期待する通りに動きません
 
@@ -131,12 +132,12 @@ Podの`containerPort`がServiceの`targetPort`と一致することを確認し�
 
 #### ネットワークトラフィックが転送されません
 
-詳しくは[Serviceのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-service/)を参照してください。
+詳しくは[Serviceのデバッグ](/ja/docs/tasks/debug/debug-application/debug-service/)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 
 上記のいずれの方法でも問題が解決しない場合は、以下の手順に従ってください。
-[Debugging Service document](/docs/tasks/debug-application-cluster/debug-service/)で、`Service` が実行されていること、`Endpoints`があること、`Pods`が実際にサービスを提供していること、DNS が機能していること、IPtablesルールがインストールされていること、kube-proxyが誤作動を起こしていないようなことを確認してください。
+[Debugging Service document](/docs/tasks/debug/debug-application/debug-service/)で、`Service` が実行されていること、`Endpoints`があること、`Pods`が実際にサービスを提供していること、DNS が機能していること、IPtablesルールがインストールされていること、kube-proxyが誤作動を起こしていないようなことを確認してください。
 
-[トラブルシューティングドキュメント](/docs/tasks/debug-application-cluster/troubleshooting/)に詳細が記載されています。
+[トラブルシューティングドキュメント](/docs/tasks/debug/overview/)に詳細が記載されています。
 
