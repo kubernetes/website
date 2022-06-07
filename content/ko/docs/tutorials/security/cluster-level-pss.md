@@ -229,7 +229,7 @@ weight: 10
         # default false
         selinuxRelabel: false
         # optional: set propagation mode (None, HostToContainer or Bidirectional)
-        # see https://kubernetes.io/docs/concepts/storage/volumes/#mount-propagation
+        # see https://kubernetes.io/ko/docs/concepts/storage/volumes/#마운트-전파-propagation
         # default None
         propagation: None
     EOF
