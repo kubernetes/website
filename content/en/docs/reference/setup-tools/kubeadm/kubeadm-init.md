@@ -212,11 +212,11 @@ kubeadm config images pull
 You can pass `--config` to the above commands with a [kubeadm configuration file](#config-file)
 to control the `kubernetesVersion` and `imageRepository` fields.
 
-All default `k8s.gcr.io` images that kubeadm requires support multiple architectures.
+All default `registry.k8s.io` images that kubeadm requires support multiple architectures.
 
 ### Using custom images {#custom-images}
 
-By default, kubeadm pulls images from `k8s.gcr.io`. If the
+By default, kubeadm pulls images from `registry.k8s.io`. If the
 requested Kubernetes version is a CI label (such as `ci/latest`)
 `gcr.io/k8s-staging-ci-images` is used.
 
@@ -225,18 +225,18 @@ Allowed customization are:
 
 * To provide `kubernetesVersion` which affects the version of the images.
 * To provide an alternative `imageRepository` to be used instead of
-  `k8s.gcr.io`.
+  `registry.k8s.io`.
 * To provide a specific `imageRepository` and `imageTag` for etcd or CoreDNS.
 
-Image paths between the default `k8s.gcr.io` and a custom repository specified using
+Image paths between the default `registry.k8s.io` and a custom repository specified using
 `imageRepository` may differ for backwards compatibility reasons. For example,
-one image might have a subpath at `k8s.gcr.io/subpath/image`, but be defaulted
+one image might have a subpath at `registry.k8s.io/subpath/image`, but be defaulted
 to `my.customrepository.io/image` when using a custom repository.
 
 To ensure you push the images to your custom repository in paths that kubeadm
 can consume, you must:
 
-* Pull images from the defaults paths at `k8s.gcr.io` using `kubeadm config images {list|pull}`.
+* Pull images from the defaults paths at `registry.k8s.io` using `kubeadm config images {list|pull}`.
 * Push images to the paths from `kubeadm config images list --config=config.yaml`,
 where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
 for etcd and CoreDNS.

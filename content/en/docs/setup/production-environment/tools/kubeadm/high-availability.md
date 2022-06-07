@@ -97,7 +97,7 @@ _See [External etcd topology](/docs/setup/production-environment/tools/kubeadm/h
 
 ### Container images
 
-Each host should have access read and fetch images from the Kubernetes container image registry, `k8s.gcr.io`.
+Each host should have access read and fetch images from the Kubernetes container image registry, `registry.k8s.io`.
 If you want to deploy a highly-available cluster where the hosts do not have access to pull images, this is possible. You must ensure by some other means that the correct container images are already available on the relevant hosts.
 
 ### Command line interface {#kubectl}
@@ -226,8 +226,8 @@ option. Your cluster requirements may need a different configuration.
    As stated in the command output, the certificate key gives access to cluster sensitive data, keep it secret!
    {{< /caution >}}
 
-1. Apply the CNI plugin of your choice:  
-   [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network) 
+1. Apply the CNI plugin of your choice:
+   [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
    to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the
    kubeadm configuration file (if applicable).
 

@@ -199,7 +199,7 @@ Static Pod manifest share a set of common properties:
 
 Please note that:
 
-1. All images will be pulled from k8s.gcr.io by default. See [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images) for customizing the image repository
+1. All images will be pulled from registry.k8s.io by default. See [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images) for customizing the image repository
 2. In case of kubeadm is executed in the `--dry-run` mode, static Pods files are written in a temporary folder
 3. Static Pod manifest generation for control plane components can be invoked individually with the [`kubeadm init phase control-plane all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-control-plane) command
 
@@ -289,7 +289,7 @@ a local etcd instance running in a Pod with following attributes:
 
 Please note that:
 
-1. The etcd image will be pulled from `k8s.gcr.io` by default. See [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images) for customizing the image repository
+1. The etcd image will be pulled from `registry.k8s.io` by default. See [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images) for customizing the image repository
 2. in case of kubeadm is executed in the `--dry-run` mode, the etcd static Pod manifest is written in a temporary folder
 3. Static Pod manifest generation for local etcd can be invoked individually with the [`kubeadm init phase etcd local`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd) command
 
