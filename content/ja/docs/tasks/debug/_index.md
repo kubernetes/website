@@ -1,6 +1,9 @@
 ---
+title: "監視、ログ、デバッグ"
+description: クラスターのトラブルシューティングや、コンテナ化したアプリケーションのデバッグのために、監視とログをセットアップします。
+weight: 20
 content_type: concept
-title: トラブルシューティング
+no_list: true
 ---
 
 <!-- overview -->
@@ -9,8 +12,8 @@ title: トラブルシューティング
 
  2つのセクションから構成されています:
 
-* [Troubleshooting your application](/docs/tasks/debug-application-cluster/debug-application/) - Kubernetesにコードをデプロイしていて、なぜ動かないのか不思議に思っているユーザーに便利です。
-* [Troubleshooting your cluster](/docs/tasks/debug-application-cluster/debug-cluster/) - クラスター管理者やKubernetesクラスターに不満がある人に有用です。
+* [Debugging your application](/docs/tasks/debug/debug-application/) - Kubernetesにコードをデプロイしていて、なぜ動かないのか不思議に思っているユーザーに便利です。
+* [Debugging your cluster](/docs/tasks/debug/debug-cluster/) - クラスター管理者やKubernetesクラスターに不満がある人に有用です。
 
 また、使用している[リリース](https://github.com/kubernetes/kubernetes/releases)の既知の問題を確認する必要があります。
 
