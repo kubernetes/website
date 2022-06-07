@@ -1,6 +1,7 @@
 ---
 title: Initコンテナのデバッグ
 content_type: task
+weight: 40
 ---
 
 <!-- overview -->

@@ -3,6 +3,7 @@ title: ノードの健全性を監視します
 content_type: task
 reviewers:
 - ptux
+weight: 20
 ---
 
 <!-- overview -->
