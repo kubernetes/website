@@ -136,7 +136,7 @@ Run `kubectl get nodes -o wide` and containerd appears as the runtime for the no
 
 Finally if everything goes well, remove Docker.
 
-{{< tabs name="tab-remove-docker-enigine" >}}
+{{< tabs name="tab-remove-docker-engine" >}}
 {{% tab name="CentOS" %}}
 
 ```shell
