@@ -81,7 +81,8 @@ Some node features are only available if you use a specific
 including:
 
 * HugePages: not supported for Windows containers
-* Privileged containers: not supported for Windows containers
+* Privileged containers: not supported for Windows containers.
+  [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) offer similar functionality.
 * TerminationGracePeriod: requires containerD
 -->
 ## 兼容性与局限性 {#limitations}
@@ -89,9 +90,10 @@ including:
 某些节点层面的功能特性仅在使用特定[容器运行时](#container-runtime)时才可用；
 另外一些特性则在 Windows 节点上不可用，包括：
 
-* 巨页（HugePages）：Windows 容器当前不支持
-* 特权容器：Windows 容器当前不支持
-* TerminationGracePeriod：需要 containerD
+* 巨页（HugePages）：Windows 容器当前不支持。
+* 特权容器：Windows 容器当前不支持。
+  [HostProcess 容器](/zh/docs/tasks/configure-pod-container/create-hostprocess-pod/)提供类似功能。
+* TerminationGracePeriod：需要 containerD。
 
 <!--
 Not all features of shared namespaces are supported. See [API compatibility](#api)
@@ -133,7 +135,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   Pod capabilities, properties and events are supported with Windows containers:
   * Single or multiple containers per Pod with process isolation and volume sharing
   * Pod `status` fields
-  * Readiness and Liveness probes
+  * Readiness, liveness, and startup probes
   * postStart & preStop container lifecycle hooks
   * ConfigMap, Secrets: as environment variables or volumes
   * `emptyDir` volumes
@@ -163,7 +165,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   
   * 每个 Pod 有一个或多个容器，具有进程隔离和卷共享能力
   * Pod `status` 字段
-  * Readiness 和 Liveness 探针
+  * 就绪、存活和启动探针
   * postStart 和 preStop 容器生命周期回调
   * ConfigMap 和 Secret：作为环境变量或卷
   * `emptyDir` 卷
@@ -270,10 +272,11 @@ Some kubelet command line options behave differently on Windows, as described be
   [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 * Eviction by using `--enforce-node-allocable` is not implemented
 * Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
-* A kubelet running on a Windows node does not have memory
-  restrictions. `--kubelet-reserve` and `--system-reserve` do not set limits on
-  kubelet or processes running on the host. This means kubelet or a process on the host
-  could cause memory resource starvation outside the node-allocatable and scheduler.
+* When running on a Windows node the kubelet does not have memory or CPU
+  restrictions. `--kube-reserved` and `--system-reserved` only subtract from `NodeAllocatable`
+  and do not guarantee resource provided for workloads.
+  See [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/#resource-reservation)
+  for more information.
 * The `MemoryPressure` Condition is not implemented
 * The kubelet does not take OOM eviction actions
 -->
@@ -283,10 +286,9 @@ Some kubelet command line options behave differently on Windows, as described be
   [NodeAllocatable](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)。
 * 未实现使用 `--enforce-node-allocable` 驱逐。
 * 未实现使用 `--eviction-hard` 和 `--eviction-soft` 驱逐。
-* 在 Windows 节点上运行的 kubelet 没有内存限制。
-  `--kubelet-reserve` 和 `--system-reserve` 没有对主机上运行的 kubelet 或进程设置限制。
-  这意味着 kubelet 或主机上的进程使用的内存可能会超过节点可分配内存和调度器设定的内存，
-  从而造成内存资源不足。
+* 在 Windows 节点上运行时，kubelet 没有内存或 CPU 限制。
+  `--kube-reserved` 和 `--system-reserved` 仅从 `NodeAllocatable` 中减去，并且不保证为工作负载提供的资源。
+  有关更多信息，请参考 [Windows 节点的资源管理](/zh/docs/concepts/configuration/windows-resource-management/#resource-reservation)。
 * 未实现 `MemoryPressure` 条件。
 * kubelet 不会执行 OOM 驱逐操作。
 
@@ -488,15 +490,17 @@ Pod 的所有 [`securityContext`](/docs/reference/kubernetes-api/workload-resour
 字段都无法在 Windows 上生效。
 
 <!--
-### Node problem detector
+## Node problem detector
 
 The node problem detector (see
 [Monitor Node Health](/docs/tasks/debug/debug-cluster/monitor-node-health/))
-is not compatible with Windows.
+has preliminary support for Windows.
+For more information, visit the project's [GitHub page](https://github.com/kubernetes/node-problem-detector#windows).
 -->
-### 节点问题检测器 {#node-problem-detector}
+## 节点问题检测器 {#node-problem-detector}
 
-节点问题检测器（参考[节点健康监测](/zh/docs/tasks/debug/debug-cluster/monitor-node-health/)）与 Windows 不兼容。
+节点问题检测器（参考[节点健康监测](/zh/docs/tasks/debug/debug-cluster/monitor-node-health/)）初步支持 Windows。
+有关更多信息，请访问该项目的 [GitHub 页面](https://github.com/kubernetes/node-problem-detector#windows)。
 
 <!--
 ### Pause container
@@ -562,7 +566,7 @@ The following container runtimes work with Windows:
 {{% thirdparty-content %}}
 
 <!--
-#### cri-containerd
+#### ContainerD
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -571,7 +575,7 @@ as the container runtime for Kubernetes nodes that run Windows.
 
 Learn how to [install ContainerD on a Windows node](/docs/setup/production-environment/container-runtimes/#install-containerd).
 -->
-#### cri-containerd {#cri-containerd}
+#### ContainerD {#containerd}
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -666,7 +670,7 @@ If you have what looks like a bug, or you would like to
 make a feature request, please follow the [SIG Windows contributing guide](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) to create a new issue.
 You should first search the list of issues in case it was
 reported previously and comment with your experience on the issue and add additional
-logs. SIG-Windows Slack is also a great avenue to get some initial support and
+logs. SIG Windows channel on the Kubernetes Slack is also a great avenue to get some initial support and
 troubleshooting ideas prior to creating a ticket.
 -->
 ### 报告问题和功能请求 {#report-issue-and-feature-request}
@@ -674,9 +678,10 @@ troubleshooting ideas prior to creating a ticket.
 如果你发现疑似 bug，或者你想提出功能请求，请按照
 [SIG Windows 贡献指南](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests)
 新建一个 Issue。
-您应该先搜索 issue 列表，以防之前报告过这个问题，凭你对该问题的经验添加评论，
+你应该先搜索 issue 列表，以防之前报告过这个问题，凭你对该问题的经验添加评论，
 并随附日志信息。
-SIG Windows Slack 也是一个很好的途径，让你在创建工单之前获得一些初始支持和故障排查的思路。
+Kubernetes Slack 上的 SIG Windows 频道也是一个很好的途径，
+可以在创建工单之前获得一些初始支持和故障排查思路。
 
 ## {{% heading "whatsnext" %}}
 
