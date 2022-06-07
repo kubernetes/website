@@ -86,7 +86,7 @@ Examples:
 #### Service IP CIDR block: 10.96.0.0/24
 
 Range Size: 2<sup>8</sup> - 2 = 254  
-Band Offset: `min(max(16,256/16),256)` = `min(16,256)` = 16  
+Band Offset: `min(max(16, 256/16), 256)` = `min(16, 256)` = 16  
 Static band start: 10.96.0.1  
 Static band end: 10.96.0.16  
 Range end: 10.96.0.254   
@@ -101,7 +101,7 @@ pie showData
 #### Service IP CIDR block: 10.96.0.0/20
 
 Range Size: 2<sup>12</sup> - 2 = 4094  
-Band Offset: `min(max(16,4096/16),256)` = `min(256,256)` = 256  
+Band Offset: `min(max(16, 4096/16), 256)` = `min(256, 256)` = 256  
 Static band start: 10.96.0.1  
 Static band end: 10.96.1.0  
 Range end: 10.96.15.254  
@@ -116,7 +116,7 @@ pie showData
 #### Service IP CIDR block: 10.96.0.0/16
 
 Range Size: 2<sup>16</sup> - 2 = 65534  
-Band Offset: `min(max(16,65536/16),256)` = `min(4096,256)` = 256  
+Band Offset: `min(max(16, 65536/16), 256)` = `min(4096, 256)` = 256  
 Static band start: 10.96.0.1  
 Static band ends: 10.96.1.0  
 Range end: 10.96.255.254  
