@@ -110,6 +110,55 @@ I1025 00:15:15.525108       1 example.go:116] "Example" data="This is text with 
 second line.}
 ```
 
+### 컨텍스츄얼 로깅(Contextual Logging)
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+컨텍스츄얼 로깅은 구조화된 로깅을 기반으로 한다. 
+컨텍스츄얼 로깅은 주로 개발자가 로깅 호출을 사용하는 방법에 관한 것이다. 
+해당 개념을 기반으로 하는 코드는 좀 더 유연하며, 
+[컨텍스츄얼 로깅 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)에 기술된 추가적인 사용 사례를 지원한다.
+
+개발자가 자신의 구성 요소에서 
+`WithValues` 또는 `WithName`과 같은 추가 기능을 사용하는 경우, 
+로그 항목에는 호출자가 함수로 전달하는 추가 정보가 포함된다.
+
+현재 이 기능은 `StructuredLogging` 기능 게이트 뒤에 있으며 
+기본적으로 비활성화되어 있다. 
+이 기능을 위한 인프라는 구성 요소를 수정하지 않고 1.24에 추가되었다. 
+[`component-base/logs/example`](https://github.com/kubernetes/kubernetes/blob/v1.24.0-beta.0/staging/src/k8s.io/component-base/logs/example/cmd/logger.go) 
+명령은 새 로깅 호출을 사용하는 방법과 
+컨텍스츄얼 로깅을 지원하는 구성 요소가 어떻게 작동하는지 보여준다.
+
+```console
+$ cd $GOPATH/src/k8s.io/kubernetes/staging/src/k8s.io/component-base/logs/example/cmd/
+$ go run . --help
+...
+      --feature-gates mapStringBool  A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
+                                     AllAlpha=true|false (ALPHA - default=false)
+                                     AllBeta=true|false (BETA - default=false)
+                                     ContextualLogging=true|false (ALPHA - default=false)
+$ go run . --feature-gates ContextualLogging=true
+...
+I0404 18:00:02.916429  451895 logger.go:94] "example/myname: runtime" foo="bar" duration="1m0s"
+I0404 18:00:02.916447  451895 logger.go:95] "example: another runtime" foo="bar" duration="1m0s"
+```
+
+`runtime` 메시지 및 `duration="1m0s"` 값을 로깅하는 
+기존 로깅 함수를 수정하지 않고도, 
+이 함수의 호출자에 의해 `example` 접두사 및 `foo="bar"` 문자열이 로그에 추가되었다.
+
+컨텍스츄얼 로깅이 비활성화되어 있으면, `WithValues` 및 `WithName` 은 아무 효과가 없으며, 
+로그 호출은 전역 klog 로거를 통과한다. 
+따라서 이 추가 정보는 더 이상 로그 출력에 포함되지 않는다.
+
+```console
+$ go run . --feature-gates ContextualLogging=false
+...
+I0404 18:03:31.171945  452150 logger.go:94] "runtime" duration="1m0s"
+I0404 18:03:31.171962  452150 logger.go:95] "another runtime" duration="1m0s"
+```
+
 ### JSON 로그 형식
 
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
@@ -150,27 +199,6 @@ JSON 로그 형식 예시(보기좋게 출력된 형태)는 다음과 같다.
 * {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
 * {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
-### 로그 정리(sanitization)
-
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
-
-{{<warning >}}
-로그 정리(sanitization)는 상당한 오버 헤드를 발생시킬 수 있으므로 프로덕션 환경에서는 사용하지 않아야한다.
-{{< /warning >}}
-
- `--experimental-logging-sanitization` 플래그는 klog 정리(sanitization) 필터를 활성화한다.
-활성화된 경우 모든 로그 인자에서 민감한 데이터(예: 비밀번호, 키, 토큰)가 표시된 필드를 검사하고 이러한 필드의 로깅이 방지된다.
-
-현재 로그 정리(sanitization)를 지원하는 컴포넌트 목록:
-* kube-controller-manager
-* kube-apiserver
-* kube-scheduler
-* kubelet
-
-{{< note >}}
-로그 정리(sanitization) 필터는 사용자 작업 로그로부터 민감한 데이터가 유출되는 것을 방지할 수 없다.
-{{< /note >}}
-
 ### 로그 상세 레벨(verbosity)
 
 `-v` 플래그로 로그 상세 레벨(verbosity)을 제어한다. 값을 늘리면 기록된 이벤트 수가 증가한다. 값을 줄이면 기록된 이벤트 수가 줄어든다.
@@ -197,5 +225,6 @@ systemd를 사용하는 시스템에서는, kubelet과 컨테이너 런타임은
 
 * [쿠버네티스 로깅 아키텍처](/ko/docs/concepts/cluster-administration/logging/) 알아보기
 * [구조화된 로깅](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging) 알아보기
+* [컨텍스츄얼 로깅](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging) 알아보기
 * [klog 플래그 사용 중단](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components) 알아보기
 * [로깅 심각도(serverity) 규칙](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) 알아보기
