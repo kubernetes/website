@@ -4,7 +4,7 @@ id: cluster
 date: 2019-06-15
 full_link: 
 short_description: >
-   集群由一组被称作节点的机器组成。这些节点上运行 Kubernetes 所管理的容器化应用。集群具有至少一个工作节点。 
+   集群由一组被称作节点的机器组成。这些节点上运行 Kubernetes 所管理的容器化应用。集群具有至少一个工作节点。
 
 aka: 
 tags:
@@ -32,9 +32,9 @@ tags:
 A set of worker machines, called {{< glossary_tooltip text="nodes" term_id="node" >}},
 that run containerized applications. Every cluster has at least one worker node.
 -->
-集群是由一组被称作节点的机器组成，这些节点上会运行由 Kubernetes 所管理的容器化应用。
+集群是由一组被称作{{< glossary_tooltip text="节点（node）" term_id="node" >}}的机器组成，
+这些节点上会运行由 Kubernetes 所管理的容器化应用。
 且每个集群至少有一个工作节点。
-
 <!--more-->
 <!-- 
 The worker node(s) host the {{< glossary_tooltip text="Pods" term_id="pod" >}} that are
