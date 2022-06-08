@@ -154,7 +154,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-`kubectl` 에 대해 더 자세히 알고 싶다면, [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 참조한다.
+`kubectl` 에 대해 더 자세히 알고 싶다면, [명령줄 도구 (kubectl)](/ko/docs/reference/kubectl/)를 참조한다.
 
 ## 효과적인 레이블 사용
 
