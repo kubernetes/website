@@ -1086,10 +1086,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Bound Service Account Tokens](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
   for more details.
 - `RotateKubeletClientCertificate`: Enable the rotation of the client TLS certificate on the kubelet.
-  See [kubelet configuration](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)
+  See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)
   for more details.
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
-  See [kubelet configuration](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)
+  See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)
   for more details.
 - `RunAsGroup`: Enable control over the primary group ID set on the init
   processes of containers.

@@ -179,10 +179,10 @@ To close a pull request, leave a `/close` comment on the PR.
 要关闭 PR，请在 PR 上输入 `/close` 评论。
 
 <!--
-The [`fejta-bot`](https://github.com/fejta-bot) bot marks issues as stale after 90 days of inactivity. After 30 more days it marks issues as rotten and closes them.  PR wranglers should close issues after 14-30 days of inactivity.
+The [`k8s-ci-robot`](https://github.com/k8s-ci-robot) bot marks issues as stale after 90 days of inactivity. After 30 more days it marks issues as rotten and closes them.  PR wranglers should close issues after 14-30 days of inactivity.
 -->
 {{< note >}}
-一个名为 [`fejta-bot`](https://github.com/fejta-bot) 的自动服务会在 Issue 停滞 90
+一个名为 [`k8s-ci-robot`](https://github.com/k8s-ci-robot) 的自动服务会在 Issue 停滞 90
 天后自动将其标记为过期；然后再等 30 天，如果仍然无人过问，则将其关闭。
 PR 管理者应该在 issues 处于无人过问状态 14-30 天后关闭它们。
 {{< /note >}}

@@ -1021,7 +1021,7 @@ and need persistent storage, it is recommended that you use the following patter
 
 * Learn more about [Creating a PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+* Read the [Persistent Storage design document](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/persistent-storage.md).
 
 ### API references {#reference}
 

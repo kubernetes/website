@@ -219,7 +219,7 @@ Other API server flags that are set unconditionally are:
 
  - `--insecure-port=0` to avoid insecure connections to the api server
  - `--enable-bootstrap-token-auth=true` to enable the `BootstrapTokenAuthenticator` authentication module.
-   See [TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for more details
+   See [TLS Bootstrapping](/docs/reference/access-authn-authn/kubelet-tls-bootstrapping/) for more details
  - `--allow-privileged` to `true` (required e.g. by kube proxy)
  - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
  - `--enable-admission-plugins` to:
@@ -266,7 +266,7 @@ The static Pod manifest for the controller manager is affected by following para
 Other flags that are set unconditionally are:
 
  - `--controllers` enabling all the default controllers plus `BootstrapSigner` and `TokenCleaner` controllers for TLS bootstrap.
-   See [TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for more details
+   See [TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) for more details
  - `--use-service-account-credentials` to `true`
  - Flags for using certificates generated in previous steps:
     - `--root-ca-file` to `ca.crt`
