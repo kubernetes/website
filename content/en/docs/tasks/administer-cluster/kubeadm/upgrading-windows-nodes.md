@@ -62,7 +62,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
     kubeadm upgrade node
     ```
 
-### Upgrade kubelet and kubeproxy
+### Upgrade kubelet and kube-proxy
 
 1.  From the Windows node, upgrade and restart the kubelet:
 
@@ -81,7 +81,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
     ```
 
 {{< note >}}
-If you are running kube-proxy in a HostProcess Container instead of a Windows Service, you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
+If you are running kube-proxy in a HostProcess container within a Pod, and not as a Windows Service, you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
 {{< /note >}}
 
 ### Uncordon the node
