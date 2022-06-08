@@ -1,8 +1,8 @@
 ---
-佈局：博客
-標題：“Kubernetes-in-Kubernetes 和 WEDOS PXE 可啟動服務器場”
-蛞蝓：kubernetes-in-kubernetes-and-pxe-bootable-server-farm
-日期：2021-12-22
+layout: blog
+title: "Kubernetes-in-Kubernetes and the WEDOS PXE bootable server farm"
+slug: kubernetes-in-kubernetes-and-pxe-bootable-server-farm
+date: 2021-12-22
 ---
 
 **作者**：Andrei Kvapil (WEDOS)
