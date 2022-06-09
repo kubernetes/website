@@ -22,7 +22,7 @@ date: 2021-12-22
 
 啟動後，我們的節點要做的第一件事就是加入現有的 Kubernetes 集群，即執行 **kubeadm join** 命令，以便 kube-scheduler 可以在其上調度一些 pod，然後啟動各種工作負載。從一開始，當節點加入到用於控制平面節點的同一個集群時，我們就使用該方案。
 
-{{< figure src="/images/blog/2021-12-22-kubernetes-in-kubernetes-and-pxe-bootable-server-farm/scheme03.svg" alt="Kubernetes 將容器調度到計算節點" > }}
+{{< figure src="/images/blog/2021-12-22-kubernetes-in-kubernetes-and-pxe-bootable-server-farm/scheme03.svg" alt="Kubernetes 將容器調度到計算節點" >}}
 
 該方案穩定運行了兩年多。但是後來我們決定向它添加容器化的 Kubernetes。現在我們可以在我們的控制平面節點上非常輕鬆地生成新的 Kubernetes 集群，這些節點現在是成員特殊的管理集群。現在，計算節點可以直接加入它們自己的集群——具體取決於配置。
 
