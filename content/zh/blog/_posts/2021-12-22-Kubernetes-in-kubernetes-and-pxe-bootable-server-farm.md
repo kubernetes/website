@@ -14,7 +14,7 @@ date: 2021-12-22
 
 讓我向您介紹我們的基礎架構是如何工作的。我們所有的物理服務器都可以分為兩組：**控制平面**和**計算**節點。控制平面節點通常是手動設置的，安裝了穩定的操作系統，旨在運行所有集群服務，包括 Kubernetes 控制平面。這些節點的主要任務是保證集群本身的順利運行。計算節點默認沒有安裝任何操作系統，而是直接從控制平面節點通過網絡引導操作系統映像。他們的工作就是開展工作量。
 
-{{< 圖 src="/images/blog/2021-12-22-kubernetes-in-kubernetes-and-pxe-bootable-server-farm/scheme01.svg" alt="Kubernetes 集群佈局" >}}
+{{< figure src="/images/blog/2021-12-22-kubernetes-in-kubernetes-and-pxe-bootable-server-farm/scheme01.svg" alt="Kubernetes 集群佈局" >}}
 
 一旦節點下載了它們的映像，它們就可以繼續工作而無需保持與 PXE 服務器的連接。也就是說，PXE 服務器只保存 rootfs 映像，不保存任何其他復雜邏輯。在我們的節點啟動後，我們可以安全地重新啟動 PXE 服務器，它們不會發生任何嚴重的事情。
 
@@ -39,7 +39,7 @@ date: 2021-12-22
 它使用[Kubernetes-in-Kubernetes](http://github.com/kvaps/kubernetes-in-kubernetes)作為基礎，[LTSP](https://github.com/ltsp/ltsp/)作為PXE-啟動節點的服務器，並使用 [dnsmasq-controller](https://github.com/kvaps/dnsmasq-controller) 自動配置 DHCP 服務器：
 
 
-{{< 圖 src="/images/blog/2021-12-22-kubernetes-in-kubernetes-and-pxe-bootable-server-farm/kubefarm.png" alt="Kubefarm" >}}
+{{< figure src="/images/blog/2021-12-22-kubernetes-in-kubernetes-and-pxe-bootable-server-farm/kubefarm.png" alt="Kubefarm" >}}
 
 ＃＃ 這個怎麼運作
 
