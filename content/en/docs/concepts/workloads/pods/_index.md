@@ -34,17 +34,16 @@ for debugging if your cluster offers this.
 {{< note >}}
 While Kubernetes supports more
 {{< glossary_tooltip text="container runtimes" term_id="container-runtime" >}}
-than just Docker, [Docker](https://www.docker.com/) is the most commonly known
-runtime, and it helps to describe Pods using some terminology from Docker.
+than just Docker, Docker is the most commonly known
+runtime.
 {{< /note >}}
 
-The shared context of a Pod is a set of Linux namespaces, cgroups, and
-potentially other facets of isolation - the same things that isolate a Docker
-container.  Within a Pod's context, the individual applications may have
+The Pod is the smallest and simplest Kubernetes object which is a set of Linux namespaces, cgroups, and
+potentially other facets of isolation . Within a Pod , the individual applications may have
 further sub-isolations applied.
 
-In terms of Docker concepts, a Pod is similar to a group of Docker containers
-with shared namespaces and shared filesystem volumes.
+A Pod represents a set of running containers on your cluster.
+A Pod is typically set up to run a single primary container. It can also run optional sidecar containers that add supplementary features like logging.
 
 ## Using Pods
 
