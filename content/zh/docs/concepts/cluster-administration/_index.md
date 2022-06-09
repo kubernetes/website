@@ -123,14 +123,14 @@ Before choosing a guide, here are some considerations:
 ### Securing the kubelet
 
 * [Master-Node communication](/docs/concepts/architecture/master-node-communication/)
-* [TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+* [TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 * [Kubelet authentication/authorization](/docs/admin/kubelet-authentication-authorization/)
 -->
 ### 保护 kubelet   {#securing-the-kubelet}
 
 * [主控节点通信](/zh/docs/concepts/architecture/control-plane-node-communication/)
-* [TLS 引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
-* [Kubelet 认证/授权](/zh/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
+* [TLS 引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+* [Kubelet 认证/授权](/zh/docs/reference/access-authn-authz/kubelet-authn-authz/)
 
 <!--
 ## Optional Cluster Services

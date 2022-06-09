@@ -494,13 +494,13 @@ API 服务器的静态 Pod 清单会受到用户提供的以下参数的影响:
 <!--  
  - `--insecure-port=0` to avoid insecure connections to the api server
  - `--enable-bootstrap-token-auth=true` to enable the `BootstrapTokenAuthenticator` authentication module.
-   See [TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for more details
+   See [TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) for more details
  - `--allow-privileged` to `true` (required e.g. by kube proxy)
  - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
 -->
 - `--insecure-port=0` 禁止到 API 服务器不安全的连接
 - `--enable-bootstrap-token-auth=true` 启用 `BootstrapTokenAuthenticator` 身份验证模块。
-  更多细节请参见 [TLS 引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)。
+  更多细节请参见 [TLS 引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)。
 - `--allow-privileged` 设为 `true`（诸如 kube-proxy 这些组件有此要求）
 - `--requestheader-client-ca-file` 设为 `front-proxy-ca.crt`
 
@@ -608,7 +608,7 @@ The static Pod manifest for the controller manager is affected by following para
 
 <!--  
  - `--controllers` enabling all the default controllers plus `BootstrapSigner` and `TokenCleaner` controllers for TLS bootstrap.
-   See [TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for more details
+   See [TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) for more details
  - `--use-service-account-credentials` to `true`
  - Flags for using certificates generated in previous steps:
     - `--root-ca-file` to `ca.crt`
@@ -618,7 +618,7 @@ The static Pod manifest for the controller manager is affected by following para
 -->
 - `--controllers` 为 TLS 引导程序启用所有默认控制器以及 `BootstrapSigner` 和
   `TokenCleaner` 控制器。详细信息请参阅
-  [TLS 引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+  [TLS 引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 - `--use-service-account-credentials` 设为 `true`
 - 使用先前步骤中生成的证书的标志：
 

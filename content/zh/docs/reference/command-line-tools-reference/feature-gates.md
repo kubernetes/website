@@ -1642,19 +1642,19 @@ For more details, check the
   以了解更多细节。
 <!--
 - `RotateKubeletClientCertificate`: Enable the rotation of the client TLS certificate on the kubelet.
-  See [kubelet configuration](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration) for more details.
+  See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration) for more details.
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
-  See [kubelet configuration](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)
+  See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)
   for more details.
 - `RunAsGroup`: Enable control over the primary group ID set on the init
   processes of containers.
 -->
 - `RotateKubeletClientCertificate`：在 kubelet 上启用客户端 TLS 证书的轮换。
   更多详细信息，请参见
-  [kubelet 配置](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)。
+  [kubelet 配置](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)。
 - `RotateKubeletServerCertificate`：在 kubelet 上启用服务器 TLS 证书的轮换。
   更多详细信息，请参见
-  [kubelet 配置](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)。
+  [kubelet 配置](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)。
 - `RunAsGroup`：启用对容器初始化过程中设置的主要组 ID 的控制。
 <!--
 - `RuntimeClass`: Enable the [RuntimeClass](/docs/concepts/containers/runtime-class/) feature

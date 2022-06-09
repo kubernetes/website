@@ -530,14 +530,14 @@ By default, these serving certificate will expire after one year. Kubeadm sets t
 `KubeletConfiguration` field `rotateCertificates` to `true`, which means that close
 to expiration a new set of CSRs for the serving certificates will be created and must
 be approved to complete the rotation. To understand more see
-[Certificate Rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#certificate-rotation).
+[Certificate Rotation](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#certificate-rotation).
 -->
 默认情况下，这些服务证书上会在一年后过期。
 kubeadm 将 `KubeletConfiguration` 的 `rotateCertificates` 字段设置为
 `true`；这意味着证书快要过期时，会生成一组针对服务证书的新的 CSR，而
 这些 CSR 也要被批准才能完成证书轮换。
 要进一步了解这里的细节，可参阅
-[证书轮换](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#certificate-rotation)
+[证书轮换](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#certificate-rotation)
 文档。
 
 <!--

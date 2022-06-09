@@ -86,7 +86,9 @@ an integrated [Role-Based Access Control (RBAC)](/docs/reference/access-authn-au
 set of permissions bundled into roles. These permissions combine verbs (get, create, delete) with
 resources (pods, services, nodes) and can be namespace-scoped or cluster-scoped. A set of out-of-the-box
 roles are provided that offer reasonable default separation of responsibility depending on what
-actions a client might want to perform. It is recommended that you use the [Node](/docs/reference/access-authn-authz/node/) and [RBAC](/docs/reference/access-authn-authz/rbac/) authorizers together, in combination with the
+actions a client might want to perform. It is recommended that you use the
+[Node](/docs/reference/access-authn-authz/node/) and
+[RBAC](/docs/reference/access-authn-authz/rbac/) authorizers together, in combination with the
 [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) admission plugin.
 -->
 ### API 授权
@@ -137,7 +139,8 @@ Kubelets expose HTTPS endpoints which grant powerful control over the node and c
 
 Production clusters should enable Kubelet authentication and authorization.
 
-Consult the [Kubelet authentication/authorization reference](/docs/admin/kubelet-authentication-authorization) for more information.
+Consult the [Kubelet authentication/authorization reference](/docs/reference/access-authn-authz/kubelet-authn-authz/)
+for more information.
 -->
 ## 控制对 Kubelet 的访问
 
@@ -147,7 +150,7 @@ Kubelet 公开 HTTPS 端点，这些端点提供了对节点和容器的强大�
 生产级别的集群应启用 Kubelet 身份认证和授权。
 
 进一步的信息，请参考
-[Kubelet 身份验证/授权参考](/zh/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)。
+[Kubelet 身份验证/授权参考](/zh/docs/reference/access-authn-authz/kubelet-authn-authz/)。
 
 <!--
 ## Controlling the capabilities of a workload or user at runtime
@@ -169,7 +172,7 @@ resources granted to a namespace. This is most often used to limit the amount of
 or persistent disk a namespace can allocate, but can also control how many pods, services, or
 volumes exist in each namespace.
 
-[Limit ranges](/docs/tasks/administer-cluster/memory-default-namespace/) restrict the maximum or minimum size of some of the
+[Limit ranges](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/) restrict the maximum or minimum size of some of the
 resources above, to prevent users from requesting unreasonably high or low values for commonly
 reserved resources like memory, or to provide default limits when none are specified.
 -->
@@ -241,8 +244,8 @@ Quota and limit ranges can also be used to control whether users may request nod
 load-balanced services, which on many clusters can control whether those users applications
 are visible outside of the cluster.
 
-Additional protections may be available that control network rules on a per-plugin or
-per-environment basis, such as per-node firewalls, physically separating cluster nodes to
+Additional protections may be available that control network rules on a per-plugin or per-
+environment basis, such as per-node firewalls, physically separating cluster nodes to
 prevent cross talk, or advanced networking policy.
 -->
 配额（Quota）和限制范围（Limit Range）也可用于控制用户是否可以请求节点端口或负载均衡服务。
@@ -278,8 +281,8 @@ to the metadata API, and avoid using provisioning data to deliver secrets.
 ### Controlling which nodes pods may access
 
 By default, there are no restrictions on which nodes may run a pod.  Kubernetes offers a
-[rich set of policies for controlling placement of pods onto nodes](/docs/concepts/configuration/assign-pod-node/)
-and the [taint-based pod placement and eviction](/docs/concepts/configuration/taint-and-toleration/)
+[rich set of policies for controlling placement of pods onto nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
+and the [taint-based pod placement and eviction](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 that are available to end users. For many clusters use of these policies to separate workloads
 can be a convention that authors adopt or enforce via tooling.
 
@@ -373,7 +376,8 @@ The shorter the lifetime of a secret or credential the harder it is for an attac
 use of that credential. Set short lifetimes on certificates and automate their rotation. Use
 an authentication provider that can control how long issued tokens are available and use short
 lifetimes where possible. If you use service-account tokens in external integrations, plan to
-rotate those tokens frequently. For example, once the bootstrap phase is complete, a bootstrap token used for setting up nodes should be revoked or its authorization removed.
+rotate those tokens frequently. For example, once the bootstrap phase is complete, a bootstrap
+token used for setting up nodes should be revoked or its authorization removed.
 -->
 ### 经常轮换基础设施证书
 
@@ -460,7 +464,8 @@ Secret 的内容。虽然目前该功能还只是 Beta 阶段，
 ### Receiving alerts for security updates and reporting vulnerabilities
 
 Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce)
-group for emails about security announcements. See the [security reporting](/security/)
+group for emails about security announcements. See the
+[security reporting](/docs/reference/issues-security/security/)
 page for more on how to report vulnerabilities.
 -->
 ### 接收安全更新和报告漏洞的警报

@@ -24,7 +24,7 @@ This document catalogs the communication paths between the control plane (apiser
 <!-- body -->
 <!--
 ## Node to Control Plane
-Kubernetes has a "hub-and-spoke" API pattern. All API usage from nodes (or the pods they run) terminate at the apiserver. None of the other control plane components are designed to expose remote services. The apiserver is configured to listen for remote connections on a secure HTTPS port (typically 443) with one or more forms of client [authentication](/docs/reference/access-authn-authz/authentication/) enabled.
+Kubernetes has a "hub-and-spoke" API pattern. All API usage from nodes (or the pods they run) terminates at the apiserver. None of the other control plane components are designed to expose remote services. The apiserver is configured to listen for remote connections on a secure HTTPS port (typically 443) with one or more forms of client [authentication](/docs/reference/access-authn-authz/authentication/) enabled.
 One or more forms of [authorization](/docs/reference/access-authn-authz/authorization/) should be enabled, especially if [anonymous requests](/docs/reference/access-authn-authz/authentication/#anonymous-requests) or [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens) are allowed.
 -->
 ## 节点到控制面
@@ -39,11 +39,11 @@ API 服务器被配置为在一个安全的 HTTPS 端口（通常为 443）上�
 或[服务账号令牌](/zh/docs/reference/access-authn-authz/authentication/#service-account-tokens)的时候。
 
 <!--
-Nodes should be provisioned with the public root certificate for the cluster such that they can connect securely to the apiserver along with valid client credentials. A good approach is that the client credentials provided to the kubelet are in the form of a client certificate. See [kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for automated provisioning of kubelet client certificates.
+Nodes should be provisioned with the public root certificate for the cluster such that they can connect securely to the apiserver along with valid client credentials. A good approach is that the client credentials provided to the kubelet are in the form of a client certificate. See [kubelet TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) for automated provisioning of kubelet client certificates.
 -->
 应该使用集群的公共根证书开通节点，这样它们就能够基于有效的客户端凭据安全地连接 API 服务器。
 一种好的方法是以客户端证书的形式将客户端凭据提供给 kubelet。
-请查看 [kubelet TLS 启动引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+请查看 [kubelet TLS 启动引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 以了解如何自动提供 kubelet 客户端证书。
 
 <!--
@@ -102,10 +102,10 @@ These connections terminate at the kubelet's HTTPS endpoint. By default, the api
 <!--
 To verify this connection, use the `--kubelet-certificate-authority` flag to provide the apiserver with a root certificate bundle to use to verify the kubelet's serving certificate.
 
-If that is not possible, use [SSH tunneling](/docs/concepts/architecture/master-node-communication/#ssh-tunnels) between the apiserver and kubelet if required to avoid connecting over an
+If that is not possible, use [SSH tunneling](#ssh-tunnels) between the apiserver and kubelet if required to avoid connecting over an
 untrusted or public network.
 
-Finally, [Kubelet authentication and/or authorization](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/) should be enabled to secure the kubelet API.
+Finally, [Kubelet authentication and/or authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/) should be enabled to secure the kubelet API.
 -->
 为了对这个连接进行认证，使用 `--kubelet-certificate-authority` 标志给 API
 服务器提供一个根证书包，用于 kubelet 的服务证书。
@@ -114,13 +114,13 @@ Finally, [Kubelet authentication and/or authorization](/docs/reference/command-l
 kubelet 之间使用 [SSH 隧道](#ssh-tunnels)。
 
 最后，应该启用
-[kubelet 用户认证和/或鉴权](/zh/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
+[kubelet 用户认证和/或鉴权](/zh/docs/reference/access-authn-authz/kubelet-authn-authz/)
 来保护 kubelet API。
 
 <!--
 ### apiserver to nodes, pods, and services
 
-The connections from the apiserver to a node, pod, or service default to plain HTTP connections and are therefore neither authenticated nor encrypted. They can be run over a secure HTTPS connection by prefixing `https:` to the node, pod, or service name in the API URL, but they will not validate the certificate provided by the HTTPS endpoint nor provide client credentials so while the connection will be encrypted, it will not provide any guarantees of integrity. These connections **are not currently safe** to run over untrusted and/or public networks.
+The connections from the apiserver to a node, pod, or service default to plain HTTP connections and are therefore neither authenticated nor encrypted. They can be run over a secure HTTPS connection by prefixing `https:` to the node, pod, or service name in the API URL, but they will not validate the certificate provided by the HTTPS endpoint nor provide client credentials. So while the connection will be encrypted, it will not provide any guarantees of integrity. These connections **are not currently safe** to run over untrusted or public networks.
 -->
 ### API 服务器到节点、Pod 和服务
 
@@ -136,7 +136,7 @@ The connections from the apiserver to a node, pod, or service default to plain H
 Kubernetes supports SSH tunnels to protect the control plane to nodes communication paths. In this configuration, the apiserver initiates an SSH tunnel to each node in the cluster (connecting to the ssh server listening on port 22) and passes all traffic destined for a kubelet, node, pod, or service through the tunnel.
 This tunnel ensures that the traffic is not exposed outside of the network in which the nodes are running.
 
-SSH tunnels are currently deprecated so you shouldn't opt to use them unless you know what you are doing. The Konnectivity service is a replacement for this communication channel.
+SSH tunnels are currently deprecated, so you shouldn't opt to use them unless you know what you are doing. The Konnectivity service is a replacement for this communication channel.
 -->
 ### SSH 隧道 {#ssh-tunnels}
 

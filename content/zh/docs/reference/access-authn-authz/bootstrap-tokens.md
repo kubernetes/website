@@ -21,14 +21,14 @@ creating new clusters or joining new nodes to an existing cluster.  It was built
 to support [kubeadm](/docs/reference/setup-tools/kubeadm/), but can be used in other contexts
 for users that wish to start clusters without `kubeadm`. It is also built to
 work, via RBAC policy, with the
-[Kubelet TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) system.
+[Kubelet TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) system.
 -->
 启动引导令牌是一种简单的持有者令牌（Bearer Token），这种令牌是在新建集群
 或者在现有集群中添加新节点时使用的。
 它被设计成能够支持 [`kubeadm`](/zh/docs/reference/setup-tools/kubeadm/)，
 但是也可以被用在其他的案例中以便用户在不使用 `kubeadm` 的情况下启动集群。
 它也被设计成可以通过 RBAC 策略，结合
-[Kubelet TLS 启动引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+[Kubelet TLS 启动引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 系统进行工作。
 
 <!-- body -->
@@ -108,12 +108,16 @@ controller on the controller manager.
 
 过期的令牌可以通过启用控制器管理器中的 `tokencleaner` 控制器来删除。
 
+```
+--controllers=*,tokencleaner
+```
+
 <!--
 ## Bootstrap Token Secret Format
 
 Each valid token is backed by a secret in the `kube-system` namespace.  You can
 find the full design doc
-[here](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
+[here](https://github.com/kubernetes/design-proposals-archive/blob/main/cluster-lifecycle/bootstrap-discovery.md).
 
 Here is what the secret looks like.
 -->
@@ -121,7 +125,7 @@ Here is what the secret looks like.
 
 每个合法的令牌背后对应着 `kube-system` 名字空间中的某个 Secret 对象。
 你可以从
-[这里](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md)
+[这里](https://github.com/kubernetes/design-proposals-archive/blob/main/cluster-lifecycle/bootstrap-discovery.md)
 找到完整设计文档。
 
 这是 Secret 看起来的样子。
@@ -142,10 +146,11 @@ stringData:
 
   # 令牌 ID 和秘密信息，必需。
   token-id: 07401b
-  token-secret: base64(f395accd246ae52d)
+  token-secret: f395accd246ae52d
 
   # 可选的过期时间字段
-  expiration: "2017-03-10T03:22:11Z"
+  expiration: 2017-03-10T03:22:11Z
+
   # 允许的用法
   usage-bootstrap-authentication: "true"
   usage-bootstrap-signing: "true"
@@ -259,7 +264,7 @@ data:
 ```
 
 <!--
-The `kubeconfig` member of the ConfigMap is a config file with just the cluster
+The `kubeconfig` member of the ConfigMap is a config file with only the cluster
 information filled out.  The key thing being communicated here is the
 `certificate-authority-data`.  This may be expanded in the future.
 -->
