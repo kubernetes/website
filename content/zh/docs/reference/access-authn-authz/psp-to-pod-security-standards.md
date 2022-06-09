@@ -30,7 +30,7 @@ For each applicable parameter, the allowed values for the
 [Baseline](/docs/concepts/security/pod-security-standards/#baseline) and
 [Restricted](/docs/concepts/security/pod-security-standards/#restricted) profiles are listed.
 Anything outside the allowed values for those profiles would fall under the
-[Privileged](/docs/concepts/security/pod-security-standards/#priveleged) profile. "No opinion"
+[Privileged](/docs/concepts/security/pod-security-standards/#privileged) profile. "No opinion"
 means all values are allowed under all Pod Security Standards.
 -->
 对于每个可应用的参数，表格中给出了
@@ -38,7 +38,7 @@ means all values are allowed under all Pod Security Standards.
 [Restricted](/zh/docs/concepts/security/pod-security-standards/#restricted)
 配置下可接受的取值。
 对这两种配置而言不可接受的取值均归入
-[Privileged](/zh/docs/concepts/security/pod-security-standards/#priveleged)
+[Privileged](/zh/docs/concepts/security/pod-security-standards/#privileged)
 配置下。“无意见”意味着对所有 Pod 安全性标准而言所有取值都可接受。
 
 <!--
