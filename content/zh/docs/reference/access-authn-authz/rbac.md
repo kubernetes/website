@@ -1550,10 +1550,10 @@ Allows full access to the kubelet API.
 <td>
 <!--
 Allows access to the resources required to perform
-<a href="/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/">Kubelet TLS bootstrapping</a>.
+<a href="/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">Kubelet TLS bootstrapping</a>.
 -->
 允许访问执行
-<a href="/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/">kubelet TLS 启动引导</a>
+<a href="/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">kubelet TLS 启动引导</a>
 所需要的资源。
 </td>
 </tr>

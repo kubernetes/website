@@ -37,7 +37,7 @@ Kubernetes 需要 PKI 才能执行以下操作：
 
 <!--
 * Client certificates for the kubelet to authenticate to the API server
-* Kubelet [server certificates](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#client-and-serving-certificates)
+* Kubelet [server certificates](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)
   for the API server to talk to the kubelets
 * Server certificate for the API server endpoint
 * Client certificates for administrators of the cluster to authenticate to the API server
@@ -48,7 +48,7 @@ Kubernetes 需要 PKI 才能执行以下操作：
 * Client and server certificates for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 -->
 * Kubelet 的客户端证书，用于 API 服务器身份验证
-* Kubelet [服务端证书](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#client-and-serving-certificates)，
+* Kubelet [服务端证书](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)，
   用于 API 服务器与 Kubelet 的会话
 * API 服务器端点的证书
 * 集群管理员的客户端证书，用于 API 服务器身份认证
