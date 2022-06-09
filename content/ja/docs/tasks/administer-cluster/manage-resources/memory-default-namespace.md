@@ -10,7 +10,7 @@ description: >-
 
 このページでは、{{< glossary_tooltip text="ネームスペース" term_id="namespace" >}}のデフォルトのメモリー要求と制限を設定する方法を説明します。
 
-Kubernetesクラスターはネームスペースに分割することができます。デフォルトのメモリー[制限](/ja/docs/concepts/configuration/manage-resources-containers/#%E8%A6%81%E6%B1%82%E3%81%A8%E5%88%B6%E9%99%90)を持つネームスペースがあり、独自のメモリー制限を指定しないコンテナでPodを作成しようとすると、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}はそのコンテナにデフォルトのメモリー制限を割り当てます。
+Kubernetesクラスターはネームスペースに分割することができます。デフォルトのメモリー[制限](/ja/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)を持つネームスペースがあり、独自のメモリー制限を指定しないコンテナでPodを作成しようとすると、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}はそのコンテナにデフォルトのメモリー制限を割り当てます。
 
 Kubernetesは、このトピックで後ほど説明する特定の条件下で、デフォルトのメモリー要求を割り当てます。
 
