@@ -102,7 +102,7 @@ following steps:
 <!--
 1. Makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and
-   [TLS Bootstrap](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+   [TLS Bootstrap](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
    mechanism:
 
    - Write a ConfigMap for making available all the information required
@@ -115,7 +115,7 @@ following steps:
    See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional info.
 -->
 7. 为了使得节点能够遵照[启动引导令牌](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)
-   和 [TLS 启动引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+   和 [TLS 启动引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
    这两份文档中描述的机制加入到集群中，kubeadm 会执行所有的必要配置：
 
    - 创建一个 ConfigMap 提供添加集群节点所需的信息，并为该 ConfigMap 设置相关的 RBAC 访问规则。
