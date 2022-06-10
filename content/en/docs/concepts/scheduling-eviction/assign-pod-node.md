@@ -170,7 +170,7 @@ For example, consider the following Pod spec:
 {{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
 
 If there are two possible nodes that match the
-`requiredDuringSchedulingIgnoredDuringExecution` rule, one with the
+`preferredDuringSchedulingIgnoredDuringExecution` rule, one with the
 `label-1:key-1` label and another with the `label-2:key-2` label, the scheduler
 considers the `weight` of each node and adds the weight to the other scores for
 that node, and schedules the Pod onto the node with the highest final score.
