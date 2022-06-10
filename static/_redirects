@@ -18,7 +18,8 @@
 /ru/docs/     /ru/docs/home/ 301!
 /uk/docs/     /uk/docs/home/ 301!
 /vi/docs/     /vi/docs/home/ 301!
-/zh/docs/     /zh/docs/home/ 301!
+/zh/docs/     /zh-cn/docs/home/ 301!
+/zh-cn/docs/     /zh-cn/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
 /blog/2020/08/25/kubernetes-release-1.19-accentuate-the-paw-sitive/     /blog/2020/08/26/kubernetes-release-1.19-accentuate-the-paw-sitive/     301!
 /docs/admin/     /docs/concepts/cluster-administration/ 301
@@ -216,7 +217,7 @@
 /docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
 
 /docs/reference/kubectl/overview/    /docs/reference/kubectl/ 301
-/zh/docs/reference/kubectl/overview/    /zh/docs/reference/kubectl/ 301
+/zh/docs/reference/kubectl/overview/    /zh-cn/docs/reference/kubectl/ 301
 /docs/reference/kubectl/kubectl-cmds/     /docs/reference/generated/kubectl/kubectl-commands/ 301!
 /docs/reference/kubectl/kubectl/kubectl_*    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/scheduling/profiles/    /docs/reference/scheduling/config/#profiles 301
@@ -537,7 +538,7 @@
 /id/docs/setup/minikube/     /id/docs/tasks/tools/ 302
 /docs/setup/learning-environment/     /docs/tasks/tools/  302!
 /id/docs/setup/learning-environment/     /id/docs/tasks/tools/  302!
-/zh/docs/setup/learning-environment/     /zh/docs/tasks/tools/  302!
+/zh/docs/setup/learning-environment/     /zh-cn/docs/tasks/tools/  302!
 /docs/setup/learning-environment/kind/  /docs/tasks/tools/  302
 /id/docs/setup/learning-environment/kind/  /id/docs/tasks/tools/  302
 /docs/setup/learning-environment/minikube/  /docs/tasks/tools/ 302
@@ -578,3 +579,4 @@
 /id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301
 
 /pt/*         /pt-br/:splat  302!
+/zh/*         /zh-cn/:splat  302!

@@ -302,15 +302,15 @@ languageName = "English"
 weight = 1
 languagedirection = "ltr"
 
-[languages.zh]
+[languages.zh-cn]
 title = "Kubernetes"
 description = "生产级别的容器编排系统"
 languageName = "中文 Chinese"
 weight = 2
-contentDir = "content/zh"
+contentDir = "content/zh-cn"
 languagedirection = "ltr"
 
-[languages.zh.params]
+[languages.zh-cn.params]
 time_format_blog = "2006.01.02"
 language_alternatives = ["en"]
 
