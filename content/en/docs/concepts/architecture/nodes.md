@@ -458,7 +458,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 {{< feature-state state="alpha" for_k8s_version="v1.24" >}}
 
-A node shutdown action may not be detected by kubelet's Node Shutdown Mananger, 
+A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
 either because the command does not trigger the inhibitor locks mechanism used by 
 kubelet or because of a user error, i.e., the ShutdownGracePeriod and 
 ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above 
