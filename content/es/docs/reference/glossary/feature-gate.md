@@ -13,4 +13,4 @@ tags:
 Las feature gates son un conjunto de pares clave-valor que permiten al usuario habilitar o deshabilitar funciones experimentales en Kubernetes.
 
 <!--more-->
-Las puertas de funciones están destinadas a cubrir el ciclo de vida de desarrollo de una función; no están destinadas a ser API a largo plazo. Como tal, se espera que queden en desuso y se eliminen después de que una característica se convierta en GA o se elimine.
+Las feature gates están destinadas a cubrir el ciclo de vida de desarrollo de una función; no están destinadas a ser APIs a largo plazo. Como tal, se espera que queden en desuso y se eliminen después de que una característica se convierta en GA o se elimine.
