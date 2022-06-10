@@ -1,4 +1,6 @@
 ---
+
+
 title: 엔드포인트슬라이스
 content_type: concept
 weight: 45
@@ -144,12 +146,12 @@ endpoints:
 v1 API에서는, 전용 필드 `nodeName` 및 `zone` 을 위해 엔드 포인트별
 `topology` 가 효과적으로 제거되었다.
 
-`EndpointSlice` 리소스의 `endpoint` 필드에 임의의 토폴로지 필드를
-설정하는 것은 더 이상 사용되지 않으며, v1 API에서 지원되지 않는다. 대신,
-v1 API는 개별 `nodeName` 및 `zone` 필드 설정을 지원한다. 이러한
-필드는 API 버전 간에 자동으로 번역된다. 예를 들어,
-v1beta1 API의 `topology` 필드에 있는 `"topology.kubernetes.io/zone"`
-키 값은 v1 API의 `zone` 필드로 접근할 수 있다.
+`EndpointSlice` 리소스의 `endpoint` 필드에 임의의 토폴로지 필드를 설정하는 것은 
+더 이상 사용되지 않으며 v1 API에서 지원되지 않는다. 
+대신, v1 API는 개별 `nodeName` 및 `zone` 필드 설정을 지원한다. 
+이러한 필드는 API 버전 간에 자동으로 번역된다. 
+예를 들어, v1beta1 API의 `topology` 필드에 있는 `"topology.kubernetes.io/zone"` 키 값은 
+v1 API의 `zone` 필드로 접근할 수 있다.
 {{< /note >}}
 
 ### 관리

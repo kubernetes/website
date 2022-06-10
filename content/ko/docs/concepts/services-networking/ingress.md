@@ -74,7 +74,7 @@ graph LR;
 
 {{< codenew file="service/networking/minimal-ingress.yaml" >}}
 
-다른 모든 쿠버네티스 리소스와 마찬가지로 인그레스에는 `apiVersion`, `kind`, 그리고 `metadata` 필드가 필요하다.
+인그레스에는 `apiVersion`, `kind`, `metadata` 및 `spec` 필드가 명시되어야 한다.
 인그레스 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/), [컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/ko/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
@@ -118,8 +118,14 @@ graph LR;
 
 ### DefaultBackend {#default-backend}
 
-규칙이 없는 인그레스는 모든 트래픽을 단일 기본 백엔드로 전송한다. `defaultBackend` 는 일반적으로
-[인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)의 구성 옵션이며, 인그레스 리소스에 지정되어 있지 않다.
+규칙이 없는 인그레스는 모든 트래픽을 단일 기본 백엔드로 전송하며, 
+`.spec.defaultBackend`는 이와 같은 경우에 요청을 처리할 백엔드를 지정한다. 
+`defaultBackend` 는 일반적으로 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)의 구성 옵션이며, 
+인그레스 리소스에 지정되어 있지 않다. 
+`.spec.rules` 가 명시되어 있지 않으면, 
+`.spec.defaultBackend` 는 반드시 명시되어 있어야 한다. 
+`defaultBackend` 가 설정되어 있지 않으면, 어느 규칙에도 해당되지 않는 요청의 처리는 인그레스 컨트롤러의 구현을 따른다(이러한 
+경우를 어떻게 처리하는지 알아보려면 해당 인그레스 컨트롤러 문서를 참고한다).
 
 만약 인그레스 오브젝트의 HTTP 요청과 일치하는 호스트 또는 경로가 없으면, 트래픽은
 기본 백엔드로 라우팅 된다.
@@ -309,7 +315,7 @@ spec:
   controller: example.com/ingress-controller
   parameters:
     # 이 인그레스클래스에 대한 파라미터는 
-    # "external-configuration" 환경 설정 네임스페이스에 있는
+    # "external-configuration" 네임스페이스에 있는
     # "external-config" 라는 IngressParameter(API 그룹 k8s.example.com)에 기재되어 있다.
     scope: Namespace
     apiGroup: k8s.example.com
