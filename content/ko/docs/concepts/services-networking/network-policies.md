@@ -45,42 +45,7 @@ pod- 또는 namespace- 기반의 네트워크폴리시를 정의할 때, {{< glo
 
 네트워크폴리시 의 예시는 다음과 같다.
 
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: test-network-policy
-  namespace: default
-spec:
-  podSelector:
-    matchLabels:
-      role: db
-  policyTypes:
-  - Ingress
-  - Egress
-  ingress:
-  - from:
-    - ipBlock:
-        cidr: 172.17.0.0/16
-        except:
-        - 172.17.1.0/24
-    - namespaceSelector:
-        matchLabels:
-          project: myproject
-    - podSelector:
-        matchLabels:
-          role: frontend
-    ports:
-    - protocol: TCP
-      port: 6379
-  egress:
-  - to:
-    - ipBlock:
-        cidr: 10.0.0.0/24
-    ports:
-    - protocol: TCP
-      port: 5978
-```
+{{< codenew file="service/networking/networkpolicy.yaml" >}}
 
 {{< note >}}
 선택한 네트워킹 솔루션이 네트워킹 정책을 지원하지 않으면 클러스터의 API 서버에 이를 POST 하더라도 효과가 없다.
@@ -281,7 +246,7 @@ API 서버에 대해 `--feature-gates=NetworkPolicyEndPort=false,…` 명령을 
 
 ## 이름으로 네임스페이스 지정
 
-{{< feature-state state="beta" for_k8s_version="1.21" >}}
+{{< feature-state for_k8s_version="1.22" state="stable" >}}
 
 쿠버네티스 컨트롤 플레인은 `NamespaceDefaultLabelName`
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 경우

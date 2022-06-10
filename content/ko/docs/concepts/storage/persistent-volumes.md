@@ -175,6 +175,74 @@ spec:
 
 그러나 `volumes` 부분의 사용자 정의 재활용 파드 템플릿에 지정된 특정 경로는 재활용되는 볼륨의 특정 경로로 바뀐다.
 
+### 퍼시스턴트볼륨 삭제 보호 파이널라이저(finalizer) {#persistentvolume-deletion-protection-finalizer}
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+퍼시스턴트볼륨에 파이널라이저를 추가하여, `Delete` 반환 정책을 갖는 퍼시스턴트볼륨이 
+기반 스토리지(backing storage)가 삭제된 이후에만 삭제되도록 할 수 있다.
+
+새롭게 도입된 `kubernetes.io/pv-controller` 및 `external-provisioner.volume.kubernetes.io/finalizer` 파이널라이저는 
+동적으로 프로비전된 볼륨에만 추가된다.
+
+`kubernetes.io/pv-controller` 파이널라이저는 인-트리 플러그인 볼륨에 추가된다. 다음은 이에 대한 예시이다.
+
+```shell
+kubectl describe pv pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Name:            pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Labels:          <none>
+Annotations:     kubernetes.io/createdby: vsphere-volume-dynamic-provisioner
+                 pv.kubernetes.io/bound-by-controller: yes
+                 pv.kubernetes.io/provisioned-by: kubernetes.io/vsphere-volume
+Finalizers:      [kubernetes.io/pv-protection kubernetes.io/pv-controller]
+StorageClass:    vcp-sc
+Status:          Bound
+Claim:           default/vcp-pvc-1
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        1Gi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:               vSphereVolume (a Persistent Disk resource in vSphere)
+    VolumePath:         [vsanDatastore] d49c4a62-166f-ce12-c464-020077ba5d46/kubernetes-dynamic-pvc-74a498d6-3929-47e8-8c02-078c1ece4d78.vmdk
+    FSType:             ext4
+    StoragePolicyName:  vSAN Default Storage Policy
+Events:                 <none>
+```
+
+`external-provisioner.volume.kubernetes.io/finalizer` 파이널라이저는 CSI 볼륨에 추가된다.
+다음은 이에 대한 예시이다.
+```shell
+Name:            pvc-2f0bab97-85a8-4552-8044-eb8be45cf48d
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: csi.vsphere.vmware.com
+Finalizers:      [kubernetes.io/pv-protection external-provisioner.volume.kubernetes.io/finalizer]
+StorageClass:    fast
+Status:          Bound
+Claim:           demo-app/nginx-logs
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        200Mi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:              CSI (a Container Storage Interface (CSI) volume source)
+    Driver:            csi.vsphere.vmware.com
+    FSType:            ext4
+    VolumeHandle:      44830fa8-79b4-406b-8b58-621ba25353fd
+    ReadOnly:          false
+    VolumeAttributes:      storage.kubernetes.io/csiProvisionerIdentity=1648442357185-8081-csi.vsphere.vmware.com
+                           type=vSphere CNS Block Volume
+Events:                <none>
+```
+
+특정 인-트리 볼륨 플러그인에 대해 `CSIMigration` 기능을 활성화하면 `kubernetes.io/pv-controller` 파이널라이저는 제거되고, 
+`external-provisioner.volume.kubernetes.io/finalizer` 파이널라이저가 추가된다. 
+이와 비슷하게, `CSIMigration` 기능을 비활성화하면 `external-provisioner.volume.kubernetes.io/finalizer` 파이널라이저는 제거되고, 
+`kubernetes.io/pv-controller` 파이널라이저가 추가된다.
+
 ### 퍼시스턴트볼륨 예약
 
 컨트롤 플레인은 클러스터에서 [퍼시스턴트볼륨클레임을 일치하는 퍼시스턴트볼륨에 바인딩](#바인딩)할
@@ -284,17 +352,12 @@ FlexVolume은 파드 재시작 시 크기를 조정할 수 있다.
 
 #### 사용 중인 퍼시스턴트볼륨클레임 크기 조정
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
-
-{{< note >}}
-사용 중인 PVC 확장은 쿠버네티스 1.15 이후 버전에서는 베타로, 1.11 이후 버전에서는 알파로 제공된다. `ExpandInUsePersistentVolumes` 기능을 사용하도록 설정해야 한다. 베타 기능의 경우 여러 클러스터에서 자동으로 적용된다. 자세한 내용은 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 문서를 참고한다.
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 이 경우 기존 PVC를 사용하는 파드 또는 디플로이먼트를 삭제하고 다시 만들 필요가 없다.
 파일시스템이 확장되자마자 사용 중인 PVC가 파드에서 자동으로 사용 가능하다.
 이 기능은 파드나 디플로이먼트에서 사용하지 않는 PVC에는 영향을 미치지 않는다. 확장을 완료하기 전에
 PVC를 사용하는 파드를 만들어야 한다.
-
 
 다른 볼륨 유형과 비슷하게 FlexVolume 볼륨도 파드에서 사용 중인 경우 확장할 수 있다.
 
@@ -329,7 +392,7 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 PVC 확장 실패의 사용자에 의한 복구는 쿠버네티스 1.23부터 제공되는 알파 기능이다. 이 기능이 작동하려면 `RecoverVolumeExpansionFailure` 기능이 활성화되어 있어야 한다. 더 많은 정보는 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 문서를 참조한다.
 {{< /note >}}
 
-클러스터에 `ExpandPersistentVolumes`와 `RecoverVolumeExpansionFailure` 
+클러스터에 `RecoverVolumeExpansionFailure` 
 기능 게이트가 활성화되어 있는 상태에서 PVC 확장이 실패하면 
 이전에 요청했던 값보다 작은 크기로의 확장을 재시도할 수 있다. 
 더 작은 크기를 지정하여 확장 시도를 요청하려면, 
@@ -849,17 +912,12 @@ spec:
 
 ## 볼륨 파퓰레이터(Volume populator)와 데이터 소스
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
-{{< note >}}
 쿠버네티스는 커스텀 볼륨 파퓰레이터를 지원한다. 
-이 알파 기능은 쿠버네티스 1.18에서 도입되었으며 
-1.22에서는 새로운 메카니즘과 리디자인된 API로 새롭게 구현되었다.
-현재 사용 중인 클러스터의 버전에 맞는 쿠버네티스 문서를 읽고 있는지 다시 한번 
-확인한다. {{% version-check %}}
-커스텀 볼륨 파퓰레이터를 사용하려면, kube-apiserver와 kube-controller-manager에 대해 
-`AnyVolumeDataSource` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
-{{< /note >}}
+커스텀 볼륨 파퓰레이터를 사용하려면, 
+kube-apiserver와 kube-controller-manager에 대해 `AnyVolumeDataSource` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
 
 볼륨 파퓰레이터는 `dataSourceRef`라는 PVC 스펙 필드를 활용한다. 
 다른 PersistentVolumeClaim 또는 VolumeSnapshot을 가리키는 참조만 명시할 수 있는 
@@ -877,6 +935,7 @@ spec:
 
 `dataSourceRef` 필드와 `dataSource` 필드 사이에는 
 사용자가 알고 있어야 할 두 가지 차이점이 있다.
+
 * `dataSource` 필드는 유효하지 않은 값(예를 들면, 빈 값)을 무시하지만, 
   `dataSourceRef` 필드는 어떠한 값도 무시하지 않으며 유효하지 않은 값이 들어오면 에러를 발생할 것이다. 
   유효하지 않은 값은 PVC를 제외한 모든 코어 오브젝트(apiGroup이 없는 오브젝트)이다.

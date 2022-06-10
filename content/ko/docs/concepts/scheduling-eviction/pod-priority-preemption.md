@@ -104,7 +104,7 @@ description: "이 프라이어리티클래스는 XYZ 서비스 파드에만 사�
 
 ## 비-선점 프라이어리티클래스 {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 `preemptionPolicy: Never` 를 가진 파드는 낮은 우선순위 파드의 스케줄링 대기열의
 앞쪽에 배치되지만,
@@ -203,9 +203,11 @@ spec:
 정보를 제공한다.
 
 파드 P는 반드시 "지정된 노드"로 스케줄링되지는 않는다.
+The scheduler always tries the "nominated Node" before iterating over any other nodes.
+스케줄러는 다른 노드에 스케줄링을 시도하기 전에 항상 "지정된 노드"부터 시도한다.
 피해자 파드가 축출된 후, 그것은 정상적(graceful)으로 종료되는 기간을 갖는다.
 스케줄러가 종료될 피해자 파드를 기다리는 동안 다른 노드를 사용할 수
-있게 되면, 스케줄러는 파드 P를 스케줄링하기 위해 다른 노드를 사용한다. 그 결과,
+있게 되면, 스케줄러는 파드 P를 스케줄링하기 위해 다른 노드를 사용할 수 있다. 그 결과,
 파드 스펙의 `nominatedNodeName` 과 `nodeName` 은 항상 동일하지 않다. 또한,
 스케줄러가 노드 N에서 파드를 축출했지만, 파드 P보다 우선순위가 높은 파드가
 도착하면, 스케줄러가 노드 N에 새로운 우선순위가 높은 파드를 제공할 수 있다. 이러한

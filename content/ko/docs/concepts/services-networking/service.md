@@ -24,7 +24,7 @@ weight: 10
 
 ## 동기
 
-쿠버네티스 {{< glossary_tooltip term_id="pod" text="파드" >}}는 클러스터 상태와
+쿠버네티스 {{< glossary_tooltip term_id="pod" text="파드" >}}는 클러스터 목표 상태(desired state)와
 일치하도록 생성되고 삭제된다. 파드는 비영구적 리소스이다.
 만약 앱을 실행하기 위해 {{< glossary_tooltip term_id="deployment" text="디플로이먼트" >}}를 사용한다면,
 동적으로 파드를 생성하고 제거할 수 있다.
@@ -108,13 +108,46 @@ spec:
 필드와 같은 값으로 설정된다.
 {{< /note >}}
 
-파드의 포트 정의에는 이름이 있고, 서비스의 `targetPort` 속성에서 이 이름을
-참조할 수 있다. 이것은 다른 포트 번호를 통한 가용한 동일 네트워크 프로토콜이 있고,
-단일 구성 이름을 사용하는 서비스 내에
-혼합된 파드가 존재해도 가능하다.
-이를 통해 서비스를 배포하고 진전시키는데 많은 유연성을 제공한다.
-예를 들어, 클라이언트를 망가뜨리지 않고, 백엔드 소프트웨어의 다음
-버전에서 파드가 노출시키는 포트 번호를 변경할 수 있다.
+파드의 포트 정의에 이름이 있으므로, 
+서비스의 `targetPort` 속성에서 이 이름을 참조할 수 있다. 
+예를 들어, 다음과 같은 방법으로 서비스의 `targetPort`를 파드 포트에 바인딩할 수 있다.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app.kubernetes.io/name: proxy
+spec:
+  containers:
+  - name: nginx
+    image: nginx:11.14.2
+    ports:
+      - containerPort: 80
+        name: http-web-svc
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: proxy
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
+```
+
+
+이것은 서로 다른 포트 번호를 통해 가용한 동일 네트워크 프로토콜이 있고, 
+단일 구성 이름을 사용하는 서비스 내에 혼합된 파드가 존재해도 가능하다. 
+이를 통해 서비스를 배포하고 진전시키는 데 많은 유연성을 제공한다. 
+예를 들어, 클라이언트를 망가뜨리지 않고, 
+백엔드 소프트웨어의 다음 버전에서 파드가 노출시키는 포트 번호를 변경할 수 있다.
 
 서비스의 기본 프로토콜은 TCP이다. 다른
 [지원되는 프로토콜](#protocol-support)을 사용할 수도 있다.
@@ -125,9 +158,9 @@ spec:
 
 ### 셀렉터가 없는 서비스
 
-서비스는 일반적으로 쿠버네티스 파드에 대한 접근을 추상화하지만,
-다른 종류의 백엔드를 추상화할 수도 있다.
-예를 들면
+서비스는 일반적으로 셀렉터를 이용하여 쿠버네티스 파드에 대한 접근을 추상화하지만, 
+셀렉터 대신 매칭되는(corresponding) 엔드포인트와 함께 사용되면 다른 종류의 백엔드도 추상화할 수 있으며, 
+여기에는 클러스터 외부에서 실행되는 것도 포함된다. 예시는 다음과 같다.
 
 * 프로덕션 환경에서는 외부 데이터베이스 클러스터를 사용하려고 하지만,
   테스트 환경에서는 자체 데이터베이스를 사용한다.
@@ -668,44 +701,38 @@ status:
 
 #### 프로토콜 유형이 혼합된 로드밸런서
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 기본적으로 로드밸런서 서비스 유형의 경우 둘 이상의 포트가 정의되어 있을 때 모든
 포트는 동일한 프로토콜을 가져야 하며 프로토콜은 클라우드 공급자가
 지원하는 프로토콜이어야 한다.
 
-kube-apiserver에 대해 기능 게이트 `MixedProtocolLBService`가 활성화된 경우 둘 이상의 포트가 정의되어 있을 때 다른 프로토콜을 사용할 수 있다.
+`MixedProtocolLBService` 기능 게이트(v1.24에서 kube-apiserver에 대해 기본적으로 활성화되어 있음)는 
+둘 이상의 포트가 정의되어 있는 경우에 로드밸런서 타입의 서비스에 대해 서로 다른 프로토콜을 사용할 수 있도록 해 준다.
 
 {{< note >}}
 
 로드밸런서 서비스 유형에 사용할 수 있는 프로토콜 세트는 여전히 클라우드 제공 업체에서 정의한다.
+클라우드 제공자가 혼합 프로토콜을 지원하지 않는다면 이는 단일 프로토콜만을 제공한다는 것을 의미한다.
 
 {{< /note >}}
 
 #### 로드밸런서 NodePort 할당 비활성화
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 `type=LoadBalancer` 서비스에 대한 노드 포트 할당을 선택적으로 비활성화할 수 있으며, 
 이는 `spec.allocateLoadBalancerNodePorts` 필드를 `false`로 설정하면 된다. 
 노드 포트를 사용하지 않고 트래픽을 파드로 직접 라우팅하는 로드 밸런서 구현에만 사용해야 한다.
 기본적으로 `spec.allocateLoadBalancerNodePorts`는 `true`이며 로드밸런서 서비스 유형은 계속해서 노드 포트를 할당할 것이다.
-노드 포트가 할당된 기존 서비스에서 `spec.allocateLoadBalancerNodePorts`가 `false`로 설정된 경우 
-해당 노드 포트는 자동으로 할당 해제되지 **않는다**.
+노드 포트가 할당된 기존 서비스에서 `spec.allocateLoadBalancerNodePorts`가 `false`로 설정된 경우 해당 노드 포트는 자동으로 할당 해제되지 **않는다**.
 이러한 노드 포트를 할당 해제하려면 모든 서비스 포트에서 `nodePorts` 항목을 명시적으로 제거해야 한다.
-이 필드를 사용하려면 클러스터에 `ServiceLBNodePortControl` 
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
-쿠버네티스 v{{< skew currentVersion >}}에서, 이 기능 게이트는 기본적으로 활성화되어 있으므로, 
-`spec.allocateLoadBalancerNodePorts` 필드를 사용할 수 있다. 
-다른 버전의 쿠버네티스를 실행하는 클러스터에 대해서는, 해당 릴리스의 문서를 참조한다.
 
 #### 로드 밸런서 구현 클래스 지정 {#load-balancer-class}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 `spec.loadBalancerClass` 필드를 설정하여 클라우드 제공자가 설정한 기본값 이외의 로드 밸런서 구현을 사용할 수 있다. 
-이 필드를 사용하기 위해서는 클러스터에 `ServiceLoadBalancerClass` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다. 
-쿠버네티스 v{{< skew currentVersion >}}에서, 이 기능 게이트는 기본적으로 활성화되어 있다. 다른 버전의 쿠버네티스를 실행하는 클러스터에 대해서는, 해당 릴리스의 문서를 참조한다.
 기본적으로, `spec.loadBalancerClass` 는 `nil` 이고, 
 클러스터가 클라우드 제공자의 로드밸런서를 이용하도록 `--cloud-provider` 컴포넌트 플래그를 이용하여 설정되어 있으면 
 `LoadBalancer` 유형의 서비스는 클라우드 공급자의 기본 로드 밸런서 구현을 사용한다.
@@ -1211,7 +1238,7 @@ VIP용 유저스페이스 프록시를 사용하면 중소 규모의 스케일�
 충분해야 한다. 그러나, 이해가 필요한 부분 뒤에는
 많은 일이 있다.
 
-### 충돌 방지
+### 충돌 방지 {#avoiding-collisions}
 
 쿠버네티스의 주요 철학 중 하나는 잘못한 것이
 없는 경우 실패할 수 있는 상황에 노출되어서는
@@ -1219,9 +1246,10 @@ VIP용 유저스페이스 프록시를 사용하면 중소 규모의 스케일�
 충돌할 경우에 대비해 자신의 포트 번호를 선택하지
 않아도 된다. 그것은 격리 실패이다.
 
-서비스에 대한 포트 번호를 선택할 수 있도록 하기 위해, 두 개의
-서비스가 충돌하지 않도록 해야 한다. 쿠버네티스는 각 서비스에 고유한 IP 주소를
-할당하여 이를 수행한다.
+서비스에 대한 포트 번호를 선택할 수 있도록 하기 위해, 
+두 개의 서비스가 충돌하지 않도록 해야 한다. 
+쿠버네티스는 API 서버에 설정되어 있는 `service-cluster-ip-range` CIDR 범위에서 
+각 서비스에 고유한 IP 주소를 할당하여 이를 달성한다.
 
 각 서비스가 고유한 IP를 받도록 하기 위해, 내부 할당기는
 각 서비스를 만들기 전에 {{< glossary_tooltip term_id="etcd" >}}에서
@@ -1234,6 +1262,25 @@ IP 주소를 할당할 수 없다는 메시지와 함께 생성에 실패한다.
 지원 필요함) 쿠버네티스는 또한 컨트롤러를 사용하여 유효하지 않은
 할당 (예: 관리자 개입으로)을 체크하고 더 이상 서비스에서 사용하지 않는 할당된
 IP 주소를 정리한다.
+
+#### `type: ClusterIP` 서비스의 IP 주소 범위 {#service-ip-static-sub-range}
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+그러나, 이러한 `ClusterIP` 할당 전략에는 한 가지 문제가 있는데, 
+그것은 사용자 또한 [서비스의 IP 주소를 직접 고를 수 있기 때문이다](#choosing-your-own-ip-address).
+이로 인해 만약 내부 할당기(allocator)가 다른 서비스에 대해 동일한 IP 주소를 선택하면 
+충돌이 발생할 수 있다.
+
+`ServiceIPStaticSubrange` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화하면, 
+할당 전략은 `min(max(16, cidrSize / 16), 256)` 공식을 사용하여 얻어진 
+`service-cluster-ip-range`의 크기에 기반하여 `ClusterIP` 범위를 두 대역으로 나누며, 
+여기서 이 공식은 _16 이상 256 이하이며, 그 사이에 계단 함수가 있음_ 으로 설명할 수 있다. 
+동적 IP 할당은 상위 대역에서 우선적으로 선택하며, 
+이를 통해 하위 대역에서 할당된 IP와의 충돌 위험을 줄인다. 
+이렇게 함으로써 사용자가 서비스의 고정 IP를 
+`service-cluster-ip-range`의 하위 대역에서 할당하면서도 
+충돌 위험을 줄일 수 있다.
 
 ### 서비스 IP 주소 {#ips-and-vips}
 
