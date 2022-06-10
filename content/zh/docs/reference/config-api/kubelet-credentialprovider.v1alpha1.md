@@ -1,12 +1,12 @@
 ---
-title: Kubelet CredentialProvider (v1beta1)
+title: Kubelet CredentialProvider (v1alpha1)
 content_type: tool-reference
-package: credentialprovider.kubelet.k8s.io/v1beta1
+package: credentialprovider.kubelet.k8s.io/v1alpha1
 ---
 <!--
-title: Kubelet CredentialProvider (v1beta1)
+title: Kubelet CredentialProvider (v1alpha1)
 content_type: tool-reference
-package: credentialprovider.kubelet.k8s.io/v1beta1
+package: credentialprovider.kubelet.k8s.io/v1alpha1
 auto_generated: true
 -->
 
@@ -15,10 +15,10 @@ auto_generated: true
 -->
 ## 资源类型   {#resource-types}
 
-- [CredentialProviderRequest](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderRequest)
-- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse)
+- [CredentialProviderRequest](#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderRequest)
+- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderResponse)
 
-## `CredentialProviderRequest`     {#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderRequest}
+## `CredentialProviderRequest`     {#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderRequest}
 
 <!--
 CredentialProviderRequest includes the image that the kubelet requires authentication for.
@@ -34,7 +34,7 @@ Kubelet 会通过标准输入将此请求对象传递给插件。一般来说，
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
     
-<tr><td><code>apiVersion</code><br/>string</td><td><code>credentialprovider.kubelet.k8s.io/v1beta1</code></td></tr>
+<tr><td><code>apiVersion</code><br/>string</td><td><code>credentialprovider.kubelet.k8s.io/v1alpha1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>CredentialProviderRequest</code></td></tr>
     
   
@@ -56,7 +56,7 @@ to extract any information required to fetch credentials.
 </tbody>
 </table>
 
-## `CredentialProviderResponse`     {#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse}
+## `CredentialProviderResponse`     {#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderResponse}
 
 <!--    
 CredentialProviderResponse holds credentials that the kubelet should use for the specified
@@ -73,12 +73,12 @@ kubelet 将通过标准输出读取插件的响应。此响应的 apiVersion 值
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
     
-<tr><td><code>apiVersion</code><br/>string</td><td><code>credentialprovider.kubelet.k8s.io/v1beta1</code></td></tr>
+<tr><td><code>apiVersion</code><br/>string</td><td><code>credentialprovider.kubelet.k8s.io/v1alpha1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>CredentialProviderResponse</code></td></tr>
     
   
 <tr><td><code>cacheKeyType</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#credentialprovider-kubelet-k8s-io-v1beta1-PluginCacheKeyType"><code>PluginCacheKeyType</code></a>
+<a href="#credentialprovider-kubelet-k8s-io-v1alpha1-PluginCacheKeyType"><code>PluginCacheKeyType</code></a>
 </td>
 <td>
 <!--
@@ -110,7 +110,7 @@ CredentialProviderConfig. If set to 0, the kubelet will not cache the provided A
 </td>
 </tr>
 <tr><td><code>auth</code><br/>
-<a href="#credentialprovider-kubelet-k8s-io-v1beta1-AuthConfig"><code>map[string]k8s.io/kubelet/pkg/apis/credentialprovider/v1beta1.AuthConfig</code></a>
+<a href="#credentialprovider-kubelet-k8s-io-v1alpha1-AuthConfig"><code>map[string]k8s.io/kubelet/pkg/apis/credentialprovider/v1alpha1.AuthConfig</code></a>
 </td>
 <td>
 <!--
@@ -189,14 +189,14 @@ stopping after the first successfully authenticated pull.</p>
 </tbody>
 </table>
 
-## `AuthConfig`     {#credentialprovider-kubelet-k8s-io-v1beta1-AuthConfig}
+## `AuthConfig`     {#credentialprovider-kubelet-k8s-io-v1alpha1-AuthConfig}
     
 <!--
 **Appears in:**
 -->
 **出现在：**
 
-- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse)
+- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderResponse)
 
 <!--
 <p>AuthConfig contains authentication information for a container registry.
@@ -239,7 +239,7 @@ An empty password is valid.</p>
 </tbody>
 </table>
 
-## `PluginCacheKeyType`     {#credentialprovider-kubelet-k8s-io-v1beta1-PluginCacheKeyType}
+## `PluginCacheKeyType`     {#credentialprovider-kubelet-k8s-io-v1alpha1-PluginCacheKeyType}
 
 <!--    
 (Alias of `string`)
@@ -250,4 +250,4 @@ An empty password is valid.</p>
 
 **出现在：**
 
-- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse)
+- [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1alpha1-CredentialProviderResponse)
