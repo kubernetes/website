@@ -41,14 +41,14 @@ Kubelet 使用证书进行 Kubernetes API 的认证。
 
 <!--
 Kubernetes contains [kubelet certificate
-rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/),
+rotation](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/),
 that will automatically generate a new key and request a new certificate from
 the Kubernetes API as the current certificate approaches expiration. Once the
 new certificate is available, it will be used for authenticating connections to
 the Kubernetes API.
 -->
 Kubernetes 包含特性
-[kubelet 证书轮换](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)，
+[kubelet 证书轮换](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)，
 在当前证书即将过期时，
 将自动生成新的秘钥，并从 Kubernetes API 申请新的证书。 一旦新的证书可用，它将被用于与
 Kubernetes API 间的连接认证。

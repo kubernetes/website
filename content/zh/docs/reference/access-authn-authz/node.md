@@ -90,12 +90,12 @@ have the minimal set of permissions required to operate correctly.
 -->
 
 为了获得节点鉴权器的授权，kubelet 必须使用一个凭证以表示它在 `system:nodes` 组中，用户名为 `system:node:<nodeName>`。
-上述的组名和用户名格式要与 [kubelet TLS 启动引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)过程中为每个 kubelet 创建的标识相匹配。
+上述的组名和用户名格式要与 [kubelet TLS 启动引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)过程中为每个 kubelet 创建的标识相匹配。
 <!--
 In order to be authorized by the Node authorizer, kubelets must use a credential that identifies them as
 being in the `system:nodes` group, with a username of `system:node:<nodeName>`.
 This group and user name format match the identity created for each kubelet as part of
-[kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/).
+[kubelet TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/).
 -->
 
 要启用节点授权器，请使用 `--authorization-mode = Node` 启动 apiserver。
