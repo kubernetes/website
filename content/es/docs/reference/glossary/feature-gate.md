@@ -4,7 +4,7 @@ id: feature-gate
 date: 2022-06-07
 full_link: /docs/reference/command-line-tools-reference/feature-gates/
 short_description: >
-  Las feature gates, puertas de funciones en castellano, son un conjunto de pares clave=valor que  permiten habilitar o deshabilitar al usuario funciones experimentales en Kubernetes.
+  Las feature gates son un conjunto de pares clave-valor que permiten al usuario habilitar o deshabilitar funciones experimentales en Kubernetes.
 
 aka:
 tags:
