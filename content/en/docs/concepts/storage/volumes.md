@@ -1156,7 +1156,7 @@ to the [volume plugin FAQ](https://github.com/kubernetes/community/blob/master/s
 (CSI) defines a standard interface for container orchestration systems (like
 Kubernetes) to expose arbitrary storage systems to their container workloads.
 
-Please read the [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for more information.
+Please read the [CSI design proposal](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md) for more information.
 
 {{< note >}}
 Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes
