@@ -39,7 +39,7 @@ The JSON and Protobuf serialization schemas follow the same guidelines for
 schema changes. The following descriptions cover both formats.
 
 The API versioning and software versioning are indirectly related.
-The [API and release versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)
+The [API and release versioning proposal](https://git.k8s.io/design-proposals-archive/release/versioning.md)
 describes the relationship between API versioning and software versioning.
 
 Different API versions indicate different levels of stability and support. You
@@ -83,7 +83,7 @@ Here's a summary of each level:
 
 ## API groups
 
-[API groups](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)
+[API groups](https://git.k8s.io/design-proposals-archive/api-machinery/api-group.md)
 make it easier to extend the Kubernetes API.
 The API group is specified in a REST path and in the `apiVersion` field of a
 serialized object.
@@ -124,4 +124,4 @@ Kubernetes stores its serialized state in terms of the API resources by writing 
 
 - Learn more about [API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
 - Read the design documentation for
-  [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)
+  [aggregator](https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)
