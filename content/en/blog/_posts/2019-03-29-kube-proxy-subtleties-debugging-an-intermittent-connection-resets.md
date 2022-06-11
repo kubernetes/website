@@ -1,11 +1,11 @@
 ---
-title: 'kube-proxy Subtleties: Debugging an Intermittent Connection Reset'
+title: "kube-proxy Subtleties: Debugging an Intermittent Connection Reset"
 date: 2019-03-29
 ---
 
 **Author:** [Yongkun Gui](mailto:ygui@google.com), Google
 
-I recently came across a bug that causes intermittent connection resets.  After
+I recently came across a bug that causes intermittent connection resets. After
 some digging, I found it was caused by a subtle combination of several different
 network subsystems. It helped me understand Kubernetes networking better, and I
 think it’s worthwhile to share with a wider audience who are interested in the same
@@ -79,25 +79,25 @@ address it changed to, and changed it back when the returning packet came back.
 Iptables could also rely on the conntrack state (ctstate) to decide the destiny
 of a packet. Those 4 conntrack states are especially important:
 
-- *NEW*: conntrack knows nothing about this packet, which happens when the SYN
+- _NEW_: conntrack knows nothing about this packet, which happens when the SYN
   packet is received.
-- *ESTABLISHED*: conntrack knows the packet belongs to an established connection,
+- _ESTABLISHED_: conntrack knows the packet belongs to an established connection,
   which happens after handshake is complete.
-- *RELATED*: The packet doesn’t belong to any connection, but it is affiliated
+- _RELATED_: The packet doesn’t belong to any connection, but it is affiliated
   to another connection, which is especially useful for protocols like FTP.
-- *INVALID*: Something is wrong with the packet, and conntrack doesn’t know how
+- _INVALID_: Something is wrong with the packet, and conntrack doesn’t know how
   to deal with it. This state plays a centric role in this Kubernetes issue.
 
 Here is a diagram of how a TCP connection works between pod and service. The
-sequence of events are: 
+sequence of events are:
 
 - Client pod from left hand side sends a packet to a
-service: 192.168.0.2:80
+  service: 192.168.0.2:80
 - The packet is going through iptables rules in client
-node and the destination is changed to pod IP, 10.0.1.2:80 
+  node and the destination is changed to pod IP, 10.0.1.2:80
 - Server pod handles the packet and sends back a packet with destination 10.0.0.2
 - The packet is going back to the client node, conntrack recognizes the packet and rewrites the source
-address back to 192.169.0.2:80
+  address back to 192.169.0.2:80
 - Client pod receives the response packet
 
 {{<figure width="100%"
@@ -110,10 +110,10 @@ Enough of the background, so what really went wrong and caused the unexpected
 connection reset?
 
 As the diagram below shows, the problem is packet 3. When conntrack cannot
-recognize a returning packet, and mark it as *INVALID*. The most common
+recognize a returning packet, and mark it as _INVALID_. The most common
 reasons include: conntrack cannot keep track of a connection because it is out
 of capacity, the packet itself is out of a TCP window, etc. For those packets
-that have been marked as *INVALID* state by conntrack, we don’t have the
+that have been marked as _INVALID_ state by conntrack, we don’t have the
 iptables rule to drop it, so it will be forwarded to client pod, with source IP
 address not rewritten (as shown in packet 4)! Client pod doesn’t recognize this
 packet because it has a different source IP, which is pod IP, not service IP. As
@@ -139,14 +139,19 @@ Once we understand the root cause, the fix is not hard. There are at least 2
 ways to address it.
 
 - Make conntrack more liberal on packets, and don’t mark the packets as
-  *INVALID*. In Linux, you can do this by `echo 1 >
-  /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_be_liberal`.
+  _INVALID_. In Linux, you can do this by `echo 1 > /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_be_liberal`.
 - Specifically add an iptables rule to drop the packets that are marked as
-  *INVALID*, so it won’t reach to client pod and cause harm.
+  _INVALID_, so it won’t reach to client pod and cause harm.
 
 The [fix](https://github.com/kubernetes/kubernetes/pull/74840) is available in v1.15+.
 However, for the users that are affected by this bug, there is a way to mitigate the
 problem by applying the following rule in your cluster.
+
+_Update_: With worker nodes on kernel version 4.14 and above, the path mentioned in the script to set the sysctl might be different.
+The recommendation is to connect to the worker node through SSH and run the following the command.
+`echo 1 > /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_be_liberal`.
+If the command returns `No such file or directory`, that means the netfilter directory likely uses the sysctl path`/proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal`.
+You must update the command in the DaemonSet below to use the correct path.
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -163,17 +168,17 @@ spec:
     spec:
       hostPID: true
       containers:
-      - name: startup-script
-        image: gcr.io/google-containers/startup-script:v1
-        imagePullPolicy: IfNotPresent
-        securityContext:
-          privileged: true
-        env:
-        - name: STARTUP_SCRIPT
-          value: |
-            #! /bin/bash
-            echo 1 > /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_be_liberal
-            echo done
+        - name: startup-script
+          image: gcr.io/google-containers/startup-script:v1
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          env:
+            - name: STARTUP_SCRIPT
+              value: |
+                #! /bin/bash
+                echo 1 > /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_be_liberal
+                echo done
 ```
 
 ## Summary
