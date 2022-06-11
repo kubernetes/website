@@ -10,14 +10,14 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Kubeconfig file utilities
+Utilitários de arquivo Kubeconfig
 
-### Synopsis
+### Sinopse
 
 
-Kubeconfig file utilities.
+Utilitários de arquivo Kubeconfig.
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -30,7 +30,7 @@ Kubeconfig file utilities.
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubeconfig</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para kubeconfig</p></td>
 </tr>
 
 </tbody>
@@ -38,7 +38,7 @@ Kubeconfig file utilities.
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -51,7 +51,7 @@ Kubeconfig file utilities.
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>

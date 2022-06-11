@@ -10,25 +10,24 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Output a kubeconfig file for an additional user
+Saída do arquivo kubeconfig para um usuário adicional.
 
-### Synopsis
+### Sinopse
 
-
-Output a kubeconfig file for an additional user.
+Saída do arquivo kubeconfig para um usuário adicional.
 
 ```
 kubeadm kubeconfig user [flags]
 ```
 
-### Examples
+### Exemplos
 
 ```
-  # Output a kubeconfig file for an additional user named foo using a kubeadm config file bar
+  # Envie um arquivo kubeconfig para um usuário adicional chamado foo usando um arquivo bar de configuração
   kubeadm kubeconfig user --client-name=foo --config=bar
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -41,42 +40,42 @@ kubeadm kubeconfig user [flags]
 <td colspan="2">--client-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The name of user. It will be used as the CN if client certificates are created</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O nome do usuário. Ele será usado como CN se os certificados do cliente forem criados.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para um arquivo de configuração kubeadm.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for user</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para user</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--org strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The orgnizations of the client certificate. It will be used as the O if client certificates are created</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>As organizações do certificado do cliente. Ele será usado como O se os certificados de cliente forem criados.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The token that should be used as the authentication mechanism for this kubeconfig, instead of client certificates</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O token que deve ser usado como mecanismo de autenticação para esse kubeconfig, em vez de certificados de cliente</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--validity-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 8760h0m0s</td>
+<td colspan="2">--validity-period duração&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: 8760h0m0s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The validity period of the client certificate. It is an offset from the current time.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O período de validade do certificado do cliente. É um deslocamento da hora atual.</p></td>
 </tr>
 
 </tbody>
@@ -84,7 +83,7 @@ kubeadm kubeconfig user [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -97,7 +96,7 @@ kubeadm kubeconfig user [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>
