@@ -10,28 +10,21 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Generate and print a bootstrap token, but do not create it on the server
+Gere e exiba um token de inicialização, mas não o crie no servidor
 
-### Synopsis
+### Sinopse
 
+Este comando exibirá um token de inicialização gerado aleatoriamente que pode ser usado com os comandos "init" e "join".
 
+Você não precisa usar este comando para gerar um token. Você pode fazer isso sozinho, desde que esteja no formato "[a-z0-9]{6}.[a-z0-9]{16}". Este comando é fornecido por conveniência para gerar tokens no formato fornecido.
 
-This command will print out a randomly-generated bootstrap token that can be used with
-the "init" and "join" commands.
-
-You don't have to use this command in order to generate a token. You can do so
-yourself as long as it is in the format "[a-z0-9]{6}.[a-z0-9]{16}". This
-command is provided for convenience to generate tokens in the given format.
-
-You can also use "kubeadm init" without specifying a token and it will
-generate and print one for you.
-
+Você também pode usar "kubeadm init" sem especificar um token e ele gerará e exibirá um para você.
 
 ```
 kubeadm token generate [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -44,7 +37,7 @@ kubeadm token generate [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for generate</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para generate</p></td>
 </tr>
 
 </tbody>
@@ -52,7 +45,7 @@ kubeadm token generate [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -65,21 +58,21 @@ kubeadm token generate [flags]
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Whether to enable dry-run mode or not</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Ativar ou não o modo de execução dry-run</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão locais pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>
