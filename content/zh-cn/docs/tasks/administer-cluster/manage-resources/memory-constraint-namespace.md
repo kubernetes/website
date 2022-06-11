@@ -3,7 +3,8 @@ title: 配置命名空间的最小和最大内存约束
 content_type: task
 weight: 30
 description: >-
-  为命名口空间定义一个有效的内存资源限制范围，在该命名空间中每个新创建 Pod 的内存资源是在设置的范围内。
+  为命名口空间定义一个有效的内存资源限制范围，在该命名空间中每个新创建
+  Pod 的内存资源是在设置的范围内。
 ---
 
 <!--
@@ -16,14 +17,17 @@ weight: 30
 
 <!--
 This page shows how to set minimum and maximum values for memory used by containers
-running in a namespace. You specify minimum and maximum memory values in a
-[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
+running in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}. 
+You specify minimum and maximum memory values in a
+[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
 object. If a Pod does not meet the constraints imposed by the LimitRange,
 it cannot be created in the namespace.
 -->
-本页介绍如何设置在命名空间中运行的容器使用的内存的最小值和最大值。 你可以在
-[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
-对象中指定最小和最大内存值。如果 Pod 不满足 LimitRange 施加的约束，则无法在命名空间中创建它。
+本页介绍如何设置在{{< glossary_tooltip text="名字空间" term_id="namespace" >}}
+中运行的容器所使用的内存的最小值和最大值。你可以在
+[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+对象中指定最小和最大内存值。如果 Pod 不满足 LimitRange 施加的约束，
+则无法在名字空间中创建它。
 
 ## {{% heading "prerequisites" %}}
 
@@ -32,7 +36,6 @@ it cannot be created in the namespace.
 <!--
 You must have access to create namespaces in your cluster.
 Each node in your cluster must have at least 1 GiB of memory available for Pods.
-
 -->
 在你的集群里你必须要有创建命名空间的权限。
 
@@ -108,7 +111,7 @@ Now whenever you define a Pod within the constraints-mem-example namespace, Kube
 performs these steps:
 
 * If any container in that Pod does not specify its own memory request and limit, 
-the control plane assig nthe default memory request and limit to that container.
+  the control plane assigns the default memory request and limit to that container.
 
 * Verify that every container in that Pod requests at least 500 MiB of memory.
 
@@ -122,9 +125,7 @@ minimum and maximum memory constraints imposed by the LimitRange.
 现在，每当在 constraints-mem-example 命名空间中创建 Pod 时，Kubernetes 就会执行下面的步骤：
 
 * 如果 Pod 中的任何容器未声明自己的内存请求和限制，控制面将为该容器设置默认的内存请求和限制。
-
 * 确保该 Pod 中的每个容器的内存请求至少 500 MiB。
-
 * 确保该 Pod 中每个容器内存请求不大于 1 GiB。
 
 以下为包含一个容器的 Pod 清单。该容器声明了 600 MiB 的内存请求和 800 MiB 的内存限制，

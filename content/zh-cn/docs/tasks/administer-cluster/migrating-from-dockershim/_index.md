@@ -1,5 +1,5 @@
 ---
-title: "从 dockershim 迁移"
+title: 从 dockershim 迁移
 weight: 10
 content_type: task 
 no_list: true
@@ -31,11 +31,11 @@ to understand the problem better.
 
 <!-- 
 Dockershim was removed from Kubernetes with the release of v1.24.
-If you use Docker via dockershim as your container runtime, and wish to upgrade to v1.24,
+If you use Docker Engine via dockershim as your container runtime, and wish to upgrade to v1.24,
 it is recommended that you either migrate to another runtime or find an alternative means to obtain Docker Engine support.
 -->
 Dockershim 在 Kubernetes v1.24 版本已经被移除。
-如果你集群内是通过 dockershim 使用 Docker 作为容器运行时，并希望 Kubernetes 升级到 v1.24，
+如果你集群内是通过 dockershim 使用 Docker Engine 作为容器运行时，并希望 Kubernetes 升级到 v1.24，
 建议你迁移到其他容器运行时或使用其他方法以获得 Docker 引擎支持。
 
 <!--
@@ -58,19 +58,20 @@ configuration.
 These tasks will help you to migrate:
 
 * [Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-* [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/)
+* [Migrate Docker Engine nodes from dockershim to cri-dockerd](/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/)
 * [Migrating telemetry and security agents from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents/)
 -->
 你的集群中可以有不止一种类型的节点，尽管这不是常见的情况。
 
 下面这些任务可以帮助你完成迁移：
 
-* [检查弃用 Dockershim 对你的影响](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-* [dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/)
+* [检查弃用 Dockershim 是否影响到你](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+* [将 Docker Engine 节点从 dockershim 迁移到 cri-dockerd](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/)
 * [从 dockershim 迁移遥测和安全代理](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents/)
-<!--
+
 ## {{% heading "whatsnext" %}}
 
+<!--
 * Check out [container runtimes](/docs/setup/production-environment/container-runtimes/)
   to understand your options for a container runtime.
 * There is a
@@ -80,11 +81,9 @@ These tasks will help you to migrate:
   you can [report an issue](https://github.com/kubernetes/kubernetes/issues/new/choose)
   to the Kubernetes project.
 -->
-
-## 下一步
-
 * 查看[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)了解可选的容器运行时。
-* [GitHub 问题](https://github.com/kubernetes/kubernetes/issues/106917)跟踪有关 dockershim 的弃用和删除的讨论。
+* [GitHub 问题](https://github.com/kubernetes/kubernetes/issues/106917)跟踪有关
+  dockershim 的弃用和删除的讨论。
 * 如果你发现与 dockershim 迁移相关的缺陷或其他技术问题，
   可以在 Kubernetes 项目[报告问题](https://github.com/kubernetes/kubernetes/issues/new/choose)。
-  
+

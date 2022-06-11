@@ -4,11 +4,9 @@ content_type: task
 weight: 10
 ---
 <!-- 
----
 title: Configuring a cgroup driver
 content_type: task
 weight: 10
----
 -->
 
 <!-- overview -->
@@ -26,6 +24,7 @@ You should be familiar with the Kubernetes
 [container runtime requirements](/docs/setup/production-environment/container-runtimes).
 -->
 你应该熟悉 Kubernetes 的[容器运行时需求](/zh/docs/setup/production-environment/container-runtimes)。
+
 <!-- steps -->
 
 <!-- 
@@ -122,18 +121,13 @@ Kubeadm 对集群所有的节点，使用相同的 `KubeletConfiguration`。
 # 使用 `cgroupfs` 驱动
 
 <!-- 
-As this guide explains using the `cgroupfs` driver with kubeadm is not recommended.
-
-To continue using `cgroupfs` and to prevent `kubeadm upgrade` from modifying the
+To use `cgroupfs` and to prevent `kubeadm upgrade` from modifying the
 `KubeletConfiguration` cgroup driver on existing setups, you must be explicit
 about its value. This applies to a case where you do not wish future versions
 of kubeadm to apply the `systemd` driver by default.
 -->
-正如本指南阐述的：不推荐与 kubeadm 一起使用 `cgroupfs` 驱动。
-
-如仍需使用 `cgroupfs`，
-且要防止 `kubeadm upgrade` 修改现有系统中 `KubeletConfiguration` 的 cgroup 驱动，
-你必须显式声明它的值。
+如仍需使用 `cgroupfs` 且要防止 `kubeadm upgrade` 修改现有系统中
+`KubeletConfiguration` 的 cgroup 驱动，你必须显式声明它的值。
 此方法应对的场景为：在将来某个版本的 kubeadm 中，你不想使用默认的 `systemd` 驱动。
 
 <!-- 
