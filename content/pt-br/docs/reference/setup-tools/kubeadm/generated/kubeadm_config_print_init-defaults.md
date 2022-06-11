@@ -9,24 +9,19 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
+Exibe a configuração de inicialização padrão, que pode ser usada para 'kubeadm init'
 
-Print default init configuration, that can be used for 'kubeadm init'
+### Sinopse
 
-### Synopsis
+Este comando exibe os objetos como a configuração de inicialização padrão que é usada para 'kubeadm init'.
 
-
-
-This command prints objects such as the default init configuration that is used for 'kubeadm init'.
-
-Note that sensitive values like the Bootstrap Token fields are replaced with placeholder values like "abcdef.0123456789abcdef" in order to pass validation but
-not perform the real computation for creating a token.
-
+Observe que os valores confidenciais, como os campos do Token Bootstrap, são substituídos por valores de espaço reservado como "abcdef.0123456789abcdef", a fim de passar na validação, mas não executar o cálculo real para criar um token.
 
 ```
 kubeadm config print init-defaults [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -39,14 +34,14 @@ kubeadm config print init-defaults [flags]
 <td colspan="2">--component-configs strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A comma-separated list for component config API objects to print the default values for. Available values: [KubeProxyConfiguration KubeletConfiguration]. If this flag is not set, no component configs will be printed.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Uma lista separada por vírgulas dos objetos da API de configuração exibirá os valores padrão. Valores disponíveis: [KubeProxyConfiguration KubeletConfiguration]. Se essa flag não estiver definida, nenhuma configuração de componente será impressa.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for init-defaults</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para init-defaults</p></td>
 </tr>
 
 </tbody>
@@ -54,7 +49,7 @@ kubeadm config print init-defaults [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -64,17 +59,17 @@ kubeadm config print init-defaults [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig pode ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão local pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>

@@ -10,31 +10,22 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Read an older version of the kubeadm configuration API types from a file, and output the similar config object for the newer version
+Leia uma versão mais antiga dos tipos de API de configuração do kubeadm a partir de um arquivo e envie o objeto de configuração semelhante para a versão mais recente
 
-### Synopsis
+### Sinopse
 
+Esse comando permite converter objetos de configuração de versões mais antigas para a versão mais recente suportada, localmente na ferramenta CLI sem nunca tocar em nada no cluster. Nesta versão do kubeadm, as seguintes versões da API são suportadas:
+- Kubeadm.k8s.io/v1beta3
 
+Além disso, o kubeadm só pode escrever a configuração da versão "kubeadm.k8s.io/v1beta3", mas pode ler os dois tipos. Portanto, independentemente da versão que você passar para o parâmetro --old-config , o objeto API será lido, desserializado, padronizado, convertido, validado e serializado novamente quando escrito no stdout ou --new-config, se especificado.
 
-This command lets you convert configuration objects of older versions to the latest supported version,
-locally in the CLI tool without ever touching anything in the cluster.
-In this version of kubeadm, the following API versions are supported:
-- kubeadm.k8s.io/v1beta3
-
-Further, kubeadm can only write out config of version "kubeadm.k8s.io/v1beta3", but read both types.
-So regardless of what version you pass to the --old-config parameter here, the API object will be
-read, deserialized, defaulted, converted, validated, and re-serialized when written to stdout or
---new-config if specified.
-
-In other words, the output of this command is what kubeadm actually would read internally if you
-submitted this file to "kubeadm init"
-
+Em outras palavras, a saída deste comando é o que o kubeadm realmente leria internamente se você enviasse este arquivo para "kubeadm init"
 
 ```
 kubeadm config migrate [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -47,21 +38,21 @@ kubeadm config migrate [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for migrate</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para migrate</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--new-config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the resulting equivalent kubeadm config file using the new API version. Optional, if not specified output will be sent to STDOUT.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o arquivo de configuração kubeadm equivalente usando a nova versão da API. Opcional, se não for especificado, a saída será enviada para o STDOUT.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--old-config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kubeadm config file that is using an old API version and should be converted. This flag is mandatory.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o arquivo de configuração do kubeadm que está usando uma versão antiga da API e que deve ser convertido. Essa flag é obrigatória.</p></td>
 </tr>
 
 </tbody>
@@ -69,7 +60,7 @@ kubeadm config migrate [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -79,17 +70,17 @@ kubeadm config migrate [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig pode ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão local pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>
