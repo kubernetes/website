@@ -668,6 +668,44 @@ Kubernetes uses this label to differentiate multiple Services. Used currently fo
 
 Kubernetes 使用这个标签来区分多个服务。目前仅用于 `ELB` （弹性负载均衡器）。
 
+<!-- 
+### kubernetes.io/service-account.name
+
+Example: `kubernetes.io/service-account.name: "sa-name"`
+
+Used on: Secret
+
+This annotation records the {{< glossary_tooltip term_id="name" text="name">}} of the
+ServiceAccount that the token (stored in the Secret of type `kubernetes.io/service-account-token`) represents.
+-->
+### kubernetes.io/service-account.name
+
+示例：`kubernetes.io/service-account.name: "sa-name"`
+
+用于：Secret
+
+这个注解记录了令牌（存储在 `kubernetes.io/service-account-token` 类型的 Secret 中）所代表的
+ServiceAccount 的{{<glossary_tooltip term_id="name" text="名称">}}。
+
+<!-- 
+### kubernetes.io/service-account.uid
+
+Example: `kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800da`
+
+Used on: Secret
+
+This annotation records the {{< glossary_tooltip term_id="uid" text="unique ID" >}} of the
+ServiceAccount that the token (stored in the Secret of type `kubernetes.io/service-account-token`) represents.
+-->
+### kubernetes.io/service-account.uid
+
+示例：`kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800da`
+
+用于：Secret
+
+该注解记录了令牌（存储在 `kubernetes.io/service-account-token` 类型的 Secret 中）所代表的
+ServiceAccount 的{{<glossary_tooltip term_id="uid" text="唯一 ID" >}}。
+
 <!--
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
