@@ -10,23 +10,19 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Delete bootstrap tokens on the server
+Excluir tokens de inicialização no servidor
 
-### Synopsis
+### Sinopse
 
+Este comando excluirá uma lista de tokens de inicialização para você.
 
-
-This command will delete a list of bootstrap tokens for you.
-
-The [token-value] is the full Token of the form "[a-z0-9]{6}.[a-z0-9]{16}" or the
-Token ID of the form "[a-z0-9]{6}" to delete.
-
+O [token-value] é um Token completo na forma "[a-z0-9]{6}.[a-z0-9]{16}" ou o ID do Token na forma "[a-z0-9]{6}" a ser excluído.
 
 ```
 kubeadm token delete [token-value] ...
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -39,7 +35,7 @@ kubeadm token delete [token-value] ...
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for delete</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para delete</p></td>
 </tr>
 
 </tbody>
@@ -47,7 +43,7 @@ kubeadm token delete [token-value] ...
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -60,21 +56,21 @@ kubeadm token delete [token-value] ...
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Whether to enable dry-run mode or not</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Ativar ou não o modo de execução dry-run</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão locais pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>

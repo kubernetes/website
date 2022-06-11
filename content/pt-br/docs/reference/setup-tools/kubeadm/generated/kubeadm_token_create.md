@@ -10,25 +10,19 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Create bootstrap tokens on the server
+Crie tokens de inicialização no servidor
 
-### Synopsis
+### Sinopse
 
+Este comando criará um token de inicialização. Você pode especificar os usos para este token, o "tempo de vida" e uma descrição amigável, que é opcional.
 
-
-This command will create a bootstrap token for you.
-You can specify the usages for this token, the "time to live" and an optional human friendly description.
-
-The [token] is the actual token to write.
-This should be a securely generated random token of the form "[a-z0-9]{6}.[a-z0-9]{16}".
-If no [token] is given, kubeadm will generate a random token instead.
-
+O [token] é o token real para gravar. Este deve ser um token aleatório gerado com segurança da forma "[a-z0-9]{6}.[a-z0-9]{16}". Se nenhum [token] for fornecido, o kubeadm gerará um token aleatório.
 
 ```
 kubeadm token create [token]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -41,56 +35,56 @@ kubeadm token create [token]
 <td colspan="2">--certificate-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>When used together with '--print-join-command', print the full 'kubeadm join' flag needed to join the cluster as a control-plane. To create a new certificate key you must use 'kubeadm init phase upload-certs --upload-certs'.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Quando usado em conjunto com '--print-join-command', exibe a flag completa 'kubeadm join' necessário para se unir ao cluster como uma camada de gerenciamento. Para criar uma nova chave de certificado, você deve usar 'kubeadm init phase upload-certs --upload-certs'.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o arquivo de configuração kubeadm.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--description string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A human friendly description of how this token is used.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Uma descrição amigável de como esse token é usado.</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--groups strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "system:bootstrappers:kubeadm:default-node-token"</td>
+<td colspan="2">--groups strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "system:bootstrappers:kubeadm:default-node-token"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Extra groups that this token will authenticate as when used for authentication. Must match &quot;\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\z&quot;</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Grupos extras que este token autenticará quando usado para autenticação. Deve corresponder &quot;\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\z&quot;</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for create</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para create</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--print-join-command</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Instead of printing only the token, print the full 'kubeadm join' flag needed to join the cluster using the token.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Em vez de exibir apenas o token, a flag completa 'kubeadm join' exibe o comando necessário para se associar ao cluster usando o token.</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 24h0m0s</td>
+<td colspan="2">--ttl duração&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: 24h0m0s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set to '0', the token will never expire</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A duração antes do token ser excluído automaticamente (por exemplo, 1s, 2m, 3h). Se definido como '0', o token nunca expirará</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--usages strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "signing,authentication"</td>
+<td colspan="2">--usages strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "signing,authentication"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Describes the ways in which this token can be used. You can pass --usages multiple times or provide a comma separated list of options. Valid options: [signing,authentication]</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Descreve as maneiras pelas quais esse token pode ser usado. Você pode passar --usages várias vezes ou fornecer uma lista de opções separada por vírgulas. Opções válidas: [signing,authentication]</p></td>
 </tr>
 
 </tbody>
@@ -98,7 +92,7 @@ kubeadm token create [token]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -111,21 +105,21 @@ kubeadm token create [token]
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Whether to enable dry-run mode or not</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Ativar ou não o modo de execução dry-run</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão locais pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>
