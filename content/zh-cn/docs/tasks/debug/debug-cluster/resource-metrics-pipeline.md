@@ -362,7 +362,7 @@ To learn more about the metrics-server, see the
 
 You can also check out the following:
 
-* [metrics-server design](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)
+* [metrics-server design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/metrics-server.md)
 * [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
 * [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
 * [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
@@ -373,7 +373,7 @@ You can also check out the following:
 
 你还可以查看以下内容：
 
-* [metrics-server 设计](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)
+* [metrics-server 设计](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/metrics-server.md)
 * [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
 * [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
 * [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
