@@ -584,7 +584,7 @@ opinions of the proper content of these objects.
 就可能出现抖动。
 
 <!--
-Each `kube-apiserver` makes an inital maintenance pass over the
+Each `kube-apiserver` makes an initial maintenance pass over the
 mandatory and suggested configuration objects, and after that does
 periodic maintenance (once per minute) of those objects.
 
