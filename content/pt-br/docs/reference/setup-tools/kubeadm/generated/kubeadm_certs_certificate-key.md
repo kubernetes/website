@@ -10,24 +10,19 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Generate certificate keys
+Gerar as chaves de certificado
 
-### Synopsis
+### Sinopse
 
+Este comando exibirá uma chave de certificado segura gerada aleatoriamente que pode ser usada com o comando "init".
 
-
-This command will print out a secure randomly-generated certificate key that can be used with
-the "init" command.
-
-You can also use "kubeadm init --upload-certs" without specifying a certificate key and it will
-generate and print one for you.
-
+Você também pode usar "kubeadm init --upload-certs" sem especificar uma chave de certificado e ela irá gerar e exibir uma para você.
 
 ```
 kubeadm certs certificate-key [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -40,7 +35,7 @@ kubeadm certs certificate-key [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for certificate-key</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para certificate-key</p></td>
 </tr>
 
 </tbody>
@@ -48,7 +43,7 @@ kubeadm certs certificate-key [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -61,11 +56,8 @@ kubeadm certs certificate-key [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>
 </table>
-
-
-
