@@ -1093,7 +1093,7 @@ Service is not working.  Please let us know what is going on, so we can help
 investigate!
 
 Contact us on
-[Slack](/docs/tasks/debug/overview/#slack) or
+[Slack](https://slack.k8s.io/) or
 [Forum](https://discuss.kubernetes.io) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 -->
@@ -1104,7 +1104,7 @@ Contact us on
 然而 Service 还是没有正常工作。这种情况下，请告诉我们，以便我们可以帮助调查！
 
 通过
-[Slack](/zh/docs/tasks/debug/overview/#slack) 或者
+[Slack](https://slack.k8s.io/) 或者
 [Forum](https://discuss.kubernetes.io) 或者
 [GitHub](https://github.com/kubernetes/kubernetes) 
 联系我们。
@@ -1112,6 +1112,6 @@ Contact us on
 ## {{% heading "whatsnext" %}}
 
 <!--
-Visit [troubleshooting document](/docs/tasks/debug/overview/) for more information.
+Visit [troubleshooting document](/docs/tasks/debug/) for more information.
 -->
-访问[故障排查文档](/zh/docs/tasks/debug-application-cluster/troubleshooting/) 获取更多信息。
+访问[故障排查文档](/zh/docs/tasks/debug/) 获取更多信息。
