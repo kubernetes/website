@@ -276,7 +276,7 @@ By default, these serving certificate will expire after one year. Kubeadm sets t
 `KubeletConfiguration` field `rotateCertificates` to `true`, which means that close
 to expiration a new set of CSRs for the serving certificates will be created and must
 be approved to complete the rotation. To understand more see
-[Certificate Rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#certificate-rotation).
+[Certificate Rotation](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#certificate-rotation).
 
 If you are looking for a solution for automatic approval of these CSRs it is recommended
 that you contact your cloud provider and ask if they have a CSR signer that verifies

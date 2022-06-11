@@ -8,6 +8,8 @@ weight: 80
 
 <!-- overview -->
 
+{{% dockershim-removal %}}
+
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
 The lifecycle of the kubeadm CLI tool is decoupled from the
@@ -36,7 +38,7 @@ using kubeadm, rather than managing the kubelet configuration for each Node manu
 ### Propagating cluster-level configuration to each kubelet
 
 You can provide the kubelet with default values to be used by `kubeadm init` and `kubeadm join`
-commands. Interesting examples include using a different CRI runtime or setting the default subnet
+commands. Interesting examples include using a different container runtime or setting the default subnet
 used by services.
 
 If you want your services to use the subnet `10.96.0.0/12` as the default for services, you can pass
@@ -78,14 +80,12 @@ networking, or other host-specific parameters. The following list provides a few
   unless you are using a cloud provider. You can use the `--hostname-override` flag to override the
   default behavior if you need to specify a Node name different from the machine's hostname.
 
-- Currently, the kubelet cannot automatically detect the cgroup driver used by the CRI runtime,
-  but the value of `--cgroup-driver` must match the cgroup driver used by the CRI runtime to ensure
+- Currently, the kubelet cannot automatically detect the cgroup driver used by the container runtime,
+  but the value of `--cgroup-driver` must match the cgroup driver used by the container runtime to ensure
   the health of the kubelet.
 
-- Depending on the CRI runtime your cluster uses, you may need to specify different flags to the kubelet.
-  For instance, when using Docker, you need to specify flags such as `--network-plugin=cni`, but if you
-  are using an external runtime, you need to specify `--container-runtime=remote` and specify the CRI
-  endpoint using the `--container-runtime-endpoint=<path>`.
+- To specify the container runtime you must set its endpoint with the
+`--container-runtime-endpoint=<path>` flag.
 
 You can specify these flags by configuring an individual kubelet's configuration in your service manager,
 such as systemd.
@@ -105,10 +105,9 @@ for more information on the individual fields.
 ### Workflow when using `kubeadm init`
 
 When you call `kubeadm init`, the kubelet configuration is marshalled to disk
-at `/var/lib/kubelet/config.yaml`, and also uploaded to a ConfigMap in the cluster. The ConfigMap
-is named `kubelet-config-1.X`, where `X` is the minor version of the Kubernetes version you are
-initializing. A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf` with the
-baseline cluster-wide configuration for all kubelets in the cluster. This configuration file
+at `/var/lib/kubelet/config.yaml`, and also uploaded to a `kubelet-config` ConfigMap in the `kube-system`
+namespace of the cluster. A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf`
+with the baseline cluster-wide configuration for all kubelets in the cluster. This configuration file
 points to the client certificates that allow the kubelet to communicate with the API server. This
 addresses the need to
 [propagate cluster-level configuration to each kubelet](#propagating-cluster-level-configuration-to-each-kubelet).
@@ -123,7 +122,7 @@ KUBELET_KUBEADM_ARGS="--flag1=value1 --flag2=value2 ..."
 ```
 
 In addition to the flags used when starting the kubelet, the file also contains dynamic
-parameters such as the cgroup driver and whether to use a different CRI runtime socket
+parameters such as the cgroup driver and whether to use a different container runtime socket
 (`--cri-socket`).
 
 After marshalling these two files to disk, kubeadm attempts to run the following two
@@ -139,7 +138,7 @@ If the reload and restart are successful, the normal `kubeadm init` workflow con
 
 When you run `kubeadm join`, kubeadm uses the Bootstrap Token credential to perform
 a TLS bootstrap, which fetches the credential needed to download the
-`kubelet-config-1.X` ConfigMap and writes it to `/var/lib/kubelet/config.yaml`. The dynamic
+`kubelet-config` ConfigMap and writes it to `/var/lib/kubelet/config.yaml`. The dynamic
 environment file is generated in exactly the same way as `kubeadm init`.
 
 Next, `kubeadm` runs the following two commands to load the new configuration into the kubelet:

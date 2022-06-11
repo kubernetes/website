@@ -302,9 +302,8 @@ the Pod onto a node that is in the same zone as one or more Pods with the label
 `topology.kubernetes.io/zone=R` label if there are other nodes in the
 same zone currently running Pods with the `Security=S2` Pod label.
 
-See the
-[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
-for many more examples of Pod affinity and anti-affinity.
+To get yourself more familiar with the examples of Pod affinity and anti-affinity,
+refer to the [design proposal](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/podaffinity.md).
 
 You can use the `In`, `NotIn`, `Exists` and `DoesNotExist` values in the
 `operator` field for Pod affinity and anti-affinity.
@@ -326,18 +325,12 @@ If omitted or empty, `namespaces` defaults to the namespace of the Pod where the
 affinity/anti-affinity definition appears.
 
 #### Namespace selector
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 You can also select matching namespaces using `namespaceSelector`, which is a label query over the set of namespaces.
 The affinity term is applied to namespaces selected by both `namespaceSelector` and the `namespaces` field.
 Note that an empty `namespaceSelector` ({}) matches all namespaces, while a null or empty `namespaces` list and 
 null `namespaceSelector` matches the namespace of the Pod where the rule is defined.
-
-{{<note>}}
-This feature is beta and enabled by default. You can disable it via the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
-{{</note>}}
 
 #### More practical use-cases
 

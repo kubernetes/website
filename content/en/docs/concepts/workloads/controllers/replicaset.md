@@ -78,7 +78,7 @@ kubectl describe rs/frontend
 
 And you will see output similar to:
 
-```shell
+```
 Name:         frontend
 Namespace:    default
 Selector:     tier=frontend
@@ -130,7 +130,7 @@ kubectl get pods frontend-b2zdv -o yaml
 
 The output will look similar to this, with the frontend ReplicaSet's info set in the metadata's ownerReferences field:
 
-```shell
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -181,7 +181,7 @@ kubectl get pods
 
 The output shows that the new Pods are either already terminated, or in the process of being terminated:
 
-```shell
+```
 NAME             READY   STATUS        RESTARTS   AGE
 frontend-b2zdv   1/1     Running       0          10m
 frontend-vcmts   1/1     Running       0          10m
@@ -210,7 +210,7 @@ kubectl get pods
 ```
 
 Will reveal in its output:
-```shell
+```
 NAME             READY   STATUS    RESTARTS   AGE
 frontend-hmmj2   1/1     Running   0          9s
 pod1             1/1     Running   0          36s
@@ -387,7 +387,7 @@ As such, it is recommended to use Deployments when you want ReplicaSets.
 
 ### Bare Pods
 
-Unlike the case where a user directly created Pods, a ReplicaSet replaces Pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a ReplicaSet even if your application requires only a single Pod. Think of it similarly to a process supervisor, only it supervises multiple Pods across multiple nodes instead of individual processes on a single node. A ReplicaSet delegates local container restarts to some agent on the node (for example, Kubelet or Docker).
+Unlike the case where a user directly created Pods, a ReplicaSet replaces Pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a ReplicaSet even if your application requires only a single Pod. Think of it similarly to a process supervisor, only it supervises multiple Pods across multiple nodes instead of individual processes on a single node. A ReplicaSet delegates local container restarts to some agent on the node such as Kubelet.
 
 ### Job
 

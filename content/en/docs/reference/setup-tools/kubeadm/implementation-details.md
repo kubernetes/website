@@ -81,13 +81,8 @@ The user can skip specific preflight checks or all of them with the `--ignore-pr
 - Kubernetes system requirements:
   - if running on linux:
     - [error] if Kernel is older than the minimum required version
-    - [error] if required cgroups subsystem aren't in set up
-  - if using docker:
-    - [warning/error] if Docker service does not exist, if it is disabled, if it is not active.
-    - [error] if Docker endpoint does not exist or does not work
-    - [warning] if docker version is not in the list of validated docker versions
-  - If using other cri engine:
-    - [error] if crictl socket does not answer
+    - [error] if required cgroups subsystem aren't set up
+- [error] if the CRI endpoint does not answer
 - [error] if user is not root
 - [error] if the machine hostname is not a valid DNS subdomain
 - [warning] if the host name cannot be reached via network lookup
@@ -224,7 +219,7 @@ Other API server flags that are set unconditionally are:
 
  - `--insecure-port=0` to avoid insecure connections to the api server
  - `--enable-bootstrap-token-auth=true` to enable the `BootstrapTokenAuthenticator` authentication module.
-   See [TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for more details
+   See [TLS Bootstrapping](/docs/reference/access-authn-authn/kubelet-tls-bootstrapping/) for more details
  - `--allow-privileged` to `true` (required e.g. by kube proxy)
  - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
  - `--enable-admission-plugins` to:
@@ -271,7 +266,7 @@ The static Pod manifest for the controller manager is affected by following para
 Other flags that are set unconditionally are:
 
  - `--controllers` enabling all the default controllers plus `BootstrapSigner` and `TokenCleaner` controllers for TLS bootstrap.
-   See [TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for more details
+   See [TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) for more details
  - `--use-service-account-credentials` to `true`
  - Flags for using certificates generated in previous steps:
     - `--root-ca-file` to `ca.crt`
@@ -323,11 +318,12 @@ Please note that:
 
 As soon as the control plane is available, kubeadm executes following actions:
 
-- Labels the node as control-plane with `node-role.kubernetes.io/master=""`
-- Taints the node with `node-role.kubernetes.io/master:NoSchedule`
+- Labels the node as control-plane with `node-role.kubernetes.io/control-plane=""`
+- Taints the node with `node-role.kubernetes.io/master:NoSchedule` and `node-role.kubernetes.io/control-plane:NoSchedule`
 
 Please note that:
 
+1. The `node-role.kubernetes.io/master` taint is deprecated and will be removed in kubeadm version 1.25
 1. Mark control-plane phase phase can be invoked individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command
 
 ### Configure TLS-Bootstrapping for node joining
@@ -434,8 +430,7 @@ cluster startup problems.
 Please note that:
 
 1. `kubeadm join` preflight checks are basically a subset `kubeadm init` preflight checks
-1. Starting from 1.9, kubeadm provides better support for CRI-generic functionality; in that case, docker specific controls
-   are skipped or replaced by similar controls for crictl.
+1. Starting from 1.24, kubeadm uses crictl to communicate to all known CRI endpoints.
 1. Starting from 1.9, kubeadm provides support for joining nodes running on Windows; in that case, linux specific controls are skipped.
 1. In any case the user can skip specific preflight checks (or eventually all preflight checks) with the `--ignore-preflight-errors` option.
 

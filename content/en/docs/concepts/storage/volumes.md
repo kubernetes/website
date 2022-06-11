@@ -64,7 +64,9 @@ a different volume.
 
 Kubernetes supports several types of volumes.
 
-### awsElasticBlockStore {#awselasticblockstore}
+### awsElasticBlockStore (deprecated) {#awselasticblockstore}
+
+{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
 
 An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS)
 [EBS volume](https://aws.amazon.com/ebs/) into your pod. Unlike
@@ -135,7 +137,9 @@ beta features must be enabled.
 To disable the `awsElasticBlockStore` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAWSUnregister` flag to `true`.
 
-### azureDisk {#azuredisk}
+### azureDisk (deprecated) {#azuredisk}
+
+{{< feature-state for_k8s_version="v1.19" state="deprecated" >}}
 
 The `azureDisk` volume type mounts a Microsoft Azure [Data Disk](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) into a pod.
 
@@ -143,14 +147,13 @@ For more details, see the [`azureDisk` volume plugin](https://github.com/kuberne
 
 #### azureDisk CSI migration
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 The `CSIMigration` feature for `azureDisk`, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `disk.csi.azure.com` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Azure Disk CSI
-Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureDisk`
-features must be enabled.
+Storage Interface (CSI) Driver. In order to use this feature, the
+[Azure Disk CSI Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
+must be installed on the cluster and the `CSIMigration` feature must be enabled.
 
 #### azureDisk CSI migration complete
 
@@ -159,7 +162,9 @@ features must be enabled.
 To disable the `azureDisk` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
 
-### azureFile {#azurefile}
+### azureFile (deprecated) {#azurefile}
+
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 The `azureFile` volume type mounts a Microsoft Azure File volume (SMB 2.1 and 3.0)
 into a pod.
@@ -177,7 +182,8 @@ Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
 
-Azure File CSI driver does not support using same volume with different fsgroups, if Azurefile CSI migration is enabled, using same volume with different fsgroups won't be supported at all.
+Azure File CSI driver does not support using same volume with different fsgroups. If
+`CSIMigrationAzureFile` is enabled, using same volume with different fsgroups won't be supported at all.
 
 #### azureFile CSI migration complete
 
@@ -201,7 +207,9 @@ You must have your own Ceph server running with the share exported before you ca
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
 
-### cinder
+### cinder (deprecated) {#cinder}
+
+{{< feature-state for_k8s_version="v1.18" state="deprecated" >}}
 
 {{< note >}}
 Kubernetes must be configured with the OpenStack cloud provider.
@@ -233,17 +241,17 @@ spec:
 
 #### OpenStack CSI migration
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-The `CSIMigration` feature for Cinder is enabled by default in Kubernetes 1.21.
+The `CSIMigration` feature for Cinder is enabled by default since Kubernetes 1.21.
 It redirects all plugin operations from the existing in-tree plugin to the
 `cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
 [OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster.
-You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
-If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
-for all aspects of Cinder volume storage management.
+
+To disable the in-tree Cinder plugin from being loaded by the controller manager
+and the kubelet, you can enable the `InTreePluginOpenStackUnregister`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 ### configMap
 
@@ -390,7 +398,9 @@ You must have your own Flocker installation running before you can use it.
 
 See the [Flocker example](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker) for more details.
 
-### gcePersistentDisk
+### gcePersistentDisk (deprecated) {#gcepersistentdisk}
+
+{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
 
 A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE)
 [persistent disk](https://cloud.google.com/compute/docs/disks) (PD) into your Pod.
@@ -969,65 +979,14 @@ spec:
 For more information about StorageOS, dynamic provisioning, and PersistentVolumeClaims, see the
 [StorageOS examples](https://github.com/kubernetes/examples/blob/master/volumes/storageos).
 
-### vsphereVolume {#vspherevolume}
+### vsphereVolume (deprecated) {#vspherevolume}
 
 {{< note >}}
-You must configure the Kubernetes vSphere Cloud Provider. For cloudprovider
-configuration, refer to the [vSphere Getting Started guide](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/).
+We recommend to use vSphere CSI out-of-tree driver instead.
 {{< /note >}}
 
 A `vsphereVolume` is used to mount a vSphere VMDK volume into your Pod.  The contents
 of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
-
-{{< note >}}
-You must create vSphere VMDK volume using one of the following methods before using with a Pod.
-{{< /note >}}
-
-#### Creating a VMDK volume {#creating-vmdk-volume}
-
-Choose one of the following methods to create a VMDK.
-
-{{< tabs name="tabs_volumes" >}}
-{{% tab name="Create using vmkfstools" %}}
-First ssh into ESX, then use the following command to create a VMDK:
-
-```shell
-vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
-```
-
-{{% /tab %}}
-{{% tab name="Create using vmware-vdiskmanager" %}}
-Use the following command to create a VMDK:
-
-```shell
-vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
-```
-
-{{% /tab %}}
-
-{{< /tabs >}}
-
-#### vSphere VMDK configuration example {#vsphere-vmdk-configuration}
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-vmdk
-spec:
-  containers:
-  - image: k8s.gcr.io/test-webserver
-    name: test-container
-    volumeMounts:
-    - mountPath: /test-vmdk
-      name: test-volume
-  volumes:
-  - name: test-volume
-    # This VMDK volume must already exist.
-    vsphereVolume:
-      volumePath: "[DatastoreName] volumes/myDisk"
-      fsType: ext4
-```
 
 For more information, see the [vSphere volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) examples.
 
@@ -1040,8 +999,15 @@ from the existing in-tree plugin to the `csi.vsphere.vmware.com` {{< glossary_to
 [vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
+You can find additional advice on how to migrate in VMware's
+documentation page [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
 
-This also requires minimum vSphere vCenter/ESXi Version to be 7.0u1 and minimum HW Version to be VM version 15.
+Kubernetes v{{< skew currentVersion >}} requires that you are using vSphere 7.0u2 or later
+in order to migrate to the out-of-tree CSI driver.
+If you are running a version of Kubernetes other than v{{< skew currentVersion >}}, consult
+the documentation for that version of Kubernetes.
+If you are running Kubernetes v{{< skew currentVersion >}} and an older version of vSphere,
+consider upgrading to at least vSphere 7.0u2.
 
 {{< note >}}
 The following StorageClass parameters from the built-in `vsphereVolume` plugin are not supported by the vSphere CSI driver:
@@ -1211,7 +1177,6 @@ A `csi` volume can be used in a Pod in three different ways:
 
 * through a reference to a [PersistentVolumeClaim](#persistentvolumeclaim)
 * with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
-(alpha feature)
 * with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)
 if the driver supports that (beta feature)
 
@@ -1285,6 +1250,20 @@ for more information.
 For more information on how to develop a CSI driver, refer to the
 [kubernetes-csi documentation](https://kubernetes-csi.github.io/docs/)
 
+#### Windows CSI proxy
+
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+
+CSI node plugins need to perform various privileged
+operations like scanning of disk devices and mounting of file systems. These operations
+differ for each host operating system. For Linux worker nodes, containerized CSI node
+node plugins are typically deployed as privileged containers. For Windows worker nodes,
+privileged operations for containerized CSI node plugins is supported using
+[csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
+stand-alone binary that needs to be pre-installed on each Windows node.
+
+For more details, refer to the deployment guide of the CSI plugin you wish to deploy.
+
 #### Migrating to CSI drivers from in-tree plugins
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
@@ -1301,6 +1280,14 @@ provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 In-tree plugins that support `CSIMigration` and have a corresponding CSI driver implemented
 are listed in [Types of Volumes](#volume-types).
 
+The following in-tree plugins support persistent storage on Windows nodes:
+
+* [`awsElasticBlockStore`](#awselasticblockstore)
+* [`azureDisk`](#azuredisk)
+* [`azureFile`](#azurefile)
+* [`gcePersistentDisk`](#gcepersistentdisk)
+* [`vsphereVolume`](#vspherevolume)
+
 ### flexVolume
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
@@ -1311,6 +1298,12 @@ volume plugin path on each node and in some cases the control plane nodes as wel
 
 Pods interact with FlexVolume drivers through the `flexVolume` in-tree volume plugin.
 For more details, see the FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) document.
+
+The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows),
+deployed as PowerShell scripts on the host, support Windows nodes:
+
+* [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
+* [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
 
 {{< note >}}
 FlexVolume is deprecated. Using an out-of-tree CSI driver is the recommended way to integrate external storage with Kubernetes.

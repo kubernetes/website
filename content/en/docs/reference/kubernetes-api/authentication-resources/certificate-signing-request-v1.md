@@ -109,8 +109,6 @@ CertificateSigningRequestSpec contains the certificate request.
     3. Signer whose configured minimum is longer than the requested duration
   
   The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
-  
-  As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.
 
 - **extra** (map[string][]string)
 
@@ -212,11 +210,6 @@ CertificateSigningRequestStatus contains conditions used to indicate approved/de
     Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.
     
     Only one condition of a given type is allowed.
-    
-    Possible enum values:
-     - `"Approved"` Approved indicates the request was approved and should be issued by the signer.
-     - `"Denied"` Denied indicates the request was denied and should not be issued by the signer.
-     - `"Failed"` Failed indicates the signer failed to issue the certificate.
 
   - **conditions.lastTransitionTime** (Time)
 

@@ -125,7 +125,8 @@ this occurs, the applier has 3 options to resolve the conflicts:
 
 * **Overwrite value, become sole manager:** If overwriting the value was
   intentional (or if the applier is an automated process like a controller) the
-  applier should set the `force` query parameter to true and make the request
+  applier should set the `force` query parameter to true (in kubectl, it can be done by
+  using the `--force-conflicts` flag with the apply command) and make the request
   again. This forces the operation to succeed, changes the value of the field,
   and removes the field from all other managers' entries in managedFields.
 

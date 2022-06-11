@@ -233,7 +233,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - locates apiserver
     - adds authentication headers
 
-1.  The [apiserver proxy](#discovering-builtin-services):
+1.  The [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
 
     - is a bastion built into the apiserver
     - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable

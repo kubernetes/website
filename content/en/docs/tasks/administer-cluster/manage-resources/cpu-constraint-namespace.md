@@ -27,7 +27,7 @@ in the namespace.
 
 You must have access to create namespaces in your cluster.
 
-Your cluster must have at least 1.0 CPU available for use to run the task examples.
+Each node in your cluster must have at least 1.0 CPU available for Pods.
 See [meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
 to learn what Kubernetes means by “1 CPU”.
 
@@ -45,7 +45,7 @@ kubectl create namespace constraints-cpu-example
 
 ## Create a LimitRange and a Pod
 
-Here's an example manifest for a LimitRange:
+Here's a manifest for an example {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}:
 
 {{< codenew file="admin/resource/cpu-constraints.yaml" >}}
 
@@ -96,7 +96,7 @@ on these resources, the two values must be the same.
 
 Here's a manifest for a Pod that has one container. The container manifest
 specifies a CPU request of 500 millicpu and a CPU limit of 800 millicpu. These satisfy the
-minimum and maximum CPU constraints imposed by the LimitRange.
+minimum and maximum CPU constraints imposed by the LimitRange for this namespace.
 
 {{< codenew file="admin/resource/cpu-constraints-pod.yaml" >}}
 
@@ -214,7 +214,10 @@ applied the
 [default CPU request and limit](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 from the LimitRange for this namespace.
 
-At this point, your Pod might be running or it might not be running. Recall that a prerequisite for this task is that your cluster must have at least 1 CPU available for use. If each of your Nodes has only 1 CPU, then there might not be enough allocatable CPU on any Node to accommodate a request of 800 millicpu. If you happen to be using Nodes with 2 CPU, then you probably have enough CPU to accommodate the 800 millicpu request.
+At this point, your Pod may or may not be running. Recall that a prerequisite for
+this task is that your Nodes must have at least 1 CPU available for use. If each of your Nodes has only 1 CPU,
+then there might not be enough allocatable CPU on any Node to accommodate a request of 800 millicpu. 
+If you happen to be using Nodes with 2 CPU, then you probably have enough CPU to accommodate the 800 millicpu request.
 
 Delete your Pod:
 

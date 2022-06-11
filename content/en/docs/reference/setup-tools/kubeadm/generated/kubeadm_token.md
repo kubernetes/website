@@ -91,6 +91,3 @@ kubeadm token [flags]
 
 </tbody>
 </table>
-
-
-
