@@ -295,11 +295,11 @@ to make sure that your `Service` is running, has `Endpoints`, and your `Pods` ar
 actually serving; you have DNS working, iptables rules installed, and kube-proxy
 does not seem to be misbehaving.
 
-You may also visit [troubleshooting document](/docs/tasks/debug/overview/) for more information.
+You may also visit [troubleshooting document](/docs/tasks/debug/) for more information.
 -->
 如果上述方法都不能解决你的问题，
 请按照[调试 Service 文档](/zh/docs/tasks/debug/debug-applications/debug-service/)中的介绍，
 确保你的 `Service` 处于 Running 态，有 `Endpoints` 被创建，`Pod` 真的在提供服务；
 DNS 服务已配置并正常工作，iptables 规则也以安装并且 `kube-proxy` 也没有异常行为。
 
-你也可以访问[故障排查文档](/zh/docs/tasks/debug/overview/)来获取更多信息。
+你也可以访问[故障排查文档](/zh/docs/tasks/debug/)来获取更多信息。
