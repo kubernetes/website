@@ -10,14 +10,15 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join'
+Executa o melhor esforço para reverter as alterações feitas no host por 'kubeadm init' ou 'kubeadm join'
 
-### Synopsis
+### Sinopse
+
+Executa o melhor esforço para reverter as alterações feitas no host por 'kubeadm init' ou 'kubeadm join'
+
+O comando "reset" executa as seguintes fases:
 
 
-Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join'
-
-The "reset" command executes the following phases:
 ```
 preflight           Run reset pre-flight checks
 remove-etcd-member  Remove a local etcd member.
@@ -29,7 +30,7 @@ cleanup-node        Run cleanup node.
 kubeadm reset [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -39,52 +40,52 @@ kubeadm reset [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/pki"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path to the directory where the certificates are stored. If specified, clean this directory.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O caminho para o diretório onde os certificados estão armazenados. Se especificado, limpe este diretório</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--cri-socket string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o socket CRI se conectar. Se o kubeadm vazio tentar detectar automaticamente esse valor; use essa opção somente se você tiver mais de um CRI instalado ou se tiver um socket CRI não padrão.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-f, --force</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Reset the node without prompting for confirmation.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Redefine o nó sem solicitar confirmação..</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for reset</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para reset</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--ignore-preflight-errors strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Uma lista de verificações cujos erros serão mostrados como avisos. Exemplo: 'IsPrivilegedUser,Swap'. O valor 'all' ignora erros de todas as verificações.</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão local pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--skip-phases strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>List of phases to be skipped</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Lista de fases a serem ignoradas</p></td>
 </tr>
 
 </tbody>
@@ -92,7 +93,7 @@ kubeadm reset [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -105,7 +106,7 @@ kubeadm reset [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>
