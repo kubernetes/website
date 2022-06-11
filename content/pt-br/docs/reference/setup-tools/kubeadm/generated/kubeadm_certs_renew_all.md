@@ -10,18 +10,18 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Renew all available certificates
+Renovar todos os certificados disponíveis
 
-### Synopsis
+### Sinopse
 
+Renove todos os certificados conhecidos e necessários para executar a camada de gerenciamento. As renovações são executadas incondicionalmente, independentemente da data de expiração. As renovações também podem ser executadas individualmente para obter mais controle.
 
-Renew all known certificates necessary to run the control plane. Renewals are run unconditionally, regardless of expiration date. Renewals can also be run individually for more control.
 
 ```
 kubeadm certs renew all [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -31,31 +31,31 @@ kubeadm certs renew all [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/pki"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path where to save the certificates</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O caminho para salvar os certificados</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para um arquivo de configuração kubeadm.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for all</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para tudo</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig usado na comunicação com o cluster. Se a flag não estiver definida, um conjunto padrão pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 </tbody>
@@ -63,7 +63,7 @@ kubeadm certs renew all [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -76,7 +76,7 @@ kubeadm certs renew all [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>

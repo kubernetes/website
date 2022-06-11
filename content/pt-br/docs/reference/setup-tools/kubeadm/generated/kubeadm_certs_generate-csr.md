@@ -10,29 +10,28 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Generate keys and certificate signing requests
+Gerar chaves e solicitações de assinatura de certificados
 
-### Synopsis
+### Sinopse
 
+Gera as chaves e as solicitações de assinatura de certificados (CSRs) para todos os certificados necessários para executar a camada de gerenciamento. Este comando também gera os arquivos kubeconfig parciais com dados de chave privada no campo "users &gt; user &gt; client-key-data" e, para cada arquivo kubeconfig, um arquivo ".csr" que o acompanha é criado.
 
-Generates keys and certificate signing requests (CSRs) for all the certificates required to run the control plane. This command also generates partial kubeconfig files with private key data in the  "users &gt; user &gt; client-key-data" field, and for each kubeconfig file an accompanying ".csr" file is created.
+Esse comando foi projetado para uso no [Kubeadm External CA Mode](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode). Ele gera CSRs que você pode enviar à sua autoridade de certificação externa para assinatura.
 
-This command is designed for use in [Kubeadm External CA Mode](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode). It generates CSRs which you can then submit to your external certificate authority for signing.
-
-The PEM encoded signed certificates should then be saved alongside the key files, using ".crt" as the file extension, or in the case of kubeconfig files, the PEM encoded signed certificate should be base64 encoded and added to the kubeconfig file in the "users &gt; user &gt; client-certificate-data" field.
+Os certificados PEM assinados e codificados devem ser salvos ao lado dos arquivos da chave, usando ".crt" como extensão de arquivo ou, no caso de arquivos kubeconfig, o certificado assinado codificado PEM deve ser codificado em base64 e adicionado ao arquivo kubeconfig no campo "users &gt; user &gt; client-certificate-data".
 
 ```
 kubeadm certs generate-csr [flags]
 ```
 
-### Examples
+### Exemplos
 
 ```
-  # The following command will generate keys and CSRs for all control-plane certificates and kubeconfig files:
+  # O comando a seguir gerar as chaves e CSRs para todos os certificados do plano de controle e arquivos kubeconfig: 
   kubeadm certs generate-csr --kubeconfig-dir /tmp/etc-k8s --cert-dir /tmp/etc-k8s/pki
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -45,28 +44,28 @@ kubeadm certs generate-csr [flags]
 <td colspan="2">--cert-dir string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path where to save the certificates</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O caminho para salvar os certificados</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para um arquivo de configuração kubeadm.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for generate-csr</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para generate-csr</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes"</td>
+<td colspan="2">--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path where to save the kubeconfig file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O caminho para salvar o arquivo kubeconfig.</p></td>
 </tr>
 
 </tbody>
@@ -74,7 +73,7 @@ kubeadm certs generate-csr [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -87,7 +86,7 @@ kubeadm certs generate-csr [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>

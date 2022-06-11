@@ -9,25 +9,23 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
+Renove o certificado para nós etcd se comunicarem uns com os outros
 
-Renew the certificate for etcd nodes to communicate with each other
+### Sinopse
 
-### Synopsis
+Renove o certificado para nós etcd se comunicarem uns com os outros.
 
+As renovações são executadas incondicionalmente, independentemente da data de expiração do certificado; atributos extras, como SANs, serão baseados no arquivo/certificados existentes, não há necessidade de reabastecê-los.
 
-Renew the certificate for etcd nodes to communicate with each other.
+A renovação, por padrão, tenta usar a autoridade de certificação na PKI local gerenciada pelo kubeadm; como alternativa, é possível usar o certificado K8s da API para renovação de certificado, ou como última opção, para gerar uma solicitação CSR.
 
-Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
-
-Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
-
-After renewal, in order to make changes effective, is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
+Após a renovação, para tornar as alterações efetivas, é necessário reiniciar os componentes da camada de gerenciamento e, eventualmente, redistribuir o certificado renovado, caso o arquivo seja usado em outro lugar.
 
 ```
 kubeadm certs renew etcd-peer [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -37,31 +35,31 @@ kubeadm certs renew etcd-peer [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/pki"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path where to save the certificates</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O caminho para salvar os certificados</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para um arquivo de configuração kubeadm.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for etcd-peer</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para etcd-peer</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig usado na comunicação com o cluster. Se a flag não estiver definida, um conjunto padrão pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 </tbody>
@@ -69,7 +67,7 @@ kubeadm certs renew etcd-peer [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -82,7 +80,7 @@ kubeadm certs renew etcd-peer [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>

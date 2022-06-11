@@ -10,18 +10,17 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Renew certificates for a Kubernetes cluster
+Renove certificados para um cluster Kubernetes
 
-### Synopsis
+### Sinopse
 
-
-This command is not meant to be run on its own. See list of available subcommands.
+Este comando não deve ser executado sozinho. Veja a lista de subcomandos disponíveis.
 
 ```
 kubeadm certs renew [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -34,7 +33,7 @@ kubeadm certs renew [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for renew</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para renew</p></td>
 </tr>
 
 </tbody>
@@ -42,7 +41,7 @@ kubeadm certs renew [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -55,7 +54,7 @@ kubeadm certs renew [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>
