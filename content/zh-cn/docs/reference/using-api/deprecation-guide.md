@@ -221,14 +221,17 @@ The **policy/v1beta1** API version of PodDisruptionBudget will no longer be serv
 <!--
 PodSecurityPolicy in the **policy/v1beta1** API version will no longer be served in v1.25, and the PodSecurityPolicy admission controller will be removed.
 
-PodSecurityPolicy replacements are still under discussion, but current use can be migrated to
-[3rd-party admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/) now.
+Migrate to [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+or a [3rd party admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/).
+For a migration guide, see [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp/).
+For more information on the deprecation, see [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
 -->
 **policy/v1beta1** API 版本中的 PodSecurityPolicy 将不会在 v1.25 中提供，
 并且 PodSecurityPolicy 准入控制器也会被删除。
 
-PodSecurityPolicy 的替换方案仍在讨论过程中，不过当前的用法可以迁移到
-[第三方准入性质的 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)。
+迁移到 [Pod 安全准入](/zh/docs/concepts/security/pod-security-admission/)或[第三方准入 webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)。
+有关迁移指南，请参阅[从 PodSecurityPolicy 迁移到内置 PodSecurity 准入控制器](/zh/docs/tasks/configure-pod-container/migrate-from-psp/)。
+有关弃用的更多信息，请参阅 [PodSecurityPolicy 弃用：过去、现在和未来](/zh/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)。
 
 #### RuntimeClass {#runtimeclass-v125}
 

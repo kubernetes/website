@@ -246,7 +246,7 @@ information on the permissions required to perform different actions on Certific
 有关对 CertificateSigningRequest 资源执行不同操作所需权限的详细信息，
 请参阅[证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)。
 
-### CertificateSubjectRestrictions {#certificatesubjectrestrictions}
+### CertificateSubjectRestriction {#certificatesubjectrestriction}
 
 <!--
 This admission controller observes creation of CertificateSigningRequest resources that have a `spec.signerName`
