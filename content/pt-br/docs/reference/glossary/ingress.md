@@ -16,4 +16,5 @@ tags:
 
 <!--more--> 
 
-O Ingress pode fornecer um balanceamento de carga, descriptografia SSL e hospedagem virtual baseada em nome.
+Um Ingress pode fornecer as capacidades de um proxy reverso para as aplicações.
+
