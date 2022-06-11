@@ -10,18 +10,17 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Upgrade the control plane instance deployed on this node, if any
+Atualiza a instância do plano de controle implantada nesse nó, se houver
 
-### Synopsis
+### Sinopse
 
-
-Upgrade the control plane instance deployed on this node, if any
+Atualiza a instância do plano de controle implantada nesse nó, se houver
 
 ```
 kubeadm upgrade node phase control-plane [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -31,45 +30,46 @@ kubeadm upgrade node phase control-plane [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--certificate-renewal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+<td colspan="2">--certificate-renewal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Perform the renewal of certificates used by component changed during upgrades.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Executa a renovação dos certificados usados pelo componente alterado durante as atualizações.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Do not change any state, just output the actions that would be performed.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Não altera nenhum estado, apenas produza as ações que seriam executadas.</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+<td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Perform the upgrade of etcd.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Atualiza o etcd.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for control-plane</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para a camada de gerenciamento</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrões locais pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
+
 
 <tr>
 <td colspan="2">--patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O caminho para um diretório que contém arquivos chamados &quot;target[suffix][+patchtype].extension&quot;. Por exemplo, &quot;kube-apiserver0+merge.yaml&quot; ou apenas &quot;etcd.json&quot;. &quot;target&quot; pode ser um dos &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;. &quot;patchtype&quot; pode ser um dos &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot;e eles correspondem aos formatos de patch suportados pelo kubectl. O &quot;patchtype&quot; é &quot;strategic&quot;. &quot;extension&quot; deve ser &quot;json&quot; ou &quot;yaml&quot;. &quot;suffix&quot; é uma string opcional que pode ser usada para determinar quais patches são aplicados primeiro alfanumericamente.</p></td>
 </tr>
 
 </tbody>
@@ -77,7 +77,7 @@ kubeadm upgrade node phase control-plane [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -90,7 +90,7 @@ kubeadm upgrade node phase control-plane [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>

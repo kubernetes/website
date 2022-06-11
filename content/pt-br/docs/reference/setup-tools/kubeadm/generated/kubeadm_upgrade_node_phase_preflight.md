@@ -10,18 +10,17 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Run upgrade node pre-flight checks
+Execute verificações antes de atualização do nó
 
-### Synopsis
+### Sinopse
 
-
-Run pre-flight checks for kubeadm upgrade node.
+Execute verificações antes de atualização do nó
 
 ```
 kubeadm upgrade node phase preflight [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -34,14 +33,14 @@ kubeadm upgrade node phase preflight [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for preflight</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para preflight</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--ignore-preflight-errors strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Uma lista de verificações cujos erros serão mostrados como avisos. Exemplo: 'IsPrivilegedUser,Swap'. O valor 'all' ignora erros de todas as verificações.</p></td>
 </tr>
 
 </tbody>
@@ -49,7 +48,7 @@ kubeadm upgrade node phase preflight [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -62,11 +61,8 @@ kubeadm upgrade node phase preflight [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>
 </table>
-
-
-
