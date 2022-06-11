@@ -10,18 +10,17 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Upgrade the kubelet configuration for this node
+Atualize a configuração do kubelet para este nó
 
-### Synopsis
+### Sinopse
 
-
-Download the kubelet configuration from a ConfigMap of the form "kubelet-config-1.X" in the cluster, where X is the minor version of the kubelet. kubeadm uses the KuberneteVersion field in the kubeadm-config ConfigMap to determine what the _desired_ kubelet version is.
+Baixe a configuração do kubelet do kubelet-config ConfigMap armazenado no cluster
 
 ```
 kubeadm upgrade node phase kubelet-config [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -34,29 +33,28 @@ kubeadm upgrade node phase kubelet-config [flags]
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Do not change any state, just output the actions that would be performed.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Não altera nenhum estado, apenas produz as ações que seriam executadas.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubelet-config</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para kubelet-config</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se o sinalizador não estiver definido, um conjunto de locais padrão pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 </tbody>
 </table>
 
 
-
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -69,7 +67,7 @@ kubeadm upgrade node phase kubelet-config [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>
