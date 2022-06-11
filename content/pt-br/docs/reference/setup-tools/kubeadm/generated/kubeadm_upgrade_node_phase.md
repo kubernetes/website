@@ -10,14 +10,14 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Use this command to invoke single phase of the node workflow
+Use este comando para invocar uma fase única do fluxo de trabalho do nó
 
-### Synopsis
+### Sinopse
 
 
-Use this command to invoke single phase of the node workflow
+Use este comando para invocar uma fase única do fluxo de trabalho do nó
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -30,7 +30,7 @@ Use this command to invoke single phase of the node workflow
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for phase</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para fase</p></td>
 </tr>
 
 </tbody>
@@ -38,7 +38,7 @@ Use this command to invoke single phase of the node workflow
 
 
 
-### Options inherited from parent commands
+### Opções herdadas do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -51,7 +51,7 @@ Use this command to invoke single phase of the node workflow
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>
