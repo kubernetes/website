@@ -385,10 +385,10 @@ sudo systemctl restart containerd
 
 <!--
 When using kubeadm, manually configure the
-[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
+[cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 -->
 当使用 kubeadm 时，请手动配置
-[kubelet 的 cgroup 驱动](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
+[kubelet 的 cgroup 驱动](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 
 ### CRI-O
 
