@@ -52,7 +52,7 @@ Please find documentation on this feature in [earlier versions of documentation]
 There is no recommended replacement for this feature that works generically
 across various Kubernetes distributions. If you are using managed Kubernetes
 version, please consult with the vendor hosting Kubernetes for the best
-practices for customizing your Kubernetes. If you are using KubeAdm, refer to
+practices for customizing your Kubernetes. If you are using `kubeadm`, refer to
 [Configuring each kubelet in your cluster using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/).
 -->
 ## 不再使用动态 Kubelet 配置
