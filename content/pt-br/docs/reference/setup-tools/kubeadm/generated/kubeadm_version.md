@@ -10,18 +10,18 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Print the version of kubeadm
+Exibe a versão do kubeadm
 
-### Synopsis
+### Sinopse
 
 
-Print the version of kubeadm
+Exibe a versão do kubeadm
 
 ```
 kubeadm version [flags]
 ```
 
-### Options
+### Opções
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -34,14 +34,14 @@ kubeadm version [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for version</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para version</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format; available options are 'yaml', 'json' and 'short'</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Formato de saída; as opções disponíveis são 'yaml', 'json' e 'short'</p></td>
 </tr>
 
 </tbody>
@@ -49,7 +49,7 @@ kubeadm version [flags]
 
 
 
-### Options inherited from parent commands
+### Opção herdada do comando superior
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -62,7 +62,7 @@ kubeadm version [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] O caminho para o 'real' sistema de arquivos raiz do host.</p></td>
 </tr>
 
 </tbody>
