@@ -54,31 +54,42 @@ kube-proxy [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--azure-container-registry-config string</td>
+<td colspan="2">--add_dir_header</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Path to the file containing Azure container registry configuration information.
+If true, adds the file directory to the header of the log messages
 -->
-包含 Azure 容器仓库配置信息的文件的路径。
+如果为 true，将文件目录添加到日志消息的头部
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--bind-address 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：0.0.0.0</td>
+<td colspan="2">--alsologtostderr</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+log to standard error as well as files
+-->
+设置为 true 表示将日志输出到文件的同时输出到 stderr
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--bind-address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：0.0.0.0</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 The IP address for the proxy server to serve on (set to '0.0.0.0' for all IPv4 interfaces and '::' for all IPv6 interfaces). This parameter is ignored if a config file is specified by --config.
 -->
-代理服务器要使用的 IP 地址（设置为 '0.0.0.0' 表示要使用所有 IPv4 接口；
-设置为 '::' 表示使用所有 IPv6 接口）。
-如果配置文件由 --config 指定，则忽略此参数。
-</p>
-</td>
+代理服务器的 IP 地址（所有 IPv4 接口设置为 “0.0.0.0”，所有 IPv6 接口设置为 “::”）。
+如果配置文件由 <code>--config</code> 指定，则忽略此参数。
+</p></td>
 </tr>
 
 <tr>
@@ -89,20 +100,17 @@ The IP address for the proxy server to serve on (set to '0.0.0.0' for all IPv4 i
 <!--
 If true kube-proxy will treat failure to bind to a port as fatal and exit
 -->
-若此标志为 true，kube-proxy 会将无法绑定端口的失败操作视为致命错误并退出。
+如果为 true，kube-proxy 会将无法绑定端口的失败操作视为致命错误并退出。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--boot-id-file string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："/proc/sys/kernel/random/boot_id"</td>
+<td colspan="2">--boot_id_file string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："/proc/sys/kernel/random/boot_id"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Comma-separated list of files to check for boot-id. Use the first one that exists.
--->
-用来检查 Boot-ID 的文件名，用逗号隔开。
-第一个存在的文件会被使用。
+<!-- Comma-separated list of files to check for boot-id. Use the first one that exists. -->
+逗号分隔的文件列表，用于检查 boot-id。使用第一个存在的文件。
 </p></td>
 </tr>
 
@@ -116,30 +124,6 @@ If true cleanup iptables and ipvs rules and exit.
 -->
 如果为 true，清理 iptables 和 ipvs 规则并退出。
 </p>
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-此值表示，在 GCE 防火墙中打开 <code>CIDRs</code> 用于 L7 LB 流量代理 &amp; 健康检查。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-此值表示，在 GCE 防火墙中打开 <code>CIDRs</code> 用于 L4 LB 流量代理 &amp; 健康检查。
 </td>
 </tr>
 
@@ -243,32 +227,6 @@ Idle timeout for established TCP connections (0 to leave as-is)
 </tr>
 
 <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-对污点 NotReady:NoExecute 的容忍时长（以秒计）。 
-默认情况下这一容忍度会被添加到尚未具有此容忍度的每个 pod 中。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-对污点 Unreachable:NoExecute 的容忍时长（以秒计）
-默认情况下这一容忍度会被添加到尚未具有此容忍度的每个 pod 中。
-</td>
-</tr>
-
-<tr>
 <td colspan="2">--detect-local-mode LocalMode</td>
 </tr>
 <tr>
@@ -283,13 +241,13 @@ Mode to use to detect local traffic. This parameter is ignored if a config file 
 </tr>
 
 <tr>
-<td colspan="2">--feature-gates &lt;<!--comma-separated 'key=True|False' pairs-->逗号分隔的 'key=True|False' 对’&gt;</td>
+<td colspan="2">--feature-gates &lt;<!--comma-separated 'key=True|False' pairs-->逗号分隔的 'key=True|False' 对&gt;</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
-<br/>
+A set of key=value pairs that describe feature gates for alpha/experimental features. Options are
+:<br/>
 APIListChunking=true|false (BETA - default=true)<br/>
 APIPriorityAndFairness=true|false (BETA - default=true)<br/>
 APIResponseCompression=true|false (BETA - default=true)<br/>
@@ -312,7 +270,6 @@ CSIMigrationPortworx=true|false (ALPHA - default=false)<br/>
 CSIMigrationRBD=true|false (ALPHA - default=false)<br/>
 CSIMigrationvSphere=true|false (BETA - default=false)<br/>
 CSIVolumeHealth=true|false (ALPHA - default=false)<br/>
-ContextualLogging=true|false (ALPHA - default=false)<br/>
 CronJobTimeZone=true|false (ALPHA - default=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
 CustomResourceValidationExpressions=true|false (ALPHA - default=false)<br/>
@@ -392,7 +349,7 @@ WinOverlay=true|false (BETA - default=true)<br/>
 WindowsHostProcessContainers=true|false (BETA - default=true)
 This parameter is ignored if a config file is specified by --config.
 -->
-一组键=值（key=value）对，描述了 alpha/experimental 的特征。可选项有：
+一组键=值（key=value）对，描述了 alpha/experimental 的特征。可选项有：<br/>
 APIListChunking=true|false (BETA - 默认值=true)<br/>
 APIPriorityAndFairness=true|false (BETA - 默认值=true)<br/>
 APIResponseCompression=true|false (BETA - 默认值=true)<br/>
@@ -415,7 +372,6 @@ CSIMigrationPortworx=true|false (ALPHA - 默认值=false)<br/>
 CSIMigrationRBD=true|false (ALPHA - 默认值=false)<br/>
 CSIMigrationvSphere=true|false (BETA - 默认值=false)<br/>
 CSIVolumeHealth=true|false (ALPHA - 默认值=false)<br/>
-ContextualLogging=true|false (ALPHA - 默认值=false)<br/>
 CronJobTimeZone=true|false (ALPHA - 默认值=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默认值=false)<br/>
 CustomResourceValidationExpressions=true|false (ALPHA - 默认值=false)<br/>
@@ -739,16 +695,58 @@ Path to kubeconfig file with authorization information (the master location is s
 </tr>
 
 <tr>
-<td colspan="2">--machine-id-file string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："/etc/machine-id,/var/lib/dbus/machine-id"</td>
+<td colspan="2">--log_backtrace_at &lt;<!--a string in the form 'file:N'-->“file:N” 格式的字符串&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：0</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Comma-separated list of files to check for machine-id. Use the first one that exists.
+when logging hits line file:N, emit a stack trace
 -->
-用来检查 Machine-ID 的文件列表，用逗号分隔。
-使用找到的第一个文件。
+当日志命中 file:N，触发一次堆栈追踪
 </p></td>
+</tr>
+
+<tr>
+<td colspan="2">--log_dir string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!-- If non-empty, write log files in this directory -->
+如果非空，则在此目录中写入日志文件
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--log_file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!-- If non-empty, use this log file -->
+如果非空，使用此日志文件
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--log_file_max_size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1800</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!-- Defines the maximum size a log file can grow to. Unit is megabytes. If the value is 0, the maximum ile size is unlimited. -->
+定义日志文件可以增长到的最大大小。单位是兆字节。
+如果值为 0，则最大文件大小不受限制。
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!-- log to standard error instead of files -->
+日志输出到 stderr 而不是文件。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -821,6 +819,16 @@ A string slice of values which specify the addresses to use for NodePorts. Value
 如果配置文件由 --config 指定，则忽略此参数。
 </p>
 </td>
+</tr>
+
+<tr>
+<td colspan="2">--one_output</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!-- If true, only write logs to their native severity level (vs also writing to each lower severity level) -->
+如果为 true，则仅将日志写入本地的严重性级别（而不是写入每个较低的严重性级别）
+</p></td>
 </tr>
 
 <tr>
@@ -929,6 +937,36 @@ The previous version for which you want to show hidden metrics. Only the previou
 </tr>
 
 <tr>
+<td colspan="2">--skip_headers</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!-- If true, avoid header prefixes in the log messages -->
+如果为 true，则避免在日志消息中使用头部前缀
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--skip_log_headers</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!-- If true, avoid headers when opening log files -->
+如果为 true，则在打开日志文件时避免使用头部
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--stderrthreshold int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：2</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!-- logs at or above this threshold go to stderr -->
+设置严重程度达到或超过此阈值的日志输出到标准错误输出。
+</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--udp-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：250ms</td>
 </tr>
 <tr>
@@ -943,6 +981,16 @@ How long an idle UDP connection will be kept open (e.g. '250ms', '2s').  Must be
 </tr>
 
 <tr>
+<td colspan="2">-v, --v int</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!-- number for the log level verbosity -->
+设置日志级别详细程度的数值。
+</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
@@ -953,6 +1001,16 @@ Print version information and quit
 打印版本信息并退出。
 </p>
 </td>
+</tr>
+
+<tr>
+<td colspan="2">--vmodule &lt;<!--comma-separated 'pattern=N' settings-->逗号分割的 “pattern=N” 设置&gt;</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!-- comma-separated list of pattern=N settings for file-filtered logging -->
+以逗号分割的 pattern=N 设置的列表，用于文件过滤日志
+</p></td>
 </tr>
 
 <tr>
