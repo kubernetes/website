@@ -134,19 +134,24 @@ The pod accessing Docker may have name containing:
 
 ### [Prisma Cloud Compute](https://docs.paloaltonetworks.com/prisma/prisma-cloud.html)
 
-Documentation for Prisma Cloud can be found here, under the "Install Prisma Cloud on a CRI (non-Docker) cluster" heading:
-[Install Prisma](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/install_kubernetes.html)
+Check [documentation for Prisma Cloud](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/install_kubernetes.html),
+under the "Install Prisma Cloud on a CRI (non-Docker) cluster" section.
 The pod accessing Docker may be named like:
 - `twistlock-defender-ds`
 
 ### [SignalFx (Splunk)](https://www.splunk.com/en_us/investor-relations/acquisitions/signalfx.html)
 
-The SignalFx Smart Agent (deprecated) uses several different monitors for Kubernetes including kubernetes-cluster, kubelet-stats/kubelet-metrics, and docker-container-stats. The kubelet-stats monitor was previously deprecated by the vendor, in favor of kubelet-metrics. The docker-container-stats monitor is the one affected by dockershim removal. You should not use the `docker-container-stats` with container runtimes other than Docker Engine.
+The SignalFx Smart Agent (deprecated) uses several different monitors for Kubernetes including
+`kubernetes-cluster`, `kubelet-stats/kubelet-metrics`, and `docker-container-stats`.
+The `kubelet-stats` monitor was previously deprecated by the vendor, in favor of `kubelet-metrics`.
+The `docker-container-stats` monitor is the one affected by dockershim removal.
+You should not use the `docker-container-stats` with container runtimes other than Docker Engine.
 
 
 How to migrate from dockershim-dependant agent:
-1. Remove docker-container-stats from the list of [configured monitors](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitor-config.md)
-Note, keeping this monitor enabled with non-dockershim runtime will result in incorrect metrics being reported when docker is installed on node and no metrics when docker is not installed.
+1. Remove `docker-container-stats` from the list of [configured monitors](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitor-config.md).
+   Note, keeping this monitor enabled with non-dockershim runtime will result in incorrect metrics
+   being reported when docker is installed on node and no metrics when docker is not installed.
 2. [Enable and configure `kubelet-metrics`](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitors/kubelet-metrics.md) monitor.
 
 
