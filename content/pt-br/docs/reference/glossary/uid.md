@@ -2,12 +2,20 @@
 title: UID
 id: uid
 date: 2021-03-16
-full_link: 
+full_link: /pt-br/docs/concepts/overview/working-with-objects/names
 short_description: >
-   Um identificador exclusivo (UID) é uma sequência numérica ou alfanumérica associada a uma única entidade em um determinado sistema.
+   Uma string gerada pelos sistemas do Kubernetes para identificar objetos de
+   forma única.
    
 aka: 
 tags:
-- authentication
+- fundamental
 ---
-Um identificador exclusivo (UID) é uma sequência numérica ou alfanumérica associada a uma única entidade em um determinado sistema. Os UIDs tornam possível endereçar essa entidade para que ela possa ser acessada e interagida. Cada usuário é identificado no sistema por seu UID e os nomes de usuário geralmente são usados apenas como uma interface para humanos.
+   Uma string gerada pelos sistemas do Kubernetes para identificar objetos de
+   forma única.
+
+<!-- more -->
+
+Cada objeto criado durante todo o ciclo de vida do cluster do Kubernetes possui
+um UID distinto. O objetivo deste identificador é distinguir ocorrências
+históricas de entidades semelhantes.
