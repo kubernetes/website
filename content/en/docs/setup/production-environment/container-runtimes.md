@@ -279,9 +279,9 @@ For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 
 #### Overriding the sandbox (pause) image {#override-pause-image-cri-dockerd}
 
-To overwrite the sandbox (pause) image the `cri-dockerd` adapter
-[accepts a flag](https://github.com/Mirantis/cri-dockerd)
-you can configure this. The command line argument to use is `--pod-infra-container-image`.
+The `cri-dockerd` adapter accepts a command line argument for
+specifying which container image to use as the Pod infrastructure container (“pause image”).
+The command line argument to use is `--pod-infra-container-image`.
 
 ### Mirantis Container Runtime {#mcr}
 
@@ -299,9 +299,9 @@ socket.
 
 #### Overriding the sandbox (pause) image {#override-pause-image-cri-dockerd-mcr}
 
-To overwrite the sandbox (pause) image the `cri-dockerd` adapter
-[accepts a flag](https://github.com/Mirantis/cri-dockerd)
-you can configure this. The command line argument to use is `--pod-infra-container-image`.
+The `cri-dockerd` adapter accepts a command line argument for
+specifying which container image to use as the Pod infrastructure container (“pause image”).
+The command line argument to use is `--pod-infra-container-image`.
 
 ## {{% heading "whatsnext" %}}
 
