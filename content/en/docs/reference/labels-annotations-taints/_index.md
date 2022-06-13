@@ -457,6 +457,8 @@ You should **not** manually add or remove this annotation.
 
 ### scheduler.alpha.kubernetes.io/defaultTolerations {#scheduleralphakubernetesio-defaulttolerations}
 
+Example: `scheduler.alpha.kubernetes.io/defaultTolerations: '[{"operator": "Equal", "value": "value1", "effect": "NoSchedule", "key": "dedicated-node"}]'`
+
 Used on: Namespace
 
 This annotation requires the [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction) admission  controller to be enabled. This annotation key allows assigning tolerations to a namespace and any new pods created in this namespace would get this toleration.
