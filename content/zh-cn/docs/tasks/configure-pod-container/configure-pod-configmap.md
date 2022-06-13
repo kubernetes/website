@@ -20,7 +20,6 @@ card:
 Many applications rely on configuration which is used during either application initialization or runtime.
 Most of the times there is a requirement to adjust values assigned to configuration parameters.
 ConfigMaps is the kubernetes way to inject application pods with configuration data.
-
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps.
 -->
 很多应用在其初始化或运行期间要依赖一些配置信息。大多数时候，
@@ -773,7 +772,7 @@ configmap/special-config-2-c92b5mmcf2 created
 ### 使用单个 ConfigMap 中的数据定义容器环境变量    {#define-a-container-environment-variable-with-data-from-a-single-configmap}
 
 <!--
-1.  Define an environment variable as a key-value pair in a ConfigMap:
+1. Define an environment variable as a key-value pair in a ConfigMap:
 -->
 1. 在 ConfigMap 中将环境变量定义为键值对:
 
@@ -782,7 +781,7 @@ configmap/special-config-2-c92b5mmcf2 created
    ```
 
 <!--
-2.  Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
+2. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
 -->
 2. 将 ConfigMap 中定义的 `special.how` 赋值给 Pod 规约中的 `SPECIAL_LEVEL_KEY` 环境变量。
 
