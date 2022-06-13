@@ -37,6 +37,8 @@ Reference documentation:
 - Service accounts
   - [Developer guide](/docs/tasks/configure-pod-container/configure-service-account/)
   - [Administration](/docs/reference/access-authn-authz/service-accounts-admin/)
+- [Kubelet Authentication & Authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/)
+  - including kubelet [TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 -->
 - [身份认证](/zh/docs/reference/access-authn-authz/authentication/)
    - [使用启动引导令牌来执行身份认证](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)
@@ -53,4 +55,5 @@ Reference documentation:
 - 服务账号
   - [开发者指南](/zh/docs/tasks/configure-pod-container/configure-service-account/)
   - [管理文档](/zh/docs/reference/access-authn-authz/service-accounts-admin/)
-
+- [Kubelet 认证和鉴权](/zh/docs/reference/access-authn-authz/kubelet-authn-authz/)
+  - 包括 kubelet [TLS 启动引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)

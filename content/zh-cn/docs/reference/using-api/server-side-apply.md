@@ -220,7 +220,8 @@ this occurs, the applier has 3 options to resolve the conflicts:
 <!--
 * **Overwrite value, become sole manager:** If overwriting the value was
   intentional (or if the applier is an automated process like a controller) the
-  applier should set the `force` query parameter to true and make the request
+  applier should set the `force` query parameter to true (in kubectl, it can be done by
+  using the `--force-conflicts` flag with the apply command) and make the request
   again. This forces the operation to succeed, changes the value of the field,
   and removes the field from all other managers' entries in managedFields.
 
@@ -237,7 +238,8 @@ this occurs, the applier has 3 options to resolve the conflicts:
   field managers that already claimed to manage it.
 -->
 * **覆盖前值，成为唯一的管理器：** 如果打算覆盖该值（或应用者是一个自动化部件，比如控制器），
-  应用者应该设置查询参数 `force` 为 true，然后再发送一次请求。
+  应用者应该设置查询参数 `force` 为 true（在 kubectl 中，可以通过在
+  apply 命令中使用 `--force-conflicts` 标志来完成），然后再发送一次请求。
   这将强制操作成功，改变字段的值，从所有其他管理器的 managedFields 条目中删除指定字段。
 
 * **不覆盖前值，放弃管理权：** 如果应用者不再关注该字段的值，
