@@ -6,7 +6,7 @@
 {{- else -}}
 <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
 {{- end -}}
-{{- if ne hugo.Environment "local" -}}
+{{- if eq hugo.Environment "production" -}}
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36037335-10"></script>
 <script>
