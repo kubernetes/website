@@ -16,8 +16,8 @@ weight: 40
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 -->
 你可以使用 _拓扑分布约束（Topology Spread Constraints）_ 来控制
-{{< glossary_tooltip text="Pods" term_id="Pod" >}} 在集群内故障域
-之间的分布，例如区域（Region）、可用区（Zone）、节点和其他用户自定义拓扑域。
+{{< glossary_tooltip text="Pod" term_id="Pod" >}} 在集群内故障域之间的分布，
+例如区域（Region）、可用区（Zone）、节点和其他用户自定义拓扑域。
 这样做有助于实现高可用并提升资源利用率。
 
 <!-- body -->
@@ -125,14 +125,13 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
     precedence to topologies that would help reduce the skew.
 -->
 
-- **maxSkew** 描述 Pod 分布不均的程度。这是给定拓扑类型中任意两个拓扑域中
-  匹配的 pod 之间的最大允许差值。它必须大于零。取决于 `whenUnsatisfiable` 的
-  取值，其语义会有不同。
-  - 当 `whenUnsatisfiable` 等于 "DoNotSchedule" 时，`maxSkew` 是目标拓扑域
-    中匹配的 Pod 数与全局最小值（一个拓扑域中与标签选择器匹配的 Pod 的最小数量。例如，如果你有
+- **maxSkew** 描述 Pod 分布不均的程度。这是给定拓扑类型中任意两个拓扑域中匹配的
+  Pod 之间的最大允许差值。它必须大于零。取决于 `whenUnsatisfiable` 的取值，
+  其语义会有不同。
+  - 当 `whenUnsatisfiable` 等于 "DoNotSchedule" 时，`maxSkew` 是目标拓扑域中匹配的
+    Pod 数与全局最小值（一个拓扑域中与标签选择器匹配的 Pod 的最小数量。例如，如果你有
     3 个区域，分别具有 0 个、2 个 和 3 个匹配的 Pod，则全局最小值为 0。）之间可存在的差异。
-  - 当 `whenUnsatisfiable` 等于 "ScheduleAnyway" 时，调度器会更为偏向能够降低
-    偏差值的拓扑域。
+  - 当 `whenUnsatisfiable` 等于 "ScheduleAnyway" 时，调度器会更为偏向能够降低偏差值的拓扑域。
 
 <!--
 - **minDomains** indicates a minimum number of eligible domains.
@@ -153,9 +152,9 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
   符合条件的域是其节点与节点选择器匹配的域。
 
   - 指定的 `minDomains` 的值必须大于 0。
-  - 当符合条件的、拓扑键匹配的域的数量小于 `minDomains` 时，Pod 拓扑分布将“全局最小值”（global minimum） 设为
-    0，然后进行 `skew` 计算。“全局最小值”是一个符合条件的域中匹配 Pods 的最小数量，
-    如果符合条件的域的数量小于 `minDomains`，则全局最小值为零。
+  - 当符合条件的、拓扑键匹配的域的数量小于 `minDomains` 时，Pod 拓扑分布将“全局最小值”
+    （global minimum）设为 0，然后进行 `skew` 计算。“全局最小值”是一个符合条件的域中匹配
+    Pod 的最小数量，如果符合条件的域的数量小于 `minDomains`，则全局最小值为零。
   - 当符合条件的拓扑键匹配域的个数等于或大于 `minDomains` 时，该值对调度没有影响。
   - 当 `minDomains` 为 nil 时，约束的行为等于 `minDomains` 为 1。
   - 当 `minDomains` 不为 nil 时，`whenUnsatisfiable` 的值必须为 "`DoNotSchedule`" 。
@@ -180,16 +179,14 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
 - **labelSelector** is used to find matching Pods. Pods that match this label selector are counted to determine the number of Pods in their corresponding topology domain. See [Label Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) for more details.
 -->
 - **topologyKey** 是节点标签的键。如果两个节点使用此键标记并且具有相同的标签值，
-  则调度器会将这两个节点视为处于同一拓扑域中。调度器试图在每个拓扑域中放置数量
-  均衡的 Pod。
+  则调度器会将这两个节点视为处于同一拓扑域中。调度器试图在每个拓扑域中放置数量均衡的 Pod。
 
 - **whenUnsatisfiable** 指示如果 Pod 不满足分布约束时如何处理：
   - `DoNotSchedule`（默认）告诉调度器不要调度。
-  - `ScheduleAnyway` 告诉调度器仍然继续调度，只是根据如何能将偏差最小化来对
-    节点进行排序。
+  - `ScheduleAnyway` 告诉调度器仍然继续调度，只是根据如何能将偏差最小化来对节点进行排序。
 
-- **labelSelector** 用于查找匹配的 pod。匹配此标签的 Pod 将被统计，以确定相应
-  拓扑域中 Pod 的数量。
+- **labelSelector** 用于查找匹配的 Pod。匹配此标签的 Pod 将被统计，
+  以确定相应拓扑域中 Pod 的数量。
   有关详细信息，请参考[标签选择算符](/zh/docs/concepts/overview/working-with-objects/labels/#label-selectors)。
 
 <!--
@@ -201,8 +198,8 @@ kube-scheduler 会为新的 Pod 寻找一个能够满足所有约束的节点。
 <!--
 You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints`.
 -->
-你可以执行 `kubectl explain Pod.spec.topologySpreadConstraints` 命令以
-了解关于 topologySpreadConstraints 的更多信息。
+你可以执行 `kubectl explain Pod.spec.topologySpreadConstraints`
+命令以了解关于 topologySpreadConstraints 的更多信息。
 
 <!--
 ### Example: One TopologySpreadConstraint
@@ -243,16 +240,15 @@ If we want an incoming Pod to be evenly spread with existing Pods across zones, 
 `topologyKey: zone` implies the even distribution will only be applied to the nodes which have label pair "zone:&lt;any value&gt;" present. `whenUnsatisfiable: DoNotSchedule` tells the scheduler to let it stay pending if the incoming Pod can’t satisfy the constraint.
 -->
 `topologyKey: zone` 意味着均匀分布将只应用于存在标签键值对为
-"zone:&lt;any value&gt;" 的节点。
+"zone:&lt;任何值&gt;" 的节点。
 `whenUnsatisfiable: DoNotSchedule` 告诉调度器如果新的 Pod 不满足约束，
 则让它保持悬决状态。
 
 <!--
-If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1],
-hence the actual skew is 2 (3 - 1) - which violates `maxSkew: 1`. In this example, the incoming Pod can only be placed onto "zoneB":
+If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1], hence the actual skew is 2 (3 - 1) - which violates `maxSkew: 1`. In this example, the incoming Pod can only be placed onto "zoneB":
 -->
-如果调度器将新的 Pod 放入 "zoneA"，Pods 分布将变为 [3, 1]，因此实际的偏差
-为 2（3 - 1）。这违反了 `maxSkew: 1` 的约定。此示例中，新 Pod 只能放置在
+如果调度器将新的 Pod 放入 "zoneA"，Pods 分布将变为 [3, 1]，因此实际的偏差为
+2（3 - 1）。这违反了 `maxSkew: 1` 的约定。此示例中，新 Pod 只能放置在
 "zoneB" 上：
 
 {{<mermaid>}}
@@ -355,8 +351,8 @@ You can use 2 TopologySpreadConstraints to control the Pods spreading on both zo
 In this case, to match the first constraint, the incoming Pod can only be placed onto "zoneB"; while in terms of the second constraint, the incoming Pod can only be placed onto "node4". Then the results of 2 constraints are ANDed, so the only viable option is to place on "node4".
 -->
 在这种情况下，为了匹配第一个约束，新的 Pod 只能放置在 "zoneB" 中；而在第二个约束中，
-新的 Pod 只能放置在 "node4" 上。最后两个约束的结果加在一起，唯一可行的选择是放置
-在 "node4" 上。
+新的 Pod 只能放置在 "node4" 上。最后两个约束的结果加在一起，唯一可行的选择是放置在
+"node4" 上。
 
 <!--
 Multiple constraints can lead to conflicts. Suppose you have a 3-node cluster across 2 zones:
@@ -383,7 +379,7 @@ graph BT
 {{< /mermaid >}}
 
 <!--
-If you apply "two-constraints.yaml" to this cluster, you will notice "mypod" stays in `Pending` state. This is because: to satisfy the first constraint, "mypod" can only be put to "zoneB"; while in terms of the second constraint, "mypod" can only put to "node2". Then a joint result of "zoneB" and "node2" returns nothing.
+If you apply "two-constraints.yaml" to this cluster, you will notice "mypod" stays in `Pending` state. This is because: to satisfy the first constraint, "mypod" can only be put to "zoneB"; while in terms of the second constraint, "mypod" can only put onto "node2". Then a joint result of "zoneB" and "node2" returns nothing.
 -->
 如果对集群应用 "two-constraints.yaml"，会发现 "mypod" 处于 `Pending` 状态。
 这是因为：为了满足第一个约束，"mypod" 只能放在 "zoneB" 中，而第二个约束要求
@@ -448,7 +444,7 @@ class zoneC cluster;
 
 
 <!--
-and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
+and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed into "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
 -->
 而且你知道 "zoneC" 必须被排除在外。在这种情况下，可以按如下方式编写 YAML，
 以便将 "mypod" 放置在 "zoneB" 上，而不是 "zoneC" 上。同样，`spec.nodeSelector`
@@ -479,7 +475,7 @@ There are some implicit conventions worth noting here:
 - The scheduler will bypass the nodes without `topologySpreadConstraints[*].topologyKey` present. This implies that:
 
   1. the Pods located on those nodes do not impact `maxSkew` calculation - in the above example, suppose "node1" does not have label "zone", then the 2 Pods will be disregarded, hence the incoming Pod will be scheduled into "zoneA".
-  2. the incoming Pod has no chances to be scheduled onto this kind of nodes - in the above example, suppose a "node5" carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key "zone".
+  2. the incoming Pod has no chances to be scheduled onto such nodes - in the above example, suppose a "node5" carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key "zone".
 -->
 - 只有与新的 Pod 具有相同命名空间的 Pod 才能作为匹配候选者。
 - 调度器会忽略没有 `topologySpreadConstraints[*].topologyKey` 的节点。这意味着：
@@ -494,8 +490,8 @@ There are some implicit conventions worth noting here:
 <!--
 - Be aware of what will happen if the incomingPod’s `topologySpreadConstraints[*].labelSelector` doesn’t match its own labels. In the above example, if we remove the incoming Pod’s labels, it can still be placed onto "zoneB" since the constraints are still satisfied. However, after the placement, the degree of imbalance of the cluster remains unchanged - it’s still zoneA having 2 Pods which hold label {foo:bar}, and zoneB having 1 Pod which holds label {foo:bar}. So if this is not what you expect, we recommend the workload’s `topologySpreadConstraints[*].labelSelector` to match its own labels.
 -->
-- 注意，如果新 Pod 的 `topologySpreadConstraints[*].labelSelector` 与自身的
-  标签不匹配，将会发生什么。
+- 注意，如果新 Pod 的 `topologySpreadConstraints[*].labelSelector`
+  与自身的标签不匹配，将会发生什么。
   在上面的例子中，如果移除新 Pod 上的标签，Pod 仍然可以调度到 "zoneB"，因为约束仍然满足。
   然而，在调度之后，集群的不平衡程度保持不变。zoneA 仍然有 2 个带有 {foo:bar} 标签的 Pod，
   zoneB 有 1 个带有 {foo:bar} 标签的 Pod。
@@ -513,8 +509,8 @@ topology spread constraints are applied to a Pod if, and only if:
 -->
 ### 集群级别的默认约束   {#cluster-level-default-constraints}
 
-为集群设置默认的拓扑分布约束也是可能的。默认拓扑分布约束在且仅在以下条件满足
-时才会应用到 Pod 上：
+为集群设置默认的拓扑分布约束也是可能的。
+默认拓扑分布约束在且仅在以下条件满足时才会被应用到 Pod 上：
 
 - Pod 没有在其 `.spec.topologySpreadConstraints` 设置任何约束；
 - Pod 隶属于某个服务、副本控制器、ReplicaSet 或 StatefulSet。
