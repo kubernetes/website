@@ -33,9 +33,9 @@ weight: 10
 1. 노드의 kubelet으로 컨트롤 플레인에 자체 등록
 2. 사용자(또는 다른 사용자)가 노드 오브젝트를 수동으로 추가
 
-노드 {{< glossary_tooltip text="오브젝트" term_id="object" >}} 또는 노드의 kubelet으로 자체 등록한 후
-컨트롤 플레인은 새 노드 오브젝트가 유효한지 확인한다.
-예를 들어 다음 JSON 매니페스트에서 노드를 만들려는 경우이다.
+사용자가 노드 {{< glossary_tooltip text="오브젝트" term_id="object" >}}를 생성하거나, 
+또는 노드의 kubelet이 해당 노드를 자체적으로 등록하면, 컨트롤 플레인은 새 노드 오브젝트가 유효한지 확인한다. 
+예를 들어, 사용자가 다음의 JSON 매니페스트로 노드를 생성하는 상황을 가정해 보자.
 
 ```json
 {
@@ -50,17 +50,17 @@ weight: 10
 }
 ```
 
-쿠버네티스는 내부적으로 노드 오브젝트를 생성한다(표시한다). 쿠버네티스는
-kubelet이 노드의 `metadata.name` 필드와 일치하는 API 서버에 등록이 되어 있는지 확인한다.
-노드가 정상이면(예를 들어 필요한 모든 서비스가 실행중인 경우) 파드를 실행할 수 있게 된다.
-그렇지 않으면, 해당 노드는 정상이 될 때까지 모든 클러스터 활동에
-대해 무시된다.
+쿠버네티스는 내부적으로 노드 오브젝트를 생성한다(이는 표현(representation)이다). 
+쿠버네티스는 kubelet이 노드의 `metadata.name` 필드와 일치하는 노드 오브젝트를 
+API 서버에 등록했는지 확인한다. 
+노드가 정상이면(예를 들어 모든 필요 서비스가 실행중인 경우) 파드를 실행할 수 있게 된다. 
+그렇지 않으면, 해당 노드는 정상이 되기 전까지 모든 클러스터 활동에 대해 무시된다.
 
 {{< note >}}
-쿠버네티스는 유효하지 않은 노드 오브젝트를 유지하고, 노드가
-정상적인지 확인한다.
+쿠버네티스는 유효하지 않은 노드에 대한 노드 오브젝트를 유지하면서, 
+노드가 정상 상태로 바뀌었는지를 계속 확인한다.
 
-상태 확인을 중지하려면 사용자 또는 {{< glossary_tooltip term_id="controller" text="컨트롤러">}}에서
+이러한 상태 확인을 중지하려면 사용자 또는 {{< glossary_tooltip term_id="controller" text="컨트롤러">}}가
 노드 오브젝트를 명시적으로 삭제해야 한다.
 {{< /note >}}
 
@@ -86,17 +86,21 @@ kubelet 플래그 `--register-node`가 참(기본값)일 경우, kubelet은 API 
 자체-등록에 대해, kubelet은 다음 옵션과 함께 시작된다.
 
   - `--kubeconfig` - apiserver에 스스로 인증하기 위한 자격증명에 대한 경로.
-  - `--cloud-provider` - 자신에 대한 메터데이터를 읽기 위해 어떻게 {{< glossary_tooltip text="클라우드 제공자" term_id="cloud-provider" >}}와 소통할지에 대한 방법.
+  - `--cloud-provider` - 자신에 대한 메터데이터를 읽기 위해 어떻게 
+    {{< glossary_tooltip text="클라우드 제공자" term_id="cloud-provider" >}}와 소통할지에 대한 방법.
   - `--register-node` - 자동으로 API 서버에 등록.
-  - `--register-with-taints` - 주어진 {{< glossary_tooltip text="테인트(taint)" term_id="taint" >}} 리스트(콤마로 분리된 `<key>=<value>:<effect>`)를 가진 노드 등록.
+  - `--register-with-taints` - 주어진 {{< glossary_tooltip text="테인트(taint)" term_id="taint" >}} 
+    리스트(콤마로 분리된 `<key>=<value>:<effect>`)를 가진 노드 등록.
 
     `register-node`가 거짓이면 동작 안 함.
   - `--node-ip` - 노드의 IP 주소.
-  - `--node-labels` - 클러스터에 노드를 등록할 때 추가 할 {{< glossary_tooltip text="레이블" term_id="label" >}}([NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)에 의해 적용되는 레이블 제한 사항 참고).
-  - `--node-status-update-frequency` - 얼마나 자주 kubelet이 마스터에 노드 상태를 게시할 지 정의.
+  - `--node-labels` - 클러스터에 노드를 등록할 때 추가 할 
+    {{< glossary_tooltip text="레이블" term_id="label" >}}
+    ([NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)에 의해 적용되는 레이블 제한 사항 참고).
+  - `--node-status-update-frequency` - 얼마나 자주 kubelet이 API 서버에 해당 노드 상태를 게시할 지 정의.
 
 [Node authorization mode](/docs/reference/access-authn-authz/node/)와
-[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)이 활성화 되면,
+[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)이 활성화되면,
 각 kubelet은 자신이 속한 노드의 리소스에 대해서만 생성/수정할 권한을 가진다.
 
 {{< note >}}
@@ -168,8 +172,10 @@ kubectl describe node <insert-node-name-here>
 
 이 필드의 용법은 클라우드 제공사업자 또는 베어메탈 구성에 따라 다양하다.
 
-* HostName: 노드의 커널에 의해 알려진 호스트명이다. `--hostname-override` 파라미터를 통해 치환될 수 있다.
-* ExternalIP: 일반적으로 노드의 IP 주소는 외부로 라우트 가능 (클러스터 외부에서 이용 가능) 하다 .
+* HostName: 노드의 커널에 의해 알려진 호스트명이다. 
+  `--hostname-override` 파라미터를 통해 치환될 수 있다.
+* ExternalIP: 일반적으로 노드의 IP 주소는 
+  외부로 라우트 가능 (클러스터 외부에서 이용 가능) 하다.
 * InternalIP: 일반적으로 노드의 IP 주소는 클러스터 내에서만 라우트 가능하다.
 
 
@@ -289,7 +295,6 @@ kubelet은 노드의 `.status` 생성과 업데이트 및
   만약 리스 업데이트가 실패하면, kubelet은 200밀리초에서 시작하고
   7초의 상한을 갖는 지수적 백오프를 사용해서 재시도한다.
 
-
 ### 노드 컨트롤러
 
 노드 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}는
@@ -306,18 +311,21 @@ kubelet은 노드의 `.status` 생성과 업데이트 및
 
 세 번째는 노드의 동작 상태를 모니터링하는 것이다. 노드 컨트롤러는
 다음을 담당한다.
-- 노드가 접근 불가능(unreachable) 상태가 되는 경우, 노드의 `.status`
-  내에 있는 NodeReady 컨디션을 업데이트한다.
-  이 경우에는 노드 컨트롤러가 NodeReady 컨디션을 `ConditionUnknown`으로 설정한다.
+
+- 노드가 접근 불가능(unreachable) 상태가 되는 경우, 
+  노드의 `.status` 필드의 `Ready` 컨디션을 업데이트한다. 
+  이 경우에는 노드 컨트롤러가 `Ready` 컨디션을 `Unknown`으로 설정한다.
 - 노드가 계속 접근 불가능 상태로 남아있는 경우, 해당 노드의 모든 파드에 대해서
   [API를 이용한 축출](/ko/docs/concepts/scheduling-eviction/api-eviction/)을
   트리거한다. 기본적으로, 노드 컨트롤러는 노드를
-  `ConditionUnknown`으로 마킹한 뒤 5분을 기다렸다가
+  `Unknown`으로 마킹한 뒤 5분을 기다렸다가
   최초의 축출 요청을 시작한다. 
 
-노드 컨트롤러는 매 `--node-monitor-period` 초 마다 각 노드의 상태를 체크한다.
+기본적으로, 노드 컨트롤러는 5 초마다 각 노드의 상태를 체크한다.
+체크 주기는 `kube-controller-manager` 구성 요소의 
+`--node-monitor-period` 플래그를 이용하여 설정할 수 있다.
 
-#### 축출 빈도 한계
+#### 축출 빈도 제한
 
  대부분의 경우, 노드 컨트롤러는 초당 `--node-eviction-rate`(기본값 0.1)로
 축출 속도를 제한한다. 이 말은 10초당 1개의 노드를 초과하여
@@ -325,8 +333,9 @@ kubelet은 노드의 `.status` 생성과 업데이트 및
 
 노드 축출 행위는 주어진 가용성 영역 내 하나의 노드가 상태가 불량할
 경우 변화한다. 노드 컨트롤러는 영역 내 동시에 상태가 불량한 노드의 퍼센티지가 얼마나 되는지
-체크한다(NodeReady 컨디션은 `ConditionUnknown` 또는
-`ConditionFalse` 다).
+체크한다(`Ready` 컨디션은 `Unknown` 또는
+`False` 값을 가진다).
+
 - 상태가 불량한 노드의 비율이 최소 `--unhealthy-zone-threshold`
   (기본값 0.55)가 되면 축출 속도가 감소한다.
 - 클러스터가 작으면 (즉 `--large-cluster-size-threshold`
@@ -335,7 +344,7 @@ kubelet은 노드의 `.status` 생성과 업데이트 및
   `--secondary-node-eviction-rate`(기본값 0.01)로 감소된다.
 
 이 정책들이 가용성 영역 단위로 실행되어지는 이유는 나머지가 연결되어 있는 동안
-하나의 가용성 영역이 마스터로부터 분할되어 질 수도 있기 때문이다.
+하나의 가용성 영역이 컨트롤 플레인으로부터 분할되어 질 수도 있기 때문이다.
 만약 클러스터가 여러 클라우드 제공사업자의 가용성 영역에 걸쳐 있지 않는 이상,
 축출 매커니즘은 영역 별 가용성을 고려하지 않는다.
 
@@ -377,7 +386,7 @@ kubelet은 노드의 `.status` 생성과 업데이트 및
 
 ## 노드 토폴로지
 
-{{< feature-state state="alpha" for_k8s_version="v1.16" >}}
+{{< feature-state state="beta" for_k8s_version="v1.18" >}}
 
 `TopologyManager`
 [기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
@@ -391,7 +400,9 @@ kubelet은 노드의 `.status` 생성과 업데이트 및
 
 kubelet은 노드 시스템 셧다운을 감지하고 노드에서 실행 중인 파드를 종료하려고 시도한다.
 
-Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로세스](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)를 따르도록 한다.
+Kubelet은 노드가 종료되는 동안 파드가 
+일반 [파드 종료 프로세스](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)를 
+따르도록 한다.
 
 그레이스풀 노드 셧다운 기능은
 [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)를
@@ -404,18 +415,26 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 기본적으로, 아래 설명된 두 구성 옵션,
 `shutdownGracePeriod` 및 `shutdownGracePeriodCriticalPods` 는 모두 0으로 설정되어 있으므로,
 그레이스풀 노드 셧다운 기능이 활성화되지 않는다.
-기능을 활성화하려면, 두 개의 kubelet 구성 설정을 적절하게 구성하고 0이 아닌 값으로 설정해야 한다.
+기능을 활성화하려면, 두 개의 kubelet 구성 설정을 적절하게 구성하고 
+0이 아닌 값으로 설정해야 한다.
 
 그레이스풀 셧다운 중에 kubelet은 다음의 두 단계로 파드를 종료한다.
 
 1. 노드에서 실행 중인 일반 파드를 종료시킨다.
-2. 노드에서 실행 중인 [중요(critical) 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료시킨다.
+2. 노드에서 실행 중인 
+  [중요(critical) 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료시킨다.
 
-그레이스풀 노드 셧다운 기능은 두 개의 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) 옵션으로 구성된다.
+그레이스풀 노드 셧다운 기능은 
+두 개의 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) 옵션으로 구성된다.
+
 * `shutdownGracePeriod`:
-  * 노드가 종료를 지연해야 하는 총 기간을 지정한다. 이것은 모든 일반 및 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)의 파드 종료에 필요한 총 유예 기간에 해당한다.
+  * 노드가 종료를 지연해야 하는 총 기간을 지정한다. 
+    이것은 모든 일반 및 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)의 
+    파드 종료에 필요한 총 유예 기간에 해당한다.
 * `shutdownGracePeriodCriticalPods`:
-  * 노드 종료 중에 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 종료하는 데 사용되는 기간을 지정한다. 이 값은 `shutdownGracePeriod` 보다 작아야 한다.
+  * 노드 종료 중에 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 
+    종료하는 데 사용되는 기간을 지정한다. 
+    이 값은 `shutdownGracePeriod` 보다 작아야 한다.
 
 예를 들어, `shutdownGracePeriod=30s`,
 `shutdownGracePeriodCriticalPods=10s` 인 경우, kubelet은 노드 종료를 30초까지
@@ -443,7 +462,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 클러스터에 프라이어리티클래스(PriorityClass) 기능이 활성화되어 있으면 
 그레이스풀 노드 셧다운 과정에서 파드의 프라이어리티클래스가 고려된다. 
 이 기능으로 그레이스풀 노드 셧다운 시 파드가 종료되는 순서를 클러스터 관리자가 
-[프라이어리티클래스](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/#프라이어리티클래스) 
+[프라이어리티 클래스](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/#프라이어리티클래스) 
 기반으로 명시적으로 정할 수 있다.
 
 위에서 기술된 것처럼, [그레이스풀 노드 셧다운](#graceful-node-shutdown) 기능은 파드를 
@@ -492,7 +511,7 @@ shutdownGracePeriodByPodPriority:
     shutdownGracePeriodSeconds: 60
 ```
 
-위의 표에 의하면 우선순위 값이 100000 이상인 파드는 종료까지 10초만 주어지며, 
+위의 표에 의하면 `priority` 값이 100000 이상인 파드는 종료까지 10초만 주어지며, 
 10000 이상 ~ 100000 미만이면 180초, 
 1000 이상 ~ 10000 미만이면 120초가 주어진다.
 마지막으로, 다른 모든 파드는 종료까지 60초가 주어질 것이다.
@@ -507,7 +526,7 @@ shutdownGracePeriodByPodPriority:
 | 0                      |60 seconds     |
 
 
-위의 경우, custom-class-b에 속하는 파드와 custom-class-c에 속하는 파드는 
+위의 경우, `custom-class-b`에 속하는 파드와 `custom-class-c`에 속하는 파드는
 동일한 종료 대기 시간을 갖게 될 것이다.
 
 특정 범위에 해당되는 파드가 없으면, 
@@ -521,6 +540,9 @@ kubelet은 해당 범위에 해당되는 파드를 위해 기다려 주지 않�
 kubelet 환경 설정의 `ShutdownGracePeriodByPodPriority`를 
 파드 프라이어리티 클래스 값과 
 각 값에 대한 종료 대기 시간을 명시하여 지정해야 한다.
+
+`graceful_shutdown_start_time_seconds` 및 `graceful_shutdown_end_time_seconds` 메트릭은 
+노드 셧다운을 모니터링하기 위해 kubelet 서브시스템에서 방출된다.
 
 ## 스왑(swap) 메모리 관리 {#swap-memory}
 

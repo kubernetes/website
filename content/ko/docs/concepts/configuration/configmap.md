@@ -15,7 +15,6 @@ weight: 20
 사용하여 데이터를 비공개로 유지하자.
 {{< /caution >}}
 
-
 <!-- body -->
 ## 사용 동기
 
@@ -42,7 +41,7 @@ API [오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-ob
 `spec` 이 있는 대부분의 쿠버네티스 오브젝트와 달리, 컨피그맵에는 `data` 및 `binaryData`
 필드가 있다. 이러한 필드는 키-값 쌍을 값으로 허용한다. `data` 필드와
 `binaryData` 는 모두 선택 사항이다. `data` 필드는
-UTF-8 바이트 시퀀스를 포함하도록 설계되었으며 `binaryData` 필드는 바이너리
+UTF-8 문자열을 포함하도록 설계되었으며 `binaryData` 필드는 바이너리
 데이터를 base64로 인코딩된 문자열로 포함하도록 설계되었다.
 
 컨피그맵의 이름은 유효한
