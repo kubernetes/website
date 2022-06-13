@@ -551,12 +551,11 @@ same zone currently running Pods with the `Security=S2` Pod label.
 并且节点具有标签 `topology.kubernetes.io/zone=R`，Pod 不能被调度到该节点上。
 
 <!--
-See the
-[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
-for many more examples of Pod affinity and anti-affinity.
+To get yourself more familiar with the examples of Pod affinity and anti-affinity,
+refer to the [design proposal](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/podaffinity.md).
 -->
-查阅[设计文档](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
-以了解 Pod 亲和性与反亲和性的更多示例。
+查阅[设计文档](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/podaffinity.md)
+以进一步熟悉 Pod 亲和性与反亲和性的示例。
 
 <!--
 You can use the `In`, `NotIn`, `Exists` and `DoesNotExist` values in the

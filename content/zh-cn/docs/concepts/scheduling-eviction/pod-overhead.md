@@ -151,10 +151,11 @@ map[cpu:250m memory:120Mi]
 ```
 
 <!--
-If a ResourceQuota is defined, the sum of container requests as well as the
+If a [ResourceQuota](/docs/concepts/policy/resource-quotas/) is defined, the sum of container requests as well as the
 `overhead` field are counted.
  -->
-如果定义了 ResourceQuata, 则容器请求的总量以及 `overhead` 字段都将计算在内。
+如果定义了 [ResourceQuata](/zh/docs/concepts/policy/resource-quotas/), 
+则容器请求的总量以及 `overhead` 字段都将计算在内。
 
 <!--
 When the kube-scheduler is deciding which node should run a new Pod, the scheduler considers that Pod's

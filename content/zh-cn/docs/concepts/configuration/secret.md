@@ -447,11 +447,15 @@ You can still [manually create](/docs/tasks/configure-pod-container/configure-se
 a service account token Secret; for example, if you need a token that never expires.
 However, using the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
 subresource to obtain a token to access the API is recommended instead.
+You can use the [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
+command to obtain a token from the `TokenRequest` API.
 -->
 你仍然可以[手动创建](/zh/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)
 服务账号令牌。例如，当你需要一个永远都不过期的令牌时。
 不过，仍然建议使用 [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
 子资源来获得访问 API 服务器的令牌。
+你可以使用 [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
+命令调用 `TokenRequest` API 获得令牌。
 {{< /note >}}
 
 <!--
@@ -1446,26 +1450,61 @@ In this case, `0` means you have created an empty Secret.
 ### Service account token Secrets
 
 A `kubernetes.io/service-account-token` type of Secret is used to store a
-token that identifies a
+token credential that identifies a
 {{< glossary_tooltip text="service account" term_id="service-account" >}}.
-When using this Secret type, you need to ensure that the
-`kubernetes.io/service-account.name` annotation is set to an existing
-service account name. A Kubernetes
-{{< glossary_tooltip text="controller" term_id="controller" >}} fills in some
-other fields such as the `kubernetes.io/service-account.uid` annotation, and the
-`token` key in the `data` field, which is set to contain an authentication
-token.
-
-The following example configuration declares a service account token Secret:
 -->
 ### 服务账号令牌 Secret  {#service-account-token-secrets}
 
-类型为 `kubernetes.io/service-account-token` 的 Secret 用来存放标识某
-{{< glossary_tooltip text="服务账号" term_id="service-account" >}}的令牌。
+类型为 `kubernetes.io/service-account-token` 的 Secret
+用来存放标识某{{< glossary_tooltip text="服务账号" term_id="service-account" >}}的令牌凭据。
+
+<!--
+Since 1.22, this type of Secret is no longer used to mount credentials into Pods,
+and obtaining tokens via the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+API is recommended instead of using service account token Secret objects.
+Tokens obtained from the `TokenRequest` API are more secure than ones stored in Secret objects,
+because they have a bounded lifetime and are not readable by other API clients.
+You can use the [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
+command to obtain a token from the `TokenRequest` API.
+-->
+从 v1.22 开始，这种类型的 Secret 不再被用来向 Pod 中加载凭据数据，
+建议通过 [TokenRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+API 来获得令牌，而不是使用服务账号令牌 Secret 对象。
+通过 `TokenRequest` API 获得的令牌比保存在 Secret 对象中的令牌更加安全，
+因为这些令牌有着被限定的生命期，并且不会被其他 API 客户端读取。
+你可以使用 [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
+命令调用 `TokenRequest` API 获得令牌。
+
+<!--
+You should only create a service account token Secret object
+if you can't use the `TokenRequest` API to obtain a token,
+and the security exposure of persisting a non-expiring token credential
+in a readable API object is acceptable to you.
+-->
+只有在你无法使用 `TokenRequest` API 来获取令牌，
+并且你能够接受因为将永不过期的令牌凭据写入到可读取的 API 对象而带来的安全风险时，
+才应该创建服务账号令牌 Secret 对象。
+
+<!--
+When using this Secret type, you need to ensure that the
+`kubernetes.io/service-account.name` annotation is set to an existing
+service account name. If you are creating both the ServiceAccount and
+the Secret objects, you should create the ServiceAccount object first.
+-->
 使用这种 Secret 类型时，你需要确保对象的注解 `kubernetes.io/service-account-name`
-被设置为某个已有的服务账号名称。某个 Kubernetes
-{{< glossary_tooltip text="控制器" term_id="controller" >}}会填写 Secret
-的其它字段，例如 `kubernetes.io/service-account.uid` 注解以及 `data` 字段中的
+被设置为某个已有的服务账号名称。
+如果你同时负责 ServiceAccount 和 Secret 对象的创建，应该先创建 ServiceAccount 对象。
+
+<!--
+
+After the Secret is created, a Kubernetes {{< glossary_tooltip text="controller" term_id="controller" >}}
+fills in some other fields such as the `kubernetes.io/service-account.uid` annotation, and the
+`token` key in the `data` field, which is set to contain an authentication token.
+
+The following example configuration declares a service account token Secret:
+-->
+当 Secret 对象被创建之后，某个 Kubernetes{{< glossary_tooltip text="控制器" term_id="controller" >}}会填写
+Secret 的其它字段，例如 `kubernetes.io/service-account.uid` 注解以及 `data` 字段中的
 `token` 键值，使之包含实际的令牌内容。
 
 下面的配置实例声明了一个服务账号令牌 Secret：
@@ -1498,20 +1537,9 @@ data:
 ```
 
 <!--
-When creating a `Pod`, Kubernetes automatically finds or creates a service account
-Secret and then automatically modifies your Pod to use this Secret. The service account
-token Secret contains credentials for accessing the Kubernetes API.
-
-The automatic creation and use of API credentials can be disabled or
-overridden if desired. However, if all you need to do is securely access the
-API server, this is the recommended workflow.
+After creating the Secret, wait for Kubernetes to populate the `token` key in the `data` field.
 -->
-Kubernetes 在创建 Pod 时会自动寻找或创建一个服务账号 Secret 并自动修改你的 Pod
-以使用该 Secret。该服务账号令牌 Secret 中包含了访问 Kubernetes API
-所需要的凭据。
-
-如果需要，可以禁止或者重载这种自动创建并使用 API 凭据的操作。
-不过，如果你仅仅是希望能够安全地访问 API 服务器，这是建议的工作方式。
+创建了 Secret 之后，等待 Kubernetes 在 `data` 字段中填充 `token` 主键。
 
 <!--
 See the [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)
@@ -1519,13 +1547,13 @@ documentation for more information on how service accounts work.
 You can also check the `automountServiceAccountToken` field and the
 `serviceAccountName` field of the
 [`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
-for information on referencing service account from Pods.
+for information on referencing service account credentials from within Pods.
 -->
 参考 [ServiceAccount](/zh/docs/tasks/configure-pod-container/configure-service-account/)
 文档了解服务账号的工作原理。你也可以查看
 [`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 资源中的 `automountServiceAccountToken` 和 `serviceAccountName` 字段文档，
-进一步了解从 Pod 中引用服务账号。
+进一步了解从 Pod 中引用服务账号凭据。
 
 <!--
 ### Docker config Secrets
