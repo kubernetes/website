@@ -1,5 +1,7 @@
 ---
 title: Pod 安全性标准
+description: >
+  详细了解 Pod 安全性标准（Pod Security Standards）中所定义的不同策略级别。
 content_type: concept
 weight: 10
 ---
@@ -7,6 +9,8 @@ weight: 10
 reviewers:
 - tallclair
 title: Pod Security Standards
+description: >
+  A detailed look at the different policy levels defined in the Pod Security Standards.
 content_type: concept
 weight: 10
 -->
@@ -49,18 +53,17 @@ Pod 安全性标准定义了三种不同的 _策略（Policy）_，以广泛覆�
 **The _Privileged_ policy is purposely-open, and entirely unrestricted.** This type of policy is
 typically aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
-The privileged policy is defined by an absence of restrictions. For allow-by-default enforcement
-mechanisms (such as gatekeeper), the privileged profile may be an absence of applied constraints
-rather than an instantiated policy. In contrast, for a deny-by-default mechanism (such as Pod
-Security Policy) the privileged policy should enable all controls (disable all restrictions).
+The Privileged policy is defined by an absence of restrictions. Allow-by-default
+mechanisms (such as gatekeeper) may be Privileged by default. In contrast, for a deny-by-default mechanism (such as Pod
+Security Policy) the Privileged policy should disable all restrictions.
 -->
 **_Privileged_ 策略是有目的地开放且完全无限制的策略。**
 此类策略通常针对由特权较高、受信任的用户所管理的系统级或基础设施级负载。
 
-Privileged 策略定义中限制较少。对于默认允许（Allow-by-default）实施机制（例如 gatekeeper），
-Privileged 框架可能意味着不应用任何约束而不是实施某策略实例。
-与此不同，对于默认拒绝（Deny-by-default）实施机制（如 Pod 安全策略）而言，
-Privileged 策略应该默认允许所有控制（即，禁止所有限制）。
+Privileged 策略定义中限制较少。默认允许的（Allow-by-default）实施机制（例如 gatekeeper）
+可以缺省设置为 Privileged。
+与此不同，对于默认拒绝（Deny-by-default）的实施机制（如 Pod 安全策略）而言，
+Privileged 策略应该禁止所有限制。
 
 ### Baseline
 
@@ -843,6 +846,22 @@ of individual policies are not defined here.
 - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
 
 <!--
+### Alternatives
+-->
+### 替代方案   {#alternatives}
+
+{{% thirdparty-content %}}
+
+<!--
+Other alternatives for enforcing policies are being developed in the Kubernetes ecosystem, such as: 
+-->
+在 Kubernetes 生态系统中还在开发一些其他的替代方案，例如：
+
+- [Kubewarden](https://github.com/kubewarden)
+- [Kyverno](https://kyverno.io/policies/pod-security/)
+- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
+
+<!--
 ## FAQ
 
 ### Why isn't there a profile between privileged and baseline?
@@ -863,8 +882,8 @@ SIG Auth may reconsider this position in the future, should a clear need for oth
 这里定义的三种策略框架有一个明晰的线性递进关系，从最安全（Restricted）到最不安全，
 并且覆盖了很大范围的工作负载。特权要求超出 Baseline 策略者通常是特定于应用的需求，
 所以我们没有在这个范围内提供标准框架。
-这并不意味着在这样的情形下仍然只能使用 Privileged 框架，只是说处于这个范围的
-策略需要因地制宜地定义。
+这并不意味着在这样的情形下仍然只能使用 Privileged 框架，
+只是说处于这个范围的策略需要因地制宜地定义。
 
 SIG Auth 可能会在将来考虑这个范围的框架，前提是有对其他框架的需求。
 
@@ -878,30 +897,19 @@ in the Pod manifest, and represent parameters to the container runtime.
 ### 安全策略与安全上下文的区别是什么？
 
 [安全上下文](/zh/docs/tasks/configure-pod-container/security-context/)在运行时配置 Pod
-和容器。安全上下文是在 Pod 清单中作为 Pod 和容器规约的一部分来定义的，所代表的是
-传递给容器运行时的参数。
+和容器。安全上下文是在 Pod 清单中作为 Pod 和容器规约的一部分来定义的，
+所代表的是传递给容器运行时的参数。
 
 <!--
 Security profiles are control plane mechanisms to enforce specific settings in the Security Context,
 as well as other related parameters outside the Security Context. As of July 2021, 
 [Pod Security Policies](/docs/concepts/security/pod-security-policy/) are deprecated in favor of the
 built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
-
-Other alternatives for enforcing security profiles are being developed in the Kubernetes
-ecosystem, such as: 
-- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper).
-- [Kubewarden](https://github.com/kubewarden).
-- [Kyverno](https://kyverno.io/policies/pod-security/).
 -->
 安全策略则是控制面用来对安全上下文以及安全性上下文之外的参数实施某种设置的机制。
 在 2020 年 7 月，
 [Pod 安全性策略](/zh/docs/concepts/security/pod-security-policy/)已被废弃，
 取而代之的是内置的 [Pod 安全性准入控制器](/zh/docs/concepts/security/pod-security-admission/)。
-
-Kubernetes 生态系统中还在开发一些其他的替代方案，例如
-- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)。
-- [Kubewarden](https://github.com/kubewarden)。
-- [Kyverno](https://kyverno.io/policies/pod-security/)。
 
 <!--
 ### What profiles should I apply to my Windows Pods?
@@ -914,10 +922,9 @@ such, no standardized Pod Security profiles currently exists.
 ### 我应该为我的 Windows Pod 实施哪种框架？
 
 Kubernetes 中的 Windows 负载与标准的基于 Linux 的负载相比有一些局限性和区别。
-尤其是 Pod SecurityContext 字段
-[对 Windows 不起作用](/zh/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext)。
+尤其是 Pod SecurityContext
+字段[对 Windows 不起作用](/zh/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext)。
 因此，目前没有对应的标准 Pod 安全性框架。
-
 
 <!-- 
 If you apply the restricted profile for a Windows pod, this **may** have an impact on the pod
@@ -926,15 +933,15 @@ profile, and disallowing privilege escalation). If the kubelet and / or its cont
 these Linux-specific values, then the Windows pod should still work normally within the restricted
 profile. However, the lack of enforcement means that there is no additional restriction, for Pods
 that use Windows containers, compared to the baseline profile.
-
-The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy. Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies, so any HostProcess pod should be considered privileged.
 -->
-
 如果你为一个 Windows Pod 应用了 Restricted 策略，**可能会** 对该 Pod 的运行时产生影响。
 Restricted 策略需要强制执行 Linux 特有的限制（如 seccomp Profile，并且禁止特权提升）。
 如果 kubelet 和/或其容器运行时忽略了 Linux 特有的值，那么应该不影响 Windows Pod 正常工作。
 然而，对于使用 Windows 容器的 Pod 来说，缺乏强制执行意味着相比于 Restricted 策略，没有任何额外的限制。
 
+<!--
+The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy. Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies, so any HostProcess pod should be considered privileged.
+-->
 你应该只在 Privileged 策略下使用 HostProcess 标志来创建 HostProcess Pod。
 在 Baseline 和 Restricted 策略下，创建 Windows HostProcess Pod 是被禁止的，
 因此任何 HostProcess Pod 都应该被认为是有特权的。
@@ -945,7 +952,14 @@ Restricted 策略需要强制执行 Linux 特有的限制（如 seccomp Profile�
 There is not currently an API standard that controls whether a Pod is considered sandboxed or
 not. Sandbox Pods may be identified by the use of a sandboxed runtime (such as gVisor or Kata
 Containers), but there is no standard definition of what a sandboxed runtime is.
+-->
+### 沙箱（Sandboxed） Pod 怎么处理？
 
+现在还没有 API 标准来控制 Pod 是否被视作沙箱化 Pod。
+沙箱 Pod 可以通过其是否使用沙箱化运行时（如 gVisor 或 Kata Container）来辨别，
+不过目前还没有关于什么是沙箱化运行时的标准定义。
+
+<!--
 The protections necessary for sandboxed workloads can differ from others. For example, the need to
 restrict privileged permissions is lessened when the workload is isolated from the underlying
 kernel. This allows for workloads requiring heightened permissions to still be isolated.
@@ -953,14 +967,9 @@ kernel. This allows for workloads requiring heightened permissions to still be i
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
 sandboxing. As such, no single recommended policy is recommended for all sandboxed workloads.
 -->
-### 沙箱（Sandboxed） Pod 怎么处理？
-
-现在还没有 API 标准来控制 Pod 是否被视作沙箱化 Pod。
-沙箱 Pod 可以通过其是否使用沙箱化运行时（如 gVisor 或 Kata Container）来辨别，不过
-目前还没有关于什么是沙箱化运行时的标准定义。
-
 沙箱化负载所需要的保护可能彼此各不相同。例如，当负载与下层内核直接隔离开来时，
 限制特权化操作的许可就不那么重要。这使得那些需要更多许可权限的负载仍能被有效隔离。
 
 此外，沙箱化负载的保护高度依赖于沙箱化的实现方法。
 因此，现在还没有针对所有沙箱化负载的建议策略。
+

@@ -101,9 +101,9 @@ POSIX capabilities) are not supported on Windows nodes.
 Windows 节点不支持特定于 Linux 的 Pod 安全上下文机制（例如 SELinux、AppArmor、Seccomp 或自定义 POSIX 权能字）。
 
 <!--
-Privileged containers are [not supported](#compatibility-v1-pod-spec-containers-securitycontext) on Windows.
+Privileged containers are [not supported](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext) on Windows.
 Instead [HostProcess containers](/docs/tasks/configure-pod-container/create-hostprocess-pod) can be used on Windows to perform many of the tasks performed by privileged containers on Linux.
 -->
-Windows 上[不支持](/zh/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext)特权容器。
-然而，可以在 Windows 上使用 [HostProcess 容器](/zh/docs/tasks/configure-pod-container/create-hostprocess-pod)来执行
+Windows 上[不支持](/zh-cn/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext)特权容器。
+然而，可以在 Windows 上使用 [HostProcess 容器](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod)来执行
 Linux 上特权容器执行的许多任务。
