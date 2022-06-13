@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: 파드 오버헤드
 content_type: concept
 weight: 30
@@ -25,11 +29,11 @@ _파드 오버헤드_ 는 컨테이너 리소스 요청과 상한 위에서 파�
 [어드미션](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
 이 수행될 때 지정된다.
 
-파드 오버헤드가 활성화 되면, 파드를 노드에 스케줄링 할 때 컨테이너 리소스 요청의 합에
-파드의 오버헤드를 추가해서 스케줄링을 고려한다. 마찬가지로, kubelet은 파드의 cgroups 크기를 변경하거나
-파드의 축출 등급을 부여할 때에도 파드의 오버헤드를 포함하여 고려한다.
+파드를 노드에 스케줄링할 때, 컨테이너 리소스 요청의 합 뿐만 아니라 파드의 오버헤드도 함께 고려된다. 
+마찬가지로, kubelet은 파드의 cgroups 크기를 변경하거나 파드의 축출 등급을 부여할 때에도 
+파드의 오버헤드를 포함하여 고려한다.
 
-## 파드 오버헤드 활성화하기 {#set-up}
+## 파드 오버헤드 환경 설정하기 {#set-up}
 
 기능 활성화를 위해 클러스터에서
 `PodOverhead` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있고(1.18 버전에서는 기본적으로 활성화),
@@ -37,7 +41,7 @@ _파드 오버헤드_ 는 컨테이너 리소스 요청과 상한 위에서 파�
 
 ## 사용 예제
 
-파드 오버헤드 기능을 사용하기 위하여, `overhead` 필드를 정의하는 런타임클래스가 필요하다.
+파드 오버헤드를 활용하려면, `overhead` 필드를 정의하는 런타임클래스가 필요하다.
 예를 들어, 가상 머신 및 게스트 OS에 대하여 파드 당 120 MiB를 사용하는
 가상화 컨테이너 런타임의 런타임클래스의 경우 다음과 같이 정의 할 수 있다.
 
@@ -68,7 +72,7 @@ spec:
   runtimeClassName: kata-fc
   containers:
   - name: busybox-ctr
-    image: busybox
+    image: busybox:1.28
     stdin: true
     tty: true
     resources:
@@ -109,10 +113,10 @@ kube-scheduler 는 어떤 노드에 파드가 기동 되어야 할지를 정할 
 일단 파드가 특정 노드에 스케줄링 되면, 해당 노드에 있는 kubelet 은 파드에 대한 새로운 {{< glossary_tooltip text="cgroup" term_id="cgroup" >}}을 생성한다.
 기본 컨테이너 런타임이 만들어내는 컨테이너들은 이 파드 안에 존재한다.
 
-만약 각 컨테이너에 대하여 QoS가 보장되었거나 향상이 가능하도록 QoS 의 리소스 상한 제한이 걸려있으면,
-kubelet 은 해당 리소스(CPU의 경우 cpu.cfs_quota_us, 메모리의 경우 memory.limit_in_bytes)와 연관된 파드의
-cgroup 의 상한선을 설정한다. 이 상한선은 컨테이너 리소스 상한과 PodSpec에
-정의된 `overhead` 의 합에 기반한다.
+만약 각 컨테이너에 대하여 리소스 상한 제한이 걸려있으면 
+(제한이 걸려있는 보장된(Guaranteed) Qos 또는 향상 가능한(Burstable) QoS), 
+kubelet 은 해당 리소스(CPU의 경우 cpu.cfs_quota_us, 메모리의 경우 memory.limit_in_bytes)와 연관된 파드의 cgroup 의 상한선을 설정한다. 
+이 상한선은 컨테이너 리소스 상한과 PodSpec에 정의된 `overhead` 의 합에 기반한다.
 
 CPU의 경우, 만약 파드가 보장형 또는 버스트형 QoS로 설정되었으면, kubelet은 PodSpec에 정의된 `overhead` 에 컨테이너의
 리소스 요청의 합을 더한 값을 `cpu.shares` 로 설정한다.
