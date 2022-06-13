@@ -3,7 +3,7 @@ title: 为命名空间配置默认的内存请求和限制
 content_type: task
 weight: 10
 description: >-
-  为命名空间定义默认的内存资源限制，在该命名空间中每个新建的 Pod 都会被配置上内存资源限制。
+  为命名空间定义默认的内存资源限制，这样在该命名空间中每个新建的 Pod 都会被配置上内存资源限制。
 ---
 
 <!--
@@ -113,7 +113,7 @@ does not specify a memory request and limit.
 <!--
 Create the Pod.
 -->
-创建 Pod
+创建 Pod：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod.yaml --namespace=default-mem-example
