@@ -22,7 +22,6 @@ for database debugging.
 ## {{% heading "prerequisites" %}}
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
 <!--
 * Install [MongoDB Shell](https://www.mongodb.com/try/download/shell).
 -->
@@ -46,7 +45,7 @@ for database debugging.
    <!--
    The output of a successful command verifies that the deployment was created:
    -->
-   查看输出是否成功，以验证是否成功创建 deployment：
+   成功执行的命令的输出可以证明创建了 Deployment：
 
    ```
    deployment.apps/mongo created
@@ -94,8 +93,7 @@ for database debugging.
    The Deployment automatically manages a ReplicaSet.
    View the ReplicaSet status using:
    -->
-   Deployment 自动管理 ReplicaSet。
-   查看 ReplicaSet 状态：
+   该 Deployment 自动管理一个 ReplicaSet。查看该 ReplicaSet 的状态：
 
    ```shell
    kubectl get replicaset
@@ -104,7 +102,7 @@ for database debugging.
    <!--
    The output displays that the ReplicaSet was created:
    -->
-   输出显示创建的 ReplicaSet：
+   输出显示 ReplicaSet 已被创建：
 
    ```
    NAME               DESIRED   CURRENT   READY   AGE
@@ -123,7 +121,7 @@ for database debugging.
    <!--
    The output of a successful command verifies that the Service was created:
    -->
-   查看输出是否成功，以验证是否成功创建 Service：
+   成功执行的命令的输出可以证明 Service 已经被创建：
 
    ```
    service/mongo created
@@ -132,7 +130,7 @@ for database debugging.
    <!--
    Check the Service created:
    -->
-   检查 Service 是否创建：
+   检查所创建的 Service：
 
    ```shell
    kubectl get service mongo
@@ -141,7 +139,7 @@ for database debugging.
    <!--   
    The output displays the service created:
    -->
-   输出显示创建的 Service：
+   输出显示已被创建的 Service：
 
    ```
    NAME    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)     AGE
@@ -151,39 +149,51 @@ for database debugging.
 <!--
 3. Verify that the MongoDB server is running in the Pod, and listening on port 27017:
 -->
-3. 验证 MongoDB 服务是否运行在 Pod 中并且监听 27017 端口：
+3. 验证 MongoDB 服务是否运行在 Pod 中并且在 27017 端口上监听：
 
+   <!--
    ```shell
    # Change mongo-75f59d57f4-4nd6q to the name of the Pod
+   kubectl get pod mongo-75f59d57f4-4nd6q --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
+   ```
+   -->
+   ```shell
+   # 将 mongo-75f59d57f4-4nd6q 改为 Pod 的名称
    kubectl get pod mongo-75f59d57f4-4nd6q --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
    ```
 
    <!--
    The output displays the port for MongoDB in that Pod:
    -->
-   输出应该显示 Pod 中 MongoDB 的端口：
+   输出应该显示对应 Pod 中 MongoDB 的端口：
 
    ```
    27017
    ```
 
    <!--
-   (this is the TCP port allocated to MongoDB on the internet).
+   27017 is the TCP port allocated to MongoDB on the internet.
    -->
-   （这是 Internet 分配给 MongoDB 的 TCP 端口）。
+   27017 是分配给 MongoDB 的互联网 TCP 端口。
 
 <!--
 ## Forward a local port to a port on the Pod
 
-1.  `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to.
+1. `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to.
 -->
 ## 转发一个本地端口到 Pod 端口
 
 1. `kubectl port-forward` 允许使用资源名称
    （例如 pod 名称）来选择匹配的 pod 来进行端口转发。
 
+   <!--
    ```shell
    # Change mongo-75f59d57f4-4nd6q to the name of the Pod
+   kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
+   ```
+   -->
+   ```shell
+   # 将 mongo-75f59d57f4-4nd6q 改为 Pod 的名称
    kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
    ```
 
@@ -220,30 +230,25 @@ for database debugging.
    <!--
    Any of the above commands works. The output is similar to this:
    -->
-   以上所有命令都应该有效。输出应该类似于：
+   以上所有命令都有效。输出类似于：
 
    ```
    Forwarding from 127.0.0.1:28015 -> 27017
    Forwarding from [::1]:28015 -> 27017
     ```
-<!--
-{{< note >}}
 
-`kubectl port-forward` does not return. To continue with the exercises, you will need to open another terminal.
-
-{{< /note >}}
--->
-{{< note >}}
-
-`kubectl port-forward` 不会返回。你需要打开另一个终端来继续这个练习。
-
-{{< /note >}}
+   {{< note >}}
+   <!--
+   `kubectl port-forward` does not return. To continue with the exercises, you will need to open another terminal.
+   -->
+   `kubectl port-forward` 不会返回。你需要打开另一个终端来继续这个练习。
+   {{< /note >}}
 
 
 <!--
-2.  Start the MongoDB command line interface:
+2. Start the MongoDB command line interface:
 -->
-2.  启动 MongoDB 命令行接口：
+2. 启动 MongoDB 命令行接口：
 
    ```shell
    mongosh --port 28015
@@ -278,7 +283,7 @@ the local port and thus relieve you from having to manage local port conflicts, 
 the slightly simpler syntax:
 -->
 如果你不需要指定特定的本地端口，你可以让 `kubectl` 来选择和分配本地端口，
-以便你不需要管理本地端口冲突。该命令使用稍微不同的语法：
+这样你就不需要管理本地端口冲突。该命令使用稍微不同的语法：
 
 ```shell
 kubectl port-forward deployment/mongo :27017
@@ -288,8 +293,8 @@ kubectl port-forward deployment/mongo :27017
 The `kubectl` tool finds a local port number that is not in use (avoiding low ports numbers,
 because these might be used by other applications). The output is similar to:
 -->
-`kubectl` 工具会找到一个未被使用的本地端口号（避免使用低段位的端口号，因为他们可能会被其他应用程序使用）。
-输出应该类似于：
+`kubectl` 工具会找到一个未被使用的本地端口号（避免使用低段位的端口号，
+因为他们可能会被其他应用程序使用）。输出类似于：
 
 ```
 Forwarding from 127.0.0.1:63753 -> 27017
@@ -307,19 +312,19 @@ local workstation to debug the database that is running in the Pod.
 -->
 ## 讨论  {#discussion}
 
-与本地 28015 端口建立的连接将转发到运行 MongoDB 服务器的 Pod 的 27017 端口。
+与本地 28015 端口建立的连接将被转发到运行 MongoDB 服务器的 Pod 的 27017 端口。
 通过此连接，你可以使用本地工作站来调试在 Pod 中运行的数据库。
 
+{{< note >}}
 <!--
 `kubectl port-forward` is implemented for TCP ports only.
 The support for UDP protocol is tracked in
 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862).
 -->
-{{< warning >}}
-`kubectl port-forward` 仅适用于 TCP 端口。
+`kubectl port-forward` 仅实现了 TCP 端口 支持。
 在 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862)
 中跟踪了对 UDP 协议的支持。
-{{< /warning >}}
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
