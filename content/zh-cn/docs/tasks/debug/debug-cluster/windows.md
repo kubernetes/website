@@ -40,14 +40,14 @@ content_type: concept
 
    Ensure that your Pod is getting scheduled to a [compatable](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) Windows Node.
 
-   More information on how to specify a compatable node for your Pod can be found in [this guide](docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
+   More information on how to specify a compatable node for your Pod can be found in [this guide](/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
 -->
 2. 我的 pod 状态显示 'ErrImgPull' 或者 ‘ImagePullBackOff’
 
    保证你的 Pod 被调度到[兼容的](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) Windows 节点上。
 
    关于如何为你的 Pod 指定一个兼容节点，
-   的更多信息可以查看这个指可以查看[这个指南](/zhdocs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)以了解更多的信息。
+   的更多信息可以查看这个指可以查看[这个指南](/zh-cn/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)以了解更多的信息。
 <!-- 
 ## Network troubleshooting {#troubleshooting-network}
 
