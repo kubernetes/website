@@ -150,11 +150,11 @@ on these resources, the two values must be the same.
 <!--
 Here's a manifest for a Pod that has one container. The container manifest
 specifies a CPU request of 500 millicpu and a CPU limit of 800 millicpu. These satisfy the
-minimum and maximum CPU constraints imposed by the LimitRange.
+minimum and maximum CPU constraints imposed by the LimitRange for this namespace.
 -->
 以下为某个仅包含一个容器的 Pod 的清单。
 该容器声明了 CPU 请求 500 millicpu 和 CPU 限制 800 millicpu 。
-这些参数满足了 LimitRange 对象规定的 CPU 最小和最大限制。
+这些参数满足了 LimitRange 对象为此名字空间规定的 CPU 最小和最大限制。
 
 {{< codenew file="admin/resource/cpu-constraints-pod.yaml" >}}
 
@@ -336,7 +336,7 @@ from the LimitRange for this namespace.
 设置[默认的 CPU 请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
 
 <!--
-At this point, your Pod might be running or it might not be running. Recall that a prerequisite for
+At this point, your Pod may or may not be running. Recall that a prerequisite for
 this task is that your Nodes must have at least 1 CPU available for use. If each of your Nodes has only 1 CPU,
 then there might not be enough allocatable CPU on any Node to accommodate a request of 800 millicpu. 
 If you happen to be using Nodes with 2 CPU, then you probably have enough CPU to accommodate the 800 millicpu request.
@@ -347,6 +347,8 @@ Delete your Pod:
 回想一下我们本次任务的先决条件是你的每个节点都至少有 1 CPU。
 如果你的每个节点都只有 1 CPU，那将没有一个节点拥有足够的可分配 CPU 来满足 800 millicpu 的请求。
 如果你在用的节点恰好有 2 CPU，那么有可能有足够的 CPU 来满足 800 millicpu 的请求。
+
+删除你的 Pod：
 
 ```
 kubectl delete pod constraints-cpu-demo-4 --namespace=constraints-cpu-example
