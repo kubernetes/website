@@ -1,5 +1,5 @@
 ---
-title: 服务
+title: 服务（Service）
 feature:
   title: 服务发现与负载均衡
   description: >
@@ -205,7 +205,7 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:11.14.2
+    image: nginx:stable
     ports:
       - containerPort: 80
         name: http-web-svc
@@ -307,6 +307,7 @@ where it's running, by adding an Endpoints object manually:
 apiVersion: v1
 kind: Endpoints
 metadata:
+  # 这里的 name 要与 Service 的名字相同
   name: my-service
 subsets:
   - addresses:
@@ -322,6 +323,15 @@ Endpoints 对象的名称必须是合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
+When you create an [Endpoints](docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+object for a Service, you set the name of the new object to be the same as that
+of the Service.
+-->
+当你为某个 Service 创建一个 [Endpoints](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+对象时，你要将新对象的名称设置为与 Service 的名称相同。
+
+{{< note >}}
+<!--
 The endpoint IPs _must not_ be: loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), or
 link-local (169.254.0.0/16 and 224.0.0.0/24 for IPv4, fe80::/64 for IPv6).
 
@@ -329,7 +339,6 @@ Endpoint IP addresses cannot be the cluster IPs of other Kubernetes Services,
 because {{< glossary_tooltip term_id="kube-proxy" >}} doesn't support virtual IPs
 as a destination.
 -->
-{{< note >}}
 端点 IPs _必须不可以_ 是：本地回路（IPv4 的 127.0.0.0/8, IPv6 的 ::1/128）或
 本地链接（IPv4 的 169.254.0.0/16 和 224.0.0.0/24，IPv6 的 fe80::/64)。
 

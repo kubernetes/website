@@ -20,7 +20,7 @@ weight: 40
 
 For clarity, this guide defines the following terms:
 -->
-## 术语
+## 术语  {#terminology}
 
 为了表达更加清晰，本指南定义了以下术语：
 
@@ -48,10 +48,11 @@ For clarity, this guide defines the following terms:
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
 Traffic routing is controlled by rules defined on the Ingress resource.
 -->
-## Ingress 是什么？
+## Ingress 是什么？  {#what-is-ingress}
 
 [Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
-公开了从集群外部到集群内[服务](/zh/docs/concepts/services-networking/service/)的 HTTP 和 HTTPS 路由。
+公开从集群外部到集群内[服务](/zh/docs/concepts/services-networking/service/)的
+HTTP 和 HTTPS 路由。
 流量路由由 Ingress 资源上定义的规则控制。
 
 <!--
@@ -59,22 +60,7 @@ Here is a simple example where an Ingress sends all its traffic to one Service:
 -->
 下面是一个将所有流量都发送到同一 Service 的简单 Ingress 示例：
 
-{{< mermaid >}}
-graph LR;
-  client([客户端])-. Ingress-管理的 <br> 负载均衡器 .->ingress[Ingress];
-  ingress-->|路由规则|service[Service];
-  subgraph cluster
-  ingress;
-  service-->pod1[Pod];
-  service-->pod2[Pod];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service,pod1,pod2 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
+{{< figure src="/zh-cn/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="图. Ingress" link="https://mermaid.live/edit#pako:eNqNkstuwyAQRX8F4U0r2VHqPlSRKqt0UamLqlnaWWAYJygYLB59KMm_Fxcix-qmGwbuXA7DwAEzzQETXKutof0Ovb4vaoUQkwKUu6pi3FwXM_QSHGBt0VFFt8DRU2OWSGrKUUMlVQwMmhVLEV1Vcm9-aUksiuXRaO_CEhkv4WjBfAgG1TrGaLa-iaUw6a0DcwGI-WgOsF7zm-pN881fvRx1UDzeiFq7ghb1kgqFWiElyTjnuXVG74FkbdumefEpuNuRu_4rZ1pqQ7L5fL6YQPaPNiFuywcG9_-ihNyUkm6YSONWkjVNM8WUIyaeOJLO3clTB_KhL8NQDmVe-OJjxgZM5FhFiiFTK5zjDkxHBQ9_4zB4a-x20EGNSZhyaKmXrg7f5hSsvufUwTMXThtMWiot5Jh6p9ffimHijIezaSVoeN0uiqcfMJvf7w" >}}
 
 <!-- 
 An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
@@ -699,25 +685,8 @@ down to a minimum. For example, a setup like:
 一个扇出（fanout）配置根据请求的 HTTP URI 将来自同一 IP 地址的流量路由到多个 Service。
 Ingress 允许你将负载均衡器的数量降至最低。例如，这样的设置：
 
-{{< mermaid >}}
-graph LR;
-  client([客户端])-. Ingress-管理的 <br> 负载均衡器 .->ingress[Ingress, 178.91.123.132];
-  ingress-->|/foo|service1[Service service1:4200];
-  ingress-->|/bar|service2[Service service2:8080];
-  subgraph cluster
-  ingress;
-  service1-->pod1[Pod];
-  service1-->pod2[Pod];
-  service2-->pod3[Pod];
-  service2-->pod4[Pod];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
+{{< figure src="/zh-cn/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="图. Ingress 扇出" link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
+
 
 <!--
 would require an Ingress such as:
@@ -783,25 +752,7 @@ Name-based virtual hosts support routing HTTP traffic to multiple host names at 
 
 基于名称的虚拟主机支持将针对多个主机名的 HTTP 流量路由到同一 IP 地址上。
 
-{{< mermaid >}}
-graph LR;
-  client([客户端])-. Ingress-管理的 <br> 负载均衡器 .->ingress[Ingress, 178.91.123.132];
-  ingress-->|Host: foo.bar.com|service1[Service service1:80];
-  ingress-->|Host: bar.foo.com|service2[Service service2:80];
-  subgraph cluster
-  ingress;
-  service1-->pod1[Pod];
-  service1-->pod2[Pod];
-  service2-->pod3[Pod];
-  service2-->pod4[Pod];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
+{{< figure src="/zh-cn/docs/images/ingressNameBased.svg" alt="ingress-namebase-diagram" class="diagram-large" caption="图. 基于名称实现虚拟托管的 Ingress" link="https://mermaid.live/edit#pako:eNqNkl9PwyAUxb8KYS-atM1Kp05m9qSJJj4Y97jugcLtRqTQAPVPdN_dVlq3qUt8gZt7zvkBN7xjbgRgiteW1Rt0_zjLNUJcSdD-ZBn21WmcoDu9tuBcXDHN1iDQVWHnSBkmUMEU0xwsSuK5DK5l745QejFNLtMkJVmSZmT1Re9NcTz_uDXOU1QakxTMJtxUHw7ss-SQLhehQEODTsdH4l20Q-zFyc84-Y67pghv5apxHuweMuj9eS2_NiJdPhix-kMgvwQShOyYMNkJoEUYM3PuGkpUKyY1KqVSdCSEiJy35gnoqCzLvo5fpPAbOqlfI26UsXQ0Ho9nB5CnqesRGTnncPYvSqsdUvqp9KRdlI6KojjEkB0mnLgjDRONhqENBYm6oXbLV5V1y6S7-l42_LowlIN2uFm_twqOcAW2YlK0H_i9c-bYb6CCHNO2FFCyRvkc53rbWptaMA83QnpjMS2ZchBh1nizeNMcU28bGEzXkrV_pArN7Sc0rBTu" >}}
 
 <!--
 The following Ingress tells the backing load balancer to route requests based on
