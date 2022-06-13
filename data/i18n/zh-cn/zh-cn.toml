@@ -37,6 +37,9 @@ other = " 版本的文档已不再维护。您现在看到的版本来自于一�
 [deprecation_file_warning]
 other = "已过时"
 
+[dockershim_message]
+other = """自 1.24 版起，Dockershim 已从 Kubernetes 项目中移除。阅读 <a href="/zh/dockershim">Dockershim 移除的常见问题</a>了解更多详情。"""
+
 [docs_label_browse]
 other = "浏览文档"
 
@@ -94,9 +97,11 @@ other = "电子邮件地址"
 [javascript_required]
 other = "必须[启用](https://www.enable-javascript.com/) JavaScript 才能查看此页内容"
 
+[katacoda_removal_warning]
+other = """本页面上的此在线教程在 <time datetime="2022-06-15">2022 年 6 月 15 日</time>后[无法继续使用](https://www.oreilly.com/online-learning/leveraging-katacoda-technology.html)。"""
+
 [latest_release]
 other = "最新发行版本："
-
 
 [latest_version]
 other = "最新版本。"
@@ -167,12 +172,6 @@ other = """Linux 基金会&reg;。保留所有权利。Linux 基金会已注册�
 [main_documentation_license]
 other = """The Kubernetes 作者 | 文档发布基于 <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> 授权许可"""
 
-[main_edit_this_page]
-other = "修改本页面"
-
-[main_github_create_an_issue]
-other = "报告 GitHub 问题"
-
 [main_github_invite]
 other = "想要修改 Kubernetes 的核心源代码？"
 
@@ -217,16 +216,7 @@ other = "教程目标"
 other = "选项"
 
 [outdated_blog__message]
-other = "Kubernetes 项目认为此文章已经过时，因为该页面已经超过一年未修订。请检查页面中的信息是否从发表以来尚未变得不正确。"
-
-[outdated_blog__title]
-other = "过时的文章"
-
-[post_create_child_page]
-other = "创建子页面"
-
-[post_create_issue]
-other = "登记问题"
+other = "这篇文章已经一年多了，较旧的文章可能包含过时的内容。请检查从发表以来，页面中的信息是否变得不正确。"
 
 [prerequisites_heading]
 other = "准备开始"
@@ -236,6 +226,9 @@ other = "补丁版本："
 
 [release_date_after]
 other = "）"
+
+[release_date_before]
+other = "(发布日期: "
 
 # See https://gohugo.io/functions/format/#gos-layout-string
 # Use a suitable format for your locale
@@ -256,6 +249,7 @@ other = """本部分链接到提供 Kubernetes 所需功能的第三方项目。
 
 [thirdparty_message_edit_disclaimer]
 other="""第三方内容建议"""
+
 
 [thirdparty_message_single_item]
 other = """&#128711; 本条目指向第三方项目或产品，而该项目（产品）不是 Kubernetes 的一部分。<a class="alert-more-info" href="#third-party-content-disclaimer">更多信息</a>"""
@@ -283,4 +277,3 @@ other = "警告："
 
 [whatsnext_heading]
 other = "接下来"
-
