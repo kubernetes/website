@@ -1,17 +1,17 @@
 ---
 reviewers:
-- davidopp
-- kevin-wangzefeng
-- bsalamat
+  - davidopp
+  - kevin-wangzefeng
+  - bsalamat
 title: Taints and Tolerations
 content_type: concept
 weight: 40
 ---
 
-
 <!-- overview -->
+
 [_Node affinity_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
-is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attracts* them to
+is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that _attracts_ them to
 a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
 hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
 
@@ -21,8 +21,6 @@ onto nodes with matching taints.
 Taints and tolerations work together to ensure that pods are not scheduled
 onto inappropriate nodes. One or more taints are applied to a node; this
 marks that the node should not accept any pods that do not tolerate the taints.
-
-
 
 <!-- body -->
 
@@ -39,8 +37,9 @@ places a taint on node `node1`. The taint has key `key1`, value `value1`, and ta
 This means that no pod will be able to schedule onto `node1` unless it has a matching toleration.
 
 To remove the taint added by the command above, you can run:
+
 ```shell
-kubectl taint nodes node1 key1=value1:NoSchedule-
+kubectl taint nodes node1 key1/value1:NoSchedule-
 ```
 
 You specify a toleration for a pod in the PodSpec. Both of the following tolerations "match" the
@@ -49,17 +48,17 @@ to schedule onto `node1`:
 
 ```yaml
 tolerations:
-- key: "key1"
-  operator: "Equal"
-  value: "value1"
-  effect: "NoSchedule"
+  - key: "key1"
+    operator: "Equal"
+    value: "value1"
+    effect: "NoSchedule"
 ```
 
 ```yaml
 tolerations:
-- key: "key1"
-  operator: "Exists"
-  effect: "NoSchedule"
+  - key: "key1"
+    operator: "Exists"
+    effect: "NoSchedule"
 ```
 
 Here's an example of a pod that uses tolerations:
@@ -70,8 +69,8 @@ The default value for `operator` is `Equal`.
 
 A toleration "matches" a taint if the keys are the same and the effects are the same, and:
 
-* the `operator` is `Exists` (in which case no `value` should be specified), or
-* the `operator` is `Equal` and the `value`s are equal.
+- the `operator` is `Exists` (in which case no `value` should be specified), or
+- the `operator` is `Equal` and the `value`s are equal.
 
 {{< note >}}
 
@@ -85,7 +84,7 @@ An empty `effect` matches all effects with key `key1`.
 {{< /note >}}
 
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
-This is a "preference" or "soft" version of `NoSchedule` -- the system will *try* to avoid placing a
+This is a "preference" or "soft" version of `NoSchedule` -- the system will _try_ to avoid placing a
 pod that does not tolerate the taint on the node, but it is not required. The third kind of `effect` is
 `NoExecute`, described later.
 
@@ -94,13 +93,13 @@ The way Kubernetes processes multiple taints and tolerations is like a filter: s
 with all of a node's taints, then ignore the ones for which the pod has a matching toleration; the
 remaining un-ignored taints have the indicated effects on the pod. In particular,
 
-* if there is at least one un-ignored taint with effect `NoSchedule` then Kubernetes will not schedule
-the pod onto that node
-* if there is no un-ignored taint with effect `NoSchedule` but there is at least one un-ignored taint with
-effect `PreferNoSchedule` then Kubernetes will *try* to not schedule the pod onto the node
-* if there is at least one un-ignored taint with effect `NoExecute` then the pod will be evicted from
-the node (if it is already running on the node), and will not be
-scheduled onto the node (if it is not yet running on the node).
+- if there is at least one un-ignored taint with effect `NoSchedule` then Kubernetes will not schedule
+  the pod onto that node
+- if there is no un-ignored taint with effect `NoSchedule` but there is at least one un-ignored taint with
+  effect `PreferNoSchedule` then Kubernetes will _try_ to not schedule the pod onto the node
+- if there is at least one un-ignored taint with effect `NoExecute` then the pod will be evicted from
+  the node (if it is already running on the node), and will not be
+  scheduled onto the node (if it is not yet running on the node).
 
 For example, imagine you taint a node like this
 
@@ -114,14 +113,14 @@ And a pod has two tolerations:
 
 ```yaml
 tolerations:
-- key: "key1"
-  operator: "Equal"
-  value: "value1"
-  effect: "NoSchedule"
-- key: "key1"
-  operator: "Equal"
-  value: "value1"
-  effect: "NoExecute"
+  - key: "key1"
+    operator: "Equal"
+    value: "value1"
+    effect: "NoSchedule"
+  - key: "key1"
+    operator: "Equal"
+    value: "value1"
+    effect: "NoExecute"
 ```
 
 In this case, the pod will not be able to schedule onto the node, because there is no
@@ -137,11 +136,11 @@ to the node after the taint is added. For example,
 
 ```yaml
 tolerations:
-- key: "key1"
-  operator: "Equal"
-  value: "value1"
-  effect: "NoExecute"
-  tolerationSeconds: 3600
+  - key: "key1"
+    operator: "Equal"
+    value: "value1"
+    effect: "NoExecute"
+    tolerationSeconds: 3600
 ```
 
 means that if this pod is running and a matching taint is added to the node, then
@@ -150,45 +149,45 @@ taint is removed before that time, the pod will not be evicted.
 
 ## Example Use Cases
 
-Taints and tolerations are a flexible way to steer pods *away* from nodes or evict
+Taints and tolerations are a flexible way to steer pods _away_ from nodes or evict
 pods that shouldn't be running. A few of the use cases are
 
-* **Dedicated Nodes**: If you want to dedicate a set of nodes for exclusive use by
-a particular set of users, you can add a taint to those nodes (say,
-`kubectl taint nodes nodename dedicated=groupName:NoSchedule`) and then add a corresponding
-toleration to their pods (this would be done most easily by writing a custom
-[admission controller](/docs/reference/access-authn-authz/admission-controllers/)).
-The pods with the tolerations will then be allowed to use the tainted (dedicated) nodes as
-well as any other nodes in the cluster. If you want to dedicate the nodes to them *and*
-ensure they *only* use the dedicated nodes, then you should additionally add a label similar
-to the taint to the same set of nodes (e.g. `dedicated=groupName`), and the admission
-controller should additionally add a node affinity to require that the pods can only schedule
-onto nodes labeled with `dedicated=groupName`.
+- **Dedicated Nodes**: If you want to dedicate a set of nodes for exclusive use by
+  a particular set of users, you can add a taint to those nodes (say,
+  `kubectl taint nodes nodename dedicated=groupName:NoSchedule`) and then add a corresponding
+  toleration to their pods (this would be done most easily by writing a custom
+  [admission controller](/docs/reference/access-authn-authz/admission-controllers/)).
+  The pods with the tolerations will then be allowed to use the tainted (dedicated) nodes as
+  well as any other nodes in the cluster. If you want to dedicate the nodes to them _and_
+  ensure they _only_ use the dedicated nodes, then you should additionally add a label similar
+  to the taint to the same set of nodes (e.g. `dedicated=groupName`), and the admission
+  controller should additionally add a node affinity to require that the pods can only schedule
+  onto nodes labeled with `dedicated=groupName`.
 
-* **Nodes with Special Hardware**: In a cluster where a small subset of nodes have specialized
-hardware (for example GPUs), it is desirable to keep pods that don't need the specialized
-hardware off of those nodes, thus leaving room for later-arriving pods that do need the
-specialized hardware. This can be done by tainting the nodes that have the specialized
-hardware (e.g. `kubectl taint nodes nodename special=true:NoSchedule` or
-`kubectl taint nodes nodename special=true:PreferNoSchedule`) and adding a corresponding
-toleration to pods that use the special hardware. As in the dedicated nodes use case,
-it is probably easiest to apply the tolerations using a custom
-[admission controller](/docs/reference/access-authn-authz/admission-controllers/).
-For example, it is recommended to use [Extended
-Resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
-to represent the special hardware, taint your special hardware nodes with the
-extended resource name and run the
-[ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
-admission controller. Now, because the nodes are tainted, no pods without the
-toleration will schedule on them. But when you submit a pod that requests the
-extended resource, the `ExtendedResourceToleration` admission controller will
-automatically add the correct toleration to the pod and that pod will schedule
-on the special hardware nodes. This will make sure that these special hardware
-nodes are dedicated for pods requesting such hardware and you don't have to
-manually add tolerations to your pods.
+- **Nodes with Special Hardware**: In a cluster where a small subset of nodes have specialized
+  hardware (for example GPUs), it is desirable to keep pods that don't need the specialized
+  hardware off of those nodes, thus leaving room for later-arriving pods that do need the
+  specialized hardware. This can be done by tainting the nodes that have the specialized
+  hardware (e.g. `kubectl taint nodes nodename special=true:NoSchedule` or
+  `kubectl taint nodes nodename special=true:PreferNoSchedule`) and adding a corresponding
+  toleration to pods that use the special hardware. As in the dedicated nodes use case,
+  it is probably easiest to apply the tolerations using a custom
+  [admission controller](/docs/reference/access-authn-authz/admission-controllers/).
+  For example, it is recommended to use [Extended
+  Resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
+  to represent the special hardware, taint your special hardware nodes with the
+  extended resource name and run the
+  [ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
+  admission controller. Now, because the nodes are tainted, no pods without the
+  toleration will schedule on them. But when you submit a pod that requests the
+  extended resource, the `ExtendedResourceToleration` admission controller will
+  automatically add the correct toleration to the pod and that pod will schedule
+  on the special hardware nodes. This will make sure that these special hardware
+  nodes are dedicated for pods requesting such hardware and you don't have to
+  manually add tolerations to your pods.
 
-* **Taint based Evictions**: A per-pod-configurable eviction behavior
-when there are node problems, which is described in the next section.
+- **Taint based Evictions**: A per-pod-configurable eviction behavior
+  when there are node problems, which is described in the next section.
 
 ## Taint based Evictions
 
@@ -197,28 +196,28 @@ when there are node problems, which is described in the next section.
 The `NoExecute` taint effect, mentioned above, affects pods that are already
 running on the node as follows
 
- * pods that do not tolerate the taint are evicted immediately
- * pods that tolerate the taint without specifying `tolerationSeconds` in
-   their toleration specification remain bound forever
- * pods that tolerate the taint with a specified `tolerationSeconds` remain
-   bound for the specified amount of time
+- pods that do not tolerate the taint are evicted immediately
+- pods that tolerate the taint without specifying `tolerationSeconds` in
+  their toleration specification remain bound forever
+- pods that tolerate the taint with a specified `tolerationSeconds` remain
+  bound for the specified amount of time
 
 The node controller automatically taints a Node when certain conditions
 are true. The following taints are built in:
 
- * `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
-   the NodeCondition `Ready` being "`False`".
- * `node.kubernetes.io/unreachable`: Node is unreachable from the node
-   controller. This corresponds to the NodeCondition `Ready` being "`Unknown`".
- * `node.kubernetes.io/memory-pressure`: Node has memory pressure.
- * `node.kubernetes.io/disk-pressure`: Node has disk pressure.
- * `node.kubernetes.io/pid-pressure`: Node has PID pressure.
- * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
- * `node.kubernetes.io/unschedulable`: Node is unschedulable.
- * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
-    with "external" cloud provider, this taint is set on a node to mark it
-    as unusable. After a controller from the cloud-controller-manager initializes
-    this node, the kubelet removes this taint.
+- `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
+  the NodeCondition `Ready` being "`False`".
+- `node.kubernetes.io/unreachable`: Node is unreachable from the node
+  controller. This corresponds to the NodeCondition `Ready` being "`Unknown`".
+- `node.kubernetes.io/memory-pressure`: Node has memory pressure.
+- `node.kubernetes.io/disk-pressure`: Node has disk pressure.
+- `node.kubernetes.io/pid-pressure`: Node has PID pressure.
+- `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
+- `node.kubernetes.io/unschedulable`: Node is unschedulable.
+- `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
+  with "external" cloud provider, this taint is set on a node to mark it
+  as unusable. After a controller from the cloud-controller-manager initializes
+  this node, the kubelet removes this taint.
 
 In case a node is to be evicted, the node controller or the kubelet adds relevant taints
 with `NoExecute` effect. If the fault condition returns to normal the kubelet or node
@@ -240,10 +239,10 @@ The toleration you set for that Pod might look like:
 
 ```yaml
 tolerations:
-- key: "node.kubernetes.io/unreachable"
-  operator: "Exists"
-  effect: "NoExecute"
-  tolerationSeconds: 6000
+  - key: "node.kubernetes.io/unreachable"
+    operator: "Exists"
+    effect: "NoExecute"
+    tolerationSeconds: 6000
 ```
 
 {{< note >}}
@@ -259,8 +258,8 @@ Nodes for 5 minutes after one of these problems is detected.
 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pods are created with
 `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
-  * `node.kubernetes.io/unreachable`
-  * `node.kubernetes.io/not-ready`
+- `node.kubernetes.io/unreachable`
+- `node.kubernetes.io/not-ready`
 
 This ensures that DaemonSet pods are never evicted due to these problems.
 
@@ -274,31 +273,29 @@ decisions. This ensures that node conditions don't directly affect scheduling.
 For example, if the `DiskPressure` node condition is active, the control plane
 adds the `node.kubernetes.io/disk-pressure` taint and does not schedule new pods
 onto the affected node. If the `MemoryPressure` node condition is active, the
-control plane adds the `node.kubernetes.io/memory-pressure` taint. 
+control plane adds the `node.kubernetes.io/memory-pressure` taint.
 
 You can ignore node conditions for newly created pods by adding the corresponding
-Pod tolerations. The control plane also adds the `node.kubernetes.io/memory-pressure` 
-toleration on pods that have a {{< glossary_tooltip text="QoS class" term_id="qos-class" >}} 
-other than `BestEffort`. This is because Kubernetes treats pods in the `Guaranteed` 
+Pod tolerations. The control plane also adds the `node.kubernetes.io/memory-pressure`
+toleration on pods that have a {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
+other than `BestEffort`. This is because Kubernetes treats pods in the `Guaranteed`
 or `Burstable` QoS classes (even pods with no memory request set) as if they are
 able to cope with memory pressure, while new `BestEffort` pods are not scheduled
-onto the affected node. 
+onto the affected node.
 
 The DaemonSet controller automatically adds the following `NoSchedule`
 tolerations to all daemons, to prevent DaemonSets from breaking.
 
-  * `node.kubernetes.io/memory-pressure`
-  * `node.kubernetes.io/disk-pressure`
-  * `node.kubernetes.io/pid-pressure` (1.14 or later)
-  * `node.kubernetes.io/unschedulable` (1.10 or later)
-  * `node.kubernetes.io/network-unavailable` (*host network only*)
+- `node.kubernetes.io/memory-pressure`
+- `node.kubernetes.io/disk-pressure`
+- `node.kubernetes.io/pid-pressure` (1.14 or later)
+- `node.kubernetes.io/unschedulable` (1.10 or later)
+- `node.kubernetes.io/network-unavailable` (_host network only_)
 
 Adding these tolerations ensures backward compatibility. You can also add
 arbitrary tolerations to DaemonSets.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/) and how you can configure it
-* Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-
-
+- Read about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/) and how you can configure it
+- Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
