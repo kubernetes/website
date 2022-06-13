@@ -25,11 +25,6 @@
             {{ block "deprecated" . }}
               {{ partial "deprecation-warning.html" . }}
             {{ end }}
-            {{ if or ( .HasShortcode "kat-button" ) ( .HasShortcode "katacoda-tutorial" ) }}
-            {{ block "katacoda-removal" . }}
-              {{ partial "katacoda-removal.html" . }}
-            {{ end }}
-            {{ end }}
               {{ block "main" . }}{{ end }}
               {{- if .HasShortcode "thirdparty-content" -}}
                 {{ block "thirdparty-disclaimer" . }}
