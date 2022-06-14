@@ -857,7 +857,7 @@ rules:
 ```
 
 {{< note >}}
-Impersonating a user (or group) allows you to perform any action as if you were that user (or group);
+Impersonating a user or group allows you to perform any action as if you were that user or group;
 for that reason, impersonation is not namespace scoped.
 If you want to allow impersonation using Kubernetes RBAC, 
 this requires using a `ClusterRole` and a `ClusterRoleBinding`,
