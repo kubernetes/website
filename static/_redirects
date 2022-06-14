@@ -18,7 +18,8 @@
 /ru/docs/     /ru/docs/home/ 301!
 /uk/docs/     /uk/docs/home/ 301!
 /vi/docs/     /vi/docs/home/ 301!
-/zh/docs/     /zh/docs/home/ 301!
+/zh/docs/     /zh-cn/docs/home/ 301!
+/zh-cn/docs/     /zh-cn/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
 /blog/2020/08/25/kubernetes-release-1.19-accentuate-the-paw-sitive/     /blog/2020/08/26/kubernetes-release-1.19-accentuate-the-paw-sitive/     301!
 /docs/admin/     /docs/concepts/cluster-administration/ 301
@@ -41,8 +42,8 @@
 /docs/admin/ha-master-gce/     /docs/setup/production-environment/#production-control-plane 301
 /docs/admin/ha-master-gce.md/     /docs/setup/production-environment/#production-control-plane 301
 /docs/admin/high-availability/      /docs/setup/production-environment/tools/kubeadm/high-availability/   301
-/docs/admin/kubelet-authentication-authorization/     /docs/reference/command-line-tools-reference/kubelet-authentication-authorization/ 301
-/docs/admin/kubelet-tls-bootstrapping/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
+/docs/admin/kubelet-authentication-authorization/     /docs/reference/access-authn-authz/kubelet-authn-authz/ 301
+/docs/admin/kubelet-tls-bootstrapping/     /docs/reference/access-authn-authz/kubelet-tls-bootstrapping/ 301
 /docs/admin/limitrange/     /docs/tasks/administer-cluster/cpu-memory-limit/ 301
 /docs/admin/limitrange/Limits/     /docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage/ 301
 /docs/admin/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
@@ -216,6 +217,7 @@
 /docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
 
 /docs/reference/kubectl/overview/    /docs/reference/kubectl/ 301
+/zh/docs/reference/kubectl/overview/    /zh-cn/docs/reference/kubectl/ 301
 /docs/reference/kubectl/kubectl-cmds/     /docs/reference/generated/kubectl/kubectl-commands/ 301!
 /docs/reference/kubectl/kubectl/kubectl_*    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/scheduling/profiles/    /docs/reference/scheduling/config/#profiles 301
@@ -251,7 +253,7 @@
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301
 /docs/tasks/administer-cluster/calico-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/ 301
-/docs/tasks/administer-cluster/certificate-rotation/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
+/docs/tasks/administer-cluster/certificate-rotation/     /docs/reference/access-authn-authz/kubelet-tls-bootstrapping/ 301
 /docs/tasks/administer-cluster/cilium-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/ 301
 /docs/tasks/administer-cluster/configure-namespace-isolation/     /docs/concepts/services-networking/network-policies/ 301
 /docs/tasks/administer-cluster/configure-multiple-schedulers/     /docs/tasks/extend-kubernetes/configure-multiple-schedulers/ 301
@@ -536,7 +538,7 @@
 /id/docs/setup/minikube/     /id/docs/tasks/tools/ 302
 /docs/setup/learning-environment/     /docs/tasks/tools/  302!
 /id/docs/setup/learning-environment/     /id/docs/tasks/tools/  302!
-/zh/docs/setup/learning-environment/     /zh/docs/tasks/tools/  302!
+/zh/docs/setup/learning-environment/     /zh-cn/docs/tasks/tools/  302!
 /docs/setup/learning-environment/kind/  /docs/tasks/tools/  302
 /id/docs/setup/learning-environment/kind/  /id/docs/tasks/tools/  302
 /docs/setup/learning-environment/minikube/  /docs/tasks/tools/ 302
@@ -561,8 +563,11 @@
 /docs/setup/on-premises-vm/ovirt/     /docs/setup/production-environment/on-premises-vm/ovirt/   301
 /docs/setup/windows/intro-windows-in-kubernetes/     /docs/setup/production-environment/windows/intro-windows-in-kubernetes/   301
 /docs/setup/windows/user-guide-windows-nodes/     /docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/   301
+/docs/setup/production-environment/windows/user-guide-windows-containers/     /docs/concepts/windows/user-guide/   301
 /docs/setup/production-environment/windows/user-guide-windows-nodes/     /docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/   301
 /docs/setup/windows/user-guide-windows-containers/     /docs/setup/production-environment/windows/user-guide-windows-containers/   301
+/docs/setup/production-environment/windows/intro-windows-in-kubernetes/     /docs/concepts/windows/intro/   301
+/docs/setup/production-environment/windows/     /docs/concepts/windows/   301
 /docs/setup/multiple-zones/     /docs/setup/best-practices/multiple-zones/   301
 /docs/setup/cluster-large/     /docs/setup/best-practices/cluster-large/   301
 /docs/setup/node-conformance/     /docs/setup/best-practices/node-conformance/   301
@@ -574,3 +579,4 @@
 /id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301
 
 /pt/*         /pt-br/:splat  302!
+/zh/*         /zh-cn/:splat  302!

@@ -15,7 +15,7 @@ creating new clusters or joining new nodes to an existing cluster.  It was built
 to support [kubeadm](/docs/reference/setup-tools/kubeadm/), but can be used in other contexts
 for users that wish to start clusters without `kubeadm`. It is also built to
 work, via RBAC policy, with the
-[Kubelet TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) system.
+[Kubelet TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) system.
 
 
 <!-- body -->
@@ -70,7 +70,7 @@ controller on the controller manager.
 
 Each valid token is backed by a secret in the `kube-system` namespace.  You can
 find the full design doc
-[here](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
+[here](https://git.k8s.io/design-proposals-archive/cluster-lifecycle/bootstrap-discovery.md).
 
 Here is what the secret looks like.
 

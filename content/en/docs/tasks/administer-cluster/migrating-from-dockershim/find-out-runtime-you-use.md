@@ -41,7 +41,7 @@ node-2       Ready    v1.16.15   docker://19.3.1
 node-3       Ready    v1.16.15   docker://19.3.1
 ```
 If your runtime shows as Docker Engine, you still might not be affected by the
-removal of dockershim in Kubernetes 1.24. [Check the runtime
+removal of dockershim in Kubernetes v1.24. [Check the runtime
 endpoint](#which-endpoint) to see if you use dockershim. If you don't use
 dockershim, you aren't affected. 
 
@@ -64,7 +64,7 @@ The container runtime talks to the kubelet over a Unix socket using the [CRI
 protocol](/docs/concepts/architecture/cri/), which is based on the gRPC
 framework. The kubelet acts as a client, and the runtime acts as the server.
 In some cases, you might find it useful to know which socket your nodes use. For
-example, with the removal of dockershim in Kubernetes 1.24 and later, you might
+example, with the removal of dockershim in Kubernetes v1.24 and later, you might
 want to know whether you use Docker Engine with dockershim.
 
 {{<note>}}
@@ -93,6 +93,7 @@ nodes.
         name to find out which runtime you use. For example,
         `unix:///run/containerd/containerd.sock` is the containerd endpoint.
 
-If you use Docker Engine with the dockershim, [migrate to a different runtime](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/),
-or, if you want to continue using Docker Engine in v1.24 and later, migrate to a
+If you want to change the Container Runtime on a Node from Docker Engine to containerd,
+you can find out more information on [migrating from Docker Engine to  containerd](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/),
+or, if you want to continue using Docker Engine in Kubernetes v1.24 and later, migrate to a
 CRI-compatible adapter like [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd).

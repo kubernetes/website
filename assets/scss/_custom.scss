@@ -634,12 +634,12 @@ body.td-documentation {
 
   a {
     color: inherit;
-    border-bottom: 1px solid #fff;
+    text-decoration: underline;
   }
 
   a:hover {
     color: inherit;
-    border-bottom: none;
+    text-decoration: initial;
   }
 }
 
@@ -648,6 +648,9 @@ body.td-documentation {
 }
 
 #announcement {
+  // default background is blue; overrides are possible
+  color: #fff;
+
   .announcement-main {
     margin-left: auto;
     margin-right: auto;
@@ -660,9 +663,8 @@ body.td-documentation {
   }
 
 
-  /* always white */
   h1, h2, h3, h4, h5, h6, p * {
-    color: #ffffff;
+    color: inherit; /* defaults to white */
     background: transparent;
 
     img.event-logo {

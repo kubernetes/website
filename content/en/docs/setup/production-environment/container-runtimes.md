@@ -167,14 +167,11 @@ using the (deprecated) v1alpha2 API instead.
 
 {{% thirdparty-content %}}
 
-
 ### containerd
 
 This section outlines the necessary steps to use containerd as CRI runtime.
 
 Use the following commands to install Containerd on your system:
-
-
 
 Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
 
@@ -200,6 +197,14 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
+{{< note >}}
+If you installed containerd from a package (for example, RPM or `.deb`), you may find
+that the CRI integration plugin is disabled by default.
+
+You need CRI support enabled to use containerd with Kubernetes. Make sure that `cri`
+is not included in the`disabled_plugins` list within `/etc/containerd/config.toml`;
+if you made changes to that file, also restart `containerd`.
+{{< /note >}}
 
 If you apply this change, make sure to restart containerd:
 
@@ -208,7 +213,7 @@ sudo systemctl restart containerd
 ```
 
 When using kubeadm, manually configure the
-[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
+[cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 
 ### CRI-O
 

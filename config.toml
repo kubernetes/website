@@ -122,7 +122,7 @@ id = "UA-00000000-0"
 
 [params]
 copyright_k8s = "The Kubernetes Authors"
-copyright_linux =  "Copyright © 2020 The Linux Foundation ®."
+copyright_linux = "Copyright © 2020 The Linux Foundation ®."
 
 # privacy_policy = "https://policies.google.com/privacy"
 
@@ -155,10 +155,10 @@ githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 # GitHub repository link for editing a page and opening issues.
 github_repo = "https://github.com/kubernetes/website"
 
-#Searching
+# Searching
 k8s_search = true
 
-#The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
+# The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
 
 # Google Custom Search Engine ID. Remove or comment out to disable search.
 #gcs_engine_id = "011737558837375720776:fsdu1nryfng"
@@ -221,11 +221,11 @@ sidebar_menu_compact = false
 sidebar_menu_foldable = true
 # https://github.com/gohugoio/hugo/issues/8918#issuecomment-903314696
 sidebar_cache_limit = 1
-#  Set to true to disable breadcrumb navigation.
+# Set to true to disable breadcrumb navigation.
 breadcrumb_disable = false
-#  Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+# Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
 sidebar_search_disable = false
-#  Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
+# Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
 navbar_logo = true
 # Set to true to disable the About link in the site footer
 footer_about_disable = false
@@ -246,50 +246,50 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 	name = "User mailing list"
 	url = "https://discuss.kubernetes.io"
 	icon = "fa fa-envelope"
-  desc = "Discussion and help from your fellow users"
+	desc = "Discussion and help from your fellow users"
 
 [[params.links.user]]
 	name = "Twitter"
 	url = "https://twitter.com/kubernetesio"
 	icon = "fab fa-twitter"
-  desc = "Follow us on Twitter to get the latest news!"
+	desc = "Follow us on Twitter to get the latest news!"
 
 [[params.links.user]]
 	name = "Calendar"
 	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
 	icon = "fas fa-calendar-alt"
-  desc = "Google Calendar for Kubernetes"
+	desc = "Google Calendar for Kubernetes"
 
 [[params.links.user]]
 	name = "Youtube"
 	url = "https://youtube.com/kubernetescommunity"
 	icon = "fab fa-youtube"
-  desc = "Youtube community videos"
+	desc = "Youtube community videos"
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
 	name = "GitHub"
 	url = "https://github.com/kubernetes/kubernetes"
 	icon = "fab fa-github"
-  desc = "Development takes place here!"
+	desc = "Development takes place here!"
 
 [[params.links.developer]]
 	name = "Slack"
 	url = "https://slack.k8s.io"
 	icon = "fab fa-slack"
-  desc = "Chat with other project developers"
+	desc = "Chat with other project developers"
 
 [[params.links.developer]]
 	name = "Contribute"
 	url = "https://git.k8s.io/community/contributors/guide"
 	icon = "fas fa-edit"
-  desc = "Contribute to the Kubernetes website"
+	desc = "Contribute to the Kubernetes website"
 
 [[params.links.developer]]
 	name = "Stack Overflow"
 	url = "https://stackoverflow.com/questions/tagged/kubernetes"
 	icon = "fab fa-stack-overflow"
-  desc = "Practical questions and curated answers"
+	desc = "Practical questions and curated answers"
 
 # Language definitions.
 
@@ -297,20 +297,20 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 [languages.en]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName ="English"
+languageName = "English"
 # Weight used for sorting.
 weight = 1
 languagedirection = "ltr"
 
-[languages.zh]
+[languages.zh-cn]
 title = "Kubernetes"
 description = "生产级别的容器编排系统"
 languageName = "中文 Chinese"
 weight = 2
-contentDir = "content/zh"
+contentDir = "content/zh-cn"
 languagedirection = "ltr"
 
-[languages.zh.params]
+[languages.zh-cn.params]
 time_format_blog = "2006.01.02"
 language_alternatives = ["en"]
 
@@ -341,7 +341,7 @@ language_alternatives = ["en"]
 [languages.fr]
 title = "Kubernetes"
 description = "Solution professionnelle d’orchestration de conteneurs"
-languageName ="Français"
+languageName = "Français"
 weight = 5
 contentDir = "content/fr"
 languagedirection = "ltr"
@@ -367,7 +367,7 @@ language_alternatives = ["en"]
 [languages.no]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName ="Norsk"
+languageName = "Norsk"
 weight = 7
 contentDir = "content/no"
 languagedirection = "ltr"
@@ -380,7 +380,7 @@ language_alternatives = ["en"]
 [languages.de]
 title = "Kubernetes"
 description = "Produktionsreife Container-Orchestrierung"
-languageName ="Deutsch"
+languageName = "Deutsch"
 weight = 8
 contentDir = "content/de"
 languagedirection = "ltr"
@@ -393,7 +393,7 @@ language_alternatives = ["en"]
 [languages.es]
 title = "Kubernetes"
 description = "Orquestación de contenedores para producción"
-languageName ="Español"
+languageName = "Español"
 weight = 9
 contentDir = "content/es"
 languagedirection = "ltr"
@@ -406,8 +406,8 @@ language_alternatives = ["en"]
 [languages.pt-br]
 title = "Kubernetes"
 description = "Orquestração de contêineres em nível de produção"
-languageName ="Português"
-weight = 9
+languageName = "Português"
+weight = 10
 contentDir = "content/pt-br"
 languagedirection = "ltr"
 
@@ -419,8 +419,8 @@ language_alternatives = ["en"]
 [languages.id]
 title = "Kubernetes"
 description = "Orkestrasi Kontainer dengan Skala Produksi"
-languageName ="Bahasa Indonesia"
-weight = 10
+languageName = "Bahasa Indonesia"
+weight = 11
 contentDir = "content/id"
 languagedirection = "ltr"
 
@@ -433,7 +433,7 @@ language_alternatives = ["en"]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
 languageName = "Hindi"
-weight = 11
+weight = 12
 contentDir = "content/hi"
 languagedirection = "ltr"
 
@@ -446,14 +446,14 @@ title = "Kubernetes"
 description = "Giải pháp điều phối container trong môi trường production"
 languageName = "Tiếng Việt"
 contentDir = "content/vi"
-weight = 12
+weight = 13
 languagedirection = "ltr"
 
 [languages.ru]
 title = "Kubernetes"
 description = "Первоклассная оркестрация контейнеров"
 languageName = "Русский"
-weight = 12
+weight = 14
 contentDir = "content/ru"
 languagedirection = "ltr"
 
@@ -466,7 +466,7 @@ language_alternatives = ["en"]
 title = "Kubernetes"
 description = "Produkcyjny system zarządzania kontenerami"
 languageName = "Polski"
-weight = 13
+weight = 15
 contentDir = "content/pl"
 languagedirection = "ltr"
 
@@ -479,7 +479,7 @@ language_alternatives = ["en"]
 title = "Kubernetes"
 description = "Довершена система оркестрації контейнерів"
 languageName = "Українська"
-weight = 14
+weight = 16
 contentDir = "content/uk"
 languagedirection = "ltr"
 

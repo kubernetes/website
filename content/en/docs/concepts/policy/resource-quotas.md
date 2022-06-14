@@ -22,8 +22,7 @@ be consumed by resources in that namespace.
 
 Resource quotas work like this:
 
-- Different teams work in different namespaces.  Currently this is voluntary, but
-  support for making this mandatory via ACLs is planned.
+- Different teams work in different namespaces. This can be enforced with [RBAC](/docs/reference/access-authn-authz/rbac/).
 
 - The administrator creates one ResourceQuota for each namespace.
 
@@ -698,7 +697,7 @@ and it is to be created in a namespace other than `kube-system`.
 
 ## {{% heading "whatsnext" %}}
 
-- See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
+- See [ResourceQuota design doc](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md) for more information.
 - See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
-- Read [Quota support for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md).
+- Read [Quota support for priority class design doc](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md).
 - See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)

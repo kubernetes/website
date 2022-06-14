@@ -156,5 +156,5 @@ to make sure that your `Service` is running, has `Endpoints`, and your `Pods` ar
 actually serving; you have DNS working, iptables rules installed, and kube-proxy
 does not seem to be misbehaving.
 
-You may also visit [troubleshooting document](/docs/tasks/debug/overview/) for more information.
+You may also visit [troubleshooting document](/docs/tasks/debug/) for more information.
 

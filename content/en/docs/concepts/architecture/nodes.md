@@ -458,7 +458,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 {{< feature-state state="alpha" for_k8s_version="v1.24" >}}
 
-A node shutdown action may not be detected by kubelet's Node Shutdown Mananger, 
+A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
 either because the command does not trigger the inhibitor locks mechanism used by 
 kubelet or because of a user error, i.e., the ShutdownGracePeriod and 
 ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above 
@@ -654,7 +654,7 @@ see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
 
 * Learn about the [components](/docs/concepts/overview/components/#node-components) that make up a node.
 * Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
-* Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
+* Read the [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 
