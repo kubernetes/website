@@ -178,7 +178,7 @@ kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
 
 # Retrieve a value with dashes instead of underscores.
-kubectl get secret mysecret --template='{{index .data "key-name-with-dashes"}}'
+kubectl get secret my-secret --template='{{index .data "key-name-with-dashes"}}'
 
 # Get all worker nodes (use a selector to exclude results that have a label
 # named 'node-role.kubernetes.io/master')
