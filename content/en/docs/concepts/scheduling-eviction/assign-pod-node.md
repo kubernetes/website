@@ -303,7 +303,7 @@ the Pod onto a node that is in the same zone as one or more Pods with the label
 same zone currently running Pods with the `Security=S2` Pod label.
 
 To get yourself more familiar with the examples of Pod affinity and anti-affinity,
-refer to the [design proposal](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/podaffinity.md).
+refer to the [design proposal](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
 
 You can use the `In`, `NotIn`, `Exists` and `DoesNotExist` values in the
 `operator` field for Pod affinity and anti-affinity.
@@ -471,8 +471,8 @@ The above Pod will only run on the node `kube-01`.
 ## {{% heading "whatsnext" %}}
 
 * Read more about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) .
-* Read the design docs for [node affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
-  and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
+* Read the design docs for [node affinity](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
+  and for [inter-pod affinity/anti-affinity](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
 * Learn about how the [topology manager](/docs/tasks/administer-cluster/topology-manager/) takes part in node-level
   resource allocation decisions. 
 * Learn how to use [nodeSelector](/docs/tasks/configure-pod-container/assign-pods-nodes/).
