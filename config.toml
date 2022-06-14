@@ -139,10 +139,10 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.24"
+latest = "v1.25"
 
-fullversion = "v1.24.0"
-version = "v1.24"
+fullversion = "v1.25.0"
+version = "v1.25"
 githubbranch = "main"
 docsbranch = "main"
 deprecated = false
@@ -179,30 +179,37 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.24.0"
-version = "v1.24"
-githubbranch = "v1.24.0"
+fullversion = "v1.25.0"
+version = "v1.25"
+githubbranch = "v1.25.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.23.6"
+fullversion = "v1.24.2"
+version = "v1.24"
+githubbranch = "v1.24.2"
+docsbranch = "release-1.24"
+url = "https://v1-24.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.23.8"
 version = "v1.23"
-githubbranch = "v1.23.6"
+githubbranch = "v1.23.8"
 docsbranch = "release-1.23"
 url = "https://v1-23.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.22.9"
+fullversion = "v1.22.11"
 version = "v1.22"
-githubbranch = "v1.22.9"
+githubbranch = "v1.22.11"
 docsbranch = "release-1.22"
 url = "https://v1-22.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.21.12"
+fullversion = "v1.21.14"
 version = "v1.21"
-githubbranch = "v1.21.12"
+githubbranch = "v1.21.14"
 docsbranch = "release-1.21"
 url = "https://v1-21.docs.kubernetes.io"
 
