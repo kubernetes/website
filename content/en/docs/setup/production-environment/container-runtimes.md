@@ -173,7 +173,22 @@ This section outlines the necessary steps to use containerd as CRI runtime.
 
 Use the following commands to install Containerd on your system:
 
-Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
+```shell
+# Install Containerd
+sudo apt install containerd -y
+
+# Mark on Hold
+sudo apt-mark hold containerd
+
+# Copy the config
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+
+# Restart Containerd
+sudo systemctl restart containerd
+```
+
+Full instructions:- [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
 
 {{< tabs name="Finding your config.toml file" >}}
 {{% tab name="Linux" %}}
