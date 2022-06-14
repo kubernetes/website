@@ -136,7 +136,7 @@ Run `kubectl get nodes -o wide` and containerd appears as the runtime for the no
 
 Finally if everything goes well, remove Docker.
 
-{{< tabs name="tab-remove-docker-enigine" >}}
+{{< tabs name="tab-remove-docker-engine" >}}
 {{% tab name="CentOS" %}}
 
 ```shell
@@ -163,3 +163,9 @@ sudo apt-get purge docker-ce docker-ce-cli
 {{% /tab %}}
 {{< /tabs >}}
 
+The preceding commands don't remove images, containers, volumes, or customized configuration files on your host.
+To delete them, follow Docker's instructions to [Uninstall Docker Engine](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine).
+
+{{< caution >}}
+Docker's instructions for uninstalling Docker Engine create a risk of deleting containerd. Be careful when executing commands.
+{{< /caution >}}
