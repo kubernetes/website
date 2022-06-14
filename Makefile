@@ -71,6 +71,9 @@ container-image: ## Build a container image for the preview of the website
 		--tag $(CONTAINER_IMAGE) \
 		--build-arg HUGO_VERSION=$(HUGO_VERSION)
 
+container-push: container-image ## Push container image for the preview of the website
+	$(CONTAINER_ENGINE) push $(CONTAINER_IMAGE)
+
 container-build: module-check
 	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development"
 

@@ -122,7 +122,7 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:11.14.2
+    image: nginx:stable
     ports:
       - containerPort: 80
         name: http-web-svc
@@ -192,6 +192,7 @@ where it's running, by adding an Endpoints object manually:
 apiVersion: v1
 kind: Endpoints
 metadata:
+  # the name here should match the name of the Service
   name: my-service
 subsets:
   - addresses:
@@ -202,6 +203,10 @@ subsets:
 
 The name of the Endpoints object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
+When you create an [Endpoints](docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+object for a Service, you set the name of the new object to be the same as that
+of the Service.
 
 {{< note >}}
 The endpoint IPs _must not_ be: loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), or
@@ -393,6 +398,10 @@ on the client's IP addresses by setting `service.spec.sessionAffinity` to "Clien
 You can also set the maximum session sticky time by setting
 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` appropriately.
 (the default value is 10800, which works out to be 3 hours).
+
+{{< note >}}
+On Windows, setting the maximum session sticky time for Services is not supported.
+{{< /note >}}
 
 ## Multi-Port Services
 

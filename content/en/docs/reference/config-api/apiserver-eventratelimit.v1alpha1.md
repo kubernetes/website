@@ -1,7 +1,7 @@
 ---
 title: Event Rate Limit Configuration (v1alpha1)
 content_type: tool-reference
-package: evenratelimit.admission.k8s.io/v1alpha1
+package: eventratelimit.admission.k8s.io/v1alpha1
 auto_generated: true
 ---
 
@@ -9,11 +9,11 @@ auto_generated: true
 ## Resource Types 
 
 
-- [Configuration](#evenratelimit-admission-k8s-io-v1alpha1-Configuration)
+- [Configuration](#eventratelimit-admission-k8s-io-v1alpha1-Configuration)
   
     
 
-## `Configuration`     {#evenratelimit-admission-k8s-io-v1alpha1-Configuration}
+## `Configuration`     {#eventratelimit-admission-k8s-io-v1alpha1-Configuration}
     
 
 
@@ -25,12 +25,12 @@ controller.</p>
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
 <tbody>
     
-<tr><td><code>apiVersion</code><br/>string</td><td><code>evenratelimit.admission.k8s.io/v1alpha1</code></td></tr>
+<tr><td><code>apiVersion</code><br/>string</td><td><code>eventratelimit.admission.k8s.io/v1alpha1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>Configuration</code></td></tr>
     
   
 <tr><td><code>limits</code> <B>[Required]</B><br/>
-<a href="#evenratelimit-admission-k8s-io-v1alpha1-Limit"><code>[]Limit</code></a>
+<a href="#eventratelimit-admission-k8s-io-v1alpha1-Limit"><code>[]Limit</code></a>
 </td>
 <td>
    <p>limits are the limits to place on event queries received.
@@ -42,12 +42,12 @@ At least one limit is required.</p>
 </tbody>
 </table>
 
-## `Limit`     {#evenratelimit-admission-k8s-io-v1alpha1-Limit}
+## `Limit`     {#eventratelimit-admission-k8s-io-v1alpha1-Limit}
     
 
 **Appears in:**
 
-- [Configuration](#evenratelimit-admission-k8s-io-v1alpha1-Configuration)
+- [Configuration](#eventratelimit-admission-k8s-io-v1alpha1-Configuration)
 
 
 <p>Limit is the configuration for a particular limit type</p>
@@ -59,7 +59,7 @@ At least one limit is required.</p>
     
   
 <tr><td><code>type</code> <B>[Required]</B><br/>
-<a href="#evenratelimit-admission-k8s-io-v1alpha1-LimitType"><code>LimitType</code></a>
+<a href="#eventratelimit-admission-k8s-io-v1alpha1-LimitType"><code>LimitType</code></a>
 </td>
 <td>
    <p>type is the type of limit to which this configuration applies</p>
@@ -105,13 +105,13 @@ allowance of burst queries.</p>
 </tbody>
 </table>
 
-## `LimitType`     {#evenratelimit-admission-k8s-io-v1alpha1-LimitType}
+## `LimitType`     {#eventratelimit-admission-k8s-io-v1alpha1-LimitType}
     
 (Alias of `string`)
 
 **Appears in:**
 
-- [Limit](#evenratelimit-admission-k8s-io-v1alpha1-Limit)
+- [Limit](#eventratelimit-admission-k8s-io-v1alpha1-Limit)
 
 
 <p>LimitType is the type of the limit (e.g., per-namespace)</p>

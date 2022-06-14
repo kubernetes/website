@@ -540,6 +540,15 @@ In the CLI, the access modes are abbreviated to:
 * RWX - ReadWriteMany
 * RWOP - ReadWriteOncePod
 
+{{< note >}}
+Kubernetes uses volume access modes to match PersistentVolumeClaims and PersistentVolumes.
+In some cases, the volume access modes also constrain where the PersistentVolume can be mounted.
+Volume access modes do **not** enforce write protection once the storage has been mounted.
+Even if the access modes are specified as ReadWriteOnce, ReadOnlyMany, or ReadWriteMany, they don't set any constraints on the volume.
+For example, even if a PersistentVolume is created as ReadOnlyMany, it is no guarantee that it will be read-only.
+If the access modes are specified as ReadWriteOncePod, the volume is constrained and can be mounted on only a single Pod.
+{{< /note >}}
+
 > __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
 
 
@@ -673,7 +682,7 @@ Claims use [the same convention as volumes](#volume-mode) to indicate the consum
 
 ### Resources
 
-Claims, like Pods, can request specific quantities of a resource. In this case, the request is for storage. The same [resource model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) applies to both volumes and claims.
+Claims, like Pods, can request specific quantities of a resource. In this case, the request is for storage. The same [resource model](https://git.k8s.io/design-proposals-archive/scheduling/resources.md) applies to both volumes and claims.
 
 ### Selector
 
@@ -1012,7 +1021,7 @@ and need persistent storage, it is recommended that you use the following patter
 
 * Learn more about [Creating a PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+* Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 ### API references {#reference}
 

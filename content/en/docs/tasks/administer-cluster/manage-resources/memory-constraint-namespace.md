@@ -11,8 +11,9 @@ description: >-
 <!-- overview -->
 
 This page shows how to set minimum and maximum values for memory used by containers
-running in a namespace. You specify minimum and maximum memory values in a
-[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
+running in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}. 
+You specify minimum and maximum memory values in a
+[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
 object. If a Pod does not meet the constraints imposed by the LimitRange,
 it cannot be created in the namespace.
 
@@ -76,8 +77,8 @@ file for the LimitRange, they were created automatically.
 Now whenever you define a Pod within the constraints-mem-example namespace, Kubernetes
 performs these steps:
 
-* If any container in that Pod does not specify its own memory request and limit, assign
-the default memory request and limit to that container.
+* If any container in that Pod does not specify its own memory request and limit, 
+the control plane assigns the default memory request and limit to that container.
 
 * Verify that every container in that Pod requests at least 500 MiB of memory.
 

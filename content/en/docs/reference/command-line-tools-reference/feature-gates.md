@@ -761,7 +761,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Requires Portworx CSI driver to be installed and configured in the cluster.
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in `csi.storage.k8s.io`.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
-  [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
+  [CSI (Container Storage Interface)](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)
   compatible volume plugin.
 - `CSIServiceAccountToken`: Enable CSI drivers to receive the pods' service account token
   that they mount volumes for. See
@@ -1086,10 +1086,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Bound Service Account Tokens](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
   for more details.
 - `RotateKubeletClientCertificate`: Enable the rotation of the client TLS certificate on the kubelet.
-  See [kubelet configuration](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)
+  See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)
   for more details.
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
-  See [kubelet configuration](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)
+  See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)
   for more details.
 - `RunAsGroup`: Enable control over the primary group ID set on the init
   processes of containers.
