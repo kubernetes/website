@@ -88,7 +88,7 @@ you configured. For this to work, the tool must support SOCKS5 proxying.
 
 {{< note >}}
 In the URL https://localhost:6443/api, `localhost` does not refer to your local client computer.
-Instead, it refers to the endpoint on the remote server knows as `localhost`.
+Instead, it refers to the endpoint on the remote server known as `localhost`.
 The `curl` tool sends the hostname from the HTTPS URL over SOCKS, and the remote server
 resolves that locally (to an address that belongs to its loopback interface).
 {{</ note >}}
