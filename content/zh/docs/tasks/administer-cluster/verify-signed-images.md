@@ -37,16 +37,6 @@ to [Releases](/releases/download/).
 
 Let's pick one image from this list and verify its signature using
 the `cosign verify` command:
-
-```shell
-COSIGN_EXPERIMENTAL=1 cosign verify k8s.gcr.io/kube-apiserver-amd64:v1.24.0
-```
-
-{{< note >}}
-`COSIGN_EXPERIMENTAL=1` is used to allow verification of images signed
-in `KEYLESS` mode. To learn more about keyless signing, please refer to
-[Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)
-. {{< /note >}}
 -->
 ## 验证镜像签名 {#verifying-image-signatures}
 
@@ -57,7 +47,13 @@ in `KEYLESS` mode. To learn more about keyless signing, please refer to
 ```shell
 COSIGN_EXPERIMENTAL=1 cosign verify k8s.gcr.io/kube-apiserver-amd64:v1.24.0
 ```
-
+<!--
+{{< note >}}
+`COSIGN_EXPERIMENTAL=1` is used to allow verification of images signed
+in `KEYLESS` mode. To learn more about keyless signing, please refer to
+[Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)
+. {{< /note >}}
+-->
 {{< note >}}
 `COSIGN_EXPERIMENTAL=1` 用于对以 `KEYLESS` 模式签名的镜像进行验证。想要进一步了解 `KEYLESS`，请参考
 [Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)。
@@ -91,7 +87,7 @@ section.
 当你完成某个镜像的验证时，可以在你的 Pod 清单通过摘要值来指定该镜像，例如：
 `registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
 
-需要更多信息，请参考[镜像拉取策略](/zh/docs/concepts/containers/images/#image-pull-policy)章节。
+要了解更多信息，请参考[镜像拉取策略](/zh-cn/docs/concepts/containers/images/#image-pull-policy)章节。
 <!--
 ## Verifying Image Signatures with Admission Controller
 
