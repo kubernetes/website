@@ -158,7 +158,7 @@ GET /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **name** (*in path*): string, required
 -->
-- **name** (**位于路径中**): string, 必需
+- **name** (**路径参数**): string, 必需
 
   <!--
   name of the ServiceAccount
@@ -168,14 +168,14 @@ GET /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**位于路径中**): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询字符串**): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -207,28 +207,28 @@ GET /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**位于路径中**): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
 - **allowWatchBookmarks** (*in query*): boolean
 -->
-- **allowWatchBookmarks** (**查询字符串**): boolean
+- **allowWatchBookmarks** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 <!--
 - **continue** (*in query*): string
 -->
-- **continue** (**查询字符串**): string
+- **continue** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 <!--
 - **fieldSelector** (*in query*): string
 -->
-- **fieldSelector** (**查询字符串**): string
+- **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
@@ -236,7 +236,7 @@ GET /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **labelSelector** (*in query*): string
 -->
-- **labelSelector** (**查询字符串**): string
+- **labelSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
@@ -244,42 +244,42 @@ GET /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **limit** (*in query*): integer
 -->
-- **limit** (*查询字符串*): integer
+- **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询字符串**): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **resourceVersion** (*in query*): string
 -->
-- **resourceVersion** (**查询字符串**): string
+- **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 <!--
 - **resourceVersionMatch** (*in query*): string
 -->
-- **resourceVersionMatch** (**查询字符串**): string
+- **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
 -->
-- **timeoutSeconds** (**查询字符串**): integer
+- **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 <!--
 - **watch** (*in query*): boolean
 -->
-- **watch** (**查询字符串**): boolean
+- **watch** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -312,21 +312,21 @@ GET /api/v1/serviceaccounts
 <!--
 - **allowWatchBookmarks** (*in query*): boolean
 -->
-- **allowWatchBookmarks** (**查询字符串**): boolean
+- **allowWatchBookmarks** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 <!--
 - **continue** (*in query*): string
 -->
-- **continue** (**查询字符串**): string
+- **continue** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 <!--
 - **fieldSelector** (*in query*): string
 -->
-- **fieldSelector** (**查询字符串**): string
+- **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
@@ -334,49 +334,49 @@ GET /api/v1/serviceaccounts
 <!--
 - **labelSelector** (*in query*): string
 -->
-- **labelSelector** (**查询字符串**): string
+- **labelSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 <!--
 - **limit** (*in query*): integer
 -->
-- **limit** (**查询字符串**): integer
+- **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询字符串**): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **resourceVersion** (*in query*): string
 -->
-- **resourceVersion** (**查询字符串**): string
+- **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 <!--
 - **resourceVersionMatch** (*in query*): string
 -->
-- **resourceVersionMatch** (**查询字符串**): string
+- **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
 -->
-- **timeoutSeconds** (**查询字符串**): integer
+- **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 <!--
 - **watch** (*in query*): boolean
 -->
-- **watch** (**查询字符串**): boolean
+- **watch** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -409,7 +409,7 @@ POST /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**位于路径中**): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -421,21 +421,21 @@ POST /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **dryRun** (*in query*): string
 -->
-- **dryRun** (**查询字符串**): string
+- **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 <!--
 - **fieldManager** (*in query*): string
 -->
-- **fieldManager** (**查询字符串**): string
+- **fieldManager** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 <!--
 - **fieldValidation** (*in query*): string
 -->
-- **fieldValidation** (**查询字符串**): string
+- **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
@@ -443,7 +443,7 @@ POST /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询字符串**): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -480,7 +480,7 @@ PUT /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **name** (*in path*): string, required
 -->
-- **name** (**位于路径中**): string, required
+- **name** (**路径参数**): string, required
 
   name of the ServiceAccount
 
@@ -488,7 +488,7 @@ PUT /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**位于路径中**): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -500,21 +500,21 @@ PUT /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **dryRun** (*in query*): string
 -->
-- **dryRun** (**查询字符串**): string
+- **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 <!--
 - **fieldManager** (*in query*): string
 -->
-- **fieldManager** (**查询字符串**): string
+- **fieldManager** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 <!--
 - **fieldValidation** (*in query*): string
 -->
-- **fieldValidation** (**查询字符串**): string
+- **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
@@ -522,7 +522,7 @@ PUT /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询字符串**): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -556,7 +556,7 @@ PATCH /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **name** (*in path*): string, required
 -->
-- **name** (**位于路径中**): string, 必需
+- **name** (**路径参数**): string, 必需
 
   <!--
   name of the ServiceAccount
@@ -566,7 +566,7 @@ PATCH /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**位于路径中**): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -577,28 +577,28 @@ PATCH /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **dryRun** (*in query*): string
 -->
-- **dryRun** (**查询字符串**): string
+- **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 <!--
 - **fieldManager** (*in query*): string
 -->
-- **fieldManager** (**查询字符串**): string
+- **fieldManager** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 <!--
 - **fieldValidation** (*in query*): string
 -->
-- **fieldValidation** (**查询字符串**): string
+- **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 <!--
 - **force** (*in query*): boolean
 -->
-- **force** (**查询字符串**): boolean
+- **force** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
@@ -606,7 +606,7 @@ PATCH /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询字符串**): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -642,7 +642,7 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **name** (*in path*): string, required
 -->
-- **name** (**位于路径中**): string, 必需
+- **name** (**路径参数**): string, 必需
 
   <!--
   name of the ServiceAccount
@@ -653,7 +653,7 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**位于路径中**): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -663,14 +663,14 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **dryRun** (*in query*): string
 -->
-- **dryRun** (**查询字符串**): string
+- **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 <!--
 - **gracePeriodSeconds** (*in query*): integer
 -->
-- **gracePeriodSeconds** (*查询字符串*): integer
+- **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
@@ -678,7 +678,7 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询字符串**): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -718,7 +718,7 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**位于路径中**): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -728,7 +728,7 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **continue** (*in query*): string
 -->
-- **continue** (**查询字符串**): string
+- **continue** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
@@ -736,14 +736,14 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **dryRun** (*in query*): string
 -->
-- **dryRun** (**查询字符串**): string
+- **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 <!--
 - **fieldSelector** (*in query*): string
 -->
-- **fieldSelector** (**查询字符串**): string
+- **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
@@ -751,21 +751,21 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **gracePeriodSeconds** (*in query*): integer
 -->
-- **gracePeriodSeconds** (*查询字符串*): integer
+- **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
 - **labelSelector** (*in query*): string
 -->
-- **labelSelector** (*查询字符串*): string
+- **labelSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 <!--
 - **limit** (*in query*): integer
 -->
-- **limit** (*查询字符串*): integer
+- **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
@@ -773,35 +773,35 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询字符串**): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **propagationPolicy** (*in query*): string
 -->
-- **propagationPolicy** (**查询字符串**): string
+- **propagationPolicy** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 <!--
 - **resourceVersion** (*in query*): string
 -->
-- **resourceVersion** (**查询字符串**): string
+- **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 <!--
 - **resourceVersionMatch** (*in query*): string
 -->
-- **resourceVersionMatch** (**查询字符串**): string
+- **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
 -->
-- **timeoutSeconds** (**查询字符串**): integer
+- **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
@@ -814,4 +814,3 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-
