@@ -173,7 +173,7 @@ repository. You must enable the [API aggregation layer](/docs/tasks/extend-kuber
 and register an [APIService](/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)
 for the `metrics.k8s.io` API.
 
-To learn more about the Metrics API, see [resource metrics API design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/resource-metrics-api.md),
+To learn more about the Metrics API, see [resource metrics API design](https://git.k8s.io/design-proposals-archive/instrumentation/resource-metrics-api.md),
 the [metrics-server repository](https://github.com/kubernetes-sigs/metrics-server) and the
 [resource metrics API](https://github.com/kubernetes/metrics#resource-metrics-api).
 
@@ -237,7 +237,7 @@ To learn more about the metrics-server, see the
 
 You can also check out the following:
 
-* [metrics-server design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/metrics-server.md)
+* [metrics-server design](https://git.k8s.io/design-proposals-archive/instrumentation/metrics-server.md)
 * [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
 * [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
 * [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)

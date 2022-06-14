@@ -70,7 +70,7 @@ controller on the controller manager.
 
 Each valid token is backed by a secret in the `kube-system` namespace.  You can
 find the full design doc
-[here](https://github.com/kubernetes/design-proposals-archive/blob/main/cluster-lifecycle/bootstrap-discovery.md).
+[here](https://git.k8s.io/design-proposals-archive/cluster-lifecycle/bootstrap-discovery.md).
 
 Here is what the secret looks like.
 
