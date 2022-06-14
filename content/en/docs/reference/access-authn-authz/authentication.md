@@ -861,7 +861,7 @@ Impersonating a user or group allows you to perform any action as if you were th
 for that reason, impersonation is not namespace scoped.
 If you want to allow impersonation using Kubernetes RBAC, 
 this requires using a `ClusterRole` and a `ClusterRoleBinding`,
-and does not function with `Role` and `RoleBinding`.
+not a `Role` and `RoleBinding`.
 {{< /note >}}
 
 ## client-go credential plugins
