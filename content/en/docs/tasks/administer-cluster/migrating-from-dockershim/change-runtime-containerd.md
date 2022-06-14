@@ -163,10 +163,9 @@ sudo apt-get purge docker-ce docker-ce-cli
 {{% /tab %}}
 {{< /tabs >}}
 
-The above commands don't remove images, containers, volumes, or customized configuration files on your host.
-To delete them, see the [Uninstall Docker Engine](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine) section
-within the documentation for Docker.
+The preceding commands don't remove images, containers, volumes, or customized configuration files on your host.
+To delete them, follow Docker's instructions to [Uninstall Docker Engine](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine).
 
 {{< caution >}}
-It has a risk of deleting containerd, be careful when executing commands on that docs page.
+Docker's instructions for uninstalling Docker Engine create a risk of deleting containerd. Be careful when executing commands.
 {{< /caution >}}
