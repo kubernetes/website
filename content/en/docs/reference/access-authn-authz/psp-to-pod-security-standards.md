@@ -17,7 +17,7 @@ For each applicable parameter, the allowed values for the
 [Baseline](/docs/concepts/security/pod-security-standards/#baseline) and
 [Restricted](/docs/concepts/security/pod-security-standards/#restricted) profiles are listed.
 Anything outside the allowed values for those profiles would fall under the
-[Privileged](/docs/concepts/security/pod-security-standards/#priveleged) profile. "No opinion"
+[Privileged](/docs/concepts/security/pod-security-standards/#privileged) profile. "No opinion"
 means all values are allowed under all Pod Security Standards.
 
 For a step-by-step migration guide, see
