@@ -7,7 +7,9 @@ weight: 30
 
 This page provides a list of Kubernetes certified solution providers. From each
 provider page, you can learn how to install and setup production
-ready clusters. Please go through [CNCF Cloud Native Interactive Landscape](https://landscape.cncf.io/) to have a better understanding.
+ready clusters. Please go through
+ [CNCF Cloud Native Interactive Landscape](https://landscape.cncf.io/)  to have
+ a better understanding.
 
 
 <!-- body -->
