@@ -111,7 +111,7 @@ rev data.txt
 You'll use the `rev` tool from the
 [`busybox`](https://hub.docker.com/_/busybox) container image.
 -->
-你将使用 [`busybox`](https://hub.docker.com/_/busybox) 容器映像中的 `rev` 工具。
+你将使用 [`busybox`](https://hub.docker.com/_/busybox) 容器镜像中的 `rev` 工具。
 
 <!-- 
 As this is only an example, each Pod only does a tiny piece of work (reversing a short

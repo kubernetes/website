@@ -940,7 +940,7 @@ parameters:
   same as `adminId`.
 -->
 * `monitors`：Ceph monitor，逗号分隔。该参数是必需的。
-* `adminId`：Ceph 客户端 ID，用于在池 ceph 池中创建映像。默认是 "admin"。
+* `adminId`：Ceph 客户端 ID，用于在池 ceph 池中创建镜像。默认是 "admin"。
 * `adminSecret`：`adminId` 的 Secret 名称。该参数是必需的。
   提供的 secret 必须有值为 "kubernetes.io/rbd" 的 type 参数。
 * `adminSecretNamespace`：`adminSecret` 的命名空间。默认是 "default"。

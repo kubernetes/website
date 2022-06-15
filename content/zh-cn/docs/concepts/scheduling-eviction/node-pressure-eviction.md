@@ -320,7 +320,7 @@ kubelet 根据下表将驱逐信号映射为节点状况：
 | 节点条件 | 驱逐信号 | 描述 |
 |---------|--------|------|
 | `MemoryPressure` | `memory.available` | 节点上的可用内存已满足驱逐条件 |
-| `DiskPressure`   | `nodefs.available`、`nodefs.inodesFree`、`imagefs.available` 或 `imagefs.inodesFree` | 节点的根文件系统或映像文件系统上的可用磁盘空间和 inode 已满足驱逐条件 |
+| `DiskPressure`   | `nodefs.available`、`nodefs.inodesFree`、`imagefs.available` 或 `imagefs.inodesFree` | 节点的根文件系统或镜像文件系统上的可用磁盘空间和 inode 已满足驱逐条件 |
 | `PIDPressure`    | `pid.available` | (Linux) 节点上的可用进程标识符已低于驱逐条件 |
 
 kubelet 根据配置的 `--node-status-update-frequency` 更新节点条件，默认为 `10s`。
