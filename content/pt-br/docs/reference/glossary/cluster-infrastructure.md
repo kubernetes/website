@@ -1,5 +1,5 @@
 ---
-title: infraestrutura de Cluster
+title: Infraestrutura de Cluster
 id: cluster-infrastructure
 date: 2019-05-12
 full_link:
