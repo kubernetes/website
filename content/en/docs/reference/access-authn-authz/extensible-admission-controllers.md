@@ -596,6 +596,10 @@ As an example, a single patch operation that would set `spec.replicas` would be 
 
 Base64-encoded, this would be `W3sib3AiOiAiYWRkIiwgInBhdGgiOiAiL3NwZWMvcmVwbGljYXMiLCAidmFsdWUiOiAzfV0=`
 
+{{< note >}}
+When using Go and the `k8s.io/api/admission/v1` types to encode the `AdmissionReview`, the base64 encoding of the patches is done automatically by `encoding/json`, as the patches are supplied as `[]byte`.
+{{< /note >}}
+
 So a webhook response to add that label would be:
 {{< tabs name="AdmissionReview_response_modify" >}}
 {{% tab name="admission.k8s.io/v1" %}}
