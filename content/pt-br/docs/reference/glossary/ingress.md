@@ -4,7 +4,7 @@ id: ingress
 date: 2018-04-12
 full_link: /docs/concepts/services-networking/ingress/
 short_description: >
-  Um objeto API que gerencia o acesso externo aos serviços em um cluster, normalmente HTTP.
+  Um objeto da API que gerencia o acesso externo aos serviços em um cluster, normalmente HTTP.
 
 aka: 
 tags:
@@ -12,7 +12,7 @@ tags:
 - architecture
 - extension
 ---
- Um objeto API (do inglês "Application Programming Interface") que gerencia o acesso externo aos serviços em um cluster, normalmente HTTP.
+ Um objeto da API (do inglês "Application Programming Interface") que gerencia o acesso externo aos serviços em um cluster, normalmente HTTP.
 
 <!--more--> 
 
