@@ -17,7 +17,7 @@ Um recurso do kernel para emular o root. Usado para "contêineres sem root".
 
 Os namespaces do usuário são um recurso do kernel Linux que permite que um usuário não root emule privilégios de superusuário ("root"), por exemplo, para executar contêineres sem ser um superusuário fora do contêiner.
 
-O namespace do usuário é eficaz para mitigar os danos de possíveis ataques fora de contêineres.
+O namespace do usuário é eficaz para mitigar os danos de um potencial ataque em que o adversário escapa dos limites do contêiner.
 
 No contexto de namespaces de usuário, o namespace é um recurso do kernel Linux, e não um {{< glossary_tooltip text="namespace" term_id="namespace" >}} no sentido do termo Kubernetes.
 
