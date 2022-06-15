@@ -30,7 +30,7 @@ some general rules that can be applied are :
    ClusterRoleBindings to give users rights only within a specific namespace.
  - Avoid providing wildcard permissions when possible, especially to all resources.
    As Kubernetes is an extensible system, providing wildcard access gives rights
-   not just to all object types present in the cluster, but also to all future object types
+   not just to all object types that currently exist in the cluster, but also to all future object types
    which are created in the future.
  - Administrators should not use `cluster-admin` accounts except where specifically needed. 
    Providing a low privileged account with [impersonation rights](/docs/reference/access-authn-authz/authentication/#user-impersonation)
@@ -128,8 +128,7 @@ granting rights to this resource.
 
 ### Escalate verb
 
-Generally, the RBAC system prevents users from creating clusterroles with more rights than 
-they possess. The exception to this is the `escalate` verb. As noted in the [RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update),
+Generally, the RBAC system prevents users from creating clusterroles with more rights than the user possesses. The exception to this is the `escalate` verb. As noted in the [RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update),
 users with this right can effectively escalate their privileges.
 
 ### Bind verb
