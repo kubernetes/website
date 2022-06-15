@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: Nós
 content_type: conceito
 weight: 10
@@ -76,7 +75,7 @@ Quando o [modo de autorização do nó](/docs/reference/access-authn-authz/node/
 {{< note >}}
 Como mencionado na seção de [singularidade do nome do nó](#singularidade-de-nome-do-no), quando a configuração do nó precisa ser atualizada, é uma boa prática registrar novamente o nó no servidor da API. Por exemplo, se o kubelet estiver sendo reiniciado com o novo conjunto de `--node-labels`, mas o mesmo nome de nó for usado, a alteração não entrará em vigor, pois os labels estão sendo definidos no registro do Nó.
 
-Pods já agendados no Nó podem ter um comportamento anormal ou causar problemas se a configuração do Nó for alterada na reinicialização do kubelet. Por exemplo, o Pod já em execução pode estar marcado diferente dos labels atribuídas ao Nó, enquanto outros Pods, que são incompatíveis com esse Pod, serão agendados com base nesse novo label. O novo registro do nó garante que todos os Pods sejam drenados e devidamente reiniciados.
+Pods já agendados no Nó podem ter um comportamento anormal ou causar problemas se a configuração do Nó for alterada na reinicialização do kubelet. Por exemplo, o Pod já em execução pode estar marcado diferente dos labels atribuídos ao Nó, enquanto outros Pods, que são incompatíveis com esse Pod, serão agendados com base nesse novo label. O novo registro do nó garante que todos os Pods sejam drenados e devidamente reiniciados.
 {{< /note >}}
 
 ### Administração manual de nós
@@ -115,14 +114,14 @@ O status de um nó contém as seguintes informações:
 Você pode usar o `kubectl` para visualizar o status de um nó e outros detalhes:
 
 ```shell
-kubectl describe node <insert-node-name-here>
+kubectl describe node <insira-nome-do-nó-aqui>
 ```
 
 Cada seção da saída está descrita abaixo.
 
 ### Endereços
 
-O uso desses campos pode mudar dependendo do seu provedor de nuvem ou configuração `configuração dedicada`.
+O uso desses campos pode mudar dependendo do seu provedor de nuvem ou configuração dedicada.
 
 * HostName: O nome do host relatado pelo `kernel` do nó. Pode ser substituído através do parâmetro kubelet `--hostname-override`.
 * ExternalIP: Geralmente, o endereço IP do nó que é roteável externamente (disponível fora do `cluster`).
@@ -132,8 +131,8 @@ O uso desses campos pode mudar dependendo do seu provedor de nuvem ou configura�
 
 O campo `conditions` descreve o status de todos os nós em execução. Exemplos de condições incluem:
 
-{{< table caption = "Node conditions, and a description of when each condition applies." >}}
-| Node Condition       | Description |
+{{< table caption = "Condições do nó e uma descrição de quando cada condição se aplica." >}}
+| Condições do nó      | Descrição |
 |----------------------|-------------|
 | `Ready`              | `True` Se o nó estiver íntegro e pronto para aceitar pods, `False` se o nó não estiver íntegro e não estiver aceitando pods, e desconhecido `Unknown` se o controlador do nó tiver sem notícias do nó no último `node-monitor-grace-period` (o padrão é de 40 segundos) |
 | `DiskPressure`       | `True` Se houver pressão sobre o tamanho do disco, ou seja, se a capacidade do disco for baixa; caso contrário `False` |
@@ -161,13 +160,13 @@ Na API do Kubernetes, a condição de um nó é representada como parte do `.sta
 ]
 ```
 
-Se o status da condição `Ready` permanecer desconhecido (`Unknown`) ou falso (`False`) por mais tempo do que o limite de remoção do pod (`pod-eviction-timeout`) (um argumento passado para o {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager">}}), o [controlador de nó](#node-controller) acionará o {{< glossary_tooltip text="remoção iniciado pela API" term_id="api-eviction" >}} para todos os Pods atribuídos a esse nó. A duração padrão do tempo limite de remoção é de **cinco minutos**. Em alguns casos, quando o nó está inacessível, o servidor da API não consegue se comunicar com o kubelet no nó. A decisão de excluir os pods não pode ser comunicada ao kubelet até que a comunicação com o servidor da API seja restabelecida. Enquanto isso, os pods agendados para exclusão podem continuar a ser executados no nó particionado.
+Se o status da condição `Ready` permanecer desconhecido (`Unknown`) ou falso (`False`) por mais tempo do que o limite da remoção do pod (`pod-eviction-timeout`) (um argumento passado para o {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager">}}), o [controlador de nó](#node-controller) acionará o {{< glossary_tooltip text="remoção iniciado pela API" term_id="api-eviction" >}} para todos os Pods atribuídos a esse nó. A duração padrão do tempo limite da remoção é de **cinco minutos**. Em alguns casos, quando o nó está inacessível, o servidor da API não consegue se comunicar com o kubelet no nó. A decisão de excluir os pods não pode ser comunicada ao kubelet até que a comunicação com o servidor da API seja restabelecida. Enquanto isso, os pods agendados para exclusão podem continuar a ser executados no nó particionado.
 
 O controlador de nós não força a exclusão dos pods até que seja confirmado que eles pararam de ser executados no cluster. Você pode ver os pods que podem estar sendo executados em um nó inacessível como estando no estado de terminando (`Terminating`) ou desconhecido (`Unknown`). Nos casos em que o Kubernetes não retirar da infraestrutura subjacente se um nó tiver deixado permanentemente um cluster, o administrador do cluster pode precisar excluir o objeto do nó manualmente. Excluir o objeto do nó do Kubernetes faz com que todos os objetos Pod em execução no nó sejam excluídos do servidor da API e libera seus nomes.
 
 Quando ocorrem problemas nos nós, a camada de gerenciamento do Kubernetes cria automaticamente [`taints`](/docs/concepts/scheduling-eviction/taint-and-toleration/) que correspondem às condições que afetam o nó. O escalonador leva em consideração as `taints` do Nó ao atribuir um Pod a um Nó. Os Pods também podem ter {{< glossary_tooltip text="tolerations" term_id="toleration" >}} que os permitem funcionar em um nó, mesmo que tenha uma `taint` específica.
 
-Consulte [Nó Taint por Condição](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
+Consulte [Nó Taint por Condição](/pt-br/docs/concepts/scheduling-eviction/taint-and-toleration/#taints-por-condições-de-nó)
 para mais detalhes.
 
 ### Capacidade e Alocável {#capacity}
@@ -209,13 +208,13 @@ O segundo é manter a lista interna de nós do controlador de nós atualizada co
 O terceiro é monitorar a saúde dos nós. O controlador do nó é responsável por:
 
 - No caso de um nó se tornar inacessível, atualizando a condição NodeReady de dentro do `.status` do nó. Nesse caso, o controlador do nó define a condição de pronto (`NodeReady`) como condição desconhecida (`ConditionUnknown`).
-- Se um nó permanecer inacessível: será iniciado a [remoção pela API](/docs/concepts/scheduling-eviction/api-eviction/) para todos os Pods no nó inacessível. Por padrão, o controlador do nó espera 5 minutos entre marcar o nó como condição desconhecida (`ConditionUnknown`) e enviar a primeira solicitação de remoção.
+- Se um nó permanecer inacessível: será iniciada a [remoção pela API](/docs/concepts/scheduling-eviction/api-eviction/) para todos os Pods no nó inacessível. Por padrão, o controlador do nó espera 5 minutos entre marcar o nó como condição desconhecida (`ConditionUnknown`) e enviar a primeira solicitação de remoção.
 
 O controlador de nó verifica o estado de cada nó a cada `--node-monitor-period` segundos.
 
 ### Limites de taxa de remoção
 
-Na maioria dos casos, o controlador de nós limita a taxa de remoção a `--node-eviction-rate` (0,1 por padrão) por segundo, o que significa que ele não despejará pods de mais de 1 nó por 10 segundos.
+Na maioria dos casos, o controlador de nós limita a taxa de remoção a `--node-eviction-rate` (0,1 por padrão) por segundo, o que significa que ele não removerá pods de mais de 1 nó por 10 segundos.
 
 O comportamento de remoção do nó muda quando um nó em uma determinada zona de disponibilidade se torna não íntegro. O controlador de nós verifica qual porcentagem de nós na zona não são íntegras (a condição `NodeReady` é desconhecida `ConditionUnknown` ou falsa `ConditionFalse`) ao mesmo tempo:
 
@@ -223,11 +222,11 @@ O comportamento de remoção do nó muda quando um nó em uma determinada zona d
 - Se o cluster for pequeno (ou seja, tiver número de nós menor ou igual ao valor da opção `--large-cluster-size-threshold` - padrão 50), então as remoções serão interrompidas.
 - Caso contrário, a taxa de remoção é reduzida para `--secondary-node-eviction-rate` de nós secundários (padrão 0,01) por segundo.
 
-A razão pela qual essas políticas são implementadas por zona de disponibilidade é porque uma zona de disponibilidade pode ser particionada a iniciar da camada de gerenciamento, enquanto as outras permanecem conectadas. Se o seu cluster não abranger várias zonas de disponibilidade de provedores de nuvem, o mecanismo de remoção não levará em conta a indisponibilidade por zona.
+A razão pela qual essas políticas são implementadas por zona de disponibilidade é porque a camada de gerenciamento pode perder conexão com uma zona de disponibilidade, enquanto as outras permanecem conectadas. Se o seu cluster não abranger várias zonas de disponibilidade de provedores de nuvem, o mecanismo de remoção não levará em conta a indisponibilidade por zona.
 
-Uma das principais razões para espalhar seus nós pelas zonas de disponibilidade é para que a carga de trabalho possa ser transferida para zonas íntegras quando uma zona inteira cair. Portanto, se todos os nós em uma zona não forem íntegros, o controlador do nó despeja na taxa normal de `--node-eviction-rate`. O caso especial é quando todas as zonas são completamente insalubres (nenhum dos nós do cluster será íntegro). Nesse caso, o controlador do nó assume que há algum problema com a conectividade entre a camada de gerenciamento e os nós e não realiza nenhuma remoção. (Se houver uma interrupção e alguns nós reaparecerem, o controlador do nó expulsa pods dos nós restantes que são insalubres ou inacessíveis).
+Uma das principais razões para espalhar seus nós pelas zonas de disponibilidade é para que a carga de trabalho possa ser transferida para zonas íntegras quando uma zona inteira cair. Portanto, se todos os nós em uma zona não forem íntegros, o controlador do nó remova na taxa normal de `--node-eviction-rate`. O caso especial é quando todas as zonas são completamente insalubres (nenhum dos nós do cluster será íntegro). Nesse caso, o controlador do nó assume que há algum problema com a conectividade entre a camada de gerenciamento e os nós e não realiza nenhuma remoção. (Se houver uma interrupção e alguns nós reaparecerem, o controlador do nó expulsa pods dos nós restantes que são insalubres ou inacessíveis).
 
-O controlador de nós também é responsável por despejar pods em execução nos nós com `NoExecute` taints, a menos que esses pods tolerem essa taint. O controlador de nó também adiciona as {{< glossary_tooltip text="taints" term_id="taint" >}} correspondentes aos problemas de nó, como nó inacessível ou não pronto. Isso significa que o escalonador não colocará Pods em nós não íntegros.
+O controlador de nós também é responsável por remover pods em execução nos nós com `NoExecute` taints, a menos que esses pods tolerem essa taint. O controlador de nó também adiciona as {{< glossary_tooltip text="taints" term_id="taint" >}} correspondentes aos problemas de nó, como nó inacessível ou não pronto. Isso significa que o escalonador não colocará Pods em nós não íntegros.
 
 ## Rastreamento de capacidade de recursos {#node-capacity}
 
@@ -275,7 +274,7 @@ O recurso de desligamento gradual do nó é configurado com duas opções [`Kube
 Por exemplo, se `shutdownGracePeriod=30s` e `shutdownGracePeriodCriticalPods=10s`, o kubelet atrasará o desligamento do nó em 30 segundos. Durante o desligamento, os primeiros 20 (30-10) segundos seriam reservados para encerrar gradualmente os pods normais, e os últimos 10 segundos seriam reservados para encerrar [pods críticos](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 
 {{< note >}}
-Quando os pods forem despejados durante o desligamento gradual do nó, eles serão marcados como desligados. Executar o `kubectl get pods` para mostrar o status dos pods despejados como `Terminated`. E o `kubectl describe pod` indica que o pod foi despejado por causa do desligamento do nó:
+Quando os pods forem removidos durante o desligamento gradual do nó, eles serão marcados como desligados. Executar o `kubectl get pods` para mostrar o status dos pods removidos como `Terminated`. E o `kubectl describe pod` indica que o pod foi removido por causa do desligamento do nó:
 
 ```
 Reason:         Terminated
@@ -287,7 +286,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 {{< feature-state state="alpha" for_k8s_version="v1.23" >}}
 
-Assumindo as seguintes [classes de prioridade](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) do pod em um cluster, para fornecer mais flexibilidade durante o desligamento gradual do nó em torno da ordem de pods durante o desligamento, o desligamento gradual do nó respeita a PriorityClass dos Pods, desde que você tenha ativado esse recurso em seu cluster. O recurso permite que o cluster defina explicitamente a ordem dos pods durante o desligamento gradual do nó com base em [classes de prioridade](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
+Para fornecer mais flexibilidade durante o desligamento gradual do nó em torno da ordem de pods durante o desligamento, o desligamento gradual do nó respeita a PriorityClass dos Pods, desde que você tenha ativado esse recurso em seu cluster. O recurso permite que o cluster defina explicitamente a ordem dos pods durante o desligamento gradual do nó com base em [classes de prioridade](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
 
 O recurso [Desligamento Gradual do Nó](#graceful-node-shutdown), conforme descrito acima, desliga pods em duas fases, pods não críticos, seguidos por pods críticos. Se for necessária flexibilidade adicional para definir explicitamente a ordem dos pods durante o desligamento de uma maneira mais granular, o desligamento gradual baseado na prioridade do pod pode ser usado.
 
