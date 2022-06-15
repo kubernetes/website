@@ -14,6 +14,6 @@ tags:
 
 <!--more-->
 
-Em sistemas do tipo Unix-like, `sysctl` é tanto o nome da ferramenta que os administradores usam para visualizar e modificar essas configurações, quanto a chamada do sistema que a ferramenta usa.
+Em sistemas do tipo Unix, `sysctl` é tanto o nome da ferramenta que os administradores usam para visualizar e modificar essas configurações, quanto a chamada do sistema que a ferramenta usa.
 
-Os {{< glossary_tooltip text="Contêiner" term_id="container" >}} em execução e os plugins de rede podem depender dos valores definidos do `sysctl`.
+Os {{< glossary_tooltip text="contêineres" term_id="container" >}} em execução e os plugins de rede podem depender dos valores definidos do `sysctl`.
