@@ -1525,7 +1525,7 @@ backed by tmpfs (a RAM-backed filesystem) so they are never written to
 non-volatile storage.
 -->
 `secret` 卷用来给 Pod 传递敏感信息，例如密码。你可以将 Secret 存储在 Kubernetes
-API 服务器上，然后以文件的形式挂在到 Pod 中，无需直接与 Kubernetes 耦合。
+API 服务器上，然后以文件的形式挂载到 Pod 中，无需直接与 Kubernetes 耦合。
 `secret` 卷由 tmpfs（基于 RAM 的文件系统）提供存储，因此它们永远不会被写入非易失性（持久化的）存储器。
 
 <!--
