@@ -51,13 +51,8 @@ job.batch/pi created
 
 Check on the status of the Job with `kubectl`:
 
-```shell
-kubectl describe jobs/pi
-```
-
-The output is similar to this:
-
-```
+{{< tabs name="Check status of Job" >}}
+{{< tab name="kubectl describe job pi" codelang="bash" >}}
 Name:           pi
 Namespace:      default
 Selector:       controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
@@ -91,7 +86,62 @@ Events:
   Type    Reason            Age   From            Message
   ----    ------            ----  ----            -------
   Normal  SuccessfulCreate  14m   job-controller  Created pod: pi-5rwd7
-```
+{{< /tab >}}
+{{< tab name="kubectl get job pi -o yaml" codelang="bash" >}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl","name":"pi"}],"restartPolicy":"Never"}}}}
+  creationTimestamp: "2022-06-15T08:40:15Z"
+  generation: 1
+  labels:
+    controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+    job-name: pi
+  name: pi
+  namespace: default
+  resourceVersion: "987"
+  uid: 863452e6-270d-420e-9b94-53a54146c223
+spec:
+  backoffLimit: 4
+  completionMode: NonIndexed
+  completions: 1
+  parallelism: 1
+  selector:
+    matchLabels:
+      controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+  suspend: false
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+        job-name: pi
+    spec:
+      containers:
+      - command:
+        - perl
+        - -Mbignum=bpi
+        - -wle
+        - print bpi(2000)
+        image: perl
+        imagePullPolicy: Always
+        name: pi
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  active: 1
+  ready: 1
+  startTime: "2022-06-15T08:40:15Z"
+{{< /tab >}}
+{{< /tabs >}}
 
 To view completed Pods of a Job, use `kubectl get pods`.
 
