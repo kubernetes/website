@@ -64,7 +64,7 @@ The upgrade workflow at high level is the following:
   `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.
 - [Swap must be disabled](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux).
 -->
-- 务必仔细认真阅读[发行说明]({{< latest-release-notes >}})。
+- 务必仔细认真阅读[发行说明](https://git.k8s.io/kubernetes/CHANGELOG)。
 - 集群应使用静态的控制平面和 etcd Pod 或者外部 etcd。
 - 务必备份所有重要组件，例如存储在数据库中应用层面的状态。
   `kubeadm upgrade` 不会影响你的工作负载，只会涉及 Kubernetes 内部的组件，但备份终究是好的。
