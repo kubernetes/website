@@ -207,8 +207,8 @@ O segundo é manter a lista interna de nós do controlador de nós atualizada co
 
 O terceiro é monitorar a saúde dos nós. O controlador do nó é responsável por:
 
-- No caso de um nó se tornar inacessível, atualizando a condição NodeReady de dentro do `.status` do nó. Nesse caso, o controlador do nó define a condição de pronto (`NodeReady`) como condição desconhecida (`ConditionUnknown`).
-- Se um nó permanecer inacessível: será iniciada a [remoção pela API](/docs/concepts/scheduling-eviction/api-eviction/) para todos os Pods no nó inacessível. Por padrão, o controlador do nó espera 5 minutos entre marcar o nó como condição desconhecida (`ConditionUnknown`) e enviar a primeira solicitação de remoção.
+- No caso de um nó se tornar inacessível, atualizar a condição NodeReady dentro do campo `.status` do nó. Nesse caso, o controlador do nó define a condição de pronto (`NodeReady`) como condição desconhecida (`ConditionUnknown`).
+- Se um nó permanecer inacessível: será iniciado a [remoção pela API](/docs/concepts/scheduling-eviction/api-eviction/) para todos os Pods no nó inacessível. Por padrão, o controlador do nó espera 5 minutos entre marcar o nó como condição desconhecida (`ConditionUnknown`) e enviar a primeira solicitação de remoção.
 
 O controlador de nó verifica o estado de cada nó a cada `--node-monitor-period` segundos.
 
