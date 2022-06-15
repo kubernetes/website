@@ -158,27 +158,18 @@ weight: 30
 通过 HTML 注释的短代码仍会被运行，因此需要额外小心。建议处理方式：
 
 ```
+{{</* note */>}}
 <!--
 English text
 -->
-{{</* note */>}}
 中文译文
 {{</* /note */>}}
 ```
 
-评阅人应该不难理解中英文段落的对应关系。但是如果采用下面的方式，
-则会出现两个 `note`，因此需要避免。这是因为被注释起来的短代码仍会起作用！
-
-```
-<!--
-{{</* note */>}}
-English text
-{{</* /note */>}}
--->
-{{</* note */>}}
-中文译文
-{{</* /note */>}}
-```
+{{< note >}}
+现行风格与之前风格有些不同，这是因为较新的 Hugo 版本已经能够正确处理短代码中的注释段落。
+保持注释掉的英文与译文都在短代码内更便于维护。
+{{< /note >}}
 
 ### 译与不译
 
@@ -198,13 +189,13 @@ deployment 来表示名为 "Deployment" 的 API 资源类型和对象实例。
 
 #### 代码中的注释
 
-一般而言，代码中的注释需要翻译，包括存放在 `content/zh/examples/`
+一般而言，代码中的注释需要翻译，包括存放在 `content/zh-cn/examples/`
 目录下的清单文件中的注释。
 
 
 #### 出站链接
 
-如果超级链接的目标是 Kubernetes 网站之外的纯英文网页，链接中的内容*可以*不翻译。
+如果超级链接的目标是 Kubernetes 网站之外的纯英文网页，链接中的内容**可以**不翻译。
 例如：
 
 ```
@@ -214,16 +205,18 @@ Please check [installation caveats](https://acme.com/docs/v1/caveats) ...
 请参阅 [installation caveats](https://acme.com/docs/v1/caveats) ...
 ```
 
+{{< note >}}
 注意，这里的 `installation` 与 `参阅` 之间留白，因为解析后属于中英文混排的情况。
+{{< /note >}}
 
 ### 标点符号
 
-译文中标点符号要使用全角字符，除非以下两种情况：
+1. 译文中标点符号要使用全角字符，除非以下两种情况：
 
-- 标点符号是英文命令的一部分；
-- 标点符号是 Markdown 语法的一部分。
+   - 标点符号是英文命令的一部分；
+   - 标点符号是 Markdown 语法的一部分。
 
-英文排比句式中采用的逗号，在译文中要使用顿号代替，以便符合中文书写习惯。
+1. 英文排比句式中采用的逗号，在译文中要使用顿号代替，以便符合中文书写习惯。
 
 ## 更新译文
 
@@ -233,7 +226,7 @@ Please check [installation caveats](https://acme.com/docs/v1/caveats) ...
 
 为确保准确跟踪中文化版本与英文版本之间的差异，中文内容的 PR 所包含的每个页面都必须是“最新的”。
 这里的“最新”指的是对应的英文页面中的更改已全部同步到中文页面。
-如果某中文 PR 中包含对 `content/zh/docs/foo/bar.md` 的更改，且文件 `bar.md`
+如果某中文 PR 中包含对 `content/zh-cn/docs/foo/bar.md` 的更改，且文件 `bar.md`
 的上次更改日期是 `2020-10-01 01:02:03 UTC`，对应 GIT 标签 `abcd1234`，
 则 `bar.md` 应包含自 `abcd1234` 以来 `content/en/docs/foo/bar.md` 的所有变更，
 否则视此 PR 为不完整 PR，会破坏我们对上游变更的跟踪。
@@ -242,7 +235,7 @@ Please check [installation caveats](https://acme.com/docs/v1/caveats) ...
 `bar.md` 上次提交以来发生的所有变更，可使用：
 
 ```
-./scripts/lsync.sh content/zh/docs/foo/bar.md
+./scripts/lsync.sh content/zh-cn/docs/foo/bar.md
 ```
 
 ## 关于链接
@@ -273,18 +266,18 @@ Please check [installation caveats](https://acme.com/docs/v1/caveats) ...
 For more information, please check [volumes](/docs/concepts/storage/)
 ...
 -->
-更多的信息可参考[卷](/zh/docs/concepts/storage/)页面。
+更多的信息可参考[卷](/zh-cn/docs/concepts/storage/)页面。
 ```
 
 如果对应目标页面尚未本地化，建议登记一个 Issue。
 
 {{< note >}}
 Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查页面中的链接。
-例如，下面的命令检查中文本地化目录 `/content/zh/docs/concepts/containers/`
+例如，下面的命令检查中文本地化目录 `/content/zh-cn/docs/concepts/containers/`
 中所有 Markdown 文件中的链接合法性：
 
-```
-./scripts/linkchecker.py -l zh -f /docs/concepts/containers/**/*.md
+```shell
+./scripts/linkchecker.py -l zh-cn -f /docs/concepts/containers/**/*.md
 ```
 {{< /note >}}
 
@@ -293,14 +286,21 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 以下为译文 Markdown 排版格式要求：
 
 - 中英文之间留一个空格
+
   * 这里的“英文”包括以英文呈现的超级链接
-  * 这里的中文、英文都不包括标点符号
+  * 这里的中文、英文都**不包括**标点符号
+
 - 译文 Markdown 中不要使用长行，应适当断行。
+
   * 可根据需要在 80-120 列断行
   * 最好结合句子的边界断行，即一句话在一行，不必留几个字转到下一行
   * 不要在两个中文字符中间断行，因为这样会造成中文字符中间显示一个多余空格，
     如果句子太长，可以从中文与非中文符号之间断行
   * 超级链接文字一般较长，可独立成行
+
+- 英文原文中可能通过 `_text_` 或者 `*text*` 的形式用斜体突出部分字句。
+  考虑到中文斜体字非常不美观，在译文中应改为 `**译文**` 形式，
+  即用双引号语法生成加粗字句，实现突出显示效果。
 
 {{< warning >}}
 我们注意到有些贡献者可能使用了某种自动化工具，在 Markdown 英文原文中自动添加空格。
@@ -309,11 +309,10 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 甚至将超级链接中的半角井号（`#`）转换为全角，导致链接失效。
 {{< /warning >}}
 
-英文中 "you" 翻译成 "你" 不必是 "您"。
-文章内的链接用英文，例如 (#deploying)，在对应的标题上后面加上 {#deploying}
 
+## 特殊词汇
 
-## 术语
+英文中 "you" 翻译成 "你"，不必翻译为 "您" 以表现尊敬或谦卑。
 
 ### 术语拼写
 
