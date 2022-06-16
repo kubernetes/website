@@ -32,7 +32,7 @@ If your problem is not listed below, please follow the following steps:
 
 - 如果你认为问题是 kubeadm 的错误：
   - 转到 [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues) 并搜索存在的问题。
-  - 如果没有问题，请 [打开](https://github.com/kubernetes/kubeadm/issues/new) 并遵循问题模板。
+  - 如果没有搜索到问题，请 [打开](https://github.com/kubernetes/kubeadm/issues/new) 并遵循问题模板。
 
 - 如果你对 kubeadm 的工作方式有疑问，可以在 [Slack](https://slack.k8s.io/) 上的 `#kubeadm` 频道提问，
 或者在 [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes) 上提问。
