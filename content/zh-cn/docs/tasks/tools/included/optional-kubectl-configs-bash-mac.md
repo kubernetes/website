@@ -148,7 +148,7 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
 
     ```bash
     echo 'alias k=kubectl' >>~/.bash_profile
-    echo 'complete -F __start_kubectl k' >>~/.bash_profile
+    echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
     ```
 
 <!-- 
