@@ -104,7 +104,7 @@ Kubernetes 的许多高级功能都要求启用一个准入控制器，以便正
 ## How do I turn on an admission controller?
 -->
 
-## 如何启用一个准入控制器？  {how-do-i-turn-on-an-admission-controller}
+## 如何启用一个准入控制器？  {#how-do-i-turn-on-an-admission-controller}
 
 <!--
 The Kubernetes API server flag `enable-admission-plugins` takes a comma-delimited list of admission control plugins to invoke prior to modifying objects in the cluster.
