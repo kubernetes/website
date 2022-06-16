@@ -1230,7 +1230,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 
 在你更新一个 Deployment 的时候，或者计划更新它的时候，
 你可以在触发一个或多个更新之前暂停 Deployment 的上线过程。
-当你准备行应用这些变更时，你可以重新恢复 Deployment 上线过程。
+当你准备应用这些变更时，你可以重新恢复 Deployment 上线过程。
 这样做使得你能够在暂停和恢复执行之间应用多个修补程序，而不会触发不必要的上线操作。
 
 <!--
