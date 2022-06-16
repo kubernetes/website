@@ -2,7 +2,7 @@
 reviewers:
 - thockin
 - bowei
-content_type: concept
+content_type: task
 title: Debug Services
 weight: 20
 ---
