@@ -384,7 +384,7 @@ This is an example of a Pod that mounts a Secret named `mysecret` in a volume:
 1. 更改 Pod 定义，在 `.spec.volumes[]` 下添加一个卷。根据需要为卷设置其名称，
    并将 `.spec.volumes[].secret.secretName` 字段设置为 Secret 对象的名称。
 1. 为每个需要该 Secret 的容器添加 `.spec.containers[].volumeMounts[]`。
-   并将 `.spec.containers[].volumeMounts[].readyOnly` 设置为 `true`，
+   并将 `.spec.containers[].volumeMounts[].readOnly` 设置为 `true`，
    将 `.spec.containers[].volumeMounts[].mountPath` 设置为希望 Secret
    被放置的、目前尚未被使用的路径名。
 1. 更改你的镜像或命令行，以便程序读取所设置的目录下的文件。Secret 的 `data`
