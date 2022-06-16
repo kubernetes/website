@@ -11,13 +11,12 @@ feature:
 weight: 50
 -->
 ---
-reviewers:
 title: Jobs
 content_type: concept
 feature:
   title: バッチ実行
   description: >
-    サービスだけでなく、KubernetesはバッチとCIワークロードの管理機能も提供し、必要に応じて障害が発生したコンテナを引き換えることもできます。
+    サービスだけでなく、KubernetesはバッチとCIワークロードの管理機能も提供し、必要に応じて障害が発生したコンテナを置き換えることもできます。
 weight: 50
 ---
 
@@ -26,24 +25,24 @@ weight: 50
 <!--
 A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate. As pods successfully complete, the Job tracks the successful completions.  When a specified number of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up the Pods it created. Suspending a Job will delete its active Pods until the Job is resumed again.
 -->
-Jobは一つ以上のPodを作成し、指定された数のPodが正常に終了するまで、Podの実行を再試行し続けます。Podが正常に終了すると、Jobは成功したPodの数を追跡します。指定された完成数に達すると、タスク（つまりJob）の完成となります。Jobを削除すると、作成されたPodも一緒に削除されます。Jobを一時停止すると、再開されるまで、稼働しているPodは全部削除されます。
+Jobは一つ以上のPodを作成し、指定された数のPodが正常に終了するまで、Podの実行を再試行し続けます。Podが正常に終了すると、Jobは成功したPodの数を追跡します。指定された完成数に達すると、そのタスク(つまりJob)は完了したとみなされます。Jobを削除すると、作成されたPodも一緒に削除されます。Jobを一時停止すると、再開されるまで、稼働しているPodは全部削除されます。
 
 <!--
 A simple case is to create one Job object in order to reliably run one Pod to completion.
 The Job object will start a new Pod if the first Pod fails or is deleted (for example due to a node hardware failure or a node reboot).
 -->
-単純なケースを言うと、一つのPodが正常に完成するまで実行することを確保するため、一つのJobオブジェクトを作成します。
-一つ目のPodに障害が発生したり、削除されたり（例えばノードのハードウェア障害またノードの再起動が起こした場合）すると、Jobオブジェクトは新しいPodを作成してくれます。
+単純なケースを言うと、確実に一つのPodが正常に完了するまで実行されるよう、一つのJobオブジェクトを作成します。
+一つ目のPodに障害が発生したり、(例えばノードのハードウェア障害またノードの再起動が原因で)削除されたりすると、Jobオブジェクトは新しいPodを作成してくれます。
 
 <!--
 You can also use a Job to run multiple Pods in parallel.
 -->
-Jobで複数のPodを並行して実行することもできます。
+Jobで複数のPodを並列で実行することもできます。。
 
 <!--
 If you want to run a Job (either a single task, or several in parallel) on a schedule, see[CronJob](/docs concepts/workloads/controllers/cron-jobs/).
 -->
-スケジュールに沿ってJob（単一のタスクか複数タスク並行のいずれか）を実行したい場合は [CronJob](https://kubernetes.io/ja/docs/concepts/workloads/controllers/cron-jobs/)を参照してください。
+スケジュールに沿ってJob(単一のタスクか複数タスク並列のいずれか)を実行したい場合は [CronJob](/ja/docs/concepts/workloads/controllers/cron-jobs/)を参照してください。
 
 <!-- body -->
 
@@ -56,14 +55,14 @@ Running an example Job
 Here is an example Job config.  It computes π to 2000 places and prints it out.
 It takes around 10s to complete.
 -->
-下記にJobの定義例を記載しています。πの2000桁まで計算して出力するJobで、完成するまで約10秒かかります。
+下記にJobの定義例を記載しています。πの2000桁まで計算して出力するJobで、完了するまで約10秒かかります。
 
 {{< codenew file="controllers/job.yaml" >}}
 
 <!--
 You can run the example with this command:
 -->
-このコマンドで実行できます：
+このコマンドで実行できます:
 
 ```shell
 kubectl apply -f https://kubernetes.io/examples/controllers/job.yaml
@@ -72,7 +71,7 @@ kubectl apply -f https://kubernetes.io/examples/controllers/job.yaml
 <!--
 The output is similar to this:
 -->
-実行結果はこのようになります：
+実行結果はこのようになります:
 
 ```
 job.batch/pi created
@@ -81,7 +80,7 @@ job.batch/pi created
 <!--
 Check on the status of the Job with `kubectl`:
 -->
-`kubectl`でJobの状態を確認できます：
+`kubectl`でJobの状態を確認できます:
 
 ```shell
 kubectl describe jobs/pi
@@ -90,7 +89,7 @@ kubectl describe jobs/pi
 <!--
 The output is similar to this:
 -->
-実行結果はこのようになります：
+実行結果はこのようになります:
 
 ```
 Name:           pi
@@ -131,12 +130,12 @@ Events:
 <!--
 To view completed Pods of a Job, use `kubectl get pods`.
 -->
-Jobの完成したPodを確認するには、`kubectl get pods`を使います。
+Jobの完了したPodを確認するには、`kubectl get pods`を使います。
 
 <!--
 To list all the Pods that belong to a Job in a machine readable form, you can use a command like this:
 -->
-Jobに属するPodの一覧を機械可読形式で出力するには、下記のコマンドを使います：
+Jobに属するPodの一覧を機械可読形式で出力するには、下記のコマンドを使います:
 
 ```shell
 pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].metadata.name}')
@@ -146,7 +145,7 @@ echo $pods
 <!--
 The output is similar to this:
 -->
-出力結果はこのようになります：
+出力結果はこのようになります:
 
 ```
 pi-5rwd7
@@ -155,7 +154,7 @@ pi-5rwd7
 <!--
 Here, the selector is the same as the selector for the Job.  The `--output=jsonpath` option specifies an expression with the name from each Pod in the returned list.
 -->
-ここのセレクターはJobのセレクターと同じです。`--output=jsonpath`オプションは、返されたリストからPodのnameフィールドを選出するための表現です。
+ここのセレクターはJobのセレクターと同じです。`--output=jsonpath`オプションは、返されたリストからPodのnameフィールドを指定するための表現です。
 
 <!--
 View the standard output of one of the pods:
@@ -178,7 +177,7 @@ The output is similar to this:
 <!--
 Writing a Job spec
 -->
-## spec（仕様）の書き方  {#writing-a-job-spec}
+## Job spec(仕様)の書き方  {#writing-a-job-spec}
 
 <!--
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.
@@ -205,7 +204,7 @@ The `.spec.template` is the only required field of the `.spec`.
 <!--
 The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/#pod-templates). It has exactly the same schema as a {{< glossary_tooltip text="Pod" term_id="pod" >}}, except it is nested and does not have an `apiVersion` or `kind`.
 -->
-`.spec.template`の値は[podテンプレート](https://kubernetes.io/ja/docs/concepts/workloads/pods/#pod-template)で、ネストされていることと`apiVersion`と`kind`フィールドが不要になったことを除いて、定義仕様が{{< glossary_tooltip text="Pod" term_id="pod" >}}と全く同じです。
+`.spec.template`の値は[podテンプレート](/ja/docs/concepts/workloads/pods/#pod-template)で、ネストされていることと`apiVersion`と`kind`フィールドが不要になったことを除いて、仕様の定義がが{{< glossary_tooltip text="Pod" term_id="pod" >}}と全く同じです。
 
 <!--
 In addition to required fields for a Pod, a pod template in a Job must specify appropriate labels (see [pod selector](#pod-selector)) and an appropriate restart policy.
@@ -215,7 +214,7 @@ Podの必須フィールド以外、Job定義ファイルにあるPodテンプ�
 <!--
 Only a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Never` or `OnFailure` is allowed.
 -->
-[`RestartPolicy`](https://kubernetes.io/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)は`Never`か`OnFailure`にのみ設定可能です。
+[`RestartPolicy`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)は`Never`か`OnFailure`のみ設定可能です。
 
 <!--
 Pod selector
@@ -226,7 +225,7 @@ Pod selector
 The `.spec.selector` field is optional.  In almost all cases you should not specify it.
 See section [specifying your own pod selector](#specifying-your-own-pod-selector).
 -->
-`.spec.selector` フィールドはオプションです。ほとんどの場合はむしろ指定しないほうがいいです。
+`.spec.selector`フィールドはオプションです。ほとんどの場合はむしろ指定しないほうがいいです。
 [独自のPodセレクターを指定](#specifying-your-own-pod-selector)セクションを参照してください。
 
 <!--
@@ -237,7 +236,7 @@ Parallel execution for Jobs
 <!--
 There are three main types of task suitable to run as a Job:
 -->
-Jobで実行するのに適したタスクは主に3種類あります：
+Jobで実行するのに適したタスクは主に3種類あります:
 
 <!--
 1. Non-parallel Jobs
@@ -246,23 +245,23 @@ Jobで実行するのに適したタスクは主に3種類あります：
 -->
 1. 非並列Job
    - 通常、Podに障害が発生しない限り、一つのPodのみが起動されます。
-   - Podが正常に終了すると、Jobの完成となります。
+   - Podが正常に終了すると、Jobの完了となります。
 <!--
 2. Parallel Jobs with a *fixed completion count*:
    - specify a non-zero positive value for `.spec.completions`.
    - the Job represents the overall task, and is complete when there are `.spec.completions` successful Pods.
    - when using `.spec.completionMode="Indexed"`, each Pod gets a different index in the range 0 to `.spec.completions-1`.
 -->
-2. *一定の完成数*が決められた並列Job：
+2. *一定の完了数*が決められた並列Job：
    - `.spec.completions`に正の値を指定します。
-   - Jobは全体的なタスクを表し、`.spec.completions`個のPodが成功すると、Jobの完成となります。
+   - Jobは全体的なタスクを表し、`.spec.completions`個のPodが成功すると、Jobの完了となります。
    - `.spec.completionMode="Indexed"`を利用する場合、各Podは0から`.spec.completions-1`までの範囲内のインデックスをアサインされます。
 <!--
 3. Parallel Jobs with a *work queue*:
    - do not specify `.spec.completions`, default to `.spec.parallelism`.
 -->
-3. *ワークキュー*を利用した並列Job：
-   - `.spec.completions`の設定はしない、デフォルトは`.spec.parallelism`となります。
+3. *ワークキュー*を利用した並列Job:
+   - `.spec.completions`の設定はせず、デフォルトは`.spec.parallelism`となります。
 <!--
    - the Pods must coordinate amongst themselves or an external service to determine what each should work on. For example, a Pod might fetch a batch of up to N items from the work queue.
 -->
@@ -278,7 +277,7 @@ Jobで実行するのに適したタスクは主に3種類あります：
 <!--
    - once at least one Pod has terminated with success and all Pods are terminated, then the Job is completed with success.
 -->
-   - 一つ以上のPodが成功に終了し、すべてのPodが終了すると、Jobの成功終了となります。
+   - 一つ以上のPodが正常に終了し、すべてのPodが終了すると、Jobは成功終了とみなされます。
 <!--
    - once any Pod has exited with success, no other Pod should still be doing any work for this task or writing any output.  They should all be in the process of exiting.
 -->
@@ -292,7 +291,7 @@ For a _non-parallel_ Job, you can leave both `.spec.completions` and `.spec.para
 <!--
 For a _fixed completion count_ Job, you should set `.spec.completions` to the number of completions needed. You can set `.spec.parallelism`, or leave it unset and it will default to 1.
 -->
- _完成数一定_ 並列Jobの場合、`.spec.completions`を必要完成数に設定する必要があります。
+ _完成数一定_ 並列Jobの場合、`.spec.completions`を必要完了数に設定する必要があります。
 `.spec.parallelism`を設定してもいいですし、未設定の場合、デフォルトで1になります。
 
 <!--
@@ -327,15 +326,15 @@ Actual parallelism (number of pods running at any instant) may be more or less t
 <!--
 - For _fixed completion count_ Jobs, the actual number of pods running in parallel will not exceed the number of remaining completions.   Higher values of `.spec.parallelism` are effectively ignored.
 -->
--  _完成数一定_ 並列Jobの場合、実際に並行して実行されるPodの数は、残りの完成数を超えることはありません。 `.spec.parallelism`の値が高い場合は無視されます。
+-  _完成数一定_ Jobの場合、実際に並列して実行されるPodの数は、残りの完成数を超えることはありません。 `.spec.parallelism`の値が高い場合は無視されます。
 <!--
 - For _work queue_ Jobs, no new Pods are started after any Pod has succeeded -- remaining Pods are allowed to complete, however.
 -->
--  _ワークキュー_ 並列Jobの場合、任意のPodが成功すると、新しいPodは作成されません。ただし、残りのPodは終了まで実行し続けられます。
+-  _ワークキュー_ Jobの場合、任意のPodが成功すると、新しいPodは作成されません。ただし、残りのPodは終了まで実行し続けられます。
 <!--
 - If the Job {{< glossary_tooltip term_id="controller" >}} has not had time to react.
 -->
-- Job{{< glossary_tooltip text="コントローラー" term_id="controller" >}}の応答する時間がなかった場合、または
+- Job{{< glossary_tooltip text="コントローラー" term_id="controller" >}}の応答する時間がなかった場合
 <!--
 - If the Job controller failed to create Pods for any reason (lack of `ResourceQuota`, lack of permission, etc.),
   then there may be fewer pods than requested.
