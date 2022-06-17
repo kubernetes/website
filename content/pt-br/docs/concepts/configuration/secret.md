@@ -65,7 +65,7 @@ A camada de gerenciamento do Kubernetes também utiliza Secrets. Por exemplo,
 os [Secrets de tokens de autoinicialização](#bootstrap-token-secrets) são um
 mecanismo que auxilia a automação do registro de nós.
 
-O nome de um Secret deve ser um [subdomínio DNS válido](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+O nome de um Secret deve ser um [subdomínio DNS válido](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 Você pode especificar o campo `data` e/ou o campo `stringData` na criação de um
 arquivo de configuração de um Secret. Ambos os campos `data` e `stringData` são
 opcionais. Os valores das chaves no campo `data` devem ser strings codificadas
