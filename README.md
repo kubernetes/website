@@ -36,10 +36,10 @@ git submodule update --init --recursive --depth 1
 
 ## Running the website using a container
 
-To build the site in a container, run the following to build the container image and run it:
+To build the site in a container, run the following:
 
 ```bash
-make container-image
+# You can set $CONTAINER_ENGINE to the name of any Docker-like container tool
 make container-serve
 ```
 

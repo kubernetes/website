@@ -77,7 +77,7 @@ container-push: container-image ## Push container image for the preview of the w
 container-build: module-check
 	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development"
 
-container-serve: module-check ## Boot the development server using container. Run `make container-image` before this.
+container-serve: module-check ## Boot the development server using container.
 	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir
 
 test-examples:
