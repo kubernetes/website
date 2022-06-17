@@ -27,9 +27,12 @@ content_type: concept
 
 1. My pods show status as `ErrImgPull` or `ImagePullBackOff`
 
-   Ensure that your Pod is getting scheduled to a [compatable](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) Windows Node.
+   Ensure that your Pod is getting scheduled to a
+   [compatible](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility)
+   Windows Node.
 
-   More information on how to specify a compatable node for your Pod can be found in [this guide](/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
+   More information on how to specify a compatible node for your Pod can be found in
+   [this guide](/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
 
 ## Network troubleshooting {#troubleshooting-network}
 
