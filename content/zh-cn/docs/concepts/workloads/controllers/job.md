@@ -475,12 +475,12 @@ in the API.
 
 计算重试次数有以下两种方法：
 - 计算 `.status.phase = "Failed"` 的 Pod 数量。
-- 当 Pod 的 `restartPolicy = "OnFailure"` 时，计算 Pod 中所有容器的重试次数
-  和 Pod `.status.phase` 等于 `Pending` 或 `Running` 的次数。
+- 当 Pod 的 `restartPolicy = "OnFailure"` 时，针对 `.status.phase` 等于 `Pending` 或
+  `Running` 的 Pod，计算其中所有容器的重试次数。
 
 如果两种方式其中一个的值达到 `.spec.backoffLimit`，则 Job 被判定为失败。
 
-当 [`JobTrackingWithFinalizers`](#job-tracking-with-finalizers) 功能被关闭时，
+当 [`JobTrackingWithFinalizers`](#job-tracking-with-finalizers) 特性被禁用时，
 失败的 Pod 数目仅基于 API 中仍然存在的 Pod。
 
 <!--
