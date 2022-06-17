@@ -473,6 +473,7 @@
 /values/     /community/values/   302
 
 /docs/setup/version-skew-policy/     /docs/setup/release/version-skew-policy/   301
+/releases/version-skew-policy/     /docs/setup/release/version-skew-policy/   301
 
 /docs/setup/minikube/     /docs/tasks/tools/ 302
 /docs/setup/learning-environment/     /docs/tasks/tools/  302!
