@@ -438,8 +438,8 @@ to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more co
 case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
 For an HTTP probe, the kubelet sends two request headers in addition to the mandatory `Host` header:
-`User-Agent`, and `Accept`. The default values for these headers are `kube-probe/{{< skew latestVersion >}}`
-(where `{{< skew latestVersion >}}` is the version of the kubelet ), and `*/*` respectively.
+`User-Agent`, and `Accept`. The default values for these headers are `kube-probe/{{< skew currentVersion >}}`
+(where `{{< skew currentVersion >}}` is the version of the kubelet ), and `*/*` respectively.
 
 You can override the default headers by defining `.httpHeaders` for the probe; for example
 
