@@ -26,7 +26,7 @@ This page describes security considerations and best practices specific to the W
 <!--
 ## Protection for Secret data on nodes
 -->
-## 保护节点上的 Secret 数据
+## 保护节点上的 Secret 数据   {#protection-for-secret-data-on-nodes}
 
 <!--
 On Windows, data from Secrets are written out in clear text onto the node's local
@@ -48,7 +48,7 @@ operator, you should take both of the following additional measures:
 <!--
 ## Container users
 -->
-## 容器用户
+## 容器用户   {#container-users}
 
 <!--
 [RunAsUsername](/docs/tasks/configure-pod-container/configure-runasusername)
@@ -57,7 +57,7 @@ processes as specific user. This is roughly equivalent to
 [RunAsUser](/docs/concepts/policy/pod-security-policy/#users-and-groups).
 -->
 可以为 Windows Pod 或容器指定 [RunAsUsername](/zh/docs/tasks/configure-pod-container/configure-runasusername)
-以作为特定用户执行容器进程。这大致相当于 [RunAsUser](/zh/docs/concepts/policy/pod-security-policy/#users-and-groups)。
+以作为特定用户执行容器进程。这大致相当于 [RunAsUser](/zh-cn/docs/concepts/security/pod-security-policy/#users-and-groups)。
 
 <!--
 Windows containers offer two default user accounts, ContainerUser and ContainerAdministrator.
@@ -92,7 +92,7 @@ Active Directory 身份运行。
 <!--
 ## Pod-level security isolation
 -->
-## Pod 级安全隔离
+## Pod 级安全隔离   {#pod-level-security-isolation}
 
 <!--
 Linux-specific pod security context mechanisms (such as SELinux, AppArmor, Seccomp, or custom
