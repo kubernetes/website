@@ -31,7 +31,7 @@ admission controller. This can be done effectively using a combination of dry-ru
 <!--
 - Ensure the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) is enabled.
 -->
-- 确保 `PodSecurity` [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)被启用。
+- 确保 `PodSecurity` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用。
 
 <!--
 This page assumes you are already familiar with the basic [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
@@ -307,7 +307,7 @@ need to be handled on a case-by-case basis later:
 - `.spec.allowPrivilegeEscalation` - (Only mutating if set to `false`) required for the Restricted
   profile.
 -->
-- `.spec.requiredDropCapabilities` - 需要此字段来为 Restricted 配置去掉 `ALL` 设置。 
+- `.spec.requiredDropCapabilities` - 需要此字段来为 Restricted 配置去掉 `ALL` 设置。
 - `.spec.seLinux` - （仅针对带有 `MustRunAs` 规则的变更性设置）需要此字段来满足
   Baseline 和 Restricted 配置所需要的 SELinux 需求。
 - `.spec.runAsUser` - （仅针对带有 `RunAsAny` 规则的非变更性设置）需要此字段来为
@@ -556,7 +556,7 @@ Finally, you can effectively bypass PodSecurityPolicy at the namespace level by 
 accounts in the namespace.
 -->
 最后，你可以通过将
-{{< example file="policy/privileged-psp.yaml" >}}完全特权的 PSP{{< /example >}} 
+{{< example file="policy/privileged-psp.yaml" >}}完全特权的 PSP{{< /example >}}
 绑定到某名字空间中所有服务账户上，在名字空间层面绕过所有 PodSecurityPolicy。
 
 ```sh
@@ -594,7 +594,7 @@ kubectl delete -n $NAMESPACE rolebinding disable-psp
 <!--
 ## 4. Review namespace creation processes {#review-namespace-creation-process}
 -->
-## 4. 审阅名字空间创建过程  {#review-namespace-creation-process}  
+## 4. 审阅名字空间创建过程  {#review-namespace-creation-process}
 
 <!--
 Now that existing namespaces have been updated to enforce Pod Security Admission, you should ensure
@@ -639,7 +639,7 @@ controller plugins:
 -->
 如果需要验证 PodSecurityPolicy 准入控制器不再被启用，你可以通过扮演某个无法访问任何
 PodSecurityPolicy 的用户来执行测试（参见
-[PodSecurityPolicy 示例](/zh/docs/concepts/policy/pod-security-policy/#example)），
+[PodSecurityPolicy 示例](/zh-cn/docs/concepts/security/pod-security-policy/#example)），
 或者通过检查 API 服务器的日志来进行验证。在启动期间，API
 服务器会输出日志行，列举所挂载的准入控制器插件。
 
