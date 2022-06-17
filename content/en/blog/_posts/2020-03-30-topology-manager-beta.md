@@ -392,7 +392,7 @@ The above algorithm results in the following set of cross-product entries and "m
    <td align="center">
     <strong><code>{{10:  True}, {10: True}, {10: True}}</code></strong>
    </td>
-   <td align="center"><strong><code>{01:  True}</code></strong>
+   <td align="center"><strong><code>{10:  True}</code></strong>
    </td>
   </tr>
   <tr>
