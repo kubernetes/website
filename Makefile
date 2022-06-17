@@ -32,7 +32,7 @@ build: module-check ## Build site with non-production settings and put deliverab
 	hugo --minify --environment development
 
 build-preview: module-check ## Build site with drafts and future posts enabled
-	hugo --buildDrafts --buildFuture --environment preview
+	hugo --buildDrafts --buildFuture --environment preview --panicOnWarning
 
 deploy-preview: ## Deploy preview site via netlify
 	hugo --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
