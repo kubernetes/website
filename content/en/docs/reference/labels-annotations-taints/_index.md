@@ -517,7 +517,7 @@ for more information.
 
 ### pod-security.kubernetes.io/enforce-version
 
-Example: `pod-security.kubernetes.io/enforce-version: {{< skew latestVersion >}}`
+Example: `pod-security.kubernetes.io/enforce-version: {{< skew currentVersion >}}`
 
 Used on: Namespace
 
@@ -544,7 +544,7 @@ for more information.
 
 ### pod-security.kubernetes.io/audit-version
 
-Example: `pod-security.kubernetes.io/audit-version: {{< skew latestVersion >}}`
+Example: `pod-security.kubernetes.io/audit-version: {{< skew currentVersion >}}`
 
 Used on: Namespace
 
@@ -573,7 +573,7 @@ for more information.
 
 ### pod-security.kubernetes.io/warn-version
 
-Example: `pod-security.kubernetes.io/warn-version: {{< skew latestVersion >}}`
+Example: `pod-security.kubernetes.io/warn-version: {{< skew currentVersion >}}`
 
 Used on: Namespace
 
