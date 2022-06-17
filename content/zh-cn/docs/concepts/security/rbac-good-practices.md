@@ -215,7 +215,7 @@ You can also use the deprecated [PodSecurityPolicy](/docs/concepts/policy/pod-se
 to restrict users' abilities to create privileged Pods (N.B. PodSecurityPolicy is scheduled for removal
 in version 1.25).
 -->
-你还可以使用已弃用的 [PodSecurityPolicy](/zh/docs/concepts/policy/pod-security-policy/)
+你还可以使用已弃用的 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)
 机制以限制用户创建特权 Pod 的能力 （特别注意：PodSecurityPolicy 已计划在版本 1.25 中删除）。
 
 <!--
@@ -235,7 +235,7 @@ PersistentVolumes, and constrained users should use PersistentVolumeClaims to ac
 -->
 ### 持久卷的创建 {#persistent-volume-creation}
 
-如 [PodSecurityPolicy](/zh/docs/concepts/policy/pod-security-policy/#volumes-and-file-systems) 
+如 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/#volumes-and-file-systems) 
 文档中所述，创建 PersistentVolumes 的权限可以提权访问底层主机。
 如果需要访问 PersistentVolume，受信任的管理员应该创建 `PersistentVolume`，
 受约束的用户应该使用 `PersistentVolumeClaim` 访问该存储。
