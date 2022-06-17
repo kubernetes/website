@@ -1,5 +1,5 @@
 ---
-title: Name
+title: Nome
 id: name
 date: 2018-04-12
 full_link: /pt-br/docs/concepts/overview/working-with-objects/names
