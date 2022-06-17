@@ -450,9 +450,19 @@ due to a logical error in configuration etc.
 To do so, set `.spec.backoffLimit` to specify the number of retries before
 considering a Job as failed. The back-off limit is set by default to 6. Failed
 Pods associated with the Job are recreated by the Job controller with an
-exponential back-off delay (10s, 20s, 40s ...) capped at six minutes. The
-back-off count is reset when a Job's Pod is deleted or successful without any
-other Pods for the Job failing around that time.
+exponential back-off delay (10s, 20s, 40s ...) capped at six minutes. 
+
+The number of retries is calculated in two ways:
+- The number of Pods with `.status.phase = "Failed"`.
+- When using `restartPolicy = "OnFailure"`, the number of retries in all the
+  containers of Pods with `.status.phase` equal to `Pending` or `Running`.
+
+If either of the calculations reaches the `.spec.backoffLimit`, the Job is
+considered failed.
+
+When the [`JobTrackingWithFinalizers`](#job-tracking-with-finalizers) feature is
+disabled, the number of failed Pods is only based on Pods that are still present
+in the API.
 -->
 ### Pod 回退失效策略    {#pod-backoff-failure-policy}
 
@@ -462,7 +472,16 @@ other Pods for the Job failing around that time.
 失效回退的限制值默认为 6。
 与 Job 相关的失效的 Pod 会被 Job 控制器重建，回退重试时间将会按指数增长
 （从 10 秒、20 秒到 40 秒）最多至 6 分钟。
-当 Job 的 Pod 被删除时，或者 Pod 成功时没有其它 Pod 处于失败状态，失效回退的次数也会被重置（为 0）。
+
+计算重试次数有以下两种方法：
+- 计算 `.status.phase = "Failed"` 的 Pod 数量。
+- 当 Pod 的 `restartPolicy = "OnFailure"` 时，针对 `.status.phase` 等于 `Pending` 或
+  `Running` 的 Pod，计算其中所有容器的重试次数。
+
+如果两种方式其中一个的值达到 `.spec.backoffLimit`，则 Job 被判定为失败。
+
+当 [`JobTrackingWithFinalizers`](#job-tracking-with-finalizers) 特性被禁用时，
+失败的 Pod 数目仅基于 API 中仍然存在的 Pod。
 
 <!--
 If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
