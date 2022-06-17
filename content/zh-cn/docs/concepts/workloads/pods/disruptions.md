@@ -60,7 +60,7 @@ an application.  Examples are:
 - 云提供商或虚拟机管理程序中的故障导致的虚拟机消失
 - 内核错误
 - 节点由于集群网络隔离从集群中消失
-- 由于节点[资源不足](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)导致 pod 被驱逐。
+- 由于节点[资源不足](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)导致 pod 被驱逐。
 
 <!--
 Except for the out-of-resources condition, all these conditions
@@ -98,7 +98,7 @@ Cluster Administrator actions include:
 -->
 集群管理员操作包括：
 
-- [排空（drain）节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)进行修复或升级。
+- [排空（drain）节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)进行修复或升级。
 - 从集群中排空节点以缩小集群（了解[集群自动扩缩](https://github.com/kubernetes/autoscaler/#readme)）。
 - 从节点中移除一个 Pod，以允许其他 Pod 使用该节点。
 
@@ -145,13 +145,13 @@ and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/)
   or across zones (if using a
   [multi-zone cluster](/docs/setup/multiple-zones).)
 -->
-- 确保 Pod 在请求中给出[所需资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)。
+- 确保 Pod 在请求中给出[所需资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)。
 - 如果需要更高的可用性，请复制应用程序。
-  （了解有关运行多副本的[无状态](/zh/docs/tasks/run-application/run-stateless-application-deployment/)
-  和[有状态](/zh/docs/tasks/run-application/run-replicated-stateful-application/)应用程序的信息。）
+  （了解有关运行多副本的[无状态](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
+  和[有状态](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)应用程序的信息。）
 - 为了在运行复制应用程序时获得更高的可用性，请跨机架（使用
-  [反亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
-  或跨区域（如果使用[多区域集群](/zh/docs/setup/best-practices/multiple-zones/)）扩展应用程序。
+  [反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+  或跨区域（如果使用[多区域集群](/zh-cn/docs/setup/best-practices/multiple-zones/)）扩展应用程序。
 
 <!--
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
@@ -170,7 +170,7 @@ in your pod spec can also cause voluntary (and involuntary) disruptions.
 实现可能导致碎片整理和紧缩节点的自愿干扰。集群
 管理员或托管提供商应该已经记录了各级别的自愿干扰（如果有的话）。
 有些配置选项，例如在 pod spec 中
-[使用 PriorityClasses](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+[使用 PriorityClasses](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 也会产生自愿（和非自愿）的干扰。
 
 <!--
@@ -213,7 +213,7 @@ instead of directly deleting pods or deployments.  Examples are the `kubectl dra
 and the Kubernetes-on-GCE cluster upgrade script (`cluster/gce/upgrade.sh`).
 -->
 集群管理员和托管提供商应该使用遵循 PodDisruptionBudgets 的接口
-（通过调用[Eviction API](/zh/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
+（通过调用[Eviction API](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
 而不是直接删除 Pod 或 Deployment。
 
 <!--
@@ -277,7 +277,7 @@ hornoring the
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 当使用驱逐 API 驱逐 Pod 时，Pod 会被体面地
-[终止](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，期间会
+[终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，期间会
 参考 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 中的 `terminationGracePeriodSeconds` 配置值。
 
@@ -506,7 +506,7 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 * Learn about [updating a deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   including steps to maintain its availability during the rollout.
 -->
-* 参考[配置 Pod 干扰预算](/zh/docs/tasks/run-application/configure-pdb/)中的方法来保护你的应用。
-* 进一步了解[排空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)的信息。
-* 了解[更新 Deployment](/zh/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
+* 参考[配置 Pod 干扰预算](/zh-cn/docs/tasks/run-application/configure-pdb/)中的方法来保护你的应用。
+* 进一步了解[排空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+* 了解[更新 Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性

@@ -41,7 +41,7 @@ In normal operation of a StatefulSet, there is **never** a need to force delete 
 ## StatefulSet 注意事项
 
 在 StatefulSet 的正常操作中，**永远不**需要强制删除 StatefulSet 管理的 Pod。
-[StatefulSet 控制器](/zh/docs/concepts/workloads/controllers/statefulset/)负责创建、
+[StatefulSet 控制器](/zh-cn/docs/concepts/workloads/controllers/statefulset/)负责创建、
 扩缩和删除 StatefulSet 管理的 Pods。它尝试确保指定数量的从序数 0 到 N-1 的 Pod
 处于活跃状态并准备就绪。StatefulSet 确保在任何时候，集群中最多只有一个具有给定标识的 Pod。
 这就是所谓的由 StatefulSet 提供的*最多一个（At Most One）*的语义。
@@ -73,7 +73,7 @@ For the above to lead to graceful termination, the Pod **must not** specify a `p
 为了让上面操作能够体面地终止 Pod，Pod **一定不能** 设置 `pod.Spec.TerminationGracePeriodSeconds` 为 0。
 将 `pod.Spec.TerminationGracePeriodSeconds` 设置为 0s 的做法是不安全的，强烈建议 StatefulSet 类型的
 Pod 不要使用。体面删除是安全的，并且会在 kubelet 从 API 服务器中删除资源名称之前确保
-[体面地结束 pod ](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+[体面地结束 pod ](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!--
 A Pod is not deleted automatically when a Node is unreachable.
@@ -85,7 +85,7 @@ The only ways in which a Pod in such a state can be removed from the apiserver a
 -->
 当某个节点不可达时，不会引发自动删除 Pod。
 在无法访问的节点上运行的 Pod 在
-[超时](/zh/docs/concepts/architecture/nodes/#condition)
+[超时](/zh-cn/docs/concepts/architecture/nodes/#condition)
 后会进入'Terminating' 或者 'Unknown' 状态。
 当用户尝试体面地删除无法访问的节点上的 Pod 时 Pod 也可能会进入这些状态。
 从 API 服务器上删除处于这些状态 Pod 的仅有可行方法如下：
@@ -95,7 +95,7 @@ The only ways in which a Pod in such a state can be removed from the apiserver a
    * The kubelet on the unresponsive Node starts responding, kills the Pod and removes the entry from the apiserver.<br/>
    * Force deletion of the Pod by the user.
 -->
-* 删除 Node 对象（要么你来删除, 要么[节点控制器](/zh/docs/concepts/architecture/nodes/#node-controller)
+* 删除 Node 对象（要么你来删除, 要么[节点控制器](/zh-cn/docs/concepts/architecture/nodes/#node-controller)
   来删除）
 * 无响应节点上的 kubelet 开始响应，杀死 Pod 并从 API 服务器上移除 Pod 对象
 * 用户强制删除 pod
@@ -171,6 +171,6 @@ Always perform force deletion of StatefulSet Pods carefully and with complete kn
 <!--
 Learn more about [debugging a StatefulSet](/docs/tasks/debug/debug-application/debug-statefulset/).
 -->
-进一步了解[调试 StatefulSet](/zh/docs/tasks/debug/debug-application/debug-statefulset/)。
+进一步了解[调试 StatefulSet](/zh-cn/docs/tasks/debug/debug-application/debug-statefulset/)。
 
 

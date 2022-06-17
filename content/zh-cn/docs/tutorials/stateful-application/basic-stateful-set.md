@@ -19,7 +19,7 @@ This tutorial provides an introduction to managing applications with
 demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 -->
 
-本教程介绍了如何使用 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/) 来管理应用。
+本教程介绍了如何使用 [StatefulSets](/zh-cn/docs/concepts/workloads/controllers/statefulset/) 来管理应用。
 演示了如何创建、删除、扩容/缩容和更新 StatefulSets 的 Pods。
 
 
@@ -34,13 +34,13 @@ following Kubernetes concepts.
 
 在开始本教程之前，你应该熟悉以下 Kubernetes 的概念：
 
-* [Pods](/zh/docs/concepts/workloads/pods/)
-* [Cluster DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/zh/docs/concepts/services-networking/service/#headless-services)
-* [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
+* [Pods](/zh-cn/docs/concepts/workloads/pods/)
+* [Cluster DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
+* [Headless Services](/zh-cn/docs/concepts/services-networking/service/#headless-services)
+* [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
-* [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/)
-* [kubectl CLI](/zh/docs/user-guide/kubectl/)
+* [StatefulSets](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
+* [kubectl CLI](/zh-cn/docs/user-guide/kubectl/)
 
 <!--
 This tutorial assumes that your cluster is configured to dynamically provision
@@ -101,8 +101,8 @@ It creates a [headless Service](/docs/concepts/services-networking/service/#head
 ## 创建 StatefulSet
 
 
-作为开始，使用如下示例创建一个 StatefulSet。它和 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/) 概念中的示例相似。
-它创建了一个 [Headless Service](/zh/docs/concepts/services-networking/service/#headless-services) `nginx` 用来发布 StatefulSet `web` 中的 Pod 的 IP 地址。
+作为开始，使用如下示例创建一个 StatefulSet。它和 [StatefulSets](/zh-cn/docs/concepts/workloads/controllers/statefulset/) 概念中的示例相似。
+它创建了一个 [Headless Service](/zh-cn/docs/concepts/services-networking/service/#headless-services) `nginx` 用来发布 StatefulSet `web` 中的 Pod 的 IP 地址。
 
 {{< codenew file="application/web/web.yaml" >}}
 
@@ -117,7 +117,7 @@ of the StatefulSet's Pods.
 下载上面的例子并保存为文件 `web.yaml`。
 
 
-你需要使用两个终端窗口。 在第一个终端中，使用 [`kubectl get`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#get)  来查看 StatefulSet 的 Pods 的创建情况。
+你需要使用两个终端窗口。 在第一个终端中，使用 [`kubectl get`](/zh-cn/docs/user-guide/kubectl/{{< param "version" >}}/#get)  来查看 StatefulSet 的 Pods 的创建情况。
 
 ```shell
 kubectl get pods -w -l app=nginx
@@ -129,7 +129,7 @@ In the second terminal, use
 Headless Service and StatefulSet defined in `web.yaml`.
 -->
 
-在另一个终端中，使用 [`kubectl apply`](/zh/docs/reference/generated/kubectl/kubectl-commands/#apply) 来创建定义在 `web.yaml` 中的 Headless Service 和 StatefulSet。
+在另一个终端中，使用 [`kubectl apply`](/zh-cn/docs/reference/generated/kubectl/kubectl-commands/#apply) 来创建定义在 `web.yaml` 中的 Headless Service 和 StatefulSet。
 
 ```shell
 kubectl apply -f web.yaml
@@ -202,7 +202,7 @@ web-1     1/1       Running   0         18s
 Notice that the `web-1` Pod is not launched until the `web-0` Pod is
 [Running and Ready](/docs/user-guide/pod-states).
 -->
-请注意在 `web-0` Pod 处于 [Running和Ready](/zh/docs/user-guide/pod-states) 状态后 `web-1` Pod 才会被启动。
+请注意在 `web-0` Pod 处于 [Running和Ready](/zh-cn/docs/user-guide/pod-states) 状态后 `web-1` Pod 才会被启动。
 
 <!--
 ## Pods in a StatefulSet
@@ -250,7 +250,7 @@ Each Pod has a stable hostname based on its ordinal index. Use
 `hostname` command in each Pod.
 -->
 
-如同 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/) 概念中所提到的， 
+如同 [StatefulSets](/zh-cn/docs/concepts/workloads/controllers/statefulset/) 概念中所提到的， 
 StatefulSet 中的 Pod 拥有一个具有黏性的、独一无二的身份标志。
 这个标志基于 StatefulSet 控制器分配给每个 Pod 的唯一顺序索引。
 Pod 的名称的形式为`<statefulset name>-<ordinal index>`。
@@ -258,7 +258,7 @@ Pod 的名称的形式为`<statefulset name>-<ordinal index>`。
 
 ### 使用稳定的网络身份标识
 
-每个 Pod 都拥有一个基于其顺序索引的稳定的主机名。使用[`kubectl exec`](/zh/docs/reference/generated/kubectl/kubectl-commands/#exec)在每个 Pod 中执行`hostname`。
+每个 Pod 都拥有一个基于其顺序索引的稳定的主机名。使用[`kubectl exec`](/zh-cn/docs/reference/generated/kubectl/kubectl-commands/#exec)在每个 Pod 中执行`hostname`。
 
 ```shell
 for i in 0 1; do kubectl exec "web-$i" -- sh -c 'hostname'; done
@@ -275,7 +275,7 @@ Using `nslookup` on the Pods' hostnames, you can examine their in-cluster DNS
 addresses.
 -->
 
-使用 [`kubectl run`](/zh/docs/reference/generated/kubectl/kubectl-commands/#run) 
+使用 [`kubectl run`](/zh-cn/docs/reference/generated/kubectl/kubectl-commands/#run) 
 运行一个提供 `nslookup` 命令的容器，该命令来自于 `dnsutils` 包。
 通过对 Pod 的主机名执行 `nslookup`，你可以检查他们在集群内部的 DNS 地址。
 
@@ -331,7 +331,7 @@ In a second terminal, use
 the Pods in the StatefulSet.
 -->
 
-在另一个终端中使用 [`kubectl delete`](/zh/docs/reference/generated/kubectl/kubectl-commands/#delete) 删除 StatefulSet 中所有的 Pod。
+在另一个终端中使用 [`kubectl delete`](/zh-cn/docs/reference/generated/kubectl/kubectl-commands/#delete) 删除 StatefulSet 中所有的 Pod。
 
 ```shell
 kubectl delete pod -l app=nginx
@@ -480,7 +480,7 @@ Write the Pods' hostnames to their `index.html` files and verify that the NGINX
 webservers serve the hostnames.
 -->
 
-StatefulSet 控制器创建了两个 PersistentVolumeClaims，绑定到两个 [PersistentVolumes](/zh/docs/concepts/storage/volumes/)。由于本教程使用的集群配置为动态提供 PersistentVolume，所有的 PersistentVolume 都是自动创建和绑定的。
+StatefulSet 控制器创建了两个 PersistentVolumeClaims，绑定到两个 [PersistentVolumes](/zh-cn/docs/concepts/storage/volumes/)。由于本教程使用的集群配置为动态提供 PersistentVolume，所有的 PersistentVolume 都是自动创建和绑定的。
 
 
 NGINX web 服务器默认会加载位于 `/usr/share/nginx/html/index.html` 的 index 文件。
@@ -604,8 +604,8 @@ In one terminal window, watch the Pods in the StatefulSet.
 ## 扩容/缩容 StatefulSet
 
 扩容/缩容 StatefulSet 指增加或减少它的副本数。这通过更新 `replicas` 字段完成。
-你可以使用[`kubectl scale`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#scale) 
-或者[`kubectl patch`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#patch)来扩容/缩容一个 StatefulSet。
+你可以使用[`kubectl scale`](/zh-cn/docs/user-guide/kubectl/{{< param "version" >}}/#scale) 
+或者[`kubectl patch`](/zh-cn/docs/user-guide/kubectl/{{< param "version" >}}/#patch)来扩容/缩容一个 StatefulSet。
 
 
 ### 扩容
@@ -1244,7 +1244,7 @@ command. This parameter tells Kubernetes to only delete the StatefulSet, and to
 not delete any of its Pods.
 -->
 
-使用 [`kubectl delete`](/zh/docs/reference/generated/kubectl/kubectl-commands/#delete) 删除 StatefulSet。
+使用 [`kubectl delete`](/zh-cn/docs/reference/generated/kubectl/kubectl-commands/#delete) 删除 StatefulSet。
 请确保提供了 `--cascade=orphan` 参数给命令。这个参数告诉 Kubernetes 只删除 StatefulSet 而不要删除它的任何 Pod。
 
 ```shell

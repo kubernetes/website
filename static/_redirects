@@ -20,6 +20,7 @@
 /vi/docs/     /vi/docs/home/ 301!
 /zh/docs/     /zh-cn/docs/home/ 301!
 /zh-cn/docs/     /zh-cn/docs/home/ 301!
+/zh-tw/docs/     /zh-tw/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
 /blog/2020/08/25/kubernetes-release-1.19-accentuate-the-paw-sitive/     /blog/2020/08/26/kubernetes-release-1.19-accentuate-the-paw-sitive/     301!
 /docs/admin/     /docs/concepts/cluster-administration/ 301

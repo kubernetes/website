@@ -1,0 +1,224 @@
+---
+title: Squarespace 案例分析
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+---
+
+<!--
+---
+title: Squarespace Case Study
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+---
+-->
+
+<!-- <div class="banner1 desktop" style="background-image: url('/images/case-studies/squarespace/banner1.jpg')">
+  <h1> CASE STUDY:<img src="/images/squarespace_logo.png" class="header_logo"><br>
+    <div class="subhead">Squarespace: Gaining Productivity and Resilience with Kubernetes</div>
+  </h1>
+</div> -->
+
+<div class="banner1 desktop" style="background-image: url('/images/case-studies/squarespace/banner1.jpg')">
+  <h1> 案例分析：<img src="/images/squarespace_logo.png" class="header_logo"><br>
+    <div class="subhead">Squarespace: 借力 Kubernetes 提升效率和可靠性</div>
+  </h1>
+</div>
+
+<!-- <div class="details">
+    Company &nbsp;<b>Squarespace</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>New York, N.Y.</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Software as a Service, Website-Building Platform</b>
+</div> -->
+
+<div class="details">
+    公司名 &nbsp;<b>Squarespace</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地址 &nbsp;<b>紐約市，紐約州</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行業 &nbsp;<b>軟體服務，網站構建平臺</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1">
+    <!-- <h2>Challenge</h2>
+    Moving from a monolith to microservices in 2014 "solved a problem on the development side, but it pushed that problem to the infrastructure team," says Kevin Lynch, Staff Engineer on the Site Reliability team at Squarespace. "The infrastructure deployment process on our 5,000 VM hosts was slowing everyone down." -->
+    <h2>挑戰</h2>
+    自從 2014 年，我們從 monolith 架構移植到微服務架構，
+    “雖然解決了開發端的問題，但卻帶來了架構組的問題”，Squarespace 網站可靠性組的主任工程師 Kevin Lynch 說道。
+    “5000 個 VM 主機上的部署過程，讓每個人都舉步維艱。”
+
+    <br>
+    <!-- <h2>Solution</h2>
+    The team experimented with container orchestration platforms, and found that Kubernetes "answered all the questions that we had," says Lynch. The company began running Kubernetes in its data centers in&nbsp;2016. -->
+    <h2>解決方案</h2>
+      網站可靠性組開始嘗試使用不同的容器編排平臺，然後發現 Kubernetes “解決了我們所有的既有問題”，Lynch 說道。於是整個公司在 2016 年開始在自己的資料中心中執行 Kubernetes 叢集。
+  </div>
+
+  <div class="col2">
+
+<!-- <h2>Impact</h2>
+Since Squarespace moved to Kubernetes, in conjunction with modernizing its networking stack, deployment time has been reduced by almost 85%.
+Before, their VM deployment would take half an hour; now, says Lynch, "someone can generate a templated application, deploy it within five minutes,
+and have actual instances containerized, running in our staging environment at that point." Because of that, "productivity time is the big cost saver,"
+he adds. "When we started the Kubernetes project, we had probably a dozen microservices. Today there are twice that in the pipeline being actively worked on."
+Resilience has also been improved with Kubernetes: "If a node goes down, it’s rescheduled immediately and there’s no performance&nbsp;impact." -->
+
+<h2>影響</h2>
+自從 Squarespace 開始全面使用 Kubernetes，伴隨著網路技術棧的革新，部署時間大幅減少85%。
+以前，他們的 VM 部署需要耗費半個小時；現在，Lynch 提到，“一個人可以生成一個模板應用，在五分鐘內部署，並將例項容器化，並在模擬環境下執行。”正因為如此，“開發效率節省了大量的成本。”
+他又補充道，“當我們開始用 Kubernetes 時，我們可能只有十幾個微服務。而現在的工作列裡面已經有兩倍多的微服務正在進行中。”
+Kubernetes 也同樣提升了可靠性：“如果一個節點宕掉，馬上會重新排程一個新的節點，沒有任何效能上的影響。”
+
+</div>
+
+</div>
+</section>
+<div class="banner2">
+  <div class="banner2text">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/feQkzJkW-SA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <br><br>“一旦你驗證了 Kubernetes 可以解決一個問題，每個人都會立即著手解決其它的問題，無需你的佈道。”
+<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>— Kevin Lynch，Squarespace 網站可靠性組的主任工程師</span>
+  </div>
+</div>
+<section class="section2">
+<div class="fullcol">
+  <!-- <h2>Since it was started in a dorm room in 2003, Squarespace has made it simple for millions of people to create their own websites.</h2> -->
+  <h2>從 2003 年宿舍起步， Squarespace 已經為數百萬人提供了網站構建服務。</h2>
+
+  <!-- Behind the scenes, though, the company’s monolithic Java application was making things not so simple for its developers to keep improving the platform.
+  So in 2014, the company decided to "go down the microservices path," says Kevin Lynch, staff engineer on Squarespace’s Site Reliability team.
+  "But we were always deploying our applications in vCenter VMware VMs [in our own data centers]. Microservices solved a problem on the development side,
+  but it pushed that problem to the Infrastructure team. The infrastructure deployment process on our 5,000 VM hosts was slowing everyone down."<br><br> -->
+
+  但在幕後，公司的單體應用卻讓開發人員在平臺創新上舉步維艱。所以在 2014 年，公司決定”走微服務之路”，Kevin Lynch 提到，Squarespace 網站穩定性組的主任工程師。
+  “但是我們還是一直在自己的 vCenter VMware 虛擬機器[我們自己的資料中心]上部署應用。微服務解決了開發端的問題，但是讓問題轉變到了基礎架構組這一邊。我們在5000個虛擬機器主機上的部署流程讓每個人的開發效率都提高不起來。”
+
+  <!-- After experimenting with another container orchestration platform and "breaking it in very painful ways," Lynch says,
+  the team began experimenting with Kubernetes in mid-2016 and found that it "answered all the questions that we had."
+  Deploying it in the data center rather than the public cloud was their biggest challenge, and at the time, not a lot of other companies were doing that.
+  "We had to figure out how to deploy this in our infrastructure for ourselves, and we had to integrate it with our other applications," says Lynch.<br><br> -->
+
+  在嘗試過另外一個容器編排平臺，“非常痛苦地拆解它”，Lynch 說道，我們組開始在 2016 年年中嘗試 Kubernetes，發現它“能解決我們所有的問題”。
+  將 Kubernetes 部署在資料中心，而非公有云上是我們最大的挑戰，但在當時，並沒有很多其它的公司會這麼做。
+  “我們必須要自己摸索出如何在自己的基礎架構中部署它，我們也必須要將其和我們其它的應用做整合，”Lynch補充道。<br><br>
+
+  <!-- At the same time, Squarespace’s Network Engineering team was modernizing its networking stack, switching from a traditional layer-two network to a layer-three spine-and-leaf network.
+  "It mapped beautifully with what we wanted to do with Kubernetes," says Lynch. "It gives us the ability to have our servers communicate directly with the top-of-rack switches. We use Calico for
+  <a href="https://github.com/containernetworking/cnihttps://github.com/containernetworking/cni">CNI networking for Kubernetes</a>,
+  so we can announce all these individual Kubernetes pod IP addresses and have them integrate seamlessly with our other services that are still provisioned in the VMs." -->
+
+  與此同時，Squarespace 的網路工程組也正在革新它們的網路技術棧，從傳統的 L2 網路轉變為 L3 脊葉網路架構。
+  “” Lynch 說道，“它給了我們伺服器直接透過架頂交換機通訊的能力。我們使用 Calico 作為
+  <a href="https://github.com/containernetworking/cnihttps://github.com/containernetworking/cni">Kubernetes 的 CNI 網路外掛</a>”，
+  因而，我們可以為每個 Kubernetes pod 分配 IP 地址，並將它們和其它仍在虛擬機器中建立的服務無縫銜接。
+
+</div>
+</section>
+
+<div class="banner3" style="background-image: url('/images/case-studies/squarespace/banner3.jpg')">
+  <!-- <div class="banner3text">
+    After experimenting with another container orchestration platform and "breaking it in very painful ways,"
+    Lynch says, the team began experimenting with Kubernetes in mid-2016 and found that it "answered all the questions that we had."
+  </div> -->
+  <div class="banner3text">
+    在嘗試過另外一個容器編排平臺，“非常痛苦地拆解它”，Lynch 說道，我們組開始在 2016 年年中嘗試 Kubernetes，發現它“能解決我們所有的問題”。
+  </div>
+</div>
+
+<section class="section3">
+<div class="fullcol">
+  <!-- Within a couple months, they had a stable cluster for their internal use, and began rolling out Kubernetes for production.
+  They also added Zipkin and CNCF projects <a href="https://prometheus.io/">Prometheus</a> and <a href="https://www.fluentd.org/">fluentd</a> to their cloud native stack.
+  "We switched to Kubernetes, a new world, and we revamped all our other tooling as well," says Lynch. "It allowed us to streamline our process,
+  so we can now easily create an entire microservice project from templates, generate the code and deployment pipeline for that, generate the Docker file,
+  and then immediately just ship a workable, deployable project to Kubernetes." Deployments across Dev/QA/Stage/Prod were also "simplified drastically," Lynch adds.
+  "Now there is little configuration variation." -->
+
+  幾個月的時間，它們就有了一個穩定的叢集供內部使用，並開始在生產環境下使用 Kubernetes。
+  他們同時還在自己的雲原生技術棧中用到了 Zipkin 和 CNCF 專案 <a href="https://prometheus.io/">Prometheus</a> and <a href="https://www.fluentd.org/">fluentd</a> 。
+  “我們換到 Kubernetes，就像進入了一個新世界，我們也同時改進了其它的工具，” Lynch 說道。“它讓我們簡化了流程，因而，我們才能更加方便地從模板中建立整個微服務專案，生成程式碼和部署管道，生成 Docker 檔案，
+  並迅速地將可用的、可部署的專案釋出到 Kubernetes 叢集上。”在 Dev/QA/Stage/Prod 不同環境間的部署也變得 “異常的簡單，” Lynch 補充道。
+  “現在，環境間的配置差異變得很小。”
+
+<br><br>
+  <!-- And the whole process takes only five minutes, an almost 85% reduction in time compared to their VM deployment.
+  "From end to end that probably took half an hour, and that’s not accounting for the fact that an infrastructure engineer would be responsible for doing that,
+  so there’s some business delay in there as well." -->
+
+  而且整個部署過程只需要五分鐘，和虛擬機器部署相比，幾乎節約了 85% 的時間。
+  “從端到端可能要半個小時，這還沒有考慮可能需要基礎架構工程師來做這方面的工作，因而，也還有一些業務上的延時。”
+<br><br>
+  <!-- With faster deployments, "productivity time is the big cost saver," says Lynch. "We had a team that was implementing a new file storage service,
+  and they just started integrating that with our storage back end without our involvement"—which wouldn’t have been possible before Kubernetes.
+  He adds: "When we started the Kubernetes project, we had probably a dozen microservices. Today there are twice that in the pipeline being actively worked on." -->
+
+  部署變快之後，“開發效率節省了大量的成本，” Lynch 提到，“我們有個組想要實現新的檔案儲存服務，他們就徑直和我們的儲存後來做了整合，而不需要我們的參與”，這在採用 Kubernetes 之前是不可想象的。
+  他又補充道：“在我們開始 Kubernetes 專案時，我們可能只有十幾個微服務。而現在的工作列裡面已經有兩倍多的微服務正在進行中。”
+
+
+
+</div>
+</section>
+<div class="banner4" style="background-image: url('/images/case-studies/squarespace/banner4.jpg')">
+  <div class="banner4text">
+  <!-- "We switched to Kubernetes, a new world....It allowed us to streamline our process, so we can now easily create an entire microservice project from templates,"
+  Lynch says. And the whole process takes only five minutes, an almost 85% reduction in time compared to their VM deployment. -->
+
+  “我們換到 Kubernetes，就像進入了一個新世界....它讓我們簡化了流程，因而，我們才能更加方便地從模板中建立整個微服務專案，”
+  Lynch 說道。整個部署過程只需要五分鐘，和虛擬機器部署相比，幾乎節約了 85% 的時間。
+  </div>
+</div>
+
+<section class="section5" style="padding:0px !important">
+<div class="fullcol">
+  <!-- There’s also been a positive impact on the application’s resilience. "When we’re deploying VMs, we have to build tooling to ensure that a service is
+  spread across racks appropriately and can withstand failure," he says. "Kubernetes just does it. If a node goes down,
+  it’s rescheduled immediately and there’s no performance impact." -->
+
+  同樣在應用程式的可靠性方面也有積極的影響。“當我們在部署虛擬機器時，我們需要工具來保障服務散佈在機架間，可以承受失敗，”他說道，“Kubernetes 正好可以做到這一點。如果節點宕掉，可以馬上重新排程，沒有效能影響。”
+<br><br>
+  <!-- Another big benefit is autoscaling. "It wasn’t really possible with the way we’ve been using VMware," says Lynch, "but now we can just
+  add the appropriate autoscaling features via Kubernetes directly, and boom, it’s scaling up as demand increases. And it worked out of the box." -->
+
+  另一個很大的好處就是擴縮容。“按照我們使用 VMware 的方式，擴縮容好像不可能實現，”Lynch 說道，“但現在，我們可以直接透過 Kubernetes 加入合適的擴縮容功能，然後，隨著需求的增加而擴容。開箱即用！”
+<br><br>
+  <!-- For others starting out with Kubernetes, Lynch says his best advice is to "fail fast": "Once you’ve planned things out, just execute.
+  Kubernetes has been really great for trying something out quickly and seeing if it works or not." -->
+
+  針對剛開始使用 Kubernetes 的人，Lynch 說他最後的建議就是“快速失敗”：“一旦計劃後，馬上執行。Kubernetes 真的是非常適合快速實驗，看看是否可行。”
+
+</div>
+
+<div class="banner5">
+  <div class="banner5text">
+    <!-- "When we’re deploying VMs, we have to build tooling to ensure that a service is spread across racks appropriately and can withstand failure,"
+    he says. "Kubernetes just does it. If a node goes down, it’s rescheduled immediately and there’s no performance impact." -->
+
+    “當我們在部署虛擬機器時，我們需要工具來保障服務散佈在機架間，可以承受失敗，”他說道，“Kubernetes 正好可以做到這一點。如果節點宕掉，可以馬上重新排程，沒有效能影響。”
+
+  </div>
+</div>
+
+<div class="fullcol">
+  <!-- Lynch and his team are planning to open source some of the tools they’ve developed to extend Kubernetes and use it as an API itself.
+  The first tool injects dependent applications as containers in a pod.
+  "When you ship an application, usually it comes along with a whole bunch of dependent applications that need to be shipped with that,
+  for example, fluentd for logging," he explains. With this tool, the developer doesn’t need to worry about the configurations. -->
+
+  Lynch 和他的小組正準備開源一些他們的工具，這些工具用來延展 Kubernetes，將其作為 API 使用。
+  第一個工具在 pod 將依賴應用作為容器注入。
+  “當你在釋出應用時，常常需要一系列的依賴應用，例如，日誌用的 fluentd，” 他解釋道。
+  有了這個工具，開發人員就不需要擔心配置了。
+
+<br><br>
+  <!-- Going forward, all new services at Squarespace are going into Kubernetes, and the end goal is to convert everything it can. About a quarter of
+  existing services have been migrated. "Our monolithic application is going to be the last one, just because it’s so big and complex," says Lynch.
+  "But now I’m seeing other services get moved over, like the file storage service. Someone just did it and it worked—painlessly. So I believe if we tackle it,
+  it’s probably going to be a lot easier than we fear. Maybe I should just take my own advice and fail fast!" -->
+
+  自此之後，Squarespace 所有新的微服務都將直接部署到 Kubernetes 上，而最終的目標是要擴大到所有的服務上。
+  現在已經有四分之一的服務已經移植完。“我的單體應用將是最後一個被移植的，僅僅是以為它太大、太複雜，”Lynch 說道。
+  “但現在我已經看到其它的服務已經被移植到 Kubernetes 上，例如檔案儲存服務。有人解決了，而且並不複雜。
+  所以我堅信如果我們著手解決它，很可能迴避我們所擔心的要輕鬆許多。也許我應該接受自己的建議，“快速失敗”！”
+
+</div>
+
+</section>

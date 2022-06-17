@@ -26,9 +26,9 @@ Kubernetes using [StatefulSets](/docs/concepts/workloads/controllers/statefulset
 and [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 -->
 本教程展示了在 Kubernetes 上使用
-[StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/)，
-[PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget) 和
-[PodAntiAffinity](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#亲和与反亲和)
+[StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)，
+[PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget) 和
+[PodAntiAffinity](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#亲和与反亲和)
 特性运行 [Apache Zookeeper](https://zookeeper.apache.org)。
 
 ## {{% heading "prerequisites" %}}
@@ -39,15 +39,15 @@ Kubernetes concepts.
 -->
 在开始本教程前，你应该熟悉以下 Kubernetes 概念。
 
-- [Pods](/zh/docs/concepts/workloads/pods/)
-- [集群 DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
-- [无头服务（Headless Service）](/zh/docs/concepts/services-networking/service/#headless-services)
-- [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
+- [Pods](/zh-cn/docs/concepts/workloads/pods/)
+- [集群 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
+- [无头服务（Headless Service）](/zh-cn/docs/concepts/services-networking/service/#headless-services)
+- [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
 - [PersistentVolume 制备](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
-- [StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/)
-- [PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
-- [PodAntiAffinity](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#亲和与反亲和)
-- [kubectl CLI](/zh/docs/reference/kubectl/kubectl/)
+- [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
+- [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
+- [PodAntiAffinity](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#亲和与反亲和)
+- [kubectl CLI](/zh-cn/docs/reference/kubectl/kubectl/)
 
 <!--
 You must have a cluster with at least four nodes, and each node requires at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and drain the cluster's nodes. **This means that the cluster will terminate and evict all Pods on its nodes, and the nodes will temporarily become unschedulable.** You should use a dedicated cluster for this tutorial, or you should ensure that the disruption you cause will not interfere with other tenants.
@@ -140,10 +140,10 @@ and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 ## 创建一个 ZooKeeper Ensemble
 
 下面的清单包含一个
-[无头服务](/zh/docs/concepts/services-networking/service/#headless-services)，
-一个 [Service](/zh/docs/concepts/services-networking/service/)，
-一个 [PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)，
-和一个 [StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/)。
+[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)，
+一个 [Service](/zh-cn/docs/concepts/services-networking/service/)，
+一个 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)，
+和一个 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
 
 {{< codenew file="application/zookeeper/zookeeper.yaml" >}}
 
@@ -308,7 +308,7 @@ The A records in [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-ser
 
 ZooKeeper stores its application configuration in a file named `zoo.cfg`. Use `kubectl exec` to view the contents of the `zoo.cfg` file in the `zk-0` Pod.
 -->
-[Kubernetes DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
+[Kubernetes DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
 中的 A 记录将 FQDNs 解析成为 Pods 的 IP 地址。
 如果 Pods 被调度，这个 A 记录将会使用 Pods 的新 IP 地址完成更新，
 但 A 记录的名称不会改变。
@@ -836,7 +836,7 @@ consider deploying a [sidecar container](/docs/concepts/cluster-administration/l
 -->
 Kubernetes 支持与多种日志方案集成。你可以选择一个最适合你的集群和应用
 的日志解决方案。对于集群级别的日志输出与整合，可以考虑部署一个
-[边车容器](/zh/docs/concepts/cluster-administration/logging#sidecar-container-with-logging-agent)
+[边车容器](/zh-cn/docs/concepts/cluster-administration/logging#sidecar-container-with-logging-agent)
 来轮转和提供日志数据。
 
 <!--
@@ -854,7 +854,7 @@ The `zk` `StatefulSet`'s Pod `template` contains a `SecurityContext`.
 
 在容器中允许应用以特权用户运行这条最佳实践是值得商讨的。
 如果你的组织要求应用以非特权用户运行，你可以使用
-[SecurityContext](/zh/docs/tasks/configure-pod-container/security-context/)
+[SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)
 控制运行容器入口点所使用的用户。
 
 `zk` StatefulSet 的 Pod 的 `template` 包含了一个 `SecurityContext`。
@@ -1032,7 +1032,7 @@ Use the following command to examine the process tree for the ZooKeeper server r
 -->
 ### 处理进程故障
 
-[重启策略](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
+[重启策略](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
 控制 Kubernetes 如何处理一个 Pod 中容器入口点的进程故障。
 对于 StatefulSet 中的 Pods 来说，Always 是唯一合适的 RestartPolicy，也是默认值。
 你应该**绝不**覆盖有状态应用的默认策略。

@@ -20,7 +20,7 @@ You can also generate your own certificates -- for example, to keep your private
 This page explains the certificates that your cluster requires.
 -->
 Kubernetes 需要 PKI 证书才能进行基于 TLS 的身份验证。如果你是使用
-[kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 安装的 Kubernetes，
+[kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 安装的 Kubernetes，
 则会自动生成集群所需的证书。你还可以生成自己的证书。
 例如，不将私钥存储在 API 服务器上，可以让私钥更加安全。此页面说明了集群必需的证书。
 
@@ -48,7 +48,7 @@ Kubernetes 需要 PKI 才能执行以下操作：
 * Client and server certificates for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 -->
 * Kubelet 的客户端证书，用于 API 服务器身份验证
-* Kubelet [服务端证书](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)，
+* Kubelet [服务端证书](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)，
   用于 API 服务器与 Kubelet 的会话
 * API 服务器端点的证书
 * 集群管理员的客户端证书，用于 API 服务器身份认证
@@ -56,14 +56,14 @@ Kubernetes 需要 PKI 才能执行以下操作：
 * API 服务器的客户端证书，用于和 etcd 的会话
 * 控制器管理器的客户端证书/kubeconfig，用于和 API 服务器的会话
 * 调度器的客户端证书/kubeconfig，用于和 API 服务器的会话
-* [前端代理](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 的客户端及服务端证书
+* [前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 的客户端及服务端证书
 
 <!--
 `front-proxy` certificates are required only if you run kube-proxy to support [an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
 -->
 {{< note >}}
 只有当你运行 kube-proxy 并要支持
-[扩展 API 服务器](/zh/docs/tasks/extend-kubernetes/setup-extension-api-server/)
+[扩展 API 服务器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)
 时，才需要 `front-proxy` 证书
 {{< /note >}}
 
@@ -92,8 +92,8 @@ See [Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm
 
 如果你不想通过 kubeadm 生成这些必需的证书，你可以使用一个单一的根 CA
 来创建这些证书或者直接提供所有证书。
-参见[证书](/zh/docs/tasks/administer-cluster/certificates/)以进一步了解创建自己的证书机构。
-关于管理证书的更多信息，请参见[使用 kubeadm 进行证书管理](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
+参见[证书](/zh-cn/docs/tasks/administer-cluster/certificates/)以进一步了解创建自己的证书机构。
+关于管理证书的更多信息，请参见[使用 kubeadm 进行证书管理](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
 
 <!--
 ### Single root CA
@@ -121,7 +121,7 @@ On top of the above CAs, it is also necessary to get a public/private key pair f
 |------------------------|---------------------------|----------------------------------|
 | ca.crt,key             | kubernetes-ca             | Kubernetes 通用 CA                |
 | etcd/ca.crt,key        | etcd-ca                   | 与 etcd 相关的所有功能              |
-| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | 用于 [前端代理](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
+| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | 用于 [前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 上面的 CA 之外，还需要获取用于服务账户管理的密钥对，也就是 `sa.key` 和 `sa.pub`。
 
@@ -181,7 +181,7 @@ the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`,
 where `kind` maps to one or more of the [x509 key usage](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage) types:
 -->
 [1]: 用来连接到集群的不同 IP 或 DNS 名
-（就像 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 为负载均衡所使用的固定
+（就像 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 为负载均衡所使用的固定
 IP 或 DNS 名，`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、
 `kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）。
 
@@ -228,7 +228,7 @@ Paths should be specified using the given argument regardless of location.
 -->
 ### 证书路径    {#certificate-paths}
 
-证书应放置在建议的路径中（以便 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/)
+证书应放置在建议的路径中（以便 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/)
 使用）。无论使用什么位置，都应使用给定的参数指定路径。
 
 <!--
@@ -286,7 +286,7 @@ Same considerations apply for the service account key pair:
 The following example illustrates the file paths [from the previous tables](/docs/setup/best-practices/certificates/#certificate-paths) you need to provide if you are generating all of your own keys and certificates:
 -->
 下面的例子展示了自行生成所有密钥和证书时所需要提供的文件路径。
-这些路径基于[前面的表格](/zh/docs/setup/best-practices/certificates/#certificate-paths)。
+这些路径基于[前面的表格](/zh-cn/docs/setup/best-practices/certificates/#certificate-paths)。
 
 ```console
 /etc/kubernetes/pki/etcd/ca.key
@@ -342,7 +342,7 @@ The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value 
 -->
 {{< note >}}
 `kubelet.conf` 中 `<nodeName>` 的值 **必须** 与 kubelet 向 apiserver 注册时提供的节点名称的值完全匹配。
-有关更多详细信息，请阅读[节点授权](/zh/docs/reference/access-authn-authz/node/)。
+有关更多详细信息，请阅读[节点授权](/zh-cn/docs/reference/access-authn-authz/node/)。
 {{< /note >}}
 
 <!--

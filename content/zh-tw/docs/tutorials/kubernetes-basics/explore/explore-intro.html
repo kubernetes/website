@@ -1,0 +1,222 @@
+---
+title: 檢視 pod 和工作節點
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+  <main class="content">
+
+    <div class="row">
+
+      <div class="col-md-8">
+<!--
+        <h3>Objectives</h3>
+-->
+        <h3>目標</h3>
+        <ul>
+<!--
+          <li>Learn about Kubernetes Pods.</li>
+          <li>Learn about Kubernetes Nodes.</li>
+          <li>Troubleshoot deployed applications.</li>
+-->
+          <li>瞭解 Kubernetes Pod。</li>
+          <li>瞭解 Kubernetes 工作節點。</li>
+          <li>對已部署的應用故障排除。</li>
+        </ul>
+      </div>
+
+      <div class="col-md-8">
+<!--
+        <h2>Kubernetes Pods</h2>
+-->
+        <h2>Kubernetes Pods</h2>
+<!--
+        <p>When you created a Deployment in Module <a href="/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>, Kubernetes created a <b>Pod</b> to host your application instance. A Pod is a Kubernetes abstraction that represents a group of one or more application containers (such as Docker), and some shared resources for those containers. Those resources include:</p>
+-->
+        <p>在模組 <a href="/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>建立 Deployment 時, Kubernetes 添加了一個 <b>Pod</b> 來託管你的應用例項。Pod 是 Kubernetes 抽象出來的，表示一組一個或多個應用程式容器（如 Docker），以及這些容器的一些共享資源。這些資源包括:</p>
+<!--
+        <ul>
+          <li>Shared storage, as Volumes</li>
+          <li>Networking, as a unique cluster IP address</li>
+          <li>Information about how to run each container, such as the container image version or specific ports to use</li>
+        </ul>
+-->
+        <ul>
+          <li>共享儲存，當作卷</li>
+          <li>網路，作為唯一的叢集 IP 地址</li>
+          <li>有關每個容器如何執行的資訊，例如容器映像版本或要使用的特定埠。</li>
+        </ul>
+    <!--
+        <p>A Pod models an application-specific "logical host" and can contain different application containers which are relatively tightly coupled. For example, a Pod might include both the container with your Node.js app as well as a different container that feeds the data to be published by the Node.js webserver. The containers in a Pod share an IP Address and port space, are always co-located and co-scheduled, and run in a shared context on the same Node.</p>
+    -->
+        <p>Pod 為特定於應用程式的“邏輯主機”建模，並且可以包含相對緊耦合的不同應用容器。例如，Pod 可能既包含帶有 Node.js 應用的容器，也包含另一個不同的容器，用於提供 Node.js 網路伺服器要釋出的資料。Pod 中的容器共享 IP 地址和埠，始終位於同一位置並且共同排程，並在同一工作節點上的共享上下文中執行。</p>
+<!--
+        <p>Pods are the atomic unit on the Kubernetes platform. When we create a Deployment on Kubernetes, that Deployment creates Pods with containers inside them (as opposed to creating containers directly). Each Pod is tied to the Node where it is scheduled, and remains there until termination (according to restart policy) or deletion. In case of a Node failure, identical Pods are scheduled on other available Nodes in the cluster.</p>
+-->
+        <p>Pod是 Kubernetes 平臺上的原子單元。 當我們在 Kubernetes 上建立 Deployment 時，該 Deployment 會在其中建立包含容器的 Pod （而不是直接建立容器）。每個 Pod 都與排程它的工作節點繫結，並保持在那裡直到終止（根據重啟策略）或刪除。 如果工作節點發生故障，則會在叢集中的其他可用工作節點上排程相同的 Pod。</p>
+
+      </div>
+      <div class="col-md-4">
+        <div class="content__box content__box_lined">
+<!--
+          <h3>Summary:</h3>
+-->
+          <h3>總結:</h3>
+          <ul>
+            <li>Pods</li>
+            <li>工作節點</li>
+<!--
+            <li>Kubectl main commands</li>
+-->
+            <li>Kubectl 主要命令</li>
+          </ul>
+        </div>
+        <div class="content__box content__box_fill">
+<!--
+          <p><i>
+              A Pod is a group of one or more application containers (such as Docker) and includes shared storage (volumes), IP address and information about how to run them.
+            </i></p>
+-->
+          <p><i>
+              Pod 是一組一個或多個應用程式容器（例如 Docker），包括共享儲存（卷), IP 地址和有關如何執行它們的資訊。
+            </i></p>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-8">
+<!--
+        <h2 style="color: #3771e3;">Pods overview</h2>
+-->
+        <h2 style="color: #3771e3;">Pod 概覽</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-8">
+<!--
+        <h2>Nodes</h2>
+        <p>A Pod always runs on a <b>Node</b>. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine, depending on the cluster. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling the pods across the Nodes in the cluster. The Master's automatic scheduling takes into account the available resources on each Node.</p>
+
+        <p>Every Kubernetes Node runs at least:</p>
+        <ul>
+          <li>Kubelet, a process responsible for communication between the Kubernetes Master and the Node; it manages the Pods and the containers running on a machine.</li>
+          <li>A container runtime (like Docker) responsible for pulling the container image from a registry, unpacking the container, and running the application.</li>
+        </ul>
+-->
+        <h2>工作節點</h2>
+        <p>一個 pod 總是執行在 <b>工作節點</b>。工作節點是 Kubernetes 中的參與計算的機器，可以是虛擬機器或物理計算機，具體取決於叢集。每個工作節點由主節點管理。工作節點可以有多個 pod ，Kubernetes 主節點會自動處理在叢集中的工作節點上排程 pod 。 主節點的自動排程考量了每個工作節點上的可用資源。</p>
+
+        <p>每個 Kubernetes 工作節點至少執行:</p>
+        <ul>
+          <li>Kubelet，負責 Kubernetes 主節點和工作節點之間通訊的過程; 它管理 Pod 和機器上執行的容器。</li>
+          <li>容器執行時（如 Docker）負責從倉庫中提取容器映象，解壓縮容器以及執行應用程式。</li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <div class="content__box content__box_fill">
+<!--
+          <p><i> Containers should only be scheduled together in a single Pod if they are tightly coupled and need to share resources such as disk. </i></p>
+-->
+          <p><i>如果它們緊耦合並且需要共享磁碟等資源，這些容器應在一個 Pod 中編排。</i></p>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-8">
+<!--
+        <h2 style="color: #3771e3;">Node overview</h2>
+-->
+        <h2 style="color: #3771e3;">工作節點概覽</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-8">
+<!--
+        <h2>Troubleshooting with kubectl</h2>
+-->
+        <h2>使用 kubectl 進行故障排除</h2>
+<!--
+        <p>In Module <a href="/docs/tutorials/kubernetes-basics/deploy/deploy-intro/">2</a>, you used Kubectl command-line interface. You'll continue to use it in Module 3 to get information about deployed applications and their environments. The most common operations can be done with the following kubectl commands:</p>
+-->
+        <p>在模組 <a href="/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>,你使用了 Kubectl 命令列介面。 你將繼續在第3單元中使用它來獲取有關已部署的應用程式及其環境的資訊。 最常見的操作可以使用以下 kubectl 命令完成：</p>
+<!--
+        <ul>
+          <li><b>kubectl get</b> - list resources</li>
+          <li><b>kubectl describe</b> - show detailed information about a resource</li>
+          <li><b>kubectl logs</b> - print the logs from a container in a pod</li>
+          <li><b>kubectl exec</b> - execute a command on a container in a pod</li>
+        </ul>
+-->
+        <ul>
+          <li><b>kubectl get</b> - 列出資源</li>
+          <li><b>kubectl describe</b> - 顯示有關資源的詳細資訊</li>
+          <li><b>kubectl logs</b> - 列印 pod 和其中容器的日誌</li>
+          <li><b>kubectl exec</b> - 在 pod 中的容器上執行命令</li>
+        </ul>
+<!--
+        <p>You can use these commands to see when applications were deployed, what their current statuses are, where they are running and what their configurations are.</p>
+-->
+        <p>你可以使用這些命令檢視應用程式的部署時間，當前狀態，執行位置以及配置。</p>
+<!--
+        <p>Now that we know more about our cluster components and the command line, let's explore our application.</p>
+-->
+        <p>現在我們瞭解了有關叢集元件和命令列的更多資訊，讓我們來探索一下我們的應用程式。</p>
+
+      </div>
+      <div class="col-md-4">
+        <div class="content__box content__box_fill">
+<!--
+          <p><i> A node is a worker machine in Kubernetes and may be a VM or physical machine, depending on the cluster. Multiple Pods can run on one Node. </i></p>
+-->
+          <p><i>工作節點是 Kubernetes 中的負責計算的機器，可能是VM或物理計算機，具體取決於叢集。多個 Pod 可以在一個工作節點上執行。 </i></p>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+<!--
+        <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
+-->
+        <a class="btn btn-lg btn-success" href="/zh-cn/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button"> 開始互動式教程 <span class="btn__next">›</span></a>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

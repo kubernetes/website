@@ -17,7 +17,7 @@ weight: 10
 This page outlines steps to find out what [container runtime](/docs/setup/production-environment/container-runtimes/)
 the nodes in your cluster use.
 -->
-本页面描述查明集群中节点所使用的[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
+本页面描述查明集群中节点所使用的[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
 的步骤。
 
 <!--
@@ -37,7 +37,7 @@ the execution of `kubectl` is allowed.
 <!--
 Install and configure `kubectl`. See [Install Tools](/docs/tasks/tools/#kubectl) section for details.
 -->
-安装并配置 `kubectl`。参见[安装工具](/zh/docs/tasks/tools/#kubectl) 节了解详情。
+安装并配置 `kubectl`。参见[安装工具](/zh-cn/docs/tasks/tools/#kubectl) 节了解详情。
 
 <!--
 ## Find out the container runtime used on a Node
@@ -94,7 +94,7 @@ Find out more information about container runtimes
 on [Container Runtimes](/docs/setup/production-environment/container-runtimes/)
 page.
 -->
-你可以在[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
+你可以在[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
 页面找到与容器运行时相关的更多信息。
 
 <!--
@@ -112,7 +112,7 @@ want to know whether you use Docker Engine with dockershim.
 -->
 
 容器运行时使用 Unix Socket 与 kubelet 通信，这一通信使用基于 gRPC 框架的
-[CRI 协议](/zh/docs/concepts/architecture/cri/)。kubelet 扮演客户端，运行时扮演服务器端。
+[CRI 协议](/zh-cn/docs/concepts/architecture/cri/)。kubelet 扮演客户端，运行时扮演服务器端。
 在某些情况下，你可能想知道你的节点使用的是哪个 socket。
 如若集群是 Kubernetes v1.24 及以后的版本，
 或许你想知道当前运行时是否是使用 dockershim 的 Docker Engine。
@@ -175,7 +175,7 @@ or, if you want to continue using Docker Engine in v1.24 and later, migrate to a
 CRI-compatible adapter like [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd).
 -->
 如果你将节点上的容器运行时从 Docker Engine 改变为 containerd，可在
-[迁移到不同的运行时](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)
+[迁移到不同的运行时](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)
 找到更多信息。或者，如果你想在 Kubernetes v1.24 及以后的版本仍使用 Docker Engine，
 可以安装 CRI 兼容的适配器实现，如 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。
 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。

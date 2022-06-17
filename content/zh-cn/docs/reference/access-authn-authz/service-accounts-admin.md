@@ -24,7 +24,7 @@ Support for authorization and user accounts is planned but incomplete. Sometimes
 incomplete features are referred to in order to better describe service accounts.
 -->
 这是一篇针对服务账号的集群管理员指南。你应该熟悉
-[配置 Kubernetes 服务账号](/zh/docs/tasks/configure-pod-container/configure-service-account/)。
+[配置 Kubernetes 服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)。
 
 对鉴权和用户账号的支持已在规划中，当前并不完备。
 为了更好地描述服务账号，有时这些不完善的特性也会被提及。
@@ -95,7 +95,7 @@ It acts synchronously to modify pods as they are created or updated. When this p
 ### ServiceAccount 准入控制器   {#serviceaccount-admission-controller}
 
 对 Pod 的改动通过一个被称为
-[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
+[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
 的插件来实现。它是 API 服务器的一部分。
 当 Pod 被创建或更新时，它会同步地修改 Pod。
 如果该插件处于激活状态（在大多数发行版中都是默认激活的），当 Pod 被创建
@@ -179,7 +179,7 @@ This projected volume consists of three sources:
 <!--
 See more details about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 -->
-参阅[投射卷](/zh/docs/tasks/configure-pod-container/configure-projected-volume-storage/)
+参阅[投射卷](/zh-cn/docs/tasks/configure-pod-container/configure-projected-volume-storage/)
 了解进一步的细节。
 
 <!--

@@ -2,7 +2,7 @@
 title: kube-apiserver
 id: kube-apiserver
 date: 2018-04-12
-full_link: /zh/docs/reference/command-line-tools-reference/kube-apiserver/
+full_link: /zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/
 short_description: >
   提供 Kubernetes API 服务的控制面组件。
 
@@ -16,7 +16,7 @@ tags:
 title: kube-apiserver
 id: kube-apiserver
 date: 2018-04-12
-full_link: /zh/docs/reference/command-line-tools-reference/kube-apiserver/
+full_link: /zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/
 short_description: >
   Control plane component that serves the Kubernetes API. 
 
@@ -42,6 +42,6 @@ The main implementation of a Kubernetes API server is [kube-apiserver](/docs/ref
 kube-apiserver is designed to scale horizontally&mdash;that is, it scales by deploying more instances.
 You can run several instances of kube-apiserver and balance traffic between those instances.
 -->
-Kubernetes API 服务器的主要实现是 [kube-apiserver](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)。
+Kubernetes API 服务器的主要实现是 [kube-apiserver](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
 `kube-apiserver` 设计上考虑了水平扩缩，也就是说，它可通过部署多个实例来进行扩缩。
 你可以运行 `kube-apiserver` 的多个实例，并在这些实例之间平衡流量。

@@ -2,14 +2,14 @@
 title: " 每周 Kubernetes 社区例会笔记 - 2015年4月3日 "
 date: 2015-04-04
 slug: weekly-kubernetes-community-hangout
-url: /zh/blog/2015/04/Weekly-Kubernetes-Community-Hangout
+url: /zh-cn/blog/2015/04/Weekly-Kubernetes-Community-Hangout
 ---
 <!--
 ---
 title: " Weekly Kubernetes Community Hangout Notes - April 3 2015 "
 date: 2015-04-04
 slug: weekly-kubernetes-community-hangout
-url: /zh/blog/2015/04/Weekly-Kubernetes-Community-Hangout
+url: /zh-cn/blog/2015/04/Weekly-Kubernetes-Community-Hangout
 ---
 -->
 <!--

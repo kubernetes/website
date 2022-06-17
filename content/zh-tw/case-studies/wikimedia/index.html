@@ -1,0 +1,148 @@
+---
+title: 案例研究：Wikimedia
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_title_text: Wikimedia
+use_gradient_overlay: true
+subheading: >
+  利用 Kubernetes 構建工具提升世界的維基
+case_study_details:
+  - 公司: Wikimedia
+  - 地點: 加州舊金山
+---
+<!--
+title: Wikimedia Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_title_text: Wikimedia
+use_gradient_overlay: true
+subheading: >
+  Using Kubernetes to Build Tools to Improve the World's Wikis
+case_study_details:
+  - Company: Wikimedia
+  - Location: San Francisco, CA
+-->
+
+<!--
+<p>The non-profit Wikimedia Foundation operates some of the largest collaboratively edited reference projects in the world, including Wikipedia. To help users maintain and use wikis, it runs Wikimedia Tool Labs, a hosting environment for community developers working on tools and bots to help editors and other volunteers do their work, including reducing vandalism. The community around Wikimedia Tool Labs began forming nearly 10 years ago.</p>
+-->
+<p>非營利的 Wikimedia 基金會運營著一些世界上最大的合作編輯參考專案，包括 Wikipedia。為了幫助使用者維護和使用 wiki，它執行 Wikimedia 工具實驗室，這是一個託管環境，為社群開發人員工作的工具和機器人，以幫助編輯和其他志願者做他們的工作，包括減少破壞。Wikimedia 工具實驗室周圍的社群在近 10 年前開始形成。</p>
+
+<!--
+{{< case-studies/quote author="Yuvi Panda, operations engineer at Wikimedia Foundation and Wikimedia Tool Labs">}}
+
+<img src="/images/wikimedia_logo.png" alt="Wikimedia">
+<br>
+<br>
+"Wikimedia Tool Labs is vital for making sure wikis all around the world work as well as they possibly can. Because it's grown organically for almost 10 years, it has become an extremely challenging environment and difficult to maintain. It's like a big ball of mud — you really can't see through it. With Kubernetes, we're simplifying the environment and making it easier for developers to build the tools that make wikis run better."
+{{< /case-studies/quote >}}
+-->
+{{< case-studies/quote author="Yuvi Panda, Wikimedia 基金會和 Wikimedia 工具實驗室的運維工程師">}}
+
+<img src="/images/wikimedia_logo.png" alt="Wikimedia">
+<br>
+<br>
+“Wikimedia 工具實驗室對於確保世界各地的 wiki 儘可能正常執行至關重要。因為它有機地生長了近 10 年，所以它已成為一個極具挑戰性且難以維護的環境。它就像一個大的泥球，你真的看不透它。藉助 Kubernetes，我們正在簡化環境並讓開發人員更容易構建出使 wiki 更好執行的工具。”
+{{< /case-studies/quote >}}
+
+<!--
+<h2>Challenges</h2>
+-->
+<h2>挑戰</h2>
+
+<!--
+<ul>
+  <li>Simplify a complex, difficult-to-manage infrastructure</li>
+  <li>Allow developers to continue writing tools and bots using existing techniques</li>
+</ul>
+-->
+<ul>
+  <li>簡化複雜、難以管理的基礎架構</li>
+  <li>允許開發人員使用現有技術繼續編寫工具和機器人</li>
+</ul>
+
+<!--
+<h2>Why Kubernetes</h2>
+-->
+<h2>為什麼要使用 Kubernetes</h2>
+
+<ul>
+<!--
+  <li>Wikimedia Tool Labs chose Kubernetes because it can mimic existing workflows, while reducing complexity</li>
+-->
+  <li>Wikimedia 工具實驗室之所以選擇 Kubernetes，是因為它可以模仿現有的工作流程，同時降低複雜性。</li>
+</ul>
+
+<!--
+<h2>Approach</h2>
+-->
+<h2>解決方案</h2>
+
+<ul>
+<!--
+  <li>Migrate old systems and a complex infrastructure to Kubernetes</li>
+-->
+  <li>將舊系統和複雜的基礎設施遷移到 Kubernetes</li>
+</ul>
+
+<!--
+<h2>Results</h2>
+-->
+<h2>結果</h2>
+
+<!--
+<ul>
+  <li>20 percent of web tools that account for more than 40 percent of web traffic now run on Kubernetes</li>
+  <li>A 25-node cluster that keeps up with each new Kubernetes release</li>
+  <li>Thousands of lines of old code have been deleted, thanks to Kubernetes</li>
+</ul>
+-->
+<ul>
+  <li>現在佔 Web 流量 40% 以上的 20% Web 工具都在 Kubernetes 上執行</li>
+  <li>一個 25 節點叢集可跟上每個新 Kubernetes 版本</li>
+  <li>多虧了 Kubernetes，數千行舊程式碼可被刪除</li>
+</ul>
+
+<!--
+<h2>Using Kubernetes to provide tools for maintaining wikis</h2>
+-->
+<h2>使用 Kubernetes 提供維護 wiki 的工具</h2>
+
+<!--
+<p>Wikimedia Tool Labs is run by a staff of four-and-a-half paid employees and two volunteers. The infrastructure didn't make it easy or intuitive for developers to build bots and other tools to make wikis work more easily. Yuvi says, "It's incredibly chaotic. We have lots of Perl and Bash duct tape on top of it. Everything is super fragile."</p>
+-->
+<p>Wikimedia 工具實驗室由四個半帶薪員工和兩名志願者管理。基礎架構無法使開發人員輕鬆或直觀地構建機器人和其他工具，使 wiki 更易於工作。Yuvi 說，“它非常混亂，我們有很多的 Perl 和 Bash 纏繞在上面，一切都是超級脆弱。”</p>
+
+<!--
+<p>To solve the problem, Wikimedia Tool Labs migrated parts of its infrastructure to Kubernetes, in preparation for eventually moving its entire system. Yuvi said Kubernetes greatly simplifies maintenance. The goal is to allow developers creating bots and other tools to use whatever development methods they want, but make it easier for the Wikimedia Tool Labs to maintain the required infrastructure for hosting and sharing them.</p>
+-->
+<p>為了解決這個問題，Wikimedia 工具實驗室將其部分基礎設施遷移到了 Kubernetes，為最終遷移整個系統做準備。Yuvi 說，Kubernetes 大大簡化了維護。目標是允許建立機器人和其他工具的開發人員使用他們想要的任何開發方法，但使 Wikimedia 工具實驗室更容易維護託管和共享它們所需的基礎結構。</p>
+
+<!--
+<p>"With Kubernetes, I've been able to remove a lot of our custom-made code, which makes everything easier to maintain. Our users' code also runs in a more stable way than previously," says Yuvi.</p>
+-->
+<p>Yuvi 說：“藉助 Kubernetes，我能夠刪除大量我們定製的程式碼，這使得所有內容更易於維護，我們的使用者程式碼也以比以前更穩定的方式執行。”</p>
+
+<!--
+<h2>Simplifying infrastructure and keeping wikis running better</h2>
+-->
+<h2>簡化基礎架構讓 wiki 更好地執行</h2>
+
+<!--
+<p>Wikimedia Tool Labs has seen great success with the initial Kubernetes deployment. Old code is being simplified and eliminated, contributing developers don't have to change the way they write their tools and bots, and those tools and bots run in a more stable fashion than they have in the past. The paid staff and volunteers are able to better keep up with fixing issues.</p>
+-->
+<p>Wikimedia 工具實驗室在最初的 Kubernetes 部署中取得了巨大成功。舊程式碼正在被簡化和消除，使開發人員不必改變他們編寫工具和機器人的方式，這些工具和機器人的執行方式比過去更穩定。帶薪員工和志願者能夠更好地解決問題。</p>
+
+<!--
+<p>In the future, with a more complete migration to Kubernetes, Wikimedia Tool Labs expects to make it even easier to host and maintain the bots and tools that help run wikis across the world. The tool labs already host approximately 1,300 tools and bots from 800 volunteers, with many more being submitted every day. Twenty percent of the tool labs' web tools that account for more than 60 percent of web traffic now run on Kubernetes. The tool labs has a 25-node cluster that keeps up with each new Kubernetes release. Many existing web tools are migrating to Kubernetes.</p>
+-->
+<p>將來，隨著更完整的遷移到 Kubernetes，Wikimedia 工具實驗室希望更輕鬆地託管和維護有助於在世界各地執行 wiki 的機器人和工具。該工具實驗室已經擁有來自 800 名志願者的大約 1300 個工具和機器人，而且每天提交量會更多。佔 Web 流量 60% 以上的工具實驗室的 Web 工具中有 20% 現在執行在 Kubernetes 上。工具實驗室有一個 25 節點的叢集，可以跟上每個新的 Kubernetes 版本。許多現有的 Web 工具正在遷移到 Kubernetes。</p>
+
+<!--
+<p>"Our goal is to make sure that people all over the world can share knowledge as easily as possible. Kubernetes helps with that, by making it easier for wikis everywhere to have the tools they need to thrive," says Yuvi.</p>
+-->
+<p>Yuvi 說：“我們的目標是確保世界各地的人們能夠儘可能輕鬆地分享知識，Kubernetes 幫助實現了這一點，它讓世界各地的 wiki 更容易擁有蓬勃發展所需的工具。”</p>

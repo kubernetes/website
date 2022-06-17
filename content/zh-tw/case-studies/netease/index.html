@@ -1,0 +1,105 @@
+---
+title: 案例研究：NetEase
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+---
+
+
+<!-- <div class="banner1" style="background-image: url('/images/case-studies/netease/banner1.jpg')">
+  <h1> CASE STUDY:<img src="/images/netease_logo.png" class="header_logo" style="width:22%;margin-bottom:-1%"><br> <div class="subhead" style="margin-top:1%"> How NetEase Leverages Kubernetes to Support Internet Business Worldwide</div></h1>
+
+</div> -->
+<div class="banner1" style="background-image: url('/images/case-studies/netease/banner1.jpg')">
+  <h1> 案例研究：<img src="/images/netease_logo.png" class="header_logo" style="width:22%;margin-bottom:-1%"><br> <div class="subhead" style="margin-top:1%"> 網易如何利用 Kubernetes 支援在全球的網際網路業務</div></h1>
+
+</div>
+
+
+<div class="details" style="font-size:1em">
+    公司 &nbsp;<b>網易</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位置 &nbsp;<b>杭州，中國</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行業 &nbsp;<b>網際網路科技</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1" style="margin-left:-1.5% !important">
+    <h2>挑戰</h2>
+         <!-- Its gaming business is one of the largest in the world, but that’s not all that <a href="https://netease-na.com/">NetEase</a> provides to Chinese consumers. The company also operates e-commerce, advertising, music streaming, online education, and email platforms; the last of which serves almost a billion users with free email services through sites like <a href="https://www.163.com/">163.com</a>. In 2015, the NetEase Cloud team providing the infrastructure for all of these systems realized that their R&D process was slowing down developers. “Our users needed to prepare all of the infrastructure by themselves,” says Feng Changjian, Architect for NetEase Cloud and Container Service. “We were eager to provide the infrastructure and tools for our users automatically via serverless container service.” -->
+其遊戲業務是世界上最大的遊戲業務之一，但這不是<a href="https://netease-na.com/">網易</a>為中國消費者提供的所有。公司還經營電子商務、廣告、音樂流媒體、線上教育和電子郵件平臺；其中最後一個服務有近10億使用者透過網站使用免費的電子郵件服務，如<a href="https://www.163.com/">163.com</a>。2015 年，為所有這些系統提供基礎設施的網易雲團隊意識到，他們的研發流程正在減緩開發人員的速度。網易雲和容器服務架構師馮長健表示：“我們的使用者需要自己準備所有基礎設施。”“我們希望透過無伺服器容器服務自動為使用者提供基礎設施和工具。”
+<br><br>
+ <h2>解決方案</h2>
+      <!-- After considering building its own orchestration solution, NetEase decided to base its private cloud platform on <a href="https://kubernetes.io/">Kubernetes</a>. The fact that the technology came out of Google gave the team confidence that it could keep up with NetEase’s scale. “After our 2-to-3-month evaluation, we believed it could satisfy our needs,” says Feng. The team started working with Kubernetes in 2015, before it was even 1.0. Today, the NetEase internal cloud platform—which also leverages the CNCF projects <a href="https://prometheus.io/">Prometheus</a>, <a href="https://www.envoyproxy.io/">Envoy</a>, <a href="https://goharbor.io/">Harbor</a>, <a href="https://grpc.io/">gRPC</a>, and <a href="https://helm.sh/">Helm</a>—runs 10,000 nodes in a production cluster and can support up to 30,000 nodes in a cluster. Based on its learnings from its internal platform, the company introduced a Kubernetes-based cloud and microservices-oriented PaaS product, <a href="https://landscape.cncf.io/selected=netease-qingzhou-microservice">NetEase Qingzhou Microservice</a>, to outside customers. -->
+在考慮構建自己的業務流程解決方案後，網易決定將其私有云平臺建立在 <a href="https://kubernetes.io/">Kubernetes</a> 的基礎上。這項技術來自 Google，這一事實讓團隊有信心，它能夠跟上網易的規模。“經過2到3個月的評估，我們相信它能滿足我們的需求，”馮長健說。該團隊於 2015 年開始與 Kubernetes 合作，那會它甚至還不是1.0版本。如今，網易內部雲平臺還使用了 CNCF 專案 <a href="https://prometheus.io/">Prometheus</a>、<a href="https://www.envoyproxy.io/">Envoy</a>、<a href="https://goharbor.io/">Harbor</a>、<a href="https://grpc.io/">gRPC</a> 和 <a href="https://helm.sh/">Helm</a>， 在生產叢集中執行 10000 個節點，並可支援叢集多達 30000 個節點。基於對內部平臺的學習，公司向外部客戶推出了基於 Kubernetes 的雲和微服務型 PaaS 產品，網易輕舟微服務。
+
+
+<br><br>
+<h2>影響</h2>
+      <!-- The NetEase team reports that Kubernetes has increased R&D efficiency by more than 100%. Deployment efficiency has improved by 280%. “In the past, if we wanted to do upgrades, we needed to work with other teams, even in other departments,” says Feng. “We needed special staff to prepare everything, so it took about half an hour. Now we can do it in only 5 minutes.” The new platform also allows for mixed deployments using GPU and CPU resources. “Before, if we put all the resources toward the GPU, we won’t have spare resources for the CPU. But now we have improvements thanks to the mixed deployments,” he says. Those improvements have also brought an increase in resource utilization. -->
+網易團隊報告說，Kubernetes 已經提高了研發效率一倍多，部署效率提高了 2.8倍。“過去，如果我們想要進行升級，我們需要與其他團隊合作，甚至加入其他部門，”馮長健說。“我們需要專人來準備一切，需要花費約半個小時。現在我們只需 5 分鐘即可完成。”新平臺還允許使用 GPU 和 CPU 資源進行混合部署。“以前，如果我們將所有資源都用於 GPU，則 CPU 的備用資源將沒有。但是現在，由於混合部署，我們有了很大的改進，”他說。這些改進也提高了資源的利用率。
+</div>
+</div>
+
+</section>
+<div class="banner2">
+  <div class="banner2text">
+    <!-- "The system can support 30,000 nodes in a single cluster. In production, we have gotten the data of 10,000 nodes in a single cluster. The whole internal system is using this system for development, test, and production."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>— Zeng Yuxing, Architect, NetEase</span> -->
+    “系統可以在單個群集中支援 30000 個節點。在生產中，我們在單個群集中獲取到了 10000 個節點的資料。整個內部系統都在使用該系統進行開發、測試和生產。”<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>— 曾宇興,網易架構師</span>
+  </div>
+</div>
+<section class="section2">
+<div class="fullcol">
+ <!-- <h2>Its gaming business is the <a href="https://newzoo.com/insights/rankings/top-25-companies-game-revenues/">fifth-largest</a> in the world, but that’s not all that <a href="https://netease-na.com/">NetEase</a> provides consumers.</h2>The company also operates e-commerce, advertising, music streaming, online education, and email platforms in China; the last of which serves almost a billion users with free email services through popular sites like <a href="https://www.163.com/">163.com</a> and <a href="https://www.126.com/">126.com</a>. With that kind of scale, the NetEase Cloud team providing the infrastructure for all of these systems realized in 2015 that their R&D process was making it hard for developers to keep up with demand. “Our users needed to prepare all of the infrastructure by themselves,” says Feng Changjian, Architect for NetEase Cloud and Container Service. “We were eager to provide the infrastructure and tools for our users automatically via serverless container service.”<br><br> -->
+ <h2>其遊戲業務是世界<a href="https://newzoo.com/insights/rankings/top-25-companies-game-revenues/">第五大</a>遊戲業務，但這不是<a href="https://netease-na.com/">網易</a>為消費者提供的所有業務。</h2>公司還在中國經營電子商務、廣告、音樂流媒體、線上教育和電子郵件平臺；其中最後一個服務是有近10億使用者使用的網站，如<a href="https://www.163.com/">163.com</a>和<a href="https://www.126.com/">126.com</a>免費電子郵件服務。有了這樣的規模，為所有這些系統提供基礎設施的網易雲團隊在 2015 年就意識到，他們的研發流程使得開發人員難以跟上需求。網易雲和容器服務架構師馮長健表示：“我們的使用者需要自己準備所有基礎設施。”“我們渴望透過無伺服器容器服務自動為使用者提供基礎設施和工具。”<br><br>
+ <!-- After considering building its own orchestration solution, NetEase decided to base its private cloud platform on <a href="https://kubernetes.io/">Kubernetes</a>. The fact that the technology came out of Google gave the team confidence that it could keep up with NetEase’s scale. “After our 2-to-3-month evaluation, we believed it could satisfy our needs,” says Feng. -->
+在考慮構建自己的業務流程解決方案後，網易決定將其私有云平臺建立在 <a href="https://kubernetes.io/">Kubernetes</a> 的基礎上。這項技術來自谷歌，這一事實讓團隊有信心，它能夠跟上網易的規模。“經過2到3個月的評估，我們相信它能滿足我們的需求，”馮長健說。
+</div>
+</section>
+<div class="banner3" style="background-image: url('/images/case-studies/netease/banner3.jpg')">
+  <div class="banner3text">
+    <!-- "We leveraged the programmability of Kubernetes so that we can build a platform to satisfy the needs of our internal customers for upgrades and deployment." -->
+“我們利用 Kubernetes 的可程式設計性，構建一個平臺，以滿足內部客戶對升級和部署的需求。”<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- 馮長健,網易雲和容器託管平臺架構師</span>
+  </div>
+</div>
+<section class="section3">
+<div class="fullcol">
+  <!-- The team started adopting Kubernetes in 2015, before it was even 1.0, because it was relatively easy to use and enabled DevOps at the company. “We abandoned some of the concepts of Kubernetes; we only wanted to use the standardized framework,” says Feng. “We leveraged the programmability of Kubernetes so that we can build a platform to satisfy the needs of our internal customers for upgrades and deployment.”<br><br> -->
+該團隊於 2015 年開始採用 Kubernetes，那會它甚至還不是1.0版本，因為它相對易於使用，並且使 DevOps 在公司中得以實現。“我們放棄了 Kubernetes 的一些概念；我們只想使用標準化框架，”馮長健說。“我們利用 Kubernetes 的可程式設計性，構建一個平臺，以滿足內部客戶對升級和部署的需求。”<br><br>
+  <!-- The team first focused on building the container platform to manage resources better, and then turned their attention to improving its support of microservices by adding internal systems such as monitoring. That has meant integrating the CNCF projects <a href="https://prometheus.io/">Prometheus</a>, <a href="https://www.envoyproxy.io/">Envoy</a>, <a href="https://goharbor.io/">Harbor</a>, <a href="https://grpc.io/">gRPC</a>, and <a href="https://helm.sh/">Helm</a>. “We are trying to provide a simplified and standardized process, so our users and customers can leverage our best practices,” says Feng.<br><br> -->
+團隊首先專注於構建容器平臺以更好地管理資源，然後透過新增內部系統（如監視）來改進對微服務的支援。這意味著整合了 CNCF 專案 <a href="https://prometheus.io/">Prometheus</a>，<a href="https://www.envoyproxy.io/">Envoy</a>，<a href="https://goharbor.io/">Harbor</a>，<a href="https://grpc.io/">gRPC</a> 和 <a href="https://helm.sh/">Helm</a>。“我們正在努力提供簡化和標準化的流程，以便我們的使用者和客戶能夠利用我們的最佳實踐，”馮長健說。<br><br>
+  <!-- And the team is continuing to make improvements. For example, the e-commerce part of the business needs to leverage mixed deployments, which in the past required using two separate platforms: the infrastructure-as-a-service platform and the Kubernetes platform. More recently, NetEase has created a cross-platform application that enables using both with one-command deployment. -->
+團隊正在繼續改進。例如，企業的電子商務部分需要利用混合部署，過去需要使用兩個單獨的平臺：基礎架構即服務平臺和 Kubernetes 平臺。最近，網易建立了一個跨平臺應用程式，支援將兩者同時使用單命令部署。
+</div>
+</section>
+<div class="banner4" style="background-image: url('/images/case-studies/netease/banner4.jpg')">
+  <div class="banner4text">
+    <!-- "As long as a company has a mature team and enough developers, I think Kubernetes is a very good technology that can help them."<span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br><br>- Li Lanqing, Kubernetes Developer, NetEase</span> -->
+“只要公司擁有成熟的團隊和足夠的開發人員，我認為 Kubernetes 是一個很好的有所助力的技術。”<span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br><br>- 李蘭青, 網易 Kubernetes 開發人員</span>
+  </div>
+  </div>
+</div>
+
+<section class="section5" style="padding:0px !important">
+<div class="fullcol">
+  <!-- Today, the NetEase internal cloud platform “can support 30,000 nodes in a single cluster,” says Architect Zeng Yuxing. “In production, we have gotten the data of 10,000 nodes in a single cluster. The whole internal system is using this system for development, test, and production.” <br><br> -->
+“系統可以在單個群集中支援 30000 個節點。在生產中，我們在單個群集中獲取到了 10000 個節點的資料。整個內部系統都在使用該系統進行開發、測試和生產。”<br><br>
+  <!-- The NetEase team reports that Kubernetes has increased R&D efficiency by more than 100%. Deployment efficiency has improved by 280%. “In the past, if we wanted to do upgrades, we needed to work with other teams, even in other departments,” says Feng. “We needed special staff to prepare everything, so it took about half an hour. Now we can do it in only 5 minutes.” The new platform also allows for mixed deployments using GPU and CPU resources. “Before, if we put all the resources toward the GPU, we won’t have spare resources for the CPU. But now we have improvements thanks to the mixed deployments.” Those improvements have also brought an increase in resource utilization. -->
+網易團隊報告說，Kubernetes 已經提高了研發效率一倍多。部署效率提高了 2.8倍。“過去，如果我們想要進行升級，我們需要與其他團隊合作，甚至加入其他部門，”馮長健說。“我們需要專人來準備一切，需要花費約半個小時。現在我們只需 5 分鐘即可完成。”新平臺還允許使用 GPU 和 CPU 資源進行混合部署。“以前，如果我們將所有資源都用於 GPU，則 CPU 的備用資源將沒有。但是現在，由於混合部署，我們有了很大的改進，”他說。這些改進也提高了資源的利用率。
+
+</div>
+
+<div class="banner5">
+  <div class="banner5text">
+  <!-- "By engaging with this community, we can gain some experience from it and we can also benefit from it. We can see what are the concerns and the challenges faced by the community, so we can get involved."<span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br><br>- Li Lanqing, Kubernetes Developer, NetEase</span> -->
+“透過與這個社群接觸，我們可以從中獲得一些經驗，我們也可以從中獲益。我們可以看到社群所關心的問題和挑戰，以便我們參與其中。”<span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br><br>- 李蘭青, 網易 Kubernetes 開發人員</span>
+  </div>
+</div>
+<div class="fullcol">
+  <!-- Based on the results and learnings from using its internal platform, the company introduced a Kubernetes-based cloud and microservices-oriented PaaS product, <a href="https://landscape.cncf.io/selected=netease-qingzhou-microservice">NetEase Qingzhou Microservice</a>, to outside customers. “The idea is that we can find the problems encountered by our game and e-commerce and cloud music providers, so we can integrate their experiences and provide a platform to satisfy the needs of our users,” says Zeng. <br><br> -->
+基於使用內部平臺的成果和學習，公司向外部客戶推出了基於 Kubernetes 的雲和微服務型 PaaS 產品，網易輕舟微服務。“我們的想法是，我們可以找到我們的遊戲和電子商務以及雲音樂提供商遇到的問題，所以我們可以整合他們的體驗，並提供一個平臺，以滿足所有使用者的需求，”曾宇興說。<br><br>
+  <!-- With or without the use of the NetEase product, the team encourages other companies to try Kubernetes. “As long as a company has a mature team and enough developers, I think Kubernetes is a very good technology that can help them,” says Kubernetes developer Li Lanqing.<br><br> -->
+無論是否使用網易產品，該團隊鼓勵其他公司嘗試 Kubernetes。Kubernetes 開發者李蘭青表示：“只要公司擁有成熟的團隊和足夠的開發人員，我認為 Kubernetes 是一個很好的技術，可以幫助他們。”<br><br>
+  <!-- As an end user as well as a vendor, NetEase has become more involved in the community, learning from other companies and sharing what they’ve done. The team has been contributing to the Harbor and Envoy projects, providing feedback as the technologies are being tested at NetEase scale. “We are a team focusing on addressing the challenges of microservices architecture,” says Feng. “By engaging with this community, we can gain some experience from it and we can also benefit from it. We can see what are the concerns and the challenges faced by the community, so we can get involved.” -->
+作為終端使用者和供應商，網易已經更多地參與社群，向其他公司學習，分享他們所做的工作。該團隊一直在為 Harbor 和 Envoy 專案做出貢獻，在網易進行規模測試技術時提供反饋。“我們是一個團隊，專注於應對微服務架構的挑戰，”馮長健說。“透過與這個社群接觸，我們可以從中獲得一些經驗，我們也可以從中獲益。我們可以看到社群所關心的問題和挑戰，以便我們參與其中。”
+</div>
+</section>

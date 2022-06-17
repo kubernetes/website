@@ -1,0 +1,87 @@
+---
+title: "生產級別的容器編排系統"
+abstract: "自動化的容器部署、擴充套件和管理"
+cid: home
+---
+
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+
+<!-- ### [Kubernetes]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}) is an open-source system for automating deployment, scaling, and management of containerized applications. -->
+### [Kubernetes]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}) 是用於自動部署，擴充套件和管理容器化應用程式的開源系統。
+
+<!-- It groups containers that make up an application into logical units for easy management and discovery.
+Kubernetes builds upon [15 years of experience of running production workloads at Google](http://queue.acm.org/detail.cfm?id=2898444),
+combined with best-of-breed ideas and practices from the community. -->
+
+它將組成應用程式的容器組合成邏輯單元，以便於管理和服務發現。Kubernetes 源自[Google 15 年生產環境的運維經驗](http://queue.acm.org/detail.cfm?id=2898444)，同時凝聚了社群的最佳創意和實踐。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+
+<!-- #### Planet Scale -->
+#### 星際尺度
+
+<!-- Designed on the same principles that allows Google to run billions of containers a week,
+Kubernetes can scale without increasing your ops team. -->
+
+Google 每週執行數十億個容器，Kubernetes 基於與之相同的原則來設計，能夠在不擴張運維團隊的情況下進行規模擴充套件。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+
+<!-- #### Never Outgrow -->
+#### 處處適用
+
+<!-- Whether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications
+consistently and easily no matter how complex your need is. -->
+
+無論是本地測試，還是跨國公司，Kubernetes 的靈活性都能讓你在應對複雜系統時得心應手。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+
+<!-- #### Run Anywhere -->
+#### 永不過時
+
+<!-- Kubernetes is open source giving you the freedom to take advantage of on-premises, hybrid,
+or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you. -->
+
+Kubernetes 是開源系統，可以自由地部署在企業內部，私有云、混合雲或公有云，讓您輕鬆地做出合適的選擇。
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+
+<div class="light-text">
+    <!-- <h2>The Challenges of Migrating 150+ Microservices to Kubernetes</h2> -->
+    <h2>將 150+ 微服務遷移到 Kubernetes 上的挑戰</h2>
+    <!-- <p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p> -->
+    <p>Sarah Wells, 運營和可靠性技術總監, 金融時報</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
+    <br>
+    <br>
+    <!-- <a href="https://www.lfasiallc.com/events/kubecon-cloudnativecon-china-2018/" button id="desktopKCButton">Attend KubeCon in Shanghai on Nov. 13-15, 2018</a> -->
+    <a href="https://www.lfasiallc.com/events/kubecon-cloudnativecon-china-2018/" button id="desktopKCButton">參加11月13日到15日的上海 KubeCon</a>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/" button id="desktopKCButton">Attend KubeCon in Seattle on Dec. 11-13, 2018</a> -->
+    <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/" button id="desktopKCButton">參加12月11日到13日的西雅圖 KubeCon</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}

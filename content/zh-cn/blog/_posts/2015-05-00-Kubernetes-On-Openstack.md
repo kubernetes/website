@@ -9,7 +9,7 @@ slug: kubernetes-on-openstack
 title: " Kubernetes on OpenStack "
 date: 2015-05-19
 slug: kubernetes-on-openstack
-url: /zh/blog/2015/05/Kubernetes-On-Openstack
+url: /zh-cn/blog/2015/05/Kubernetes-On-Openstack
 ---
 -->
 

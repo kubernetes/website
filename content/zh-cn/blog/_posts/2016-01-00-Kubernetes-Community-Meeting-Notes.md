@@ -2,14 +2,14 @@
 title: " Kubernetes 社区会议记录 - 20160114 "
 date: 2016-01-28
 slug: kubernetes-community-meeting-notes
-url: /zh/blog/2016/01/Kubernetes-Community-Meeting-Notes
+url: /zh-cn/blog/2016/01/Kubernetes-Community-Meeting-Notes
 ---
 <!--
 ---
 title: " Kubernetes Community Meeting Notes - 20160114 "
 date: 2016-01-28
 slug: kubernetes-community-meeting-notes
-url: /zh/blog/2016/01/Kubernetes-Community-Meeting-Notes
+url: /zh-cn/blog/2016/01/Kubernetes-Community-Meeting-Notes
 ---
 -->
 <!--

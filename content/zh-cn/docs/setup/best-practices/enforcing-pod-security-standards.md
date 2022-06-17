@@ -17,7 +17,7 @@ weight: 40
 This page provides an overview of best practices when it comes to enforcing
 [Pod Security Standards](/docs/concepts/security/pod-security-standards).
 -->
-本页提供实施 [Pod 安全标准（Pod Security Standards）](/zh/docs/concepts/security/pod-security-standards)
+本页提供实施 [Pod 安全标准（Pod Security Standards）](/zh-cn/docs/concepts/security/pod-security-standards)
 时的一些最佳实践。
 
 <!-- body -->
@@ -33,7 +33,7 @@ This page provides an overview of best practices when it comes to enforcing
 The [Pod Security Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
 intends to replace the deprecated PodSecurityPolicies. 
 -->
-[Pod 安全性准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
+[Pod 安全性准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
 尝试替换已被废弃的 PodSecurityPolicies。
 
 <!--
@@ -58,7 +58,7 @@ we provide an [example](/docs/concepts/security/pod-security-admission/#applying
 that illustrates how the PodSecurity labels can be applied in bulk.
 -->
 针对所有名字空间中的所有负载都具有相同的安全性需求的场景，
-我们提供了一个[示例](/zh/docs/concepts/security/pod-security-admission/#applying-to-all-namespaces)
+我们提供了一个[示例](/zh-cn/docs/concepts/security/pod-security-admission/#applying-to-all-namespaces)
 用来展示如何批量应用 Pod 安全性标签。
 
 <!--

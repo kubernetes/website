@@ -33,7 +33,7 @@ declaratively by sending their fully specified intent.
 服务器端应用协助用户、控制器通过声明式配置的方式管理他们的资源。
 客户端可以发送完整描述的目标（A fully specified intent），
 声明式地创建和/或修改
-[对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)。
+[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)。
 
 <!--
 A fully specified intent is a partial object that only includes the fields and
@@ -580,7 +580,7 @@ Say a user has defined deployment with `replicas` set to the desired value:
 服务器端应用提供了一些协作方式来将字段所有权从用户转移到控制器。
 
 最好通过例子来说明这一点。
-让我们来看看，在使用 Horizo​​ntalPodAutoscaler 资源和与之配套的控制器，
+让我们来看看，在使用 Horizo  ntalPodAutoscaler 资源和与之配套的控制器，
 且开启了 Deployment 的自动水平扩展功能之后，
 怎么安全的将 `replicas` 字段的所有权从用户转移到控制器。
 

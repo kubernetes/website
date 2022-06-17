@@ -21,8 +21,8 @@ to learn about more ways to contribute. You need to use the Git command line
 client and other tools for some of these tasks.
 -->
 
-如果你已经了解如何[贡献新内容](/zh/docs/contribute/new-content/overview/)和
-[评阅他人工作](/zh/docs/contribute/review/reviewing-prs/)，并准备了解更多贡献的途径，
+如果你已经了解如何[贡献新内容](/zh-cn/docs/contribute/new-content/overview/)和
+[评阅他人工作](/zh-cn/docs/contribute/review/reviewing-prs/)，并准备了解更多贡献的途径，
 请阅读此文。你需要使用 Git 命令行工具和其他工具做这些工作。
 
 <!-- body -->
@@ -34,7 +34,7 @@ SIG Docs [members](/docs/contribute/participate/roles-and-responsibilities/#memb
 -->
 ## 提出改进建议
 
-SIG Docs 的 [成员](/zh/docs/contribute/participate/roles-and-responsibilities/#members) 可以提出改进建议。
+SIG Docs 的 [成员](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#members) 可以提出改进建议。
 
 <!--
 After you've been contributing to the Kubernetes documentation for a while, you
@@ -50,8 +50,8 @@ changes. The quickest way to get answers to questions about how the documentatio
 currently works is to ask in the `#sig-docs` Slack channel on
 [kubernetes.slack.com](https://kubernetes.slack.com)
 -->
-在对 Kubernetes 文档贡献了一段时间后，你可能会对[样式指南](/zh/docs/contribute/style/style-guide/)、
-[内容指南](/zh/docs/contribute/style/content-guide/)、用于构建文档的工具链、网站样式、
+在对 Kubernetes 文档贡献了一段时间后，你可能会对[样式指南](/zh-cn/docs/contribute/style/style-guide/)、
+[内容指南](/zh-cn/docs/contribute/style/content-guide/)、用于构建文档的工具链、网站样式、
 评审和合并 PR 的流程或者文档的其他方面产生改进的想法。
 为了尽可能透明化，这些提议都需要在 SIG Docs 会议或
 [kubernetes-sig-docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)上讨论。
@@ -76,7 +76,7 @@ docs for a Kubernetes release.
 -->
 ## 为 Kubernetes 版本发布协调文档工作
 
-SIG Docs 的[批准者（approvers）](/zh/docs/contribute/participating/#approvers) 可以为
+SIG Docs 的[批准者（approvers）](/zh-cn/docs/contribute/participating/#approvers) 可以为
 Kubernetes 版本发布协调文档工作。
 
 <!--
@@ -141,7 +141,7 @@ Responsibilities for New Contributor Ambassadors include:
 
 ## 担任新的贡献者大使
 
-SIG Docs [批准人（Approvers）](/zh/docs/contribute/participating/#approvers) 
+SIG Docs [批准人（Approvers）](/zh-cn/docs/contribute/participating/#approvers) 
 可以担任新的贡献者大使。
 
 新的贡献者大使共同努力欢迎 SIG-Docs 的新贡献者，对新贡献者的 PR 提出建议，
@@ -177,7 +177,7 @@ new contributors.
 -->
 ## 为新的贡献者提供保荐 {#sponsor-a-new-contributor}
 
-SIG Docs 的[评审人（Reviewers）](/zh/docs/contribute/participating/#reviewers) 可以为新的贡献者提供保荐。
+SIG Docs 的[评审人（Reviewers）](/zh-cn/docs/contribute/participating/#reviewers) 可以为新的贡献者提供保荐。
 
 <!--
 After a new contributor has successfully submitted 5 substantive pull requests
@@ -187,7 +187,7 @@ organization. The contributor's membership needs to be backed by two sponsors
 who are already reviewers.
 -->
 新的贡献者针对一个或多个 Kubernetes 项目仓库成功提交了 5 个实质性 PR 之后，
-就有资格申请 Kubernetes 组织的[成员身份](/zh/docs/contribute/participate/roles-and-responsibilities/#members)。
+就有资格申请 Kubernetes 组织的[成员身份](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#members)。
 贡献者的成员资格需要同时得到两位评审人的保荐。
 
 <!--
@@ -214,7 +214,7 @@ can serve a term as a co-chair of SIG Docs.
 -->
 ## 担任 SIG 联合主席
 
-SIG Docs [成员（Members）](/zh/docs/contribute/participate/roles-and-responsibilities/#members)
+SIG Docs [成员（Members）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#members)
 可以担任 SIG Docs 的联合主席。
 
 ### 前提条件

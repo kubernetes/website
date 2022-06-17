@@ -136,7 +136,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 The guestbook application needs to communicate to the Redis to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis Pod. A Service defines a policy to access the Pods.
 -->
 留言板应用程序需要往 Redis 中写数据。因此，需要创建
-[Service](/zh/docs/concepts/services-networking/service/) 来转发 Redis Pod
+[Service](/zh-cn/docs/concepts/services-networking/service/) 来转发 Redis Pod
 的流量。Service 定义了访问 Pod 的策略。
 
 {{< codenew file="application/guestbook/redis-leader-service.yaml" >}}
@@ -239,7 +239,7 @@ The guestbook application needs to communicate with the Redis followers to read 
 
 Guestbook 应用需要与 Redis 跟随者通信以读取数据。
 为了让 Redis 跟随者可被发现，你必须创建另一个
-[Service](/zh/docs/concepts/services-networking/service/)。
+[Service](/zh-cn/docs/concepts/services-networking/service/)。
 
 {{< codenew file="application/guestbook/redis-follower-service.yaml" >}}
 
@@ -357,7 +357,7 @@ Guestbook 应用使用 PHP 前端。该前端被配置成与后端的 Redis 跟�
 The `Redis` Services you applied is only accessible within the Kubernetes cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services-service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
 -->
 应用的 `Redis` 服务只能在 Kubernetes 集群中访问，因为服务的默认类型是
-[ClusterIP](/zh/docs/concepts/services-networking/service/#publishing-services-service-types)。
+[ClusterIP](/zh-cn/docs/concepts/services-networking/service/#publishing-services-service-types)。
 `ClusterIP` 为服务指向的 Pod 集提供一个 IP 地址。这个 IP 地址只能在集群中访问。
 
 <!--
@@ -629,8 +629,8 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 * Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
 * Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
 -->
-* 完成 [Kubernetes 基础](/zh/docs/tutorials/kubernetes-basics/) 交互式教程
+* 完成 [Kubernetes 基础](/zh-cn/docs/tutorials/kubernetes-basics/) 交互式教程
 * 使用 Kubernetes 创建一个博客，使用
-  [MySQL 和 Wordpress 的持久卷](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
-* 进一步阅读[连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
-* 进一步阅读[管理资源](/zh/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
+  [MySQL 和 Wordpress 的持久卷](/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
+* 进一步阅读[连接应用程序](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 进一步阅读[管理资源](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)

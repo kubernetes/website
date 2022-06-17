@@ -1,0 +1,108 @@
+---
+title: 使用 Minikube 建立叢集
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+      <div class="col-md-8">
+          <h3>目標</h3>
+                <ul>
+                    <li>瞭解 Kubernetes 叢集。</li>
+                    <li>瞭解 Minikube 。</li>
+                    <li>使用線上終端開啟一個 Kubernetes 叢集。</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3> Kubernetes 叢集</h3>
+                <p>
+                <b> Kubernetes 協調一個高可用計算機叢集，每個計算機作為獨立單元互相連線工作。</b> Kubernetes 中的抽象允許你將容器化的應用部署到叢集，而無需將它們繫結到某個特定的獨立計算機。為了使用這種新的部署模型，應用需要以將應用與單個主機分離的方式打包：它們需要被容器化。與過去的那種應用直接以包的方式深度與主機整合的部署模型相比，容器化應用更靈活、更可用。<b> Kubernetes 以更高效的方式跨叢集自動分發和排程應用容器。</b> Kubernetes 是一個開源平臺，並且可應用於生產環境。
+                </p>
+                <p>一個 Kubernetes 叢集包含兩種型別的資源:
+                    <ul>
+                        <li><b> Master </b>排程整個叢集</li>
+                        <li><b> Nodes </b>負責執行應用</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>總結:</h3>
+                    <ul>
+                        <li> Kubernetes 叢集</li>
+                        <li> Minikube </li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        Kubernetes 是一個生產級別的開源平臺，可協調在計算機叢集內和跨計算機叢集的應用容器的部署（排程）和執行.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">叢集圖</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><b> Master 負責管理整個叢集。</b> Master 協調叢集中的所有活動，例如排程應用、維護應用的所需狀態、應用擴容以及推出新的更新。</p>
+                <p><b> Node 是一個虛擬機器或者物理機，它在 Kubernetes 叢集中充當工作機器的角色</b> 每個Node都有 Kubelet , 它管理 Node 而且是 Node 與 Master 通訊的代理。 Node 還應該具有用於  處理容器操作的工具，例如 Docker 或 rkt 。處理生產級流量的 Kubernetes 叢集至少應具有三個 Node，因為如果一個 Node 出現故障其對應的 etcd 成員和控制平面例項都會丟失，並且冗餘會受到影響。 你可以透過新增更多控制平面節點來降低這種風險 。</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Master 管理叢集，Node 用於託管正在執行的應用。</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>在 Kubernetes 上部署應用時，你告訴 Master 啟動應用容器。 Master 就編排容器在叢集的 Node 上執行。<b> Node 使用 Master 暴露的 Kubernetes API 與 Master 通訊。</b>終端使用者也可以使用 Kubernetes API 與叢集互動。</p>
+
+                <p> Kubernetes 既可以部署在物理機上也可以部署在虛擬機器上。你可以使用 Minikube 開始部署 Kubernetes 叢集。 Minikube 是一種輕量級的 Kubernetes 實現，可在本地計算機上建立 VM 並部署僅包含一個節點的簡單叢集。 Minikube 可用於 Linux ， macOS 和 Windows 系統。Minikube CLI 提供了用於引導叢集工作的多種操作，包括啟動、停止、檢視狀態和刪除。在本教程裡，你可以使用預裝有 Minikube 的線上終端進行體驗。</p>
+
+                <p>既然你已經知道 Kubernetes 是什麼，讓我們轉到線上教程並啟動我們的第一個 Kubernetes 叢集！</p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button"> 啟動互動教程 <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

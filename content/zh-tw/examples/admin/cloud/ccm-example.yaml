@@ -1,0 +1,72 @@
+# 這是一個如何將 cloud-controller-manager 安裝為叢集中的 Daemonset 的示例。
+# 本例假定你的主控節點可以執行 pod 並具有角色 node-role.kubernetes.io/master
+# 請注意，這裡的 Daemonset 不能直接在你的雲上工作，此例只是一個指導。
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cloud-controller-manager
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: system:cloud-controller-manager
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: cloud-controller-manager
+  namespace: kube-system
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    k8s-app: cloud-controller-manager
+  name: cloud-controller-manager
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      k8s-app: cloud-controller-manager
+  template:
+    metadata:
+      labels:
+        k8s-app: cloud-controller-manager
+    spec:
+      serviceAccountName: cloud-controller-manager
+      containers:
+      - name: cloud-controller-manager
+        # 對於樹內驅動，我們使用 k8s.gcr.io/cloud-controller-manager，
+        # 映象可以替換為其他樹外驅動的映象
+        image: k8s.gcr.io/cloud-controller-manager:v1.8.0
+        command:
+        - /usr/local/bin/cloud-controller-manager
+        - --cloud-provider=[YOUR_CLOUD_PROVIDER]  # 在此處新增你自己的雲驅動！
+        - --leader-elect=true
+        - --use-service-account-credentials
+        # 這些標誌因每個雲驅動而異
+        - --allocate-node-cidrs=true
+        - --configure-cloud-routes=true
+        - --cluster-cidr=172.17.0.0/16
+      tolerations:
+      # 這一設定是必需的，為了讓 CCM 可以自行引導
+      - key: node.cloudprovider.kubernetes.io/uninitialized
+        value: "true"
+        effect: NoSchedule
+      # 這些容忍度使得守護程序能夠在控制平面節點上執行
+      # 如果你的控制平面節點不應該執行 pod，請刪除它們
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+      # 這是為了限制 CCM 僅在主節點上執行
+      # 節點選擇器可能因你的叢集設定而異
+      nodeSelector:
+        node-role.kubernetes.io/master: ""

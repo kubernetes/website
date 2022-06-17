@@ -40,7 +40,7 @@ Instead, we expect higher-level and more tailored tooling to be built on top of 
 To install kubeadm, see the [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm).
 -->
 要安装 kubeadm, 请查阅
-[安装指南](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+[安装指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 ## {{% heading "whatsnext" %}}
 
@@ -56,24 +56,24 @@ To install kubeadm, see the [installation guide](/docs/setup/production-environm
 * [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version) to print the kubeadm version
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha) to preview a set of features made available for gathering feedback from the community
  -->
-* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init)
+* [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init)
   用于搭建控制平面节点
-* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join)
+* [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join)
   用于搭建工作节点并将其加入到集群中
-* [kubeadm upgrade](/zh/docs/reference/setup-tools/kubeadm/kubeadm-upgrade)
+* [kubeadm upgrade](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-upgrade)
   用于升级 Kubernetes 集群到新版本
-* [kubeadm config](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config)
+* [kubeadm config](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config)
   如果你使用了 v1.7.x 或更低版本的 kubeadm 版本初始化你的集群，则使用
   `kubeadm upgrade` 来配置你的集群
-* [kubeadm token](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token)
+* [kubeadm token](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-token)
   用于管理 `kubeadm join` 使用的令牌
-* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset)
+* [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset)
   用于恢复通过 `kubeadm init` 或者 `kubeadm join` 命令对节点进行的任何变更
-* [kubeadm certs](/zh/docs/reference/setup-tools/kubeadm/kubeadm-certs)
+* [kubeadm certs](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-certs)
   用于管理 Kubernetes 证书
 * [kubeadm kubeconfig](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
   用于管理 kubeconfig 文件
-* [kubeadm version](/zh/docs/reference/setup-tools/kubeadm/kubeadm-version)
+* [kubeadm version](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-version)
   用于打印 kubeadm 的版本信息
-* [kubeadm alpha](/zh/docs/reference/setup-tools/kubeadm/kubeadm-alpha)
+* [kubeadm alpha](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-alpha)
   用于预览一组可用于收集社区反馈的特性

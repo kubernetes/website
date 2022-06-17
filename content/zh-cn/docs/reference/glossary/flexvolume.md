@@ -2,7 +2,7 @@
 title: FlexVolume
 id: flexvolume
 date: 2018-06-25
-full_link: /zh/docs/concepts/storage/volumes/#flexvolume
+full_link: /zh-cn/docs/concepts/storage/volumes/#flexvolume
 short_description: >
   FlexVolume 是一个已弃用的接口，用于创建树外卷插件。
   {{< glossary_tooltip text="容器存储接口（CSI）" term_id="csi" >}}
@@ -47,6 +47,6 @@ FlexVolume 驱动程序的二进制文件和依赖项必须安装在主机上。
 * [More information on FlexVolumes](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
 * [Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md) 
 -->
-* [Kubernetes 文档中的 Flexvolume](/zh/docs/concepts/storage/volumes/#flexvolume)
+* [Kubernetes 文档中的 Flexvolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume)
 * [更多关于 Flexvolumes 的信息](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
 * [存储供应商的卷插件 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)

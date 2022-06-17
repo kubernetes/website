@@ -29,7 +29,7 @@ The Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-sta
 different isolation levels for Pods. These standards let you define how you want to restrict the
 behavior of pods in a clear, consistent fashion.
 -->
-Kubernetes [Pod 安全性标准（Security Standards）](/zh/docs/concepts/security/pod-security-standards/)
+Kubernetes [Pod 安全性标准（Security Standards）](/zh-cn/docs/concepts/security/pod-security-standards/)
 为 Pod 定义不同的隔离级别。这些标准能够让你以一种清晰、一致的方式定义如何限制 Pod 行为。
 
 <!--
@@ -41,7 +41,7 @@ are created.
 -->
 作为一项 Beta 功能特性，Kubernetes 提供一种内置的 _Pod 安全性_ 
 {{< glossary_tooltip text="准入控制器" term_id="admission-controller" >}}，
-作为 [PodSecurityPolicies](/zh/docs/concepts/security/pod-security-policy/)
+作为 [PodSecurityPolicies](/zh-cn/docs/concepts/security/pod-security-policy/)
 特性的后继演化版本。Pod 安全性限制是在 Pod 被创建时在
 {{< glossary_tooltip text="名字空间" term_id="namespace" >}}层面实施的。
 
@@ -51,7 +51,7 @@ The PodSecurityPolicy API is deprecated and will be
 [removed](/docs/reference/using-api/deprecation-guide/#v1-25) from Kubernetes in v1.25.
 -->
 PodSecurityPolicy API 已经被废弃，会在 Kubernetes v1.25 发行版中
-[移除](/zh/docs/reference/using-api/deprecation-guide/#v1-25)。
+[移除](/zh-cn/docs/reference/using-api/deprecation-guide/#v1-25)。
 {{< /note >}}
 
 <!-- body -->
@@ -75,7 +75,7 @@ is a beta feature and is enabled by default. You must have this feature gate ena
 If you are running a different version of Kubernetes, consult the documentation for that release.
 -->
 在 Kubernetes v{{< skew currentVersion >}} 中，`PodSecurity`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)是一项 Beta 特性，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)是一项 Beta 特性，
 默认被启用。你必须启用此功能门控。如果你运行的是不同版本的 Kubernetes，请查阅该版本的文档。
 
 
@@ -132,11 +132,11 @@ Standards](/docs/concepts/security/pod-security-standards): `privileged`, `basel
 `restricted`. Refer to the [Pod Security Standards](/docs/concepts/security/pod-security-standards)
 page for an in-depth look at those requirements.
 -->
-Pod 安全性准入插件对 Pod 的[安全性上下文](/zh/docs/tasks/configure-pod-container/security-context/)
-有一定的要求，并且依据 [Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards)
+Pod 安全性准入插件对 Pod 的[安全性上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)
+有一定的要求，并且依据 [Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards)
 所定义的三个级别（`privileged`、`baseline` 和 `restricted`）对其他字段也有要求。
 关于这些需求的更进一步讨论，请参阅
-[Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards/)页面。
+[Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards/)页面。
 
 <!--
 ## Pod Security Admission labels for namespaces
@@ -170,7 +170,7 @@ Mode | Description
 模式 | 描述
 :---------|:------------
 **enforce** | 策略违例会导致 Pod 被拒绝
-**audit** | 策略违例会触发[审计日志](/zh/docs/tasks/debug/debug-cluster/audit/)中记录新事件时添加审计注解；但是 Pod 仍是被接受的。
+**audit** | 策略违例会触发[审计日志](/zh-cn/docs/tasks/debug/debug-cluster/audit/)中记录新事件时添加审计注解；但是 Pod 仍是被接受的。
 **warn** | 策略违例会触发用户可见的警告信息，但是 Pod 仍是被接受的。
 {{< /table >}}
 
@@ -216,7 +216,7 @@ pod-security.kubernetes.io/<MODE>-version: <VERSION>
 Check out [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels) to see example usage.
 -->
 关于用法示例，可参阅
-[使用名字空间标签来强制实施 Pod 安全标准](/zh/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)。
+[使用名字空间标签来强制实施 Pod 安全标准](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)。
 
 <!--
 ## Workload resources and Pod templates
@@ -232,7 +232,7 @@ applied to workload resources, only to the resulting pod objects.
 ## 负载资源和 Pod 模板    {#workload-resources-and-pod-templates}
 
 Pod 通常是通过创建 {{< glossary_tooltip term_id="deployment" >}} 或
-{{< glossary_tooltip term_id="job">}} 这类[工作负载对象](/zh/docs/concepts/workloads/controllers/)
+{{< glossary_tooltip term_id="job">}} 这类[工作负载对象](/zh-cn/docs/concepts/workloads/controllers/)
 来间接创建的。工作负载对象为工作负载资源定义一个 _Pod 模板_ 和一个对应的
 负责基于该模板来创建 Pod 的{{< glossary_tooltip term_id="controller" text="控制器" >}}。
 为了尽早地捕获违例状况，`audit` 和 `warn` 模式都应用到负载资源。
@@ -250,7 +250,7 @@ Exemptions can be statically configured in the
 
 你可以为 Pod 安全性的实施设置 _豁免（Exemptions）_ 规则，
 从而允许创建一些本来会被与给定名字空间相关的策略所禁止的 Pod。
-豁免规则可以在[准入控制器配置](/zh/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
+豁免规则可以在[准入控制器配置](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
 中静态配置。
 
 <!--
@@ -322,9 +322,9 @@ current policy level:
 - [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)
 - [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp)
 -->
-- [Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards/)
-- [强制实施 Pod 安全性标准](/zh/docs/setup/best-practices/enforcing-pod-security-standards/)
-- [通过配置内置的准入控制器强制实施 Pod 安全性标准](/zh/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)
-- [使用名字空间标签来实施 Pod 安全性标准](/zh/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
-- [从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器](/zh/docs/tasks/configure-pod-container/migrate-from-psp/)
+- [Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards/)
+- [强制实施 Pod 安全性标准](/zh-cn/docs/setup/best-practices/enforcing-pod-security-standards/)
+- [通过配置内置的准入控制器强制实施 Pod 安全性标准](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)
+- [使用名字空间标签来实施 Pod 安全性标准](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
+- [从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器](/zh-cn/docs/tasks/configure-pod-container/migrate-from-psp/)
 

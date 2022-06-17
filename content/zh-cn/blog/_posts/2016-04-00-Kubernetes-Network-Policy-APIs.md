@@ -2,14 +2,14 @@
 title: “SIG-Networking：1.3 版本引入 Kubernetes 网络策略 API”
 date: 2016-04-18
 slug: kubernetes-network-policy-apis
-url: /zh/blog/2016/04/Kubernetes-Network-Policy-APIs
+url: /zh-cn/blog/2016/04/Kubernetes-Network-Policy-APIs
 ---
 <!--
 ---
 title: " SIG-Networking: Kubernetes Network Policy APIs Coming in 1.3 "
 date: 2016-04-18
 slug: kubernetes-network-policy-apis
-url: /zh/blog/2016/04/Kubernetes-Network-Policy-APIs
+url: /zh-cn/blog/2016/04/Kubernetes-Network-Policy-APIs
 ---
 -->
 <!--

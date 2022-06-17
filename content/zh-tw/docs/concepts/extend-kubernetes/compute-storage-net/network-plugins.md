@@ -1,0 +1,244 @@
+---
+title: 網路外掛
+content_type: concept
+weight: 10
+---
+<!--
+title: Network Plugins
+content_type: concept
+weight: 10
+-->
+
+
+<!-- overview -->
+
+<!-- 
+Kubernetes {{< skew currentVersion >}} supports [Container Network Interface](https://github.com/containernetworking/cni)
+(CNI) plugins for cluster networking. You must use a CNI plugin that is compatible with your cluster and that suits your needs. Different plugins are available (both open- and closed- source) in the wider Kubernetes ecosystem. 
+-->
+Kubernetes {{< skew currentVersion >}} 支援[容器網路介面](https://github.com/containernetworking/cni) (CNI) 叢集網路外掛。
+你必須使用和你的叢集相相容並且滿足你的需求的 CNI 外掛。
+在更廣泛的 Kubernetes 生態系統中你可以使用不同的外掛（開源和閉源）。
+
+<!--
+A CNI plugin is required to implement the [Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model).
+-->
+要實現 [Kubernetes 網路模型](/zh-cn/docs/concepts/services-networking/#the-kubernetes-network-model)，你需要一個 CNI 外掛。
+
+<!-- 
+You must use a CNI plugin that is compatible with the 
+[v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) or later
+releases of the CNI specification. The Kubernetes project recommends using a plugin that is
+compatible with the [v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)
+CNI specification (plugins can be compatible with multiple spec versions). 
+-->
+你必須使用與 [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md)
+或更高版本的 CNI 規範相符合的 CNI 外掛。
+Kubernetes 推薦使用一個相容 [v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)
+CNI 規範的外掛（外掛可以相容多個規範版本）。
+
+<!-- body -->
+
+<!--
+## Installation
+
+A Container Runtime, in the networking context, is a daemon on a node configured to provide CRI Services for kubelet. In particular, the Container Runtime must be configured to load the CNI plugins required to implement the Kubernetes network model.
+-->
+## 安裝   {#installation}
+
+在網路語境中，容器執行時（Container Runtime）是在節點上的守護程序，
+被配置用來為 kubelet 提供 CRI 服務。具體而言，容器執行時必須配置為載入所需的
+CNI 外掛，從而實現 Kubernetes 網路模型。
+
+{{< note >}}
+<!--
+Prior to Kubernetes 1.24, the CNI plugins could also be managed by the kubelet using the `cni-bin-dir` and `network-plugin` command-line parameters.
+These command-line parameters were removed in Kubernetes 1.24, with management of the CNI no longer in scope for kubelet.
+-->
+在 Kubernetes 1.24 之前，CNI 外掛也可以由 kubelet 使用命令列引數 `cni-bin-dir`
+和 `network-plugin` 管理。Kubernetes 1.24 移除了這些命令列引數，
+CNI 的管理不再是 kubelet 的工作。
+
+<!--
+See [Troubleshooting CNI plugin-related errors](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)
+if you are facing issues following the removal of dockershim.
+-->
+如果你在移除 dockershim 之後遇到問題，請參閱[排查 CNI 外掛相關的錯誤](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)。
+{{< /note >}}
+
+<!--
+For specific information about how a Container Runtime manages the CNI plugins, see the documentation for that Container Runtime, for example:
+-->
+要了解容器執行時如何管理 CNI 外掛的具體資訊，可參見對應容器執行時的文件，例如：
+
+- [containerd](https://github.com/containerd/containerd/blob/main/script/setup/install-cni)
+- [CRI-O](https://github.com/cri-o/cri-o/blob/main/contrib/cni/README.md)
+
+<!--
+For specific information about how to install and manage a CNI plugin, see the documentation for that plugin or [networking provider](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+-->
+要了解如何安裝和管理 CNI 外掛的具體資訊，可參閱對應的外掛或
+[網路驅動（Networking Provider）](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)
+的文件。
+
+<!--
+## Network Plugin Requirements
+
+For plugin developers and users who regularly build or deploy Kubernetes, the plugin may also need specific configuration to support kube-proxy.
+The iptables proxy depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.
+For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.
+If the plugin does not use a Linux bridge (but instead something like Open vSwitch or some other mechanism) it should ensure container traffic is appropriately routed for the proxy.
+-->
+## 網路外掛要求   {#network-plugin-requirements}
+
+對於外掛開發人員以及時常會構建並部署 Kubernetes 的使用者而言，
+外掛可能也需要特定的配置來支援 kube-proxy。
+iptables 代理依賴於 iptables，外掛可能需要確保 iptables 能夠監控容器的網路通訊。
+例如，如果外掛將容器連線到 Linux 網橋，外掛必須將 `net/bridge/bridge-nf-call-iptables`
+sysctl 引數設定為 `1`，以確保 iptables 代理正常工作。
+如果外掛不使用 Linux 網橋（而是類似於 Open vSwitch 或者其它一些機制），
+它應該確保為代理對容器通訊執行正確的路由。
+
+<!--
+By default if no kubelet network plugin is specified, the `noop` plugin is used, which sets `net/bridge/bridge-nf-call-iptables=1` to ensure simple configurations (like Docker with a bridge) work correctly with the iptables proxy.
+-->
+
+預設情況下，如果未指定 kubelet 網路外掛，則使用 `noop` 外掛，
+該外掛設定 `net/bridge/bridge-nf-call-iptables=1`，以確保簡單的配置
+（如帶網橋的 Docker ）與 iptables 代理正常工作。
+
+<!--
+### Loopback CNI
+
+In addition to the CNI plugin installed on the nodes for implementing the Kubernetes network model, Kubernetes also requires the container runtimes to provide a loopback interface `lo`, which is used for each sandbox (pod sandboxes, vm sandboxes, ...).
+Implementing the loopback interface can be accomplished by re-using the [CNI loopback plugin.](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) or by developing your own code to achieve this (see [this example from CRI-O](https://github.com/cri-o/ocicni/blob/release-1.24/pkg/ocicni/util_linux.go#L91)).
+-->
+### 本地迴路 CNI   {#loopback-cni}
+
+除了安裝到節點上用於實現 Kubernetes 網路模型的 CNI 外掛外，Kubernetes
+還需要容器執行時提供一個本地迴路介面 `lo`，用於各個沙箱（Pod 沙箱、虛機沙箱……）。
+實現本地迴路介面的工作可以透過複用
+[CNI 本地迴路外掛](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go)來實現，
+也可以透過開發自己的程式碼來實現
+（參閱 [CRI-O 中的示例](https://github.com/cri-o/ocicni/blob/release-1.24/pkg/ocicni/util_linux.go#L91)）。
+
+<!--
+### Support hostPort
+
+The CNI networking plugin supports `hostPort`. You can use the official [portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)
+plugin offered by the CNI plugin team or use your own plugin with portMapping functionality.
+
+If you want to enable `hostPort` support, you must specify `portMappings capability` in your `cni-conf-dir`.
+For example:
+-->
+### 支援 hostPort   {#support-hostport}
+
+CNI 網路外掛支援 `hostPort`。 你可以使用官方
+[portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)
+外掛，它由 CNI 外掛團隊提供，或者使用你自己的帶有 portMapping 功能的外掛。
+
+如果你想要啟動 `hostPort` 支援，則必須在 `cni-conf-dir` 指定 `portMappings capability`。
+例如：
+
+```json
+{
+  "name": "k8s-pod-network",
+  "cniVersion": "0.3.0",
+  "plugins": [
+    {
+      "type": "calico",
+      "log_level": "info",
+      "datastore_type": "kubernetes",
+      "nodename": "127.0.0.1",
+      "ipam": {
+        "type": "host-local",
+        "subnet": "usePodCidr"
+      },
+      "policy": {
+        "type": "k8s"
+      },
+      "kubernetes": {
+        "kubeconfig": "/etc/cni/net.d/calico-kubeconfig"
+      }
+    },
+    {
+      "type": "portmap",
+      "capabilities": {"portMappings": true}
+    }
+  ]
+}
+```
+
+<!--
+### Support traffic shaping
+
+**Experimental Feature**
+
+The CNI networking plugin also supports pod ingress and egress traffic shaping. You can use the official [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
+plugin offered by the CNI plugin team or use your own plugin with bandwidth control functionality.
+
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file
+(default `/etc/cni/net.d`) and ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+-->
+### 支援流量整形   {#support-traffic-shaping}
+
+**實驗功能**
+
+CNI 網路外掛還支援 pod 入口和出口流量整形。
+你可以使用 CNI 外掛團隊提供的
+[bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
+外掛，也可以使用你自己的具有頻寬控制功能的外掛。
+
+如果你想要啟用流量整形支援，你必須將 `bandwidth` 外掛新增到 CNI 配置檔案
+（預設是 `/etc/cni/net.d`）並保證該可執行檔案包含在你的 CNI 的 bin
+資料夾內 (預設為 `/opt/cni/bin`)。
+
+```json
+{
+  "name": "k8s-pod-network",
+  "cniVersion": "0.3.0",
+  "plugins": [
+    {
+      "type": "calico",
+      "log_level": "info",
+      "datastore_type": "kubernetes",
+      "nodename": "127.0.0.1",
+      "ipam": {
+        "type": "host-local",
+        "subnet": "usePodCidr"
+      },
+      "policy": {
+        "type": "k8s"
+      },
+      "kubernetes": {
+        "kubeconfig": "/etc/cni/net.d/calico-kubeconfig"
+      }
+    },
+    {
+      "type": "bandwidth",
+      "capabilities": {"bandwidth": true}
+    }
+  ]
+}
+```
+<!--
+Now you can add the `kubernetes.io/ingress-bandwidth` and `kubernetes.io/egress-bandwidth` annotations to your pod.
+For example:
+-->
+現在，你可以將 `kubernetes.io/ingress-bandwidth` 和 `kubernetes.io/egress-bandwidth`
+註解新增到 pod 中。例如：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/ingress-bandwidth: 1M
+    kubernetes.io/egress-bandwidth: 1M
+...
+```
+
+## {{% heading "whatsnext" %}}
+
+
+

@@ -63,7 +63,7 @@ cluster's API server.
 要检查 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 是否安装，
 执行 `kubectl version --client` 命令。
 kubectl 的版本应该与集群的 API 服务器
-[使用同一次版本号](/zh/releases/version-skew-policy/#kubectl)。
+[使用同一次版本号](/zh-cn/releases/version-skew-policy/#kubectl)。
 
 <!-- steps -->
 
@@ -480,7 +480,7 @@ For more information about how kubeconfig files are merged, see
 [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 -->
 关于 kubeconfig 文件如何合并的更多信息，请参考
-[使用 kubeconfig 文件组织集群访问](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[使用 kubeconfig 文件组织集群访问](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
 <!--
 ## Explore the $HOME/.kube directory
@@ -564,6 +564,6 @@ $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 -->
 
-* [使用 kubeconfig 文件组织集群访问](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+* [使用 kubeconfig 文件组织集群访问](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 

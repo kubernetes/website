@@ -2,7 +2,7 @@
 title: 资源配额（Resource Quotas）
 id: resource-quota
 date: 2018-04-12
-full_link: /zh/docs/concepts/policy/resource-quotas/
+full_link: /zh-cn/docs/concepts/policy/resource-quotas/
 short_description: >
   资源配额提供了限制每个命名空间的资源消耗总和的约束。
 
@@ -18,7 +18,7 @@ tags:
 title: Resource Quotas
 id: resource-quota
 date: 2018-04-12
-full_link: /zh/docs/concepts/policy/resource-quotas/
+full_link: /zh-cn/docs/concepts/policy/resource-quotas/
 short_description: >
   Provides constraints that limit aggregate resource consumption per namespace.
 

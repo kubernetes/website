@@ -1,0 +1,279 @@
+# i18n strings for the Chinese version of the site (https://kubernetes.io/zh-tw/)
+# 注意：修改此檔案時請維持字串名稱的字母順序並與英文版保持一致
+
+[caution]
+other = "注意："
+
+[cleanup_heading]
+other = "清理現場"
+
+[community_events_calendar]
+other = "事件日曆"
+
+[community_forum_name]
+other = "論壇"
+
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_title]
+other = "您正在檢視 Kubernetes 版本的文件："
+
+[deprecation_warning]
+other = " 版本的文件已不再維護。您現在看到的版本來自於一份靜態的快照。如需查閱最新文件，請點選"
+
+[deprecation_file_warning]
+other = "已過時"
+
+[dockershim_message]
+other = """自 1.24 版起，Dockershim 已從 Kubernetes 專案中移除。閱讀 <a href="/zh-tw/dockershim">Dockershim 移除的常見問題</a>瞭解更多詳情。"""
+
+[docs_label_browse]
+other = "瀏覽文件"
+
+[docs_label_contributors]
+other = "貢獻者"
+
+[docs_label_i_am]
+other = "我是..."
+
+[docs_label_users]
+other = "使用者"
+
+[docs_version_current]
+other = "（本文件）"
+
+[docs_version_latest_heading]
+other = "最新版本"
+
+[docs_version_other_heading]
+other = "較老版本"
+
+[end_of_life]
+other = "不再支援："
+
+[envvars_heading]
+other = "環境變數"
+
+[error_404_were_you_looking_for]
+other = "你是否在搜尋："
+
+[examples_heading]
+other = "示例"
+
+[feature_state]
+other = "特性狀態："
+
+[feedback_heading]
+other = "反饋"
+
+[feedback_no]
+other = "否"
+
+[feedback_question]
+other = "此頁是否對您有幫助？"
+
+[feedback_yes]
+other = "是"
+
+[inline_list_separator]
+other = "、"
+
+[input_placeholder_email_address]
+other = "電子郵件地址"
+
+[javascript_required]
+other = "必須[啟用](https://www.enable-javascript.com/) JavaScript 才能檢視此頁內容"
+
+[katacoda_removal_warning]
+other = """本頁面上的此線上教程在 <time datetime="2022-06-15">2022 年 6 月 15 日</time>後[無法繼續使用](https://www.oreilly.com/online-learning/leveraging-katacoda-technology.html)。"""
+
+[latest_release]
+other = "最新發行版本："
+
+[latest_version]
+other = "最新版本。"
+
+[layouts_blog_pager_prev]
+other = "<< 前一篇"
+
+[layouts_blog_pager_next]
+other = "後一篇 >>"
+
+[layouts_case_studies_list_tell]
+other = "分享您的故事"
+
+[layouts_docs_glossary_aka]
+other = "亦稱作"
+
+[layouts_docs_glossary_description]
+other = "此術語表旨在提供 Kubernetes 術語的完整、標準列表。其中包含特定於 Kubernetes 的技術術語以及能夠構造有用的語境的一般性術語。"
+
+[layouts_docs_glossary_deselect_all]
+other = "全不選"
+
+[layouts_docs_glossary_click_details_after]
+other = "下面的指示符號獲取特定術語的更為完整的描述。"
+
+[layouts_docs_glossary_click_details_before]
+other = "點選"
+
+[layouts_docs_glossary_filter]
+other = "根據標籤過濾術語"
+
+[layouts_docs_glossary_select_all]
+other = "全選"
+
+[layouts_docs_partials_feedback_improvement]
+other = "提出改進建議"
+
+[layouts_docs_partials_feedback_issue]
+other = "在 GitHub 倉庫上登記新的問題"
+
+[layouts_docs_partials_feedback_or]
+other = "或者"
+
+[layouts_docs_partials_feedback_problem]
+other = "報告問題"
+
+[layouts_docs_partials_feedback_thanks]
+other = "感謝反饋。如果您有一個關於如何使用 Kubernetes 的特定的、需要答案的問題，可以訪問"
+
+[layouts_docs_search_fetching]
+other = "檢索結果中.."
+
+[main_by]
+other = "由："
+
+[main_cncf_project]
+other = """我們是 <a href="https://cncf.io/">CNCF</a> 畢業專案</p>"""
+
+[main_community_explore]
+other = "瞭解社群"
+
+[main_contribute]
+other = "貢獻"
+
+[main_copyright_notice]
+other = """Linux 基金會&reg;。保留所有權利。Linux 基金會已註冊並使用商標。如需瞭解 Linux 基金會的商標列表，請訪問<a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">商標使用頁面</a>"""
+
+[main_documentation_license]
+other = """The Kubernetes 作者 | 文件釋出基於 <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> 授權許可"""
+
+[main_github_invite]
+other = "想要修改 Kubernetes 的核心原始碼？"
+
+[main_github_view_on]
+other = "在 GitHub 上檢視"
+
+[main_kubernetes_features]
+other = "Kubernetes 特性"
+
+[main_kubeweekly_baseline]
+other = "想要獲取最新的 Kubernetes 新聞麼？請訂閱 KubeWeekly。"
+
+[main_kubernetes_past_link]
+other = "瀏覽往期的週報"
+
+[main_kubeweekly_signup]
+other = "訂閱"
+
+[main_page_history]
+other ="頁面歷史"
+
+[main_page_last_modified_on]
+other = "頁面最後一次修改於"
+
+[main_read_about]
+other = "瞭解"
+
+[main_read_more]
+other = "進一步瞭解"
+
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "不適用"
+
+[note]
+other = "說明："
+
+[objectives_heading]
+other = "教程目標"
+
+[options_heading]
+other = "選項"
+
+[outdated_blog__message]
+other = "這篇文章已經一年多了，較舊的文章可能包含過時的內容。請檢查從發表以來，頁面中的資訊是否變得不正確。"
+
+[prerequisites_heading]
+other = "準備開始"
+
+[previous_patches]
+other = "補丁版本："
+
+[release_date_after]
+other = "）"
+
+[release_date_before]
+other = "(釋出日期: "
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "2006-01-02"
+
+[seealso_heading]
+other = "另請參見"
+
+[subscribe_button]
+other = "訂閱"
+
+[synopsis_heading]
+other = "簡介"
+
+[thirdparty_message]
+other = """本部分連結到提供 Kubernetes 所需功能的第三方專案。Kubernetes 專案作者不負責這些專案。此頁面遵循<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 網站指南</a>，按字母順序列出專案。要將專案新增到此列表中，請在提交更改之前閱讀<a href="/docs/contribute/style/content-guide/#third-party-content">內容指南</a>。"""
+
+[thirdparty_message_edit_disclaimer]
+other="""第三方內容建議"""
+
+
+[thirdparty_message_single_item]
+other = """&#128711; 本條目指向第三方專案或產品，而該專案（產品）不是 Kubernetes 的一部分。<a class="alert-more-info" href="#third-party-content-disclaimer">更多資訊</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>本頁面中的條目引用了第三方產品或專案，這些產品（專案）提供了 Kubernetes 所需的功能。Kubernetes 專案的開發人員不對這些第三方產品（專案）負責。請參閱<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 網站指南</a>瞭解更多細節。</p><p>在提交更改建議，向本頁新增新的第三方連結之前，你應該先閱讀<a href="/zh/docs/contribute/style/content-guide/#third-party-content">內容指南。</p>"""
+
+[ui_search_placeholder]
+other = "搜尋"
+
+[version_check_mustbe]
+other = "您的 Kubernetes 伺服器版本必須是 "
+
+[version_check_mustbeorlater]
+other = "您的 Kubernetes 伺服器版本必須不低於版本 "
+
+[version_check_tocheck]
+other = "要獲知版本資訊，請輸入 "
+
+[version_menu]
+other = "版本列表"
+
+[warning]
+other = "警告："
+
+[whatsnext_heading]
+other = "接下來"

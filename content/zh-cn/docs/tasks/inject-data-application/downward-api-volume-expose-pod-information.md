@@ -38,7 +38,7 @@ Together, these two ways of exposing Pod and Container fields are called the
 
 有两种方式可以将 Pod 和 Container 字段呈现给运行中的容器：
 
-* [环境变量](/zh/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* [环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
 * 卷文件
 
 这两种呈现 Pod 和 Container 字段的方式都称为 "Downward API"。
@@ -213,7 +213,7 @@ receive Downward API updates.
 -->
 {{< note >}}
 如果容器以
-[subPath](/zh/docs/concepts/storage/volumes/#using-subpath)卷挂载方式来使用
+[subPath](/zh-cn/docs/concepts/storage/volumes/#using-subpath)卷挂载方式来使用
 Downward API，则该容器无法收到更新事件。
 {{< /note >}}
 
@@ -259,7 +259,7 @@ default value of `1` which means cores for cpu and bytes for memory.
 Create the Pod:
 -->
 在这个配置文件中，你可以看到 Pod 有一个
-[`downwardAPI` 卷](/zh/docs/concepts/storage/volumes/#downwardapi)，
+[`downwardAPI` 卷](/zh-cn/docs/concepts/storage/volumes/#downwardapi)，
 并且挂载到容器的 `/etc/podinfo` 目录。
 
 查看 `downwardAPI` 下面的 `items` 数组。每个数组元素都是一个
@@ -353,9 +353,9 @@ variables and `downwardAPI` volumes:
   * 容器的内存约束值
   * 容器的内存请求值
   * 容器的巨页限制值（前提是启用了 `DownwardAPIHugePages`
-    [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)）
+    [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)）
   * 容器的巨页请求值（前提是启用了 `DownwardAPIHugePages`
-    [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)）
+    [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)）
   * 容器的临时存储约束值
   * 容器的临时存储请求值
 
@@ -411,7 +411,7 @@ basis. For more information, see
 ## 投射键名到指定路径并且指定文件权限   {#project-keys-to-specific-paths-and-file-permissions}
 
 你可以将键名投射到指定路径并且指定每个文件的访问权限。
-更多信息，请参阅 [Secret](/zh/docs/concepts/configuration/secret/)。
+更多信息，请参阅 [Secret](/zh-cn/docs/concepts/configuration/secret/)。
 
 <!--
 ## Motivation for the Downward API

@@ -9,7 +9,7 @@ slug: kubecon-eu-2016-kubernetes-community-in
 title: " KubeCon EU 2016: Kubernetes Community in London "
 date: 2016-02-24
 slug: kubecon-eu-2016-kubernetes-community-in
-url: /zh/blog/2016/02/Kubecon-Eu-2016-Kubernetes-Community-In
+url: /zh-cn/blog/2016/02/Kubecon-Eu-2016-Kubernetes-Community-In
 ---
 -->
 

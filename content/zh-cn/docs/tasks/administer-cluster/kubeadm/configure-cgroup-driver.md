@@ -23,7 +23,7 @@ runtime cgroup driver for kubeadm clusters.
 You should be familiar with the Kubernetes
 [container runtime requirements](/docs/setup/production-environment/container-runtimes).
 -->
-你应该熟悉 Kubernetes 的[容器运行时需求](/zh/docs/setup/production-environment/container-runtimes)。
+你应该熟悉 Kubernetes 的[容器运行时需求](/zh-cn/docs/setup/production-environment/container-runtimes)。
 
 <!-- steps -->
 
@@ -37,7 +37,7 @@ The [Container runtimes](/docs/setup/production-environment/container-runtimes) 
 explains that the `systemd` driver is recommended for kubeadm based setups instead
 of the `cgroupfs` driver, because kubeadm manages the kubelet as a systemd service.
 -->
-[容器运行时](/zh/docs/setup/production-environment/container-runtimes)页面提到：
+[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes)页面提到：
 由于 kubeadm 把 kubelet 视为一个系统服务来管理，所以对基于 kubeadm 的安装，
 我们推荐使用 `systemd` 驱动，不推荐 `cgroupfs` 驱动。
 
@@ -107,7 +107,7 @@ and passing it to the local node kubelet.
 {{< note >}}
 Kubeadm 对集群所有的节点，使用相同的 `KubeletConfiguration`。
 `KubeletConfiguration` 存放于 `kube-system` 命名空间下的某个 
-[ConfigMap](/zh/docs/concepts/configuration/configmap) 对象中。
+[ConfigMap](/zh-cn/docs/concepts/configuration/configmap) 对象中。
 
 执行 `init`、`join` 和 `upgrade` 等子命令会促使 kubeadm 
 将 `KubeletConfiguration` 写入到文件 `/var/lib/kubelet/config.yaml` 中，
@@ -208,7 +208,7 @@ For each node in the cluster:
 对于集群中的每一个节点：
 
 - 执行命令 `kubectl drain <node-name> --ignore-daemonsets`，以
-  [腾空节点](/zh/docs/tasks/administer-cluster/safely-drain-node)
+  [腾空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node)
 - 执行命令 `systemctl stop kubelet`，以停止 kubelet
 - 停止容器运行时
 - 修改容器运行时 cgroup 驱动为 `systemd`
@@ -216,7 +216,7 @@ For each node in the cluster:
 - 启动容器运行时
 - 执行命令 `systemctl start kubelet`，以启动 kubelet
 - 执行命令 `kubectl uncordon <node-name>`，以
-  [取消节点隔离](/zh/docs/tasks/administer-cluster/safely-drain-node)
+  [取消节点隔离](/zh-cn/docs/tasks/administer-cluster/safely-drain-node)
 
 <!-- 
 Execute these steps on nodes one at a time to ensure workloads

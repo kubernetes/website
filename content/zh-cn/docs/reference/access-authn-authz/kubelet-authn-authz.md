@@ -61,7 +61,7 @@ To enable X509 client certificate authentication to the kubelet's HTTPS endpoint
 * 带 `--client-ca-file` 标志启动 kubelet，提供一个 CA 证书包以供验证客户端证书
 * 带 `--kubelet-client-certificate` 和 `--kubelet-client-key` 标志启动 apiserver
 * 有关更多详细信息，请参见
-  [apiserver 身份验证文档](/zh/docs/reference/access-authn-authz/authentication/#x509-client-certs)
+  [apiserver 身份验证文档](/zh-cn/docs/reference/access-authn-authz/authentication/#x509-client-certs)
 
 <!--  
 To enable API bearer tokens (including service account tokens) to be used to authenticate to the kubelet's HTTPS endpoint:
@@ -121,7 +121,7 @@ To subdivide access to the kubelet API, delegate authorization to the API server
 The kubelet authorizes API requests using the same [request attributes](/docs/reference/access-authn-authz/authorization/#review-your-request-attributes) approach as the apiserver.
 -->
 kubelet 使用与 apiserver 相同的
-[请求属性](/zh/docs/reference/access-authn-authz/authorization/#review-your-request-attributes)
+[请求属性](/zh-cn/docs/reference/access-authn-authz/authorization/#review-your-request-attributes)
 方法对 API 请求执行鉴权。
 
 <!--  

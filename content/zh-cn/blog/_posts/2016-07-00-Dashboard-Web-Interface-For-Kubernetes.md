@@ -9,7 +9,7 @@ slug: dashboard-web-interface-for-kubernetes
 title: " Dashboard - Full Featured Web Interface for Kubernetes "
 date: 2016-07-15
 slug: dashboard-web-interface-for-kubernetes
-url: /zh/blog/2016/07/Dashboard-Web-Interface-For-Kubernetes
+url: /zh-cn/blog/2016/07/Dashboard-Web-Interface-For-Kubernetes
 ---
 -->
 

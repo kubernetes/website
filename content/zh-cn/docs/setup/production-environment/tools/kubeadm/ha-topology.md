@@ -154,6 +154,6 @@ A minimum of three hosts for control plane nodes and three hosts for etcd nodes 
 <!--
 - [Set up a highly available cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 -->
-- [使用 kubeadm 设置高可用集群](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)
+- [使用 kubeadm 设置高可用集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)
 
 

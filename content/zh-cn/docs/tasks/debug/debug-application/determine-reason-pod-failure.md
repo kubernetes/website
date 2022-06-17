@@ -28,7 +28,7 @@ the general
 终止消息为容器提供了一种方法，可以将有关致命事件的信息写入某个位置，
 在该位置可以通过仪表板和监控软件等工具轻松检索和显示致命事件。
 在大多数情况下，你放入终止消息中的信息也应该写入
-[常规 Kubernetes 日志](/zh/docs/concepts/cluster-administration/logging/)。
+[常规 Kubernetes 日志](/zh-cn/docs/concepts/cluster-administration/logging/)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -169,6 +169,6 @@ is empty and the container exited with an error. The log output is limited to
 
 * 参考 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
   资源的 `terminationMessagePath` 字段。
-* 了解[接收日志](/zh/docs/concepts/cluster-administration/logging/)。
+* 了解[接收日志](/zh-cn/docs/concepts/cluster-administration/logging/)。
 * 了解 [Go 模版](https://golang.org/pkg/text/template/)。
 

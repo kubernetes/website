@@ -11,7 +11,7 @@ slug: kubernetes-gathering-videos
 title: " Kubernetes Gathering Videos "
 date: 2015-03-23
 slug: kubernetes-gathering-videos
-url: /zh/blog/2015/03/Kubernetes-Gathering-Videos
+url: /zh-cn/blog/2015/03/Kubernetes-Gathering-Videos
 ---
 -->
 

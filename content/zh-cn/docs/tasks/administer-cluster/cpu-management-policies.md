@@ -17,7 +17,7 @@ content_type: task
 
 <!--
 Kubernetes keeps many aspects of how pods execute on nodes abstracted
-from the user. This is by design.  However, some workloads require
+from the user. This is by design.  However, some workloads require
 stronger guarantees in terms of latency and/or performance in order to operate
 acceptably. The kubelet provides methods to enable more complex workload
 placement policies while keeping the abstraction free from explicit placement
@@ -37,10 +37,10 @@ directives.
 ## CPU Management Policies
 
 By default, the kubelet uses [CFS quota](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
-to enforce pod CPU limits.  When the node runs many CPU-bound pods,
+to enforce pod CPU limits.  When the node runs many CPU-bound pods,
 the workload can move to different CPU cores depending on
 whether the pod is throttled and which CPU cores are available at
-scheduling time.  Many workloads are not sensitive to this migration and thus
+scheduling time.  Many workloads are not sensitive to this migration and thus
 work fine without any intervention.
 -->
 ## CPU 管理策略
@@ -69,7 +69,7 @@ There are two supported policies:
 ### 配置
 
 CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy`
-或 [KubeletConfiguration](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
+或 [KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 中的 `cpuManagerPolicy` 字段来指定。
 支持两种策略：
 
@@ -134,7 +134,7 @@ CPUManager so that the cpu-sets set up by the new policy won’t conflict with i
 4. Edit the kubelet configuration to change the CPU manager policy to the desired value.
 5. Start kubelet.
 -->
-1. [腾空](/zh/docs/tasks/administer-cluster/safely-drain-node)节点。
+1. [腾空](/zh-cn/docs/tasks/administer-cluster/safely-drain-node)节点。
 2. 停止 kubelet。
 3. 删除旧的 CPU 管理器状态文件。该文件的路径默认为 `/var/lib/kubelet/cpu_manager_state`。
    这将清除 CPUManager 维护的状态，以便新策略设置的 cpu-sets 不会与之冲突。
@@ -161,7 +161,7 @@ could not restore state from checkpoint: configured policy "static" differs from
 
 The `none` policy explicitly enables the existing default CPU
 affinity scheme, providing no affinity beyond what the OS scheduler does
-automatically.  Limits on CPU usage for
+automatically.  Limits on CPU usage for
 [Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod/) and
 [Burstable pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 are enforced using CFS quota.
@@ -169,8 +169,8 @@ are enforced using CFS quota.
 ### none 策略
 
 `none` 策略显式地启用现有的默认 CPU 亲和方案，不提供操作系统调度器默认行为之外的亲和性策略。
-通过 CFS 配额来实现 [Guaranteed Pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
-和 [Burstable Pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
+通过 CFS 配额来实现 [Guaranteed Pods](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
+和 [Burstable Pods](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
 的 CPU 使用限制。
 
 <!--
@@ -187,7 +187,7 @@ using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cg
 [cpuset cgroup 控制器](https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt) 来实现的。
 
 <!--
-System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
+System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
 -->
 {{< note >}}
 诸如容器运行时和 kubelet 本身的系统服务可以继续在这些独占 CPU 上运行。独占性仅针对其他 Pod。
@@ -214,7 +214,7 @@ explicitly by kubelet `--reserved-cpus` option. The explicit CPU list specified 
 `--reserved-cpus` takes precedence over the CPU reservation specified by
 `--kube-reserved` and `--system-reserved`. CPUs reserved by these options are taken, in
 integer quantity, from the initial shared pool in ascending order by physical
-core ID.  This shared pool is the set of CPUs on which any containers in
+core ID.  This shared pool is the set of CPUs on which any containers in
 `BestEffort` and `Burstable` pods run. Containers in `Guaranteed` pods with fractional
 CPU `requests` also run on CPUs in the shared pool. Only containers that are
 both part of a `Guaranteed` pod and have integer CPU `requests` are assigned
@@ -249,7 +249,7 @@ assigned are scheduled to the node, CPUs are removed from the shared pool and
 placed in the cpuset for the container. CFS quota is not used to bound
 the CPU usage of these containers as their usage is bound by the scheduling domain
 itself. In others words, the number of CPUs in the container cpuset is equal to the integer
-CPU `limit` specified in the pod spec. This static assignment increases CPU
+CPU `limit` specified in the pod spec. This static assignment increases CPU
 affinity and decreases context switches due to throttling for the CPU-bound
 workload.
 

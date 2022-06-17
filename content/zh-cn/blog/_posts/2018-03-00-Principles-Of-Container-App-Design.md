@@ -2,14 +2,14 @@
 title: “基于容器的应用程序设计原理”
 date: 2018-03-15
 slug: principles-of-container-app-design
-url: /zh/blog/2018/03/Principles-Of-Container-App-Design
+url: /zh-cn/blog/2018/03/Principles-Of-Container-App-Design
 ---
 <!--
 ---
 title: "Principles of Container-based Application Design"
 date: 2018-03-15
 slug: principles-of-container-app-design
-url: /zh/blog/2018/03/Principles-Of-Container-App-Design
+url: /zh-cn/blog/2018/03/Principles-Of-Container-App-Design
 ---
 -->
 
@@ -102,11 +102,11 @@ To read more about designing cloud-native applications for Kubernetes, check out
 — [Bilgin Ibryam][4]，首席架构师，Red Hat
 
 <!--
-Twitter:    
+Twitter:    
 Blog: [http://www.ofbizian.com][5]  
 Linkedin:
 -->
-推特：    
+推特：    
 博客： [http://www.ofbizian.com][5]  
 领英：
 

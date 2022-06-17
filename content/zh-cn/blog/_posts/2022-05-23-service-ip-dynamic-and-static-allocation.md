@@ -23,7 +23,7 @@ can have a cluster-scoped virtual IP address (using a Service of `type: ClusterI
 Clients can connect using that virtual IP address, and Kubernetes then load-balances traffic to that
 Service across the different backing Pods.
 -->
-在 Kubernetes 中，[Services](/zh/docs/concepts/services-networking/service/)
+在 Kubernetes 中，[Services](/zh-cn/docs/concepts/services-networking/service/)
 是一种抽象，用来暴露运行在一组 Pod 上的应用。
 Service 可以有一个集群范围的虚拟 IP 地址（使用 `type: ClusterIP` 的 Service）。
 客户端可以使用该虚拟 IP 地址进行连接， Kubernetes 为对该 Service 的访问流量提供负载均衡，以访问不同的后端 Pod。

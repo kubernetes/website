@@ -9,7 +9,7 @@ slug: managing-kubernetes-pods-services-and-replication-controllers-with-puppet
 title: " Managing Kubernetes Pods, Services and Replication Controllers with Puppet "
 date: 2015-12-17
 slug: managing-kubernetes-pods-services-and-replication-controllers-with-puppet
-url: /zh/blog/2015/12/Managing-Kubernetes-Pods-Services-And-Replication-Controllers-With-Puppet
+url: /zh-cn/blog/2015/12/Managing-Kubernetes-Pods-Services-And-Replication-Controllers-With-Puppet
 ---
 -->
 

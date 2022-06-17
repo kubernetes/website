@@ -177,15 +177,16 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 
 ## Localization `README.md`'s
 
-| Language                   | Language                   |
-| -------------------------- | -------------------------- |
-| [Chinese](README-zh.md)    | [Korean](README-ko.md)     |
-| [French](README-fr.md)     | [Polish](README-pl.md)     |
-| [German](README-de.md)     | [Portuguese](README-pt.md) |
-| [Hindi](README-hi.md)      | [Russian](README-ru.md)    |
-| [Indonesian](README-id.md) | [Spanish](README-es.md)    |
-| [Italian](README-it.md)    | [Ukrainian](README-uk.md)  |
-| [Japanese](README-ja.md)   | [Vietnamese](README-vi.md) |
+| Language                            | Language                            |
+| ----------------------------------- | ----------------------------------- |
+| [Chinese Simplified](README-zh.md)  | [Korean](README-ko.md)              |
+| [French](README-fr.md)              | [Polish](README-pl.md)              |
+| [German](README-de.md)              | [Portuguese](README-pt.md)          |
+| [Hindi](README-hi.md)               | [Russian](README-ru.md)             |
+| [Indonesian](README-id.md)          | [Spanish](README-es.md)             |
+| [Italian](README-it.md)             | [Ukrainian](README-uk.md)           |
+| [Japanese](README-ja.md)            | [Vietnamese](README-vi.md)          |
+| [Chinese Traditional](README-zh.md) |                                     |
 
 ## Code of conduct
 

@@ -1,0 +1,142 @@
+---
+<!--title: Using a Service to Expose Your App-->
+title: 使用 Service 暴露你的應用
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+			<div class="col-md-8">
+<!--        <h3>Objectives</h3>-->
+        <h3>目標</h3>
+				<ul>
+<!--          <li>Learn about a Service in Kubernetes</li>-->
+<!--          <li>Understand how labels and LabelSelector objects relate to a Service</li>-->
+<!--          <li>Expose an application outside a Kubernetes cluster using a Service</li>-->
+					<li>瞭解 Kubernetes 中的 Service </li>
+					<li>瞭解 標籤(Label) 和 標籤選擇器(Label Selector) 物件如何與 Service 關聯</li>
+          <li>在 Kubernetes 叢集外用 Service 暴露應用</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+<!--        <h3>Overview of Kubernetes Services</h3>-->
+        <h3>Kubernetes Service 總覽</h3>
+
+<!--        <p>Kubernetes <a href="/docs/concepts/workloads/pods/pod-overview/">Pods</a> are mortal. Pods in fact have a <a href="/docs/concepts/workloads/pods/pod-lifecycle/">lifecycle</a>. When a worker node dies, the Pods running on the Node are also lost. A <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> might then dynamically drive the cluster back to desired state via creation of new Pods to keep your application running. As another example, consider an image-processing backend with 3 replicas. Those replicas are exchangeable; the front-end system should not care about backend replicas or even if a Pod is lost and recreated. That said, each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.</p>-->
+        <p> Kubernetes <a href="/zh-cn/docs/concepts/workloads/pods/">Pod</a> 是轉瞬即逝的。 Pod 實際上擁有 <a href="/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/">生命週期</a>。 當一個工作 Node 掛掉後, 在 Node 上執行的 Pod 也會消亡。 <a href="/zh-cn/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> 會自動地透過建立新的 Pod 驅動叢集回到目標狀態，以保證應用程式正常執行。 換一個例子，考慮一個具有3個副本數的用作影象處理的後端程式。這些副本是可替換的; 前端系統不應該關心後端副本，即使 Pod 丟失或重新建立。也就是說，Kubernetes 叢集中的每個 Pod (即使是在同一個 Node 上的 Pod )都有一個唯一的 IP 地址，因此需要一種方法自動協調 Pod 之間的變更，以便應用程式保持執行。</p>
+
+<!--        <p>A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. Services enable a loose coupling between dependent Pods. A Service is defined using YAML <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(preferred)</a> or JSON, like all Kubernetes objects. The set of Pods targeted by a Service is usually determined by a <i>LabelSelector</i> (see below for why you might want a Service without including <code>selector</code> in the spec).</p>-->
+        <p> Kubernetes 中的服務(Service)是一種抽象概念，它定義了 Pod 的邏輯集和訪問 Pod 的協議。Service 使從屬 Pod 之間的松耦合成為可能。 和其他 Kubernetes 物件一樣, Service 用 YAML <a href="/zh-cn/docs/concepts/configuration/overview/#general-configuration-tips">(更推薦)</a> 或者 JSON 來定義. Service 下的一組 Pod 通常由 <i>LabelSelector</i> (請參閱下面的說明為什麼你可能想要一個 spec 中不包含<code>selector</code>的服務)來標記。</p>
+
+<!--        <p>Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service. Services allow your applications to receive traffic. Services can be exposed in different ways by specifying a <code>type</code> in the ServiceSpec:</p>-->
+        <p>儘管每個 Pod 都有一個唯一的 IP 地址，但是如果沒有 Service ，這些 IP 不會暴露在叢集外部。Service 允許你的應用程式接收流量。Service 也可以用在 ServiceSpec 標記<code>type</code>的方式暴露</p>
+			<ul>
+<!--        <li><i>ClusterIP</i> (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.</li>-->
+<!--        <li><i>NodePort</i> - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Superset of ClusterIP.</li>-->
+<!--        <li><i>LoadBalancer</i> - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.</li>-->
+<!--        <li><i>ExternalName</i> - Exposes the Service using an arbitrary name (specified by <code>externalName</code> in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of <code>kube-dns</code>.</li>-->
+				<li><i>ClusterIP</i> (預設) - 在叢集的內部 IP 上公開 Service 。這種型別使得 Service 只能從叢集內訪問。</li>
+				<li><i>NodePort</i> - 使用 NAT 在叢集中每個選定 Node 的相同埠上公開 Service 。使用<code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code> 從叢集外部訪問 Service。是 ClusterIP 的超集。</li>
+				<li><i>LoadBalancer</i> - 在當前雲中建立一個外部負載均衡器(如果支援的話)，併為 Service 分配一個固定的外部IP。是 NodePort 的超集。</li>
+				<li><i>ExternalName</i> - 透過返回帶有該名稱的 CNAME 記錄，使用任意名稱(由 spec 中的<code>externalName</code>指定)公開 Service。不使用代理。這種型別需要<code>kube-dns</code>的v1.7或更高版本。</li>
+			</ul>
+<!--        <p>More information about the different types of Services can be found in the <a href="/docs/tutorials/services/source-ip/">Using Source IP</a> tutorial. Also see <a href="/docs/concepts/services-networking/connect-applications-service">Connecting Applications with Services</a>.</p>-->
+        <p>更多關於不同 Service 型別的資訊可以在<a href="/zh-cn/docs/tutorials/services/source-ip/">使用源 IP </a> 教程。 也請參閱 <a href="/zh-cn/docs/concepts/services-networking/connect-applications-service">連線應用程式和 Service </a>。</p>
+<!--        <p>Additionally, note that there are some use cases with Services that involve not defining <code>selector</code> in the spec. A Service created without <code>selector</code> will also not create the corresponding Endpoints object. This allows users to manually map a Service to specific endpoints. Another possibility why there may be no selector is you are strictly using <code>type: ExternalName</code>.</p>-->
+        <p>另外，需要注意的是有一些 Service 的用例沒有在 spec 中定義<code>selector</code>。 一個沒有<code>selector</code>建立的 Service 也不會建立相應的端點物件。這允許使用者手動將服務對映到特定的端點。沒有 selector 的另一種可能是你嚴格使用<code>type: ExternalName</code>來標記。</p>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+<!--          <h3>Summary</h3>-->
+          <h3>總結</h3>
+					<ul>
+<!--            <li>Exposing Pods to external traffic</li>-->
+<!--            <li>Load balancing traffic across multiple Pods</li>-->
+<!--            <li>Using labels</li>-->
+						<li>將 Pod 暴露給外部通訊</li>
+						<li>跨多個 Pod 的負載均衡</li>
+						<li>使用標籤(Label)</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+<!--          <p><i>A Kubernetes Service is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods.</i></p>-->
+          <p><i>Kubernetes 的 Service 是一個抽象層，它定義了一組 Pod 的邏輯集，併為這些 Pod 支援外部流量暴露、負載平衡和服務發現。</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h3>Service 和 Label</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg" width="150%" height="150%"></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+<!--        <p>A Service routes traffic across a set of Pods. Services are the abstraction that allow pods to die and replicate in Kubernetes without impacting your application. Discovery and routing among dependent Pods (such as the frontend and backend components in an application) is handled by Kubernetes Services.</p>-->
+        <p>Service 透過一組 Pod 路由通訊。Service 是一種抽象，它允許 Pod 死亡並在 Kubernetes 中複製，而不會影響應用程式。在依賴的 Pod (如應用程式中的前端和後端元件)之間進行發現和路由是由Kubernetes Service 處理的。</p>
+<!--        <p>Services match a set of Pods using <a href="/docs/concepts/overview/working-with-objects/labels">labels and selectors</a>, a grouping primitive that allows logical operation on objects in Kubernetes. Labels are key/value pairs attached to objects and can be used in any number of ways:</p>-->
+        <p>Service 匹配一組 Pod 是使用 <a href="/zh-cn/docs/concepts/overview/working-with-objects/labels">標籤(Label)和選擇器(Selector)</a>, 它們是允許對 Kubernetes 中的物件進行邏輯操作的一種分組原語。標籤(Label)是附加在物件上的鍵/值對，可以以多種方式使用:</p>
+				<ul>
+<!--          <li>Designate objects for development, test, and production</li>-->
+<!--          <li>Embed version tags</li>-->
+<!--          <li>Classify an object using tags</li>-->
+					<li>指定用於開發，測試和生產的物件</li>
+					<li>嵌入版本標籤</li>
+					<li>使用 Label 將物件進行分類</li>
+				</ul>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+<!--          <p><i>You can create a Service at the same time you create a Deployment by using<br><code>&#45;&#45;expose</code> in kubectl.</i></p>-->
+          <p><i>你也可以在建立 Deployment 的同時用 <code>--expose</code>建立一個 Service 。</i></p>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+<!--        <p>Labels can be attached to objects at creation time or later on. They can be modified at any time. Let's expose our application now using a Service and apply some labels.</p>-->
+        <p> 標籤(Label)可以在建立時或之後附加到物件上。他們可以隨時被修改。現在使用 Service 釋出我們的應用程式並新增一些 Label 。</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+<!--        <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">Start Interactive Tutorial<span class="btn__next">›</span></a>-->
+        <a class="btn btn-lg btn-success" href="/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">開始互動式教程<span class="btn__next">›</span></a>
+			</div>
+		</div>
+	</main>
+</div>
+
+</body>
+</html>

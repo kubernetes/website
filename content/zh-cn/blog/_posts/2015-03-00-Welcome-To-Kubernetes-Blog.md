@@ -9,7 +9,7 @@ slug: welcome-to-kubernetes-blog
 title: Welcome to the Kubernetes Blog!
 date: 2015-03-20
 slug: welcome-to-kubernetes-blog
-url: /zh/blog/2015/03/Welcome-To-Kubernetes-Blog
+url: /zh-cn/blog/2015/03/Welcome-To-Kubernetes-Blog
 ---
 -->
 

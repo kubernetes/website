@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: k8s.gcr.io/busybox
+      command: [ "/bin/sh", "-c", "env" ]
+      env:
+        # 定義環境變數
+        - name: SPECIAL_LEVEL_KEY
+          valueFrom:
+            configMapKeyRef:
+              # ConfigMap 包含你要賦給 SPECIAL_LEVEL_KEY 的值
+              name: special-config
+              # 指定與取值相關的鍵名
+              key: special.how
+  restartPolicy: Never

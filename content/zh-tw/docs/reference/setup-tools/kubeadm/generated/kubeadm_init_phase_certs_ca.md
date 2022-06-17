@@ -1,0 +1,144 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!-- 
+Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components 
+-->
+生成自簽名的 Kubernetes CA 以便為其他 Kubernetes 元件提供身份標識
+
+<!--
+### Synopsis
+-->
+
+### 概要
+
+<!--
+Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components, and save them into ca.crt and ca.key files.
+-->
+生成自簽名的 Kubernetes CA 以便為其他 Kubernetes 元件提供身份標識，並將其儲存到 ca.crt 和 ca.key 檔案中。
+
+<!--
+If both files already exist, kubeadm skips the generation step and existing files will be used.
+-->
+如果兩個檔案都已存在，則 kubeadm 將跳過生成步驟，使用現有檔案。
+
+<!--
+Alpha Disclaimer: this command is currently alpha.
+-->
+Alpha 免責宣告：此命令當前為 Alpha 功能。
+
+```
+kubeadm init phase certs ca [flags]
+```
+
+<!--
+### Options
+-->
+
+### 選項
+
+   <table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
+
+<tr>
+<td colspan="2">
+<!--
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
+-->
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+<p>The path where to save and store the certificates.</p>
+-->
+<p>證書的儲存路徑。</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+<p>Path to a kubeadm configuration file.</p>
+-->
+<p>kubeadm 配置檔案的路徑。</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">-h, --help</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+<p>help for ca</p>
+-->
+<p>ca 操作的幫助命令</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
+-->
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+<p>Choose a specific Kubernetes version for the control plane.</p>
+-->
+<p>為控制平面選擇特定的 Kubernetes 版本。</p>
+</td>
+</tr>
+
+</tbody>
+</table>
+
+<!--
+### Options inherited from parent commands
+-->
+
+### 繼承於父命令的選項
+
+   <table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
+
+<tr>
+<td colspan="2">--rootfs string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+-->
+<p>[實驗] 到 '真實' 主機根檔案系統的路徑。</p>
+</td>
+</td>
+</tr>
+
+</tbody>
+</table>
+

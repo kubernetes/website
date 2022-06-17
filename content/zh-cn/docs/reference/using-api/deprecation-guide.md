@@ -229,9 +229,9 @@ For more information on the deprecation, see [PodSecurityPolicy Deprecation: Pas
 **policy/v1beta1** API 版本中的 PodSecurityPolicy 将不会在 v1.25 中提供，
 并且 PodSecurityPolicy 准入控制器也会被删除。
 
-迁移到 [Pod 安全准入](/zh/docs/concepts/security/pod-security-admission/)或[第三方准入 webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)。
-有关迁移指南，请参阅[从 PodSecurityPolicy 迁移到内置 PodSecurity 准入控制器](/zh/docs/tasks/configure-pod-container/migrate-from-psp/)。
-有关弃用的更多信息，请参阅 [PodSecurityPolicy 弃用：过去、现在和未来](/zh/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)。
+迁移到 [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)或[第三方准入 webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)。
+有关迁移指南，请参阅[从 PodSecurityPolicy 迁移到内置 PodSecurity 准入控制器](/zh-cn/docs/tasks/configure-pod-container/migrate-from-psp/)。
+有关弃用的更多信息，请参阅 [PodSecurityPolicy 弃用：过去、现在和未来](/zh-cn/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)。
 
 #### RuntimeClass {#runtimeclass-v125}
 
@@ -335,7 +335,7 @@ The **apiextensions.k8s.io/v1beta1** API version of CustomResourceDefinition is 
       `spec.conversion.webhook.conversionReviewVersions`
     * `spec.versions[*].schema.openAPIV3Schema` 在创建 v1 版本的
       CustomResourceDefinition 对象时变成必需字段，并且其取值必须是一个
-      [结构化的 Schema](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)
+      [结构化的 Schema](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)
     * `spec.preserveUnknownFields: true` 在创建 v1 版本的 CustomResourceDefinition
       对象时不允许指定；该配置必须在 Schema 定义中使用
       `x-kubernetes-preserve-unknown-fields: true` 来设置
@@ -421,7 +421,7 @@ v1.22 版本中继续提供。
 * `certificates.k8s.io/v1` 中需要额外注意的变更：
   * 对于请求证书的 API 客户端而言：
     * `spec.signerName` 现在变成必需字段（参阅
-      [已知的 Kubernetes 签署者](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)），
+      [已知的 Kubernetes 签署者](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)），
       并且通过 `certificates.k8s.io/v1` API 不可以创建签署者为
       `kubernetes.io/legacy-unknown` 的请求
     * `spec.usages` 现在变成必需字段，其中不可以包含重复的字符串值，
@@ -764,4 +764,4 @@ Note that this may use non-ideal default values. To learn more about a specific
 resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
 -->
 注意这种操作生成的结果中可能使用的默认值并不理想。
-要进一步了解某个特定资源，可查阅 Kubernetes [API 参考](/zh/docs/reference/kubernetes-api/)。
+要进一步了解某个特定资源，可查阅 Kubernetes [API 参考](/zh-cn/docs/reference/kubernetes-api/)。

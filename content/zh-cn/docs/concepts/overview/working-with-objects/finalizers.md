@@ -99,7 +99,7 @@ any Pods in the cluster with the same label.
 ## 属主引用、标签和 Finalizers {#owners-labels-finalizers}
 
 与{{<glossary_tooltip text="标签" term_id="label">}}类似，
-[属主引用](/zh/concepts/overview/working-with-objects/owners-dependents/)
+[属主引用](/zh-cn/concepts/overview/working-with-objects/owners-dependents/)
 描述了 Kubernetes 中对象之间的关系，但它们作用不同。
 当一个{{<glossary_tooltip text="控制器" term_id="controller">}}
 管理类似于 Pod 的对象时，它使用标签来跟踪相关对象组的变化。

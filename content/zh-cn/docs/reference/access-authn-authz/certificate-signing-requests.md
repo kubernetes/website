@@ -447,7 +447,7 @@ O is the group that this user will belong to. You can refer to
 
 下面的脚本展示了如何生成 PKI 私钥和 CSR。
 设置 CSR 的 CN 和 O 属性很重要。CN 是用户名，O 是该用户归属的组。
-你可以参考 [RBAC](/zh/docs/reference/access-authn-authz/rbac/) 了解标准组的信息。
+你可以参考 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 了解标准组的信息。
 
 ```shell
 openssl genrsa -out myuser.key 2048
@@ -744,7 +744,7 @@ were marked as approved.
 ### 控制平面签名者    {#signer-control-plane}
 
 Kubernetes 控制平面实现了每一个
-[Kubernetes 签名者](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)，
+[Kubernetes 签名者](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)，
 每个签名者的实现都是 kube-controller-manager 的一部分。
 
 {{< note >}}
@@ -841,7 +841,7 @@ status:
 * For details of X.509 itself, refer to [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) section 3.1
 * For information on the syntax of PKCS#10 certificate signing requests, refer to [RFC 2986](https://tools.ietf.org/html/rfc2986)
 -->
-* 参阅 [管理集群中的 TLS 认证](/zh/docs/tasks/tls/managing-tls-in-a-cluster/)
+* 参阅 [管理集群中的 TLS 认证](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)
 * 查看 kube-controller-manager 中[签名者](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/signer/cfssl_signer.go)部分的源代码
 * 查看 kube-controller-manager 中[批准者](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)部分的源代码
 * 有关 X.509 本身的详细信息，请参阅 [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) 第3.1节

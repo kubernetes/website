@@ -119,9 +119,9 @@ in the Container manifest, and within it, the
 ## 为容器设置 Username    {#set-the-username-for-a-container}
 
 要指定运行容器时所使用的用户名，请在容器清单中包含 `securityContext`
-([SecurityContext](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core))
+([SecurityContext](/zh-cn/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core))
 字段，并在其内部包含 `windowsOptions`
-（[WindowsSecurityContextOptions](/zh/docs/reference/generated/kubernetes-api/{{< param
+（[WindowsSecurityContextOptions](/zh-cn/docs/reference/generated/kubernetes-api/{{< param
 "version" >}}/#windowssecuritycontextoptions-v1-core)）
 字段的 `runAsUserName` 字段。
 
@@ -222,6 +222,6 @@ For more information about these limtations, check [here](https://support.micros
 * [Managing Workload Identity with Group Managed Service Accounts (GMSA)](/docs/concepts/windows/user-guide/#managing-workload-identity-with-group-managed-service-accounts)
 * [Configure GMSA for Windows pods and containers](/docs/tasks/configure-pod-container/configure-gmsa/)
 -->
-* [Kubernetes 中调度 Windows 容器的指南](/zh/docs/concepts/windows/user-guide/)
-* [使用组托管服务帐户（GMSA）管理工作负载身份](/zh/docs/concepts/windows/user-guide/#managing-workload-identity-with-group-managed-service-accounts)
-* [Windows 下 pod 和容器的 GMSA 配置](/zh/docs/tasks/configure-pod-container/configure-gmsa/)
+* [Kubernetes 中调度 Windows 容器的指南](/zh-cn/docs/concepts/windows/user-guide/)
+* [使用组托管服务帐户（GMSA）管理工作负载身份](/zh-cn/docs/concepts/windows/user-guide/#managing-workload-identity-with-group-managed-service-accounts)
+* [Windows 下 pod 和容器的 GMSA 配置](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/)

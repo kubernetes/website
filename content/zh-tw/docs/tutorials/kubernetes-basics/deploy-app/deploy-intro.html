@@ -1,0 +1,136 @@
+---
+title: 使用 kubectl 建立 Deployment
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+         <div class="col-md-8">
+          <!-- <h3>Objectives</h3> -->
+          <h3>目標</h3>
+                <!-- <ul>
+                    <li>Learn about application Deployments.</li>
+                    <li>Deploy your first app on Kubernetes with kubectl.</li>
+                </ul> -->
+                <ul>
+                  <li>學習瞭解應用的部署</li>
+                  <li>使用 kubectl 在 Kubernetes 上部署第一個應用</li>
+              </ul>
+            </div>
+
+            <div class="col-md-8">
+                <!-- <h3>Kubernetes Deployments</h3> -->
+                <h3>Kubernetes 部署</h3>
+                <!-- <p>
+                Once you have a running Kubernetes cluster, you can deploy your containerized applications on top of it.
+                To do so, you create a Kubernetes <b>Deployment</b> configuration. The Deployment instructs Kubernetes
+                how to create and update instances of your application. Once you've created a Deployment, the Kubernetes
+                master schedules mentioned application instances onto individual Nodes in the cluster.
+                </p> -->
+                <p>
+                  一旦運行了 Kubernetes 叢集，就可以在其上部署容器化應用程式。
+                  為此，你需要建立 Kubernetes <b> Deployment </b>配置。Deployment 指揮 Kubernetes 如何建立和更新應用程式的例項。建立 Deployment 後，Kubernetes master 將應用程式例項排程到叢集中的各個節點上。
+                  </p>
+
+                <!-- <p>Once the application instances are created, a Kubernetes Deployment Controller continuously monitors those instances. If the Node hosting an instance goes down or is deleted, the Deployment controller replaces the instance with an instance on another Node in the cluster. <b>This provides a self-healing mechanism to address machine failure or maintenance.</b></p> -->
+                <p>建立應用程式例項後，Kubernetes Deployment 控制器會持續監視這些例項。 如果託管例項的節點關閉或被刪除，則 Deployment 控制器會將該例項替換為叢集中另一個節點上的例項。 <b>這提供了一種自我修復機制來解決機器故障維護問題。</b></p>
+
+                <!-- <p>In a pre-orchestration world, installation scripts would often be used to start applications, but they did not allow recovery from machine failure.  By both creating your application instances and keeping them running across Nodes, Kubernetes Deployments provide a fundamentally different approach to application management. </p> -->
+                <p>在沒有 Kubernetes 這種編排系統之前，安裝指令碼通常用於啟動應用程式，但它們不允許從機器故障中恢復。透過建立應用程式例項並使它們在節點之間執行， Kubernetes Deployments 提供了一種與眾不同的應用程式管理方法。</p>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <!-- <h3>Summary:</h3> -->
+                    <h3>總結:</h3>
+                    <ul>
+                        <li>Deployments</li>
+                        <li>Kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <!-- <p><i>
+                        A Deployment is responsible for creating and updating instances of your application
+                    </i></p> -->
+                    <p><i>
+                      Deployment 負責建立和更新應用程式的例項
+                  </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!-- <h2 style="color: #3771e3;">Deploying your first app on Kubernetes</h2> -->
+                <h2 style="color: #3771e3;">部署你在 Kubernetes 上的第一個應用程式</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <!-- <p>You can create and manage a Deployment by using the Kubernetes command line interface, <b>Kubectl</b>. Kubectl uses the Kubernetes API to interact with the cluster. In this module, you'll learn the most common Kubectl commands needed to create Deployments that run your applications on a Kubernetes cluster.</p> -->
+                <p>你可以使用 Kubernetes 命令列介面 <b>Kubectl</b> 建立和管理 Deployment。Kubectl 使用 Kubernetes API 與叢集進行互動。在本單元中，你將學習建立在 Kubernetes 叢集上執行應用程式的 Deployment 所需的最常見的 Kubectl 命令。</p>
+
+                <!-- <p>When you create a Deployment, you'll need to specify the container image for your application and the number of replicas that you want to run. You can change that information later by updating your Deployment; Modules <a href="/docs/tutorials/kubernetes-basics/scale-intro/">5</a> and <a href="/docs/tutorials/kubernetes-basics/update-intro/">6</a> of the bootcamp discuss how you can scale and update your Deployments.</p> -->
+                <p>建立 Deployment 時，你需要指定應用程式的容器映像以及要執行的副本數。你可以稍後透過更新 Deployment 來更改該資訊; 模組 <a href="/zh-cn/docs/tutorials/kubernetes-basics/scale-intro/">5</a> 和 <a href="/zh-cn/docs/tutorials/kubernetes-basics/update-intro/">6</a> 討論瞭如何擴充套件和更新 Deployments。</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <!-- <p><i> Applications need to be packaged into one of the supported container formats in order to be deployed on Kubernetes </i></p> -->
+                    <p><i> 應用程式需要打包成一種受支援的容器格式，以便部署在 Kubernetes 上 </i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <!-- <p>For our first Deployment, we'll use a Node.js application packaged in a Docker container.
+                    To create the Node.js application and deploy the Docker container, follow the instructions from the
+                    <a href="/docs/tutorials/hello-minikube/">Hello Minikube tutorial</a>.</p>
+
+                <p>Now that you know what Deployments are, let's go to the online tutorial and deploy our first app!</p> -->
+                <p>對於我們的第一次部署，我們將使用打包在 Docker 容器中的 Node.js 應用程式。
+                    要建立 Node.js 應用程式並部署 Docker 容器，請按照
+                    <a href="/zh-cn/docs/tutorials/hello-minikube/">你好 Minikube 教程</a>.</p>
+
+                <p>現在你已經瞭解了 Deployment 的內容，讓我們轉到線上教程並部署我們的第一個應用程式！</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/" role="button">開始互動式教程 <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

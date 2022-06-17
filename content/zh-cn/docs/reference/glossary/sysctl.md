@@ -2,7 +2,7 @@
 title: sysctl
 id: sysctl
 date: 2019-02-12
-full_link: /zh/docs/tasks/administer-cluster/sysctl-cluster/
+full_link: /zh-cn/docs/tasks/administer-cluster/sysctl-cluster/
 short_description: >
   用于获取和设置 Unix 内核参数的接口
 

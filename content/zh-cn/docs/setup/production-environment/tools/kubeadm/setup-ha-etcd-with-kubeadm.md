@@ -34,7 +34,7 @@ etcd instances on separate hosts. The differences between the two approaches are
 -->
 
 默认情况下，kubeadm 在每个控制平面节点上运行一个本地 etcd 实例。也可以使用外部的 etcd 集群，并在不同的主机上提供 etcd 实例。
-这两种方法的区别在 [高可用拓扑的选项](/zh/docs/setup/production-environment/tools/kubeadm/ha-topology) 页面中阐述。
+这两种方法的区别在 [高可用拓扑的选项](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology) 页面中阐述。
 
 <!--
 This task walks through the process of creating a high availability external
@@ -55,7 +55,7 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
 * Each host must [have a container runtime, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 -->
 * 每个主机必须安装 systemd 和 bash 兼容的 shell。
-* 每台主机必须[安装有容器运行时、kubelet 和 kubeadm](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
+* 每台主机必须[安装有容器运行时、kubelet 和 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
 
 <!--
 * Some infrastructure to copy files between hosts. For example `ssh` and `scp` can satisfy this requirement.
@@ -91,7 +91,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 
 {{< note >}}
 下面的例子使用 IPv4 地址，但是你也可以使用 IPv6 地址配置 kubeadm、kubelet 和 etcd。一些 Kubernetes 选项支持双协议栈，但是 etcd 不支持。
-关于 Kubernetes 双协议栈支持的更多细节，请参见 [kubeadm 的双栈支持](/zh/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
+关于 Kubernetes 双协议栈支持的更多细节，请参见 [kubeadm 的双栈支持](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
 {{< /note >}}
 
 <!--
@@ -400,5 +400,5 @@ highly available control plane using the [external etcd method with
 kubeadm](/docs/setup/independent/high-availability/).
 -->
 一旦拥有了一个正常工作的 3 成员的 etcd 集群，你就可以基于
-[使用 kubeadm 外部 etcd 的方法](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)，
+[使用 kubeadm 外部 etcd 的方法](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)，
 继续部署一个高可用的控制平面。

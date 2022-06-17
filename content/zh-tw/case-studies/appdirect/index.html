@@ -1,0 +1,99 @@
+---
+title: AppDirect Case Study
+
+linkTitle: AppDirect
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+logo: appdirect_featured_logo.png
+featured: true
+weight: 4
+quote: >
+   We made the right decisions at the right time. Kubernetes and the cloud native technologies are now seen as the de facto ecosystem.
+---
+
+<div class="banner1" style="background-image: url('/images/case-studies/appdirect/banner1.jpg')">
+  <h1> CASE STUDY:<img src="/images/appdirect_logo.png" class="header_logo" style="margin-bottom:-2%"><br> <div class="subhead" style="margin-top:1%;font-size:0.5em">AppDirect: How AppDirect Supported the 10x Growth of Its Engineering Staff with Kubernetes
+</div></h1>
+
+</div>
+
+<div class="details">
+    Company &nbsp;<b>AppDirect</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>San Francisco, California
+</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Software</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1" style="width:100%"">
+    <h2>Challenge</h2>
+    <a href="https://www.appdirect.com/">AppDirect</a> provides an end-to-end commerce platform for cloud-based products and services. When Director of Software Development Pierre-Alexandre Lacerte began working there in 2014, the company had a monolith application deployed on a "tomcat infrastructure, and the whole release process was complex for what it should be," he says. "There were a lot of manual steps involved, with one engineer building a feature, then another team picking up the change. So you had bottlenecks in the pipeline to ship a feature to production." At the same time, the engineering team was growing, and the company realized it needed a better infrastructure to both support that growth and increase velocity.
+<br><br>
+    <h2>Solution</h2>
+    "My idea was: Let’s create an environment where teams can deploy their services faster, and they will say, ‘Okay, I don’t want to build in the monolith anymore. I want to build a service,’" says Lacerte. They considered and prototyped several different technologies before deciding to adopt <a href="https://kubernetes.io/">Kubernetes</a> in early 2016. Lacerte’s team has also integrated <a href="https://prometheus.io/">Prometheus</a> monitoring into the platform; tracing is next. Today, AppDirect has more than 50 microservices in production and 15 Kubernetes clusters deployed on <a href="https://aws.amazon.com/">AWS</a> and on premise around the world.
+<br><br>
+<h2>Impact</h2>
+    The Kubernetes platform has helped support the engineering team’s 10x growth over the past few years. Coupled with the fact that they were continually adding new features, Lacerte says, "I think our velocity would have slowed down a lot if we didn’t have this new infrastructure." Moving to Kubernetes and services has meant that deployments have become much faster due to less dependency on custom-made, brittle shell scripts with SCP commands. Time to deploy a new version has shrunk from 4 hours to a few minutes. Additionally, the company invested a lot of effort to make things self-service for developers. "Onboarding a new service doesn’t require <a href="https://www.atlassian.com/software/jira">Jira</a> tickets or meeting with three different teams," says Lacerte. Today, the company sees 1,600 deployments per week, compared to 1-30 before. The company also achieved cost savings by moving its marketplace and billing monoliths to Kubernetes from legacy EC2 hosts as well as by leveraging autoscaling, as traffic is higher during business hours.
+</div>
+</div>
+</section>
+<div class="banner2">
+  <div class="banner2text">
+    "It was an immense engineering culture shift, but the benefits are undeniable in terms of scale and speed."
+<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Alexandre Gervais, Staff Software Developer, AppDirect</span>
+  </div>
+</div>
+<section class="section2">
+<div class="fullcol">
+  <h2>With its end-to-end commerce platform for cloud-based products and services, <a href="https://www.appdirect.com/">AppDirect</a> has been helping organizations such as Comcast and GoDaddy simplify the digital supply chain since 2009. </h2>
+<br>
+  When Director of Software Development Pierre-Alexandre Lacerte started working there in 2014, the company had a monolith application deployed on a "tomcat infrastructure, and the whole release process was complex for what it should be," he says. "There were a lot of manual steps involved, with one engineer building a feature then creating a pull request, and a QA or another engineer validating the feature. Then it gets merged and someone else will take care of the deployment. So we had bottlenecks in the pipeline to ship a feature to production."  <br><br>
+  At the same time, the engineering team of 40 was growing, and the company wanted to add an increasing number of features to its products. As a member of the platform team, Lacerte began hearing from multiple teams that wanted to deploy applications using different frameworks and languages, from <a href="https://nodejs.org/">Node.js</a> to <a href="http://spring.io/projects/spring-boot">Spring Boot Java</a>. He soon realized that in order to both support growth and increase velocity, the company needed a better infrastructure, and a system in which teams are autonomous, can do their own deploys, and be responsible for their services in production.
+
+</div>
+</section>
+<div class="banner3" style="background-image: url('/images/case-studies/appdirect/banner3.jpg')">
+  <div class="banner3text">
+  "We made the right decisions at the right time. Kubernetes and the cloud native technologies are now seen as the de facto ecosystem. We know where to focus our efforts in order to tackle the new wave of challenges we face as we scale out. The community is so active and vibrant, which is a great complement to our awesome internal team."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Alexandre Gervais, Staff Software Developer, AppDirect
+</span>
+
+  </div>
+</div>
+<section class="section3">
+<div class="fullcol">
+  From the beginning, Lacerte says, "My idea was: Let’s create an environment where teams can deploy their services faster, and they will say, ‘Okay, I don’t want to build in the monolith anymore. I want to build a service.’" (Lacerte left the company in 2019.)<br><br>
+  Working with the operations team, Lacerte’s group got more control and access to the company’s <a href="https://aws.amazon.com/">AWS infrastructure</a>, and started prototyping several orchestration technologies. "Back then, Kubernetes was a little underground, unknown," he says. "But we looked at the community, the number of pull requests, the velocity on GitHub, and we saw it was getting traction. And we found that it was much easier for us to manage than the other technologies."
+  They spun up the first few services on Kubernetes using <a href="https://www.chef.io/">Chef</a> and <a href="https://www.terraform.io/">Terraform</a> provisioning, and as more services were added, more automation was, too. "We have clusters around the world—in Korea, in Australia, in Germany, and in the U.S.," says Lacerte. "Automation is critical for us." They’re now largely using <a href="https://github.com/kubernetes/kops">Kops</a>, and are looking at managed Kubernetes offerings from several cloud providers.<br><br>
+  Today, though the monolith still exists, there are fewer and fewer commits and features. All teams are deploying on the new infrastructure, and services are the norm. AppDirect now has more than 50 microservices in production and 15 Kubernetes clusters deployed on AWS and on premise around the world.<br><br>
+  Lacerte’s strategy ultimately worked because of the very real impact the Kubernetes platform has had to deployment time. Due to less dependency on custom-made, brittle shell scripts with SCP commands, time to deploy a new version has shrunk from 4 hours to a few minutes. Additionally, the company invested a lot of effort to make things self-service for developers. "Onboarding a new service doesn’t require <a href="https://www.atlassian.com/software/jira">Jira</a> tickets or meeting with three different teams," says Lacerte. Today, the company sees 1,600 deployments per week, compared to 1-30 before.
+</div>
+</section>
+<div class="banner4" style="background-image: url('/images/case-studies/appdirect/banner4.jpg');width:100%;">
+  <div class="banner4text">
+  "I think our velocity would have slowed down a lot if we didn’t have this new infrastructure."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Pierre-Alexandre Lacerte, Director of Software Development, AppDirect</span>
+  </div>
+</div>
+
+<section class="section5" style="padding:0px !important">
+
+<div class="fullcol">
+  Additionally, the Kubernetes platform has helped support the engineering team’s 10x growth over the past few years. "Ownership, a core value of AppDirect, reflects in our ability to ship services independently of our monolith code base," says Staff Software Developer Alexandre Gervais, who worked with Lacerte on the initiative. "Small teams now own critical parts of our business domain model, and they operate in their decoupled domain of expertise, with limited knowledge of the entire codebase. This reduces and isolates some of the complexity." Coupled with the fact that they were continually adding new features, Lacerte says, "I think our velocity would have slowed down a lot if we didn’t have this new infrastructure."
+  The company also achieved cost savings by moving its marketplace and billing monoliths to Kubernetes from legacy EC2 hosts as well as by leveraging autoscaling, as traffic is higher during business hours.<br><br>
+  AppDirect’s cloud native stack also includes <a href="https://grpc.io/">gRPC</a> and <a href="https://www.fluentd.org/">Fluentd</a>, and the team is currently working on setting up <a href="https://opencensus.io/">OpenCensus</a>. The platform already has <a href="https://prometheus.io/">Prometheus</a> integrated, so "when teams deploy their service, they have their notifications, alerts and configurations," says Lacerte. "For example, in the test environment, I want to get a message on Slack, and in production, I want a <a href="https://slack.com/">Slack</a> message and I also want to get paged. We have integration with pager duty. Teams have more ownership on their services."
+
+</div>
+
+<div class="banner5" >
+  <div class="banner5text">
+"We moved from a culture limited to ‘pushing code in a branch’ to exciting new responsibilities outside of the code base: deployment of features and configurations; monitoring of application and business metrics; and on-call support in case of outages. It was an immense engineering culture shift, but the benefits are undeniable in terms of scale and speed."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Pierre-Alexandre Lacerte, Director of Software Development, AppDirect</span></div>
+</div>
+
+<div class="fullcol">
+  That of course also means more responsibility. "We asked engineers to expand their horizons," says Gervais. "We moved from a culture limited to ‘pushing code in a branch’ to exciting new responsibilities outside of the code base: deployment of features and configurations; monitoring of application and business metrics; and on-call support in case of outages. It was an immense engineering culture shift, but the benefits are undeniable in terms of scale and speed." <br><br>
+  As the engineering ranks continue to grow, the platform team has a new challenge, of making sure that the Kubernetes platform is accessible and easily utilized by everyone. "How can we make sure that when we add more people to our team that they are efficient, productive, and know how to ramp up on the platform?" Lacerte says. So we have the evangelists, the documentation, some project examples. We do demos, we have AMA sessions. We’re trying different strategies to get everyone’s attention."<br><br>
+  Three and a half years into their Kubernetes journey, Gervais feels AppDirect "made the right decisions at the right time," he says. "Kubernetes and the cloud native technologies are now seen as the de facto ecosystem. We know where to focus our efforts in order to tackle the new wave of challenges we face as we scale out. The community is so active and vibrant, which is a great complement to our awesome internal team. Going forward, our focus will really be geared towards benefiting from the ecosystem by providing added business value in our day-to-day operations."
+
+
+</div>
+</section>
