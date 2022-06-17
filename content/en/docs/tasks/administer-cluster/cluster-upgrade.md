@@ -21,8 +21,8 @@ At a high level, the steps you perform are:
 ## {{% heading "prerequisites" %}}
 
 You must have an existing cluster. This page is about upgrading from Kubernetes
-{{< skew prevMinorVersion >}} to Kubernetes {{< skew latestVersion >}}. If your cluster
-is not currently running Kubernetes {{< skew prevMinorVersion >}} then please check
+{{< skew currentVersionAddMinor -1 >}} to Kubernetes {{< skew currentVersion >}}. If your cluster
+is not currently running Kubernetes {{< skew currentVersionAddMinor -1 >}} then please check
 the documentation for the version of Kubernetes that you plan to upgrade to.
 
 ## Upgrade approaches
@@ -55,7 +55,7 @@ At this point you should
 [install the latest version of `kubectl`](/docs/tasks/tools/).
 
 For each node in your cluster, [drain](/docs/tasks/administer-cluster/safely-drain-node/)
-that node and then either replace it with a new node that uses the {{< skew latestVersion >}}
+that node and then either replace it with a new node that uses the {{< skew currentVersion >}}
 kubelet, or upgrade the kubelet on that node and bring the node back into service.
 
 ### Other deployments {#upgrade-other}

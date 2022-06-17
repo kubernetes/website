@@ -544,8 +544,8 @@ field when using `--config`. This option will control the versions
 of kube-apiserver, kube-controller-manager, kube-scheduler and kube-proxy.
 
 Example:
-* kubeadm is at {{< skew latestVersion >}}
-* `kubernetesVersion` must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
+* kubeadm is at {{< skew currentVersion >}}
+* `kubernetesVersion` must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
 
 ### kubeadm's skew against the kubelet
 
@@ -553,8 +553,8 @@ Similarly to the Kubernetes version, kubeadm can be used with a kubelet version 
 version as kubeadm or one version older.
 
 Example:
-* kubeadm is at {{< skew latestVersion >}}
-* kubelet on the host must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
+* kubeadm is at {{< skew currentVersion >}}
+* kubelet on the host must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
 
 ### kubeadm's skew against kubeadm
 
@@ -567,17 +567,17 @@ the same node with `kubeadm upgrade`. Similar rules apply to the rest of the kub
 with the exception of `kubeadm upgrade`.
 
 Example for `kubeadm join`:
-* kubeadm version {{< skew latestVersion >}} was used to create a cluster with `kubeadm init`
-* Joining nodes must use a kubeadm binary that is at version {{< skew latestVersion >}}
+* kubeadm version {{< skew currentVersion >}} was used to create a cluster with `kubeadm init`
+* Joining nodes must use a kubeadm binary that is at version {{< skew currentVersion >}}
 
 Nodes that are being upgraded must use a version of kubeadm that is the same MINOR
 version or one MINOR version newer than the version of kubeadm used for managing the
 node.
 
 Example for `kubeadm upgrade`:
-* kubeadm version {{< skew prevMinorVersion >}} was used to create or upgrade the node
-* The version of kubeadm used for upgrading the node must be at {{< skew prevMinorVersion >}}
-or {{< skew latestVersion >}}
+* kubeadm version {{< skew currentVersionAddMinor -1 >}} was used to create or upgrade the node
+* The version of kubeadm used for upgrading the node must be at {{< skew currentVersionAddMinor -1 >}}
+or {{< skew currentVersion >}}
 
 To learn more about the version skew between the different Kubernetes component see
 the [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
