@@ -30,7 +30,7 @@ discussion.
 你可以自行决定，且欢迎使用 PR 来为此文档提供修改意见。
 
 关于为 Kubernetes 文档贡献新内容的更多信息，可以参考
-[文档内容指南](/zh/docs/contribute/style/content-guide/)。
+[文档内容指南](/zh-cn/docs/contribute/style/content-guide/)。
 
 样式指南的变更是 SIG Docs 团队集体决定。
 如要提议更改或新增条目，请先将其添加到下一次 SIG Docs 例会的
@@ -46,7 +46,7 @@ and representing feature state.
 -->
 {{< note >}}
 Kubernetes 文档使用带调整的 [Goldmark Markdown 解释器](https://github.com/yuin/goldmark/)
-和一些 [Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/) 来支持词汇表项、Tab
+和一些 [Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/) 来支持词汇表项、Tab
 页以及特性门控标注。
 {{< /note >}}
 
@@ -68,7 +68,7 @@ Kubernetes 文档已经被翻译为多个语种
 （参见 [本地化 READMEs](https://github.com/kubernetes/website/blob/main/README.md#localization-readmemds)）。
 
 为文档提供一种新的语言翻译的途径可以在
-[本地化 Kubernetes 文档](/zh/docs/contribute/localization/)中找到。
+[本地化 Kubernetes 文档](/zh-cn/docs/contribute/localization/)中找到。
 
 英语文档使用美国英语的拼写和语法。
 
@@ -93,8 +93,8 @@ The following examples focus on capitalization. For more information about forma
 
 ### 对 API 对象使用大写驼峰式命名法  {#use-upper-camel-case-for-api-objects}
 
-当你与指定的 API 对象进行交互时，使用 [大写驼峰式命名法](https://en.wikipedia.org/wiki/Camel_case)，也被称为帕斯卡拼写法（PascalCase）.
-你可能在 [API 参考](/docs/reference/kubernetes-api/) 中看到不同的大小写形式，
+当你与指定的 API 对象进行交互时，使用[大写驼峰式命名法](https://en.wikipedia.org/wiki/Camel_case)，也被称为帕斯卡拼写法（PascalCase）。
+你可能在 [API 参考](/zh-cn/docs/reference/kubernetes-api/)中看到不同的大小写形式，
 例如 "configMap"。在一般性的文档中，最好使用大写驼峰形式，将之称作 "ConfigMap"。
 
 在一般性地讨论 API 对象时，使用
@@ -103,8 +103,8 @@ The following examples focus on capitalization. For more information about forma
 你可以使用“资源”、“API”或者“对象”这类词汇来进一步在句子中明确所指的是
 一个 Kubernetes 资源类型。
 
-不要将 API 对象的名称切分成多个单词。例如，使用 PodTemplateList，不要
-使用 Pod Template List。
+不要将 API 对象的名称切分成多个单词。例如，使用 PodTemplateList，
+不要使用 Pod Template List。
 
 下面的例子关注的是大小写问题。关于如何格式化 API 对象的名称，
 有关详细细节可参考相关的[代码风格](#code-style-inline-code)指南。
@@ -1267,7 +1267,7 @@ These steps ... | These simple steps ...
 
 ## {{% heading "whatsnext" %}}
 
-* 了解[编写新主题](/zh/docs/contribute/style/write-new-topic/).
-* 了解[页面内容类型](/zh/docs/contribute/style/page-content-types/).
-* 了解[发起 PR](/zh/docs/contribute/new-content/open-a-pr/).
+* 了解[编写新主题](/zh-cn/docs/contribute/style/write-new-topic/)。
+* 了解[页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)。
+* 了解[发起 PR](/zh-cn/docs/contribute/new-content/open-a-pr/)。
 
