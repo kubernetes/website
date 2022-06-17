@@ -17,7 +17,7 @@ This document serves both as a reference to the values and as a coordination poi
 
 ### app.kubernetes.io/component
 
-Example: `app.kubernetes.io/component=database`
+Example: `app.kubernetes.io/component: "database"`
 
 Used on: All Objects
 
@@ -27,7 +27,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 ### app.kubernetes.io/created-by
 
-Example: `app.kubernetes.io/created-by=controller-manager`
+Example: `app.kubernetes.io/created-by: "controller-manager"`
 
 Used on: All Objects
 
@@ -37,7 +37,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 ### app.kubernetes.io/instance
 
-Example: `app.kubernetes.io/instance=mysql-abcxzy`
+Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
 
 Used on: All Objects
 
@@ -47,7 +47,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 ### app.kubernetes.io/managed-by
 
-Example: `app.kubernetes.io/managed-by=helm`
+Example: `app.kubernetes.io/managed-by: "helm"`
 
 Used on: All Objects
 
@@ -57,7 +57,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 ### app.kubernetes.io/name
 
-Example: `app.kubernetes.io/name=mysql`
+Example: `app.kubernetes.io/name: "mysql"`
 
 Used on: All Objects
 
@@ -67,7 +67,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 ### app.kubernetes.io/part-of
 
-Example: `app.kubernetes.io/part-of=wordpress`
+Example: `app.kubernetes.io/part-of: "wordpress"`
 
 Used on: All Objects
 
@@ -77,7 +77,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 ### app.kubernetes.io/version
 
-Example: `app.kubernetes.io/version="5.7.21"`
+Example: `app.kubernetes.io/version: "5.7.21"`
 
 Used on: All Objects
 
@@ -87,7 +87,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 ### kubernetes.io/arch
 
-Example: `kubernetes.io/arch=amd64`
+Example: `kubernetes.io/arch: "amd64"`
 
 Used on: Node
 
@@ -95,7 +95,7 @@ The Kubelet populates this with `runtime.GOARCH` as defined by Go. This can be h
 
 ### kubernetes.io/os
 
-Example: `kubernetes.io/os=linux`
+Example: `kubernetes.io/os: "linux"`
 
 Used on: Node
 
@@ -103,7 +103,7 @@ The Kubelet populates this with `runtime.GOOS` as defined by Go. This can be han
 
 ### kubernetes.io/metadata.name
 
-Example: `kubernetes.io/metadata.name=mynamespace`
+Example: `kubernetes.io/metadata.name: "mynamespace"`
 
 Used on: Namespaces
 
@@ -124,7 +124,7 @@ This label has been deprecated. Please use `kubernetes.io/os` instead.
 
 ### kubernetes.io/hostname {#kubernetesiohostname}
 
-Example: `kubernetes.io/hostname=ip-172-20-114-199.ec2.internal`
+Example: `kubernetes.io/hostname: "ip-172-20-114-199.ec2.internal"`
 
 Used on: Node
 
@@ -135,7 +135,7 @@ This label is also used as part of the topology hierarchy.  See [topology.kubern
 
 ### kubernetes.io/change-cause {#change-cause}
 
-Example: `kubernetes.io/change-cause=kubectl edit --record deployment foo`
+Example: `kubernetes.io/change-cause: "kubectl edit --record deployment foo"`
 
 Used on: All Objects
 
@@ -161,7 +161,7 @@ The value for this annotation must be **true** to take effect. This annotation i
 
 ### controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
-Example: `controller.kubernetes.io/pod-deletion-cost=10`
+Example: `controller.kubernetes.io/pod-deletion-cost: "10"`
 
 Used on: Pod
 
@@ -212,7 +212,7 @@ For example, `10M` means 10 megabits per second.
 
 ### node.kubernetes.io/instance-type {#nodekubernetesioinstance-type}
 
-Example: `node.kubernetes.io/instance-type=m3.medium`
+Example: `node.kubernetes.io/instance-type: "m3.medium"`
 
 Used on: Node
 
@@ -237,7 +237,7 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 Example:
 
-`statefulset.kubernetes.io/pod-name=mystatefulset-7`
+`statefulset.kubernetes.io/pod-name: "mystatefulset-7"`
 
 When a StatefulSet controller creates a Pod for the StatefulSet, the control plane
 sets this label on that Pod. The value of the label is the name of the Pod being created.
@@ -249,7 +249,7 @@ StatefulSet topic for more details.
 
 Example:
 
-`topology.kubernetes.io/region=us-east-1`
+`topology.kubernetes.io/region: "us-east-1"`
 
 See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
@@ -257,7 +257,7 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 Example:
 
-`topology.kubernetes.io/zone=us-east-1c`
+`topology.kubernetes.io/zone: "us-east-1c"`
 
 Used on: Node, PersistentVolume
 
@@ -286,7 +286,7 @@ adding the labels manually (or adding support for `PersistentVolumeLabel`). With
 
 ### volume.beta.kubernetes.io/storage-provisioner (deprecated)
 
-Example: `volume.beta.kubernetes.io/storage-provisioner: k8s.io/minikube-hostpath`
+Example: `volume.beta.kubernetes.io/storage-provisioner: "k8s.io/minikube-hostpath"`
 
 Used on: PersistentVolumeClaim
 
@@ -310,7 +310,7 @@ This annotation will be added to dynamic provisioning required PVC.
 
 ### node.kubernetes.io/windows-build {#nodekubernetesiowindows-build}
 
-Example: `node.kubernetes.io/windows-build=10.0.17763`
+Example: `node.kubernetes.io/windows-build: "10.0.17763"`
 
 Used on: Node
 
@@ -320,7 +320,7 @@ The label's value is in the format "MajorVersion.MinorVersion.BuildNumber".
 
 ### service.kubernetes.io/headless {#servicekubernetesioheadless}
 
-Example: `service.kubernetes.io/headless=""`
+Example: `service.kubernetes.io/headless: ""`
 
 Used on: Service
 
@@ -328,7 +328,7 @@ The control plane adds this label to an Endpoints object when the owning Service
 
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
-Example: `kubernetes.io/service-name="nginx"`
+Example: `kubernetes.io/service-name: "nginx"`
 
 Used on: Service
 
@@ -354,7 +354,7 @@ ServiceAccount that the token (stored in the Secret of type `kubernetes.io/servi
 
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
-Example: `endpointslice.kubernetes.io/managed-by="controller"`
+Example: `endpointslice.kubernetes.io/managed-by: "controller"`
 
 Used on: EndpointSlices
 
@@ -362,7 +362,7 @@ The label is used to indicate the controller or entity that manages an EndpointS
 
 ### endpointslice.kubernetes.io/skip-mirror {#endpointslicekubernetesioskip-mirror}
 
-Example: `endpointslice.kubernetes.io/skip-mirror="true"`
+Example: `endpointslice.kubernetes.io/skip-mirror: "true"`
 
 Used on: Endpoints
 
@@ -370,7 +370,7 @@ The label can be set to `"true"` on an Endpoints resource to indicate that the E
 
 ### service.kubernetes.io/service-proxy-name {#servicekubernetesioservice-proxy-name}
 
-Example: `service.kubernetes.io/service-proxy-name="foo-bar"`
+Example: `service.kubernetes.io/service-proxy-name: "foo-bar"`
 
 Used on: Service
 
@@ -382,7 +382,7 @@ Example: `experimental.windows.kubernetes.io/isolation-type: "hyperv"`
 
 Used on: Pod
 
-The annotation is used to run Windows containers with Hyper-V isolation. To use Hyper-V isolation feature and create a Hyper-V isolated container, the kubelet should be started with feature gates HyperVContainer=true and the Pod should include the annotation experimental.windows.kubernetes.io/isolation-type=hyperv.
+The annotation is used to run Windows containers with Hyper-V isolation. To use Hyper-V isolation feature and create a Hyper-V isolated container, the kubelet should be started with feature gates HyperVContainer=true and the Pod should include the annotation `experimental.windows.kubernetes.io/isolation-type: hyperv`.
 
 {{< note >}}
 You can only set this annotation on Pods that have a single container.
@@ -405,7 +405,7 @@ Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassN
 
 ### storageclass.kubernetes.io/is-default-class
 
-Example: `storageclass.kubernetes.io/is-default-class=true`
+Example: `storageclass.kubernetes.io/is-default-class: "true"`
 
 Used on: StorageClass
 
@@ -467,43 +467,43 @@ Use [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-tolera
 
 ### node.kubernetes.io/not-ready
 
-Example: `node.kubernetes.io/not-ready:NoExecute`
+Example: `node.kubernetes.io/not-ready: "NoExecute"`
 
 The node controller detects whether a node is ready by monitoring its health and adds or removes this taint accordingly.
 
 ### node.kubernetes.io/unreachable
 
-Example: `node.kubernetes.io/unreachable:NoExecute`
+Example: `node.kubernetes.io/unreachable: "NoExecute"`
 
 The node controller adds the taint to a node corresponding to the [NodeCondition](/docs/concepts/architecture/nodes/#condition) `Ready` being `Unknown`.
 
 ### node.kubernetes.io/unschedulable
 
-Example: `node.kubernetes.io/unschedulable:NoSchedule`
+Example: `node.kubernetes.io/unschedulable: "NoSchedule"`
 
 The taint will be added to a node when initializing the node to avoid race condition.
 
 ### node.kubernetes.io/memory-pressure
 
-Example: `node.kubernetes.io/memory-pressure:NoSchedule`
+Example: `node.kubernetes.io/memory-pressure: "NoSchedule"`
 
 The kubelet detects memory pressure based on `memory.available` and `allocatableMemory.available` observed on a Node. The observed values are then compared to the corresponding thresholds that can be set on the kubelet to determine if the Node condition and taint should be added/removed.
 
 ### node.kubernetes.io/disk-pressure
 
-Example: `node.kubernetes.io/disk-pressure:NoSchedule`
+Example: `node.kubernetes.io/disk-pressure :"NoSchedule"`
 
 The kubelet detects disk pressure based on `imagefs.available`, `imagefs.inodesFree`, `nodefs.available` and `nodefs.inodesFree`(Linux only) observed on a Node. The observed values are then compared to the corresponding thresholds that can be set on the kubelet to determine if the Node condition and taint should be added/removed.
 
 ### node.kubernetes.io/network-unavailable
 
-Example: `node.kubernetes.io/network-unavailable:NoSchedule`
+Example: `node.kubernetes.io/network-unavailable: "NoSchedule"`
 
 This is initially set by the kubelet when the cloud provider used indicates a requirement for additional network configuration. Only when the route on the cloud is configured properly will the taint be removed by the cloud provider.
 
 ### node.kubernetes.io/pid-pressure
 
-Example: `node.kubernetes.io/pid-pressure:NoSchedule`
+Example: `node.kubernetes.io/pid-pressure: "NoSchedule"`
 
 The kubelet checks D-value of the size of `/proc/sys/kernel/pid_max` and the PIDs consumed by Kubernetes on a node to get the number of available PIDs that referred to as the `pid.available` metric. The metric is then compared to the corresponding threshold that can be set on the kubelet to determine if the node condition and taint should be added/removed.
 
@@ -524,19 +524,19 @@ for further details about when and how to use this taint.
 
 ### node.cloudprovider.kubernetes.io/uninitialized
 
-Example: `node.cloudprovider.kubernetes.io/uninitialized:NoSchedule`
+Example: `node.cloudprovider.kubernetes.io/uninitialized: "NoSchedule"`
 
 Sets this taint on a node to mark it as unusable, when kubelet is started with the "external" cloud provider, until a controller from the cloud-controller-manager initializes this node, and then removes the taint.
 
 ### node.cloudprovider.kubernetes.io/shutdown
 
-Example: `node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
+Example: `node.cloudprovider.kubernetes.io/shutdown: "NoSchedule"`
 
 If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
 
 ### pod-security.kubernetes.io/enforce
 
-Example: `pod-security.kubernetes.io/enforce: baseline`
+Example: `pod-security.kubernetes.io/enforce: "baseline"`
 
 Used on: Namespace
 
@@ -550,7 +550,7 @@ for more information.
 
 ### pod-security.kubernetes.io/enforce-version
 
-Example: `pod-security.kubernetes.io/enforce-version: {{< skew latestVersion >}}`
+Example: `pod-security.kubernetes.io/enforce-version: "{{< skew latestVersion >}}"`
 
 Used on: Namespace
 
@@ -563,7 +563,7 @@ for more information.
 
 ### pod-security.kubernetes.io/audit
 
-Example: `pod-security.kubernetes.io/audit: baseline`
+Example: `pod-security.kubernetes.io/audit: "baseline"`
 
 Used on: Namespace
 
@@ -577,7 +577,7 @@ for more information.
 
 ### pod-security.kubernetes.io/audit-version
 
-Example: `pod-security.kubernetes.io/audit-version: {{< skew latestVersion >}}`
+Example: `pod-security.kubernetes.io/audit-version: "{{< skew latestVersion >}}"`
 
 Used on: Namespace
 
@@ -590,7 +590,7 @@ for more information.
 
 ### pod-security.kubernetes.io/warn
 
-Example: `pod-security.kubernetes.io/warn: baseline`
+Example: `pod-security.kubernetes.io/warn: "baseline"`
 
 Used on: Namespace
 
@@ -606,7 +606,7 @@ for more information.
 
 ### pod-security.kubernetes.io/warn-version
 
-Example: `pod-security.kubernetes.io/warn-version: {{< skew latestVersion >}}`
+Example: `pod-security.kubernetes.io/warn-version: "{{< skew latestVersion >}}"`
 
 Used on: Namespace
 
