@@ -114,7 +114,7 @@ The generated certificate is valid for 2 years. Before it expires,
 regenerate the certificate or remove the webhook in favor of the built-in admission plugin.
 -->
 所生成的证书合法期限为 2 年。在证书过期之前，
-需要重新生成证书或者去掉 Webhook 以使用内置的准入查件。
+需要重新生成证书或者去掉 Webhook 以使用内置的准入插件。
 {{< /note >}}
 
 <!-- body -->
