@@ -10,12 +10,12 @@ weight: 70
 
 {{% thirdparty-content %}}
 
-Kubernetes' support for direct integration with Docker Engine is deprecated, and
-will be removed. Most apps do not have a direct dependency on runtime hosting
+Kubernetes' support for direct integration with Docker Engine is deprecated and
+has been removed. Most apps do not have a direct dependency on runtime hosting
 containers. However, there are still a lot of telemetry and monitoring agents
-that has a dependency on docker to collect containers metadata, logs and
+that have a dependency on Docker to collect containers metadata, logs, and
 metrics. This document aggregates information on how to detect these
-dependencies and links on how to migrate these agents to use generic tools or
+dependencies as well as links on how to migrate these agents to use generic tools or
 alternative runtimes.
 
 ## Telemetry and security agents
@@ -32,9 +32,9 @@ launching and running containers (within Pods) on a node. Some information that
 is relevant to telemetry, such as a pod name, is only available from Kubernetes
 components. Other data, such as container metrics, is not the responsibility of
 the container runtime. Early telemetry agents needed to query the container
-runtime **and** Kubernetes to report an accurate picture. Over time, Kubernetes
+runtime *and* Kubernetes to report an accurate picture. Over time, Kubernetes
 gained the ability to support multiple runtimes, and now supports any runtime
-that is compatible with the container runtime interface.
+that is compatible with the [container runtime interface](/docs/concepts/architecture/cri/).
 
 Some telemetry agents rely specifically on Docker Engine tooling. For example, an agent
 might run a command such as
@@ -77,17 +77,14 @@ The script above only detects the most common uses.
 
 ### Detecting Docker dependency from node agents
 
-In case your cluster nodes are customized and install additional security and
-telemetry agents on the node, make sure to check with the vendor of the agent
-whether it has dependency on Docker.
+If your cluster nodes are customized and install additional security and
+telemetry agents on the node, check with the agent vendor
+to verify whether it has any dependency on Docker.
 
 ### Telemetry and security agent vendors
 
-This section is intended to collect information about various telemetry and
-security agents that may have a dependency on container runtimes. The Support
-matrix section outlines the supported runtimes and the Migration from dockershim
-section is designed to help users transition from dockershim to other container
-runtimes.
+This section is intended to aggregate information about various telemetry and
+security agents that may have a dependency on container runtimes.
 
 We keep the work in progress version of migration instructions for various telemetry and security agent vendors
 in [Google doc](https://docs.google.com/document/d/1ZFi4uKit63ga5sxEiZblfb-c23lFhvy6RXVPikS8wf0/edit#).
@@ -97,12 +94,12 @@ Please contact the vendor to get up to date instructions for migrating from dock
 
 ### [Aqua](https://www.aquasec.com)
 
-No changes are needed - everything should work seamlessly on the runtime switch.
+No changes are needed: everything should work seamlessly on the runtime switch.
 
 ### [Datadog](https://www.datadoghq.com/product/)
 
 How to migrate:
-[https://docs.datadoghq.com/agent/guide/docker-deprecation/](https://docs.datadoghq.com/agent/guide/docker-deprecation/)
+[Docker deprecation in Kubernetes](https://docs.datadoghq.com/agent/guide/docker-deprecation/)
 The pod that accesses Docker Engine may have a name containing any of:
 
 - `datadog-agent`
@@ -145,7 +142,7 @@ The SignalFx Smart Agent (deprecated) uses several different monitors for Kubern
 `kubernetes-cluster`, `kubelet-stats/kubelet-metrics`, and `docker-container-stats`.
 The `kubelet-stats` monitor was previously deprecated by the vendor, in favor of `kubelet-metrics`.
 The `docker-container-stats` monitor is the one affected by dockershim removal.
-You should not use the `docker-container-stats` with container runtimes other than Docker Engine.
+Do not use the `docker-container-stats` with container runtimes other than Docker Engine.
 
 
 How to migrate from dockershim-dependant agent:
@@ -155,9 +152,11 @@ How to migrate from dockershim-dependant agent:
 2. [Enable and configure `kubelet-metrics`](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitors/kubelet-metrics.md) monitor.
 
 
-Note, the set of collected metrics will change. Please review your alerting rules and dashboards.
+{{< note >}}
+The set of collected metrics will change. Review your alerting rules and dashboards.
+{{< /note >}}
 
-The Pod accessing Docker may be named like:
+The Pod accessing Docker may be named something like:
 
 - `signalfx-agent`
 
