@@ -39,7 +39,7 @@ command.
 [VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA) 
 使用 metrics API 中的数据调整工作负载副本和资源，以满足客户需求。
 
-你也可以通过 [`kubectl top`](/zh/docs/reference/generated/kubectl/kubectl-commands#top) 命令来查看资源指标。
+你也可以通过 [`kubectl top`](/docs/reference/generated/kubectl/kubectl-commands#top) 命令来查看资源指标。
 
 {{< note >}}
 <!--
@@ -114,7 +114,7 @@ The architecture components, from right to left in the figure, consist of the fo
   可以使用 `/metrics/resource` 和 `/stats` kubelet API 端点访问资源指标。
 * [Summary API](#summary-api-source): kubelet 提供的 API，用于发现和检索可通过 `/stats` 端点获得的每个节点的汇总统计信息。
 * [metrics-server](#metrics-server): 集群插件组件，用于收集和聚合从每个 kubelet 中提取的资源指标。
-  API 服务器提供 Metrics API 以供 HPA、VPA 和 `kubectl top` 命令使用。 Metrics Server 是 Metrics API 的参考实现。
+  API 服务器提供 Metrics API 以供 HPA、VPA 和 `kubectl top` 命令使用。Metrics Server 是 Metrics API 的参考实现。
 * [Metrics API](#metrics-api): Kubernetes API 支持访问用于工作负载自动缩放的 CPU 和内存。
   要在你的集群中进行这项工作，你需要一个提供 Metrics API 的 API 扩展服务器。
 
@@ -387,10 +387,10 @@ them in the [Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e01
 for consumers to read.
 -->
 
-### Summary API 来源
+### Summary API 来源   {#summary-api-source}
 
 [Kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 在节点、卷、Pod 和容器级别收集统计信息，
-并在[Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
+并在 [Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
 中提供它们的统计信息供消费者阅读。
 
 <!--

@@ -119,9 +119,9 @@ in the Container manifest, and within it, the
 ## 为容器设置 Username    {#set-the-username-for-a-container}
 
 要指定运行容器时所使用的用户名，请在容器清单中包含 `securityContext`
-([SecurityContext](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core))
+([SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core))
 字段，并在其内部包含 `windowsOptions`
-（[WindowsSecurityContextOptions](/zh/docs/reference/generated/kubernetes-api/{{< param
+（[WindowsSecurityContextOptions](/docs/reference/generated/kubernetes-api/{{< param
 "version" >}}/#windowssecuritycontextoptions-v1-core)）
 字段的 `runAsUserName` 字段。
 
