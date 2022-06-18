@@ -21,8 +21,8 @@ to learn about more ways to contribute. You need to use the Git command line
 client and other tools for some of these tasks.
 -->
 
-如果你已经了解如何[贡献新内容](/zh/docs/contribute/new-content/overview/)和
-[评阅他人工作](/zh/docs/contribute/review/reviewing-prs/)，并准备了解更多贡献的途径，
+如果你已经了解如何[贡献新内容](/zh-cn/docs/contribute/new-content/)和
+[评阅他人工作](/zh-cn/docs/contribute/review/reviewing-prs/)，并准备了解更多贡献的途径，
 请阅读此文。你需要使用 Git 命令行工具和其他工具做这些工作。
 
 <!-- body -->
@@ -30,11 +30,12 @@ client and other tools for some of these tasks.
 <!--
 ## Propose improvements
 
-SIG Docs [members](/docs/contribute/participate/roles-and-responsibilities/#members) can propose improvements.
+SIG Docs [members](/docs/contribute/participate/roles-and-responsibilities/#members)
+can propose improvements.
 -->
-## 提出改进建议
+## 提出改进建议   {#propose-improvements}
 
-SIG Docs 的 [成员](/zh/docs/contribute/participate/roles-and-responsibilities/#members) 可以提出改进建议。
+SIG Docs 的[成员](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#members) 可以提出改进建议。
 
 <!--
 After you've been contributing to the Kubernetes documentation for a while, you
@@ -50,8 +51,8 @@ changes. The quickest way to get answers to questions about how the documentatio
 currently works is to ask in the `#sig-docs` Slack channel on
 [kubernetes.slack.com](https://kubernetes.slack.com)
 -->
-在对 Kubernetes 文档贡献了一段时间后，你可能会对[样式指南](/zh/docs/contribute/style/style-guide/)、
-[内容指南](/zh/docs/contribute/style/content-guide/)、用于构建文档的工具链、网站样式、
+在对 Kubernetes 文档贡献了一段时间后，你可能会对[样式指南](/zh-cn/docs/contribute/style/style-guide/)、
+[内容指南](/zh-cn/docs/contribute/style/content-guide/)、用于构建文档的工具链、网站样式、
 评审和合并 PR 的流程或者文档的其他方面产生改进的想法。
 为了尽可能透明化，这些提议都需要在 SIG Docs 会议或
 [kubernetes-sig-docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)上讨论。
@@ -66,18 +67,19 @@ appropriate. For instance, an update to the style guide or the website's
 functionality might involve opening a pull request, while a change related to
 documentation testing might involve working with sig-testing.
 -->
-在进行了讨论并且 SIG 就期望的结果达成一致之后，你就能以最合理的方式处理改进建议了。例如，样式指南或网站功能的更新可能涉及 PR 的新增，而与文档测试相关的更改可能涉及 sig-testing。
+在进行了讨论并且 SIG 就期望的结果达成一致之后，你就能以最合理的方式处理改进建议了。
+例如，样式指南或网站功能的更新可能涉及 PR 的新增，而与文档测试相关的更改可能涉及 sig-testing。
 
 <!--
 ## Coordinate docs for a Kubernetes release
 
-SIG Docs [approvers](/docs/contribute/participating/#approvers) can coordinate
-docs for a Kubernetes release.
+SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers)
+can coordinate docs for a Kubernetes release.
 -->
-## 为 Kubernetes 版本发布协调文档工作
+## 为 Kubernetes 版本发布协调文档工作   {#coordinate-docs-for-a-kubernetes-release}
 
-SIG Docs 的[批准者（approvers）](/zh/docs/contribute/participating/#approvers) 可以为
-Kubernetes 版本发布协调文档工作。
+SIG Docs 的[批准者（approvers）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)
+可以为 Kubernetes 版本发布协调文档工作。
 
 <!--
 Each Kubernetes release is coordinated by a team of people participating in the
@@ -129,37 +131,37 @@ rotated among SIG Docs approvers.
 <!--
 ## Serve as a New Contributor Ambassador
 
-SIG Docs [approvers](/docs/contribute/participating/#approvers) can serve as
-New Contributor Ambassadors. 
+SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers)
+can serve as New Contributor Ambassadors.
 
-New Contributor Ambassadors work together to welcome new contributors to SIG-Docs, 
+New Contributor Ambassadors welcome new contributors to SIG-Docs,
 suggest PRs to new contributors, and mentor new contributors through their first
 few PR submissions.
 
 Responsibilities for New Contributor Ambassadors include:
 -->
 
-## 担任新的贡献者大使
+## 担任新的贡献者大使   {#serve-as-a-new-contributor-ambassador}
 
-SIG Docs [批准人（Approvers）](/zh/docs/contribute/participating/#approvers) 
+SIG Docs [批准人（Approvers）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)
 可以担任新的贡献者大使。
 
-新的贡献者大使共同努力欢迎 SIG-Docs 的新贡献者，对新贡献者的 PR 提出建议，
+新的贡献者大使欢迎 SIG-Docs 的新贡献者，对新贡献者的 PR 提出建议，
 以及在前几份 PR 提交中指导新贡献者。
 
 新的贡献者大使的职责包括：
 
 <!--
 - Being available on the [Kubernetes #sig-docs channel](https://kubernetes.slack.com) to answer questions from new contributors.
-- Working with PR wranglers to identify [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue) for new contributors. 
-- Mentoring new contributors through their first few PRs to the docs repo. 
+- Working with PR wranglers to identify [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue) for new contributors.
+- Mentoring new contributors through their first few PRs to the docs repo.
 - Helping new contributors create the more complex PRs they need to become Kubernetes members.
--[Sponsoring contributors](/docs/contribute/advanced/#sponsor-a-new-contributor) on their path to becoming Kubernetes members.
+- [Sponsoring contributors](/docs/contribute/advanced/#sponsor-a-new-contributor) on their path to becoming Kubernetes members.
 - Hosting a monthly meeting to help and mentor new contributors.
 -->
 - 监听 [Kubernetes #sig-docs 频道](https://kubernetes.slack.com) 上新贡献者的 Issue。
-- 与 PR 管理者合作为新参与者寻找[合适的第一个 issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue) 。 
-- 通过前几个 PR 指导新贡献者为文档存储库作贡献。 
+- 与 PR 管理者合作为新参与者寻找[合适的第一个 issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue)。
+- 通过前几个 PR 指导新贡献者为文档存储库作贡献。
 - 帮助新的贡献者创建成为 Kubernetes 成员所需的更复杂的 PR。
 - [为贡献者提供保荐](#sponsor-a-new-contributor)，使其成为 Kubernetes 成员。
 - 每月召开一次会议，帮助和指导新的贡献者。
@@ -172,22 +174,23 @@ Current New Contributor Ambassadors are announced at each SIG-Docs meeting and i
 <!--
 ## Sponsor a new contributor
 
-SIG Docs [reviewers](/docs/contribute/participating/#reviewers) can sponsor
-new contributors.
+SIG Docs [reviewers](/docs/contribute/participate/roles-and-responsibilities/#reviewers)
+can sponsor new contributors.
 -->
 ## 为新的贡献者提供保荐 {#sponsor-a-new-contributor}
 
-SIG Docs 的[评审人（Reviewers）](/zh/docs/contribute/participating/#reviewers) 可以为新的贡献者提供保荐。
+SIG Docs 的[评审人（Reviewers）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#reviewers)
+可以为新的贡献者提供保荐。
 
 <!--
 After a new contributor has successfully submitted 5 substantive pull requests
 to one or more Kubernetes repositories, they are eligible to apply for
-[membership](/docs/contribute/participating#members) in the Kubernetes
-organization. The contributor's membership needs to be backed by two sponsors
-who are already reviewers.
+[membership](/docs/contribute/participate/roles-and-responsibilities/#members)
+in the Kubernetes organization. The contributor's membership needs to be
+backed by two sponsors who are already reviewers.
 -->
 新的贡献者针对一个或多个 Kubernetes 项目仓库成功提交了 5 个实质性 PR 之后，
-就有资格申请 Kubernetes 组织的[成员身份](/zh/docs/contribute/participate/roles-and-responsibilities/#members)。
+就有资格申请 Kubernetes 组织的[成员身份](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#members)。
 贡献者的成员资格需要同时得到两位评审人的保荐。
 
 <!--
@@ -212,18 +215,23 @@ can serve a term as a co-chair of SIG Docs.
 
 ### Prerequisites
 -->
-## 担任 SIG 联合主席
+## 担任 SIG 联合主席   {#sponsor-a-new-contributor}
 
-SIG Docs [成员（Members）](/zh/docs/contribute/participate/roles-and-responsibilities/#members)
+SIG Docs [成员（Members）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#members)
 可以担任 SIG Docs 的联合主席。
 
-### 前提条件
+### 前提条件   {#prerequisites}
 
 <!--
 A Kubernetes member must meet the following requirements to be a co-chair:
 
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
-- Understand how other Kubernetes SIGs and repositories affect the SIG Docs workflow, including: [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), the [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs), plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
+- Understand how other Kubernetes SIGs and repositories affect the SIG Docs
+  workflow, including:
+  [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), the
+  [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs),
+  plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of
+  [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
   In addition, understand how the [Kubernetes docs release process](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) works.
 - Approved by the SIG Docs community either directly or via lazy consensus.
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months
@@ -235,8 +243,8 @@ Kubernetes 成员必须满足以下要求才能成为联合主席：
   [k/org 中的团队](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml)、
   [k/community 中的流程](https://github.com/kubernetes/community/tree/master/sig-docs)、
   [k/test-infra](https://github.com/kubernetes/test-infra/) 中的插件、
-  [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture) 中的角色。 
-  此外，了解 [Kubernetes 文档发布流程](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) 的工作原理。
+  [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture) 中的角色。
+  此外，了解 [Kubernetes 文档发布流程](/zh-cn/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release)的工作原理。
 - 由 SIG Docs 社区直接或通过惰性共识批准。
 - 在至少 6 个月的时段内，确保每周至少投入 5 个小时（通常更多）
 
@@ -247,7 +255,7 @@ The role of co-chair is primarily one of service: co-chairs handle process and p
 
 Responsibilities include:
 -->
-### 职责范围
+### 职责范围   {#responsibilities}
 
 联合主席主要提供以下服务：
 联合主席负责处理流程和政策、时间安排和召开会议、安排 PR 管理员、以及一些其他人不想做的事情，目的是增长贡献者团队。
@@ -282,7 +290,7 @@ To schedule and run effective meetings, these guidelines show what to do, how to
 
 - Hold respectful, inclusive discussions with respectful, inclusive language.
 -->
-### 召开高效的会议
+### 召开高效的会议   {#running-effective-meetings}
 
 为了安排和召开高效的会议，这些指南说明了如何做、怎样做以及原因。
 
@@ -332,7 +340,7 @@ For weekly meetings, copypaste the previous week's notes into the "Past meetings
 
 **Honor folks' time**:
 
-- Begin and end meetings punctually
+Begin and end meetings on time.
 -->
 **根据需要来进行协调**：
 
@@ -341,7 +349,7 @@ For weekly meetings, copypaste the previous week's notes into the "Past meetings
 
 **尊重大家的时间**:
 
-- 准时开始和结束会议
+按时开始和结束会议
 
 <!--
 **Use Zoom effectively**:
@@ -362,12 +370,12 @@ For weekly meetings, copypaste the previous week's notes into the "Past meetings
 ### Recording meetings on Zoom
 
 When you're ready to start the recording, click Record to Cloud.
-    
+
 When you're ready to stop recording, click Stop.
 
 The video uploads automatically to YouTube.
 -->
-### 录制 Zoom 会议
+### 录制 Zoom 会议   {#recording-meetings-on-zoom}
 
 准备开始录制时，请单击“录制到云”。
 
