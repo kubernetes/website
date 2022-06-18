@@ -36,6 +36,7 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
 <hr>
 
 - **apiVersion**: storage.k8s.io/v1
+
 - **kind**: StorageClass
 
 <!--
@@ -49,13 +50,16 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
   AllowVolumeExpansion shows whether the storage class allow volume expand
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
   标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **provisioner** (string)，必需
+
   provisioner 表示制备器的类别。
 
 - **allowVolumeExpansion** (boolean)
+
   allowVolumeExpansion 显示存储类是否允许卷扩充。
 
 <!--
@@ -68,6 +72,7 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
   *A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.*
 -->
 - **allowedTopologies** ([]TopologySelectorTerm)
+
   **原子性：将在合并期间被替换**
   
   限制可以动态制备卷的节点拓扑。每个卷插件定义其自己支持的拓扑规约。
@@ -91,15 +96,18 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
       An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
 -->  
   - **allowedTopologies.matchLabelExpressions** ([]TopologySelectorLabelRequirement)
+
     按标签设置的拓扑选择器要求的列表。
     
     <a name="TopologySelectorLabelRequirement"></a> 
     **拓扑选择器要求是与给定标签匹配的一个选择器。此功能为 Alpha 特性，将来可能会变更。**
     
     - **allowedTopologies.matchLabelExpressions.key** (string)，必需
+
       选择器所针对的标签键。
     
     - **allowedTopologies.matchLabelExpressions.values** ([]string)，必需
+
       字符串数组。一个值必须与要选择的标签匹配。values 中的每个条目按逻辑或的关系来计算。
 
 <!--
@@ -110,10 +118,12 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
   Parameters holds the parameters for the provisioner that should create volumes of this storage class.
 -->
 - **mountOptions** ([]string)
+
   此存储类动态制备的 PersistentVolume 用这些 mountOptions（例如 ["ro", "soft"]）进行创建。
   系统对选项作检查——如果有一个选项无效，则这些 PV 的挂载将失败。
 
 - **parameters** (map[string]string)
+
   parameters 包含应创建此存储类卷的制备器的参数。
 
 <!--
@@ -124,9 +134,11 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
   VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
 -->
 - **reclaimPolicy** (string)
+
   此存储类动态制备的 PersistentVolume 用这个 reclaimPolicy 进行创建。默认为 Delete。
 
 - **volumeBindingMode** (string)
+
   volumeBindingMode 指示应该如何制备和绑定 PersistentVolumeClaim。
   未设置时，将使用 VolumeBindingImmediate。
   只有启用 VolumeScheduling 功能特性的服务器才能使用此字段。
@@ -140,6 +152,7 @@ StorageClassList 是存储类的集合。
 <hr>
 
 - **apiVersion**: storage.k8s.io/v1
+
 - **kind**: StorageClassList
 
 <!--
@@ -150,10 +163,12 @@ StorageClassList 是存储类的集合。
   Items is the list of StorageClasses
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+
   标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>)，必需
+
   items 是 StorageClass 的列表。
 
 <!--
@@ -177,9 +192,11 @@ GET /apis/storage.k8s.io/v1/storageclasses/{name}
 -->
 #### 参数
 - **name** (**路径参数**): string，必需
+
   StorageClass 的名称
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -213,33 +230,43 @@ GET /apis/storage.k8s.io/v1/storageclasses
 -->
 #### 参数
 - **allowWatchBookmarks** (**查询参数**): boolean
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 - **continue** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **fieldSelector** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **resourceVersion** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **timeoutSeconds** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 - **watch** (**查询参数**): boolean
+
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
@@ -268,16 +295,21 @@ POST /apis/storage.k8s.io/v1/storageclasses
 -->
 #### 参数
 - **body**: <a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>，必需
+
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -312,19 +344,25 @@ PUT /apis/storage.k8s.io/v1/storageclasses/{name}
 -->
 #### 参数
 - **name** (**路径参数**): string，必需
+
   StorageClass 的名称
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>，必需
+
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -358,22 +396,29 @@ PATCH /apis/storage.k8s.io/v1/storageclasses/{name}
 -->
 #### 参数
 - **name** (**路径参数**): string，必需
+
   StorageClass 的名称
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
+
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **force** (**查询参数**): boolean
+
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -406,19 +451,25 @@ DELETE /apis/storage.k8s.io/v1/storageclasses/{name}
 -->
 #### 参数
 - **name** (**路径参数**): string，必需
+
   StorageClass 的名称
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **gracePeriodSeconds** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **propagationPolicy** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 <!--
@@ -456,37 +507,49 @@ DELETE /apis/storage.k8s.io/v1/storageclasses
 -->
 #### 参数
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
 - **continue** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldSelector** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **gracePeriodSeconds** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 - **labelSelector** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **propagationPolicy** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 - **resourceVersion** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **timeoutSeconds** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 <!--
