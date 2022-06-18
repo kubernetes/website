@@ -1,6 +1,4 @@
 ---
-approvers:
-- janetkuo
 title: 对 DaemonSet 执行回滚
 content_type: task
 weight: 20
@@ -222,7 +220,7 @@ have revision 1 and 2 in the system, and roll back from revision 2 to revision
 注意 DaemonSet 修订版本只会正向变化。也就是说，回滚完成后，所回滚到的
 `ControllerRevision` 版本号 (`.revision` 字段) 会增加。
 例如，如果用户在系统中有版本 1 和版本 2，并从版本 2 回滚到版本 1，
-带有 `.revision: 1` 的`ControllerRevision` 将变为 `.revision: 3`。
+带有 `.revision: 1` 的 `ControllerRevision` 将变为 `.revision: 3`。
 {{< /note >}}
 
 <!--
@@ -234,5 +232,3 @@ have revision 1 and 2 in the system, and roll back from revision 2 to revision
 ## 故障排查
 
 * 参阅 [DaemonSet 滚动升级故障排除](/zh/docs/tasks/manage-daemon/update-daemon-set/#troubleshooting)。
-
-
