@@ -21,7 +21,7 @@ by applications that use the Kubernetes API, and by the control plane itself.
 
 Auditing allows cluster administrators to answer the following questions:
 -->
-Kubernetes _审计（Auditing）_ 功能提供了与安全相关的、按时间顺序排列的记录集，
+Kubernetes **审计（Auditing）**功能提供了与安全相关的、按时间顺序排列的记录集，
 记录每个用户、使用 Kubernetes API 的应用以及控制面自身引发的活动。
 
 审计功能使得集群管理员能够回答以下问题：
@@ -73,7 +73,7 @@ Each request can be recorded with an associated _stage_. The defined stages are:
   will be sent.
 - `Panic` - Events generated when a panic occurred.
 -->
-每个请求都可被记录其相关的 _阶段（stage）_。已定义的阶段有：
+每个请求都可被记录其相关的**阶段（stage）**。已定义的阶段有：
 
 - `RequestReceived` - 此阶段对应审计处理器接收到请求后，并且在委托给
   其余处理器之前生成的事件。
@@ -91,7 +91,7 @@ API object.
 -->
 {{< note >}}
 [审计事件配置](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
-的配置与 [Event](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
+的配置与 [Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
 API 对象不同。
 {{< /note >}}
 
@@ -119,7 +119,7 @@ _audit level_ of the event. The defined audit levels are:
 审计策略对象结构定义在
 [`audit.k8s.io` API 组](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
 处理事件时，将按顺序与规则列表进行比较。第一个匹配规则设置事件的
-_审计级别（Audit Level）_。已定义的审计级别有：
+**审计级别（Audit Level）**。已定义的审计级别有：
 
 <!--
 - `None` - don't log events that match this rule.
@@ -147,7 +147,7 @@ Below is an example audit policy file:
 -->
 你可以使用 `--audit-policy-file` 标志将包含策略的文件传递给 `kube-apiserver`。
 如果不设置该标志，则不记录事件。
-注意 `rules` 字段 __必须__ 在审计策略文件中提供。没有（0）规则的策略将被视为非法配置。
+注意 `rules` 字段**必须**在审计策略文件中提供。没有（0）规则的策略将被视为非法配置。
 
 以下是一个审计策略文件的示例：
 
@@ -241,7 +241,7 @@ You can configure the log audit backend using the following `kube-apiserver` fla
 Log backend writes audit events to a file in JSON format. You can configure
 log audit backend using the following [kube-apiserver][kube-apiserver] flags:
 -->
-### Log 后端
+### Log 后端   {#log-backend}
 
 Log 后端将审计事件写入 [JSONlines](https://jsonlines.org/)  格式的文件。
 你可以使用以下 `kube-apiserver` 标志配置 Log 审计后端：
@@ -450,4 +450,3 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 * Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
 -->
 * 了解 [Mutating webhook 审计注解](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations)。
-

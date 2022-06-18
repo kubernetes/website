@@ -132,7 +132,7 @@ In the bootstrap initialization process, the following occurs:
 9. Certificate is created for the kubelet
 -->
 1. kubelet 启动
-2. kubelet 看到自己 *没有* 对应的 `kubeconfig` 文件
+2. kubelet 看到自己**没有**对应的 `kubeconfig` 文件
 3. kubelet 搜索并发现 `bootstrap-kubeconfig` 文件
 4. kubelet 读取该启动引导文件，从中获得 API 服务器的 URL 和用途有限的
    一个“令牌（Token）”
@@ -304,8 +304,8 @@ particular bootstrap group's access when you are done provisioning the nodes.
 -->
 随着这个功能特性的逐渐成熟，你需要确保令牌绑定到某基于角色的的访问控制（RBAC）
 策略上，从而严格限制请求（使用[启动引导令牌](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)）
-仅限于客户端申请提供证书。当 RBAC 被配置启用时，可以将令牌限制到某个组，从而
-提高灵活性。例如，你可以在准备节点期间禁止某特定启动引导组的访问。
+仅限于客户端申请提供证书。当 RBAC 被配置启用时，可以将令牌限制到某个组，
+从而提高灵活性。例如，你可以在准备节点期间禁止某特定启动引导组的访问。
 
 <!--
 #### Bootstrap tokens
@@ -366,8 +366,8 @@ systems). There are multiple ways you can generate a token. For example:
 #### 令牌认证文件    {#token-authentication-file}
 
 kube-apiserver 能够将令牌视作身份认证依据。
-这些令牌可以是任意数据，但必须表示为基于某安全的随机数生成器而得到的
-至少 128 位混沌数据。这里的随机数生成器可以是现代 Linux 系统上的
+这些令牌可以是任意数据，但必须表示为基于某安全的随机数生成器而得到的至少
+128 位混沌数据。这里的随机数生成器可以是现代 Linux 系统上的
 `/dev/urandom`。生成令牌的方式有很多种。例如：
 
 ```shell
@@ -380,10 +380,10 @@ will generate tokens that look like `02b50b05283e98dd0fd71db496ef01e8`.
 The token file should look like the following example, where the first three
 values can be anything and the quoted group name should be as depicted:
 -->
-上面的命令会生成类似于 `02b50b05283e98dd0fd71db496ef01e8` 这样的令牌。 
+上面的命令会生成类似于 `02b50b05283e98dd0fd71db496ef01e8` 这样的令牌。
 
-令牌文件看起来是下面的例子这样，其中前面三个值可以是任何值，用引号括起来
-的组名称则只能用例子中给的值。
+令牌文件看起来是下面的例子这样，其中前面三个值可以是任何值，
+用引号括起来的组名称则只能用例子中给的值。
 
 ```console
 02b50b05283e98dd0fd71db496ef01e8,kubelet-bootstrap,10001,"system:bootstrappers"
@@ -413,7 +413,7 @@ To do this, you only need to create a `ClusterRoleBinding` that binds the `syste
 -->
 ### 授权 kubelet 创建 CSR    {#authorize-kubelet-to-create-csr}
 
-现在启动引导节点被身份认证为 `system:bootstrapping` 组的成员，它需要被 _授权_
+现在启动引导节点被身份认证为 `system:bootstrapping` 组的成员，它需要被**授权**
 创建证书签名请求（CSR）并在证书被签名之后将其取回。
 幸运的是，Kubernetes 提供了一个 `ClusterRole`，其中精确地封装了这些许可，
 `system:node-bootstrapper`。
@@ -491,7 +491,7 @@ To provide the Kubernetes CA key and certificate to kube-controller-manager, use
 由于这些被签名的证书反过来会被 kubelet 用来在 kube-apiserver 执行普通的
 kubelet 身份认证，很重要的一点是为控制器管理器所提供的 CA 也被 kube-apiserver
 信任用来执行身份认证。CA 密钥和证书是通过 kube-apiserver 的标志
-`--client-ca-file=FILENAME`（例如，`--client-ca-file=/var/lib/kubernetes/ca.pem`)，
+`--client-ca-file=FILENAME`（例如，`--client-ca-file=/var/lib/kubernetes/ca.pem`），
 来设定的，正如 kube-apiserver 配置节所述。
 
 要将 Kubernetes CA 密钥和证书提供给 kube-controller-manager，可使用以下标志：
@@ -593,15 +593,15 @@ roleRef:
 <!--
 The `csrapproving` controller that ships as part of
 [kube-controller-manager](/docs/admin/kube-controller-manager/) and is enabled
-by default. The controller uses the [`SubjectAccessReview`
-API](/docs/reference/access-authn-authz/authorization/#checking-api-access) to
+by default. The controller uses the
+[`SubjectAccessReview` API](/docs/reference/access-authn-authz/authorization/#checking-api-access) to
 determine if a given user is authorized to request a CSR, then approves based on
 the authorization outcome. To prevent conflicts with other approvers, the
 builtin approver doesn't explicitly deny CSRs. It only ignores unauthorized
 requests. The controller also prunes expired certificates as part of garbage
 collection.
 -->
-作为 [kube-controller-manager](/zh/docs/reference/generated/kube-controller-manager/)
+作为 [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
 的一部分的 `csrapproving` 控制器是自动被启用的。
 该控制器使用 [`SubjectAccessReview` API](/zh/docs/reference/access-authn-authz/authorization/#checking-api-access)
 来确定是否某给定用户被授权请求 CSR，之后基于鉴权结果执行批复操作。
@@ -612,7 +612,7 @@ collection.
 <!--
 ## kubelet configuration
 
-Finally, with the control plane properly set up and all of the necessary authentication and authorization in place, we can configure the kubelet.
+Finally, with the control plane nodes properly set up and all of the necessary authentication and authorization in place, we can configure the kubelet.
 -->
 ## kubelet 配置   {#kubelet-configuration}
 
@@ -678,7 +678,7 @@ The important elements to note are:
 
 * `certificate-authority`：指向 CA 文件的路径，用来对 kube-apiserver 所出示
   的服务器证书进行验证
-* `server`： 用来访问 kube-apiserver 的 URL
+* `server`：用来访问 kube-apiserver 的 URL
 * `token`：要使用的令牌
 
 <!--
@@ -733,7 +733,7 @@ uses to authenticate to kube-apiserver.
 -->
 ### 客户和服务证书   {#client-and-serving-certificates}
 
-前文所述的内容都与 kubelet _客户端_ 证书相关，尤其是 kubelet 用来向
+前文所述的内容都与 kubelet **客户端**证书相关，尤其是 kubelet 用来向
 kube-apiserver 认证自身身份的证书。
 
 <!--
@@ -744,7 +744,7 @@ To secure these, the kubelet can do one of:
 * create self-signed key and certificate, if a key and certificate are not provided
 * request serving certificates from the cluster server, via the CSR API
 -->
-kubelet 也可以使用 _服务（Serving）_ 证书。kubelet 自身向外提供一个
+kubelet 也可以使用**服务（Serving）**证书。kubelet 自身向外提供一个
 HTTPS 末端，包含若干功能特性。要保证这些末端的安全性，kubelet 可以执行以下操作
 之一：
 
@@ -814,9 +814,9 @@ controller, or manually approve the serving certificate requests.
 -->
 Kubernetes 核心中所实现的 CSR 批复控制器出于
 [安全原因](https://github.com/kubernetes/community/pull/1982)
-并不会自动批复节点的 _服务_ 证书。
-要使用 `RotateKubeletServerCertificate` 功能特性，集群运维人员需要运行一个
-定制的控制器或者手动批复服务证书的请求。
+并不会自动批复节点的**服务**证书。
+要使用 `RotateKubeletServerCertificate` 功能特性，
+集群运维人员需要运行一个定制的控制器或者手动批复服务证书的请求。
 
 <!--
 A deployment-specific approval process for kubelet serving certificates should typically only approve CSRs which:
@@ -833,11 +833,11 @@ A deployment-specific approval process for kubelet serving certificates should t
 
 1. 由节点发出的请求（确保 `spec.username` 字段形式为 `system:node:<nodeName>`
    且 `spec.groups` 包含 `system:nodes`）
-2. 请求中包含服务证书用法（确保 `spec.usages` 中包含 `server auth`，可选地也可 
-   包含 `digital signature` 和 `key encipherment`，且不包含其它用法）
+2. 请求中包含服务证书用法（确保 `spec.usages` 中包含 `server auth`，可选地也可包含
+   `digital signature` 和 `key encipherment`，且不包含其它用法）
 3. 仅包含隶属于请求节点的 IP 和 DNS 的 `subjectAltNames`，没有 URI 和 Email
-   形式的 `subjectAltNames`（解析 `spec.request` 中的 x509 证书签名请求可以
-   检查 `subjectAltNames`）
+   形式的 `subjectAltNames`（解析 `spec.request` 中的 x509 证书签名请求可以检查
+   `subjectAltNames`）
 {{< /note >}}
 
 <!--
@@ -849,10 +849,9 @@ is part of the Kubernetes control plane and runs on every node, but may also inc
 -->
 ## 其它身份认证组件   {#other-authenticating-components}
 
-本文所描述的所有 TLS 启动引导内容都与 kubelet 相关。不过，其它组件也可能需要
-直接与 kube-apiserver 直接通信。容易想到的是 kube-proxy，同样隶属于
-Kubernetes 的控制面并且运行在所有节点之上，不过也可能包含一些其它负责
-监控或者联网的组件。
+本文所描述的所有 TLS 启动引导内容都与 kubelet 相关。不过，其它组件也可能需要直接与
+kube-apiserver 直接通信。容易想到的是 kube-proxy，同样隶属于
+Kubernetes 的控制面并且运行在所有节点之上，不过也可能包含一些其它负责监控或者联网的组件。
 
 <!--
 Like the kubelet, these other components also require a method of authenticating to kube-apiserver.
@@ -865,13 +864,12 @@ You have several options for generating these credentials:
 * The old way: Create and distribute certificates the same way you did for kubelet before TLS bootstrapping
 * DaemonSet: Since the kubelet itself is loaded on each node, and is sufficient to start base services, you can run kube-proxy and other node-specific services not as a standalone process, but rather as a daemonset in the `kube-system` namespace. Since it will be in-cluster, you can give it a proper service account with appropriate permissions to perform its activities. This may be the simplest way to configure such services.
 -->
-* 较老的方式：和 kubelet 在 TLS 启动引导之前所做的一样，用类似的方式
-  创建和分发证书
+* 较老的方式：和 kubelet 在 TLS 启动引导之前所做的一样，用类似的方式创建和分发证书。
 * DaemonSet：由于 kubelet 自身被加载到所有节点之上，并且有足够能力来启动基本服务，
   你可以运行将 kube-proxy 和其它特定节点的服务作为 `kube-system` 名字空间中的
-  DaemonSet 来执行，而不是独立的进程。由于 DaemonSet 位于集群内部，你可以为其
-  指派一个合适的服务账户，使之具有适当的访问权限来完成其使命。这也许是配置此类
-  服务的最简单的方法。
+  DaemonSet 来执行，而不是独立的进程。由于 DaemonSet 位于集群内部，
+  你可以为其指派一个合适的服务账户，使之具有适当的访问权限来完成其使命。
+  这也许是配置此类服务的最简单的方法。
 
 <!--
 ## kubectl approval
@@ -894,13 +892,12 @@ list CSRs with `kubectl get csr` and describe one in detail with `kubectl
 describe csr <name>`. An administrator can approve or deny a CSR with `kubectl
 certificate approve <name>` and `kubectl certificate deny <name>`.
 -->
-签名控制器并不会立即对所有证书请求执行签名操作。相反，它会等待这些请求被某
-具有适当特权的用户标记为 “Approved（已批准）”状态。
-这一流程有意允许由外部批复控制器来自动执行的批复，或者由控制器管理器内置的
-批复控制器来自动批复。
+签名控制器并不会立即对所有证书请求执行签名操作。相反，
+它会等待这些请求被某具有适当特权的用户标记为 “Approved（已批准）”状态。
+这一流程有意允许由外部批复控制器来自动执行的批复，
+或者由控制器管理器内置的批复控制器来自动批复。
 不过，集群管理员也可以使用 `kubectl` 来手动批准证书请求。
 管理员可以通过 `kubectl get csr` 来列举所有的 CSR，使用
 `kubectl descsribe csr <name>` 来描述某个 CSR 的细节。
 管理员可以使用 `kubectl certificate approve <name` 来批准某 CSR，或者
 `kubectl certificate deny <name>` 来拒绝某 CSR。
-

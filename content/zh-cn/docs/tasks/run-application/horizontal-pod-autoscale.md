@@ -1,7 +1,7 @@
 ---
 title: Pod 水平自动扩缩
 feature:
-  title: 水平扩缩 
+  title: 水平扩缩
   description: >
     使用一个简单的命令、一个 UI 或基于 CPU 使用情况自动对应用程序进行扩缩。
 
@@ -18,7 +18,7 @@ a {{< glossary_tooltip text="Deployment" term_id="deployment" >}} or
 aim of automatically scaling the workload to match demand.
 -->
 在 Kubernetes 中，_HorizontalPodAutoscaler_ 自动更新工作负载资源
-（例如 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 或者 
+（例如 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 或者
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}），
 目的是自动扩缩工作负载以满足需求。
 
@@ -83,8 +83,8 @@ Kubernetes implements horizontal pod autoscaling as a control loop that runs int
 [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 (and the default interval is 15 seconds).
 -->
-Kubernetes 将水平 Pod 自动扩缩实现为一个间歇运行的控制回路（它不是一个连续的过程）。间隔由 
-[`kube-controller-manager`](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/) 
+Kubernetes 将水平 Pod 自动扩缩实现为一个间歇运行的控制回路（它不是一个连续的过程）。间隔由
+[`kube-controller-manager`](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
 的 `--horizontal-pod-autoscaler-sync-period` 参数设置（默认间隔为 15 秒）。
 
 <!--
@@ -238,7 +238,7 @@ When scaling on CPU, if any pod has yet to become ready (it's still
 initializing, or possibly is unhealthy) *or* the most recent metric point for the pod was before it
 became ready, that pod is set aside as well.
 -->
-当使用 CPU 指标来扩缩时，任何还未就绪（还在初始化，或者可能是不健康的）状态的 Pod **或** 
+当使用 CPU 指标来扩缩时，任何还未就绪（还在初始化，或者可能是不健康的）状态的 Pod **或**
 最近的指标度量值采集于就绪状态前的 Pod，该 Pod 也会被搁置。
 
 <!--
@@ -398,7 +398,7 @@ If you perform a rolling update of a StatefulSet that has an autoscaled number o
 replicas, the StatefulSet directly manages its set of Pods (there is no intermediate resource
 similar to ReplicaSet).
 -->
-如果你对一个副本个数被自动扩缩的 StatefulSet 执行滚动更新， 该 StatefulSet
+如果你对一个副本个数被自动扩缩的 StatefulSet 执行滚动更新，该 StatefulSet
 会直接管理它的 Pod 集合 （不存在类似 ReplicaSet 这样的中间资源）。
 
 <!--
@@ -540,7 +540,7 @@ See [Support for metrics APIs](#support-for-metrics-apis) for the requirements.
 
 （之前的 `autoscaling/v2beta2` API 版本将此功能作为 beta 功能提供）
 
-如果你使用 `autoscaling/v2` API 版本，则可以将 HorizontalPodAutoscaler 
+如果你使用 `autoscaling/v2` API 版本，则可以将 HorizontalPodAutoscaler
 配置为基于自定义指标（未内置于 Kubernetes 或任何 Kubernetes 组件）进行扩缩。
 HorizontalPodAutoscaler 控制器能够从 Kubernetes API 查询这些自定义指标。
 
@@ -598,14 +598,14 @@ APIs, cluster administrators must ensure that:
 
    * 对于资源指标，将使用 `metrics.k8s.io` API，一般由 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 提供。
      它可以作为集群插件启动。
-    
+
    * 对于自定义指标，将使用 `custom.metrics.k8s.io` API。
     它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
     检查你的指标管道以查看是否有可用的 Kubernetes 指标适配器。
-   
+
    * 对于外部指标，将使用 `external.metrics.k8s.io` API。可能由上面的自定义指标适配器提供。
 
-<!--  
+<!--
 For more information on these different metrics paths and how they differ please see the relevant design proposals for
 [the HPA V2](https://github.com/kubernetes/design-proposals-archive/blob/main/autoscaling/hpa-v2.md),
 [custom.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/custom-metrics-api.md)
@@ -613,18 +613,18 @@ and [external.metrics.k8s.io](https://github.com/kubernetes/design-proposals-arc
 -->
 关于指标来源以及其区别的更多信息，请参阅相关的设计文档，
 [HPA V2](https://github.com/kubernetes/design-proposals-archive/blob/main/autoscaling/hpa-v2.md)，
-[custom.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/custom-metrics-api.md) 和 
+[custom.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/custom-metrics-api.md) 和
 [external.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/external-metrics-api.md)。
 
 <!--
 For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
 -->
-关于如何使用它们的示例，请参考 
+关于如何使用它们的示例，请参考
 [使用自定义指标的教程](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 和[使用外部指标的教程](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects)。
 
-<!--  
+<!--
 ## Configurable scaling behavior
 
 (the `autoscaling/v2beta2` API version previously provided this ability as a beta feature)
@@ -651,10 +651,10 @@ the replica count for a scaling target. Scaling policies also let you controls t
 rate of change of replicas while scaling.
 -->
 
-你可以指定一个 “稳定窗口” ，以防止扩缩目标的副本计数发生[波动](#flapping)。
+你可以指定一个 “稳定窗口”，以防止扩缩目标的副本计数发生[波动](#flapping)。
 扩缩策略还允许你在扩缩时控制副本的变化率。
 
-<!--  
+<!--
 ### Scaling Policies
 
 One or more scaling policies can be specified in the `behavior` section of the spec.
@@ -678,7 +678,7 @@ behavior:
       periodSeconds: 60
 ```
 
-<!--  
+<!--
 `periodSeconds` indicates the length of time in the past for which the policy must hold true.
 The first policy _(Pods)_ allows at most 4 replicas to be scaled down in one minute. The second policy
 _(Percent)_ allows at most 10% of the current replicas to be scaled down in one minute.
@@ -703,7 +703,7 @@ and 4 replicas will be reduced at a time.
 在 autoscaler 控制器的每个循环中，将根据当前副本的数量重新计算要更改的 Pod 数量。
 当副本数量低于 40 时，应用第一个策略（Pods），一次减少 4 个副本。
 
-<!--  
+<!--
 The policy selection can be changed by specifying the `selectPolicy` field for a scaling
 direction. By setting the value to `Min` which would select the policy which allows the
 smallest change in the replica count. Setting the value to `Disabled` completely disables
@@ -713,7 +713,7 @@ scaling in that direction.
 通过设置 `Min` 的值，它将选择副本数变化最小的策略。
 将该值设置为 `Disabled` 将完全禁用该方向的扩缩。
 
-<!--  
+<!--
 ### Stabilization Window
 
 The stabilization window is used to restrict the [flapping](#flapping) of
@@ -736,7 +736,7 @@ behavior:
     stabilizationWindowSeconds: 300
 ```
 
-<!--  
+<!--
 When the metrics indicate that the target should be scaled down the algorithm looks
 into previously computed desired states, and uses the highest value from the specified
 interval. In the above example, all desired states from the past 5 minutes will be considered.
@@ -750,7 +750,7 @@ remove Pods only to trigger recreating an equivalent Pod just moments later.
 -->
 这近似于滚动最大值，并避免了扩缩算法频繁删除 Pod 而又触发重新创建等效 Pod。
 
-<!--  
+<!--
 ### Default Behavior
 
 To use the custom scaling not all fields have to be specified. Only values which need to be
@@ -784,7 +784,7 @@ behavior:
     selectPolicy: Max
 ```
 
-<!--  
+<!--
 For scaling down the stabilization window is _300_ seconds (or the value of the
 `--horizontal-pod-autoscaler-downscale-stabilization` flag if provided). There is only a single policy
 for scaling down which allows a 100% of the currently running replicas to be removed which
@@ -793,18 +793,18 @@ For scaling up there is no stabilization window. When the metrics indicate that 
 scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
 running replicas will be added every 15 seconds till the HPA reaches its steady state.
 -->
-用于缩小稳定窗口的时间为 _300_  秒(或是 `--horizontal-pod-autoscaler-downscale-stabilization`
+用于缩小稳定窗口的时间为 _300_ 秒(或是 `--horizontal-pod-autoscaler-downscale-stabilization`
 参数设定值)。
 只有一种缩容的策略，允许 100% 删除当前运行的副本，这意味着扩缩目标可以缩小到允许的最小副本数。
 对于扩容，没有稳定窗口。当指标显示目标应该扩容时，目标会立即扩容。
 这里有两种策略，每 15 秒添加 4 个 Pod 或 100% 当前运行的副本数，直到 HPA 达到稳定状态。
 
-<!--  
+<!--
 ### Example: change downscale stabilization window
 
 To provide a custom downscale stabilization window of 1 minute, the following
 behavior would be added to the HPA:
---> 
+-->
 ### 示例：更改缩容稳定窗口 {#example-change-downscale-stabilization-window}
 
 将下面的 behavior 配置添加到 HPA 中，可提供一个 1 分钟的自定义缩容稳定窗口：
@@ -815,7 +815,7 @@ behavior:
     stabilizationWindowSeconds: 60
 ```
 
-<!--  
+<!--
 ### Example: limit scale down rate
 
 To limit the rate at which pods are removed by the HPA to 10% per minute, the
@@ -834,7 +834,7 @@ behavior:
       periodSeconds: 60
 ```
 
-<!--  
+<!--
 To ensure that no more than 5 Pods are removed per minute, you can add a second scale-down
 policy with a fixed size of 5, and set `selectPolicy` to minimum. Setting `selectPolicy` to `Min` means
 that the autoscaler chooses the policy that affects the smallest number of Pods:
@@ -855,7 +855,7 @@ behavior:
     selectPolicy: Min
 ```
 
-<!--  
+<!--
 ### Example: disable scale down
 
 The `selectPolicy` value of `Disabled` turns off scaling the given direction.
@@ -894,7 +894,7 @@ will create an autoscaler for ReplicaSet *foo*, with target CPU utilization set 
 and the number of replicas between 2 and 5.
 -->
 此外，还有一个特殊的 `kubectl autoscale` 命令用于创建 HorizontalPodAutoscaler 对象。
-例如，执行 `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80` 
+例如，执行 `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
 将为 ReplicaSet *foo* 创建一个自动扩缩器，目标 CPU 利用率设置为 `80%`，副本数在 2 到 5 之间。
 
 <!--
@@ -962,9 +962,9 @@ methods based on how you are modifying your deployments:
 -->
 1. `kubectl apply edit-last-applied deployment/<Deployment 名称>`
 2. 在编辑器中，删除 `spec.replicas`。当你保存并退出编辑器时，`kubectl` 会应用更新。
-  在此步骤中不会更改 Pod 计数。
+   在此步骤中不会更改 Pod 计数。
 3. 你现在可以从清单中删除 `spec.replicas`。如果你使用源代码管理，
-  还应提交你的更改或采取任何其他步骤来修改源代码，以适应你如何跟踪更新。
+   还应提交你的更改或采取任何其他步骤来修改源代码，以适应你如何跟踪更新。
 4. 从这里开始，你可以运行 `kubectl apply -f deployment.yaml`
 
 {{% /tab %}}
@@ -1002,7 +1002,7 @@ For more information on HorizontalPodAutoscaler:
 * Read the [API reference](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/) for HorizontalPodAutoscaler.
 -->
 * 阅读水平 Pod 自动扩缩的[演练示例](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)。
-* 阅读 [`kubectl autoscale`](/zh/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 的文档。
+* 阅读 [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 的文档。
 * 如果你想编写自己的自定义指标适配器，
   请查看 [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) 以开始使用。
 * 阅读 [API 参考](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)。
