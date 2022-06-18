@@ -36,8 +36,8 @@ part of Kubernetes (this removal was
 [announced](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
 as part of the v1.20 release).
 You can read
-[Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) to understand how this removal might
-affect you. To learn about migrating from using dockershim, see
+[Check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
+to understand how this removal might affect you. To learn about migrating from using dockershim, see
 [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
 
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
