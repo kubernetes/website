@@ -17,7 +17,8 @@ created. This tutorial shows you how to enforce the `baseline` Pod Security
 Standard at the cluster level which applies a standard configuration
 to all namespaces in a cluster.
 
-To apply Pod Security Standards to specific namespaces, refer to [Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
+To apply Pod Security Standards to specific namespaces, refer to
+[Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
 
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
 check the documentation for that version.
