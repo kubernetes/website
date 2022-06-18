@@ -1,15 +1,20 @@
 ---
 title: StatefulSet 基础
 content_type: tutorial
-approvers:
+weight: 10
+---
+<!--
+reviewers:
 - enisoc
 - erictune
 - foxish
 - janetkuo
 - kow3ns
 - smarterclayton
-
----
+title: StatefulSet Basics
+content_type: tutorial
+weight: 10
+-->
 
 <!-- overview -->
 
