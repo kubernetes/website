@@ -187,7 +187,8 @@ kubectl get crontabs
 ```
 
 ```none
-Error from server (NotFound): Unable to list {"stable.example.com" "v1" "crontabs"}: the server could not find the requested resource (get crontabs.stable.example.com)
+Error from server (NotFound): Unable to list {"stable.example.com" "v1" "crontabs"}: the server could not
+find the requested resource (get crontabs.stable.example.com)
 ```
 
 If you later recreate the same CustomResourceDefinition, it will start out empty.
@@ -206,22 +207,28 @@ CustomResourceDefinition, the structural schema was optional.
 
 A structural schema is an [OpenAPI v3.0 validation schema](#validation) which:
 
-1. specifies a non-empty type (via `type` in OpenAPI) for the root, for each specified field of an object node (via `properties` or `additionalProperties` in OpenAPI) and for each item in an array node (via `items` in OpenAPI), with the exception of:
+1. specifies a non-empty type (via `type` in OpenAPI) for the root, for each specified field of an object node
+   (via `properties` or `additionalProperties` in OpenAPI) and for each item in an array node
+   (via `items` in OpenAPI), with the exception of:
    * a node with `x-kubernetes-int-or-string: true`
    * a node with `x-kubernetes-preserve-unknown-fields: true`
-2. for each field in an object and each item in an array which is specified within any of `allOf`, `anyOf`, `oneOf` or `not`, the schema also specifies the field/item outside of those logical junctors (compare example 1 and 2).
-3. does not set `description`, `type`, `default`, `additionalProperties`, `nullable` within an `allOf`, `anyOf`, `oneOf` or `not`, with the exception of the two pattern for `x-kubernetes-int-or-string: true` (see below).
+2. for each field in an object and each item in an array which is specified within any of `allOf`, `anyOf`,
+   `oneOf` or `not`, the schema also specifies the field/item outside of those logical junctors (compare example 1 and 2).
+3. does not set `description`, `type`, `default`, `additionalProperties`, `nullable` within an `allOf`, `anyOf`,
+   `oneOf` or `not`, with the exception of the two pattern for `x-kubernetes-int-or-string: true` (see below).
 4. if `metadata` is specified, then only restrictions on `metadata.name` and `metadata.generateName` are allowed.
 
-
 Non-structural example 1:
+
 ```yaml
 allOf:
 - properties:
     foo:
       ...
 ```
+
 conflicts with rule 2. The following would be correct:
+
 ```yaml
 properties:
   foo:
@@ -313,10 +320,13 @@ Violations of the structural schema rules are reported in the `NonStructural` co
 
 ### Field pruning
 
-CustomResourceDefinitions store validated resource data in the cluster's persistence store, {{< glossary_tooltip term_id="etcd" text="etcd">}}. As with native Kubernetes resources such as {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}, if you specify a field that the API server does not recognize, the unknown field  is _pruned_ (removed) before being persisted.
+CustomResourceDefinitions store validated resource data in the cluster's persistence store, {{< glossary_tooltip term_id="etcd" text="etcd">}}.
+As with native Kubernetes resources such as {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
+if you specify a field that the API server does not recognize, the unknown field  is _pruned_ (removed) before being persisted.
 
 {{< note >}}
-CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack structural schemas, and `spec.preserveUnknownFields` might be `true`.
+CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack structural schemas,
+and `spec.preserveUnknownFields` might be `true`.
 
 For legacy CustomResourceDefinition objects created as
 `apiextensions.k8s.io/v1beta1` with `spec.preserveUnknownFields` set to
@@ -376,7 +386,10 @@ to clients, `kubectl` also checks for unknown fields and rejects those objects w
 
 #### Controlling pruning
 
-By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specifc sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
+By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to
+opt-out of that for specifc sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the
+[structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
+
 For example:
 
 ```yaml
@@ -455,7 +468,8 @@ properties:
     x-kubernetes-int-or-string: true
 ```
 
-Also those nodes are partially excluded from rule 3 in the sense that the following two patterns are allowed (exactly those, without variations in order to additional fields):
+Also those nodes are partially excluded from rule 3 in the sense that the following two patterns are allowed
+(exactly those, without variations in order to additional fields):
 
 ```yaml
 x-kubernetes-int-or-string: true
@@ -488,7 +502,8 @@ RawExtensions (as in `runtime.RawExtension` defined in
 [k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94))
 holds complete Kubernetes objects, i.e. with `apiVersion` and `kind` fields.
 
-It is possible to specify those embedded objects (both completely without constraints or partially specified) by setting `x-kubernetes-embedded-resource: true`. For example:
+It is possible to specify those embedded objects (both completely without constraints or partially specified)
+by setting `x-kubernetes-embedded-resource: true`. For example:
 
 ```yaml
 type: object
@@ -508,7 +523,8 @@ foo:
     ...
 ```
 
-Because `x-kubernetes-preserve-unknown-fields: true` is specified alongside, nothing is pruned. The use of `x-kubernetes-preserve-unknown-fields: true` is optional though.
+Because `x-kubernetes-preserve-unknown-fields: true` is specified alongside, nothing is pruned.
+The use of `x-kubernetes-preserve-unknown-fields: true` is optional though.
 
 With `x-kubernetes-embedded-resource: true`, the `apiVersion`, `kind` and `metadata` are implicitly specified and validated.
 
@@ -771,6 +787,7 @@ The CronTab "my-new-cron-object" is invalid:
 The `rule` under `x-kubernetes-validations` represents the expression which will be evaluated by CEL.
 
 The `message` represents the message displayed when validation fails. If message is unset, the above response would be:
+
 ```
 The CronTab "my-new-cron-object" is invalid:
 * spec: Invalid value: map[string]interface {}{"maxReplicas":10, "minReplicas":0, "replicas":20}: failed rule: self.replicas <= self.maxReplicas
@@ -781,16 +798,19 @@ The request of CRDs create/update will fail if compilation of validation rules f
 Compilation process includes type checking as well.
 
 The compilation failure:
+
 - `no_matching_overload`: this function has no overload for the types of the arguments.
  
-   e.g. Rule like `self == true` against a field of integer type will get error:
+  e.g. Rule like `self == true` against a field of integer type will get error:
+
   ```
   Invalid value: apiextensions.ValidationRule{Rule:"self == true", Message:""}: compilation failed: ERROR: \<input>:1:6: found no matching overload for '_==_' applied to '(int, bool)'
   ```
   
 - `no_such_field`: does not contain the desired field.
   
-   e.g. Rule like `self.nonExistingField > 0` against a non-existing field will return the error:
+  e.g. Rule like `self.nonExistingField > 0` against a non-existing field will return the error:
+
   ```
   Invalid value: apiextensions.ValidationRule{Rule:"self.nonExistingField > 0", Message:""}: compilation failed: ERROR: \<input>:1:5: undefined field 'nonExistingField'
   ```
@@ -798,10 +818,10 @@ The compilation failure:
 - `invalid argument`: invalid argument to macros.
  
   e.g. Rule like `has(self)` will return error:
+
   ```
   Invalid value: apiextensions.ValidationRule{Rule:"has(self)", Message:""}: compilation failed: ERROR: <input>:1:4: invalid argument to has() macro
   ```
-
 
 Validation Rules Examples:
 
@@ -994,16 +1014,18 @@ Here is the declarations type mapping between OpenAPIv3 and CEL type:
 | 'string' with format=datetime                      | timestamp (google.protobuf.Timestamp)                                                                                        |
 | 'string' with format=duration                      | duration (google.protobuf.Duration)                                                                                          |
 
-xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values), [OpenAPI
-types](https://swagger.io/specification/#data-types), [Kubernetes Structural Schemas](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
+xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values),
+[OpenAPI types](https://swagger.io/specification/#data-types),
+[Kubernetes Structural Schemas](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
 
 #### Validation functions {#available-validation-functions}
 
 Functions available include:
-  - CEL standard functions, defined in the [list of standard definitions](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)
-  - CEL standard [macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
-  - CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
-  - Kubernetes [CEL extension library](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions)
+
+- CEL standard functions, defined in the [list of standard definitions](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)
+- CEL standard [macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
+- CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
+- Kubernetes [CEL extension library](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions)
 
 #### Transition rules
 
@@ -1038,7 +1060,8 @@ applied, e.g. "*path*: update rule *rule* cannot be set on schema because the sc
 schema is not mergeable".
 
 Transition rules are only allowed on _correlatable portions_ of a schema.
-A portion of the schema is correlatable if all `array` parent schemas are of type `x-kubernetes-list-type=map`; any `set`or `atomic`array parent schemas make it impossible to unambiguously correlate a `self` with `oldSelf`.
+A portion of the schema is correlatable if all `array` parent schemas are of type `x-kubernetes-list-type=map`;
+any `set`or `atomic`array parent schemas make it impossible to unambiguously correlate a `self` with `oldSelf`.
 
 Here are some examples for transition rules:
 
@@ -1070,12 +1093,13 @@ For example, a rule that asserts that `self.foo == 1` does not by itself have an
 risk of rejection on validation resource budget groups.
 But if `foo` is a string and you define a validation rule `self.foo.contains("someString")`, that rule takes
 longer to execute depending on how long `foo` is.
-Another example would be if `foo` were an array, and you specified a validation rule `self.foo.all(x, x > 5)`. The cost system always assumes the worst-case scenario if
-a limit on the length of `foo` is not given, and this will happen for anything that can be iterated
-over (lists, maps, etc.).
+Another example would be if `foo` were an array, and you specified a validation rule `self.foo.all(x, x > 5)`.
+The cost system always assumes the worst-case scenario if a limit on the length of `foo` is not
+given, and this will happen for anything that can be iterated over (lists, maps, etc.).
 
 Because of this, it is considered best practice to put a limit via `maxItems`, `maxProperties`, and 
-`maxLength` for anything that will be processed in a validation rule in order to prevent validation errors during cost estimation. For example, given this schema with one rule:
+`maxLength` for anything that will be processed in a validation rule in order to prevent validation
+errors during cost estimation. For example, given this schema with one rule:
 
 ```yaml
 openAPIV3Schema:
@@ -1090,10 +1114,11 @@ openAPIV3Schema:
 ```
 
 then the API server rejects this rule on validation budget grounds with error:
+
 ```
- spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden: 
- CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and 
- maxLength where arrays, maps, and strings are used)
+spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden: 
+CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and 
+maxLength where arrays, maps, and strings are used)
 ```
 
 The rejection happens because `self.all` implies calling `contains()` on every string in `foo`,
@@ -1136,7 +1161,8 @@ openAPIV3Schema:
 ```
 
 If a list inside of a list has a validation rule that uses `self.all`, that is significantly more expensive 
-than a non-nested list with the same rule. A rule that would have been allowed on a non-nested list might need lower limits set on both nested lists in order to be allowed. For example, even without having limits set,
+than a non-nested list with the same rule. A rule that would have been allowed on a non-nested list might need
+lower limits set on both nested lists in order to be allowed. For example, even without having limits set,
 the following rule is allowed:
 
 ```yaml
@@ -1247,15 +1273,20 @@ Defaulting happens on the object
 * when reading from etcd using the storage version defaults,
 * after mutating admission plugins with non-empty patches using the admission webhook object version defaults.
 
-Defaults applied when reading data from etcd are not automatically written back to etcd. An update request via the API is required to persist those defaults back into etcd.
+Defaults applied when reading data from etcd are not automatically written back to etcd.
+An update request via the API is required to persist those defaults back into etcd.
 
 Default values must be pruned (with the exception of defaults for `metadata` fields) and must validate against a provided schema.
 
-Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` nodes (or parts of a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but through the pruning step during handling of requests.
+Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` nodes (or parts of
+a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but
+through the pruning step during handling of requests.
 
 #### Defaulting and Nullable
 
-**New in 1.20:** null values for fields that either don't specify the nullable flag, or give it a `false` value, will be pruned before defaulting happens. If a default is present, it will be applied. When nullable is `true`, null values will be conserved and won't be defaulted.
+**New in 1.20:** null values for fields that either don't specify the nullable flag, or give it a
+`false` value, will be pruned before defaulting happens. If a default is present, it will be
+applied. When nullable is `true`, null values will be conserved and won't be defaulted.
 
 For example, given the OpenAPI schema below:
 
@@ -1293,13 +1324,20 @@ spec:
   bar: null
 ```
 
-with `foo` pruned and defaulted because the field is non-nullable, `bar` maintaining the null value due to `nullable: true`, and `baz` pruned because the field is non-nullable and has no default.
+with `foo` pruned and defaulted because the field is non-nullable, `bar` maintaining the null
+value due to `nullable: true`, and `baz` pruned because the field is non-nullable and has no
+default.
 
 ### Publish Validation Schema in OpenAPI v2
 
-CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#field-pruning) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
+CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are
+[structural](#specifying-a-structural-schema) and [enable pruning](#field-pruning) are published
+as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)
+from Kubernetes API server.
 
-The [kubectl](/docs/reference/kubectl/) command-line tool consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
+The [kubectl](/docs/reference/kubectl/) command-line tool consumes the published schema to perform
+client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`)
+on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
 
 The OpenAPI v3 validation schema is converted to OpenAPI v2 schema, and
 show up in `definitions` and `paths` fields in the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions).
@@ -1309,9 +1347,13 @@ kubectl in previous 1.13 version. These modifications prevent kubectl from being
 valid OpenAPI schemas that it doesn't understand. The conversion won't modify the validation schema defined in CRD,
 and therefore won't affect [validation](#validation) in the API server.
 
-1. The following fields are removed as they aren't supported by OpenAPI v2 (in future versions OpenAPI v3 will be used without these restrictions)
+1. The following fields are removed as they aren't supported by OpenAPI v2
+   (in future versions OpenAPI v3 will be used without these restrictions)
+
    - The fields `allOf`, `anyOf`, `oneOf` and `not` are removed
-2. If `nullable: true` is set, we drop `type`, `nullable`, `items` and `properties` because OpenAPI v2 is not able to express nullable. To avoid kubectl to reject good objects, this is necessary.
+
+2. If `nullable: true` is set, we drop `type`, `nullable`, `items` and `properties` because OpenAPI v2 is
+   not able to express nullable. To avoid kubectl to reject good objects, this is necessary.
 
 ### Additional printer columns
 
@@ -1402,7 +1444,8 @@ differentiates between columns shown in standard view or wide view (using the `-
 
 #### Type
 
-A column's `type` field can be any of the following (compare [OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
+A column's `type` field can be any of the following (compare
+[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
 
 - `integer` – non-floating-point numbers
 - `number` – floating point numbers
@@ -1495,8 +1538,9 @@ the status replica value in the `/scale` subresource will default to 0.
   - It must be set to work with HPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
   - If there is no value under the `labelSelectorPath` in the custom resource,
-the status selector value in the `/scale` subresource will default to the empty string.
-  - The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form.
+    the status selector value in the `/scale` subresource will default to the empty string.
+  - The field pointed by this JSON path must be a string field (not a complex selector struct)
+    which contains a serialized label selector in string form.
 
 In the following example, both status and scale subresources are enabled.
 
@@ -1703,3 +1747,4 @@ crontabs/my-new-cron-object   3s
 
 * Serve [multiple versions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/) of a
   CustomResourceDefinition.
+

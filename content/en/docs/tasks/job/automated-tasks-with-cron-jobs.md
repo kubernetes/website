@@ -13,7 +13,8 @@ CronJobs was promoted to general availability in Kubernetes v1.21. If you are us
 Kubernetes, please refer to the documentation for the version of Kubernetes that you are using,
 so that you see accurate information. Older Kubernetes versions do not support the `batch/v1` CronJob API.
 
-You can use a {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} to run {{< glossary_tooltip text="Jobs" term_id="job" >}} on a time-based schedule.
+You can use a {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} to run {{< glossary_tooltip text="Jobs" term_id="job" >}}
+on a time-based schedule.
 These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks on a Linux or UNIX system.
 
 Cron jobs are useful for creating periodic and recurring tasks, like running backups or sending emails.
@@ -87,6 +88,7 @@ You can stop watching the job and view the cron job again to see that it schedul
 ```shell
 kubectl get cronjob hello
 ```
+
 The output is similar to this:
 
 ```
@@ -94,7 +96,8 @@ NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 hello   */1 * * * *   False     0        50s             75s
 ```
 
-You should see that the cron job `hello` successfully scheduled a job at the time specified in `LAST SCHEDULE`. There are currently 0 active jobs, meaning that the job has completed or failed.
+You should see that the cron job `hello` successfully scheduled a job at the time specified in
+`LAST SCHEDULE`. There are currently 0 active jobs, meaning that the job has completed or failed.
 
 Now, find the pods that the last scheduled job created and view the standard output of one of the pods.
 
@@ -127,7 +130,7 @@ kubectl delete cronjob hello
 ```
 
 Deleting the cron job removes all the jobs and pods it created and stops it from creating additional jobs.
-You can read more about removing jobs in [garbage collection](/docs/concepts/workloads/controllers/garbage-collection/).
+You can read more about removing jobs in [garbage collection](/docs/concepts/architecture/garbage-collection/).
 
 ## Writing a Cron Job Spec
 
@@ -144,7 +147,8 @@ All modifications to a cron job, especially its `.spec`, are applied only to the
 ### Schedule
 
 The `.spec.schedule` is a required field of the `.spec`.
-It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
+It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`,
+as schedule time of its jobs to be created and executed.
 
 The format also includes extended "Vixie cron" step values. As explained in the
 [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
@@ -157,13 +161,15 @@ The format also includes extended "Vixie cron" step values. As explained in the
 > asterisk, so if you want to say "every two hours", just use `*/2`.
 
 {{< note >}}
-A question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
+A question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is,
+it stands for any of available value for a given field.
 {{< /note >}}
 
 ### Job Template
 
 The `.spec.jobTemplate` is the template for the job, and it is required.
-It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/job/), except that it is nested and does not have an `apiVersion` or `kind`.
+It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/job/), except that
+it is nested and does not have an `apiVersion` or `kind`.
 For information about writing a job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/job/#writing-a-job-spec).
 
 ### Starting Deadline
@@ -188,8 +194,10 @@ It specifies how to treat concurrent executions of a job that is created by this
 The spec may specify only one of the following concurrency policies:
 
 * `Allow` (default): The cron job allows concurrently running jobs
-* `Forbid`: The cron job does not allow concurrent runs; if it is time for a new job run and the previous job run hasn't finished yet, the cron job skips the new job run
-* `Replace`: If it is time for a new job run and the previous job run hasn't finished yet, the cron job replaces the currently running job run with a new job run
+* `Forbid`: The cron job does not allow concurrent runs; if it is time for a new job run and the
+  previous job run hasn't finished yet, the cron job skips the new job run
+* `Replace`: If it is time for a new job run and the previous job run hasn't finished yet, the
+  cron job replaces the currently running job run with a new job run
 
 Note that concurrency policy only applies to the jobs created by the same cron job.
 If there are multiple cron jobs, their respective jobs are always allowed to run concurrently.
@@ -203,13 +211,15 @@ Defaults to false.
 
 {{< caution >}}
 Executions that are suspended during their scheduled time count as missed jobs.
-When `.spec.suspend` changes from `true` to `false` on an existing cron job without a [starting deadline](#starting-deadline), the missed jobs are scheduled immediately.
+When `.spec.suspend` changes from `true` to `false` on an existing cron job without a
+[starting deadline](#starting-deadline), the missed jobs are scheduled immediately.
 {{< /caution >}}
 
 ### Jobs History Limits
 
 The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
 These fields specify how many completed and failed jobs should be kept.
-By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping none of the corresponding kind of jobs after they finish.
+By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping
+none of the corresponding kind of jobs after they finish.
 
 
