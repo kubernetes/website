@@ -316,6 +316,9 @@ At this point you can reach the nginx server from any node.
 ```shell
 kubectl get pods -l run=my-nginx -o yaml | grep -i podip
     podIP: 10.244.3.5
+```
+
+```shell
 node $ curl -k https://10.244.3.5
 ...
 <h1>Welcome to nginx!</h1>
