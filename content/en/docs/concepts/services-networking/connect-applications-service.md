@@ -314,7 +314,7 @@ kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.ya
 At this point you can reach the nginx server from any node.
 
 ```shell
-kubectl get pods -o yaml | grep -i podip
+kubectl get pods -l run=my-nginx -o yaml | grep -i podip
     podIP: 10.244.3.5
 node $ curl -k https://10.244.3.5
 ...
