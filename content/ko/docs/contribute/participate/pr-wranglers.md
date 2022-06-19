@@ -85,6 +85,6 @@ PR 랭글러는 일주일 간 매일 다음의 일을 해야 한다.
 
 {{< note >}}
 
-[`fejta-bot`](https://github.com/fejta-bot)이라는 봇은 90일 동안 활동이 없으면 이슈를 오래된 것(stale)으로 표시한다. 30일이 더 지나면 rotten으로 표시하고 종료한다. PR 랭글러는 14-30일 동안 활동이 없으면 이슈를 닫아야 한다.
+[`k8s-triage-robot`](https://github.com/k8s-triage-robot)이라는 봇은 90일 동안 활동이 없으면 이슈를 오래된 것(stale)으로 표시한다. 30일이 더 지나면 rotten으로 표시하고 종료한다. PR 랭글러는 14-30일 동안 활동이 없으면 이슈를 닫아야 한다.
 
 {{< /note >}}
