@@ -709,14 +709,14 @@ case, you should not use `host`, but rather set the `Host` header in `httpHeader
 
 <!--
 For an HTTP probe, the kubelet sends two request headers in addition to the mandatory `Host` header:
-`User-Agent`, and `Accept`. The default values for these headers are `kube-probe/{{< skew latestVersion >}}`
-(where `{{< skew latestVersion >}}` is the version of the kubelet ), and `*/*` respectively.
+`User-Agent`, and `Accept`. The default values for these headers are `kube-probe/{{< skew currentVersion >}}`
+(where `{{< skew currentVersion >}}` is the version of the kubelet ), and `*/*` respectively.
 
 You can override the default headers by defining `.httpHeaders` for the probe; for example
 -->
 针对 HTTP 探针，kubelet 除了必需的 `Host` 头部之外还发送两个请求头部字段：
-`User-Agent` 和 `Accept`。这些头部的默认值分别是 `kube-probe/{{ skew latestVersion >}}`
-（其中 `{{< skew latestVersion >}}` 是 kubelet 的版本号）和 `*/*`。
+`User-Agent` 和 `Accept`。这些头部的默认值分别是 `kube-probe/{{ skew currentVersion >}}`
+（其中 `{{< skew currentVersion >}}` 是 kubelet 的版本号）和 `*/*`。
 
 你可以通过为探测设置 `.httpHeaders` 来重载默认的头部字段值；例如：
 
