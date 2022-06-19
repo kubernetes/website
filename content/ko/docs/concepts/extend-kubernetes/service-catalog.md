@@ -230,4 +230,3 @@ spec:
 * 만약 당신이 {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}에 익숙하다면, 당신의 쿠버네티스 클러스터에 [Helm을 이용하여 서비스 카탈로그를 설치](/docs/tasks/service-catalog/install-service-catalog-using-helm/)할 수 있다. 다른 방법으로 [SC tool을 이용하여 서비스 카탈로그를 설치](/ko/docs/tasks/service-catalog/install-service-catalog-using-sc/)할 수 있다.
 * [샘플 서비스 브로커](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers) 살펴보기
 * [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) 프로젝트 탐색
-* [svc-cat.io](https://svc-cat.io/docs/) 살펴보기

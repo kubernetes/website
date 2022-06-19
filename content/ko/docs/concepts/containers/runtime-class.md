@@ -126,8 +126,7 @@ dockershim은 사용자 정의 런타임 핸들러를 지원하지 않는다.
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
-더 자세한 containerd의 구성 문서를 살펴본다.
-https://github.com/containerd/cri/blob/master/docs/config.md
+더 자세한 내용은 containerd의 [구성 문서](https://github.com/containerd/cri/blob/master/docs/config.md)를 살펴본다.
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 

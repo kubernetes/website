@@ -39,6 +39,7 @@ no_list: true
 *구성 파일* 및 *플래그* 는 온라인 문서의 레퍼런스 섹션에 각 바이너리 별로 문서화되어 있다.
 
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).

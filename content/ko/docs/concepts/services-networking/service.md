@@ -24,7 +24,7 @@ weight: 10
 
 ## 동기
 
-쿠버네티스 {{< glossary_tooltip term_id="pod" text="파드" >}}는 클러스터 상태와
+쿠버네티스 {{< glossary_tooltip term_id="pod" text="파드" >}}는 클러스터 목표 상태(desired state)와
 일치하도록 생성되고 삭제된다. 파드는 비영구적 리소스이다.
 만약 앱을 실행하기 위해 {{< glossary_tooltip term_id="deployment" text="디플로이먼트" >}}를 사용한다면,
 동적으로 파드를 생성하고 제거할 수 있다.
@@ -108,13 +108,46 @@ spec:
 필드와 같은 값으로 설정된다.
 {{< /note >}}
 
-파드의 포트 정의에는 이름이 있고, 서비스의 `targetPort` 속성에서 이 이름을
-참조할 수 있다. 이것은 다른 포트 번호를 통한 가용한 동일 네트워크 프로토콜이 있고,
-단일 구성 이름을 사용하는 서비스 내에
-혼합된 파드가 존재해도 가능하다.
-이를 통해 서비스를 배포하고 진전시키는데 많은 유연성을 제공한다.
-예를 들어, 클라이언트를 망가뜨리지 않고, 백엔드 소프트웨어의 다음
-버전에서 파드가 노출시키는 포트 번호를 변경할 수 있다.
+파드의 포트 정의에 이름이 있으므로, 
+서비스의 `targetPort` 속성에서 이 이름을 참조할 수 있다. 
+예를 들어, 다음과 같은 방법으로 서비스의 `targetPort`를 파드 포트에 바인딩할 수 있다.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app.kubernetes.io/name: proxy
+spec:
+  containers:
+  - name: nginx
+    image: nginx:11.14.2
+    ports:
+      - containerPort: 80
+        name: http-web-svc
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: proxy
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
+```
+
+
+이것은 서로 다른 포트 번호를 통해 가용한 동일 네트워크 프로토콜이 있고, 
+단일 구성 이름을 사용하는 서비스 내에 혼합된 파드가 존재해도 가능하다. 
+이를 통해 서비스를 배포하고 진전시키는 데 많은 유연성을 제공한다. 
+예를 들어, 클라이언트를 망가뜨리지 않고, 
+백엔드 소프트웨어의 다음 버전에서 파드가 노출시키는 포트 번호를 변경할 수 있다.
 
 서비스의 기본 프로토콜은 TCP이다. 다른
 [지원되는 프로토콜](#protocol-support)을 사용할 수도 있다.
@@ -125,9 +158,9 @@ spec:
 
 ### 셀렉터가 없는 서비스
 
-서비스는 일반적으로 쿠버네티스 파드에 대한 접근을 추상화하지만,
-다른 종류의 백엔드를 추상화할 수도 있다.
-예를 들면
+서비스는 일반적으로 셀렉터를 이용하여 쿠버네티스 파드에 대한 접근을 추상화하지만, 
+셀렉터 대신 매칭되는(corresponding) 엔드포인트와 함께 사용되면 다른 종류의 백엔드도 추상화할 수 있으며, 
+여기에는 클러스터 외부에서 실행되는 것도 포함된다. 예시는 다음과 같다.
 
 * 프로덕션 환경에서는 외부 데이터베이스 클러스터를 사용하려고 하지만,
   테스트 환경에서는 자체 데이터베이스를 사용한다.

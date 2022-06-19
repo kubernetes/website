@@ -22,7 +22,7 @@ card:
 쿠버네티스 API를 사용하면 쿠버네티스의 API 오브젝트(예:
 파드(Pod), 네임스페이스(Namespace), 컨피그맵(ConfigMap) 그리고 이벤트(Event))를 질의(query)하고 조작할 수 있다.
 
-대부분의 작업은 [kubectl](/ko/docs/reference/kubectl/overview/)
+대부분의 작업은 [kubectl](/ko/docs/reference/kubectl/)
 커맨드 라인 인터페이스 또는 API를 사용하는
 [kubeadm](/ko/docs/reference/setup-tools/kubeadm/)과
 같은 다른 커맨드 라인 도구를 통해 수행할 수 있다.
