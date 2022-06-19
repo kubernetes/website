@@ -4,21 +4,11 @@ content_type: concept
 weight: 40
 ---
 
-{{< feature-state for_k8s_version="v1.19" state="stable" >}}
-<!-- leave this shortcode in place until the note about EvenPodsSpread is
-obsolete -->
 
 <!-- overview -->
 
 사용자는 _토폴로지 분배 제약 조건_ 을 사용해서 지역, 영역, 노드 그리고 기타 사용자-정의 토폴로지 도메인과 같이 장애-도메인으로 설정된 클러스터에 걸쳐 파드가 분산되는 방식을 제어할 수 있다. 이를 통해 고가용성뿐만 아니라, 효율적인 리소스 활용의 목적을 이루는 데 도움이 된다.
 
-{{< note >}}
-v1.18 이전 버전의 쿠버네티스에서는 파드 토폴로지 분배 제약조건을 사용하려면
-[API 서버](/ko/docs/concepts/overview/components/#kube-apiserver)와
-[스케줄러](/docs/reference/command-line-tools-reference/kube-scheduler/)에서
-`EvenPodsSpread`[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
-활성화해야 한다
-{{< /note >}}
 
 <!-- body -->
 
@@ -83,16 +73,42 @@ spec:
 
 - **maxSkew** 는 파드가 균등하지 않게 분산될 수 있는 정도를 나타낸다.
   이것은 0보다는 커야 한다. 그 의미는 `whenUnsatisfiable` 의 값에 따라 다르다.
+
   - `whenUnsatisfiable` 이 "DoNotSchedule"과 같을 때, `maxSkew` 는
     대상 토폴로지에서 일치하는 파드 수와 전역 최솟값
-    (토폴로지 도메인에서 레이블 셀렉터와 일치하는 최소 파드 수. 예를 들어 3개의 영역에 각각 0, 2, 3개의 일치하는 파드가 있으면, 전역 최솟값은 0) 
+    (토폴로지 도메인에서 레이블 셀렉터와 일치하는 최소 파드 수. 
+    예를 들어 3개의 영역에 각각 0, 2, 3개의 일치하는 파드가 있으면, 
+    전역 최솟값은 0) 
     사이에 허용되는 최대 차이이다.
   - `whenUnsatisfiable` 이 "ScheduleAnyway"와 같으면, 스케줄러는
     왜곡을 줄이는데 도움이 되는 토폴로지에 더 높은 우선 순위를 부여한다.
+
+- **minDomains** 는 적합한(eligible) 도메인의 최소 수를 나타낸다. 
+  도메인은 토폴로지의 특정 인스턴스 중 하나이다. 
+  도메인의 노드가 노드 셀렉터에 매치되면 그 도메인은 적합한 도메인이다.
+
+  - `minDomains` 값을 명시하는 경우, 이 값은 0보다 커야 한다.
+  - 매치되는 토폴로지 키의 적합한 도메인 수가 `minDomains`보다 적으면, 
+    파드 토폴로지 스프레드는 "글로벌 미니멈"을 0으로 간주한 뒤, `skew` 계산이 수행된다. 
+    "글로벌 미니멈"은 적합한 도메인 내에 매치되는 파드의 최소 수 이며, 
+    적합한 도메인 수가 `minDomains`보다 적은 경우에는 0이다.
+  - 매치되는 토폴로지 키의 적합한 도메인 수가 `minDomains`보다 크거나 같으면, 
+    이 값은 스케줄링에 영향을 미치지 않는다.
+  - `minDomains`가 nil이면, 이 제약은 `minDomains`가 1인 것처럼 동작한다.
+  - `minDomains`가 nil이 아니면, `whenUnsatisfiable`의 값은 "`DoNotSchedule`"이어야 한다.
+
+  {{< note >}}
+  `minDomains` 필드는 1.24에서 추가된 알파 필드이다. 
+  이를 사용하려면 `MinDomainsInPodToplogySpread` 
+  [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+  {{< /note >}}
+
 - **topologyKey** 는 노드 레이블의 키다. 만약 두 노드가 이 키로 레이블이 지정되고, 레이블이 동일한 값을 가진다면 스케줄러는 두 노드를 같은 토폴로지에 있는것으로 여기게 된다. 스케줄러는 각 토폴로지 도메인에 균형잡힌 수의 파드를 배치하려고 시도한다.
+
 - **whenUnsatisfiable** 는 분산 제약 조건을 만족하지 않을 경우에 처리하는 방법을 나타낸다.
   - `DoNotSchedule` (기본값)은 스케줄러에 스케줄링을 하지 말라고 알려준다.
   - `ScheduleAnyway` 는 스케줄러에게 차이(skew)를 최소화하는 노드에 높은 우선 순위를 부여하면서, 스케줄링을 계속하도록 지시한다.
+
 - **labelSelector** 는 일치하는 파드를 찾는데 사용된다. 이 레이블 셀렉터와 일치하는 파드의 수를 계산하여 해당 토폴로지 도메인에 속할 파드의 수를 결정한다. 자세한 내용은 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)를 참조한다.
 
 파드에 2개 이상의 `topologySpreadConstraint`가 정의되어 있으면, 각 제약 조건은 AND로 연결된다 - kube-scheduler는 새로운 파드의 모든 제약 조건을 만족하는 노드를 찾는다.
@@ -306,11 +322,12 @@ class zoneC cluster;
 예시 구성은 다음과 같다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
-  - pluginConfig:
+  - schedulerName: default-scheduler
+    pluginConfig:
       - name: PodTopologySpread
         args:
           defaultConstraints:
@@ -321,21 +338,17 @@ profiles:
 ```
 
 {{< note >}}
-기본 스케줄링 제약 조건에 의해 생성된 점수는
-[`SelectorSpread` 플러그인](/ko/docs/reference/scheduling/config/#스케줄링-플러그인)에
-의해 생성된 점수와 충돌 할 수 있다.
-`PodTopologySpread` 에 대한 기본 제약 조건을 사용할 때 스케줄링 프로파일에서
-이 플러그인을 비활성화 하는 것을 권장한다.
+[`SelectorSpread` 플러그인](/ko/docs/reference/scheduling/config/#스케줄링-플러그인)은 
+기본적으로 비활성화되어 있다. 
+비슷한 효과를 얻기 위해 `PodTopologySpread`를 사용하는 것을 추천한다.
 {{< /note >}}
 
-#### 내부 기본 제약
+#### 내장 기본 제약 {#internal-default-constraints}
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-기본적으로 활성화된 `DefaultPodTopologySpread` 기능 게이트를 사용하면, 기존
-`SelectorSpread` 플러그인이 비활성화된다.
-kube-scheduler는 `PodTopologySpread` 플러그인 구성에 다음과 같은
-기본 토폴로지 제약 조건을 사용한다.
+파드 토폴로지 스프레딩에 대해 클러스터 수준의 기본 제약을 설정하지 않으면, 
+kube-scheduler는 다음과 같은 기본 토폴로지 제약을 설정한 것처럼 동작한다.
 
 ```yaml
 defaultConstraints:
@@ -347,8 +360,8 @@ defaultConstraints:
     whenUnsatisfiable: ScheduleAnyway
 ```
 
-또한, 같은 동작을 제공하는 레거시 `SelectorSpread` 플러그인이
-비활성화된다.
+또한, 같은 동작을 제공하는 레거시 `SelectorSpread` 플러그인은
+기본적으로 비활성화되어 있다.
 
 {{< note >}}
 `PodTopologySpread` 플러그인은 분배 제약 조건에 지정된 토폴로지 키가
@@ -366,11 +379,12 @@ defaultConstraints:
 `defaultConstraints` 를 비워두어 기본값을 비활성화할 수 있다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
-  - pluginConfig:
+  - schedulerName: default-scheduler
+    pluginConfig:
       - name: PodTopologySpread
         args:
           defaultConstraints: []
