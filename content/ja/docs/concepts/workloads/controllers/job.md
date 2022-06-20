@@ -173,7 +173,7 @@ Jobには[`.spec`セクション](https://git.k8s.io/community/contributors/deve
 
 `.spec.template`は`.spec`の唯一の必須フィールドです。
 
-`.spec.template`の値は[podテンプレート](/ja/docs/concepts/workloads/pods/#pod-template)で、ネストされていることと`apiVersion`と`kind`フィールドが不要になったことを除いて、仕様の定義がが{{< glossary_tooltip text="Pod" term_id="pod" >}}と全く同じです。
+`.spec.template`は[podテンプレート](/ja/docs/concepts/workloads/pods/#pod-template)です。ネストされていることと`apiVersion`や`kind`フィールドが不要になったことを除いて、仕様の定義が{{< glossary_tooltip text="Pod" term_id="pod" >}}と全く同じです。
 
 Podの必須フィールド以外、Job定義ファイルにあるPodテンプレートでは、ラベル([podセレクター](#pod-selector)を参照)と再起動ポリシーを適切な値に指定する必要があります。
 
