@@ -13,9 +13,9 @@ type: docs
 <!-- overview -->
 
 <!-- 
-The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).  Kubernetes 1.19 and newer receive [approximately 1 year of patch support](/releases/patch-releases/#support-period). Kubernetes 1.18 and older received approximately 9 months of patch support.
+The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew currentVersion >}}, {{< skew currentVersionAddMinor -1 >}}, {{< skew currentVersionAddMinor -2 >}}).  Kubernetes 1.19 and newer receive [approximately 1 year of patch support](/releases/patch-releases/#support-period). Kubernetes 1.18 and older received approximately 9 months of patch support.
 -->
-Kubernetes 项目维护最近三个次要版本（{{< skew latestVersion >}}、{{< skew prevMinorVersion >}}、{{< skew oldMinorVersion >}}）的发布分支。
+Kubernetes 项目维护最近三个次要版本（{{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、{{< skew currentVersionAddMinor -2 >}}）的发布分支。
 Kubernetes 1.19 和更新版本获得[大约 1 年的补丁支持](/zh/releases/patch-releases/#support-period)。
 Kubernetes 1.18 及更早版本获得了大约 9 个月的补丁支持周期。
 
@@ -41,9 +41,9 @@ Kubernetes 版本表示为 **x.y.z**，
 ## 未来的发行版本
 
 <!-- 
-Check out the [schedule](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}}) for the upcoming **{{< skew nextMinorVersion >}}** Kubernetes release!
+Check out the [schedule](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew  currentVersionAddMinor 1 >}}) for the upcoming **{{< skew  currentVersionAddMinor 1 >}}** Kubernetes release!
 -->
-查看[时间表](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})，
+查看[时间表](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew currentVersionAddMinor 1 >}})，
 Kubernetes **{{< skew nextMinorVersion >}}** 版本即将发行！
 
 <!-- ## Helpful Resources -->
