@@ -181,7 +181,7 @@ Podの必須フィールドに加えて、Job定義ファイルにあるPodテ�
 
 ### Podセレクター  {#pod-selector}
 
-`.spec.selector`フィールドはオプションです。ほとんどの場合はむしろ指定しないほうがいいです。
+`.spec.selector`フィールドはオプションです。ほとんどの場合はむしろ指定しないほうがよいです。
 [独自のPodセレクターを指定](#specifying-your-own-pod-selector)セクションを参照してください。
 
 ### Jobの並列実行  {#parallel-jobs}
