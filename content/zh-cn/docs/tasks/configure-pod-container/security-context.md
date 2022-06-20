@@ -782,10 +782,10 @@ kubectl delete pod security-context-demo-4
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core) API 定义
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core) API 定义
 * [使用最新的安全性增强来调优 Docker（英文）](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
-* [安全上下文的设计文档（英文）](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
-* [属主管理的设计文档（英文）](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
+* [安全上下文的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/security_context.md)
+* [属主管理的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-ownership-management.md)
 * [Pod 安全策略](/zh/docs/concepts/security/pod-security-policy/)
-* [AllowPrivilegeEscalation 的设计文档（英文）](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
+* [AllowPrivilegeEscalation 的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/no-new-privs.md)
 * 关于在 Linux 系统中的安全机制的更多信息，可参阅
   [Linux 内核安全性能力概述](https://www.linux.com/learn/overview-linux-kernel-security-features)。
 
