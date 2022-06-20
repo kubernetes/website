@@ -192,7 +192,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
    - 通常、Podに障害が発生しない限り、一つのPodのみが起動されます。
    - Podが正常に終了すると、Jobの完了となります。
 2. *一定の完了数*が決められた並列Job：
-   - `.spec.completions`に正の値を指定します。
+   - `.spec.completions`に0以外の正の値を指定します。
    - Jobは全体的なタスクを表し、`.spec.completions`個のPodが成功すると、Jobの完了となります。
    - `.spec.completionMode="Indexed"`を利用する場合、各Podは0から`.spec.completions-1`までの範囲内のインデックスがアサインされます。
 3. *ワークキュー*を利用した並列Job:
