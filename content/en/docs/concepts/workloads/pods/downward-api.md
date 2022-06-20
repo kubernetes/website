@@ -16,7 +16,7 @@ or API server.
 
 An example is an existing application that assumes a particular well-known
 environment variable holds a unique identifier. One possibility is to wrap the
-application, but that is tedious and error prone, and it violates the goal of low
+application, but that is tedious and error-prone, and it violates the goal of low
 coupling. A better option would be to use the Pod's name as an identifier, and
 inject the Pod's name into the well-known environment variable.
 
@@ -119,8 +119,8 @@ for resources such as CPU and memory.
 If CPU and memory limits are not specified for a container, and you use the
 downward API to try to expose that information, then the
 kubelet defaults to exposing the maximum allocatable value for CPU and memory
-(based on the [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-calculation).
+based on the [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+calculation.
 
 ## {{% heading "whatsnext" %}}
 
