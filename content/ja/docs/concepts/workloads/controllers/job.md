@@ -196,7 +196,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
    - Jobは全体的なタスクを表し、`.spec.completions`個のPodが成功すると、Jobの完了となります。
    - `.spec.completionMode="Indexed"`を利用する場合、各Podは0から`.spec.completions-1`までの範囲内のインデックスがアサインされます。
 3. *ワークキュー*を利用した並列Job:
-   - `.spec.completions`の設定はせず、デフォルトは`.spec.parallelism`となります。
+   - `.spec.completions`の指定をしない場合、デフォルトは`.spec.parallelism`となります。
    - Pod間で調整する、または外部サービスを使う方法で、それぞれ何のタスクに着手するかを決めます。例えば、一つのPodはワークキューから最大N個のタスクを一括で取得できます。
    - 各Podは他のPodが完了したかどうか、つまりJobが完了したかどうかを単独で判断できます。
    - Jobに属する _任意_ のPodが成功に終了すると、新しいPodは作成されません。
