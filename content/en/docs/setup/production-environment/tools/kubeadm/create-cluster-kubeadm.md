@@ -514,10 +514,10 @@ options.
 
 ## Version skew policy {#version-skew-policy}
 
-The `kubeadm` tool of version v{{< skew latestVersion >}} may deploy clusters with a control plane of version v{{< skew latestVersion >}} or v{{< skew prevMinorVersion >}}.
-`kubeadm` v{{< skew latestVersion >}} can also upgrade an existing kubeadm-created cluster of version v{{< skew prevMinorVersion >}}.
+The `kubeadm` tool of version v{{< skew currentVersion >}} may deploy clusters with a control plane of version v{{< skew currentVersion >}} or v{{< skew currentVersionAddMinor -1 >}}.
+`kubeadm` v{{< skew currentVersion >}} can also upgrade an existing kubeadm-created cluster of version v{{< skew currentVersionAddMinor -1 >}}.
 
-Due to that we can't see into the future, kubeadm CLI v{{< skew latestVersion >}} may or may not be able to deploy v{{< skew nextMinorVersion >}} clusters.
+Due to that we can't see into the future, kubeadm CLI v{{< skew currentVersion >}} may or may not be able to deploy v{{< skew currentVersionAddMinor 1 >}} clusters.
 
 These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
 
