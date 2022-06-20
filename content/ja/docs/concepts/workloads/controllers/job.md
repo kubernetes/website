@@ -232,7 +232,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
- _完成数一定_ 並列Job、つまり`.spec.completions`の値がnullではないJobは`.spec.completionMode`で完成モードを指定できます：
+ _完了数一定_ Job、つまり`.spec.completions`の値がnullではないJobは`.spec.completionMode`で完了モードを指定できます：
 
 - `NonIndexed`（デフォルト）：　`.spec.completions`個のPodが成功した場合、Jobの完成となります。言い換えれば、各Podの完成状態は同質です。ここで要注意なのは、`.spec.completions`の値がnullの場合、暗黙的に`NonIndexed`として指定されることです。
 - `Indexed`： Jobに属するPodはそれぞれ、0から`.spec.completions-1`の範囲内の完成インデックスを取得できます。インデックスは下記の三つの方法で取得できます。
