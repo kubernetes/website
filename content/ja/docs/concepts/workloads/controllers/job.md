@@ -175,7 +175,7 @@ Jobには[`.spec`セクション](https://git.k8s.io/community/contributors/deve
 
 `.spec.template`は[podテンプレート](/ja/docs/concepts/workloads/pods/#pod-template)です。ネストされていることと`apiVersion`や`kind`フィールドが不要になったことを除いて、仕様の定義が{{< glossary_tooltip text="Pod" term_id="pod" >}}と全く同じです。
 
-Podの必須フィールド以外、Job定義ファイルにあるPodテンプレートでは、ラベル([podセレクター](#pod-selector)を参照)と再起動ポリシーを適切な値に指定する必要があります。
+Podの必須フィールドに加えて、Job定義ファイルにあるPodテンプレートでは、適切なラベル([podセレクター](#pod-selector)を参照)と適切な再起動ポリシーを指定する必要があります。
 
 [`RestartPolicy`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)は`Never`か`OnFailure`のみ設定可能です。
 
