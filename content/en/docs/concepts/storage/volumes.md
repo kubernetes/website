@@ -117,7 +117,7 @@ spec:
       fsType: ext4
 ```
 
-If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which parition to mount on.
+If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which partition to mount on.
 
 #### AWS EBS CSI migration
 
