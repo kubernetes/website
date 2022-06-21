@@ -1,5 +1,5 @@
 ---
-title: Kubernetes 对象管理
+title: Kubernetes 对象管理  记录笔记
 content_type: concept
 weight: 15
 ---
