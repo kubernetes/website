@@ -40,8 +40,8 @@ SIG Docs 欢迎所有贡献者提供内容和审阅。任何人可以提交拉�
 欢迎所有人对文档内容创建 Issue 和对正在处理中的 PR 进行评论。
 
 <!--
-You can also become a [member](/docs/contribute/participating/roles-and-responsibilities/#members),
-[reviewer](/docs/contribute/participating/roles-and-responsibilities/#reviewers), or [approver](/docs/contribute/participating/roles-and-responsibilities/#approvers). These roles require greater
+You can also become a [member](/docs/contribute/participate/roles-and-responsibilities/#members),
+[reviewer](/docs/contribute/participate/roles-and-responsibilities/#reviewers), or [approver](/docs/contribute/participate/roles-and-responsibilities/#approvers). These roles require greater
 access and entail certain responsibilities for approving and committing changes.
 See [community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md)
 for more information on how membership works within the Kubernetes community.
@@ -50,9 +50,9 @@ The rest of this document outlines some unique ways these roles function within
 SIG Docs, which is responsible for maintaining one of the most public-facing
 aspects of Kubernetes - the Kubernetes website and documentation.
 -->
-你也可以成为[成员（member）](/docs/contribute/participating/roles-and-responsibilities/#members)、
-[评阅人（reviewer）](/docs/contribute/participating/roles-and-responsibilities/#reviewers) 或者
-[批准人（approver）](/docs/contribute/participating/roles-and-responsibilities/#approvers)。
+你也可以成为[成员（member）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#members)、
+[评阅人（reviewer）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#reviewers) 或者
+[批准人（approver）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)。
 这些角色拥有更高的权限，且需要承担批准和提交变更的责任。
 有关 Kubernetes 社区中的成员如何工作的更多信息，请参见
 [社区成员身份](https://github.com/kubernetes/community/blob/master/community-membership.md)。
@@ -72,7 +72,7 @@ of the Kubernetes project as a whole and how SIG Docs works within it. See
 [Leadership](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)
 for the current list of chairpersons.
 -->
-## SIG Docs 主席
+## SIG Docs 主席   {#sig-docs-chairperson}
 
 每个 SIG，包括 SIG Docs，都会选出一位或多位成员作为主席。
 主席会成为 SIG Docs 和其他 Kubernetes 组织的联络接口人。
@@ -125,7 +125,7 @@ related to GitHub issues and pull requests. The
 [Kubernetes website repository](https://github.com/kubernetes/website) uses
 two [prow plugins](https://github.com/kubernetes/test-infra/blob/master/prow/plugins):
 -->
-### OWNERS 文件和扉页
+### OWNERS 文件和扉页   {#owners-files-and-front-matter}
 
 Kubernetes 项目使用名为 prow 的自动化工具来自动处理 GitHub issue 和 PR。
 [Kubernetes website 仓库](https://github.com/kubernetes/website) 使用了两个
@@ -144,7 +144,7 @@ how prow works within the repository.
 这两个插件使用位于 `kubernetes/website` 仓库顶层的
 [OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) 文件和
 [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
-文件来控制 prow 在仓库范围的工作方式。 
+文件来控制 prow 在仓库范围的工作方式。
 
 <!--
 An OWNERS file contains a list of people who are SIG Docs reviewers and
@@ -153,9 +153,9 @@ can act as a reviewer or approver of files in that subdirectory and its
 descendents. For more information about OWNERS files in general, see
 [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
 -->
-OWNERS 文件包含 SIG Docs 评阅人和批准人的列表。 
+OWNERS 文件包含 SIG Docs 评阅人和批准人的列表。
 OWNERS 文件也可以存在于子目录中，可以在子目录层级重新设置哪些人可以作为评阅人和
-批准人，并将这一设定传递到下层子目录。 
+批准人，并将这一设定传递到下层子目录。
 关于 OWNERS 的更多信息，请参考
 [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md)
 文档。
@@ -206,7 +206,7 @@ SIG Docs 批准人。下面是合并的工作机制：
 - 所有 Kubernetes 成员可以通过 `/lgtm` 评论添加 `lgtm` 标签。
 - 只有 SIG Docs 批准人可以通过评论 `/approve` 合并 PR。
   某些批准人还会执行一些其他角色，例如
-  [PR 管理者](/zh/docs/contribute/participate/pr-wranglers/) 或
+  [PR 管理者](/zh-cn/docs/contribute/participate/pr-wranglers/) 或
   [SIG Docs 主席](#sig-docs-chairperson)等。
 
 ## {{% heading "whatsnext" %}}
@@ -220,6 +220,6 @@ For more information about contributing to the Kubernetes documentation, see:
 -->
 关于贡献 Kubernetes 文档的更多信息，请参考：
 
-- [贡献新内容](/zh/docs/contribute/new-content/overview/)
-- [评阅内容](/zh/docs/contribute/review/reviewing-prs)
-- [文档样式指南](/zh/docs/contribute/style/)
+- [贡献新内容](/zh-cn/docs/contribute/new-content/)
+- [评阅内容](/zh-cn/docs/contribute/review/reviewing-prs)
+- [文档样式指南](/zh-cn/docs/contribute/style/)
