@@ -56,8 +56,8 @@ object. In most cases, Kubernetes manages owner references automatically.
 
 Kubernetes 中很多对象通过[*属主引用*](/zh/docs/concepts/overview/working-with-objects/owners-dependents/)
 链接到彼此。属主引用（Owner Reference）可以告诉控制面哪些对象依赖于其他对象。
-Kubernetes 使用属主引用来为控制面以及其他 API 客户端在删除某对象时提供一个
-清理关联资源的机会。在大多数场合，Kubernetes 都是自动管理属主引用的。
+Kubernetes 使用属主引用来为控制面以及其他 API 客户端在删除某对象时提供一个清理关联资源的机会。
+在大多数场合，Kubernetes 都是自动管理属主引用的。
 
 <!--
 Ownership is different from the [labels and selectors](/docs/concepts/overview/working-with-objects/labels/)
@@ -69,8 +69,8 @@ to the labels, each `EndpointSlice` that is managed on behalf of a Service has
 an owner reference. Owner references help different parts of Kubernetes avoid
 interfering with objects they don’t control.
 -->
-属主关系与某些资源所使用的的[标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)
-不同。例如，考虑一个创建 `EndpointSlice` 对象的 {{<glossary_tooltip text="Service" term_id="service">}}
+属主关系与某些资源所使用的[标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)不同。
+例如，考虑一个创建 `EndpointSlice` 对象的 {{<glossary_tooltip text="Service" term_id="service">}}
 对象。Service 对象使用*标签*来允许控制面确定哪些 `EndpointSlice` 对象被该
 Service 使用。除了标签，每个被 Service 托管的 `EndpointSlice` 对象还有一个属主引用属性。
 属主引用可以帮助 Kubernetes 中的不同组件避免干预并非由它们控制的对象。
@@ -85,8 +85,7 @@ is subject to deletion once all owners are verified absent.
 -->
 根据设计，系统不允许出现跨名字空间的属主引用。名字空间作用域的依赖对象可以指定集群作用域或者名字空间作用域的属主。
 名字空间作用域的属主**必须**存在于依赖对象所在的同一名字空间。
-如果属主位于不同名字空间，则属主引用被视为不存在，而当检查发现所有属主都已不存在时，
-依赖对象会被删除。
+如果属主位于不同名字空间，则属主引用被视为不存在，而当检查发现所有属主都已不存在时，依赖对象会被删除。
 
 <!--
 Cluster-scoped dependents can only specify cluster-scoped owners.
@@ -127,8 +126,8 @@ two types of cascading deletion, as follows:
 ## 级联删除    {#cascading-deletion}
 
 Kubernetes 会检查并删除那些不再拥有属主引用的对象，例如在你删除了 ReplicaSet
-之后留下来的 Pod。当你删除某个对象时，你可以控制 Kubernetes 是否要通过一个称作
-级联删除（Cascading Deletion）的过程自动删除该对象的依赖对象。
+之后留下来的 Pod。当你删除某个对象时，你可以控制 Kubernetes 是否去自动删除该对象的依赖对象，
+这个过程称为 **级联删除（Cascading Deletion）**。
 级联删除有两种类型，分别如下：
 
 * 前台级联删除
@@ -150,7 +149,7 @@ owner object:
 -->
 ### 前台级联删除 {#foreground-deletion}
 
-在前台级联删除中，正在被你删除的对象首先进入 *deletion in progress* 状态。
+在前台级联删除中，正在被你删除的属主对象首先进入 *deletion in progress* 状态。
 在这种状态下，针对属主对象会发生以下事情：
 
 <!--
@@ -180,8 +179,8 @@ to learn more.
 当属主对象进入删除过程中状态后，控制器删除其依赖对象。控制器在删除完所有依赖对象之后，
 删除属主对象。这时，通过 Kubernetes API 就无法再看到该对象。
 
-在前台级联删除过程中，唯一的可能阻止属主对象被删除的依赖对象是那些带有
-`ownerReference.blockOwnerDeletion=true` 字段的对象。
+在前台级联删除过程中，唯一可能阻止属主对象被删除的是那些带有
+`ownerReference.blockOwnerDeletion=true` 字段的依赖对象。
 参阅[使用前台级联删除](/zh/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
 以了解进一步的细节。
 
