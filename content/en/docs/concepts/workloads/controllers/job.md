@@ -14,8 +14,8 @@ weight: 50
 <!-- overview -->
 
 A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate.
-As pods successfully complete, the Job tracks the successful completions.  When a specified number
-of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up
+As pods are successfully completed, the Job tracks the successful completions.  When a specified number
+of successful completions is reached, the task (i.e. Job) is complete.  Deleting a Job will clean up
 the Pods it created. Suspending a Job will delete its active Pods until the Job
 is resumed again.
 
@@ -23,7 +23,7 @@ A simple case is to create one Job object in order to reliably run one Pod to co
 The Job object will start a new Pod if the first Pod fails or is deleted (for example
 due to a node hardware failure or a node reboot).
 
-You can also use a Job to run multiple Pods in parallel.
+You can also use a Job to run multiple Pods in parallel. See [this](https://kubernetes.io/docs/tasks/job/coarse-parallel-processing-work-queue/#defining-a-job).
 
 If you want to run a Job (either a single task, or several in parallel) on a schedule,
 see [CronJob](/docs/concepts/workloads/controllers/cron-jobs/).
@@ -32,7 +32,7 @@ see [CronJob](/docs/concepts/workloads/controllers/cron-jobs/).
 
 ## Running an example Job
 
-Here is an example Job config.  It computes π to 2000 places and prints it out.
+Here is an example Job config.  It computes value of π upto 2000 places and prints it out.
 It takes around 10s to complete.
 
 {{< codenew file="controllers/job.yaml" >}}
