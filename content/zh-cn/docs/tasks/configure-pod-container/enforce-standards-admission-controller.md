@@ -56,7 +56,7 @@ plugins:
     #
     # version 标签必须是如下取值之一：
     # - "latest" (默认) 
-    # - 诸如 "v{{< skew latestVersion >}}" 这类版本号
+    # - 诸如 "v{{< skew currentVersion>}}" 这类版本号
     defaults:
       enforce: "privileged"
       enforce-version: "latest"
@@ -99,7 +99,7 @@ plugins:
     #
     # version 标签必须是如下取值之一：
     # - "latest" (默认) 
-    # - 诸如 "v{{< skew latestVersion >}}" 这类版本号
+    # - 诸如 "v{{< skew currentVersion>}}" 这类版本号
     defaults:
       enforce: "privileged"
       enforce-version: "latest"

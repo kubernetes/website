@@ -198,7 +198,7 @@ For example, for German the strings live in `data/i18n/de/de.toml`, and
 
 ### Localize the community code of conduct
 
-Open a PR against the [`cncf/foundation`](https://github.com/cncf/foundation/tree/master/code-of-conduct-languages)
+Open a PR against the [`cncf/foundation`](https://github.com/cncf/foundation/tree/main/code-of-conduct-languages)
 repository to add the code of conduct in your language.
 
 ### Setting up the OWNERS files

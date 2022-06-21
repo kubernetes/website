@@ -27,7 +27,7 @@ Before reviewing, it's a good idea to:
 
 Before you start a review:
 
-- Read the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) and ensure that you abide by it at all times.
+- Read the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md) and ensure that you abide by it at all times.
 - Be polite, considerate, and helpful.
 - Comment on positive aspects of PRs as well as changes.
 - Be empathetic and mindful of how your review may be received.
