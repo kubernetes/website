@@ -52,7 +52,7 @@ Conduct may be permanently removed from the project team.
 
 ## Reporting
 
-For incidents occuring in the Kubernetes community, contact the [Kubernetes Code of Conduct Committee](https://git.k8s.io/community/committee-code-of-conduct) via <conduct@kubernetes.io>. You can expect a response within three business days.
+For incidents occurring in the Kubernetes community, contact the [Kubernetes Code of Conduct Committee](https://git.k8s.io/community/committee-code-of-conduct) via <conduct@kubernetes.io>. You can expect a response within three business days.
 
 For other projects, please contact the CNCF staff via <conduct@cncf.io>. You can expect a response within three business days.
 
