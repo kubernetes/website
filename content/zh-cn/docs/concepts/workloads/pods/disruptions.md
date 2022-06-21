@@ -315,7 +315,7 @@ Both pods go into the `terminating` state at the same time.
 This puts the cluster in this state:
 -->
 
-例如，假设集群管理员想要重启系统，升级内核版本来修复内核中的权限。
+例如，假设集群管理员想要重启系统，升级内核版本来修复内核中的缺陷。
 集群管理员首先使用 `kubectl drain` 命令尝试排空 `node-1` 节点。
 命令尝试驱逐 `pod-a` 和 `pod-x`。操作立即就成功了。
 两个 Pod 同时进入 `terminating` 状态。这时的集群处于下面的状态：

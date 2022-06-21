@@ -468,7 +468,7 @@ serverTLSBootstrap: true
 
 <!--
 If you have already created the cluster you must adapt it by doing the following:
- - Find and edit the `kubelet-config-{{< skew latestVersion >}}` ConfigMap in the `kube-system` namespace.
+ - Find and edit the `kubelet-config-{{< skew currentVersion>}}` ConfigMap in the `kube-system` namespace.
 In that ConfigMap, the `kubelet` key has a
 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
@@ -477,7 +477,7 @@ and restart the kubelet with `systemctl restart kubelet`
 -->
 如果你已经创建了集群，你必须通过执行下面的操作来完成适配：
 
-- 找到 `kube-system` 名字空间中名为 `kubelet-config-{{< skew latestVersion >}}`
+- 找到 `kube-system` 名字空间中名为 `kubelet-config-{{< skew currentVersion>}}`
   的 ConfigMap 并编辑之。
   在该 ConfigMap 中，`kubelet` 键下面有一个
   [KubeletConfiguration](/zh/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)

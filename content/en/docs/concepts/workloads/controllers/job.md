@@ -691,7 +691,6 @@ In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-It is enabled by default.
 
 When enabled, the control plane tracks new Jobs using the behavior described
 below. Jobs created before the feature was enabled are unaffected. As a user,
