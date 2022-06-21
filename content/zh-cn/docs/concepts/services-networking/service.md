@@ -1408,6 +1408,17 @@ metadata:
 ```
 
 {{% /tab %}}
+{{% tab name="OCI" %}}
+
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.beta.kubernetes.io/oci-load-balancer-internal: true
+[...]
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 <!--
