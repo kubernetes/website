@@ -30,7 +30,7 @@ guide. You can file document formatting bugs against the
 <!--
 Lease defines a lease concept.
 -->
-Lease 定义了lease 的概念。
+Lease 定义了租贷的概念。
 <hr>
 
 - **apiVersion**: coordination.k8s.io/v1
@@ -44,14 +44,14 @@ Lease 定义了lease 的概念。
 <!--
   More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 -->
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../cluster-resources/lease-v1#LeaseSpec" >}}">LeaseSpec</a>)
 
 <!--
   Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
-  租赁规范。更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  租贷规范。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
@@ -61,7 +61,7 @@ Lease 定义了lease 的概念。
 <!--
 LeaseSpec is a specification of a Lease.
 -->
-LeaseSpec 是一个 Lease 的规范。
+LeaseSpec 是一个租贷的规范。
 
 <hr>
 
@@ -97,7 +97,7 @@ LeaseSpec 是一个 Lease 的规范。
   acquireTime 是当前租赁被获取的时间。
   
   <a name="MicroTime"></a>
-  *MicroTime 是微妙级精确时间的版本。*
+  **MicroTime 是微秒级精确时间的版本。**
 
 - **holderIdentity** (string)
 
@@ -113,10 +113,10 @@ LeaseSpec 是一个 Lease 的规范。
 
 - **renewTime** (MicroTime)
 
-  renewTime是当前租约持有人上次更新租约的时间。
+  renewTime 是当前租约持有人上次更新租约的时间。
 
   <a name="MicroTime"></a>
-  *MicroTime是具有微秒级精度的时间版本。*
+  **MicroTime 是具有微秒级精度的时间版本。**
 
 
 
@@ -126,7 +126,7 @@ LeaseSpec 是一个 Lease 的规范。
 <!--
 LeaseList is a list of Lease objects.
 -->
-LeaseList是租赁对象的列表。
+LeaseList 是租贷对象的列表。
 
 <hr>
 
@@ -141,7 +141,7 @@ LeaseList是租赁对象的列表。
 <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 -->
-   标准列表元数据。更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+   标准列表元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>), required
 
@@ -173,7 +173,7 @@ GET /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
 #### Parameters
 -->
-### `get` 读取指定的租约
+### `get` 读取指定的租贷
 
 #### HTTP 请求
 
@@ -196,15 +196,15 @@ GET /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **name** (*路径参数*): string, 必需
+- **name** (**路径参数**): string, 必需
 
   租约名称
 
-- **namespace** (*路径参数*): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **pretty** (*查询参数*): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -291,56 +291,56 @@ GET /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 #### 参数
 
 
-- **namespace** (*路径参数*): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **allowWatchBookmarks** (*查询参数*): boolean
+- **allowWatchBookmarks** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 
-- **continue** (*查询参数*): string
+- **continue** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
-- **fieldSelector** (*查询参数*): string
+- **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
-- **labelSelector** (*查询参数*): string
+- **labelSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
-- **limit** (*查询参数*): integer
+- **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 
-- **pretty** (*查询参数*): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
-- **resourceVersion** (*查询参数*): string
+- **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (*查询参数*): string
+- **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
-- **timeoutSeconds** (*查询参数*): integer
+- **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
-- **watch** (*查询参数*): boolean
+- **watch** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -358,7 +358,7 @@ GET /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 
 #### HTTP Request
 -->
-### `list` 列出或监视租赁类对象
+### `list` 列出或监视租贷类对象
 
 #### HTTP 请求
 
@@ -420,50 +420,50 @@ GET /apis/coordination.k8s.io/v1/leases
 #### 参数
 
 
-- **allowWatchBookmarks** (*查询参数*): boolean
+- **allowWatchBookmarks** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 
-- **continue** (*查询参数*): string
+- **continue** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
-- **fieldSelector** (*查询参数*): string
+- **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
-- **labelSelector** (*查询参数*): string
+- **labelSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
-- **limit** (*查询参数*): integer
+- **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 
-- **pretty** (*查询参数*): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **resourceVersion** (*查询参数*): string
+- **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (*查询参数*): string
+- **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
-- **timeoutSeconds** (*查询参数*): integer
+- **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
-- **watch** (*查询参数*): boolean
+- **watch** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -489,7 +489,7 @@ GET /apis/coordination.k8s.io/v1/leases
 
 POST /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 -->
-### `create` 创建租约
+### `create` 创建租贷
 
 #### HTTP 请求
 
@@ -531,7 +531,7 @@ POST /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 #### 参数
 
 
-- **namespace** (*路径参数*): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -541,22 +541,22 @@ POST /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
   
 
 
-- **dryRun** (*查询参数*): string
+- **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*查询参数*): string
+- **fieldManager** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
-- **fieldValidation** (*查询参数*): string
+- **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
-- **pretty** (*查询参数*): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -590,7 +590,7 @@ POST /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 
 PUT /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 -->
-### `update` 替换指定的租约
+### `update` 替换指定的租贷
 
 #### HTTP 请求
 
@@ -636,12 +636,12 @@ PUT /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 #### 参数
 
 
-- **name** (*路径参数*): string, 必需
+- **name** (**路径参数**): string, 必需
 
-  租约名称
+  租贷名称
 
 
-- **namespace** (*路径参数*): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -651,21 +651,21 @@ PUT /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
   
 
 
-- **dryRun** (*查询参数*): string
+- **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*查询参数*): string
+- **fieldManager** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
-- **fieldValidation** (*查询参数*): string
+- **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (*查询参数*): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -695,7 +695,7 @@ PUT /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
 PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 -->
-### `patch` 部分更新指定的租约
+### `patch` 部分更新指定的租贷
 
 #### HTTP 请求
 
@@ -746,12 +746,12 @@ PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 #### 参数
 
 
-- **name** (*路径参数*): string, 必需
+- **name** (**路径参数**): string, 必需
 
-  租约名称
+  租贷名称
 
 
-- **namespace** (*路径参数*): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -761,27 +761,27 @@ PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
   
 
 
-- **dryRun** (*查询参数*): string
+- **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*查询参数*): string
+- **fieldManager** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
-- **fieldValidation** (*查询参数*): string
+- **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
-- **force** (*查询参数*): boolean
+- **force** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
 
-- **pretty** (*查询参数*): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -811,7 +811,7 @@ PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
 DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 -->
-### `delete` 删除一个租约
+### `delete` 删除一个租贷
 
 #### HTTP 请求
 
@@ -857,12 +857,12 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 #### 参数
 
 
-- **name** (*路径参数*): string, 必需
+- **name** (**路径参数**): string, 必需
 
-  租约的名称
+  租贷的名称
 
 
-- **namespace** (*路径参数*): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -872,22 +872,22 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
   
 
 
-- **dryRun** (*查询参数*): string
+- **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **gracePeriodSeconds** (*查询参数*): integer
+- **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
-- **pretty** (*查询参数*): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
-- **propagationPolicy** (*查询参数*): string
+- **propagationPolicy** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
@@ -917,7 +917,7 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
 DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 -->
-### `deletecollection` 删除租赁收款
+### `deletecollection` 删除租贷收款
 
 #### HTTP 请求
 
@@ -993,7 +993,7 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 #### 参数
 
 
-- **namespace** (*路径参数*): string, 必需
+- **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1003,57 +1003,57 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
   
 
 
-- **continue** (*查询参数*): string
+- **continue** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
-- **dryRun** (*查询参数*): string
+- **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldSelector** (*查询参数*): string
+- **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
-- **gracePeriodSeconds** (*查询参数*): integer
+- **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
-- **labelSelector** (*查询参数*): string
+- **labelSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
-- **limit** (*查询参数*): integer
+- **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 
-- **pretty** (*查询参数*): string
+- **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
-- **propagationPolicy** (*查询参数*): string
+- **propagationPolicy** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 
-- **resourceVersion** (*查询参数*): string
+- **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 
-- **resourceVersionMatch** (*查询参数*): string
+- **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
-- **timeoutSeconds** (*查询参数*): integer
+- **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
