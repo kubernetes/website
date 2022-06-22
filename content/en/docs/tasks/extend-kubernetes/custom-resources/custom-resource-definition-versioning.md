@@ -1053,13 +1053,13 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
 3.  Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 
 {{< note >}}
-The `kubectl` tool currently cannot be used to edit or patch the `status` subresource on a CRD: see the [Kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource) for more details.
+In Kubernetes v1.24, an alpha flag `--subresource` is added to get, patch, edit and replace 
+with kubectl commands to fetch and update `status` and `scale` subresources. Due to this, 
+from Kubernetes v1.24 the `kubectl` tool can now be used to edit or patch the `status`
+subresource on a CRD. See the [Kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource) for more details.
 
-The easier way to patch the status subresource from the CLI is directly interacting with the API server using the `curl` tool, in this example:
+Here is an example of How to patch the `status` subresource for the CRD using `kubectl`:
 ```bash
-kubectl proxy &
-curl --header "Content-Type: application/json-patch+json" \
-  --request PATCH http://localhost:8001/apis/apiextensions.k8s.io/v1/customresourcedefinitions/<your CRD name here>/status \
-  --data '[{"op": "replace", "path": "/status/storedVersions", "value":["v1"]}]'
+kubectl patch customresourcedefinitions <CRD_Name> --subresource='status' --type='merge' -p '{"status":{"storedVersions":["v1"]}}'
 ```
 {{< /note >}}
