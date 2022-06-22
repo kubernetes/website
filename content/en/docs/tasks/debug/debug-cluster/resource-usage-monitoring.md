@@ -59,8 +59,11 @@ Autoscaler. The monitoring pipeline fetches metrics from the kubelet and
 then exposes them to Kubernetes via an adapter by implementing either the
 `custom.metrics.k8s.io` or `external.metrics.k8s.io` API. 
 
-[Prometheus](https://prometheus.io), a CNCF project, can natively monitor Kubernetes, nodes, and Prometheus itself.
-Full metrics pipeline projects that are not part of the CNCF are outside the scope of Kubernetes documentation.  
+Kubernetes is designed to work with [OpenMetrics](https://openmetrics.io/) which is one of the CNCF Project. 
+To know more about the Projects under CNCF, refer to this [link](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars). Full metrics pipeline      
+projects that are not part of the CNCF are outside the scope of Kubernetes  documentation.
+
+ *It is to be noted that Kubernetes Project don't provide any kind of recommendation for other projects to work upon. It is a user choice to pick a project to start working upon. In order to make a Full metric pipeline, Kubernetes is required to design and deploy the infrastructure.*  
 
 ## {{% heading "whatsnext" %}}
 
