@@ -45,7 +45,7 @@ my-nginx-3800858182-kna2y   1/1       Running   0          13s       10.244.2.5 
 Check your pods' IPs:
 
 ```shell
-kubectl get pods -l run=my-nginx -o yaml | grep podIP
+kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
     podIP: 10.244.3.4
     podIP: 10.244.2.5
 ```
