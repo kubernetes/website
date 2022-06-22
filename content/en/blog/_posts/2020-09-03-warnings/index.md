@@ -60,7 +60,7 @@ so we added two administrator-facing tools to help track use of deprecated APIs 
 Starting in Kubernetes v1.19, when a request is made to a deprecated REST API endpoint,
 an `apiserver_requested_deprecated_apis` gauge metric is set to `1` in the kube-apiserver process.
 This metric has labels for the API `group`, `version`, `resource`, and `subresource`,
-and a `removed_version` label that indicates the Kubernetes release in which the API will no longer be served.
+and a `removed_release` label that indicates the Kubernetes release in which the API will no longer be served.
 
 This is an example query using `kubectl`, [prom2json](https://github.com/prometheus/prom2json),
 and [jq](https://stedolan.github.io/jq/) to determine which deprecated APIs have been requested
@@ -169,7 +169,7 @@ You can also find that information through the following Prometheus query,
 which returns information about requests made to deprecated APIs which will be removed in v1.22:
 
 ```promql
-apiserver_requested_deprecated_apis{removed_version="1.22"} * on(group,version,resource,subresource)
+apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource)
 group_right() apiserver_request_total
 ```
 
@@ -328,3 +328,7 @@ A couple areas we're looking at next are warning about [known problematic values
 we cannot reject outright for compatibility reasons, and warning about use of deprecated fields or field values
 (like selectors using beta os/arch node labels, [deprecated in v1.14](/docs/reference/labels-annotations-taints/#beta-kubernetes-io-arch-deprecated)).
 I'm excited to see progress in this area, continuing to make it easier to use Kubernetes.
+
+
+## EDIT
+* The correct label is `removed_release`, not `removed_version`.
