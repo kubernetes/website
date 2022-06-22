@@ -245,6 +245,14 @@ sets this label on that Pod. The value of the label is the name of the Pod being
 See [Pod Name Label](/docs/concepts/workloads/controllers/statefulset/#pod-name-label) in the
 StatefulSet topic for more details.
 
+### scheduler.alpha.kubernetes.io/node-selector {#schedulerkubernetesnode-selector}
+
+Example: `scheduler.alpha.kubernetes.io/node-selector: name-of-node-selector`
+
+Used on: Pod
+
+The [PodNodeSelector](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector) uses this annotation key to assign node selectors to namespaces.
+
 ### topology.kubernetes.io/region {#topologykubernetesioregion}
 
 Example:
