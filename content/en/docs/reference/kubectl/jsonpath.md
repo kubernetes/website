@@ -54,7 +54,7 @@ Given the JSON input:
   "users":[
     {
       "name": "myself",
-      "user": {}
+      "user": {"email.address": "myself@example.com"}
     },
     {
       "name": "e2e",
@@ -76,6 +76,7 @@ Function            | Description               | Example                       
 `?()`               | filter                    | `{.users[?(@.name=="e2e")].user.password}`                      | `secret`
 `range`, `end`      | iterate list              | `{range .items[*]}[{.metadata.name}, {.status.capacity}] {end}` | `[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]`
 `''`                | quote interpreted string  | `{range .items[*]}{.metadata.name}{'\t'}{end}`                  | `127.0.0.1      127.0.0.2`
+`\.`                | escape character          | `{.users[0].user['email\.address']}`                            | `myself@example.com`
 
 Examples using `kubectl` and JSONPath expressions:
 
@@ -86,6 +87,7 @@ kubectl get pods -o=jsonpath='{.items[0]}'
 kubectl get pods -o=jsonpath='{.items[0].metadata.name}'
 kubectl get pods -o=jsonpath="{.items[*]['metadata.name', 'status.capacity']}"
 kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.startTime}{"\n"}{end}'
+kubectl get pods -o=jsonpath="{.users[0].user['email\.address']}"
 ```
 
 {{< note >}}
