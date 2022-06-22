@@ -31,13 +31,9 @@ Cron jobs can also schedule individual tasks for a specific time, such as if you
 请参考你正在使用的 Kubernetes 版本的文档，这样你就能看到准确的信息。
 旧的 Kubernetes 版本不支持 `batch/v1` CronJob API。
 
-<<<<<<< HEAD
-你可以利用 [CronJobs](/zh-cn/docs/concepts/workloads/controllers/cron-jobs) 执行基于时间调度的任务。这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://en.wikipedia.org/wiki/Cron) 任务类似。
-=======
 你可以利用 {{< glossary_tooltip text="CronJob" term_id="cronjob" >}}
 执行基于时间调度的 {{< glossary_tooltip text="Job" term_id="job" >}}。
 这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://zh.wikipedia.org/wiki/Cron) 任务类似。
->>>>>>> 51a6ad6479 ([zh] text optimization: automated-tasks-with-cron-jobs.md)
 
 CronJob 在创建周期性以及重复性的任务时很有帮助，例如执行备份操作或者发送邮件。
 CronJob 也可以在特定时间调度单个任务，例如你想调度低活跃周期的任务。
@@ -52,11 +48,7 @@ CronJob 有一些限制和特点。
 例如，在特定状况下，同一个 CronJob 可以创建多个任务。
 因此，任务应该是幂等的。
 
-<<<<<<< HEAD
-查看更多限制，请参考 [CronJobs](/zh-cn/docs/concepts/workloads/controllers/cron-jobs)。
-=======
 有关更多限制，请参考 [CronJob](/zh-cn/docs/concepts/workloads/controllers/cron-jobs)。
->>>>>>> 51a6ad6479 ([zh] text optimization: automated-tasks-with-cron-jobs.md)
 
 ## {{% heading "prerequisites" %}}
 
@@ -223,17 +215,10 @@ A cron job config also needs a [`.spec` section](https://git.k8s.io/community/co
 -->
 ## 编写 CronJob 声明信息 {#writing-a-cronjob-spec}
 
-<<<<<<< HEAD
-像 Kubernetes 的其他配置一样，CronJob 需要 `apiVersion`、`kind`、和 `metadata` 域。
-配置文件的一般信息，请参考
-[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/) 和
-[使用 kubectl 管理资源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/).
-=======
 像 Kubernetes 的其他配置一样，CronJob 需要 `apiVersion`、`kind` 和 `metadata` 字段。
 有关配置文件的一般信息，请参考
 [部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/) 和
 [使用 kubectl 管理资源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)。
->>>>>>> 51a6ad6479 ([zh] text optimization: automated-tasks-with-cron-jobs.md)
 
 CronJob 配置也需要包括
 [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
@@ -294,19 +279,11 @@ For information about writing a job `.spec`, see
 -->
 ### 任务模板 {#job-template}
 
-<<<<<<< HEAD
-`.spec.jobTemplate`是任务的模版，它是必须的。它和
-[Job](/zh-cn/docs/concepts/workloads/controllers/job/)的语法完全一样，
-除了它是嵌套的没有 `apiVersion` 和 `kind`。
-编写任务的 `.spec` ，请参考
-[编写 Job 的Spec](/zh-cn/docs/concepts/workloads/controllers/job/#writing-a-job-spec)。
-=======
 `.spec.jobTemplate`是任务的模板，它是必需的。它和
 [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 的语法完全一样，
 只不过它是嵌套的，没有 `apiVersion` 和 `kind`。
 有关如何编写一个任务的 `.spec`，请参考
 [编写 Job 规约](/zh-cn/docs/concepts/workloads/controllers/job/#writing-a-job-spec)。
->>>>>>> 51a6ad6479 ([zh] text optimization: automated-tasks-with-cron-jobs.md)
 
 <!--
 ### Starting Deadline
