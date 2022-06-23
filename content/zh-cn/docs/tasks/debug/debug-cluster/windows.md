@@ -101,7 +101,7 @@ content_type: concept
    [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf)
    的配置。你可以随时编辑这个静态文件。更新配置将应用于新的 Kubernetes 资源。
 
-   Kubernetes 的网络需求之一 (查看 [Kubernetes 模型](/zh/docs/concepts/cluster-administration/networking/)) 
+   Kubernetes 的网络需求之一 (查看 [Kubernetes 模型](/zh-cn/docs/concepts/cluster-administration/networking/)) 
    是集群通信不需要内部的 NAT。
    为了遵守这一要求， 对于你不希望发生的出站 NAT 通信，这里有一个
    [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) 。
@@ -138,7 +138,7 @@ content_type: concept
 
 4. 容器的 vnic 和 HNS endpoints 正在被删除
 
-   当 `hostname-override` 参数没有传递给 [kube-proxy](/zh/docs/reference/command-line-tools-reference/kube-proxy/)
+   当 `hostname-override` 参数没有传递给 [kube-proxy](/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/)
    时可能引发这一问题。想要解决这个问题，用户需要将主机名传递给 kube-proxy，如下所示：
 
    ```powershell

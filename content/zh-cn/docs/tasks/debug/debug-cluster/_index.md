@@ -22,8 +22,8 @@ the [application troubleshooting guide](/docs/tasks/debug/debug-application/) fo
 You may also visit the [troubleshooting overview document](/docs/tasks/debug/) for more information.
 -->
 本篇文档是介绍集群故障排查的；我们假设对于你碰到的问题，你已经排除了是由应用程序造成的。
-对于应用的调试，请参阅[应用故障排查指南](/zh/docs/tasks/debug/debug-application/)。
-你也可以访问[故障排查](/zh/docs/tasks/debug/)来获取更多的信息。
+对于应用的调试，请参阅[应用故障排查指南](/zh-cn/docs/tasks/debug/debug-application/)。
+你也可以访问[故障排查](/zh-cn/docs/tasks/debug/)来获取更多的信息。
 
 <!-- body -->
 
@@ -408,7 +408,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 - 措施: 对于运行 API 服务器和 etcd 的 VM，使用 IaaS 提供的可靠的存储（例如 GCE PD 或者 AWS EBS 卷）
   - 缓解：API 服务器后端存储的丢失
 
-- 措施：使用[高可用性](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)的配置
+- 措施：使用[高可用性](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)的配置
   - 缓解：主控节点 VM 关机或者主控节点组件（调度器、API 服务器、控制器管理器）崩馈
     - 将容许一个或多个节点或组件同时出现故障
   - 缓解：API 服务器后端存储（例如 etcd 的数据目录）丢失

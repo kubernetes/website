@@ -31,7 +31,7 @@ Cron jobs can also schedule individual tasks for a specific time, such as if you
 
 在Kubernetes v1.21 版本中，CronJob 被提升为通用版本。如果你使用的是旧版本的 Kubernetes，请参考你正在使用的 Kubernetes 版本的文档，这样你就能看到准确的信息。旧的 Kubernetes 版本不支持`batch/v1` CronJob API。
 
-你可以利用 [CronJobs](/zh/docs/concepts/workloads/controllers/cron-jobs) 执行基于时间调度的任务。这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://en.wikipedia.org/wiki/Cron) 任务类似。
+你可以利用 [CronJobs](/zh-cn/docs/concepts/workloads/controllers/cron-jobs) 执行基于时间调度的任务。这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://en.wikipedia.org/wiki/Cron) 任务类似。
 
 CronJobs 在创建周期性以及重复性的任务时很有帮助，例如执行备份操作或者发送邮件。CronJobs 也可以在特定时间调度单个任务，例如你想调度低活跃周期的任务。
 
@@ -45,7 +45,7 @@ CronJobs 有一些限制和特点。
 例如，在特定状况下，同一个 CronJob 可以创建多个任务。
 因此，任务应该是幂等的。
 
-查看更多限制，请参考 [CronJobs](/zh/docs/concepts/workloads/controllers/cron-jobs)。
+查看更多限制，请参考 [CronJobs](/zh-cn/docs/concepts/workloads/controllers/cron-jobs)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -194,7 +194,7 @@ Deleting the cron job removes all the jobs and pods it created and stops it from
 You can read more about removing jobs in [garbage collection](/docs/concepts/workloads/controllers/garbage-collection/).
 -->
 删除 CronJob 会清除它创建的所有任务和 Pod，并阻止它创建额外的任务。你可以查阅
-[垃圾收集](/zh/docs/concepts/workloads/controllers/garbage-collection/)。
+[垃圾收集](/zh-cn/docs/concepts/workloads/controllers/garbage-collection/)。
 
 <!--
 ## Writing a Cron Job Spec
@@ -209,8 +209,8 @@ A cron job config also needs a [`.spec` section](https://git.k8s.io/community/co
 
 像 Kubernetes 的其他配置一样，CronJob 需要 `apiVersion`、`kind`、和 `metadata` 域。
 配置文件的一般信息，请参考
-[部署应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/) 和
-[使用 kubectl 管理资源](/zh/docs/concepts/overview/working-with-objects/object-management/).
+[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/) 和
+[使用 kubectl 管理资源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/).
 
 CronJob 配置也需要包括
 [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
@@ -272,10 +272,10 @@ For information about writing a job `.spec`, see
 ### 任务模版
 
 `.spec.jobTemplate`是任务的模版，它是必须的。它和
-[Job](/zh/docs/concepts/workloads/controllers/job/)的语法完全一样，
+[Job](/zh-cn/docs/concepts/workloads/controllers/job/)的语法完全一样，
 除了它是嵌套的没有 `apiVersion` 和 `kind`。
 编写任务的 `.spec` ，请参考
-[编写 Job 的Spec](/zh/docs/concepts/workloads/controllers/job/#writing-a-job-spec)。
+[编写 Job 的Spec](/zh-cn/docs/concepts/workloads/controllers/job/#writing-a-job-spec)。
 
 <!--
 ### Starting Deadline
