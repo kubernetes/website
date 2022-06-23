@@ -332,7 +332,7 @@ must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFi
 `file.csi.azure.com` 容器存储接口（CSI）驱动程序。要使用此特性，必须在集群中安装
 [Azure 文件 CSI 驱动程序](https://github.com/kubernetes-sigs/azurefile-csi-driver)，
 并且 `CSIMigration` 和 `CSIMigrationAzureFile`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 必须被启用。
 
 <!--
@@ -449,7 +449,7 @@ must be installed on the cluster.
 为了使用此特性，必须在集群中安装
 [OpenStack Cinder CSI 驱动程序](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)，
 你可以通过设置 `CSIMigrationOpenStack`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 为 `false` 来禁止 Cinder CSI 迁移。
 
 <!--
@@ -458,7 +458,7 @@ and the kubelet, you can enable the `InTreePluginOpenStackUnregister`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
 要禁止控制器管理器和 kubelet 加载树内 Cinder 插件，你可以启用
-`InTreePluginOpenStackUnregister` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+`InTreePluginOpenStackUnregister` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 ### configMap
 
@@ -468,7 +468,7 @@ provides a way to inject configuration data into Pods.
 The data stored in a ConfigMap object can be referenced in a volume of type
 `configMap` and then consumed by containerized applications running in a Pod.
 -->
-[`configMap`](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
+[`configMap`](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 卷提供了向 Pod 注入配置数据的方法。
 ConfigMap 对象中存储的数据可以被 `configMap` 类型的卷引用，然后被 Pod 中运行的容器化应用使用。
 
@@ -524,7 +524,7 @@ keyed with `log_level`.
 * Text data is exposed as files using the UTF-8 character encoding. For other character encodings, use `binaryData`.
 -->
 {{< note >}}
-* 在使用 [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/) 之前你首先要创建它。
+* 在使用 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 之前你首先要创建它。
 * 容器以 [subPath](#using-subpath) 卷挂载方式使用 ConfigMap 时，将无法接收 ConfigMap 的更新。
 * 文本数据挂载成文件时采用 UTF-8 字符编码。如果使用其他字符编码形式，可使用
   `binaryData` 字段。
@@ -550,7 +550,7 @@ receive Downward API updates.
 <!--
 See the [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)  for more details.
 -->
-更多详细信息请参考 [`downwardAPI` 卷示例](/zh/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)。
+更多详细信息请参考 [`downwardAPI` 卷示例](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)。
 
 ### emptyDir
 
@@ -612,7 +612,7 @@ backed volumes are sized to 50% of the memory on a Linux host.
 -->
 
 {{< note >}}
-当启用 `SizeMemoryBackedVolumes` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+当启用 `SizeMemoryBackedVolumes` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 时，你可以为基于内存提供的卷指定大小。
 如果未指定大小，则基于内存的卷的大小为 Linux 主机上内存的 50％。
 {{< /note>}}
@@ -818,7 +818,7 @@ Before creating a PersistentVolume, you must create the PD:
 -->
 #### 手动供应基于区域 PD 的 PersistentVolume {#manually-provisioning-regional-pd-pv}
 
-使用[为 GCE PD 定义的存储类](/zh/docs/concepts/storage/storage-classes/#gce)
+使用[为 GCE PD 定义的存储类](/zh-cn/docs/concepts/storage/storage-classes/#gce)
 可以实现动态供应。在创建 PersistentVolume 之前，你首先要创建 PD。
 
 ```shell
@@ -1063,7 +1063,7 @@ Watch out when using this type of volume, because:
 * 具有相同配置（例如基于同一 PodTemplate 创建）的多个 Pod
   会由于节点上文件的不同而在不同节点上有不同的行为。
 * 下层主机上创建的文件或目录只能由 root 用户写入。你需要在
-  [特权容器](/zh/docs/tasks/configure-pod-container/security-context/)
+  [特权容器](/zh-cn/docs/tasks/configure-pod-container/security-context/)
   中以 root 身份运行进程，或者修改主机上的文件权限以便容器能够写入 `hostPath` 卷。
 
 <!--
@@ -1264,7 +1264,7 @@ such as node resource requirements, node selectors, Pod affinity, and Pod anti-a
 -->
 使用 `local` 卷时，建议创建一个 StorageClass 并将其 `volumeBindingMode` 设置为
 `WaitForFirstConsumer`。要了解更多详细信息，请参考
-[local StorageClass 示例](/zh/docs/concepts/storage/storage-classes/#local)。
+[local StorageClass 示例](/zh-cn/docs/concepts/storage/storage-classes/#local)。
 延迟卷绑定的操作可以确保 Kubernetes 在为 PersistentVolumeClaim 作出绑定决策时，会评估
 Pod 可能具有的其他节点约束，例如：如节点资源需求、节点选择器、Pod亲和性和 Pod 反亲和性。
 
@@ -1324,7 +1324,7 @@ A `persistentVolumeClaim` volume is used to mount a
 are a way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 -->
-`persistentVolumeClaim` 卷用来将[持久卷](/zh/docs/concepts/storage/persistent-volumes/)（PersistentVolume）挂载到 Pod 中。
+`persistentVolumeClaim` 卷用来将[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)（PersistentVolume）挂载到 Pod 中。
 持久卷申领（PersistentVolumeClaim）是用户在不知道特定云环境细节的情况下“申领”持久存储（例如
 GCE PersistentDisk 或者 iSCSI 卷）的一种方法。
 
@@ -1332,7 +1332,7 @@ GCE PersistentDisk 或者 iSCSI 卷）的一种方法。
 See the [PersistentVolumes example](/docs/concepts/storage/persistent-volumes/) for more
 details.
 -->
-更多详情请参考[持久卷示例](/zh/docs/concepts/storage/persistent-volumes/)。
+更多详情请参考[持久卷示例](/zh-cn/docs/concepts/storage/persistent-volumes/)。
 
 ### portworxVolume {#portworxvolume}
 
@@ -1395,7 +1395,7 @@ For more details, see the [Portworx volume](https://github.com/kubernetes/exampl
 A projected volume maps several existing volume sources into the same
 directory. For more details, see [projected volumes](/docs/concepts/storage/projected-volumes/).
 -->
-投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考[投射卷](/zh/docs/concepts/storage/projected-volumes/)。
+投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)。
 
 ### quobyte (已弃用) {#quobyte}
 
@@ -1483,7 +1483,7 @@ must be enabled.
 `rbd.csi.ceph.com` {{<glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序。
 要使用该特性，必须在集群内安装
 [Ceph CSI 驱动](https://github.com/ceph/ceph-csi)，并启用 `CSIMigration` 和 `csiMigrationRBD` 
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 As a Kubernetes cluster operator that administers storage, here are the
@@ -1546,7 +1546,7 @@ receive Secret updates.
 <!--
 For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
 -->
-更多详情请参考[配置 Secrets](/zh/docs/concepts/configuration/secret/)。
+更多详情请参考[配置 Secrets](/zh-cn/docs/concepts/configuration/secret/)。
 
 ### storageOS (已弃用) {#storageos}
 
@@ -1666,7 +1666,7 @@ must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere
 为了使用此功能特性，必须在集群中安装
 [vSphere CSI 驱动](https://github.com/kubernetes-sigs/vsphere-csi-driver)，并启用
 `CSIMigration` 和 `CSIMigrationvSphere`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 You can find additional advice on how to migrate in VMware's
@@ -1875,7 +1875,7 @@ To learn about requesting space using a resource specification, see
 [how to manage resources](/docs/concepts/configuration/manage-resources-containers/).
 -->
 要了解如何使用资源规约来请求空间，可参考
-[如何管理资源](/zh/docs/concepts/configuration/manage-resources-containers/)。
+[如何管理资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
 
 
 <!--
@@ -1969,9 +1969,9 @@ if the driver supports that (beta feature)
 `csi` 卷可以在 Pod 中以三种方式使用：
 
 * 通过 PersistentVolumeClaim(#persistentvolumeclaim) 对象引用
-* 使用[一般性的临时卷](/zh/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
+* 使用[一般性的临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
   （Alpha 特性）
-* 使用 [CSI 临时卷](/zh/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)，
+* 使用 [CSI 临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)，
   前提是驱动支持这种用法（Beta 特性）
 
 <!--
@@ -2101,7 +2101,7 @@ You can set up your
 [PersistentVolume/PersistentVolumeClaim with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support) as usual, without any CSI specific changes.
 -->
 你可以和以前一样，安装自己的
-[带有原始块卷支持的 PV/PVC](/zh/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)，
+[带有原始块卷支持的 PV/PVC](/zh-cn/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)，
 采用 CSI 对此过程没有影响。
 
 <!--
@@ -2120,7 +2120,7 @@ for more information.
 -->
 你可以直接在 Pod 规约中配置 CSI 卷。采用这种方式配置的卷都是临时卷，
 无法在 Pod 重新启动后继续存在。
-进一步的信息可参阅[临时卷](/zh/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)。
+进一步的信息可参阅[临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)。
 
 <!--
 For more information on how to develop a CSI driver, refer to the
@@ -2359,5 +2359,5 @@ sudo systemctl restart docker
 <!--
 Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 -->
-参考[使用持久卷部署 WordPress 和 MySQL](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/) 示例。
+参考[使用持久卷部署 WordPress 和 MySQL](/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/) 示例。
 

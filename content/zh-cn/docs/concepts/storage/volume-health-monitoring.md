@@ -64,7 +64,7 @@ You need to enable the `CSIVolumeHealth` [feature gate](/docs/reference/command-
 -->
 {{< note >}}
 你需要启用 `CSIVolumeHealth`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 才能在节点上使用此特性。
 {{< /note >}}
 
