@@ -2,13 +2,12 @@
 layout: blog
 title: 'Kubernetes v1.12: RuntimeClass 简介'
 date: 2018-10-10
+slug: kubernetes-v1.12-introducing-runtimeclass
 ---
 <!--
----
 layout: blog
 title: 'Kubernetes v1.12: Introducing RuntimeClass'
 date: 2018-10-10
----
 -->
 
 <!--

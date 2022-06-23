@@ -2,13 +2,12 @@
 layout: blog
 title: '动态 Kubelet 配置'
 date: 2018-07-11
+slug: dynamic-kubelet-configuration
 ---
 <!--
----
 layout: blog
 title: 'Dynamic Kubelet Configuration'
 date: 2018-07-11
----
 -->
 
 <!--
