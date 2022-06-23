@@ -29,7 +29,7 @@ min-kubernetes-server-version: v1.14
 This tutorial shows you how to build and deploy a simple _(not production ready)_, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
 -->
 本教程向你展示如何使用 Kubernetes 和 [Docker](https://www.docker.com/)
-构建和部署一个简单的**(非面向生产的)**多层 web 应用程序。本例由以下组件组成：
+构建和部署一个简单的 **(非面向生产的)** 多层 web 应用程序。本例由以下组件组成：
 
 <!--
 * A single-instance [Redis](https://www.redis.io/) to store guestbook entries
