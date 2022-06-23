@@ -109,4 +109,4 @@ Kubernetes 项目的 [行为准则委员会](https://github.com/kubernetes/commu
 http://contributor-covenant.org/version/2/0/code_of_conduct/ -->
 本行为准则改编自贡献者公约
 (http://contributor-covenant.org)，2.0 版可在
-http://contributor-covenant.org/version/2/0/code_of_conduct/获得。
+http://contributor-covenant.org/version/2/0/code_of_conduct/中获得。
