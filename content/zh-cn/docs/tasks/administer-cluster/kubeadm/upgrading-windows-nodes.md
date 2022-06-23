@@ -18,7 +18,7 @@ weight: 40
 <!--
 This page explains how to upgrade a Windows node [created with kubeadm](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes).
 -->
-本页解释如何升级[用 kubeadm 创建的](/zh/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)
+本页解释如何升级[用 kubeadm 创建的](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)
 Windows 节点。
 
 ## {{% heading "prerequisites" %}}
@@ -30,7 +30,7 @@ Windows 节点。
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
 upgrade the control plane nodes before upgrading your Windows nodes.
 -->
-* 熟悉[更新 kubeadm 集群中的其余组件](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)。
+* 熟悉[更新 kubeadm 集群中的其余组件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)。
   在升级你的 Windows 节点之前你会想要升级控制面节点。
 
 <!-- steps -->

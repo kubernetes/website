@@ -85,7 +85,7 @@ they could be running CoreDNS Pods or other critical workloads. For more informa
 -->
 - 下述说明了在升级过程中何时腾空每个节点。如果你正在对任何 kubelet 进行小版本升级，
   你需要先腾空待升级的节点（或多个节点）。对于控制面节点，其上可能运行着 CoreDNS Pods
-  或者其它非常重要的负载。更多信息见[腾空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)。
+  或者其它非常重要的负载。更多信息见[腾空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)。
 - 升级后，因为容器规约的哈希值已更改，所有容器都会被重新启动。
 
 <!--
@@ -98,8 +98,8 @@ with the purpose of reconfiguring the cluster is not recommended and can have un
 -->
 - 要验证 kubelet 服务在升级后是否成功重启，可以执行 `systemctl status kubelet`
   或 `journalctl -xeu kubelet` 查看服务日志。
-- 不建议使用 `kubeadm upgrade` 的 `--config` 参数和 [kubeadm 配置 API 类型](/zh/docs/reference/config-api/kubeadm-config.v1beta3)
-  来重新配置集群，这样会产生意想不到的结果。请按照[重新配置 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)
+- 不建议使用 `kubeadm upgrade` 的 `--config` 参数和 [kubeadm 配置 API 类型](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3)
+  来重新配置集群，这样会产生意想不到的结果。请按照[重新配置 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)
   中的步骤来进行。
 
 <!-- steps -->
@@ -211,7 +211,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
   -->
   `kubeadm upgrade` 也会自动对 kubeadm 在节点上所管理的证书执行续约操作。
   如果需要略过证书续约操作，可以使用标志 `--certificate-renewal=false`。
-  更多的信息，可参阅[证书管理指南](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
+  更多的信息，可参阅[证书管理指南](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
   {{</ note >}}
 
   {{< note >}}
@@ -263,7 +263,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
   find your CNI provider and see whether additional upgrade steps are required.
   -->
   你的容器网络接口（CNI）驱动应该提供了程序自身的升级说明。
-  参阅[插件](/zh/docs/concepts/cluster-administration/addons/)页面查找你的 CNI 驱动，
+  参阅[插件](/zh-cn/docs/concepts/cluster-administration/addons/)页面查找你的 CNI 驱动，
   并查看是否需要其他升级步骤。
 
   <!--
