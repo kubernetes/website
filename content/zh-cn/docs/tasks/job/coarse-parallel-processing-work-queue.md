@@ -54,7 +54,7 @@ non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workload
 -->
 
 要熟悉 Job 基本用法（非并行的），请参考
-[Job](/zh/docs/concepts/workloads/controllers/job/)。
+[Job](/zh-cn/docs/concepts/workloads/controllers/job/)。
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -448,7 +448,7 @@ want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-comp
 本文所讲述的处理方法的好处是你不需要修改你的 "worker" 程序使其知道工作队列的存在。
 
 本文所描述的方法需要你运行一个消息队列服务。如果不方便运行消息队列服务，你也许会考虑另外一种
-[任务模式](/zh/docs/concepts/workloads/controllers/job/#job-patterns)。
+[任务模式](/zh-cn/docs/concepts/workloads/controllers/job/#job-patterns)。
 
 <!--
 This approach creates a pod for every work item.  If your work items only take a few seconds,
@@ -464,13 +464,13 @@ communicate with the work queue using a client library.
 
 本文所述的方法为每个工作项创建了一个 Pod。
 如果你的工作项仅需数秒钟，为每个工作项创建 Pod会增加很多的常规消耗。
-可以考虑另外的方案请参考[示例](/zh/docs/tasks/job/fine-parallel-processing-work-queue/)，
+可以考虑另外的方案请参考[示例](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/)，
 这种方案可以实现每个 Pod 执行多个工作项。
 
 示例中，我们使用 `amqp-consume` 从消息队列读取消息并执行我们真正的程序。
 这样的好处是你不需要修改你的程序使其知道队列的存在。
 要了解怎样使用客户端库和工作队列通信，请参考
-[不同的示例](/zh/docs/tasks/job/fine-parallel-processing-work-queue/)。
+[不同的示例](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/)。
 
 <!--
 ## Caveats
