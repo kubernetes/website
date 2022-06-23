@@ -65,10 +65,10 @@ check the documentation for that version.
  {{< note >}}
 提示：v1.24 之前的 Kubernetes 版本包括与 Docker Engine 的直接集成，使用名为 _dockershim_ 的组件。 
 这种特殊的直接整合不再是 Kubernetes 的一部分
-（这次删除被作为 v1.20 发行版本的一部分[宣布](/zh/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)）。
-你可以阅读[检查 Dockershim 弃用是否会影响你](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) 
+（这次删除被作为 v1.20 发行版本的一部分[宣布](/zh-cn/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)）。
+你可以阅读[检查 Dockershim 弃用是否会影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) 
 以了解此删除可能会如何影响你。 
-要了解如何使用 dockershim 进行迁移，请参阅[从 dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/)。
+要了解如何使用 dockershim 进行迁移，请参阅[从 dockershim 迁移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)。
 
 如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，检查该版本的文档。
 {{< /note >}}
@@ -90,7 +90,7 @@ For more information, see [Network Plugin Requirements](/docs/concepts/extend-ku
 
 如果你确定不需要某个特定设置，则可以跳过它。
 
-有关更多信息，请参阅[网络插件要求](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) 
+有关更多信息，请参阅[网络插件要求](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) 
 或特定容器运行时的文档。
 
 <!-- 
@@ -305,7 +305,7 @@ Your container runtime must support at least v1alpha2 of the container runtime i
 Kubernetes {{< skew currentVersion >}}  defaults to using v1 of the CRI API.If a container runtime does not support the v1 API, the kubelet falls back to using the (deprecated) v1alpha2 API instead.
 -->
 如果你希望将现有的由 kubeadm 管理的集群迁移到 `systemd` cgroup 驱动程序，
-请按照[配置 cgroup 驱动程序](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)操作。
+请按照[配置 cgroup 驱动程序](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)操作。
 
 ## CRI 版本支持 {#cri-versions}
 
@@ -388,7 +388,7 @@ When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 -->
 当使用 kubeadm 时，请手动配置
-[kubelet 的 cgroup 驱动](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
+[kubelet 的 cgroup 驱动](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 
 ### CRI-O
 
@@ -495,6 +495,6 @@ Check the systemd unit named `cri-docker.socket` to find out the path to the CRI
 As well as a container runtime, your cluster will need a working [network plugin](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
 -->
 
-除了容器运行时，你的集群还需要有效的[网络插件](/zh/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)。
+除了容器运行时，你的集群还需要有效的[网络插件](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)。
 
 
