@@ -74,8 +74,8 @@ for the version you are using.
 The tutorial also uses the `curl` tool for downloading examples to your computer.
 You can adapt the steps to use a different tool if you prefer.
 -->
-为了完成本篇教程中的所有步骤，你必须安装 [kind](/zh/docs/tasks/tools/#kind)
-和 [kubectl](/zh/docs/tasks/tools/#kubectl)。
+为了完成本篇教程中的所有步骤，你必须安装 [kind](/zh-cn/docs/tasks/tools/#kind)
+和 [kubectl](/zh-cn/docs/tasks/tools/#kubectl)。
 
 本篇教程演示的某些示例仍然是 alpha 状态（自 v1.22 起），另一些示例则仅使用 seccomp 正式发布的功能。
 你应该确保，针对你使用的版本，
@@ -257,8 +257,8 @@ well as corresponding `--seccomp-default`
 [command line flag](/docs/reference/command-line-tools-reference/kubelet).
 Both have to be enabled simultaneously to use the feature.
 -->
-`SeccompDefault` 是一个可选的 kubelet [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates)
-以及相应的 `--seccomp-default` [命令行标志](/zh/docs/reference/command-line-tools-reference/kubelet)。
+`SeccompDefault` 是一个可选的 kubelet [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates)
+以及相应的 `--seccomp-default` [命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kubelet)。
 两者必须同时启用才能使用该功能。
 
 <!-- 
@@ -732,7 +732,7 @@ type in the security context of a pod or container to `RuntimeDefault`.
 If you have the `SeccompDefault` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
 no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
 -->
-如果你已经启用了 `SeccompDefault` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+如果你已经启用了 `SeccompDefault` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 只要没有指定其他 seccomp 配置文件，那么 Pod 就会使用 `SeccompDefault` 的 seccomp 配置文件。
 否则，默认值为 `Unconfined`。
 {{< /note >}}
