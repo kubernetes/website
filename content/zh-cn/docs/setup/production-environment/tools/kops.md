@@ -47,7 +47,7 @@ kops 是一个自动化的制备系统：
 
 * You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them. The IAM user will need [adequate permissions](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
 -->
-* 你必须安装 [kubectl](/zh/docs/tasks/tools/)。 
+* 你必须安装 [kubectl](/zh-cn/docs/tasks/tools/)。 
 * 你必须安装[安装](https://github.com/kubernetes/kops#installing) `kops`
   到 64 位的（AMD64 和 Intel 64）设备架构上。
 * 你必须拥有一个 [AWS 账户](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html)，
@@ -395,7 +395,7 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 -->
 ### 探索其他附加组件
 
-请参阅[附加组件列表](/zh/docs/concepts/cluster-administration/addons/)探索其他附加组件，
+请参阅[附加组件列表](/zh-cn/docs/concepts/cluster-administration/addons/)探索其他附加组件，
 包括用于 Kubernetes 集群的日志记录、监视、网络策略、可视化和控制的工具。
 
 <!--
@@ -414,8 +414,8 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 * Learn about `kops` [advanced usage](https://github.com/kubernetes/kops)
 * See the `kops` [docs](https://github.com/kubernetes/kops) section for tutorials, best practices and advanced configuration options.
 -->
-* 了解有关 Kubernetes 的[概念](/zh/docs/concepts/) 和
-  [`kubectl`](/zh/docs/reference/kubectl/) 有关的更多信息。
+* 了解有关 Kubernetes 的[概念](/zh-cn/docs/concepts/) 和
+  [`kubectl`](/zh-cn/docs/reference/kubectl/) 有关的更多信息。
 * 了解 `kops` [高级用法](https://github.com/kubernetes/kops)。
 * 请参阅 `kops` [文档](https://github.com/kubernetes/kops) 获取教程、
   最佳做法和高级配置选项。
