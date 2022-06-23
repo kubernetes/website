@@ -73,7 +73,7 @@ To use `cgroupfs` and to prevent `kubeadm upgrade` from modifying the
 about its value. This applies to a case where you do not wish future versions
 of kubeadm to apply the `systemd` driver by default.
 
-See the below section on "[Modify the kubelet ConfigMap](#modify-kubelet-configmap)" for details on
+See the below section on "[Modify the kubelet ConfigMap](#modify-the-kubelet-configmap)" for details on
 how to be explicit about the value.
 
 If you wish to configure a container runtime to use the `cgroupfs` driver,
@@ -92,7 +92,7 @@ before joining the new nodes and ensuring the workloads can safely move to the n
 nodes before deleting the old nodes.
 {{< /note >}}
 
-### Modify the kubelet ConfigMap  {#modify-kubelet-configmap}
+### Modify the kubelet ConfigMap  {#modify-the-kubelet-configmap}
 
 - Call `kubectl edit cm kubelet-config -n kube-system`.
 - Either modify the existing `cgroupDriver` value or add a new field that looks like this:
