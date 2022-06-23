@@ -81,5 +81,5 @@ For in-tree cloud providers, you can run the in-tree cloud controller manager as
 -->
 对于树内（In-Tree）驱动，你可以将树内云控制器管理器作为集群中的
 {{< glossary_tooltip term_id="daemonset" text="DaemonSet" >}} 来运行。
-有关详细信息，请参阅[云控制器管理器管理](/zh/docs/tasks/administer-cluster/running-cloud-controller/)。
+有关详细信息，请参阅[云控制器管理器管理](/zh-cn/docs/tasks/administer-cluster/running-cloud-controller/)。
 

@@ -27,7 +27,7 @@ Kubernetes cluster.
 -->
 * 本指南假设你的节点使用 AMD64 或 Intel 64 CPU 架构
 
-* 确保已启用 [DNS 功能](/zh/docs/concepts/services-networking/dns-pod-service/)本身。
+* 确保已启用 [DNS 功能](/zh-cn/docs/concepts/services-networking/dns-pod-service/)本身。
 
 * 建议使用 Kubernetes 1.4.0 或更高版本。
 
@@ -412,6 +412,6 @@ patterns: *linear* and *ladder*.
 [implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
 
 -->
-* 阅读[为关键插件 Pod 提供的调度保障](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)
+* 阅读[为关键插件 Pod 提供的调度保障](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)
 * 进一步了解 [cluster-proportional-autoscaler 实现](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)
 
