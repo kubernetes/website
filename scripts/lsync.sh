@@ -7,7 +7,7 @@ if [ "$#" -ne 1 ] ; then
   echo -e "\nThis script checks if the English version of a page has changed since a " >&2
   echo -e "localized page has been committed.\n" >&2
   echo -e "Usage:\n\t$0 <PATH>\n" >&2
-  echo -e "Example:\n\t$0 content/zh/docs/concepts/_index.md\n" >&2
+  echo -e "Example:\n\t$0 content/zh-cn/docs/concepts/_index.md\n" >&2
   exit 1
 fi
 

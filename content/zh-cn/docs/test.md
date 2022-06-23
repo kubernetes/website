@@ -503,10 +503,10 @@ You can also use HTML, but it is not preferred.
 
 - 指向 Kubernetes 文档的站内链接，需要在英文链接之前添加前缀 `/zh`。
   例如，原链接目标为 `/docs/foo/bar` 时，译文中的链接目标应为
-  `/zh/docs/foo/bar`。例如：
+  `/zh-cn/docs/foo/bar`。例如：
 
   - 英文版本链接 [Kubernetes Components](/docs/concepts/overview/components/)
-  - 对应中文链接 [Kubernetes 组件](/zh/docs/concepts/overview/components/)
+  - 对应中文链接 [Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)
 
 - 英文页面子标题会生成对应锚点（Anchor），例如子标题 `## Using object` 会生成
   对应标签 `#using-objects`。在翻译为中文之后，对应锚点可能会失效。对此，有
