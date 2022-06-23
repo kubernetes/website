@@ -117,7 +117,7 @@ fail validation.
 			</td> -->
 			<td>
 				<p>Windows Pod 提供了运行
-         <a href="/zh/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess 容器</a> 的能力，
+         <a href="/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess 容器</a> 的能力，
          这使得对 Windows 节点的特权访问成为可能。 
          基线策略中对宿主的特权访问是被禁止的。 
          HostProcess Pod 是 Kubernetes <strong>v1.22</strong> 版本的
@@ -833,13 +833,13 @@ of individual policies are not defined here.
 
 随着相关机制的成熟，这些机制会按策略分别定义在下面。特定策略的实施方法不在这里定义。
 
-[**Pod 安全性准入控制器**](/zh/docs/concepts/security/pod-security-admission/)
+[**Pod 安全性准入控制器**](/zh-cn/docs/concepts/security/pod-security-admission/)
 
 - {{< example file="security/podsecurity-privileged.yaml" >}}Privileged 名字空间{{< /example >}}
 - {{< example file="security/podsecurity-baseline.yaml" >}}Baseline 名字空间{{< /example >}}
 - {{< example file="security/podsecurity-restricted.yaml" >}}Restricted 名字空间{{< /example >}}
 
-[**PodSecurityPolicy**](/zh/docs/concepts/security/pod-security-policy/) （已弃用）
+[**PodSecurityPolicy**](/zh-cn/docs/concepts/security/pod-security-policy/) （已弃用）
 
 - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
 - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
@@ -896,7 +896,7 @@ in the Pod manifest, and represent parameters to the container runtime.
 -->
 ### 安全策略与安全上下文的区别是什么？
 
-[安全上下文](/zh/docs/tasks/configure-pod-container/security-context/)在运行时配置 Pod
+[安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)在运行时配置 Pod
 和容器。安全上下文是在 Pod 清单中作为 Pod 和容器规约的一部分来定义的，
 所代表的是传递给容器运行时的参数。
 
@@ -908,8 +908,8 @@ built-in [Pod Security Admission Controller](/docs/concepts/security/pod-securit
 -->
 安全策略则是控制面用来对安全上下文以及安全性上下文之外的参数实施某种设置的机制。
 在 2020 年 7 月，
-[Pod 安全性策略](/zh/docs/concepts/security/pod-security-policy/)已被废弃，
-取而代之的是内置的 [Pod 安全性准入控制器](/zh/docs/concepts/security/pod-security-admission/)。
+[Pod 安全性策略](/zh-cn/docs/concepts/security/pod-security-policy/)已被废弃，
+取而代之的是内置的 [Pod 安全性准入控制器](/zh-cn/docs/concepts/security/pod-security-admission/)。
 
 <!--
 ### What profiles should I apply to my Windows Pods?
@@ -923,7 +923,7 @@ such, no standardized Pod Security profiles currently exists.
 
 Kubernetes 中的 Windows 负载与标准的基于 Linux 的负载相比有一些局限性和区别。
 尤其是 Pod SecurityContext
-字段[对 Windows 不起作用](/zh/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext)。
+字段[对 Windows 不起作用](/zh-cn/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext)。
 因此，目前没有对应的标准 Pod 安全性框架。
 
 <!-- 

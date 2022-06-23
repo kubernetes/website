@@ -56,7 +56,7 @@ can be specified for Windows Pods or containers to execute the container
 processes as specific user. This is roughly equivalent to
 [RunAsUser](/docs/concepts/policy/pod-security-policy/#users-and-groups).
 -->
-可以为 Windows Pod 或容器指定 [RunAsUsername](/zh/docs/tasks/configure-pod-container/configure-runasusername)
+可以为 Windows Pod 或容器指定 [RunAsUsername](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername)
 以作为特定用户执行容器进程。这大致相当于 [RunAsUser](/zh-cn/docs/concepts/security/pod-security-policy/#users-and-groups)。
 
 <!--
@@ -86,7 +86,7 @@ Local users can be added to container images during the container build process.
 <!--
 Windows containers can also run as Active Directory identities by utilizing [Group Managed Service Accounts](/docs/tasks/configure-pod-container/configure-gmsa/)
 -->
-Windows 容器还可以通过使用[组管理的服务账号](/zh/docs/tasks/configure-pod-container/configure-gmsa/)作为
+Windows 容器还可以通过使用[组管理的服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/)作为
 Active Directory 身份运行。
 
 <!--

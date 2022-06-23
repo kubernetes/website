@@ -24,9 +24,9 @@ For more information on the deprecation,
 see [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
 -->
 PodSecurityPolicy 在 Kubernetes v1.21 版本中被弃用，**将在 v1.25 中删除**。
-我们建议迁移到 [Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission)，
+我们建议迁移到 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission)，
 或者第三方的准入插件。
-若需了解迁移指南，可参阅[从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器](/zh/docs/tasks/configure-pod-container/migrate-from-psp/)。
+若需了解迁移指南，可参阅[从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器](/zh-cn/docs/tasks/configure-pod-container/migrate-from-psp/)。
 关于弃用的更多信息，请查阅 [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)。
 {{< /caution >}}
 
@@ -107,8 +107,8 @@ cluster.
 -->
 ## 启用 Pod 安全策略   {#enabling-pod-security-policies}
 
-Pod 安全策略实现为一种可选的[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy)。
-[启用了准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in)即可强制实施
+Pod 安全策略实现为一种可选的[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy)。
+[启用了准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in)即可强制实施
 Pod 安全策略，不过如果没有授权认可策略之前即启用准入控制器 **将导致集群中无法创建任何 Pod**。
 
 <!--
@@ -132,7 +132,7 @@ must be authorized to use the policy, by allowing the `use` verb on the policy.
 
 PodSecurityPolicy 资源被创建时，并不执行任何操作。为了使用该资源，
 需要对发出请求的用户或者目标 Pod
-的[服务账号](/zh/docs/tasks/configure-pod-container/configure-service-account/)授权，
+的[服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)授权，
 通过允许其对策略执行 `use` 动词允许其使用该策略。
 
 <!--
@@ -146,8 +146,8 @@ so the preferred method for authorizing policies is to grant access to the
 pod's service account (see [example](#run-another-pod)).
 -->
 大多数 Kubernetes Pod 不是由用户直接创建的。相反，这些 Pod 是由
-[Deployment](/zh/docs/concepts/workloads/controllers/deployment/)、
-[ReplicaSet](/zh/docs/concepts/workloads/controllers/replicaset/)
+[Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)、
+[ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
 或者经由控制器管理器模版化的控制器创建。
 赋予控制器访问策略的权限意味着对应控制器所创建的 *所有* Pod 都可访问策略。
 因此，对策略进行授权的优先方案是为 Pod 的服务账号授予访问权限
@@ -164,7 +164,7 @@ policies. The rules to grant access look like this:
 -->
 ### 通过 RBAC 授权   {#via-rbac}
 
-[RBAC](/zh/docs/reference/access-authn-authz/rbac/) 是一种标准的 Kubernetes
+[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 是一种标准的 Kubernetes
 鉴权模式，可以很容易地用来授权策略访问。
 
 首先，某 `Role` 或 `ClusterRole` 需要获得使用 `use` 访问目标策略的权限。
@@ -272,7 +272,7 @@ For more examples of RBAC bindings, see
 [Role Binding Examples](/docs/reference/access-authn-authz/rbac#role-binding-examples).
 For a complete example of authorizing a PodSecurityPolicy, see [below](#example).
 -->
-参阅[角色绑定示例](/zh/docs/reference/access-authn-authz/rbac#role-binding-examples)查看
+参阅[角色绑定示例](/zh-cn/docs/reference/access-authn-authz/rbac#role-binding-examples)查看
 RBAC 绑定的更多实例。
 参阅[下文](#example)，查看对 PodSecurityPolicy 进行授权的完整示例。
 
@@ -303,7 +303,7 @@ PodSecurityPolicy 正在被一个新的、简化的 `PodSecurity`
    - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
 -->
 1. 将 PodSecurityPolicies 限制为
-   [Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards)所定义的策略：
+   [Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards)所定义的策略：
 
    - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
    - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
@@ -371,9 +371,9 @@ PodSecurityPolicy 正在被一个新的、简化的 `PodSecurity`
 -->
 ### 故障排查   {#troubleshooting}
 
-- [控制器管理器组件](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
+- [控制器管理器组件](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
   必须运行在安全的 API 端口之上，并且不能拥有超级用户的访问权限。
-  参阅[控制 Kubernetes API 的访问](/zh/docs/concepts/security/controlling-access)以了解
+  参阅[控制 Kubernetes API 的访问](/zh-cn/docs/concepts/security/controlling-access)以了解
   API 服务器的访问控制。
 
   如果控制器管理器通过可信的 API 端口连接（也称作 `localhost` 监听组件），
@@ -381,7 +381,7 @@ PodSecurityPolicy 正在被一个新的、简化的 `PodSecurity`
   用户亦能授予自身创建特权容器的特权。
 
   关于配置控制器管理器鉴权的进一步细节，
-  请参阅[控制器角色](/zh/docs/reference/access-authn-authz/rbac/#controller-roles)。
+  请参阅[控制器角色](/zh-cn/docs/reference/access-authn-authz/rbac/#controller-roles)。
 
 <!--
 ## Policy Order
@@ -467,7 +467,7 @@ The name of a PodSecurityPolicy object must be a valid
 在一个文件中定义一个示例的 PodSecurityPolicy 对象。
 这里的策略只是用来禁止创建有特权要求的 Pods。
 PodSecurityPolicy 对象的名称必须是合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 {{< codenew file="policy/example-psp.yaml" >}}
 
@@ -794,7 +794,7 @@ several security mechanisms.
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/#policy-instantiation) for more examples.
 -->
 更多的示例可参考
-[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/#policy-instantiation)。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/#policy-instantiation)。
 
 <!--
 ## Policy Reference
@@ -868,7 +868,7 @@ The **recommended minimum set** of allowed volumes for new PSPs are:
 ### 卷和文件系统   {#volumes-and-file-systems}
 
 **Volumes** - 提供一组被允许的卷类型列表。可被允许的值对应于创建卷时可以设置的卷来源。
-卷类型的完整列表可参见[卷类型](/zh/docs/concepts/storage/volumes/#types-of-volumes)。
+卷类型的完整列表可参见[卷类型](/zh-cn/docs/concepts/storage/volumes/#types-of-volumes)。
 此外，`*` 可以用来允许所有卷类型。
 
 对于新的 Pod 安全策略设置而言，建议设置的卷类型的**最小列表**包含：
@@ -1235,7 +1235,7 @@ documentation](/docs/tutorials/policy/apparmor/#podsecuritypolicy-annotations).
 
 通过 PodSecurityPolicy 上的注解来控制。
 详情请参阅
-[AppArmor 文档](/zh/docs/tutorials/policy/apparmor/#podsecuritypolicy-annotations)。
+[AppArmor 文档](/zh-cn/docs/tutorials/policy/apparmor/#podsecuritypolicy-annotations)。
 
 
 <!--
@@ -1255,7 +1255,7 @@ are:
 ### Seccomp
 
 从 Kubernetes v1.19 开始，你可以使用 Pod 或容器的 `securityContext` 中的 `seccompProfile`
-字段来[控制 seccomp 配置的使用](/zh/docs/tutorials/security/seccomp/)。
+字段来[控制 seccomp 配置的使用](/zh-cn/docs/tutorials/security/seccomp/)。
 在更早的版本中，seccomp 是通过为 Pod 添加注解来控制的。
 相同的 PodSecurityPolicy 可以用于不同版本，进而控制如何应用对应的字段或注解。
 
@@ -1336,7 +1336,7 @@ By default, all safe sysctls are allowed.
 <!--
 Refer to the [Sysctl documentation](/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy).
 -->
-参阅 [Sysctl 文档](/zh/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)。
+参阅 [Sysctl 文档](/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -1353,7 +1353,7 @@ Refer to the [Sysctl documentation](/docs/tasks/administer-cluster/sysctl-cluste
   Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)，
   了解 Pod 安全策略的未来。
 
-- 参阅[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)，
+- 参阅[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)，
   了解策略建议。
 - 阅读 [Pod 安全策略参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)，
   了解 API 细节。

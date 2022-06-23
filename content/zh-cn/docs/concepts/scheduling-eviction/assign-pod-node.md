@@ -30,7 +30,7 @@ services that communicate a lot into the same availability zone.
 你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 只能在特定的{{< glossary_tooltip text="节点" term_id="node" >}}上运行。
 有几种方法可以实现这点，推荐的方法都是用
-[标签选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)来进行选择。
+[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来进行选择。
 通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 Pod 分散到节点上，
 而不是将 Pod 放置在可用资源不足的节点上等等）。但在某些情况下，你可能需要进一步控制
 Pod 被部署到的节点。例如，确保 Pod 最终落在连接了 SSD 的机器上，
@@ -62,10 +62,10 @@ for a list of common node labels.
 -->
 ## 节点标签     {#built-in-node-labels}
 
-与很多其他 Kubernetes 对象类似，节点也有[标签](/zh/docs/concepts/overview/working-with-objects/labels/)。
-你可以[手动地添加标签](/zh/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)。
+与很多其他 Kubernetes 对象类似，节点也有[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。
+你可以[手动地添加标签](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)。
 Kubernetes 也会为集群中所有节点添加一些标准的标签。
-参见[常用的标签、注解和污点](/zh/docs/reference/labels-annotations-taints/)以了解常见的节点标签。
+参见[常用的标签、注解和污点](/zh-cn/docs/reference/labels-annotations-taints/)以了解常见的节点标签。
 
 {{< note >}}
 <!--
@@ -108,7 +108,7 @@ prevents the kubelet from setting or modifying labels with a
 
 To make use of that label prefix for node isolation:
 -->
-[`NodeRestriction` 准入插件](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)防止
+[`NodeRestriction` 准入插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)防止
 kubelet 使用 `node-restriction.kubernetes.io/` 前缀设置或修改标签。
 
 要使用该标签前缀进行节点隔离：
@@ -118,8 +118,8 @@ kubelet 使用 `node-restriction.kubernetes.io/` 前缀设置或修改标签。
 2. Add labels with the `node-restriction.kubernetes.io/` prefix to your nodes, and use those labels in your [node selectors](#nodeselector).
    For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.com.node-restriction.kubernetes.io/pci-dss=true`.
 -->
-1. 确保你在使用[节点鉴权](/zh/docs/reference/access-authn-authz/node/)机制并且已经启用了
-   [NodeRestriction 准入插件](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)。
+1. 确保你在使用[节点鉴权](/zh-cn/docs/reference/access-authn-authz/node/)机制并且已经启用了
+   [NodeRestriction 准入插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)。
 2. 将带有 `node-restriction.kubernetes.io/` 前缀的标签添加到 Node 对象，
    然后在[节点选择器](#nodeSelector)中使用这些标签。
    例如，`example.com.node-restriction.kubernetes.io/fips=true` 或
@@ -142,7 +142,7 @@ Kubernetes 只会将 Pod 调度到拥有你所指定的每个标签的节点上�
 See [Assign Pods to Nodes](/docs/tasks/configure-pod-container/assign-pods-nodes) for more
 information.
 -->
-进一步的信息可参见[将 Pod 指派给节点](/zh/docs/tasks/configure-pod-container/assign-pods-nodes)。
+进一步的信息可参见[将 Pod 指派给节点](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes)。
 
 <!--
 ## Affinity and anti-affinity
@@ -247,7 +247,7 @@ Alternatively, you can use [node taints](/docs/concepts/scheduling-eviction/tain
 to repel Pods from specific nodes.
 -->
 `NotIn` 和 `DoesNotExist` 可用来实现节点反亲和性行为。
-你也可以使用[节点污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)
+你也可以使用[节点污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)
 将 Pod 从特定节点上驱逐。
 
 {{< note >}}
@@ -279,7 +279,7 @@ satisfied.
 See [Assign Pods to Nodes using Node Affinity](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)
 for more information.
 -->
-参阅[使用节点亲和性来为 Pod 指派节点](/zh/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)，
+参阅[使用节点亲和性来为 Pod 指派节点](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)，
 以了解进一步的信息。
 
 <!--
@@ -345,11 +345,11 @@ a profile with a Node affinity, which is useful if a profile only applies to a s
 To do so, add an `addedAffinity` to the `args` field  of the [`NodeAffinity` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
 in the [scheduler configuration](/docs/reference/scheduling/config/). For example:
 -->
-在配置多个[调度方案](/zh/docs/reference/scheduling/config/#multiple-profiles)时，
+在配置多个[调度方案](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)时，
 你可以将某个方案与节点亲和性关联起来，如果某个调度方案仅适用于某组特殊的节点时，
 这样做是很有用的。
-要实现这点，可以在[调度器配置](/zh/docs/reference/scheduling/config/)中为
-[`NodeAffinity` 插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)的
+要实现这点，可以在[调度器配置](/zh-cn/docs/reference/scheduling/config/)中为
+[`NodeAffinity` 插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)的
 `args` 字段添加 `addedAffinity`。例如：
 
 ```yaml
@@ -397,7 +397,7 @@ does not support scheduling profiles. When the DaemonSet controller creates
 Pods, the default Kubernetes scheduler places those Pods and honors any
 `nodeAffinity` rules in the DaemonSet controller.
 -->
-DaemonSet 控制器[为 DaemonSet 创建 Pods](/zh/docs/concepts/workloads/controllers/daemonset/#scheduled-by-default-scheduler)，
+DaemonSet 控制器[为 DaemonSet 创建 Pods](/zh-cn/docs/concepts/workloads/controllers/daemonset/#scheduled-by-default-scheduler)，
 但该控制器不理会调度方案。
 DaemonSet 控制器创建 Pod 时，默认的 Kubernetes 调度器负责放置 Pod，
 并遵从 DaemonSet 控制器中奢侈的 `nodeAffinity` 规则。
@@ -434,7 +434,7 @@ Kubernetes, so Pod labels also implicitly have namespaces. Any label selectors
 for Pod labels should specify the namespaces in which Kubernetes should look for those
 labels.
 -->
-你通过[标签选择算符](/zh/docs/concepts/overview/working-with-objects/labels/#label-selectors)
+你通过[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 的形式来表达规则（Y），并可根据需要指定选关联的名字空间列表。
 Pod 在 Kubernetes 中是名字空间作用域的对象，因此 Pod 的标签也隐式地具有名字空间属性。
 针对 Pod 标签的所有标签选择算符都要指定名字空间，Kubernetes
@@ -446,7 +446,7 @@ the node label that the system uses to denote the domain. For examples, see
 [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/).
 -->
 你会通过 `topologyKey` 来表达拓扑域（X）的概念，其取值是系统用来标示域的节点标签键。
-相关示例可参见[常用标签、注解和污点](/zh/docs/reference/labels-annotations-taints/)。
+相关示例可参见[常用标签、注解和污点](/zh-cn/docs/reference/labels-annotations-taints/)。
 
 {{< note >}}
 <!--
@@ -740,7 +740,7 @@ See the [ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tol
 for an example of a StatefulSet configured with anti-affinity for high
 availability, using the same technique as this example.
 -->
-参阅 [ZooKeeper 教程](/zh/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
+参阅 [ZooKeeper 教程](/zh-cn/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
 了解一个 StatefulSet 的示例，该 StatefulSet 配置了反亲和性以实现高可用，
 所使用的是与此例相同的技术。
 
@@ -810,11 +810,11 @@ The above Pod will only run on the node `kube-01`.
 * Learn how to use [nodeSelector](/docs/tasks/configure-pod-container/assign-pods-nodes/).
 * Learn how to use [affinity and anti-affinity](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/).
 -->
-* 进一步阅读[污点与容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)文档。
+* 进一步阅读[污点与容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)文档。
 * 阅读[节点亲和性](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
   和[Pod 间亲和性与反亲和性](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
   的设计文档。
-* 了解[拓扑管理器](/zh/docs/tasks/administer-cluster/topology-manager/)如何参与节点层面资源分配决定。
-* 了解如何使用 [nodeSelector](/zh/docs/tasks/configure-pod-container/assign-pods-nodes/)。
-* 了解如何使用[亲和性和反亲和性](/zh/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)。
+* 了解[拓扑管理器](/zh-cn/docs/tasks/administer-cluster/topology-manager/)如何参与节点层面资源分配决定。
+* 了解如何使用 [nodeSelector](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/)。
+* 了解如何使用[亲和性和反亲和性](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)。
 
