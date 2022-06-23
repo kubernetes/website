@@ -72,7 +72,7 @@ As a result, the following storage functionality is not supported on Windows nod
 * 块设备映射
 * 内存作为存储介质（例如 `emptyDir.medium` 设置为 `Memory`）
 * 类似 UID/GID、各用户不同的 Linux 文件系统访问许可等文件系统特性
-* 使用 [DefaultMode 设置 Secret 权限](/zh/docs/concepts/configuration/secret/#secret-files-permissions)
+* 使用 [DefaultMode 设置 Secret 权限](/zh-cn/docs/concepts/configuration/secret/#secret-files-permissions)
   （因为该特性依赖 UID/GID）
 * 基于 NFS 的存储和卷支持
 * 扩展已挂载卷（resizefs）
@@ -97,7 +97,7 @@ Volume management components are shipped as Kubernetes volume
 [plugin](/docs/concepts/storage/volumes/#types-of-volumes).
 The following broad classes of Kubernetes volume plugins are supported on Windows:
 -->
-卷管理组件作为 Kubernetes 卷[插件](/zh/docs/concepts/storage/volumes/#types-of-volumes)发布。
+卷管理组件作为 Kubernetes 卷[插件](/zh-cn/docs/concepts/storage/volumes/#types-of-volumes)发布。
 Windows 支持以下类型的 Kubernetes 卷插件：
 
 <!--
@@ -105,9 +105,9 @@ Windows 支持以下类型的 Kubernetes 卷插件：
   * Please note that FlexVolumes have been deprecated as of 1.23
 * [`CSI Plugins`](/docs/concepts/storage/volumes/#csi)
 -->
-* [`FlexVolume plugins`](/zh/docs/concepts/storage/volumes/#flexVolume)
+* [`FlexVolume plugins`](/zh-cn/docs/concepts/storage/volumes/#flexVolume)
   * 请注意自 1.23 版本起，FlexVolume 已被弃用
-* [`CSI Plugins`](/zh/docs/concepts/storage/volumes/#csi)
+* [`CSI Plugins`](/zh-cn/docs/concepts/storage/volumes/#csi)
 
 <!--
 ##### In-tree volume plugins
@@ -125,8 +125,8 @@ The following in-tree plugins support persistent storage on Windows nodes:
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume)
 -->
-* [`awsElasticBlockStore`](/zh/docs/concepts/storage/volumes/#awselasticblockstore)
-* [`azureDisk`](/zh/docs/concepts/storage/volumes/#azuredisk)
-* [`azureFile`](/zh/docs/concepts/storage/volumes/#azurefile)
-* [`gcePersistentDisk`](/zh/docs/concepts/storage/volumes/#gcepersistentdisk)
-* [`vsphereVolume`](/zh/docs/concepts/storage/volumes/#vspherevolume)
+* [`awsElasticBlockStore`](/zh-cn/docs/concepts/storage/volumes/#awselasticblockstore)
+* [`azureDisk`](/zh-cn/docs/concepts/storage/volumes/#azuredisk)
+* [`azureFile`](/zh-cn/docs/concepts/storage/volumes/#azurefile)
+* [`gcePersistentDisk`](/zh-cn/docs/concepts/storage/volumes/#gcepersistentdisk)
+* [`vsphereVolume`](/zh-cn/docs/concepts/storage/volumes/#vspherevolume)
