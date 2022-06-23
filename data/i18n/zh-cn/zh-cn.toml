@@ -1,4 +1,4 @@
-# i18n strings for the Chinese version of the site (https://kubernetes.io/zh/)
+# i18n strings for the Chinese version of the site (https://kubernetes.io/zh-cn/)
 # 注意：修改此文件时请维持字符串名称的字母顺序并与英文版保持一致
 
 [caution]
@@ -38,7 +38,7 @@ other = " 版本的文档已不再维护。您现在看到的版本来自于一�
 other = "已过时"
 
 [dockershim_message]
-other = """自 1.24 版起，Dockershim 已从 Kubernetes 项目中移除。阅读 <a href="/zh/dockershim">Dockershim 移除的常见问题</a>了解更多详情。"""
+other = """自 1.24 版起，Dockershim 已从 Kubernetes 项目中移除。阅读 <a href="/zh-cn/dockershim">Dockershim 移除的常见问题</a>了解更多详情。"""
 
 [docs_label_browse]
 other = "浏览文档"
@@ -255,7 +255,7 @@ other="""第三方内容建议"""
 other = """&#128711; 本条目指向第三方项目或产品，而该项目（产品）不是 Kubernetes 的一部分。<a class="alert-more-info" href="#third-party-content-disclaimer">更多信息</a>"""
 
 [thirdparty_message_disclaimer]
-other = """<p>本页面中的条目引用了第三方产品或项目，这些产品（项目）提供了 Kubernetes 所需的功能。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。请参阅<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 网站指南</a>了解更多细节。</p><p>在提交更改建议，向本页添加新的第三方链接之前，你应该先阅读<a href="/zh/docs/contribute/style/content-guide/#third-party-content">内容指南。</p>"""
+other = """<p>本页面中的条目引用了第三方产品或项目，这些产品（项目）提供了 Kubernetes 所需的功能。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。请参阅<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 网站指南</a>了解更多细节。</p><p>在提交更改建议，向本页添加新的第三方链接之前，你应该先阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南。</p>"""
 
 [ui_search_placeholder]
 other = "搜索"

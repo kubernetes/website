@@ -58,9 +58,9 @@ For more information, see the Kubernetes [patch releases](/releases/patch-releas
 适当的修复，包括安全问题修复，可能会被后沿三个发布分支，具体取决于问题的严重性和可行性。
 补丁版本按[常规节奏](https://kubernetes.io/releases/patch-releases/#cadence)从这些分支中删除，并在需要时增加额外的紧急版本。
 
-[发布管理员](/zh/releases/release-managers/)小组拥有这件事的决定权。
+[发布管理员](/zh-cn/releases/release-managers/)小组拥有这件事的决定权。
 
-有关更多信息，请参阅 Kubernetes [补丁发布](/zh/releases/patch-releases/)页面。
+有关更多信息，请参阅 Kubernetes [补丁发布](/zh-cn/releases/patch-releases/)页面。
 
 <!-- 
 ## Supported version skew
@@ -78,7 +78,7 @@ Example:
 
 ### kube-apiserver  {#kube-apiserver}
 
-在[高可用性（HA）集群](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)中，
+在[高可用性（HA）集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)中，
 最新版和最老版的 `kube-apiserver` 实例版本偏差最多为一个次要版本。
 
 例如：
@@ -255,7 +255,7 @@ Pre-requisites:
 * 已注册的 admission webhook 能够处理新的 `kube-apiserver` 实例将发送给他们的数据：
   * `ValidatingWebhookConfiguration` 和 `MutatingWebhookConfiguration`
     对象已更新以包含 **{{< skew currentVersion >}}** 中添加的任何新版本的 REST 资源
-    （或使用 v1.15+ 中可用的 [`matchPolicy: Equivalent` 选项](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy)）
+    （或使用 v1.15+ 中可用的 [`matchPolicy: Equivalent` 选项](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy)）
   * webhook 能够处理将发送给它们的任何新版本的 REST 资源，
     以及添加到 **{{< skew currentVersion >}}** 中现有版本的任何新字段
 
@@ -270,7 +270,7 @@ Project policies for [API deprecation](/docs/reference/using-api/deprecation-pol
 [API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 -->
-[API 弃用](/zh/docs/reference/using-api/deprecation-policy/)和
+[API 弃用](/zh-cn/docs/reference/using-api/deprecation-policy/)和
 [API 变更指南](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
 的项目策略要求 `kube-apiserver` 在升级时不跳过次要版本，即使在单实例集群中也是如此。
 {{< /note >}}
@@ -318,7 +318,7 @@ Optionally upgrade `kubelet` instances to **{{< skew currentVersion >}}** (or th
 Before performing a minor version `kubelet` upgrade, [drain](/docs/tasks/administer-cluster/safely-drain-node/) pods from that node.
 In-place minor version `kubelet` upgrades are not supported.
 -->
-在执行次要版本 `kubelet` 升级之前，[排空](/zh/docs/tasks/administer-cluster/safely-drain-node/)该节点的 Pod。
+在执行次要版本 `kubelet` 升级之前，[排空](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)该节点的 Pod。
 `kubelet` 不支持原地次要版本升级。
 {{</ note >}}
 
