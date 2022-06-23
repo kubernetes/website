@@ -83,7 +83,7 @@ data 字段值的总字节必须小于 MaxSecretSize 字节。
   
   用于满足程序化方式处理秘密数据。
   更多信息：
-  https://kubernetes.io/zh/docs/concepts/configuration/secret/#secret-types
+  https://kubernetes.io/zh-cn/docs/concepts/configuration/secret/#secret-types
 
 ## SecretList {#SecretList}
 
@@ -117,7 +117,7 @@ SecretList 是 Secret 的列表。
   
   items 是 Secret 对象的列表。
   更多信息：
-  https://kubernetes.io/zh/docs/concepts/configuration/secret
+  https://kubernetes.io/zh-cn/docs/concepts/configuration/secret
 
 <!--
 ## Operations {#Operations}
