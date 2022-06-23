@@ -32,7 +32,7 @@ reviewers:
 クラウドプロバイダーによっては、`Node Problem Detector`を{{< glossary_tooltip text="Addon" term_id="addons" >}}として有効にしている場合があります。
 また、`kubectl`を使って`Node Problem Detector`を有効にするか、`Addon pod`を作成することで有効にできます。
 
-### kubectlを使用してNodしますroblem Detectorを有効にします {#using-kubectl}
+### kubectlを使用してNode Problem Detectorを有効化します {#using-kubectl}
 
 `kubectl`は`Node Problem Detector`を最も柔軟に管理することができます。
 デフォルトの設定を上書きして自分の環境に合わせたり、カスタマイズしたノードの問題を検出したりすることができます。
