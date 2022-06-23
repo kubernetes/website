@@ -89,7 +89,7 @@ dependency on Docker:
    cluster before migration.
 -->
 4. 检查执行上述特权操作的第三方工具。
-   详细操作请参考[从 dockershim 迁移遥测和安全代理](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents)。
+   详细操作请参考[从 dockershim 迁移遥测和安全代理](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents)。
 5. 确认没有对 dockershim 行为的间接依赖。这是一种极端情况，不太可能影响你的应用。
    一些工具很可能被配置为使用了 Docker 特性，比如，基于特定指标发警报，
    或者在故障排查指令的一个环节中搜索特定的日志信息。
@@ -107,7 +107,7 @@ and scheduling of Pods; on each node, the {{< glossary_tooltip text="kubelet" te
 uses the container runtime interface as an abstraction so that you can use any compatible
 container runtime.
  -->
-[容器运行时](/zh/docs/concepts/containers/#container-runtimes)是一个软件，
+[容器运行时](/zh-cn/docs/concepts/containers/#container-runtimes)是一个软件，
 用来运行组成 Kubernetes Pod 的容器。
 Kubernetes 负责编排和调度 Pod；在每一个节点上，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
 使用抽象的容器运行时接口，所以你可以任意选用兼容的容器运行时。
@@ -130,7 +130,7 @@ dockershim 适配器允许 kubelet 与 Docker 交互，就好像 Docker 是一�
 You can read about it in [Kubernetes Containerd integration goes GA](/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/) blog post.
  -->
 你可以阅读博文
-[Kubernetes 正式支持集成 Containerd](/zh/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/)。
+[Kubernetes 正式支持集成 Containerd](/zh-cn/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/)。
 
 <!-- Dockershim vs. CRI with Containerd -->
 ![Dockershim 和 Containerd CRI 的实现对比图](/images/blog/2018-05-24-kubernetes-containerd-integration-goes-ga/cri-containerd.png)
@@ -182,7 +182,7 @@ by Kubernetes.
 - Read [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) to understand your next steps
 - Read the [dockershim deprecation FAQ](/blog/2020/12/02/dockershim-faq/) article for more information. 
 -->
-- 阅读[从 dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/)，
+- 阅读[从 dockershim 迁移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)，
   以了解你的下一步工作。
-- 阅读[dockershim 弃用常见问题解答](/zh/blog/2020/12/02/dockershim-faq/)文章，了解更多信息。
+- 阅读[dockershim 弃用常见问题解答](/zh-cn/blog/2020/12/02/dockershim-faq/)文章，了解更多信息。
 

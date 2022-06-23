@@ -61,7 +61,7 @@ To configure a KMS provider on the API server, include a provider of type ```kms
 * `timeout`: 在返回一个错误之前，kube-apiserver 等待 kms-plugin 响应的时间（默认是 3 秒）。
 
 <!-- See [Understanding the encryption at rest configuration.](/docs/tasks/administer-cluster/encrypt-data) -->
-参见[理解静态数据加密配置](/zh/docs/tasks/administer-cluster/encrypt-data)
+参见[理解静态数据加密配置](/zh-cn/docs/tasks/administer-cluster/encrypt-data)
 
 <!--
 ## Implementing a KMS plugin
