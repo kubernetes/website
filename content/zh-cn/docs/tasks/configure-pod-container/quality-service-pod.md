@@ -378,9 +378,9 @@ kubectl delete namespace qos-example
 -->
 ### 应用开发者参考
 
-* [为 Pod 和容器分配内存资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [为 Pod 和容器分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [为 Pod 和容器分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [为 Pod 和容器分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 <!--
 ### For cluster administrators
@@ -404,20 +404,20 @@ kubectl delete namespace qos-example
 
 ### 集群管理员参考
 
-* [为命名空间配置默认的内存请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [为命名空间配置默认的 CPU 请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace)
+* [为命名空间配置默认的内存请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [为命名空间配置默认的 CPU 请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace)
 
-* [为命名空间配置最小和最大内存限制](/zh/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [为命名空间配置最小和最大内存限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [为命名空间配置最小和最大 CPU 限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [为命名空间配置最小和最大 CPU 限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [为命名空间配置内存和 CPU 配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [为命名空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [为命名空间配置 Pod 配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [为命名空间配置 Pod 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [为 API 对象配置配额](/zh/docs/tasks/administer-cluster/quota-api-object/)
+* [为 API 对象配置配额](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 
-* [控制节点上的拓扑管理策略](/zh/docs/tasks/administer-cluster/topology-manager/)
+* [控制节点上的拓扑管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)
 
 
 

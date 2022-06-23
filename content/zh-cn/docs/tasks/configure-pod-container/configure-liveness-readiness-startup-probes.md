@@ -16,7 +16,7 @@ despite bugs.
 -->
 这篇文章介绍如何给容器配置活跃（Liveness）、就绪（Readiness）和启动（Startup）探测器。
 
-[kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/)
+[kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 使用存活探测器来确定什么时候要重启容器。
 例如，存活探测器可以探测到应用死锁（应用程序在运行，但是无法继续执行后面的步骤）情况。
 重启这种状态下的容器有助于提高应用的可用性，即使其中存在缺陷。
@@ -354,7 +354,7 @@ Here is an example manifest:
 如果你的应用实现了 [gRPC 健康检查协议](https://github.com/grpc/grpc/blob/master/doc/health-checking.md)，
 kubelet 可以配置为使用该协议来执行应用活跃性检查。
 你必须启用 `GRPCContainerProbe`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 才能配置依赖于 gRPC 的检查机制。
 
 下面是一个示例清单：
@@ -638,7 +638,7 @@ eventual removal of that feature gate.
 这一缺陷在 Kubernetes v1.20 版本中得到修复。你可能一直依赖于之前错误的探测行为，
 甚至都没有觉察到这一问题的存在，因为默认的超时值是 1 秒钟。
 作为集群管理员，你可以在所有的 kubelet 上禁用 `ExecProbeTimeout`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 （将其设置为 `false`），从而恢复之前版本中的运行行为。之后当集群中所有的
 exec 探针都设置了 `timeoutSeconds` 参数后，移除此标志重载。
 如果你有 Pod 受到此默认 1 秒钟超时值的影响，你应该更新这些 Pod 对应的探针的超时值，
@@ -860,7 +860,7 @@ It will be rejected by the API server.
 * Learn more about
 [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 -->
-* 进一步了解[容器探针](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
+* 进一步了解[容器探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
 
 <!--
 You can also read the API references for:
