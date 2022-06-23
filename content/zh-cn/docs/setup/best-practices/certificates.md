@@ -102,7 +102,7 @@ You can create a single root CA, controlled by an administrator. This root CA ca
 -->
 ### 单根 CA    {#single-root-ca}
 
-你可以创建一个单根 CA，由管理员控制器它。该根 CA 可以创建多个中间 CA，并将所有进一步的创建委托给 Kubernetes。
+你可以创建由管理员控制的单根 CA。该根 CA 可以创建多个中间 CA，并将所有进一步的创建委托给 Kubernetes。
 
 <!--
 Required CAs:
