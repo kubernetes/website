@@ -2,7 +2,7 @@
 title: API Group
 id: api-group
 date: 2019-09-02
-full_link: /zh/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning
+full_link: /zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning
 short_description: >
   Kubernetes API 中的一组相关路径
 
@@ -47,4 +47,4 @@ API group 在 REST 路径和序列化对象的 `apiVersion` 字段中指定。
 <!-- 
 * Read [API Group](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) for more information. 
 -->
-* 阅读 [API Group](/zh/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) 了解更多信息。
+* 阅读 [API Group](/zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) 了解更多信息。
