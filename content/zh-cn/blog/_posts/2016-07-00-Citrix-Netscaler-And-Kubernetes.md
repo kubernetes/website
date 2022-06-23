@@ -5,12 +5,10 @@ slug: citrix-netscaler-and-kubernetes
 ---
 
 <!--
----
 title: " Citrix + Kubernetes = A Home Run "
 date: 2016-07-14
 slug: citrix-netscaler-and-kubernetes
-url: /zh/blog/2016/07/Citrix-Netscaler-And-Kubernetes
----
+url: /blog/2016/07/Citrix-Netscaler-And-Kubernetes
 -->
 
 <!--
