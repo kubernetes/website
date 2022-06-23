@@ -3,14 +3,11 @@ title: "幻灯片：Kubernetes 集群管理，爱丁堡大学演讲"
 date: 2015-06-26
 slug: slides-cluster-management-with
 ---
-
 <!--
----
 title: " Slides: Cluster Management with Kubernetes, talk given at the University of Edinburgh "
 date: 2015-06-26
 slug: slides-cluster-management-with
-url: /zh/blog/2015/06/Slides-Cluster-Management-With
----
+url: /blog/2015/06/Slides-Cluster-Management-With
 -->
 
 <!--
