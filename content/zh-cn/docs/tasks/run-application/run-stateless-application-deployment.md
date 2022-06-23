@@ -231,7 +231,7 @@ added to Kubernetes, replicated applications were configured using a
 
 创建一个多副本应用首选方法是使用 Deployment，Deployment 内部使用 ReplicaSet。
 在 Deployment 和 ReplicaSet 被引入到 Kubernetes 之前，多副本应用通过
-[ReplicationController](/zh/docs/concepts/workloads/controllers/replicationcontroller/)
+[ReplicationController](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/)
 来配置。
 
 ## {{% heading "whatsnext" %}}
@@ -239,5 +239,5 @@ added to Kubernetes, replicated applications were configured using a
 <!--
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 -->
-* 进一步了解 [Deployment 对象](/zh/docs/concepts/workloads/controllers/deployment/)。
+* 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
 

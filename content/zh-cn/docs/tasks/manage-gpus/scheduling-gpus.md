@@ -229,7 +229,7 @@ For example:
 ## 集群内存在不同类型的 GPU
 
 如果集群内部的不同节点上有不同类型的 NVIDIA GPU，那么你可以使用
-[节点标签和节点选择器](/zh/docs/tasks/configure-pod-container/assign-pods-nodes/)
+[节点标签和节点选择器](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/)
 来将 pod 调度到合适的节点上。
 
 例如：

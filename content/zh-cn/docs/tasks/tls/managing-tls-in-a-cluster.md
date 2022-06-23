@@ -95,7 +95,7 @@ have access to read.
 内部 Kubernetes 端点的一个示例是默认命名空间中名为 `kubernetes` 的服务。
 
 如果你想为你的工作负载使用自定义证书颁发机构，你应该单独生成该 CA，
-并使用你的 Pod 有读权限的 [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap)
+并使用你的 Pod 有读权限的 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap)
 分发该 CA 证书。
 {{< /note >}}
 
@@ -217,7 +217,7 @@ it by running:
 “密钥加密（key encipherment）” 和 “服务器身份验证（server auth）” 密钥用途，
 由 `example.com/serving` 示例签名程序签名的证书。
 你也可以要求使用特定的 `signerName`。更多信息可参阅
-[支持的签署者名称](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#signers)。
+[支持的签署者名称](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#signers)。
 
 在 API server 中可以看到这些 CSR 处于 Pending 状态。执行下面的命令你将可以看到：
 
@@ -254,7 +254,7 @@ manually using `kubectl`; for example:
 -->
 ## 批准证书签名请求（CSR）  {#get-the-certificate-signing-request-approved}
 
-[证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)
+[证书签名请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)
 的批准或者是通过自动批准过程完成的，或由集群管理员一次性完成。
 如果你被授权批准证书请求，你可以使用 `kubectl` 来手动完成此操作；例如：
 
@@ -530,7 +530,7 @@ reference page.
 当且仅当满足这两个要求时，审批者应该批准 CSR，否则拒绝 CSR。
 
 有关证书批准和访问控制的更多信息，
-请阅读[证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)参考页。
+请阅读[证书签名请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)参考页。
 
 <!--
 ## Configuring your cluster to provide signing
