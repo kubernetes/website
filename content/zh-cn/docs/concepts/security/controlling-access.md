@@ -1,6 +1,7 @@
 ---
 title: Kubernetes API 访问控制
 content_type: concept
+weight: 50
 ---
 <!--
 ---
@@ -9,6 +10,7 @@ reviewers:
 - lavalamp
 title: Controlling Access to the Kubernetes API
 content_type: concept
+weight: 50
 ---
 -->
 
