@@ -2,16 +2,14 @@
 title: " CoreOS Fest 2016: CoreOS 和 Kubernetes 在柏林（和旧金山）社区见面会 "
 date: 2016-05-03
 slug: coreosfest2016-kubernetes-community
-url: /zh/blog/2016/05/Coreosfest2016-Kubernetes-Community
 ---
 <!--
----
 title: " CoreOS Fest 2016: CoreOS and Kubernetes Community meet in Berlin (& San Francisco) "
 date: 2016-05-03
 slug: coreosfest2016-kubernetes-community
-url: /zh/blog/2016/05/Coreosfest2016-Kubernetes-Community
----
+url: /blog/2016/05/Coreosfest2016-Kubernetes-Community
 -->
+
 <!--
 [CoreOS Fest 2016](https://coreos.com/fest/) will bring together the container and open source distributed systems community, including many thought leaders in the Kubernetes space. It is the second annual CoreOS community conference, held for the first time in Berlin on May 9th and 10th. CoreOS believes Kubernetes is the container orchestration component to deliver GIFEE (Google’s Infrastructure for Everyone Else).  
 -->
