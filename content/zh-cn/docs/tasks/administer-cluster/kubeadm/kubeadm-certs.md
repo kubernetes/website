@@ -385,7 +385,7 @@ If `--csr-dir` is not specified, the default certificate directory (`/etc/kubern
 你可以通过 `kubeadm certs renew --csr-only` 命令创建证书签名请求。
 
 CSR 和随附的私钥都在输出中给出。
-你可以传入一个带有 `--csr-dir` 的目录，将 CRS 输出到指定位置。
+你可以传入一个带有 `--csr-dir` 的目录，将 CSR 输出到指定位置。
 如果未指定 `--csr-dir`，则使用默认证书目录（`/etc/kubernetes/pki`）。
 
 <!--
