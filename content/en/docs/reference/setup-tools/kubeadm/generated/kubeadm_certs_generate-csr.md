@@ -92,6 +92,3 @@ kubeadm certs generate-csr [flags]
 
 </tbody>
 </table>
-
-
-

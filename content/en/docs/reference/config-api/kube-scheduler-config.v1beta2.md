@@ -285,8 +285,9 @@ default value of format is <code>text</code></p>
 <a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
 </td>
 <td>
-   <p>Maximum number of seconds between log flushes. Ignored if the
-selected logging backend writes log messages without buffering.</p>
+   <p>Maximum number of nanoseconds (i.e. 1s = 1000000000) between log
+flushes.  Ignored if the selected logging backend writes log
+messages without buffering.</p>
 </td>
 </tr>
 <tr><td><code>verbosity</code> <B>[Required]</B><br/>
@@ -305,14 +306,6 @@ are always logged.</p>
 <td>
    <p>VModule overrides the verbosity threshold for individual files.
 Only supported for &quot;text&quot; log format.</p>
-</td>
-</tr>
-<tr><td><code>sanitization</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>[Experimental] When enabled prevents logging of fields tagged as sensitive (passwords, keys, tokens).
-Runtime log sanitization may introduce significant computation overhead and therefore should not be enabled in production.`)</p>
 </td>
 </tr>
 <tr><td><code>options</code> <B>[Required]</B><br/>
@@ -663,8 +656,7 @@ of &quot;System&quot; or &quot;List&quot;.</p>
 Nodes and Zones.</li>
 <li>&quot;List&quot;: Use constraints defined in .defaultConstraints.</li>
 </ul>
-<p>Defaults to &quot;List&quot; if feature gate DefaultPodTopologySpread is disabled
-and to &quot;System&quot; if enabled.</p>
+<p>Defaults to &quot;System&quot;.</p>
 </td>
 </tr>
 </tbody>

@@ -9,10 +9,42 @@ auto_generated: true
 ## Resource Types 
 
 
+- [CredentialProviderConfig](#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig)
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 - [SerializedNodeConfigSource](#kubelet-config-k8s-io-v1beta1-SerializedNodeConfigSource)
   
     
+
+## `CredentialProviderConfig`     {#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig}
+    
+
+
+<p>CredentialProviderConfig is the configuration containing information about
+each exec credential provider. Kubelet reads this configuration from disk and enables
+each provider as specified by the CredentialProvider type.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>kubelet.config.k8s.io/v1beta1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>CredentialProviderConfig</code></td></tr>
+    
+  
+<tr><td><code>providers</code> <B>[Required]</B><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-CredentialProvider"><code>[]CredentialProvider</code></a>
+</td>
+<td>
+   <p>providers is a list of credential provider plugins that will be enabled by the kubelet.
+Multiple providers may match against a single image, in which case credentials
+from all providers will be returned to the kubelet. If multiple providers are called
+for a single image, the results are combined. If providers return overlapping
+auth keys, the value from the provider earlier in this list is used.</p>
+</td>
+</tr>
+</tbody>
+</table>
 
 ## `KubeletConfiguration`     {#kubelet-config-k8s-io-v1beta1-KubeletConfiguration}
     
@@ -35,9 +67,6 @@ auto_generated: true
 <td>
    <p>enableServer enables Kubelet's secured server.
 Note: Kubelet's insecure port is controlled by the readOnlyPort option.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that interact with the Kubelet server.
 Default: true</p>
 </td>
 </tr>
@@ -47,10 +76,6 @@ Default: true</p>
 <td>
    <p>staticPodPath is the path to the directory containing local (static) pods to
 run, or the path to a single static pod file.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-the set of static pods specified at the new path may be different than the
-ones the Kubelet initially started with, and this may disrupt your node.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -60,11 +85,6 @@ Default: &quot;&quot;</p>
 <td>
    <p>syncFrequency is the max period between synchronizing running
 containers and config.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-shortening this duration may have a negative performance impact, especially
-as the number of Pods on the node increases. Alternatively, increasing this
-duration will result in longer refresh times for ConfigMaps and Secrets.
 Default: &quot;1m&quot;</p>
 </td>
 </tr>
@@ -74,10 +94,6 @@ Default: &quot;1m&quot;</p>
 <td>
    <p>fileCheckFrequency is the duration between checking config files for
 new data.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-shortening the duration will cause the Kubelet to reload local Static Pod
-configurations more frequently, which may have a negative performance impact.
 Default: &quot;20s&quot;</p>
 </td>
 </tr>
@@ -86,10 +102,6 @@ Default: &quot;20s&quot;</p>
 </td>
 <td>
    <p>httpCheckFrequency is the duration between checking http for new data.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-shortening the duration will cause the Kubelet to poll staticPodURL more
-frequently, which may have a negative performance impact.
 Default: &quot;20s&quot;</p>
 </td>
 </tr>
@@ -98,10 +110,6 @@ Default: &quot;20s&quot;</p>
 </td>
 <td>
    <p>staticPodURL is the URL for accessing static pods to run.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-the set of static pods specified at the new URL may be different than the
-ones the Kubelet initially started with, and this may disrupt your node.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -110,9 +118,6 @@ Default: &quot;&quot;</p>
 </td>
 <td>
    <p>staticPodURLHeader is a map of slices with HTTP headers to use when accessing the podURL.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt the ability to read the latest set of static pods from StaticPodURL.
 Default: nil</p>
 </td>
 </tr>
@@ -122,9 +127,6 @@ Default: nil</p>
 <td>
    <p>address is the IP address for the Kubelet to serve on (set to 0.0.0.0
 for all interfaces).
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that interact with the Kubelet server.
 Default: &quot;0.0.0.0&quot;</p>
 </td>
 </tr>
@@ -134,9 +136,6 @@ Default: &quot;0.0.0.0&quot;</p>
 <td>
    <p>port is the port for the Kubelet to serve on.
 The port number must be between 1 and 65535, inclusive.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that interact with the Kubelet server.
 Default: 10250</p>
 </td>
 </tr>
@@ -148,9 +147,6 @@ Default: 10250</p>
 no authentication/authorization.
 The port number must be between 1 and 65535, inclusive.
 Setting this field to 0 disables the read-only service.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that interact with the Kubelet server.
 Default: 0 (disabled)</p>
 </td>
 </tr>
@@ -163,9 +159,6 @@ if any, concatenated after server cert). If tlsCertFile and
 tlsPrivateKeyFile are not provided, a self-signed certificate
 and key are generated for the public address and saved to the directory
 passed to the Kubelet's --cert-dir flag.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that interact with the Kubelet server.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -174,9 +167,6 @@ Default: &quot;&quot;</p>
 </td>
 <td>
    <p>tlsPrivateKeyFile is the file containing x509 private key matching tlsCertFile.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that interact with the Kubelet server.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -186,9 +176,6 @@ Default: &quot;&quot;</p>
 <td>
    <p>tlsCipherSuites is the list of allowed cipher suites for the server.
 Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that interact with the Kubelet server.
 Default: nil</p>
 </td>
 </tr>
@@ -198,9 +185,6 @@ Default: nil</p>
 <td>
    <p>tlsMinVersion is the minimum TLS version supported.
 Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that interact with the Kubelet server.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -211,10 +195,6 @@ Default: &quot;&quot;</p>
    <p>rotateCertificates enables client certificate rotation. The Kubelet will request a
 new certificate from the certificates.k8s.io API. This requires an approver to approve the
 certificate signing requests.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-disabling it may disrupt the Kubelet's ability to authenticate with the API server
-after the current certificate expires.
 Default: false</p>
 </td>
 </tr>
@@ -227,11 +207,6 @@ signing a serving certificate, the Kubelet will request a certificate from
 the 'certificates.k8s.io' API. This requires an approver to approve the
 certificate signing requests (CSR). The RotateKubeletServerCertificate feature
 must be enabled when setting this field.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-disabling it will stop the renewal of Kubelet server certificates, which can
-disrupt components that interact with the Kubelet server in the long term,
-due to certificate expiration.
 Default: false</p>
 </td>
 </tr>
@@ -240,9 +215,6 @@ Default: false</p>
 </td>
 <td>
    <p>authentication specifies how requests to the Kubelet's server are authenticated.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that interact with the Kubelet server.
 Defaults:
 anonymous:
 enabled: false
@@ -256,9 +228,6 @@ cacheTTL: &quot;2m&quot;</p>
 </td>
 <td>
    <p>authorization specifies how requests to the Kubelet's server are authorized.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that interact with the Kubelet server.
 Defaults:
 mode: Webhook
 webhook:
@@ -273,10 +242,6 @@ cacheUnauthorizedTTL: &quot;30s&quot;</p>
    <p>registryPullQPS is the limit of registry pulls per second.
 The value must not be a negative number.
 Setting it to 0 means no limit.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact scalability by changing the amount of traffic produced
-by image pulls.
 Default: 5</p>
 </td>
 </tr>
@@ -288,10 +253,6 @@ Default: 5</p>
 pulls to burst to this number, while still not exceeding registryPullQPS.
 The value must not be a negative number.
 Only used if registryPullQPS is greater than 0.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact scalability by changing the amount of traffic produced
-by image pulls.
 Default: 10</p>
 </td>
 </tr>
@@ -301,10 +262,6 @@ Default: 10</p>
 <td>
    <p>eventRecordQPS is the maximum event creations per second. If 0, there
 is no limit enforced. The value cannot be a negative number.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact scalability by changing the amount of traffic produced by
-event creations.
 Default: 5</p>
 </td>
 </tr>
@@ -316,10 +273,6 @@ Default: 5</p>
 allows event creations to burst to this number, while still not exceeding
 eventRecordQPS. This field canot be a negative number and it is only used
 when eventRecordQPS &gt; 0.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact scalability by changing the amount of traffic produced by
-event creations.
 Default: 10</p>
 </td>
 </tr>
@@ -330,9 +283,6 @@ Default: 10</p>
    <p>enableDebuggingHandlers enables server endpoints for log access
 and local running of containers and commands, including the exec,
 attach, logs, and portforward features.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-disabling it may disrupt components that interact with the Kubelet server.
 Default: true</p>
 </td>
 </tr>
@@ -341,9 +291,6 @@ Default: true</p>
 </td>
 <td>
    <p>enableContentionProfiling enables lock contention profiling, if enableDebuggingHandlers is true.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-enabling it may carry a performance impact.
 Default: false</p>
 </td>
 </tr>
@@ -353,9 +300,6 @@ Default: false</p>
 <td>
    <p>healthzPort is the port of the localhost healthz endpoint (set to 0 to disable).
 A valid number is between 1 and 65535.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that monitor Kubelet health.
 Default: 10248</p>
 </td>
 </tr>
@@ -364,9 +308,6 @@ Default: 10248</p>
 </td>
 <td>
    <p>healthzBindAddress is the IP address for the healthz server to serve on.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that monitor Kubelet health.
 Default: &quot;127.0.0.1&quot;</p>
 </td>
 </tr>
@@ -376,9 +317,6 @@ Default: &quot;127.0.0.1&quot;</p>
 <td>
    <p>oomScoreAdj is The oom-score-adj value for kubelet process. Values
 must be within the range [-1000, 1000].
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact the stability of nodes under memory pressure.
 Default: -999</p>
 </td>
 </tr>
@@ -389,8 +327,6 @@ Default: -999</p>
    <p>clusterDomain is the DNS domain for this cluster. If set, kubelet will
 configure all containers to search this domain in addition to the
 host's search domains.
-Dynamic Kubelet Config (deprecated): Dynamically updating this field is not recommended,
-as it should be kept in sync with the rest of the cluster.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -401,10 +337,6 @@ Default: &quot;&quot;</p>
    <p>clusterDNS is a list of IP addresses for the cluster DNS server. If set,
 kubelet will configure all containers to use this for DNS resolution
 instead of the host's DNS servers.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-changes will only take effect on Pods created after the update. Draining
-the node is recommended before changing this field.
 Default: nil</p>
 </td>
 </tr>
@@ -414,10 +346,6 @@ Default: nil</p>
 <td>
    <p>streamingConnectionIdleTimeout is the maximum time a streaming connection
 can be idle before the connection is automatically closed.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact components that rely on infrequent updates over streaming
-connections to the Kubelet server.
 Default: &quot;4h&quot;</p>
 </td>
 </tr>
@@ -430,12 +358,6 @@ status. If node lease feature is not enabled, it is also the frequency that
 kubelet posts node status to master.
 Note: When node lease feature is not enabled, be cautious when changing the
 constant, it must work with nodeMonitorGracePeriod in nodecontroller.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact node scalability, and also that the node controller's
-nodeMonitorGracePeriod must be set to N*NodeStatusUpdateFrequency,
-where N is the number of retries before the node controller marks
-the node unhealthy.
 Default: &quot;10s&quot;</p>
 </td>
 </tr>
@@ -464,10 +386,6 @@ If the lease expires, the node can be considered unhealthy.
 The lease is currently renewed every 10s, per KEP-0009. In the future, the lease renewal
 interval may be set based on the lease duration.
 The field value must be greater than 0.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-decreasing the duration may reduce tolerance for issues that temporarily prevent
-the Kubelet from renewing the lease (e.g. a short-lived network issue).
 Default: 40</p>
 </td>
 </tr>
@@ -476,9 +394,7 @@ Default: 40</p>
 </td>
 <td>
    <p>imageMinimumGCAge is the minimum age for an unused image before it is
-garbage collected. If DynamicKubeletConfig (deprecated; default off)
-is on, when dynamically updating this field, consider that  it may trigger or
-delay garbage collection, and may change the image overhead on the node.
+garbage collected.
 Default: &quot;2m&quot;</p>
 </td>
 </tr>
@@ -491,10 +407,6 @@ image garbage collection is always run. The percent is calculated by
 dividing this field value by 100, so this field must be between 0 and
 100, inclusive. When specified, the value must be greater than
 imageGCLowThresholdPercent.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may trigger or delay garbage collection, and may change the image overhead
-on the node.
 Default: 85</p>
 </td>
 </tr>
@@ -507,10 +419,6 @@ image garbage collection is never run. Lowest disk usage to garbage
 collect to. The percent is calculated by dividing this field value by 100,
 so the field value must be between 0 and 100, inclusive. When specified, the
 value must be less than imageGCHighThresholdPercent.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may trigger or delay garbage collection, and may change the image overhead
-on the node.
 Default: 80</p>
 </td>
 </tr>
@@ -520,9 +428,6 @@ Default: 80</p>
 <td>
    <p>volumeStatsAggPeriod is the frequency for calculating and caching volume
 disk usage for all pods.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-shortening the period may carry a performance impact.
 Default: &quot;1m&quot;</p>
 </td>
 </tr>
@@ -531,8 +436,6 @@ Default: &quot;1m&quot;</p>
 </td>
 <td>
    <p>kubeletCgroups is the absolute name of cgroups to isolate the kubelet in
-Dynamic Kubelet Config (deprecated): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -544,8 +447,6 @@ Default: &quot;&quot;</p>
 all non-kernel processes that are not already in a container. Empty
 for no container. Rolling back the flag requires a reboot.
 The cgroupRoot must be specified if this field is not empty.
-Dynamic Kubelet Config (deprecated): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -554,10 +455,7 @@ Default: &quot;&quot;</p>
 </td>
 <td>
    <p>cgroupRoot is the root cgroup to use for pods. This is handled by the
-container runtime on a best effort basis.
-Dynamic Kubelet Config (deprecated): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
-Default: &quot;&quot;</p>
+container runtime on a best effort basis.</p>
 </td>
 </tr>
 <tr><td><code>cgroupsPerQOS</code><br/>
@@ -567,8 +465,6 @@ Default: &quot;&quot;</p>
    <p>cgroupsPerQOS enable QoS based CGroup hierarchy: top level CGroups for QoS classes
 and all Burstable and BestEffort Pods are brought up under their specific top level
 QoS CGroup.
-Dynamic Kubelet Config (deprecated): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
 Default: true</p>
 </td>
 </tr>
@@ -578,8 +474,6 @@ Default: true</p>
 <td>
    <p>cgroupDriver is the driver kubelet uses to manipulate CGroups on the host (cgroupfs
 or systemd).
-Dynamic Kubelet Config (deprecated): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
 Default: &quot;cgroupfs&quot;</p>
 </td>
 </tr>
@@ -589,8 +483,6 @@ Default: &quot;cgroupfs&quot;</p>
 <td>
    <p>cpuManagerPolicy is the name of the policy to use.
 Requires the CPUManager feature gate to be enabled.
-Dynamic Kubelet Config (deprecated): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
 Default: &quot;None&quot;</p>
 </td>
 </tr>
@@ -601,8 +493,6 @@ Default: &quot;None&quot;</p>
    <p>cpuManagerPolicyOptions is a set of key=value which 	allows to set extra options
 to fine tune the behaviour of the cpu manager policies.
 Requires  both the &quot;CPUManager&quot; and &quot;CPUManagerPolicyOptions&quot; feature gates to be enabled.
-Dynamic Kubelet Config (beta): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
 Default: nil</p>
 </td>
 </tr>
@@ -612,9 +502,6 @@ Default: nil</p>
 <td>
    <p>cpuManagerReconcilePeriod is the reconciliation period for the CPU Manager.
 Requires the CPUManager feature gate to be enabled.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-shortening the period may carry a performance impact.
 Default: &quot;10s&quot;</p>
 </td>
 </tr>
@@ -624,8 +511,6 @@ Default: &quot;10s&quot;</p>
 <td>
    <p>memoryManagerPolicy is the name of the policy to use by memory manager.
 Requires the MemoryManager feature gate to be enabled.
-Dynamic Kubelet Config (deprecated): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
 Default: &quot;none&quot;</p>
 </td>
 </tr>
@@ -645,8 +530,6 @@ resources;</li>
 of CPU and device resources.</li>
 </ul>
 <p>Policies other than &quot;none&quot; require the TopologyManager feature gate to be enabled.
-Dynamic Kubelet Config (deprecated): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
 Default: &quot;none&quot;</p>
 </td>
 </tr>
@@ -673,8 +556,6 @@ the minimum percentage of a resource reserved for exclusive use by the
 guaranteed QoS tier.
 Currently supported resources: &quot;memory&quot;
 Requires the QOSReserved feature gate to be enabled.
-Dynamic Kubelet Config (deprecated): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
 Default: nil</p>
 </td>
 </tr>
@@ -684,9 +565,6 @@ Default: nil</p>
 <td>
    <p>runtimeRequestTimeout is the timeout for all runtime requests except long running
 requests - pull, logs, exec and attach.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may disrupt components that interact with the Kubelet server.
 Default: &quot;2m&quot;</p>
 </td>
 </tr>
@@ -705,9 +583,6 @@ themselves if they should try to access their own Service. Values:</p>
 </ul>
 <p>Generally, one must set <code>--hairpin-mode=hairpin-veth to</code> achieve hairpin NAT,
 because promiscuous-bridge assumes the existence of a container bridge named cbr0.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may require a node reboot, depending on the network plugin.
 Default: &quot;promiscuous-bridge&quot;</p>
 </td>
 </tr>
@@ -717,12 +592,6 @@ Default: &quot;promiscuous-bridge&quot;</p>
 <td>
    <p>maxPods is the maximum number of Pods that can run on this Kubelet.
 The value must be a non-negative integer.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-changes may cause Pods to fail admission on Kubelet restart, and may change
-the value reported in Node.Status.Capacity[v1.ResourcePods], thus affecting
-future scheduling decisions. Increasing this value may also decrease performance,
-as more Pods can be packed into a single node.
 Default: 110</p>
 </td>
 </tr>
@@ -732,8 +601,6 @@ Default: 110</p>
 <td>
    <p>podCIDR is the CIDR to use for pod IP addresses, only used in standalone mode.
 In cluster mode, this is obtained from the control plane.
-Dynamic Kubelet Config (deprecated): This field should always be set to the empty default.
-It should only set for standalone Kubelets, which cannot use Dynamic Kubelet Config.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -742,9 +609,6 @@ Default: &quot;&quot;</p>
 </td>
 <td>
    <p>podPidsLimit is the maximum number of PIDs in any pod.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-lowering it may prevent container processes from forking after the change.
 Default: -1</p>
 </td>
 </tr>
@@ -754,10 +618,6 @@ Default: -1</p>
 <td>
    <p>resolvConf is the resolver configuration file used as the basis
 for the container DNS resolution configuration.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-changes will only take effect on Pods created after the update. Draining
-the node is recommended before changing this field.
 If set to the empty string, will override the default and effectively disable DNS lookups.
 Default: &quot;/etc/resolv.conf&quot;</p>
 </td>
@@ -777,9 +637,6 @@ Default: false</p>
 <td>
    <p>cpuCFSQuota enables CPU CFS quota enforcement for containers that
 specify CPU limits.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-disabling it may reduce node stability.
 Default: true</p>
 </td>
 </tr>
@@ -790,10 +647,6 @@ Default: true</p>
    <p>cpuCFSQuotaPeriod is the CPU CFS quota period value, <code>cpu.cfs_period_us</code>.
 The value must be between 1 us and 1 second, inclusive.
 Requires the CustomCPUCFSQuotaPeriod feature gate to be enabled.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-limits set for containers will result in different cpu.cfs_quota settings. This
-will trigger container restarts on the node being reconfigured.
 Default: &quot;100ms&quot;</p>
 </td>
 </tr>
@@ -804,9 +657,6 @@ Default: &quot;100ms&quot;</p>
    <p>nodeStatusMaxImages caps the number of images reported in Node.status.images.
 The value must be greater than -2.
 Note: If -1 is specified, no cap will be applied. If 0 is specified, no image is returned.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-different values can be reported on node status.
 Default: 50</p>
 </td>
 </tr>
@@ -816,9 +666,6 @@ Default: 50</p>
 <td>
    <p>maxOpenFiles is Number of files that can be opened by Kubelet process.
 The value must be a non-negative number.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact the ability of the Kubelet to interact with the node's filesystem.
 Default: 1000000</p>
 </td>
 </tr>
@@ -827,11 +674,6 @@ Default: 1000000</p>
 </td>
 <td>
    <p>contentType is contentType of requests sent to apiserver.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact the ability for the Kubelet to communicate with the API server.
-If the Kubelet loses contact with the API server due to a change to this field,
-the change cannot be reverted via dynamic Kubelet config.
 Default: &quot;application/vnd.kubernetes.protobuf&quot;</p>
 </td>
 </tr>
@@ -840,10 +682,6 @@ Default: &quot;application/vnd.kubernetes.protobuf&quot;</p>
 </td>
 <td>
    <p>kubeAPIQPS is the QPS to use while talking with kubernetes apiserver.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact scalability by changing the amount of traffic the Kubelet
-sends to the API server.
 Default: 5</p>
 </td>
 </tr>
@@ -853,10 +691,6 @@ Default: 5</p>
 <td>
    <p>kubeAPIBurst is the burst to allow while talking with kubernetes API server.
 This field cannot be a negative number.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact scalability by changing the amount of traffic the Kubelet
-sends to the API server.
 Default: 10</p>
 </td>
 </tr>
@@ -868,9 +702,6 @@ Default: 10</p>
 at a time. We recommend <em>not</em> changing the default value on nodes that
 run docker daemon with version  &lt; 1.9 or an Aufs storage backend.
 Issue #10959 has more details.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact the performance of image pulls.
 Default: true</p>
 </td>
 </tr>
@@ -881,9 +712,6 @@ Default: true</p>
    <p>evictionHard is a map of signal names to quantities that defines hard eviction
 thresholds. For example: <code>{&quot;memory.available&quot;: &quot;300Mi&quot;}</code>.
 To explicitly disable, pass a 0% or 100% threshold on an arbitrary resource.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may trigger or delay Pod evictions.
 Default:
 memory.available:  &quot;100Mi&quot;
 nodefs.available:  &quot;10%&quot;
@@ -897,10 +725,6 @@ imagefs.available: &quot;15%&quot;</p>
 <td>
    <p>evictionSoft is a map of signal names to quantities that defines soft eviction thresholds.
 For example: <code>{&quot;memory.available&quot;: &quot;300Mi&quot;}</code>.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may trigger or delay Pod evictions, and may change the allocatable reported
-by the node.
 Default: nil</p>
 </td>
 </tr>
@@ -910,9 +734,6 @@ Default: nil</p>
 <td>
    <p>evictionSoftGracePeriod is a map of signal names to quantities that defines grace
 periods for each soft eviction signal. For example: <code>{&quot;memory.available&quot;: &quot;30s&quot;}</code>.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may trigger or delay Pod evictions.
 Default: nil</p>
 </td>
 </tr>
@@ -922,9 +743,6 @@ Default: nil</p>
 <td>
    <p>evictionPressureTransitionPeriod is the duration for which the kubelet has to wait
 before transitioning out of an eviction pressure condition.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-lowering it may decrease the stability of the node when the node is overcommitted.
 Default: &quot;5m&quot;</p>
 </td>
 </tr>
@@ -938,10 +756,6 @@ effectively caps the Pod's terminationGracePeriodSeconds value during soft evict
 Note: Due to issue #64530, the behavior has a bug where this value currently just
 overrides the grace period during soft eviction, which can increase the grace
 period from what is set on the Pod. This bug will be fixed in a future release.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-lowering it decreases the amount of time Pods will have to gracefully clean
-up before being killed during a soft eviction.
 Default: 0</p>
 </td>
 </tr>
@@ -953,9 +767,6 @@ Default: 0</p>
 which describe the minimum amount of a given resource the kubelet will reclaim when
 performing a pod eviction while that resource is under pressure.
 For example: <code>{&quot;imagefs.available&quot;: &quot;2Gi&quot;}</code>.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may change how well eviction can manage resource pressure.
 Default: nil</p>
 </td>
 </tr>
@@ -966,12 +777,6 @@ Default: nil</p>
    <p>podsPerCore is the maximum number of pods per core. Cannot exceed maxPods.
 The value must be a non-negative integer.
 If 0, there is no limit on the number of Pods.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-changes may cause Pods to fail admission on Kubelet restart, and may change
-the value reported in <code>Node.status.capacity.pods</code>, thus affecting
-future scheduling decisions. Increasing this value may also decrease performance,
-as more Pods can be packed into a single node.
 Default: 0</p>
 </td>
 </tr>
@@ -982,13 +787,8 @@ Default: 0</p>
    <p>enableControllerAttachDetach enables the Attach/Detach controller to
 manage attachment/detachment of volumes scheduled to this node, and
 disables kubelet from executing any attach/detach operations.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-changing which component is responsible for volume management on a live node
-may result in volumes refusing to detach if the node is not drained prior to
-the update, and if Pods are scheduled to the node before the
-volumes.kubernetes.io/controller-managed-attach-detach annotation is updated by the
-Kubelet. In general, it is safest to leave this value set the same as local config.
+Note: attaching/detaching CSI volumes is not supported by the kubelet,
+so this option needs to be true for that use case.
 Default: true</p>
 </td>
 </tr>
@@ -999,10 +799,6 @@ Default: true</p>
    <p>protectKernelDefaults, if true, causes the Kubelet to error if kernel
 flags are not as it expects. Otherwise the Kubelet will attempt to modify
 kernel flags to match its expectation.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-enabling it may cause the Kubelet to crash-loop if the Kernel is not configured as
-Kubelet expects.
 Default: false</p>
 </td>
 </tr>
@@ -1014,9 +810,6 @@ Default: false</p>
 are present on host.
 These rules will serve as utility rules for various components, e.g. kube-proxy.
 The rules will be created based on iptablesMasqueradeBit and iptablesDropBit.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-disabling it will prevent the Kubelet from healing locally misconfigured iptables rules.
 Default: true</p>
 </td>
 </tr>
@@ -1028,10 +821,6 @@ Default: true</p>
 Values must be within the range [0, 31]. Must be different from other mark bits.
 Warning: Please match the value of the corresponding parameter in kube-proxy.
 TODO: clean up IPTablesMasqueradeBit in kube-proxy.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it needs to be coordinated with other components, like kube-proxy, and the update
-will only be effective if MakeIPTablesUtilChains is enabled.
 Default: 14</p>
 </td>
 </tr>
@@ -1041,10 +830,6 @@ Default: 14</p>
 <td>
    <p>iptablesDropBit is the bit of the iptables fwmark space to mark for dropping packets.
 Values must be within the range [0, 31]. Must be different from other mark bits.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it needs to be coordinated with other components, like kube-proxy, and the update
-will only be effective if MakeIPTablesUtilChains is enabled.
 Default: 15</p>
 </td>
 </tr>
@@ -1055,12 +840,6 @@ Default: 15</p>
    <p>featureGates is a map of feature names to bools that enable or disable experimental
 features. This field modifies piecemeal the built-in default values from
 &quot;k8s.io/kubernetes/pkg/features/kube_features.go&quot;.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider the
-documentation for the features you are enabling or disabling. While we
-encourage feature developers to make it possible to dynamically enable
-and disable features, some changes may require node reboots, and some
-features may require careful coordination to retroactively disable.
 Default: nil</p>
 </td>
 </tr>
@@ -1069,9 +848,6 @@ Default: nil</p>
 </td>
 <td>
    <p>failSwapOn tells the Kubelet to fail to start if swap is enabled on the node.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-setting it to true will cause the Kubelet to crash-loop if swap is enabled.
 Default: true</p>
 </td>
 </tr>
@@ -1088,9 +864,6 @@ Default: true</p>
 <td>
    <p>containerLogMaxSize is a quantity defining the maximum size of the container log
 file before it is rotated. For example: &quot;5Mi&quot; or &quot;256Ki&quot;.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may trigger log rotation.
 Default: &quot;10Mi&quot;</p>
 </td>
 </tr>
@@ -1100,9 +873,6 @@ Default: &quot;10Mi&quot;</p>
 <td>
    <p>containerLogMaxFiles specifies the maximum number of container log files that can
 be present for a container.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-lowering it may cause log files to be deleted.
 Default: 5</p>
 </td>
 </tr>
@@ -1128,11 +898,6 @@ managers are running. Valid values include:</p>
 pairs that describe resources reserved for non-kubernetes components.
 Currently only cpu and memory are supported.
 See http://kubernetes.io/docs/user-guide/compute-resources for more detail.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may not be possible to increase the reserved resources, because this
-requires resizing cgroups. Always look for a NodeAllocatableEnforced event
-after updating this field to ensure that the update was successful.
 Default: nil</p>
 </td>
 </tr>
@@ -1145,11 +910,6 @@ that describe resources reserved for kubernetes system components.
 Currently cpu, memory and local storage for root file system are supported.
 See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 for more details.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may not be possible to increase the reserved resources, because this
-requires resizing cgroups. Always look for a NodeAllocatableEnforced event
-after updating this field to ensure that the update was successful.
 Default: nil</p>
 </td>
 </tr>
@@ -1183,10 +943,8 @@ Default: &quot;&quot;</p>
 <td>
    <p>systemReservedCgroup helps the kubelet identify absolute name of top level CGroup used
 to enforce <code>systemReserved</code> compute resource reservation for OS system daemons.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://git.k8s.io/design-proposals-archive/node/node-allocatable.md">Node Allocatable</a>
 doc for more information.
-Dynamic Kubelet Config (deprecated): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -1196,10 +954,8 @@ Default: &quot;&quot;</p>
 <td>
    <p>kubeReservedCgroup helps the kubelet identify absolute name of top level CGroup used
 to enforce <code>KubeReserved</code> compute resource reservation for Kubernetes node system daemons.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://git.k8s.io/design-proposals-archive/node/node-allocatable.md">Node Allocatable</a>
 doc for more information.
-Dynamic Kubelet Config (deprecated): This field should not be updated without a full node
-reboot. It is safest to keep this value the same as the local config.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -1214,15 +970,8 @@ If <code>none</code> is specified, no other options may be specified.
 When <code>system-reserved</code> is in the list, systemReservedCgroup must be specified.
 When <code>kube-reserved</code> is in the list, kubeReservedCgroup must be specified.
 This field is supported only when <code>cgroupsPerQOS</code> is set to true.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://git.k8s.io/design-proposals-archive/node/node-allocatable.md">Node Allocatable</a>
 for more information.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-removing enforcements may reduce the stability of the node. Alternatively, adding
-enforcements may reduce the stability of components which were using more than
-the reserved amount of resources; for example, enforcing kube-reserved may cause
-Kubelets to OOM if it uses more than the reserved resources, and enforcing system-reserved
-may cause system daemons to OOM if they use more than the reserved resources.
 Default: [&quot;pods&quot;]</p>
 </td>
 </tr>
@@ -1242,9 +991,6 @@ Default: []</p>
 <td>
    <p>volumePluginDir is the full path of the directory in which to search
 for additional third party volume plugins.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that changing
-the volumePluginDir may disrupt workloads relying on third party volume plugins.
 Default: &quot;/usr/libexec/kubernetes/kubelet-plugins/volume/exec/&quot;</p>
 </td>
 </tr>
@@ -1254,9 +1000,6 @@ Default: &quot;/usr/libexec/kubernetes/kubelet-plugins/volume/exec/&quot;</p>
 <td>
    <p>providerID, if set, sets the unique ID of the instance that an external
 provider (i.e. cloudprovider) can use to identify a specific node.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact the ability of the Kubelet to interact with cloud providers.
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -1267,9 +1010,6 @@ Default: &quot;&quot;</p>
    <p>kernelMemcgNotification, if set, instructs the the kubelet to integrate with the
 kernel memcg notification for determining if memory eviction thresholds are
 exceeded rather than polling.
-If DynamicKubeletConfig (deprecated; default off) is on, when
-dynamically updating this field, consider that
-it may impact the way Kubelet interacts with the kernel.
 Default: false</p>
 </td>
 </tr>
@@ -1453,6 +1193,132 @@ It exists in the kubeletconfig API group because it is classified as a versioned
 <td>
    <p>source is the source that we are serializing.</p>
 </td>
+</tr>
+</tbody>
+</table>
+
+## `CredentialProvider`     {#kubelet-config-k8s-io-v1beta1-CredentialProvider}
+    
+
+**Appears in:**
+
+- [CredentialProviderConfig](#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig)
+
+
+<p>CredentialProvider represents an exec plugin to be invoked by the kubelet. The plugin is only
+invoked when an image being pulled matches the images handled by the plugin (see matchImages).</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>name</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>name is the required name of the credential provider. It must match the name of the
+provider executable as seen by the kubelet. The executable must be in the kubelet's
+bin directory (set by the --image-credential-provider-bin-dir flag).</p>
+</td>
+</tr>
+<tr><td><code>matchImages</code> <B>[Required]</B><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p>matchImages is a required list of strings used to match against images in order to
+determine if this provider should be invoked. If one of the strings matches the
+requested image from the kubelet, the plugin will be invoked and given a chance
+to provide credentials. Images are expected to contain the registry domain
+and URL path.</p>
+<p>Each entry in matchImages is a pattern which can optionally contain a port and a path.
+Globs can be used in the domain, but not in the port or the path. Globs are supported
+as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
+Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
+a single subdomain segment, so *.io does not match *.k8s.io.</p>
+<p>A match exists between an image and a matchImage when all of the below are true:</p>
+<ul>
+<li>Both contain the same number of domain parts and each part matches.</li>
+<li>The URL path of an imageMatch must be a prefix of the target image URL path.</li>
+<li>If the imageMatch contains a port, then the port must match in the image as well.</li>
+</ul>
+<p>Example values of matchImages:</p>
+<ul>
+<li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
+<li>*.azurecr.io</li>
+<li>gcr.io</li>
+<li><em>.</em>.registry.io</li>
+<li>registry.io:8080/path</li>
+</ul>
+</td>
+</tr>
+<tr><td><code>defaultCacheDuration</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>defaultCacheDuration is the default duration the plugin will cache credentials in-memory
+if a cache duration is not provided in the plugin response. This field is required.</p>
+</td>
+</tr>
+<tr><td><code>apiVersion</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Required input version of the exec CredentialProviderRequest. The returned CredentialProviderResponse
+MUST use the same encoding version as the input. Current supported values are:</p>
+<ul>
+<li>credentialprovider.kubelet.k8s.io/v1beta1</li>
+</ul>
+</td>
+</tr>
+<tr><td><code>args</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p>Arguments to pass to the command when executing it.</p>
+</td>
+</tr>
+<tr><td><code>env</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-ExecEnvVar"><code>[]ExecEnvVar</code></a>
+</td>
+<td>
+   <p>Env defines additional environment variables to expose to the process. These
+are unioned with the host's environment, as well as variables client-go uses
+to pass argument to the plugin.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `ExecEnvVar`     {#kubelet-config-k8s-io-v1beta1-ExecEnvVar}
+    
+
+**Appears in:**
+
+- [CredentialProvider](#kubelet-config-k8s-io-v1beta1-CredentialProvider)
+
+
+<p>ExecEnvVar is used for setting environment variables when executing an exec-based
+credential plugin.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>name</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>value</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
 </tr>
 </tbody>
 </table>
@@ -1859,8 +1725,9 @@ default value of format is <code>text</code></p>
 <a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
 </td>
 <td>
-   <p>Maximum number of seconds between log flushes. Ignored if the
-selected logging backend writes log messages without buffering.</p>
+   <p>Maximum number of nanoseconds (i.e. 1s = 1000000000) between log
+flushes.  Ignored if the selected logging backend writes log
+messages without buffering.</p>
 </td>
 </tr>
 <tr><td><code>verbosity</code> <B>[Required]</B><br/>
@@ -1879,14 +1746,6 @@ are always logged.</p>
 <td>
    <p>VModule overrides the verbosity threshold for individual files.
 Only supported for &quot;text&quot; log format.</p>
-</td>
-</tr>
-<tr><td><code>sanitization</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>[Experimental] When enabled prevents logging of fields tagged as sensitive (passwords, keys, tokens).
-Runtime log sanitization may introduce significant computation overhead and therefore should not be enabled in production.`)</p>
 </td>
 </tr>
 <tr><td><code>options</code> <B>[Required]</B><br/>

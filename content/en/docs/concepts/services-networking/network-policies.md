@@ -54,7 +54,7 @@ POSTing this to the API server for your cluster will have no effect unless your 
 __Mandatory Fields__: As with all other Kubernetes config, a NetworkPolicy
 needs `apiVersion`, `kind`, and `metadata` fields.  For general information
 about working with config files, see
-[Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+[Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 and [Object Management](/docs/concepts/overview/working-with-objects/object-management).
 
 __spec__: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
@@ -258,7 +258,7 @@ standardized label to target a specific namespace.
 
 ## What you can't do with network policies (at least, not yet)
 
-As of Kubernetes {{< skew latestVersion >}}, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.
+As of Kubernetes {{< skew currentVersion >}}, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.
 
 - Forcing internal cluster traffic to go through a common gateway (this might be best served with a service mesh or other proxy).
 - Anything TLS related (use a service mesh or ingress controller for this).

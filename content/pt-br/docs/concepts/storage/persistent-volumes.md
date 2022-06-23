@@ -1,15 +1,9 @@
 ---
-reviewers:
-- jsafrane
-- saad-ali
-- thockin
-- msau42
-- xing-yang
 title: Volumes Persistentes
 feature:
   title: Orquestração de Armazenamento
   description: >
-    Montar automaticamente o armazenamento de sua escolha, seja de um armazenamento local, de um provedor de cloud pública, como <a href="https://cloud.google.com/storage/">GCP</a> ou <a href="https://aws.amazon.com/products/storage/">AWS</a>, ou um armazenameto de rede, como NFS, iSCSI, Gluster, Ceph, Cinder ou Flocker.
+    Monte automaticamente o armazenamento de sua escolha, seja de um armazenamento local, de um provedor de cloud pública, como <a href="https://cloud.google.com/storage/">GCP</a> ou <a href="https://aws.amazon.com/products/storage/">AWS</a>, ou um armazenamento de rede, como NFS, iSCSI, Gluster, Ceph, Cinder ou Flocker.
 
 content_type: conceito
 weight: 20
@@ -314,7 +308,7 @@ Tipos de PersistentVolume são implementados como plugins. Atualmente o Kubernet
 
 ## Volumes Persistentes
 
-Cada PV contém uma `spec` e um status, que é a especificação e o status do volume. O nome do PersistentVolume deve ser um [DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
+Cada PV contém uma `spec` e um status, que é a especificação e o status do volume. O nome do PersistentVolume deve ser um [DNS](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
 ```yaml
 apiVersion: v1
@@ -468,7 +462,7 @@ A CLI mostrará o nome do PV que foi atrelado à PVC
 
 ## PersistentVolumeClaims
 
-Cada PVC contém uma `spec` e um status, que é a especificação e estado de uma requisição. O nome de um objeto PersistentVolumeClaim precisa ser um [DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
+Cada PVC contém uma `spec` e um status, que é a especificação e estado de uma requisição. O nome de um objeto PersistentVolumeClaim precisa ser um [DNS](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
 ```yaml
 apiVersion: v1
