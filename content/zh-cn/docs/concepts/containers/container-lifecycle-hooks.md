@@ -80,7 +80,7 @@ A more detailed description of the termination behavior can be found in
 [Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 -->
 有关终止行为的更详细描述，请参见
-[终止 Pod](/zh/docs/concepts/workloads/pods/pod-lifecycle/#termination-of-pods)。
+[终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#termination-of-pods)。
 
 <!--
 ### Hook handler implementations
@@ -250,6 +250,6 @@ Events:
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 -->
 
-* 进一步了解[容器环境](/zh/docs/concepts/containers/container-environment/)
-* 动手实践，[为容器生命周期事件添加处理程序](/zh/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
+* 进一步了解[容器环境](/zh-cn/docs/concepts/containers/container-environment/)
+* 动手实践，[为容器生命周期事件添加处理程序](/zh-cn/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
 

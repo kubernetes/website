@@ -38,7 +38,7 @@ Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行
 通常集群中会有若干个节点；而在一个学习用或者资源受限的环境中，你的集群中也可能
 只有一个节点。
 
-节点上的[组件](/zh/docs/concepts/overview/components/#node-components)包括
+节点上的[组件](/zh-cn/docs/concepts/overview/components/#node-components)包括
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}以及
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}。
@@ -110,7 +110,7 @@ The name of a Node object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 Node 对象的名称必须是合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 ### Node name uniqueness
@@ -126,7 +126,7 @@ first and re-added after the update.
 -->
 ### 节点名称唯一性     {#node-name-uniqueness}
 
-节点的[名称](/zh/docs/concepts/overview/working-with-objects/names#names)用来标识 Node 对象。
+节点的[名称](/zh-cn/docs/concepts/overview/working-with-objects/names#names)用来标识 Node 对象。
 没有两个 Node 可以同时使用相同的名称。 Kubernetes 还假定名字相同的资源是同一个对象。
 就 Node 而言，隐式假定使用相同名称的实例会具有相同的状态（例如网络配置、根磁盘内容）
 和类似节点标签这类属性。这可能在节点被更改但其名称未变时导致系统状态不一致。
@@ -167,7 +167,7 @@ For self-registration, the kubelet is started with the following options:
   （逗号分隔的 `<key>=<value>:<effect>`）注册节点。当 `register-node` 为 false 时无效。
 - `--node-ip` - 节点 IP 地址。
 - `--node-labels` - 在集群中注册节点时要添加的{{< glossary_tooltip text="标签" term_id="label" >}}。
-  （参见 [NodeRestriction 准入控制插件](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)所实施的标签限制）。
+  （参见 [NodeRestriction 准入控制插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)所实施的标签限制）。
 - `--node-status-update-frequency` - 指定 kubelet 向控制面发送状态的频率。
 
 <!--
@@ -175,8 +175,8 @@ When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
 [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
 kubelets are only authorized to create/modify their own Node resource.
 -->
-启用[Node 鉴权模式](/zh/docs/reference/access-authn-authz/node/)和
-[NodeRestriction 准入插件](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)时，
+启用[Node 鉴权模式](/zh-cn/docs/reference/access-authn-authz/node/)和
+[NodeRestriction 准入插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)时，
 仅授权 `kubelet` 创建或修改其自己的节点资源。
 
 {{< note >}}
@@ -256,7 +256,7 @@ kubectl cordon $NODENAME
 See [Safely Drain a Node](/docs/tasks/administer-cluster/safely-drain-node/)
 for more details.
 -->
-更多细节参考[安全地腾空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)。
+更多细节参考[安全地腾空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)。
 
 {{< note >}}
 <!--
@@ -430,7 +430,7 @@ Pods can also have {{< glossary_tooltip text="tolerations" term_id="toleration" 
 them run on a Node even though it has a specific taint.
 -->
 当节点上出现问题时，Kubernetes 控制面会自动创建与影响节点的状况对应的
-[污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+[污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 调度器在将 Pod 指派到某 Node 时会考虑 Node 上的污点设置。
 Pod 也可以设置{{< glossary_tooltip text="容忍度" term_id="toleration" >}}，
 以便能够在设置了特定污点的 Node 上运行。
@@ -439,7 +439,7 @@ Pod 也可以设置{{< glossary_tooltip text="容忍度" term_id="toleration" >}
 See [Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
 for more details.
 -->
-进一步的细节可参阅[根据状况为节点设置污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)。
+进一步的细节可参阅[根据状况为节点设置污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)。
 
 <!--
 ### Capacity and Allocatable {#capacity}
@@ -463,7 +463,7 @@ Node that is available to be consumed by normal Pods.
 You may read more about capacity and allocatable resources while learning how
 to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) on a Node.
 -->
-可以在学习如何在节点上[预留计算资源](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+可以在学习如何在节点上[预留计算资源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 的时候了解有关容量和可分配资源的更多信息。
 
 <!--
@@ -588,7 +588,7 @@ This period can be configured using the `--node-monitor-period` flag on the
 - 在节点不可达的情况下，在 Node 的 `.status` 中更新 `Ready` 状况。
   在这种情况下，节点控制器将 NodeReady 状况更新为 `Unknown` 。
 - 如果节点仍然无法访问：对于不可达节点上的所有 Pod 触发
-  [API 发起的逐出](/zh/docs/concepts/scheduling-eviction/api-eviction/)操作。
+  [API 发起的逐出](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)操作。
   默认情况下，节点控制器在将节点标记为 `Unknown` 后等待 5 分钟提交第一个驱逐请求。
 
 默认情况下，节点控制器每 5 秒检查一次节点状态，可以使用 `kube-controller-manager`
@@ -708,7 +708,7 @@ If you want to explicitly reserve resources for non-Pod processes, follow this t
 [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
 -->
 如果要为非 Pod 进程显式保留资源。
-请参考[为系统守护进程预留资源](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved)。
+请参考[为系统守护进程预留资源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved)。
 {{< /note >}}
 
 <!--
@@ -725,9 +725,9 @@ the kubelet can use topology hints when making resource assignment decisions.
 See [Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/)
 for more information.
 -->
-如果启用了 `TopologyManager` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+如果启用了 `TopologyManager` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 `kubelet` 可以在作出资源分配决策时使用拓扑提示。
-参考[控制节点上拓扑管理策略](/zh/docs/tasks/administer-cluster/topology-manager/)了解详细信息。
+参考[控制节点上拓扑管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)了解详细信息。
 
 <!-- 
 ## Graceful node shutdown {#graceful-node-shutdown}
@@ -746,7 +746,7 @@ during the node shutdown.
 kubelet 会尝试检测节点系统关闭事件并终止在节点上运行的 Pods。
 
 在节点终止期间，kubelet 保证 Pod 遵从常规的
-[Pod 终止流程](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+[Pod 终止流程](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!-- 
 The graceful node shutdown feature depends on systemd since it takes advantage of
@@ -785,7 +785,7 @@ During a graceful shutdown, kubelet terminates pods in two phases:
 在体面关闭节点过程中，kubelet 分两个阶段来终止 Pod：
 
 1. 终止在节点上运行的常规 Pod。
-2. 终止在节点上运行的[关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
+2. 终止在节点上运行的[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 
 <!-- 
 Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
@@ -795,13 +795,13 @@ Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/
   * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This value should be less than `ShutdownGracePeriod`.
 -->
 节点体面关闭的特性对应两个
-[`KubeletConfiguration`](/zh/docs/tasks/administer-cluster/kubelet-config-file/) 选项：
+[`KubeletConfiguration`](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/) 选项：
 
 * `shutdownGracePeriod`：
   * 指定节点应延迟关闭的总持续时间。此时间是 Pod 体面终止的时间总和，不区分常规 Pod
-    还是[关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
+    还是[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 * `shutdownGracePeriodCriticalPods`：
-  * 在节点关闭期间指定用于终止[关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+  * 在节点关闭期间指定用于终止[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
     的持续时间。该值应小于 `shutdownGracePeriod`。
 
 <!--  
@@ -814,7 +814,7 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 例如，如果设置了 `shutdownGracePeriod=30s` 和 `shutdownGracePeriodCriticalPods=10s`，
 则 kubelet 将延迟 30 秒关闭节点。
 在关闭期间，将保留前 20（30 - 10）秒用于体面终止常规 Pod，
-而保留最后 10 秒用于终止[关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
+而保留最后 10 秒用于终止[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 
 <!--
 When pods were evicted during the graceful node shutdown, they are marked as failed.
@@ -889,7 +889,7 @@ different node.
 为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
 `node kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
 如果在 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach` 
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 并且节点被通过污点标记为无法提供服务，如果节点 Pod 上没有设置对应的容忍度，
 那么这样的 Pod 将被强制删除，并且该在节点上被终止的 Pod 将立即进行卷分离操作。
 这样就允许那些在无法提供服务节点上的 Pod 能在其他节点上快速恢复。
@@ -938,7 +938,7 @@ during graceful node shutdown based on
 为了在节点体面关闭期间提供更多的灵活性，尤其是处理关闭期间的 Pod 排序问题，
 节点体面关闭机制能够关注 Pod 的 PriorityClass 设置，前提是你已经在集群中启用了此功能特性。
 此功能特性允许集群管理员基于 Pod
-的[优先级类（Priority Class）](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
+的[优先级类（Priority Class）](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
 显式地定义节点体面关闭期间 Pod 的处理顺序。
 
 <!--
@@ -969,7 +969,7 @@ Assuming the following custom pod
 in a cluster,
 -->
 假设集群中存在以下自定义的 Pod
-[优先级类](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)。
+[优先级类](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)。
 
 | Pod 优先级类名称        | Pod 优先级类数值       |
 |-------------------------|------------------------|
@@ -982,7 +982,7 @@ in a cluster,
 Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 the settings for `shutdownGracePeriodByPodPriority` could look like:
 -->
-在 [kubelet 配置](/zh/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)中，
+在 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)中，
 `shutdownGracePeriodByPodPriority` 可能看起来是这样：
 
 | Pod 优先级类数值       | 关闭期限  |
@@ -1059,8 +1059,8 @@ their respective shutdown periods.
 如果此功能特性被启用，但没有提供配置数据，则不会出现排序操作。
 
 使用此功能特性需要启用 `GracefulNodeShutdownBasedOnPodPriority` 
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
-并将 [kubelet 配置](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+并将 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 中的 `shutdownGracePeriodByPodPriority` 设置为期望的配置，
 其中包含 Pod 的优先级类数值以及对应的关闭期限。
 
@@ -1107,7 +1107,7 @@ must be set to false.
 -->
 要在节点上启用交换内存，必须启用kubelet 的 `NodeSwap` 特性门控，
 同时使用 `--fail-swap-on` 命令行参数或者将 `failSwapOn`
-[配置](/zh/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)设置为 false。
+[配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)设置为 false。
 
 <!--
 A user can also optionally configure `memorySwap.swapBehavior` in order to
@@ -1174,10 +1174,10 @@ see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 -->
-* 进一步了解节点[组件](/zh/docs/concepts/overview/components/#node-components)。
+* 进一步了解节点[组件](/zh-cn/docs/concepts/overview/components/#node-components)。
 * 阅读 [Node 的 API 定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)。
 * 阅读架构设计文档中有关
   [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   的章节。
-* 了解[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+* 了解[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 

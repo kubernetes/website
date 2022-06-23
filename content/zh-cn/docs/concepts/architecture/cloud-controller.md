@@ -318,10 +318,10 @@ To upgrade a HA control plane to use the cloud controller manager, see [Migrate 
 
 Want to know how to implement your own cloud controller manager, or extend an existing project?
 -->
-[云控制器管理器的管理](/zh/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
+[云控制器管理器的管理](/zh-cn/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
 给出了运行和管理云控制器管理器的指南。
 
-要升级 HA 控制平面以使用云控制器管理器，请参见 [将复制的控制平面迁移以使用云控制器管理器](/zh/docs/tasks/administer-cluster/controller-manager-leader-migration/)
+要升级 HA 控制平面以使用云控制器管理器，请参见 [将复制的控制平面迁移以使用云控制器管理器](/zh-cn/docs/tasks/administer-cluster/controller-manager-leader-migration/)
 
 想要了解如何实现自己的云控制器管理器，或者对现有项目进行扩展么？
 
@@ -343,6 +343,6 @@ For more information about developing plugins, see [Developing Cloud Controller 
 特定于云驱动的实现虽不是 Kubernetes 核心成分，仍要实现 `CloudProvider` 接口。
 
 关于如何开发插件的详细信息，可参考
-[开发云控制器管理器](/zh/docs/tasks/administer-cluster/developing-cloud-controller-manager/)
+[开发云控制器管理器](/zh-cn/docs/tasks/administer-cluster/developing-cloud-controller-manager/)
 文档。
 
