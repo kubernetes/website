@@ -183,4 +183,4 @@ Learn more about
 [Node Affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).
 -->
 进一步了解
-[节点亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).
+[节点亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).

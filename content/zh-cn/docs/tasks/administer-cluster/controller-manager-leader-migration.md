@@ -261,7 +261,7 @@ for more detail on how to deploy `cloud-controller-manager`.
 版本为 N+1 的 `kube-controller-manager` 不能启用领导者迁移，
 因为在使用外部云驱动的情况下，它不再运行已迁移的控制器，因此不参与迁移。
 
-请参阅[云控制器管理器管理](/zh/docs/tasks/administer-cluster/running-cloud-controller/) 
+请参阅[云控制器管理器管理](/zh-cn/docs/tasks/administer-cluster/running-cloud-controller/) 
 了解有关如何部署 `cloud-controller-manager` 的更多细节。
 
 <!--

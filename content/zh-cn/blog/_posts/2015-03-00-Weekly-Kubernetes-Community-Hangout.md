@@ -9,7 +9,7 @@ slug: weekly-kubernetes-community-hangout
 title: " Weekly Kubernetes Community Hangout Notes - March 27 2015 "
 date: 2015-03-28
 slug: weekly-kubernetes-community-hangout
-url: /zh/blog/2015/03/Weekly-Kubernetes-Community-Hangout
+url: /zh-cn/blog/2015/03/Weekly-Kubernetes-Community-Hangout
 ---
 -->
 

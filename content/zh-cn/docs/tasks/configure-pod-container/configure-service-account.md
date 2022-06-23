@@ -73,9 +73,9 @@ In version 1.6+, you can opt out of automounting API credentials for a service a
 `automountServiceAccountToken: false` on the service account:
 -->
 你可以使用自动挂载给 Pod 的服务账户凭据访问 API，
-[访问集群](/zh/docs/tasks/access-application-cluster/access-cluster/)页面中有相关描述。
+[访问集群](/zh-cn/docs/tasks/access-application-cluster/access-cluster/)页面中有相关描述。
 服务账户的 API 许可取决于你所使用的
-[鉴权插件和策略](/zh/docs/reference/access-authn-authz/authorization/#authorization-modules)。
+[鉴权插件和策略](/zh-cn/docs/reference/access-authn-authz/authorization/#authorization-modules)。
 
 在 1.6 以上版本中，你可以通过在服务账户上设置 `automountServiceAccountToken: false`
 来实现不给服务账号自动挂载 API 凭据：
@@ -155,7 +155,7 @@ The name of a ServiceAccount object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 ServiceAccount 对象的名字必须是一个有效的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 <!--
 If you get a complete dump of the service account object, like this:
@@ -195,7 +195,7 @@ field of a pod to the name of the service account you wish to use.
 那么你就能看到系统已经自动创建了一个令牌并且被服务账户所引用。
 
 你可以使用授权插件来
-[设置服务账户的访问许可](/zh/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
+[设置服务账户的访问许可](/zh-cn/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
 
 要使用非默认的服务账户，将 Pod 的 `spec.serviceAccountName` 字段设置为你想用的服务账户名称。
 
@@ -289,7 +289,7 @@ The content of `token` is elided here.
 
 ### 创建 ImagePullSecret
 
-- 创建一个 ImagePullSecret，如同[为 Pod 设置 ImagePullSecret](/zh/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)所述。
+- 创建一个 ImagePullSecret，如同[为 Pod 设置 ImagePullSecret](/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)所述。
 
   ```shell
   kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
@@ -494,7 +494,7 @@ This behavior is configured on a PodSpec using a ProjectedVolume type called
 pod with a token with an audience of "vault" and a validity duration of two
 hours, you would configure the following in your PodSpec:
 -->
-使用名为 [ServiceAccountToken](/zh/docs/concepts/storage/volumes/#projected) 的
+使用名为 [ServiceAccountToken](/zh-cn/docs/concepts/storage/volumes/#projected) 的
 ProjectedVolume 类型在 PodSpec 上配置此功能。
 要向 Pod 提供具有 "vault" 用户以及两个小时有效期的令牌，可以在 PodSpec 中配置以下内容：
 
@@ -640,7 +640,7 @@ See also:
 -->
 另请参见：
 
-- [服务账号的集群管理员指南](/zh/docs/reference/access-authn-authz/service-accounts-admin/)
+- [服务账号的集群管理员指南](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)
 - [服务账号签署密钥检索 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
 - [OIDC 发现规范](https://openid.net/specs/openid-connect-discovery-1_0.html)
 

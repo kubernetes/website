@@ -478,7 +478,7 @@ a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to c
 -->
 下面是两个配置文件，可以用来实现一个带日志代理的边车容器。
 第一个文件包含用来配置 fluentd 的
-[ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+[ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 {{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
 

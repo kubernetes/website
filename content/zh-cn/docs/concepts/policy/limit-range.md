@@ -11,7 +11,7 @@ By default, containers run with unbounded [compute resources](/docs/concepts/con
 With resource quotas, cluster administrators can restrict resource consumption and creation on a {{< glossary_tooltip text="namespace" term_id="namespace" >}} basis.
 Within a namespace, a Pod or Container can consume as much CPU and memory as defined by the namespace's resource quota. There is a concern that one Pod or Container could monopolize all available resources. A LimitRange is a policy to constrain resource allocations (to Pods or Containers) in a namespace.
 -->
-默认情况下， Kubernetes 集群上的容器运行使用的[计算资源](/zh/docs/concepts/configuration/manage-resources-containers/)没有限制。
+默认情况下， Kubernetes 集群上的容器运行使用的[计算资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)没有限制。
 使用资源配额，集群管理员可以以{{< glossary_tooltip text="名字空间" term_id="namespace" >}}为单位，限制其资源的使用与创建。
 在命名空间中，一个 Pod 或 Container 最多能够使用命名空间的资源配额所定义的 CPU 和内存用量。
 有人担心，一个 Pod 或 Container 会垄断所有可用的资源。
@@ -53,7 +53,7 @@ The name of a LimitRange object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 LimitRange 的名称必须是合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 ### Overview of Limit Range
@@ -122,10 +122,10 @@ For examples on using limits, see:
 -->
 关于使用限值的例子，可参看
 
-- [如何配置每个命名空间最小和最大的 CPU 约束](/zh/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)。
-- [如何配置每个命名空间最小和最大的内存约束](/zh/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)。
-- [如何配置每个命名空间默认的 CPU 申请值和限制值](/zh/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
-- [如何配置每个命名空间默认的内存申请值和限制值](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
-- [如何配置每个命名空间最小和最大存储使用量](/zh/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage)。
-- [配置每个命名空间的配额的详细例子](/zh/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)。
+- [如何配置每个命名空间最小和最大的 CPU 约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)。
+- [如何配置每个命名空间最小和最大的内存约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)。
+- [如何配置每个命名空间默认的 CPU 申请值和限制值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
+- [如何配置每个命名空间默认的内存申请值和限制值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
+- [如何配置每个命名空间最小和最大存储使用量](/zh-cn/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage)。
+- [配置每个命名空间的配额的详细例子](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)。
 

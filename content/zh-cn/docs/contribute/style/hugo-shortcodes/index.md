@@ -101,7 +101,7 @@ page content.
 有两种词汇表提示：`glossary_tooltip` 和 `glossary_definition`。
 
 你可以通过加入术语词汇的短代码，来自动更新和替换相应链接中的内容
-（[我们的词汇库](/zh/docs/reference/glossary/)）
+（[我们的词汇库](/zh-cn/docs/reference/glossary/)）
 在浏览在线文档时，术语会显示为超链接的样式，当鼠标移到术语上时，其解释就会显示在提示框中。
 
 除了包含工具提示外，你还可以重用页面内容中词汇表中的定义。
@@ -457,7 +457,7 @@ usually need to add a
 to your cluster so that name resolution works.
 -->
 运行 Kubernetes 需要第三方软件。例如：你通常需要将
-[DNS 服务器](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/#introduction)
+[DNS 服务器](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/#introduction)
 添加到集群中，以便名称解析工作。
 
 <!--
@@ -465,7 +465,7 @@ When we link to third-party software, or otherwise mention it,
 we follow the [content guide](/docs/contribute/style/content-guide/)
 and we also mark those third party items.
 -->
-当我们链接到第三方软件或以其他方式提及它时，我们会遵循[内容指南](/zh/docs/contribute/style/content-guide/)
+当我们链接到第三方软件或以其他方式提及它时，我们会遵循[内容指南](/zh-cn/docs/contribute/style/content-guide/)
 并标记这些第三方项目。
 
 <!--
@@ -645,7 +645,7 @@ Renders to:
 -->
 
 * 了解 [Hugo](https://gohugo.io/)。
-* 了解[撰写新的话题](/zh/docs/contribute/style/write-new-topic/)。
-* 了解[使用页面内容类型](/zh/docs/contribute/style/page-content-types/)。
-* 了解[发起 PR](/zh/docs/contribute/new-content/open-a-pr/)。
-* 了解[进阶贡献](/zh/docs/contribute/advanced/)。
+* 了解[撰写新的话题](/zh-cn/docs/contribute/style/write-new-topic/)。
+* 了解[使用页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)。
+* 了解[发起 PR](/zh-cn/docs/contribute/new-content/open-a-pr/)。
+* 了解[进阶贡献](/zh-cn/docs/contribute/advanced/)。

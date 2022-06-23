@@ -25,7 +25,7 @@ This application is a replicated MySQL database. The example topology has a
 single primary server and multiple replicas, using asynchronous row-based
 replication.
 -->
-本页展示如何使用 [StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/)
+本页展示如何使用 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
 控制器运行一个有状态的应用程序。此例是多副本的 MySQL 数据库。
 示例应用的拓扑结构有一个主服务器和多个副本，使用异步的基于行（Row-Based）
 的数据复制。
@@ -58,11 +58,11 @@ on general patterns for running stateful applications in Kubernetes.
 * You are using the default namespace or another namespace that does not contain any conflicting objects.
 -->
 * 本教程假定你熟悉
-  [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
-  与 [StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/),
-  以及其他核心概念，例如 [Pod](/zh/docs/concepts/workloads/pods/)、
-  [服务](/zh/docs/concepts/services-networking/service/) 与
-  [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/).
+  [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
+  与 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/),
+  以及其他核心概念，例如 [Pod](/zh-cn/docs/concepts/workloads/pods/)、
+  [服务](/zh-cn/docs/concepts/services-networking/service/) 与
+  [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * 熟悉 MySQL 会有所帮助，但是本教程旨在介绍对其他系统应该有用的常规模式。
 * 你正在使用默认命名空间或不包含任何冲突对象的另一个命名空间。
 
@@ -256,7 +256,7 @@ in the order defined.
 ### 生成配置
 
 在启动 Pod 规约中的任何容器之前，Pod 首先按顺序运行所有的
-[Init 容器](/zh/docs/concepts/workloads/pods/init-containers/)。
+[Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)。
 
 <!--
 The first Init Container, named `init-mysql`, generates special MySQL config
@@ -296,7 +296,7 @@ replicating.
 因此脚本仅将序数 `0` 指定为主节点，而将其他所有节点指定为副本节点。
 
 与 StatefulSet 控制器的
-[部署顺序保证](/zh/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)
+[部署顺序保证](/zh-cn/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)
 相结合，
 可以确保 MySQL 主服务器在创建副本服务器之前已准备就绪，以便它们可以开始复制。
 
@@ -502,7 +502,7 @@ to make sure the server is up and able to execute queries.
 ### 破坏就绪态探测
 
 `mysql` 容器的
-[就绪态探测](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
+[就绪态探测](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
 运行命令 `mysql -h 127.0.0.1 -e 'SELECT 1'`，以确保服务器已启动并能够执行查询。
 
 <!--
@@ -855,9 +855,9 @@ kubectl delete pvc data-mysql-4
 * Look in the [Helm Charts repository](https://artifacthub.io/)
   for other stateful application examples.
 -->
-* 进一步了解[为 StatefulSet 扩缩容](/zh/docs/tasks/run-application/scale-stateful-set/).
-* 进一步了解[调试 StatefulSet](/zh/docs/tasks/debug/debug-application/debug-statefulset/).
-* 进一步了解[删除 StatefulSet](/zh/docs/tasks/run-application/delete-stateful-set/).
-* 进一步了解[强制删除 StatefulSet Pods](/zh/docs/tasks/run-application/force-delete-stateful-set-pod/).
+* 进一步了解[为 StatefulSet 扩缩容](/zh-cn/docs/tasks/run-application/scale-stateful-set/).
+* 进一步了解[调试 StatefulSet](/zh-cn/docs/tasks/debug/debug-application/debug-statefulset/).
+* 进一步了解[删除 StatefulSet](/zh-cn/docs/tasks/run-application/delete-stateful-set/).
+* 进一步了解[强制删除 StatefulSet Pods](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/).
 * 在 [Helm Charts 仓库](https://artifacthub.io/)中查找其他有状态的应用程序示例。
 

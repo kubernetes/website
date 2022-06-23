@@ -24,8 +24,8 @@ This page shows how to manually rotate the certificate authority (CA) certificat
 - For more information about best practices for CA certificates, see [Single root CA](/docs/setup/best-practices/certificates/#single-root-ca).
 -->
 - 要了解 Kubernetes 中用户认证的更多信息，参阅
-  [认证](/zh/docs/reference/access-authn-authz/authentication)；
-- 要了解与 CA 证书最佳实践有关的更多信息，参阅[单根 CA](/zh/docs/setup/best-practices/certificates/#single-root-ca)。
+  [认证](/zh-cn/docs/reference/access-authn-authz/authentication)；
+- 要了解与 CA 证书最佳实践有关的更多信息，参阅[单根 CA](/zh-cn/docs/setup/best-practices/certificates/#single-root-ca)。
 
 <!-- steps -->
 
@@ -152,7 +152,7 @@ Configurations with a single API server will experience unavailability while the
    中的内容，更新用户账号的证书。
 
    有关为独立用户账号创建证书的更多信息，可参阅
-   [为用户帐号配置证书](/zh/docs/setup/best-practices/certificates/#configure-certificates-for-user-accounts)。
+   [为用户帐号配置证书](/zh-cn/docs/setup/best-practices/certificates/#configure-certificates-for-user-accounts)。
 
    另外，还要更新 kubeconfig 文件中的 `certificate-authority-data`
    节，使之包含 Base64 编码的老的和新的证书机构数据。
@@ -171,7 +171,7 @@ Configurations with a single API server will experience unavailability while the
 -->
 8. 遵循下列步骤执行滚动更新
 
-   1. 重新启动所有其他 *[被聚合的 API 服务器](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)*
+   1. 重新启动所有其他 *[被聚合的 API 服务器](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)*
       或者 *Webhook 处理程序*，使之信任新的 CA 证书。
 
    2. 在所有节点上更新 kubelet 配置中的 `clientCAFile` 所指文件以及 kubelet.conf 中的
@@ -210,8 +210,8 @@ Configurations with a single API server will experience unavailability while the
       -->
       {{< note >}}
       要使用 `openssl` 命令行为集群生成新的证书和私钥，可参阅
-      [证书（`openssl`）](/zh/docs/tasks/administer-cluster/certificates/#openssl)。
-      你也可以使用[`cfssl`](/zh/docs/tasks/administer-cluster/certificates/#cfssl).
+      [证书（`openssl`）](/zh-cn/docs/tasks/administer-cluster/certificates/#openssl)。
+      你也可以使用[`cfssl`](/zh-cn/docs/tasks/administer-cluster/certificates/#cfssl).
       {{< /note >}}
 
    <!--
@@ -240,7 +240,7 @@ Configurations with a single API server will experience unavailability while the
       -->
       {{< note >}}
       要限制应用可能受到的并发干扰数量，可以参阅
-      [配置 Pod 干扰预算](/zh/docs/tasks/run-application/configure-pdb/).
+      [配置 Pod 干扰预算](/zh-cn/docs/tasks/run-application/configure-pdb/).
       {{< /note >}}
 <!--
 1. If your cluster is using bootstrap tokens to join nodes, update the ConfigMap `cluster-info` in the `kube-public` namespace with new CA.
@@ -268,7 +268,7 @@ Configurations with a single API server will experience unavailability while the
 
     1. 验证控制面组件的日志，以及 `kubelet` 和 `kube-proxy` 的日志，确保其中没有
        抛出 TLS 错误，参阅
-       [查看日志](/zh/docs/tasks/debug/debug-cluster/#looking-at-logs).
+       [查看日志](/zh-cn/docs/tasks/debug/debug-cluster/#looking-at-logs).
 
     2. 验证被聚合的 API 服务器的日志，以及所有使用集群内配置的 Pod 的日志。
 

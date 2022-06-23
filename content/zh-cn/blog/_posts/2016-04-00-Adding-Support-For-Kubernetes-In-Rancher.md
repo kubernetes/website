@@ -2,14 +2,14 @@
 title: " 在 Rancher 中添加对 Kuernetes 的支持 "
 date: 2016-04-08
 slug: adding-support-for-kubernetes-in-rancher
-url: /zh/blog/2016/04/Adding-Support-For-Kubernetes-In-Rancher
+url: /zh-cn/blog/2016/04/Adding-Support-For-Kubernetes-In-Rancher
 ---
 <!--
 ---
 title: " Adding Support for Kubernetes in Rancher "
 date: 2016-04-08
 slug: adding-support-for-kubernetes-in-rancher
-url: /zh/blog/2016/04/Adding-Support-For-Kubernetes-In-Rancher
+url: /zh-cn/blog/2016/04/Adding-Support-For-Kubernetes-In-Rancher
 ---
 -->
 <!--

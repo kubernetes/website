@@ -36,7 +36,7 @@ What does dual-stack networking mean for you? Let’s take a look…
 <!--
 [Services](/docs/concepts/services-networking/service/) were single-stack before 1.20, so using both IP families meant creating one Service per IP family. The user experience was simplified in 1.20, when Services were re-implemented to allow both IP families, meaning a single Service can handle both IPv4 and IPv6 workloads. Dual-stack load balancing is possible between services running any combination of IPv4 and IPv6.
 -->
-[Services](/zh/docs/concepts/services-networking/service/) 在 1.20 版本之前是单协议栈的，
+[Services](/zh-cn/docs/concepts/services-networking/service/) 在 1.20 版本之前是单协议栈的，
 因此，使用两个 IP 协议族意味着需为每个 IP 协议族创建一个 Service。在 1.20 版本中对用户体验进行简化，
 重新实现了 Service 以支持两个 IP 协议族，这意味着一个 Service 就可以处理 IPv4 和 IPv6 协议。
 对于 Service 而言，任意的 IPv4 和 IPv6 协议组合都可以实现负载均衡。
@@ -88,7 +88,7 @@ While Services are set according to what you configure, Pods default to whatever
 Even though dual-stack is possible, it is not mandatory to use it. Examples in the documentation show the variety possible in [dual-stack service configurations](/docs/concepts/services-networking/dual-stack/#dual-stack-service-configuration-scenarios).
 -->
 尽管双协议栈是可用的，但并不强制你使用它。
-在[双协议栈服务配置](/zh/docs/concepts/services-networking/dual-stack/#dual-stack-service-configuration-scenarios)
+在[双协议栈服务配置](/zh-cn/docs/concepts/services-networking/dual-stack/#dual-stack-service-configuration-scenarios)
 文档中的示例列出了可能出现的各种场景.
 
 <!--
@@ -99,16 +99,16 @@ Even though dual-stack is possible, it is not mandatory to use it. Examples in t
 <!--
 While upstream Kubernetes now supports [dual-stack networking](/docs/concepts/services-networking/dual-stack/) as a GA or stable feature, each provider’s support of dual-stack Kubernetes may vary. Nodes need to be provisioned with routable IPv4/IPv6 network interfaces. Pods need to be dual-stack. The [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) is what assigns the IP addresses to the Pods, so it's the network plugin being used for the cluster that needs to support dual-stack. Some Container Network Interface (CNI) plugins support dual-stack, as does kubenet.
 -->
-虽然现在上游 Kubernetes 支持[双协议栈网络](/zh/docs/concepts/services-networking/dual-stack/)
+虽然现在上游 Kubernetes 支持[双协议栈网络](/zh-cn/docs/concepts/services-networking/dual-stack/)
 作为 GA 或稳定特性，但每个提供商对双协议栈 Kubernetes 的支持可能会有所不同。节点需要提供可路由的 IPv4/IPv6 网络接口。
-Pod 需要是双协议栈的。[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+Pod 需要是双协议栈的。[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 是用来为 Pod 分配 IP 地址的，所以集群需要支持双协议栈的网络插件。一些容器网络接口（CNI）插件支持双协议栈，例如 kubenet。
 
 <!--
 Ecosystem support of dual-stack is increasing; you can create [dual-stack clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/), try a [dual-stack cluster locally with KIND](https://kind.sigs.k8s.io/docs/user/configuration/#ip-family), and deploy dual-stack clusters in cloud providers (after checking docs for CNI or kubenet availability).
 -->
 支持双协议栈的生态系统在不断壮大；你可以使用
-[kubeadm 创建双协议栈集群](/zh/docs/setup/production-environment/tools/kubeadm/dual-stack-support/),
+[kubeadm 创建双协议栈集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/),
 在本地尝试用 [KIND 创建双协议栈集群](https://kind.sigs.k8s.io/docs/user/configuration/#ip-family)，
 还可以将双协议栈集群部署到云上（在查阅 CNI 或 kubenet 可用性的文档之后）
 

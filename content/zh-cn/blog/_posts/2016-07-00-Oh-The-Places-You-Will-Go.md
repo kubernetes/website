@@ -9,7 +9,7 @@ slug: oh-the-places-you-will-go
 title: " Happy Birthday Kubernetes. Oh, the places you’ll go! "
 date: 2016-07-21
 slug: oh-the-places-you-will-go
-url: /zh/blog/2016/07/Oh-The-Places-You-Will-Go
+url: /zh-cn/blog/2016/07/Oh-The-Places-You-Will-Go
 ---
 -->
 

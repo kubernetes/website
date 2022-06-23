@@ -23,7 +23,7 @@ slug: secure-your-admission-controllers-and-webhooks
 [Admission control](/docs/reference/access-authn-authz/admission-controllers/) is a key part of Kubernetes security, alongside authentication and authorization. 
 Webhook admission controllers are extensively used to help improve the security of Kubernetes clusters in a variety of ways including restricting the privileges of workloads and ensuring that images deployed to the cluster meet organization’s security requirements.
 -->
-[准入控制](/zh/docs/reference/access-authn-authz/admission-controllers/)和认证、授权都是 Kubernetes 安全性的关键部分。
+[准入控制](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)和认证、授权都是 Kubernetes 安全性的关键部分。
 Webhook 准入控制器被广泛用于以多种方式帮助提高 Kubernetes 集群的安全性，
 包括限制工作负载权限和确保部署到集群的镜像满足组织安全要求。
 
@@ -109,7 +109,7 @@ In most cases, the admission controller webhook used by a cluster will be instal
 <!--
 * **Restrict [RBAC](/docs/reference/access-authn-authz/rbac/) rights**. Any user who has rights which would allow them to modify the configuration of the webhook objects or the workload that the admission controller uses could disrupt its operation. So it’s important to make sure that only cluster administrators have those rights.
 -->
-* **限制 [RBAC](/zh/docs/reference/access-authn-authz/rbac/) 权限**。
+* **限制 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 权限**。
   任何有权修改 webhook 对象的配置或准入控制器使用的工作负载的用户都可以破坏其运行。
   因此，确保只有集群管理员拥有这些权限非常重要。
 <!--
@@ -126,7 +126,7 @@ In most cases, the admission controller webhook used by a cluster will be instal
 * **严格控制外部系统访问**。
   作为集群中的安全服务，准入控制器系统将有权访问敏感信息，如凭证。
   为了降低此信息被发送到集群外的风险，
-  应使用[网络策略](/zh/docs/concepts/services-networking/network-policies/) 
+  应使用[网络策略](/zh-cn/docs/concepts/services-networking/network-policies/) 
   来限制准入控制器服务对外部网络的访问。
 <!--
 * **Each cluster has a dedicated webhook**. Whilst it may be possible to have admission controller webhooks that serve multiple clusters, there is a risk when using that model that an attack on the webhook service would have a larger impact where it’s shared. Also where multiple clusters use an admission controller there will be increased complexity and access requirements, making it harder to secure.

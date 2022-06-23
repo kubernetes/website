@@ -44,7 +44,7 @@ kubeadm 目前不支持对 CoreDNS 部署进行定制。
 你必须手动更新 `kube-system/coredns` {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} 
 并在更新后重新创建 CoreDNS {{< glossary_tooltip text="Pods" term_id="pod" >}}。
 或者，你可以跳过默认的 CoreDNS 部署并部署你自己的 CoreDNS 变种。
-有关更多详细信息，请参阅[在 kubeadm 中使用 init phases](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
+有关更多详细信息，请参阅[在 kubeadm 中使用 init phases](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
 {{< /note >}}
 
 {{< note >}}
@@ -53,7 +53,7 @@ To reconfigure a cluster that has already been created see
 [Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
 -->
 
-要重新配置已创建的集群，请参阅[重新配置 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)。
+要重新配置已创建的集群，请参阅[重新配置 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)。
 {{< /note >}}
 
 <!-- body -->
@@ -284,7 +284,7 @@ alpha-numerically.
 -->
 - `target` 可以是 `kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd` 之一。
 - `patchtype` 可以是 `strategy`、`merge` 或 `json` 之一，并且这些必须匹配 
-  [kubectl 支持](/zh/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch) 的补丁格式。
+  [kubectl 支持](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch) 的补丁格式。
   默认补丁类型是 `strategic` 的。
 - `extension` 必须是 `json` 或 `yaml`。
 - `suffix` 是一个可选字符串，可用于确定首先按字母数字应用哪些补丁。
@@ -323,13 +323,13 @@ before using them.
 kubeadm 将相同的 `KubeletConfiguration` 配置应用于集群中的所有节点。
 要应用节点特定设置，你可以使用 `kubelet` 参数进行覆盖，方法是将它们传递到 `InitConfiguration` 和 `JoinConfiguration` 
 支持的 `nodeRegistration.kubeletExtraArgs` 字段中。一些 kubelet 参数已被弃用，
-因此在使用这些参数之前，请在 [kubelet 参考文档](/zh/docs/reference/command-line-tools-reference/kubelet) 中检查它们的状态。
+因此在使用这些参数之前，请在 [kubelet 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kubelet) 中检查它们的状态。
 {{< /note >}}
 
 <!--
 For more details see [Configuring each kubelet in your cluster using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
 -->
-更多详情，请参阅[使用 kubeadm 配置集群中的每个 kubelet](/zh/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
+更多详情，请参阅[使用 kubeadm 配置集群中的每个 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
 
 <!--
 ## Customizing kube-proxy

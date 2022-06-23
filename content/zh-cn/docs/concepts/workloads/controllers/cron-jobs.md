@@ -54,7 +54,7 @@ recommended in a production cluster.
 -->
 
 {{< caution >}}
-如 [v1 CronJob API](/zh/docs/reference/kubernetes-api/workload-resources/cron-job-v1/) 所述，官方并不支持设置时区。
+如 [v1 CronJob API](/zh-cn/docs/reference/kubernetes-api/workload-resources/cron-job-v1/) 所述，官方并不支持设置时区。
 
 Kubernetes 项目官方并不支持设置如 `CRON_TZ` 或者 `TZ` 等变量。
 `CRON_TZ` 或者 `TZ` 是用于解析和计算下一个 Job 创建时间所使用的内部库中一个实现细节。
@@ -69,7 +69,7 @@ append 11 characters to the job name provided and there is a constraint that the
 maximum length of a Job name is no more than 63 characters.
 -->
 为 CronJob 资源创建清单时，请确保所提供的名称是一个合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 名称不能超过 52 个字符。
 这是因为 CronJob 控制器将自动在提供的 Job 名称后附加 11 个字符，并且存在一个限制，
 即 Job 名称的最大长度不能超过 63 个字符。
@@ -102,7 +102,7 @@ This example CronJob manifest prints the current time and a hello message every 
 
 {{< codenew file="application/job/cronjob.yaml" >}}
 
-[使用 CronJob 运行自动化任务](/zh/docs/tasks/job/automated-tasks-with-cron-jobs/)
+[使用 CronJob 运行自动化任务](/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/)
 一文会为你详细讲解此例。
 
 <!--
@@ -173,7 +173,7 @@ A time zone database from the Go standard library is included in the binaries an
 
 {{< feature-state for_k8s_version="v1.24" state="alpha" >}}
 
-如果启用了 `CronJobTimeZone` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+如果启用了 `CronJobTimeZone` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 你可以为 CronJob 指定一个时区（如果你没有启用该特性门控，或者你使用的是不支持试验性时区功能的
 Kubernetes 版本，集群中所有 CronJob 的时区都是未指定的）。
 
@@ -199,7 +199,7 @@ you can specify a time zone for a CronJob (if you don't enable that feature gate
 Kubernetes that does not have experimental time zone support, all CronJobs in your cluster have an unspecified
 timezone).
 -->
-如果启用 `CronJobTimeZone` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+如果启用 `CronJobTimeZone` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 你可以为 CronJob 指定时区（如果你不启用该特性门控，或者如果你使用的 Kubernetes 版本不支持实验中的时区特性，
 则集群中的所有 CronJob 都属于未指定时区）。
 
@@ -311,7 +311,7 @@ and set this flag to `false`. For example:
 从 Kubernetes v1.21 版本开始，CronJob 控制器的第二个版本被用作默认实现。
 要禁用此默认 CronJob 控制器而使用原来的 CronJob 控制器，请在
 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
-中设置[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+中设置[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 `CronJobControllerV2`，将此标志设置为 `false`。例如：
 
 ```
@@ -335,11 +335,11 @@ and set this flag to `false`. For example:
   object definition to understand the API for Kubernetes cron jobs.
 -->
 
-* 了解 CronJob 所依赖的 [Pods](/zh/docs/concepts/workloads/pods/) 与 [Job](/zh/docs/concepts/workloads/controllers/job/) 的概念。
+* 了解 CronJob 所依赖的 [Pods](/zh-cn/docs/concepts/workloads/pods/) 与 [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 的概念。
 * 阅读 CronJob `.spec.schedule` 字段的[格式](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)。
 * 有关创建和使用 CronJob 的说明及示例规约文件，请参见
-  [使用 CronJob 运行自动化任务](/zh/docs/tasks/job/automated-tasks-with-cron-jobs/)。
-* 有关自动清理失败或完成作业的说明，请参阅[自动清理作业](/zh/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
+  [使用 CronJob 运行自动化任务](/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/)。
+* 有关自动清理失败或完成作业的说明，请参阅[自动清理作业](/zh-cn/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 * `CronJob` 是 Kubernetes REST API 的一部分，
    阅读 {{< api-reference page="workload-resources/cron-job-v1" >}}
    对象定义以了解关于该资源的 API。

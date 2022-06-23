@@ -2,14 +2,14 @@
 title: " Kubernetes 1.1 性能升级，工具改进和社区不断壮大  "
 date: 2015-11-09
 slug: kubernetes-1-1-performance-upgrades-improved-tooling-and-a-growing-community
-url: /zh/blog/2015/11/Kubernetes-1-1-Performance-Upgrades-Improved-Tooling-And-A-Growing-Community
+url: /zh-cn/blog/2015/11/Kubernetes-1-1-Performance-Upgrades-Improved-Tooling-And-A-Growing-Community
 ---
 <!--
 ---
 title: " Kubernetes 1.1 Performance upgrades, improved tooling and a growing community  "
 date: 2015-11-09
 slug: kubernetes-1-1-performance-upgrades-improved-tooling-and-a-growing-community
-url: /zh/blog/2015/11/Kubernetes-1-1-Performance-Upgrades-Improved-Tooling-And-A-Growing-Community
+url: /zh-cn/blog/2015/11/Kubernetes-1-1-Performance-Upgrades-Improved-Tooling-And-A-Growing-Community
 ---
 -->
 <!--

@@ -1399,7 +1399,7 @@ Default: nil
    -->
    <p><code>systemReserved</code>是一组<code>资源名称=资源数量</code>对，
 用来描述为非 Kubernetes 组件预留的资源（例如：'cpu=200m,memory=150G'）。</p>
-   <p>目前仅支持 CPU 和内存。更多细节可参见 http://kubernetes.io/zh/docs/user-guide/compute-resources。</p>
+   <p>目前仅支持 CPU 和内存。更多细节可参见 http://kubernetes.io/zh-cn/docs/user-guide/compute-resources。</p>
    <p>默认值：Nil</p>
 </td>
 </tr>
@@ -1418,7 +1418,7 @@ Default: nil
    <p><code>kubeReserved</code>是一组<code>资源名称=资源数量</code>对，
 用来描述为 Kubernetes 系统组件预留的资源（例如：'cpu=200m,memory=150G'）。
 目前支持 CPU、内存和根文件系统的本地存储。
-更多细节可参见 https://kubernetes.io/zh/docs/concepts/configuration/manage-resources-containers/。</p>
+更多细节可参见 https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/。</p>
    <p>默认值：Nil</p>
 </td>
 </tr>

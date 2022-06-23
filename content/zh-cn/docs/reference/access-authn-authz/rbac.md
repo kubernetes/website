@@ -1,7 +1,7 @@
 ---
 title: 使用 RBAC 鉴权
 content_type: concept
-aliases: [/zh/rbac/]
+aliases: [/zh-cn/rbac/]
 weight: 70
 ---
 
@@ -65,7 +65,7 @@ or amend them, using tools such as `kubectl`, just like any other Kubernetes obj
 RBAC API 声明了四种 Kubernetes 对象：_Role_、_ClusterRole_、_RoleBinding_ 和
 _ClusterRoleBinding_。你可以像使用其他 Kubernetes 对象一样，
 通过类似 `kubectl` 这类工具
-[描述对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects),
+[描述对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects),
 或修补对象。
 
 {{< caution >}}
@@ -227,7 +227,7 @@ The name of a Role or a ClusterRole object must be a valid
 [path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
 -->
 Role 或 ClusterRole 对象的名称必须是合法的
-[路径区段名称](/zh/docs/concepts/overview/working-with-objects/names#path-segment-names)。
+[路径区段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
 
 <!--
 ### RoleBinding and ClusterRoleBinding
@@ -258,7 +258,7 @@ RoleBinding 所在的名字空间。
 如果你希望将某  ClusterRole 绑定到集群中所有名字空间，你要使用 ClusterRoleBinding。
 
 RoleBinding 或 ClusterRoleBinding 对象的名称必须是合法的
-[路径区段名称](/zh/docs/concepts/overview/working-with-objects/names#path-segment-names)。
+[路径区段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
 
 <!--
 #### RoleBinding examples {#rolebinding-example}
@@ -920,7 +920,7 @@ Kubernetes 用字符串来表示用户名。
 用户名可以是普通的用户名，像 "alice"；或者是邮件风格的名称，如 "bob@example.com"，
 或者是以字符串形式表达的数字 ID。
 你作为 Kubernetes 管理员负责配置
-[身份认证模块](/zh/docs/reference/access-authn-authz/authentication/)
+[身份认证模块](/zh-cn/docs/reference/access-authn-authz/authentication/)
 以便后者能够生成你所期望的格式的用户名。
 
 
@@ -949,7 +949,7 @@ with `system:serviceaccount:`, and belong to groups that have names prefixed wit
 与用户名一样，用户组名也用字符串来表示，而且对该字符串没有格式要求，
 只是不能使用保留的前缀 `system:`。
 
-[服务账户](/zh/docs/tasks/configure-pod-container/configure-service-account/)
+[服务账户](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
 的用户名前缀为 `system:serviceaccount:`，属于前缀为 `system:serviceaccounts:`
 的用户组。
 
@@ -1440,8 +1440,8 @@ You should use the <a href="/docs/reference/access-authn-authz/node/">Node autho
 <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction admission plugin</a>
 instead of the <tt>system:node</tt> role, and allow granting API access to kubelets based on the Pods scheduled to run on them.
 -->
-你应该使用 <a href="/zh/docs/reference/access-authn-authz/node/">Node 鉴权组件</a>和
-<a href="/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction 准入插件</a>而不是
+你应该使用 <a href="/zh-cn/docs/reference/access-authn-authz/node/">Node 鉴权组件</a>和
+<a href="/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction 准入插件</a>而不是
 <tt>system:node</tt> 角色。同时基于 kubelet 上调度执行的 Pod 来授权
 kubelet 对 API 的访问。
 
@@ -1553,7 +1553,7 @@ Allows access to the resources required to perform
 <a href="/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">Kubelet TLS bootstrapping</a>.
 -->
 允许访问执行
-<a href="/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">kubelet TLS 启动引导</a>
+<a href="/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">kubelet TLS 启动引导</a>
 所需要的资源。
 </td>
 </tr>
@@ -1581,7 +1581,7 @@ Role for the <a href="https://github.com/kubernetes/node-problem-detector">node-
 Allows access to the resources required by most <a href="/docs/concepts/storage/persistent-volumes/#dynamic">dynamic volume provisioners</a>.
 -->
 允许访问大部分
-<a href="/zh/docs/concepts/storage/persistent-volumes/#dynamic">动态卷驱动</a>
+<a href="/zh-cn/docs/concepts/storage/persistent-volumes/#dynamic">动态卷驱动</a>
 所需要的资源。
 </td>
 </tr>
@@ -2151,7 +2151,7 @@ In order from most secure to least secure, the approaches are:
    that grant super-user access to your cluster's API.
    {{< /caution >}}
    -->
-   许多[插件组件](/zh/docs/concepts/cluster-administration/addons/)在 `kube-system`
+   许多[插件组件](/zh-cn/docs/concepts/cluster-administration/addons/)在 `kube-system`
    名字空间以 “default” 服务账户运行。
    要允许这些插件组件以超级用户权限运行，需要将集群的 `cluster-admin` 权限授予
    `kube-system` 名字空间中的 “default” 服务账户。
@@ -2300,7 +2300,7 @@ the [legacy ABAC policy](/docs/reference/access-authn-authz/abac/#policy-file-fo
 ### 并行鉴权    {#parallel-authorizers}
 
 同时运行 RBAC 和 ABAC 鉴权模式，并指定包含
-[现有的 ABAC 策略](/zh/docs/reference/access-authn-authz/abac/#policy-file-format)
+[现有的 ABAC 策略](/zh-cn/docs/reference/access-authn-authz/abac/#policy-file-format)
 的策略文件：
 
 ```shell

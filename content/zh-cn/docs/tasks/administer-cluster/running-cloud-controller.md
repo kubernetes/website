@@ -196,6 +196,6 @@ TLS 证书以和 API 服务器通信。
 To build and develop your own cloud controller manager, read the [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md) doc.
 -->
 要构建和开发你自己的云管理控制器，请阅读
-[开发云管理控制器](/zh/docs/tasks/administer-cluster/developing-cloud-controller-manager/)
+[开发云管理控制器](/zh-cn/docs/tasks/administer-cluster/developing-cloud-controller-manager/)
 文档。
 

@@ -2,7 +2,7 @@
 title: 标签（Label）
 id: label
 date: 2018-04-12
-full_link: /zh/docs/concepts/overview/working-with-objects/labels/
+full_link: /zh-cn/docs/concepts/overview/working-with-objects/labels/
 short_description: >
   用来为对象设置可标识的属性标记；这些标记对用户而言是有意义且重要的。
 

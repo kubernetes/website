@@ -25,7 +25,7 @@ For information on how to create a cluster with kubeadm once you have performed 
 -->
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px">本页面显示如何安装 `kubeadm` 工具箱。
 有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，请参见
-[使用 kubeadm 创建集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 页面。
+[使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 页面。
 
 ## {{% heading "prerequisites" %}}
 
@@ -110,7 +110,7 @@ sudo sysctl --system
 <!--
 For more details please see the [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
 -->
-更多的相关细节可查看[网络插件需求](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)页面。
+更多的相关细节可查看[网络插件需求](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)页面。
 
 <!--
 ## Check required ports
@@ -121,7 +121,7 @@ need to be open in order for Kubernetes components to communicate with each othe
 
 ## 检查所需端口{#check-required-ports}
 
-启用这些[必要的端口](/zh/docs/reference/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。可以使用 netcat 之类的工具来检查端口是否启用，例如：
+启用这些[必要的端口](/zh-cn/docs/reference/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。可以使用 netcat 之类的工具来检查端口是否启用，例如：
 
 ```shell
 nc 127.0.0.1 6443
@@ -169,7 +169,7 @@ for more information.
 -->
 如果检测到有多个或者没有容器运行时，kubeadm 将抛出一个错误并要求你指定一个想要使用的运行时。
 
-参阅[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
+参阅[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
 以了解更多信息。
 
 <!--
@@ -182,9 +182,9 @@ Docker Engine support that was [removed](/dockershim) from the kubelet in versio
 -->
 
 {{< note >}}
-Docker Engine 没有实现 [CRI](/zh/docs/concepts/architecture/cri/)，而这是容器运行时在 Kubernetes 中工作所需要的。
+Docker Engine 没有实现 [CRI](/zh-cn/docs/concepts/architecture/cri/)，而这是容器运行时在 Kubernetes 中工作所需要的。
 为此，必须安装一个额外的服务 [cri-dockerd](https://github.com/Mirantis/cri-dockerd)。
-cri-dockerd 是一个基于传统的内置Docker引擎支持的项目，它在 1.24 版本从 kubelet 中[移除](/zh/dockershim)。
+cri-dockerd 是一个基于传统的内置Docker引擎支持的项目，它在 1.24 版本从 kubelet 中[移除](/zh-cn/dockershim)。
 {{< /note >}}
 
 <!--
@@ -273,7 +273,7 @@ kubeadm **不能** 帮你安装或者管理 `kubelet` 或 `kubectl`，所以你�
 的版本不可以超过 API 服务器的版本。
 例如，1.7.0 版本的 kubelet 可以完全兼容 1.8.0 版本的 API 服务器，反之则不可以。
 
-有关安装 `kubectl` 的信息，请参阅[安装和设置 kubectl](/zh/docs/tasks/tools/)文档。
+有关安装 `kubectl` 的信息，请参阅[安装和设置 kubectl](/zh-cn/docs/tasks/tools/)文档。
 
 {{< warning >}}
 <!--
@@ -282,7 +282,7 @@ This is because kubeadm and Kubernetes require
 [special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/).
 -->
 这些指南不包括系统升级时使用的所有 Kubernetes 程序包。这是因为 kubeadm 和 Kubernetes
-有[特殊的升级注意事项](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+有[特殊的升级注意事项](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 {{</ warning >}}
 
 <!--
@@ -293,8 +293,8 @@ For more information on version skews, see:
 -->
 关于版本偏差的更多信息，请参阅以下文档：
 
-* Kubernetes [版本与版本间的偏差策略](/zh/docs/setup/release/version-skew-policy/)
-* Kubeadm 特定的[版本偏差策略](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
+* Kubernetes [版本与版本间的偏差策略](/zh-cn/docs/setup/release/version-skew-policy/)
+* Kubeadm 特定的[版本偏差策略](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="基于 Debian 的发行版" %}}
@@ -468,7 +468,7 @@ See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools
 -->
 Flatcar Container Linux 发行版会将 `/usr/` 目录挂载为一个只读文件系统。
 在启动引导你的集群之前，你需要执行一些额外的操作来配置一个可写入的目录。
-参见 [kubeadm 故障排查指南](/zh/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
+参见 [kubeadm 故障排查指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
 以了解如何配置一个可写入的目录。
 {{< /note >}}
 
@@ -491,7 +491,7 @@ for the management of cgroups on Linux machines.
 ## 配置 cgroup 驱动程序  {#configure-cgroup-driver}
 
 容器运行时和 kubelet 都具有名字为
-["cgroup driver"](/zh/docs/setup/production-environment/container-runtimes/)
+["cgroup driver"](/zh-cn/docs/setup/production-environment/container-runtimes/)
 的属性，该属性对于在 Linux 机器上管理 CGroups 而言非常重要。
 
 {{< warning >}}
@@ -503,7 +503,7 @@ See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configu
 你需要确保容器运行时和 kubelet 所使用的是相同的 cgroup 驱动，否则 kubelet
 进程会失败。
 
-相关细节可参见[配置 cgroup 驱动](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
+相关细节可参见[配置 cgroup 驱动](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
 {{< /warning >}}
 
 <!--
@@ -514,11 +514,11 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 ## 故障排查   {#troubleshooting}
 
 如果你在使用 kubeadm 时遇到困难，请参阅我们的
-[故障排查文档](/zh/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
+[故障排查文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 -->
-* [使用 kubeadm 创建集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+* [使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)

@@ -2,7 +2,7 @@
 title: 容器运行时（Container Runtime）
 id: container-runtime
 date: 2019-06-05
-full_link: /zh/docs/setup/production-environment/container-runtimes
+full_link: /zh-cn/docs/setup/production-environment/container-runtimes
 short_description: >
  容器运行时是负责运行容器的软件。
 

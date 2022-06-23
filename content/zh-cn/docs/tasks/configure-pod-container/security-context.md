@@ -54,8 +54,8 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 * readOnlyRootFilesystem: Mounts the container's root filesystem as read-only.
 -->
-* [AppArmor](/zh/docs/tutorials/security/apparmor/)：使用程序配置来限制个别程序的权能。
-* [Seccomp](/zh/docs/tutorials/security/seccomp/)：过滤进程的系统调用。
+* [AppArmor](/zh-cn/docs/tutorials/security/apparmor/)：使用程序配置来限制个别程序的权能。
+* [Seccomp](/zh-cn/docs/tutorials/security/seccomp/)：过滤进程的系统调用。
 * `allowPrivilegeEscalation`：控制进程是否可以获得超出其父进程的特权。
   此布尔值直接控制是否为容器进程设置
   [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)标志。
@@ -306,9 +306,9 @@ This field has no effect on ephemeral volume types such as
 and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
 -->
 {{< note >}}
-此字段对于 [`secret`](/zh/docs/concepts/storage/volumes/#secret)、
-[`configMap`](/zh/docs/concepts/storage/volumes/#configmap)
-和 [`emptydir`](/zh/docs/concepts/storage/volumes/#emptydir)
+此字段对于 [`secret`](/zh-cn/docs/concepts/storage/volumes/#secret)、
+[`configMap`](/zh-cn/docs/concepts/storage/volumes/#configmap)
+和 [`emptydir`](/zh-cn/docs/concepts/storage/volumes/#emptydir)
 这类临时性存储无效。
 {{< /note >}}
 
@@ -784,7 +784,7 @@ kubectl delete pod security-context-demo-4
 * [使用最新的安全性增强来调优 Docker（英文）](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 * [安全上下文的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/security_context.md)
 * [属主管理的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-ownership-management.md)
-* [Pod 安全策略](/zh/docs/concepts/security/pod-security-policy/)
+* [Pod 安全策略](/zh-cn/docs/concepts/security/pod-security-policy/)
 * [AllowPrivilegeEscalation 的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/no-new-privs.md)
 * 关于在 Linux 系统中的安全机制的更多信息，可参阅
   [Linux 内核安全性能力概述](https://www.linux.com/learn/overview-linux-kernel-security-features)。

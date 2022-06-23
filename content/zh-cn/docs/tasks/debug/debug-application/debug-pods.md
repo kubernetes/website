@@ -23,7 +23,7 @@ This is *not* a guide for people who want to debug their cluster.  For that you 
 
 本指南帮助用户调试那些部署到 Kubernetes 上后没有正常运行的应用。
 本指南 **并非** 指导用户如何调试集群。
-如果想调试集群的话，请参阅[这里](/zh/docs/tasks/debug/debug-cluster)。
+如果想调试集群的话，请参阅[这里](/zh-cn/docs/tasks/debug/debug-cluster)。
 
 
 <!-- body -->
@@ -94,7 +94,7 @@ scheduled.  In most cases, `hostPort` is unnecessary, try using a Service object
 -->
 * **资源不足**:
   你可能耗尽了集群上所有的 CPU 或内存。此时，你需要删除 Pod、调整资源请求或者为集群添加节点。
-  更多信息请参阅[计算资源文档](/zh/docs/concepts/configuration/manage-resources-containers/)
+  更多信息请参阅[计算资源文档](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
 
 * **使用了 `hostPort`**:
   如果绑定 Pod 到 `hostPort`，那么能够运行该 Pod 的节点就有限了。
@@ -132,7 +132,7 @@ Once your pod has been scheduled, the methods described in [Debug Running Pods](
 #### Pod 处于 Crashing 或别的不健康状态
 
 一旦 Pod 被调度，就可以采用
-[调试运行中的 Pod](/zh/docs/tasks/debug/debug-application/debug-running-pod/)
+[调试运行中的 Pod](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)
 中的方法来进一步调试。
 
 <!--
@@ -284,7 +284,7 @@ Please see [debugging service](/docs/tasks/debug/debug-applications/debug-servic
 -->
 #### 网络流量未被转发
 
-请参阅[调试 Service](/zh/docs/tasks/debug/debug-applications/debug-service/) 了解更多信息。
+请参阅[调试 Service](/zh-cn/docs/tasks/debug/debug-applications/debug-service/) 了解更多信息。
 
 ## {{% heading "whatsnext" %}}
 
@@ -298,8 +298,8 @@ does not seem to be misbehaving.
 You may also visit [troubleshooting document](/docs/tasks/debug/) for more information.
 -->
 如果上述方法都不能解决你的问题，
-请按照[调试 Service 文档](/zh/docs/tasks/debug/debug-applications/debug-service/)中的介绍，
+请按照[调试 Service 文档](/zh-cn/docs/tasks/debug/debug-applications/debug-service/)中的介绍，
 确保你的 `Service` 处于 Running 态，有 `Endpoints` 被创建，`Pod` 真的在提供服务；
 DNS 服务已配置并正常工作，iptables 规则也以安装并且 `kube-proxy` 也没有异常行为。
 
-你也可以访问[故障排查文档](/zh/docs/tasks/debug/)来获取更多信息。
+你也可以访问[故障排查文档](/zh-cn/docs/tasks/debug/)来获取更多信息。

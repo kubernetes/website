@@ -3,7 +3,7 @@
 title: " Weekly Kubernetes Community Hangout Notes - July 31 2015 "
 date: 2015-08-04
 slug: weekly-kubernetes-community-hangout
-url: /zh/blog/2015/08/Weekly-Kubernetes-Community-Hangout
+url: /zh-cn/blog/2015/08/Weekly-Kubernetes-Community-Hangout
 ---
 -->
 
@@ -11,7 +11,7 @@ url: /zh/blog/2015/08/Weekly-Kubernetes-Community-Hangout
 title: " Kubernetes社区每周环聊笔记-2015年7月31日 "
 date: 2015-08-04
 slug: weekly-kubernetes-community-hangout
-url: /zh/blog/2015/08/Weekly-Kubernetes-Community-Hangout
+url: /zh-cn/blog/2015/08/Weekly-Kubernetes-Community-Hangout
 ---
 
 <!--

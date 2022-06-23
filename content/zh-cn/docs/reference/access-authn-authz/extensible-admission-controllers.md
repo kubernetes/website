@@ -16,7 +16,7 @@ In addition to [compiled-in admission plugins](/docs/reference/access-authn-auth
 admission plugins can be developed as extensions and run as webhooks configured at runtime.
 This page describes how to build, configure, use, and monitor admission webhooks.
 -->
-除了[内置的 admission 插件](/zh/docs/reference/access-authn-authz/admission-controllers/)，
+除了[内置的 admission 插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)，
 准入插件可以作为扩展独立开发，并以运行时所配置的 Webhook 的形式运行。
 此页面描述了如何构建、配置、使用和监视准入 Webhook。
 
@@ -36,8 +36,8 @@ Mutating admission Webhooks are invoked first, and can modify objects sent to th
 -->
 准入 Webhook 是一种用于接收准入请求并对其进行处理的 HTTP 回调机制。
 可以定义两种类型的准入 webhook，即
-[验证性质的准入 Webhook](/zh/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook) 和
-[修改性质的准入 Webhook](/zh/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)。
+[验证性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook) 和
+[修改性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)。
 修改性质的准入 Webhook 会先被调用。它们可以更改发送到 API 
 服务器的对象以执行自定义的设置默认值操作。
 
@@ -70,7 +70,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 ### 尝试准入 Webhook
 
 准入 Webhook 本质上是集群控制平面的一部分。你应该非常谨慎地编写和部署它们。
-如果你打算编写或者部署生产级准入 webhook，请阅读[用户指南](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server)以获取相关说明。
+如果你打算编写或者部署生产级准入 webhook，请阅读[用户指南](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server)以获取相关说明。
 在下文中，我们将介绍如何快速试验准入 Webhook。
 
 <!--
@@ -91,7 +91,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 * 确保 Kubernetes 集群版本至少为 v1.16（以便使用 `admissionregistration.k8s.io/v1` API） 或者 v1.9 （以便使用 `admissionregistration.k8s.io/v1beta1` API）。
 
 * 确保启用 MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook 控制器。
-  [这里](/zh/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
+  [这里](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
   是一组推荐的 admission 控制器，通常可以启用。
 
 * 确保启用了 `admissionregistration.k8s.io/v1beta1` API。
@@ -1098,7 +1098,7 @@ webhooks:
 <!--
 See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 -->
-有关标签选择器的更多示例，请参见[标签](/zh/docs/concepts/overview/working-with-objects/labels)。
+有关标签选择器的更多示例，请参见[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels)。
 
 <!--
 ### Matching requests: namespaceSelector
@@ -1231,7 +1231,7 @@ webhooks:
 See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 -->
 有关标签选择器的更多示例，请参见
-[标签](/zh/docs/concepts/overview/working-with-objects/labels)。
+[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels)。
 
 <!--
 ### Matching requests: matchPolicy
@@ -1878,7 +1878,7 @@ capturing if a request object is mutated by the invocation, and optionally gener
 patch from the webhook admission response. The annotations are set in the audit event for given request on given stage of
 its execution, which is then pre-processed according to a certain policy and written to a backend.
 -->
-在 v1.16+ 中，kube-apiserver 针对每个修改性质的 Webhook 调用执行[审计](/zh/docs/tasks/debug/debug-cluster/audit/)操作。
+在 v1.16+ 中，kube-apiserver 针对每个修改性质的 Webhook 调用执行[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)操作。
 每个调用都会生成一个审计注解，记述请求对象是否发生改变，
 可选地还可以根据 webhook 的准入响应生成一个注解，记述所应用的修补。
 针对给定请求的给定执行阶段，注解被添加到审计事件中，

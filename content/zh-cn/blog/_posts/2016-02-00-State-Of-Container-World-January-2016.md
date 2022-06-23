@@ -2,14 +2,14 @@
 title: " 容器世界现状，2016年1月 "
 date: 2016-02-01
 slug: state-of-container-world-january-2016
-url: /zh/blog/2016/02/State-Of-Container-World-January-2016
+url: /zh-cn/blog/2016/02/State-Of-Container-World-January-2016
 ---
 <!--
 ---
 title: " State of the Container World, January 2016 "
 date: 2016-02-01
 slug: state-of-container-world-january-2016
-url: /zh/blog/2016/02/State-Of-Container-World-January-2016
+url: /zh-cn/blog/2016/02/State-Of-Container-World-January-2016
 ---
 -->
 <!--

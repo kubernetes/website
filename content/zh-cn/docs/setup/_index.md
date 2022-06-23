@@ -57,7 +57,7 @@ There are also other standardized and custom solutions across a wide range of cl
 bare metal environments.
 -->
 可以[下载 Kubernetes](/releases/download/)，在本地机器、云或你自己的数据中心上部署 Kubernetes 集群。
-如果你不想自己管理 Kubernetes 集群，则可以选择托管服务，包括[经过认证的平台](/zh/docs/setup/production-environment/turnkey-solutions/)。
+如果你不想自己管理 Kubernetes 集群，则可以选择托管服务，包括[经过认证的平台](/zh-cn/docs/setup/production-environment/turnkey-solutions/)。
 在各种云和裸机环境中，还有其他标准化和定制的解决方案。
 <!-- body -->
 
@@ -73,7 +73,7 @@ See [Install tools](/docs/tasks/tools/).
 -->
 如果正打算学习 Kubernetes，请使用 Kubernetes 社区支持
 或生态系统中的工具在本地计算机上设置 Kubernetes 集群。
-请参阅[安装工具](/zh/docs/tasks/tools/)。
+请参阅[安装工具](/zh-cn/docs/tasks/tools/)。
 
 <!--
 ## Production environment
@@ -89,11 +89,11 @@ prefer to hand off to a provider.
 For a cluster you're managing yourself, the officially supported tool
 for deploying Kubernetes is [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
 -->
-在评估[生产环境](/zh/docs/setup/production-environment/)的解决方案时，
+在评估[生产环境](/zh-cn/docs/setup/production-environment/)的解决方案时，
 请考虑要自己管理 Kubernetes 集群（或相关抽象）的哪些方面，将哪些托付给提供商。
 
 对于你自己管理的集群，官方支持的用于部署 Kubernetes 的工具是 
-[kubeadm](/zh/docs/setup/production-environment/tools/kubeadm/)。
+[kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/)。
 
 <!--
 ## {{% heading "whatsnext" %}}
@@ -111,10 +111,10 @@ Windows.
 ## {{% heading "whatsnext" %}}
 
 - [下载 Kubernetes](/releases/download/)
-- 下载并[安装工具](/zh/docs/tasks/tools/)，包括 kubectl 在内
-- 为新集群选择[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
-- 了解集群设置的[最佳实践](/zh/docs/setup/best-practices/)
+- 下载并[安装工具](/zh-cn/docs/tasks/tools/)，包括 kubectl 在内
+- 为新集群选择[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
+- 了解集群设置的[最佳实践](/zh-cn/docs/setup/best-practices/)
 
 Kubernetes 的设计是让其{{< glossary_tooltip term_id="control-plane" text="控制平面" >}}在 Linux 上运行的。
 在集群中，你可以在 Linux 或其他操作系统（包括 Windows）上运行应用程序。
-- 学习[配置包含 Windows 节点的集群](/zh/docs/setup/production-environment/windows/)
+- 学习[配置包含 Windows 节点的集群](/zh-cn/docs/setup/production-environment/windows/)

@@ -2,14 +2,14 @@
 title: Kubernetes 1.9 对 Windows Server 容器提供 Beta 版本支持
 date: 2018-01-09
 slug: kubernetes-v19-beta-windows-support
-url: /zh/blog/2018/01/Kubernetes-V19-Beta-Windows-Support
+url: /zh-cn/blog/2018/01/Kubernetes-V19-Beta-Windows-Support
 ---
 <!--
 ---
 title: Kubernetes v1.9 releases beta support for Windows Server Containers
 date: 2018-01-09
 slug: kubernetes-v19-beta-windows-support
-url: /zh/blog/2018/01/Kubernetes-V19-Beta-Windows-Support
+url: /zh-cn/blog/2018/01/Kubernetes-V19-Beta-Windows-Support
 ---
 --->
 

@@ -77,8 +77,8 @@ This is a living document. If you think of something that is not on this list bu
 - Don't use naked Pods (that is, Pods not bound to a [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) or [Deployment](/docs/concepts/workloads/controllers/deployment/)) if you can avoid it. Naked Pods will not be rescheduled in the event of a node failure.
 -->
 - 如果可能，不要使用独立的 Pods（即，未绑定到
-[ReplicaSet](/zh/docs/concepts/workloads/controllers/replicaset/) 或
-[Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 的 Pod）。
+[ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/) 或
+[Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 的 Pod）。
  如果节点发生故障，将不会重新调度独立的 Pods。
 
 <!--
@@ -86,9 +86,9 @@ This is a living document. If you think of something that is not on this list bu
 -->
 
 Deployment 既可以创建一个 ReplicaSet 来确保预期个数的 Pod 始终可用，也可以指定替换 Pod 的策略（例如
-[RollingUpdate](/zh/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)）。
-除了一些显式的 [`restartPolicy: Never`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
-场景外，Deployment 通常比直接创建 Pod 要好得多。[Job](/zh/docs/concepts/workloads/controllers/job/) 也可能是合适的选择。
+[RollingUpdate](/zh-cn/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)）。
+除了一些显式的 [`restartPolicy: Never`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
+场景外，Deployment 通常比直接创建 Pod 要好得多。[Job](/zh-cn/docs/concepts/workloads/controllers/job/) 也可能是合适的选择。
 
 <!--
 ## Services
@@ -99,7 +99,7 @@ Deployment 既可以创建一个 ReplicaSet 来确保预期个数的 Pod 始终�
 - Create a [Service](/docs/concepts/services-networking/service/) before its corresponding backend workloads (Deployments or ReplicaSets), and before any workloads that need to access it. When Kubernetes starts a container, it provides environment variables pointing to all the Services which were running when the container was started. For example, if a Service named `foo` exists, all containers will get the following variables in their initial environment:
 -->
 - 在创建相应的后端工作负载（Deployment 或 ReplicaSet），以及在需要访问它的任何工作负载之前创建
-  [服务](/zh/docs/concepts/services-networking/service/)。
+  [服务](/zh-cn/docs/concepts/services-networking/service/)。
   当 Kubernetes 启动容器时，它提供指向启动容器时正在运行的所有服务的环境变量。
   例如，如果存在名为 `foo` 的服务，则所有容器将在其初始环境中获得以下变量。
 
@@ -118,7 +118,7 @@ Deployment 既可以创建一个 ReplicaSet 来确保预期个数的 Pod 始终�
 - An optional (though strongly recommended) [cluster add-on](/docs/concepts/cluster-administration/addons/) is a DNS server.  The
 DNS server watches the Kubernetes API for new `Services` and creates a set of DNS records for each.  If DNS has been enabled throughout the cluster then all `Pods` should be able to do name resolution of `Services` automatically.
 -->
-- 一个可选（尽管强烈推荐）的[集群插件](/zh/docs/concepts/cluster-administration/addons/)
+- 一个可选（尽管强烈推荐）的[集群插件](/zh-cn/docs/concepts/cluster-administration/addons/)
   是 DNS 服务器。DNS 服务器为新的 `Services` 监视 Kubernetes API，并为每个创建一组 DNS 记录。
   如果在整个集群中启用了 DNS，则所有 `Pods` 应该能够自动对 `Services` 进行名称解析。
 
@@ -135,14 +135,14 @@ DNS server watches the Kubernetes API for new `Services` and creates a set of DN
   If you only need access to the port for debugging purposes, you can use the [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls) or [`kubectl port-forward`](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
 -->
   如果你只需要访问端口以进行调试，则可以使用
-  [apiserver proxy](/zh/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls)或
-  [`kubectl port-forward`](/zh/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)。
+  [apiserver proxy](/zh-cn/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls)或
+  [`kubectl port-forward`](/zh-cn/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)。
 
 <!--
   If you explicitly need to expose a Pod's port on the node, consider using a [NodePort](/docs/concepts/services-networking/service/#type-nodeport) Service before resorting to `hostPort`.
 -->
   如果你明确需要在节点上公开 Pod 的端口，请在使用 `hostPort` 之前考虑使用
-  [NodePort](/zh/docs/concepts/services-networking/service/#type-nodeport) 服务。
+  [NodePort](/zh-cn/docs/concepts/services-networking/service/#type-nodeport) 服务。
 
 <!--
 - Avoid using `hostNetwork`, for the same reasons as `hostPort`.
@@ -154,7 +154,7 @@ DNS server watches the Kubernetes API for new `Services` and creates a set of DN
 services) (which have a `ClusterIP` of `None`) for service discovery when you don't need `kube-proxy` load balancing.
 -->
 - 当你不需要 `kube-proxy` 负载均衡时，使用
-  [无头服务](/zh/docs/concepts/services-networking/service/#headless-services)  
+  [无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)  
   (`ClusterIP` 被设置为 `None`)以便于服务发现。
 
 <!--
@@ -165,7 +165,7 @@ services) (which have a `ClusterIP` of `None`) for service discovery when you do
 <!--
 - Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app: myapp`. See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app for examples of this approach.
 -->
-- 定义并使用[标签](/zh/docs/concepts/overview/working-with-objects/labels/)来识别应用程序
+- 定义并使用[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来识别应用程序
   或 Deployment 的 __语义属性__，例如`{ app: myapp, tier: frontend, phase: test, deployment: v3 }`。
   你可以使用这些标签为其他资源选择合适的 Pod；
   例如，一个选择所有 `tier: frontend` Pod 的服务，或者 `app: myapp` 的所有 `phase: test` 组件。
@@ -175,7 +175,7 @@ services) (which have a `ClusterIP` of `None`) for service discovery when you do
 A Service can be made to span multiple Deployments by omitting release-specific labels from its selector. [Deployments](/docs/concepts/workloads/controllers/deployment/) make it easy to update a running service without downtime.
 -->
 通过从选择器中省略特定发行版的标签，可以使服务跨越多个 Deployment。
-当你需要不停机的情况下更新正在运行的服务，可以使用[Deployment](/zh/docs/concepts/workloads/controllers/deployment/)。
+当你需要不停机的情况下更新正在运行的服务，可以使用[Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
 
 <!--
 A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate.
@@ -187,9 +187,9 @@ Deployment 描述了对象的期望状态，并且如果对该规范的更改被
 - Use the [Kubernetes common labels](/docs/concepts/overview/working-with-objects/common-labels/) for common use cases. These standardized labels enrich the metadata in a way that allows tools, including `kubectl` and [dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard), to work in an interoperable way.
 -->
 
-- 对于常见场景，应使用 [Kubernetes 通用标签](/zh/docs/concepts/overview/working-with-objects/common-labels/)。
+- 对于常见场景，应使用 [Kubernetes 通用标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/)。
   这些标准化的标签丰富了对象的元数据，使得包括 `kubectl` 和
-  [仪表板（Dashboard）](/zh/docs/tasks/access-application-cluster/web-ui-dashboard)
+  [仪表板（Dashboard）](/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard)
   这些工具能够以可互操作的方式工作。
 
 <!--
@@ -217,13 +217,13 @@ Deployment 描述了对象的期望状态，并且如果对该规范的更改被
 - Use label selectors for `get` and `delete` operations instead of specific object names. See the sections on [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
 -->
 - 使用标签选择器进行 `get` 和 `delete` 操作，而不是特定的对象名称。
-- 请参阅[标签选择器](/zh/docs/concepts/overview/working-with-objects/labels/#label-selectors)和
-  [有效使用标签](/zh/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)部分。
+- 请参阅[标签选择器](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)和
+  [有效使用标签](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)部分。
 
 <!--
 - Use `kubectl run` and `kubectl expose` to quickly create single-container Deployments and Services. See [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example.
 -->
 - 使用`kubectl run`和`kubectl expose`来快速创建单容器部署和服务。
-  有关示例，请参阅[使用服务访问集群中的应用程序](/zh/docs/tasks/access-application-cluster/service-access-application-cluster/)。
+  有关示例，请参阅[使用服务访问集群中的应用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)。
 
 

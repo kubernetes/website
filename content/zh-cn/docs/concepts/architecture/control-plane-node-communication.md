@@ -33,17 +33,17 @@ Kubernetes 采用的是中心辐射型（Hub-and-Spoke）API 模式。
 所有从集群（或所运行的 Pods）发出的 API 调用都终止于 API 服务器。
 其它控制面组件都没有被设计为可暴露远程服务。
 API 服务器被配置为在一个安全的 HTTPS 端口（通常为 443）上监听远程连接请求，
-并启用一种或多种形式的客户端[身份认证](/zh/docs/reference/access-authn-authz/authentication/)机制。
-一种或多种客户端[鉴权机制](/zh/docs/reference/access-authn-authz/authorization/)应该被启用，
-特别是在允许使用[匿名请求](/zh/docs/reference/access-authn-authz/authentication/#anonymous-requests)
-或[服务账号令牌](/zh/docs/reference/access-authn-authz/authentication/#service-account-tokens)的时候。
+并启用一种或多种形式的客户端[身份认证](/zh-cn/docs/reference/access-authn-authz/authentication/)机制。
+一种或多种客户端[鉴权机制](/zh-cn/docs/reference/access-authn-authz/authorization/)应该被启用，
+特别是在允许使用[匿名请求](/zh-cn/docs/reference/access-authn-authz/authentication/#anonymous-requests)
+或[服务账号令牌](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)的时候。
 
 <!--
 Nodes should be provisioned with the public root certificate for the cluster such that they can connect securely to the apiserver along with valid client credentials. A good approach is that the client credentials provided to the kubelet are in the form of a client certificate. See [kubelet TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) for automated provisioning of kubelet client certificates.
 -->
 应该使用集群的公共根证书开通节点，这样它们就能够基于有效的客户端凭据安全地连接 API 服务器。
 一种好的方法是以客户端证书的形式将客户端凭据提供给 kubelet。
-请查看 [kubelet TLS 启动引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+请查看 [kubelet TLS 启动引导](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 以了解如何自动提供 kubelet 客户端证书。
 
 <!--
@@ -114,7 +114,7 @@ Finally, [Kubelet authentication and/or authorization](/docs/reference/access-au
 kubelet 之间使用 [SSH 隧道](#ssh-tunnels)。
 
 最后，应该启用
-[kubelet 用户认证和/或鉴权](/zh/docs/reference/access-authn-authz/kubelet-authn-authz/)
+[kubelet 用户认证和/或鉴权](/zh-cn/docs/reference/access-authn-authz/kubelet-authn-authz/)
 来保护 kubelet API。
 
 <!--
@@ -167,6 +167,6 @@ Konnectivity 服务包含两个部分：Konnectivity 服务器和 Konnectivity �
 控制面网络和节点网络中。Konnectivity 代理建立并维持到 Konnectivity 服务器的网络连接。
 启用 Konnectivity 服务之后，所有控制面到节点的通信都通过这些连接传输。
 
-请浏览 [Konnectivity 服务任务](/zh/docs/tasks/extend-kubernetes/setup-konnectivity/)
+请浏览 [Konnectivity 服务任务](/zh-cn/docs/tasks/extend-kubernetes/setup-konnectivity/)
 在你的集群中配置 Konnectivity 服务。
 

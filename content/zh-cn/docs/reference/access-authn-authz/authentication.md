@@ -66,7 +66,7 @@ for more details about this.
 使用证书中的 'subject' 的通用名称（Common Name）字段（例如，"/CN=bob"）来
 确定用户名。接下来，基于角色访问控制（RBAC）子系统会确定用户是否有权针对
 某资源执行特定的操作。进一步的细节可参阅
-[证书请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
+[证书请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
 下普通用户主题。
 
 <!--
@@ -129,7 +129,7 @@ You can enable multiple authentication methods at once. You should usually use a
 - at least one other method for user authentication.
 -->
 所有（属性）值对于身份认证系统而言都是不透明的，只有被
-[鉴权组件](/zh/docs/reference/access-authn-authz/authorization/)
+[鉴权组件](/zh-cn/docs/reference/access-authn-authz/authorization/)
 解释过之后才有意义。
 
 你可以同时启用多种身份认证方法，并且你通常会至少使用两种方法：
@@ -193,7 +193,7 @@ See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for ho
 此命令将使用用户名 `jbeda` 生成一个证书签名请求（CSR），且该用户属于 "app" 和
 "app2" 两个用户组。
 
-参阅[管理证书](/zh/docs/tasks/administer-cluster/certificates/)了解如何生成客户端证书。
+参阅[管理证书](/zh-cn/docs/tasks/administer-cluster/certificates/)了解如何生成客户端证书。
 
 <!--
 ### Static Token File
@@ -316,7 +316,7 @@ Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-token
 documentation on the Bootstrap Token authenticator and controllers along with
 how to manage these tokens with `kubeadm`.
 -->
-请参阅[启动引导令牌](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)
+请参阅[启动引导令牌](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
 以了解关于启动引导令牌身份认证组件与控制器的更深入的信息，以及如何使用
 `kubeadm` 来管理这些令牌。
 
@@ -348,7 +348,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 `serviceAccountName` field of a `PodSpec`.
 -->
 服务账号通常由 API 服务器自动创建并通过 `ServiceAccount`
-[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
+[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
 关联到集群中运行的 Pod 上。
 持有者令牌会挂载到 Pod 中可预知的位置，允许集群内进程与 API 服务器通信。
 服务账号也可以使用 Pod 规约的 `serviceAccountName` 字段显式地关联到 Pod 上。
@@ -800,7 +800,7 @@ The configuration file uses the [kubeconfig](/docs/concepts/configuration/organi
 file format. Within the file, `clusters` refers to the remote service and
 `users` refers to the API server webhook. An example would be:
 -->
-配置文件使用 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+配置文件使用 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 文件的格式。文件中，`clusters` 指代远程服务，`users` 指代远程 API 服务
 Webhook。下面是一个例子：
 
@@ -878,7 +878,7 @@ Implementers should check the `apiVersion` field of the request to ensure correc
 and **must** respond with a `TokenReview` object of the same version as the request.
 -->
 要注意的是，Webhook API 对象和其他 Kubernetes API 对象一样，也要受到同一
-[版本兼容规则](/zh/docs/concepts/overview/kubernetes-api/)约束。
+[版本兼容规则](/zh-cn/docs/concepts/overview/kubernetes-api/)约束。
 实现者应检查请求的 `apiVersion` 字段以确保正确的反序列化，
 并且**必须**以与请求相同版本的 `TokenReview` 对象进行响应。
 
@@ -1472,7 +1472,7 @@ as part of the user fields.
 -->
 ### 配置  {#configuration}
 
-凭据插件通过 [kubectl 配置文件](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+凭据插件通过 [kubectl 配置文件](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 来作为 user 字段的一部分设置。
 
 {{< tabs name="exec_plugin_kubeconfig_example_1" >}}
@@ -1823,7 +1823,7 @@ and required in `client.authentication.k8s.io/v1`.
 输入对象中的 `spec.interactive` 字段来确定是否提供了 `stdin`。
 插件的 `stdin` 需求（即，为了能够让插件成功运行，是否 `stdin` 是可选的、
 必须提供的或者从不会被使用的）是通过 
-[kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 中的 `user.exec.interactiveMode` 来声明的（参见下面的表格了解合法值）。
 字段 `user.exec.interactiveMode` 在 `client.authentication.k8s.io/v1beta1`
 中是可选的，在 `client.authentication.k8s.io/v1` 中是必需的。
@@ -1848,7 +1848,7 @@ and required in `client.authentication.k8s.io/v1`.
 To use bearer token credentials, the plugin returns a token in the status of the
 [`ExecCredential`](/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
 -->
-与使用持有者令牌凭据，插件在 [`ExecCredential`](/zh/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
+与使用持有者令牌凭据，插件在 [`ExecCredential`](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
 的状态中返回一个令牌：
 
 {{< tabs name="exec_plugin_ExecCredential_example_1" >}}
@@ -1979,7 +1979,7 @@ credential acquisition logic.
 The following `ExecCredential` manifest describes a cluster information sample.
 -->
 为了让 exec 插件能够获得特定与集群的信息，可以在
-[kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 中的 `user.exec` 设置 `provideClusterInfo`。
 这一特定于集群的信息就会通过 `KUBERNETES_EXEC_INFO` 环境变量传递给插件。
 此环境变量中的信息可以用来执行特定于集群的凭据获取逻辑。
@@ -2034,6 +2034,6 @@ The following `ExecCredential` manifest describes a cluster information sample.
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
 -->
-* 阅读[客户端认证参考文档 (v1beta1)](/zh/docs/reference/config-api/client-authentication.v1beta1/)
-* 阅读[客户端认证参考文档 (v1)](/zh/docs/reference/config-api/client-authentication.v1/)
+* 阅读[客户端认证参考文档 (v1beta1)](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)
+* 阅读[客户端认证参考文档 (v1)](/zh-cn/docs/reference/config-api/client-authentication.v1/)
 

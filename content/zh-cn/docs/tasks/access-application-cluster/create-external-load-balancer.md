@@ -35,7 +35,7 @@ For more information, check the [Ingress](/docs/concepts/services-networking/ing
 documentation.
 -->
 你还可以使用 {{< glossary_tooltip text="Ingress" term_id="ingress" >}} 代替 Service。
-更多信息，请参阅 [Ingress](/zh/docs/concepts/services-networking/ingress/) 文档。
+更多信息，请参阅 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 文档。
 
 ## {{% heading "prerequisites" %}}
 
@@ -325,7 +325,7 @@ Kubernetes 控制平面自动创建外部负载均衡器、健康检查（如果
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
-* 阅读[服务](/zh/docs/concepts/services-networking/service/)
-* 阅读 [Ingress](/zh/docs/concepts/services-networking/ingress/)
-* 阅读[使用 Service 连接到应用](/zh/docs/concepts/services-networking/connect-applications-service/)
+* 阅读[服务](/zh-cn/docs/concepts/services-networking/service/)
+* 阅读 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
+* 阅读[使用 Service 连接到应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
 

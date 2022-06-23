@@ -26,10 +26,10 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 -->
 * 提供程序对双协议栈网络的支持 (云供应商或其他方式必须能够为 Kubernetes 节点
   提供可路由的 IPv4/IPv6 网络接口)
-* 一个能够支持[双协议栈](/zh/docs/concepts/services-networking/dual-stack/)的
-  [网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
+* 一个能够支持[双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/)的
+  [网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
   
-* [启用双协议栈](/zh/docs/concepts/services-networking/dual-stack/) 集群
+* [启用双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/) 集群
 
 {{< version-check >}}
 

@@ -246,7 +246,7 @@ for kube proxy official documentation.</p>
 如果此对象没有提供，或者仅部分提供，kubeadm 使用默认值。</p>
 
 <p>关于 kube-proxy 的官方文档，可参阅
-https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kube-proxy/
+https://kubernetes.io/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/
 或者 https://godoc.org/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration。
 </p>
 
@@ -267,7 +267,7 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 如果此对象没有提供，或者仅部分提供，kubeadm 使用默认值。</p>
 
 <p>关于 kubelet 的官方文档，可参阅
-https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kubelet/
+https://kubernetes.io/zh-cn/docs/reference/command-line-tools-reference/kubelet/
 或者
 https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 

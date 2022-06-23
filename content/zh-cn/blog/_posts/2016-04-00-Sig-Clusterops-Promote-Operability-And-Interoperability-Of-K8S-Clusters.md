@@ -2,14 +2,14 @@
 title: " SIG-ClusterOps: 提升 Kubernetes 集群的可操作性和互操作性 "
 date: 2016-04-19
 slug: sig-clusterops-promote-operability-and-interoperability-of-k8s-clusters
-url: /zh/blog/2016/04/Sig-Clusterops-Promote-Operability-And-Interoperability-Of-K8S-Clusters
+url: /zh-cn/blog/2016/04/Sig-Clusterops-Promote-Operability-And-Interoperability-Of-K8S-Clusters
 ---
 <!--
 ---
 title: " SIG-ClusterOps: Promote operability and interoperability of Kubernetes clusters "
 date: 2016-04-19
 slug: sig-clusterops-promote-operability-and-interoperability-of-k8s-clusters
-url: /zh/blog/2016/04/Sig-Clusterops-Promote-Operability-And-Interoperability-Of-K8S-Clusters
+url: /zh-cn/blog/2016/04/Sig-Clusterops-Promote-Operability-And-Interoperability-Of-K8S-Clusters
 ---
 -->
 <!--

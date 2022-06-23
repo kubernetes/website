@@ -11,7 +11,7 @@ slug: simple-leader-election-with-kubernetes
 title: "Kubernetes 和 Docker 简单的 leader election"
 date: 2016-01-11
 slug: simple-leader-election-with-kubernetes
-url: /zh/blog/2016/01/Simple-Leader-Election-With-Kubernetes
+url: /zh-cn/blog/2016/01/Simple-Leader-Election-With-Kubernetes
 
 <!--
 Kubernetes simplifies the deployment and operational management of services running on clusters. However, it also simplifies the development of these services. In this post we'll see how you can use Kubernetes to easily perform leader election in your distributed application. Distributed applications usually replicate the tasks of a service for reliability and scalability, but often it is necessary to designate one of the replicas as the leader who is responsible for coordination among all of the replicas.

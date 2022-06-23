@@ -74,7 +74,7 @@ Auth-related operations:
 -->
 
 * 对于基于 TLS 的启动引导过程时使用的
-  [certificationsigningrequests API](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)
+  [certificationsigningrequests API](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)
   的读/写权限
 * 为委派的身份验证/授权检查创建 TokenReview 和 SubjectAccessReview 的能力
 
@@ -90,7 +90,7 @@ have the minimal set of permissions required to operate correctly.
 -->
 
 为了获得节点鉴权器的授权，kubelet 必须使用一个凭证以表示它在 `system:nodes` 组中，用户名为 `system:node:<nodeName>`。
-上述的组名和用户名格式要与 [kubelet TLS 启动引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)过程中为每个 kubelet 创建的标识相匹配。
+上述的组名和用户名格式要与 [kubelet TLS 启动引导](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)过程中为每个 kubelet 创建的标识相匹配。
 <!--
 In order to be authorized by the Node authorizer, kubelets must use a credential that identifies them as
 being in the `system:nodes` group, with a username of `system:node:<nodeName>`.
@@ -103,7 +103,7 @@ This group and user name format match the identity created for each kubelet as p
 To enable the Node authorizer, start the apiserver with `--authorization-mode=Node`.
 -->
 
-要限制 kubelet 具有写入权限的 API 对象，请使用 `--enable-admission-plugins=...,NodeRestriction,...` 启动 apiserver，从而启用 [NodeRestriction](/zh/docs/reference/access-authn-authz/admission-controllers#NodeRestriction) 准入插件。
+要限制 kubelet 具有写入权限的 API 对象，请使用 `--enable-admission-plugins=...,NodeRestriction,...` 启动 apiserver，从而启用 [NodeRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers#NodeRestriction) 准入插件。
 <!--
 To limit the API objects kubelets are able to write, enable the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers#NodeRestriction) admission plugin by starting the apiserver with `--enable-admission-plugins=...,NodeRestriction,...`
  -->
@@ -152,7 +152,7 @@ since the default node identifier implementation would not consider that a node 
 ### Upgrades from previous versions using RBAC
 -->
 
-升级的 1.7 之前的使用 [RBAC](/zh/docs/reference/access-authn-authz/rbac/) 的集群将继续按原样运行，因为 `system:nodes` 组绑定已经存在。
+升级的 1.7 之前的使用 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 的集群将继续按原样运行，因为 `system:nodes` 组绑定已经存在。
 <!--
 Upgraded pre-1.7 clusters using [RBAC](/docs/reference/access-authn-authz/rbac/) will continue functioning as-is because the `system:nodes` group binding will already exist.
 -->
@@ -179,7 +179,7 @@ to limit node access to the API, that can be done non-disruptively:
 ### RBAC Node Permissions
 -->
 
-在 1.6 版本中，当使用 [RBAC 鉴权模式](/zh/docs/reference/access-authn-authz/rbac/) 时，`system:nodes` 集群角色会被自动绑定到 `system:node` 组。
+在 1.6 版本中，当使用 [RBAC 鉴权模式](/zh-cn/docs/reference/access-authn-authz/rbac/) 时，`system:nodes` 集群角色会被自动绑定到 `system:node` 组。
 <!--
 In 1.6, the `system:node` cluster role was automatically bound to the `system:nodes` group when using the [RBAC Authorization mode](/docs/reference/access-authn-authz/rbac/).
 -->

@@ -2,14 +2,14 @@
 title: "Borg: Kubernetes 的前身"
 date: 2015-04-23
 slug: borg-predecessor-to-kubernetes
-url: /zh/blog/2015/04/Borg-Predecessor-To-Kubernetes
+url: /zh-cn/blog/2015/04/Borg-Predecessor-To-Kubernetes
 ---
 <!--
 ---
 title: " Borg: The Predecessor to Kubernetes "
 date: 2015-04-23
 slug: borg-predecessor-to-kubernetes
-url: /zh/blog/2015/04/Borg-Predecessor-To-Kubernetes
+url: /zh-cn/blog/2015/04/Borg-Predecessor-To-Kubernetes
 ---
 -->
 <!--

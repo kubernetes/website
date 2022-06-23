@@ -232,6 +232,6 @@ kubectl delete secret db-user-pass
 - Learn how to [manage Secrets using config files](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 -->
-- 进一步阅读 [Secret 概念](/zh/docs/concepts/configuration/secret/)
-- 了解如何[使用配置文件管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- 了解如何[使用 kustomize 管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- 进一步阅读 [Secret 概念](/zh-cn/docs/concepts/configuration/secret/)
+- 了解如何[使用配置文件管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- 了解如何[使用 kustomize 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kustomize/)

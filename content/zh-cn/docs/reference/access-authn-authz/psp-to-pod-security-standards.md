@@ -20,9 +20,9 @@ The tables below enumerate the configuration parameters on
 and/or validates pods, and how the configuration values map to the
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/).
 -->
-下面的表格列举了 [PodSecurityPolicy](/zh/docs/concepts/security/pod-security-policy/)
+下面的表格列举了 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)
 对象上的配置参数，这些字段是否会变更或检查 Pod 配置，以及这些配置值如何映射到
-[Pod 安全性标准（Pod Security Standards）](/zh/docs/concepts/security/pod-security-standards/)
+[Pod 安全性标准（Pod Security Standards）](/zh-cn/docs/concepts/security/pod-security-standards/)
 之上。
 
 <!--
@@ -34,11 +34,11 @@ Anything outside the allowed values for those profiles would fall under the
 means all values are allowed under all Pod Security Standards.
 -->
 对于每个可应用的参数，表格中给出了
-[Baseline](/zh/docs/concepts/security/pod-security-standards/#baseline) 和
-[Restricted](/zh/docs/concepts/security/pod-security-standards/#restricted)
+[Baseline](/zh-cn/docs/concepts/security/pod-security-standards/#baseline) 和
+[Restricted](/zh-cn/docs/concepts/security/pod-security-standards/#restricted)
 配置下可接受的取值。
 对这两种配置而言不可接受的取值均归入
-[Privileged](/zh/docs/concepts/security/pod-security-standards/#privileged)
+[Privileged](/zh-cn/docs/concepts/security/pod-security-standards/#privileged)
 配置下。“无意见”意味着对所有 Pod 安全性标准而言所有取值都可接受。
 
 <!--
@@ -46,7 +46,7 @@ For a step-by-step migration guide, see
 [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp/).
 -->
 如果想要了解如何一步步完成迁移，可参阅
-[从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器](/zh/docs/tasks/configure-pod-container/migrate-from-psp/)。
+[从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器](/zh-cn/docs/tasks/configure-pod-container/migrate-from-psp/)。
 
 <!-- body -->
 
@@ -287,7 +287,7 @@ under the `.spec` field path.
 The [annotations](/docs/concepts/overview/working-with-objects/annotations/) enumerated in this
 table can be specified under `.metadata.annotations` on the PodSecurityPolicy object.
 -->
-下面表格中所列举的[注解](/zh/docs/concepts/overview/working-with-objects/annotations/)
+下面表格中所列举的[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)
 可以通过 `.metadata.annotations` 设置到 PodSecurityPolicy 对象之上。
 
 <table class="no-word-break">
