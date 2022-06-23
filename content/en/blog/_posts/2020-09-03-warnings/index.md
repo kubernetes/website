@@ -328,7 +328,3 @@ A couple areas we're looking at next are warning about [known problematic values
 we cannot reject outright for compatibility reasons, and warning about use of deprecated fields or field values
 (like selectors using beta os/arch node labels, [deprecated in v1.14](/docs/reference/labels-annotations-taints/#beta-kubernetes-io-arch-deprecated)).
 I'm excited to see progress in this area, continuing to make it easier to use Kubernetes.
-
-
-## EDIT
-* The correct label is `removed_release`, not `removed_version`.
