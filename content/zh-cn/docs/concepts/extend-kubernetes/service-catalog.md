@@ -66,7 +66,7 @@ It is implemented using a [CRDs-based](/docs/concepts/extend-kubernetes/api-exte
 与服务代理进行通信，并作为 Kubernetes API 服务器的中介，以便协商启动部署和获取
 应用程序使用托管服务时必须的凭据。
 
-它是[基于 CRDs](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resources)
+它是[基于 CRDs](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resources)
 架构实现的。
 
 ![服务目录架构](/images/docs/service-catalog-architecture.svg)
@@ -436,9 +436,9 @@ The following example describes how to map secret values into application enviro
 * Explore the [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) project.
 -->
 * 如果你熟悉 {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}，
-  可以[使用 Helm 安装服务目录](/zh/docs/tasks/service-catalog/install-service-catalog-using-helm/)
+  可以[使用 Helm 安装服务目录](/zh-cn/docs/tasks/service-catalog/install-service-catalog-using-helm/)
   到 Kubernetes 集群中。或者，你可以
-  [使用 SC 工具安装服务目录](/zh/docs/tasks/service-catalog/install-service-catalog-using-sc/)。
+  [使用 SC 工具安装服务目录](/zh-cn/docs/tasks/service-catalog/install-service-catalog-using-sc/)。
 * 查看[服务代理示例](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers)
 * 浏览 [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) 项目
 
