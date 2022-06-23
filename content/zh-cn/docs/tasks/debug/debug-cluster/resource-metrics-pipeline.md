@@ -35,7 +35,7 @@ command.
 包括 CPU 和内存的指标。如果将 Metrics API 部署到集群中，
 那么 Kubernetes API 的客户端就可以查询这些信息，并且可以使用 Kubernetes 的访问控制机制来管理权限。
 
-[HorizontalPodAutoscaler](/zh/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA) 和 
+[HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA) 和 
 [VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA) 
 使用 metrics API 中的数据调整工作负载副本和资源，以满足客户需求。
 
@@ -52,7 +52,7 @@ that uses the _Custom Metrics API_.
 -->
 Metrics API 及其启用的指标管道仅提供最少的 CPU 和内存指标，以启用使用 HPA 和/或 VPA 的自动扩展。
 如果你想提供更完整的指标集，你可以通过部署使用 _Custom Metrics API_ 的第二个
-[指标管道](/zh/docs/tasks/debug/debug-cluster/resource-usage-monitoring/#full-metrics-pipeline)来作为简单的 Metrics API 的补充。
+[指标管道](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/#full-metrics-pipeline)来作为简单的 Metrics API 的补充。
 {{< /note >}}
 
 <!--
@@ -110,7 +110,7 @@ The architecture components, from right to left in the figure, consist of the fo
 图中从右到左的架构组件包括以下内容：
 
 * [cAdvisor](https://github.com/google/cadvisor): 用于收集、聚合和公开 Kubelet 中包含的容器指标的守护程序。
-* [kubelet](/zh/docs/concepts/overview/components/#kubelet): 用于管理容器资源的节点代理。
+* [kubelet](/zh-cn/docs/concepts/overview/components/#kubelet): 用于管理容器资源的节点代理。
   可以使用 `/metrics/resource` 和 `/stats` kubelet API 端点访问资源指标。
 * [Summary API](#summary-api-source): kubelet 提供的 API，用于发现和检索可通过 `/stats` 端点获得的每个节点的汇总统计信息。
 * [metrics-server](#metrics-server): 集群插件组件，用于收集和聚合从每个 kubelet 中提取的资源指标。
@@ -244,8 +244,8 @@ the [metrics-server repository](https://github.com/kubernetes-sigs/metrics-serve
 -->
 
 Metrics API 在 [k8s.io/metrics](https://github.com/kubernetes/metrics) 代码库中定义。
-你必须启用 [API 聚合层](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/)并为 
-`metrics.k8s.io` API 注册一个 [APIService](/zh/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)。
+你必须启用 [API 聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)并为 
+`metrics.k8s.io` API 注册一个 [APIService](/zh-cn/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)。
 
 要了解有关 Metrics API 的更多信息，
 请参阅资源 [Resource Metrics API Design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/resource-metrics-api.md)、
@@ -286,7 +286,7 @@ CPU 报告为以 cpu 为单位测量的平均核心使用率。在 Kubernetes �
 用于计算 CPU 的时间窗口显示在 Metrics API 的窗口字段下。
 
 要了解更多关于 Kubernetes 如何分配和测量 CPU 资源的信息，请参阅
-[CPU 的含义](/zh/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)。
+[CPU 的含义](/zh-cn/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)。
 
 <!--
 ### Memory
@@ -315,7 +315,7 @@ Kubernetes 模型中，容器工作集是由容器运行时计算的与相关容
 工作集指标通常还包括一些缓存（文件支持）内存，因为主机操作系统不能总是回收页面。
 
 要了解有关 Kubernetes 如何分配和测量内存资源的更多信息，
-请参阅[内存的含义](/zh/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory)。
+请参阅[内存的含义](/zh-cn/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory)。
 
 <!--
 ## Metrics Server
@@ -350,7 +350,7 @@ to collect metrics from each node. Depending on the metrics-server version it us
 * Metrics resource endpoint `/metrics/resource` in version v0.6.0+ or
 * Summary API endpoint `/stats/summary` in older versions
 -->
-metrics-server 调用 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) API
+metrics-server 调用 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) API
 从每个节点收集指标。根据它使用的度量服务器版本：
 
 * 版本 v0.6.0+ 中，使用指标资源端点 `/metrics/resource`
@@ -377,7 +377,7 @@ You can also check out the following:
 * [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
 * [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
 * [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
-* [Horizontal Pod Autoscaling](/zh/docs/tasks/run-application/horizontal-pod-autoscale/)
+* [Horizontal Pod Autoscaling](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 
 <!--
 ### Summary API Source
@@ -389,7 +389,7 @@ for consumers to read.
 
 ### Summary API 来源   {#summary-api-source}
 
-[Kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 在节点、卷、Pod 和容器级别收集统计信息，
+[Kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 在节点、卷、Pod 和容器级别收集统计信息，
 并在 [Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
 中提供它们的统计信息供消费者阅读。
 

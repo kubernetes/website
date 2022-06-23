@@ -64,7 +64,7 @@ your API Server egress configuration file.
 -->
 你需要配置 API 服务器来使用 Konnectivity 服务，并将网络流量定向到集群节点：
 
-确保[服务账号令牌卷投射](/zh/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
+确保[服务账号令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
 特性被启用。该特性自 Kubernetes v1.20 起默认已被启用。
 
 1. 创建一个出站流量配置文件，比如 `admin/konnectivity/egress-selector-configuration.yaml`。
