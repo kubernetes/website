@@ -26,7 +26,7 @@ You need to have a Kubernetes cluster. Follow the
 [kubeadm getting started guide](/docs/reference/setup-tools/kubeadm/) to bootstrap one.
  -->
 你需要拥有一个 Kubernetes 集群。按照
-[kubeadm 入门指南](/zh/docs/reference/setup-tools/kubeadm/)
+[kubeadm 入门指南](/zh-cn/docs/reference/setup-tools/kubeadm/)
 来启动一个。
 
 
@@ -92,7 +92,7 @@ Each Node has a weave Pod, and all Pods are `Running` and `2/2 READY`. (`2/2` me
 Once you have installed the Weave Net addon, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy. If you have any question, contact us at [#weave-community on Slack or Weave User Group](https://github.com/weaveworks/weave#getting-help).
  -->
 安装 Weave Net 插件后，你可以参考
-[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
+[声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
 来试用 Kubernetes NetworkPolicy。
 如果你有任何疑问，请通过
 [Slack 上的 #weave-community 频道或者 Weave 用户组](https://github.com/weaveworks/weave#getting-help)
