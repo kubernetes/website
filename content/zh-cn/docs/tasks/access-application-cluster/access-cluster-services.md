@@ -27,9 +27,9 @@ such as your desktop machine.
 -->
 ## 访问集群上运行的服务
 
-在 Kubernetes 里，[节点](/zh/docs/concepts/architecture/nodes/)、
-[Pod](/zh/docs/concepts/workloads/pods/) 和
-[服务](/zh/docs/concepts/services-networking/service/) 都有自己的 IP。
+在 Kubernetes 里，[节点](/zh-cn/docs/concepts/architecture/nodes/)、
+[Pod](/zh-cn/docs/concepts/workloads/pods/) 和
+[服务](/zh-cn/docs/concepts/services-networking/service/) 都有自己的 IP。
 许多情况下，集群上的节点 IP、Pod IP 和某些服务 IP 是路由不可达的，
 所以不能从集群之外访问它们，例如从你自己的台式机。
 
@@ -57,7 +57,7 @@ You have several options for connecting to nodes, pods and services from outside
 -->
 - 通过公网 IP 访问服务
   - 使用类型为 `NodePort` 或 `LoadBalancer` 的服务，可以从外部访问它们。
-    请查阅[服务](/zh/docs/concepts/services-networking/service/) 和
+    请查阅[服务](/zh-cn/docs/concepts/services-networking/service/) 和
     [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) 文档。
   - 取决于你的集群环境，你可以仅把服务暴露在你的企业网络环境中，也可以将其暴露在
     因特网上。需要考虑暴露的服务是否安全，它是否有自己的用户认证？
@@ -142,7 +142,7 @@ at `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-loggi
 See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api) for how to pass credentials or use kubectl proxy.
 -->
 {{< note >}}
-请参阅[使用 Kubernetes API 访问集群](/zh/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api)
+请参阅[使用 Kubernetes API 访问集群](/zh-cn/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api)
 了解如何传递凭据或如何使用 `kubectl proxy`。
 {{< /note >}}
 

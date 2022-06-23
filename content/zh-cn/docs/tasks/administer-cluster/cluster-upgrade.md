@@ -66,10 +66,10 @@ Once you have upgraded the cluster, remember to
 -->
 如果你的集群是使用 `kubeadm` 安装工具部署而来，
 那么升级集群的详细信息，请参阅
-[升级 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+[升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 
 升级集群之后，要记得
-[安装最新版本的 `kubectl`](/zh/docs/tasks/tools/).
+[安装最新版本的 `kubectl`](/zh-cn/docs/tasks/tools/).
 
 <!-- ### Manual deployments -->
 ### 手动部署 {#manual-deployments}
@@ -109,10 +109,10 @@ kubelet, or upgrade the {{< skew latestVersion >}}
 kubelet on that node and bring the node back into service.
 -->
 现在，你应该
-[安装最新版本的 `kubectl`](/zh/docs/tasks/tools/).
+[安装最新版本的 `kubectl`](/zh-cn/docs/tasks/tools/).
 
 对于集群中的每个节点，
-[排空](/zh/docs/tasks/administer-cluster/safely-drain-node/)
+[排空](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)
 节点，然后，或者用一个运行了 {{< skew latestVersion >}} kubelet 的新节点替换它；
 或者升级此节点的 kubelet，并使节点恢复服务。
 
