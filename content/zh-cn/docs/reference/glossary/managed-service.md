@@ -40,7 +40,7 @@ list, provision, and bind with Managed Services offered by
 -->
 托管服务的一些例子有 AWS EC2、Azure SQL 数据库和 GCP Pub/Sub 等，
 不过它们也可以是可以被某应用使用的任何软件交付件。
-[服务目录](/zh/docs/concepts/extend-kubernetes/service-catalog/)
+[服务目录](/zh-cn/docs/concepts/extend-kubernetes/service-catalog/)
 提供了一种方法用来列举、制备和绑定到
 {{< glossary_tooltip text="服务代理商（Service Brokers）" term_id="service-broker" >}}
 所提供的托管服务。
