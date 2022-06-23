@@ -19,7 +19,7 @@ can be picked from this [page](/docs/setup/production-environment/container-runt
 本任务给出将容器运行时从 Docker 改为 containerd 所需的步骤。
 此任务适用于运行 1.23 或更早版本 Kubernetes 的集群操作人员。
 同时，此任务也涉及从 dockershim 迁移到 containerd 的示例场景，
-以及可以从[此页面](/zh/docs/setup/production-environment/container-runtimes/)
+以及可以从[此页面](/zh-cn/docs/setup/production-environment/container-runtimes/)
 获得的其他容器运行时列表。
 
 ## {{% heading "prerequisites" %}}
@@ -34,7 +34,7 @@ and for specific prerequisite follow
 -->
 安装 containerd。进一步的信息可参见
 [containerd 的安装文档](https://containerd.io/docs/getting-started/)。
-关于一些特定的环境准备工作，请遵循 [containerd 指南](/zh/docs/setup/production-environment/container-runtimes/#containerd)。
+关于一些特定的环境准备工作，请遵循 [containerd 指南](/zh-cn/docs/setup/production-environment/container-runtimes/#containerd)。
 
 <!--
 ## Drain the node 
@@ -71,7 +71,7 @@ for detailed steps to install containerd.
 -->
 ## 安装 Containerd    {#install-containerd}
 
-遵循此[指南](/zh/docs/setup/production-environment/container-runtimes/#containerd)
+遵循此[指南](/zh-cn/docs/setup/production-environment/container-runtimes/#containerd)
 了解安装 containerd 的详细步骤。
 
 {{< tabs name="tab-cri-containerd-installation" >}}
