@@ -34,7 +34,7 @@ characteristics of a given machine (such as OS, storage, and networking). You ca
 of your kubelets manually, but kubeadm now provides a `KubeletConfiguration` API type for
 [managing your kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 -->
-kubeadm CLI 工具的生命周期与 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet)
+kubeadm CLI 工具的生命周期与 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet)
 解耦；kubelet 是一个守护程序，在 Kubernetes 集群中的每个节点上运行。
 当 Kubernetes 初始化或升级时，kubeadm CLI 工具由用户执行，而 kubelet 始终在后台运行。
 
@@ -96,7 +96,7 @@ a list of values to a camelCased key, illustrated by the following example:
 你还需要通过 kubelet 使用 `--cluster-dns` 标志设置 DNS 地址。
 在集群中的每个管理器和节点上的 kubelet 的设置需要相同。
 kubelet 提供了一个版本化的结构化 API 对象，该对象可以配置 kubelet 中的大多数参数，并将此配置推送到集群中正在运行的每个 kubelet 上。
-此对象被称为 [`KubeletConfiguration`](/zh/docs/reference/config-api/kubelet-config.v1beta1/)。
+此对象被称为 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)。
 `KubeletConfiguration` 允许用户指定标志，例如用骆峰值代表集群的 DNS IP 地址，如下所示：
 
 ```yaml
@@ -176,7 +176,7 @@ for more information on the individual fields.
 通过调用 `kubeadm config print init-defaults --component-configs KubeletConfiguration`，
 你可以看到此结构中的所有默认值。
 
-也可以阅读 [KubeletConfiguration 参考](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
+也可以阅读 [KubeletConfiguration 参考](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 来获取有关各个字段的更多信息。
 
 <!--
@@ -312,7 +312,7 @@ section.
 -->
 {{< note >}}
 下面的内容只是一个例子。如果你不想使用包管理器，
-请遵循[没有包管理器](/zh/docs/setup/productionenvironment/tools/kubeadm/install-kubeadm/#k8s-install-2))
+请遵循[没有包管理器](/zh-cn/docs/setup/productionenvironment/tools/kubeadm/install-kubeadm/#k8s-install-2))
 章节的指南。
 {{< /note >}}
 

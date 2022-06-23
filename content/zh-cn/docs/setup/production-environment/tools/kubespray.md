@@ -56,8 +56,8 @@ To choose a tool which best fits your use case, read [this comparison](https://g
 [kubeadm](/docs/reference/setup-tools/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
 -->
 要选择最适合你的用例的工具，请阅读
-[kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 和
-[kops](/zh/docs/setup/production-environment/tools/kops/) 之间的
+[kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 和
+[kops](/zh-cn/docs/setup/production-environment/tools/kops/) 之间的
 [这份比较](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)。
  。
 <!-- body -->

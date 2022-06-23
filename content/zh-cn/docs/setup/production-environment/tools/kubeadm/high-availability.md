@@ -39,11 +39,11 @@ in the kubeadm [issue tracker](https://github.com/kubernetes/kubeadm/issues/new)
 See also the [upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15).
 -->
 在下一步之前，你应该仔细考虑哪种方法更好的满足你的应用程序和环境的需求。 
-[高可用拓扑选项](/zh/docs/setup/production-environment/tools/kubeadm/ha-topology/) 讲述了每种方法的优缺点。
+[高可用拓扑选项](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/) 讲述了每种方法的优缺点。
 
 如果你在安装 HA 集群时遇到问题，请在 kubeadm [问题跟踪](https://github.com/kubernetes/kubeadm/issues/new)里向我们提供反馈。
 
-你也可以阅读[升级文档](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+你也可以阅读[升级文档](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 <!--
 This page does not address running your cluster on a cloud provider. In a cloud
 environment, neither approach documented here works with Service objects of type
@@ -91,10 +91,10 @@ _See [Stacked etcd topology](/docs/setup/production-environment/tools/kubeadm/ha
 -->
 需要准备：
 
-- 配置满足 [kubeadm 的最低要求](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
+- 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
   的三台机器作为控制面节点。奇数台控制平面节点有利于机器故障或者网络分区时进行重新选主。
   - 机器已经安装好{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}，并正常运行
-- 配置满足 [kubeadm 的最低要求](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
+- 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
   的三台机器作为工作节点
   - 机器已经安装好{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}，并正常运行
 - 在集群中，确保所有计算机之间存在全网络连接（公网或私网）
@@ -103,7 +103,7 @@ _See [Stacked etcd topology](/docs/setup/production-environment/tools/kubeadm/ha
 - 从某台设备通过 SSH 访问系统中所有节点的能力
 - 所有机器上已经安装 `kubeadm` 和 `kubelet`
 
-_拓扑详情请参考[堆叠（Stacked）etcd 拓扑](/zh/docs/setup/production-environment/tools/kubeadm/ha-topology/#堆叠-stacked-etcd-拓扑)。_
+_拓扑详情请参考[堆叠（Stacked）etcd 拓扑](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/#堆叠-stacked-etcd-拓扑)。_
 {{% /tab %}}
 {{% tab name="外部 etcd 拓扑" %}}
 <!--
@@ -129,10 +129,10 @@ You need:
 -->
 需要准备：
 
-- 配置满足 [kubeadm 的最低要求](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
+- 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
   的三台机器作为控制面节点。奇数台控制平面节点有利于机器故障或者网络分区时进行重新选主。
   - 机器已经安装好{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}，并正常运行
-- 配置满足 [kubeadm 的最低要求](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
+- 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
   的三台机器作为工作节点
   - 机器已经安装好{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}，并正常运行
 - 在集群中，确保所有计算机之间存在全网络连接（公网或私网）
@@ -156,7 +156,7 @@ And you also need:
 <!--
 _See [External etcd topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology) for context._
 -->
-_拓扑详情请参考[外部 etcd 拓扑](/zh/docs/setup/production-environment/tools/kubeadm/ha-topology/#外部-etcd-拓扑)。_
+_拓扑详情请参考[外部 etcd 拓扑](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/#外部-etcd-拓扑)。_
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -179,7 +179,7 @@ To manage Kubernetes once your cluster is set up, you should
 to install the `kubectl` tool on each control plane node, as this can be
 helpful for troubleshooting.
 -->
-一旦集群创建成功，需要在 PC 上[安装 kubectl](/zh/docs/tasks/tools/#kubectl) 用于管理 Kubernetes。为了方便故障排查，也可以在每个控制平面节点上安装 `kubectl`。
+一旦集群创建成功，需要在 PC 上[安装 kubectl](/zh-cn/docs/tasks/tools/#kubectl) 用于管理 Kubernetes。为了方便故障排查，也可以在每个控制平面节点上安装 `kubectl`。
 
 <!-- steps -->
 
@@ -322,7 +322,7 @@ option. Your cluster requirements may need a different configuration.
    -->
    {{< note >}}
    一些 CNI 网络插件如 Calico 需要 CIDR 例如 `192.168.0.0/16` 和一些像 Weave 没有。参考
-   [CNI 网络文档](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
+   [CNI 网络文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
    通过传递 `--pod-network-cidr` 标志添加 pod CIDR，或者你可以使用 kubeadm
    配置文件，在 `ClusterConfiguration` 的 `networking` 对象下设置 `podSubnet` 字段。
    {{< /note >}}
@@ -387,7 +387,7 @@ option. Your cluster requirements may need a different configuration.
    [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network) to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file (if applicable).
 -->
 2. 应用你所选择的 CNI 插件：
-   [请遵循以下指示](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
+   [请遵循以下指示](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
    安装 CNI 驱动。如果适用，请确保配置与 kubeadm 配置文件中指定的 Pod
    CIDR 相对应。
    <!--
@@ -484,7 +484,7 @@ in the kubeadm config file.
 -->
 ### 设置 ectd 集群
 
-1. 按照[这些指示](/zh/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) 
+1. 按照[这些指示](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) 
    去设置 etcd 集群。
 
 1. 根据[这里](#manual-certs) 的描述配置 SSH。
