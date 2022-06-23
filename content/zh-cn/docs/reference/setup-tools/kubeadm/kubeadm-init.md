@@ -96,7 +96,7 @@ following steps:
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
 -->
 6. 生成令牌，将来其他节点可使用该令牌向控制平面注册自己。
-   如 [kubeadm token](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token/) 文档所述，
+   如 [kubeadm token](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-token/) 文档所述，
    用户可以选择通过 `--token` 提供令牌。
 
 <!--
@@ -114,8 +114,8 @@ following steps:
 
    See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional info.
 -->
-7. 为了使得节点能够遵照[启动引导令牌](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)
-   和 [TLS 启动引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+7. 为了使得节点能够遵照[启动引导令牌](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
+   和 [TLS 启动引导](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
    这两份文档中描述的机制加入到集群中，kubeadm 会执行所有的必要配置：
 
    - 创建一个 ConfigMap 提供添加集群节点所需的信息，并为该 ConfigMap 设置相关的 RBAC 访问规则。
@@ -124,7 +124,7 @@ following steps:
 
    - 配置自动签发新的 CSR 请求。
 
-   更多相关信息，请查看 [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)。
+   更多相关信息，请查看 [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)。
    
 <!-- 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
@@ -249,14 +249,14 @@ the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/
 For more information on the fields and usage of the configuration you can navigate to our
 [API reference page](/docs/reference/config-api/kubeadm-config.v1beta3/).
 -->
-可以使用 [kubeadm config print](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
+可以使用 [kubeadm config print](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令打印出默认配置。
 
 如果你的配置没有使用最新版本，
-**推荐**使用 [kubeadm config migrate](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
+**推荐**使用 [kubeadm config migrate](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令进行迁移。
 
-关于配置的字段和用法的更多信息，你可以访问 [API 参考页面](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)。
+关于配置的字段和用法的更多信息，你可以访问 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 <!-- 
 ### Using kubeadm init with feature gates {#feature-gates} 
@@ -278,7 +278,7 @@ a [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/#kubead
 using `--config`. 
 -->
 你可以使用 `--feature-gates` 标志来为 `kubeadm init` 设置特性门控，
-或者你可以在用 `--config` 传递[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
+或者你可以在用 `--config` 传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
 时添加条目到 `featureGates` 字段中去。
 
 <!-- 
@@ -286,8 +286,8 @@ Passing [feature gates for core Kubernetes components](/docs/reference/command-l
 directly to kubeadm is not supported. Instead, it is possible to pass them by
 [Customizing components with the kubeadm API](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/). 
 -->
-直接传递 [Kubernetes 核心组件的特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates)给 kubeadm 是不支持的。
-相反，可以通过[使用 kubeadm API 的自定义组件](/zh/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)来传递。
+直接传递 [Kubernetes 核心组件的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates)给 kubeadm 是不支持的。
+相反，可以通过[使用 kubeadm API 的自定义组件](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)来传递。
 
 <!-- 
 List of feature gates: 
@@ -384,7 +384,7 @@ For information about enabling IPVS mode with kubeadm see:
 -->
 kubeadm 配置中有关 kube-proxy 的说明请查看：
 
-- [kube-proxy 参考](/zh/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+- [kube-proxy 参考](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 
 使用 kubeadm 启用 IPVS 模式的说明请查看：
 
@@ -399,7 +399,7 @@ kubeadm 配置中有关 kube-proxy 的说明请查看：
 For information about passing flags to control plane components see:
 - [control-plane-flags](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/) -->
 有关向控制平面组件传递命令行参数的说明请查看：
-[控制平面命令行参数](/zh/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
+[控制平面命令行参数](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 
 <!--
 ### Running kubeadm without an Internet connection {#without-internet-connection}
@@ -545,7 +545,7 @@ The document includes information about using external CA, custom certificates
 and certificate renewal.
 -->
 有关使用 kubeadm 进行证书管理的详细信息，请参阅
-[使用 kubeadm 进行证书管理](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
+[使用 kubeadm 进行证书管理](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
 该文档包括有关使用外部 CA，自定义证书和证书更新的信息。
 
 <!--
@@ -564,7 +564,7 @@ The `kubeadm` package ships with a configuration file for running the `kubelet` 
 For further information, see [Managing the kubeadm drop-in file for systemd](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd).
 -->
 有关更多信息，请阅读
-[管理 systemd 的 kubeadm 内嵌文件](/zh/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd)。
+[管理 systemd 的 kubeadm 内嵌文件](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd)。
 
 <!--
 ### Use kubeadm with CRI runtimes
@@ -576,7 +576,7 @@ By default kubeadm attempts to detect your container runtime. For more details o
 the [kubeadm CRI installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 -->
 默认情况下，kubeadm 尝试检测你的容器运行环境。有关此检测的更多详细信息，请参见
-[kubeadm CRI 安装指南](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)。
+[kubeadm CRI 安装指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)。
 
 <!--
 ### Setting the node name
@@ -590,7 +590,7 @@ value to the kubelet.
 -->
 默认情况下, `kubeadm` 基于机器的主机地址分配一个节点名称。你可以使用 `--node-name` 参数覆盖此设置。
 此标识将合适的
-[`--hostname-override`](/zh/docs/reference/command-line-tools-reference/kubelet/#options)
+[`--hostname-override`](/zh-cn/docs/reference/command-line-tools-reference/kubelet/#options)
 值传递给 kubelet。
 
 <!--
@@ -605,7 +605,7 @@ token distribution for easier automation. To implement this automation, you must
 know the IP address that the control-plane node will have after it is started,
 or use a DNS name or an address of a load balancer.
 -->
-除了像文档 [kubeadm 基础教程](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+除了像文档 [kubeadm 基础教程](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 中所描述的那样，将从 `kubeadm init` 取得的令牌复制到每个节点，
 你还可以并行地分发令牌以实现简单自动化。
 要实现自动化，你必须知道控制平面节点启动后将拥有的 IP 地址，或使用 DNS 名称或负载均衡器的地址。
@@ -655,7 +655,7 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 -->
 注意这种搭建集群的方式在安全保证上会有一些宽松，因为这种方式不允许使用 `--discovery-token-ca-cert-hash` 
 来验证根 CA 的哈希值（因为当配置节点的时候，它还没有被生成）。
-更多信息请参阅 [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/) 文档。
+更多信息请参阅 [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/) 文档。
 
 ## {{% heading "whatsnext" %}}
 
@@ -666,11 +666,11 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 -->
-* 进一步阅读了解 [kubeadm init phase](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/)
-* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)
+* 进一步阅读了解 [kubeadm init phase](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/)
+* [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
   启动一个 Kubernetes 工作节点并且将其加入到集群
-* [kubeadm upgrade](/zh/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)
+* [kubeadm upgrade](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)
   将 Kubernetes 集群升级到新版本
-* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
+* [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
   恢复 `kubeadm init` 或 `kubeadm join` 命令对节点所作的变更
 
