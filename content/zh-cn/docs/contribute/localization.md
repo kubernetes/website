@@ -333,12 +333,12 @@ For example, for German the strings live in `data/i18n/de/de.toml`, and
 <!--
 ### Localize the community code of conduct
 
-Open a PR against the [`cncf/foundation`](https://github.com/cncf/foundation/tree/master/code-of-conduct-languages) repository to add the code of conduct in your language.
+Open a PR against the [`cncf/foundation`](https://github.com/cncf/foundation/tree/main/code-of-conduct-languages) repository to add the code of conduct in your language.
 
 -->
 ### 本地化社区行为准则 {#localize-the-community-code-of-conduct}
 
-在 [`cncf/foundation`](https://github.com/cncf/foundation/tree/master/code-of-conduct-languages)
+在 [`cncf/foundation`](https://github.com/cncf/foundation/tree/main/code-of-conduct-languages)
 仓库提交 PR，添加你所用语言版本的行为准则。
 
 -->
