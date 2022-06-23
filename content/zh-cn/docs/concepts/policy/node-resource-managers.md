@@ -30,7 +30,7 @@ The main manager, the Topology Manager, is a Kubelet component that co-ordinates
 The configuration of individual managers is elaborated in dedicated documents:
 -->
 主管理器，也叫拓扑管理器（Topology Manager），是一个 Kubelet 组件，
-它通过[策略](/zh/docs/tasks/administer-cluster/topology-manager/)，
+它通过[策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)，
 协调全局的资源管理过程。
 
 各个管理器的配置方式会在专项文档中详细阐述：
@@ -40,6 +40,6 @@ The configuration of individual managers is elaborated in dedicated documents:
 - [Device Manager](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
 - [Memory Manager Policies](/docs/tasks/administer-cluster/memory-manager/)
 -->
-- [CPU 管理器策略](/zh/docs/tasks/administer-cluster/cpu-management-policies/)
-- [设备管理器](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
-- [内存管理器策略](/zh/docs/tasks/administer-cluster/memory-manager/)
+- [CPU 管理器策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)
+- [设备管理器](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
+- [内存管理器策略](/zh-cn/docs/tasks/administer-cluster/memory-manager/)
