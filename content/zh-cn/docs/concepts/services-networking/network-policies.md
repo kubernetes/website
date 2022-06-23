@@ -58,7 +58,7 @@ Network policies are implemented by the [network plugin](/docs/concepts/extend-k
 -->
 ## 前置条件   {#prerequisites}
 
-网络策略通过[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+网络策略通过[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 来实现。要使用网络策略，你必须使用支持 NetworkPolicy 的网络解决方案。
 创建一个 NetworkPolicy 资源对象而没有控制器来使它生效的话，是没有任何作用的。
 
@@ -144,8 +144,8 @@ __podSelector__: Each NetworkPolicy includes a `podSelector` which selects the g
 -->
 __必需字段__：与所有其他的 Kubernetes 配置一样，NetworkPolicy 需要 `apiVersion`、
 `kind` 和 `metadata` 字段。关于配置文件操作的一般信息，请参考
-[配置 Pod 以使用 ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/),
-和[对象管理](/zh/docs/concepts/overview/working-with-objects/object-management)。
+[配置 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/),
+和[对象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management)。
 
 __spec__：NetworkPolicy [规约](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 中包含了在一个名字空间中定义特定网络策略所需的所有信息。
@@ -204,7 +204,7 @@ See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-
 3. （Egress 规则）允许 “default” 命名空间中任何带有标签 “role=db” 的 Pod 到 CIDR
    10.0.0.0/24 下 5978 TCP 端口的连接。
 
-参阅[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)演练
+参阅[声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)演练
 了解更多示例。
 
 <!--
@@ -422,7 +422,7 @@ When the feature gate is enabled, you can set the `protocol` field of a NetworkP
 作为一个稳定特性，SCTP 支持默认是被启用的。
 要在集群层面禁用 SCTP，你（或你的集群管理员）需要为 API 服务器指定
 `--feature-gates=SCTPSupport=false,...`
-来禁用 `SCTPSupport` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+来禁用 `SCTPSupport` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 启用该特性门控后，用户可以将 NetworkPolicy 的 `protocol` 字段设置为 `SCTP`。
 
 {{< note >}}
@@ -494,7 +494,7 @@ The following restrictions apply when using this field:
   范围内禁止使用 `endPort` 字段，你（或者你的集群管理员）需要为 API
   服务器设置 `--feature-gates=NetworkPolicyEndPort=false,...` 以禁用
   `NetworkPolicyEndPort`
-  [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 * `endPort` 字段必须等于或者大于 `port` 字段的值。
 * 两个字段的设置值都只能是数字。
 
@@ -508,7 +508,7 @@ the policy will be applied only for the single `port` field.
 -->
 你的集群所使用的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 插件
 必须支持在 NetworkPolicy 规约中使用 `endPort` 字段。
-如果你的[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+如果你的[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 不支持 `endPort` 字段，而你指定了一个包含 `endPort` 字段的 NetworkPolicy，
 策略只对单个 `port` 字段生效。
 {{< /note >}}
@@ -530,7 +530,7 @@ While NetworkPolicy cannot target a namespace by its name with some object field
 standardized label to target a specific namespace.
 -->
 只要 `NamespaceDefaultLabelName`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 被启用，Kubernetes 控制面会在所有名字空间上设置一个不可变更的标签
 `kubernetes.io/metadata.name`。该标签的值是名字空间的名称。
 
@@ -588,7 +588,7 @@ As of Kubernetes {{< skew latestVersion >}}, the following functionality does no
   walkthrough for further examples.
 - See more [recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common scenarios enabled by the NetworkPolicy resource.
 -->
-- 参阅[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
+- 参阅[声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
   演练了解更多示例；
 - 有关 NetworkPolicy 资源所支持的常见场景的更多信息，请参见
   [此指南](https://github.com/ahmetb/kubernetes-network-policy-recipes)。
