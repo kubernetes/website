@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: mysql-server
+      app: mysql
       app.kubernetes.io/name: mysql
   serviceName: mysql
   replicas: 3
