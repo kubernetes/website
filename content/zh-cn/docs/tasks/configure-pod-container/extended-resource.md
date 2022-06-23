@@ -29,7 +29,7 @@ Before you do this exercise, do the exercise in
 That will configure one of your Nodes to advertise a dongle resource.
 -->
 在你开始此练习前，请先练习
-[为节点广播扩展资源](/zh/docs/tasks/administer-cluster/extended-resource-node/)。
+[为节点广播扩展资源](/zh-cn/docs/tasks/administer-cluster/extended-resource-node/)。
 在那个练习中将配置你的一个节点来广播 dongle 资源。
 
 <!-- steps -->
@@ -195,8 +195,8 @@ kubectl delete pod extended-resource-demo-2
 -->
 ## 应用开发者参考
 
-* [为容器和 Pod 分配内存资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)
-* [为容器和 Pod 分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [为容器和 Pod 分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [为容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 <!--
 ### For cluster administrators
@@ -205,5 +205,5 @@ kubectl delete pod extended-resource-demo-2
 -->
 ### 集群管理员参考
 
-* [为节点广播扩展资源](/zh/docs/tasks/administer-cluster/extended-resource-node/)
+* [为节点广播扩展资源](/zh-cn/docs/tasks/administer-cluster/extended-resource-node/)
 

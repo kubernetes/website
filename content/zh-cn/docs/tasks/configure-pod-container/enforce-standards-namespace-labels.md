@@ -18,10 +18,10 @@ Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts
 and [restricted](/docs/concepts/security/pod-security-standards/#restricted) broadly cover the security spectrum
 and are implemented by the [Pod Security](/docs/concepts/security/pod-security-admission/)
 -->
-[特权（privileged）](/zh/docs/concepts/security/pod-security-standards/#privileged)、
-[基线（baseline）](/zh/docs/concepts/security/pod-security-standards/#baseline)和
-[受限（restricted）](/zh/docs/concepts/security/pod-security-standards/#restricted) 
-这三种策略涵盖了广泛安全范围，并由 [Pod 安全](/zh/docs/concepts/security/pod-security-admission/)
+[特权（privileged）](/zh-cn/docs/concepts/security/pod-security-standards/#privileged)、
+[基线（baseline）](/zh-cn/docs/concepts/security/pod-security-standards/#baseline)和
+[受限（restricted）](/zh-cn/docs/concepts/security/pod-security-standards/#restricted) 
+这三种策略涵盖了广泛安全范围，并由 [Pod 安全](/zh-cn/docs/concepts/security/pod-security-admission/)
  {{< glossary_tooltip text="准入控制器" term_id="admission-controller" >}}实现。
 
 ## {{% heading "prerequisites" %}}
@@ -31,7 +31,7 @@ and are implemented by the [Pod Security](/docs/concepts/security/pod-security-a
 <!--
 - Ensure the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) is enabled.
 -->
-- 确保 `PodSecurity` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)已被启用。
+- 确保 `PodSecurity` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)已被启用。
 
 <!--
 ## Requiring the `baseline` Pod Security Standard with namespace labels

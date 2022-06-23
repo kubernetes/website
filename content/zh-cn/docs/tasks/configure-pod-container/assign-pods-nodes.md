@@ -134,5 +134,5 @@ a `disktype=ssd` label.
 Learn more about
 [labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
 -->
-进一步了解[标签和选择器](/zh/docs/concepts/overview/working-with-objects/labels/)
+进一步了解[标签和选择器](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
 

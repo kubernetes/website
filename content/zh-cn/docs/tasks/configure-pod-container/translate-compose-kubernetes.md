@@ -449,11 +449,11 @@ The default `kompose` transformation will generate Kubernetes [Deployments](/doc
 ## 其他转换方式    {#alternative-conversions}
 
 默认的 `kompose` 转换会生成 yaml 格式的 Kubernetes
-[Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 和
-[Service](/zh/docs/concepts/services-networking/service/) 对象。
+[Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 和
+[Service](/zh-cn/docs/concepts/services-networking/service/) 对象。
 你可以选择通过 `-j` 参数生成 json 格式的对象。
-你也可以替换生成 [Replication Controllers](/zh/docs/concepts/workloads/controllers/replicationcontroller/) 对象、
-[Daemon Sets](/zh/docs/concepts/workloads/controllers/daemonset/) 或
+你也可以替换生成 [Replication Controllers](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/) 对象、
+[Daemon Sets](/zh-cn/docs/concepts/workloads/controllers/daemonset/) 或
 [Helm](https://github.com/helm/helm) charts。
 
 ```shell
