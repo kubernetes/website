@@ -159,7 +159,7 @@ One example is [Custom Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/)
 除了独立的内容页面（Markdown 文件），Hugo 还支持
 [页面包](https://gohugo.io/content-management/page-bundles/)。
 
-一个例子是[定制的 Hugo 短代码（shortcodes）](/zh/docs/contribute/style/hugo-shortcodes/)。
+一个例子是[定制的 Hugo 短代码（shortcodes）](/zh-cn/docs/contribute/style/hugo-shortcodes/)。
 它被认为是 `leaf bundle`（叶子包）。
 目录下的所有内容，包括 `index.md`，都是包的一部分。此外还包括页面间相对链接、可被处理的图像等：
 
@@ -222,7 +222,7 @@ The `SASS` source of the stylesheets for this site is stored below `src/sass` an
 * Learn about the [Content guide](/docs/contribute/style/content-guide)
 -->
 
-* 了解[定制 Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/)
-* 了解[样式指南](/zh/docs/contribute/style/style-guide)
-* 了解[内容指南](/zh/docs/contribute/style/content-guide)
+* 了解[定制 Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/)
+* 了解[样式指南](/zh-cn/docs/contribute/style/style-guide)
+* 了解[内容指南](/zh-cn/docs/contribute/style/content-guide)
 
