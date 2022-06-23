@@ -36,7 +36,7 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 
 {{< note >}}
 这个文档描述了怎么以非 root 用户身份运行 Kubernetes 节点组件以及 Pod。
-如果你只是想了解如何以非 root 身份运行 Pod，请参阅 [SecurityContext](/zh/docs/tasks/configure-pod-container/security-context/)。
+如果你只是想了解如何以非 root 身份运行 Pod，请参阅 [SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
 {{< /note >}}
 
 <!--
@@ -59,7 +59,7 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 * [在 systemd 中启用 user session](https://rootlesscontaine.rs/getting-started/common/login/)
 * [根据不同的 Linux 发行版，配置 sysctl 的值](https://rootlesscontaine.rs/getting-started/common/sysctl/)
 * [确保你的非特权用户被列在 `/etc/subuid` 和 `/etc/subgid` 文件中](https://rootlesscontaine.rs/getting-started/common/subuid/)
-* 启用 `KubeletInUserNamespace` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+* 启用 `KubeletInUserNamespace` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 
 <!-- steps -->
 
