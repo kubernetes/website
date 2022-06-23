@@ -228,10 +228,10 @@ A Kubernetes member must meet the following requirements to be a co-chair:
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs
   workflow, including:
-  [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), the
-  [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs),
+  [teams in k/org](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml), the
+  [process in k/community](https://github.com/kubernetes/community/tree/main/sig-docs),
   plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of
-  [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
+  [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture).
   In addition, understand how the [Kubernetes docs release process](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) works.
 - Approved by the SIG Docs community either directly or via lazy consensus.
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months
@@ -240,10 +240,10 @@ Kubernetes 成员必须满足以下要求才能成为联合主席：
 
 - 理解 SIG Docs 工作流程和工具：git、Hugo、本地化、博客子项目
 - 理解其他 Kubernetes SIG 和仓库会如何影响 SIG Docs 工作流程，包括：
-  [k/org 中的团队](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml)、
-  [k/community 中的流程](https://github.com/kubernetes/community/tree/master/sig-docs)、
+  [k/org 中的团队](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml)、
+  [k/community 中的流程](https://github.com/kubernetes/community/tree/main/sig-docs)、
   [k/test-infra](https://github.com/kubernetes/test-infra/) 中的插件、
-  [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture) 中的角色。
+  [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture) 中的角色。
   此外，了解 [Kubernetes 文档发布流程](/zh-cn/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release)的工作原理。
 - 由 SIG Docs 社区直接或通过惰性共识批准。
 - 在至少 6 个月的时段内，确保每周至少投入 5 个小时（通常更多）
@@ -264,7 +264,7 @@ Responsibilities include:
 
 <!--
 - Keep SIG Docs focused on maximizing developer happiness through excellent documentation
-- Exemplify the [community code of conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) and hold SIG members accountable to it
+- Exemplify the [community code of conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md) and hold SIG members accountable to it
 - Learn and set best practices for the SIG by updating contribution guidelines
 - Schedule and run SIG meetings: weekly status updates, quarterly retro/planning sessions, and others as needed
 - Schedule and run doc sprints at KubeCon events and other conferences
@@ -272,7 +272,7 @@ Responsibilities include:
 - Keep the SIG running smoothly
 -->
 - 保持 SIG Docs 专注于通过出色的文档最大限度地提高开发人员的满意度
-- 以身作则，践行[社区行为准则](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)，
+- 以身作则，践行[社区行为准则](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)，
   并要求 SIG 成员对自身行为负责
 - 通过更新贡献指南，为 SIG 学习并设置最佳实践
 - 安排和举行 SIG 会议：每周状态更新，每季度回顾/计划会议以及其他需要的会议
@@ -286,7 +286,7 @@ Responsibilities include:
 
 To schedule and run effective meetings, these guidelines show what to do, how to do it, and why.
 
-**Uphold the [community code of conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)**:
+**Uphold the [community code of conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)**:
 
 - Hold respectful, inclusive discussions with respectful, inclusive language.
 -->
@@ -294,7 +294,7 @@ To schedule and run effective meetings, these guidelines show what to do, how to
 
 为了安排和召开高效的会议，这些指南说明了如何做、怎样做以及原因。
 
-**坚持[社区行为准则](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)**：
+**坚持[社区行为准则](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)**：
 
 - 相互尊重地、包容地进行讨论。
 
@@ -354,14 +354,14 @@ Begin and end meetings on time.
 <!--
 **Use Zoom effectively**:
 
-- Familiarize yourself with [Zoom guidelines for Kubernetes](https://github.com/kubernetes/community/blob/master/communication/zoom-guidelines.md)
+- Familiarize yourself with [Zoom guidelines for Kubernetes](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md)
 - Claim the host role when you log in by entering the host key
 
 <img src="/images/docs/contribute/claim-host.png" width="75%" alt="Claiming the host role in Zoom" />
 -->
 **有效利用 Zoom**：
 
-- 熟悉 [ Kubernetes Zoom 指南](https://github.com/kubernetes/community/blob/master/communication/zoom-guidelines.md)
+- 熟悉 [ Kubernetes Zoom 指南](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md)
 - 输入主持人密钥登录时声明主持人角色
 
 <img src="/images/docs/contribute/claim-host.png" width="75%" alt="声明 Zoom 角色" />
