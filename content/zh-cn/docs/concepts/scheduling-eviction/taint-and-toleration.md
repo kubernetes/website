@@ -11,7 +11,7 @@ is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attrac
 a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
 hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
 -->
-[_节点亲和性_](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+[_节点亲和性_](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 是 {{< glossary_tooltip text="Pod" term_id="pod" >}} 的一种属性，它使 Pod
 被吸引到一类特定的{{< glossary_tooltip text="节点" term_id="node" >}}
 （这可能出于一种偏好，也可能是硬性要求）。
@@ -270,7 +270,7 @@ onto nodes labeled with `dedicated=groupName`.
 * **专用节点**：如果你想将某些节点专门分配给特定的一组用户使用，你可以给这些节点添加一个污点（即，
   `kubectl taint nodes nodename dedicated=groupName:NoSchedule`），
   然后给这组用户的 Pod 添加一个相对应的 toleration（通过编写一个自定义的
-  [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)，很容易就能做到）。
+  [准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)，很容易就能做到）。
   拥有上述容忍度的 Pod 就能够被分配到上述专用节点，同时也能够被分配到集群中的其它节点。
   如果你希望这些 Pod 只能被分配到上述专用节点，那么你还需要给这些专用节点另外添加一个和上述
   污点类似的 label （例如：`dedicated=groupName`），同时 还要在上述准入控制器中给 Pod
@@ -306,10 +306,10 @@ manually add tolerations to your pods.
   `kubectl taint nodes nodename special=true:PreferNoSchedule`)，
   然后给使用了这类特殊硬件的 Pod 添加一个相匹配的 toleration。
   和专用节点的例子类似，添加这个容忍度的最简单的方法是使用自定义
-  [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)。
-  比如，我们推荐使用[扩展资源](/zh/docs/concepts/configuration/manage-resources-containers/#extended-resources)
+  [准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)。
+  比如，我们推荐使用[扩展资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)
   来表示特殊硬件，给配置了特殊硬件的节点添加污点时包含扩展资源名称，
-  然后运行一个 [ExtendedResourceToleration](/zh/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
+  然后运行一个 [ExtendedResourceToleration](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
   准入控制器。此时，因为节点已经被设置污点了，没有对应容忍度的 Pod
   不会被调度到这些节点。但当你创建一个使用了扩展资源的 Pod 时，
   `ExtendedResourceToleration` 准入控制器会自动给 Pod 加上正确的容忍度，
@@ -395,7 +395,7 @@ as the master becoming partitioned from the nodes.
 -->
 {{< note >}}
 为了保证由于节点问题引起的 Pod 驱逐
-[速率限制](/zh/docs/concepts/architecture/nodes/)行为正常，
+[速率限制](/zh-cn/docs/concepts/architecture/nodes/)行为正常，
 系统实际上会以限定速率的方式添加污点。在像主控节点与工作节点间通信中断等场景下，
 这样做可以避免 Pod 被大量驱逐。
 {{< /note >}}
@@ -461,7 +461,7 @@ Nodes for 5 minutes after one of these problems is detected.
 
 This ensures that DaemonSet pods are never evicted due to these problems.
 -->
-[DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/) 中的 Pod 被创建时，
+[DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/) 中的 Pod 被创建时，
 针对以下污点自动添加的 `NoExecute` 的容忍度将不会指定 `tolerationSeconds`：
 
   * `node.kubernetes.io/unreachable`
@@ -487,7 +487,7 @@ control plane adds the `node.kubernetes.io/memory-pressure` taint.
 -->
 
 控制平面使用节点{{<glossary_tooltip text="控制器" term_id="controller">}}自动创建
-与[节点状况](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions)对应的带有 `NoSchedule` 效应的污点。
+与[节点状况](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions)对应的带有 `NoSchedule` 效应的污点。
 
 调度器在进行调度时检查污点，而不是检查节点状况。这确保节点状况不会直接影响调度。
 例如，如果 `DiskPressure` 节点状况处于活跃状态，则控制平面
@@ -544,5 +544,5 @@ arbitrary tolerations to DaemonSets.
 * Read about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/) and how you can configure it
 * Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 -->
-* 阅读[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)，以及如何配置其行为
-* 阅读 [Pod 优先级](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* 阅读[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)，以及如何配置其行为
+* 阅读 [Pod 优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)

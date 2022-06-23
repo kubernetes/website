@@ -320,7 +320,7 @@ The name of the Endpoints object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 Endpoints 对象的名称必须是合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 When you create an [Endpoints](docs/reference/kubernetes-api/service-resources/endpoints-v1/)
@@ -401,7 +401,7 @@ EndpointSlices 是一种 API 资源，可以为 Endpoints 提供更可扩展的�
 届时将创建其他 EndpointSlices 来存储任何其他 Endpoints。
 
 EndpointSlices 提供了附加的属性和功能，这些属性和功能在
-[EndpointSlices](/zh/docs/concepts/services-networking/endpoint-slices/)
+[EndpointSlices](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
 中有详细描述。
 
 <!-- 
@@ -546,7 +546,7 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 这与用户空间模式不同：在这种情况下，kube-proxy 将检测到与第一个 Pod 的连接已失败，
 并会自动使用其他后端 Pod 重试。
 
-你可以使用 Pod [就绪探测器](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
+你可以使用 Pod [就绪探测器](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
 验证后端 Pod 可以正常工作，以便 iptables 模式下的 kube-proxy 仅看到测试正常的后端。
 这样做意味着你避免将流量通过 kube-proxy 发送到已知已失败的 Pod。
 
@@ -752,7 +752,7 @@ has local endpoints and whether or not all the local endpoints are marked as ter
 -->
 
 如果你启用了 kube-proxy 的 `ProxyTerminatingEndpoints`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 kube-proxy 会检查节点是否有本地的端点，以及是否所有的本地端点都被标记为终止中。
 
 <!--
@@ -864,7 +864,7 @@ Services and creates a set of DNS records for each one.  If DNS has been enabled
 throughout your cluster then all Pods should automatically be able to resolve
 Services by their DNS name.
 -->
-你可以（几乎总是应该）使用[附加组件](/zh/docs/concepts/cluster-administration/addons/)
+你可以（几乎总是应该）使用[附加组件](/zh-cn/docs/concepts/cluster-administration/addons/)
 为 Kubernetes 集群设置 DNS 服务。
 
 支持集群的 DNS 服务器（例如 CoreDNS）监视 Kubernetes API 中的新服务，并为每个服务创建一组 DNS 记录。
@@ -905,7 +905,7 @@ Kubernetes 还支持命名端口的 DNS SRV（服务）记录。
 
 Kubernetes DNS 服务器是唯一的一种能够访问 `ExternalName` 类型的 Service 的方式。
 更多关于 `ExternalName` 信息可以查看
-[DNS Pod 和 Service](/zh/docs/concepts/services-networking/dns-pod-service/)。
+[DNS Pod 和 Service](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 
 <!--
 ## Headless Services  {#headless-services}
@@ -1023,7 +1023,7 @@ Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型，默认是
 <!--
 You can also use [Ingress](/docs/concepts/services-networking/ingress/) to expose your Service. Ingress is not a Service type, but it acts as the entry point for your cluster. It lets you consolidate your routing rules into a single resource as it can expose multiple services under the same IP address.
 -->
-你也可以使用 [Ingress](/zh/docs/concepts/services-networking/ingress/) 来暴露自己的服务。
+你也可以使用 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 来暴露自己的服务。
 Ingress 不是一种服务类型，但它充当集群的入口点。
 它可以将路由规则整合到一个资源中，因为它可以在同一IP地址下公开多个服务。
 
@@ -1735,10 +1735,10 @@ groups are modified with the following IP rules:
 -->
 
 为了获得均衡流量，请使用 DaemonSet 或指定
-[Pod 反亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+[Pod 反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 使其不在同一节点上。
 
-你还可以将 NLB 服务与[内部负载平衡器](/zh/docs/concepts/services-networking/service/#internal-load-balancer)
+你还可以将 NLB 服务与[内部负载平衡器](/zh-cn/docs/concepts/services-networking/service/#internal-load-balancer)
 注解一起使用。
 
 为了使客户端流量能够到达 NLB 后面的实例，使用以下 IP 规则修改了节点安全组：
@@ -2089,7 +2089,7 @@ assigned from the lower band.
 This allows users to use the lower band of the `service-cluster-ip-range` for their
 Services with static IPs assigned with a very low risk of running into conflicts.
 -->
-如果启用 `ServiceIPStaticSubrange`[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+如果启用 `ServiceIPStaticSubrange`[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 分配策略根据配置的 `service-cluster-ip-range` 的大小，使用以下公式
 `min(max(16, cidrSize / 16), 256)` 进行划分，该公式可描述为
 “在不小于 16 且不大于 256 之间有一个步进量（Graduated Step）”，将
@@ -2351,7 +2351,7 @@ followed by the data from the client.
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
 * Read about [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
 -->
-* 阅读[使用服务访问应用](/zh/docs/concepts/services-networking/connect-applications-service/)
-* 阅读了解 [Ingress](/zh/docs/concepts/services-networking/ingress/)
-* 阅读了解[端点切片（Endpoint Slices）](/zh/docs/concepts/services-networking/endpoint-slices/)
+* 阅读[使用服务访问应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 阅读了解 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
+* 阅读了解[端点切片（Endpoint Slices）](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
 
