@@ -37,8 +37,8 @@ To use this mechanism, your cluster must enforce Pod Security admission.
 
 ### Built-in Pod Security admission enforcement
 
-From Kubernetes v1.23, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)is a beta feature and is enabled by default.
-This page is part of the documentation for Kubernetesv{{< skew currentVersion >}}.
+From Kubernetes v1.23, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is a beta feature and is enabled by default.
+This page is part of the documentation for Kubernetes v{{< skew currentVersion >}}.
 If you are running a different version of Kubernetes, consult the documentation for that release.
 
 ### Alternative: installing the `PodSecurity` admission webhook {#webhook}
