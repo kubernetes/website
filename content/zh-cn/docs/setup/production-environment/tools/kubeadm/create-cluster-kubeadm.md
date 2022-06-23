@@ -970,12 +970,12 @@ Kubernetes 版本可以通过使用 `--kubeadm init` 的 `--kubernetes-version` 
 
 <!--
 Example:
-* kubeadm is at {{< skew latestVersion >}}
-* `kubernetesVersion` must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
+* kubeadm is at {{< skew currentVersion >}}
+* `kubernetesVersion` must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
 -->
 例子：
-* kubeadm 的版本为 {{< skew latestVersion >}}。
-* `kubernetesVersion` 必须为 {{< skew latestVersion >}} 或者 {{< skew prevMinorVersion >}}。
+* kubeadm 的版本为 {{< skew currentVersion >}}。
+* `kubernetesVersion` 必须为 {{< skew currentVersion >}} 或者 {{< skew currentVersionAddMinor -1 >}}。
 
 <!--
 ### kubeadm's skew against the kubelet
@@ -991,12 +991,12 @@ version as kubeadm or one version older.
 
 <!--
 Example:
-* kubeadm is at {{< skew latestVersion >}}
-* kubelet on the host must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
+* kubeadm is at {{< skew currentVersion >}}
+* kubelet on the host must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
 -->
 例子：
-* kubeadm 的版本为 {{< skew latestVersion >}}
-* 主机上的 kubelet 版本必须为 {{< skew latestVersion >}} 或者 {{< skew prevMinorVersion >}}
+* kubeadm 的版本为 {{< skew currentVersion >}}
+* 主机上的 kubelet 版本必须为 {{< skew currentVersion >}} 或者 {{< skew currentVersionAddMinor -1 >}}
 
 <!--
 ### kubeadm's skew against kubeadm
@@ -1021,12 +1021,12 @@ with the exception of `kubeadm upgrade`.
 
 <!--
 Example for `kubeadm join`:
-* kubeadm version {{< skew latestVersion >}} was used to create a cluster with `kubeadm init`
-* Joining nodes must use a kubeadm binary that is at version {{< skew latestVersion >}}
+* kubeadm version {{< skew currentVersion >}} was used to create a cluster with `kubeadm init`
+* Joining nodes must use a kubeadm binary that is at version {{< skew currentVersion >}}
 -->
 `kubeadm join` 的例子：
-* 使用 `kubeadm init` 创建集群时使用版本为 {{< skew latestVersion >}} 的 kubeadm。
-* 加入的节点必须使用版本为 {{< skew latestVersion >}} 的 kubeadm 二进制文件。
+* 使用 `kubeadm init` 创建集群时使用版本为 {{< skew currentVersion >}} 的 kubeadm。
+* 加入的节点必须使用版本为 {{< skew currentVersion >}} 的 kubeadm 二进制文件。
 
 <!--
 Nodes that are being upgraded must use a version of kubeadm that is the same MINOR
@@ -1038,13 +1038,13 @@ MINOR 版本或比后者新一个 MINOR 版本。
 
 <!--
 Example for `kubeadm upgrade`:
-* kubeadm version {{< skew prevMinorVersion >}} was used to create or upgrade the node
-* The version of kubeadm used for upgrading the node must be at {{< skew prevMinorVersion >}}
-or {{< skew latestVersion >}}
+* kubeadm version {{< skew currentVersionAddMinor -1 >}} was used to create or upgrade the node
+* The version of kubeadm used for upgrading the node must be at {{< skew currentVersionAddMinor -1 >}}
+or {{< skew currentVersion >}}
 -->
 `kubeadm upgrade` 的例子:
-* 用于创建或升级节点的 kubeadm 版本为 {{< skew prevMinorVersion >}}。
-* 用于升级节点的 kubeadm 版本必须为 {{< skew prevMinorVersion >}} 或 {{< skew latestVersion >}}。
+* 用于创建或升级节点的 kubeadm 版本为 {{< skew currentVersionAddMinor -1 >}}。
+* 用于升级节点的 kubeadm 版本必须为 {{< skew currentVersionAddMinor -1 >}} 或 {{< skew currentVersion >}}。
 
 <!--
 To learn more about the version skew between the different Kubernetes component see
