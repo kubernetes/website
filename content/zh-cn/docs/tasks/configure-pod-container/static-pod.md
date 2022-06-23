@@ -84,8 +84,8 @@ You can configure a static Pod with either a [file system hosted configuration f
 -->
 ## 创建静态 Pod {#static-pod-creation}
 
-可以通过[文件系统上的配置文件](/zh/docs/tasks/configure-pod-container/static-pod/#configuration-files)
-或者 [web 网络上的配置文件](/zh/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)
+可以通过[文件系统上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#configuration-files)
+或者 [web 网络上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)
 来配置静态 Pod。
 
 <!--
@@ -101,7 +101,7 @@ For example, this is how to start a simple web server as a static Pod:
 ### 文件系统上的静态 Pod 声明文件 {#configuration-files}
 
 声明文件是标准的 Pod 定义文件，以 JSON 或者 YAML 格式存储在指定目录。路径设置在
-[Kubelet 配置文件](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
+[Kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 的 `staticPodPath: <目录>` 字段，kubelet 会定期的扫描这个文件夹下的 YAML/JSON
 文件来创建/删除静态 Pod。
 注意 kubelet 扫描目录的时候会忽略以点开头的文件。
@@ -179,7 +179,7 @@ For example, this is how to start a simple web server as a static Pod:
    ```
    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
    ```
-   或者在 [Kubelet 配置文件](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
+   或者在 [Kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
    中添加 `staticPodPath: <目录>`字段。
 
 <!--
@@ -329,7 +329,7 @@ Make sure the kubelet has permission to create the mirror Pod in the API server.
 -->
 {{< note >}}
 要确保 kubelet 在 API 服务上有创建镜像 Pod 的权限。如果没有，创建请求会被 API 服务拒绝。
-可以看 [Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission/)和 [Pod 安全策略](/zh/docs/concepts/security/pod-security-policy/)。
+可以看 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)和 [Pod 安全策略](/zh-cn/docs/concepts/security/pod-security-policy/)。
 {{< /note >}}
 
 <!--

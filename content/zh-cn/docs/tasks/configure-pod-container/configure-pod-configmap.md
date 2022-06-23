@@ -74,7 +74,7 @@ The name of a ConfigMap object must be a valid
 其中，`<映射名称>` 是为 ConfigMap 指定的名称，`<数据源>` 是要从中提取数据的目录、
 文件或者字面值。
 ConfigMap 对象的名称必须是合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 <!--
 When you are creating a ConfigMap based on a file, the key in the \<data-source> defaults to the basename of the file, and the value defaults to the file content.
@@ -1053,7 +1053,7 @@ basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files
 ### 映射键到指定路径并设置文件访问权限    {#project-keys-to-specific-paths-and-file-permissions}
 
 你可以将指定键名投射到特定目录，也可以逐个文件地设定访问权限。
-[Secret 用户指南](/zh/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod)
+[Secret 用户指南](/zh-cn/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod)
 中为这一语法提供了解释。
 
 <!--
@@ -1098,7 +1098,7 @@ kubelet 同步周期（默认 1 分钟） + ConfigMap 在 kubelet 中缓存的 T
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
 -->
 {{< note >}}
-使用 ConfigMap 作为 [subPath](/zh/docs/concepts/storage/volumes/#using-subpath)
+使用 ConfigMap 作为 [subPath](/zh-cn/docs/concepts/storage/volumes/#using-subpath)
 的数据卷将不会收到 ConfigMap 更新。
 {{< /note >}}
 
@@ -1113,7 +1113,7 @@ The ConfigMap API resource stores configuration data as key-value pairs. The dat
 
 ConfigMap API 资源将配置数据存储为键值对。
 数据可以在 Pod 中使用，也可以用来提供系统组件（如控制器）的配置。
-ConfigMap 与 [Secret](/zh/docs/concepts/configuration/secret/) 类似，
+ConfigMap 与 [Secret](/zh-cn/docs/concepts/configuration/secret/) 类似，
 但是提供的是一种处理不含敏感信息的字符串的方法。
 用户和系统组件都可以在 ConfigMap 中存储配置数据。
 
@@ -1123,7 +1123,7 @@ ConfigMaps should reference properties files, not replace them. Think of the Con
 {{< note >}}
 ConfigMap 应该引用属性文件，而不是替换它们。可以将 ConfigMap 理解为类似于 Linux
 `/etc` 目录及其内容的东西。例如，如果你基于 ConfigMap 创建
-[Kubernetes 卷](/zh/docs/concepts/storage/volumes/)，则 ConfigMap
+[Kubernetes 卷](/zh-cn/docs/concepts/storage/volumes/)，则 ConfigMap
 中的每个数据项都由该数据卷中的某个独立的文件表示。
 {{< /note >}}
 
@@ -1220,6 +1220,6 @@ data:
 <!--
 * Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
 -->
-* 浏览[使用 ConfigMap 配置 Redis](/zh/docs/tutorials/configuration/configure-redis-using-configmap/)
+* 浏览[使用 ConfigMap 配置 Redis](/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/)
   真实示例。
 
