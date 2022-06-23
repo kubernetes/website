@@ -1063,7 +1063,7 @@ Assuming [horizontal Pod autoscaling](/docs/tasks/run-application/horizontal-pod
 in your cluster, you can setup an autoscaler for your Deployment and choose the minimum and maximum number of
 Pods you want to run based on the CPU utilization of your existing Pods.
 -->
-假设集群启用了[Pod 的水平自动缩放](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)，
+假设集群启用了[Pod 的水平自动缩放](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)，
 你可以为 Deployment 设置自动缩放器，并基于现有 Pod 的 CPU 利用率选择要运行的
 Pod 个数下限和上限。
 
@@ -1854,7 +1854,7 @@ can create multiple Deployments, one for each release, following the canary patt
 ## 金丝雀部署 {#canary-deployment}
 
 如果要使用 Deployment 向用户子集或服务器子集上线版本，
-则可以遵循[资源管理](/zh/docs/concepts/cluster-administration/manage-deployment/#canary-deployments)
+则可以遵循[资源管理](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#canary-deployments)
 所描述的金丝雀模式，创建多个 Deployment，每个版本一个。
 
 <!--
@@ -1868,8 +1868,8 @@ configuring containers, and [using kubectl to manage resources](/docs/concepts/o
 ## 编写 Deployment 规约       {#writing-a-deployment-spec}
 
 同其他 Kubernetes 配置一样， Deployment 需要 `apiVersion`，`kind` 和 `metadata` 字段。
-有关配置文件的其他信息，请参考[部署 Deployment](/zh/docs/tasks/run-application/run-stateless-application-deployment/)、
-配置容器和[使用 kubectl 管理资源](/zh/docs/concepts/overview/working-with-objects/object-management/)等相关文档。
+有关配置文件的其他信息，请参考[部署 Deployment](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
+配置容器和[使用 kubectl 管理资源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)等相关文档。
 
 <!--
 The name of a Deployment object must be a valid
@@ -1878,7 +1878,7 @@ The name of a Deployment object must be a valid
 A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 -->
 Deployment 对象的名称必须是合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 Deployment 还需要 [`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 <!--
@@ -1894,7 +1894,7 @@ The `.spec.template` and `.spec.selector` are the only required field of the `.s
 
 The `.spec.template` is a [Pod template](/docs/concepts/workloads/pods/#pod-templates). It has exactly the same schema as a {{< glossary_tooltip text="Pod" term_id="pod" >}}, except it is nested and does not have an `apiVersion` or `kind`.
 -->
-`.spec.template` 是一个 [Pod 模板](/zh/docs/concepts/workloads/pods/#pod-templates)。
+`.spec.template` 是一个 [Pod 模板](/zh-cn/docs/concepts/workloads/pods/#pod-templates)。
 它和 {{< glossary_tooltip text="Pod" term_id="pod" >}} 的语法规则完全相同。
 只是这里它是嵌套的，因此不需要 `apiVersion` 或 `kind`。
 
@@ -1909,7 +1909,7 @@ labels and an appropriate restart policy. For labels, make sure not to overlap w
 Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Always` is
 allowed, which is the default if not specified.
 -->
-只有 [`.spec.template.spec.restartPolicy`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
+只有 [`.spec.template.spec.restartPolicy`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
 等于 `Always` 才是被允许的，这也是在没有指定时的默认设置。
 
 <!--
@@ -1936,7 +1936,7 @@ then applying that manifest overwrites the manual scaling that you previously di
 If a [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) (or any
 similar API for horizontal scaling) is managing scaling for a Deployment, don't set `.spec.replicas`.
 -->
-如果一个 [HorizontalPodAutoscaler](/zh/docs/tasks/run-application/horizontal-pod-autoscale/)
+如果一个 [HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 （或者其他执行水平扩缩操作的类似 API）在管理 Deployment 的扩缩，
 则不要设置 `.spec.replicas`。
 
@@ -1960,7 +1960,7 @@ for the Pods targeted by this Deployment.
 ### 选择算符   {#selector}
 
 `.spec.selector` 是指定本 Deployment 的 Pod
-[标签选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)的必需字段。
+[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)的必需字段。
 
 `.spec.selector` 必须匹配 `.spec.template.metadata.labels`，否则请求会被 API 拒绝。
 
@@ -2033,7 +2033,7 @@ replacement will be created immediately (even if the old Pod is still in a Termi
 才会创建新版本的 Pod。如果你手动删除一个 Pod，其生命周期是由 ReplicaSet 来控制的，
 后者会立即创建一个替换 Pod（即使旧的 Pod 仍然处于 Terminating 状态）。
 如果你需要一种“最多 n 个”的 Pod 个数保证，你需要考虑使用
-[StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/)。
+[StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
 {{< /note >}}
 
 <!--
@@ -2138,7 +2138,7 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 在没有任意容器崩溃情况下的最小就绪时间，
 只有超出这个时间 Pod 才被视为可用。默认值为 0（Pod 在准备就绪后立即将被视为可用）。
 要了解何时 Pod 被视为就绪，
-可参考[容器探针](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
+可参考[容器探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
 
 <!--
 ### Revision History Limit
@@ -2192,11 +2192,11 @@ Deployment 在创建时是默认不会处于暂停状态。
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
 -->
-* 了解 [Pod](/zh/docs/concepts/workloads/pods)。
-* [使用 Deployment 运行一个无状态应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)。
+* 了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
+* [使用 Deployment 运行一个无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)。
 * `Deployment` 是 Kubernetes REST API 中的一个顶层资源。
   阅读 {{< api-reference page="workload-resources/deployment-v1" >}}
   对象定义，以了解 Deployment 的 API 细节。
-* 阅读 [PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/)
+* 阅读 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)
   了解如何使用它来在可能出现干扰的情况下管理应用的可用性。
 

@@ -53,8 +53,8 @@ that provides a set of stateless replicas.
 在上面描述中，“稳定的”意味着 Pod 调度或重调度的整个过程是有持久性的。
 如果应用程序不需要任何稳定的标识符或有序的部署、删除或伸缩，则应该使用
 由一组无状态的副本控制器提供的工作负载来部署应用程序，比如
-[Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 或者
-[ReplicaSet](/zh/docs/concepts/workloads/controllers/replicaset/)
+[Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 或者
+[ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
 可能更适用于你的无状态应用部署需要。
 
 <!--
@@ -77,7 +77,7 @@ that provides a set of stateless replicas.
   基于所请求的 `storage class` 来提供，或者由管理员预先提供。
 * 删除或者收缩 StatefulSet 并*不会*删除它关联的存储卷。
   这样做是为了保证数据安全，它通常比自动清除 StatefulSet 所有相关的资源更有价值。
-* StatefulSet 当前需要[无头服务](/zh/docs/concepts/services-networking/service/#headless-services)
+* StatefulSet 当前需要[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)
   来负责 Pod 的网络标识。你需要负责创建此服务。
 * 当删除 StatefulSets 时，StatefulSet 不提供任何终止 Pod 的保证。
   为了实现 StatefulSet 中的 Pod 可以有序地且体面地终止，可以在删除之前将 StatefulSet
@@ -162,9 +162,9 @@ The name of a StatefulSet object must be a valid
 * 名为 `nginx` 的 Headless Service 用来控制网络域名。
 * 名为 `web` 的 StatefulSet 有一个 Spec，它表明将在独立的 3 个 Pod 副本中启动 nginx 容器。
 * `volumeClaimTemplates` 将通过 PersistentVolumes 驱动提供的
-  [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
+  [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
 
-StatefulSet 的命名需要遵循[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)规范。
+StatefulSet 的命名需要遵循[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)规范。
 
 <!--
 ### Pod Selector
@@ -187,7 +187,7 @@ You can set the  `.spec.volumeClaimTemplates` which can provide stable storage u
 
 你可以设置 `.spec.volumeClaimTemplates`，
 它可以使用 PersistentVolume 制备程序所准备的
-[PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
+[PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
 
 <!-- ### Minimum ready seconds -->
 ### 最短就绪秒数 {#minimum-ready-seconds}
@@ -207,7 +207,7 @@ available as soon as it is ready). To learn more about when a Pod is considered 
 请通过取消设置 StatefulSetMinReadySeconds 标志来选择退出。
 该字段默认为 0（Pod 准备就绪后将被视为可用）。
 要了解有关何时认为 Pod 准备就绪的更多信息，
-请参阅[容器探针](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
+请参阅[容器探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
 
 <!--
 ## Pod Identity
@@ -252,7 +252,7 @@ by the `serviceName` field on the StatefulSet.
 StatefulSet 中的每个 Pod 根据 StatefulSet 的名称和 Pod 的序号派生出它的主机名。
 组合主机名的格式为`$(StatefulSet 名称)-$(序号)`。
 上例将会创建三个名称分别为 `web-0、web-1、web-2` 的 Pod。
-StatefulSet 可以使用 [无头服务](/zh/docs/concepts/services-networking/service/#headless-services)
+StatefulSet 可以使用 [无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 控制它的 Pod 的网络域。管理域的这个服务的格式为：
 `$(服务名称).$(命名空间).svc.cluster.local`，其中 `cluster.local` 是集群域。
 一旦每个 Pod 创建成功，就会得到一个匹配的 DNS 子域，格式为：
@@ -286,7 +286,7 @@ responsible for the network identity of the pods.
 - 直接查询 Kubernetes API（比如，利用 watch 机制）而不是依赖于 DNS 查询
 - 缩短 Kubernetes DNS 驱动的缓存时长（通常这意味着修改 CoreDNS 的 ConfigMap，目前缓存时长为 30 秒）
 
-正如[限制](#limitations)中所述，你需要负责创建[无头服务](/zh/docs/concepts/services-networking/service/#headless-services)
+正如[限制](#limitations)中所述，你需要负责创建[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 以便为 Pod 提供网络标识。
 
 <!--
@@ -314,7 +314,7 @@ Cluster Domain will be set to `cluster.local` unless
 [otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 -->
 {{< note >}}
-集群域会被设置为 `cluster.local`，除非有[其他配置](/zh/docs/concepts/services-networking/dns-pod-service/)。
+集群域会被设置为 `cluster.local`，除非有[其他配置](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 {{< /note >}}
 
 <!--
@@ -371,7 +371,7 @@ The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of
 -->
 StatefulSet 不应将 `pod.Spec.TerminationGracePeriodSeconds` 设置为 0。
 这种做法是不安全的，要强烈阻止。更多的解释请参考
-[强制删除 StatefulSet Pod](/zh/docs/tasks/run-application/force-delete-stateful-set-pod/)。
+[强制删除 StatefulSet Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)。
 
 <!--
 When the nginx example above is created, three Pods will be deployed in the order
@@ -382,7 +382,7 @@ web-2 is launched, web-2 will not be launched until web-0 is successfully relaun
 becomes Running and Ready.
 -->
 在上面的 nginx 示例被创建后，会按照 web-0、web-1、web-2 的顺序部署三个 Pod。
-在 web-0 进入 [Running 和 Ready](/zh/docs/concepts/workloads/pods/pod-lifecycle/)
+在 web-0 进入 [Running 和 Ready](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)
 状态前不会部署 web-1。在 web-1 进入 Running 和 Ready 状态前不会部署 web-2。
 如果 web-1 已经处于 Running 和 Ready 状态，而 web-2 尚未部署，在此期间发生了
 web-0 运行失败，那么 web-2 将不会被部署，要等到 web-0 部署完成并进入 Running 和
@@ -553,7 +553,7 @@ enabled.
 -->
 {{< note >}}
 `maxUnavailable` 字段处于 Alpha 阶段，仅当 API 服务器启用了 `MaxUnavailableStatefulSet`
-[特性门控](/zh/docs/reference/commmand-line-tools-reference/feature-gates/)时才起作用。
+[特性门控](/zh-cn/docs/reference/commmand-line-tools-reference/feature-gates/)时才起作用。
 {{< /note >}}
 
 <!--
@@ -608,7 +608,7 @@ StatefulSet:
 在 StatefulSet 的生命周期中，可选字段 
 `.spec.persistentVolumeClaimRetentionPolicy` 控制是否删除以及如何删除 PVC。
 使用该字段，你必须启用 `StatefulSetAutoDeletePVC`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 启用后，你可以为每个 StatefulSet 配置两个策略：
 
 <!-- 
@@ -692,7 +692,7 @@ policy to `Delete`, an owner reference to the StatefulSet instance is placed on 
 associated with that StatefulSet. 
 -->
 StatefulSet {{<glossary_tooltip text="控制器" term_id="controller">}}为其 PVC 添加了
-[属主引用](/zh/docs/concepts/overview/working-with-objects/owners-dependents/#owner-references-in-object-specifications)，
+[属主引用](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/#owner-references-in-object-specifications)，
 这些 PVC 在 Pod 终止后被{{<glossary_tooltip text="垃圾回收器" term_id="garbage-collection">}}删除。
 这使 Pod 能够在删除 PVC 之前（以及在删除后备 PV 和卷之前，取决于保留策略）干净地卸载所有卷。
 当你设置 `whenDeleted` 删除策略，对 StatefulSet 实例的属主引用放置在与该 StatefulSet 关联的所有 PVC 上。
@@ -756,7 +756,7 @@ Statefulset, don't set `.spec.replicas`. Instead, allow the Kubernetes
 {{<glossary_tooltip text="control plane" term_id="control-plane" >}} to manage
 the `.spec.replicas` field automatically.
 -->
-如果 [HorizontalPodAutoscaler](/zh/docs/tasks/run-application/horizontal-pod-autoscale/)
+如果 [HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 （或任何类似的水平缩放 API）正在管理 Statefulset 的缩放，
 请不要设置 `.spec.replicas`。
 相反，允许 Kubernetes 控制平面自动管理 `.spec.replicas` 字段。
@@ -779,15 +779,15 @@ the `.spec.replicas` field automatically.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
 -->
-* 了解 [Pod](/zh/docs/concepts/workloads/pods)。
+* 了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
 * 了解如何使用 StatefulSet
-  * 跟随示例[部署有状态应用](/zh/docs/tutorials/stateful-application/basic-stateful-set/)。
-  * 跟随示例[使用 StatefulSet 部署 Cassandra](/zh/docs/tutorials/stateful-application/cassandra/)。
-  * 跟随示例[运行多副本的有状态应用程序](/zh/docs/tasks/run-application/run-replicated-stateful-application/)。
-  * 了解如何[扩缩 StatefulSet](/zh/docs/tasks/run-application/scale-stateful-set/)。
-  * 了解[删除 StatefulSet](/zh/docs/tasks/run-application/delete-stateful-set/)涉及到的操作。
-  * 了解如何[配置 Pod 以使用卷进行存储](/zh/docs/tasks/configure-pod-container/configure-volume-storage/)。
-  * 了解如何[配置 Pod 以使用 PersistentVolume 作为存储](/zh/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
+  * 跟随示例[部署有状态应用](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/)。
+  * 跟随示例[使用 StatefulSet 部署 Cassandra](/zh-cn/docs/tutorials/stateful-application/cassandra/)。
+  * 跟随示例[运行多副本的有状态应用程序](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)。
+  * 了解如何[扩缩 StatefulSet](/zh-cn/docs/tasks/run-application/scale-stateful-set/)。
+  * 了解[删除 StatefulSet](/zh-cn/docs/tasks/run-application/delete-stateful-set/)涉及到的操作。
+  * 了解如何[配置 Pod 以使用卷进行存储](/zh-cn/docs/tasks/configure-pod-container/configure-volume-storage/)。
+  * 了解如何[配置 Pod 以使用 PersistentVolume 作为存储](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
 * `StatefulSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/stateful-set-v1" >}}
    对象定义理解关于该资源的 API。
-* 阅读 [Pod 干扰预算（Disruption Budget）](/zh/docs/concepts/workloads/pods/disruptions/)，了解如何在干扰下运行高度可用的应用。
+* 阅读 [Pod 干扰预算（Disruption Budget）](/zh-cn/docs/concepts/workloads/pods/disruptions/)，了解如何在干扰下运行高度可用的应用。
