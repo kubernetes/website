@@ -2,7 +2,7 @@
 title: EndpointSlice
 id: endpoint-slice
 date: 2018-04-12
-full_link: /zh/docs/concepts/services-networking/endpoint-slices/
+full_link: /zh-cn/docs/concepts/services-networking/endpoint-slices/
 short_description: >
   一种将网络端点与 Kubernetes 资源组合在一起的方法。
 
