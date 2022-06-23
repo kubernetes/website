@@ -147,9 +147,9 @@ In this example, the ‘ **tenant-a** ’ namespace would get policy ‘ **pol1*
 具体而言，带有**segment**标签 ‘ **后端** ’ 的容器将允许接收来自带有“segment**标签‘ **frontend** ’的容器的端口80上的TCP流量。
 
 <!--
-Today, [Romana](http://romana.io/), [OpenShift](https://www.openshift.com/), [OpenContrail](http://www.opencontrail.org/) and [Calico](http://projectcalico.org/) support network policies applied to namespaces and pods. Cisco and VMware are working on implementations as well. Both Romana and Calico demonstrated these capabilities with Kubernetes 1.2 recently at KubeCon. You can watch their presentations here: [Romana](https://www.youtube.com/watch?v=f-dLKtK6qCs) ([slides](http://www.slideshare.net/RomanaProject/kubecon-london-2016-ronana-cloud-native-sdn)), [Calico](https://www.youtube.com/watch?v=p1zfh4N4SX0) ([slides](http://www.slideshare.net/kubecon/kubecon-eu-2016-secure-cloudnative-networking-with-project-calico)).&nbsp;
+Today, Romana,OpenShift,OpenContrail and Calico support network policies applied to namespaces and pods. Cisco and VMware are working on implementations as well. Both Romana and Calico demonstrated these capabilities with Kubernetes 1.2 recently at KubeCon. You can watch their presentations here: [Romana](https://www.youtube.com/watch?v=f-dLKtK6qCs) ([slides](http://www.slideshare.net/RomanaProject/kubecon-london-2016-ronana-cloud-native-sdn)), [Calico](https://www.youtube.com/watch?v=p1zfh4N4SX0) ([slides](http://www.slideshare.net/kubecon/kubecon-eu-2016-secure-cloudnative-networking-with-project-calico)).&nbsp;
 -->
-现今，[Romana](http://romana.io/), [OpenShift](https://www.openshift.com/), [OpenContrail](http://www.opencontrail.org/) 和 [Calico](http://projectcalico.org/) 支持应用于名称空间和容器的网络策略。
+现今，Romana, OpenShift, OpenContrail 和 Calico 支持应用于名称空间和容器的网络策略。
 思科和 VMware 也在努力实施。
 Romana 和 Calico 最近都在 KubeCon 上使用 Kubernetes 1.2 演示了这些功能。
 你可以在此处观看他们的演讲：[Romana](https://www.youtube.com/watch?v=f-dLKtK6qCs) ([slides](http://www.slideshare.net/RomanaProject/kubecon-london-2016-ronana-cloud-native-sdn))， [Calico](https://www.youtube.com/watch?v=p1zfh4N4SX0) ([slides](http://www.slideshare.net/kubecon/kubecon-eu-2016-secure-cloudnative-networking-with-project-calico))。&nbsp;
