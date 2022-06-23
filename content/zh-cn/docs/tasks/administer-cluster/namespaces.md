@@ -23,7 +23,7 @@ This page shows how to view, work in, and delete {{< glossary_tooltip text="name
 * Have an [existing Kubernetes cluster](/docs/setup/).
 * You have a basic understanding of Kubernetes {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip term_id="service" text="Services" >}}, and {{< glossary_tooltip text="Deployments" term_id="deployment" >}}.
 -->
-* 你已拥有一个[配置好的 Kubernetes 集群](/zh/docs/setup/)。
+* 你已拥有一个[配置好的 Kubernetes 集群](/zh-cn/docs/setup/)。
 * 你已对 Kubernetes 的 {{< glossary_tooltip text="Pods" term_id="pod" >}} , 
   {{< glossary_tooltip term_id="service" text="Services" >}} , 和
   {{< glossary_tooltip text="Deployments" term_id="deployment" >}} 有基本理解。
@@ -160,7 +160,7 @@ The name of your namespace must be a valid
 [DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 -->
 请注意，名字空间的名称必须是一个合法的
-[DNS 标签](/zh/docs/concepts/overview/working-with-objects/names#dns-label-names)。
+[DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)。
 
 <!--
 There's an optional field `finalizers`, which allows observables to purge resources whenever the namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will be created but will get stuck in the `Terminating` state if the user tries to delete it.
@@ -418,7 +418,7 @@ It does this by providing the following:
 -->
 名字空间通过以下方式实现这点：
 
-1. 为[名字](/zh/docs/concepts/overview/working-with-objects/names/)设置作用域.
+1. 为[名字](/zh-cn/docs/concepts/overview/working-with-objects/names/)设置作用域.
 2. 为集群中的部分资源关联鉴权和策略的机制。
 
 <!--
@@ -493,8 +493,8 @@ is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
 -->
-当你创建[服务](/zh/docs/concepts/services-networking/service/)时，Kubernetes
-会创建相应的 [DNS 条目](/zh/docs/concepts/services-networking/dns-pod-service/)。
+当你创建[服务](/zh-cn/docs/concepts/services-networking/service/)时，Kubernetes
+会创建相应的 [DNS 条目](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 此条目的格式为 `<服务名称>.<名字空间名称>.svc.cluster.local`。
 这意味着如果容器使用 `<服务名称>`，它将解析为名字空间本地的服务。
 这对于在多个名字空间（如开发、暂存和生产）中使用相同的配置非常有用。
@@ -508,7 +508,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 * See [namespaces design](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/namespaces.md).
 -->
 
-* 进一步了解[设置名字空间偏好](/zh/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference)
-* 进一步了解[设置请求的名字空间](/zh/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
+* 进一步了解[设置名字空间偏好](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference)
+* 进一步了解[设置请求的名字空间](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
 * 参阅[名字空间的设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/namespaces.md)
 

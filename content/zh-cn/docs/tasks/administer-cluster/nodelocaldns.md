@@ -275,7 +275,7 @@ In those cases, the `kube-dns` ConfigMap can be updated.
 -->
 `node-local-dns` Pod 能够自动读取 `kube-system` 名字空间中 `kube-dns` ConfigMap
 中保存的 StubDomains 和上游服务器信息。ConfigMap 中的内容需要遵从
-[此示例](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1)
+[此示例](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1)
 中所给的格式。
 `node-local-dns` ConfigMap 也可被直接修改，使用 Corefile 格式设置 stubDomain 配置。
 某些云厂商可能不允许直接修改 `node-local-dns` ConfigMap 的内容。
@@ -327,7 +327,7 @@ will lead to a brief DNS downtime each time that the container fails: the packet
 DNS queries to a local Pod that is unhealthy.
 -->
 如果一个 `node-local-dns` Pod 尝试使用的内存超出可提供的内存量
-（因为系统资源总量的，或者所配置的[资源约束](/zh/docs/concepts/configuration/manage-resources-containers/)）的原因，
+（因为系统资源总量的，或者所配置的[资源约束](/zh-cn/docs/concepts/configuration/manage-resources-containers/)）的原因，
 操作系统可能会关闭这一 Pod 的容器。
 发生这种情况时，被终止的（"OOMKilled"）容器不会清理其启动期间所添加的定制包过滤规则。
 该 `node-local-dns` 容器应该会被重启（因其作为 DaemonSet 的一部分被管理），
