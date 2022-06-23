@@ -155,7 +155,7 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
 - If you installed kubectl with Homebrew (as explained [here](/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
 -->
 - 如果你是用 Homebrew 安装的 kubectl（如
-  [此页面](/zh/docs/tasks/install-with-homebrew-on-macos/#install-with-homebrew-on-macos)
+  [此页面](/zh-cn/docs/tasks/install-with-homebrew-on-macos/#install-with-homebrew-on-macos)
   所描述），则kubectl 补全脚本应该已经安装到目录 `/usr/local/etc/bash_completion.d/kubectl`
   中了。这种情况下，你什么都不需要做。
 

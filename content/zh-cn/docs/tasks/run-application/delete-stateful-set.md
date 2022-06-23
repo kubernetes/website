@@ -97,7 +97,7 @@ Deleting the Pods in a StatefulSet will not delete the associated volumes. This 
 ### 持久卷  {#persistent-volumes}
 
 删除 StatefulSet 管理的 Pod 并不会删除关联的卷。这是为了确保你有机会在删除卷之前从卷中复制数据。
-在 Pod 离开[终止状态](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+在 Pod 离开[终止状态](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 后删除 PVC 可能会触发删除背后的 PV 持久卷，具体取决于存储类和回收策略。
 永远不要假定在 PVC 删除后仍然能够访问卷。
 
@@ -140,13 +140,13 @@ If you find that some pods in your StatefulSet are stuck in the 'Terminating' or
 如果你发现 StatefulSet 的某些 Pod 长时间处于 'Terminating' 或者 'Unknown' 状态，
 则可能需要手动干预以强制从 API 服务器中删除这些 Pod。
 这是一项有点危险的任务。详细信息请阅读
-[删除 StatefulSet 类型的 Pods](/zh/docs/tasks/run-application/force-delete-stateful-set-pod/)。
+[删除 StatefulSet 类型的 Pods](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 -->
-进一步了解[强制删除 StatefulSet 的 Pods](/zh/docs/tasks/run-application/force-delete-stateful-set-pod/)。
+进一步了解[强制删除 StatefulSet 的 Pods](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)。
 
 
