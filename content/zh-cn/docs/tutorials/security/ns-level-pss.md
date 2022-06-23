@@ -30,11 +30,11 @@ level. For instructions, refer to
 Pod 安全准入（PSA）在 v1.23 及更高版本默认启用，
 因为它[升级到测试版（beta）](/blog/2021/12/09/pod-security-admission-beta/)。
 Pod 安全准入是在创建 Pod 时应用
-[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)的准入控制器。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)的准入控制器。
 在本教程中，你将应用 `baseline` Pod 安全标准，每次一个名字空间。
 
 你还可以在集群级别一次将 Pod 安全标准应用于多个名称空间。
-有关说明，请参阅[在集群级别应用 Pod 安全标准](/zh/docs/tutorials/security/cluster-level-pss)。
+有关说明，请参阅[在集群级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/cluster-level-pss)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -47,7 +47,7 @@ Install the following on your workstation:
 在你的工作站中安装以下内容：
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](/zh/docs/tasks/tools/)
+- [kubectl](/zh-cn/docs/tasks/tools/)
 
 <!--
 ## Create cluster
@@ -247,6 +247,6 @@ Run `kind delete cluster -name psa-ns-level` to delete the cluster created.
       同时在 `warn` 和 `audit` 模式下应用 `restricted` Pod 安全标准。
    4. 创建一个应用以下 Pod 安全标准的新 Pod
 
-- [Pod 安全准入](/zh/docs/concepts/security/pod-security-admission/)
-- [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
-- [在集群级别应用 Pod 安全标准](/zh/docs/tutorials/security/cluster-level-pss/)
+- [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)
+- [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)
+- [在集群级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/cluster-level-pss/)
