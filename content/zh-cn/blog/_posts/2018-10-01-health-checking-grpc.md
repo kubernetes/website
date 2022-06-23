@@ -2,13 +2,12 @@
 layout: blog
 title:  '在 Kubernetes 上对 gRPC 服务器进行健康检查'
 date: 2018-10-01
+slug: health-checking-grpc-servers-on-kubernetes
 ---
 <!--
----
 layout: blog
 title:  'Health checking gRPC servers on Kubernetes'
 date: 2018-10-01
----
 --->
 
 <!--
