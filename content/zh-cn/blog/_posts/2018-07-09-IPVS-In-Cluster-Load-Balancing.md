@@ -1,11 +1,14 @@
 ---
-title: 基于IPVS的集群内部负载均衡
-cn-approvers:
-- congfairy
+layout: blog
+title: '基于 IPVS 的集群内部负载均衡'
+date:   2018-07-09
+slug: ipvs-based-in-cluster-load-balancing-deep-dive
+---
+<!-- 
 layout: blog
 title:  'IPVS-Based In-Cluster Load Balancing Deep Dive'
 date:   2018-07-09
----
+-->
 
 <!--
 

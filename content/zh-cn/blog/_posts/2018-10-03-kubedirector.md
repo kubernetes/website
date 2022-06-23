@@ -2,8 +2,8 @@
 layout: blog
 title: 'KubeDirector：在 Kubernetes 上运行复杂状态应用程序的简单方法'
 date: 2018-10-03
+slug: kubedirector-the-easy-way-to-run-complex-stateful-applications-on-kubernetes
 ---
-
 <!--
 layout: blog
 title: 'KubeDirector: The easy way to run complex stateful applications on Kubernetes'

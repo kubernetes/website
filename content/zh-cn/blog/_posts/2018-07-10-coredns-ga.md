@@ -2,13 +2,12 @@
 layout: blog
 title: "用于 Kubernetes 集群 DNS 的 CoreDNS GA 正式发布"
 date: 2018-07-10
+slug: coredns-ga-for-kubernetes-cluster-dns
 ---
 <!--
----
 layout: blog
 title: "CoreDNS GA for Kubernetes Cluster DNS"
 date: 2018-07-10
----
 --->
 
 <!--
