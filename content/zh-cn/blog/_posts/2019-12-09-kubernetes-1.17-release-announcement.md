@@ -69,9 +69,9 @@ Standard labels are used by Kubernetes components to support some features. For 
 The labels are reaching general availability in this release. Kubernetes components have been updated to populate the GA and beta labels and to react to both. However, if you are using the beta labels in your pod specs for features such as node affinity, or in your custom controllers, we recommend that you start migrating them to the new GA labels. You can find the documentation for the new labels here:
 -->
 
-- [实例类型](/zh/docs/reference/labels-annotations-taints/#nodekubernetesioinstance-type)
-- [地区](/zh/docs/reference/labels-annotations-taints/#topologykubernetesioregion)
-- [区域](/zh/docs/reference/labels-annotations-taints/#topologykubernetesiozone)
+- [实例类型](/zh-cn/docs/reference/labels-annotations-taints/#nodekubernetesioinstance-type)
+- [地区](/zh-cn/docs/reference/labels-annotations-taints/#topologykubernetesioregion)
+- [区域](/zh-cn/docs/reference/labels-annotations-taints/#topologykubernetesiozone)
 
 <!--
 - [node.kubernetes.io/instance-type](/docs/reference/labels-annotations-taints/#nodekubernetesioinstance-type)

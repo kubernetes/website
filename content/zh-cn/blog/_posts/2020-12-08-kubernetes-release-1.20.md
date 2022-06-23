@@ -56,7 +56,7 @@ evergreen: true
 请注意，作为新的内置命令，`kubectl debug` 优先于任何名为 “debug” 的 kubectl 插件。你必须重命名受影响的插件。
 
 <!-- Invocations using `kubectl alpha debug` are now deprecated and will be removed in a subsequent release. Update your scripts to use `kubectl debug`. For more information about `kubectl debug`, see [Debugging Running Pods](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/). -->
-`kubectl alpha debug` 现在不推荐使用，并将在后续版本中删除。更新你的脚本以使用 `kubectl debug`。 有关更多信息 `kubectl debug`，请参阅[调试正在运行的 Pod]((https://kubernetes.io/zh/docs/tasks/debug/debug-application/debug-running-pod/)。
+`kubectl alpha debug` 现在不推荐使用，并将在后续版本中删除。更新你的脚本以使用 `kubectl debug`。 有关更多信息 `kubectl debug`，请参阅[调试正在运行的 Pod]((https://kubernetes.io/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)。
 
 <!-- ### Beta: API Priority and Fairness -->
 ### 测试版：API 优先级和公平性 {#beta-api-priority-and-fairness)
@@ -110,7 +110,7 @@ Kubernetes 社区写了一篇关于弃用的详细[博客文章](https://blog.k8
 新引入的 `ExecProbeTimeout` 特性门控所提供的修复使集群操作员能够恢复到以前的行为，但这种行为将在后续版本中锁定并删除。为了恢复到以前的行为，集群运营商应该将此特性门控设置为 `false`。
 
 <!-- Please review the updated documentation regarding [configuring probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes) for more details. -->
-有关更多详细信息，请查看有关配置探针的[更新文档](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)。
+有关更多详细信息，请查看有关配置探针的[更新文档](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)。
 
 <!-- ## Other Updates -->
 ## 其他更新 {#other-updates}
