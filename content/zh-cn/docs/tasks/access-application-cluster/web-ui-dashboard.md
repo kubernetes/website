@@ -126,7 +126,7 @@ When you access Dashboard on an empty cluster, you'll see the welcome page. This
 当访问空集群的 Dashboard 时，你会看到欢迎界面。
 页面包含一个指向此文档的链接，以及一个用于部署第一个应用程序的按钮。
 此外，你可以看到在默认情况下有哪些默认系统应用运行在 `kube-system`
-[名字空间](/zh/docs/tasks/administer-cluster/namespaces/) 中，比如 Dashboard 自己。
+[名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/) 中，比如 Dashboard 自己。
 
 <!--
 ![Kubernetes Dashboard welcome page](/images/docs/ui-dashboard-zerostate.png)
@@ -163,13 +163,13 @@ The deploy wizard expects that you provide the following information:
 - **App name** (mandatory): Name for your application. A [label](/docs/concepts/overview/working-with-objects/labels/) with the name will be added to the Deployment and Service, if any, that will be deployed.
 -->
 - **应用名称**（必填）：应用的名称。内容为`应用名称`的
-  [标签](/zh/docs/concepts/overview/working-with-objects/labels/)
+  [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
   会被添加到任何将被部署的 Deployment 和 Service。
 
   <!--
   The application name must be unique within the selected Kubernetes [namespace](/docs/tasks/administer-cluster/namespaces/). It must start with a lowercase character, and end with a lowercase character or a number, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters. Leading and trailing spaces are ignored.
   -->
-  在选定的 Kubernetes [名字空间](/zh/docs/tasks/administer-cluster/namespaces/) 中，
+  在选定的 Kubernetes [名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/) 中，
   应用名称必须唯一。必须由小写字母开头，以数字或者小写字母结尾，
   并且只含有小写字母、数字和中划线（-）。小于等于24个字符。开头和结尾的空格会被忽略。
 
@@ -177,7 +177,7 @@ The deploy wizard expects that you provide the following information:
 - **Container image** (mandatory): The URL of a public Docker [container image](/docs/concepts/containers/images/) on any registry, or a private image (commonly hosted on the Google Container Registry or Docker Hub). The container image specification must end with a colon.
  -->
 - **容器镜像**（必填）：公共镜像仓库上的 Docker
-  [容器镜像](/zh/docs/concepts/containers/images/) 或者私有镜像仓库
+  [容器镜像](/zh-cn/docs/concepts/containers/images/) 或者私有镜像仓库
   （通常是 Google Container Registry 或者 Docker Hub）的 URL。容器镜像参数说明必须以冒号结尾。
 
 <!--
@@ -189,14 +189,14 @@ The deploy wizard expects that you provide the following information:
   A [Deployment](/docs/concepts/workloads/controllers/deployment/) will be created to
   maintain the desired number of Pods across your cluster.
   -->
-  系统会创建一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)
+  系统会创建一个 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)
   以保证集群中运行期望的 Pod 数量。
 
 <!--
 - **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service).
  -->
 - **服务**（可选）：对于部分应用（比如前端），你可能想对外暴露一个
-  [Service](/zh/docs/concepts/services-networking/service/) ，这个 Service
+  [Service](/zh-cn/docs/concepts/services-networking/service/) ，这个 Service
   可能用的是集群之外的公网 IP 地址（外部 Service）。
 
   <!-- 
@@ -234,14 +234,14 @@ If needed, you can expand the **Advanced options** section where you can specify
   to the Deployment and displayed in the application's details.
  -->
 - **描述**：这里你输入的文本会作为一个
-  [注解](/zh/docs/concepts/overview/working-with-objects/annotations/)
+  [注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)
   添加到 Deployment，并显示在应用的详细信息中。
 
 <!--
 - **Labels**: Default [labels](/docs/concepts/overview/working-with-objects/labels/) to be used for your application are application name and version. You can specify additional labels to be applied to the Deployment, Service (if any), and Pods, such as release, environment, tier, partition, and release track.
 -->
 - **标签**：应用默认使用的
-  [标签](/zh/docs/concepts/overview/working-with-objects/labels/) 是应用名称和版本。
+  [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/) 是应用名称和版本。
   你可以为 Deployment、Service（如果有）定义额外的标签，比如 release（版本）、
   environment（环境）、tier（层级）、partition（分区） 和 release track（版本跟踪）。
 
@@ -260,7 +260,7 @@ If needed, you can expand the **Advanced options** section where you can specify
 -->
 - **名字空间**：Kubernetes 支持多个虚拟集群依附于同一个物理集群。
   这些虚拟集群被称为
-  [名字空间](/zh/docs/tasks/administer-cluster/namespaces/)，
+  [名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/)，
   可以让你将资源划分为逻辑命名的组。
 
   <!--
@@ -287,7 +287,7 @@ If needed, you can expand the **Advanced options** section where you can specify
 - **Image Pull Secret**: In case the specified Docker container image is private, it may require [pull secret](/docs/concepts/configuration/secret/) credentials.
 -->
 - **镜像拉取 Secret**：如果要使用私有的 Docker 容器镜像，需要拉取
-  [Secret](/zh/docs/concepts/configuration/secret/) 凭证。
+  [Secret](/zh-cn/docs/concepts/configuration/secret/) 凭证。
 
   <!--
   Dashboard offers all available secrets in a dropdown list, and allows you to create a new secret.
@@ -299,7 +299,7 @@ If needed, you can expand the **Advanced options** section where you can specify
   Dashboard 通过下拉菜单提供所有可用的 Secret，并允许你创建新的 Secret。
   Secret 名称必须遵循 DNS 域名语法，比如 `new.image-pull.secret`。
   Secret 的内容必须是 base64 编码的，并且在一个
-  [`.dockercfg`](/zh/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
+  [`.dockercfg`](/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
   文件中声明。Secret 名称最大可以包含 253 个字符。
   
   <!--
@@ -313,21 +313,21 @@ If needed, you can expand the **Advanced options** section where you can specify
 - **CPU requirement (cores)** and **Memory requirement (MiB)**: You can specify the minimum [resource limits](/docs/tasks/configure-pod-container/limit-range/) for the container. By default, Pods run with unbounded CPU and memory limits.
  -->
 - **CPU 需求（核数）**和**内存需求（MiB）**：你可以为容器定义最小的
-  [资源限制](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
+  [资源限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
   默认情况下，Pod 没有 CPU 和内存限制。
 
 <!--
 - **Run command** and **Run command arguments**: By default, your containers run the specified Docker image's default [entrypoint command](/docs/user-guide/containers/#containers-and-commands). You can use the command options and arguments to override the default.
  -->
 - **运行命令**和**运行命令参数**：默认情况下，你的容器会运行 Docker 镜像的默认
-  [入口命令](/zh/docs/tasks/inject-data-application/define-command-argument-container/)。
+  [入口命令](/zh-cn/docs/tasks/inject-data-application/define-command-argument-container/)。
   你可以使用 command 选项覆盖默认值。
 
 <!--
 - **Run as privileged**: This setting determines whether processes in [privileged containers](/docs/user-guide/pods/#privileged-mode-for-pod-containers) are equivalent to processes running as root on the host. Privileged containers can make use of capabilities like manipulating the network stack and accessing devices.
  -->
 - **以特权模式运行**：这个设置决定了在
-  [特权容器](/zh/docs/concepts/workloads/pods/#privileged-mode-for-containers)
+  [特权容器](/zh-cn/docs/concepts/workloads/pods/#privileged-mode-for-containers)
   中运行的进程是否像主机中使用 root 运行的进程一样。
   特权容器可以使用诸如操纵网络堆栈和访问设备的功能。
 
@@ -335,7 +335,7 @@ If needed, you can expand the **Advanced options** section where you can specify
 - **Environment variables**: Kubernetes exposes Services through [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/). You can compose environment variable or pass arguments to your commands using the values of environment variables. They can be used in applications to find a Service. Values can reference other variables using the `$(VAR_NAME)` syntax.
  -->
 - **环境变量**：Kubernetes 通过
-  [环境变量](/zh/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
+  [环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
   暴露 Service。你可以构建环境变量，或者将环境变量的值作为参数传递给你的命令。
   它们可以被应用用于查找 Service。值可以通过  `$(VAR_NAME)` 语法关联其他变量。
 
@@ -350,7 +350,7 @@ The manifests use the Kubernetes [API](/docs/concepts/overview/kubernetes-api/) 
 
 Kubernetes 支持声明式配置。所有的配置都存储在清单文件
 （YAML 或者 JSON 配置文件）中。这些
-清单使用 Kubernetes [API](/zh/docs/concepts/overview/kubernetes-api/) 定义的资源模式。
+清单使用 Kubernetes [API](/zh-cn/docs/concepts/overview/kubernetes-api/) 定义的资源模式。
 
 <!--
 As an alternative to specifying application details in the deploy wizard,
