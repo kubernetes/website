@@ -369,5 +369,5 @@ x509 certificates to use for authentication as documented
 [here](/docs/tasks/tls/managing-tls-in-a-cluster).
 -->
 你可以通过 `certificates.k8s.io` API 提供 x509 证书，用来做身份验证，
-如[本](/zh/docs/tasks/tls/managing-tls-in-a-cluster)文档所述。
+如[本](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster)文档所述。
 

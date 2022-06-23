@@ -55,7 +55,7 @@ busybox   1/1       Running   0          <some-time>
 
 {{< note >}}
 此示例在 `default` 命名空间创建 pod。 服务的 DNS 名字解析取决于 pod 的命名空间。 详细信息请查阅
-[服务和 Pod 的 DNS](/zh/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
+[服务和 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
 {{< /note >}}
 
 使用上面的清单来创建一个 Pod：
@@ -115,7 +115,7 @@ Take a look inside the resolv.conf file.
 ### 先检查本地的 DNS 配置
 
 查看 resolv.conf 文件的内容
-（阅读[定制 DNS 服务](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
+（阅读[定制 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
 后文的[已知问题](#known-issues) ，获取更多信息)
 
 ```shell
@@ -266,7 +266,7 @@ but it does not appear, see
 more information.
 -->
 如果你已经创建了 DNS 服务，或者该服务应该是默认自动创建的但是它并没有出现，
-请阅读[调试服务](/zh/docs/tasks/debug/debug-application/debug-service/)
+请阅读[调试服务](/zh-cn/docs/tasks/debug/debug-application/debug-service/)
 来获取更多信息。
 
 <!--
@@ -297,7 +297,7 @@ For additional Kubernetes DNS examples, see the
 in the Kubernetes GitHub repository.
 -->
 如果你没看到对应的端点，请阅读
-[调试服务](/zh/docs/tasks/debug/debug-application/debug-service/)的端点部分。
+[调试服务](/zh-cn/docs/tasks/debug/debug-application/debug-service/)的端点部分。
 
 若需要了解更多的 Kubernetes DNS 例子，请在 Kubernetes GitHub 仓库里查看
 [cluster-dns 示例](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)。 
@@ -479,7 +479,7 @@ To learn more about name resolution, see
 [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
 -->
 要进一步了解名字解析，请查看
-[服务和 Pod 的 DNS](/zh/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
+[服务和 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
 
 <!--
 ## Known issues
@@ -538,7 +538,7 @@ Kubernetes 需要占用一个 `nameserver` 记录和三个`search`记录。
 With [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration),
 Kubernetes allows more DNS `search` records.
 -->
-使用[扩展 DNS 设置](/zh/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration)，
+使用[扩展 DNS 设置](/zh-cn/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration)，
 Kubernetes 允许更多的 `search` 记录。
 {{< /note >}}
 <!--
@@ -557,6 +557,6 @@ for more information.
 - [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
 - [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/)
 -->
-- 参阅[自动扩缩集群中的 DNS 服务](/zh/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
-- 阅读[服务和 Pod 的 DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
+- 参阅[自动扩缩集群中的 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
+- 阅读[服务和 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
 
