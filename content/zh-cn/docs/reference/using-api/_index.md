@@ -40,8 +40,8 @@ For general background information, read
 describes how clients can authenticate to the Kubernetes API server, and how their
 requests are authorized.
 -->
-如需了解一般背景信息，请查阅 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api/)。
-[Kubernetes API 控制访问](/zh/docs/concepts/security/controlling-access/)描述了客户端如何
+如需了解一般背景信息，请查阅 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)。
+[Kubernetes API 控制访问](/zh-cn/docs/concepts/security/controlling-access/)描述了客户端如何
 向 Kubernetes API 服务器进行身份认证以及他们的请求如何被鉴权。
 
 
