@@ -74,7 +74,7 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 
 [1]: クラスターに接続するIPおよびDNS名( [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)を使用する場合と同様、ロードバランサーのIPおよびDNS名、`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、`kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`)
 
-`kind`は下記の[x509の鍵用途](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)のタイプにマッピングされます:
+`kind`は下記の[x509の鍵用途](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage)のタイプにマッピングされます:
 
 | 種類   | 鍵の用途  　　　                                                                     |
 |--------|---------------------------------------------------------------------------------|

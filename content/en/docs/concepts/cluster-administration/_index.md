@@ -63,8 +63,8 @@ Before choosing a guide, here are some considerations:
 
 ### Securing the kubelet
   * [Control Plane-Node communication](/docs/concepts/architecture/control-plane-node-communication/)
-  * [TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
-  * [Kubelet authentication/authorization](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
+  * [TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+  * [Kubelet authentication/authorization](/docs/reference/acess-authn-authz/kubelet-authn-authz/)
 
 ## Optional Cluster Services
 

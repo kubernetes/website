@@ -29,10 +29,9 @@ This guide outlines the requirements of each policy.
 **The _Privileged_ policy is purposely-open, and entirely unrestricted.** This type of policy is
 typically aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
-The Privileged policy is defined by an absence of restrictions. For allow-by-default enforcement
-mechanisms (such as gatekeeper), the Privileged policy may be an absence of applied constraints
-rather than an instantiated profile. In contrast, for a deny-by-default mechanism (such as Pod
-Security Policy) the Privileged policy should enable all controls (disable all restrictions).
+The Privileged policy is defined by an absence of restrictions. Allow-by-default
+mechanisms (such as gatekeeper) may be Privileged by default. In contrast, for a deny-by-default mechanism (such as Pod
+Security Policy) the Privileged policy should disable all restrictions.
 
 ### Baseline
 
@@ -58,7 +57,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">HostProcess</td>
 			<td>
-				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. HostProcess pods are an <strong>alpha</strong> feature as of Kubernetes <strong>v1.22</strong>.</p>
+				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. {{< feature-state for_k8s_version="v1.23" state="beta" >}}</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
@@ -458,6 +457,16 @@ of individual policies are not defined here.
 - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
 - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
 
+### Alternatives
+
+{{% thirdparty-content %}}
+
+Other alternatives for enforcing policies are being developed in the Kubernetes ecosystem, such as: 
+- [Kubewarden](https://github.com/kubewarden)
+- [Kyverno](https://kyverno.io/policies/pod-security/)
+- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
+
+
 ## FAQ
 
 ### Why isn't there a profile between privileged and baseline?
@@ -480,14 +489,6 @@ Security profiles are control plane mechanisms to enforce specific settings in t
 as well as other related parameters outside the Security Context. As of July 2021, 
 [Pod Security Policies](/docs/concepts/security/pod-security-policy/) are deprecated in favor of the
 built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
-
-{{% thirdparty-content %}}
-
-Other alternatives for enforcing security profiles are being developed in the Kubernetes
-ecosystem, such as: 
-- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper).
-- [Kubewarden](https://github.com/kubewarden).
-- [Kyverno](https://kyverno.io/policies/pod-security/).
 
 ### What profiles should I apply to my Windows Pods?
 

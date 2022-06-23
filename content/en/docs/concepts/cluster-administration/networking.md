@@ -203,4 +203,4 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the
-[networking design document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
+[networking design document](https://git.k8s.io/design-proposals-archive/network/networking.md).

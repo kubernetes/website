@@ -68,9 +68,7 @@ and passing it to the local node kubelet.
 
 ## Using the `cgroupfs` driver
 
-As this guide explains using the `cgroupfs` driver with kubeadm is not recommended.
-
-To continue using `cgroupfs` and to prevent `kubeadm upgrade` from modifying the
+To use `cgroupfs` and to prevent `kubeadm upgrade` from modifying the
 `KubeletConfiguration` cgroup driver on existing setups, you must be explicit
 about its value. This applies to a case where you do not wish future versions
 of kubeadm to apply the `systemd` driver by default.

@@ -5,8 +5,6 @@ date: 2022-05-03
 slug: kubernetes-1-24-release-announcement
 ---
 
-# Kubernetes 1.24
-
 **Authors**: [Kubernetes 1.24 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.24/release-team.md)
 
 We are excited to announce the release of Kubernetes 1.24, the first release of 2022!
@@ -120,6 +118,13 @@ With containerd v1.6.0–v1.6.3, if you do not upgrade the CNI plugins and/or
 declare the CNI config version, you might encounter the following "Incompatible
 CNI versions" or "Failed to destroy network for sandbox" error conditions.
 
+## CSI Snapshot
+
+_This information was added after initial publication._
+
+[VolumeSnapshot v1beta1 CRD has been removed](https://github.com/kubernetes/enhancements/issues/177). 
+Volume snapshot and restore functionality for Kubernetes and the Container Storage Interface (CSI), which provides standardized APIs design (CRDs) and adds PV snapshot/restore support for CSI volume drivers, moved to GA in v1.20. VolumeSnapshot v1beta1 was deprecated in v1.20 and is now unsupported. Refer to [KEP-177: CSI Snapshot](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/177-volume-snapshot#kep-177-csi-snapshot) and [Volume Snapshot GA blog](https://kubernetes.io/blog/2020/12/10/kubernetes-1.20-volume-snapshot-moves-to-ga/) for more information.
+
 ## Other Updates
 
 ### Graduations to Stable
@@ -202,7 +207,7 @@ all the stargazers out there. ✨
 
 ### Ecosystem Updates
 
-* KubeCon + CloudNativeCon Europe 2022 will take place in Valencia, Spain, from 16 – 20 May 2022! You can find more information about the conference and registration on the [event site](https://events.linuxfoundation.org/archive/2021/kubecon-cloudnativecon-europe/).
+* KubeCon + CloudNativeCon Europe 2022 will take place in Valencia, Spain, from 16 – 20 May 2022! You can find more information about the conference and registration on the [event site](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/).
 * In the [2021 Cloud Native Survey](https://www.cncf.io/announcements/2022/02/10/cncf-sees-record-kubernetes-and-container-adoption-in-2021-cloud-native-survey/), the CNCF saw record Kubernetes and container adoption. Take a look at the [results of the survey](https://www.cncf.io/reports/cncf-annual-survey-2021/). 
 * The [Linux Foundation](https://www.linuxfoundation.org/) and [The Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) announced the availability of a new [Cloud Native Developer Bootcamp](https://training.linuxfoundation.org/training/cloudnativedev-bootcamp/?utm_source=lftraining&utm_medium=pr&utm_campaign=clouddevbc0322) to provide participants with the knowledge and skills to design, build, and deploy cloud native applications. Check out the [announcement](https://www.cncf.io/announcements/2022/03/15/new-cloud-native-developer-bootcamp-provides-a-clear-path-to-cloud-native-careers/) to learn more.
 
@@ -213,7 +218,7 @@ aggregates a number of interesting data points related to the velocity of Kubern
 sub-projects. This includes everything from individual contributions to the number of companies that 
 are contributing, and is an illustration of the depth and breadth of effort that goes into evolving this ecosystem.
 
-In the v1.24 release cycle, which [ran for 17 weeks](https://github.com/kubernetes/sig-release/tree/master/releases/release-1.24) (January 10 to May 3), we saw contributions from [1029 companies](https://k8s.devstats.cncf.io/d/9/companies-table?orgId=1&var-period_name=v1.23.0%20-%20now&var-metric=contributions) and [1179 individuals](https://k8s.devstats.cncf.io/d/66/developer-activity-counts-by-companies?orgId=1&var-period_name=v1.23.0%20-%20now&var-metric=contributions&var-repogroup_name=Kubernetes&var-country_name=All&var-companies=All&var-repo_name=kubernetes%2Fkubernetes).
+In the v1.24 release cycle, which [ran for 17 weeks](https://github.com/kubernetes/sig-release/tree/master/releases/release-1.24) (January 10 to May 3), we saw contributions from [1029 companies](https://k8s.devstats.cncf.io/d/9/companies-table?orgId=1&var-period_name=v1.23.0%20-%20v1.24.0&var-metric=contributions) and [1179 individuals](https://k8s.devstats.cncf.io/d/66/developer-activity-counts-by-companies?orgId=1&var-period_name=v1.23.0%20-%20v1.24.0&var-metric=contributions&var-repogroup_name=Kubernetes&var-country_name=All&var-companies=All&var-repo_name=kubernetes%2Fkubernetes).
 
 ## Upcoming Release Webinar
 

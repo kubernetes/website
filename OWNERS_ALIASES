@@ -3,6 +3,7 @@ aliases:
     - onlydole
     - mrbobbytables
     - sftim
+    - nate-double-u
   sig-docs-blog-reviewers: # Reviewers for blog content
     - mrbobbytables
     - onlydole
@@ -24,8 +25,8 @@ aliases:
     - jimangel
     - jlbutler
     - kbhawkey
+    - kcmartin
     - natalisucks
-    - nate-double-u # RT 1.24 Docs Lead
     - onlydole
     - pi-victor
     - reylejano
@@ -128,6 +129,7 @@ aliases:
     # MasayaAoyama
     - nasa9084
     # oke-py
+    - ptux
   sig-docs-ko-owners: # Admins for Korean content
     - ClaudiaJKang
     - gochist
@@ -179,6 +181,7 @@ aliases:
     - tanjunchen
     - tengqm
     - xichengliudui
+    - ydFu
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
     - edsoncelio
@@ -249,7 +252,6 @@ aliases:
     - cpanato # SIG Technical Lead
     - jeremyrickard # SIG Technical Lead
     - justaugustus # SIG Chair
-    - LappleApple # SIG Program Manager
     - puerco # SIG Technical Lead
     - saschagrunert # SIG Chair
   release-engineering-approvers:

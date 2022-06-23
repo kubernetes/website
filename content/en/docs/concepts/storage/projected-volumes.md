@@ -26,7 +26,7 @@ Currently, the following types of volume sources can be projected:
 * [`serviceAccountToken`](#serviceaccounttoken)
 
 All sources are required to be in the same namespace as the Pod. For more details,
-see the [all-in-one volume](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md) design document.
+see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
 
 ### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
 

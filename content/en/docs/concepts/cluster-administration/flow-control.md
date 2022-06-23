@@ -174,7 +174,7 @@ to balance progress between request flows.
 
 The queuing configuration allows tuning the fair queuing algorithm for a
 priority level. Details of the algorithm can be read in the
-[enhancement proposal](#whats-next), but in short:
+[enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness), but in short:
 
 * Increasing `queues` reduces the rate of collisions between different flows, at
   the cost of increased memory usage. A value of 1 here effectively disables the
@@ -331,7 +331,7 @@ Thus, in a situation with a mixture of servers of different versions
 there may be thrashing as long as different servers have different
 opinions of the proper content of these objects.
 
-Each `kube-apiserver` makes an inital maintenance pass over the
+Each `kube-apiserver` makes an initial maintenance pass over the
 mandatory and suggested configuration objects, and after that does
 periodic maintenance (once per minute) of those objects.
 
