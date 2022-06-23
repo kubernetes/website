@@ -25,7 +25,7 @@ installations. Our [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/) is
 to understand the problem better.
 -->
 自从 Kubernetes 1.20 宣布
-[弃用 dockershim](/zh/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)，
+[弃用 dockershim](/zh-cn/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)，
 各类疑问随之而来：这对各类工作负载和 Kubernetes 部署会产生什么影响。
 我们的[弃用  Dockershim 常见问题](/blog/2022/02/17/dockershim-faq/)可以帮助你更好地理解这个问题。
 
@@ -46,7 +46,7 @@ with the migration. So the issue can be fixed in a timely manner and your cluste
 ready for dockershim removal.
 -->
 建议从 dockershim 迁移到其他替代的容器运行时。
-请参阅[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
+请参阅[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
 一节以了解可用的备选项。
 当在迁移过程中遇到麻烦，请[上报问题](https://github.com/kubernetes/kubernetes/issues)。
 那么问题就可以及时修复，你的集群也可以进入移除 dockershim 前的就绪状态。
@@ -65,9 +65,9 @@ These tasks will help you to migrate:
 
 下面这些任务可以帮助你完成迁移：
 
-* [检查弃用 Dockershim 是否影响到你](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-* [将 Docker Engine 节点从 dockershim 迁移到 cri-dockerd](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/)
-* [从 dockershim 迁移遥测和安全代理](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents/)
+* [检查弃用 Dockershim 是否影响到你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+* [将 Docker Engine 节点从 dockershim 迁移到 cri-dockerd](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/)
+* [从 dockershim 迁移遥测和安全代理](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents/)
 
 ## {{% heading "whatsnext" %}}
 
@@ -81,7 +81,7 @@ These tasks will help you to migrate:
   you can [report an issue](https://github.com/kubernetes/kubernetes/issues/new/choose)
   to the Kubernetes project.
 -->
-* 查看[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)了解可选的容器运行时。
+* 查看[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)了解可选的容器运行时。
 * [GitHub 问题](https://github.com/kubernetes/kubernetes/issues/106917)跟踪有关
   dockershim 的弃用和删除的讨论。
 * 如果你发现与 dockershim 迁移相关的缺陷或其他技术问题，
