@@ -30,7 +30,7 @@ guide. You can file document formatting bugs against the
 <!--
 Lease defines a lease concept.
 -->
-Lease 定义了租贷的概念。
+Lease 定义了租赁的概念。
 <hr>
 
 - **apiVersion**: coordination.k8s.io/v1
@@ -61,7 +61,7 @@ Lease 定义了租贷的概念。
 <!--
 LeaseSpec is a specification of a Lease.
 -->
-LeaseSpec 是一个租贷的规范。
+LeaseSpec 是一个租赁的规范。
 
 <hr>
 
@@ -126,7 +126,7 @@ LeaseSpec 是一个租贷的规范。
 <!--
 LeaseList is a list of Lease objects.
 -->
-LeaseList 是租贷对象的列表。
+LeaseList 是租赁对象的列表。
 
 <hr>
 
@@ -173,7 +173,7 @@ GET /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
 #### Parameters
 -->
-### `get` 读取指定的租贷
+### `get` 读取指定的租赁
 
 #### HTTP 请求
 
@@ -198,7 +198,7 @@ GET /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 -->
 - **name** (**路径参数**): string, 必需
 
-  租约名称
+  租赁名称
 
 - **namespace** (**路径参数**): string, 必需
 
@@ -358,7 +358,7 @@ GET /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 
 #### HTTP Request
 -->
-### `list` 列出或监视租贷类对象
+### `list` 列出或监视租赁类对象
 
 #### HTTP 请求
 
@@ -489,7 +489,7 @@ GET /apis/coordination.k8s.io/v1/leases
 
 POST /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 -->
-### `create` 创建租贷
+### `create` 创建租赁
 
 #### HTTP 请求
 
@@ -590,7 +590,7 @@ POST /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 
 PUT /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 -->
-### `update` 替换指定的租贷
+### `update` 替换指定的租赁
 
 #### HTTP 请求
 
@@ -695,7 +695,7 @@ PUT /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
 PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 -->
-### `patch` 部分更新指定的租贷
+### `patch` 部分更新指定的租赁
 
 #### HTTP 请求
 
@@ -811,7 +811,7 @@ PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
 DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 -->
-### `delete` 删除一个租贷
+### `delete` 删除一个租赁
 
 #### HTTP 请求
 
@@ -917,7 +917,7 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
 DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 -->
-### `deletecollection` 删除租贷收款
+### `deletecollection` 删除租赁收款
 
 #### HTTP 请求
 
