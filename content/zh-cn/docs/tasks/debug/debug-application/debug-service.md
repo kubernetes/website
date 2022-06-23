@@ -320,7 +320,7 @@ Please refer to [Network Policies](/docs/concepts/services-networking/network-po
 如果你部署了任何可能影响到 `hostnames-*` Pod 的传入流量的网络策略入站规则，
 则需要对其进行检查。
 
-详细信息，请参阅[网络策略](/zh/docs/concepts/services-networking/network-policies/)。
+详细信息，请参阅[网络策略](/zh-cn/docs/concepts/services-networking/network-policies/)。
 
 <!--
 ## Does the Service work by DNS name?
@@ -648,7 +648,7 @@ every Service and saves the results into a corresponding Endpoints object.
 "AGE" 列表明这些 Pod 已经启动一个小时了，这意味着它们运行良好，而未崩溃。
 
 "RESTARTS" 列表明 Pod 没有经常崩溃或重启。经常性崩溃可能导致间歇性连接问题。
-如果重启次数过大，通过[调试 Pod](/zh/docs/tasks/debug/debug-application/debug-pods)
+如果重启次数过大，通过[调试 Pod](/zh-cn/docs/tasks/debug/debug-application/debug-pods)
 了解相关技术。
 
 在 Kubernetes 系统中有一个控制回路，它评估每个 Service 的选择算符，并将结果保存到 Endpoints 对象中。
@@ -1002,7 +1002,7 @@ back to themselves if they try to access their own Service VIP. The
 如果网络没有为“发夹模式（Hairpin）”流量生成正确配置，
 通常当 `kube-proxy` 以 `iptables` 模式运行，并且 Pod 与桥接网络连接时，就会发生这种情况。
 `kubelet` 提供了 `hairpin-mode`
-[标志](/zh/docs/reference/command-line-tools-reference/kubelet/)。
+[标志](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)。
 如果 Service 的末端尝试访问自己的 Service VIP，则该端点可以把流量负载均衡回来到它们自身。
 `hairpin-mode` 标志必须被设置为 `hairpin-veth` 或者 `promiscuous-bridge`。
 
@@ -1114,4 +1114,4 @@ Contact us on
 <!--
 Visit [troubleshooting document](/docs/tasks/debug/) for more information.
 -->
-访问[故障排查文档](/zh/docs/tasks/debug/) 获取更多信息。
+访问[故障排查文档](/zh-cn/docs/tasks/debug/) 获取更多信息。
