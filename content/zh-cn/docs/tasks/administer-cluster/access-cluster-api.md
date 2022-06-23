@@ -42,7 +42,7 @@ a [Getting started guide](/docs/setup/),
 or someone else setup the cluster and provided you with credentials and a location.
 -->
 要访问集群，你需要知道集群位置并拥有访问它的凭证。
-通常，当你完成[入门指南](/zh/docs/setup/)时，这会自动设置完成，或者由其他人设置好集群并将凭证和位置提供给你。
+通常，当你完成[入门指南](/zh-cn/docs/setup/)时，这会自动设置完成，或者由其他人设置好集群并将凭证和位置提供给你。
 
 <!--
 Check the location and credentials that kubectl knows about with this command:
@@ -59,7 +59,7 @@ kubectl. Complete documentation is found in the [kubectl manual](/docs/reference
 -->
 
 许多[样例](https://github.com/kubernetes/examples/tree/master/)
-提供了使用 kubectl 的介绍。完整文档请见 [kubectl 手册](/zh/docs/reference/kubectl/)。
+提供了使用 kubectl 的介绍。完整文档请见 [kubectl 手册](/zh-cn/docs/reference/kubectl/)。
 
 <!--
 ### Directly accessing the REST API
@@ -222,7 +222,7 @@ describes how you can configure this as a cluster administrator.
 -->
 在一些集群中，API 服务器不需要身份认证；它运行在本地，或由防火墙保护着。
 对此并没有一个标准。
-[配置对 API 的访问](/zh/docs/concepts/security/controlling-access/)
+[配置对 API 的访问](/zh-cn/docs/concepts/security/controlling-access/)
 讲解了作为集群管理员可如何对此进行配置。
 
 <!--
@@ -235,7 +235,7 @@ Kubernetes officially supports client libraries for [Go](#go-client), [Python](#
 Kubernetes 官方支持 [Go](#go-client)、[Python](#python-client)、[Java](#java-client)、
 [dotnet](#dotnet-client)、[JavaScript](#javascript-client) 和 [Haskell](#haskell-client)
 语言的客户端库。还有一些其他客户端库由对应作者而非 Kubernetes 团队提供并维护。
-参考[客户端库](/zh/docs/reference/using-api/client-libraries/)了解如何使用其他语言
+参考[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)了解如何使用其他语言
 来访问 API 以及如何执行身份认证。
 
 <!-- #### Go client -->
@@ -264,7 +264,7 @@ The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administ
 as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go):
 -->
 Go 客户端可以使用与 kubectl 命令行工具相同的
-[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 定位和验证 API 服务器。参见这个
 [例子](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)：
 
@@ -295,7 +295,7 @@ func main() {
 If the application is deployed as a Pod in the cluster, see [Accessing the API from within a Pod](/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod).
 -->
 如果该应用程序部署为集群中的一个
-Pod，请参阅[从 Pod 内访问 API](/zh/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod)。
+Pod，请参阅[从 Pod 内访问 API](/zh-cn/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod)。
 
 <!-- #### Python client -->
 #### Python 客户端 {#python-client}
@@ -312,7 +312,7 @@ The Python client can use the same [kubeconfig file](/docs/concepts/cluster-admi
 as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py):
 -->
 Python 客户端可以使用与 kubectl 命令行工具相同的
-[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 定位和验证 API 服务器。参见这个
 [例子](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py)：
 
@@ -355,7 +355,7 @@ as the kubectl CLI does to locate and authenticate to the API server. See this [
 了解当前支持的版本。
 
 Java 客户端可以使用 kubectl 命令行所使用的
-[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 以定位 API 服务器并向其认证身份。
 参看此[示例](https://github.com/kubernetes-client/java/blob/master/examples/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java)：
 
@@ -421,7 +421,7 @@ as the kubectl CLI does to locate and authenticate to the API server. See this [
 参见[.Net 客户端库页面](https://github.com/kubernetes-client/csharp)了解更多安装选项。
 关于可支持的版本，参见[https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases)。
 
-.Net 客户端可以使用与 kubectl CLI 相同的 [kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+.Net 客户端可以使用与 kubectl CLI 相同的 [kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 来定位并验证 API 服务器。
 参见[样例](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs): 
 
@@ -468,7 +468,7 @@ as the kubectl CLI does to locate and authenticate to the API server. See this [
 参考[https://github.com/kubernetes-client/javascript/releases](https://github.com/kubernetes-client/javascript/releases)了解可支持的版本。
 
 JavaScript 客户端可以使用 kubectl 命令行所使用的
-[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 以定位 API 服务器并向其认证身份。
 参见[此例](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js)：
 
@@ -499,7 +499,7 @@ as the kubectl CLI does to locate and authenticate to the API server. See this [
 
 [Haskell 客户端](https://github.com/kubernetes-client/haskell)
 可以使用 kubectl 命令行所使用的
-[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 以定位 API 服务器并向其认证身份。
 参见[此例](https://github.com/kubernetes-client/haskell/blob/master/kubernetes-client/example/App.hs)：
 
@@ -519,4 +519,4 @@ exampleWithKubeConfig = do
 <!--
 * [Accessing the Kubernetes API from a Pod](/docs/tasks/run-application/access-api-from-pod/)
 -->
-* [从 Pod 中访问 API](/zh/docs/tasks/run-application/access-api-from-pod/)
+* [从 Pod 中访问 API](/zh-cn/docs/tasks/run-application/access-api-from-pod/)

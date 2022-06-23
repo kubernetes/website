@@ -19,9 +19,9 @@ to services in a cluster. An [Ingress controller](/docs/concepts/services-networ
 
 This page shows you how to set up a simple Ingress which routes requests to Service web or web2 depending on the HTTP URI.
 -->
-[Ingress](/zh/docs/concepts/services-networking/ingress/)是一种 API 对象，其中定义了一些规则使得集群中的
+[Ingress](/zh-cn/docs/concepts/services-networking/ingress/)是一种 API 对象，其中定义了一些规则使得集群中的
 服务可以从集群外访问。
-[Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers/)
+[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers/)
 负责满足 Ingress 中所设置的规则。
 
 本节为你展示如何配置一个简单的 Ingress，根据 HTTP URI 将服务请求路由到
@@ -45,7 +45,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 : {{< kat-button >}}
 
 本地
-: 如果已经在本地[安装Minikube](/zh/docs/tasks/tools/#minikube)，
+: 如果已经在本地[安装Minikube](/zh-cn/docs/tasks/tools/#minikube)，
 请运行 `minikube start` 创建一个集群。
 
 <!--
@@ -438,6 +438,6 @@ The following manifest defines an Ingress that sends traffic to your Service via
 * Read more about [Services](/docs/concepts/services-networking/service/)
 -->
 
-* 进一步了解 [Ingress](/zh/docs/concepts/services-networking/ingress/)。
-* 进一步了解 [Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers/)
-* 进一步了解 [服务](/zh/docs/concepts/services-networking/service/)
+* 进一步了解 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)。
+* 进一步了解 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers/)
+* 进一步了解 [服务](/zh-cn/docs/concepts/services-networking/service/)
