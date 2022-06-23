@@ -67,7 +67,7 @@ the authors succinctly captured the change's impact and encouraged users to rema
 > Container Runtime Interface (CRI) created for Kubernetes. Docker-produced images
 > will continue to work in your cluster with all runtimes, as they always have.
 -->
-在文章[别慌: Kubernetes 和 Docker](/zh/blog/2020/12/02/dont-panic-kubernetes-and-docker/) 中，
+在文章[别慌: Kubernetes 和 Docker](/zh-cn/blog/2020/12/02/dont-panic-kubernetes-and-docker/) 中，
 作者简洁地记述了变化的影响，并鼓励用户保持冷静：
 >弃用 Docker 这个底层运行时，转而支持符合为 Kubernetes 创建的容器运行接口
 >Container Runtime Interface (CRI) 的运行时。
@@ -80,7 +80,7 @@ to container runtimes that are directly compatible with Kubernetes. You can find
 page in the Kubernetes documentation.
 -->
 已经有一些文档指南，提供了关于从 dockershim 迁移到与 Kubernetes 直接兼容的容器运行时的有用信息。
-你可以在 Kubernetes 文档中的[从 dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/)
+你可以在 Kubernetes 文档中的[从 dockershim 迁移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)
 页面上找到它们。
 
 <!--
@@ -92,7 +92,7 @@ Take a look at the [Is Your Cluster Ready for v1.24?](/blog/2022/03/31/ready-for
 -->
 有关 Kubernetes 为何不再使用 dockershim 的更多信息，
 请参见：[Kubernetes 正在离开 Dockershim](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/)
-和[最新的弃用 Dockershim 的常见问题](/zh/blog/2022/02/17/dockershim-faq/)。
+和[最新的弃用 Dockershim 的常见问题](/zh-cn/blog/2022/02/17/dockershim-faq/)。
 
 查看[你的集群准备好使用 v1.24 了吗？](/blog/2022/03/31/ready-for-dockershim-removal/) 一文，
 了解如何确保你的集群在从 1.23 版本升级到 1.24 版本后继续工作。
@@ -113,7 +113,7 @@ same API is available and that APIs have a minimum lifetime as indicated by the 
 ## Kubernetes API 删除和弃用流程  {#the-Kubernetes-api-removal-and-deprecation-process}
 
 Kubernetes 包含大量随时间演变的组件。在某些情况下，这种演变会导致 API、标志或整个特性被删除。
-为了防止用户面对重大变化，Kubernetes 贡献者采用了一项特性[弃用策略](/zh/docs/reference/using-api/deprecation-policy/)。
+为了防止用户面对重大变化，Kubernetes 贡献者采用了一项特性[弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/)。
 此策略确保仅当同一 API 的较新稳定版本可用并且 
 API 具有以下稳定性级别所指示的最短生命周期时，才可能弃用稳定版本 API：
 
@@ -212,14 +212,14 @@ Docker Engine dependencies. Before upgrading to v1.24, you decide to either rema
 ## 需要做什么  {#what-to-do}
 
 ### 删除 Dockershim  {#dockershim-removal}
-如前所述，有一些关于从 [dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/)的指南。
-你可以[从查明节点上所使用的容器运行时](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)开始。
+如前所述，有一些关于从 [dockershim 迁移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)的指南。
+你可以[从查明节点上所使用的容器运行时](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)开始。
 如果你的节点使用 dockershim，则还有其他可能的 Docker Engine 依赖项，
 例如 Pod 或执行 Docker 命令的第三方工具或 Docker 配置文件中的私有注册表。
-你可以按照[检查弃用 Dockershim 对你的影响](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+你可以按照[检查弃用 Dockershim 对你的影响](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
 的指南来查看可能的 Docker 引擎依赖项。在升级到 1.24 版本之前， 你决定要么继续使用 Docker Engine 并
 [将 Docker Engine 节点从 dockershim 迁移到 cri-dockerd](/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/)，
-要么迁移到与 CRI 兼容的运行时。这是[将节点上的容器运行时从 Docker Engine 更改为 containerd](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/) 的指南。
+要么迁移到与 CRI 兼容的运行时。这是[将节点上的容器运行时从 Docker Engine 更改为 containerd](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/) 的指南。
 
 <!--
 ### `kubectl convert`
@@ -233,7 +233,7 @@ documentation to download and install the `kubectl-convert` binary.
 -->
 ### `kubectl convert`  {#kubectl-convert}
 
-kubectl 的 [`kubectl convert`](/zh/docs/tasks/tools/included/kubectl-convert-overview/)
+kubectl 的 [`kubectl convert`](/zh-cn/docs/tasks/tools/included/kubectl-convert-overview/)
 插件有助于解决弃用 API 的迁移问题。该插件方便了不同 API 版本之间清单的转换，
 例如，从弃用的 API 版本到非弃用的 API 版本。关于 API 迁移过程的更多信息可以在
 [已弃用 API 的迁移指南](/docs/reference/using-api/deprecation-guide/)中找到。按照
@@ -258,7 +258,7 @@ Kubernetes API 的 beta 版本，这些 API 当前为稳定版。1.25 版本还�
 <!--
 The official [list of API removals planned for Kubernetes 1.25](/docs/reference/using-api/deprecation-guide/#v1-25) is:
 -->
-[Kubernetes 1.25 计划移除的 API 的官方列表](/zh/docs/reference/using-api/deprecation-guide/#v1-25)是：
+[Kubernetes 1.25 计划移除的 API 的官方列表](/zh-cn/docs/reference/using-api/deprecation-guide/#v1-25)是：
 
 * The beta CronJob API (batch/v1beta1)
 * The beta EndpointSlice API (discovery.k8s.io/v1beta1)
@@ -274,7 +274,7 @@ The official [list of API removals planned for Kubernetes 1.26](/docs/reference/
 * The beta FlowSchema and PriorityLevelConfiguration APIs (flowcontrol.apiserver.k8s.io/v1beta1)
 * The beta HorizontalPodAutoscaler API (autoscaling/v2beta2)
 -->
-[Kubernetes 1.25 计划移除的 API 的官方列表](/zh/docs/reference/using-api/deprecation-guide/#v1-25)是：
+[Kubernetes 1.25 计划移除的 API 的官方列表](/zh-cn/docs/reference/using-api/deprecation-guide/#v1-25)是：
 
 * The beta FlowSchema 和 PriorityLevelConfiguration API (flowcontrol.apiserver.k8s.io/v1beta1)
 * The beta HorizontalPodAutoscaler API (autoscaling/v2beta2)
@@ -297,5 +297,5 @@ Kubernetes 发行说明中宣告了弃用信息。你可以在以下版本的发
 * 我们将正式宣布 [Kubernetes 1.24](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.24.md#deprecation) 的弃用信息，
   作为该版本 CHANGELOG 的一部分。
 
-有关弃用和删除过程的信息，请查看 Kubernetes 官方[弃用策略](/zh/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api) 文档。
+有关弃用和删除过程的信息，请查看 Kubernetes 官方[弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api) 文档。
 
