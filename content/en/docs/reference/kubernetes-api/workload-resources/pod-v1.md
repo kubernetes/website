@@ -1738,7 +1738,7 @@ Probe describes a health check to be performed against a container to determine 
 
 - **initialDelaySeconds** (int32)
 
-  Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+  Number of seconds after the container has started before the probe is initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 
 - **terminationGracePeriodSeconds** (int64)
 
