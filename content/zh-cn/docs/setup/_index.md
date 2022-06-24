@@ -71,7 +71,7 @@ that is possible, and to have Kubernetes manage those components.
 Components that run containers - notably, the kubelet - can't be included in this category. 
 -->
 **建议**尽可能将 Kubernetes 组件作为容器镜像运行，并让 Kubernetes 管理这些组件。
-但是运行容器的组件——尤其是 kubelet，不能包含在这个类别中。
+但是运行容器的组件 —— 尤其是 kubelet，不能包含在这个类别中。
 
 如果你不想自己管理 Kubernetes 集群，则可以选择托管服务，包括[经过认证的平台](/zh-cn/docs/setup/production-environment/turnkey-solutions/)。
 在各种云和裸机环境中，还有其他标准化和定制的解决方案。
