@@ -191,7 +191,7 @@ For each mode, there are two labels that determine the policy used:
 pod-security.kubernetes.io/<MODE>: <LEVEL>
 
 # Optional: per-mode version label that can be used to pin the policy to the
-# version that shipped with a given Kubernetes minor version (for example v{{< skew latestVersion >}}).
+# version that shipped with a given Kubernetes minor version (for example v{{< skew currentVersion >}}).
 #
 # MODE must be one of `enforce`, `audit`, or `warn`.
 # VERSION must be a valid Kubernetes minor version, or `latest`.
@@ -205,7 +205,7 @@ pod-security.kubernetes.io/<MODE>-version: <VERSION>
 pod-security.kubernetes.io/<MODE>: <LEVEL>
 
 # 可选：针对每个模式版本的版本标签可以将策略锁定到
-# 给定 Kubernetes 小版本号所附带的版本（例如 v{{< skew latestVersion >}}）
+# 给定 Kubernetes 小版本号所附带的版本（例如 v{{< skew currentVersion >}}）
 #
 # MODE 必须是 `enforce`、`audit` 或 `warn` 之一
 # VERSION 必须是一个合法的 Kubernetes 小版本号或者 `latest`
