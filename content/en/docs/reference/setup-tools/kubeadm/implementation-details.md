@@ -319,12 +319,10 @@ Please note that:
 As soon as the control plane is available, kubeadm executes following actions:
 
 - Labels the node as control-plane with `node-role.kubernetes.io/control-plane=""`
-- Taints the node with `node-role.kubernetes.io/master:NoSchedule` and `node-role.kubernetes.io/control-plane:NoSchedule`
+- Taints the node with `node-role.kubernetes.io/control-plane:NoSchedule`
 
-Please note that:
-
-1. The `node-role.kubernetes.io/master` taint is deprecated and will be removed in kubeadm version 1.25
-1. Mark control-plane phase phase can be invoked individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command
+Please note that the phase to mark the control-plane phase phase can be invoked
+individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command.
 
 ### Configure TLS-Bootstrapping for node joining
 
