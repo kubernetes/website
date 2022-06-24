@@ -194,6 +194,6 @@ dockershim removal makes up for the migration effort you'll have. Start planning
 now to avoid surprises. We'll have more updates and guides before Kubernetes
 1.24 is released.
 -->
-在这一点上，我们相信你（和 Kubernetes）从移除 dockershim 中获得的价值可以弥补你将要进行的迁移工作。 
+在这一点上，我们相信你（和 Kubernetes）从移除 dockershim 中获得的价值可以弥补你将要进行的迁移工作。
 现在就开始计划以避免出现意外。在 Kubernetes 1.24 发布之前，我们将提供更多更新信息和指南。
 

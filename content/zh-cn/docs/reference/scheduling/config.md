@@ -251,7 +251,7 @@ extension points:
 -->
 - `NodeResourcesFit`：检查节点是否拥有 Pod 请求的所有资源。
   得分可以使用以下三种策略之一：`LeastAllocated`（默认）、`MostAllocated`
-  和`RequestedToCapacityRatio`。
+  和 `RequestedToCapacityRatio`。
 
   实现的扩展点：`preFilter`，`filter`，`score`。
 <!--  
@@ -501,7 +501,7 @@ This would equate to manually enabling `MyPlugin` for all of its extension
 points, like so:
 -->
 
-这相当于为所有扩展点手动启用`MyPlugin`，如下所示：
+这相当于为所有扩展点手动启用 `MyPlugin`，如下所示：
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta3
@@ -732,7 +732,7 @@ as well as its seamless integration with the existing methods for configuring ex
 ## Scheduler configuration migrations
 -->
 
-## 调度程序配置迁移
+## 调度程序配置迁移   {#scheduler-configuration-migrations}
 {{< tabs name="tab_with_md" >}}
 {{% tab name="v1beta1 → v1beta2" %}}
 <!--
@@ -774,7 +774,7 @@ as well as its seamless integration with the existing methods for configuring ex
 * The scheduler plugin `ServiceAffinity` is deprecated; instead, use the [`InterPodAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
 -->
 * 调度程序插件 `ServiceAffinity` 已弃用；
-  相反，使用 [`InterPodAffinity`](/zh-cn/doc/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) 
+  相反，使用 [`InterPodAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) 
   插件（默认启用）来实现类似的行为。
   
 <!--

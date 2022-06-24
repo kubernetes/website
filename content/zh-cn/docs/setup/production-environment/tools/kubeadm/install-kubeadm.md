@@ -40,7 +40,7 @@ For information on how to create a cluster with kubeadm once you have performed 
 -->
 * 一台兼容的 Linux 主机。Kubernetes 项目为基于 Debian 和 Red Hat 的 Linux
   发行版以及一些不提供包管理器的发行版提供通用的指令
-* 每台机器 2 GB 或更多的 RAM （如果少于这个数字将会影响你应用的运行内存)
+* 每台机器 2 GB 或更多的 RAM （如果少于这个数字将会影响你应用的运行内存）
 * 2 CPU 核或更多
 * 集群中的所有机器的网络彼此均能相互连接(公网和内网都可以)
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
@@ -293,7 +293,7 @@ For more information on version skews, see:
 -->
 关于版本偏差的更多信息，请参阅以下文档：
 
-* Kubernetes [版本与版本间的偏差策略](/zh-cn/docs/setup/release/version-skew-policy/)
+* Kubernetes [版本与版本间的偏差策略](/zh-cn/releases/version-skew-policy/)
 * Kubeadm 特定的[版本偏差策略](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}

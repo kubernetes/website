@@ -93,7 +93,7 @@ by managing [policies](/docs/concepts/policy/) and
   你可以使用基于角色的访问控制（[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)）
   和其他安全机制来确保用户和负载能够访问到所需要的资源，同时确保工作负载及集群
   自身仍然是安全的。
-  你可以通过管理[策略](/zh-cn/docs/concets/policy/)和
+  你可以通过管理[策略](/zh-cn/docs/concepts/policy/)和
   [容器资源](/zh-cn/docs/concepts/configuration/manage-resources-containers)来
   针对用户和工作负载所可访问的资源设置约束，
 
@@ -215,7 +215,7 @@ for details.
 -->
 - *为 API 服务器配置负载均衡*：配置负载均衡器来将外部的 API 请求散布给运行在
   不同节点上的 API 服务实例。参阅
-  [创建外部负载均衡器](/zh-cn/docs/access-application-cluster/create-external-load-balancer/)
+  [创建外部负载均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)
   了解细节。
 <!--
 - *Separate and backup etcd service*: The etcd services can either run on the
@@ -318,7 +318,7 @@ control plane or have a cloud provider do it for you, you still need to
 consider how you want to manage your worker nodes (also referred to
 simply as *nodes*).  
 -->
-### 生产用工作节点
+### 生产用工作节点   {#production-worker-nodes}
 
 生产质量的工作负载需要是弹性的；它们所依赖的其他组件（例如 CoreDNS）也需要是弹性的。
 无论你是自行管理控制面还是让云供应商来管理，你都需要考虑如何管理工作节点
@@ -418,7 +418,7 @@ hundreds of people. In a learning environment or platform prototype, you might h
 administrative account for everything you do. In production, you will want
 more accounts with different levels of access to different namespaces.
 -->
-### 生产级用户环境
+### 生产级用户环境   {#production-user-management}
 
 在生产环境中，情况可能不再是你或者一小组人在访问集群，而是几十
 上百人需要访问集群。在学习环境或者平台原型环境中，你可能具有一个
@@ -635,4 +635,3 @@ and [service accounts](/docs/reference/access-authn-authz/service-accounts-admin
   [DNS 自动扩缩](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
   和[服务账号](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)
   来为应用负载作准备。
-
