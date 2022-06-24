@@ -229,45 +229,14 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 * An nginx server configured to use the certificates
 * A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
 
-You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
-
-```shell
-make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
-kubectl create secret tls nginxsecret --key /tmp/nginx.key --cert /tmp/nginx.crt
-```
-```
-secret/nginxsecret created
-```
-```shell
-kubectl get secrets
-```
-```
-NAME                  TYPE                                  DATA      AGE
-default-token-il9rc   kubernetes.io/service-account-token   1         1d
-nginxsecret           kubernetes.io/tls                     2         1m
-```
-And also the configmap:
-```shell
-kubectl create configmap nginxconfigmap --from-file=default.conf
-```
-```
-configmap/nginxconfigmap created
-```
-```shell
-kubectl get configmaps
-```
-```
-NAME             DATA   AGE
-nginxconfigmap   1      114s
-```
-Following are the manual steps to follow in case you run into problems running make (on windows for example):
+Follow these steps to create the resources:
 
 ```shell
 # Create a public private key pair
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /tmp/nginx.key -out /tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
 # Convert the keys to base64 encoding
-cat /d/tmp/nginx.crt | base64
-cat /d/tmp/nginx.key | base64
+cat /tmp/nginx.crt | base64
+cat /tmp/nginx.key | base64
 ```
 Use the output from the previous commands to create a yaml file as follows. The base64 encoded value should all be on a single line.
 
@@ -293,6 +262,43 @@ NAME                  TYPE                                  DATA      AGE
 default-token-il9rc   kubernetes.io/service-account-token   1         1d
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
+
+Now create a configuration file called default.conf with the following content:
+```
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
+
+        listen 443 ssl;
+
+        root /usr/share/nginx/html;
+        index index.html;
+
+        server_name localhost;
+        ssl_certificate /etc/nginx/ssl/tls.crt;
+        ssl_certificate_key /etc/nginx/ssl/tls.key;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+```
+
+Then create the configmap:
+```shell
+kubectl create configmap nginxconfigmap --from-file=./default.conf
+```
+```
+configmap/nginxconfigmap created
+```
+```shell
+kubectl get configmaps
+```
+```
+NAME             DATA   AGE
+nginxconfigmap   1      114s
+```
+
 
 Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
 
