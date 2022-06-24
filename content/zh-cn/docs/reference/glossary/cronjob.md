@@ -2,7 +2,7 @@
 title: 周期调度任务（CronJob）
 id: cronjob
 date: 2018-04-12
-full_link: /zh/docs/concepts/workloads/controllers/cron-jobs/
+full_link: /zh-cn/docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
   周期调度的任务（作业）。
 
@@ -32,7 +32,7 @@ tags:
  Manages a [Job](/docs/concepts/workloads/controllers/job/) that runs on a periodic schedule.
 -->
 
- 管理定期运行的 [任务](/zh/docs/concepts/workloads/controllers/job/)。
+ 管理定期运行的 [任务](/zh-cn/docs/concepts/workloads/controllers/job/)。
 
 <!--more--> 
 
