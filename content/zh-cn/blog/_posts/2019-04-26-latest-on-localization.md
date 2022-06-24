@@ -21,7 +21,7 @@ By _partially available_, I mean that localizations are ongoing projects. They r
 
 去年我们对 Kubernetes 网站进行了优化，加入了[多语言内容的支持](https://kubernetes.io/blog/2018/11/08/kubernetes-docs-updates-international-edition/)。贡献者们踊跃响应，加入了多种新的本地化内容：截至 2019 年 4 月，Kubernetes 文档有了 9 个不同语言的未完成版本，其中有 6 个是 2019 年加入的。在每个 Kubernetes 文档页面的上方，读者都可以看到一个语言选择器，其中列出了所有可用语言。
 
-不论是完成度最高的[中文版 v1.12](https://v1-12.docs.kubernetes.io/zh/)，还是最新加入的[葡萄牙文版 v1.14](https://kubernetes.io/pt/)，各语言的本地化内容还未完成，这是一个进行中的项目。如果读者有兴趣对现有本地化工作提供支持，请继续阅读。
+不论是完成度最高的[中文版 v1.12](https://v1-12.docs.kubernetes.io/zh-cn/)，还是最新加入的[葡萄牙文版 v1.14](https://kubernetes.io/pt/)，各语言的本地化内容还未完成，这是一个进行中的项目。如果读者有兴趣对现有本地化工作提供支持，请继续阅读。
 
 <!-- 
 ## What is a localization?

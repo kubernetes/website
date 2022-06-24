@@ -64,18 +64,18 @@ We didn’t do a great job communicating this, and unfortunately, the deprecatio
 我们没有很好地传达这一点，不幸的是，弃用公告在社区内引起了一些恐慌。关于这对 Docker 作为
 一家公司意味着什么，Docker 构建的容器镜像是否仍然可以运行，以及 Docker Engine 究竟是
 什么导致了社交媒体上的一场大火，人们感到困惑。这是我们的错；我们应该更清楚地传达当时发生
-的事情和原因。为了解决这个问题，我们发布了[一篇博客](/zh/blog/2020/12/02/dont-panic-kubernetes-and-docker/)
-和[相应的 FAQ](/zh/blog/2020/12/02/dockershim-faq/ ) 以减轻社区的恐惧并纠正对
+的事情和原因。为了解决这个问题，我们发布了[一篇博客](/zh-cn/blog/2020/12/02/dont-panic-kubernetes-and-docker/)
+和[相应的 FAQ](/zh-cn/blog/2020/12/02/dockershim-faq/ ) 以减轻社区的恐惧并纠正对
 Docker 是什么以及容器如何在 Kubernetes 中工作的一些误解。由于社区的关注，Docker 和 Mirantis
 共同决定继续以 [cri-dockerd] 的形式支持 dockershim 代码（https://www.mirantis.com/blog/the-future-of-dockershim-is -cri-dockerd/)，
 允许你在需要时继续使用 Docker Engine 作为容器运行时。对于想要尝试其他运行时（如 containerd 或 cri-o）
-的用户，[已编写迁移文档](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)。
+的用户，[已编写迁移文档](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)。
 
 <!--
 We later [surveyed the community](https://kubernetes.io/blog/2021/11/12/are-you-ready-for-dockershim-removal/) and [discovered that there are still many users with questions and concerns](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim). In response, Kubernetes maintainers and the CNCF committed to addressing these concerns by extending documentation and other programs. In fact, this blog post is a part of this program. With so many end users successfully migrated to other runtimes, and improved documentation, we believe that everyone has a paved way to migration now.
 -->
 我们后来[调查了社区](https://kubernetes.io/blog/2021/11/12/are-you-ready-for-dockershim-removal/)
-[发现还有很多用户有疑问和顾虑](/zh/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim)。 
+[发现还有很多用户有疑问和顾虑](/zh-cn/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim)。 
 作为回应，Kubernetes 维护人员和 CNCF 承诺通过扩展文档和其他程序来解决这些问题。 事实上，这篇博文是 
 这个计划的一部分。 随着如此多的最终用户成功迁移到其他运行时，以及改进的文档，我们相信每个人现在都为迁移铺平了道路。
 
