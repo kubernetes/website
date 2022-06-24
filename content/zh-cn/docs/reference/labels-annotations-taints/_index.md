@@ -46,7 +46,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 架构中的组件。
 
-[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+[推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
 <!-- ### app.kubernetes.io/created-by
 
@@ -65,7 +65,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 创建此资源的控制器/用户。
 
-[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+[推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
 <!-- ### app.kubernetes.io/instance
 
@@ -84,7 +84,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 标识应用实例的唯一名称。
 
-[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+[推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
 <!-- ### app.kubernetes.io/managed-by
 
@@ -103,7 +103,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 用于管理应用操作的工具。
 
-[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+[推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
 <!-- ### app.kubernetes.io/name
 
@@ -123,7 +123,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 应用的名称。
 
-[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+[推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
 <!-- ### app.kubernetes.io/part-of
 
@@ -142,7 +142,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 此应用所属的更高级别应用的名称。
 
-[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+[推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
 <!-- ### app.kubernetes.io/version
 
@@ -161,7 +161,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 应用的当前版本（例如，语义版本、修订哈希等）。
 
-[推荐标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
+[推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
 <!-- 
 ### kubernetes.io/arch
@@ -365,7 +365,7 @@ For example, `10M` means 10 megabits per second.
 入站流量（到 Pod）通过控制排队的数据包来处理，以有效地处理数据。
 要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/ingress-bandwidth`
 注解指定数据流量速度。 用于指定入站的速率单位是每秒，
-作为[量纲（Quantity）](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)。
+作为[量纲（Quantity）](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)。
 例如，`10M`表示每秒 10 兆比特。
 
 <!-- 
@@ -403,7 +403,7 @@ For example, `10M` means 10 megabits per second.
 你为一个 Pod 所设置的限制不会影响其他 Pod 的带宽。
 要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/egress-bandwidth` 注解指定数据流量速度。
 用于指定出站的速率单位是每秒比特数，
-以[量纲（Quantity）](/zh/docs/reference/kubernetes-api/common-definitions/quantity/)的形式给出。
+以[量纲（Quantity）](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)的形式给出。
 例如，`10M` 表示每秒 10 兆比特。
 
 <!-- ### beta.kubernetes.io/instance-type (deprecated) -->
@@ -873,7 +873,7 @@ created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/
 用于：Pod
 
 kube-controller-manager 中的 Job 控制器为使用 Indexed
-[完成模式](/zh/docs/concepts/workloads/controllers/job/#completion-mode)创建的 Pod
+[完成模式](/zh-cn/docs/concepts/workloads/controllers/job/#completion-mode)创建的 Pod
 设置此注解。
 
 <!--
@@ -926,7 +926,7 @@ You should **not** manually add or remove this annotation.
 
 用于：Job
 
-Job 上存在此注解表明控制平面正在[使用 Finalizer 追踪 Job](/zh/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers)。
+Job 上存在此注解表明控制平面正在[使用 Finalizer 追踪 Job](/zh-cn/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers)。
 你 **不** 可以手动添加或删除此注解。
 
 <!--
@@ -944,9 +944,9 @@ Use [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-tolera
 
 用于：Node
 
-此注解需要启用 [NodePreferAvoidPods 调度插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)。
+此注解需要启用 [NodePreferAvoidPods 调度插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)。
 该插件自 Kubernetes 1.22 起已被弃用。
-请改用[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+请改用[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 
 **下面列出的污点总是在 Node 上使用**
 
@@ -973,7 +973,7 @@ Node 控制器通过监控 Node 的健康状况来检测 Node 是否准备就绪
 
 例子：`node.kubernetes.io/unreachable:NoExecute`
 
-Node 控制器将此污点添加到对应[节点状况](/zh/docs/concepts/architecture/nodes/#condition) `Ready`
+Node 控制器将此污点添加到对应[节点状况](/zh-cn/docs/concepts/architecture/nodes/#condition) `Ready`
 为 `Unknown` 的 Node 上。
 
 <!--
@@ -1057,7 +1057,7 @@ A user can manually add the taint to a Node marking it out-of-service. If the `N
 
 用户可以手动将污点添加到节点，将其标记为停止服务。
 如果 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 并且一个节点被这个污点标记为停止服务，如果节点上的 Pod 没有对应的容忍度，
 这类 Pod 将被强制删除，并且，针对在节点上被终止 Pod 的卷分离操作将被立即执行。
 
@@ -1067,7 +1067,7 @@ Refer to
 [Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
 for further details about when and how to use this taint.
 -->
-有关何时以及如何使用此污点的更多详细信息，请参阅[非正常节点关闭](/zh/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)。
+有关何时以及如何使用此污点的更多详细信息，请参阅[非正常节点关闭](/zh-cn/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)。
 {{< /caution >}}
 
 <!--
@@ -1120,10 +1120,10 @@ for more information.
 用于：Namespace
 
 值**必须**是 `privileged`、`baseline` 或 `restricted` 之一，它们对应于
-[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards) 级别。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards) 级别。
 特别地，`enforce` 标签 **禁止** 在带标签的 Namespace 中创建任何不符合指示级别要求的 Pod。
 
-请请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### pod-security.kubernetes.io/enforce-version
@@ -1146,9 +1146,9 @@ for more information.
 用于：Namespace
 
 值**必须**是 `latest` 或格式为 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。
-此注解决定了在验证提交的 Pod 时要应用的 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)策略的版本。
+此注解决定了在验证提交的 Pod 时要应用的 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)策略的版本。
 
-请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### pod-security.kubernetes.io/audit
@@ -1171,12 +1171,12 @@ for more information.
 
 用于：Namespace
 
-值**必须**是与 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards) 级别相对应的
+值**必须**是与 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards) 级别相对应的
 `privileged`、`baseline` 或 `restricted` 之一。
 具体来说，`audit` 标签不会阻止在带标签的 Namespace 中创建不符合指示级别要求的 Pod，
 但会向该 Pod 添加审计注解。
 
-请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### pod-security.kubernetes.io/audit-version
@@ -1199,9 +1199,9 @@ for more information.
 用于：Namespace
 
 值**必须**是 `latest` 或格式为 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。
-此注解决定了在验证提交的 Pod 时要应用的  [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)策略的版本。
+此注解决定了在验证提交的 Pod 时要应用的  [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)策略的版本。
 
-请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### pod-security.kubernetes.io/warn
@@ -1226,12 +1226,12 @@ for more information.
 
 用于：Namespace
 
-值**必须**是与 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)级别相对应的
+值**必须**是与 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)级别相对应的
 `privileged`、`baseline` 或 `restricted` 之一。特别地，
 `warn` 标签不会阻止在带标签的 Namespace 中创建不符合指示级别概述要求的 Pod，但会在这样做后向用户返回警告。
 请注意，在创建或更新包含 Pod 模板的对象时也会显示警告，例如 Deployment、Jobs、StatefulSets 等。
 
-请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### pod-security.kubernetes.io/warn-version
@@ -1255,11 +1255,11 @@ for more information.
 用于：Namespace
 
 值**必须**是 `latest` 或格式为 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。
-此注解决定了在验证提交的 Pod 时要应用的 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)策略的版本。
+此注解决定了在验证提交的 Pod 时要应用的 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)策略的版本。
 请注意，在创建或更新包含 Pod 模板的对象时也会显示警告，
 例如 Deployment、Jobs、StatefulSets 等。
 
-请参阅[在名字空间级别实施 Pod 安全性](/zh/docs/concepts/security/pod-security-admission)了解更多信息。
+请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
@@ -1274,9 +1274,9 @@ the settings you specify apply to all containers in that Pod.
 
 此注解自 Kubernetes v1.19 起已被弃用，将在 v1.25 中失效。
 要为 Pod 指定安全设置，请在 Pod 规范中包含 `securityContext` 字段。
-Pod 的 `.spec` 中的 [`securityContext`](/zh/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+Pod 的 `.spec` 中的 [`securityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
 字段定义了 Pod 级别的安全属性。
-你[为 Pod 设置安全上下文](/zh/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod) 时，
+你[为 Pod 设置安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod) 时，
 你所给出的设置适用于该 Pod 中的所有容器。
 
 <!--
@@ -1291,7 +1291,7 @@ based on setting `securityContext` within the Pod's `.spec`.
 ### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
 
 此注解自 Kubernetes v1.19 起已被弃用，将在 v1.25 中失效。
-教程[使用 seccomp 限制容器的系统调用](/zh/docs/tutorials/security/seccomp/)将引导你完成将
+教程[使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)将引导你完成将
 seccomp 配置文件应用于 Pod 或其容器的步骤。
 该教程介绍了在 Kubernetes 中配置 seccomp 的支持机制，基于在 Pod 的 `.spec` 中设置 `securityContext`。
 
@@ -1313,7 +1313,7 @@ Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volum
 值可以是 `true` 或者 `false`。
 这决定了当从 VolumeSnapshot 创建 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
 时，用户是否可以修改源卷的模式。
-更多信息请参阅[转换快照的卷模式](/zh/docs/concepts/storage/volume-snapshots/#convert-volume-mode)和
+更多信息请参阅[转换快照的卷模式](/zh-cn/docs/concepts/storage/volume-snapshots/#convert-volume-mode)和
 [Kubernetes CSI 开发者文档](https://kubernetes-csi.github.io/docs/)。
 
 <!--
@@ -1331,15 +1331,15 @@ See more details on the [Audit Annotations](/docs/reference/labels-annotations-t
 -->
 ## 用于审计的注解    {#annonations-used-for-audit}
 
-- [`authorization.k8s.io/decision`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
-- [`authorization.k8s.io/reason`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
-- [`insecure-sha1.invalid-cert.kubernetes.io/$hostname`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#insecure-sha1-invalid-cert-kubernetes-io-hostname)
-- [`missing-san.invalid-cert.kubernetes.io/$hostname`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#missing-san-invalid-cert-kubernetes-io-hostname)
-- [`pod-security.kubernetes.io/audit-violations`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
-- [`pod-security.kubernetes.io/enforce-policy`](/zh/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
-- [`pod-security.kubernetes.io/exempt`](/zh/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
+- [`authorization.k8s.io/decision`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
+- [`authorization.k8s.io/reason`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
+- [`insecure-sha1.invalid-cert.kubernetes.io/$hostname`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#insecure-sha1-invalid-cert-kubernetes-io-hostname)
+- [`missing-san.invalid-cert.kubernetes.io/$hostname`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#missing-san-invalid-cert-kubernetes-io-hostname)
+- [`pod-security.kubernetes.io/audit-violations`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
+- [`pod-security.kubernetes.io/enforce-policy`](/zh-cn/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`pod-security.kubernetes.io/exempt`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 
-在[审计注解](/zh/docs/reference/labels-annotations-taints/audit-annotations/)页面上查看更多详细信息。
+在[审计注解](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/)页面上查看更多详细信息。
 
 ## kubeadm
 
