@@ -178,9 +178,6 @@ simply as *nodes*).
   add nodes by setting up your own machines and either adding them manually or
   having them register themselves to the cluster’s apiserver. See the
   [Nodes](/docs/concepts/architecture/nodes/) section for information on how to set up Kubernetes to add nodes in these ways.
-- *Add Windows nodes to the cluster*: Kubernetes offers support for Windows
-  worker nodes, allowing you to run workloads implemented in Windows containers. See
-  [Windows in Kubernetes](/docs/setup/production-environment/windows/) for details.
 - *Scale nodes*: Have a plan for expanding the capacity your cluster will
   eventually need. See [Considerations for large clusters](/docs/setup/best-practices/cluster-large/)
   to help determine how many nodes you need, based on the number of pods and
