@@ -64,7 +64,8 @@ deployed as [container images](/releases/download/#container-images) within the 
 一些 [Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)，如 `kube-apiserver` 或 `kube-proxy`，
 也可以作为[容器镜像](/zh-cn/releases/download/#container-images)部署在集群中。
 
-<!-- It is **recommended** to run Kubernetes components as container images wherever
+<!-- 
+It is **recommended** to run Kubernetes components as container images wherever
 that is possible, and to have Kubernetes manage those components.
 Components that run containers - notably, the kubelet - can't be included in this category. -->
 **建议**尽可能将 Kubernetes 组件作为容器镜像运行，并让 Kubernetes 管理这些组件。
