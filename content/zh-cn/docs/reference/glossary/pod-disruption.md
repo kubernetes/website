@@ -37,7 +37,7 @@ tags:
 Pods on Nodes are terminated either voluntarily or involuntarily. 
 -->
 
-[pod 干扰](/zh/docs/concepts/workloads/pods/disruptions/) 是指节点上的 pod 被自愿或非自愿终止的过程。
+[pod 干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/) 是指节点上的 pod 被自愿或非自愿终止的过程。
 
 <!--more--> 
 

@@ -2,7 +2,7 @@
 title: 污点（Taint）
 id: taint
 date: 2019-01-11
-full_link: /zh/docs/concepts/scheduling-eviction/taint-and-toleration/
+full_link: /zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   污点是一种一个核心对象，包含三个必需的属性：key、value 和 effect。
   污点会阻止在节点或节点组上调度 Pod。
