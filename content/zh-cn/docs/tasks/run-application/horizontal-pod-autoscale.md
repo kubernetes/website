@@ -65,7 +65,7 @@ Pod 自动扩缩控制器会定期调整其目标（例如：Deployment）的所
 There is [walkthrough example](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) of using
 horizontal pod autoscaling.
 -->
-使用水平 Pod 自动扩缩[演练示例](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)。
+使用水平 Pod 自动扩缩[演练示例](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)。
 
 <!-- body -->
 
@@ -84,7 +84,7 @@ Kubernetes implements horizontal pod autoscaling as a control loop that runs int
 (and the default interval is 15 seconds).
 -->
 Kubernetes 将水平 Pod 自动扩缩实现为一个间歇运行的控制回路（它不是一个连续的过程）。间隔由
-[`kube-controller-manager`](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
+[`kube-controller-manager`](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
 的 `--horizontal-pod-autoscaler-sync-period` 参数设置（默认间隔为 15 秒）。
 
 <!--
@@ -110,7 +110,7 @@ or the custom metrics API (for all other metrics).
 -->
 * 对于按 Pod 统计的资源指标（如 CPU），控制器从资源指标 API 中获取每一个
   HorizontalPodAutoscaler 指定的 Pod 的度量值，如果设置了目标使用率，
-  控制器获取每个 Pod 中的容器[资源使用](/zh/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) 情况，
+  控制器获取每个 Pod 中的容器[资源使用](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) 情况，
   并计算资源使用率。如果设置了 target 值，将直接使用原始数据（不再计算百分比）。
   接下来，控制器根据平均的资源使用率或原始值计算出扩缩的比例，进而计算出目标副本数。
 
@@ -153,7 +153,7 @@ For more information about resource metrics, see
 HorizontalPodAutoscaler 的常见用途是将其配置为从{{< glossary_tooltip text="聚合 API" term_id="aggregation-layer" >}}
 （`metrics.k8s.io`、`custom.metrics.k8s.io` 或 `external.metrics.k8s.io`）获取指标。
 `metrics.k8s.io` API 通常由名为 Metrics Server 的插件提供，需要单独启动。有关资源指标的更多信息，
-请参阅 [Metrics Server](/zh/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server)。
+请参阅 [Metrics Server](/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server)。
 
 <!--
 [Support for metrics APIs](#support-for-metrics-apis) explains the stability guarantees and support status for these
@@ -170,7 +170,7 @@ For general information about subresources in the Kubernetes API, see
 HorizontalPodAutoscaler 控制器访问支持扩缩的相应工作负载资源（例如：Deployments 和 StatefulSet）。
 这些资源每个都有一个名为 `scale` 的子资源，该接口允许你动态设置副本的数量并检查它们的每个当前状态。
 有关 Kubernetes API 子资源的一般信息，
-请参阅 [Kubernetes API 概念](/zh/docs/reference/using-api/api-concepts/)。
+请参阅 [Kubernetes API 概念](/zh-cn/docs/reference/using-api/api-concepts/)。
 
 <!--
 ### Algorithm Details
@@ -218,7 +218,7 @@ are [`Ready`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
 那么将会把指定 Pod 度量值的平均值做为 `currentMetricValue`。
 
 在检查容差并决定最终值之前，控制平面还会考虑是否缺少任何指标，
-以及有多少 Pod [`已就绪`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)。
+以及有多少 Pod [`已就绪`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)。
 
 <!--
 All Pods with a deletion timestamp set (objects with a deletion timestamp are
@@ -357,7 +357,7 @@ More details about the API object can be found at
 [HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling).
 -->
 创建 HorizontalPodAutoscaler 对象时，需要确保所给的名称是一个合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 有关 API 对象的更多信息，请查阅
 [HorizontalPodAutoscaler 对象设计文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling)。
 
@@ -592,7 +592,7 @@ APIs, cluster administrators must ensure that:
 
    * For external metrics, this is the `external.metrics.k8s.io` API.  It may be provided by the custom metrics adapters provided above.
 -->
-* 启用了 [API 聚合层](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+* 启用了 [API 聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 
 * 相应的 API 已注册：
 
@@ -621,8 +621,8 @@ For examples of how to use them see [the walkthrough for using custom metrics](/
 and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
 -->
 关于如何使用它们的示例，请参考
-[使用自定义指标的教程](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
-和[使用外部指标的教程](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects)。
+[使用自定义指标的教程](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
+和[使用外部指标的教程](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects)。
 
 <!--
 ## Configurable scaling behavior
@@ -642,7 +642,7 @@ under the `behavior` field.
 （之前的 `autoscaling/v2beta2` API 版本将此功能作为 beta 功能提供）
 
 如果你使用 `v2` HorizontalPodAutoscaler API，你可以使用 `behavior` 字段
-（请参阅 [API 参考](/zh/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/#HorizontalPodAutoscalerSpec)）
+（请参阅 [API 参考](/zh-cn/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/#HorizontalPodAutoscalerSpec)）
 来配置单独的放大和缩小行为。你可以通过在行为字段下设置 `scaleUp` 和/或 `scaleDown` 来指定这些行为。
 
 <!--
@@ -944,7 +944,7 @@ update configuration as desired.  You can avoid this degradation by choosing one
 methods based on how you are modifying your deployments:
 -->
 请记住，删除 `spec.replicas` 可能会导致 Pod 计数一次性降级，因为此键的默认值为 1
-（参考 [Deployment Replicas](/zh/docs/concepts/workloads/controllers/deployment#replicas)）。
+（参考 [Deployment Replicas](/zh-cn/docs/concepts/workloads/controllers/deployment#replicas)）。
 更新后，除 1 之外的所有 Pod 都将开始其终止程序。之后的任何部署应用程序都将正常运行，
 并根据需要遵守滚动更新配置。你可以根据修改部署的方式选择以下两种方法之一来避免这种降级：
 
@@ -975,8 +975,8 @@ When using the [Server-Side Apply](/docs/reference/using-api/server-side-apply/)
 you can follow the [transferring ownership](/docs/reference/using-api/server-side-apply/#transferring-ownership)
 guidelines, which cover this exact use case.
 -->
-使用[服务器端 Apply](/zh/docs/reference/using-api/server-side-apply/) 机制，
-你可以遵循[交出所有权](/zh/docs/reference/using-api/server-side-apply/#transferring-ownership) 说明，
+使用[服务器端 Apply](/zh-cn/docs/reference/using-api/server-side-apply/) 机制，
+你可以遵循[交出所有权](/zh-cn/docs/reference/using-api/server-side-apply/#transferring-ownership) 说明，
 该指南涵盖了这个确切的用例。
 
 {{% /tab %}}
@@ -1001,7 +1001,7 @@ For more information on HorizontalPodAutoscaler:
   [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) to get started.
 * Read the [API reference](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/) for HorizontalPodAutoscaler.
 -->
-* 阅读水平 Pod 自动扩缩的[演练示例](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)。
+* 阅读水平 Pod 自动扩缩的[演练示例](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)。
 * 阅读 [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 的文档。
 * 如果你想编写自己的自定义指标适配器，
   请查看 [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) 以开始使用。

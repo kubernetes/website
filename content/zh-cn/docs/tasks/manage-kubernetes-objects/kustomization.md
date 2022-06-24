@@ -45,7 +45,7 @@ kubectl apply -k <kustomization_directory>
 <!--
 Install [`kubectl`](/docs/tasks/tools/).
 -->
-安装 [`kubectl`](/zh/docs/tasks/tools/).
+安装 [`kubectl`](/zh-cn/docs/tasks/tools/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
