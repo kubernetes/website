@@ -61,7 +61,7 @@ bare metal environments.
 <!-- Several [Kubernetes components](/docs/concepts/overview/components/) such as `kube-apiserver` or `kube-proxy` can also be
 deployed as [container images](/releases/download/#container-images) within the cluster. -->
 一些 [Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)，如 `kube-apiserver` 或 `kube-proxy`，
-也可以作为[容器镜像](/releases/download/#container-images)部署在集群中。
+也可以作为[容器镜像](/zh-cn/releases/download/#container-images)部署在集群中。
 
 <!-- It is **recommended** to run Kubernetes components as container images wherever
 that is possible, and to have Kubernetes manage those components.
