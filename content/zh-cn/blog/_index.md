@@ -15,6 +15,6 @@ menu:
 https://kubernetes.io/docs/contribute/new-content/blogs-case-studies/#write-a-blog-post -->
 
 有关为博客提供内容的信息，请参见
-https://kubernetes.io/zh/docs/contribute/new-content/blogs-case-studies/#write-a-blog-post
+https://kubernetes.io/zh-cn/docs/contribute/new-content/blogs-case-studies/#write-a-blog-post
 
 {{< /comment >}}
