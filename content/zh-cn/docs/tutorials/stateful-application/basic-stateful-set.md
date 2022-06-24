@@ -213,7 +213,7 @@ _Running_ (see [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phas
 and _Ready_ (see `type` in [Pod Conditions](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)).
 -->
 请注意，直到 `web-0` Pod 处于 _Running_（请参阅
-[Pod 阶段]((/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))）
+[Pod 阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)）
 并 _Ready_（请参阅 [Pod 状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)中的
 `type`）状态后，`web-1` Pod 才会被启动。
 

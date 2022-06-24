@@ -17,6 +17,7 @@ content_type: "api_reference"
 description: "Volume represents a named volume in a pod that may be accessed by any container in the pod."
 title: "Volume"
 weight: 3
+auto_generated: true
 -->
 
 `import "k8s.io/api/core/v1"`
@@ -444,7 +445,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     sizeLimit 是这个 EmptyDir 卷所需的本地存储总量。这个大小限制也适用于内存介质。
     EmptyDir 的内存介质最大使用量将是此处指定的 sizeLimit 与 Pod 中所有容器内存限制总和这两个值之间的最小值。
     默认为 nil，这意味着限制未被定义。更多信息：
-    http://kubernetes.io/zh-cn/docs/user-guide/volumes#emptydir
+    https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#emptydir
 
 <!--
 - **hostPath** (HostPathVolumeSource)
