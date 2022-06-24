@@ -4,7 +4,7 @@
 #
 # If the language to check is not English (`en`), we check if you are actually
 # using the localized links. For example, if you checking
-# `content/zh/docs/foo/bar`, we check if the English version exists AND if the
+# `content/zh-cn/docs/foo/bar`, we check if the English version exists AND if the
 # Chinese version exists as well.  A checking record is produced if the link
 # can use the localized version.
 #
@@ -462,7 +462,7 @@ def main():
     if len(parts) != 3 or parts[0] != "content":
         print("ERROR:\nPlease specify file pattern in the format "
               "'content/<lang>/<path-pattern>', for example:\n"
-              "'content/zh/docs/concepts/**/*.md'\n")
+              "'content/zh-cn/docs/concepts/**/*.md'\n")
         PARSER.print_help()
         sys.exit(-1)
 
