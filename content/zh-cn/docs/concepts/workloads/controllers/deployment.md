@@ -1599,7 +1599,7 @@ number of seconds the Deployment controller waits before indicating (in the Depl
 Deployment progress has stalled.
 -->
 检测此状况的一种方法是在 Deployment 规约中指定截止时间参数：
-（[`.spec.progressDeadlineSeconds`]（#progress-deadline-seconds））。
+（[`.spec.progressDeadlineSeconds`](#progress-deadline-seconds)）。
 `.spec.progressDeadlineSeconds` 给出的是一个秒数值，Deployment 控制器在（通过 Deployment 状态）
 标示 Deployment 进展停滞之前，需要等待所给的时长。
 
