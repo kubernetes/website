@@ -76,7 +76,7 @@ graph TB
 <!--
 Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/labels-annotations-taints/) that are created and populated automatically on most clusters.
 -->
-你可以复用在大多数集群上自动创建和填充的[常用标签](/zh/docs/reference/labels-annotations-taints/)，
+你可以复用在大多数集群上自动创建和填充的[常用标签](/zh-cn/docs/reference/labels-annotations-taints/)，
 而不是手动添加标签。
 
 <!--
@@ -166,7 +166,7 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
   in order to use it.
   -->
   `minDomains` 字段是在 1.24 版本中新增的 alpha 字段。你必须启用
-  `MinDomainsInPodToplogySpread` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)才能使用它。
+  `MinDomainsInPodToplogySpread` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用它。
   {{< /note >}}
 
 <!--
@@ -187,7 +187,7 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
 
 - **labelSelector** 用于查找匹配的 Pod。匹配此标签的 Pod 将被统计，
   以确定相应拓扑域中 Pod 的数量。
-  有关详细信息，请参考[标签选择算符](/zh/docs/concepts/overview/working-with-objects/labels/#label-selectors)。
+  有关详细信息，请参考[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)。
 
 <!--
 When a Pod defines more than one `topologySpreadConstraint`, those constraints are ANDed: The kube-scheduler looks for a node for the incoming Pod that satisfies all the constraints.
@@ -524,7 +524,7 @@ replication controllers, replica sets or stateful sets that the Pod belongs to.
 
 An example configuration might look like follows:
 -->
-你可以在 [调度方案（Scheduling Profile）](/zh/docs/reference/scheduling/config/#profiles)
+你可以在 [调度方案（Scheduling Profile）](/zh-cn/docs/reference/scheduling/config/#profiles)
 中将默认约束作为 `PodTopologySpread` 插件参数的一部分来设置。
 约束的设置采用[如前所述的 API](#api)，只是 `labelSelector` 必须为空。
 选择算符是根据 Pod 所属的服务、副本控制器、ReplicaSet 或 StatefulSet 来设置的。
@@ -553,7 +553,7 @@ profiles:
 is disabled by default. It's recommended to use `PodTopologySpread` to achieve similar
 behavior.
 -->
-[`SelectorSpread` 插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)默认是被禁用的。
+[`SelectorSpread` 插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)默认是被禁用的。
 建议使用 `PodTopologySpread` 来实现类似的行为。
 {{< /note >}}
 
