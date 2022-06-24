@@ -27,11 +27,11 @@ To contribute new content pages or improve existing content pages, open a pull r
 -->
 {{< note >}}
 **代码开发者们**：如果你在为下一个 Kubernetes 发行版本中的某功能特性撰写文档，
-请参考[为发行版本撰写功能特性文档](/zh/docs/contribute/new-content/new-features/)。
+请参考[为发行版本撰写功能特性文档](/zh-cn/docs/contribute/new-content/new-features/)。
 {{< /note >}}
 
 要贡献新的内容页面或者改进已有内容页面，请发起拉取请求（PR）。
-请确保你满足了[开始之前](/zh/docs/contribute/new-content/#before-you-begin)一节中所列举的所有要求。
+请确保你满足了[开始之前](/zh-cn/docs/contribute/new-content/#before-you-begin)一节中所列举的所有要求。
 
 <!--
 If your change is small, or you're unfamiliar with git, read [Changes using
@@ -348,9 +348,9 @@ class changes,changes2 white
    - 针对已有内容的改进，请使用 `upstream/main`。
    - 针对已有功能特性的新文档内容，请使用 `upstream/main`。
    - 对于本地化内容，请基于本地化的约定。
-     可参考[本地化 Kubernetes 文档](/zh/docs/contribute/localization/)了解详细信息。
+     可参考[本地化 Kubernetes 文档](/zh-cn/docs/contribute/localization/)了解详细信息。
    - 对于在下一个 Kubernetes 版本中新功能特性的文档，使用独立的功能特性分支。
-     参考[为发行版本撰写功能特性文档](/zh/docs/contribute/new-content/new-features/)了解更多信息。
+     参考[为发行版本撰写功能特性文档](/zh-cn/docs/contribute/new-content/new-features/)了解更多信息。
    - 对于很多 SIG Docs 共同参与的，需较长时间才完成的任务，例如内容的重构，
      请使用为该任务创建的特性分支。
 
@@ -493,7 +493,7 @@ You can either build the website's container image or run Hugo locally. Building
 通过预览你可以发现构建错误或者 Markdown 格式问题。
 
 你可以构建网站的容器镜像或者在本地运行 Hugo。
-构建容器镜像的方式比较慢，不过能够显示 [Hugo 短代码（shortcodes）](/zh/docs/contribute/style/hugo-shortcodes/)，
+构建容器镜像的方式比较慢，不过能够显示 [Hugo 短代码（shortcodes）](/zh-cn/docs/contribute/style/hugo-shortcodes/)，
 因此对于调试是很有用的。
 
 {{< tabs name="tab_with_hugo" >}}
@@ -685,7 +685,7 @@ GitHub also automatically assigns labels to a PR, to help reviewers. You can add
 GitHub 也会自动为 PR 分派一些标签，以帮助评阅人。
 如果有需要，你也可以向 PR 添加标签。
 欲了解相关详细信息，可以参考
-[添加和删除 Issue 标签](/zh/docs/contribute/review/for-approvers/#adding-and-removing-issue-labels)。
+[添加和删除 Issue 标签](/zh-cn/docs/contribute/review/for-approvers/#adding-and-removing-issue-labels)。
 
 <!--
 ### Addressing feedback locally
@@ -1020,5 +1020,5 @@ the templates with as much detail as possible when you file issues or PRs.
 <!--
 - Read [Reviewing](/docs/contribute/reviewing/revewing-prs) to learn more about the review process.
 -->
-- 阅读[评阅](/zh/docs/contribute/review/reviewing-prs)节，学习评阅过程。
+- 阅读[评阅](/zh-cn/docs/contribute/review/reviewing-prs)节，学习评阅过程。
 

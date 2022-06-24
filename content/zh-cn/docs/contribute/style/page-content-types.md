@@ -198,7 +198,7 @@ published example of a concept page.
 - 在 `body` 节中，详细解释对应概念；
 - 对于 `whatsnext` 节，提供一个项目符号列表（最多 5 个），帮助读者进一步学习掌握概念
 
-[注解](/zh/docs/concepts/overview/working-with-objects/annotations/)页面是一个已经
+[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)页面是一个已经
 上线的概念页面的例子。
 
 <!--
@@ -271,7 +271,7 @@ An example of a published task topic is [Using an HTTP proxy to access the Kuber
 - 在 `whatsnext` 节中，使用项目符号列表（不超过 5 项），列举读者可能接下来有兴趣
   阅读的主题。
 
-已上线的任务主题示例之一是[使用 HTTP 代理来访问 Kubernetes API](/zh/docs/tasks/extend-kubernetes/http-proxy-access-api/)。
+已上线的任务主题示例之一是[使用 HTTP 代理来访问 Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/http-proxy-access-api/)。
 
 <!--
 ### Tutorial
@@ -354,7 +354,7 @@ An example of a published tutorial topic is
   阅读的主题。
 
 已发布的教程主题的一个例子是
-[使用 Deployment 运行无状态应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/).
+[使用 Deployment 运行无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/).
 
 <!--
 ### Reference
@@ -395,9 +395,9 @@ Examples of published tool reference pages are:
 
 已发布的工具参考页面示例包括：
 
-- [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/)
-- [kube-apiserver](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
-- [kubectl](/zh/docs/reference/kubectl/kubectl/)
+- [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+- [kube-apiserver](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
+- [kubectl](/zh-cn/docs/reference/kubectl/kubectl/)
 
 ## {{% heading "whatsnext" %}}
 
@@ -406,7 +406,7 @@ Examples of published tool reference pages are:
 - Learn about the [Content guide](/docs/contribute/style/content-guide/)
 - Learn about [content organization](/docs/contribute/style/content-organization/)
 -->
-- 了解[样式指南](/zh/docs/contribute/style/style-guide/)
-- 了解[内容指南](/zh/docs/contribute/style/content-guide/)
-- 了解[内容组织](/zh/docs/contribute/style/content-organization/)
+- 了解[样式指南](/zh-cn/docs/contribute/style/style-guide/)
+- 了解[内容指南](/zh-cn/docs/contribute/style/content-guide/)
+- 了解[内容组织](/zh-cn/docs/contribute/style/content-organization/)
 
