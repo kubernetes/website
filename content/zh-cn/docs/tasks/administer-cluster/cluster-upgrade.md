@@ -112,7 +112,7 @@ kubelet on that node and bring the node back into service.
 [安装最新版本的 `kubectl`](/zh-cn/docs/tasks/tools/).
 
 对于集群中的每个节点，
-[排空](/zh/docs/tasks/administer-cluster/safely-drain-node/)
+[排空](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)
 节点，然后，或者用一个运行了 {{< skew currentVersion >}} kubelet 的新节点替换它；
 或者升级此节点的 kubelet，并使节点恢复服务。
 
