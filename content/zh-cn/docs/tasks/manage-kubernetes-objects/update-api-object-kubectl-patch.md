@@ -673,8 +673,8 @@ Strategic merge patch is not supported for custom resources.
 * [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
 -->
-* [Kubernetes 对象管理](/zh/docs/concepts/overview/working-with-objects/object-management/)
-* [使用指令式命令管理 Kubernetes 对象](/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [使用配置文件执行 Kubernetes 对象的指令式管理](/zh/docs/tasks/manage-kubernetes-objects/imperative-config)
-* [使用配置文件对 Kubernetes 对象进行声明式管理](/zh/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [Kubernetes 对象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)
+* [使用指令式命令管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [使用配置文件执行 Kubernetes 对象的指令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config)
+* [使用配置文件对 Kubernetes 对象进行声明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
 
