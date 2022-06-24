@@ -92,7 +92,7 @@ before joining the new nodes and ensuring the workloads can safely move to the n
 nodes before deleting the old nodes.
 {{< /note >}}
 
-### Modify the kubelet ConfigMap  {#modify-the-kubelet-configmap}
+### Modify the kubelet ConfigMap
 
 - Call `kubectl edit cm kubelet-config -n kube-system`.
 - Either modify the existing `cgroupDriver` value or add a new field that looks like this:
