@@ -66,7 +66,7 @@ Once you have upgraded the cluster, remember to
 -->
 如果你的集群是使用 `kubeadm` 安装工具部署而来，
 那么升级集群的详细信息，请参阅
-[升级 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+[升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 
 升级集群之后，要记得
 [安装最新版本的 `kubectl`](/zh/docs/tasks/tools/).
