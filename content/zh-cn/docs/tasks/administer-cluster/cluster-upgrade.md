@@ -69,7 +69,7 @@ Once you have upgraded the cluster, remember to
 [升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 
 升级集群之后，要记得
-[安装最新版本的 `kubectl`](/zh/docs/tasks/tools/).
+[安装最新版本的 `kubectl`](/zh-cn/docs/tasks/tools/).
 
 <!-- ### Manual deployments -->
 ### 手动部署 {#manual-deployments}
