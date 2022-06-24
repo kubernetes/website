@@ -11,7 +11,7 @@ content_type: task
 ## {{% heading "prerequisites" %}}
 
 
-* あなたの{{< glossary_tooltip text="Pod" term_id="pod" >}}は既にスケジュールされ、実行されているはずです。Pod がまだ実行されていない場合は、[Troubleshoot Applications](/docs/tasks/debug/debug-application/) から始めてください。
+* あなたの{{< glossary_tooltip text="Pod" term_id="pod" >}}は既にスケジュールされ、実行されているはずです。Podがまだ実行されていない場合は、[Troubleshoot Applications](/ja/docs/tasks/debug/debug-application/) から始めてください。
 
 * いくつかの高度なデバッグ手順では、Podがどのノードで動作しているかを知り、そのノードでコマンドを実行するためのシェルアクセス権を持っていることが必要です。`kubectl` を使用する標準的なデバッグ手順の実行には、そのようなアクセスは必要ではありません。
 
@@ -398,7 +398,7 @@ status:
 kubectl logs ${POD_NAME} ${CONTAINER_NAME}
 ```
 
-コンテナが以前にクラッシュしたことがある場合、以前のコンテナのクラッシュログにアクセスすることができます。
+コンテナが以前にクラッシュしたことがある場合、次のコマンドで以前のコンテナのクラッシュログにアクセスすることができます:
 
 ```shell
 kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
@@ -406,7 +406,7 @@ kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
 
 ## container execによるデバッグ {#container-exec}
 
-もし{{< glossary_tooltip text="container image" term_id="image" >}}がデバッグユーティリティを含んでいれば、LinuxやWindows OSのベースイメージからビルドしたイメージのように、`kubectl exec` で特定のコンテナ内でコマンドを実行することが可能です。
+もし{{< glossary_tooltip text="container image" term_id="image" >}}がデバッグユーティリティを含んでいれば、LinuxやWindows OSのベースイメージからビルドしたイメージのように、`kubectl exec` で特定のコンテナ内でコマンドを実行することが可能です:
 
 ```shell
 kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
@@ -422,25 +422,24 @@ kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${AR
 kubectl exec cassandra -- cat /var/log/cassandra/system.log
 ```
 
-例えば`kubectl exec`の`-i`と`-t`引数を使って、端末に接続されたシェルを実行することができます。
+例えば`kubectl exec`の`-i`と`-t`引数を使って、端末に接続されたシェルを実行することができます:
 
 ```shell
 kubectl exec -it cassandra -- sh
 ```
 
-詳しくは、[実行中のコンテナのシェルを取得する](/docs/tasks/debug/debug-application/get-shell-running-container/)を参照してください。
+詳しくは、[実行中のコンテナへのシェルを取得する](/ja/docs/tasks/debug/debug-application/get-shell-running-container/)を参照してください。
 
 ## エフェメラルコンテナによるデバッグ {#ephemeral-container}
 
 {{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
-{{< glossary_tooltip text="エフェメラルコンテナ" term_id="ephemeral-container" >}}は、コンテナがクラッシュしたり、コンテナイメージにデバッグユーティリティが含まれていないなどの理由で`kubectl exec`が不十分な場合に、対話的にトラブルシューティングを行うのに便利です([ディストロ・イメージ](
-https://github.com/GoogleContainerTools/distroless)の場合など)。
+{{< glossary_tooltip text="エフェメラルコンテナ" term_id="ephemeral-container" >}}は、コンテナがクラッシュしたり、コンテナイメージにデバッグユーティリティが含まれていないなどの理由で`kubectl exec`が不十分な場合に、対話的にトラブルシューティングを行うのに便利です([ディストロレスイメージ](https://github.com/GoogleContainerTools/distroless)の場合など)。
 
 ### エフェメラルコンテナを使用したデバッグ例 {#ephemeral-container-example}
 
 実行中のPodにエフェメラルコンテナを追加するには、`kubectl debug`コマンドを使用することができます。
-まず、サンプル用のPodを作成します。
+まず、サンプル用のPodを作成します:
 
 ```shell
 kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
@@ -471,13 +470,13 @@ If you don't see a command prompt, try pressing enter.
 / #
 ```
 
-このコマンドは新しいbusyboxコンテナを追加し、それにアタッチします。`target`パラメーターは、他のコンテナのプロセス名前空間をターゲットにします。これは`kubectl run`が作成するPodで[process namespace sharing](/docs/tasks/configure-pod-container/share-process-namespace/)を有効にしないため、指定する必要があります。
+このコマンドは新しいbusyboxコンテナを追加し、それにアタッチします。`target`パラメーターは、他のコンテナのプロセス名前空間をターゲットにします。これは`kubectl run`が作成するPodで[プロセス名前空間の共有](/ja/docs/tasks/configure-pod-container/share-process-namespace/)を有効にしないため、指定する必要があります。
 
 {{< note >}}
-`target` パラメーターは {{< glossary_tooltip text="Container Runtime" term_id="container-runtime" >}} でサポートされている必要があります。サポートされていない場合、エフェメラルコンテナは起動されないか、`ps`が他のコンテナ内のプロセスを表示しないように孤立したプロセス名前空間を使用して起動されます。
+`target` パラメーターは{{< glossary_tooltip text="Container Runtime" term_id="container-runtime" >}}でサポートされている必要があります。サポートされていない場合、エフェメラルコンテナは起動されないか、`ps`が他のコンテナ内のプロセスを表示しないように孤立したプロセス名前空間を使用して起動されます。
 {{< /note >}}
 
-新しく作成されたエフェメラルコンテナの状態は`kubectl describe`を使って見ることができます。
+新しく作成されたエフェメラルコンテナの状態は`kubectl describe`を使って見ることができます:
 
 ```shell
 kubectl describe pod ephemeral-demo
@@ -501,7 +500,7 @@ Ephemeral Containers:
 ...
 ```
 
-終了したら`kubectl delete`を使ってPodを削除してください。
+終了したら`kubectl delete`を使ってPodを削除してください:
 
 ```shell
 kubectl delete pod ephemeral-demo
@@ -511,7 +510,7 @@ kubectl delete pod ephemeral-demo
 
 Podの設定オプションによって、特定の状況でのトラブルシューティングが困難になることがあります。
 例えば、コンテナイメージにシェルが含まれていない場合、またはアプリケーションが起動時にクラッシュした場合は、`kubectl exec`を実行してトラブルシューティングを行うことができません。
-このような状況では、`kubectl debug` を使用してデバッグを支援するために設定値を変更したPodのコピーです。
+このような状況では、`kubectl debug` を使用してデバッグを支援するために設定値を変更したPodのコピーを作ることができます。
 
 ### 新しいコンテナを追加しながらPodをコピーします
 
@@ -539,7 +538,7 @@ root@myapp-debug:/#
 
 * `i`フラグを指定すると、デフォルトで`kubectl debug`が新しいコンテナにアタッチされます。これを防ぐには、`--attach=false`を指定します。セッションが切断された場合は、`kubectl attach`を使用して再接続することができます。
 
-* `share-processes` を指定すると、Pod 内のコンテナからプロセスを参照することができます。この仕組みについて詳しくは、[Share Process Namespace between Containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/)を参照してください。
+* `share-processes` を指定すると、Pod 内のコンテナからプロセスを参照することができます。この仕組みについて詳しくは、[Pod内のコンテナ間でプロセス名前空間を共有する](/ja/docs/tasks/configure-pod-container/share-process-namespace/)を参照してください。
 {{< /note >}}
 
 デバッグが終わったら、Podの後始末をするのを忘れないでください。
@@ -551,13 +550,13 @@ kubectl delete pod myapp myapp-debug
 ### Podのコマンドを変更しながらコピーします
 
 デバッグフラグを追加するためや、アプリケーションがクラッシュするためなど、コンテナのコマンドを変更すると便利な場合があります。
-アプリケーションのクラッシュをシミュレートするには、`kubectl run`を使用して、すぐに終了するコンテナを作成します。
+アプリケーションのクラッシュをシミュレートするには、`kubectl run`を使用して、すぐに終了するコンテナを作成します:
 
 ```
 kubectl run --image=busybox myapp -- false
 ```
 
-`kubectl describe pod myapp` を使用すると、このコンテナがクラッシュしていることがわかります。
+`kubectl describe pod myapp` を使用すると、このコンテナがクラッシュしていることがわかります:
 
 ```
 Containers:
@@ -592,7 +591,7 @@ If you don't see a command prompt, try pressing enter.
 * ` i` フラグは、デフォルトで `kubectl debug` がコンテナにアタッチされるようにします。これを防ぐには、`--attach=false`を指定します。セッションが切断された場合は、`kubectl attach` を使用して再接続することができます。
 {{< /note >}}
 
-デバッグが終わったら、Podの後始末をするのを忘れないでください。
+デバッグが終わったら、Podの後始末をするのを忘れないでください:
 
 ```shell
 kubectl delete pod myapp myapp-debug
@@ -602,13 +601,13 @@ kubectl delete pod myapp myapp-debug
 
 状況によっては、動作不良のPodを通常のプロダクション用のイメージから、デバッグ・ビルドや追加ユーティリティを含むイメージに変更したい場合があります。
 
-例として、`kubectl run`を使用してPodを作成します。
+例として、`kubectl run`を使用してPodを作成します:
 
 ```
 kubectl run myapp --image=busybox --restart=Never -- sleep 1d
 ```
 
-ここで、`kubectl debug`を使用してコピーを作成し、そのコンテナイメージを`ubuntu`に変更します。
+ここで、`kubectl debug`を使用してコピーを作成し、そのコンテナイメージを`ubuntu`に変更します:
 
 ```
 kubectl debug myapp --copy-to=myapp-debug --set-image=*=ubuntu
@@ -616,7 +615,7 @@ kubectl debug myapp --copy-to=myapp-debug --set-image=*=ubuntu
 
 `set-image`の構文は、`kubectl set image`と同じ`container_name=image`の構文を使用します。`*=ubuntu`は、全てのコンテナのイメージを`ubuntu`に変更することを意味します。
 
-デバッグが終わったら、Podの後始末をするのを忘れないでください。
+デバッグが終わったら、Podの後始末をするのを忘れないでください:
 
 ```shell kubectl delete pod myapp myapp-debug
 ```
@@ -624,7 +623,7 @@ kubectl debug myapp --copy-to=myapp-debug --set-image=*=ubuntu
 ## ノード上のシェルによるデバッグ {#node-shell-session}
 
 いずれの方法でもうまくいかない場合は、Podが動作しているノードを探し出し、ホストの名前空間で動作する特権Podを作成します。
-ノード上で `kubectl debug` を使って対話型のシェルを作成するには、以下を実行します。
+ノード上で `kubectl debug` を使って対話型のシェルを作成するには、以下を実行します:
 
 ```shell
 kubectl debug node/mynode -it --image=ubuntu
@@ -642,7 +641,7 @@ root@ek8s:/#
 * コンテナはホストのIPC、Network、PIDネームスペースで実行されます。
 * ノードのルートファイルシステムは`/host`にマウントされます。
 
-デバッグが終わったら、Podの後始末をするのを忘れないでください。
+デバッグが終わったら、Podの後始末をするのを忘れないでください:
 
 ```shell
 kubectl delete pod node-debugger-mynode-pdx84
