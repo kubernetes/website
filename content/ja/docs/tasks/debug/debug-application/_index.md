@@ -1,5 +1,5 @@
 ---
-title: "Troubleshooting Applications"
+title: アプリケーションのトラブルシューティング
 description: Debugging common containerized application issues.
 weight: 20
 ---
