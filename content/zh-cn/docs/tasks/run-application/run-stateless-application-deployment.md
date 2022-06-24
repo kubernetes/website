@@ -10,7 +10,7 @@ weight: 10
 <!--
 This page shows how to run an application using a Kubernetes Deployment object.
 -->
-本文介绍如何通过 Kubernetes Deployment 对象去运行一个应用.
+本文介绍如何通过 Kubernetes Deployment 对象去运行一个应用。
 
 ## {{% heading "objectives" %}}
 
@@ -19,9 +19,9 @@ This page shows how to run an application using a Kubernetes Deployment object.
 * Use kubectl to list information about the deployment.
 * Update the deployment.
 -->
-* 创建一个 nginx Deployment.
-* 使用 kubectl 列举关于 Deployment 的信息.
-* 更新 Deployment。
+* 创建一个 nginx Deployment。
+* 使用 kubectl 列举该 Deployment 的相关信息。
+* 更新该 Deployment。
 
 ## {{% heading "prerequisites" %}}
 
@@ -56,7 +56,7 @@ Docker 镜像的 Deployment：
 <!--
 1. Display information about the Deployment:
 -->
-2. 显示 Deployment 相关信息：
+2. 显示该 Deployment 的相关信息：
 
    ```shell
    kubectl describe deployment nginx-deployment
@@ -100,7 +100,7 @@ Docker 镜像的 Deployment：
 <!--
 1. List the Pods created by the deployment:
 -->
-3. 列出 Deployment 创建的 Pods：
+3. 列出该 Deployment 创建的 Pod：
 
    ```shell
    kubectl get pods -l app=nginx
@@ -139,7 +139,7 @@ specifies that the deployment should be updated to use nginx 1.16.1.
 -->
 ## 更新 Deployment
 
-你可以通过更新一个新的 YAML 文件来更新 Deployment。下面的 YAML 文件指定该
+你可以通过应用一个新的 YAML 文件来更新 Deployment。下面的 YAML 文件指定该
 Deployment 镜像更新为 nginx 1.16.1。
 
 {{< codenew file="application/deployment-update.yaml" >}}
@@ -156,7 +156,7 @@ Deployment 镜像更新为 nginx 1.16.1。
 <!--
 1. Watch the deployment create pods with new names and delete the old pods:
 -->
-2. 查看该 Deployment 以新的名称创建 Pods 同时删除旧的 Pods：
+2. 查看该 Deployment 以新的名称创建 Pod 同时删除旧的 Pod：
 
    ```shell
    kubectl get pods -l app=nginx
@@ -170,8 +170,8 @@ should have four Pods:
 -->
 ## 通过增加副本数来扩缩应用
 
-你可以通过应用新的 YAML 文件来增加 Deployment 中 Pods 的数量。
-下面的 YAML 文件将 `replicas` 设置为 4，指定该 Deployment 应有 4 个 Pods：
+你可以通过应用新的 YAML 文件来增加 Deployment 中 Pod 的数量。
+下面的 YAML 文件将 `replicas` 设置为 4，指定该 Deployment 应有 4 个 Pod：
 
 {{< codenew file="application/deployment-scale.yaml" >}}
 
@@ -187,7 +187,7 @@ should have four Pods:
 <!--
 1. Verify that the Deployment has four Pods:
 -->
-2. 验证 Deployment 有 4 个 Pods：
+2. 验证该 Deployment 有 4 个 Pod：
 
    ```shell
    kubectl get pods -l app=nginx
@@ -227,9 +227,9 @@ which in turn uses a ReplicaSet. Before the Deployment and ReplicaSet were
 added to Kubernetes, replicated applications were configured using a
 [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
 -->
-## ReplicationControllers -- 旧的方式
+## ReplicationController —— 旧的方式
 
-创建一个多副本应用首选方法是使用 Deployment，Deployment 内部使用 ReplicaSet。
+创建一个多副本应用首选方法是使用 Deployment，该 Deployment 内部将轮流使用 ReplicaSet。
 在 Deployment 和 ReplicaSet 被引入到 Kubernetes 之前，多副本应用通过
 [ReplicationController](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/)
 来配置。
@@ -240,4 +240,3 @@ added to Kubernetes, replicated applications were configured using a
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 -->
 * 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
-
