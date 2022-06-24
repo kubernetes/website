@@ -12,8 +12,8 @@ no_list: true
 
  2つのセクションから構成されています:
 
-* [Debugging your application](/docs/tasks/debug/debug-application/) - Kubernetesにコードをデプロイしていて、なぜ動かないのか不思議に思っているユーザーに便利です。
-* [Debugging your cluster](/docs/tasks/debug/debug-cluster/) - クラスター管理者やKubernetesクラスターに不満がある人に有用です。
+* [Debugging your application](/ja/docs/tasks/debug/debug-application/) - Kubernetesにコードをデプロイしていて、なぜ動かないのか不思議に思っているユーザーに便利です。
+* [Debugging your cluster](/ja/docs/tasks/debug/debug-cluster/) - クラスター管理者やKubernetesクラスターに不満がある人に有用です。
 
 また、使用している[リリース](https://github.com/kubernetes/kubernetes/releases)の既知の問題を確認する必要があります。
 
