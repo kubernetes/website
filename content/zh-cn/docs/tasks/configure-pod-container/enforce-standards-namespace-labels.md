@@ -44,14 +44,14 @@ This manifest defines a Namespace `my-baseline-namespace` that:
 - _Blocks_ any pods that don't satisfy the `baseline` policy requirements.
 - Generates a user-facing warning and adds an audit annotation to any created pod that does not
   meet the `restricted` policy requirements.
-- Pins the versions of the `baseline` and `restricted` policies to v{{< skew latestVersion >}}.
+- Pins the versions of the `baseline` and `restricted` policies to v{{< skew currentVersion >}}.
 -->
 下面的清单定义了一个 `my-baseline-namespace` 名字空间，其中
 
 - *阻止*任何不满足 `baseline` 策略要求的 Pods；
 - 针对任何无法满足 `restricted` 策略要求的、已创建的 Pod 为用户生成警告信息，
   并添加审计注解；
-- 将 `baseline` 和 `restricted` 策略的版本锁定到 v{{< skew latestVersion >}}。
+- 将 `baseline` 和 `restricted` 策略的版本锁定到 v{{< skew currentVersion >}}。
 
 ```yaml
 apiVersion: v1
@@ -60,13 +60,13 @@ metadata:
   name: my-baseline-namespace
   labels:
     pod-security.kubernetes.io/enforce: baseline
-    pod-security.kubernetes.io/enforce-version: v{{< skew latestVersion >}}
+    pod-security.kubernetes.io/enforce-version: v{{< skew currentVersion >}}
 
     # 我们将这些标签设置为我们所 _期望_ 的 `enforce` 级别
     pod-security.kubernetes.io/audit: restricted
-    pod-security.kubernetes.io/audit-version: v{{< skew latestVersion >}}
+    pod-security.kubernetes.io/audit-version: v{{< skew currentVersion >}}
     pod-security.kubernetes.io/warn: restricted
-    pod-security.kubernetes.io/warn-version: v{{< skew latestVersion >}}
+    pod-security.kubernetes.io/warn-version: v{{< skew currentVersion >}}
 ```
 
 <!--
@@ -135,14 +135,14 @@ kubectl get namespaces --selector='!pod-security.kubernetes.io/enforce'
 
 <!--
 You can update a specific namespace as well. This command adds the `enforce=restricted`
-policy to `my-existing-namespace`, pinning the restricted policy version to v{{< skew latestVersion >}}.
+policy to `my-existing-namespace`, pinning the restricted policy version to v{{< skew currentVersion >}}.
 -->
 你也可以更新特定的名字空间。下面的命令将 `enforce=restricted` 策略应用到
-`my-existing-namespace` 名字空间，将 restricted 策略的版本锁定到 v{{< skew latestVersion >}}。
+`my-existing-namespace` 名字空间，将 restricted 策略的版本锁定到 v{{< skew currentVersion >}}。
 
 ```shell
 kubectl label --overwrite ns my-existing-namespace \
   pod-security.kubernetes.io/enforce=restricted \
-  pod-security.kubernetes.io/enforce-version=v{{< skew latestVersion >}}
+  pod-security.kubernetes.io/enforce-version=v{{< skew currentVersion >}}
 ```
 
