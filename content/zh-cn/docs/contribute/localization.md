@@ -176,12 +176,12 @@ Let Kubernetes SIG Docs know you're interested in creating a localization! Join 
 其他本地化团队很乐意帮助你入门并回答你的任何问题。
 
 <!--
-Please also consider participating in the [SIG Docs Localization Subgroup meeting](https://github.com/kubernetes/community/tree/master/sig-docs).  The mission of the SIG Docs localization subgroup is to work across the SIG Docs localization teams to collaborate on defining and documenting the processes for creating localized contribution guides. In addition, the SIG Docs localization subgroup will look for opportunities for the creation and sharing of common tools across localization teams and also serve to identify new requirements to the SIG Docs Leadership team.  If you have questions about this meeting, please inquire on the [SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations).
+Please also consider participating in the [SIG Docs Localization Subgroup meeting](https://github.com/kubernetes/community/tree/main/sig-docs).  The mission of the SIG Docs localization subgroup is to work across the SIG Docs localization teams to collaborate on defining and documenting the processes for creating localized contribution guides. In addition, the SIG Docs localization subgroup will look for opportunities for the creation and sharing of common tools across localization teams and also serve to identify new requirements to the SIG Docs Leadership team.  If you have questions about this meeting, please inquire on the [SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations).
 
 You can also create a Slack channel for your localization in the `kubernetes/community` repository. For an example of adding a Slack channel, see the PR for [adding a channel for Persian](https://github.com/kubernetes/community/pull/4980).
 -->
 也请考虑参加
-[SIG Docs 本地化小组的会议](https://github.com/kubernetes/community/tree/master/sig-docs)。
+[SIG Docs 本地化小组的会议](https://github.com/kubernetes/community/tree/main/sig-docs)。
 SIG Docs 本地化小组的任务是与 SIG Docs 本地化团队合作，
 共同定义和记录创建本地化贡献指南的流程。
 此外，SIG Docs 本地化小组将寻找机会在本地化团队中创建和共享通用工具，
