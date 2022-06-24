@@ -99,6 +99,6 @@ operator to use or manage a cluster.
 ## Design Docs
 
 An archive of the design docs for Kubernetes functionality. Good starting points are
-[Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
-[Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+[Kubernetes Architecture](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) and
+[Kubernetes Design Overview](https://git.k8s.io/design-proposals-archive).
 

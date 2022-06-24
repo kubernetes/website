@@ -23,7 +23,7 @@ importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
 scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
 -->
-[Pod](/zh/docs/concepts/workloads/pods/) 可以有 _优先级_。
+[Pod](/zh-cn/docs/concepts/workloads/pods/) 可以有 _优先级_。
 优先级表示一个 Pod 相对于其他 Pod 的重要性。
 如果一个 Pod 无法被调度，调度程序会尝试抢占（驱逐）较低优先级的 Pod，
 以使悬决 Pod 可以被调度。
@@ -44,7 +44,7 @@ for details.
 在一个并非所有用户都是可信的集群中，恶意用户可能以最高优先级创建 Pod，
 导致其他 Pod 被驱逐或者无法被调度。
 管理员可以使用 ResourceQuota 来阻止用户创建高优先级的 Pod。
-参见[默认限制优先级消费](/zh/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)。
+参见[默认限制优先级消费](/zh-cn/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)。
 
 {{< /warning >}}
 
@@ -82,7 +82,7 @@ These are common classes and are used to [ensure that critical components are al
 -->
 Kubernetes 已经提供了 2 个 PriorityClass：
 `system-cluster-critical` 和 `system-node-critical`。
-这些是常见的类，用于[确保始终优先调度关键组件](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。
+这些是常见的类，用于[确保始终优先调度关键组件](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。
 {{< /note >}}
 
 <!-- 
@@ -103,7 +103,7 @@ PriorityClass 是一个无名称空间对象，它定义了从优先级类名称
 名称在 PriorityClass 对象元数据的 `name` 字段中指定。
 值在必填的 `value` 字段中指定。值越大，优先级越高。
 PriorityClass 对象的名称必须是有效的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)，
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)，
 并且它不能以 `system-` 为前缀。
 
 <!--  
@@ -377,7 +377,7 @@ priority Pods to zero or a small number.
 #### 被抢占牺牲者的体面终止
 
 当 Pod 被抢占时，牺牲者会得到他们的
-[体面终止期](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+[体面终止期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 它们可以在体面终止期内完成工作并退出。如果它们不这样做就会被杀死。
 这个体面终止期在调度程序抢占 Pod 的时间点和待处理的 Pod (P) 
 可以在节点 (N) 上调度的时间点之间划分出了一个时间跨度。
@@ -399,7 +399,7 @@ despite their PDBs being violated.
 -->
 #### 支持 PodDisruptionBudget，但不保证
 
-[PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/) 
+[PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/) 
 (PDB) 允许多副本应用程序的所有者限制因自愿性质的干扰而同时终止的 Pod 数量。
 Kubernetes 在抢占 Pod 时支持 PDB，但对 PDB 的支持是基于尽力而为原则的。
 调度器会尝试寻找不会因被抢占而违反 PDB 的牺牲者，但如果没有找到这样的牺牲者，
@@ -639,7 +639,7 @@ exceeding its requests, it won't be evicted. Another Pod with higher priority
 that exceeds its requests may be evicted.
 -->
 kubelet 使用优先级来确定
-[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/) Pod 的顺序。
+[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/) Pod 的顺序。
 你可以使用 QoS 类来估计 Pod 最有可能被驱逐的顺序。kubelet 根据以下因素对 Pod 进行驱逐排名：
 
   1. 对紧俏资源的使用是否超过请求值
@@ -647,7 +647,7 @@ kubelet 使用优先级来确定
   1. 相对于请求的资源使用量
 
 有关更多详细信息，请参阅
-[kubelet 驱逐时 Pod 的选择](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)。
+[kubelet 驱逐时 Pod 的选择](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)。
 
 当某 Pod 的资源用量未超过其请求时，kubelet 节点压力驱逐不会驱逐该 Pod。
 如果优先级较低的 Pod 没有超过其请求，则不会被驱逐。
@@ -663,7 +663,7 @@ kubelet 使用优先级来确定
 * Learn about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 -->
 * 阅读有关将 ResourceQuota 与 PriorityClass 结合使用的信息：
-  [默认限制优先级消费](/zh/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
-* 了解 [Pod 干扰](/zh/docs/concepts/workloads/pods/disruptions/)
+  [默认限制优先级消费](/zh-cn/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
+* 了解 [Pod 干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/)
 * 了解 [API 发起的驱逐](/docs/reference/generated/kubernetes-api/v1.23/)
-* 了解[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* 了解[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)

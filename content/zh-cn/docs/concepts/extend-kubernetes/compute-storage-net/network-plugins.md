@@ -20,6 +20,11 @@ Kubernetes {{< skew currentVersion >}} 支持[容器网络接口](https://github
 你必须使用和你的集群相兼容并且满足你的需求的 CNI 插件。
 在更广泛的 Kubernetes 生态系统中你可以使用不同的插件（开源和闭源）。
 
+<!--
+A CNI plugin is required to implement the [Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model).
+-->
+要实现 [Kubernetes 网络模型](/zh-cn/docs/concepts/services-networking/#the-kubernetes-network-model)，你需要一个 CNI 插件。
+
 <!-- 
 You must use a CNI plugin that is compatible with the 
 [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) or later
@@ -37,72 +42,88 @@ CNI 规范的插件（插件可以兼容多个规范版本）。
 <!--
 ## Installation
 
-A CNI plugin is required to implement the [Kubernetes network model](/docs/concepts/services-networking/#the-kubernetes-network-model). The CRI manages its own CNI plugins. There are two Kubelet command line parameters to keep in mind when using plugins:
-
-* `cni-bin-dir`: Kubelet probes this directory for plugins on startup
-* `network-plugin`: The network plugin to use from `cni-bin-dir`.  It must match the name reported by a plugin probed from the plugin directory.  For CNI plugins, this is "cni".
+A Container Runtime, in the networking context, is a daemon on a node configured to provide CRI Services for kubelet. In particular, the Container Runtime must be configured to load the CNI plugins required to implement the Kubernetes network model.
 -->
-## 安装
+## 安装   {#installation}
 
-CNI 插件需要实现 [Kubernetes 网络模型](/zh/docs/concepts/services-networking/#the-kubernetes-network-model)。
-CRI 管理它自己的 CNI 插件。
-在使用插件时，需要记住两个 kubelet 命令行参数：
+在网络语境中，容器运行时（Container Runtime）是在节点上的守护进程，
+被配置用来为 kubelet 提供 CRI 服务。具体而言，容器运行时必须配置为加载所需的
+CNI 插件，从而实现 Kubernetes 网络模型。
 
-* `cni-bin-dir`： kubelet 在启动时探测这个目录中的插件
-* `network-plugin`： 要使用的网络插件来自 `cni-bin-dir`。
-  它必须与从插件目录探测到的插件报告的名称匹配。
-  对于 CNI 插件，其值为 "cni"。
+{{< note >}}
+<!--
+Prior to Kubernetes 1.24, the CNI plugins could also be managed by the kubelet using the `cni-bin-dir` and `network-plugin` command-line parameters.
+These command-line parameters were removed in Kubernetes 1.24, with management of the CNI no longer in scope for kubelet.
+-->
+在 Kubernetes 1.24 之前，CNI 插件也可以由 kubelet 使用命令行参数 `cni-bin-dir`
+和 `network-plugin` 管理。Kubernetes 1.24 移除了这些命令行参数，
+CNI 的管理不再是 kubelet 的工作。
+
+<!--
+See [Troubleshooting CNI plugin-related errors](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)
+if you are facing issues following the removal of dockershim.
+-->
+如果你在移除 dockershim 之后遇到问题，请参阅[排查 CNI 插件相关的错误](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)。
+{{< /note >}}
+
+<!--
+For specific information about how a Container Runtime manages the CNI plugins, see the documentation for that Container Runtime, for example:
+-->
+要了解容器运行时如何管理 CNI 插件的具体信息，可参见对应容器运行时的文档，例如：
+
+- [containerd](https://github.com/containerd/containerd/blob/main/script/setup/install-cni)
+- [CRI-O](https://github.com/cri-o/cri-o/blob/main/contrib/cni/README.md)
+
+<!--
+For specific information about how to install and manage a CNI plugin, see the documentation for that plugin or [networking provider](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+-->
+要了解如何安装和管理 CNI 插件的具体信息，可参阅对应的插件或
+[网络驱动（Networking Provider）](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)
+的文档。
 
 <!--
 ## Network Plugin Requirements
 
-Besides providing the [`NetworkPlugin` interface](https://github.com/kubernetes/kubernetes/tree/{{< param "fullversion" >}}/pkg/kubelet/dockershim/network/plugins.go) to configure and clean up pod networking, the plugin may also need specific support for kube-proxy.  The iptables proxy obviously depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.  For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.  If the plugin does not use a Linux bridge (but instead something like Open vSwitch or some other mechanism) it should ensure container traffic is appropriately routed for the proxy.
-
-By default if no kubelet network plugin is specified, the `noop` plugin is used, which sets `net/bridge/bridge-nf-call-iptables=1` to ensure simple configurations (like Docker with a bridge) work correctly with the iptables proxy.
+For plugin developers and users who regularly build or deploy Kubernetes, the plugin may also need specific configuration to support kube-proxy.
+The iptables proxy depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.
+For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.
+If the plugin does not use a Linux bridge (but instead something like Open vSwitch or some other mechanism) it should ensure container traffic is appropriately routed for the proxy.
 -->
-## 网络插件要求
+## 网络插件要求   {#network-plugin-requirements}
 
-除了提供
-[`NetworkPlugin` 接口](https://github.com/kubernetes/kubernetes/tree/{{< param "fullversion" >}}/pkg/kubelet/dockershim/network/plugins.go)
-来配置和清理 Pod 网络之外，该插件还可能需要对 kube-proxy 的特定支持。
-iptables 代理显然依赖于 iptables，插件可能需要确保 iptables 能够监控容器的网络通信。
+对于插件开发人员以及时常会构建并部署 Kubernetes 的用户而言，
+插件可能也需要特定的配置来支持 kube-proxy。
+iptables 代理依赖于 iptables，插件可能需要确保 iptables 能够监控容器的网络通信。
 例如，如果插件将容器连接到 Linux 网桥，插件必须将 `net/bridge/bridge-nf-call-iptables`
-系统参数设置为`1`，以确保 iptables 代理正常工作。
+sysctl 参数设置为 `1`，以确保 iptables 代理正常工作。
 如果插件不使用 Linux 网桥（而是类似于 Open vSwitch 或者其它一些机制），
 它应该确保为代理对容器通信执行正确的路由。
+
+<!--
+By default if no kubelet network plugin is specified, the `noop` plugin is used, which sets `net/bridge/bridge-nf-call-iptables=1` to ensure simple configurations (like Docker with a bridge) work correctly with the iptables proxy.
+-->
 
 默认情况下，如果未指定 kubelet 网络插件，则使用 `noop` 插件，
 该插件设置 `net/bridge/bridge-nf-call-iptables=1`，以确保简单的配置
 （如带网桥的 Docker ）与 iptables 代理正常工作。
 
 <!--
-### CNI
+### Loopback CNI
 
-The CNI plugin is selected by passing Kubelet the `--network-plugin=cni` command-line option.  Kubelet reads a file from `--cni-conf-dir` (default `/etc/cni/net.d`) and uses the CNI configuration from that file to set up each pod's network.  The CNI configuration file must match the [CNI specification](https://github.com/containernetworking/cni/blob/master/SPEC.md#network-configuration), and any required CNI plugins referenced by the configuration must be present in `--cni-bin-dir` (default `/opt/cni/bin`).
-
-If there are multiple CNI configuration files in the directory, the kubelet uses the configuration file that comes first by name in lexicographic order.
-
-In addition to the CNI plugin specified by the configuration file, Kubernetes requires the standard CNI [`lo`](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) plugin, at minimum version 0.2.0
+In addition to the CNI plugin installed on the nodes for implementing the Kubernetes network model, Kubernetes also requires the container runtimes to provide a loopback interface `lo`, which is used for each sandbox (pod sandboxes, vm sandboxes, ...).
+Implementing the loopback interface can be accomplished by re-using the [CNI loopback plugin.](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) or by developing your own code to achieve this (see [this example from CRI-O](https://github.com/cri-o/ocicni/blob/release-1.24/pkg/ocicni/util_linux.go#L91)).
 -->
-### CNI
+### 本地回路 CNI   {#loopback-cni}
 
-通过给 Kubelet 传递 `--network-plugin=cni` 命令行选项可以选择 CNI 插件。
-Kubelet 从 `--cni-conf-dir` （默认是 `/etc/cni/net.d`） 读取文件并使用
-该文件中的 CNI 配置来设置各个 Pod 的网络。
-CNI 配置文件必须与
-[CNI 规约](https://github.com/containernetworking/cni/blob/master/SPEC.md#network-configuration)
-匹配，并且配置所引用的所有所需的 CNI 插件都应存在于
-`--cni-bin-dir`（默认是 `/opt/cni/bin`）下。
-
-如果这个目录中有多个 CNI 配置文件，kubelet 将会使用按文件名的字典顺序排列
-的第一个作为配置文件。
-
-除了配置文件指定的 CNI 插件外，Kubernetes 还需要标准的 CNI
-[`lo`](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go)
-插件，最低版本是0.2.0。
+除了安装到节点上用于实现 Kubernetes 网络模型的 CNI 插件外，Kubernetes
+还需要容器运行时提供一个本地回路接口 `lo`，用于各个沙箱（Pod 沙箱、虚机沙箱……）。
+实现本地回路接口的工作可以通过复用
+[CNI 本地回路插件](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go)来实现，
+也可以通过开发自己的代码来实现
+（参阅 [CRI-O 中的示例](https://github.com/cri-o/ocicni/blob/release-1.24/pkg/ocicni/util_linux.go#L91)）。
 
 <!--
-#### Support hostPort
+### Support hostPort
 
 The CNI networking plugin supports `hostPort`. You can use the official [portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)
 plugin offered by the CNI plugin team or use your own plugin with portMapping functionality.
@@ -110,7 +131,7 @@ plugin offered by the CNI plugin team or use your own plugin with portMapping fu
 If you want to enable `hostPort` support, you must specify `portMappings capability` in your `cni-conf-dir`.
 For example:
 -->
-#### 支持 hostPort
+### 支持 hostPort   {#support-hostport}
 
 CNI 网络插件支持 `hostPort`。 你可以使用官方
 [portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)
@@ -149,7 +170,7 @@ CNI 网络插件支持 `hostPort`。 你可以使用官方
 ```
 
 <!--
-#### Support traffic shaping
+### Support traffic shaping
 
 **Experimental Feature**
 
@@ -159,7 +180,7 @@ plugin offered by the CNI plugin team or use your own plugin with bandwidth cont
 If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file
 (default `/etc/cni/net.d`) and ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
 -->
-#### 支持流量整形
+### 支持流量整形   {#support-traffic-shaping}
 
 **实验功能**
 
@@ -216,16 +237,6 @@ metadata:
     kubernetes.io/egress-bandwidth: 1M
 ...
 ```
-<!--
-## Usage Summary
-
-* `--network-plugin=cni` specifies that we use the `cni` network plugin with actual CNI plugin binaries located in `--cni-bin-dir` (default `/opt/cni/bin`) and CNI plugin configuration located in `--cni-conf-dir` (default `/etc/cni/net.d`).
--->
-## 用法总结
-
-* `--network-plugin=cni` 用来表明我们要使用 `cni` 网络插件，实际的 CNI 插件
-  可执行文件位于 `--cni-bin-dir`（默认是 `/opt/cni/bin`）下， CNI 插件配置位于
-  `--cni-conf-dir`（默认是 `/etc/cni/net.d`）下。
 
 ## {{% heading "whatsnext" %}}
 

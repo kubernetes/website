@@ -53,7 +53,7 @@ component.
 -->
 ## 控制面行为   {#control-plane-behavior}
 
-所有的[控制面组件](/zh/docs/concepts/overview/components/#control-plane-components)
+所有的[控制面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)
 都支持以一组可相互替换的资源池的形式来运行，每个组件都有多个副本。
 
 <!--
@@ -108,7 +108,7 @@ These labels can include
 -->
 节点启动时，每个节点上的 kubelet 会向 Kubernetes API 中代表该 kubelet 的 Node 对象
 添加 {{< glossary_tooltip text="标签" term_id="label" >}}。
-这些标签可能包含[区信息](/zh/docs/reference/labels-annotations-taints/#topologykubernetesiozone)。
+这些标签可能包含[区信息](/zh-cn/docs/reference/labels-annotations-taints/#topologykubernetesiozone)。
 
 <!--
 If your cluster spans multiple zones or regions, you can use node labels
@@ -122,7 +122,7 @@ Pods for better expected availability, reducing the risk that a correlated
 failure affects your whole workload.
 -->
 如果你的集群跨了多个可用区或者地理区域，你可以使用节点标签，结合
-[Pod 拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
+[Pod 拓扑分布约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 来控制如何在你的集群中多个失效域之间分布 Pods。这里的失效域可以是
 地理区域、可用区甚至是特定节点。
 这些提示信息使得{{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}
@@ -178,7 +178,7 @@ You can apply [node selector constraints](/docs/concepts/scheduling-eviction/ass
 to Pods that you create, as well as to Pod templates in workload resources
 such as Deployment, StatefulSet, or Job.
 -->
-你可以应用[节点选择算符约束](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
+你可以应用[节点选择算符约束](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
 到你所创建的 Pods 上，或者为 Deployment、StatefulSet 或 Job 这类工作负载资源
 中的 Pod 模板设置此类约束。
 
@@ -195,7 +195,7 @@ are only placed into the same zone as that volume.
 ## 跨区的存储访问
 
 当创建持久卷时，`PersistentVolumeLabel` 
-[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
+[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
 会自动向那些链接到特定区的 PersistentVolume 添加区标签。
 {{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}通过其
 `NoVolumeZoneConflict` 断言确保申领给定 PersistentVolume 的 Pods 只会
@@ -211,7 +211,7 @@ see [Allowed topologies](/docs/concepts/storage/storage-classes/#allowed-topolog
 你可以为 PersistentVolumeClaim 指定{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}
 以设置该类中的存储可以使用的失效域（区）。
 要了解如何配置能够感知失效域或区的 StorageClass，请参阅
-[可用的拓扑逻辑](/zh/docs/concepts/storage/storage-classes/#allowed-topologies)。
+[可用的拓扑逻辑](/zh-cn/docs/concepts/storage/storage-classes/#allowed-topologies)。
 
 <!--
 ## Networking
@@ -227,7 +227,7 @@ Check your cloud provider's documentation for details.
 ## 网络  {#networking}
 
 Kubernetes 自身不提供与可用区相关的联网配置。
-你可以使用[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+你可以使用[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 来配置集群的联网，该网络解决方案可能拥有一些与可用区相关的元素。
 例如，如果你的云提供商支持 `type=LoadBalancer` 的 Service，则负载均衡器
 可能仅会将请求流量发送到运行在负责处理给定连接的负载均衡器组件所在的区。
@@ -278,5 +278,5 @@ To learn how the scheduler places Pods in a cluster, honoring the configured con
 visit [Scheduling and Eviction](/docs/concepts/scheduling-eviction/).
 -->
 要了解调度器如何在集群中放置 Pods 并遵从所配置的约束，可参阅
-[调度与驱逐](/zh/docs/concepts/scheduling-eviction/)。
+[调度与驱逐](/zh-cn/docs/concepts/scheduling-eviction/)。
 

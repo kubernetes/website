@@ -26,7 +26,7 @@ To write applications using the [Kubernetes REST API](/docs/reference/using-api/
 you do not need to implement the API calls and request/response types yourself.
 You can use a client library for the programming language you are using.
 -->
-在使用 [Kubernetes REST API](/zh/docs/reference/using-api/) 编写应用程序时，
+在使用 [Kubernetes REST API](/zh-cn/docs/reference/using-api/) 编写应用程序时，
 你并不需要自己实现 API 调用和 “请求/响应” 类型。
 你可以根据自己的编程语言需要选择使用合适的客户端库。
 
@@ -39,7 +39,7 @@ format to read the credentials and the API Server address.
 -->
 客户端库通常为你处理诸如身份验证之类的常见任务。
 如果 API 客户端在 Kubernetes 集群中运行，大多数客户端库可以发现并使用 Kubernetes 服务帐户进行身份验证，
-或者能够理解 [kubeconfig 文件](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+或者能够理解 [kubeconfig 文件](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 格式来读取凭据和 API 服务器地址。
 
 <!--

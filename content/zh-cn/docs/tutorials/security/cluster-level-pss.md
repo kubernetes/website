@@ -29,12 +29,12 @@ To apply Pod Security Standards to specific namespaces, refer to [Apply Pod Secu
 Pod 安全准入（PSA）在 v1.23 及更高版本默认启用，
 因为它[升级到测试版（beta）](/blog/2021/12/09/pod-security-admission-beta/)。
 Pod 安全准入是在创建 Pod 时应用
-[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)的准入控制器。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)的准入控制器。
 本教程将向你展示如何在集群级别实施 `baseline` Pod 安全标准，
 该标准将标准配置应用于集群中的所有名称空间。
 
 要将 Pod 安全标准应用于特定名字空间，
-请参阅[在名字空间级别应用 Pod 安全标准](/zh/docs/tutorials/security/ns-level-pss)。
+请参阅[在名字空间级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/ns-level-pss)。
 
 ## {{% heading "prerequisites" %}}
 <!-- 
@@ -60,9 +60,9 @@ that are most appropriate for your configuration, do the following:
 -->
 ## 正确选择要应用的 Pod 安全标准  {#choose-the-right-pod-security-standard-to-apply}
 
-[Pod 安全准入](/zh/docs/concepts/security/pod-security-admission/)
+[Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)
 允许你使用以下模式应用内置的
-[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/):
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/):
 `enforce`、`audit` 和 `warn`。
 
 要收集信息以便选择最适合你的配置的 Pod 安全标准，请执行以下操作：
@@ -431,7 +431,7 @@ created.
 - [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 - [Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss/)
 -->
-- 运行一个 [shell 脚本](/zh/examples/security/kind-with-cluster-level-baseline-pod-security.sh)
+- 运行一个 [shell 脚本](/zh-cn/examples/security/kind-with-cluster-level-baseline-pod-security.sh)
   一次执行前面的所有步骤：
   1. 创建一个基于 Pod 安全标准的集群级别配置
   2. 创建一个文件让 API 服务器消费这个配置
@@ -439,6 +439,6 @@ created.
   4. 设置 kubectl 上下文为这个新集群
   5. 创建一个最小的 Pod yaml 文件
   6. 应用这个文件，在新集群中创建一个 Pod
-- [Pod 安全准入](/zh/docs/concepts/security/pod-security-admission/)
-- [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
-- [在名字空间级别应用 Pod 安全标准](/zh/docs/tutorials/security/ns-level-pss/)
+- [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)
+- [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)
+- [在名字空间级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/ns-level-pss/)

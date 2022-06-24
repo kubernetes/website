@@ -2,7 +2,7 @@
 title: 容器生命周期钩子（Container Lifecycle Hooks）
 id: container-lifecycle-hooks
 date: 2018-10-08
-full_link: /zh/docs/concepts/containers/container-lifecycle-hooks/
+full_link: /zh-cn/docs/concepts/containers/container-lifecycle-hooks/
 short_description: >
   生命周期钩子暴露容器管理生命周期中的事件，允许用户在事件发生时运行代码。
 

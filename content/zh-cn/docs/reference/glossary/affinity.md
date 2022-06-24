@@ -36,8 +36,8 @@ There are two kinds of affinity:
 * [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)
 * [pod-to-pod affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
 -->
-* [节点亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)
-* [Pod 间亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
+* [节点亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)
+* [Pod 间亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
 
 <!--
 The rules are defined using the Kubernetes {{< glossary_tooltip term_id="label" text="labels">}},

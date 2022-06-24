@@ -30,7 +30,7 @@ discussion.
 你可以自行决定，且欢迎使用 PR 来为此文档提供修改意见。
 
 关于为 Kubernetes 文档贡献新内容的更多信息，可以参考
-[文档内容指南](/zh/docs/contribute/style/content-guide/)。
+[文档内容指南](/zh-cn/docs/contribute/style/content-guide/)。
 
 样式指南的变更是 SIG Docs 团队集体决定。
 如要提议更改或新增条目，请先将其添加到下一次 SIG Docs 例会的
@@ -46,7 +46,7 @@ and representing feature state.
 -->
 {{< note >}}
 Kubernetes 文档使用带调整的 [Goldmark Markdown 解释器](https://github.com/yuin/goldmark/)
-和一些 [Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/) 来支持词汇表项、Tab
+和一些 [Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/) 来支持词汇表项、Tab
 页以及特性门控标注。
 {{< /note >}}
 
@@ -68,7 +68,7 @@ Kubernetes 文档已经被翻译为多个语种
 （参见 [本地化 READMEs](https://github.com/kubernetes/website/blob/main/README.md#localization-readmemds)）。
 
 为文档提供一种新的语言翻译的途径可以在
-[本地化 Kubernetes 文档](/zh/docs/contribute/localization/)中找到。
+[本地化 Kubernetes 文档](/zh-cn/docs/contribute/localization/)中找到。
 
 英语文档使用美国英语的拼写和语法。
 
@@ -93,8 +93,8 @@ The following examples focus on capitalization. For more information about forma
 
 ### 对 API 对象使用大写驼峰式命名法  {#use-upper-camel-case-for-api-objects}
 
-当你与指定的 API 对象进行交互时，使用 [大写驼峰式命名法](https://en.wikipedia.org/wiki/Camel_case)，也被称为帕斯卡拼写法（PascalCase）.
-你可能在 [API 参考](/docs/reference/kubernetes-api/) 中看到不同的大小写形式，
+当你与指定的 API 对象进行交互时，使用[大写驼峰式命名法](https://en.wikipedia.org/wiki/Camel_case)，也被称为帕斯卡拼写法（PascalCase）。
+你可能在 [API 参考](/zh-cn/docs/reference/kubernetes-api/)中看到不同的大小写形式，
 例如 "configMap"。在一般性的文档中，最好使用大写驼峰形式，将之称作 "ConfigMap"。
 
 在一般性地讨论 API 对象时，使用
@@ -103,8 +103,8 @@ The following examples focus on capitalization. For more information about forma
 你可以使用“资源”、“API”或者“对象”这类词汇来进一步在句子中明确所指的是
 一个 Kubernetes 资源类型。
 
-不要将 API 对象的名称切分成多个单词。例如，使用 PodTemplateList，不要
-使用 Pod Template List。
+不要将 API 对象的名称切分成多个单词。例如，使用 PodTemplateList，
+不要使用 Pod Template List。
 
 下面的例子关注的是大小写问题。关于如何格式化 API 对象的名称，
 有关详细细节可参考相关的[代码风格](#code-style-inline-code)指南。
@@ -459,8 +459,8 @@ To specify the Kubernetes version for a task or tutorial page, include `min-kube
 代码示例或者配置示例如果包含版本信息，应该与对应的文字描述一致。
 
 如果所给的信息是特定于具体版本的，需要在
-[任务模版](/zh/docs/contribute/style/page-content-types/#task)
-或[教程模版](/zh/docs/contribute/style/page-content-types/#tutorial)
+[任务模版](/zh-cn/docs/contribute/style/page-content-types/#task)
+或[教程模版](/zh-cn/docs/contribute/style/page-content-types/#tutorial)
 的 `prerequisites` 小节定义 Kubernetes 版本。
 页面保存之后，`prerequisites` 小节会显示为 **开始之前**。
 
@@ -952,7 +952,7 @@ Write Markdown-style links: `[link text](URL)`. For example: `[Hugo shortcodes](
 可以 | 不可以
 :--| :-----
 插入超级链接时给出它们所链接到的目标内容的上下文。例如：你的机器上某些端口处于开放状态。参见<a href="#check-required-ports">检查所需端口</a>了解更详细信息。| 使用有二义性的术语，如“点击这里”。例如：你的机器上某些端口处于打开状态。参见<a href="#check-required-ports">这里</a>了解详细信息。
-编写 Markdown 风格的链接：`[链接文本](URL)`。例如：`[Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/#table-captions)`，输出是[Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/#table-captions). | 编写 HTML 风格的超级链接：`<a href="/media/examples/link-element-example.css" target="_blank">访问我们的教程！</a>`，或者创建会打开新 Tab 页或新窗口的链接。例如：`[网站示例](https://example.com){target="_blank"}`。
+编写 Markdown 风格的链接：`[链接文本](URL)`。例如：`[Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/#table-captions)`，输出是[Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/#table-captions). | 编写 HTML 风格的超级链接：`<a href="/media/examples/link-element-example.css" target="_blank">访问我们的教程！</a>`，或者创建会打开新 Tab 页或新窗口的链接。例如：`[网站示例](https://example.com){target="_blank"}`。
 {{< /table >}}
 
 <!--
@@ -1015,7 +1015,7 @@ The semantic purpose of a data table is to present tabular data. Sighted users c
 表格标题可以用来给数据表提供一个描述性的标题。
 辅助技术使用 HTML 表格标题元素来在页面结构中辨识表格内容。
 
-- 请 [Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/#table-captions)
+- 请 [Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/#table-captions)
   为表格添加标题。
 
 <!--
@@ -1267,7 +1267,7 @@ These steps ... | These simple steps ...
 
 ## {{% heading "whatsnext" %}}
 
-* 了解[编写新主题](/zh/docs/contribute/style/write-new-topic/).
-* 了解[页面内容类型](/zh/docs/contribute/style/page-content-types/).
-* 了解[发起 PR](/zh/docs/contribute/new-content/open-a-pr/).
+* 了解[编写新主题](/zh-cn/docs/contribute/style/write-new-topic/)。
+* 了解[页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)。
+* 了解[发起 PR](/zh-cn/docs/contribute/new-content/open-a-pr/)。
 

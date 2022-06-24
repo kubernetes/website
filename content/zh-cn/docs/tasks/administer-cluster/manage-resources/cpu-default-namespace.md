@@ -32,7 +32,7 @@ but only under certain conditions that are explained later in this page.
 本章介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}配置默认的 CPU 请求和限制。
 
 一个 Kubernetes 集群可被划分为多个命名空间。
-如果你在具有默认 CPU[限制](/zh/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
+如果你在具有默认 CPU[限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
 的命名空间内创建一个 Pod，并且这个 Pod 中任何容器都没有声明自己的 CPU 限制，
 那么{{< glossary_tooltip text="控制面" term_id="control-plane" >}}会为容器设定默认的 CPU 限制。
 
@@ -51,7 +51,7 @@ read [meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#
 在你的集群里你必须要有创建命名空间的权限。
 
 如果你还不熟悉 Kubernetes 中 1.0 CPU 的含义，
-请阅读 [CPU 的含义](/zh/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)。
+请阅读 [CPU 的含义](/zh-cn/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)。
 
 <!-- steps -->
 
@@ -171,7 +171,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml 
 View the [specification](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
 of the Pod that you created:
 -->
-查看你所创建的 Pod 的[规约](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)：
+查看你所创建的 Pod 的[规约](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)：
 
 ```
 kubectl get pod default-cpu-demo-2 --output=yaml --namespace=default-cpu-example
@@ -216,7 +216,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml 
 View the [specification](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
 of the Pod that you created:
 -->
-查看你所创建的 Pod 的[规约](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)：
+查看你所创建的 Pod 的[规约](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)：
 
 ```
 kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example
@@ -309,12 +309,12 @@ kubectl delete namespace constraints-cpu-example
 -->
 ### 集群管理员参考
 
-* [为命名空间配置默认内存请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [为命名空间配置内存限制的最小值和最大值](/zh/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [为命名空间配置 CPU 限制的最小值和最大值](/zh/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [为命名空间配置内存和 CPU 配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-* [为命名空间配置 Pod 配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
-* [为 API 对象配置配额](/zh/docs/tasks/administer-cluster/quota-api-object/)
+* [为命名空间配置默认内存请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [为命名空间配置内存限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [为命名空间配置 CPU 限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [为命名空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [为命名空间配置 Pod 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [为 API 对象配置配额](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 
 <!--
 ### For app developers
@@ -325,8 +325,8 @@ kubectl delete namespace constraints-cpu-example
 -->
 ### 应用开发者参考
 
-* [为容器和 Pod 分配内存资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)
-* [为容器和 Pod 分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
-* [为 Pod 配置服务质量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
+* [为容器和 Pod 分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [为容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [为 Pod 配置服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
 
 

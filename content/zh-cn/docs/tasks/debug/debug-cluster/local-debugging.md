@@ -18,7 +18,7 @@ Kubernetes applications usually consist of multiple, separate services, each run
 
 Kubernetes 应用程序通常由多个独立的服务组成，每个服务都在自己的容器中运行。
 在远端的 Kubernetes 集群上开发和调试这些服务可能很麻烦，
-需要[在运行的容器上打开 Shell](/zh/docs/tasks/debug/debug-application/get-shell-running-container/)，
+需要[在运行的容器上打开 Shell](/zh-cn/docs/tasks/debug/debug-application/get-shell-running-container/)，
 以运行调试工具。
 
 <!--

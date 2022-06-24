@@ -126,7 +126,7 @@ unless the Pod's grace period expires. For more details, see
 -->
 Kubernetes 在容器结束前立即发送 preStop 事件。除非 Pod 宽限期限超时，Kubernetes 的容器管理逻辑
 会一直阻塞等待 preStop 处理函数执行完毕。更多的相关细节，可以参阅
-[Pods 的结束](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+[Pods 的结束](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!--
 Kubernetes only sends the preStop event when a Pod is *terminated*.
@@ -146,8 +146,8 @@ preStop 的事件处理逻辑不会被触发。这个限制在
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 * Learn more about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
 -->
-* 进一步了解[容器生命周期回调](/zh/docs/concepts/containers/container-lifecycle-hooks/)。
-* 进一步了解[Pod 的生命周期](/zh/docs/concepts/workloads/pods/pod-lifecycle/)。
+* 进一步了解[容器生命周期回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks/)。
+* 进一步了解[Pod 的生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
 
 <!--
 ### Reference

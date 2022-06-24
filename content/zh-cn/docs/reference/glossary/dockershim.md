@@ -2,7 +2,7 @@
 title: Dockershim
 id: dockershim
 date: 2022-04-15
-full_link: /zh/dockershim
+full_link: /zh-cn/dockershim
 short_description: >
    dockershim 是 Kubernetes v1.23 及之前版本中的一个组件，Kubernetes 系统组件通过它与 Docker Engine 通信。
 
@@ -37,4 +37,4 @@ Kubernetes 系统组件通过它与 {{< glossary_tooltip text="Docker Engine" te
 Starting with version 1.24, dockershim has been removed from Kubernetes. For more information, see [Dockershim FAQ](/dockershim).
 -->
 从 Kubernetes v1.24 开始，dockershim 已从 Kubernetes 中移除.
-想了解更多信息，可参考[移除 Dockershim 的常见问题](/zh/dockershim)。
+想了解更多信息，可参考[移除 Dockershim 的常见问题](/zh-cn/dockershim)。

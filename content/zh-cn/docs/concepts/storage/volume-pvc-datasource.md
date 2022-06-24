@@ -21,7 +21,7 @@ weight: 60
 This document describes the concept of cloning existing CSI Volumes in Kubernetes.  Familiarity with [Volumes](/docs/concepts/storage/volumes) is suggested.
 -->
 本文档介绍 Kubernetes 中克隆现有 CSI 卷的概念。阅读前建议先熟悉
-[卷](/zh/docs/concepts/storage/volumes)。
+[卷](/zh-cn/docs/concepts/storage/volumes)。
 
 <!-- body -->
 

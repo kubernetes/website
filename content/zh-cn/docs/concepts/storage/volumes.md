@@ -25,6 +25,7 @@ but with a clean state. A second problem occurs when sharing files
 between containers running together in a `Pod`.
 The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
 solves both of these problems.
+Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
 -->
 Container 中的文件在磁盘上是临时存放的，这给 Container 中运行的较重要的应用程序带来一些问题。
 问题之一是当容器崩溃时文件丢失。
@@ -33,10 +34,7 @@ kubelet 会重新启动容器，但容器会以干净的状态重启。
 Kubernetes {{< glossary_tooltip text="卷（Volume）" term_id="volume" >}}
 这一抽象概念能够解决这两个问题。
 
-<!--
-Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
--->
-阅读本文前建议你熟悉一下 [Pods](/zh/docs/concepts/workloads/pods)。 
+阅读本文前建议你熟悉一下 [Pod](/zh-cn/docs/concepts/workloads/pods)。 
 
 <!-- body -->
 
@@ -120,15 +118,21 @@ Kubernetes supports several types of Volumes:
 
 Kubernetes 支持下列类型的卷：
 
-### awsElasticBlockStore {#awselasticblockstore}
-
 <!--
+### awsElasticBlockStore (deprecated) {#awselasticblockstore}
+
+{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
+
 An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS)
 [EBS Volume](http://aws.amazon.com/ebs/) into your Pod.  Unlike
 `emptyDir`, which is erased when a Pod is removed, the contents of an EBS
 volume are persisted and the volume is unmounted. This means that an
 EBS volume can be pre-populated with data, and that data can be shared between pods.
 -->
+### awsElasticBlockStore （已弃用）   {#awselasticblockstore}
+
+{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
+
 `awsElasticBlockStore` 卷将 Amazon Web服务（AWS）[EBS 卷](https://aws.amazon.com/ebs/)
 挂载到你的 Pod 中。与 `emptyDir` 在 Pod 被删除时也被删除不同，EBS 卷的内容在删除 Pod
 时会被保留，卷只是被卸载掉了。
@@ -239,13 +243,18 @@ and the kubelet, set the `InTreePluginAWSUnregister` flag to `true`.
 要禁止控制器管理器和 kubelet 加载 `awsElasticBlockStore` 存储插件，
 请将 `InTreePluginAWSUnregister` 标志设置为 `true`。
 
-### azureDisk {#azuredisk}
-
 <!--
+### azureDisk (deprecated) {#azuredisk}
+
+{{< feature-state for_k8s_version="v1.19" state="deprecated" >}}
+
 The `azureDisk` volume type mounts a Microsoft Azure [Data Disk](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) into a pod.
 
 For more details, see the [`azureDisk` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md).
 -->
+### azureDisk （已弃用）   {#azuredisk}
+
+{{< feature-state for_k8s_version="v1.19" state="deprecated" >}}
 
 `azureDisk` 卷类型用来在 Pod 上挂载 Microsoft Azure
 [数据盘（Data Disk）](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) 。
@@ -287,14 +296,20 @@ and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
 要禁止控制器管理器和 kubelet 加载 `azureDisk` 存储插件，
 请将 `InTreePluginAzureDiskUnregister` 标志设置为 `true`。
 
-### azureFile {#azurefile}
-
 <!--
+### azureFile (deprecated) {#azurefile}
+
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
 The `azureFile` volume type mounts a Microsoft Azure File volume (SMB 2.1 and 3.0)
 into a Pod.
 
 For more details, see the [`azureFile` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md).
 -->
+### azureFile （已弃用）    {#azurefile}
+
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
 `azureFile` 卷类型用来在 Pod 上挂载 Microsoft Azure 文件卷（File Volume）（SMB 2.1 和 3.0）。
 更多详情请参考 [`azureFile` 卷插件](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md)。
 
@@ -317,7 +332,7 @@ must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFi
 `file.csi.azure.com` 容器存储接口（CSI）驱动程序。要使用此特性，必须在集群中安装
 [Azure 文件 CSI 驱动程序](https://github.com/kubernetes-sigs/azurefile-csi-driver)，
 并且 `CSIMigration` 和 `CSIMigrationAzureFile`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 必须被启用。
 
 <!--
@@ -370,23 +385,29 @@ See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volu
 -->
 更多信息请参考 [CephFS 示例](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/)。
 
-### cinder {#cinder}
+<!--
+### cinder (deprecated) {#cinder}
+-->
+### cinder （已弃用）   {#cinder}
 
+{{< feature-state for_k8s_version="v1.18" state="deprecated" >}}
+
+{{< note >}}
 <!--
 Kubernetes must be configured with the OpenStack cloud provider.
 -->
-{{< note >}}
 Kubernetes 必须配置了 OpenStack Cloud Provider。
 {{< /note >}}
 
 <!--
 The `cinder` volume type is used to mount the OpenStack Cinder volume into your pod.
-
-#### Cinder Volume Example configuration
 -->
 `cinder` 卷类型用于将 OpenStack Cinder 卷挂载到 Pod 中。
 
-#### Cinder 卷示例配置
+<!--
+#### Cinder Volume Example configuration
+-->
+#### Cinder 卷示例配置  {#cinder-volume-example-configuration}
 
 ```yaml
 apiVersion: v1
@@ -428,7 +449,7 @@ must be installed on the cluster.
 为了使用此特性，必须在集群中安装
 [OpenStack Cinder CSI 驱动程序](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)，
 你可以通过设置 `CSIMigrationOpenStack`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 为 `false` 来禁止 Cinder CSI 迁移。
 
 <!--
@@ -437,7 +458,7 @@ and the kubelet, you can enable the `InTreePluginOpenStackUnregister`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
 要禁止控制器管理器和 kubelet 加载树内 Cinder 插件，你可以启用
-`InTreePluginOpenStackUnregister` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+`InTreePluginOpenStackUnregister` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 ### configMap
 
@@ -447,7 +468,7 @@ provides a way to inject configuration data into Pods.
 The data stored in a ConfigMap object can be referenced in a volume of type
 `configMap` and then consumed by containerized applications running in a Pod.
 -->
-[`configMap`](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
+[`configMap`](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 卷提供了向 Pod 注入配置数据的方法。
 ConfigMap 对象中存储的数据可以被 `configMap` 类型的卷引用，然后被 Pod 中运行的容器化应用使用。
 
@@ -503,7 +524,7 @@ keyed with `log_level`.
 * Text data is exposed as files using the UTF-8 character encoding. For other character encodings, use `binaryData`.
 -->
 {{< note >}}
-* 在使用 [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/) 之前你首先要创建它。
+* 在使用 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 之前你首先要创建它。
 * 容器以 [subPath](#using-subpath) 卷挂载方式使用 ConfigMap 时，将无法接收 ConfigMap 的更新。
 * 文本数据挂载成文件时采用 UTF-8 字符编码。如果使用其他字符编码形式，可使用
   `binaryData` 字段。
@@ -529,7 +550,7 @@ receive Downward API updates.
 <!--
 See the [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)  for more details.
 -->
-更多详细信息请参考 [`downwardAPI` 卷示例](/zh/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)。
+更多详细信息请参考 [`downwardAPI` 卷示例](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)。
 
 ### emptyDir
 
@@ -591,7 +612,7 @@ backed volumes are sized to 50% of the memory on a Linux host.
 -->
 
 {{< note >}}
-当启用 `SizeMemoryBackedVolumes` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+当启用 `SizeMemoryBackedVolumes` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 时，你可以为基于内存提供的卷指定大小。
 如果未指定大小，则基于内存的卷的大小为 Linux 主机上内存的 50％。
 {{< /note>}}
@@ -797,7 +818,7 @@ Before creating a PersistentVolume, you must create the PD:
 -->
 #### 手动供应基于区域 PD 的 PersistentVolume {#manually-provisioning-regional-pd-pv}
 
-使用[为 GCE PD 定义的存储类](/zh/docs/concepts/storage/storage-classes/#gce)
+使用[为 GCE PD 定义的存储类](/zh-cn/docs/concepts/storage/storage-classes/#gce)
 可以实现动态供应。在创建 PersistentVolume 之前，你首先要创建 PD。
 
 ```shell
@@ -1042,7 +1063,7 @@ Watch out when using this type of volume, because:
 * 具有相同配置（例如基于同一 PodTemplate 创建）的多个 Pod
   会由于节点上文件的不同而在不同节点上有不同的行为。
 * 下层主机上创建的文件或目录只能由 root 用户写入。你需要在
-  [特权容器](/zh/docs/tasks/configure-pod-container/security-context/)
+  [特权容器](/zh-cn/docs/tasks/configure-pod-container/security-context/)
   中以 root 身份运行进程，或者修改主机上的文件权限以便容器能够写入 `hostPath` 卷。
 
 <!--
@@ -1243,7 +1264,7 @@ such as node resource requirements, node selectors, Pod affinity, and Pod anti-a
 -->
 使用 `local` 卷时，建议创建一个 StorageClass 并将其 `volumeBindingMode` 设置为
 `WaitForFirstConsumer`。要了解更多详细信息，请参考
-[local StorageClass 示例](/zh/docs/concepts/storage/storage-classes/#local)。
+[local StorageClass 示例](/zh-cn/docs/concepts/storage/storage-classes/#local)。
 延迟卷绑定的操作可以确保 Kubernetes 在为 PersistentVolumeClaim 作出绑定决策时，会评估
 Pod 可能具有的其他节点约束，例如：如节点资源需求、节点选择器、Pod亲和性和 Pod 反亲和性。
 
@@ -1303,7 +1324,7 @@ A `persistentVolumeClaim` volume is used to mount a
 are a way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 -->
-`persistentVolumeClaim` 卷用来将[持久卷](/zh/docs/concepts/storage/persistent-volumes/)（PersistentVolume）挂载到 Pod 中。
+`persistentVolumeClaim` 卷用来将[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)（PersistentVolume）挂载到 Pod 中。
 持久卷申领（PersistentVolumeClaim）是用户在不知道特定云环境细节的情况下“申领”持久存储（例如
 GCE PersistentDisk 或者 iSCSI 卷）的一种方法。
 
@@ -1311,7 +1332,7 @@ GCE PersistentDisk 或者 iSCSI 卷）的一种方法。
 See the [PersistentVolumes example](/docs/concepts/storage/persistent-volumes/) for more
 details.
 -->
-更多详情请参考[持久卷示例](/zh/docs/concepts/storage/persistent-volumes/)。
+更多详情请参考[持久卷示例](/zh-cn/docs/concepts/storage/persistent-volumes/)。
 
 ### portworxVolume {#portworxvolume}
 
@@ -1374,7 +1395,7 @@ For more details, see the [Portworx volume](https://github.com/kubernetes/exampl
 A projected volume maps several existing volume sources into the same
 directory. For more details, see [projected volumes](/docs/concepts/storage/projected-volumes/).
 -->
-投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考[投射卷](/zh/docs/concepts/storage/projected-volumes/)。
+投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)。
 
 ### quobyte (已弃用) {#quobyte}
 
@@ -1462,7 +1483,7 @@ must be enabled.
 `rbd.csi.ceph.com` {{<glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序。
 要使用该特性，必须在集群内安装
 [Ceph CSI 驱动](https://github.com/ceph/ceph-csi)，并启用 `CSIMigration` 和 `csiMigrationRBD` 
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 As a Kubernetes cluster operator that administers storage, here are the
@@ -1504,7 +1525,7 @@ backed by tmpfs (a RAM-backed filesystem) so they are never written to
 non-volatile storage.
 -->
 `secret` 卷用来给 Pod 传递敏感信息，例如密码。你可以将 Secret 存储在 Kubernetes
-API 服务器上，然后以文件的形式挂在到 Pod 中，无需直接与 Kubernetes 耦合。
+API 服务器上，然后以文件的形式挂载到 Pod 中，无需直接与 Kubernetes 耦合。
 `secret` 卷由 tmpfs（基于 RAM 的文件系统）提供存储，因此它们永远不会被写入非易失性（持久化的）存储器。
 
 <!--
@@ -1525,7 +1546,7 @@ receive Secret updates.
 <!--
 For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
 -->
-更多详情请参考[配置 Secrets](/zh/docs/concepts/configuration/secret/)。
+更多详情请参考[配置 Secrets](/zh-cn/docs/concepts/configuration/secret/)。
 
 ### storageOS (已弃用) {#storageos}
 
@@ -1645,7 +1666,7 @@ must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere
 为了使用此功能特性，必须在集群中安装
 [vSphere CSI 驱动](https://github.com/kubernetes-sigs/vsphere-csi-driver)，并启用
 `CSIMigration` 和 `CSIMigrationvSphere`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 You can find additional advice on how to migrate in VMware's
@@ -1854,7 +1875,7 @@ To learn about requesting space using a resource specification, see
 [how to manage resources](/docs/concepts/configuration/manage-resources-containers/).
 -->
 要了解如何使用资源规约来请求空间，可参考
-[如何管理资源](/zh/docs/concepts/configuration/manage-resources-containers/)。
+[如何管理资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
 
 
 <!--
@@ -1948,9 +1969,9 @@ if the driver supports that (beta feature)
 `csi` 卷可以在 Pod 中以三种方式使用：
 
 * 通过 PersistentVolumeClaim(#persistentvolumeclaim) 对象引用
-* 使用[一般性的临时卷](/zh/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
+* 使用[一般性的临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
   （Alpha 特性）
-* 使用 [CSI 临时卷](/zh/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)，
+* 使用 [CSI 临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)，
   前提是驱动支持这种用法（Beta 特性）
 
 <!--
@@ -2080,7 +2101,7 @@ You can set up your
 [PersistentVolume/PersistentVolumeClaim with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support) as usual, without any CSI specific changes.
 -->
 你可以和以前一样，安装自己的
-[带有原始块卷支持的 PV/PVC](/zh/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)，
+[带有原始块卷支持的 PV/PVC](/zh-cn/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)，
 采用 CSI 对此过程没有影响。
 
 <!--
@@ -2099,14 +2120,40 @@ for more information.
 -->
 你可以直接在 Pod 规约中配置 CSI 卷。采用这种方式配置的卷都是临时卷，
 无法在 Pod 重新启动后继续存在。
-进一步的信息可参阅[临时卷](/zh/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)。
+进一步的信息可参阅[临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)。
 
 <!--
-For more information on how to develop a CSI driver, refer to the [kubernetes-csi
-documentation](https://kubernetes-csi.github.io/docs/)
-
+For more information on how to develop a CSI driver, refer to the
+[kubernetes-csi documentation](https://kubernetes-csi.github.io/docs/)
 -->
 有关如何开发 CSI 驱动的更多信息，请参考 [kubernetes-csi 文档](https://kubernetes-csi.github.io/docs/)。
+
+<!--
+#### Windows CSI proxy
+-->
+#### Windows CSI 代理  {#windows-csi-proxy}
+
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+
+<!--
+CSI node plugins need to perform various privileged
+operations like scanning of disk devices and mounting of file systems. These operations
+differ for each host operating system. For Linux worker nodes, containerized CSI node
+node plugins are typically deployed as privileged containers. For Windows worker nodes,
+privileged operations for containerized CSI node plugins is supported using
+[csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
+stand-alone binary that needs to be pre-installed on each Windows node.
+
+For more details, refer to the deployment guide of the CSI plugin you wish to deploy.
+-->
+CSI 节点插件需要执行多种特权操作，例如扫描磁盘设备和挂载文件系统等。
+这些操作在每个宿主操作系统上都是不同的。对于 Linux 工作节点而言，容器化的 CSI
+节点插件通常部署为特权容器。对于 Windows 工作节点而言，容器化 CSI
+节点插件的特权操作是通过 [csi-proxy](https://github.com/kubernetes-csi/csi-proxy)
+来支持的。csi-proxy 是一个由社区管理的、独立的可执行二进制文件，
+需要被预安装到每个 Windows 节点上。
+
+要了解更多的细节，可以参考你要部署的 CSI 插件的部署指南。
 
 <!--
 #### Migrating to CSI drivers from in-tree plugins
@@ -2124,9 +2171,6 @@ configuration changes to existing Storage Classes, PersistentVolumes or Persiste
 
 The operations and features that are supported include:
 provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
-
-In-tree plugins that support `CSIMigration` and have a corresponding CSI driver implemented
-are listed in [Types of Volumes](#volume-types).
 -->
 启用 `CSIMigration` 特性后，针对现有树内插件的操作会被重定向到相应的 CSI 插件（应已安装和配置）。
 因此，操作员在过渡到取代树内插件的 CSI 驱动时，无需对现有存储类、PV 或 PVC（指树内插件）进行任何配置更改。
@@ -2134,8 +2178,22 @@ are listed in [Types of Volumes](#volume-types).
 所支持的操作和特性包括：配备（Provisioning）/删除、挂接（Attach）/解挂（Detach）、
 挂载（Mount）/卸载（Unmount）和调整卷大小。
 
+<!--
+In-tree plugins that support `CSIMigration` and have a corresponding CSI driver implemented
+are listed in [Types of Volumes](#volume-types).
+
+The following in-tree plugins support persistent storage on Windows nodes:
+-->
 上面的[卷类型](#volume-types)节列出了支持 `CSIMigration` 并已实现相应 CSI
 驱动程序的树内插件。
+
+下面是支持 Windows 节点上持久性存储的树内插件：
+
+* [`awsElasticBlockStore`](#awselasticblockstore)
+* [`azureDisk`](#azuredisk)
+* [`azureFile`](#azurefile)
+* [`gcePersistentDisk`](#gcepersistentdisk)
+* [`vsphereVolume`](#vspherevolume)
 
 ### flexVolume
 
@@ -2157,13 +2215,23 @@ Pod 通过 `flexvolume` 树内插件与 FlexVolume 驱动程序交互。
 更多详情请参考 FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) 文档。
 
 <!--
+The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows),
+deployed as PowerShell scripts on the host, support Windows nodes:
+-->
+下面的 FlexVolume [插件](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)
+以 PowerShell 脚本的形式部署在宿主系统上，支持 Windows 节点：
+
+* [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
+* [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
+
+{{< note >}}
+<!--
 FlexVolume is deprecated. Using an out-of-tree CSI driver is the recommended way to integrate external storage with Kubernetes.
 
 Maintainers of FlexVolume driver should implement a CSI Driver and help to migrate users of FlexVolume drivers to CSI.
 Users of FlexVolume should move their workloads to use the equivalent CSI Driver.
 -->
-{{< note >}}
-FlexVolume 已弃用。推荐使用树外 CSI 驱动来将外部存储整合进 Kubernetes。
+FlexVolume 已被弃用。推荐使用树外 CSI 驱动来将外部存储整合进 Kubernetes。
 
 FlexVolume 驱动的维护者应开发一个 CSI 驱动并帮助用户从 FlexVolume 驱动迁移到 CSI。
 FlexVolume 用户应迁移工作负载以使用对等的 CSI 驱动。
@@ -2288,10 +2356,8 @@ sudo systemctl restart docker
 
 ## {{% heading "whatsnext" %}}
 
-
 <!--
 Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 -->
-
-参考[使用持久卷部署 WordPress 和 MySQL](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/) 示例。
+参考[使用持久卷部署 WordPress 和 MySQL](/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/) 示例。
 

@@ -32,8 +32,8 @@ This is different from _vertical_ scaling, which for Kubernetes would mean
 assigning more resources (for example: memory or CPU) to the Pods that are already
 running for the workload.
 -->
-[HorizontalPodAutoscaler](/zh/docs/tasks/run-application/horizontal-pod-autoscale/) （简称 HPA ）
-自动更新工作负载资源（例如 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 或者 
+[HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/) （简称 HPA ）
+自动更新工作负载资源（例如 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 或者
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}），
 目的是自动扩缩工作负载以满足需求。
 
@@ -66,7 +66,7 @@ release of Kubernetes, refer to the version of the documentation for that releas
 [available documentation versions](/docs/home/supported-doc-versions/)).
 -->
 如果你运行的是旧版本的 Kubernetes，请参阅该版本的文档版本
-（[可用的文档版本](/zh/docs/home/supported-doc-versions/)）。
+（[可用的文档版本](/zh-cn/docs/home/supported-doc-versions/)）。
 
 <!--
 To follow this walkthrough, you also need to use a cluster that has a
@@ -80,11 +80,11 @@ new kinds of resource that represent metric readings.
 To learn how to deploy the Metrics Server, see the
 [metrics-server documentation](https://github.com/kubernetes-sigs/metrics-server#deployment).
 -->
-按照本演练进行操作，你需要一个部署并配置了 
+按照本演练进行操作，你需要一个部署并配置了
 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server#readme) 的集群。
 Kubernetes Metrics Server 从集群中的 {{<glossary_tooltip term_id="kubelet" text="kubelets">}} 收集资源指标，
-并通过 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api/) 公开这些指标，
-使用 [APIService](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) 添加代表指标读数的新资源。
+并通过 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/) 公开这些指标，
+使用 [APIService](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) 添加代表指标读数的新资源。
 
 要了解如何部署 Metrics Server，请参阅
 [metrics-server 文档](https://github.com/kubernetes-sigs/metrics-server#deployment)。
@@ -175,7 +175,7 @@ on the algorithm.
 ## 创建 HorizontalPodAutoscaler  {#create-horizontal-pod-autoscaler}
 
 现在服务器正在运行，使用 `kubectl` 创建自动扩缩器。
-[`kubectl autoscale`](/zh/docs/reference/generated/kubectl/kubectl-commands#autoscale) 子命令是 `kubectl` 的一部分，
+[`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands#autoscale) 子命令是 `kubectl` 的一部分，
 可以帮助你执行此操作。
 
 你将很快运行一个创建 HorizontalPodAutoscaler 的命令，
@@ -183,12 +183,12 @@ on the algorithm.
 
 粗略地说，HPA {{<glossary_tooltip text="控制器" term_id="controller">}}将增加和减少副本的数量
 （通过更新 Deployment）以保持所有 Pod 的平均 CPU 利用率为 50%。
-Deployment 然后更新 ReplicaSet —— 这是所有 Deployment 在 Kubernetes 中工作方式的一部分 —— 
+Deployment 然后更新 ReplicaSet —— 这是所有 Deployment 在 Kubernetes 中工作方式的一部分 ——
 然后 ReplicaSet 根据其 `.spec` 的更改添加或删除 Pod。
 
 由于每个 Pod 通过 `kubectl run` 请求 200 milli-cores，这意味着平均 CPU 使用率为 100 milli-cores。
 有关算法的更多详细信息，
-请参阅[算法详细信息](/zh/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
+请参阅[算法详细信息](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
 
 
 <!-- Create the HorizontalPodAutoscaler: -->
@@ -649,7 +649,7 @@ relationship to any object in the Kubernetes cluster, such as metrics describing
 no direct correlation to Kubernetes namespaces. In Kubernetes 1.10 and later, you can address this use case
 with *external metrics*.
 -->
-### 基于与 Kubernetes 对象无关的度量指标执行扩缩
+### 基于与 Kubernetes 对象无关的度量指标执行扩缩   {#autoscaling-on-metrics-not-related-to-kubernetes-objects}
 
 运行在 Kubernetes 上的应用程序可能需要基于与 Kubernetes 集群中的任何对象
 没有明显关系的度量指标进行自动扩缩，
@@ -710,7 +710,7 @@ When using the `autoscaling/v2` form of the HorizontalPodAutoscaler, you will be
 whether or not the HorizontalPodAutoscaler is able to scale, and whether or not it is currently restricted
 in any way.
 -->
-## 附录：Horizontal Pod Autoscaler 状态条件
+## 附录：Horizontal Pod Autoscaler 状态条件   {#appendix-horizontal-pod-autoscaler-status-conditions}
 
 使用 `autoscaling/v2` 格式的 HorizontalPodAutoscaler 时，你将可以看到
 Kubernetes 为 HorizongtalPodAutoscaler 设置的状态条件（Status Conditions）。
@@ -817,4 +817,3 @@ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
 ```
 horizontalpodautoscaler.autoscaling/php-apache created
 ```
-

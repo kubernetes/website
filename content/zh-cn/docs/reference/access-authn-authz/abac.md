@@ -1,13 +1,8 @@
 ---
-approvers:
-- erictune
-- lavalamp
-- deads2k
-- liggitt
 title: 使用 ABAC 鉴权
 content_type: concept
+weight: 80
 ---
-
 <!--
 reviewers:
 - erictune
@@ -67,7 +62,7 @@ properties:
           - `/foo/*` matches all subpaths of `/foo/`.
     - `readonly`, type boolean, when true, means that the Resource-matching policy only applies to get, list, and watch operations, Non-resource-matching policy only applies to get operation.
 -->
-## 策略文件格式
+## 策略文件格式   {#policy-file-format}
 
 基于 `ABAC` 模式，可以这样指定策略文件 `--authorization-policy-file=SOME_FILENAME`。
 
@@ -76,7 +71,7 @@ properties:
 每一行都是一个策略对象，策略对象是具有以下属性的映射：
 
   - 版本控制属性：
-    - `apiVersion`，字符串类型：有效值为`abac.authorization.kubernetes.io/v1beta1`，允许对策略格式进行版本控制和转换。
+    - `apiVersion`，字符串类型：有效值为 `abac.authorization.kubernetes.io/v1beta1`，允许对策略格式进行版本控制和转换。
     - `kind`，字符串类型：有效值为 `Policy`，允许对策略格式进行版本控制和转换。
   - `spec` 配置为具有以下映射的属性：
     - 主体匹配属性：
@@ -85,7 +80,7 @@ properties:
         `system:unauthenticated` 匹配所有未经过身份验证的请求。
   - 资源匹配属性：
     - `apiGroup`，字符串类型；一个 API 组。
-      - 例： `apps`, `networking.k8s.io`
+      - 例：`apps`, `networking.k8s.io`
       - 通配符：`*`匹配所有 API 组。
     - `namespace`，字符串类型；一个命名空间。
       - 例如：`kube-system`
@@ -95,7 +90,7 @@ properties:
       - 通配符：`*`匹配所有资源请求。
   - 非资源匹配属性：
     - `nonResourcePath`，字符串类型；非资源请求路径。
-      - 例如：`/version`或 `/apis`
+      - 例如：`/version` 或 `/apis`
       - 通配符：
         - `*` 匹配所有非资源请求。
         - `/foo/*` 匹配 `/foo/` 的所有子路径。
@@ -141,7 +136,7 @@ To permit a user to do anything, write a policy with the apiGroup, namespace,
 resource, and nonResourcePath properties set to `"*"`.
 -->
 
-## 鉴权算法
+## 鉴权算法   {#authorization-algorithm}
 
 请求具有与策略对象的属性对应的属性。
 
@@ -184,7 +179,7 @@ kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类�
 
 当使用 ABAC 鉴权时，这些特殊资源必须显式地通过策略中的 `nonResourcePath` 属性暴露出来（参见下面的 [示例](#examples)）：
 
-* `/api`，`/api/*`，`/apis`和 `/apis/*` 用于 API 版本协商。
+* `/api`，`/api/*`，`/apis` 和 `/apis/*` 用于 API 版本协商。
 * `/version` 通过 `kubectl version` 检索服务器版本。
 * `/swaggerapi/*` 用于创建 / 更新操作。
 
@@ -267,7 +262,7 @@ system:serviceaccount:<namespace>:<serviceaccountname>
 -->
 [完整文件示例](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
-## 服务帐户的快速说明
+## 服务帐户的快速说明   {#a-quick-note-on-service-accounts}
 
 服务帐户自动生成用户。用户名是根据命名约定生成的：
 

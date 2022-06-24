@@ -1,7 +1,7 @@
 ---
 title: Windows 节点的安全性
 content_type: concept
-weight: 75
+weight: 40
 ---
 <!--
 reviewers:
@@ -26,7 +26,7 @@ This page describes security considerations and best practices specific to the W
 <!--
 ## Protection for Secret data on nodes
 -->
-## 保护节点上的 Secret 数据
+## 保护节点上的 Secret 数据   {#protection-for-secret-data-on-nodes}
 
 <!--
 On Windows, data from Secrets are written out in clear text onto the node's local
@@ -48,7 +48,7 @@ operator, you should take both of the following additional measures:
 <!--
 ## Container users
 -->
-## 容器用户
+## 容器用户   {#container-users}
 
 <!--
 [RunAsUsername](/docs/tasks/configure-pod-container/configure-runasusername)
@@ -56,8 +56,8 @@ can be specified for Windows Pods or containers to execute the container
 processes as specific user. This is roughly equivalent to
 [RunAsUser](/docs/concepts/policy/pod-security-policy/#users-and-groups).
 -->
-可以为 Windows Pod 或容器指定 [RunAsUsername](/zh/docs/tasks/configure-pod-container/configure-runasusername)
-以作为特定用户执行容器进程。这大致相当于 [RunAsUser](/zh/docs/concepts/policy/pod-security-policy/#users-and-groups)。
+可以为 Windows Pod 或容器指定 [RunAsUsername](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername)
+以作为特定用户执行容器进程。这大致相当于 [RunAsUser](/zh-cn/docs/concepts/security/pod-security-policy/#users-and-groups)。
 
 <!--
 Windows containers offer two default user accounts, ContainerUser and ContainerAdministrator.
@@ -86,13 +86,13 @@ Local users can be added to container images during the container build process.
 <!--
 Windows containers can also run as Active Directory identities by utilizing [Group Managed Service Accounts](/docs/tasks/configure-pod-container/configure-gmsa/)
 -->
-Windows 容器还可以通过使用[组管理的服务账号](/zh/docs/tasks/configure-pod-container/configure-gmsa/)作为
+Windows 容器还可以通过使用[组管理的服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/)作为
 Active Directory 身份运行。
 
 <!--
 ## Pod-level security isolation
 -->
-## Pod 级安全隔离
+## Pod 级安全隔离   {#pod-level-security-isolation}
 
 <!--
 Linux-specific pod security context mechanisms (such as SELinux, AppArmor, Seccomp, or custom
@@ -101,9 +101,9 @@ POSIX capabilities) are not supported on Windows nodes.
 Windows 节点不支持特定于 Linux 的 Pod 安全上下文机制（例如 SELinux、AppArmor、Seccomp 或自定义 POSIX 权能字）。
 
 <!--
-Privileged containers are [not supported](#compatibility-v1-pod-spec-containers-securitycontext) on Windows.
+Privileged containers are [not supported](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext) on Windows.
 Instead [HostProcess containers](/docs/tasks/configure-pod-container/create-hostprocess-pod) can be used on Windows to perform many of the tasks performed by privileged containers on Linux.
 -->
-Windows 上[不支持](/zh/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext)特权容器。
-然而，可以在 Windows 上使用 [HostProcess 容器](/zh/docs/tasks/configure-pod-container/create-hostprocess-pod)来执行
+Windows 上[不支持](/zh-cn/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext)特权容器。
+然而，可以在 Windows 上使用 [HostProcess 容器](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod)来执行
 Linux 上特权容器执行的许多任务。

@@ -233,7 +233,7 @@ They use the [`klog`](https://github.com/kubernetes/klog)
 logging library. You can find the conventions for logging severity for those
 components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 -->
-在使用 systemd 机制的服务器上，kubelet 和容器容器运行时将日志写入到 journald 中。
+在使用 systemd 机制的服务器上，kubelet 和容器运行时将日志写入到 journald 中。
 如果没有 systemd，它们将日志写入到 `/var/log` 目录下的 `.log` 文件中。
 容器中的系统组件通常将日志写到 `/var/log` 目录，绕过了默认的日志机制。
 他们使用 [klog](https://github.com/kubernetes/klog) 日志库。
@@ -478,7 +478,7 @@ a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to c
 -->
 下面是两个配置文件，可以用来实现一个带日志代理的边车容器。
 第一个文件包含用来配置 fluentd 的
-[ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+[ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 {{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
 

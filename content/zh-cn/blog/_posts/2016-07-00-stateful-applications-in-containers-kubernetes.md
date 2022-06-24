@@ -2,15 +2,12 @@
 title: "容器中运行有状态的应用！？ Kubernetes 1.3 说 “是！” "
 date: 2016-07-13
 slug: stateful-applications-in-containers-kubernetes
-url: /zh/blog/2016/07/stateful-applications-in-containers-kubernetes
 ---
 <!--
----
 title: " Stateful Applications in Containers!? Kubernetes 1.3 Says “Yes!” "
 date: 2016-07-13
 slug: stateful-applications-in-containers-kubernetes
-url: /zh/blog/2016/07/stateful-applications-in-containers-kubernetes
----
+url: /blog/2016/07/stateful-applications-in-containers-kubernetes
 -->
 
 <!--

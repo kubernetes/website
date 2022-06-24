@@ -57,7 +57,7 @@ is the default scheduler for Kubernetes and runs as part of the
 kube-scheduler is designed so that, if you want and need to, you can
 write your own scheduling component and use that instead.
 -->
-[kube-scheduler](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
+[kube-scheduler](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
 是 Kubernetes 集群的默认调度器，并且是集群
 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 的一部分。
 如果你真的希望或者有这方面的需求，kube-scheduler 在设计上是允许
@@ -162,9 +162,9 @@ of the scheduler:
   `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You
   can also configure the kube-scheduler to run different profiles.
  -->
-1. [调度策略](/zh/docs/reference/scheduling/policies) 允许你配置过滤的 _断言(Predicates)_
+1. [调度策略](/zh-cn/docs/reference/scheduling/policies) 允许你配置过滤的 _断言(Predicates)_
    和打分的 _优先级(Priorities)_ 。
-2. [调度配置](/zh/docs/reference/scheduling/config/#profiles) 允许你配置实现不同调度阶段的插件，
+2. [调度配置](/zh-cn/docs/reference/scheduling/config/#profiles) 允许你配置实现不同调度阶段的插件，
    包括：`QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` 等等。
    你也可以配置 kube-scheduler 运行不同的配置文件。
 
@@ -178,10 +178,10 @@ of the scheduler:
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 * Learn about [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 -->
-* 阅读关于 [调度器性能调优](/zh/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
-* 阅读关于 [Pod 拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
-* 阅读关于 kube-scheduler 的 [参考文档](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
-* 阅读 [kube-scheduler 配置参考 (v1beta3)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-* 了解关于 [配置多个调度器](/zh/docs/tasks/extend-kubernetes/configure-multiple-schedulers/) 的方式
-* 了解关于 [拓扑结构管理策略](/zh/docs/tasks/administer-cluster/topology-manager/)
-* 了解关于 [Pod 额外开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
+* 阅读关于 [调度器性能调优](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
+* 阅读关于 [Pod 拓扑分布约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
+* 阅读关于 kube-scheduler 的 [参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
+* 阅读 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* 了解关于 [配置多个调度器](/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/) 的方式
+* 了解关于 [拓扑结构管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)
+* 了解关于 [Pod 额外开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)

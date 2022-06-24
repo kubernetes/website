@@ -41,8 +41,7 @@ Resource quotas work like this:
 资源配额的工作方式如下：
 
 <!--
-- Different teams work in different namespaces.  Currently this is voluntary, but
-  support for making this mandatory via ACLs is planned.
+- Different teams work in different namespaces. This can be enforced with [RBAC](/docs/reference/access-authn-authz/rbac/).
 - The administrator creates one ResourceQuota for each namespace.
 - Users create resources (pods, services, etc.) in the namespace, and the quota system
   tracks usage to ensure it does not exceed hard resource limits defined in a ResourceQuota.
@@ -53,8 +52,7 @@ Resource quotas work like this:
   the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
   See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example of how to avoid this problem.
 -->
-- 不同的团队可以在不同的命名空间下工作，目前这是非约束性的，在未来的版本中可能会通过
-  ACL (Access Control List 访问控制列表) 来实现强制性约束。
+- 不同的团队可以在不同的命名空间下工作。这可以通过 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 强制执行。
 - 集群管理员可以为每个命名空间创建一个或多个 ResourceQuota 对象。
 - 当用户在命名空间下创建资源（如 Pod、Service 等）时，Kubernetes 的配额系统会
   跟踪集群的资源使用情况，以确保使用的资源用量不超过 ResourceQuota 中定义的硬性资源限额。
@@ -65,14 +63,14 @@ Resource quotas work like this:
   提示: 可使用 `LimitRanger` 准入控制器来为没有设置计算资源需求的 Pod 设置默认值。
   
   若想避免这类问题，请参考
-  [演练](/zh/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)示例。
+  [演练](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)示例。
 
 <!--
 The name of a ResourceQuota object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 ResourceQuota 对象的名称必须是合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 Examples of policies that could be created using namespaces and quotas are:
@@ -130,7 +128,7 @@ that can be requested in a given namespace.
 ## 计算资源配额
 
 用户可以对给定命名空间下的可被请求的
-[计算资源](/zh/docs/concepts/configuration/manage-resources-containers/)
+[计算资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
 总量进行限制。
 
 <!--
@@ -168,7 +166,7 @@ In addition to the resources mentioned above, in release 1.10, quota support for
 ### 扩展资源的资源配额
 
 除上述资源外，在 Kubernetes 1.10 版本中，还添加了对
-[扩展资源](/zh/docs/concepts/configuration/manage-resources-containers/#extended-resources)
+[扩展资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)
 的支持。
 
 <!--
@@ -202,7 +200,7 @@ In addition, you can limit consumption of storage resources based on associated 
 -->
 ## 存储资源配额
 
-用户可以对给定命名空间下的[存储资源](/zh/docs/concepts/storage/persistent-volumes/)
+用户可以对给定命名空间下的[存储资源](/zh-cn/docs/concepts/storage/persistent-volumes/)
 总量进行限制。
 
 此外，还可以根据相关的存储类（Storage Class）来限制存储资源的消耗。
@@ -218,9 +216,9 @@ In addition, you can limit consumption of storage resources based on associated 
 | 资源名称 | 描述 |
 | --------------------- | ----------------------------------------------------------- |
 | `requests.storage` | 所有 PVC，存储资源的需求总量不能超过该值。 |
-| `persistentvolumeclaims` | 在该命名空间中所允许的 [PVC](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) 总量。 |
+| `persistentvolumeclaims` | 在该命名空间中所允许的 [PVC](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) 总量。 |
 | `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | 在所有与 `<storage-class-name>` 相关的持久卷申领中，存储请求的总和不能超过该值。 |
-| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` |  在与 storage-class-name 相关的所有持久卷申领中，命名空间中可以存在的[持久卷申领](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)总数。 |
+| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` |  在与 storage-class-name 相关的所有持久卷申领中，命名空间中可以存在的[持久卷申领](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)总数。 |
 
 <!--
 For example, if an operator wants to quota storage with `gold` storage class separate from `bronze` storage class, the operator can
@@ -258,7 +256,7 @@ Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) 
 -->
 如果所使用的是 CRI 容器运行时，容器日志会被计入临时存储配额。
 这可能会导致存储配额耗尽的 Pods 被意外地驱逐出节点。
-参考[日志架构](/zh/docs/concepts/cluster-administration/logging/)
+参考[日志架构](/zh-cn/docs/concepts/cluster-administration/logging/)
 了解详细信息。
 {{< /note >}}
 
@@ -343,7 +341,7 @@ The following types are supported:
 | 资源名称 | 描述 |
 | ------------------------------- | ------------------------------------------------- |
 | `configmaps` | 在该命名空间中允许存在的 ConfigMap 总数上限。 |
-| `persistentvolumeclaims` | 在该命名空间中允许存在的 [PVC](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) 的总数上限。 |
+| `persistentvolumeclaims` | 在该命名空间中允许存在的 [PVC](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) 的总数上限。 |
 | `pods` | 在该命名空间中允许存在的非终止状态的 Pod 总数上限。Pod 终止状态等价于 Pod 的 `.status.phase in (Failed, Succeeded)` 为真。 |
 | `replicationcontrollers` | 在该命名空间中允许存在的 ReplicationController 总数上限。 |
 | `resourcequotas` | 在该命名空间中允许存在的 ResourceQuota 总数上限。 |
@@ -396,8 +394,8 @@ Resources specified on the quota outside of the allowed set results in a validat
 | `NotTerminating` | 匹配所有 `spec.activeDeadlineSeconds` 是 nil 的 Pod。 |
 | `BestEffort` | 匹配所有 Qos 是 BestEffort 的 Pod。 |
 | `NotBestEffort` | 匹配所有 Qos 不是 BestEffort 的 Pod。 |
-| `PriorityClass` | 匹配所有引用了所指定的[优先级类](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption)的 Pods。 |
-| `CrossNamespacePodAffinity` | 匹配那些设置了跨名字空间 [（反）亲和性条件](/zh/docs/concepts/scheduling-eviction/assign-pod-node)的 Pod。 |
+| `PriorityClass` | 匹配所有引用了所指定的[优先级类](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption)的 Pods。 |
+| `CrossNamespacePodAffinity` | 匹配那些设置了跨名字空间 [（反）亲和性条件](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node)的 Pod。 |
 
 <!--
 The `BestEffort` scope restricts a quota to tracking the following resource:
@@ -485,7 +483,7 @@ Pods can be created at a specific [priority](/docs/concepts/scheduling-eviction/
 You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
 field in the quota spec.
 -->
-Pod 可以创建为特定的[优先级](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)。
+Pod 可以创建为特定的[优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)。
 通过使用配额规约中的 `scopeSelector` 字段，用户可以根据 Pod 的优先级控制其系统资源消耗。
 
 <!--
@@ -1065,7 +1063,7 @@ and it is to be created in a namespace other than `kube-system`.
 - See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)
 -->
 - 查看[资源配额设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)
-- 查看[如何使用资源配额的详细示例](/zh/docs/tasks/administer-cluster/quota-api-object/)。
+- 查看[如何使用资源配额的详细示例](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)。
 - 阅读[优先级类配额支持的设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)。
   了解更多信息。
 - 参阅 [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)

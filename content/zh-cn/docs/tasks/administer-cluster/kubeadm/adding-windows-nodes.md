@@ -41,7 +41,7 @@ If you are using VXLAN/Overlay networking you must have also have [KB4489899](ht
   如果你在使用 VXLAN/覆盖（Overlay）联网设施，则你还必须安装 [KB4489899](https://support.microsoft.com/help/4489899)。
 
 * 一个利用 kubeadm 创建的基于 Linux 的 Kubernetes 集群；你能访问该集群的控制面
-  （参见[使用 kubeadm 创建一个单控制面的集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/))。
+  （参见[使用 kubeadm 创建一个单控制面的集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/))。
 
 ## {{% heading "objectives" %}}
 
@@ -385,11 +385,11 @@ For that reason, an additional service [cri-dockerd](https://github.com/Mirantis
 has to be installed. cri-dockerd is a project based on the legacy built-in
 Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
 -->
-Docker Engine 没有实现 [CRI](/zh/docs/concepts/architecture/cri/)，
+Docker Engine 没有实现 [CRI](/zh-cn/docs/concepts/architecture/cri/)，
 而 CRI 是容器运行时能够与 Kubernetes 一起工作的要求。
 出于这个原因，必须安装一个额外的服务 [cri-dockerd](https://github.com/Mirantis/cri-dockerd)。
 cri-dockerd 是一个基于原来的内置 Docker Engine 支持的项目，
-而这一支持在 1.24 版本的 kubelet 中[已被移除](/zh/dockershim)。
+而这一支持在 1.24 版本的 kubelet 中[已被移除](/zh-cn/dockershim)。
 {{< /note >}}
 
 <!--
@@ -460,5 +460,5 @@ Once the flannel Pod is running, your node should enter the `Ready` state and th
 <!--
 - [Upgrading Windows kubeadm nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)
 -->
-- [升级 kubeadm 安装的 Windows 节点](/zh/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)
+- [升级 kubeadm 安装的 Windows 节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)
 

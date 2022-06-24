@@ -12,6 +12,7 @@ weight: 10
 -->
 
 <!-- overview -->
+
 <!--
 Anyone can review a documentation pull request. Visit the [pull requests](https://github.com/kubernetes/website/pulls) section in the Kubernetes website repository to see open pull requests.
 
@@ -22,8 +23,10 @@ It helps you learn the code base and build trust with other contributors.
 Before reviewing, it's a good idea to:
 
 - Read the  [content guide](/docs/contribute/style/content-guide/) and
-[style guide](/docs/contribute/style/style-guide/) so you can leave informed comments.
-- Understand the different [roles and responsibilities](/docs/contribute/participating/#roles-and-responsibilities) in the Kubernetes documentation community.
+  [style guide](/docs/contribute/style/style-guide/) so you can leave informed comments.
+- Understand the different
+  [roles and responsibilities](/docs/contribute/participate/roles-and-responsibilities/)
+  in the Kubernetes documentation community.
 -->
 任何人均可评审文档的拉取请求。
 访问 Kubernetes 网站仓库的 [pull requests](https://github.com/kubernetes/website/pulls) 部分，
@@ -34,11 +37,12 @@ Before reviewing, it's a good idea to:
 
 在评审之前，可以考虑：
 
-- 阅读[内容指南](/zh/docs/contribute/style/content-guide/)和 
-  [样式指南](/zh/docs/contribute/style/style-guide/)以便给出有价值的评论。
-- 了解 Kubernetes 文档社区中不同的[角色和职责](/zh/docs/contribute/participate/roles-and-responsibilities/)。
+- 阅读[内容指南](/zh-cn/docs/contribute/style/content-guide/)和 
+  [样式指南](/zh-cn/docs/contribute/style/style-guide/)以便给出有价值的评论。
+- 了解 Kubernetes 文档社区中不同的[角色和职责](/zh-cn/docs/contribute/participate/roles-and-responsibilities/)。
 
 <!-- body -->
+
 <!--
 ## Before you begin
 
@@ -127,7 +131,7 @@ Figure 1. Review process steps.
 2. 使用以下标签（组合）对待处理 PR 进行过滤：
 
     - `cncf-cla: yes` （建议）：由尚未签署 CLA 的贡献者所发起的 PR 不可以合并。
-      参考[签署 CLA](/zh/docs/contribute/new-content/overview/#sign-the-cla) 以了解更多信息。
+      参考[签署 CLA](/zh-cn/docs/contribute/new-content/#sign-the-cla) 以了解更多信息。
     - `language/en` （建议）：仅查看英语语言的 PR。
     - `size/<尺寸>`：过滤特定尺寸（规模）的 PR。
       如果你刚入门，可以从较小的 PR 开始。
@@ -157,7 +161,7 @@ Figure 1. Review process steps.
      如果你在平板电脑或智能手机设备上进行评审，
      GitHub 的 Web UI 会略有不同）：
      {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub PR 详细信息，包括 Netlify 预览链接" >}}
-    要打开预览，请点击 **deploy/netlify** 行的 **Details** 链接。
+     要打开预览，请点击 **deploy/netlify** 行的 **Details** 链接。
 
 <!--
 4.  Go to the **Files changed** tab to start your review.
@@ -203,7 +207,7 @@ When reviewing, use the following as a starting point.
 - 是否存在明显的语言或语法错误？对某事的描述有更好的方式？
 - 是否存在一些过于复杂晦涩的用词，本可以用简单词汇来代替？
 - 是否有些用词、术语或短语可以用不带歧视性的表达方式代替？
-- 用词和大小写方面是否遵从了[样式指南](/zh/docs/contribute/style/style-guide/)？
+- 用词和大小写方面是否遵从了[样式指南](/zh-cn/docs/contribute/style/style-guide/)？
 - 是否有些句子太长，可以改得更短、更简单？
 - 是否某些段落过长，可以考虑使用列表或者表格来表达？
 
@@ -234,10 +238,10 @@ When reviewing, use the following as a starting point.
   如果是这样，PR 是否会导致出现新的失效链接？
   是否有其他的办法，比如改变页面标题但不改变其 slug？
 - PR 是否引入新的页面？如果是：
-  - 该页面是否使用了正确的[页面内容类型](/zh/docs/contribute/style/page-content-types/)
+  - 该页面是否使用了正确的[页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)
     及相关联的 Hugo 短代码（shortcodes）？
   - 该页面能否在对应章节的侧面导航中显示？显示得正确么？
-  - 该页面是否应出现在[网站主页面](/zh/docs/home/)的列表中？
+  - 该页面是否应出现在[网站主页面](/zh-cn/docs/home/)的列表中？
 - 变更是否正确出现在 Netlify 预览中了？
   要对列表、代码段、表格、注释和图像等元素格外留心。
 

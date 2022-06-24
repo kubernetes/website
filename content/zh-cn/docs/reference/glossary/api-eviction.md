@@ -2,7 +2,7 @@
 title: API 发起的驱逐
 id: api-eviction
 date: 2021-04-27
-full_link: /zh/docs/concepts/scheduling-eviction/pod-eviction/#api-eviction
+full_link: /zh-cn/docs/concepts/scheduling-eviction/pod-eviction/#api-eviction
 short_description: >
   API 发起的驱逐是一个先调用 Eviction API 创建驱逐对象，再由该对象体面地中止 Pod 的过程。
 aka:
@@ -46,13 +46,13 @@ API-initiated eviction is not the same as [node-pressure eviction](/docs/concept
 你可以通过 kube-apiserver 的客户端，比如 `kubectl drain` 这样的命令，直接调用 Eviction API 发起驱逐。
 当 `Eviction` 对象创建出来之后，该对象将驱动 API 服务器终止选定的Pod。
 
-API 发起的驱逐取决于你配置的 [`PodDisruptionBudgets`](/zh/docs/tasks/run-application/configure-pdb/)
-和 [`terminationGracePeriodSeconds`](/zh/docs/concepts/workloads/pods/pod-lifecycle#pod-termination)。
+API 发起的驱逐取决于你配置的 [`PodDisruptionBudgets`](/zh-cn/docs/tasks/run-application/configure-pdb/)
+和 [`terminationGracePeriodSeconds`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle#pod-termination)。
 
 API 发起的驱逐不同于
-[节点压力引发的驱逐](/zh/docs/concepts/scheduling-eviction/eviction/#kubelet-eviction)。
+[节点压力引发的驱逐](/zh-cn/docs/concepts/scheduling-eviction/eviction/#kubelet-eviction)。
 
 <!--
 * See [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/) for more information.
 -->
-* 有关详细信息，请参阅 [API 发起的驱逐](/zh/docs/concepts/scheduling-eviction/api-eviction/)。
+* 有关详细信息，请参阅 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。

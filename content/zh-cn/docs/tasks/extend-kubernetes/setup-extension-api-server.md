@@ -30,7 +30,7 @@ Setting up an extension API server to work the aggregation layer allows the Kube
 <!--
 * You must [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) and enable the apiserver flags.
 -->
-* 你必须[配置聚合层](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+* 你必须[配置聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
   并且启用 API 服务器的相关参数。
 
 <!-- steps -->
@@ -110,7 +110,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 * For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation).
 * Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 -->
-* 如果你还未配置，请[配置聚合层](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+* 如果你还未配置，请[配置聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
   并启用 apiserver 的相关参数。
-* 高级概述，请参阅[使用聚合层扩展 Kubernetes API](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation)。
-* 了解如何[使用 Custom Resource Definition 扩展 Kubernetes API](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。
+* 高级概述，请参阅[使用聚合层扩展 Kubernetes API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation)。
+* 了解如何[使用 Custom Resource Definition 扩展 Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。

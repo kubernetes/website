@@ -86,7 +86,7 @@ command-line flags to your `kube-apiserver` invocation:
 -->
 API 优先级与公平性（APF）特性由特性门控控制，默认情况下启用。
 有关特性门控的一般性描述以及如何启用和禁用特性门控，
-请参见[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+请参见[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 APF 的特性门控称为 `APIPriorityAndFairness`。
 此特性也与某个 {{< glossary_tooltip term_id="api-group" text="API 组" >}}
 相关：
@@ -584,7 +584,7 @@ opinions of the proper content of these objects.
 就可能出现抖动。
 
 <!--
-Each `kube-apiserver` makes an inital maintenance pass over the
+Each `kube-apiserver` makes an initial maintenance pass over the
 mandatory and suggested configuration objects, and after that does
 periodic maintenance (once per minute) of those objects.
 

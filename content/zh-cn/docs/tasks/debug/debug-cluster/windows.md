@@ -40,14 +40,14 @@ content_type: concept
 
    Ensure that your Pod is getting scheduled to a [compatable](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) Windows Node.
 
-   More information on how to specify a compatable node for your Pod can be found in [this guide](docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
+   More information on how to specify a compatable node for your Pod can be found in [this guide](/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
 -->
 2. 我的 pod 状态显示 'ErrImgPull' 或者 ‘ImagePullBackOff’
 
    保证你的 Pod 被调度到[兼容的](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) Windows 节点上。
 
    关于如何为你的 Pod 指定一个兼容节点，
-   的更多信息可以查看这个指可以查看[这个指南](/zhdocs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)以了解更多的信息。
+   的更多信息可以查看这个指可以查看[这个指南](/zh-cn/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)以了解更多的信息。
 <!-- 
 ## Network troubleshooting {#troubleshooting-network}
 
@@ -101,7 +101,7 @@ content_type: concept
    [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf)
    的配置。你可以随时编辑这个静态文件。更新配置将应用于新的 Kubernetes 资源。
 
-   Kubernetes 的网络需求之一 (查看 [Kubernetes 模型](/zh/docs/concepts/cluster-administration/networking/)) 
+   Kubernetes 的网络需求之一 (查看 [Kubernetes 模型](/zh-cn/docs/concepts/cluster-administration/networking/)) 
    是集群通信不需要内部的 NAT。
    为了遵守这一要求， 对于你不希望发生的出站 NAT 通信，这里有一个
    [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) 。
@@ -138,7 +138,7 @@ content_type: concept
 
 4. 容器的 vnic 和 HNS endpoints 正在被删除
 
-   当 `hostname-override` 参数没有传递给 [kube-proxy](/zh/docs/reference/command-line-tools-reference/kube-proxy/)
+   当 `hostname-override` 参数没有传递给 [kube-proxy](/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/)
    时可能引发这一问题。想要解决这个问题，用户需要将主机名传递给 kube-proxy，如下所示：
 
    ```powershell

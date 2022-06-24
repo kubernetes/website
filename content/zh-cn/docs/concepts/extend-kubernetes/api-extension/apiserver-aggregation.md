@@ -32,7 +32,7 @@ The aggregation layer is different from [Custom Resources](/docs/concepts/extend
 或者你自己开发的 API。
 
 聚合层不同于
-[定制资源（Custom Resources）](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
+[定制资源（Custom Resources）](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
 后者的目的是让 {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
 能够认识新的对象类别（Kind）。
 
@@ -83,10 +83,10 @@ If your extension API server cannot achieve that latency requirement, consider m
 
 Alternatively: learn how to [extend the Kubernetes API using Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
 -->
-* 阅读[配置聚合层](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 文档，
+* 阅读[配置聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 文档，
   了解如何在自己的环境中启用聚合器。
-* 接下来，了解[安装扩展 API 服务器](/zh/docs/tasks/extend-kubernetes/setup-extension-api-server/)，
+* 接下来，了解[安装扩展 API 服务器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)，
   开始使用聚合层。
 * 从 API 参考资料中研究关于 [APIService](/docs/reference/kubernetes-api/cluster-resources/api-service-v1/) 的内容。
 
-或者，学习如何[使用自定义资源定义扩展 Kubernetes API](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。
+或者，学习如何[使用自定义资源定义扩展 Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。

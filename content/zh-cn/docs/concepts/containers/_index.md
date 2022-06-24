@@ -36,7 +36,7 @@ the change, then recreate the container to start from the updated image.
 -->
 
 ## 容器镜像 {#container-images}
-[容器镜像](/zh/docs/concepts/containers/images/)是一个随时可以运行的软件包，
+[容器镜像](/zh-cn/docs/concepts/containers/images/)是一个随时可以运行的软件包，
 包含运行应用程序所需的一切：代码和它需要的所有运行时、应用程序和系统库，以及一些基本设置的默认值。
 
 根据设计，容器是不可变的：你不能更改已经运行的容器的代码。
@@ -53,7 +53,7 @@ the change, then recreate the container to start from the updated image.
 * Read about [Pods](/docs/concepts/workloads/pods/)
 -->
 
-* 进一步阅读[容器镜像](/zh/docs/concepts/containers/images/)
-* 进一步阅读 [Pods](/zh/docs/concepts/workloads/pods/)
+* 进一步阅读[容器镜像](/zh-cn/docs/concepts/containers/images/)
+* 进一步阅读 [Pods](/zh-cn/docs/concepts/workloads/pods/)
 
 

@@ -28,11 +28,12 @@ the documentation for that version to see advice that is relevant for your clust
 ## Create a CustomResourceDefinition
 
 When you create a new CustomResourceDefinition (CRD), the Kubernetes API Server
-creates a new RESTful resource path for each version you specify. The CRD can be
-either namespaced or cluster-scoped, as specified in the CRD's `scope` field. As
-with existing built-in objects, deleting a namespace deletes all custom objects
-in that namespace. CustomResourceDefinitions themselves are non-namespaced and
-are available to all namespaces.
+creates a new RESTful resource path for each version you specify. The custom
+resource created from a CRD object can be either namespaced or cluster-scoped,
+as specified in the CRD's `spec.scope` field. As with existing built-in
+objects, deleting a namespace deletes all custom objects in that namespace.
+CustomResourceDefinitions themselves are non-namespaced and are available to
+all namespaces.
 
 For example, if you save the following CustomResourceDefinition to `resourcedefinition.yaml`:
 
@@ -811,7 +812,7 @@ Validation Rules Examples:
 | `'Available' in self.stateCounts`                                                | Validate that an entry with the 'Available' key exists in a map                   |
 | `(size(self.list1) == 0) != (size(self.list2) == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
 | <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code>               | Validate the value of a map for a specific key, if it is in the map               |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
+| `self.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
 | `has(self.expired) && self.created + self.ttl < self.expired`                    | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `self.health.startsWith('ok')`                                                   | Validate a 'health' string field has the prefix 'ok'                              |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                             | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
@@ -819,6 +820,7 @@ Validation Rules Examples:
 | `self.metadata.name.startsWith(self.prefix)`                                     | Validate that an object's name has the prefix of another field value              |
 | `self.set1.all(e, !(e in self.set2))`                                            | Validate that two listSets are disjoint                                           |
 | `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
+| `size(self.clusters.filter(c, c.name == self.primary)) == 1`                     | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
 
 Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 

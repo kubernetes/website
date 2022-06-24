@@ -11,7 +11,7 @@ weight: 60
 _Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields. Here are some example field selector queries:
 -->
 “字段选择器（Field selectors）”允许你根据一个或多个资源字段的值
-[筛选 Kubernetes 资源](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects)。
+[筛选 Kubernetes 资源](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects)。
 下面是一些使用字段选择器查询的例子：
 
 * `metadata.name=my-service`
@@ -21,7 +21,7 @@ _Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/
 <!--
 This `kubectl` command selects all Pods for which the value of the [`status.phase`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
 -->
-下面这个 `kubectl` 命令将筛选出 [`status.phase`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)
+下面这个 `kubectl` 命令将筛选出 [`status.phase`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)
 字段值为 `Running` 的所有 Pod：
 
 ```shell
@@ -81,7 +81,7 @@ As with [label](/docs/concepts/overview/working-with-objects/labels) and other s
 -->
 ## 链式选择器   {#chained-selectors}
 
-同[标签](/zh/docs/concepts/overview/working-with-objects/labels/)和其他选择器一样，
+同[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和其他选择器一样，
 字段选择器可以通过使用逗号分隔的列表组成一个选择链。
 下面这个 `kubectl` 命令将筛选 `status.phase` 字段不等于 `Running` 同时
 `spec.restartPolicy` 字段等于 `Always` 的所有 Pod：

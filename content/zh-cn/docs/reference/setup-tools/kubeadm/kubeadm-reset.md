@@ -58,6 +58,6 @@ etcdctl del "" --prefix
 
 <!-- * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster -->
-* 参考 [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/) 来初始化 Kubernetes 主节点。
-* 参考 [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/) 来初始化 Kubernetes 工作节点并加入集群。
+* 参考 [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/) 来初始化 Kubernetes 主节点。
+* 参考 [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/) 来初始化 Kubernetes 工作节点并加入集群。
 

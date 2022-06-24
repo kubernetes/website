@@ -45,7 +45,7 @@ The general approach is to generate all certs on one node and only distribute
 the *necessary* files to the other nodes.
 
 {{< note >}}
-kubeadm contains all the necessary crytographic machinery to generate
+kubeadm contains all the necessary cryptographic machinery to generate
 the certificates described below; no other cryptographic tooling is required for
 this example.
 {{< /note >}}

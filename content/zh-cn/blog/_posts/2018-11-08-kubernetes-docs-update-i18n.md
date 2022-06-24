@@ -2,13 +2,12 @@
 layout: blog
 title: 'Kubernetes 文档更新，国际版'
 date: 2018-11-08
+slug: kubernetes-docs-updates-international-edition
 ---
 <!--
----
 layout: blog
 title: 'Kubernetes Docs Updates, International Edition'
 date: 2018-11-08
----
 -->
 
 <!-- **Author**: Zach Corleissen (Linux Foundation) -->

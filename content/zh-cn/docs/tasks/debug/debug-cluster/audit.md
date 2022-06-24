@@ -21,7 +21,7 @@ by applications that use the Kubernetes API, and by the control plane itself.
 
 Auditing allows cluster administrators to answer the following questions:
 -->
-Kubernetes _审计（Auditing）_ 功能提供了与安全相关的、按时间顺序排列的记录集，
+Kubernetes **审计（Auditing）**功能提供了与安全相关的、按时间顺序排列的记录集，
 记录每个用户、使用 Kubernetes API 的应用以及控制面自身引发的活动。
 
 审计功能使得集群管理员能够回答以下问题：
@@ -55,7 +55,7 @@ and the backends persist the records. The current backend implementations
 include logs files and webhooks.
 -->
 审计记录最初产生于
-[kube-apiserver](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
+[kube-apiserver](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
 内部。每个请求在不同执行阶段都会生成审计事件；这些审计事件会根据特定策略
 被预处理并写入后端。策略确定要记录的内容和用来存储记录的后端。
 当前的后端支持日志文件和 webhook。
@@ -73,7 +73,7 @@ Each request can be recorded with an associated _stage_. The defined stages are:
   will be sent.
 - `Panic` - Events generated when a panic occurred.
 -->
-每个请求都可被记录其相关的 _阶段（stage）_。已定义的阶段有：
+每个请求都可被记录其相关的**阶段（stage）**。已定义的阶段有：
 
 - `RequestReceived` - 此阶段对应审计处理器接收到请求后，并且在委托给
   其余处理器之前生成的事件。
@@ -90,8 +90,8 @@ is different from the
 API object.
 -->
 {{< note >}}
-[审计事件配置](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
-的配置与 [Event](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
+[审计事件配置](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+的配置与 [Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
 API 对象不同。
 {{< /note >}}
 
@@ -117,9 +117,9 @@ _audit level_ of the event. The defined audit levels are:
 
 审计政策定义了关于应记录哪些事件以及应包含哪些数据的规则。
 审计策略对象结构定义在
-[`audit.k8s.io` API 组](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+[`audit.k8s.io` API 组](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
 处理事件时，将按顺序与规则列表进行比较。第一个匹配规则设置事件的
-_审计级别（Audit Level）_。已定义的审计级别有：
+**审计级别（Audit Level）**。已定义的审计级别有：
 
 <!--
 - `None` - don't log events that match this rule.
@@ -147,7 +147,7 @@ Below is an example audit policy file:
 -->
 你可以使用 `--audit-policy-file` 标志将包含策略的文件传递给 `kube-apiserver`。
 如果不设置该标志，则不记录事件。
-注意 `rules` 字段 __必须__ 在审计策略文件中提供。没有（0）规则的策略将被视为非法配置。
+注意 `rules` 字段**必须**在审计策略文件中提供。没有（0）规则的策略将被视为非法配置。
 
 以下是一个审计策略文件的示例：
 
@@ -179,7 +179,7 @@ for details about the fields defined.
 [configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)
 脚本，该脚本能够生成审计策略文件。你可以直接在脚本中看到审计策略的绝大部份内容。
 
-你也可以参考 [`Policy` 配置参考](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+你也可以参考 [`Policy` 配置参考](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
 以获取有关已定义字段的详细信息。
 
 <!--
@@ -203,7 +203,7 @@ In all cases, audit events follow a structure defined by the Kubernetes API in t
 - Webhook 后端，将事件发送到外部 HTTP API
 
 在这所有情况下，审计事件均遵循 Kubernetes API 在
-[`audit.k8s.io` API 组](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+[`audit.k8s.io` API 组](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
 中定义的结构。
 
 <!--
@@ -241,7 +241,7 @@ You can configure the log audit backend using the following `kube-apiserver` fla
 Log backend writes audit events to a file in JSON format. You can configure
 log audit backend using the following [kube-apiserver][kube-apiserver] flags:
 -->
-### Log 后端
+### Log 后端   {#log-backend}
 
 Log 后端将审计事件写入 [JSONlines](https://jsonlines.org/)  格式的文件。
 你可以使用以下 `kube-apiserver` 标志配置 Log 审计后端：
@@ -325,7 +325,7 @@ The webhook config file uses the kubeconfig format to specify the remote address
 the service and credentials used to connect to it.
 -->
 - `--audit-webhook-config-file` 设置 Webhook 配置文件的路径。Webhook 配置文件实际上是一个
-  [kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)。
+  [kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)。
 - `--audit-webhook-initial-backoff` 指定在第一次失败后重发请求等待的时间。随后的请求将以指数退避重试。
 
 Webhook 配置文件使用 kubeconfig 格式指定服务的远程地址和用于连接它的凭据。
@@ -449,5 +449,4 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 <!--
 * Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
 -->
-* 了解 [Mutating webhook 审计注解](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations)。
-
+* 了解 [Mutating webhook 审计注解](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations)。

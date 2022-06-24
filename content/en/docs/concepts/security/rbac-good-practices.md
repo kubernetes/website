@@ -4,6 +4,7 @@ title: Role Based Access Control Good Practices
 description: >
   Principles and practices for good RBAC design for cluster operators.
 content_type: concept
+weight: 60
 ---
 
 <!-- overview -->

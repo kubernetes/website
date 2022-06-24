@@ -761,7 +761,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Requires Portworx CSI driver to be installed and configured in the cluster.
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in `csi.storage.k8s.io`.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
-  [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
+  [CSI (Container Storage Interface)](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)
   compatible volume plugin.
 - `CSIServiceAccountToken`: Enable CSI drivers to receive the pods' service account token
   that they mount volumes for. See

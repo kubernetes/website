@@ -21,7 +21,7 @@ if you wish to apply customization.
 `kubeadm init phase` is consistent with the [kubeadm init workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow),
 and behind the scene both use the same code.
 -->
-`kubeadm init phase` 与 [kubeadm init 工作流](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow)
+`kubeadm init phase` 与 [kubeadm init 工作流](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow)
 一致，后台都使用相同的代码。
 
 <!--
@@ -143,7 +143,7 @@ You can use this command to upload the kubeadm configuration to your cluster.
 Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
 -->
 可以使用此命令将 kubeadm 配置文件上传到集群。或者使用
-[kubeadm config](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)。
+[kubeadm config](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)。
 
 {{< tabs name="upload-config" >}}
 {{< tab name="upload-config" include="generated/kubeadm_init_phase_upload-config.md" />}}
@@ -238,7 +238,7 @@ For more details on each field in the `v1beta3` configuration you can navigate t
 [API reference pages.](/docs/reference/config-api/kubeadm-config.v1beta3/)
 -->
 有关 `v1beta3` 配置中每个字段的更多详细信息，可以访问
-[API](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)。
+[API](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -248,11 +248,11 @@ For more details on each field in the `v1beta3` configuration you can navigate t
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
-* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+* [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
   引导 Kubernetes 控制平面节点
-* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)
+* [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
   将节点加入到集群
-* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
+* [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
   恢复通过 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改
-* [kubeadm alpha](/zh/docs/reference/setup-tools/kubeadm/kubeadm-alpha/)
+* [kubeadm alpha](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-alpha/)
   尝试实验性功能
