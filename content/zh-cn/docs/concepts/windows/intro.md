@@ -468,7 +468,7 @@ The following list documents differences between how Pod specifications work bet
   supported on Windows.
 -->
 * `terminationGracePeriodSeconds` - 这在 Windows 上的 Docker 中没有完全实现，
-  请参考[GitHub issue](https://github.com/moby/moby/issues/25982)。
+  请参考 [GitHub issue](https://github.com/moby/moby/issues/25982)。
   目前的行为是通过 CTRL_SHUTDOWN_EVENT 发送 ENTRYPOINT 进程，然后 Windows 默认等待 5 秒，
   最后使用正常的 Windows 关机行为终止所有进程。
   5 秒默认值实际上位于[容器内](https://github.com/moby/moby/issues/25982#issuecomment-426441183)的 Windows 注册表中，
@@ -637,7 +637,7 @@ Windows Server SAC release
 <!--
 The Kubernetes [version-skew policy](/docs/setup/release/version-skew-policy/) also applies.
 -->
-也适用 Kubernetes [版本偏差策略](/zh-cn/docs/setup/release/version-skew-policy/)。
+也适用 Kubernetes [版本偏差策略](/zh-cn/releases/version-skew-policy/)。
 
 <!--
 ## Getting help and troubleshooting {#troubleshooting}
