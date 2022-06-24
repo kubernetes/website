@@ -109,7 +109,7 @@ kubelet, or upgrade the {{< skew currentVersion >}}
 kubelet on that node and bring the node back into service.
 -->
 现在，你应该
-[安装最新版本的 `kubectl`](/zh/docs/tasks/tools/).
+[安装最新版本的 `kubectl`](/zh-cn/docs/tasks/tools/).
 
 对于集群中的每个节点，
 [排空](/zh/docs/tasks/administer-cluster/safely-drain-node/)
