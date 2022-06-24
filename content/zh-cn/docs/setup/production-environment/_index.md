@@ -152,7 +152,7 @@ is configured to run Kubernetes pods.
 
 在生产质量的 Kubernetes 集群中，控制面用不同的方式来管理集群和可以
 分布到多个计算机上的服务。每个工作节点则代表的是一个可配置来运行
-Kubernetes Pods 的实体。
+Kubernetes Pod 的实体。
 
 <!--
 ### Production control plane
@@ -180,7 +180,7 @@ If keeping the cluster up and running
 and ensuring that it can be repaired if something goes wrong is important,
 consider these steps:
 -->
-如果你需要一个更为持久的、高可用的集群，那么你就需要考虑扩展控制面的方式。
+如果你需要一个更为持久的、高可用的集群，那么就需要考虑扩展控制面的方式。
 根据设计，运行在一台机器上的单机控制面服务不是高可用的。
 如果保持集群处于运行状态并且需要确保在出现问题时能够被修复这点很重要，
 可以考虑以下步骤：
@@ -205,7 +205,7 @@ during deployment or you can generate them using your own certificate authority.
 See [PKI certificates and requirements](/docs/setup/best-practices/certificates/) for details.
 -->
 - *管理证书*：控制面服务之间的安全通信是通过证书来完成的。证书是在部署期间
-  自动生成的，或者你也可以使用你自己的证书机构来生成它们。
+  自动生成的，或者你也可以使用自己的证书机构来生成它们。
   参阅 [PKI 证书和需求](/zh-cn/docs/setup/best-practices/certificates/)了解细节。
 <!--
 - *Configure load balancer for apiserver*: Configure a load balancer
@@ -298,7 +298,7 @@ and [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/conf
 See [Backing up an etcd cluster](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)
 for information on making an etcd backup plan.
 -->
-要了解运行控制面服务时可使用的选项，可参阅
+如要了解运行控制面服务时可使用的选项，可参阅
 [kube-apiserver](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)、
 [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/) 和
 [kube-scheduler](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
@@ -404,7 +404,7 @@ that the nodes and pods running on those nodes are healthy. Using the
 [Node Problem Detector](/docs/tasks/debug/debug-cluster/monitor-node-health/)
 daemon, you can ensure your nodes are healthy.
 -->
-- *安装节点健康检查*：对于重要的工作负载，你会希望确保节点以及在节点上
+- **安装节点健康检查**：对于重要的工作负载，你会希望确保节点以及在节点上
   运行的 Pod 处于健康状态。通过使用
   [Node Problem Detector](/zh-cn/docs/tasks/debug/debug-cluster/monitor-node-health/)，
   你可以确保你的节点是健康的。
@@ -422,7 +422,7 @@ more accounts with different levels of access to different namespaces.
 
 在生产环境中，情况可能不再是你或者一小组人在访问集群，而是几十
 上百人需要访问集群。在学习环境或者平台原型环境中，你可能具有一个
-可以执行任何操作的管理账号。在生产环境中，你可需要对不同名字空间
+可以执行任何操作的管理账号。在生产环境中，你会需要对不同名字空间
 具有不同访问权限级别的很多账号。
 
 <!--
