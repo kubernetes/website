@@ -540,11 +540,11 @@ standardized label to target a specific namespace.
 <!--
 ## What you can't do with network policies (at least, not yet)
 
-As of Kubernetes {{< skew latestVersion >}}, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.
+As of Kubernetes {{< skew currentVersion >}}, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.
 -->
 ## 通过网络策略（至少目前还）无法完成的工作   {#what-you-can-t-do-with-network-policies-at-least-not-yet}
 
-到 Kubernetes {{< skew latestVersion >}} 为止，NetworkPolicy API 还不支持以下功能，不过
+到 Kubernetes {{< skew currentVersion >}} 为止，NetworkPolicy API 还不支持以下功能，不过
 你可能可以使用操作系统组件（如 SELinux、OpenVSwitch、IPTables 等等）
 或者第七层技术（Ingress 控制器、服务网格实现）或准入控制器来实现一些
 替代方案。
