@@ -50,7 +50,7 @@ detail.
 ## 控制器模式 {#controller-pattern}
 
 一个控制器至少追踪一种类型的 Kubernetes 资源。这些
-[对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 有一个代表期望状态的 `spec` 字段。
 该资源的控制器负责确保其当前状态接近期望状态。
 
@@ -96,7 +96,7 @@ and eventually the work is done.
 
 Job 是一种 Kubernetes 资源，它运行一个或者多个 {{< glossary_tooltip term_id="pod" >}}，
 来执行一个任务然后停止。
-（一旦[被调度了](/zh/docs/concepts/scheduling-eviction/)，对 `kubelet` 来说 Pod
+（一旦[被调度了](/zh-cn/docs/concepts/scheduling-eviction/)，对 `kubelet` 来说 Pod
 对象就会变成了期望状态的一部分）。
 
 在集群中，当 Job 控制器拿到新任务时，它会保证一组 Node 节点上的 `kubelet`
@@ -175,7 +175,7 @@ cloud provider APIs, and other services by
 -->
 在温度计的例子中，如果房间很冷，那么某个控制器可能还会启动一个防冻加热器。
 就 Kubernetes 集群而言，控制面间接地与 IP 地址管理工具、存储服务、云驱动
-APIs 以及其他服务协作，通过[扩展 Kubernetes](/zh/docs/concepts/extend-kubernetes/)
+APIs 以及其他服务协作，通过[扩展 Kubernetes](/zh-cn/docs/concepts/extend-kubernetes/)
 来实现这点。
 
 <!--
@@ -280,9 +280,9 @@ Kubernetes 允许你运行一个稳定的控制平面，这样即使某些内置
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * If you want to write your own controller, see [Extension Patterns](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Extending Kubernetes.
 -->
-* 阅读 [Kubernetes 控制平面组件](/zh/docs/concepts/overview/components/#control-plane-components)
-* 了解 [Kubernetes 对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+* 阅读 [Kubernetes 控制平面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)
+* 了解 [Kubernetes 对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)
   的一些基本知识
-* 进一步学习 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api/)
+* 进一步学习 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)
 * 如果你想编写自己的控制器，请看 Kubernetes 的
-  [扩展模式](/zh/docs/concepts/extend-kubernetes/#extension-patterns)。
+  [扩展模式](/zh-cn/docs/concepts/extend-kubernetes/#extension-patterns)。
