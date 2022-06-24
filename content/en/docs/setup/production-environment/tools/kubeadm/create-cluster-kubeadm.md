@@ -303,7 +303,7 @@ reasons. If you want to be able to schedule Pods on the control plane nodes,
 for example for a single machine Kubernetes cluster, run:
 
 ```bash
-kubectl taint nodes --all node-role.kubernetes.io/control-plane- node-role.kubernetes.io/master-
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 ```
 
 The output will look something like:
@@ -313,14 +313,9 @@ node "test-01" untainted
 ...
 ```
 
-This will remove the `node-role.kubernetes.io/control-plane` and
-`node-role.kubernetes.io/master` taints from any nodes that have them,
-including the control plane nodes, meaning that the scheduler will then be able
-to schedule Pods everywhere.
-
-{{< note >}}
-The `node-role.kubernetes.io/master` taint is deprecated and kubeadm will stop using it in version 1.25.
-{{< /note >}}
+This will remove the `node-role.kubernetes.io/control-plane:NoSchedule` taint
+from any nodes that have it, including the control plane nodes, meaning that the
+scheduler will then be able to schedule Pods everywhere.
 
 ### Joining your nodes {#join-nodes}
 
