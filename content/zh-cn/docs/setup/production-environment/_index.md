@@ -207,11 +207,15 @@ See [PKI certificates and requirements](/docs/setup/best-practices/certificates/
 - *管理证书*：控制面服务之间的安全通信是通过证书来完成的。证书是在部署期间
 <<<<<<< HEAD
   自动生成的，或者你也可以使用自己的证书机构来生成它们。
+<<<<<<< HEAD
   参阅 [PKI 证书和需求](/zh/docs/setup/best-practices/certificates/)了解细节。
 =======
   自动生成的，或者你也可以使用你自己的证书机构来生成它们。
   参阅 [PKI 证书和需求](/zh-cn/docs/setup/best-practices/certificates/)了解细节。
 >>>>>>> 648bf637a2 ([zh]Update setup pages for links with '/zh/' prefix, using new prefix '/zh-cn/')
+=======
+  参阅 [PKI 证书和需求](/zh-cn/docs/setup/best-practices/certificates/)了解细节。
+>>>>>>> 50ab255ea6 (Update _index.md)
 <!--
 - *Configure load balancer for apiserver*: Configure a load balancer
 to distribute external API requests to the apiserver service instances running on different nodes. See 
@@ -305,6 +309,7 @@ for information on making an etcd backup plan.
 -->
 <<<<<<< HEAD
 如要了解运行控制面服务时可使用的选项，可参阅
+<<<<<<< HEAD
 [kube-apiserver](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)、
 [kube-controller-manager](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/) 和
 [kube-scheduler](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
@@ -314,6 +319,11 @@ for information on making an etcd backup plan.
 [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/) 和
 [kube-scheduler](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
 >>>>>>> 648bf637a2 ([zh]Update setup pages for links with '/zh/' prefix, using new prefix '/zh-cn/')
+=======
+[kube-apiserver](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)、
+[kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/) 和
+[kube-scheduler](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
+>>>>>>> 50ab255ea6 (Update _index.md)
 组件参考页面。
 如要了解高可用控制面的例子，可参阅
 [高可用拓扑结构选项](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/)、
