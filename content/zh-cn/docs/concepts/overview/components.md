@@ -63,7 +63,7 @@ for an example control plane setup that runs across multiple machines.
 控制平面组件可以在集群中的任何节点上运行。
 然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，
 并且不会在此计算机上运行用户容器。
-请参阅[使用 kubeadm 构建高可用性集群](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)
+请参阅[使用 kubeadm 构建高可用性集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)
 中关于跨多机器控制平面设置的示例。
 
 ### kube-apiserver
@@ -177,7 +177,7 @@ Selected addons are described below; for an extended list of available addons, p
 see [Addons](/docs/concepts/cluster-administration/addons/).
 -->
 下面描述众多插件中的几种。有关可用插件的完整列表，请参见
-[插件（Addons）](/zh/docs/concepts/cluster-administration/addons/)。
+[插件（Addons）](/zh-cn/docs/concepts/cluster-administration/addons/)。
 
 <!--
 ### DNS
@@ -191,7 +191,7 @@ Containers started by Kubernetes automatically include this DNS server in their 
 ### DNS   {#dns}
 
 尽管其他插件都并非严格意义上的必需组件，但几乎所有 Kubernetes 集群都应该
-有[集群 DNS](/zh/docs/concepts/services-networking/dns-pod-service/)，
+有[集群 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)，
 因为很多示例都需要 DNS 服务。
 
 集群 DNS 是一个 DNS 服务器，和环境中的其他 DNS 服务器一起工作，它为 Kubernetes 服务提供 DNS 记录。
@@ -205,7 +205,7 @@ Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列�
 -->
 ### Web 界面（仪表盘）   {#web-ui-dashboard}
 
-[Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/)
+[Dashboard](/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard/)
 是 Kubernetes 集群的通用的、基于 Web 的用户界面。
 它使用户可以管理集群中运行的应用程序以及集群本身，
 并进行故障排除。
@@ -218,7 +218,7 @@ about containers in a central database, and provides a UI for browsing that data
 -->
 ### 容器资源监控   {#container-resource-monitoring}
 
-[容器资源监控](/zh/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
+[容器资源监控](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，
 并提供浏览这些数据的界面。
 
@@ -230,7 +230,7 @@ saving container logs to a central log store with search/browsing interface.
 -->
 ### 集群层面日志   {#cluster-level-logging}
 
-[集群层面日志](/zh/docs/concepts/cluster-administration/logging/) 
+[集群层面日志](/zh-cn/docs/concepts/cluster-administration/logging/) 
 机制负责将容器的日志数据保存到一个集中的日志存储中，
 这种集中日志存储提供搜索和浏览接口。
 
@@ -242,7 +242,7 @@ saving container logs to a central log store with search/browsing interface.
 * Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Read etcd's official [documentation](https://etcd.io/docs/)
 -->
-* 进一步了解[节点](/zh/docs/concepts/architecture/nodes/)
-* 进一步了解[控制器](/zh/docs/concepts/architecture/controller/)
-* 进一步了解 [kube-scheduler](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
+* 进一步了解[节点](/zh-cn/docs/concepts/architecture/nodes/)
+* 进一步了解[控制器](/zh-cn/docs/concepts/architecture/controller/)
+* 进一步了解 [kube-scheduler](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)
 * 阅读 etcd 官方[文档](https://etcd.io/docs/)
