@@ -112,6 +112,6 @@ Thanks to the advent of software-defined overlay networks such as [flannel](http
 With the growing popularity of container-based microservice architectures, the lessons Google has learned from running such systems internally have become of increasing interest to the external DevOps community. By revealing some of the inner workings of our cluster manager Borg, and building our next-generation cluster manager as both an open-source project (Kubernetes) and a publicly available hosted service ([Google Container Engine](http://cloud.google.com/container-engine)), we hope these lessons can benefit the broader community outside of Google and advance the state-of-the-art in container scheduling and cluster management. 
 -->
 随着基于容器的微服务架构的日益普及，Google 从内部运行此类系统所汲取的经验教训已引起外部 DevOps 社区越来越多的兴趣。
-通过揭示集群管理器 Borg 的一些内部工作原理，并将下一代集群管理器构建为一个开源项目（Kubernetes）和一个公开可用的托管服务（[Google Container Engine]（http://cloud.google.com/container-engine)) ，我们希望这些课程可以使 Google 之外的广大社区受益，并推动容器调度和集群管理方面的最新技术发展。
+通过揭示集群管理器 Borg 的一些内部工作原理，并将下一代集群管理器构建为一个开源项目（Kubernetes）和一个公开可用的托管服务（[Google Container Engine](http://cloud.google.com/container-engine)），我们希望这些课程可以使 Google 之外的广大社区受益，并推动容器调度和集群管理方面的最新技术发展。
 
 
