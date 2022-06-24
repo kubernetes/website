@@ -3,6 +3,7 @@ title: 基于角色的访问控制良好实践
 description: >
   为集群操作人员提供的良好的 RBAC 设计原则和实践。
 content_type: concept
+weight: 60
 ---
 
 <!--
@@ -11,6 +12,7 @@ title: Role Based Access Control Good Practices
 description: >
   Principles and practices for good RBAC design for cluster operators.
 content_type: concept
+weight: 60
 -->
 
 <!-- overview -->
