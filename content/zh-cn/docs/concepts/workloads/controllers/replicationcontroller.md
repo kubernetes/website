@@ -7,7 +7,7 @@ feature:
     重新启动失败的容器，在节点死亡时替换并重新调度容器，杀死不响应用户定义的健康检查的容器，并且在它们准备好服务之前不会将它们公布给客户端。
 content_type: concept
 weight: 90
----     
+---
 
 <!--
 reviewers:
@@ -242,8 +242,8 @@ different, and the `.metadata.labels` do not affect the behavior of the Replicat
 ### ReplicationController 上的标签
 
 ReplicationController 本身可以有标签 （`.metadata.labels`）。
-通常，你可以将这些设置为 `.spec.template.metadata.labels`； 
-如果没有指定 `.metadata.labels` 那么它默认为 `.spec.template.metadata.labels`。  
+通常，你可以将这些设置为 `.spec.template.metadata.labels`；
+如果没有指定 `.metadata.labels` 那么它默认为 `.spec.template.metadata.labels`。
 但是，Kubernetes 允许它们是不同的，`.metadata.labels` 不会影响 ReplicationController 的行为。
 
 <!--
@@ -256,7 +256,7 @@ deleted. This allows the ReplicationController to be replaced without affecting 
 -->
 ### Pod 选择算符 {#pod-selector}
 
-`.spec.selector` 字段是一个[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)。 
+`.spec.selector` 字段是一个[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)。
 ReplicationController 管理标签与选择算符匹配的所有 Pod。
 它不区分它创建或删除的 Pod 和其他人或进程创建或删除的 Pod。
 这允许在不影响正在运行的 Pod 的情况下替换 ReplicationController。
@@ -299,7 +299,7 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 你可以通过设置 `.spec.replicas` 来指定应该同时运行多少个 Pod。
 在任何时候，处于运行状态的 Pod 个数都可能高于或者低于设定值。例如，副本个数刚刚被增加或减少时，或者一个 Pod 处于优雅终止过程中而其替代副本已经提前开始创建时。
 
-如果你没有指定 `.spec.replicas` ，那么它默认是 1。
+如果你没有指定 `.spec.replicas`，那么它默认是 1。
 
 <!--
 ## Working with ReplicationControllers
@@ -341,7 +341,7 @@ When using the REST API or [client library](/docs/reference/using-api/client-lib
 
 使用 kubectl，为 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 指定 `--cascade=orphan` 选项。
 
-当使用 REST API 或客户端库(/zh-cn/docs/reference/using-api/client-libraries)时，只需删除 ReplicationController 对象。
+当使用 REST API 或[客户端库](/zh-cn/docs/reference/using-api/client-libraries)时，只需删除 ReplicationController 对象。
 
 <!--
 Once the original is deleted, you can create a new ReplicationController to replace it.  As long
@@ -561,9 +561,9 @@ Unlike in the case where a user directly created pods, a ReplicationController r
 ### 裸 Pod
 
 与用户直接创建 Pod 的情况不同，ReplicationController 能够替换因某些原因
-被删除或被终止的 Pod ，例如在节点故障或中断节点维护的情况下，例如内核升级。
+被删除或被终止的 Pod，例如在节点故障或中断节点维护的情况下，例如内核升级。
 因此，我们建议你使用 ReplicationController，即使你的应用程序只需要一个 Pod。
-可以将其看作类似于进程管理器，它只管理跨多个节点的多个 Pod ，而不是单个节点上的单个进程。
+可以将其看作类似于进程管理器，它只管理跨多个节点的多个 Pod，而不是单个节点上的单个进程。
 ReplicationController 将本地容器重启委托给节点上的某个代理(例如，Kubelet 或 Docker)。
 
 <!--
