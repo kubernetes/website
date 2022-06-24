@@ -273,5 +273,5 @@ Kubernetes：
 *   Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
 *   Ready to [Get Started](/docs/setup/)?
 -->
-* 查阅[Kubernetes 组件](/zh/docs/concepts/overview/components/)
-* 开始[Kubernetes 的建置](/zh/docs/setup/)吧！
+* 查阅[Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)
+* 开始[Kubernetes 的建置](/zh-cn/docs/setup/)吧！

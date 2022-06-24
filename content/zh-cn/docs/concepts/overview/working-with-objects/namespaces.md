@@ -49,7 +49,7 @@ resource can only be in one namespace.
 <!--
 Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
 -->
-名字空间是在多个用户之间划分集群资源的一种方法（通过[资源配额](/zh/docs/concepts/policy/resource-quotas/)）。
+名字空间是在多个用户之间划分集群资源的一种方法（通过[资源配额](/zh-cn/docs/concepts/policy/resource-quotas/)）。
 
 <!--
 It is not necessary to use multiple namespaces to separate slightly different
@@ -69,7 +69,7 @@ for namespaces](/docs/tasks/administer-cluster/namespaces/).
 -->
 ## 使用名字空间
 
-名字空间的创建和删除在[名字空间的管理指南文档](/zh/docs/tasks/administer-cluster/namespaces/)描述。
+名字空间的创建和删除在[名字空间的管理指南文档](/zh-cn/docs/tasks/administer-cluster/namespaces/)描述。
 
 <!--
 Avoid creating namespaces with the prefix `kube-`, since it is reserved for Kubernetes system namespaces.
@@ -118,7 +118,7 @@ Kubernetes 会创建四个初始名字空间：
       这个名字空间的公共方面只是一种约定，而不是要求。
    * `kube-node-lease` 此名字空间用于与各个节点相关的
      [租约（Lease）](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)对象。
-      节点租期允许 kubelet 发送[心跳](/zh/docs/concepts/architecture/nodes/#heartbeats)，由此控制面能够检测到节点故障。
+      节点租期允许 kubelet 发送[心跳](/zh-cn/docs/concepts/architecture/nodes/#heartbeats)，由此控制面能够检测到节点故障。
 
 <!--
 ### Setting the namespace for a request
@@ -161,8 +161,8 @@ When you create a [Service](/docs/user-guide/services), it creates a correspondi
 -->
 ## 名字空间和 DNS
 
-当你创建一个[服务](/zh/docs/concepts/services-networking/service/)时，
-Kubernetes 会创建一个相应的 [DNS 条目](/zh/docs/concepts/services-networking/dns-pod-service/)。
+当你创建一个[服务](/zh-cn/docs/concepts/services-networking/service/)时，
+Kubernetes 会创建一个相应的 [DNS 条目](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 
 <!--
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
@@ -180,7 +180,7 @@ As a result, all namespace names must be valid
 [RFC 1123 DNS labels](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
 -->
 因此，所有的名字空间名称都必须是合法的
-[RFC 1123 DNS 标签](/zh/docs/concepts/overview/working-with-objects/names/#dns-label-names)。
+[RFC 1123 DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-label-names)。
 
 {{< warning >}}
 <!--
@@ -206,7 +206,7 @@ TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
 -->
 为了缓解这类问题，需要将创建名字空间的权限授予可信的用户。
 如果需要，你可以额外部署第三方的安全控制机制，例如以
-[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 的形式，阻止用户创建与公共 [TLD](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)
 同名的名字空间。
 {{< /warning >}}
@@ -224,7 +224,7 @@ persistentVolumes, are not in any namespace.
 -->
 大多数 kubernetes 资源（例如 Pod、Service、副本控制器等）都位于某些名字空间中。
 但是名字空间资源本身并不在名字空间中。而且底层资源，例如
-[节点](/zh/docs/concepts/architecture/nodes/)和持久化卷不属于任何名字空间。
+[节点](/zh-cn/docs/concepts/architecture/nodes/)和持久化卷不属于任何名字空间。
 
 <!--
 To see which Kubernetes resources are and aren't in a namespace:
@@ -255,7 +255,7 @@ The value of the label is the namespace name.
 Kubernetes 控制面会为所有名字空间设置一个不可变更的
 {{< glossary_tooltip text="标签" term_id="label" >}}
 `kubernetes.io/metadata.name`，只要 `NamespaceDefaultLabelName` 这一
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 被启用。标签的值是名字空间的名称。
 
 ## {{% heading "whatsnext" %}}
@@ -264,5 +264,5 @@ Kubernetes 控制面会为所有名字空间设置一个不可变更的
 * Learn more about [creating a new namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
 * Learn more about [deleting a namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
 -->
-* 进一步了解[建立新的名字空间](/zh/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)。
-* 进一步了解[删除名字空间](/zh/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)。
+* 进一步了解[建立新的名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)。
+* 进一步了解[删除名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)。

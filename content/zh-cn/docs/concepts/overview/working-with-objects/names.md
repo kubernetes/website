@@ -17,15 +17,15 @@ For example, you can only have one Pod named `myapp-1234` within the same [names
 
 每个 Kubernetes 对象也有一个 [_UID_](#uids) 来标识在整个集群中的唯一性。
 
-比如，在同一个[名字空间](/zh/docs/concepts/overview/working-with-objects/namespaces/)
+比如，在同一个[名字空间](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/)
 中有一个名为 `myapp-1234` 的 Pod，但是可以命名一个 Pod 和一个 Deployment 同为 `myapp-1234`。
 
 <!--
 For non-unique user-provided attributes, Kubernetes provides [labels](/docs/user-guide/labels) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 -->
 对于用户提供的非唯一性的属性，Kubernetes 提供了
-[标签（Labels）](/zh/docs/concepts/working-with-objects/labels)和
-[注解（Annotation）](/zh/docs/concepts/overview/working-with-objects/annotations/)机制。
+[标签（Labels）](/zh-cn/docs/concepts/working-with-objects/labels)和
+[注解（Annotation）](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)机制。
 
 <!-- body -->
 
@@ -173,7 +173,7 @@ UUIDs 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667。
 * Read about [labels](/docs/concepts/overview/working-with-objects/labels/) in Kubernetes.
 * See the [Identifiers and Names in Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) design document.
 -->
-* 进一步了解 Kubernetes [标签](/zh/docs/concepts/overview/working-with-objects/labels/)
+* 进一步了解 Kubernetes [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
 * 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)的设计文档
 
 

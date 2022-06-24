@@ -19,9 +19,9 @@ to manage applications and their components. Operators follow
 Kubernetes principles, notably the [control loop](/docs/concepts/architecture/controller/).
 -->
 Operator 是 Kubernetes 的扩展软件，它利用
-[定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+[定制资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 管理应用及其组件。
-Operator 遵循 Kubernetes 的理念，特别是在[控制器](/zh/docs/concepts/architecture/controller/)
+Operator 遵循 Kubernetes 的理念，特别是在[控制器](/zh-cn/docs/concepts/architecture/controller/)
 方面。
 
 <!-- body -->
@@ -67,7 +67,7 @@ Kubernetes 的 {{< glossary_tooltip text="Operator 模式" term_id="operator-pat
 Kubernetes 自身代码的情况下，通过为一个或多个自定义资源关联{{< glossary_tooltip text="控制器" term_id="controller" >}}
 来扩展集群的能力。
 Operator 是 Kubernetes API 的客户端，充当
-[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+[自定义资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 的控制器。
 
 <!--
@@ -202,7 +202,7 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
 
 如果生态系统中没可以实现你目标的 Operator，你可以自己编写代码。
 
-你还可以使用任何支持 [Kubernetes API 客户端](/zh/docs/reference/using-api/client-libraries/)
+你还可以使用任何支持 [Kubernetes API 客户端](/zh-cn/docs/reference/using-api/client-libraries/)
 的语言或运行时来实现 Operator（即控制器）。
 
 <!--
@@ -248,7 +248,7 @@ you implement yourself
 -->
 
 * 阅读 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [Operator 白皮书](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md)。
-* 详细了解 [定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* 详细了解 [定制资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 在 [OperatorHub.io](https://operatorhub.io/) 上找到现成的、适合你的 Operator
 * [发布](https://operatorhub.io/)你的 Operator，让别人也可以使用
 * 阅读 [CoreOS 原始文章](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html)，它介绍了 Operator 模式（这是一个存档版本的原始文章）。
