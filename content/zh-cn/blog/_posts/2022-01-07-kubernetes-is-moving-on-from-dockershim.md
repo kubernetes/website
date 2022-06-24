@@ -82,7 +82,7 @@ after their announced deprecation.
 我们[正式宣布](/zh-cn/blog/2020/12/08/kubernetes-1-20-release-announcement/)于
 2020 年 12 月弃用 dockershim。目标是在 2022 年 4 月，
 Kubernetes 1.24 中完全移除 dockershim。
-此时间线与我们的[弃用策略](/zh-cn/docs/reference/using api/deprecation-policy/#deprecating-a-feature-or-behavior)一致，
+此时间线与我们的[弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)一致，
 即规定已弃用的行为必须在其宣布弃用后至少运行 1 年。
 
 <!--
