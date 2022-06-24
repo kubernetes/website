@@ -2,7 +2,7 @@
 title: Secret
 id: secret
 date: 2018-04-12
-full_link: /zh/docs/concepts/configuration/secret/
+full_link: /zh-cn/docs/concepts/configuration/secret/
 short_description: >
   Secret 用于存储敏感信息，如密码、 OAuth 令牌和 SSH 密钥。
 
@@ -42,6 +42,6 @@ Allows for more control over how sensitive information is used and reduces the r
 
 Secret 允许用户对如何使用敏感信息进行更多的控制，并减少信息意外暴露的风险。
 默认情况下，Secret 值被编码为 base64 字符串并以非加密的形式存储，但可以配置为
-[静态加密（Encrypt at rest）](/zh/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted)。
+[静态加密（Encrypt at rest）](/zh-cn/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted)。
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 通过挂载卷中的文件的方式引用 Secret，或者通过 kubelet 为 pod 拉取镜像时引用。
-Secret 非常适合机密数据使用，而 [ConfigMaps](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/) 适用于非机密数据。
+Secret 非常适合机密数据使用，而 [ConfigMaps](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 适用于非机密数据。
