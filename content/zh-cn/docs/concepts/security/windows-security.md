@@ -1,7 +1,7 @@
 ---
 title: Windows 节点的安全性
 content_type: concept
-weight: 75
+weight: 40
 ---
 <!--
 reviewers:
