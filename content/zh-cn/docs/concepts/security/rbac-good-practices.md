@@ -31,7 +31,7 @@ Kubernetes {{< glossary_tooltip text="RBAC" term_id="rbac" >}}
 降低因过多权限而导致安全事件的风险。
 
 此文档的良好实践应该与通用
-[RBAC 文档](/zh/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update)一起阅读。
+[RBAC 文档](/zh-cn/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update)一起阅读。
 
 <!-- body -->
 
@@ -74,7 +74,7 @@ some general rules that can be applied are :
   由于 Kubernetes 是一个可扩展的系统，因此通过通配符来授予访问权限不仅会授予集群中当前的所有对象类型，
   还包含所有未来被创建的所有对象类型。
 - 管理员不应使用 `cluster-admin` 账号，除非特别需要。为低特权帐户提供
-  [伪装权限](/zh/docs/reference/access-authn-authz/authentication/#user-impersonation)
+  [伪装权限](/zh-cn/docs/reference/access-authn-authz/authentication/#user-impersonation)
   可以避免意外修改集群资源。
 - 避免将用户添加到 `system:masters` 组。任何属于此组成员的用户都会绕过所有 RBAC 权限检查，
   始终具有不受限制的超级用户访问权限，并且不能通过删除 `RoleBinding` 或 `ClusterRoleBinding`
@@ -102,9 +102,9 @@ In cases where a workload requires powerful permissions, consider the following 
 - 限制运行此类 Pod 的节点数量。确保你运行的任何 DaemonSet 都是必需的，
   并且以最小权限运行，以限制容器逃逸的影响范围。
 - 避免将此类 Pod 与不可信任或公开的 Pod 在一起运行。
-  考虑使用[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)、
-  [节点亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)或
-  [Pod 反亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)确保 
+  考虑使用[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)、
+  [节点亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)或
+  [Pod 反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)确保 
   Pod 不会与不可信或不太受信任的 Pod 一起运行。
   特别注意可信度不高的 Pod 不符合 **Restricted** Pod 安全标准的情况。
 <!--
@@ -133,7 +133,7 @@ Kubernetes 默认提供访问权限并非是每个集群都需要的。
 - 审查 `system:unauthenticated` 组的绑定，并在可能的情况下将其删除，
   因为这会给所有能够访问 API 服务器的人以网络级别的权限。
 - 通过设置 `automountServiceAccountToken: false` 来避免服务账号令牌的默认自动挂载，
-  有关更多详细信息，请参阅[使用默认服务账号令牌](/zh/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)。
+  有关更多详细信息，请参阅[使用默认服务账号令牌](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)。
   此参数可覆盖 Pod 服务账号设置，而需要服务账号令牌的工作负载仍可以挂载。
 
 <!--
@@ -192,9 +192,9 @@ be able to gain access to the underlying node unless restrictions based on the K
 -->
 ### 工作负载的创建 {#workload-creation}
 
-能够创建工作负载的用户（Pod 或管理 Pod 的[工作负载资源](/zh/docs/concepts/workloads/controllers/)） 
+能够创建工作负载的用户（Pod 或管理 Pod 的[工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)） 
 能够访问下层的节点，除非基于 Kubernetes 的
-[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)做限制。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)做限制。
 
 <!--
 Users who can run privileged Pods can use that access to gain node access and potentially to
@@ -208,7 +208,7 @@ or other (third party) mechanisms to implement that enforcement.
 并可能进一步提升他们的特权。如果你不完全信任某用户或其他主体，
 不相信他们能够创建比较安全且相互隔离的 Pod，你应该强制实施 **Baseline**
 或 **Restricted** Pod 安全标准。
-你可以使用 [Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission/)或其他（第三方）机制来强制实施这些限制。
+你可以使用 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)或其他（第三方）机制来强制实施这些限制。
 
 <!--
 You can also use the deprecated [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) mechanism
@@ -264,7 +264,7 @@ users with this right can effectively escalate their privileges.
 ### esclate 动词 {#escalate-verb}
 通常，RBAC 系统会阻止用户创建比他所拥有的更多权限的 `ClusterRole`。
 而 `escalate` 动词是个例外。如
-[RBAC 文档](/zh/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update)
+[RBAC 文档](/zh-cn/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update)
 中所述，拥有此权限的用户可以有效地提升他们的权限。
 
 <!--
@@ -352,4 +352,4 @@ to limit the quantity of objects which can be created.
 产生拒绝服务状况，如 [Kubernetes 使用的 etcd 容易受到 OOM 攻击](https://github.com/kubernetes/kubernetes/issues/107325)中的讨论。
 允许太不受信任或者不受信任的用户对系统进行有限的访问在多租户集群中是特别重要的。
 
-缓解此问题的一种选择是使用[资源配额](/zh/docs/concepts/policy/resource-quotas/#object-count-quota)以限制可以创建的对象数量。
+缓解此问题的一种选择是使用[资源配额](/zh-cn/docs/concepts/policy/resource-quotas/#object-count-quota)以限制可以创建的对象数量。
