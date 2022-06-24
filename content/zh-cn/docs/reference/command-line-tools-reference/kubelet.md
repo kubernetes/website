@@ -1351,7 +1351,7 @@ A set of <code>&lt;resource name&gt;=&lt;resource quantity&gt;</code> (e.g. <cod
 kubernetes 系统预留的资源配置，以一组 <code>&lt;资源名称&gt;=&lt;资源数量&gt;</code> 格式表示。
 （例如：<code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>）。
 当前支持 <code>cpu</code>、<code>memory</code> 和用于根文件系统的 <code>ephemeral-storage</code>。
-请参阅<a href="http://kubernetes.io/zh-cn/docs/user-guide/compute-resources">这里</a>获取更多信息。
+请参阅<a href="https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/">这里</a>获取更多信息。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
