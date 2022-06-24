@@ -28,8 +28,8 @@ authorized for API access.
 When a request reaches the API, it goes through several stages, illustrated in the
 following diagram:
 -->
-用户使用 `kubectl`、客户端库或构造 REST 请求来访问 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api/)。
-人类用户和 [Kubernetes 服务账户](/zh/docs/tasks/configure-pod-container/configure-service-account/)都可以被鉴权访问 API。
+用户使用 `kubectl`、客户端库或构造 REST 请求来访问 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)。
+人类用户和 [Kubernetes 服务账户](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)都可以被鉴权访问 API。
 当请求到达 API 时，它会经历多个阶段，如下图所示：
 
 ![Kubernetes API 请求处理步骤示意图](/images/docs/admin/access-control-overview.svg)
@@ -72,7 +72,7 @@ Authenticators are described in more detail in
 -->
 如上图步骤 **1** 所示，建立 TLS 后， HTTP 请求将进入认证（Authentication）步骤。
 集群创建脚本或者集群管理员配置 API 服务器，使之运行一个或多个身份认证组件。
-身份认证组件在[认证](/zh/docs/reference/access-authn-authz/authentication/)节中有更详细的描述。
+身份认证组件在[认证](/zh-cn/docs/reference/access-authn-authz/authentication/)节中有更详细的描述。
 
 <!--
 The input to the authentication step is the entire HTTP request; however, it typically
@@ -182,7 +182,7 @@ Kubernetes 支持多种鉴权模块，例如 ABAC 模式、RBAC 模式和 Webhoo
 如果所有模块拒绝了该请求，请求将会被拒绝（HTTP 状态码 403）。
 
 要了解更多有关 Kubernetes 鉴权的更多信息，包括有关使用支持鉴权模块创建策略的详细信息，
-请参阅[鉴权](/zh/docs/reference/access-authn-authz/authorization/)。
+请参阅[鉴权](/zh-cn/docs/reference/access-authn-authz/authorization/)。
 
 <!-- ## Admission control -->
 ## 准入控制 {#admission-control}
@@ -223,7 +223,7 @@ for the corresponding API object, and then written to the object store (shown as
 
 除了拒绝对象之外，准入控制器还可以为字段设置复杂的默认值。
 
-可用的准入控制模块在[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)中进行了描述。
+可用的准入控制模块在[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)中进行了描述。
 
 请求通过所有准入控制器后，将使用检验例程检查对应的 API 对象，然后将其写入对象存储（如步骤 **4** 所示）。
 
@@ -241,7 +241,7 @@ For more information, see [Auditing](/docs/tasks/debug/debug-cluster/audit/).
 Kubernetes 审计提供了一套与安全相关的、按时间顺序排列的记录，其中记录了集群中的操作序列。
 集群对用户、使用 Kubernetes API 的应用程序以及控制平面本身产生的活动进行审计。
 
-更多信息请参考 [审计](/zh/docs/tasks/debug/debug-cluster/audit/).
+更多信息请参考 [审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/).
 
 <!-- ## API server ports and IPs -->
 ## API 服务器端口和 IP {#api-server-ports-and-ips}
@@ -327,23 +327,23 @@ You can learn about:
 -->
 阅读更多有关身份认证、鉴权和 API 访问控制的文档：
 
-- [认证](/zh/docs/reference/access-authn-authz/authentication/)
-   - [使用 Bootstrap 令牌进行身份认证](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)
-- [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
-   - [动态准入控制](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
-- [鉴权](/zh/docs/reference/access-authn-authz/authorization/)
-   - [基于角色的访问控制](/zh/docs/reference/access-authn-authz/rbac/)
-   - [基于属性的访问控制](/zh/docs/reference/access-authn-authz/abac/)
-   - [节点鉴权](/zh/docs/reference/access-authn-authz/node/)
-   - [Webhook 鉴权](/zh/docs/reference/access-authn-authz/webhook/)
-- [证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)
-   - 包括 [CSR 认证](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
-     和[证书签名](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
+- [认证](/zh-cn/docs/reference/access-authn-authz/authentication/)
+   - [使用 Bootstrap 令牌进行身份认证](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
+- [准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
+   - [动态准入控制](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- [鉴权](/zh-cn/docs/reference/access-authn-authz/authorization/)
+   - [基于角色的访问控制](/zh-cn/docs/reference/access-authn-authz/rbac/)
+   - [基于属性的访问控制](/zh-cn/docs/reference/access-authn-authz/abac/)
+   - [节点鉴权](/zh-cn/docs/reference/access-authn-authz/node/)
+   - [Webhook 鉴权](/zh-cn/docs/reference/access-authn-authz/webhook/)
+- [证书签名请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)
+   - 包括 [CSR 认证](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
+     和[证书签名](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
 - 服务账户
-  - [开发者指导](/zh/docs/tasks/configure-pod-container/configure-service-account/)
-  - [管理](/zh/docs/reference/access-authn-authz/service-accounts-admin/)
+  - [开发者指导](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
+  - [管理](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)
 
 你可以了解
 - Pod 如何使用
-  [Secrets](/zh/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
+  [Secrets](/zh-cn/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
   获取 API 凭证.

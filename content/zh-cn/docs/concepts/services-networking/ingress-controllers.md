@@ -143,13 +143,13 @@ You may deploy any number of ingress controllers using [ingress class](/docs/con
 within a cluster. Note the `.metadata.name` of your ingress class resource. When you create an ingress you would need that name to specify the `ingressClassName` field on your Ingress object (refer to [IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec). `ingressClassName` is a replacement of the older [annotation method](/docs/concepts/services-networking/ingress/#deprecated-annotation).
 -->
 你可以使用
-[Ingress 类](/zh/docs/concepts/services-networking/ingress/#ingress-class)在集群中部署任意数量的
+[Ingress 类](/zh-cn/docs/concepts/services-networking/ingress/#ingress-class)在集群中部署任意数量的
 Ingress 控制器。
 请注意你的 Ingress 类资源的 `.metadata.name` 字段。
 当你创建 Ingress 时，你需要用此字段的值来设置 Ingress 对象的 `ingressClassName` 字段（请参考
 [IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)）。
 `ingressClassName`
-是之前的[注解](/zh/docs/concepts/services-networking/ingress/#deprecated-annotation)做法的替代。
+是之前的[注解](/zh-cn/docs/concepts/services-networking/ingress/#deprecated-annotation)做法的替代。
 
 <!--
 If you do not specify an IngressClass for an Ingress, and your cluster has exactly one IngressClass marked as default, then Kubernetes [applies](/docs/concepts/services-networking/ingress/#default-ingress-class) the cluster's default IngressClass to the Ingress.
@@ -160,10 +160,10 @@ controllers operate slightly differently.
 -->
 如果你不为 Ingress 指定 IngressClass，并且你的集群中只有一个 IngressClass 被标记为默认，那么
 Kubernetes 会将此集群的默认 IngressClass
-[应用](/zh/docs/concepts/services-networking/ingress/#default-ingress-class)到 Ingress 上。
+[应用](/zh-cn/docs/concepts/services-networking/ingress/#default-ingress-class)到 Ingress 上。
 IngressClass。
 你可以通过将
-[`ingressclass.kubernetes.io/is-default-class` 注解](/zh/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)
+[`ingressclass.kubernetes.io/is-default-class` 注解](/zh-cn/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)
 的值设置为 `"true"` 来将一个 IngressClass 标记为集群默认。
 
 理想情况下，所有 Ingress 控制器都应满足此规范，但各种 Ingress 控制器的操作略有不同。
@@ -181,6 +181,6 @@ Make sure you review your ingress controller's documentation to understand the c
 * Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube).
 -->
-* 进一步了解 [Ingress](/zh/docs/concepts/services-networking/ingress/)。
-* [在 Minikube 上使用 NGINX 控制器安装 Ingress](/zh/docs/tasks/access-application-cluster/ingress-minikube)。
+* 进一步了解 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)。
+* [在 Minikube 上使用 NGINX 控制器安装 Ingress](/zh-cn/docs/tasks/access-application-cluster/ingress-minikube)。
 
