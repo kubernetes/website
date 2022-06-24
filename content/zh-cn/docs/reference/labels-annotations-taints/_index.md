@@ -178,7 +178,7 @@ The Kubelet populates this with `runtime.GOARCH` as defined by Go. This can be h
 
 用于：Node
 
-Kubelet 使用 Go 定义的 `runtime.GOARCH` 填充它。 如果你混合使用 ARM 和 X86 节点，这会很方便。
+Kubelet 使用 Go 定义的 `runtime.GOARCH` 填充它。如果你混合使用 ARM 和 X86 节点，这会很方便。
 <!--
 ### kubernetes.io/os
 
@@ -230,11 +230,11 @@ This label has been deprecated. Please use `kubernetes.io/os` instead.
 -->
 ### beta.kubernetes.io/arch (已弃用) {#beta-kubernetes-io-arch}
 
-此标签已被弃用。请改用`kubernetes.io/arch`。
+此标签已被弃用。请改用 `kubernetes.io/arch`。
 
 ### beta.kubernetes.io/os (已弃用) {#beta-kubernetes-io-os}
 
-此标签已被弃用。请改用`kubernetes.io/os`。
+此标签已被弃用。请改用 `kubernetes.io/os`。
 
 <!--
 ### kubernetes.io/hostname {#kubernetesiohostname}
@@ -255,7 +255,7 @@ This label is also used as part of the topology hierarchy.  See [topology.kubern
 
 Kubelet 使用主机名填充此标签。请注意，可以通过将 `--hostname-override` 标志传递给 `kubelet` 来替代“实际”主机名。
 
-此标签也用作拓扑层次结构的一部分。 有关详细信息，请参阅 [topology.kubernetes.io/zone](#topologykubernetesiozone)。
+此标签也用作拓扑层次结构的一部分。有关详细信息，请参阅 [topology.kubernetes.io/zone](#topologykubernetesiozone)。
 
 <!--
 ### kubernetes.io/change-cause {#change-cause}
@@ -328,7 +328,7 @@ which allows users to influence ReplicaSet downscaling order. The annotation par
 
 用于：Pod
 
-该注解用于设置 [Pod 删除成本](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)允许用户影响 ReplicaSet 缩减顺序。注解解析为 `int32` 类型。
+该注解用于设置 [Pod 删除成本](/zh-cn/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)允许用户影响 ReplicaSet 缩减顺序。注解解析为 `int32` 类型。
 
 <!-- 
 ### kubernetes.io/ingress-bandwidth
@@ -353,7 +353,7 @@ For example, `10M` means 10 megabits per second.
 
 {{< note >}}
 入站流量控制注解是一项实验性功能。
-如果要启用流量控制支持，必须将`bandwidth`插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
+如果要启用流量控制支持，必须将 `bandwidth` 插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
 并确保二进制文件包含在你的 CNI bin 目录中（默认为`/opt/cni/bin`）。
 {{< /note >}}
 
@@ -364,9 +364,9 @@ For example, `10M` means 10 megabits per second.
 你可以对 Pod 应用服务质量流量控制并有效限制其可用带宽。
 入站流量（到 Pod）通过控制排队的数据包来处理，以有效地处理数据。
 要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/ingress-bandwidth`
-注解指定数据流量速度。 用于指定入站的速率单位是每秒，
+注解指定数据流量速度。用于指定入站的速率单位是每秒，
 作为[量纲（Quantity）](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)。
-例如，`10M`表示每秒 10 兆比特。
+例如，`10M` 表示每秒 10 兆比特。
 
 <!-- 
 ### kubernetes.io/egress-bandwidth
@@ -391,7 +391,7 @@ For example, `10M` means 10 megabits per second.
 
 {{< note >}}
 出站流量控制注解是一项实验性功能。
-如果要启用流量控制支持，必须将`bandwidth`插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
+如果要启用流量控制支持，必须将 `bandwidth` 插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
 并确保二进制文件包含在你的 CNI bin 目录中（默认为`/opt/cni/bin`）。
 {{< /note >}}
 
@@ -483,7 +483,7 @@ StatefulSet topic for more details.
 
 当 StatefulSet 控制器为 StatefulSet 创建 Pod 时，控制平面会在该 Pod 上设置此标签。标签的值是正在创建的 Pod 的名称。
 
-有关详细信息，请参阅 StatefulSet 主题中的 [Pod 名称标签](/docs/concepts/workloads/controllers/statefulset/#pod-name-label)。
+有关详细信息，请参阅 StatefulSet 主题中的 [Pod 名称标签](/zh-cn/docs/concepts/workloads/controllers/statefulset/#pod-name-label)。
 
 <!--
 ### topology.kubernetes.io/region {#topologykubernetesioregion}
@@ -529,8 +529,8 @@ A region represents a larger domain, made up of one or more zones.  It is uncomm
 
 在 PersistentVolume 上：拓扑感知卷配置器将自动在 `PersistentVolume` 上设置 Node 亲和性约束。
 
-一个 Zone 代表一个逻辑故障域。 Kubernetes 集群通常跨越多个 Zone 以提高可用性。虽然 Zone 的确切定义留给基础设施实现，
-但 Zone 的常见属性包括 Zone 内非常低的网络延迟、 Zone 内的免费网络流量以及与其他 Zone 的故障独立性。
+一个 Zone 代表一个逻辑故障域。Kubernetes 集群通常跨越多个 Zone 以提高可用性。虽然 Zone 的确切定义留给基础设施实现，
+但 Zone 的常见属性包括 Zone 内非常低的网络延迟、Zone 内的免费网络流量以及与其他 Zone 的故障独立性。
 例如，一个 Zone 内的 Node 可能共享一个网络交换机，但不同 Zone 中的 Node 无法共享交换机。
 
 一个 Region 代表一个更大的域，由一个或多个 Zone 组成。Kubernetes 集群跨多个 Region 并不常见，虽然 Zone 或 Region 的确切定义留给基础设施实现，
@@ -544,9 +544,9 @@ Kubernetes makes a few assumptions about the structure of zones and regions:
 -->
 Kubernetes 对 Zone 和 Region 的结构做了一些假设：
 
-1. Zone 和 Region 是分层的： Zone 是 Region 的严格子集，没有 Zone 可以在两个 Region 中；
+1. Zone 和 Region 是分层的：Zone 是 Region 的严格子集，没有 Zone 可以在两个 Region 中；
 
-2. Zone 名称跨 Region 是唯一的；例如， Region “africa-east-1” 可能由 Zone “africa-east-1a” 和 “africa-east-1b” 组成。
+2. Zone 名称跨 Region 是唯一的；例如，Region “africa-east-1” 可能由 Zone “africa-east-1a” 和 “africa-east-1b” 组成。
 
 <!--
 It should be safe to assume that topology labels do not change.  Even though labels are strictly mutable, consumers of them can assume that a given node is not going to be moved between zones without being destroyed and recreated.
@@ -581,7 +581,7 @@ If `PersistentVolumeLabel` does not support automatic labeling of your Persisten
 adding the labels manually (or adding support for `PersistentVolumeLabel`). With `PersistentVolumeLabel`, the scheduler prevents Pods from mounting volumes in a different zone. If your infrastructure doesn't have this constraint, you don't need to add the zone labels to the volumes at all.
 -->
 你应该考虑手动添加标签（或添加对 `PersistentVolumeLabel` 的支持）。
-基于 `PersistentVolumeLabel` ，调度程序可以防止 Pod 挂载来自其他 Zone 的卷。如果你的基础架构没有此限制，则不需要将 Zone 标签添加到卷上。
+基于 `PersistentVolumeLabel`，调度程序可以防止 Pod 挂载来自其他 Zone 的卷。如果你的基础架构没有此限制，则不需要将 Zone 标签添加到卷上。
 
 <!--
 ### volume.beta.kubernetes.io/storage-provisioner (deprecated)
@@ -1336,7 +1336,7 @@ See more details on the [Audit Annotations](/docs/reference/labels-annotations-t
 - [`insecure-sha1.invalid-cert.kubernetes.io/$hostname`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#insecure-sha1-invalid-cert-kubernetes-io-hostname)
 - [`missing-san.invalid-cert.kubernetes.io/$hostname`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#missing-san-invalid-cert-kubernetes-io-hostname)
 - [`pod-security.kubernetes.io/audit-violations`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
-- [`pod-security.kubernetes.io/enforce-policy`](/zh-cn/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`pod-security.kubernetes.io/enforce-policy`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
 - [`pod-security.kubernetes.io/exempt`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 
 在[审计注解](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/)页面上查看更多详细信息。

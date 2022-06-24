@@ -45,9 +45,9 @@ Most stateless systems, web servers for example, are created without the need to
 One of Kubernetes' responsibilities is to place "resources" (e.g, a disk or container) into the cluster and satisfy the constraints they request. For example: "I must be in availability zone _A_" (see [Running in multiple zones](/docs/setup/best-practices/multiple-zones/#nodes-are-labeled)), or "I can't be placed onto the same node as this other Pod" (see [Affinity and anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)).
 -->
 Kubernetes 的职责之一是将 "资源"（如磁盘或容器）放入集群中，并满足其请求的约束。
-例如。"我必须在可用性区域 _A_"（见[在多个区域运行](/zh-cn/docs/setup/best-practices/multiple-zone/#nodes-are-labeled)），
+例如。"我必须在可用性区域 _A_"（见[在多个区域运行](/zh-cn/docs/setup/best-practices/multiple-zones/#nodes-are-labeled)），
 或者 "我不能被放置到与某个 Pod 相同的节点上"
-（见[亲和与反亲和](/zh-cn/docs/setup/best-practices/multiple-zone/#nodes-are-labeled)）。
+（见[亲和与反亲和](/zh-cn/docs/setup/best-practices/multiple-zones/#nodes-are-labeled)）。
 
 <!--
 As an addition to those constraints, Kubernetes offers [Statefulsets](/docs/concepts/workloads/controllers/statefulset/) that provide identity to Pods as well as persistent storage that "follows" these identified pods. Identity in a StatefulSet is handled by an increasing integer at the end of a pod's name. It's important to note that this integer must always be contiguous: in a StatefulSet, if pods 1 and 3 exist then pod 2 must also exist.
@@ -91,7 +91,7 @@ When adding additional resources to the cluster we also distribute them across z
 Note that anti-affinities are satisfied no matter the order in which pods are assigned to Kubernetes nodes. In the example, pods 0, 1 and 2 were assigned to zones A, B, and C respectively, but pods 3 and 4 were assigned in a different order, to zones B and A respectively. The anti-affinity is still satisfied because the pods are still placed in different zones.
 -->
 请注意，无论 Pod 被分配到 Kubernetes 节点的顺序如何，都会满足反亲和性。
-在这个例子中，Pod 0、1 、2 分别被分配到 A、B 、C 区，但 Pod 3 和 4 以不同的顺序被分配到 B 和 A 区。
+在这个例子中，Pod 0、1、2 分别被分配到 A、B、C 区，但 Pod 3 和 4 以不同的顺序被分配到 B 和 A 区。
 反亲和性仍然得到满足，因为 Pod 仍然被放置在不同的区域。
 
 <!--
@@ -144,7 +144,7 @@ Our combined knowledge of the following is what lead to this misconception.
 * The behavior that a StatefulSet with _n_ replicas, when Pods are being deployed, they are created sequentially, in order from `{0..n-1}`. See [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) for more details.
 -->
 我们对以下内容的综合认识是导致这种误解的原因。
-* Kubernetes [自动跨区分配 Pod](/zh-cn/docs/setup/best-practices/multiple-zone/#pods-are-spread-across-zone) 的能力
+* Kubernetes [自动跨区分配 Pod](/zh-cn/docs/setup/best-practices/multiple-zones/#pods-are-spread-across-zones) 的能力
 * 一个有 _n_ 个副本的 StatefulSet，当 Pod 被部署时，它们会按照 `{0...n-1}` 的顺序依次创建。
 更多细节见 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)。
 
