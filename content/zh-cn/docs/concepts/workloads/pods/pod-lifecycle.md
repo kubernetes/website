@@ -182,7 +182,7 @@ There are three possible container states: `Waiting`, `Running`, and `Terminated
 ## 容器状态  {#container-states}
 
 Kubernetes 会跟踪 Pod 中每个容器的状态，就像它跟踪 Pod 总体上的[阶段](#pod-phase)一样。
-你可以使用[容器生命周期回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks/) 
+你可以使用[容器生命周期回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks/)
 来在容器生命周期中的特定时间点触发事件。
 
 一旦{{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}将 Pod
@@ -382,7 +382,7 @@ status:
 <!--
 The Pod conditions you add must have names that meet the Kubernetes [label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
 -->
-你所添加的 Pod 状况名称必须满足 Kubernetes 
+你所添加的 Pod 状况名称必须满足 Kubernetes
 [标签键名格式](/zh-cn/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)。
 
 <!--
@@ -484,7 +484,7 @@ Each probe must define exactly one of these four mechanisms:
   [gRPC健康检查](https://grpc.io/grpc/core/md_doc_health-checking.html)。
   如果响应的状态是 "SERVING"，则认为诊断成功。
   gRPC 探针是一个 alpha 特性，只有在你启用了
-  "GRPCContainerProbe" [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gate/)时才能使用。
+  "GRPCContainerProbe" [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才能使用。
 
 `httpGet`
 : 对容器的 IP 地址上指定端口和路径执行 HTTP `GET` 请求。如果响应的状态码大于等于 200
@@ -591,11 +591,11 @@ with the Pod's `restartPolicy`.
 If you'd like your container to be killed and restarted if a probe fails, then
 specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
 -->
-如果容器中的进程能够在遇到问题或不健康的情况下自行崩溃，则不一定需要存活态探针; 
-`kubelet` 将根据 Pod 的`restartPolicy` 自动执行修复操作。
+如果容器中的进程能够在遇到问题或不健康的情况下自行崩溃，则不一定需要存活态探针;
+`kubelet` 将根据 Pod 的 `restartPolicy` 自动执行修复操作。
 
 如果你希望容器在探测失败时被杀死并重新启动，那么请指定一个存活态探针，
-并指定`restartPolicy` 为 "`Always`" 或 "`OnFailure`"。
+并指定 `restartPolicy` 为 "`Always`" 或 "`OnFailure`"。
 
 <!--
 #### When should you use a readiness probe?
@@ -754,7 +754,7 @@ An example flow:
    如果你使用 `kubectl describe` 来查验你正在删除的 Pod，该 Pod 会显示为
    "Terminating" （正在终止）。
    在 Pod 运行所在的节点上：`kubelet` 一旦看到 Pod
-   被标记为正在终止（已经设置了体面终止限期），`kubelet` 即开始本地的 Pod 关闭过程。 
+   被标记为正在终止（已经设置了体面终止限期），`kubelet` 即开始本地的 Pod 关闭过程。
 
    <!--
    1. If one of the Pod's containers has defined a `preStop`

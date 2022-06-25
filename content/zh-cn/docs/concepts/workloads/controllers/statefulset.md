@@ -27,7 +27,7 @@ StatefulSet 是用来管理有状态应用的工作负载 API 对象。
 StatefulSets are valuable for applications that require one or more of the
 following.
 -->
-## 使用 StatefulSets
+## 使用 StatefulSets   {#using-statefulsets}
 
 StatefulSets 对于需要满足以下一个或多个需求的应用程序很有价值：
 
@@ -164,7 +164,7 @@ The name of a StatefulSet object must be a valid
 * `volumeClaimTemplates` 将通过 PersistentVolumes 驱动提供的
   [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
 
-StatefulSet 的命名需要遵循[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)规范。
+StatefulSet 的命名需要遵循 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)规范。
 
 <!--
 ### Pod Selector
@@ -178,7 +178,7 @@ You must set the `.spec.selector` field of a StatefulSet to match the labels of 
 `.spec.template.metadata.labels` 中设置的标签。
 未指定匹配的 Pod 选择器将在创建 StatefulSet 期间导致验证错误。
 
-<!-- 
+<!--
 ### Volume Claim Templates
 
 You can set the  `.spec.volumeClaimTemplates` which can provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
@@ -194,7 +194,7 @@ You can set the  `.spec.volumeClaimTemplates` which can provide stable storage u
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
-<!-- 
+<!--
 `.spec.minReadySeconds` is an optional field that specifies the minimum number of seconds for which a newly
 created Pod should be ready without any of its containers crashing, for it to be considered available.
 Please note that this feature is beta and enabled by default. Please opt out by unsetting the StatefulSetMinReadySeconds flag, if you don't
@@ -332,9 +332,9 @@ This must be done manually.
 对于 StatefulSet 中定义的每个 VolumeClaimTemplate，每个 Pod 接收到一个 PersistentVolumeClaim。在上面的 nginx 示例中，每个 Pod 将会得到基于 StorageClass `my-storage-class` 提供的
 1 Gib 的 PersistentVolume。
 如果没有声明 StorageClass，就会使用默认的 StorageClass。
-当一个 Pod 被调度（重新调度）到节点上时，它的 `volumeMounts` 会挂载与其 
+当一个 Pod 被调度（重新调度）到节点上时，它的 `volumeMounts` 会挂载与其
 PersistentVolumeClaims 相关联的 PersistentVolume。
-请注意，当 Pod 或者 StatefulSet 被删除时，与 PersistentVolumeClaims 相关联的 
+请注意，当 Pod 或者 StatefulSet 被删除时，与 PersistentVolumeClaims 相关联的
 PersistentVolume 并不会被删除。要删除它必须通过手动方式来完成。
 
 <!--
@@ -417,7 +417,7 @@ StatefulSet 允许你放宽其排序保证，
 `OrderedReady` pod management is the default for StatefulSets. It implements the behavior
 described [above](#deployment-and-scaling-guarantees).
 -->
-#### OrderedReady Pod 管理
+#### OrderedReady Pod 管理   {#orderedready-pod-management}
 
 `OrderedReady` Pod 管理是 StatefulSet 的默认设置。它实现了
 [上面](#deployment-and-scaling-guarantees)描述的功能。
@@ -467,7 +467,7 @@ StatefulSet 的 `.spec.updateStrategy` 字段让
 
 `RollingUpdate`
 : `RollingUpdate` 更新策略对 StatefulSet 中的 Pod 执行自动的滚动更新。这是默认的更新策略。
- 
+
 <!--
 ## Rolling Updates
 
@@ -518,7 +518,7 @@ update, roll out a canary, or perform a phased roll out.
 <!--
 ### Maximum unavailable Pods
 -->
-### 最大不可用 Pod
+### 最大不可用 Pod   {#maximum-unavailable-pods}
 
 {{< feature-state for_k8s_version="v1.24" state="alpha" >}}
 
@@ -529,7 +529,7 @@ The value can be an absolute number (for example, `5`) or a percentage of desire
 Pods (for example, `10%`). Absolute number is calculated from the percentage value
 by rounding it up. This field cannot be 0. The default setting is 1.
 -->
-你可以通过指定 `.spec.updateStrategy.rollingUpdate.maxUnavailable` 
+你可以通过指定 `.spec.updateStrategy.rollingUpdate.maxUnavailable`
 字段来控制更新期间不可用的 Pod 的最大数量。
 该值可以是绝对值（例如，“5”）或者是期望 Pod 个数的百分比（例如，`10%`）。
 绝对值是根据百分比值四舍五入计算的。
@@ -547,13 +547,13 @@ unavailable Pod in the range `0` to `replicas - 1`, it will be counted towards
 {{< note >}}
 The `maxUnavailable` field is in Alpha stage and it is honored only by API servers
 that are running with the `MaxUnavailableStatefulSet`
-[feature gate](/docs/reference/commmand-line-tools-reference/feature-gates/)
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled.
 {{< /note >}}
 -->
 {{< note >}}
 `maxUnavailable` 字段处于 Alpha 阶段，仅当 API 服务器启用了 `MaxUnavailableStatefulSet`
-[特性门控](/zh-cn/docs/reference/commmand-line-tools-reference/feature-gates/)时才起作用。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才起作用。
 {{< /note >}}
 
 <!--
@@ -570,7 +570,7 @@ StatefulSet will stop the rollout and wait.
 ### 强制回滚 {#forced-rollback}
 
 在默认 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 下使用
-[滚动更新](#rolling-updates) ，可能进入需要人工干预才能修复的损坏状态。
+[滚动更新](#rolling-updates)，可能进入需要人工干预才能修复的损坏状态。
 
 如果更新后 Pod 模板配置进入无法运行或就绪的状态（例如，由于错误的二进制文件
 或应用程序级配置错误），StatefulSet 将停止回滚并等待。
@@ -598,20 +598,20 @@ StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 
 {{< feature-state for_k8s_version="v1.23" state="alpha" >}}
 
-<!-- 
+<!--
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
 and how PVCs are deleted during the lifecycle of a StatefulSet. You must enable the
 `StatefulSetAutoDeletePVC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 to use this field. Once enabled, there are two policies you can configure for each
 StatefulSet:
 -->
-在 StatefulSet 的生命周期中，可选字段 
+在 StatefulSet 的生命周期中，可选字段
 `.spec.persistentVolumeClaimRetentionPolicy` 控制是否删除以及如何删除 PVC。
 使用该字段，你必须启用 `StatefulSetAutoDeletePVC`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 启用后，你可以为每个 StatefulSet 配置两个策略：
 
-<!-- 
+<!--
 `whenDeleted`
 : configures the volume retention behavior that applies when the StatefulSet is deleted
 
@@ -626,10 +626,10 @@ For each policy that you can configure, you can set the value to either `Delete`
 
 `whenScaled`
 : 配置当 StatefulSet 的副本数减少时应用的卷保留行为；例如，缩小集合时。
-  
+
 对于你可以配置的每个策略，你可以将值设置为 `Delete` 或 `Retain`。
 
-<!-- 
+<!--
 `Delete`
 : The PVCs created from the StatefulSet `volumeClaimTemplate` are deleted for each Pod
   affected by the policy. With the `whenDeleted` policy all PVCs from the
@@ -642,7 +642,7 @@ For each policy that you can configure, you can set the value to either `Delete`
   使用 `whenDeleted` 策略，所有来自 `volumeClaimTemplate` 的 PVC 在其 Pod 被删除后都会被删除。
   使用 `whenScaled` 策略，只有与被缩减的 Pod 副本对应的 PVC 在其 Pod 被删除后才会被删除。
 
-<!-- 
+<!--
 `Retain` (default)
 : PVCs from the `volumeClaimTemplate` are not affected when their Pod is
   deleted. This is the behavior before this new feature.
@@ -650,7 +650,7 @@ For each policy that you can configure, you can set the value to either `Delete`
 `Retain`（默认）
 : 来自 `volumeClaimTemplate` 的 PVC 在 Pod 被删除时不受影响。这是此新功能之前的行为。
 
-<!-- 
+<!--
 Bear in mind that these policies **only** apply when Pods are being removed due to the
 StatefulSet being deleted or scaled down. For example, if a Pod associated with a StatefulSet
 fails due to node failure, and the control plane creates a replacement Pod, the StatefulSet
@@ -713,7 +713,7 @@ to be garbage collected after only the condemned Pods have terminated.
 首先将已销毁的 Pod 设置为与 StatefulSet 模板 对应的 PVC 的属主。
 这会导致 PVC 仅在已废弃的 Pod 终止后被垃圾收集。
 
-<!-- 
+<!--
 This means that if the controller crashes and restarts, no Pod will be deleted before its
 owner reference has been updated appropriate to the policy. If a condemned Pod is
 force-deleted while the controller is down, the owner reference may or may not have been
@@ -730,7 +730,7 @@ deleted when Pods are force-deleted.
 出于这个原因，我们建议等待控制器恢复，控制器将在终止 Pod 之前验证属主引用。
 如果这不可行，则操作员应验证 PVC 上的属主引用，以确保在强制删除 Pod 时删除预期的对象。
 
-<!-- 
+<!--
 ### Replicas
 
 `.spec.replicas` is an optional field that specifies the number of desired Pods. It defaults to 1.
@@ -749,7 +749,7 @@ that you previously did.
 然后根据清单更新 StatefulSet（例如：通过运行 `kubectl apply -f statefulset.yaml`），
 那么应用该清单的操作会覆盖你之前所做的手动缩放。
 
-<!-- 
+<!--
 If a [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)
 (or any similar API for horizontal scaling) is managing scaling for a
 Statefulset, don't set `.spec.replicas`. Instead, allow the Kubernetes

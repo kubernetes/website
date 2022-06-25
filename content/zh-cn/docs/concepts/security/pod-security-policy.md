@@ -58,7 +58,7 @@ Pod 安全策略允许管理员控制如下方面：
 
 <!--
 | Control Aspect                                      | Field Names                                 |
-| ----------------------------------------------------| ----------------------------------------- |
+| ----------------------------------------------------| ------------------------------------------- |
 | Running of privileged containers                    | [`privileged`](#privileged)                                |
 | Usage of host namespaces                            | [`hostPID`, `hostIPC`](#host-namespaces)    |
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
@@ -458,11 +458,11 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 ### Create a policy and a pod
 
 Define the example PodSecurityPolicy object in a file. This is a policy that
-simply prevents the creation of privileged pods.
+prevents the creation of privileged pods.
 The name of a PodSecurityPolicy object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
-### 创建一个策略和一个 Pod
+### 创建一个策略和一个 Pod   {#create-a-policy-and-a-pod}
 
 在一个文件中定义一个示例的 PodSecurityPolicy 对象。
 这里的策略只是用来禁止创建有特权要求的 Pods。
@@ -588,7 +588,7 @@ spec:
 EOF
 ```
 <!--
-The output is similar to this:
+The output is similar to this
 -->
 输出类似于：
 
@@ -791,7 +791,8 @@ several security mechanisms.
 {{< codenew file="policy/restricted-psp.yaml" >}}
 
 <!--
-See [Pod Security Standards](/docs/concepts/security/pod-security-standards/#policy-instantiation) for more examples.
+See [Pod Security Standards](/docs/concepts/security/pod-security-standards/#policy-instantiation)
+for more examples.
 -->
 更多的示例可参考
 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/#policy-instantiation)。
@@ -897,10 +898,10 @@ PodSecurityPolicy 并不限制可以被 `PersistentVolumeClaim` 所引用的
 **FSGroup** - Controls the supplemental group applied to some volumes.
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
-minimum value of the first range as the default. Validates against all ranges.
+  minimum value of the first range as the default. Validates against all ranges.
 - *MayRunAs* - Requires at least one `range` to be specified. Allows
-`FSGroups` to be left unset without providing a default. Validates against
-all ranges if `FSGroups` is set.
+  `FSGroups` to be left unset without providing a default. Validates against
+  all ranges if `FSGroups` is set.
 - *RunAsAny* - No default provided. Allows any `fsGroup` ID to be specified.
 -->
 **FSGroup** - 控制应用到某些卷上的附加用户组。
@@ -1054,7 +1055,7 @@ spec:
 <!--
 **RunAsGroup** - Controls which primary group ID the containers are run with.
 
-- *MustRunAs* - Requires at least one `range` to be specified. Uses the 
+- *MustRunAs* - Requires at least one `range` to be specified. Uses the
   minimum value of the first range as the default. Validates against all ranges.
 - *MayRunAs* - Does not require that RunAsGroup be specified. However, when RunAsGroup
   is specified, they have to fall in the defined range.
@@ -1101,7 +1102,7 @@ required to effectively enforce `MustRunAsNonRoot`.
 -->
 ### 特权提升   {#privilege-escalation}
 
-这一组选项控制容器的`allowPrivilegeEscalation` 属性。该属性直接决定是否为容器进程设置
+这一组选项控制容器的 `allowPrivilegeEscalation` 属性。该属性直接决定是否为容器进程设置
 [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)
 参数。此参数会禁止 `setuid` 属性的可执行文件更改有效用户 ID（EUID），
 并且禁止启用额外权能的文件。例如，`no_new_privs` 会禁止使用 `ping` 工具。
@@ -1140,7 +1141,7 @@ the PodSecurityPolicy. For more details on Linux capabilities, see
 [capabilities(7)](http://man7.org/linux/man-pages/man7/capabilities.7.html).
 
 The following fields take a list of capabilities, specified as the capability
-name in ALL_CAPS without the `CAP\_` prefix.
+name in ALL_CAPS without the `CAP_` prefix.
 -->
 ### 权能字    {#capabilities}
 
@@ -1176,7 +1177,7 @@ added. Capabilities listed in `RequiredDropCapabilities` must not be included in
 <!--
 **DefaultAddCapabilities** - The capabilities which are added to containers by
 default, in addition to the runtime defaults. See the
-documentation for your container runtime for information on working with Linux capabilities. 
+documentation for your container runtime for information on working with Linux capabilities.
 -->
 **DefaultAddCapabilities** - 默认添加到容器的权能字集合。
 这一集合是作为容器运行时所设值的补充。
@@ -1228,14 +1229,14 @@ denoted as the string `Unmasked`.
 <!--
 ### AppArmor
 
-Controlled via annotations on the PodSecurityPolicy. Refer to the [AppArmor
-documentation](/docs/tutorials/policy/apparmor/#podsecuritypolicy-annotations).
+Controlled via annotations on the PodSecurityPolicy. Refer to the
+[AppArmor documentation](/docs/tutorials/security/apparmor/#podsecuritypolicy-annotations).
 -->
 ### AppArmor
 
 通过 PodSecurityPolicy 上的注解来控制。
 详情请参阅
-[AppArmor 文档](/zh-cn/docs/tutorials/policy/apparmor/#podsecuritypolicy-annotations)。
+[AppArmor 文档](/zh-cn/docs/tutorials/security/apparmor/#podsecuritypolicy-annotations)。
 
 
 <!--
@@ -1270,7 +1271,7 @@ are:
   of Kubernetes 1.11. Use `runtime/default` instead.
 - `localhost/<path>` - Specify a profile as a file on the node located at
   `<seccomp_root>/<path>`, where `<seccomp_root>` is defined via the
-  `-seccomp-profile-root` flag on the Kubelet. If the `--seccomp-profile-root`
+  `--seccomp-profile-root` flag on the Kubelet. If the `--seccomp-profile-root`
   flag is not defined, the default path will be used, which is
   `<root-dir>/seccomp` where `<root-dir>` is specified by the `--root-dir` flag.
 
@@ -1341,20 +1342,21 @@ Refer to the [Sysctl documentation](/docs/tasks/administer-cluster/sysctl-cluste
 ## {{% heading "whatsnext" %}}
 
 <!--
-- See [PodSecurityPolicy Deprecation: Past, Present, and
-  Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/) to learn about
-  the future of pod security policy.
+- See [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)
+  to learn about the future of pod security policy.
 
-- See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for policy recommendations.
+- See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+  for policy recommendations.
 
-- Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
+- Refer to [PodSecurityPolicy reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)
+  for the API details.
 -->
 - 参阅 [PodSecurityPolicy Deprecation: Past, Present, and
   Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)，
   了解 Pod 安全策略的未来。
 
-- 参阅[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)，
+- 参阅 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)，
   了解策略建议。
-- 阅读 [Pod 安全策略参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)，
+- 阅读 [PodSecurityPolicy 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)，
   了解 API 细节。
 
