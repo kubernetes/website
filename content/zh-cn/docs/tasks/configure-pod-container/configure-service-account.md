@@ -26,7 +26,7 @@ not apply.
 服务账户为 Pod 中运行的进程提供了一个标识。
 
 {{< note >}}
-本文是服务账户的用户使用介绍，描述服务账号在集群中如何起作用。
+本文是服务账户的用户使用介绍，描述服务账户在集群中如何起作用。
 你的集群管理员可能已经对你的集群做了定制，因此导致本文中所讲述的内容并不适用。
 {{< /note >}}
 
@@ -69,17 +69,16 @@ You can access the API from inside a pod using automatically mounted service acc
 as described in [Accessing the Cluster](/docs/tasks/accessing-application-cluster/access-cluster/).
 The API permissions of the service account depend on the [authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
 
-In version 1.6+, you can opt out of automounting API credentials for a service account by setting
-`automountServiceAccountToken: false` on the service account:
+You can opt out of automounting API credentials on `/var/run/secrets/kubernetes.io/serviceaccount/token` for a service account by setting `automountServiceAccountToken: false` on the ServiceAccount:
 -->
 你可以使用自动挂载给 Pod 的服务账户凭据访问 API，
 [访问集群](/zh-cn/docs/tasks/access-application-cluster/access-cluster/)页面中有相关描述。
 服务账户的 API 许可取决于你所使用的
 [鉴权插件和策略](/zh-cn/docs/reference/access-authn-authz/authorization/#authorization-modules)。
 
-在 1.6 以上版本中，你可以通过在服务账户上设置 `automountServiceAccountToken: false`
-来实现不给服务账号自动挂载 API 凭据：
-
+你可以通过在 ServiceAccount 上设置 `automountServiceAccountToken: false`
+来实现不给服务账户自动挂载 API 凭据到 `/var/run/secrets/kubernetes.io/serviceaccount/token`
+的目的：
 
 ```yaml
 apiVersion: v1
@@ -194,8 +193,7 @@ field of a pod to the name of the service account you wish to use.
 -->
 那么你就能看到系统已经自动创建了一个令牌并且被服务账户所引用。
 
-你可以使用授权插件来
-[设置服务账户的访问许可](/zh-cn/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
+你可以使用授权插件来[设置服务账户的访问许可](/zh-cn/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
 
 要使用非默认的服务账户，将 Pod 的 `spec.serviceAccountName` 字段设置为你想用的服务账户名称。
 
@@ -224,7 +222,7 @@ a new secret manually.
 -->
 ## 手动创建服务账户 API 令牌
 
-假设我们有一个上面提到的名为 "build-robot" 的服务账户，然后我们手动创建一个新的 Secret。
+假设我们有一个上面提到的名为 "build-robot" 的服务账户，现在我们手动创建一个新的 Secret。
 
 ```shell
 kubectl create -f - <<EOF
@@ -271,10 +269,10 @@ namespace:      7 bytes
 token:          ...
 ```
 
+{{< note >}}
 <!--
 The content of `token` is elided here.
 -->
-{{< note >}}
 这里省略了 `token` 的内容。
 {{< /note >}}
 
@@ -289,7 +287,7 @@ The content of `token` is elided here.
 
 ### 创建 ImagePullSecret
 
-- 创建一个 ImagePullSecret，如同[为 Pod 设置 ImagePullSecret](/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)所述。
+- 创建一个 ImagePullSecret，如[为 Pod 设置 ImagePullSecret](/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)所述。
 
   ```shell
   kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
@@ -306,7 +304,9 @@ The content of `token` is elided here.
   kubectl get secrets myregistrykey
   ```
   
-  <!-- The output is similar to this: -->
+  <!--
+  The output is similar to this:
+  -->
   输出类似于：
 
   ```
@@ -319,9 +319,9 @@ The content of `token` is elided here.
 
 Next, modify the default service account for the namespace to use this secret as an imagePullSecret.
 -->
-### 将镜像拉取 Secret 添加到服务账号
+### 将镜像拉取 Secret 添加到服务账户
 
-接着修改命名空间的 `default` 服务帐户，以将该 Secret 用作 `imagePullSecret`。
+接着修改命名空间的 `default` 服务帐户，令其使用该 Secret 用作 `imagePullSecret`。
 
 ```shell
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
@@ -336,7 +336,11 @@ You can instead use `kubectl edit`, or manually edit the YAML manifests as shown
 kubectl get serviceaccounts default -o yaml > ./sa.yaml
 ```
 
-`sa.yaml` 文件的内容类似于：
+<!--
+The output of the `sa.yaml` file is similar to this:
+-->
+
+`sa.yaml` 文件的输出类似这样：
 
 ```yaml
 apiVersion: v1
@@ -378,7 +382,7 @@ imagePullSecrets:
 <!--
 Finally replace the serviceaccount with the new updated `sa.yaml` file
 -->
-最后，用新的更新的 `sa.yaml` 文件替换服务账号。
+最后，用新的更新的 `sa.yaml` 文件替换服务账户。
 
 ```shell
 kubectl replace serviceaccount default -f ./sa.yaml
@@ -391,7 +395,7 @@ Now, when a new Pod is created in the current namespace and using the default Se
 -->
 ### 验证镜像拉取 Secret 已经被添加到 Pod 规约
 
-现在，在当前命名空间中创建使用默认服务账号的新 Pod 时，新 Pod
+现在，在当前命名空间中创建使用默认服务账户的新 Pod 时，新 Pod
 会自动设置其 `.spec.imagePullSecrets` 字段：
 
 ```shell
@@ -399,7 +403,9 @@ kubectl run nginx --image=nginx --restart=Never
 kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
 ```
 
-<!-- The output is: -->
+<!--
+The output is:
+-->
 输出为：
 
 ```
@@ -469,7 +475,7 @@ command line arguments to `kube-apiserver`:
 -->
 * `--api-audiences` (can be omitted)
 
-  服务账号令牌身份检查组件会检查针对 API 访问所使用的令牌，
+  服务账户令牌身份检查组件会检查针对 API 访问所使用的令牌，
   确认令牌至少是被绑定到这里所给的受众（audiences）之一。
   如果此参数被多次指定，则针对所给的多个受众中任何目标的令牌都会被
   Kubernetes API 服务器当做合法的令牌。如果 `--service-account-issuer`
@@ -528,7 +534,7 @@ The application is responsible for reloading the token when it rotates. Periodic
 <!--
 ## Service Account Issuer Discovery
 -->
-## 发现服务账号分发者
+## 发现服务账户分发者
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
@@ -537,7 +543,7 @@ The Service Account Issuer Discovery feature is enabled when the Service Account
 Token Projection feature is enabled, as described
 [above](#service-account-token-volume-projection).
 -->
-当启用服务账号令牌投射时启用发现服务账号分发者（Service Account Issuer Discovery）
+当启用服务账户令牌投射时启用发现服务账户分发者（Service Account Issuer Discovery）
 这一功能特性，如[上文所述](#service-account-token-volume-projection)。
 
 <!--
@@ -568,9 +574,9 @@ Configuration document at `/.well-known/openid-configuration` and the associated
 JSON Web Key Set (JWKS) at `/openid/v1/jwks`. The OpenID Provider Configuration
 is sometimes referred to as the _discovery document_.
 -->
-发现服务账号分发者这一功能使得用户能够用联邦的方式结合使用 Kubernetes 
+发现服务账户分发者这一功能使得用户能够用联邦的方式结合使用 Kubernetes 
 集群（“Identity Provider”，标识提供者）与外部系统（“Relying Parties”，
-依赖方）所分发的服务账号令牌。
+依赖方）所分发的服务账户令牌。
 
 当此功能被启用时，Kubernetes API 服务器会在 `/.well-known/openid-configuration`
 提供一个 OpenID 提供者配置文档，并在 `/openid/v1/jwks` 处提供与之关联的
@@ -600,9 +606,9 @@ The responses served at `/.well-known/openid-configuration` and
 compliant. Those documents contain only the parameters necessary to perform
 validation of Kubernetes service account tokens.
 -->
-对 `/.well-known/openid-configuration` 和 `/openid/v1/jwks` 路径请求的响应
-被设计为与 OIDC 兼容，但不是完全与其一致。
-返回的文档仅包含对 Kubernetes 服务账号令牌进行验证所必须的参数。
+对 `/.well-known/openid-configuration` 和 `/openid/v1/jwks` 路径请求的响应被设计为与
+OIDC 兼容，但不是与其完全一致。
+返回的文档仅包含对 Kubernetes 服务账户令牌进行验证所必须的参数。
 
 <!--
 The JWKS response contains public keys that a relying party can use to validate
@@ -610,7 +616,7 @@ the Kubernetes service account tokens. Relying parties first query for the
 OpenID Provider Configuration, and use the `jwks_uri` field in the response to
 find the JWKS.
 -->
-JWKS 响应包含依赖方可以用来验证 Kubernetes 服务账号令牌的公钥数据。
+JWKS 响应包含依赖方可以用来验证 Kubernetes 服务账户令牌的公钥数据。
 依赖方先会查询 OpenID 提供者配置，之后使用返回响应中的 `jwks_uri` 来查找 JWKS。
 
 <!--
@@ -640,7 +646,7 @@ See also:
 -->
 另请参见：
 
-- [服务账号的集群管理员指南](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)
-- [服务账号签署密钥检索 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
+- [服务账户的集群管理员指南](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)
+- [服务账户签署密钥检索 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
 - [OIDC 发现规范](https://openid.net/specs/openid-connect-discovery-1_0.html)
 
