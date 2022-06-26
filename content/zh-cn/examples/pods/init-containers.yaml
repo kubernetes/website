@@ -11,7 +11,7 @@ spec:
     volumeMounts:
     - name: workdir
       mountPath: /usr/share/nginx/html
-  # These containers are run during pod initialization
+  # 这些容器在 Pod 初始化期间运行
   initContainers:
   - name: install
     image: busybox:1.28
