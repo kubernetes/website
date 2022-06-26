@@ -201,7 +201,7 @@ You can be a SIG Docs reviewer, or a reviewer for docs in a specific subject are
 -->
 ## 评审人（Reviewers）  {#reviewers}
 
-评审人负责评审悬决的 PR。
+评审人负责评审挂起的 PR。
 与成员所给的反馈不同，你必须处理评审人的反馈。
 评审人是 [@kubernetes/sig-docs-{language}-reviews](https://github.com/orgs/kubernetes/teams?query=sig-docs) GitHub 团队的成员。
 

@@ -1645,7 +1645,7 @@ Default: &quot;0s&quot;
    <p><code>shutdownGracePeriodCriticalPods</code>设置节点关闭期间用来终止关键性
 Pod 的时长。此时长要短于<code>shutdownGracePeriod</code>。
 例如，如果<code>shutdownGracePeriod=30s</code>，<code>shutdownGracePeriodCriticalPods=10s<code>，
-在节点关闭期间，前 20 秒钟被预留用来体面终止普通 Pod，后 10 秒钟用来终止关键 Pod。</p>
+在节点关闭期间，前 20 秒钟被预留用来优雅终止普通 Pod，后 10 秒钟用来终止关键 Pod。</p>
    <p>默认值：&quot;0s&quot;</p>
 </td>
 </tr>
@@ -1667,10 +1667,10 @@ For example, to allow critical pods 10s to shutdown, priority&gt;=10000 pods 20s
 shutdown, and all remaining pods 30s to shutdown.
 -->
    <p><code>shutdownGracePeriodByPodPriority</code>设置基于 Pod
-相关的优先级类值而确定的体面关闭时间。当 kubelet 收到关闭请求的时候，kubelet
+相关的优先级类值而确定的优雅关闭时间。当 kubelet 收到关闭请求的时候，kubelet
 会针对节点上运行的所有 Pod 发起关闭操作，这些关闭操作会根据 Pod 的优先级确定其宽限期限，
 之后 kubelet 等待所有 Pod 退出。</p>
-   <p>数组中的每个表项代表的是节点关闭时 Pod 的体面终止时间；这里的 Pod
+   <p>数组中的每个表项代表的是节点关闭时 Pod 的优雅终止时间；这里的 Pod
 的优先级类介于列表中当前优先级类值和下一个表项的优先级类值之间。</p>
    <p>例如，要赋予关键 Pod 10 秒钟时间来关闭，赋予优先级&gt;=10000 Pod 20 秒钟时间来关闭，
 赋予其余的 Pod 30 秒钟来关闭。</p>

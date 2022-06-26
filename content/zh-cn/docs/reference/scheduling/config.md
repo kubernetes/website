@@ -83,7 +83,7 @@ extension points:
    sort pending Pods in the scheduling queue. Exactly one queue sort plugin
    may be enabled at a time.
 -->
-1. `queueSort`：这些插件对调度队列中的悬决的 Pod 排序。
+1. `queueSort`：这些插件对调度队列中的挂起的 Pod 排序。
    一次只能启用一个队列排序插件。
 <!--
 2. `preFilter`: These plugins are used to pre-process or check information

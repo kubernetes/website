@@ -276,7 +276,7 @@ When a pod is evicted using the eviction API, it is gracefully
 hornoring the
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
-当使用驱逐 API 驱逐 Pod 时，Pod 会被体面地
+当使用驱逐 API 驱逐 Pod 时，Pod 会被优雅地
 [终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，期间会
 参考 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 中的 `terminationGracePeriodSeconds` 配置值。

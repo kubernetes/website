@@ -80,7 +80,7 @@ that provides a set of stateless replicas.
 * StatefulSet 当前需要[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)
   来负责 Pod 的网络标识。你需要负责创建此服务。
 * 当删除 StatefulSets 时，StatefulSet 不提供任何终止 Pod 的保证。
-  为了实现 StatefulSet 中的 Pod 可以有序地且体面地终止，可以在删除之前将 StatefulSet
+  为了实现 StatefulSet 中的 Pod 可以有序地且优雅地终止，可以在删除之前将 StatefulSet
   缩放为 0。
 * 在默认 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 时使用
   [滚动更新](#rolling-updates)，可能进入需要[人工干预](#forced-rollback)

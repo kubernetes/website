@@ -74,7 +74,7 @@ and will respect the `PodDisruptionBudgets` you have specified.
 在对节点执行维护（例如内核升级、硬件维护等）之前，
 可以使用 `kubectl drain` 从节点安全地逐出所有 Pods。
 安全的驱逐过程允许 Pod 的容器
-[体面地终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，
+[优雅地终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，
 并确保满足指定的 PodDisruptionBudgets。
 
 <!-- 

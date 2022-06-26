@@ -46,7 +46,7 @@ Configurations with a single API server will experience unavailability while the
 确保备份你的证书目录、配置文件以及其他必要文件。
 
 这里的方法假定 Kubernetes 的控制面通过运行多个 API 服务器以高可用配置模式运行。
-另一假定是 API 服务器可体面地终止，因而客户端可以彻底地与一个 API 服务器断开
+另一假定是 API 服务器可优雅地终止，因而客户端可以彻底地与一个 API 服务器断开
 连接并连接到另一个 API 服务器。
 
 如果集群中只有一个 API 服务器，则在 API 服务器重启期间会经历服务中断期。

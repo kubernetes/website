@@ -186,7 +186,7 @@ Signs that your API might not be declarative include:
 - 存储有应用来处理的最终用户数据（如图片、个人标识信息（PII）等）或者其他大规模数据。
 - 在对象上执行的常规操作并非 CRUD 风格。
 - API 不太容易用对象来建模。
-- 你决定使用操作 ID 或者操作对象来表现悬决的操作。
+- 你决定使用操作 ID 或者操作对象来表现挂起的操作。
 
 <!--
 ## Should I use a configMap or a custom resource?

@@ -26,7 +26,7 @@ pending Pod possible.
 [Pod](/zh-cn/docs/concepts/workloads/pods/) 可以有 _优先级_。
 优先级表示一个 Pod 相对于其他 Pod 的重要性。
 如果一个 Pod 无法被调度，调度程序会尝试抢占（驱逐）较低优先级的 Pod，
-以使悬决 Pod 可以被调度。
+以使挂起 Pod 可以被调度。
 
 <!-- body -->
 
@@ -292,8 +292,8 @@ scheduler will continue and tries to schedule other lower priority Pods.
 -->
 ### Pod 优先级对调度顺序的影响
 
-当启用 Pod 优先级时，调度程序会按优先级对悬决 Pod 进行排序，
-并且每个悬决的 Pod 会被放置在调度队列中其他优先级较低的悬决 Pod 之前。
+当启用 Pod 优先级时，调度程序会按优先级对挂起 Pod 进行排序，
+并且每个挂起的 Pod 会被放置在调度队列中其他优先级较低的挂起 Pod 之前。
 因此，如果满足调度要求，较高优先级的 Pod 可能会比具有较低优先级的 Pod 更早调度。
 如果无法调度此类 Pod，调度程序将继续并尝试调度其他较低优先级的 Pod。
 
@@ -313,8 +313,8 @@ the Pods are gone, P can be scheduled on the Node.
 
 Pod 被创建后会进入队列等待调度。
 调度器从队列中挑选一个 Pod 并尝试将它调度到某个节点上。
-如果没有找到满足 Pod 的所指定的所有要求的节点，则触发对悬决 Pod 的抢占逻辑。
-让我们将悬决 Pod 称为 P。抢占逻辑试图找到一个节点，
+如果没有找到满足 Pod 的所指定的所有要求的节点，则触发对挂起 Pod 的抢占逻辑。
+让我们将挂起 Pod 称为 P。抢占逻辑试图找到一个节点，
 在该节点中删除一个或多个优先级低于 P 的 Pod，则可以将 P 调度到该节点上。
 如果找到这样的节点，一个或多个优先级较低的 Pod 会被从节点中驱逐。
 被驱逐的 Pod 消失后，P 可以被调度到该节点上。
@@ -346,7 +346,7 @@ Pod P 状态的 `nominatedNodeName` 字段被设置为节点 N 的名称。
 
 请注意，Pod P 不一定会调度到“被提名的节点（Nominated Node）”。
 调度程序总是在迭代任何其他节点之前尝试“指定节点”。
-在 Pod 因抢占而牺牲时，它们将获得体面终止期。
+在 Pod 因抢占而牺牲时，它们将获得优雅终止期。
 如果调度程序正在等待牺牲者 Pod 终止时另一个节点变得可用，
 则调度程序可以使用另一个节点来调度 Pod P。
 因此，Pod 规约中的 `nominatedNodeName` 和 `nodeName` 并不总是相同。
@@ -374,17 +374,17 @@ priority Pods to zero or a small number.
 -->
 ### 抢占的限制
 
-#### 被抢占牺牲者的体面终止
+#### 被抢占牺牲者的优雅终止
 
 当 Pod 被抢占时，牺牲者会得到他们的
-[体面终止期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
-它们可以在体面终止期内完成工作并退出。如果它们不这样做就会被杀死。
-这个体面终止期在调度程序抢占 Pod 的时间点和待处理的 Pod (P) 
+[优雅终止期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+它们可以在优雅终止期内完成工作并退出。如果它们不这样做就会被杀死。
+这个优雅终止期在调度程序抢占 Pod 的时间点和待处理的 Pod (P) 
 可以在节点 (N) 上调度的时间点之间划分出了一个时间跨度。
 同时，调度器会继续调度其他待处理的 Pod。当牺牲者退出或被终止时，
 调度程序会尝试在待处理队列中调度 Pod。
 因此，调度器抢占牺牲者的时间点与 Pod P 被调度的时间点之间通常存在时间间隔。
-为了最小化这个差距，可以将低优先级 Pod 的体面终止时间设置为零或一个小数字。
+为了最小化这个差距，可以将低优先级 Pod 的优雅终止时间设置为零或一个小数字。
 
 <!-- 
 #### PodDisruptionBudget is supported, but not guaranteed
@@ -423,11 +423,11 @@ the Node is not considered for preemption.
 #### 与低优先级 Pod 之间的 Pod 间亲和性
 
 只有当这个问题的答案是肯定的时，才考虑在一个节点上执行抢占操作：
-“如果从此节点上删除优先级低于悬决 Pod 的所有 Pod，悬决 Pod 是否可以在该节点上调度？”
+“如果从此节点上删除优先级低于挂起 Pod 的所有 Pod，挂起 Pod 是否可以在该节点上调度？”
 
 {{< note >}}
 抢占并不一定会删除所有较低优先级的 Pod。
-如果悬决 Pod 可以通过删除少于所有较低优先级的 Pod 来调度，
+如果挂起 Pod 可以通过删除少于所有较低优先级的 Pod 来调度，
 那么只有一部分较低优先级的 Pod 会被删除。
 即便如此，上述问题的答案必须是肯定的。
 如果答案是否定的，则不考虑在该节点上执行抢占。
@@ -444,11 +444,11 @@ guarantee that the pending Pod can be scheduled.
 Our recommended solution for this problem is to create inter-Pod affinity only
 towards equal or higher priority Pods.
 -->
-如果悬决 Pod 与节点上的一个或多个较低优先级 Pod 具有 Pod 间{{< glossary_tooltip text="亲和性" term_id="affinity" >}}，
+如果挂起 Pod 与节点上的一个或多个较低优先级 Pod 具有 Pod 间{{< glossary_tooltip text="亲和性" term_id="affinity" >}}，
 则在没有这些较低优先级 Pod 的情况下，无法满足 Pod 间亲和性规则。
 在这种情况下，调度程序不会抢占节点上的任何 Pod。
 相反，它寻找另一个节点。调度程序可能会找到合适的节点，
-也可能不会。无法保证悬决 Pod 可以被调度。
+也可能不会。无法保证挂起 Pod 可以被调度。
 
 我们针对此问题推荐的解决方案是仅针对同等或更高优先级的 Pod 设置 Pod 间亲和性。
 
@@ -527,7 +527,7 @@ than the victims. If preemption happens in such scenarios, please file an issue.
 -->
 ### Pod 被不必要地抢占
 
-抢占在资源压​​力较大时从集群中删除现有 Pod，为更高优先级的悬决 Pod 腾出空间。
+抢占在资源压​​力较大时从集群中删除现有 Pod，为更高优先级的挂起 Pod 腾出空间。
 如果你错误地为某些 Pod 设置了高优先级，这些无意的高优先级 Pod 可能会导致集群中出现抢占行为。
 Pod 优先级是通过设置 Pod 规约中的 `priorityClassName` 字段来指定的。
 优先级的整数值然后被解析并填充到 `podSpec` 的 `priority` 字段。
@@ -536,8 +536,8 @@ Pod 优先级是通过设置 Pod 规约中的 `priorityClassName` 字段来指�
 或者将该字段留空。默认情况下，空的 `priorityClassName` 解析为零。
 
 当 Pod 被抢占时，集群会为被抢占的 Pod 记录事件。只有当集群没有足够的资源用于 Pod 时，
-才会发生抢占。在这种情况下，只有当悬决 Pod（抢占者）的优先级高于受害 Pod 时才会发生抢占。
-当没有悬决 Pod，或者悬决 Pod 的优先级等于或低于牺牲者时，不得发生抢占。
+才会发生抢占。在这种情况下，只有当挂起 Pod（抢占者）的优先级高于受害 Pod 时才会发生抢占。
+当没有挂起 Pod，或者挂起 Pod 的优先级等于或低于牺牲者时，不得发生抢占。
 如果在这种情况下发生抢占，请提出问题。
 
 <!-- 
@@ -557,7 +557,7 @@ of a Pod with a lower priority.
 -->
 ### 有 Pod 被抢占，但抢占者并没有被调度
 
-当 Pod 被抢占时，它们会收到请求的体面终止期，默认为 30 秒。
+当 Pod 被抢占时，它们会收到请求的优雅终止期，默认为 30 秒。
 如果受害 Pod 在此期限内没有终止，它们将被强制终止。
 一旦所有牺牲者都离开，就可以调度抢占者 Pod。
 
@@ -587,9 +587,9 @@ the scheduler chooses a node with the lowest priority.
 -->
 ### 优先级较高的 Pod 在优先级较低的 Pod 之前被抢占
 
-调度程序尝试查找可以运行悬决 Pod 的节点。如果没有找到这样的节点，
-调度程序会尝试从任意节点中删除优先级较低的 Pod，以便为悬决 Pod 腾出空间。
-如果具有低优先级 Pod 的节点无法运行悬决 Pod，
+调度程序尝试查找可以运行挂起 Pod 的节点。如果没有找到这样的节点，
+调度程序会尝试从任意节点中删除优先级较低的 Pod，以便为挂起 Pod 腾出空间。
+如果具有低优先级 Pod 的节点无法运行挂起 Pod，
 调度器可能会选择另一个具有更高优先级 Pod 的节点（与其他节点上的 Pod 相比）进行抢占。
 牺牲者的优先级必须仍然低于抢占者 Pod。
 

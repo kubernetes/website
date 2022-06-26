@@ -153,7 +153,7 @@ Value | Description
 -->
 取值 | 描述
 :-----|:-----------
-`Pending`（悬决）| Pod 已被 Kubernetes 系统接受，但有一个或者多个容器尚未创建亦未运行。此阶段包括等待 Pod 被调度的时间和通过网络下载镜像的时间。
+`Pending`（挂起）| Pod 已被 Kubernetes 系统接受，但有一个或者多个容器尚未创建亦未运行。此阶段包括等待 Pod 被调度的时间和通过网络下载镜像的时间。
 `Running`（运行中） | Pod 已经绑定到了某个节点，Pod 中所有的容器都已被创建。至少有一个容器仍在运行，或者正处于启动或重启状态。
 `Succeeded`（成功） | Pod 中的所有容器都已成功终止，并且不会再重启。
 `Failed`（失败） | Pod 中的所有容器都已终止，并且至少有一个容器是因为失败终止。也就是说，容器以非 0 状态退出或者被系统终止。
@@ -697,7 +697,7 @@ than being abruptly stopped with a `KILL` signal and having no chance to clean u
 -->
 ## Pod 的终止    {#pod-termination}
 
-由于 Pod 所代表的是在集群中节点上运行的进程，当不再需要这些进程时允许其体面地
+由于 Pod 所代表的是在集群中节点上运行的进程，当不再需要这些进程时允许其优雅地
 终止是很重要的。一般不应武断地使用 `KILL` 信号终止它们，导致这些进程没有机会
 完成清理操作。
 
@@ -710,9 +710,9 @@ place, the {< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts gra
 shutdown.
 -->
 设计的目标是令你能够请求删除进程，并且知道进程何时被终止，同时也能够确保删除
-操作终将完成。当你请求删除某个 Pod 时，集群会记录并跟踪 Pod 的体面终止周期，
+操作终将完成。当你请求删除某个 Pod 时，集群会记录并跟踪 Pod 的优雅终止周期，
 而不是直接强制地杀死 Pod。在存在强制关闭设施的前提下，
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 会尝试体面地终止
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 会尝试优雅地终止
 Pod。
 
 <!--
@@ -727,10 +727,10 @@ cluster retries from the start including the full original grace period.
 -->
 通常情况下，容器运行时会发送一个 TERM 信号到每个容器中的主进程。
 很多容器运行时都能够注意到容器镜像中 `STOPSIGNAL` 的值，并发送该信号而不是 TERM。
-一旦超出了体面终止限期，容器运行时会向所有剩余进程发送 KILL 信号，之后
+一旦超出了优雅终止限期，容器运行时会向所有剩余进程发送 KILL 信号，之后
 Pod 就会被从 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
 上移除。如果 `kubelet` 或者容器运行时的管理服务在等待进程终止期间被重启，
-集群会从头开始重试，赋予 Pod 完整的体面终止限期。
+集群会从头开始重试，赋予 Pod 完整的优雅终止限期。
 
 <!--
 An example flow:
@@ -747,14 +747,14 @@ An example flow:
 -->
 下面是一个例子：
 
-1. 你使用 `kubectl` 工具手动删除某个特定的 Pod，而该 Pod 的体面终止限期是默认值（30 秒）。
+1. 你使用 `kubectl` 工具手动删除某个特定的 Pod，而该 Pod 的优雅终止限期是默认值（30 秒）。
 
-2. API 服务器中的 Pod 对象被更新，记录涵盖体面终止限期在内 Pod
+2. API 服务器中的 Pod 对象被更新，记录涵盖优雅终止限期在内 Pod
    的最终死期，超出所计算时间点则认为 Pod 已死（dead）。
    如果你使用 `kubectl describe` 来查验你正在删除的 Pod，该 Pod 会显示为
    "Terminating" （正在终止）。
    在 Pod 运行所在的节点上：`kubelet` 一旦看到 Pod
-   被标记为正在终止（已经设置了体面终止限期），`kubelet` 即开始本地的 Pod 关闭过程。
+   被标记为正在终止（已经设置了优雅终止限期），`kubelet` 即开始本地的 Pod 关闭过程。
 
    <!--
    1. If one of the Pod's containers has defined a `preStop`
@@ -771,11 +771,11 @@ An example flow:
    -->
    1. 如果 Pod 中的容器之一定义了 `preStop`
       [回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks)，
-      `kubelet` 开始在容器内运行该回调逻辑。如果超出体面终止限期时，`preStop` 回调逻辑
+      `kubelet` 开始在容器内运行该回调逻辑。如果超出优雅终止限期时，`preStop` 回调逻辑
       仍在运行，`kubelet` 会请求给予该 Pod 的宽限期一次性增加 2 秒钟。
 
       {{< note >}}
-      如果 `preStop` 回调所需要的时间长于默认的体面终止限期，你必须修改
+      如果 `preStop` 回调所需要的时间长于默认的优雅终止限期，你必须修改
       `terminationGracePeriodSeconds` 属性值来使其正常工作。
       {{< /note >}}
 
@@ -796,7 +796,7 @@ An example flow:
    cannot continue to serve traffic as load balancers (like the service proxy) remove the Pod from
    the list of endpoints as soon as the termination grace period _begins_.
 -->
-3. 与此同时，`kubelet` 启动体面关闭逻辑，控制面会将 Pod 从对应的端点列表（以及端点切片列表，
+3. 与此同时，`kubelet` 启动优雅关闭逻辑，控制面会将 Pod 从对应的端点列表（以及端点切片列表，
    如果启用了的话）中移除，过滤条件是 Pod 被对应的
    {{< glossary_tooltip term_id="service" text="服务" >}}以某
    {{< glossary_tooltip text="选择算符" term_id="selector" >}}选定。
@@ -817,7 +817,7 @@ An example flow:
    仍在运行的进程发送 `SIGKILL` 信号。
    `kubelet` 也会清理隐藏的 `pause` 容器，如果容器运行时使用了这种容器的话。
 
-5. `kubelet` 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将体面终止限期设置为 0
+5. `kubelet` 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将优雅终止限期设置为 0
    （这意味着马上删除）。
 
 6. API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。

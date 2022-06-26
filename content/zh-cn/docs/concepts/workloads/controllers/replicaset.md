@@ -538,7 +538,7 @@ prioritize scaling down pods based on the following general algorithm:
     comes before the older pod (the creation times are bucketed on an integer log scale
     when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
 -->
-1. 首先选择剔除悬决（Pending，且不可调度）的 Pods
+1. 首先选择剔除挂起（Pending，且不可调度）的 Pods
 2. 如果设置了 `controller.kubernetes.io/pod-deletion-cost` 注解，则注解值
    较小的优先被裁减掉
 3. 所处节点上副本个数较多的 Pod 优先于所处节点上副本较少者

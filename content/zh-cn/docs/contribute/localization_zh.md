@@ -389,7 +389,7 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 - federation，联邦
 - flags，命令行参数，参数
 - grace period，宽限期限
-- graceful termination，体面终止
+- graceful termination，优雅终止
 - hairpin，发夹
 - hash，哈希
 - headless service，无头服务
@@ -424,7 +424,7 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 - orphans，孤立或孤立的
 - override，覆写
 - owner，所有者，属主
-- pending，悬决的
+- pending，挂起的
 - persistent volume，持久卷
 - persistent volume claim，持久卷申领
 - pipeline，流水线

@@ -337,7 +337,7 @@ parallelism, for a variety of reasons:
 - 如果 Job 控制器因为任何原因（例如，缺少 `ResourceQuota` 或者没有权限）无法创建 Pods。
   Pods 个数可能比请求的数目小。
 - Job 控制器可能会因为之前同一 Job 中 Pod 失效次数过多而压制新 Pod 的创建。
-- 当 Pod 处于体面终止进程中，需要一定时间才能停止。
+- 当 Pod 处于优雅终止进程中，需要一定时间才能停止。
 
 <!--
 ### Completion mode
@@ -804,7 +804,7 @@ towards the Job's `completions` count.
 -->
 要记住的是，挂起 Job 会删除其所有活跃的 Pod。当 Job 被挂起时，你的 Pod 会
 收到 SIGTERM 信号而被[终止](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
-Pod 的体面终止期限会被考虑，不过 Pod 自身也必须在此期限之内处理完信号。
+Pod 的优雅终止期限会被考虑，不过 Pod 自身也必须在此期限之内处理完信号。
 处理逻辑可能包括保存进度以便将来恢复，或者取消已经做出的变更等等。
 Pod 以这种形式终止时，不会被记入 Job 的 `completions` 计数。
 

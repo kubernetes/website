@@ -1258,9 +1258,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `GenericEphemeralVolume`：启用支持临时的内联卷，这些卷支持普通卷
   （可以由第三方存储供应商提供、存储容量跟踪、从快照还原等等）的所有功能。
   请参见[临时卷](/zh/docs/concepts/storage/ephemeral-volumes/)。
-- `GracefulNodeShutdown`：在 kubelet 中启用体面地关闭节点的支持。
-  在系统关闭时，kubelet 会尝试监测该事件并体面地终止节点上运行的 Pods。
-  参阅[体面地关闭节点](/zh/docs/concepts/architecture/nodes/#graceful-node-shutdown)
+- `GracefulNodeShutdown`：在 kubelet 中启用优雅地关闭节点的支持。
+  在系统关闭时，kubelet 会尝试监测该事件并优雅地终止节点上运行的 Pods。
+  参阅[优雅地关闭节点](/zh/docs/concepts/architecture/nodes/#graceful-node-shutdown)
   以了解更多细节。
 <!--
 - `GracefulNodeShutdownBasedOnPodPriority`: Enables the kubelet to check Pod priorities
@@ -1271,7 +1271,7 @@ For more details, check the
   [PersistentVolume deletion protection finalizer](/docs/concepts/storage/persistent-volumes/#persistentvolume-deletion-protection-finalizer)
   documentation.
 -->
-- `GracefulNodeShutdownBasedOnPodPriority`：允许 kubelet 在体面终止节点时检查
+- `GracefulNodeShutdownBasedOnPodPriority`：允许 kubelet 在优雅终止节点时检查
   Pod 的优先级。
 - `GRPCContainerProbe`：为 LivenessProbe、ReadinessProbe、StartupProbe 启用 gRPC 探针。
   参阅[配置活跃态、就绪态和启动探针](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)。

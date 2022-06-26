@@ -38,7 +38,7 @@ Each day in a week-long shift as PR Wrangler:
 - 每天对新增的 Issues 判定和打标签。参见
   [对 Issues 进行判定和分类](/zh-cn/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
   以了解 SIG Docs 如何使用元数据的详细信息。
-- 检查[悬决的 PR](https://github.com/kubernetes/website/pulls) 的质量并确保它们符合
+- 检查[挂起的 PR](https://github.com/kubernetes/website/pulls) 的质量并确保它们符合
   [样式指南](/zh-cn/docs/contribute/style/style-guide/)和
   [内容指南](/zh-cn/docs/contribute/style/content-guide/)要求。
 

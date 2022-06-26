@@ -732,7 +732,7 @@ for more information.
 <!-- 
 ## Graceful node shutdown {#graceful-node-shutdown}
 -->
-## 节点体面关闭 {#graceful-node-shutdown}
+## 节点优雅关闭 {#graceful-node-shutdown}
 
 {{< feature-state state="beta" for_k8s_version="v1.21" >}}
 
@@ -753,7 +753,7 @@ The graceful node shutdown feature depends on systemd since it takes advantage o
 [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to
 delay the node shutdown with a given duration.
 -->
-节点体面关闭特性依赖于 systemd，因为它要利用
+节点优雅关闭特性依赖于 systemd，因为它要利用
 [systemd 抑制器锁](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)机制，
 在给定的期限内延迟节点关闭。
 
@@ -762,7 +762,7 @@ Graceful node shutdown is controlled with the `GracefulNodeShutdown`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) which is
 enabled by default in 1.21.
 -->
-节点体面关闭特性受 `GracefulNodeShutdown`
+节点优雅关闭特性受 `GracefulNodeShutdown`
 [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)控制，
 在 1.21 版本中是默认启用的。
 
@@ -773,7 +773,7 @@ thus not activating the graceful node shutdown functionality.
 To activate the feature, the two kubelet config settings should be configured appropriately and set to non-zero values.
 -->
 注意，默认情况下，下面描述的两个配置选项，`shutdownGracePeriod` 和
-`shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活节点体面关闭功能。
+`shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活节点优雅关闭功能。
 要激活此功能特性，这两个 kubelet 配置选项要适当配置，并设置为非零值。
 
 <!-- 
@@ -782,7 +782,7 @@ During a graceful shutdown, kubelet terminates pods in two phases:
 1. Terminate regular pods running on the node.
 2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) running on the node.
 -->
-在体面关闭节点过程中，kubelet 分两个阶段来终止 Pod：
+在优雅关闭节点过程中，kubelet 分两个阶段来终止 Pod：
 
 1. 终止在节点上运行的常规 Pod。
 2. 终止在节点上运行的[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
@@ -794,11 +794,11 @@ Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/
 * `ShutdownGracePeriodCriticalPods`:
   * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This value should be less than `ShutdownGracePeriod`.
 -->
-节点体面关闭的特性对应两个
+节点优雅关闭的特性对应两个
 [`KubeletConfiguration`](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/) 选项：
 
 * `shutdownGracePeriod`：
-  * 指定节点应延迟关闭的总持续时间。此时间是 Pod 体面终止的时间总和，不区分常规 Pod
+  * 指定节点应延迟关闭的总持续时间。此时间是 Pod 优雅终止的时间总和，不区分常规 Pod
     还是[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 * `shutdownGracePeriodCriticalPods`：
   * 在节点关闭期间指定用于终止[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
@@ -813,7 +813,7 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 -->
 例如，如果设置了 `shutdownGracePeriod=30s` 和 `shutdownGracePeriodCriticalPods=10s`，
 则 kubelet 将延迟 30 秒关闭节点。
-在关闭期间，将保留前 20（30 - 10）秒用于体面终止常规 Pod，
+在关闭期间，将保留前 20（30 - 10）秒用于优雅终止常规 Pod，
 而保留最后 10 秒用于终止[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 
 <!--
@@ -835,7 +835,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 <!--
 ## Non Graceful node shutdown {#non-graceful-node-shutdown}
 -->
-## 节点非体面关闭 {#non-graceful-node-shutdown}
+## 节点非优雅关闭 {#non-graceful-node-shutdown}
 
 {{< feature-state state="alpha" for_k8s_version="v1.24" >}}
 
@@ -849,7 +849,7 @@ section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 节点关闭的操作可能无法被 kubelet 的节点关闭管理器检测到，
 是因为该命令不会触发 kubelet 所使用的抑制锁定机制，或者是因为用户错误的原因，
 即 ShutdownGracePeriod 和 ShutdownGracePeriodCriticalPod 配置不正确。
-请参考以上[节点体面关闭](#graceful-node-shutdown)部分了解更多详细信息。
+请参考以上[节点优雅关闭](#graceful-node-shutdown)部分了解更多详细信息。
 
 <!--
 When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods 
@@ -900,7 +900,7 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 1. Force delete the Pods that do not have matching `out-of-service` tolerations.
 2. Immediately perform detach volume operation for such pods. 
 -->
-在非体面关闭期间，Pod 分两个阶段终止：
+在非优雅关闭期间，Pod 分两个阶段终止：
 1. 强制删除没有匹配的 `out-of-service` 容忍度的 Pod。
 2. 立即对此类 Pod 执行分离卷操作。
 
@@ -923,7 +923,7 @@ recovered since the user was the one who originally added the taint.
 <!--
 ### Pod Priority based graceful node shutdown {#pod-priority-graceful-node-shutdown}
 -->
-### 基于 Pod 优先级的节点体面关闭    {#pod-priority-graceful-node-shutdown}
+### 基于 Pod 优先级的节点优雅关闭    {#pod-priority-graceful-node-shutdown}
 
 {{< feature-state state="alpha" for_k8s_version="v1.23" >}}
 
@@ -935,11 +935,11 @@ allows cluster administers to explicitly define the ordering of pods
 during graceful node shutdown based on
 [priority classes](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
 -->
-为了在节点体面关闭期间提供更多的灵活性，尤其是处理关闭期间的 Pod 排序问题，
-节点体面关闭机制能够关注 Pod 的 PriorityClass 设置，前提是你已经在集群中启用了此功能特性。
+为了在节点优雅关闭期间提供更多的灵活性，尤其是处理关闭期间的 Pod 排序问题，
+节点优雅关闭机制能够关注 Pod 的 PriorityClass 设置，前提是你已经在集群中启用了此功能特性。
 此功能特性允许集群管理员基于 Pod
 的[优先级类（Priority Class）](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
-显式地定义节点体面关闭期间 Pod 的处理顺序。
+显式地定义节点优雅关闭期间 Pod 的处理顺序。
 
 <!--
 The [Graceful Node Shutdown](#graceful-node-shutdown) feature, as described
@@ -948,10 +948,10 @@ pods. If additional flexibility is needed to explicitly define the ordering of
 pods during shutdown in a more granular way, pod priority based graceful
 shutdown can be used.
 -->
-前文所述的[节点体面关闭](#graceful-node-shutdown)特性能够分两个阶段关闭 Pod，
+前文所述的[节点优雅关闭](#graceful-node-shutdown)特性能够分两个阶段关闭 Pod，
 首先关闭的是非关键的 Pod，之后再处理关键 Pod。
 如果需要显式地以更细粒度定义关闭期间 Pod 的处理顺序，需要一定的灵活度，
-这时可以使用基于 Pod 优先级的体面关闭机制。
+这时可以使用基于 Pod 优先级的优雅关闭机制。
 
 <!--
 When graceful node shutdown honors pod priorities, this makes it possible to do
@@ -959,7 +959,7 @@ graceful node shutdown in multiple phases, each phase shutting down a
 particular priority class of pods. The kubelet can be configured with the exact
 phases and shutdown time per phase.
 -->
-当节点体面关闭能够处理 Pod 优先级时，节点体面关闭的处理可以分为多个阶段，
+当节点优雅关闭能够处理 Pod 优先级时，节点优雅关闭的处理可以分为多个阶段，
 每个阶段关闭特定优先级类的 Pod。kubelet 可以被配置为按确切的阶段处理 Pod，
 且每个阶段可以独立设置关闭时间。
 
@@ -1072,7 +1072,7 @@ the feature is Beta and is enabled by default.
 {{< /note >}} 
 -->
 {{< note >}}
-在节点体面关闭期间考虑 Pod 优先级的能力是作为 Kubernetes v1.23 中的 Alpha 功能引入的。
+在节点优雅关闭期间考虑 Pod 优先级的能力是作为 Kubernetes v1.23 中的 Alpha 功能引入的。
 在 Kubernetes {{< skew currentVersion >}} 中该功能是 Beta 版，默认启用。
 {{< /note >}} 
 

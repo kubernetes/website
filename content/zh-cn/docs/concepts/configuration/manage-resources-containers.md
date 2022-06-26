@@ -1154,7 +1154,7 @@ to view the events for a Pod; for example:
 -->
 ## 疑难解答
 
-### 我的 Pod 处于悬决状态且事件信息显示 `FailedScheduling`
+### 我的 Pod 处于挂起状态且事件信息显示 `FailedScheduling`
 
 如果调度器找不到该 Pod 可以匹配的任何节点，则该 Pod 将保持未被调度状态，
 直到找到一个可以被调度到的位置。每当调度器找不到 Pod 可以调度的地方时，
@@ -1192,10 +1192,10 @@ You can check node capacities and amounts allocated with the
 -->
 在上述示例中，由于节点上的 CPU 资源不足，名为 “frontend” 的 Pod 无法被调度。
 由于内存不足（PodExceedsFreeMemory）而导致失败时，也有类似的错误消息。
-一般来说，如果 Pod 处于悬决状态且有这种类型的消息时，你可以尝试如下几件事情：
+一般来说，如果 Pod 处于挂起状态且有这种类型的消息时，你可以尝试如下几件事情：
 
 - 向集群添加更多节点。
-- 终止不需要的 Pod，为悬决的 Pod 腾出空间。
+- 终止不需要的 Pod，为挂起的 Pod 腾出空间。
 - 检查 Pod 所需的资源是否超出所有节点的资源容量。例如，如果所有节点的容量都是`cpu：1`，
   那么一个请求为 `cpu: 1.1` 的 Pod 永远不会被调度。
 - 检查节点上的污点设置。如果集群中节点上存在污点，而新的 Pod 不能容忍污点，

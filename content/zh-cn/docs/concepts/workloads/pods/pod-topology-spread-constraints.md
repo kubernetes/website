@@ -242,7 +242,7 @@ If we want an incoming Pod to be evenly spread with existing Pods across zones, 
 `topologyKey: zone` 意味着均匀分布将只应用于存在标签键值对为
 "zone:&lt;任何值&gt;" 的节点。
 `whenUnsatisfiable: DoNotSchedule` 告诉调度器如果新的 Pod 不满足约束，
-则让它保持悬决状态。
+则让它保持挂起状态。
 
 <!--
 If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1], hence the actual skew is 2 (3 - 1) - which violates `maxSkew: 1`. In this example, the incoming Pod can only be placed onto "zoneB":

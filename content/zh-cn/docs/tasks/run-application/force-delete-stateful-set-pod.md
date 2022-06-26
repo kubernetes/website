@@ -61,7 +61,7 @@ You can perform a graceful pod deletion with the following command:
 -->
 ## 删除 Pods   {#delete-pods}
 
-你可以使用下面的命令执行体面地删除 Pod:
+你可以使用下面的命令执行优雅地删除 Pod:
 
 ```shell
 kubectl delete pods <pod>
@@ -70,10 +70,10 @@ kubectl delete pods <pod>
 <!--
 For the above to lead to graceful termination, the Pod **must not** specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. The practice of setting a `pod.Spec.TerminationGracePeriodSeconds` of 0 seconds is unsafe and strongly discouraged for StatefulSet Pods. Graceful deletion is safe and will ensure that the [Pod shuts down gracefully](/docs/user-guide/pods/#termination-of-pods) before the kubelet deletes the name from the apiserver.
 -->
-为了让上面操作能够体面地终止 Pod，Pod **一定不能** 设置 `pod.Spec.TerminationGracePeriodSeconds` 为 0。
+为了让上面操作能够优雅地终止 Pod，Pod **一定不能** 设置 `pod.Spec.TerminationGracePeriodSeconds` 为 0。
 将 `pod.Spec.TerminationGracePeriodSeconds` 设置为 0s 的做法是不安全的，强烈建议 StatefulSet 类型的
-Pod 不要使用。体面删除是安全的，并且会在 kubelet 从 API 服务器中删除资源名称之前确保
-[体面地结束 pod ](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+Pod 不要使用。优雅删除是安全的，并且会在 kubelet 从 API 服务器中删除资源名称之前确保
+[优雅地结束 pod ](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!--
 A Pod is not deleted automatically when a Node is unreachable.
@@ -87,7 +87,7 @@ The only ways in which a Pod in such a state can be removed from the apiserver a
 在无法访问的节点上运行的 Pod 在
 [超时](/zh-cn/docs/concepts/architecture/nodes/#condition)
 后会进入'Terminating' 或者 'Unknown' 状态。
-当用户尝试体面地删除无法访问的节点上的 Pod 时 Pod 也可能会进入这些状态。
+当用户尝试优雅地删除无法访问的节点上的 Pod 时 Pod 也可能会进入这些状态。
 从 API 服务器上删除处于这些状态 Pod 的仅有可行方法如下：
 
 <!--
