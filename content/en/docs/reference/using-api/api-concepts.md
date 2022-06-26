@@ -269,6 +269,7 @@ of 500 pods at a time, request those chunks as follows:
      "metadata": {
        "resourceVersion":"10245",
        "continue": "ENCODED_CONTINUE_TOKEN",
+       "remainingItemCount": 753,
        ...
      },
      "items": [...] // returns pods 1-500
@@ -289,6 +290,7 @@ of 500 pods at a time, request those chunks as follows:
      "metadata": {
        "resourceVersion":"10245",
        "continue": "ENCODED_CONTINUE_TOKEN_2",
+       "remainingItemCount": 253,
        ...
      },
      "items": [...] // returns pods 501-1000
