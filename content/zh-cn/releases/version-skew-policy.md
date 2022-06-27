@@ -103,7 +103,7 @@ Example:
 例如：
 
 * `kube-apiserver` 处于 **{{< skew currentVersion >}}** 版本
-* `kubelet` 支持 **{{< skew currentVersion >}}**、**{{< skew currentVersionAddMinor -1 >}}** 和 **{{< skew oldMinorVersion >}}** 版本
+* `kubelet` 支持 **{{< skew currentVersion >}}**、**{{< skew currentVersionAddMinor -1 >}}** 和 **{{< skew currentVersionAddMinor -2 >}}** 版本
 
 {{< note >}}
 <!--
@@ -121,7 +121,7 @@ Example:
 例如：
 
 * `kube-apiserver` 实例处于 **{{< skew currentVersion >}}** 和 **{{< skew currentVersionAddMinor -1 >}}** 版本
-* `kubelet` 支持 **{{< skew currentVersionAddMinor -1 >}}** 和 **{{< skew oldMinorVersion >}}** 版本，
+* `kubelet` 支持 **{{< skew currentVersionAddMinor -1 >}}** 和 **{{< skew currentVersionAddMinor -2  >}}** 版本，
   （不支持 **{{< skew currentVersion >}}** 版本，因为这将比
   `kube-apiserver` **{{< skew currentVersionAddMinor -1 >}}** 版本的实例新）
 
