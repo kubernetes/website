@@ -43,7 +43,7 @@ Kubernetes 版本以 **x.y.z** 表示，其中 **x** 是主要版本，
 更多信息请参见
 [Kubernetes 版本发布控制](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning)。
 
-Kubernetes 项目维护最近的三个次要版本（{{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、{{< skew oldMinorVersion >}}）的发布分支。
+Kubernetes 项目维护最近的三个次要版本（{{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、{{< skew currentVersionAddMinor -2 >}}）的发布分支。
 Kubernetes 1.19 和更新的版本获得大约 1 年的补丁支持。
 Kubernetes 1.18 及更早的版本获得了大约 9 个月的补丁支持。
 
@@ -103,7 +103,7 @@ Example:
 例如：
 
 * `kube-apiserver` 处于 **{{< skew currentVersion >}}** 版本
-* `kubelet` 支持 **{{< skew currentVersion >}}**、**{{< skew currentVersionAddMinor -1 >}}** 和 **{{< skew oldMinorVersion >}}** 版本
+* `kubelet` 支持 **{{< skew currentVersion >}}**、**{{< skew currentVersionAddMinor -1 >}}** 和 **{{< skew currentVersionAddMinor -2 >}}** 版本
 
 {{< note >}}
 <!--
@@ -121,7 +121,7 @@ Example:
 例如：
 
 * `kube-apiserver` 实例处于 **{{< skew currentVersion >}}** 和 **{{< skew currentVersionAddMinor -1 >}}** 版本
-* `kubelet` 支持 **{{< skew currentVersionAddMinor -1 >}}** 和 **{{< skew oldMinorVersion >}}** 版本，
+* `kubelet` 支持 **{{< skew currentVersionAddMinor -1 >}}** 和 **{{< skew currentVersionAddMinor -2 >}}** 版本，
   （不支持 **{{< skew currentVersion >}}** 版本，因为这将比
   `kube-apiserver` **{{< skew currentVersionAddMinor -1 >}}** 版本的实例新）
 
@@ -250,7 +250,7 @@ Pre-requisites:
   实例的版本为 **{{< skew currentVersionAddMinor -1 >}}**
   （这确保它们是不比现有 API 服务器版本还要新，并且在新 API 服务器版本的 1 个次要版本内）
 * 所有节点上的 `kubelet` 实例都是
-  **{{< skew currentVersionAddMinor -1 >}}** 或 **{{< skew oldMinorVersion >}}**
+  **{{< skew currentVersionAddMinor -1 >}}** 或 **{{< skew currentVersionAddMinor -2 >}}**
   版本（这确保它们不比现有 API 服务器版本新，并且在新 API 服务器版本的 2 个次要版本内）
 * 已注册的 admission webhook 能够处理新的 `kube-apiserver` 实例将发送给他们的数据：
   * `ValidatingWebhookConfiguration` 和 `MutatingWebhookConfiguration`
@@ -311,7 +311,7 @@ Optionally upgrade `kubelet` instances to **{{< skew currentVersion >}}** (or th
 * 与 `kubelet` 通信的 `kube-apiserver` 实例处于 **{{< skew currentVersion >}}** 版本
 
 可选择将 `kubelet` 实例升级到 **{{< skew latestMinorVersion >}}** 版本
-（或者它们可以留在 **{{< skew currentVersionAddMinor -1 >}}** 或 **{{< skew oldMinorVersion >}}** 版本）
+（或者它们可以留在 **{{< skew currentVersionAddMinor -1 >}}** 或 **{{< skew currentVersionAddMinor -2 >}}** 版本）
 
 {{< note >}}
 <!--
@@ -357,7 +357,7 @@ If `kube-proxy` version is **{{< skew currentVersionAddMinor -2 >}}**:
 
 例如：
 
-如果 `kube-proxy` 版本处于 **{{< skew oldMinorVersion >}}** 版本：
+如果 `kube-proxy` 版本处于 **{{< skew currentVersionAddMinor -2 >}}** 版本：
 
-* `kubelet` 必须处于相同的次要版本 **{{< skew oldMinorVersion >}}**。
-* `kube-apiserver` 版本必须介于 **{{< skew oldMinorVersion >}}** 和 **{{< skew currentVersion >}}** 之间，包括两者。
+* `kubelet` 必须处于相同的次要版本 **{{< skew currentVersionAddMinor -2 >}}**。
+* `kube-apiserver` 版本必须介于 **{{< skew currentVersionAddMinor -2 >}}** 和 **{{< skew currentVersion >}}** 之间，包括两者。
