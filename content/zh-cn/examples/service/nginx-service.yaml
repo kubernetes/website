@@ -4,13 +4,12 @@ metadata:
   name: nginx-service
 spec:
   ports:
-  - port: 8000 # the port that this service should serve on
-    # the container on each pod to connect to, can be a name
-    # (e.g. 'www') or a number (e.g. 80)
+  - port: 8000 # 在每个 Pod 的容器上要使用的端口；
+    # 服务将在此端口上运行，接受连接。
+    # 端口可以是一个名称（例如：“www”）或一个数字（例如：80）
     targetPort: 80
     protocol: TCP
-  # just like the selector in the deployment,
-  # but this time it identifies the set of pods to load balance
-  # traffic to.
+  # 就像 Deployment 中的选择算符，
+  # 但这里用于识别要对流量进行负载均衡的 Pod 集合。
   selector:
     app: nginx
