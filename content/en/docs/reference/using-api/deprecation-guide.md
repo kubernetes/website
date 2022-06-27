@@ -110,8 +110,10 @@ The **policy/v1beta1** API version of PodDisruptionBudget will no longer be serv
 
 PodSecurityPolicy in the **policy/v1beta1** API version will no longer be served in v1.25, and the PodSecurityPolicy admission controller will be removed.
 
-PodSecurityPolicy replacements are still under discussion, but current use can be migrated to
-[3rd-party admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/) now.
+Migrate to [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+or a [3rd party admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/).
+For a migration guide, see [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp/).
+For more information on the deprecation, see [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
 
 #### RuntimeClass {#runtimeclass-v125}
 
@@ -174,7 +176,7 @@ The **authentication.k8s.io/v1beta1** API version of TokenReview is no longer se
 
 #### SubjectAccessReview resources {#subjectaccessreview-resources-v122}
 
-The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, SelfSubjectAccessReview, and SubjectAccessReview is no longer served as of v1.22.
+The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, SelfSubjectAccessReview, SubjectAccessReview, and SelfSubjectRulesReview is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **authorization.k8s.io/v1** API version, available since v1.6.
 * Notable changes:

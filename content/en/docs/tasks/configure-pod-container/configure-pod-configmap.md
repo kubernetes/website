@@ -10,7 +10,7 @@ card:
 <!-- overview -->
 Many applications rely on configuration which is used during either application initialization or runtime.
 Most of the times there is a requirement to adjust values assigned to configuration parameters.
-ConfigMaps is the kubernetes way to inject application pods with configuration data. 
+ConfigMaps is the kubernetes way to inject application pods with configuration data.
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps.
 
 
@@ -461,35 +461,35 @@ configmap/special-config-2-c92b5mmcf2 created
 
 ### Define a container environment variable with data from a single ConfigMap
 
-1.  Define an environment variable as a key-value pair in a ConfigMap:
+1. Define an environment variable as a key-value pair in a ConfigMap:
 
-    ```shell
-    kubectl create configmap special-config --from-literal=special.how=very
-    ```
+   ```shell
+   kubectl create configmap special-config --from-literal=special.how=very
+   ```
 
-2.  Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
+2. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
 
    {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
 
    Create the Pod:
 
- ```shell
- kubectl create -f https://kubernetes.io/examples/pods/pod-single-configmap-env-variable.yaml
- ```
+   ```shell
+   kubectl create -f https://kubernetes.io/examples/pods/pod-single-configmap-env-variable.yaml
+   ```
 
    Now, the Pod's output includes environment variable `SPECIAL_LEVEL_KEY=very`.
 
 ### Define container environment variables with data from multiple ConfigMaps
 
- * As with the previous example, create the ConfigMaps first.
+* As with the previous example, create the ConfigMaps first.
 
-   {{< codenew file="configmap/configmaps.yaml" >}}
+  {{< codenew file="configmap/configmaps.yaml" >}}
 
-   Create the ConfigMap:
+  Create the ConfigMap:
 
- ```shell
- kubectl create -f https://kubernetes.io/examples/configmap/configmaps.yaml
- ```
+  ```shell
+  kubectl create -f https://kubernetes.io/examples/configmap/configmaps.yaml
+  ```
 
 * Define the environment variables in the Pod specification.
 
@@ -497,9 +497,9 @@ configmap/special-config-2-c92b5mmcf2 created
 
   Create the Pod:
 
- ```shell
- kubectl create -f https://kubernetes.io/examples/pods/pod-multiple-configmap-env-variable.yaml
- ```
+  ```shell
+  kubectl create -f https://kubernetes.io/examples/pods/pod-multiple-configmap-env-variable.yaml
+  ```
 
   Now, the Pod's output includes environment variables `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`.
 
@@ -515,21 +515,21 @@ This functionality is available in Kubernetes v1.6 and later.
 
   Create the ConfigMap:
 
- ```shell
- kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
- ```
+  ```shell
+  kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
+  ```
 
 * Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
 
- {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
+  {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
 
- Create the Pod:
+  Create the Pod:
 
- ```shell
- kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-envFrom.yaml
- ```
+  ```shell
+  kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-envFrom.yaml
+  ```
 
- Now, the Pod's output includes environment variables `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`.
+  Now, the Pod's output includes environment variables `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`.
 
 
 ## Use ConfigMap-defined environment variables in Pod commands
@@ -548,7 +548,7 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valu
 
 produces the following output in the `test-container` container:
 
-```shell
+```
 very charm
 ```
 
@@ -582,7 +582,7 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume.yaml
 
 When the pod runs, the command `ls /etc/config/` produces the output below:
 
-```shell
+```
 SPECIAL_LEVEL
 SPECIAL_TYPE
 ```
@@ -610,7 +610,7 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume-speci
 
 When the pod runs, the command `cat /etc/config/keys` produces the output below:
 
-```shell
+```
 very
 ```
 
@@ -635,8 +635,7 @@ existence after a pod has started.
 
 Kubelet checks whether the mounted ConfigMap is fresh on every periodic sync. However, it uses its local TTL-based cache for getting the current value of the
 ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as
-kubelet sync period (1 minute by default) + TTL of ConfigMaps cache (1 minute by default) in kubelet. You can trigger an immediate refresh by updating one of
-the pod's annotations.
+kubelet sync period (1 minute by default) + TTL of ConfigMaps cache (1 minute by default) in kubelet.
 
 {{< note >}}
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
@@ -680,15 +679,15 @@ data:
 
 - If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped. The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
 
-   ```shell
-   kubectl get events
-   ```
+  ```shell
+  kubectl get events
+  ```
 
-   The output is similar to this:
-   ```
-   LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
-   0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
-   ```
+  The output is similar to this:
+  ```
+  LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
+  0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
+  ```
 
 - ConfigMaps reside in a specific {{< glossary_tooltip term_id="namespace" >}}. A ConfigMap can only be referenced by pods residing in the same namespace.
 
@@ -699,4 +698,3 @@ data:
 ## {{% heading "whatsnext" %}}
 
 * Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
-

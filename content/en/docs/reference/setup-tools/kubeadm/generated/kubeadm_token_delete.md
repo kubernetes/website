@@ -79,6 +79,3 @@ kubeadm token delete [token-value] ...
 
 </tbody>
 </table>
-
-
-

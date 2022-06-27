@@ -88,6 +88,3 @@ kubeadm init phase kubelet-start [flags]
 
 </tbody>
 </table>
-
-
-

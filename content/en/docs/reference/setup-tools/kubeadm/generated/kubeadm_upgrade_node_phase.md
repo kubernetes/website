@@ -56,6 +56,3 @@ Use this command to invoke single phase of the node workflow
 
 </tbody>
 </table>
-
-
-

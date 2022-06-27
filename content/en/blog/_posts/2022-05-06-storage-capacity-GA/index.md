@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Storage Capacity Tracking reaches GA in Kubernetes 1.24"
+title: "Kubernetes 1.24: Storage Capacity Tracking Now Generally Available"
 date: 2022-05-06
 slug: storage-capacity-ga
 ---

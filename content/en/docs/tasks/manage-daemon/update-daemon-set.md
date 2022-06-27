@@ -79,7 +79,7 @@ kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml --dr
 
 The output from both commands should be:
 
-```shell
+```
 RollingUpdate
 ```
 

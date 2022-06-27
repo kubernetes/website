@@ -172,7 +172,7 @@ resources:
 If your namespace has a memory {{< glossary_tooltip text="resource quota" term_id="resource-quota" >}}
 configured,
 it is helpful to have a default value in place for memory limit.
-Here are two of the restrictions that a resource quota imposes on a namespace:
+Here are three of the restrictions that a resource quota imposes on a namespace:
 
 * For every Pod that runs in the namespace, the Pod and each of its containers must have a memory limit.
   (If you specify a memory limit for every container in a Pod, Kubernetes can infer the Pod-level memory

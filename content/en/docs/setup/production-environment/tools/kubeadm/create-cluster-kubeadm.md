@@ -91,7 +91,8 @@ to not download the default container images which are hosted at `k8s.gcr.io`.
 
 Kubeadm has commands that can help you pre-pull the required images
 when creating a cluster without an internet connection on its nodes.
-See [Running kubeadm without an internet connection](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection) for more details.
+See [Running kubeadm without an internet connection](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection)
+for more details.
 
 Kubeadm allows you to use a custom image repository for the required images.
 See [Using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
@@ -365,7 +366,8 @@ The output is similar to this:
 5didvk.d09sbcov8ph2amjw
 ```
 
-If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the control-plane node:
+If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the
+following command chain on the control-plane node:
 
 ```bash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
@@ -506,7 +508,7 @@ options.
 * Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
 * <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
   for details about upgrading your cluster using `kubeadm`.
-* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm)
+* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/)
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
 * See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
   of Pod network add-ons.
@@ -544,8 +546,8 @@ field when using `--config`. This option will control the versions
 of kube-apiserver, kube-controller-manager, kube-scheduler and kube-proxy.
 
 Example:
-* kubeadm is at {{< skew latestVersion >}}
-* `kubernetesVersion` must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
+* kubeadm is at {{< skew currentVersion >}}
+* `kubernetesVersion` must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
 
 ### kubeadm's skew against the kubelet
 
@@ -553,8 +555,8 @@ Similarly to the Kubernetes version, kubeadm can be used with a kubelet version 
 version as kubeadm or one version older.
 
 Example:
-* kubeadm is at {{< skew latestVersion >}}
-* kubelet on the host must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
+* kubeadm is at {{< skew currentVersion >}}
+* kubelet on the host must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
 
 ### kubeadm's skew against kubeadm
 
@@ -567,17 +569,17 @@ the same node with `kubeadm upgrade`. Similar rules apply to the rest of the kub
 with the exception of `kubeadm upgrade`.
 
 Example for `kubeadm join`:
-* kubeadm version {{< skew latestVersion >}} was used to create a cluster with `kubeadm init`
-* Joining nodes must use a kubeadm binary that is at version {{< skew latestVersion >}}
+* kubeadm version {{< skew currentVersion >}} was used to create a cluster with `kubeadm init`
+* Joining nodes must use a kubeadm binary that is at version {{< skew currentVersion >}}
 
 Nodes that are being upgraded must use a version of kubeadm that is the same MINOR
 version or one MINOR version newer than the version of kubeadm used for managing the
 node.
 
 Example for `kubeadm upgrade`:
-* kubeadm version {{< skew prevMinorVersion >}} was used to create or upgrade the node
-* The version of kubeadm used for upgrading the node must be at {{< skew prevMinorVersion >}}
-or {{< skew latestVersion >}}
+* kubeadm version {{< skew currentVersionAddMinor -1 >}} was used to create or upgrade the node
+* The version of kubeadm used for upgrading the node must be at {{< skew currentVersionAddMinor -1 >}}
+or {{< skew currentVersion >}}
 
 To learn more about the version skew between the different Kubernetes component see
 the [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
@@ -603,7 +605,7 @@ Workarounds:
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
 following the [multi-platform
-proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md).
+proposal](https://git.k8s.io/design-proposals-archive/multi-platform.md).
 
 Multiplatform container images for the control plane and addons are also supported since v1.12.
 
@@ -613,4 +615,6 @@ supports your chosen platform.
 
 ## Troubleshooting {#troubleshooting}
 
-If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+If you are running into difficulties with kubeadm, please consult our
+[troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+

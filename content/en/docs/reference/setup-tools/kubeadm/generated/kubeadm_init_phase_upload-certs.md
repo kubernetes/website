@@ -95,6 +95,3 @@ kubeadm init phase upload-certs [flags]
 
 </tbody>
 </table>
-
-
-

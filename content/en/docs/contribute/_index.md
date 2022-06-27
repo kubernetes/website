@@ -18,7 +18,14 @@ card:
 {{< note >}}
 To learn more about contributing to Kubernetes in general, see the
 [contributor documentation](https://www.kubernetes.dev/docs/).
+
+You can also read the
+{{< glossary_tooltip text="CNCF" term_id="cncf" >}}
+[page](https://contribute.cncf.io/contributors/projects/#kubernetes)
+about contributing to Kubernetes.
 {{< /note >}}
+
+---
 
 This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
 
@@ -138,7 +145,7 @@ class first,second white
 {{</ mermaid >}}
 Figure 2. Preparation for your first contribution.
 
-- Read the [Contribution overview](/docs/contribute/new-content/overview/) to
+- Read the [Contribution overview](/docs/contribute/new-content/) to
   learn about the different ways you can contribute.
 - Check [`kubernetes/website` issues list](https://github.com/kubernetes/website/issues/)
   for issues that make good entry points.

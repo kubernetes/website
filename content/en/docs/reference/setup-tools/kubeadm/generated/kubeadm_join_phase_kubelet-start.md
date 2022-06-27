@@ -123,6 +123,3 @@ kubeadm join phase kubelet-start [api-server-endpoint] [flags]
 
 </tbody>
 </table>
-
-
-
