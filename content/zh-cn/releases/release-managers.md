@@ -53,7 +53,7 @@ Kubernetes 的 Kubernetes 贡献者。
 | [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) | N/A | Private | Private discussion for privileged Release Managers | Release Managers, SIG Release leadership |
 | [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io) | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG) (channel) / @security-rel-team (user group) | Private | Security release coordination with the Security Response Committee | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
 -->
-## 联系方式  #{contact}
+## 联系方式  {#contact}
 
 | 邮件列表 | Slack | 可见 | 用法 | 会员资格 |
 | --- | --- | --- | --- | --- |
