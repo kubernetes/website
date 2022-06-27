@@ -20,7 +20,7 @@ fi
 if [ -d "$1" ] ; then
   SYNCED=1
   for f in `find $1 -name "*.md"` ; do
-    EN_VERSION=`echo $f | sed "s/content\/..\//content\/en\//g"`
+    EN_VERSION=`echo $f | sed "s/content\/.\{2,5\}\//content\/en\//g"`
     if [ ! -e $EN_VERSION ]; then
       echo -e "**removed**\t$EN_VERSION"
       SYNCED=0
@@ -43,7 +43,7 @@ fi
 LOCALIZED="$1"
 
 # Try get the English version
-EN_VERSION=`echo $LOCALIZED | sed "s/content\/..\//content\/en\//g"`
+EN_VERSION=`echo $LOCALIZED | sed "s/content\/.\{2,5\}\//content\/en\//g"`
 if [ ! -e $EN_VERSION ]; then
   echo "$EN_VERSION has been removed."
   exit 3
