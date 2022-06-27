@@ -100,7 +100,7 @@ By calling `kubeadm config print init-defaults --component-configs KubeletConfig
 see all the default values for this structure.
 
 It is also possible to apply instance-specific patches over the base `KubeletConfiguration`.
-Have a look at [Customizing the kubelet](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#kubelet)
+Have a look at [Customizing the kubelet](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#customizing-the-kubelet)
 for more details.
 
 ### Workflow when using `kubeadm init`
