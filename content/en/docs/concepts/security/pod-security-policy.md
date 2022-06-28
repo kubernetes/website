@@ -258,7 +258,7 @@ The name of a PodSecurityPolicy object must be a valid
 And create it with kubectl:
 
 ```shell
-kubectl-admin create -f example-psp.yaml
+kubectl-admin create -f https://k8s.io/examples/policy/example-psp.yaml
 ```
 
 Now, as the unprivileged user, try to create a simple pod:
