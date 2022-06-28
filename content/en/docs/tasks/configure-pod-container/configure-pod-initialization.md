@@ -89,4 +89,3 @@ The output shows that nginx is serving the web page that was written by the init
 
 
 
-

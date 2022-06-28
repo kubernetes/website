@@ -97,7 +97,7 @@ spec:
 This will instruct the kubelet to use the named RuntimeClass to run this pod. If the named
 RuntimeClass does not exist, or the CRI cannot run the corresponding handler, the pod will enter the
 `Failed` terminal [phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase). Look for a
-corresponding [event](/docs/tasks/debug-application-cluster/debug-application-introspection/) for an
+corresponding [event](/docs/tasks/debug/debug-application/debug-running-pod/) for an
 error message.
 
 If no `runtimeClassName` is specified, the default RuntimeHandler will be used, which is equivalent

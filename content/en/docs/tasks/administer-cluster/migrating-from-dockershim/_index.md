@@ -16,7 +16,7 @@ installations. Our [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/) is
 to understand the problem better.
 
 Dockershim was removed from Kubernetes with the release of v1.24.
-If you use Docker via dockershim as your container runtime, and wish to upgrade to v1.24,
+If you use Docker Engine via dockershim as your container runtime, and wish to upgrade to v1.24,
 it is recommended that you either migrate to another runtime or find an alternative means to obtain Docker Engine support.
 Check out [container runtimes](/docs/setup/production-environment/container-runtimes/)
 section to know your options. Make sure to
@@ -30,7 +30,7 @@ configuration.
 These tasks will help you to migrate:
 
 * [Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-* [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/)
+* [Migrate Docker Engine nodes from dockershim to cri-dockerd](/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/)
 * [Migrating telemetry and security agents from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents/)
 
 

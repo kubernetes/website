@@ -46,6 +46,41 @@ check the documentation for that version.
 
 
 <!-- body -->
+## Install and configure prerequisites
+
+The following steps apply common settings for Kubernetes nodes on Linux. 
+
+You can skip a particular setting if you're certain you don't need it.
+
+For more information, see [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) or the documentation for your specific container runtime.
+
+### Forwarding IPv4 and letting iptables see bridged traffic
+
+Verify that the `br_netfilter` module is loaded by running `lsmod | grep br_netfilter`. 
+
+To load it explicitly, run `sudo modprobe br_netfilter`.
+
+In order for a Linux node's iptables to correctly view bridged traffic, verify that `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config. For example:
+
+```bash
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# sysctl params required by setup, params persist across reboots
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+```
 
 ## Cgroup drivers
 
@@ -132,45 +167,22 @@ using the (deprecated) v1alpha2 API instead.
 
 {{% thirdparty-content %}}
 
-
 ### containerd
 
 This section outlines the necessary steps to use containerd as CRI runtime.
 
 Use the following commands to install Containerd on your system:
 
-1. Install and configure prerequisites:
+Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
 
-   (these instructions apply to Linux nodes only)
-
-   ```shell
-   cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
-   overlay
-   br_netfilter
-   EOF
-
-   sudo modprobe overlay
-   sudo modprobe br_netfilter
-
-   # Setup required sysctl params, these persist across reboots.
-   cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-   net.bridge.bridge-nf-call-iptables  = 1
-   net.ipv4.ip_forward                 = 1
-   net.bridge.bridge-nf-call-ip6tables = 1
-   EOF
-
-   # Apply sysctl params without reboot
-   sudo sysctl --system
-   ```
-
-1. Install containerd:
-
-   Visit
-   [Getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
-   and follow the instructions there, up to the point where you have a valid
-   configuration file, config.toml.
-   On Linux, you can find this file under the path `/etc/containerd/config.toml`.
-   On Windows, you can find this file under the path `C:\Program Files\containerd\config.toml`.
+{{< tabs name="Finding your config.toml file" >}}
+{{% tab name="Linux" %}}
+You can find this file under the path `/etc/containerd/config.toml`.
+{{% /tab %}}
+{{< tab name="Windows" >}}
+You can find this file under the path `C:\Program Files\containerd\config.toml`.
+{{< /tab >}}
+{{< /tabs >}}
 
 On Linux the default CRI socket for containerd is `/run/containerd/containerd.sock`.
 On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
@@ -185,6 +197,14 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
+{{< note >}}
+If you installed containerd from a package (for example, RPM or `.deb`), you may find
+that the CRI integration plugin is disabled by default.
+
+You need CRI support enabled to use containerd with Kubernetes. Make sure that `cri`
+is not included in the`disabled_plugins` list within `/etc/containerd/config.toml`;
+if you made changes to that file, also restart `containerd`.
+{{< /note >}}
 
 If you apply this change, make sure to restart containerd:
 
@@ -193,7 +213,19 @@ sudo systemctl restart containerd
 ```
 
 When using kubeadm, manually configure the
-[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
+[cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
+
+#### Overriding the sandbox (pause) image {#override-pause-image-containerd}
+
+In your [containerd config](https://github.com/containerd/cri/blob/master/docs/config.md) you can overwrite the
+sandbox image by setting the following config:
+
+```toml
+[plugins."io.containerd.grpc.v1.cri"]
+  sandbox_image = "k8s.gcr.io/pause:3.2"
+```
+
+You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
 
 ### CRI-O
 
@@ -221,6 +253,19 @@ in sync.
 
 For CRI-O, the CRI socket is `/var/run/crio/crio.sock` by default.
 
+#### Overriding the sandbox (pause) image {#override-pause-image-cri-o}
+
+In your [CRI-O config](https://github.com/cri-o/cri-o/blob/main/docs/crio.conf.5.md) you can set the following
+config value:
+
+```toml
+[crio.image]
+pause_image="registry.k8s.io/pause:3.6"
+```
+
+This config option supports live configuration reload to apply this change: `systemctl reload crio` or by sending
+`SIGHUP` to the `crio` process.
+
 ### Docker Engine {#docker}
 
 {{< note >}}
@@ -237,6 +282,12 @@ Docker Engine with Kubernetes.
 
 For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 
+#### Overriding the sandbox (pause) image {#override-pause-image-cri-dockerd}
+
+The `cri-dockerd` adapter accepts a command line argument for
+specifying which container image to use as the Pod infrastructure container (“pause image”).
+The command line argument to use is `--pod-infra-container-image`.
+
 ### Mirantis Container Runtime {#mcr}
 
 [Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is a commercially
@@ -250,6 +301,12 @@ visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html).
 
 Check the systemd unit named `cri-docker.socket` to find out the path to the CRI
 socket.
+
+#### Overriding the sandbox (pause) image {#override-pause-image-cri-dockerd-mcr}
+
+The `cri-dockerd` adapter accepts a command line argument for
+specifying which container image to use as the Pod infrastructure container (“pause image”).
+The command line argument to use is `--pod-infra-container-image`.
 
 ## {{% heading "whatsnext" %}}
 

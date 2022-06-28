@@ -69,6 +69,3 @@ kubeadm init phase certs sa [flags]
 
 </tbody>
 </table>
-
-
-

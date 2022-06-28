@@ -49,7 +49,7 @@ Not every volume type however is expandable by default. Some volume types such a
 must have capability `EXPAND_VOLUME` in controller or node service (or both if appropriate). Please refer to documentation of your CSI driver, to find out
 if it supports volume expansion.
 
-Please refer to volume expansion documentation for intree volume types which support volume expansion - [Expanding Persistent Volumes](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)
+Please refer to volume expansion documentation for intree volume types which support volume expansion - [Expanding Persistent Volumes](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
 
 
 In general to provide some degree of control over volumes that can be expanded, only dynamically provisioned PVCs whose storage class has `allowVolumeExpansion` parameter set to `true` are expandable.
@@ -85,7 +85,7 @@ provider to find out - what mode of volume expansion it supports.
 
 When volume expansion was introduced as an alpha feature, Kubernetes only supported offline filesystem
 expansion on the node and hence required users to restart their pods for file system resizing to finish. 
-his behaviour has been changed and Kubernetes tries its best to fulfil any resize request regardless
+His behaviour has been changed and Kubernetes tries its best to fulfil any resize request regardless
 of whether the underlying PersistentVolume volume is online or offline. If your storage provider supports
 online expansion then no Pod restart should be necessary for volume expansion to finish.
 

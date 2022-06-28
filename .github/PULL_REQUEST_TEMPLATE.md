@@ -1,4 +1,4 @@
-<!-- 🛈
+<!-- ℹ️
 
  Hello!
 
@@ -9,7 +9,7 @@
  PLEASE title the FIRST commit appropriately, so that if you squash all
  your commits into one, the combined commit message makes sense.
  For overall help on editing and submitting pull requests, visit:
-  https://kubernetes.io/docs/contribute/start/#improve-existing-content
+  https://kubernetes.io/docs/contribute/suggest-improvements/
 
  Use the default base branch, “main”, if you're documenting existing
  features in the English localization.

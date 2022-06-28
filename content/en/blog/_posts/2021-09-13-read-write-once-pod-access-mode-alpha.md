@@ -255,7 +255,7 @@ The minimum required versions are:
 
 ## What’s next?
 
-As part of the beta graduation for this feature, SIG Storage plans to update the Kubenetes scheduler to support pod preemption in relation to ReadWriteOncePod storage.
+As part of the beta graduation for this feature, SIG Storage plans to update the Kubernetes scheduler to support pod preemption in relation to ReadWriteOncePod storage.
 This means if two pods request a PersistentVolumeClaim with ReadWriteOncePod, the pod with highest priority will gain access to the PersistentVolumeClaim and any pod with lower priority will be preempted from the node and be unable to access the PersistentVolumeClaim.
 
 ## How can I learn more?

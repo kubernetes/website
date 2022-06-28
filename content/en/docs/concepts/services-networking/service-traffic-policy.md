@@ -60,12 +60,6 @@ considered.
 When the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `ServiceInternalTrafficPolicy` is enabled, `spec.internalTrafficPolicy` defaults to "Cluster".
 
-## Constraints
-
-* Service Internal Traffic Policy is not used when `externalTrafficPolicy` is set
-  to `Local` on a Service. It is possible to use both features in the same cluster
-  on different Services, just not on the same Service.
-
 ## {{% heading "whatsnext" %}}
 
 * Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints)

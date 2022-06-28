@@ -444,7 +444,7 @@ spec:
     served: true
     # One and only one version must be marked as the storage version.
     storage: true
-    # Each version can define it's own schema when there is no top-level
+    # Each version can define its own schema when there is no top-level
     # schema is defined.
     schema:
       openAPIV3Schema:
@@ -512,7 +512,7 @@ spec:
     served: true
     # One and only one version must be marked as the storage version.
     storage: true
-    # Each version can define it's own schema when there is no top-level
+    # Each version can define its own schema when there is no top-level
     # schema is defined.
     schema:
       openAPIV3Schema:

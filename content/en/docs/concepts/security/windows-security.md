@@ -51,5 +51,5 @@ Windows containers can also run as Active Directory identities by utilizing [Gro
 Linux-specific pod security context mechanisms (such as SELinux, AppArmor, Seccomp, or custom
 POSIX capabilities) are not supported on Windows nodes.
 
-Privileged containers are [not supported](#compatibility-v1-pod-spec-containers-securitycontext) on Windows.
+Privileged containers are [not supported](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext) on Windows.
 Instead [HostProcess containers](/docs/tasks/configure-pod-container/create-hostprocess-pod) can be used on Windows to perform many of the tasks performed by privileged containers on Linux.
