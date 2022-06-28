@@ -118,12 +118,12 @@ For example, this is how to start a simple web server as a static Pod:
    ssh my-node1
    ```
 <!--
-2. Choose a directory, say `/etc/kubelet.d` and place a web server Pod definition there, e.g. `/etc/kubelet.d/static-web.yaml`:
+2. Choose a directory, say `/etc/kubernetes/manifests` and place a web server Pod definition there, e.g. `/etc/kubernetes/manifests/static-web.yaml`:
 
    ```shell
     # Run this command on the node where kubelet is running
-    mkdir /etc/kubelet.d/
-    cat <<EOF >/etc/kubelet.d/static-web.yaml
+    mkdir /etc/kubernetes/manifests/
+    cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -140,13 +140,13 @@ For example, this is how to start a simple web server as a static Pod:
               protocol: TCP
     EOF
 -->
-2. 选择一个目录，比如在 `/etc/kubelet.d` 目录来保存 web 服务 Pod 的定义文件，
-   `/etc/kubelet.d/static-web.yaml`：
+2. 选择一个目录，比如在 `/etc/kubernetes/manifests` 目录来保存 web 服务 Pod 的定义文件，
+   `/etc/kubernetes/manifests/static-web.yaml`：
 
    ```shell
    # 在 kubelet 运行的节点上执行以下命令
-   mkdir /etc/kubelet.d/
-   cat <<EOF >/etc/kubelet.d/static-web.yaml
+   mkdir /etc/kubernetes/manifests/
+   cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
    apiVersion: v1
    kind: Pod
    metadata:
@@ -165,19 +165,19 @@ For example, this is how to start a simple web server as a static Pod:
    ```
 
 <!--
-3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
+3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubernetes/manifests/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
 
    ```
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
+   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubernetes/manifests/"
    ```
    or add the `staticPodPath: <the directory>` field in the
    [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
-3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubelet.d/`。
+3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubernetes/manifests/`。
 在 Fedora 上编辑 `/etc/kubernetes/kubelet` 以包含下行：
 
    ```
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
+   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubernetes/manifests/"
    ```
    或者在 [Kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
    中添加 `staticPodPath: <目录>`字段。
@@ -398,7 +398,7 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 <!--
 ## Dynamic addition and removal of static pods
 
-The running kubelet periodically scans the configured directory (`/etc/kubelet.d` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
+The running kubelet periodically scans the configured directory (`/etc/kubernetes/manifests` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
 
 ```shell
 # This assumes you are using filesystem-hosted static Pod configuration
@@ -415,7 +415,7 @@ crictl ps
 -->
 ## 动态增加和删除静态 pod
 
-运行中的 kubelet 会定期扫描配置的目录(比如例子中的 `/etc/kubelet.d` 目录)中的变化，
+运行中的 kubelet 会定期扫描配置的目录(比如例子中的 `/etc/kubernetes/manifests` 目录)中的变化，
 并且根据文件中出现/消失的 Pod 来添加/删除 Pod。
 
 ```shell
