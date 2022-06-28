@@ -70,13 +70,14 @@ To use this mechanism, your cluster must enforce Pod Security admission.
 ### 内置 Pod 安全准入强制执行
 
 <!--
-In Kubernetes v{{< skew currentVersion >}}, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is a beta feature and is enabled by default. You must have this feature gate enabled.
+From Kubernetes v1.23, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is a beta feature and is enabled by default.
+This page is part of the documentation for Kubernetesv{{< skew currentVersion >}}.
 If you are running a different version of Kubernetes, consult the documentation for that release.
 -->
-在 Kubernetes v{{< skew currentVersion >}} 中，`PodSecurity`
+从 Kubernetes v1.23 起，`PodSecurity`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)是一项 Beta 特性，
-默认被启用。你必须启用此功能门控。如果你运行的是不同版本的 Kubernetes，请查阅该版本的文档。
+默认被启用。本页是 Kubernetes v{{< skew currentVersion >}} 文档的一部分。如果你运行的是不同版本的 Kubernetes，请查阅该版本的文档。
 
 
 
