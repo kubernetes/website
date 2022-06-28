@@ -66,7 +66,7 @@ handler: myconfiguration  # Nome da configuração CRI correspondente
 ```
 
 O nome de um objeto RuntimeClass deve ser um 
-[nome de subdomínio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
+[nome de subdomínio DNS](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
 {{< note >}}
 É recomendado que operações de escrita no objeto RuntimeClass (criar/atualizar/patch/apagar)

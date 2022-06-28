@@ -74,6 +74,3 @@ kubeadm reset phase cleanup-node [flags]
 
 </tbody>
 </table>
-
-
-

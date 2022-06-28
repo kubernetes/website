@@ -15,8 +15,8 @@ This is useful when the cluster you want to access does not expose its API direc
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-You need SSH client software (the `ssh` tool), and an SSH server running on the remote server.
-You must be able to log in to the SSH server on the remote server.
+You need SSH client software (the `ssh` tool), and an SSH service running on the remote server.
+You must be able to log in to the SSH service on the remote server.
 
 <!-- steps -->
 
@@ -29,7 +29,7 @@ You can instead use any other kind of [SOCKS5](https://en.wikipedia.org/wiki/SOC
 
 Figure 1 represents what you're going to achieve in this task.
 
-* You have a client computer from where you're going to create requests to talk to the Kubernetes API
+* You have a client computer, referred to as local in the steps ahead, from where you're going to create requests to talk to the Kubernetes API.
 * The Kubernetes server/API is hosted on a remote server.
 * You will use SSH client and server software to create a secure SOCKS5 tunnel between the local and
   the remote server. The HTTPS traffic between the client and the Kubernetes API will flow over the SOCKS5
@@ -87,14 +87,14 @@ When you set the `https_proxy` variable, tools such as `curl` route HTTPS traffi
 you configured. For this to work, the tool must support SOCKS5 proxying.
 
 {{< note >}}
-In the URL https://localhost/api, `localhost` does not refer to your local client computer.
-Instead, it refers to the endpoint on the remote server knows as `localhost`.
+In the URL https://localhost:6443/api, `localhost` does not refer to your local client computer.
+Instead, it refers to the endpoint on the remote server known as `localhost`.
 The `curl` tool sends the hostname from the HTTPS URL over SOCKS, and the remote server
 resolves that locally (to an address that belongs to its loopback interface).
 {{</ note >}}
 
 ```shell
-curl -k -v https://localhost/api
+curl -k -v https://localhost:6443/api
 ```
 
 To use the official Kubernetes client `kubectl` with a proxy, set the `proxy-url` element
@@ -105,7 +105,7 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: LRMEMMW2 # shortened for readability 
-    server: https://localhost            # the "Kubernetes API" in the diagram above
+    server: https://<API_SERVER_IP_ADRESS>:6443  # the "Kubernetes API" server, in other words the IP address of kubernetes-remote-server.example
     proxy-url: socks5://localhost:1080   # the "SSH SOCKS5 proxy" in the diagram above (DNS resolution over socks is built-in)
   name: default
 contexts:

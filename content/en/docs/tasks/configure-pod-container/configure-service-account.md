@@ -42,7 +42,7 @@ You can access the API from inside a pod using automatically mounted service acc
 The API permissions of the service account depend on the
 [authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
 
-In version 1.6+, you can opt out of automounting API credentials for a service account by setting `automountServiceAccountToken: false` on the service account:
+You can opt out of automounting API credentials on `/var/run/secrets/kubernetes.io/serviceaccount/token` for a service account by setting `automountServiceAccountToken: false` on the ServiceAccount:
 
 ```yaml
 apiVersion: v1

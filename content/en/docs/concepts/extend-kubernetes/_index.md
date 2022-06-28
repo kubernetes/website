@@ -160,7 +160,7 @@ After a request is authorized, if it is a write operation, it also goes through 
 
 ### Storage Plugins
 
-[Flex Volumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md
+[Flex Volumes](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md
 ) allow users to mount volume types without built-in support by having the
 Kubelet call a Binary Plugin to mount the volume.
 
@@ -191,7 +191,7 @@ This is a significant undertaking, and almost all Kubernetes users find they
 do not need to modify the scheduler.
 
 The scheduler also supports a
-[webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)
+[webhook](https://git.k8s.io/design-proposals-archive/scheduling/scheduler_extender.md)
 that permits a webhook backend (scheduler extension) to filter and prioritize
 the nodes chosen for a pod.
 

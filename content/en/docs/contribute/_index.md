@@ -18,7 +18,14 @@ card:
 {{< note >}}
 To learn more about contributing to Kubernetes in general, see the
 [contributor documentation](https://www.kubernetes.dev/docs/).
+
+You can also read the
+{{< glossary_tooltip text="CNCF" term_id="cncf" >}}
+[page](https://contribute.cncf.io/contributors/projects/#kubernetes)
+about contributing to Kubernetes.
 {{< /note >}}
+
+---
 
 This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
 

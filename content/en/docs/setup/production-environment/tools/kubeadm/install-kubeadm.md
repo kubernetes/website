@@ -45,26 +45,6 @@ may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
-## Letting iptables see bridged traffic
-
-Make sure that the `br_netfilter` module is loaded. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `sudo modprobe br_netfilter`.
-
-As a requirement for your Linux Node's iptables to correctly see bridged traffic, you should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
-
-```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-br_netfilter
-EOF
-
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-sudo sysctl --system
-```
-
-For more details please see the [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
-
 ## Check required ports
 These
 [required ports](/docs/reference/ports-and-protocols/)
@@ -74,7 +54,7 @@ need to be open in order for Kubernetes components to communicate with each othe
 nc 127.0.0.1 6443
 ```
 
-The pod network plugin you use (see below) may also require certain ports to be
+The pod network plugin you use may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 

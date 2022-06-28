@@ -64,6 +64,7 @@ metadata:
 spec:
   topologySpreadConstraints:
     - maxSkew: <integer>
+      minDomains: <integer>
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
@@ -143,7 +144,7 @@ If we want an incoming Pod to be evenly spread with existing Pods across zones, 
 
 `topologyKey: zone` implies the even distribution will only be applied to the nodes which have label pair "zone:&lt;any value&gt;" present. `whenUnsatisfiable: DoNotSchedule` tells the scheduler to let it stay pending if the incoming Pod can't satisfy the constraint.
 
-If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1], hence the actual skew is 2 (3 - 1) - which violates `maxSkew: 1`. In this example, the incoming Pod can only be placed onto "zoneB":
+If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1], hence the actual skew is 2 (3 - 1) - which violates `maxSkew: 1`. In this example, the incoming Pod can only be placed into "zoneB":
 
 {{<mermaid>}}
 graph BT
@@ -188,7 +189,7 @@ graph BT
 
 You can tweak the Pod spec to meet various kinds of requirements:
 
-- Change `maxSkew` to a bigger value like "2" so that the incoming Pod can be placed onto "zoneA" as well.
+- Change `maxSkew` to a bigger value like "2" so that the incoming Pod can be placed into "zoneA" as well.
 - Change `topologyKey` to "node" so as to distribute the Pods evenly across nodes instead of zones. In the above example, if `maxSkew` remains "1", the incoming Pod can only be placed onto "node4".
 - Change `whenUnsatisfiable: DoNotSchedule` to `whenUnsatisfiable: ScheduleAnyway` to ensure the incoming Pod to be always schedulable (suppose other scheduling APIs are satisfied). However, it's preferred to be placed onto the topology domain which has fewer matching Pods. (Be aware that this preferability is jointly normalized with other internal scheduling priorities like resource usage ratio, etc.)
 
@@ -219,7 +220,7 @@ You can use 2 TopologySpreadConstraints to control the Pods spreading on both zo
 
 {{< codenew file="pods/topology-spread-constraints/two-constraints.yaml" >}}
 
-In this case, to match the first constraint, the incoming Pod can only be placed onto "zoneB"; while in terms of the second constraint, the incoming Pod can only be placed onto "node4". Then the results of 2 constraints are ANDed, so the only viable option is to place on "node4".
+In this case, to match the first constraint, the incoming Pod can only be placed into "zoneB"; while in terms of the second constraint, the incoming Pod can only be placed onto "node4". Then the results of 2 constraints are ANDed, so the only viable option is to place on "node4".
 
 Multiple constraints can lead to conflicts. Suppose you have a 3-node cluster across 2 zones:
 
@@ -242,7 +243,7 @@ graph BT
     class zoneA,zoneB cluster;
 {{< /mermaid >}}
 
-If you apply "two-constraints.yaml" to this cluster, you will notice "mypod" stays in `Pending` state. This is because: to satisfy the first constraint, "mypod" can only be put to "zoneB"; while in terms of the second constraint, "mypod" can only put to "node2". Then a joint result of "zoneB" and "node2" returns nothing.
+If you apply "two-constraints.yaml" to this cluster, you will notice "mypod" stays in `Pending` state. This is because: to satisfy the first constraint, "mypod" can only placed into "zoneB"; while in terms of the second constraint, "mypod" can only be placed onto "node2". Then a joint result of "zoneB" and "node2" returns nothing.
 
 To overcome this situation, you can either increase the `maxSkew` or modify one of the constraints to use `whenUnsatisfiable: ScheduleAnyway`.
 
@@ -286,7 +287,7 @@ class n5 k8s;
 class zoneC cluster;
 {{< /mermaid >}}
 
-and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
+and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed into "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
 
 {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
@@ -301,9 +302,9 @@ There are some implicit conventions worth noting here:
 - The scheduler will bypass the nodes without `topologySpreadConstraints[*].topologyKey` present. This implies that:
 
   1. the Pods located on those nodes do not impact `maxSkew` calculation - in the above example, suppose "node1" does not have label "zone", then the 2 Pods will be disregarded, hence the incoming Pod will be scheduled into "zoneA".
-  2. the incoming Pod has no chances to be scheduled onto this kind of nodes - in the above example, suppose a "node5" carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key "zone".
+  2. the incoming Pod has no chances to be scheduled onto such nodes - in the above example, suppose a "node5" carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key "zone".
 
-- Be aware of what will happen if the incomingPod's `topologySpreadConstraints[*].labelSelector` doesn't match its own labels. In the above example, if we remove the incoming Pod's labels, it can still be placed onto "zoneB" since the constraints are still satisfied. However, after the placement, the degree of imbalance of the cluster remains unchanged - it's still zoneA having 2 Pods which hold label {foo:bar}, and zoneB having 1 Pod which holds label {foo:bar}. So if this is not what you expect, we recommend the workload's `topologySpreadConstraints[*].labelSelector` to match its own labels.
+- Be aware of what will happen if the incoming Pod's `topologySpreadConstraints[*].labelSelector` doesn't match its own labels. In the above example, if we remove the incoming Pod's labels, it can still be placed into "zoneB" since the constraints are still satisfied. However, after the placement, the degree of imbalance of the cluster remains unchanged - it's still zoneA having 2 Pods which hold label {foo:bar}, and zoneB having 1 Pod which holds label {foo:bar}. So if this is not what you expect, we recommend the workload's `topologySpreadConstraints[*].labelSelector` to match its own labels.
 
 ### Cluster-level default constraints
 

@@ -24,7 +24,7 @@ This document describes using `telepresence` to develop and debug services runni
 
 ## Connecting your local machine to a remote Kubernetes cluster
  
-After installing `telepresence`, run `telepresence connect` to launch it's Daemon and connect your local workstation to the cluster.
+After installing `telepresence`, run `telepresence connect` to launch its Daemon and connect your local workstation to the cluster.
 
 ```
 $ telepresence connect

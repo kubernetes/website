@@ -337,9 +337,9 @@ APIs, cluster administrators must ensure that:
    * For external metrics, this is the `external.metrics.k8s.io` API.  It may be provided by the custom metrics adapters provided above.
 
 For more information on these different metrics paths and how they differ please see the relevant design proposals for
-[the HPA V2](https://github.com/kubernetes/design-proposals-archive/blob/main/autoscaling/hpa-v2.md),
-[custom.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/custom-metrics-api.md)
-and [external.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/external-metrics-api.md).
+[the HPA V2](https://git.k8s.io/design-proposals-archive/autoscaling/hpa-v2.md),
+[custom.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/custom-metrics-api.md)
+and [external.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/external-metrics-api.md).
 
 For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
@@ -400,7 +400,7 @@ scaling in that direction.
 ### Stabilization window
 
 The stabilization window is used to restrict the [flapping](#flapping) of
-replicas count when the metrics used for scaling keep fluctuating. The autoscaling algorithm
+replica count when the metrics used for scaling keep fluctuating. The autoscaling algorithm
 uses this window to infer a previous desired state and avoid unwanted changes to workload
 scale.
 

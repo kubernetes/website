@@ -2,7 +2,7 @@
 reviewers:
 - thockin
 - bowei
-content_type: concept
+content_type: task
 title: Debug Services
 weight: 20
 ---
@@ -728,13 +728,13 @@ Service is not working.  Please let us know what is going on, so we can help
 investigate!
 
 Contact us on
-[Slack](/docs/tasks/debug/overview/#slack) or
+[Slack](https://slack.k8s.io/) or
 [Forum](https://discuss.kubernetes.io) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 
 ## {{% heading "whatsnext" %}}
 
-Visit the [troubleshooting overview document](/docs/tasks/debug/overview/)
+Visit the [troubleshooting overview document](/docs/tasks/debug/)
 for more information.
 
 

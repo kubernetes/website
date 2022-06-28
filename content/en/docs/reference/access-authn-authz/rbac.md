@@ -798,7 +798,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <td><b>system:node-bootstrapper</b></td>
 <td>None</td>
 <td>Allows access to the resources required to perform
-<a href="/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/">kubelet TLS bootstrapping</a>.</td>
+<a href="/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">kubelet TLS bootstrapping</a>.</td>
 </tr>
 <tr>
 <td><b>system:node-problem-detector</b></td>

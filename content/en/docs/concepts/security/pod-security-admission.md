@@ -37,8 +37,8 @@ To use this mechanism, your cluster must enforce Pod Security admission.
 
 ### Built-in Pod Security admission enforcement
 
-In Kubernetes v{{< skew currentVersion >}}, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is a beta feature and is enabled by default. You must have this feature gate enabled.
+From Kubernetes v1.23, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is a beta feature and is enabled by default.
+This page is part of the documentation for Kubernetes v{{< skew currentVersion >}}.
 If you are running a different version of Kubernetes, consult the documentation for that release.
 
 ### Alternative: installing the `PodSecurity` admission webhook {#webhook}
@@ -102,7 +102,7 @@ For each mode, there are two labels that determine the policy used:
 pod-security.kubernetes.io/<MODE>: <LEVEL>
 
 # Optional: per-mode version label that can be used to pin the policy to the
-# version that shipped with a given Kubernetes minor version (for example v{{< skew latestVersion >}}).
+# version that shipped with a given Kubernetes minor version (for example v{{< skew currentVersion >}}).
 #
 # MODE must be one of `enforce`, `audit`, or `warn`.
 # VERSION must be a valid Kubernetes minor version, or `latest`.

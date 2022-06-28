@@ -11,18 +11,10 @@ This page shows how to use `kubectl port-forward` to connect to a MongoDB
 server running in a Kubernetes cluster. This type of connection can be useful
 for database debugging.
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
 * Install [MongoDB Shell](https://www.mongodb.com/try/download/shell).
-
-
-
 
 <!-- steps -->
 
@@ -30,161 +22,158 @@ for database debugging.
 
 1. Create a Deployment that runs MongoDB:
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-deployment.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-deployment.yaml
+   ```
 
-    The output of a successful command verifies that the deployment was created:
+   The output of a successful command verifies that the deployment was created:
 
-    ```
-    deployment.apps/mongo created
-    ```
+   ```
+   deployment.apps/mongo created
+   ```
 
-    View the pod status to check that it is ready:
+   View the pod status to check that it is ready:
 
-    ```shell
-    kubectl get pods
-    ```
+   ```shell
+   kubectl get pods
+   ```
 
-    The output displays the pod created:
+   The output displays the pod created:
 
-    ```
-    NAME                     READY   STATUS    RESTARTS   AGE
-    mongo-75f59d57f4-4nd6q   1/1     Running   0          2m4s
-    ```
+   ```
+   NAME                     READY   STATUS    RESTARTS   AGE
+   mongo-75f59d57f4-4nd6q   1/1     Running   0          2m4s
+   ```
 
-    View the Deployment's status:
+   View the Deployment's status:
 
-    ```shell
-    kubectl get deployment
-    ```
+   ```shell
+   kubectl get deployment
+   ```
 
-    The output displays that the Deployment was created:
+   The output displays that the Deployment was created:
 
-    ```
-    NAME    READY   UP-TO-DATE   AVAILABLE   AGE
-    mongo   1/1     1            1           2m21s
-    ```
+   ```
+   NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+   mongo   1/1     1            1           2m21s
+   ```
 
-    The Deployment automatically manages a ReplicaSet.
-    View the ReplicaSet status using:
+   The Deployment automatically manages a ReplicaSet.
+   View the ReplicaSet status using:
 
-    ```shell
-    kubectl get replicaset
-    ```
+   ```shell
+   kubectl get replicaset
+   ```
 
-    The output displays that the ReplicaSet was created:
+   The output displays that the ReplicaSet was created:
 
-    ```
-    NAME               DESIRED   CURRENT   READY   AGE
-    mongo-75f59d57f4   1         1         1       3m12s
-    ```
-
+   ```
+   NAME               DESIRED   CURRENT   READY   AGE
+   mongo-75f59d57f4   1         1         1       3m12s
+   ```
 
 2. Create a Service to expose MongoDB on the network:
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-service.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-service.yaml
+   ```
 
-    The output of a successful command verifies that the Service was created:
+   The output of a successful command verifies that the Service was created:
 
-    ```
-    service/mongo created
-    ```
+   ```
+   service/mongo created
+   ```
 
-    Check the Service created:
+   Check the Service created:
 
-    ```shell
-    kubectl get service mongo
-    ```
+   ```shell
+   kubectl get service mongo
+   ```
 
-    The output displays the service created:
+   The output displays the service created:
 
-    ```
-    NAME    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)     AGE
-    mongo   ClusterIP   10.96.41.183   <none>        27017/TCP   11s
-    ```
+   ```
+   NAME    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)     AGE
+   mongo   ClusterIP   10.96.41.183   <none>        27017/TCP   11s
+   ```
 
 3. Verify that the MongoDB server is running in the Pod, and listening on port 27017:
 
-    ```shell
-    # Change mongo-75f59d57f4-4nd6q to the name of the Pod
-    kubectl get pod mongo-75f59d57f4-4nd6q --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
-    ```
+   ```shell
+   # Change mongo-75f59d57f4-4nd6q to the name of the Pod
+   kubectl get pod mongo-75f59d57f4-4nd6q --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
+   ```
 
-    The output displays the port for MongoDB in that Pod:
+   The output displays the port for MongoDB in that Pod:
 
-    ```
-    27017
-    ```
+   ```
+   27017
+   ```
 
-    (this is the TCP port allocated to MongoDB on the internet).
+   27017 is the TCP port allocated to MongoDB on the internet.
 
 ## Forward a local port to a port on the Pod
 
-1.  `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to.
+1. `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to.
 
 
-    ```shell
-    # Change mongo-75f59d57f4-4nd6q to the name of the Pod
-    kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
-    ```
+   ```shell
+   # Change mongo-75f59d57f4-4nd6q to the name of the Pod
+   kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
+   ```
 
-    which is the same as
+   which is the same as
 
-    ```shell
-    kubectl port-forward pods/mongo-75f59d57f4-4nd6q 28015:27017
-    ```
+   ```shell
+   kubectl port-forward pods/mongo-75f59d57f4-4nd6q 28015:27017
+   ```
 
-    or
+   or
 
-    ```shell
-    kubectl port-forward deployment/mongo 28015:27017
-    ```
+   ```shell
+   kubectl port-forward deployment/mongo 28015:27017
+   ```
 
-    or
+   or
 
-    ```shell
-    kubectl port-forward replicaset/mongo-75f59d57f4 28015:27017
-    ```
+   ```shell
+   kubectl port-forward replicaset/mongo-75f59d57f4 28015:27017
+   ```
 
-    or
+   or
 
-    ```shell
-    kubectl port-forward service/mongo 28015:27017
-    ```
+   ```shell
+   kubectl port-forward service/mongo 28015:27017
+   ```
 
-    Any of the above commands works. The output is similar to this:
+   Any of the above commands works. The output is similar to this:
 
-    ```
-    Forwarding from 127.0.0.1:28015 -> 27017
-    Forwarding from [::1]:28015 -> 27017
-    ```
+   ```
+   Forwarding from 127.0.0.1:28015 -> 27017
+   Forwarding from [::1]:28015 -> 27017
+   ```
 
-{{< note >}}
+   {{< note >}}
+   `kubectl port-forward` does not return. To continue with the exercises, you will need to open another terminal.
+   {{< /note >}}
 
-`kubectl port-forward` does not return. To continue with the exercises, you will need to open another terminal.
+2. Start the MongoDB command line interface:
 
-{{< /note >}}
+   ```shell
+   mongosh --port 28015
+   ```
 
-2.  Start the MongoDB command line interface:
+3. At the MongoDB command line prompt, enter the `ping` command:
 
-    ```shell
-    mongosh --port 28015
-    ```
+   ```
+   db.runCommand( { ping: 1 } )
+   ```
 
-3.  At the MongoDB command line prompt, enter the `ping` command:
+   A successful ping request returns:
 
-    ```
-    db.runCommand( { ping: 1 } )
-    ```
-
-    A successful ping request returns:
-
-    ```
-    { ok: 1 }
-    ```
+   ```
+   { ok: 1 }
+   ```
 
 ### Optionally let _kubectl_ choose the local port {#let-kubectl-choose-local-port}
 
@@ -204,7 +193,6 @@ Forwarding from 127.0.0.1:63753 -> 27017
 Forwarding from [::1]:63753 -> 27017
 ```
 
-
 <!-- discussion -->
 
 ## Discussion
@@ -219,9 +207,7 @@ The support for UDP protocol is tracked in
 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862).
 {{< /note >}}
 
-
-
-
 ## {{% heading "whatsnext" %}}
 
 Learn more about [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward).
+
