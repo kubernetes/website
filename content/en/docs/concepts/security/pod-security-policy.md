@@ -214,6 +214,9 @@ controller selects policies according to the following criteria:
 2. If the pod must be defaulted or mutated, the first PodSecurityPolicy
    (ordered by name) to allow the pod is selected.
 
+When a Pod is validated against a PodSecurityPolicy, [a `kubernetes.io/psp` annotation](/docs/reference/labels-annotations-taints/#kubernetes-io-psp)
+is added with its name as its value.
+
 {{< note >}}
 During update operations (during which mutations to pod specs are disallowed)
 only non-mutating PodSecurityPolicies are used to validate the pod.
@@ -332,7 +335,15 @@ The output is similar to this
 pod "pause" created
 ```
 
-It works as expected! But any attempts to create a privileged pod should still
+It works as expected! You can verify that the pod was validated against the
+newly created PodSecurityPolicy:
+
+```shell
+kubectl-user get pod pause -o yaml | grep kubernetes.io/psp
+kubernetes.io/psp: example
+```
+
+But any attempts to create a privileged pod should still
 be denied:
 
 ```shell
