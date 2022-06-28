@@ -145,7 +145,7 @@ The `docker-container-stats` monitor is the one affected by dockershim removal.
 Do not use the `docker-container-stats` with container runtimes other than Docker Engine.
 
 
-How to migrate from dockershim-dependant agent:
+How to migrate from dockershim-dependent agent:
 1. Remove `docker-container-stats` from the list of [configured monitors](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitor-config.md).
    Note, keeping this monitor enabled with non-dockershim runtime will result in incorrect metrics
    being reported when docker is installed on node and no metrics when docker is not installed.
