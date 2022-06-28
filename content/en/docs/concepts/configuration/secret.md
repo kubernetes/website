@@ -94,22 +94,21 @@ the exact mechanisms for issuing and refreshing those session tokens.
 
 ### Creating a Secret
 
-There are several options to create a Secret:
+You can create a Secret using one of the following methods:
 
-- [create Secret using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [create Secret from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [create Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+* [Use the `kubectl` command-line tool](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+* [Use a configuration file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+* [Use the Kustomize tool](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 #### Constraints on Secret names and data {#restriction-names-data}
 
-The name of a Secret object must be a valid
+The name of a `Secret` object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-You can specify the `data` and/or the `stringData` field when creating a
-configuration file for a Secret.  The `data` and the `stringData` fields are optional.
-The values for all keys in the `data` field have to be base64-encoded strings.
-If the conversion to base64 string is not desirable, you can choose to specify
-the `stringData` field instead, which accepts arbitrary strings as values.
+You can specify values for the optional `data` and `stringData`
+fields when creating a configuration file for a Secret. The values for all keys
+in the `data` field have to be base64-encoded strings. You can avoid needing to
+encode the strings by specifying the raw data in the `stringData` field instead.
 
 The keys of `data` and `stringData` must consist of alphanumeric characters,
 `-`, `_` or `.`. All key-value pairs in the `stringData` field are internally
@@ -119,49 +118,25 @@ precedence.
 
 #### Size limit {#restriction-data-size}
 
-Individual secrets are limited to 1MiB in size. This is to discourage creation
-of very large secrets that could exhaust the API server and kubelet memory.
-However, creation of many smaller secrets could also exhaust memory. You can
+Individual Secrets are limited to 1MiB in size. This is to discourage creation
+of very large Secrets that could exhaust the API server and kubelet memory.
+However, creation of many smaller Secrets could also exhaust memory. You can
 use a [resource quota](/docs/concepts/policy/resource-quotas/) to limit the
 number of Secrets (or other resources) in a namespace.
 
 ### Editing a Secret
 
-You can edit an existing Secret using kubectl:
+You can edit an existing Secret unless it is [immutable](#secret-immutable). To
+edit a Secret, you can use
+[kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/edit-secret),
+a [configuration
+file](/docs/tasks/configmap-secret/managing-secret-using-config-file/#edit-secret),
+or
+[Kustomize](/tasks/configmap-secret/managing-secret-using-kustomize/#edit-secret).
 
-```shell
-kubectl edit secrets mysecret
-```
-
-This opens your default editor and allows you to update the base64 encoded Secret
-values in the `data` field; for example:
-
-```yaml
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file, it will be
-# reopened with the relevant failures.
-#
-apiVersion: v1
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
-kind: Secret
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: { ... }
-  creationTimestamp: 2020-01-22T18:41:56Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "164619"
-  uid: cfee02d6-c137-11e5-8d73-42010af00002
-type: Opaque
-```
-
-That example manifest defines a Secret with two keys in the `data` field: `username` and `password`.
-The values are Base64 strings in the manifest; however, when you use the Secret with a Pod
-then the kubelet provides the _decoded_ data to the Pod and its containers.
-
-You can package many keys and values into one Secret, or use many Secrets, whichever is convenient.
+Depending on how you created the Secret, as well as how the Secret is used in
+your Pods, updates to existing `Secret` objects are propagated automatically to
+Pods that use the data. For more information, refer to [Mounted Secrets are updated automatically](#mounted-secrets-are-updated-automatically).
 
 ### Using a Secret
 

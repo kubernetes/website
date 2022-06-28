@@ -7,81 +7,86 @@ description: Creating Secret objects using resource configuration file.
 
 <!-- overview -->
 
+This page shows you how to create, edit, manage, and delete Kubernetes
+{{<glossary_tooltip text="Secrets" term_id="secret">}} using a configuration file.
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
 <!-- steps -->
 
-## Create the Config file
+## Create a Secret {#create-the-config-file}
 
-You can create a Secret in a file first, in JSON or YAML format, and then
-create that object.  The
-[Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-resource contains two maps: `data` and `stringData`.
-The `data` field is used to store arbitrary data, encoded using base64. The
-`stringData` field is provided for convenience, and it allows you to provide
-Secret data as unencoded strings.
-The keys of `data` and `stringData` must consist of alphanumeric characters,
-`-`, `_` or `.`.
+You can define the `Secret` object in a JSON or YAML configuration file before
+you create the object. The [Secret](/docs/reference/generated/kubernetes-api/{{<
+param "version" >}}/#secret-v1-core) resource contains two maps: `data` and
+`stringData`.
 
-For example, to store two strings in a Secret using the `data` field, convert
-the strings to base64 as follows:
+The `data` field stores arbitrary base64-encoded data. The `stringData` field
+lets you provide the same data as unencoded strings. The keys in the `data` and
+`stringData` must consist of alphanumeric characters, `-`, `_`, or `.`.
 
-```shell
-echo -n 'admin' | base64
-```
+The following example creates a Secret that stores the username `admin` and the
+password `VLc5@#tym$HzBn@8`.
 
-The output is similar to:
+1.  Encode the data:
 
-```
-YWRtaW4=
-```
+    ```shell
+    echo -n 'admin' | base64
+    echo -n 'VLc5@#tym$HzBn@8' | base64
+    ```
+    The `-n` flag ensures that there's no newline character at the end of your
+    data. If you're using the `base64` utility on Darwin/macOS, avoid using the
+    `-b` option to split long lines. Conversely, if you're on Linux, add the
+    `-w 0` option to `base64` commands or the pipeline `base64 | tr -d '\n'` if
+    the `-w` option is not available.
 
-```shell
-echo -n '1f2d1e2e67df' | base64
-```
+    The output is similar to:
 
-The output is similar to:
+    ```
+    YWRtaW4=
+    VkxjNUAjdHltJEh6Qm5AOA==
+    ```
 
-```
-MWYyZDFlMmU2N2Rm
-```
+1.  Create the configuration file:
 
-Write a Secret config file that looks like this:
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: database-creds
+    type: Opaque
+    data:
+      username: YWRtaW4=
+      password: VkxjNUAjdHltJEh6Qm5AOA==
+    ```
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysecret
-type: Opaque
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
-```
+    The name of the `Secret` object must be a valid
+    [DNS subdomain
+    name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-Note that the name of a Secret object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+1.  Apply the `Secret` object to your cluster:
 
-{{< note >}}
-The serialized JSON and YAML values of Secret data are encoded as base64
-strings. Newlines are not valid within these strings and must be omitted. When
-using the `base64` utility on Darwin/macOS, users should avoid using the `-b`
-option to split long lines. Conversely, Linux users *should* add the option
-`-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if the `-w`
-option is not available.
-{{< /note >}}
+    ```shell
+    kubectl apply -f <path-to-configuration-file>
+    ```
+    The output is similar to:
 
-For certain scenarios, you may wish to use the `stringData` field instead. This
-field allows you to put a non-base64 encoded string directly into the Secret,
-and the string will be encoded for you when the Secret is created or updated.
+    ```
+    secret/database-creds created
+    ```
+    
+### Specify unencoded data when creating a Secret
 
-A practical example of this might be where you are deploying an application
-that uses a Secret to store a configuration file, and you want to populate
-parts of that configuration file during your deployment process.
+The `stringData` field lets you provide data for the Secret without
+base64-encoding the strings. The strings will be encoded for you when the Secret
+is created or updated. A practical example of this might be where you are
+deploying an application that uses a Secret to store a configuration file, and
+you want to populate parts of that configuration file during your deployment
+process.
 
-For example, if your application uses the following configuration file:
+For example, consider an application that uses the following configuration file:
 
 ```yaml
 apiUrl: "https://my.api.com/api/v1"
@@ -104,90 +109,63 @@ stringData:
     password: <password>
 ```
 
-## Create the Secret object
+Kubernetes encodes the data. When you retreive the Secret data, the command
+returns the encoded values, and not the plaintext values you provided in `stringData`.
 
-Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
+To verify that the Secret was created and to decode the Secret data, refer to
+[Managing Secrets using
+kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
 
-```shell
-kubectl apply -f ./secret.yaml
-```
+## Edit a Secret {#edit-secret}
 
-The output is similar to:
+If you want to edit the data in the Secret you created using a configuration
+file, modify the `data` or `stringData` field in your original configuration
+file and apply the file to your cluster. You can edit an existing `Secret` object unless it is
+[immutable](/docs/concepts/configuration/secret/#secret-immutable)
 
-```
-secret/mysecret created
-```
+For example, if you want to change the password from the previous example to
+`birdsarentreal`, do the following:
 
-## Check the Secret
+1.  Encode the new password string:
 
-The `stringData` field is a write-only convenience field. It is never output when
-retrieving Secrets. For example, if you run the following command:
+    ```shell
+    echo -n 'birdsarentreal' | base64
+    ```
 
-```shell
-kubectl get secret mysecret -o yaml
-```
+1.  Update the `data` field with your new password string:
 
-The output is similar to:
+    ```
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: database-creds
+    type: Opaque
+    data:
+      username: YWRtaW4=
+      password: YmlyZHNhcmVudHJlYWw=
+    ```
 
-```yaml
-apiVersion: v1
-data:
-  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
-kind: Secret
-metadata:
-  creationTimestamp: 2018-11-15T20:40:59Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "7225"
-  uid: c280ad2e-e916-11e8-98f2-025000000001
-type: Opaque
-```
+1.  Apply the file to your cluster:
 
-The commands `kubectl get` and `kubectl describe` avoid showing the contents of a `Secret` by
-default. This is to protect the `Secret` from being exposed accidentally to an onlooker,
-or from being stored in a terminal log.
-To check the actual content of the encoded data, please refer to
-[decoding secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
+    ```shell
+    kubectl apply -f <path-to-configuration-file>
+    ```
 
-If a field, such as `username`, is specified in both `data` and `stringData`,
-the value from `stringData` is used. For example, the following Secret definition:
+    The output is similar to:
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysecret
-type: Opaque
-data:
-  username: YWRtaW4=
-stringData:
-  username: administrator
-```
+    ```
+    secret/database-creds configured
+    ```
 
-Results in the following Secret:
+Kubernetes updates the existing `Secret` object, because you supplied a
+configuration file that had updated data with the same object name.
 
-```yaml
-apiVersion: v1
-data:
-  username: YWRtaW5pc3RyYXRvcg==
-kind: Secret
-metadata:
-  creationTimestamp: 2018-11-15T20:46:46Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "7579"
-  uid: 91460ecb-e917-11e8-98f2-025000000001
-type: Opaque
-```
+## Delete a Secret {#clean-up}
 
-Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
-
-## Clean Up
-
-To delete the Secret you have created:
+To delete a Secret, use `kubectl`:
 
 ```shell
-kubectl delete secret mysecret
+kubectl delete secret <secret-name>
 ```
 
 ## {{% heading "whatsnext" %}}
