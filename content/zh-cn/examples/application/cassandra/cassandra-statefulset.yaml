@@ -72,15 +72,13 @@ spec:
             - /ready-probe.sh
           initialDelaySeconds: 15
           timeoutSeconds: 5
-        # These volume mounts are persistent. They are like inline claims,
-        # but not exactly because the names need to match exactly one of
-        # the stateful pod volumes.
+        # 这些卷挂载是持久的。它们类似内联申领，但并不完全相同，
+        # 因为这些卷挂载的名称需要与 StatefulSet 中某 Pod 卷完全匹配。
         volumeMounts:
         - name: cassandra-data
           mountPath: /cassandra_data
-  # These are converted to volume claims by the controller
-  # and mounted at the paths mentioned above.
-  # do not use these in production until ssd GCEPersistentDisk or other ssd pd
+  # 这些将被控制器转换为卷申领，并挂载在上述路径。
+  # 请勿将此设置用于生产环境，除非使用了 GCEPersistentDisk 或其他 SSD 持久盘。
   volumeClaimTemplates:
   - metadata:
       name: cassandra-data

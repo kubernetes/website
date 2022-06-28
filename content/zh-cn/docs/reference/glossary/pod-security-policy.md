@@ -2,7 +2,7 @@
 title: Pod 安全策略
 id: pod-security-policy
 date: 2018-04-12
-full_link: /zh/docs/concepts/security/pod-security-policy/
+full_link: /zh-cn/docs/concepts/security/pod-security-policy/
 short_description: >
   为 Pod 的创建和更新操作启用细粒度的授权。
 
@@ -47,5 +47,5 @@ Pod 安全策略是集群级别的资源，它控制着 Pod 规约中的安全�
 PodSecurityPolicy is deprecated as of Kubernetes v1.21, and will be removed in v1.25. We recommend migrating to [Pod Security Admission](/docs/concepts/security/pod-security-admission/), or a 3rd party admission plugin.
 -->
 PodSecurityPolicy 自 Kubernetes v1.21 起已弃用，并将在 v1.25 中删除。 
-我们建议迁移到 [Pod 安全准入](/zh/docs/concepts/security/pod-security-admission/)或第三方准入插件。
+我们建议迁移到 [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)或第三方准入插件。
 

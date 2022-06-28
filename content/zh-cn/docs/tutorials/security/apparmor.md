@@ -487,7 +487,7 @@ Kubernetes 目前不提供任何本地机制来将 AppArmor 配置文件加载�
   [Example](#example). 
 -->
 * 通过在每个节点上运行 Pod 的
-  [DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/)来确保加载了正确的配置文件。
+  [DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/)来确保加载了正确的配置文件。
   可以在[这里](https://git.k8s.io/kubernetes/test/images/apparmor-loader)找到实现示例。
 * 在节点初始化时，使用节点初始化脚本(例如 Salt、Ansible 等)或镜像。
 * 通过将配置文件复制到每个节点并通过 SSH 加载它们，如[示例](#example)。
@@ -501,7 +501,7 @@ node with the required profile.
 -->
 调度程序不知道哪些配置文件加载到哪个节点上，因此必须将全套配置文件加载到每个节点上。
 另一种方法是为节点上的每个配置文件（或配置文件类）添加节点标签，
-并使用[节点选择器](/zh/docs/concepts/configuration/assign-pod-node/)确保
+并使用[节点选择器](/zh-cn/docs/concepts/configuration/assign-pod-node/)确保
 Pod 在具有所需配置文件的节点上运行。
 
 <!-- ### Restricting profiles with the PodSecurityPolicy -->
@@ -513,7 +513,7 @@ PodSecurityPolicy is deprecated in Kubernetes v1.21, and will be removed in v1.2
 See [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation for more information.
 -->
 PodSecurityPolicy 在 Kubernetes v1.21 版本中已被废弃，将在 v1.25 版本移除。
-查看 [PodSecurityPolicy](/zh/docs/concepts/security/pod-security-policy/) 文档获取更多信息。
+查看 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/) 文档获取更多信息。
 {{< /note >}}
 
 <!-- 

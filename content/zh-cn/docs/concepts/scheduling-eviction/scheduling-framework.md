@@ -451,7 +451,7 @@ enabled by default.
  -->
 你可以在调度器配置中启用或禁用插件。
 如果你在使用 Kubernetes v1.18 或更高版本，大部分调度
-[插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)
+[插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)
 都在使用中且默认启用。
 
 <!--
@@ -470,6 +470,6 @@ Learn more at [multiple profiles](/docs/reference/scheduling/config/#multiple-pr
  -->
 如果你正在使用 Kubernetes v1.18 或更高版本，你可以将一组插件设置为
 一个调度器配置文件，然后定义不同的配置文件来满足各类工作负载。
-了解更多关于[多配置文件](/zh/docs/reference/scheduling/config/#multiple-profiles)。
+了解更多关于[多配置文件](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)。
 
 

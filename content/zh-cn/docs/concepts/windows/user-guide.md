@@ -47,9 +47,9 @@ The example in the section below is provided to jumpstart your experience with W
 -->
 ## 在你开始之前  {#before-you-begin}
 
-* 创建一个 Kubernetes 集群，其中包含一个控制平面和一个[运行 Windows Server 的工作节点](/zh/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
+* 创建一个 Kubernetes 集群，其中包含一个控制平面和一个[运行 Windows Server 的工作节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 * 务必请注意，在 Kubernetes 上创建和部署服务和工作负载的行为方式与 Linux 和 Windows 容器的行为方式大致相同。
-  与集群交互的 [kubectl 命令](/zh/docs/reference/kubectl/)是一致的。
+  与集群交互的 [kubectl 命令](/zh-cn/docs/reference/kubectl/)是一致的。
   下一小节的示例旨在帮助你快速开始使用 Windows 容器。
 
 <!-- 
@@ -164,7 +164,7 @@ port 80 of the container directly to the Service.
      在 Pod 之间（以及跨主机，如果你有多个 Windows 节点）互 ping
    * Service 到 Pod 的通信，在 Linux 控制平面节点以及独立的 Pod 中执行 `curl`
      访问虚拟的服务 IP（在 `kubectl get services` 下查看）
-   * 服务发现，使用 Kubernetes [默认 DNS 后缀](/zh/docs/concepts/services-networking/dns-pod-service/#services)的服务名称，
+   * 服务发现，使用 Kubernetes [默认 DNS 后缀](/zh-cn/docs/concepts/services-networking/dns-pod-service/#services)的服务名称，
      用 `curl` 访问服务名称
    * 入站连接，在 Linux 控制平面节点或集群外的机器上执行 `curl` 来访问 NodePort 服务
    * 出站连接，使用 kubectl exec，从 Pod 内部执行 `curl` 访问外部 IP
@@ -225,7 +225,7 @@ Learn more about it [here](/docs/tasks/configure-pod-container/configure-runasus
 ### 使用可配置的容器用户名  {#using-configurable-container-usernames}
 
 Windows 容器可以配置为使用不同于镜像默认值的用户名来运行其入口点和进程。
-[在这里](/zh/docs/tasks/configure-pod-container/configure-runasusername/)了解更多信息。
+[在这里](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername/)了解更多信息。
 
 <!-- 
 ### Managing Workload Identity with Group Managed Service Accounts
@@ -242,7 +242,7 @@ Windows 容器工作负载可以配置为使用组托管服务帐户（Group Man
 组托管服务帐户是一种特定类型的活动目录（Active Directory）帐户，可提供自动密码管理、
 简化的服务主体名称（Service Principal Name，SPN）管理，以及将管理委派给多个服务器上的其他管理员的能力。
 配置了 GMSA 的容器可以携带使用 GMSA 配置的身份访问外部活动目录域资源。
-在[此处](/zh/docs/tasks/configure-pod-container/configure-gmsa/)了解有关为 Windows 容器配置和使用 GMSA 的更多信息。
+在[此处](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/)了解有关为 Windows 容器配置和使用 GMSA 的更多信息。
 
 <!-- 
 ## Taints and Tolerations
@@ -263,7 +263,7 @@ to Windows.
 用户需要使用某种污点（Taint）和节点选择器的组合，以便将 Linux 和 Windows 工作负载各自调度到特定操作系统的节点。
 下面概述了推荐的方法，其主要目标之一是该方法不应破坏现有 Linux 工作负载的兼容性。
 
-如果启用了 `IdentifyPodOS` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+如果启用了 `IdentifyPodOS` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 你可以（并且应该）将 Pod 的 `.spec.os.name` 设置为该 Pod 中的容器设计所用于的操作系统。
 对于运行 Linux 容器的 Pod，将 `.spec.os.name` 设置为 `linux`。
 对于运行 Windows 容器的 Pod，将 `.spec.os.name` 设置为 `Windows`。
@@ -287,7 +287,7 @@ so taints and tolerations and node selectors are still required
  to ensure that the Windows pods land onto appropriate Windows nodes.
 -->
 调度器在将 Pod 分配到节点时并不使用 `.spec.os.name` 的值。
-你应该使用正常的 Kubernetes 机制[将 Pod 分配给节点](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)，
+你应该使用正常的 Kubernetes 机制[将 Pod 分配给节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)，
 以确保集群的控制平面将 Pod 放置到运行适当操作系统的节点上。
 
 `.spec.os.name` 值对 Windows Pod 的调度没有影响，

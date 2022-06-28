@@ -193,7 +193,7 @@ A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/d
 ## 编写 Job 规约    {#writing-a-job-spec}
 
 与 Kubernetes 中其他资源的配置类似，Job 也需要 `apiVersion`、`kind` 和 `metadata` 字段。
-Job 的名字必须是合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+Job 的名字必须是合法的 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 Job 配置还需要一个 [`.spec` 节](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
@@ -213,14 +213,14 @@ Only a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-po
 
 Job 的 `.spec` 中只有 `.spec.template` 是必需的字段。
 
-字段 `.spec.template` 的值是一个 [Pod 模版](/zh/docs/concepts/workloads/pods/#pod-templates)。
+字段 `.spec.template` 的值是一个 [Pod 模版](/zh-cn/docs/concepts/workloads/pods/#pod-templates)。
 其定义规范与 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 完全相同，只是其中不再需要 `apiVersion` 或 `kind` 字段。
 
 除了作为 Pod 所必需的字段之外，Job 中的 Pod 模版必需设置合适的标签
 （参见 [Pod 选择算符](#pod-selector)）和合适的重启策略。
 
-Job 中 Pod 的 [`RestartPolicy`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
+Job 中 Pod 的 [`RestartPolicy`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
 只能设置为 `Never` 或 `OnFailure` 之一。
 
 <!--
@@ -386,7 +386,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
 
   当每个索引都对应一个完成完成的 Pod 时，Job 被认为是已完成的。
   关于如何使用这种模式的更多信息，可参阅
-  [用带索引的 Job 执行基于静态任务分配的并行处理](/zh/docs/tasks/job/indexed-parallel-processing-static/)。
+  [用带索引的 Job 执行基于静态任务分配的并行处理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)。
   需要注意的是，对同一索引值可能被启动的 Pod 不止一个，尽管这种情况很少发生。
   这时，只有一个会被记入完成计数中。
 
@@ -410,7 +410,7 @@ Pod 则继续留在当前节点，但容器会被重新运行。
 因此，你的程序需要能够处理在本地被重启的情况，或者要设置
 `.spec.template.spec.restartPolicy = "Never"`。
 关于 `restartPolicy` 的更多信息，可参阅
-[Pod 生命周期](/zh/docs/concepts/workloads/pods/pod-lifecycle/#example-states)。
+[Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#example-states)。
 
 <!--
 An entire Pod can also fail, for a number of reasons, such as when the pod is kicked off the node
@@ -574,7 +574,7 @@ Keep in mind that the `restartPolicy` applies to the Pod, and not to the Job its
 That is, the Job termination mechanisms activated with `.spec.activeDeadlineSeconds` and `.spec.backoffLimit` result in a permanent Job failure that requires manual intervention to resolve.
 -->
 注意 Job 规约和 Job 中的
-[Pod 模版规约](/zh/docs/concepts/workloads/pods/init-containers/#detailed-behavior)
+[Pod 模版规约](/zh-cn/docs/concepts/workloads/pods/init-containers/#detailed-behavior)
 都有 `activeDeadlineSeconds` 字段。
 请确保你在合适的层次设置正确的字段。
 
@@ -599,7 +599,7 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 完成的 Job 通常不需要留存在系统中。在系统中一直保留它们会给 API
 服务器带来额外的压力。
 如果 Job 由某种更高级别的控制器来管理，例如
-[CronJobs](/zh/docs/concepts/workloads/controllers/cron-jobs/)，
+[CronJobs](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)，
 则 Job 可以被 CronJob 基于特定的根据容量裁定的清理策略清理掉。
 
 ### 已完成 Job 的 TTL 机制  {#ttl-mechanisms-for-finished-jobs}
@@ -621,7 +621,7 @@ be honored.
 For example:
 -->
 自动清理已完成 Job （状态为 `Complete` 或 `Failed`）的另一种方式是使用由
-[TTL 控制器](/zh/docs/concepts/workloads/controllers/ttlafterfinished/)所提供
+[TTL 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)所提供
 的 TTL 机制。
 通过设置 Job 的 `.spec.ttlSecondsAfterFinished` 字段，可以让该控制器清理掉
 已结束的资源。
@@ -720,10 +720,10 @@ The pattern names are also links to examples and more detailed description.
 
 | 模式  | 单个 Job 对象 | Pods 数少于工作条目数？ | 直接使用应用无需修改? |
 | ----- |:-------------:|:-----------------------:|:---------------------:|
-| [每工作条目一 Pod 的队列](/zh/docs/tasks/job/coarse-parallel-processing-work-queue/) | ✓ | | 有时 |
-| [Pod 数量可变的队列](/zh/docs/tasks/job/fine-parallel-processing-work-queue/) | ✓ | ✓ |  |
-| [静态任务分派的带索引的 Job](/zh/docs/tasks/job/indexed-parallel-processing-static) | ✓ |  | ✓ |
-| [Job 模版扩展](/zh/docs/tasks/job/parallel-processing-expansion/)  |  |  | ✓ |
+| [每工作条目一 Pod 的队列](/zh-cn/docs/tasks/job/coarse-parallel-processing-work-queue/) | ✓ | | 有时 |
+| [Pod 数量可变的队列](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/) | ✓ | ✓ |  |
+| [静态任务分派的带索引的 Job](/zh-cn/docs/tasks/job/indexed-parallel-processing-static) | ✓ |  | ✓ |
+| [Job 模版扩展](/zh-cn/docs/tasks/job/parallel-processing-expansion/)  |  |  | ✓ |
 
 <!--
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
@@ -746,10 +746,10 @@ Here, `W` is the number of work items.
 
 | 模式  | `.spec.completions` |  `.spec.parallelism` |
 | ----- |:-------------------:|:--------------------:|
-| [每工作条目一 Pod 的队列](/zh/docs/tasks/job/coarse-parallel-processing-work-queue/) | W | 任意值 |
-| [Pod 个数可变的队列](/zh/docs/tasks/job/fine-parallel-processing-work-queue/) | 1 | 任意值 |
-| [静态任务分派的带索引的 Job](/zh/docs/tasks/job/indexed-parallel-processing-static) | W |  | 任意值 |
-| [Job 模版扩展](/zh/docs/tasks/job/parallel-processing-expansion/) | 1 | 应该为 1 |
+| [每工作条目一 Pod 的队列](/zh-cn/docs/tasks/job/coarse-parallel-processing-work-queue/) | W | 任意值 |
+| [Pod 个数可变的队列](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/) | 1 | 任意值 |
+| [静态任务分派的带索引的 Job](/zh-cn/docs/tasks/job/indexed-parallel-processing-static) | W |  | 任意值 |
+| [Job 模版扩展](/zh-cn/docs/tasks/job/parallel-processing-expansion/) | 1 | 应该为 1 |
 
 <!--
 ## Advanced usage
@@ -912,8 +912,8 @@ on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/
 It is enabled by default.
 -->
 {{< note >}}
-为了使用此功能，你必须在 [API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)上启用
-`JobMutableNodeSchedulingDirectives` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+为了使用此功能，你必须在 [API 服务器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)上启用
+`JobMutableNodeSchedulingDirectives` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 默认情况下启用。
 {{< /note >}}
 
@@ -1084,10 +1084,10 @@ on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/
 and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 It is enabled by default.
 -->
-要使用该行为，你必须为 [API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
-和[控制器管理器](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
+要使用该行为，你必须为 [API 服务器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
+和[控制器管理器](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
 启用 `JobTrackingWithFinalizers`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 默认是启用的。
 
 <!--
@@ -1175,11 +1175,11 @@ for pods with `RestartPolicy` equal to `OnFailure` or `Never`.
 -->
 ### 副本控制器    {#replication-controller}
 
-Job 与[副本控制器](/zh/docs/concepts/workloads/controllers/replicationcontroller/)是彼此互补的。
+Job 与[副本控制器](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/)是彼此互补的。
 副本控制器管理的是那些不希望被终止的 Pod （例如，Web 服务器），
 Job 管理的是那些希望被终止的 Pod（例如，批处理作业）。
 
-正如在 [Pod 生命期](/zh/docs/concepts/workloads/pods/pod-lifecycle/) 中讨论的，
+正如在 [Pod 生命期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/) 中讨论的，
 `Job` 仅适合于 `restartPolicy` 设置为 `OnFailure` 或 `Never` 的 Pod。
 注意：如果 `restartPolicy` 未设置，其默认值是 `Always`。
 
@@ -1230,13 +1230,13 @@ object, but maintains complete control over what Pods are created and how work i
   can use to define a series of Jobs that will run based on a schedule, similar to
   the UNIX tool `cron`.
 -->
-* 了解 [Pods](/zh/docs/concepts/workloads/pods)。
+* 了解 [Pods](/zh-cn/docs/concepts/workloads/pods)。
 * 了解运行 Job 的不同的方式：
-  * [使用工作队列进行粗粒度并行处理](/zh/docs/tasks/job/coarse-parallel-processing-work-queue/)
-  * [使用工作队列进行精细的并行处理](/zh/docs/tasks/job/fine-parallel-processing-work-queue/)
-  * [使用索引作业完成静态工作分配下的并行处理](/zh/docs/tasks/job/indexed-parallel-processing-static/)（Beta 阶段）
-  * 基于一个模板运行多个 Job：[使用展开的方式进行并行处理](/zh/docs/tasks/job/parallel-processing-expansion/)
+  * [使用工作队列进行粗粒度并行处理](/zh-cn/docs/tasks/job/coarse-parallel-processing-work-queue/)
+  * [使用工作队列进行精细的并行处理](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/)
+  * [使用索引作业完成静态工作分配下的并行处理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)（Beta 阶段）
+  * 基于一个模板运行多个 Job：[使用展开的方式进行并行处理](/zh-cn/docs/tasks/job/parallel-processing-expansion/)
 * 跟随[自动清理完成的 Job](#clean-up-finished-jobs-automatically) 文中的链接，了解你的集群如何清理完成和失败的任务。
 * `Job` 是 Kubernetes REST API 的一部分。阅读 {{< api-reference page="workload-resources/job-v1" >}}
    对象定义理解关于该资源的 API。
-* 阅读 [`CronJob`](/zh/docs/concepts/workloads/controllers/cron-jobs/)，它允许你定义一系列定期运行的 Job，类似于 UNIX 工具 `cron`。
+* 阅读 [`CronJob`](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)，它允许你定义一系列定期运行的 Job，类似于 UNIX 工具 `cron`。

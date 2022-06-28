@@ -18,9 +18,9 @@ As of v1.22, Kubernetes provides a built-in [admission controller](/docs/referen
 to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards).
 You can configure this admission controller to set cluster-wide defaults and [exemptions](/docs/concepts/security/pod-security-admission/#exemptions).
 -->
-在 v1.22 版本中，Kubernetes 提供一种内置的[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
-用来强制实施 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards)。
-你可以配置此准入控制器来设置集群范围的默认值和[豁免选项](/zh/docs/concepts/security/pod-security-admission/#exemptions)。
+在 v1.22 版本中，Kubernetes 提供一种内置的[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
+用来强制实施 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)。
+你可以配置此准入控制器来设置集群范围的默认值和[豁免选项](/zh-cn/docs/concepts/security/pod-security-admission/#exemptions)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -29,7 +29,7 @@ You can configure this admission controller to set cluster-wide defaults and [ex
 <!--
 - Ensure the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) is enabled.
 -->
-- 确保 `PodSecurity` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)已被启用。
+- 确保 `PodSecurity` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)已被启用。
 
 <!--
 ## Configure the Admission Controller

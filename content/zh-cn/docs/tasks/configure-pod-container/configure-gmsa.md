@@ -47,7 +47,7 @@ Next, install the CRD with `kubectl apply -f gmsa-crd.yaml`
 ### 安装 GMSACredentialSpec CRD
 
 你需要在集群上配置一个用于 GMSA 凭据规约资源的
-[CustomResourceDefinition](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD)，
+[CustomResourceDefinition](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD)，
 以便定义类型为 `GMSACredentialSpec` 的自定义资源。
 首先下载 GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml)
 并将其保存为 `gmsa-crd.yaml`。接下来执行 `kubectl apply -f gmsa-crd.yaml`

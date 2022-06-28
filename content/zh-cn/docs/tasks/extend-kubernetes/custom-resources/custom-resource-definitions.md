@@ -27,7 +27,7 @@ into the Kubernetes API by creating a
 本页展示如何使用
 [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io)
 将
-[定制资源（Custom Resource）](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+[定制资源（Custom Resource）](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 安装到 Kubernetes API 上。
 
 ## {{% heading "prerequisites" %}}
@@ -47,21 +47,23 @@ the documentation for that version to see advice that is relevant for your clust
 ## Create a CustomResourceDefinition
 
 When you create a new CustomResourceDefinition (CRD), the Kubernetes API Server
-creates a new RESTful resource path for each version you specify. The CRD can be
-either namespaced or cluster-scoped, as specified in the CRD's `scope` field. As
-with existing built-in objects, deleting a namespace deletes all custom objects
-in that namespace. CustomResourceDefinitions themselves are non-namespaced and
-are available to all namespaces.
-
+creates a new RESTful resource path for each version you specify. The custom
+resource created from a CRD object can be either namespaced or cluster-scoped,
+as specified in the CRD's `spec.scope` field. As with existing built-in
+objects, deleting a namespace deletes all custom objects in that namespace.
+CustomResourceDefinitions themselves are non-namespaced and are available to
+all namespaces.
 For example, if you save the following CustomResourceDefinition to `resourcedefinition.yaml`:
 -->
 ## 创建 CustomResourceDefinition  {#create-a-customresourcedefinition}
 
-当你创建新的 CustomResourceDefinition（CRD）时，Kubernetes API 服务器会为你所
-指定的每一个版本生成一个 RESTful 的 资源路径。CRD 可以是名字空间作用域的，也可以
-是集群作用域的，取决于 CRD 的 `scope` 字段设置。和其他现有的内置对象一样，删除
-一个名字空间时，该名字空间下的所有定制对象也会被删除。CustomResourceDefinition
-本身是不受名字空间限制的，对所有名字空间可用。
+当你创建新的 CustomResourceDefinition（CRD）时，Kubernetes API 服务器会为你所指定的每个版本生成一个新的
+RESTful 资源路径。
+基于 CRD 对象所创建的自定义资源可以是名字空间作用域的，也可以是集群作用域的，
+取决于 CRD 对象 `spec.scope` 字段的设置。
+
+与其它的内置对象一样，删除名字空间也将删除该名字空间中的所有自定义对象。
+CustomResourceDefinitions 本身是无名字空间的，可在所有名字空间中访问。
 
 例如，如果你将下面的 CustomResourceDefinition 保存到 `resourcedefinition.yaml`
 文件：
@@ -831,7 +833,7 @@ CustomResourceDefinition and migrating your objects from one version to another.
 
 关于如何为你的 CustomResourceDefinition 提供多个版本的支持，以及如何将你的对象
 从一个版本迁移到另一个版本， 详细信息可参阅
-[定制资源定义的版本](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)。
+[定制资源定义的版本](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)。
 
 <!-- discussion -->
 
@@ -912,7 +914,7 @@ can add additional validation using
 定制资源是通过
 [OpenAPI v3 模式定义](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject)
 来执行合法性检查的，当启用[验证规则特性](#validation-rules)时，通过 `x-kubernetes-validations` 验证，
-你可以通过使用[准入控制 Webhook](/zh/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
+你可以通过使用[准入控制 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 来添加额外的合法性检查逻辑。
 
 <!--
@@ -971,7 +973,7 @@ enabled, which is the case automatically for many clusters for beta features).
 就 `apiextensions.k8s.io/v1` 组的 CustomResourceDefinitions，这一条件是满足的。
 设置默认值的功能特性从 1.17 开始正式发布。该特性在 1.16 版本中处于
 Beta 状态，要求 `CustomResourceDefaulting`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 被启用。对于大多数集群而言，Beta 状态的特性门控默认都是自动启用的。
 
 <!--
@@ -1138,7 +1140,7 @@ This feature is only available if the schema is a
 [structural schema](#specifying-a-structural-schema).
 -->
 验证规则从 1.23 开始处于 Alpha 状态，
-当 `CustomResourceValidationExpressions` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)被启用时，
+当 `CustomResourceValidationExpressions` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用时，
 验证定制资源。这个功能只有在模式是[结构化的模式](#specifying-a-structural-schema)时才可用。
 
 <!--
@@ -1608,7 +1610,7 @@ types](https://swagger.io/specification/#data-types), [Kubernetes Structural Sch
 -->
 参考：[CEL 类型](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values)，
 [OpenAPI 类型](https://swagger.io/specification/#data-types)，
-[Kubernetes 结构化模式](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)。
+[Kubernetes 结构化模式](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)。
 
 <!--
 #### Validation functions {#available-validation-functions}
@@ -2090,10 +2092,10 @@ The [kubectl](/docs/reference/kubectl/) command-line tool consumes the published
 CustomResourceDefinition 的[结构化的](#specifying-a-structural-schema)、
 [启用了剪裁的](#preserving-unknown-fields) [OpenAPI v3 合法性检查模式](#validation)
 会在 Kubernetes API 服务器上作为
-[OpenAPI v2 规约](/zh/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)
+[OpenAPI v2 规约](/zh-cn/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)
 的一部分发布出来。
 
-[kubectl](/zh/docs/reference/kubectl/) 命令行工具会基于所发布的模式定义来执行客户端的合法性检查（`kubectl create` 和 `kubectl apply`），为定制资源的模式定义提供解释（`kubectl explain`）。
+[kubectl](/zh-cn/docs/reference/kubectl/) 命令行工具会基于所发布的模式定义来执行客户端的合法性检查（`kubectl create` 和 `kubectl apply`），为定制资源的模式定义提供解释（`kubectl explain`）。
 所发布的模式还可被用于其他目的，例如生成客户端或者生成文档。
 
 <!--
@@ -2106,7 +2108,7 @@ valid OpenAPI schemas that it doesn't understand. The conversion won't modify th
 and therefore won't affect [validation](#validation) in the API server.
 -->
 OpenAPI v3 合法性检查模式定义会被转换为 OpenAPI v2 模式定义，并出现在
-[OpenAPI v2 规范](/zh/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)
+[OpenAPI v2 规范](/zh-cn/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)
 的 `definitions` 和 `paths` 字段中。
 
 在转换过程中会发生以下修改，目的是保持与 1.13 版本以前的 kubectl 工具兼容。
@@ -2567,7 +2569,7 @@ kubectl get crontabs my-new-cron-object -o jsonpath='{.spec.replicas}'
 You can use a [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) to protect custom
 resources that have the scale subresource enabled.
 -->
-你可以使用 [PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/)
+你可以使用 [PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/)
 来保护启用了 scale 子资源的定制资源。
 
 <!--
@@ -2694,7 +2696,7 @@ crontabs/my-new-cron-object   3s
 * Serve [multiple versions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/) of a
   CustomResourceDefinition.
 -->
-* 阅读了解[定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* 阅读了解[定制资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 参阅 [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io)
-* 参阅支持 CustomResourceDefinition 的[多个版本](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)
+* 参阅支持 CustomResourceDefinition 的[多个版本](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)
 

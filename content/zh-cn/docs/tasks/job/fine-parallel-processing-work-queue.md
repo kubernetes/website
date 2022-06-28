@@ -65,7 +65,7 @@ Here is an overview of the steps in this example:
 Be familiar with the basic,
 non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 -->
-熟悉基本的、非并行的 [Job](/zh/docs/concepts/workloads/controllers/job/)。
+熟悉基本的、非并行的 [Job](/zh-cn/docs/concepts/workloads/controllers/job/)。
 
 <!-- steps -->
 
@@ -226,7 +226,7 @@ You need to push to a public repository or [configure your cluster to be able to
 your private repository](/docs/concepts/containers/images/).
 -->
 你需要将镜像 push 到一个公共仓库或者
-[配置集群访问你的私有仓库](/zh/docs/concepts/containers/images/)。
+[配置集群访问你的私有仓库](/zh-cn/docs/concepts/containers/images/)。
 
 <!--
 If you are using [Google Container
@@ -356,7 +356,7 @@ If running a queue service or modifying your containers to use a work queue is i
 want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns).
 -->
 如果你不方便运行一个队列服务或者修改你的容器用于运行一个工作队列，你可以考虑其它的
-[Job 模式](/zh/docs/concepts/workloads/controllers/job/#job-patterns)。
+[Job 模式](/zh-cn/docs/concepts/workloads/controllers/job/#job-patterns)。
 
 <!--
 If you have a continuous stream of background processing work to run, then

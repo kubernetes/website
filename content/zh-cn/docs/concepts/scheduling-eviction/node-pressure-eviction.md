@@ -128,9 +128,9 @@ memory is reclaimable under pressure.
 -->
 `memory.available` 的值来自 cgroupfs，而不是像 `free -m` 这样的工具。
 这很重要，因为 `free -m` 在容器中不起作用，如果用户使用
-[节点可分配资源](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+[节点可分配资源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 这一功能特性，资源不足的判定是基于 CGroup 层次结构中的用户 Pod 所处的局部及 CGroup 根节点作出的。
-这个[脚本](/zh/examples/admin/resource/memory-available.sh)
+这个[脚本](/zh-cn/examples/admin/resource/memory-available.sh)
 重现了 kubelet 为计算 `memory.available` 而执行的相同步骤。
 kubelet 在其计算中排除了 inactive_file（即非活动 LRU 列表上基于文件来虚拟的内存的字节数），
 因为它假定在压力下内存是可回收的。
@@ -161,7 +161,7 @@ For a list of the deprecated features, see [kubelet garbage collection deprecati
 -->
 一些 kubelet 垃圾收集功能已被弃用，以支持驱逐。
 有关已弃用功能的列表，请参阅
-[kubelet 垃圾收集弃用](/zh/docs/concepts/cluster-administration/kubelet-garbage-collection/#deprecation)。
+[kubelet 垃圾收集弃用](/zh-cn/docs/concepts/cluster-administration/kubelet-garbage-collection/#deprecation)。
 {{</note>}}
 
 <!-- 
@@ -414,7 +414,7 @@ The kubelet uses the following parameters to determine pod eviction order:
 kubelet 使用以下参数来确定 Pod 驱逐顺序：
 
 1. Pod 的资源使用是否超过其请求
-1. [Pod 优先级](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+1. [Pod 优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 1. Pod 相对于请求的资源使用情况
 
 <!-- 
@@ -524,7 +524,7 @@ reclaims the quantity you specify.
 For example, the following configuration sets minimum reclaim amounts: 
 -->
 你可以使用 `--eviction-minimum-reclaim` 标志或
-[kubelet 配置文件](/zh/docs/tasks/administer-cluster/kubelet-config-file/)
+[kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)
 为每个资源配置最小回收量。
 当 kubelet 注意到某个资源耗尽时，它会继续回收该资源，直到回收到你所指定的数量为止。
 
@@ -772,7 +772,7 @@ to estimate or measure an optimal memory limit value for that container.
 * Check out the [Eviction API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)
 -->
 * 了解 [API 发起的驱逐](/docs/reference/generated/kubernetes-api/v1.23/)
-* 了解 [Pod 优先级和驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* 了解 [Pod 优先级和驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 * 了解 [PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
-* 了解[服务质量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)（QoS）
+* 了解[服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)（QoS）
 * 查看[驱逐 API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)

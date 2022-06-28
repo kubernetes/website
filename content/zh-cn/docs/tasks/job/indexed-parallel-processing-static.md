@@ -40,7 +40,7 @@ expose the index in the `JOB_COMPLETION_INDEX` environment variable.
 Pod 索引在{{<glossary_tooltip text="注解" term_id="annotation" >}}
 `batch.kubernetes.io/job-completion-index` 中呈现，具体表示为一个十进制值字符串。
 为了让容器化的任务进程获得此索引，你可以使用
-[downward API](/zh/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
+[downward API](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
 机制发布注解的值。为方便起见，
 控制平面自动设置 downward API 以在 `JOB_COMPLETION_INDEX` 环境变量中公开索引。
 
@@ -64,7 +64,7 @@ Here is an overview of the steps in this example:
 You should already be familiar with the basic,
 non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 -->
-你应该已经熟悉 [Job](/zh/docs/concepts/workloads/controllers/job/) 的基本的、非并行的用法。
+你应该已经熟悉 [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 的基本的、非并行的用法。
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -149,13 +149,13 @@ to publish the index to containers. You can also choose to load a list of values
 from a [ConfigMap as an environment variable or file](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 -->
 在上面的示例中，你使用 Job 控制器为所有容器设置的内置 `JOB_COMPLETION_INDEX` 环境变量。
-[Init 容器](/zh/docs/concepts/workloads/pods/init-containers/)
+[Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)
 将索引映射到一个静态值，并将其写入一个文件，该文件通过 
-[emptyDir 卷](/zh/docs/concepts/storage/volumes/#emptydir)
+[emptyDir 卷](/zh-cn/docs/concepts/storage/volumes/#emptydir)
 与运行 worker 的容器共享。或者，你可以
-[通过 Downward API 定义自己的环境变量](/zh/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
+[通过 Downward API 定义自己的环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 将索引发布到容器。你还可以选择从
-[包含 ConfigMap 的环境变量或文件](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
+[包含 ConfigMap 的环境变量或文件](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 加载值列表。
 
 <!-- 
@@ -164,7 +164,7 @@ value as a volume file](/docs/tasks/inject-data-application/downward-api-volume-
 like shown in the following example:
 -->
 或者也可以直接
-[使用 Downward API 将注解值作为卷文件传递](/zh/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields)，
+[使用 Downward API 将注解值作为卷文件传递](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields)，
 如下例所示：
 
 {{< codenew language="yaml" file="application/job/indexed-job-vol.yaml" >}}

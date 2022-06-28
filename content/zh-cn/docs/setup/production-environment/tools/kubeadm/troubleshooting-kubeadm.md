@@ -162,9 +162,9 @@ and investigating each container by running `docker logs`. For other container r
 
 - 网络连接问题。在继续之前，请检查你的计算机是否具有全部联通的网络连接。
 - 容器运行时的 cgroup 驱动不同于 kubelet 使用的 cgroup 驱动。要了解如何正确配置 cgroup 驱动，
-  请参阅[配置 cgroup 驱动](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
+  请参阅[配置 cgroup 驱动](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
 - 控制平面上的 Docker 容器持续进入崩溃状态或（因其他原因）挂起。你可以运行 `docker ps` 命令来检查以及 `docker logs` 命令来检视每个容器的运行日志。
-  对于其他容器运行时，请参阅[使用 crictl 对 Kubernetes 节点进行调试](/zh/docs/tasks/debug/debug-cluster/crictl/)。
+  对于其他容器运行时，请参阅[使用 crictl 对 Kubernetes 节点进行调试](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
 
 <!--
 ## kubeadm blocks when removing managed containers
@@ -206,7 +206,7 @@ sudo kubeadm reset
 
 一个可行的解决方案是重新启动 Docker 服务，然后重新运行 `kubeadm reset`：
 你也可以使用 `crictl` 来调试容器运行时的状态。
-参见[使用 CRICTL 调试 Kubernetes 节点](/zh/docs/tasks/debug/debug-cluster/crictl/)。
+参见[使用 CRICTL 调试 Kubernetes 节点](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
 
 <!--
 ## Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
@@ -254,7 +254,7 @@ before CoreDNS may be deployed fully. Hence the `Pending` state before the netwo
 
 这一行为是 **预期之中** 的，因为系统就是这么设计的。
 kubeadm 的网络供应商是中立的，因此管理员应该选择
-[安装 pod 的网络插件](/zh/docs/concepts/cluster-administration/addons/)。
+[安装 pod 的网络插件](/zh-cn/docs/concepts/cluster-administration/addons/)。
 你必须完成 Pod 的网络配置，然后才能完全部署 CoreDNS。
 在网络被配置好之前，DNS 组件会一直处于 `Pending` 状态。
 
@@ -282,7 +282,7 @@ services](/docs/concepts/services-networking/service/#type-nodeport) or use `Hos
 有关更多信息，请参考 [CNI portmap 文档](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 如果你的网络提供商不支持 portmap CNI 插件，你或许需要使用
-[NodePort 服务的功能](/zh/docs/concepts/services-networking/service/#type-nodeport)
+[NodePort 服务的功能](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)
 或者使用 `HostNetwork=true`。
 
 <!--
@@ -301,7 +301,7 @@ services](/docs/concepts/services-networking/service/#type-nodeport) or use `Hos
 -->
 ## 无法通过其服务 IP 访问 Pod
 
-- 许多网络附加组件尚未启用 [hairpin 模式](/zh/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
+- 许多网络附加组件尚未启用 [hairpin 模式](/zh-cn/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   该模式允许 Pod 通过其服务 IP 进行访问。这是与 [CNI](https://github.com/containernetworking/cni/issues/476) 有关的问题。
   请与网络附加组件提供商联系，以获取他们所提供的 hairpin 模式的最新状态。
 
@@ -517,7 +517,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
   解决方法是通知 `kubelet` 使用哪个 `--node-ip`。当使用 DigitalOcean 时，可以是公网IP（分配给 `eth0` 的），
   或者是私网IP（分配给 `eth1` 的）。私网 IP 是可选的。
-  [kubadm `NodeRegistrationOptions` 结构](/zh/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
+  [kubadm `NodeRegistrationOptions` 结构](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
   的 `KubeletExtraArgs` 部分被用来处理这种情况。
 
   然后重启 `kubelet`：
@@ -552,7 +552,7 @@ are available to avoid Kubernetes trying to restart the CoreDNS Pod every time C
 如果有些节点运行的是旧版本的 Docker，同时启用了 SELinux，你或许会遇到 `coredns` pods 无法启动的情况。
 要解决此问题，你可以尝试以下选项之一：
 
-- 升级到 [Docker 的较新版本](/zh/docs/setup/production-environment/container-runtimes/#docker)。
+- 升级到 [Docker 的较新版本](/zh-cn/docs/setup/production-environment/container-runtimes/#docker)。
 
 - [禁用 SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 
@@ -662,7 +662,7 @@ kube-apiserver 这样的控制平面组件。然而，由于解析 (`mapStringSt
 但这将导致键 `enable-admission-plugins` 仅有值 `NamespaceExists`。
 
 已知的解决方法是使用 kubeadm
-[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)。
+[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 <!--
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
@@ -735,7 +735,7 @@ To workaround this issue you can configure the flex-volume directory using the k
 On the primary control-plane Node (created using `kubeadm init`) pass the following
 file using `--config`:
 -->
-为了解决这个问题，你可以使用 kubeadm 的[配置文件](/zh/docs/reference/config-api/kubeadm-config.v1beta3/) 来配置 FlexVolume 的目录。
+为了解决这个问题，你可以使用 kubeadm 的[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/) 来配置 FlexVolume 的目录。
 
 在（使用 `kubeadm init` 创建的）主控制节点上，使用 `--config`
 参数传入如下文件：
@@ -840,7 +840,7 @@ to understand how to configure the kubelets in a kubeadm cluster to have properl
 
 Also see [How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely).
 -->
-参见[为 kubelet 启用签名的服务证书](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)
+参见[为 kubelet 启用签名的服务证书](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)
 以进一步了解如何在 kubeadm 集群中配置 kubelet 使用正确签名了的服务证书。
 
 另请参阅 [How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely)。

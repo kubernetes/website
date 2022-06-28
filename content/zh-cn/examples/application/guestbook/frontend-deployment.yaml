@@ -1,4 +1,4 @@
-# SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+# 来源：https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
 apiVersion: apps/v1
 kind: Deployment
 metadata:

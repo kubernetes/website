@@ -88,7 +88,7 @@ Support for the Topology Manager requires `TopologyManager` [feature gate](/docs
 ### 启用拓扑管理器功能特性 {#enable-the-topology-manager-feature}
 
 对拓扑管理器的支持要求启用 `TopologyManager`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 从 Kubernetes 1.18 版本开始，这一特性默认是启用的。
 
 <!--
@@ -129,7 +129,7 @@ To align CPU resources with other requested resources in a Pod Spec, the CPU Man
 {{< note >}}
 为了将 Pod 规约中的 CPU 资源与其他请求资源对齐，CPU 管理器需要被启用并且
 节点上应配置了适当的 CPU 管理器策略。
-参看[控制 CPU 管理策略](/zh/docs/tasks/administer-cluster/cpu-management-policies/).
+参看[控制 CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/).
 {{< /note >}}
 
 <!--
@@ -137,7 +137,7 @@ To align memory (and hugepages) resources with other requested resources in a Po
 -->
 {{< note >}}
 为了将 Pod 规约中的 memory（和 hugepages）资源与所请求的其他资源对齐，需要启用内存管理器，
-并且在节点配置适当的内存管理器策略。查看[内存管理器](/zh/docs/tasks/administer-cluster/memory-manager/)
+并且在节点配置适当的内存管理器策略。查看[内存管理器](/zh-cn/docs/tasks/administer-cluster/memory-manager/)
 文档。
 {{< /note >}}
 
@@ -213,7 +213,7 @@ The total amount of particular resource demanded for the entire pod is calculate
 for a resource.
 -->
 整个 Pod 所请求的某种资源总量是根据
-[有效 request/limit](/zh/docs/concepts/workloads/pods/init-containers/#resources)
+[有效 request/limit](/zh-cn/docs/concepts/workloads/pods/init-containers/#resources)
 公式来计算的，
 因此，对某一种资源而言，该总量等于以下数值中的最大值：
 * 所有应用容器请求之和；
@@ -324,7 +324,7 @@ Topology Manager will reject this pod from the node. This will result in a pod i
 ### restricted 策略 {#policy-restricted}
 
 对于 Pod 中的每个容器，配置了 `restricted` 拓扑管理策略的 kubelet
-调用每个建议提供者以确定其资源可用性。。
+调用每个建议提供者以确定其资源可用性。
 使用此信息，拓扑管理器存储该容器的首选 NUMA 节点亲和性。
 如果亲和性不是首选，则拓扑管理器将从节点中拒绝此 Pod。
 这将导致 Pod 处于 `Terminated` 状态，且 Pod 无法被节点接纳。

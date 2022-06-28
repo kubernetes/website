@@ -92,7 +92,7 @@ The configurations have a corresponding `handler` name, referenced by the Runtim
 handler must be a valid [DNS label name](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
 -->
 所有这些配置都具有相应的 `handler` 名，并被 RuntimeClass 引用。
-handler 必须是有效的 [DNS 标签名](/zh/docs/concepts/overview/working-with-objects/names/#dns-label-names)。
+handler 必须是有效的 [DNS 标签名](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-label-names)。
 
 <!--
 ### 2. Create the corresponding RuntimeClass resources
@@ -131,7 +131,7 @@ restricted to the cluster administrator. This is typically the default. See
 -->
 {{< note >}}
 建议将 RuntimeClass 写操作（create、update、patch 和 delete）限定于集群管理员使用。
-通常这是默认配置。参阅[授权概述](/zh/docs/reference/access-authn-authz/authorization/)了解更多信息。
+通常这是默认配置。参阅[授权概述](/zh-cn/docs/reference/access-authn-authz/authorization/)了解更多信息。
 {{< /note >}}
 
 <!--
@@ -164,8 +164,8 @@ error message.
 -->
 这一设置会告诉 kubelet 使用所指的 RuntimeClass 来运行该 pod。
 如果所指的 RuntimeClass 不存在或者 CRI 无法运行相应的 handler，
-那么 pod 将会进入 `Failed` 终止[阶段](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
-你可以查看相应的[事件](/zh/docs/tasks/debug/debug-application/debug-running-pod/)，
+那么 pod 将会进入 `Failed` 终止[阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
+你可以查看相应的[事件](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)，
 获取执行过程中的错误信息。
 
 <!--
@@ -182,7 +182,7 @@ For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/
 ### CRI 配置   {#cri-configuration}
 
 关于如何安装 CRI 运行时，请查阅
-[CRI 安装](/zh/docs/setup/production-environment/container-runtimes/)。
+[CRI 安装](/zh-cn/docs/setup/production-environment/container-runtimes/)。
 
 #### {{< glossary_tooltip term_id="containerd" >}}
 
@@ -267,7 +267,7 @@ To learn more about configuring the node selector and tolerations, see
 [Assigning Pods to Nodes](/docs/concepts/configuration/assign-pod-node/).
 -->
 更多有关 node selector 和 tolerations 的配置信息，请查阅 
-[将 Pod 分派到节点](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)。
+[将 Pod 分派到节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)。
 
 <!-- 
 ### Pod Overhead
@@ -300,5 +300,5 @@ Pod 开销通过 RuntimeClass 的 `overhead` 字段定义。
 -->
 - [RuntimeClass 设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass 调度设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
-- 阅读关于 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/) 的概念
+- 阅读关于 [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/) 的概念
 - [PodOverhead 特性设计](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

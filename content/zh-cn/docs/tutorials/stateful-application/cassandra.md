@@ -30,7 +30,7 @@ For more information on the features used in this tutorial, see
 -->
 使用"StatefulSets"可以更轻松地将有状态的应用程序部署到你的 Kubernetes 集群中。
 有关本教程中使用的功能的更多信息，
-参阅 [StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/)。
+参阅 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
 
 {{< note >}}
 <!--
@@ -160,7 +160,7 @@ If you don't see a Service named `cassandra`, that means creation failed. Read
 for help troubleshooting common issues.
 -->
 如果没有看到名为 `cassandra` 的服务，则表示创建失败。
-请阅读[调试服务](/zh/docs/tasks/debug/debug-application/debug-service/)，以解决常见问题。
+请阅读[调试服务](/zh-cn/docs/tasks/debug/debug-application/debug-service/)，以解决常见问题。
 
 <!--
 ## Using a StatefulSet to create a Cassandra ring

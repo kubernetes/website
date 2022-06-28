@@ -18,7 +18,7 @@ weight: 10
 <!--
 Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs.
 -->
-配置[聚合层](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+配置[聚合层](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 可以允许 Kubernetes apiserver 使用其它 API 扩展，这些 API 不是核心
 Kubernetes API 的一部分。
 
@@ -232,9 +232,9 @@ Kubernetes apiserver 中注册。
 Kubernetes apiserver 使用它的标准认证和授权配置来对用户认证，以及对特定路径的鉴权。
 
 有关对 Kubernetes 集群认证的概述，请参见
-[对集群认证](/zh/docs/reference/access-authn-authz/authentication/)。
+[对集群认证](/zh-cn/docs/reference/access-authn-authz/authentication/)。
 有关对Kubernetes集群资源的访问鉴权的概述，请参见
-[鉴权概述](/zh/docs/reference/access-authn-authz/authorization/)。
+[鉴权概述](/zh-cn/docs/reference/access-authn-authz/authorization/)。
 
 到目前为止，所有内容都是标准的 Kubernetes API 请求，认证与鉴权。
 
@@ -407,7 +407,7 @@ In order for the extension apiserver to be authorized itself to submit the `Subj
 
 扩展 apiserver 现在可以验证从标头检索的`user/group`是否有权执行给定请求。
 通过向 Kubernetes apiserver 发送标准
-[SubjectAccessReview](/zh/docs/reference/access-authn-authz/authorization/) 请求来实现。
+[SubjectAccessReview](/zh-cn/docs/reference/access-authn-authz/authorization/) 请求来实现。
 
 为了使扩展 apiserver 本身被鉴权可以向 Kubernetes apiserver 提交 SubjectAccessReview 请求，
 它需要正确的权限。
@@ -466,7 +466,7 @@ Each of these functions independently and can conflict with each other, if not u
   则 Kubernetes apiserver 会检查请求的证书。
   如果它是由 `--client-ca-file` 引用的文件中的 CA 证书之一签名的，
   并且用户是公用名`CN=`的值，而组是组织`O=` 的取值，则该请求被视为合法请求。
-  请参阅[关于 TLS 身份验证的文档](/zh/docs/reference/access-authn-authz/authentication/#x509-client-certs)。
+  请参阅[关于 TLS 身份验证的文档](/zh-cn/docs/reference/access-authn-authz/authentication/#x509-client-certs)。
 
 * `--requestheader-client-ca-file`：当请求到达 Kubernetes apiserver 时，
   如果启用此选项，则 Kubernetes apiserver 会检查请求的证书。
@@ -545,7 +545,7 @@ The name of an APIService object must be a valid
 [path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
 -->
 APIService 对象的名称必须是合法的
-[路径片段名称](/zh/docs/concepts/overview/working-with-objects/names#path-segment-names)。
+[路径片段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
 
 <!--
 #### Contacting the extension apiserver
@@ -598,6 +598,6 @@ spec:
 * Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 -->
 
-* 使用聚合层[安装扩展 API 服务器](/zh/docs/tasks/extend-kubernetes/setup-extension-api-server/)。
-* 有关高级概述，请参阅[使用聚合层扩展 Kubernetes API](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)。
-* 了解如何[使用自定义资源扩展 Kubernetes API](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。
+* 使用聚合层[安装扩展 API 服务器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)。
+* 有关高级概述，请参阅[使用聚合层扩展 Kubernetes API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)。
+* 了解如何[使用自定义资源扩展 Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。

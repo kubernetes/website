@@ -37,7 +37,7 @@ admission controller. This can be done effectively using a combination of dry-ru
 This page assumes you are already familiar with the basic [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
 concepts.
 -->
-本页面假定你已经熟悉 [Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission/)的基本概念。
+本页面假定你已经熟悉 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)的基本概念。
 
 <!-- body -->
 
@@ -104,7 +104,7 @@ Pod 安全性准入被设计用来直接满足最常见的安全性需求，并�
 - **设置默认的安全性约束** - Pod 安全性准入是一个非变更性质的准入控制器，
   这就意味着它不会在对 Pod 进行合法性检查之前更改其配置。如果你之前依赖于 PSP 的这方面能力，
   你或者需要更改你的负载以满足 Pod 安全性约束，或者需要使用一个
-  [变更性质的准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  [变更性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
   来执行相应的变更。进一步的细节可参见后文的[简化和标准化 PodSecurityPolicy](#simplify-psps)。
 <!--
 - **Fine-grained control over policy definition** - Pod Security Admission only supports
@@ -114,9 +114,9 @@ Pod 安全性准入被设计用来直接满足最常见的安全性需求，并�
   to enforce those policies.
 -->
 - **对策略定义的细粒度控制** - Pod 安全性准入仅支持
-  [三种标准级别](/zh/docs/concepts/security/pod-security-standards/)。
+  [三种标准级别](/zh-cn/docs/concepts/security/pod-security-standards/)。
   如果你需要对特定的约束施加更多的控制，你就需要使用一个
-  [验证性质的准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  [验证性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
   以实施这列策略。
 <!--
 - **Sub-namespace policy granularity** - PodSecurityPolicy lets you bind different policies to
@@ -131,9 +131,9 @@ Pod 安全性准入被设计用来直接满足最常见的安全性需求，并�
   即使这些服务账户或用户隶属于同一个名字空间。这一方法有很多缺陷，不建议使用。
   不过如果你的确需要这种功能，你就需要使用第三方的 Webhook。
   唯一的例外是当你只需要完全针对某用户或者
-  [RuntimeClasses](/zh/docs/concepts/containers/runtime-class/) 赋予豁免规则时，
+  [RuntimeClasses](/zh-cn/docs/concepts/containers/runtime-class/) 赋予豁免规则时，
   Pod 安全性准入的确也为豁免规则暴露一些
-  [静态配置](/zh/docs/concepts/security/pod-security-admission/#exemptions)。
+  [静态配置](/zh-cn/docs/concepts/security/pod-security-admission/#exemptions)。
 
 <!--
 Even if Pod Security Admission does not meet all of your needs it was designed to be _complementary_
@@ -159,13 +159,13 @@ but if you must you will need to use an
 [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 to place additional restrictions on setting Pod Security labels on Namespace objects.
 -->
-Pod 安全性准入是通过[名字空间上的标签](/zh/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces)
+Pod 安全性准入是通过[名字空间上的标签](/zh-cn/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces)
 来控制的。这也就是说，任何能够更新（或通过 patch 部分更新或创建）
 名字空间的人都可以更改该名字空间的 Pod 安全性级别，而这可能会被利用来绕过约束性更强的策略。
 在继续执行迁移操作之前，请确保只有被信任的、有特权的用户具有这类名字空间访问权限。
 不建议将这类强大的访问权限授予不应获得权限提升的用户，不过如果你必须这样做，
 你需要使用一个
-[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 来针对为 Namespace 对象设置 Pod 安全性级别设置额外的约束。
 
 <!--
@@ -211,7 +211,7 @@ validating policy. These fields (also listed in the
 reference) are:
 -->
 你可以先去掉那些纯粹变更性质的字段，留下验证策略中的其他内容。
-这些字段（也列举于[将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh/docs/reference/access-authn-authz/psp-to-pod-security-standards/)参考中）
+这些字段（也列举于[将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh-cn/docs/reference/access-authn-authz/psp-to-pod-security-standards/)参考中）
 包括：
 
 <!--
@@ -253,7 +253,7 @@ which is outside the scope of this guide.
 -->
 PodSecurityPolicy 中有一些字段未被 Pod 安全性准入机制覆盖。如果你必须使用这些选项，
 你需要在 Pod 安全性准入之外部署
-[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 以补充这一能力，而这类操作不在本指南范围。
 
 <!--
@@ -263,7 +263,7 @@ These fields (also listed in the
 reference with "no opinion") are:
 -->
 首先，你可以去掉 Pod 安全性标准所未覆盖的那些验证性字段。这些字段（也列举于
-[将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh/docs/reference/access-authn-authz/psp-to-pod-security-standards/)参考中，标记为“无意见”）有：
+[将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh-cn/docs/reference/access-authn-authz/psp-to-pod-security-standards/)参考中，标记为“无意见”）有：
 
 - `.spec.allowedHostPaths`
 - `.spec.allowedFlexVolumes`
@@ -355,7 +355,7 @@ For each updated PodSecurityPolicy:
    The fields to review are:
 -->
 2. 比较运行中的 Pod 与原来的 Pod 规约，确定 PodSecurityPolicy 是否更改过这些 Pod。
-   对于通过[工作负载资源](/zh/docs/concepts/workloads/controllers/)所创建的 Pod，
+   对于通过[工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)所创建的 Pod，
    你可以比较 Pod 和控制器资源中的 PodTemplate。如果发现任何变更，则原来的 Pod
    或者 PodTemplate 需要被更新以加上所希望的配置。要审查的字段包括：
 
@@ -425,7 +425,7 @@ familiarizing yourself with the 3 different levels.
 
 There are several ways to choose a Pod Security level for your namespace:
 -->
-首先请回顾 [Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards/)内容，
+首先请回顾 [Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards/)内容，
 并了解三个安全级别。
 
 为你的名字空间选择 Pod 安全性级别有几种方法：
@@ -447,7 +447,7 @@ There are several ways to choose a Pod Security level for your namespace:
    namespace with this command:
 -->
 2. **根据现有的 PodSecurityPolicy 来确定** - 基于
-   [将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
+   [将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh-cn/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
    参考资料，你可以将各个 PSP 映射到某个 Pod 安全性标准级别。如果你的 PSP 不是基于
    Pod 安全性标准的，你可能或者需要选择一个至少与该 PSP 一样宽松的级别，
    或者选择一个至少与其一样严格的级别。使用下面的命令你可以查看被 Pod 使用的 PSP 有哪些：
@@ -613,7 +613,7 @@ for more information.
 -->
 你也可以静态配置 Pod 安全性准入控制器，为尚未打标签的名字空间设置默认的
 enforce、audit 与/或 warn 级别。详细信息可参阅
-[配置准入控制器](/zh/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
+[配置准入控制器](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
 页面。
 
 <!--
@@ -628,7 +628,7 @@ configuration of the API server:
 -->
 最后，你已为禁用 PodSecurityPolicy 做好准备。要禁用 PodSecurityPolicy，
 你需要更改 API 服务器上的准入配置：
-[我如何关闭某个准入控制器？](/zh/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-off-an-admission-controller)
+[我如何关闭某个准入控制器？](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-off-an-admission-controller)
 
 <!--
 To verify that the PodSecurityPolicy admission controller is no longer enabled, you can manually run

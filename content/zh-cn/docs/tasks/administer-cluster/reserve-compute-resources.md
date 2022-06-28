@@ -300,7 +300,7 @@ available for pods.
 节点级别的内存压力将导致系统内存不足，这将影响到整个节点及其上运行的所有 Pod。
 节点可以暂时离线直到内存已经回收为止。
 为了防止（或减少可能性）系统内存不足，kubelet 提供了
-[资源不足](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)管理。
+[资源不足](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)管理。
 驱逐操作只支持 `memory` 和 `ephemeral-storage`。
 通过 `--eviction-hard` 标志预留一些内存后，当节点上的可用内存降至保留值以下时，
 `kubelet` 将尝试驱逐 Pod。
@@ -336,7 +336,7 @@ respectively.
 `kubelet` 默认对 Pod 执行 'Allocatable' 约束。
 无论何时，如果所有 Pod 的总用量超过了 'Allocatable'，驱逐 Pod 的措施将被执行。
 有关驱逐策略的更多细节可以在
-[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)页找到。
+[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)页找到。
 可通过设置 kubelet `--enforce-node-allocatable` 标志值为 `pods` 控制这个措施。
 
 可选地，通过在同一标志中同时指定 `kube-reserved` 和 `system-reserved` 值，
@@ -358,7 +358,7 @@ resources if `kube-reserved` is enforced.
 ## 一般原则   {#general-guidelines}
 
 系统守护进程一般会被按照类似
-[Guaranteed pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed)
+[Guaranteed pods](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed)
 一样对待。
 系统守护进程可以在与其对应的控制组中出现突发资源用量，这一行为要作为
 kubernetes 部署的一部分进行管理。

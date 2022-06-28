@@ -230,6 +230,6 @@ Some example values of `matchImages` patterns are:
   [kubelet configuration API (v1alpha1) reference](/docs/reference/config-api/kubelet-config.v1alpha1/).
 * Read the [kubelet credential provider API reference (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/).
 -->
-* 阅读 [kubelet 配置 API (v1alpha1) 参考](/zh/docs/reference/config-api/kubelet-config.v1alpha1/)中有关 `CredentialProviderConfig` 的详细信息。
+* 阅读 [kubelet 配置 API (v1alpha1) 参考](/zh-cn/docs/reference/config-api/kubelet-config.v1alpha1/)中有关 `CredentialProviderConfig` 的详细信息。
 * 阅读 [kubelet 凭据提供程序 API 参考 (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)。
 

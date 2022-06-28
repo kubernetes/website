@@ -39,7 +39,7 @@ this pattern fits more realistic use cases.
 You should be familiar with the basic,
 non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 -->
-你应先熟悉基本的、非并行的 [Job](/zh/docs/concepts/workloads/controllers/job/)
+你应先熟悉基本的、非并行的 [Job](/zh-cn/docs/concepts/workloads/controllers/job/)
 的用法。
 
 {{< include "task-tutorial-prereqs.md" >}}
@@ -258,7 +258,7 @@ to contain only certain characters.
 
 在[第一个例子](#create-jobs-based-on-a-template)中，模板的每个示例都有一个参数
 而该参数也用在 Job 名称中。不过，对象
-[名称](/zh/docs/concepts/overview/working-with-objects/names/#names)
+[名称](/zh-cn/docs/concepts/overview/working-with-objects/names/#names)
 被限制只能使用某些字符。
 
 <!--
@@ -453,7 +453,7 @@ that you can use if you wish.
 -->
 {{< note >}}
 标签键 `jobgroup` 没什么特殊的，也不是保留字。 你可以选择你自己的标签方案。
-如果愿意，有一些[建议的标签](/zh/docs/concepts/overview/working-with-objects/common-labels/#labels)
+如果愿意，有一些[建议的标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)
 可供使用。
 {{< /note >}}
 
@@ -490,8 +490,8 @@ objects.
 You could also consider writing your own [controller](/docs/concepts/architecture/controller/)
 to manage Job objects automatically.
 -->
-还有一些其他[作业模式](/zh/docs/concepts/workloads/controllers/job/#job-patterns)
+还有一些其他[作业模式](/zh-cn/docs/concepts/workloads/controllers/job/#job-patterns)
 可供选择，这些模式都能用来处理大量任务而又不会创建过多的 Job 对象。
 
-你也可以考虑编写自己的[控制器](/zh/docs/concepts/architecture/controller/)
+你也可以考虑编写自己的[控制器](/zh-cn/docs/concepts/architecture/controller/)
 来自动管理 Job 对象。
