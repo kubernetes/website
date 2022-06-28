@@ -9,9 +9,6 @@ weight: 10
 
 <!-- overview -->
 
-CronJobs was promoted to general availability in Kubernetes v1.21. If you are using an older version of
-Kubernetes, please refer to the documentation for the version of Kubernetes that you are using,
-so that you see accurate information. Older Kubernetes versions do not support the `batch/v1` CronJob API.
 
 You can use a {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} to run {{< glossary_tooltip text="Jobs" term_id="job" >}}
 on a time-based schedule.
