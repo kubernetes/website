@@ -28,7 +28,7 @@ If your changes are large, read [Work from a local fork](#fork-the-repo) to lear
 ## Changes using GitHub
 
 If you're less experienced with git workflows, here's an easier method of
-opening a pull request. The figure below outlines the steps and the details follow.
+opening a pull request. Figure 1 outlines the steps and the details follow.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -61,7 +61,7 @@ class tasks,tasks2 white
 class id1 k8s
 {{</ mermaid >}}
 
-***Figure - Steps for opening a PR using GitHub***
+Figure 1. Steps for opening a PR using GitHub.
 
 1.  On the page where you see the issue, select the pencil icon at the top right.
     You can also scroll to the bottom of the page and select **Edit this page**.
@@ -122,7 +122,7 @@ work from a local fork.
 
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your computer. You can also use a git UI application.
 
-The figure below shows the steps to follow when you work from a local fork. The details for each step follow.
+Figure 2 shows the steps to follow when you work from a local fork. The details for each step follow.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -151,7 +151,8 @@ class 1,2,3,3a,4,5,6 grey
 class S,T spacewhite
 class changes,changes2 white
 {{</ mermaid >}}
-***Figure - Working from a local fork to make your changes***
+
+Figure 2. Working from a local fork to make your changes.
 
 ### Fork the kubernetes/website repository
 
@@ -291,34 +292,24 @@ You can either build the website's container image or run Hugo locally. Building
 The commands below use Docker as default container engine. Set the `CONTAINER_ENGINE` environment variable to override this behaviour.
 {{< /note >}}
 
-1.  Build the image locally:
+1. Build the container image locally  
+   _You only need this step if you are testing a change to the Hugo tool itself_
+   ```bash
+   # Run this in a terminal (if required)
+   make container-image
+   ```
 
-      ```bash
-      # Use docker (default)
-      make container-image
+1. Start Hugo in a container:
 
-      ### OR ###
+   ```bash
+   # Run this in a terminal
+   make container-serve
+   ```
 
-      # Use podman
-      CONTAINER_ENGINE=podman make container-image
-      ```
-
-2. After building the `kubernetes-hugo` image locally, build and serve the site:
-
-      ```bash
-      # Use docker (default)
-      make container-serve
-
-      ### OR ###
-
-      # Use podman
-      CONTAINER_ENGINE=podman make container-serve
-      ```
-
-3.  In a web browser, navigate to `https://localhost:1313`. Hugo watches the
+1.  In a web browser, navigate to `https://localhost:1313`. Hugo watches the
     changes and rebuilds the site as needed.
 
-4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
+1.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
     or close the terminal window.
 
 {{% /tab %}}
@@ -353,7 +344,7 @@ Alternately, install and use the `hugo` command on your computer:
 
 ### Open a pull request from your fork to kubernetes/website {#open-a-pr}
 
-The figure below shows the steps to open a PR from your fork to the K8s/website. The details follow.
+Figure 3 shows the steps to open a PR from your fork to the K8s/website. The details follow.
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
 
@@ -379,7 +370,8 @@ classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:b
 class 1,2,3,4,5,6,7,8 grey
 class first,second white
 {{</ mermaid >}}
-***Figure - Steps to open a PR from your fork to the K8s/website***
+
+Figure 3. Steps to open a PR from your fork to the K8s/website.
 
 1. In a web browser, go to the [`kubernetes/website`](https://github.com/kubernetes/website/) repository.
 2. Select **New Pull Request**.

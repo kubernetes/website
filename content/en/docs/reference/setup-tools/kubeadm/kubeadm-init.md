@@ -52,7 +52,7 @@ following steps:
 
 1. Makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and
-   [TLS Bootstrap](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+   [TLS Bootstrap](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
    mechanism:
 
    - Write a ConfigMap for making available all the information required
@@ -241,6 +241,15 @@ can consume, you must:
 where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
 for etcd and CoreDNS.
 * Pass the same `config.yaml` to `kubeadm init`.
+
+#### Custom sandbox (pause) images {#custom-pause-image}
+
+To set a custom image for these you need to configure this in your 
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+to use the image.
+Consult the documentation for your container runtime to find out how to change this setting;
+for selected container runtimes, you can also find advice within the
+[Container Runtimes]((/docs/setup/production-environment/container-runtimes/) topic.
 
 ### Uploading control-plane certificates to the cluster
 

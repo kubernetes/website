@@ -64,17 +64,17 @@ kubectl cluster-info
 The output is similar to this:
 
 ```
-Kubernetes master is running at https://104.197.5.247
-elasticsearch-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy
-kibana-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kibana-logging/proxy
-kube-dns is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kube-dns/proxy
-grafana is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
-heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
+Kubernetes master is running at https://192.0.2.1
+elasticsearch-logging is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy
+kibana-logging is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/kibana-logging/proxy
+kube-dns is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/kube-dns/proxy
+grafana is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+heapster is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 ```
 
 This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
-at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed, or through a kubectl proxy at, for example:
+at `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed, or through a kubectl proxy at, for example:
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 
 {{< note >}}
@@ -104,13 +104,13 @@ The supported formats for the `<service_name>` segment of the URL are:
 * To access the Elasticsearch service endpoint `_search?q=user:kimchy`, you would use:
 
     ```
-    http://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
+    http://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
     ```
 
 * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:
 
     ```
-    https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
+    https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
     ```
 
     The health information is similar to this:
@@ -133,7 +133,7 @@ The supported formats for the `<service_name>` segment of the URL are:
 * To access the *https* Elasticsearch service health information `_cluster/health?pretty=true`, you would use:
 
     ```
-    https://104.197.5.247/api/v1/namespaces/kube-system/services/https:elasticsearch-logging/proxy/_cluster/health?pretty=true
+    https://192.0.2.1/api/v1/namespaces/kube-system/services/https:elasticsearch-logging:/proxy/_cluster/health?pretty=true
     ```
 
 #### Using web browsers to access services running on the cluster

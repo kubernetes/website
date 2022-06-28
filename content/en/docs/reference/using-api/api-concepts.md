@@ -15,8 +15,8 @@ primary resources via the standard HTTP verbs (POST, PUT, PATCH, DELETE,
 GET).
 
 For some resources, the API includes additional subresources that allow
-fine grained authorization (such as a separating viewing details for a Pod from
-retrieving its logs), and can accept and serve those resources in different
+fine grained authorization (such as separate views for Pod details and
+log retrievals), and can accept and serve those resources in different
 representations for convenience or efficiency.
 
 Kubernetes supports efficient change notifications on resources via *watches*.

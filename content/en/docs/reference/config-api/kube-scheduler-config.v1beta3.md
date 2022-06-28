@@ -20,6 +20,329 @@ auto_generated: true
   
     
 
+## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
+    
+
+**Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+
+<p>ClientConnectionConfiguration contains details for constructing a client.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>kubeconfig</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>kubeconfig is the path to a KubeConfig file.</p>
+</td>
+</tr>
+<tr><td><code>acceptContentTypes</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>acceptContentTypes defines the Accept header sent by clients when connecting to a server, overriding the
+default value of 'application/json'. This field will control all connections to the server used by a particular
+client.</p>
+</td>
+</tr>
+<tr><td><code>contentType</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>contentType is the content type used when sending data to the server from this client.</p>
+</td>
+</tr>
+<tr><td><code>qps</code> <B>[Required]</B><br/>
+<code>float32</code>
+</td>
+<td>
+   <p>qps controls the number of queries per second allowed for this connection.</p>
+</td>
+</tr>
+<tr><td><code>burst</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>burst allows extra queries to accumulate when a client is exceeding its rate.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `DebuggingConfiguration`     {#DebuggingConfiguration}
+    
+
+**Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
+
+<p>DebuggingConfiguration holds configuration for Debugging related features.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>enableProfiling</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>enableProfiling enables profiling via web interface host:port/debug/pprof/</p>
+</td>
+</tr>
+<tr><td><code>enableContentionProfiling</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>enableContentionProfiling enables lock contention profiling, if
+enableProfiling is true.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `FormatOptions`     {#FormatOptions}
+    
+
+**Appears in:**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+
+<p>FormatOptions contains options for the different logging formats.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>json</code> <B>[Required]</B><br/>
+<a href="#JSONOptions"><code>JSONOptions</code></a>
+</td>
+<td>
+   <p>[Experimental] JSON contains options for logging format &quot;json&quot;.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `JSONOptions`     {#JSONOptions}
+    
+
+**Appears in:**
+
+- [FormatOptions](#FormatOptions)
+
+
+<p>JSONOptions contains options for logging format &quot;json&quot;.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>splitStream</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>[Experimental] SplitStream redirects error messages to stderr while
+info messages go to stdout, with buffering. The default is to write
+both to stdout, without buffering.</p>
+</td>
+</tr>
+<tr><td><code>infoBufferSize</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
+</td>
+<td>
+   <p>[Experimental] InfoBufferSize sets the size of the info stream when
+using split streams. The default is zero, which disables buffering.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
+    
+
+**Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+
+<p>LeaderElectionConfiguration defines the configuration of leader election
+clients for components that can run with leader election enabled.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>leaderElect</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>leaderElect enables a leader election client to gain leadership
+before executing the main loop. Enable this when running replicated
+components for high availability.</p>
+</td>
+</tr>
+<tr><td><code>leaseDuration</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>leaseDuration is the duration that non-leader candidates will wait
+after observing a leadership renewal until attempting to acquire
+leadership of a led but unrenewed leader slot. This is effectively the
+maximum duration that a leader can be stopped before it is replaced
+by another candidate. This is only applicable if leader election is
+enabled.</p>
+</td>
+</tr>
+<tr><td><code>renewDeadline</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>renewDeadline is the interval between attempts by the acting master to
+renew a leadership slot before it stops leading. This must be less
+than or equal to the lease duration. This is only applicable if leader
+election is enabled.</p>
+</td>
+</tr>
+<tr><td><code>retryPeriod</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>retryPeriod is the duration the clients should wait between attempting
+acquisition and renewal of a leadership. This is only applicable if
+leader election is enabled.</p>
+</td>
+</tr>
+<tr><td><code>resourceLock</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>resourceLock indicates the resource object type that will be used to lock
+during leader election cycles.</p>
+</td>
+</tr>
+<tr><td><code>resourceName</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>resourceName indicates the name of resource object that will be used to lock
+during leader election cycles.</p>
+</td>
+</tr>
+<tr><td><code>resourceNamespace</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>resourceName indicates the namespace of resource object that will be used to lock
+during leader election cycles.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `LoggingConfiguration`     {#LoggingConfiguration}
+    
+
+**Appears in:**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+
+<p>LoggingConfiguration contains logging options
+Refer <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a> for more information.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>format</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Format Flag specifies the structure of log messages.
+default value of format is <code>text</code></p>
+</td>
+</tr>
+<tr><td><code>flushFrequency</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
+</td>
+<td>
+   <p>Maximum number of nanoseconds (i.e. 1s = 1000000000) between log
+flushes.  Ignored if the selected logging backend writes log
+messages without buffering.</p>
+</td>
+</tr>
+<tr><td><code>verbosity</code> <B>[Required]</B><br/>
+<code>uint32</code>
+</td>
+<td>
+   <p>Verbosity is the threshold that determines which log messages are
+logged. Default is zero which logs only the most important
+messages. Higher values enable additional messages. Error messages
+are always logged.</p>
+</td>
+</tr>
+<tr><td><code>vmodule</code> <B>[Required]</B><br/>
+<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
+</td>
+<td>
+   <p>VModule overrides the verbosity threshold for individual files.
+Only supported for &quot;text&quot; log format.</p>
+</td>
+</tr>
+<tr><td><code>options</code> <B>[Required]</B><br/>
+<a href="#FormatOptions"><code>FormatOptions</code></a>
+</td>
+<td>
+   <p>[Experimental] Options holds additional parameters that are specific
+to the different logging formats. Only the options for the selected
+format get used, but all of them get validated.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `VModuleConfiguration`     {#VModuleConfiguration}
+    
+(Alias of `[]k8s.io/component-base/config/v1alpha1.VModuleItem`)
+
+**Appears in:**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+
+<p>VModuleConfiguration is a collection of individual file names or patterns
+and the corresponding verbosity threshold.</p>
+
+
+
+  
+    
+
 ## `DefaultPreemptionArgs`     {#kubescheduler-config-k8s-io-v1beta3-DefaultPreemptionArgs}
     
 
@@ -323,8 +646,7 @@ of &quot;System&quot; or &quot;List&quot;.</p>
 Nodes and Zones.</li>
 <li>&quot;List&quot;: Use constraints defined in .defaultConstraints.</li>
 </ul>
-<p>Defaults to &quot;List&quot; if feature gate DefaultPodTopologySpread is disabled
-and to &quot;System&quot; if enabled.</p>
+<p>Defaults to &quot;System&quot;.</p>
 </td>
 </tr>
 </tbody>
@@ -1061,333 +1383,3 @@ Weight defaults to 1 if not specified or explicitly set to 0.</p>
 </tbody>
 </table>
   
-  
-    
-
-## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
-    
-
-**Appears in:**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
-
-<p>ClientConnectionConfiguration contains details for constructing a client.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>kubeconfig</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>kubeconfig is the path to a KubeConfig file.</p>
-</td>
-</tr>
-<tr><td><code>acceptContentTypes</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>acceptContentTypes defines the Accept header sent by clients when connecting to a server, overriding the
-default value of 'application/json'. This field will control all connections to the server used by a particular
-client.</p>
-</td>
-</tr>
-<tr><td><code>contentType</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>contentType is the content type used when sending data to the server from this client.</p>
-</td>
-</tr>
-<tr><td><code>qps</code> <B>[Required]</B><br/>
-<code>float32</code>
-</td>
-<td>
-   <p>qps controls the number of queries per second allowed for this connection.</p>
-</td>
-</tr>
-<tr><td><code>burst</code> <B>[Required]</B><br/>
-<code>int32</code>
-</td>
-<td>
-   <p>burst allows extra queries to accumulate when a client is exceeding its rate.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `DebuggingConfiguration`     {#DebuggingConfiguration}
-    
-
-**Appears in:**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
-
-<p>DebuggingConfiguration holds configuration for Debugging related features.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>enableProfiling</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>enableProfiling enables profiling via web interface host:port/debug/pprof/</p>
-</td>
-</tr>
-<tr><td><code>enableContentionProfiling</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>enableContentionProfiling enables lock contention profiling, if
-enableProfiling is true.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `FormatOptions`     {#FormatOptions}
-    
-
-**Appears in:**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-
-<p>FormatOptions contains options for the different logging formats.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>json</code> <B>[Required]</B><br/>
-<a href="#JSONOptions"><code>JSONOptions</code></a>
-</td>
-<td>
-   <p>[Experimental] JSON contains options for logging format &quot;json&quot;.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `JSONOptions`     {#JSONOptions}
-    
-
-**Appears in:**
-
-- [FormatOptions](#FormatOptions)
-
-
-<p>JSONOptions contains options for logging format &quot;json&quot;.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>splitStream</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>[Experimental] SplitStream redirects error messages to stderr while
-info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering.</p>
-</td>
-</tr>
-<tr><td><code>infoBufferSize</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
-</td>
-<td>
-   <p>[Experimental] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
-    
-
-**Appears in:**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
-
-<p>LeaderElectionConfiguration defines the configuration of leader election
-clients for components that can run with leader election enabled.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>leaderElect</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>leaderElect enables a leader election client to gain leadership
-before executing the main loop. Enable this when running replicated
-components for high availability.</p>
-</td>
-</tr>
-<tr><td><code>leaseDuration</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>leaseDuration is the duration that non-leader candidates will wait
-after observing a leadership renewal until attempting to acquire
-leadership of a led but unrenewed leader slot. This is effectively the
-maximum duration that a leader can be stopped before it is replaced
-by another candidate. This is only applicable if leader election is
-enabled.</p>
-</td>
-</tr>
-<tr><td><code>renewDeadline</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>renewDeadline is the interval between attempts by the acting master to
-renew a leadership slot before it stops leading. This must be less
-than or equal to the lease duration. This is only applicable if leader
-election is enabled.</p>
-</td>
-</tr>
-<tr><td><code>retryPeriod</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>retryPeriod is the duration the clients should wait between attempting
-acquisition and renewal of a leadership. This is only applicable if
-leader election is enabled.</p>
-</td>
-</tr>
-<tr><td><code>resourceLock</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>resourceLock indicates the resource object type that will be used to lock
-during leader election cycles.</p>
-</td>
-</tr>
-<tr><td><code>resourceName</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>resourceName indicates the name of resource object that will be used to lock
-during leader election cycles.</p>
-</td>
-</tr>
-<tr><td><code>resourceNamespace</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>resourceName indicates the namespace of resource object that will be used to lock
-during leader election cycles.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `LoggingConfiguration`     {#LoggingConfiguration}
-    
-
-**Appears in:**
-
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-
-<p>LoggingConfiguration contains logging options
-Refer <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a> for more information.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>format</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>Format Flag specifies the structure of log messages.
-default value of format is <code>text</code></p>
-</td>
-</tr>
-<tr><td><code>flushFrequency</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
-</td>
-<td>
-   <p>Maximum number of seconds between log flushes. Ignored if the
-selected logging backend writes log messages without buffering.</p>
-</td>
-</tr>
-<tr><td><code>verbosity</code> <B>[Required]</B><br/>
-<code>uint32</code>
-</td>
-<td>
-   <p>Verbosity is the threshold that determines which log messages are
-logged. Default is zero which logs only the most important
-messages. Higher values enable additional messages. Error messages
-are always logged.</p>
-</td>
-</tr>
-<tr><td><code>vmodule</code> <B>[Required]</B><br/>
-<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
-</td>
-<td>
-   <p>VModule overrides the verbosity threshold for individual files.
-Only supported for &quot;text&quot; log format.</p>
-</td>
-</tr>
-<tr><td><code>sanitization</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>[Experimental] When enabled prevents logging of fields tagged as sensitive (passwords, keys, tokens).
-Runtime log sanitization may introduce significant computation overhead and therefore should not be enabled in production.`)</p>
-</td>
-</tr>
-<tr><td><code>options</code> <B>[Required]</B><br/>
-<a href="#FormatOptions"><code>FormatOptions</code></a>
-</td>
-<td>
-   <p>[Experimental] Options holds additional parameters that are specific
-to the different logging formats. Only the options for the selected
-format get used, but all of them get validated.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `VModuleConfiguration`     {#VModuleConfiguration}
-    
-(Alias of `[]k8s.io/component-base/config/v1alpha1.VModuleItem`)
-
-**Appears in:**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-
-<p>VModuleConfiguration is a collection of individual file names or patterns
-and the corresponding verbosity threshold.</p>
-
-
-

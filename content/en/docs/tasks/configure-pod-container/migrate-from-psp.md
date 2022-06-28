@@ -323,7 +323,7 @@ configuration of the API server:
 
 To verify that the PodSecurityPolicy admission controller is no longer enabled, you can manually run
 a test by impersonating a user without access to any PodSecurityPolicies (see the
-[PodSecurityPolicy example](/docs/concepts/policy/pod-security-policy/#example)), or by verifying in
+[PodSecurityPolicy example](/docs/concepts/security/pod-security-policy/#example)), or by verifying in
 the API server logs. At startup, the API server outputs log lines listing the loaded admission
 controller plugins:
 

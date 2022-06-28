@@ -18,7 +18,7 @@ It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 
 {{< warning >}}
-Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. 
+Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure.
 If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
 {{< /warning>}}
 
@@ -53,7 +53,7 @@ clusters and namespaces.
 A *context* element in a kubeconfig file is used to group access parameters
 under a convenient name. Each context has three parameters: cluster, namespace, and user.
 By default, the `kubectl` command-line tool uses parameters from
-the *current context* to communicate with the cluster. 
+the *current context* to communicate with the cluster.
 
 To choose the current context:
 ```
@@ -150,16 +150,16 @@ are stored absolutely.
 
 ## Proxy
 
-You can configure `kubectl` to use proxy by setting `proxy-url` in the kubeconfig file, like:
+You can configure `kubectl` to use a proxy per cluster using `proxy-url` in your kubeconfig file, like this:
 
 ```yaml
 apiVersion: v1
 kind: Config
 
-proxy-url: https://proxy.host:3128
-
 clusters:
 - cluster:
+    proxy-url: http://proxy.example.org:3128
+    server: https://k8s.example.org/k8s/clusters/c-xxyyzz
   name: development
 
 users:
@@ -168,7 +168,6 @@ users:
 contexts:
 - context:
   name: development
-
 ```
 
 

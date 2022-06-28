@@ -155,7 +155,7 @@ runtime where possible.
 
 Another thing to look out for is anything expecting to run for system maintenance
 or nested inside a container when building images will no longer work. For the
-former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from docker cli to crictl](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/#mapping-from-docker-cli-to-crictl)) and for the
+former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from dockercli to crictl](/docs/reference/tools/map-crictl-dockercli/)) and for the
 latter you can use newer container build options like [img], [buildah],
 [kaniko], or [buildkit-cli-for-kubectl] that don’t require Docker.
 

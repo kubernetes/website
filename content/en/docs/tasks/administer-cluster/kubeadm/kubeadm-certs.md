@@ -244,7 +244,7 @@ serverTLSBootstrap: true
 ```
 
 If you have already created the cluster you must adapt it by doing the following:
- - Find and edit the `kubelet-config-{{< skew latestVersion >}}` ConfigMap in the `kube-system` namespace.
+ - Find and edit the `kubelet-config-{{< skew currentVersion >}}` ConfigMap in the `kube-system` namespace.
 In that ConfigMap, the `kubelet` key has a
 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
@@ -276,7 +276,7 @@ By default, these serving certificate will expire after one year. Kubeadm sets t
 `KubeletConfiguration` field `rotateCertificates` to `true`, which means that close
 to expiration a new set of CSRs for the serving certificates will be created and must
 be approved to complete the rotation. To understand more see
-[Certificate Rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#certificate-rotation).
+[Certificate Rotation](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#certificate-rotation).
 
 If you are looking for a solution for automatic approval of these CSRs it is recommended
 that you contact your cloud provider and ask if they have a CSR signer that verifies

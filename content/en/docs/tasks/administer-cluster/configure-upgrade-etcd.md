@@ -150,7 +150,7 @@ access to clients with the certificate `k8sclient.cert`.
 
 Once etcd is configured correctly, only clients with valid certificates can
 access it. To give Kubernetes API servers the access, configure them with the
-flags `--etcd-certfile=k8sclient.cert`,`--etcd-keyfile=k8sclient.key` and
+flags `--etcd-certfile=k8sclient.cert`, `--etcd-keyfile=k8sclient.key` and
 `--etcd-cafile=ca.cert`.
 
 {{< note >}}
@@ -319,7 +319,7 @@ employed to recover the data of a failed cluster.
 
 Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
-[data directory]( https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
+[data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
 Here is an example:
 
 ```shell

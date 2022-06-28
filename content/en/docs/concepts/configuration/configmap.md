@@ -279,5 +279,6 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
 
 * Read about [Secrets](/docs/concepts/configuration/secret/).
 * Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* Read about [changing a ConfigMap (or any other Kubernetes object)](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.

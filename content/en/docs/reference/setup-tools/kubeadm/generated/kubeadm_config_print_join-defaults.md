@@ -79,6 +79,3 @@ kubeadm config print join-defaults [flags]
 
 </tbody>
 </table>
-
-
-

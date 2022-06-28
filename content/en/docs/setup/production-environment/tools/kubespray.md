@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Packet (bare metal), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
+This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Equinix Metal (formerly Packet), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
 
 Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
 
@@ -39,14 +39,14 @@ Provision servers with the following [requirements](https://github.com/kubernete
 * The target servers are configured to allow **IPv4 forwarding**
 * **Your ssh key must be copied** to all the servers in your inventory
 * **Firewalls are not managed by kubespray**. You'll need to implement appropriate rules as needed. You should disable your firewall in order to avoid any issues during deployment
-* If kubespray is ran from a non-root user account, correct privilege escalation method should be configured in the target servers and the `ansible_become` flag or command parameters `--become` or `-b` should be specified
+* If kubespray is run from a non-root user account, correct privilege escalation method should be configured in the target servers and the `ansible_become` flag or command parameters `--become` or `-b` should be specified
 
 Kubespray provides the following utilities to help provision your environment:
 
 * [Terraform](https://www.terraform.io/) scripts for the following cloud providers:
   * [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
   * [OpenStack](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/openstack)
-  * [Packet](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/packet)
+  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/metal)
 
 ### (2/5) Compose an inventory file
 

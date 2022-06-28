@@ -281,9 +281,9 @@ mengakses API ini, administrator klaster harus memastikan bahwa:
   `false` untuk mengubah ke *autoscaling* berdasarkan Heapster, dimana ini sudah tidak didukung lagi.
 
 Untuk informasi lebih lanjut mengenai metrik-metrik ini dan bagaimana perbedaan setiap metrik, perhatikan proposal
-desain untuk [HPA V2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/hpa-v2.md),
-[custom.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md)
-dan [external.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/external-metrics-api.md).
+desain untuk [HPA V2](https://github.com/kubernetes/design-proposals-archive/blob/main/autoscaling/hpa-v2.md),
+[custom.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/custom-metrics-api.md)
+dan [external.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/external-metrics-api.md).
 
 Untuk contoh bagaimana menggunakan metrik-metrik ini, perhatikan [panduan penggunaan metrik khusus](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 dan [panduan penggunaan metrik eksternal](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
