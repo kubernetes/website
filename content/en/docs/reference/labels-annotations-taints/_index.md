@@ -622,7 +622,11 @@ for more information.
 
 Example: `kubernetes.io/psp: restricted`
 
-Value is the name of the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) that was validated against the ressource.
+This annotation is only relevant if you are using [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
+
+When the PodSecurityPolicy admission controller admits a Pod, the admission controller
+modifies the Pod to have this annotation.
+The value of the annotation is the name of the PodSecurityPolicy that was used for validation.
 
 ### seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
 
