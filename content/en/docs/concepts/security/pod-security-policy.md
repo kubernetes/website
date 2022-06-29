@@ -248,8 +248,7 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 
 ### Create a policy and a pod
 
-Define the example PodSecurityPolicy object in a file. This is a policy that
-prevents the creation of privileged pods.
+This is a policy that prevents the creation of privileged pods.
 The name of a PodSecurityPolicy object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
