@@ -287,6 +287,11 @@ pod's service account nor `fake-user` have permission to use the new policy:
 
 ```shell
 kubectl-user auth can-i use podsecuritypolicy/example
+```
+
+The output is similar to this:
+
+```
 no
 ```
 
@@ -303,14 +308,27 @@ kubectl-admin create role psp:unprivileged \
     --verb=use \
     --resource=podsecuritypolicy \
     --resource-name=example
-role "psp:unprivileged" created
+```
 
+```
+role "psp:unprivileged" created
+```
+
+```shell
 kubectl-admin create rolebinding fake-user:psp:unprivileged \
     --role=psp:unprivileged \
     --serviceaccount=psp-example:fake-user
-rolebinding "fake-user:psp:unprivileged" created
+```
 
+```
+rolebinding "fake-user:psp:unprivileged" created
+```
+
+```shell
 kubectl-user auth can-i use podsecuritypolicy/example
+```
+
+```
 yes
 ```
 
@@ -340,6 +358,11 @@ newly created PodSecurityPolicy:
 
 ```shell
 kubectl-user get pod pause -o yaml | grep kubernetes.io/psp
+```
+
+The output is similar to this
+
+```
 kubernetes.io/psp: example
 ```
 
