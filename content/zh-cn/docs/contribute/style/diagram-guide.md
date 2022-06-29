@@ -384,11 +384,11 @@ Figure 17 给出从 A 到 B 的一个简单流程。
 
 {{< note >}}
 <!--
-You must include the `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}` shortcode
+You must include the Hugo Mermaid shortcode
 tags at the start and end of the Mermaid code block. You should add a diagram
 caption below the diagram. 
 -->
-你必须在 Mermaid 代码块之前和之后分别添加 `{{</*  mermaid */>}}`、`{{</* /mermaid */>}}`
+你必须在 Mermaid 代码块之前和之后分别添加 Hugo Mermaid
 短代码标记，而且你应该在图表之后为其添加图表标题。
 {{< /note >}}
 
@@ -709,12 +709,12 @@ This section shows several examples of Mermaid diagrams.
 
 {{< note >}}
 <!--
-The code block examples omit the Hugo  `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}`
+The code block examples omit the Hugo Mermaid
 shortcode tags. This allows you to copy the code block into the live editor
 to experiment on your own.
 Note that the live editor doesn't recognize Hugo shortcodes. 
 -->
-代码块示例中忽略了 Hugo `{{</*  mermaid */>}}`、`{{</* /mermaid */>}}` 短代码标记。
+代码块示例中忽略了 Hugo Mermaid 短代码标记。
 这样，你就可以将这些代码段复制到在线编辑器中自行实验。
 注意，在线编辑器无法识别 Hugo 短代码。
 {{< /note >}}
