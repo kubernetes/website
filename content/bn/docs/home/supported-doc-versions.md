@@ -1,11 +1,11 @@
 ---
-title: উপলব্ধ ডকুমেন্টেশন সংস্করণ
+title: উপলব্ধ ডকুমেন্টেশনের সংস্করণ
 content_type: custom
 layout: supported-versions
 card:
   name: about
   weight: 10
-  title: উপলব্ধ ডকুমেন্টেশন সংস্করণ
+  title: উপলব্ধ ডকুমেন্টেশনের সংস্করণ
 ---
 
 
