@@ -172,16 +172,14 @@ for more information.
 参阅[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
 以了解更多信息。
 
-<!--
 {{< note >}}
+<!--
 Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
 which is a requirement for a container runtime to work with Kubernetes.
 For that reason, an additional service [cri-dockerd](https://github.com/Mirantis/cri-dockerd)
 has to be installed. cri-dockerd is a project based on the legacy built-in
 Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
 -->
-
-{{< note >}}
 Docker Engine 没有实现 [CRI](/zh-cn/docs/concepts/architecture/cri/)，而这是容器运行时在 Kubernetes 中工作所需要的。
 为此，必须安装一个额外的服务 [cri-dockerd](https://github.com/Mirantis/cri-dockerd)。
 cri-dockerd 是一个基于传统的内置Docker引擎支持的项目，它在 1.24 版本从 kubelet 中[移除](/zh-cn/dockershim)。
@@ -189,9 +187,6 @@ cri-dockerd 是一个基于传统的内置Docker引擎支持的项目，它在 1
 
 <!--
 The tables below include the known endpoints for supported operating systems:
-
-{{< tabs name="container_runtime" >}}
-{{% tab name="Linux" %}}
 -->
 下面的表格包括被支持的操作系统的已知端点。
 
@@ -199,13 +194,11 @@ The tables below include the known endpoints for supported operating systems:
 {{% tab name="Linux" %}}
 
 <!--
-{{< table >}}
 | Runtime                            | Path to Unix domain socket                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `unix:///var/run/containerd/containerd.sock` |
 | CRI-O                              | `unix:///var/run/crio/crio.sock`             |
 | Docker Engine (using cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
-{{< /table >}}
 -->
 {{< table >}}
 | 运行时                              | Unix 域套接字                                     |
@@ -215,17 +208,14 @@ The tables below include the known endpoints for supported operating systems:
 | Docker Engine (使用 cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
 {{< /table >}}
 
-<!--
+{{% /tab %}}
 {{% tab name="Windows" %}}
-
-{{< table >}}
+<!--
 | Runtime                            | Path to Windows named pipe                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `npipe:////./pipe/containerd-containerd`     |
 | Docker Engine (using cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
-{{< /table >}}
 -->
-{{% tab name="Windows" %}}
 
 {{< table >}}
 | 运行时                              |  Windows 命名管道路径                         |
@@ -233,6 +223,9 @@ The tables below include the known endpoints for supported operating systems:
 | containerd                         | `npipe:////./pipe/containerd-containerd`     |
 | Docker Engine (使用 cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
 {{< /table >}}
+
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
 ## Installing kubeadm, kubelet and kubectl
@@ -245,16 +238,6 @@ You will install these packages on all of your machines:
     and does things like starting pods and containers.
 
 * `kubectl`: the command line util to talk to your cluster.
-
-kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will
-need to ensure they match the version of the Kubernetes control plane you want
-kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
-can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
-kubelet and the control plane is supported, but the kubelet version may never exceed the API
-server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
-but not vice versa.
-
-For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/).
 -->
 ## 安装 kubeadm、kubelet 和 kubectl
 
@@ -266,6 +249,17 @@ For information about installing `kubectl`, see [Install and set up kubectl](/do
 
 * `kubectl`：用来与集群通信的命令行工具。
 
+<!--
+kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will
+need to ensure they match the version of the Kubernetes control plane you want
+kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
+can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
+kubelet and the control plane is supported, but the kubelet version may never exceed the API
+server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
+but not vice versa.
+
+For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/).
+-->
 kubeadm **不能** 帮你安装或者管理 `kubelet` 或 `kubectl`，所以你需要
 确保它们与通过 kubeadm 安装的控制平面的版本相匹配。
 如果不这样做，则存在发生版本偏差的风险，可能会导致一些预料之外的错误和问题。
@@ -390,7 +384,6 @@ sudo systemctl enable --now kubelet
 
 {{% /tab %}}
 {{% tab name="无包管理器的情况" %}}
-
 <!--
 Install CNI plugins (required for most pod network):
 -->
@@ -522,3 +515,4 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 -->
 * [使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+
