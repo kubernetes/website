@@ -215,7 +215,7 @@ controller selects policies according to the following criteria:
    (ordered by name) to allow the pod is selected.
 
 When a Pod is validated against a PodSecurityPolicy, [a `kubernetes.io/psp` annotation](/docs/reference/labels-annotations-taints/#kubernetes-io-psp)
-is added with its name as its value.
+is added to the Pod, with the name of the PodSecurityPolicy as the annotation value.
 
 {{< note >}}
 During update operations (during which mutations to pod specs are disallowed)
