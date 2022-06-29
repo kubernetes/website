@@ -64,7 +64,7 @@ tambahan pada <i>resource</i> yang dimiliki.
 Selain itu, [Kubernetes control plane]() dibuat berdasarkan
 [API](/docs/reference/using-api/api-overview/) yang tersedia bagi pengguna dan developer. Pengguna
 dapat mengimplementasikan kontroler sesuai dengan kebutuhan mereka, contohnya adalah
-[schedulers](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md),
+[schedulers](https://github.com/kubernetes/community/blob/master/contributors/devel/scheduler.md),
 dengan [API kustom yang mereka miliki](), kontroler kustom ini kemudian dapat digunakan
 pada [command-line
 tool]() generik yang ada.

@@ -64,7 +64,7 @@ services) (yang memiliki `ClusterIP` dari `None`) untuk Service discovery yang m
 
 ## Menggunakan label
 
-- Deklarasi dan gunakan [labels] (/id/docs/concepts/overview/working-with-objects/labels/) untuk identifikasi __semantic attributes__  aplikasi atau Deployment kamu, seperti `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. Kamu dapat menggunakan label ini untuk memilih Pod yang sesuai untuk sumber daya lainnya; misalnya, Service yang memilih semua `tier: frontend` Pods, atau semua komponen `phase: test` dari `app: myapp`. Lihat [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) aplikasi untuk contoh-contoh pendekatan ini.
+- Deklarasi dan gunakan [labels] (/id/docs/concepts/overview/working-with-objects/labels/) untuk identifikasi __semantic attributes__  aplikasi atau Deployment kamu, seperti `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. Kamu dapat menggunakan label ini untuk memilih Pod yang sesuai untuk sumber daya lainnya; misalnya, Service yang memilih semua `tier: frontend` Pods, atau semua komponen `phase: test` dari `app: myapp`. Lihat [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) aplikasi untuk contoh-contoh pendekatan ini.
 
 
 Service dapat dibuat untuk menjangkau beberapa Penyebaran dengan menghilangkan label khusus rilis dari pemilihnya. [Deployments](/id/docs/concepts/workloads/controllers/deployment/) membuatnya mudah untuk memperbarui Service yang sedang berjalan tanpa downtime.

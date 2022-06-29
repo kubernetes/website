@@ -159,7 +159,7 @@ Jika kamu tertarik mempelajari lebih lanjut tentang `kubectl`, silahkan baca [Ik
 
 Contoh yang kita lihat sejauh ini hanya menggunakan paling banyak satu label pada _resource_. Ada banyak skenario ketika membutuhkan beberapa label untuk membedakan sebuah kelompok dari yang lainnya.
 
-Sebagai contoh, aplikasi yang berbeda akan menggunakan label `app` yang berbeda, tapi pada aplikasi _multitier_, seperti pada [contoh buku tamu](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), tiap _tier_ perlu dibedakan. Misal untuk menandai _tier frontend_ bisa menggunakan label:
+Sebagai contoh, aplikasi yang berbeda akan menggunakan label `app` yang berbeda, tapi pada aplikasi _multitier_, seperti pada [contoh buku tamu](https://github.com/kubernetes/examples/tree/master/guestbook/), tiap _tier_ perlu dibedakan. Misal untuk menandai _tier frontend_ bisa menggunakan label:
 
 ```yaml
      labels:

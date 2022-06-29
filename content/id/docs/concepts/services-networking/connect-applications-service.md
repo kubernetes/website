@@ -112,7 +112,7 @@ Kamu sekarang dapat melakukan *curl* ke dalam *nginx Service* di `<CLUSTER-IP>:<
 ## Mengakses Service
 
 Kubernetes mendukung 2 mode utama untuk menemukan sebuah *Service* - variabel *environment* dan *DNS*.
-*DNS* membutuhkan [tambahan CoreDNS di dalam klaster](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
+*DNS* membutuhkan [tambahan CoreDNS di dalam klaster](http://releases.k8s.io/master/cluster/addons/dns/coredns).
 
 ### Variabel Environment
 
@@ -165,7 +165,7 @@ NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
 kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ```
 
-Jika *DNS* belum berjalan, kamu dapat [mengaktifkannya](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md#how-do-i-configure-it).
+Jika *DNS* belum berjalan, kamu dapat [mengaktifkannya](http://releases.k8s.io/master/cluster/addons/dns/kube-dns/README.md#how-do-i-configure-it).
 
 Sisa panduan ini mengasumsikan kamu mempunyai *Service* dengan IP (my-nginx), dan sebuah server *DNS*  yang memberikan nama ke dalam IP tersebut (CoreDNS klaster), jadi kamu dapat berkomunikasi dengan *Service* dari *Pod* lain di dalam klaster menggunakan metode standar (contohnya *gethostbyname*). Jalankan aplikasi *curl* lain untuk melakukan pengujian ini:
 
@@ -197,7 +197,7 @@ Hingga sekarang kita hanya mengakses *nginx* server dari dalam klaster. Sebelum 
 * Sebuah [secret](/id/docs/concepts/configuration/secret/) yang membuat setifikat tersebut dapat diakses oleh *pod*
 
 
-Kamu dapat melihat semua itu di [contoh nginx https](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). Contoh ini mengaharuskan kamu melakukan instalasi *go* dan *make*. Jika kamu tidak ingin melakukan instalasi tersebut, ikuti langkah-langkah manualnya nanti, singkatnya:
+Kamu dapat melihat semua itu di [contoh nginx https](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/). Contoh ini mengaharuskan kamu melakukan instalasi *go* dan *make*. Jika kamu tidak ingin melakukan instalasi tersebut, ikuti langkah-langkah manualnya nanti, singkatnya:
 
 ```shell
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
@@ -254,7 +254,7 @@ Sekarang modifikasi replika *nginx* untuk menjalankan server *https* menggunakan
 Berikut catatan penting tentang manifes *nginx-secure-app*:
 
 - di dalam file tersebut, ada spesifikasi *Deployment* dan *Service*
-- ada [server nginx](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/default.conf) yang melayani trafik *HTTP* di *port* 80 dan trafik *HTTPS* di *port* 443, dan *Service nginx* yang mengekspos kedua *port* tersebut.
+- ada [server nginx](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf) yang melayani trafik *HTTP* di *port* 80 dan trafik *HTTPS* di *port* 443, dan *Service nginx* yang mengekspos kedua *port* tersebut.
 - Setiap kontainer mempunyai akses ke *key* melalui *volume* yang di *mount* pada `/etc/nginx/ssl`. Ini adalah konfigurasi sebelum server *nginx* dijalankan.
 
 ```shell

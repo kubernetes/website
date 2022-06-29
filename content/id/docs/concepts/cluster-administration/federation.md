@@ -186,7 +186,7 @@ mampu menangani hingga 5000 node untuk tiap klaster. Baca [Membangun Klaster Bes
 ## {{% heading "whatsnext" %}}
 
 * Pelajari lebih lanjut tentang [proposal
-  _Federation_](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/multicluster/federation.md).
+  _Federation_](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multicluster/federation.md).
 * Baca [petunjuk pengaktifan](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) klaster _federation_.
 * Lihat [seminar tentang _federation_ pada Kubecon2016](https://www.youtube.com/watch?v=pq9lbkmxpS8)
 * Lihat [_update_ _federation_ pada Kubecon2017 Eropa](https://www.youtube.com/watch?v=kwOvOLnFYck)

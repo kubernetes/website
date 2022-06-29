@@ -46,7 +46,7 @@ FOO_SERVICE_PORT=<port dimana service dijalankan>
 ```
 
 Semua *Service* memiliki alamat-alamat IP yang bisa didapatkan di dalam Kontainer melalui DNS,
-jika [*addon* DNS](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/) diaktifkan. 
+jika [*addon* DNS](http://releases.k8s.io/master/cluster/addons/dns/) diaktifkan. 
 
 
 

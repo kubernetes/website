@@ -192,7 +192,7 @@ karena limit sumber dayanya, lihat bagian [Penyelesaian Masalah](#penyelesaian-m
 
 Penggunaan sumber daya dari sebuah Pod dilaporkan sebagai bagian dari kondisi Pod.
 
-Jika [_monitoring_ opsional](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/README.md) diaktifkan pada klaster kamu, maka penggunaan sumber daya Pod dapat diambil
+Jika [_monitoring_ opsional](http://releases.k8s.io/master/cluster/addons/cluster-monitoring/README.md) diaktifkan pada klaster kamu, maka penggunaan sumber daya Pod dapat diambil
 dari sistem _monitoring_ kamu.
 
 ## Penyelesaian Masalah

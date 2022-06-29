@@ -295,7 +295,7 @@ Kubernetes mendukung 2 buah mode primer untuk melakukan `Service` - variabel _en
 
 Ketika sebuah `Pod` dijalankan pada *node*, _kubelet_ menambahkan seperangkat variabel _environment_
 untuk setiap `Service` yang aktif. _Environment_ yang didukung adalah [Docker links compatible](https://docs.docker.com/userguide/dockerlinks/) variabel (perhatikan
-[makeLinkVariables](http://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49))
+[makeLinkVariables](http://releases.k8s.io/master/pkg/kubelet/envvars/envvars.go#L49))
 dan variabel `{SVCNAME}_SERVICE_HOST` dan `{SVCNAME}_SERVICE_PORT`, dinama nama `Service` akan diubah
 menjadi huruf kapital dan tanda _minus_  akan diubah menjadi _underscore_.
 

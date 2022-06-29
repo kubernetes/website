@@ -117,7 +117,7 @@ Pada saat fitur migrasi CSI (Container Storage Interface) untuk `awsElasticBlock
 
 Sebuah `azureDisk` digunakan untuk menambatkan sebuah [Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) Microsoft Azure ke dalam sebuah Pod.
 
-Selengkapnya dapat ditemukan [di sini](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md).
+Selengkapnya dapat ditemukan [di sini](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md).
 
 #### Migrasi CSI azureDisk
 
@@ -129,7 +129,7 @@ Pada saat fitur migrasi CSI untuk `azureDisk` diaktifkan, fitur ini akan menterj
 
 Sebuah `azureFile` digunakan untuk menambatkan sebuah Microsoft Azure File Volume (SMB 2.1 dan 3.0) ke dalam sebuah Pod.
 
-Selengkapnya dapat ditemukan [di sini](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
+Selengkapnya dapat ditemukan [di sini](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md).
 
 #### Migrasi CSI azureFile
 
@@ -145,7 +145,7 @@ Sebuah Volume `cephfs` memungkinkan sebuah volume CephFS yang sudah ada untuk di
 Kamu harus memiliki server Ceph sendiri dan mengekspor _share_-nya sebelum kamu dapat menggunakannya.
 {{< /caution >}}
 
-Selengkapnya, lihat [contoh CephFS](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/cephfs/).
+Selengkapnya, lihat [contoh CephFS](https://github.com/kubernetes/examples/tree/master/staging/volumes/cephfs/).
 
 ### cinder {#cinder}
 
@@ -277,7 +277,7 @@ Kamu dapat menentukan satu atau banyak target _World Wide Names_ menggunakan par
 Sebelumnya, kamu harus mengkonfigurasikan _FC SAN Zoning_ untuk mengalokasikan dan melakukan _masking_ terhadap LUN (_volume_) tersebut terhadap target WWN sehingga Node-node Kubernetes dapat mengakses mereka.
 {{< /caution >}}
 
-Lihat [Contoh FC](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel) untuk lebih detilnya.
+Lihat [Contoh FC](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) untuk lebih detilnya.
 
 ### flocker {#flocker}
 
@@ -289,7 +289,7 @@ Sebuah Volume `flockere` memungkinkan sebuah _dataset_ Flocker untuk ditambatkan
 Kamu harus memiliki instalasi Flocker yang sudah berjalan sebelum kamu dapat menggunakannya.
 {{< /caution >}}
 
-Lihat [Contoh Flocker](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker) untuk lebih detil.
+Lihat [Contoh Flocker](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker) untuk lebih detil.
 
 ### gcePersistentDisk {#gcepersistentdisk}
 
@@ -418,7 +418,7 @@ Tidak seperti `emptyDir` yang ikut dihapus saat Pod dihapus, isi dari sebuah `gl
 Kamu harus mempunyai instalasi GlusterFS terlebih dahulu sebelum dapat kamu gunakan.
 {{< /caution >}}
 
-Lihat [contoh GlusterFS](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/glusterfs) untuk lebih detil.
+Lihat [contoh GlusterFS](https://github.com/kubernetes/examples/tree/master/staging/volumes/glusterfs) untuk lebih detil.
 
 ### hostPath {#hostpath}
 
@@ -487,7 +487,7 @@ Kamu harus memiliki peladen iSCSI yang berjalan dengan volume iSCSI yang telah d
 
 Salah satu fitur iSCSI yaitu mereka dapat ditambatkan sebagai _read-only_ secara bersamaan oleh beberapa pengguna. Hal ini berarti kamu dapat mengisi data terlebih dahulu dan menyediakan data tersebut secara paralel untuk sebanyak apapun Pod yang kamu butuhkan. Sayangnya, iSCSI hanya dapat ditambatkan kepada satu pengguna saja pada mode _read-write_ - yaitu, tidak boleh ada banyak penulis secara bersamaan.
 
-Lihat [contoh iSCSI](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/iscsi) untuk lebih detil.
+Lihat [contoh iSCSI](https://github.com/kubernetes/examples/tree/master/staging/volumes/iscsi) untuk lebih detil.
 
 ### local {#local}
 
@@ -550,7 +550,7 @@ Tidak seperti `emptyDir` yang ikut dihapus saat Pod dihapus, isi dari sebuah `nf
 Kamu harus memiliki peladen NFS yang berjalan dengan _share_ yang diekspor sebelum kamu dapat menggunakannya.
 {{< /caution >}}
 
-Lihat [contoh NFS](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs) untuk lebih lanjut.
+Lihat [contoh NFS](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) untuk lebih lanjut.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -569,7 +569,7 @@ Saat ini, tipe-tipe sumber Volume berikut dapat diproyeksikan:
 - [`configMap`](#configmap)
 - `serviceAccountToken`
 
-Semua sumber harus berada pada `namespace` yang sama dengan Pod yang menggunakannya. Untuk lebih lanjut, lihat [dokumen desain Volume](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
+Semua sumber harus berada pada `namespace` yang sama dengan Pod yang menggunakannya. Untuk lebih lanjut, lihat [dokumen desain Volume](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md).
 
 Proyeksi `serviceAccountToken` adalah fitur yang diperkenalkan pada Kubernetes 1.11 dan dipromosikan menjadi Beta pada 1.12.
 Untuk mengaktifkan fitur inipada 1.11, kamu harus menyetel [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `TokenRequestProjection` secara eksplisit menjadi `True`.
@@ -714,7 +714,7 @@ spec:
 Pastikan kamu sudah memiliki PortworxVolume dengan nama `pxvol` sebelum dapat menggunakannya pada Pod.
 {{< /caution >}}
 
-Lihat [di sini](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/portworx/README.md) untuk lebih lanjut.
+Lihat [di sini](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) untuk lebih lanjut.
 
 ### quobyte {#quobyte}
 
@@ -738,7 +738,7 @@ Kamu harus memiliki instalasi Ceph yang berjalan sebelum kamu dapat menggunakan 
 
 Sebuah fitur RBD yaitu mereka dapat ditambatkan sebagai _read-only_ secara bersamaan oleh beberapa pengguna. Hal ini berarti kamu dapat mengisi data terlebih dahulu dan menyediakan data tersebut secara paralel untuk sebanyak apapun Pod yang kamu butuhkan. Sayangnya, RBD hanya dapat ditambatkan kepada satu pengguna saja pada mode _read-write_ - yaitu, tidak boleh ada banyak penulis secara bersamaan.
 
-Lihat [contoh RBD](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/rbd) untuk lebih lanjut.
+Lihat [contoh RBD](https://github.com/kubernetes/examples/tree/master/staging/volumes/rbd) untuk lebih lanjut.
 
 ### scaleIO {#scaleio}
 
@@ -775,7 +775,7 @@ spec:
       fsType: xfs
 ```
 
-Lihat [contoh ScaleIO](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio) untuk lebih lanjut.
+Lihat [contoh ScaleIO](https://github.com/kubernetes/examples/tree/master/staging/volumes/scaleio) untuk lebih lanjut.
 
 ### secret {#secret}
 

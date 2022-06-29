@@ -25,7 +25,7 @@ menjelaskan tentang bagaimana menggunakan `kubeadm` untuk melakukan migrasi dari
 
 DNS adalah Service bawaan dalam Kubernetes yang diluncurkan secara otomatis
 melalui _addon manager_
-[add-on klaster](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md).
+[add-on klaster](http://releases.k8s.io/master/cluster/addons/README.md).
 
 Sejak Kubernetes v1.12, CoreDNS adalah server DNS yang direkomendasikan untuk menggantikan kube-dns. Jika klaster kamu
 sebelumnya menggunakan kube-dns, maka kamu mungkin masih menggunakan `kube-dns` daripada CoreDNS.

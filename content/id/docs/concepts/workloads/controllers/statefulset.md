@@ -38,7 +38,7 @@ replika _stateless_. _Controller_ seperti  [Deployment](/id/docs/concepts/worklo
 
 * StatefulSet merupakan sumber daya beta sebelum 1.9 dan tidak tersedia 
   pada Kubernetes rilis sebelum versi 1.5.
-* Penyimpanan untuk sebuah Pod harus terlebih dahulu di-_provision_ dengan menggunakan sebuah [Provisioner PersistentVolume](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) berdasarkan `storage class` yang dispesifikasikan, atau sudah ditentukan sebelumnya oleh administrator.
+* Penyimpanan untuk sebuah Pod harus terlebih dahulu di-_provision_ dengan menggunakan sebuah [Provisioner PersistentVolume](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md) berdasarkan `storage class` yang dispesifikasikan, atau sudah ditentukan sebelumnya oleh administrator.
 * Menghapus dan/atau _scaling_ sebuah StatefulSet *tidak akan* menghapus volume yang berkaitan dengan StatefulSet tersebut. Hal ini dilakukan untuk menjamin data yang disimpan, yang secara umum dinilai lebih berhaga dibandingkan dengan mekanisme penghapusan data secara otomatis pada sumber daya terkait.
 * StatefulSet saat ini membutuhkan sebuah [Headless Service](/id/docs/concepts/services-networking/service/#headless-services) yang nantinya akan bertanggung jawab terhadap pada identitas jaringan pada Pod. Kamulah yang bertanggung jawab untuk membuat Service tersebut.
 * StatefulSet tidak menjamin terminasi Pod ketika sebuah StatefulSet dihapus. Untuk mendapatkan terminasi Pod yang terurut dan _graceful_ pada StatefulSet, kita dapat melakukan _scale down_ Pod ke 0 sebelum penghapusan. 

@@ -142,7 +142,7 @@ kubelet mematikan Container dan mengulangnya kembali.
 Kode yang lebih besar atau sama dengan 200 dan kurang dari 400 mengindikasikan kesuksesan.
 Kode selain ini mengindikasikan kegagalan.
 
-Kamu dapat melihat kode program untuk server ini pada [server.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/liveness/server.go).
+Kamu dapat melihat kode program untuk server ini pada [server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
 
 Untuk 10 detik pertama setelah Container hidup (_alive_), _handler_ `/healthz` mengembalikan
 status 200. Setelah itu, _handler_ mengembalikan status 500.
