@@ -54,8 +54,8 @@ it can't be both.
 
 ClusterRoles have several uses. You can use a ClusterRole to:
 
-1. define permissions on namespaced resources and be granted within individual namespace(s)
-1. define permissions on namespaced resources and be granted across all namespaces
+1. define permissions on namespaced resources and be granted access within individual namespace(s)
+1. define permissions on namespaced resources and be granted access across all namespaces
 1. define permissions on cluster-scoped resources
 
 If you want to define a role within a namespace, use a Role; if you want to define
