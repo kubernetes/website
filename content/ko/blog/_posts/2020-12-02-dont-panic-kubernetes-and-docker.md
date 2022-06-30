@@ -9,9 +9,11 @@ slug: dont-panic-kubernetes-and-docker
 
 **번역:** 박재화(삼성SDS), 손석호(한국전자통신연구원)
 
-쿠버네티스는 v1.20 이후 컨테이너 런타임으로서
-[도커를
-사용 중단(deprecating)](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation)합니다.
+_업데이트: 쿠버네티스의 `dockershim`을 통한 도커 지원이 제거되었습니다.
+더 자세한 정보는 [지원 중단 공지](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)를 참고하세요.
+또는 지원 중단에 대한 [GitHub 이슈](https://github.com/kubernetes/kubernetes/issues/106917)에서 논의를 할 수도 있습니다._
+
+쿠버네티스는 v1.20 이후 컨테이너 런타임으로서 [도커를 사용 중단(deprecating)](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation)합니다.
 
 **당황할 필요는 없습니다. 말처럼 극적이진 않습니다.**
 
@@ -103,4 +105,4 @@ containerd가 정말 필요로 하는 것들을 확보하기 위해서 도커심
 모든 사람이 다가오는 변경 사항에 대해 최대한 많은 교육을 받을 수 있도록 하는 것입니다. 이 글이
 여러분이 가지는 대부분의 질문에 대한 답이 되었고, 불안을 약간은 진정시켰기를 바랍니다! ❤️
 
-더 많은 답변을 찾고 계신가요? 함께 제공되는 [도커심 사용 중단 FAQ](/blog/2020/12/02/dockershim-faq/)를 확인하세요.
+더 많은 답변을 찾고 계신가요? 함께 제공되는 [도커심 제거 FAQ](/blog/2022/02/17/dockershim-faq/)(2022년 2월에 갱신됨)를 확인하세요.
