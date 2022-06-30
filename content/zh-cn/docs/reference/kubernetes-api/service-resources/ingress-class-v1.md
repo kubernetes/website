@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/networking/v1"
   kind: "IngressClass"
 content_type: "api_reference"
-description: "IngressClass 代表 Ingress 等级，由 Ingress Spec 引用."
+description: "IngressClass 代表 Ingress 类，由 Ingress Spec 引用."
 title: "IngressClass"
 weight: 5
 ---
@@ -33,9 +33,9 @@ IngressClass represents the class of the Ingress, referenced by the Ingress Spec
 -->
 ## IngressClass {#IngressClass}
 
-IngressClass 表示 Ingress 类别，由 Ingress Spec 引用。
-`ingressclass.kubernetes.io/is-default-class` 注释可用于指示应将 IngressClass 视为默认。
-当单个 IngressClass 资源将此注释设置为true时，将为未指定类的新 IngressClass 资源分配此默认类
+IngressClass 表示 Ingress 类，由 Ingress Spec 引用。
+`ingressclass.kubernetes.io/is-default-class` 注解可用于指示应将 IngressClass 视为默认。
+当单个 IngressClass 资源将此注释设置为true时，将为未指定类的新 Ingress 资源分配此默认类
 
 <hr>
 
@@ -62,11 +62,11 @@ IngressClass 表示 Ingress 类别，由 Ingress Spec 引用。
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准对象的元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的对象元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClassSpec" >}}">IngressClassSpec</a>)
 
-  Spec 是 IngressClass 的所需状态。更多信息: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  spec 是 IngressClass 的期望状态。更多信息: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 <!--
@@ -90,7 +90,7 @@ IngressClassSpec 提供有关 Ingress 类别的信息
   Controller 是指应处理此类的控制器的名称。
   这允许由同一控制器控制不同的 “flavors”。
   例如，对于同一个实现控制器，您可能有不同的参数。
-  应将其指定为长度不超过250个字符的域前缀路径，例如 “acme.io/ingress controller”。
+  应将其指定为长度不超过 250 个字符的域前缀路径，例如 “acme.io/ingress controller”。
   此字段是不可变的。
 
 <!--
@@ -104,10 +104,11 @@ IngressClassSpec 提供有关 Ingress 类别的信息
 - **parameters** (IngressClassParametersReference)
 
   Parameters是指向包含控制器其他配置的自定义资源的链接。
-  如果控制器不需要额外参数，这是可选的。
+  资源中包含控制器的其他配置。
+  如果控制器不需要额外参数，此属性是可选的。
 
   <a name="IngressClassParametersReference"></a>
-  *IngressClassParametersReference 标识 API 对象。这可用于指定群集或命名空间范围的资源。*
+  *IngressClassParametersReference 标识 API 对象。此字段可用于指定群集或命名空间范围的资源。*
 
 <!--
   - **parameters.kind** (string), required
@@ -122,19 +123,19 @@ IngressClassSpec 提供有关 Ingress 类别的信息
 
     APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 -->
- - **parameters.kind** (string), 必选
+ - **parameters.kind** (string), 必需
 
     Kind 是被引用的资源的类型。
 
-  - **parameters.name** (string), 必选
+  - **parameters.name** (string), 必需
 
     Name 是被引用资源的类型。
 
   - **parameters.apiGroup** (string)
 
-   APIGroup 是所引用资源的组。
-   如果未指定 APIGroup，则指定的种类必须在核心 API 组中。
-   对于任何其他第三方类型，都需要APIGroup。
+    APIGroup 是所引用资源的组。
+    如果未指定 APIGroup，则指定的种类必须在核心 API 组中。
+    对于任何其他第三方类型，都需要 APIGroup。
 
 <!--
   - **parameters.namespace** (string)
@@ -153,7 +154,7 @@ IngressClassSpec 提供有关 Ingress 类别的信息
   - **parameters.scope** (string)
 
     Scope 表示这是否引用集群或命名空间范围的资源。
-    这可以设置为 “Cluster”（默认）或 “Namespace”。
+    此字段可以设置为 “Cluster”（默认）或 “Namespace”。
 
 
 <!--
@@ -232,7 +233,7 @@ GET /apis/networking.k8s.io/v1/ingressclasses/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **name** (*in path*): string, 必选
+- **name** (*in path*): string, 必需
 
   IngressClass名称
 
@@ -358,7 +359,7 @@ POST /apis/networking.k8s.io/v1/ingressclasses
 <!--
 - **body**: <a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>, required
 -->
-- **body**: <a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>, 必选
+- **body**: <a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>, 必需
 
   
 
@@ -431,12 +432,12 @@ PUT /apis/networking.k8s.io/v1/ingressclasses/{name}
 
 - **body**: <a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>, required
 -->
-- **name** (*in path*): string, 必选
+- **name** (*in path*): string, 必需
 
   IngressClass名称
 
 
-- **body**: <a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>, 必选 
+- **body**: <a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>, 必需 
 
 
 
@@ -509,7 +510,7 @@ PATCH /apis/networking.k8s.io/v1/ingressclasses/{name}
   IngressClass名称
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必选
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
 
   
 
@@ -583,7 +584,7 @@ DELETE /apis/networking.k8s.io/v1/ingressclasses/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 -->
-- **name** (*in path*): string, 必选
+- **name** (*in path*): string, 必需
 
   IngressClass名称
 
