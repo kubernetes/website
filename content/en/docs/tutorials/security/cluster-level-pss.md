@@ -41,12 +41,12 @@ that are most appropriate for your configuration, do the following:
 1. Create a cluster with no Pod Security Standards applied:
 
     ```shell
-    kind create cluster --name psa-wo-cluster-pss --image kindest/node:v{{< skew currentVersion >}}.0
+    kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.24.0
     ```
    The output is similar to this:
     ```
     Creating cluster "psa-wo-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼
+    ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
     ✓ Preparing nodes 📦  
     ✓ Writing configuration 📜
     ✓ Starting control-plane 🕹️
@@ -248,12 +248,12 @@ following:
    these Pod Security Standards:
 
    ```shell
-    kind create cluster --name psa-with-cluster-pss --image kindest/node:v{{< skew currentVersion >}}.0 --config /tmp/pss/cluster-config.yaml
+    kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.24.0 --config /tmp/pss/cluster-config.yaml
    ```
    The output is similar to this:
    ```
     Creating cluster "psa-with-cluster-pss" ...
-     ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼 
+     ✓ Ensuring node image (kindest/node:v1.24.0) 🖼 
      ✓ Preparing nodes 📦  
      ✓ Writing configuration 📜 
      ✓ Starting control-plane 🕹️ 
