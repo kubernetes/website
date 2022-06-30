@@ -225,7 +225,7 @@ kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
 
 `nltest.exe /parentdomain` 는 다음과 같은 오류를 발생시킨다.
 
-```
+```output
 Getting parent domain failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
@@ -244,7 +244,8 @@ nltest.exe /query
 ```
 
 결과는 다음과 같다.
-```
+
+```output
 I_NetLogonControl failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
@@ -255,7 +256,8 @@ nltest /sc_reset:domain.example
 ```
 
 명령이 성공하면 다음과 유사한 출력이 표시된다.
-```
+
+```output
 Flags: 30 HAS_IP  HAS_TIMESERV
 Trusted DC Name \\dc10.domain.example
 Trusted DC Connection Status Status = 0 0x0 NERR_Success
