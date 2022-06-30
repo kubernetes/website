@@ -23,6 +23,7 @@ function copyCode(elem){
       document.body.appendChild(target);
     }
     target.value = document.getElementById(elem).innerText;
+    target.value = target.value.replace(/\n\n/gm,"\n").trim();
     // select the content
     target.select();
 
