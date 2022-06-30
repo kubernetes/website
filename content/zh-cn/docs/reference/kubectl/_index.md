@@ -33,10 +33,22 @@ You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster
 files by setting the `KUBECONFIG` environment variable or by setting the
 [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 -->
+<<<<<<< HEAD
+<<<<<<< HEAD
+针对配置信息，`kubectl` 在 `$HOME/.kube` 目录中查找一个名为 `config` 的配置文件。
+你可以通过设置 `KUBECONFIG` 环境变量或设置 [`--kubeconfig`](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+=======
+`针对配置信息，`kubectl` 在 `$HOME/.kube` 目录中查找一个名为 `config` 的配置文件。
+你可以通过设置 `KUBECONFIG` 环境变量或设置 
+`[`--kubeconfig`](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)`
+>>>>>>> 5ba0697ea9 (Update _index.md)
+ 参数来指定其它 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
+=======
 `针对配置信息，`kubectl` 在 `$HOME/.kube` 目录中查找一个名为 `config` 的配置文件。
 你可以通过设置 `KUBECONFIG` 环境变量或设置
 [`--kubeconfig`](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 参数来指定其它 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
+>>>>>>> parent of a57439545b (Update _index.md)
 
 <!--
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples.
