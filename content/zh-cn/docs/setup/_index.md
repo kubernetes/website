@@ -56,7 +56,7 @@ If you don't want to manage a Kubernetes cluster yourself, you could pick a mana
 There are also other standardized and custom solutions across a wide range of cloud and
 bare metal environments.
 -->
-您可以[下载 Kubernetes](/zh-cn/releases/download/)，在本地机器、云或您自己的数据中心上部署 Kubernetes 集群。
+你可以[下载 Kubernetes](/zh-cn/releases/download/)，在本地机器、云或您自己的数据中心上部署 Kubernetes 集群。
 
 <!-- 
 Several [Kubernetes components](/docs/concepts/overview/components/) such as `kube-apiserver` or `kube-proxy` can also be
@@ -71,7 +71,7 @@ that is possible, and to have Kubernetes manage those components.
 Components that run containers - notably, the kubelet - can't be included in this category. 
 -->
 **建议**尽可能将 Kubernetes 组件作为容器镜像运行，并让 Kubernetes 管理这些组件。
-但是运行容器的相关组件 —— 尤其是 kubelet，不能包含在这个类别中。
+但是运行容器的相关组件 —— 尤其是 kubelet，不在此列。
 
 如果您不想自己管理 Kubernetes 集群，则可以选择托管服务，包括[经过认证的平台](/zh-cn/docs/setup/production-environment/turnkey-solutions/)。
 在各种云和裸机环境中，还有其他标准化和定制的解决方案。
