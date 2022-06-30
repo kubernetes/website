@@ -190,13 +190,13 @@ operator to use or manage a cluster.
 ## Design Docs
 
 An archive of the design docs for Kubernetes functionality. Good starting points are
-[Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
-[Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+[Kubernetes Architecture](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) and
+[Kubernetes Design Overview](https://git.k8s.io/design-proposals-archive).
 -->
 ## 设计文档
 
 Kubernetes 功能的设计文档归档，不妨考虑从
-[Kubernetes 架构](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) 和
-[Kubernetes 设计概述](https://git.k8s.io/community/contributors/design-proposals)
+[Kubernetes 架构](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) 和
+[Kubernetes 设计概述](https://git.k8s.io/design-proposals-archive)
 开始阅读。
 
