@@ -38,12 +38,6 @@ and for specific prerequisite follow
 
 <!--
 ## Drain the node 
-
-```shell
-kubectl drain <node-to-drain> --ignore-daemonsets
-```
-
-Replace `<node-to-drain>` with the name of your node you are draining.
 -->
 ## 腾空节点    {#drain-the-node}
 
@@ -51,6 +45,9 @@ Replace `<node-to-drain>` with the name of your node you are draining.
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
 
+<!--
+Replace `<node-to-drain>` with the name of your node you are draining.
+-->
 将 `<node-to-drain>` 替换为你所要腾空的节点的名称
 
 <!--
@@ -84,8 +81,8 @@ for detailed steps to install containerd.
    [Getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).
 -->
 1. 从官方的 Docker 仓库安装 `containerd.io` 包。关于为你所使用的 Linux 发行版来设置
-   Docker 仓库，以及安装 `containerd.io` 包的详细说明，可参见
-   [开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)。
+   Docker 仓库，以及安装 `containerd.io` 包的详细说明，
+   可参见[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)。
 
 <!--
 1. Configure containerd:
@@ -136,8 +133,8 @@ then run the following commands:
    .\containerd.exe config default | Out-File config.toml -Encoding ascii
 
    # 请审查配置信息。取决于你的安装环境，你可能需要调整：
-   # - the sandbox_image （Kubernetes pause 镜像）
-   # - cni bin_dir 和 conf_dir 的位置
+   # - sandbox_image （Kubernetes pause 镜像）
+   # - CNI 的 bin_dir 和 conf_dir 的位置
    Get-Content config.toml
 
    # （可选步骤，但强烈建议执行）将 containerd 排除在 Windows Defender 扫描之外
@@ -167,19 +164,17 @@ Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtim
 ## 配置 kubelet 使用 containerd 作为其容器运行时
 
 编辑文件 `/var/lib/kubelet/kubeadm-flags.env`，将 containerd 运行时添加到标志中：
-`--container-runtime=remote` 和 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock"`。
+`--container-runtime=remote` 和
+`--container-runtime-endpoint=unix:///run/containerd/containerd.sock"`。
 
 <!--
-For users using kubeadm should consider the following:
-
 Users using kubeadm should be aware that the `kubeadm` tool stores the CRI socket for each host as
 an annotation in the Node object for that host. To change it you can execute the following command
 on a machine that has the kubeadm `/etc/kubernetes/admin.conf` file.
 -->
-对于使用 kubeadm 的用户，可以考虑下面的问题：
-
 `kubeadm` 工具将每个主机的 CRI 套接字保存在该主机对应的 Node 对象的注解中。
-使用 `kubeadm` 的用户应该知道，`kubeadm` 工具将每个主机的 CRI 套接字保存在该主机对应的 Node 对象的注解中。
+使用 `kubeadm` 的用户应该知道，`kubeadm` 工具将每个主机的 CRI 套接字保存在该主机对应的
+Node 对象的注解中。
 要更改这一注解信息，你可以在一台包含 kubeadm `/etc/kubernetes/admin.conf` 文件的机器上执行以下命令：
 
 ```shell
@@ -188,7 +183,6 @@ kubectl edit no <node-name>
 
 <!--
 This will start a text editor where you can edit the Node object.
-
 To choose a text editor you can set the `KUBE_EDITOR` environment variable.
 
 - Change the value of `kubeadm.alpha.kubernetes.io/cri-socket` from `/var/run/dockershim.sock`
@@ -222,12 +216,15 @@ systemctl start kubelet
 ## Verify that the node is healthy
 
 Run `kubectl get nodes -o wide` and containerd appears as the runtime for the node we just changed.
-
-## Remove Docker Engine
 -->
 ## 验证节点处于健康状态   {#verify-that-the-node-is-healthy}
 
 运行 `kubectl get nodes -o wide`，containerd 会显示为我们所更改的节点上的运行时。
+
+<!--
+## Remove Docker Engine
+-->
+## 移除 Docker Engine  {#remove-docker-engine}
 
 {{% thirdparty-content %}}
 
@@ -262,4 +259,19 @@ sudo apt-get purge docker-ce docker-ce-cli
 ```
 {{% /tab %}}
 {{< /tabs >}}
+
+<!--
+The preceding commands don't remove images, containers, volumes, or customized configuration files on your host.
+To delete them, follow Docker's instructions to [Uninstall Docker Engine](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine).
+-->
+上面的命令不会移除你的主机上的镜像、容器、卷或者定制的配置文件。
+要删除这些内容，参阅 Docker 的指令来[卸载 Docker Engine](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine)。
+
+{{< caution >}}
+<!--
+Docker's instructions for uninstalling Docker Engine create a risk of deleting containerd. Be careful when executing commands.
+-->
+Docker 所提供的卸载 Docker Engine 命令指导中，存在删除 containerd 的风险。
+在执行命令时要谨慎。
+{{< /caution >}}
 
