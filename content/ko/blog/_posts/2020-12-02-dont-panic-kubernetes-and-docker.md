@@ -7,7 +7,7 @@ evergreen: true
 ---
 
 **업데이트:** _쿠버네티스의 `dockershim`을 통한 도커 지원이 제거되었습니다.
-더 자세한 정보는 [제거와 관련된 자주 묻는 질문](/dockershim)을 참고하세요.
+더 자세한 정보는 [제거와 관련된 자주 묻는 질문](/dockershim/)을 참고하세요.
 또는 지원 중단에 대한 [GitHub 이슈](https://github.com/kubernetes/kubernetes/issues/106917)에서 논의를 할 수도 있습니다._
 
 ---

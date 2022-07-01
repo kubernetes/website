@@ -98,9 +98,9 @@ kubeadm은 에러를 반환하고 사용자가 어떤 것을 사용할지를 명
 
 {{< note >}}
 도커 엔진은 컨테이너 런타임이 쿠버네티스와 호환되기 위한 요구 사항인 
-[CRI](/docs/concepts/architecture/cri/)를 만족하지 않는다. 
+[CRI](/ko/docs/concepts/architecture/cri/)를 만족하지 않는다. 
 이러한 이유로, 추가 서비스인 [cri-dockerd](https://github.com/Mirantis/cri-dockerd)가 설치되어야 한다. 
-cri-dockerd는 쿠버네티스 버전 1.24부터 kubelet에서 [제거](/dockershim)된 
+cri-dockerd는 쿠버네티스 버전 1.24부터 kubelet에서 [제거](/dockershim/)된 
 기존 내장 도커 엔진 지원을 기반으로 한 프로젝트이다.
 {{< /note >}}
 
