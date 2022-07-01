@@ -25,6 +25,9 @@ Standard at the cluster level which applies a standard configuration
 to all namespaces in a cluster.
 
 To apply Pod Security Standards to specific namespaces, refer to [Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
+
+If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
+check the documentation for that version.
 -->
 Pod 安全准入（PSA）在 v1.23 及更高版本默认启用，
 因为它[升级到测试版（beta）](/blog/2021/12/09/pod-security-admission-beta/)。
@@ -35,6 +38,9 @@ Pod 安全准入是在创建 Pod 时应用
 
 要将 Pod 安全标准应用于特定名字空间，
 请参阅[在名字空间级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/ns-level-pss)。
+
+如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，
+检查该版本的文档。
 
 ## {{% heading "prerequisites" %}}
 <!-- 
@@ -73,13 +79,13 @@ that are most appropriate for your configuration, do the following:
 1. 创建一个没有应用 Pod 安全标准的集群：
 
    ```shell
-   kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.23.0
+   kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.24.0
    ```
    <!-- The output is similar to this: -->
    输出类似于：
    ```
    Creating cluster "psa-wo-cluster-pss" ...
-   ✓ Ensuring node image (kindest/node:v1.23.0) 🖼
+   ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
    ✓ Preparing nodes 📦  
    ✓ Writing configuration 📜
    ✓ Starting control-plane 🕹️
@@ -331,13 +337,13 @@ following:
 5. 创建一个使用 Pod 安全准入的集群来应用这些 Pod 安全标准：
 
    ```shell
-   kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.23.0 --config /tmp/pss/cluster-config.yaml
+   kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.24.0 --config /tmp/pss/cluster-config.yaml
    ```
    <!-- The output is similar to this: -->
    输出类似于：
    ```
    Creating cluster "psa-with-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v1.23.0) 🖼 
+    ✓ Ensuring node image (kindest/node:v1.24.0) 🖼 
     ✓ Preparing nodes 📦  
     ✓ Writing configuration 📜 
     ✓ Starting control-plane 🕹️ 
