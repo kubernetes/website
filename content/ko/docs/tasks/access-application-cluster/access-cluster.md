@@ -214,7 +214,7 @@ API 서버를 찾고 인증하는 방식이 약간 다를 수 있다.
 
 이전 섹션에서는 쿠버네티스 API 서버에 연결하는 방법을 소개하였다. 
 쿠버네티스 클러스터에서 실행되는 다른 서비스에 연결하는 방법은 
-[클러스터 서비스에 접근](/ko/docs/tasks/administer-cluster/access-cluster-services/) 페이지를 참조한다.
+[클러스터 서비스에 접근](/ko/docs/tasks/access-application-cluster/access-cluster-services/) 페이지를 참조한다.
 
 ## redirect 요청하기
 

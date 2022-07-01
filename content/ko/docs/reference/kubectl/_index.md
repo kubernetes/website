@@ -550,7 +550,7 @@ Current user: plugins-user
 * `kubectl` 레퍼런스 문서를 읽는다.
   * kubectl [명령어 레퍼런스](/ko/docs/reference/kubectl/kubectl/)
   * [명령줄 인자](/docs/reference/generated/kubectl/kubectl-commands/) 레퍼런스
-* [`kubectl` 사용 규칙](/docs/reference/kubectl/conventions/)에 대해 알아본다.
-* kubectl의 [JSONPath 지원](/docs/reference/kubectl/jsonpath/)에 대해 알아본다.
+* [`kubectl` 사용 규칙](/ko/docs/reference/kubectl/conventions/)에 대해 알아본다.
+* kubectl의 [JSONPath 지원](/ko/docs/reference/kubectl/jsonpath/)에 대해 알아본다.
 * [플러그인으로 kubectl 확장](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)에 대해 알아본다.
   * 플러그인에 대해 좀 더 알아보려면, [예시 CLI 플러그인](https://github.com/kubernetes/sample-cli-plugin)을 살펴본다.

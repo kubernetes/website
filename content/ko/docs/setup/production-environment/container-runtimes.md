@@ -36,7 +36,7 @@ _dockershim_ 이라는 구성 요소를 사용하여 도커 엔진과의 직접 
 더 이상 쿠버네티스에 포함되지 않는다(이 제거는 
 v1.20 릴리스의 일부로 [공지](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)되었다). 
 이 제거가 어떻게 영향을 미치는지 알아보려면 
-[Dockershim 사용 중단이 영향을 미치는지 확인하기](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) 문서를 확인한다. 
+[Dockershim 사용 중단이 영향을 미치는지 확인하기](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) 문서를 확인한다. 
 dockershim을 사용하던 환경에서 이전(migrating)하는 방법을 보려면, 
 [dockershim에서 이전하기](/docs/tasks/administer-cluster/migrating-from-dockershim/)를 확인한다.
 

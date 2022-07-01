@@ -607,7 +607,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면,
   플러그인의 초기 형태를 제공하였으며, 사용 중단되었다. 
   대안을 위해서는 [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)을 
   확인한다.
-- `AdvancedAuditing`: [고급 감사](/docs/tasks/debug-application-cluster/audit/#advanced-audit) 기능을 활성화한다.
+- `AdvancedAuditing`: [고급 감사](/docs/tasks/debug/debug-cluster/audit/#advanced-audit) 기능을 활성화한다.
 - `AffinityInAnnotations`: [파드 어피니티 또는 안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
   설정을 활성화한다.
 - `AllowExtTrafficLocalEndpoints`: 서비스가 외부 요청을 노드의 로컬 엔드포인트로 라우팅할 수 있도록 한다.
