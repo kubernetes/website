@@ -1290,7 +1290,7 @@ kubelet은 시크릿에 있던 기밀 데이터의 로컬 복사본을 삭제한
   base64 인코딩은 암호화 수단이 _아니기 때문에_, 평문과 마찬가지로 기밀성을 제공하지 않는다.
 - 시크릿 API와 통신하는 애플리케이션을 배포할 때, 
   [RBAC](/docs/reference/access-authn-authz/rbac/)과 같은 
-  [인증 정책](/docs/reference/access-authn-authz/authorization/)을 사용하여 
+  [인증 정책](/ko/docs/reference/access-authn-authz/authorization/)을 사용하여 
   접근을 제한해야 한다.
 - 쿠버네티스 API에서, 네임스페이스 내 시크릿에 대한 `watch` 와 `list` 요청은 매우 강력한 기능이다. 
   시크릿 목록 조회를 가능하게 하면 
@@ -1309,7 +1309,7 @@ kubelet은 시크릿에 있던 기밀 데이터의 로컬 복사본을 삭제한
   가장 특권이 있는 시스템 레벨의 컴포넌트에만 이 동작을 허용한다.
 - 시크릿 API와 통신하는 애플리케이션을 배포할 때, 
   [RBAC](/docs/reference/access-authn-authz/rbac/)과 같은 
-  [인증 정책](/docs/reference/access-authn-authz/authorization/)을 사용하여 
+  [인증 정책](/ko/docs/reference/access-authn-authz/authorization/)을 사용하여 
   접근을 제한해야 한다.
 - API 서버에서, (시크릿을 포함한) 오브젝트는 
   {{< glossary_tooltip term_id="etcd" >}}에 저장된다. 그러므로

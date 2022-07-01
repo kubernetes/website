@@ -350,7 +350,7 @@ Events:
 
 {{< note >}}
 파드시큐리티폴리시는 쿠버네티스 v1.21에서 사용 중단되었으며, v1.25에서 제거될 예정이다. 
-더 자세한 내용은 [파드시큐리티폴리시](/ko/docs/concepts/policy/pod-security-policy/) 문서를 참고한다.
+더 자세한 내용은 [파드시큐리티폴리시](/ko/docs/concepts/security/pod-security-policy/) 문서를 참고한다.
 {{< /note >}}
 
 만약 파드시큐리티폴리시 확장을 사용하면, 클러스터 단위로 AppArmor 제한을 적용할 수 있다.

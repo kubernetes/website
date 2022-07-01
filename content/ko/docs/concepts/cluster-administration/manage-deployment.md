@@ -461,5 +461,5 @@ kubectl edit deployment/my-nginx
 ## {{% heading "whatsnext" %}}
 
 
-- [애플리케이션 검사 및 디버깅에 `kubectl` 을 사용하는 방법](/docs/tasks/debug-application-cluster/debug-application-introspection/)에 대해 알아본다.
+- [애플리케이션 검사 및 디버깅에 `kubectl` 을 사용하는 방법](/ko/docs/tasks/debug/debug-application/debug-running-pod/)에 대해 알아본다.
 - [구성 모범 사례 및 팁](/ko/docs/concepts/configuration/overview/)을 참고한다.

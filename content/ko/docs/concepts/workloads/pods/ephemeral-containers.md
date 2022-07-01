@@ -70,4 +70,4 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
 
 ## {{% heading "whatsnext" %}}
 
-* [임시 컨테이너 디버깅하기](/ko/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)에 대해 알아보기.
+* [임시 컨테이너 디버깅하기](/ko/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container)에 대해 알아보기.

@@ -90,7 +90,7 @@ HorizontalPodAutoscaler를 사용하는 일반적인 방법은
 `custom.metrics.k8s.io`, 또는 `external.metrics.k8s.io`)로부터 메트릭을 가져오도록 설정하는 것이다. 
 `metrics.k8s.io` API는 보통 메트릭 서버(Metrics Server)라는 애드온에 의해 제공되며, 
 Metrics Server는 별도로 실행해야 한다. 자원 메트릭에 대한 추가 정보는 
-[Metrics Server](/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#메트릭-서버)를 참고한다.
+[Metrics Server](/ko/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server)를 참고한다.
 
 [메트릭 API를 위한 지원](#메트릭-api를-위한-지원)에서 위의 API들에 대한 안정성 보장 및 지원 상태를 
 확인할 수 있다.

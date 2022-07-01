@@ -229,7 +229,7 @@ kubelet은 파드의 리소스 사용량을 파드
 [`status`](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#오브젝트-명세-spec-와-상태-status)에 포함하여 보고한다.
 
 클러스터에서 선택적인 [모니터링 도구](/ko/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)를
-사용할 수 있다면, [메트릭 API](/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#메트릭-api)에서
+사용할 수 있다면, [메트릭 API](/ko/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)에서
 직접 또는 모니터링 도구에서 파드 리소스
 사용량을 검색할 수 있다.
 
