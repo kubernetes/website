@@ -509,6 +509,39 @@ spec:
 {{% /tab %}}
 {{< /tabs >}}
 
+<!--
+### Version removal
+
+An older API version cannot be dropped from a CustomResourceDefinition manifest until existing persisted data has been migrated to the newer API version for all clusters that served the older version of the custom resource, and the old version is removed from the `status.storedVersions` of the CustomResourceDefinition.
+-->
+### 版本删除   {#version-removal}
+
+在为所有提供旧版本自定义资源的集群将现有数据迁移到新 API 版本，并且从 CustomResourceDefinition 的
+`status.storedVersions` 中删除旧版本之前，无法从 CustomResourceDefinition 清单文件中删除旧 API 版本。
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+  name: crontabs.example.com
+spec:
+  group: example.com
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    # 此属性标明该自定义资源的 v1beta1 版本已不再提供。
+    # 发给此版本的 API 请求会在服务器响应中收到未找到的错误。
+    served: false
+    schema: ...
+  - name: v1
+    served: true
+    # 新提供的版本应该设置为存储版本。
+    storage: true
+    schema: ...
+```
 
 <!--
 ## Webhook conversion
