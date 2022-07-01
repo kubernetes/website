@@ -10,4 +10,6 @@ Work on Kubernetes code and public issues are tracked using [GitHub Issues](http
 
 * [CVE-related issues](https://github.com/kubernetes/kubernetes/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aarea%2Fsecurity+in%3Atitle+CVE)
 
+<!--- Add link to CVE issue list and JSON here --->
+
 Security-related announcements are sent to the [kubernetes-security-announce@googlegroups.com](https://groups.google.com/forum/#!forum/kubernetes-security-announce) mailing list.
