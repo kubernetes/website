@@ -38,7 +38,7 @@ no_list: true
 [튜토리얼](/ko/docs/tutorials/)은 실무, 산업 특화 혹은 종단간 개발에 특화된 시나리오를 통해 차근차근 설명한다. 
 [레퍼런스](/ko/docs/reference/) 섹션에서는 
 [쿠버네티스 API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)와 
-[`kubectl`](/ko/docs/reference/kubectl/overview/)과 같은 커맨드 라인 인터페이스(CLI)에 대한 
+[`kubectl`](/ko/docs/reference/kubectl/)과 같은 커맨드 라인 인터페이스(CLI)에 대한 
 상세한 설명을 다룬다.
 
 ## 도와주세요! 내 질문이 다뤄지지 않았어요! 도움이 필요해요!
