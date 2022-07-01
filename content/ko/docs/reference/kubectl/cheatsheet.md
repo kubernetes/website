@@ -460,6 +460,6 @@ Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 
 
 * [kubectl](/ko/docs/reference/kubectl/kubectl/) 옵션을 참고한다.
 
-* 재사용 스크립트에서 kubectl 사용 방법을 이해하기 위해 [kubectl 사용법](/ko/docs/reference/kubectl/conventions/)을 참고한다.
+* 재사용 스크립트에서 kubectl 사용 방법을 이해하기 위해 [kubectl 사용 규칙](/ko/docs/reference/kubectl/conventions/)을 참고한다.
 
 * 더 많은 커뮤니티 [kubectl 치트시트](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)를 확인한다.

@@ -299,7 +299,7 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 {{< note >}}
 `maxUnavailable` 필드는 현재 알파 단계이며 
 `MaxUnavailableStatefulSet` 
-[기능 게이트](/ko/docs/reference/commmand-line-tools-reference/feature-gates/)가 활성화된 API 서버에서만 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 API 서버에서만 
 동작한다.
 {{< /note >}}
 
