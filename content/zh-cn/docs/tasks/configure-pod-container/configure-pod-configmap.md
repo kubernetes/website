@@ -52,8 +52,7 @@ Use the `kubectl create configmap` command to create ConfigMaps from [directorie
 -->
 ### 使用 kubectl create configmap 创建 ConfigMap    {#create-a-configmap-using-kubectl-create-configmap}
 
-你可以使用 `kubectl create configmap`
-命令基于[目录](#create-configmaps-from-directories)、
+你可以使用 `kubectl create configmap` 命令基于[目录](#create-configmaps-from-directories)、
 [文件](#create-configmaps-from-files)或者[字面值](#create-configmaps-from-literal-values)来创建
 ConfigMap：
 
@@ -72,8 +71,7 @@ The name of a ConfigMap object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 其中，`<映射名称>` 是为 ConfigMap 指定的名称，`<数据源>` 是要从中提取数据的目录、
-文件或者字面值。
-ConfigMap 对象的名称必须是合法的
+文件或者字面值。ConfigMap 对象的名称必须是合法的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 <!--
@@ -419,7 +417,8 @@ data:
 Starting with Kubernetes v1.23, `kubectl` supports the `--from-env-file` argument to be
 specified multiple times to create a ConfigMap from multiple data sources.
 -->
-从 Kubernetes 1.23 版本开始，`kubectl` 支持多次指定 `--from-env-file` 参数来从多个数据源创建 ConfigMap。
+从 Kubernetes 1.23 版本开始，`kubectl` 支持多次指定 `--from-env-file` 参数来从多个数据源创建
+ConfigMap。
 
 ```shell
 kubectl create configmap config-multi-env-files \
@@ -848,10 +847,10 @@ configmap/special-config-2-c92b5mmcf2 created
 -->
 ## 将 ConfigMap 中的所有键值对配置为容器环境变量    {#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables}
 
+{{< note >}}
 <!--
 This functionality is available in Kubernetes v1.6 and later.
 -->
-{{< note >}}
 Kubernetes v1.6 和更高版本支持此功能。
 {{< /note >}}
 
@@ -990,17 +989,18 @@ Pod 运行时，命令 `ls /etc/config/` 产生下面的输出：
 SPECIAL_LEVEL
 SPECIAL_TYPE
 ```
+
+{{< caution >}}
 <!--
 If there are some files in the `/etc/config/` directory, they will be deleted.
 -->
-{{< caution >}}
 如果在 `/etc/config/` 目录中有一些文件，这些文件将被删除。
 {{< /caution >}}
 
+{{< note >}}
 <!--
 Text data is exposed as files using the UTF-8 character encoding. To use some other character encoding, use binaryData.
 -->
-{{< note >}}
 文本数据会展现为 UTF-8 字符编码的文件。如果使用其他字符编码，
 可以使用 `binaryData`。
 {{< /note >}}
@@ -1037,10 +1037,10 @@ When the pod runs, the command `cat /etc/config/keys` produces the output below:
 very
 ```
 
+{{< caution >}}
 <!--
 Like before, all previous files in the `/etc/config/` directory will be deleted.
 -->
-{{< caution >}}
 如前，`/etc/config/` 目录中所有先前的文件都将被删除。
 {{< /caution >}}
 
@@ -1084,20 +1084,18 @@ existence after a pod has started.
 <!--
 Kubelet checks whether the mounted ConfigMap is fresh on every periodic sync. However, it uses its local TTL-based cache for getting the current value of the
 ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as
-kubelet sync period (1 minute by default) + TTL of ConfigMaps cache (1 minute by default) in kubelet. You can trigger an immediate refresh by updating one of
-the pod's annotations.
+kubelet sync period (1 minute by default) + TTL of ConfigMaps cache (1 minute by default) in kubelet.
 -->
 `kubelet` 在每次周期性同步时都会检查已挂载的 ConfigMap 是否是最新的。
 但是，它使用其本地的基于 TTL 的缓存来获取 ConfigMap 的当前值。
 因此，从更新 ConfigMap 到将新键映射到 Pod 的总延迟可能与
 kubelet 同步周期（默认 1 分钟） + ConfigMap 在 kubelet 中缓存的 TTL
 （默认 1 分钟）一样长。
-你可以通过更新 Pod 的某个注解来触发立即更新。
 
+{{< note >}}
 <!--
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
 -->
-{{< note >}}
 使用 ConfigMap 作为 [subPath](/zh-cn/docs/concepts/storage/volumes/#using-subpath)
 的数据卷将不会收到 ConfigMap 更新。
 {{< /note >}}
@@ -1117,10 +1115,10 @@ ConfigMap 与 [Secret](/zh-cn/docs/concepts/configuration/secret/) 类似，
 但是提供的是一种处理不含敏感信息的字符串的方法。
 用户和系统组件都可以在 ConfigMap 中存储配置数据。
 
+{{< note >}}
 <!--
 ConfigMaps should reference properties files, not replace them. Think of the ConfigMap as representing something similar to the Linux `/etc` directory and its contents. For example, if you create a [Kubernetes Volume](/docs/concepts/storage/volumes/) from a ConfigMap, each data item in the ConfigMap is represented by an individual file in the volume.
 -->
-{{< note >}}
 ConfigMap 应该引用属性文件，而不是替换它们。可以将 ConfigMap 理解为类似于 Linux
 `/etc` 目录及其内容的东西。例如，如果你基于 ConfigMap 创建
 [Kubernetes 卷](/zh-cn/docs/concepts/storage/volumes/)，则 ConfigMap
