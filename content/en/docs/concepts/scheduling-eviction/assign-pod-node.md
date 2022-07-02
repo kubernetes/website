@@ -283,7 +283,7 @@ spec.
 
 Consider the following Pod spec:
 
-{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
+{{< codenew file="pods/assigning-pods-to-nodes-affinity.yaml" >}}
 
 This example defines one Pod affinity rule and one Pod anti-affinity rule. The
 Pod affinity rule uses the "hard"
