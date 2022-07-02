@@ -51,12 +51,27 @@ control, available resources, and expertise required to operate and manage a clu
 You can [download Kubernetes](/releases/download/) to deploy a Kubernetes cluster
 on a local machine, into the cloud, or for your own datacenter.
 
+Several [Kubernetes components](/docs/concepts/overview/components/) such as `kube-apiserver` or `kube-proxy` can also be
+deployed as [container images](/releases/download/#container-images) within the cluster.
+
+It is **recommended** to run Kubernetes components as container images wherever
+that is possible, and to have Kubernetes manage those components.
+Components that run containers - notably, the kubelet - can't be included in this category.
+
 If you don't want to manage a Kubernetes cluster yourself, you could pick a managed service, including
 [certified platforms](/docs/setup/production-environment/turnkey-solutions/).
 There are also other standardized and custom solutions across a wide range of cloud and
 bare metal environments.
 -->
-可以[下载 Kubernetes](/releases/download/)，在本地机器、云或你自己的数据中心上部署 Kubernetes 集群。
+你可以[下载 Kubernetes](/zh-cn/releases/download/)，在本地机器、云或你自己的数据中心上部署 Kubernetes 集群。
+
+某些 [Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)，
+比如 `kube-apiserver` 或 `kube-proxy` 等，
+可以在集群中以[容器镜像](/zh-cn/releases/download/#container-images)部署。
+
+**建议**尽可能将 Kubernetes 组件作为容器镜像运行，并且让 Kubernetes 管理这些组件。
+但是运行容器的相关组件 —— 尤其是 kubelet，不在此列。
+
 如果你不想自己管理 Kubernetes 集群，则可以选择托管服务，包括[经过认证的平台](/zh-cn/docs/setup/production-environment/turnkey-solutions/)。
 在各种云和裸机环境中，还有其他标准化和定制的解决方案。
 <!-- body -->
@@ -106,15 +121,16 @@ for deploying Kubernetes is [kubeadm](/docs/setup/production-environment/tools/k
 Kubernetes is designed for its {{< glossary_tooltip term_id="control-plane" text="control plane" >}} to
 run on Linux. Within your cluster you can run applications on Linux or other operating systems, including
 Windows.
-- Learn to [set up clusters with Windows nodes](/docs/setup/production-environment/windows/)
+
+- Learn to [set up clusters with Windows nodes](/docs/concepts/windows/)
 -->
 ## {{% heading "whatsnext" %}}
 
-- [下载 Kubernetes](/releases/download/)
+- [下载 Kubernetes](/zh-cn/releases/download/)
 - 下载并[安装工具](/zh-cn/docs/tasks/tools/)，包括 kubectl 在内
 - 为新集群选择[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
 - 了解集群设置的[最佳实践](/zh-cn/docs/setup/best-practices/)
 
 Kubernetes 的设计是让其{{< glossary_tooltip term_id="control-plane" text="控制平面" >}}在 Linux 上运行的。
 在集群中，你可以在 Linux 或其他操作系统（包括 Windows）上运行应用程序。
-- 学习[配置包含 Windows 节点的集群](/zh-cn/docs/setup/production-environment/windows/)
+- 学习[配置包含 Windows 节点的集群](/zh-cn/docs/concepts/windows/)
