@@ -212,7 +212,7 @@ Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.1
 [handbook-packaging]: https://git.k8s.io/sig-release/release-engineering/packaging.md
 [handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [k-sig-release-releases]: https://git.k8s.io/sig-release/releases
-[patches]: /patch-releases.md
+[patches]: /releases/patch-releases/
 [src]: https://git.k8s.io/community/committee-security-response/README.md
 [release-team]: https://git.k8s.io/sig-release/release-team/README.md
 [security-release-process]: https://git.k8s.io/security/security-release-process.md
