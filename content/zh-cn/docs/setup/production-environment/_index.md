@@ -360,15 +360,6 @@ having them register themselves to the cluster’s apiserver. See the
   [节点](/zh-cn/docs/concepts/architecture/nodes/)节，了解如何配置 Kubernetes
   以便以这些方式来添加节点。
 <!--
-- *Add Windows nodes to the cluster*: Kubernetes offers support for Windows
-worker nodes, allowing you to run workloads implemented in Windows containers. See
-[Windows in Kubernetes](/docs/setup/production-environment/windows/) for details.
--->
-- *向集群中添加 Windows 节点*：Kubernetes 提供对 Windows 工作节点的支持；
-  这使得你可以运行实现于 Windows 容器内的工作负载。参阅
-  [Kubernetes 中的 Windows](/zh-cn/docs/setup/production-environment/windows/)
-  了解进一步的详细信息。
-<!--
 - *Scale nodes*: Have a plan for expanding the capacity your cluster will
 eventually need. See [Considerations for large clusters](/docs/setup/best-practices/cluster-large/)
 to help determine how many nodes you need, based on the number of pods and
