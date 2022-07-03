@@ -38,7 +38,7 @@ template.
 ReplicaSet 是通过一组字段来定义的，包括一个用来识别可获得的 Pod
 的集合的选择算符、一个用来标明应该维护的副本个数的数值、一个用来指定应该创建新 Pod
 以满足副本个数条件时要使用的 Pod 模板等等。
-每个 ReplicaSet 都通过根据需要创建和 删除 Pod 以使得副本个数达到期望值，
+每个 ReplicaSet 都通过根据需要创建和删除 Pod 以使得副本个数达到期望值，
 进而实现其存在价值。当 ReplicaSet 需要创建新的 Pod 时，会使用所提供的 Pod 模板。
 
 <!--
@@ -60,9 +60,8 @@ OwnerReference is not a {{< glossary_tooltip term_id="controller" >}} and it mat
 ReplicaSet.
 -->
 ReplicaSet 使用其选择算符来辨识要获得的 Pod 集合。如果某个 Pod 没有
-OwnerReference 或者其 OwnerReference 不是一个
-{{< glossary_tooltip text="控制器" term_id="controller" >}}，且其匹配到
-某 ReplicaSet 的选择算符，则该 Pod 立即被此 ReplicaSet 获得。
+OwnerReference 或者其 OwnerReference 不是一个{{< glossary_tooltip text="控制器" term_id="controller" >}}，
+且其匹配到某 ReplicaSet 的选择算符，则该 Pod 立即被此 ReplicaSet 获得。
 
 <!--
 ## When to use a ReplicaSet
@@ -81,8 +80,8 @@ use a Deployment instead, and define your application in the spec section.
 ReplicaSet 确保任何时间都有指定数量的 Pod 副本在运行。
 然而，Deployment 是一个更高级的概念，它管理 ReplicaSet，并向 Pod
 提供声明式的更新以及许多其他有用的功能。
-因此，我们建议使用 Deployment 而不是直接使用 ReplicaSet，除非
-你需要自定义更新业务流程或根本不需要更新。
+因此，我们建议使用 Deployment 而不是直接使用 ReplicaSet，
+除非你需要自定义更新业务流程或根本不需要更新。
 
 这实际上意味着，你可能永远不需要操作 ReplicaSet 对象：而是使用
 Deployment，并在 spec 部分定义你的应用。
@@ -169,7 +168,7 @@ Events:
 <!--
 And lastly you can check for the Pods brought up:
 -->
-最后可以查看启动了的 Pods：
+最后可以查看启动了的 Pod 集合：
 
 ```shell
 kubectl get pods
@@ -191,8 +190,8 @@ frontend-wtsmm   1/1     Running   0          6m36s
 You can also verify that the owner reference of these pods is set to the frontend ReplicaSet.
 To do this, get the yaml of one of the Pods running:
 -->
-你也可以查看 Pods 的属主引用被设置为前端的 ReplicaSet。
-要实现这点，可取回运行中的 Pods 之一的 YAML：
+你也可以查看 Pod 的属主引用被设置为前端的 ReplicaSet。
+要实现这点，可取回运行中的某个 Pod 的 YAML：
 
 ```shell
 kubectl get pods frontend-b2zdv -o yaml
@@ -268,7 +267,7 @@ Fetching the Pods:
 新的 Pod 会被该 ReplicaSet 获取，并立即被 ReplicaSet 终止，
 因为它们的存在会使得 ReplicaSet 中 Pod 个数超出其期望值。
 
-取回 Pods：
+取回 Pod：
 
 
 ```shell
@@ -292,7 +291,7 @@ pod2             0/1     Terminating   0          1s
 <!--
 If you create the Pods first:
 -->
-如果你先行创建 Pods：
+如果你先行创建 Pod：
 
 ```shell
 kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
@@ -334,7 +333,7 @@ pod2             1/1     Running   0          36s
 <!--
 In this manner, a ReplicaSet can own a non-homogenous set of Pods
 -->
-采用这种方式，一个 ReplicaSet 中可以包含异质的 Pods 集合。
+采用这种方式，一个 ReplicaSet 中可以包含异质的 Pod 集合。
 
 <!--
 ## Writing a ReplicaSet manifest
@@ -350,7 +349,7 @@ A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contrib
 ## 编写 ReplicaSet 的清单    {#writing-a-replicaset-manifest}
 
 与所有其他 Kubernetes API 对象一样，ReplicaSet 也需要 `apiVersion`、`kind`、和 `metadata` 字段。
-对于 ReplicaSets 而言，其 `kind` 始终是 ReplicaSet。
+对于 ReplicaSet 而言，其 `kind` 始终是 ReplicaSet。
 
 ReplicaSet 对象的名称必须是合法的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
@@ -369,9 +368,9 @@ Be careful not to overlap with the selectors of other controllers, lest they try
 For the template's [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) field,
 `.spec.template.spec.restartPolicy`, the only allowed value is `Always`, which is the default.
 -->
-### Pod 模版    {#pod-template}
+### Pod 模板    {#pod-template}
 
-`.spec.template` 是一个 [Pod 模版](/zh-cn/docs/concepts/workloads/pods/#pod-templates)，
+`.spec.template` 是一个 [Pod 模板](/zh-cn/docs/concepts/workloads/pods/#pod-templates)，
 要求设置标签。在 `frontend.yaml` 示例中，我们指定了标签 `tier: frontend`。
 注意不要将标签与其他控制器的选择算符重叠，否则那些控制器会尝试收养此 Pod。
 
@@ -396,7 +395,7 @@ be rejected by the API.
 ### Pod 选择算符   {#pod-selector}
 
 `.spec.selector` 字段是一个[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。
-如前文中[所讨论的](#how-a-replicaset-works)，这些是用来标识要被获取的 Pods
+如前文中[所讨论的](#how-a-replicaset-works)，这些是用来标识要被获取的 Pod
 的标签。在签名的 `frontend.yaml` 示例中，选择算符为：
 
 ```yaml
@@ -413,7 +412,7 @@ For 2 ReplicaSets specifying the same `.spec.selector` but different `.spec.temp
 -->
 对于设置了相同的 `.spec.selector`，但
 `.spec.template.metadata.labels` 和 `.spec.template.spec` 字段不同的两个
-ReplicaSet 而言，每个 ReplicaSet 都会忽略被另一个 ReplicaSet 所创建的 Pods。
+ReplicaSet 而言，每个 ReplicaSet 都会忽略被另一个 ReplicaSet 所创建的 Pod。
 {{< /note >}}
 
 <!--
@@ -427,7 +426,7 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 ### Replicas
 
 你可以通过设置 `.spec.replicas` 来指定要同时运行的 Pod 个数。
-ReplicaSet 创建、删除 Pods 以与此值匹配。
+ReplicaSet 创建、删除 Pod 以与此值匹配。
 
 如果你没有指定 `.spec.replicas`，那么默认值为 1。
 
@@ -442,7 +441,7 @@ When using the REST API or the `client-go` library, you must set `propagationPol
 the -d option.
 For example:
 -->
-## 使用 ReplicaSets    {#working-with-replicasets}
+## 使用 ReplicaSet    {#working-with-replicasets}
 
 ### 删除 ReplicaSet 和它的 Pod    {#deleting-a-replicaset-and-its-pods}
 
@@ -470,7 +469,7 @@ For example:
 -->
 ### 只删除 ReplicaSet    {#deleting-just-a-replicaset}
 
-你可以只删除 ReplicaSet 而不影响它的 Pods，方法是使用
+你可以只删除 ReplicaSet 而不影响它的各个 Pod，方法是使用
 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)
 命令并设置 `--cascade=orphan` 选项。
 
@@ -517,17 +516,17 @@ assuming that the number of replicas is not also changed).
 A ReplicaSet can be easily scaled up or down by simply updating the `.spec.replicas` field. The ReplicaSet controller
 ensures that a desired number of Pods with a matching label selector are available and operational.
 -->
-### 缩放 RepliaSet    {#scaling-a-replicaset}
+### 扩缩 RepliaSet    {#scaling-a-replicaset}
 
-通过更新 `.spec.replicas` 字段，ReplicaSet 可以被轻松的进行缩放。ReplicaSet
+通过更新 `.spec.replicas` 字段，ReplicaSet 可以被轻松地进行扩缩。ReplicaSet
 控制器能确保匹配标签选择器的数量的 Pod 是可用的和可操作的。
 
 <!--
 When scaling down, the ReplicaSet controller chooses which pods to delete by sorting the available pods to
 prioritize scaling down pods based on the following general algorithm:
 -->
-在降低集合规模时，ReplicaSet 控制器通过对可用的 Pods 进行排序来优先选择
-要被删除的 Pods。其一般性算法如下：
+在降低集合规模时，ReplicaSet 控制器通过对可用的所有 Pod 进行排序来优先选择要被删除的那些 Pod。
+其一般性算法如下：
 
 <!--
  1. Pending (and unschedulable) pods are scaled down first
@@ -538,9 +537,8 @@ prioritize scaling down pods based on the following general algorithm:
     comes before the older pod (the creation times are bucketed on an integer log scale
     when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
 -->
-1. 首先选择剔除悬决（Pending，且不可调度）的 Pods
-2. 如果设置了 `controller.kubernetes.io/pod-deletion-cost` 注解，则注解值
-   较小的优先被裁减掉
+1. 首先选择剔除悬决（Pending，且不可调度）的各个 Pod
+2. 如果设置了 `controller.kubernetes.io/pod-deletion-cost` 注解，则注解值较小的优先被裁减掉
 3. 所处节点上副本个数较多的 Pod 优先于所处节点上副本较少者
 4. 如果 Pod 的创建时间不同，最近创建的 Pod 优先于早前创建的 Pod 被裁减。
    （当 `LogarithmicScaleDown` 这一[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
@@ -560,7 +558,7 @@ Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-
 annotation, users can set a preference regarding which pods to remove first when downscaling a ReplicaSet.
 -->
 通过使用 [`controller.kubernetes.io/pod-deletion-cost`](/zh-cn/docs/reference/labels-annotations-taints/#pod-deletion-cost)
-注解，用户可以对 ReplicaSet 缩容时要先删除哪些 Pods 设置偏好。
+注解，用户可以对 ReplicaSet 缩容时要先删除哪些 Pod 设置偏好。
 
 <!--
 The annotation should be set on the pod, the range is [-2147483647, 2147483647]. It represents the cost of
@@ -568,14 +566,14 @@ deleting a pod compared to other pods belonging to the same ReplicaSet. Pods wit
 cost are preferred to be deleted before pods with higher deletion cost. 
 -->
 此注解要设置到 Pod 上，取值范围为 [-2147483647, 2147483647]。
-所代表的的是删除同一 ReplicaSet 中其他 Pod 相比较而言的开销。
-删除开销较小的 Pods 比删除开销较高的 Pods 更容易被删除。
+所代表的是删除同一 ReplicaSet 中其他 Pod 相比较而言的开销。
+删除开销较小的 Pod 比删除开销较高的 Pod 更容易被删除。
 
 <!--
 The implicit value for this annotation for pods that don't set it is 0; negative values are permitted.
 Invalid values will be rejected by the API server.
 -->
-Pods 如果未设置此注解，则隐含的设置值为 0。负值也是可接受的。
+Pod 如果未设置此注解，则隐含的设置值为 0。负值也是可接受的。
 如果注解值非法，API 服务器会拒绝对应的 Pod。
 
 <!--
@@ -609,12 +607,11 @@ the down scaling; for example, the driver pod of a Spark deployment.
 -->
 #### 使用场景示例    {#example-use-case}
 
-同一应用的不同 Pods 可能其利用率是不同的。在对应用执行缩容操作时，可能
-希望移除利用率较低的 Pods。为了避免频繁更新 Pods，应用应该在执行缩容
-操作之前更新一次 `controller.kubernetes.io/pod-deletion-cost` 注解值
+同一应用的不同 Pod 可能其利用率是不同的。在对应用执行缩容操作时，
+可能希望移除利用率较低的 Pod。为了避免频繁更新 Pod，应用应该在执行缩容操作之前更新一次
+`controller.kubernetes.io/pod-deletion-cost` 注解值
 （将注解值设置为一个与其 Pod 利用率对应的值）。
-如果应用自身控制器缩容操作时（例如 Spark 部署的驱动 Pod），这种机制
-是可以起作用的。
+如果应用自身控制器缩容操作时（例如 Spark 部署的驱动 Pod），这种机制是可以起作用的。
 
 <!--
 ### ReplicaSet as a Horizontal Pod Autoscaler Target
@@ -624,10 +621,10 @@ A ReplicaSet can also be a target for
 a ReplicaSet can be auto-scaled by an HPA. Here is an example HPA targeting
 the ReplicaSet we created in the previous example.
 -->
-### ReplicaSet 作为水平的 Pod 自动缩放器目标    {#replicaset-as-a-horizontal-pod-autoscaler-target}
+### ReplicaSet 作为水平的 Pod 自动扩缩器目标    {#replicaset-as-a-horizontal-pod-autoscaler-target}
 
-ReplicaSet 也可以作为[水平的 Pod 缩放器 (HPA)](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
-的目标。也就是说，ReplicaSet 可以被 HPA 自动缩放。
+ReplicaSet 也可以作为[水平的 Pod 扩缩器 (HPA)](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
+的目标。也就是说，ReplicaSet 可以被 HPA 自动扩缩。
 以下是 HPA 以我们在前一个示例中创建的副本集为目标的示例。
 
 {{< codenew file="controllers/hpa-rs.yaml" >}}
@@ -638,7 +635,7 @@ create the defined HPA that autoscales the target ReplicaSet depending on the CP
 of the replicated Pods.
 -->
 将这个列表保存到 `hpa-rs.yaml` 并提交到 Kubernetes 集群，就能创建它所定义的
-HPA，进而就能根据复制的 Pod 的 CPU 利用率对目标 ReplicaSet进行自动缩放。
+HPA，进而就能根据复制的 Pod 的 CPU 利用率对目标 ReplicaSet 进行自动扩缩。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
@@ -648,7 +645,7 @@ kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
 Alternatively, you can use the `kubectl autoscale` command to accomplish the same
 (and it's easier!)
 -->
-或者，可以使用 `kubectl autoscale` 命令完成相同的操作。（而且它更简单！）
+或者，可以使用 `kubectl autoscale` 命令完成相同的操作（而且它更简单！）
 
 ```shell
 kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
@@ -671,7 +668,7 @@ As such, it is recommended to use Deployments when you want ReplicaSets.
 ### Deployment（推荐）    {#deployment-recommended}
 
 [`Deployment`](/zh-cn/docs/concepts/workloads/controllers/deployment/) 是一个可以拥有
-ReplicaSet 并使用声明式方式在服务器端完成对 Pods 滚动更新的对象。
+ReplicaSet 并使用声明式方式在服务器端完成对 Pod 滚动更新的对象。
 尽管 ReplicaSet 可以独立使用，目前它们的主要用途是提供给 Deployment 作为编排
 Pod 创建、删除和更新的一种机制。当使用 Deployment 时，你不必关心如何管理它所创建的
 ReplicaSet，Deployment 拥有并管理其 ReplicaSet。
@@ -754,4 +751,3 @@ ReplicaSet 是 [ReplicationController](/zh-cn/docs/concepts/workloads/controller
   对象定义理解关于该资源的 API。
 * 阅读 [Pod 干扰预算（Disruption Budget）](/zh-cn/docs/concepts/workloads/pods/disruptions/)，
   了解如何在干扰下运行高度可用的应用。
-
