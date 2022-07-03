@@ -123,7 +123,7 @@ spec:
 후자는 스케줄러가 시도하려고는 하지만, 보증하지 않는 *선호(preferences)* 를 지정한다는 점에서
 이를 각각 "엄격함(hard)" 과 "유연함(soft)" 으로 생각할 수 있다.
 이름의 "IgnoredDuringExecution" 부분은 `nodeSelector` 작동 방식과 유사하게 노드의
-레이블이 런타임 중에 변경되어 파드의 어피니티 규칙이 더 이상 충족되지 않으면 파드가 그 노드에서
+레이블이 런타임 중에 변경되어 파드의 어피니티 규칙이 더 이상 충족되지 않더라도 파드가 그 노드에서
 동작한다는 의미이다. 향후에는 파드의 노드 어피니티 요구 사항을 충족하지 않는 노드에서 파드를 제거한다는
 점을 제외하고는 `requiredDuringSchedulingIgnoredDuringExecution` 와 동일한 `requiredDuringSchedulingRequiredDuringExecution` 를 제공할 계획이다.
 
