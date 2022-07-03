@@ -1,0 +1,288 @@
+---
+reviewers:
+- raelga
+- electrocucaracha
+title: Políticas de red (Network Policies)
+content_type: concept
+weight: 50
+---
+
+<!-- overview -->
+
+Si quieres controlar el tráfico de red a nivel de dirección IP o de puerto (capa OSI 3 o 4), puedes considerar el uso de Kubernetes NetworkPolicies para las aplicaciones que corren en tu clúster. Las NetworkPolicies son una estructura enfocada en las aplicaciones que permite establecer cómo un {{< glossary_tooltip text="pod" term_id="pod">}} puede comunicarse con otras "entidades" (utilizamos la palabra "entidad" para evitar sobrecargar términos más comunes como "Endpoint" o "Service", que tienen connotaciones específicas de Kubernetes) a través de la red. Las NetworkPolicies se aplican a uno o ambos extremos de la conexión a un Pod, sin afectar a otras conexiones.
+
+Las entidades con las que un Pod puede comunicarse son de una combinación de estos 3 tipos:
+
+1. Otros pods permitidos (excepción: un pod no puede bloquear el acceso a sí mismo)
+2. Namespaces permitidos
+3. Bloqueos de IP (excepción: el tráfico hacia y desde el nodo donde se ejecuta un Pod siempre está permitido, independientemente de la dirección IP del Pod o del nodo)
+
+Cuando se define una NetworkPolicy basada en pods o espacios de nombres, se utiliza un {{< glossary_tooltip text="selector" term_id="selector">}} para especificar qué tráfico se permite desde y hacia los Pod(s) que coinciden con el selector.
+
+Por otro lado, cuando se crean NetworkPolicies basadas en IP, se definen políticas basadas en bloques de IP (rangos CIDR).
+
+
+  <!-- body -->
+## Prerrequisitos
+
+Las políticas de red son implementadas por el [plugin de red](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). Para usar políticas de red, debes estar utilizando una solución de red que soporte NetworkPolicy. Crear un recurso NetworkPolicy sin un controlador que lo habilite no tendrá ningún efecto.
+
+
+## Dos Tipos de Aislamiento de Pod
+
+Hay dos tipos de aislamiento para un pod: el aislamiento para la salida y el aislamiento para la entrada. Estos se refieren a las conexiones que pueden establecerse. El término "Aislamiento" en el contexto de este documento no es absoluto, sino que significa "se aplican algunas restricciones".  La alternativa, "no aislado para $dirección", significa que no se aplican restricciones en la dirección descrita.  Los dos tipos de aislamiento (o no) se declaran independientemente, y ambos son relevantes para una conexión de un pod a otro.
+
+Por defecto, un pod no está aislado para la salida; todas las conexiones salientes están permitidas. Un pod está aislado para la salida si hay alguna NetworkPolicy con "Egress" en su `policyTypes` que seleccione el pod; decimos que tal política se aplica al pod para la salida. Cuando un pod está aislado para la salida, las únicas conexiones permitidas desde el pod son las permitidas por la lista `egress` de las NetworkPolicy que se aplique al pod para la salida. Los valores de esas listas `egress` se combinan de forma aditiva.
+
+Por defecto, un pod no está aislado para la entrada; todas las conexiones entrantes están permitidas. Un pod está aislado para la entrada si hay alguna NetworkPolicy con "Ingress" en su `policyTypes` que seleccione el pod; decimos que tal política se aplica al pod para la entrada. Cuando un pod está aislado para la entrada, las únicas conexiones permitidas en el pod son las del nodo del pod y las permitidas por la lista `ingress` de alguna NetworkPolicy que se aplique al pod para la entrada. Los valores de esas listas de direcciones se combinan de forma aditiva.
+
+Las políticas de red no entran en conflicto; son aditivas. Si alguna política o políticas se aplican a un pod para una dirección determinada, las conexiones permitidas en esa dirección desde ese pod es la unión de lo que permiten las políticas aplicables. Por tanto, el orden de evaluación no afecta al resultado de la política.
+
+Para que se permita una conexión desde un pod de origen a un pod de destino, tanto la política de salida del pod de origen como la de entrada del pod de destino deben permitir la conexión. Si cualquiera de los dos lados no permite la conexión, ésta no se producirá.
+
+
+## El Recurso NetworkPolicy {#networkpolicy-resource}
+
+Ver la referencia [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io) para una definición completa del recurso.
+
+Un ejemplo de NetworkPolicy pudiera ser este:
+
+{{< codenew file="service/networking/networkpolicy.yaml" >}}
+
+{{< note >}}
+Enviar esto al API Server de su clúster no tendrá ningún efecto a menos que su solución de red tenga soporte de políticas de red.
+{{< /note >}}
+
+__Campos Obligatorios__: Como con todos los otras configuraciones de Kubernetes, una NetworkPolicy
+necesita los campos `apiVersion`, `kind`, y `metadata`.  Para obtener información general
+sobre cómo funcionan esos ficheros de configuración, mirar
+[Configurar un Pod para usar un ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+y [Gestión de Objetos](/docs/concepts/overview/working-with-objects/object-management).
+
+__spec__: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) contiene toda la información necesaria para definir una política de red dado un Namespace.
+
+__podSelector__: Cada NetworkPolicy incluye un `podSelector` el cual selecciona el grupo de Pods en los cuales aplica la política. La política de ejemplo selecciona pods con el label "role=db". Un `podSelector` vacío selecciona todos los Pods en un Namespace.
+
+__policyTypes__: Cada NetworkPolicy incluye una lista de `policyTypes` la cual puede incluir `Ingress`, `Egress`, o ambas. Los campos `policyTypes` indican si la política aplica o no aplica al tráfico de entrada hacia el Pod seleccionado, el tráfico de salida desde el Pods seleccionado, o ambos. Si no se especifican `policyTypes` en una NetworkPolicy el valor `Ingress` será siempre aplicado por defecto y `Egress` será aplicado si la NetworkPolicy contiene alguna regla de salida.
+
+__ingress__: Cada NetworkPolicy puede incluir una lista de reglas `ingress` permitidas. Cada regla permite el tráfico con que se corresponda a ambos valores de las secciones de `from` y `ports`. La política de ejemplo contiene una única regla, la cual se corresponde con el tráfico sobre un solo puerto, desde uno de los tres orígenes definidos, el primero especificado por el valor `ipBlock`, el segundo especificado por el valor `namespaceSelector` y el tercero especificado por el `podSelector`.
+
+__egress__: Cada NetworkPolicy puede incluir una lista de reglas de `egress` permitidas. Cada regla permite el tráfico con que se corresponda a ambos valores de las secciones de `to` and `ports`. La política de ejemplo contiene una única regla, la cual se corresponde con el tráfico en un único puerto para cualquier destino en el rango de IPs `10.0.0.0/24`.
+
+Por lo tanto, la NetworkPolicy de ejemplo:
+
+1. Aísla los pods "role=db" en el "default" namespace para ambos tipos de tráfico ingress y egress (si ellos no están aún aislados)
+2. (Reglas Ingress) permite la coneccion hacia todos los pods en el "default" namespace con el label "role=db" en el puerto TCP 6379 desde los siguientes orígenes:
+
+  * cualquier pod en el "default" namespace con el label "role=frontend"
+  * cualquier pod en un namespace con el label "project=myproject"
+  * La dirección IP en los rangos 172.17.0.0–172.17.0.255 y 172.17.2.0–172.17.255.255 (por ejemplo, todo el rango de IPs de 172.17.0.0/16 con excepción del 172.17.1.0/24)
+3. (Egress rules) permite coneccion desde cualquier pods en el "default" namespace con el label "role=db" hacia CIDR 10.0.0.0/24 en el puerto TCP 5978
+
+Ver el recorrido de [Declarar Network Policy](/docs/tasks/administer-clúster/declare-network-policy/) para más ejemplos.
+
+
+## Comportamiento de los selectores `to` y `from`
+
+Existen cuatro tipos de selectores que pueden ser especificados en una sección de `ingress` `from`  or en una sección de `egress` `to`:
+
+__podSelector__: Este selector selecciona Pods específicos en el mismo espacio de nombres que la NetworkPolicy para permitir el tráfico como fuente de entrada o destino de salida.
+
+__namespaceSelector__: Este selector selecciona espacios de nombres específicos para permitir el tráfico como fuente de entrada o destino de salida.
+
+__namespaceSelector__ *y* __podSelector__: Una única entrada `to`/`from` que especifique tanto `namespaceSelector` como `podSelector` selecciona Pods específicos dentro de espacios de nombres específicos. Tenga cuidado de utilizar la sintaxis YAML correcta. A continuación se muestra un ejemplo de esta política:
+
+```yaml
+  ...
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          user: alice
+      podSelector:
+        matchLabels:
+          role: client
+  ...
+```
+
+contiene un único elemento `from` permitiendo conexiones desde los Pods con el label `role=client` en nombres de espacio con el label `user=alice`. Por el contrario, *esta* política:
+
+```yaml
+  ...
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          user: alice
+    - podSelector:
+        matchLabels:
+          role: client
+  ...
+```
+
+
+contiene dos elementos en el array `from`, y permite conecciones desde Pods en el local Namespace con el label `role=client`, *o* desde cualquier Pod en cualquier nombre de espacio con el label `user=alice`.
+
+En caso de duda, utilice `kubectl describe` para ver cómo Kubernetes ha interpretado la política.
+
+
+<a name="behavior-of-ipblock-selectors"></a>
+__ipBlock__: Este selector selecciona rangos CIDR de IP específicos para permitirlas como fuentes de entrada o destinos de salida. Estas IPs deben ser externas al clúster, ya que las IPs de Pod son efímeras e impredecibles.
+
+Los mecanismos de entrada y salida del clúster a menudo requieren reescribir la IP de origen o destino
+de los paquetes. En los casos en los que esto ocurre, no está definido si esto ocurre antes o
+después del procesamiento de NetworkPolicy, y el comportamiento puede ser diferente para diferentes
+combinaciones de plugin de red, proveedor de nube, implementación de `Service`, etc.
+
+En el caso de la entrada, esto significa que en algunos casos se pueden filtrar paquetes 
+entrantes basándose en la IP de origen real, mientras que en otros casos, la "IP de origen" sobre la que actúa la
+la NetworkPolicy actúa puede ser la IP de un `LoadBalancer` o la IP de Nodo donde este el Pod involucrado, etc.
+
+Para la salida, esto significa que las conexiones de los pods a las IPs de `Service` que se reescriben a
+IPs externas al clúster pueden o no estar sujetas a políticas basadas en `ipBlock`.
+
+
+## Políticas por defecto
+
+Por defecto, si no existen políticas en un espacio de nombres, se permite todo el tráfico de entrada y salida hacia y desde los pods de ese espacio de nombres. Los siguientes ejemplos muestran cómo cambiar el comportamiento por defecto en ese espacio de nombres.
+
+
+### Denegar todo el tráfico de entrada por defecto
+
+Puedes crear una política que "por defecto" aisle a un espacio de nombres del tráfico de entrada con la creación de una política que seleccione todos los Pods del espacio de nombres pero no permite ningún tráfico de entrada en esos Pods.
+
+{{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
+
+Esto asegura que incluso los Pods que no están seleccionados por ninguna otra NetworkPolicy también serán aislados del tráfico de entrada. Esta política no afecta el aislamiento en el tráfico de salida desde cualquier Pods. 
+
+
+### Permitir todo el tráfico de entrada
+
+Si tu quieres permitir todo el tráfico de entrada a todos los Pods en un nombre de espacio, puedes crear una política que explícitamente permita eso.
+
+{{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
+
+Con esta política en curso, ninguna política o políticas adicionales pueden hacer que se deniegue cualquier conexión entrante a esos pods. Esta política no tiene efecto sobre el aislamiento del tráfico de salida de cualquier pod.
+
+
+### Denegar por defecto todo el tráfico de salida
+
+Puedes crear una política que "por defecto" aisle el tráfico de salida para un espacio de nombres, creando una NetworkPolicy que seleccione todos los pods pero que no permita ningún tráfico de salida desde esos pods.
+
+{{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
+
+Esto asegura que incluso los pods que no son seleccionados por ninguna otra NetworkPolicy no tendrán permitido el tráfico de salida. Esta política no cambia el comportamiento de aislamiento para el tráfico de entrada de ningún pod.
+
+
+### Permitir todo el tráfico de salida
+
+Si quieres permitir todas las conexiones desde todos los pods de un espacio de nombres, puede crear una política que permita explícitamente todas las conexiones salientes de los pods de ese espacio de nombres.
+
+{{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
+
+Con esta política en vigor, ninguna política o políticas adicionales pueden hacer que se deniegue cualquier conexión de salida desde esos pods. Esta política no tiene efecto sobre el aislamiento para el tráfico de entrada a cualquier pod.
+
+
+### Denegar por defecto todo el tráfico de entrada y de salida
+
+Puede crear una política que "por defecto" en un espacio de nombres impida todo el tráfico de entrada Y de salida creando la siguiente NetworkPolicy en ese espacio de nombres.
+
+{{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
+
+Esto asegura que incluso los pods que no son seleccionados por ninguna otra NetworkPolicy no tendrán permitido el tráfico de entrada o salida.
+
+
+## Soporte a SCTP 
+
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
+
+Como característica estable, está activada por defecto. Para deshabilitar SCTP a nivel de clúster, usted (o el administrador de su clúster) tiene que deshabilitar la [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `SCTPSupport` para el API Server con el flag `--feature-gates=SCTPSupport=false,...`.
+Cuando esta feature gate está habilitada, puede establecer el campo `protocol` de una NetworkPolicy como `SCTP`.
+
+{{< note >}}
+Debes utilizar un plugin de {{< glossary_tooltip text="CNI" term_id="cni" >}} que soporte el protocolo SCTP NetworkPolicies.
+{{< /note >}}
+
+
+## Apuntar a un rango de puertos
+
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+Cuando se escribe una NetworkPolicy, se puede apuntar a un rango de puertos en lugar de un solo puerto.
+
+Esto se puede lograr con el uso del campo `endPort`, como el siguiente ejemplo:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: multi-port-egress
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/24
+    ports:
+    - protocol: TCP
+      port: 32000
+      endPort: 32768
+```
+
+La regla anterior permite que cualquier Pod con la etiqueta `role=db` en el espacio de nombres `default` se comunique 
+con cualquier IP dentro del rango `10.0.0.0/24` sobre el protocolo TCP, siempre que el puerto 
+esté entre el rango 32000 y 32768.
+
+Se aplican las siguientes restricciones al utilizar este campo:
+* Como característica en estado beta, está activada por defecto. Para desactivar el campo `endPort` a nivel de clúster, usted (o su administrador de clúster) debe desactivar la [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `NetworkPolicyEndPort`  
+en el API Server con el flag `--feature-gates=NetworkPolicyEndPort=false,...`.
+* El campo `endPort` debe ser igual o mayor que el campo `port`.
+* Sólo se puede definir `endPort` si también se define `port`.
+* Ambos puertos deben ser numéricos.
+
+
+{{< note >}}
+Su clúster debe utilizar un plugin de {{< glossary_tooltip text="CNI" term_id="cni" >}} que
+soporte el campo `endPort` en las especificaciones de NetworkPolicy.
+Si su [plugin de red](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) 
+no soporta el campo `endPort` y usted especifica una NetworkPolicy que use este campo,
+la política se aplicará sólo para el campo `port`.
+{{< /note >}}
+
+
+## Como apuntar a un Namespace usando su nombre
+
+{{< feature-state for_k8s_version="1.22" state="stable" >}}
+
+El plano de control de Kubernetes establece una etiqueta inmutable `kubernetes.io/metadata.name` en todos los
+espacios de nombre, siempre que se haya habilitado la [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `NamespaceDefaultLabelName`.
+El valor de la etiqueta es el nombre del espacio de nombres.
+
+Aunque NetworkPolicy no puede apuntar a un espacio de nombres por su nombre con algún campo de objeto, puede utilizar la etiqueta estandarizada para apuntar a un espacio de nombres específico.
+
+
+ ## Que no puedes hacer con políticas de red (al menos, no aún)
+
+A día de hoy, en Kubernetes {{< skew currentVersion >}}, la siguiente funcionalidad no existe en la API de NetworkPolicy, pero es posible que se puedan implementar soluciones mediante componentes del sistema operativo (como SELinux, OpenVSwitch, IPTables, etc.) o tecnologías de capa 7 (Ingress controllers, implementaciones de Service Mesh) o controladores de admisión.  En caso de que seas nuevo en la seguridad de la red en Kubernetes, vale la pena señalar que las siguientes historias de usuario no pueden (todavía) ser implementadas usando la API NetworkPolicy.
+
+- Forzar que el tráfico interno del clúster pase por una puerta de enlace común (esto se puede implementar con una malla de servicios u otro proxy).
+- Cualquier cosa relacionada con TLS (se puede implementar con una malla de servicios o un Ingress controllers para esto).
+- Políticas específicas de los nodos (se puede utilizar la notación CIDR para esto, pero no se puede apuntar a los nodos por sus identidades Kubernetes específicamente).
+- Apuntar a los servicios por su nombre (sin embargo, puede orientar los pods o los espacios de nombres por su {{< glossary_tooltip text="labels" term_id="label" >}}, lo que suele ser una solución viable).
+- Creación o gestión de "solicitudes de políticas" que son atendidas por un tercero.
+- Políticas que por defecto son aplicadas a todos los espacios de nombres o pods (hay algunas distribuciones y proyectos de Kubernetes de terceros que pueden hacer esto).
+- Consulta avanzada de políticas y herramientas de accesibilidad.
+- La capacidad de registrar los eventos de seguridad de la red (por ejemplo, las conexiones bloqueadas o aceptadas).
+- La capacidad de negar explícitamente las políticas (actualmente el modelo para NetworkPolicies es negar por defecto, con sólo la capacidad de añadir reglas de permitir).
+- La capacidad de impedir el tráfico entrante de Loopback o de Host (actualmente los Pods no pueden bloquear el acceso al host local, ni tienen la capacidad de bloquear el acceso desde su nodo residente).
+
+
+## {{% heading "whatsnext" %}}
+
+- Leer el recorrido de como [Declarar de Políticas de Red](/docs/tasks/administer-clúster/declare-network-policy/) para ver más ejemplos.
+- Ver más [recetas](https://github.com/ahmetb/kubernetes-network-policy-recipes) de escenarios comunes habilitados por los recursos de las NetworkPolicy.
