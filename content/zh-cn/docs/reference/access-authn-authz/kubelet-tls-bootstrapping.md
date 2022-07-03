@@ -21,17 +21,16 @@ recommend using client TLS certificates on nodes.
 -->
 在一个 Kubernetes 集群中，工作节点上的组件（kubelet 和 kube-proxy）需要与
 Kubernetes 控制平面组件通信，尤其是 kube-apiserver。
-为了确保通信本身是私密的、不被干扰，并且确保集群的每个组件都在与另一个
-可信的组件通信，我们强烈建议使用节点上的客户端 TLS 证书。
+为了确保通信本身是私密的、不被干扰，并且确保集群的每个组件都在与另一个可信的组件通信，
+我们强烈建议使用节点上的客户端 TLS 证书。
 
 <!--
 The normal process of bootstrapping these components, especially worker nodes that need certificates so they can communicate safely with kube-apiserver,
 can be a challenging process as it is often outside of the scope of Kubernetes and requires significant additional work.
 This in turn, can make it challenging to initialize or scale a cluster.
 -->
-启动引导这些组件的正常过程，尤其是需要证书来与 kube-apiserver 安全通信的
-工作节点，可能会是一个具有挑战性的过程，因为这一过程通常不受 Kubernetes 控制，
-需要不少额外工作。
+启动引导这些组件的正常过程，尤其是需要证书来与 kube-apiserver 安全通信的工作节点，
+可能会是一个具有挑战性的过程，因为这一过程通常不受 Kubernetes 控制，需要不少额外工作。
 这也使得初始化或者扩缩一个集群的操作变得具有挑战性。
 
 <!--
@@ -41,9 +40,8 @@ found [here](https://github.com/kubernetes/kubernetes/pull/20439).
 This document describes the process of node initialization, how to set up TLS client certificate bootstrapping for
 kubelets, and how it works.
 -->
-为了简化这一过程，从 1.4 版本开始，Kubernetes 引入了一个证书请求和签名
-API。该提案可在
-[这里](https://github.com/kubernetes/kubernetes/pull/20439)看到。
+为了简化这一过程，从 1.4 版本开始，Kubernetes 引入了一个证书请求和签名 API。
+该提案可在[这里](https://github.com/kubernetes/kubernetes/pull/20439)看到。
 
 本文档描述节点初始化的过程，如何为 kubelet 配置 TLS 客户端证书启动引导，
 以及其背后的工作原理。
@@ -77,8 +75,8 @@ Note that the above process depends upon:
 * Existence of a key and certificate on the local host in the `kubeconfig`
 * The certificate having been signed by a Certificate Authority (CA) trusted by the kube-apiserver
 -->
-假定 kube-apiserver 成功地认证了 kubelet 的凭据数据，它会将 kubelet 视为
-一个合法的节点并开始将 Pods 分派给该节点。
+假定 kube-apiserver 成功地认证了 kubelet 的凭据数据，它会将 kubelet
+视为一个合法的节点并开始将 Pod 分派给该节点。
 
 注意，签名的过程依赖于：
 
@@ -93,9 +91,6 @@ All of the following are responsibilities of whoever sets up and manages the clu
 3. Creating a key and certificate for each kubelet; strongly recommended to have a unique one, with a unique CN, for each kubelet
 4. Signing the kubelet certificate using the CA key
 5. Distributing the kubelet key and signed certificate to the specific node on which the kubelet is running
-
-The TLS Bootstrapping described in this document is intended to simplify, and partially or even completely automate, steps 3 onwards, as these are the most common when initializing or scaling
-a cluster.
 -->
 负责部署和管理集群的人有以下责任：
 
@@ -106,8 +101,12 @@ a cluster.
 4. 使用 CA 密钥对 kubelet 证书签名
 5. 将 kubelet 密钥和签名的证书发布到 kubelet 运行所在的特定节点上
 
-本文中描述的 TLS 启动引导过程有意简化甚至完全自动化上述过程，尤其是
-第三步之后的操作，因为这些步骤是初始化或者扩缩集群时最常见的操作。
+<!--
+The TLS Bootstrapping described in this document is intended to simplify, and partially or even completely automate, steps 3 onwards, as these are the most common when initializing or scaling
+a cluster.
+-->
+本文中描述的 TLS 启动引导过程有意简化甚至完全自动化上述过程，
+尤其是第三步之后的操作，因为这些步骤是初始化或者扩缩集群时最常见的操作。
 
 <!--
 ### Bootstrap Initialization
@@ -134,8 +133,7 @@ In the bootstrap initialization process, the following occurs:
 1. kubelet 启动
 2. kubelet 看到自己**没有**对应的 `kubeconfig` 文件
 3. kubelet 搜索并发现 `bootstrap-kubeconfig` 文件
-4. kubelet 读取该启动引导文件，从中获得 API 服务器的 URL 和用途有限的
-   一个“令牌（Token）”
+4. kubelet 读取该启动引导文件，从中获得 API 服务器的 URL 和用途有限的一个“令牌（Token）”
 5. kubelet 建立与 API 服务器的连接，使用上述令牌执行身份认证
 6. kubelet 现在拥有受限制的凭据来创建和取回证书签名请求（CSR）
 7. kubelet 为自己创建一个 CSR，并将其 signerName 设置为 `kubernetes.io/kube-apiserver-client-kubelet`
@@ -195,7 +193,7 @@ to sign the kubelet certificate. As before, it is your responsibility to distrib
 -->
 ## 证书机构   {#certificate-authority}
 
-就像在没有启动引导的情况下，你会需要证书机构（CA）密钥和证书。
+就像在没有 TLS 启动引导支持的情况下，你会需要证书机构（CA）密钥和证书。
 这些数据会被用来对 kubelet 证书进行签名。
 如前所述，将证书机构密钥和证书发布到控制平面节点是你的责任。
 
@@ -205,12 +203,11 @@ We will refer to these as "Kubernetes CA certificate and key".
 
 All Kubernetes components that use these certificates - kubelet, kube-apiserver, kube-controller-manager - assume the key and certificate to be PEM-encoded.
 -->
-就本文而言，我们假定这些数据被发布到控制平面节点上的
-`/var/lib/kubernetes/ca.pem`（证书）和
+就本文而言，我们假定这些数据被发布到控制平面节点上的 `/var/lib/kubernetes/ca.pem`（证书）和
 `/var/lib/kubernetes/ca-key.pem`（密钥）文件中。
 我们将这两个文件称作“Kubernetes CA 证书和密钥”。
-所有 Kubernetes 组件（kubelet、kube-apiserver、kube-controller-manager）都使用
-这些凭据，并假定这里的密钥和证书都是 PEM 编码的。
+所有 Kubernetes 组件（kubelet、kube-apiserver、kube-controller-manager）
+都使用这些凭据，并假定这里的密钥和证书都是 PEM 编码的。
 
 <!--
 ## kube-apiserver configuration
@@ -223,7 +220,7 @@ The kube-apiserver has several requirements to enable TLS bootstrapping:
 -->
 ## kube-apiserver 配置   {#kube-apiserver-configuration}
 
-启用 TLS 启动引导对 kube-apiserver 有若干需求：
+启用 TLS 启动引导对 kube-apiserver 有若干要求：
 
 * 能够识别对客户端证书进行签名的 CA
 * 能够对启动引导的 kubelet 执行身份认证，并将其置入 `system:bootstrappers` 组
@@ -254,8 +251,8 @@ You can use any [authenticator](/docs/reference/access-authn-authz/authenticatio
 ### 初始启动引导认证     {#initial-bootstrap-authentication}
 
 为了让启动引导的 kubelet 能够连接到 kube-apiserver 并请求证书，
-它必须首先在服务器上认证自身身份。你可以使用任何一种能够对 kubelet 执行身份认证的
-[身份认证组件](/zh-cn/docs/reference/access-authn-authz/authentication/)。
+它必须首先在服务器上认证自身身份。你可以使用任何一种能够对 kubelet
+执行身份认证的[身份认证组件](/zh-cn/docs/reference/access-authn-authz/authentication/)。
 
 <!--
 While any authentication strategy can be used for the kubelet's initial
@@ -396,9 +393,8 @@ systemd unit file perhaps) to enable the token file.  See docs
 further details.
 -->
 向 kube-apiserver 添加 `--token-auth-file=FILENAME` 标志（或许这要对 systemd
-的单元文件作修改）以启用令牌文件。参见
-[这里](/zh-cn/docs/reference/access-authn-authz/authentication/#static-token-file)
-的文档以了解进一步的细节。
+的单元文件作修改）以启用令牌文件。有关进一步细节的文档，
+可参见[这里](/zh-cn/docs/reference/access-authn-authz/authentication/#static-token-file)。
 
 <!--
 ### Authorize kubelet to create CSR
@@ -413,8 +409,8 @@ To do this, you only need to create a `ClusterRoleBinding` that binds the `syste
 -->
 ### 授权 kubelet 创建 CSR    {#authorize-kubelet-to-create-csr}
 
-现在启动引导节点被身份认证为 `system:bootstrapping` 组的成员，它需要被**授权**
-创建证书签名请求（CSR）并在证书被签名之后将其取回。
+现在启动引导节点被 **身份认证** 为 `system:bootstrapping` 组的成员，
+它需要被 **授权** 创建证书签名请求（CSR）并在证书被签名之后将其取回。
 幸运的是，Kubernetes 提供了一个 `ClusterRole`，其中精确地封装了这些许可，
 `system:node-bootstrapper`。
 
@@ -445,8 +441,8 @@ the controller-manager is responsible for issuing actual signed certificates.
 -->
 ## kube-controller-manager 配置   {#kube-controller-manager-configuration}
 
-API 服务器从 kubelet 收到证书请求并对这些请求执行身份认证，但真正负责发放
-签名证书的是控制器管理器。
+API 服务器从 kubelet 收到证书请求并对这些请求执行身份认证，
+但真正负责发放签名证书的是控制器管理器（controller-manager）。
 
 <!--
 The controller-manager performs this function via a certificate-issuing control loop.
@@ -455,9 +451,9 @@ This takes the form of a
 assets on disk. Currently, all certificates issued have one year validity and a
 default set of key usages.
 -->
-控制器管理器通过一个证书发放的控制回路来执行此操作。该操作的执行方式是使用磁盘上
-的文件用 [cfssl](https://blog.cloudflare.com/introducing-cfssl/) 本地签名组件
-来完成。目前，所发放的所有证书都有一年的有效期，并设定了默认的一组密钥用法。
+控制器管理器通过一个证书发放的控制回路来执行此操作。该操作的执行方式是使用磁盘上的文件用
+[cfssl](https://blog.cloudflare.com/introducing-cfssl/) 本地签名组件来完成。
+目前，所发放的所有证书都有一年的有效期，并设定了默认的一组密钥用法。
 
 <!--
 In order for the controller-manager to sign certificates, it needs the following:
@@ -467,7 +463,7 @@ In order for the controller-manager to sign certificates, it needs the following
 -->
 为了让控制器管理器对证书签名，它需要：
 
-* 能够访问你之前所创建并分发的“Kubernetes CA 密钥和证书”
+* 能够访问你之前所创建并分发的 “Kubernetes CA 密钥和证书”
 * 启用 CSR 签名
 
 <!--
@@ -537,18 +533,17 @@ There are two distinct sets of permissions:
 -->
 许可权限有两组：
 
-* `nodeclient`：如果节点在为节点创建新的证书，则该节点还没有证书。该节点
-  使用前文所列的令牌之一来执行身份认证，因此是组 `system:bootstrappers` 组
-  的成员。
+* `nodeclient`：如果节点在为节点创建新的证书，则该节点还没有证书。
+  该节点使用前文所列的令牌之一来执行身份认证，因此是组 `system:bootstrappers` 组的成员。
 * `selfnodeclient`：如果节点在对证书执行续期操作，则该节点已经拥有一个证书。
   节点持续使用现有的证书将自己认证为 `system:nodes` 组的成员。
 
 <!--
 To enable the kubelet to request and receive a new certificate, create a `ClusterRoleBinding` that binds the group in which the bootstrapping node is a member `system:bootstrappers` to the `ClusterRole` that grants it permission, `system:certificates.k8s.io:certificatesigningrequests:nodeclient`:
 -->
-要允许 kubelet 请求并接收新的证书，可以创建一个 `ClusterRoleBinding` 将启动
-引导节点所处的组 `system:bootstrappers` 绑定到为其赋予访问权限的
-`ClusterRole` `system:certificates.k8s.io:certificatesigningrequests:nodeclient`：
+要允许 kubelet 请求并接收新的证书，可以创建一个 `ClusterRoleBinding`
+将启动引导节点所处的组 `system:bootstrappers` 绑定到为其赋予访问权限的 `ClusterRole`
+`system:certificates.k8s.io:certificatesigningrequests:nodeclient`：
 
 ```yaml
 # 批复 "system:bootstrappers" 组的所有 CSR
@@ -630,10 +625,9 @@ The kubelet requires the following configuration to bootstrap:
 kubelet 需要以下配置来执行启动引导：
 
 * 一个用来存储所生成的密钥和证书的路径（可选，可以使用默认配置）
-* 一个用来指向尚不存在的 `kubeconfig` 文件的路径；kubelet 会将启动引导
-  配置文件放到这个位置
-* 一个指向启动引导 `kubeconfig` 文件的路径，用来提供 API 服务器的 URL
-  和启动引导凭据，例如，启动引导令牌
+* 一个用来指向尚不存在的 `kubeconfig` 文件的路径；kubelet 会将启动引导配置文件放到这个位置
+* 一个指向启动引导 `kubeconfig` 文件的路径，用来提供 API 服务器的 URL 和启动引导凭据，
+  例如，启动引导令牌
 * 可选的：轮换证书的指令
 
 <!--
@@ -676,8 +670,7 @@ The important elements to note are:
 -->
 需要额外注意的一些因素有：
 
-* `certificate-authority`：指向 CA 文件的路径，用来对 kube-apiserver 所出示
-  的服务器证书进行验证
+* `certificate-authority`：指向 CA 文件的路径，用来对 kube-apiserver 所出示的服务器证书进行验证
 * `server`：用来访问 kube-apiserver 的 URL
 * `token`：要使用的令牌
 
@@ -720,9 +713,9 @@ specified by `--kubeconfig`. The certificate and key file will be placed in the
 directory specified by `--cert-dir`.
 -->
 在启动 kubelet 时，如果 `--kubeconfig` 标志所指定的文件并不存在，会使用通过标志
-`--bootstrap-kubeconfig` 所指定的启动引导 kubeconfig 配置来向 API 服务器请求
-客户端证书。在证书请求被批复并被 kubelet 收回时，一个引用所生成的密钥和所获得
-证书的 kubeconfig 文件会被写入到通过 `--kubeconfig` 所指定的文件路径下。
+`--bootstrap-kubeconfig` 所指定的启动引导 kubeconfig 配置来向 API 服务器请求客户端证书。
+在证书请求被批复并被 kubelet 收回时，一个引用所生成的密钥和所获得证书的 kubeconfig
+文件会被写入到通过 `--kubeconfig` 所指定的文件路径下。
 证书和密钥文件会被放到 `--cert-dir` 所指定的目录中。
 
 <!--
@@ -744,9 +737,8 @@ To secure these, the kubelet can do one of:
 * create self-signed key and certificate, if a key and certificate are not provided
 * request serving certificates from the cluster server, via the CSR API
 -->
-kubelet 也可以使用**服务（Serving）**证书。kubelet 自身向外提供一个
-HTTPS 末端，包含若干功能特性。要保证这些末端的安全性，kubelet 可以执行以下操作
-之一：
+kubelet 也可以使用 **服务（Serving）** 证书。kubelet 自身向外提供一个 HTTPS 末端，
+包含若干功能特性。要保证这些末端的安全性，kubelet 可以执行以下操作之一：
 
 * 使用通过 `--tls-private-key-file` 和 `--tls-cert-file` 所设置的密钥和证书
 * 如果没有提供密钥和证书，则创建自签名的密钥和证书
@@ -783,9 +775,8 @@ Kubernetes v1.8 和更高版本的 kubelet 实现了对客户端证书与/或服
 certificates by creating new CSRs as its existing credentials expire. To enable
 this feature pass the following flag to the kubelet:
 -->
-`RotateKubeletClientCertificate` 会导致 kubelet 在其现有凭据即将过期时通过
-创建新的 CSR 来轮换其客户端证书。要启用此功能特性，可将下面的标志传递给
-kubelet：
+`RotateKubeletClientCertificate` 会导致 kubelet 在其现有凭据即将过期时通过创建新的
+CSR 来轮换其客户端证书。要启用此功能特性，可将下面的标志传递给 kubelet：
 
 ```
 --rotate-certificates
@@ -796,9 +787,8 @@ kubelet：
 certificate after bootstrapping its client credentials **and** to rotate that
 certificate. To enable this feature pass the following flag to the kubelet:
 -->
-`RotateKubeletServerCertificate` 会让 kubelet 在启动引导其客户端凭据之后请求
-一个服务证书 **且** 对该服务证书执行轮换操作。要启用此功能特性，将下面的标志
-传递给 kubelet：
+`RotateKubeletServerCertificate` 会让 kubelet 在启动引导其客户端凭据之后请求一个服务证书
+**且** 对该服务证书执行轮换操作。要启用此功能特性，将下面的标志传递给 kubelet：
 
 ```
 --rotate-server-certificates
@@ -812,9 +802,8 @@ reasons](https://github.com/kubernetes/community/pull/1982). To use
 `RotateKubeletServerCertificate` operators need to run a custom approving
 controller, or manually approve the serving certificate requests.
 -->
-Kubernetes 核心中所实现的 CSR 批复控制器出于
-[安全原因](https://github.com/kubernetes/community/pull/1982)
-并不会自动批复节点的**服务**证书。
+出于[安全原因](https://github.com/kubernetes/community/pull/1982)，Kubernetes 核心中所实现的
+CSR 批复控制器并不会自动批复节点的**服务**证书。
 要使用 `RotateKubeletServerCertificate` 功能特性，
 集群运维人员需要运行一个定制的控制器或者手动批复服务证书的请求。
 
@@ -901,3 +890,4 @@ certificate approve <name>` and `kubectl certificate deny <name>`.
 `kubectl descsribe csr <name>` 来描述某个 CSR 的细节。
 管理员可以使用 `kubectl certificate approve <name` 来批准某 CSR，或者
 `kubectl certificate deny <name>` 来拒绝某 CSR。
+
