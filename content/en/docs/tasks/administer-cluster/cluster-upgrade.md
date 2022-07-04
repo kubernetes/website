@@ -27,6 +27,8 @@ the documentation for the version of Kubernetes that you plan to upgrade to.
 
 ## Upgrade approaches
 
+Before upgrading to Kubernetes 1.24, please go through [Urgent Upgrade Notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.24.md#urgent-upgrade-notes).
+
 ### kubeadm {#upgrade-kubeadm}
 
 If your cluster was deployed using the `kubeadm` tool, refer to 
