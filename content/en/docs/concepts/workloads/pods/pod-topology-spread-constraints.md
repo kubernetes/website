@@ -417,5 +417,5 @@ You can use [Descheduler](https://github.com/kubernetes-sigs/descheduler) to reb
 
 ## {{% heading "whatsnext" %}}
 
-- [Blog: Introducing PodTopologySpread](https://kubernetes.io/blog/2020/05/introducing-podtopologyspread/)
+- [Blog: Introducing PodTopologySpread](/blog/2020/05/introducing-podtopologyspread/)
   explains `maxSkew` in details, as well as bringing up some advanced usage examples.
