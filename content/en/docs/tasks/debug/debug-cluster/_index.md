@@ -14,18 +14,18 @@ problem you are experiencing. See
 the [application troubleshooting guide](/docs/tasks/debug/debug-application/) for tips on application debugging.
 You may also visit the [troubleshooting overview document](/docs/tasks/debug/) for more information.
 
- Before upgrading to Kubernetes 1.24 , It is very important to go through [Urgent Upgrade Notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.24.md#urgent-upgrade-notes).
+ Before upgrading to Kubernetes 1.24 , please go through [Urgent Upgrade Notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.24.md#urgent-upgrade-notes).
 
 <!-- body -->
 ## Cluster not starting
 
-To start your cluster, Run the following command:
+To start your cluster, run the following command:
 
 ```shell
 kubelet --help | grep network-plugin
 ```
 
-*Note: If you get the following error after upgrading to Kubernetes 1.24, go through the [Migrating from dockershim](https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/) page to get a better understanding on how to resolve this error.*
+*Note: If you get the following error after upgrading to Kubernetes 1.24, go through the [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) guide to get a better understanding of how to resolve this error.*
 
 ```shell
 Error: failed to parse kubelet flag: unknown flag: --network-plugin
