@@ -21,8 +21,8 @@ weight: 10
 <!-- overview -->
 
 <!--
-A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
-[ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
+A _Deployment_ provides declarative updates for {{< glossary_tooltip text="Pods" term_id="pod" >}} and
+{{< glossary_tooltip term_id="replica-set" text="ReplicaSets" >}}.
 -->
 一个 Deployment 为 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 和 {{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}}
@@ -76,7 +76,7 @@ The following are typical use cases for Deployments:
 * [扩大 Deployment 规模以承担更多负载](#scaling-a-deployment)。
 * [暂停 Deployment ](#pausing-and-resuming-a-deployment) 以应用对 PodTemplateSpec 所作的多项修改，
   然后恢复其执行以启动新的上线版本。
-* [使用 Deployment 状态](#deployment-status) 来判定上线过程是否出现停滞。
+* [使用 Deployment 状态](#deployment-status)来判定上线过程是否出现停滞。
 * [清理较旧的不再需要的 ReplicaSet](#clean-up-policy) 。
 
 <!--
@@ -136,7 +136,7 @@ In this example:
 * `template` 字段包含以下子字段：
   * Pod 被使用 `.metadata.labels` 字段打上 `app: nginx` 标签。
   * Pod 模板规约（即 `.template.spec` 字段）指示 Pods 运行一个 `nginx` 容器，
-    该容器运行版本为 1.14.2 的 `nginx` [Docker Hub](https://hub.docker.com/)镜像。
+    该容器运行版本为 1.14.2 的 `nginx` [Docker Hub](https://hub.docker.com/) 镜像。
   * 创建一个容器并使用 `.spec.template.spec.containers[0].name` 字段将其命名为 `nginx`。
 
 <!--
@@ -604,13 +604,13 @@ as per the update and start scaling that up, and rolls over the ReplicaSet that 
 <!--
 For example, suppose you create a Deployment to create 5 replicas of `nginx:1.14.2`,
 but then update the Deployment to create 5 replicas of `nginx:1.16.1`, when only 3
-replicas of `nginx:1.7.9` had been created. In that case, the Deployment immediately starts
-killing the 3 `nginx:1.7.9` Pods that it had created, and starts creating
-`nginx:1.9.1` Pods. It does not wait for the 5 replicas of `nginx:1.14.2` to be created
+replicas of `nginx:1.14.2` had been created. In that case, the Deployment immediately starts
+killing the 3 `nginx:1.14.2` Pods that it had created, and starts creating
+`nginx:1.16.1` Pods. It does not wait for the 5 replicas of `nginx:1.14.2` to be created
 before changing course.
 -->
 例如，假定你在创建一个 Deployment 以生成 `nginx:1.14.2` 的 5 个副本，但接下来
-更新 Deployment 以创建 5 个 `nginx:1.16.1` 的副本，而此时只有 3 个`nginx:1.14.2`
+更新 Deployment 以创建 5 个 `nginx:1.16.1` 的副本，而此时只有 3 个 `nginx:1.14.2`
 副本已创建。在这种情况下，Deployment 会立即开始杀死 3 个 `nginx:1.14.2` Pods，
 并开始创建 `nginx:1.16.1` Pods。它不会等待 `nginx:1.14.2` 的 5
 个副本都创建完成后才开始执行变更动作。
@@ -636,7 +636,7 @@ In API version `apps/v1`, a Deployment's label selector is immutable after it ge
 {{< /note >}}
 
 <!--
- * Selector additions require the Pod template labels in the Deployment spec to be updated with the new label too,
+* Selector additions require the Pod template labels in the Deployment spec to be updated with the new label too,
 otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
 not select ReplicaSets and Pods created with the old selector, resulting in orphaning all old ReplicaSets and
 creating a new ReplicaSet.
@@ -798,7 +798,7 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
     Labels:  app=nginx
     Containers:
      nginx:
-      Image:        nginx:1.91
+      Image:        nginx:1.161
       Port:         80/TCP
       Host Port:    0/TCP
       Environment:  <none>
@@ -865,7 +865,7 @@ Follow the steps given below to check the rollout history:
    复制动作发生在修订版本创建时。你可以通过以下方式设置 `CHANGE-CAUSE` 消息：
 
    <!--
-   * Annotating the Deployment with `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"`
+   * Annotating the Deployment with `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
    * Manually editing the manifest of the resource.
    -->
    * 使用 `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
@@ -1854,8 +1854,8 @@ can create multiple Deployments, one for each release, following the canary patt
 ## 金丝雀部署 {#canary-deployment}
 
 如果要使用 Deployment 向用户子集或服务器子集上线版本，
-则可以遵循[资源管理](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#canary-deployments)
-所描述的金丝雀模式，创建多个 Deployment，每个版本一个。
+则可以遵循[资源管理](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#canary-deployments)所描述的金丝雀模式，
+创建多个 Deployment，每个版本一个。
 
 <!--
 ## Writing a Deployment Spec
