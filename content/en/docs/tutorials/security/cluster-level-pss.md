@@ -27,7 +27,7 @@ check the documentation for that version.
 Install the following on your workstation:
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [kubectl](/docs/tasks/tools/)
 
 ## Choose the right Pod Security Standard to apply
 
