@@ -764,7 +764,7 @@ HorizontalPodAutoscaler.
 首先，`AbleToScale` 表明 HPA 是否可以获取和更新扩缩信息，以及是否存在阻止扩缩的各种回退条件。
 其次，`ScalingActive` 表明 HPA 是否被启用（即目标的副本数量不为零） 以及是否能够完成扩缩计算。
 当这一状态为 `False` 时，通常表明获取度量指标存在问题。
-最后一个条件 `ScalingLimitted` 表明所需扩缩的值被 HorizontalPodAutoscaler
+最后一个条件 `ScalingLimited` 表明所需扩缩的值被 HorizontalPodAutoscaler
 所定义的最大或者最小值所限制（即已经达到最大或者最小扩缩值）。
 这通常表明你可能需要调整 HorizontalPodAutoscaler 所定义的最大或者最小副本数量的限制了。
 
