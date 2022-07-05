@@ -123,7 +123,7 @@ zk-2      1/1       Running   0         40s
 ```
 
 The StatefulSet controller creates three Pods, and each Pod has a container with
-a [ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) server.
+a [ZooKeeper](https://archive.apache.org/dist/zookeeper/stable/) server.
 
 ### Facilitating leader election
 
