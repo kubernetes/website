@@ -141,13 +141,11 @@ to repel Pods from specific nodes.
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied
 for the Pod to be scheduled onto a node.
 
-If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity`
-types, then the Pod can be scheduled onto a node if one of the specified `nodeSelectorTerms` can be
-satisfied.
+If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`,
+then the pod can be scheduled onto a node if one of `matchExpressions` can be satisfied.
 
-If you specify multiple `matchExpressions` associated with a single `nodeSelectorTerms`,
-then the Pod can be scheduled onto a node only if all the `matchExpressions` are
-satisfied. 
+If you specify multiple node label requirements associated with `matchExpressions` types,
+then the pod can be scheduled onto a node only if all requirements can be satisfied.
 {{</note>}}
 
 See [Assign Pods to Nodes using Node Affinity](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)
