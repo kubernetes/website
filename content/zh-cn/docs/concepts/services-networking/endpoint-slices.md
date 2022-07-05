@@ -82,7 +82,7 @@ Kubernetes Service.
 这些 EndpointSlice 将包含对与 Service 选择算符匹配的所有 Pod 的引用。
 EndpointSlice 通过唯一的协议、端口号和 Service 名称将网络端点组织在一起。
 EndpointSlice 的名称必须是合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 例如，下面是 Kubernetes Service `example` 的 EndpointSlice 资源示例。
 
@@ -459,5 +459,5 @@ implementation in `kube-proxy`.
 <!--
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
-* 阅读[使用 Service 连接到应用](/zh/docs/concepts/services-networking/connect-applications-service/)
+* 阅读[使用 Service 连接到应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
 

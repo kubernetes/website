@@ -29,8 +29,8 @@ problems to address:
 1. 高度耦合的容器间通信：这个已经被 {{< glossary_tooltip text="Pods" term_id="pod" >}}
    和 `localhost` 通信解决了。
 2. Pod 间通信：本文档讲述重点。
-3. Pod 和服务间通信：由[服务](/zh/docs/concepts/services-networking/service/)负责。
-4. 外部和服务间通信：也由[服务](/zh/docs/concepts/services-networking/service/)负责。
+3. Pod 和服务间通信：由[服务](/zh-cn/docs/concepts/services-networking/service/)负责。
+4. 外部和服务间通信：也由[服务](/zh-cn/docs/concepts/services-networking/service/)负责。
 
 <!-- body -->
 
@@ -56,7 +56,7 @@ Kubernetes 的宗旨就是在应用之间共享机器。
 而 API 服务器还需要知道如何将动态端口数值插入到配置模块中，服务也需要知道如何找到对方等等。
 与其去解决这些问题，Kubernetes 选择了其他不同的方法。
 
-要了解 Kubernetes 网络模型，请参阅[此处](/zh/docs/concepts/services-networking/)。
+要了解 Kubernetes 网络模型，请参阅[此处](/zh-cn/docs/concepts/services-networking/)。
 <!--
 ## How to implement the Kubernetes networking model
 

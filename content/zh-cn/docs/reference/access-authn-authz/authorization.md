@@ -35,7 +35,7 @@ cloud-provider-wide access control systems which may handle other APIs besides
 the Kubernetes API.
 -->
 在 Kubernetes 中，你必须在鉴权（授予访问权限）之前进行身份验证（登录），有关身份验证的信息，
-请参阅[访问控制概述](/zh/docs/concepts/security/controlling-access/).
+请参阅[访问控制概述](/zh-cn/docs/concepts/security/controlling-access/).
 
 Kubernetes 期望请求中存在 REST API 常见的属性。
 这意味着 Kubernetes 鉴权适用于现有的组织范围或云提供商范围的访问控制系统，
@@ -48,7 +48,15 @@ Kubernetes authorizes API requests using the API server. It evaluates all of the
 request attributes against all policies and allows or denies the request. All
 parts of an API request must be allowed by some policy in order to proceed. This
 means that permissions are denied by default.
+-->
+## 确定是允许还是拒绝请求  {#determine-whether-a-request-is-allowed-or-denied}
 
+Kubernetes 使用 API 服务器对 API 请求进行鉴权。
+它根据所有策略评估所有请求属性来决定允许或拒绝请求。
+一个 API 请求的所有部分都必须被某些策略允许才能继续。
+这意味着默认情况下拒绝权限。
+
+<!--
 (Although Kubernetes uses the API server, access controls and policies that
 depend on specific fields of specific kinds of objects are handled by Admission
 Controllers.)
@@ -58,13 +66,6 @@ If any authorizer approves or denies a request, that decision is immediately
 returned and no other authorizer is consulted. If all modules have no opinion on
 the request, then the request is denied. A deny returns an HTTP status code 403.
 -->
-## 确定是允许还是拒绝请求
-
-Kubernetes 使用 API 服务器对 API 请求进行鉴权。
-它根据所有策略评估所有请求属性来决定允许或拒绝请求。
-一个 API 请求的所有部分都必须被某些策略允许才能继续。
-这意味着默认情况下拒绝权限。
-
 （尽管 Kubernetes 使用 API 服务器，但是依赖于特定对象种类的特定字段的访问控制
 和策略由准入控制器处理。）
 
@@ -94,22 +95,21 @@ Kubernetes reviews only the following API request attributes:
 
 Kubernetes 仅审查以下 API 请求属性：
 
-* **用户** - 身份验证期间提供的 `user` 字符串。
-* **组** - 经过身份验证的用户所属的组名列表。
-* **额外信息** - 由身份验证层提供的任意字符串键到字符串值的映射。
-* **API** - 指示请求是否针对 API 资源。
-* **请求路径** - 各种非资源端点的路径，如 `/api` 或 `/healthz`。
-* **API 请求动词** - API 动词 `get`、`list`、`create`、`update`、`patch`、`watch`、
+* **用户** —— 身份验证期间提供的 `user` 字符串。
+* **组** —— 经过身份验证的用户所属的组名列表。
+* **额外信息** —— 由身份验证层提供的任意字符串键到字符串值的映射。
+* **API** —— 指示请求是否针对 API 资源。
+* **请求路径** —— 各种非资源端点的路径，如 `/api` 或 `/healthz`。
+* **API 请求动词** —— API 动词 `get`、`list`、`create`、`update`、`patch`、`watch`、
   `proxy`、`redirect`、`delete` 和 `deletecollection` 用于资源请求。
-  要确定资源 API 端点的请求动词，请参阅
-  [确定请求动词](#determine-the-request-verb)。
-* **HTTP 请求动词** - HTTP 动词 `get`、`post`、`put` 和 `delete` 用于非资源请求。
-* **Resource** - 正在访问的资源的 ID 或名称（仅限资源请求）- 
+  要确定资源 API 端点的请求动词，请参阅[确定请求动词](#determine-the-request-verb)。
+* **HTTP 请求动词** —— HTTP 动词 `get`、`post`、`put` 和 `delete` 用于非资源请求。
+* **资源** —— 正在访问的资源的 ID 或名称（仅限资源请求）- 
   对于使用 `get`、`update`、`patch` 和 `delete` 动词的资源请求，你必须提供资源名称。
-* **子资源** - 正在访问的子资源（仅限资源请求）。
-* **名字空间** - 正在访问的对象的名称空间（仅适用于名字空间资源请求）。
-* **API 组** - 正在访问的 {{< glossary_tooltip text="API 组" term_id="api-group" >}}
-  （仅限资源请求）。空字符串表示[核心 API 组](/zh/docs/reference/using-api/#api-groups)。
+* **子资源** —— 正在访问的子资源（仅限资源请求）。
+* **名字空间** —— 正在访问的对象的名称空间（仅适用于名字空间资源请求）。
+* **API 组** —— 正在访问的 {{< glossary_tooltip text="API 组" term_id="api-group" >}}
+  （仅限资源请求）。空字符串表示[核心 API 组](/zh-cn/docs/reference/using-api/#api-groups)。
 
 <!--
 ## Determine the Request Verb
@@ -117,15 +117,17 @@ Kubernetes 仅审查以下 API 请求属性：
 **Non-resource requests**
 Requests to endpoints other than `/api/v1/...` or `/apis/<group>/<version>/...`
 are considered "non-resource requests", and use the lower-cased HTTP method of the request as the verb.
+
 For example, a `GET` request to endpoints like `/api` or `/healthz` would use `get` as the verb.
 -->
 ## 确定请求动词  {#determine-the-request-verb}
 
 **非资源请求**
 
-对于 `/api/v1/...` 或 `/apis/<group>/<version>/...` 之外的端点的请求被
-视为“非资源请求（Non-Resource Requests）”，并使用该请求的 HTTP 方法的
-小写形式作为其请求动词。
+对于 `/api/v1/...` 或 `/apis/<group>/<version>/...`
+之外的端点的请求被视为 “非资源请求（Non-Resource Requests）”，
+并使用该请求的 HTTP 方法的小写形式作为其请求动词。
+
 例如，对 `/api` 或 `/healthz` 这类端点的 `GET` 请求将使用 `get` 作为其动词。
 
 <!--
@@ -137,8 +139,7 @@ collection of resources:
 -->
 **资源请求**
 
-要确定对资源 API 端点的请求动词，需要查看所使用的 HTTP 动词以及该请求是针对
-单个资源还是一组资源：
+要确定对资源 API 端点的请求动词，需要查看所使用的 HTTP 动词以及该请求是针对单个资源还是一组资源：
 
 <!--
 HTTP verb | request verb
@@ -169,19 +170,19 @@ Kubernetes sometimes checks authorization for additional permissions using speci
 -->
 Kubernetes 有时使用专门的动词以对额外的权限进行鉴权。例如：
 
-* [PodSecurityPolicy](/zh/docs/concepts/security/pod-security-policy/)
+* [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)
   * `policy` API 组中 `podsecuritypolicies` 资源使用 `use` 动词
-* [RBAC](/zh/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
+* [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * 对 `rbac.authorization.k8s.io` API 组中 `roles` 和 `clusterroles` 资源的 `bind`
     和 `escalate` 动词
-* [身份认证](/zh/docs/reference/access-authn-authz/authentication/)
+* [身份认证](/zh-cn/docs/reference/access-authn-authz/authentication/)
   * 对核心 API 组中 `users`、`groups` 和 `serviceaccounts` 以及 `authentication.k8s.io`
     API 组中的 `userextras` 所使用的 `impersonate` 动词。
 
 <!--
 ## Authorization Modules  {#authorization-modules}
 
- * **Node** - A special-purpose authorizer that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about using the Node authorization mode, see [Node Authorization](/docs/reference/access-authn-authz/node/).
+ * **Node** - A special-purpose authorization mode that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about using the Node authorization mode, see [Node Authorization](/docs/reference/access-authn-authz/node/).
  * **ABAC** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes, etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/reference/access-authn-authz/abac/).
  * **RBAC** - Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise. In this context, access is the ability of an individual user to perform a specific task, such as view, create, or modify a file. To learn more about using the RBAC mode, see [RBAC Mode](/docs/reference/access-authn-authz/rbac/)
    * When specified RBAC (Role-Based Access Control) uses the `rbac.authorization.k8s.io` API group to drive authorization decisions, allowing admins to dynamically configure permission policies through the Kubernetes API.
@@ -190,23 +191,25 @@ Kubernetes 有时使用专门的动词以对额外的权限进行鉴权。例如
 -->
 ## 鉴权模块  {#authorization-modules}
 
-* **Node** - 一个专用鉴权组件，根据调度到 kubelet 上运行的 Pod 为 kubelet 授予权限。
-  了解有关使用节点鉴权模式的更多信息，请参阅[节点鉴权](/zh/docs/reference/access-authn-authz/node/)。
-* **ABAC** - 基于属性的访问控制（ABAC）定义了一种访问控制范型，通过使用将属性组合
-  在一起的策略，将访问权限授予用户。策略可以使用任何类型的属性（用户属性、资源属性、
-  对象，环境属性等）。要了解有关使用 ABAC 模式的更多信息，请参阅
-  [ABAC 模式](/zh/docs/reference/access-authn-authz/abac/)。
-* **RBAC** - 基于角色的访问控制（RBAC）是一种基于企业内个人用户的角色来管理对
-  计算机或网络资源的访问的方法。在此上下文中，权限是单个用户执行特定任务的能力，
+* **Node** —— 一个专用鉴权模式，根据调度到 kubelet 上运行的 Pod 为 kubelet 授予权限。
+  要了解有关使用节点鉴权模式的更多信息，请参阅[节点鉴权](/zh-cn/docs/reference/access-authn-authz/node/)。
+* **ABAC** —— 基于属性的访问控制（ABAC）定义了一种访问控制范型，通过使用将属性组合在一起的策略，
+  将访问权限授予用户。策略可以使用任何类型的属性（用户属性、资源属性、对象，环境属性等）。
+  要了解有关使用 ABAC 模式的更多信息，请参阅
+  [ABAC 模式](/zh-cn/docs/reference/access-authn-authz/abac/)。
+* **RBAC** —— 基于角色的访问控制（RBAC）
+  是一种基于企业内个人用户的角色来管理对计算机或网络资源的访问的方法。
+  在此上下文中，权限是单个用户执行特定任务的能力，
   例如查看、创建或修改文件。要了解有关使用 RBAC 模式的更多信息，请参阅
-  [RBAC 模式](/zh/docs/reference/access-authn-authz/rbac/)。
-  * 被启用之后，RBAC（基于角色的访问控制）使用 `rbac.authorization.k8s.io` API 组来
-    驱动鉴权决策，从而允许管理员通过 Kubernetes API 动态配置权限策略。
+  [RBAC 模式](/zh-cn/docs/reference/access-authn-authz/rbac/)。
+  * 被启用之后，RBAC（基于角色的访问控制）使用 `rbac.authorization.k8s.io` API
+    组来驱动鉴权决策，从而允许管理员通过 Kubernetes API 动态配置权限策略。
   * 要启用 RBAC，请使用 `--authorization-mode = RBAC` 启动 API 服务器。
-* **Webhook** - WebHook 是一个 HTTP 回调：发生某些事情时调用的 HTTP POST；
-  通过 HTTP POST 进行简单的事件通知。实现 WebHook 的 Web 应用程序会在发生某些事情时
-  将消息发布到 URL。要了解有关使用 Webhook 模式的更多信息，请参阅
-  [Webhook 模式](/zh/docs/reference/access-authn-authz/webhook/)。
+* **Webhook** —— WebHook 是一个 HTTP 回调：发生某些事情时调用的 HTTP POST；
+  通过 HTTP POST 进行简单的事件通知。
+  实现 WebHook 的 Web 应用程序会在发生某些事情时将消息发布到 URL。
+  要了解有关使用 Webhook 模式的更多信息，请参阅
+  [Webhook 模式](/zh-cn/docs/reference/access-authn-authz/webhook/)。
 
 <!--
 #### Checking API Access
@@ -225,7 +228,9 @@ a given action, and works regardless of the authorization mode used.
 kubectl auth can-i create deployments --namespace dev
 ```
 
-<!-- The output is similar to this: -->
+<!--
+The output is similar to this:
+-->
 输出类似于：
 
 ```
@@ -236,7 +241,9 @@ yes
 kubectl auth can-i create deployments --namespace prod
 ```
 
-<!-- The output is similar to this: -->
+<!--
+The output is similar to this:
+-->
 输出类似于：
 
 ```
@@ -247,15 +254,16 @@ no
 Administrators can combine this with [user impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation)
 to determine what action other users can perform.
 -->
-管理员可以将此与
-[用户扮演](/zh/docs/reference/access-authn-authz/authentication/#user-impersonation)
+管理员可以将此与[用户扮演（User Impersonation）](/zh-cn/docs/reference/access-authn-authz/authentication/#user-impersonation)
 结合使用，以确定其他用户可以执行的操作。
 
 ```bash
 kubectl auth can-i list secrets --namespace dev --as dave
 ```
 
-<!-- The output is similar to this: -->
+<!--
+The output is similar to this:
+-->
 输出类似于：
 
 ```
@@ -266,7 +274,7 @@ no
 Similarly, to check whether a ServiceAccount named `dev-sa` in Namespace `dev`
 can list Pods in the Namespace `target`:
 -->
-类似地，检查名字空间 `dev` 里的 `dev-sa` 服务账号是否可以列举名字空间 `target` 里的 Pod：
+类似地，检查名字空间 `dev` 里的 `dev-sa` 服务账户是否可以列举名字空间 `target` 里的 Pod：
 
 ```bash
 kubectl auth can-i list pods \
@@ -274,7 +282,9 @@ kubectl auth can-i list pods \
 	--as system:serviceaccount:dev:dev-sa
 ```
 
-<!-- The output is similar to this: -->
+<!--
+The output is similar to this:
+-->
 输出类似于：
 
 ```
@@ -297,10 +307,9 @@ field of the returned object is the result of the query.
 服务器鉴权公开给外部服务。该组中的其他资源包括：
 
 * `SubjectAccessReview` - 对任意用户的访问进行评估，而不仅仅是当前用户。
-  当鉴权决策被委派给 API 服务器时很有用。例如，kubelet 和扩展 API 服务器使用
-  它来确定用户对自己的 API 的访问权限。
-* `LocalSubjectAccessReview` - 与 `SubjectAccessReview` 类似，但仅限于特定的
-  名字空间。
+  当鉴权决策被委派给 API 服务器时很有用。例如，kubelet 和扩展 API
+  服务器使用它来确定用户对自己的 API 的访问权限。
+* `LocalSubjectAccessReview` - 与 `SubjectAccessReview` 类似，但仅限于特定的名字空间。
 * `SelfSubjectRulesReview` - 返回用户可在名字空间内执行的操作集的审阅。
   用户可以快速汇总自己的访问权限，或者用于 UI 中的隐藏/显示动作。
 
@@ -349,7 +358,7 @@ your policies include:
 
 The following flags can be used:
 -->
-## 为你的鉴权模块设置参数
+## 为你的鉴权模块设置参数  {#using-flags-for-your-authorization-module}
 
 你必须在策略中包含一个参数标志，以指明你的策略包含哪个鉴权模块：
 
@@ -363,8 +372,7 @@ The following flags can be used:
   * `--authorization-mode=AlwaysDeny` This flag blocks all requests. Use this flag only for testing.
   * `--authorization-mode=AlwaysAllow` This flag allows all requests. Use this flag only if you do not require authorization for your API requests.
 -->
-* `--authorization-mode=ABAC` 基于属性的访问控制（ABAC）模式允许你
-  使用本地文件配置策略。
+* `--authorization-mode=ABAC` 基于属性的访问控制（ABAC）模式允许你使用本地文件配置策略。
 * `--authorization-mode=RBAC` 基于角色的访问控制（RBAC）模式允许你使用
   Kubernetes API 创建和存储策略。
 * `--authorization-mode=Webhook` WebHook 是一种 HTTP 回调模式，允许你使用远程
@@ -372,15 +380,13 @@ The following flags can be used:
 * `--authorization-mode=Node` 节点鉴权是一种特殊用途的鉴权模式，专门对
   kubelet 发出的 API 请求执行鉴权。
 * `--authorization-mode=AlwaysDeny` 该标志阻止所有请求。仅将此标志用于测试。
-* `--authorization-mode=AlwaysAllow` 此标志允许所有请求。仅在你不需要 API 请求
-  的鉴权时才使用此标志。
+* `--authorization-mode=AlwaysAllow` 此标志允许所有请求。仅在你不需要 API 请求的鉴权时才使用此标志。
 
 <!--
 You can choose more than one authorization module. Modules are checked in order
 so an earlier module has higher priority to allow or deny a request.
 -->
-你可以选择多个鉴权模块。模块按顺序检查，以便较靠前的模块具有更高的优先级来允许
-或拒绝请求。
+你可以选择多个鉴权模块。模块按顺序检查，以便较靠前的模块具有更高的优先级来允许或拒绝请求。
 
 <!--
 ## Privilege escalation via workload creation or edits {#privilege-escalation-via-pod-creation}
@@ -391,8 +397,8 @@ such as an operator, could escalate their privileges in that namespace.
 ## 通过创建或编辑工作负载提升权限 {#privilege-escalation-via-pod-creation}
 
 能够在名字空间中创建或者编辑 Pod 的用户，
-无论是直接操作还是通过[控制器](/zh/docs/concepts/architecture/controller/)（例如，一个 Operator）来操作，
-都可以提升他们在该名字空间内的权限。
+无论是直接操作还是通过[控制器](/zh-cn/docs/concepts/architecture/controller/)
+（例如，一个 Operator）来操作，都可以提升他们在该名字空间内的权限。
 
 {{< caution >}}
 <!--
@@ -417,7 +423,8 @@ Details of how these can be misused are documented in [escalation paths](/docs/r
 - Mounting volumes meant for other workloads in that namespace
   - Can be used to obtain information meant for other workloads, and change it.
 -->
-### 提升途径 {#escalation-paths}
+### 特权提升途径 {#escalation-paths}
+
 - 挂载该名字空间内的任意 Secret
   - 可以用来访问其他工作负载专用的 Secret
   - 可以用来获取权限更高的服务账号的令牌
@@ -447,9 +454,8 @@ This should be considered when deciding on your RBAC controls.
 * To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/).
 * To learn more about Admission Control, see [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
 -->
-* 要了解有关身份验证的更多信息，请参阅
-  [控制对 Kubernetes API 的访问](/zh/docs/concepts/security/controlling-access/)
-  中的 **身份验证**  部分。
-* 要了解有关准入控制的更多信息，请参阅
-  [使用准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)。
+* 要了解有关身份验证的更多信息，
+  请参阅[控制对 Kubernetes API 的访问](/zh-cn/docs/concepts/security/controlling-access/)中的
+  **身份验证**  部分。
+* 要了解有关准入控制的更多信息，请参阅[使用准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)。
 

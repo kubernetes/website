@@ -18,7 +18,7 @@ weight: 40
 In Kubernetes, a _VolumeSnapshot_ represents a snapshot of a volume on a storage system. This document assumes that you are already familiar with Kubernetes [persistent volumes](/docs/concepts/storage/persistent-volumes/).
 -->
 在 Kubernetes 中，卷快照是一个存储系统上卷的快照，本文假设你已经熟悉了 Kubernetes
-的 [持久卷](/zh/docs/concepts/storage/persistent-volumes/)。
+的 [持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)。
 
 <!-- body -->
 
@@ -118,7 +118,7 @@ Instead of using a pre-existing snapshot, you can request that a snapshot to be 
 #### 动态的 {#dynamic}
 
 可以从 `PersistentVolumeClaim` 中动态获取快照，而不用使用已经存在的快照。
-在获取快照时，[卷快照类](/zh/docs/concepts/storage/volume-snapshot-classes/)
+在获取快照时，[卷快照类](/zh-cn/docs/concepts/storage/volume-snapshot-classes/)
 指定要用的特定于存储提供程序的参数。
 
 <!--
@@ -196,7 +196,7 @@ using the attribute `volumeSnapshotClassName`. If nothing is set, then the defau
 `persistentVolumeClaimName` 是 `PersistentVolumeClaim` 数据源对快照的名称。
 这个字段是动态配置快照中的必填字段。
 
-卷快照可以通过指定 [VolumeSnapshotClass](/zh/docs/concepts/storage/volume-snapshot-classes/)
+卷快照可以通过指定 [VolumeSnapshotClass](/zh-cn/docs/concepts/storage/volume-snapshot-classes/)
 使用 `volumeSnapshotClassName` 属性来请求特定类。如果没有设置，那么使用默认类（如果有）。
 
 <!--
@@ -353,4 +353,4 @@ For more details, see
 [Volume Snapshot and Restore Volume from Snapshot](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
 -->
 更多详细信息，请参阅
-[卷快照和从快照还原卷](/zh/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)。
+[卷快照和从快照还原卷](/zh-cn/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)。

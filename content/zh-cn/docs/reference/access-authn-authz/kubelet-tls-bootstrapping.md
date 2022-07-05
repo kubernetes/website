@@ -302,7 +302,7 @@ requests related to certificate provisioning. With RBAC in place, scoping the
 tokens to a group allows for great flexibility. For example, you could disable a
 particular bootstrap group's access when you are done provisioning the nodes.
 -->
-随着这个功能特性的逐渐成熟，你需要确保令牌绑定到某基于角色的的访问控制（RBAC）
+随着这个功能特性的逐渐成熟，你需要确保令牌绑定到某基于角色的访问控制（RBAC）
 策略上，从而严格限制请求（使用[启动引导令牌](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)）
 仅限于客户端申请提供证书。当 RBAC 被配置启用时，可以将令牌限制到某个组，
 从而提高灵活性。例如，你可以在准备节点期间禁止某特定启动引导组的访问。
@@ -338,7 +338,7 @@ for TLS bootstrapping.
 -->
 从 kubelet 的角度，所有令牌看起来都很像，没有特别的含义。
 从 kube-apiserver 服务器的角度，启动引导令牌是很特殊的。
-根据其 `type`、`namespace` 和 `name`，kube-apiserver 能够将认作特殊的令牌，
+根据其 `type`、`namespace` 和 `name`，kube-apiserver 能够将其认作特殊的令牌，
 并授予携带该令牌的任何人特殊的启动引导权限，换言之，将其视为
 `system:bootstrappers` 组的成员。这就满足了 TLS 启动引导的基本需求。
 
@@ -604,7 +604,7 @@ collection.
 作为 [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
 的一部分的 `csrapproving` 控制器是自动被启用的。
 该控制器使用 [`SubjectAccessReview` API](/zh/docs/reference/access-authn-authz/authorization/#checking-api-access)
-来确定是否某给定用户被授权请求 CSR，之后基于鉴权结果执行批复操作。
+来确定给定用户是否被授权请求 CSR，之后基于鉴权结果执行批复操作。
 为了避免与其它批复组件发生冲突，内置的批复组件不会显式地拒绝任何 CSRs。
 该组件仅是忽略未被授权的请求。
 控制器也会作为垃圾收集的一部分清除已过期的证书。

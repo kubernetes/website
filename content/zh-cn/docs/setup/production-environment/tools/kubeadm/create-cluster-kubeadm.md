@@ -83,7 +83,7 @@ applies to `kubeadm` as well as to Kubernetes overall.
 Check that policy to learn about what versions of Kubernetes and `kubeadm`
 are supported. This page is written for Kubernetes {{< param "version" >}}.
 -->
-[Kubernetes 版本及版本偏差策略](/zh-cn/docs/setup/release/version-skew-policy/#supported-versions)适用于 `kubeadm` 以及整个 Kubernetes。
+[Kubernetes 版本及版本偏差策略](/zh-cn/releases/version-skew-policy/#supported-versions)适用于 `kubeadm` 以及整个 Kubernetes。
 查阅该策略以了解支持哪些版本的 Kubernetes 和 `kubeadm`。
 该页面是为 Kubernetes {{< param "version" >}} 编写的。
 
@@ -544,7 +544,7 @@ The `node-role.kubernetes.io/control-plane` label is such a restricted label and
 a privileged client after a node has been created. To do that manually you can do the same by using `kubectl label`
 and ensure it is using a privileged kubeconfig such as the kubeadm managed `/etc/kubernetes/admin.conf`.
 -->
-默认情况下，kubeadm 启用 [NodeRestriction](/zh-cn/docs/reference/access-authn-authz/admissiontrollers/#noderestriction)
+默认情况下，kubeadm 启用 [NodeRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 准入控制器来限制 kubelets 在节点注册时可以应用哪些标签。准入控制器文档描述 kubelet `--node-labels` 选项允许使用哪些标签。
 其中 `node-role.kubernetes.io/control-plane` 标签就是这样一个受限制的标签，
 kubeadm 在节点创建后使用特权客户端手动应用此标签。
@@ -889,7 +889,7 @@ options.
 * Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
 * <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
   for details about upgrading your cluster using `kubeadm`.
-* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm)
+* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/)
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
 * See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
   of Pod network add-ons.
@@ -903,7 +903,7 @@ options.
 -->
 * 使用 [Sonobuoy](https://github.com/heptio/sonobuoy) 验证集群是否正常运行。
 * <a id="lifecycle"/>有关使用 kubeadm 升级集群的详细信息，请参阅[升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
-* 在 [kubeadm 参考文档](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm)中了解有关 `kubeadm` 进阶用法的信息。
+* 在 [kubeadm 参考文档](/zh-cn/docs/reference/setup-tools/kubeadm/)中了解有关 `kubeadm` 进阶用法的信息。
 * 了解有关 Kubernetes [概念](/zh-cn/docs/concepts/)和 [`kubectl`](/zh-cn/docs/reference/kubectl/)的更多信息。
 * 有关 Pod 网络附加组件的更多列表，请参见[集群网络](/zh-cn/docs/concepts/cluster-administration/networking/)页面。
 * <a id="other-addons" />请参阅[附加组件列表](/zh-cn/docs/concepts/cluster-administration/addons/)以探索其他附加组件，
@@ -970,12 +970,13 @@ Kubernetes 版本可以通过使用 `--kubeadm init` 的 `--kubernetes-version` 
 
 <!--
 Example:
-* kubeadm is at {{< skew latestVersion >}}
-* `kubernetesVersion` must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
+* kubeadm is at {{< skew currentVersion >}}
+* `kubernetesVersion` must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
 -->
 例子：
-* kubeadm 的版本为 {{< skew latestVersion >}}。
-* `kubernetesVersion` 必须为 {{< skew latestVersion >}} 或者 {{< skew prevMinorVersion >}}。
+
+* kubeadm 的版本为 {{< skew currentVersion >}}。
+* `kubernetesVersion` 必须为 {{< skew currentVersion >}} 或者 {{< skew currentVersionAddMinor -1 >}}。
 
 <!--
 ### kubeadm's skew against the kubelet
@@ -991,12 +992,13 @@ version as kubeadm or one version older.
 
 <!--
 Example:
-* kubeadm is at {{< skew latestVersion >}}
-* kubelet on the host must be at {{< skew latestVersion >}} or {{< skew prevMinorVersion >}}
+* kubeadm is at {{< skew currentVersion >}}
+* kubelet on the host must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
 -->
 例子：
-* kubeadm 的版本为 {{< skew latestVersion >}}
-* 主机上的 kubelet 版本必须为 {{< skew latestVersion >}} 或者 {{< skew prevMinorVersion >}}
+
+* kubeadm 的版本为 {{< skew currentVersion >}}。
+* 主机上的 kubelet 必须为 {{< skew currentVersion >}} 或者 {{< skew currentVersionAddMinor -1 >}}。
 
 <!--
 ### kubeadm's skew against kubeadm
@@ -1021,12 +1023,13 @@ with the exception of `kubeadm upgrade`.
 
 <!--
 Example for `kubeadm join`:
-* kubeadm version {{< skew latestVersion >}} was used to create a cluster with `kubeadm init`
-* Joining nodes must use a kubeadm binary that is at version {{< skew latestVersion >}}
+* kubeadm version {{< skew currentVersion >}} was used to create a cluster with `kubeadm init`
+* Joining nodes must use a kubeadm binary that is at version {{< skew currentVersion >}}
 -->
 `kubeadm join` 的例子：
-* 使用 `kubeadm init` 创建集群时使用版本为 {{< skew latestVersion >}} 的 kubeadm。
-* 加入的节点必须使用版本为 {{< skew latestVersion >}} 的 kubeadm 二进制文件。
+
+* 使用 `kubeadm init` 创建集群时使用版本为 {{< skew currentVersion >}} 的 kubeadm。
+* 添加节点所用的 kubeadm 可执行文件为版本 {{< skew currenttVersion >}}。
 
 <!--
 Nodes that are being upgraded must use a version of kubeadm that is the same MINOR
@@ -1038,29 +1041,28 @@ MINOR 版本或比后者新一个 MINOR 版本。
 
 <!--
 Example for `kubeadm upgrade`:
-* kubeadm version {{< skew prevMinorVersion >}} was used to create or upgrade the node
-* The version of kubeadm used for upgrading the node must be at {{< skew prevMinorVersion >}}
-or {{< skew latestVersion >}}
+* kubeadm version {{< skew currentVersionAddMinor -1 >}} was used to create or upgrade the node
+* The version of kubeadm used for upgrading the node must be at {{< skew currentVersionAddMinor -1 >}}
+or {{< skew currentVersion >}}
 -->
 `kubeadm upgrade` 的例子:
-* 用于创建或升级节点的 kubeadm 版本为 {{< skew prevMinorVersion >}}。
-* 用于升级节点的 kubeadm 版本必须为 {{< skew prevMinorVersion >}} 或 {{< skew latestVersion >}}。
+* 用于创建或升级节点的 kubeadm 版本为 {{< skew currentVersionAddMinor -1 >}}。
+* 用于升级节点的 kubeadm 版本必须为 {{< skew currentVersionAddMinor -1 >}} 或 {{< skew currentVersion >}}。
 
 <!--
 To learn more about the version skew between the different Kubernetes component see
 the [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
 -->
 要了解更多关于不同 Kubernetes 组件之间的版本偏差，请参见
-[版本偏差策略](https://kubernetes.io/releases/version-skew-policy/)。
+[版本偏差策略](/zh-cn/releases/version-skew-policy/)。
 
 <!--
 ## Limitations {#limitations}
+
+### Cluster resilience {#resilience}
 -->
 ## 局限性 {#limitations}
 
-<!--
-### Cluster resilience {#resilience}
--->
 ### 集群弹性 {#resilience}
 
 <!--
@@ -1100,9 +1102,10 @@ Workarounds:
 <!--
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
 following the [multi-platform
-proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md).
+proposal](https://git.k8s.io/design-proposals-archive/multi-platform.md).
 -->
-kubeadm deb/rpm 软件包和二进制文件是为 amd64、arm (32-bit)、arm64、ppc64le 和 s390x 构建的遵循[多平台提案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md)。
+kubeadm deb/rpm 软件包和二进制文件是为 amd64、arm (32-bit)、arm64、ppc64le 和 s390x
+构建的遵循[多平台提案](https://git.k8s.io/design-proposals-archive/multi-platform.md)。
 
 <!--
 Multiplatform container images for the control plane and addons are also supported since v1.12.
@@ -1114,7 +1117,8 @@ Only some of the network providers offer solutions for all platforms. Please con
 network providers above or the documentation from each provider to figure out whether the provider
 supports your chosen platform.
 -->
-只有一些网络提供商为所有平台提供解决方案。请查阅上方的网络提供商清单或每个提供商的文档以确定提供商是否支持你选择的平台。
+只有一些网络提供商为所有平台提供解决方案。
+请查阅上方的网络提供商清单或每个提供商的文档以确定提供商是否支持你选择的平台。
 
 <!--
 ## Troubleshooting {#troubleshooting}
@@ -1124,4 +1128,5 @@ supports your chosen platform.
 <!--
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 -->
-如果你在使用 kubeadm 时遇到困难，请查阅我们的[故障排除文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
+如果你在使用 kubeadm 时遇到困难，
+请查阅我们的[故障排除文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。

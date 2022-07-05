@@ -70,7 +70,7 @@ on the default port.
 | TCP      | 入站       | 10250       | Kubelet API           | 自身, 控制面             |
 | TCP      | 入站       | 30000-32767 | NodePort Services†    | 所有                    |
 
-† [NodePort Services](/zh/docs/concepts/services-networking/service/)的默认端口范围。
+† [NodePort Services](/zh-cn/docs/concepts/services-networking/service/)的默认端口范围。
 
 所有默认端口都可以重新配置。当使用自定义的端口时，你需要打开这些端口来代替这里提到的默认端口。
 

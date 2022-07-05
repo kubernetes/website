@@ -26,7 +26,7 @@ Kubernetes using [StatefulSets](/docs/concepts/workloads/controllers/statefulset
 and [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 -->
 本教程展示了在 Kubernetes 上使用
-[StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)，
+[StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)、
 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget) 和
 [PodAntiAffinity](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#亲和与反亲和)
 特性运行 [Apache Zookeeper](https://zookeeper.apache.org)。
@@ -43,7 +43,7 @@ Kubernetes concepts.
 - [集群 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
 - [无头服务（Headless Service）](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 - [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
-- [PersistentVolume 制备](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+- [PersistentVolume 制备](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 - [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
 - [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
 - [PodAntiAffinity](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#亲和与反亲和)
@@ -52,9 +52,9 @@ Kubernetes concepts.
 <!--
 You must have a cluster with at least four nodes, and each node requires at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and drain the cluster's nodes. **This means that the cluster will terminate and evict all Pods on its nodes, and the nodes will temporarily become unschedulable.** You should use a dedicated cluster for this tutorial, or you should ensure that the disruption you cause will not interfere with other tenants.
 -->
-你需要一个至少包含四个节点的集群，每个节点至少 2 CPUs 和 4 GiB 内存。
+你需要一个至少包含四个节点的集群，每个节点至少 2 个 CPU 和 4 GiB 内存。
 在本教程中你将会隔离（Cordon）和腾空（Drain ）集群的节点。
-**这意味着集群节点上所有的 Pods 将会被终止并移除。这些节点也会暂时变为不可调度**。
+**这意味着集群节点上所有的 Pod 将会被终止并移除。这些节点也会暂时变为不可调度**。
 在本教程中你应该使用一个独占的集群，或者保证你造成的干扰不会影响其它租户。
 
 <!--
@@ -63,7 +63,7 @@ PersistentVolumes. If your cluster is not configured to do so, you
 will have to manually provision three 20 GiB volumes before starting this
 tutorial.
 -->
-本教程假设你的集群配置为动态的提供 PersistentVolumes。
+本教程假设你的集群已配置为动态制备 PersistentVolume。
 如果你的集群没有配置成这样，在开始本教程前，你需要手动准备三个 20 GiB 的卷。
 
 ## {{% heading "objectives" %}}
@@ -79,9 +79,9 @@ After this tutorial, you will know the following.
 在学习本教程后，你将熟悉下列内容。
 
 * 如何使用 StatefulSet 部署一个 ZooKeeper ensemble。
-* 如何一致性配置 ensemble。
-* 如何在 ensemble 中 分布 ZooKeeper 服务器的部署。
-* 如何在计划维护中使用 PodDisruptionBudgets 确保服务可用性。
+* 如何一致地配置 ensemble。
+* 如何在 ensemble 中分布 ZooKeeper 服务器的部署。
+* 如何在计划维护中使用 PodDisruptionBudget 确保服务可用性。
 
 <!-- lessoncontent -->
 
@@ -189,7 +189,7 @@ kubectl get pods -w -l app=zk
 <!--
 Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
 -->
-一旦  `zk-2` Pod 变成 Running 和 Ready 状态，使用 `CRTL-C` 结束 kubectl。
+一旦 `zk-2` Pod 变成 Running 和 Ready 状态，请使用 `CRTL-C` 结束 kubectl。
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -214,7 +214,7 @@ zk-2      1/1       Running   0         40s
 The StatefulSet controller creates three Pods, and each Pod has a container with
 a [ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) server.
 -->
-StatefulSet 控制器创建 3 个 Pods，每个 Pod 包含一个
+StatefulSet 控制器创建 3 个 Pod，每个 Pod 包含一个
 [ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) 服务容器。
 
 <!--
@@ -233,7 +233,7 @@ of the Pods in the `zk` StatefulSet.
 
 使用命令
 [`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec)
-获取 `zk` StatefulSet 中 Pods 的主机名。
+获取 `zk` StatefulSet 中 Pod 的主机名。
 
 ```shell
 for i in 0 1 2; do kubectl exec zk-$i -- hostname; done
@@ -246,7 +246,7 @@ The StatefulSet controller provides each Pod with a unique hostname based on its
 StatefulSet 控制器基于每个 Pod 的序号索引为它们各自提供一个唯一的主机名。
 主机名采用 `<statefulset 名称>-<序数索引>` 的形式。
 由于 `zk` StatefulSet 的 `replicas` 字段设置为 3，这个集合的控制器将创建
-3 个 Pods，主机名为：`zk-0`、`zk-1` 和 `zk-2`。
+3 个 Pod，主机名为：`zk-0`、`zk-1` 和 `zk-2`。
 
 ```
 zk-0
@@ -309,7 +309,7 @@ The A records in [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-ser
 ZooKeeper stores its application configuration in a file named `zoo.cfg`. Use `kubectl exec` to view the contents of the `zoo.cfg` file in the `zk-0` Pod.
 -->
 [Kubernetes DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
-中的 A 记录将 FQDNs 解析成为 Pods 的 IP 地址。
+中的 A 记录将 FQDN 解析成为 Pod 的 IP 地址。
 如果 Pods 被调度，这个 A 记录将会使用 Pods 的新 IP 地址完成更新，
 但 A 记录的名称不会改变。
 
@@ -354,11 +354,11 @@ Consensus protocols require that the identifiers of each participant be unique. 
 -->
 ### 达成共识   {#achieving-consensus}
 
- 一致性协议要求每个参与者的标识符唯一。
+一致性协议要求每个参与者的标识符唯一。
 在 Zab 协议里任何两个参与者都不应该声明相同的唯一标识符。
 对于让系统中的进程协商哪些进程已经提交了哪些数据而言，这是必须的。
-如果有两个 Pods 使用相同的序号启动，这两个 ZooKeeper 服务器
-会将自己识别为相同的服务器。
+如果有两个 Pod 使用相同的序号启动，这两个 ZooKeeper
+服务器会将自己识别为相同的服务器。
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -390,9 +390,9 @@ endpoint will be the unique ZooKeeper server claiming the identity configured
 in its `myid` file.
 -->
 每个 Pod 的 A 记录仅在 Pod 变成 Ready状态时被录入。
-因此，ZooKeeper 服务器的 FQDNs 只会解析到一个端点，而那个端点将会是
-一个唯一的 ZooKeeper 服务器，这个服务器声明了配置在它的 `myid`
-文件中的标识符。
+因此，ZooKeeper 服务器的 FQDN 只会解析到一个端点，
+而那个端点将会是一个唯一的 ZooKeeper 服务器，
+这个服务器声明了配置在它的 `myid` 文件中的标识符。
 
 ```
 zk-0.zk-hs.default.svc.cluster.local
@@ -405,8 +405,7 @@ This ensures that the `servers` properties in the ZooKeepers' `zoo.cfg` files
 represents a correctly configured ensemble.
 -->
 
-这保证了 ZooKeepers 的 `zoo.cfg` 文件中的 `servers` 属性代表了
-一个正确配置的 ensemble。
+这保证了 ZooKeeper 的 `zoo.cfg` 文件中的 `servers` 属性代表了一个正确配置的 ensemble。
 
 ```
 server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
@@ -418,7 +417,7 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 When the servers use the Zab protocol to attempt to commit a value, they will either achieve consensus and commit the value (if leader election has succeeded and at least two of the Pods are Running and Ready), or they will fail to do so (if either of the conditions are not met). No state will arise where one server acknowledges a write on behalf of another.
 -->
 当服务器使用 Zab 协议尝试提交一个值的时候，它们会达成一致并成功提交这个值
-（如果领导者选举成功并且至少有两个 Pods 处于 Running 和 Ready状态），
+（如果领导者选举成功并且至少有两个 Pod 处于 Running 和 Ready 状态），
 或者将会失败（如果没有满足上述条件中的任意一条）。
 当一个服务器承认另一个服务器的代写时不会有状态产生。
 
@@ -432,8 +431,7 @@ The command below executes the `zkCli.sh` script to write `world` to the path `/
 -->
 ### Ensemble 健康检查
 
-最基本的健康检查是向一个 ZooKeeper 服务器写入一些数据，然后从
-另一个服务器读取这些数据。
+最基本的健康检查是向一个 ZooKeeper 服务器写入一些数据，然后从另一个服务器读取这些数据。
 
 使用 `zkCli.sh` 脚本在 `zk-0` Pod 上写入 `world` 到路径 `/hello`。
 
@@ -494,10 +492,10 @@ Use the [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#d
 -->
 ### 提供持久存储
 
-如同在 [ZooKeeper](#zookeeper-basics) 一节所提到的，ZooKeeper 提交
-所有的条目到一个持久 WAL，并周期性的将内存快照写入存储介质。
-对于使用一致性协议实现一个复制状态机的应用来说，使用 WALs 提供持久化
-是一种常用的技术，对于普通的存储应用也是如此。
+如同在 [ZooKeeper](#zookeeper-basics) 一节所提到的，
+ZooKeeper 提交所有的条目到一个持久 WAL，并周期性的将内存快照写入存储介质。
+对于使用一致性协议实现一个复制状态机的应用来说，
+使用 WAL 提供持久化是一种常用的技术，对于普通的存储应用也是如此。
 
 使用 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete)
 删除 `zk` StatefulSet。
@@ -513,7 +511,7 @@ statefulset.apps "zk" deleted
 <!--
 Watch the termination of the Pods in the StatefulSet.
 -->
-观察 StatefulSet 中的 Pods 变为终止状态。
+观察 StatefulSet 中的 Pod 变为终止状态。
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -555,7 +553,7 @@ Watch the StatefulSet controller recreate the StatefulSet's Pods.
 -->
 `zk` StatefulSet 将会被创建。由于清单中的其他 API 对象已经存在，所以它们不会被修改。
 
-观察 StatefulSet 控制器重建 StatefulSet 的 Pods。
+观察 StatefulSet 控制器重建 StatefulSet 的 Pod。
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -564,7 +562,7 @@ kubectl get pods -w -l app=zk
 <!--
 Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
 -->
-一旦 `zk-2` Pod 处于 Running 和 Ready 状态，使用 `CRTL-C` 停止 kubectl命令。
+一旦 `zk-2` Pod 处于 Running 和 Ready 状态，使用 `CRTL-C` 停止 kubectl 命令。
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -598,8 +596,8 @@ kubectl exec zk-2 zkCli.sh get /hello
 <!--
 Even though you terminated and recreated all of the Pods in the `zk` StatefulSet, the ensemble still serves the original value.
 -->
-尽管 `zk` StatefulSet 中所有的 Pods 都已经被终止并重建过，ensemble
-仍然使用原来的数值提供服务。
+尽管 `zk` StatefulSet 中所有的 Pod 都已经被终止并重建过，
+ensemble 仍然使用原来的数值提供服务。
 
 ```
 WATCHER::
@@ -622,8 +620,8 @@ numChildren = 0
 <!--
 The `volumeClaimTemplates` field of the `zk` StatefulSet's `spec` specifies a PersistentVolume provisioned for each Pod.
 -->
-`zk` StatefulSet 的 `spec` 中的 `volumeClaimTemplates` 字段标识了
-将要为每个 Pod 准备的 PersistentVolume。
+`zk` StatefulSet 的 `spec` 中的 `volumeClaimTemplates`
+字段标识了将要为每个 Pod 准备的 PersistentVolume。
 
 ```yaml
 volumeClaimTemplates:
@@ -655,7 +653,7 @@ kubectl get pvc -l app=zk
 <!--
 When the `StatefulSet` recreated its Pods, it remounts the Pods' PersistentVolumes.
 -->
-当 `StatefulSet` 重新创建它的 Pods 时，Pods 的 PersistentVolumes 会被重新挂载。
+当 `StatefulSet` 重新创建它的 Pod 时，Pod 的 PersistentVolume 会被重新挂载。
 
 ```
 NAME           STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
@@ -668,7 +666,7 @@ datadir-zk-2   Bound     pvc-bee0817e-bcb1-11e6-994f-42010a800002   20Gi       R
 The `volumeMounts` section of the `StatefulSet`'s container `template` mounts the PersistentVolumes in the ZooKeeper servers' data directories.
 -->
 StatefulSet 的容器 `template` 中的 `volumeMounts` 一节使得
-PersistentVolumes 被挂载到 ZooKeeper 服务器的数据目录。
+PersistentVolume 被挂载到 ZooKeeper 服务器的数据目录。
 
 ```yaml
 volumeMounts:
@@ -684,8 +682,7 @@ servers' WALs, and all their snapshots, remain durable.
 -->
 当 `zk` `StatefulSet` 中的一个 Pod 被（重新）调度时，它总是拥有相同的 PersistentVolume，
 挂载到 ZooKeeper 服务器的数据目录。
-即使在 Pods 被重新调度时，所有对 ZooKeeper 服务器的 WALs 的写入和它们的
-全部快照都仍然是持久的。
+即使在 Pod 被重新调度时，所有对 ZooKeeper 服务器的 WAL 的写入和它们的全部快照都仍然是持久的。
 
 <!--
 ## Ensuring consistent configuration
@@ -834,8 +831,9 @@ Kubernetes integrates with many logging solutions. You can choose a logging solu
 that best fits your cluster and applications. For cluster-level logging and aggregation,
 consider deploying a [sidecar container](/docs/concepts/cluster-administration/logging#sidecar-container-with-logging-agent) to rotate and ship your logs.
 -->
-Kubernetes 支持与多种日志方案集成。你可以选择一个最适合你的集群和应用
-的日志解决方案。对于集群级别的日志输出与整合，可以考虑部署一个
+Kubernetes 支持与多种日志方案集成。
+你可以选择一个最适合你的集群和应用的日志解决方案。
+对于集群级别的日志输出与整合，可以考虑部署一个
 [边车容器](/zh-cn/docs/concepts/cluster-administration/logging#sidecar-container-with-logging-agent)
 来轮转和提供日志数据。
 
@@ -909,9 +907,9 @@ kubectl exec -ti zk-0 -- ls -ld /var/lib/zookeeper/data
 <!--
 Because the `fsGroup` field of the `securityContext` object is set to 1000, the ownership of the Pods' PersistentVolumes is set to the zookeeper group, and the ZooKeeper process is able to read and write its data.
 -->
-由于 `securityContext` 对象的 `fsGroup` 字段设置为 1000，Pods 的
-PersistentVolumes 的所有权属于 zookeeper 用户组，因而 ZooKeeper
-进程能够成功地读写数据。
+由于 `securityContext` 对象的 `fsGroup` 字段设置为 1000，
+Pod 的 PersistentVolume 的所有权属于 zookeeper 用户组，
+因而 ZooKeeper 进程能够成功地读写数据。
 
 ```
 drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
@@ -931,7 +929,7 @@ watchdog for your application.
 ## 管理 ZooKeeper 进程
 
 [ZooKeeper 文档](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision)
-指出“你将需要一个监管程序用于管理每个 ZooKeeper 服务进程（JVM）”。
+指出 “你将需要一个监管程序用于管理每个 ZooKeeper 服务进程（JVM）”。
 在分布式系统中，使用一个看门狗（监管程序）来重启故障进程是一种常用的模式。
 
 <!--
@@ -1034,7 +1032,7 @@ Use the following command to examine the process tree for the ZooKeeper server r
 
 [重启策略](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
 控制 Kubernetes 如何处理一个 Pod 中容器入口点的进程故障。
-对于 StatefulSet 中的 Pods 来说，Always 是唯一合适的 RestartPolicy，也是默认值。
+对于 StatefulSet 中的 Pod 来说，Always 是唯一合适的 RestartPolicy，也是默认值。
 你应该**绝不**覆盖有状态应用的默认策略。
 
 检查 `zk-0` Pod 中运行的 ZooKeeper 服务器的进程树。
@@ -1047,8 +1045,7 @@ kubectl exec zk-0 -- ps -ef
 The command used as the container's entry point has PID 1, and
 the ZooKeeper process, a child of the entry point, has PID 27.
 -->
-作为容器入口点的命令的 PID 为 1，Zookeeper 进程是入口点的子进程，
-PID 为 27。
+作为容器入口点的命令的 PID 为 1，Zookeeper 进程是入口点的子进程，PID 为 27。
 
 ```
 UID        PID  PPID  C STIME TTY          TIME CMD
@@ -1059,7 +1056,7 @@ zookeep+    27     1  0 15:03 ?        00:00:03 /usr/lib/jvm/java-8-openjdk-amd6
 <!--
 In another terminal watch the Pods in the `zk` `StatefulSet` with the following command.
 -->
-在一个终端观察 `zk` `StatefulSet` 中的 Pods。
+在一个终端观察 `zk` `StatefulSet` 中的 Pod。
 
 ```shell
 kubectl get pod -w -l app=zk
@@ -1150,7 +1147,7 @@ fi
 <!--
 In one terminal window, use the following command to watch the Pods in the `zk` StatefulSet.
 -->
-在一个终端窗口中使用下面的命令观察 `zk` StatefulSet 中的 Pods。
+在一个终端窗口中使用下面的命令观察 `zk` StatefulSet 中的 Pod。
 
 ```shell
 kubectl get pod -w -l app=zk
@@ -1257,9 +1254,9 @@ By default, Kubernetes may co-locate Pods in a `StatefulSet` on the same node.
 For the three server ensemble you created, if two servers are on the same node, and that node fails,
 the clients of your ZooKeeper service will experience an outage until at least one of the Pods can be rescheduled.
 -->
-默认情况下，Kubernetes 可以把 `StatefulSet` 的 Pods 部署在相同节点上。
-对于你创建的 3 个服务器的 ensemble 来说，如果有两个服务器并存于
-相同的节点上并且该节点发生故障时，ZooKeeper 服务将中断，
+默认情况下，Kubernetes 可以把 `StatefulSet` 的 Pod 部署在相同节点上。
+对于你创建的 3 个服务器的 ensemble 来说，
+如果有两个服务器并存于相同的节点上并且该节点发生故障时，ZooKeeper 服务将中断，
 直至至少一个 Pods 被重新调度。
 
 <!--
@@ -1276,7 +1273,7 @@ Use the command below to get the nodes for Pods in the `zk` `StatefulSet`.
 ZooKeeper 服务器为止。
 但是，如果希望你的服务在容忍节点故障时无停服时间，你应该设置 `podAntiAffinity`。
 
-使用下面的命令获取 `zk` `StatefulSet` 中的 Pods 的节点。
+使用下面的命令获取 `zk` `StatefulSet` 中的 Pod 的节点。
 
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
@@ -1285,7 +1282,7 @@ for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo "";
 <!--
 All of the Pods in the `zk` `StatefulSet` are deployed on different nodes.
 -->
-`zk` `StatefulSet` 中所有的 Pods 都被部署在不同的节点。
+`zk` `StatefulSet` 中所有的 Pod 都被部署在不同的节点。
 
 ```
 kubernetes-node-cxpk
@@ -1297,7 +1294,7 @@ kubernetes-node-2g2d
 This is because the Pods in the `zk` `StatefulSet` have a `PodAntiAffinity` specified.
 -->
 
-这是因为 `zk` `StatefulSet` 中的 Pods 指定了 `PodAntiAffinity`。
+这是因为 `zk` `StatefulSet` 中的 Pod 指定了 `PodAntiAffinity`。
 
 ```yaml
 affinity:
@@ -1322,7 +1319,7 @@ your ensemble across physical, network, and power failure domains.
 -->
 `requiredDuringSchedulingIgnoredDuringExecution` 告诉 Kubernetes 调度器，
 在以 `topologyKey` 指定的域中，绝对不要把带有键为 `app`、值为 `zk` 的标签
-的两个 Pods 调度到相同的节点。`topologyKey` `kubernetes.io/hostname` 表示
+的两个 Pod 调度到相同的节点。`topologyKey` `kubernetes.io/hostname` 表示
 这个域是一个单独的节点。
 使用不同的规则、标签和选择算符，你能够通过这种技术把你的 ensemble 分布
 在不同的物理、网络和电力故障域之间。
@@ -1344,7 +1341,7 @@ Use this command to get the nodes in your cluster.
 **在本节中你将会隔离（Cordon）和腾空（Drain）节点。
 如果你是在一个共享的集群里使用本教程，请保证不会影响到其他租户。**
 
-上一小节展示了如何在节点之间分散 Pods 以在计划外的节点故障时保证服务存活。
+上一小节展示了如何在节点之间分散 Pod 以在计划外的节点故障时保证服务存活。
 但是你也需要为计划内维护引起的临时节点故障做准备。
 
 使用此命令获取你的集群中的节点。
@@ -1389,7 +1386,7 @@ zk-pdb    N/A             1                 1
 <!--
 In one terminal, use this command to watch the Pods in the `zk` `StatefulSet`.
 -->
-在一个终端中，使用下面的命令观察 `zk` `StatefulSet` 中的 Pods。
+在一个终端中，使用下面的命令观察 `zk` `StatefulSet` 中的 Pod。
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -1399,7 +1396,7 @@ kubectl get pods -w -l app=zk
 In another terminal, use this command to get the nodes that the Pods are currently scheduled on.
 -->
 
-在另一个终端中，使用下面的命令获取 Pods 当前调度的节点。
+在另一个终端中，使用下面的命令获取 Pod 当前调度的节点。
 
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
@@ -1464,7 +1461,7 @@ Keep watching the `StatefulSet`'s Pods in the first terminal and drain the node 
 
 The output is similar to this:
 -->
-在第一个终端中持续观察 `StatefulSet` 的 Pods 并腾空 `zk-1` 调度所在的节点。
+在第一个终端中持续观察 `StatefulSet` 的 Pod 并腾空 `zk-1` 调度所在的节点。
 
 ```shell
 kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
@@ -1485,7 +1482,7 @@ co-location of the Pods, and as only two nodes are schedulable, the Pod will rem
 
 The output is similar to this:
 -->
-`zk-1` Pod 不能被调度，这是因为 `zk` `StatefulSet` 包含了一个防止 Pods
+`zk-1` Pod 不能被调度，这是因为 `zk` `StatefulSet` 包含了一个防止 Pod
 共存的 `PodAntiAffinity` 规则，而且只有两个节点可用于调度，
 这个 Pod 将保持在 Pending 状态。
 
@@ -1524,7 +1521,7 @@ Continue to watch the Pods of the StatefulSet, and drain the node on which
 
 The output is similar to this:
 -->
-继续观察 StatefulSet 中的 Pods 并腾空 `zk-2` 调度所在的节点。
+继续观察 StatefulSet 中的 Pod 并腾空 `zk-2` 调度所在的节点。
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
@@ -1687,10 +1684,10 @@ If drain is used to cordon nodes and evict pods prior to taking the node offline
 services that express a disruption budget will have that budget respected.
 You should always allocate additional capacity for critical services so that their Pods can be immediately rescheduled.
 -->
-你可以同时使用 `kubectl drain` 和 `PodDisruptionBudgets` 来保证你的服务
-在维护过程中仍然可用。如果使用了腾空操作来隔离节点并在节点离线之前驱逐了 pods，
+你可以同时使用 `kubectl drain` 和 `PodDisruptionBudgets` 来保证你的服务在维护过程中仍然可用。
+如果使用了腾空操作来隔离节点并在节点离线之前驱逐了 Pod，
 那么设置了干扰预算的服务将会遵守该预算。
-你应该总是为关键服务分配额外容量，这样它们的 Pods 就能够迅速的重新调度。
+你应该总是为关键服务分配额外容量，这样它们的 Pod 就能够迅速的重新调度。
 
 ## {{% heading "cleanup" %}}
 
@@ -1701,6 +1698,6 @@ You should always allocate additional capacity for critical services so that the
   and provisioning method, to ensure that all storage is reclaimed.
 -->
 * 使用 `kubectl uncordon` 解除你集群中所有节点的隔离。
-* 你需要删除在本教程中使用的 PersistentVolumes 的持久存储媒介。
+* 你需要删除在本教程中使用的 PersistentVolume 的持久存储媒介。
   请遵循必须的步骤，基于你的环境、存储配置和制备方法，保证回收所有的存储。
 

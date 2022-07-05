@@ -40,7 +40,7 @@ Anyone can:
 - Contribute to a localization
 - Suggest improvements on [Slack](http://slack.k8s.io/) or the [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 
-After [signing the CLA](/docs/contribute/new-content/overview/#sign-the-cla), anyone can also:
+After [signing the CLA](https://github.com/kubernetes/community/blob/master/CLA.md), anyone can also:
 
 - Open a pull request to improve existing content, add new content, or write a blog post or case study
 - Create diagrams, graphics assets, and embeddable screencasts and videos
@@ -62,7 +62,7 @@ For more information, see [contributing new content](/docs/contribute/new-conten
   [SIG Docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
   上提出改进建议。
 
-在[签署了 CLA](/zh-cn/docs/contribute/new-content/#sign-the-cla) 之后，任何人还可以：
+在[签署了 CLA](https://github.com/kubernetes/community/blob/master/CLA.md) 之后，任何人还可以：
 
 - 发起拉取请求（PR），改进现有内容、添加新内容、撰写博客或者案例分析
 - 创建示意图、图形资产或者嵌入式的截屏和视频内容

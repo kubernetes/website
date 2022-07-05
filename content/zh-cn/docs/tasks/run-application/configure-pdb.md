@@ -37,9 +37,9 @@ nodes.
   Pod Disruption Budgets.
 -->
 * 你是 Kubernetes 集群中某应用的所有者，该应用有高可用要求。
-* 你应了解如何部署[无状态应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)
-  和/或[有状态应用](/zh/docs/tasks/run-application/run-replicated-stateful-application/)。
-* 你应当已经阅读过关于 [Pod 干扰](/zh/docs/concepts/workloads/pods/disruptions/) 的文档。
+* 你应了解如何部署[无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
+  和/或[有状态应用](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)。
+* 你应当已经阅读过关于 [Pod 干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/) 的文档。
 * 用户应当与集群所有者或服务提供者确认其遵从 Pod 干扰预算（Pod Disruption Budgets）的规则。
 
 <!-- steps -->
@@ -87,7 +87,7 @@ selector goes into the PDBs `.spec.selector`.
 From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
 -->
 从 1.15 版本开始，PDB 支持启用
-[scale 子资源](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)
+[scale 子资源](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)
 的自定义控制器。
 
 <!--

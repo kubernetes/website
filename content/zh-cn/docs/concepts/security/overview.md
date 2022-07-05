@@ -165,7 +165,7 @@ good information practices, read and follow the advice about
 -->
 ### 集群组件 {#cluster-components}
 
-如果想要保护集群免受意外或恶意的访问，采取良好的信息管理实践，请阅读并遵循有关[保护集群](/zh/docs/tasks/administer-cluster/securing-a-cluster/)的建议。
+如果想要保护集群免受意外或恶意的访问，采取良好的信息管理实践，请阅读并遵循有关[保护集群](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)的建议。
 
 <!--
 ### Components in the cluster (your application) {#cluster-applications}
@@ -196,13 +196,13 @@ TLS for Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networ
 
 工作负载安全性关注领域         |  建议                 |
 ------------------------------ | --------------------- |
-RBAC 授权(访问 Kubernetes API) | https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/
-认证方式 | https://kubernetes.io/zh/docs/concepts/security/controlling-access/
-应用程序 Secret 管理 (并在 etcd 中对其进行静态数据加密) | https://kubernetes.io/zh/docs/concepts/configuration/secret/ <br> https://kubernetes.io/zh/docs/tasks/administer-cluster/encrypt-data/
-确保 Pod 符合定义的 Pod 安全标准 | https://kubernetes.io/zh/docs/concepts/security/pod-security-standards/#policy-instantiation
-服务质量（和集群资源管理）| https://kubernetes.io/zh/docs/tasks/configure-pod-container/quality-service-pod/
-网络策略 | https://kubernetes.io/zh/docs/concepts/services-networking/network-policies/
-Kubernetes Ingress 的 TLS 支持 | https://kubernetes.io/zh/docs/concepts/services-networking/ingress/#tls
+RBAC 授权(访问 Kubernetes API) | https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/rbac/
+认证方式 | https://kubernetes.io/zh-cn/docs/concepts/security/controlling-access/
+应用程序 Secret 管理 (并在 etcd 中对其进行静态数据加密) | https://kubernetes.io/zh-cn/docs/concepts/configuration/secret/ <br> https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/encrypt-data/
+确保 Pod 符合定义的 Pod 安全标准 | https://kubernetes.io/zh-cn/docs/concepts/security/pod-security-standards/#policy-instantiation
+服务质量（和集群资源管理）| https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/
+网络策略 | https://kubernetes.io/zh-cn/docs/concepts/services-networking/network-policies/
+Kubernetes Ingress 的 TLS 支持 | https://kubernetes.io/zh-cn/docs/concepts/services-networking/ingress/#tls
 
 <!--
 ## Container
@@ -226,7 +226,7 @@ Use container runtime with stronger isolation | Select [container runtime classe
 容器漏洞扫描和操作系统依赖安全性 | 作为镜像构建的一部分，你应该扫描你的容器里的已知漏洞。
 镜像签名和执行 | 对容器镜像进行签名，以维护对容器内容的信任。
 禁止特权用户 | 构建容器时，请查阅文档以了解如何在具有最低操作系统特权级别的容器内部创建用户，以实现容器的目标。
-使用带有较强隔离能力的容器运行时 | 选择提供较强隔离能力的[容器运行时类](/zh/docs/concepts/containers/runtime-class/)。
+使用带有较强隔离能力的容器运行时 | 选择提供较强隔离能力的[容器运行时类](/zh-cn/docs/concepts/containers/runtime-class/)。
 <!--
 ## Code
 
@@ -283,12 +283,12 @@ Learn about related Kubernetes security topics:
 -->
 学习了解相关的 Kubernetes 安全主题：
 
-* [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
-* [Pod 的网络策略](/zh/docs/concepts/services-networking/network-policies/)
-* [控制对 Kubernetes API 的访问](/zh/docs/concepts/security/controlling-access/)
-* [保护你的集群](/zh/docs/tasks/administer-cluster/securing-a-cluster/)
-* 为控制面[加密通信中的数据](/zh/docs/tasks/tls/managing-tls-in-a-cluster/)
-* [加密静止状态的数据](/zh/docs/tasks/administer-cluster/encrypt-data/)
-* [Kubernetes 中的 Secret](/zh/docs/concepts/configuration/secret/)
-* [运行时类](/zh/docs/concepts/containers/runtime-class)
+* [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)
+* [Pod 的网络策略](/zh-cn/docs/concepts/services-networking/network-policies/)
+* [控制对 Kubernetes API 的访问](/zh-cn/docs/concepts/security/controlling-access/)
+* [保护你的集群](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)
+* 为控制面[加密通信中的数据](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)
+* [加密静止状态的数据](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)
+* [Kubernetes 中的 Secret](/zh-cn/docs/concepts/configuration/secret/)
+* [运行时类](/zh-cn/docs/concepts/containers/runtime-class)
 

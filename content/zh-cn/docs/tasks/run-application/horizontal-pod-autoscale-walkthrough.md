@@ -32,7 +32,7 @@ This is different from _vertical_ scaling, which for Kubernetes would mean
 assigning more resources (for example: memory or CPU) to the Pods that are already
 running for the workload.
 -->
-[HorizontalPodAutoscaler](/zh/docs/tasks/run-application/horizontal-pod-autoscale/) （简称 HPA ）
+[HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/) （简称 HPA ）
 自动更新工作负载资源（例如 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 或者
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}），
 目的是自动扩缩工作负载以满足需求。
@@ -66,7 +66,7 @@ release of Kubernetes, refer to the version of the documentation for that releas
 [available documentation versions](/docs/home/supported-doc-versions/)).
 -->
 如果你运行的是旧版本的 Kubernetes，请参阅该版本的文档版本
-（[可用的文档版本](/zh/docs/home/supported-doc-versions/)）。
+（[可用的文档版本](/zh-cn/docs/home/supported-doc-versions/)）。
 
 <!--
 To follow this walkthrough, you also need to use a cluster that has a
@@ -83,8 +83,8 @@ To learn how to deploy the Metrics Server, see the
 按照本演练进行操作，你需要一个部署并配置了
 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server#readme) 的集群。
 Kubernetes Metrics Server 从集群中的 {{<glossary_tooltip term_id="kubelet" text="kubelets">}} 收集资源指标，
-并通过 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api/) 公开这些指标，
-使用 [APIService](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) 添加代表指标读数的新资源。
+并通过 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/) 公开这些指标，
+使用 [APIService](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) 添加代表指标读数的新资源。
 
 要了解如何部署 Metrics Server，请参阅
 [metrics-server 文档](https://github.com/kubernetes-sigs/metrics-server#deployment)。
@@ -188,7 +188,7 @@ Deployment 然后更新 ReplicaSet —— 这是所有 Deployment 在 Kubernetes
 
 由于每个 Pod 通过 `kubectl run` 请求 200 milli-cores，这意味着平均 CPU 使用率为 100 milli-cores。
 有关算法的更多详细信息，
-请参阅[算法详细信息](/zh/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
+请参阅[算法详细信息](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
 
 
 <!-- Create the HorizontalPodAutoscaler: -->
@@ -764,7 +764,7 @@ HorizontalPodAutoscaler.
 首先，`AbleToScale` 表明 HPA 是否可以获取和更新扩缩信息，以及是否存在阻止扩缩的各种回退条件。
 其次，`ScalingActive` 表明 HPA 是否被启用（即目标的副本数量不为零） 以及是否能够完成扩缩计算。
 当这一状态为 `False` 时，通常表明获取度量指标存在问题。
-最后一个条件 `ScalingLimitted` 表明所需扩缩的值被 HorizontalPodAutoscaler
+最后一个条件 `ScalingLimited` 表明所需扩缩的值被 HorizontalPodAutoscaler
 所定义的最大或者最小值所限制（即已经达到最大或者最小扩缩值）。
 这通常表明你可能需要调整 HorizontalPodAutoscaler 所定义的最大或者最小副本数量的限制了。
 

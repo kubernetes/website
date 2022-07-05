@@ -20,7 +20,7 @@ weight: 21 # just after persistent volumes
 This document describes _projected volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 -->
 本文档描述 Kubernetes 中的*投射卷（Projected Volumes）*。
-建议先熟悉[卷](/zh/docs/concepts/storage/volumes/)概念。
+建议先熟悉[卷](/zh-cn/docs/concepts/storage/volumes/)概念。
 
 <!-- body -->
 
@@ -42,9 +42,9 @@ Currently, the following types of volume sources can be projected:
 
 目前，以下类型的卷源可以被投射：
 
-* [`secret`](/zh/docs/concepts/storage/volumes/#secret)
-* [`downwardAPI`](/zh/docs/concepts/storage/volumes/#downwardapi)
-* [`configMap`](/zh/docs/concepts/storage/volumes/#configmap)
+* [`secret`](/zh-cn/docs/concepts/storage/volumes/#secret)
+* [`downwardAPI`](/zh-cn/docs/concepts/storage/volumes/#downwardapi)
+* [`configMap`](/zh-cn/docs/concepts/storage/volumes/#configmap)
 * [`serviceAccountToken`](#serviceaccounttoken)
 
 <!--
@@ -92,7 +92,7 @@ into a Pod at a specified path. For example:
 -->
 ## serviceAccountToken 投射卷 {#serviceaccounttoken}
 当 `TokenRequestProjection` 特性被启用时，你可以将当前
-[服务账号](/zh/docs/reference/access-authn-authz/authentication/#service-account-tokens)
+[服务账号](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 的令牌注入到 Pod 中特定路径下。例如：
 
 {{< codenew file="pods/storage/projected-service-account-token.yaml" >}}
@@ -108,7 +108,7 @@ is optional and it defaults to the identifier of the API server.
 -->
 示例 Pod 中包含一个投射卷，其中包含注入的服务账号令牌。
 此 Pod 中的容器可以使用该令牌访问 Kubernetes API 服务器， 使用 
-[pod 的 ServiceAccount](/zh/docs/tasks/configure-pod-container/configure-service-account/)
+[pod 的 ServiceAccount](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
 进行身份验证。`audience` 字段包含令牌所针对的受众。
 收到令牌的主体必须使用令牌受众中所指定的某个标识符来标识自身，否则应该拒绝该令牌。
 此字段是可选的，默认值为 API 服务器的标识。
@@ -130,7 +130,7 @@ of the projected volume.
 A container using a projected volume source as a [`subPath`](/docs/concepts/storage/volumes/#using-subpath)
 volume mount will not receive updates for those volume sources.
 -->
-以 [`subPath`](/zh/docs/concepts/storage/volumes/#using-subpath)
+以 [`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath)
 形式使用投射卷源的容器无法收到对应卷源的更新。
 {{< /note >}}
 

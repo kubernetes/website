@@ -47,21 +47,23 @@ the documentation for that version to see advice that is relevant for your clust
 ## Create a CustomResourceDefinition
 
 When you create a new CustomResourceDefinition (CRD), the Kubernetes API Server
-creates a new RESTful resource path for each version you specify. The CRD can be
-either namespaced or cluster-scoped, as specified in the CRD's `scope` field. As
-with existing built-in objects, deleting a namespace deletes all custom objects
-in that namespace. CustomResourceDefinitions themselves are non-namespaced and
-are available to all namespaces.
-
+creates a new RESTful resource path for each version you specify. The custom
+resource created from a CRD object can be either namespaced or cluster-scoped,
+as specified in the CRD's `spec.scope` field. As with existing built-in
+objects, deleting a namespace deletes all custom objects in that namespace.
+CustomResourceDefinitions themselves are non-namespaced and are available to
+all namespaces.
 For example, if you save the following CustomResourceDefinition to `resourcedefinition.yaml`:
 -->
 ## 创建 CustomResourceDefinition  {#create-a-customresourcedefinition}
 
-当你创建新的 CustomResourceDefinition（CRD）时，Kubernetes API 服务器会为你所
-指定的每一个版本生成一个 RESTful 的 资源路径。CRD 可以是名字空间作用域的，也可以
-是集群作用域的，取决于 CRD 的 `scope` 字段设置。和其他现有的内置对象一样，删除
-一个名字空间时，该名字空间下的所有定制对象也会被删除。CustomResourceDefinition
-本身是不受名字空间限制的，对所有名字空间可用。
+当你创建新的 CustomResourceDefinition（CRD）时，Kubernetes API 服务器会为你所指定的每个版本生成一个新的
+RESTful 资源路径。
+基于 CRD 对象所创建的自定义资源可以是名字空间作用域的，也可以是集群作用域的，
+取决于 CRD 对象 `spec.scope` 字段的设置。
+
+与其它的内置对象一样，删除名字空间也将删除该名字空间中的所有自定义对象。
+CustomResourceDefinitions 本身是无名字空间的，可在所有名字空间中访问。
 
 例如，如果你将下面的 CustomResourceDefinition 保存到 `resourcedefinition.yaml`
 文件：

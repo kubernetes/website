@@ -85,10 +85,10 @@ All you need to begin working with Mermaid is the following:
 
 * 对 Markdown 有一个基本的了解
 * 使用 Mermaid 在线编辑器
-* 使用 [Hugo 短代码（shortcode）](/zh/docs/contribute/style/hugo-shortcodes/)
+* 使用 [Hugo 短代码（shortcode）](/zh-cn/docs/contribute/style/hugo-shortcodes/)
 * 使用 [Hugo {{</* figure */>}} 短代码](https://gohugo.io/content-management/shortcodes/#figure)
-* 执行 [Hugo 本地预览](/zh/docs/contribute/new-content/open-a-pr/#preview-locally)
-* 熟悉[贡献新内容](/zh/docs/contribute/new-content/)的流程
+* 执行 [Hugo 本地预览](/zh-cn/docs/contribute/new-content/open-a-pr/#preview-locally)
+* 熟悉[贡献新内容](/zh-cn/docs/contribute/new-content/)的流程
 
 {{< note >}}
 <!--
@@ -384,11 +384,11 @@ Figure 17 给出从 A 到 B 的一个简单流程。
 
 {{< note >}}
 <!--
-You must include the `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}` shortcode
+You must include the Hugo Mermaid shortcode
 tags at the start and end of the Mermaid code block. You should add a diagram
 caption below the diagram. 
 -->
-你必须在 Mermaid 代码块之前和之后分别添加 `{{</*  mermaid */>}}`、`{{</* /mermaid */>}}`
+你必须在 Mermaid 代码块之前和之后分别添加 Hugo Mermaid
 短代码标记，而且你应该在图表之后为其添加图表标题。
 {{< /note >}}
 
@@ -416,7 +416,7 @@ The following lists advantages of the Inline method:
 You should use the [local](/docs/contribute/new-content/open-a-pr/#preview-locally)
 and Netlify previews to verify the diagram is properly rendered. 
 -->
-你应该使用[本地](/zh/docs/contribute/new-content/open-a-pr/#preview-locally)和 Netlify
+你应该使用[本地](/zh-cn/docs/contribute/new-content/open-a-pr/#preview-locally)和 Netlify
 预览来验证图表是可以正常渲染的。
 
 {{< caution >}}
@@ -564,7 +564,7 @@ Be sure to check that your diagram renders properly using the
 [local](/docs/contribute/new-content/open-a-pr/#preview-locally)
 and Netlify previews.
 -->
-要使用[本地](/zh/docs/contribute/new-content/open-a-pr/#preview-locally)和
+要使用[本地](/zh-cn/docs/contribute/new-content/open-a-pr/#preview-locally)和
 Netlify 预览来检查你的图表可以正常渲染。
 
 <!--
@@ -670,7 +670,7 @@ If your external drawing tool permits:
 
 * 你可以将多个 `.svg` 或 `.png` 商标、图标或图片整合到你的图表中。
   不过，你需要确保你查看了版权并遵守了 Kubernetes 文档关于使用第三方内容的
-  [指南](/zh/docs/contribute/style/content-guide/)。
+  [指南](/zh-cn/docs/contribute/style/content-guide/)。
 * 你应该将图表的源位置保存起来，以便其他贡献者访问。
   例如，你的工具可能提供指向图表文件的链接，或者你应该将源代码文件
   （例如一个 `.xml` 文件）放到某处以便其他贡献者访问。
@@ -695,7 +695,7 @@ Don't forget to check that your diagram renders correctly using the
 * 贡献者对外部工具更为熟悉
 * 图表可能需要 Mermaid 所无法提供的细节
 
-不要忘记使用[本地](/zh/docs/contribute/new-content/open-a-pr/#preview-locally)
+不要忘记使用[本地](/zh-cn/docs/contribute/new-content/open-a-pr/#preview-locally)
 和 Netlify 预览来检查你的图表可以正常渲染。
 
 <!--
@@ -709,12 +709,12 @@ This section shows several examples of Mermaid diagrams.
 
 {{< note >}}
 <!--
-The code block examples omit the Hugo  `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}`
+The code block examples omit the Hugo Mermaid
 shortcode tags. This allows you to copy the code block into the live editor
 to experiment on your own.
 Note that the live editor doesn't recognize Hugo shortcodes. 
 -->
-代码块示例中忽略了 Hugo `{{</*  mermaid */>}}`、`{{</* /mermaid */>}}` 短代码标记。
+代码块示例中忽略了 Hugo Mermaid 短代码标记。
 这样，你就可以将这些代码段复制到在线编辑器中自行实验。
 注意，在线编辑器无法识别 Hugo 短代码。
 {{< /note >}}
@@ -728,7 +728,7 @@ page.
 -->
 ### 示例 1 - Pod 拓扑分布约束
 
-图 6 展示的是 [Pod 拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/#node-labels)
+图 6 展示的是 [Pod 拓扑分布约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/#node-labels)
 页面所出现的图表。
 
 {{< mermaid >}}
@@ -792,7 +792,7 @@ Figure 7 shows the diagram appearing in the [What is Ingress](/docs/concepts/ser
 -->
 ### 示例 2 - Ingress
 
-图 7 显示的是 [Ingress 是什么](/zh/docs/concepts/services-networking/ingress/#what-is-ingress)
+图 7 显示的是 [Ingress 是什么](/zh-cn/docs/concepts/services-networking/ingress/#what-is-ingress)
 页面所出现的图表。
 
 {{< mermaid >}}
@@ -860,7 +860,7 @@ K8s components to start a container.
 
 图 8 给出的是一个 Mermaid 时序图，展示启动容器时 K8s 组件间的控制流。
 
-{{< figure src="/zh/docs/images/diagram-guide-example-3.svg" alt="K8s system flow diagram" class="diagram-large" caption="Figure 8. K8s system flow diagram" link="https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiJSV7aW5pdDp7XCJ0aGVtZVwiOlwibmV1dHJhbFwifX0lJVxuc2VxdWVuY2VEaWFncmFtXG4gICAgYWN0b3IgbWVcbiAgICBwYXJ0aWNpcGFudCBhcGlTcnYgYXMgY29udHJvbCBwbGFuZTxicj48YnI-YXBpLXNlcnZlclxuICAgIHBhcnRpY2lwYW50IGV0Y2QgYXMgY29udHJvbCBwbGFuZTxicj48YnI-ZXRjZCBkYXRhc3RvcmVcbiAgICBwYXJ0aWNpcGFudCBjbnRybE1nciBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5jb250cm9sbGVyPGJyPm1hbmFnZXJcbiAgICBwYXJ0aWNpcGFudCBzY2hlZCBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5zY2hlZHVsZXJcbiAgICBwYXJ0aWNpcGFudCBrdWJlbGV0IGFzIG5vZGU8YnI-PGJyPmt1YmVsZXRcbiAgICBwYXJ0aWNpcGFudCBjb250YWluZXIgYXMgbm9kZTxicj48YnI-Y29udGFpbmVyPGJyPnJ1bnRpbWVcbiAgICBtZS0-PmFwaVNydjogMS4ga3ViZWN0bCBjcmVhdGUgLWYgcG9kLnlhbWxcbiAgICBhcGlTcnYtLT4-ZXRjZDogMi4gc2F2ZSBuZXcgc3RhdGVcbiAgICBjbnRybE1nci0-PmFwaVNydjogMy4gY2hlY2sgZm9yIGNoYW5nZXNcbiAgICBzY2hlZC0-PmFwaVNydjogNC4gd2F0Y2ggZm9yIHVuYXNzaWduZWQgcG9kcyhzKVxuICAgIGFwaVNydi0-PnNjaGVkOiA1LiBub3RpZnkgYWJvdXQgcG9kIHcgbm9kZW5hbWU9XCIgXCJcbiAgICBzY2hlZC0-PmFwaVNydjogNi4gYXNzaWduIHBvZCB0byBub2RlXG4gICAgYXBpU3J2LS0-PmV0Y2Q6IDcuIHNhdmUgbmV3IHN0YXRlXG4gICAga3ViZWxldC0-PmFwaVNydjogOC4gbG9vayBmb3IgbmV3bHkgYXNzaWduZWQgcG9kKHMpXG4gICAgYXBpU3J2LT4-a3ViZWxldDogOS4gYmluZCBwb2QgdG8gbm9kZVxuICAgIGt1YmVsZXQtPj5jb250YWluZXI6IDEwLiBzdGFydCBjb250YWluZXJcbiAgICBrdWJlbGV0LT4-YXBpU3J2OiAxMS4gdXBkYXRlIHBvZCBzdGF0dXNcbiAgICBhcGlTcnYtLT4-ZXRjZDogMTIuIHNhdmUgbmV3IHN0YXRlIiwibWVybWFpZCI6IntcbiAgXCJ0aGVtZVwiOiBcImRlZmF1bHRcIlxufSIsInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjp0cnVlfQ" >}}
+{{< figure src="/zh-cn/docs/images/diagram-guide-example-3.svg" alt="K8s system flow diagram" class="diagram-large" caption="Figure 8. K8s system flow diagram" link="https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiJSV7aW5pdDp7XCJ0aGVtZVwiOlwibmV1dHJhbFwifX0lJVxuc2VxdWVuY2VEaWFncmFtXG4gICAgYWN0b3IgbWVcbiAgICBwYXJ0aWNpcGFudCBhcGlTcnYgYXMgY29udHJvbCBwbGFuZTxicj48YnI-YXBpLXNlcnZlclxuICAgIHBhcnRpY2lwYW50IGV0Y2QgYXMgY29udHJvbCBwbGFuZTxicj48YnI-ZXRjZCBkYXRhc3RvcmVcbiAgICBwYXJ0aWNpcGFudCBjbnRybE1nciBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5jb250cm9sbGVyPGJyPm1hbmFnZXJcbiAgICBwYXJ0aWNpcGFudCBzY2hlZCBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5zY2hlZHVsZXJcbiAgICBwYXJ0aWNpcGFudCBrdWJlbGV0IGFzIG5vZGU8YnI-PGJyPmt1YmVsZXRcbiAgICBwYXJ0aWNpcGFudCBjb250YWluZXIgYXMgbm9kZTxicj48YnI-Y29udGFpbmVyPGJyPnJ1bnRpbWVcbiAgICBtZS0-PmFwaVNydjogMS4ga3ViZWN0bCBjcmVhdGUgLWYgcG9kLnlhbWxcbiAgICBhcGlTcnYtLT4-ZXRjZDogMi4gc2F2ZSBuZXcgc3RhdGVcbiAgICBjbnRybE1nci0-PmFwaVNydjogMy4gY2hlY2sgZm9yIGNoYW5nZXNcbiAgICBzY2hlZC0-PmFwaVNydjogNC4gd2F0Y2ggZm9yIHVuYXNzaWduZWQgcG9kcyhzKVxuICAgIGFwaVNydi0-PnNjaGVkOiA1LiBub3RpZnkgYWJvdXQgcG9kIHcgbm9kZW5hbWU9XCIgXCJcbiAgICBzY2hlZC0-PmFwaVNydjogNi4gYXNzaWduIHBvZCB0byBub2RlXG4gICAgYXBpU3J2LS0-PmV0Y2Q6IDcuIHNhdmUgbmV3IHN0YXRlXG4gICAga3ViZWxldC0-PmFwaVNydjogOC4gbG9vayBmb3IgbmV3bHkgYXNzaWduZWQgcG9kKHMpXG4gICAgYXBpU3J2LT4-a3ViZWxldDogOS4gYmluZCBwb2QgdG8gbm9kZVxuICAgIGt1YmVsZXQtPj5jb250YWluZXI6IDEwLiBzdGFydCBjb250YWluZXJcbiAgICBrdWJlbGV0LT4-YXBpU3J2OiAxMS4gdXBkYXRlIHBvZCBzdGF0dXNcbiAgICBhcGlTcnYtLT4-ZXRjZDogMTIuIHNhdmUgbmV3IHN0YXRlIiwibWVybWFpZCI6IntcbiAgXCJ0aGVtZVwiOiBcImRlZmF1bHRcIlxufSIsInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjp0cnVlfQ" >}}
 
 
 <!--
