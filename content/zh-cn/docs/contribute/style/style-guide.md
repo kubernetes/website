@@ -459,8 +459,8 @@ To specify the Kubernetes version for a task or tutorial page, include `min-kube
 代码示例或者配置示例如果包含版本信息，应该与对应的文字描述一致。
 
 如果所给的信息是特定于具体版本的，需要在
-[任务模版](/zh/docs/contribute/style/page-content-types/#task)
-或[教程模版](/zh/docs/contribute/style/page-content-types/#tutorial)
+[任务模版](/zh-cn/docs/contribute/style/page-content-types/#task)
+或[教程模版](/zh-cn/docs/contribute/style/page-content-types/#tutorial)
 的 `prerequisites` 小节定义 Kubernetes 版本。
 页面保存之后，`prerequisites` 小节会显示为 **开始之前**。
 
@@ -952,7 +952,7 @@ Write Markdown-style links: `[link text](URL)`. For example: `[Hugo shortcodes](
 可以 | 不可以
 :--| :-----
 插入超级链接时给出它们所链接到的目标内容的上下文。例如：你的机器上某些端口处于开放状态。参见<a href="#check-required-ports">检查所需端口</a>了解更详细信息。| 使用有二义性的术语，如“点击这里”。例如：你的机器上某些端口处于打开状态。参见<a href="#check-required-ports">这里</a>了解详细信息。
-编写 Markdown 风格的链接：`[链接文本](URL)`。例如：`[Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/#table-captions)`，输出是[Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/#table-captions). | 编写 HTML 风格的超级链接：`<a href="/media/examples/link-element-example.css" target="_blank">访问我们的教程！</a>`，或者创建会打开新 Tab 页或新窗口的链接。例如：`[网站示例](https://example.com){target="_blank"}`。
+编写 Markdown 风格的链接：`[链接文本](URL)`。例如：`[Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/#table-captions)`，输出是[Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/#table-captions). | 编写 HTML 风格的超级链接：`<a href="/media/examples/link-element-example.css" target="_blank">访问我们的教程！</a>`，或者创建会打开新 Tab 页或新窗口的链接。例如：`[网站示例](https://example.com){target="_blank"}`。
 {{< /table >}}
 
 <!--
@@ -1015,7 +1015,7 @@ The semantic purpose of a data table is to present tabular data. Sighted users c
 表格标题可以用来给数据表提供一个描述性的标题。
 辅助技术使用 HTML 表格标题元素来在页面结构中辨识表格内容。
 
-- 请 [Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/#table-captions)
+- 请 [Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/#table-captions)
   为表格添加标题。
 
 <!--

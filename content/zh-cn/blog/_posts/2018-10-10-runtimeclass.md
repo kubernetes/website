@@ -85,7 +85,7 @@ The RuntimeClass resource is an important foundation for surfacing runtime prope
 -->
 RuntimeClass 资源是将运行时属性显示到控制平面的重要基础。
 例如，要对具有支持不同运行时间的异构节点的集群实施调度程序支持，我们可以在 RuntimeClass 定义中添加
-[NodeAffinity](/zh/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)条件。
+[NodeAffinity](/zh-cn/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)条件。
 另一个需要解决的领域是管理可变资源需求以运行不同运行时的 Pod。
 [Pod Overhead 提案](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview)
 是一项较早的尝试，与 RuntimeClass 设计非常吻合，并且可能会进一步推广。
@@ -128,7 +128,7 @@ RuntimeClass will be under active development at least through 2019, and we’re
 -->
 
 - 试试吧！ 作为Alpha功能，还有一些其他设置步骤可以使用RuntimeClass。
-  有关如何使其运行，请参考 [RuntimeClass文档](/zh/docs/concepts/containers/runtime-class/#runtime-class) 。
+  有关如何使其运行，请参考 [RuntimeClass文档](/zh-cn/docs/concepts/containers/runtime-class/#runtime-class) 。
 - 查看 [RuntimeClass Kubernetes 增强建议](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md) 以获取更多细节设计细节。
 - [沙盒隔离级别决策](https://docs.google.com/document/d/1fe7lQUjYKR0cijRmSbH_y0_l3CYPkwtQa5ViywuNo8Q/preview) 
   记录了最初使 RuntimeClass 成为 Pod 级别选项的思考过程。

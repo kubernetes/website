@@ -35,8 +35,8 @@ files by setting the `KUBECONFIG` environment variable or by setting the
 -->
 `针对配置信息，`kubectl` 在 `$HOME/.kube` 目录中查找一个名为 `config` 的配置文件。
 你可以通过设置 `KUBECONFIG` 环境变量或设置
-[`--kubeconfig`](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-参数来指定其它 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
+[`--kubeconfig`](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+参数来指定其它 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
 
 <!--
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples.
@@ -53,10 +53,10 @@ for a quick guide, see the [cheat sheet](/docs/reference/kubectl/cheatsheet/).
 If you're used to using the `docker` command-line tool, [`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/)
 explains some equivalent commands for Kubernetes.
 -->
-有关安装说明，请参见[安装 kubectl](/zh/docs/tasks/tools/#kubectl)；
-如需快速指南，请参见[备忘单](/zh/docs/reference/kubectl/cheatsheet/)。
+有关安装说明，请参见[安装 kubectl](/zh-cn/docs/tasks/tools/#kubectl)；
+如需快速指南，请参见[备忘单](/zh-cn/docs/reference/kubectl/cheatsheet/)。
 如果你更习惯使用 `docker` 命令行工具，
-[Docker 用户的 `kubectl`](/zh/docs/reference/kubectl/docker-cli-to-kubectl/)
+[Docker 用户的 `kubectl`](/zh-cn/docs/reference/kubectl/docker-cli-to-kubectl/)
 介绍了一些 Kubernetes 的等价命令。
 
 <!-- body -->
@@ -131,7 +131,7 @@ for example `create`, `get`, `describe`, `delete`.
 
  * 用一个或多个文件指定资源：`-f file1 -f file2 -f file<#>`
 
-  * [使用 YAML 而不是 JSON](/zh/docs/concepts/configuration/overview/#general-configuration-tips)，
+  * [使用 YAML 而不是 JSON](/zh-cn/docs/concepts/configuration/overview/#general-configuration-tips)，
     因为 YAML 对用户更友好, 特别是对于配置文件。<br/>
     例子：`kubectl get -f ./pod.yaml`
 
@@ -341,7 +341,7 @@ Operation       | Syntax    |       Description
 To learn more about command operations, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 -->
 了解更多有关命令操作的信息，
-请参阅 [kubectl](/zh/docs/reference/kubectl/kubectl/) 参考文档。
+请参阅 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 参考文档。
 
 <!--
 ## Resource types
@@ -431,7 +431,7 @@ The following table includes a list of all the supported resource types and thei
 Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 -->
 有关如何格式化或排序某些命令的输出的信息，请参阅以下章节。有关哪些命令支持不同输出选项的详细信息，
-请参阅 [kubectl](/zh/docs/reference/kubectl/kubectl/) 参考文档。
+请参阅 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 参考文档。
 
 <!--
 ### Formatting output
@@ -475,8 +475,8 @@ Output format | Description
 `-o custom-columns=<spec>` | 使用逗号分隔的[自定义列](#custom-columns)列表打印表。
 `-o custom-columns-file=<filename>` | 使用 `<filename>` 文件中的[自定义列](#custom-columns)模板打印表。
 `-o json`     | 输出 JSON 格式的 API 对象
-`-o jsonpath=<template>` | 打印 [jsonpath](/zh/docs/reference/kubectl/jsonpath/) 表达式定义的字段
-`-o jsonpath-file=<filename>` | 打印 `<filename>` 文件中 [jsonpath](/zh/docs/reference/kubectl/jsonpath/) 表达式定义的字段。
+`-o jsonpath=<template>` | 打印 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式定义的字段
+`-o jsonpath-file=<filename>` | 打印 `<filename>` 文件中 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式定义的字段。
 `-o name`     | 仅打印资源名称而不打印任何其他内容。
 `-o wide`     | 以纯文本格式输出，包含所有附加信息。对于 Pod 包含节点名。
 `-o yaml`     | 输出 YAML 格式的 API 对象。
@@ -500,7 +500,7 @@ Remember: See the [kubectl](/docs/reference/kubectl/kubectl/) reference document
 for details about which output format is supported by each command.
 -->
 请记住：有关每个命令支持哪种输出格式的详细信息，
-请参阅 [kubectl](/zh/docs/reference/kubectl/kubectl/) 参考文档。
+请参阅 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 参考文档。
 
 <!--
 #### Custom columns
@@ -611,7 +611,7 @@ To output objects to a sorted list in your terminal window, you can add the `--s
 -->
 要将对象排序后输出到终端窗口，可以将 `--sort-by` 参数添加到支持的 `kubectl` 命令。
 通过使用 `--sort-by` 参数指定任何数字或字符串字段来对对象进行排序。
-要指定字段，请使用 [jsonpath](/zh/docs/reference/kubectl/jsonpath/) 表达式。
+要指定字段，请使用 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式。
 
 <!--
 #### Syntax
@@ -1077,9 +1077,9 @@ Current user: plugins-user
   * To find out more about plugins, take a look at the [example CLI plugin](https://github.com/kubernetes/sample-cli-plugin).
 -->
 * 阅读 `kubectl` 参考文档：
-  * kubectl [命令参考](/zh/docs/reference/kubectl/kubectl/)
+  * kubectl [命令参考](/zh-cn/docs/reference/kubectl/kubectl/)
   * 参考[命令行参数](/docs/reference/generated/kubectl/kubectl-commands/)
-* 学习关于 [`kubectl` 使用约定](/zh/docs/reference/kubectl/conventions/)
-* 阅读 kubectl 中的 [JSONPath 支持](/zh/docs/reference/kubectl/jsonpath/)
-* 了解如何[使用插件扩展 kubectl](/zh/docs/tasks/extend-kubectl/kubectl-plugins)
+* 学习关于 [`kubectl` 使用约定](/zh-cn/docs/reference/kubectl/conventions/)
+* 阅读 kubectl 中的 [JSONPath 支持](/zh-cn/docs/reference/kubectl/jsonpath/)
+* 了解如何[使用插件扩展 kubectl](/zh-cn/docs/tasks/extend-kubectl/kubectl-plugins)
   * 查看更多[示例 cli 插件](https://github.com/kubernetes/sample-cli-plugin)。

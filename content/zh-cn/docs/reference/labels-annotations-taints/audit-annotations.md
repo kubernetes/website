@@ -24,9 +24,9 @@ The annotations apply to audit events. Audit events are different from objects i
 `events.k8s.io`).
 -->
 {{< note >}}
-Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh/docs/tasks/debug/debug-cluster/audit/)时，
+Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)时，
 审计事件数据将使用 API 组 `audit.k8s.io` 中的 `Event` 写入。
-注解适用于审计事件。审计事件不同于[事件 API ](/zh/docs/reference/kubernetes-api/cluster-resources/event-v1/)
+注解适用于审计事件。审计事件不同于[事件 API ](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)
 （API 组 `events.k8s.io`）中的对象。
 {{</note>}}
 
@@ -45,7 +45,7 @@ from the PodSecurity enforcement.
 
 例子：`pod-security.kubernetes.io/exempt: namespace`
 
-值**必须**是对应于 [Pod 安全豁免](/zh/docs/concepts/security/pod-security-admission/#exemptions)维度的 
+值**必须**是对应于 [Pod 安全豁免](/zh-cn/docs/concepts/security/pod-security-admission/#exemptions)维度的 
 `user`、`namespace` 或 `runtimeClass` 之一。
 此注解指示 PodSecurity 基于哪个维度的强制豁免执行。
 
@@ -68,12 +68,12 @@ for more information.
 
 例子：`pod-security.kubernetes.io/enforce-policy: restricted:latest`
 
-值**必须**是对应于 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards) 级别的
+值**必须**是对应于 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards) 级别的
 `privileged:<版本>`、`baseline:<版本>`、`restricted:<版本>`，
 关联的版本**必须**是 `latest` 或格式为 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。
 此注解通知有关在 PodSecurity 准入期间允许或拒绝 Pod 的执行级别。
 
-有关详细信息，请参阅 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)。
+有关详细信息，请参阅 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)。
 
 <!--
 ## pod-security.kubernetes.io/audit-violations
@@ -96,10 +96,10 @@ for more information.
 PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container
 "example" must set securityContext.allowPrivilegeEscalation=false), ...`
 
-注解值给出审计策略违规的详细说明，它包含所违反的 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)级别以及
+注解值给出审计策略违规的详细说明，它包含所违反的 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)级别以及
 PodSecurity 执行中违反的特定策略及对应字段。
 
-有关详细信息，请参阅 [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)。
+有关详细信息，请参阅 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)。
 
 <!--
 ## authorization.k8s.io/decision
@@ -116,7 +116,7 @@ See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 
 此注解在 Kubernetes 审计日志中表示请求是否获得授权。
 
-有关详细信息，请参阅[审计](/zh/docs/tasks/debug/debug-cluster/audit/)。
+有关详细信息，请参阅[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
 
 <!--
 ## authorization.k8s.io/reason
@@ -133,7 +133,7 @@ See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 
 此注解给出了 Kubernetes 审计日志中 [decision](#authorization-k8s-io-decision) 的原因。
 
-有关详细信息，请参阅[审计](/zh/docs/tasks/debug/debug-cluster/audit/)。
+有关详细信息，请参阅[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
 
 ## missing-san.invalid-cert.kubernetes.io/$hostname
 

@@ -103,7 +103,7 @@ vulnerável a um ataque de exaustão de recursos e, por consequência, o risco d
 Autorização RBAC (acesso à API Kubernetes) | https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 Autenticação | https://kubernetes.io/docs/concepts/security/controlling-access/
 Gerenciamento de segredos na aplicação (e encriptando-os no etcd em repouso) | https://kubernetes.io/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
-Políticas de segurança do Pod | https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+Garantir que os Pods atendem aos padrões de segurança do Pod | https://kubernetes.io/docs/concepts/security/pod-security-standards/#policy-instantiation
 Qualidade de serviço (e gerenciamento de recursos de cluster) | https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/
 Políticas de Rede | https://kubernetes.io/docs/concepts/services-networking/network-policies/
 TLS para Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networking/ingress/#tls

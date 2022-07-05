@@ -45,14 +45,14 @@ Most stateless systems, web servers for example, are created without the need to
 One of Kubernetes' responsibilities is to place "resources" (e.g, a disk or container) into the cluster and satisfy the constraints they request. For example: "I must be in availability zone _A_" (see [Running in multiple zones](/docs/setup/best-practices/multiple-zones/#nodes-are-labeled)), or "I can't be placed onto the same node as this other Pod" (see [Affinity and anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)).
 -->
 Kubernetes 的职责之一是将 "资源"（如磁盘或容器）放入集群中，并满足其请求的约束。
-例如。"我必须在可用性区域 _A_"（见[在多个区域运行](/zh/docs/setup/best-practices/multiple-zone/#nodes-are-labeled)），
+例如。"我必须在可用性区域 _A_"（见[在多个区域运行](/zh-cn/docs/setup/best-practices/multiple-zones/#nodes-are-labeled)），
 或者 "我不能被放置到与某个 Pod 相同的节点上"
-（见[亲和与反亲和](/zh/docs/setup/best-practices/multiple-zone/#nodes-are-labeled)）。
+（见[亲和与反亲和](/zh-cn/docs/setup/best-practices/multiple-zones/#nodes-are-labeled)）。
 
 <!--
 As an addition to those constraints, Kubernetes offers [Statefulsets](/docs/concepts/workloads/controllers/statefulset/) that provide identity to Pods as well as persistent storage that "follows" these identified pods. Identity in a StatefulSet is handled by an increasing integer at the end of a pod's name. It's important to note that this integer must always be contiguous: in a StatefulSet, if pods 1 and 3 exist then pod 2 must also exist.
 -->
-作为对这些约束的补充，Kubernetes 提供了 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/)，
+作为对这些约束的补充，Kubernetes 提供了 [StatefulSets](/zh-cn/docs/concepts/workloads/controllers/statefulset/)，
 为 Pod 提供身份，以及 "跟随" 这些指定 Pod 的持久化存储。
 在 StatefulSet 中，身份是由 Pod 名称末尾一个呈增序的整数处理的。
 值得注意的是，这个整数必须始终是连续的：在一个 StatefulSet 中，
@@ -91,7 +91,7 @@ When adding additional resources to the cluster we also distribute them across z
 Note that anti-affinities are satisfied no matter the order in which pods are assigned to Kubernetes nodes. In the example, pods 0, 1 and 2 were assigned to zones A, B, and C respectively, but pods 3 and 4 were assigned in a different order, to zones B and A respectively. The anti-affinity is still satisfied because the pods are still placed in different zones.
 -->
 请注意，无论 Pod 被分配到 Kubernetes 节点的顺序如何，都会满足反亲和性。
-在这个例子中，Pod 0、1 、2 分别被分配到 A、B 、C 区，但 Pod 3 和 4 以不同的顺序被分配到 B 和 A 区。
+在这个例子中，Pod 0、1、2 分别被分配到 A、B、C 区，但 Pod 3 和 4 以不同的顺序被分配到 B 和 A 区。
 反亲和性仍然得到满足，因为 Pod 仍然被放置在不同的区域。
 
 <!--
@@ -115,7 +115,7 @@ Consider the cluster topology below:
 -->
 现在，请记住，规模为 _n_ 的 StatefulSet 中的 Pods 一定具有 `[0,n)` 范围内的 id。
 当把一个 StatefulSet 规模缩减了 _m_ 时，Kubernetes 会移除 _m_ 个 Pod，从最高的序号开始，向最低的序号移动，
-[与它们被添加的顺序相反](/zh/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)。
+[与它们被添加的顺序相反](/zh-cn/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)。
 考虑一下下面的集群拓扑结构。
 
 <!--
@@ -144,9 +144,9 @@ Our combined knowledge of the following is what lead to this misconception.
 * The behavior that a StatefulSet with _n_ replicas, when Pods are being deployed, they are created sequentially, in order from `{0..n-1}`. See [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees) for more details.
 -->
 我们对以下内容的综合认识是导致这种误解的原因。
-* Kubernetes [自动跨区分配 Pod](/zh/docs/setup/best-practices/multiple-zone/#pods-are-spread-across-zone) 的能力
+* Kubernetes [自动跨区分配 Pod](/zh-cn/docs/setup/best-practices/multiple-zones/#pods-are-spread-across-zones) 的能力
 * 一个有 _n_ 个副本的 StatefulSet，当 Pod 被部署时，它们会按照 `{0...n-1}` 的顺序依次创建。
-更多细节见 [StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)。
+更多细节见 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)。
 
 <!--
 Consider the following topology:
@@ -197,7 +197,7 @@ The entire endeavour was concerningly reminiscent of checking [caniuse.com](http
 
 虽然这似乎是一个完美的解决方案，但在写这篇文章的时候，Kubernetes 1.18 在公有云中两个最常见的
 托管 Kubernetes 服务（ EKS 和 GKE ）上是不可用的。
-此外，[Pod 拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)在 
+此外，[Pod 拓扑分布约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/)在 
 [1.18 中仍是测试版功能](https://v1-18.docs.kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/)，
 这意味着即使在 v1.18 可用时，它[也不能保证在托管集群中可用](https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#kubernetes_feature_choices)。
 整个努力让人联想到在 Internet Explorer 8 还存在的时候访问 [caniuse.com](https://caniuse.com/)。
@@ -236,12 +236,12 @@ _[Chris Seto](https://twitter.com/_ostriches) is a software engineer at Cockroac
 ### 3. 编写一个自定义的 Kubernetes 调度器
 
 感谢 [Kelsey Hightower](https://github.com/kelseyhightower/scheduler) 的例子和 
-[Banzai Cloud](https://banzaicloud.com/blog/k8s-custom-scheduler/) 的博文，我们决定投入进去，编写自己的[自定义 Kubernetes 调度器](/zh/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)。
+[Banzai Cloud](https://banzaicloud.com/blog/k8s-custom-scheduler/) 的博文，我们决定投入进去，编写自己的[自定义 Kubernetes 调度器](/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)。
 一旦我们的概念验证被部署和运行，我们很快就发现，Kubernetes 的调度器也负责将持久化卷映射到它所调度的 Pod 上。
-[`kubectl get events`](/zh/docs/tasks/extend-kubernetes/configure-multiple-schedulers/#verifying-that-the-pods-wer-scheduled-using-the-desired-schedulers)
+[`kubectl get events`](/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/#verifying-that-the-pods-wer-scheduled-using-the-desired-schedulers)
 的输出让我们相信有另一个系统在发挥作用。
 在我们寻找负责存储声明映射的组件的过程中，我们发现了 
-[kube-scheduler 插件系统](/zh/docs/concepts/scheduling-eviction/scheduling-framework/)。
+[kube-scheduler 插件系统](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/)。
 我们的下一个 POC 是一个"过滤器"插件，它通过 Pod 的序号来确定适当的可用区域，并且工作得非常完美。
 
 我们的[自定义调度器插件](https://github.com/cockroachlabs/crl-scheduler)是开源的，并在我们所有的 CockroachCloud 集群中运行。

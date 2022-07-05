@@ -353,6 +353,34 @@ spec:
 {{< /tabs >}}
 
 
+### Version removal
+
+An older API version cannot be dropped from a CustomResourceDefinition manifest until existing persisted data has been migrated to the newer API version for all clusters that served the older version of the custom resource, and the old version is removed from the `status.storedVersions` of the CustomResourceDefinition.
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+  name: crontabs.example.com
+spec:
+  group: example.com
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    # This indicates the v1beta1 version of the custom resource is no longer served.
+    # API requests to this version receive a not found error in the server response.
+    served: false
+    schema: ...
+  - name: v1
+    served: true
+    # The new served version should be set as the storage version
+    storage: true
+    schema: ...
+```
+
 ## Webhook conversion
 
 {{< feature-state state="stable" for_k8s_version="v1.16" >}}

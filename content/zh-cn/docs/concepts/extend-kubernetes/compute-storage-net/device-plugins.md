@@ -67,7 +67,7 @@ to advertise that the node has 2 "Foo" devices installed and available.
 * 设备插件的 Unix 套接字。
 * 设备插件的 API 版本。
 * `ResourceName` 是需要公布的。这里 `ResourceName` 需要遵循
-  [扩展资源命名方案](/zh/docs/concepts/configuration/manage-resources-containers/#extended-resources)，
+  [扩展资源命名方案](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)，
   类似于 `vendor-domain/resourcetype`。（比如 NVIDIA GPU 就被公布为 `nvidia.com/gpu`。）
 
 成功注册后，设备插件就向 kubelet 发送它所管理的设备列表，然后 kubelet
@@ -86,7 +86,7 @@ other resources, with the following differences:
 * Devices cannot be shared between containers.
 -->
 然后，用户可以请求设备作为 Pod 规范的一部分，
-参见[Container](/zh/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)。
+参见[Container](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)。
 请求扩展资源类似于管理请求和限制的方式，
 其他资源，有以下区别：
 
@@ -441,7 +441,7 @@ it does (for example: hotplug/hotunplug, device health changes), client is expec
 However, calling `GetAllocatableResources` endpoint is not sufficient in case of cpu and/or memory
 update and Kubelet needs to be restarted to reflect the correct resource capacity and allocatable.
 -->
-`GetAllocatableResources` 应该仅被用于评估一个节点上的[可分配的](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+`GetAllocatableResources` 应该仅被用于评估一个节点上的[可分配的](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 资源。如果目标是评估空闲/未分配的资源，此调用应该与 List() 端点一起使用。
 除非暴露给 kubelet 的底层资源发生变化 否则 `GetAllocatableResources` 得到的结果将保持不变。
 这种情况很少发生，但当发生时（例如：热插拔，设备健康状况改变），客户端应该调用 `GetAlloctableResources` 端点。
@@ -471,7 +471,7 @@ Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started wit
 -->
 从 Kubernetes v1.23 开始，`GetAllocatableResources` 被默认启用。
 你可以通过关闭 `KubeletPodResourcesGetAllocatable`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/) 来禁用。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 来禁用。
 
 在 Kubernetes v1.23 之前，要启用这一功能，`kubelet` 必须用以下标志启动：
 
@@ -484,7 +484,7 @@ plugins report [when they register themselves to the kubelet](/docs/concepts/ext
 -->
 `ContainerDevices` 会向外提供各个设备所隶属的 NUMA 单元这类拓扑信息。
 NUMA 单元通过一个整数 ID 来标识，其取值与设备插件所报告的一致。
-[设备插件注册到 kubelet 时](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+[设备插件注册到 kubelet 时](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 会报告这类信息。
 
 <!--
@@ -509,7 +509,7 @@ gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接�
 {{< glossary_tooltip text="卷" term_id="volume" >}}的形式被挂载到设备监控代理中。
 
 对“PodResourcesLister 服务”的支持要求启用 `KubeletPodResources`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20 开始为 v1。
 
 <!--
@@ -596,7 +596,7 @@ Here are some examples of device plugin implementations:
 * Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
 * Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
 -->
-* 查看[调度 GPU 资源](/zh/docs/tasks/manage-gpus/scheduling-gpus/) 来学习使用设备插件
-* 查看在上如何[公布节点上的扩展资源](/zh/docs/tasks/administer-cluster/extended-resource-node/)
-* 学习[拓扑管理器](/zh/docs/tasks/administer-cluster/topology-manager/)
-* 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](/zh/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
+* 查看[调度 GPU 资源](/zh-cn/docs/tasks/manage-gpus/scheduling-gpus/) 来学习使用设备插件
+* 查看在上如何[公布节点上的扩展资源](/zh-cn/docs/tasks/administer-cluster/extended-resource-node/)
+* 学习[拓扑管理器](/zh-cn/docs/tasks/administer-cluster/topology-manager/)
+* 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](/zh-cn/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)

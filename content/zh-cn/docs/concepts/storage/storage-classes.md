@@ -23,8 +23,8 @@ with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 -->
 本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉
-[卷](/zh/docs/concepts/storage/volumes/)和
-[持久卷](/zh/docs/concepts/storage/persistent-volumes)的概念。
+[卷](/zh-cn/docs/concepts/storage/volumes/)和
+[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes)的概念。
 
 <!-- body -->
 
@@ -74,7 +74,7 @@ for details.
  -->
 管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类：
 更多详情请参阅
-[PersistentVolumeClaim 章节](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
+[PersistentVolumeClaim 章节](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -249,7 +249,7 @@ the class or PV, If a mount option is invalid, the PV mount fails.
 The `volumeBindingMode` field controls when [volume binding and dynamic
 provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur.
  -->
-`volumeBindingMode` 字段控制了[卷绑定和动态制备](/zh/docs/concepts/storage/persistent-volumes/#provisioning)
+`volumeBindingMode` 字段控制了[卷绑定和动态制备](/zh-cn/docs/concepts/storage/persistent-volumes/#provisioning)
 应该发生在什么时候。
 
 <!--
@@ -277,10 +277,10 @@ and [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-tolera
 集群管理员可以通过指定 `WaitForFirstConsumer` 模式来解决此问题。
 该模式将延迟 PersistentVolume 的绑定和制备，直到使用该 PersistentVolumeClaim 的 Pod 被创建。
 PersistentVolume 会根据 Pod 调度约束指定的拓扑来选择或制备。这些包括但不限于
-[资源需求](/zh/docs/concepts/configuration/manage-resources-containers/)、
-[节点筛选器](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)、
-[pod 亲和性和互斥性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity/)、
-以及[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration)。
+[资源需求](/zh-cn/docs/concepts/configuration/manage-resources-containers/)、
+[节点筛选器](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)、
+[pod 亲和性和互斥性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity/)、
+以及[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration)。
 
 <!--
 The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
@@ -313,7 +313,7 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
 to see its supported topology keys and examples.
 -->
-动态配置和预先创建的 PV 也支持 [CSI卷](/zh/docs/concepts/storage/volumes/#csi)，
+动态配置和预先创建的 PV 也支持 [CSI卷](/zh-cn/docs/concepts/storage/volumes/#csi)，
 但是你需要查看特定 CSI 驱动程序的文档以查看其支持的拓扑键名和例子。
 
 {{< note >}}
@@ -770,7 +770,7 @@ vSphere 存储类有两种制备器
 [弃用](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)。
 更多关于 CSI 制备器的详情，请参阅 
 [Kubernetes vSphere CSI 驱动](https://vsphere-csi-driver.sigs.k8s.io/)
-和 [vSphereVolume CSI 迁移](/zh/docs/concepts/storage/volumes/#csi-migration-5)。
+和 [vSphereVolume CSI 迁移](/zh-cn/docs/concepts/storage/volumes/#csi-migration-5)。
 
 <!--
 #### CSI Provisioner {#vsphere-provisioner-csi}
@@ -1209,8 +1209,8 @@ add the `create` permission of resource `secret` for clusterrole
 `system:controller:persistent-volume-binder`.
 -->
 在存储制备期间，为挂载凭证创建一个名为 `secretName` 的 Secret。如果集群同时启用了
-[RBAC](/zh/docs/reference/access-authn-authz/rbac/) 和
-[控制器角色](/zh/docs/reference/access-authn-authz/rbac/#controller-roles)，
+[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 和
+[控制器角色](/zh-cn/docs/reference/access-authn-authz/rbac/#controller-roles)，
 为 `system:controller:persistent-volume-binder` 的 clusterrole 添加
 `Secret` 资源的 `create` 权限。
 

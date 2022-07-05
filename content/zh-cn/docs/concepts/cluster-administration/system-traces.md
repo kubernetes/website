@@ -114,7 +114,7 @@ with `--tracing-config-file=<path-to-config>`. This is an example config that re
 spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 -->
 要启用追踪特性，需要启用 kube-apiserver 上的  `APIServerTracing`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 然后，使用 `--tracing-config-file=<<配置文件路径>` 为 kube-apiserver 提供追踪配置文件。
 下面是一个示例配置，它为万分之一的请求记录 spans，并使用了默认的 OpenTelemetry 端口。
 
@@ -132,7 +132,7 @@ For more information about the `TracingConfiguration` struct, see
 -->
 
 有关 TracingConfiguration 结构体的更多信息，请参阅 
-[API 服务器配置 API (v1alpha1)](/zh/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration)。
+[API 服务器配置 API (v1alpha1)](/zh-cn/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration)。
 
 <!-- 
 ## Stability

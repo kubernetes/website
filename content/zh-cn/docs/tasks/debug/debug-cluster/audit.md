@@ -21,7 +21,7 @@ by applications that use the Kubernetes API, and by the control plane itself.
 
 Auditing allows cluster administrators to answer the following questions:
 -->
-Kubernetes **审计（Auditing）**功能提供了与安全相关的、按时间顺序排列的记录集，
+Kubernetes **审计（Auditing）** 功能提供了与安全相关的、按时间顺序排列的记录集，
 记录每个用户、使用 Kubernetes API 的应用以及控制面自身引发的活动。
 
 审计功能使得集群管理员能够回答以下问题：
@@ -115,7 +115,7 @@ _audit level_ of the event. The defined audit levels are:
 -->
 ## 审计策略  {#audit-policy}
 
-审计政策定义了关于应记录哪些事件以及应包含哪些数据的规则。
+审计策略定义了关于应记录哪些事件以及应包含哪些数据的规则。
 审计策略对象结构定义在
 [`audit.k8s.io` API 组](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
 处理事件时，将按顺序与规则列表进行比较。第一个匹配规则设置事件的

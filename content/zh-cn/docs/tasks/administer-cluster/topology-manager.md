@@ -324,7 +324,7 @@ Topology Manager will reject this pod from the node. This will result in a pod i
 ### restricted 策略 {#policy-restricted}
 
 对于 Pod 中的每个容器，配置了 `restricted` 拓扑管理策略的 kubelet
-调用每个建议提供者以确定其资源可用性。。
+调用每个建议提供者以确定其资源可用性。
 使用此信息，拓扑管理器存储该容器的首选 NUMA 节点亲和性。
 如果亲和性不是首选，则拓扑管理器将从节点中拒绝此 Pod。
 这将导致 Pod 处于 `Terminated` 状态，且 Pod 无法被节点接纳。

@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 问题追踪
 weight: 10
-aliases: [/zh/cve/, /zh/cves/]
+aliases: [/zh-cn/cve/, /zh-cn/cves/]
 ---
 
 <!--
@@ -14,7 +14,7 @@ aliases: [/cve/,/cves/]
 To report a security issue, please follow the [Kubernetes security disclosure process](/docs/reference/issues-security/security/#report-a-vulnerability).
 -->
 要报告安全问题，请遵循
-[Kubernetes 安全问题公开流程](/zh/docs/reference/issues-security/security/#report-a-vulnerability)。
+[Kubernetes 安全问题公开流程](/zh-cn/docs/reference/issues-security/security/#report-a-vulnerability)。
 
 <!--
 Work on Kubernetes code and public issues are tracked using [GitHub Issues](https://github.com/kubernetes/kubernetes/issues/).

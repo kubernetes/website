@@ -124,8 +124,8 @@ For example, consider the following Pod spec:
 
 In this example, the following rules apply:
 
-  * The node *must* have a label with the key `kubernetes.io/os` and
-    the value `linux`.
+  * The node *must* have a label with the key `topology.kubernetes.io/zone` and
+    the value of that label *must* be either `antarctica-east1` or `antarctica-west1`.
   * The node *preferably* has a label with the key `another-node-label-key` and
     the value `another-node-label-value`.
 

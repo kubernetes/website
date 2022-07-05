@@ -98,10 +98,10 @@ service "nginx-http" exposed
 <!--
 By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 -->
-在 kubectl 命令中，我们创建了一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)，
+在 kubectl 命令中，我们创建了一个 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)，
 这将保证有 N 个运行 nginx 的 Pod（N 代表 spec 中声明的 replica 数，默认为 1）。
-我们还创建了一个 [service](/zh/docs/concepts/services-networking/service/)，其选择器与容器标签匹配。
-查看[使用服务访问集群中的应用程序](/zh/docs/tasks/access-application-cluster/service-access-application-cluster) 获取更多信息。
+我们还创建了一个 [service](/zh-cn/docs/concepts/services-networking/service/)，其选择器与容器标签匹配。
+查看[使用服务访问集群中的应用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster) 获取更多信息。
 
 <!--
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
@@ -280,7 +280,7 @@ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 <!--
 For more information, see [Get a Shell to a Running Container](/docs/tasks/debug/debug-application/get-shell-running-container/).
 -->
-更多信息请查看[获取运行中容器的 Shell 环境](/zh/docs/tasks/debug/debug-application/get-shell-running-container/)。
+更多信息请查看[获取运行中容器的 Shell 环境](/zh-cn/docs/tasks/debug/debug-application/get-shell-running-container/)。
 
 ## docker logs
 
@@ -335,7 +335,7 @@ kubectl logs --previous nginx-app-zibvs
 <!--
 For more information, see [Logging Architecture](/docs/concepts/cluster-administration/logging/).
 -->
-查看[日志架构](/zh/docs/concepts/cluster-administration/logging/)获取更多信息。
+查看[日志架构](/zh-cn/docs/concepts/cluster-administration/logging/)获取更多信息。
 
 ## docker stop and docker rm
 
@@ -417,7 +417,7 @@ When you use kubectl, you don't delete the pod directly. You have to first delet
 There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry).
 -->
 在 kubectl 中没有对 `docker login` 的直接模拟。如果你有兴趣在私有镜像仓库中使用 Kubernetes，
-请参阅[使用私有镜像仓库](/zh/docs/concepts/containers/images/#using-a-private-registry)。
+请参阅[使用私有镜像仓库](/zh-cn/docs/concepts/containers/images/#using-a-private-registry)。
 
 ## docker version
 
