@@ -461,7 +461,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 ## container.seccomp.security.alpha.kubernetes.io/[이름] {#container-seccomp-security-alpha-kubernetes-io}
 
 이 어노테이션은 쿠버네티스 v1.19부터 사용 중단되었으며 v1.25에서는 작동하지 않을 것이다. 
-[seccomp를 이용하여 컨테이너의 syscall 제한하기](/docs/tutorials/clusters/seccomp/) 튜토리얼에서 
+[seccomp를 이용하여 컨테이너의 syscall 제한하기](/docs/tutorials/security/seccomp/) 튜토리얼에서 
 seccomp 프로파일을 파드 또는 파드 내 컨테이너에 적용하는 단계를 확인한다. 
 튜토리얼에서는 쿠버네티스에 seccomp를 설정하기 위해 사용할 수 있는 방법을 소개하며, 
 이는 파드의 `.spec` 내에 `securityContext` 를 설정함으로써 가능하다.

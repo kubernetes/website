@@ -9,6 +9,7 @@
 
 title: 스테이트풀셋 디버깅하기
 content_type: task
+weight: 30
 ---
 
 <!-- overview -->
@@ -34,10 +35,8 @@ kubectl get pods -l app=myapp
 파드들을 발견하였다면, 이러한 파드들을 어떻게 다루는지 알아보기 위해 
 [스테이트풀셋 파드 삭제하기](/ko/docs/tasks/run-application/delete-stateful-set/)를 참고하길 바란다.
 스테이트풀셋에 포함된 개별 파드들을 디버깅하기 위해서는
-[파드 디버그하기](/ko/docs/tasks/debug-application-cluster/debug-pod-replication-controller/) 가이드를 참고하길 바란다.
+[파드 디버그하기](/ko/docs/tasks/debug/debug-application/debug-pods/) 가이드를 참고하길 바란다.
 
 ## {{% heading "whatsnext" %}}
 
-[초기화 컨테이너(Init container) 디버그하기](/ko/docs/tasks/debug-application-cluster/debug-init-containers/)를 참고길 바란다.
-
-
+[초기화 컨테이너(Init container) 디버그하기](/ko/docs/tasks/debug/debug-application/debug-init-containers/)를 참고하길 바란다.

@@ -187,7 +187,7 @@ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-자세한 내용은 [실행 중인 컨테이너의 셸 얻기](/ko/docs/tasks/debug-application-cluster/get-shell-running-container/)를 참고한다.
+자세한 내용은 [실행 중인 컨테이너의 셸 얻기](/ko/docs/tasks/debug/debug-application/get-shell-running-container/)를 참고한다.
 
 ## docker logs
 

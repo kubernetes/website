@@ -75,6 +75,12 @@ content_type: task
 
         kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
 
+여러 컨테이너를 포함하는 파드의 경우, Go 템플릿을 사용하여 컨테이너 이름도 출력할 수 있다. 이렇게 하여, 어떤 컨테이너가 실패하는지 찾을 수 있다.
+
+```shell
+kubectl get pod multi-container-pod -o go-template='{{range .status.containerStatuses}}{{printf "%s:\n%s\n\n" .name .lastState.terminated.message}}{{end}}'
+```
+
 ## 종료 메시지 사용자 정의하기
 
 쿠버네티스는 컨테이너의 `terminationMessagePath` 필드에 지정된

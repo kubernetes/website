@@ -223,8 +223,6 @@ pod2             1/1     Running   0          36s
 
 레플리카셋은 모든 쿠버네티스 API 오브젝트와 마찬가지로 `apiVersion`, `kind`, `metadata` 필드가 필요하다.
 레플리카셋에 대한 `kind` 필드의 값은 항상 레플리카셋이다.
-쿠버네티스 1.9에서의 레플리카셋의 kind에 있는 API 버전 `apps/v1`은 현재 버전이며, 기본으로 활성화 되어 있다. API 버전 `apps/v1beta2`은 사용 중단(deprecated)되었다.
-API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한다.
 
 레플리카셋 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
