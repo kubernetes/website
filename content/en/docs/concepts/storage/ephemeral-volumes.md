@@ -207,7 +207,7 @@ because then the scheduler is free to choose a suitable node for
 the Pod. With immediate binding, the scheduler is forced to select a node that has
 access to the volume once it is available.
 
-In terms of [resource ownership](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents),
+In terms of [resource ownership](/docs/concepts/workloads/controllers/garbage-collection/#owners-dependents),
 a Pod that has generic ephemeral storage is the owner of the PersistentVolumeClaim(s)
 that provide that ephemeral storage. When the Pod is deleted,
 the Kubernetes garbage collector deletes the PVC, which then usually
