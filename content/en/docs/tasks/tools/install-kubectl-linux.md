@@ -93,7 +93,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 1. Test to ensure the version you installed is up-to-date:
 
    ```bash
-   kubectl version --client
+   kubectl version --short
    ```
    Or use this for detailed view of version:
 
