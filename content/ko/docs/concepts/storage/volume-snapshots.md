@@ -120,6 +120,7 @@ spec:
   driver: hostpath.csi.k8s.io
   source:
     volumeHandle: ee0cfb94-f8d4-11e9-b2d8-0242ac110002
+  sourceVolumeMode: Filesystem
   volumeSnapshotClassName: csi-hostpath-snapclass
   volumeSnapshotRef:
     name: new-snapshot-test
@@ -141,12 +142,58 @@ spec:
   driver: hostpath.csi.k8s.io
   source:
     snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002
+  sourceVolumeMode: Filesystem
   volumeSnapshotRef:
     name: new-snapshot-test
     namespace: default
 ```
 
 `snapshotHandle` 은 스토리지 백엔드에서 생성된 볼륨 스냅샷의 고유 식별자이다. 이 필드는 사전 프로비저닝된 스냅샷에 필요하다. `VolumeSnapshotContent` 가 나타내는 스토리지 시스템의 CSI 스냅샷 id를 지정한다.
+
+`sourceVolumeMode` 은 스냅샷이 생성된 볼륨의 모드를 나타낸다. 
+`sourceVolumeMode` 필드의 값은 `Filesystem` 또는 `Block` 일 수 있다. 
+소스 볼륨 모드가 명시되어 있지 않으면, 
+쿠버네티스는 해당 스냅샷의 소스 볼륨 모드를 알려지지 않은 상태(unknown)로 간주하여 스냅샷을 처리한다.
+
+## 스냅샷의 볼륨 모드 변환하기 {#convert-volume-mode}
+
+클러스터에 설치된 `VolumeSnapshots` API가 `sourceVolumeMode` 필드를 지원한다면, 
+인증되지 않은 사용자가 볼륨의 모드를 변경하는 것을 금지하는 기능이 
+API에 있는 것이다.
+
+클러스터가 이 기능을 지원하는지 확인하려면, 다음 명령어를 실행한다.
+
+```yaml
+$ kubectl get crd volumesnapshotcontent -o yaml
+```
+
+사용자가 기존 `VolumeSnapshot`으로부터 `PersistentVolumeClaim`을 생성할 때 
+기존 소스와 다른 볼륨 모드를 지정할 수 있도록 하려면, 
+`VolumeSnapshot`와 연관된 `VolumeSnapshotContent`에 
+`snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"` 어노테이션을 추가해야 한다.
+
+이전에 프로비전된 스냅샷의 경우에는, 
+클러스터 관리자가 `Spec.SourceVolumeMode`를 추가해야 한다.
+
+이 기능이 활성화된 예시 `VolumeSnapshotContent` 리소스는 다음과 같을 것이다.
+
+```yaml
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotContent
+metadata:
+  name: new-snapshot-content-test
+  annotations:
+    - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
+spec:
+  deletionPolicy: Delete
+  driver: hostpath.csi.k8s.io
+  source:
+    snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002
+  sourceVolumeMode: Filesystem
+  volumeSnapshotRef:
+    name: new-snapshot-test
+    namespace: default
+```
 
 ## 스냅샷을 위한 프로비저닝 볼륨
 

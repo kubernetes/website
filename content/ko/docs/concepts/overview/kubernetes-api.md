@@ -22,7 +22,7 @@ card:
 쿠버네티스 API를 사용하면 쿠버네티스의 API 오브젝트(예:
 파드(Pod), 네임스페이스(Namespace), 컨피그맵(ConfigMap) 그리고 이벤트(Event))를 질의(query)하고 조작할 수 있다.
 
-대부분의 작업은 [kubectl](/ko/docs/reference/kubectl/overview/)
+대부분의 작업은 [kubectl](/ko/docs/reference/kubectl/)
 커맨드 라인 인터페이스 또는 API를 사용하는
 [kubeadm](/ko/docs/reference/setup-tools/kubeadm/)과
 같은 다른 커맨드 라인 도구를 통해 수행할 수 있다.
@@ -82,18 +82,42 @@ IDL(인터페이스 정의 언어) 파일을 참고한다.
 
 ### OpenAPI V3
 
-{{< feature-state state="alpha"  for_k8s_version="v1.23" >}}
+{{< feature-state state="beta"  for_k8s_version="v1.24" >}}
 
-쿠버네티스 v1.23은 OpenAPI v3 API 발행(publishing)에 대한 초기 지원을 제공한다. 
-이는 알파 기능이며 기본적으로 비활성화되어 있다.
+쿠버네티스 {{< param "version" >}} 버전은 OpenAPI v3 API 발행(publishing)에 대한 베타 지원을 제공한다. 
+이는 베타 기능이며 기본적으로 활성화되어 있다.
 kube-apiserver 구성 요소에 
-`OpenAPIV3` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 이용하여 
-이 알파 기능을 활성화할 수 있다.
+`OpenAPIV3` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화하여 
+이 베타 기능을 비활성화할 수 있다.
 
-이 기능이 활성화되면, 쿠버네티스 API 서버는 
-통합된(aggregated) OpenAPI v3 스펙을 쿠버네티스 그룹 버전별로 
-`/openapi/v3/apis/<group>/<version>` 엔드포인트에 제공한다. 
-사용할 수 있는 요청 헤더는 아래의 표를 참고한다.
+`/openapi/v3` 디스커버리 엔드포인트는 사용 가능한 모든 
+그룹/버전의 목록을 제공한다. 이 엔드포인트는 JSON 만을 반환한다.
+이러한 그룹/버전은 다음과 같은 형식으로 제공된다.
+```json
+{
+    "paths": {
+        ...
+        "api/v1": {
+            "serverRelativeURL": "/openapi/v3/api/v1?hash=CC0E9BFD992D8C59AEC98A1E2336F899E8318D3CF4C68944C3DEC640AF5AB52D864AC50DAA8D145B3494F75FA3CFF939FCBDDA431DAD3CA79738B297795818CF"
+        },
+        "apis/admissionregistration.k8s.io/v1": {
+            "serverRelativeURL": "/openapi/v3/apis/admissionregistration.k8s.io/v1?hash=E19CC93A116982CE5422FC42B590A8AFAD92CDE9AE4D59B5CAAD568F083AD07946E6CB5817531680BCE6E215C16973CD39003B0425F3477CFD854E89A9DB6597"
+        },
+        ...
+}
+```
+
+위의 상대 URL은 변경 불가능한(immutable) OpenAPI 상세를 가리키고 있으며, 
+이는 클라이언트에서의 캐싱을 향상시키기 위함이다. 
+같은 목적을 위해 API 서버는 적절한 HTTP 캐싱 헤더를 
+설정한다(`Expires`를 1년 뒤로, `Cache-Control`을 `immutable`). 
+사용 중단된 URL이 사용되면, API 서버는 최신 URL로의 리다이렉트를 반환한다.
+
+쿠버네티스 API 서버는 
+쿠버네티스 그룹 버전에 따른 OpenAPI v3 스펙을 
+`/openapi/v3/apis/<group>/<version>?hash=<hash>` 엔드포인트에 게시한다.
+
+사용 가능한 요청 헤더 목록은 아래의 표를 참고한다.
 
 <table>
   <caption style="display:none"> OpenAPI v3 질의에 사용할 수 있는 유효한 요청 헤더 값</caption>
@@ -125,9 +149,6 @@ kube-apiserver 구성 요소에
      </tr>
   </tbody>
 </table>
-
-`/openapi/v3` 디스커버리 엔드포인트는 사용 가능한 모든 
-그룹/버전의 목록을 제공한다. 이 엔드포인트는 JSON 만을 반환한다.
 
 ## 지속성
 

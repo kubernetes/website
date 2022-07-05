@@ -5,6 +5,7 @@ title: kubectl 치트 시트
 
 
 content_type: concept
+weight: 10 # highlight it
 card:
   name: reference
   weight: 30
@@ -38,6 +39,11 @@ complete -F __start_kubectl k
 source <(kubectl completion zsh)  # 현재 셸에 zsh의 자동 완성 설정
 echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # 자동 완성을 zsh 셸에 영구적으로 추가한다.
 ```
+### --all-namespaces 에 대한 노트
+
+`--all-namespaces`를 붙여야 하는 상황이 자주 발생하므로, `--all-namespaces`의 축약형을 알아 두는 것이 좋다.
+
+```kubectl -A```
 
 ## Kubectl 컨텍스트와 설정
 
@@ -56,11 +62,11 @@ kubectl config view
 # e2e 사용자의 암호를 확인한다
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config view -o jsonpath='{.users[].name}'    # 첫 번째 사용자 출력
+kubectl config view -o jsonpath='{.users[].name}'     # 첫 번째 사용자 출력
 kubectl config view -o jsonpath='{.users[*].name}'    # 사용자 리스트 조회
-kubectl config get-contexts                          # 컨텍스트 리스트 출력
-kubectl config current-context              # 현재 컨텍스트 출력
-kubectl config use-context my-cluster-name  # my-cluster-name를 기본 컨텍스트로 설정
+kubectl config get-contexts                           # 컨텍스트 리스트 출력
+kubectl config current-context                        # 현재 컨텍스트 출력
+kubectl config use-context my-cluster-name            # my-cluster-name를 기본 컨텍스트로 설정
 
 # 기본 인증을 지원하는 새로운 사용자를 kubeconf에 추가한다
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
@@ -73,6 +79,10 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
 
 kubectl config unset users.foo                       # foo 사용자 삭제
+
+# 컨텍스트/네임스페이스를 설정/조회하는 단축 명령 (bash 및 bash 호환 셸에서만 동작함, 네임스페이스 설정을 위해 kn 을 사용하기 전에 현재 컨텍스트가 설정되어야 함)
+alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
+alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
 ```
 
 ## Kubectl apply
@@ -92,10 +102,10 @@ kubectl apply -f https://git.io/vPieo          # url로부터 리소스(들) 생
 kubectl create deployment nginx --image=nginx  # nginx 단일 인스턴스를 시작
 
 # "Hello World"를 출력하는 잡(Job) 생성
-kubectl create job hello --image=busybox -- echo "Hello World"
+kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
 
 # 매분마다 "Hello World"를 출력하는 크론잡(CronJob) 생성
-kubectl create cronjob hello --image=busybox   --schedule="*/1 * * * *" -- echo "Hello World"    
+kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"
 
 kubectl explain pods                           # 파드 매니페스트 문서를 조회
 
@@ -108,7 +118,7 @@ metadata:
 spec:
   containers:
   - name: busybox
-    image: busybox
+    image: busybox:1.28
     args:
     - sleep
     - "1000000"
@@ -120,7 +130,7 @@ metadata:
 spec:
   containers:
   - name: busybox
-    image: busybox
+    image: busybox:1.28
     args:
     - sleep
     - "1000"
@@ -172,9 +182,9 @@ kubectl get pods --selector=app=cassandra -o \
 kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
 
-# 모든 워커 노드 조회 (셀렉터를 사용하여 'node-role.kubernetes.io/master'
+# 모든 워커 노드 조회 (셀렉터를 사용하여 'node-role.kubernetes.io/control-plane'
 # 으로 명명된 라벨의 결과를 제외)
-kubectl get node --selector='!node-role.kubernetes.io/master'
+kubectl get node --selector='!node-role.kubernetes.io/control-plane'
 
 # 네임스페이스의 모든 실행 중인 파드를 조회
 kubectl get pods --field-selector=status.phase=Running
@@ -212,18 +222,20 @@ kubectl diff -f ./my-manifest.yaml
 
 # 노드에 대해 반환된 모든 키의 마침표로 구분된 트리를 생성한다.
 # 복잡한 중첩 JSON 구조 내에서 키를 찾을 때 유용하다.
-kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get nodes -o json | jq -c 'paths|join(".")'
 
 # 파드 등에 대해 반환된 모든 키의 마침표로 구분된 트리를 생성한다.
-kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get pods -o json | jq -c 'paths|join(".")'
 
 # 모든 파드에 대해 ENV를 생성한다(각 파드에 기본 컨테이너가 있고, 기본 네임스페이스가 있고, `env` 명령어가 동작한다고 가정).
 # `env` 뿐만 아니라 다른 지원되는 명령어를 모든 파드에 실행할 때에도 참고할 수 있다.
 for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod -- env; done
+
+# 디플로이먼트의 status 서브리소스를 조회한다.
+kubectl get deployment nginx-deployment --subresource=status
 ```
 
 ## 리소스 업데이트
-
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # "frontend" 디플로이먼트의 "www" 컨테이너 이미지를 업데이트하는 롤링 업데이트
@@ -234,7 +246,7 @@ kubectl rollout status -w deployment/frontend                    # 완료될 때
 kubectl rollout restart deployment/frontend                      # "frontend" 디플로이먼트의 롤링 재시작
 
 
-cat pod.json | kubectl replace -f -                              # std로 전달된 JSON을 기반으로 파드 교체
+cat pod.json | kubectl replace -f -                              # stdin으로 전달된 JSON을 기반으로 파드 교체
 
 # 리소스를 강제 교체, 삭제 후 재생성함. 이것은 서비스를 중단시킴.
 kubectl replace --force -f ./pod.json
@@ -266,11 +278,15 @@ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "
 
 # 위치 배열에 새 요소 추가
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
+
+# Update a deployment's replicas count by patching it's scale subresource
+# 디플로이먼트의 scale 서브리소스를 패치하여 레플리카 카운트를 업데이트.
+kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":2}}'
 ```
 
 ## 리소스 편집
 
-편집기로 모든 API 리소스를 편집.
+선호하는 편집기로 모든 API 리소스를 편집할 수 있다.
 
 ```bash
 kubectl edit svc/docker-registry                      # docker-registry라는 서비스 편집
@@ -310,7 +326,7 @@ kubectl logs my-pod -c my-container --previous      # 컨테이너의 이전 인
 kubectl logs -f my-pod                              # 실시간 스트림 파드 로그(stdout)
 kubectl logs -f my-pod -c my-container              # 실시간 스트림 파드 로그(stdout, 멀티-컨테이너 경우)
 kubectl logs -f -l name=myLabel --all-containers    # name이 myLabel인 모든 파드의 로그 스트리밍 (stdout)
-kubectl run -i --tty busybox --image=busybox -- sh  # 대화형 셸로 파드를 실행
+kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # 대화형 셸로 파드를 실행
 kubectl run nginx --image=nginx -n mynamespace      # mynamespace 네임스페이스에서 nginx 파드 1개 실행
 kubectl run nginx --image=nginx                     # nginx 파드를 실행하고 해당 스펙을 pod.yaml 파일에 기록
 --dry-run=client -o yaml > pod.yaml
@@ -419,7 +435,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
-더 많은 예제는 kubectl [참조 문서](/ko/docs/reference/kubectl/overview/#custom-columns)를 참고한다.
+더 많은 예제는 kubectl [참조 문서](/ko/docs/reference/kubectl/#custom-columns)를 참고한다.
 
 ### Kubectl 출력 로그 상세 레벨(verbosity)과 디버깅
 
@@ -440,10 +456,10 @@ Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 
 
 ## {{% heading "whatsnext" %}}
 
-* [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 읽고 [JsonPath](/ko/docs/reference/kubectl/jsonpath)에 대해 배워보자.
+* [kubectl 개요](/ko/docs/reference/kubectl/)를 읽고 [JsonPath](/ko/docs/reference/kubectl/jsonpath)에 대해 배워보자.
 
 * [kubectl](/ko/docs/reference/kubectl/kubectl/) 옵션을 참고한다.
 
-* 재사용 스크립트에서 kubectl 사용 방법을 이해하기 위해 [kubectl 사용법](/ko/docs/reference/kubectl/conventions/)을 참고한다.
+* 재사용 스크립트에서 kubectl 사용 방법을 이해하기 위해 [kubectl 사용 규칙](/ko/docs/reference/kubectl/conventions/)을 참고한다.
 
 * 더 많은 커뮤니티 [kubectl 치트시트](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)를 확인한다.
