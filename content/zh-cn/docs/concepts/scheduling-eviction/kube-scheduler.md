@@ -101,7 +101,7 @@ policy constraints, affinity and anti-affinity specifications, data
 locality, inter-workload interference, and so on.
 -->
 在做调度决定时需要考虑的因素包括：单独和整体的资源请求、硬件/软件/策略限制、
-亲和以及反亲和要求、数据局域性、负载间的干扰等等。
+亲和以及反亲和要求、数据局部性、负载间的干扰等等。
 
 <!--
 ## Scheduling with kube-scheduler {#kube-scheduler-implementation}
