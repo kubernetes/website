@@ -142,7 +142,7 @@ If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied
 for the Pod to be scheduled onto a node.
 
 If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`,
-then the pod can be scheduled onto a node if one of `matchExpressions` can be satisfied.
+then the pod can be scheduled onto a node if one of the `matchExpressions` can be satisfied.
 
 If you specify multiple node label requirements associated with `matchExpressions` types,
 then the pod can be scheduled onto a node only if all requirements can be satisfied.
