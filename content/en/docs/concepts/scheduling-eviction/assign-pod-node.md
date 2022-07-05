@@ -177,7 +177,8 @@ that node, and schedules the Pod onto the node with the highest final score.
 
 {{<note>}}
 If you want Kubernetes to successfully schedule the Pods in this example, you
-must have existing nodes with the `kubernetes.io/os=linux` label.
+must have a label with the key `topology.kubernetes.io/zone` and
+    the value of that label *must* be either `antarctica-east1` or `antarctica-west1`.
 {{</note>}}
 
 #### Node affinity per scheduling profile
