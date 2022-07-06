@@ -150,7 +150,7 @@ you need is an existing `docker-compose.yml` file.
    ```
 
    ```bash
-    kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+  kubectl apply -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
    ```
 
    The output is similar to:
@@ -171,7 +171,7 @@ you need is an existing `docker-compose.yml` file.
    If you're already using `minikube` for your development process:
 
    ```bash
-   minikube service frontend
+   minikube service frontend-tcp
    ```
 
    Otherwise, let's look up what IP your service is using!
