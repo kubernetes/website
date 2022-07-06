@@ -56,6 +56,8 @@ Some types of these controllers are:
   * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
   * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
 
+*Referred as c-m in fig above.
+
 ### cloud-controller-manager
 
 {{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
