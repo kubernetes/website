@@ -37,7 +37,7 @@ This is a living document. If you think of something that is not on this list bu
 -->
 - 在推送到集群之前，配置文件应存储在版本控制中。
  这允许你在必要时快速回滚配置更改。
- 它还有助于集群重新创建和恢复。 
+ 它还有助于集群重新创建和恢复。
 
 <!--
 - Write your configuration files using YAML rather than JSON. Though these formats can be used interchangeably in almost all scenarios, YAML tends to be more user-friendly.
@@ -154,7 +154,7 @@ DNS server watches the Kubernetes API for new `Services` and creates a set of DN
 services) (which have a `ClusterIP` of `None`) for service discovery when you don't need `kube-proxy` load balancing.
 -->
 - 当你不需要 `kube-proxy` 负载均衡时，使用
-  [无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)  
+  [无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)
   (`ClusterIP` 被设置为 `None`)以便于服务发现。
 
 <!--
@@ -163,12 +163,12 @@ services) (which have a `ClusterIP` of `None`) for service discovery when you do
 ## 使用标签   {#using-labels}
 
 <!--
-- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app: myapp`. See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app for examples of this approach.
+- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app.kubernetes.io/name: MyApp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app.kubernetes.io/name: MyApp`. See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app for examples of this approach.
 -->
 - 定义并使用[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来识别应用程序
-  或 Deployment 的 __语义属性__，例如`{ app: myapp, tier: frontend, phase: test, deployment: v3 }`。
+  或 Deployment 的 __语义属性__，例如`{ app.kubernetes.io/name: MyApp, tier: frontend, phase: test, deployment: v3 }`。
   你可以使用这些标签为其他资源选择合适的 Pod；
-  例如，一个选择所有 `tier: frontend` Pod 的服务，或者 `app: myapp` 的所有 `phase: test` 组件。
+  例如，一个选择所有 `tier: frontend` Pod 的服务，或者 `app.kubernetes.io/name: MyApp` 的所有 `phase: test` 组件。
   有关此方法的示例，请参阅 [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) 。
 
 <!--

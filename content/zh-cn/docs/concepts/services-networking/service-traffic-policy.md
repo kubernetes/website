@@ -3,7 +3,7 @@ title: 服务内部流量策略
 content_type: concept
 weight: 45
 ---
-<!-- 
+<!--
 ---
 reviewers:
 - maplain
@@ -17,7 +17,7 @@ weight: 45
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
-<!-- 
+<!--
 _Service Internal Traffic Policy_ enables internal traffic restrictions to only route
 internal traffic to endpoints within the node the traffic originated from. The
 "internal" traffic here refers to traffic originated from Pods in the current
@@ -29,12 +29,12 @@ _服务内部流量策略_ 开启了内部流量限制，只路由内部流量�
 
 <!-- body -->
 
-<!-- 
+<!--
 ## Using Service Internal Traffic Policy
 -->
 ## 使用服务内部流量策略 {#using-service-internal-traffic-policy}
 
-<!-- 
+<!--
 The `ServiceInternalTrafficPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is a Beta feature and enabled by default.
 When the feature is enabled, you can enable the internal-only traffic policy for a
@@ -42,14 +42,14 @@ When the feature is enabled, you can enable the internal-only traffic policy for
 `.spec.internalTrafficPolicy` to `Local`.
 This tells kube-proxy to only use node local endpoints for cluster internal traffic.
 -->
-`ServiceInternalTrafficPolicy` 
+`ServiceInternalTrafficPolicy`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 是 Beta 功能，默认启用。
-启用该功能后，你就可以通过将 {{< glossary_tooltip text="Services" term_id="service" >}} 的 
+启用该功能后，你就可以通过将 {{< glossary_tooltip text="Services" term_id="service" >}} 的
 `.spec.internalTrafficPolicy` 项设置为 `Local`，
 来为它指定一个内部专用的流量策略。
 此设置就相当于告诉 kube-proxy 对于集群内部流量只能使用本地的服务端口。
 
-<!-- 
+<!--
 For pods on nodes with no endpoints for a given Service, the Service
 behaves as if it has zero endpoints (for Pods on this node) even if the service
 does have endpoints on other nodes.
@@ -60,7 +60,7 @@ does have endpoints on other nodes.
 Service 的行为看起来也像是它只有 0 个服务端点（只针对此节点上的 Pod）。
 {{< /note >}}
 
-<!-- 
+<!--
 The following example shows what a Service looks like when you set
 `.spec.internalTrafficPolicy` to `Local`:
 -->
@@ -75,7 +75,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -83,12 +83,12 @@ spec:
   internalTrafficPolicy: Local
 ```
 
-<!-- 
+<!--
 ## How it works
 -->
 ## 工作原理 {#how-it-works}
 
-<!-- 
+<!--
 The kube-proxy filters the endpoints it routes to based on the
 `spec.internalTrafficPolicy` setting. When it's set to `Local`, only node local
 endpoints are considered. When it's `Cluster` or missing, all endpoints are
@@ -103,12 +103,12 @@ kube-proxy 基于 `spec.internalTrafficPolicy` 的设置来过滤路由的目标
 `ServiceInternalTrafficPolicy` 后，
 `spec.internalTrafficPolicy` 的值默认设为 `Cluster`。
 
-<!-- 
+<!--
 ## Constraints
 -->
 ## 限制 {#constraints}
 
-<!-- 
+<!--
 * Service Internal Traffic Policy is not used when `externalTrafficPolicy` is set
   to `Local` on a Service. It is possible to use both features in the same cluster
   on different Services, just not on the same Service.
@@ -118,7 +118,7 @@ kube-proxy 基于 `spec.internalTrafficPolicy` 的设置来过滤路由的目标
 
 ## {{% heading "whatsnext" %}}
 
-<!-- 
+<!--
 * Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints)
 * Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)

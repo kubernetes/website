@@ -28,7 +28,7 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
   提供可路由的 IPv4/IPv6 网络接口)
 * 一个能够支持[双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/)的
   [网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
-  
+
 * [启用双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/) 集群
 
 {{< version-check >}}
@@ -73,7 +73,7 @@ There should be one IPv4 block and one IPv6 block allocated.
 应该分配一个 IPv4 块和一个 IPv6 块。
 
 <!--
-Validate that the node has an IPv4 and IPv6 interface detected. Replace node name with a valid node from the cluster. In this example the node name is `k8s-linuxpool1-34450317-0`: 
+Validate that the node has an IPv4 and IPv6 interface detected. Replace node name with a valid node from the cluster. In this example the node name is `k8s-linuxpool1-34450317-0`:
 -->
 验证节点是否检测到 IPv4 和 IPv6 接口。用集群中的有效节点替换节点名称。
 在此示例中，节点名称为 `k8s-linuxpool1-34450317-0`：
@@ -170,7 +170,7 @@ Kubernetes 将从首个配置的 `service-cluster-ip-range` 给 Service 分配�
 
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
-<!-- 
+<!--
 Use `kubectl` to view the YAML for the Service.
 -->
 使用 `kubectl` 查看 Service 的 YAML 定义。
@@ -182,7 +182,7 @@ kubectl get svc my-service -o yaml
 <!--
 The Service has `.spec.ipFamilyPolicy` set to `SingleStack` and `.spec.clusterIP` set to an IPv4 address from the first configured range set via `--service-cluster-ip-range` flag on kube-controller-manager.
 -->
-该 Service 通过在 kube-controller-manager 的 `--service-cluster-ip-range` 
+该 Service 通过在 kube-controller-manager 的 `--service-cluster-ip-range`
 标志设置的第一个配置范围，将 `.spec.ipFamilyPolicy` 设置为 `SingleStack`，
 将 `.spec.clusterIP` 设置为 IPv4 地址。
 
@@ -204,7 +204,7 @@ spec:
     protocol: TCP
     targetPort: 9376
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   sessionAffinity: None
   type: ClusterIP
 status:
@@ -220,7 +220,7 @@ Kubernetes 将 `service-cluster-ip-range` 配置的 IPv6 地址范围给 Service
 
 {{< codenew file="service/networking/dual-stack-ipfamilies-ipv6.yaml" >}}
 
-<!-- 
+<!--
 Use `kubectl` to view the YAML for the Service.
 -->
 使用 `kubectl` 查看 Service 的 YAML 定义。
@@ -229,10 +229,10 @@ Use `kubectl` to view the YAML for the Service.
 kubectl get svc my-service -o yaml
 ```
 
-<!-- 
+<!--
 The Service has `.spec.ipFamilyPolicy` set to `SingleStack` and `.spec.clusterIP` set to an IPv6 address from the IPv6 range set via `--service-cluster-ip-range` flag on kube-controller-manager.
 -->
-该 Service 通过在 kube-controller-manager 的 `--service-cluster-ip-range` 
+该 Service 通过在 kube-controller-manager 的 `--service-cluster-ip-range`
 标志设置的 IPv6 地址范围，将 `.spec.ipFamilyPolicy` 设置为 `SingleStack`，
 将 `.spec.clusterIP` 设置为 IPv6 地址。
 
@@ -241,7 +241,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   name: my-service
 spec:
   clusterIP: fd00::5118
@@ -255,7 +255,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   sessionAffinity: None
   type: ClusterIP
 status:
@@ -279,29 +279,29 @@ The `kubectl get svc` command will only show the primary IP in the `CLUSTER-IP` 
 `kubectl get svc` 命令将仅在 `CLUSTER-IP` 字段中显示主 IP。
 
 ```shell
-kubectl get svc -l app=MyApp
+kubectl get svc -l app.kubernetes.io/name=MyApp
 
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
 my-service   ClusterIP   fe80:20d::d06b   <none>        80/TCP    9s
 ```
 {{< /note >}}
 
-<!-- 
+<!--
 Validate that the Service gets cluster IPs from the IPv4 and IPv6 address blocks using `kubectl describe`. You may then validate access to the service via the IPs and ports.
 -->
 使用 `kubectl describe` 验证服务是否从 IPv4 和 IPv6 地址块中获取了集群 IP。
 然后你就可以通过 IP 和端口，验证对服务的访问。
 
 ```shell
-kubectl describe svc -l app=MyApp
+kubectl describe svc -l app.kubernetes.io/name=MyApp
 ```
 
 ```
 Name:              my-service
 Namespace:         default
-Labels:            app=MyApp
+Labels:            app.kubernetes.io/name=MyApp
 Annotations:       <none>
-Selector:          app=MyApp
+Selector:          app.kubernetes.io/name=MyApp
 Type:              ClusterIP
 IP Family Policy:  PreferDualStack
 IP Families:       IPv4,IPv6
@@ -333,11 +333,11 @@ Check the Service:
 检查服务：
 
 ```shell
-kubectl get svc -l app=MyApp
+kubectl get svc -l app.kubernetes.io/name=MyApp
 ```
 
 <!--
-Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address block along with an `EXTERNAL-IP`. You may then validate access to the service via the IP and port. 
+Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address block along with an `EXTERNAL-IP`. You may then validate access to the service via the IP and port.
 -->
 验证服务是否从 IPv6 地址块中接收到 `CLUSTER-IP` 地址以及 `EXTERNAL-IP`。
 然后，你可以通过 IP 和端口验证对服务的访问。

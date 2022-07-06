@@ -95,7 +95,7 @@ track of the set of backends themselves.
 
 The Service abstraction enables this decoupling.
 -->
-举个例子，考虑一个图片处理后端，它运行了 3 个副本。这些副本是可互换的 —— 
+举个例子，考虑一个图片处理后端，它运行了 3 个副本。这些副本是可互换的 ——
 前端不需要关心它们调用了哪个后端副本。
 然而组成这一组后端程序的 Pod 实际上可能会发生变化，
 前端客户端不应该也没必要知道，而且也不需要跟踪这一组后端的状态。
@@ -130,7 +130,7 @@ The name of a Service object must be a valid
 [RFC 1035 label name](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
 
 For example, suppose you have a set of Pods where each listens on TCP port 9376
-and contains a label `app=MyApp`:
+and contains a label `app.kubernetes.io/name=MyApp`:
 -->
 
 ## 定义 Service
@@ -140,7 +140,7 @@ Service 在 Kubernetes 中是一个 REST 对象，和 Pod 类似。
 Service 对象的名称必须是合法的
 [RFC 1035 标签名称](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).。
 
-例如，假定有一组 Pod，它们对外暴露了 9376 端口，同时还被打上 `app=MyApp` 标签：
+例如，假定有一组 Pod，它们对外暴露了 9376 端口，同时还被打上 `app.kubernetes.io/name=MyApp` 标签：
 
 ```yaml
 apiVersion: v1
@@ -149,7 +149,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -158,7 +158,7 @@ spec:
 
 <!--
 This specification creates a new Service object named “my-service”, which
-targets TCP port 9376 on any Pod with the `app=MyApp` label.
+targets TCP port 9376 on any Pod with the `app.kubernetes.io/name=MyApp` label.
 
 Kubernetes assigns this Service an IP address (sometimes called the "cluster IP"),
 which is used by the Service proxies
@@ -169,7 +169,7 @@ match its selector, and then POSTs any updates to an Endpoint object
 also named "my-service".
 -->
 上述配置创建一个名称为 "my-service" 的 Service 对象，它会将请求代理到使用
-TCP 端口 9376，并且具有标签 `"app=MyApp"` 的 Pod 上。
+TCP 端口 9376，并且具有标签 `"app.kubernetes.io/name=MyApp"` 的 Pod 上。
 
 Kubernetes 为该服务分配一个 IP 地址（有时称为 "集群IP"），该 IP 地址由服务代理使用。
 (请参见下面的 [VIP 和 Service 代理](#virtual-ips-and-service-proxies)).
@@ -209,7 +209,7 @@ spec:
     ports:
       - containerPort: 80
         name: http-web-svc
-        
+
 ---
 apiVersion: v1
 kind: Service
@@ -256,7 +256,7 @@ Each port definition can have the same `protocol`, or a different one.
 ### Services without selectors
 
 Services most commonly abstract access to Kubernetes Pods thanks to the selector,
-but when used with a corresponding Endpoints object and without a selector, the Service can abstract other kinds of backends, 
+but when used with a corresponding Endpoints object and without a selector, the Service can abstract other kinds of backends,
 including ones that run outside the cluster. For example:
 
   * You want to have an external database cluster in production, but in your
@@ -404,7 +404,7 @@ EndpointSlices 提供了附加的属性和功能，这些属性和功能在
 [EndpointSlices](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
 中有详细描述。
 
-<!-- 
+<!--
 ### Application protocol
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
@@ -425,7 +425,7 @@ domain prefixed names such as `mycompany.com/my-custom-protocol`.
 
 该字段遵循标准的 Kubernetes 标签语法。
 其值可以是 [IANA 标准服务名称](https://www.iana.org/assignments/service-names)
-或以域名为前缀的名称，如 `mycompany.com/my-custom-protocol`。 
+或以域名为前缀的名称，如 `mycompany.com/my-custom-protocol`。
 <!--
 ## Virtual IPs and service proxies
 
@@ -532,7 +532,7 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 ### iptables 代理模式 {#proxy-mode-iptables}
 
 这种模式，`kube-proxy` 会监视 Kubernetes 控制节点对 Service 对象和 Endpoints 对象的添加和移除。
-对每个 Service，它会配置 iptables 规则，从而捕获到达该 Service 的 `clusterIP` 
+对每个 Service，它会配置 iptables 规则，从而捕获到达该 Service 的 `clusterIP`
 和端口的请求，进而将请求重定向到 Service 的一组后端中的某个 Pod 上面。
 对于每个 Endpoints 对象，它也会配置 iptables 规则，这个规则会选择一个后端组合。
 
@@ -579,7 +579,7 @@ IPVS provides more options for balancing traffic to backend Pods;
 these are:
 -->
 在 `ipvs` 模式下，kube-proxy 监视 Kubernetes 服务和端点，调用 `netlink` 接口相应地创建 IPVS 规则，
-并定期将 IPVS 规则与 Kubernetes 服务和端点同步。 该控制循环可确保IPVS 
+并定期将 IPVS 规则与 Kubernetes 服务和端点同步。 该控制循环可确保IPVS
 状态与所需状态匹配。访问服务时，IPVS 将流量定向到后端Pod之一。
 
 IPVS代理模式基于类似于 iptables 模式的 netfilter 挂钩函数，
@@ -634,9 +634,9 @@ You can also set the maximum session sticky time by setting
 在客户端不了解 Kubernetes 或服务或 Pod 的任何信息的情况下，将 Port 代理到适当的后端。
 
 如果要确保每次都将来自特定客户端的连接传递到同一 Pod，
-则可以通过将 `service.spec.sessionAffinity` 设置为 "ClientIP" 
+则可以通过将 `service.spec.sessionAffinity` 设置为 "ClientIP"
 （默认值是 "None"），来基于客户端的 IP 地址选择会话关联。
-你还可以通过适当设置 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` 
+你还可以通过适当设置 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds`
 来设置最大会话停留时间。
 （默认值为 10800 秒，即 3 小时）。
 
@@ -671,7 +671,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - name: http
       protocol: TCP
@@ -691,7 +691,7 @@ also start and end with an alphanumeric character.
 For example, the names `123-abc` and `web` are valid, but `123_abc` and `-web` are not.
 -->
 {{< note >}}
-与一般的Kubernetes名称一样，端口名称只能包含小写字母数字字符 和 `-`。 
+与一般的Kubernetes名称一样，端口名称只能包含小写字母数字字符 和 `-`。
 端口名称还必须以字母数字字符开头和结尾。
 
 例如，名称 `123-abc` 和 `web` 有效，但是 `123_abc` 和 `-web` 无效。
@@ -900,7 +900,7 @@ You can find more information about `ExternalName` resolution in
 -->
 Kubernetes 还支持命名端口的 DNS SRV（服务）记录。
 如果 `my-service.my-ns` 服务具有名为 `http`　的端口，且协议设置为 TCP，
-则可以对 `_http._tcp.my-service.my-ns` 执行 DNS SRV 查询查询以发现该端口号, 
+则可以对 `_http._tcp.my-service.my-ns` 执行 DNS SRV 查询查询以发现该端口号,
 `"http"` 以及 IP 地址。
 
 Kubernetes DNS 服务器是唯一的一种能够访问 `ExternalName` 类型的 Service 的方式。
@@ -1108,7 +1108,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
       # 默认情况下，为了方便起见，`targetPort` 被设置为与 `port` 字段相同的值。
     - port: 80
@@ -1144,7 +1144,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -1243,7 +1243,7 @@ is `true` and type LoadBalancer Services will continue to allocate node ports. I
 is set to `false` on an existing Service with allocated node ports, those node ports will **not** be de-allocated automatically.
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
 -->
-你可以通过设置 `spec.allocateLoadBalancerNodePorts` 为 `false` 
+你可以通过设置 `spec.allocateLoadBalancerNodePorts` 为 `false`
 对类型为 LoadBalancer 的服务禁用节点端口分配。
 这仅适用于直接将流量路由到 Pod 而不是使用节点端口的负载均衡器实现。
 默认情况下，`spec.allocateLoadBalancerNodePorts` 为 `true`，
@@ -1263,13 +1263,13 @@ LoadBalancer 类型的服务继续分配节点端口。
 `spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default.
 By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
 the cloud provider's default load balancer implementation if the cluster is configured with
-a cloud provider using the `--cloud-provider` component flag. 
+a cloud provider using the `--cloud-provider` component flag.
 If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
 implementation that matches the specified class is watching for Services.
 Any default load balancer implementation (for example, the one provided by
 the cloud provider) will ignore Services that have this field set.
 `spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
-Once set, it cannot be changed. 
+Once set, it cannot be changed.
 -->
 `spec.loadBalancerClass` 允许你不使用云提供商的默认负载均衡器实现，转而使用指定的负载均衡器实现。
 默认情况下，`.spec.loadBalancerClass` 的取值是 `nil`，如果集群使用 `--cloud-provider` 配置了云提供商，
@@ -1572,10 +1572,10 @@ specifies the logical hierarchy you created for your Amazon S3 bucket.
 
 注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled` 控制是否启用访问日志。
 
-注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval` 
+注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval`
 控制发布访问日志的时间间隔（以分钟为单位）。你可以指定 5 分钟或 60 分钟的间隔。
 
-注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name` 
+注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name`
 控制存储负载均衡器访问日志的 Amazon S3 存储桶的名称。
 
 注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix`
@@ -1662,7 +1662,7 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # 由已有的安全组所构成的列表，可以配置到所创建的 ELB 之上。
         # 与注解 service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 不同，
         # 这一设置会替代掉之前指定给该 ELB 的所有其他安全组，也会覆盖掉为此
-        # ELB 所唯一创建的安全组。 
+        # ELB 所唯一创建的安全组。
         # 此列表中的第一个安全组 ID 被用来作为决策源，以允许入站流量流入目标工作节点
         # (包括服务流量和健康检查）。
         # 如果多个 ELB 配置了相同的安全组 ID，为工作节点安全组添加的允许规则行只有一个，
@@ -1970,7 +1970,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - name: http
       protocol: TCP
@@ -2241,7 +2241,7 @@ depends on the cloud provider offering this facility.
 -->
 你可以将 UDP 用于大多数服务。 对于 type=LoadBalancer 服务，对 UDP 的支持取决于提供此功能的云提供商。
 
-<!-- 
+<!--
 
 ### SCTP
 

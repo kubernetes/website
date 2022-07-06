@@ -215,7 +215,7 @@ kind: Pod
 metadata:
   name: myapp-pod
   labels:
-    app: myapp
+    app.kubernetes.io/name: MyApp
 spec:
   containers:
   - name: myapp-container
@@ -284,7 +284,7 @@ The output is similar to this:
 Name:          myapp-pod
 Namespace:     default
 [...]
-Labels:        app=myapp
+Labels:        app.kubernetes.io/name=MyApp
 Status:        Pending
 [...]
 Init Containers:

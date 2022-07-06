@@ -74,7 +74,7 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 为了使用 IPv4/IPv6 双栈的 Kubernetes 集群，需要满足以下先决条件：
 
 <!--
-* Kubernetes 1.20 or later  
+* Kubernetes 1.20 or later
   For information about using dual-stack services with earlier
   Kubernetes versions, refer to the documentation for that version
   of Kubernetes.
@@ -118,7 +118,7 @@ To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
 * kube-apiserver:
   * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
 * kube-controller-manager:
-  * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` 
+  * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
   * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
   * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` 对于 IPv4 默认为 /24，
     对于 IPv6 默认为 /64
@@ -180,12 +180,12 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
   * 为服务分配 IPv4 和 IPv6 集群 IP 地址。
 * `RequireDualStack`：从 IPv4 和 IPv6 的地址范围分配服务的 `.spec.ClusterIPs`
   * 从基于在 `.spec.ipFamilies` 数组中第一个元素的地址族的 `.spec.ClusterIPs`
-    列表中选择 `.spec.ClusterIP` 
+    列表中选择 `.spec.ClusterIP`
 
 <!--
 If you would like to define which IP family to use for single stack or define the order of IP
 families for dual-stack, you can choose the address families by setting an optional field,
-`.spec.ipFamilies`, on the Service. 
+`.spec.ipFamilies`, on the Service.
 -->
 如果你想要定义哪个 IP 族用于单栈或定义双栈 IP 族的顺序，可以通过设置
 服务上的可选字段 `.spec.ipFamilies` 来选择地址族。
@@ -240,7 +240,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    this Service, Kubernetes assigns a cluster IP for the Service from the first configured
    `service-cluster-ip-range` and sets the `.spec.ipFamilyPolicy` to `SingleStack`. ([Services
    without selectors](/docs/concepts/services-networking/service/#services-without-selectors) and
-   [headless Services](/docs/concepts/services-networking/service/#headless-services) with selectors 
+   [headless Services](/docs/concepts/services-networking/service/#headless-services) with selectors
    will behave in this same way.)
 -->
 1. 此服务规约中没有显式设定 `.spec.ipFamilyPolicy`。当你创建此服务时，Kubernetes
@@ -256,14 +256,14 @@ These examples demonstrate the behavior of various dual-stack Service configurat
 1. This Service specification explicitly defines `PreferDualStack` in `.spec.ipFamilyPolicy`. When
    you create this Service on a dual-stack cluster, Kubernetes assigns both IPv4 and IPv6
    addresses for the service. The control plane updates the `.spec` for the Service to record the IP
-   address assignments. The field `.spec.ClusterIPs` is the primary field, and contains both assigned 
+   address assignments. The field `.spec.ClusterIPs` is the primary field, and contains both assigned
    IP addresses; `.spec.ClusterIP` is a secondary field with its value calculated from
    `.spec.ClusterIPs`.
-   
+
    * For the `.spec.ClusterIP` field, the control plane records the IP address that is from the
-     same address family as the first service cluster IP range. 
+     same address family as the first service cluster IP range.
    * On a single-stack cluster, the `.spec.ClusterIPs` and `.spec.ClusterIP` fields both only list
-     one address. 
+     one address.
    * On a cluster with dual-stack enabled, specifying `RequireDualStack` in `.spec.ipFamilyPolicy`
      behaves the same as `PreferDualStack`.
 -->
@@ -335,7 +335,7 @@ dual-stack.)
    kind: Service
    metadata:
      labels:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      name: my-service
    spec:
      clusterIP: 10.0.197.123
@@ -349,7 +349,7 @@ dual-stack.)
        protocol: TCP
        targetPort: 80
      selector:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      type: ClusterIP
    status:
      loadBalancer: {}
@@ -385,7 +385,7 @@ dual-stack.)
    kind: Service
    metadata:
      labels:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      name: my-service
    spec:
      clusterIP: None
@@ -399,7 +399,7 @@ dual-stack.)
        protocol: TCP
        targetPort: 80
      selector:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
    ```
 
 <!--
@@ -486,7 +486,7 @@ To provision a dual-stack load balancer for your Service:
 -->
 要为你的服务提供双栈负载均衡器：
 
-* 将 `.spec.type` 字段设置为 `LoadBalancer` 
+* 将 `.spec.type` 字段设置为 `LoadBalancer`
 * 将 `.spec.ipFamilyPolicy` 字段设置为 `PreferDualStack` 或者 `RequireDualStack`
 
 {{< note >}}
