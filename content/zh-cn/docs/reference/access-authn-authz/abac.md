@@ -80,13 +80,13 @@ properties:
         `system:unauthenticated` 匹配所有未经过身份验证的请求。
   - 资源匹配属性：
     - `apiGroup`，字符串类型；一个 API 组。
-      - 例：`apps`, `networking.k8s.io`
+      - 例如：`apps`，`networking.k8s.io`
       - 通配符：`*`匹配所有 API 组。
     - `namespace`，字符串类型；一个命名空间。
       - 例如：`kube-system`
       - 通配符：`*`匹配所有资源请求。
     - `resource`，字符串类型；资源类型。
-      - 例：`pods`, `deployments`
+      - 例如：`pods`，`deployments`
       - 通配符：`*`匹配所有资源请求。
   - 非资源匹配属性：
     - `nonResourcePath`，字符串类型；非资源请求路径。
