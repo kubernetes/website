@@ -37,7 +37,7 @@ the techniques described in
 ### Find out about upcoming features
 
 To find out about upcoming features, attend the weekly SIG Release meeting (see
-the [community](https://kubernetes.io/community/) page for upcoming meetings)
+the [community](/community/) page for upcoming meetings)
 and monitor the release-specific documentation
 in the [kubernetes/sig-release](https://github.com/kubernetes/sig-release/)
 repository. Each release has a sub-directory in the [/sig-release/tree/master/releases/](https://github.com/kubernetes/sig-release/tree/master/releases)

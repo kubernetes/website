@@ -14,30 +14,31 @@ weight: 120
 This page shows how to assign a Kubernetes Pod to a particular node in a
 Kubernetes cluster.
 -->
-此页面显示如何将 Kubernetes Pod 分配给 Kubernetes 集群中的特定节点。
-
+此页面显示如何将 Kubernetes Pod 指派给 Kubernetes 集群中的特定节点。
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
 
 <!-- steps -->
 
 <!--
 ## Add a label to a node
 
-1. List the nodes in your cluster:
+1. List the {{< glossary_tooltip term_id="node" text="nodes" >}} in your cluster, along with their labels:
 -->
 ## 给节点添加标签
 
-1. 列出集群中的节点
+1. 列出你的集群中的{{< glossary_tooltip term_id="node" text="节点" >}}，
+   包括这些节点上的标签：
 
    ```shell
    kubectl get nodes
    ```
 
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
    输出类似如下：
 
    ```
@@ -48,9 +49,9 @@ Kubernetes cluster.
    ```
 
 <!--
-1. Chose one of your nodes, and add a label to it:
+1. Choose one of your nodes, and add a label to it:
 -->
-2. 选择其中一个节点，为它添加标签：
+2. 从你的节点中选择一个，为它添加标签：
 
    ```shell
    kubectl label nodes <your-node-name> disktype=ssd
@@ -64,7 +65,7 @@ Kubernetes cluster.
 <!--
 1. Verify that your chosen node has a `disktype=ssd` label:
 -->
-3. 验证你选择的节点是否有 `disktype=ssd` 标签：
+3. 验证你选择的节点确实带有 `disktype=ssd` 标签：
 
    ```shell
    kubectl get nodes --show-labels
@@ -94,10 +95,10 @@ This pod configuration file describes a pod that has a node selector,
 `disktype: ssd`. This means that the pod will get scheduled on a node that has
 a `disktype=ssd` label.
 -->
-## 创建一个调度到你选择的节点的 pod
+## 创建一个将被调度到你选择的节点的 Pod
 
-此 Pod 配置文件描述了一个拥有节点选择器 `disktype: ssd` 的 Pod。这表明该 Pod 将被调度到
-有 `disktype=ssd` 标签的节点。
+此 Pod 配置文件描述了一个拥有节点选择器 `disktype: ssd` 的 Pod。这表明该 Pod
+将被调度到有 `disktype=ssd` 标签的节点。
 
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
@@ -105,7 +106,7 @@ a `disktype=ssd` label.
 1. Use the configuration file to create a pod that will get scheduled on your
    chosen node:
 -->
-1. 使用该配置文件去创建一个 pod，该 pod 将被调度到你选择的节点上：
+1. 使用该配置文件创建一个 Pod，该 Pod 将被调度到你选择的节点上：
 
    ```shell
    kubectl create -f https://k8s.io/examples/pods/pod-nginx.yaml
@@ -114,13 +115,15 @@ a `disktype=ssd` label.
 <!--
 1. Verify that the pod is running on your chosen node:
 -->
-2. 验证 pod 是不是运行在你选择的节点上：
+2. 验证 Pod 确实运行在你选择的节点上：
 
    ```shell
    kubectl get pods --output=wide
    ```
 
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
    输出类似如下：
 
    ```
@@ -128,11 +131,28 @@ a `disktype=ssd` label.
    nginx    1/1       Running   0          13s    10.200.0.4   worker0
    ```
 
+<!--
+## Create a pod that gets scheduled to specific node
+
+You can also schedule a pod to one specific node via setting `nodeName`.
+-->
+## 创建一个会被调度到特定节点上的 Pod
+
+你也可以通过设置 `nodeName` 将某个 Pod 调度到特定的节点。
+
+{{< codenew file="pods/pod-nginx-specific-node.yaml" >}}
+
+<!--
+Use the configuration file to create a pod that will get scheduled on `foo-node` only.
+-->
+使用此配置文件来创建一个 Pod，该 Pod 将只能被调度到 `foo-node` 节点。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
-Learn more about
-[labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
+* Learn more about [labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
+* Learn more about [nodes](/docs/concepts/architecture/nodes/).
 -->
-进一步了解[标签和选择器](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
+* 进一步了解[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
+* 进一步了解[节点](/zh-cn/docs/concepts/architecture/nodes/)
 

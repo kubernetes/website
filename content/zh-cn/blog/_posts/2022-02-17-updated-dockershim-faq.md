@@ -21,7 +21,7 @@ aliases: [ '/dockershim' ]
 published in late 2020. The article includes updates from the v1.24
 release of Kubernetes.**
 -->
-**本文是针对 2020 年末发布的[弃用 Dockershim 的常见问题](/zh/blog/2020/12/02/dockershim-faq/)的博客更新。
+**本文是针对 2020 年末发布的[弃用 Dockershim 的常见问题](/zh-cn/blog/2020/12/02/dockershim-faq/)的博客更新。
 本文包括 Kubernetes v1.24 版本的更新。**
 
 ---
@@ -36,7 +36,7 @@ from Kubernetes.
 -->
 本文介绍了一些关于从 Kubernetes 中移除 _dockershim_ 的常见问题。
 该移除最初是作为 Kubernetes v1.20
-版本的一部分[宣布](/zh/blog/2020/12/08/kubernetes-1-20-release-announcement/)的。
+版本的一部分[宣布](/zh-cn/blog/2020/12/08/kubernetes-1-20-release-announcement/)的。
 Kubernetes 在 [v1.24 版](/releases/#release-v1-24)移除了 dockershim。
 
 <!--
@@ -44,14 +44,14 @@ For more on what that means, check out the blog post
 [Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
 -->
 关于细节请参考博文
-[别慌: Kubernetes 和 Docker](/zh/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
+[别慌: Kubernetes 和 Docker](/zh-cn/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
 
 <!--
 To determine the impact that the removal of dockershim would have for you or your organization,
 you can read [Check whether dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/).
 -->
 要确定移除 dockershim 是否会对你或你的组织的影响，可以查阅：
-[检查弃用 Dockershim 对你的影响](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+[检查弃用 Dockershim 对你的影响](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
 这篇文章。
 
 <!--
@@ -70,9 +70,9 @@ In the months and days leading up to the Kubernetes 1.24 release, Kubernetes con
   (including vendor guides).
 -->
 - 一篇详细说明[承诺和后续操作](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/)的博文。
-- 检查是否存在迁移到其他 [容器运行时](/zh/docs/setup/production-environment/container-runtimes/#container-runtimes) 的主要障碍。
+- 检查是否存在迁移到其他 [容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/#container-runtimes) 的主要障碍。
 - 添加 [从 dockershim 迁移](/docs/tasks/administer-cluster/migrating-from-dockershim/)的指南。
-- 创建了一个[有关 dockershim 移除和使用 CRI 兼容运行时的列表](/zh/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)。
+- 创建了一个[有关 dockershim 移除和使用 CRI 兼容运行时的列表](/zh-cn/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)。
   该列表包括一些已经提到的文档，还涵盖了选定的外部资源（包括供应商指南）。
 
 <!--
@@ -168,14 +168,14 @@ startup if using Docker Engine as the runtime. You'll see this warning in all ve
 in Kubernetes 1.24.
 -->
 可以使用，在 1.20 版本中唯一的改动是，如果使用 Docker Engine，
-在 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/)
+在 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 启动时会打印一个警告日志。
 你将在 1.23 版本及以前版本看到此警告，dockershim 已在 Kubernetes 1.24 版本中移除 。
 
 <!--
 If you're running Kubernetes v1.24 or later, see [Can I still use Docker Engine as my container runtime?](#can-i-still-use-docker-engine-as-my-container-runtime).
 (Remember, you can switch away from the dockershim if you're using any supported Kubernetes release; from release v1.24, you
-**must** switch as Kubernetes no longer incluides the dockershim).
+**must** switch as Kubernetes no longer includes the dockershim).
 -->
 如果你运行的是 Kubernetes v1.24 或更高版本，请参阅
 [我仍然可以使用 Docker Engine 作为我的容器运行时吗？](#can-i-still-use-docker-engine-as-my-container-runtime)
@@ -341,7 +341,7 @@ and for the latter you can use newer container build options like [img], [builda
 -->
 另外还有一个需要关注的点，那就是当创建镜像时，系统维护或嵌入容器方面的任务将无法工作。
 对于前者，可以用 [`crictl`](https://github.com/kubernetes-sigs/cri-tools) 工具作为临时替代方案
-(参阅[从 docker cli 到 crictl 的映射](/zh/docs/tasks/debug/debug-cluster/crictl/#mapping-from-docker-cli-to-crictl))。
+(参阅[从 docker cli 到 crictl 的映射](/zh-cn/docs/tasks/debug/debug-cluster/crictl/#mapping-from-docker-cli-to-crictl))。
 对于后者，可以用新的容器创建选项，例如
 [img](https://github.com/genuinetools/img)、
 [buildah](https://github.com/containers/buildah)、

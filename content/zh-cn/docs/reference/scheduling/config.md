@@ -36,8 +36,8 @@ or [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/))
 struct.
 -->
 你可以通过运行 `kube-scheduler --config <filename>` 来设置调度模板，
-使用 KubeSchedulerConfiguration （[v1beta2](/zh/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-或者 [v1beta3](/zh/docs/reference/config-api/kube-scheduler-config.v1beta3/)） 结构体。
+使用 KubeSchedulerConfiguration （[v1beta2](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+或者 [v1beta3](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)） 结构体。
 
 <!-- A minimal configuration looks as follows: -->
 最简单的配置如下：
@@ -199,7 +199,7 @@ extension points:
   [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
   Implements extension points: `filter`, `prescore`, `score`.
 -->
-- `TaintToleration`：实现了[污点和容忍](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+- `TaintToleration`：实现了[污点和容忍](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 
   实现的扩展点：`filter`，`prescore`，`score`。
 <!--  
@@ -223,8 +223,8 @@ extension points:
   and [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).
   Extension points: `filter`, `score`.
 -->
-- `NodeAffinity`：实现了[节点选择器](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
-  和[节点亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)。
+- `NodeAffinity`：实现了[节点选择器](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
+  和[节点亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)。
 
   实现的扩展点：`filter`，`score`.
 <!--  
@@ -232,7 +232,7 @@ extension points:
   [Pod topology spread](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
   Extension points: `preFilter`, `filter`, `preScore`, `score`.
 -->
-- `PodTopologySpread`：实现了 [Pod 拓扑分布](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)。
+- `PodTopologySpread`：实现了 [Pod 拓扑分布](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/)。
 
   实现的扩展点：`preFilter`，`filter`，`preScore`，`score`。
 <!--  
@@ -251,7 +251,7 @@ extension points:
 -->
 - `NodeResourcesFit`：检查节点是否拥有 Pod 请求的所有资源。
   得分可以使用以下三种策略之一：`LeastAllocated`（默认）、`MostAllocated`
-  和`RequestedToCapacityRatio`。
+  和 `RequestedToCapacityRatio`。
 
   实现的扩展点：`preFilter`，`filter`，`score`。
 <!--  
@@ -331,7 +331,7 @@ extension points:
   [inter-Pod affinity and anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
   Extension points: `preFilter`, `filter`, `preScore`, `score`.
 -->
-- `InterPodAffinity`：实现 [Pod 间亲和性与反亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)。
+- `InterPodAffinity`：实现 [Pod 间亲和性与反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)。
 
   实现的扩展点：`preFilter`，`filter`，`preScore`，`score`。
 <!--  
@@ -501,7 +501,7 @@ This would equate to manually enabling `MyPlugin` for all of its extension
 points, like so:
 -->
 
-这相当于为所有扩展点手动启用`MyPlugin`，如下所示：
+这相当于为所有扩展点手动启用 `MyPlugin`，如下所示：
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta3
@@ -732,7 +732,7 @@ as well as its seamless integration with the existing methods for configuring ex
 ## Scheduler configuration migrations
 -->
 
-## 调度程序配置迁移
+## 调度程序配置迁移   {#scheduler-configuration-migrations}
 {{< tabs name="tab_with_md" >}}
 {{% tab name="v1beta1 → v1beta2" %}}
 <!--
@@ -767,21 +767,21 @@ as well as its seamless integration with the existing methods for configuring ex
 * The scheduler plugin `NodeLabel` is deprecated; instead, use the [`NodeAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
 -->
 * 调度器插件 `NodeLabel` 已弃用；
-  相反，要使用 [`NodeAffinity`](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) 
+  相反，要使用 [`NodeAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) 
   插件（默认启用）来实现类似的行为。
 
 <!--
 * The scheduler plugin `ServiceAffinity` is deprecated; instead, use the [`InterPodAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
 -->
 * 调度程序插件 `ServiceAffinity` 已弃用；
-  相反，使用 [`InterPodAffinity`](/zh/doc/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) 
+  相反，使用 [`InterPodAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) 
   插件（默认启用）来实现类似的行为。
   
 <!--
 * The scheduler plugin `NodePreferAvoidPods` is deprecated; instead, use [node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) to achieve similar behavior.
 -->
 * 调度器插件 `NodePreferAvoidPods` 已弃用；
-  相反，使用 [节点污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/) 来实现类似的行为。
+  相反，使用 [节点污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/) 来实现类似的行为。
 
 <!--
 * A plugin enabled in a v1beta2 configuration file takes precedence over the default configuration for that plugin.
@@ -817,7 +817,7 @@ as well as its seamless integration with the existing methods for configuring ex
 * Read the [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) reference
 * Read the [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) reference
 -->
-* 阅读 [kube-scheduler 参考](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
-* 了解[调度](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
-* 阅读 [kube-scheduler 配置 (v1beta2)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta2/) 参考
-* 阅读 [kube-scheduler 配置 (v1beta3)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta3/) 参考
+* 阅读 [kube-scheduler 参考](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
+* 了解[调度](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)
+* 阅读 [kube-scheduler 配置 (v1beta2)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta2/) 参考
+* 阅读 [kube-scheduler 配置 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/) 参考

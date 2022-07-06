@@ -27,7 +27,7 @@ This page shows how to perform a rollback on a {{< glossary_tooltip term_id="dae
 You should already know how to [perform a rolling update on a
  DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
 -->
-你应该已经了解如何[为 DaemonSet 执行滚东更新](/zh/docs/tasks/manage-daemon/update-daemon-set/)。
+你应该已经了解如何[为 DaemonSet 执行滚东更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)。
 
 <!-- steps -->
 
@@ -231,4 +231,4 @@ have revision 1 and 2 in the system, and roll back from revision 2 to revision
 -->
 ## 故障排查
 
-* 参阅 [DaemonSet 滚动升级故障排除](/zh/docs/tasks/manage-daemon/update-daemon-set/#troubleshooting)。
+* 参阅 [DaemonSet 滚动升级故障排除](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/#troubleshooting)。

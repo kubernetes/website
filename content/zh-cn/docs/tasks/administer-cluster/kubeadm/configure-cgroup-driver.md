@@ -137,7 +137,7 @@ how to be explicit about the value.
 If you wish to configure a container runtime to use the `cgroupfs` driver,
 you must refer to the documentation of the container runtime of your choice.
 -->
-参阅以下章节“修改 kubelet 的 ConfigMap”，了解显式设置该值的方法。
+参阅以下章节“[修改 kubelet 的 ConfigMap](#modify-the-kubelet-configmap) ”，了解显式设置该值的方法。
 
 如果你希望配置容器运行时来使用 `cgroupfs` 驱动，
 则必须参考所选容器运行时的文档。
@@ -171,7 +171,7 @@ nodes before deleting the old nodes.
 <!-- 
 ### Modify the kubelet ConfigMap
 -->
-### 修改 kubelet 的 ConfigMap
+### 修改 kubelet 的 ConfigMap  {#modify-the-kubelet-configmap}
 
 <!-- 
 - Call `kubectl edit cm kubelet-config -n kube-system`.

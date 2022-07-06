@@ -1,6 +1,6 @@
 ---
 title: 调试 Pod
-content_type: concept
+content_type: task
 weight: 10
 ---
 
@@ -9,7 +9,7 @@ reviewers:
 - mikedanese
 - thockin
 title: Debug Pods
-content_type: concept
+content_type: task
 weight: 10
 -->
 
@@ -76,7 +76,7 @@ there are insufficient resources of one type or another that prevent scheduling.
 `kubectl describe ...` command above.  There should be messages from the scheduler about why it can not schedule
 your pod.  Reasons include:
 -->
-#### Pod 停滞在 Pending 状态
+#### Pod 停滞在 Pending 状态  {#my-pod-stays-pending}
 
 如果一个 Pod 停滞在 `Pending` 状态，表示 Pod 没有被调度到节点上。通常这是因为
 某种类型的资源不足导致无法调度。
@@ -113,7 +113,7 @@ Again, the information from `kubectl describe ...` should be informative.  The m
 * Try to manually pull the image to see if the image can be pulled. For example,
   if you use Docker on your PC, run `docker pull <image>`.
 -->
-#### Pod 停滞在 Waiting 状态
+#### Pod 停滞在 Waiting 状态  {#my-pod-stays-waiting}
 
 如果 Pod 停滞在 `Waiting` 状态，则表示 Pod 已经被调度到某工作节点，但是无法在该节点上运行。
 同样，`kubectl describe ...` 命令的输出可能很有用。
@@ -129,7 +129,7 @@ Again, the information from `kubectl describe ...` should be informative.  The m
 Once your pod has been scheduled, the methods described in [Debug Running Pods](
 /docs/tasks/debug/debug-application/debug-running-pod/) are available for debugging.
 -->
-#### Pod 处于 Crashing 或别的不健康状态
+#### Pod 处于 Crashing 或别的不健康状态   {#my-pod-is-crashing-or-otherwise-unhealthy}
 
 一旦 Pod 被调度，就可以采用
 [调试运行中的 Pod](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)
@@ -150,8 +150,8 @@ will not use the command line you intended it to use.
 如果 Pod 行为不符合预期，很可能 Pod 描述（例如你本地机器上的 `mypod.yaml`）中有问题，
 并且该错误在创建 Pod 时被忽略掉，没有报错。
 通常，Pod 的定义中节区嵌套关系错误、字段名字拼错的情况都会引起对应内容被忽略掉。
-例如，如果你误将 `command` 写成 `commnd`，Pod 虽然可以创建，但它不会执行
-你期望它执行的命令行。
+例如，如果你误将 `command` 写成 `commnd`，Pod 虽然可以创建，
+但它不会执行你期望它执行的命令行。
 
 <!--
 The first thing to do is to delete your pod and try creating it again with the `--validate` option.
@@ -182,8 +182,8 @@ version, then this may indicate a problem with your pod spec.
 -->
 接下来就要检查的是 API 服务器上的 Pod 与你所期望创建的是否匹配
 （例如，你原本使用本机上的一个 YAML 文件来创建 Pod）。
-例如，运行 `kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml`，之后
-手动比较 `mypod.yaml` 与从 API 服务器取回的 Pod 描述。
+例如，运行 `kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml`，
+之后手动比较 `mypod.yaml` 与从 API 服务器取回的 Pod 描述。
 从 API 服务器处获得的 YAML 通常包含一些创建 Pod 所用的 YAML 中不存在的行，这是正常的。
 不过，如果如果源文件中有些行在 API 服务器版本中不存在，则意味着
 Pod 规约是有问题的。
@@ -220,8 +220,8 @@ You can view this resource with:
 有一些常见的问题可以造成服务无法正常工作。
 以下说明将有助于调试服务的问题。
 
-首先，验证服务是否有端点。对于每一个 Service 对象，API 服务器为其提供
-对应的 `endpoints` 资源。
+首先，验证服务是否有端点。对于每一个 Service 对象，API 服务器为其提供对应的
+`endpoints` 资源。
 
 通过如下命令可以查看 endpoints 资源：
 
@@ -244,7 +244,7 @@ IP addresses in the Service's endpoints.
 If you are missing endpoints, try listing pods using the labels that Service uses.  Imagine that you have
 a Service where the labels are:
 -->
-#### 服务缺少 Endpoints
+#### 服务缺少 Endpoints   {#my-service-is-missing-endpoints}
 
 如果没有 Endpoints，请尝试使用 Service 所使用的标签列出 Pod。
 假定你的服务包含如下标签选择算符：
@@ -265,7 +265,6 @@ kubectl get pods --selector=name=nginx,type=frontend
 
 to list pods that match this selector.  Verify that the list matches the Pods that you expect to provide your Service.
 -->
-
 你可以使用如下命令列出与选择算符相匹配的 Pod，并验证这些 Pod 是否归属于创建的服务：
 
 ```shell
@@ -282,7 +281,7 @@ Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 
 Please see [debugging service](/docs/tasks/debug/debug-applications/debug-service/) for more information.
 -->
-#### 网络流量未被转发
+#### 网络流量未被转发  {#network-traffic-is-not-forwarded}
 
 请参阅[调试 Service](/zh-cn/docs/tasks/debug/debug-applications/debug-service/) 了解更多信息。
 
@@ -303,3 +302,4 @@ You may also visit [troubleshooting document](/docs/tasks/debug/) for more infor
 DNS 服务已配置并正常工作，iptables 规则也以安装并且 `kube-proxy` 也没有异常行为。
 
 你也可以访问[故障排查文档](/zh-cn/docs/tasks/debug/)来获取更多信息。
+

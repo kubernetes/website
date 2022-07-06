@@ -2,7 +2,7 @@
 title: 卷（Volume）
 id: volume
 date: 2018-04-12
-full_link: /zh/docs/concepts/storage/volumes/
+full_link: /zh-cn/docs/concepts/storage/volumes/
 short_description: >
   包含可被 Pod 中容器访问的数据的目录。
 
@@ -47,4 +47,4 @@ A Kubernetes volume lives as long as the Pod that encloses it. Consequently, a v
 <!--
 See [storage](/docs/concepts/storage/) for more information.
 -->
-更多信息可参考[storage](/zh/docs/concepts/storage/)
+更多信息可参考[storage](/zh-cn/docs/concepts/storage/)

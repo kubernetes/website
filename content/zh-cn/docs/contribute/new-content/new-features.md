@@ -64,7 +64,7 @@ the techniques described in
 在你选定了某个功能特性，为其撰写文档（主笔或辅助），请在 `#sig-docs` Slack 频道、SIG Docs 的每周例会上，
 或者在功能特性对应的 PR 上提出咨询。
 如果继续工作是没有问题的，你可以使用
-[向他人的 PR 中提交](/zh/docs/contribute/review/for-approvers/#commit-into-another-persons-pr)
+[向他人的 PR 中提交](/zh-cn/docs/contribute/review/for-approvers/#commit-into-another-persons-pr)
 中描述的技术之一，参与 PR 的编辑工作。
 
 <!--
@@ -257,11 +257,11 @@ table with Alpha and Beta history intact.
 -->
 如果你在处理的功能特性处于 Alpha 或 Beta 阶段并由某特性门控控制，
 请确保在你的 PR 中，该特性门控被添加到 
-[Alpha/Beta 特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
+[Alpha/Beta 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
 表格中。对于新的特性门控选项，需要为该特性门控提供一段描述。
 如果所处理的功能特性已经进入正式发布（GA）状态或者被废弃，
 请确保将其从上述表格中迁移到
-[已毕业或废弃的特性](/zh/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+[已毕业或废弃的特性](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
 表格中，并确保迁移后保留其 Alpha、Beta 版本变迁历史。
 
 <!--

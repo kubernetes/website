@@ -92,7 +92,7 @@ including:
 
 * 巨页（HugePages）：Windows 容器当前不支持。
 * 特权容器：Windows 容器当前不支持。
-  [HostProcess 容器](/zh/docs/tasks/configure-pod-container/create-hostprocess-pod/)提供类似功能。
+  [HostProcess 容器](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)提供类似功能。
 * TerminationGracePeriod：需要 containerD。
 
 <!--
@@ -156,7 +156,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
     for all containers. If any of these fields is specified, the Pod will
     not be admited by the API server.
 -->
-* [Pod](/zh/docs/concepts/workloads/pods/)
+* [Pod](/zh-cn/docs/concepts/workloads/pods/)
   
   Pod 是 Kubernetes 的基本构建块，是可以创建或部署的最小和最简单的单元。
   你不可以在同一个 Pod 中部署 Windows 和 Linux 容器。
@@ -220,7 +220,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
 * {{< glossary_tooltip text="Services" term_id="service" >}}
   See [Load balancing and Services](#load-balancing-and-services) for more details.
 -->
-* [工作负载资源](/zh/docs/concepts/workloads/controllers/)包括：
+* [工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)包括：
   
   * ReplicaSet
   * Deployment
@@ -281,14 +281,14 @@ Some kubelet command line options behave differently on Windows, as described be
 * The kubelet does not take OOM eviction actions
 -->
 * `--windows-priorityclass` 允许你设置 kubelet 进程的调度优先级
-  （参考 [CPU 资源管理](/zh/docs/concepts/configuration/windows-resource-management/#resource-management-cpu)）。
+  （参考 [CPU 资源管理](/zh-cn/docs/concepts/configuration/windows-resource-management/#resource-management-cpu)）。
 * `--kubelet-reserve`、`--system-reserve` 和 `--eviction-hard` 标志更新
-  [NodeAllocatable](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)。
+  [NodeAllocatable](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)。
 * 未实现使用 `--enforce-node-allocable` 驱逐。
 * 未实现使用 `--eviction-hard` 和 `--eviction-soft` 驱逐。
 * 在 Windows 节点上运行时，kubelet 没有内存或 CPU 限制。
   `--kube-reserved` 和 `--system-reserved` 仅从 `NodeAllocatable` 中减去，并且不保证为工作负载提供的资源。
-  有关更多信息，请参考 [Windows 节点的资源管理](/zh/docs/concepts/configuration/windows-resource-management/#resource-reservation)。
+  有关更多信息，请参考 [Windows 节点的资源管理](/zh-cn/docs/concepts/configuration/windows-resource-management/#resource-reservation)。
 * 未实现 `MemoryPressure` 条件。
 * kubelet 不会执行 OOM 驱逐操作。
 
@@ -419,7 +419,7 @@ work between Windows and Linux:
 -->
 * `securityContext.runAsNonRoot` - 
   此设置将阻止以 `ContainerAdministrator` 身份运行容器，这是 Windows 上与 root 用户最接近的身份。
-* `securityContext.runAsUser` - 改用 [`runAsUserName`](/zh/docs/tasks/configure-pod-container/configure-runasusername)。
+* `securityContext.runAsUser` - 改用 [`runAsUserName`](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername)。
 * `securityContext.seLinuxOptions` - 不能在 Windows 上使用，因为 SELinux 特定于 Linux。
 * `terminationMessagePath` - 这个字段有一些限制，因为 Windows 不支持映射单个文件。
   默认值为 `/dev/termination-log`，因为默认情况下它在 Windows 上不存在，所以能生效。
@@ -468,7 +468,7 @@ The following list documents differences between how Pod specifications work bet
   supported on Windows.
 -->
 * `terminationGracePeriodSeconds` - 这在 Windows 上的 Docker 中没有完全实现，
-  请参考[GitHub issue](https://github.com/moby/moby/issues/25982)。
+  请参考 [GitHub issue](https://github.com/moby/moby/issues/25982)。
   目前的行为是通过 CTRL_SHUTDOWN_EVENT 发送 ENTRYPOINT 进程，然后 Windows 默认等待 5 秒，
   最后使用正常的 Windows 关机行为终止所有进程。
   5 秒默认值实际上位于[容器内](https://github.com/moby/moby/issues/25982#issuecomment-426441183)的 Windows 注册表中，
@@ -499,7 +499,7 @@ For more information, visit the project's [GitHub page](https://github.com/kuber
 -->
 ## 节点问题检测器 {#node-problem-detector}
 
-节点问题检测器（参考[节点健康监测](/zh/docs/tasks/debug/debug-cluster/monitor-node-health/)）初步支持 Windows。
+节点问题检测器（参考[节点健康监测](/zh-cn/docs/tasks/debug/debug-cluster/monitor-node-health/)）初步支持 Windows。
 有关更多信息，请访问该项目的 [GitHub 页面](https://github.com/kubernetes/node-problem-detector#windows)。
 
 <!--
@@ -582,7 +582,7 @@ Learn how to [install ContainerD on a Windows node](/docs/setup/production-envir
 对于运行 Windows 的 Kubernetes 节点，你可以使用
 {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+ 作为容器运行时。
 
-学习如何[在 Windows 上安装 ContainerD](/zh/docs/setup/production-environment/container-runtimes/#install-containerd)。
+学习如何[在 Windows 上安装 ContainerD](/zh-cn/docs/setup/production-environment/container-runtimes/#install-containerd)。
 
 <!--
 There is a [known limitation](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)
@@ -591,7 +591,7 @@ kernel patch.
 -->
 {{< note >}}
 将 GMSA 和 containerd 一起用于访问 Windows
-网络共享时存在[已知限制](/zh/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)，
+网络共享时存在[已知限制](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)，
 这需要一个内核补丁。
 {{< /note >}}
 
@@ -637,7 +637,7 @@ Windows Server SAC release
 <!--
 The Kubernetes [version-skew policy](/docs/setup/release/version-skew-policy/) also applies.
 -->
-也适用 Kubernetes [版本偏差策略](/zh/docs/setup/release/version-skew-policy/)。
+也适用 Kubernetes [版本偏差策略](/zh-cn/releases/version-skew-policy/)。
 
 <!--
 ## Getting help and troubleshooting {#troubleshooting}
@@ -655,7 +655,7 @@ SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes
 -->
 ## 获取帮助和故障排查 {#troubleshooting}
 
-对 Kubernetes 集群进行故障排查的主要帮助来源应始于[故障排查](/zh/docs/tasks/debug/)页面。
+对 Kubernetes 集群进行故障排查的主要帮助来源应始于[故障排查](/zh-cn/docs/tasks/debug/)页面。
 
 本节包括了一些其他特定于 Windows 的故障排查帮助。
 日志是解决 Kubernetes 中问题的重要元素。
@@ -698,7 +698,7 @@ The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also prov
 ### 部署工具 {#deployment-tools}
 
 kubeadm 工具帮助你部署 Kubernetes 集群，提供管理集群的控制平面以及运行工作负载的节点。
-[添加 Windows 节点](/zh/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)阐述了如何使用
+[添加 Windows 节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)阐述了如何使用
 kubeadm 将 Windows 节点部署到你的集群。
 
 Kubernetes [集群 API](https://cluster-api.sigs.k8s.io/) 项目也提供了自动部署 Windows 节点的方式。

@@ -23,7 +23,7 @@ This document explains how to define and manage objects using configuration file
 <!--
 Install [`kubectl`](/docs/tasks/tools/).
 -->
-安装 [`kubectl`](/zh/docs/tasks/tools/) 。
+安装 [`kubectl`](/zh-cn/docs/tasks/tools/) 。
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -51,7 +51,7 @@ The `kubectl` tool supports three kinds of object management:
 See [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 -->
-参看 [Kubernetes 对象管理](/zh/docs/concepts/overview/working-with-objects/object-management/)
+参看 [Kubernetes 对象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)
 中关于每种对象管理的优缺点的讨论。
 
 <!--
@@ -273,8 +273,8 @@ template:
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
-* [使用命令式命令管理 Kubernetes 对象](/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [使用对象配置管理 Kubernetes 对象 (声明式)](/zh/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [使用命令式命令管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [使用对象配置管理 Kubernetes 对象 (声明式)](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 命令参考](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 

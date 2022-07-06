@@ -101,7 +101,7 @@ these values have:
 -->
 ### 镜像拉取策略   {#image-pull-policy}
 
-容器的 `imagePullPolicy` 和镜像的标签会影响 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 尝试拉取（下载）指定的镜像。
+容器的 `imagePullPolicy` 和镜像的标签会影响 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 尝试拉取（下载）指定的镜像。
 
 以下列表包含了 `imagePullPolicy` 可以设置的值，以及这些值的效果：
 
@@ -179,7 +179,7 @@ running the same code no matter what tag changes happen at the registry.
 镜像摘要唯一标识了镜像的特定版本，因此 Kubernetes 每次启动具有指定镜像名称和摘要的容器时，都会运行相同的代码。
 通过摘要指定镜像可固定你运行的代码，这样镜像仓库的变化就不会导致版本的混杂。
 
-有一些第三方的[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
+有一些第三方的[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
 在创建 Pod（和 Pod 模板）时产生变更，这样运行的工作负载就是根据镜像摘要，而不是标签来定义的。
 无论镜像仓库上的标签发生什么变化，你都想确保你所有的工作负载都运行相同的代码，那么指定镜像摘要会很有用。
 
@@ -247,7 +247,7 @@ If you would like to always force a pull, you can do one of the following:
   当你提交 Pod 时，Kubernetes 会将策略设置为 `Always`。
 - 省略 `imagePullPolicy` 和镜像的标签；
   当你提交 Pod 时，Kubernetes 会将策略设置为 `Always`。
-- 启用准入控制器 [AlwaysPullImages](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。
+- 启用准入控制器 [AlwaysPullImages](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。
 
 
 <!--
@@ -260,7 +260,7 @@ state because of `ImagePullBackOff`.
 ### ImagePullBackOff
 
 当 kubelet 使用容器运行时创建 Pod 时，容器可能因为 `ImagePullBackOff` 导致状态为
-[Waiting](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)。
+[Waiting](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)。
 
 <!--
 The status `ImagePullBackOff` means that a container could not start because Kubernetes
@@ -366,7 +366,7 @@ For an example of configuring a private container image registry, see the
 task. That example uses a private registry in Docker Hub.
 -->
 有关配置私有容器镜像仓库的示例，请参阅任务
-[从私有镜像库中提取图像](/zh/docs/tasks/configure-pod-container/pull-image-private-registry)。
+[从私有镜像库中提取图像](/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry)。
 该示例使用 Docker Hub 中的私有注册表。
 
 <!--
@@ -560,7 +560,7 @@ command, you can import the credentials file as a Kubernetes
 如果你已经有 Docker 凭据文件，则可以将凭据文件导入为 Kubernetes
 {{< glossary_tooltip text="Secret" term_id="secret" >}}，
 而不是执行上面的命令。
-[基于已有的 Docker 凭据创建 Secret](/zh/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
+[基于已有的 Docker 凭据创建 Secret](/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
 解释了如何完成这一操作。
 
 <!--
@@ -628,10 +628,10 @@ will be merged.
 -->
 你需要对使用私有仓库的每个 Pod 执行以上操作。
 不过，设置该字段的过程也可以通过为
-[服务账号](/zh/docs/tasks/configure-pod-container/configure-service-account/)
+[服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
 资源设置 `imagePullSecrets` 来自动完成。
 有关详细指令可参见
-[将 ImagePullSecrets 添加到服务账号](/zh/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)。
+[将 ImagePullSecrets 添加到服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)。
 
 你也可以将此方法与节点级别的 `.docker/config.json` 配置结合使用。
 来自不同来源的凭据会被合并。
@@ -685,7 +685,7 @@ common use cases and suggested solutions.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 -->
 3. 集群使用专有镜像，且有些镜像需要更严格的访问控制
-   - 确保 [AlwaysPullImages 准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)被启用。否则，所有 Pod 都可以使用所有镜像。
+   - 确保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)被启用。否则，所有 Pod 都可以使用所有镜像。
    - 确保将敏感数据存储在 Secret 资源中，而不是将其打包在镜像里
 
 <!--
@@ -696,7 +696,7 @@ common use cases and suggested solutions.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 -->
 4. 集群是多租户的并且每个租户需要自己的私有仓库
-   - 确保 [AlwaysPullImages 准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。否则，所有租户的所有的 Pod 都可以使用所有镜像。
+   - 确保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。否则，所有租户的所有的 Pod 都可以使用所有镜像。
    - 为私有仓库启用鉴权
    - 为每个租户生成访问仓库的凭据，放置在 Secret 中，并将 Secrert 发布到各租户的命名空间下。
    - 租户将 Secret 添加到每个名字空间中的 imagePullSecrets
@@ -716,4 +716,4 @@ Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.
 * Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
 -->
 * 阅读 [OCI Image Manifest 规范](https://github.com/opencontainers/image-spec/blob/master/manifest.md)。
-* 了解[容器镜像垃圾收集](/zh/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)。
+* 了解[容器镜像垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)。

@@ -555,7 +555,7 @@ by kubeadm during <code>kubeadm join</code>.</p>
 <code>int32</code>
 </td>
 <td>
-   <p><code>bindPorti</code> sets the secure port for the API Server to bind to.
+   <p><code>bindPort</code> sets the secure port for the API Server to bind to.
 Defaults to 6443.</p>
 </td>
 </tr>

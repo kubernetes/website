@@ -29,7 +29,7 @@ tags:
  Control plane component that runs
  {{< glossary_tooltip text="controller" term_id="controller" >}} processes.
 -->
-[kube-controller-manager](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
+[kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
 是{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}的组件，
 负责运行{{< glossary_tooltip text="控制器" term_id="controller" >}}进程。
 

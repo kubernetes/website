@@ -2,7 +2,7 @@
 title: 持久卷申领（Persistent Volume Claim）
 id: persistent-volume-claim
 date: 2018-04-12
-full_link: /zh/docs/concepts/storage/persistent-volumes/
+full_link: /zh-cn/docs/concepts/storage/persistent-volumes/
 short_description: >
   声明在持久卷中定义的存储资源，以便可以将其挂载为容器中的卷。
 

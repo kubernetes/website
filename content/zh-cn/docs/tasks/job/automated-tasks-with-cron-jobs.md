@@ -1,39 +1,42 @@
 ---
 title: 使用 CronJob 运行自动化任务
+min-kubernetes-server-version: v1.21
 content_type: task
 weight: 10
-min-kubernetes-server-version: v1.21
 ---
-
 <!--
 title: Running Automated Tasks with a CronJob
+min-kubernetes-server-version: v1.21
 reviewers:
 - chenopis
 content_type: task
 weight: 10
-min-kubernetes-server-version: v1.21
 -->
 
 <!-- overview -->
 
 <!--
-
 CronJobs was promoted to general availability in Kubernetes v1.21. If you are using an older version of
 Kubernetes, please refer to the documentation for the version of Kubernetes that you are using,
 so that you see accurate information. Older Kubernetes versions do not support the `batch/v1` CronJob API.
 
-You can use [CronJobs](/docs/concepts/workloads/controllers/cron-jobs) to run jobs on a time-based schedule.
+You can use a {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} to run {{< glossary_tooltip text="Jobs" term_id="job" >}} on a time-based schedule.
 These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks on a Linux or UNIX system.
 
 Cron jobs are useful for creating periodic and recurring tasks, like running backups or sending emails.
 Cron jobs can also schedule individual tasks for a specific time, such as if you want to schedule a job for a low activity period.
 -->
 
-在Kubernetes v1.21 版本中，CronJob 被提升为通用版本。如果你使用的是旧版本的 Kubernetes，请参考你正在使用的 Kubernetes 版本的文档，这样你就能看到准确的信息。旧的 Kubernetes 版本不支持`batch/v1` CronJob API。
+在 Kubernetes v1.21 版本中，CronJob 被提升为通用版本。如果你使用的是旧版本的 Kubernetes，
+请参考你正在使用的 Kubernetes 版本的文档，这样你就能看到准确的信息。
+旧的 Kubernetes 版本不支持 `batch/v1` CronJob API。
 
-你可以利用 [CronJobs](/zh-cn/docs/concepts/workloads/controllers/cron-jobs) 执行基于时间调度的任务。这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://en.wikipedia.org/wiki/Cron) 任务类似。
+你可以利用 {{< glossary_tooltip text="CronJob" term_id="cronjob" >}}
+执行基于时间调度的 {{< glossary_tooltip text="Job" term_id="job" >}}。
+这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://zh.wikipedia.org/wiki/Cron) 任务类似。
 
-CronJobs 在创建周期性以及重复性的任务时很有帮助，例如执行备份操作或者发送邮件。CronJobs 也可以在特定时间调度单个任务，例如你想调度低活跃周期的任务。
+CronJob 在创建周期性以及重复性的任务时很有帮助，例如执行备份操作或者发送邮件。
+CronJob 也可以在特定时间调度单个任务，例如你想调度低活跃周期的任务。
 
 <!--
 Cron jobs have limitations and idiosyncrasies.
@@ -41,14 +44,13 @@ For example, in certain circumstances, a single cron job can create multiple job
 Therefore, jobs should be idempotent.
 For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-jobs).
 -->
-CronJobs 有一些限制和特点。
+CronJob 有一些限制和特点。
 例如，在特定状况下，同一个 CronJob 可以创建多个任务。
 因此，任务应该是幂等的。
 
-查看更多限制，请参考 [CronJobs](/zh-cn/docs/concepts/workloads/controllers/cron-jobs)。
+有关更多限制，请参考 [CronJob](/zh-cn/docs/concepts/workloads/controllers/cron-jobs)。
 
 ## {{% heading "prerequisites" %}}
-
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -60,7 +62,7 @@ CronJobs 有一些限制和特点。
 Cron jobs require a config file.
 This example cron job config `.spec` file prints the current time and a hello message every minute:
 -->
-## 创建 CronJob
+## 创建 CronJob {#creating-a-cronjob}
 
 CronJob 需要一个配置文件。
 本例中 CronJob 的`.spec` 配置文件每分钟打印出当前时间和一个问好信息：
@@ -68,13 +70,19 @@ CronJob 需要一个配置文件。
 {{< codenew file="application/job/cronjob.yaml" >}}
 
 <!--
-Run the example cron job by downloading the example file and then running this command:
+Run the example CronJob by using this command:
 -->
-想要运行示例的 CronJob，可以下载示例文件并执行命令：
+执行以下命令以运行此 CronJob 示例：
 
 ```shell
 kubectl create -f https://k8s.io/examples/application/job/cronjob.yaml
 ```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
 ```
 cronjob.batch/hello created
 ```
@@ -140,8 +148,8 @@ You should see that the cron job `hello` successfully scheduled a job at the tim
 
 Now, find the pods that the last scheduled job created and view the standard output of one of the pods.
 -->
-你应该能看到 `hello` CronJob 在 `LAST SCHEDULE` 声明的时间点成功的调度了一次任务。
-有 0 个活跃的任务意味着任务执行完毕或者执行失败。
+你应该能看到 `hello` CronJob 在 `LAST SCHEDULE` 声明的时间点成功地调度了一次任务。
+目前有 0 个活跃的任务，这意味着任务执行完毕或者执行失败。
 
 现在，找到最后一次调度任务创建的 Pod 并查看一个 Pod 的标准输出。
 
@@ -149,7 +157,7 @@ Now, find the pods that the last scheduled job created and view the standard out
 The job name and pod name are different.
 -->
 {{< note >}}
-Job 名称和 Pod 名称不同。
+Job 名称与 Pod 名称不同。
 {{< /note >}}
 
 ```shell
@@ -168,7 +176,7 @@ kubectl logs $pods
 <!--
 The output is similar to this:
 -->
-输出与此类似：
+输出类似于：
 
 ```
 Fri Feb 22 11:02:09 UTC 2019
@@ -181,7 +189,7 @@ Hello from the Kubernetes cluster
 When you don't need a cron job any more, delete it with `kubectl delete cronjob <cronjob name>`：
 -->
 
-## 删除 CronJob
+## 删除 CronJob {#deleting-a-cronjob}
 
 当你不再需要 CronJob 时，可以用 `kubectl delete cronjob <cronjob name>` 删掉它：
 
@@ -205,15 +213,15 @@ and [using kubectl to manage resources](/docs/concepts/overview/working-with-obj
 
 A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 -->
-## 编写 CronJob 声明信息
+## 编写 CronJob 声明信息 {#writing-a-cronjob-spec}
 
-像 Kubernetes 的其他配置一样，CronJob 需要 `apiVersion`、`kind`、和 `metadata` 域。
-配置文件的一般信息，请参考
+像 Kubernetes 的其他配置一样，CronJob 需要 `apiVersion`、`kind` 和 `metadata` 字段。
+有关配置文件的一般信息，请参考
 [部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/) 和
-[使用 kubectl 管理资源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/).
+[使用 kubectl 管理资源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)。
 
 CronJob 配置也需要包括
-[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
+[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 <!--
 All modifications to a cron job, especially its `.spec`, are applied only to the following runs.
@@ -228,15 +236,15 @@ All modifications to a cron job, especially its `.spec`, are applied only to the
 The `.spec.schedule` is a required field of the `.spec`.
 It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
 -->
-### 时间安排
+### 时间安排 {#schedule}
 
-`.spec.schedule` 是 `.spec` 需要的域。它使用了 [Cron](https://en.wikipedia.org/wiki/Cron)
-格式串，例如 `0 * * * *` or `@hourly` ，作为它的任务被创建和执行的调度时间。
+`.spec.schedule` 是 `.spec` 中的必需字段。它接受 [Cron](https://en.wikipedia.org/wiki/Cron)
+格式串，例如 `0 * * * *` or `@hourly`，作为它的任务被创建和执行的调度时间。
 
 <!--
 The format also includes extended "Vixie cron" step values. As explained in the [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
 -->
-该格式也包含了扩展的 "Vixie cron" 步长值。
+该格式也包含了扩展的 “Vixie cron” 步长值。
 [FreeBSD 手册](https://www.freebsd.org/cgi/man.cgi?crontab%285%29)中解释如下:
 
 <!--
@@ -249,15 +257,15 @@ The format also includes extended "Vixie cron" step values. As explained in the 
 -->
 
 > 步长可被用于范围组合。范围后面带有 `/<数字>` 可以声明范围内的步幅数值。
-> 例如，`0-23/2` 可被用在小时域来声明命令在其他数值的小时数执行
-> （ V7 标准中对应的方法是`0,2,4,6,8,10,12,14,16,18,20,22`）。
-> 步长也可以放在通配符后面，因此如果你想表达 "每两小时"，就用 `*/2` 。
+> 例如，`0-23/2` 可被用在小时字段来声明命令在其他数值的小时数执行
+> （V7 标准中对应的方法是 `0,2,4,6,8,10,12,14,16,18,20,22`）。
+> 步长也可以放在通配符后面，因此如果你想表达 “每两小时”，就用 `*/2` 。
 
 <!--
 A question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
 -->
 {{< note >}}
-调度中的问号 (`?`) 和星号  `*` 含义相同，表示给定域的任何可用值。
+调度中的问号 (`?`) 和星号 `*` 含义相同，表示给定字段的任何可用值。
 {{< /note >}}
 
 <!--
@@ -269,13 +277,13 @@ except that it is nested and does not have an `apiVersion` or `kind`.
 For information about writing a job `.spec`, see
 [Writing a Job Spec](/docs/concepts/workloads/controllers/job/#writing-a-job-spec).
 -->
-### 任务模版
+### 任务模板 {#job-template}
 
-`.spec.jobTemplate`是任务的模版，它是必须的。它和
-[Job](/zh-cn/docs/concepts/workloads/controllers/job/)的语法完全一样，
-除了它是嵌套的没有 `apiVersion` 和 `kind`。
-编写任务的 `.spec` ，请参考
-[编写 Job 的Spec](/zh-cn/docs/concepts/workloads/controllers/job/#writing-a-job-spec)。
+`.spec.jobTemplate`是任务的模板，它是必需的。它和
+[Job](/zh-cn/docs/concepts/workloads/controllers/job/) 的语法完全一样，
+只不过它是嵌套的，没有 `apiVersion` 和 `kind`。
+有关如何编写一个任务的 `.spec`，请参考
+[编写 Job 规约](/zh-cn/docs/concepts/workloads/controllers/job/#writing-a-job-spec)。
 
 <!--
 ### Starting Deadline
@@ -286,11 +294,11 @@ After the deadline, the cron job does not start the job.
 Jobs that do not meet their deadline in this way count as failed jobs.
 If this field is not specified, the jobs have no deadline.
 -->
-### 开始的最后期限   {#starting-deadline}
+### 开始的最后期限 {#starting-deadline}
 
-`.spec.startingDeadlineSeconds` 域是可选的。
+`.spec.startingDeadlineSeconds` 字段是可选的。
 它表示任务如果由于某种原因错过了调度时间，开始该任务的截止时间的秒数。过了截止时间，CronJob 就不会开始任务。
-不满足这种最后期限的任务会被统计为失败任务。如果该域没有声明，那任务就没有最后期限。
+不满足这种最后期限的任务会被统计为失败任务。如果此字段未设置，那任务就没有最后期限。
 
 <!--
 If the `.spec.startingDeadlineSeconds` field is set (not null), the CronJob
@@ -300,7 +308,8 @@ now. If the difference is higher than that limit, it will skip this execution.
 For example, if it is set to `200`, it allows a job to be created for up to 200
 seconds after the actual schedule.
 -->
-如果`.spec.startingDeadlineSeconds`字段被设置(非空)，CronJob 控制器会计算从预期创建 Job 到当前时间的时间差。
+如果 `.spec.startingDeadlineSeconds` 字段被设置（非空），
+CronJob 控制器将会计算从预期创建 Job 到当前时间的时间差。
 如果时间差大于该限制，则跳过此次执行。
 
 例如，如果将其设置为 `200`，则 Job 控制器允许在实际调度之后最多 200 秒内创建 Job。
@@ -319,7 +328,7 @@ the spec may specify only one of the following concurrency policies:
 Note that concurrency policy only applies to the jobs created by the same cron job.
 If there are multiple cron jobs, their respective jobs are always allowed to run concurrently.
 -->
-### 并发性规则
+### 并发性规则 {#concurrency-policy}
 
 `.spec.concurrencyPolicy` 也是可选的。它声明了 CronJob 创建的任务执行时发生重叠如何处理。
 spec 仅能声明下列规则中的一种：
@@ -338,10 +347,10 @@ If it is set to `true`, all subsequent executions are suspended.
 This setting does not apply to already started executions.
 Defaults to false.
 -->
-### 挂起
+### 挂起 {#suspend}
 
-`.spec.suspend`域也是可选的。如果设置为 `true` ，后续发生的执行都会挂起。
-这个设置对已经开始的执行不起作用。默认是关闭的。
+`.spec.suspend` 字段也是可选的。如果设置为 `true` ，后续发生的执行都会被挂起。
+这个设置对已经开始的执行不起作用。默认是 `false`。
 
 <!--
 Executions that are suspended during their scheduled time count as missed jobs.
@@ -349,7 +358,7 @@ When `.spec.suspend` changes from `true` to `false` on an existing cron job with
 -->
 {{< caution >}}
 在调度时间内挂起的执行都会被统计为错过的任务。当 `.spec.suspend` 从 `true` 改为 `false` 时，
-且没有 [开始的最后期限](#starting-deadline)，错过的任务会被立即调度。
+且没有[开始的最后期限](#starting-deadline)，错过的任务会被立即调度。
 {{< /caution >}}
 
 <!--
@@ -359,10 +368,8 @@ The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields
 These fields specify how many completed and failed jobs should be kept.
 By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping none of the corresponding kind of jobs after they finish.
 -->
-### 任务历史限制
+### 任务历史限制 {#jobs-history-limits}
 
 `.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit`是可选的。
 这两个字段指定应保留多少已完成和失败的任务。
-默认设置为3和1。限制设置为 `0` 代表相应类型的任务完成后不会保留。
-
-
+默认设置分别为 3 和 1。设置为 `0` 代表相应类型的任务完成后不会保留。
