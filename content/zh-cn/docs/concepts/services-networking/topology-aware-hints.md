@@ -41,7 +41,7 @@ by default. To try out this feature, you have to enable the `TopologyAwareHints`
 {{< note >}}
 “拓扑感知提示”特性处于 Beta 阶段，并且默认情况下**未**启用。 
 要试用此特性，你必须启用 `TopologyAwareHints`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 {{< /note >}}
 
 <!-- body -->
@@ -117,7 +117,7 @@ as many endpoints to the zone with 2 CPU cores.
 此特性开启后，EndpointSlice 控制器负责在 EndpointSlice 上设置提示信息。
 控制器按比例给每个区域分配一定比例数量的端点。
 这个比例来源于此区域中运行节点的
-[可分配](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+[可分配](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 CPU 核心数。
 例如，如果一个区域拥有 2 CPU 核心，而另一个区域只有 1 CPU 核心，
 那控制器将给那个有 2 CPU 的区域分配两倍数量的端点。
@@ -292,4 +292,4 @@ Kubernetes 控制平面和每个节点上的 kube-proxy，在使用拓扑感知�
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
 
-* 参阅[通过服务连通应用](/zh/docs/concepts/services-networking/connect-applications-service/)
+* 参阅[通过服务连通应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)

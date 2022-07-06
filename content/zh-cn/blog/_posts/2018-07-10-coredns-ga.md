@@ -87,7 +87,7 @@ customized Corefile for you, including all of the configuration for stub domains
 在 CoreDNS 中，您可以类似地修改 CoreDNS [Corefile](https://coredns.io/2017/07/23/corefile-explained/) 的 ConfigMap，以更改服务发现的工作方式。这种 Corefile 配置提供了比 kube-dns 中更多的选项，因为它是 CoreDNS 用于配置所有功能的主要配置文件，即使与 Kubernetes 不相关的功能也可以操作。
 
 使用 `kubeadm` 将 kube-dns 升级到 CoreDNS 时，现有的 ConfigMap 将被用来为您生成自定义的 Corefile，包括存根域、联盟和上游名称服务器的所有配置。更多详细信息，请参见
-[使用 CoreDNS 进行服务发现](/zh/docs/tasks/administer-cluster/coredns/)。
+[使用 CoreDNS 进行服务发现](/zh-cn/docs/tasks/administer-cluster/coredns/)。
 
 <!--
 ## Bug fixes and enhancements

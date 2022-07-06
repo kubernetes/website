@@ -20,7 +20,7 @@ slug: storage-capacity-ga
 The v1.24 release of Kubernetes brings [storage capacity](/docs/concepts/storage/storage-capacity/)
 tracking as a generally available feature.
 -->
-在 Kubernetes v1.24 版本中，[存储容量](/zh/docs/concepts/storage/storage-capacity/)跟踪已经成为一项正式发布的功能。
+在 Kubernetes v1.24 版本中，[存储容量](/zh-cn/docs/concepts/storage/storage-capacity/)跟踪已经成为一项正式发布的功能。
 
 <!--
 ## Problems we have solved

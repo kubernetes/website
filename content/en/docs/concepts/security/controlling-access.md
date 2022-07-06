@@ -4,6 +4,7 @@ reviewers:
 - lavalamp
 title: Controlling Access to the Kubernetes API
 content_type: concept
+weight: 50
 ---
 
 <!-- overview -->

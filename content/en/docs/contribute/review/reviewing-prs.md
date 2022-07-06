@@ -7,7 +7,8 @@ weight: 10
 
 <!-- overview -->
 
-Anyone can review a documentation pull request. Visit the [pull requests](https://github.com/kubernetes/website/pulls) section in the Kubernetes website repository to see open pull requests.
+Anyone can review a documentation pull request. Visit the [pull requests](https://github.com/kubernetes/website/pulls)
+section in the Kubernetes website repository to see open pull requests.
 
 Reviewing documentation pull requests is a
 great way to introduce yourself to the Kubernetes community.
@@ -27,7 +28,9 @@ Before reviewing, it's a good idea to:
 
 Before you start a review:
 
-- Read the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md) and ensure that you abide by it at all times.
+
+- Read the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)
+  and ensure that you abide by it at all times.
 - Be polite, considerate, and helpful.
 - Comment on positive aspects of PRs as well as changes.
 - Be empathetic and mindful of how your review may be received.
@@ -36,7 +39,8 @@ Before you start a review:
 
 ## Review process
 
-In general, review pull requests for content and style in English. Figure 1 outlines the steps for the review process. The details for each step follow.
+In general, review pull requests for content and style in English. Figure 1 outlines the steps for
+the review process. The details for each step follow.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -69,32 +73,39 @@ class third,fourth white
 
 Figure 1. Review process steps.
 
-1.  Go to
-    [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
-    You see a list of every open pull request against the Kubernetes website and
-    docs.
+1. Go to [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
+   You see a list of every open pull request against the Kubernetes website and docs.
 
-2.  Filter the open PRs using one or all of the following labels:
-    - `cncf-cla: yes` (Recommended): PRs submitted by contributors who have not signed the CLA cannot be merged. See [Sign the CLA](/docs/contribute/new-content/overview/#sign-the-cla) for more information.
-    - `language/en` (Recommended): Filters for english language PRs only.
-    - `size/<size>`: filters for PRs of a certain size. If you're new, start with smaller PRs.
+2. Filter the open PRs using one or all of the following labels:
 
-    Additionally, ensure the PR isn't marked as a work in progress. PRs using the `work in progress` label are not ready for review yet.
+   - `cncf-cla: yes` (Recommended): PRs submitted by contributors who have not signed the CLA
+     cannot be merged. See [Sign the CLA](/docs/contribute/new-content/#sign-the-cla)
+     for more information.
+   - `language/en` (Recommended): Filters for english language PRs only.
+   - `size/<size>`: filters for PRs of a certain size. If you're new, start with smaller PRs.
 
-3.  Once you've selected a PR to review, understand the change by:
-    - Reading the PR description to understand the changes made, and read any linked issues
-    - Reading any comments by other reviewers
-    - Clicking the **Files changed** tab to see the files and lines changed
-    - Previewing the changes in the Netlify preview build by scrolling to the PR's build check section at the bottom of the **Conversation** tab.
-      Here's a screenshot (this shows GitHub's desktop site; if you're reviewing
-      on a tablet or smartphone device, the GitHub web UI is slightly different):
-      {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub pull request details including link to Netlify preview" >}}
-      To open the preview, click on the  **Details** link of the **deploy/netlify** line in the list of checks.
+   Additionally, ensure the PR isn't marked as a work in progress. PRs using the `work in
+   progress` label are not ready for review yet.
 
-4.  Go to the **Files changed** tab to start your review.
-    1. Click on the `+` symbol  beside the line you want to comment on.
-    2. Fill in any comments you have about the line and click either **Add single comment** (if you have only one comment to make) or  **Start a review** (if you have multiple comments to make).
-    3. When finished, click **Review changes** at the top of the page. Here, you can add
+3. Once you've selected a PR to review, understand the change by:
+
+   - Reading the PR description to understand the changes made, and read any linked issues
+   - Reading any comments by other reviewers
+   - Clicking the **Files changed** tab to see the files and lines changed
+   - Previewing the changes in the Netlify preview build by scrolling to the PR's build check
+     section at the bottom of the **Conversation** tab.
+     Here's a screenshot (this shows GitHub's desktop site; if you're reviewing
+     on a tablet or smartphone device, the GitHub web UI is slightly different):
+     {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub pull request details including link to Netlify preview" >}}
+     To open the preview, click on the  **Details** link of the **deploy/netlify** line in the
+     list of checks.
+
+4. Go to the **Files changed** tab to start your review.
+
+   1. Click on the `+` symbol  beside the line you want to comment on.
+   1. Fill in any comments you have about the line and click either **Add single comment** (if you
+      have only one comment to make) or  **Start a review** (if you have multiple comments to make).
+   1. When finished, click **Review changes** at the top of the page. Here, you can add
       a summary of your review (and leave some positive comments for the contributor!),
       approve the PR, comment or request changes as needed. New contributors should always
       choose **Comment**.
@@ -119,14 +130,22 @@ When reviewing, use the following as a starting point.
 
 ### Website
 
-- Did this PR change or remove a page title, slug/alias or anchor link? If so, are there broken links as a result of this PR? Is there another option, like changing the page title without changing the slug?
+- Did this PR change or remove a page title, slug/alias or anchor link? If so, are there broken
+  links as a result of this PR? Is there another option, like changing the page title without
+  changing the slug?
+
 - Does the PR introduce a new page? If so:
-  - Is the page using the right [page content type](/docs/contribute/style/page-content-types/) and associated Hugo shortcodes?
+
+  - Is the page using the right [page content type](/docs/contribute/style/page-content-types/)
+    and associated Hugo shortcodes?
   - Does the page appear correctly in the section's side navigation (or at all)?
   - Should the page appear on the [Docs Home](/docs/home/) listing?
-- Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code blocks, tables, notes and images.
+
+- Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code
+  blocks, tables, notes and images.
 
 ### Other
 
-For small issues with a PR, like typos or whitespace, prefix your comments with `nit:`.  This lets the author know the issue is non-critical.
+For small issues with a PR, like typos or whitespace, prefix your comments with `nit:`.
+This lets the author know the issue is non-critical.
 

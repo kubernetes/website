@@ -1,12 +1,12 @@
 ---
+layout: blog
 title: Raw Block Volume 支持进入 Beta
 date: 2019-03-07
+slug: raw-block-volume-support-to-beta
 ---
 <!--
----
 title: Raw Block Volume support to Beta
 date: 2019-03-07
----
 --->
 
 <!--

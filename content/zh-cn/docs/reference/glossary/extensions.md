@@ -2,7 +2,7 @@
 title: 扩展组件（Extensions）
 id: Extensions
 date: 2019-02-01
-full_link: /zh/docs/concepts/extend-kubernetes/extend-cluster/#extensions
+full_link: /zh-cn/docs/concepts/extend-kubernetes/extend-cluster/#extensions
 short_description: >
   扩展组件是扩展并与 Kubernetes 深度集成以支持新型硬件的软件组件。
 aka:
@@ -37,5 +37,5 @@ Many cluster administrators use a hosted or distribution instance of Kubernetes.
 
 许多集群管理员会使用托管的 Kubernetes 或其某种发行包，这些集群预装了扩展。
 因此，大多数 Kubernetes 用户将不需要
-安装[扩展组件](/zh/docs/concepts/extend-kubernetes/extend-cluster/#extensions)，
+安装[扩展组件](/zh-cn/docs/concepts/extend-kubernetes/extend-cluster/#extensions)，
 需要编写新的扩展组件的用户就更少了。

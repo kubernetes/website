@@ -31,7 +31,7 @@ to the labels, each `EndpointSlice` that is managed on behalf of a Service has
 an owner reference. Owner references help different parts of Kubernetes avoid
 interfering with objects they don’t control. 
 -->
-属主关系不同于一些资源使用的[标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)机制。
+属主关系不同于一些资源使用的[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)机制。
 例如，有一个创建 `EndpointSlice` 对象的 Service，
 该 Service 使用标签来让控制平面确定，哪些 `EndpointSlice` 对象属于该 Service。
 除开标签，每个代表 Service 所管理的 `EndpointSlice` 都有一个属主引用。
@@ -132,7 +132,7 @@ bound to a Pod.
 ## 属主关系与 Finalizer   {#ownership-and-finalizers}
 
 当你告诉 Kubernetes 删除一个资源，API 服务器允许管理控制器处理该资源的任何 
-[Finalizer 规则](/zh/docs/concepts/overview/working-with-objects/finalizers/)。
+[Finalizer 规则](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)。
 {{<glossary_tooltip text="Finalizer" term_id="finalizer">}} 
 防止意外删除你的集群所依赖的、用于正常运作的资源。
 例如，如果你试图删除一个仍被 Pod 使用的 `PersistentVolume`，该资源不会被立即删除，
@@ -150,7 +150,7 @@ specify an orphan deletion policy, Kubernetes adds the `orphan` finalizer so
 that the controller ignores dependent resources after it deletes the owner
 object. 
 -->
-当你使用[前台或孤立级联删除](/zh/docs/concepts/architecture/garbage-collection/#cascading-deletion)时，
+当你使用[前台或孤立级联删除](/zh-cn/docs/concepts/architecture/garbage-collection/#cascading-deletion)时，
 Kubernetes 也会向属主资源添加 Finalizer。
 在前台删除中，会添加 `foreground` Finalizer，这样控制器必须在删除了拥有 
 `ownerReferences.blockOwnerDeletion=true` 的附属资源后，才能删除属主对象。
@@ -164,6 +164,6 @@ Kubernetes 也会向属主资源添加 Finalizer。
 * Learn about [garbage collection](/docs/concepts/architecture/garbage-collection).
 * Read the API reference for [object metadata](/docs/reference/kubernetes-api/common-definitions/object-meta/#System).
 -->
-* 了解更多关于 [Kubernetes Finalizer](/zh/docs/concepts/overview/working-with-objects/finalizers/)。
-* 了解关于[垃圾收集](/zh/docs/concepts/architecture/garbage-collection)。
+* 了解更多关于 [Kubernetes Finalizer](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)。
+* 了解关于[垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection)。
 * 阅读[对象元数据](/docs/reference/kubernetes-api/common-definitions/object-meta/#System)的 API 参考文档。

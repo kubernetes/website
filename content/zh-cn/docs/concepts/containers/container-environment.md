@@ -34,8 +34,8 @@ The Kubernetes Container environment provides several important resources to Con
 
 Kubernetes 的容器环境给容器提供了几个重要的资源：
 
-* 文件系统，其中包含一个[镜像](/zh/docs/concepts/containers/images/)
-  和一个或多个的[卷](/zh/docs/concepts/storage/volumes/)
+* 文件系统，其中包含一个[镜像](/zh-cn/docs/concepts/containers/images/)
+  和一个或多个的[卷](/zh-cn/docs/concepts/storage/volumes/)
 * 容器自身的信息
 * 集群中其他对象的信息
 
@@ -59,7 +59,7 @@ as are any environment variables specified statically in the container image.
 [`gethostname`](https://man7.org/linux/man-pages/man2/gethostname.2.html) 函数来获取。
 
 Pod 名称和命名空间可以通过
-[下行 API](/zh/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
+[下行 API](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 转换为环境变量。
 
 Pod 定义中的用户所定义的环境变量也可在容器中使用，就像在 container 镜像中静态指定的任何环境变量一样。
@@ -100,7 +100,7 @@ if [DNS addon](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addon
 * Get hands-on experience
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 -->
-* 学习更多有关[容器生命周期回调](/zh/docs/concepts/containers/container-lifecycle-hooks/)的知识
-* 动手[为容器生命周期事件添加处理程序](/zh/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
+* 学习更多有关[容器生命周期回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks/)的知识
+* 动手[为容器生命周期事件添加处理程序](/zh-cn/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
 
 

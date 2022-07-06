@@ -14,7 +14,7 @@ slug: dockershim-faq
 <!--
 _**Update**: There is a [newer version](/blog/2022/02/17/dockershim-faq/) of this article available._
 -->
-_**更新**：本文有[较新版本](/zh/blog/2022/02/17/dockershim-faq/)。_
+_**更新**：本文有[较新版本](/zh-cn/blog/2022/02/17/dockershim-faq/)。_
 
 <!-- 
 This document goes over some frequently asked questions regarding the Dockershim
@@ -29,7 +29,7 @@ Also, you can read [check whether Dockershim removal affects you](/docs/tasks/ad
 关于 Kubernetes kubelets 从容器运行时的角度弃用 Docker 的细节以及这些细节背后的含义，请参考博文
 [别慌: Kubernetes 和 Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
 
-此外，你可以阅读[检查 Dockershim 移除是否影响你](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)以检查它是否会影响你。
+此外，你可以阅读[检查 Dockershim 移除是否影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)以检查它是否会影响你。
 
 <!-- 
 ### Why is dockershim being deprecated?
@@ -76,7 +76,7 @@ Yes, the only thing changing in 1.20 is a single warning log printed at [kubelet
 startup if using Docker as the runtime.
 -->
 当然可以，在 1.20 版本中仅有的改变就是：如果使用 Docker 运行时，启动 
-[kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 
+[kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 
 的过程中将打印一条警告日志。
 
 <!-- 
@@ -292,7 +292,7 @@ latter you can use newer container build options like [img], [buildah],
 -->
 另外还有一个需要关注的点，那就是当创建镜像时，系统维护或嵌入容器方面的任务将无法工作。
 对于前者，可以用 [`crictl`](https://github.com/kubernetes-sigs/cri-tools) 工具作为临时替代方案
-(参见[从 docker 命令映射到 crictl](/zh/docs/reference/tools/map-crictl-dockercli/))；
+(参见[从 docker 命令映射到 crictl](/zh-cn/docs/reference/tools/map-crictl-dockercli/))；
 对于后者，可以用新的容器创建选项，比如
 [cr](https://github.com/kubernetes-sigs/cri-tools)、
 [img](https://github.com/genuinetools/img)、
@@ -315,7 +315,7 @@ For instructions on how to use containerd and CRI-O with Kubernetes, see the
 Kubernetes documentation on [Container Runtimes]
 -->
 对于如何协同 Kubernetes 使用 containerd 和 CRI-O 的说明，参见 Kubernetes 文档中这部分：
-[容器运行时](/zh/docs/setup/production-environment/container-runtimes)。
+[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes)。
 
 <!-- 
 ### What if I have more questions?

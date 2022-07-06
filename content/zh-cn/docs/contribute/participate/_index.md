@@ -214,7 +214,7 @@ SIG Docs 批准人。下面是合并的工作机制：
 <!--
 For more information about contributing to the Kubernetes documentation, see:
 
-- [Contributing new content](/docs/contribute/overview/)
+- [Contributing new content](/docs/contribute/new-content/)
 - [Reviewing content](/docs/contribute/review/reviewing-prs)
 - [Documentation style guide](/docs/contribute/style/)
 -->

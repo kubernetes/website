@@ -48,14 +48,14 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
     ```powershell
     # replace {{< param "fullversion" >}} with your desired version
-    curl.exe -Lo C:\k\kubeadm.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe
+    curl.exe -Lo <path-to-kubeadm.exe>  https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe
     ```
 -->
 1. 在 Windows 节点上升级 kubeadm：
 
    ```powershell
    # 将 {{< param "fullversion" >}} 替换为你希望的版本
-   curl.exe -Lo C:\k\kubeadm.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe
+   curl.exe -Lo <kubeadm.exe 路径>  https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe
    ```
 
 <!--
@@ -66,7 +66,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
     ```shell
     # replace <node-to-drain> with the name of your node you are draining
-    kubectl drain <node-to-drain> -ignore-daemonsets
+    kubectl drain <node-to-drain> --ignore-daemonsets
     ```
 
     You should see output similar to this:
@@ -83,7 +83,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
    ```shell
    # 将 <要腾空的节点> 替换为你要腾空的节点的名称
-   kubectl drain <要腾空的节点> -ignore-daemonsets
+   kubectl drain <要腾空的节点> --ignore-daemonsets
    ```
 
    你应该会看到类似下面的输出：
@@ -111,25 +111,50 @@ upgrade the control plane nodes before upgrading your Windows nodes.
    ```
 
 <!--
-### Upgrade kubelet
+### Upgrade kubelet and kube-proxy
 
 1.  From the Windows node, upgrade and restart the kubelet:
 
     ```powershell
     stop-service kubelet
-    curl.exe -Lo C:\k\kubelet.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe
+    curl.exe -Lo <path-to-kubelet.exe> https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe
     restart-service kubelet
     ```
 -->
-### 升级 kubelet   {#upgrade-kubelet}
+### 升级 kubelet 和 kube-proxy   {#upgrade-kubelet-and-kube-proxy}
 
 1. 在 Windows 节点上升级并重启 kubelet：
 
    ```powershell
    stop-service kubelet
-   curl.exe -Lo C:\k\kubelet.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe
+   curl.exe -Lo <kubelet.exe 路径> https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe
    restart-service kubelet
    ```
+
+<!--
+2. From the Windows node, upgrade and restart the kube-proxy.
+
+    ```powershell
+    stop-service kube-proxy
+    curl.exe -Lo <path-to-kube-proxy.exe> https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kube-proxy.exe
+    restart-service kube-proxy
+    ```
+-->
+2. 在 Windows 节点上升级并重启 kube-proxy：
+
+   ```powershell
+   stop-service kube-proxy
+   curl.exe -Lo <kube-proxy.exe 路径> https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kube-proxy.exe
+   restart-service kube-proxy
+   ```
+
+{{< note >}}
+<!--
+If you are running kube-proxy in a HostProcess container within a Pod, and not as a Windows Service, you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
+-->
+如果你是在 Pod 内的 HostProcess 容器中运行 kube-proxy，而不是作为 Windows 服务，
+你可以通过应用更新版本的 kube-proxy 清单文件来升级 kube-proxy。
+{{< /note >}}
 
 <!--
 ### Uncordon the node
@@ -151,23 +176,4 @@ bring the node back online by marking it schedulable:
    # 将 <要腾空的节点> 替换为你的节点名称
    kubectl uncordon <要腾空的节点>
    ```
-
-<!--
-### Upgrade kube-proxy
-
-1. From a machine with access to the Kubernetes API, run the following,
-again replacing {{< param "fullversion" >}} with your desired version:
-
-    ```shell
-    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
-    ```
--->
-### 升级 kube-proxy   {#upgrade-kube-proxy}
-
-1. 在一台可访问 Kubernetes API 的机器上和，将 {{< param "fullversion" >}} 替换成你
-   期望的版本后再次执行下面的命令：
-
-   ```shell
-   curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
-    ```
 

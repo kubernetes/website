@@ -59,7 +59,7 @@ reviewers:
 
 ## コンフィギュレーションを上書きします
 
-`Node Problem Detector`の Dockerイメージをビルドする際に、[default configuration(https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)が埋め込まれます。
+`Node Problem Detector`の Dockerイメージをビルドする際に、[default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)が埋め込まれます。
 
 [`ConfigMap`](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/) を使用することで設定を上書きすることができます。
 
