@@ -41,6 +41,8 @@ The Cilium Agent runs on each host. Instead of managing IP tables, it translates
 
 This diagram shows how the Cilium project works:  
 
+![](https://cilium.io/static/diagram-9836e6891afc6fcbf30b85b31ca2b37e.svg)
+
  ![](https://lh4.googleusercontent.com/Xe8qee5yYsJton2NHFLOhHevxdbpCHHPPgttOLP18ZWtoUJp9ChFKtKJiTxqNFn8zQPRJu4BdtG7xc24vlGkD2gtfbkCuHq_eU3Tx6z2m6ld4iYGEZv-MsSCcJ3jAcJO2HkMc_d_)  
 
 Depending on what network rules are applied, BPF programs may be attached with [tc](http://man7.org/linux/man-pages/man8/tc.8.html) or [XDP](https://www.iovisor.org/technology/xdp). By using XDP, Cilium can attach the BPF programs at the lowest possible point, which is also the most performant point in the networking software stack.  
