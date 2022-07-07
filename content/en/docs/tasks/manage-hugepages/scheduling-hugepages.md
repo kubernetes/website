@@ -39,7 +39,7 @@ memory or CPU resources must be requested as well.
 A pod may consume multiple huge page sizes in a single pod spec. In this case it
 must use `medium: HugePages-<hugepagesize>` notation for all volume mounts.
 
-Note that this Volume and VolumeMount are only necessary if your application
+This Volume and VolumeMount are only necessary if your application
 requests huge pages via the `mmap` syscall, without the `MAP_HUGETLB` flag. If your
 application requests huge pages via `shmat`, `shmget`, or `mmap` with the
 `MAP_HUGETLB` flag then you do not need to add them.
