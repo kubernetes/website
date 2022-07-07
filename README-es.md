@@ -62,8 +62,6 @@ Revise la [documentación oficial de Hugo](https://gohugo.io/getting-started/ins
 Para levantar el sitio localmente una vez Hugo está instalado en su sistema, puede ejecutar el siguiente comando:
 
 ```bash
-npm ci
-make module-init
 make serve
 ```
 
