@@ -159,7 +159,7 @@ You can test source IP preservation by creating a Service over the source IP app
 -->
 你可以通过在源 IP 应用程序上创建 Service 来测试源 IP 保留：
 ```shell
-kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
+kubectl expose deployment source-ip-app --name=ClusterIP --port=80 --target-port=8080
 ```
 <!-- 
 The output is: 
