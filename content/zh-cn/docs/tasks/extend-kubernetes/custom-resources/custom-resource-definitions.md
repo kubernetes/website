@@ -882,8 +882,8 @@ responsibility of each controller to remove its finalizer from the list.
 任何控制器都可以在任何对象的 finalizer 列表中添加新的 finalizer。
 
 对带有 Finalizer 的对象的第一个删除请求会为其 `metadata.deletionTimestamp`
-设置一个值，但不会真的删除对象。一旦此值被设置，`finalizers` 列表中的表项
-只能被移除。在列表中仍然包含 finalizer 时，无法强制删除对应的对象。
+设置一个值，但不会真的删除对象。一旦此值被设置，只有`finalizers` 列表中的表项
+允许被移除。在列表中仍然包含 finalizer 时，无法强制删除对应的对象。
 
 当 `metadata.deletionTimestamp` 字段被设置时，监视该对象的各个控制器会
 执行它们所能处理的 finalizer，并在完成处理之后将其从列表中移除。
