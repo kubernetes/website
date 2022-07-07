@@ -56,6 +56,7 @@ To build and test the site locally, run:
 ```bash
 # install dependencies
 npm ci
+make module-init
 make serve
 ```
 
