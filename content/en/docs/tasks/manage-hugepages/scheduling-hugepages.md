@@ -41,7 +41,7 @@ must use `medium: HugePages-<hugepagesize>` notation for all volume mounts.
 
 This Volume and VolumeMount are only necessary if your application
 requests huge pages with the `mmap` syscall and without the `MAP_HUGETLB` flag. If your
-application requests huge pages via `shmat`, `shmget`, or `mmap` with the
+application requests huge pages with `shmat`, `shmget`, or `mmap` with the
 `MAP_HUGETLB` flag then you do not need to add them.
 
 
