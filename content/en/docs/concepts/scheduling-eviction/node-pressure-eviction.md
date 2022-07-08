@@ -85,11 +85,15 @@ The kubelet supports the following filesystem partitions:
 Kubelet auto-discovers these filesystems and ignores other filesystems. Kubelet
 does not support other configurations.
 
-{{<note>}}
-Some kubelet garbage collection features are deprecated in favor of eviction.
-For a list of the deprecated features, see
-[kubelet garbage collection deprecation](/docs/concepts/architecture/garbage-collection/#deprecation).
-{{</note>}}
+Some kubelet garbage collection features are deprecated in favor of eviction:
+
+| Existing Flag | New Flag | Rationale |
+| ------------- | -------- | --------- |
+| `--image-gc-high-threshold` | `--eviction-hard` or `--eviction-soft` | existing eviction signals can trigger image garbage collection |
+| `--image-gc-low-threshold` | `--eviction-minimum-reclaim` | eviction reclaims achieve the same behavior |
+| `--maximum-dead-containers` | | deprecated once old logs are stored outside of container's context |
+| `--maximum-dead-containers-per-container` | | deprecated once old logs are stored outside of container's context |
+| `--minimum-container-ttl-duration` | | deprecated once old logs are stored outside of container's context |
 
 ### Eviction thresholds
 
