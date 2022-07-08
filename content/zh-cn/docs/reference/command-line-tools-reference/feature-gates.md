@@ -54,7 +54,7 @@ flag assigned to a list of feature pairs:
 传递一个特性设置键值对列表：
 
 ```shell
---feature-gates="...,GracefulNodeShutdown=true"
+--feature-gates=...,GracefulNodeShutdown=true
 ```
 
 <!--
@@ -726,47 +726,50 @@ Each feature gate is designed for enabling/disabling a specific feature:
   kubelets on Pod log requests.
 - `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
-- `AppArmor`: Enable AppArmor based mandatory access control for Pods running on Linux nodes.
-   See [AppArmor Tutorial](/docs/tutorials/security/apparmor/) for more details.
+- `AppArmor`: Enable use of AppArmor mandatory access control for Pods running on Linux nodes.
+  See [AppArmor Tutorial](/docs/tutorials/security/apparmor/) for more details.
 -->
 - `Accelerators`：使用 Docker Engine 时启用 Nvidia GPU 支持。这一特性不再提供。
-  关于替代方案，请参阅[设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)。
-- `AdvancedAuditing`：启用[高级审计功能](/zh/docs/tasks/debug/debug-cluster/audit/#advanced-audit)。
-- `AffinityInAnnotations`：启用 [Pod 亲和或反亲和](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)。
+  关于替代方案，请参阅[设备插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)。
+- `AdvancedAuditing`：启用[高级审计功能](/zh-cn/docs/tasks/debug/debug-cluster/audit/#advanced-audit)。
+- `AffinityInAnnotations`：启用 [Pod 亲和或反亲和](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)。
 - `AllowExtTrafficLocalEndpoints`：启用服务用于将外部请求路由到节点本地终端。
 - `AllowInsecureBackendProxy`：允许用户在执行 Pod 日志访问请求时跳过 TLS 验证。
 - `AnyVolumeDataSource`: 允许使用任何自定义的资源来做作为
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}} 中的 `DataSource`.
-- `AppArmor`：在 Linux 节点上为 Pod 启用基于 AppArmor 机制的强制访问控制。
-  请参见 [AppArmor 教程](/zh/docs/tutorials/security/apparmor/) 获取详细信息。
+- `AppArmor`：在 Linux 节点上为 Pod 启用 AppArmor 机制的强制访问控制。
+  请参见 [AppArmor 教程](/zh-cn/docs/tutorials/security/apparmor/)获取详细信息。
 <!--
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
   that can be attached to a node.
-  See [dynamic volume limits](/docs/concepts/storage/storage-limits/#dynamic-volume-limits) for more details.
-- `BalanceAttachedNodeVolumes`: Include volume count on node to be considered for balanced resource allocation
-  while scheduling. A node which has closer CPU, memory utilization, and volume count is favored by the scheduler
-  while making decisions.
+  See [dynamic volume limits](/docs/concepts/storage/storage-limits/#dynamic-volume-limits)
+  for more details.
+- `BalanceAttachedNodeVolumes`: Include volume count on node to be considered for
+  balanced resource allocation while scheduling. A node which has closer CPU,
+  memory utilization, and volume count is favored by the scheduler while making decisions.
 - `BlockVolume`: Enable the definition and consumption of raw block devices in Pods.
   See [Raw Block Volume Support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
-   for more details.
-- `BoundServiceAccountTokenVolume`: Migrate ServiceAccount volumes to use a projected volume consisting of a
-  ServiceAccountTokenVolumeProjection. Cluster admins can use metric `serviceaccount_stale_tokens_total` to
-  monitor workloads that are depending on the extended tokens. If there are no such workloads, turn off
-  extended tokens by starting `kube-apiserver` with flag `--service-account-extend-token-expiration=false`.
+  for more details.
+- `BoundServiceAccountTokenVolume`: Migrate ServiceAccount volumes to use a projected volume
+  consisting of a ServiceAccountTokenVolumeProjection. Cluster admins can use metric
+  `serviceaccount_stale_tokens_total` to monitor workloads that are depending on the extended
+  tokens. If there are no such workloads, turn off extended tokens by starting `kube-apiserver` with
+  flag `--service-account-extend-token-expiration=false`.
   Check [Bound Service Account Tokens](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
   for more details.
 - `ControllerManagerLeaderMigration`: Enables Leader Migration for
   [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and
-  [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager) which allows a cluster operator to live migrate
+  [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager)
+  which allows a cluster operator to live migrate
   controllers from the kube-controller-manager into an external controller-manager
   (e.g. the cloud-controller-manager) in an HA cluster without downtime.
 -->
 - `AttachVolumeLimit`：启用卷插件用于报告可连接到节点的卷数限制。有关更多详细信息，请参阅
-  [动态卷限制](/zh/docs/concepts/storage/storage-limits/#dynamic-volume-limits)。
+  [动态卷限制](/zh-cn/docs/concepts/storage/storage-limits/#dynamic-volume-limits)。
 - `BalanceAttachedNodeVolumes`：在进行平衡资源分配的调度时，考虑节点上的卷数。
   调度器在决策时会优先考虑 CPU、内存利用率和卷数更近的节点。
 - `BlockVolume`：在 Pod 中启用原始块设备的定义和使用。有关更多详细信息，请参见
-  [原始块卷支持](/zh/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)。
+  [原始块卷支持](/zh-cn/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)。
 - `BoundServiceAccountTokenVolume`：迁移 ServiceAccount 卷以使用由
   ServiceAccountTokenVolumeProjection 组成的投射卷。集群管理员可以使用
   `serviceaccount_stale_tokens_total` 度量值来监控依赖于扩展令牌的负载。
@@ -775,23 +778,25 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [绑定服务账号令牌](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
   获取更多详细信息。
 - `ControllerManagerLeaderMigration`: 为 
-  [kube-controller-manager](/zh/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) 和 
-  [cloud-controller-manager](/zh/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager) 
+  [kube-controller-manager](/zh-cn/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) 和 
+  [cloud-controller-manager](/zh-cn/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager) 
   启用 Leader 迁移，它允许集群管理者在没有停机的高可用集群环境下，实时
   把 kube-controller-manager 迁移迁移到外部的 controller-manager (例如 cloud-controller-manager) 中。
 <!--
 - `CPUManager`: Enable container level CPU affinity support, see
   [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
-- `CPUManagerPolicyAlphaOptions`: This allows fine-tuning of CPUManager policies, experimental, Alpha-quality options
+- `CPUManagerPolicyAlphaOptions`: This allows fine-tuning of CPUManager policies,
+  experimental, Alpha-quality options
   This feature gate guards *a group* of CPUManager options whose quality level is alpha.
   This feature gate will never graduate to beta or stable.
-- `CPUManagerPolicyBetaOptions`: This allows fine-tuning of CPUManager policies, experimental, Beta-quality options
+- `CPUManagerPolicyBetaOptions`: This allows fine-tuning of CPUManager policies,
+  experimental, Beta-quality options
   This feature gate guards *a group* of CPUManager options whose quality level is beta.
   This feature gate will never graduate to stable.
 - `CPUManagerPolicyOptions`: Allow fine-tuning of CPUManager policies.
 -->
 - `CPUManager`：启用容器级别的 CPU 亲和性支持，有关更多详细信息，请参见
-  [CPU 管理策略](/zh/docs/tasks/administer-cluster/cpu-management-policies/)。
+  [CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)。
 - `CPUManagerPolicyAlphaOptions`：允许对 CPUManager 策略进行微调，针对试验性的、
   alpha 质量级别的选项。
   此特性门控用来保护一组质量级别为 alpha 的 CPUManager 选项。
@@ -802,12 +807,15 @@ Each feature gate is designed for enabling/disabling a specific feature:
   此特性门控永远不会被升级为稳定版本。
 - `CPUManagerPolicyOptions`: 允许微调 CPU 管理策略。
 <!--
-- `CRIContainerLogRotation`: Enable container log rotation for CRI container runtime. The default max size of a log file is 10MB and the
-  default max number of log files allowed for a container is 5. These values can be configured in the kubelet config.
-  See the [logging at node level](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level) documentation for more details.
+- `CRIContainerLogRotation`: Enable container log rotation for CRI container runtime.
+  The default max size of a log file is 10MB and the default max number of
+  log files allowed for a container is 5.
+  These values can be configured in the kubelet config.
+  See [logging at node level](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
+  for more details.
 - `CSIBlockVolume`: Enable external CSI volume drivers to support block storage.
-  See the [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support)
-  documentation for more details.
+  See [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support)
+  for more details.
 - `CSIDriverRegistry`: Enable all logic related to the CSIDriver API object in
   csi.storage.k8s.io.
 - `CSIInlineVolume`: Enable CSI Inline volumes support for pods.
@@ -816,9 +824,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 -->
 - `CRIContainerLogRotation`：为 CRI 容器运行时启用容器日志轮换。日志文件的默认最大大小为
   10MB，缺省情况下，一个容器允许的最大日志文件数为5。这些值可以在kubelet配置中配置。
-    更多细节请参见 [日志架构](/zh/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)。
+  更多细节请参见[日志架构](/zh-cn/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)。
 - `CSIBlockVolume`：启用外部 CSI 卷驱动程序用于支持块存储。有关更多详细信息，请参见
-  [`csi` 原始块卷支持](/zh/docs/concepts/storage/volumes/#csi-raw-block-volume-support)。
+  [`csi` 原始块卷支持](/zh-cn/docs/concepts/storage/volumes/#csi-raw-block-volume-support)。
 - `CSIDriverRegistry`：在 csi.storage.k8s.io 中启用与 CSIDriver API 对象有关的所有逻辑。
 - `CSIInlineVolume`：为 Pod 启用 CSI 内联卷支持。
 - `CSIMigration`：确保封装和转换逻辑能够将卷操作从内嵌插件路由到相应的预安装 CSI 插件。
@@ -859,8 +867,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   AzureDisk CSI plugin. Requires CSIMigration and CSIMigrationAzureDisk feature
   flags enabled and AzureDisk CSI plugin installed and configured on all nodes
   in the cluster. This flag has been deprecated in favor of the
-  `InTreePluginAzureFileUnregister` feature flag which prevents the registration
-   of in-tree AzureFile plugin.
+  `InTreePluginAzureDiskUnregister` feature flag which prevents the registration
+  of in-tree AzureDisk plugin.
 -->
 - `CSIMigrationAzureDisk`：确保填充和转换逻辑能够将卷操作从 AzureDisk 内嵌插件路由到
   Azure 磁盘 CSI 插件。对于禁用了此特性的节点或者没有安装并配置 AzureDisk CSI
@@ -886,7 +894,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   AzureFile CSI plugin. Requires CSIMigration and CSIMigrationAzureFile feature
   flags  enabled and AzureFile CSI plugin installed and configured on all nodes
   in the cluster. This flag has been deprecated in favor of the
-  `InTreePluginAzureFileUnregister` feature flag which prevents the registration of in-tree AzureFile plugin.
+  `InTreePluginAzureFileUnregister` feature flag which prevents the registration
+   of in-tree AzureFile plugin.
 -->
 - `CSIMigrationAzureFile`：确保封装和转换逻辑能够将卷操作从 AzureFile 内嵌插件路由到
   AzureFile CSI 插件。对于禁用了此特性的节点或者没有安装并配置 AzureFile CSI
@@ -911,7 +920,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   route volume operations from the GCE-PD in-tree plugin to PD CSI plugin.
   Requires CSIMigration and CSIMigrationGCE feature flags enabled and PD CSI
   plugin installed and configured on all nodes in the cluster. This flag has
-  been deprecated in favor of the `InTreePluginGCEUnregister` feature flag which prevents the registration of in-tree GCE PD plugin.
+  been deprecated in favor of the `InTreePluginGCEUnregister` feature flag which
+  prevents the registration of in-tree GCE PD plugin.
 -->
 - `CSIMigrationGCE`：启用填充和转换逻辑，将卷操作从 GCE-PD 内嵌插件路由到
   PD CSI 插件。对于禁用了此特性的节点或者没有安装并配置 PD CSI 插件的节点，
@@ -923,19 +933,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   这需要启用 CSIMigration 和 CSIMigrationGCE 特性标志，并在集群中的所有节点上
   安装和配置 PD CSI 插件。该特性标志已被废弃，取而代之的是
   能防止注册内嵌 GCE PD 插件的 `InTreePluginGCEUnregister` 特性标志。
-<!--
-- `csiMigrationRBD`: Enables shims and translation logic to route volume
-  operations from the RBD in-tree plugin to Ceph RBD CSI plugin. Requires
-  CSIMigration and csiMigrationRBD feature flags enabled and Ceph CSI plugin
-  installed and configured in the cluster. This flag has been deprecated in
-  favor of the
-  `InTreePluginRBDUnregister` feature flag which prevents the registration of
-  in-tree RBD plugin.
--->
-- `csiMigrationRBD`：启用填充和转换逻辑，将卷操作从 RBD 的内嵌插件路由到 Ceph RBD
-  CSI 插件。此特性要求 CSIMigration 和 csiMigrationRBD 特性标志均被启用，
-  且集群中安装并配置了 Ceph CSI 插件。此标志已被弃用，以鼓励使用
-  `InTreePluginRBDUnregister` 特性标志。后者会禁止注册内嵌的 RBD 插件。
 <!--
 - `CSIMigrationOpenStack`: Enables shims and translation logic to route volume
   operations from the Cinder in-tree plugin to Cinder CSI plugin. Supports
@@ -949,7 +946,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   volume operations from the Cinder in-tree plugin to Cinder CSI plugin.
   Requires CSIMigration and CSIMigrationOpenStack feature flags enabled and Cinder
   CSI plugin installed and configured on all nodes in the cluster. This flag has
-  been deprecated in favor of the `InTreePluginOpenStackUnregister` feature flag which prevents the registration of in-tree openstack cinder plugin.
+  been deprecated in favor of the `InTreePluginOpenStackUnregister` feature flag
+  which prevents the registration of in-tree openstack cinder plugin.
 -->
 - `CSIMigrationOpenStack`：确保填充和转换逻辑能够将卷操作从 Cinder 内嵌插件路由到
   Cinder CSI 插件。对于禁用了此特性的节点或者没有安装并配置 Cinder CSI 插件的节点，
@@ -961,6 +959,18 @@ Each feature gate is designed for enabling/disabling a specific feature:
   这需要启用 CSIMigration 和 CSIMigrationOpenStack 特性标志，并在集群中的所有节点上
   安装和配置 Cinder CSI 插件。该特性标志已被弃用，取而代之的是
   能防止注册内嵌 OpenStack Cinder 插件的 `InTreePluginOpenStackUnregister` 特性标志。
+<!--
+- `csiMigrationRBD`: Enables shims and translation logic to route volume
+  operations from the RBD in-tree plugin to Ceph RBD CSI plugin. Requires
+  CSIMigration and csiMigrationRBD feature flags enabled and Ceph CSI plugin
+  installed and configured in the cluster. This flag has been deprecated in
+  favor of the `InTreePluginRBDUnregister` feature flag which prevents the registration of
+  in-tree RBD plugin.
+-->
+- `csiMigrationRBD`：启用填充和转换逻辑，将卷操作从 RBD 的内嵌插件路由到 Ceph RBD
+  CSI 插件。此特性要求 CSIMigration 和 csiMigrationRBD 特性标志均被启用，
+  且集群中安装并配置了 Ceph CSI 插件。此标志已被弃用，以鼓励使用
+  `InTreePluginRBDUnregister` 特性标志。后者会禁止注册内嵌的 RBD 插件。
 <!--
 - `CSIMigrationvSphere`: Enables shims and translation logic to route volume operations
   from the vSphere in-tree plugin to vSphere CSI plugin. Supports falling back
@@ -974,7 +984,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   from the vSphere in-tree plugin to vSphere CSI plugin. Requires CSIMigration and
   CSIMigrationvSphere feature flags enabled and vSphere CSI plugin installed and
   configured on all nodes in the cluster. This flag has been deprecated in favor
-  of the `InTreePluginvSphereUnregister` feature flag which prevents the registration of in-tree vsphere plugin.
+  of the `InTreePluginvSphereUnregister` feature flag which prevents the
+  registration of in-tree vsphere plugin.
 -->
 - `CSIMigrationvSphere`: 允许封装和转换逻辑将卷操作从 vSphere 内嵌插件路由到
   vSphere CSI 插件。如果节点禁用了此特性门控或者未安装和配置 vSphere CSI 插件，
@@ -989,15 +1000,14 @@ Each feature gate is designed for enabling/disabling a specific feature:
 <!--
 - `CSIMigrationPortworx`: Enables shims and translation logic to route volume operations
   from the Portworx in-tree plugin to Portworx CSI plugin.
-  Requires Portworx CSI driver to be installed and configured in the cluster, and feature gate set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet configs.
+  Requires Portworx CSI driver to be installed and configured in the cluster.
 -->
 - `CSIMigrationPortworx`：启用填充和转换逻辑，将卷操作从 Portworx 内嵌插件路由到
-  Portworx CSI 插件。需要在集群中安装并配置 Portworx CSI 插件，并针对 kube-controller-manager
-  和 kubelet 配置启用特性门控 `CSIMigrationPortworx=true`。
+  Portworx CSI 插件。需要在集群中安装并配置 Portworx CSI 插件.
 <!--
-- `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in csi.storage.k8s.io.
+- `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in `csi.storage.k8s.io`.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
-  [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
+  [CSI (Container Storage Interface)](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)
   compatible volume plugin.
 - `CSIServiceAccountToken`: Enable CSI drivers to receive the pods' service account token
   that they mount volumes for. See
@@ -1007,16 +1017,16 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Storage Capacity](/docs/concepts/storage/storage-capacity/).
   Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
 -->
-- `CSINodeInfo`：在 csi.storage.k8s.io 中启用与 CSINodeInfo API 对象有关的所有逻辑。
+- `CSINodeInfo`：在 `csi.storage.k8s.io` 中启用与 CSINodeInfo API 对象有关的所有逻辑。
 - `CSIPersistentVolume`：启用发现和挂载通过
-  [CSI（容器存储接口）](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
+  [CSI（容器存储接口）](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)
   兼容卷插件配置的卷。
 - `CSIServiceAccountToken`: 允许 CSI 驱动接收挂载卷目标 Pods 的服务账户令牌。
   参阅[令牌请求（Token Requests）](https://kubernetes-csi.github.io/docs/token-requests.html)。
 - `CSIStorageCapacity`: 使 CSI 驱动程序可以发布存储容量信息，并使 Kubernetes
   调度程序在调度 Pod 时使用该信息。参见
-  [存储容量](/zh/docs/concepts/storage/storage-capacity/)。
-  详情请参见 [`csi` 卷类型](/zh/docs/concepts/storage/volumes/#csi)。
+  [存储容量](/zh-cn/docs/concepts/storage/storage-capacity/)。
+  详情请参见 [`csi` 卷类型](/zh-cn/docs/concepts/storage/volumes/#csi)。
 <!--
 - `CSIVolumeFSGroupPolicy`: Allows CSIDrivers to use the `fsGroupPolicy` field.
   This field controls whether volumes created by a CSIDriver support volume ownership
@@ -1029,7 +1039,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Configure volume permission and ownership change policy for Pods](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)
   for more details.
 - `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
-  contextual logging add extra detail to log output.
+   contextual logging add extra detail to log output.
 - `ControllerManagerLeaderMigration`: Enables leader migration for
   `kube-controller-manager` and `cloud-controller-manager`.
 - `CronJobControllerV2`: Use an alternative implementation of the
@@ -1043,30 +1053,32 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CSRDuration`：允许客户端来通过请求 Kubernetes CSR API 签署的证书的持续时间。
 - `ConfigurableFSGroupPolicy`：在 Pod 中挂载卷时，允许用户为 fsGroup
   配置卷访问权限和属主变更策略。请参见
-  [为 Pod 配置卷访问权限和属主变更策略](/zh/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)。
+  [为 Pod 配置卷访问权限和属主变更策略](/zh-cn/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)。
 - `ContextualLogging`：当你启用这个特性门控，支持日志上下文记录的 Kubernetes
   组件会为日志输出添加额外的详细内容。
 - `ControllerManagerLeaderMigration`：为 `kube-controller-manager` 和 `cloud-controller-manager`
   开启领导者迁移功能。
 - `CronJobControllerV2`：使用 {{< glossary_tooltip text="CronJob" term_id="cronjob" >}}
   控制器的一种替代实现。否则，系统会选择同一控制器的 v1 版本。
-- `CronJobTimeZone`：允许在 [CronJobs](/zh/docs/concepts/workloads/controllers/cron-jobs/) 中使用 `timeZone` 可选字段。
+- `CronJobTimeZone`：允许在 [CronJobs](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/) 中使用 `timeZone` 可选字段。
 <!--
 - `CustomCPUCFSQuotaPeriod`: Enable nodes to change `cpuCFSQuotaPeriod` in
   [kubelet config](/docs/tasks/administer-cluster/kubelet-config-file/).
-- `CustomResourceValidationExpressions`: Enable expression language validation in CRD which will validate customer resource based on validation rules written in `x-kubernetes-validations` extension.
+- `CustomResourceValidationExpressions`: Enable expression language validation in CRD
+  which will validate customer resource based on validation rules written in
+  the `x-kubernetes-validations` extension.
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
-   Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
-   for more details.
+  Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
+  for more details.
 -->
 - `CustomCPUCFSQuotaPeriod`：使节点能够更改
-  [kubelet 配置](/zh/docs/tasks/administer-cluster/kubelet-config-file/)
+  [kubelet 配置](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)
   中的 `cpuCFSQuotaPeriod`。
 - `CustomResourceValidationExpressions`：启用 CRD 中的表达式语言合法性检查，
   基于 `x-kubernetes-validations` 扩展中所书写的合法性检查规则来验证定制资源。
 - `CustomPodDNS`：允许使用 Pod 的 `dnsConfig` 属性自定义其 DNS 设置。
   更多详细信息，请参见
-  [Pod 的 DNS 配置](/zh/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)。
+  [Pod 的 DNS 配置](/zh-cn/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)。
 <!--
 - `CustomResourceDefaulting`: Enable CRD support for default values in OpenAPI v3 validation schemas.
 - `CustomResourcePublishOpenAPI`: Enables publishing of CRD OpenAPI specs.
@@ -1083,16 +1095,16 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CustomResourceDefaulting`：为 CRD 启用在其 OpenAPI v3 验证模式中提供默认值的支持。
 - `CustomResourcePublishOpenAPI`：启用 CRD OpenAPI 规范的发布。
 - `CustomResourceSubresources`：对于用
-  [CustomResourceDefinition](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+  [CustomResourceDefinition](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
   创建的资源启用其 `/status` 和 `/scale` 子资源。
 - `CustomResourceValidation`：对于用
-  [CustomResourceDefinition](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+  [CustomResourceDefinition](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
   创建的资源启用基于模式的验证。
 - `CustomResourceWebhookConversion`：对于用
-  [CustomResourceDefinition](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+  [CustomResourceDefinition](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
   创建的资源启用基于 Webhook 的转换。
 - `DaemonSetUpdateSurge`: 使 DaemonSet 工作负载在每个节点的更新期间保持可用性。
-  参阅[对 DaemonSet 执行滚动更新](/zh/docs/tasks/manage-daemon/update-daemon-set/)。
+  参阅[对 DaemonSet 执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)。
 <!--
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
   [default spreading](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints).
@@ -1105,15 +1117,15 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Disable accelerator metrics collected by the kubelet](/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics).
 -->
 - `DefaultPodTopologySpread`: 启用 `PodTopologySpread` 调度插件来完成
-  [默认的调度传播](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints).
+  [默认的调度传播](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints).
 - `DelegateFSGroupToCSIDriver`: 如果 CSI 驱动程序支持，则通过 NodeStageVolume 和
   NodePublishVolume CSI 调用传递 `fsGroup` ，将应用 `fsGroup` 从 Pod 的
   `securityContext` 的角色委托给驱动。
 - `DevicePlugins`：在节点上启用基于
-  [设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+  [设备插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
   的资源制备。
 - `DisableAcceleratorUsageMetrics`： 
-  [禁用 kubelet 收集加速器指标](/zh/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics).
+  [禁用 kubelet 收集加速器指标](/zh-cn/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics).
 <!--
 - `DisableCloudProviders`: Disables any functionality in `kube-apiserver`,
   `kube-controller-manager` and `kubelet` related to the `--cloud-provider`
@@ -1131,10 +1143,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DisableKubeletCloudCredentialProviders`：禁用 kubelet 中为拉取镜像内置的凭据机制，
   该凭据用于向某云提供商的容器镜像仓库执行身份认证。
 - `DownwardAPIHugePages`：允许在
-  [下行（Downward）API](/zh/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information)
+  [下行（Downward）API](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information)
   中使用巨页信息。
 - `DryRun`：启用在服务器端对请求进行
-  [试运行（Dry Run）](/zh/docs/reference/using-api/api-concepts/#dry-run)，
+  [试运行（Dry Run）](/zh-cn/docs/reference/using-api/api-concepts/#dry-run)，
   以便测试验证、合并和修改，同时避免提交更改。
 - `DynamicAuditing`：在 v1.19 版本前用于启用动态审计。
 <!--
@@ -1154,11 +1166,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
 -->
 - `DynamicKubeletConfig`：启用 kubelet 的动态配置。
   除偏差策略场景外，不再支持该功能。该特性门控在 kubelet 1.24 版本中已被移除。
-  请参阅[重新配置 kubelet](/zh/docs/tasks/administer-cluster/reconfigure-kubelet/)。
+  请参阅[重新配置 kubelet](/zh-cn/docs/tasks/administer-cluster/reconfigure-kubelet/)。
 - `DynamicProvisioningScheduling`：扩展默认调度器以了解卷拓扑并处理 PV 配置。
   此特性已在 v1.12 中完全被 `VolumeScheduling` 特性取代。
 - `DynamicVolumeProvisioning`：启用持久化卷到 Pod
-  的[动态预配置](/zh/docs/concepts/storage/dynamic-provisioning/)。
+  的[动态预配置](/zh-cn/docs/concepts/storage/dynamic-provisioning/)。
 - `EfficientWatchResumption`：允许从存储发起的 bookmark（进度通知）事件被通知到用户。
   此特性仅适用于 watch 操作。
 - `EnableAggregatedDiscoveryTimeout`：对聚集的发现调用启用五秒钟超时设置。
@@ -1177,11 +1189,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
 -->
 - `EnableEquivalenceClassCache`：调度 Pod 时，使 scheduler 缓存节点的等效项。
 - `EndpointSlice`：启用 EndpointSlice 以实现可扩缩性和可扩展性更好的网络端点。
-   参阅[启用 EndpointSlice](/zh/docs/concepts/services-networking/endpoint-slices/)。
+   参阅[启用 EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)。
 - `EndpointSliceNodeName`：允许使用 EndpointSlice 的 `nodeName` 字段。
 - `EndpointSliceProxying`：启用此特性门控时，Linux 上运行的 kube-proxy 会使用
   EndpointSlices 而不是 Endpoints 作为其主要数据源，从而使得可扩缩性和性能提升成为可能。
-  参阅[启用 EndpointSlice](/zh/docs/concepts/services-networking/endpoint-slices/)。
+  参阅[启用 EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)。
 - `EndpointSliceTerminatingCondition`：允许使用 EndpointSlice 的 `terminating` 和
   `serving` 状况字段。
 <!--
@@ -1199,11 +1211,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   {{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}
   到正在运行的 Pod 的特性。
 - `EvenPodsSpread`：使 Pod 能够在拓扑域之间平衡调度。请参阅
-  [Pod 拓扑扩展约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)。
+  [Pod 拓扑扩展约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/)。
 - `ExecProbeTimeout`：确保 kubelet 会遵从 exec 探针的超时值设置。
   此特性门控的主要目的是方便你处理现有的、依赖于已被修复的缺陷的工作负载；
   该缺陷导致 Kubernetes 会忽略 exec 探针的超时值设置。
-  参阅[就绪态探针](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes).
+  参阅[就绪态探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes).
 <!--
 - `ExpandCSIVolumes`: Enable the expanding of CSI volumes.
 - `ExpandedDNSConfig`: Enable kubelet and kube-apiserver to allow more DNS
@@ -1222,21 +1234,22 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ExpandedDNSConfig`: 在 kubelet 和 kube-apiserver 上启用后，
   允许使用更多的 DNS 搜索域和搜索域列表。此功能特性需要容器运行时
   （Containerd：v1.5.6 或更高，CRI-O：v1.22 或更高）的支持。参阅
-  [扩展 DNS 配置](/zh/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration).
+  [扩展 DNS 配置](/zh-cn/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration).
 - `ExpandInUsePersistentVolumes`：启用扩充使用中的 PVC 的尺寸。请查阅
-  [调整使用中的 PersistentVolumeClaim 的大小](/zh/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)。
+  [调整使用中的 PersistentVolumeClaim 的大小](/zh-cn/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)。
 - `ExpandPersistentVolumes`：允许扩充持久卷。请查阅
-  [扩展持久卷申领](/zh/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)。
+  [扩展持久卷申领](/zh-cn/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)。
 - `ExperimentalCriticalPodAnnotation`：启用将特定 Pod 注解为 *critical* 的方式，用于
-  [确保其被调度](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。
+  [确保其被调度](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。
   从 v1.13 开始已弃用此特性，转而使用 Pod 优先级和抢占功能。
 <!--
 - `ExperimentalHostUserNamespaceDefaulting`: Enabling the defaulting user
-   namespace to host. This is for containers that are using other host namespaces,
-   host mounts, or containers that are privileged or using specific non-namespaced
-   capabilities (e.g. `MKNODE`, `SYS_MODULE` etc.). This should only be enabled
-   if user namespace remapping is enabled in the Docker daemon.
-- `ExternalPolicyForExternalIP`: Fix a bug where ExternalTrafficPolicy is not applied to Service ExternalIPs.
+  namespace to host. This is for containers that are using other host namespaces,
+  host mounts, or containers that are privileged or using specific non-namespaced
+  capabilities (e.g. `MKNODE`, `SYS_MODULE` etc.). This should only be enabled
+  if user namespace remapping is enabled in the Docker daemon.
+- `ExternalPolicyForExternalIP`: Fix a bug where ExternalTrafficPolicy is not
+  applied to Service ExternalIPs.
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `GenericEphemeralVolume`: Enables ephemeral, inline volumes that support all features
   of normal volumes (can be provided by third-party storage vendors, storage capacity tracking,
@@ -1257,27 +1270,28 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `GCERegionalPersistentDisk`：在 GCE 上启用带地理区域信息的 PD 特性。
 - `GenericEphemeralVolume`：启用支持临时的内联卷，这些卷支持普通卷
   （可以由第三方存储供应商提供、存储容量跟踪、从快照还原等等）的所有功能。
-  请参见[临时卷](/zh/docs/concepts/storage/ephemeral-volumes/)。
+  请参见[临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/)。
 - `GracefulNodeShutdown`：在 kubelet 中启用体面地关闭节点的支持。
   在系统关闭时，kubelet 会尝试监测该事件并体面地终止节点上运行的 Pods。
-  参阅[体面地关闭节点](/zh/docs/concepts/architecture/nodes/#graceful-node-shutdown)
+  参阅[体面地关闭节点](/zh-cn/docs/concepts/architecture/nodes/#graceful-node-shutdown)
   以了解更多细节。
 <!--
 - `GracefulNodeShutdownBasedOnPodPriority`: Enables the kubelet to check Pod priorities
   when shutting down a node gracefully.
-- `GRPCContainerProbe`: Enables the gRPC probe method for {Liveness,Readiness,Startup}Probe. See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
+- `GRPCContainerProbe`: Enables the gRPC probe method for {Liveness,Readiness,Startup}Probe.
+  See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
 - `HonorPVReclaimPolicy`: Honor persistent volume reclaim policy when it is `Delete` irrespective of PV-PVC deletion ordering.
-For more details, check the
+  For more details, check the
   [PersistentVolume deletion protection finalizer](/docs/concepts/storage/persistent-volumes/#persistentvolume-deletion-protection-finalizer)
   documentation.
 -->
 - `GracefulNodeShutdownBasedOnPodPriority`：允许 kubelet 在体面终止节点时检查
   Pod 的优先级。
 - `GRPCContainerProbe`：为 LivenessProbe、ReadinessProbe、StartupProbe 启用 gRPC 探针。
-  参阅[配置活跃态、就绪态和启动探针](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)。
+  参阅[配置活跃态、就绪态和启动探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)。
 - `HonorPVReclaimPolicy`：无论 PV 和 PVC 的删除顺序如何，当持久卷申领的策略为 `Delete`
   时，确保这种策略得到处理。
-  更多详细信息，请参阅 [PersistentVolume 删除保护 finalizer](/zh/docs/concepts/storage/persistent-volumes/#persistentvolume-deletion-protection-finalizer)文档。
+  更多详细信息，请参阅 [PersistentVolume 删除保护 finalizer](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolume-deletion-protection-finalizer)文档。
 <!--
 - `HPAContainerMetrics`: Enable the `HorizontalPodAutoscaler` to scale based on
   metrics from individual containers in target pods.
@@ -1296,16 +1310,25 @@ For more details, check the
 - `HPAScaleToZero`：使用自定义指标或外部指标时，可将 `HorizontalPodAutoscaler`
   资源的 `minReplicas` 设置为 0。
 - `HugePages`：启用分配和使用预分配的
-  [巨页资源](/zh/docs/tasks/manage-hugepages/scheduling-hugepages/)。
+  [巨页资源](/zh-cn/docs/tasks/manage-hugepages/scheduling-hugepages/)。
 - `HugePageStorageMediumSize`：启用支持多种大小的预分配
-  [巨页资源](/zh/docs/tasks/manage-hugepages/scheduling-hugepages/)。
+  [巨页资源](/zh-cn/docs/tasks/manage-hugepages/scheduling-hugepages/)。
 - `HyperVContainer`：为 Windows 容器启用
   [Hyper-V 隔离](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)。
 <!--
-- `IdentifyPodOS`: Allows the Pod OS field to be specified. This helps in identifying the OS of the pod
-  authoritatively during the API server admission time. In Kubernetes {{< skew currentVersion >}}, the allowed values for the `pod.spec.os.name` are `windows` and `linux`.
+- `IdentifyPodOS`: Allows the Pod OS field to be specified. This helps in identifying
+  the OS of the pod authoritatively during the API server admission time.
+  In Kubernetes {{< skew currentVersion >}}, the allowed values for the `pod.spec.os.name`
+  are `windows` and `linux`.
 - `ImmutableEphemeralVolumes`: Allows for marking individual Secrets and ConfigMaps as
   immutable for better safety and performance.
+- `IndexedJob`: Allows the [Job](/docs/concepts/workloads/controllers/job/)
+  controller to manage Pod completions per completion index.
+- `IngressClassNamespacedParams`: Allow namespace-scoped parameters reference in
+  `IngressClass` resource. This feature adds two fields - `Scope` and `Namespace`
+  to `IngressClass.spec.parameters`.
+- `Initializers`: Allow asynchronous coordination of object creation using the
+  Initializers admission plugin.
 - `InTreePluginAWSUnregister`: Stops registering the aws-ebs in-tree plugin in kubelet
   and volume controllers.
 - `InTreePluginAzureDiskUnregister`: Stops registering the azuredisk in-tree plugin in kubelet
@@ -1318,6 +1341,11 @@ For more details, check the
   `windows` 和 `linux`。
 - `ImmutableEphemeralVolumes`：允许将各个 Secret 和 ConfigMap 标记为不可变更的，
   以提高安全性和性能。
+- `IndexedJob`：允许 [Job](/zh-cn/docs/concepts/workloads/controllers/job/)
+   控制器来管理每个完成索引的 Pod 完成。
+- `IngressClassNamespacedParams`：允许在 `IngressClass` 资源中使用命名空间范围的参数引用。
+  此功能为 `IngressClass.spec.parameters` 添加了两个字段 - `scope` 和 `namespace`。
+- `Initializers`：允许使用 Intializers 准入插件来异步协调对象创建操作。
 - `InTreePluginAWSUnregister`: 在 kubelet 和卷控制器上关闭注册 aws-ebs 内嵌插件。
 - `InTreePluginAzureDiskUnregister`: 在 kubelet 和卷控制器上关闭注册 azuredisk 内嵌插件。
 - `InTreePluginAzureFileUnregister`: 在 kubelet 和卷控制器上关闭注册 azurefile 内嵌插件。
@@ -1347,7 +1375,7 @@ For more details, check the
   Initializers admission plugin.
 -->
 - `InTreePluginvSphereUnregister`: 在 kubelet 和卷控制器上关闭注册 vSphere 内嵌插件。
-- `IndexedJob`：允许 [Job](/zh/docs/concepts/workloads/controllers/job/)
+- `IndexedJob`：允许 [Job](/zh-cn/docs/concepts/workloads/controllers/job/)
   控制器根据完成索引来管理 Pod 完成。
 - `IngressClassNamespacedParams`：允许在 `IngressClass` 资源中引用命名空间范围的参数。
   该特性增加了两个字段 —— `scope`、`namespace` 到 `IngressClass.spec.parameters`。
@@ -1363,33 +1391,35 @@ For more details, check the
   [status](/docs/reference/kubernetes-api/workload-resources/job-v1/#JobStatus)
   of a [Job](/docs/concepts/workloads/controllers/job) status.
 -->
-- `IPv6DualStack`：启用[双协议栈](/zh/docs/concepts/services-networking/dual-stack/)
+- `IPv6DualStack`：启用[双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/)
   以支持 IPv6。
 - `JobMutableNodeSchedulingDirectives`：允许在 [Job](/docs/concepts/workloads/controllers/job)
   的 Pod 模板中更新节点调度指令。 
-- `JobReadyPods`：允许跟踪[状况](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)为
+- `JobReadyPods`：允许跟踪[状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)为
   `Ready` 的 Pod 的个数。`Ready` 的 Pod 记录在
-  [Job](/zh/docs/concepts/workloads/controllers/job) 对象的
+  [Job](/zh-cn/docs/concepts/workloads/controllers/job) 对象的
   [status](/docs/reference/kubernetes-api/workload-resources/job-v1/#JobStatus) 字段中。
 <!--
 - `JobTrackingWithFinalizers`: Enables tracking [Job](/docs/concepts/workloads/controllers/job)
   completions without relying on Pods remaining in the cluster indefinitely.
   The Job controller uses Pod finalizers and a field in the Job status to keep
   track of the finished Pods to count towards completion.
-- `KubeletConfigFile`: Enable loading kubelet configuration 
-  from a file specified using a config file.
+- `KubeletConfigFile`: Enable loading kubelet configuration from
+  a file specified using a config file.
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
   for more details.
 -->
-- `JobTrackingWithFinalizers`: 启用跟踪 [Job](/zh/docs/concepts/workloads/controllers/job)
+- `JobTrackingWithFinalizers`: 启用跟踪 [Job](/zh-cn/docs/concepts/workloads/controllers/job)
   完成情况，而不是永远从集群剩余 Pod 来获取信息判断完成情况。Job 控制器使用
   Pod finalizers 和 Job 状态中的一个字段来跟踪已完成的 Pod 以计算完成。
 - `KubeletConfigFile`：启用从使用配置文件指定的文件中加载 kubelet 配置。
   有关更多详细信息，请参见
-  [通过配置文件设置 kubelet 参数](/zh/docs/tasks/administer-cluster/kubelet-config-file/)。
+  [通过配置文件设置 kubelet 参数](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
 <!--
-- `KubeletCredentialProviders`: Enable kubelet exec credential providers for image pull credentials.
-- `KubeletInUserNamespace`: Enables support for running kubelet in a {{<glossary_tooltip text="user namespace" term_id="userns">}}.
+- `KubeletCredentialProviders`: Enable kubelet exec credential providers for
+  image pull credentials.
+- `KubeletInUserNamespace`: Enables support for running kubelet in a
+  {{<glossary_tooltip text="user namespace" term_id="userns">}}.
    See [Running Kubernetes Node Components as a Non-root User](/docs/tasks/administer-cluster/kubelet-in-userns/).
 - `KubeletPluginsWatcher`: Enable probe-based plugin watcher utility to enable kubelet
   to discover plugins such as [CSI volume drivers](/docs/concepts/storage/volumes/#csi).
@@ -1397,16 +1427,18 @@ For more details, check the
 - `KubeletCredentialProviders`：允许使用 kubelet exec 凭据提供程序来设置镜像拉取凭据。
 - `KubeletInUserNamespace`: 支持在{{<glossary_tooltip text="用户名字空间" term_id="userns">}}
   里运行 kubelet 。
-  请参见[使用非 Root 用户来运行 Kubernetes 节点组件](/zh/docs/tasks/administer-cluster/kubelet-in-userns/)。
+  请参见[使用非 Root 用户来运行 Kubernetes 节点组件](/zh-cn/docs/tasks/administer-cluster/kubelet-in-userns/)。
 - `KubeletPluginsWatcher`：启用基于探针的插件监视应用程序，使 kubelet 能够发现类似
-  [CSI 卷驱动程序](/zh/docs/concepts/storage/volumes/#csi)这类插件。
+  [CSI 卷驱动程序](/zh-cn/docs/concepts/storage/volumes/#csi)这类插件。
 <!--
 - `KubeletPodResources`: Enable the kubelet's pod resources gRPC endpoint. See
   [Support Device Monitoring](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/606-compute-device-assignment/README.md)
   for more details.
-- `KubeletPodResourcesGetAllocatable`: Enable the kubelet's pod resources `GetAllocatableResources` functionality.
-  This API augments the [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
-  with informations about the allocatable resources, enabling clients to properly track the free compute resources on a node.
+- `KubeletPodResourcesGetAllocatable`: Enable the kubelet's pod resources
+  `GetAllocatableResources` functionality. This API augments the
+  [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
+  with informations about the allocatable resources, enabling clients to properly
+  track the free compute resources on a node.
 - `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and
   node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the
   feature-specific labels provided by `NodeDisruptionExclusion` and `ServiceNodeExclusion`.
@@ -1417,13 +1449,13 @@ For more details, check the
   请参见[支持设备监控](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/compute-device-assignment.md)。
 - `KubeletPodResourcesGetAllocatable`：启用 kubelet 的 pod 资源的
   `GetAllocatableResources` 功能。
-  该 API 增强了[资源分配报告](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
+  该 API 增强了[资源分配报告](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
   包含有关可分配资源的信息，使客户端能够正确跟踪节点上的可用计算资源。
 - `LegacyNodeRoleBehavior`：禁用此门控时，服务负载均衡器中和节点干扰中的原先行为会忽略
   `node-role.kubernetes.io/master` 标签，使用 `NodeDisruptionExclusion` 和
   `ServiceNodeExclusion` 对应特性所提供的标签。
 - `LegacyServiceAccountTokenNoAutoGeneration`：停止基于 Secret 的自动生成
-  [服务账号令牌](/zh/docs/reference/access-authn-authz/authentication/#service-account-tokens).
+  [服务账号令牌](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 <!--
 - `LocalStorageCapacityIsolation`: Enable the consumption of
   [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/)
@@ -1438,14 +1470,14 @@ For more details, check the
   filesystem walk for better performance and accuracy.
 -->
 - `LocalStorageCapacityIsolation`：允许使用
-  [本地临时存储](/zh/docs/concepts/configuration/manage-resources-containers/)
-  以及 [emptyDir 卷](/zh/docs/concepts/storage/volumes/#emptydir)的 `sizeLimit` 属性。
+  [本地临时存储](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
+  以及 [emptyDir 卷](/zh-cn/docs/concepts/storage/volumes/#emptydir)的 `sizeLimit` 属性。
 - `LocalStorageCapacityIsolationFSQuotaMonitoring`：如果
-  [本地临时存储](/zh/docs/concepts/configuration/manage-resources-containers/)启用了
+  [本地临时存储](/zh-cn/docs/concepts/configuration/manage-resources-containers/)启用了
   `LocalStorageCapacityIsolation`，并且
-  [emptyDir 卷](/zh/docs/concepts/storage/volumes/#emptydir)的后备文件系统支持项目配额，
+  [emptyDir 卷](/zh-cn/docs/concepts/storage/volumes/#emptydir)的后备文件系统支持项目配额，
   并且启用了这些配额，将使用项目配额来监视
-  [emptyDir 卷](/zh/docs/concepts/storage/volumes/#emptydir)的存储消耗而不是遍历文件系统，
+  [emptyDir 卷](/zh-cn/docs/concepts/storage/volumes/#emptydir)的存储消耗而不是遍历文件系统，
   以此获得更好的性能和准确性。
 <!--
 - `LogarithmicScaleDown`: Enable semi-random selection of pods to evict on controller scaledown
@@ -1456,39 +1488,40 @@ For more details, check the
   that can be unavailable during the update.
 - `MemoryManager`: Allows setting memory affinity for a container based on
   NUMA topology.
-- `MemoryQoS`: Enable memory protection and usage throttle on pod / container using cgroup v2 memory controller.
+- `MemoryQoS`: Enable memory protection and usage throttle on pod / container using
+  cgroup v2 memory controller.
 - `MinDomainsInPodTopologySpread`: Enable `minDomains` in Pod
   [topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
-- `MountContainers`: Enable using utility containers on host as
-  the volume mounter.
+- `MountContainers`: Enable using utility containers on host as the volume mounter.
 -->
 - `LogarithmicScaleDown`：启用 Pod 的半随机（semi-random）选择，控制器将根据 Pod
   时间戳的对数桶按比例缩小去驱逐 Pod。
 - `MaxUnavailableStatefulSet`：启用为 StatefulSet
-  的[滚动更新策略](/zh/docs/concepts/workloads/controllers/statefulset/#rolling-updates)设置
+  的[滚动更新策略](/zh-cn/docs/concepts/workloads/controllers/statefulset/#rolling-updates)设置
   `maxUnavailable` 字段。该字段指定更新过程中不可用 Pod 个数的上限。
 - `MemoryManager`：允许基于 NUMA 拓扑为容器设置内存亲和性。
 - `MemoryQoS`：使用 cgroup v2 内存控制器在 pod / 容器上启用内存保护和使用限制。
 - `MinDomainsInPodTopologySpread`：启用 Pod 的 `minDomains`
-  [拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
+  [拓扑分布约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 - `MixedProtocolLBService`：允许在同一 `LoadBalancer` 类型的 Service 实例中使用不同的协议。
 - `MountContainers`：允许使用主机上的工具容器作为卷挂载程序。
 <!--
 - `MountPropagation`: Enable sharing volume mounted by one container to other containers or pods.
   For more details, please see [mount propagation](/docs/concepts/storage/volumes/#mount-propagation).
-- `NamespaceDefaultLabelName`: Configure the API Server to set an immutable {{< glossary_tooltip text="label" term_id="label" >}}
-  `kubernetes.io/metadata.name` on all namespaces, containing the namespace name.
+- `NamespaceDefaultLabelName`: Configure the API Server to set an immutable
+  {{< glossary_tooltip text="label" term_id="label" >}} `kubernetes.io/metadata.name`
+  on all namespaces, containing the namespace name.
 - `NetworkPolicyEndPort`: Enable use of the field `endPort` in NetworkPolicy objects,
   allowing the selection of a port range instead of a single port.
 - `NetworkPolicyStatus`: Enable the `status` subresource for NetworkPolicy objects.
-- `NodeDisruptionExclusion`: Enable use of the node label `node.kubernetes.io/exclude-disruption`
+- `NodeDisruptionExclusion`: Enable use of the Node label `node.kubernetes.io/exclude-disruption`
   which prevents nodes from being evacuated during zone failures.
 - `NodeLease`: Enable the new Lease API to report node heartbeats, which could be used as a node health signal.
 -->
 - `MountPropagation`：启用将一个容器安装的共享卷共享到其他容器或 Pod。
-  更多详细信息，请参见[挂载传播](/zh/docs/concepts/storage/volumes/#mount-propagation)。
+  更多详细信息，请参见[挂载传播](/zh-cn/docs/concepts/storage/volumes/#mount-propagation)。
 - `NamespaceDefaultLabelName`：配置 API 服务器以在所有名字空间上设置一个不可变的
   {{< glossary_tooltip text="标签" term_id="label" >}} `kubernetes.io/metadata.name`，
   也包括名字空间。
@@ -1506,48 +1539,51 @@ For more details, check the
   Must be used with `KubeletConfiguration.failSwapOn` set to false.
   For more details, please see [swap memory](/docs/concepts/architecture/nodes/#swap-memory)
 - `NonPreemptingPriority`: Enable `preemptionPolicy` field for PriorityClass and Pod.
-- `OpenAPIEnums`: Enables populating "enum" fields of OpenAPI schemas in the 
+- `OpenAPIEnums`: Enables populating "enum" fields of OpenAPI schemas in the
   spec returned from the API server.
 - `OpenAPIV3`: Enables the API server to publish OpenAPI v3.
-- `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
-  being deleted when it is still used by any Pod.
 -->
 - `NodeOutOfServiceVolumeDetach`：当使用 `node.kubernetes.io/out-of-service`
   污点将节点标记为停止服务时，节点上不能容忍这个污点的 Pod 将被强制删除，
   并且该在节点上被终止的 Pod 将立即进行卷分离操作。
 - `NodeSwap`: 启用 kubelet 为节点上的 Kubernetes 工作负载分配交换内存的能力。
   必须将 `KubeletConfiguration.failSwapOn` 设置为 false 的情况下才能使用。
-  更多详细信息，请参见[交换内存](/zh/docs/concepts/architecture/nodes/#swap-memory)。
+  更多详细信息，请参见[交换内存](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
 - `NonPreemptingPriority`：为 PriorityClass 和 Pod 启用 `preemptionPolicy` 选项。
 - `OpenAPIEnums`：允许在从 API 服务器返回的 spec 中填充 OpenAPI 模式的 "enum" 字段。
 - `OpenAPIV3`：允许 API 服务器发布 OpenAPI V3。
-- `PVCProtection`：启用防止仍被某 Pod 使用的 PVC 被删除的特性。
 <!--
-- `PodDeletionCost`: Enable the [Pod Deletion Cost](/docs/content/en/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
+- `PodDeletionCost`: Enable the [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
    feature which allows users to influence ReplicaSet downscaling order.
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
+- `PodAndContainerStatsFromCRI`: Configure the kubelet to gather container and
+  pod stats from the CRI container runtime rather than gathering them from cAdvisor.
 - `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
-- `PodAffinityNamespaceSelector`: Enable the [Pod Affinity Namespace Selector](/docs/concepts/scheduling-eviction/assign-pod-node/#namespace-selector)
-  and [CrossNamespacePodAffinity](/docs/concepts/policy/resource-quotas/#cross-namespace-pod-affinity-quota) quota scope features.
+- `PodAffinityNamespaceSelector`: Enable the
+  [Pod Affinity Namespace Selector](/docs/concepts/scheduling-eviction/assign-pod-node/#namespace-selector)
+  and [CrossNamespacePodAffinity](/docs/concepts/policy/resource-quotas/#cross-namespace-pod-affinity-quota)
+  quota scope features.
 - `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)
   feature to account for pod overheads.
 -->
-- `PodDeletionCost`：启用 [Pod 删除成本](/zh/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)功能。
+- `PodDeletionCost`：启用 [Pod 删除成本](/zh-cn/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)功能。
   该功能使用户可以影响 ReplicaSet 的降序顺序。
 - `PersistentLocalVolumes`：允许在 Pod 中使用 `local（本地）` 卷类型。
   如果请求 `local` 卷，则必须指定 Pod 亲和性属性。
-- `PodDisruptionBudget`：启用 [PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/) 特性。
-- `PodAffinityNamespaceSelector`：启用 [Pod 亲和性名称空间选择器](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#namespace-selector)
-  和 [CrossNamespacePodAffinity](/zh/docs/concepts/policy/resource-quotas/#cross-namespace-pod-affinity-quota)
+- `PodAndContainerStatsFromCRI`：配置 kubelet 从容器和 CRI 容器运行时收集 Pod 统计信息，
+   不建议从 cAdvisor 收集统计信息。
+- `PodDisruptionBudget`：启用 [PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/) 特性。
+- `PodAffinityNamespaceSelector`：启用 [Pod 亲和性名称空间选择器](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#namespace-selector)
+  和 [CrossNamespacePodAffinity](/zh-cn/docs/concepts/policy/resource-quotas/#cross-namespace-pod-affinity-quota)
   资源配额功能。
-- `PodOverhead`：启用 [PodOverhead](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
+- `PodOverhead`：启用 [PodOverhead](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)
   特性以考虑 Pod 开销。
 <!--
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their
   [priorities](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 - `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
-  Pod readiness evaluation.  See [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
+  Pod readiness evaluation. See [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
   for more details.
 - `PodSecurity`: Enables the `PodSecurity` admission plugin.
 - `PodShareProcessNamespace`: Enable the setting of `shareProcessNamespace` in a Pod for sharing
@@ -1557,45 +1593,49 @@ For more details, check the
   nodes will be checked first before looping through all the other nodes in
   the cluster.
 -->
-- `PodPriority`：启用根据[优先级](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+- `PodPriority`：启用根据[优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
   的 Pod 调度和抢占。
 - `PodReadinessGates`：启用 `podReadinessGate` 字段的设置以扩展 Pod 准备状态评估。
   有关更多详细信息，请参见
-  [Pod 就绪状态判别](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)。
+  [Pod 就绪状态判别](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)。
 - `PodSecurity`: 开启 `PodSecurity` 准入控制插件。
 - `PodShareProcessNamespace`：在 Pod 中启用 `shareProcessNamespace` 的设置，
   以便在 Pod 中运行的容器之间共享同一进程名字空间。更多详细信息，请参见
-  [在 Pod 中的容器间共享同一进程名字空间](/zh/docs/tasks/configure-pod-container/share-process-namespace/)。
+  [在 Pod 中的容器间共享同一进程名字空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)。
 - `PreferNominatedNode`: 这个标志告诉调度器在循环遍历集群中的所有其他节点之前，
   是否首先检查指定的节点。
 <!--
 - `ProbeTerminationGracePeriod`: Enable [setting probe-level
   `terminationGracePeriodSeconds`](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationgraceperiodseconds)
-   on pods.  See the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2238-liveness-probe-grace-period) for more details.
+  on pods. See the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2238-liveness-probe-grace-period)
+  for more details.
 - `ProcMountType`: Enables control over the type proc mounts for containers
   by setting the `procMount` field of a SecurityContext.
 - `ProxyTerminatingEndpoints`: Enable the kube-proxy to handle terminating
   endpoints when `ExternalTrafficPolicy=Local`.
+- `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
+  being deleted when it is still used by any Pod.
 - `QOSReserved`: Allows resource reservations at the QoS level preventing pods
   at lower QoS levels from bursting into resources requested at higher QoS levels
   (memory only for now).
 - `ReadWriteOncePod`: Enables the usage of `ReadWriteOncePod` PersistentVolume
   access mode.
 -->
-- `ProbeTerminationGracePeriod`：在 Pod 上 启用 
-  [设置探测器级别 `terminationGracePeriodSeconds`](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationgraceperiodseconds)。
+- `ProbeTerminationGracePeriod`：在 Pod 上启用 
+  [设置探测器级别 `terminationGracePeriodSeconds`](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationgraceperiodseconds)。
   有关更多信息，请参见[改进提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2238-liveness-probe-grace-period)。
 - `ProcMountType`：允许容器通过设置 SecurityContext 的 `procMount` 字段来控制对
   proc 文件系统的挂载方式。
 - `ProxyTerminatingEndpoints`: 当 `ExternalTrafficPolicy=Local` 时，
   允许 kube-proxy 来处理终止过程中的端点。
+- `PVCProtection`：当 PersistentVolumeClaim (PVC) 仍然在 Pod 使用时被删除，启用保护。
 - `QOSReserved`：允许在 QoS 级别进行资源预留，以防止处于较低 QoS 级别的 Pod
   突发进入处于较高 QoS 级别的请求资源（目前仅适用于内存）。
 - `ReadWriteOncePod`: 允许使用 `ReadWriteOncePod` 访问模式的 PersistentVolume。
 <!--
-- `RecoverVolumeExpansionFailure`: Enables users to edit their PVCs to smaller sizes so as they can recover from previously issued
-  volume expansion failures. See
-  [Recovering from Failure when Expanding Volumes](/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes)
+- `RecoverVolumeExpansionFailure`: Enables users to edit their PVCs to smaller
+  sizes so as they can recover from previously issued volume expansion failures.
+  See [Recovering from Failure when Expanding Volumes](/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes)
   for more details.
 - `RemainingItemCount`: Allow the API servers to show a count of remaining
   items in the response to a
@@ -1609,9 +1649,9 @@ For more details, check the
 -->
 - `RecoverVolumeExpansionFailure`：允许用户编辑其 PVC 来缩小其尺寸，
   从而从之前卷扩容发生的失败中恢复。更多细节可参见
-  [从卷扩容失效中恢复](/zh/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes)。
+  [从卷扩容失效中恢复](/zh-cn/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes)。
 - `RemainingItemCount`：允许 API 服务器在
-  [分块列表请求](/zh/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks)
+  [分块列表请求](/zh-cn/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks)
   的响应中显示剩余条目的个数。
 - `RemoveSelfLink`：将所有对象和集合的 `.metadata.selfLink` 字段设置为空（空字符串）。
   该字段自 Kubernetes v1.16 版本以来已被弃用。
@@ -1642,7 +1682,8 @@ For more details, check the
   以了解更多细节。
 <!--
 - `RotateKubeletClientCertificate`: Enable the rotation of the client TLS certificate on the kubelet.
-  See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration) for more details.
+  See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)
+  for more details.
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
   See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)
   for more details.
@@ -1651,10 +1692,10 @@ For more details, check the
 -->
 - `RotateKubeletClientCertificate`：在 kubelet 上启用客户端 TLS 证书的轮换。
   更多详细信息，请参见
-  [kubelet 配置](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)。
+  [kubelet 配置](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)。
 - `RotateKubeletServerCertificate`：在 kubelet 上启用服务器 TLS 证书的轮换。
   更多详细信息，请参见
-  [kubelet 配置](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)。
+  [kubelet 配置](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)。
 - `RunAsGroup`：启用对容器初始化过程中设置的主要组 ID 的控制。
 <!--
 - `RuntimeClass`: Enable the [RuntimeClass](/docs/concepts/containers/runtime-class/) feature
@@ -1663,12 +1704,13 @@ For more details, check the
   instead of the DaemonSet controller.
 - `SCTPSupport`: Enables the _SCTP_ `protocol` value in Pod, Service,
   Endpoints, EndpointSlice, and NetworkPolicy definitions.
-- `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile for all workloads.
+- `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile
+  for all workloads.
   The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
 - `SelectorIndex`: Allows label and field based indexes in API server watch
   cache to accelerate list operations.
 -->
-- `RuntimeClass`：启用 [RuntimeClass](/zh/docs/concepts/containers/runtime-class/)
+- `RuntimeClass`：启用 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)
   特性用于选择容器运行时配置。
 - `ScheduleDaemonSetPods`：启用 DaemonSet Pods 由默认调度程序而不是
   DaemonSet 控制器进行调度。
@@ -1680,6 +1722,9 @@ For more details, check the
 <!--
 - `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
   feature on the API Server.
+- `ServerSideFieldValidation`: Enables server-side field validation. This means the validation
+  of resource schema is performed at the API server side rather than the client side
+  (for example, the `kubectl create` or `kubectl apply` command line).
 - `ServiceAccountIssuerDiscovery`: Enable OIDC discovery endpoints (issuer and
   JWKS URLs) for the service account issuer in the API server. See
   [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)
@@ -1689,16 +1734,20 @@ For more details, check the
 - `ServiceLBNodePortControl`: Enables the `allocateLoadBalancerNodePorts` field on Services.
 -->
 - `ServerSideApply`：在 API 服务器上启用
-  [服务器端应用（SSA）](/zh/docs/reference/using-api/server-side-apply/) 。
+  [服务器端应用（SSA）](/zh-cn/docs/reference/using-api/server-side-apply/) 。
+- `ServerSideFieldValidation`：启用服务器端字段验证。
+  这意味着验证资源模式在 API 服务器端而不是客户端执行
+  （例如，`kubectl create` 或 `kubectl apply` 命令行）。
 - `ServiceAccountIssuerDiscovery`：在 API 服务器中为服务帐户颁发者启用 OIDC 发现端点
   （颁发者和 JWKS URL）。详情参见
-  [为 Pod 配置服务账户](/zh/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery) 。
+  [为 Pod 配置服务账户](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery) 。
 - `ServiceAppProtocol`：为 Service 和 Endpoints 启用 `appProtocol` 字段。
 - `ServiceInternalTrafficPolicy`：为服务启用 `internalTrafficPolicy` 字段。
 - `ServiceLBNodePortControl`：为服务启用 `allocateLoadBalancerNodePorts` 字段。
 <!--
 - `ServiceLoadBalancerClass`: Enables the `loadBalancerClass` field on Services. See
-  [Specifying class of load balancer implementation](/docs/concepts/services-networking/service/#load-balancer-class) for more details.
+  [Specifying class of load balancer implementation](/docs/concepts/services-networking/service/#load-balancer-class)
+  for more details.
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers
   created by a cloud provider. A node is eligible for exclusion if labelled with
@@ -1715,16 +1764,16 @@ For more details, check the
   for more details.
 -->
 - `ServiceLoadBalancerClass`: 为服务启用 `loadBalancerClass` 字段。 
-  有关更多信息，请参见[指定负载均衡器实现类](/zh/docs/concepts/services-networking/service/#load-balancer-class)。
+  有关更多信息，请参见[指定负载均衡器实现类](/zh-cn/docs/concepts/services-networking/service/#load-balancer-class)。
 - `ServiceLoadBalancerFinalizer`：为服务负载均衡启用终结器（finalizers）保护。
 - `ServiceNodeExclusion`：启用从云提供商创建的负载均衡中排除节点。
   如果节点标记有 `node.kubernetes.io/exclude-from-external-load-balancers`，
   标签，则可以排除该节点。
 - `ServiceTopology`：启用服务拓扑可以让一个服务基于集群的节点拓扑进行流量路由。
-  有关更多详细信息，请参见[服务拓扑](/zh/docs/concepts/services-networking/service-topology/)。
+  有关更多详细信息，请参见[服务拓扑](/zh-cn/docs/concepts/services-networking/service-topology/)。
 - `ServiceIPStaticSubrange`：启用服务 ClusterIP 分配策略，从而细分 ClusterIP 范围。
   动态分配的 ClusterIP 地址将优先从较高范围分配，以低冲突风险允许用户从较低范围分配静态 ClusterIP。
-  更多详细信息请参阅[避免冲突](/zh/docs/concepts/services-networking/service/#avoiding-collisions)
+  更多详细信息请参阅[避免冲突](/zh-cn/docs/concepts/services-networking/service/#avoiding-collisions)
 <!--
 - `SetHostnameAsFQDN`: Enable the ability of setting Fully Qualified Domain
   Name(FQDN) as the hostname of a pod. See
@@ -1738,11 +1787,11 @@ For more details, check the
   the StatefulSet controller.
 -->
 - `SetHostnameAsFQDN`：启用将全限定域名（FQDN）设置为 Pod 主机名的功能。
-  请参见[为 Pod 设置 `setHostnameAsFQDN` 字段](/zh/docs/concepts/services-networking/dns-pod-service/#pod-sethostnameasfqdn-field)。
+  请参见[为 Pod 设置 `setHostnameAsFQDN` 字段](/zh-cn/docs/concepts/services-networking/dns-pod-service/#pod-sethostnameasfqdn-field)。
 - `SizeMemoryBackedVolumes`：允许 kubelet 检查基于内存制备的卷的尺寸约束
   （目前主要针对 `emptyDir` 卷）。
 - `StartupProbe`：在 kubelet 中启用
-  [启动探针](/zh/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)。
+  [启动探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)。
 - `StatefulSetMinReadySeconds`: 允许 StatefulSet 控制器采纳 `minReadySeconds` 设置。
 <!--
 - `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
@@ -1752,7 +1801,7 @@ For more details, check the
 - `StorageVersionHash`: Allow API servers to expose the storage version hash in the
   discovery.
 - `StreamingProxyRedirects`: Instructs the API server to intercept (and follow)
-   redirects from the backend (kubelet) for streaming requests.
+  redirects from the backend (kubelet) for streaming requests.
   Examples of streaming requests include the `exec`, `attach` and `port-forward` requests.
 -->
 - `StorageObjectInUseProtection`：如果仍在使用 PersistentVolume 或
@@ -1774,7 +1823,7 @@ For more details, check the
 - `SupportPodPidsLimit`: Enable the support to limiting PIDs in Pods.
 -->
 - `SupportIPVSProxyMode`：启用使用 IPVS 提供集群内服务负载平衡。更多详细信息，请参见
-  [服务代理](/zh/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)。
+  [服务代理](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)。
 - `SupportNodePidsLimit`：启用支持，限制节点上的 PID 用量。
   `--system-reserved` 和 `--kube-reserved` 中的参数 `pid=<数值>` 可以分别用来
   设定为整个系统所预留的进程 ID 个数和为 Kubernetes 系统守护进程预留的进程 ID 个数。
@@ -1791,11 +1840,11 @@ For more details, check the
   to clean up resources after they finish execution.
 -->
 - `SuspendJob`： 启用支持以暂停和恢复作业。 更多详细信息，请参见
-  [Jobs 文档](/zh/docs/concepts/workloads/controllers/job/)。
+  [Jobs 文档](/zh-cn/docs/concepts/workloads/controllers/job/)。
 - `Sysctls`：允许为每个 Pod 设置的名字空间内核参数（sysctls）。
-  更多详细信息，请参见 [sysctls](/zh/docs/tasks/administer-cluster/sysctl-cluster/)。
+  更多详细信息，请参见 [sysctls](/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/)。
 - `TTLAfterFinished`：资源完成执行后，允许
-  [TTL 控制器](/zh/docs/concepts/workloads/controllers/ttlafterfinished/)清理资源。
+  [TTL 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)清理资源。
 <!--
 - `TaintBasedEvictions`: Enable evicting pods from nodes based on taints on Nodes
   and tolerations on Pods.
@@ -1808,12 +1857,12 @@ For more details, check the
   Pod through a [`projected` volume](/docs/concepts/storage/volumes/#projected).
 -->
 - `TaintBasedEvictions`：根据节点上的污点和 Pod 上的容忍度启用从节点驱逐 Pod 的特性。
-  更多详细信息可参见[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
-- `TaintNodesByCondition`：根据[节点状况](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)
+  更多详细信息可参见[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+- `TaintNodesByCondition`：根据[节点状况](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)
   启用自动为节点标记污点。
 - `TokenRequest`：在服务帐户资源上启用 `TokenRequest` 端点。
 - `TokenRequestProjection`：启用通过
-  [`projected` 卷](/zh/docs/concepts/storage/volumes/#projected)
+  [`projected` 卷](/zh-cn/docs/concepts/storage/volumes/#projected)
   将服务帐户令牌注入到 Pod 中的特性。
 <!--
 - `TopologyAwareHints`: Enables topology aware routing based on topology hints
@@ -1828,9 +1877,9 @@ For more details, check the
   `StreamingProxyRedirects` flag is enabled.
 -->
 - `TopologyAwareHints`： 在 EndpointSlices 中启用基于拓扑提示的拓扑感知路由。
-  更多详细信息可参见[拓扑感知提示](/zh/docs/concepts/services-networking/topology-aware-hints/)。
+  更多详细信息可参见[拓扑感知提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints/)。
 - `TopologyManager`：启用一种机制来协调 Kubernetes 不同组件的细粒度硬件资源分配。
-  详见[控制节点上的拓扑管理策略](/zh/docs/tasks/administer-cluster/topology-manager/)。
+  详见[控制节点上的拓扑管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)。
 - `ValidateProxyRedirects`： 这个标志控制 API 服务器是否应该验证只跟随到相同的主机的重定向。
   仅在启用 `StreamingProxyRedirects` 标志时被使用。
 <!--
@@ -1848,7 +1897,7 @@ For more details, check the
 - `VolumePVCDataSource`：启用对将现有 PVC 指定数据源的支持。
 - `VolumeScheduling`：启用卷拓扑感知调度，并使 PersistentVolumeClaim（PVC）
   绑定能够了解调度决策；当与 PersistentLocalVolumes 特性门控一起使用时，
-  还允许使用 [`local`](/zh/docs/concepts/storage/volumes/#local) 卷类型。
+  还允许使用 [`local`](/zh-cn/docs/concepts/storage/volumes/#local) 卷类型。
 - `VolumeSnapshotDataSource`：启用卷快照数据源支持。
 - `VolumeSubpath`： 允许在容器中挂载卷的子路径。
 <!--
@@ -1875,15 +1924,16 @@ For more details, check the
   with as a non-default user. See
   [Configuring RunAsUserName](/docs/tasks/configure-pod-container/configure-runasusername)
   for more details.
+  
 -->
 - `WindowsEndpointSliceProxying`: 当启用时，运行在 Windows 上的 kube-proxy
   将使用 EndpointSlices 而不是 Endpoints 作为主要数据源，从而实现可伸缩性和并改进性能。 
-  详情请参见[启用端点切片](/zh/docs/concepts/services-networking/endpoint-slices/).
+  详情请参见[启用端点切片](/zh-cn/docs/concepts/services-networking/endpoint-slices/).
 - `WindowsGMSA`：允许将 GMSA 凭据规范从 Pod 传递到容器运行时。
 - `WindowsHostProcessContainers`: 启用对 Windows HostProcess 容器的支持。
 - `WindowsRunAsUserName`：提供使用非默认用户在 Windows 容器中运行应用程序的支持。
   详情请参见
-  [配置 RunAsUserName](/zh/docs/tasks/configure-pod-container/configure-runasusername)。
+  [配置 RunAsUserName](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -1896,10 +1946,10 @@ For more details, check the
   `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`.
   See [API Versioning](/docs/reference/using-api/#api-versioning) for more details on the command line flags.
 -->
-* Kubernetes 的[弃用策略](/zh/docs/reference/using-api/deprecation-policy/)
+* Kubernetes 的[弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/)
   介绍了项目针对已移除特性和组件的处理方法。
 * 从 Kubernetes 1.24 开始，默认不启用新的 beta API。
   启用 beta 功能时，还需要启用所有关联的 API 资源。
   例如：要启用一个特定资源，如 `storage.k8s.io/v1beta1/csistoragecapacities`，
   请设置 `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`。
-  有关命令行标志的更多详细信息，请参阅 [API 版本控制](/zh/docs/reference/using-api/#api-versioning)。
+  有关命令行标志的更多详细信息，请参阅 [API 版本控制](/zh-cn/docs/reference/using-api/#api-versioning)。
