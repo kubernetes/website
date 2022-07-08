@@ -90,7 +90,7 @@ HorizontalPodAutoscaler를 사용하는 일반적인 방법은
 `custom.metrics.k8s.io`, 또는 `external.metrics.k8s.io`)로부터 메트릭을 가져오도록 설정하는 것이다. 
 `metrics.k8s.io` API는 보통 메트릭 서버(Metrics Server)라는 애드온에 의해 제공되며, 
 Metrics Server는 별도로 실행해야 한다. 자원 메트릭에 대한 추가 정보는 
-[Metrics Server](/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#메트릭-서버)를 참고한다.
+[Metrics Server](/ko/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server)를 참고한다.
 
 [메트릭 API를 위한 지원](#메트릭-api를-위한-지원)에서 위의 API들에 대한 안정성 보장 및 지원 상태를 
 확인할 수 있다.
@@ -329,7 +329,7 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 * 해당 API 등록:
 
    * 리소스 메트릭의 경우, 일반적으로 이것은 [메트릭-서버](https://github.com/kubernetes-sigs/metrics-server)가 제공하는 `metrics.k8s.io` API이다.
-     클러스터 애드온으로 시작할 수 있다.
+     클러스터 애드온으로 실행할 수 있다.
 
    * 사용자 정의 메트릭의 경우, 이것은 `custom.metrics.k8s.io` API이다. 메트릭 솔루션 공급 업체에서 제공하는 "어댑터" API 서버에서 제공한다.
      사용 가능한 쿠버네티스 메트릭 어댑터가 있는지 확인하려면 사용하고자 하는 메트릭 파이프라인을 확인한다.
@@ -337,9 +337,9 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
    * 외부 메트릭의 경우, 이것은 `external.metrics.k8s.io` API이다. 위에 제공된 사용자 정의 메트릭 어댑터에서 제공될 수 있다.
 
 이런 다양한 메트릭 경로와 각각의 다른 점에 대한 상세 내용은 관련 디자인 제안서인
-[HPA V2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/hpa-v2.md),
-[custom.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md),
-[external.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/external-metrics-api.md)를 참조한다.
+[HPA V2](https://github.com/kubernetes/design-proposals-archive/blob/main/autoscaling/hpa-v2.md),
+[custom.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/custom-metrics-api.md),
+[external.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/external-metrics-api.md)를 참조한다.
 
 어떻게 사용하는지에 대한 예시는 [커스텀 메트릭 사용하는 작업 과정](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#다양한-메트릭-및-사용자-정의-메트릭을-기초로한-오토스케일링)과
 [외부 메트릭스 사용하는 작업 과정](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#쿠버네티스-오브젝트와-관련이-없는-메트릭을-기초로한-오토스케일링)을 참조한다.
@@ -514,7 +514,7 @@ Horizontal Pod Autoscaler는 모든 API 리소스와 마찬가지로 `kubectl`�
 
 또한 Horizontal Pod Autoscaler를 생성할 수 있는 `kubectl autoscale`이라는 특별한 명령이 있다.
 예를 들어 `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`을
-실행하면 레플리케이션 셋 *foo* 에 대한 오토스케일러가 생성되고, 목표 CPU 사용률은 `80 %`,
+실행하면 레플리카셋 *foo* 에 대한 오토스케일러가 생성되고, 목표 CPU 사용률은 `80 %`,
 그리고 2와 5 사이의 레플리카 개수로 설정된다.
 
 ## 암시적 유지 관리 모드 비활성화

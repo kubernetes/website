@@ -43,7 +43,7 @@ IPv4/IPv6 이중 스택 쿠버네티스 클러스터를 활용하려면 다음�
      쿠버네티스 버전, 쿠버네티스 해당 버전에 대한
      문서 참조
    * 이중 스택 네트워킹을 위한 공급자의 지원(클라우드 공급자 또는 다른 방식으로 쿠버네티스 노드에 라우팅 가능한 IPv4/IPv6 네트워크 인터페이스를 제공할 수 있어야 한다.)
-   * 이중 스택(예: Kubenet 또는 Calico)을 지원하는 네트워크 플러그인
+   * 이중 스택 네트워킹을 지원하는 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 
 ## IPv4/IPv6 이중 스택 구성
 
