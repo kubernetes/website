@@ -52,10 +52,12 @@ weight: 10
 
 <!--
 For page weights, it can be smart not to use 1, 2, 3 ..., but some other interval, say 10, 20, 30... This allows you to insert pages where you want later.
+Additionally, each weight within the same directory (section) should not be overlapped with the other weights. This makes sure that content is always organized correctly, especially in localized content.
 -->
 {{< note >}}
 对于页面的权重，不建议使用连续的数值，比如 1、2、3...，而应采用其他间隔的数值，比如 10、20、30...
 这样将来你可以将其他页面插入到想要的位置。
+此外，在相同目录(章节)中的每个权重不应该与其他权重重叠，这样做可以确保文档内容始终是正确且有条理的，尤其是对于本地化的内容。
 {{< /note >}}
 
 <!--
