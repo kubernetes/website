@@ -236,7 +236,7 @@ kubectl apply -k ./
 ## {{% heading "whatsnext" %}}
 
 
-* [인트로스펙션과 디버깅](/docs/tasks/debug-application-cluster/debug-application-introspection/)를 알아보자.
+* [인트로스펙션과 디버깅](/ko/docs/tasks/debug/debug-application/debug-running-pod/)을 알아보자.
 * [잡](/ko/docs/concepts/workloads/controllers/job/)를 알아보자.
 * [포트 포워딩](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 알아보자.
-* 어떻게 [컨테이너에서 셸을 사용하는지](/ko/docs/tasks/debug-application-cluster/get-shell-running-container/)를 알아보자.
+* 어떻게 [컨테이너에서 셸을 사용하는지](/ko/docs/tasks/debug/debug-application/get-shell-running-container/)를 알아보자.

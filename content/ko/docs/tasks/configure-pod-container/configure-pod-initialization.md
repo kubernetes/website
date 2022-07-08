@@ -85,4 +85,4 @@ init-demo 파드 내 실행 중인 nginx 컨테이너의 셸을 실행한다.
 대해 배우기.
 * [초기화 컨테이너](/ko/docs/concepts/workloads/pods/init-containers/)에 대해 배우기.
 * [볼륨](/ko/docs/concepts/storage/volumes/)에 대해 배우기.
-* [초기화 컨테이너 디버깅](/ko/docs/tasks/debug-application-cluster/debug-init-containers/)에 대해 배우기.
+* [초기화 컨테이너 디버깅](/ko/docs/tasks/debug/debug-application/debug-init-containers/)에 대해 배우기.

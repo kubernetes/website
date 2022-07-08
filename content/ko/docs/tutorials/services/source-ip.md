@@ -119,7 +119,7 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 그리고 동일한 클러스터의 파드에서 `클러스터IP`를 치면:
 
 ```shell
-kubectl run busybox -it --image=busybox --restart=Never --rm
+kubectl run busybox -it --image=busybox:1.28 --restart=Never --rm
 ```
 출력은 다음과 같다.
 ```
