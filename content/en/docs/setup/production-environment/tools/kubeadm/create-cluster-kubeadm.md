@@ -88,7 +88,7 @@ After you initialize your control-plane, the kubelet runs normally.
 ### Preparing the required container images
 
 This step is optional and only applies in case you wish `kubeadm init` and `kubeadm join`
-to not download the default container images which are hosted at `k8s.gcr.io`.
+to not download the default container images which are hosted at `registry.k8s.io`.
 
 Kubeadm has commands that can help you pre-pull the required images
 when creating a cluster without an internet connection on its nodes.
