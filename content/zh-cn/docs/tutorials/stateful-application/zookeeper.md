@@ -122,8 +122,8 @@ quorum。
 <!--
 ZooKeeper servers keep their entire state machine in memory, and write every mutation to a durable WAL (Write Ahead Log) on storage media. When a server crashes, it can recover its previous state by replaying the WAL. To prevent the WAL from growing without bound, ZooKeeper servers will periodically snapshot them in memory state to storage media. These snapshots can be loaded directly into memory, and all WAL entries that preceded the snapshot may be discarded.
 -->
-ZooKeeper 在内存中保存它们的整个状态机，但是每个改变都被写入一个在存储介质上的
-持久 WAL（Write Ahead Log）。
+ZooKeeper 在内存中保存它们的整个状态机，但是每个改变都被写入一个在存储介质上的持久
+WAL（Write Ahead Log）。
 当一个服务器出现故障时，它能够通过回放 WAL 恢复之前的状态。
 为了防止 WAL 无限制的增长，ZooKeeper 服务器会定期的将内存状态快照保存到存储介质。
 这些快照能够直接加载到内存中，所有在这个快照之前的 WAL 条目都可以被安全的丢弃。
@@ -139,10 +139,9 @@ and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 -->
 ## 创建一个 ZooKeeper Ensemble
 
-下面的清单包含一个
-[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)，
-一个 [Service](/zh-cn/docs/concepts/services-networking/service/)，
-一个 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)，
+下面的清单包含一个[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)、
+一个 [Service](/zh-cn/docs/concepts/services-networking/service/)、
+一个 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
 和一个 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
 
 {{< codenew file="application/zookeeper/zookeeper.yaml" >}}
@@ -180,7 +179,7 @@ StatefulSet controller create the StatefulSet's Pods.
 -->
 使用命令
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)
-查看 StatefulSet 控制器创建的 Pods。
+查看 StatefulSet 控制器创建的几个 Pod。
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -215,7 +214,7 @@ The StatefulSet controller creates three Pods, and each Pod has a container with
 a [ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) server.
 -->
 StatefulSet 控制器创建 3 个 Pod，每个 Pod 包含一个
-[ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) 服务容器。
+[ZooKeeper](https://archive.apache.org/dist/zookeeper/stable/) 服务容器。
 
 <!--
 ### Facilitating Leader Election
@@ -295,7 +294,7 @@ for i in 0 1 2; do kubectl exec zk-$i -- hostname -f; done
 The `zk-hs` Service creates a domain for all of the Pods,
 `zk-hs.default.svc.cluster.local`.
 -->
-`zk-hs` Service 为所有 Pods 创建了一个域：`zk-hs.default.svc.cluster.local`。
+`zk-hs` Service 为所有 Pod 创建了一个域：`zk-hs.default.svc.cluster.local`。
 
 ```
 zk-0.zk-hs.default.svc.cluster.local
@@ -310,7 +309,7 @@ ZooKeeper stores its application configuration in a file named `zoo.cfg`. Use `k
 -->
 [Kubernetes DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
 中的 A 记录将 FQDN 解析成为 Pod 的 IP 地址。
-如果 Pods 被调度，这个 A 记录将会使用 Pods 的新 IP 地址完成更新，
+如果 Kubernetes 重新调度这些 Pod，这个 A 记录将会使用这些 Pod 的新 IP 地址完成更新，
 但 A 记录的名称不会改变。
 
 ZooKeeper 在一个名为 `zoo.cfg` 的文件中保存它的应用配置。
@@ -389,10 +388,9 @@ the FQDNs of the ZooKeeper servers will resolve to a single endpoint, and that
 endpoint will be the unique ZooKeeper server claiming the identity configured
 in its `myid` file.
 -->
-每个 Pod 的 A 记录仅在 Pod 变成 Ready状态时被录入。
+每个 Pod 的 A 记录仅在 Pod 变成 Ready 状态时被录入。
 因此，ZooKeeper 服务器的 FQDN 只会解析到一个端点，
-而那个端点将会是一个唯一的 ZooKeeper 服务器，
-这个服务器声明了配置在它的 `myid` 文件中的标识符。
+而那个端点将是申领其 `myid` 文件中所配置标识的唯一 ZooKeeper 服务器。
 
 ```
 zk-0.zk-hs.default.svc.cluster.local
@@ -699,7 +697,7 @@ Get the `zk` StatefulSet.
 -->
 ## 确保一致性配置
 
-如同在[促成领导者选举](#facilitating-leader-election) 和[达成一致](#achieving-consensus)
+如同在[促成领导者选举](#facilitating-leader-election)和[达成一致](#achieving-consensus)
 小节中提到的，ZooKeeper ensemble 中的服务器需要一致性的配置来选举一个领导者并形成一个
 quorum。它们还需要 Zab 协议的一致性配置来保证这个协议在网络中正确的工作。
 在这次的示例中，我们通过直接将配置写入代码清单中来达到该目的。
@@ -753,8 +751,8 @@ Use the command below to get the logging configuration from one of Pods in the `
 ### 配置日志   {#configuring-logging}
 
 `zkGenConfig.sh` 脚本产生的一个文件控制了 ZooKeeper 的日志行为。
-ZooKeeper 使用了 [Log4j](http://logging.apache.org/log4j/2.x/) 并默认使用
-基于文件大小和时间的滚动文件追加器作为日志配置。
+ZooKeeper 使用了 [Log4j](http://logging.apache.org/log4j/2.x/)
+并默认使用基于文件大小和时间的滚动文件追加器作为日志配置。
 
 从 `zk` StatefulSet 的一个 Pod 中获取日志配置。
 
@@ -788,8 +786,8 @@ Use [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands/#logs) t
 -->
 这是在容器里安全记录日志的最简单的方法。
 由于应用的日志被写入标准输出，Kubernetes 将会为你处理日志轮转。
-Kubernetes 还实现了一个智能保存策略，保证写入标准输出和标准错误流
-的应用日志不会耗尽本地存储媒介。
+Kubernetes 还实现了一个智能保存策略，
+保证写入标准输出和标准错误流的应用日志不会耗尽本地存储介质。
 
 使用命令 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands/#logs)
 从一个 Pod 中取回最后 20 行日志。
@@ -869,7 +867,7 @@ corresponds to the zookeeper group.
 
 Get the ZooKeeper process information from the `zk-0` Pod.
 -->
-在 Pods 的容器内部，UID 1000 对应用户 zookeeper，GID 1000 对应用户组 zookeeper。
+在 Pod 的容器内部，UID 1000 对应用户 zookeeper，GID 1000 对应用户组 zookeeper。
 
 从 `zk-0` Pod 获取 ZooKeeper 进程信息。
 
@@ -1075,7 +1073,7 @@ In another terminal, terminate the ZooKeeper process in Pod `zk-0` with the foll
 The termination of the ZooKeeper process caused its parent process to terminate. Because the `RestartPolicy` of the container is Always, it restarted the parent process.
 -->
 ZooKeeper 进程的终结导致了它父进程的终止。由于容器的 `RestartPolicy`
-是 Always，父进程被重启。
+是 Always，所以父进程被重启。
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1257,7 +1255,7 @@ the clients of your ZooKeeper service will experience an outage until at least o
 默认情况下，Kubernetes 可以把 `StatefulSet` 的 Pod 部署在相同节点上。
 对于你创建的 3 个服务器的 ensemble 来说，
 如果有两个服务器并存于相同的节点上并且该节点发生故障时，ZooKeeper 服务将中断，
-直至至少一个 Pods 被重新调度。
+直至至少其中一个 Pod 被重新调度。
 
 <!--
 You should always provision additional capacity to allow the processes of critical
@@ -1698,6 +1696,6 @@ You should always allocate additional capacity for critical services so that the
   and provisioning method, to ensure that all storage is reclaimed.
 -->
 * 使用 `kubectl uncordon` 解除你集群中所有节点的隔离。
-* 你需要删除在本教程中使用的 PersistentVolume 的持久存储媒介。
+* 你需要删除在本教程中使用的 PersistentVolume 的持久存储介质。
   请遵循必须的步骤，基于你的环境、存储配置和制备方法，保证回收所有的存储。
 
