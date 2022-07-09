@@ -582,7 +582,7 @@ cat /etc/foo/password
 ボリュームとして使用されているSecretが更新されると、やがて割り当てられたキーも同様に更新されます。
 kubeletは定期的な同期のたびにマウントされたSecretが新しいかどうかを確認します。
 しかしながら、kubeletはSecretの現在の値の取得にローカルキャッシュを使用します。
-このキャッシュは[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)内の`ConfigMapAndSecretChangeDetectionStrategy`フィールドによって設定可能です。
+このキャッシュは[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go)内の`ConfigMapAndSecretChangeDetectionStrategy`フィールドによって設定可能です。
 Secretはwatch（デフォルト）、TTLベース、単に全てのリクエストをAPIサーバーへリダイレクトすることのいずれかによって伝搬します。
 結果として、Secretが更新された時点からPodに新しいキーが反映されるまでの遅延時間の合計は、kubeletの同期間隔 + キャッシュの伝搬遅延となります。
 キャッシュの遅延は、キャッシュの種別により、それぞれwatchの伝搬遅延、キャッシュのTTL、0になります。
