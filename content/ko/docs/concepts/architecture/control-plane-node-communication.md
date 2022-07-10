@@ -10,16 +10,15 @@ aliases:
 
 이 문서는 컨트롤 플레인(API 서버)과 쿠버네티스 클러스터 사이에 대한 통신 경로의 목록을 작성한다. 이는 사용자가 신뢰할 수 없는 네트워크(또는 클라우드 공급자의 완전한 퍼블릭 IP)에서 클러스터를 실행할 수 있도록 네트워크 구성을 강화하기 위한 맞춤 설치를 할 수 있도록 한다.
 
-
-
 <!-- body -->
 
 ## 노드에서 컨트롤 플레인으로의 통신
+
 쿠버네티스에는 "허브 앤 스포크(hub-and-spoke)" API 패턴을 가지고 있다. 노드(또는 노드에서 실행되는 파드들)의 모든 API 사용은 API 서버에서 종료된다. 다른 컨트롤 플레인 컴포넌트 중 어느 것도 원격 서비스를 노출하도록 설계되지 않았다. API 서버는 하나 이상의 클라이언트 [인증](/docs/reference/access-authn-authz/authentication/) 형식이 활성화된 보안 HTTPS 포트(일반적으로 443)에서 원격 연결을 수신하도록 구성된다.
 
 특히 [익명의 요청](/docs/reference/access-authn-authz/authentication/#anonymous-requests) 또는 [서비스 어카운트 토큰](/docs/reference/access-authn-authz/authentication/#service-account-tokens)이 허용되는 경우, 하나 이상의 [권한 부여](/ko/docs/reference/access-authn-authz/authorization/) 형식을 사용해야 한다.
 
-노드는 유효한 클라이언트 자격 증명과 함께 API 서버에 안전하게 연결할 수 있도록 클러스터에 대한 공개 루트 인증서로 프로비전해야 한다. 예를 들어, 기본 GKE 배포에서, kubelet에 제공되는 클라이언트 자격 증명은 클라이언트 인증서 형식이다. kubelet 클라이언트 인증서의 자동 프로비저닝은 [kubelet TLS 부트스트랩](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)을 참고한다.
+노드는 유효한 클라이언트 자격 증명과 함께 API 서버에 안전하게 연결할 수 있도록 클러스터에 대한 공개 루트 인증서로 프로비전해야 한다. 예를 들어, 기본 GKE 배포에서, kubelet에 제공되는 클라이언트 자격 증명은 클라이언트 인증서 형식이다. kubelet 클라이언트 인증서의 자동 프로비저닝은 [kubelet TLS 부트스트랩](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)을 참고한다.
 
 API 서버에 연결하려는 파드는 쿠버네티스가 공개 루트 인증서와 유효한 베어러 토큰(bearer token)을 파드가 인스턴스화될 때 파드에 자동으로 주입하도록 서비스 어카운트를 활용하여 안전하게 연결할 수 있다.
 `kubernetes` 서비스(`default` 네임스페이스의)는 API 서버의 HTTPS 엔드포인트로 리디렉션되는 가상 IP 주소(kube-proxy를 통해)로 구성되어 있다.
@@ -47,7 +46,7 @@ API 서버에서 kubelet으로의 연결은 다음의 용도로 사용된다.
 이것이 가능하지 않은 경우, 신뢰할 수 없는 네트워크 또는 공용 네트워크를 통한 연결을 피하기 위해 필요한 경우 API 서버와 kubelet 사이에 [SSH 터널링](#ssh-터널)을
 사용한다.
 
-마지막으로, kubelet API를 보호하려면 [Kubelet 인증 및/또는 권한 부여](/ko/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)를 활성화해야 한다.
+마지막으로, kubelet API 를 보호하려면 [Kubelet 인증 및/또는 권한 부여](/ko/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)를 활성화해야 한다.
 
 ### API 서버에서 노드, 파드 및 서비스로의 통신
 
