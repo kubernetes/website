@@ -261,7 +261,7 @@ during leader election cycles.</p>
 
 **Appears in:**
 
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+- <a href="https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration">KubeletConfiguration</a>
 
 
 <p>LoggingConfiguration contains logging options
