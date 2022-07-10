@@ -1802,7 +1802,7 @@ a control-plane taint for control-plane nodes. If you don't want to taint your c
 node, set this field to an empty list, i.e. <code>taints: []</code>, in the YAML file. This field is
 solely used for Node registration.</p>
 -->
-   <p><code>tains</code> 设定 Node API 对象被注册时要附带的污点。
+   <p><code>taints</code> 设定 Node API 对象被注册时要附带的污点。
 若未设置此字段（即字段值为 null），在 <code>kubeadm init</code> 期间，默认为控制平面节点添加控制平面污点。
 如果你不想污染你的控制平面节点，可以将此字段设置为空列表（即 YAML 文件中的 <code>taints: []</code>），
 这个字段只用于节点注册。</p>
