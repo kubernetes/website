@@ -34,13 +34,13 @@ Mari kita lihat mengapa Kubernetes sangat berguna dengan melihat masa lalu.
 
 **Era penyebaran tradisional:** Pada awalnya, organisasi menjalankan aplikasinya pada server fisik. Tidak ada cara untuk memisahkan aplikasi-aplikasi pada server fisik, dan ini dapat menyebabkan isu pada alokasinya. Contohnya, jika beberapa aplikasi berjalan pada sebuah server fisik, server tersebut dapat memakan semua sumber daya pada server tersebut, dan hasilnya dapat mengganggu peforma dari aplikasi lainnya. Solusinya ialah menjalankan setiap aplikasi pada server fisik yang berbeda, dan ini tidak dapat diskalakan saat tidak diutilisasikan serta mahal untuk organisasi untuk memelihara banyak server fisik.
 
-**Era penyebaran tervirtualisasi:** Sebagai solusinya, virtualisasi muncul. Teknologi ini memungkinkan untuk menjalankan mesin virtual pada satu CPU server fisik. Virtualisasi juga memungkinkan aplikasi terisolasi antar mesin virtual (VM) dan memberikan level keamanan informasi pada suatu aplikasi tak bisa diakses oleh aplikasi lainnya secara bebas.
+**Era penyebaran tervirtualisasi:** Sebagai solusinya, virtualisasi muncul. Teknologi ini memungkinkan untuk menjalankan mesin virtual pada satu CPU server fisik. Virtualisasi juga memungkinkan aplikasi terisolasi antar mesin virtual (VM) dan memberikan level keamanan informasi pada suatu aplikasi sehingga suatu informasi tidak bisa diakses oleh aplikasi lainnya secara bebas.
 
-Virtualisasi juga dapat mengutilisasikan sumber daya pada server fisik dan skalabilitas yang lebih baiki karena aplikasi dapat ditambahkan atau diperbarui dengan mudah, mengurangi biaya hardware, dan lain sebagainya.
+Virtualisasi juga dapat mengutilisasikan sumber daya pada server fisik dan skalabilitas yang lebih baik karena aplikasi dapat ditambahkan atau diperbarui dengan mudah, mengurangi biaya hardware, dan lain sebagainya.
 
 Setiap mesin virtual merupakan sebuah mesin dengan segala komponen, termasuk sistem operasi, diatas hardware yang tervirtualisasikan.
 
-**Era penyebaran kontainer:** Kontainer mirip dengan mesin virtual, akan tetapi properti isolasinya lebih direlaksikan untuk berbagi sistem operasi diantara aplikasi-aplikasi. Walau begitu, kontainer lebih ringan. Mirp dengan mesin virtual, kontainer mempunyai filesystem-nya sendiri, berbagi CPU, memory, process space dan lain sebagainya. Karena mereka dipisahkan dari infrastruktur yang mendasarinya, mereka portabel di seluruh cloud dan distribusi sistem operasi.
+**Era penyebaran kontainer:** Kontainer mirip dengan mesin virtual, akan tetapi properti isolasinya lebih direlaksikan untuk berbagi sistem operasi diantara aplikasi-aplikasi. Walau begitu, kontainer lebih ringan. Kontainer juga mempunyai filesystem-nya sendiri, berbagi CPU, memory, process space dan lain sebagainya seperti VM. Karena mereka dipisahkan dari infrastruktur yang mendasarinya, mereka portabel di seluruh cloud dan distribusi sistem operasi.
 
 Kontainer semakin populer karena dapat memberikan banyak keuntungan, sepertinya:
 
