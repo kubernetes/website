@@ -80,7 +80,7 @@ To build the site in a container, run the following to build the container image
 要在容器中构建网站，请通过以下命令来构建容器镜像并运行：
 
 ```bash
-make container-image
+# 你可以将 $CONTAINER_ENGINE 设置为任何 Docker 类容器工具的名称
 make container-serve
 ```
 
