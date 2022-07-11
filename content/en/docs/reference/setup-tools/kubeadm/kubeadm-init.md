@@ -147,15 +147,15 @@ directly to kubeadm is not supported. Instead, it is possible to pass them by
 List of feature gates:
 
 {{< table caption="kubeadm feature gates" >}}
-Feature | Default | Alpha | Beta
-:-------|:--------|:------|:-----
-`PublicKeysECDSA` | `false` | 1.19 | -
-`RootlessControlPlane` | `false` | 1.22 | -
-`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23
+Feature | Default | Alpha | Beta | GA
+:-------|:--------|:------|:-----|:----
+`PublicKeysECDSA` | `false` | 1.19 | - | -
+`RootlessControlPlane` | `false` | 1.22 | - | -
+`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23 | 1.25
 {{< /table >}}
 
 {{< note >}}
-Once a feature gate goes GA it is removed from this list as its value becomes locked to `true` by default.
+Once a feature gate goes GA its value becomes locked to `true` by default.
 {{< /note >}}
 
 Feature gate descriptions:
@@ -180,10 +180,6 @@ that ConfigMap are appropriate for the value you set. When kubeadm writes this C
 or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
 (during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade ...`), kubeadm attempts to use unversioned ConfigMap name first;
 if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
-
-{{< note >}}
-Setting `UnversionedKubeletConfigMap` to `false` is supported but **deprecated**.
-{{< /note >}}
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
