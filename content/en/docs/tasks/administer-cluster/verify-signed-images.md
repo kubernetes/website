@@ -68,5 +68,5 @@ e.g. [conformance image](https://github.com/kubernetes/kubernetes/blob/master/te
 admission controller. To get started with `cosigned` here are a few helpful
 resources:
 
-* [Installation](https://github.com/sigstore/helm-charts/tree/main/charts/cosigned)
+* [Installation](https://github.com/sigstore/cosign#installation)
 * [Configuration Options](https://github.com/sigstore/cosign/tree/main/config)
