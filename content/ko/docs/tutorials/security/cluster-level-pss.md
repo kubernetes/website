@@ -19,6 +19,9 @@ weight: 10
 
 파드 시큐리티 스탠다드를 특정 네임스페이스에 적용하려면, [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss/)를 참고한다.
 
+만약 쿠버네티스 버전이 v{{< skew currentVersion >}}이 아니라면,
+해당 버전의 문서를 확인하자.
+
 ## {{% heading "prerequisites" %}}
 
 워크스테이션에 다음을 설치한다.
@@ -38,12 +41,12 @@ weight: 10
 1. 파드 시큐리티 스탠다드가 적용되지 않은 클러스터를 생성한다.
 
     ```shell
-    kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.23.0
+    kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.24.0
     ```
    다음과 비슷하게 출력될 것이다.
     ```
     Creating cluster "psa-wo-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v1.23.0) 🖼
+    ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
     ✓ Preparing nodes 📦  
     ✓ Writing configuration 📜
     ✓ Starting control-plane 🕹️
@@ -245,12 +248,12 @@ weight: 10
    파드 시큐리티 어드미션을 사용하는 클러스터를 생성한다.
 
    ```shell
-    kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.23.0 --config /tmp/pss/cluster-config.yaml
+    kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.24.0 --config /tmp/pss/cluster-config.yaml
    ```
    다음과 비슷하게 출력될 것이다.
    ```
     Creating cluster "psa-with-cluster-pss" ...
-     ✓ Ensuring node image (kindest/node:v1.23.0) 🖼 
+     ✓ Ensuring node image (kindest/node:v1.24.0) 🖼 
      ✓ Preparing nodes 📦  
      ✓ Writing configuration 📜 
      ✓ Starting control-plane 🕹️ 
