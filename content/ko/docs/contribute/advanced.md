@@ -86,6 +86,7 @@ SIG Docs [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/
 - 문서 리포지터리에 대한 처음 몇 번의 PR을 통해 새로운 기여자를 멘토링한다.
 - 새로운 기여자가 쿠버네티스 멤버가 되기 위해 필요한 보다 복잡한 PR을 작성하도록 지원한다.
 - 쿠버네티스 멤버 가입을 위해 [기여자를 후원](/ko/docs/contribute/advanced/#새로운-기여자-후원)한다.
+- 월간 미팅을 개최하여 새로운 기여자에게 도움을 주고 조언을 해 준다.
 
 현재 새로운 기여자 홍보대사는 각 SIG-Docs 회의와 [쿠버네티스 #sig-docs 채널](https://kubernetes.slack.com)에서 발표된다.
 

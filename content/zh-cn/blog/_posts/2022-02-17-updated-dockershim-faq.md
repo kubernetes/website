@@ -175,7 +175,7 @@ in Kubernetes 1.24.
 <!--
 If you're running Kubernetes v1.24 or later, see [Can I still use Docker Engine as my container runtime?](#can-i-still-use-docker-engine-as-my-container-runtime).
 (Remember, you can switch away from the dockershim if you're using any supported Kubernetes release; from release v1.24, you
-**must** switch as Kubernetes no longer incluides the dockershim).
+**must** switch as Kubernetes no longer includes the dockershim).
 -->
 如果你运行的是 Kubernetes v1.24 或更高版本，请参阅
 [我仍然可以使用 Docker Engine 作为我的容器运行时吗？](#can-i-still-use-docker-engine-as-my-container-runtime)

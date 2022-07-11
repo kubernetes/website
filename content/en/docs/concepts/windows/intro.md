@@ -121,7 +121,7 @@ section refers to several key workload abstractions and how they map to Windows.
     In the above list, wildcards (`*`) indicate all elements in a list.
     For example, `spec.containers[*].securityContext` refers to the SecurityContext object
     for all containers. If any of these fields is specified, the Pod will
-    not be admited by the API server.
+    not be admitted by the API server.
 
 * [Workload resources](/docs/concepts/workloads/controllers/) including:
   * ReplicaSet

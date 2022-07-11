@@ -107,7 +107,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/data"
         name: my-csi-inline-vol
@@ -125,8 +125,19 @@ spec:
 더 자세한 사항은 각 CSI 드라이버 문서를 
 참고한다.
 
-클러스터 관리자는, [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/policy/pod-security-policy/)를 사용하여 파드 내에서 어떤 CSI 드라이버가 사용될 수 있는지를 제어할 수 있으며, 
-[`allowedCSIDrivers` 필드](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy)에 기재하면 된다.
+### CSI 드라이버 제한 사항
+
+CSI 임시 볼륨은 사용자로 하여금 `volumeAttributes`를 
+파드 스펙의 일부로서 CSI 드라이버에 직접 제공할 수 있도록 한다. 
+보통은 관리자만 사용할 수 있는 `volumeAttributes`를 허용하는 CSI 드라이버는 
+내장(inline) 임시 볼륨 내에서 사용하는 것이 적합하지 않다. 
+예를 들어, 일반적으로 스토리지클래스 내에 정의되어 있는 파라미터들은 
+내장 임시 볼륨 사용을 통해 사용자에게 노출되어서는 안 된다.
+
+클러스터 관리자가 이처럼 파드 스펙 내장 임시 볼륨 사용이 가능한 CSI 드라이버를 제한하려면 
+다음을 수행할 수 있다.
+- CSIDriver 스펙의 `volumeLifecycleModes`에서 `Ephemeral`을 제거하여, 해당 드라이버가 내장 임시 볼륨으로 사용되는 것을 막는다.
+- [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 사용하여 드라이버를 활용하는 방법을 제한한다.
 
 ### 일반 임시 볼륨 {#generic-ephemeral-volumes}
 
@@ -158,7 +169,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/scratch"
         name: scratch-volume
@@ -196,7 +207,7 @@ spec:
 즉각적인 바인딩을 사용하는 경우, 
 스케줄러는 볼륨이 사용 가능해지는 즉시 해당 볼륨에 접근 가능한 노드를 선택하도록 강요받는다.
 
-[리소스 소유권](/ko/docs/concepts/workloads/controllers/garbage-collection/#소유자-owner-와-종속-dependent) 관점에서, 
+[리소스 소유권](/ko/docs/concepts/architecture/garbage-collection/#owners-dependents) 관점에서, 
 일반 임시 스토리지를 갖는 파드는 
 해당 임시 스토리지를 제공하는 퍼시스턴트볼륨클레임의 소유자이다. 
 파드가 삭제되면, 쿠버네티스 가비지 콜렉터는 해당 PVC를 삭제하는데, 
@@ -239,16 +250,9 @@ PVC 이름 규칙에 따라 서로 다른 파드 간 이름 충돌이 발생할 
 
 GenericEphemeralVolume 기능을 활성화하면 
 사용자가 파드를 생성할 수 있는 경우 PVC를 간접적으로 생성할 수 있도록 허용하며, 
-심지어 사용자가 PVC를 직접적으로 만들 수 있는 권한이 없는 경우에도 이를 허용한다. 
-클러스터 관리자는 이를 명심해야 한다. 
-이것이 보안 모델에 부합하지 않는다면, 다음의 두 가지 선택지가 있다.
-- `volumes`의 목록 중에 `ephemeral` 볼륨 타입이 없는 경우, 
-  [파드시큐리티폴리시](/ko/docs/concepts/policy/pod-security-policy/)를 
-  사용한다(쿠버네티스 
-  1.21에서 사용 중단됨).
-- 일반 임시 볼륨을 갖는 파드와 같은 오브젝트를 거부하는 
-  [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 
-  사용한다.
+심지어 사용자가 PVC를 직접적으로 만들 수 있는 권한이 없는 경우에도 이를 허용한다. 클러스터 관리자는 이를 명심해야 한다. 
+이것이 보안 모델에 부합하지 않는다면, [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 사용하여 
+일반 임시 볼륨을 갖는 파드와 같은 오브젝트를 거부해야 한다.
 
 일반적인 [PVC의 네임스페이스 쿼터](/ko/docs/concepts/policy/resource-quotas/#스토리지-리소스-쿼터)는 여전히 적용되므로, 
 사용자가 이 새로운 메카니즘을 사용할 수 있도록 허용되었어도, 

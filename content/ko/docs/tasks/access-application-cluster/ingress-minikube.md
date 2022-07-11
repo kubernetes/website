@@ -240,13 +240,13 @@ storage-provisioner                         1/1       Running   0          2m
 하단에 다음 줄을 추가한다.
 
     ```yaml
-          - path: /v2
-            pathType: Prefix
-            backend:
-              service:
-                name: web2
-                port:
-                  number: 8080
+              - path: /v2
+                pathType: Prefix
+                backend:
+                  service:
+                    name: web2
+                    port:
+                      number: 8080
     ```
 
 1. 변경 사항을 적용한다.
