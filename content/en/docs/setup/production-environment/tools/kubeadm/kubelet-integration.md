@@ -87,20 +87,21 @@ networking, or other host-specific parameters. The following list provides a few
 - To specify the container runtime you must set its endpoint with the
 `--container-runtime-endpoint=<path>` flag.
 
-You can specify these flags by configuring an individual kubelet's configuration in your service manager,
-such as systemd.
+The recommended way of applying such instance-specific configuration is by using
+[`KubeletConfiguration` patches](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#patches).
 
 ## Configure kubelets using kubeadm
 
-It is possible to configure the kubelet that kubeadm will start if a custom `KubeletConfiguration`
+It is possible to configure the kubelet that kubeadm will start if a custom
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 API object is passed with a configuration file like so `kubeadm ... --config some-config-file.yaml`.
 
 By calling `kubeadm config print init-defaults --component-configs KubeletConfiguration` you can
 see all the default values for this structure.
 
-Also have a look at the
-[reference for the KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
-for more information on the individual fields.
+It is also possible to apply instance-specific patches over the base `KubeletConfiguration`.
+Have a look at [Customizing the kubelet](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#customizing-the-kubelet)
+for more details.
 
 ### Workflow when using `kubeadm init`
 
