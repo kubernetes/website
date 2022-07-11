@@ -1159,7 +1159,7 @@ This information will be annotated to the Node API object, for later re-use</p>
 <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
-   <p><code>tains</code> specifies the taints the Node API object should be registered with.
+   <p><code>taints</code> specifies the taints the Node API object should be registered with.
 If this field is unset, i.e. nil, in the <code>kubeadm init</code> process it will be defaulted
 with a control-plane taint for control-plane nodes.
 If you don't want to taint your control-plane node, set this field to an empty list,
