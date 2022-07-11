@@ -246,7 +246,7 @@ The general labeling process should be consistent across artifact types.
 -->
 ## 发布周期  {#the-release-cycle}
 
-![Image of one Kubernetes release cycle](release-cycle.jpg)
+![Image of one Kubernetes release cycle](/images/releases/release-cycle.jpg)
 
 <!-- 
 Kubernetes releases currently happen approximately three times per year.
@@ -368,7 +368,7 @@ Each release is part of a broader Kubernetes lifecycle:
 
 每个版本都是更广泛的 Kubernetes 生命周期的一部分：
 
-![Image of Kubernetes release lifecycle spanning three releases](release-lifecycle.jpg)
+![Image of Kubernetes release lifecycle spanning three releases](/images/releases/release-lifecycle.jpg)
 
 <!-- 
 ## Removal Of Items From The Milestone
