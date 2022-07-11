@@ -652,13 +652,13 @@ spec:
 ### AppArmor
 
 파드시큐리티폴리시의 어노테이션을 통해 제어된다. [AppArmor
-문서](/ko/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations)를 참고하길 바란다.
+문서](/ko/docs/tutorials/security/apparmor/#podsecuritypolicy-annotations)를 참고하길 바란다.
 
 ### Seccomp
 
 쿠버네티스 v1.19부터 파드나 컨테이너의 `securityContext` 에서
 `seccompProfile` 필드를 사용하여 [seccomp 프로파일 사용을
-제어](/docs/tutorials/clusters/seccomp)할 수 있다. 이전 버전에서는, 파드에
+제어](/docs/tutorials/security/seccomp/)할 수 있다. 이전 버전에서는, 파드에
 어노테이션을 추가하여 seccomp를 제어했다. 두 버전에서 동일한 파드시큐리티폴리시를 사용하여
 이러한 필드나 어노테이션이 적용되는 방식을 적용할 수 있다.
 

@@ -206,7 +206,7 @@ Ready before starting Pod `N+1`.
 After the init containers complete successfully, the regular containers run.
 The MySQL Pods consist of a `mysql` container that runs the actual `mysqld`
 server, and an `xtrabackup` container that acts as a
-[sidecar](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
+[sidecar](/blog/2015/06/the-distributed-system-toolkit-patterns).
 
 The `xtrabackup` sidecar looks at the cloned data files and determines if
 it's necessary to initialize MySQL replication on the replica.

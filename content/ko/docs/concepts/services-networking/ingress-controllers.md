@@ -23,7 +23,7 @@ weight: 40
 
 {{% thirdparty-content %}}
 
-* [AKS 애플리케이션 게이트웨이 인그레스 컨트롤러](https://azure.github.io/application-gateway-kubernetes-ingress/)는 [Azure 애플리케이션 게이트웨이](https://docs.microsoft.com)를 구성하는 인그레스 컨트롤러다.
+* [AKS 애플리케이션 게이트웨이 인그레스 컨트롤러](https://docs.microsoft.com/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)는 [Azure 애플리케이션 게이트웨이](https://docs.microsoft.com/azure/application-gateway/overview)를 구성하는 인그레스 컨트롤러다.
 * [Ambassador](https://www.getambassador.io/) API 게이트웨이는 [Envoy](https://www.envoyproxy.io) 기반 인그레스
   컨트롤러다.
 * [Apache APISIX 인그레스 컨트롤러](https://github.com/apache/apisix-ingress-controller)는 [Apache APISIX](https://github.com/apache/apisix) 기반의 인그레스 컨트롤러이다.
@@ -48,6 +48,7 @@ weight: 40
   구동하는 인그레스 컨트롤러다.
 * [쿠버네티스 용 NGINX 인그레스 컨트롤러](https://www.nginx.com/products/nginx-ingress-controller/)는 [NGINX](https://www.nginx.com/resources/glossary/nginx/)
   웹서버(프록시로 사용)와 함께 작동한다.
+* [Pomerium 인그레스 컨트롤러](https://www.pomerium.com/docs/k8s/ingress.html)는 [Pomerium](https://pomerium.com/) 기반 인그레스 컨트롤러이며, 상황 인지 접근 정책을 제공한다.
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/)는 사용자의 커스텀 프록시를 구축하기 위한 라이브러리로 설계된 쿠버네티스 인그레스와 같은 유스케이스를 포함한 서비스 구성을 위한 HTTP 라우터 및 역방향 프록시다.
 * [Traefik 쿠버네티스 인그레스 제공자](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)는
   [Traefik](https://traefik.io/traefik/) 프록시 용 인그레스 컨트롤러다.

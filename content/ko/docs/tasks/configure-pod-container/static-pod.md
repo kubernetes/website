@@ -182,8 +182,7 @@ static-web   1/1     Running   0               2m
 ```
 
 {{< note >}}
-Kubelet에 API 서버에서 미러 파드를 생성할 수 있는 권한이 있는지 미리 확인해야 한다. 그렇지 않을 경우 API 서버에 의해서 생성 요청이 거부된다.
-[파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/policy/pod-security-policy/) 에 대해 보기.
+Kubelet에 API 서버에서 미러 파드를 생성할 수 있는 권한이 있는지 미리 확인해야 한다. 그렇지 않을 경우 API 서버에 의해서 생성 요청이 거부된다. [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/) 및 [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/security/pod-security-policy/)를 확인한다.
 {{< /note >}}
 
 스태틱 파드에 있는 {{< glossary_tooltip term_id="label" text="레이블" >}} 은

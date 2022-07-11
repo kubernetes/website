@@ -136,7 +136,7 @@ The general labeling process should be consistent across artifact types.
 
 ## The Release Cycle
 
-![Image of one Kubernetes release cycle](release-cycle.jpg)
+![Image of one Kubernetes release cycle](/images/releases/release-cycle.jpg)
 
 Kubernetes releases currently happen approximately three times per year.
 
@@ -204,7 +204,7 @@ back to the release branch. The release is built from the release branch.
 
 Each release is part of a broader Kubernetes lifecycle:
 
-![Image of Kubernetes release lifecycle spanning three releases](release-lifecycle.jpg)
+![Image of Kubernetes release lifecycle spanning three releases](/images/releases/release-lifecycle.jpg)
 
 ## Removal Of Items From The Milestone
 
@@ -281,7 +281,7 @@ Issues are marked as targeting a milestone via the Prow "/milestone" command.
 The Release Team's [Bug Triage Lead](https://git.k8s.io/sig-release/release-team/role-handbooks/bug-triage/README.md)
 and overall community watch incoming issues and triage them, as described in
 the contributor guide section on
-[issue triage](/contributors/guide/issue-triage.md).
+[issue triage](https://k8s.dev/docs/guide/issue-triage/).
 
 Marking issues with the milestone provides the community better visibility
 regarding when an issue was observed and by when the community feels it must be
@@ -355,11 +355,11 @@ issue kind labels must be set:
 - `kind/feature`: New functionality.
 - `kind/flake`: CI test case is showing intermittent failures.
 
-[cherry-picks]: /contributors/devel/sig-release/cherry-picks.md
+[cherry-picks]: https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md
 [code-freeze]: https://git.k8s.io/sig-release/releases/release_phases.md#code-freeze
 [enhancements-freeze]: https://git.k8s.io/sig-release/releases/release_phases.md#enhancements-freeze
 [exceptions]: https://git.k8s.io/sig-release/releases/release_phases.md#exceptions
 [keps]: https://git.k8s.io/enhancements/keps
-[release-managers]: https://kubernetes.io/releases/release-managers/
+[release-managers]: /releases/release-managers/
 [release-team]: https://git.k8s.io/sig-release/release-team
-[sig-list]: /sig-list.md
+[sig-list]: https://k8s.dev/sigs

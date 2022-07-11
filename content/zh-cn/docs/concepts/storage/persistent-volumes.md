@@ -1838,11 +1838,11 @@ and need persistent storage, it is recommended that you use the following patter
 <!--
 * Learn more about [Creating a PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* Read the [Persistent Storage design document](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/persistent-storage.md).
+* Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 -->
 * 进一步了解[创建持久卷](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * 进一步学习[创建 PVC 申领](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* 阅读[持久存储的设计文档](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/persistent-storage.md).
+* 阅读[持久存储的设计文档](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 <!--
 ### API references {#reference}

@@ -95,9 +95,9 @@ class A,B,C,D,E,F,G,H,M,Q,N,O,P,V grey
 class S,T,U spacewhite
 class first,second,third white
 {{</ mermaid >}}
-***그림 - 신규 기여자를 위한 시작 가이드***
+그림 1. 신규 기여자를 위한 시작 가이드.
 
-위의 그림은 신규 기여자를 위한 로드맵을 간략하게 보여줍니다. `가입` 및 `리뷰` 단계의 일부 또는 전체를 따를 수 있습니다. 이제 `PR 열기` 아래에 나열된 항목들을 수행하여 당신의 기여 목표를 달성할 수 있습니다. 다시 말하지만 질문은 언제나 환영입니다!
+그림 1은 신규 기여자를 위한 로드맵을 간략하게 보여줍니다. `가입` 및 `리뷰` 단계의 일부 또는 전체를 따를 수 있습니다. 이제 `PR 열기` 아래에 나열된 항목들을 수행하여 당신의 기여 목표를 달성할 수 있습니다. 다시 말하지만 질문은 언제나 환영입니다!
 
 일부 작업에는 쿠버네티스 조직에서 더 많은 신뢰와 더 많은 접근이 필요할 수 있습니다.
 역할과 권한에 대한 자세한 내용은
@@ -105,7 +105,7 @@ class first,second,third white
 
 ## 첫 번째 기여
 
-몇 가지 단계를 미리 검토하여 첫 번째 기여를 준비할 수 있습니다. 아래 그림은 각 단계를 설명하며, 그 다음에 세부 사항도 설명되어 있습니다.
+몇 가지 단계를 미리 검토하여 첫 번째 기여를 준비할 수 있습니다. 그림 2는 각 단계를 설명하며, 그 다음에 세부 사항도 설명되어 있습니다.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -136,7 +136,7 @@ class A,B,D,E,F,G grey
 class S,T spacewhite
 class first,second white
 {{</ mermaid >}}
-***그림 - 첫 기여를 위한 준비***
+그림 2. 첫 기여를 위한 준비.
 
 - [기여 개요](/ko/docs/contribute/new-content/)를 읽고
   기여할 수 있는 다양한 방법에 대해 알아봅니다.

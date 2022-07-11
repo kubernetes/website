@@ -14,7 +14,7 @@ and building/packaging Kubernetes.
 
 The responsibilities of each role are described below.
 -->
-“发布管理员（Release Managers）”是一个总称，包括一批负责维护发布分支、标记发行版本以及构建/打包
+“发布管理员（Release Managers）” 是一个总称，包括一批负责维护发布分支、标记发行版本以及构建/打包
 Kubernetes 的 Kubernetes 贡献者。
 
 每个角色的职责如下所述。
@@ -55,11 +55,11 @@ Kubernetes 的 Kubernetes 贡献者。
 -->
 ## 联系方式  {#contact}
 
-| 邮件列表 | Slack | 可见 | 用法 | 会员资格 |
+| 邮件列表 | Slack | 可见范围 | 用法 | 会员资格 |
 | --- | --- | --- | --- | --- |
-| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y)（频道）/@release-managers（用户组）| 公共 | 发布管理员的公开讨论 | 所有发布管理员（包括助理、构建管理员和 SIG 主席）|
+| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y)（频道）/@release-managers（用户组）| 公共 | 发布管理员公开讨论 | 所有发布管理员（包括助理、构建管理员和 SIG 主席）|
 | [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) | 不适用 | 私人 | 拥有特权的发布管理员私人讨论 | 发布管理员，SIG Release 负责人 |
-| [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io) | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG)（频道）/@security-rel-team（用户组）| 私人 | 与安全响应委员会协调的安全发布 | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
+| [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io) | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG)（频道）/@security-rel-team（用户组）| 私人 | 与安全响应委员会协调安全发布 | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
 
 <!-- 
 ### Security Embargo Policy
@@ -74,7 +74,7 @@ Some information about releases is subject to embargo and we have defined policy
 <!-- 
 ## Handbooks
 
-**NOTE: The Patch Release Team and Branch Manager handbooks will be de-duplicated at a later date.**
+**NOTE:** The Patch Release Team and Branch Manager handbooks will be de-duplicated at a later date.
 
 - [Patch Release Team][handbook-patch-release]
 - [Branch Managers][handbook-branch-mgmt]
@@ -82,7 +82,7 @@ Some information about releases is subject to embargo and we have defined policy
 -->
 ## 手册  {#handbooks}
 
-**注意：补丁发布团队和分支管理员手册以后将会删除重复数据。**
+**注意：**补丁发布团队和分支管理员手册以后将会删除重复数据。
 
 - [补丁发布团队][handbook-patch-release]
 - [分支管理员][handbook-branch-mgmt]
@@ -111,10 +111,10 @@ Minimum requirements for Release Managers and Release Manager Associates are:
 发布管理员和发布管理员助理的最低要求是：
 
 - 熟悉基本的 Unix 命令并能够调试 shell 脚本。
-- 熟悉通过 `git` 和 `git` 相关的命令行触发的分支源代码工作流。
+- 熟悉通过 `git` 和 `git` 相关命令行触发的分支源代码工作流。
 - 谷歌云的常识（云构建和云存储）。
 - 乐于寻求帮助和清晰地沟通。
-- Kubernetes 社区 [会员资格][community-membership]
+- Kubernetes 社区[会员资格][community-membership]
 
 <!-- 
 Release Managers are responsible for:
@@ -145,13 +145,13 @@ Release Managers are responsible for:
   - 补丁发布（`x.y.z`，其中 `z` > 0）
   - 次要版本（`x.y.z`，其中 `z` = 0）
   - 预发布（alpha、beta 和候选发布）
-  - 通过每个发布周期与[发布小组][release-team]合作
+  - 通过每个发布周期与[发布团队][release-team]合作
   - 设置[补丁发布的时间表和节奏][patches]
 - 维护发布分支：
   - 审查 Cherry Pick
   - 确保发布分支保持健康并且没有合并意外的补丁
 - 指导[发布管理员助理](#associates)小组
-- 积极开发功能并维护 k/release 中的代码
+- 积极开发功能并维护 kubernetes/release 中的代码
 - 通过积极参与 Buddy 计划来支持发布管理员助理和贡献者
   - 每月与助理核对并委派任务，授权他们生成发行版本并指导工作
   - 支持助理小组加入新的贡献者，例如回答问题并建议他们做适当的工作
@@ -199,7 +199,7 @@ releases over several cycles and:
 -->
 ### 成为发布管理员  {#becoming-a-release-manager}
 
-要成为发布管理员，首先必须担任发布管理员助理。助理通过在多个周期内积极处理发布，从而毕业成为发布管理员，并且：
+要成为发布管理员，须先担任发布管理员助理。助理通过在多个周期内积极处理发布，从而毕业成为发布管理员，并且：
 
 - 表现出带头的意愿
 - 与发布管理员合作，为补丁打标记，最终独立制作发行版本
@@ -235,7 +235,7 @@ GitHub Mentions: @kubernetes/release-engineering
 发布管理员助理是发布管理员的学徒，以前称为发布管理员影子。他们负责：
 
 - 补丁发布工作，Cherry Pick 审查
-- 为 k/release 做贡献：更新依赖并习惯源代码库
+- 为 kubernetes/release 做贡献：更新依赖并习惯源代码库
 - 为文档做贡献：维护手册，确保发布过程记录在案
 - 在发布管理员的帮助下：在发布周期中与发布团队合作并减少 Kubernetes 发型版本
 - 寻求机会帮助确定优先级和沟通
@@ -277,7 +277,7 @@ Contributors can become Associates by demonstrating the following:
 - 持续参与，包括 6-12 个月的发布工程相关的积极工作
 - 在发布周期内担任发布团队的技术负责人角色的经验
    - 这种经验为理解 SIG Release 如何整体运作提供了坚实的基础——包括我们对技术技能、沟通、响应能力和可靠性的期望
-- 致力于改进我们与 Testgrid 交互的 k/release 项目，清理仓库等。
+- 致力于改进我们与 Testgrid 交互的 kubernetes/release 项目，清理仓库等。
    - 这些工作需要与发布管理员和助理进行互动和合作
 
 <!-- 
@@ -332,7 +332,7 @@ SIG Release 主席和技术负责人负责：
 - 领导发布管理员和助理的知识交流会议
 - 传授领导力和优先排序方法
 
-此处明确提及他们，因为他们是每个角色的各种沟通渠道和权限组（GitHub 团队、GCP 访问）的所有者。
+之所以此处明确提及他们，是因为他们是每个角色的各种沟通渠道和权限组（GitHub 团队、GCP 访问）的所有者。
 因此，他们是享有很高特权的社区成员，并参与了一些私人沟通，这些沟通有时可能与 Kubernetes 安全披露有关。
 
 GitHub 团队：[@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/teams/sig-release-leads)
@@ -362,7 +362,7 @@ of the kubernetes/sig-release repository within `release-x.y/release_team.md`.
 
 Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.15/release_team.md)
 -->
-过去的分支管理员，可以在 `release-x.y/release_team.md`
+有关以往的分支管理员，可以在 `release-x.y/release_team.md`
 中 kubernetes/sig-release 仓库的[发布目录][k-sig-release-releases]中找到。
 
 例如：[1.15 发布团队](https://git.k8s.io/sig-release/releases/release-1.15/release_team.md)
@@ -372,7 +372,7 @@ Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.1
 [handbook-packaging]: https://git.k8s.io/sig-release/release-engineering/packaging.md
 [handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [k-sig-release-releases]: https://git.k8s.io/sig-release/releases
-[patches]: /patch-releases.md
+[patches]: /zh-cn/releases/patch-releases/
 [src]: https://git.k8s.io/community/committee-security-response/README.md
 [release-team]: https://git.k8s.io/sig-release/release-team/README.md
 [security-release-process]: https://git.k8s.io/security/security-release-process.md

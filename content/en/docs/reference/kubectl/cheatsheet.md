@@ -68,6 +68,11 @@ kubectl config get-contexts                          # display list of contexts
 kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
+kubectl config set-cluster my-cluster-name           # set a cluster entry in the kubeconfig
+
+# configure the URL to a proxy server to use for requests made by this client in the kubeconfig
+kubectl config set-cluster my-cluster-name --proxy-url=my-proxy-url
+
 # add a new user to your kubeconf that supports basic auth
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
@@ -380,6 +385,9 @@ kubectl top node my-node                                              # Show met
 kubectl cluster-info                                                  # Display addresses of the master and services
 kubectl cluster-info dump                                             # Dump current cluster state to stdout
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump current cluster state to /path/to/cluster-state
+
+# View existing taints on which exist on current nodes.
+kubectl get nodes -o=custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect
 
 # If a taint with that key and effect already exists, its value is replaced as specified.
 kubectl taint nodes foo dedicated=special-user:NoSchedule

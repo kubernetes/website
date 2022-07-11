@@ -1,5 +1,5 @@
 ---
-title: StatefulSets
+title: StatefulSet
 content_type: concept
 weight: 30
 ---
@@ -7,7 +7,7 @@ weight: 30
 <!--
 title: StatefulSets
 content_type: concept
-weight: 40
+weight: 30
 -->
 
 <!-- overview -->
@@ -27,9 +27,9 @@ StatefulSet 是用来管理有状态应用的工作负载 API 对象。
 StatefulSets are valuable for applications that require one or more of the
 following.
 -->
-## 使用 StatefulSets   {#using-statefulsets}
+## 使用 StatefulSet   {#using-statefulsets}
 
-StatefulSets 对于需要满足以下一个或多个需求的应用程序很有价值：
+StatefulSet 对于需要满足以下一个或多个需求的应用程序很有价值：
 
 <!--
 * Stable, unique network identifiers.
@@ -39,7 +39,7 @@ StatefulSets 对于需要满足以下一个或多个需求的应用程序很有�
 -->
 * 稳定的、唯一的网络标识符。
 * 稳定的、持久的存储。
-* 有序的、优雅的部署和缩放。
+* 有序的、优雅的部署和扩缩。
 * 有序的、自动的滚动更新。
 
 <!--
@@ -51,8 +51,8 @@ that provides a set of stateless replicas.
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
 -->
 在上面描述中，“稳定的”意味着 Pod 调度或重调度的整个过程是有持久性的。
-如果应用程序不需要任何稳定的标识符或有序的部署、删除或伸缩，则应该使用
-由一组无状态的副本控制器提供的工作负载来部署应用程序，比如
+如果应用程序不需要任何稳定的标识符或有序的部署、删除或扩缩，
+则应该使用由一组无状态的副本控制器提供的工作负载来部署应用程序，比如
 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 或者
 [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
 可能更适用于你的无状态应用部署需要。
@@ -75,13 +75,13 @@ that provides a set of stateless replicas.
 * 给定 Pod 的存储必须由
   [PersistentVolume 驱动](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)
   基于所请求的 `storage class` 来提供，或者由管理员预先提供。
-* 删除或者收缩 StatefulSet 并*不会*删除它关联的存储卷。
+* 删除或者扩缩 StatefulSet 并**不会**删除它关联的存储卷。
   这样做是为了保证数据安全，它通常比自动清除 StatefulSet 所有相关的资源更有价值。
 * StatefulSet 当前需要[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)
   来负责 Pod 的网络标识。你需要负责创建此服务。
-* 当删除 StatefulSets 时，StatefulSet 不提供任何终止 Pod 的保证。
-  为了实现 StatefulSet 中的 Pod 可以有序地且体面地终止，可以在删除之前将 StatefulSet
-  缩放为 0。
+* 当删除一个 StatefulSet 时，该 StatefulSet 不提供任何终止 Pod 的保证。
+  为了实现 StatefulSet 中的 Pod 可以有序且体面地终止，可以在删除之前将 StatefulSet
+  缩容到 0。
 * 在默认 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 时使用
   [滚动更新](#rolling-updates)，可能进入需要[人工干预](#forced-rollback)
   才能修复的损坏状态。
@@ -176,14 +176,14 @@ You must set the `.spec.selector` field of a StatefulSet to match the labels of 
 -->
 你必须设置 StatefulSet 的 `.spec.selector` 字段，使之匹配其在
 `.spec.template.metadata.labels` 中设置的标签。
-未指定匹配的 Pod 选择器将在创建 StatefulSet 期间导致验证错误。
+未指定匹配的 Pod 选择算符将在创建 StatefulSet 期间导致验证错误。
 
 <!--
 ### Volume Claim Templates
 
 You can set the  `.spec.volumeClaimTemplates` which can provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
 -->
-### 卷申领模版  {#volume-claim-templates}
+### 卷申领模板  {#volume-claim-templates}
 
 你可以设置 `.spec.volumeClaimTemplates`，
 它可以使用 PersistentVolume 制备程序所准备的
@@ -219,7 +219,7 @@ regardless of which node it's (re)scheduled on.
 ## Pod 标识   {#pod-identity}
 
 StatefulSet Pod 具有唯一的标识，该标识包括顺序标识、稳定的网络标识和稳定的存储。
-该标识和 Pod 是绑定的，不管它被调度在哪个节点上。
+该标识和 Pod 是绑定的，与该 Pod 调度到哪个节点上无关。
 
 <!--
 ### Ordinal Index
@@ -229,8 +229,8 @@ assigned an integer ordinal, from 0 up through N-1, that is unique over the Set.
 -->
 ### 有序索引   {#ordinal-index}
 
-对于具有 N 个副本的 StatefulSet，StatefulSet 中的每个 Pod 将被分配一个整数序号，
-从 0 到 N-1，该序号在 StatefulSet 上是唯一的。
+对于具有 N 个副本的 StatefulSet，该 StatefulSet 中的每个 Pod 将被分配一个从 0 到 N-1
+的整数序号，该序号在此 StatefulSet 上是唯一的。
 
 <!--
 ### Stable Network ID
@@ -254,7 +254,7 @@ StatefulSet 中的每个 Pod 根据 StatefulSet 的名称和 Pod 的序号派生
 上例将会创建三个名称分别为 `web-0、web-1、web-2` 的 Pod。
 StatefulSet 可以使用 [无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 控制它的 Pod 的网络域。管理域的这个服务的格式为：
-`$(服务名称).$(命名空间).svc.cluster.local`，其中 `cluster.local` 是集群域。
+`$(服务名称).$(名字空间).svc.cluster.local`，其中 `cluster.local` 是集群域。
 一旦每个 Pod 创建成功，就会得到一个匹配的 DNS 子域，格式为：
 `$(pod 名称).$(所属服务的 DNS 域名)`，其中所属服务由 StatefulSet 的 `serviceName` 域来设定。
 
@@ -281,7 +281,7 @@ responsible for the network identity of the pods.
 负缓存 (在 DNS 中较为常见) 意味着之前失败的查询结果会被记录和重用至少若干秒钟，
 即使 Pod 已经正常运行了也是如此。
 
-如果需要在 Pod 被创建之后及时发现它们，有以下选项：
+如果需要在 Pod 被创建之后及时发现它们，可使用以下选项：
 
 - 直接查询 Kubernetes API（比如，利用 watch 机制）而不是依赖于 DNS 查询
 - 缩短 Kubernetes DNS 驱动的缓存时长（通常这意味着修改 CoreDNS 的 ConfigMap，目前缓存时长为 30 秒）
@@ -363,8 +363,8 @@ the StatefulSet.
 
 * 对于包含 N 个 副本的 StatefulSet，当部署 Pod 时，它们是依次创建的，顺序为 `0..N-1`。
 * 当删除 Pod 时，它们是逆序终止的，顺序为 `N-1..0`。
-* 在将缩放操作应用到 Pod 之前，它前面的所有 Pod 必须是 Running 和 Ready 状态。
-* 在 Pod 终止之前，所有的继任者必须完全关闭。
+* 在将扩缩操作应用到 Pod 之前，它前面的所有 Pod 必须是 Running 和 Ready 状态。
+* 在一个 Pod 终止之前，所有的继任者必须完全关闭。
 
 <!--
 The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. This practice is unsafe and strongly discouraged. For further explanation, please refer to [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
@@ -395,7 +395,7 @@ is fully shutdown and deleted. If web-0 were to fail after web-2 has been termin
 is completely shutdown, but prior to web-1's termination, web-1 would not be terminated
 until web-0 is Running and Ready.
 -->
-如果用户想将示例中的 StatefulSet 收缩为 `replicas=1`，首先被终止的是 web-2。
+如果用户想将示例中的 StatefulSet 缩放为 `replicas=1`，首先被终止的是 web-2。
 在 web-2 没有被完全停止和删除前，web-1 不会被终止。
 当 web-2 已被终止和删除、web-1 尚未被终止，如果在此期间发生 web-0 运行失败，
 那么就不会终止 web-1，必须等到 web-0 进入 Running 和 Ready 状态后才会终止 web-1。
@@ -435,7 +435,7 @@ Pod. This option only affects the behavior for scaling operations. Updates are n
 
 `Parallel` Pod 管理让 StatefulSet 控制器并行的启动或终止所有的 Pod，
 启动或者终止其他 Pod 前，无需等待 Pod 进入 Running 和 ready 或者完全停止状态。
-这个选项只会影响伸缩操作的行为，更新则不会被影响。
+这个选项只会影响扩缩操作的行为，更新则不会被影响。
 
 <!--
 ## Update Strategies
@@ -487,8 +487,9 @@ amount of time after the Pod turns ready, before moving on.
 StatefulSet 控制器会删除和重建 StatefulSet 中的每个 Pod。
 它将按照与 Pod 终止相同的顺序（从最大序号到最小序号）进行，每次更新一个 Pod。
 
-Kubernetes 控制面会等到被更新的 Pod 进入 Running 和 Ready 状态，然后再更新其前身。
-如果你设置了 `.spec.minReadySeconds`（查看[最短就绪秒数](#minimum-ready-seconds)），控制面在 Pod 就绪后会额外等待一定的时间再执行下一步。
+Kubernetes 控制平面会等到被更新的 Pod 进入 Running 和 Ready 状态，然后再更新其前身。
+如果你设置了 `.spec.minReadySeconds`（查看[最短就绪秒数](#minimum-ready-seconds)），
+控制平面在 Pod 就绪后会额外等待一定的时间再执行下一步。
 
 <!--
 ### Partitioned rolling updates {#partitions}
@@ -509,9 +510,9 @@ update, roll out a canary, or perform a phased roll out.
 更新策略可以实现分区。
 如果声明了一个分区，当 StatefulSet 的 `.spec.template` 被更新时，
 所有序号大于等于该分区序号的 Pod 都会被更新。
-所有序号小于该分区序号的 Pod 都不会被更新，并且，即使他们被删除也会依据之前的版本进行重建。
+所有序号小于该分区序号的 Pod 都不会被更新，并且，即使它们被删除也会依据之前的版本进行重建。
 如果 StatefulSet 的 `.spec.updateStrategy.rollingUpdate.partition` 大于它的
-`.spec.replicas`，对它的 `.spec.template` 的更新将不会传递到它的 Pod。
+`.spec.replicas`，则对它的 `.spec.template` 的更新将不会传递到它的 Pod。
 在大多数情况下，你不需要使用分区，但如果你希望进行阶段更新、执行金丝雀或执行
 分阶段上线，则这些分区会非常有用。
 
@@ -572,8 +573,8 @@ StatefulSet will stop the rollout and wait.
 在默认 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 下使用
 [滚动更新](#rolling-updates)，可能进入需要人工干预才能修复的损坏状态。
 
-如果更新后 Pod 模板配置进入无法运行或就绪的状态（例如，由于错误的二进制文件
-或应用程序级配置错误），StatefulSet 将停止回滚并等待。
+如果更新后 Pod 模板配置进入无法运行或就绪的状态（例如，
+由于错误的二进制文件或应用程序级配置错误），StatefulSet 将停止回滚并等待。
 
 <!--
 In this state, it's not enough to revert the Pod template to a good configuration.
@@ -622,7 +623,7 @@ StatefulSet:
 For each policy that you can configure, you can set the value to either `Delete` or `Retain`.
 -->
 `whenDeleted`
-: 配置删除 StatefulSet 时应用的卷保留行为
+: 配置删除 StatefulSet 时应用的卷保留行为。
 
 `whenScaled`
 : 配置当 StatefulSet 的副本数减少时应用的卷保留行为；例如，缩小集合时。
@@ -710,7 +711,7 @@ to be garbage collected after only the condemned Pods have terminated.
 执行协调操作时，StatefulSet 控制器将其所需的副本数与集群上实际存在的 Pod 进行比较。
 对于 StatefulSet 中的所有 Pod 而言，如果其 ID 大于副本数，则将被废弃并标记为需要删除。
 如果 `whenScaled` 策略是 `Delete`，则在删除 Pod 之前，
-首先将已销毁的 Pod 设置为与 StatefulSet 模板 对应的 PVC 的属主。
+首先将已销毁的 Pod 设置为与 StatefulSet 模板对应的 PVC 的属主。
 这会导致 PVC 仅在已废弃的 Pod 终止后被垃圾收集。
 
 <!--
@@ -747,7 +748,7 @@ that you previously did.
 
 如果你手动扩缩已部署的负载，例如通过 `kubectl scale statefulset statefulset --replicas=X`，
 然后根据清单更新 StatefulSet（例如：通过运行 `kubectl apply -f statefulset.yaml`），
-那么应用该清单的操作会覆盖你之前所做的手动缩放。
+那么应用该清单的操作会覆盖你之前所做的手动扩缩。
 
 <!--
 If a [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)
@@ -757,7 +758,7 @@ Statefulset, don't set `.spec.replicas`. Instead, allow the Kubernetes
 the `.spec.replicas` field automatically.
 -->
 如果 [HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
-（或任何类似的水平缩放 API）正在管理 Statefulset 的缩放，
+（或任何类似的水平缩放 API）正在管理 StatefulSet 的缩放，
 请不要设置 `.spec.replicas`。
 相反，允许 Kubernetes 控制平面自动管理 `.spec.replicas` 字段。
 
