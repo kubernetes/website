@@ -19,18 +19,11 @@ You may also visit the [troubleshooting overview document](/docs/tasks/debug/) f
 <!-- body -->
 ## Cluster not starting
 
-To start your cluster, run the following command:
+*If you get the following error after upgrading to Kubernetes 1.24, and you were previously using Docker Engine as your container runtime, go through the [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) guide.*
 
-```shell
-kubelet --help | grep network-plugin
 ```
-
-*Note: If you get the following error after upgrading to Kubernetes 1.24, go through the [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) guide to get a better understanding of how to resolve this error.*
-
-```shell
 Error: failed to parse kubelet flag: unknown flag: --network-plugin
 ```
-
 
 ## Listing your cluster
 
