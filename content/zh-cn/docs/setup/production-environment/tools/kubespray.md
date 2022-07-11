@@ -30,10 +30,10 @@ Kubespray 提供：
 * a highly available cluster
 * composable attributes
 * support for most popular Linux distributions
-  * Ubuntu 16.04, 18.04, 20.04
+  * Ubuntu 16.04, 18.04, 20.04, 22.04
   * CentOS/RHEL/Oracle Linux 7, 8
   * Debian Buster, Jessie, Stretch, Wheezy
-  * Fedora 31, 32
+  * Fedora 34, 35
   * Fedora CoreOS
   * openSUSE Leap 15
   * Flatcar Container Linux by Kinvolk
@@ -42,10 +42,10 @@ Kubespray 提供：
 * 高可用性集群
 * 可组合属性
 * 支持大多数流行的 Linux 发行版
-   * Ubuntu 16.04、18.04、20.04
+   * Ubuntu 16.04、18.04、20.04, 22.04
    * CentOS / RHEL / Oracle Linux 7、8
    * Debian Buster、Jessie、Stretch、Wheezy
-   * Fedora 31、32
+   * Fedora 34、35
    * Fedora CoreOS
    * openSUSE Leap 15
    * Kinvolk 的 Flatcar Container Linux
@@ -77,7 +77,7 @@ Provision servers with the following [requirements](https://github.com/kubernete
 按以下[要求](https://github.com/kubernetes-sigs/kubespray#requirements)来配置服务器：
 
 <!--
-* **Ansible v2.9 and python-netaddr are installed on the machine that will run Ansible commands**
+* **Ansible v2.11 and python-netaddr are installed on the machine that will run Ansible commands**
 * **Jinja 2.11 (or newer) is required to run the Ansible Playbooks**
 * The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
 * The target servers are configured to allow **IPv4 forwarding**
@@ -85,7 +85,7 @@ Provision servers with the following [requirements](https://github.com/kubernete
 * **Firewalls are not managed by kubespray**. You'll need to implement appropriate rules as needed. You should disable your firewall in order to avoid any issues during deployment
 * If kubespray is run from a non-root user account, correct privilege escalation method should be configured in the target servers and the `ansible_become` flag or command parameters `--become` or `-b` should be specified
 -->
-* 在将运行 Ansible 命令的计算机上安装 Ansible v2.9 和 python-netaddr
+* 在将运行 Ansible 命令的计算机上安装 Ansible v2.11 和 python-netaddr
 * **运行 Ansible Playbook 需要 Jinja 2.11（或更高版本）**
 * 目标服务器必须有权访问 Internet 才能拉取 Docker 镜像。否则，
   需要其他配置（[请参见离线环境](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md)）
