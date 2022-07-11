@@ -462,10 +462,10 @@ of individual policies are not defined here.
 {{% thirdparty-content %}}
 
 Other alternatives for enforcing policies are being developed in the Kubernetes ecosystem, such as: 
+
 - [Kubewarden](https://github.com/kubewarden)
 - [Kyverno](https://kyverno.io/policies/pod-security/)
 - [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
-
 
 ## FAQ
 
@@ -493,9 +493,9 @@ built-in [Pod Security Admission Controller](/docs/concepts/security/pod-securit
 ### What profiles should I apply to my Windows Pods?
 
 Windows in Kubernetes has some limitations and differentiators from standard Linux-based
-workloads. Specifically, many of the Pod SecurityContext fields [have no effect on
-Windows](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext). As
-such, no standardized Pod Security profiles currently exist.
+workloads. Specifically, many of the Pod SecurityContext fields
+[have no effect on Windows](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext).
+As such, no standardized Pod Security profiles currently exist.
 
 If you apply the restricted profile for a Windows pod, this **may** have an impact on the pod
 at runtime. The restricted profile requires enforcing Linux-specific restrictions (such as seccomp
@@ -504,7 +504,9 @@ these Linux-specific values, then the Windows pod should still work normally wit
 profile. However, the lack of enforcement means that there is no additional restriction, for Pods
 that use Windows containers, compared to the baseline profile.
 
-The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy. Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies, so any HostProcess pod should be considered privileged.
+The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy.
+Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies,
+so any HostProcess pod should be considered privileged.
 
 ### What about sandboxed Pods?
 
@@ -518,3 +520,4 @@ kernel. This allows for workloads requiring heightened permissions to still be i
 
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
 sandboxing. As such, no single recommended profile is recommended for all sandboxed workloads.
+
