@@ -61,7 +61,7 @@ y [Gestión de Objetos](/docs/concepts/overview/working-with-objects/object-mana
 
 __spec__: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) contiene toda la información necesaria para definir una política de red dado un Namespace.
 
-__podSelector__: Cada NetworkPolicy incluye un `podSelector` el cual selecciona el grupo de Pods en los cuales aplica la política. La política de ejemplo selecciona pods con el label "role=db". Un `podSelector` vacío selecciona todos los Pods en un Namespace.
+__podSelector__: Cada NetworkPolicy incluye un `podSelector` el cual selecciona el grupo de Pods en los cuales aplica la política. La política de ejemplo selecciona Pods con el label "role=db". Un `podSelector` vacío selecciona todos los Pods en un Namespace.
 
 __policyTypes__: Cada NetworkPolicy incluye una lista de `policyTypes` la cual puede incluir `Ingress`, `Egress`, o ambas. Los campos `policyTypes` indican si la política aplica o no al tráfico de entrada hacia el Pod seleccionado, el tráfico de salida desde el Pod seleccionado, o ambos. Si no se especifican `policyTypes` en una NetworkPolicy el valor `Ingress` será siempre aplicado por defecto y `Egress` será aplicado si la NetworkPolicy contiene alguna regla de salida.
 
