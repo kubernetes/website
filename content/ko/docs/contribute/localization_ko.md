@@ -1,6 +1,7 @@
 ---
 title: 쿠버네티스 문서 한글화 가이드
 content_type: concept
+weight: 110
 ---
 
 <!-- overview -->
