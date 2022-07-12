@@ -167,7 +167,7 @@ Con esta política en curso, ninguna política(s) adicional puede hacer que se n
 
 ### Denegar por defecto todo el tráfico de salida
 
-Puedes crear una política que "por defecto" aisle el tráfico de salida para un espacio de nombres, creando una NetworkPolicy que seleccione todos los pods pero que no permita ningún tráfico de salida desde esos pods.
+Puedes crear una política que "por defecto" aisle el tráfico de salida para un Namespace, creando una NetworkPolicy que seleccione todos los Pods pero que no permita ningún tráfico de salida desde esos Pods.
 
 {{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
 
