@@ -30,7 +30,7 @@ Las políticas de red son implementadas por el [plugin de red](/docs/concepts/ex
 
 ## Dos Tipos de Aislamiento de Pod
 
-Hay dos tipos de aislamiento para un pod: el aislamiento para la salida y el aislamiento para la entrada. Estos se refieren a las conexiones que pueden establecerse. El término "Aislamiento" en el contexto de este documento no es absoluto, sino que significa "se aplican algunas restricciones".  La alternativa, "no aislado para $dirección", significa que no se aplican restricciones en la dirección descrita.  Los dos tipos de aislamiento (o no) se declaran independientemente, y ambos son relevantes para una conexión de un pod a otro.
+Hay dos tipos de aislamiento para un Pod: el aislamiento para la salida y el aislamiento para la entrada. Estos se refieren a las conexiones que pueden establecerse. El término "Aislamiento" en el contexto de este documento no es absoluto, sino que significa "se aplican algunas restricciones".  La alternativa, "no aislado para $dirección", significa que no se aplican restricciones en la dirección descrita.  Los dos tipos de aislamiento (o no) se declaran independientemente, y ambos son relevantes para una conexión de un Pod a otro.
 
 Por defecto, un pod no está aislado para la salida; todas las conexiones salientes están permitidas. Un pod está aislado para la salida si hay alguna NetworkPolicy con "Egress" en su `policyTypes` que seleccione el pod; decimos que tal política se aplica al pod para la salida. Cuando un pod está aislado para la salida, las únicas conexiones permitidas desde el pod son las permitidas por la lista `egress` de las NetworkPolicy que se aplique al pod para la salida. Los valores de esas listas `egress` se combinan de forma aditiva.
 
