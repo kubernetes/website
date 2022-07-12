@@ -284,5 +284,5 @@ A día de hoy, en Kubernetes {{< skew currentVersion >}}, la siguiente funcional
 
 ## {{% heading "whatsnext" %}}
 
-- Leer el recorrido de como [Declarar de Políticas de Red](/docs/tasks/administer-clúster/declare-network-policy/) para ver más ejemplos.
+- Leer el artículo de como [Declarar de Políticas de Red](/docs/tasks/administer-clúster/declare-network-policy/) para ver más ejemplos.
 - Ver más [recetas](https://github.com/ahmetb/kubernetes-network-policy-recipes) de escenarios comunes habilitados por los recursos de las NetworkPolicy.
