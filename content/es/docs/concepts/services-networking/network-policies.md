@@ -185,7 +185,7 @@ Con esta política en vigor, ninguna política(s) adicional puede hacer que se n
 
 ### Denegar por defecto todo el tráfico de entrada y de salida
 
-Puede crear una política que "por defecto" en un espacio de nombres impida todo el tráfico de entrada Y de salida creando la siguiente NetworkPolicy en ese espacio de nombres.
+Puede crear una política que "por defecto" en un Namespace impida todo el tráfico de entrada y de salida creando la siguiente NetworkPolicy en ese Namespace.
 
 {{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
 
