@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "认识我们的贡献者 - 亚太地区（澳大利亚-新西兰地区）"
-date: 2022-03-16T12:00:00+0000
+date: 2022-03-16
 slug: meet-our-contributors-au-nz-ep-02
 canonicalUrl: https://www.kubernetes.dev/blog/2022/03/14/meet-our-contributors-au-nz-ep-02/
 ---
