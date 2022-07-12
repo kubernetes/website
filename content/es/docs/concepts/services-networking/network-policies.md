@@ -84,7 +84,7 @@ Ver el recorrido de [Declarar Network Policy](/docs/tasks/administer-clúster/de
 
 ## Comportamiento de los selectores `to` y `from`
 
-Existen cuatro tipos de selectores que pueden ser especificados en una sección de `ingress` `from`  or en una sección de `egress` `to`:
+Existen cuatro tipos de selectores que pueden ser especificados en una sección de `ingress` `from` o en una sección de `egress` `to`:
 
 __podSelector__: Este selector selecciona Pods específicos en el mismo espacio de nombres que la NetworkPolicy para permitir el tráfico como fuente de entrada o destino de salida.
 
