@@ -74,7 +74,7 @@ Por lo tanto, la NetworkPolicy de ejemplo:
 1. Aísla los Pods "role=db" en el Namespace "default" para ambos tipos de tráfico ingress y egress (si ellos no están aún aislados)
 2. (Reglas Ingress) permite la conexión hacia todos los Pods en el Namespace "default" con el label "role=db" en el puerto TCP 6379 desde los siguientes orígenes:
 
-  * cualquier pod en el "default" namespace con el label "role=frontend"
+  * cualquier Pod en el Namespace "default" con el label "role=frontend"
   * cualquier pod en un namespace con el label "project=myproject"
   * La dirección IP en los rangos 172.17.0.0–172.17.0.255 y 172.17.2.0–172.17.255.255 (por ejemplo, todo el rango de IPs de 172.17.0.0/16 con excepción del 172.17.1.0/24)
 3. (Egress rules) permite conexión desde cualquier Pod en el Namespace "default" con el label "role=db" hacia CIDR 10.0.0.0/24 en el puerto TCP 5978
