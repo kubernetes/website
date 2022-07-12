@@ -234,7 +234,7 @@ spec:
       endPort: 32768
 ```
 
-La regla anterior permite que cualquier Pod con la etiqueta `role=db` en el espacio de nombres `default` se comunique 
+La regla anterior permite que cualquier Pod con la etiqueta `role=db` en el Namespace `default` se comunique 
 con cualquier IP dentro del rango `10.0.0.0/24` sobre el protocolo TCP, siempre que el puerto 
 esté entre el rango 32000 y 32768.
 
