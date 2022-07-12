@@ -271,7 +271,7 @@ parser/metadecoders/decoder.go:32:2: gopkg.in/yaml.v2@v2.4.0: Get "https://proxy
 The command '/bin/sh -c mkdir $HOME/src &&     cd $HOME/src &&     curl -L https://github.com/gohugoio/hugo/archive/refs/tags/v${HUGO_VERSION}.tar.gz | tar -xz &&     cd "hugo-${HUGO_VERS    ION}" &&     go install --tags extended' returned a non-zero code: 1
 make: *** [Makefile:69：container-image] 错误 1
 ```
-请修改 `Dockerfile` 文件，添加代理，修改内容如下：
+请修改 `Dockerfile` 文件，为其添加网络代理。修改内容如下：
 ```shell
 FROM golang:1.18-alpine
 
