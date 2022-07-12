@@ -162,7 +162,7 @@ Si tu quieres permitir todo el tráfico de entrada a todos los Pods en un nombre
 
 {{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
 
-Con esta política en curso, ninguna política o políticas adicionales pueden hacer que se deniegue cualquier conexión entrante a esos pods. Esta política no tiene efecto sobre el aislamiento del tráfico de salida de cualquier pod.
+Con esta política en curso, ninguna política(s) adicional puede hacer que se niegue cualquier conexión entrante a esos Pods. Esta política no tiene efecto sobre el aislamiento del tráfico de salida de cualquier Pod.
 
 
 ### Denegar por defecto todo el tráfico de salida
