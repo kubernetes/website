@@ -153,7 +153,7 @@ Puedes crear una política que "por defecto" aisle a un espacio de nombres del t
 
 {{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
 
-Esto asegura que incluso los Pods que no están seleccionados por ninguna otra NetworkPolicy también serán aislados del tráfico de entrada. Esta política no afecta el aislamiento en el tráfico de salida desde cualquier Pods. 
+Esto asegura que incluso los Pods que no están seleccionados por ninguna otra NetworkPolicy también serán aislados del tráfico de entrada. Esta política no afecta el aislamiento en el tráfico de salida desde cualquier Pod. 
 
 
 ### Permitir todo el tráfico de entrada
