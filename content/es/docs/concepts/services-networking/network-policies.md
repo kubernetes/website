@@ -176,7 +176,7 @@ Esto asegura que incluso los Pods que no son seleccionados por ninguna otra Netw
 
 ### Permitir todo el tráfico de salida
 
-Si quieres permitir todas las conexiones desde todos los pods de un espacio de nombres, puede crear una política que permita explícitamente todas las conexiones salientes de los pods de ese espacio de nombres.
+Si quieres permitir todas las conexiones desde todos los Pods de un Namespace, puedes crear una política que permita explícitamente todas las conexiones salientes de los Pods de ese Namespace.
 
 {{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
 
