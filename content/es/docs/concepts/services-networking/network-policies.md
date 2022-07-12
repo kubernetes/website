@@ -71,7 +71,7 @@ __egress__: Cada NetworkPolicy puede incluir una lista de reglas de `egress` per
 
 Por lo tanto, la NetworkPolicy de ejemplo:
 
-1. Aísla los pods "role=db" en el "default" namespace para ambos tipos de tráfico ingress y egress (si ellos no están aún aislados)
+1. Aísla los Pods "role=db" en el Namespace "default" para ambos tipos de tráfico ingress y egress (si ellos no están aún aislados)
 2. (Reglas Ingress) permite la conexión hacia todos los Pods en el Namespace "default" con el label "role=db" en el puerto TCP 6379 desde los siguientes orígenes:
 
   * cualquier pod en el "default" namespace con el label "role=frontend"
