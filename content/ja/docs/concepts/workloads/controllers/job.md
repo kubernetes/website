@@ -210,7 +210,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
 
  _ワークキュー_ 並列Jobの場合、`.spec.completions`を未設定のままにし、`.spec.parallelism`を非負の整数に設定する必要があります。
 
-各種類Jobの利用方法の詳細については、[Jobパターン](#job-patterns)セクションを参照してください。
+各種類のJobの使用方法の詳細については、[Jobパターン](#job-patterns)セクションを参照してください。
 
 #### 並列処理の制御  {#controlling-parallelism}
 
