@@ -212,7 +212,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
 
 各種類Jobの利用方法の詳細については、[Jobパターン](#job-patterns)セクションを参照してください。
 
-#### 並列処理の制御
+#### 並列処理の制御  {#controlling-parallelism}
 
 必要並列数(`.spec.parallelism`)は任意の非負の値に設定できます。
 未設定の場合は、デフォルトで1になります。
@@ -228,7 +228,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
 - 同じJobでのPod障害が多すぎる場合、Jobコントローラーは新しいPodの作成を抑制する可能性はあります。
 - Podがグレースフルシャットダウンされた場合、停止するのに時間がかかります。
 
-### 完了モード
+### 完了モード  {#completion-mode}
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
@@ -244,7 +244,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
   インデックスごとに、成功したPodが一つ存在すると、Jobの完了となります。完了モードの使用方法の詳細については、
   [静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/ja/docs/tasks/job/indexed-parallel-processing-static/)を参照してください。めったに発生しませんが、同じインデックスを取得して稼働し始めるPodも存在する可能性があります。ただし、完了数にカウントされるのはそのうちの一つだけです。
 
-## Podとコンテナの障害対策
+## Podとコンテナの障害対策  {#handling-pod-and-container-failures}
 
 Pod内のコンテナは、その中のプロセスは0以外の終了コードで終了した、またはメモリ制限を超えたためにコンテナは強制終了されたなど、様々な理由で失敗することがあります。この場合、もし`.spec.template.spec.restartPolicy = "OnFailure"`と設定すると、Podはノード上に残りますが、コンテナは再実行されます。そのため、プログラムがローカルで再起動した場合の処理を行うか、`.spec.template.spec.restartPolicy = "Never"`と指定する必要があります。
 `restartPolicy`の詳細については[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)を参照してください。
@@ -255,7 +255,7 @@ Podがノードからキックされた（ノードがアップグレード、�
 
 `.spec.parallelism`と`.spec.completions`を両方とも2以上指定した場合、複数のPodが同時に実行される可能性があります。そのため、Podは並行処理を行えるようにする必要があります。
 
-### Pod失敗のバックオフポリシー
+### Pod失敗のバックオフポリシー  {#pod-backoff-failure-policy}
 
 設定の論理エラーなどにより、Jobが数回再試行しても失敗するとそのまま終了状態に進んでほしい場合があります。`.spec.backoffLimit`を設定すると、失敗したと判断するまでの再試行回数を指定できます。バックオフ制限はデフォルトで6に設定されています。Jobに属する失敗したPodはJobコントローラーにより再作成され、バックオフ遅延は指数関数的に増加し（10秒、20秒、40秒…）、最大6分まで増加します。Jobに属するPodが削除された場合、または一つのPodが成功した時に、同じJobに属する他のPodがその時点で失敗していない場合に、バックオフ数はリセットされます。
 
@@ -263,25 +263,22 @@ Podがノードからキックされた（ノードがアップグレード、�
 `restartPolicy = "OnFailure"`が設定されたJobはバックオフ制限に達すると、属するPodは全部終了されるので注意してください。しかし、Jobの実行ファイルのデバッグ作業がこれにより難しくなる可能性はありますので、失敗したJobからの出力が不注意で失われないように、Jobのデバッグ作業やロギングシステムを使用する場合、`restartPolicy = "Never"`と設定するほうがオススメです。
 {{< /note >}}
 
-## Job termination and cleanup
+## Jobの終了と後片付け  {#job-termination-and-cleanup}
 
-When a Job completes, no more Pods are created, but the Pods are [usually](#pod-backoff-failure-policy) not deleted either.
-Keeping them around
-allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
-The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
-old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
+Jobが完了すると、それ以上Podは作成されませんが、[通常](#pod-backoff-failure-policy)Podが削除されることもありません。
+これらを残しておくと、完了したPodのログを確認でき、エラーや警告などの診断出力を確認できます。
+またJobオブジェクトはJob終了後も残し、状態を確認することができます。古いJobの状態を把握した上で、削除するかどうかはユーザー次第です。Jobを削除するには`kubectl` (例：`kubectl delete jobs/pi`または`kubectl delete -f ./job.yaml`)を使います。`kubectl`でJobを削除する場合、Jobが作成したPodも全部削除されます。
 
-By default, a Job will run uninterrupted unless a Pod fails (`restartPolicy=Never`) or a Container exits in error (`restartPolicy=OnFailure`), at which point the Job defers to the
-`.spec.backoffLimit` described above. Once `.spec.backoffLimit` has been reached the Job will be marked as failed and any running Pods will be terminated.
+デフォルトでは、Jobは中断されることなく実行できますが、Podが失敗した場合(`restartPolicy=Never`)、またはコンテナがエラーで終了した場合(`restartPolicy=OnFailure`)のみ、前述の`.spec.backoffLimit`で決まった回数まで再試行します。`.spec.backoffLimit`に達すると、Jobが失敗とマークされ、実行中のPodもすべて終了されます。
 
-Another way to terminate a Job is by setting an active deadline.
-Do this by setting the `.spec.activeDeadlineSeconds` field of the Job to a number of seconds.
-The `activeDeadlineSeconds` applies to the duration of the job, no matter how many Pods are created.
-Once a Job reaches `activeDeadlineSeconds`, all of its running Pods are terminated and the Job status will become `type: Failed` with `reason: DeadlineExceeded`.
+Jobを終了させるもう一つの方法は、活動期間を設定することです。
+Jobの`.spec.activeDeadlineSeconds`フォールドに秒数を設定することで、活動期間を設定できます。
+Podがいくつ作成されても、`activeDeadlineSeconds`はJobの存続する時間に適用されます。
+Jobが`activeDeadlineSeconds`に達すると、実行中のすべてのPodは終了され、Jobの状態は`type: Failed`になり、理由は`reason: DeadlineExceeded`になります。
 
-Note that a Job's `.spec.activeDeadlineSeconds` takes precedence over its `.spec.backoffLimit`. Therefore, a Job that is retrying one or more failed Pods will not deploy additional Pods once it reaches the time limit specified by `activeDeadlineSeconds`, even if the `backoffLimit` is not yet reached.
+ここで要注意なのは、Jobの`.spec.activeDeadlineSeconds`は`.spec.backoffLimit`よりも優先されます。したがって、失敗して再試行しているPodが一つ以上持っているJobは、`backoffLimit`に達していなくても、`activeDeadlineSeconds`で指定された設定時間に達すると、追加のPodをデプロイしなくなります。
 
-Example:
+例えば:
 
 ```yaml
 apiVersion: batch/v1
@@ -300,35 +297,25 @@ spec:
       restartPolicy: Never
 ```
 
-Note that both the Job spec and the [Pod template spec](/docs/concepts/workloads/pods/init-containers/#detailed-behavior) within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
+Job仕様と、Jobに属する[Podテンプレートの仕様](/ja/docs/concepts/workloads/pods/init-containers/#detailed-behavior)は両方とも`activeDeadlineSeconds`フィールドを持っているので注意してください。適切なレベルで設定していることを確認してください。
 
-Keep in mind that the `restartPolicy` applies to the Pod, and not to the Job itself: there is no automatic Job restart once the Job status is `type: Failed`.
-That is, the Job termination mechanisms activated with `.spec.activeDeadlineSeconds` and `.spec.backoffLimit` result in a permanent Job failure that requires manual intervention to resolve.
+また`restartPolicy`はJob自体ではなく、Podに適用されることも注意してください: Jobの状態は`type: Failed`になると、自動的再起動されることはありません。
+つまり、`.spec.activeDeadlineSeconds`と`.spec.backoffLimit`によって引き起こされるJob終了メカニズムは、永久的なJob失敗につながり、手動で介入して解決する必要があります。
 
-## Clean up finished jobs automatically
+## 終了したJobの自動片付け  {#clean-up-finished-jobs-automatically}
 
-Finished Jobs are usually no longer needed in the system. Keeping them around in
-the system will put pressure on the API server. If the Jobs are managed directly
-by a higher level controller, such as
-[CronJobs](/docs/concepts/workloads/controllers/cron-jobs/), the Jobs can be
-cleaned up by CronJobs based on the specified capacity-based cleanup policy.
+終了したJobは通常システムに残す必要はありません。残ったままにしておくとAPIサーバーに負担をかけることになります。Jobが上位コントローラーにより直接管理されている場合、例えば[CronJobs](/ja/docs/concepts/workloads/controllers/cron-jobs/)の場合、Jobは指定された容量ベースの片付けポリシーに基づき、CronJobにより片付けられます。
 
-### TTL mechanism for finished Jobs
+### 終了したJobのTTLメカニズム  {#ttl-mechanism-for-finished-jobs}
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-Another way to clean up finished Jobs (either `Complete` or `Failed`)
-automatically is to use a TTL mechanism provided by a
-[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
-finished resources, by specifying the `.spec.ttlSecondsAfterFinished` field of
-the Job.
+終了したJob(状態は`Complete`か`Failed`になったJob)を自動的に片付けるもう一つの方法は
+[TTLコントローラー](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)より提供されたTTLメカニズムです。`.spec.ttlSecondsAfterFinished`フィールドを指定することで、終了したリソースを片付けることができます。
 
-When the TTL controller cleans up the Job, it will delete the Job cascadingly,
-i.e. delete its dependent objects, such as Pods, together with the Job. Note
-that when the Job is deleted, its lifecycle guarantees, such as finalizers, will
-be honored.
+TTLコントローラーでJobを片付ける場合、Jobはカスケード的に削除されます。つまりJobを削除する際に、Jobに属しているオブジェクト、例えばPodなども一緒に削除されます。Jobが削除される場合、Jobのライフサイクル保証、例えばFinalizersなど、は考えられるので注意してください。
 
-For example:
+例えば:
 
 ```yaml
 apiVersion: batch/v1
@@ -346,117 +333,80 @@ spec:
       restartPolicy: Never
 ```
 
-The Job `pi-with-ttl` will be eligible to be automatically deleted, `100`
-seconds after it finishes.
+Job`pi-with-ttl`は終了してからの`100`秒後に自動的に削除されるようになっています。
 
-If the field is set to `0`, the Job will be eligible to be automatically deleted
-immediately after it finishes. If the field is unset, this Job won't be cleaned
-up by the TTL controller after it finishes.
+このフィールドに`0`を設定すると、Jobは終了後すぐに削除されるようになります。このフィールドに何も設定しないと、Jobは終了してもTTLコントローラーより片付けられません。
 
 {{< note >}}
-It is recommended to set `ttlSecondsAfterFinished` field because unmanaged jobs
-(Jobs that you created directly, and not indirectly through other workload APIs
-such as CronJob) have a default deletion
-policy of `orphanDependents` causing Pods created by an unmanaged Job to be left around
-after that Job is fully deleted.
-Even though the {{< glossary_tooltip text="control plane" term_id="control-plane" >}} eventually
-[garbage collects](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
-the Pods from a deleted Job after they either fail or complete, sometimes those
-lingering pods may cause cluster performance degradation or in worst case cause the
-cluster to go offline due to this degradation.
+`ttlSecondsAfterFinished`フィールドを設定することが推奨されます。管理されていないJob(CronJobなどの、他のワークロードAPIを経由せずに、直接作成したJob)は`orphanDependents`というデフォルトの削除ポリシーがあるため、Jobが完全に削除されても、属しているPodが残ってしまうからです。
+{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}は最終的に、失敗または完了して削除されたJobに属するPodを[ガベージコレクション](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)しますが、Podが残っていると、クラスタのパフォーマンスが低下することがあり、最悪の場合、この低下によりクラスタがオフラインになることがあります。
 
-You can use [LimitRanges](/docs/concepts/policy/limit-range/) and
-[ResourceQuotas](/docs/concepts/policy/resource-quotas/) to place a
-cap on the amount of resources that a particular namespace can
-consume.
+[LimitRanges](/ja/docs/concepts/policy/limit-range/)と[リソースクォータ](/ja/docs/concepts/policy/resource-quotas/)で、指定する名前空間が消費できるリソースの量に上限を設定することができます。
 {{< /note >}}
 
 
 ## Jobパターン  {#job-patterns}
 
-The Job object can be used to support reliable parallel execution of Pods.  The Job object is not
-designed to support closely-communicating parallel processes, as commonly found in scientific
-computing.  It does support parallel processing of a set of independent but related *work items*.
-These might be emails to be sent, frames to be rendered, files to be transcoded, ranges of keys in a
-NoSQL database to scan, and so on.
+Jobオブジェクトは、Podの確実な並列実行をサポートするために使用されます。科学技術計算でよく見られるような、密接に通信を行う並列処理をサポートするようには設計されていません。独立だが関連性のある一連の*作業項目*の並列処理をサポートします。例えば送信すべき電子メール、レンダリングすべきフレーム、トランスコードすべきファイル、スキャンすべきNoSQLデータベースのキーの範囲、などなどです。
 
-In a complex system, there may be multiple different sets of work items.  Here we are just
-considering one set of work items that the user wants to manage together &mdash; a *batch job*.
+複雑なシステムでは、異なる作業項目のセットが複数存在する場合があります。ここでは、ユーザーが一斉に管理したい作業項目のセットが一つだけの場合 &mdash; つまり*バッチJob*だけを考えます。
 
-There are several different patterns for parallel computation, each with strengths and weaknesses.
-The tradeoffs are:
+並列計算にはいくつかのパターンがあり、それぞれに長所と短所があります。
+兼ね合うべき要素は:
 
-- One Job object for each work item, vs. a single Job object for all work items.  The latter is
-  better for large numbers of work items.  The former creates some overhead for the user and for the
-  system to manage large numbers of Job objects.
-- Number of pods created equals number of work items, vs. each Pod can process multiple work items.
-  The former typically requires less modification to existing code and containers.  The latter
-  is better for large numbers of work items, for similar reasons to the previous bullet.
-- Several approaches use a work queue.  This requires running a queue service,
-  and modifications to the existing program or container to make it use the work queue.
-  Other approaches are easier to adapt to an existing containerised application.
+- 各作業項目に1つのJobオブジェクト、 vs. すべての作業項目に1つのJobオブジェクト。  
+　後者は大量の作業項目を処理する場合に適しています。  
+　前者は大量のJobオブジェクトを管理するため、ユーザーとシステムにオーバーヘッドをかけることになります。
+- 作成されるPod数が作業項目数と等しい、 vs. 各Podが複数の作業項目を処理する。
+　前者は通常、既存のコードやコンテナへの変更が少なくて済みます。
+  後者は上記と同じ理由で、大量の作業項目を処理する場合に適しています。
+- ワークキューを利用するアプローチもいくつかあります。それを使うためには、キューサービスを実行し、　既存のプログラムやコンテナにワークキューを利用させるための改造を行う必要があります。
+  他のアプローチは既存のコンテナ型アプリケーションに適用しやすいです。
 
 
-The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
-The pattern names are also links to examples and more detailed description.
+ここでは、上記のトレードオフをまとめてあり、それぞれ2～4列目に対応しています。
+またパターン名のところは、例やより詳しい説明が書いてあるページへのリンクになっています。
 
-|                  Pattern                  | Single Job object | Fewer pods than work items? | Use app unmodified? |
+|                  パターン                  | 単一Jobオブジェクト | Podが作業項目より少ない？ | アプリを修正せずに使用できる？ |
 | ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
-| [Queue with Pod Per Work Item]            |         ✓         |                             |      sometimes      |
-| [Queue with Variable Pod Count]           |         ✓         |             ✓               |                     |
-| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          | 
-| [Job Template Expansion]                  |                   |                             |          ✓          |
+| [作業項目ごとにPodを持つキュー]            |         ✓         |                             |      時々      |
+| [Pod数可変のキュー]           |         ✓         |             ✓               |                     |
+| [静的な処理の割り当てを使用したインデックス付きJob] |         ✓         |                             |          ✓          | 
+| [Jobテンプレート拡張]                  |                   |                             |          ✓          |
 
-When you specify completions with `.spec.completions`, each Pod created by the Job controller
-has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
-all pods for a task will have the same command line and the same
-image, the same volumes, and (almost) the same environment variables.  These patterns
-are different ways to arrange for pods to work on different things.
+`.spec.completions`で完成数を指定する場合、Jobコントローラーより作成された各Podは同一の[`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)を持ちます。これは、このタスクのすべてのPodが同じコマンドライン、同じイメージ、同じボリューム、そして(ほぼ)同じ環境変数を持つことを意味します。これらのパターンは、Podが異なる作業をするためのさまざまな配置方法になります。
 
-This table shows the required settings for `.spec.parallelism` and `.spec.completions` for each of the patterns.
-Here, `W` is the number of work items.
+この表は、各パターンで必要な`.spec.parallelism`と`.spec.completions`の設定を示しています。
+ここで、`W`は作業項目の数を表しています。
 
-|             Pattern                       | `.spec.completions` |  `.spec.parallelism` |
+|             パターン                       | `.spec.completions` |  `.spec.parallelism` |
 | ----------------------------------------- |:-------------------:|:--------------------:|
-| [Queue with Pod Per Work Item]            |          W          |        any           |
-| [Queue with Variable Pod Count]           |         null        |        any           |
-| [Indexed Job with Static Work Assignment] |          W          |        any           |
-| [Job Template Expansion]                  |          1          |     should be 1      |
+| [作業項目ごとにPodを持つキュー]            |          W          |        任意           |
+| [Pod数可変のキュー]           |         null        |        任意           |
+| [静的な処理の割り当てを使用したインデックス付きJob] |          W          |        任意           |
+| [Jobテンプレート拡張]                  |          1          |     1であるべき      |
 
-[Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
-[Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
-[Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
-[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
+[作業項目ごとにPodを持つキュー]: /docs/tasks/job/coarse-parallel-processing-work-queue/
+[Pod数可変のキュー]: /docs/tasks/job/fine-parallel-processing-work-queue/
+[静的な処理の割り当てを使用したインデックス付きJob]: /ja/docs/tasks/job/indexed-parallel-processing-static/
+[Jobテンプレート拡張]: /docs/tasks/job/parallel-processing-expansion/
 
-## Advanced usage
+## 上級な使用方法  {#advanced-usage}
 
-### Suspending a Job
+### Jobの一時停止  {#suspending-a-job}
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-When a Job is created, the Job controller will immediately begin creating Pods
-to satisfy the Job's requirements and will continue to do so until the Job is
-complete. However, you may want to temporarily suspend a Job's execution and
-resume it later, or start Jobs in suspended state and have a custom controller
-decide later when to start them.
+Jobが作成されると、JobコントローラーはJobの要件を満たすために直ちにPodの作成を開始し、Jobが完了するまで作成し続けます。しかし、Jobの実行を一時的に中断して後で再開したい場合、または一時停止状態のJobを再開し、再開時間は後でカスタムコントローラーに判断させたい場合はあると思います。
 
-To suspend a Job, you can update the `.spec.suspend` field of
-the Job to true; later, when you want to resume it again, update it to false.
-Creating a Job with `.spec.suspend` set to true will create it in the suspended
-state.
+Jobを一時停止するには、Jobの`.spec.suspend`フィールドをtrueに修正し、後でまた再開したい場合にはfalseに修正すればいいです。
+`.spec.suspend`をtrueに設定してJobを作成すると、一時停止状態のままで作成されます。
 
-When a Job is resumed from suspension, its `.status.startTime` field will be
-reset to the current time. This means that the `.spec.activeDeadlineSeconds`
-timer will be stopped and reset when a Job is suspended and resumed.
+一時停止状態のJobを再開すると、`.status.startTime`フィールドの値は現在時刻にリセットされます。これはつまり、Jobが一時停止して再開すると、`.spec.activeDeadlineSeconds`タイマーは停止してリセットされることになります。
 
-Remember that suspending a Job will delete all active Pods. When the Job is
-suspended, your [Pods will be terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
-with a SIGTERM signal. The Pod's graceful termination period will be honored and
-your Pod must handle this signal in this period. This may involve saving
-progress for later or undoing changes. Pods terminated this way will not count
-towards the Job's `completions` count.
+Jobを中断すると、稼働中のPodは全部削除されることを忘れないでください。Jobが中断されると、PodはSIGTERM信号を受信して[終了されます](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。Podのグレースフル終了の猶予期間がカウントダウンされ、この期間内に、Podはこの信号を処理しなければなりません。場合により、プロセスの保存や、操作の取り消しなどの処理が含まれます。この方法で終了したPodは`completions`数にカウントされません。
 
-An example Job definition in the suspended state can be like so:
+下記は一時停止状態のままで作成されたJobの定義例になります:
 
 ```shell
 kubectl get job myjob -o yaml
@@ -476,8 +426,7 @@ spec:
       ...
 ```
 
-The Job's status can be used to determine if a Job is suspended or has been
-suspended in the past:
+Jobのstatusセクションで、Jobが停止中なのか、過去に停止したことがあるかを判断できます:
 
 ```shell
 kubectl get jobs/myjob -o yaml
@@ -496,13 +445,9 @@ status:
   startTime: "2021-02-05T13:13:48Z"
 ```
 
-The Job condition of type "Suspended" with status "True" means the Job is
-suspended; the `lastTransitionTime` field can be used to determine how long the
-Job has been suspended for. If the status of that condition is "False", then the
-Job was previously suspended and is now running. If such a condition does not
-exist in the Job's status, the Job has never been stopped.
+Jobのcondition.typeが"Suspended"で、statusが"True"になった場合、Jobは一時停止中になります。`lastTransitionTime`フィールドで、どのぐらい中断されたかを判断できます。statusが"False"になった場合、Jobは一時停止状態でしたが、今は実行されていることになります。conditionが書いていない場合、Jobは一度も停止していないことになります。
 
-Events are also created when the Job is suspended and resumed:
+Jobが一時停止して再開した場合、Eventsも作成されます:
 
 ```shell
 kubectl describe jobs/myjob
@@ -521,12 +466,9 @@ Events:
   Normal  Resumed           3s    job-controller  Job resumed
 ```
 
-The last four events, particularly the "Suspended" and "Resumed" events, are
-directly a result of toggling the `.spec.suspend` field. In the time between
-these two events, we see that no Pods were created, but Pod creation restarted
-as soon as the Job was resumed.
+最後の4つのイベント、特に"Suspended"と"Resumed"のイベントは、`.spec.suspend`フィールドの値が変更されまくったために発生したものになります。この2つのイベントの間に、Podは作成されていないですが、Jobが再開された瞬間に、Podの作成も再開されました。
 
-### Mutable Scheduling Directives
+### Mutable Scheduling Directives  {#mutable-scheduling-directives}
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
@@ -552,7 +494,7 @@ been unsuspended before.
 The fields in a Job's pod template that can be updated are node affinity, node selector, 
 tolerations, labels and annotations.
 
-### Specifying your own Pod selector　｛#specifying-your-own-pod-selector｝
+### Specifying your own Pod selector  {#specifying-your-own-pod-selector}
 
 Normally, when you create a Job object, you do not specify `.spec.selector`.
 The system defaulting logic adds this field when the Job is created.
@@ -621,7 +563,7 @@ The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010
 `manualSelector: true` tells the system that you know what you are doing and to allow this
 mismatch.
 
-### Job tracking with finalizers
+### Job tracking with finalizers  {#job-tracking-with-finalizers}
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
@@ -662,16 +604,16 @@ controller is tracking a Job using Pod finalizers by checking if the Job has the
 annotation `batch.kubernetes.io/job-tracking`. You should **not** manually add
 or remove this annotation from Jobs.
 
-## Alternatives
+## Alternatives  {#alternatives}
 
-### Bare Pods
+### Bare Pods  {#bare-pods}
 
 When the node that a Pod is running on reboots or fails, the pod is terminated
 and will not be restarted.  However, a Job will create new Pods to replace terminated ones.
 For this reason, we recommend that you use a Job rather than a bare Pod, even if your application
 requires only a single Pod.
 
-### Replication Controller
+### Replication Controller  {#replication-controller}
 
 Jobs are complementary to [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/).
 A Replication Controller manages Pods which are not expected to terminate (e.g. web servers), and a Job
@@ -681,7 +623,7 @@ As discussed in [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/), `
 for pods with `RestartPolicy` equal to `OnFailure` or `Never`.
 (Note: If `RestartPolicy` is not set, the default value is `Always`.)
 
-### Single Job starts controller Pod
+### Single Job starts controller Pod  {#single-job-starts-controller-pod}
 
 Another pattern is for a single Job to create a Pod which then creates other Pods, acting as a sort
 of custom controller for those Pods.  This allows the most flexibility, but may be somewhat
