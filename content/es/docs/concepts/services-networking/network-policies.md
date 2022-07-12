@@ -17,7 +17,7 @@ Las entidades con las que un Pod puede comunicarse son de una combinación de es
 2. Namespaces permitidos
 3. Bloqueos de IP (excepción: el tráfico hacia y desde el nodo donde se ejecuta un Pod siempre está permitido, independientemente de la dirección IP del Pod o del nodo)
 
-Cuando se define una NetworkPolicy basada en pods o espacios de nombres, se utiliza un {{< glossary_tooltip text="selector" term_id="selector">}} para especificar qué tráfico se permite desde y hacia los Pod(s) que coinciden con el selector.
+Cuando se define una NetworkPolicy basada en Pods o Namespaces, se utiliza un {{< glossary_tooltip text="Selector" term_id="selector">}} para especificar qué tráfico se permite desde y hacia los Pod(s) que coinciden con el selector.
 
 Por otro lado, cuando se crean NetworkPolicies basadas en IP, se definen políticas basadas en bloques de IP (rangos CIDR).
 
