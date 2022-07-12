@@ -263,7 +263,7 @@ El plano de control de Kubernetes establece una etiqueta inmutable `kubernetes.i
 Namespaces, siempre que se haya habilitado la [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `NamespaceDefaultLabelName`.
 El valor de la etiqueta es el nombre del Namespace.
 
-Aunque NetworkPolicy no puede apuntar a un espacio de nombres por su nombre con algún campo de objeto, puede utilizar la etiqueta estandarizada para apuntar a un espacio de nombres específico.
+Aunque NetworkPolicy no puede apuntar a un Namespace por su nombre con algún campo de objeto, puede utilizar la etiqueta estandarizada para apuntar a un Namespace específico.
 
 
  ## Que no puedes hacer con políticas de red (al menos, no aún)
