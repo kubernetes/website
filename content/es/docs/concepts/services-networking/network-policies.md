@@ -144,7 +144,7 @@ IPs externas al clúster pueden o no estar sujetas a políticas basadas en `ipBl
 
 ## Políticas por defecto
 
-Por defecto, si no existen políticas en un espacio de nombres, se permite todo el tráfico de entrada y salida hacia y desde los pods de ese espacio de nombres. Los siguientes ejemplos muestran cómo cambiar el comportamiento por defecto en ese espacio de nombres.
+Por defecto, si no existen políticas en un Namespace, se permite todo el tráfico de entrada y salida hacia y desde los Pods de ese Namespace. Los siguientes ejemplos muestran cómo cambiar el comportamiento por defecto en ese Namespace.
 
 
 ### Denegar todo el tráfico de entrada por defecto
