@@ -67,7 +67,7 @@ __policyTypes__: Cada NetworkPolicy incluye una lista de `policyTypes` la cual p
 
 __ingress__: Cada NetworkPolicy puede incluir una lista de reglas `ingress` permitidas. Cada regla permite el tráfico con que se relaciona a ambos valores de las secciones de `from` y `ports`. La política de ejemplo contiene una única regla, la cual se relaciona con el tráfico sobre un solo puerto, desde uno de los tres orígenes definidos, el primero especificado por el valor `ipBlock`, el segundo especificado por el valor `namespaceSelector` y el tercero especificado por el `podSelector`.
 
-__egress__: Cada NetworkPolicy puede incluir una lista de reglas de `egress` permitidas. Cada regla permite el tráfico con que se corresponda a ambos valores de las secciones de `to` and `ports`. La política de ejemplo contiene una única regla, la cual se corresponde con el tráfico en un único puerto para cualquier destino en el rango de IPs `10.0.0.0/24`.
+__egress__: Cada NetworkPolicy puede incluir una lista de reglas de `egress` permitidas. Cada regla permite el tráfico con que se relaciona a ambos valores de las secciones de `to` and `ports`. La política de ejemplo contiene una única regla, la cual se relaciona con el tráfico en un único puerto para cualquier destino en el rango de IPs `10.0.0.0/24`.
 
 Por lo tanto, la NetworkPolicy de ejemplo:
 
