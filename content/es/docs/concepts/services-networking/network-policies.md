@@ -36,7 +36,7 @@ Por defecto, un Pod no está aislado para la salida; todas las conexiones salien
 
 Por defecto, un Pod no está aislado para la entrada; todas las conexiones entrantes están permitidas. Un Pod está aislado para la entrada si hay alguna NetworkPolicy con "Ingress" en su `policyTypes` que seleccione el Pod; decimos que tal política se aplica al Pod para la entrada. Cuando un Pod está aislado para la entrada, las únicas conexiones permitidas en el Pod son las del nodo del Pod y las permitidas por la lista `ingress` de alguna NetworkPolicy que se aplique al pod para la entrada. Los valores de esas listas de direcciones se combinan de forma aditiva.
 
-Las políticas de red no entran en conflicto; son aditivas. Si alguna política o políticas se aplican a un pod para una dirección determinada, las conexiones permitidas en esa dirección desde ese pod es la unión de lo que permiten las políticas aplicables. Por tanto, el orden de evaluación no afecta al resultado de la política.
+Las políticas de red no entran en conflicto; son aditivas. Si alguna política(s) se aplica a un Pod para una dirección determinada, las conexiones permitidas en esa dirección desde ese Pod es la unión de lo que permiten las políticas aplicables. Por tanto, el orden de evaluación no afecta al resultado de la política.
 
 Para que se permita una conexión desde un pod de origen a un pod de destino, tanto la política de salida del pod de origen como la de entrada del pod de destino deben permitir la conexión. Si cualquiera de los dos lados no permite la conexión, ésta no se producirá.
 
