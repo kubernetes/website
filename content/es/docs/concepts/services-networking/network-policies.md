@@ -189,7 +189,7 @@ Puede crear una política que "por defecto" en un espacio de nombres impida todo
 
 {{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
 
-Esto asegura que incluso los pods que no son seleccionados por ninguna otra NetworkPolicy no tendrán permitido el tráfico de entrada o salida.
+Esto asegura que incluso los Pods que no son seleccionados por ninguna otra NetworkPolicy no tendrán permitido el tráfico de entrada o salida.
 
 
 ## Soporte a SCTP 
