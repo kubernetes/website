@@ -86,7 +86,7 @@ Ver el recorrido de [Declarar Network Policy](/docs/tasks/administer-clúster/de
 
 Existen cuatro tipos de selectores que pueden ser especificados en una sección de `ingress` `from` o en una sección de `egress` `to`:
 
-__podSelector__: Este selector selecciona Pods específicos en el mismo espacio de nombres que la NetworkPolicy para permitir el tráfico como fuente de entrada o destino de salida.
+__podSelector__: Este selector selecciona Pods específicos en el mismo Namespace que la NetworkPolicy para permitir el tráfico como origen de entrada o destino de salida.
 
 __namespaceSelector__: Este selector selecciona espacios de nombres específicos para permitir el tráfico como fuente de entrada o destino de salida.
 
