@@ -138,7 +138,7 @@ En el caso de la entrada, esto significa que en algunos casos se pueden filtrar 
 entrantes basándose en la IP de origen real, mientras que en otros casos, la "IP de origen" sobre la que actúa la
 la NetworkPolicy actúa puede ser la IP de un `LoadBalancer` o la IP del Nodo donde este el Pod involucrado, etc.
 
-Para la salida, esto significa que las conexiones de los pods a las IPs de `Service` que se reescriben a
+Para la salida, esto significa que las conexiones de los Pods a las IPs de `Service` que se reescriben a
 IPs externas al clúster pueden o no estar sujetas a políticas basadas en `ipBlock`.
 
 
