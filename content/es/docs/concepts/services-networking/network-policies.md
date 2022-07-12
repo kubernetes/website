@@ -158,7 +158,7 @@ Esto asegura que incluso los Pods que no están seleccionados por ninguna otra N
 
 ### Permitir todo el tráfico de entrada
 
-Si tu quieres permitir todo el tráfico de entrada a todos los Pods en un nombre de espacio, puedes crear una política que explícitamente permita eso.
+Si tu quieres permitir todo el tráfico de entrada a todos los Pods en un Namespace, puedes crear una política que explícitamente permita eso.
 
 {{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
 
