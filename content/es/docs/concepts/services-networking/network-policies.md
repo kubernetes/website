@@ -90,7 +90,7 @@ __podSelector__: Este selector selecciona Pods específicos en el mismo Namespac
 
 __namespaceSelector__: Este selector selecciona Namespaces específicos para permitir el tráfico como origen de entrada o destino de salida.
 
-__namespaceSelector__ *y* __podSelector__: Una única entrada `to`/`from` que especifique tanto `namespaceSelector` como `podSelector` selecciona Pods específicos dentro de espacios de nombres específicos. Tenga cuidado de utilizar la sintaxis YAML correcta. A continuación se muestra un ejemplo de esta política:
+__namespaceSelector__ *y* __podSelector__: Una única entrada `to`/`from` que especifique tanto `namespaceSelector` como `podSelector` selecciona Pods específicos dentro de Namespaces específicos. Tenga cuidado de utilizar la sintaxis de YAML correcta. A continuación se muestra un ejemplo de esta política:
 
 ```yaml
   ...
