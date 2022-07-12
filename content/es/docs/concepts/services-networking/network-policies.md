@@ -77,7 +77,7 @@ Por lo tanto, la NetworkPolicy de ejemplo:
   * cualquier pod en el "default" namespace con el label "role=frontend"
   * cualquier pod en un namespace con el label "project=myproject"
   * La dirección IP en los rangos 172.17.0.0–172.17.0.255 y 172.17.2.0–172.17.255.255 (por ejemplo, todo el rango de IPs de 172.17.0.0/16 con excepción del 172.17.1.0/24)
-3. (Egress rules) permite coneccion desde cualquier pods en el "default" namespace con el label "role=db" hacia CIDR 10.0.0.0/24 en el puerto TCP 5978
+3. (Egress rules) permite conexión desde cualquier Pod en el Namespace "default" con el label "role=db" hacia CIDR 10.0.0.0/24 en el puerto TCP 5978
 
 Ver el recorrido de [Declarar Network Policy](/docs/tasks/administer-clúster/declare-network-policy/) para más ejemplos.
 
