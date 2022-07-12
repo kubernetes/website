@@ -127,7 +127,7 @@ En caso de duda, utilice `kubectl describe` para ver cómo Kubernetes ha interpr
 
 
 <a name="behavior-of-ipblock-selectors"></a>
-__ipBlock__: Este selector selecciona rangos CIDR de IP específicos para permitirlas como fuentes de entrada o destinos de salida. Estas IPs deben ser externas al clúster, ya que las IPs de Pod son efímeras e impredecibles.
+__ipBlock__: Este selector selecciona rangos CIDR de IP específicos para permitirlas como origen de entrada o destino de salida. Estas IPs deben ser externas al clúster, ya que las IPs de Pod son efímeras e impredecibles.
 
 Los mecanismos de entrada y salida del clúster a menudo requieren reescribir la IP de origen o destino
 de los paquetes. En los casos en los que esto ocurre, no está definido si esto ocurre antes o
