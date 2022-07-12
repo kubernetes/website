@@ -38,7 +38,7 @@ Por defecto, un Pod no está aislado para la entrada; todas las conexiones entra
 
 Las políticas de red no entran en conflicto; son aditivas. Si alguna política(s) se aplica a un Pod para una dirección determinada, las conexiones permitidas en esa dirección desde ese Pod es la unión de lo que permiten las políticas aplicables. Por tanto, el orden de evaluación no afecta al resultado de la política.
 
-Para que se permita una conexión desde un pod de origen a un pod de destino, tanto la política de salida del pod de origen como la de entrada del pod de destino deben permitir la conexión. Si cualquiera de los dos lados no permite la conexión, ésta no se producirá.
+Para que se permita una conexión desde un Pod de origen a un Pod de destino, tanto la política de salida del Pod de origen como la de entrada del Pod de destino deben permitir la conexión. Si cualquiera de los dos lados no permite la conexión, ésta no se producirá.
 
 
 ## El Recurso NetworkPolicy {#networkpolicy-resource}
