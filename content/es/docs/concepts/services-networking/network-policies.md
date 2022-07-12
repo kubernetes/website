@@ -180,7 +180,7 @@ Si quieres permitir todas las conexiones desde todos los Pods de un Namespace, p
 
 {{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
 
-Con esta política en vigor, ninguna política o políticas adicionales pueden hacer que se deniegue cualquier conexión de salida desde esos pods. Esta política no tiene efecto sobre el aislamiento para el tráfico de entrada a cualquier pod.
+Con esta política en vigor, ninguna política(s) adicional puede hacer que se niegue cualquier conexión de salida desde esos Pods. Esta política no tiene efecto sobre el aislamiento para el tráfico de entrada a cualquier Pod.
 
 
 ### Denegar por defecto todo el tráfico de entrada y de salida
