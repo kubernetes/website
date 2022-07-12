@@ -171,7 +171,7 @@ Puedes crear una política que "por defecto" aisle el tráfico de salida para un
 
 {{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
 
-Esto asegura que incluso los pods que no son seleccionados por ninguna otra NetworkPolicy no tendrán permitido el tráfico de salida. Esta política no cambia el comportamiento de aislamiento para el tráfico de entrada de ningún pod.
+Esto asegura que incluso los Pods que no son seleccionados por ninguna otra NetworkPolicy no tengan permitido el tráfico de salida. Esta política no cambia el comportamiento de aislamiento para el tráfico de entrada de ningún Pod.
 
 
 ### Permitir todo el tráfico de salida
