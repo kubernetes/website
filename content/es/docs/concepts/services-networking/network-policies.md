@@ -275,7 +275,7 @@ A día de hoy, en Kubernetes {{< skew currentVersion >}}, la siguiente funcional
 - Políticas específicas de los nodos (se puede utilizar la notación CIDR para esto, pero no se puede apuntar a los nodos por sus identidades Kubernetes específicamente).
 - Apuntar Services por nombre (sin embargo, puede orientar los Pods o los Namespaces por su {{< glossary_tooltip text="labels" term_id="label" >}}, lo que suele ser una solución viable).
 - Creación o gestión de "solicitudes de políticas" que son atendidas por un tercero.
-- Políticas que por defecto son aplicadas a todos los espacios de nombres o pods (hay algunas distribuciones y proyectos de Kubernetes de terceros que pueden hacer esto).
+- Políticas que por defecto son aplicadas a todos los Namespaces o Pods (hay algunas distribuciones y proyectos de Kubernetes de terceros que pueden hacer esto).
 - Consulta avanzada de políticas y herramientas de accesibilidad.
 - La capacidad de registrar los eventos de seguridad de la red (por ejemplo, las conexiones bloqueadas o aceptadas).
 - La capacidad de negar explícitamente las políticas (actualmente el modelo para NetworkPolicies es negar por defecto, con sólo la capacidad de añadir reglas de permitir).
