@@ -13,7 +13,7 @@ Si quieres controlar el tráfico de red a nivel de dirección IP o puerto (capa 
 
 Las entidades con las que un Pod puede comunicarse son de una combinación de estos 3 tipos:
 
-1. Otros pods permitidos (excepción: un pod no puede bloquear el acceso a sí mismo)
+1. Otros Pods permitidos (excepción: un Pod no puede bloquear el acceso a sí mismo)
 2. Namespaces permitidos
 3. Bloqueos de IP (excepción: el tráfico hacia y desde el nodo donde se ejecuta un Pod siempre está permitido, independientemente de la dirección IP del Pod o del nodo)
 
