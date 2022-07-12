@@ -260,7 +260,7 @@ la política se aplicará sólo para el campo `port`.
 {{< feature-state for_k8s_version="1.22" state="stable" >}}
 
 El plano de control de Kubernetes establece una etiqueta inmutable `kubernetes.io/metadata.name` en todos los
-espacios de nombre, siempre que se haya habilitado la [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `NamespaceDefaultLabelName`.
+Namespaces, siempre que se haya habilitado la [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `NamespaceDefaultLabelName`.
 El valor de la etiqueta es el nombre del espacio de nombres.
 
 Aunque NetworkPolicy no puede apuntar a un espacio de nombres por su nombre con algún campo de objeto, puede utilizar la etiqueta estandarizada para apuntar a un espacio de nombres específico.
