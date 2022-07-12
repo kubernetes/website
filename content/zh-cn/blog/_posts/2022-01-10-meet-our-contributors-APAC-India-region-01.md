@@ -1,9 +1,9 @@
 ---
 layout: blog
 title: "认识我们的贡献者 - 亚太地区（印度地区）"
-date: 2022-01-10T12:00:00+0000
+date: 2022-01-10
 slug: meet-our-contributors-india-ep-01
-canonicalUrl: https://kubernetes.dev/blog/2022/01/10/meet-our-contributors-india-ep-01/
+canonicalUrl: https://www.kubernetes.dev/blog/2022/01/10/meet-our-contributors-india-ep-01/
 ---
 <!--
 layout: blog
@@ -42,7 +42,7 @@ In this post, we'll introduce you to five amazing folks from the India region wh
 在这篇文章中，我们将向您介绍来自印度地区的五位优秀贡献者，他们一直在以各种方式积极地为上游 Kubernetes 项目做贡献，同时也是众多社区倡议的领导者和维护者。
 
 <!--
-💫 *Let's get started, so without further ado…* 
+💫 *Let's get started, so without further ado…*
 -->
 💫 *闲话少说，我们开始吧。*
 
@@ -80,7 +80,7 @@ Kunal Kushwaha is a core member of the Kubernetes marketing council. He is also 
 Kunal Kushwaha 是 Kubernetes 营销委员会的核心成员。他同时也是 [CNCF 学生计划](https://community.cncf.io/cloud-native-students/) 的创始人之一。他还在 1.22 版本周期中担任通信经理一职。
 
 <!--
-At the end of his first year, Kunal began contributing to the [fabric8io kubernetes-client](https://github.com/fabric8io/kubernetes-client) project. He was then selected to work on the same project as part of Google Summer of Code. Kunal mentored people on the same project, first through Google Summer of Code then through Google Code-in. 
+At the end of his first year, Kunal began contributing to the [fabric8io kubernetes-client](https://github.com/fabric8io/kubernetes-client) project. He was then selected to work on the same project as part of Google Summer of Code. Kunal mentored people on the same project, first through Google Summer of Code then through Google Code-in.
 -->
 在他的第一年结束时，Kunal 开始为 [fabric8io kubernetes-client](https://github.com/fabric8io/kubernetes-client) 项目做贡献。然后，他被推选从事同一项目，此项目是 Google Summer of Code 的一部分。Kunal 在 Google Summer of Code、Google Code-in 等项目中指导过很多人。
 
