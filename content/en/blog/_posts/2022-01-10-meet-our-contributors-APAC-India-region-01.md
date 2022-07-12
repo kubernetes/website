@@ -1,9 +1,9 @@
 ---
 layout: blog
 title: "Meet Our Contributors - APAC (India region)"
-date: 2022-01-10T12:00:00+0000
+date: 2022-01-10
 slug: meet-our-contributors-india-ep-01
-canonicalUrl: https://kubernetes.dev/blog/2022/01/10/meet-our-contributors-india-ep-01/
+canonicalUrl: https://www.kubernetes.dev/blog/2022/01/10/meet-our-contributors-india-ep-01/
 ---
 
 **Authors & Interviewers:** [Anubhav Vardhan](https://github.com/anubha-v-ardhan), [Atharva Shinde](https://github.com/Atharva-Shinde), [Avinesh Tripathi](https://github.com/AvineshTripathi), [Debabrata Panigrahi](https://github.com/Debanitrkl), [Kunal Verma](https://github.com/verma-kunal), [Pranshu Srivastava](https://github.com/PranshuSrivastava), [Pritish Samal](https://github.com/CIPHERTron), [Purneswar Prasad](https://github.com/PurneswarPrasad), [Vedant Kakde](https://github.com/vedant-kakde)
@@ -19,7 +19,7 @@ Welcome to the first episode of the APAC edition of the "Meet Our Contributors" 
 
 In this post, we'll introduce you to five amazing folks from the India region who have been actively contributing to the upstream Kubernetes projects in a variety of ways, as well as being the leaders or maintainers of numerous community initiatives.
 
-💫 *Let's get started, so without further ado…* 
+💫 *Let's get started, so without further ado…*
 
 
 ## [Arsh Sharma](https://github.com/RinkiyaKeDad)
@@ -39,7 +39,7 @@ To the newcomers, Arsh helps plan their early contributions sustainably.
 
 Kunal Kushwaha is a core member of the Kubernetes marketing council. He is also a CNCF ambassador and one of the founders of the [CNCF Students Program](https://community.cncf.io/cloud-native-students/).. He also served as a Communications role shadow during the 1.22 release cycle.
 
-At the end of his first year, Kunal began contributing to the [fabric8io kubernetes-client](https://github.com/fabric8io/kubernetes-client) project. He was then selected to work on the same project as part of Google Summer of Code. Kunal mentored people on the same project, first through Google Summer of Code then through Google Code-in. 
+At the end of his first year, Kunal began contributing to the [fabric8io kubernetes-client](https://github.com/fabric8io/kubernetes-client) project. He was then selected to work on the same project as part of Google Summer of Code. Kunal mentored people on the same project, first through Google Summer of Code then through Google Code-in.
 
 As an open-source enthusiast, he believes that diverse participation in the community is beneficial since it introduces new perspectives and opinions and respect for one's peers. He has worked on various open-source projects, and his participation in communities has considerably assisted his development as a developer.
 
@@ -103,4 +103,3 @@ If you have any recommendations/suggestions for who we should interview next, pl
 
 
 We'll see you all in the next one. Everyone, till then, have a happy contributing! 👋
-

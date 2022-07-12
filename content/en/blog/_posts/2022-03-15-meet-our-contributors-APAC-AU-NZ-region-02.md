@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Meet Our Contributors - APAC (Aus-NZ region)"
-date: 2022-03-16T12:00:00+0000
+date: 2022-03-16
 slug: meet-our-contributors-au-nz-ep-02
 canonicalUrl: https://www.kubernetes.dev/blog/2022/03/14/meet-our-contributors-au-nz-ep-02/
 ---
@@ -60,12 +60,9 @@ Nick Young works at VMware as a technical lead for Contour, a CNCF ingress contr
 
 His contribution path was notable in that he began working on major areas of the Kubernetes project early on, skewing his trajectory.
 
-He asserts the best thing a new contributor can do is to "start contributing". Naturally, if it is relevant to their employment, that is excellent; however, investing non-work time in contributing can pay off in the long run in terms of work. He believes that new contributors, particularly those who are currently Kubernetes users, should be encouraged to participate in higher-level project discussions. 
+He asserts the best thing a new contributor can do is to "start contributing". Naturally, if it is relevant to their employment, that is excellent; however, investing non-work time in contributing can pay off in the long run in terms of work. He believes that new contributors, particularly those who are currently Kubernetes users, should be encouraged to participate in higher-level project discussions.
 
 > _Just being active and contributing will get you a long way. Once you've been active for a while, you'll find that you're able to answer questions, which will mean you're asked questions, and before you know it you are an expert._
-
-
-
 
 ---
 
@@ -73,6 +70,3 @@ If you have any recommendations/suggestions for who we should interview next, pl
 
 
 We'll see you all in the next one. Everyone, till then, have a happy contributing! 👋
-
-
-
