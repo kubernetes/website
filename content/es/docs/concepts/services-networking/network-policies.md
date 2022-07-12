@@ -121,7 +121,7 @@ contiene un único elemento `from` permitiendo conexiones desde los Pods con el 
 ```
 
 
-contiene dos elementos en el array `from`, y permite conecciones desde Pods en el local Namespace con el label `role=client`, *o* desde cualquier Pod en cualquier nombre de espacio con el label `user=alice`.
+contiene dos elementos en el array `from`, y permite conexiones desde Pods en el Namespace local con el label `role=client`, *o* desde cualquier Pod en cualquier Namespace con el label `user=alice`.
 
 En caso de duda, utilice `kubectl describe` para ver cómo Kubernetes ha interpretado la política.
 
