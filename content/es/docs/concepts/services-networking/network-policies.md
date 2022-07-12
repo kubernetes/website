@@ -88,7 +88,7 @@ Existen cuatro tipos de selectores que pueden ser especificados en una sección 
 
 __podSelector__: Este selector selecciona Pods específicos en el mismo Namespace que la NetworkPolicy para permitir el tráfico como origen de entrada o destino de salida.
 
-__namespaceSelector__: Este selector selecciona espacios de nombres específicos para permitir el tráfico como fuente de entrada o destino de salida.
+__namespaceSelector__: Este selector selecciona Namespaces específicos para permitir el tráfico como origen de entrada o destino de salida.
 
 __namespaceSelector__ *y* __podSelector__: Una única entrada `to`/`from` que especifique tanto `namespaceSelector` como `podSelector` selecciona Pods específicos dentro de espacios de nombres específicos. Tenga cuidado de utilizar la sintaxis YAML correcta. A continuación se muestra un ejemplo de esta política:
 
