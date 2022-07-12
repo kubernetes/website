@@ -149,7 +149,7 @@ Por defecto, si no existen políticas en un Namespace, se permite todo el tráfi
 
 ### Denegar todo el tráfico de entrada por defecto
 
-Puedes crear una política que "por defecto" aisle a un espacio de nombres del tráfico de entrada con la creación de una política que seleccione todos los Pods del espacio de nombres pero no permite ningún tráfico de entrada en esos Pods.
+Puedes crear una política que "por defecto" aisle a un Namespace del tráfico de entrada con la creación de una política que seleccione todos los Pods del Namespace pero no permite ningún tráfico de entrada en esos Pods.
 
 {{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
 
