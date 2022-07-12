@@ -273,7 +273,7 @@ A día de hoy, en Kubernetes {{< skew currentVersion >}}, la siguiente funcional
 - Forzar que el tráfico interno del clúster pase por una puerta de enlace común (esto se puede implementar con una malla de servicios u otro proxy).
 - Cualquier cosa relacionada con TLS (se puede implementar con una malla de servicios o un Ingress controllers para esto).
 - Políticas específicas de los nodos (se puede utilizar la notación CIDR para esto, pero no se puede apuntar a los nodos por sus identidades Kubernetes específicamente).
-- Apuntar a los servicios por su nombre (sin embargo, puede orientar los pods o los espacios de nombres por su {{< glossary_tooltip text="labels" term_id="label" >}}, lo que suele ser una solución viable).
+- Apuntar Services por nombre (sin embargo, puede orientar los Pods o los Namespaces por su {{< glossary_tooltip text="labels" term_id="label" >}}, lo que suele ser una solución viable).
 - Creación o gestión de "solicitudes de políticas" que son atendidas por un tercero.
 - Políticas que por defecto son aplicadas a todos los espacios de nombres o pods (hay algunas distribuciones y proyectos de Kubernetes de terceros que pueden hacer esto).
 - Consulta avanzada de políticas y herramientas de accesibilidad.
