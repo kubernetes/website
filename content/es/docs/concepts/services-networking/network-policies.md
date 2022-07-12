@@ -266,7 +266,7 @@ El valor de la etiqueta es el nombre del Namespace.
 Aunque NetworkPolicy no puede apuntar a un Namespace por su nombre con algún campo de objeto, puede utilizar la etiqueta estandarizada para apuntar a un Namespace específico.
 
 
- ## Que no puedes hacer con políticas de red (al menos, no aún)
+ ## Que no puedes hacer con políticas de red (al menos, aún no)
 
 A día de hoy, en Kubernetes {{< skew currentVersion >}}, la siguiente funcionalidad no existe en la API de NetworkPolicy, pero es posible que se puedan implementar soluciones mediante componentes del sistema operativo (como SELinux, OpenVSwitch, IPTables, etc.) o tecnologías de capa 7 (Ingress controllers, implementaciones de Service Mesh) o controladores de admisión.  En caso de que seas nuevo en la seguridad de la red en Kubernetes, vale la pena señalar que las siguientes historias de usuario no pueden (todavía) ser implementadas usando la API NetworkPolicy.
 
