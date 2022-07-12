@@ -9,7 +9,7 @@ weight: 50
 
 <!-- overview -->
 
-Si quieres controlar el tráfico de red a nivel de dirección IP o de puerto (capa OSI 3 o 4), puedes considerar el uso de Kubernetes NetworkPolicies para las aplicaciones que corren en tu clúster. Las NetworkPolicies son una estructura enfocada en las aplicaciones que permite establecer cómo un {{< glossary_tooltip text="pod" term_id="pod">}} puede comunicarse con otras "entidades" (utilizamos la palabra "entidad" para evitar sobrecargar términos más comunes como "Endpoint" o "Service", que tienen connotaciones específicas de Kubernetes) a través de la red. Las NetworkPolicies se aplican a uno o ambos extremos de la conexión a un Pod, sin afectar a otras conexiones.
+Si quieres controlar el tráfico de red a nivel de dirección IP o puerto (capa OSI 3 o 4), puedes considerar el uso de Kubernetes NetworkPolicies para las aplicaciones que corren en tu clúster. Las NetworkPolicies son una estructura enfocada en las aplicaciones que permite establecer cómo un {{< glossary_tooltip text="Pod" term_id="pod">}} puede comunicarse con otras "entidades" (utilizamos la palabra "entidad" para evitar sobrecargar términos más comunes como "Endpoint" o "Service", que tienen connotaciones específicas de Kubernetes) a través de la red. Las NetworkPolicies se aplican a uno o ambos extremos de la conexión a un Pod, sin afectar a otras conexiones.
 
 Las entidades con las que un Pod puede comunicarse son de una combinación de estos 3 tipos:
 
