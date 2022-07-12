@@ -124,8 +124,8 @@ For example, consider the following Pod spec:
 
 In this example, the following rules apply:
 
-  * The node *must* have a label with the key `topology.kubernetes.io/zone` and
-    the value of that label *must* be either `antarctica-east1` or `antarctica-west1`.
+  * The node *must* have a label with the key `kubernetes.io/os` and
+    the value of that label *must* be `linux`
   * The node *preferably* has a label with the key `another-node-label-key` and
     the value `another-node-label-value`.
 
@@ -177,7 +177,7 @@ that node, and schedules the Pod onto the node with the highest final score.
 
 {{<note>}}
 If you want Kubernetes to successfully schedule the Pods in this example, you
-must have existing nodes with the `kubernetes.io/os=linux` label.
+must have existing nodes with the `topology.kubernetes.io/zone` `antarctica-east1` or `antarctica-west1` label.
 {{</note>}}
 
 #### Node affinity per scheduling profile
