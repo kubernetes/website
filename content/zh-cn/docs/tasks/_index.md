@@ -26,5 +26,5 @@ If you would like to write a task page, see
 [Creating a Documentation Pull Request](/docs/contribute/new-content/open-a-pr/).
 -->
 如果你希望编写一个任务页面，参考
-[创建一个文档拉取请求](/zh/docs/contribute/new-content/open-a-pr/)。
+[创建一个文档拉取请求](/zh-cn/docs/contribute/new-content/open-a-pr/)。
 

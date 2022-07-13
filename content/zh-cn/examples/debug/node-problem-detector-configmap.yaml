@@ -37,13 +37,13 @@ spec:
         - name: log
           mountPath: /log
           readOnly: true
-        - name: config # Overwrite the config/ directory with ConfigMap volume
+        - name: config # 使用 ConfigMap 卷中的数据覆盖 config/ 目录内容
           mountPath: /config
           readOnly: true
       volumes:
       - name: log
         hostPath:
           path: /var/log/
-      - name: config # Define ConfigMap volume
+      - name: config # 定义 ConfigMap 卷
         configMap:
           name: node-problem-detector-config

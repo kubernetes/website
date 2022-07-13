@@ -22,9 +22,9 @@ kubectl 管理控制 Kubernetes 集群。
 
 
 <!--
-Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
+Find more information at: https://kubernetes.io/docs/reference/kubectl/
 -->
-获取更多信息，请访问 [kubectl 概述](/zh/docs/reference/kubectl/overview/)。
+获取更多信息，请访问 [kubectl 概述](/zh-cn/docs/reference/kubectl/)。
 
 ```
 kubectl [flags]

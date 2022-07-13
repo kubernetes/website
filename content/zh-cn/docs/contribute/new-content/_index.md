@@ -84,9 +84,9 @@ prior to submitting new content. The information details follow.
 - 使用 Markdown 编写 Kubernetes 文档并使用 [Hugo](https://gohugo.io/) 构建网站。
 - Kubernetes 文档使用 [CommonMark](https://commonmark.org/) 作为 Markdown 的风格。
 - 源代码位于 [GitHub](https://github.com/kubernetes/website) 仓库中。
-  你可以在 `/content/zh/docs/` 目录下找到 Kubernetes 文档。
+  你可以在 `/content/zh-cn/docs/` 目录下找到 Kubernetes 文档。
   某些参考文档是使用位于 `update-imported-docs/` 目录下的脚本自动生成的。
-- [页面内容类型](/zh/docs/contribute/style/page-content-types/)使用 Hugo 描述文档内容的呈现。
+- [页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)使用 Hugo 描述文档内容的呈现。
 
 <!-- 
 - You can use [Docsy shortcodes](https://www.docsy.dev/docs/adding-content/shortcodes/) or [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) to contribute to Kubernetes documentation.
@@ -103,15 +103,15 @@ prior to submitting new content. The information details follow.
 -->
 
 - 你可以使用 [Docsy 短代码](https://www.docsy.dev/docs/adding-content/shortcodes/)
-  或[定制的 Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/)贡献 Kubernetes 文档。
+  或[定制的 Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/)贡献 Kubernetes 文档。
 - 除了标准的 Hugo 短代码外，
-  我们还在文档中使用一些[定制的 Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/)来控制内容的呈现。
+  我们还在文档中使用一些[定制的 Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/)来控制内容的呈现。
 - 文档的源代码有多种语言形式，位于 `/content/` 目录下。
   每种语言都有一个自己的目录，用两个字母表示，这两个字母是基于
   [ISO 639-1 标准](https://www.loc.gov/standards/iso639-2/php/code_list.php)来确定的。
   例如，英语文档的源代码位于 `/content/en/docs/` 目录下。
 - 关于为多语言文档做贡献以及如何开始新翻译的详细信息，
-  可参考[本地化文档](/zh/docs/contribute/localization)。
+  可参考[本地化文档](/zh-cn/docs/contribute/localization)。
 
 <!-- 
 ## Before you begin {#before-you-begin}
@@ -159,7 +159,7 @@ If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
 :---------|:------------
 针对当前发行版本的，对现有英文内容的修改或新的英文内容 | `main`
  针对功能特性变更的内容 | 分支对应于功能特性变更的主要和次要版本，分支名称采用 `dev-<version>` 的模式。例如，如果某功能特性在 `v{{< skew nextMinorVersion >}}` 版本发生变化，则对应的文档变化要添加到 `dev-{{< skew nextMinorVersion >}}` 分支。
- 其他语言的内容（本地化） | 基于本地化团队的约定。参见[本地化分支策略](/zh/docs/contribute/localization/#branching-strategy)了解更多信息。 
+ 其他语言的内容（本地化） | 基于本地化团队的约定。参见[本地化分支策略](/zh-cn/docs/contribute/localization/#branching-strategy)了解更多信息。 
 
 如果你仍不能确定要选择哪个分支，请在 Slack 的 `#sig-docs` 频道上提出问题。  
 
@@ -196,5 +196,5 @@ contribution journey go more smoothly.
 
 ## 为贡献者提供的工具
 
-`kubernetes/website` 仓库的[文档贡献者工具](https://github.com/kubernetes/website/tree/main/content/zh/docs/doc-contributor-tools)目录中包含了一些工具，
+`kubernetes/website` 仓库的[文档贡献者工具](https://github.com/kubernetes/website/tree/main/content/zh-cn/docs/doc-contributor-tools)目录中包含了一些工具，
 有助于使你的贡献过程更为顺畅。

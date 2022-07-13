@@ -523,9 +523,9 @@ kubectl delete namespace mem-example
 -->
 ### 应用开发者扩展阅读    {#for-app-developers}
 
-* [为容器和 Pod 分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [为容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [配置 Pod 的服务质量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
+* [配置 Pod 的服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
 
 
 <!--
@@ -547,11 +547,11 @@ kubectl delete namespace mem-example
 -->
 ### 集群管理员扩展阅读    {#for-cluster-administrators}
 
-* [为命名空间配置默认的内存请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [为命名空间配置默认的 CPU 请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-* [配置命名空间的最小和最大内存约束](/zh/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [配置命名空间的最小和最大 CPU 约束](/zh/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [为命名空间配置内存和 CPU 配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-* [配置命名空间下 Pod 总数](/zh/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
-* [配置 API 对象配额](/zh/docs/tasks/administer-cluster/quota-api-object/)
+* [为命名空间配置默认的内存请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [为命名空间配置默认的 CPU 请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [配置命名空间的最小和最大内存约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [配置命名空间的最小和最大 CPU 约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [为命名空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [配置命名空间下 Pod 总数](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [配置 API 对象配额](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 

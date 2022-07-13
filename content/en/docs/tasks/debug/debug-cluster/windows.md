@@ -17,7 +17,7 @@ content_type: concept
 1. My Pods are stuck at "Container Creating" or restarting over and over
 
    Ensure that your pause image is compatible with your Windows OS version.
-   See [Pause container](/docs/setup/production-environment/windows/intro-windows-in-kubernetes#pause-container)
+   See [Pause container](/docs/concepts/windows/intro/#pause-container)
    to see the latest / recommended pause image and/or get more information.
 
    {{< note >}}
@@ -32,7 +32,7 @@ content_type: concept
    Windows Node.
 
    More information on how to specify a compatible node for your Pod can be found in
-   [this guide](/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
+   [this guide](/docs/concepts/windows/user-guide/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
 
 ## Network troubleshooting {#troubleshooting-network}
 
@@ -102,8 +102,8 @@ content_type: concept
    Get-NetAdapter | ? Name -Like "vEthernet (Ethernet*"
    ```
 
-   Often it is worthwhile to modify the [InterfaceName](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L7) parameter of the `start.ps1` script,
-   in cases where the host's network adapter isn't "Ethernet".
+   Often it is worthwhile to modify the [InterfaceName](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L7)
+   parameter of the `start.ps1` script, in cases where the host's network adapter isn't "Ethernet".
    Otherwise, consult the output of the `start-kubelet.ps1` script to see if there are errors during virtual network creation.
 
 1. DNS resolution is not properly working
@@ -112,9 +112,11 @@ content_type: concept
 
 1. `kubectl port-forward` fails with "unable to do port forwarding: wincat not found"
 
-   This was implemented in Kubernetes 1.15 by including `wincat.exe` in the pause infrastructure container `mcr.microsoft.com/oss/kubernetes/pause:3.6`.
+   This was implemented in Kubernetes 1.15 by including `wincat.exe` in the pause infrastructure container
+   `mcr.microsoft.com/oss/kubernetes/pause:3.6`.
    Be sure to use a supported version of Kubernetes.
-   If you would like to build your own pause infrastructure container be sure to include [wincat](https://github.com/kubernetes/kubernetes/tree/master/build/pause/windows/wincat).
+   If you would like to build your own pause infrastructure container be sure to include
+   [wincat](https://github.com/kubernetes/kubernetes/tree/master/build/pause/windows/wincat).
 
 1. My Kubernetes installation is failing because my Windows Server node is behind a proxy
 
@@ -171,3 +173,4 @@ If these steps don't resolve your problem, you can get help running Windows cont
 * StackOverflow [Windows Server Container](https://stackoverflow.com/questions/tagged/windows-server-container) topic
 * Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
 * Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/sig-windows)
+

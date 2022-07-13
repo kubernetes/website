@@ -28,7 +28,7 @@ preview of what changes `apply` will make.
 <!--
 Install [`kubectl`](/docs/tasks/tools/).
 -->
-安装 [`kubectl`](/zh/docs/tasks/tools/)。
+安装 [`kubectl`](/zh-cn/docs/tasks/tools/)。
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -55,7 +55,7 @@ for a discussion of the advantages and disadvantage of each kind of object manag
 * 声明式对象配置
 
 关于每种对象管理的优缺点的讨论，可参见
-[Kubernetes 对象管理](/zh/docs/concepts/overview/working-with-objects/object-management/)。
+[Kubernetes 对象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)。
 
 <!--
 ## Overview
@@ -72,8 +72,8 @@ the following documents if you have not already:
 声明式对象管理需要用户对 Kubernetes 对象定义和配置有比较深刻的理解。
 如果你还没有这方面的知识储备，请先阅读下面的文档：
 
-* [使用指令式命令管理 Kubernetes 对象](/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [使用配置文件对 Kubernetes 对象进行指令式管理](/zh/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [使用指令式命令管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [使用配置文件对 Kubernetes 对象进行指令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
 
 <!--
 Following are definitions for terms used in this document:
@@ -157,12 +157,12 @@ See [Dry-Run Authorization](/docs/reference/using-api/api-concepts#dry-run-autho
 for details.
 -->
 {{< note >}}
-`diff` 使用[服务器端试运行（Server-side Dry-run）](/zh/docs/reference/using-api/api-concepts/#dry-run)
+`diff` 使用[服务器端试运行（Server-side Dry-run）](/zh-cn/docs/reference/using-api/api-concepts/#dry-run)
 功能特性；而该功能特性需要在 `kube-apiserver` 上启用。
 
 由于 `diff` 操作会使用试运行模式执行服务器端 apply 请求，因此需要为
 用户配置 `PATCH`、`CREATE` 和 `UPDATE` 操作权限。
-参阅[试运行授权](/zh/docs/reference/using-api/api-concepts#dry-run-authorization)
+参阅[试运行授权](/zh-cn/docs/reference/using-api/api-concepts#dry-run-authorization)
 了解详情。
 {{< /note >}}
 
@@ -1547,8 +1547,8 @@ template:
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
-* [使用指令式命令管理 Kubernetes 对象](/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [使用配置文件对 Kubernetes 对象执行指令式管理](/zh/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [使用指令式命令管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [使用配置文件对 Kubernetes 对象执行指令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [Kubectl 命令参考](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 

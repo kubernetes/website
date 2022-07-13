@@ -15,7 +15,7 @@ content_type: tutorial
 <!--
 This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task.
 -->
-这篇文档基于[配置 Pod 以使用 ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
+这篇文档基于[配置 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 这个任务，提供了一个使用 ConfigMap 来配置 Redis 的真实案例。
 
 
@@ -47,7 +47,7 @@ This page provides a real world example of how to configure Redis using a Config
 * Understand [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 -->
 * 此页面上显示的示例适用于 `kubectl` 1.14 及以上的版本。
-* 理解[配置 Pod 以使用 ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 理解[配置 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 
 
@@ -370,7 +370,7 @@ kubectl delete pod/redis configmap/example-redis-config
 <!--
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 -->
-* 了解有关 [ConfigMaps](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/) 的更多信息。
+* 了解有关 [ConfigMaps](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 的更多信息。
 
 
 

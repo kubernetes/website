@@ -12,8 +12,8 @@ You've deployed your application and exposed it via a service. Now what? Kuberne
 你已经部署了应用并通过服务暴露它。然后呢？
 Kubernetes 提供了一些工具来帮助管理你的应用部署，包括扩缩容和更新。
 我们将更深入讨论的特性包括
-[配置文件](/zh/docs/concepts/configuration/overview/)和
-[标签](/zh/docs/concepts/overview/working-with-objects/labels/)。
+[配置文件](/zh-cn/docs/concepts/configuration/overview/)和
+[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。
 
 <!-- body -->
 
@@ -85,7 +85,7 @@ A URL can also be specified as a configuration source, which is handy for deploy
 还可以使用 URL 作为配置源，便于直接使用已经提交到 Github 上的配置文件进行部署：
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/zh/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/zh-cn/examples/application/nginx/nginx-deployment.yaml
 ```
 
 ```
@@ -239,7 +239,7 @@ persistentvolumeclaim/my-pvc created
 If you're interested in learning more about `kubectl`, go ahead and read [Command line tool (kubectl)](/docs/reference/kubectl/).
 -->
 如果你有兴趣进一步学习关于 `kubectl` 的内容，请阅读
-[命令行工具（kubectl）](/zh/docs/reference/kubectl/)。
+[命令行工具（kubectl）](/zh-cn/docs/reference/kubectl/)。
 
 <!--
 ## Using labels effectively
@@ -445,7 +445,7 @@ For more information, please see [labels](/docs/concepts/overview/working-with-o
 （用参数 `-L` 或者 `--label-columns` 标明）。
 
 想要了解更多信息，请参考
-[标签](/zh/docs/concepts/overview/working-with-objects/labels/) 和
+[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/) 和
 [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands/#label)
 命令文档。
 
@@ -476,7 +476,7 @@ metadata:
 For more information, please see [annotations](/docs/concepts/overview/working-with-objects/annotations/) and [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate) document.
  -->
 想要了解更多信息，请参考
-[注解](/zh/docs/concepts/overview/working-with-objects/annotations/)和
+[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)和
 [`kubectl annotate`](/docs/reference/generated/kubectl/kubectl-commands/#annotate)
 命令文档。
 
@@ -535,7 +535,7 @@ For more information, please see [kubectl scale](/docs/reference/generated/kubec
 想要了解更多信息，请参考
 [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands/#scale)命令文档、
 [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 命令文档和
-[水平 Pod 自动伸缩](/zh/docs/tasks/run-application/horizontal-pod-autoscale/) 文档。
+[水平 Pod 自动伸缩](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/) 文档。
 
 <!--
 ## In-place updates of resources
@@ -648,7 +648,7 @@ and
  -->
 你可以使用 `kubectl patch` 来更新 API 对象。此命令支持 JSON patch、
 JSON merge patch、以及 strategic merge patch。 请参考
-[使用 kubectl patch 更新 API 对象](/zh/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
+[使用 kubectl patch 更新 API 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 和
 [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
 
@@ -716,7 +716,7 @@ That's it! The Deployment will declaratively update the deployed nginx applicati
  -->
 没错，就是这样！Deployment 将在后台逐步更新已经部署的 nginx 应用。
 它确保在更新过程中，只有一定数量的旧副本被开闭，并且只有一定基于所需 Pod 数量的新副本被创建。
-想要了解更多细节，请参考 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)。
+想要了解更多细节，请参考 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -724,5 +724,5 @@ That's it! The Deployment will declaratively update the deployed nginx applicati
 - [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug/debug-application/debug-running-pod/)
 - [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/)
  -->
-- 学习[如何使用 `kubectl` 观察和调试应用](/zh/docs/tasks/debug/debug-application/debug-running-pod/)
-- 阅读[配置最佳实践和技巧](/zh/docs/concepts/configuration/overview/)
+- 学习[如何使用 `kubectl` 观察和调试应用](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)
+- 阅读[配置最佳实践和技巧](/zh-cn/docs/concepts/configuration/overview/)

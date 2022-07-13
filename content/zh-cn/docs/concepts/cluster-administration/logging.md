@@ -99,8 +99,6 @@ If your pod has multiple containers, specify which container's logs you want to 
 appending a container name to the command, with a `-c` flag, like so:
 -->
 你可以使用命令 `kubectl logs --previous` 检索之前容器实例的日志。
-如果 Pod 中有多个容器，你应该为该命令附加容器名以访问对应容器的日志。
-详见 [`kubectl logs` 文档](/docs/reference/generated/kubectl/kubectl-commands#logs)。
 如果 Pod 有多个容器，你应该为该命令附加容器名以访问对应容器的日志，
 使用 `-c` 标志来指定要访问的容器的日志，如下所示：
 
@@ -478,7 +476,7 @@ a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to c
 -->
 下面是两个配置文件，可以用来实现一个带日志代理的边车容器。
 第一个文件包含用来配置 fluentd 的
-[ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+[ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 {{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
 

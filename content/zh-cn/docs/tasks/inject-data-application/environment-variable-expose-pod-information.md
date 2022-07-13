@@ -39,7 +39,7 @@ Together, these two ways of exposing Pod and Container fields are called the
 有两种方式可以将 Pod 和 Container 字段呈现给运行中的容器：
 
 * 环境变量
-* [卷文件](/zh/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
+* [卷文件](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
 
 这两种呈现 Pod 和 Container 字段的方式统称为 *Downward API*。
 
@@ -245,7 +245,7 @@ The output shows the values of selected environment variables:
 * [ResourceFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcefieldselector-v1-core)
 -->
 
-* [给容器定义环境变量](/zh/docs/tasks/inject-data-application/define-environment-variable-container/)
+* [给容器定义环境变量](/zh-cn/docs/tasks/inject-data-application/define-environment-variable-container/)
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [EnvVar](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvar-v1-core)

@@ -15,7 +15,7 @@ For general information about Kubernetes release cycle, see the
 -->
 Kubernetes 补丁版本的发布时间表和团队联系信息。
 
-有关 Kubernetes 发布周期的常规信息，请参阅[发布流程说明]。
+有关 Kubernetes 发布周期的常规信息，请参阅[发布流程说明](/zh-cn/releases/release)。
 
 <!-- 
 ## Cadence
@@ -43,9 +43,10 @@ Please give us a business day to respond - we may be in a different timezone!
 In between releases the team is looking at incoming cherry pick requests on a weekly basis. The team will get in touch with submitters via GitHub PR, SIG channels in Slack, and direct messages
 in Slack and [email](mailto:release-managers-private@kubernetes.io) if there are questions on the PR.
 -->
-## 联系  {#contact}
+## 联系方式  {#contact}
 
-有关补丁发布团队的完整联系方式，请参阅[发布管理员页面][release-managers]。
+有关补丁发布团队（Patch Release Team）的完整联系方式，
+请参阅[发布管理员页面](/zh-cn/releases/release-managers)。
 
 请给我们一个工作日回复，因为我们可能在不同的时区！
 
@@ -69,9 +70,9 @@ Cherry pick PRs which miss merge criteria will be carried over and tracked
 for the next patch release.
 -->
 
-## Cherry Pick
+## Cherry Picks
 
-请遵循 [Cherry Pick 流程][cherry-picks]。
+请遵循 [Cherry Pick 流程](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md)。
 
 Cherry Pick 必须在 GitHub 中准备好合并，带有适当的标签（例如 `approved`、`lgtm`、`release-note`），
 并在 Cherry Pick 截止日期之前通过 CI 测试。这通常是目标发布前两天，但可能更早。
@@ -96,13 +97,14 @@ Towards the end of the twelve month, the following will happen:
 -->
 ## 支持周期  {#support-period}
 
-根据[年度 KEP][yearly-support]，Kubernetes 社区将在大约 14 个月的时间内支持活跃的补丁发布系列。
+根据[年度支持 KEP](https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md)
+约定，Kubernetes 社区将在大约 14 个月的时间内支持活跃的补丁发布系列。
 
 此时间范围的前 12 个月将被视为标准周期。
 
 在 12 个月后，将发生以下事情：
 
-- [发布管理员][release-managers]将删除一个版本
+- [发布管理员](/zh-cn/releases/release-managers)将删除一个版本
 - 补丁发布系列将进入维护模式
 
 <!--
@@ -145,17 +147,17 @@ releases may also occur in between these.
 <!-- 
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| May 2022              | 2022-05-20           | 2022-05-24  |
-| June 2022             | 2022-06-10           | 2022-06-15  |
 | July 2022             | 2022-07-08           | 2022-07-13  |
-| August 2022           | 2022-08-12           | 2022-08-16  |
+| August 2022           | 2022-08-12           | 2022-08-17  |
+| September 2022        | 2022-09-09           | 2022-09-14  |
+| October 2022          | 2022-10-07           | 2022-10-12  |
 -->
-| 月度补丁发布   | Cherry Pick 截止日期 |   目标日期   |
-| ------------ | ------------------ | ----------- |
-| 2022 年 5 月  | 2022-05-20         | 2022-05-24  |
-| 2022 年 6 月  | 2022-06-10         | 2022-06-15  |
-| 2022 年 7 月  | 2022-07-08         | 2022-07-13  |
-| 2022 年 8 月  | 2022-08-12         | 2022-08-16  |
+| 月度补丁发布  | Cherry Pick 截止日期 |   目标日期  |
+| ------------- | -------------------- | ----------- |
+| 2022 年 7 月  | 2022-07-08           | 2022-07-13  |
+| 2022 年 8 月  | 2022-08-12           | 2022-08-16  |
+| 2022 年 9 月  | 2022-09-09           | 2022-09-14  |
+| 2022 年 10 月 | 2022-10-07           | 2022-10-12  |
 
 <!-- 
 ## Detailed Release History for Active Branches
@@ -168,6 +170,8 @@ End of Life for **1.24** is **2023-09-29**
 
 | PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE |
 |---------------|----------------------|-------------|------|
+| 1.24.3        | 2022-07-08           | 2022-07-13  |      |
+| 1.24.2        | 2022-06-10           | 2022-06-15  |      |
 | 1.24.1        | 2022-05-20           | 2022-05-24  |      |
 -->
 ## 活动分支的详细发布历史  {#detailed-release-history-for-active-branches}
@@ -178,9 +182,11 @@ End of Life for **1.24** is **2023-09-29**
 
 **1.24** 的生命周期结束时间为 **2023-09-29**
 
-| 补丁发布 | Cherry Pick 截止日期 |  目标日期   | 说明 |
-|--------|---------------------|------------|-----|
-| 1.24.1 | 2022-05-20          | 2022-05-24 |     |
+| 补丁发布 | Cherry Pick 截止日期 |  目标日期  | 说明 |
+|----------|----------------------|------------|------|
+| 1.24.3   | 2022-07-08           | 2022-07-13 |      |
+| 1.24.2   | 2022-06-10           | 2022-06-15 |      |
+| 1.24.1   | 2022-05-20           | 2022-05-24 |      |
 
 ### 1.23
 
@@ -194,12 +200,14 @@ End of Life for **1.23** is **2023-02-28**.
 **1.23** 的生命周期结束时间为 **2023-02-28**。
 
 <!--
-| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE |
+| Patch Release | Cherry Pick Deadline | Target Date | Note |
 
 [Out-of-Band Release](https://groups.google.com/a/kubernetes.io/g/dev/c/Xl1sm-CItaY)
 -->
-| 补丁发布       | Cherry Pick 截止日期   |  目标日期    | 说明  |
+| 补丁发布      | Cherry Pick 截止日期 |  目标日期   | 说明  |
 |---------------|----------------------|-------------|------|
+| 1.23.9        | 2022-07-08           | 2022-07-13  |      |
+| 1.23.8        | 2022-06-10           | 2022-06-15  |      |
 | 1.23.7        | 2022-05-20           | 2022-05-24  |      |
 | 1.23.6        | 2022-04-08           | 2022-04-13  |      |
 | 1.23.5        | 2022-03-11           | 2022-03-16  |      |
@@ -222,8 +230,10 @@ End of Life for **1.22** is **2022-10-28**
 <!-- 
 | PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE |
 -->
-| 补丁发布       | Cherry Pick 截止日期   |  目标日期    | 说明  |
+| 补丁发布      | Cherry Pick 截止日期 |  目标日期   | 说明 |
 |---------------|----------------------|-------------|------|
+| 1.22.12       | 2022-07-08           | 2022-07-13  |      |
+| 1.22.11       | 2022-06-10           | 2022-06-15  |      |
 | 1.22.10       | 2022-05-20           | 2022-05-24  |      |
 | 1.22.9        | 2022-04-08           | 2022-04-13  |      |
 | 1.22.8        | 2022-03-11           | 2022-03-16  |      |
@@ -234,38 +244,6 @@ End of Life for **1.22** is **2022-10-28**
 | 1.22.3        | 2021-10-22           | 2021-10-27  |      |
 | 1.22.2        | 2021-09-10           | 2021-09-15  |      |
 | 1.22.1        | 2021-08-16           | 2021-08-19  |      |
-
-### 1.21
-
-<!-- 
-**1.21** enters maintenance mode on **2022-04-28**
-
-End of Life for **1.21** is **2022-06-28**
--->
-**1.21** 于 **2022-04-28** 进入维护模式
-
-**1.21** 的生命周期结束时间为 **2022-06-28**
-
-<!-- 
-| Patch Release | Cherry Pick Deadline | Target Date | Note |
-
-[Regression](https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs)
--->
-| 补丁发布       | Cherry Pick 截止日期   |  目标日期    | 说明  |
-| ------------- | -------------------- | ----------- | ---------------------------------------------------------------------- |
-| 1.21.13       | 2022-05-20           | 2022-05-24  |                                                                        |
-| 1.21.12       | 2022-04-08           | 2022-04-13  |                                                                        |
-| 1.21.11       | 2022-03-11           | 2022-03-16  |                                                                        |
-| 1.21.10       | 2022-02-11           | 2022-02-16  |                                                                        |
-| 1.21.9        | 2022-01-14           | 2022-01-19  |                                                                        |
-| 1.21.8        | 2021-12-10           | 2021-12-15  |                                                                        |
-| 1.21.7        | 2021-11-12           | 2021-11-17  |                                                                        |
-| 1.21.6        | 2021-10-22           | 2021-10-27  |                                                                        |
-| 1.21.5        | 2021-09-10           | 2021-09-15  |                                                                        |
-| 1.21.4        | 2021-08-07           | 2021-08-11  |                                                                        |
-| 1.21.3        | 2021-07-10           | 2021-07-14  |                                                                        |
-| 1.21.2        | 2021-06-12           | 2021-06-16  |                                                                        |
-| 1.21.1        | 2021-05-07           | 2021-05-12  | [版本回退](https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs)    |
 
 <!-- 
 ## Non-Active Branch History
@@ -283,12 +261,13 @@ Created to resolve regression introduced in 1.18.19
 
 [Regression](https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs)
 -->
-| 次要版本       | 最终补丁发布版本       | EOL 日期    | 说明                                                                   |
+| 次要版本      | 最终补丁发布版本    | EOL 日期   | 说明                                                                   |
 | ------------- | ------------------- | ---------- | ---------------------------------------------------------------------- |
+| 1.21          | 1.21.14             | 2022-06-28 |                                                                        |
 | 1.20          | 1.20.15             | 2022-02-28 |                                                                        |
 | 1.19          | 1.19.16             | 2021-10-28 |                                                                        |
-| 1.18          | 1.18.20             | 2021-06-18 | 创建用于解决 1.18.19 版本引入的回退                                        |
-| 1.18          | 1.18.19             | 2021-05-12 | [版本回退](https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs)    |
+| 1.18          | 1.18.20             | 2021-06-18 | 创建用于解决 1.18.19 版本引入的回退                                    |
+| 1.18          | 1.18.19             | 2021-05-12 | [版本回退](https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs)   |
 | 1.17          | 1.17.17             | 2021-01-13 |                                                                        |
 | 1.16          | 1.16.15             | 2020-09-02 |                                                                        |
 | 1.15          | 1.15.12             | 2020-05-06 |                                                                        |
@@ -306,7 +285,3 @@ Created to resolve regression introduced in 1.18.19
 | 1.3           | 1.3.10              | 2016-11-01 |                                                                        |
 | 1.2           | 1.2.7               | 2016-10-23 |                                                                        |
 
-[cherry-picks]: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md
-[release-managers]: /releases/release-managers
-[发布流程说明]: /releases/release
-[yearly-support]: https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md

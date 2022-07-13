@@ -65,7 +65,7 @@ The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/doc
 Kubernetes 网站使用的是 [Docsy Hugo 主题](https://github.com/google/docsy#readme)。 即使你打算在容器中运行网站，我们也强烈建议你通过运行以下命令来引入子模块和其他开发依赖项：
 
 ```bash
-# pull in the Docsy submodule
+# 引入 Docsy 子模块
 git submodule update --init --recursive --depth 1
 ```
 
@@ -80,7 +80,7 @@ To build the site in a container, run the following to build the container image
 要在容器中构建网站，请通过以下命令来构建容器镜像并运行：
 
 ```bash
-make container-image
+# 你可以将 $CONTAINER_ENGINE 设置为任何 Docker 类容器工具的名称
 make container-serve
 ```
 
@@ -113,7 +113,7 @@ Hugo 扩展版本。
 若要在本地构造和测试网站，请运行：
 
 ```bash
-# install dependencies
+# 安装依赖
 npm ci
 make serve
 ```

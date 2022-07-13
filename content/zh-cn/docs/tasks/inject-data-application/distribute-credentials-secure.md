@@ -375,7 +375,7 @@ This functionality is available in Kubernetes v1.6 and later.
 * Learn more about [Secrets](/docs/concepts/configuration/secret/).
 * Learn about [Volumes](/docs/concepts/storage/volumes/).
 -->
-* 进一步了解 [Secret](/zh/docs/concepts/configuration/secret/)。
-* 了解 [Volumes](/zh/docs/concepts/storage/volumes/)。
+* 进一步了解 [Secret](/zh-cn/docs/concepts/configuration/secret/)。
+* 了解 [Volumes](/zh-cn/docs/concepts/storage/volumes/)。
 
 

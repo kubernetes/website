@@ -23,7 +23,7 @@ automatically provisions storage when it is requested by users.
 动态卷供应允许按需创建存储卷。
 如果没有动态供应，集群管理员必须手动地联系他们的云或存储提供商来创建新的存储卷，
 然后在 Kubernetes 集群创建
-[`PersistentVolume` 对象](/zh/docs/concepts/storage/persistent-volumes/)来表示这些卷。
+[`PersistentVolume` 对象](/zh-cn/docs/concepts/storage/persistent-volumes/)来表示这些卷。
 动态供应功能消除了集群管理员预先配置存储的需要。 相反，它在用户请求时自动供应存储。
 
 <!-- body -->
@@ -58,7 +58,7 @@ have the ability to select from multiple storage options.
 More information on storage classes can be found
 [here](/docs/concepts/storage/storage-classes/).
 -->
-点击[这里](/zh/docs/concepts/storage/storage-classes/)查阅有关存储类的更多信息。
+点击[这里](/zh-cn/docs/concepts/storage/storage-classes/)查阅有关存储类的更多信息。
 
 <!--
 ## Enabling Dynamic Provisioning
@@ -78,7 +78,7 @@ disk-like persistent disks.
 -->
 要启用动态供应功能，集群管理员需要为用户预先创建一个或多个 `StorageClass` 对象。
 `StorageClass` 对象定义当动态供应被调用时，哪一个驱动将被使用和哪些参数将被传递给驱动。
-StorageClass 对象的名字必须是一个合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+StorageClass 对象的名字必须是一个合法的 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 以下清单创建了一个 `StorageClass` 存储类 "slow"，它提供类似标准磁盘的永久磁盘。
 
 ```yaml
@@ -172,7 +172,7 @@ can enable this behavior by:
   is enabled on the API server.
 -->
 - 标记一个 `StorageClass` 为 *默认*；
-- 确保 [`DefaultStorageClass` 准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)在 API 服务端被启用。
+- 确保 [`DefaultStorageClass` 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)在 API 服务端被启用。
 
 <!--
 An administrator can mark a specific `StorageClass` as default by adding the
@@ -205,7 +205,7 @@ Zones in a Region. Single-Zone storage backends should be provisioned in the Zon
 Pods are scheduled. This can be accomplished by setting the [Volume Binding
 Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 -->
-在[多区域](/zh/docs/setup/best-practices/multiple-zones/)集群中，Pod 可以被分散到多个区域。
+在[多区域](/zh-cn/docs/setup/best-practices/multiple-zones/)集群中，Pod 可以被分散到多个区域。
 单区域存储后端应该被供应到 Pod 被调度到的区域。
-这可以通过设置[卷绑定模式](/zh/docs/concepts/storage/storage-classes/#volume-binding-mode)来实现。
+这可以通过设置[卷绑定模式](/zh-cn/docs/concepts/storage/storage-classes/#volume-binding-mode)来实现。
 

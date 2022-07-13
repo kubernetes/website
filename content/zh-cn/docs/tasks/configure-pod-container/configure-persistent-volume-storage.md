@@ -55,7 +55,7 @@ do not already have a single-node cluster, you can create one by using
   如果还没有单节点集群，可以使用
   [Minikube](https://minikube.sigs.k8s.io/docs/) 创建一个。
 .
-* 熟悉[持久卷](/zh/docs/concepts/storage/persistent-volumes/)中的材料。
+* 熟悉[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)中的材料。
 
 <!-- steps -->
 
@@ -464,7 +464,7 @@ PersistentVolume are not present on the Pod resource itself.
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
 -->
-* 进一步了解 [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
+* 进一步了解 [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
 * 阅读[持久存储设计文档](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md)
 
 <!--

@@ -2,13 +2,12 @@
 layout: blog
 title: '动态 Kubelet 配置'
 date: 2018-07-11
+slug: dynamic-kubelet-configuration
 ---
 <!--
----
 layout: blog
 title: 'Dynamic Kubelet Configuration'
 date: 2018-07-11
----
 -->
 
 <!--
@@ -59,7 +58,7 @@ Dynamic Kubelet configuration gives cluster administrators and service providers
 <!--
 Kubernetes v1.10 made it possible to configure the Kubelet via a beta [config file](/docs/tasks/administer-cluster/kubelet-config-file/) API. Kubernetes already provides the ConfigMap abstraction for storing arbitrary file data in the API server.
 -->
-Kubernetes v1.10 使得可以通过 Beta 版本的[配置文件](/zh/docs/tasks/administer-cluster/kubelet-config-file/)
+Kubernetes v1.10 使得可以通过 Beta 版本的[配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)
 API 配置 kubelet。
 Kubernetes 已经提供了用于在 API 服务器中存储任意文件数据的 ConfigMap 抽象。
 

@@ -41,15 +41,15 @@ with that removal.
 
 ## Kubernetes 项目 {#kubernetes-project}
 
-* Kubernetes 博客：[Dockershim 弃用常见问题解答](/zh/blog/2022/02/17/dockershim-faq/)（最初发表于 2022/02/17）
+* Kubernetes 博客：[Dockershim 弃用常见问题解答](/zh-cn/blog/2022/02/17/dockershim-faq/)（最初发表于 2022/02/17）
 
 * Kubernetes 博客：[Kubernetes 即将移除 Dockershim：承诺和下一步](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/)（发表于 2022/01/07）
 
-* Kubernetes 博客：[移除 Dockershim 即将到来。你准备好了吗？](/zh/blog/2021/11/12/are-you-ready-for-dockershim-removal/)（发表于  2021/11/12）
+* Kubernetes 博客：[移除 Dockershim 即将到来。你准备好了吗？](/zh-cn/blog/2021/11/12/are-you-ready-for-dockershim-removal/)（发表于  2021/11/12）
 
-* Kubernetes 文档：[从 dockershim 迁移](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/)
+* Kubernetes 文档：[从 dockershim 迁移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)
 
-* Kubernetes 文档：[容器运行时](/zh/docs/setup/production-environment/container-runtimes/)
+* Kubernetes 文档：[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
 
 * Kubernetes 增强建议：[KEP-2221: 从 kubelet 中删除 dockershim](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2221-remove-dockershim/README.md)
 

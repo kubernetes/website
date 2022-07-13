@@ -35,8 +35,8 @@ API 服务器负责提供 HTTP API，以供用户、集群中的不同部分和�
 Kubernetes API 使你可以查询和操纵 Kubernetes API
 中对象（例如：Pod、Namespace、ConfigMap 和 Event）的状态。
 
-大部分操作都可以通过 [kubectl](/zh/docs/reference/kubectl/) 命令行接口或
-类似 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 这类命令行工具来执行，
+大部分操作都可以通过 [kubectl](/zh-cn/docs/reference/kubectl/) 命令行接口或
+类似 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 这类命令行工具来执行，
 这些工具在背后也是调用 API。不过，你也可以使用 REST 调用来访问这些 API。
 
 <!--
@@ -44,7 +44,7 @@ Consider using one of the [client libraries](/docs/reference/using-api/client-li
 if you are writing an application using the Kubernetes API.
 -->
 如果你正在编写程序来访问 Kubernetes API，可以考虑使用
-[客户端库](/zh/docs/reference/using-api/client-libraries/)之一。
+[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)之一。
 
 <!-- body -->
 
@@ -157,7 +157,7 @@ for the kube-apiserver component.
 Kubernetes {{< param "version" >}} 提供将其 API 以 OpenAPI v3 形式发布的 beta 支持；
 这一功能特性处于 beta 状态，默认被开启。
 你可以通过为 kube-apiserver 组件关闭 `OpenAPIV3`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)来禁用此 beta 特性。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此 beta 特性。
 
 <!--
 A discovery endpoint `/openapi/v3` is provided to see a list of all
@@ -257,7 +257,7 @@ Elimination of resources or fields requires following the
 -->
 一般而言，新的 API 资源和新的资源字段可以被频繁地添加进来。
 删除资源或者字段则要遵从
-[API 废弃策略](/zh/docs/reference/using-api/deprecation-policy/)。
+[API 废弃策略](/zh-cn/docs/reference/using-api/deprecation-policy/)。
 
 <!--
 Kubernetes makes a strong commitment to maintain compatibility for official Kubernetes APIs
@@ -287,7 +287,7 @@ Refer to [API versions reference](/docs/reference/using-api/#api-versioning)
 for more details on the API version level definitions.
 -->
 关于 API 版本分级的定义细节，请参阅
-[API 版本参考](/zh/docs/reference/using-api/#api-versioning)页面。
+[API 版本参考](/zh-cn/docs/reference/using-api/#api-versioning)页面。
 
 <!--
 ## API Extension
@@ -304,10 +304,10 @@ The Kubernetes API can be extended in one of two ways:
 1. You can also extend the Kubernetes API by implementing an
    [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
 -->
-1. 你可以使用[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+1. 你可以使用[自定义资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
    来以声明式方式定义 API 服务器如何提供你所选择的资源 API。 
 1. 你也可以选择实现自己的
-   [聚合层](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+   [聚合层](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
    来扩展 Kubernetes API。
 
 ## {{% heading "whatsnext" %}}
@@ -323,11 +323,11 @@ The Kubernetes API can be extended in one of two ways:
   [API changes](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme).
 -->
 - 了解如何通过添加你自己的
-  [CustomResourceDefinition](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
+  [CustomResourceDefinition](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
   来扩展 Kubernetes API。
-- [控制 Kubernetes API 访问](/zh/docs/concepts/security/controlling-access/)页面描述了集群如何针对
+- [控制 Kubernetes API 访问](/zh-cn/docs/concepts/security/controlling-access/)页面描述了集群如何针对
   API 访问管理身份认证和鉴权。
-- 通过阅读 [API 参考](/zh/docs/reference/kubernetes-api/)了解 API 端点、资源类型以及示例。
+- 通过阅读 [API 参考](/zh-cn/docs/reference/kubernetes-api/)了解 API 端点、资源类型以及示例。
 - 阅读 [API 变更（英文）](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)
   以了解什么是兼容性的变更以及如何变更 API。
 

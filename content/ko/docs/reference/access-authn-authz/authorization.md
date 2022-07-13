@@ -76,7 +76,7 @@ DELETE    | delete(개별 리소스), deletecollection(리소스 모음)
 
 쿠버네티스는 종종 전문 동사를 사용하여 부가적인 권한 인가를 확인한다. 예를 들면,
 
-* [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/policy/pod-security-policy/)
+* [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/security/pod-security-policy/)
   * `policy` API 그룹의 `podsecuritypolicies` 리소스에 대한 `use` 동사.
 * [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * `rbac.authorization.k8s.io` API 그룹의 `roles` 및 `clusterroles` 리소스에 대한 `bind` 동사.

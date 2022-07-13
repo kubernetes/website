@@ -28,7 +28,7 @@ This page explains how to debug Pods running (or crashing) on a Node.
   need that access to run the standard debug steps that use `kubectl`.
 -->
 * 你的 {{< glossary_tooltip text="Pod" term_id="pod" >}} 应该已经被调度并正在运行中，
-  如果你的 Pod 还没有运行，请参阅[调试 Pod](/zh/docs/tasks/debug/debug-application/)。
+  如果你的 Pod 还没有运行，请参阅[调试 Pod](/zh-cn/docs/tasks/debug/debug-application/)。
 
 * 对于一些高级调试步骤，你应该知道 Pod 具体运行在哪个节点上，并具有在该节点上运行命令的 shell 访问权限。
   你不需要任何访问权限就可以使用 `kubectl` 去运行一些标准调试步骤。
@@ -513,7 +513,7 @@ kubectl exec cassandra -- cat /var/log/cassandra/system.log
 kubectl exec -it cassandra -- sh
 ```
 
-若要了解更多内容，可查看[获取正在运行容器的 Shell](/zh/docs/tasks/debug/debug-application/get-shell-running-container/)。
+若要了解更多内容，可查看[获取正在运行容器的 Shell](/zh-cn/docs/tasks/debug/debug-application/get-shell-running-container/)。
 
 <!--
 ## Debugging with an ephemeral debug container {#ephemeral-container}
@@ -612,7 +612,7 @@ You can view the state of the newly created ephemeral container using `kubectl d
 -->
 此命令添加一个新的 busybox 容器并将其挂接到该容器。`--target` 参数指定另一个容器的进程命名空间。
 这是必需的，因为 `kubectl run` 不能在它创建的pod中启用
-[共享进程命名空间](/zh/docs/tasks/configure-pod-container/share-process-namespace/)。
+[共享进程命名空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)。
 
 {{< note >}}
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}必须支持 `--target` 参数。
@@ -728,7 +728,7 @@ root@myapp-debug:/#
   你可以通过指定 `--attach=false` 来防止这种情况。
   如果你的会话断开连接，你可以使用 `kubectl attach` 重新连接。
 * `--share-processes` 允许在此 Pod 中的其他容器中查看该容器的进程。
-  参阅[在 Pod 中的容器之间共享进程命名空间](/zh/docs/tasks/configure-pod-container/share-process-namespace/)
+  参阅[在 Pod 中的容器之间共享进程命名空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)
   获取更多信息。
 {{< /note >}}
 

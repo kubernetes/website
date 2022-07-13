@@ -67,7 +67,7 @@ View the `config.json` file:
 或 Docker ID 的密码）。
 
 登录过程会创建或更新保存有授权令牌的 `config.json` 文件。
-查看 [Kubernetes 中如何解析这个文件](/zh/docs/concepts/containers/images#config-json)。
+查看 [Kubernetes 中如何解析这个文件](/zh-cn/docs/concepts/containers/images#config-json)。
 
 查看 `config.json` 文件：
 
@@ -348,9 +348,9 @@ kubectl get pod private-reg
 * See the `imagePullSecrets` field within the [container definitions](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers) of a Pod
 -->
 
-* 进一步了解 [Secrets](/zh/docs/concepts/configuration/secret/)
+* 进一步了解 [Secrets](/zh-cn/docs/concepts/configuration/secret/)
   * 或阅读 {{< api-reference page="config-and-storage-resources/secret-v1" >}} 的 API 参考
-* 进一步了解 [使用私有仓库](/zh/docs/concepts/containers/images/#using-a-private-registry)
-* 进一步了解 [为服务账户添加拉取镜像凭证](/zh/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
+* 进一步了解 [使用私有仓库](/zh-cn/docs/concepts/containers/images/#using-a-private-registry)
+* 进一步了解 [为服务账户添加拉取镜像凭证](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
 * 查看 [kubectl 创建 docker-registry 凭证](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)
 * 查看 Pod [容器定义](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers)中的 `imagePullSecrets` 字段。

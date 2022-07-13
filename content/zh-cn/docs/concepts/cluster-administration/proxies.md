@@ -36,7 +36,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - locates apiserver
     - adds authentication headers
 -->
-1. [kubectl proxy](/zh/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api)：
+1. [kubectl proxy](/zh-cn/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api)：
 
     - 运行在用户的桌面或 pod 中
     - 从本机地址到 Kubernetes apiserver 的代理
@@ -56,7 +56,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
 -->
-2. [apiserver proxy](/zh/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services)：
+2. [apiserver proxy](/zh-cn/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services)：
 
     - 是一个建立在 apiserver 内部的“堡垒”
     - 将集群外部的用户与集群 IP 相连接，这些IP是无法通过其他方式访问的
@@ -75,7 +75,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - provides load balancing
     - is only used to reach services
 -->
-3. [kube proxy](/zh/docs/concepts/services-networking/service/#ips-and-vips)：
+3. [kube proxy](/zh-cn/docs/concepts/services-networking/service/#ips-and-vips)：
 
     - 在每个节点上运行
     - 代理 UDP、TCP 和 SCTP

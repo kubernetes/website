@@ -38,14 +38,14 @@ The `runtime-config` command line argument also supports 2 special keys:
 <!-- 
 - `api/all`, representing all known APIs
 - `api/legacy`, representing only legacy APIs. Legacy APIs are any APIs that have been
-   explicitly [deprecated](/zh/docs/reference/using-api/deprecation-policy/).
+   explicitly [deprecated](/zh-cn/docs/reference/using-api/deprecation-policy/).
 
 For example, to turning off all API versions except v1, pass `--runtime-config=api/all=false,api/v1=true`
 to the `kube-apiserver`.
 -->
 - `api/all`：指所有已知的 API
 - `api/legacy`：指过时的 API。过时的 API 就是明确地
-  [弃用](/zh/docs/reference/using-api/deprecation-policy/)
+  [弃用](/zh-cn/docs/reference/using-api/deprecation-policy/)
   的 API。
 
 例如：为了停用除去 v1 版本之外的全部其他 API 版本，
@@ -57,5 +57,5 @@ to the `kube-apiserver`.
 Read the [full documentation](/docs/reference/command-line-tools-reference/kube-apiserver/)
 for the `kube-apiserver` component.
 -->
-阅读[完整的文档](/zh/docs/reference/command-line-tools-reference/kube-apiserver/),
+阅读[完整的文档](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/),
 以了解 `kube-apiserver` 组件。

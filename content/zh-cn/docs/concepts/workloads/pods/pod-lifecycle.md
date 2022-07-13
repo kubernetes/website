@@ -45,7 +45,7 @@ or is [terminated](#pod-termination).
 Pod 对象的状态包含了一组 [Pod 状况（Conditions）](#pod-conditions)。
 如果应用需要的话，你也可以向其中注入[自定义的就绪性信息](#pod-readiness-gate)。
 
-Pod 在其生命周期中只会被[调度](/zh/docs/concepts/scheduling-eviction/)一次。
+Pod 在其生命周期中只会被[调度](/zh-cn/docs/concepts/scheduling-eviction/)一次。
 一旦 Pod 被调度（分派）到某个节点，Pod 会一直在该节点运行，直到 Pod 停止或者
 被[终止](#pod-termination)。
 
@@ -66,7 +66,7 @@ are [scheduled for deletion](#pod-garbage-collection) after a timeout period.
 
 和一个个独立的应用容器一样，Pod 也被认为是相对临时性（而不是长期存在）的实体。
 Pod 会被创建、赋予一个唯一的
-ID（[UID](/zh/docs/concepts/overview/working-with-objects/names/#uids)），
+ID（[UID](/zh-cn/docs/concepts/overview/working-with-objects/names/#uids)），
 并被调度到节点，并在终止（根据重启策略）或删除之前一直运行在该节点。
 
 如果一个{{< glossary_tooltip text="节点" term_id="node" >}}死掉了，调度到该节点
@@ -182,7 +182,7 @@ There are three possible container states: `Waiting`, `Running`, and `Terminated
 ## 容器状态  {#container-states}
 
 Kubernetes 会跟踪 Pod 中每个容器的状态，就像它跟踪 Pod 总体上的[阶段](#pod-phase)一样。
-你可以使用[容器生命周期回调](/zh/docs/concepts/containers/container-lifecycle-hooks/) 
+你可以使用[容器生命周期回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks/)
 来在容器生命周期中的特定时间点触发事件。
 
 一旦{{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}将 Pod
@@ -306,7 +306,7 @@ Pod 有一个 PodStatus 对象，其中包含一个
 -->
 * `PodScheduled`：Pod 已经被调度到某节点；
 * `ContainersReady`：Pod 中所有容器都已就绪；
-* `Initialized`：所有的 [Init 容器](/zh/docs/concepts/workloads/pods/init-containers/)
+* `Initialized`：所有的 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)
   都已成功完成；
 * `Ready`：Pod 可以为请求提供服务，并且应该被添加到对应服务的负载均衡池中。
 
@@ -382,8 +382,8 @@ status:
 <!--
 The Pod conditions you add must have names that meet the Kubernetes [label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
 -->
-你所添加的 Pod 状况名称必须满足 Kubernetes 
-[标签键名格式](/zh/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)。
+你所添加的 Pod 状况名称必须满足 Kubernetes
+[标签键名格式](/zh-cn/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)。
 
 <!--
 ### Status for Pod readiness {#pod-readiness-status}
@@ -401,7 +401,7 @@ write code that sets custom Pod conditions for Pod readiness.
 如果需要设置 Pod 的 `status.conditions`，应用或者
 {{< glossary_tooltip term_id="operator-pattern" text="Operators">}}
 需要使用 `PATCH` 操作。
-你可以使用 [Kubernetes 客户端库](/zh/docs/reference/using-api/client-libraries/)
+你可以使用 [Kubernetes 客户端库](/zh-cn/docs/reference/using-api/client-libraries/)
 之一来编写代码，针对 Pod 就绪态设置定制的 Pod 状况。
 
 <!--
@@ -434,7 +434,7 @@ a network request.
 -->
 ## 容器探针    {#container-probes}
 
-probe 是由 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 对容器执行的定期诊断。
+probe 是由 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 对容器执行的定期诊断。
 要执行诊断，kubelet 既可以在容器内执行代码，也可以发出一个网络请求。
 
 <!--
@@ -484,7 +484,7 @@ Each probe must define exactly one of these four mechanisms:
   [gRPC健康检查](https://grpc.io/grpc/core/md_doc_health-checking.html)。
   如果响应的状态是 "SERVING"，则认为诊断成功。
   gRPC 探针是一个 alpha 特性，只有在你启用了
-  "GRPCContainerProbe" [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gate/)时才能使用。
+  "GRPCContainerProbe" [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才能使用。
 
 `httpGet`
 : 对容器的 IP 地址上指定端口和路径执行 HTTP `GET` 请求。如果响应的状态码大于等于 200
@@ -573,7 +573,7 @@ For more information about how to set up a liveness, readiness, or startup probe
 see [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 -->
 如欲了解如何设置存活态、就绪态和启动探针的进一步细节，可以参阅
-[配置存活态、就绪态和启动探针](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
+[配置存活态、就绪态和启动探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
 
 <!--
 #### When should you use a liveness probe?
@@ -591,11 +591,11 @@ with the Pod's `restartPolicy`.
 If you'd like your container to be killed and restarted if a probe fails, then
 specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
 -->
-如果容器中的进程能够在遇到问题或不健康的情况下自行崩溃，则不一定需要存活态探针; 
-`kubelet` 将根据 Pod 的`restartPolicy` 自动执行修复操作。
+如果容器中的进程能够在遇到问题或不健康的情况下自行崩溃，则不一定需要存活态探针;
+`kubelet` 将根据 Pod 的 `restartPolicy` 自动执行修复操作。
 
 如果你希望容器在探测失败时被杀死并重新启动，那么请指定一个存活态探针，
-并指定`restartPolicy` 为 "`Always`" 或 "`OnFailure`"。
+并指定 `restartPolicy` 为 "`Always`" 或 "`OnFailure`"。
 
 <!--
 #### When should you use a readiness probe?
@@ -754,7 +754,7 @@ An example flow:
    如果你使用 `kubectl describe` 来查验你正在删除的 Pod，该 Pod 会显示为
    "Terminating" （正在终止）。
    在 Pod 运行所在的节点上：`kubelet` 一旦看到 Pod
-   被标记为正在终止（已经设置了体面终止限期），`kubelet` 即开始本地的 Pod 关闭过程。 
+   被标记为正在终止（已经设置了体面终止限期），`kubelet` 即开始本地的 Pod 关闭过程。
 
    <!--
    1. If one of the Pod's containers has defined a `preStop`
@@ -770,7 +770,7 @@ An example flow:
       order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
    -->
    1. 如果 Pod 中的容器之一定义了 `preStop`
-      [回调](/zh/docs/concepts/containers/container-lifecycle-hooks)，
+      [回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks)，
       `kubelet` 开始在容器内运行该回调逻辑。如果超出体面终止限期时，`preStop` 回调逻辑
       仍在运行，`kubelet` 会请求给予该 Pod 的宽限期一次性增加 2 秒钟。
 
@@ -874,7 +874,7 @@ API 服务器直接删除 Pod 对象，这样新的与之同名的 Pod 即可以
 在节点侧，被设置为立即终止的 Pod 仍然会在被强行杀死之前获得一点点的宽限时间。
 
 如果你需要强制删除 StatefulSet 的 Pod，请参阅
-[从 StatefulSet 中删除 Pod](/zh/docs/tasks/run-application/force-delete-stateful-set-pod/)
+[从 StatefulSet 中删除 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)
 的任务文档。
 
 <!--
@@ -915,9 +915,9 @@ This avoids a resource leak as Pods are created and terminated over time.
   the API reference documentation covering
   [`.status`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodStatus) for Pod.
 -->
-* 动手实践[为容器生命周期时间关联处理程序](/zh/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)。
-* 动手实践[配置存活态、就绪态和启动探针](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
-* 进一步了解[容器生命周期回调](/zh/docs/concepts/containers/container-lifecycle-hooks/)。
+* 动手实践[为容器生命周期时间关联处理程序](/zh-cn/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)。
+* 动手实践[配置存活态、就绪态和启动探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
+* 进一步了解[容器生命周期回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks/)。
 * 关于 API 中定义的有关 Pod 和容器状态的详细规范信息，
   可参阅 API 参考文档中 Pod 的 [`.status`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodStatus) 字段。
 

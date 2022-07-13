@@ -29,9 +29,9 @@ This tutorial shows you how to deploy a WordPress site and a MySQL database usin
 <!--
  A [PersistentVolume](/docs/concepts/storage/persistent-volumes/)(PV)is a piece of storage in the cluster that has been manually provisioned by an administrator, or dynamically provisioned by Kubernetes using a [StorageClass](/docs/concepts/storage/storage-classes).  A [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)(PVC)is a request for storage by a user that can be fulfilled by a PV. PersistentVolumes and PersistentVolumeClaims are independent from Pod lifecycles and preserve data through restarting, rescheduling, and even deleting Pods.
 -->
-[PersistentVolume](/zh/docs/concepts/storage/persistent-volumes/)（PV）是一块集群里由管理员手动提供，
-或 kubernetes 通过 [StorageClass](/zh/docs/concepts/storage/storage-classes) 动态创建的存储。
-[PersistentVolumeClaim](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
+[PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)（PV）是一块集群里由管理员手动提供，
+或 kubernetes 通过 [StorageClass](/zh-cn/docs/concepts/storage/storage-classes) 动态创建的存储。
+[PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 是用户对存储的请求，该请求可由某个 PV 来满足。
 PersistentVolumes 和 PersistentVolumeClaims 独立于 Pod 生命周期而存在，
 在 Pod 重启，重新调度甚至删除过程中保存数据。
@@ -153,7 +153,7 @@ A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piec
 
 Add a Secret generator in `kustomization.yaml` from the following command. You will need to replace `YOUR_PASSWORD` with the password you want to use.
 -->
-[Secret](/zh/docs/concepts/configuration/secret/) 是存储诸如密码或密钥之类的敏感数据的对象。
+[Secret](/zh-cn/docs/concepts/configuration/secret/) 是存储诸如密码或密钥之类的敏感数据的对象。
 从 1.14 开始，`kubectl`支持使用 kustomization 文件管理 Kubernetes 对象。
 你可以通过`kustomization.yaml`中的生成器创建一个 Secret。
 
@@ -455,7 +455,7 @@ Do not leave your WordPress installation on this page. If another user finds it,
 * Learn more about [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * Learn how to [Get a Shell to a Container](/docs/tasks/debug/debug-application/get-shell-running-container/)
 -->
-* 进一步了解[自省与调试](/zh/docs/tasks/debug/debug-application/debug-running-pod/)
-* 进一步了解 [Job](/zh/docs/concepts/workloads/controllers/jobs-run-to-completion/)
-* 进一步了解[端口转发](/zh/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* 了解如何[获得容器的 Shell](/zh/docs/tasks/debug/debug-application/get-shell-running-container/)
+* 进一步了解[自省与调试](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)
+* 进一步了解 [Job](/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* 进一步了解[端口转发](/zh-cn/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* 了解如何[获得容器的 Shell](/zh-cn/docs/tasks/debug/debug-application/get-shell-running-container/)

@@ -23,8 +23,8 @@ with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 -->
 本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉
-[卷](/zh/docs/concepts/storage/volumes/)和
-[持久卷](/zh/docs/concepts/storage/persistent-volumes)的概念。
+[卷](/zh-cn/docs/concepts/storage/volumes/)和
+[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes)的概念。
 
 <!-- body -->
 
@@ -38,7 +38,7 @@ administrators. Kubernetes itself is unopinionated about what classes
 represent. This concept is sometimes called "profiles" in other storage
 systems.
 -->
-## 介绍
+## 介绍 {#introduction}
 
 StorageClass 为管理员提供了描述存储 "类" 的方法。
 不同的类型可能会映射到不同的服务质量等级或备份策略，或是由集群管理员制定的任意策略。
@@ -52,7 +52,7 @@ Each StorageClass contains the fields `provisioner`, `parameters`, and
 class needs to be dynamically provisioned.
 
 -->
-## StorageClass 资源
+## StorageClass 资源 {#the-storageclass-resource}
 
 每个 StorageClass 都包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
 这些字段会在 StorageClass 需要动态分配 PersistentVolume 时会使用到。
@@ -74,7 +74,7 @@ for details.
  -->
 管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类：
 更多详情请参阅
-[PersistentVolumeClaim 章节](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
+[PersistentVolumeClaim 章节](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -170,7 +170,7 @@ StorageClass object is created, it will default to `Delete`.
 PersistentVolumes that are created manually and managed via a StorageClass will have
 whatever reclaim policy they were assigned at creation.
  -->
-### 回收策略
+### 回收策略 {#reclaim-policy}
 
 由 StorageClass 动态创建的 PersistentVolume 会在类的 `reclaimPolicy` 字段中指定回收策略，可以是
 `Delete` 或者 `Retain`。如果 StorageClass 对象被创建时没有指定 `reclaimPolicy`，它将默认为 `Delete`。
@@ -181,7 +181,7 @@ whatever reclaim policy they were assigned at creation.
 ### Allow Volume Expansion
 -->
 
-### 允许卷扩展
+### 允许卷扩展 {#allow-volume-expansion}
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
@@ -233,7 +233,7 @@ If the volume plugin does not support mount options but mount options are
 specified, provisioning will fail. Mount options are not validated on either
 the class or PV, If a mount option is invalid, the PV mount fails.
  -->
-### 挂载选项
+### 挂载选项 {#mount-options}
 
 由 StorageClass 动态创建的 PersistentVolume 将使用类中 `mountOptions` 字段指定的挂载选项。
 
@@ -243,13 +243,13 @@ the class or PV, If a mount option is invalid, the PV mount fails.
 <!--
 ### Volume Binding Mode
  -->
-### 卷绑定模式
+### 卷绑定模式 {#volume-binding-mode}
 
 <!--
 The `volumeBindingMode` field controls when [volume binding and dynamic
 provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur.
  -->
-`volumeBindingMode` 字段控制了[卷绑定和动态制备](/zh/docs/concepts/storage/persistent-volumes/#provisioning)
+`volumeBindingMode` 字段控制了[卷绑定和动态制备](/zh-cn/docs/concepts/storage/persistent-volumes/#provisioning)
 应该发生在什么时候。
 
 <!--
@@ -277,10 +277,10 @@ and [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-tolera
 集群管理员可以通过指定 `WaitForFirstConsumer` 模式来解决此问题。
 该模式将延迟 PersistentVolume 的绑定和制备，直到使用该 PersistentVolumeClaim 的 Pod 被创建。
 PersistentVolume 会根据 Pod 调度约束指定的拓扑来选择或制备。这些包括但不限于
-[资源需求](/zh/docs/concepts/configuration/manage-resources-containers/)、
-[节点筛选器](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)、
-[pod 亲和性和互斥性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity/)、
-以及[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration)。
+[资源需求](/zh-cn/docs/concepts/configuration/manage-resources-containers/)、
+[节点筛选器](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)、
+[pod 亲和性和互斥性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity/)、
+以及[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration)。
 
 <!--
 The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
@@ -313,7 +313,7 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
 to see its supported topology keys and examples.
 -->
-动态配置和预先创建的 PV 也支持 [CSI卷](/zh/docs/concepts/storage/volumes/#csi)，
+动态配置和预先创建的 PV 也支持 [CSI卷](/zh-cn/docs/concepts/storage/volumes/#csi)，
 但是你需要查看特定 CSI 驱动程序的文档以查看其支持的拓扑键名和例子。
 
 {{< note >}}
@@ -406,7 +406,7 @@ There can be at most 512 parameters defined for a StorageClass.
 The total length of the parameters object including its keys and values cannot
 exceed 256 KiB.
  -->
-## 参数
+## 参数 {#parameters}
 
 Storage Classes 的参数描述了存储类的卷。取决于制备器，可以接受不同的参数。
 例如，参数 type 的值 io1 和参数 iopsPerGB 特定于 EBS PV。
@@ -770,7 +770,7 @@ vSphere 存储类有两种制备器
 [弃用](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)。
 更多关于 CSI 制备器的详情，请参阅 
 [Kubernetes vSphere CSI 驱动](https://vsphere-csi-driver.sigs.k8s.io/)
-和 [vSphereVolume CSI 迁移](/zh/docs/concepts/storage/volumes/#csi-migration-5)。
+和 [vSphereVolume CSI 迁移](/zh-cn/docs/concepts/storage/volumes/#csi-migration-5)。
 
 <!--
 #### CSI Provisioner {#vsphere-provisioner-csi}
@@ -1076,7 +1076,7 @@ parameters:
 <!--
 ### Azure Disk
 -->
-### Azure 磁盘
+### Azure 磁盘 {#azure-disk}
 
 <!--
 #### Azure Unmanaged Disk Storage Class {#azure-disk-storage-class}
@@ -1157,7 +1157,7 @@ parameters:
 <!--
 ### Azure File
 -->
-### Azure 文件
+### Azure 文件 {#azure-file}
 
 ```yaml
 kind: StorageClass
@@ -1209,8 +1209,8 @@ add the `create` permission of resource `secret` for clusterrole
 `system:controller:persistent-volume-binder`.
 -->
 在存储制备期间，为挂载凭证创建一个名为 `secretName` 的 Secret。如果集群同时启用了
-[RBAC](/zh/docs/reference/access-authn-authz/rbac/) 和
-[控制器角色](/zh/docs/reference/access-authn-authz/rbac/#controller-roles)，
+[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 和
+[控制器角色](/zh-cn/docs/reference/access-authn-authz/rbac/#controller-roles)，
 为 `system:controller:persistent-volume-binder` 的 clusterrole 添加
 `Secret` 资源的 `create` 权限。
 
@@ -1225,7 +1225,7 @@ be read by other users.
 <!--
 ### Portworx Volume
  -->
-### Portworx 卷
+### Portworx 卷 {#portworx-volume}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -1426,7 +1426,7 @@ references it.
 <!--
 ### Local
 -->
-### 本地
+### 本地 {#local}
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 

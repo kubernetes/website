@@ -33,7 +33,7 @@ declaratively by sending their fully specified intent.
 服务器端应用协助用户、控制器通过声明式配置的方式管理他们的资源。
 客户端可以发送完整描述的目标（A fully specified intent），
 声明式地创建和/或修改
-[对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)。
+[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)。
 
 <!--
 A fully specified intent is a partial object that only includes the fields and

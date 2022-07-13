@@ -35,18 +35,18 @@ of terminating one or more Pods on Nodes.
 
 ## 调度
 
-* [Kubernetes 调度器](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
-* [将 Pods 指派到节点](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)
-* [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
-* [污点和容忍](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)
-* [调度框架](/zh/docs/concepts/scheduling-eviction/scheduling-framework)
-* [调度器的性能调试](/zh/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
-* [扩展资源的资源装箱](/zh/docs/concepts/scheduling-eviction/resource-bin-packing/)
+* [Kubernetes 调度器](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)
+* [将 Pods 指派到节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)
+* [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)
+* [污点和容忍](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)
+* [调度框架](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework)
+* [调度器的性能调试](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
+* [扩展资源的资源装箱](/zh-cn/docs/concepts/scheduling-eviction/resource-bin-packing/)
 
 <!-- ## Pod Disruption -->
 
 ## Pod 干扰
 
-* [Pod 优先级和抢占](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-* [节点压力驱逐](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-* [API发起的驱逐](/zh/docs/concepts/scheduling-eviction/api-eviction/)
+* [Pod 优先级和抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* [节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* [API发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)

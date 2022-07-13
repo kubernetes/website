@@ -2,15 +2,12 @@
 title: " 使用 Kubernetes Pet Sets 和 Datera Elastic Data Fabric 的 FlexVolume 扩展有状态的应用程序 "
 date: 2016-08-29
 slug: stateful-applications-using-kubernetes-datera
-url: /zh/blog/2016/08/Stateful-Applications-Using-Kubernetes-Datera
 ---
 <!--
----
 title: " Scaling Stateful Applications using Kubernetes Pet Sets and FlexVolumes with Datera Elastic Data Fabric "
 date: 2016-08-29
 slug: stateful-applications-using-kubernetes-datera
-url: /zh/blog/2016/08/Stateful-Applications-Using-Kubernetes-Datera
----
+url: /blog/2016/08/Stateful-Applications-Using-Kubernetes-Datera
 --->
 
 <!--

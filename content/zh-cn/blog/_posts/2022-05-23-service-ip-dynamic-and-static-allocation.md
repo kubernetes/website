@@ -23,7 +23,7 @@ can have a cluster-scoped virtual IP address (using a Service of `type: ClusterI
 Clients can connect using that virtual IP address, and Kubernetes then load-balances traffic to that
 Service across the different backing Pods.
 -->
-在 Kubernetes 中，[Services](/zh/docs/concepts/services-networking/service/)
+在 Kubernetes 中，[Services](/zh-cn/docs/concepts/services-networking/service/)
 是一种抽象，用来暴露运行在一组 Pod 上的应用。
 Service 可以有一个集群范围的虚拟 IP 地址（使用 `type: ClusterIP` 的 Service）。
 客户端可以使用该虚拟 IP 地址进行连接， Kubernetes 为对该 Service 的访问流量提供负载均衡，以访问不同的后端 Pod。
@@ -156,13 +156,13 @@ Examples:
 
 <!--
 Range Size: 2<sup>8</sup> - 2 = 254  
-Band Offset: `min(max(16,256/16),256)` = `min(16,256)` = 16  
+Band Offset: `min(max(16, 256/16), 256)` = `min(16, 256)` = 16  
 Static band start: 10.96.0.1  
 Static band end: 10.96.0.16  
 Range end: 10.96.0.254   
 -->
 地址段大小：2<sup>8</sup> - 2 = 254  
-地址段偏移：`min(max(16,256/16),256)` = `min(16,256)` = 16  
+地址段偏移：`min(max(16, 256/16), 256)` = `min(16, 256)` = 16  
 静态地址段起点：10.96.0.1  
 静态地址段终点：10.96.0.16  
 地址范围终点：10.96.0.254
@@ -189,13 +189,13 @@ title 10.96.0.0/24
 
 <!--
 Range Size: 2<sup>12</sup> - 2 = 4094  
-Band Offset: `min(max(16,4094/16),256)` = `min(256,256)` = 256  
+Band Offset: `min(max(16, 4096/16), 256)` = `min(256, 256)` = 256  
 Static band start: 10.96.0.1  
 Static band end: 10.96.1.0  
 Range end: 10.96.15.254  
 -->
 地址段大小：2<sup>12</sup> - 2 = 4094  
-地址段偏移：`min(max(16,4094/16),256)` = `min(256,256)` = 256  
+地址段偏移：`min(max(16, 4096/16), 256)` = `min(256, 256)` = 256  
 静态地址段起点：10.96.0.1  
 静态地址段终点：10.96.1.0  
 地址范围终点：10.96.15.254
@@ -222,13 +222,13 @@ title 10.96.0.0/20
 
 <!--
 Range Size: 2<sup>16</sup> - 2 = 65534  
-Band Offset: `min(max(16,65536/16),256)` = `min(4096,256)` = 256  
+Band Offset: `min(max(16, 65536/16), 256)` = `min(4096, 256)` = 256  
 Static band start: 10.96.0.1  
 Static band ends: 10.96.1.0  
 Range end: 10.96.255.254  
 -->
 地址段大小：2<sup>16</sup> - 2 = 65534  
-地址段偏移：`min(max(16,65536/16),256)` = `min(4096,256)` = 256  
+地址段偏移：`min(max(16, 65536/16), 256)` = `min(4096, 256)` = 256  
 静态地址段起点：10.96.0.1  
 静态地址段终点：10.96.1.0  
 地址范围终点：10.96.255.254

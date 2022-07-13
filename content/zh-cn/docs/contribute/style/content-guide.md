@@ -30,7 +30,7 @@ docs, follow the [style guide](/docs/contribute/style/style-guide).
 你可以在 https://slack.k8s.io 注册到 Kubernetes Slack。
 
 关于为 Kubernetes 文档创建新内容的更多信息，可参考
-[样式指南](/zh/docs/contribute/style/style-guide)。
+[样式指南](/zh-cn/docs/contribute/style/style-guide)。
 
 <!-- body -->
 
@@ -92,9 +92,9 @@ Kubernetes 文档包含 Kubernetes 项目下的多个项目的应用示例。
 
 Kubernetes 需要某些第三方内容才能正常工作。例如
 容器运行时（containerd、CRI-O、Docker），
-[联网策略](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-（CNI 插件），[Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers/)
-以及[日志](/zh/docs/concepts/cluster-administration/logging/)等。
+[联网策略](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+（CNI 插件），[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers/)
+以及[日志](/zh-cn/docs/concepts/cluster-administration/logging/)等。
 
 只有对应的第三方开源软件（OSS）是运行 Kubernetes 所必需的，才可以在文档中包含
 指向这些 Kubernetes 项目之外的软件的链接。
@@ -138,4 +138,4 @@ If you have questions about allowed content, join the [Kubernetes Slack](https:/
 
 ## {{% heading "whatsnext" %}}
 
-* 阅读[样式指南](/zh/docs/contribute/style/style-guide)。
+* 阅读[样式指南](/zh-cn/docs/contribute/style/style-guide)。

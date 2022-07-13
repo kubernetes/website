@@ -40,11 +40,11 @@ Although Secrets are also used to store key-value pairs, they differ from Config
 -->
 ConfigMaps 是存储非机密键值对的 API 对象。
 在互动教程中，你会学到如何用 ConfigMap 来保存应用名字。
-ConfigMap 的更多信息，你可以在[这里](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)找到文档。
+ConfigMap 的更多信息，你可以在[这里](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)找到文档。
 
 Secrets 尽管也用来存储键值对，但区别于 ConfigMaps 的是：它针对机密/敏感数据，且存储格式为 Base64 编码。
 secrets 的这种特性使得它适合于存储证书、密钥、令牌，上述内容你将在交互教程中实现。
-Secrets 的更多信息，你可以在[这里](/zh/docs/concepts/configuration/secret/)找到文档。
+Secrets 的更多信息，你可以在[这里](/zh-cn/docs/concepts/configuration/secret/)找到文档。
 
 
 <!-- 
@@ -90,4 +90,4 @@ CDI & MicroProfile 都会被用在互动教程中，
 ### [Start Interactive Tutorial](/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
 -->
 ## 示例：使用 MicroProfile、ConfigMaps、Secrets 实现外部化应用配置
-### [启动互动教程](/zh/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
+### [启动互动教程](/zh-cn/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
