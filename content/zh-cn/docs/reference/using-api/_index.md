@@ -59,11 +59,11 @@ JSON 和 Protobuf 序列化模式遵循相同的模式更改原则。
 
 <!--
 The API versioning and software versioning are indirectly related.
-The [API and release versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)
+The [API and release versioning proposal](https://git.k8s.io/sig-release/release-engineering/versioning.md)
 describes the relationship between API versioning and software versioning.
 -->
 API 版本控制和软件版本控制是间接相关的。
-[API 和发布版本控制提案](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)
+[API 和发布版本控制提案](https://git.k8s.io/sig-release/release-engineering/versioning.md)
 描述了 API 版本控制和软件版本控制间的关系。
 
 <!--
