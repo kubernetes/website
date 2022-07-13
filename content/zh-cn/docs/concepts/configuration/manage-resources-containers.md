@@ -206,7 +206,7 @@ expression `100m`, which can be read as "one hundred millicpu". Some people say
 你也可以表达带小数 CPU 的请求。
 当你定义一个容器，将其 `spec.containers[].resources.requests.cpu` 设置为 0.5 时，
 你所请求的 CPU 是你请求 `1.0` CPU 时的一半。
-对于 CPU 资源单位，[数量](/docs/reference/kubernetes-api/common-definitions/quantity/)
+对于 CPU 资源单位，[数量](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)
 表达式 `0.1` 等价于表达式 `100m`，可以看作 “100 millicpu”。
 有些人说成是“一百毫核”，其实说的是同样的事情。
 
@@ -242,7 +242,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 
 `memory` 的约束和请求以字节为单位。
 你可以使用普通的证书，或者带有以下
-[数量](/docs/reference/kubernetes-api/common-definitions/quantity/)后缀
+[数量](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)后缀
 的定点数字来表示内存：E、P、T、G、M、k。
 你也可以使用对应的 2 的幂数：Ei、Pi、Ti、Gi、Mi、Ki。
 例如，以下表达式所代表的是大致相同的值：
@@ -1158,7 +1158,7 @@ to view the events for a Pod; for example:
 
 如果调度器找不到该 Pod 可以匹配的任何节点，则该 Pod 将保持未被调度状态，
 直到找到一个可以被调度到的位置。每当调度器找不到 Pod 可以调度的地方时，
-会产生一个 [Event](/docs/reference/kubernetes-api/cluster-resources/event-v1/)。
+会产生一个 [Event](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)。
 你可以使用 `kubectl` 来查看 Pod 的事件；例如：
 
 ```shell
@@ -1254,7 +1254,7 @@ for details).
 -->
 Pods 可用的资源量低于节点的资源总量，因为系统守护进程也会使用一部分可用资源。
 在 Kubernetes API 中，每个 Node 都有一个 `.status.allocatable` 字段
-（详情参见 [NodeStatus](/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeStatus)）。
+（详情参见 [NodeStatus](/zh-cn/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeStatus)）。
 
 <!--
 The `.status.allocatable` field describes the amount of resources that are available
@@ -1371,14 +1371,14 @@ memory limit (and possibly request) for that container.
 * Get hands-on experience [assigning Memory resources to containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 * Get hands-on experience [assigning CPU resources to containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 * Read how the API reference defines a [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
-  and its [resource requirements](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
+  and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
 * Read about [project quotas](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
 * Read more about the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 -->
 * 获取[分配内存资源给容器和 Pod ](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/) 的实践经验
 * 获取[分配 CPU 资源给容器和 Pod ](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/) 的实践经验
-* 阅读 API 参考中 [Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
-  和其[资源请求](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)定义。
+* 阅读 API 参考中 [Container](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
+  和其[资源请求](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)定义。
 * 阅读 XFS 中[配额](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html)的文档
 * 进一步阅读 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 

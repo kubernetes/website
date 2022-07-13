@@ -3,6 +3,13 @@ layout: blog
 title: "당황하지 마세요. 쿠버네티스와 도커"
 date: 2020-12-02
 slug: dont-panic-kubernetes-and-docker
+evergreen: true
+---
+
+**업데이트:** _쿠버네티스의 `dockershim`을 통한 도커 지원이 제거되었습니다.
+더 자세한 정보는 [제거와 관련된 자주 묻는 질문](/dockershim/)을 참고하세요.
+또는 지원 중단에 대한 [GitHub 이슈](https://github.com/kubernetes/kubernetes/issues/106917)에서 논의를 할 수도 있습니다._
+
 ---
 
 **저자:** Jorge Castro, Duffie Cooley, Kat Cosgrove, Justin Garrison, Noah Kantrowitz, Bob Killen, Rey Lejano, Dan “POP” Papandrea, Jeffrey Sica, Davanum “Dims” Srinivas
@@ -10,8 +17,7 @@ slug: dont-panic-kubernetes-and-docker
 **번역:** 박재화(삼성SDS), 손석호(한국전자통신연구원)
 
 쿠버네티스는 v1.20 이후 컨테이너 런타임으로서
-[도커를
-사용 중단(deprecating)](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation)합니다.
+[도커를 사용 중단(deprecating)](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation)합니다.
 
 **당황할 필요는 없습니다. 말처럼 극적이진 않습니다.**
 
@@ -26,7 +32,7 @@ slug: dont-panic-kubernetes-and-docker
 빌드하는 데 유용한 도구이며, `docker
 build` 실행 결과로 만들어진 이미지도 여전히 쿠버네티스 클러스터에서 동작합니다.
 
-GKE, EKS 또는 AKS([containerd가 기본](https://github.com/Azure/AKS/releases/tag/2020-11-16)인)와 같은 관리형 쿠버네티스 서비스를
+AKS, EKS 또는 GKE와 같은 관리형 쿠버네티스 서비스를
 사용하는 경우 쿠버네티스의 향후 버전에서 도커에 대한 지원이
 없어지기 전에, 워커 노드가 지원되는 컨테이너 런타임을 사용하고 있는지 확인해야 합니다. 노드에
 사용자 정의가 적용된 경우 사용자 환경 및 런타임 요구 사항에 따라 업데이트가 필요할 수도
@@ -35,8 +41,8 @@ GKE, EKS 또는 AKS([containerd가 기본](https://github.com/Azure/AKS/releases
 
 자체 클러스터를 운영하는 경우에도, 클러스터의 고장을 피하기 위해서
 변경을 수행해야 합니다. v1.20에서는 도커에 대한 지원 중단 경고(deprecation warning)가 표시됩니다.
-도커 런타임 지원이 쿠버네티스의 향후 릴리스(현재는 2021년 하반기의
-1.22 릴리스로 계획됨)에서 제거되면 더 이상 지원되지
+도커 런타임 지원이 쿠버네티스의 향후 릴리스(<del>현재는 2021년 하반기의
+1.22 릴리스로 계획됨</del>)에서 제거되면 더 이상 지원되지
 않으며, containerd 또는 CRI-O와 같은 다른 호환 컨테이너 런타임 중
 하나로 전환해야 합니다. 선택한 런타임이 현재 사용 중인
 도커 데몬 구성(예: 로깅)을 지원하는지 확인하세요.
@@ -103,4 +109,4 @@ containerd가 정말 필요로 하는 것들을 확보하기 위해서 도커심
 모든 사람이 다가오는 변경 사항에 대해 최대한 많은 교육을 받을 수 있도록 하는 것입니다. 이 글이
 여러분이 가지는 대부분의 질문에 대한 답이 되었고, 불안을 약간은 진정시켰기를 바랍니다! ❤️
 
-더 많은 답변을 찾고 계신가요? 함께 제공되는 [도커심 사용 중단 FAQ](/blog/2020/12/02/dockershim-faq/)를 확인하세요.
+더 많은 답변을 찾고 계신가요? 함께 제공되는 [도커심 제거 FAQ](/blog/2022/02/17/dockershim-faq/)(2022년 2월에 갱신됨)를 확인하세요.

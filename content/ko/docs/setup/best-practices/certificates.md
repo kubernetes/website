@@ -22,6 +22,8 @@ weight: 40
 쿠버네티스는 다음 작업에서 PKI를 필요로 한다.
 
 * kubelet에서 API 서버 인증서를 인증시 사용하는 클라이언트 인증서
+* API 서버가 kubelet과 통신하기 위한 
+  kubelet [서버 인증서](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#client-and-serving-certificates)
 * API 서버 엔드포인트를 위한 서버 인증서
 * API 서버에 클러스터 관리자 인증을 위한 클라이언트 인증서
 * API 서버에서 kubelet과 통신을 위한 클라이언트 인증서
@@ -89,7 +91,7 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 로드 밸런서 안정 IP 또는 DNS 이름, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
-`kind`는 하나 이상의 [x509 키 사용](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage) 종류를 가진다.
+`kind`는 하나 이상의 [x509 키 사용](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage) 종류를 가진다.
 
 | 종류   | 키 사용                                                                         |
 |--------|---------------------------------------------------------------------------------|

@@ -197,7 +197,7 @@ etcd 백업 계획을 세우려면
 스크립트를 구성할 수 있는 가상화 플랫폼이 있다.
 - *노드 헬스 체크 구성*: 중요한 워크로드의 경우, 
 해당 노드에서 실행 중인 노드와 파드의 상태가 정상인지 확인하고 싶을 것이다. 
-[Node Problem Detector](/docs/tasks/debug-application-cluster/monitor-node-health/) 
+[Node Problem Detector](/docs/tasks/debug/debug-cluster/monitor-node-health/) 
 데몬을 사용하면 노드가 정상인지 확인할 수 있다.
 
 ## 프로덕션 사용자 관리

@@ -39,13 +39,14 @@ no_list: true
 *구성 파일* 및 *플래그* 는 온라인 문서의 레퍼런스 섹션에 각 바이너리 별로 문서화되어 있다.
 
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 
 호스팅된 쿠버네티스 서비스 또는 매니지드 설치 환경의 배포판에서 플래그 및 구성 파일을 항상 변경할 수 있는 것은 아니다. 변경 가능한 경우 일반적으로 클러스터 관리자만 변경할 수 있다. 또한 향후 쿠버네티스 버전에서 변경될 수 있으며, 이를 설정하려면 프로세스를 다시 시작해야 할 수도 있다. 이러한 이유로 다른 옵션이 없는 경우에만 사용해야 한다.
 
-[리소스쿼터](/ko/docs/concepts/policy/resource-quotas/), [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/policy/pod-security-policy/), [네트워크폴리시](/ko/docs/concepts/services-networking/network-policies/) 및 역할 기반 접근 제어([RBAC](/docs/reference/access-authn-authz/rbac/))와 같은 *빌트인 정책 API(built-in Policy API)* 는 기본적으로 제공되는 쿠버네티스 API이다. API는 일반적으로 호스팅된 쿠버네티스 서비스 및 매니지드 쿠버네티스 설치 환경과 함께 사용된다. 그것들은 선언적이며 파드와 같은 다른 쿠버네티스 리소스와 동일한 규칙을 사용하므로, 새로운 클러스터 구성을 반복할 수 있고 애플리케이션과 동일한 방식으로 관리할 수 있다. 또한, 이들 API가 안정적인 경우, 다른 쿠버네티스 API와 같이 [정의된 지원 정책](/docs/reference/using-api/deprecation-policy/)을 사용할 수 있다. 이러한 이유로 인해 *구성 파일* 과 *플래그* 보다 선호된다.
+[리소스쿼터](/ko/docs/concepts/policy/resource-quotas/), [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/security/pod-security-policy/), [네트워크폴리시](/ko/docs/concepts/services-networking/network-policies/) 및 역할 기반 접근 제어([RBAC](/docs/reference/access-authn-authz/rbac/))와 같은 *빌트인 정책 API(built-in Policy API)* 는 기본적으로 제공되는 쿠버네티스 API이다. API는 일반적으로 호스팅된 쿠버네티스 서비스 및 매니지드 쿠버네티스 설치 환경과 함께 사용된다. 그것들은 선언적이며 파드와 같은 다른 쿠버네티스 리소스와 동일한 규칙을 사용하므로, 새로운 클러스터 구성을 반복할 수 있고 애플리케이션과 동일한 방식으로 관리할 수 있다. 또한, 이들 API가 안정적인 경우, 다른 쿠버네티스 API와 같이 [정의된 지원 정책](/docs/reference/using-api/deprecation-policy/)을 사용할 수 있다. 이러한 이유로 인해 *구성 파일* 과 *플래그* 보다 선호된다.
 
 ## 익스텐션
 

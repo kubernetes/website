@@ -91,6 +91,6 @@ kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'
 ## {{% heading "whatsnext" %}}
 
 
-[스테이트풀셋 디버깅하기](/ko/docs/tasks/debug-application-cluster/debug-stateful-set/)에 대해 더 알아보기.
+[스테이트풀셋 디버깅하기](/ko/docs/tasks/debug/debug-application/debug-statefulset/)에 대해 더 알아보기.
 
 
