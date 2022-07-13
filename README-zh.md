@@ -259,7 +259,7 @@ This works for Catalina as well as Mojave macOS.
 
 ### 对执行 make container-image 命令部分地区访问超时的故障排除
 
-现象如下:
+现象如下：
 
 ```shell
 langs/language.go:23:2: golang.org/x/text@v0.3.7: Get "https://proxy.golang.org/golang.org/x/text/@v/v0.3.7.zip": dial tcp 142.251.43.17:443: i/o timeout
