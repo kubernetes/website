@@ -69,4 +69,4 @@ admission controller. To get started with `cosigned` here are a few helpful
 resources:
 
 * [Installation](https://github.com/sigstore/cosign#installation)
-* [Configuration Options](https://github.com/sigstore/cosign/tree/main/config)
+* [Configuration Options](https://github.com/sigstore/cosign/blob/main/USAGE.md#detailed-usage)
