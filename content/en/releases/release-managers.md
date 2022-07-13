@@ -139,6 +139,8 @@ GitHub Mentions: @kubernetes/release-engineering
 - Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
 - Taylor Dolezal ([@onlydole](https://github.com/onlydole))
 - Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
+- Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 
 ### Becoming a Release Manager Associate
 
