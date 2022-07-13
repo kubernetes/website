@@ -334,6 +334,9 @@ kubectl get pods --selector=app=cassandra -o \
 kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
 
+# Retrieve a base64 encoded value with dashes instead of underscores.
+kubectl get secret my-secret --template='{{index .data "key-name-with-dashes"}}'
+
 # Get all worker nodes (use a selector to exclude results that have a label
 # named 'node-role.kubernetes.io/control-plane')
 kubectl get node --selector='!node-role.kubernetes.io/control-plane'
@@ -416,6 +419,9 @@ kubectl get pods --selector=app=cassandra -o \
 # 检索带有 “.” 键值，例： 'ca.crt'
 kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
+
+# 检索一个 base64 编码的值，其中的键名应该包含减号而不是下划线。
+kubectl get secret my-secret --template='{{index .data "key-name-with-dashes"}}'
 
 # 获取所有工作节点（使用选择器以排除标签名称为 'node-role.kubernetes.io/control-plane' 的结果）
 kubectl get node --selector='!node-role.kubernetes.io/control-plane'
