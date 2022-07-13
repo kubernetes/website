@@ -276,7 +276,7 @@ make: *** [Makefile:69：container-image] error 1
 
 请修改 `Dockerfile` 文件，为其添加网络代理。修改内容如下：
 
-```shell
+```dockerfile
 ...
 FROM golang:1.18-alpine
 
