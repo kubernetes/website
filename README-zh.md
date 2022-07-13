@@ -298,7 +298,7 @@ ARG HUGO_VERSION
 ...
 ```
 
-**注意:** 此部分仅适用于中国大陆 
+**注意：** 此部分仅适用于中国大陆 
 
 <!--
 ## Get involved with SIG Docs
