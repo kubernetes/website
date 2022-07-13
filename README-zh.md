@@ -258,7 +258,9 @@ This works for Catalina as well as Mojave macOS.
 这适用于 Catalina 和 Mojave macOS。
 
 ### make container-image 遇到 timeout
+
 现象如下:
+
 ```shell
 langs/language.go:23:2: golang.org/x/text@v0.3.7: Get "https://proxy.golang.org/golang.org/x/text/@v/v0.3.7.zip": dial tcp 142.251.43.17:443: i/o timeout
 langs/language.go:24:2: golang.org/x/text@v0.3.7: Get "https://proxy.golang.org/golang.org/x/text/@v/v0.3.7.zip": dial tcp 142.251.43.17:443: i/o timeout
@@ -269,9 +271,11 @@ hugolib/integrationtest_builder.go:29:2: golang.org/x/tools@v0.1.11: Get "https:
 deploy/google.go:24:2: google.golang.org/api@v0.76.0: Get "https://proxy.golang.org/google.golang.org/api/@v/v0.76.0.zip": dial tcp 142.251.43.17:443: i/o timeout
 parser/metadecoders/decoder.go:32:2: gopkg.in/yaml.v2@v2.4.0: Get "https://proxy.golang.org/gopkg.in/yaml.v2/@v/v2.4.0.zip": dial tcp 142.251.42.241:443: i/o timeout
 The command '/bin/sh -c mkdir $HOME/src &&     cd $HOME/src &&     curl -L https://github.com/gohugoio/hugo/archive/refs/tags/v${HUGO_VERSION}.tar.gz | tar -xz &&     cd "hugo-${HUGO_VERS    ION}" &&     go install --tags extended' returned a non-zero code: 1
-make: *** [Makefile:69：container-image] 错误 1
+make: *** [Makefile:69：container-image] error 1
 ```
+
 请修改 `Dockerfile` 文件，为其添加网络代理。修改内容如下：
+
 ```shell
 FROM golang:1.18-alpine
 
@@ -297,6 +301,7 @@ RUN apk add --no-cache \
         go install --tags extended
 ...
 ```
+
 **注意:** 此部分使用仅适用于中国大陆 
 
 <!--
