@@ -50,6 +50,6 @@ Lihat [Ringkasan Otorisasi](/docs/reference/access-authn-authz/authorization/) u
 
 
 * [RuntimeClass](/id/docs/concepts/containers/runtime-class/)
-* [Desain PodOverhead](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+* [Desain PodOverhead](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
 
 
