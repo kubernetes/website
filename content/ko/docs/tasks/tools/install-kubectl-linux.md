@@ -52,7 +52,7 @@ card:
    kubectl 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
+   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.
@@ -83,7 +83,7 @@ card:
 
    ```bash
    chmod +x kubectl
-   mkdir -p ~/.local/bin/kubectl
+   mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
    # 그리고 ~/.local/bin 을 $PATH의 앞부분 또는 뒷부분에 추가
    ```
@@ -94,6 +94,11 @@ card:
 
    ```bash
    kubectl version --client
+   ```
+   또는 다음을 실행하여 버전에 대한 더 자세한 정보를 본다.
+
+   ```cmd
+   kubectl version --client --output=yaml    
    ```
 
 ### 기본 패키지 관리 도구를 사용하여 설치 {#install-using-native-package-management}
@@ -207,7 +212,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
    kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.

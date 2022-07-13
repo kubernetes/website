@@ -66,8 +66,8 @@ the signal.
 
 The value for `memory.available` is derived from the cgroupfs instead of tools
 like `free -m`. This is important because `free -m` does not work in a
-container, and if users use the [node
-allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) feature, out of resource decisions
+container, and if users use the [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+feature, out of resource decisions
 are made local to the end user Pod part of the cgroup hierarchy as well as the
 root node. This [script](/examples/admin/resource/memory-available.sh)
 reproduces the same set of steps that the kubelet performs to calculate
@@ -87,7 +87,8 @@ does not support other configurations.
 
 {{<note>}}
 Some kubelet garbage collection features are deprecated in favor of eviction.
-For a list of the deprecated features, see [kubelet garbage collection deprecation](/docs/concepts/cluster-administration/kubelet-garbage-collection/#deprecation).
+For a list of the deprecated features, see
+[kubelet garbage collection deprecation](/docs/concepts/architecture/garbage-collection/#deprecation).
 {{</note>}}
 
 ### Eviction thresholds

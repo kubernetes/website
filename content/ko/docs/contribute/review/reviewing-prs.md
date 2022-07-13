@@ -36,7 +36,7 @@ weight: 10
 
 ## 리뷰 과정
 
-일반적으로, 영어로 콘텐츠와 스타일에 대한 풀 리퀘스트를 리뷰한다. 아래의 그림은 리뷰 과정의 단계를 보여 준다. 각 단계에 대한 상세 사항은 아래에 나와 있다.
+일반적으로, 영어로 콘텐츠와 스타일에 대한 풀 리퀘스트를 리뷰한다. 그림 1은 리뷰 과정의 단계를 보여 준다. 각 단계에 대한 상세 사항은 아래에 나와 있다.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -67,7 +67,7 @@ class S,T spacewhite
 class third,fourth white
 {{</ mermaid >}}
 
-***그림 - 리뷰 과정 절차***
+그림 1. 리뷰 과정 절차.
 
 1.  [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls)로
     이동한다.

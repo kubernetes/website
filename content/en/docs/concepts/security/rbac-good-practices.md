@@ -15,7 +15,8 @@ execute their roles. It is important to ensure that, when designing permissions 
 users, the cluster administrator understands the areas where privilge escalation could occur, 
 to reduce the risk of excessive access leading to security incidents.
 
-The good practices laid out here should be read in conjunction with the general [RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update).
+The good practices laid out here should be read in conjunction with the general
+[RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update).
 
 <!-- body -->
 
@@ -34,7 +35,8 @@ some general rules that can be applied are :
    not just to all object types presently in the cluster, but also to all future object types
    which are created in the future.
  - Administrators should not use `cluster-admin` accounts except where specifically needed. 
-   Providing a low privileged account with [impersonation rights](/docs/reference/access-authn-authz/authentication/#user-impersonation)
+   Providing a low privileged account with
+   [impersonation rights](/docs/reference/access-authn-authz/authentication/#user-impersonation)
    can avoid accidental modification of cluster resources.
  - Avoid adding users to the `system:masters` group. Any user who is a member of this group 
    bypasses all RBAC rights checks and will always have unrestricted superuser access, which cannot be 
@@ -44,15 +46,17 @@ some general rules that can be applied are :
 
 ### Minimize distribution of privileged tokens
 
-Ideally, pods shouldn't be assigned service accounts that have been granted powerful permissions (for example, any of the rights listed under
-[privilege escalation risks](#privilege-escalation-risks)). 
+Ideally, pods shouldn't be assigned service accounts that have been granted powerful permissions
+(for example, any of the rights listed under [privilege escalation risks](#privilege-escalation-risks)). 
 In cases where a workload requires powerful permissions, consider the following practices:
 
  - Limit the number of nodes running powerful pods. Ensure that any DaemonSets you run
   are necessary and are run with least privilege to limit the blast radius of container escapes.
  - Avoid running powerful pods alongside untrusted or publicly-exposed ones. Consider using 
-   [Taints and Toleration](/docs/concepts/scheduling-eviction/taint-and-toleration/), [NodeAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity), or [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) to ensure 
-   pods don't run alongside untrusted or less-trusted Pods. Pay especial attention to
+   [Taints and Toleration](/docs/concepts/scheduling-eviction/taint-and-toleration/),
+   [NodeAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity), or
+   [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
+   to ensure pods don't run alongside untrusted or less-trusted Pods. Pay especial attention to
    situations where less-trustworthy Pods are not meeting the **Restricted** Pod Security Standard.
 
 ### Hardening
@@ -107,7 +111,7 @@ with the ability to create suitably secure and isolated Pods, you should enforce
 You can use [Pod Security admission](/docs/concepts/security/pod-security-admission/)
 or other (third party) mechanisms to implement that enforcement.
 
-You can also use the deprecated [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) mechanism
+You can also use the deprecated [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) mechanism
 to restrict users' abilities to create privileged Pods (N.B. PodSecurityPolicy is scheduled for removal
 in version 1.25).
 
@@ -117,7 +121,9 @@ Secrets they would not have through RBAC directly.
 
 ### Persistent volume creation
 
-As noted in the [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/#volumes-and-file-systems) documentation, access to create PersistentVolumes can allow for escalation of access to the underlying host. Where access to persistent storage is required trusted administrators should create 
+As noted in the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/#volumes-and-file-systems)
+documentation, access to create PersistentVolumes can allow for escalation of access to the underlying host.
+Where access to persistent storage is required trusted administrators should create 
 PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
 
 ### Access to `proxy` subresource of Nodes
@@ -130,7 +136,8 @@ granting rights to this resource.
 ### Escalate verb
 
 Generally the RBAC system prevents users from creating clusterroles with more rights than 
-they possess. The exception to this is the `escalate` verb. As noted in the [RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update),
+they possess. The exception to this is the `escalate` verb. As noted in the
+[RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update),
 users with this right can effectively escalate their privileges.
 
 ### Bind verb
@@ -173,8 +180,11 @@ objects to create a denial of service condition either based on the size or numb
 specifically relevant in multi-tenant clusters if semi-trusted or untrusted users 
 are allowed limited access to a system.
 
-One option for mitigation of this issue would be to use [resource quotas](/docs/concepts/policy/resource-quotas/#object-count-quota)
+One option for mitigation of this issue would be to use
+[resource quotas](/docs/concepts/policy/resource-quotas/#object-count-quota)
 to limit the quantity of objects which can be created.
 
 ## {{% heading "whatsnext" %}}
+
 * To learn more about RBAC, see the [RBAC documentation](/docs/reference/access-authn-authz/rbac/).
+

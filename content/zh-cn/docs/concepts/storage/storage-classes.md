@@ -38,7 +38,7 @@ administrators. Kubernetes itself is unopinionated about what classes
 represent. This concept is sometimes called "profiles" in other storage
 systems.
 -->
-## 介绍
+## 介绍 {#introduction}
 
 StorageClass 为管理员提供了描述存储 "类" 的方法。
 不同的类型可能会映射到不同的服务质量等级或备份策略，或是由集群管理员制定的任意策略。
@@ -52,7 +52,7 @@ Each StorageClass contains the fields `provisioner`, `parameters`, and
 class needs to be dynamically provisioned.
 
 -->
-## StorageClass 资源
+## StorageClass 资源 {#the-storageclass-resource}
 
 每个 StorageClass 都包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
 这些字段会在 StorageClass 需要动态分配 PersistentVolume 时会使用到。
@@ -170,7 +170,7 @@ StorageClass object is created, it will default to `Delete`.
 PersistentVolumes that are created manually and managed via a StorageClass will have
 whatever reclaim policy they were assigned at creation.
  -->
-### 回收策略
+### 回收策略 {#reclaim-policy}
 
 由 StorageClass 动态创建的 PersistentVolume 会在类的 `reclaimPolicy` 字段中指定回收策略，可以是
 `Delete` 或者 `Retain`。如果 StorageClass 对象被创建时没有指定 `reclaimPolicy`，它将默认为 `Delete`。
@@ -181,7 +181,7 @@ whatever reclaim policy they were assigned at creation.
 ### Allow Volume Expansion
 -->
 
-### 允许卷扩展
+### 允许卷扩展 {#allow-volume-expansion}
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
@@ -233,7 +233,7 @@ If the volume plugin does not support mount options but mount options are
 specified, provisioning will fail. Mount options are not validated on either
 the class or PV, If a mount option is invalid, the PV mount fails.
  -->
-### 挂载选项
+### 挂载选项 {#mount-options}
 
 由 StorageClass 动态创建的 PersistentVolume 将使用类中 `mountOptions` 字段指定的挂载选项。
 
@@ -243,7 +243,7 @@ the class or PV, If a mount option is invalid, the PV mount fails.
 <!--
 ### Volume Binding Mode
  -->
-### 卷绑定模式
+### 卷绑定模式 {#volume-binding-mode}
 
 <!--
 The `volumeBindingMode` field controls when [volume binding and dynamic
@@ -406,7 +406,7 @@ There can be at most 512 parameters defined for a StorageClass.
 The total length of the parameters object including its keys and values cannot
 exceed 256 KiB.
  -->
-## 参数
+## 参数 {#parameters}
 
 Storage Classes 的参数描述了存储类的卷。取决于制备器，可以接受不同的参数。
 例如，参数 type 的值 io1 和参数 iopsPerGB 特定于 EBS PV。
@@ -1076,7 +1076,7 @@ parameters:
 <!--
 ### Azure Disk
 -->
-### Azure 磁盘
+### Azure 磁盘 {#azure-disk}
 
 <!--
 #### Azure Unmanaged Disk Storage Class {#azure-disk-storage-class}
@@ -1157,7 +1157,7 @@ parameters:
 <!--
 ### Azure File
 -->
-### Azure 文件
+### Azure 文件 {#azure-file}
 
 ```yaml
 kind: StorageClass
@@ -1225,7 +1225,7 @@ be read by other users.
 <!--
 ### Portworx Volume
  -->
-### Portworx 卷
+### Portworx 卷 {#portworx-volume}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -1426,7 +1426,7 @@ references it.
 <!--
 ### Local
 -->
-### 本地
+### 本地 {#local}
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 

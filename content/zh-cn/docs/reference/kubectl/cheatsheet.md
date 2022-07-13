@@ -17,7 +17,8 @@ weight: 10 # highlight it
 card:
   name: reference
   weight: 30
---- -->
+---
+-->
 
 <!-- overview -->
 
@@ -64,12 +65,12 @@ complete -o default -F __start_kubectl k
 <!--
 ```bash
 source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
-echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
+echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
 -->
 ```bash
 source <(kubectl completion zsh)  # 在 zsh 中设置当前 shell 的自动补全
-echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # 在您的 zsh shell 中永久的添加自动补全
+echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # 在您的 zsh shell 中永久的添加自动补全
 ```
 
 <!--
@@ -78,14 +79,14 @@ echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc 
 ### 关于 --all-namespaces 的一点说明
 
 <!--
-Appending `--all-namespaces` happens frequently enough where you should be aware of the shorthand for `--all-namespaces`:
+Appending `--all-namespaces` happens frequently enough where you should be aware of the  shorthand for `--all-namespaces`:
 -->
 我们经常用到 `--all-namespaces` 参数，你应该要知道它的简写：
 
 ```kubectl -A```
 
 <!--
-## Kubectl Context and Configuration
+## Kubectl context and configuration
 
 Set which Kubernetes cluster `kubectl` communicates with and modifies configuration
 information. See [Authenticating Across Clusters with kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation for
@@ -112,7 +113,7 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
 kubectl config get-contexts                          # display list of contexts
-kubectl config current-context           # display the current-context
+kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
 # add a new user to your kubeconf that supports basic auth
@@ -198,7 +199,7 @@ kubectl create deployment nginx --image=nginx  # start a single instance of ngin
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
 
 # create a CronJob that prints "Hello World" every minute
-kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"    
+kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"
 
 kubectl explain pods                           # get the documentation for pod manifests
 
@@ -611,10 +612,10 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 伸缩多个
 ## 删除资源
 
 <!-- ```bash
-kubectl delete -f ./pod.json                                              # Delete a pod using the type and name specified in pod.json
-kubectl delete pod,service baz foo                                        # Delete pods and services with same names "baz" and "foo"
-kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
-kubectl -n my-ns delete pod,svc --all                                      # Delete all pods and services in namespace my-ns,
+kubectl delete -f ./pod.json                                      # Delete a pod using the type and name specified in pod.json
+kubectl delete pod,service baz foo                                # Delete pods and services with same names "baz" and "foo"
+kubectl delete pods,services -l name=myLabel                      # Delete pods and services with label name=myLabel
+kubectl -n my-ns delete pod,svc --all                             # Delete all pods and services in namespace my-ns,
 # Delete all pods matching the awk pattern1 or pattern2
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
@@ -652,7 +653,7 @@ kubectl run nginx --image=nginx                     # Run pod nginx and write it
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
-kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case) 
+kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case)
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
@@ -751,7 +752,7 @@ kubectl exec deploy/my-deployment -- ls                   # 在 Deployment 里�
 ```
 
 <!--
-## Interacting with Nodes and Cluster
+## Interacting with Nodes and cluster
 -->
 ## 与节点和集群进行交互
 
@@ -862,7 +863,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 # All images running in namespace: default, grouped by Pod
 kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
-# All images excluding "k8s.gcr.io/coredns:1.6.2"
+ # All images excluding "k8s.gcr.io/coredns:1.6.2"
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
 
 # All fields under metadata regardless of name
@@ -887,6 +888,9 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
+<!--
+More examples in the kubectl [reference documentation](/docs/reference/kubectl/#custom-columns).
+-->
 有关更多示例，请参看 kubectl [参考文档](/zh-cn/docs/reference/kubectl/#custom-columns)。
 
 <!--
@@ -930,7 +934,6 @@ Verbosity | Description
 ## {{% heading "whatsnext" %}}
 
 <!--
-
 * Read the [kubectl overview](/docs/reference/kubectl/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
 
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.

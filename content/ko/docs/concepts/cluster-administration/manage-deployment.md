@@ -154,7 +154,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-`kubectl` 에 대해 더 자세히 알고 싶다면, [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 참조한다.
+`kubectl` 에 대해 더 자세히 알고 싶다면, [명령줄 도구 (kubectl)](/ko/docs/reference/kubectl/)를 참조한다.
 
 ## 효과적인 레이블 사용
 
@@ -461,5 +461,5 @@ kubectl edit deployment/my-nginx
 ## {{% heading "whatsnext" %}}
 
 
-- [애플리케이션 검사 및 디버깅에 `kubectl` 을 사용하는 방법](/docs/tasks/debug-application-cluster/debug-application-introspection/)에 대해 알아본다.
+- [애플리케이션 검사 및 디버깅에 `kubectl` 을 사용하는 방법](/ko/docs/tasks/debug/debug-application/debug-running-pod/)에 대해 알아본다.
 - [구성 모범 사례 및 팁](/ko/docs/concepts/configuration/overview/)을 참고한다.
