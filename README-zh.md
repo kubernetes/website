@@ -257,7 +257,7 @@ This works for Catalina as well as Mojave macOS.
 -->
 这适用于 Catalina 和 Mojave macOS。
 
-### make container-image 遇到 timeout
+### 对执行 make container-image 命令部分地区访问超时的故障排除
 
 现象如下:
 
