@@ -115,6 +115,6 @@ resources:
 [cosigned](https://docs.sigstore.dev/cosign/kubernetes/#cosigned-admission-controller)
 控制器验证其签名。如要使用 `cosigned`，下面是一些有帮助的资源：
 
-* [安装](https://github.com/sigstore/helm-charts/tree/main/charts/cosigned)
-* [配置选项](https://github.com/sigstore/cosign/tree/main/config)
+* [安装](https://github.com/sigstore/cosign#installation)
+* [配置选项](https://github.com/sigstore/cosign/blob/main/USAGE.md#detailed-usage)
 

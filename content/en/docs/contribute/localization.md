@@ -278,7 +278,7 @@ For an example of adding a new localization, see the PR to enable
 
 To guide other localization contributors, add a new
 [`README-**.md`](https://help.github.com/articles/about-readmes/) to the top level of
-[k/website](https://github.com/kubernetes/website/), where `**` is the two-letter language code.
+[kubernetes/website](https://github.com/kubernetes/website/), where `**` is the two-letter language code.
 For example, a German README file would be `README-de.md`.
 
 Provide guidance to localization contributors in the localized `README-**.md` file.
@@ -418,7 +418,7 @@ To collaborate on a localization branch:
    `dev-<source version>-<language code>.<team milestone>`
 
    For example, an approver on a German localization team opens the localization branch
-   `dev-1.12-de.1` directly against the k/website repository, based on the source branch for
+   `dev-1.12-de.1` directly against the `kubernetes/website` repository, based on the source branch for
    Kubernetes v1.12.
 
 2. Individual contributors open feature branches based on the localization branch.
