@@ -442,7 +442,7 @@ language_alternatives = ["en"]
 
 [languages.hi]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "उत्पादन-श्रेणी कंटेनर ऑर्केस्ट्रेशन"
 languageName = "हिन्दी (Hindi)"
 languageNameLatinScript = "Hindi"
 weight = 12
