@@ -89,7 +89,8 @@ different Kubernetes components.
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `ContextualLogging` | `false` | Alpha | 1.24 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
-| `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | |
+| `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | 1.24 |
+| `CustomResourceValidationExpressions` | `true` | Beta | 1.25 | |
 | `DelegateFSGroupToCSIDriver` | `false` | Alpha | 1.22 | 1.22 |
 | `DelegateFSGroupToCSIDriver` | `true` | Beta | 1.23 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
