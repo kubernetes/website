@@ -205,7 +205,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
 
  _非並列_ Jobの場合、`.spec.completions`と`.spec.parallelism`の両方を未設定のままにしておくことも可能です。未設定の場合、両方がデフォルトで1になります。
 
- _完了数一定_ 並列Jobの場合、`.spec.completions`を必要完了数に設定する必要があります。
+ _完了数固定_ Jobの場合、`.spec.completions`を必要完了数に設定する必要があります。
 `.spec.parallelism`を設定してもいいですし、未設定の場合、デフォルトで1になります。
 
  _ワークキュー_ 並列Jobの場合、`.spec.completions`を未設定のままにし、`.spec.parallelism`を非負の整数に設定する必要があります。
