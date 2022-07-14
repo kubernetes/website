@@ -277,7 +277,7 @@ kubectl create secret tls my-tls-secret \
 
 Bootstrap token Secretは、Secretの`type`を`bootstrap.kubernetes.io/token`に明示的に指定することで作成できます。このタイプのSecretは、ノードのブートストラッププロセス中に使用されるトークン用に設計されています。よく知られているConfigMapに署名するために使用されるトークンを格納します。
 
-Bootstrap toke Secretは通常、`kube-system`namespaceで作成され`bootstrap-token-<token-id>`の形式で名前が付けられます。ここで`<token-id>`はトークンIDの6文字の文字列です。
+Bootstrap token Secretは通常、`kube-system`namespaceで作成され`bootstrap-token-<token-id>`の形式で名前が付けられます。ここで`<token-id>`はトークンIDの6文字の文字列です。
 
 Kubernetesマニフェストとして、Bootstrap token Secretは次のようになります。
 
