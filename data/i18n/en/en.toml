@@ -249,7 +249,6 @@ other = """This section links to third party projects that provide functionality
 [thirdparty_message_edit_disclaimer]
 other="""Third party content advice"""
 
-
 [thirdparty_message_single_item]
 other = """&#128711; This item links to a third party project or product that is not part of Kubernetes itself. <a class="alert-more-info" href="#third-party-content-disclaimer">More information</a>"""
 
