@@ -239,7 +239,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
   - Podアノテーション`batch.kubernetes.io/job-completion-index`。
   - Podホスト名の一部として、`$(job-name)-$(index)`の形式になっています。
     インデックス付きJob(Indexed Job)と{{< glossary_tooltip term_id="Service" >}}を一緒に使用すると、Jobに属するPodはお互いにDNSを介して確定的ホスト名で通信できます。
-  - コンテナ化されたタスクの環境変数`JOB_COMPLETION_INDEX`で定義します。
+  - コンテナ化されたタスクの環境変数`JOB_COMPLETION_INDEX`。
 
   インデックスごとに、成功したPodが一つ存在すると、Jobの完了となります。完了モードの使用方法の詳細については、
   [静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/ja/docs/tasks/job/indexed-parallel-processing-static/)を参照してください。めったに発生しませんが、同じインデックスを取得して稼働し始めるPodも存在する可能性があります。ただし、完了数にカウントされるのはそのうちの一つだけです。
