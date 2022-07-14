@@ -257,6 +257,17 @@ Your applications cannot expect any performance SLAs (disk IOPS for example)
 from local ephemeral storage.
 {{< /caution >}}
 
+{{< note >}}
+To make the resource quota work on ephemeral-storage, two things need to be done:
+
+* An admin sets the resource quota for ephemeral-storage in a namespace.
+* A user needs to specify limits for the ephemeral-storage resource in the Pod spec.
+
+If the user doesn't specify the ephemeral-storage resource limit in the Pod spec,
+the resource quota is not enforced on ephemeral-storage.
+
+{{< /note >}}
+
 As a beta feature, Kubernetes lets you track, reserve and limit the amount
 of ephemeral local storage a Pod can consume.
 
