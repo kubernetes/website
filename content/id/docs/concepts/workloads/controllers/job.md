@@ -276,7 +276,7 @@ spec:
       Containers:
       - name: pi
         image: perl
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+        command: ["perl",  "-Mbignum=bpi", "-wle", "'print bpi(2000)'"]
       restartPolicy: Never
 ```
 
@@ -321,7 +321,7 @@ spec:
       Containers:
       - name: pi
         image: perl
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+        command: ["perl",  "-Mbignum=bpi", "-wle", "'print bpi(2000)'"]
       restartPolicy: Never
 ```
 
