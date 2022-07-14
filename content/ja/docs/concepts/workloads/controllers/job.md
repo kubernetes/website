@@ -235,7 +235,7 @@ Jobで実行するのに適したタスクは主に3種類あります:
  _完了数固定_ Job、つまり`.spec.completions`の値がnullではないJobは`.spec.completionMode`で完了モードを指定できます：
 
 - `NonIndexed`(デフォルト): `.spec.completions`個のPodが成功した場合、Jobの完了となります。言い換えれば、各Podの完了状態は同質です。ここで要注意なのは、`.spec.completions`の値がnullの場合、暗黙的に`NonIndexed`として指定されることです。
-- `Indexed`： Jobに属するPodはそれぞれ、0から`.spec.completions-1`の範囲内の完了インデックスを取得できます。インデックスは下記の三つの方法で取得できます。
+- `Indexed`: Jobに属するPodはそれぞれ、0から`.spec.completions-1`の範囲内の完了インデックスを取得できます。インデックスは下記の三つの方法で取得できます。
   - Podアノテーション`batch.kubernetes.io/job-completion-index`。
   - Podホスト名の一部として、`$(job-name)-$(index)`と書きます。
     インデックス付きJob(Indexed Job)と{{< glossary_tooltip term_id="Service" >}}を一緒に使用すると、Jobに属するPodはお互いにDNSを介して確定的ホスト名で通信できます。
