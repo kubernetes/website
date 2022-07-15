@@ -650,8 +650,8 @@ kubelet 使用优先级来确定
 [kubelet 驱逐时 Pod 的选择](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)。
 
 当某 Pod 的资源用量未超过其请求时，kubelet 节点压力驱逐不会驱逐该 Pod。
-如果优先级较低的 Pod 没有超过其请求，则不会被驱逐。
-另一个优先级高于其请求的 Pod 可能会被驱逐。
+如果优先级较低的 Pod 的资源使用量没有超过其请求，则不会被驱逐。
+另一个优先级较高且资源使用量超过其请求的 Pod 可能会被驱逐。
 
 ## {{% heading "whatsnext" %}}
 
