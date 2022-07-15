@@ -4,7 +4,7 @@ content_type: concept
 weight: 20
 ---
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 You can customize the behavior of the `kube-scheduler` by writing a configuration
 file and passing its path as a command line argument.
@@ -78,7 +78,7 @@ extension points:
    least one bind plugin is required.
 1. `postBind`: This is an informational extension point that is called after
    a Pod has been bound.
-1. `multiPoint`: This is a config-only field that allows plugins to be enabled 
+1. `multiPoint`: This is a config-only field that allows plugins to be enabled
    or disabled for all of their applicable extension points simultaneously.
 
 For each extension point, you could disable specific [default plugins](#scheduling-plugins)
@@ -231,13 +231,13 @@ only has one pending pods queue.
 
 ### Plugins that apply to multiple extension points {#multipoint}
 
-Starting from `kubescheduler.config.k8s.io/v1beta3`, there is an additional field in the 
-profile config, `multiPoint`, which allows for easily enabling or disabling a plugin 
-across several extension points. The intent of `multiPoint` config is to simplify the 
+Starting from `kubescheduler.config.k8s.io/v1beta3`, there is an additional field in the
+profile config, `multiPoint`, which allows for easily enabling or disabling a plugin
+across several extension points. The intent of `multiPoint` config is to simplify the
 configuration needed for users and administrators when using custom profiles.
 
-Consider a plugin, `MyPlugin`, which implements the `preScore`, `score`, `preFilter`, 
-and `filter` extension points. To enable `MyPlugin` for all its available extension 
+Consider a plugin, `MyPlugin`, which implements the `preScore`, `score`, `preFilter`,
+and `filter` extension points. To enable `MyPlugin` for all its available extension
 points, the profile config looks like:
 
 ```yaml
@@ -251,7 +251,7 @@ profiles:
         - name: MyPlugin
 ```
 
-This would equate to manually enabling `MyPlugin` for all of its extension 
+This would equate to manually enabling `MyPlugin` for all of its extension
 points, like so:
 
 ```yaml
@@ -274,13 +274,13 @@ profiles:
         - name: MyPlugin
 ```
 
-One benefit of using `multiPoint` here is that if `MyPlugin` implements another 
-extension point in the future, the `multiPoint` config will automatically enable it 
+One benefit of using `multiPoint` here is that if `MyPlugin` implements another
+extension point in the future, the `multiPoint` config will automatically enable it
 for the new extension.
 
-Specific extension points can be excluded from `MultiPoint` expansion using 
-the `disabled` field for that extension point. This works with disabling default 
-plugins, non-default plugins, or with the wildcard (`'*'`) to disable all plugins. 
+Specific extension points can be excluded from `MultiPoint` expansion using
+the `disabled` field for that extension point. This works with disabling default
+plugins, non-default plugins, or with the wildcard (`'*'`) to disable all plugins.
 An example of this, disabling `Score` and `PreScore`, would be:
 
 ```yaml
@@ -300,10 +300,10 @@ profiles:
         - name: '*'
 ```
 
-In `v1beta3`, all [default plugins](#scheduling-plugins) are enabled internally through `MultiPoint`. 
-However, individual extension points are still available to allow flexible 
-reconfiguration of the default values (such as ordering and Score weights). For 
-example, consider two Score plugins `DefaultScore1` and `DefaultScore2`, each with 
+In `v1beta3`, all [default plugins](#scheduling-plugins) are enabled internally through `MultiPoint`.
+However, individual extension points are still available to allow flexible
+reconfiguration of the default values (such as ordering and Score weights). For
+example, consider two Score plugins `DefaultScore1` and `DefaultScore2`, each with
 a weight of `1`. They can be reordered with different weights like so:
 
 ```yaml
@@ -318,10 +318,10 @@ profiles:
           weight: 5
 ```
 
-In this example, it's unnecessary to specify the plugins in `MultiPoint` explicitly 
+In this example, it's unnecessary to specify the plugins in `MultiPoint` explicitly
 because they are default plugins. And the only plugin specified in `Score` is `DefaultScore2`.
-This is because plugins set through specific extension points will always take precedence 
-over `MultiPoint` plugins. So, this snippet essentially re-orders the two plugins 
+This is because plugins set through specific extension points will always take precedence
+over `MultiPoint` plugins. So, this snippet essentially re-orders the two plugins
 without needing to specify both of them.
 
 The general hierarchy for precedence when configuring `MultiPoint` plugins is as follows:
@@ -363,8 +363,8 @@ profiles:
         - name: 'DefaultPlugin2'
 ```
 
-Note that there is no error for re-declaring a `MultiPoint` plugin in a specific 
-extension point. The re-declaration is ignored (and logged), as specific extension points 
+Note that there is no error for re-declaring a `MultiPoint` plugin in a specific
+extension point. The re-declaration is ignored (and logged), as specific extension points
 take precedence.
 
 Besides keeping most of the config in one spot, this sample does a few things:
@@ -380,14 +380,14 @@ kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: multipoint-scheduler
     plugins:
-    
+
       # Disable the default QueueSort plugin
       queueSort:
         enabled:
         - name: 'CustomQueueSort'
         disabled:
         - name: 'DefaultQueueSort'
-        
+
       # Enable custom Filter plugins
       filter:
         enabled:
@@ -396,7 +396,7 @@ profiles:
         - name: 'DefaultPlugin2'
         disabled:
         - name: 'DefaultPlugin1'
-        
+
       # Enable and reorder custom score plugins
       score:
         enabled:
@@ -406,7 +406,7 @@ profiles:
           weight: 3
 ```
 
-While this is a complicated example, it demonstrates the flexibility of `MultiPoint` config 
+While this is a complicated example, it demonstrates the flexibility of `MultiPoint` config
 as well as its seamless integration with the existing methods for configuring extension points.
 
 ## Scheduler configuration migrations
