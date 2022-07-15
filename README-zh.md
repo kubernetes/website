@@ -282,9 +282,9 @@ FROM golang:1.18-alpine
 
 LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
 
-ENV GO111MODULE=on                      # 需要添加内容1
+ENV GO111MODULE=on                            # 需要添加内容1
 
-ENV GOPROXY=https://goproxy.cn,direct   # 需要添加内容2
+ENV GOPROXY=https://proxy.golang.org,direct   # 需要添加内容2
 
 RUN apk add --no-cache \
     curl \
@@ -297,6 +297,8 @@ RUN apk add --no-cache \
 ARG HUGO_VERSION
 ...
 ```
+
+将 "https://proxy.golang.org" 替换为本地可以使用的代理地址。
 
 **注意：** 此部分仅适用于中国大陆 
 
