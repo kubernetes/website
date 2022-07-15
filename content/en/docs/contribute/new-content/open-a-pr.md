@@ -396,7 +396,7 @@ Figure 3. Steps to open a PR from your fork to the K8s/website.
 1. From the **head repository** drop-down menu, select your fork.
 1. From the **compare** drop-down menu, select your branch.
 1. Select **Create Pull Request**.
-`. Add a description for your pull request:
+1. Add a description for your pull request:
 
     - **Title** (50 characters or less): Summarize the intent of the change.
     - **Description**: Describe the change in more detail.
