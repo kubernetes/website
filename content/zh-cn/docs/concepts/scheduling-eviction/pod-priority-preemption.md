@@ -639,7 +639,7 @@ exceeding its requests, it won't be evicted. Another Pod with higher priority
 that exceeds its requests may be evicted.
 -->
 kubelet 使用优先级来确定
-[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/) Pod 的顺序。
+[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/) Pod 的顺序。
 你可以使用 QoS 类来估计 Pod 最有可能被驱逐的顺序。kubelet 根据以下因素对 Pod 进行驱逐排名：
 
   1. 对紧俏资源的使用是否超过请求值
@@ -659,11 +659,11 @@ kubelet 使用优先级来确定
 * Read about using ResourceQuotas in connection with PriorityClasses: 
   [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 * Learn about [Pod Disruption](/docs/concepts/workloads/pods/disruptions/)
-* Learn about [API-initiated Eviction](/docs/reference/generated/kubernetes-api/v1.23/)
+* Learn about [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
 * Learn about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 -->
 * 阅读有关将 ResourceQuota 与 PriorityClass 结合使用的信息：
   [默认限制优先级消费](/zh-cn/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 * 了解 [Pod 干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/)
-* 了解 [API 发起的驱逐](/docs/reference/generated/kubernetes-api/v1.23/)
-* 了解[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* 了解 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)
+* 了解[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)
