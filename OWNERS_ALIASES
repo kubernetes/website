@@ -86,11 +86,10 @@ aliases:
   sig-docs-hi-owners: # Admins for Hindi content
     - anubha-v-ardhan
     - divya-mohan0209
-    - mittalyashu
   sig-docs-hi-reviews: # PR reviews for Hindi content
     - anubha-v-ardhan
     - divya-mohan0209
-    - mittalyashu
+    - Garima-Negi
     - verma-kunal
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
