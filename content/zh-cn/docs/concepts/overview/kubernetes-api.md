@@ -134,13 +134,13 @@ Kubernetes API 服务器通过 `/openapi/v2` 端点提供聚合的 OpenAPI v2 �
 <!--
 Kubernetes implements an alternative Protobuf based serialization format that
 is primarily intended for intra-cluster communication. For more information
-about this format, see the [Kubernetes Protobuf serialization](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) design proposal and the
+about this format, see the [Kubernetes Protobuf serialization](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md) design proposal and the
 Interface Definition Language (IDL) files for each schema located in the Go
 packages that define the API objects.
 -->
 Kubernetes 为 API 实现了一种基于 Protobuf 的序列化格式，主要用于集群内部通信。
 关于此格式的详细信息，可参考
-[Kubernetes Protobuf 序列化](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)
+[Kubernetes Protobuf 序列化](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md)
 设计提案。每种模式对应的接口描述语言（IDL）位于定义 API 对象的 Go 包中。
 
 ### OpenAPI V3

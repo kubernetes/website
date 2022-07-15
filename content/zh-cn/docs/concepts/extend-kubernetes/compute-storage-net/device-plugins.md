@@ -9,7 +9,7 @@ weight: 20
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 <!--
-Kubernetes provides a [device plugin framework](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
+Kubernetes provides a [device plugin framework](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)
 that you can use to advertise system hardware resources to the
 {{< glossary_tooltip term_id="kubelet" >}}.
 
@@ -20,7 +20,7 @@ and other similar computing resources that may require vendor specific initializ
 and setup.
 -->
 Kubernetes 提供了一个
-[设备插件框架](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)，你可以用它来将系统硬件资源发布到 {{< glossary_tooltip term_id="kubelet" >}}。
+[设备插件框架](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)，你可以用它来将系统硬件资源发布到 {{< glossary_tooltip term_id="kubelet" >}}。
 
 供应商可以实现设备插件，由你手动部署或作为 {{< glossary_tooltip term_id="daemonset" >}}
 来部署，而不必定制 Kubernetes 本身的代码。目标设备包括 GPU、高性能 NIC、FPGA、

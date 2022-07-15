@@ -552,9 +552,9 @@ same zone currently running Pods with the `Security=S2` Pod label.
 
 <!--
 To get yourself more familiar with the examples of Pod affinity and anti-affinity,
-refer to the [design proposal](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/podaffinity.md).
+refer to the [design proposal](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
 -->
-查阅[设计文档](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/podaffinity.md)
+查阅[设计文档](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)
 以进一步熟悉 Pod 亲和性与反亲和性的示例。
 
 <!--
@@ -803,16 +803,16 @@ The above Pod will only run on the node `kube-01`.
 
 <!--
 * Read more about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) .
-* Read the design docs for [node affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
-  and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
+* Read the design docs for [node affinity](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
+  and for [inter-pod affinity/anti-affinity](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
 * Learn about how the [topology manager](/docs/tasks/administer-cluster/topology-manager/) takes part in node-level
   resource allocation decisions. 
 * Learn how to use [nodeSelector](/docs/tasks/configure-pod-container/assign-pods-nodes/).
 * Learn how to use [affinity and anti-affinity](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/).
 -->
 * 进一步阅读[污点与容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)文档。
-* 阅读[节点亲和性](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
-  和[Pod 间亲和性与反亲和性](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
+* 阅读[节点亲和性](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
+  和[Pod 间亲和性与反亲和性](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)
   的设计文档。
 * 了解[拓扑管理器](/zh-cn/docs/tasks/administer-cluster/topology-manager/)如何参与节点层面资源分配决定。
 * 了解如何使用 [nodeSelector](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/)。

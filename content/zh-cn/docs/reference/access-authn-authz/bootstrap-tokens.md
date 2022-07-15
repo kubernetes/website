@@ -117,7 +117,7 @@ controller on the controller manager.
 
 Each valid token is backed by a secret in the `kube-system` namespace.  You can
 find the full design doc
-[here](https://github.com/kubernetes/design-proposals-archive/blob/main/cluster-lifecycle/bootstrap-discovery.md).
+[here](https://git.k8s.io/design-proposals-archive/cluster-lifecycle/bootstrap-discovery.md).
 
 Here is what the secret looks like.
 -->
@@ -125,7 +125,7 @@ Here is what the secret looks like.
 
 每个合法的令牌背后对应着 `kube-system` 名字空间中的某个 Secret 对象。
 你可以从
-[这里](https://github.com/kubernetes/design-proposals-archive/blob/main/cluster-lifecycle/bootstrap-discovery.md)
+[这里](https://git.k8s.io/design-proposals-archive/cluster-lifecycle/bootstrap-discovery.md)
 找到完整设计文档。
 
 这是 Secret 看起来的样子。

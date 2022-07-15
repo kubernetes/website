@@ -1057,14 +1057,13 @@ and it is to be created in a namespace other than `kube-system`.
 ## {{% heading "whatsnext" %}}
 
 <!--
-- See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
+- See [ResourceQuota design doc](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md) for more information.
 - See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
-- Read [Quota support for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md).
+- Read [Quota support for priority class design doc](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md).
 - See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)
 -->
-- 查看[资源配额设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)
-- 查看[如何使用资源配额的详细示例](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)。
-- 阅读[优先级类配额支持的设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)。
-  了解更多信息。
-- 参阅 [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)
+- 参阅[资源配额设计文档](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)。
+- 参阅[如何使用资源配额的详细示例](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)。
+- 参阅[优先级类配额支持的设计文档](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md)了解更多信息。
+- 参阅 [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)。
 

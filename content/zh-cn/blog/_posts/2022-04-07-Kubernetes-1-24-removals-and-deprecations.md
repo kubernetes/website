@@ -158,11 +158,11 @@ been deprecated. These removals have been superseded by newer, stable/generally 
   以防止各种类型的敏感信息通过日志泄漏。有关更多信息和替代方法，请参阅
   [KEP-1753: Kubernetes 系统组件日志清洗](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#deprecation)。
 <!--
-* In-tree provisioner to CSI driver migration: This applies to a number of in-tree plugins, including [Portworx](https://github.com/kubernetes/enhancements/issues/2589). Refer to the [In-tree Storage Plugin to CSI Migration Design Doc](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/csi-migration.md#background-and-motivations) for more information.
+* In-tree provisioner to CSI driver migration: This applies to a number of in-tree plugins, including [Portworx](https://github.com/kubernetes/enhancements/issues/2589). Refer to the [In-tree Storage Plugin to CSI Migration Design Doc](https://git.k8s.io/design-proposals-archive/storage/csi-migration.md#background-and-motivations) for more information.
 -->
 * 树内驱动（In-tree provisioner）向 CSI 卷迁移：这适用于许多树内插件， 
   包括 [Portworx](https://github.com/kubernetes/enhancements/issues/2589)。
-  参见[树内存储插件向 CSI 卷迁移的设计文档](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/csi-migration.md#background-and-motivations) 
+  参见[树内存储插件向 CSI 卷迁移的设计文档](https://git.k8s.io/design-proposals-archive/storage/csi-migration.md#background-and-motivations) 
   了解更多信息。
 <!--
 * [Removing Dockershim from kubelet](https://github.com/kubernetes/enhancements/issues/2221): the Container Runtime Interface (CRI) for Docker (i.e. Dockershim) is currently a built-in container runtime in the kubelet code base. It was deprecated in v1.20. As of v1.24, the kubelet will no longer have dockershim. Check out this blog on [what you need to do be ready for v1.24](/blog/2022/03/31/ready-for-dockershim-removal/). 

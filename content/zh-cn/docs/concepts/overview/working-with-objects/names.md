@@ -171,9 +171,9 @@ UUIDs 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667。
 
 <!--
 * Read about [labels](/docs/concepts/overview/working-with-objects/labels/) in Kubernetes.
-* See the [Identifiers and Names in Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) design document.
+* See the [Identifiers and Names in Kubernetes](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md) design document.
 -->
 * 进一步了解 Kubernetes [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
-* 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)的设计文档
+* 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md)的设计文档
 
 

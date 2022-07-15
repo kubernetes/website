@@ -1925,12 +1925,12 @@ Kubernetes) to expose arbitrary storage systems to their container workloads.
 为容器编排系统（如 Kubernetes）定义标准接口，以将任意存储系统暴露给它们的容器工作负载。
 
 <!--
-Please read the [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for more information.
+Please read the [CSI design proposal](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md) for more information.
 
 CSI support was introduced as alpha in Kubernetes v1.9, moved to beta in
 Kubernetes v1.10, and is GA in Kubernetes v1.13.
 -->
-更多详情请阅读 [CSI 设计方案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)。
+更多详情请阅读 [CSI 设计方案](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)。
 
 <!--
 Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes

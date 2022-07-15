@@ -1265,13 +1265,13 @@ Claims use [the same convention as volumes](#volume-mode) to indicate the consum
 <!--
 ### Resources
 
-Claims, like Pods, can request specific quantities of a resource. In this case, the request is for storage. The same [resource model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) applies to both volumes and claims.
+Claims, like Pods, can request specific quantities of a resource. In this case, the request is for storage. The same [resource model](https://git.k8s.io/design-proposals-archive/scheduling/resources.md) applies to both volumes and claims.
 -->
 ### 资源    {#resources}
 
 申领和 Pod 一样，也可以请求特定数量的资源。在这个上下文中，请求的资源是存储。
 卷和申领都使用相同的
-[资源模型](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md)。
+[资源模型](https://git.k8s.io/design-proposals-archive/scheduling/resources.md)。
 
 <!--
 ### Selector

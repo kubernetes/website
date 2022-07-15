@@ -238,7 +238,7 @@ repository. You must enable the [API aggregation layer](/docs/tasks/extend-kuber
 and register an [APIService](/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)
 for the `metrics.k8s.io` API.
 
-To learn more about the Metrics API, see [resource metrics API design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/resource-metrics-api.md),
+To learn more about the Metrics API, see [resource metrics API design](https://git.k8s.io/design-proposals-archive/instrumentation/resource-metrics-api.md),
 the [metrics-server repository](https://github.com/kubernetes-sigs/metrics-server) and the
 [resource metrics API](https://github.com/kubernetes/metrics#resource-metrics-api).
 -->
@@ -248,7 +248,7 @@ Metrics API 在 [k8s.io/metrics](https://github.com/kubernetes/metrics) 代码�
 `metrics.k8s.io` API 注册一个 [APIService](/zh-cn/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)。
 
 要了解有关 Metrics API 的更多信息，
-请参阅资源 [Resource Metrics API Design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/resource-metrics-api.md)、
+请参阅资源 [Resource Metrics API Design](https://git.k8s.io/design-proposals-archive/instrumentation/resource-metrics-api.md)、
 [metrics-server 代码库](https://github.com/kubernetes-sigs/metrics-server) 和
 [Resource Metrics API](https://github.com/kubernetes/metrics#resource-metrics-api)。
 
@@ -362,7 +362,7 @@ To learn more about the metrics-server, see the
 
 You can also check out the following:
 
-* [metrics-server design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/metrics-server.md)
+* [metrics-server design](https://git.k8s.io/design-proposals-archive/instrumentation/metrics-server.md)
 * [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
 * [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
 * [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
@@ -373,7 +373,7 @@ You can also check out the following:
 
 你还可以查看以下内容：
 
-* [metrics-server 设计](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/metrics-server.md)
+* [metrics-server 设计](https://git.k8s.io/design-proposals-archive/instrumentation/metrics-server.md)
 * [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
 * [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
 * [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)

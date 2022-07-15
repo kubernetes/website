@@ -379,7 +379,7 @@ After a request is authorized, if it is a write operation, it also goes through 
 
 ### Storage Plugins
 
-[Flex Volumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md
+[Flex Volumes](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md
 ) allow users to mount volume types without built-in support by having the
 Kubelet call a Binary Plugin to mount the volume.
 -->
@@ -387,7 +387,7 @@ Kubelet call a Binary Plugin to mount the volume.
 
 ### 存储插件  {#storage-plugins}
 
-[FlexVolumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md
+[FlexVolumes](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md
 )
 卷可以让用户挂载无需内建支持的卷类型，
 kubelet 会调用可执行文件插件来挂载对应的存储卷。
@@ -433,7 +433,7 @@ This is a significant undertaking, and almost all Kubernetes users find they
 do not need to modify the scheduler.
 
 The scheduler also supports a
-[webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)
+[webhook](https://git.k8s.io/design-proposals-archive/scheduling/scheduler_extender.md)
 that permits a webhook backend (scheduler extension) to filter and prioritize
 the nodes chosen for a pod.
 -->
@@ -448,7 +448,7 @@ the nodes chosen for a pod.
 用户都会发现其实他们不需要修改调度器。
 
 调度器也支持一种
-[Webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)，
+[Webhook](https://git.k8s.io/design-proposals-archive/scheduling/scheduler_extender.md)，
 允许使用某种 Webhook 后端（调度器扩展）来为 Pod 可选的节点执行过滤和优先排序操作。
 
 ## {{% heading "whatsnext" %}}

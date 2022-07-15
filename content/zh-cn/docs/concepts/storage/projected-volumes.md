@@ -49,10 +49,10 @@ Currently, the following types of volume sources can be projected:
 
 <!--
 All sources are required to be in the same namespace as the Pod. For more details,
-see the [all-in-one volume](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md) design document.
+see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
 -->
 所有的卷源都要求处于 Pod 所在的同一个名字空间内。进一步的详细信息，可参考
-[一体化卷](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md)设计文档。
+[一体化卷](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md)设计文档。
 
 <!--
 ### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}

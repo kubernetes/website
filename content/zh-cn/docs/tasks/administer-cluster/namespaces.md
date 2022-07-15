@@ -96,11 +96,12 @@ to define *Hard* resource usage limits that a *Namespace* may consume. -->
 <!-- A limit range defines min/max constraints on the amount of resources a single entity can consume in
 a *Namespace*.
 
-See [Admission control: Limit Range](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) -->
+See [Admission control: Limit Range](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)
+-->
 
 限制区间定义了单个实体在一个 *Namespace* 中可使用的最小/最大资源量约束。
 
-参阅 [准入控制: 限制区间](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)
+参阅 [准入控制：限制区间](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)。
 
 <!--
 A namespace can be in one of two phases:
@@ -169,7 +170,8 @@ More information on `finalizers` can be found in the namespace [design doc](http
 -->
 可选字段 `finalizers` 允许观察者们在名字空间被删除时清除资源。记住如果指定了一个不存在的终结器，名字空间仍会被创建，但如果用户试图删除它，它将陷入 `Terminating` 状态。
 
-更多有关 `finalizers` 的信息请查阅 [设计文档](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#finalizers) 中名字空间部分。
+更多有关 `finalizers` 的信息请查阅
+[设计文档](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers)中名字空间部分。
 
 <!-- ## Deleting a namespace -->
 ## 删除名字空间
@@ -510,5 +512,5 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 * 进一步了解[设置名字空间偏好](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference)
 * 进一步了解[设置请求的名字空间](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* 参阅[名字空间的设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/namespaces.md)
+* 参阅[名字空间的设计文档](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md)
 
