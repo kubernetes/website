@@ -22,7 +22,7 @@ Infrastructure（实验性）或 Baremetal 上托管的 Kubernetes 集群。
 Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
 -->
 Kubespray 是一个由 [Ansible](https://docs.ansible.com/) playbooks、
-[清单（inventory）](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)、
+[清单](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)、
 制备工具和通用 OS/Kubernetes 集群配置管理任务的领域知识组成的。
 Kubespray 提供：
 
@@ -59,7 +59,7 @@ To choose a tool which best fits your use case, read [this comparison](https://g
 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 和
 [kops](/zh/docs/setup/production-environment/tools/kops/) 之间的
 [这份比较](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)。
- 。
+
 <!-- body -->
 
 <!--
@@ -240,7 +240,7 @@ When running the reset playbook, be sure not to accidentally target your product
 -->
 ## 清理
 
-你可以通过 [reset](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml) Playbook
+你可以通过 [reset playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml)
 重置节点并清除所有与 Kubespray 一起安装的组件。
 
 {{< caution >}}
