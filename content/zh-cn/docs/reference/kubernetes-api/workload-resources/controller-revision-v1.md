@@ -7,7 +7,6 @@ content_type: "api_reference"
 description: "ControllerRevision 实现了状态数据的不可变快照。"
 title: "ControllerRevision"
 weight: 7
-auto_generated: false
 ---
 
 <!--
@@ -21,7 +20,6 @@ title: "ControllerRevision"
 weight: 7
 auto_generated: true
 -->
-
 
 `apiVersion: apps/v1`
 
@@ -71,8 +69,8 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准的对象元数据。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
 - **revision** (int64), required
@@ -97,7 +95,7 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
     *RawExtension is used to hold extensions in external versions.
   -->
   <a name="RawExtension"></a>
-  *RawExtension 用于以外部版本来保存扩展数据。
+  **RawExtension 用于以外部版本来保存扩展数据。**
   
   <!--
   To use this, make a field which has RawExtension as its type in your external, versioned struct, and Object in your internal struct. You also need to register your various plugin types.
@@ -112,7 +110,9 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
     	AOption string `json:"aOption"`
     }
   -->
-  // 内部包：  
+  内部包：
+
+  ```go
   type MyAPIObject struct {  
   	runtime.TypeMeta `json:",inline"`   
   	MyPlugin runtime.Object `json:"myPlugin"`  
@@ -120,6 +120,7 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
   type PluginA struct {  
   	AOption string `json:"aOption"`  
   }
+  ```
   
   <!--
   // External package: type MyAPIObject struct {
@@ -129,7 +130,9 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
     	AOption string `json:"aOption"`
     }
   -->
-  // 外部包：   
+  外部包：
+
+  ```go
   type MyAPIObject struct {  
   	runtime.TypeMeta `json:",inline"`  
   	MyPlugin runtime.RawExtension `json:"myPlugin"`    
@@ -137,6 +140,7 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
   type PluginA struct {  
   	AOption string `json:"aOption"`  
   }
+  ```
   
   <!--
   // On the wire, the JSON will look something like this: {
@@ -148,7 +152,8 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
     	},
     }
   -->
-  // 在网络上，JSON 看起来像这样：   
+  在网络上，JSON 看起来像这样：
+  ```json
   {  
   	"kind":"MyAPIObject",  
   	"apiVersion":"v1",  
@@ -157,6 +162,7 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
   		"aOption":"foo",  
   	},  
   }
+  ```
   
   <!--
   So what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)*
@@ -167,7 +173,7 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
   下一步是复制（使用 pkg/conversion）到内部结构中。
   runtime 包的 DefaultScheme 安装了转换函数，它将解析存储在 RawExtension 中的 JSON，
   将其转换为正确的对象类型，并将其存储在 Object 中。
-  （TODO：如果对象是未知类型，将创建并存储一个 `runtime.Unknown`对象。）*
+  （TODO：如果对象是未知类型，将创建并存储一个 `runtime.Unknown`对象。）
 
 <!--
 ## ControllerRevisionList {#ControllerRevisionList}
@@ -199,7 +205,8 @@ ControllerRevisionList 是一个包含 ControllerRevision 对象列表的资源�
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
 - **items** ([]<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>), required
