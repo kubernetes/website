@@ -479,4 +479,4 @@ spec:
     app: iis-2019
 ```
 
-[RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
+[RuntimeClass]: /zh-cn/docs/concepts/containers/runtime-class/

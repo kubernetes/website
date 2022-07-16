@@ -723,12 +723,12 @@ For example:
 <!--
 ### Locate use of deprecated APIs
 
-Use [client warnings, metrics, and audit information available in 1.19+](https://kubernetes.io/blog/2020/09/03/warnings/#deprecation-warnings)
+Use [client warnings, metrics, and audit information available in 1.19+](/zh-cn/blog/2020/09/03/warnings/#deprecation-warnings)
 to locate use of deprecated APIs.
 -->
 ### 定位何处使用了已弃用的 API
 
-使用 [client warnings, metrics, and audit information available in 1.19+](https://kubernetes.io/blog/2020/09/03/warnings/#deprecation-warnings)
+使用 [client warnings, metrics, and audit information available in 1.19+](/zh-cn/blog/2020/09/03/warnings/#deprecation-warnings)
 来定位在何处使用了已启用的 API。
 
 <!--

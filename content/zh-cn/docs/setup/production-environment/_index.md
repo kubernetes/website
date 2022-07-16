@@ -101,12 +101,12 @@ by managing [policies](/docs/concepts/policy/) and
 Before building a Kubernetes production environment on your own, consider
 handing off some or all of this job to 
 [Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/) 
-providers or other [Kubernetes Partners](https://kubernetes.io/partners/).
+providers or other [Kubernetes Partners](/partners/).
 Options include:
 -->
 在自行构造 Kubernetes 生产环境之前，请考虑将这一任务的部分或者全部交给
 [云方案承包服务](/zh-cn/docs/setup/production-environment/turnkey-solutions)
-提供商或者其他 [Kubernetes 合作伙伴](https://kubernetes.io/partners/)。
+提供商或者其他 [Kubernetes 合作伙伴](/zh-cn/partners/)。
 选项有：
 
 <!--
@@ -583,7 +583,7 @@ for information on creating a new service account. For example, you might want t
 <!--
 - Decide if you want to build your own production Kubernetes or obtain one from
 available [Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/)
-or [Kubernetes Partners](https://kubernetes.io/partners/).
+or [Kubernetes Partners](/partners/).
 - If you choose to build your own cluster, plan how you want to
 handle [certificates](/docs/setup/best-practices/certificates/)
 and set up high availability for features such as
@@ -593,7 +593,7 @@ and the
 -->
 - 决定你是想自行构造自己的生产用 Kubernetes 还是从某可用的
   [云服务外包厂商](/zh-cn/docs/setup/production-environment/turnkey-solutions/)
-  或 [Kubernetes 合作伙伴](https://kubernetes.io/partners/)获得集群。
+  或 [Kubernetes 合作伙伴](/zh-cn/partners/)获得集群。
 - 如果你决定自行构造集群，则需要规划如何处理
   [证书](/zh-cn/docs/setup/best-practices/certificates/)
   并为类似
