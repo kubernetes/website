@@ -39,7 +39,7 @@ profiles that give only the necessary privileges to your container processes.
 In order to complete all steps in this tutorial, you must install
 [kind](/docs/tasks/tools/#kind) and [kubectl](/docs/tasks/tools/#kubectl).
 
-This tutorial shows some examples that are still alpha (since v1.22) and
+This tutorial shows some examples that are still beta (since v1.25) and
 others that use only generally available seccomp functionality. You should
 make sure that your cluster is
 [configured correctly](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)
@@ -112,7 +112,7 @@ See [Nodes](https://kind.sigs.k8s.io/docs/user/configuration/#nodes) within the
 kind documentation about configuration for more details on this.
 This tutorial assumes you are using Kubernetes {{< param "version" >}}.
 
-As an alpha feature, you can configure Kubernetes to use the profile that the
+As a beta feature, you can configure Kubernetes to use the profile that the
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 prefers by default, rather than falling back to `Unconfined`.
 If you want to try that, see
@@ -159,11 +159,12 @@ running within kind.
 
 ## Enable the use of `RuntimeDefault` as the default seccomp profile for all workloads
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+{{< feature-state state="beta" for_k8s_version="v1.25" >}}
 
-`SeccompDefault` is an optional kubelet
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates) as
-well as corresponding `--seccomp-default`
+To use seccomp profile defaulting, you must run the kubelet with the `SeccompDefault`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled
+(this is the default). You must also explicitly enable the defaulting behavior for each
+node where you want to use this with the corresponding `--seccomp-default`
 [command line flag](/docs/reference/command-line-tools-reference/kubelet).
 Both have to be enabled simultaneously to use the feature.
 
@@ -196,13 +197,20 @@ If you were introducing this feature into production-like cluster, the Kubernete
 recommends that you enable this feature gate on a subset of your nodes and then
 test workload execution before rolling the change out cluster-wide.
 
-More detailed information about a possible upgrade and downgrade strategy can be
-found in the [related Kubernetes Enhancement Proposal (KEP)](https://github.com/kubernetes/enhancements/tree/a70cc18/keps/sig-node/2413-seccomp-by-default#upgrade--downgrade-strategy).
+You can find more detailed information about a possible upgrade and downgrade strategy
+in the related Kubernetes Enhancement Proposal (KEP):
+[Enable seccomp by default](https://github.com/kubernetes/enhancements/tree/9a124fd29d1f9ddf2ff455c49a630e3181992c25/keps/sig-node/2413-seccomp-by-default#upgrade--downgrade-strategy).
 
-Since the feature is in alpha state it is disabled per default. To enable it,
-pass the flags `--feature-gates=SeccompDefault=true --seccomp-default` to the
-`kubelet` CLI or enable it via the [kubelet configuration
-file](/docs/tasks/administer-cluster/kubelet-config-file/). To enable the
+Seccomp defaulting for Pods is a beta feature in Kubernetes {{< skew currentVersion >}}, 
+and the corresponding `SeccompDefault` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled by default. However, you still need to enable this defaulting for each node where
+you would like to use it.
+
+If you are running a Kubernetes {{< skew currentVersion >}} cluster and want to enable Seccomp
+defaulting, either run the kubelet with the `--seccomp-default` command line flag, or enable
+Seccomp defaulting through the
+[kubelet
+configuration file](/docs/tasks/administer-cluster/kubelet-config-file/). To enable the
 feature gate in [kind](https://kind.sigs.k8s.io), ensure that `kind` provides
 the minimum required Kubernetes version and enables the `SeccompDefault` feature
 [in the kind configuration](https://kind.sigs.k8s.io/docs/user/quick-start/#enable-feature-gates-in-your-cluster):
