@@ -110,9 +110,19 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y ca-certificates curl
    ```
-
+   
+   {{< note >}}
+   
+   If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
+    
+    ```shell
+    sudo apt-get install -y apt-transport-https
+    ```
+   
+   {{< /note >}}
+   
 2. Download the Google Cloud public signing key:
 
    ```shell
