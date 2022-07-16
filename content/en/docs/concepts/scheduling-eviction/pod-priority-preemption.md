@@ -178,7 +178,7 @@ spec:
 ### Effect of Pod priority on scheduling order
 
 When Pod priority is enabled, the scheduler orders pending Pods by
-their priority and a pending Pod is placed ahead of other pending Pods
+their priority and a priority Pod is placed ahead of other pending Pods
 with lower priority in the scheduling queue. As a result, the higher
 priority Pod may be scheduled sooner than Pods with lower priority if
 its scheduling requirements are met. If such Pod cannot be scheduled,
