@@ -2,11 +2,15 @@
 title: Atribuindo Recursos de CPU aos Contêineres e Pods
 content_type: task
 weight: 20
+update_date: 2022-07-16
+origin_version: 1.24
+contributors: DonatoHorn
+reviewers:
 ---
 
 <!-- overview -->
 
-Esta página mostra como atribuir um *requisito* de CPU e um *limite* de CPU a um contêiner. Contêineres não podem usar mais CPU do que o limite configurado. Comprovado que o sistema dispõe de tempo de CPU livre, o contêiner pode alocar tanta CPU quanto necessária para suas requisições.
+Esta página mostra como atribuir um *requisito* de CPU e um *limite* de CPU a um contêiner. Os Contêineres não podem usar mais CPU do que o limite configurado. Comprovado que o sistema dispõe de tempo de CPU livre, o contêiner pode alocar tanta CPU quanto necessária para suas requisições.
 
 ## {{% heading "prerequisites" %}}
 
@@ -39,7 +43,7 @@ v1beta1.metrics.k8s.io
 
 <!-- steps -->
 
-## Criando um namespace
+## Crie um namespace
 
 Crie um {{< glossary_tooltip term_id="namespace" >}}, assim os seus recursos criados neste exercício estarão isolados do resto do seu cluster.
 
@@ -47,7 +51,7 @@ Crie um {{< glossary_tooltip term_id="namespace" >}}, assim os seus recursos cri
 kubectl create namespace cpu-example
 ```
 
-## Especificando requisitos de CPU e limites de CPU
+## Especifique requisitos de CPU e limites de CPU
 
 Para especificar os requisitos de CPU para um contêiner, inclua o campo `resources:requests` no manifersto de recursos do Contêiner. Para especificar o limite de CPU, inclua `resources:limits`.
 
@@ -59,7 +63,7 @@ A seção `args` do arquivo de configuração fornece parâmetros para o contêi
 O parâmetro `-cpus "2"` diz ao Contêiner para tentar usar 2 CPUs.
 
 
-Criando o Pod:
+Crie o Pod:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/resource/cpu-request-limit.yaml --namespace=cpu-example
@@ -242,11 +246,11 @@ kubectl delete namespace cpu-example
 
 
 
-## {{% heading "Próximos passos" %}}
+## {{% heading "whatsnext" %}}
 
 
 
-### Para desenvolvedores de app
+### Para desenvolvedores de App
 
 * [Atribuindo Recursos de Memória a Contêineres e Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
