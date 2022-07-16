@@ -45,8 +45,8 @@ Self 是一个特殊情况，因为用户应始终能够检查自己是否可以
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准的列表元数据。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../authorization-resources/self-subject-access-review-v1#SelfSubjectAccessReviewSpec" >}}">SelfSubjectAccessReviewSpec</a>)，必需
   
