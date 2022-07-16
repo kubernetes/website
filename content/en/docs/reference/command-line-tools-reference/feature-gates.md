@@ -178,7 +178,8 @@ different Kubernetes components.
 | `RemainingItemCount` | `true` | Beta | 1.16 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
-| `SeccompDefault` | `false` | Alpha | 1.22 | |
+| `SeccompDefault` | `false` | Alpha | 1.22 | 1.24 |
+| `SeccompDefault` | `true` | Beta | 1.25 | |
 | `ServerSideFieldValidation` | `false` | Alpha | 1.23 | - |
 | `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
 | `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | |
