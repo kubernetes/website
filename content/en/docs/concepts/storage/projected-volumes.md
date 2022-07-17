@@ -77,16 +77,21 @@ The [proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-s
 
 #### Linux
 
-Kubernetes will improve security for serviceAccountToken files when all containers
-have the same `runAsUser` set in
+In some cases, Kubernetes applies a security optimization for the contents of`serviceAccountToken`
+volumes.
+When all containers in a pod have the same `runAsUser` set in their
 [`PodSecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
 or container
-[`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1)
-by setting the file owner to the `runAsUser` and the file mode to `0600`.
+[`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1),
+then the kubelet  ensures that the contents of the `serviceAccountToken` volume are owned by that user,
+and that every file has its permission mode set to `0600`.
 
-Note that {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
-aren't present when the pod is created. Adding an ephemeral container to a pod
-will not change the permissions that were set when the pod was created.
+{{< note >}}
+If you add any {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}} to
+a Pod, those won't have been present when the pod started running on that node.
+Adding an ephemeral container to a pod does **not** change any volume permissions
+that were set when the pod was created.
+{{< /note >}}
 
 #### Windows
 
