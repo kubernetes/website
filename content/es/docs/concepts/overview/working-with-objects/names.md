@@ -10,7 +10,7 @@ Todos los objetos de la API REST de Kubernetes se identifica de forma inequívoc
 
 Para aquellos atributos provistos por el usuario que no son únicos, Kubernetes provee de [etiquetas](/docs/user-guide/labels) y [anotaciones](/docs/concepts/overview/working-with-objects/annotations/).
 
-Echa un vistazo al [documento de diseño de identificadores](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) para información precisa acerca de las reglas sintácticas de los Nombres y UIDs.
+Echa un vistazo al [documento de diseño de identificadores](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md) para información precisa acerca de las reglas sintácticas de los Nombres y UIDs.
 
 
 
