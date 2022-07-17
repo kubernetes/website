@@ -484,10 +484,10 @@ conflict. You must resolve all merge conflicts in your PR.
 
 1. Fetch changes from `kubernetes/website`'s `upstream/main` and rebase your branch:
 
-    ```shell
-    git fetch upstream
-    git rebase upstream/main
-    ```
+   ```shell
+   git fetch upstream
+   git rebase upstream/main
+   ```
 
 1. Inspect the results of the rebase:
 
@@ -512,7 +512,7 @@ conflict. You must resolve all merge conflicts in your PR.
 
 1. Continue the rebase:
 
-   ``
+   ```shell
    git rebase --continue
    ```
 
