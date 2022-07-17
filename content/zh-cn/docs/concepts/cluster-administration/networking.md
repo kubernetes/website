@@ -474,7 +474,7 @@ Weave Net 可以作为 [CNI 插件](https://www.weave.works/docs/net/latest/cni-
 <!--
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the
-[networking design document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
+[networking design document](https://git.k8s.io/design-proposals-archive/network/networking.md).
 -->
 网络模型的早期设计、运行原理以及未来的一些计划，
-都在[联网设计文档](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)里有更详细的描述。
+都在[联网设计文档](https://git.k8s.io/design-proposals-archive/network/networking.md)里有更详细的描述。
