@@ -1,14 +1,14 @@
 ---
 layout: blog
 title: "认识我们的贡献者 - 亚太地区（澳大利亚-新西兰地区）"
-date: 2022-03-16T12:00:00+0000
+date: 2022-03-16
 slug: meet-our-contributors-au-nz-ep-02
 canonicalUrl: https://www.kubernetes.dev/blog/2022/03/14/meet-our-contributors-au-nz-ep-02/
 ---
 <!--
 layout: blog
 title: "Meet Our Contributors - APAC (Aus-NZ region)"
-date: 2022-03-16T12:00:00+0000
+date: 2022-03-16
 slug: meet-our-contributors-au-nz-ep-02
 canonicalUrl: https://www.kubernetes.dev/blog/2022/03/14/meet-our-contributors-au-nz-ep-02/
 -->
@@ -17,16 +17,16 @@ canonicalUrl: https://www.kubernetes.dev/blog/2022/03/14/meet-our-contributors-a
 **Authors & Interviewers:** [Anubhav Vardhan](https://github.com/anubha-v-ardhan), [Atharva Shinde](https://github.com/Atharva-Shinde), [Avinesh Tripathi](https://github.com/AvineshTripathi), [Brad McCoy](https://github.com/bradmccoydev), [Debabrata Panigrahi](https://github.com/Debanitrkl), [Jayesh Srivastava](https://github.com/jayesh-srivastava), [Kunal Verma](https://github.com/verma-kunal), [Pranshu Srivastava](https://github.com/PranshuSrivastava), [Priyanka Saggu](github.com/Priyankasaggu11929/), [Purneswar Prasad](https://github.com/PurneswarPrasad), [Vedant Kakde](https://github.com/vedant-kakde)
 -->
 **作者和采访者：**
-[Anubhav Vardhan](https://github.com/anubha-v-ardhan),
-[Atharva Shinde](https://github.com/Atharva-Shinde),
-[Avinesh Tripathi](https://github.com/AvineshTripathi),
-[Brad McCoy](https://github.com/bradmccoydev),
-[Debabrata Panigrahi](https://github.com/Debanitrkl),
-[Jayesh Srivastava](https://github.com/jayesh-srivastava),
-[Kunal Verma](https://github.com/verma-kunal),
-[Pranshu Srivastava](https://github.com/PranshuSrivastava),
-[Priyanka Saggu](github.com/Priyankasaggu11929/),
-[Purneswar Prasad](https://github.com/PurneswarPrasad),
+[Anubhav Vardhan](https://github.com/anubha-v-ardhan)、
+[Atharva Shinde](https://github.com/Atharva-Shinde)、
+[Avinesh Tripathi](https://github.com/AvineshTripathi)、
+[Brad McCoy](https://github.com/bradmccoydev)、
+[Debabrata Panigrahi](https://github.com/Debanitrkl)、
+[Jayesh Srivastava](https://github.com/jayesh-srivastava)、
+[Kunal Verma](https://github.com/verma-kunal)、
+[Pranshu Srivastava](https://github.com/PranshuSrivastava)、
+[Priyanka Saggu](github.com/Priyankasaggu11929/)、
+[Purneswar Prasad](https://github.com/PurneswarPrasad)、
 [Vedant Kakde](https://github.com/vedant-kakde)
 
 ---
@@ -79,8 +79,8 @@ Caleb 也是 [CloudNative NZ](https://www.meetup.com/cloudnative-nz/)
 <!--
 > _There need to be more outreach in APAC and the educators and universities must pick up Kubernetes, as they are very slow and about 8+ years out of date. NZ tends to rather pay overseas than educate locals on the latest cloud tech Locally._
 -->
-> _亚太地区需要更多的外联活动，教育工作者和大学必须学习 Kubernetes，因为他们非常缓慢，
-而且已经落后了8年多。新西兰倾向于在海外付费，而不是教育当地人最新的云技术。_
+> 亚太地区需要更多的外联活动，教育工作者和大学必须学习 Kubernetes，因为他们非常缓慢，
+> 而且已经落后了8年多。新西兰倾向于在海外付费，而不是教育当地人最新的云技术。
 
 ## [Dylan Graham](https://github.com/DylanGraham)
 
@@ -107,7 +107,7 @@ He believes that consistent attendance at community/project meetings, taking on 
 <!--
 > _The feeling of being a part of a large community is really special. I've met some amazing people, even some before the pandemic in real life :)_
 -->
-> _成为大社区的一份子感觉真的很特别。我遇到了一些了不起的人，甚至是在现实生活中疫情发生之前。_
+> 成为大社区的一份子感觉真的很特别。我遇到了一些了不起的人，甚至是在现实生活中疫情发生之前。
 
 ## [Hippie Hacker](https://github.com/hh)
 
@@ -137,7 +137,7 @@ He recommends that new contributors use pair programming.
 <!--
 > _The cross pollination of approaches and two pairs of eyes on the same work can often yield a much more amplified effect than a PR comment / approval alone can afford._
 -->
-> _针对一个项目，多人关注和交叉交流往往比单独的评审、批准 PR 能产生更大的效果。_
+> 针对一个项目，多人关注和交叉交流往往比单独的评审、批准 PR 能产生更大的效果。
 
 ## [Nick Young](https://github.com/youngnick)
 
@@ -154,7 +154,7 @@ His contribution path was notable in that he began working on major areas of the
 他的贡献之路是引人注目的，因为他很早就在 Kubernetes 项目的主要领域工作，这改变了他的轨迹。
 
 <!--
-He asserts the best thing a new contributor can do is to "start contributing". Naturally, if it is relevant to their employment, that is excellent; however, investing non-work time in contributing can pay off in the long run in terms of work. He believes that new contributors, particularly those who are currently Kubernetes users, should be encouraged to participate in higher-level project discussions. 
+He asserts the best thing a new contributor can do is to "start contributing". Naturally, if it is relevant to their employment, that is excellent; however, investing non-work time in contributing can pay off in the long run in terms of work. He believes that new contributors, particularly those who are currently Kubernetes users, should be encouraged to participate in higher-level project discussions.
 -->
 他断言，一个新贡献者能做的最好的事情就是“开始贡献”。当然，如果与他的工作息息相关，那好极了;
 然而，把非工作时间投入到贡献中去，从长远来看可以在工作上获得回报。
@@ -163,8 +163,8 @@ He asserts the best thing a new contributor can do is to "start contributing". N
 <!--
 > _Just being active and contributing will get you a long way. Once you've been active for a while, you'll find that you're able to answer questions, which will mean you're asked questions, and before you know it you are an expert._
 -->
-> _只要积极主动，做出贡献，你就可以走很远。一旦你活跃了一段时间，你会发现你能够解答别人的问题，
-这意味着会有人请教你或和你讨论，在你意识到这一点之前，你就已经是专家了。_
+> 只要积极主动，做出贡献，你就可以走很远。一旦你活跃了一段时间，你会发现你能够解答别人的问题，
+> 这意味着会有人请教你或和你讨论，在你意识到这一点之前，你就已经是专家了。
 
 ---
 
