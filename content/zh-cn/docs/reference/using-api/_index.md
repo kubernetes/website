@@ -152,12 +152,12 @@ Here's a summary of each level:
 ## API 组
 
 <!--
-[API groups](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)
+[API groups](https://git.k8s.io/design-proposals-archive/api-machinery/api-group.md)
 make it easier to extend the Kubernetes API.
 The API group is specified in a REST path and in the `apiVersion` field of a
 serialized object.
 -->
-[API 组](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)
+[API 组](https://git.k8s.io/design-proposals-archive/api-machinery/api-group.md)
 能够简化对 Kubernetes API 的扩展。
 API 组信息出现在REST 路径中，也出现在序列化对象的 `apiVersion` 字段中。
 
