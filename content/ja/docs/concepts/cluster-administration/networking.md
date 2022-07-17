@@ -287,4 +287,4 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 ## {{% heading "whatsnext" %}}
 
 
-ネットワークモデルの初期設計とその根拠、および将来の計画については、[ネットワーク設計ドキュメント](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)で詳細に説明されています。
+ネットワークモデルの初期設計とその根拠、および将来の計画については、[ネットワーク設計ドキュメント](https://git.k8s.io/design-proposals-archive/network/networking.md)で詳細に説明されています。
