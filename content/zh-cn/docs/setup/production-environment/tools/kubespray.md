@@ -59,7 +59,7 @@ To choose a tool which best fits your use case, read [this comparison](https://g
 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 和
 [kops](/zh-cn/docs/setup/production-environment/tools/kops/) 之间的
 [这份比较](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)。
- 。
+
 <!-- body -->
 
 <!--
@@ -240,7 +240,7 @@ When running the reset playbook, be sure not to accidentally target your product
 -->
 ## 清理
 
-你可以通过 [reset](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml) Playbook
+你可以通过 [reset playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml)
 重置节点并清除所有与 Kubespray 一起安装的组件。
 
 {{< caution >}}
