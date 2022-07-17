@@ -2,6 +2,10 @@
 title: Instalando a ferramenta kubeadm
 content_type: task
 weight: 10
+update_date: 2022-07-17
+origin_version: 1.22
+contributors: ?
+reviewers:
 ---
 
 <!-- overview -->
@@ -11,18 +15,18 @@ Para mais informações sobre como criar um cluster com o kubeadm após efetuar 
 
 
 ## {{% heading "prerequisites" %}}
-
+### Você vai precisar de:
 * Uma máquina com sistema operacional Linux compatível. O projeto Kubernetes provê instruções para distribuições Linux baseadas em Debian e Red Hat, bem como para distribuições sem um gerenciador de pacotes.
 * 2 GB ou mais de RAM por máquina (menos que isso deixará pouca memória para as suas aplicações).
 * 2 CPUs ou mais.
 * Conexão de rede entre todas as máquinas no cluster. Seja essa pública ou privada.
-* Nome da máquina na rede, endereço MAC e producy_uuid únicos para cada nó. Mais detalhes podem ser lidos [aqui](#veficiar-endereco-mac).
+* Nome da máquina na rede, endereço MAC e `product_uuid` únicos para cada nó. Mais detalhes podem ser lidos [aqui](#veficiar-endereco-mac).
 * Portas específicas abertas nas suas máquinas. Você poderá ler quais são [aqui](#verificar-portas-necessarias).
-* Swap desabilitado. Você *precisa* desabilitar a funcionalidade de swap para que o kubelet funcione de forma correta.
+* Swap desabilitado. Você **PRECISA** desabilitar a funcionalidade de swap para que o kubelet funcione de forma correta.
 
 <!-- steps -->
 
-## Verificando se o endereço MAC e o product_uiid são únicos para cada nó {#veficiar-endereco-mac}
+## Verificando se o endereço MAC e o product_uuid são únicos para cada nó {#veficiar-endereco-mac}
 
 * Você pode verificar o endereço MAC da interface de rede utilizando o comando `ip link` ou o comando `ipconfig -a`.
 * O product_uuid pode ser verificado utilizando o comando `sudo cat /sys/class/dmi/id/product_uuid`.
@@ -57,7 +61,7 @@ Para mais detalhes veja a página [Requisitos do plugin de rede](/pt-br/docs/con
 
 As portas listadas [aqui](https://kubernetes.io/docs/reference/ports-and-protocols/) precisam estar abertas para que os componentes do Kubernetes se comuniquem uns com os outros.
 
-O plugin de rede dos pods que você utiliza também pode requer que algumas portas estejam abertas. Dito que essas portas podem diferir dependendo do plugin, por favor leia a documentação dos plugins sobre quais portas serão necessárias abrir.
+O plugin de rede dos pods que você utiliza também pode requerer que algumas portas estejam abertas. Dito que essas portas podem diferir dependendo do plugin, por favor leia a documentação dos plugins sobre quais portas serão necessárias abrir.
 
 ## Instalando o agente de execução de contêineres {#instalando-agente-de-execucao}
 
@@ -69,7 +73,7 @@ Para executar os contêineres nos Pods, o Kubernetes utiliza um
 
 Por padrão, o Kubernetes utiliza a {{< glossary_tooltip term_id="cri" text="interface do agente de execução">}} (CRI) para interagir com o seu agente de execução de contêiner escolhido.
 
-Se você não especificar nenhum agente de execução, o kubeadm irá tentar identifica-lo automaticamente através de uma lista dos sockets Unix mais utilizados. A tabela a seguir lista os agentes de execução e os caminhos dos sockets a eles associados.
+Se nenhum agente de execução for especificado, o kubeadm irá tentar identifica-lo automaticamente através de uma lista dos sockets Unix mais utilizados. A tabela a seguir lista os agentes de execução e os caminhos dos sockets a eles associados.
 
 {{< table caption = "Agentes de execução e seus caminhos de socket" >}}
 | Agente de execução    | Caminho do socket Unix        |
@@ -80,16 +84,16 @@ Se você não especificar nenhum agente de execução, o kubeadm irá tentar ide
 {{< /table >}}
 
 <br />
-Se tanto o Docker quanto o containerd forem detectados no sistema, o Docker terá precedência. Isso acontece porque o Docker, desde a versão 18.09, já incluí o containerd e ambos são detectaveis mesmo que você só tenha instalado o Docker. Se outros dois ou mais agentes de execução forem detectados, o kubeadm é encerrado com um erro.
+Se tanto o Docker quanto o containerd forem detectados no sistema, o Docker terá precedência. Isso acontece porque o Docker, desde a versão 18.09, já inclui o containerd e ambos são detectáveis mesmo que você só tenha instalado o Docker. Se outros dois ou mais agentes de execução forem detectados, o kubeadm é encerrado com um erro.
 
-O kubelet se integra com o Docker através da implementação CRI `dockershim` já inclusa.
+O kubelet se integra com o Docker através da implementação CRI `dockershim` embutida.
 
 Veja a página dos [agentes de execução](/docs/setup/production-environment/container-runtimes/)
 para mais detalhes.
 {{% /tab %}}
 {{% tab name="Outros sistemas operacionais" %}}
 Por padrão, o kubeadm utiliza o {{< glossary_tooltip term_id="docker" >}} como agente de execução.
-O kubelet se integra com o Docker através da implementação CRI `dockershim` já inclusa.
+O kubelet se integra com o Docker através da implementação CRI `dockershim` embutida.
 
 Veja a página dos [agentes de execução](/docs/setup/production-environment/container-runtimes/)
 para mais detalhes.
@@ -103,7 +107,7 @@ Você instalará esses pacotes em todas as suas máquinas:
 
 * `kubeadm`: o comando para criar o cluster.
 
-* `kubelet`: o componente que executa em todas as máquinas no seu cluster e cuida de tarefas como a inicialização de pods e contêineres. 
+* `kubelet`: o componente que executa em todas as máquinas no seu cluster, e cuida de tarefas como a inicialização de pods e contêineres. 
 
 * `kubectl`: a ferramenta de linha de comando para interação com o cluster.
 
@@ -185,7 +189,7 @@ sudo systemctl enable --now kubelet
   Isso é necessário para permitir que os contêineres acessem o sistema de arquivos do hospedeiro, que é utilizado pelas redes dos pods por exemplo.
   Você precisará disso até que o suporte ao SELinux seja melhorado no kubelet.
 
-  - Você pode deixar o SELinux habilitado se você souber como configura-lo, mas isso pode exegir configurações que não são suportadas pelo kubeadm.
+  - Você pode deixar o SELinux habilitado se você souber como configura-lo, mas isso pode exigir configurações que não são suportadas pelo kubeadm.
 
 {{% /tab %}}
 {{% tab name="Sem um gerenciador de pacotes" %}}
@@ -240,8 +244,8 @@ systemctl enable --now kubelet
 ```
 
 {{< note >}}
-A distribuição Flatcar Container Linux instala o diretório `/usr` como um sistema de arquivos apenas para leitura.
-Antes de inicializar o seu cluster, você precisa de alguns passos adicionais para configurar um diretório com escrita.
+A distribuição Flatcar Container Linux instala o diretório `/usr` como um sistema de arquivos com permissão apenas para leitura.
+Antes de inicializar o seu cluster, você precisa de alguns passos adicionais para configurar um diretório com permissão de escrita.
 Veja o [Guia de solução de problemas do Kubeadm](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/) para aprender como configurar um diretório com escrita.
 {{< /note >}}
 {{% /tab %}}
