@@ -96,5 +96,5 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
 ## 설계 문서
 
 쿠버네티스 기능에 대한 설계 문서의 아카이브.
-[쿠버네티스 아키텍처](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)와
+[쿠버네티스 아키텍처](https://git.k8s.io/design-proposals-archive/architecture/architecture.md)와
 [쿠버네티스 디자인 개요](https://git.k8s.io/community/contributors/design-proposals)가 좋은 출발점이다.

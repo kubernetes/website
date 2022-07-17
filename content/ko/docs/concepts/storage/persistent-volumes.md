@@ -673,7 +673,7 @@ spec:
 
 ### 리소스
 
-파드처럼 클레임은 특정 수량의 리소스를 요청할 수 있다. 이 경우는 스토리지에 대한 요청이다. 동일한 [리소스 모델](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md)이 볼륨과 클레임 모두에 적용된다.
+파드처럼 클레임은 특정 수량의 리소스를 요청할 수 있다. 이 경우는 스토리지에 대한 요청이다. 동일한 [리소스 모델](https://git.k8s.io/design-proposals-archive/scheduling/resources.md)이 볼륨과 클레임 모두에 적용된다.
 
 ### 셀렉터
 
@@ -1012,7 +1012,7 @@ PVC를 위한 적절한 파퓰레이터가 설치되어 있다면,
 
 * [퍼시스턴트볼륨 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)에 대해 자세히 알아보기
 * [퍼시스턴트볼륨클레임 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨클레임-생성하기)에 대해 자세히 알아보기
-* [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md) 읽어보기
+* [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md) 읽어보기
 
 ### API 레퍼런스 {#reference}
 

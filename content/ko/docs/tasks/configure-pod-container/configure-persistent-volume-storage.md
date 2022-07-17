@@ -282,7 +282,7 @@ GID는 파드 리소스 자체에는 존재하지 않는다.
 
 
 * [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)에 대해 더 보기.
-* [퍼시스턴트 스토리지 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md)에 대해 읽어보기.
+* [퍼시스턴트 스토리지 디자인 문서](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md)에 대해 읽어보기.
 
 ### Reference
 

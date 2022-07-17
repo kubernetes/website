@@ -698,7 +698,7 @@ resourcequota/pods-cluster-services created
 
 ## {{% heading "whatsnext" %}}
 
-- 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고한다.
+- 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)를 참고한다.
 - [리소스 쿼터를 사용하는 방법에 대한 자세한 예](/docs/tasks/administer-cluster/quota-api-object/)를 참고한다.
 - [우선 순위 클래스에 대한 쿼터 지원 디자인 문서](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)를 읽는다.
 - [제한된 자원](https://github.com/kubernetes/kubernetes/pull/36765)을 참고한다.
