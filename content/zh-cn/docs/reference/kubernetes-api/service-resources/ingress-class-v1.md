@@ -4,13 +4,12 @@ api_metadata:
   import: "k8s.io/api/networking/v1"
   kind: "IngressClass"
 content_type: "api_reference"
-description: "IngressClass 代表 Ingress 的类, 被 Ingress 的规约引用。"
+description: "IngressClass 代表 Ingress 的类，被 Ingress 的规约引用。"
 title: "IngressClass"
 weight: 5
 ---
 
 <!--
----
 api_metadata:
   apiVersion: "networking.k8s.io/v1"
   import: "k8s.io/api/networking/v1"
@@ -20,7 +19,6 @@ description: "IngressClass represents the class of the Ingress, referenced by th
 title: "IngressClass"
 weight: 5
 auto_generated: true
----
 -->
 
 `apiVersion: networking.k8s.io/v1`
@@ -34,8 +32,9 @@ IngressClass represents the class of the Ingress, referenced by the Ingress Spec
 -->
 ## IngressClass {#IngressClass}
 
-IngressClass 代表 Ingress 的类, 被 Ingress 的规约引用。 
-`ingressclass.kubernetes.io/is-default-class` 注解可以用来标明一个 IngressClass 应该被视为默认的 Ingress 类。
+IngressClass 代表 Ingress 的类，被 Ingress 的规约引用。
+`ingressclass.kubernetes.io/is-default-class`
+注解可以用来标明一个 IngressClass 应该被视为默认的 Ingress 类。
 当某个 IngressClass 资源将此注解设置为 true 时，
 没有指定类的新 Ingress 资源将被分配到此默认类。
 
@@ -50,22 +49,23 @@ IngressClass 代表 Ingress 的类, 被 Ingress 的规约引用。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  标准的列表元数据。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClassSpec" >}}">IngressClassSpec</a>)
 
   <!--
   Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
-  spec 是 IngressClass 的期望状态。更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  spec 是 IngressClass 的期望状态。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## IngressClassSpec {#IngressClassSpec}
 
 <!--
 IngressClassSpec provides information about the class of an Ingress.
 -->
-IngressClassSpec 提供有关 Ingress 类的信息。 
+IngressClassSpec 提供有关 Ingress 类的信息。
 
 <hr>
 
@@ -120,14 +120,16 @@ IngressClassSpec 提供有关 Ingress 类的信息。
 
     apiGroup 是被引用资源的组。
     如果未指定 apiGroup，则被指定的 kind 必须在核心 API 组中。
-    对于任何其他第三方类型， APIGroup 是必需的。
+    对于任何其他第三方类型，apiGroup 是必需的。
 
   - **parameters.namespace** (string)
     <!--
     Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
     -->
 
-    namespace 是被引用资源的命名空间。当范围被设置为 “namespace” 时，此字段是必需的，当范围被设置为 “Cluster”，此字段必须取消设置。
+    namespace 是被引用资源的命名空间。
+    当范围被设置为 “namespace” 时，此字段是必需的；
+    当范围被设置为 “Cluster” 时，此字段必须不设置。
 
   - **parameters.scope** (string)
     <!--
@@ -164,7 +166,7 @@ IngressClassList 是 IngressClasses 的集合。
 -->
 - **items** ([]<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>)，必需
 
-  items 是 IngressClasses 的列表
+  items 是 IngressClasses 的列表。
 
 <!--
 ## Operations {#Operations}

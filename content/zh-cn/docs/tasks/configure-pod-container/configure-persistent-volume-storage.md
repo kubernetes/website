@@ -462,10 +462,10 @@ PersistentVolume are not present on the Pod resource itself.
 
 <!--
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
-* Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+* Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 -->
 * 进一步了解 [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
-* 阅读[持久存储设计文档](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md)
+* 阅读[持久存储设计文档](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md)
 
 <!--
 ### Reference
