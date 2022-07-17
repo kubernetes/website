@@ -22,7 +22,7 @@ Infrastructure（实验性）或 Baremetal 上托管的 Kubernetes 集群。
 Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
 -->
 Kubespray 是一个由 [Ansible](https://docs.ansible.com/) playbooks、
-[清单](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)、
+[清单（inventory）](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)、
 制备工具和通用 OS/Kubernetes 集群配置管理任务的领域知识组成的。
 Kubespray 提供：
 
