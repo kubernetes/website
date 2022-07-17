@@ -5,7 +5,7 @@ weight: 20
 update_date: 2022-07-16
 origin_version: 1.24
 contributors: DonatoHorn
-reviewers:
+reviewers: 
 ---
 
 <!-- overview -->
@@ -18,15 +18,15 @@ Esta página mostra como atribuir um *requisito* de CPU e um *limite* de CPU a u
 
 Seu cluster precisa ter ao menos 1 CPU disponível para uso, a fim de executar as tarefas de exemplos.
 
-Alguns dos passos nesta página requerem que você execute o serviço [metrics-server](https://github.com/kubernetes-sigs/metrics-server) no seu cluster. Se você já tiver o metrics-server executando, você pode pular estes passos.
+Alguns dos passos nesta página requerem que você execute o serviço [`metrics-server`](https://github.com/kubernetes-sigs/metrics-server) no seu cluster. Se você já tiver o `metrics-server` executando, você pode pular estes passos.
 
-Se você estiver executando {{< glossary_tooltip term_id="minikube" >}}, execute o comando a seguir para habilitar o metrics-server:
+Se você estiver executando {{< glossary_tooltip term_id="minikube" >}}, execute o comando a seguir para habilitar o `metrics-server`:
 
 ```shell
 minikube addons enable metrics-server
 ```
 
-Para ver se o metrics-server (ou outro fornecedor de API de métricas de recursos, `metrics.k8s.io`) está executando, digite o comando seguinte:
+Para ver se o `metrics-server` (ou outro fornecedor de API de métricas de recursos, `metrics.k8s.io`) está executando, digite o comando seguinte:
 
 ```shell
 kubectl get apiservices
@@ -53,9 +53,9 @@ kubectl create namespace cpu-example
 
 ## Especifique requisitos de CPU e limites de CPU
 
-Para especificar os requisitos de CPU para um contêiner, inclua o campo `resources:requests` no manifersto de recursos do Contêiner. Para especificar o limite de CPU, inclua `resources:limits`.
+Para especificar os requisitos de CPU para um contêiner, inclua o campo `resources:requests` no manifesto de recursos do Contêiner. Para especificar o limite de CPU, inclua `resources:limits`.
 
-Neste exercício, você cria um Pod que têm um contêiner. O contêiner têm um requisito de 0,5 CPU e o limite de 1 CPU. Aqui está o arquivo de configuração do Pod:
+Neste exercício, você cria um Pod que tem um contêiner. O contêiner tem um requisito de 0,5 CPU e o limite de 1 CPU. Aqui está o arquivo de configuração do Pod:
 
 {{< codenew file="pods/resource/cpu-request-limit.yaml" >}}
 
@@ -81,7 +81,7 @@ Ver informação detalhada sobre o Pod:
 kubectl get pod cpu-demo --output=yaml --namespace=cpu-example
 ```
 
-A saída mostra que este contêiner no Pod tem um requisito de CPU de 500 milliCPU e um limite de CPU de 1 CPU.
+A saída mostra que este contêiner no Pod tem um requisito de CPU de 500 miliCPU e um limite de CPU de 1 CPU.
 
 ```yaml
 resources:
@@ -97,7 +97,7 @@ Use `kubectl top` para buscar as métricas do pod:
 kubectl top pod cpu-demo --namespace=cpu-example
 ```
 
-Este exemplo de saída mostra que o Pod está usando 974 milliCPU, 
+Este exemplo de saída mostra que o Pod está usando 974 miliCPU, 
 que é ligeiramente menor que o limite de 1 CPU especificado na configuração do Pod.
 
 ```
@@ -107,7 +107,7 @@ cpu-demo                    974m         <something>
 
 Lembre-se que ao especificar `-cpu "2"`, você configurou o Contêiner para tentar 
 usar 2 CPUs, mas o Contêiner está apenas habilitado a usar cerca de 1 CPU. 
-O uso de CPU dos contêineres está sendo estrangulado, 
+O uso de CPU dos contêineres está sendo limitado, 
 porque o contêiner está tentando usar mais recursos de CPU que o seu limite. 
 
 {{< note >}}
@@ -121,7 +121,7 @@ mais que 1 CPU, sem contar o limite de CPU especificado para o Contêiner.
 
 ## Unidades de CPU
 
-Os recursos de CPU são medidos em unidades de *CPU*. Uma CPU, em Kunernetes, é equivalente a:
+Os recursos de CPU são medidos em unidades de *CPU*. Uma CPU, em Kubernetes, é equivalente a:
 
 * 1 AWS vCPU
 * 1 GCP Core
@@ -131,10 +131,10 @@ Os recursos de CPU são medidos em unidades de *CPU*. Uma CPU, em Kunernetes, é
 
 Valores fracionários são aceitos. Ao Contêiner que requer 0,5 CPU é garantido 
 pelo menos a metade da CPU que um Contêiner que requer 1 CPU. 
-Você pode usar o sufixo m para representar milli. Por exemplo 100m CPU, 100 milliCPU, 
+Você pode usar o sufixo m para representar mili. Por exemplo 100m CPU, 100 miliCPU, 
 e 0,1 CPU são todas a mesma. Precisão menor que 1m não é aceita.
 
-CPU é sempre requisitada como uma quantidade absoluta, nunca como uma quantidade relativa; 0,1 é a mesma quantidadede de CPU em uma máquina single-core, dual-core, ou 48-core.
+CPU é sempre requisitada como uma quantidade absoluta, nunca como uma quantidade relativa; 0,1 é a mesma quantidade de CPU em uma máquina single-core, dual-core, ou 48-core.
 
 Apague seu Pod:
 
@@ -144,7 +144,7 @@ kubectl delete pod cpu-demo --namespace=cpu-example
 
 ## Especifique um requisito de CPU que é muito grande para seus Nós
 
-Requisitos e limites de CPU são associados aos Contêineres, mas é funcional pensar num Pod como tendo requisito e limite de CPU. O requisito de CPU para um Pod é a soma dos requisitos de CPU de todos os Contêineres no Pod. Da mesma forma, o limite de CPU para um Pod é a soma dos limites de CPU para todos os Contêineres no Pod. 
+Requisitos e limites de CPU são associados aos Contêineres, mas é útil pensar num Pod como tendo requisito e limite de CPU. O requisito de CPU para um Pod é a soma dos requisitos de CPU de todos os Contêineres no Pod. Da mesma forma, o limite de CPU para um Pod é a soma dos limites de CPU para todos os Contêineres no Pod. 
 
 O agendamento do Pod é baseado em requisições. Um Pod é agendado para executar em um Nó, somente se o Nó possuir suficiente recursos de CPU disponíveis para satisfazer os requisitos de CPU do Pod.
 
@@ -166,7 +166,7 @@ Veja o status do Pod:
 kubectl get pod cpu-demo-2 --namespace=cpu-example
 ```
 
-A saída mostra que o status do Pod é Pending. Que significa, que o Pod não está 
+A saída mostra que o status do Pod é `Pending`, demonstrando que o Pod não está 
 agendado para executar em qualquer Nó, e permanecerá no estado Pendente indefinidamente.
 
 
@@ -204,7 +204,7 @@ kubectl delete pod cpu-demo-2 --namespace=cpu-example
 Se você não especificar o limite de CPU para um Contêiner, então uma destas 
 situações se aplica:
 
-* O Contêiner não possue limite superior de recursos de CPU que possa usar. 
+* O Contêiner não possui limite superior de recursos de CPU que possa usar. 
 O Contêiner poderia usar todos os recursos de CPU disponíveis no Nó em que estiver executando. 
 
 
@@ -228,7 +228,7 @@ o kubernetes automáticamente atribui os requisitos de CPU que correspondem ao l
 Ao configurar os requisitos de CPU e limites dos Contêneres que executam no seu cluster, 
 você faz um uso eficiente dos recursos de CPU disponívies nos Nós do seu cluster. 
 Mantendo baixos os recursos de CPU de um Pod, você proporciona ao Pod uma boa chance 
-de ser agendado. Ao pegar um limite de CPU que é maior que os requisitos de CPU, 
+de ser agendado. Ao especificar um limite de CPU que é maior que os requisitos de CPU, 
 você estará realizando duas coisas: 
 
 * o Pod pode ter estouros de atividade quando estiver fazendo uso de recursos de CPU 
@@ -271,5 +271,4 @@ kubectl delete namespace cpu-example
 * [Configurando Quota para um Pod em um Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 * [Configurando Quotas para Objetos de API](/docs/tasks/administer-cluster/quota-api-object/)
-
 
