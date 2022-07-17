@@ -14,7 +14,7 @@ weight: 50
 
 Los objetos de tipo {{< glossary_tooltip text="Secret" term_id="secret" >}} en Kubernetes te permiten almacenar y administrar información confidencial, como
 contraseñas, tokens OAuth y llaves ssh.  Poniendo esta información en un Secret
-es más seguro y más flexible que ponerlo en la definición de un {{< glossary_tooltip term_id="pod" >}} o en un {{< glossary_tooltip text="container image" term_id="image" >}}. Ver [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) para más información.
+es más seguro y más flexible que ponerlo en la definición de un {{< glossary_tooltip term_id="pod" >}} o en un {{< glossary_tooltip text="container image" term_id="image" >}}. Ver [Secrets design document](https://git.k8s.io/design-proposals-archive/auth/secrets.md) para más información.
 
 <!-- body -->
 

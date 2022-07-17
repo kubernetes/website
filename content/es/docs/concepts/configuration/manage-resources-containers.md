@@ -676,7 +676,7 @@ La cantidad de recursos disponibles para los pods es menor que la capacidad del 
 los demonios del sistema utilizan una parte de los recursos disponibles. El campo `allocatable`
 [NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
 indica la cantidad de recursos que están disponibles para los Pods. Para más información, mira 
-[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
+[Node Allocatable Resources](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md).
 
 La característica [resource quota](/docs/concepts/policy/resource-quotas/) se puede configurar
 para limitar la cantidad total de recursos que se pueden consumir. Si se usa en conjunto
@@ -757,7 +757,7 @@ Puedes ver que el Contenedor fué terminado a causa de `reason:OOM Killed`, dond
 * Obtén experiencia práctica [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
 * Para más detalles sobre la diferencia entre solicitudes y límites, mira
-  [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
+  [Resource QoS](https://git.k8s.io/design-proposals-archive/node/resource-qos.md).
 
 * Lee [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) referencia de API
 
