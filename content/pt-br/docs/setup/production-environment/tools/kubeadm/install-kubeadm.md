@@ -59,9 +59,13 @@ Para mais detalhes veja a página [Requisitos do plugin de rede](/pt-br/docs/con
 
 ## Verificando as portas necessárias
 
-As portas listadas [aqui](https://kubernetes.io/docs/reference/ports-and-protocols/) precisam estar abertas para que os componentes do Kubernetes se comuniquem uns com os outros.
+As portas listadas [aqui](https://kubernetes.io/docs/reference/ports-and-protocols/) precisam estar abertas para que os componentes do Kubernetes se comuniquem uns com os outros. Você pode usar `telnet` para verificar se uma porta está aberta. Por Exemplo
 
-O plugin de rede dos pods que você utiliza também pode requerer que algumas portas estejam abertas. Dito que essas portas podem diferir dependendo do plugin, por favor leia a documentação dos plugins sobre quais portas serão necessárias abrir.
+```shell
+telnet 127.0.0.1 6443
+```
+
+O plugin de rede dos pods que você utiliza (veja acima) também pode requerer que algumas portas estejam abertas. Dito que essas portas podem diferir dependendo do plugin, por favor leia a documentação dos plugins sobre quais portas serão necessárias abrir.
 
 ## Instalando o agente de execução de contêineres {#instalando-agente-de-execucao}
 
