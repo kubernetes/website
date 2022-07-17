@@ -53,7 +53,7 @@ has a single point of failure. Creating a highly available cluster means conside
   - Load balancing traffic to the cluster’s {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}}.
   - Having enough worker nodes available, or able to quickly become available, as changing workloads warrant it.
 -->
-- *可用性*：一个单机的 Kubernetes [学习环境](/zh-cn/docs/setup/#学习环境)
+- **可用性**：一个单机的 Kubernetes [学习环境](/zh-cn/docs/setup/#学习环境)
   具有单点失效特点。创建高可用的集群则意味着需要考虑：
   - 将控制面与工作节点分开
   - 在多个节点上提供控制面组件的副本
@@ -69,7 +69,7 @@ season or special events, you need to plan how to scale to relieve increased
 pressure from more requests to the control plane and worker nodes or scale down to reduce unused
 resources.
 -->
-- *规模*：如果你预期你的生产用 Kubernetes 环境要承受固定量的请求，
+- **规模**：如果你预期你的生产用 Kubernetes 环境要承受固定量的请求，
   你可能可以针对所需要的容量来一次性完成安装。
   不过，如果你预期服务请求会随着时间增长，或者因为类似季节或者特殊事件的
   原因而发生剧烈变化，你就需要规划如何处理请求上升时对控制面和工作节点
@@ -87,7 +87,7 @@ You can set limits on the resources that users and workloads can access
 by managing [policies](/docs/concepts/policy/) and
 [container resources](/docs/concepts/configuration/manage-resources-containers/).
 -->
-- *安全性与访问管理*：在你自己的学习环境 Kubernetes 集群上，你拥有完全的管理员特权。
+- **安全性与访问管理**：在你自己的学习环境 Kubernetes 集群上，你拥有完全的管理员特权。
   但是针对运行着重要工作负载的共享集群，用户账户不止一两个时，就需要更细粒度
   的方案来确定谁或者哪些主体可以访问集群资源。
   你可以使用基于角色的访问控制（[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)）
@@ -122,12 +122,12 @@ upgrades when needed.
 services you may need, such as storage, container registries, authentication
 methods, and development tools.
 -->
-- *无服务*：仅是在第三方设备上运行负载，完全不必管理集群本身。你需要为
+- **无服务**：仅是在第三方设备上运行负载，完全不必管理集群本身。你需要为
   CPU 用量、内存和磁盘请求等付费。
-- *托管控制面*：让供应商决定集群控制面的规模和可用性，并负责打补丁和升级等操作。
-- *托管工作节点*：配置一个节点池来满足你的需要，由供应商来确保节点始终可用，
+- **托管控制面**：让供应商决定集群控制面的规模和可用性，并负责打补丁和升级等操作。
+- **托管工作节点**：配置一个节点池来满足你的需要，由供应商来确保节点始终可用，
   并在需要的时候完成升级。
-- *集成*：有一些供应商能够将 Kubernetes 与一些你可能需要的其他服务集成，
+- **集成**：有一些供应商能够将 Kubernetes 与一些你可能需要的其他服务集成，
   这类服务包括存储、容器镜像仓库、身份认证方法以及开发工具等。
 
 <!--
@@ -193,7 +193,7 @@ to learn tips for production-quality deployments using each of those deployment
 methods. Different [Container Runtimes](/docs/setup/production-environment/container-runtimes/)
 are available to use with your deployments.
 -->
-- *选择部署工具*：你可以使用类似 kubeadm、kops 和 kubespray 这类工具来部署控制面。
+- **选择部署工具**：你可以使用类似 kubeadm、kops 和 kubespray 这类工具来部署控制面。
   参阅[使用部署工具安装 Kubernetes](/zh-cn/docs/setup/production-environment/tools/)
   以了解使用这类部署方法来完成生产就绪部署的技巧。
   存在不同的[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
@@ -204,7 +204,7 @@ are implemented using certificates. Certificates are automatically generated
 during deployment or you can generate them using your own certificate authority.
 See [PKI certificates and requirements](/docs/setup/best-practices/certificates/) for details.
 -->
-- *管理证书*：控制面服务之间的安全通信是通过证书来完成的。证书是在部署期间
+- **管理证书**：控制面服务之间的安全通信是通过证书来完成的。证书是在部署期间
   自动生成的，或者你也可以使用自己的证书机构来生成它们。
   参阅 [PKI 证书和需求](/zh-cn/docs/setup/best-practices/certificates/)了解细节。
 <!--
@@ -213,7 +213,7 @@ to distribute external API requests to the apiserver service instances running o
 [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 for details.
 -->
-- *为 API 服务器配置负载均衡*：配置负载均衡器来将外部的 API 请求散布给运行在
+- **为 API 服务器配置负载均衡**：配置负载均衡器来将外部的 API 请求散布给运行在
   不同节点上的 API 服务实例。参阅
   [创建外部负载均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)
   了解细节。
@@ -228,7 +228,7 @@ See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/conf
 and [Set up a High Availability etcd cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
 for details.
 -->
-- *分离并备份 etcd 服务*：etcd 服务可以运行于其他控制面服务所在的机器上，
+- **分离并备份 etcd 服务**：etcd 服务可以运行于其他控制面服务所在的机器上，
   也可以运行在不同的机器上以获得更好的安全性和可用性。
   因为 etcd 存储着集群的配置数据，应该经常性地对 etcd 数据库进行备份，
   以确保在需要的时候你可以修复该数据库。与配置和使用 etcd 相关的细节可参阅
@@ -247,7 +247,7 @@ but not highly available. Some deployment tools set up [Raft](https://raft.githu
 consensus algorithm to do leader election of Kubernetes services. If the
 primary goes away, another service elects itself and take over. 
 -->
-- *创建多控制面系统*：为了实现高可用性，控制面不应被限制在一台机器上。
+- **创建多控制面系统**：为了实现高可用性，控制面不应被限制在一台机器上。
   如果控制面服务是使用某 init 服务（例如 systemd）来运行的，每个服务应该
   至少运行在三台机器上。不过，将控制面作为服务运行在 Kubernetes Pods
   中可以确保你所请求的个数的服务始终保持可用。
@@ -263,7 +263,7 @@ multiple zones in the same region, it can improve the chances that your
 cluster will continue to function even if one zone becomes unavailable.
 See [Running in multiple zones](/docs/setup/best-practices/multiple-zones/) for details.
 -->
-- *跨多个可用区*：如果保持你的集群一直可用这点非常重要，可以考虑创建一个跨
+- **跨多个可用区**：如果保持你的集群一直可用这点非常重要，可以考虑创建一个跨
   多个数据中心的集群；在云环境中，这些数据中心被视为可用区。
   若干个可用区在一起可构成地理区域。
   通过将集群分散到同一区域中的多个可用区内，即使某个可用区不可用，整个集群
@@ -278,7 +278,7 @@ and [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-
 See [Administer a Cluster](/docs/tasks/administer-cluster/)
 for a longer list of Kubernetes administrative tasks.
 -->
-- *管理演进中的特性*：如果你计划长时间保留你的集群，就需要执行一些维护其
+- **管理演进中的特性**：如果你计划长时间保留你的集群，就需要执行一些维护其
   健康和安全的任务。例如，如果你采用 kubeadm 安装的集群，则有一些可以帮助你完成
   [证书管理](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)
   和[升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)
@@ -330,7 +330,7 @@ create and manage your own nodes, you can install a supported operating system,
 then add and run the appropriate
 [Node services](/docs/concepts/overview/components/#node-components). Consider:
 -->
-- *配置节点*：节点可以是物理机或者虚拟机。如果你希望自行创建和管理节点，
+- **配置节点**：节点可以是物理机或者虚拟机。如果你希望自行创建和管理节点，
   你可以安装一个受支持的操作系统，之后添加并运行合适的
   [节点服务](/zh-cn/docs/concepts/overview/components/#node-components)。
   考虑：
@@ -347,7 +347,7 @@ then add and run the appropriate
 for information on how to ensure that a node meets the requirements to join
 a Kubernetes cluster.
 -->
-- *验证节点*：参阅[验证节点配置](/zh-cn/docs/setup/best-practices/node-conformance/)
+- **验证节点**：参阅[验证节点配置](/zh-cn/docs/setup/best-practices/node-conformance/)
   以了解如何确保节点满足加入到 Kubernetes 集群的需求。
 <!--
 - *Add nodes to the cluster*: If you are managing your own cluster you can
@@ -355,7 +355,7 @@ add nodes by setting up your own machines and either adding them manually or
 having them register themselves to the cluster’s apiserver. See the
 [Nodes](/docs/concepts/architecture/nodes/) section for information on how to set up Kubernetes to add nodes in these ways.
 -->
-- *添加节点到集群中*：如果你自行管理你的集群，你可以通过安装配置你的机器，
+- **添加节点到集群中**：如果你自行管理你的集群，你可以通过安装配置你的机器，
   之后或者手动加入集群，或者让它们自动注册到集群的 API 服务器。参阅
   [节点](/zh-cn/docs/concepts/architecture/nodes/)节，了解如何配置 Kubernetes
   以便以这些方式来添加节点。
@@ -366,7 +366,7 @@ to help determine how many nodes you need, based on the number of pods and
 containers you need to run. If you are managing nodes yourself, this can mean
 purchasing and installing your own physical equipment.
 -->
-- *扩缩节点*：制定一个扩充集群容量的规划，你的集群最终会需要这一能力。
+- **扩缩节点**：制定一个扩充集群容量的规划，你的集群最终会需要这一能力。
   参阅[大规模集群考察事项](/zh-cn/docs/setup/best-practices/cluster-large/)
   以确定你所需要的节点数；这一规模是基于你要运行的 Pod 和容器个数来确定的。
   如果你自行管理集群节点，这可能意味着要购买和安装你自己的物理设备。
@@ -381,7 +381,7 @@ for how it is implemented by different cloud providers. For on-premises, there
 are some virtualization platforms that can be scripted to spin up new nodes
 based on demand.
 -->
-- *节点自动扩缩容*：大多数云供应商支持
+- **节点自动扩缩容**：大多数云供应商支持
   [集群自动扩缩器（Cluster Autoscaler）](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
   以便替换不健康的节点、根据需求来增加或缩减节点个数。参阅
   [常见问题](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
@@ -436,7 +436,7 @@ authentication methods, such as LDAP or Kerberos. See
 [Authentication](/docs/reference/access-authn-authz/authentication/)
 for a description of these different methods of authenticating Kubernetes users.
 -->
-- *认证（Authentication）*：API 服务器可以使用客户端证书、持有者令牌、身份
+- **认证（Authentication）**：API 服务器可以使用客户端证书、持有者令牌、身份
   认证代理或者 HTTP 基本认证机制来完成身份认证操作。
   你可以选择你要使用的认证方法。通过使用插件，API 服务器可以充分利用你所在
   组织的现有身份认证方法，例如 LDAP 或者 Kerberos。
@@ -445,14 +445,14 @@ for a description of these different methods of authenticating Kubernetes users.
 <!--
 - *Authorization*: When you set out to authorize your regular users, you will probably choose between RBAC and ABAC authorization. See [Authorization Overview](/docs/reference/access-authn-authz/authorization/) to review different modes for authorizing user accounts (as well as service account access to your cluster):
 -->
-- *鉴权（Authorization）*：当你准备为一般用户执行权限判定时，你可能会需要
+- **鉴权（Authorization）**：当你准备为一般用户执行权限判定时，你可能会需要
   在 RBAC 和 ABAC 鉴权机制之间做出选择。参阅
   [鉴权概述](/zh-cn/docs/reference/access-authn-authz/authorization/)，了解
   对用户账户（以及访问你的集群的服务账户）执行鉴权的不同模式。
   <!--
   - *Role-based access control* ([RBAC](/docs/reference/access-authn-authz/rbac/)): Lets you assign access to your cluster by allowing specific sets of permissions to authenticated users. Permissions can be assigned for a specific namespace (Role) or across the entire cluster (ClusterRole). Then using RoleBindings and ClusterRoleBindings, those permissions can be attached to particular users.
   -->
-  - *基于角色的访问控制*（[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)）：
+  - **基于角色的访问控制**（[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)）：
     让你通过为通过身份认证的用户授权特定的许可集合来控制集群访问。
     访问许可可以针对某特定名字空间（Role）或者针对整个集群（ClusterRole）。
     通过使用 RoleBinding 和 ClusterRoleBinding 对象，这些访问许可可以被
@@ -460,11 +460,11 @@ for a description of these different methods of authenticating Kubernetes users.
   <!--
   - *Attribute-based access control* ([ABAC](/docs/reference/access-authn-authz/abac/)): Lets you create policies based on resource attributes in the cluster and will allow or deny access based on those attributes. Each line of a policy file identifies versioning properties (apiVersion and kind) and a map of spec properties to match the subject (user or group), resource property, non-resource property (/version or /apis), and readonly. See [Examples](/docs/reference/access-authn-authz/abac/#examples) for details.
   -->
-  - *基于属性的访问控制*（[ABAC](/zh-cn/docs/reference/access-authn-authz/abac/)）：
+  - **基于属性的访问控制**（[ABAC](/zh-cn/docs/reference/access-authn-authz/abac/)）：
     让你能够基于集群中资源的属性来创建访问控制策略，基于对应的属性来决定
     允许还是拒绝访问。策略文件的每一行都给出版本属性（apiVersion 和 kind）
     以及一个规约属性的映射，用来匹配主体（用户或组）、资源属性、非资源属性
-    （/version 或 /apis）和只读属性。
+    （/version 或/apis）和只读属性。
     参阅[示例](/zh-cn/docs/reference/access-authn-authz/abac/#examples)以了解细节。
 
 <!--
@@ -480,7 +480,7 @@ starts, the supported authentication modes must be set using the *--authorizatio
 flag. For example, that flag in the *kube-adminserver.yaml* file (in */etc/kubernetes/manifests*)
 could be set to Node,RBAC. This would allow Node and RBAC authorization for authenticated requests.
 -->
-- *设置鉴权模式*：当 Kubernetes API 服务器
+- **设置鉴权模式**：当 Kubernetes API 服务器
   （[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)）
   启动时，所支持的鉴权模式必须使用 `--authorization-mode` 标志配置。
   例如，`kube-apiserver.yaml`（位于 `/etc/kubernetes/manifests` 下）中对应的
@@ -493,7 +493,7 @@ signed by the cluster CA. Then you can bind Roles and ClusterRoles to each user.
 See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/)
 for details.
 -->
-- *创建用户证书和角色绑定（RBAC）*：如果你在使用 RBAC 鉴权，用户可以创建
+- **创建用户证书和角色绑定（RBAC）**：如果你在使用 RBAC 鉴权，用户可以创建
   由集群 CA 签名的 CertificateSigningRequest（CSR）。接下来你就可以将 Role
   和 ClusterRole 绑定到每个用户身上。
   参阅[证书签名请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)
@@ -505,7 +505,7 @@ authorize selected users or groups to access particular resources (such as a
 pod), namespace, or apiGroup. For more information, see
 [Examples](/docs/reference/access-authn-authz/abac/#examples).
 -->
-- *创建组合属性的策略（ABAC）*：如果你在使用 ABAC 鉴权，你可以设置属性组合
+- **创建组合属性的策略（ABAC）**：如果你在使用 ABAC 鉴权，你可以设置属性组合
   以构造策略对所选用户或用户组执行鉴权，判定他们是否可访问特定的资源
   （例如 Pod）、名字空间或者 apiGroup。进一步的详细信息可参阅
   [示例](/zh-cn/docs/reference/access-authn-authz/abac/#examples)。
@@ -517,7 +517,7 @@ Webhooks and other special authorization types need to be enabled by adding
 [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
 to the API server.
 -->
-- *考虑准入控制器*：针对指向 API 服务器的请求的其他鉴权形式还包括
+- **考虑准入控制器**：针对指向 API 服务器的请求的其他鉴权形式还包括
   [Webhook 令牌认证](/zh-cn/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)。
   Webhook 和其他特殊的鉴权类型需要通过向 API 服务器添加
   [准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
@@ -542,7 +542,7 @@ for details. You can also set
 [Hierarchical Namespaces](/blog/2020/08/14/introducing-hierarchical-namespaces/)
 for inheriting limits.
 -->
-- *设置名字空间限制*：为每个名字空间的内存和 CPU 设置配额。
+- **设置名字空间限制**：为每个名字空间的内存和 CPU 设置配额。
   参阅[管理内存、CPU 和 API 资源](/zh-cn/docs/tasks/administer-cluster/manage-resources/)
   以了解细节。你也可以设置
   [层次化名字空间](/blog/2020/08/14/introducing-hierarchical-namespaces/)
@@ -552,7 +552,7 @@ for inheriting limits.
 your DNS service must be ready to scale up as well. See
 [Autoscale the DNS service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
 -->
-- *为 DNS 请求做准备*：如果你希望工作负载能够完成大规模扩展，你的 DNS 服务
+- **为 DNS 请求做准备**：如果你希望工作负载能够完成大规模扩展，你的 DNS 服务
   也必须能够扩大规模。参阅
   [自动扩缩集群中 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)。
 <!--
@@ -562,7 +562,7 @@ namespace. By default, a pod takes on the default service account from its names
 See [Managing Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
 for information on creating a new service account. For example, you might want to:
 -->
-- *创建额外的服务账户*：用户账户决定用户可以在集群上执行的操作，服务账号则定义的
+- **创建额外的服务账户**：用户账户决定用户可以在集群上执行的操作，服务账号则定义的
   是在特定名字空间中 Pod 的访问权限。
   默认情况下，Pod 使用所在名字空间中的 default 服务账号。
   参阅[管理服务账号](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)
