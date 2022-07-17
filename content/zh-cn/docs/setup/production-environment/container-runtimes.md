@@ -333,10 +333,10 @@ Follow the instructions for [getting started with containerd](https://github.com
 <!-- You can find this file under the path `/etc/containerd/config.toml`. -->
 你可以在路径 `/etc/containerd/config.toml` 下找到此文件。
 {{% /tab %}}
-{{< tab name="Windows" >}}
+{{% tab name="Windows" %}}
 <!-- You can find this file under the path `C:\Program Files\containerd\config.toml`. -->
 你可以在路径 `C:\Program Files\containerd\config.toml` 下找到此文件。
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 <!-- 

@@ -124,7 +124,7 @@ The general labeling process should be consistent across artifact types.
   referring to a release MAJOR.MINOR `vX.Y` version.
 
   See also
-  [release versioning](https://git.k8s.io/design-proposals-archive/release/versioning.md).
+  [release versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md).
 
 - *release branch*: Git branch `release-X.Y` created for the `vX.Y` milestone.
 
@@ -136,7 +136,7 @@ The general labeling process should be consistent across artifact types.
 
 ## The Release Cycle
 
-![Image of one Kubernetes release cycle](release-cycle.jpg)
+![Image of one Kubernetes release cycle](/images/releases/release-cycle.jpg)
 
 Kubernetes releases currently happen approximately three times per year.
 
@@ -204,7 +204,7 @@ back to the release branch. The release is built from the release branch.
 
 Each release is part of a broader Kubernetes lifecycle:
 
-![Image of Kubernetes release lifecycle spanning three releases](release-lifecycle.jpg)
+![Image of Kubernetes release lifecycle spanning three releases](/images/releases/release-lifecycle.jpg)
 
 ## Removal Of Items From The Milestone
 

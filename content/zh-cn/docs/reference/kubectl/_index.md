@@ -33,9 +33,11 @@ You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster
 files by setting the `KUBECONFIG` environment variable or by setting the
 [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 -->
-`针对配置信息，`kubectl` 在 `$HOME/.kube` 目录中查找一个名为 `config` 的配置文件。
-你可以通过设置 `KUBECONFIG` 环境变量或设置
+
+针对配置信息，`kubectl` 在 `$HOME/.kube` 目录中查找一个名为 `config` 的配置文件。
+你可以通过设置 `KUBECONFIG` 环境变量或设置 
 [`--kubeconfig`](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+
 参数来指定其它 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
 
 <!--

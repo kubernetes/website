@@ -41,13 +41,12 @@ See [Running kind with Rootless Docker](https://kind.sigs.k8s.io/docs/user/rootl
 
 ### minikube
 
-[minikube](https://minikube.sigs.k8s.io/) also supports running Kubernetes inside Rootless Docker.
+[minikube](https://minikube.sigs.k8s.io/) also supports running Kubernetes inside Rootless Docker or Rootless Podman.
 
-See the page about the [docker](https://minikube.sigs.k8s.io/docs/drivers/docker/) driver in the Minikube documentation.
+See the Minikube documentation:
 
-Rootless Podman is not supported.
-
-<!-- Supporting rootless podman is discussed in https://github.com/kubernetes/minikube/issues/8719 -->
+* [Rootless Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)
+* [Rootless Podman](https://minikube.sigs.k8s.io/docs/drivers/podman/)
 
 ## Running Kubernetes inside Unprivileged Containers
 

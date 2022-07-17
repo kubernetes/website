@@ -132,7 +132,7 @@ section refers to several key workload abstractions and how they map to Windows.
   * CronJob
   * ReplicationController
 * {{< glossary_tooltip text="Services" term_id="service" >}}
-  See [Load balancing and Services](#load-balancing-and-services) for more details.
+  See [Load balancing and Services](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) for more details.
 
 Pods, workload resources, and Services are critical elements to managing Windows
 workloads on Kubernetes. However, on their own they are not enough to enable
