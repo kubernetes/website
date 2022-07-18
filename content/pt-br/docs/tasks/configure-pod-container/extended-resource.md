@@ -22,8 +22,7 @@ Esta página mostra como atribuir recursos estendidos a um Contêiner.
 
 Antes de fazer este exercício, faça o exercício em
 [Anunciar recursos estendidos para um Nó](/docs/tasks/administer-cluster/extended-resource-node/).
-Isso configurará um de seus nós para anunciar um recurso de dongle.
-
+Isso configurará um de seus nós para anunciar um recurso de `dongle`.
 
 <!-- steps -->
 
@@ -32,14 +31,14 @@ Isso configurará um de seus nós para anunciar um recurso de dongle.
 Para solicitar um recurso estendido, inclua o campo `resources:requests` no seu 
 manifesto do contêiner. Recursos estendidos são totalmente qualificados 
 com qualquer domínio fora do `*.kubernetes.io/`. Nomes de recursos estendidos válidos 
-têm a forma de `example.com/foo` onde `example.com` é substituído pelo domínio 
+tem a forma de `example.com/foo`, onde `example.com` é substituído pelo domínio 
 da sua organização e `foo` é um nome descritivo de recurso.
 
 Aqui está o arquivo de configuração para um pod que possui um contêiner:
 
 {{< codenew file="pods/resource/extended-resource-pod.yaml" >}}
 
-No arquivo de configuração, você pode ver que o contêiner solicita 3 dongles.
+No arquivo de configuração, você pode ver que o contêiner solicita 3 `dongles`.
 
 Crie um Pod:
 
@@ -59,7 +58,7 @@ Descreva o pod:
 kubectl describe pod extended-resource-demo
 ```
 
-A saída mostra as solicitações de dongle:
+A saída mostra as solicitações de `dongle`:
 
 ```yaml
 Limits:
@@ -71,12 +70,12 @@ Requests:
 ## Tente criar um segundo Pod
 
 Aqui está o arquivo de configuração para um pod que possui um contêiner. 
-O contêiner solicita dois dongles.
+O contêiner solicita dois `dongles`.
 
 {{< codenew file="pods/resource/extended-resource-pod-2.yaml" >}}
 
-O Kubernetes não poderá satisfazer o pedido de dois dongles, porque o primeiro pod
-usou três dos quatro dongles disponíveis.
+O Kubernetes não poderá satisfazer o pedido de dois `dongles`, porque o primeiro pod
+usou três dos quatro `dongles` disponíveis.
 
 Tente criar um pod:
 
@@ -91,7 +90,7 @@ kubectl describe pod extended-resource-demo-2
 ```
 
 A saída mostra que o pod não pode ser agendado, porque não há nó que tenha
-2 dongles disponíveis:
+2 `dongles` disponíveis:
 
 ```
 Conditions:
@@ -129,7 +128,7 @@ kubectl delete pod extended-resource-demo-2
 
 
 
-## {{% heading "Próximos passos" %}}
+## {{% heading "whatsnext" %}}
 
 
 ### Para desenvolvedores de aplicativos
