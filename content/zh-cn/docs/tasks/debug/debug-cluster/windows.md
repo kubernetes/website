@@ -23,7 +23,7 @@ content_type: concept
 1. My Pods are stuck at "Container Creating" or restarting over and over
 
    Ensure that your pause image is compatible with your Windows OS version.
-   See [Pause container](/docs/setup/production-environment/windows/intro-windows-in-kubernetes#pause-container)
+   See [Pause container](/docs/concepts/windows/intro/#pause-container)
    to see the latest / recommended pause image and/or get more information.
 -->
 ## 工作节点级别排障 {#troubleshooting-node}
@@ -31,7 +31,7 @@ content_type: concept
 1. 我的 Pod 都卡在 “Container Creating” 或者不断重启
 
    确保你的 pause 镜像跟你的 Windows 版本兼容。
-   查看 [Pause 容器](/zh-cn/docs/setup/production-environment/windows/intro-windows-in-kubernetes#pause-container)
+   查看 [Pause 容器](/zh-cn/docs/concepts/windows/intro/#pause-container)
    以了解最新的或建议的 pause 镜像，或者了解更多信息。
 
    {{< note >}}
@@ -51,7 +51,7 @@ content_type: concept
    Windows Node.
 
    More information on how to specify a compatible node for your Pod can be found in
-   [this guide](/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
+   [this guide](/docs/concepts/windows/user-guide/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
 -->
 2. 我的 Pod 状态显示 'ErrImgPull' 或者 'ImagePullBackOff'
 
@@ -59,7 +59,7 @@ content_type: concept
    Windows 节点上。
 
    关于如何为你的 Pod 指定一个兼容节点，
-   可以查看这个指可以查看[这个指南](/zh-cn/docs/setup/production-environment/windows/user-guide-windows-containers/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)
+   可以查看这个指可以查看[这个指南](/zh-cn/docs/concepts/windows/user-guide/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)
    以了解更多的信息。
 
 <!-- 

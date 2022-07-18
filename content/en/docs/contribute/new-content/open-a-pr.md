@@ -396,7 +396,7 @@ Figure 3. Steps to open a PR from your fork to the K8s/website.
 1. From the **head repository** drop-down menu, select your fork.
 1. From the **compare** drop-down menu, select your branch.
 1. Select **Create Pull Request**.
-`. Add a description for your pull request:
+1. Add a description for your pull request:
 
     - **Title** (50 characters or less): Summarize the intent of the change.
     - **Description**: Describe the change in more detail.
@@ -484,10 +484,10 @@ conflict. You must resolve all merge conflicts in your PR.
 
 1. Fetch changes from `kubernetes/website`'s `upstream/main` and rebase your branch:
 
-    ```shell
-    git fetch upstream
-    git rebase upstream/main
-    ```
+   ```shell
+   git fetch upstream
+   git rebase upstream/main
+   ```
 
 1. Inspect the results of the rebase:
 
@@ -512,7 +512,7 @@ conflict. You must resolve all merge conflicts in your PR.
 
 1. Continue the rebase:
 
-   ``
+   ```shell
    git rebase --continue
    ```
 
