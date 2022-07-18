@@ -45,26 +45,6 @@ card:
 네트워크 어댑터가 두 개 이상이고, 쿠버네티스 컴포넌트가 디폴트 라우트(default route)에서 도달할 수 없는
 경우, 쿠버네티스 클러스터 주소가 적절한 어댑터를 통해 이동하도록 IP 경로를 추가하는 것이 좋다.
 
-## iptables가 브리지된 트래픽을 보게 하기
-
-`br_netfilter` 모듈이 로드되었는지 확인한다. `lsmod | grep br_netfilter` 를 실행하면 된다. 명시적으로 로드하려면 `sudo modprobe br_netfilter` 를 실행한다.
-
-리눅스 노드의 iptables가 브리지된 트래픽을 올바르게 보기 위한 요구 사항으로, `sysctl` 구성에서 `net.bridge.bridge-nf-call-iptables` 가 1로 설정되어 있는지 확인해야 한다. 다음은 예시이다.
-
-```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-br_netfilter
-EOF
-
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-sudo sysctl --system
-```
-
-자세한 내용은 [네트워크 플러그인 요구 사항](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#네트워크-플러그인-요구-사항) 페이지를 참고한다.
-
 ## 필수 포트 확인 {#check-required-ports}
 [필수 포트들](/ko/docs/reference/ports-and-protocols/)은
 쿠버네티스 컴포넌트들이 서로 통신하기 위해서 열려 있어야
@@ -74,7 +54,7 @@ sudo sysctl --system
 nc 127.0.0.1 6443
 ```
 
-사용자가 사용하는 파드 네트워크 플러그인(아래 참조)은 특정 포트를 열어야 할 수도
+사용자가 사용하는 파드 네트워크 플러그인은 특정 포트를 열어야 할 수도
 있다. 이것은 각 파드 네트워크 플러그인마다 다르므로, 필요한 포트에 대한
 플러그인 문서를 참고한다.
 
@@ -202,7 +182,6 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 exclude=kubelet kubeadm kubectl
 EOF
