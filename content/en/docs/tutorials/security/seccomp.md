@@ -201,16 +201,17 @@ You can find more detailed information about a possible upgrade and downgrade st
 in the related Kubernetes Enhancement Proposal (KEP):
 [Enable seccomp by default](https://github.com/kubernetes/enhancements/tree/9a124fd29d1f9ddf2ff455c49a630e3181992c25/keps/sig-node/2413-seccomp-by-default#upgrade--downgrade-strategy).
 
-Seccomp defaulting for Pods is a beta feature in Kubernetes {{< skew currentVersion >}}, 
-and the corresponding `SeccompDefault` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled by default. However, you still need to enable this defaulting for each node where
+Kubernetes {{< skew currentVersion >}} lets you configure the seccomp profile
+that applies when the spec for a Pod doesn't define a specific seccomp profile.
+This is a beta feature and the corresponding `SeccompDefault` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by
+default. However, you still need to enable this defaulting for each node where
 you would like to use it.
 
-If you are running a Kubernetes {{< skew currentVersion >}} cluster and want to enable Seccomp
-defaulting, either run the kubelet with the `--seccomp-default` command line flag, or enable
-Seccomp defaulting through the
-[kubelet
-configuration file](/docs/tasks/administer-cluster/kubelet-config-file/). To enable the
+If you are running a Kubernetes {{< skew currentVersion >}} cluster and want to
+enable the feature, either run the kubelet with the `--seccomp-default` command
+line flag, or enable it through the [kubelet configuration
+file](/docs/tasks/administer-cluster/kubelet-config-file/). To enable the
 feature gate in [kind](https://kind.sigs.k8s.io), ensure that `kind` provides
 the minimum required Kubernetes version and enables the `SeccompDefault` feature
 [in the kind configuration](https://kind.sigs.k8s.io/docs/user/quick-start/#enable-feature-gates-in-your-cluster):
