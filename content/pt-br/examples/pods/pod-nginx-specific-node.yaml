@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  nodeName: foo-node # agende o Pod para um Nó específico
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
