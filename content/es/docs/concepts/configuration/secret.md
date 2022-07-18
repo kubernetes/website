@@ -345,7 +345,7 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ## Usando Secrets
 
 Los Secrets se pueden montar como volúmenes de datos o ser expuestos como 
-{{< glossary_tooltip text="variables de ambiente" term_id="container-env-variables" >}}
+{{< glossary_tooltip text="variables de entorno" term_id="container-env-variables" >}}
 para ser usados por un contenedor en un pod.  También pueden ser utilizados por otras partes del sistema, 
 sin estar directamente expuesto en el pod.  Por ejemplo, pueden tener credenciales que otras partes del sistema usan para interactuar con sistemas externos en su nombre.
 
