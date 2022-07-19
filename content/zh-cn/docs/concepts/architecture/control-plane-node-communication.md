@@ -54,7 +54,7 @@ API 服务器被配置为在一个安全的 HTTPS 端口（通常为 443）上�
 Nodes should be provisioned with the public root certificate for the cluster such that they can
 connect securely to the API server along with valid client credentials. A good approach is that the
 client credentials provided to the kubelet are in the form of a client certificate. See
-[kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+[kubelet TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 for automated provisioning of kubelet client certificates.
 -->
 应该使用集群的公共根证书开通节点，这样它们就能够基于有效的客户端凭据安全地连接 API 服务器。
