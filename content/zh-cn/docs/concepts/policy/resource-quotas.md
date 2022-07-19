@@ -33,7 +33,7 @@ be created in a namespace by type, as well as the total amount of compute resour
 be consumed by resources in that namespace.
 -->
 资源配额，通过 `ResourceQuota` 对象来定义，对每个命名空间的资源消耗总量提供限制。
-它可以限制命名空间中某种类型的对象的总数目上限，也可以限制命令空间中的 Pod 可以使用的计算资源的总上限。
+它可以限制命名空间中某种类型的对象的总数目上限，也可以限制命名空间中的 Pod 可以使用的计算资源的总上限。
 
 <!--
 Resource quotas work like this:
