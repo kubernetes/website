@@ -140,9 +140,9 @@ volume mount will not receive updates for those volume sources.
 ## 与 SecurityContext 间的关系    {#securitycontext-interactions}
 
 <!--
-The [proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the the correct owner permissions set.
+The [proposal](https://git.k8s.io/enhancements/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the the correct owner permissions set.
 -->
-关于在投射的服务账号卷中处理文件访问权限的[提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#proposal)
+关于在投射的服务账号卷中处理文件访问权限的[提案](https://git.k8s.io/enhancements/keps/sig-storage/2451-service-account-token-volumes#proposal)
 介绍了如何使得所投射的文件具有合适的属主访问权限。
 
 ### Linux
