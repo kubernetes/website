@@ -1,6 +1,6 @@
 ---
 reviewers:
-- lavalamp
+- divya-mohan0209
 title: कुबेरनेट्स घटक
 content_type: concept
 description: >
