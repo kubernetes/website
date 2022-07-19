@@ -1,5 +1,5 @@
 ---
-title: Migrando de PodSecurityPolicy Para Cotrolado de admissão Integrado
+title: Migrando de PodSecurityPolicy Para Controlador de admissão Integrado
 update_date: 2022-07-19
 origin_version: 1.24
 contributors: DonatoHorn
