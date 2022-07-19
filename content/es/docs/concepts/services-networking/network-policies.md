@@ -105,7 +105,7 @@ __namespaceSelector__ *y* __podSelector__: Una única entrada `to`/`from` que es
   ...
 ```
 
-contiene un único elemento `from` permitiendo conexiones desde los Pods con el label `role=client` en nombres de espacio con el label `user=alice`. Por el contrario, *esta* política:
+contiene un elemento `from` permitiendo conexiones desde los Pods con el label `role=client` en Namespaces con el label `user=alice`. Por el contrario, *esta* política:
 
 ```yaml
   ...
