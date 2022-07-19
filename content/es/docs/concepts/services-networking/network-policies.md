@@ -50,7 +50,7 @@ Un ejemplo de NetworkPolicy pudiera ser este:
 {{< codenew file="service/networking/networkpolicy.yaml" >}}
 
 {{< note >}}
-Enviar esto al API Server de su clúster no tendrá ningún efecto a menos que su solución de red tenga soporte de políticas de red.
+Enviar esto al API Server de su clúster no tendrá ningún efecto a menos que su solución de red soporte de políticas de red.
 {{< /note >}}
 
 __Campos Obligatorios__: Como con todos los otras configuraciones de Kubernetes, una NetworkPolicy
@@ -90,7 +90,7 @@ __podSelector__: Este selector selecciona Pods específicos en el mismo Namespac
 
 __namespaceSelector__: Este selector selecciona Namespaces específicos para permitir el tráfico como origen de entrada o destino de salida.
 
-__namespaceSelector__ *y* __podSelector__: Una única entrada `to`/`from` que especifique tanto `namespaceSelector` como `podSelector` selecciona Pods específicos dentro de Namespaces específicos. Tenga cuidado de utilizar la sintaxis de YAML correcta. A continuación se muestra un ejemplo de esta política:
+__namespaceSelector__ *y* __podSelector__: Una única entrada `to`/`from` que especifica tanto `namespaceSelector` como `podSelector` selecciona Pods específicos dentro de Namespaces específicos. Es importante revisar que se utiliza la sintaxis de YAML correcta. A continuación se muestra un ejemplo de esta política:
 
 ```yaml
   ...
@@ -120,8 +120,7 @@ contiene un elemento `from` permitiendo conexiones desde los Pods con el label `
   ...
 ```
 
-
-contiene dos elementos en el array `from`, y permite conexiones desde Pods en el Namespace local con el label `role=client`, *o* desde cualquier Pod en cualquier Namespace con el label `user=alice`.
+contiene dos elementos en el array `from`, y permite conexiones desde Pods en los Namespaces con el label `role=client`, *o* desde cualquier Pod en cualquier Namespace con el label `user=alice`.
 
 En caso de duda, utilice `kubectl describe` para ver cómo Kubernetes ha interpretado la política.
 
