@@ -610,8 +610,7 @@ kubectl delete pod myapp myapp-debug
 
 ## Debugging via a shell on the node {#node-shell-session}
 
-If none of these approaches work, you can find the Node on which the Pod is
-running and create a privileged Pod running in the host namespaces. To create
+If none of the previous approaches work, you can find the Node on which the Pod is running and create a debug Pod on that node. This Pod runs as `root` and has access to the Node's filesystem through `/host`. However, it is not a fully privileged pod. Limitations include not being able to `chroot /host` and reading some process information may fail. To create
 an interactive shell on a node using `kubectl debug`, run:
 
 ```shell
