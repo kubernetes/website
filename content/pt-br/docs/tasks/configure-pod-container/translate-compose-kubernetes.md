@@ -496,3 +496,4 @@ Observe que alterar o nome do serviço pode quebrar alguns arquivos `docker-comp
 O Kompose suporta as versões Docker Compose: 1, 2 e 3. Temos suporte limitado em versões 2.1 e 3.2 devido à sua natureza experimental.
 
 Uma lista completa sobre compatibilidade entre as três versões está listada em nosso [documento de conversão](https://github.com/kubernetes/kompose/blob/master/docs/conversion.md) incluindo uma lista de todas as chaves incompatíveis do docker compose.
+
