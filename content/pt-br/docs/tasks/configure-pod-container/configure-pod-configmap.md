@@ -714,3 +714,4 @@ data:
 ## {{% heading "whatsnext" %}}
 
 * Siga um exemplo do mundo real [configurando Redis usando um ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
+
