@@ -175,7 +175,7 @@ Because ClusterRoles are cluster-scoped, you can also use them to grant access t
 -->
 ###  ClusterRole 示例 {#clusterrole-example}
 
-ClusterRole 可以和 Role 相同完成授权。
+ClusterRole 可以和 Role 完成相同授权。
 因为 ClusterRole 属于集群范围，所以它也可以为以下资源授予访问权限：
 
 * 集群范围资源（比如{{< glossary_tooltip text="节点（Node）" term_id="node" >}}）
