@@ -77,7 +77,7 @@ The [proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-s
 
 #### Linux
 
-In some cases, Kubernetes applies a security optimization for the contents of`serviceAccountToken`
+In some cases, Kubernetes applies a security optimization for the contents of `serviceAccountToken`
 volumes.
 When all containers in a pod have the same `runAsUser` set in their
 [`PodSecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
