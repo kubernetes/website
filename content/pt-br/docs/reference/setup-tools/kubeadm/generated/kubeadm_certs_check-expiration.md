@@ -55,7 +55,7 @@ kubeadm certs check-expiration [flags]
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig usado na comunicação com o cluster. Se a flag não estiver definida, um conjunto padrão pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig usado na comunicação com o cluster. Se a flag não estiver definida, um conjunto de locais padrão pode ser pesquisado em busca de um arquivo kubeconfig existente.</p></td>
 </tr>
 
 </tbody>

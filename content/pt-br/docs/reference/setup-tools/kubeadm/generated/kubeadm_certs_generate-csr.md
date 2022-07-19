@@ -14,7 +14,7 @@ Gerar chaves e solicitações de assinatura de certificados
 
 ### Sinopse
 
-Gera as chaves e as solicitações de assinatura de certificados (CSRs) para todos os certificados necessários para executar a camada de gerenciamento. Este comando também gera os arquivos kubeconfig parciais com dados de chave privada no campo "users &gt; user &gt; client-key-data" e, para cada arquivo kubeconfig, um arquivo ".csr" que o acompanha é criado.
+Gera as chaves e as solicitações de assinatura de certificados (CSRs) para todos os certificados necessários para executar a camada de gerenciamento. Este comando também gera os arquivos kubeconfig parciais com dados de chave privada no campo "users &gt; user &gt; client-key-data" e, para cada arquivo kubeconfig, um arquivo ".csr" correspondente é criado.
 
 Esse comando foi projetado para uso no [Kubeadm External CA Mode](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode). Ele gera CSRs que você pode enviar à sua autoridade de certificação externa para assinatura.
 
