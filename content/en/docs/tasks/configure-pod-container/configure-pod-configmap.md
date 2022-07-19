@@ -10,7 +10,7 @@ card:
 <!-- overview -->
 Many applications rely on configuration which is used during either application initialization or runtime.
 Most of the times there is a requirement to adjust values assigned to configuration parameters.
-ConfigMaps is the kubernetes way to inject application pods with configuration data.
+ConfigMaps is the Kubernetes way to inject application pods with configuration data.
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps.
 
 
@@ -623,24 +623,6 @@ Like before, all previous files in the `/etc/config/` directory will be deleted.
 You can project keys to specific paths and specific permissions on a per-file
 basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) user guide explains the syntax.
 
-### Optional References
-
-A ConfigMap reference may be marked "optional".  If the ConfigMap is non-existent, the mounted volume will be empty. If the ConfigMap exists, but the referenced
-key is non-existent the path will be absent beneath the mount point.
-
-### Mounted ConfigMaps are updated automatically
-
-When a mounted ConfigMap is updated, the projected content is eventually updated too.  This applies in the case where an optionally referenced ConfigMap comes into
-existence after a pod has started.
-
-Kubelet checks whether the mounted ConfigMap is fresh on every periodic sync. However, it uses its local TTL-based cache for getting the current value of the
-ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as
-kubelet sync period (1 minute by default) + TTL of ConfigMaps cache (1 minute by default) in kubelet.
-
-{{< note >}}
-A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
-{{< /note >}}
-
 
 
 <!-- discussion -->
@@ -675,7 +657,7 @@ data:
 
 ### Restrictions
 
-- You must create a ConfigMap before referencing it in a Pod specification (unless you mark the ConfigMap as "optional"). If you reference a ConfigMap that doesn't exist, the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
+- You must create a ConfigMap before referencing it in a Pod specification, or mark the ConfigMap as "optional" (see [Optional ConfigMaps](#optional-configmaps)). If you reference a ConfigMap that doesn't exist, or hasn't been marked as "optional" the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
 
 - If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped. The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
 
@@ -693,7 +675,83 @@ data:
 
 - You can't use ConfigMaps for {{< glossary_tooltip text="static pods" term_id="static-pod" >}}, because the Kubelet does not support this.
 
+### Optional ConfigMaps
 
+A ConfigMap reference may be marked "optional".
+If the ConfigMap is non-existent, the mounted volume will be empty.
+If the ConfigMap exists, but the referenced key is non-existent the path will be absent beneath the mount point.
+
+#### Optional ConfigMap in environment variables
+
+There might be situations where environment variables are not always required.
+These environment variables can be marked as optional in a pod like so:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh", "-c", "env" ]
+      env:
+        - name: SPECIAL_LEVEL_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: a-config
+              key: akey
+              optional: true
+  restartPolicy: Never
+```
+
+When this Pod is run, the output will be empty.
+
+#### Optional ConfigMap via volume plugin
+
+Volumes and files provided by a ConfigMap can be also be marked as optional.
+The ConfigMap or the key specified does not have to exist.
+The mount path for such items will always be created.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh", "-c", "ls /etc/config" ]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: no-config
+        optional: true
+  restartPolicy: Never
+```
+
+When this pod is run, the output will be:
+
+```shell
+```
+
+### Mounted ConfigMaps are updated automatically
+
+When a mounted ConfigMap is updated, the projected content is eventually updated too.  This applies in the case where an optionally referenced ConfigMap comes into
+existence after a pod has started.
+
+Kubelet checks whether the mounted ConfigMap is fresh on every periodic sync. However, it uses its local TTL-based cache for getting the current value of the
+ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as
+kubelet sync period (1 minute by default) + TTL of ConfigMaps cache (1 minute by default) in kubelet.
+
+{{< note >}}
+A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
