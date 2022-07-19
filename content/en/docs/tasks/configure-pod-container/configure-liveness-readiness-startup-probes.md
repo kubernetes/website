@@ -117,7 +117,7 @@ Wait another 30 seconds, and verify that the container has been restarted:
 kubectl get pod liveness-exec
 ```
 
-The output shows that `RESTARTS` has been incremented. Note that the `RESTARTS` counter increments as soon as a failed container in a restarts :
+The output shows that `RESTARTS` has been incremented. Note that the `RESTARTS` counter increments as soon as a failed container comes back to the running state:
 
 ```
 NAME            READY     STATUS    RESTARTS   AGE
