@@ -55,7 +55,7 @@ Enviar esto al API Server de su clúster no tendrá ningún efecto a menos que s
 
 __Campos Obligatorios__: Como con todos los otras configuraciones de Kubernetes, una NetworkPolicy
 necesita los campos `apiVersion`, `kind`, y `metadata`.  Para obtener información general
-sobre cómo funcionan esos ficheros de configuración, mirar
+sobre cómo funcionan esos ficheros de configuración, puedes consultar
 [Configurar un Pod para usar un ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 y [Gestión de Objetos](/docs/concepts/overview/working-with-objects/object-management).
 
