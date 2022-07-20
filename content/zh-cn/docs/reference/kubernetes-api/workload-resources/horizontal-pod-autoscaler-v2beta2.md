@@ -1,28 +1,28 @@
 ---
 api_metadata:
-  apiVersion: "autoscaling/v2"
-  import: "k8s.io/api/autoscaling/v2"
+  apiVersion: "autoscaling/v2beta2"
+  import: "k8s.io/api/autoscaling/v2beta2"
   kind: "HorizontalPodAutoscaler"
 content_type: "api_reference"
 description: "HorizontalPodAutoscaler 是水平 Pod 自动扩缩器的配置，它根据指定的指标自动管理实现 scale 子资源的任何资源的副本数。"
-title: "HorizontalPodAutoscaler"
-weight: 12
+title: "HorizontalPodAutoscaler v2beta2"
+weight: 13
 ---
 <!--
 api_metadata:
-  apiVersion: "autoscaling/v2"
-  import: "k8s.io/api/autoscaling/v2"
+  apiVersion: "autoscaling/v2beta2"
+  import: "k8s.io/api/autoscaling/v2beta2"
   kind: "HorizontalPodAutoscaler"
 content_type: "api_reference"
 description: "HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified."
-title: "HorizontalPodAutoscaler"
-weight: 12
+title: "HorizontalPodAutoscaler v2beta2"
+weight: 13
 auto_generated: true
 -->
 
-`apiVersion: autoscaling/v2`
+`apiVersion: autoscaling/v2beta2`
 
-`import "k8s.io/api/autoscaling/v2"`
+`import "k8s.io/api/autoscaling/v2beta2"`
 
 
 ## HorizontalPodAutoscaler {#HorizontalPodAutoscaler}
@@ -35,7 +35,7 @@ HorizontalPodAutoscaler 是水平 Pod 自动扩缩器的配置，
 
 <hr>
 
-- **apiVersion**: autoscaling/v2
+- **apiVersion**: autoscaling/v2beta2
 
 - **kind**: HorizontalPodAutoscaler
 
@@ -47,7 +47,7 @@ HorizontalPodAutoscaler 是水平 Pod 自动扩缩器的配置，
   
   metadata 是标准的对象元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>)
 
   <!--
   spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
@@ -55,7 +55,7 @@ HorizontalPodAutoscaler 是水平 Pod 自动扩缩器的配置，
   
   spec 是自动扩缩器行为的规约。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 
-- **status** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerStatus" >}}">HorizontalPodAutoscalerStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscalerStatus" >}}">HorizontalPodAutoscalerStatus</a>)
   
   <!--
   status is the current information about the autoscaler.
@@ -175,8 +175,6 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     *HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.*
 
     - **behavior.scaleDown.policies** ([]HPAScalingPolicy)
-
-      *Atomic: will be replaced during a merge*
       
       policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
     -->
@@ -186,8 +184,6 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     因此不会立即设置副本数，而是选择稳定窗口中最安全的值。 
 
     - **behavior.scaleDown.policies** ([]HPAScalingPolicy)
-    
-      **原子性：将在合并时被替换**
 
       policies 是可在扩缩容过程中使用的潜在扩缩策略的列表。必须至少指定一个策略，否则 HPAScalingRules 将被视为无效而丢弃。
   
@@ -231,12 +227,12 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     <!--
     - **behavior.scaleDown.selectPolicy** (string)
 
-      selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
+      selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
     -->
     
     - **behavior.scaleDown.selectPolicy** (string)
 
-      selectPolicy 用于指定应该使用哪个策略。如果未设置，则使用默认值 Max。
+      selectPolicy 用于指定应该使用哪个策略。如果未设置，则使用默认值 MaxPolicySelect。
 
     <!--  
     - **behavior.scaleDown.stabilizationWindowSeconds** (int32)
@@ -276,8 +272,6 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     *HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.*
 
     - **behavior.scaleUp.policies** ([]HPAScalingPolicy)
-
-      *Atomic: will be replaced during a merge*
       
       policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
     -->
@@ -287,8 +281,6 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     因此不会立即设置副本数，而是选择稳定窗口中最安全的值。
 
     - **behavior.scaleUp.policies** ([]HPAScalingPolicy)
-
-      **原子性：将在合并时被替换**
 
       policies 是可在扩缩容过程中使用的潜在扩缩策略的列表。必须至少指定一个策略，否则 HPAScalingRules 将被视为无效而丢弃。
 
@@ -332,12 +324,12 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     <!--
     - **behavior.scaleUp.selectPolicy** (string)
 
-      selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
+      selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
     -->
     
     - **behavior.scaleUp.selectPolicy** (string)
 
-      selectPolicy 用于指定应该使用哪个策略。如果未设置，则使用默认值 Max。
+      selectPolicy 用于指定应该使用哪个策略。如果未设置，则使用默认值 MaxPolicySelect。
     
     <!--
     - **behavior.scaleUp.stabilizationWindowSeconds** (int32)
@@ -355,15 +347,11 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
 <!--
 - **metrics** ([]MetricSpec)
-
-  *Atomic: will be replaced during a merge*
   
   metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
 -->
 
 - **metrics** ([]MetricSpec)
-
-  **原子性：将在合并时被替换**
 
   metrics 包含用于计算预期副本数的规约（将使用所有指标的最大副本数）。
   预期副本数是通过将目标值与当前值之间的比率乘以当前 Pod 数来计算的。
@@ -391,7 +379,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
   <!--
   - **metrics.containerResource** (ContainerResourceMetricSource)
 
-    containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+    container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
   -->
   
   - **metrics.containerResource** (ContainerResourceMetricSource)  
@@ -616,15 +604,11 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     *ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).*
 
     - **metrics.object.describedObject** (CrossVersionObjectReference), required
-
-      describedObject specifies the descriptions of a object,such as kind,name apiVersion
     -->
     
     **ObjectMetricSource 表示如何根据描述 Kubernetes 对象的指标进行扩缩容（例如，Ingress 对象的 `hits-per-second`）**
 
     - **metrics.object.describedObject** (CrossVersionObjectReference)，必需
-
-      describeObject 表示对象的描述，如对象的 `kind`、`name`、`apiVersion`。
   
       <a name="CrossVersionObjectReference"></a>
     
@@ -968,6 +952,16 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自动扩缩器的当前状态
 <hr>
 
 <!--
+- **currentReplicas** (int32), required
+
+  currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
+-->
+
+- **currentReplicas** (int32)，必需
+
+  currentReplicas 是此自动扩缩器管理的 Pod 的当前副本数，如自动扩缩器最后一次看到的那样。
+
+<!--
 - **desiredReplicas** (int32), required
 
   desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
@@ -979,19 +973,11 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自动扩缩器的当前状态
 
 <!--
 - **conditions** ([]HorizontalPodAutoscalerCondition)
-
-  *Patch strategy: merge on key `type`*
-  
-  *Map: unique values on key type will be kept during a merge*
   
   conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
 -->
 
 - **conditions** ([]HorizontalPodAutoscalerCondition)
-
-  **补丁策略：基于键 `type` 合并**
-
-  **Map：合并时将保留 type 键的唯一值**
 
   conditions 是此自动扩缩器扩缩其目标所需的一组条件，并指示是否满足这些条件。
 
@@ -1060,15 +1046,11 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自动扩缩器的当前状态
 
 <!--
 - **currentMetrics** ([]MetricStatus)
-
-  *Atomic: will be replaced during a merge*
   
   currentMetrics is the last read state of the metrics used by this autoscaler.
 -->
 
 - **currentMetrics** ([]MetricStatus)
-  
-  **原子性：将在合并期间被替换**
 
   currentMetrics 是此自动扩缩器使用的指标的最后读取状态。
 
@@ -1340,13 +1322,9 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自动扩缩器的当前状态
 
     <!--
     - **currentMetrics.object.describedObject** (CrossVersionObjectReference), required
-
-      DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
     -->
     
     - **currentMetrics.object.describedObject** (CrossVersionObjectReference)，必需
-
-      describeObject 表示对象的描述，如对象的 `kind`、`name`、`apiVersion`。
   
       <a name="CrossVersionObjectReference"></a>
     
@@ -1601,16 +1579,6 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自动扩缩器的当前状态
       name 是相关资源的名称。
 
 <!--
-- **currentReplicas** (int32)
-
-  currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
--->
-
-- **currentReplicas** (int32)
-
-  currentReplicas 是此自动扩缩器管理的 Pod 的当前副本数，如自动扩缩器最后一次看到的那样。
-
-<!--
 - **lastScaleTime** (Time)
 
   lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
@@ -1647,7 +1615,7 @@ HorizontalPodAutoscalerList 是水平 Pod 自动扩缩器对象列表。
 
 <hr>
 
-- **apiVersion**: autoscaling/v2
+- **apiVersion**: autoscaling/v2beta2
 
 - **kind**: HorizontalPodAutoscalerList
 
@@ -1662,12 +1630,12 @@ HorizontalPodAutoscalerList 是水平 Pod 自动扩缩器对象列表。
   metadata 是标准的列表元数据。
 
 <!--
-- **items** ([]<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>), required
 
   items is the list of horizontal pod autoscaler objects.
 -->
 
-- **items** ([]<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>)，必需
+- **items** ([]<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>)，必需
 
   items 是水平 Pod 自动扩缩器对象的列表。
 
@@ -1684,7 +1652,7 @@ HorizontalPodAutoscalerList 是水平 Pod 自动扩缩器对象列表。
 
 #### HTTP 请求
 
-GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
+GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 <!--
 #### Parameters
@@ -1717,7 +1685,7 @@ GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 401: Unauthorized
 
@@ -1730,7 +1698,7 @@ GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 #### HTTP 请求
 
-GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
+GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
 
 <!--
 #### Parameters
@@ -1763,7 +1731,7 @@ GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 401: Unauthorized
 
@@ -1776,7 +1744,7 @@ GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/
 
 #### HTTP 请求
 
-GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
+GET /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
 
 <!--
 #### Parameters
@@ -1836,7 +1804,7 @@ GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
 
 401: Unauthorized
 
@@ -1849,7 +1817,7 @@ GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
 #### HTTP 请求
 
-GET /apis/autoscaling/v2/horizontalpodautoscalers
+GET /apis/autoscaling/v2beta2/horizontalpodautoscalers
 
 <!--
 #### Parameters
@@ -1901,7 +1869,7 @@ GET /apis/autoscaling/v2/horizontalpodautoscalers
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
 
 401: Unauthorized
 
@@ -1914,7 +1882,7 @@ GET /apis/autoscaling/v2/horizontalpodautoscalers
 
 #### HTTP 请求
 
-POST /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
+POST /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
 
 <!--
 #### Parameters
@@ -1929,7 +1897,7 @@ POST /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>，<!--required-->必需
+- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>，<!--required-->必需
 
 - **dryRun** <!--(*in query*)-->（**查询参数**）: string
 
@@ -1952,11 +1920,11 @@ POST /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Accepted
 
 401: Unauthorized
 
@@ -1969,7 +1937,7 @@ POST /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 
 #### HTTP 请求
 
-PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
+PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 <!--
 #### Parameters
@@ -1993,7 +1961,7 @@ PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>，<!--required-->必需
+- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>，<!--required-->必需
 
 - **dryRun** <!--(*in query*)-->（**查询参数**）: string
 
@@ -2016,9 +1984,9 @@ PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 
@@ -2031,7 +1999,7 @@ PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 #### HTTP 请求
 
-PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
+PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
 
 <!--
 #### Parameters
@@ -2055,7 +2023,7 @@ PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>，<!--required-->必需
+- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>，<!--required-->必需
 
 - **dryRun** <!--(*in query*)-->（**查询参数**）: string
 
@@ -2078,9 +2046,9 @@ PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 
@@ -2093,7 +2061,7 @@ PUT /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/
 
 #### HTTP 请求
 
-PATCH /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
+PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 <!--
 #### Parameters
@@ -2144,9 +2112,9 @@ PATCH /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 
@@ -2159,7 +2127,7 @@ PATCH /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name
 
 #### HTTP 请求
 
-PATCH /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
+PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status
 
 <!--
 #### Parameters
@@ -2210,9 +2178,9 @@ PATCH /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 
@@ -2225,7 +2193,7 @@ PATCH /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name
 
 #### HTTP 请求
 
-DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}
+DELETE /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}
 
 <!--
 #### Parameters
@@ -2287,7 +2255,7 @@ DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{nam
 
 #### HTTP 请求
 
-DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
+DELETE /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
 
 <!--
 #### Parameters
