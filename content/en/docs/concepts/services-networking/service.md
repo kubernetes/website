@@ -73,6 +73,12 @@ cluster. An Ingress lets you consolidate your routing rules into a single resour
 that you can expose multiple components of your workload, running separately in your
 cluster, behind a single listener.
 
+The [Gateway](https://gateway-api.sigs.k8s.io/#what-is-the-gateway-api) API for Kubernetes
+provides extra capabilities beyond Ingress and Service. You can add Gateway to your cluster -
+it is family of extension APIs, implemented using
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}} -
+and then use these to configure access to network services that are running in your cluster.
+
 ### Cloud-native service discovery
 
 If you're able to use Kubernetes APIs for service discovery in your application,
