@@ -99,9 +99,8 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
   - When `minDomains` is not nil, the value of `whenUnsatisfiable` must be "`DoNotSchedule`".
 
   {{< note >}}
-  The `minDomains` field is an alpha field added in 1.24. You have to enable the
-  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `minDomains` field is a beta field and enabled by default in 1.25. You can disable it by disabling the
+  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
 - **topologyKey** is the key of node labels. If two Nodes are labelled with this key and have identical values for that label, the scheduler treats both Nodes as being in the same topology. The scheduler tries to place a balanced number of Pods into each topology domain.
