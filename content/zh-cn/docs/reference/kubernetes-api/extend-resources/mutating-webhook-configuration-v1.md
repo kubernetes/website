@@ -264,61 +264,62 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      <!-- 
-      NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
+    <!-- 
+    NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
 
-      For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
-      -->
+    For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
+    -->
 
-      namespaceSelector 根据对象的命名空间是否与 selector 匹配来决定是否在该对象上运行 Webhook。
-      如果对象本身是 Namespace，则针对 object.metadata.labels 执行匹配。
-      如果对象是其他集群作用域资源，则永远不会跳过 Webhook 的匹配动作。
+    namespaceSelector 根据对象的命名空间是否与 selector 匹配来决定是否在该对象上运行 Webhook。
+    如果对象本身是 Namespace，则针对 object.metadata.labels 执行匹配。
+    如果对象是其他集群作用域资源，则永远不会跳过 Webhook 的匹配动作。
 
-      例如，为了针对 “runlevel” 不为 “0” 或 “1” 的名字空间中的所有对象运行 Webhook；
-      你可以按如下方式设置 selector :
-      ```
-      "namespaceSelector": {
-        "matchExpressions": [
-          {
-            "key": "runlevel",
-            "operator": "NotIn",
-            "values": [
-              "0",
-              "1"
-            ]
-          }
-        ]
-      }
-      ```
-      <!-- 
-      If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
-      -->
-      
-      相反，如果你只想针对 “environment” 为 “prod” 或 “staging” 的名字空间中的对象运行 Webhook；
-      你可以按如下方式设置 selector:
-      ```
-      "namespaceSelector": {
-        "matchExpressions": [
-          {
-            "key": "environment",
-            "operator": "In",
-            "values": [
-              "prod",
-              "staging"
-            ]
-          }
-        ]
-      }
-      ```
-      <!-- 
-      See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
+    例如，为了针对 “runlevel” 不为 “0” 或 “1” 的名字空间中的所有对象运行 Webhook；
+    你可以按如下方式设置 selector :
+    ```
+    "namespaceSelector": {
+      "matchExpressions": [
+        {
+          "key": "runlevel",
+          "operator": "NotIn",
+          "values": [
+            "0",
+            "1"
+          ]
+        }
+      ]
+    }
+    ```
+    <!-- 
+    If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
+    -->
+    
+    相反，如果你只想针对 “environment” 为 “prod” 或 “staging” 的名字空间中的对象运行 Webhook；
+    你可以按如下方式设置 selector:
+    ```
+    "namespaceSelector": {
+      "matchExpressions": [
+        {
+          "key": "environment",
+          "operator": "In",
+          "values": [
+            "prod",
+            "staging"
+          ]
+        }
+      ]
+    }
+    ```
+    <!-- 
+    See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
 
-      Default to the empty LabelSelector, which matches everything.  
-      -->
-      有关标签选择算符的更多示例，请参阅
-      https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels。
+    Default to the empty LabelSelector, which matches everything.  
+    -->
 
-      默认为空的 LabelSelector，匹配所有对象。
+    有关标签选择算符的更多示例，请参阅
+    https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels。
+
+    默认为空的 LabelSelector，匹配所有对象。
 
   <!-- 
   - **webhooks.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -332,7 +333,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     objectSelector 针对将被发送到 Webhook 的 oldObject 和 newObject 进行评估，如果任一对象与选择器匹配，则视为匹配。
     空对象（create 时为 oldObject，delete 时为 newObject）或不能有标签的对象（如 DeploymentRollback 或 PodProxyOptions 对象）
     认为是不匹配的。
-    仅当 Webhook 支持时才能使用对象选择器，因为最终用户可以通过设置标签来跳过准入 webhook。
+    仅当 Webhook 支持时才能使用对象选择器，因为最终用户可以通过设置标签来跳过准入 Webhook。
     默认为空的 LabelSelector，匹配所有内容。
   
 
@@ -347,15 +348,16 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     
     Defaults to "Never". 
     -->
-    reinvocationPolicy 表示这个 webhook 是否可以被多次调用，作为一次准入评估的一部分。可取值有 “Never” 和 “IfNeeded”。
 
-    - Never: 在一次录取评估中，webhook 被调用的次数不会超过一次。
+    reinvocationPolicy 表示这个 Webhook 是否可以被多次调用，作为一次准入评估的一部分。可取值有 “Never” 和 “IfNeeded”。
+
+    - Never: 在一次录取评估中，Webhook 被调用的次数不会超过一次。
     - IfNeeded：如果被录取的对象在被最初的 Webhook 调用后又被其他录取插件修改，
-      那么该 webhook 将至少被额外调用一次作为录取评估的一部分。
-      指定此选项的 webhook  **必须**是幂等的，能够处理它们之前承认的对象。
+      那么该 Webhook 将至少被额外调用一次作为录取评估的一部分。
+      指定此选项的 Webhook  **必须**是幂等的，能够处理它们之前承认的对象。
       注意：**不保证额外调用的次数正好为1。**
       如果额外的调用导致对对象的进一步修改，Webhook 不保证会再次被调用。
-      **使用该选项的 webhook 可能会被重新排序，以最小化额外调用的数量。**
+      **使用该选项的 Webhook 可能会被重新排序，以最小化额外调用的数量。**
       在保证所有的变更都完成后验证一个对象，使用验证性质的准入 Webhook 代替。
 
     默认值为 “Never” 。
@@ -387,8 +389,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     - **webhooks.rules.apiGroups** ([]string)
 
-      apiGroups 是资源所属的 API 组列表。'*' 是所有组。
-      如果存在 '*'，则列表的长度必须为 1。必需。
+      apiGroups 是资源所属的 API 组列表。`*` 是所有组。
+      如果存在 `*`，则列表的长度必须为 1。必需。
 
     <!-- 
     - **webhooks.rules.apiVersions** ([]string)
@@ -398,8 +400,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     - **webhooks.rules.apiVersions** ([]string)
 
-      apiVersions 是资源所属的 API 版本列表。'*' 是所有版本。
-      如果存在 '*'，则列表的长度必须为 1。必需。
+      apiVersions 是资源所属的 API 版本列表。`*` 是所有版本。
+      如果存在 `*`，则列表的长度必须为 1。必需。
 
     <!-- 
     - **webhooks.rules.operations** ([]string)
@@ -411,7 +413,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
       operations 是准入 Webhook 所关心的操作 —— CREATE、UPDATE、DELETE、CONNECT
       或用来指代所有已知操作以及将来可能添加的准入操作的 `*`。
-      如果存在 '*'，则列表的长度必须为 1。必需。
+      如果存在 `*`，则列表的长度必须为 1。必需。
 
     <!-- 
     - **webhooks.rules.resources** ([]string)
