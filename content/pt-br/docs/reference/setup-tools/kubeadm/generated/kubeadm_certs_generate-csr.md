@@ -18,7 +18,7 @@ Gera as chaves e as solicitações de assinatura de certificados (CSRs) para tod
 
 Esse comando foi projetado para uso no [Kubeadm External CA Mode](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode). Ele gera CSRs que você pode enviar à sua autoridade de certificação externa para assinatura.
 
-Os certificados PEM assinados e codificados devem ser salvos ao lado dos arquivos da chave, usando ".crt" como extensão de arquivo ou, no caso de arquivos kubeconfig, o certificado assinado codificado PEM deve ser codificado em base64 e adicionado ao arquivo kubeconfig no campo "users &gt; user &gt; client-certificate-data".
+Os certificados PEM assinados e codificados devem ser salvos juntamente com os arquivos da chave, usando ".crt" como extensão de arquivo ou, no caso de arquivos kubeconfig, o certificado assinado codificado PEM deve ser codificado em base64 e adicionado ao arquivo kubeconfig no campo "users &gt; user &gt; client-certificate-data".
 
 ```
 kubeadm certs generate-csr [flags]
@@ -27,7 +27,7 @@ kubeadm certs generate-csr [flags]
 ### Exemplos
 
 ```
-  # O comando a seguir gerar as chaves e CSRs para todos os certificados do plano de controle e arquivos kubeconfig: 
+  # O comando a seguir gera as chaves e CSRs para todos os certificados do plano de controle e arquivos kubeconfig: 
   kubeadm certs generate-csr --kubeconfig-dir /tmp/etc-k8s --cert-dir /tmp/etc-k8s/pki
 ```
 
