@@ -109,7 +109,9 @@ IngressSpec describes the Ingress the user wishes to exist.
 
       - **rules.http.paths.pathType** (string), required
 
-        PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+        PathType determines the interpretation of the Path matching. PathType can be one of the following values:
+        * Exact: Matches the URL path exactly.
+        * Prefix: Matches based on a URL path prefix split by '/'. Matching is
           done on a path element by element basis. A path element refers is the
           list of labels in the path split by the '/' separator. A request is a
           match for path p if every p is an element-wise prefix of p of the
