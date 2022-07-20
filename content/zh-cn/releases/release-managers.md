@@ -130,7 +130,7 @@ Release Managers are responsible for:
   - Reviewing cherry picks
   - Ensuring the release branch stays healthy and that no unintended patch
     gets merged
-- Mentoring the [Release Manager Associates](#associates) group
+- Mentoring the [Release Manager Associates](#release-manager-associates) group
 - Actively developing features and maintaining the code in k/release
 - Supporting Release Manager Associates and contributors through actively
   participating in the Buddy program
@@ -150,7 +150,7 @@ Release Managers are responsible for:
 - 维护发布分支：
   - 审查 Cherry Pick
   - 确保发布分支保持健康并且没有合并意外的补丁
-- 指导[发布管理员助理](#associates)小组
+- 指导[发布管理员助理](#release-manager-associates)小组
 - 积极开发功能并维护 kubernetes/release 中的代码
 - 通过积极参与 Buddy 计划来支持发布管理员助理和贡献者
   - 每月与助理核对并委派任务，授权他们生成发行版本并指导工作
@@ -246,7 +246,9 @@ GitHub Mentions: @kubernetes/release-engineering
 GitHub 提及：@kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
+- Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
 - Joyce Kung ([@thejoycekung](https://github.com/thejoycekung))
 - Max Körbächer ([@mkorbi](https://github.com/mkorbi))
 - Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
