@@ -684,7 +684,8 @@ If the ConfigMap exists, but the referenced key is non-existent the path will be
 #### Optional ConfigMap in environment variables
 
 There might be situations where environment variables are not always required.
-These environment variables can be marked as optional in a pod like so:
+You can mark an environment variables for a container as optional,
+like this:
 
 ```yaml
 apiVersion: v1
