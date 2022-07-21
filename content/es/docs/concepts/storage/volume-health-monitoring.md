@@ -28,7 +28,7 @@ El {{< glossary_tooltip text="controlador" term_id="controller" >}} de estado ex
 Si un controlador CSI es compatible con la función monitoreo del estado del volumen desde el lado del nodo, se informará un evento en cada Pod que use el PVC cuando se detecte una condición de volumen anormal en un volumen CSI.
 
 {{< note >}}
-Necesita habilitar el `CSIVolumeHealth` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) para usar esta función desde el lado del nodo.
+Se necesita habilitar el `CSIVolumeHealth` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) para usar esta función desde el lado del nodo.
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
