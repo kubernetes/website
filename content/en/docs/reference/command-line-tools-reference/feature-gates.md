@@ -185,7 +185,8 @@ different Kubernetes components.
 | `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
-| `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | |
+| `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | 1.24 |
+| `StatefulSetAutoDeletePVC` | `false` | Beta | 1.25 | |
 | `StatefulSetMinReadySeconds` | `false` | Alpha | 1.22 | 1.22 |
 | `StatefulSetMinReadySeconds` | `true` | Beta | 1.23 | |
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |

@@ -347,7 +347,7 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 
 ## PersistentVolumeClaim retention
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
 and how PVCs are deleted during the lifecycle of a StatefulSet. You must enable the
