@@ -162,7 +162,7 @@ Credentials can be provided in several ways:
     - requires node configuration by cluster administrator
   - Pre-pulled Images
     - all pods can use any images cached on a node
-    - requires root access to all nodes to setup
+    - requires root access to all nodes to set up
   - Specifying ImagePullSecrets on a Pod
     - only pods which provide own keys can access the private registry
   - Vendor-specific or local extensions
