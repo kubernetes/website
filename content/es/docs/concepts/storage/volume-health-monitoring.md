@@ -23,7 +23,7 @@ El _monitoreo del estado del volumen_ de Kubernetes es parte de cómo Kubernetes
 
 Si un controlador CSI admite la función supervisión del estado del volumen desde el lado del controlador, se informará un evento en el {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} (PVC) relacionado cuando se detecte una condición de volumen anormal en un volumen CSI.
 
-El {{< glossary_tooltip text="controller" term_id="controller" >}} de Estado Externo también observa los eventos de falla del Nodo. Puede habilitar la supervisión de fallas de nodos configurando el indicador `enable-node-watcher` en verdadero. Cuando el Monitor de Estado Externo detecta un Evento de falla de Nodo, el controlador reporta que se informará un evento en el PVC para indicar que los Pods que usan este PVC están en un Nodo fallido.
+El {{< glossary_tooltip text="controlador" term_id="controller" >}} de estado externo también observa los eventos de falla del nodo. Se puede habilitar la supervisión de fallas de nodos configurando el indicador `enable-node-watcher` en verdadero. Cuando el monitor de estado externo detecta un evento de falla de nodo, el controlador reporta que se informará un evento en el PVC para indicar que los Pods que usan este PVC están en un nodo fallido.
 
 Si un Controlador CSI es compatible con la función Monitoreo del Estado del Volumen desde el lado del Nodo, se informará un evento en cada Pod que use el PVC cuando se detecte una condición de volumen anormal en un volumen CSI.
 
