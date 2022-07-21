@@ -732,7 +732,7 @@ spec:
     - name: config-volume
       configMap:
         name: no-config
-        optional: true
+        optional: true # mark the source ConfigMap as optional
   restartPolicy: Never
 ```
 
