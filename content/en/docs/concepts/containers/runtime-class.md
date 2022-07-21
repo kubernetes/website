@@ -52,8 +52,8 @@ handler must be a valid [DNS label name](/docs/concepts/overview/working-with-ob
 
 ### 2. Create the corresponding RuntimeClass resources
 
-The configurations set up in step 1 should each have an associated `handler` name, which identifies
-the configuration. For each handler, create a corresponding RuntimeClass object.
+The configurations that were set up in step 1 should each have an associated `handler` name, which
+identifies the configuration. For each handler, create a corresponding RuntimeClass object.
 
 The RuntimeClass resource currently only has 2 significant fields: the RuntimeClass name
 (`metadata.name`) and the handler (`handler`). The object definition looks like this:
