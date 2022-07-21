@@ -10,7 +10,7 @@ card:
 <!-- overview -->
 Many applications rely on configuration which is used during either application initialization or runtime.
 Most of the times there is a requirement to adjust values assigned to configuration parameters.
-ConfigMaps is the Kubernetes way to inject application pods with configuration data.
+ConfigMaps are the Kubernetes way to inject application pods with configuration data.
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps.
 
 
