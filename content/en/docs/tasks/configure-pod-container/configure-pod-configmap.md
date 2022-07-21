@@ -707,7 +707,10 @@ spec:
   restartPolicy: Never
 ```
 
-When this Pod is run, the output will be empty.
+If you run this pod, and there is no ConfigMap named `a-config`, the output is empty.
+If you run this pod, and there is a ConfigMap named `a-config` but that ConfigMap doesn't have
+a key named `akey`, the output is also empty. If you do set a value for `akey` in the `a-config`
+ConfigMap, this pod prints that value and then terminates.
 
 #### Optional ConfigMap via volume plugin
 
