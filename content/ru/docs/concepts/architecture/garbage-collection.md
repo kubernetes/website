@@ -131,4 +131,4 @@ Kubelet собирает мусор только у контейнеров, ко
 
 * Узнайте больше о [ownership of Kubernetes objects](/docs/concepts/overview/working-with-objects/owners-dependents/).
 * Узнайте больше о Kubernetes [finalizers](/docs/concepts/overview/working-with-objects/finalizers/).
-* Узнать о [TTL контроллере](/docs/concepts/workloads/controllers/ttlafterfinished/) (beta) that cleans up finished Jobs.
+* Узнать о [TTL контроллере](/docs/concepts/workloads/controllers/ttlafterfinished/) (beta), который подчищает завершенные Jobs.
