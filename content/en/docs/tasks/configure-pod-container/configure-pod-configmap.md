@@ -677,7 +677,7 @@ data:
 
 ### Optional ConfigMaps
 
-A ConfigMap reference may be marked "optional".
+In a Pod, or pod template, you can mark a reference to a ConfigMap as _optional_.
 If the ConfigMap is non-existent, the mounted volume will be empty.
 If the ConfigMap exists, but the referenced key is non-existent the path will be absent beneath the mount point.
 
