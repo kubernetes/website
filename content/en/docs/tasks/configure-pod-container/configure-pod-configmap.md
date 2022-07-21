@@ -736,7 +736,7 @@ spec:
   restartPolicy: Never
 ```
 
-When this pod is run, the output will be:
+If you run this pod, and there is no ConfigMap named `no-config`, the output is:
 
 ```shell
 ```
