@@ -33,4 +33,4 @@ Se necesita habilitar el `CSIVolumeHealth` [feature gate](/docs/reference/comman
 
 ## {{% heading "whatsnext" %}}
 
-Ver la [Documentación del controlador CSI](https://kubernetes-csi.github.io/docs/drivers.html) para averiguar qué controladores CSI han implementado esta característica.
+Ver la [documentación del controlador CSI](https://kubernetes-csi.github.io/docs/drivers.html) para averiguar qué controladores CSI han implementado esta característica.
