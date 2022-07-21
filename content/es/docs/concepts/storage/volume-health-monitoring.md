@@ -11,7 +11,7 @@ content_type: concept
 
 {{< feature-state for_k8s_version="v1.21" state="alpha" >}}
 
-La supervisión del Estado del volumen de {{< glossary_tooltip text="CSI" term_id="csi" >}}  permite que los Controladores de CSI detecten condiciones de Volumen anómalas de los sistemas de almacenamiento subyacentes y las notifiquen como eventos en {{< glossary_tooltip text="PVCs" term_id="persistent-volume-claim" >}} o {{< glossary_tooltip text="Pods" term_id="pod" >}}.
+La supervisión del estado del volumen de {{< glossary_tooltip text="CSI" term_id="csi" >}}  permite que los controladores de CSI detecten condiciones de volumen anómalas de los sistemas de almacenamiento subyacentes y las notifiquen como eventos en {{< glossary_tooltip text="PVCs" term_id="persistent-volume-claim" >}} o {{< glossary_tooltip text="Pods" term_id="pod" >}}.
 
 
 
