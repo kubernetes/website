@@ -703,7 +703,7 @@ spec:
             configMapKeyRef:
               name: a-config
               key: akey
-              optional: true
+              optional: true # mark the variable as optional
   restartPolicy: Never
 ```
 
