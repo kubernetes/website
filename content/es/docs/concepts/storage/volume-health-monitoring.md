@@ -19,7 +19,7 @@ La supervisión del Estado del volumen de {{< glossary_tooltip text="CSI" term_i
 
 ## Supervisión del Estado del Volumen
 
-El _monitoreo del estado del Volumen_ de Kubernetes es parte de cómo Kubernetes implementa la Interfaz de Almacenamiento de Contenedores (CSI). La función de supervisión del estado del Volumen se implementa en dos componentes: un Controlador de Supervisión del Estado Externo y el {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}.
+El _monitoreo del estado del volumen_ de Kubernetes es parte de cómo Kubernetes implementa la Interfaz de Almacenamiento de Contenedores (CSI). La función de supervisión del estado del volumen se implementa en dos componentes: un controlador de supervisión del estado externo y {{< glossary_tooltip term_id="kubelet" text="Kubelet" >}}.
 
 Si un controlador CSI admite la función Supervisión del estado del Volumen desde el lado del controlador, se informará un evento en el {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} (PVC) relacionado cuando se detecte una condición de volumen anormal en un Volumen CSI.
 
