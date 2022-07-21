@@ -151,14 +151,14 @@ visit [Configuration](/docs/concepts/configuration/).
 <!--
 There are two supporting concepts that provide backgrounds about how Kubernetes manages pods
 for applications:
-* [Garbage collection](/docs/concepts/workloads/controllers/garbage-collection/) tidies up objects
+* [Garbage collection](/docs/concepts/architecture/garbage-collection/) tidies up objects
   from your cluster after their _owning resource_ has been removed.
 * The [_time-to-live after finished_ controller](/docs/concepts/workloads/controllers/ttlafterfinished/)
   removes Jobs once a defined time has passed since they completed.
 -->
 关于 Kubernetes 如何为应用管理 Pods，还有两个支撑概念能够提供相关背景信息：
 
-* [垃圾收集](/zh-cn/docs/concepts/workloads/controllers/garbage-collection/)机制负责在
+* [垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection/)机制负责在
   对象的 _属主资源_ 被删除时在集群中清理这些对象。
 * [_Time-to-Live_ 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)
   会在 Job 结束之后的指定时间间隔之后删除它们。

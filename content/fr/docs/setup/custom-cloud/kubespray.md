@@ -15,8 +15,8 @@ Kubespray se base sur des outils de provisioning, des [paramètres](https://gith
 * Le support des principales distributions Linux:
   * Container Linux de CoreOS
   * Debian Jessie, Stretch, Wheezy
-  * Ubuntu 16.04, 18.04
-  * CentOS/RHEL 7
+  * Ubuntu 16.04, 18.04, 20.04, 22.04
+  * CentOS/RHEL 7, 8
   * Fedora/CentOS Atomic
   * openSUSE Leap 42.3/Tumbleweed
 * des tests d'intégration continue
@@ -33,8 +33,8 @@ Afin de choisir l'outil le mieux adapté à votre besoin, veuillez lire [cette c
 
 Les serveurs doivent être installés en s'assurant des éléments suivants:
 
-* **Ansible v2.6 (ou version plus récente) et python-netaddr installés sur la machine qui exécutera les commandes Ansible**
-* **Jinja 2.9 (ou version plus récente) est nécessaire pour exécuter les playbooks Ansible**
+* **Ansible v2.11 (ou version plus récente) et python-netaddr installés sur la machine qui exécutera les commandes Ansible**
+* **Jinja 2.11 (ou version plus récente) est nécessaire pour exécuter les playbooks Ansible**
 * Les serveurs cibles doivent avoir **accès à Internet** afin de télécharger les images Docker. Autrement, une configuration supplémentaire est nécessaire, (se référer à [Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/downloads.md#offline-environment))
 * Les serveurs cibles doivent être configurés afin d'autoriser le transfert IPv4 (**IPv4 forwarding**)
 * **Votre clé ssh doit être copiée** sur tous les serveurs faisant partie de votre inventaire Ansible.

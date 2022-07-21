@@ -216,16 +216,16 @@ Figure 2. Working from a local fork to make your changes.
 
 1. Decide which branch base to your work on:
 
-  - For improvements to existing content, use `upstream/main`.
-  - For new content about existing features, use `upstream/main`.
-  - For localized content, use the localization's conventions. For more information, see
-    [localizing Kubernetes documentation](/docs/contribute/localization/).
-  - For new features in an upcoming Kubernetes release, use the feature branch. For more
-    information, see [documenting for a release](/docs/contribute/new-content/new-features/).
-  - For long-running efforts that multiple SIG Docs contributors collaborate on,
-    like content reorganization, use a specific feature branch created for that effort.
+   - For improvements to existing content, use `upstream/main`.
+   - For new content about existing features, use `upstream/main`.
+   - For localized content, use the localization's conventions. For more information, see
+     [localizing Kubernetes documentation](/docs/contribute/localization/).
+   - For new features in an upcoming Kubernetes release, use the feature branch. For more
+     information, see [documenting for a release](/docs/contribute/new-content/new-features/).
+   - For long-running efforts that multiple SIG Docs contributors collaborate on,
+     like content reorganization, use a specific feature branch created for that effort.
 
-    If you need help choosing a branch, ask in the `#sig-docs` Slack channel.
+   If you need help choosing a branch, ask in the `#sig-docs` Slack channel.
 
 1. Create a new branch based on the branch identified in step 1. This example assumes the base
    branch is `upstream/main`:
@@ -234,7 +234,7 @@ Figure 2. Working from a local fork to make your changes.
    git checkout -b <my_new_branch> upstream/main
    ```
 
-3. Make your changes using a text editor.
+1. Make your changes using a text editor.
 
 At any time, use the `git status` command to see what files you've changed.
 
@@ -396,7 +396,7 @@ Figure 3. Steps to open a PR from your fork to the K8s/website.
 1. From the **head repository** drop-down menu, select your fork.
 1. From the **compare** drop-down menu, select your branch.
 1. Select **Create Pull Request**.
-`. Add a description for your pull request:
+1. Add a description for your pull request:
 
     - **Title** (50 characters or less): Summarize the intent of the change.
     - **Description**: Describe the change in more detail.
@@ -484,10 +484,10 @@ conflict. You must resolve all merge conflicts in your PR.
 
 1. Fetch changes from `kubernetes/website`'s `upstream/main` and rebase your branch:
 
-    ```shell
-    git fetch upstream
-    git rebase upstream/main
-    ```
+   ```shell
+   git fetch upstream
+   git rebase upstream/main
+   ```
 
 1. Inspect the results of the rebase:
 
@@ -512,7 +512,7 @@ conflict. You must resolve all merge conflicts in your PR.
 
 1. Continue the rebase:
 
-   ``
+   ```shell
    git rebase --continue
    ```
 
