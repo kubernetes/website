@@ -42,22 +42,22 @@ ReplicaSet 是通过一组字段来定义的，包括一个用来识别可获得
 进而实现其存在价值。当 ReplicaSet 需要创建新的 Pod 时，会使用所提供的 Pod 模板。
 
 <!--
-A ReplicaSet is linked to its Pods via the Pods' [metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)
+A ReplicaSet is linked to its Pods via the Pods' [metadata.ownerReferences](/docs/concepts/architecture/garbage-collection/#owners-and-dependents)
 field, which specifies what resource the current object is owned by. All Pods acquired by a ReplicaSet have their owning
 ReplicaSet's identifying information within their ownerReferences field. It's through this link that the ReplicaSet
 knows of the state of the Pods it is maintaining and plans accordingly.
 -->
 ReplicaSet 通过 Pod 上的
-[metadata.ownerReferences](/zh-cn/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)
+[metadata.ownerReferences](/zh-cn/docs/concepts/architecture/garbage-collection/#owners-and-dependents)
 字段连接到附属 Pod，该字段给出当前对象的属主资源。
 ReplicaSet 所获得的 Pod 都在其 ownerReferences 字段中包含了属主 ReplicaSet
 的标识信息。正是通过这一连接，ReplicaSet 知道它所维护的 Pod 集合的状态，
 并据此计划其操作行为。
 
 <!--
-A ReplicaSet identifies new Pods to acquire by using its selector. If there is a Pod that has no OwnerReference or the
-OwnerReference is not a {{< glossary_tooltip term_id="controller" >}} and it matches a ReplicaSet's selector, it will be immediately acquired by said
-ReplicaSet.
+A ReplicaSet identifies new Pods to acquire by using its selector. If there is a Pod that has no
+OwnerReference or the OwnerReference is not a {{< glossary_tooltip term_id="controller" >}} and it
+matches a ReplicaSet's selector, it will be immediately acquired by said ReplicaSet.
 -->
 ReplicaSet 使用其选择算符来辨识要获得的 Pod 集合。如果某个 Pod 没有
 OwnerReference 或者其 OwnerReference 不是一个{{< glossary_tooltip text="控制器" term_id="controller" >}}，
@@ -408,7 +408,9 @@ matchLabels:
 
 {{< note >}}
 <!--
-For 2 ReplicaSets specifying the same `.spec.selector` but different `.spec.template.metadata.labels` and `.spec.template.spec` fields, each ReplicaSet ignores the Pods created by the other ReplicaSet.
+For 2 ReplicaSets specifying the same `.spec.selector` but different
+`.spec.template.metadata.labels` and `.spec.template.spec` fields, each ReplicaSet ignores the
+Pods created by the other ReplicaSet.
 -->
 对于设置了相同的 `.spec.selector`，但
 `.spec.template.metadata.labels` 和 `.spec.template.spec` 字段不同的两个
@@ -435,11 +437,13 @@ ReplicaSet 创建、删除 Pod 以与此值匹配。
 
 ### Deleting a ReplicaSet and its Pods
 
-To delete a ReplicaSet and all of its Pods, use [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). The [Garbage collector](/docs/concepts/workloads/controllers/garbage-collection/) automatically deletes all of the dependent Pods by default.
+To delete a ReplicaSet and all of its Pods, use
+[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). The
+[Garbage collector](/docs/concepts/architecture/garbage-collection/) automatically deletes all of
+the dependent Pods by default.
 
-When using the REST API or the `client-go` library, you must set `propagationPolicy` to `Background` or `Foreground` in
-the -d option.
-For example:
+When using the REST API or the `client-go` library, you must set `propagationPolicy` to
+`Background` or `Foreground` in the `-d` option. For example:
 -->
 ## 使用 ReplicaSet    {#working-with-replicasets}
 
@@ -447,7 +451,7 @@ For example:
 
 要删除 ReplicaSet 和它的所有 Pod，使用
 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 命令。
-默认情况下，[垃圾收集器](/zh-cn/docs/concepts/workloads/controllers/garbage-collection/)
+默认情况下，[垃圾收集器](/zh-cn/docs/concepts/architecture/garbage-collection/)
 自动删除所有依赖的 Pod。
 
 当使用 REST API 或 `client-go` 库时，你必须在 `-d` 选项中将 `propagationPolicy`
@@ -463,7 +467,9 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 <!--
 ### Deleting just a ReplicaSet
 
-You can delete a ReplicaSet without affecting any of its Pods using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `--cascade=orphan` option.
+You can delete a ReplicaSet without affecting any of its Pods using
+[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)
+with the `--cascade=orphan` option.
 When using the REST API or the `client-go` library, you must set `propagationPolicy` to `Orphan`.
 For example:
 -->
@@ -488,7 +494,8 @@ Once the original is deleted, you can create a new ReplicaSet to replace it.  As
 as the old and new `.spec.selector` are the same, then the new one will adopt the old Pods.
 However, it will not make any effort to make existing Pods match a new, different pod template.
 To update Pods to a new spec in a controlled way, use a
-[Deployment](/docs/concepts/workloads/controllers/deployment/#creating-a-deployment), as ReplicaSets do not support a rolling update directly.
+[Deployment](/docs/concepts/workloads/controllers/deployment/#creating-a-deployment), as
+ReplicaSets do not support a rolling update directly.
 -->
 一旦删除了原来的 ReplicaSet，就可以创建一个新的来替换它。
 由于新旧 ReplicaSet 的 `.spec.selector` 是相同的，新的 ReplicaSet 将接管老的 Pod。
@@ -529,13 +536,13 @@ prioritize scaling down pods based on the following general algorithm:
 其一般性算法如下：
 
 <!--
- 1. Pending (and unschedulable) pods are scaled down first
- 2. If `controller.kubernetes.io/pod-deletion-cost` annotation is set, then
-    the pod with the lower value will come first.
- 3. Pods on nodes with more replicas come before pods on nodes with fewer replicas.
- 4. If the pods' creation times differ, the pod that was created more recently
-    comes before the older pod (the creation times are bucketed on an integer log scale
-    when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+1. Pending (and unschedulable) pods are scaled down first
+1. If `controller.kubernetes.io/pod-deletion-cost` annotation is set, then
+   the pod with the lower value will come first.
+1. Pods on nodes with more replicas come before pods on nodes with fewer replicas.
+1. If the pods' creation times differ, the pod that was created more recently
+   comes before the older pod (the creation times are bucketed on an integer log scale
+   when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
 -->
 1. 首先选择剔除悬决（Pending，且不可调度）的各个 Pod
 2. 如果设置了 `controller.kubernetes.io/pod-deletion-cost` 注解，则注解值较小的优先被裁减掉
@@ -677,7 +684,12 @@ ReplicaSet，Deployment 拥有并管理其 ReplicaSet。
 <!--
 ### Bare Pods
 
-Unlike the case where a user directly created Pods, a ReplicaSet replaces Pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a ReplicaSet even if your application requires only a single Pod. Think of it similarly to a process supervisor, only it supervises multiple Pods across multiple nodes instead of individual processes on a single node. A ReplicaSet delegates local container restarts to some agent on the node such as kubelet.
+Unlike the case where a user directly created Pods, a ReplicaSet replaces Pods that are deleted or
+terminated for any reason, such as in the case of node failure or disruptive node maintenance,
+such as a kernel upgrade. For this reason, we recommend that you use a ReplicaSet even if your
+application requires only a single Pod. Think of it similarly to a process supervisor, only it
+supervises multiple Pods across multiple nodes instead of individual processes on a single node. A
+ReplicaSet delegates local container restarts to some agent on the node such as Kubelet.
 -->
 ### 裸 Pod    {#bare-pods}
 
@@ -691,8 +703,8 @@ ReplicaSet 将本地容器重启的任务委托给了节点上的某个代理（
 <!--
 ### Job
 
-Use a [`Job`](/docs/concepts/workloads/controllers/job/) instead of a ReplicaSet for Pods that are expected to terminate on their own
-(that is, batch jobs).
+Use a [`Job`](/docs/concepts/workloads/controllers/job/) instead of a ReplicaSet for Pods that are
+expected to terminate on their own (that is, batch jobs).
 -->
 ### Job
 
@@ -718,7 +730,7 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 ### ReplicationController
 
 <!--
-ReplicaSets are the successors to [_ReplicationControllers_](/docs/concepts/workloads/controllers/replicationcontroller/).
+ReplicaSets are the successors to [ReplicationControllers](/docs/concepts/workloads/controllers/replicationcontroller/).
 The two serve the same purpose, and behave similarly, except that a ReplicationController does not support set-based
 selector requirements as described in the [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
 As such, ReplicaSets are preferred over ReplicationControllers

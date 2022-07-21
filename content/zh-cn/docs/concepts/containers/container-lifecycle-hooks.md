@@ -71,8 +71,8 @@ parameters are passed to the handler.
 而被终止之前，此回调会被调用。
 如果容器已经处于已终止或者已完成状态，则对 preStop 回调的调用将失败。
 在用来停止容器的 TERM 信号被发出之前，回调必须执行结束。
-Pod 的终止宽限周期在 `PreStop` 回调被执行之前即开始计数，所以无论
-回调函数的执行结果如何，容器最终都会在 Pod 的终止宽限期内被终止。
+Pod 的终止宽限周期在 `PreStop` 回调被执行之前即开始计数，
+所以无论回调函数的执行结果如何，容器最终都会在 Pod 的终止宽限期内被终止。
 没有参数会被传递给处理程序。
 
 <!--
@@ -113,7 +113,7 @@ the Kubernetes management system executes the handler according to the hook acti
 ### 回调处理程序执行
 
 当调用容器生命周期管理回调时，Kubernetes 管理系统根据回调动作执行其处理程序，
-`httpGet` 和 `tcpSocket` 在kubelet 进程执行，而 `exec` 则由容器内执行 。
+`httpGet` 和 `tcpSocket` 在 kubelet 进程执行，而 `exec` 则由容器内执行。
 
 <!--
 Hook handler calls are synchronous within the context of the Pod containing the Container.
@@ -190,7 +190,7 @@ It is up to the hook implementation to handle this correctly.
 -->
 ### 回调递送保证
 
-回调的递送应该是 *至少一次*，这意味着对于任何给定的事件，
+回调的递送应该是**至少一次**，这意味着对于任何给定的事件，
 例如 `PostStart` 或 `PreStop`，回调可以被调用多次。
 如何正确处理被多次调用的情况，是回调实现所要考虑的问题。
 

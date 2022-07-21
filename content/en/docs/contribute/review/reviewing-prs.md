@@ -10,9 +10,8 @@ weight: 10
 Anyone can review a documentation pull request. Visit the [pull requests](https://github.com/kubernetes/website/pulls)
 section in the Kubernetes website repository to see open pull requests.
 
-Reviewing documentation pull requests is a
-great way to introduce yourself to the Kubernetes community.
-It helps you learn the code base and build trust with other contributors.
+Reviewing documentation pull requests is a great way to introduce yourself to the Kubernetes
+community.  It helps you learn the code base and build trust with other contributors.
 
 Before reviewing, it's a good idea to:
 
@@ -27,7 +26,6 @@ Before reviewing, it's a good idea to:
 ## Before you begin
 
 Before you start a review:
-
 
 - Read the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)
   and ensure that you abide by it at all times.
@@ -73,6 +71,7 @@ class third,fourth white
 
 Figure 1. Review process steps.
 
+
 1. Go to [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
    You see a list of every open pull request against the Kubernetes website and docs.
 
@@ -103,12 +102,20 @@ Figure 1. Review process steps.
 4. Go to the **Files changed** tab to start your review.
 
    1. Click on the `+` symbol  beside the line you want to comment on.
-   1. Fill in any comments you have about the line and click either **Add single comment** (if you
-      have only one comment to make) or  **Start a review** (if you have multiple comments to make).
+   1. Fill in any comments you have about the line and click either **Add single comment**
+      (if you have only one comment to make) or **Start a review** (if you have multiple comments to make).
    1. When finished, click **Review changes** at the top of the page. Here, you can add
-      a summary of your review (and leave some positive comments for the contributor!),
-      approve the PR, comment or request changes as needed. New contributors should always
-      choose **Comment**.
+      a summary of your review (and leave some positive comments for the contributor!).
+      Please always use the "Comment"
+
+     - Avoid clicking the "Request changes" button when finishing your review.
+       If you want to block a PR from being merged before some further changes are made,
+       you can leave a "/hold" comment.
+       Mention why you are setting a hold, and optionally specify the conditions under
+       which the hold can be removed by you or other reviewers.
+
+     - Avoid clicking the "Approve" button when finishing your review.
+       Leaving a "/approve" comment is recommended most of the time.
 
 ## Reviewing checklist
 
