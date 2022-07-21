@@ -678,8 +678,8 @@ data:
 ### Optional ConfigMaps
 
 In a Pod, or pod template, you can mark a reference to a ConfigMap as _optional_.
-If the ConfigMap is non-existent, the mounted volume will be empty.
-If the ConfigMap exists, but the referenced key is non-existent the path will be absent beneath the mount point.
+If the ConfigMap is non-existent, the configuration for which it provides data in the Pod (e.g. environment variable, mounted volume) will be empty.
+If the ConfigMap exists, but the referenced key is non-existent the data is also empty.
 
 #### Optional ConfigMap in environment variables
 
@@ -739,10 +739,7 @@ spec:
   restartPolicy: Never
 ```
 
-If you run this pod, and there is no ConfigMap named `no-config`, the output is:
-
-```shell
-```
+If you run this pod, and there is no ConfigMap named `no-config`, the mounted volume will be empty.
 
 ### Mounted ConfigMaps are updated automatically
 
