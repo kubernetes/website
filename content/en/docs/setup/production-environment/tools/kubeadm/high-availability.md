@@ -269,7 +269,7 @@ in the kubeadm config file.
 
 1. Follow these [instructions](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) to set up the etcd cluster.
 
-1. Setup SSH as described [here](#manual-certs).
+1. Set up SSH as described [here](#manual-certs).
 
 1. Copy the following files from any etcd node in the cluster to the first control plane node:
 
