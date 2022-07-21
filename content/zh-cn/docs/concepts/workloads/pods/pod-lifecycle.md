@@ -779,7 +779,7 @@ An example flow:
       `terminationGracePeriodSeconds` 属性值来使其正常工作。
       {{< /note >}}
 
-   1. `kubelet` 接下来触发容器运行时发送 TERM 信号给每个容器中的进程 1。
+   2. `kubelet` 接下来触发容器运行时发送 TERM 信号给每个容器中的进程 1。
 
       {{< note >}}
       Pod 中的容器会在不同时刻收到 TERM 信号，接收顺序也是不确定的。
