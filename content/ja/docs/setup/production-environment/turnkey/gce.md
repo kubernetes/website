@@ -157,7 +157,7 @@ cd kubernetes
 cluster/kube-down.sh
 ```
 
-Likewise, the `kube-up.sh` in the same directory will bring it back up. You do not need to rerun the `curl` or `wget` command: everything needed to setup the Kubernetes cluster is now on your workstation.
+Likewise, the `kube-up.sh` in the same directory will bring it back up. You do not need to rerun the `curl` or `wget` command: everything needed to set up the Kubernetes cluster is now on your workstation.
 
 ## カスタマイズ
 

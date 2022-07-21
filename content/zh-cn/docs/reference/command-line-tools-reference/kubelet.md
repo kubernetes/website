@@ -1079,7 +1079,7 @@ Duration between checking config files for new data. (DEPRECATED: This parameter
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-How should the kubelet setup hairpin NAT. This allows endpoints of a Service to load balance back to themselves if they should try to access their own Service. Valid values are <code>promiscuous-bridge</code>, <code>hairpin-veth</code> and <code>none</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+How should the kubelet set up hairpin NAT. This allows endpoints of a Service to load balance back to themselves if they should try to access their own Service. Valid values are <code>promiscuous-bridge</code>, <code>hairpin-veth</code> and <code>none</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 设置 kubelet 执行发夹模式（hairpin）网络地址转译的方式。
 该模式允许后端端点对其自身服务的访问能够再次经由负载均衡转发回自身。

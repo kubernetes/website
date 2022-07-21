@@ -62,7 +62,7 @@ or static Bearer token approach. Larger clusters may wish to integrate an existi
 allow users to be subdivided into groups.
 
 All API clients must be authenticated, even those that are part of the infrastructure like nodes,
-proxies, the scheduler, and volume plugins. These clients are typically [service accounts](/docs/reference/access-authn-authz/service-accounts-admin/) or use x509 client certificates, and they are created automatically at cluster startup or are setup as part of the cluster installation.
+proxies, the scheduler, and volume plugins. These clients are typically [service accounts](/docs/reference/access-authn-authz/service-accounts-admin/) or use x509 client certificates, and they are created automatically at cluster startup or are set up as part of the cluster installation.
 
 Consult the [authentication reference document](/docs/reference/access-authn-authz/authentication/) for more information.
 -->

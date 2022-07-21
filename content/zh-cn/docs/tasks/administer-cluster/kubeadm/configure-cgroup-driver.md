@@ -42,7 +42,7 @@ of the `cgroupfs` driver, because kubeadm manages the kubelet as a systemd servi
 我们推荐使用 `systemd` 驱动，不推荐 `cgroupfs` 驱动。
 
 <!-- 
-The page also provides details on how to setup a number of different container runtimes with the
+The page also provides details on how to set up a number of different container runtimes with the
 `systemd` driver by default.
 -->
 此页还详述了如何安装若干不同的容器运行时，并将 `systemd` 设为其默认驱动。

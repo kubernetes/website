@@ -357,7 +357,7 @@ Kubeadm ensures that users in  `system:bootstrappers:kubeadm:default-node-token`
 This is implemented by creating a ClusterRoleBinding named `kubeadm:kubelet-bootstrap` between the group above and the default
 RBAC role `system:node-bootstrapper`.
 
-#### Setup auto approval for new bootstrap tokens
+#### Set up auto approval for new bootstrap tokens
 
 Kubeadm ensures that the Bootstrap Token will get its CSR request automatically approved by the csrapprover controller.
 
@@ -367,7 +367,7 @@ the  `system:bootstrappers:kubeadm:default-node-token` group and the default rol
 The role `system:certificates.k8s.io:certificatesigningrequests:nodeclient` should be created as well, granting
 POST permission to `/apis/certificates.k8s.io/certificatesigningrequests/nodeclient`.
 
-#### Setup nodes certificate rotation with auto approval
+#### Set up nodes certificate rotation with auto approval
 
 Kubeadm ensures that certificate rotation is enabled for nodes, and that new certificate request for nodes will get its CSR request
 automatically approved by the csrapprover controller.

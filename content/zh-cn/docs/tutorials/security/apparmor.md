@@ -472,7 +472,7 @@ Note the pod status is Pending, with a helpful error message: `Pod Cannot enforc
 
 <!-- 
 Kubernetes does not currently provide any native mechanisms for loading AppArmor profiles onto
-nodes. There are lots of ways to setup the profiles though, such as: 
+nodes. There are lots of ways to set up the profiles though, such as:
 -->
 Kubernetes 目前不提供任何本地机制来将 AppArmor 配置文件加载到节点上。
 有很多方法可以设置配置文件，例如：

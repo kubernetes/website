@@ -1,4 +1,4 @@
 ---
-title: Setup tools
+title: Set up tools
 weight: 50
 ---

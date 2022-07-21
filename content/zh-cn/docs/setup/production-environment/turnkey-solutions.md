@@ -14,7 +14,7 @@ weight: 30
 
 <!-- 
 This page provides a list of Kubernetes certified solution providers. From each
-provider page, you can learn how to install and setup production
+provider page, you can learn how to install and set up production
 ready clusters.
 -->
 本页列示 Kubernetes 认证解决方案供应商。

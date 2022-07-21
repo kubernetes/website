@@ -97,7 +97,7 @@ handler 必须是有效的 [DNS 标签名](/zh-cn/docs/concepts/overview/working
 <!--
 ### 2. Create the corresponding RuntimeClass resources
 
-The configurations setup in step 1 should each have an associated `handler` name, which identifies
+The configurations set up in step 1 should each have an associated `handler` name, which identifies
 the configuration. For each handler, create a corresponding RuntimeClass object.
 -->
 ### 2. 创建相应的 RuntimeClass 资源

@@ -837,7 +837,7 @@ RBAC role `system:node-bootstrapper`.
 `kubeadm:kubelet-bootstrap` 的 ClusterRoleBinding 来实现的。
 
 <!--
-#### Setup auto approval for new bootstrap tokens
+#### Set up auto approval for new bootstrap tokens
 -->
 #### 为新的引导令牌设置自动批准  {#setup-auto-approval-for-new-bootstrap-tokens}
 
@@ -863,7 +863,7 @@ POST permission to `/apis/certificates.k8s.io/certificatesigningrequests/nodecli
 执行 POST 的权限。
 
 <!--
-#### Setup nodes certificate rotation with auto approval
+#### Set up nodes certificate rotation with auto approval
 -->
 #### 通过自动批准设置节点证书轮换 {#setup-nodes-certificate-rotation-with-auto-approval} 
 

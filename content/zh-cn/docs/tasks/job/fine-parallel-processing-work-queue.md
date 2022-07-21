@@ -161,7 +161,7 @@ So, the list with key `job2` will be our work queue.
 因此，这个键为 `job2` 的列表就是我们的工作队列。
 
 <!--
-Note: if you do not have Kube DNS setup correctly, you may need to change
+Note: if you do not have Kube DNS set up correctly, you may need to change
 the first step of the above block to `redis-cli -h $REDIS_SERVICE_HOST`.
 -->
 注意：如果你还没有正确地配置 Kube DNS，你可能需要将上面的第一步改为
