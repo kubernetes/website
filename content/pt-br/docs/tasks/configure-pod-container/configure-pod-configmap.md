@@ -2,11 +2,6 @@
 title: Configurando um Pod Para Usar um ConfigMap
 content_type: task
 weight: 150
-update_date: 2022-07-18
-origin_version: 1.24
-contributors: DonatoHorn
-reviewers:
-  -
 card:
   name: tasks
   weight: 50
