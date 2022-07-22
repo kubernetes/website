@@ -2,10 +2,6 @@
 title: Configurando Qualidade do Serviço Para Pods
 content_type: task
 weight: 30
-update_date: 2022-07-17
-origin_version: 1.24
-contributors: DonatoHorn
-reviewers:
 ---
 
 
