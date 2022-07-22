@@ -4,7 +4,8 @@ content_type: task
 weight: 20
 update_date: 2022-07-16
 origin_version: 1.24
-contributors: DonatoHorn
+contributors:
+-DonatoHorn
 reviewers: 
 ---
 
@@ -231,9 +232,9 @@ Mantendo baixos os recursos de CPU de um Pod, você proporciona ao Pod uma boa c
 de ser agendado. Ao especificar um limite de CPU que é maior que os requisitos de CPU, 
 você estará realizando duas coisas: 
 
-* o Pod pode ter estouros de atividade quando estiver fazendo uso de recursos de CPU 
+* o Pod pode ter picos de atividade quando estiver fazendo uso de recursos de CPU 
 que deveriam estar disponíveis.
-* O total de recursos de CPU que um Pod pode usar durante um estouro é limitado 
+* O total de recursos de CPU que um Pod pode usar durante um pico vai estar limitado 
 a uma quantidade razoável.
 
 ## Limpeza
