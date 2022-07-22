@@ -15,18 +15,18 @@ description: Creating Secret objects using resource configuration file.
 
 ## Create the Config file
 
-You can create a Secret in a file first, in JSON or YAML format, and then
-create that object.  The
+You can define the `Secret` object in a file first, in JSON or YAML format, and then create that object. The
 [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
 resource contains two maps: `data` and `stringData`.
 The `data` field is used to store arbitrary data, encoded using base64. The
 `stringData` field is provided for convenience, and it allows you to provide
-Secret data as unencoded strings.
+the same data as unencoded strings.
 The keys of `data` and `stringData` must consist of alphanumeric characters,
 `-`, `_` or `.`.
 
-For example, to store two strings in a Secret using the `data` field, convert
-the strings to base64 as follows:
+The following example stores two strings in a Secret using the `data` field.
+
+Convert the strings to base64 as follows:
 
 ```shell
 echo -n 'admin' | base64
