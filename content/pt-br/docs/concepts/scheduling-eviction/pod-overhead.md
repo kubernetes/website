@@ -2,11 +2,6 @@
 title: Sobrecarga de Pod 
 content_type: concept
 weight: 50
-update_date: 2022-07-22
-origin_version: 1.24
-contributors:
-- DonatoHorn
-reviewers:
 ---
 
 <!-- overview -->
