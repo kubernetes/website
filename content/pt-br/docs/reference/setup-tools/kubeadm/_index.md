@@ -10,23 +10,23 @@ card:
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px">O Kubeadm é uma ferramenta criada para fornecer o `kubeadm init` e o `kubeadm join` como "caminhos rápidos" de melhores práticas para criar clusters Kubernetes.
 
-O kubeadm executa as ações necessárias para colocar um cluster minimamente viável em funcionamento. Por propósito, ele se preocupa apenas com bootstrapping, não com provisionamento de máquinas. Da mesma forma, a instalação de vários complementos, como o Kubernetes Dashboard, soluções de monitoramento e complementos específicos da nuvem, não está no escopo.
+O kubeadm executa as ações necessárias para colocar um cluster minimamente viável em funcionamento. Projetado para se preocupar apenas com a inicialização e não com o provisionamento de máquinas. Da mesma forma, a instalação de vários complementos úteis, como o Kubernetes Dashboard, soluções de monitoramento e complementos específicos da nuvem, não está no escopo.
 
-Em vez disso, esperamos que ferramentas de nível superior e mais personalizadas sejam construídas sobre o kubeadm e, idealmente, o uso do kubeadm como base de todas as implantações facilitará a criação de clusters em conformidade.
+Em vez disso, esperamos que ferramentas de alto nível e mais personalizadas sejam construídas em cima kubeadm e, idealmente, usando o kubeadm como base de todas as implantações tornará mais fácil a criação de clusters em conformidade.
 
 ## Como instalar
 
 Para instalar o kubeadm, consulte o [guia de instalação](/pt-br/docs/setup/production-environment/tools/kubeadm/install-kubeadm).
 
-## {{% heading "O que vem a seguir?" %}}
+## {{% heading "whatsnext" %}}
 
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) para inicializar um nó do plano de controle do Kubernetes 
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) para inicializar um nó da camada de gerenciamento do Kubernetes 
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join) para inicializar um nó `worker` do Kubernetes e associá-lo ao cluster
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade) para atualizar um cluster Kubernetes para uma versão mais recente
-* [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config) se você inicializou seu cluster usando o kubeadm v1.7.x ou inferior, para configurar seu cluster para atualização do kubeadm `kubeadm upgrade`
-* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token) para gerenciar os tokens para `kubeadm join`
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) para reverter quaisquer alterações feitas neste host pelo `kubeadm init` ou `kubeadm join`
-* [kubeadm certs](/docs/reference/setup-tools/kubeadm/kubeadm-certs) para gerenciar os certificados Kubernetes
+* [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config) se você inicializou seu cluster usando o kubeadm v1.7.x ou inferior, para configurar seu cluster pelo `kubeadm upgrade`
+* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token) para gerenciar os tokens pelo `kubeadm join`
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) para reverter quaisquer alterações feitas, neste host, pelo `kubeadm init` ou `kubeadm join`
+* [kubeadm certs](/docs/reference/setup-tools/kubeadm/kubeadm-certs) para gerenciar os certificados do Kubernetes
 * [kubeadm kubeconfig](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig) para gerenciar arquivos kubeconfig
-* [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version) para exibir a versão kubeadm
+* [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version) para exibir a versão do kubeadm
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha) para visualizar um conjunto de recursos disponibilizados para coletar feedback da comunidade

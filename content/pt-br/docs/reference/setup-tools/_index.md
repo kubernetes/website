@@ -1,4 +1,4 @@
 ---
-title: Setup tools
+title: Ferramentas de Configuração
 weight: 50
 ---
