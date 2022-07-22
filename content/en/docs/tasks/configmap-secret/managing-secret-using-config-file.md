@@ -108,22 +108,7 @@ stringData:
 When you retrieve the Secret data, the command returns the encoded values,
 and not the plaintext values you provided in `stringData`.
 
-Create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
-
-```shell
-kubectl apply -f ./secret.yaml
-```
-
-The output is similar to:
-
-```
-secret/mysecret created
-```
-
-## Check the Secret
-
-The `stringData` field is a write-only convenience field. It is never output when
-retrieving Secrets. For example, if you run the following command:
+For example, if you run the following command:
 
 ```shell
 kubectl get secret mysecret -o yaml
@@ -145,14 +130,9 @@ metadata:
 type: Opaque
 ```
 
-The commands `kubectl get` and `kubectl describe` avoid showing the contents of a `Secret` by
-default. This is to protect the `Secret` from being exposed accidentally to an onlooker,
-or from being stored in a terminal log.
-To check the actual content of the encoded data, please refer to
-[decoding secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
+### Specifying both `data` and `stringData`
 
-If a field, such as `username`, is specified in both `data` and `stringData`,
-the value from `stringData` is used. For example, the following Secret definition:
+If you specify a field in both `data` and `stringData`, the value from `stringData` is used. For example, if you define the following Secret:
 
 ```yaml
 apiVersion: v1
@@ -166,7 +146,7 @@ stringData:
   username: administrator
 ```
 
-Results in the following Secret:
+The `Secret` object is created as follows:
 
 ```yaml
 apiVersion: v1
@@ -182,7 +162,7 @@ metadata:
 type: Opaque
 ```
 
-Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
+`YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
 
 ## Clean Up
 
