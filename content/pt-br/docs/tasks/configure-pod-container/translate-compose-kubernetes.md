@@ -2,9 +2,6 @@
 title: Traduzindo um Arquivo do Docker Compose Para Recursos Kubernetes
 content_type: task
 weight: 200
-update_date: 2022-07-18
-origin_version: 1.24
-contributors: DonatoHorn
 reviewers:
 - cdrage
 ---
