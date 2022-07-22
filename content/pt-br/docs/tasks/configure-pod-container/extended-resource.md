@@ -2,10 +2,6 @@
 title: Atribuindo Recursos Estendidos a um Contêiner
 content_type: task
 weight: 40
-update_date: 2022-07-17
-origin_version: 1.24
-contributors: DonatoHorn
-reviewers:
 ---
 
 <!-- overview -->
