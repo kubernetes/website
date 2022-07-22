@@ -2,10 +2,6 @@
 title: Configurando um Pod Para Usar um Volume Persistente Para armazenamento
 content_type: task
 weight: 60
-update_date: 2022-07-18
-origin_version: 1.24
-contributors: DonatoHorn
-reviewers:
 ---
 
 <!-- overview -->
