@@ -3,7 +3,7 @@
 
 
 title: 파드 디버깅하기
-content_type: task
+content_type: concept
 weight: 10
 ---
 
