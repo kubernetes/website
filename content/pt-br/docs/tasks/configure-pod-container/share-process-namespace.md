@@ -1,8 +1,5 @@
 ---
 title: Compartilhando o Namespace de Processo Entre Contêineres em um Pod
-update_date: 2022-07-16
-origin_version: 1.24
-contributors: DonatoHorn
 reviewers:
 - verb
 - yujuhong
