@@ -1,8 +1,5 @@
 ---
-title: Aplicando Padrões de Segurança de Pod com Labels em Namespace
-update_date: 2022-07-18
-origin_version: 1.24
-contributors: DonatoHorn
+title: Aplicando Padrões de Segurança de Pod com `Labels` em Namespace
 reviewers:
 - tallclair
 - liggitt
@@ -27,7 +24,7 @@ cobrem amplamente o espectro de segurança e são implementados pela
 (/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) 
 está habilitada.
 
-## Exigindo a `baseline` padrão de segurança de pod com labels em namespace
+## Exigindo o padrão de segurança `baseline` de pod com rótulos em namespace
 
 Este manifesto define um Namespace `my-baseline-namespace` que:
 
