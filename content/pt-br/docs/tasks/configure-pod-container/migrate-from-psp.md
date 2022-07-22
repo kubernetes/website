@@ -1,5 +1,5 @@
 ---
-title: Migrando de PodSecurityPolicy Para Controlador de admissão Integrado
+title: Migrando de PodSecurityPolicy Para Controlador de Admissão Integrado
 reviewers:
 - tallclair
 - liggitt
