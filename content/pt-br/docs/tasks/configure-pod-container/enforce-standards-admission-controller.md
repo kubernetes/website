@@ -1,8 +1,5 @@
 ---
 title: Aplicando os Padrões de Segurança do Pod, Configurando o Controlador de Admissão Embutido
-update_date: 2022-07-18
-origin_version: 1.24
-contributors: DonatoHorn
 reviewers:
 - tallclair
 - liggitt
