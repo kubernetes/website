@@ -5,13 +5,13 @@ reviewers:
 - ericchiang
 - deads2k
 - liggitt
-title: Authenticating
+title: (WIP) Authentification
 content_type: concept
 weight: 10
 ---
 
 <!-- overview -->
-This page provides an overview of authenticating.
+Cette page est une vue d'ensemble du mécanisme d'authentification à Kubernetes.
 
 
 <!-- body -->
