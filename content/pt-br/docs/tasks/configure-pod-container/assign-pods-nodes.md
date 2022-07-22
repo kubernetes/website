@@ -2,10 +2,6 @@
 title: Atribuindo Pods aos Nós
 content_type: task
 weight: 120
-update_date: 2022-07-18
-origin_version: 1.24
-contributors: DonatoHorn
-reviewers:
 ---
 
 <!-- overview -->
