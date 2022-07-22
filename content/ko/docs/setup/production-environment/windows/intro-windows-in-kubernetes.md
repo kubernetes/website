@@ -767,26 +767,6 @@ DNS, 라우트, 메트릭과 같은 많은 구성은 리눅스에서와 같이 /
 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds`를 사용하는
 윈도우 서비스의 최대 세션 고정(sticky) 시간 설정은 지원되지 않는다.
 
-##### 보안
-
-시크릿(Secret)은 노드의 볼륨(리눅스의 tmpfs/in-memory와
-비교)에 일반 텍스트로 작성된다. 이는 고객이 두 가지 작업을 수행해야 함을 의미한다.
-
-1. 파일 ACL을 사용하여 시크릿 파일 위치를 보호한다.
-1. [BitLocker](https://docs.microsoft.com/ko-kr/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)를
-   사용한 볼륨-레벨 암호화를 사용한다.
-
-[RunAsUsername](/ko/docs/tasks/configure-pod-container/configure-runasusername/)은
-컨테이너 프로세스를 노드 기본 사용자로 실행하기 위해 윈도우 파드 또는
-컨테이너에 지정할 수 있다. 이것은
-[RunAsUser](/ko/docs/concepts/security/pod-security-policy/#사용자-및-그룹)와 거의 동일하다.
-
-SELinux, AppArmor, Seccomp, 기능(POSIX 기능)과 같은
-리눅스 특유의 파드 시큐리티 컨텍스트 권한은 지원하지 않는다.
-
-또한 이미 언급했듯이 특권을 가진 컨테이너는 윈도우에서 지원되지
-않는다.
-
 #### API
 
 대부분의 Kubernetes API가 윈도우에서 작동하는 방식은 차이가 없다.
