@@ -12,7 +12,7 @@ reviewers:
 
 <!-- overview -->
 Esta página mostra como usar um Volume
-[`projetado`](/docs/concepts/storage/volumes/#projected) para montar diversas 
+[`projected`](/docs/concepts/storage/volumes/#projected) para montar diversas 
 fontes de volumes existententes no mesmo diretório. Atualmente, volumes `secret`, 
 `configMap`, `downwardAPI`, e `serviceAccountToken` podem ser projetados.
 
@@ -32,14 +32,14 @@ fontes de volumes existententes no mesmo diretório. Atualmente, volumes `secret
 Neste exercício, você cria o nome de usuário e senha 
 {{< glossary_tooltip text="Secrets" term_id="secret" >}} a partir de arquivos locais. 
 Você então cria um Pod que executa um contêiner, usando um volume
-[`projetado`](/docs/concepts/storage/volumes/#projected) 
+[`projected`](/docs/concepts/storage/volumes/#projected) 
 para montar as `Secrets` dentro do mesmo diretório compartilhado.
 
 Aqui está o arquivo de configuração para o Pod:
 
 {{< codenew file="pods/storage/projected.yaml" >}}
 
-1. Crie os Segredos:
+1. Crie os segredos:
 
     ```shell
     # Crie arquivos contendo o username e password:
@@ -86,7 +86,7 @@ contém suas fontes projetadas:
 
 ## Limpeza
 
-Delete o Pod e o `Secrets`:
+Delete o Pod e o Secret:
 
 ```shell
 kubectl delete pod test-projected-volume
@@ -98,5 +98,5 @@ kubectl delete secret user pass
 ## {{% heading "whatsnext" %}}
 
 * Aprensa mais sobre volume [`projetado`](/docs/concepts/storage/volumes/#projected).
-* Leia o documento de desenho de [volume tudo-em-um](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
+* Leia o documento de desenho de [volume tudo-em-um](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md).
 
