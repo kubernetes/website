@@ -4,13 +4,13 @@ id: approver
 date: 2018-04-12
 full_link: 
 short_description: >
-  Uma pessoa que pode revisar e aprovar contribuições de código Kubernetes.
+  Uma pessoa que pode revisar e aprovar as contribuições do código Kubernetes.
 
 aka: 
 tags:
 - community
 ---
- Uma pessoa que pode revisar e aprovar contribuições de código Kubernetes.
+ Uma pessoa que pode revisar e aprovar as contribuições do código Kubernetes.
 
 <!--more--> 
 
