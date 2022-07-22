@@ -75,6 +75,8 @@ The following example stores two strings in a Secret using the `data` field.
 To verify that the Secret was created and to decode the Secret data, refer to
 [Managing Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
 
+### Specify unencoded data when creating a Secret
+
 For certain scenarios, you may wish to use the `stringData` field instead. This
 field allows you to put a non-base64 encoded string directly into the Secret,
 and the string will be encoded for you when the Secret is created or updated.
