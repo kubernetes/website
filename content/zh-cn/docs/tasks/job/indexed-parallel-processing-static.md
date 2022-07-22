@@ -41,7 +41,7 @@ Pod 索引在{{<glossary_tooltip text="注解" term_id="annotation" >}}
 为了让容器化的任务进程获得此索引，你可以使用
 [downward API](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
 机制发布注解的值。为方便起见，
-控制平面自动设置 downward API 以在 `JOB_COMPLETION_INDEX` 环境变量中公开索引。
+控制平面自动设置 Downward API 以在 `JOB_COMPLETION_INDEX` 环境变量中公开索引。
 
 <!-- 
 Here is an overview of the steps in this example:
@@ -69,8 +69,10 @@ non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 
 <!-- steps -->
 
-<!-- ## Choose an approach -->
-## 选择一种方法
+<!-- 
+## Choose an approach
+ -->
+## 选择一种方法 {#choose-an-approach}
 
 <!-- 
 To access the work item from the worker program, you have a few options:
@@ -84,7 +86,7 @@ To access the work item from the worker program, you have a few options:
    that reads the index using any of the methods above and converts it into
    something that the program can use as input.
  -->
-要从工作程序访问工作项，你有几个选择：
+要从工作程序访问工作项，你有几个选项：
 
 1. 读取 `JOB_COMPLETION_INDEX` 环境变量。Job
    {{< glossary_tooltip text="控制器" term_id="controller" >}}
@@ -98,7 +100,7 @@ For this example, imagine that you chose option 3 and you want to run the
 [rev](https://man7.org/linux/man-pages/man1/rev.1.html) utility. This
 program accepts a file as an argument and prints its content reversed.
 -->
-对于此示例，假设你选择了方法 3 并且想要运行
+对于此示例，假设你选择了选项 3 并且想要运行
 [rev](https://man7.org/linux/man-pages/man1/rev.1.html) 实用程序。
 这个程序接受一个文件作为参数并按逆序打印其内容。
 
@@ -125,14 +127,15 @@ the start of the clip.
 由于这只是一个例子，每个 Pod 只做一小部分工作（反转一个短字符串）。
 例如，在实际工作负载中，你可能会创建一个表示基于场景数据制作 60 秒视频任务的 Job 。
 此视频渲染 Job 中的每个工作项都将渲染该视频剪辑的特定帧。
-索引完成意味着 Job 中的每个 Pod 都知道通过从剪辑开始计算帧数，来确定渲染和发布哪一帧，。
-
-<!-- ## Define an Indexed Job -->
-## 定义索引作业
+索引完成意味着 Job 中的每个 Pod 都知道通过从剪辑开始计算帧数，来确定渲染和发布哪一帧。
 
 <!-- 
+## Define an Indexed Job 
+ 
 Here is a sample Job manifest that uses `Indexed` completion mode:
 -->
+## 定义索引作业 {#define-an-indexed-job}
+
 这是一个使用 `Indexed` 完成模式的示例 Job 清单：
 
 {{< codenew language="yaml" file="application/job/indexed-job.yaml" >}}
@@ -168,10 +171,13 @@ like shown in the following example:
 
 {{< codenew language="yaml" file="application/job/indexed-job-vol.yaml" >}}
 
-<!-- ## Running the Job -->
-## 执行 Job
+<!-- 
+## Running the Job 
 
-<!-- Now run the Job: -->
+Now run the Job: 
+-->
+## 执行 Job {running-the-job}
+
 现在执行 Job：
 
 ```shell
@@ -199,7 +205,9 @@ Once you have created the Job, wait a moment then check on progress:
 kubectl describe jobs/indexed-job
 ```
 
-<!-- The output is similar to: -->
+<!-- 
+The output is similar to: 
+-->
 输出类似于：
 
 ```
@@ -268,7 +276,9 @@ inspect the output of one of the pods:
 kubectl logs indexed-job-fdhq5 # 更改它以匹配来自该 Job 的 Pod 的名称
 ```
 
-<!-- The output is similar to: -->
+<!-- 
+The output is similar to: 
+-->
 输出类似于：
 
 ```

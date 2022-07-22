@@ -158,6 +158,14 @@ PUT       | update
 PATCH     | patch
 DELETE    | delete（针对单个资源）、deletecollection（针对集合）
 
+{{< caution >}}
+<!--
+The `get`, `list` and `watch` verbs can all return the full details of a resource. In terms of the returned data they are equivalent. For example, `list` on `secrets` will still reveal the `data` attributes of any returned resources.
+-->
+`get`、`list` 和 `watch` 动作都可以返回一个资源的完整详细信息。就返回的数据而言，它们是等价的。
+例如，对 `secrets` 使用 `list` 仍然会显示所有已返回资源的 `data` 属性。
+{{< /caution >}}
+
 <!--
 Kubernetes sometimes checks authorization for additional permissions using specialized verbs. For example:
 

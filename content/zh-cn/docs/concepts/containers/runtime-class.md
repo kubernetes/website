@@ -198,10 +198,10 @@ handler 需要配置在 runtimes 块中：
 ```
 
 <!--
-See containerd's [config documentation](https://github.com/containerd/cri/blob/master/docs/config.md)
+See containerd's [config documentation](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 for more details:
 -->
-更详细信息，请查阅 containerd 的[配置指南](https://github.com/containerd/cri/blob/master/docs/config.md)
+更详细信息，请查阅 containerd 的[配置指南](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 
 #### [cri-o](https://cri-o.io/)
 
