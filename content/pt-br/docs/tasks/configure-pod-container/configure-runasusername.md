@@ -2,10 +2,6 @@
 title: Configurando `RunAsUserName` Para Pods e Contêineres Windows
 content_type: task
 weight: 20
-update_date: 2022-07-17
-origin_version: 1.24
-contributors: DonatoHorn
-reviewers:
 ---
 
 <!-- overview -->
