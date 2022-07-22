@@ -217,7 +217,7 @@ When using kubeadm, manually configure the
 
 #### Overriding the sandbox (pause) image {#override-pause-image-containerd}
 
-In your [containerd config](https://github.com/containerd/cri/blob/master/docs/config.md) you can overwrite the
+In your [containerd config](https://github.com/containerd/containerd/blob/main/docs/cri/config.md) you can overwrite the
 sandbox image by setting the following config:
 
 ```toml
