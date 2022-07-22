@@ -17,7 +17,7 @@ content_type: task
 유사한 프로토콜을 사용한다.
 
 {{< note >}}
-`certificates.k8s.io` API를 사용하여 생성된 인증서는 [전용 CA](#a-note-to-cluster-administrators)로 서명된다. 
+`certificates.k8s.io` API를 사용하여 생성된 인증서는 [전용 CA](#configuring-your-cluster-to-provide-signing)로 서명된다. 
 이러한 목적을 위해 클러스터 루트 CA를 사용하도록 클러스터를 
 구성할 수 있지만, 절대 이에 의존해서는 안된다. 
 해당 인증서가 클러스터 루트 CA에 대해 유효성을 검사한다고 가정하면 안된다.
@@ -42,7 +42,7 @@ content_type: task
 
 ## 클러스터에서 TLS 신뢰
 
-파드로 실행되는 애플리케이션에서 [사용자 정의 CA](#a-note-to-cluster-administrators)를 신뢰하려면 
+파드로 실행되는 애플리케이션에서 [사용자 정의 CA](#configuring-your-cluster-to-provide-signing)를 신뢰하려면 
 일반적으로 몇 가지 추가 애플리케이션 구성이 필요하다.
 TLS 클라이언트 또는 서버가 신뢰하는 CA 인증서 목록에 
 CA 인증서 번들을 추가해야 한다.
@@ -355,7 +355,7 @@ CSR이 다음 두 가지 요구 사항을 충족하는지 확인하는 것이다
 [인증서 서명 요청](/docs/reference/access-authn-authz/certificate-signing-requests/) 레퍼런스 페이지를 
 참조한다.
 
-## 서명을 제공하도록 클러스터 구성하기 {#a-note-to-cluster-administrators}
+## 서명을 제공하도록 클러스터 구성하기 {#configuring-your-cluster-to-provide-signing}
 
 이 페이지에서는 서명자가 인증서 API를 제공하도록 설정되었다고 가정한다. 쿠버네티스 
 컨트롤러 관리자는 서명자의 기본 구현을 제공한다. 이를 
