@@ -9,6 +9,6 @@ spec:
     image: k8s.gcr.io/e2e-test-images/jessie-dnsutils:1.3
     command:
       - sleep
-      - "3600"
+      - "infinity"
     imagePullPolicy: IfNotPresent
   restartPolicy: Always
