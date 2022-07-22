@@ -22,6 +22,6 @@ O `kubeadm init` cria um token inicial com um TTL de 24 horas. Os comandos a seg
 ## Listar um token kubeadm {#cmd-token-list}
 {{< include "generated/kubeadm_token_list.md" >}}
 
-## {{% heading "O que vem a seguir?" %}}
+## {{% heading "whatsnext" %}}
 
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join) para inicializar um nó `worker` do Kubernetes e associá-lo ao cluster
