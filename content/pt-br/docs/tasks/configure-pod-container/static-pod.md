@@ -2,9 +2,6 @@
 title: Criando Pods Estáticos
 weight: 170
 content_type: task
-update_date: 2022-07-16
-origin_version: 1.24
-contributors: DonatoHorn
 reviewers:
 - jsafrane
 ---
