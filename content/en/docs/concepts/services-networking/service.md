@@ -75,7 +75,7 @@ The name of a Service object must be a valid
 [RFC 1035 label name](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
 
 For example, suppose you have a set of Pods where each listens on TCP port 9376
-and contains a label `app=MyApp`:
+and contains a label `app.kubernetes.io/name=MyApp`:
 
 ```yaml
 apiVersion: v1
@@ -84,7 +84,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -92,7 +92,7 @@ spec:
 ```
 
 This specification creates a new Service object named "my-service", which
-targets TCP port 9376 on any Pod with the `app=MyApp` label.
+targets TCP port 9376 on any Pod with the `app.kubernetes.io/name=MyApp` label.
 
 Kubernetes assigns this Service an IP address (sometimes called the "cluster IP"),
 which is used by the Service proxies
@@ -126,7 +126,7 @@ spec:
     ports:
       - containerPort: 80
         name: http-web-svc
-        
+
 ---
 apiVersion: v1
 kind: Service
@@ -144,9 +144,9 @@ spec:
 
 
 This works even if there is a mixture of Pods in the Service using a single
-configured name, with the same network protocol available via different 
-port numbers. This offers a lot of flexibility for deploying and evolving 
-your Services. For example, you can change the port numbers that Pods expose 
+configured name, with the same network protocol available via different
+port numbers. This offers a lot of flexibility for deploying and evolving
+your Services. For example, you can change the port numbers that Pods expose
 in the next version of your backend software, without breaking clients.
 
 The default protocol for Services is TCP; you can also use any other
@@ -159,7 +159,7 @@ Each port definition can have the same `protocol`, or a different one.
 ### Services without selectors
 
 Services most commonly abstract access to Kubernetes Pods thanks to the selector,
-but when used with a corresponding Endpoints object and without a selector, the Service can abstract other kinds of backends, 
+but when used with a corresponding Endpoints object and without a selector, the Service can abstract other kinds of backends,
 including ones that run outside the cluster. For example:
 
 * You want to have an external database cluster in production, but in your
@@ -222,10 +222,10 @@ In the example above, traffic is routed to the single endpoint defined in
 the YAML: `192.0.2.42:9376` (TCP).
 
 {{< note >}}
-The Kubernetes API server does not allow proxying to endpoints that are not mapped to 
-pods. Actions such as `kubectl proxy <service-name>` where the service has no 
-selector will fail due to this constraint. This prevents the Kubernetes API server 
-from being used as a proxy to endpoints the caller may not be authorized to access. 
+The Kubernetes API server does not allow proxying to endpoints that are not mapped to
+pods. Actions such as `kubectl proxy <service-name>` where the service has no
+selector will fail due to this constraint. This prevents the Kubernetes API server
+from being used as a proxy to endpoints the caller may not be authorized to access.
 {{< /note >}}
 
 An ExternalName Service is a special case of Service that does not have
@@ -289,7 +289,7 @@ There are a few reasons for using proxying for Services:
 
 Later in this page you can read about various kube-proxy implementations work. Overall,
 you should note that, when running `kube-proxy`, kernel level rules may be
-modified (for example, iptables rules might get created), which won't get cleaned up, 
+modified (for example, iptables rules might get created), which won't get cleaned up,
 in some cases until you reboot.  Thus, running kube-proxy is something that should
 only be done by an administrator which understands the consequences of having a
 low level, privileged network proxying service on a computer.  Although the `kube-proxy`
@@ -423,7 +423,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - name: http
       protocol: TCP
@@ -636,7 +636,7 @@ to specify IP address ranges that kube-proxy should consider as local to this no
 
 For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag,
 kube-proxy only selects the loopback interface for NodePort Services.
-The default for `--nodeport-addresses` is an empty list. 
+The default for `--nodeport-addresses` is an empty list.
 his means that kube-proxy should consider all available network interfaces for NodePort.
 (That's also compatible with earlier Kubernetes releases).
 
@@ -666,7 +666,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
       # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
     - port: 80
@@ -692,7 +692,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -765,13 +765,13 @@ You must explicitly remove the `nodePorts` entry in every Service port to de-all
 `spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default.
 By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
 the cloud provider's default load balancer implementation if the cluster is configured with
-a cloud provider using the `--cloud-provider` component flag. 
+a cloud provider using the `--cloud-provider` component flag.
 If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
 implementation that matches the specified class is watching for Services.
 Any default load balancer implementation (for example, the one provided by
 the cloud provider) will ignore Services that have this field set.
 `spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
-Once set, it cannot be changed. 
+Once set, it cannot be changed.
 The value of `spec.loadBalancerClass` must be a label-style identifier,
 with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
 Unprefixed names are reserved for end-users.
@@ -1073,7 +1073,7 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
 
         # A list of existing security groups to be configured on the ELB created. Unlike the annotation
         # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, this replaces all other
-        # security groups previously assigned to the ELB and also overrides the creation 
+        # security groups previously assigned to the ELB and also overrides the creation
         # of a uniquely generated security group for this ELB.
         # The first security group ID on this list is used as a source to permit incoming traffic to
         # target worker nodes (service traffic and health checks).
@@ -1087,7 +1087,7 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # generated security group in place, this ensures that every ELB
         # has a unique security group ID and a matching permit line to allow traffic to the target worker nodes
         # (service traffic and health checks).
-        # Security groups defined here can be shared between services. 
+        # Security groups defined here can be shared between services.
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
 
         # A comma separated list of key-value pairs which are used
@@ -1263,7 +1263,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - name: http
       protocol: TCP
@@ -1481,4 +1481,3 @@ followed by the data from the client.
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
 * Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
-
