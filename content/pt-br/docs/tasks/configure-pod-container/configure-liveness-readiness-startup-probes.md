@@ -2,10 +2,6 @@
 title: Configurando Liveness, Readiness e Startup Probes
 content_type: task
 weight: 110
-update_date: 2022-07-18
-origin_version: 1.24
-contributors: DonatoHorn
-reviewers:
 ---
 
 <!-- overview -->
