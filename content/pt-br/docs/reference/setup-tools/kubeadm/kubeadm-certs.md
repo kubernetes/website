@@ -58,8 +58,8 @@ Este comando pode ser usado para gerar chaves e CSRs para todos os certificados 
 {{< tab name="generate-csr" include="generated/kubeadm_certs_generate-csr.md" />}}
 {{< /tabs >}}
 
-## {{% heading "O que vem a seguir?" %}}
+## {{% heading "whatsnext" %}}
 
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) para inicializar um nó do plano de controle do Kubernetes 
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) para inicializar um nó da camada de gerenciamento do Kubernetes 
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join) para inicializar um nó `worker` do Kubernetes e associá-lo ao cluster
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) para reverter quaisquer alterações feitas neste host pelo `kubeadm init` ou `kubeadm join`
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) para reverter quaisquer alterações feitas, neste host, pelo `kubeadm init` ou `kubeadm join`
