@@ -2,16 +2,21 @@
 title: Sobrecarga de Pod 
 content_type: concept
 weight: 50
+update_date: 2022-07-22
+origin_version: 1.24
+contributors:
+- DonatoHorn
+reviewers:
 ---
 
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-Quando você executa um Pod num nó, o próprio Pod usa uma quantidade de recursos do sistema. Estes
-recursos são adicionais aos recursos necessários para executar o(s) contêiner(s) dentro do Pod.
-Sobrecarga de Pod, do inglês _Pod Overhead_, é uma funcionalidade que serve para contabilizar os recursos consumidos pela
-infraestrutura do Pod para além das solicitações e limites do contêiner.
+Quando você executa um Pod num Nó, o próprio Pod usa uma quantidade de recursos do sistema. Estes
+recursos são adicionais aos recursos necessários para executar o(s) contêiner(es) dentro do Pod.
+No Kubernetes, a Sobrecarga de Pod, do inglês _Pod Overhead_, é uma funcionalidade que serve para contabilizar os recursos consumidos pela
+infraestrutura do Pod, além das solicitações e limites do contêiner.
 
 
 
@@ -19,26 +24,23 @@ infraestrutura do Pod para além das solicitações e limites do contêiner.
 
 <!-- body -->
 
-No Kubernetes, a sobrecarga de Pods é definido no tempo de
+No Kubernetes, a sobrecarga de Pods é definida durante a 
 [admissão](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
 de acordo com a sobrecarga associada à
 [RuntimeClass](/docs/concepts/containers/runtime-class/) do Pod.
 
-Quando é ativada a Sobrecarga de Pod, a sobrecarga é considerada adicionalmente à soma das
-solicitações de recursos do contêiner ao agendar um Pod. Semelhantemente, o _kubelet_
-incluirá a sobrecarga do Pod ao dimensionar o cgroup do Pod e ao
-executar a classificação de prioridade de migração do Pod em caso de _drain_ do Node.
+A sobrecarga é adicionada à soma das solicitações de recursos do contêiner ao agendar um Pod. Da mesma forma, o _kubelet_
+incluirá a sobrecarga do Pod ao dimensionar o `cgroup` do Pod, e ao
+executar o ranking de prioridade de despejo do Pod.
 
-## Habilitando a Sobrecarga de Pod {#set-up}
+## Configurando a Sobrecarga de Pod {#set-up}
 
-Terá de garantir que o [Feature Gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`PodOverhead` esteja ativo (está ativo por padrão a partir da versão 1.18)
-em todo o cluster, e uma `RuntimeClass` utilizada que defina o campo `overhead`.
+Você deve se certificar de usar um `RuntimeClass` que define o campo `overhead`.
 
 ## Exemplo de uso
 
-Para usar a funcionalidade PodOverhead, é necessário uma RuntimeClass que define o campo `overhead`.
-Por exemplo, poderia usar a definição da RuntimeClass abaixo com um agente de execução de contêiner virtualizado
+Para usar a sobrecarga de Pod, é deve ter uma RuntimeClass que define o campo `overhead`.
+Como um exemplo, você poderia usar a definição da RuntimeClass abaixo com um contêiner runtime de virtualização
 que use cerca de 120MiB por Pod para a máquina virtual e o sistema operacional convidado:
 
 ```yaml
@@ -56,7 +58,7 @@ overhead:
 
 As cargas de trabalho que são criadas e que especificam o manipulador RuntimeClass `kata-fc` irão
 usar a sobrecarga de memória e cpu em conta para os cálculos da quota de recursos, agendamento de nós,
-assim como dimensionamento do cgroup do Pod.
+bem como para o dimensionamento do cgroup do Pod.
 
 Considere executar a seguinte carga de trabalho de exemplo, test-pod:
 
@@ -69,7 +71,7 @@ spec:
   runtimeClassName: kata-fc
   containers:
   - name: busybox-ctr
-    image: busybox
+    image: busybox:1.28
     stdin: true
     tty: true
     resources:
@@ -85,11 +87,11 @@ spec:
 ```
 
 No tempo de admissão o [controlador de admissão](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) RuntimeClass
-atualiza o _PodSpec_ da carga de trabalho de forma a incluir o `overhead` como descrito na RuntimeClass. Se o _PodSpec_ já tiver este campo definido
+atualiza o _PodSpec_ da carga de trabalho de forma a incluir o `overhead` como descrito na RuntimeClass. Se o _PodSpec_ já tiver este campo definido,
 o Pod será rejeitado. No exemplo dado, como apenas o nome do RuntimeClass é especificado, o controlador de admissão muda o Pod de forma a
 incluir um `overhead`.
 
-Depois do controlador de admissão RuntimeClass, pode verificar o _PodSpec_ atualizado:
+Depois do controlador de admissão RuntimeClass ter feito, você pode verificar o valor atualizado de sobrecarga:
 
 ```bash
 kubectl get pod test-pod -o jsonpath='{.spec.overhead}'
@@ -100,50 +102,55 @@ A saída é:
 map[cpu:250m memory:120Mi]
 ```
 
-Se for definido um _ResourceQuota_, a soma das requisições dos contêineres assim como o campo `overhead` são contados.
+Se estiver definida uma [ResourceQuota](/docs/concepts/policy/resource-quotas/), a soma dos requisitos do Contêiner assim como 
+o campo `overhead` são contados.
 
 Quando o kube-scheduler está decidindo que nó deve executar um novo Pod, o agendador considera o `overhead` do pod,
-assim como a soma de pedidos aos contêineres para esse _Pod_. Para este exemplo, o agendador adiciona as requisições e a sobrecarga, depois procura um nó com 2.25 CPU e 320 MiB de memória disponível.
+assim como a soma dos requisitos do contêiner para esse Pod. Para este exemplo, o agendador adiciona as requisições e a sobrecarga, depois procura um nó com 2.25 CPU e 320 MiB de memória disponível.
 
-Assim que um Pod é agendado a um nó, o kubelet nesse nó cria um novo {{< glossary_tooltip text="cgroup" term_id="cgroup" >}}
-para o Pod. É dentro deste Pod que o agente de execução de contêiners subjacente vai criar contêineres.
+Assim que um Pod é agendado para um nó, o kubelet nesse nó cria um novo {{< glossary_tooltip text="cgroup" term_id="cgroup" >}}
+para o Pod. É dentro deste Pod que o contêiner Runtime subjacente vai criar os contêineres.
 
-Se o recurso tiver um limite definido para cada contêiner (_QoS_ garantida ou _Burstrable QoS_ com limites definidos),
+Se o recurso tiver um limite definido para cada contêiner (QoS garantida ou Burstrable QoS com limites definidos),
 o kubelet definirá um limite superior para o cgroup do Pod associado a esse recurso (cpu.cfs_quota_us para CPU
 e memory.limit_in_bytes de memória). Este limite superior é baseado na soma dos limites do contêiner mais o `overhead`
-definido no _PodSpec_.
+definido no PodSpec.
 
-Para CPU, se o Pod for QoS garantida ou _Burstrable QoS_, o kubelet vai definir `cpu.shares` baseado na soma dos
-pedidos ao contêiner mais o `overhead` definido no _PodSpec_.
+Para CPU, se o Pod for `Guaranteed` ou `Burstrable` QoS, o kubelet vai definir `cpu.shares` baseado na soma dos
+requisitos do contêiner mais o `overhead` definido no PodSpec.
 
 Olhando para o nosso exemplo, verifique as requisições ao contêiner para a carga de trabalho:
+
 ```bash
 kubectl get pod test-pod -o jsonpath='{.spec.containers[*].resources.limits}'
 ```
 
-O total de requisições ao contêiner são 2000m CPU e 200MiB de memória:
+O total de requisições do contêiner são 2000m CPU e 200MiB de memória:
+
 ```
 map[cpu: 500m memory:100Mi] map[cpu:1500m memory:100Mi]
 ```
 
-Verifique isto comparado ao que é observado pelo nó:
+Verifique isto, em vez de o que é observado pelo nó:
+
 ```bash
 kubectl describe node | grep test-pod -B2
 ```
 
-A saída mostra que 2250m CPU e 320MiB de memória são solicitados, que inclui _PodOverhead_:
+A saída mostra requisições de 2250m para CPU e 320MiB para memória. Os requisitos incluem a sobrecarga de Pod:
+
 ```
   Namespace                   Name                CPU Requests  CPU Limits   Memory Requests  Memory Limits  AGE
   ---------                   ----                ------------  ----------   ---------------  -------------  ---
   default                     test-pod            2250m (56%)   2250m (56%)  320Mi (1%)       320Mi (1%)     36m
 ```
 
-## Verificar os limites cgroup do Pod
+## Verifique os limites do cgroup do Pod
 
 Verifique os cgroups de memória do Pod no nó onde a carga de trabalho está em execução. No seguinte exemplo, [`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)
-é usado no nó, que fornece uma CLI para agentes de execução compatíveis com CRI. Isto é um
-exemplo avançado para mostrar o comportamento do _PodOverhead_, e não é esperado que os usuários precisem verificar
-cgroups diretamente no nó.
+é usado no nó, que fornece uma CLI para CRI-compatíveis contêineres runtime. Isto é um
+exemplo avançado para mostrar o comportamento do overhead do Pod, e não é esperado que os usuários devam verificar
+o cgroups diretamente no nó.
 
 Primeiro, no nó em particular, determine o identificador do Pod:
 
@@ -152,25 +159,29 @@ Primeiro, no nó em particular, determine o identificador do Pod:
 POD_ID="$(sudo crictl pods --name test-pod -q)"
 ```
 
-A partir disto, pode determinar o caminho do cgroup para o _Pod_:
+A partir disto, você pode determinar o caminho do cgroup para o Pod:
+
 ```bash
 # Execute no nó onde o Pod está agendado
 sudo crictl inspectp -o=json $POD_ID | grep cgroupsPath
 ```
 
-O caminho do cgroup resultante inclui o contêiner `pause` do Pod. O cgroup no nível do Pod está um diretório acima.
+O caminho do cgroup resultante inclui o contêiner `pause` do Pod. O cgroup de nível do Pod está um diretório acima.
+
 ```
-        "cgroupsPath": "/kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2/7ccf55aee35dd16aca4189c952d83487297f3cd760f1bbf09620e206e7d0c27a"
+  "cgroupsPath": "/kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2/7ccf55aee35dd16aca4189c952d83487297f3cd760f1bbf09620e206e7d0c27a"
 ```
 
-Neste caso especifico, o caminho do cgroup do Pod é `kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2`. Verifique a configuração cgroup de nível do Pod para a memória:
+Neste caso especifico, o caminho do cgroup do Pod é `kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2`. Verifique a configuração do cgroup de nível de Pod para memória:
+
 ```bash
 # Execute no nó onde o Pod está agendado
-# Mude também o nome do cgroup para combinar com o cgroup alocado ao Pod.
+# Mude também o nome do cgroup para combinar com o cgroup alocado ao seu Pod.
  cat /sys/fs/cgroup/memory/kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2/memory.limit_in_bytes
 ```
 
 Isto é 320 MiB, como esperado:
+
 ```
 335544320
 ```
@@ -178,16 +189,14 @@ Isto é 320 MiB, como esperado:
 ### Observabilidade
 
 Uma métrica `kube_pod_overhead` está disponível em [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)
-para ajudar a identificar quando o _PodOverhead_ está sendo utilizado e para ajudar a observar a estabilidade das cargas de trabalho
-em execução com uma sobrecarga (_Overhead_) definida. Esta funcionalidade não está disponível na versão 1.9 do kube-state-metrics,
-mas é esperado em uma próxima versão. Os usuários necessitarão entretanto construir o kube-state-metrics a partir do código fonte.
-
-
+para ajudar a identificar quando a sobrecarga de Pod está sendo utilizada e para ajudar a observar a estabilidade das cargas de trabalho
+em execução com uma sobrecarga definida.
 
 ## {{% heading "whatsnext" %}}
 
 
-* [RuntimeClass](/docs/concepts/containers/runtime-class/)
-* [PodOverhead Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+* Aprenda mais sobre [RuntimeClass](/docs/concepts/containers/runtime-class/)
+* Leia a proposta de aprimoramento de [Desenho de sobrecarga de Pod](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
+para um contexto extra
 
 
