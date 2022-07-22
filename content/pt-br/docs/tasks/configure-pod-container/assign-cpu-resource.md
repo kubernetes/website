@@ -2,11 +2,6 @@
 title: Atribuindo Recursos de CPU aos Contêineres e Pods
 content_type: task
 weight: 20
-update_date: 2022-07-16
-origin_version: 1.24
-contributors:
--DonatoHorn
-reviewers: 
 ---
 
 <!-- overview -->
