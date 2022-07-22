@@ -47,6 +47,6 @@ Você pode usar o `kubeadm config migrate` para converter seus arquivos de confi
 
 {{< include "generated/kubeadm_config_images_pull.md" >}}
 
-## {{% heading "O que vem a seguir?" %}}
+## {{% heading "whatsnext" %}}
 
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade) para atualizar um cluster Kubernetes para uma versão mais recente
