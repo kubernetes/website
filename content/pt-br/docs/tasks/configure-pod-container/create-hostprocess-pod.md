@@ -3,10 +3,6 @@ title: Crie um Hostprocess do Windows
 content_type: task
 weight: 20
 min-kubernetes-server-version: 1.23
-update_date: 2022-07-16
-origin_version: 1.24
-contributors: DonatoHorn
-reviewers:
 ---
 
 <!-- overview -->
