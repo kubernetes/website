@@ -26,29 +26,30 @@ The keys of `data` and `stringData` must consist of alphanumeric characters,
 
 The following example stores two strings in a Secret using the `data` field.
 
-Convert the strings to base64 as follows:
+Convert the strings to base64:
 
 ```shell
 echo -n 'admin' | base64
+echo -n '1f2d1e2e67df' | base64
 ```
+
+{{< note >}}
+The serialized JSON and YAML values of Secret data are encoded as base64
+strings. Newlines are not valid within these strings and must be omitted. When
+using the `base64` utility on Darwin/macOS, users should avoid using the `-b`
+option to split long lines. Conversely, Linux users *should* add the option
+`-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if the `-w`
+option is not available.
+{{< /note >}}
 
 The output is similar to:
 
 ```
 YWRtaW4=
-```
-
-```shell
-echo -n '1f2d1e2e67df' | base64
-```
-
-The output is similar to:
-
-```
 MWYyZDFlMmU2N2Rm
 ```
 
-Write a Secret config file that looks like this:
+Create the configuration file:
 
 ```yaml
 apiVersion: v1
@@ -63,15 +64,6 @@ data:
 
 Note that the name of a Secret object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-
-{{< note >}}
-The serialized JSON and YAML values of Secret data are encoded as base64
-strings. Newlines are not valid within these strings and must be omitted. When
-using the `base64` utility on Darwin/macOS, users should avoid using the `-b`
-option to split long lines. Conversely, Linux users *should* add the option
-`-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if the `-w`
-option is not available.
-{{< /note >}}
 
 For certain scenarios, you may wish to use the `stringData` field instead. This
 field allows you to put a non-base64 encoded string directly into the Secret,
@@ -104,9 +96,7 @@ stringData:
     password: <password>
 ```
 
-## Create the Secret object
-
-Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
+Create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
 
 ```shell
 kubectl apply -f ./secret.yaml
