@@ -608,31 +608,6 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 kubectl delete pod myapp myapp-debug
 ```
 
-## Debugging via a shell on the node {#node-shell-session}
+## {{% heading "whatsnext" %}}
 
-If none of these approaches work, you can find the Node on which the Pod is
-running and create a privileged Pod running in the host namespaces. To create
-an interactive shell on a node using `kubectl debug`, run:
-
-```shell
-kubectl debug node/mynode -it --image=ubuntu
-```
-
-```
-Creating debugging pod node-debugger-mynode-pdx84 with container debugger on node mynode.
-If you don't see a command prompt, try pressing enter.
-root@ek8s:/#
-```
-
-When creating a debugging session on a node, keep in mind that:
-
-* `kubectl debug` automatically generates the name of the new Pod based on
-  the name of the Node.
-* The container runs in the host IPC, Network, and PID namespaces.
-* The root filesystem of the Node will be mounted at `/host`.
-
-Don't forget to clean up the debugging Pod when you're finished with it:
-
-```shell
-kubectl delete pod node-debugger-mynode-pdx84
-```
+Learn more about [Debugging Kubernetes nodes with kubectl](/docs/tasks/debug/debug-cluster/kubectl-node-debug/).
