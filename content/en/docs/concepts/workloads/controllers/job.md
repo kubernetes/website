@@ -601,7 +601,7 @@ It is enabled by default.
 In most cases a parallel job will want the pods to run with constraints, 
 like all in the same zone, or all either on GPU model x or y but not a mix of both.
 
-The [suspend](#suspending-a-job) field is the first step towards achieving those semantics. Suspend allows a 
+The [`suspend`](#suspending-a-job) field is the first step towards achieving those semantics. Suspend allows a 
 custom queue controller to decide when a job should start; However, once a job is unsuspended,
 a custom queue controller has no influence on where the pods of a job will actually land.
 
