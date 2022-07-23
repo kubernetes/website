@@ -144,7 +144,7 @@ tolerations:
   tolerationSeconds: 3600
 ```
 
-means that if this pod is running which doesn't have required toleration and taint is added to the node, then
+means that if this pod is running without required toleration and taint is added to the node, then
 the pod will stay bound to the node for 3600 seconds, and then be evicted. If the
 taint is removed before that time, the pod will not be evicted.
 
