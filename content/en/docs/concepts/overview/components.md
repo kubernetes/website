@@ -4,8 +4,8 @@ reviewers:
 title: Kubernetes Components
 content_type: concept
 description: >
-  A Kubernetes cluster consists of the components that represent the control plane
-  and a set of machines called nodes.
+  A Kubernetes cluster consists of the components that are a part of the control
+  plane and a set of machines called nodes.
 weight: 20
 card: 
   name: concepts
