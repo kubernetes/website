@@ -100,7 +100,7 @@ then run the following commands:
 
 Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags.
 `--container-runtime=remote` and
-`--container-runtime-endpoint=unix:///run/containerd/containerd.sock"`.
+`--container-runtime-endpoint=unix:///run/containerd/containerd.sock`.
 
 Users using kubeadm should be aware that the `kubeadm` tool stores the CRI socket for each host as
 an annotation in the Node object for that host. To change it you can execute the following command
