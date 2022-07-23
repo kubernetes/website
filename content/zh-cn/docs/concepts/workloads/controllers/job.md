@@ -267,7 +267,7 @@ There are three main types of task suitable to run as a Job:
    - Job 用来代表整个任务，当成功的 Pod 个数达到 `.spec.completions` 时，Job 被视为完成。
    - 当使用 `.spec.completionMode="Indexed"` 时，每个 Pod 都会获得一个不同的
      索引值，介于 0 和 `.spec.completions-1` 之间。
-1. 带 *工作队列* 的并行 Job：
+1. 带**工作队列**的并行 Job：
    - 不设置 `spec.completions`，默认值为 `.spec.parallelism`。
    - 多个 Pod 之间必须相互协调，或者借助外部服务确定每个 Pod 要处理哪个工作条目。
      例如，任一 Pod 都可以从工作队列中取走最多 N 个工作条目。
