@@ -148,26 +148,26 @@ port 80 of the container directly to the Service.
     * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux control plane node
       to check for a web server response
     * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node)
-      using docker exec or kubectl exec
+      using `docker exec` or `kubectl exec`
     * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`)
       from the Linux control plane node and from individual pods
     * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
     * Inbound connectivity, `curl` the NodePort from the Linux control plane node or machines outside of the cluster
-    * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
+    * Outbound connectivity, `curl` external IPs from inside the pod using `kubectl exec`
 -->
 1. 检查部署是否成功。请验证：
 
    * 使用 `kubectl get pods` 从 Linux 控制平面节点能够列出两个 Pod
    * 跨网络的节点到 Pod 通信，从 Linux 控制平面节点上执行 `curl` 访问
      Pod IP 的 80 端口以检查 Web 服务器响应
-   * Pod 间通信，使用 docker exec 或 kubectl exec
+   * Pod 间通信，使用 `docker exec` 或 `kubectl exec`
      在 Pod 之间（以及跨主机，如果你有多个 Windows 节点）互 ping
    * Service 到 Pod 的通信，在 Linux 控制平面节点以及独立的 Pod 中执行 `curl`
      访问虚拟的服务 IP（在 `kubectl get services` 下查看）
    * 服务发现，使用 Kubernetes [默认 DNS 后缀](/zh-cn/docs/concepts/services-networking/dns-pod-service/#services)的服务名称，
      用 `curl` 访问服务名称
    * 入站连接，在 Linux 控制平面节点或集群外的机器上执行 `curl` 来访问 NodePort 服务
-   * 出站连接，使用 kubectl exec，从 Pod 内部执行 `curl` 访问外部 IP
+   * 出站连接，使用 `kubectl exec`，从 Pod 内部执行 `curl` 访问外部 IP
 
 {{< note >}}
 <!-- 
@@ -479,4 +479,4 @@ spec:
     app: iis-2019
 ```
 
-[RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
+[RuntimeClass]: /zh-cn/docs/concepts/containers/runtime-class/
