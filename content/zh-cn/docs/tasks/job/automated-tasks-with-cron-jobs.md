@@ -199,10 +199,9 @@ kubectl delete cronjob hello
 
 <!--
 Deleting the cron job removes all the jobs and pods it created and stops it from creating additional jobs.
-You can read more about removing jobs in [garbage collection](/docs/concepts/workloads/controllers/garbage-collection/).
+You can read more about removing jobs in [garbage collection](/docs/concepts/architecture/garbage-collection/).
 -->
-删除 CronJob 会清除它创建的所有任务和 Pod，并阻止它创建额外的任务。你可以查阅
-[垃圾收集](/zh-cn/docs/concepts/workloads/controllers/garbage-collection/)。
+删除 CronJob 会清除它创建的所有任务和 Pod，并阻止它创建额外的任务。你可以查阅[垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection/)。
 
 <!--
 ## Writing a Cron Job Spec
@@ -265,7 +264,7 @@ The format also includes extended "Vixie cron" step values. As explained in the 
 A question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
 -->
 {{< note >}}
-调度中的问号 (`?`) 和星号 `*` 含义相同，表示给定字段的任何可用值。
+调度中的问号 (`?`) 和星号 `*` 含义相同，它们用来表示给定字段的任何可用值。
 {{< /note >}}
 
 <!--
@@ -297,7 +296,8 @@ If this field is not specified, the jobs have no deadline.
 ### 开始的最后期限 {#starting-deadline}
 
 `.spec.startingDeadlineSeconds` 字段是可选的。
-它表示任务如果由于某种原因错过了调度时间，开始该任务的截止时间的秒数。过了截止时间，CronJob 就不会开始任务。
+它表示任务如果由于某种原因错过了调度时间，开始该任务的截止时间的秒数。
+过了截止时间，CronJob 就不会开始任务。
 不满足这种最后期限的任务会被统计为失败任务。如果此字段未设置，那任务就没有最后期限。
 
 <!--
