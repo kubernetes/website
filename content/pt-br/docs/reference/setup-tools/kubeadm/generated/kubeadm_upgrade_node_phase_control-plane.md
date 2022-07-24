@@ -40,7 +40,7 @@ kubeadm upgrade node phase control-plane [flags]
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Não altera nenhum estado, apenas produza as ações que seriam executadas.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Não altera nenhum estado, apenas produz as ações que seriam executadas.</p></td>
 </tr>
 
 <tr>
@@ -54,14 +54,14 @@ kubeadm upgrade node phase control-plane [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para a camada de gerenciamento</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para o comando control-plane</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrões locais pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, uma série de locais predefinidos pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 
@@ -69,7 +69,7 @@ kubeadm upgrade node phase control-plane [flags]
 <td colspan="2">--patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O caminho para um diretório que contém arquivos chamados &quot;target[suffix][+patchtype].extension&quot;. Por exemplo, &quot;kube-apiserver0+merge.yaml&quot; ou apenas &quot;etcd.json&quot;. &quot;target&quot; pode ser um dos &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;. &quot;patchtype&quot; pode ser um dos &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot;e eles correspondem aos formatos de patch suportados pelo kubectl. O &quot;patchtype&quot; é &quot;strategic&quot;. &quot;extension&quot; deve ser &quot;json&quot; ou &quot;yaml&quot;. &quot;suffix&quot; é uma string opcional que pode ser usada para determinar quais patches são aplicados primeiro alfanumericamente.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O caminho para um diretório que contém arquivos chamados &quot;target[suffix][+patchtype].extension&quot;. Por exemplo, &quot;kube-apiserver0+merge.yaml&quot; ou apenas &quot;etcd.json&quot;. &quot;target&quot; são &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;. &quot;patchtype&quot; pode ser um dos &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot;e eles correspondem aos formatos de patch suportados pelo kubectl. O padrão &quot;patchtype&quot; é &quot;strategic&quot;. &quot;extension&quot; deve ser &quot;json&quot; ou &quot;yaml&quot;. &quot;suffix&quot; é uma string opcional que pode ser usada para determinar a ordem de aplicação dos patches alfanumericamente.</p></td>
 </tr>
 
 </tbody>
