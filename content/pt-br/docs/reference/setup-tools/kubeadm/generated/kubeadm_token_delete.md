@@ -43,7 +43,7 @@ kubeadm token delete [token-value] ...
 
 
 
-### Opções herdadas do comando superior
+### Opções herdadas dos comandos superiores
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -63,7 +63,7 @@ kubeadm token delete [token-value] ...
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão locais pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de locais predefinidos pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>

@@ -40,7 +40,7 @@ kubeadm token list [flags]
 <td colspan="2">-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "text"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Formato de saída. Um dos: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Formato de saída. Valores válidos: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.</p></td>
 </tr>
 
 <tr>
@@ -54,7 +54,7 @@ kubeadm token list [flags]
 <td colspan="2">--show-managed-fields</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Se verdadeiro (true), mantem os managedFields ao exibir os objetos no formato JSON ou YAML.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Se verdadeiro (true), mantém os managedFields ao exibir os objetos no formato JSON ou YAML.</p></td>
 </tr>
 
 </tbody>
@@ -62,7 +62,7 @@ kubeadm token list [flags]
 
 
 
-### Options inherited from parent commands
+### Opções herdadas dos comandos superiores
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -82,7 +82,7 @@ kubeadm token list [flags]
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão locais pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de locais predefinidos pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>
