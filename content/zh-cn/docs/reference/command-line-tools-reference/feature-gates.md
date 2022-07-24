@@ -36,10 +36,10 @@ Feature gates are a set of key=value pairs that describe Kubernetes features.
 You can turn these features on or off using the `--feature-gates` command line flag
 on each Kubernetes component.
 -->
-## 概述
+## 概述 {#overview}
 
 特性门控是描述 Kubernetes 特性的一组键值对。你可以在 Kubernetes 的各个组件中使用
-`--feature-gates` flag 来启用或禁用这些特性。
+`--feature-gates` 标志来启用或禁用这些特性。
 
 <!--
 Each Kubernetes component lets you enable or disable a set of feature gates that
@@ -624,9 +624,9 @@ A feature can be in *Alpha*, *Beta* or *GA* stage.
 An *Alpha* feature means:
 -->
 
-处于 *Alpha* 、*Beta* 、 *GA* 阶段的特性。
+处于 **Alpha** 、**Beta** 、 **GA** 阶段的特性。
 
-*Alpha* 特性代表：
+**Alpha** 特性代表：
 
 <!--
 * Disabled by default.
@@ -645,7 +645,7 @@ An *Alpha* feature means:
 <!--
 A *Beta* feature means:
 -->
-*Beta* 特性代表：
+**Beta** 特性代表：
 
 <!--
 * Enabled by default.
@@ -671,14 +671,14 @@ A *Beta* feature means:
 Please do try *Beta* features and give feedback on them!
 After they exit beta, it may not be practical for us to make more changes.
 -->
-请试用 *Beta* 特性并提供相关反馈！
+请试用 **Beta** 特性并提供相关反馈！
 一旦特性结束 Beta 状态，我们就不太可能再对特性进行大幅修改。
 {{< /note >}}
 
 <!--
 A *General Availability* (GA) feature is also referred to as a *stable* feature. It means:
 -->
-*General Availability* (GA) 特性也称为 *稳定* 特性，*GA* 特性代表着：
+**General Availability** (GA) 特性也称为 **稳定** 特性，**GA** 特性代表着：
 
 <!--
 * The feature is always enabled; you cannot disable it.
@@ -695,7 +695,7 @@ A *General Availability* (GA) feature is also referred to as a *stable* feature.
 Each feature gate is designed for enabling/disabling a specific feature:
 -->
 
-### 特性门控列表
+### 特性门控列表 {#feature-gates}
 
 每个特性门控均用于启用或禁用某个特定的特性：
 
@@ -1107,7 +1107,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   参阅[对 DaemonSet 执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)。
 <!--
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
-  [default spreading](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints).
+  [default spreading](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints).
 - `DelegateFSGroupToCSIDriver`: If supported by the CSI driver, delegates the
   role of applying `fsGroup` from a Pod's `securityContext` to the driver by
   passing `fsGroup` through the NodeStageVolume and NodePublishVolume CSI calls.
@@ -1117,7 +1117,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Disable accelerator metrics collected by the kubelet](/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics).
 -->
 - `DefaultPodTopologySpread`: 启用 `PodTopologySpread` 调度插件来完成
-  [默认的调度传播](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints).
+  [默认的调度传播](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints).
 - `DelegateFSGroupToCSIDriver`: 如果 CSI 驱动程序支持，则通过 NodeStageVolume 和
   NodePublishVolume CSI 调用传递 `fsGroup` ，将应用 `fsGroup` 从 Pod 的
   `securityContext` 的角色委托给驱动。
@@ -1201,7 +1201,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
   to running pods.
 - `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See
-  [Pod Topology Spread Constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
+  [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `ExecProbeTimeout`: Ensure kubelet respects exec probe timeouts.
   This feature gate exists in case any of your existing workloads depend on a
   now-corrected fault where Kubernetes ignored exec probe timeouts. See
@@ -1211,7 +1211,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   {{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}
   到正在运行的 Pod 的特性。
 - `EvenPodsSpread`：使 Pod 能够在拓扑域之间平衡调度。请参阅
-  [Pod 拓扑扩展约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/)。
+  [Pod 拓扑扩展约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)。
 - `ExecProbeTimeout`：确保 kubelet 会遵从 exec 探针的超时值设置。
   此特性门控的主要目的是方便你处理现有的、依赖于已被修复的缺陷的工作负载；
   该缺陷导致 Kubernetes 会忽略 exec 探针的超时值设置。
@@ -1239,7 +1239,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [调整使用中的 PersistentVolumeClaim 的大小](/zh-cn/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)。
 - `ExpandPersistentVolumes`：允许扩充持久卷。请查阅
   [扩展持久卷申领](/zh-cn/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)。
-- `ExperimentalCriticalPodAnnotation`：启用将特定 Pod 注解为 *critical* 的方式，用于
+- `ExperimentalCriticalPodAnnotation`：启用将特定 Pod 注解为 **critical** 的方式，用于
   [确保其被调度](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。
   从 v1.13 开始已弃用此特性，转而使用 Pod 优先级和抢占功能。
 <!--
@@ -1386,7 +1386,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `JobMutableNodeSchedulingDirectives`: Allows updating node scheduling directives in
   the pod template of [Job](/docs/concepts/workloads/controllers/job).
 - `JobReadyPods`: Enables tracking the number of Pods that have a `Ready`
-  [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
+  [condition](/docs/concepts/scheduling-eviction/lifecycle/#pod-conditions).
   The count of `Ready` pods is recorded in the
   [status](/docs/reference/kubernetes-api/workload-resources/job-v1/#JobStatus)
   of a [Job](/docs/concepts/workloads/controllers/job) status.
@@ -1395,7 +1395,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   以支持 IPv6。
 - `JobMutableNodeSchedulingDirectives`：允许在 [Job](/docs/concepts/workloads/controllers/job)
   的 Pod 模板中更新节点调度指令。 
-- `JobReadyPods`：允许跟踪[状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)为
+- `JobReadyPods`：允许跟踪[状况](/zh-cn/docs/concepts/scheduling-eviction/lifecycle/#pod-conditions)为
   `Ready` 的 Pod 的个数。`Ready` 的 Pod 记录在
   [Job](/zh-cn/docs/concepts/workloads/controllers/job) 对象的
   [status](/docs/reference/kubernetes-api/workload-resources/job-v1/#JobStatus) 字段中。
@@ -1491,7 +1491,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `MemoryQoS`: Enable memory protection and usage throttle on pod / container using
   cgroup v2 memory controller.
 - `MinDomainsInPodTopologySpread`: Enable `minDomains` in Pod
-  [topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
+  [topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
 - `MountContainers`: Enable using utility containers on host as the volume mounter.
@@ -1504,7 +1504,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `MemoryManager`：允许基于 NUMA 拓扑为容器设置内存亲和性。
 - `MemoryQoS`：使用 cgroup v2 内存控制器在 pod / 容器上启用内存保护和使用限制。
 - `MinDomainsInPodTopologySpread`：启用 Pod 的 `minDomains`
-  [拓扑分布约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
+  [拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `MixedProtocolLBService`：允许在同一 `LoadBalancer` 类型的 Service 实例中使用不同的协议。
 - `MountContainers`：允许使用主机上的工具容器作为卷挂载程序。
 <!--
@@ -1583,7 +1583,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their
   [priorities](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 - `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
-  Pod readiness evaluation. See [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
+  Pod readiness evaluation. See [Pod readiness gate](/docs/concepts/scheduling-eviction/lifecycle/#pod-readiness-gate)
   for more details.
 - `PodSecurity`: Enables the `PodSecurity` admission plugin.
 - `PodShareProcessNamespace`: Enable the setting of `shareProcessNamespace` in a Pod for sharing
@@ -1597,7 +1597,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   的 Pod 调度和抢占。
 - `PodReadinessGates`：启用 `podReadinessGate` 字段的设置以扩展 Pod 准备状态评估。
   有关更多详细信息，请参见
-  [Pod 就绪状态判别](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)。
+  [Pod 就绪状态判别](/zh-cn/docs/concepts/scheduling-eviction/lifecycle/#pod-readiness-gate)。
 - `PodSecurity`: 开启 `PodSecurity` 准入控制插件。
 - `PodShareProcessNamespace`：在 Pod 中启用 `shareProcessNamespace` 的设置，
   以便在 Pod 中运行的容器之间共享同一进程名字空间。更多详细信息，请参见
@@ -1781,7 +1781,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `SizeMemoryBackedVolumes`: Enable kubelets to determine the size limit for
   memory-backed volumes (mainly `emptyDir` volumes).
 - `StartupProbe`: Enable the
-  [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)
+  [startup](/docs/concepts/scheduling-eviction/lifecycle/#when-should-you-use-a-startup-probe)
   probe in the kubelet.
 - `StatefulSetMinReadySeconds`: Allows `minReadySeconds` to be respected by
   the StatefulSet controller.
@@ -1791,7 +1791,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `SizeMemoryBackedVolumes`：允许 kubelet 检查基于内存制备的卷的尺寸约束
   （目前主要针对 `emptyDir` 卷）。
 - `StartupProbe`：在 kubelet 中启用
-  [启动探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)。
+  [启动探针](/zh-cn/docs/concepts/scheduling-eviction/lifecycle/#when-should-you-use-a-startup-probe)。
 - `StatefulSetMinReadySeconds`: 允许 StatefulSet 控制器采纳 `minReadySeconds` 设置。
 <!--
 - `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
