@@ -1,6 +1,6 @@
 ---
 title: kubeadm version
-content_type: conceito
+content_type: concept
 weight: 80
 ---
 <!-- overview -->
