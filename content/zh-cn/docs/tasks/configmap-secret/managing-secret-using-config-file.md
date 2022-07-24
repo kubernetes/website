@@ -19,10 +19,12 @@ description: Creating Secret objects using resource configuration file.
 
 <!-- steps -->
 
-<!-- ## Create the Config file -->
+<!--
+##Create the Config file
+-->
 ## 创建配置文件    {#create-the-config-file}
 
-<!-- 
+<!--
 You can create a Secret in a file first, in JSON or YAML format, and then
 create that object.  The
 [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
@@ -40,7 +42,7 @@ The keys of `data` and `stringData` must consist of alphanumeric characters,
 提供 `stringData` 字段是为了方便，它允许 Secret 使用未编码的字符串。
 `data` 和 `stringData` 的键必须由字母、数字、`-`，`_` 或 `.` 组成。
 
-<!--  
+<!--
 For example, to store two strings in a Secret using the `data` field, convert
 the strings to base64 as follows:
 -->
@@ -50,7 +52,9 @@ the strings to base64 as follows:
 echo -n 'admin' | base64
 ```
 
-<!-- The output is similar to: -->
+<!--
+The output is similar to:
+-->
 输出类似于：
 
 ```
@@ -61,14 +65,18 @@ YWRtaW4=
 echo -n '1f2d1e2e67df' | base64
 ```
 
-<!-- The output is similar to: -->
+<!--
+The output is similar to:
+-->
 输出类似于：
 
 ```
 MWYyZDFlMmU2N2Rm
 ```
 
-<!-- Write a Secret config file that looks like this: -->
+<!--
+Write a Secret config file that looks like  this:
+-->
 编写一个 Secret 配置文件，如下所示：
 
 ```yaml
@@ -86,7 +94,7 @@ data:
 Note that the name of a Secret object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). 
 -->
-注意，Secret 对象的名称必须是有效的 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). 
+注意，Secret 对象的名称必须是有效的 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 {{< note >}}
 <!--  
@@ -100,7 +108,7 @@ option is not available.
 Secret 数据的 JSON 和 YAML 序列化结果是以 base64 编码的。
 换行符在这些字符串中无效，必须省略。
 在 Darwin/macOS 上使用 `base64` 工具时，用户不应该使用 `-b` 选项分割长行。
-相反地，Linux 用户 *应该* 在 `base64` 地命令中添加 `-w 0` 选项，
+相反地，Linux 用户**应该**在 `base64` 地命令中添加 `-w 0` 选项，
 或者在 `-w` 选项不可用的情况下，输入 `base64 | tr -d '\n'`。
 {{< /note >}}
 
@@ -110,7 +118,7 @@ field allows you to put a non-base64 encoded string directly into the Secret,
 and the string will be encoded for you when the Secret is created or updated.
 -->
 对于某些场景，你可能希望使用 `stringData` 字段。
-这字段可以将一个非 base64 编码的字符串直接放入 Secret 中，
+这个字段可以将一个非 base64 编码的字符串直接放入 Secret 中，
 当创建或更新该 Secret 时，此字段将被编码。
 
 <!--  
@@ -121,7 +129,9 @@ parts of that configuration file during your deployment process.
 上述用例的实际场景可能是这样：当你部署应用时，使用 Secret 存储配置文件，
 你希望在部署过程中，填入部分内容到该配置文件。
 
-<!-- For example, if your application uses the following configuration file: -->
+<!--
+or example, if your application uses the following configuration file:
+-->
 例如，如果你的应用程序使用以下配置文件:
 
 ```yaml
@@ -130,7 +140,9 @@ username: "<user>"
 password: "<password>"
 ```
 
-<!-- You could store this in a Secret using the following definition: -->
+<!--
+You could store this in a Secret using the following definition:
+-->
 你可以使用以下定义将其存储在 Secret 中:
 
 ```yaml
@@ -146,24 +158,32 @@ stringData:
     password: <password>
 ```
 
-<!-- ## Create the Secret object -->
+<!--
+## Create the Secret object
+-->
 ## 创建 Secret 对象    {#create-the-secret-object}
 
-<!-- Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply): -->
+<!--
+Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
+-->
 现在使用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 创建 Secret：
 
 ```shell
 kubectl apply -f ./secret.yaml
 ```
 
-<!-- The output is similar to: -->
+<!--
+The output is similar to:
+-->
 输出类似于：
 
 ```
 secret/mysecret created
 ```
 
-<!-- ## Check the Secret -->
+<!--
+## Check the Secret
+-->
 ## 检查 Secret   {#check-the-secret}
 
 <!--  
@@ -178,7 +198,9 @@ retrieving Secrets. For example, if you run the following command:
 kubectl get secret mysecret -o yaml
 ```
 
-<!-- The output is similar to: -->
+<!--
+The output is similar to:
+-->
 输出类似于：
 
 ```yaml
@@ -204,7 +226,7 @@ To check the actual content of the encoded data, please refer to
 -->
 命令 `kubectl get` 和 `kubectl describe` 默认不显示 `Secret` 的内容。
 这是为了防止 `Secret` 意外地暴露给旁观者或者保存在终端日志中。
-检查编码数据的实际内容，请参考[解码 secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
+检查编码数据的实际内容，请参考[解码 secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)。
 
 <!-- 
 If a field, such as `username`, is specified in both `data` and `stringData`,
@@ -225,7 +247,9 @@ stringData:
   username: administrator
 ```
 
-<!-- Results in the following Secret: -->
+<!--
+Results in the following Secret:
+-->
 结果有以下 Secret：
 
 ```yaml
@@ -242,13 +266,19 @@ metadata:
 type: Opaque
 ```
 
-<!-- Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`. -->
+<!--
+Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
+-->
 其中 `YWRtaW5pc3RyYXRvcg==` 解码成 `administrator`。
 
-<!-- ## Clean Up -->
+<!--
+## Clean Up
+-->
 ## 清理    {#clean-up}
 
-<!-- To delete the Secret you have created: -->
+<!--
+To delete the Secret you have created:
+-->
 删除你创建的 Secret：
 
 ```shell
