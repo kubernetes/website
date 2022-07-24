@@ -35,7 +35,7 @@ kubeadm token create [token]
 <td colspan="2">--certificate-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Quando usado em conjunto com '--print-join-command', exibe a flag completa 'kubeadm join' necessário para se unir ao cluster como uma camada de gerenciamento. Para criar uma nova chave de certificado, você deve usar 'kubeadm init phase upload-certs --upload-certs'.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Quando usado em conjunto com '--print-join-command', exibe a flag completa 'kubeadm join' necessária para se unir ao cluster como um nó de camada de gerenciamento. Para criar uma nova chave de certificado, você deve usar 'kubeadm init phase upload-certs --upload-certs'.</p></td>
 </tr>
 
 <tr>
@@ -70,7 +70,7 @@ kubeadm token create [token]
 <td colspan="2">--print-join-command</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Em vez de exibir apenas o token, a flag completa 'kubeadm join' exibe o comando necessário para se associar ao cluster usando o token.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Em vez de exibir apenas o token, exibe a flag completa 'kubeadm join' necessária para se associar ao cluster usando o token.</p></td>
 </tr>
 
 <tr>
@@ -92,7 +92,7 @@ kubeadm token create [token]
 
 
 
-### Opções herdadas do comando superior
+### Opções herdadas dos comandos superiores
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -112,7 +112,7 @@ kubeadm token create [token]
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão locais pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de locais predefinidos pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>
@@ -124,6 +124,3 @@ kubeadm token create [token]
 
 </tbody>
 </table>
-
-
-

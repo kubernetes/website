@@ -1,6 +1,6 @@
 ---
 title: kubeadm token
-content_type: conceito
+content_type: concept
 weight: 70
 ---
 <!-- overview -->
@@ -10,18 +10,18 @@ Os Bootstrap tokens são usados para estabelecer uma relação de confiança bid
 O `kubeadm init` cria um token inicial com um TTL de 24 horas. Os comandos a seguir permitem que você gerencie esse token e também crie e gerencie os novos.
 
 <!-- body -->
-## Criar um token kubeadm {#cmd-token-create}
+## kubeadm token create {#cmd-token-create}
 {{< include "generated/kubeadm_token_create.md" >}}
 
-## Excluir um token kubeadm {#cmd-token-delete}
+## kubeadm token delete {#cmd-token-delete}
 {{< include "generated/kubeadm_token_delete.md" >}}
 
-## Gerar um token kubeadm {#cmd-token-generate}
+## kubeadm token generate {#cmd-token-generate}
 {{< include "generated/kubeadm_token_generate.md" >}}
 
-## Listar um token kubeadm {#cmd-token-list}
+## kubeadm token list {#cmd-token-list}
 {{< include "generated/kubeadm_token_list.md" >}}
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join) para inicializar um nó `worker` do Kubernetes e associá-lo ao cluster
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join) para inicializar um nó de carga de trabalho do Kubernetes e associá-lo ao cluster
