@@ -582,4 +582,5 @@
 
 /pt/*         /pt-br/:splat  302!
 /zh/*         /zh-cn/:splat  302!
-/docs/concepts/overview/what-is-kubernetes/     /docs/concepts/overview/   301
+
+/docs/concepts/overview/what-is-kubernetes/      /docs/concepts/overview/ 301
