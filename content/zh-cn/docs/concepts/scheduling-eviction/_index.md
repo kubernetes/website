@@ -55,7 +55,7 @@ of terminating one or more Pods on Nodes.
 * [Kubernetes 调度器](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)
 * [将 Pod 指派到节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)
 * [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)
-* [Pod 拓扑分布约束](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+* [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * [污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)
 * [调度框架](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework)
 * [调度器性能调试](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
