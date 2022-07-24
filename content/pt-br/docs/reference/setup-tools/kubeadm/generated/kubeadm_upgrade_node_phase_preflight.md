@@ -48,7 +48,7 @@ kubeadm upgrade node phase preflight [flags]
 
 
 
-### Opções herdadas do comando superior
+### Opções herdadas dos comandos superiores
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>

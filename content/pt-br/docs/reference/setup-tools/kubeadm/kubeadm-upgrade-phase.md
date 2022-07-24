@@ -1,14 +1,14 @@
 ---
-title: Fase de atualização do kubeadm
+title: kubeadm upgrade phase
 weight: 90
-content_type: conceito
+content_type: concept
 ---
 
-Na versão v1.15.0, o kubeadm introduziu um suporte preliminar para as fases `kubeadm upgrade node`. Fases para outros subcomandos `kubeadm upgrade`, tal como `apply`, podem ser adicionadas nas seguintes versões.
+Na versão v1.15.0, o kubeadm introduziu suporte preliminar para as fases `kubeadm upgrade node`. Fases para outros subcomandos `kubeadm upgrade`, tal como `apply`, podem ser adicionadas nas seguintes versões.
 
-## Fase de atualização do nó do kubeadm {#cmd-node-phase}
+## kubeadm upgrade node phase {#cmd-node-phase}
 
-Usando essa fase, você pode optar por executar as etapas separadas da atualização do plano de controle secundário ou nós. Observe que `kubeadm upgrade apply` ainda precisa ser chamado em um nó principal do plano de controle.
+Usando essa fase, você pode optar por executar as etapas separadas da atualização de nós, sejam eles nós secundários da camada de gerenciamento ou nós de execução de cargas de trabalho. Observe que `kubeadm upgrade apply` ainda precisa ser chamado em um nó principal da camada de gerenciamento.
 
 {{< tabs name="tab-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_upgrade_node_phase.md" />}}
