@@ -10,11 +10,11 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Atualiza a instância da camada de gerenciamento implantada nesse nó, se houver
+Atualiza a instância da camada de gerenciamento instalada nesse nó, se houver
 
 ### Sinopse
 
-Atualiza a instância da camada de gerenciamento implantada nesse nó, se houver
+Atualiza a instância da camada de gerenciamento instalada nesse nó, se houver
 
 ```
 kubeadm upgrade node phase control-plane [flags]
