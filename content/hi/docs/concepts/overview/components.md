@@ -16,7 +16,7 @@ card:
 
 यह दस्तावेज़ एक पूर्ण और कार्यशील कुबेरनेट क्लस्टर के लिए आवश्यक विभिन्न घटकों की रूपरेखा तैयार करता है।
 
-{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="कुबेरनेट्स क्लस्टर के घटक।" class="diagram-large" >}}
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="कुबेरनेट्स के घटक" caption="कुबेरनेट्स क्लस्टर के घटक।" class="diagram-large" >}}
 
 <!-- body -->
 ## कण्ट्रोल प्लेन अवयव
@@ -81,7 +81,7 @@ card:
 ## एडॉन्स
 एडॉन्स क्लस्टर सुविधाओं को लागू करने के लिए कुबेरनेट्स ({{< glossary_tooltip text="डेमोंसेट" term_id="daemonset" >}},
 {{< glossary_tooltip text="डिप्लॉयमेंट" term_id="deployment" >}}, आदि) संसाधनों का उपयोग करते हैं। क्योंकि ये क्लस्टर-स्तरीय सुविधाएँ प्रदान कर रहे हैं, नामस्थान संसाधन
-`क्यूब-सिस्टम ` नेमस्पेस में शामिल ऐडऑन के लिए।
+`kube-system` नेमस्पेस में शामिल ऐडऑन के लिए।
 
 चयनित ऐडऑन का वर्णन नीचे किया गया है; उपलब्ध ऐडऑन की विस्तृत सूची के लिए, कृपया यह [ऐडऑन](/docs/concepts/cluster-administration/addons/) देखें।
 
