@@ -31,7 +31,7 @@ A _Deployment_ provides declarative updates for {{< glossary_tooltip text="Pods"
 <!--
 You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_tooltip term_id="controller" >}} changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 -->
-你负责描述 Deployment 中的 _目标状态_，而 Deployment {{< glossary_tooltip term_id="controller" >}}
+你负责描述 Deployment 中的 **目标状态**，而 Deployment {{< glossary_tooltip term_id="controller" >}}
 以受控速率更改实际状态，
 使其变为期望状态。你可以定义 Deployment 以创建新的 ReplicaSet，或删除现有 Deployment，
 并通过新的 Deployment 收养其资源。
@@ -1470,7 +1470,7 @@ Kubernetes marks a Deployment as _progressing_ when one of the following tasks i
 -->
 ### 进行中的 Deployment  {#progressing-deployment}
 
-执行下面的任务期间，Kubernetes 标记 Deployment 为 _进行中（Progressing）_：
+执行下面的任务期间，Kubernetes 标记 Deployment 为**进行中**（Progressing）_：
 
 <!--
 * The Deployment creates a new ReplicaSet.
@@ -1506,7 +1506,7 @@ Kubernetes marks a Deployment as _complete_ when it has the following characteri
 -->
 ### 完成的 Deployment    {#complete-deployment}
 
-当 Deployment 具有以下特征时，Kubernetes 将其标记为 _完成（Complete）_：
+当 Deployment 具有以下特征时，Kubernetes 将其标记为**完成（Complete）**;
 
 <!--
 * All of the replicas associated with the Deployment have been updated to the latest version you've specified, meaning any
