@@ -15,29 +15,27 @@ Cette page est une vue d'ensemble du mécanisme d'authentification à Kubernetes
 
 
 <!-- body -->
-## Users in Kubernetes
+## Utilisateurs dans Kubernetes
 
-All Kubernetes clusters have two categories of users: service accounts managed
-by Kubernetes, and normal users.
+Tous les clusters Kubernetes possèdent deux catégories d'utilisateurs : les comptes de services managés par Kubernetes et les utilisateurs normaux.
 
-It is assumed that a cluster-independent service manages normal users in the following ways:
+On suppose qu'un service indépendant du cluster gère les utilisateurs normaux de la façon suivante :
 
-- an administrator distributing private keys
-- a user store like Keystone or Google Accounts
-- a file with a list of usernames and passwords
+- un administateur est en charge de distribuer les clés privées
+- un (service d'identité)/registre d'utilisateur comme (OpenStack) Keystone and Google Accounts
+- un fichier contenant une liste des utilisateurs et des mots de passes
 
-In this regard, _Kubernetes does not have objects which represent normal user
-accounts._ Normal users cannot be added to a cluster through an API call.
+A ce sujet, _Kubernetes ne possède pas d'objets qui représentent des comptes d'utilisateurs normaux._ Les utilisateurs normaux ne peuvent pas être ajoutés à un cluster par le biais d'un appel à l'API.
 
-Even though a normal user cannot be added via an API call, any user that
-presents a valid certificate signed by the cluster's certificate authority
-(CA) is considered authenticated. In this configuration, Kubernetes determines
-the username from the common name field in the 'subject' of the cert (e.g.,
-"/CN=bob"). From there, the role based access control (RBAC) sub-system would
-determine whether the user is authorized to perform a specific operation on a
-resource. For more details, refer to the normal users topic in
-[certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
-for more details about this.
+Même si un utilisateur normal ne peut pas être ajouté via un appel API, tout utilisateur 
+présentant un certificat valide signé par l'autorité de certification du cluster 
+(CA) est considére comme authentifié. Pour cette configuration, Kubernetes
+**détermine** le nom d'utilisateur à partir du champ **common name** présent dans le 'sujet'
+du certificat (par exemple, "/CN=bob"). À partir de là, le sous-système de contrôle d'accès
+basé sur les rôles (RBAC) détermine si l'utilisateur est autorisé **ou non** à effectuer 
+une opération spécifique sur une resource. Pour plus de détails ce sur point, reportez-vous à la 
+section utilisateurs normaux de la rubrique 
+[demande de certificat](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user).
 
 In contrast, service accounts are users managed by the Kubernetes API. They are
 bound to specific namespaces, and created automatically by the API server or
