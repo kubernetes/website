@@ -1261,6 +1261,24 @@ for more information.
 
 请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
+### kubernetes.io/psp (deprecated) {#kubernetes-io-psp}
+
+<!--
+Example: `kubernetes.io/psp: restricted`
+
+This annotation is only relevant if you are using [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
+
+When the PodSecurityPolicy admission controller admits a Pod, the admission controller
+modifies the Pod to have this annotation.
+The value of the annotation is the name of the PodSecurityPolicy that was used for validation.
+-->
+例子：`kubernetes.io/psp: restricted`
+
+只有当你使用 [PodSecurityPolicies](/zh-cn/docs/concepts/security/pod-security-policy/) 时，此注解才生效。
+
+当 PodSecurityPolicy 准入控制器接入一个 Pod 时，准入控制器为 Pod 添加此注解。
+注解的值是用于验证的 PodSecurityPolicy 的名称。
+
 <!--
 ### seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
 
