@@ -145,12 +145,19 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-`azureDisk` 의 `CSIMigration` 기능이 활성화된 경우, 기존 트리 내 플러그인에서
-`disk.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI)
-드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [Azure 디스크 CSI
-드라이버](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
-를 설치하고 `CSIMigration` 과 `CSIMigrationAzureDisk`
-기능을 활성화해야 한다.
+`azureDisk` 의 `CSIMigration` 기능이 활성화된 경우, 
+기존 인-트리 플러그인의 모든 플러그인 작업을 
+`disk.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI) 드라이버로 리다이렉트한다. 
+이 기능을 사용하려면, 클러스터에 
+[Azure Disk CSI 드라이버](https://github.com/kubernetes-sigs/azuredisk-csi-driver) 를 설치하고 
+`CSIMigration` 및 `CSIMigrationAzureDisk` 기능을 활성화해야 한다.
+
+#### azureDisk CSI 마이그레이션 완료
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+컨트롤러 매니저 및 kubelet이 `azureDisk` 스토리지 플러그인을 로드하지 않도록 하려면, 
+`InTreePluginAzureDiskUnregister` 플래그를 `true`로 설정한다.
 
 ### azureFile {#azurefile}
 
@@ -163,14 +170,21 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
-`azureFile` 의 `CSIMigration` 기능이 활성화된 경우, 기존 트리 내 플러그인에서
-`file.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI)
-드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [Azure 파일 CSI
-드라이버](https://github.com/kubernetes-sigs/azurefile-csi-driver)
-를 설치하고 `CSIMigration` 과 `CSIMigrationAzureFile`
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+`azureFile` 의 `CSIMigration` 기능이 활성화된 경우, 
+기존 인-트리 플러그인의 모든 플러그인 작업을 
+`file.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI) 드라이버로 리다이렉트한다. 
+이 기능을 사용하려면, 클러스터에 
+[Azure File CSI 드라이버](https://github.com/kubernetes-sigs/azurefile-csi-driver) 를 설치하고 
+`CSIMigration` 및 `CSIMigrationAzureFile` 기능을 활성화해야 한다.
 
 Azure File CSI 드라이버는 동일한 볼륨을 다른 fsgroup에서 사용하는 것을 지원하지 않는다. Azurefile CSI 마이그레이션이 활성화된 경우, 다른 fsgroup에서 동일한 볼륨을 사용하는 것은 전혀 지원되지 않는다.
+
+#### azureFile CSI 마이그레이션 완료
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+컨트롤러 매니저 및 kubelet이 `azureFile` 스토리지 플러그인을 로드하지 않도록 하려면, 
+`InTreePluginAzureFileUnregister` 플래그를 `true`로 설정한다.
 
 ### cephfs
 
@@ -251,7 +265,7 @@ metadata:
 spec:
   containers:
     - name: test
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
         - name: config-vol
           mountPath: /etc/config
@@ -879,9 +893,7 @@ RBD CSI 드라이버로의 마이그레이션을 시도하기 전에
 * 또한, 트리 내(in-tree) 스토리지클래스의 
   `adminId` 값이 `admin`이 아니면, 트리 내(in-tree) 스토리지클래스의 
   `adminSecretName` 값이 `adminId` 파라미터 값의 
-  base64 값으로 패치되어야 하며, 아니면 이 단계를 건너뛸 수 있다.
-
-{{< /note >}}
+  base64 값으로 패치되어야 하며, 아니면 이 단계를 건너뛸 수 있다. {{< /note >}}
 
 ### secret
 
@@ -1130,7 +1142,7 @@ spec:
         fieldRef:
           apiVersion: v1
           fieldPath: metadata.name
-    image: busybox
+    image: busybox:1.28
     command: [ "sh", "-c", "while [ true ]; do echo 'Hello'; sleep 10; done | tee -a /logs/hello.txt" ]
     volumeMounts:
     - name: workdir1
