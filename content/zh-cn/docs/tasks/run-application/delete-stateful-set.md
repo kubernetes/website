@@ -78,14 +78,14 @@ kubectl delete -f <file.yaml> --cascade=orphan
 ```
 
 <!--
-By passing `--cascade=orphan` to `kubectl delete`, the Pods managed by the StatefulSet are left behind even after the StatefulSet object itself is deleted. If the pods have a label `app=myapp`, you can then delete them as follows:
+By passing `--cascade=orphan` to `kubectl delete`, the Pods managed by the StatefulSet are left behind even after the StatefulSet object itself is deleted. If the pods have a label `app.kubernetes.io/name=MyApp`, you can then delete them as follows:
 --->
 通过将 `--cascade=orphan` 传递给 `kubectl delete`，在删除 StatefulSet 对象之后，
-StatefulSet 管理的 Pod 会被保留下来。如果 Pod 具有标签 `app=myapp`，则可以按照
+StatefulSet 管理的 Pod 会被保留下来。如果 Pod 具有标签 `app.kubernetes.io/name=MyApp`，则可以按照
 如下方式删除它们：
 
 ```shell
-kubectl delete pods -l app=myapp
+kubectl delete pods -l app.kubernetes.io/name=MyApp
 ```
 
 
@@ -120,15 +120,15 @@ To simply delete everything in a StatefulSet, including the associated pods, you
 
 ```shell
 grace=$(kubectl get pods <stateful-set-pod> --template '{{.spec.terminationGracePeriodSeconds}}')
-kubectl delete statefulset -l app=myapp
+kubectl delete statefulset -l app.kubernetes.io/name=MyApp
 sleep $grace
-kubectl delete pvc -l app=myapp
+kubectl delete pvc -l app.kubernetes.io/name=MyApp
 ```
 
 <!--
-In the example above, the Pods have the label `app=myapp`; substitute your own label as appropriate.
+In the example above, the Pods have the label `app.kubernetes.io/name=MyApp`; substitute your own label as appropriate.
 -->
-在上面的例子中，Pod 的标签为 `app=myapp`；适当地替换你自己的标签。
+在上面的例子中，Pod 的标签为 `app.kubernetes.io/name=MyApp`；适当地替换你自己的标签。
 
 <!--
 ### Force deletion of StatefulSet pods

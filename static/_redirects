@@ -158,6 +158,7 @@
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301!
 /docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
 /docs/concepts/workloads/pods/pod-overview/     /docs/concepts/workloads/pods/ 301
+/docs/concepts/workloads/pods/pod-topology-spread-constraints/ /docs/concepts/scheduling-eviction/topology-spread-constraints/ 301
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
 
 /docs/concepts/policy/pod-security-policy/      /docs/concepts/security/pod-security-policy/ 301

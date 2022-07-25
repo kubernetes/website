@@ -320,12 +320,12 @@ in the Pod Lifecycle documentation.
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
 * Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
   configure different Pods with different container runtime configurations.
-* Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how you can use it to manage application availability during disruptions.
 * Pod is a top-level resource in the Kubernetes REST API.
   The {{< api-reference page="workload-resources/pod-v1" >}}
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
+* Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 
 To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}), you can read about the prior art, including:
 
