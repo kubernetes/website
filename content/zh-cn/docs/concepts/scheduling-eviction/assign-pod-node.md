@@ -17,40 +17,45 @@ weight: 20
 <!-- overview -->
 
 <!--
-You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} so that it can only run on particular set of
-{{< glossary_tooltip text="node(s)" term_id="node" >}}.
+You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} so that it is 
+_restricted_ to run on particular {{< glossary_tooltip text="node(s)" term_id="node" >}},
+or to _prefer_ to run on particular nodes.
 There are several ways to do this and the recommended approaches all use
 [label selectors](/docs/concepts/overview/working-with-objects/labels/) to facilitate the selection.
-Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
+Often, you do not need to set any such constraints; the
+{{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}  will automatically do a reasonable placement
 (for example, spreading your Pods across nodes so as not place Pods on a node with insufficient free resources).
 However, there are some circumstances where you may want to control which node
-the Pod deploys to, for example, to ensure that a Pod ends up on a node with an SSD attached to it, or to co-locate Pods from two different
-services that communicate a lot into the same availability zone.
+the Pod deploys to, for example, to ensure that a Pod ends up on a node with an SSD attached to it,
+or to co-locate Pods from two different services that communicate a lot into the same availability zone.
 -->
 你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}}
-只能在特定的{{< glossary_tooltip text="节点" term_id="node" >}}上运行。
+以便 **限制** 其只能在特定的{{< glossary_tooltip text="节点" term_id="node" >}}上运行，
+或优先在特定的节点上运行。
 有几种方法可以实现这点，推荐的方法都是用
 [标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来进行选择。
 通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 Pod 分散到节点上，
 而不是将 Pod 放置在可用资源不足的节点上等等）。但在某些情况下，你可能需要进一步控制
-Pod 被部署到的节点。例如，确保 Pod 最终落在连接了 SSD 的机器上，
+Pod 被部署到哪个节点。例如，确保 Pod 最终落在连接了 SSD 的机器上，
 或者将来自两个不同的服务且有大量通信的 Pods 被放置在同一个可用区。
 
 <!-- body -->
 
 <!--
 You can use any of the following methods to choose where Kubernetes schedules
-specific Pods: 
+specific Pods:
 
-* [nodeSelector](#nodeselector) field matching against [node labels](#built-in-node-labels)
-* [Affinity and anti-affinity](#affinity-and-anti-affinity)
-* [nodeName](#nodename) field
+  * [nodeSelector](#nodeselector) field matching against [node labels](#built-in-node-labels)
+  * [Affinity and anti-affinity](#affinity-and-anti-affinity)
+  * [nodeName](#nodename) field
+  * [Pod topology spread constraints](#pod-topology-spread-constraints)
 -->
 你可以使用下列方法中的任何一种来选择 Kubernetes 对特定 Pod 的调度：
 
 * 与[节点标签](#built-in-node-labels)匹配的 [nodeSelector](#nodeSelector)
 * [亲和性与反亲和性](#affinity-and-anti-affinity)
 * [nodeName](#nodename) 字段
+* [Pod 拓扑分布约束](#pod-topology-spread-constraints)
 
 <!--
 ## Node labels {#built-in-node-labels}
@@ -392,8 +397,8 @@ NodeAffinity specified in the PodSpec.
 That is, in order to match the Pod, nodes need to satisfy `addedAffinity` and
 the Pod's `.spec.NodeAffinity`.
 -->
-这里的 `addedAffinity` 除遵从 Pod 规约中设置的节点亲和性之外，还
-适用于将 `.spec.schedulerName` 设置为 `foo-scheduler`。
+这里的 `addedAffinity` 除遵从 Pod 规约中设置的节点亲和性之外，
+还适用于将 `.spec.schedulerName` 设置为 `foo-scheduler`。
 换言之，为了匹配 Pod，节点需要满足 `addedAffinity` 和 Pod 的 `.spec.NodeAffinity`。
 
 <!--
@@ -627,11 +632,9 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 -->
 用户也可以使用 `namespaceSelector` 选择匹配的名字空间，`namespaceSelector`
 是对名字空间集合进行标签查询的机制。
-亲和性条件会应用到 `namespaceSelector` 所选择的名字空间和 `namespaces` 字段中
-所列举的名字空间之上。
+亲和性条件会应用到 `namespaceSelector` 所选择的名字空间和 `namespaces` 字段中所列举的名字空间之上。
 注意，空的 `namespaceSelector`（`{}`）会匹配所有名字空间，而 null 或者空的
 `namespaces` 列表以及 null 值 `namespaceSelector` 意味着“当前 Pod 的名字空间”。
-
 
 <!--
 #### More practical use-cases
@@ -639,21 +642,25 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 Inter-pod affinity and anti-affinity can be even more useful when they are used with higher
 level collections such as ReplicaSets, StatefulSets, Deployments, etc.  These
 rules allow you to configure that a set of workloads should
-be co-located in the same defined topology, eg., the same node.
+be co-located in the same defined topology; for example, preferring to place two related
+Pods onto the same node.
 -->
 #### 更实际的用例
 
 Pod 间亲和性与反亲和性在与更高级别的集合（例如 ReplicaSet、StatefulSet、
 Deployment 等）一起使用时，它们可能更加有用。
-这些规则使得你可以配置一组工作负载，使其位于相同定义拓扑（例如，节点）中。
+这些规则使得你可以配置一组工作负载，使其位于所定义的同一拓扑中；
+例如优先将两个相关的 Pod 置于相同的节点上。
 
 <!--
-Take, for example, a three-node cluster running a web application with an
-in-memory cache like redis. You could use inter-pod affinity and anti-affinity
-to co-locate the web servers with the cache as much as possible.
+For example: imagine a three-node cluster. You use the cluster to run a web application
+and also an in-memory cache (such as Redis). For this example, also assume that latency between
+the web application and the memory cache should be as low as is practical. You could use inter-pod
+affinity and anti-affinity to co-locate the web servers with the cache as much as possible.
 -->
-以一个三节点的集群为例，该集群运行一个带有 Redis 这种内存缓存的 Web 应用程序。
-你可以使用节点间的亲和性和反亲和性来尽可能地将 Web 服务器与缓存并置。
+以一个三节点的集群为例。你使用该集群运行一个带有内存缓存（例如 Redis）的 Web 应用程序。
+在此例中，还假设 Web 应用程序和内存缓存之间的延迟应尽可能低。
+你可以使用 Pod 间的亲和性和反亲和性来尽可能地将该 Web 服务器与缓存并置。
 
 <!--
 In the following example Deployment for the redis cache, the replicas get the label `app=store`. The
@@ -696,14 +703,14 @@ spec:
 ```
 
 <!--
-The following Deployment for the web servers creates replicas with the label `app=web-store`. The
-Pod affinity rule tells the scheduler to place each replica on a node that has a
-Pod with the label `app=store`. The Pod anti-affinity rule tells the scheduler
-to avoid placing multiple `app=web-store` servers on a single node.
+The following example Deployment for the web servers creates replicas with the label `app=web-store`.
+The Pod affinity rule tells the scheduler to place each replica on a node that has a Pod
+with the label `app=store`. The Pod anti-affinity rule tells the scheduler never to place
+multiple `app=web-store` servers on a single node.
 -->
-下面的 Deployment 用来提供 Web 服务器服务，会创建带有标签 `app=web-store` 的副本。
-Pod 亲和性规则告诉调度器将副本放到运行有标签包含 `app=store` Pod 的节点上。
-Pod 反亲和性规则告诉调度器不要在同一节点上放置多个 `app=web-store` 的服务器。
+下例的 Deployment 为 Web 服务器创建带有标签 `app=web-store` 的副本。
+Pod 亲和性规则告诉调度器将每个副本放到存在标签为 `app=store` 的 Pod 的节点上。
+Pod 反亲和性规则告诉调度器决不要在单个节点上放置多个 `app=web-store` 服务器。
 
 ```yaml
 apiVersion: apps/v1
@@ -756,11 +763,20 @@ where each web server is co-located with a cache, on three separate nodes.
 | *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
 |  *cache-1*           |     *cache-2*       |     *cache-3*      |
 
+<!-- 
+The overall effect is that each cache instance is likely to be accessed by a single client, that
+is running on the same node. This approach aims to minimize both skew (imbalanced load) and latency. 
+-->
+总体效果是每个缓存实例都非常可能被在同一个节点上运行的某个客户端访问。
+这种方法旨在最大限度地减少偏差（负载不平衡）和延迟。
+
 <!--
+You might have other reasons to use Pod anti-affinity.
 See the [ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
 for an example of a StatefulSet configured with anti-affinity for high
 availability, using the same technique as this example.
 -->
+你可能还有使用 Pod 反亲和性的一些其他原因。
 参阅 [ZooKeeper 教程](/zh-cn/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
 了解一个 StatefulSet 的示例，该 StatefulSet 配置了反亲和性以实现高可用，
 所使用的是与此例相同的技术。
@@ -819,6 +835,27 @@ spec:
 The above Pod will only run on the node `kube-01`.
 -->
 上面的 Pod 只能运行在节点 `kube-01` 之上。
+
+<!-- 
+## Pod topology spread constraints
+
+You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}}
+are spread across your cluster among failure-domains such as regions, zones, nodes, or among any other
+topology domains that you define. You might do this to improve performance, expected availability, or
+overall utilization.
+
+Read [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+to learn more about how these work. 
+-->
+## Pod 拓扑分布约束 {#pod-topology-spread-constraints}
+
+你可以使用 **拓扑分布约束（Topology Spread Constraints）** 来控制
+{{< glossary_tooltip text="Pod" term_id="Pod" >}} 在集群内故障域之间的分布，
+故障域的示例有区域（Region）、可用区（Zone）、节点和其他用户自定义的拓扑域。
+这样做有助于提升性能、实现高可用或提升资源利用率。
+
+阅读 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+以进一步了解这些约束的工作方式。
 
 ## {{% heading "whatsnext" %}}
 
