@@ -1218,16 +1218,28 @@ persistent volume:
   `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field is
   optional, and may be empty if no secret is required. If the Secret
   contains more than one secret, all secrets are passed.
-* `nodeStageSecretRef`: A reference to the secret object containing
-  sensitive information to pass to the CSI driver to complete the CSI
-  `NodeStageVolume` call. This field is optional, and may be empty if no secret
-  is required. If the Secret contains more than one secret, all secrets
-  are passed.
+`nodeExpandSecretRef`: A reference to the secret containing sensitive
+  information to pass to the CSI driver to complete the CSI
+  `NodeExpandVolume` call. This field is optional, and may be empty if no
+  secret is required. If the object contains more than one secret, all
+  secrets are passed.  When you have configured secret data for node-initiated
+  volume expansion, the kubelet passes that data via the `NodeExpandVolume()`
+  call to the CSI driver. In order to use the `nodeExpandSecretRef` field, your
+  cluster should be running Kubernetes version 1.25 or later and you must enable
+  the [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)
+  named `CSINodeExpandSecret` for each kube-apiserver and for the kubelet on every
+  node. You must also be using a CSI driver that supports or requires secret data during
+  node-initiated storage resize operations.
 * `nodePublishSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
   `NodePublishVolume` call. This field is optional, and may be empty if no
   secret is required. If the secret object contains more than one secret, all
   secrets are passed.
+* `nodeStageSecretRef`: A reference to the secret object containing
+  sensitive information to pass to the CSI driver to complete the CSI
+  `NodeStageVolume` call. This field is optional, and may be empty if no secret
+  is required. If the Secret contains more than one secret, all secrets
+  are passed.
 
 #### CSI raw block volume support
 
