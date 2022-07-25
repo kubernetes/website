@@ -5,8 +5,8 @@ content_type: task
 ---
 
 This task outlines the steps needed to update your container runtime to containerd from Docker. It
-is applicable for cluster operators running Kubernetes 1.23 or earlier. Also  this covers an
-example scenario for migrating from dockershim to containerd and alternative container runtimes
+is applicable for cluster operators running Kubernetes 1.23 or earlier. This also covers an
+example scenario for migrating from dockershim to containerd. Alternative container runtimes
 can be picked from this [page](/docs/setup/production-environment/container-runtimes/).
 
 ## {{% heading "prerequisites" %}}
