@@ -113,7 +113,7 @@ These labels can include
 <!--
 If your cluster spans multiple zones or regions, you can use node labels
 in conjunction with
-[Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
+[Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 to control how Pods are spread across your cluster among fault domains:
 regions, zones, and even specific nodes.
 These hints enable the
@@ -122,7 +122,7 @@ Pods for better expected availability, reducing the risk that a correlated
 failure affects your whole workload.
 -->
 如果你的集群跨了多个可用区或者地理区域，你可以使用节点标签，结合
-[Pod 拓扑分布约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
+[Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 来控制如何在你的集群中多个失效域之间分布 Pods。这里的失效域可以是
 地理区域、可用区甚至是特定节点。
 这些提示信息使得{{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}
