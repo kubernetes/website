@@ -59,7 +59,7 @@ API 서버에서 노드, 파드 또는 서비스로의 연결은 기본적으로
 이 터널은 트래픽이 노드가 실행 중인 네트워크 외부에 노출되지 않도록 한다.
 
 {{< note >}}
-SSH 터널은 현재 더 이상 사용되지 않으므로, 수행 중인 작업이 어떤 것인지 모른다면 사용하면 안된다. [Konnectivity 서비스](#konnectivity-service)가 SSH 통신 채널을 대체한다.
+SSH 터널은 현재 더 이상 사용되지 않으므로, 수행 중인 작업이 어떤 것인지 모른다면 사용하면 안 된다. [Konnectivity 서비스](#konnectivity-service)가 SSH 통신 채널을 대체한다.
 {{< note >}}
 
 ### Konnectivity 서비스

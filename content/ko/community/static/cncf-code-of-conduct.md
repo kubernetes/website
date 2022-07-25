@@ -15,10 +15,10 @@ CNCF 커뮤니티의 기여자 및 메인테이너(maintainer)로서 개방적�
 참여할 수 있도록 최선을 다하고 있습니다.
 
 ## 범위
-본 행동 강령은 프로젝트 활동 영역 내에서 뿐만 아니라 개인이 프로젝트 또는 커뮤니티를 대변하는 공공의 활동 영역에서도 적용됩니다.
+본 행동 강령은 프로젝트 활동 영역 내에서뿐만 아니라 개인이 프로젝트 또는 커뮤니티를 대변하는 공공의 활동 영역에서도 적용됩니다.
 
 ## CNCF 이벤트
-CNCF 이벤트, 혹은 리눅스 재단에서 이벤트 전문 직원과 운영영되는 이벤트는 이벤트 페이지에 명시된 Linux Foundation [이벤트 행동강령](https://events.linuxfoundation.org/code-of-conduct)에 의거하여 운영됩니다. 해당 행동강령은 CNCF의 행동 강령과 함께 사용하도록 고안되었습니다.
+CNCF 이벤트, 혹은 리눅스 재단에서 이벤트 전문 직원과 운영하는 이벤트는 이벤트 페이지에 명시된 Linux Foundation [이벤트 행동 강령](https://events.linuxfoundation.org/code-of-conduct)에 의거하여 운영됩니다. 해당 행동 강령은 CNCF의 행동 강령과 함께 사용하도록 고안되었습니다.
 
 ## 우리의 원칙
 
@@ -48,11 +48,11 @@ CNCF 이벤트, 혹은 리눅스 재단에서 이벤트 전문 직원과 운영�
 ## 신고
 쿠버네티스 커뮤니티에서 발생하는 사건들은 [쿠버네티스 행동 강령 위원회](https://git.k8s.io/community/committee-code-of-conduct)에 이메일 <conduct@kubernetes.io>를 통해 신고할 수 있습니다. 신고시 3일 내 회신을 받을 수 있습니다.
 
-기타 다른 프로젝트에 관해서는 CNCF 직원에게 이메일 <conduct@cncf.io>으로 문의 주시기 바랍니다.
+기타 다른 프로젝트에 관해서는 CNCF 직원에게 이메일 <conduct@cncf.io>으로 문의하십시오.
 
-CNCF는 외부 중재자로 Mishi Choudhary <mishi@linux.com>를 두고 있습니다. 외부 중재자는 CNCF 직원의 안내에 따라 의뢰 가능합니다. 보통의 경우 <conduct@cncf.io>로 직접 연락하는 것을 추천드립니다.
+CNCF는 외부 중재자로 Mishi Choudhary <mishi@linux.com>를 두고 있습니다. 외부 중재자는 CNCF 직원의 안내에 따라 의뢰 가능합니다. 보통의 경우 <conduct@cncf.io>로 직접 연락하는 것을 추천합니다.
 
-쿠버네티스(Kubernetes)에서의 폭력, 학대 또는 기타 허용되지 않는 행위는 [쿠버네티스 행동 강령 위원회](https://git.k8s.io/community/committee-code-of-conduct)에 이메일 <conduct@kubernetes.io>를 통해 신고할 수 있습니다. 다른 프로젝트의 경우는 CNCF 프로젝트 메인테이너 또는 중재자인 Mishi Choudhary의 이메일 <mishi@linux.com>으로 문의해 주시기 바랍니다.
+쿠버네티스(Kubernetes)에서의 폭력, 학대 또는 기타 허용되지 않는 행위는 [쿠버네티스 행동 강령 위원회](https://git.k8s.io/community/committee-code-of-conduct)에 이메일 <conduct@kubernetes.io>를 통해 신고할 수 있습니다. 다른 프로젝트의 경우는 CNCF 프로젝트 메인테이너 또는 중재자인 Mishi Choudhary의 이메일 <mishi@linux.com>으로 문의하십시오.
 
 ## 집행
 쿠버네티 프로젝트의 [행동 강령 위원회](https://github.com/kubernetes/community/tree/master/committee-code-of-conduct)가 행동 강령 발행을 시행합니다. 기타 프로젝트에 관하여는 CNCF가 행동강력 발행을 시행합니다.
@@ -61,6 +61,6 @@ CNCF는 외부 중재자로 Mishi Choudhary <mishi@linux.com>를 두고 있습�
 
 ### 확인
 
-본 행동 강령은 기여자 서약 (https://contributor-covenant.org) 에서
+본 행동 강령은 기여자 서약(https://contributor-covenant.org)에서
 제공하는 버전 2.0을 적용하였으며, 해당 내용은
 https://contributor-covenant.org/version/2/0/code_of_conduct/ 에서 확인할 수 있습니다.
