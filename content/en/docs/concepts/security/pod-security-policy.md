@@ -214,6 +214,9 @@ controller selects policies according to the following criteria:
 2. If the pod must be defaulted or mutated, the first PodSecurityPolicy
    (ordered by name) to allow the pod is selected.
 
+When a Pod is validated against a PodSecurityPolicy, [a `kubernetes.io/psp` annotation](/docs/reference/labels-annotations-taints/#kubernetes-io-psp)
+is added to the Pod, with the name of the PodSecurityPolicy as the annotation value.
+
 {{< note >}}
 During update operations (during which mutations to pod specs are disallowed)
 only non-mutating PodSecurityPolicies are used to validate the pod.
@@ -245,8 +248,7 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 
 ### Create a policy and a pod
 
-Define the example PodSecurityPolicy object in a file. This is a policy that
-prevents the creation of privileged pods.
+This is a policy that prevents the creation of privileged pods.
 The name of a PodSecurityPolicy object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
@@ -255,7 +257,7 @@ The name of a PodSecurityPolicy object must be a valid
 And create it with kubectl:
 
 ```shell
-kubectl-admin create -f example-psp.yaml
+kubectl-admin create -f https://k8s.io/examples/policy/example-psp.yaml
 ```
 
 Now, as the unprivileged user, try to create a simple pod:
@@ -284,6 +286,11 @@ pod's service account nor `fake-user` have permission to use the new policy:
 
 ```shell
 kubectl-user auth can-i use podsecuritypolicy/example
+```
+
+The output is similar to this:
+
+```
 no
 ```
 
@@ -300,14 +307,27 @@ kubectl-admin create role psp:unprivileged \
     --verb=use \
     --resource=podsecuritypolicy \
     --resource-name=example
-role "psp:unprivileged" created
+```
 
+```
+role "psp:unprivileged" created
+```
+
+```shell
 kubectl-admin create rolebinding fake-user:psp:unprivileged \
     --role=psp:unprivileged \
     --serviceaccount=psp-example:fake-user
-rolebinding "fake-user:psp:unprivileged" created
+```
 
+```
+rolebinding "fake-user:psp:unprivileged" created
+```
+
+```shell
 kubectl-user auth can-i use podsecuritypolicy/example
+```
+
+```
 yes
 ```
 
@@ -332,7 +352,20 @@ The output is similar to this
 pod "pause" created
 ```
 
-It works as expected! But any attempts to create a privileged pod should still
+It works as expected! You can verify that the pod was validated against the
+newly created PodSecurityPolicy:
+
+```shell
+kubectl-user get pod pause -o yaml | grep kubernetes.io/psp
+```
+
+The output is similar to this
+
+```
+kubernetes.io/psp: example
+```
+
+But any attempts to create a privileged pod should still
 be denied:
 
 ```shell
