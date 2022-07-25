@@ -330,7 +330,7 @@ For example:
 
 ### Locate use of deprecated APIs
 
-Use [client warnings, metrics, and audit information available in 1.19+](/blog/2020/09/03/warnings/#deprecation-warnings)
+Use [client warnings, metrics, and audit information available in 1.19+](/blog/_posts/2020-09-03-warnings/index.md#deprecation-warnings)
 to locate use of deprecated APIs.
 
 ### Migrate to non-deprecated APIs
