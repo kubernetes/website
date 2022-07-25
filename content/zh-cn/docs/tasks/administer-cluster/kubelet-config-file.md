@@ -49,15 +49,21 @@ Here is an example of what this file might look like:
 
 下面是一个 Kubelet 配置文件示例：
 ```
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-address: "192.168.0.8",
-port: 20250,
-serializeImagePulls: false,
-evictionHard:
-    memory.available:  "200Mi"
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubelet-config-1.20
+  namespace: kube-system
+data:
+  kubelet: |
+    apiVersion: kubelet.config.k8s.io/v1beta1
+    kind: KubeletConfiguration
+    address: "192.168.0.8"
+    port: 20250
+    serializeImagePulls: false
+    evictionHard:
+      memory.available:  "200Mi"
 ```
-
 
 <!--
 In the example, the Kubelet is configured to serve on IP address 192.168.0.8 and port 20250, pull images in parallel,
