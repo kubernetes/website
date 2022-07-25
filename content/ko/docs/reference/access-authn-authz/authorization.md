@@ -96,7 +96,7 @@ DELETE    | delete(개별 리소스), deletecollection(리소스 모음)
 
 #### API 접근 확인
 
-`kubectl`은 API 인증 계층을 신속하게 쿼리하기 위한 "auth can-i" 하위 명령어를 제공한다.
+`kubectl`은 API 인증 계층을 신속하게 쿼리하기 위한 `auth can-i` 하위 명령어를 제공한다.
 이 명령은 현재 사용자가 지정된 작업을 수행할 수 있는지 여부를 알아내기 위해 `SelfSubjectAccessReview` API를 사용하며,
 사용되는 인가 모드에 관계없이 작동한다.
 
