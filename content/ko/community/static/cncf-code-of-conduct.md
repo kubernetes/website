@@ -63,4 +63,4 @@ CNCF는 외부 중재자로 Mishi Choudhary <mishi@linux.com>를 두고 있습�
 
 본 행동 강령은 기여자 서약 (https://contributor-covenant.org) 에서
 제공하는 버전 2.0을 적용하였으며, 해당 내용은
-http://contributor-covenant.org/version/2/0/code_of_conduct/ 에서 확인할 수 있습니다.
+https://contributor-covenant.org/version/2/0/code_of_conduct/ 에서 확인할 수 있습니다.
