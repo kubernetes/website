@@ -17,7 +17,7 @@ Changes to the style guide are made by SIG Docs as a group. To propose a change
 or addition, [add it to the agenda](https://bit.ly/sig-docs-agenda) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
 discussion.
 
-<!-- body -->
+<!-- body --> 
 
 {{< note >}}
 Kubernetes documentation uses
@@ -476,7 +476,7 @@ Use three hyphens (`---`) to create a horizontal rule. Use horizontal rules for 
 {{< table caption = "Do and Don't - Links" >}}
 Do | Don't
 :--| :-----
-Write hyperlinks that give you context for the content they link to. For example: Certain ports are open on your machines. See <a href="#check-required-ports">Check required ports</a> for more details. | Use ambiguous terms such as "click here". For example: Certain ports are open on your machines. See <a href="#check-required-ports">here</a> for more details.
+Write hyperlinks that give you context for the content they link to. For example: Certain ports are open on your machines. See <a href="/docs/reference/ports-and-protocols/">Check required ports</a> for more details. | Use ambiguous terms such as "click here". For example: Certain ports are open on your machines. See <a href="/docs/reference/ports-and-protocols/">here</a> for more details.
 Write Markdown-style links: `[link text](URL)`. For example: `[Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions)` and the output is [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions). | Write HTML-style links: `<a href="/media/examples/link-element-example.css" target="_blank">Visit our tutorial!</a>`, or create links that open in new tabs or windows. For example: `[example website](https://example.com){target="_blank"}`
 {{< /table >}}
 
