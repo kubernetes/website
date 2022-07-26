@@ -36,7 +36,8 @@ struct.
 -->
 ## 创建配置文件
 
-[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 结构体定义了可以通过文件配置的 Kubelet 配置子集，
+[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
+结构体定义了可以通过文件配置的 Kubelet 配置子集，
 
 <!--
 The configuration file must be a JSON or YAML representation of the parameters
@@ -48,21 +49,15 @@ Here is an example of what this file might look like:
 确保 kubelet 可以读取该文件。
 
 下面是一个 Kubelet 配置文件示例：
-```
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: kubelet-config-1.20
-  namespace: kube-system
-data:
-  kubelet: |
-    apiVersion: kubelet.config.k8s.io/v1beta1
-    kind: KubeletConfiguration
-    address: "192.168.0.8"
-    port: 20250
-    serializeImagePulls: false
-    evictionHard:
-      memory.available:  "200Mi"
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+address: "192.168.0.8"
+port: 20250
+serializeImagePulls: false
+evictionHard:
+    memory.available:  "200Mi"
 ```
 
 <!--
@@ -71,18 +66,16 @@ and evict Pods when available memory drops below 200Mi.
 All other Kubelet configuration values are left at their built-in defaults, unless overridden
 by flags. Command line flags which target the same value as a config file will override that value.
 -->
-在这个示例中, Kubelet 被设置为在地址 192.168.0.8 端口 20250 上提供服务，以并行方式拖拽镜像，
-当可用内存低于 200Mi 时, kubelet 将会开始驱逐 Pods。
-没有声明的其余配置项都将使用默认值，除非使用命令行参数来重载。 
+在这个示例中, Kubelet 被设置为在地址 192.168.0.8 端口 20250 上提供服务，以并行方式拉取镜像，
+当可用内存低于 200Mi 时, kubelet 将会开始驱逐 Pod。
+没有声明的其余配置项都将使用默认值，除非使用命令行参数来重载。
 命令行中的参数将会覆盖配置文件中的对应值。
 
 <!--
 ## Start a Kubelet process configured via the config file
 
-{{< note >}}
 If you use kubeadm to initialize your cluster, use the kubelet-config while creating your cluster with `kubeadmin init`.
 See [configuring kubelet using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/) for details.
-{{< /note >}}
 
 Start the Kubelet with the `--config` flag set to the path of the Kubelet's config file.
 The Kubelet will then load its config from this file.
