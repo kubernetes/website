@@ -712,11 +712,8 @@ If you run this pod, and there is a ConfigMap named `a-config` but that ConfigMa
 a key named `akey`, the output is also empty. If you do set a value for `akey` in the `a-config`
 ConfigMap, this pod prints that value and then terminates.
 
-#### Optional ConfigMap via volume plugin
-
-Volumes and files provided by a ConfigMap can be also be marked as optional.
-The ConfigMap or the key specified does not have to exist.
-The mount path for such items will always be created.
+You can also mark the volumes and files provided by a ConfigMap as optional. Kubernetes always creates the mount paths for the volume, even if the referenced ConfigMap or key doesn't exist. For example, the following
+Pod specification marks a volume that references a ConfigMap as optional:
 
 ```yaml
 apiVersion: v1
@@ -737,9 +734,6 @@ spec:
         name: no-config
         optional: true # mark the source ConfigMap as optional
   restartPolicy: Never
-```
-
-If you run this pod, and there is no ConfigMap named `no-config`, the mounted volume will be empty.
 
 ### Mounted ConfigMaps are updated automatically
 
