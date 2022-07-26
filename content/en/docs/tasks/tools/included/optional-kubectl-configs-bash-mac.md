@@ -87,3 +87,13 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
    {{< /note >}}
 
 In any case, after reloading your shell, kubectl completion should be working.
+
+### Fig
+
+You can get IDE-style autocompletions for kubectl also using [Fig](https://fig.io/) <a href="https://fig.io/" target="_blank"><img src="https://fig.io/badges/Logo.svg" width="15" height="15"/></a>. Fig works for bash, zsh, and fish.
+
+To install, run:
+
+```shell
+brew install fig
+```
