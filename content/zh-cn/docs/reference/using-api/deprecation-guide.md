@@ -723,13 +723,13 @@ For example:
 <!--
 ### Locate use of deprecated APIs
 
-Use [client warnings, metrics, and audit information available in 1.19+](https://kubernetes.io/blog/2020/09/03/warnings/#deprecation-warnings)
+Use [client warnings, metrics, and audit information available in 1.19+](/blog/2020/09/03/warnings/#deprecation-warnings)
 to locate use of deprecated APIs.
 -->
 ### 定位何处使用了已弃用的 API
 
-使用 [client warnings, metrics, and audit information available in 1.19+](https://kubernetes.io/blog/2020/09/03/warnings/#deprecation-warnings)
-来定位在何处使用了已启用的 API。
+使用 [client warnings, metrics, and audit information available in 1.19+](/blog/2020/09/03/warnings/#deprecation-warnings)
+来定位在何处使用了已弃用的 API。
 
 <!--
 ### Migrate to non-deprecated APIs
@@ -755,7 +755,7 @@ to automatically convert an existing object:
 <!--
 For example, to convert an older Deployment to `apps/v1`, you can run:
 -->
-例如，要将较老的 Deployment 转换为 `apps/v1` 版本，你可以运行
+例如，要将较老的 Deployment 版本转换为 `apps/v1` 版本，你可以运行
 
 `kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
 
@@ -763,5 +763,5 @@ For example, to convert an older Deployment to `apps/v1`, you can run:
 Note that this may use non-ideal default values. To learn more about a specific
 resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
 -->
-注意这种操作生成的结果中可能使用的默认值并不理想。
+需要注意的是这种操作使用的默认值可能并不理想。
 要进一步了解某个特定资源，可查阅 Kubernetes [API 参考](/zh-cn/docs/reference/kubernetes-api/)。
