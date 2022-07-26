@@ -11,10 +11,11 @@ in the `Pending` [phase](#pod-phase), moving through `Running` if at least one
 of its primary containers starts OK, and then through either the `Succeeded` or
 `Failed` phases depending on whether any container in the Pod terminated in failure.
 
-Whilst a Pod is running, the kubelet is able to restart containers to handle some
-kind of faults. Within a Pod, Kubernetes tracks different container
+Within a Pod, Kubernetes tracks different container
 [states](#container-states) and determines what action to take to make the Pod
-healthy again.
+healthy again. Whilst a Pod is running, the kubelet is able to restart containers to
+handle some kind of faults. Pods are not restarted, they are terminated and respawned
+(recreated).
 
 In the Kubernetes API, Pods have both a specification and an actual status. The
 status for a Pod object consists of a set of [Pod conditions](#pod-conditions).
@@ -38,11 +39,12 @@ If a {{< glossary_tooltip term_id="node" >}} dies, the Pods scheduled to that no
 are [scheduled for deletion](#pod-garbage-collection) after a timeout period.
 
 Pods do not, by themselves, self-heal. If a Pod is scheduled to a
-{{< glossary_tooltip text="node" term_id="node" >}} that then fails, the Pod is deleted; likewise, a Pod won't
-survive an eviction due to a lack of resources or Node maintenance. Kubernetes uses a
-higher-level abstraction, called a
-{{< glossary_tooltip term_id="controller" text="controller" >}}, that handles the work of
-managing the relatively disposable Pod instances.
+{{< glossary_tooltip text="node" term_id="node" >}} that then fails, the Pod is
+deleted; likewise, a Pod won't survive an eviction due to a lack of resources or
+Node maintenance. What Pods can do is self-heal on a local node. In order to have
+self-healing across the cluster, Kubernetes uses a higher-level abstraction, called
+{{< glossary_tooltip term_id="controller" text="controller" >}}, that handles
+the work of managing the relatively disposable Pod instances.
 
 A given Pod (as defined by a UID) is never "rescheduled" to a different node; instead,
 that Pod can be replaced by a new, near-identical Pod, with even the same name if
