@@ -34,8 +34,8 @@ The following example stores two strings in a Secret using the `data` field.
    ```
 
    {{< note >}}
-   The serialized JSON and YAML values of Secret data are encoded as base64
-   strings. Newlines are not valid within these strings and must be omitted. When using the `base64` utility on Darwin/macOS, users should avoid using the `-b` option to split long lines. Conversely, Linux users *should* add the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if the `-w` option is not available. {{< /note >}}
+   The serialized JSON and YAML values of Secret data are encoded as base64 strings. Newlines are not valid within these strings and must be omitted. When using the `base64` utility on Darwin/macOS, users should avoid using the `-b` option to split long lines. Conversely, Linux users *should* add the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if the `-w` option is not available.
+   {{< /note >}}
 
    The output is similar to:
 
@@ -134,7 +134,9 @@ type: Opaque
 
 ### Specifying both `data` and `stringData`
 
-If you specify a field in both `data` and `stringData`, the value from `stringData` is used. For example, if you define the following Secret:
+If you specify a field in both `data` and `stringData`, the value from `stringData` is used.
+
+For example, if you define the following Secret:
 
 ```yaml
 apiVersion: v1
