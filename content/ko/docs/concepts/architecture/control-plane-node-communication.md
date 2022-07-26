@@ -62,7 +62,7 @@ API 서버에서 노드, 파드 또는 서비스로의 연결은 기본적으로
 SSH 터널은 현재 더 이상 사용되지 않으므로, 수행 중인 작업이 어떤 것인지 모른다면 사용하면 안 된다. [Konnectivity 서비스](#konnectivity-service)가 SSH 통신 채널을 대체한다.
 {{< note >}}
 
-### Konnectivity 서비스
+### Konnectivity 서비스 {#konnectivity-service}
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
