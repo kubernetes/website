@@ -1056,7 +1056,8 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
 In Kubernetes v1.24, an alpha flag `--subresource` is added to get, patch, edit and replace 
 with kubectl commands to fetch and update `status` and `scale` subresources. Due to this, 
 from Kubernetes v1.24 the `kubectl` tool can now be used to edit or patch the `status`
-subresource on a CRD. See the [Kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource) for more details.
+subresource on a CRD. See [How to patch deployment by using subresource flag](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/#Use-subresource-flag-with-kubectl-patch-command-to-update-the-deployment).
+This page is part of the documentation for Kubernetesv{currentVersion}. If you are running a different version of Kubernetes, consult the documentation for that release.
 
 Here is an example of How to patch the `status` subresource for the CRD using `kubectl`:
 ```bash
