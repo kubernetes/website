@@ -116,7 +116,7 @@ can enable this behavior by:
   is enabled on the API server.
 
 An administrator can mark a specific `StorageClass` as default by adding the
-[`storageclass.kubernetes.io/is-default-class`](/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class) annotation to it.
+`storageclass.kubernetes.io/is-default-class` [annotation](/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class) to it.
 When a default `StorageClass` exists in a cluster and a user creates a
 `PersistentVolumeClaim` with `storageClassName` unspecified, the
 `DefaultStorageClass` admission controller automatically adds the
