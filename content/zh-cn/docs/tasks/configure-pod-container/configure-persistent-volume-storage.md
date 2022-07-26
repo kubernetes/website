@@ -139,7 +139,7 @@ PersistentVolume uses a file or directory on the Node to emulate network-attache
 -->
 ## 创建 PersistentVolume
 
-在本练习中，你将创建一个 *hostPath* 类型的 PersistentVolume。
+在本练习中，你将创建一个 **hostPath** 类型的 PersistentVolume。
 Kubernetes 支持用于在单节点集群上开发和测试的 hostPath 类型的 PersistentVolume。
 hostPath 类型的 PersistentVolume 使用节点上的文件或目录来模拟网络附加存储。
 

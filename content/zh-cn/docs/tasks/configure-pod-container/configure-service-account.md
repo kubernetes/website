@@ -287,7 +287,7 @@ The content of `token` is elided here.
 
 ### 创建 ImagePullSecret
 
-- 创建一个 ImagePullSecret，如[为 Pod 设置 ImagePullSecret](/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)所述。
+- 创建一个 ImagePullSecret，如[为 Pod 设置 ImagePullSecret](/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) 所述。
 
   ```shell
   kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
@@ -382,7 +382,7 @@ imagePullSecrets:
 <!--
 Finally replace the serviceaccount with the new updated `sa.yaml` file
 -->
-最后，用新的更新的 `sa.yaml` 文件替换服务账户。
+最后，用新更新的 `sa.yaml` 文件替换服务账户。
 
 ```shell
 kubectl replace serviceaccount default -f ./sa.yaml
@@ -473,7 +473,7 @@ command line arguments to `kube-apiserver`:
   `--service-account-issuer` flag is configured and this flag is not, this field defaults to a
   single element list containing the issuer URL.
 -->
-* `--api-audiences` (can be omitted)
+* `--api-audiences` （可以省略）
 
   服务账户令牌身份检查组件会检查针对 API 访问所使用的令牌，
   确认令牌至少是被绑定到这里所给的受众（audiences）之一。

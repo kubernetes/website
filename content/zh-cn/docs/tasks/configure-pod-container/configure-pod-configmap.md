@@ -85,7 +85,7 @@ You can use [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-comma
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to retrieve information
 about a ConfigMap.
 -->
-你可以使用[`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) 或者
+你可以使用 [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) 或者
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) 获取有关 ConfigMap 的信息。
 
 <!--
