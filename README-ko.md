@@ -36,10 +36,10 @@ git submodule update --init --recursive --depth 1
 
 ## 컨테이너를 사용하여 웹사이트 실행하기
 
-컨테이너에서 사이트를 빌드하려면, 다음을 실행하여 컨테이너 이미지를 빌드하고 실행합니다.
+컨테이너에서 사이트를 빌드하려면, 다음을 실행합니다.
 
 ```
-make container-image
+# 도커 같은 컨테이너 툴 이름으로 $CONTERNER_ENGINE를 설정할 수 있습니다
 make container-serve
 ```
 
@@ -189,7 +189,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 # 행동 강령
 
-쿠버네티스 커뮤니티 참여는 [CNCF 행동 강령](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/ko.md)을 따릅니다.
+쿠버네티스 커뮤니티 참여는 [CNCF 행동 강령](https://github.com/cncf/foundation/blob/main/code-of-conduct-languages/ko.md)을 따릅니다.
 
 # 감사합니다!
 
