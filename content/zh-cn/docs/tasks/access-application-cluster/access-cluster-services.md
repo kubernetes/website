@@ -170,8 +170,8 @@ The supported formats for the `<service_name>` segment of the URL are:
 为了创建包含服务末端、后缀和参数的代理 URLs，你可以在服务的代理 URL 中添加：
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
-如果还没有为你的端口指定名称，你可以不用在 URL 中指定 *port_name*。
-对于命名和未命名端口，你还可以使用端口号代替 *port_name*。
+如果还没有为你的端口指定名称，你可以不用在 URL 中指定 **port_name**。
+对于命名和未命名端口，你还可以使用端口号代替 **port_name**。
 
 默认情况下，API 服务器使用 HTTP 为你的服务提供代理。 要使用 HTTPS，请在服务名称前加上 `https:`：
 `http://<kubernetes_master_address>/api/v1/namespaces/<namespace_name>/services/<service_name>/proxy`
@@ -226,7 +226,7 @@ URL 的 `<service_name>` 段支持的格式为：
 <!--
 * To access the *https* Elasticsearch service health information `_cluster/health?pretty=true`, you would use:
 -->
-* 要访问 *https* Elasticsearch 服务健康信息 `_cluster/health?pretty=true`，你会使用：
+* 要访问 **https** Elasticsearch 服务健康信息 `_cluster/health?pretty=true`，你会使用：
 
     ```
     https://192.0.2.1/api/v1/namespaces/kube-system/services/https:elasticsearch-logging:/proxy/_cluster/health?pretty=true
