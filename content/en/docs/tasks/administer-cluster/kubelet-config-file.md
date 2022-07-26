@@ -27,23 +27,14 @@ The configuration file must be a JSON or YAML representation of the parameters
 in this struct. Make sure the Kubelet has read permissions on the file.
 
 Here is an example of what this file might look like:
-```
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: kubelet-config-1.20
-  namespace: kube-system
-data:
-  kubelet: |
-    apiVersion: kubelet.config.k8s.io/v1beta1
-    kind: KubeletConfiguration
-    address: "192.168.0.8"
-    port: 20250
-    serializeImagePulls: false
-    evictionHard:
-      memory.available:  "200Mi"
-~                                  
-
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+address: "192.168.0.8"
+port: 20250
+serializeImagePulls: false
+evictionHard:
+    memory.available:  "200Mi"
 ```
 
 In the example, the Kubelet is configured to serve on IP address 192.168.0.8 and port 20250, pull images in parallel,
