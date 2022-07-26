@@ -657,7 +657,7 @@ data:
 
 ### Restrictions
 
-- You must create a ConfigMap before referencing it in a Pod specification, or mark the ConfigMap as "optional" (see [Optional ConfigMaps](#optional-configmaps)). If you reference a ConfigMap that doesn't exist, or hasn't been marked as "optional" the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
+- You must create the `ConfigMap` object before you reference it in a Pod specification. Alternatively, mark the ConfigMap reference as `optional` in the Pod spec (see [Optional ConfigMaps](#optional-configmaps)). If you reference a ConfigMap that doesn't exist and you don't mark the reference as `optional`, the Pod won't start. Similarly, references to keys that don't exist in the ConfigMap will also prevent the Pod from starting, unless you mark the key references as `optional`.
 
 - If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped. The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
 
@@ -677,15 +677,11 @@ data:
 
 ### Optional ConfigMaps
 
-In a Pod, or pod template, you can mark a reference to a ConfigMap as _optional_.
-If the ConfigMap is non-existent, the configuration for which it provides data in the Pod (e.g. environment variable, mounted volume) will be empty.
+You can mark a reference to a ConfigMap as _optional_ in a Pod specification.
+If the ConfigMap doesn't exist, the configuration for which it provides data in the Pod (e.g. environment variable, mounted volume) will be empty.
 If the ConfigMap exists, but the referenced key is non-existent the data is also empty.
 
-#### Optional ConfigMap in environment variables
-
-There might be situations where environment variables are not always required.
-You can mark an environment variables for a container as optional,
-like this:
+For example, the following Pod specification marks an environment variable from a ConfigMap as optional:
 
 ```yaml
 apiVersion: v1
@@ -734,6 +730,7 @@ spec:
         name: no-config
         optional: true # mark the source ConfigMap as optional
   restartPolicy: Never
+```
 
 ### Mounted ConfigMaps are updated automatically
 
