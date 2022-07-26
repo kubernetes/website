@@ -333,12 +333,12 @@ For example, consider the following Pod spec:
 
 <!--
 If there are two possible nodes that match the
-`requiredDuringSchedulingIgnoredDuringExecution` rule, one with the
+`preferredDuringSchedulingIgnoredDuringExecution` rule, one with the
 `label-1:key-1` label and another with the `label-2:key-2` label, the scheduler
 considers the `weight` of each node and adds the weight to the other scores for
 that node, and schedules the Pod onto the node with the highest final score.
 -->
-如果存在两个候选节点，都满足 `requiredDuringSchedulingIgnoredDuringExecution` 规则，
+如果存在两个候选节点，都满足 `preferredDuringSchedulingIgnoredDuringExecution` 规则，
 其中一个节点具有标签 `label-1:key-1`，另一个节点具有标签 `label-2:key-2`，
 调度器会考察各个节点的 `weight` 取值，并将该权重值添加到节点的其他得分值之上，
 
