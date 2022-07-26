@@ -37,17 +37,17 @@ une opération spécifique sur une resource. Pour plus de détails ce sur point,
 section utilisateurs normaux de la rubrique 
 [demande de certificat](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user).
 
-In contrast, service accounts are users managed by the Kubernetes API. They are
-bound to specific namespaces, and created automatically by the API server or
-manually through API calls. Service accounts are tied to a set of credentials
-stored as `Secrets`, which are mounted into pods allowing in-cluster processes
-to talk to the Kubernetes API.
+Par opposition, les comptes de services sont des utilisateurs gérés par l'API de Kubernetes.
+Ces derniers sont **attachés/liés** à des espaces de noms spécifiques et crées automatiquement
+par le serveur d'API ou manuellement par le biais d'appels à l'API. **Un ensemble d'accès est attaché 
+aux comptes de services et stockés entant que `Secrets`**, ces derniers sont **montés/attachés** dans les pods permettant aux processus s'executant dans le cluster d'accéder à l'API de Kubernetes.
 
-API requests are tied to either a normal user or a service account, or are treated
-as [anonymous requests](#anonymous-requests). This means every process inside or outside the cluster, from
-a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members
-of the control plane, must authenticate when making requests to the API server,
-or be treated as an anonymous user.
+Les requêtes à l'API sont **liées** soit à un utilisateur normal soit à un compte de service, ou **elles 
+seront traités** comme [requêtes de type anonymes](#anonymous-requests). Cela signifie que chaque processus 
+à l'intéreur ou à l'extérieur du cluster, qu'il s'agisse d'un utilisateur humain utilisant `kubectl` 
+sur sa machine de travail, des `kubelets` sur les noeuds, des composants du plan de contrôle, 
+doivent être authentifiés lorsqu'ils réalisent des requêtes au serveur API, sinon ils seront
+**traités** comme un utilisateur anonyme.
 
 ## Authentication strategies
 
