@@ -554,7 +554,7 @@ spec:
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
 ```
 
-### glusterfs
+### glusterfs (deprecated) {#glusterfs}
 
 A `glusterfs` volume allows a [Glusterfs](https://www.gluster.org) (an open
 source networked filesystem) volume to be mounted into your Pod. Unlike

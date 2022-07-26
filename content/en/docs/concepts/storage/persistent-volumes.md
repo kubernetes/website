@@ -444,6 +444,8 @@ The following types of PersistentVolume are deprecated. This means that support 
   (**deprecated** in v1.22)
 * [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
   (**deprecated** in v1.22)
+* [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - GlusterFS volume
+  (**deprecated** in v1.25)
 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
