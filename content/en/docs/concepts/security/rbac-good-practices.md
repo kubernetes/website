@@ -135,7 +135,8 @@ granting rights to this resource.
 
 ### Escalate verb
 
-Generally, the RBAC system prevents users from creating clusterroles with more rights than the user possesses. The exception to this is the `escalate` verb. As noted in the [RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update),
+Generally, the RBAC system prevents users from creating clusterroles with more rights than the user possesses. 
+The exception to this is the `escalate` verb. As noted in the [RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update),
 users with this right can effectively escalate their privileges.
 
 ### Bind verb
