@@ -22,7 +22,7 @@ weight: 75
 
 ## 시작하기 전에
 
-* 컨트롤 플레인과 [윈도우 서버로 운영되는 워커 노드](/ko/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)를
+* 컨트롤 플레인과 [윈도우 서버로 운영되는 워커 노드](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)를
   포함하는 쿠버네티스 클러스터를 생성한다.
 * 쿠버네티스에서 서비스와 워크로드를 생성하고 배포하는 것은 리눅스나 윈도우 컨테이너
   모두 비슷한 방식이라는 것이 중요하다.

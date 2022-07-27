@@ -150,7 +150,7 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
 윈도우에서는 일부 kubelet 명령줄 옵션이 다르게 동작하며, 아래에 설명되어 있다.
 
 * `--windows-priorityclass`를 사용하여 kubelet 프로세스의 스케줄링 우선 순위를 설정할 수 있다. 
-  ([CPU 리소스 관리](/docs/concepts/configuration/windows-resource-management/#resource-management-cpu) 참고)
+  ([CPU 리소스 관리](/ko/docs/concepts/configuration/windows-resource-management/#resource-management-cpu) 참고)
 * `--kube-reserved`, `--system-reserved` 및 `--eviction-hard` 플래그는 
   [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)을 업데이트한다.
 * `--enforce-node-allocable`을 이용한 축출은 구현되어 있지 않다.
@@ -158,7 +158,7 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
 * 윈도우 노드에서 실행되는 kubelet은 메모리 및 CPU 제한을 받지 않는다. 
   `NodeAllocatable`에서 `--kube-reserved`와 `--system-reserved`가 차감될 뿐이며 
   워크로드에 제공될 리소스는 보장되지 않는다. 
-  추가 정보는 [윈도우 노드의 리소스 관리](/docs/concepts/configuration/windows-resource-management/#resource-reservation)를 
+  추가 정보는 [윈도우 노드의 리소스 관리](/ko/docs/concepts/configuration/windows-resource-management/#resource-reservation)를 
   참고한다.
 * `MemoryPressure` 컨디션은 구현되어 있지 않다.
 * kubelet은 메모리 부족(OOM, Out-of-Memory) 축출 동작을 수행하지 않는다.
@@ -225,7 +225,7 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
   이 설정은 컨테이너가 `ContainerAdministrator` 사용자로 실행되는 것을 방지하는데, 
   이는 리눅스의 root 사용자와 가장 가까운 윈도우 역할이다.
 * `securityContext.runAsUser` - 
-  대신 [`runAsUserName`](/docs/tasks/configure-pod-container/configure-runasusername)을 
+  대신 [`runAsUserName`](/ko/docs/tasks/configure-pod-container/configure-runasusername/)을 
   사용한다.
 * `securityContext.seLinuxOptions` - 
   SELinux는 리눅스 전용이므로 윈도우에서는 사용할 수 없다.
@@ -268,7 +268,7 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
 
 ## 노드 문제 감지기
 
-노드 문제 감지기([노드 헬스 모니터링하기](/docs/tasks/debug/debug-cluster/monitor-node-health/) 참조)는 
+노드 문제 감지기([노드 헬스 모니터링하기](/ko/docs/tasks/debug/debug-cluster/monitor-node-health/) 참조)는 
 기초적인 윈도우 지원을 포함한다. 
 더 자세한 정보는 프로젝트의 
 [GitHub 페이지](https://github.com/kubernetes/node-problem-detector#windows)를 참고한다.
@@ -317,7 +317,7 @@ Microsoft가 유지 관리하는 이미지를 사용하는 것을 권장한다.
 
 {{< note >}}
 containerd와 GMSA 사용 시 윈도우 네트워크 공유 접근에 대한 
-[알려진 제한](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)이 있으며, 
+[알려진 제한](/ko/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)이 있으며, 
 이는 커널 패치를 필요로 한다.
 {{< /note >}}
 
@@ -344,7 +344,7 @@ Windows Server LTSC 릴리스
 Windows Server SAC 릴리스
 :  Windows Server 버전 20H2
 
-쿠버네티스 [버전 차이 정책](/docs/setup/release/version-skew-policy/) 또한 적용된다.
+쿠버네티스 [버전 차이 정책](/ko/releases/version-skew-policy/) 또한 적용된다.
 
 ## 도움 받기 및 트러블슈팅 {#troubleshooting}
 
@@ -372,7 +372,7 @@ SIG Windows의
 
 kubeadm 도구는 클러스터를 관리할 컨트롤 플레인과 워크로드를 실행할 노드를 제공함으로써 
 쿠버네티스 클러스터를 배포할 수 있게 해 준다. 
-[윈도우 노드 추가하기](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/) 문서에서 
+[윈도우 노드 추가하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 문서에서 
 kubeadm을 사용해 어떻게 클러스터에 윈도우 노드를 배포하는지를 설명한다.
 
 쿠버네티스 [클러스터 API](https://cluster-api.sigs.k8s.io/) 프로젝트는 윈도우 노드 배포를 자동화하는 수단을 제공한다.

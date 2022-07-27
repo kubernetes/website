@@ -29,7 +29,7 @@ weight: 40
 윈도우 파드 또는 컨테이너에 
 [RunAsUsername](/ko/docs/tasks/configure-pod-container/configure-runasusername/)을 설정하여 
 해당 컨테이너 프로세스를 실행할 사용자를 지정할 수 있다. 
-이는 [RunAsUser](/docs/concepts/policy/pod-security-policy/#users-and-groups)와 대략적으로 동등하다.
+이는 [RunAsUser](/ko/docs/concepts/security/pod-security-policy/#사용자-및-그룹)와 대략적으로 동등하다.
 
 윈도우 컨테이너는 ContainerUser와 ContainerAdministrator의 2 개의 기본 사용자 계정을 제공한다. 
 이 두 사용자 계정이 어떻게 다른지는 마이크로소프트의 _안전한 윈도우 컨테이너_ 문서 내의 
@@ -51,5 +51,5 @@ weight: 40
 리눅스 특유의 파드 보안 컨텍스트 메커니즘(예: SELinux, AppArmor, Seccomp, 
 또는 커스텀 POSIX 기능)은 윈도우 노드에서 지원되지 않는다.
 
-특권을 가진(Privileged) 컨테이너는 윈도우에서 [지원되지 않는다](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext). 
+특권을 가진(Privileged) 컨테이너는 윈도우에서 [지원되지 않는다](/ko/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext). 
 대신, 리눅스에서 권한 있는 컨테이너가 할 수 있는 작업 중 많은 부분을 윈도우에서 수행하기 위해 [HostProcess 컨테이너](/docs/tasks/configure-pod-container/create-hostprocess-pod)를 사용할 수 있다.

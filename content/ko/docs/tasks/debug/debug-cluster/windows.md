@@ -17,7 +17,7 @@ content_type: concept
 1. 내 파드가 "Container Creating"에서 멈췄거나 계속해서 다시 시작된다.
 
    퍼즈(pause) 이미지가 OS 버전과 호환되는지 확인한다. 
-   [퍼즈 컨테이너](/docs/concepts/windows/intro/#pause-container)에서 
+   [퍼즈 컨테이너](/ko/docs/concepts/windows/intro/#퍼즈-pause-컨테이너)에서 
    최신 / 추천 퍼즈 이미지 및 추가 정보를 확인한다.
 
    {{< note >}}
@@ -32,7 +32,7 @@ content_type: concept
    스케줄링되었는지 확인한다.
 
    각 파드와 호환되는 노드를 찾는 방법에 대한 추가 정보는 
-   [이 가이드](/docs/concepts/windows/user-guide/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)를 참고한다.
+   [이 가이드](/ko/docs/concepts/windows/user-guide/#특정-OS-워크로드를-적절한-컨테이너-호스트에서-처리하도록-보장하기)를 참고한다.
 
 ## 네트워크 트러블슈팅 {#troubleshooting-network}
 
