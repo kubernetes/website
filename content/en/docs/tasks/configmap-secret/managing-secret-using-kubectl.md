@@ -113,7 +113,7 @@ The commands `kubectl get` and `kubectl describe` avoid showing the contents
 of a `Secret` by default. This is to protect the `Secret` from being exposed
 accidentally, or from being stored in a terminal log.
 
-To check the actual content of the encoded data, please refer to [Decoding the Secret](#decoding-secret).
+To check the actual content of the encoded data, refer to [Decoding the Secret](#decoding-secret).
 
 ## Decoding the Secret  {#decoding-secret}
 
