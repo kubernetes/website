@@ -106,15 +106,15 @@ are enabled, kubelets are only authorized to create/modify their own Node resour
 {{< note >}}
 As mentioned in the [Node name uniqueness](#node-name-uniqueness) section,
 when Node configuration needs to be updated, it is a good practice to re-register
-the node with the API server. For example, if the kubelet being restarted with
-the new set of `--node-labels`, but the same Node name is used, the change will
-not take an effect, as labels are being set on the Node registration.
+the node with the API server. For example, if the kubelet is restarted with
+a new set of `--node-labels`, but the same Node name is used, the change will
+not take effect, as labels are being set on the Node registration.
 
 Pods already scheduled on the Node may misbehave or cause issues if the Node
-configuration will be changed on kubelet restart. For example, already running
+configuration changes on kubelet restart. For example, an already running
 Pod may be tainted against the new labels assigned to the Node, while other
-Pods, that are incompatible with that Pod will be scheduled based on this new
-label.  Node re-registration ensures all Pods will be drained and properly
+Pods that are incompatible with that Pod will be scheduled based on this new
+label.  Node re-registration ensures all Pods are drained and properly
 re-scheduled.
 {{< /note >}}
 
