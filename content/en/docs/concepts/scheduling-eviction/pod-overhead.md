@@ -105,7 +105,7 @@ When the kube-scheduler is deciding which node should run a new Pod, the schedul
 requests and the overhead, then looks for a node that has 2.25 CPU and 320 MiB of memory available.
 
 Once a Pod is scheduled to a node, the kubelet on that node creates a new {{< glossary_tooltip
-text="cgroup" term_id="cgroup" >}} for the Pod. It is within this cgroup that the underlying
+text="cgroup" term_id="cgroup" >}} with the resource limits calculated for the Pod. The pod's cgroup limits are applied, by the underlying container runtime, to the pod and containers in the following manner.
 container runtime will create containers.
 
 If the resource has a limit defined for each container (Guaranteed QoS or Burstable QoS with limits defined),
