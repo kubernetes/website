@@ -5,9 +5,9 @@
 
 title: Horizontal Pod Autoscaling
 feature:
-title: Horizontal 스케일링
-description: >
-간단한 명령어나 UI를 통해서 또는 CPU 사용량에 따라 자동으로 애플리케이션의 스케일을 업 또는 다운한다.
+  title: Horizontal 스케일링
+  description: >
+    간단한 명령어나 UI를 통해서 또는 CPU 사용량에 따라 자동으로 애플리케이션의 스케일을 업 또는 다운한다.
 content_type: concept
 weight: 90
 ---
