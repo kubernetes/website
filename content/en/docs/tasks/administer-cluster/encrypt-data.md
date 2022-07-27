@@ -149,6 +149,49 @@ Your config file contains keys that can decrypt the contents in etcd, so you mus
 permissions on your control-plane nodes so only the user who runs the `kube-apiserver` can read it.
 {{< /caution >}}
 
+{{< note >}}
+We need to mount the new encryption config file to the kube-apiserver static pod.
+{{< /note >}}
+
+Example steps to set the `--encryption-provider-config` flag on the `kube-apiserver`:
+
+- Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml`.
+
+- Edit static pod definition of kube-apiserver pod `/etc/kubernetes/manifests/kube-apiserver.yaml`.
+
+  ```yaml
+  apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 10.10.30.4:6443
+    creationTimestamp: null
+    labels:
+      component: kube-apiserver
+      tier: control-plane
+    name: kube-apiserver
+    namespace: kube-system
+  spec:
+    containers:
+    - command:
+      - kube-apiserver
+      ...
+      - --encryption-provider-config=/etc/kubernetes/enc/enc.yaml  # <-- add this line
+      volumeMounts:
+      ...
+      - name: enc                           # <-- add this line
+        mountPath: /etc/kubernetes/enc      # <-- add this line
+        readonly: true                      # <-- add this line
+      ...
+    volumes:
+    ...
+    - name: enc                             # <-- add this line
+      hostPath:                             # <-- add this line
+        path: /etc/kubernetes/enc           # <-- add this line
+        type: DirectoryOrCreate             # <-- add this line
+    ...
+  ```
+
 ## Verifying that data is encrypted
 
 Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly created or
@@ -167,13 +210,44 @@ program to retrieve the contents of your Secret.
 
    where `[...]` must be the additional arguments for connecting to the etcd server.
 
+   Example:
+
+   ```
+   ETCDCTL_API=3 etcdctl \
+      --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+      --cert=/etc/kubernetes/pki/etcd/server.crt \
+      --key=/etc/kubernetes/pki/etcd/server.key \
+      get /registry/secrets/default/secret1  | hexdump -C
+   00000000  2f 72 65 67 69 73 74 72  79 2f 73 65 63 72 65 74  |/registry/secret|
+   00000010  73 2f 64 65 66 61 75 6c  74 2f 73 65 63 72 65 74  |s/default/secret|
+   00000020  31 0a 6b 38 73 3a 65 6e  63 3a 61 65 73 63 62 63  |1.k8s:enc:aescbc|
+   00000030  3a 76 31 3a 6b 65 79 31  3a c7 6c e7 d3 09 bc 06  |:v1:key1:.l.....|
+   00000040  25 51 91 e4 e0 6c e5 b1  4d 7a 8b 3d b9 c2 7c 6e  |%Q...l..Mz.=..|n|
+   00000050  b4 79 df 05 28 ae 0d 8e  5f 35 13 2c c0 18 99 3e  |.y..(..._5.,...>|
+   00000060  44 ae f4 d3 ea f4 40 d1  58 b4 1c 33 7c ba c7 71  |D.....@.X..3|..q|
+   00000070  eb ea 34 f0 2f a3 5a 84  52 96 7c 3f c8 ee a9 50  |..4./.Z.R.|?...P|
+   00000080  bc 83 4f 8b 8e 62 ab 90  c9 eb 41 ca 9b 6d fc 93  |..O..b....A..m..|
+   00000090  7c cf ec 04 0f 99 0c 55  f0 7f da d8 80 82 2a 5f  ||......U......*_|
+   000000a0  be 9c ed 40 0f 3b 6a 41  46 13 8d 2a b3 79 29 83  |...@.;jAF..*.y).|
+   000000b0  57 22 cf 92 a6 d6 92 58  ea 65 51 17 a3 24 be f0  |W".....X.eQ..$..|
+   000000c0  d6 1f 37 41 6d 35 ee af  e9 62 a5 35 16 f4 e6 66  |..7Am5...b.5...f|
+   000000d0  08 42 36 fa 14 5b a3 52  f4 cd cb d8 f2 8f 3a c0  |.B6..[.R......:.|
+   000000e0  24 92 7e b9 45 ab 99 4b  f1 4a 18 55 72 04 11 a8  |$.~.E..K.J.Ur...|
+   000000f0  29 92 45 de 18 a0 ef 60  10 4b f8 42 11 e4 87 9a  |).E....`.K.B....|
+   00000100  5a 36 19 10 20 7f 66 80  d6 63 19 dd f0 f3 3a 71  |Z6.. .f..c....:q|
+   00000110  23 3a 0d fc 28 ca 48 2d  6b 2d 46 cc 72 0b 70 4c  |#:..(.H-k-F.r.pL|
+   00000120  a5 fc 35 43 12 4e 60 ef  bf 6f fe cf df 0b ad 1f  |..5C.N`..o......|
+   00000130  82 c4 88 53 02 da 3e 66  ff 0a                    |...S..>f..|
+   0000013a
+   ```
+
 1. Verify the stored Secret is prefixed with `k8s:enc:aescbc:v1:` which indicates
    the `aescbc` provider has encrypted the resulting data.
 
 1. Verify the Secret is correctly decrypted when retrieved via the API:
 
    ```shell
-   kubectl describe secret secret1 -n default
+   kubectl get secret secret1 -n default -o yaml
    ```
 
    The output should contain `mykey: bXlkYXRh`, with contents of `mydata` encoded, check
