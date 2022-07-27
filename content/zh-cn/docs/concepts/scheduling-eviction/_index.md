@@ -31,7 +31,17 @@ so that Pods with higher Priority can schedule on Nodes. Eviction is the process
 of terminating one or more Pods on Nodes.
 -->
 
-<!-- ## Scheduling -->
+<!--
+## Scheduling
+
+* [Kubernetes Scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
+* [Assigning Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
+* [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
+* [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/)
+* [Scheduling Framework](/docs/concepts/scheduling-eviction/scheduling-framework)
+* [Scheduler Performance Tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
+* [Resource Bin Packing for Extended Resources](/docs/concepts/scheduling-eviction/resource-bin-packing/)
+-->
 
 ## 调度
 
@@ -43,10 +53,20 @@ of terminating one or more Pods on Nodes.
 * [调度器的性能调试](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [扩展资源的资源装箱](/zh-cn/docs/concepts/scheduling-eviction/resource-bin-packing/)
 
-<!-- ## Pod Disruption -->
+<!--
+## Pod Disruption
+
+{{<glossary_definition term_id="pod-disruption" length="all">}}
+
+* [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+* [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
+-->
 
 ## Pod 干扰
 
+{{<glossary_definition term_id="pod-disruption" length="all">}}
+
 * [Pod 优先级和抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-* [节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* [节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 * [API发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)

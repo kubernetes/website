@@ -2,20 +2,7 @@
 title: kube-controller-manager
 content_type: tool-reference
 weight: 30
-auto_generated: true
 ---
-
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 
 ## {{% heading "synopsis" %}}
 
@@ -71,7 +58,7 @@ The map from metric-label to value allow-list of this label. The key's format is
 -->
 从度量值标签到准许值列表的映射。键名的格式为&lt;MetricName&gt;,&lt;LabelName&gt;。
 准许值的格式为&lt;allowed_value&gt;,&lt;allowed_value&gt;...。
-例如，<code>metric1,label1='v1,v2,v3', metric1,label2='v1,v2,v3'
+例如，<code>metric1,label1='v1,v2,v3', metric1,label2='v1,v2,v3',
 metric2,label='v1,v2,v3'</code>。
 </p>
 </td>
@@ -86,7 +73,7 @@ metric2,label='v1,v2,v3'</code>。
 The reconciler sync wait time between volume attach detach. This duration must be larger than one second, and increasing this value from the default may allow for volumes to be mismatched with pods.
 -->
 协调器（reconciler）在相邻两次对存储卷进行挂载和解除挂载操作之间的等待时间。
-此时长必须长于 1 秒钟。此值设置为大于默认值时，可能导致存储卷无法与 Pods 匹配。
+此时长必须长于 1 秒钟。此值设置为大于默认值时，可能导致存储卷无法与 Pod 匹配。
 </td>
 </tr>
 
@@ -98,9 +85,9 @@ The reconciler sync wait time between volume attach detach. This duration must b
 <!--
 kubeconfig file pointing at the 'core' kubernetes server with enough rights to create tokenreviews.authentication.k8s.io. This is optional. If empty, all token requests are considered to be anonymous and no client CA is looked up in the cluster.
 -->
-此标志值为一个 kubeconfig 文件的路径名。该文件中包含与某 Kubernetes “核心” 
+此标志值为一个 kubeconfig 文件的路径名。该文件中包含与某 Kubernetes “核心”
 服务器相关的信息，并支持足够的权限以创建 tokenreviews.authentication.k8s.io。
-此选项是可选的。如果设置为空值，所有令牌请求都会被认作匿名请求，
+此选项是可选的。如果设置为空值，则所有令牌请求都会被认作匿名请求，
 Kubernetes 也不再在集群中查找客户端的 CA 证书信息。
 </td>
 </tr>
@@ -113,8 +100,8 @@ Kubernetes 也不再在集群中查找客户端的 CA 证书信息。
 <!--
 If false, the authentication-kubeconfig will be used to lookup missing authentication configuration from the cluster.
 -->
-此值为 false 时，通过 authentication-kubeconfig 参数所指定的文件会被用来
-检索集群中缺失的身份认证配置信息。
+此值为 false 时，通过 authentication-kubeconfig
+参数所指定的文件会被用来检索集群中缺失的身份认证配置信息。
 </td>
 </tr>
 
@@ -256,8 +243,8 @@ Type of CIDR allocator to use
 If set, any request presenting a client certificate signed by one of the authorities in the client-ca-file is authenticated with an identity corresponding to the CommonName of the client certificate.
 -->
 如果设置了此标志，对于所有能够提供客户端证书的请求，若该证书由
-<code>--client-ca-file</code> 中所给机构之一签署，则该请求会被
-成功认证为客户端证书中 CommonName 所标识的实体。
+<code>--client-ca-file</code> 中所给机构之一签署，
+则该请求会被成功认证为客户端证书中 CommonName 所标识的实体。
 </td>
 </tr>
 
@@ -293,7 +280,7 @@ The provider for cloud services. Empty string for no provider.
 <!--
 CIDR Range for Pods in cluster. Requires --allocate-node-cidrs to be true
 -->
-集群中 Pods 的 CIDR 范围。要求 <code>--allocate-node-cidrs</code> 标志为 true。
+集群中 Pod 的 CIDR 范围。要求 <code>--allocate-node-cidrs</code> 标志为 true。
 </td>
 </tr>
 
@@ -318,7 +305,7 @@ The instance prefix for the cluster.
 Filename containing a PEM-encoded X509 CA certificate used to issue cluster-scoped certificates.  If specified, no more specific --cluster-signing-* flag may be specified.
 -->
 包含 PEM 编码格式的 X509 CA 证书的文件名。该证书用来发放集群范围的证书。
-如果设置了此标志，则不能指定更具体的<code>--cluster-signing-*</code> 标志。
+如果设置了此标志，则不能指定更具体的 <code>--cluster-signing-*</code> 标志。
 </td>
 </tr>
 
@@ -331,7 +318,7 @@ Filename containing a PEM-encoded X509 CA certificate used to issue cluster-scop
 The max length of duration signed certificates will be given.
 Individual CSRs may request shorter certs by setting spec.expirationSeconds.
 -->
-所签名证书的有效期限。每个 CSR 可以通过设置 spec.expirationSeconds 来请求更短的证书。
+所签名证书的有效期限。每个 CSR 可以通过设置 <code>spec.expirationSeconds</code> 来请求更短的证书。
 </td>
 </tr>
 
@@ -358,7 +345,7 @@ If specified, no more specific --cluster-signing-* flag may be specified.
 Filename containing a PEM-encoded X509 CA certificate used to issue certificates for the kubernetes.io/kube-apiserver-client signer.  If specified, --cluster-signing-{cert,key}-file must not be set.
 -->
 包含 PEM 编码的 X509 CA 证书的文件名，
-该证书用于为 kubernetes.io/kube-apiserver-client 签署者颁发证书。 
+该证书用于为 kubernetes.io/kube-apiserver-client 签署者颁发证书。
 如果指定，则不得设置 <code>--cluster-signing-{cert,key}-file</code>。
 </td>
 </tr>
@@ -372,7 +359,7 @@ Filename containing a PEM-encoded X509 CA certificate used to issue certificates
 Filename containing a PEM-encoded RSA or ECDSA private key used to sign certificates for the kubernetes.io/kube-apiserver-client signer.  If specified, --cluster-signing-{cert,key}-file must not be set.
 -->
 包含 PEM 编码的 RSA 或 ECDSA 私钥的文件名，
-该私钥用于为 kubernetes.io/kube-apiserver-client 签署者签名证书。 
+该私钥用于为 kubernetes.io/kube-apiserver-client 签署者签名证书。
 如果指定，则不得设置 <code>--cluster-signing-{cert,key}-file</code>。
 </td>
 </tr>
@@ -386,7 +373,7 @@ Filename containing a PEM-encoded RSA or ECDSA private key used to sign certific
 Filename containing a PEM-encoded X509 CA certificate used to issue certificates for the kubernetes.io/kube-apiserver-client-kubelet signer.  If specified, --cluster-signing-{cert,key}-file must not be set.
 -->
 包含 PEM 编码的 X509 CA 证书的文件名，
-该证书用于为 kubernetes.io/kube-apiserver-client-kubelet 签署者颁发证书。 
+该证书用于为 kubernetes.io/kube-apiserver-client-kubelet 签署者颁发证书。
 如果指定，则不得设置 <code>--cluster-signing-{cert,key}-file</code>。
 </td>
 </tr>
@@ -672,7 +659,7 @@ Interval between starting controller managers.
 <!--
 A list of controllers to enable. '*' enables all on-by-default controllers, 'foo' enables the controller named 'foo', '-foo' disables the controller named 'foo'.<br/>All controllers: attachdetach, bootstrapsigner, cloud-node-lifecycle, clusterrole-aggregation, cronjob, csrapproving, csrcleaner, csrsigning, daemonset, deployment, disruption, endpoint, endpointslice, endpointslicemirroring, ephemeral-volume, garbagecollector, horizontalpodautoscaling, job, namespace, nodeipam, nodelifecycle, persistentvolume-binder, persistentvolume-expander, podgc, pv-protection, pvc-protection, replicaset, replicationcontroller, resourcequota, root-ca-cert-publisher, route, service, serviceaccount, serviceaccount-token, statefulset, tokencleaner, ttl, ttl-after-finished<br/>Disabled-by-default controllers: bootstrapsigner, tokencleaner
 -->
-要启用的控制器列表。<code>\*</code> 表示启用所有默认启用的控制器；
+要启用的控制器列表。<code>*</code> 表示启用所有默认启用的控制器；
 <code>foo</code> 启用名为 foo 的控制器；
 <code>-foo</code> 表示禁用名为 foo 的控制器。<br/>
 控制器的全集：attachdetach、bootstrapsigner、cloud-node-lifecycle、clusterrole-aggregation、cronjob、csrapproving、csrcleaner、csrsigning、daemonset、deployment、disruption、endpoint、endpointslice、endpointslicemirroring、ephemeral-volume、garbagecollector、horizontalpodautoscaling、job、namespace、nodeipam、nodelifecycle、persistentvolume-binder、persistentvolume-expander、podgc、pv-protection、pvc-protection、replicaset、replicationcontroller、resourcequota、root-ca-cert-publisher、route、service、serviceaccount、serviceaccount-token、statefulset、tokencleaner、ttl、ttl-after-finished<br/>
@@ -700,12 +687,10 @@ Disable volume attach detach reconciler sync. Disabling this may cause volumes t
 <!--
 This flag provides an escape hatch for misbehaving metrics. You must provide the fully qualified metric name in order to disable it. Disclaimer: disabling metrics is higher in precedence than showing hidden metrics.
 -->
-此标志提供对行为异常的度量值的防控措施。你必须提供度量值的
-完全限定名称才能将其禁用。<B>声明</B>：禁用度量值的操作比显示隐藏度量值
-的操作优先级高。
+此标志提供对行为异常的度量值的防控措施。你必须提供度量值的完全限定名称才能将其禁用。
+<B>声明</B>：禁用度量值的操作比显示隐藏度量值的操作优先级高。
 </p></td>
 </tr>
-
 
 <tr>
 <td colspan="2">--enable-dynamic-provisioning&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
@@ -741,7 +726,7 @@ Enable HostPath PV provisioning when running without a cloud provider. This allo
 -->
 在没有云驱动程序的情况下，启用 HostPath 持久卷的制备。
 此参数便于对卷供应功能进行开发和测试。HostPath 卷的制备并非受支持的功能特性，
-在多节点的集群中也无法工作，因此除了开发和测试环境中不应使用。
+在多节点的集群中也无法工作，因此除了开发和测试环境中不应使用 HostPath 卷的制备。
 </td>
 </tr>
 
@@ -757,7 +742,6 @@ Whether to enable controller leader migration.
 </p></td>
 </tr>
 
-
 <tr>
 <td colspan="2">--enable-taint-manager&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
@@ -766,8 +750,8 @@ Whether to enable controller leader migration.
 <!--
 WARNING: Beta feature. If set to true enables NoExecute Taints and will evict all not-tolerating Pod running on Nodes tainted with this kind of Taints.
 -->
-警告：此为Beta 阶段特性。设置为 true 时会启用 NoExecute 污点，
-并在所有标记了此污点的节点上逐出所有无法忍受该污点的 Pods。
+警告：此为 Beta 阶段特性。设置为 true 时会启用 NoExecute 污点，
+并在所有标记了此污点的节点上驱逐所有无法忍受该污点的 Pod。
 </td>
 </tr>
 
@@ -779,7 +763,7 @@ WARNING: Beta feature. If set to true enables NoExecute Taints and will evict al
 <!--
 The length of endpoint updates batching period. Processing of pod changes will be delayed by this duration to join them with potential upcoming updates and reduce the overall number of endpoints updates. Larger number = higher endpoint programming latency, but lower number of endpoints revision generated
 -->
-端点（Endpoint）批量更新周期时长。对 Pods 变更的处理会被延迟，
+端点（Endpoint）批量更新周期时长。对 Pod 变更的处理会被延迟，
 以便将其与即将到来的更新操作合并，从而减少端点更新操作次数。
 较大的数值意味着端点更新的迟滞时间会增长，也意味着所生成的端点版本个数会变少。
 </td>
@@ -793,7 +777,7 @@ The length of endpoint updates batching period. Processing of pod changes will b
 <!--
 The length of endpoint slice updates batching period. Processing of pod changes will be delayed by this duration to join them with potential upcoming updates and reduce the overall number of endpoints updates. Larger number = higher endpoint programming latency, but lower number of endpoints revision generated
 -->
-端点片段（Endpoint Slice）批量更新周期时长。对 Pods 变更的处理会被延迟，
+端点片段（Endpoint Slice）批量更新周期时长。对 Pod 变更的处理会被延迟，
 以便将其与即将到来的更新操作合并，从而减少端点更新操作次数。
 较大的数值意味着端点更新的迟滞时间会增长，也意味着所生成的端点版本个数会变少。
 </td>
@@ -808,8 +792,8 @@ The length of endpoint slice updates batching period. Processing of pod changes 
 The plugin to use when cloud provider is set to external. Can be empty, should only be set when cloud-provider is external. Currently used to allow node and volume controllers to work for in tree cloud providers.
 -->
 当云驱动程序设置为 external 时要使用的插件名称。此字符串可以为空。
-只能在云驱动程序为 external 时设置。目前用来保证节点控制器和卷控制器能够
-在三种云驱动上正常工作。
+只能在云驱动程序为 external 时设置。
+目前用来保证节点控制器和卷控制器能够在三种云驱动上正常工作。
 </td>
 </tr>
 
@@ -922,7 +906,7 @@ WinDSR=true|false (ALPHA - default=false)<br/>
 WinOverlay=true|false (BETA - default=true)<br/>
 WindowsHostProcessContainers=true|false (BETA - default=true)
 -->
-一组 key=value 对，用来描述测试性/试验性功能的特性门控（Feature Gate）。可选项有：
+一组 key=value 对，用来描述测试性/试验性功能的特性门控（Feature Gate）。可选项有：<br/>
 APIListChunking=true|false (BETA - 默认值=true)<br/>
 APIPriorityAndFairness=true|false (BETA - 默认值=true)<br/>
 APIResponseCompression=true|false (BETA - 默认值=true)<br/>
@@ -1071,8 +1055,8 @@ Pod 启动之后可以忽略 CPU 采样值的时长。
 <!--
 The period for which autoscaler will look backwards and not scale down below any recommendation it made during that period.
 -->
-自动扩缩程序的回溯时长。自动扩缩器不会基于在给定的时长内所建议的规模
-对负载执行规模缩小的操作。
+自动扩缩程序的回溯时长。
+自动扩缩程序不会基于在给定的时长内所建议的规模对负载执行缩容操作。
 </td>
 </tr>
 
@@ -1096,7 +1080,7 @@ Pod 启动之后，在此值所给定的时长内，就绪状态的变化都不�
 <!--
 The period for syncing the number of pods in horizontal pod autoscaler.
 -->
-水平 Pod 扩缩器对 Pods 数目执行同步操作的周期。
+水平 Pod 扩缩器对 Pod 数目执行同步操作的周期。
 </td>
 </tr>
 
@@ -1182,8 +1166,9 @@ Path to kubeconfig file with authorization and master location information.
 <!--
 Number of nodes from which NodeController treats the cluster as large for the eviction logic purposes. --secondary-node-eviction-rate is implicitly overridden to 0 for clusters this size or smaller.
 -->
-节点控制器在执行 Pod 逐出操作逻辑时，基于此标志所设置的节点个数阈值来判断
-所在集群是否为大规模集群。当集群规模小于等于此规模时，
+节点控制器在执行 Pod 驱逐操作逻辑时，
+基于此标志所设置的节点个数阈值来判断所在集群是否为大规模集群。
+当集群规模小于等于此规模时，
 <code>--secondary-node-eviction-rate</code> 会被隐式重设为 0。
 </td>
 </tr>
@@ -1209,10 +1194,11 @@ Start a leader election client and gain leadership before executing the main loo
 <!--
 The duration that non-leader candidates will wait after observing a leadership renewal until attempting to acquire leadership of a led but unrenewed leader slot. This is effectively the maximum duration that a leader can be stopped before it is replaced by another candidate. This is only applicable if leader election is enabled.
 -->
-对于未获得领导者身份的节点，在探测到领导者身份需要更迭时需要等待
-此标志所设置的时长，才能尝试去获得曾经是领导者但尚未续约的席位。
-本质上，这个时长也是现有领导者节点在被其他候选节点替代之前可以停止
-的最长时长。只有集群启用了领导者选举机制时，此标志才起作用。
+对于未获得领导者身份的节点，
+在探测到领导者身份需要更迭时需要等待此标志所设置的时长，
+才能尝试去获得曾经是领导者但尚未续约的席位。本质上，
+这个时长也是现有领导者节点在被其他候选节点替代之前可以停止的最长时长。
+只有集群启用了领导者选举机制时，此标志才起作用。
 </td>
 </tr>
 
@@ -1240,7 +1226,7 @@ The interval between attempts by the acting master to renew a leadership slot be
 The type of resource object that is used for locking during leader election. Supported options are 'leases', 'endpointsleases' and 'configmapsleases'.
 -->
 在领导者选举期间用于锁定的资源对象的类型。 支持的选项为
-"leases"、"endpointsleases" 和 "configmapsleases"。
+<code>leases</code>、<code>endpointsleases</code> 和 <code>configmapsleases</code>。
 </td>
 </tr>
 
@@ -1465,8 +1451,8 @@ Number of nodes per second on which pods are deleted in case of node failure whe
 -->
 当某区域健康时，在节点故障的情况下每秒删除 Pods 的节点数。
 请参阅 <code>--unhealthy-zone-threshold</code>
-以了解“健康”的判定标准。这里的区域（zone）在集群并不跨多个区域时
-指的是整个集群。
+以了解“健康”的判定标准。
+这里的区域（zone）在集群并不跨多个区域时指的是整个集群。
 </td>
 </tr>
 
@@ -1545,7 +1531,7 @@ If true, SO_REUSEPORT will be used when binding the port, which allows more than
 <!--
 The grace period for deleting pods on failed nodes.
 -->
-在失效的节点上删除 Pods 时为其预留的宽限期。
+在失效的节点上删除 Pod 时为其预留的宽限期。
 </td>
 </tr>
 
@@ -1569,8 +1555,8 @@ Enable profiling via web interface host:port/debug/pprof/
 <!--
 the increment of time added per Gi to ActiveDeadlineSeconds for an NFS scrubber pod
 -->
-NFS 清洗 Pod 在清洗用过的卷时，根据此标志所设置的秒数，为每清洗 1 GiB 数据
-增加对应超时时长，作为 activeDeadlineSeconds。
+NFS 清洗 Pod 在清洗用过的卷时，根据此标志所设置的秒数，
+为每清洗 1 GiB 数据增加对应超时时长，作为 activeDeadlineSeconds。
 </td>
 </tr>
 
@@ -1607,7 +1593,7 @@ NFS 回收器 Pod 要使用的 activeDeadlineSeconds 参数下限。
 <!--
 The file path to a pod definition used as a template for HostPath persistent volume recycling. This is for development and testing only and will not work in a multi-node cluster.
 -->
-对 HostPath 持久卷进行回收利用时，用作模版的 Pod 定义文件所在路径。
+对 HostPath 持久卷进行回收利用时，用作模板的 Pod 定义文件所在路径。
 此标志仅用于开发和测试目的，不适合多节点集群中使用。
 </td>
 </tr>
@@ -1620,7 +1606,7 @@ The file path to a pod definition used as a template for HostPath persistent vol
 <!--
 The file path to a pod definition used as a template for NFS persistent volume recycling
 -->
-对 NFS 卷执行回收利用时，用作模版的 Pod 定义文件所在路径。
+对 NFS 卷执行回收利用时，用作模板的 Pod 定义文件所在路径。
 </td>
 </tr>
 
@@ -1759,7 +1745,7 @@ The period for reconciling routes created for Nodes by cloud provider.
 <!--
 Number of nodes per second on which pods are deleted in case of node failure when a zone is unhealthy (see --unhealthy-zone-threshold for definition of healthy/unhealthy). Zone refers to entire cluster in non-multizone clusters. This value is implicitly overridden to 0 if the cluster size is smaller than --large-cluster-size-threshold.
 -->
-当区域不健康，节点失效时，每秒钟从此标志所给的节点个数上删除 Pods。
+当一个区域不健康造成节点失效时，每秒钟从此标志所给的节点上删除 Pod 的节点个数。
 参见 <code>--unhealthy-zone-threshold</code> 以了解“健康与否”的判定标准。
 在只有一个区域的集群中，区域指的是整个集群。如果集群规模小于
 <code>--large-cluster-size-threshold</code> 所设置的节点个数时，
@@ -1826,8 +1812,8 @@ The previous version for which you want to show hidden metrics. Only the previou
 <!--
 Number of terminated pods that can exist before the terminated pod garbage collector starts deleting terminated pods. If &lt;= 0, the terminated pod garbage collector is disabled.
 -->
-在已终止 Pods 垃圾收集器删除已终止 Pods 之前，可以保留的已删除
-Pods 的个数上限。若此值小于等于 0，则相当于禁止垃圾回收已终止的 Pods。
+在已终止 Pod 垃圾收集器删除已终止 Pod 之前，可以保留的已终止 Pod 的个数上限。
+若此值小于等于 0，则相当于禁止垃圾回收已终止的 Pod。
 </td>
 </tr>
 
@@ -1896,8 +1882,9 @@ A pair of x509 certificate and private key file paths, optionally suffixed with 
 -->
 X509 证书和私钥文件路径的耦对。作为可选项，可以添加域名模式的列表，
 其中每个域名模式都是可以带通配片段前缀的全限定域名（FQDN）。
-域名模式也可以使用 IP 地址字符串，不过只有 API 服务器在所给 IP 地址上
-对客户端可见时才可以使用 IP 地址。在未提供域名模式时，从证书中提取域名。
+域名模式也可以使用 IP 地址字符串，
+不过只有 API 服务器在所给 IP 地址上对客户端可见时才可以使用 IP 地址。
+在未提供域名模式时，从证书中提取域名。
 如果有非通配方式的匹配，则优先于通配方式的匹配；显式的域名模式优先于提取的域名。
 当存在多个密钥/证书耦对时，可以多次使用 <code>--tls-sni-cert-key</code> 标志。
 例如：<code>example.crt,example.key</code> 或 <code>foo.crt,foo.key:\*.foo.com,foo.com</code>。

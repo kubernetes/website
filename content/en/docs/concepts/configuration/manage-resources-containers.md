@@ -332,13 +332,17 @@ container of a Pod can specify either or both of the following:
 
 Limits and requests for `ephemeral-storage` are measured in byte quantities.
 You can express storage as a plain integer or as a fixed-point number using one of these suffixes:
-E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following quantities all represent roughly the same value:
 
 - `128974848`
 - `129e6`
 - `129M`
 - `123Mi`
+
+Pay attention to the case of the suffixes. If you request `400m` of ephemeral-storage, this is a request
+for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
+or 400 megabytes (`400M`).
 
 In the following example, the Pod has two containers. Each container has a request of
 2GiB of local ephemeral storage. Each container has a limit of 4GiB of local ephemeral

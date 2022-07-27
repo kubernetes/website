@@ -540,11 +540,11 @@ It mounts a directory and writes the requested data in plain text files.
 这种卷类型挂载一个目录并在纯文本文件中写入所请求的数据。
 
 <!--
-A Container using Downward API as a [subPath](#using-subpath) volume mount will not
-receive Downward API updates.
+A container using the downward API as a [`subPath`](#using-subpath) volume mount does not
+receive updates when field values change.
 -->
 {{< note >}}
-容器以 [subPath](#using-subpath) 卷挂载方式使用 downwardAPI 时，将不能接收到它的更新。
+容器以 [subPath](#using-subpath) 卷挂载方式使用 downward API 时，在字段值更改时将不能接收到它的更新。
 {{< /note >}}
 
 <!--
