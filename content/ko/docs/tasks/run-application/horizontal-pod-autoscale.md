@@ -337,9 +337,9 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
   * 외부 메트릭의 경우, 이것은 `external.metrics.k8s.io` API이다. 위에 제공된 사용자 정의 메트릭 어댑터에서 제공될 수 있다.
 
 이런 다양한 메트릭 경로와 각각의 다른 점에 대한 상세 내용은 관련 디자인 제안서인
-[HPA V2](https://github.com/kubernetes/design-proposals-archive/blob/main/autoscaling/hpa-v2.md),
-[custom.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/custom-metrics-api.md),
-[external.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/external-metrics-api.md)를 참조한다.
+[the HPA V2](https://git.k8s.io/design-proposals-archive/autoscaling/hpa-v2.md),
+[custom.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/custom-metrics-api.md),
+[external.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/external-metrics-api.md)를 참조한다.
 
 어떻게 사용하는지에 대한 예시는 [커스텀 메트릭 사용하는 작업 과정](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#다양한-메트릭-및-사용자-정의-메트릭을-기초로한-오토스케일링)과
 [외부 메트릭스 사용하는 작업 과정](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#쿠버네티스-오브젝트와-관련이-없는-메트릭을-기초로한-오토스케일링)을 참조한다.
