@@ -44,7 +44,8 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
  ]
 -->
 Endpoints 是实现实际服务的端点的集合。 举例:
-  `Name: "mysvc",
+  ```
+  Name: "mysvc",
   Subsets: [
     {
       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
@@ -54,7 +55,8 @@ Endpoints 是实现实际服务的端点的集合。 举例:
       Addresses: [{"ip": "10.10.3.3"}],
       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
     },
- ]`
+ ]
+ ```
 
 <hr>
 
@@ -66,22 +68,22 @@ Endpoints 是实现实际服务的端点的集合。 举例:
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-<!--
+  <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
--->
+  -->
   标准的对象元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **subsets** ([]EndpointSubset)
 
-<!--
+  <!--
   The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
--->
-  所有端点的集合是所有子集的并集。
-  地址根据它们共享的IP被放入子集。
-  具有多个端口的单个地址，其中一些端口已就绪，而另一些端口未就绪（因为它们来自不同的容器），将导致地址显示在不同端口的不同子集中。同一子集中的地址和NotReadyAddress中都不会显示任何地址。
+  -->
+  所有端点的集合是所有 subsets 的并集。
+  地址根据它们共享的 IP 被放入子集。
+  对于具有多个端口的单个地址，如果其中一些端口已就绪，而另一些端口未就绪（因为它们来自不同的容器），将导致地址显示在不同端口的不同子集中。同一子集中的 Addresses 和NotReadyAddress 中都不会显示任何地址。
   组成服务的地址和端口集。
 
-<!--
+  <!--
   <a name="EndpointSubset"></a>
   *EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
     {
@@ -91,16 +93,20 @@ Endpoints 是实现实际服务的端点的集合。 举例:
   The resulting set of endpoints can be viewed as:
       a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
       b: [ 10.10.1.1:309, 10.10.2.2:309 ]*
--->
+  -->
   <a name="EndpointSubset"></a>
-  EndpointSubset 是一组具有公共端口集的地址。扩展的端点集是地址x端口的笛卡尔乘积。例如，给定:
-    `{
+  EndpointSubset 是一组具有公共端口集的地址。扩展的端点集是 Addresses 和 Ports 的笛卡尔乘积。例如，给定:
+  ```
+    {
       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
       Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
     }
+  ```
   最终的端点集可以看作:
+  ```  
       a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-      b: [ 10.10.1.1:309, 10.10.2.2:309 ]`
+      b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+  ```
 
   - **subsets.addresses** ([]EndpointAddress)
   
@@ -116,7 +122,7 @@ Endpoints 是实现实际服务的端点的集合。 举例:
     
 
     <a name="EndpointAddress"></a>
-    *EndpointAddress 是描述单个IP地址的元组。*
+    *EndpointAddress 是描述单个 IP 地址的元组。*
 
     <!--
     - **subsets.addresses.ip** (string), required
@@ -125,11 +131,12 @@ Endpoints 是实现实际服务的端点的集合。 举例:
     -->
     - **subsets.addresses.ip** (string), 必需
 
-      端点的 IP。可能不是环回（127.0.0.0/8）、链路本地（169.254.0.0/16）或链路本地多播（224.0.0.0/24）。
+      端点的 IP。不可以是本地回路（127.0.0.0/8）、链路本地（169.254.0.0/16）或链路本地多播（224.0.0.0/24）地址。
       IPv6 也被接受，但并非在所有平台上都完全支持。
-      此外，某些 kubernetes 组件，如 kube proxy，还没有准备好支持 IPv6。
+      此外，某些 kubernetes 组件，如 kube-proxy，还没有准备好支持 IPv6。
 
     - **subsets.addresses.hostname** (string)
+      
       <!--
       The Hostname of this endpoint
       -->
@@ -141,14 +148,14 @@ Endpoints 是实现实际服务的端点的集合。 举例:
       Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
       -->
       可选：承载此端点的节点。
-      这可用于确定节点的本地端点。
+      此字段可用于确定节点的本地端点。
 
     - **subsets.addresses.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
       <!--
       Reference to object providing the endpoint.
       -->
-       对提供端点的对象的引用。
+      对提供端点的对象的引用。
             
   - **subsets.notReadyAddresses** ([]EndpointAddress)
     <!--
@@ -157,7 +164,9 @@ Endpoints 是实现实际服务的端点的集合。 举例:
     <a name="EndpointAddress"></a>
     *EndpointAddress is a tuple that describes single IP address.*
     -->
-    提供相关端口但由于尚未完成启动、最近未通过就绪性检查或最近未通过活动性检查而当前未标记为就绪的IP地址。
+    提供相关端口但由于尚未完成启动、最近未通过就绪性检查或最近未通过活动性检查而当前未标记为就绪的 IP 地址。
+    <a name="EndpointAddress"></a>
+    *EndpointAddress 是描述单个 IP 地址的元组。*
 
     <!--
     - **subsets.notReadyAddresses.ip** (string), required
@@ -166,28 +175,28 @@ Endpoints 是实现实际服务的端点的集合。 举例:
     -->
     - **subsets.notReadyAddresses.ip** (string), 必需
 
-      端点的 IP。可能不是环回（127.0.0.0/8）、链路本地（169.254.0.0/16）或链路本地多播（224.0.0.0/24）。
+      端点的 IP。不可以是本地环路（127.0.0.0/8）、链路本地（169.254.0.0/16）或链路本地多播（224.0.0.0/24）地址。
       IPv6 也被接受，但并非在所有平台上都完全支持。
-      此外，某些 kubernetes 组件，如 kube proxy，还没有准备好支持 IPv6。
+      此外，某些 kubernetes 组件，如 kube-proxy，还没有准备好支持 IPv6。
 
     - **subsets.notReadyAddresses.hostname** (string)
-    <!--
+      <!--
       The Hostname of this endpoint
-    -->
+      -->
        端点主机名称。
 
     - **subsets.notReadyAddresses.nodeName** (string)
-    <!--
+      <!--
       Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
-    -->
+      -->
       可选：承载此端点的节点。
-      这可用于确定节点的本地端点。
+      此字段可用于确定节点的本地端点。
 
     - **subsets.notReadyAddresses.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
-    <!--
+      <!--
       Reference to object providing the endpoint.
-    -->
+      -->
       对提供端点的对象的引用。
 
   - **subsets.ports** ([]EndpointPort)
@@ -196,6 +205,7 @@ Endpoints 是实现实际服务的端点的集合。 举例:
     Port numbers available on the related IP addresses.
     -->
     相关IP地址上可用的端口号。
+    
     <!--
     <a name="EndpointPort"></a>
     *EndpointPort is a tuple that describes a single port.*
@@ -214,19 +224,19 @@ Endpoints 是实现实际服务的端点的集合。 举例:
       端点的端口号。
 
     - **subsets.ports.protocol** (string)
-    <!--
+      <!--
       The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
-    -->
-      此端口的IP协议。必须是UDP、TCP或SCTP。默认值为TCP。  
+      -->
+      此端口的 IP 协议。必须是 UDP、TCP 或S CTP。默认值为 TCP。  
       
 
     - **subsets.ports.name** (string)
     
-    <!--
+      <!--
       The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
-    -->
+      -->
       端口的名称。
-      这必须与相应 ServicePort 中的 “name” 字段匹配。必须是 DNS_LABEL 。
+      这必须与相应 ServicePort 中的 “name” 字段匹配。必须是 DNS_LABEL。
       仅当定义了一个端口时才可选。
 
     - **subsets.ports.appProtocol** (string)
@@ -237,7 +247,7 @@ Endpoints 是实现实际服务的端点的集合。 举例:
       端口的应用程序协议。
       此字段遵循标准的 Kubernetes 标签语法。
       未加前缀的名称保留给 IANA 标准服务名称（根据 RFC-6335 和 https://www.iana.org/assignments/service-names)。
-      非标准协议应使用前缀名称，如 mycompany.com/my-custom-protocol。      
+      非标准协议应使用带前缀名称，如 mycompany.com/my-custom-protocol。      
 
 
 
@@ -280,10 +290,6 @@ EndpointsList 是端点列表。
 
 <hr>
 
-
-
-
-
 <!--
 ### `get` read the specified Endpoints
 
@@ -306,14 +312,14 @@ GET /api/v1/namespaces/{namespace}/endpoints/{name}
 
   name of the Endpoints
 -->
-- **name** (*in path*): string, 必需
+- **name** (*路径参数*): string, 必需
 
   端点名称
 
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (*in path*): string, 必需
+- **namespace** (*路径参数*): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -354,7 +360,7 @@ GET /api/v1/namespaces/{namespace}/endpoints
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (*in path*): string, 必需
+- **namespace** (*路径参数*): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -595,7 +601,7 @@ POST /api/v1/namespaces/{namespace}/endpoints
 
 - **body**: <a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>, required
 -->
- - **namespace** (*in path*): string, 必需
+ - **namespace** (*路径参数*): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -678,14 +684,14 @@ PUT /api/v1/namespaces/{namespace}/endpoints/{name}
   name of the Endpoints
 -->
 
-- **name** (*in path*): string, 必需
+- **name** (*路径参数*): string, 必需
  
   Endpoints名称
 
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (*in path*): string, 必需
+- **namespace** (*路径参数*): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -775,7 +781,7 @@ PATCH /api/v1/namespaces/{namespace}/endpoints/{name}
 
   name of the Endpoints
 -->
-- **name** (*in path*): string, 必需
+- **name** (*路径参数*): string, 必需
 
   Endpoints名称
 
@@ -787,7 +793,7 @@ PATCH /api/v1/namespaces/{namespace}/endpoints/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 -->
-- **namespace** (*in path*): string, 必需
+- **namespace** (*路径参数*): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -875,7 +881,7 @@ DELETE /api/v1/namespaces/{namespace}/endpoints/{name}
 
   name of the Endpoints
 -->
-- **name** (*in path*): string, 必需
+- **name** (*路径参数*): string, 必需
 
   Endpoints 名称
 
@@ -884,7 +890,7 @@ DELETE /api/v1/namespaces/{namespace}/endpoints/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (*in path*): string, 必需
+- **namespace** (*路径参数*): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -965,7 +971,7 @@ DELETE /api/v1/namespaces/{namespace}/endpoints
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 -->
-- **namespace** (*in path*): string, 必需
+- **namespace** (*路径参数*): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
