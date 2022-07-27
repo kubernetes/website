@@ -51,7 +51,7 @@ Pods may also enter these states when the user attempts graceful deletion of a P
 on an unreachable Node.
 The only ways in which a Pod in such a state can be removed from the apiserver are as follows:
 
-* The Node object is deleted (either by you, or by the [Node Controller](/docs/concepts/architecture/nodes/)).
+* The Node object is deleted (either by you, or by the [Node Controller](/docs/concepts/architecture/nodes/#node-controller)).
 * The kubelet on the unresponsive Node starts responding, kills the Pod and removes the entry from the apiserver.
 * Force deletion of the Pod by the user.
 

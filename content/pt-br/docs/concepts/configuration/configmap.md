@@ -45,7 +45,7 @@ são opcionais. O campo `data` foi pensado para conter sequências de bytes UTF-
 foi planejado para conter dados binários em forma de strings codificadas em base64.
 
 É obrigatório que o nome de um ConfigMap seja um
-[subdomínio DNS válido](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[subdomínio DNS válido](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 Cada chave sob as seções `data` ou `binaryData` pode conter quaisquer caracteres alfanuméricos,
 `-`, `_` e `.`. As chaves armazenadas na seção `data` não podem colidir com as chaves armazenadas

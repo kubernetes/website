@@ -36,8 +36,8 @@ part of Kubernetes (this removal was
 [announced](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
 as part of the v1.20 release).
 You can read
-[Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) to understand how this removal might
-affect you. To learn about migrating from using dockershim, see
+[Check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
+to understand how this removal might affect you. To learn about migrating from using dockershim, see
 [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
 
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
@@ -179,9 +179,9 @@ Follow the instructions for [getting started with containerd](https://github.com
 {{% tab name="Linux" %}}
 You can find this file under the path `/etc/containerd/config.toml`.
 {{% /tab %}}
-{{< tab name="Windows" >}}
+{{% tab name="Windows" %}}
 You can find this file under the path `C:\Program Files\containerd\config.toml`.
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 On Linux the default CRI socket for containerd is `/run/containerd/containerd.sock`.
@@ -215,6 +215,18 @@ sudo systemctl restart containerd
 When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 
+#### Overriding the sandbox (pause) image {#override-pause-image-containerd}
+
+In your [containerd config](https://github.com/containerd/containerd/blob/main/docs/cri/config.md) you can overwrite the
+sandbox image by setting the following config:
+
+```toml
+[plugins."io.containerd.grpc.v1.cri"]
+  sandbox_image = "k8s.gcr.io/pause:3.2"
+```
+
+You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
+
 ### CRI-O
 
 This section contains the necessary steps to install CRI-O as a container runtime.
@@ -241,6 +253,19 @@ in sync.
 
 For CRI-O, the CRI socket is `/var/run/crio/crio.sock` by default.
 
+#### Overriding the sandbox (pause) image {#override-pause-image-cri-o}
+
+In your [CRI-O config](https://github.com/cri-o/cri-o/blob/main/docs/crio.conf.5.md) you can set the following
+config value:
+
+```toml
+[crio.image]
+pause_image="registry.k8s.io/pause:3.6"
+```
+
+This config option supports live configuration reload to apply this change: `systemctl reload crio` or by sending
+`SIGHUP` to the `crio` process.
+
 ### Docker Engine {#docker}
 
 {{< note >}}
@@ -257,6 +282,12 @@ Docker Engine with Kubernetes.
 
 For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 
+#### Overriding the sandbox (pause) image {#override-pause-image-cri-dockerd}
+
+The `cri-dockerd` adapter accepts a command line argument for
+specifying which container image to use as the Pod infrastructure container (“pause image”).
+The command line argument to use is `--pod-infra-container-image`.
+
 ### Mirantis Container Runtime {#mcr}
 
 [Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is a commercially
@@ -270,6 +301,12 @@ visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html).
 
 Check the systemd unit named `cri-docker.socket` to find out the path to the CRI
 socket.
+
+#### Overriding the sandbox (pause) image {#override-pause-image-cri-dockerd-mcr}
+
+The `cri-dockerd` adapter accepts a command line argument for
+specifying which container image to use as the Pod infrastructure container (“pause image”).
+The command line argument to use is `--pod-infra-container-image`.
 
 ## {{% heading "whatsnext" %}}
 

@@ -458,7 +458,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 {{< feature-state state="alpha" for_k8s_version="v1.24" >}}
 
-A node shutdown action may not be detected by kubelet's Node Shutdown Mananger, 
+A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
 either because the command does not trigger the inhibitor locks mechanism used by 
 kubelet or because of a user error, i.e., the ShutdownGracePeriod and 
 ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above 
@@ -479,29 +479,24 @@ these pods will be stuck in terminating status on the shutdown node forever.
 To mitigate the above situation, a  user can manually add the taint `node 
 kubernetes.io/out-of-service` with either `NoExecute` or `NoSchedule` effect to 
 a Node marking it out-of-service. 
-If the `NodeOutOfServiceVolumeDetach`  [feature gate](/docs/reference/
-command-line-tools-reference/feature-gates/) is enabled on
-`kube-controller-manager`, and a Node is marked out-of-service with this taint, the 
-pods on the node will be forcefully deleted if there are no matching tolerations on
-it and volume detach operations for the pods terminating on the node will happen
-immediately. This allows the Pods on the out-of-service node to recover quickly on a
-different node. 
+If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled on `kube-controller-manager`, and a Node is marked out-of-service with this taint, the
+pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
+detach operations for the pods terminating on the node will happen immediately. This allows the
+Pods on the out-of-service node to recover quickly on a different node. 
 
 During a non-graceful shutdown, Pods are terminated in the two phases:
 
 1. Force delete the Pods that do not have matching `out-of-service` tolerations.
 2. Immediately perform detach volume operation for such pods. 
 
-
 {{< note >}}
 - Before adding the taint `node.kubernetes.io/out-of-service` , it should be verified
-that the node is already in shutdown or power off state (not in the middle of
-restarting).
+  that the node is already in shutdown or power off state (not in the middle of
+  restarting).
 - The user is required to manually remove the out-of-service taint after the pods are
-moved to a new node and the user has checked that the shutdown node has been
-recovered since the user was the one who originally added the taint.
-
-
+  moved to a new node and the user has checked that the shutdown node has been
+  recovered since the user was the one who originally added the taint.
 {{< /note >}}
 
 ### Pod Priority based graceful node shutdown {#pod-priority-graceful-node-shutdown}
@@ -654,7 +649,7 @@ see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
 
 * Learn about the [components](/docs/concepts/overview/components/#node-components) that make up a node.
 * Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
-* Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
+* Read the [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 

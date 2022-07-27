@@ -67,7 +67,7 @@ Let's see an example of a cluster to understand this API.
 As the feature name "PodTopologySpread" implies, the basic usage of this feature
 is to run your workload with an absolute even manner (maxSkew=1), or relatively
 even manner (maxSkew>=2). See the [official
-document](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
+document](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 for more details.
 
 In addition to this basic usage, there are some advanced usage examples that

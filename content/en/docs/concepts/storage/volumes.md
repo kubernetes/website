@@ -117,7 +117,7 @@ spec:
       fsType: ext4
 ```
 
-If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which parition to mount on.
+If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which partition to mount on.
 
 #### AWS EBS CSI migration
 
@@ -303,15 +303,17 @@ keyed with `log_level`.
 
 ### downwardAPI {#downwardapi}
 
-A `downwardAPI` volume makes downward API data available to applications.
-It mounts a directory and writes the requested data in plain text files.
+A `downwardAPI` volume makes {{< glossary_tooltip term_id="downward-api" text="downward API" >}}
+data available to applications. Within the volume, you can find the exposed
+data as read-only files in plain text format.
 
 {{< note >}}
-A container using the downward API as a [`subPath`](#using-subpath) volume mount will not
-receive downward API updates.
+A container using the downward API as a [`subPath`](#using-subpath) volume mount does not
+receive updates when field values change.
 {{< /note >}}
 
-See the [downward API example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/) for more details.
+See [Expose Pod Information to Containers Through Files](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
+to learn more.
 
 ### emptyDir {#emptydir}
 
@@ -1156,7 +1158,7 @@ to the [volume plugin FAQ](https://github.com/kubernetes/community/blob/master/s
 (CSI) defines a standard interface for container orchestration systems (like
 Kubernetes) to expose arbitrary storage systems to their container workloads.
 
-Please read the [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for more information.
+Please read the [CSI design proposal](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md) for more information.
 
 {{< note >}}
 Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes
@@ -1176,8 +1178,8 @@ CSI driver.
 A `csi` volume can be used in a Pod in three different ways:
 
 * through a reference to a [PersistentVolumeClaim](#persistentvolumeclaim)
-* with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
-* with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)
+* with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
+* with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
 if the driver supports that (beta feature)
 
 The following fields are available to storage administrators to configure a CSI
@@ -1244,7 +1246,7 @@ You can set up your
 You can directly configure CSI volumes within the Pod
 specification. Volumes specified in this way are ephemeral and do not
 persist across pod restarts. See [Ephemeral
-Volumes](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)
+Volumes](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
 for more information.
 
 For more information on how to develop a CSI driver, refer to the

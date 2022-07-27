@@ -84,7 +84,7 @@ To close a pull request, leave a `/close` comment on the PR.
 
 {{< note >}}
 
-The [`fejta-bot`](https://github.com/fejta-bot) bot marks issues as stale after 90 days of inactivity. After 30 more days it marks issues as rotten and closes them.  PR wranglers should close issues after 14-30 days of inactivity.
+The [`k8s-triage-robot`](https://github.com/k8s-triage-robot) bot marks issues as stale after 90 days of inactivity. After 30 more days it marks issues as rotten and closes them.  PR wranglers should close issues after 14-30 days of inactivity.
 
 {{< /note >}}
 

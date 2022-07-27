@@ -67,12 +67,12 @@ For example, this is how to start a simple web server as a static Pod:
     ssh my-node1
     ```
 
-2. Choose a directory, say `/etc/kubelet.d` and place a web server Pod definition there, for example `/etc/kubelet.d/static-web.yaml`:
+2. Choose a directory, say `/etc/kubernetes/manifests` and place a web server Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
 
     ```shell
     # Run this command on the node where kubelet is running
-    mkdir /etc/kubelet.d/
-    cat <<EOF >/etc/kubelet.d/static-web.yaml
+    mkdir -p /etc/kubernetes/manifests/
+    cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -90,10 +90,10 @@ For example, this is how to start a simple web server as a static Pod:
     EOF
     ```
 
-3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
+3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubernetes/manifests/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
 
    ```
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
+   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubernetes/manifests/"
    ```
    or add the `staticPodPath: <the directory>` field in the
    [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).
@@ -224,7 +224,7 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 
 ## Dynamic addition and removal of static pods
 
-The running kubelet periodically scans the configured directory (`/etc/kubelet.d` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
+The running kubelet periodically scans the configured directory (`/etc/kubernetes/manifests` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
 
 ```shell
 # This assumes you are using filesystem-hosted static Pod configuration

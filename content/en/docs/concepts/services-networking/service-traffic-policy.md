@@ -43,7 +43,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -59,12 +59,6 @@ endpoints are considered. When it's `Cluster` or missing, all endpoints are
 considered.
 When the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `ServiceInternalTrafficPolicy` is enabled, `spec.internalTrafficPolicy` defaults to "Cluster".
-
-## Constraints
-
-* Service Internal Traffic Policy is not used when `externalTrafficPolicy` is set
-  to `Local` on a Service. It is possible to use both features in the same cluster
-  on different Services, just not on the same Service.
 
 ## {{% heading "whatsnext" %}}
 
