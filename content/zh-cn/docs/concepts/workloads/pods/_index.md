@@ -609,7 +609,7 @@ in the Pod Lifecycle documentation.
   The {{< api-reference page="workload-resources/pod-v1" >}}
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
-* Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
+* Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints//).
 -->
 * 了解 [Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
 * 了解 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)，以及如何使用它
@@ -621,7 +621,7 @@ in the Pod Lifecycle documentation.
   对象的定义中包含了更多的细节信息。
 * 博客 [分布式系统工具箱：复合容器模式](/blog/2015/06/the-distributed-system-toolkit-patterns/)
   中解释了在同一 Pod 中包含多个容器时的几种常见布局。
-* 了解 [Pod 拓扑分布约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/)。
+* 了解 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints//)。
 
 <!--
 To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}), you can read about the prior art, including:
