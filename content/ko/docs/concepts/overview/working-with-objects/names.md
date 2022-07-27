@@ -100,4 +100,4 @@ UUID는 ISO/IEC 9834-8 과 ITU-T X.667 로 표준화 되어 있다.
 ## {{% heading "whatsnext" %}}
 
 * 쿠버네티스의 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)에 대해 읽기.
-* [쿠버네티스의 식별자와 이름](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) 디자인 문서 읽기.
+* [쿠버네티스의 식별자와 이름](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md) 디자인 문서 읽기.

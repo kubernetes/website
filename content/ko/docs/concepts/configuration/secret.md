@@ -247,6 +247,8 @@ API 크리덴셜이 [TokenRequest](/docs/reference/kubernetes-api/authentication
 예를 들어, 영원히 만료되지 않는 토큰이 필요한 경우에 활용할 수 있다. 
 그러나, 이렇게 하기보다는 API 접근에 필요한 토큰을 얻기 위해 
 [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) 서브리소스를 사용하는 것을 권장한다.
+`TokenRequest` API로부터 토큰을 얻기 위해 
+[`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-) 커맨드를 사용할 수 있다.
 {{< /note >}}
 
 #### 특정 경로에 대한 시크릿 키 투영하기
@@ -887,14 +889,29 @@ empty-secret   Opaque   0      2m6s
 
 `kubernetes.io/service-account-token` 시크릿 타입은 
 {{< glossary_tooltip text="서비스 어카운트" term_id="service-account" >}}를 확인하는 
-토큰을 저장하기 위해서 사용한다. 
+토큰 자격증명을 저장하기 위해서 사용한다.
+
+1.22 버전 이후로는 이러한 타입의 시크릿은 더 이상 파드에 자격증명을 마운트하는 데 사용되지 않으며, 
+서비스 어카운트 토큰 시크릿 오브젝트를 사용하는 대신 
+[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) API를 통해 토큰을 얻는 것이 추천된다. 
+`TokenRequest` API에서 얻은 토큰은 제한된 수명을 가지며 다른 API 클라이언트에서 읽을 수 없기 때문에 
+시크릿 오브젝트에 저장된 토큰보다 더 안전하다.
+`TokenRequest` API에서 토큰을 얻기 위해서 
+[`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-) 커맨드를 사용할 수 있다.
+
+토큰을 얻기 위한 `TokenRequest` API를 사용할 수 없는 경우에는
+서비스 어카운트 토큰 시크릿 오브젝트를 생성할 수 밖에 없으나,
+이는 만료되지 않는 토큰 자격증명을 읽기 가능한 API 오브젝트로
+지속되는 보안 노출 상황을 감수할 수 있는 경우에만 생성해야 한다.
+
 이 시크릿 타입을 사용할 때는, 
 `kubernetes.io/service-account.name` 어노테이션이 존재하는 
-서비스 어카운트 이름으로 설정되도록 해야 한다. 
-쿠버네티스 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}는 
+서비스 어카운트 이름으로 설정되도록 해야 한다. 만약 서비스 어카운트와 
+시크릿 오브젝트를 모두 생성하는 경우, 서비스 어카운트를 먼저 생성해야만 한다.
+
+시크릿이 생성된 후, 쿠버네티스 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}는 
 `kubernetes.io/service-account.uid` 어노테이션 및 
-`data` 필드의 `token` 키와 같은 몇 가지 다른 필드들을 채우며, 
-이들은 인증 토큰을 보관한다.
+인증 토큰을 보관하고 있는 `data` 필드의 `token` 키와 같은 몇 가지 다른 필드들을 채운다.
 
 다음은 서비스 어카운트 토큰 시크릿의 구성 예시이다.
 
@@ -911,17 +928,11 @@ data:
   extra: YmFyCg==
 ```
 
-`Pod` 를 생성할 때, 쿠버네티스는 자동으로 서비스 어카운트 시크릿을
-생성하고 자동으로 파드가 해당 시크릿을 사용하도록 수정한다. 해당 서비스
-어카운트 토큰 시크릿은 API 접속을 위한 자격 증명을 포함한다.
-
-이러한 API 자격 증명의 자동 생성과 사용은 원하는 경우 해제하거나
-기각할 수 있다. 그러나 만약 사용자가 API 서버에 안전하게 접근하는 것만
-필요하다면, 이것이 권장되는 워크플로우이다.
+시크릿을 만든 후, 쿠버네티스가 `data` 필드에 `token` 키를 채울 때까지 기다린다.
 
 [서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-account/) 문서를 보면
 서비스 어카운트가 동작하는 방법에 대한 더 자세한 정보를 얻을 수 있다.
-또한 파드에서 서비스 어카운트를 참조하는 방법을
+또한 파드에서 서비스 어카운트 자격증명을 참조하는 방법에 대한 정보는 
 [`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)의
 `automountServiceAccountToken` 필드와 `serviceAccountName`
 필드를 통해 확인할 수 있다.
@@ -982,7 +993,7 @@ kubectl create secret docker-registry secret-tiger-docker \
 ```
 
 이 커맨드는 `kubernetes.io/dockerconfigjson` 타입의 시크릿을 생성한다. 
-다음 명령으로 이 새 시크릿에서 `.data.dockercfgjson` 필드를 덤프하고 
+다음 명령으로 이 새 시크릿에서 `.data.dockerconfigjson` 필드를 덤프하고 
 base64로 디코드하면,
 
 ```shell
