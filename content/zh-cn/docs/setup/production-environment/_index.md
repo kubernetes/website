@@ -101,12 +101,12 @@ by managing [policies](/docs/concepts/policy/) and
 Before building a Kubernetes production environment on your own, consider
 handing off some or all of this job to 
 [Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/) 
-providers or other [Kubernetes Partners](https://kubernetes.io/partners/).
+providers or other [Kubernetes Partners](/partners/).
 Options include:
 -->
-在自行构造 Kubernetes 生产环境之前，请考虑将这一任务的部分或者全部交给
+在自行构建 Kubernetes 生产环境之前，请考虑将这一任务的部分或者全部交给
 [云方案承包服务](/zh-cn/docs/setup/production-environment/turnkey-solutions)
-提供商或者其他 [Kubernetes 合作伙伴](https://kubernetes.io/partners/)。
+提供商或者其他 [Kubernetes 合作伙伴](/zh-cn/partners/)。
 选项有：
 
 <!--
@@ -137,8 +137,8 @@ to your cluster’s *control plane*, *worker nodes*, *user access*, and
 *workload resources*.
 -->
 无论你是自行构造一个生产用 Kubernetes 集群还是与合作伙伴一起协作，请审阅
-下面章节以评估你的需求，因为这关系到你的集群的 *控制面*、*工作节点*、
-*用户访问* 以及 *负载资源*。
+下面章节以评估你的需求，因为这关系到你的集群的**控制面**、**工作节点**、
+**用户访问**以及**负载资源**。
 
 <!--
 ## Production cluster setup
@@ -167,7 +167,7 @@ discarded if something goes seriously wrong, this might meet your needs.
 ### 生产用控制面  {#production-control-plane}
 
 最简单的 Kubernetes 集群中，整个控制面和工作节点服务都运行在同一台机器上。
-你可以通过添加工作节点来提升环境能力，正如
+你可以通过添加工作节点来提升环境运算能力，正如
 [Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)示意图所示。
 如果只需要集群在很短的一段时间内可用，或者可以在某些事物出现严重问题时直接丢弃，
 这种配置可能符合你的需要。
@@ -182,7 +182,7 @@ consider these steps:
 -->
 如果你需要一个更为持久的、高可用的集群，那么就需要考虑扩展控制面的方式。
 根据设计，运行在一台机器上的单机控制面服务不是高可用的。
-如果保持集群处于运行状态并且需要确保在出现问题时能够被修复这点很重要，
+如果你认为保持集群的正常运行的并需要确保它在出错时可以被修复是很重要的，
 可以考虑以下步骤：
 
 <!--
@@ -338,7 +338,7 @@ then add and run the appropriate
   - The demands of your workloads when you set up nodes by having appropriate memory, CPU, and disk speed and storage capacity available.
   - Whether generic computer systems will do or you have workloads that need GPU processors, Windows nodes, or VM isolation.
   -->
-  - 在安装节点时要通过配置适当的内存、CPU 和磁盘速度、存储容量来满足
+  - 在安装节点时要通过配置适当的内存、CPU 和磁盘读写速率、存储容量来满足
     你的负载的需求。
   - 是否通用的计算机系统即足够，还是你有负载需要使用 GPU 处理器、Windows 节点
     或者 VM 隔离。
@@ -583,7 +583,7 @@ for information on creating a new service account. For example, you might want t
 <!--
 - Decide if you want to build your own production Kubernetes or obtain one from
 available [Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/)
-or [Kubernetes Partners](https://kubernetes.io/partners/).
+or [Kubernetes Partners](/partners/).
 - If you choose to build your own cluster, plan how you want to
 handle [certificates](/docs/setup/best-practices/certificates/)
 and set up high availability for features such as
@@ -593,7 +593,7 @@ and the
 -->
 - 决定你是想自行构造自己的生产用 Kubernetes 还是从某可用的
   [云服务外包厂商](/zh-cn/docs/setup/production-environment/turnkey-solutions/)
-  或 [Kubernetes 合作伙伴](https://kubernetes.io/partners/)获得集群。
+  或 [Kubernetes 合作伙伴](/zh-cn/partners/)获得集群。
 - 如果你决定自行构造集群，则需要规划如何处理
   [证书](/zh-cn/docs/setup/best-practices/certificates/)
   并为类似
