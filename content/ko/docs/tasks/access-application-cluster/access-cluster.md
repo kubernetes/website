@@ -27,8 +27,8 @@ kubectl config view
 ```
 
 [여기](/ko/docs/reference/kubectl/cheatsheet/)에서 
-kubectl 사용 예시를 볼 수 있으며, 완전한 문서는
-[kubectl 매뉴얼](/ko/docs/reference/kubectl/overview/)에서 확인할 수 있다.
+`kubectl` 사용 예시를 볼 수 있으며, 완전한 문서는
+[kubectl 레퍼런스](/ko/docs/reference/kubectl/)에서 확인할 수 있다.
 
 ## REST API에 직접 접근
 
@@ -86,12 +86,36 @@ curl http://localhost:8080/api/
 
 ### kubectl proxy를 사용하지 않음
 
-기본 서비스 어카운트의 토큰을 얻어내려면 `kubectl describe secret...`을 grep/cut과 함께 사용한다.
+`kubectl apply` 및 `kubectl describe secret...` 명령과 grep/cut을 활용하여 기본 서비스 어카운트의 토큰을 생성한다.
+
+먼저, 기본 서비스어카운트를 위한 토큰을 요청하는 시크릿을 생성한다.
+
+```shell
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-token
+  annotations:
+    kubernetes.io/service-account.name: default
+type: kubernetes.io/service-account-token
+EOF
+```
+
+다음으로, 토큰 컨트롤러가 해당 시크릿에 토큰을 채우기를 기다린다.
+
+```shell
+while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
+  echo "waiting for token..." >&2
+  sleep 1
+done
+```
+
+결과를 캡처하여 생성된 토큰을 사용한다.
 
 ```shell
 APISERVER=$(kubectl config view --minify | grep server | cut -f 2- -d ":" | tr -d " ")
-SECRET_NAME=$(kubectl get secrets | grep ^default | cut -f1 -d ' ')
-TOKEN=$(kubectl describe secret $SECRET_NAME | grep -E '^token' | cut -f2 -d':' | tr -d " ")
+TOKEN=$(kubectl describe secret default-token | grep -E '^token' | cut -f2 -d':' | tr -d " ")
 
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
@@ -117,8 +141,7 @@ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 
 ```shell
 APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-SECRET_NAME=$(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}')
-TOKEN=$(kubectl get secret $SECRET_NAME -o jsonpath='{.data.token}' | base64 --decode)
+TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode)
 
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
@@ -181,40 +204,17 @@ Python 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 
 
 ## 파드에서 API 접근
 
-파드에서 API를 접속한다면 apiserver의
-위치지정과 인증은 다소 다르다.
+파드에서 API에 접근하는 경우, 
+API 서버를 찾고 인증하는 방식이 약간 다를 수 있다.
 
-파드 내에서 apiserver의 위치를 지정하는데 추천하는 방식은
-`kubernetes.default.svc` DNS 네임을 사용하는 것이다.
-이 DNS 네임은 apiserver로 라우팅되는 서비스 IP로 resolve된다.
-
-apiserver 인증에 추천되는 방식은
-[서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-account/)
-인증정보를 사용하는 것이다. kube-system에 의해 파드는 서비스 어카운트와 연계되며
-해당 서비스 어카운트의 인증정보(토큰)은 파드 내 각 컨테이너의 파일시스템 트리의
-`/var/run/secrets/kubernetes.io/serviceaccount/token`에 위치한다.
-
-사용 가능한 경우, 인증서 번들은 각 컨테이너 내 파일시스템 트리의
-`/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`에 위치하며
-apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
-
-마지막으로 네임스페이스 한정의 API 조작에 사용되는 기본 네임스페이스는 각 컨테이터 내의
-`/var/run/secrets/kubernetes.io/serviceaccount/namespace` 파일로 존재한다.
-
-파드 내에서 API에 접근하는데 권장되는 방식은 다음과 같다.
-
-  - 파드의 sidecar 컨테이너 내에서 `kubectl proxy`를 실행하거나,
-    컨테이너 내부에서 백그라운드 프로세스로 실행한다.
-    이는 쿠버네티스 API를 파드의 localhost 인터페이스로 프록시하여
-    해당 파드의 컨테이너 내에 다른 프로세스가 API에 접속할 수 있게 해준다.
-  - Go 클라이언트 라이브러리를 이용하여 `rest.InClusterConfig()`와 `kubernetes.NewForConfig()` 함수들을 사용하도록 클라이언트를 만든다.
-    이는 apiserver의 위치지정과 인증을 처리한다. [예제](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
-
-각각의 사례에서 apiserver와의 보안 통신에 파드의 인증정보가 사용된다.
+더 자세한 내용은 
+[파드 내에서 쿠버네티스 API에 접근](/ko/docs/tasks/run-application/access-api-from-pod/)을 참조한다.
 
 ## 클러스터에서 실행되는 서비스로 접근
 
-이전 섹션에서는 쿠버네티스 API 서버에 연결하는 방법을 소개하였다. 쿠버네티스 클러스터에서 실행되는 다른 서비스에 연결하는 방법은 [클러스터 서비스에 접근](/ko/docs/tasks/administer-cluster/access-cluster-services/) 페이지를 참조한다.
+이전 섹션에서는 쿠버네티스 API 서버에 연결하는 방법을 소개하였다. 
+쿠버네티스 클러스터에서 실행되는 다른 서비스에 연결하는 방법은 
+[클러스터 서비스에 접근](/ko/docs/tasks/access-application-cluster/access-cluster-services/) 페이지를 참조한다.
 
 ## redirect 요청하기
 

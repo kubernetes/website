@@ -110,9 +110,19 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y ca-certificates curl
    ```
-
+   
+   {{< note >}}
+   
+   If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
+    
+    ```shell
+    sudo apt-get install -y apt-transport-https
+    ```
+   
+   {{< /note >}}
+   
 2. Download the Google Cloud public signing key:
 
    ```shell
@@ -138,10 +148,9 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl

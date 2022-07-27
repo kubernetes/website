@@ -29,7 +29,7 @@ When they do, they are authenticated as a particular Service Account (for exampl
 
 <!-- steps -->
 
-## Use the Default Service Account to access the API server.
+## Use the Default Service Account to access the API server
 
 When you create a pod, if you do not specify a service account, it is
 automatically assigned the `default` service account in the same namespace.
@@ -42,7 +42,7 @@ You can access the API from inside a pod using automatically mounted service acc
 The API permissions of the service account depend on the
 [authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
 
-In version 1.6+, you can opt out of automounting API credentials for a service account by setting `automountServiceAccountToken: false` on the service account:
+You can opt out of automounting API credentials on `/var/run/secrets/kubernetes.io/serviceaccount/token` for a service account by setting `automountServiceAccountToken: false` on the ServiceAccount:
 
 ```yaml
 apiVersion: v1
@@ -68,7 +68,7 @@ spec:
 
 The pod spec takes precedence over the service account if both specify a `automountServiceAccountToken` value.
 
-## Use Multiple Service Accounts.
+## Use Multiple Service Accounts
 
 Every namespace has a default service account resource called `default`.
 You can list this and any other serviceAccount resources in the namespace with this command:
@@ -136,7 +136,7 @@ You can clean up the service account from this example like this:
 kubectl delete serviceaccount/build-robot
 ```
 
-## Manually create a service account API token.
+## Manually create a service account API token
 
 Suppose we have an existing service account named "build-robot" as mentioned above, and we create
 a new secret manually.

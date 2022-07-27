@@ -174,7 +174,7 @@ to balance progress between request flows.
 
 The queuing configuration allows tuning the fair queuing algorithm for a
 priority level. Details of the algorithm can be read in the
-[enhancement proposal](#whats-next), but in short:
+[enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness), but in short:
 
 * Increasing `queues` reduces the rate of collisions between different flows, at
   the cost of increased memory usage. A value of 1 here effectively disables the
@@ -471,11 +471,15 @@ poorly-behaved workloads that may be harming system health.
   requests, broken down by the labels `phase` (which takes on the
   values `waiting` and `executing`) and `request_kind` (which takes on
   the values `mutating` and `readOnly`).  The observations are made
-  periodically at a high rate.
+  periodically at a high rate.  Each observed value is a ratio,
+  between 0 and 1, of a number of requests divided by the
+  corresponding limit on the number of requests (queue length limit
+  for waiting and concurrency limit for executing).
 
 * `apiserver_flowcontrol_read_vs_write_request_count_watermarks` is a
   histogram vector of high or low water marks of the number of
-  requests broken down by the labels `phase` (which takes on the
+  requests (divided by the corresponding limit to get a ratio in the
+  range 0 to 1) broken down by the labels `phase` (which takes on the
   values `waiting` and `executing`) and `request_kind` (which takes on
   the values `mutating` and `readOnly`); the label `mark` takes on
   values `high` and `low`.  The water marks are accumulated over
@@ -502,16 +506,45 @@ poorly-behaved workloads that may be harming system health.
   values `waiting` and `executing`) and `priority_level`.  Each
   histogram gets observations taken periodically, up through the last
   activity of the relevant sort.  The observations are made at a high
-  rate.
+  rate.  Each observed value is a ratio, between 0 and 1, of a number
+  of requests divided by the corresponding limit on the number of
+  requests (queue length limit for waiting and concurrency limit for
+  executing).
 
 * `apiserver_flowcontrol_priority_level_request_count_watermarks` is a
   histogram vector of high or low water marks of the number of
-  requests broken down by the labels `phase` (which takes on the
+  requests (divided by the corresponding limit to get a ratio in the
+  range 0 to 1) broken down by the labels `phase` (which takes on the
   values `waiting` and `executing`) and `priority_level`; the label
   `mark` takes on values `high` and `low`.  The water marks are
   accumulated over windows bounded by the times when an observation
   was added to
   `apiserver_flowcontrol_priority_level_request_count_samples`.  These
+  water marks show the range of values that occurred between samples.
+
+* `apiserver_flowcontrol_priority_level_seat_count_samples` is a
+  histogram vector of observations of the utilization of a priority
+  level's concurrency limit, broken down by `priority_level`.  This
+  utilization is the fraction (number of seats occupied) /
+  (concurrency limit).  This metric considers all stages of execution
+  (both normal and the extra delay at the end of a write to cover for
+  the corresponding notification work) of all requests except WATCHes;
+  for those it considers only the initial stage that delivers
+  notifications of pre-existing objects.  Each histogram in the vector
+  is also labeled with `phase: executing` (there is no seat limit for
+  the waiting phase).  Each histogram gets observations taken
+  periodically, up through the last activity of the relevant sort.
+  The observations
+  are made at a high rate.  
+
+* `apiserver_flowcontrol_priority_level_seat_count_watermarks` is a
+  histogram vector of high or low water marks of the utilization of a
+  priority level's concurrency limit, broken down by `priority_level`
+  and `mark` (which takes on values `high` and `low`).  Each histogram
+  in the vector is also labeled with `phase: executing` (there is no
+  seat limit for the waiting phase).  The water marks are accumulated
+  over windows bounded by the times when an observation was added to
+  `apiserver_flowcontrol_priority_level_seat_count_samples`.  These
   water marks show the range of values that occurred between samples.
 
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` is a
@@ -555,6 +588,22 @@ poorly-behaved workloads that may be harming system health.
   the labels `flow_schema` (indicating which one matched the request)
   and `priority_level` (indicating the one to which the request was
   assigned).
+
+* `apiserver_flowcontrol_watch_count_samples` is a histogram vector of
+  the number of active WATCH requests relevant to a given write,
+  broken down by `flow_schema` and `priority_level`.
+
+* `apiserver_flowcontrol_work_estimated_seats` is a histogram vector
+  of the number of estimated seats (maximum of initial and final stage
+  of execution) associated with requests, broken down by `flow_schema`
+  and `priority_level`.
+
+* `apiserver_flowcontrol_request_dispatch_no_accommodation_total` is a
+  counter vec of the number of events that in principle could have led
+  to a request being dispatched but did not, due to lack of available
+  concurrency, broken down by `flow_schema` and `priority_level`.  The
+  relevant sorts of events are arrival of a request and completion of
+  a request.
 
 ### Debug endpoints
 

@@ -171,7 +171,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-3.ya
 
 결과를 보면 파드가 생성되지 않은 것을 확인할 수 있으며, 이는 해당 파드가 수용 불가능한 컨테이너를 정의하고 있기 때문이다.
 해당 컨테이너가 수용 불가능한 이유는 
-지정된 최저 CPU 상한보다도 낮은 CPU 상한을 지정하고 있기 때문이다.
+지정된 최저 CPU 요청량보다도 낮은 CPU 요청량을 지정하고 있기 때문이다.
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/cpu-constraints-pod-3.yaml":

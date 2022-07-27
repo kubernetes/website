@@ -18,7 +18,8 @@
 /ru/docs/     /ru/docs/home/ 301!
 /uk/docs/     /uk/docs/home/ 301!
 /vi/docs/     /vi/docs/home/ 301!
-/zh/docs/     /zh/docs/home/ 301!
+/zh/docs/     /zh-cn/docs/home/ 301!
+/zh-cn/docs/     /zh-cn/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
 /blog/2020/08/25/kubernetes-release-1.19-accentuate-the-paw-sitive/     /blog/2020/08/26/kubernetes-release-1.19-accentuate-the-paw-sitive/     301!
 /docs/admin/     /docs/concepts/cluster-administration/ 301
@@ -157,10 +158,12 @@
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301!
 /docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
 /docs/concepts/workloads/pods/pod-overview/     /docs/concepts/workloads/pods/ 301
+/docs/concepts/workloads/pods/pod-topology-spread-constraints/ /docs/concepts/scheduling-eviction/topology-spread-constraints/ 301
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
 
 /docs/concepts/policy/pod-security-policy/      /docs/concepts/security/pod-security-policy/ 301
 /docs/consumer-guideline/pod-security-coverage/     /docs/concepts/security/pod-security-policy/ 301
+/zh-cn/docs/concepts/policy/pod-security-policy/      /zh-cn/docs/concepts/security/pod-security-policy/ 301
 
 /docs/contribute/create-pull-request/     /docs/home/contribute/create-pull-request/ 301
 /docs/contribute/page-templates/     /docs/home/contribute/page-templates/ 301
@@ -216,7 +219,7 @@
 /docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
 
 /docs/reference/kubectl/overview/    /docs/reference/kubectl/ 301
-/zh/docs/reference/kubectl/overview/    /zh/docs/reference/kubectl/ 301
+/zh/docs/reference/kubectl/overview/    /zh-cn/docs/reference/kubectl/ 301
 /docs/reference/kubectl/kubectl-cmds/     /docs/reference/generated/kubectl/kubectl-commands/ 301!
 /docs/reference/kubectl/kubectl/kubectl_*    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/scheduling/profiles/    /docs/reference/scheduling/config/#profiles 301
@@ -247,7 +250,7 @@
 /docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/     /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/ 301
 /docs/tasks/access-kubernetes-api/setup-extension-api-server/     /docs/tasks/extend-kubernetes/setup-extension-api-server/ 301
 
-/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/   /docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/ 301  
+/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/   /docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/ 301
 /docs/tasks/administer-cluster/access-cluster-services/     /docs/tasks/access-application-cluster/access-cluster-services/ 301
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301
@@ -537,7 +540,7 @@
 /id/docs/setup/minikube/     /id/docs/tasks/tools/ 302
 /docs/setup/learning-environment/     /docs/tasks/tools/  302!
 /id/docs/setup/learning-environment/     /id/docs/tasks/tools/  302!
-/zh/docs/setup/learning-environment/     /zh/docs/tasks/tools/  302!
+/zh/docs/setup/learning-environment/     /zh-cn/docs/tasks/tools/  302!
 /docs/setup/learning-environment/kind/  /docs/tasks/tools/  302
 /id/docs/setup/learning-environment/kind/  /id/docs/tasks/tools/  302
 /docs/setup/learning-environment/minikube/  /docs/tasks/tools/ 302
@@ -564,6 +567,7 @@
 /docs/setup/windows/user-guide-windows-nodes/     /docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/   301
 /docs/setup/production-environment/windows/user-guide-windows-containers/     /docs/concepts/windows/user-guide/   301
 /docs/setup/production-environment/windows/user-guide-windows-nodes/     /docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/   301
+/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/     /docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/   301
 /docs/setup/windows/user-guide-windows-containers/     /docs/setup/production-environment/windows/user-guide-windows-containers/   301
 /docs/setup/production-environment/windows/intro-windows-in-kubernetes/     /docs/concepts/windows/intro/   301
 /docs/setup/production-environment/windows/     /docs/concepts/windows/   301
@@ -578,3 +582,4 @@
 /id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301
 
 /pt/*         /pt-br/:splat  302!
+/zh/*         /zh-cn/:splat  302!

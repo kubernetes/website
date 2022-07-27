@@ -1,0 +1,20 @@
+apiVersion: apiserver.k8s.io/v1beta1
+kind: EgressSelectorConfiguration
+egressSelections:
+# 由于我们要控制集群的出站流量，所以将 “cluster” 用作 name。
+# 其他支持的值有 “etcd” 和 “controlplane”。
+- name: cluster
+  connection:
+    # 这一属性将控制 API 服务器 Konnectivity 服务器之间的协议。
+    # 支持的值为 “GRPC” 和 “HTTPConnect”。
+    # 最终用户不会察觉这两种模式之间的差异。
+    # 你需要将 Konnectivity 服务器设为在相同模式下工作。
+    proxyProtocol: GRPC
+    transport:
+      # 此属性控制 API 服务器使用哪种传输方式与 Konnectivity 服务器通信。
+      # 如果 Konnectivity 服务器与 API 服务器位于同一台机器上，建议使用 UDS。
+      # 你需要将 Konnectivity 服务器配置为侦听同一个 UDS 套接字。
+      # 另一个支持的传输方式是 “tcp”。
+      # 你将需要设置 TLS config 以确保 TCP 传输的安全。
+      uds:
+        udsName: /etc/kubernetes/konnectivity-server/konnectivity-server.socket

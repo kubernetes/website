@@ -51,13 +51,8 @@ job.batch/pi created
 
 Check on the status of the Job with `kubectl`:
 
-```shell
-kubectl describe jobs/pi
-```
-
-The output is similar to this:
-
-```
+{{< tabs name="Check status of Job" >}}
+{{< tab name="kubectl describe job pi" codelang="bash" >}}
 Name:           pi
 Namespace:      default
 Selector:       controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
@@ -76,7 +71,7 @@ Pod Template:
            job-name=pi
   Containers:
    pi:
-    Image:      perl
+    Image:      perl:5.34.0
     Port:       <none>
     Host Port:  <none>
     Command:
@@ -91,7 +86,62 @@ Events:
   Type    Reason            Age   From            Message
   ----    ------            ----  ----            -------
   Normal  SuccessfulCreate  14m   job-controller  Created pod: pi-5rwd7
-```
+{{< /tab >}}
+{{< tab name="kubectl get job pi -o yaml" codelang="bash" >}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl","name":"pi"}],"restartPolicy":"Never"}}}}
+  creationTimestamp: "2022-06-15T08:40:15Z"
+  generation: 1
+  labels:
+    controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+    job-name: pi
+  name: pi
+  namespace: default
+  resourceVersion: "987"
+  uid: 863452e6-270d-420e-9b94-53a54146c223
+spec:
+  backoffLimit: 4
+  completionMode: NonIndexed
+  completions: 1
+  parallelism: 1
+  selector:
+    matchLabels:
+      controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+  suspend: false
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+        job-name: pi
+    spec:
+      containers:
+      - command:
+        - perl
+        - -Mbignum=bpi
+        - -wle
+        - print bpi(2000)
+        image: perl:5.34.0
+        imagePullPolicy: Always
+        name: pi
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  active: 1
+  ready: 1
+  startTime: "2022-06-15T08:40:15Z"
+{{< /tab >}}
+{{< /tabs >}}
 
 To view completed Pods of a Job, use `kubectl get pods`.
 
@@ -253,9 +303,19 @@ due to a logical error in configuration etc.
 To do so, set `.spec.backoffLimit` to specify the number of retries before
 considering a Job as failed. The back-off limit is set by default to 6. Failed
 Pods associated with the Job are recreated by the Job controller with an
-exponential back-off delay (10s, 20s, 40s ...) capped at six minutes. The
-back-off count is reset when a Job's Pod is deleted or successful without any
-other Pods for the Job failing around that time.
+exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
+
+The number of retries is calculated in two ways:
+- The number of Pods with `.status.phase = "Failed"`.
+- When using `restartPolicy = "OnFailure"`, the number of retries in all the
+  containers of Pods with `.status.phase` equal to `Pending` or `Running`.
+
+If either of the calculations reaches the `.spec.backoffLimit`, the Job is
+considered failed.
+
+When the [`JobTrackingWithFinalizers`](#job-tracking-with-finalizers) feature is
+disabled, the number of failed Pods is only based on Pods that are still present
+in the API.
 
 {{< note >}}
 If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
@@ -296,7 +356,7 @@ spec:
     spec:
       containers:
       - name: pi
-        image: perl
+        image: perl:5.34.0
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
@@ -342,7 +402,7 @@ spec:
     spec:
       containers:
       - name: pi
-        image: perl
+        image: perl:5.34.0
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
@@ -405,7 +465,7 @@ The pattern names are also links to examples and more detailed description.
 | ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
 | [Queue with Pod Per Work Item]            |         ✓         |                             |      sometimes      |
 | [Queue with Variable Pod Count]           |         ✓         |             ✓               |                     |
-| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          | 
+| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          |
 | [Job Template Expansion]                  |                   |                             |          ✓          |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
@@ -631,7 +691,6 @@ In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-It is enabled by default.
 
 When enabled, the control plane tracks new Jobs using the behavior described
 below. Jobs created before the feature was enabled are unaffected. As a user,

@@ -11,24 +11,27 @@ weight: 20
 
 <!-- overview -->
 
-You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} so that it can only run on particular set of
-{{< glossary_tooltip text="node(s)" term_id="node" >}}.
+You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} so that it is 
+_restricted_ to run on particular {{< glossary_tooltip text="node(s)" term_id="node" >}},
+or to _prefer_ to run on particular nodes.
 There are several ways to do this and the recommended approaches all use
 [label selectors](/docs/concepts/overview/working-with-objects/labels/) to facilitate the selection.
-Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
+Often, you do not need to set any such constraints; the
+{{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}  will automatically do a reasonable placement
 (for example, spreading your Pods across nodes so as not place Pods on a node with insufficient free resources).
 However, there are some circumstances where you may want to control which node
-the Pod deploys to, for example, to ensure that a Pod ends up on a node with an SSD attached to it, or to co-locate Pods from two different
-services that communicate a lot into the same availability zone.
+the Pod deploys to, for example, to ensure that a Pod ends up on a node with an SSD attached to it,
+or to co-locate Pods from two different services that communicate a lot into the same availability zone.
 
 <!-- body -->
 
 You can use any of the following methods to choose where Kubernetes schedules
-specific Pods: 
+specific Pods:
 
   * [nodeSelector](#nodeselector) field matching against [node labels](#built-in-node-labels)
   * [Affinity and anti-affinity](#affinity-and-anti-affinity)
   * [nodeName](#nodename) field
+  * [Pod topology spread constraints](#pod-topology-spread-constraints)
 
 ## Node labels {#built-in-node-labels}
 
@@ -124,8 +127,8 @@ For example, consider the following Pod spec:
 
 In this example, the following rules apply:
 
-  * The node *must* have a label with the key `kubernetes.io/os` and
-    the value `linux`.
+  * The node *must* have a label with the key `topology.kubernetes.io/zone` and
+    the value of that label *must* be either `antarctica-east1` or `antarctica-west1`.
   * The node *preferably* has a label with the key `another-node-label-key` and
     the value `another-node-label-value`.
 
@@ -170,7 +173,7 @@ For example, consider the following Pod spec:
 {{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
 
 If there are two possible nodes that match the
-`requiredDuringSchedulingIgnoredDuringExecution` rule, one with the
+`preferredDuringSchedulingIgnoredDuringExecution` rule, one with the
 `label-1:key-1` label and another with the `label-2:key-2` label, the scheduler
 considers the `weight` of each node and adds the weight to the other scores for
 that node, and schedules the Pod onto the node with the highest final score.
@@ -303,7 +306,7 @@ the Pod onto a node that is in the same zone as one or more Pods with the label
 same zone currently running Pods with the `Security=S2` Pod label.
 
 To get yourself more familiar with the examples of Pod affinity and anti-affinity,
-refer to the [design proposal](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/podaffinity.md).
+refer to the [design proposal](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
 
 You can use the `In`, `NotIn`, `Exists` and `DoesNotExist` values in the
 `operator` field for Pod affinity and anti-affinity.
@@ -337,13 +340,15 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 Inter-pod affinity and anti-affinity can be even more useful when they are used with higher
 level collections such as ReplicaSets, StatefulSets, Deployments, etc.  These
 rules allow you to configure that a set of workloads should
-be co-located in the same defined topology, eg., the same node.
+be co-located in the same defined topology; for example, preferring to place two related
+Pods onto the same node.
 
-Take, for example, a three-node cluster running a web application with an
-in-memory cache like redis. You could use inter-pod affinity and anti-affinity
-to co-locate the web servers with the cache as much as possible.
+For example: imagine a three-node cluster. You use the cluster to run a web application
+and also an in-memory cache (such as Redis). For this example, also assume that latency between
+the web application and the memory cache should be as low as is practical. You could use inter-pod
+affinity and anti-affinity to co-locate the web servers with the cache as much as possible.
 
-In the following example Deployment for the redis cache, the replicas get the label `app=store`. The
+In the following example Deployment for the Redis cache, the replicas get the label `app=store`. The
 `podAntiAffinity` rule tells the scheduler to avoid placing multiple replicas
 with the `app=store` label on a single node. This creates each cache in a
 separate node.
@@ -378,10 +383,10 @@ spec:
         image: redis:3.2-alpine
 ```
 
-The following Deployment for the web servers creates replicas with the label `app=web-store`. The
-Pod affinity rule tells the scheduler to place each replica on a node that has a
-Pod with the label `app=store`. The Pod anti-affinity rule tells the scheduler
-to avoid placing multiple `app=web-store` servers on a single node.
+The following example Deployment for the web servers creates replicas with the label `app=web-store`.
+The Pod affinity rule tells the scheduler to place each replica on a node that has a Pod
+with the label `app=store`. The Pod anti-affinity rule tells the scheduler never to place
+multiple `app=web-store` servers on a single node.
 
 ```yaml
 apiVersion: apps/v1
@@ -430,6 +435,10 @@ where each web server is co-located with a cache, on three separate nodes.
 | *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
 |  *cache-1*           |     *cache-2*       |     *cache-3*      |
 
+The overall effect is that each cache instance is likely to be accessed by a single client, that
+is running on the same node. This approach aims to minimize both skew (imbalanced load) and latency.
+
+You might have other reasons to use Pod anti-affinity.
 See the [ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
 for an example of a StatefulSet configured with anti-affinity for high
 availability, using the same technique as this example.
@@ -468,11 +477,21 @@ spec:
 
 The above Pod will only run on the node `kube-01`.
 
+## Pod topology spread constraints
+
+You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}}
+are spread across your cluster among failure-domains such as regions, zones, nodes, or among any other
+topology domains that you define. You might do this to improve performance, expected availability, or
+overall utilization.
+
+Read [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+to learn more about how these work.
+
 ## {{% heading "whatsnext" %}}
 
 * Read more about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) .
-* Read the design docs for [node affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
-  and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
+* Read the design docs for [node affinity](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
+  and for [inter-pod affinity/anti-affinity](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
 * Learn about how the [topology manager](/docs/tasks/administer-cluster/topology-manager/) takes part in node-level
   resource allocation decisions. 
 * Learn how to use [nodeSelector](/docs/tasks/configure-pod-container/assign-pods-nodes/).
