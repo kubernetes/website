@@ -337,7 +337,7 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
   * 외부 메트릭의 경우, 이것은 `external.metrics.k8s.io` API이다. 위에 제공된 사용자 정의 메트릭 어댑터에서 제공될 수 있다.
 
 이런 다양한 메트릭 경로와 각각의 다른 점에 대한 상세 내용은 관련 디자인 제안서인
-[the HPA V2](https://git.k8s.io/design-proposals-archive/autoscaling/hpa-v2.md),
+[HPA V2](https://git.k8s.io/design-proposals-archive/autoscaling/hpa-v2.md),
 [custom.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/custom-metrics-api.md),
 [external.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/external-metrics-api.md)를 참조한다.
 
