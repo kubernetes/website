@@ -33,7 +33,7 @@ The effort to  move the CSI in-tree volume plugins to out-of-tree CSI drivers co
 
 ### [Signing Release Artifacts](https://github.com/kubernetes/enhancements/issues/3031)
 
-An additional step in the security posture of the release process, the signing of Kubernetes release artifacts will graduate to Beta in this release. This is in line with the proposed enhancement of targeting SLSA Level 3 compliance for the Kubernetes release process.
+An additional step in improving the security posture of the release process, the signing of Kubernetes release artifacts will graduate to Beta in this release. This is in line with the proposed enhancement of targeting SLSA Level 3 compliance for the Kubernetes release process.
 
 ### [Support for cgroup v2 Graduating to Stable](https://github.com/kubernetes/enhancements/issues/2254)
 
