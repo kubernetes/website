@@ -116,11 +116,10 @@ Endpoints 是实现实际服务的端点的集合。 举例:
     提供标记为就绪的相关端口的 IP 地址。
     这些端点应该被认为是负载平衡器和客户端可以安全使用的。
 
+    <!--
     <a name="EndpointAddress"></a>
     *EndpointAddress is a tuple that describes single IP address.*
- 
-    
-
+    -->
     <a name="EndpointAddress"></a>
     *EndpointAddress 是描述单个 IP 地址的元组。*
 
@@ -158,6 +157,7 @@ Endpoints 是实现实际服务的端点的集合。 举例:
       对提供端点的对象的引用。
             
   - **subsets.notReadyAddresses** ([]EndpointAddress)
+
     <!--
     IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
 
@@ -180,12 +180,14 @@ Endpoints 是实现实际服务的端点的集合。 举例:
       此外，某些 kubernetes 组件，如 kube-proxy，还没有准备好支持 IPv6。
 
     - **subsets.notReadyAddresses.hostname** (string)
+
       <!--
       The Hostname of this endpoint
       -->
        端点主机名称。
 
     - **subsets.notReadyAddresses.nodeName** (string)
+    
       <!--
       Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
       -->
@@ -224,6 +226,7 @@ Endpoints 是实现实际服务的端点的集合。 举例:
       端点的端口号。
 
     - **subsets.ports.protocol** (string)
+
       <!--
       The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
       -->
@@ -267,6 +270,7 @@ EndpointsList 是端点列表。
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
