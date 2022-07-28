@@ -54,7 +54,7 @@ larger than this limit, you may want to consider mounting a volume or use a
 separate database or file service.
 -->
 ConfigMap 在设计上不是用来保存大量数据的。在 ConfigMap 中保存的数据不可超过
-1 MiB。如果你需要保存超出此尺寸限制的数据，你可能希望考虑挂载存储卷
+1 MiB。如果你需要保存超出此尺寸限制的数据，你可以考虑使用挂载存储卷
 或者使用独立的数据库或者文件服务。
 
 <!--
@@ -71,7 +71,7 @@ contain binary data as base64-encoded strings.
 The name of a ConfigMap must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
-## ConfigMap 对象
+## ConfigMap 对象    {#configmap-object}
 
 ConfigMap 是一个 API [对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)，
 让你可以存储其他对象所需要使用的配置。
@@ -91,7 +91,7 @@ overlap with the keys in the `binaryData` field.
 Starting from v1.19, you can add an `immutable` field to a ConfigMap
 definition to create an [immutable ConfigMap](#configmap-immutable).
 -->
-`data` 或 `binaryData` 字段下面的每个键的名称都必须由字母数字字符或者
+`data` 或 `binaryData` 字段下面的每个键的名称都必须由字母与数字字符或者
 `-`、`_` 或 `.` 组成。在 `data` 下保存的键名不可以与在 `binaryData`
 下出现的键名有重叠。
 
@@ -105,7 +105,7 @@ You can write a Pod `spec` that refers to a ConfigMap and configures the contain
 in that Pod based on the data in the ConfigMap. The Pod and the ConfigMap must be in
 the same {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 -->
-## ConfigMaps 和 Pods
+## ConfigMaps 和 Pods    {#configmaps-and-pods}
 
 你可以写一个引用 ConfigMap 的 Pod 的 `spec`，并根据 ConfigMap 中的数据在该
 Pod 中配置容器。这个 Pod 和 ConfigMap 必须要在同一个
@@ -232,7 +232,7 @@ spec:
 <!--
 A ConfigMap doesn't differentiate between single line property values and
 multi-line file-like values.
-What matters how Pods and other objects consume those values.
+What matters is how Pods and other objects consume those values.
 
 For this example, defining a volume and mounting it inside the `demo`
 container as `/config` creates two files,
@@ -287,7 +287,7 @@ ConfigMap 最常见的用法是为同一命名空间里某 Pod 中运行的容�
 
 To consume a ConfigMap in a volume in a Pod:
 -->
-### 在 Pod 中将 ConfigMap 当做文件使用
+### 在 Pod 中将 ConfigMap 当做文件使用    {#using-configmaps-as-files-from-a-pod}
 
 要在一个 Pod 的存储卷中使用 ConfigMap:
 
@@ -361,7 +361,7 @@ However, the kubelet uses its local cache for getting the current value of the C
 The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
 the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
-#### 被挂载的 ConfigMap 内容会被自动更新
+#### 被挂载的 ConfigMap 内容会被自动更新    {#mounted-configmaps-are-updated-automatically}
 
 当卷中使用的 ConfigMap 被更新时，所投射的键最终也会被更新。
 kubelet 组件会在每次周期性同步时检查所挂载的 ConfigMap 是否为最新。
@@ -411,7 +411,7 @@ individual Secrets and ConfigMaps as immutable. For clusters that extensively us
 (at least tens of thousands of unique ConfigMap to Pod mounts), preventing changes to their
 data has the following advantages:
 -->
-Kubernetes 特性 _Immutable Secret 和 ConfigMaps_ 提供了一种将各个
+Kubernetes 特性 **Immutable Secret 和 ConfigMaps** 提供了一种将各个
 Secret 和 ConfigMap 设置为不可变更的选项。对于大量使用 ConfigMap 的集群
 （至少有数万个各不相同的 ConfigMap 给 Pod 挂载）而言，禁止更改
 ConfigMap 的数据有以下好处：
