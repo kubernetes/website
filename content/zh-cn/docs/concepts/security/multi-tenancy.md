@@ -16,24 +16,20 @@ This page provides an overview of available configuration options and best pract
 此页面概述了集群多租户的可用配置选项和最佳实践。
 
 <!--
-Sharing clusters saves costs and simplifies administration. 
-However, sharing clusters also presents challenges such as security, fairness, and managing _noisy neighbors_.
+Sharing clusters saves costs and simplifies administration. However, sharing clusters also presents challenges such as security, fairness, and managing _noisy neighbors_.
 -->
 共享集群可以节省成本并简化管理。
 然而，共享集群也带来了诸如安全性、公平性和管理**嘈杂邻居**等挑战。
 
 <!--
-Clusters can be shared in many ways. In some cases, different applications may run in the same cluster. 
-In other cases, multiple instances of the same application may run in the same cluster, one for each end user. 
-All these types of sharing are frequently described using the umbrella term _multi-tenancy_.
+Clusters can be shared in many ways. In some cases, different applications may run in the same cluster. In other cases, multiple instances of the same application may run in the same cluster, one for each end user. All these types of sharing are frequently described using the umbrella term _multi-tenancy_.
 -->
 集群可以通过多种方式共享。在某些情况下，不同的应用可能会在同一个集群中运行。
 在其他情况下，同一应用的多个实例可能在同一个集群中运行，每个实例对应一个最终用户。
 所有这些类型的共享经常使用一个总括术语**多租户（Multi-Tenancy）**来表述。
 
 <!--
-While Kubernetes does not have first-class concepts of end users or tenants, 
-it provides several features to help manage different tenancy requirements. These are discussed below.
+While Kubernetes does not have first-class concepts of end users or tenants, it provides several features to help manage different tenancy requirements. These are discussed below.
 -->
 虽然 Kubernetes 没有最终用户或租户的一阶概念，
 它还是提供了几个特性来帮助管理不同的租户需求。下面将对此进行讨论。
@@ -44,10 +40,7 @@ it provides several features to help manage different tenancy requirements. Thes
 ## 用例 {#use-cases}
 
 <!--
-The first step to determining how to share your cluster is understanding your use case, 
-so you can evaluate the patterns and tools available. 
-In general, multi-tenancy in Kubernetes clusters falls into two broad categories, 
-though many variations and hybrids are also possible.
+The first step to determining how to share your cluster is understanding your use case, so you can evaluate the patterns and tools available. In general, multi-tenancy in Kubernetes clusters falls into two broad categories, though many variations and hybrids are also possible.
 -->
 确定如何共享集群的第一步是理解用例，以便你可以评估可用的模式和工具。
 一般来说，Kubernetes 集群中的多租户分为两大类，但也可以有许多变体和混合。
@@ -58,10 +51,7 @@ though many variations and hybrids are also possible.
 ### 多团队 {#multiple-teams}
 
 <!--
-A common form of multi-tenancy is to share a cluster between multiple teams within an organization, 
-each of whom may operate one or more workloads. 
-These workloads frequently need to communicate with each other, 
-and with other workloads located on the same or different clusters.
+A common form of multi-tenancy is to share a cluster between multiple teams within an organization, each of whom may operate one or more workloads. These workloads frequently need to communicate with each other, and with other workloads located on the same or different clusters.
 -->
 多租户的一种常见形式是在组织内的多个团队之间共享一个集群，每个团队可以操作一个或多个工作负载。
 这些工作负载经常需要相互通信，并与位于相同或不同集群上的其他工作负载进行通信。
@@ -464,10 +454,7 @@ ensuring that they are a trusted basis for your policies.
 
 {{< warning >}}
 <!--
-Network policies require a 
-[CNI plugin](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni) 
-that supports the implementation of network policies. 
-Otherwise, NetworkPolicy resources will be ignored.
+Network policies require a [CNI plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni) that supports the implementation of network policies. Otherwise, NetworkPolicy resources will be ignored.
 -->
 网络策略需要一个支持网络策略实现的 
 [CNI 插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni)。
@@ -475,14 +462,7 @@ Otherwise, NetworkPolicy resources will be ignored.
 {{< /warning >}}
 
 <!--
-More advanced network isolation may be provided by service meshes, 
-which provide OSI Layer 7 policies based on workload identity, in addition to namespaces. 
-These higher-level policies can make it easier to manage namespaced based multi-tenancy, 
-especially when multiple namespaces are dedicated to a single tenant. 
-They frequently also offer encryption using mutual TLS, 
-protecting your data even in the presence of a compromised node, 
-and work across dedicated or virtual clusters. 
-However, they can be significantly more complex to manage and may not be appropriate for all users.
+More advanced network isolation may be provided by service meshes, which provide OSI Layer 7 policies based on workload identity, in addition to namespaces. These higher-level policies can make it easier to manage namespace-based multi-tenancy, especially when multiple namespaces are dedicated to a single tenant. They frequently also offer encryption using mutual TLS, protecting your data even in the presence of a compromised node, and work across dedicated or virtual clusters. However, they can be significantly more complex to manage and may not be appropriate for all users.
 -->
 服务网格可以提供更高级的网络隔离，
 除了命名空间之外，它还提供基于工作负载身份的 OSI 第 7 层策略。
@@ -641,8 +621,7 @@ such as seccomp, AppArmor or SELinux or explore using sandboxed containers
 or creating separate clusters for each tenant.
 -->
 尽管来自不同租户的工作负载在不同的节点上运行，
-仍然很重要的是要注意 kubelet 和
-（除非使用虚拟控制平面）API 服务仍然是共享服务。
+仍然很重要的是要注意 kubelet 和（除非使用虚拟控制平面）API 服务仍然是共享服务。
 熟练的攻击者可以使用分配给 kubelet 或节点上运行的其他 Pod
 的权限在集群内横向移动并获得对其他节点上运行的租户工作负载的访问权限。
 如果这是一个主要问题，请考虑实施补偿控制，
@@ -668,13 +647,9 @@ so that they run on a specific set of nodes designated for that tenant.
 以便它们在为该租户指定的一组特定节点上运行。
 
 <!--
-Node isolation can be implemented using an 
-[pod node selectors](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) 
-or a [Virtual Kubelet](https://github.com/virtual-kubelet).
+Node isolation can be implemented using an [pod node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/) or a [Virtual Kubelet](https://github.com/virtual-kubelet).
 -->
-节点隔离可以使用
-[将 Pod 指派给节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)
-或 [Virtual Kubelet](https://github.com/virtual-kubelet) 来实现。
+节点隔离可以使用[将 Pod 指派给节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)或 [Virtual Kubelet](https://github.com/virtual-kubelet) 来实现。
 
 <!--
 ## Additional Considerations
