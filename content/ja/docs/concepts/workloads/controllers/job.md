@@ -313,7 +313,7 @@ Job仕様と、Jobに属する[Podテンプレートの仕様](/ja/docs/concepts
 終了したJob(状態は`Complete`か`Failed`になったJob)を自動的に片付けるもう一つの方法は
 [TTLコントローラー](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)より提供されたTTLメカニズムです。`.spec.ttlSecondsAfterFinished`フィールドを指定することで、終了したリソースを片付けることができます。
 
-TTLコントローラーでJobを片付ける場合、Jobはカスケード的に削除されます。つまりJobを削除する際に、Jobに属しているオブジェクト、例えばPodなども一緒に削除されます。Jobが削除される場合、Jobのライフサイクル保証、例えばFinalizersなど、は考えられるので注意してください。
+TTLコントローラーでJobを片付ける場合、Jobはカスケード的に削除されます。つまりJobを削除する際に、Jobに属しているオブジェクト、例えばPodなども一緒に削除されます。Jobが削除される場合、Jobのライフサイクル保証、例えばFinalizerなど、は考えられるので注意してください。
 
 例えば:
 
@@ -468,64 +468,41 @@ Events:
 
 最後の4つのイベント、特に"Suspended"と"Resumed"のイベントは、`.spec.suspend`フィールドの値が変更されまくったために発生したものになります。この2つのイベントの間に、Podは作成されていないですが、Jobが再開された瞬間に、Podの作成も再開されました。
 
-### Mutable Scheduling Directives  {#mutable-scheduling-directives}
+### 可変スケジューリング命令  {#mutable-scheduling-directives}
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
-In order to use this behavior, you must enable the `JobMutableNodeSchedulingDirectives`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
-It is enabled by default.
+この機能を使うためには、[APIサーバー](/ja/docs/reference/command-line-tools-reference/kube-apiserver/)上で`JobMutableNodeSchedulingDirectives`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
+デフォルトで有効になっています。
 {{< /note >}}
 
-In most cases a parallel job will want the pods to run with constraints, 
-like all in the same zone, or all either on GPU model x or y but not a mix of both.
+ほとんどの場合、並列Jobは、すべてのPodが同じゾーンで実行される、またはすべてGPUモデルxかyのいずれかで実行され、両方を混在されることがない、などの制約を持って実行することを望みます。
 
-The [suspend](#suspending-a-job) field is the first step towards achieving those semantics. Suspend allows a 
-custom queue controller to decide when a job should start; However, once a job is unsuspended,
-a custom queue controller has no influence on where the pods of a job will actually land.
+[suspend](#suspending-a-job)フィールドは、これらの機能を実現するための第一歩です。Suspendはキューコントローラーをカスタマイズすることにより、作業の開始時間を決定することができます；しかし、Jobの一時停止が解除されると、カスタムキューコントローラーは、Job内のPodの実際の配置場所には影響を与えません。
 
-This feature allows updating a Job's scheduling directives before it starts, which gives custom queue
-controllers the ability to influence pod placement while at the same time offloading actual 
-pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never 
-been unsuspended before.
+この機能により、Jobが開始される前にスケジューリング命令を更新でき、カスタムキューコントローラーががPodの配置に影響を与えることができると同時に、実際のPodとノードの割り当てをkube-schedulerにオフロードすることができます。これは一時停止されたJobの中で、一度も一時停止解除されたことのないJobに対してのみ許可されます。
 
-The fields in a Job's pod template that can be updated are node affinity, node selector, 
-tolerations, labels and annotations.
+JobのPodテンプレートで更新可能なフィールドはnodeAffinity、nodeSelector、tolerations、labelsとannotationsになります。 
 
-### Specifying your own Pod selector  {#specifying-your-own-pod-selector}
+### 自分のPodセレクターを指定  {#specifying-your-own-pod-selector}
 
-Normally, when you create a Job object, you do not specify `.spec.selector`.
-The system defaulting logic adds this field when the Job is created.
-It picks a selector value that will not overlap with any other jobs.
+Jobオブジェクトを作成する際には通常、`.spec.selector`を指定しません。Jobが作成された際に、システムのデフォルトロジックは、他のJobと重ならないようなセレクタの値を選択し、このフィールドに追加します。
 
-However, in some cases, you might need to override this automatically set selector.
-To do this, you can specify the `.spec.selector` of the Job.
+しかし、場合によっては、この自動設定されたセレクタをオーバーライドする必要があります。そのためには、Jobの`.spec.selector`を指定します。
 
-Be very careful when doing this.  If you specify a label selector which is not
-unique to the pods of that Job, and which matches unrelated Pods, then pods of the unrelated
-job may be deleted, or this Job may count other Pods as completing it, or one or both
-Jobs may refuse to create Pods or run to completion.  If a non-unique selector is
-chosen, then other controllers (e.g. ReplicationController) and their Pods may behave
-in unpredictable ways too.  Kubernetes will not stop you from making a mistake when
-specifying `.spec.selector`.
+その際には十分な注意が必要です。そのJobの他のPodと重なったラベルセレクタを指定し、無関係のPodにマッチした場合、無関係のJobのPodが削除されたり、無関係のPodが完了されてもこのJobの完了数とカウントしたり、一方または両方のJobがPodの作成または完了までの実行を拒否する可能性があります。
+一意でないセレクタを選択した場合、他のコントローラ(例えばReplicationController)や属されたPodも予測できない挙動をする可能性があります。`.spec.selector`を間違って設定しても、Kubernetesはエラーメッセージは出ません。
 
-Here is an example of a case when you might want to use this feature.
+下記はこの機能の使用例を紹介しています。
 
-Say Job `old` is already running.  You want existing Pods
-to keep running, but you want the rest of the Pods it creates
-to use a different pod template and for the Job to have a new name.
-You cannot update the Job because these fields are not updatable.
-Therefore, you delete Job `old` but _leave its pods
-running_, using `kubectl delete jobs/old --cascade=orphan`.
-Before deleting it, you make a note of what selector it uses:
+`old`と名付けたJobがすでに実行されていると仮定します。既存のPodをそのまま実行し続けてほしいですが、次に新しく作成されたPodは別のテンプレートを使用したい、Job名も変更したいとしましょう。これらのフィールドは更新できないため、Jobを直接更新できません。そのため、`kubectl delete jobs/old --cascade=orphan`で、_属するPodが実行されたまま_、`old`Jobを削除しました。削除する前に、どのセレクタを使用しているかについて調べました:
 
 ```shell
 kubectl get job old -o yaml
 ```
 
-The output is similar to this:
+出力結果はこのようになります:
 
 ```yaml
 kind: Job
@@ -539,12 +516,9 @@ spec:
   ...
 ```
 
-Then you create a new Job with name `new` and you explicitly specify the same selector.
-Since the existing Pods have label `controller-uid=a8f3d00d-c6d2-11e5-9f87-42010af00002`,
-they are controlled by Job `new` as well.
+次に、`new`という名前で新しくJobを作成し、同じセレクタを指定しました。既存のPodも`controller-uid=a8f3d00d-c6d2-11e5-9f87-42010af00002`ラベルが付いているので、同じく`new`Jobによってコントロールされることができます。
 
-You need to specify `manualSelector: true` in the new Job since you are not using
-the selector that the system normally generates for you automatically.
+通常システムが自動的に生成するセレクタを使用しないため、新しいJobで `manualSelector: true`を指定する必要があります。
 
 ```yaml
 kind: Job
@@ -559,96 +533,63 @@ spec:
   ...
 ```
 
-The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010af00002`.  Setting
-`manualSelector: true` tells the system that you know what you are doing and to allow this
-mismatch.
+新しいJobは`a8f3d00d-c6d2-11e5-9f87-42010af00002`ではなく、別のuid を持つことになります。`manualSelector: true`を設定することで、自分は何をしているかを知っていて、またこのミスマッチを許容することをシステムに伝えます。
 
-### Job tracking with finalizers  {#job-tracking-with-finalizers}
+### FinalizerによるJob追跡  {#job-tracking-with-finalizers}
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
-In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
-and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-It is enabled by default.
+この機能を使うためには、[APIサーバー](/ja/docs/reference/command-line-tools-reference/kube-apiserver/)と[コントローラーマネージャー](/docs/reference/command-line-tools-reference/kube-controller-manager/)で`JobTrackingWithFinalizers`
+[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
+デフォルトで有効になっています。
 
-When enabled, the control plane tracks new Jobs using the behavior described
-below. Jobs created before the feature was enabled are unaffected. As a user,
-the only difference you would see is that the control plane tracking of Job
-completion is more accurate.
+有効にした場合、コントロールプレーンは下記に示す機能で新しいJobを追跡します。この機能が有効になる前に作成されたJobは影響を受けません。ユーザーとして、唯一に実感できる違いは、コントロールプレーンのJob完了ステータス追跡はより正確になったということです。
 {{< /note >}}
 
-When this feature isn't enabled, the Job {{< glossary_tooltip term_id="controller" >}}
-relies on counting the Pods that exist in the cluster to track the Job status,
-that is, to keep the counters for `succeeded` and `failed` Pods.
-However, Pods can be removed for a number of reasons, including:
-- The garbage collector that removes orphan Pods when a Node goes down.
-- The garbage collector that removes finished Pods (in `Succeeded` or `Failed`
-  phase) after a threshold.
-- Human intervention to delete Pods belonging to a Job.
-- An external controller (not provided as part of Kubernetes) that removes or
-  replaces Pods.
+この機能が有効でない場合、Job {{< glossary_tooltip term_id="controller" >}}はクラスタ内に存在するPodを数えてJobステータスを追跡します。つまり`succeeded`Podと`failed`Podのカウンタを保持します。
+しかし、Podは以下のように削除されることもあります:
+- Nodeがダウンしたときに、孤立した(Orphan)Podはガベージコレクター二より削除されます。
+- 閾値に達すると、終了したPod(`Succeeded`または`Failed`フェーズを問わず)はガベージコレクター二より削除されます。 
+- 人為的にJobに属するPodを削除します。
+- 外部コントローラー(Kubernetesの一部として提供されていない)よりPodを削除したり置き換えたりします。
 
-If you enable the `JobTrackingWithFinalizers` feature for your cluster, the
-control plane keeps track of the Pods that belong to any Job and notices if any
-such Pod is removed from the API server. To do that, the Job controller creates Pods with
-the finalizer `batch.kubernetes.io/job-tracking`. The controller removes the
-finalizer only after the Pod has been accounted for in the Job status, allowing
-the Pod to be removed by other controllers or users.
+クラスタで`JobTrackingWithFinalizers`機能を有効にすると、コントロールプレーンは任意のJobに属するPodを追跡し、そのようなPodがAPIサーバーから削除された場合に通知します。そのために、Jobコントローラーにより作成されたPodは`batch.kubernetes.io/job-tracking`Finalizerを持っています。コントローラーはPodがJobステータスに計上された後にのみFinalizerを削除し、他のコントローラーやユーザーによるPodの削除を可能にします。
 
-The Job controller uses the new algorithm for new Jobs only. Jobs created
-before the feature is enabled are unaffected. You can determine if the Job
-controller is tracking a Job using Pod finalizers by checking if the Job has the
-annotation `batch.kubernetes.io/job-tracking`. You should **not** manually add
-or remove this annotation from Jobs.
+Jobコントローラーは、新しいJobに対してのみ新しいアルゴリズムを使用します。この機能が有効になる前に作成されたJobは影響を受けません。JobコントローラーがPod FinalizerでJob追跡しているかどうかは、Jobが`batch.kubernetes.io/job-tracking`というアノテーションを持っているかどうかで判断できます。
+このアノテーションを手動で追加または削除しては**いけません**。
 
-## Alternatives  {#alternatives}
+## 代替案  {#alternatives}
 
-### Bare Pods  {#bare-pods}
+### 単なるPod  {#bare-pods}
 
-When the node that a Pod is running on reboots or fails, the pod is terminated
-and will not be restarted.  However, a Job will create new Pods to replace terminated ones.
-For this reason, we recommend that you use a Job rather than a bare Pod, even if your application
-requires only a single Pod.
+Podが動作しているノードが再起動または故障した場合、Podは終了し、再起動されません。しかし、終了したPodを置き換えるため、Jobが新しいPodを作成します。このため、たとえアプリケーションが1つのPodしか必要としない場合でも、単なるPodではなくJobを使用することをお勧めします。 
 
 ### Replication Controller  {#replication-controller}
 
-Jobs are complementary to [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/).
-A Replication Controller manages Pods which are not expected to terminate (e.g. web servers), and a Job
-manages Pods that are expected to terminate (e.g. batch tasks).
+Jobsは[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/)を補完するものです。
+Replication Controllerは、終了することが想定されていないPod(Webサーバーなど)を管理し、Jobは終了することが想定されているPod(バッチタスクなど)を管理します。
 
-As discussed in [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/), `Job` is *only* appropriate
-for pods with `RestartPolicy` equal to `OnFailure` or `Never`.
-(Note: If `RestartPolicy` is not set, the default value is `Always`.)
+[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)で説明したように、`Job`は`RestartPolicy`が`OnFailure`か`Never`と設定されているPodに*のみ*適用されます。(注意:`RestartPolicy`が設定されていない場合、デフォルト値は`Always`になります)
 
-### Single Job starts controller Pod  {#single-job-starts-controller-pod}
 
-Another pattern is for a single Job to create a Pod which then creates other Pods, acting as a sort
-of custom controller for those Pods.  This allows the most flexibility, but may be somewhat
-complicated to get started with and offers less integration with Kubernetes.
+### シングルJobによるコントローラーPodの起動  {#single-job-starts-controller-pod}
 
-One example of this pattern would be a Job which starts a Pod which runs a script that in turn
-starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)), runs a spark
-driver, and then cleans up.
+もう一つのパターンは、一つのJobが一つPodを作り、そのPodがカスタムコントローラーのような役割を果たし、他のPodを作ります。これは最も柔軟性がありますが、使い始めるにはやや複雑で、Kubernetesとの統合もあまりできません。
 
-An advantage of this approach is that the overall process gets the completion guarantee of a Job
-object, but maintains complete control over what Pods are created and how work is assigned to them.
+このパターンの一例としては、Sparkマスターコントローラーを起動するスクリプトがあり、そのスクリプトを実行するPodをJobで起動し、([spark事例](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)を参照)、sparkドライバーを実行して片付ける、ということが挙げられます。
+
+
+この方法のメリットは、Jobオブジェクトで実行されているので、プロセスが完了する保障があると同時に、どのPodを作成し、どのように仕事を割り当てるかを完全に制御できることです。
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Pods](/docs/concepts/workloads/pods).
-* Read about different ways of running Jobs:
-   * [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
-   * [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
-   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/) (beta)
-   * Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
-* Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
-  to learn more about how your cluster can clean up completed and / or failed tasks.
-* `Job` is part of the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/job-v1" >}}
-  object definition to understand the API for jobs.
-* Read about [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/), which you
-  can use to define a series of Jobs that will run based on a schedule, similar to
-  the UNIX tool `cron`.
+* [Pods](/ja/docs/concepts/workloads/pods/)について学ぶ。
+* Jobのさまざまな実行方法について学ぶ:
+   * [ワークキューを用いた粒度の粗い並列処理](/docs/tasks/job/coarse-parallel-processing-work-queue/)
+   * [ワークキューを用いた粒度の粗い並列処理](/docs/tasks/job/fine-parallel-processing-work-queue/)
+   * [静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/ja/docs/tasks/job/indexed-parallel-processing-static/) を使う(beta段階)
+   * テンプレートを元に複数のJobを作成: [拡張機能を用いた並列処理](/docs/tasks/job/parallel-processing-expansion/)
+* [終了したJobの自動片付け](#clean-up-finished-jobs-automatically)のリンクから、クラスタが完了または失敗したJobをどのように片付けるかをご確認ください。
+* `Job`はKubernetes REST APIの一部です。Job APIを理解するために、{{< api-reference page="workload-resources/job-v1" >}}オブジェクトの定義をお読みください。
+* UNIXツールの`cron`と同様に、スケジュールに基づいて実行される一連のJobを定義するために使用できる[`CronJob`](/ja/docs/concepts/workloads/controllers/cron-jobs/)についてお読みください。
