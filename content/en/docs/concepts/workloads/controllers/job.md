@@ -510,8 +510,8 @@ When a Job is resumed from suspension, its `.status.startTime` field will be
 reset to the current time. This means that the `.spec.activeDeadlineSeconds`
 timer will be stopped and reset when a Job is suspended and resumed.
 
-Remember that suspending a Job will delete all active Pods. When the Job is
-suspended, your [Pods will be terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+Remember that suspending a Job will delete all Pods that are not Completed. When the Job is
+suspended, Non-Completed [Pods will be terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 with a SIGTERM signal. The Pod's graceful termination period will be honored and
 your Pod must handle this signal in this period. This may involve saving
 progress for later or undoing changes. Pods terminated this way will not count
@@ -535,6 +535,18 @@ spec:
   template:
     spec:
       ...
+```
+
+Alternatively, a job suspension can be toggled from the command line by patching the job resource.  Suspend an active job:
+
+```shell
+kubectl patch job/myjob -p '{"spec":{"suspend":true}}'
+```
+
+Unsuspend an active job:
+
+```shell
+kubectl patch job/myjob -p '{"spec":{"suspend":false}}'
 ```
 
 The Job's status can be used to determine if a Job is suspended or has been
