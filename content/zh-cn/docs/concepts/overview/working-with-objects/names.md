@@ -21,9 +21,9 @@ Every Kubernetes object also has a [_UID_](#uids) that is unique across your who
 For example, you can only have one Pod named `myapp-1234` within the same [namespace](/docs/concepts/overview/working-with-objects/namespaces/), but you can have one Pod and one Deployment that are each named `myapp-1234`.
 -->
 
-集群中的每一个对象都有一个[**名称**](#names)来标识在同类资源中的唯一性。
+集群中的每一个对象都有一个[**名称**]（#names）来标识在同类资源中的唯一性。
 
-每个 Kubernetes 对象也有一个 [**UID**](#uids) 来标识在整个集群中的唯一性。
+每个 Kubernetes 对象也有一个 [**UID**]（#uids）来标识在整个集群中的唯一性。
 
 比如，在同一个[名字空间](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/)
 中有一个名为 `myapp-1234` 的 Pod，但是可以命名一个 Pod 和一个 Deployment 同为 `myapp-1234`。
@@ -172,7 +172,7 @@ Some resource types have additional restrictions on their names.
 Kubernetes UIDs are universally unique identifiers (also known as UUIDs).
 UUIDs are standardized as ISO/IEC 9834-8 and as ITU-T X.667.
 -->
-Kubernetes UIDs 是全局唯一标识符（也叫 UUIDs）。
+Kubernetes UID 是全局唯一标识符（也叫 UUIDs）。
 UUIDs 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667。
 
 ## {{% heading "whatsnext" %}}
