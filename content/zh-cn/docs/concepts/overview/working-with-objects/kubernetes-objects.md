@@ -27,10 +27,8 @@ This page explains how Kubernetes objects are represented in the Kubernetes API,
 <!--
 ## Understanding Kubernetes Objects
 
-*Kubernetes Objects* are persistent entities in the Kubernetes system. 
-Kubernetes uses these entities to represent the state of your cluster. 
-
-Specifically, they can describe:
+*Kubernetes objects* are persistent entities in the Kubernetes system. Kubernetes uses these
+entities to represent the state of your cluster. Specifically, they can describe:
 
 * What containerized applications are running (and on which nodes)
 * The resources available to those applications
@@ -38,7 +36,7 @@ Specifically, they can describe:
 -->
 ## 理解 Kubernetes 对象    {#kubernetes-objects}
 
-在 Kubernetes 系统中，*Kubernetes 对象* 是持久化的实体。
+在 Kubernetes 系统中，**Kubernetes 对象**是持久化的实体。
 Kubernetes 使用这些实体去表示整个集群的状态。
 比較特别地是，它们描述了如下信息：
 
@@ -83,7 +81,7 @@ its _desired state_.
 几乎每个 Kubernetes 对象包含两个嵌套的对象字段，它们负责管理对象的配置：
 对象 **`spec`（规约）** 和 对象 **`status`（状态）**。
 对于具有 `spec` 的对象，你必须在创建对象时设置其内容，描述你希望对象所具有的特征：
-*期望状态（Desired State）*。
+**期望状态（Desired State）**。
 
 <!--
 The `status` describes the _current state_ of the object, supplied and updated
@@ -124,11 +122,13 @@ For more information on the object spec, status, and metadata, see the
 <!--
 ### Describing a Kubernetes Object
 
-When you create an object in Kubernetes, you must provide the object spec that describes its desired state, 
-as well as some basic information about the object (such as a name). 
-When you use the Kubernetes API to create the object (either directly or via `kubectl`), 
-that API request must include that information as JSON in the request body. 
-**Most often, you provide the information to `kubectl` in a .yaml file.** `kubectl` converts the information to JSON when making the API request.
+When you create an object in Kubernetes, you must provide the object spec that describes its
+desired state, as well as some basic information about the object (such as a name). When you use
+the Kubernetes API to create the object (either directly or via `kubectl`), that API request must
+include that information as JSON in the request body. **Most often, you provide the information to
+`kubectl` in a .yaml file.** `kubectl` converts the information to JSON when making the API
+request.
+
 
 Here's an example `.yaml` file that shows the required fields and object spec for a Kubernetes Deployment:
 -->
@@ -187,9 +187,8 @@ In the `.yaml` file for the Kubernetes object you want to create, you'll need to
 * `spec` - 你所期望的该对象的状态
 
 <!--
-The precise format of the object `spec` is different for every Kubernetes object, 
-and contains nested fields specific to that object. 
-The [Kubernetes API Reference](https://kubernetes.io/docs/reference/kubernetes-api/) 
+The precise format of the object `spec` is different for every Kubernetes object, and contains
+nested fields specific to that object. The [Kubernetes API Reference](/docs/reference/kubernetes-api/)
 can help you find the spec format for all of the objects you can create using Kubernetes.
 -->
 对每个 Kubernetes 对象而言，其 `spec` 之精确格式都是不同的，包含了特定于该对象的嵌套字段。
