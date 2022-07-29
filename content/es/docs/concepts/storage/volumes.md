@@ -638,7 +638,7 @@ Mira el [ ejemplo NFS ](https://github.com/kubernetes/examples/tree/master/stagi
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
-Un volumen `persistenceVolumeClain` se utiliza para montar un [PersistentVolume](/docs/concepts/storage/persistent-volumes/) en tu Pod. PersistentVolumeClaims son una forma en que el usuario "reclama" almacenamiento duradero (como un PersistentDisk GCE o un volumen ISCSI) sin conocer los detalles del ambiente de la nube en particular.
+Un volumen `persistenceVolumeClain` se utiliza para montar un [PersistentVolume](/docs/concepts/storage/persistent-volumes/) en tu Pod. PersistentVolumeClaims son una forma en que el usuario "reclama" almacenamiento duradero (como un PersistentDisk GCE o un volumen ISCSI) sin conocer los detalles del entorno de la nube en particular.
 
 Mira la información spbre [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) para más detalles.
 

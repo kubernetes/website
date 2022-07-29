@@ -43,8 +43,8 @@ SubjectAccessReview 检查用户或组是否可以执行某操作。
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
   Status is filled in by the server and indicates whether the request is allowed or not
 -->  
-  标准的列表元数据。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewSpec" >}}">SubjectAccessReviewSpec</a>)，必需
   

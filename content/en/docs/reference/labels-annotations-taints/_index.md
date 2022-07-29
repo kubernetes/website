@@ -618,6 +618,16 @@ or updating objects that contain Pod templates, such as Deployments, Jobs, State
 See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
 for more information.
 
+### kubernetes.io/psp (deprecated) {#kubernetes-io-psp}
+
+Example: `kubernetes.io/psp: restricted`
+
+This annotation is only relevant if you are using [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
+
+When the PodSecurityPolicy admission controller admits a Pod, the admission controller
+modifies the Pod to have this annotation.
+The value of the annotation is the name of the PodSecurityPolicy that was used for validation.
+
 ### seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
 
 This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.

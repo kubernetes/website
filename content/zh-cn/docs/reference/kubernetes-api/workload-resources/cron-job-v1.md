@@ -344,7 +344,7 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
-401: 未经授权
+401: Unauthorized
 
 <!--
 ### `get` read status of the specified CronJob
@@ -409,7 +409,7 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
-401: 未经授权
+401: Unauthorized
 
 <!--
 ### `list` list or watch objects of kind CronJob
@@ -552,7 +552,7 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobList" >}}">CronJobList</a>): OK
 
-401: 未授权
+401: Unauthorized
 
 <!--
 ### `list` list or watch objects of kind CronJob
@@ -686,7 +686,7 @@ GET /apis/batch/v1/cronjobs
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobList" >}}">CronJobList</a>): OK
 
-401: 未授权
+401: Unauthorized
 
 <!--
 ### `create` create a CronJob
@@ -781,11 +781,11 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): 创建完成
+201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): 已接受
+202 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Accepted
 
-401: 未授权
+401: Unauthorized
 
 <!--
 ### `update` replace the specified CronJob
@@ -886,9 +886,9 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): 创建完成
+201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
 
-401: 未授权
+401: Unauthorized
 
 <!--
 ### `update` replace status of the specified CronJob
@@ -990,9 +990,9 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): 创建完成
+201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
 
-401: 未授权
+401: Unauthorized
 
 <!--
 ### `patch` partially update the specified CronJob
@@ -1105,9 +1105,9 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): 创建完成
+201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
 
-401: 未授权
+401: Unauthorized
 
 <!--
 ### `patch` partially update status of the specified CronJob
@@ -1219,9 +1219,9 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): 创建完成
+201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
 
-401: 未授权
+401: Unauthorized
 
 <!--
 ### `delete` delete a CronJob
@@ -1323,9 +1323,9 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): 创建完成
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
-401: 未授权
+401: Unauthorized
 
 <!--
 ### `deletecollection` delete collection of CronJob
@@ -1480,10 +1480,10 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 401: Unauthorized
 -->
 
-####响应
+#### 响应
 
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
-401: 未授权
+401: Unauthorized
 

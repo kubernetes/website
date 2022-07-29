@@ -296,7 +296,7 @@ Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For
 Kubernetes 自身通常在命名容器镜像时添加后缀 `-$(ARCH)`。
 为了向前兼容，请在生成较老的镜像时也提供后缀。
 这里的理念是为某镜像（如 `pause`）生成针对所有平台都适用的清单时，
-生成 `pause-amd64` 这类镜像，以便较老的配置文件或者将镜像后缀影编码到其中的
+生成 `pause-amd64` 这类镜像，以便较老的配置文件或者将镜像后缀硬编码到其中的
 YAML 文件也能兼容。
 
 <!--
@@ -366,7 +366,7 @@ For an example of configuring a private container image registry, see the
 task. That example uses a private registry in Docker Hub.
 -->
 有关配置私有容器镜像仓库的示例，请参阅任务
-[从私有镜像库中提取图像](/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry)。
+[从私有镜像库中拉取镜像](/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry)。
 该示例使用 Docker Hub 中的私有注册表。
 
 <!--

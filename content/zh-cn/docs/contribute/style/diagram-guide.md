@@ -723,12 +723,12 @@ Note that the live editor doesn't recognize Hugo shortcodes.
 ### Example 1 - Pod topology spread constraints
 
 Figure 6 shows the diagram appearing in the
-[Pod topology pread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#node-labels)
+[Pod topology pread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/#node-labels)
 page.
 -->
 ### 示例 1 - Pod 拓扑分布约束
 
-图 6 展示的是 [Pod 拓扑分布约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/#node-labels)
+图 6 展示的是 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/#node-labels)
 页面所出现的图表。
 
 {{< mermaid >}}

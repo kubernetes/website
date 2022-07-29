@@ -26,21 +26,16 @@ Therefore, jobs should be idempotent.
 
 For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-jobs).
 
-
-
 ## {{% heading "prerequisites" %}}
-
 
 * {{< include "task-tutorial-prereqs.md" >}}
 
-
-
 <!-- steps -->
 
-## Creating a Cron Job
+## Creating a CronJob {#creating-a-cron-job}
 
 Cron jobs require a config file.
-This example cron job config `.spec` file prints the current time and a hello message every minute:
+Here is a manifest for a CronJob that runs a simple demonstration task every minute:
 
 {{< codenew file="application/job/cronjob.yaml" >}}
 
@@ -60,6 +55,7 @@ After creating the cron job, get its status using this command:
 ```shell
 kubectl get cronjob hello
 ```
+
 The output is similar to this:
 
 ```
@@ -102,14 +98,14 @@ You should see that the cron job `hello` successfully scheduled a job at the tim
 Now, find the pods that the last scheduled job created and view the standard output of one of the pods.
 
 {{< note >}}
-The job name and pod name are different.
+The job name is different from the pod name.
 {{< /note >}}
 
 ```shell
 # Replace "hello-4111706356" with the job name in your system
 pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items[*].metadata.name})
 ```
-Show pod log:
+Show the pod log:
 
 ```shell
 kubectl logs $pods
@@ -121,7 +117,7 @@ Fri Feb 22 11:02:09 UTC 2019
 Hello from the Kubernetes cluster
 ```
 
-## Deleting a Cron Job
+## Deleting a CronJob {#deleting-a-cron-job}
 
 When you don't need a cron job any more, delete it with `kubectl delete cronjob <cronjob name>`:
 
@@ -132,16 +128,20 @@ kubectl delete cronjob hello
 Deleting the cron job removes all the jobs and pods it created and stops it from creating additional jobs.
 You can read more about removing jobs in [garbage collection](/docs/concepts/architecture/garbage-collection/).
 
-## Writing a Cron Job Spec
+## Writing a CronJob Spec {#writing-a-cron-job-spec}
 
-As with all other Kubernetes configs, a cron job needs `apiVersion`, `kind`, and `metadata` fields. For general
-information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
+As with all other Kubernetes objects, a CronJob must have `apiVersion`, `kind`, and `metadata` fields.
+For more information about working with Kubernetes objects and their
+{{< glossary_tooltip text="manifests" term_id="manifest" >}}, see the
+[managing resources](/docs/concepts/cluster-administration/manage-deployment/),
 and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
 
-A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
+Each manifest for a CrobJob also needs a [`.spec`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status) section.
 
 {{< note >}}
-All modifications to a cron job, especially its `.spec`, are applied only to the following runs.
+If you modify a CronJob, the changes you make will apply to new jobs that start to run after your modification
+is complete. Jobs (and their Pods) that have already started continue to run without changes.
+That is, the CronJob does _not_ update existing jobs, even if those remain running.
 {{< /note >}}
 
 ### Schedule
@@ -153,11 +153,11 @@ as schedule time of its jobs to be created and executed.
 The format also includes extended "Vixie cron" step values. As explained in the
 [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
 
-> Step values can be	used in	conjunction with ranges.  Following a range
-> with `/<number>` specifies skips	of the number's	value through the
-> range.  For example, `0-23/2` can be used in the	hours field to specify
-> command execution every other hour	(the alternative in the	V7 standard is
-> `0,2,4,6,8,10,12,14,16,18,20,22`).  Steps are also permitted after an
+> Step values can be used in conjunction with ranges. Following a range
+> with `/<number>` specifies skips of the number's value through the
+> range. For example, `0-23/2` can be used in the hours field to specify
+> command execution every other hour (the alternative in the V7 standard is
+> `0,2,4,6,8,10,12,14,16,18,20,22`). Steps are also permitted after an
 > asterisk, so if you want to say "every two hours", just use `*/2`.
 
 {{< note >}}
@@ -221,5 +221,3 @@ The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields
 These fields specify how many completed and failed jobs should be kept.
 By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping
 none of the corresponding kind of jobs after they finish.
-
-

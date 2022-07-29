@@ -47,7 +47,7 @@ which are configured in the API.
 并编译进 `kube-apiserver` 可执行文件，并且只能由集群管理员配置。
 在该列表中，有两个特殊的控制器：MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook。
 它们根据 API 中的配置，分别执行变更和验证
-[准入控制 webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。
+[准入控制 webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。
 
 <!--
 Admission controllers may be "validating", "mutating", or both. Mutating
@@ -88,29 +88,27 @@ other admission controllers.
 
 <!--
 ## Why do I need them?
--->
-## 为什么需要准入控制器？    {#why-do-i-need-them}
 
-<!--
 Many advanced features in Kubernetes require an admission controller to be enabled in order
 to properly support the feature.  As a result, a Kubernetes API server that is not properly
 configured with the right set of admission controllers is an incomplete server and will not
 support all the features you expect.
 -->
+## 为什么需要准入控制器？    {#why-do-i-need-them}
+
 Kubernetes 的许多高级功能都要求启用一个准入控制器，以便正确地支持该特性。
 因此，没有正确配置准入控制器的 Kubernetes API 服务器是不完整的，它无法支持你所期望的所有特性。
 
 <!--
 ## How do I turn on an admission controller?
--->
 
-## 如何启用一个准入控制器？  {#how-do-i-turn-on-an-admission-controller}
 
-<!--
 The Kubernetes API server flag `enable-admission-plugins` takes a comma-delimited list of admission control plugins to invoke prior to modifying objects in the cluster.
 For example, the following command line enables the `NamespaceLifecycle` and the `LimitRanger`
 admission control plugins:
 -->
+## 如何启用一个准入控制器？  {#how-do-i-turn-on-an-admission-controller}
+
 Kubernetes API 服务器的 `enable-admission-plugins` 标志接受一个（以逗号分隔的）准入控制插件列表，
 这些插件会在集群修改对象之前被调用。
 
@@ -163,7 +161,6 @@ kube-apiserver -h | grep enable-admission-plugins
 <!--
 In the current version, the default ones are:
 -->
-
 在目前版本中，默认启用的插件有：
 
 ```
@@ -226,7 +223,7 @@ See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificat
 information on the permissions required to perform different actions on CertificateSigningRequest resources.
 -->
 有关对 CertificateSigningRequest 资源执行不同操作所需权限的详细信息，
-请参阅[证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)。
+请参阅[证书签名请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)。
 
 ### CertificateSigning  {#certificatesigning}
 
@@ -244,7 +241,7 @@ See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificat
 information on the permissions required to perform different actions on CertificateSigningRequest resources.
 -->
 有关对 CertificateSigningRequest 资源执行不同操作所需权限的详细信息，
-请参阅[证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)。
+请参阅[证书签名请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)。
 
 ### CertificateSubjectRestriction {#certificatesubjectrestriction}
 
@@ -286,7 +283,7 @@ See the [ingress](/docs/concepts/services-networking/ingress/) documentation for
 classes and how to mark one as default.
 -->
 关于 Ingress 类以及如何将 Ingress 类标记为默认的更多信息，请参见
-[Ingress](/zh/docs/concepts/services-networking/ingress/) 页面。
+[Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 页面。
 
 ### DefaultStorageClass {#defaultstorageclass}
 
@@ -315,7 +312,7 @@ This admission controller ignores any `PersistentVolumeClaim` updates; it acts o
 See [persistent volume](/docs/concepts/storage/persistent-volumes/) documentation about persistent volume claims and
 storage classes and how to mark a storage class as default.
 -->
-关于持久卷申领和存储类，以及如何将存储类标记为默认，请参见[持久卷](/zh/docs/concepts/storage/persistent-volumes/)页面。
+关于持久卷申领和存储类，以及如何将存储类标记为默认，请参见[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)页面。
 
 ### DefaultTolerationSeconds {#defaulttolerationseconds}
 
@@ -477,7 +474,7 @@ See the [EventRateLimit Config API (v1alpha1)](/docs/reference/config-api/apiser
 for more details.
 -->
 详情请参见
-[EventRateLimit 配置 API 文档（v1alpha1）](/zh/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)。
+[EventRateLimit 配置 API 文档（v1alpha1）](/zh-cn/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)。
 
 ### ExtendedResourceToleration {#extendedresourcetoleration}
 
@@ -491,7 +488,7 @@ add these tolerations.
 -->
 此插件有助于创建带有扩展资源的专用节点。
 如果运维人员想要创建带有扩展资源（如 GPU、FPGA 等）的专用节点，他们应该以扩展资源名称作为键名，
-[为节点设置污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+[为节点设置污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 如果启用了此准入控制器，会将此类污点的容忍度自动添加到请求扩展资源的 Pod 中，
 用户不必再手动添加这些容忍度。
 
@@ -504,13 +501,12 @@ ImagePolicyWebhook 准入控制器允许使用后端 Webhook 做出准入决策�
 
 <!--
 #### Configuration File Format
--->
-#### 配置文件格式  {#configuration-file-format}
 
-<!--
 ImagePolicyWebhook uses a configuration file to set options for the behavior of the backend.
 This file may be json or yaml and has the following format:
 -->
+#### 配置文件格式  {#configuration-file-format}
+
 ImagePolicyWebhook 使用配置文件来为后端行为设置选项。该文件可以是 JSON 或 YAML，
 并具有以下格式:
 
@@ -568,7 +564,7 @@ formatted file which sets up the connection to the backend.
 It is required that the backend communicate over TLS.
 -->
 ImagePolicyWebhook 的配置文件必须引用
-[kubeconfig](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+[kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 格式的文件；该文件用来设置与后端的连接。要求后端使用 TLS 进行通信。
 
 <!--
@@ -616,20 +612,19 @@ For additional HTTP configuration, refer to the
 [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation.
 -->
 关于 HTTP 配置的更多信息，请参阅
-[kubeconfig](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+[kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 文档。
 
 <!--
 #### Request payloads
--->
-#### 请求载荷
 
-<!--
 When faced with an admission decision, the API Server POSTs a JSON serialized
 `imagepolicy.k8s.io/v1alpha1` `ImageReview` object describing the action.
 This object contains fields describing the containers being admitted, as well as
 any pod annotations that match `*.image-policy.k8s.io/*`.
 -->
+#### 请求载荷  {#request-payloads}
+
 当面对一个准入决策时，API 服务器发送一个描述操作的 JSON 序列化的
 `imagepolicy.k8s.io/v1alpha1` `ImageReview` 对象。
 该对象包含描述被准入容器的字段，以及与 `*.image-policy.k8s.io/*` 匹配的所有 Pod 注解。
@@ -714,33 +709,31 @@ To disallow access, the service would return:
 For further documentation refer to the
 [`imagepolicy.v1alpha1` API](/docs/reference/config-api/imagepolicy.v1alpha1/).
 -->
-更多的文档，请参阅 [`imagepolicy.v1alpha1` API](/zh/docs/reference/config-api/imagepolicy.v1alpha1/)。
+更多的文档，请参阅 [`imagepolicy.v1alpha1` API](/zh-cn/docs/reference/config-api/imagepolicy.v1alpha1/)。
 
 <!--
 #### Extending with Annotations
--->
-#### 使用注解进行扩展  {#extending-with-annotations}
 
-<!--
 All annotations on a Pod that match `*.image-policy.k8s.io/*` are sent to the webhook.
 Sending annotations allows users who are aware of the image policy backend to
 send extra information to it, and for different backends implementations to
 accept different information.
 -->
+#### 使用注解进行扩展  {#extending-with-annotations}
+
 一个 Pod 中匹配 `*.image-policy.k8s.io/*` 的注解都会被发送给 Webhook。
 这样做使得了解后端镜像策略的用户可以向它发送额外的信息，
 并让不同的后端实现接收不同的信息。
 
 <!--
 Examples of information you might put here are:
--->
-你可以在这里输入的信息有：
 
-<!--
 * request to "break glass" to override a policy, in case of emergency.
 * a ticket number from a ticket system that documents the break-glass request
 * provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
 -->
+你可以在这里输入的信息有：
+
 * 在紧急情况下，请求破例覆盖某个策略。
 * 从一个记录了破例的请求的工单（Ticket）系统得到的一个工单号码。
 * 向策略服务器提供提示信息，用于提供镜像的 imageID，以方便它进行查找。
@@ -780,8 +773,8 @@ and the [example of LimitRange](/docs/tasks/administer-cluster/manage-resources/
 for more details.
 -->
 请查看
-[limitRange API 文档](/zh/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)和
-[LimitRange 例子](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)以了解更多细节。
+[limitRange API 文档](/zh-cn/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)和
+[LimitRange 例子](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)以了解更多细节。
 
 ### MutatingAdmissionWebhook {#mutatingadmissionwebhook}
 
@@ -993,7 +986,7 @@ allowVolumeExpansion: true
 For more information about persistent volume claims, see [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 -->
 关于持久化卷申领的更多信息，请参见
-[PersistentVolumeClaim](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
+[PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
 ### PersistentVolumeLabel {#persistentvolumelabel} 
 
@@ -1037,7 +1030,8 @@ This file may be json or yaml and has the following format:
 -->
 #### 配置文件格式    {#configuration-file-format-podnodeselector}
 
-`PodNodeSelector` 使用配置文件来设置后端行为的选项。请注意，配置文件格式将在将来某个版本中改为版本化文件。
+`PodNodeSelector` 使用配置文件来设置后端行为的选项。
+请注意，配置文件格式将在将来某个版本中改为版本化文件。
 该文件可以是 JSON 或 YAML，格式如下：
 
 ```yaml
@@ -1134,10 +1128,10 @@ for more information.
 -->
 这是下节所讨论的已被废弃的 [PodSecurityPolicy](#podsecuritypolicy) 准入控制器的替代品。
 此准入控制器负责在创建和修改 Pod 时，根据请求的安全上下文和
-[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)
 来确定是否可以执行请求。
 
-更多信息请参阅 [Pod 安全性准入控制器](/zh/docs/concepts/security/pod-security-admission/)。
+更多信息请参阅 [Pod 安全性准入控制器](/zh-cn/docs/concepts/security/pod-security-admission/)。
 
 ### PodSecurityPolicy {#podsecuritypolicy}
 
@@ -1154,8 +1148,7 @@ based on the requested security context and the available Pod Security Policies.
 See also the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation
 for more information.
 -->
-查看 [Pod 安全策略文档](/zh/docs/concepts/security/pod-security-policy/)
-进一步了解其间细节。
+查看 [Pod 安全策略文档](/zh-cn/docs/concepts/security/pod-security-policy/)进一步了解其间细节。
 
 ### PodTolerationRestriction {#podtolerationrestriction}
 
@@ -1234,15 +1227,14 @@ See the [ResourceQuota API reference](/docs/reference/kubernetes-api/policy-reso
 and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 -->
 请参阅
-[resourceQuota API 参考](/zh/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
-和 [Resource Quota 例子](/zh/docs/concepts/policy/resource-quotas/)了解更多细节。
+[resourceQuota API 参考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+和 [Resource Quota 例子](/zh-cn/docs/concepts/policy/resource-quotas/)了解更多细节。
 
-
-<!--
 ### RuntimeClass {#runtimeclass}
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
+<!--
 If you define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 configured, this admission controller checks incoming Pods.
 When enabled, this admission controller rejects any Pod create requests
@@ -1254,16 +1246,13 @@ defined in the corresponding RuntimeClass.
 See also [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 for more information.
 -->
-### RuntimeClass {#runtimeclass}
-
-{{< feature-state for_k8s_version="v1.20" state="stable" >}}
-
-如果你所定义的 RuntimeClass 包含 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)，
-这个准入控制器会检查新的 Pod。被启用后，此准入控制器会拒绝所有已经设置了 overhead 字段的 Pod 创建请求。
+如果你所定义的 RuntimeClass 包含 [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)，
+这个准入控制器会检查新的 Pod。
+被启用后，此准入控制器会拒绝所有已经设置了 overhead 字段的 Pod 创建请求。
 对于配置了 RuntimeClass 并在其 `.spec` 中选定 RuntimeClass 的 Pod，
 此准入控制器会根据相应 RuntimeClass 中定义的值为 Pod 设置 `.spec.overhead`。
 
-详情请参见 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)。
+详情请参见 [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)。
 
 ### SecurityContextDeny {#securitycontextdeny}
 
@@ -1276,20 +1265,21 @@ task.
 If you don't use [Pod Security admission](/docs/concepts/security/pod-security-admission/),
 [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/), nor any external enforcement mechanism,
 then you could use this admission controller to restrict the set of values a security context can take.
+-->
+此准入控制器将拒绝任何试图设置特定提升
+[SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)
+中某些字段的 Pod，正如任务[为 Pod 或 Container 配置安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)
+中所展示的那样。如果集群没有使用
+[Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)、
+[PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)，
+也没有任何外部强制机制，那么你可以使用此准入控制器来限制安全上下文所能获取的值集。
 
+<!--
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for more context on restricting
 pod privileges.
 -->
-此准入控制器将拒绝任何试图设置特定提升
-[SecurityContext](/zh/docs/tasks/configure-pod-container/security-context/)
-中某些字段的 Pod，正如任务[为 Pod 或 Container 配置安全上下文](/zh/docs/tasks/configure-pod-container/security-context/)
-中所展示的那样。如果集群没有使用
-[Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission/)、
-[PodSecurityPolicy](/zh/docs/concepts/security/pod-security-policy/)，
-也没有任何外部强制机制，那么你可以使用此准入控制器来限制安全上下文所能获取的值集。
-
 有关限制 Pod 权限的更多内容，请参阅 
-[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)。
 
 ### ServiceAccount {#serviceaccount}
 
@@ -1300,7 +1290,7 @@ We strongly recommend using this admission controller if you intend to make use 
 `ServiceAccount` objects.
 -->
 此准入控制器实现了
-[ServiceAccount](/zh/docs/tasks/configure-pod-container/configure-service-account/)
+[ServiceAccount](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
 的自动化。
 如果你打算使用 Kubernetes 的 ServiceAccount 对象，我们强烈建议你使用这个准入控制器。
 
@@ -1317,9 +1307,9 @@ for more detailed information.
 -->
 `StorageObjectInUseProtection` 插件将 `kubernetes.io/pvc-protection` 或
 `kubernetes.io/pv-protection` finalizers 添加到新创建的持久卷申领（PVC）
-或持久卷（PV）中。如果用户尝试删除 PVC/PV，除非 PVC/PV 的保护控制器移除 finalizers，
-否则 PVC/PV 不会被删除。有关更多详细信息，请参考
-[保护使用中的存储对象](/zh/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)。
+或持久卷（PV）中。如果用户尝试删除 PVC/PV，除非 PVC/PV 的保护控制器移除终结器（finalizers），
+否则 PVC/PV 不会被删除。有关更多详细信息，
+请参考[保护使用中的存储对象](/zh-cn/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)。
 
 ### TaintNodesByCondition {#taintnodesbycondition}
 
@@ -1353,7 +1343,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 *must* have a reconciliation system, as it is not guaranteed that subsequent
 webhooks or other validating admission controllers will permit the request to finish.
 -->
-如果以此方式调用的 Webhook 有其它副作用（如：减少配额），则它必须具有协调机制。
+如果以此方式调用的 Webhook 有其它副作用（如：减少配额），则它 **必须** 具有协调机制。
 这是因为无法保证后续的 Webhook 或其他验证性准入控制器都允许请求完成。
 
 <!--
@@ -1378,7 +1368,7 @@ You can enable additional admission controllers beyond the default set using the
 ## 有推荐的准入控制器吗？
 
 有。推荐使用的准入控制器默认情况下都处于启用状态
-（请查看[这里](/zh/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
+（请查看[这里](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
 因此，你无需显式指定它们。
 你可以使用 `--enable-admission-plugins` 标志（ **顺序不重要** ）来启用默认设置以外的其他准入控制器。
 
