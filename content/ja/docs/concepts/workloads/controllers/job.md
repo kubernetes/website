@@ -272,7 +272,7 @@ Jobが完了すると、それ以上Podは作成されませんが、[通常](#p
 デフォルトでは、Jobは中断されることなく実行できますが、Podが失敗した場合(`restartPolicy=Never`)、またはコンテナがエラーで終了した場合(`restartPolicy=OnFailure`)のみ、前述の`.spec.backoffLimit`で決まった回数まで再試行します。`.spec.backoffLimit`に達すると、Jobが失敗とマークされ、実行中のPodもすべて終了されます。
 
 Jobを終了させるもう一つの方法は、活動期間を設定することです。
-Jobの`.spec.activeDeadlineSeconds`フォールドに秒数を設定することで、活動期間を設定できます。
+Jobの`.spec.activeDeadlineSeconds`フィールドに秒数を設定することで、活動期間を設定できます。
 Podがいくつ作成されても、`activeDeadlineSeconds`はJobの存続する時間に適用されます。
 Jobが`activeDeadlineSeconds`に達すると、実行中のすべてのPodは終了され、Jobの状態は`type: Failed`になり、理由は`reason: DeadlineExceeded`になります。
 
