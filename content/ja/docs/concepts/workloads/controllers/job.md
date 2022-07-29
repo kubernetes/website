@@ -310,7 +310,7 @@ Job仕様と、Jobに属する[Podテンプレートの仕様](/ja/docs/concepts
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-終了したJob(状態は`Complete`か`Failed`になったJob)を自動的に片付けるもう一つの方法は
+終了したJob(状態が`Complete`か`Failed`になったJob)を自動的にクリーンアップするもう一つの方法は
 [TTLコントローラー](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)より提供されたTTLメカニズムです。`.spec.ttlSecondsAfterFinished`フィールドを指定することで、終了したリソースを片付けることができます。
 
 TTLコントローラーでJobを片付ける場合、Jobはカスケード的に削除されます。つまりJobを削除する際に、Jobに属しているオブジェクト、例えばPodなども一緒に削除されます。Jobが削除される場合、Jobのライフサイクル保証、例えばFinalizerなど、は考えられるので注意してください。
