@@ -136,7 +136,7 @@ For more information about working with Kubernetes objects and their
 [managing resources](/docs/concepts/cluster-administration/manage-deployment/),
 and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
 
-Each manifest for a CrobJob also needs a [`.spec`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status) section.
+Each manifest for a CronJob also needs a [`.spec`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status) section.
 
 {{< note >}}
 If you modify a CronJob, the changes you make will apply to new jobs that start to run after your modification
