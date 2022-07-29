@@ -55,7 +55,7 @@ part of Kubernetes (this removal was
 [announced](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
 as part of the v1.20 release).
 -->
-Kubernetes v1.24 之前的版本，使用 **dockershim** 组件直接整合了 Docker Engine。
+v1.24 之前的 Kubernetes 版本直接集成了 Docker Engine 的一个组件，名为 **dockershim**。
 这种特殊的直接整合不再是 Kubernetes 的一部分
 （这次删除被作为 v1.20 发行版本的一部分[宣布](/zh-cn/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)）。
 
@@ -66,9 +66,8 @@ to understand how this removal might
 affect you. To learn about migrating from using dockershim, see
 [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
 -->
-你可以阅读[检查移除 Dockershim 是否对你有影响](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
-以了解此删除可能会如何影响你。 
-要了解如何从使用 dockershim 中进行迁移，
+你可以阅读[检查 Dockershim 移除是否会影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)以了解此删除可能会如何影响你。
+要了解如何使用 dockershim 进行迁移，
 请参阅[从 dockershim 迁移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)。
 
 <!--
@@ -95,8 +94,7 @@ For more information, see [Network Plugin Requirements](/docs/concepts/extend-ku
 
 如果你确定不需要某个特定设置，则可以跳过它。
 
-有关更多信息，请参阅[网络插件要求](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) 
-或特定容器运行时的文档。
+有关更多信息，请参阅[网络插件要求](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)或特定容器运行时的文档。
 
 <!-- 
 ### Forwarding IPv4 and letting iptables see bridged traffic
@@ -169,11 +167,10 @@ In the field, people have reported cases where nodes that are configured to use 
 for the kubelet and Docker, but `systemd` for the rest of the processes, become unstable under
 resource pressure.
 -->
-单个 cgroup 管理器将简化分配资源的视图，并且默认情况下将对可用资源和使用
-中的资源具有更一致的视图。
+单个 cgroup 管理器将简化分配资源的视图，并且默认情况下将对可用资源和使用中的资源具有更一致的视图。
 当有两个管理器共存于一个系统中时，最终将对这些资源产生两种视图。
-在这方面，人们已经报告过一些示例，某些节点的 kubelet 和 docker 使用
-`cgroupfs`，而节点上运行的其余进程则使用 `systemd`，
+在此领域人们已经报告过一些案例，某些节点配置让 kubelet 和 docker 使用
+`cgroupfs`，而节点上运行的其余进程则使用 systemd；
 这类节点在资源压力下会变得不稳定。
 
 <!--
@@ -194,8 +191,8 @@ If you have automation that makes it feasible, replace the node with another usi
 configuration, or reinstall it using automation.
 -->
 注意：更改已加入集群的节点的 cgroup 驱动是一项敏感的操作。
-如果 kubelet 已经使用某 cgroup 驱动的语义创建了 pod，更改运行时以使用
-别的 cgroup 驱动，当为现有 Pods 重新创建 PodSandbox 时会产生错误。
+如果 kubelet 已经使用某 cgroup 驱动的语义创建了 Pod，更改运行时以使用别的
+cgroup 驱动，当为现有 Pod 重新创建 PodSandbox 时会产生错误。
 重启 kubelet 也可能无法解决此类问题。
 
 如果你有切实可行的自动化方案，使用其他已更新配置的节点来替换该节点，
