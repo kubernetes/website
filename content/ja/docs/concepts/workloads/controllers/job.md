@@ -304,7 +304,7 @@ Job仕様と、Jobに属する[Podテンプレートの仕様](/ja/docs/concepts
 
 ## 終了したJobの自動片付け  {#clean-up-finished-jobs-automatically}
 
-終了したJobは通常システムに残す必要はありません。残ったままにしておくとAPIサーバーに負担をかけることになります。Jobが上位コントローラーにより直接管理されている場合、例えば[CronJobs](/ja/docs/concepts/workloads/controllers/cron-jobs/)の場合、Jobは指定された容量ベースの片付けポリシーに基づき、CronJobにより片付けられます。
+終了したJobは通常システムに残す必要はありません。残ったままにしておくとAPIサーバーに負担をかけることになります。Jobが上位コントローラーにより直接管理されている場合、例えば[CronJobs](/ja/docs/concepts/workloads/controllers/cron-jobs/)の場合、Jobは指定された容量ベースのクリーンアップポリシーに基づき、CronJobによりクリーンアップされます。
 
 ### 終了したJobのTTLメカニズム  {#ttl-mechanism-for-finished-jobs}
 
