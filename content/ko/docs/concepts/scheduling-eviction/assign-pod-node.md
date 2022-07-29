@@ -124,8 +124,8 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 
 이 예시에서는 다음의 규칙이 적용된다.
 
-  * 노드는 키가 `kubernetes.io/os`이고 값이 `linux`인 레이블을 
-    갖고 *있어야 한다* .
+  * 노드는 키가 `topology.kubernetes.io/zone`인 레이블을 갖고 *있어야 하며*,
+    레이블의 값이 `antarctica-east1` 혹은 `antarctica-west1`*여야 한다*.
   * 키가 `another-node-label-key`이고 값이 `another-node-label-value`인 레이블을 
     갖고 있는 노드를 *선호한다* .
 
@@ -302,9 +302,8 @@ Y는 쿠버네티스가 충족할 규칙이다.
 다른 노드도 존재한다면, 
 스케줄러는 `topology.kubernetes.io/zone=R` 레이블이 있는 노드에는 가급적 해당 파드를 스케줄링하지 않야아 한다.
 
-[디자인 문서](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)에서 
-파드 어피니티와 안티-어피니티에 대한 
-많은 예시를 볼 수 있다.
+파드 어피니티와 안티-어피니티의 예시에 대해 익숙해지고 싶다면,
+[디자인 제안](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)을 참조한다.
 
 파드 어피니티와 안티-어피니티의 `operator` 필드에 
 `In`, `NotIn`, `Exists` 및 `DoesNotExist` 값을 사용할 수 있다.
@@ -472,9 +471,11 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 * [테인트 및 톨러레이션](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)에 대해 더 읽어본다.
-* [노드 어피니티](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)와
-  [파드간 어피니티/안티-어피니티](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)에 대한 디자인 문서를 읽어본다.
+* [노드 어피니티](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)와
+  [파드간 어피니티/안티-어피니티](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)에 대한 디자인 문서를 읽어본다.
 * [토폴로지 매니저](/docs/tasks/administer-cluster/topology-manager/)가 
   노드 수준 리소스 할당 결정에 어떻게 관여하는지 알아본다.
 * [노드셀렉터(nodeSelector)](/ko/docs/tasks/configure-pod-container/assign-pods-nodes/)를 어떻게 사용하는지 알아본다.
 * [어피니티/안티-어피니티](/ko/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)를 어떻게 사용하는지 알아본다.
+
+
