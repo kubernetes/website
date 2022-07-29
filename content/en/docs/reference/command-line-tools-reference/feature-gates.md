@@ -187,8 +187,6 @@ different Kubernetes components.
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
 | `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | |
-| `StatefulSetMinReadySeconds` | `false` | Alpha | 1.22 | 1.22 |
-| `StatefulSetMinReadySeconds` | `true` | Beta | 1.23 | |
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
@@ -486,6 +484,9 @@ different Kubernetes components.
 | `StartupProbe` | `false` | Alpha | 1.16 | 1.17 |
 | `StartupProbe` | `true` | Beta | 1.18 | 1.19 |
 | `StartupProbe` | `true` | GA | 1.20 | - |
+| `StatefulSetMinReadySeconds` | `false` | Alpha | 1.22 | 1.22 |
+| `StatefulSetMinReadySeconds` | `true` | Beta | 1.23 | 1.24 |
+| `StatefulSetMinReadySeconds` | `true` | GA | 1.25 | - |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
 | `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
