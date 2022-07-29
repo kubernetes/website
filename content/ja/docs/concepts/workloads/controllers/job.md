@@ -313,7 +313,7 @@ Job仕様と、Jobに属する[Podテンプレートの仕様](/ja/docs/concepts
 終了したJob(状態が`Complete`か`Failed`になったJob)を自動的にクリーンアップするもう一つの方法は
 [TTLコントローラー](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)より提供されたTTLメカニズムです。`.spec.ttlSecondsAfterFinished`フィールドを指定することで、終了したリソースをクリーンアップすることができます。
 
-TTLコントローラーでJobを片付ける場合、Jobはカスケード的に削除されます。つまりJobを削除する際に、Jobに属しているオブジェクト、例えばPodなども一緒に削除されます。Jobが削除される場合、Jobのライフサイクル保証、例えばFinalizerなど、は考えられるので注意してください。
+TTLコントローラーでJobをクリーンアップする場合、Jobはカスケード的に削除されます。つまりJobを削除する際に、Jobに属しているオブジェクト、例えばPodなども一緒に削除されます。Jobが削除される場合、Finalizerなどの、Jobのライフサイクル保証は守られることに注意してください。
 
 例えば:
 
