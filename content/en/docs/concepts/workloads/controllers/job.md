@@ -536,7 +536,9 @@ spec:
       ...
 ```
 
-Alternatively, a job suspension can be toggled from the command line by patching the job resource.  Suspend an active job:
+You can also toggle Job suspension by patching the Job using the command line.
+
+Suspend an active job:
 
 ```shell
 kubectl patch job/myjob -p '{"spec":{"suspend":true}}'
