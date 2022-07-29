@@ -8,11 +8,10 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: kubernetes.io/e2e-az-name
+          - key: kubernetes.io/os
             operator: In
             values:
-            - e2e-az1
-            - e2e-az2
+            - linux
       preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 1
         preference:

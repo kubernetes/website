@@ -13,7 +13,7 @@ weight: 60
 <!-- overview -->
 
 <!--
-This page shows how to configure a Pod to use a
+This page shows you how to configure a Pod to use a
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
 for storage.
 Here is a summary of the process:
@@ -27,7 +27,7 @@ PersistentVolume.
 
 1. You create a Pod that uses the above PersistentVolumeClaim for storage.
 -->
-本文介绍如何配置 Pod 使用 
+本文将向你介绍如何配置 Pod 使用 
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
 作为存储。
 以下是该过程的总结：
@@ -42,7 +42,8 @@ PersistentVolume.
 ## {{% heading "prerequisites" %}}
 
 <!--
-* You need to have a Kubernetes cluster that has only one Node, and the kubectl
+* You need to have a Kubernetes cluster that has only one Node, and the
+{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
 command-line tool must be configured to communicate with your cluster. If you
 do not already have a single-node cluster, you can create one by using
 [Minikube](https://minikube.sigs.k8s.io/docs/).
@@ -51,7 +52,8 @@ do not already have a single-node cluster, you can create one by using
 [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
 -->
 
-* 你需要一个包含单个节点的 Kubernetes 集群，并且必须配置 kubectl 命令行工具以便与集群交互。
+* 你需要一个包含单个节点的 Kubernetes 集群，并且必须配置
+  {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 命令行工具以便与集群交互。
   如果还没有单节点集群，可以使用
   [Minikube](https://minikube.sigs.k8s.io/docs/) 创建一个。
 .
@@ -62,19 +64,19 @@ do not already have a single-node cluster, you can create one by using
 <!--
 ## Create an index.html file on your Node
 
-Open a shell to the Node in your cluster. How you open a shell depends on how
-you set up your cluster. For example, if you are using Minikube, you can open a
-shell to your Node by entering `minikube ssh`.
+Open a shell to the single Node in your cluster. How you open a shell depends
+on how you set up your cluster. For example, if you are using Minikube, you
+can open a shell to your Node by entering `minikube ssh`.
 
-In your shell, create a `/mnt/data` directory:
+In your shell on that Node, create a `/mnt/data` directory:
 -->
 ## 在你的节点上创建一个 index.html 文件
 
-打开集群中节点的一个 Shell。
+打开集群中的某个节点的 Shell。
 如何打开 Shell 取决于集群的设置。
 例如，如果你正在使用 Minikube，那么可以通过输入 `minikube ssh` 来打开节点的 Shell。
 
-在 Shell 中，创建一个 `/mnt/data` 目录：
+在该节点的 Shell 中，创建一个 `/mnt/data` 目录：
 
 <!--
 # This assumes that your Node uses "sudo" to run commands
@@ -94,7 +96,7 @@ In the `/mnt/data` directory, create an `index.html` file:
 # This again assumes that your Node uses "sudo" to run commands
 # as the superuser
 -->
-```
+```shell
 # 这里再次假定你的节点使用 "sudo" 来以超级用户角色执行命令
 sudo sh -c "echo 'Hello from Kubernetes storage' > /mnt/data/index.html"
 ```
@@ -139,7 +141,7 @@ PersistentVolume uses a file or directory on the Node to emulate network-attache
 -->
 ## 创建 PersistentVolume
 
-在本练习中，你将创建一个 *hostPath* 类型的 PersistentVolume。
+在本练习中，你将创建一个 **hostPath** 类型的 PersistentVolume。
 Kubernetes 支持用于在单节点集群上开发和测试的 hostPath 类型的 PersistentVolume。
 hostPath 类型的 PersistentVolume 使用节点上的文件或目录来模拟网络附加存储。
 
@@ -149,17 +151,35 @@ would provision a network resource like a Google Compute Engine persistent disk,
 an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also
 use [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage)
 to set up
-[dynamic provisioning](https://kubernetes.io/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
+[dynamic provisioning](/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
 
 Here is the configuration file for the hostPath PersistentVolume:
 -->
 在生产集群中，你不会使用 hostPath。
 集群管理员会提供网络存储资源，比如 Google Compute Engine 持久盘卷、NFS 共享卷或 Amazon Elastic Block Store 卷。
-集群管理员还可以使用 [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage) 来设置[动态提供存储](https://kubernetes.io/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes)。
+集群管理员还可以使用
+[StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage)
+来设置[动态提供存储](/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes)。
 
 下面是 hostPath PersistentVolume 的配置文件：
 
 {{< codenew file="pods/storage/pv-volume.yaml" >}}
+
+<!--
+The configuration file specifies that the volume is at `/mnt/data` on the
+cluster's Node. The configuration also specifies a size of 10 gibibytes and
+an access mode of `ReadWriteOnce`, which means the volume can be mounted as
+read-write by a single Node. It defines the [StorageClass name](/docs/concepts/storage/persistent-volumes/#class)
+`manual` for the PersistentVolume, which will be used to bind
+PersistentVolumeClaim requests to this PersistentVolume.
+-->
+配置文件指定卷位于集群节点上的 `/mnt/data` 路径。
+配置还指定了卷的容量大小为 10 GB，
+访问模式为 `ReadWriteOnce`，
+这意味着该卷可以被单个节点以读写方式安装。
+配置文件还在 PersistentVolume 中定义了
+[StorageClass 的名称](/zh-cn/docs/concepts/storage/persistent-volumes/#class)
+为 `manual`。它将用于将 PersistentVolumeClaim 的请求绑定到此 PersistentVolume。
 
 <!--
 Create the PersistentVolume:
@@ -216,7 +236,7 @@ Create the PersistentVolumeClaim:
 创建 PersistentVolumeClaim：
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/storage/pv-claim.yaml
+kubectl apply -f https://k8s.io/examples/pods/storage/pv-claim.yaml
 ```
 
 <!--
@@ -252,7 +272,7 @@ Look at the PersistentVolumeClaim:
 -->
 查看 PersistentVolumeClaim：
 
-```
+```shell
 kubectl get pvc task-pv-claim
 ```
 
@@ -299,7 +319,7 @@ kubectl apply -f https://k8s.io/examples/pods/storage/pv-pod.yaml
 ```
 
 <!--
-Verify that the Container in the Pod is running;
+Verify that the container in the Pod is running;
 -->
 检查 Pod 中的容器是否运行正常：
 
@@ -308,7 +328,7 @@ kubectl get pod task-pv-pod
 ```
 
 <!--
-Get a shell to the Container running in your Pod:
+Get a shell to the container running in your Pod:
 -->
 打开一个 Shell 访问 Pod 中的容器：
 
@@ -326,11 +346,11 @@ hostPath volume:
 # Be sure to run these 3 commands inside the root shell that comes from
 # running "kubectl exec" in the previous step
 -->
-```
+```shell
 # 一定要在上一步 "kubectl exec" 所返回的 Shell 中执行下面三个命令
-root@task-pv-pod:/# apt-get update
-root@task-pv-pod:/# apt-get install curl
-root@task-pv-pod:/# curl localhost
+apt update
+apt install curl
+curl http://localhost/
 ```
 
 <!--
@@ -374,7 +394,10 @@ In the shell on your Node, remove the file and directory that you created:
 如果你还没有连接到集群中节点的 Shell，可以按之前所做操作，打开一个新的 Shell。
 
 在节点的 Shell 上，删除你所创建的目录和文件：
-
+<!--
+# This assumes that your Node uses "sudo" to run commands
+# as the superuser
+-->
 
 ```shell
 # 这里假定你使用 "sudo" 来以超级用户的角色执行命令
@@ -390,7 +413,6 @@ You can now close the shell to your Node.
 <!--
 ## Mounting the same persistentVolume in two places
 -->
-
 ## 在两个地方挂载相同的 persistentVolume
 
 {{< codenew file="pods/storage/pv-duplicate.yaml" >}}
@@ -427,8 +449,8 @@ GID 不匹配或缺失将会导致无权访问错误。
 这样 GID 就能自动添加到使用 PersistentVolume 的任何 Pod 中。
 
 使用 `pv.beta.kubernetes.io/gid` 注解的方法如下所示：
-
 ```yaml
+apiVersion: v1
 kind: PersistentVolume
 apiVersion: v1
 metadata:
@@ -439,10 +461,10 @@ metadata:
 
 <!--
 When a Pod consumes a PersistentVolume that has a GID annotation, the annotated GID
-is applied to all Containers in the Pod in the same way that GIDs specified in the
+is applied to all containers in the Pod in the same way that GIDs specified in the
 Pod's security context are. Every GID, whether it originates from a PersistentVolume
 annotation or the Pod's specification, is applied to the first process run in
-each Container.
+each container.
 -->
 当 Pod 使用带有 GID 注解的 PersistentVolume 时，注解的 GID 会被应用于 Pod 中的所有容器，
 应用的方法与 Pod 的安全上下文中指定的 GID 相同。
@@ -462,10 +484,10 @@ PersistentVolume are not present on the Pod resource itself.
 
 <!--
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
-* Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+* Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 -->
 * 进一步了解 [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
-* 阅读[持久存储设计文档](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md)
+* 阅读[持久存储设计文档](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md)
 
 <!--
 ### Reference
@@ -476,5 +498,3 @@ PersistentVolume are not present on the Pod resource itself.
 * [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
 * [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
 * [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
-
-

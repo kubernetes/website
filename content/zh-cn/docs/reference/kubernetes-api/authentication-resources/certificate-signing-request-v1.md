@@ -5,13 +5,11 @@ api_metadata:
   kind: "CertificateSigningRequest"
 content_type: "api_reference"
 description: "CertificateSigningRequest 对象提供了一种通过提交证书签名请求并异步批准和颁发 x509 证书的机制。"
-title: "证书签名请求"
+title: CertificateSigningRequest
 weight: 4
-auto_generated: true
 ---
 
 <!--
----
 api_metadata:
   apiVersion: "certificates.k8s.io/v1"
   import: "k8s.io/api/certificates/v1"
@@ -21,18 +19,6 @@ description: "CertificateSigningRequest objects provide a mechanism to obtain x5
 title: "CertificateSigningRequest"
 weight: 4
 auto_generated: true
----
--->
-
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 <!--
@@ -59,8 +45,9 @@ Kubelets use this API to obtain:
 CertificateSigningRequest 对象提供了一种通过提交证书签名请求并异步批准和颁发 x509 证书的机制。
 
 Kubelets 使用 CertificateSigningRequest API 来获取：
- 1. 向 kube-apiserver 进行身份认证的客户端证书（使用 “kubernetes.io/kube-apiserver-client-kubelet” signerName）。
- 2. kube-apiserver 可以安全连接到 TLS 端点的服务证书（使用 “kubernetes.io/kubelet-serving” signerName）。
+
+1. 向 kube-apiserver 进行身份认证的客户端证书（使用 “kubernetes.io/kube-apiserver-client-kubelet” signerName）。
+2. kube-apiserver 可以安全连接到 TLS 端点的服务证书（使用 “kubernetes.io/kubelet-serving” signerName）。
 
 <!--
 This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), 
@@ -117,13 +104,12 @@ or to obtain certificates from custom non-Kubernetes signers.
 
 CertificateSigningRequestSpec contains the certificate request.
 -->
-## 证书签名请求规范 CertificateSigningRequestSpec {#CertificateSigningRequestSpec}
+## CertificateSigningRequestSpec {#CertificateSigningRequestSpec}
 
 CertificateSigningRequestSpec 包含证书请求。
 
-<!--
 <hr>
-
+<!--
 - **request** ([]byte), required
 
   *Atomic: will be replaced during a merge*
@@ -131,7 +117,6 @@ CertificateSigningRequestSpec 包含证书请求。
   request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. 
   When serialized as JSON or YAML, the data is additionally base64-encoded.
 -->
-<hr>
 
 - **request** ([]byte)，必需
 
@@ -153,7 +138,7 @@ CertificateSigningRequestSpec 包含证书请求。
 
   CertificateSigningRequests 的 list/watch 请求可以使用 “spec.signerName=NAME” 字段选择器进行过滤。
   
-<!--
+  <!--
   Well-known Kubernetes signers are:
    1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
     Requests for this signer are never auto-approved by kube-controller-manager, 
@@ -166,8 +151,9 @@ CertificateSigningRequestSpec 包含证书请求。
 	and can be issued by the "csrsigning" controller in kube-controller-manager.
   
   More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers  
--->
+  -->
   众所周知的 Kubernetes 签名者有：
+
   1. “kubernetes.io/kube-apiserver-client”：颁发客户端证书，用于向 kube-apiserver 进行身份验证。
      对此签名者的请求永远不会被 kube-controller-manager 自动批准，
      可以由 kube-controller-manager 中的 “csrsigning” 控制器颁发。
@@ -180,7 +166,7 @@ CertificateSigningRequestSpec 包含证书请求。
   
   更多详细信息，请访问 https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
 
-<!--
+  <!--
   Custom signerNames can also be specified. The signer defines:
    1. Trust distribution: how trust (CA bundles) are distributed.
    2. Permitted subjects: and behavior when a disallowed subject is requested.
@@ -190,8 +176,9 @@ CertificateSigningRequestSpec 包含证书请求。
    4. Required, permitted, or forbidden key usages / extended key usages.
    5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
    6. Whether or not requests for CA certificates are allowed.  
--->
+  -->
   也可以指定自定义 signerName。签名者定义如下：
+
   1. 信任分发：信任（CA 证书包）是如何分发的。
   2. 许可的主体：当请求不允许的主体时的行为。
   3. 请求中必需、许可或禁止的 x509 扩展（包括是否允许 subjectAltNames、哪些类型、对允许值的限制）
@@ -214,16 +201,16 @@ CertificateSigningRequestSpec 包含证书请求。
   证书签署者可以颁发具有不同有效期的证书，
   因此客户端必须检查颁发证书中 notBefore 和 notAfter 字段之间的增量以确定实际持续时间。
 
-<!--
+  <!--
   The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field 
   as long as the requested duration is not greater than the maximum duration they will honor per the 
   --cluster-signing-duration CLI flag to the Kubernetes controller manager.
--->
+  -->
   众所周知的 Kubernetes 签名者在 v1.22+ 版本内实现将遵守此字段，
   只要请求的持续时间不大于最大持续时间，它们将遵守 Kubernetes 控制管理器的
   --cluster-signing-duration CLI 标志。
   
-<!--
+  <!--
   Certificate signers may not honor this field for various reasons:
   
     1. Old signer that is unaware of the field (such as the in-tree
@@ -232,7 +219,7 @@ CertificateSigningRequestSpec 包含证书请求。
     3. Signer whose configured minimum is longer than the requested duration
   
   The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.  
--->
+  -->
   由于各种原因，证书签名者可能忽略此字段:
 
   1. 不认识此字段的旧签名者(如 v1.22 版本之前的实现)
@@ -299,7 +286,7 @@ CertificateSigningRequestSpec 包含证书请求。
 
   TLS 服务证书的请求通常要求："key encipherment"、"digital signature"、"server auth"。
 
-<!-- 
+  <!-- 
   Valid values are:
    "signing", "digital signature", "content commitment",
    "key encipherment", "key agreement", "data encipherment",
@@ -308,15 +295,15 @@ CertificateSigningRequestSpec 包含证书请求。
    "code signing", "email protection", "s/mime",
    "ipsec end system", "ipsec tunnel", "ipsec user",
    "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
--->
+  -->
   有效值：
-   "signing"、"digital signature"、"content commitment"、
-   "key encipherment"、"key agreement"、"data encipherment"、
-   "cert sign"、"crl sign"、"encipher only"、"decipher only"、"any"、
-   "server auth"、"client auth"、
-   "code signing"、"email protection"、"s/mime"、
-   "ipsec end system"、"ipsec tunnel"、"ipsec user"、
-   "timestamping"、"ocsp signing"、"microsoft sgc"、"netscape sgc"。
+  "signing"、"digital signature"、"content commitment"、
+  "key encipherment"、"key agreement"、"data encipherment"、
+  "cert sign"、"crl sign"、"encipher only"、"decipher only"、"any"、
+  "server auth"、"client auth"、
+  "code signing"、"email protection"、"s/mime"、
+  "ipsec end system"、"ipsec tunnel"、"ipsec user"、
+  "timestamping"、"ocsp signing"、"microsoft sgc"、"netscape sgc"。
 
 <!-- 
 - **username** (string)
@@ -337,7 +324,7 @@ and the issued certificate.
 
 <hr>
 -->
-## 证书签名请求状态 CertificateSigningRequestStatus {#CertificateSigningRequestStatus}
+## CertificateSigningRequestStatus {#CertificateSigningRequestStatus}
 
 CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败状态和颁发证书的状况。
 
@@ -363,30 +350,31 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
   如果证书签名请求被拒绝，则添加类型为 “Denied” 的状况，并且保持该字段为空。
   如果签名者不能颁发证书，则添加类型为 “Failed” 的状况，并且保持该字段为空。
 
-<!-- 
+  <!-- 
   Validation requirements:
    1. certificate must contain one or more PEM blocks.
    2. All PEM blocks must have the "CERTIFICATE" label, contain no headers, and the encoded data
     must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
    3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
     to allow for explanatory text as described in section 5.2 of RFC7468.
--->
+  -->
   验证要求:
+
   1. 证书必须包含一个或多个 PEM 块。
   2. 所有的 PEM 块必须有 “CERTIFICATE” 标签，不包含头和编码的数据，
      必须是由 BER 编码的 ASN.1 证书结构，如 RFC5280 第 4 节所述。
   3. 非 PEM 内容可能出现在 “CERTIFICATE”PEM 块之前或之后，并且是未验证的，
      允许如 RFC7468 5.2 节中描述的解释性文本。
 
-<!-- 
+  <!-- 
   If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, 
   the first block is the issued certificate, and subsequent blocks should be treated as
   intermediate certificates and presented in TLS handshakes.
--->
+  -->
   如果存在多个 PEM 块，并且所请求的 spec.signerName 的定义没有另外说明，
   那么第一个块是颁发的证书，后续的块应该被视为中间证书并在 TLS 握手中呈现。
 
-<!-- 
+  <!-- 
   The certificate is encoded in PEM format.
   
   When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:
@@ -396,10 +384,11 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
       ...
       -----END CERTIFICATE-----
       )
--->
+  -->
   证书编码为 PEM 格式。
   
   当序列化为 JSON 或 YAML 时，数据额外采用 base64 编码，它包括:
+
   ```
   base64(
       -----BEGIN CERTIFICATE-----
@@ -407,6 +396,7 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
       -----END CERTIFICATE-----
   )
   ```
+
 <!-- 
 - **conditions** ([]CertificateSigningRequestCondition)
   *Map: unique values on key type will be kept during a merge*
@@ -420,21 +410,21 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
 
   **Map：键类型的唯一值将在合并期间保留**
   
-   应用于请求的状况。已知的状况有 "Approved"、"Denied" 与 "Failed"。
+  应用于请求的状况。已知的状况有 "Approved"、"Denied" 与 "Failed"。
 
-   <a name="CertificateSigningRequestCondition"></a>
-   **CertificateSigningRequestCondition 描述 CertificateSigningRequest 对象的状况。**
+  <a name="CertificateSigningRequestCondition"></a>
+  **CertificateSigningRequestCondition 描述 CertificateSigningRequest 对象的状况。**
 
-<!-- 
+  <!-- 
   - **conditions.status** (string), required
 
     status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown".
--->
+  -->
   - **conditions.status** (string)，必需
   
     状况的状态，True、False、Unknown 之一。Approved、Denied 与 Failed 的状况不可以是 "False" 或 "Unknown"。
 
-<!-- 
+  <!-- 
   - **conditions.type** (string), required
     type of the condition. Known conditions are "Approved", "Denied", and "Failed".
     
@@ -447,7 +437,7 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
     Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.
     
     Only one condition of a given type is allowed.
--->
+  -->
   - **conditions.type** (string)，必需
   
     状况的类型。已知的状况是 "Approved"、"Denied" 与 "Failed"。
@@ -462,7 +452,7 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
     
     给定类型只允许设置一种状况。
 
-<!-- 
+  <!-- 
   - **conditions.lastTransitionTime** (Time)
 
     lastTransitionTime is the time the condition last transitioned from one status to another. 
@@ -472,7 +462,7 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  
 	Wrappers are provided for many of the factory methods that the time package offers.*
--->
+  -->
 
   - **conditions.lastTransitionTime** (Time)
   
@@ -482,7 +472,7 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
     <a name="Time"></a>
     **Time 是 time.Time 的包装器，支持正确编码为 YAML 和 JSON。为 time 包提供的许多工厂方法提供了包装器。**
 
-<!-- 
+  <!-- 
   - **conditions.lastUpdateTime** (Time)
 
     lastUpdateTime is the time of the last update to this condition
@@ -490,7 +480,7 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  
 	Wrappers are provided for many of the factory methods that the time package offers.*
--->
+  -->
   - **conditions.lastUpdateTime** (Time)
   
     lastUpdateTime 是该状况最后一次更新的时间。
@@ -498,20 +488,20 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
     <a name="Time"></a>
     **Time 是 time.Time 的包装器，支持正确编组为 YAML 和 JSON。为 time 包提供的许多工厂方法提供了包装器。**
   
-<!-- 
+  <!-- 
   - **conditions.message** (string)
 
     message contains a human readable message with details about the request state
--->
+  -->
   - **conditions.message** (string)
 
     message 包含一个人类可读的消息，包含关于请求状态的详细信息。
 
-<!-- 
+  <!-- 
   - **conditions.reason** (string)
 
     reason indicates a brief reason for the request state
--->
+  -->
   - **conditions.reason** (string)
   
     reason 表示请求状态的简短原因。
@@ -523,7 +513,7 @@ CertificateSigningRequestList is a collection of CertificateSigningRequest objec
 
 <hr>
 -->
-## 证书签名请求列表 CertificateSigningRequestList {#CertificateSigningRequestList}
+## CertificateSigningRequestList {#CertificateSigningRequestList}
 
 CertificateSigningRequestList 是 CertificateSigningRequest 对象的集合。
 
@@ -550,11 +540,8 @@ CertificateSigningRequestList 是 CertificateSigningRequest 对象的集合。
 
   items 是 CertificateSigningRequest 对象的集合。
 
-
 <!-- 
 ## Operations {#Operations}
-
-<hr>
 -->
 ## 操作 {#Operations}
 

@@ -126,10 +126,10 @@ Pod-to-pod communication can be controlled  using [Network Policies](/docs/conce
 Namespace management tools may simplify the creation of default or common network policies. In addition, some of these tools allow you to enforce a consistent set of namespace labels across your cluster, ensuring that they are a trusted basis for your policies.
 
 {{< warning >}}
-Network policies require a [CNI plugin](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni) that supports the implementation of network policies. Otherwise, NetworkPolicy resources will be ignored.
+Network policies require a [CNI plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni) that supports the implementation of network policies. Otherwise, NetworkPolicy resources will be ignored.
 {{< /warning >}}
 
-More advanced network isolation may be provided by service meshes, which provide OSI Layer 7 policies based on workload identity, in addition to namespaces. These higher-level policies can make it easier to manage namespaced based multi-tenancy, especially when multiple namespaces are dedicated to a single tenant. They frequently also offer encryption using mutual TLS, protecting your data even in the presence of a compromised node, and work across dedicated or virtual clusters. However, they can be significantly more complex to manage and may not be appropriate for all users.
+More advanced network isolation may be provided by service meshes, which provide OSI Layer 7 policies based on workload identity, in addition to namespaces. These higher-level policies can make it easier to manage namespace-based multi-tenancy, especially when multiple namespaces are dedicated to a single tenant. They frequently also offer encryption using mutual TLS, protecting your data even in the presence of a compromised node, and work across dedicated or virtual clusters. However, they can be significantly more complex to manage and may not be appropriate for all users.
 
 ### Storage isolation
 
@@ -165,7 +165,7 @@ Although workloads from different tenants are running on different nodes, it is 
 
 Node isolation is a little easier to reason about from a billing standpoint than sandboxing containers since you can charge back per node rather than per pod. It also has fewer compatibility and performance issues and may be easier to implement than sandboxing containers. For example, nodes for each tenant can be configured with taints so that only pods with the corresponding toleration can run on them. A mutating webhook could then be used to automatically add tolerations and node affinities to pods deployed into tenant namespaces so that they run on a specific set of nodes designated for that tenant.
 
-Node isolation can be implemented using an [pod node selectors](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) or a [Virtual Kubelet](https://github.com/virtual-kubelet).
+Node isolation can be implemented using an [pod node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/) or a [Virtual Kubelet](https://github.com/virtual-kubelet).
 
 ## Additional Considerations
 

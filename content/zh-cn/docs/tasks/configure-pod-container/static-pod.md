@@ -12,13 +12,13 @@ without the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
 observing them.
 Unlike Pods that are managed by the control plane (for example, a
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}});
-instead, the kubelet watches each static Pod (and restarts it if it crashes).
+instead, the kubelet watches each static Pod (and restarts it if it fails).
 -->
 
-*静态 Pod* 在指定的节点上由 kubelet 守护进程直接管理，不需要
+**静态 Pod** 在指定的节点上由 kubelet 守护进程直接管理，不需要
 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}} 监管。
 与由控制面管理的 Pod（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
-不同；kubelet 监视每个静态 Pod（在它崩溃之后重新启动）。
+不同；kubelet 监视每个静态 Pod（在它失败之后重新启动）。
 
 <!--
 Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
@@ -28,34 +28,34 @@ on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there.
 The Pod names will be suffixed with the node hostname with a leading hyphen.
-
-{{< note >}}
-If you are running clustered Kubernetes and are using static
-Pods to run a Pod on every node, you should probably be using a
-{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
-instead.
-{{< /note >}}
 -->
-静态 Pod 永远都会绑定到一个指定节点上的 {{< glossary_tooltip term_id="kubelet" >}}。
+静态 Pod 始终都会绑定到特定节点的 {{< glossary_tooltip term_id="kubelet" >}} 上。
 
-kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod 自动创建一个
-{{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。
+kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod
+自动创建一个{{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。
 这意味着节点上运行的静态 Pod 对 API 服务来说是可见的，但是不能通过 API 服务器来控制。
 Pod 名称将把以连字符开头的节点主机名作为后缀。
 
 {{< note >}}
+<!--
+If you are running clustered Kubernetes and are using static
+Pods to run a Pod on every node, you should probably be using a
+{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
+instead.
+-->
 如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod，
-就可能需要考虑使用 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} 替代这种方式。
+就可能需要考虑使用 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
+替代这种方式。
 {{< /note >}}
 
+
+{{< note >}}
 <!--
 The `spec` of a static Pod cannot refer to other API objects
 (e.g., {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
 {{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
 -->
-
-{{< note >}}
 静态 Pod 的 `spec` 不能引用其他 API 对象
 （如：{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}、
 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}、
@@ -85,7 +85,7 @@ You can configure a static Pod with either a [file system hosted configuration f
 ## 创建静态 Pod {#static-pod-creation}
 
 可以通过[文件系统上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#configuration-files)
-或者 [web 网络上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)
+或者 [Web 网络上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)
 来配置静态 Pod。
 
 <!--
@@ -111,7 +111,6 @@ For example, this is how to start a simple web server as a static Pod:
 <!--
 1. Choose a node where you want to run the static Pod. In this example, it's `my-node1`.
 -->
-
 1. 选择一个要运行静态 Pod 的节点。在这个例子中选择 `my-node1`。
 
    ```shell
@@ -140,13 +139,13 @@ For example, this is how to start a simple web server as a static Pod:
               protocol: TCP
     EOF
 -->
-2. 选择一个目录，比如在 `/etc/kubelet.d` 目录来保存 web 服务 Pod 的定义文件，
-   `/etc/kubelet.d/static-web.yaml`：
+2. 选择一个目录，比如在 `/etc/kubernetes/manifests` 目录来保存 Web 服务 Pod 的定义文件，例如
+   `/etc/kubernetes/manifests/static-web.yaml`：
 
    ```shell
    # 在 kubelet 运行的节点上执行以下命令
-   mkdir /etc/kubelet.d/
-   cat <<EOF >/etc/kubelet.d/static-web.yaml
+   mkdir -p /etc/kubernetes/manifests/
+   cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
    apiVersion: v1
    kind: Pod
    metadata:
@@ -165,20 +164,19 @@ For example, this is how to start a simple web server as a static Pod:
    ```
 
 <!--
-3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
-
-   ```
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
-   ```
-   or add the `staticPodPath: <the directory>` field in the
-   [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).
+3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubernetes/manifests/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
 -->
 3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubelet.d/`。
-在 Fedora 上编辑 `/etc/kubernetes/kubelet` 以包含下行：
+   在 Fedora 上编辑 `/etc/kubernetes/kubelet` 以包含下面这行：
 
    ```
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
+   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubernetes/manifests/"
    ```
+
+   <!--
+   or add the `staticPodPath: <the directory>` field in the
+   [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).
+   -->
    或者在 [Kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
    中添加 `staticPodPath: <目录>`字段。
 
@@ -190,7 +188,7 @@ For example, this is how to start a simple web server as a static Pod:
    systemctl restart kubelet
    ```
 -->
-4. 重启 kubelet。Fedora 上使用下面的命令：
+4. 重启 kubelet。在 Fedora 上，你将使用下面的命令：
 
    ```shell
    # 在 kubelet 运行的节点上执行以下命令
@@ -248,6 +246,7 @@ JSON/YAML 格式的 Pod 定义文件。
    ```
    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>"
    ```
+
 <!--
 3. Restart the kubelet. On Fedora, you would run:
 
@@ -256,7 +255,7 @@ JSON/YAML 格式的 Pod 定义文件。
     systemctl restart kubelet
     ```
 -->
-3. 重启 kubelet。在 Fedora 上运行如下命令：
+3. 重启 kubelet。在 Fedora 上，你将运行如下命令：
 
    ```shell
    # 在 kubelet 运行的节点上执行以下命令
@@ -278,7 +277,7 @@ crictl ps
 
 The output might be something like:
 -->
-## 观察静态 pod 的行为 {#behavior-of-static-pods}
+## 观察静态 Pod 的行为 {#behavior-of-static-pods}
 
 当 kubelet 启动时，会自动启动所有定义的静态 Pod。
 当定义了一个静态 Pod 并重新启动 kubelet 时，新的静态 Pod 就应该已经在运行了。
@@ -300,12 +299,12 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 129fd7d382018   docker.io/library/nginx@sha256:...    11 minutes ago    Running    web     0          34533c6729106
 ```
 
+{{< note >}}
 <!--
 `crictl` outputs the image URI and SHA-256 checksum. `NAME` will look more like:
 `docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`.
 -->
-{{< note >}}
-`crictl` 会输出镜像 URI 和 SHA-256 校验和。 `NAME` 看起来像：
+`crictl` 会输出镜像 URI 和 SHA-256 校验和。`NAME` 看起来像：
 `docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`。
 {{< /note >}}
 
@@ -323,13 +322,14 @@ NAME         READY   STATUS    RESTARTS        AGE
 static-web   1/1     Running   0               2m
 ```
 
+{{< note >}}
 <!--
 Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server. See
 [Pod Security admission](/docs/concepts/security/pod-security-admission) and [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/).
 -->
-{{< note >}}
 要确保 kubelet 在 API 服务上有创建镜像 Pod 的权限。如果没有，创建请求会被 API 服务拒绝。
-可以看 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)和 [Pod 安全策略](/zh-cn/docs/concepts/security/pod-security-policy/)。
+参阅 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)和
+[Pod 安全策略](/zh-cn/docs/concepts/security/pod-security-policy/)。
 {{< /note >}}
 
 <!--
@@ -337,18 +337,19 @@ Make sure the kubelet has permission to create the mirror Pod in the API server.
 propagated into the mirror Pod. You can use those labels as normal via
 {{< glossary_tooltip term_id="selector" text="selectors" >}}, etc.
 -->
-静态 Pod 上的{{< glossary_tooltip term_id="label" text="标签" >}} 被传到镜像 Pod。
-你可以通过 {{< glossary_tooltip term_id="selector" text="选择算符" >}} 使用这些标签。
+静态 Pod 上的{{< glossary_tooltip term_id="label" text="标签" >}}被传播到镜像 Pod。
+你可以通过{{< glossary_tooltip term_id="selector" text="选择算符" >}}使用这些标签。
 
 <!--
 If you try to use `kubectl` to delete the mirror Pod from the API server,
 the kubelet _doesn't_ remove the static Pod:
 -->
-如果你用 `kubectl` 从 API 服务上删除镜像 Pod，kubelet _不会_ 移除静态 Pod：
+如果你用 `kubectl` 从 API 服务上删除镜像 Pod，kubelet **不会**移除静态 Pod：
 
 ```shell
 kubectl delete pod static-web
 ```
+
 ```
 pod "static-web" deleted
 ```
@@ -379,7 +380,7 @@ sleep 20
 crictl ps
 ```
 -->
-回到 kubelet 运行的节点上，你可以手动停止容器。
+回到 kubelet 运行所在的节点上，你可以手动停止容器。
 可以看到过了一段时间后 kubelet 会发现容器停止了并且会自动重启 Pod：
 
 ```shell
@@ -398,8 +399,14 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 <!--
 ## Dynamic addition and removal of static pods
 
-The running kubelet periodically scans the configured directory (`/etc/kubelet.d` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
+The running kubelet periodically scans the configured directory (`/etc/kubernetes/manifests` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
+-->
+## 动态增加和删除静态 Pod
 
+运行中的 kubelet 会定期扫描配置的目录（比如例子中的 `/etc/kubernetes/manifests` 目录）中的变化，
+并且根据文件中出现/消失的 Pod 来添加/删除 Pod。
+
+<!--
 ```shell
 # This assumes you are using filesystem-hosted static Pod configuration
 # Run these commands on the node where the kubelet is running
@@ -413,13 +420,8 @@ sleep 20
 crictl ps
 ```
 -->
-## 动态增加和删除静态 pod
-
-运行中的 kubelet 会定期扫描配置的目录(比如例子中的 `/etc/kubelet.d` 目录)中的变化，
-并且根据文件中出现/消失的 Pod 来添加/删除 Pod。
-
 ```shell
-# 前提是你在用主机文件系统上的静态 Pod 配置文件
+# 这里假定你在用主机文件系统上的静态 Pod 配置文件
 # 在 kubelet 运行的节点上执行以下命令
 mv /etc/kubelet.d/static-web.yaml /tmp
 sleep 20
@@ -434,6 +436,4 @@ crictl ps
 CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
 f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
-
-
 

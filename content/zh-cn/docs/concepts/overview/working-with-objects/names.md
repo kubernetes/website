@@ -3,6 +3,14 @@ title: 对象名称和 IDs
 content_type: concept
 weight: 20
 ---
+<!--
+reviewers:
+- mikedanese
+- thockin
+title: Object Names and IDs
+content_type: concept
+weight: 20
+-->
 
 <!-- overview -->
 
@@ -13,18 +21,18 @@ Every Kubernetes object also has a [_UID_](#uids) that is unique across your who
 For example, you can only have one Pod named `myapp-1234` within the same [namespace](/docs/concepts/overview/working-with-objects/namespaces/), but you can have one Pod and one Deployment that are each named `myapp-1234`.
 -->
 
-集群中的每一个对象都有一个[_名称_](#names)来标识在同类资源中的唯一性。
+集群中的每一个对象都有一个[**名称**]（#names）来标识在同类资源中的唯一性。
 
-每个 Kubernetes 对象也有一个 [_UID_](#uids) 来标识在整个集群中的唯一性。
+每个 Kubernetes 对象也有一个 [**UID**]（#uids）来标识在整个集群中的唯一性。
 
 比如，在同一个[名字空间](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/)
 中有一个名为 `myapp-1234` 的 Pod，但是可以命名一个 Pod 和一个 Deployment 同为 `myapp-1234`。
 
 <!--
-For non-unique user-provided attributes, Kubernetes provides [labels](/docs/user-guide/labels) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
+For non-unique user-provided attributes, Kubernetes provides [labels](/docs/concepts/overview/working-with-objects/labels/) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 -->
 对于用户提供的非唯一性的属性，Kubernetes 提供了
-[标签（Labels）](/zh-cn/docs/concepts/working-with-objects/labels)和
+[标签（Labels）](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和
 [注解（Annotation）](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)机制。
 
 <!-- body -->
@@ -75,7 +83,7 @@ DNS 子域名的定义可参见 [RFC 1123](https://tools.ietf.org/html/rfc1123)�
 - 必须以字母数字结尾
 
 <!--
-### DNS Label Names
+### RFC 1123 Label Names {#dns-label-names}
 
 Some resource types require their names to follow the DNS
 label standard as defined in [RFC 1123](https://tools.ietf.org/html/rfc1123).
@@ -132,7 +140,7 @@ not contain "/" or "%".
 换句话说，其名称不能是 `.`、`..`，也不可以包含 `/` 或 `%` 这些字符。
 
 <!--
-Here’s an example manifest for a Pod named `nginx-demo`.
+Here's an example manifest for a Pod named `nginx-demo`.
 -->
 下面是一个名为 `nginx-demo` 的 Pod 的配置清单：
 
@@ -149,10 +157,10 @@ spec:
     - containerPort: 80
 ```
 
+{{< note >}}
 <!--
 Some resource types have additional restrictions on their names.
 -->
-{{< note >}}
 某些资源类型可能具有额外的命名约束。
 {{< /note >}}
 
@@ -164,16 +172,14 @@ Some resource types have additional restrictions on their names.
 Kubernetes UIDs are universally unique identifiers (also known as UUIDs).
 UUIDs are standardized as ISO/IEC 9834-8 and as ITU-T X.667.
 -->
-Kubernetes UIDs 是全局唯一标识符（也叫 UUIDs）。
+Kubernetes UID 是全局唯一标识符（也叫 UUIDs）。
 UUIDs 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 * Read about [labels](/docs/concepts/overview/working-with-objects/labels/) in Kubernetes.
-* See the [Identifiers and Names in Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) design document.
+* See the [Identifiers and Names in Kubernetes](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md) design document.
 -->
 * 进一步了解 Kubernetes [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
-* 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)的设计文档
-
-
+* 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md)的设计文档

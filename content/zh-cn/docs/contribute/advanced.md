@@ -15,7 +15,7 @@ weight: 98
 
 <!--
 This page assumes that you understand how to
-[contribute to new content](/docs/contribute/new-content/overview) and
+[contribute to new content](/docs/contribute/new-content/) and
 [review others' work](/docs/contribute/review/reviewing-prs/), and are ready
 to learn about more ways to contribute. You need to use the Git command line
 client and other tools for some of these tasks.

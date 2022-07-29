@@ -143,14 +143,20 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 
 #### azureDisk CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-`azureDisk` 의 `CSIMigration` 기능이 활성화된 경우, 기존 트리 내 플러그인에서
-`disk.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI)
-드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [Azure 디스크 CSI
-드라이버](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
-를 설치하고 `CSIMigration` 과 `CSIMigrationAzureDisk`
-기능을 활성화해야 한다.
+`azureDisk` 의 `CSIMigration` 기능이 활성화된 경우, 
+기존 인-트리 플러그인의 모든 플러그인 작업을 
+`disk.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI) 드라이버로 리다이렉트한다. 
+이 기능을 사용하려면, 클러스터에 [Azure 디스크 CSI 드라이버](https://github.com/kubernetes-sigs/azuredisk-csi-driver) 를 설치하고 
+`CSIMigration` 기능을 활성화해야 한다.
+
+#### azureDisk CSI 마이그레이션 완료
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+컨트롤러 매니저 및 kubelet이 `azureDisk` 스토리지 플러그인을 로드하지 않도록 하려면, 
+`InTreePluginAzureDiskUnregister` 플래그를 `true`로 설정한다.
 
 ### azureFile {#azurefile}
 
@@ -170,7 +176,15 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 를 설치하고 `CSIMigration` 과 `CSIMigrationAzureFile`
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
 
-Azure File CSI 드라이버는 동일한 볼륨을 다른 fsgroup에서 사용하는 것을 지원하지 않는다. Azurefile CSI 마이그레이션이 활성화된 경우, 다른 fsgroup에서 동일한 볼륨을 사용하는 것은 전혀 지원되지 않는다.
+Azure File CSI 드라이버는 동일한 볼륨을 다른 fsgroup에서 사용하는 것을 지원하지 않는다. 
+Azurefile CSI 마이그레이션이 활성화된 경우, 다른 fsgroup에서 동일한 볼륨을 사용하는 것은 전혀 지원되지 않는다.
+
+#### azureFile CSI 마이그레이션 완료
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+컨트롤러 매니저 및 kubelet이 `azureFile` 스토리지 플러그인을 로드하지 않도록 하려면, 
+`InTreePluginAzureFileUnregister` 플래그를 `true`로 설정한다.
 
 ### cephfs
 
@@ -219,17 +233,17 @@ spec:
 
 #### 오픈스택 CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-Cinder의`CSIMigration` 기능은 Kubernetes 1.21에서 기본적으로 활성화됩니다.
+Cinder의`CSIMigration` 기능은 Kubernetes 1.21부터 기본적으로 활성화되어 있다.
 기존 트리 내 플러그인에서 `cinder.csi.openstack.org` 컨테이너 스토리지 인터페이스(CSI)
 드라이버로 모든 플러그인 작업을 수행한다.
 [오픈스택 Cinder CSI 드라이버](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)가
 클러스터에 설치되어 있어야 한다.
-`CSIMigrationOpenStack` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
-`false` 로 설정하여 클러스터에 대한 Cinder CSI 마이그레이션을 비활성화할 수 있다.
-`CSIMigrationOpenStack` 기능을 비활성화하면, 트리 내 Cinder 볼륨 플러그인이
-Cinder 볼륨 스토리지 관리의 모든 측면을 담당한다.
+
+컨트롤러 매니저 및 kubelet이 인-트리 Cinder 플러그인을 로드하지 않도록 하려면, 
+`InTreePluginOpenStackUnregister` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화한다.
 
 ### 컨피그맵(configMap) {#configmap}
 
@@ -251,7 +265,7 @@ metadata:
 spec:
   containers:
     - name: test
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
         - name: config-vol
           mountPath: /etc/config
@@ -879,7 +893,7 @@ RBD CSI 드라이버로의 마이그레이션을 시도하기 전에
 * 또한, 트리 내(in-tree) 스토리지클래스의 
   `adminId` 값이 `admin`이 아니면, 트리 내(in-tree) 스토리지클래스의 
   `adminSecretName` 값이 `adminId` 파라미터 값의 
-  base64 값으로 패치되어야 하며, 아니면 이 단계를 건너뛸 수 있다.
+  base64 값으로 패치되어야 하며, 아니면 이 단계를 건너뛸 수 있다. {{< /note >}}
 
 ### secret
 
@@ -955,65 +969,14 @@ spec:
 StorageOS, 동적 프로비저닝과 퍼시스턴트 볼륨 클래임에 대한 더 자세한 정보는
 [StorageOS 예제](https://github.com/kubernetes/examples/blob/master/volumes/storageos)를 참고한다.
 
-### vsphereVolume {#vspherevolume}
+### vsphereVolume (사용 중단됨) {#vspherevolume}
 
 {{< note >}}
-쿠버네티스 vSphere 클라우드 공급자를 구성해야 한다. 클라우드공급자
-구성에 대해선 [vSphere 시작 가이드](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)를 참조한다.
+이 드라이버 대신 외부(out-of-tree) vSphere CSI 드라이버를 사용하는 것을 권장한다.
 {{< /note >}}
 
 `vsphereVolume` 은 vSphere VMDK 볼륨을 파드에 마운트하는데 사용된다.  볼륨을
 마운트 해제해도 볼륨의 내용이 유지된다. VMFS와 VSAM 데이터스토어를 모두 지원한다.
-
-{{< note >}}
-파드와 함께 사용하기 위해선 먼저 다음 방법 중 하나를 사용하여 vSphere VMDK 볼륨을 생성해야 한다.
-{{< /note >}}
-
-#### VMDK 볼륨 생성하기 {#creating-vmdk-volume}
-
-다음 중 하나를 선택해서 VMDK를 생성한다.
-
-{{< tabs name="tabs_volumes" >}}
-{{% tab name="vmkfstools를 사용해서 생성" %}}
-먼저 ESX에 ssh로 들어간 다음, 다음 명령을 사용해서 VMDK를 생성한다.
-
-```shell
-vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
-```
-
-{{% /tab %}}
-{{% tab name="vmware-vdiskmanager를 사용해서 생성" %}}
-다음 명령을 사용해서 VMDK를 생성한다.
-
-```shell
-vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
-```
-
-{{% /tab %}}
-
-{{< /tabs >}}
-
-#### vSphere VMDK 구성 예시 {#vsphere-vmdk-configuration}
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-vmdk
-spec:
-  containers:
-  - image: k8s.gcr.io/test-webserver
-    name: test-container
-    volumeMounts:
-    - mountPath: /test-vmdk
-      name: test-volume
-  volumes:
-  - name: test-volume
-    # 이 VMDK 볼륨은 이미 있어야 한다.
-    vsphereVolume:
-      volumePath: "[DatastoreName] volumes/myDisk"
-      fsType: ext4
-```
 
 더 자세한 내용은 [vSphere 볼륨](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) 예제를 참고한다.
 
@@ -1026,8 +989,15 @@ spec:
 [vSphere CSI 드라이버](https://github.com/kubernetes-sigs/vsphere-csi-driver)가
 클러스터에 설치되어야 하며 `CSIMigration` 및 `CSIMigrationvSphere`
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
+마이그레이션에 대한 추가 조언은 VMware의 문서 페이지 
+[인-트리 vSphere 볼륨을 vSphere 컨테이너 스토리지 플러그인으로 마이그레이션하기](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html)를 참고한다.
 
-또한 최소 vSphere vCenter/ESXi 버전은 7.0u1이고 최소 HW 버전은 VM 버전 15여야 한다.
+쿠버네티스 v{{< skew currentVersion >}} 버전에서 외부(out-of-tree) CSI 드라이버로 마이그레이션하려면 
+vSphere 7.0u2 이상을 사용하고 있어야 한다. 
+v{{< skew currentVersion >}} 외의 쿠버네티스 버전을 사용 중인 경우, 
+해당 쿠버네티스 버전의 문서를 참고한다. 
+쿠버네티스 v{{< skew currentVersion >}} 버전과 vSphere 이전 버전을 사용 중이라면, 
+vSphere 버전을 7.0u2 이상으로 업그레이드하는 것을 추천한다.
 
 {{< note >}}
 빌트인 `vsphereVolume` 플러그인의 다음 스토리지클래스 파라미터는 vSphere CSI 드라이버에서 지원되지 않는다.
@@ -1128,7 +1098,7 @@ spec:
         fieldRef:
           apiVersion: v1
           fieldPath: metadata.name
-    image: busybox
+    image: busybox:1.28
     command: [ "sh", "-c", "while [ true ]; do echo 'Hello'; sleep 10; done | tee -a /logs/hello.txt" ]
     volumeMounts:
     - name: workdir1
@@ -1196,10 +1166,9 @@ CSI 호환 볼륨 드라이버가 쿠버네티스 클러스터에 배포되면
 `csi` 볼륨은 세 가지 방법으로 파드에서 사용할 수 있다.
 
 * [퍼시스턴트볼륨클레임](#persistentvolumeclaim)에 대한 참조를 통해서
-* [일반 임시 볼륨](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)과 함께
-(알파 기능)
+* [일반 임시 볼륨](/ko/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)과 함께
 * 드라이버가 지원하는 경우
-[CSI 임시 볼륨](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)과 함께 (베타 기능)
+  [CSI 임시 볼륨](/ko/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)과 함께 (베타 기능)
 
 스토리지 관리자가 다음 필드를 사용해서 CSI 퍼시스턴트 볼륨을
 구성할 수 있다.
@@ -1262,11 +1231,11 @@ CSI 설정 변경 없이 평소와 같이
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-파드 명세 내에서 CSI 볼륨을 직접 구성할 수
-있다. 이 방식으로 지정된 볼륨은 임시 볼륨이며
-파드가 다시 시작할 때 지속되지 않는다. 자세한 내용은 [임시
-볼륨](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)을
-참고한다.
+파드 명세 내에서 CSI 볼륨을 직접 구성할 수 있다. 
+이 방식으로 지정된 볼륨은 임시 볼륨이며 
+파드가 다시 시작할 때 지속되지 않는다. 
+자세한 내용은 
+[임시 볼륨](/ko/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)을 참고한다.
 
 CSI 드라이버의 개발 방법에 대한 더 자세한 정보는
 [쿠버네티스-csi 문서](https://kubernetes-csi.github.io/docs/)를 참조한다.

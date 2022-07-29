@@ -318,18 +318,18 @@ Disadvantages compared to imperative object configuration:
 
 <!--
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-- [Managing Kubernetes Objects Using Kustomize (Declarative)](/docs/tasks/manage-kubernetes-objects/kustomization/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Declarative Management of Kubernetes Objects Using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
 - [使用指令式命令管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [使用对象配置管理 Kubernetes 对象（指令式）](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [使用对象配置管理 Kubernetes 对象（声明式）](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
-- [使用 Kustomize（声明式）管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/)
+- [使用配置文件对 Kubernetes 对象进行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [使用配置文件对 Kubernetes 对象进行声明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [使用 Kustomize 对 Kubernetes 对象进行声明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/)
 - [Kubectl 命令参考](/docs/reference/generated/kubectl/kubectl-commands/)
-- [Kubectl Book](https://kubectl.docs.kubernetes.io)
+- [Kubectl Book](https://kubectl.docs.kubernetes.io/zh/)
 - [Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 

@@ -32,7 +32,7 @@ Specific cluster deployment tools may place additional restrictions on version s
 ## Supported versions
 
 Kubernetes versions are expressed as **x.y.z**, where **x** is the major version, **y** is the minor version, and **z** is the patch version, following [Semantic Versioning](https://semver.org/) terminology.
-For more information, see [Kubernetes Release Versioning](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning).
+For more information, see [Kubernetes Release Versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning).
 
 The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew currentVersion >}}, {{< skew currentVersionAddMinor -1 >}}, {{< skew currentVersionAddMinor -2 >}}).  Kubernetes 1.19 and newer receive approximately 1 year of patch support. Kubernetes 1.18 and older received approximately 9 months of patch support.
 -->
@@ -41,7 +41,7 @@ The Kubernetes project maintains release branches for the most recent three mino
 Kubernetes 版本以 **x.y.z** 表示，其中 **x** 是主要版本，
 **y** 是次要版本，**z** 是补丁版本，遵循[语义版本控制](https://semver.org/)术语。
 更多信息请参见
-[Kubernetes 版本发布控制](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning)。
+[Kubernetes 版本发布控制](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)。
 
 Kubernetes 项目维护最近的三个次要版本（{{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、{{< skew currentVersionAddMinor -2 >}}）的发布分支。
 Kubernetes 1.19 和更新的版本获得大约 1 年的补丁支持。
@@ -49,14 +49,14 @@ Kubernetes 1.18 及更早的版本获得了大约 9 个月的补丁支持。
 
 <!-- 
 Applicable fixes, including security fixes, may be backported to those three release branches, depending on severity and feasibility.
-Patch releases are cut from those branches at a [regular cadence](https://kubernetes.io/releases/patch-releases/#cadence), plus additional urgent releases, when required.
+Patch releases are cut from those branches at a [regular cadence](/releases/patch-releases/#cadence), plus additional urgent releases, when required.
 
 The [Release Managers](/releases/release-managers/) group owns this decision.
 
 For more information, see the Kubernetes [patch releases](/releases/patch-releases/) page.
 -->
 适当的修复，包括安全问题修复，可能会被后沿三个发布分支，具体取决于问题的严重性和可行性。
-补丁版本按[常规节奏](https://kubernetes.io/releases/patch-releases/#cadence)从这些分支中删除，并在需要时增加额外的紧急版本。
+补丁版本按[常规节奏](/zh-cn/releases/patch-releases/#cadence)从这些分支中删除，并在需要时增加额外的紧急版本。
 
 [发布管理员](/zh-cn/releases/release-managers/)小组拥有这件事的决定权。
 

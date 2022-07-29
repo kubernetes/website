@@ -10,7 +10,9 @@ weight: 10
 
 {{< feature-state for_k8s_version="v1.15" state="stable" >}}
 
-[kubeadm](/ko/docs/reference/setup-tools/kubeadm/)으로 생성된 클라이언트 인증서는 1년 후에 만료된다. 이 페이지는 kubeadm으로 인증서 갱신을 관리하는 방법을 설명한다.
+[kubeadm](/ko/docs/reference/setup-tools/kubeadm/)으로 생성된 클라이언트 인증서는 1년 후에 만료된다. 
+이 페이지는 kubeadm으로 인증서 갱신을 관리하는 방법을 설명하며, 
+kubeadm 인증서 관리와 관련된 다른 작업에 대해서도 다룬다.
 
 ## {{% heading "prerequisites" %}}
 
@@ -126,7 +128,7 @@ kubeadm 1.17 이전 버전에는 `kubeadm upgrade node` 명령에서
 
 `kubeadm certs renew` 명령을 사용하여 언제든지 인증서를 수동으로 갱신할 수 있다.
 
-이 명령은 `/etc/kubernetes/pki` 에 저장된 CA(또는 프론트 프록시 CA) 인증서와 키를 사용하여 갱신을 수행한다. 
+이 명령은 `/etc/kubernetes/pki` 에 저장된 CA(또는 프론트 프록시 CA) 인증서와 키를 사용하여 갱신을 수행한다.
 
 명령을 실행한 후에는 컨트롤 플레인 파드를 재시작해야 한다.
 이는 현재 일부 구성 요소 및 인증서에 대해 인증서를 동적으로 다시 로드하는 것이 지원되지 않기 때문이다.
@@ -171,7 +173,7 @@ HA 클러스터를 실행 중인 경우, 모든 컨트롤 플레인 노드에서
 
 빌트인 서명자를 활성화하려면, `--cluster-signing-cert-file` 와 `--cluster-signing-key-file` 플래그를 전달해야 한다.
 
-새 클러스터를 생성하는 경우, kubeadm [구성 파일](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)을 사용할 수 있다.
+새 클러스터를 생성하는 경우, kubeadm [구성 파일](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)을 사용할 수 있다.
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -289,3 +291,52 @@ CSR 서명자를 가지고 있는지 문의하는 것을 추천한다.
 모두 검증하지 않는 한, 보안이 되는 메커니즘이 아니다. 이것을 통해 악의적 행위자가
 kubelet 인증서(클라이언트 인증)를 사용하여 아무 IP나 도메인 네임에 대해 인증서를
 요청하는 CSR의 생성을 방지할 수 있을 것이다.
+
+## 추가 사용자를 위한 kubeconfig 파일 생성하기 {#kubeconfig-additional-users}
+
+클러스터 생성 과정에서, kubeadm은 
+`Subject: O = system:masters, CN = kubernetes-admin` 값이 설정되도록 `admin.conf`의 인증서에 서명한다.
+[`system:masters`](/docs/reference/access-authn-authz/rbac/#user-facing-roles)는 
+인증 계층(예: RBAC)을 우회하는 획기적인 슈퍼유저 그룹이다. 
+`admin.conf`를 추가 사용자와 공유하는 것은 **권장하지 않는다**!
+
+대신, [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig) 
+명령어를 사용하여 추가 사용자를 위한 kubeconfig 파일을 생성할 수 있다. 
+이 명령어는 명령줄 플래그와 
+[kubeadm 환경 설정](/docs/reference/config-api/kubeadm-config.v1beta3/) 옵션을 모두 인식한다. 
+생성된 kubeconfig는 stdout으로 출력되며, 
+`kubeadm kubeconfig user ... > somefile.conf` 명령어를 사용하여 파일에 기록될 수 있다.
+
+다음은 `--config` 플래그와 함께 사용될 수 있는 환경 설정 파일 예시이다.
+
+```yaml
+# example.yaml
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+# kubeconfig에서 타겟 "cluster"로 사용될 것이다.
+clusterName: "kubernetes"
+# kubeconfig에서 클러스터의 "server"(IP 또는 DNS 이름)로 사용될 것이다.
+controlPlaneEndpoint: "some-dns-address:6443"
+# 클러스터 CA 키 및 인증서가 이 로컬 디렉토리에서 로드될 것이다.
+certificatesDir: "/etc/kubernetes/pki"
+```
+
+이러한 항목들이 사용하고자 하는 클러스터의 상세 사항과 일치하는지 확인한다.
+기존 클러스터의 환경 설정을 보려면 다음 명령을 사용한다.
+
+```shell
+kubectl get cm kubeadm-config -n kube-system -o=jsonpath="{.data.ClusterConfiguration}"
+```
+
+다음 예시는 `appdevs` 그룹의 새 사용자 `johndoe`를 위해 
+24시간동안 유효한 인증서와 함께 kubeconfig 파일을 생성할 것이다.
+
+```shell
+kubeadm kubeconfig user --config example.yaml --org appdevs --client-name johndoe --validity-period 24h
+```
+
+다음 예시는 1주일간 유효한 관리자 크리덴셜을 갖는 kubeconfig 파일을 생성할 것이다.
+
+```shell
+kubeadm kubeconfig user --config example.yaml --client-name admin --validity-period 168h
+```
