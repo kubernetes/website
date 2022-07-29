@@ -51,7 +51,7 @@ To determine the impact that the removal of dockershim would have for you or you
 you can read [Check whether dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/).
 -->
 要确定移除 dockershim 是否会对你或你的组织的影响，可以查阅：
-[检查弃用 Dockershim 对你的影响](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+[检查弃用 Dockershim 对你的影响](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
 这篇文章。
 
 <!--
