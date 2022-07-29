@@ -263,7 +263,7 @@ Podがノードからキックされた(ノードがアップグレード、再�
 `restartPolicy = "OnFailure"`が設定されたJobはバックオフ制限に達すると、属するPodは全部終了されるので注意してください。しかし、Jobの実行ファイルのデバッグ作業がこれにより難しくなる可能性はありますので、失敗したJobからの出力が不注意で失われないように、Jobのデバッグ作業やロギングシステムを使用する場合、`restartPolicy = "Never"`と設定することをお勧めします。
 {{< /note >}}
 
-## Jobの終了と後片付け  {#job-termination-and-cleanup}
+## Jobの終了とクリーンアップ  {#job-termination-and-cleanup}
 
 Jobが完了すると、それ以上Podは作成されませんが、[通常](#pod-backoff-failure-policy)Podが削除されることもありません。
 これらを残しておくと、完了したPodのログを確認でき、エラーや警告などの診断出力を確認できます。
