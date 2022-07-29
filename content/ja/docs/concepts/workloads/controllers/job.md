@@ -267,7 +267,7 @@ Podがノードからキックされた(ノードがアップグレード、再�
 
 Jobが完了すると、それ以上Podは作成されませんが、[通常](#pod-backoff-failure-policy)Podが削除されることもありません。
 これらを残しておくと、完了したPodのログを確認でき、エラーや警告などの診断出力を確認できます。
-またJobオブジェクトはJob終了後も残し、状態を確認することができます。古いJobの状態を把握した上で、削除するかどうかはユーザー次第です。Jobを削除するには`kubectl` (例：`kubectl delete jobs/pi`または`kubectl delete -f ./job.yaml`)を使います。`kubectl`でJobを削除する場合、Jobが作成したPodも全部削除されます。
+またJobオブジェクトはJob完了後も残っているため、状態を確認することができます。古いJobの状態を把握した上で、削除するかどうかはユーザー次第です。Jobを削除するには`kubectl` (例：`kubectl delete jobs/pi`または`kubectl delete -f ./job.yaml`)を使います。`kubectl`でJobを削除する場合、Jobが作成したPodも全部削除されます。
 
 デフォルトでは、Jobは中断されることなく実行できますが、Podが失敗した場合(`restartPolicy=Never`)、またはコンテナがエラーで終了した場合(`restartPolicy=OnFailure`)のみ、前述の`.spec.backoffLimit`で決まった回数まで再試行します。`.spec.backoffLimit`に達すると、Jobが失敗とマークされ、実行中のPodもすべて終了されます。
 
