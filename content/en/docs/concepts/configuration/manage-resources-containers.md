@@ -332,13 +332,17 @@ container of a Pod can specify either or both of the following:
 
 Limits and requests for `ephemeral-storage` are measured in byte quantities.
 You can express storage as a plain integer or as a fixed-point number using one of these suffixes:
-E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following quantities all represent roughly the same value:
 
 - `128974848`
 - `129e6`
 - `129M`
 - `123Mi`
+
+Pay attention to the case of the suffixes. If you request `400m` of ephemeral-storage, this is a request
+for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
+or 400 megabytes (`400M`).
 
 In the following example, the Pod has two containers. Each container has a request of
 2GiB of local ephemeral storage. Each container has a limit of 4GiB of local ephemeral
@@ -799,7 +803,7 @@ memory limit (and possibly request) for that container.
 * Get hands-on experience [assigning Memory resources to containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 * Get hands-on experience [assigning CPU resources to containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 * Read how the API reference defines a [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
-  and its [resource requirements](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
+  and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
 * Read about [project quotas](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F) in XFS
 * Read more about the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 

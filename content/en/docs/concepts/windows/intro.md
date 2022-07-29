@@ -121,7 +121,7 @@ section refers to several key workload abstractions and how they map to Windows.
     In the above list, wildcards (`*`) indicate all elements in a list.
     For example, `spec.containers[*].securityContext` refers to the SecurityContext object
     for all containers. If any of these fields is specified, the Pod will
-    not be admited by the API server.
+    not be admitted by the API server.
 
 * [Workload resources](/docs/concepts/workloads/controllers/) including:
   * ReplicaSet
@@ -132,7 +132,7 @@ section refers to several key workload abstractions and how they map to Windows.
   * CronJob
   * ReplicationController
 * {{< glossary_tooltip text="Services" term_id="service" >}}
-  See [Load balancing and Services](#load-balancing-and-services) for more details.
+  See [Load balancing and Services](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) for more details.
 
 Pods, workload resources, and Services are critical elements to managing Windows
 workloads on Kubernetes. However, on their own they are not enough to enable

@@ -219,7 +219,7 @@ The general labeling process should be consistent across artifact types.
   referring to a release MAJOR.MINOR `vX.Y` version.
 
   See also
-  [release versioning](/contributors/design-proposals/release/versioning.md).
+  [release versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md).
 
 - *release branch*: Git branch `release-X.Y` created for the `vX.Y` milestone.
 
@@ -233,7 +233,7 @@ The general labeling process should be consistent across artifact types.
   [GitHub 里程碑](https://help.github.com/en/github/managing-your-work-on-github/associating-milestones-with-issues-and-pull-requests)
   指的是发布 主.次 `vX.Y` 版本。
 
-  另请参阅[发布版本控制](/contributors/design-proposals/release/versioning.md)。
+  另请参阅[发布版本控制](https://git.k8s.io/sig-release/release-engineering/versioning.md)。
 
 - **发布分支**：为 `vX.Y` 里程碑创建的 Git 分支 `release-X.Y`。
 
@@ -246,7 +246,7 @@ The general labeling process should be consistent across artifact types.
 -->
 ## 发布周期  {#the-release-cycle}
 
-![Image of one Kubernetes release cycle](release-cycle.jpg)
+![Image of one Kubernetes release cycle](/images/releases/release-cycle.jpg)
 
 <!-- 
 Kubernetes releases currently happen approximately three times per year.
@@ -368,7 +368,7 @@ Each release is part of a broader Kubernetes lifecycle:
 
 每个版本都是更广泛的 Kubernetes 生命周期的一部分：
 
-![Image of Kubernetes release lifecycle spanning three releases](release-lifecycle.jpg)
+![Image of Kubernetes release lifecycle spanning three releases](/images/releases/release-lifecycle.jpg)
 
 <!-- 
 ## Removal Of Items From The Milestone
@@ -504,14 +504,14 @@ Issues are marked as targeting a milestone via the Prow "/milestone" command.
 The Release Team's [Bug Triage Lead](https://git.k8s.io/sig-release/release-team/role-handbooks/bug-triage/README.md)
 and overall community watch incoming issues and triage them, as described in
 the contributor guide section on
-[issue triage](/contributors/guide/issue-triage.md).
+[issue triage](https://k8s.dev/docs/guide/issue-triage/).
 -->
 ### 问题补充  {#issue-additions}
 
 通过 Prow “/milestone” 命令标记问题并指向里程碑。
 
 发布团队的[错误分类负责人](https://git.k8s.io/sig-release/release-team/role-handbooks/bug-triage/README.md)和整个社区观察新出现的问题并对其进行分类，
-在贡献者指南部分中描述[问题分类](/contributors/guide/issue-triage.md)。
+在贡献者指南部分中描述[问题分类](https://k8s.dev/docs/guide/issue-triage/)。
 
 <!-- 
 Marking issues with the milestone provides the community better visibility
@@ -546,11 +546,11 @@ PR 通过 Prow “/milestone” 命令标记并指向里程碑。
 <!-- 
 ## Other Required Labels
 
-[Here is the list of labels and their use and purpose.](https://git.k8s.io/test-infra/label*sync/labels.md#labels-that-apply-to-all-repos-for-both-issues-and-prs)
+[Here is the list of labels and their use and purpose.](https://git.k8s.io/test-infra/label_sync/labels.md#labels-that-apply-to-all-repos-for-both-issues-and-prs)
 -->
 ## 其他必需的标签  {#other-required-labels}
 
-[这里是标签列表及其用途和目的](https://git.k8s.io/test-infra/label*sync/labels.md#labels-that-apply-to-all-repos-for-both-issues-and-prs)。
+[这里是标签列表及其用途和目的](https://git.k8s.io/test-infra/label_sync/labels.md#labels-that-apply-to-all-repos-for-both-issues-and-prs)。
 
 <!-- 
 ### SIG Owner Label
@@ -650,11 +650,11 @@ Issue 类型用于帮助识别随着时间的推移进入版本的更改类型�
 - `kind/feature`：新功能
 - `kind/flake`：CI 测试用例显示间歇性故障
 
-[cherry-picks]: /contributors/devel/sig-release/cherry-picks.md
+[cherry-picks]: https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md
 [code-freeze]: https://git.k8s.io/sig-release/releases/release_phases.md#code-freeze
 [enhancements-freeze]: https://git.k8s.io/sig-release/releases/release_phases.md#enhancements-freeze
 [exceptions]: https://git.k8s.io/sig-release/releases/release_phases.md#exceptions
 [keps]: https://git.k8s.io/enhancements/keps
-[release-managers]: https://kubernetes.io/releases/release-managers/
+[release-managers]: /releases/release-managers/
 [release-team]: https://git.k8s.io/sig-release/release-team
-[sig-list]: /sig-list.md
+[sig-list]: https://k8s.dev/sigs

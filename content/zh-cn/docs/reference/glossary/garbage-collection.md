@@ -35,14 +35,15 @@ tags:
 <!--more-->
 
 <!-- 
-Kubernetes uses garbage collection to clean up resources like [unused containers and images](/docs/concepts/workloads/controllers/garbage-collection/#containers-images),
+Kubernetes uses garbage collection to clean up resources like
+[unused containers and images](/docs/concepts/architecture/garbage-collection/#containers-images),
 [failed Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection),
 [objects owned by the targeted resource](/docs/concepts/overview/working-with-objects/owners-dependents/),
 [completed Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/), and resources
 that have expired or failed.
 -->
 Kubernetes 使用垃圾收集机制来清理资源，例如：
-[未使用的容器和镜像](/zh-cn/docs/concepts/workloads/controllers/garbage-collection/#containers-images)、
+[未使用的容器和镜像](/zh-cn/docs/concepts/architecture/garbage-collection/#containers-images)、
 [失败的 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)、
 [目标资源拥有的对象](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/)、
 [已完成的 Job](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)、

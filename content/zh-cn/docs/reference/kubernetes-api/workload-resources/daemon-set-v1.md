@@ -89,7 +89,8 @@ DaemonSetSpec 是守护程序集的规约。
 -->
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), 必需
 
-  对由守护程序集管理的 Pod 的标签查询。Pod 必须匹配此查询才能被此 DaemonSet 控制.查询条件必须与 Pod 模板的标签匹配。
+  对由守护程序集管理的 Pod 的标签查询。Pod 必须匹配此查询才能被此 DaemonSet 控制。
+  查询条件必须与 Pod 模板的标签匹配。
   更多信息： https://kubernetes.io/zh-cn/concepts/overview/working-with-objects/labels/#label-selectors
 
 <!--
@@ -99,7 +100,8 @@ DaemonSetSpec 是守护程序集的规约。
 -->
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), 必需
 
-  描述将要创建的 Pod 的对象。DaemonSet 将在与模板的节点选择器匹配的每个节点上（如果未指定节点选择器，则在每个节点上）准确创建此 Pod 的副本。
+  描述将要创建的 Pod 的对象。DaemonSet 将在与模板的节点选择器匹配的每个节点上
+ （如果未指定节点选择器，则在每个节点上）准确创建此 Pod 的副本。
   更多信息： https://kubernetes.io/zh-cn/concepts/workloads/controllers/replicationcontroller#pod-template
 
 <!--
@@ -151,7 +153,7 @@ DaemonSetSpec 是守护程序集的规约。
     <a name="RollingUpdateDaemonSet"></a>
     *Spec to control the desired behavior of daemon set rolling update.*
     -->
-    <a name="RollingUpdateDaemonSet"></a>
+  
     **用于控制守护程序集滚动更新的预期行为的规约。** 
     
     <!-- 
@@ -178,7 +180,7 @@ DaemonSetSpec 是守护程序集的规约。
       <a name="IntOrString"></a>
       *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
       -->
-      <a name="IntOrString"></a>
+      
       **IntOrString 是一种可以容纳 int32 或字符串的类型。在 JSON 或 YAML 编组和解组中使用时，它会生成或使用内部类型。
       例如，这允许你拥有一个可以接受名称或数字的 JSON 字段。**
 
@@ -201,7 +203,7 @@ DaemonSetSpec 是守护程序集的规约。
       <a name="IntOrString"></a>
       *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
       -->
-      <a name="IntOrString"></a>
+     
       **IntOrString 是一种可以保存 int32 或字符串的类型。在 JSON 或 YAML 编组和解组中使用时，它会生成或使用内部类型。例如，这允许你拥有一个可以接受名称或数字的 JSON 字段。**
 
 <!-- 
@@ -348,7 +350,7 @@ DaemonSetStatus 表示守护程进程的当前状态。
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
     -->
-    <a name="Time"></a>
+    
     **Time 是对 time.Time 的封装，支持正确编码为 YAML 和 JSON。time 包为许多工厂方法提供了封装器。**
   
   <!--
@@ -850,7 +852,7 @@ POST /apis/apps/v1/namespaces/{namespace}/daemonsets
 -->
 - **namespace** (**路径参数**): string, 必需
 
-<a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, 必需

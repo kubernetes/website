@@ -43,7 +43,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80

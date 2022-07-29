@@ -24,8 +24,7 @@ card:
 <!-- overview -->
 
 <!--
-Each major Kubernetes release introduces new features that require documentation.
-New releases also bring updates to existing features and documentation (such as upgrading a feature from alpha to beta).
+Each major Kubernetes release introduces new features that require documentation. New releases also bring updates to existing features and documentation (such as upgrading a feature from alpha to beta).
 
 Generally, the SIG responsible for a feature submits draft documentation of the
 feature as a pull request to the appropriate development branch of the
@@ -71,7 +70,7 @@ the techniques described in
 ### Find out about upcoming features
 
 To find out about upcoming features, attend the weekly SIG Release meeting (see
-the [community](https://kubernetes.io/community/) page for upcoming meetings)
+the [community](/community/) page for upcoming meetings)
 and monitor the release-specific documentation
 in the [kubernetes/sig-release](https://github.com/kubernetes/sig-release/)
 repository. Each release has a sub-directory in the [/sig-release/tree/master/releases/](https://github.com/kubernetes/sig-release/tree/master/releases)
@@ -81,7 +80,7 @@ notes, and a document listing each person on the release team.
 ### 了解即将发布的功能特性
 
 要了解即将发布的功能特性，可以参加每周的 SIG Release 例会
-（参考[社区](https://kubernetes.io/community/)页面，了解即将召开的会议），
+（参考[社区](/zh-cn/community/)页面，了解即将召开的会议），
 监视 [kubernetes/sig-release](https://github.com/kubernetes/sig-release/)
 中与发行相关的文档。
 每个发行版本在
@@ -226,11 +225,9 @@ When ready, populate your placeholder PR with feature documentation and change
 the state of the PR from draft to **ready for review**. To mark a pull request
 as ready for review, navigate to the merge box and click **Ready for review**.
 
-Do your best to describe your feature and how to use it. If you need help
-structuring your documentation, ask in the `#sig-docs` slack channel.
+Do your best to describe your feature and how to use it. If you need help structuring your documentation, ask in the `#sig-docs` slack channel.
 
-When you complete your content, the documentation person assigned to your
-feature reviews it. 
+When you complete your content, the documentation person assigned to your feature reviews it.
 To ensure technical accuracy, the content may also require a technical review from corresponding SIG(s).
 Use their suggestions to get the content to a release ready state.
 -->
@@ -263,6 +260,12 @@ table with Alpha and Beta history intact.
 请确保将其从上述表格中迁移到
 [已毕业或废弃的特性](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
 表格中，并确保迁移后保留其 Alpha、Beta 版本变迁历史。
+
+<!-- 
+If your feature needs documentation and the first draft
+content is not received, the feature may be removed from the milestone.
+-->
+如果你的功能特性需要文档，而你未提交初版文档，该特性可能会被从里程碑中删除。
 
 <!--
 ### All PRs reviewed and ready to merge

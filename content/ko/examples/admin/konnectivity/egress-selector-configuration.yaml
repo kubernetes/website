@@ -2,7 +2,7 @@ apiVersion: apiserver.k8s.io/v1beta1
 kind: EgressSelectorConfiguration
 egressSelections:
 # 클러스터에 대한 송신(egress) 트래픽을 제어하기 위해 
-# "cluster"를 name으로 사용한다. 기타 지원되는 값은 "etcd" 및 "master"이다.
+# "cluster"를 name으로 사용한다. 기타 지원되는 값은 "etcd" 및 "controlplane"이다.
 - name: cluster
   connection:
     # API 서버와 Konnectivity 서버 간의 프로토콜을

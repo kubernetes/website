@@ -11,7 +11,7 @@ weight: 20
 This page explains how to upgrade a Kubernetes cluster created with kubeadm from version
 {{< skew currentVersionAddMinor -1 >}}.x to version {{< skew currentVersion >}}.x, and from version
 {{< skew currentVersion >}}.x to {{< skew currentVersion >}}.y (where `y > x`). Skipping MINOR versions
-when upgrading is unsupported. For more details, please visit [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
+when upgrading is unsupported. For more details, please visit [Version Skew Policy](/releases/version-skew-policy/).
 
 To see information about upgrading clusters created using older versions of kubeadm,
 please refer to following pages instead:

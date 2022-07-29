@@ -179,9 +179,9 @@ Follow the instructions for [getting started with containerd](https://github.com
 {{% tab name="Linux" %}}
 You can find this file under the path `/etc/containerd/config.toml`.
 {{% /tab %}}
-{{< tab name="Windows" >}}
+{{% tab name="Windows" %}}
 You can find this file under the path `C:\Program Files\containerd\config.toml`.
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 On Linux the default CRI socket for containerd is `/run/containerd/containerd.sock`.
@@ -217,7 +217,7 @@ When using kubeadm, manually configure the
 
 #### Overriding the sandbox (pause) image {#override-pause-image-containerd}
 
-In your [containerd config](https://github.com/containerd/cri/blob/master/docs/config.md) you can overwrite the
+In your [containerd config](https://github.com/containerd/containerd/blob/main/docs/cri/config.md) you can overwrite the
 sandbox image by setting the following config:
 
 ```toml

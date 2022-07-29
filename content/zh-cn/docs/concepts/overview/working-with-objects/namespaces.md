@@ -18,7 +18,7 @@ weight: 30
 <!--
 In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 -->
-在 Kubernetes 中，“名字空间（Namespace）”提供一种机制，将同一集群中的资源划分为相互隔离的组。
+在 Kubernetes 中，**名字空间（Namespace）**提供一种机制，将同一集群中的资源划分为相互隔离的组。
 同一名字空间内的资源名称要唯一，但跨名字空间时没有这个要求。
 名字空间作用域仅针对带有名字空间的对象，例如 Deployment、Service 等，
 这种作用域对集群访问的对象不适用，例如 StorageClass、Node、PersistentVolume 等。
@@ -28,7 +28,7 @@ In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resourc
 <!--
 ## When to Use Multiple Namespaces
 -->
-## 何时使用多个名字空间
+## 何时使用多个名字空间    {#when-to-use-multiple-namespaces}
 
 <!--
 Namespaces are intended for use in environments with many users spread across multiple
@@ -64,10 +64,10 @@ resources within the same namespace.
 <!--
 ## Working with Namespaces
 
-Creation and deletion of namespaces are described in the [Admin Guide documentation
-for namespaces](/docs/tasks/administer-cluster/namespaces/).
+Creation and deletion of namespaces are described in the
+[Admin Guide documentation for namespaces](/docs/tasks/administer-cluster/namespaces).
 -->
-## 使用名字空间
+## 使用名字空间    {#working-with-namespaces}
 
 名字空间的创建和删除在[名字空间的管理指南文档](/zh-cn/docs/tasks/administer-cluster/namespaces/)描述。
 
@@ -83,7 +83,7 @@ Avoid creating namespaces with the prefix `kube-`, since it is reserved for Kube
 
 You can list the current namespaces in a cluster using:
 -->
-### 查看名字空间
+### 查看名字空间    {#viewing-namespaces}
 
 你可以使用以下命令列出集群中现存的名字空间：
 
@@ -123,11 +123,11 @@ Kubernetes 会创建四个初始名字空间：
 <!--
 ### Setting the namespace for a request
 
-To set the namespace for a current request, use the `-namespace` flag.
+To set the namespace for a current request, use the `--namespace` flag.
 
 For example:
 -->
-### 为请求设置名字空间
+### 为请求设置名字空间    {#setting-the-namespace-for-a-request}
 
 要为当前请求设置名字空间，请使用 `--namespace` 参数。
 
@@ -144,22 +144,23 @@ kubectl get pods --namespace=<名字空间名称>
 You can permanently save the namespace for all subsequent kubectl commands in that
 context.
 -->
-### 设置名字空间偏好
+### 设置名字空间偏好    {#setting-the-namespace-preference}
 
 你可以永久保存名字空间，以用于对应上下文中所有后续 kubectl 命令。
 
 ```shell
 kubectl config set-context --current --namespace=<名字空间名称>
 # 验证
-kubectl config view | grep namespace:
+kubectl config view --minify | grep namespace:
 ```
 
 <!--
 ## Namespaces and DNS
 
-When you create a [Service](/docs/user-guide/services), it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
+When you create a [Service](/docs/concepts/services-networking/service/),
+it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
 -->
-## 名字空间和 DNS
+## 名字空间和 DNS   {#namespaces-and-dns}
 
 当你创建一个[服务](/zh-cn/docs/concepts/services-networking/service/)时，
 Kubernetes 会创建一个相应的 [DNS 条目](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
@@ -214,12 +215,13 @@ TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
 <!--
 ## Not All Objects are in a Namespace
 -->
-## 并非所有对象都在名字空间中
+## 并非所有对象都在名字空间中    {#not-all-objects-are-in-a-namespace}
 
 <!--
 Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are
 in some namespaces.  However namespace resources are not themselves in a namespace.
-And low-level resources, such as [nodes](/docs/concepts/architecture/nodes/) and
+And low-level resources, such as
+[nodes](/docs/concepts/architecture/nodes/) and
 persistentVolumes, are not in any namespace.
 -->
 大多数 kubernetes 资源（例如 Pod、Service、副本控制器等）都位于某些名字空间中。

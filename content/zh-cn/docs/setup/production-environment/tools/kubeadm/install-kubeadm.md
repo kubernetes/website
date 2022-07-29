@@ -373,7 +373,7 @@ sudo systemctl enable --now kubelet
 
 - 通过运行命令 `setenforce 0` 和 `sed ...` 将 SELinux 设置为 permissive 模式
   可以有效地将其禁用。
-  这是允许容器访问主机文件系统所必需的，而这些操作时为了例如 Pod 网络工作正常。
+  这是允许容器访问主机文件系统所必需的，而这些操作是为了例如 Pod 网络工作正常。
 
   你必须这么做，直到 kubelet 做出对 SELinux 的支持进行升级为止。
 

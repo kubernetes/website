@@ -1,0 +1,890 @@
+---
+api_metadata:
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta2"
+  import: "k8s.io/api/flowcontrol/v1beta2"
+  kind: "PriorityLevelConfiguration"
+content_type: "api_reference"
+description: "PriorityLevelConfiguration 表示一个优先级的配置。"
+title: "PriorityLevelConfiguration v1beta2"
+weight: 8
+---
+<!--
+api_metadata:
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta2"
+  import: "k8s.io/api/flowcontrol/v1beta2"
+  kind: "PriorityLevelConfiguration"
+content_type: "api_reference"
+description: "PriorityLevelConfiguration represents the configuration of a priority level."
+title: "PriorityLevelConfiguration v1beta2"
+weight: 8
+auto_generated: true
+-->
+
+`apiVersion: flowcontrol.apiserver.k8s.io/v1beta2`
+
+`import "k8s.io/api/flowcontrol/v1beta2"`
+
+## PriorityLevelConfiguration {#PriorityLevelConfiguration}
+
+<!--
+PriorityLevelConfiguration represents the configuration of a priority level.
+-->
+PriorityLevelConfiguration 表示一个优先级的配置。
+
+<hr>
+
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta2
+
+- **kind**: PriorityLevelConfiguration
+
+<!--
+- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+  `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+- **spec** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
+
+  `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+-->
+- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+  
+  `metadata` 是标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+- **spec** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
+  
+  `spec` 是 “request-priority” 预期行为的规约。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+
+<!--
+- **status** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
+
+  `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+-->
+- **status** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
+  
+  `status` 是 “请求优先级” 的当前状况。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+
+## PriorityLevelConfigurationSpec {#PriorityLevelConfigurationSpec}
+
+<!--
+PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+-->
+PriorityLevelConfigurationSpec 指定一个优先级的配置。
+
+<hr>
+
+<!--
+- **type** (string), required
+
+  `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
+-->
+- **type** (string)，必需
+  
+  `type` 指示此优先级是否遵从有关请求执行的限制。
+  取值为 `"Exempt"` 意味着此优先级的请求不遵从某个限制（且因此从不排队）且不会减损其他优先级可用的容量。
+  取值为 `"Limited"` 意味着 (a) 此优先级的请求遵从这些限制且
+  (b) 服务器某些受限的容量仅可用于此优先级。必需。
+
+<!--
+- **limited** (LimitedPriorityLevelConfiguration)
+
+  `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
+
+  <a name="LimitedPriorityLevelConfiguration"></a>
+  *LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
+   * How are requests for this priority level limited?
+   * What should be done with requests that exceed the limit?*
+-->
+- **limited** (LimitedPriorityLevelConfiguration)
+  
+  `limited` 指定如何为某个受限的优先级处理请求。
+  当且仅当 `type` 是 `"Limited"` 时，此字段必须为非空。
+  
+  <a name="LimitedPriorityLevelConfiguration"></a>
+  LimitedPriorityLevelConfiguration 指定如何处理需要被限制的请求。它解决两个问题：
+  * 如何限制此优先级的请求？
+  * 应如何处理超出此限制的请求？
+  
+  <!--
+  - **limited.assuredConcurrencyShares** (int32)
+
+    `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
+  -->
+  
+  - **limited.assuredConcurrencyShares** (int32)
+    
+    `assuredConcurrencyShares` (ACS) 配置执行限制，这是在给定时间可以执行的、此优先级的请求数量的限制。
+    ACS 必须是一个正数。服务器的并发限制（SCL）数量按其保证的并发份额划分到并发能力受限的各个优先级中。
+    这一计算会为所有这种优先级分别生成其确定的并发值（ACV），即一次可以执行的请求数量：
+    
+    ```
+    ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
+    ```
+    <!--
+    bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
+    -->
+
+    较大的 ACS 值意味着（以影响所有其他优先级为代价）保留更多的并发请求。此字段的默认值为 30。
+  
+  <!--
+  - **limited.limitResponse** (LimitResponse)
+
+    `limitResponse` indicates what to do with requests that can not be executed right now
+
+    <a name="LimitResponse"></a>
+    *LimitResponse defines how to handle requests that can not be executed right now.*
+  -->
+
+  - **limited.limitResponse** (LimitResponse)
+    
+    `limitResponse` 指示如何处理当前无法立即执行的请求。
+    
+    <a name="LimitResponse"></a>
+    **LimitResponse 定义如何处理当前无法立即执行的请求。**
+    
+    <!--
+    - **limited.limitResponse.type** (string), required
+
+      `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
+    -->
+
+    - **limited.limitResponse.type** (string)，必需
+      
+      `type` 是 “Queue” 或 “Reject”。此字段必须设置。
+      “Queue” 意味着在到达时无法被执行的请求可以被放到队列中，直到它们被执行或者队列长度超出限制为止。
+      “Reject” 意味着到达时无法执行的请求将被拒绝。
+    
+    <!--
+    - **limited.limitResponse.queuing** (QueuingConfiguration)
+
+      `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
+
+      <a name="QueuingConfiguration"></a>
+      *QueuingConfiguration holds the configuration parameters for queuing*
+    -->
+
+    - **limited.limitResponse.queuing** (QueuingConfiguration)
+      
+      `queuing` 包含排队所用的配置参数。只有 `type` 是 `"Queue"` 时，此字段才可以为非空。
+      
+      <a name="QueuingConfiguration"></a>
+      **QueuingConfiguration 保存排队所用的配置参数。**
+      
+      <!--
+      - **limited.limitResponse.queuing.handSize** (int32)
+
+        `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
+      -->
+
+      - **limited.limitResponse.queuing.handSize** (int32)
+        
+        `handSize` 是一个小的正数，用于配置如何将请求随机分片到队列中。
+        当以该优先级将请求排队时，将对请求的流标识符（字符串对）进行哈希计算，
+        该哈希值用于打乱队列队列的列表，并处理此处指定的一批请求。
+        请求被放入这一批次中最短的队列中。
+        `handSize` 不得大于 `queues`，并且应该明显更小（以便几个大的流量不会使大多数队列饱和）。
+        有关设置此字段的更多详细指导，请参阅面向用户的文档。此字段的默认值为 8。
+      
+      <!--
+      - **limited.limitResponse.queuing.queueLengthLimit** (int32)
+
+        `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
+
+      - **limited.limitResponse.queuing.queues** (int32)
+
+        `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
+      -->
+
+      - **limited.limitResponse.queuing.queueLengthLimit** (int32)
+        
+        `queueLengthLimit` 是任意时刻允许在此优先级的给定队列中等待的请求数上限；
+        额外的请求将被拒绝。
+        此值必须是正数。如果未指定，则默认为 50。
+      
+      - **limited.limitResponse.queuing.queues** (int32)
+        
+        `queues` 是这个优先级的队列数。此队列在每个 API 服务器上独立存在。此值必须是正数。
+        将其设置为 1 相当于禁止了混洗分片操作，进而使得对相关流模式的区分方法不再有意义。
+        此字段的默认值为 64。
+
+## PriorityLevelConfigurationStatus {#PriorityLevelConfigurationStatus}
+
+<!--
+PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+-->
+PriorityLevelConfigurationStatus 表示 “请求优先级” 的当前状况。
+
+<hr>
+
+<!--
+- **conditions** ([]PriorityLevelConfigurationCondition)
+
+  *Map: unique values on key type will be kept during a merge*
+  
+  `conditions` is the current state of "request-priority".
+
+  <a name="PriorityLevelConfigurationCondition"></a>
+  *PriorityLevelConfigurationCondition defines the condition of priority level.*
+-->
+- **conditions** ([]PriorityLevelConfigurationCondition)
+  
+  **Map：合并期间保留根据键 type 保留其唯一值**
+  
+  `conditions` 是 “请求优先级” 的当前状况。
+  
+  <a name="PriorityLevelConfigurationCondition"></a>
+  **PriorityLevelConfigurationCondition 定义优先级的状况。**
+  
+  <!--
+  - **conditions.lastTransitionTime** (Time)
+
+    `lastTransitionTime` is the last time the condition transitioned from one status to another.
+
+    <a name="Time"></a>
+    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+  -->
+
+  - **conditions.lastTransitionTime** (Time)
+    
+    `lastTransitionTime` 是状况上次从一个状态转换为另一个状态的时间。
+    
+    <a name="Time"></a>
+    **Time 是对 time.Time 的封装。Time 支持对 YAML 和 JSON 进行正确封包。
+    为 time 包的许多函数方法提供了封装器。**
+  
+  <!--
+  - **conditions.message** (string)
+
+    `message` is a human-readable message indicating details about last transition.
+
+  - **conditions.reason** (string)
+
+    `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
+  -->
+
+  - **conditions.message** (string)
+    
+    `message` 是人类可读的消息，指示有关上次转换的详细信息。
+  
+  - **conditions.reason** (string)
+    
+    `reason` 是状况上次转换原因的、驼峰格式命名的、唯一的一个词。
+  
+  <!--
+  - **conditions.status** (string)
+
+    `status` is the status of the condition. Can be True, False, Unknown. Required.
+
+  - **conditions.type** (string)
+
+    `type` is the type of the condition. Required.
+  -->
+
+  - **conditions.status** (string)
+    
+    `status` 表示状况的状态，取值为 True、False 或 Unknown 之一。必需。
+  
+  - **conditions.type** (string)
+    
+    `type` 表示状况的类型，必需。
+
+## PriorityLevelConfigurationList {#PriorityLevelConfigurationList}
+
+<!--
+PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
+-->
+PriorityLevelConfigurationList 是 PriorityLevelConfiguration 对象的列表。
+
+<hr>
+
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta2
+
+- **kind**: PriorityLevelConfigurationList
+
+<!--
+- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+
+  `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+- **items** ([]<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>), required
+
+  `items` is a list of request-priorities.
+-->
+- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+  
+  `metadata` 是标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+- **items** ([]<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>)，必需
+  
+  `items` 是请求优先级设置的列表。
+
+<!--
+## Operations {#Operations}
+<hr>
+### `get` read the specified PriorityLevelConfiguration
+#### HTTP Request
+-->
+## 操作 {#Operations}
+
+<hr>
+
+### `get` 读取指定的 PriorityLevelConfiguration
+
+#### HTTP 请求
+
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+
+<!--
+#### Parameters
+- **name** (*in path*): string, required
+  name of the PriorityLevelConfiguration
+- **pretty** (*in query*): string
+-->
+#### 参数
+
+- **name** (**路径参数**): string，必需
+  
+  PriorityLevelConfiguration 的名称
+
+- **pretty** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+<!--
+#### Response
+-->
+#### 响应
+
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+
+401: Unauthorized
+
+<!--
+### `get` read status of the specified PriorityLevelConfiguration
+#### HTTP Request
+-->
+### `get` 读取指定的 PriorityLevelConfiguration 的状态
+
+#### HTTP 请求
+
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}/status
+
+<!--
+#### Parameters
+- **name** (*in path*): string, required
+  name of the PriorityLevelConfiguration
+- **pretty** (*in query*): string
+-->
+#### 参数
+
+- **name** (**路径参数**): string，必需
+  
+  PriorityLevelConfiguration 的名称
+
+- **pretty** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+<!--
+#### Response
+-->
+#### 响应
+
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+
+401: Unauthorized
+
+<!--
+### `list` list or watch objects of kind PriorityLevelConfiguration
+#### HTTP Request
+-->
+### `list` 列出或监视 PriorityLevelConfiguration 类别的对象
+
+#### HTTP 请求
+
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
+
+<!--
+#### Parameters
+- **allowWatchBookmarks** (*in query*): boolean
+- **continue** (*in query*): string
+- **fieldSelector** (*in query*): string
+- **labelSelector** (*in query*): string
+- **limit** (*in query*): integer
+- **pretty** (*in query*): string
+- **resourceVersion** (*in query*): string
+- **resourceVersionMatch** (*in query*): string
+- **timeoutSeconds** (*in query*): integer
+- **watch** (*in query*): boolean
+-->
+#### 参数
+
+- **allowWatchBookmarks** (**查询参数**): boolean
+  
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
+- **continue** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+- **fieldSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+- **labelSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+- **limit** (**查询参数**): integer
+  
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+- **pretty** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **resourceVersion** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+- **resourceVersionMatch** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **timeoutSeconds** (**查询参数**): integer
+  
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+- **watch** (**查询参数**): boolean
+  
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+
+<!--
+#### Response
+-->
+#### 响应
+
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationList" >}}">PriorityLevelConfigurationList</a>): OK
+
+401: Unauthorized
+
+<!--
+### `create` create a PriorityLevelConfiguration
+#### HTTP Request
+-->
+### `create` 创建 PriorityLevelConfiguration
+
+#### HTTP 请求
+
+POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
+
+<!--
+#### Parameters
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **dryRun** (*in query*): string
+- **fieldManager** (*in query*): string
+- **fieldValidation** (*in query*): string
+- **pretty** (*in query*): string
+-->
+#### 参数
+
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
+
+- **dryRun** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+<!--
+#### Response
+-->
+#### 响应
+
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+
+202 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Accepted
+
+401: Unauthorized
+
+<!--
+### `update` replace the specified PriorityLevelConfiguration
+#### HTTP Request
+-->
+### `update` 替换指定的 PriorityLevelConfiguration
+
+#### HTTP 请求
+
+PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+
+<!--
+#### Parameters
+- **name** (*in path*): string, required
+  name of the PriorityLevelConfiguration
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **dryRun** (*in query*): string
+- **fieldManager** (*in query*): string
+- **fieldValidation** (*in query*): string
+- **pretty** (*in query*): string
+-->
+#### 参数
+
+- **name** (**路径参数**): string，必需
+  
+  PriorityLevelConfiguration 的名称
+
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
+
+- **dryRun** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+<!--
+#### Response
+-->
+#### 响应
+
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+
+401: Unauthorized
+
+<!--
+### `update` replace status of the specified PriorityLevelConfiguration
+#### HTTP Request
+-->
+### `update` 替换指定的 PriorityLevelConfiguration 的状态
+
+#### HTTP 请求
+
+PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}/status
+
+<!--
+#### Parameters
+- **name** (*in path*): string, required
+  name of the PriorityLevelConfiguration
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **dryRun** (*in query*): string
+- **fieldManager** (*in query*): string
+- **fieldValidation** (*in query*): string
+- **pretty** (*in query*): string
+-->
+#### 参数
+
+- **name** (**路径参数**): string，必需
+  
+  PriorityLevelConfiguration 的名称
+
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
+
+- **dryRun** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+<!--
+#### Response
+-->
+#### 响应
+
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+
+401: Unauthorized
+
+<!--
+### `patch` partially update the specified PriorityLevelConfiguration
+#### HTTP Request
+-->
+### `patch` 部分更新指定的 PriorityLevelConfiguration
+
+#### HTTP 请求
+
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+
+<!--
+#### Parameters
+- **name** (*in path*): string, required
+  name of the PriorityLevelConfiguration
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- **dryRun** (*in query*): string
+- **fieldManager** (*in query*): string
+- **fieldValidation** (*in query*): string
+- **force** (*in query*): boolean
+- **pretty** (*in query*): string
+-->
+#### 参数
+
+- **name** (**路径参数**): string，必需
+  
+  PriorityLevelConfiguration 的名称
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
+
+- **dryRun** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **force** (**查询参数**): boolean
+  
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+- **pretty** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+<!--
+#### Response
+-->
+#### 响应
+
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+
+401: Unauthorized
+
+<!--
+### `patch` partially update status of the specified PriorityLevelConfiguration
+#### HTTP Request
+-->
+### `patch` 部分更新指定的 PriorityLevelConfiguration 的状态
+
+#### HTTP 请求
+
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}/status
+
+<!--
+#### Parameters
+- **name** (*in path*): string, required
+  name of the PriorityLevelConfiguration
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- **dryRun** (*in query*): string
+- **fieldManager** (*in query*): string
+- **fieldValidation** (*in query*): string
+- **force** (*in query*): boolean
+- **pretty** (*in query*): string
+-->
+#### 参数
+
+- **name** (**路径参数**): string，必需
+  
+  PriorityLevelConfiguration 的名称
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
+
+- **dryRun** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **force** (**查询参数**): boolean
+  
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+- **pretty** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+<!--
+#### Response
+-->
+#### 响应
+
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+
+401: Unauthorized
+
+<!--
+### `delete` delete a PriorityLevelConfiguration
+#### HTTP Request
+-->
+### `delete` 删除 PriorityLevelConfiguration
+
+#### HTTP 请求
+
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+
+<!--
+#### Parameters
+- **name** (*in path*): string, required
+  name of the PriorityLevelConfiguration
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- **dryRun** (*in query*): string
+- **gracePeriodSeconds** (*in query*): integer
+- **pretty** (*in query*): string
+- **propagationPolicy** (*in query*): string
+-->
+#### 参数
+
+- **name** (**路径参数**): string，必需
+  
+  PriorityLevelConfiguration 的名称
+
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
+- **dryRun** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **gracePeriodSeconds** (**查询参数**): integer
+  
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **pretty** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **propagationPolicy** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
+<!--
+#### Response
+-->
+#### 响应
+
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
+
+401: Unauthorized
+
+<!--
+### `deletecollection` delete collection of PriorityLevelConfiguration
+#### HTTP Request
+-->
+### `deletecollection` 删除 PriorityLevelConfiguration 的集合
+
+#### HTTP 请求
+
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
+
+<!--
+#### Parameters
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- **continue** (*in query*): string
+- **dryRun** (*in query*): string
+- **fieldSelector** (*in query*): string
+- **gracePeriodSeconds** (*in query*): integer
+- **labelSelector** (*in query*): string
+- **limit** (*in query*): integer
+- **pretty** (*in query*): string
+- **propagationPolicy** (*in query*): string
+- **resourceVersion** (*in query*): string
+- **resourceVersionMatch** (*in query*): string
+- **timeoutSeconds** (*in query*): integer
+-->
+#### 参数
+
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
+- **continue** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+- **dryRun** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+- **gracePeriodSeconds** (**查询参数**): integer
+  
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **labelSelector** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+- **limit** (**查询参数**): integer
+  
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+- **pretty** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **propagationPolicy** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
+- **resourceVersion** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+- **resourceVersionMatch** (**查询参数**): string
+  
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **timeoutSeconds** (**查询参数**): integer
+  
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+<!--
+#### Response
+-->
+#### 响应
+
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+
+401: Unauthorized

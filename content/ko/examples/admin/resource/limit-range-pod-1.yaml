@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: busybox-cnt01
-    image: busybox
+    image: busybox:1.28
     command: ["/bin/sh"]
     args: ["-c", "while true; do echo hello from cnt01; sleep 10;done"]
     resources:
@@ -16,7 +16,7 @@ spec:
         memory: "200Mi"
         cpu: "500m"
   - name: busybox-cnt02
-    image: busybox
+    image: busybox:1.28
     command: ["/bin/sh"]
     args: ["-c", "while true; do echo hello from cnt02; sleep 10;done"]
     resources:
@@ -24,7 +24,7 @@ spec:
         memory: "100Mi"
         cpu: "100m"
   - name: busybox-cnt03
-    image: busybox
+    image: busybox:1.28
     command: ["/bin/sh"]
     args: ["-c", "while true; do echo hello from cnt03; sleep 10;done"]
     resources:
@@ -32,6 +32,6 @@ spec:
         memory: "200Mi"
         cpu: "500m"
   - name: busybox-cnt04
-    image: busybox
+    image: busybox:1.28
     command: ["/bin/sh"]
     args: ["-c", "while true; do echo hello from cnt04; sleep 10;done"]
