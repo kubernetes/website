@@ -49,7 +49,7 @@ drivers, but the functionality is somewhat limited.
 -->
 ## 背景  {#background}
 
-Docker 也有 [卷（Volume）](https://docs.docker.com/storage/) 的概念，但对它只有少量且松散的管理。
+Docker 也有[卷（Volume）](https://docs.docker.com/storage/) 的概念，但对它只有少量且松散的管理。
 Docker 卷是磁盘上或者另外一个容器内的一个目录。
 Docker 提供卷驱动程序，但是其功能非常有限。
 
@@ -133,9 +133,9 @@ EBS volume can be pre-populated with data, and that data can be shared between p
 
 {{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
 
-`awsElasticBlockStore` 卷将 Amazon Web服务（AWS）[EBS 卷](https://aws.amazon.com/ebs/)
-挂载到你的 Pod 中。与 `emptyDir` 在 Pod 被删除时也被删除不同，EBS 卷的内容在删除 Pod
-时会被保留，卷只是被卸载掉了。
+`awsElasticBlockStore` 卷将 Amazon Web 服务（AWS）[EBS 卷](https://aws.amazon.com/ebs/)挂载到你的
+Pod 中。与 `emptyDir` 在 Pod 被删除时也被删除不同，EBS 卷的内容在删除
+Pod 时会被保留，卷只是被卸载掉了。
 这意味着 EBS 卷可以预先填充数据，并且该数据可以在 Pod 之间共享。
 
 <!--
@@ -175,7 +175,7 @@ aws ec2 create-volume --availability-zone=eu-west-1a --size=10 --volume-type=gp2
 Make sure the zone matches the zone you brought up your cluster in. Check that the size and
 EBS volume type are suitable for your use.
 -->
-确保该区域与你的群集所在的区域相匹配。还要检查卷的大小和 EBS 卷类型都适合你的用途。
+确保该区域与你的集群所在的区域相匹配。还要检查卷的大小和 EBS 卷类型都适合你的用途。
 
 <!--
 #### AWS EBS Example configuration
@@ -540,11 +540,11 @@ It mounts a directory and writes the requested data in plain text files.
 这种卷类型挂载一个目录并在纯文本文件中写入所请求的数据。
 
 <!--
-A Container using Downward API as a [subPath](#using-subpath) volume mount will not
-receive Downward API updates.
+A container using the downward API as a [`subPath`](#using-subpath) volume mount does not
+receive updates when field values change.
 -->
 {{< note >}}
-容器以 [subPath](#using-subpath) 卷挂载方式使用 downwardAPI 时，将不能接收到它的更新。
+容器以 [subPath](#using-subpath) 卷挂载方式使用 downward API 时，在字段值更改时将不能接收到它的更新。
 {{< /note >}}
 
 <!--
@@ -805,8 +805,7 @@ feature allows the creation of Persistent Disks that are available in two zones
 within the same region. In order to use this feature, the volume must be provisioned
 as a PersistentVolume; referencing the volume directly from a Pod is not supported.
 -->
-[区域持久盘](https://cloud.google.com/compute/docs/disks/#repds)
-特性允许你创建能在同一区域的两个可用区中使用的持久盘。
+[区域持久盘](https://cloud.google.com/compute/docs/disks/#repds)特性允许你创建能在同一区域的两个可用区中使用的持久盘。
 要使用这个特性，必须以持久卷（PersistentVolume）的方式提供卷；直接从
 Pod 引用这种卷是不可以的。
 
@@ -1063,8 +1062,8 @@ Watch out when using this type of volume, because:
 * 具有相同配置（例如基于同一 PodTemplate 创建）的多个 Pod
   会由于节点上文件的不同而在不同节点上有不同的行为。
 * 下层主机上创建的文件或目录只能由 root 用户写入。你需要在
-  [特权容器](/zh-cn/docs/tasks/configure-pod-container/security-context/)
-  中以 root 身份运行进程，或者修改主机上的文件权限以便容器能够写入 `hostPath` 卷。
+  [特权容器](/zh-cn/docs/tasks/configure-pod-container/security-context/)中以
+  root 身份运行进程，或者修改主机上的文件权限以便容器能够写入 `hostPath` 卷。
 
 <!--
 #### hostPath configuration example
@@ -1420,9 +1419,8 @@ GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte
 -->
 Quobyte 支持{{< glossary_tooltip text="容器存储接口（CSI）" term_id="csi" >}}。
 推荐使用 CSI 插件以在 Kubernetes 中使用 Quobyte 卷。
-Quobyte 的 GitHub 项目包含以 CSI 形式部署 Quobyte 的
-[说明](https://github.com/quobyte/quobyte-csi#quobyte-csi)
-及使用示例。
+Quobyte 的 GitHub 项目包含以 CSI 形式部署 Quobyte
+的[说明](https://github.com/quobyte/quobyte-csi#quobyte-csi)及使用示例。
 
 ### rbd
 
@@ -1672,8 +1670,7 @@ must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere
 You can find additional advice on how to migrate in VMware's
 documentation page [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
 -->
-你可以在 VMware 的文档页面
-[迁移树内 vSphere 卷插件到 vSphere 容器存储插件](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html)
+你可以在 VMware 的文档页面[迁移树内 vSphere 卷插件到 vSphere 容器存储插件](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html)
 中找到有关如何迁移的其他建议。
 <!--
 Kubernetes v{{< skew currentVersion >}} requires that you are using vSphere 7.0u2 or later
@@ -2040,8 +2037,7 @@ persistent volume:
 - `volumeAttributes`：一个字符串到字符串的映射表，用来设置卷的静态属性。
   该映射必须与 CSI 驱动程序返回的 `CreateVolumeResponse` 中的 `volume.attributes`
   字段的映射相对应；
-  [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume)
-  中有相应的定义。
+  [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume)中有相应的定义。
   该映射通过`ControllerPublishVolumeRequest`、`NodeStageVolumeRequest`、和
   `NodePublishVolumeRequest` 中的 `volume_attributes` 字段传递给 CSI 驱动。
 
@@ -2266,8 +2262,8 @@ Its values are:
 * `None` - 此卷挂载将不会感知到主机后续在此卷或其任何子目录上执行的挂载变化。
    类似的，容器所创建的卷挂载在主机上是不可见的。这是默认模式。
 
-   该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
-   中描述的 `private` 挂载传播选项。
+   该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)中描述的
+  `private` 挂载传播选项。
 
 <!--
  * `HostToContainer` - This volume mount will receive all subsequent mounts
@@ -2290,8 +2286,8 @@ Its values are:
   类似的，配置了 `Bidirectional` 挂载传播选项的 Pod 如果在同一卷上挂载了内容，挂载传播设置为
   `HostToContainer` 的容器都将能看到这一变化。
 
-  该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
-  中描述的 `rslave` 挂载传播选项。
+  该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)中描述的
+  `rslave` 挂载传播选项。
 
 <!--
 * `Bidirectional` - This volume mount behaves the same the `HostToContainer` mount.
@@ -2307,8 +2303,8 @@ Its values are:
 * `Bidirectional` - 这种卷挂载和 `HostToContainer` 挂载表现相同。
   另外，容器创建的卷挂载将被传播回至主机和使用同一卷的所有 Pod 的所有容器。
 
-  该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
-  中描述的 `rshared` 挂载传播选项。
+  该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)中描述的
+  `rshared` 挂载传播选项。
 
   <!--
   `Bidirectional` mount propagation can be dangerous. It can damage

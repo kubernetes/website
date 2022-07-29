@@ -78,7 +78,6 @@ releases may also occur in between these.
 
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| July 2022             | 2022-07-08           | 2022-07-13  |
 | August 2022           | 2022-08-12           | 2022-08-17  |
 | September 2022        | 2022-09-09           | 2022-09-14  |
 | October 2022          | 2022-10-07           | 2022-10-12  |
@@ -87,17 +86,20 @@ releases may also occur in between these.
 
 ### 1.24
 
-Next patch release is **1.24.1**
+Next patch release is **1.24.4**
 
-End of Life for **1.24** is **2023-09-29**
+End of Life for **1.24** is **2023-07-28**
 
 | PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE |
 |---------------|----------------------|-------------|------|
+| 1.24.4        | 2022-08-12           | 2022-08-17  |      |
 | 1.24.3        | 2022-07-08           | 2022-07-13  |      |
 | 1.24.2        | 2022-06-10           | 2022-06-15  |      |
 | 1.24.1        | 2022-05-20           | 2022-05-24  |      |
 
 ### 1.23
+
+Next patch release is **1.23.10**
 
 **1.23** enters maintenance mode on **2022-12-28**.
 
@@ -105,6 +107,7 @@ End of Life for **1.23** is **2023-02-28**.
 
 | Patch Release | Cherry Pick Deadline | Target Date | Note |
 |---------------|----------------------|-------------|------|
+| 1.23.10       | 2022-08-12           | 2022-08-17  |      |
 | 1.23.9        | 2022-07-08           | 2022-07-13  |      |
 | 1.23.8        | 2022-06-10           | 2022-06-15  |      |
 | 1.23.7        | 2022-05-20           | 2022-05-24  |      |
@@ -117,12 +120,15 @@ End of Life for **1.23** is **2023-02-28**.
 
 ### 1.22
 
+Next patch release is **1.22.13**
+
 **1.22** enters maintenance mode on **2022-08-28**
 
 End of Life for **1.22** is **2022-10-28**
 
 | Patch Release | Cherry Pick Deadline | Target Date | Note |
 |---------------|----------------------|-------------|------|
+| 1.22.13       | 2022-08-12           | 2022-08-17  |      |
 | 1.22.12       | 2022-07-08           | 2022-07-13  |      |
 | 1.22.11       | 2022-06-10           | 2022-06-15  |      |
 | 1.22.10       | 2022-05-20           | 2022-05-24  |      |

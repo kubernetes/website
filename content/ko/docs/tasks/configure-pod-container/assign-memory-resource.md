@@ -99,10 +99,10 @@ kubectl get pod memory-demo --output=yaml --namespace=mem-example
 ```yaml
 ...
 resources:
-  limits:
-    memory: 200Mi
   requests:
     memory: 100Mi
+  limits:
+    memory: 200Mi
 ...
 ```
 

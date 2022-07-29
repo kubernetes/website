@@ -743,12 +743,12 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
    <!--Namespaces that this rule matches.
    The empty string &quot;&quot; matches non-namespaced resources.
    An empty list implies every namespace.-->
-   </td>
    <p>
    此规则所适用的名字空间列表。
    空字符串（&quot;&quot;）意味着适用于非名字空间作用域的资源。
    空列表意味着适用于所有名字空间。
    </p>
+</td>
 </tr>
 
 <tr><td><code>nonResourceURLs</code><br/>

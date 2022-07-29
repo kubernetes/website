@@ -442,7 +442,7 @@ pods        0     10
 
 ### 네임스페이스 간 파드 어피니티 쿼터
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 오퍼레이터는 네임스페이스를 교차하는 어피니티가 있는 파드를 가질 수 있는 네임스페이스를
 제한하기 위해 `CrossNamespacePodAffinity` 쿼터 범위를 사용할 수 있다. 특히, 파드 어피니티 용어의
@@ -492,10 +492,6 @@ plugins:
 위의 구성을 사용하면, 파드는 생성된 네임스페이스에 `CrossNamespaceAffinity` 범위가 있는 리소스 쿼터 오브젝트가 있고,
 해당 필드를 사용하는 파드 수보다 크거나 같은 하드 제한이 있는 경우에만
 파드 어피니티에서 `namespaces` 및 `namespaceSelector` 를 사용할 수 있다.
-
-이 기능은 베타이며 기본으로 활성화되어 있다. kube-apiserver 및 kube-scheduler 모두에서
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` 를 사용하여 비활성화할 수 있다.
 
 ## 요청과 제한의 비교 {#requests-vs-limits}
 

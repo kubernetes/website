@@ -17,7 +17,7 @@ min-kubernetes-server-version: v1.8
 In this example, we will run a Kubernetes Job with multiple parallel
 worker processes in a given pod.
 -->
-在这个例子中，我们会运行一个Kubernetes Job，其中的 Pod 会运行多个并行工作进程。
+在这个例子中，我们会运行一个 Kubernetes Job，其中的 Pod 会运行多个并行工作进程。
 
 <!--
 In this example, as each pod is created, it picks up one unit of work
@@ -25,7 +25,7 @@ from a task queue, processes it, and repeats until the end of the queue is reach
 
 Here is an overview of the steps in this example:
 -->
-在这个例子中，当每个pod被创建时，它会从一个任务队列中获取一个工作单元，处理它，然后重复，直到到达队列的尾部。
+在这个例子中，当每个 Pod 被创建时，它会从一个任务队列中获取一个工作单元，处理它，然后重复，直到到达队列的尾部。
 
 下面是这个示例的步骤概述：
 
@@ -54,7 +54,7 @@ Here is an overview of the steps in this example:
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
   one task from the message queue, processes it, and repeats until the end of the queue is reached.
 -->
-3. **启动一个 Job 对队列中的任务进行处理**。这个 Job 启动了若干个 Pod 。
+3. **启动一个 Job 对队列中的任务进行处理**。这个 Job 启动了若干个 Pod。
    每个 Pod 从消息队列中取出一个工作任务，处理它，然后重复，直到到达队列的尾部。
 
 ## {{% heading "prerequisites" %}}
@@ -104,13 +104,15 @@ Start a temporary interactive pod for running the Redis CLI.
 -->
 ## 使用任务填充队列
 
-现在，让我们往队列里添加一些“任务”。在这个例子中，我们的任务是一些将被打印出来的字符串。
+现在，让我们往队列里添加一些 “任务”。在这个例子中，我们的任务是一些将被打印出来的字符串。
 
-启动一个临时的可交互的 pod 用于运行 Redis 命令行界面。
+启动一个临时的可交互的 Pod 用于运行 Redis 命令行界面。
 
 ```shell
 kubectl run -i --tty temp --image redis --command "/bin/sh"
 ```
+
+输出类似于：
 ```
 Waiting for pod default/redis2-c7h78 to be running, status is Pending, pod ready: false
 Hit enter for command prompt
@@ -119,7 +121,7 @@ Hit enter for command prompt
 <!--
 Now hit enter, start the redis CLI, and create a list with some work items in it.
 -->
-现在按回车键，启动 redis 命令行界面，然后创建一个存在若干个工作项的列表。
+现在按回车键，启动 Redis 命令行界面，然后创建一个存在若干个工作项的列表。
 
 ```shell
 # redis-cli -h redis
@@ -178,17 +180,17 @@ called rediswq.py ([Download](/examples/application/job/redis/rediswq.py)).
 -->
 ## 创建镜像
 
-现在我们已经准备好创建一个我们要运行的镜像
+现在我们已经准备好创建一个我们要运行的镜像。
 
-我们会使用一个带有 redis 客户端的 python 工作程序从消息队列中读出消息。
+我们会使用一个带有 Redis 客户端的 Python 工作程序从消息队列中读出消息。
 
-这里提供了一个简单的 Redis 工作队列客户端库，叫 rediswq.py ([下载](/examples/application/job/redis/rediswq.py))。
+这里提供了一个简单的 Redis 工作队列客户端库，名为 rediswq.py ([下载](/examples/application/job/redis/rediswq.py))。
 
 <!--
 The "worker" program in each Pod of the Job uses the work queue
 client library to get work.  Here it is:
 -->
-Job 中每个 Pod 内的 “工作程序” 使用工作队列客户端库获取工作。如下：
+Job 中每个 Pod 内的 “工作程序” 使用工作队列客户端库获取工作。具体如下：
 
 {{< codenew language="python" file="application/job/redis/worker.py" >}}
 
@@ -235,7 +237,7 @@ your app image with your project ID, and push to GCR. Replace
 `<project>` with your project ID.
 -->
 如果你使用的是 [Google Container Registry](https://cloud.google.com/tools/container-registry/)，
-请先用你的 project ID 给你的镜像打上标签，然后 push 到 GCR 。请将 `<project>` 替换为你自己的 project ID
+请先用你的 project ID 给你的镜像打上标签，然后 push 到 GCR 。请将 `<project>` 替换为你自己的 project ID。
 
 ```shell
 docker tag job-wq-2 gcr.io/<project>/job-wq-2
@@ -249,7 +251,7 @@ Here is the job definition:
 -->
 ## 定义一个 Job
 
-这是 job 定义：
+这是 Job 定义：
 
 {{< codenew file="application/job/redis/job.yaml" >}}
 
@@ -257,7 +259,7 @@ Here is the job definition:
 Be sure to edit the job template to
 change `gcr.io/myproject` to your own path.
 -->
-请确保将 job 模板中的 `gcr.io/myproject` 更改为你自己的路径。
+请确保将 Job 模板中的 `gcr.io/myproject` 更改为你自己的路径。
 
 <!--
 In this example, each pod works on several items from the queue and then exits when there are no more items.
@@ -268,12 +270,12 @@ exits with success, the controller knows the work is done, and the Pods will exi
 So, we set the completion count of the Job to 1.  The job controller will wait for the other pods to complete
 too.
 -->
-在这个例子中，每个 pod 处理了队列中的多个项目，直到队列中没有项目时便退出。
+在这个例子中，每个 Pod 处理了队列中的多个项目，直到队列中没有项目时便退出。
 因为是由工作程序自行检测工作队列是否为空，并且 Job 控制器不知道工作队列的存在，
 这依赖于工作程序在完成工作时发出信号。
 工作程序以成功退出的形式发出信号表示工作队列已经为空。
 所以，只要有任意一个工作程序成功退出，控制器就知道工作已经完成了，所有的 Pod 将很快会退出。
-因此，我们将 Job 的完成计数（Completion Count）设置为 1 。
+因此，我们将 Job 的完成计数（Completion Count）设置为 1。
 尽管如此，Job 控制器还是会等待其它 Pod 完成。
 
 <!--
@@ -283,7 +285,7 @@ So, now run the Job:
 -->
 ## 运行 Job
 
-现在运行这个 Job ：
+现在运行这个 Job：
 
 ```shell
 kubectl apply -f ./job.yaml
@@ -325,12 +327,13 @@ Events:
   33s          33s         1        {job-controller }                Normal      SuccessfulCreate  Created pod: job-wq-2-lglf8
 ```
 
-查看日志：
+运行以下命令查看日志：
 
 ```shell
 kubectl logs pods/job-wq-2-7r7b2
 ```
 
+日志类似于：
 ```
 Worker with sessionID: bbd72d0a-9e5c-4dd6-abf6-416cc267991f
 Initial queue state: empty=False
@@ -342,7 +345,7 @@ Working on lemon
 <!--
 As you can see, one of our pods worked on several work units.
 -->
-你可以看到，其中的一个 pod 处理了若干个工作单元。
+你可以看到，其中的一个 Pod 处理了若干个工作单元。
 
 <!-- discussion -->
 
