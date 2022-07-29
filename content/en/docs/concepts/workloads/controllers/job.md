@@ -544,7 +544,7 @@ Suspend an active job:
 kubectl patch job/myjob -p '{"spec":{"suspend":true}}'
 ```
 
-Unsuspend an active job:
+Resume a suspended Job:
 
 ```shell
 kubectl patch job/myjob -p '{"spec":{"suspend":false}}'
