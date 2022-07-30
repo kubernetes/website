@@ -259,17 +259,17 @@ kubectl delete namespace cpu-example
 
 ### Para administradores de cluster
 
-* [Configurando Requisitos e Limites de Memória Padrão para um Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [Configurando Requisitos e Limites de Memória Padrão Para um Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configurando Requisitos e Limites de CPU para um Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [Configurando Requisitos e Limites de CPU Para um Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configurando Restrições de Memória Mínima e Máxima para um Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Configurando Restrições de Memória Mínima e Máxima Para um Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configurando Restrições de CPU Mínima e Máxima para um Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [Configurando Restrições de CPU Mínima e Máxima Para um Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configurando Quotas de Memória e CPU para um Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [Configurando Quotas de Memória e CPU Para um Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configurando Quota para um Pod em um Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [Configurando Quota Para um Pod em um Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configurando Quotas para Objetos de API](/docs/tasks/administer-cluster/quota-api-object/)
+* [Configurando Quotas Para Objetos de API](/docs/tasks/administer-cluster/quota-api-object/)
 
