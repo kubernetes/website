@@ -229,10 +229,10 @@ extension points:
   实现的扩展点：`filter`，`score`.
 <!--  
 - `PodTopologySpread`: Implements
-  [Pod topology spread](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
+  [Pod topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
   Extension points: `preFilter`, `filter`, `preScore`, `score`.
 -->
-- `PodTopologySpread`：实现了 [Pod 拓扑分布](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/)。
+- `PodTopologySpread`：实现了 [Pod 拓扑分布](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)。
 
   实现的扩展点：`preFilter`，`filter`，`preScore`，`score`。
 <!--  

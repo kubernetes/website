@@ -159,6 +159,11 @@ accidentally, or from being stored in a terminal log.
 `kubectl get` 和 `kubectl describe` 命令默认不显示 `Secret` 的内容。
 这是为了防止 `Secret` 被意外暴露或存储在终端日志中。
 
+<!--
+To check the actual content of the encoded data, refer to [Decoding the Secret](#decoding-secret).
+-->
+查看编码数据的实际内容，请参考[解码 Secret](#decoding-secret)。
+
 <!-- ## Decoding the Secret  {#decoding-secret} -->
 ## 解码 Secret  {#decoding-secret}
 

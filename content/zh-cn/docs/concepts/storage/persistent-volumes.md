@@ -818,12 +818,12 @@ The following types of PersistentVolume are deprecated. This means that support 
 
 以下的持久卷已被弃用。这意味着当前仍是支持的，但是 Kubernetes 将来的发行版会将其移除。
 
-* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder（OpenStack 块存储）（于 v1.18 **弃用**）
+* [`cinder`](/zh-cn/docs/concepts/storage/volumes/#cinder) - Cinder（OpenStack 块存储）（于 v1.18 **弃用**）
 * [`flexVolume`](/zh-cn/docs/concepts/storage/volumes/#flexVolume) - FlexVolume （于 v1.23 **弃用**）
-* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker 存储（于 v1.22 **弃用**）
-* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte 卷
+* [`flocker`](/zh-cn/docs/concepts/storage/volumes/#flocker) - Flocker 存储（于 v1.22 **弃用**）
+* [`quobyte`](/zh-cn/docs/concepts/storage/volumes/#quobyte) - Quobyte 卷
 （于 v1.22 **弃用**）
-* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS 卷（于 v1.22 **弃用**）
+* [`storageos`](/zh-cn/docs/concepts/storage/volumes/#storageos) - StorageOS 卷（于 v1.22 **弃用**）
 
 <!-- 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
@@ -837,7 +837,7 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
 旧版本的 Kubernetes 仍支持这些“树内（In-Tree）”持久卷类型：
 
 * `photonPersistentDisk` - Photon 控制器持久化盘。（v1.15 之后 **不可用**）
-* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO 卷（v1.21 之后 **不可用**）
+* [`scaleIO`](/zh-cn/docs/concepts/storage/volumes/#scaleio) - ScaleIO 卷（v1.21 之后 **不可用**）
 
 <!--
 ## Persistent Volumes
@@ -921,9 +921,8 @@ on the device before mounting it for the first time.
 `volumeMode` 是一个可选的 API 参数。
 如果该参数被省略，默认的卷模式是 `Filesystem`。
 
-`volumeMode` 属性设置为 `Filesystem` 的卷会被 Pod *挂载（Mount）* 到某个目录。
-如果卷的存储来自某块设备而该设备目前为空，Kuberneretes 会在第一次挂载卷之前
-在设备上创建文件系统。
+`volumeMode` 属性设置为 `Filesystem` 的卷会被 Pod **挂载（Mount）** 到某个目录。
+如果卷的存储来自某块设备而该设备目前为空，Kuberneretes 会在第一次挂载卷之前在设备上创建文件系统。
 
 <!--
 You can set the value of `volumeMode` to `Block` to use a volume as a raw block device.
@@ -936,10 +935,10 @@ for an example on how to use a volume with `volumeMode: Block` in a Pod.
 -->
 你可以将 `volumeMode` 设置为 `Block`，以便将卷作为原始块设备来使用。
 这类卷以块设备的方式交给 Pod 使用，其上没有任何文件系统。
-这种模式对于为 Pod 提供一种使用最快可能方式来访问卷而言很有帮助，Pod 和
-卷之间不存在文件系统层。另外，Pod 中运行的应用必须知道如何处理原始块设备。
-关于如何在 Pod 中使用 `volumeMode: Block` 的卷，可参阅
-[原始块卷支持](#raw-block-volume-support)。
+这种模式对于为 Pod 提供一种使用最快可能方式来访问卷而言很有帮助，
+Pod 和卷之间不存在文件系统层。另外，Pod 中运行的应用必须知道如何处理原始块设备。
+关于如何在 Pod 中使用 `volumeMode: Block` 的卷，
+可参阅[原始块卷支持](#raw-block-volume-support)。
 
 <!--
 ### Access Modes
@@ -972,9 +971,9 @@ The blog article [Introducing Single Pod Access Mode for PersistentVolumes](/blo
 -->
 访问模式有：
 
-`ReadWriteOnce` 
+`ReadWriteOnce`
 : 卷可以被一个节点以读写方式挂载。
-ReadWriteOnce 访问模式也允许运行在同一节点上的多个 Pod 访问卷。 
+ReadWriteOnce 访问模式也允许运行在同一节点上的多个 Pod 访问卷。
 
 `ReadOnlyMany`
 : 卷可以被多个节点以只读方式挂载。
@@ -1039,7 +1038,7 @@ Kubernetes 使用卷访问模式来匹配 PersistentVolumeClaim 和 PersistentVo
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | AzureDisk            | &#x2713;               | -                     | -             | -                      |
 | CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| Cinder               | &#x2713;               | -                     | -             | -                      |
+| Cinder               | &#x2713;               | -                     | ([如果多次挂接卷可用](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/features.md#multi-attach-volumes))           | -                      |
 | CSI                  | 取决于驱动               | 取决于驱动             | 取决于驱动      | 取决于驱动               |
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
 | FlexVolume           | &#x2713;               | &#x2713;              | 取决于驱动      | -                      |
@@ -1080,7 +1079,6 @@ it will become fully deprecated in a future Kubernetes release.
 早前，Kubernetes 使用注解 `volume.beta.kubernetes.io/storage-class` 而不是
 `storageClassName` 属性。这一注解目前仍然起作用，不过在将来的 Kubernetes
 发布版本中该注解会被彻底废弃。
-
 
 <!--
 ### Reclaim Policy
@@ -1174,8 +1172,8 @@ A PV can specify node affinity to define constraints that limit what nodes this 
 -->
 每个 PV 卷可以通过设置节点亲和性来定义一些约束，进而限制从哪些节点上可以访问此卷。
 使用这些卷的 Pod 只会被调度到节点亲和性规则所选择的节点上执行。
-要设置节点亲和性，配置 PV 卷 `.spec` 中的 `nodeAffinity`。 
-[持久卷](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)
+要设置节点亲和性，配置 PV 卷 `.spec` 中的 `nodeAffinity`。
+[持久卷](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)
 API 参考关于该字段的更多细节。
 
 <!--
@@ -1248,7 +1246,7 @@ Claims use [the same convention as volumes](#volume-mode) to indicate the consum
 -->
 ### 卷模式 {#volume-modes}
 
-申领使用[与卷相同的约定](#access-modes)来表明是将卷作为文件系统还是块设备来使用。
+申领使用[与卷相同的约定](#volume-mode)来表明是将卷作为文件系统还是块设备来使用。
 
 <!--
 ### Resources
@@ -1423,7 +1421,7 @@ See [an example of `hostPath` typed volume](/docs/tasks/configure-pod-container/
 ### 类型为 `hostpath` 的 PersistentVolume  {#persistentvolumes-typed-hostpath}
 
 `hostPath` PersistentVolume 使用节点上的文件或目录来模拟网络附加（network-attached）存储。
-相关细节可参阅[`hostPath` 卷示例](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)。
+相关细节可参阅 [`hostPath` 卷示例](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)。
 
 <!--
 ## Raw Block Volume Support
@@ -1840,6 +1838,6 @@ Read about the APIs described in this page:
 
 阅读以下页面中描述的 API：
 
-* [`PersistentVolume`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/)
-* [`PersistentVolumeClaim`](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/)
+* [`PersistentVolume`](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/)
+* [`PersistentVolumeClaim`](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/)
 

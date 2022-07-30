@@ -17,11 +17,12 @@ This page shows how to create a Pod that uses a
 {{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image 
 from a private container image registry or repository. There are many private 
 registries in use. This task uses [Docker Hub](https://www.docker.com/products/docker-hub)
+as an example registry.
 -->
 本文介绍如何使用 {{< glossary_tooltip text="Secret" term_id="secret" >}} 
 从私有的镜像仓库或代码仓库拉取镜像来创建 Pod。
 有很多私有镜像仓库正在使用中。这个任务使用的镜像仓库是
-[Docker Hub](https://www.docker.com/products/docker-hub)
+[Docker Hub](https://www.docker.com/products/docker-hub)。
 
 {{% thirdparty-content single="true" %}}
 
@@ -45,11 +46,19 @@ registries in use. This task uses [Docker Hub](https://www.docker.com/products/d
 <!--
 ## Log in to Docker
 
-On your laptop, you must authenticate with a registry in order to pull a private image:
+On your laptop, you must authenticate with a registry in order to pull a private image.
 -->
 ## 登录 Docker 镜像仓库  {#log-in-to-docker}
 
 在个人电脑上，要想拉取私有镜像必须在镜像仓库上进行身份验证。
+
+<!--
+Use the `docker` tool to log in to Docker Hub. See the _log in_ section of
+[Docker ID accounts](https://docs.docker.com/docker-id/#log-in) for more information.
+-->
+使用 `docker` 命令工具来登录到 Docker Hub。
+更多详细信息，请查阅
+[Docker ID accounts](https://docs.docker.com/docker-id/#log-in) 中的 _log in_ 部分。
 
 ```shell
 docker login
@@ -161,7 +170,8 @@ the base64 encoded string in the data was successfully decoded, but could not be
 如果你收到错误消息：`error: no objects passed to create`，
 这可能意味着 base64 编码的字符串是无效的。 如果你收到类似
 `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`
-的错误消息，则表示数据中的 base64 编码字符串已成功解码，但无法解析为 `.docker/config.json` 文件。
+的错误消息，则表示数据中的 base64 编码字符串已成功解码，
+但无法解析为 `.docker/config.json` 文件。
 
 <!--
 ## Create a Secret by providing credentials on the command line
@@ -227,7 +237,9 @@ To understand the contents of the `regcred` Secret you created, start by viewing
 kubectl get secret regcred --output=yaml
 ```
 
-<!-- The output is similar to this: -->
+<!--
+The output is similar to this:
+-->
 输出和下面类似：
 
 ```yaml
@@ -239,6 +251,8 @@ metadata:
   ...
   name: regcred
   ...
+data:
+  .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
 type: kubernetes.io/dockerconfigjson
 ```
 
@@ -256,11 +270,13 @@ readable format:
 kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
 ```
 
-<!-- The output is similar to this: -->
+<!--
+The output is similar to this:
+-->
 输出和下面类似：
 
 ```json
-{"auths":{"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
+{"auths":{"your.private.registry.example.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
 ```
 
 <!--
@@ -317,7 +333,7 @@ In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the path 
 在`my-private-reg-pod.yaml` 文件中，使用私有仓库的镜像路径替换 `<your-private-image>`，例如：
 
 ```none
-janedoe/jdoe-private:v1
+your.private.registry.example.com/janedoe/jdoe-private:v1
 ```
 
 <!--
@@ -353,4 +369,4 @@ kubectl get pod private-reg
 * 进一步了解 [使用私有仓库](/zh-cn/docs/concepts/containers/images/#using-a-private-registry)
 * 进一步了解 [为服务账户添加拉取镜像凭证](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
 * 查看 [kubectl 创建 docker-registry 凭证](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)
-* 查看 Pod [容器定义](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers)中的 `imagePullSecrets` 字段。
+* 查看 Pod [容器定义](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers)中的 `imagePullSecrets` 字段。

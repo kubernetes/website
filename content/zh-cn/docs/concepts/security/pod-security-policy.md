@@ -402,11 +402,18 @@ controller selects policies according to the following criteria:
    PodSecurityPolicies doesn't matter.
 2. If the pod must be defaulted or mutated, the first PodSecurityPolicy
    (ordered by name) to allow the pod is selected.
+
+When a Pod is validated against a PodSecurityPolicy, [a `kubernetes.io/psp` annotation](/docs/reference/labels-annotations-taints/#kubernetes-io-psp)
+is added to the Pod, with the name of the PodSecurityPolicy as the annotation value.
 -->
 1. 优先考虑允许 Pod 保持原样，不会更改 Pod 字段默认值或其他配置的 PodSecurityPolicy。
    这类非更改性质的 PodSecurityPolicy 对象之间的顺序无关紧要。
 2. 如果必须要为 Pod 设置默认值或者其他配置，（按名称顺序）选择第一个允许
    Pod 操作的 PodSecurityPolicy 对象。
+
+当根据 PodSecurityPolicy 对一个 Pod 进行验证时，会为 Pod 添加
+[一个 `kubernetes.io/psp` 注释](/zh-cn/docs/reference/labels-annotations-taints/#kubernetes-io-psp)会被添加到 Pod 中，
+注解的值为 PodSecurityPolicy 的名称。
 
 {{< note >}}
 <!--
@@ -457,15 +464,15 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 <!--
 ### Create a policy and a pod
 
-Define the example PodSecurityPolicy object in a file. This is a policy that
-prevents the creation of privileged pods.
+This is a policy that prevents the creation of privileged pods.
+
 The name of a PodSecurityPolicy object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 ### 创建一个策略和一个 Pod   {#create-a-policy-and-a-pod}
 
-在一个文件中定义一个示例的 PodSecurityPolicy 对象。
-这里的策略只是用来禁止创建有特权要求的 Pods。
+下面是一个防止创建特权 Pod 的策略。
+
 PodSecurityPolicy 对象的名称必须是合法的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
@@ -477,7 +484,7 @@ And create it with kubectl:
 使用 kubectl 执行创建操作：
 
 ```shell
-kubectl-admin create -f example-psp.yaml
+kubectl-admin create -f https://k8s.io/examples/policy/example-psp.yaml
 ```
 
 <!--
@@ -516,6 +523,11 @@ pod's service account nor `fake-user` have permission to use the new policy:
 ```shell
 kubectl-user auth can-i use podsecuritypolicy/example
 ```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
 
 ```
 no
@@ -597,11 +609,29 @@ pod "pause" created
 ```
 
 <!--
-It works as expected! But any attempts to create a privileged pod should still
-be denied:
+It works as expected! You can verify that the pod was validated against the
+newly created PodSecurityPolicy:
 -->
 此次尝试不出所料地成功了！
-不过任何创建特权 Pod 的尝试还是会被拒绝：
+你可以验证 Pod 是根据新创建的 PodSecurityPolicy 验证的。
+
+```shell
+kubectl-user get pod pause -o yaml | grep kubernetes.io/psp
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```
+kubernetes.io/psp: example
+```
+<!--
+But any attempts to create a privileged pod should still
+be denied:
+-->
+但任何试图创建特权 Pod 的请求仍然会被拒绝。
 
 ```shell
 kubectl-user create -f- <<EOF

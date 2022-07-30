@@ -12,7 +12,7 @@ weight: 30
 
 ## サポートされるバージョン {#supported-versions}
 
-Kubernetesのバージョンは**x.y.z**の形式で表現され、**x**はメジャーバージョン、**y**はマイナーバージョン、**z**はパッチバージョンを指します。これは[セマンティック バージョニング](https://semver.org/)に従っています。詳細は、[Kubernetesのリリースバージョニング](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning)を参照してください。
+Kubernetesのバージョンは**x.y.z**の形式で表現され、**x**はメジャーバージョン、**y**はマイナーバージョン、**z**はパッチバージョンを指します。これは[セマンティック バージョニング](https://semver.org/)に従っています。詳細は、[Kubernetesのリリースバージョニング](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)を参照してください。
 
 Kubernetesプロジェクトでは、最新の3つのマイナーリリースについてリリースブランチを管理しています ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}})。
 

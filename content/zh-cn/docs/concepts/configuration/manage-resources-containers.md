@@ -235,7 +235,7 @@ Kubernetes 不允许设置精度小于 `1m` 的 CPU 资源。
 Limits and requests for `memory` are measured in bytes. You can express memory as
 a plain integer or as a fixed-point number using one of these
 [quantity](/docs/reference/kubernetes-api/common-definitions/quantity/) suffixes:
-E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following represent roughly the same value:
 -->
 ## 内存资源单位      {#meaning-of-memory}
@@ -256,8 +256,8 @@ Pay attention to the case of the suffixes. If you request `400m` of memory, this
 for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
 or 400 megabytes (`400M`).
 -->
-请注意后缀的大小写。如果你请求 `400m` 内存，实际上请求的是 0.4 字节。
-如果有人这样设定资源请求或限制，可能他的实际想法是申请 400 兆字节（`400Mi`）
+请注意后缀的大小写。如果你请求 `400m` 临时存储，实际上所请求的是 0.4 字节。
+如果有人这样设定资源请求或限制，可能他的实际想法是申请 400Mi 字节（`400Mi`）
 或者 400M 字节。
 
 <!--
@@ -628,6 +628,15 @@ Pod 中的每个容器可以设置以下属性：
 - `129e6`
 - `129M`
 - `123Mi`
+
+<!--
+Pay attention to the case of the suffixes. If you request `400m` of ephemeral-storage, this is a request
+for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
+or 400 megabytes (`400M`).
+-->
+请注意后缀的大小写。如果你请求 `400m` 临时存储，实际上所请求的是 0.4 字节。
+如果有人这样设定资源请求或限制，可能他的实际想法是申请 400Mi 字节（`400Mi`）
+或者 400M 字节。
 
 <!--
 In the following example, the Pod has two containers. Each container has a request of

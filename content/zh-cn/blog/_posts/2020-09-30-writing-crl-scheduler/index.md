@@ -188,7 +188,7 @@ To correct the latter issue, we now employ a "hunt and peck" approach to removin
 ### 1. Upgrade to kubernetes 1.18 and make use of Pod Topology Spread Constraints
 
 While this seems like it could have been the perfect solution, at the time of writing Kubernetes 1.18 was unavailable on the two most common managed Kubernetes services in public cloud, EKS and GKE.
-Furthermore, [pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/) were still a [beta feature in 1.18](https://v1-18.docs.kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/) which meant that it [wasn't guaranteed to be available in managed clusters](https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#kubernetes_feature_choices) even when v1.18 became available.
+Furthermore, [pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/) were still a beta feature in 1.18 which meant that it [wasn't guaranteed to be available in managed clusters](https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#kubernetes_feature_choices) even when v1.18 became available.
 The entire endeavour was concerningly reminiscent of checking [caniuse.com](https://caniuse.com/) when Internet Explorer 8 was still around.
 -->
 ## 一场头脑风暴后我们有了 3 个选择。
@@ -197,8 +197,7 @@ The entire endeavour was concerningly reminiscent of checking [caniuse.com](http
 
 虽然这似乎是一个完美的解决方案，但在写这篇文章的时候，Kubernetes 1.18 在公有云中两个最常见的
 托管 Kubernetes 服务（ EKS 和 GKE ）上是不可用的。
-此外，[Pod 拓扑分布约束](/zh-cn/docs/concepts/workloads/pods/pod-topology-spread-constraints/)在 
-[1.18 中仍是测试版功能](https://v1-18.docs.kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/)，
+此外，[Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)在 1.18 中仍是测试版功能，
 这意味着即使在 v1.18 可用时，它[也不能保证在托管集群中可用](https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#kubernetes_feature_choices)。
 整个努力让人联想到在 Internet Explorer 8 还存在的时候访问 [caniuse.com](https://caniuse.com/)。
 
