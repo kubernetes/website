@@ -4,7 +4,7 @@ title: "更新：移除 Dockershim 的常见问题"
 linkTitle: "移除 Dockershim 的常见问题"
 date: 2022-02-17
 slug: dockershim-faq
-aliases: [ 'zh/dockershim' ]
+aliases: [ '/zh-cn/dockershim' ]
 ---
 <!-- 
 layout: blog
@@ -91,7 +91,7 @@ special code to help with the transition, and made that _dockershim_ code part o
 itself.
 -->
 Kubernetes 的早期版本仅适用于特定的容器运行时：Docker Engine。
-后来，Kubernetes 增加了对使用其他容器运行时的支持。[创建](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/) CRI 
+后来，Kubernetes 增加了对使用其他容器运行时的支持。[创建](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/) CRI
 标准是为了实现编排器（如 Kubernetes）和许多不同的容器运行时之间交互操作。
 Docker Engine 没有实现（CRI）接口，因此 Kubernetes 项目创建了特殊代码来帮助过渡，
 并使 dockershim 代码成为 Kubernetes 的一部分。
