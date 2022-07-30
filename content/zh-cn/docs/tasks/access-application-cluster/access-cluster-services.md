@@ -25,7 +25,7 @@ their own IPs.  In many cases, the node IPs, pod IPs, and some service IPs on a 
 routable, so they will not be reachable from a machine outside the cluster,
 such as your desktop machine.
 -->
-## 访问集群上运行的服务
+## 访问集群上运行的服务  {#accessing-services-running-on-the-cluster}
 
 在 Kubernetes 里，[节点](/zh-cn/docs/concepts/architecture/nodes/)、
 [Pod](/zh-cn/docs/concepts/workloads/pods/) 和
@@ -186,22 +186,22 @@ URL 的 `<service_name>` 段支持的格式为：
 
 * To access the Elasticsearch service endpoint `_search?q=user:kimchy`, you would use:
 -->
-##### 示例
+##### 示例   {#examples}
 
-* 如要访问 Elasticsearch 服务末端 `_search?q=user:kimchy`，你可以使用：
+* 如要访问 Elasticsearch 服务末端 `_search?q=user:kimchy`，你可以使用以下地址：
 
-    ```
-    http://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
-    ```
+  ```
+  http://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
+  ```
 
 <!--
 * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:
 -->
-* 如要访问 Elasticsearch 集群健康信息`_cluster/health?pretty=true`，你会使用：
+* 如要访问 Elasticsearch 集群健康信息`_cluster/health?pretty=true`，你可以使用以下地址：
 
-    ```
-    https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
-    ```
+  ```
+  https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
+  ```
 
     <!--
     The health information is similar to this:
@@ -226,18 +226,18 @@ URL 的 `<service_name>` 段支持的格式为：
 <!--
 * To access the *https* Elasticsearch service health information `_cluster/health?pretty=true`, you would use:
 -->
-* 要访问 *https* Elasticsearch 服务健康信息 `_cluster/health?pretty=true`，你会使用：
+* 如要访问 **https** Elasticsearch 服务健康信息 `_cluster/health?pretty=true`，你可以使用以下地址：
 
-    ```
-    https://192.0.2.1/api/v1/namespaces/kube-system/services/https:elasticsearch-logging:/proxy/_cluster/health?pretty=true
-    ```
+  ```
+  https://192.0.2.1/api/v1/namespaces/kube-system/services/https:elasticsearch-logging:/proxy/_cluster/health?pretty=true
+  ```
 
 <!--
 #### Using web browsers to access services running on the cluster
 
 You may be able to put an apiserver proxy URL into the address bar of a browser. However:
 -->
-#### 通过 Web 浏览器访问集群中运行的服务
+#### 通过 Web 浏览器访问集群中运行的服务    {#uusing-web-browsers-to-access-services-running-on-the-cluster}
 
 你或许能够将 API 服务器代理的 URL 放入浏览器的地址栏，然而：
 

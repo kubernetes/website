@@ -15,7 +15,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "Service"
 content_type: "api_reference"
-description: "Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which Pods will answer requests sent through the proxy."
+description: "Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy."
 title: "Service"
 weight: 1
 auto_generated: true
@@ -27,7 +27,7 @@ auto_generated: true
 
 ## Service {#Service}
 <!--
-Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which Pods will answer requests sent through the proxy.
+Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
 -->
 
 Service 是软件服务（例如 mysql）的命名抽象，包含代理要侦听的本地端口（例如 3306）和一个选择算符，
@@ -77,7 +77,7 @@ ServiceSpec 描述用户在服务上创建的属性。
 - **selector** (map[string]string)
 
   <!-- 
-  Route service traffic to Pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/ 
+  Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/ 
   -->
 
   将 Service 流量路由到具有与此 selector 匹配的标签键值对的 Pod。
@@ -89,9 +89,9 @@ ServiceSpec 描述用户在服务上创建的属性。
 
   <!-- 
   *Patch strategy: merge on key `port`*
-
+  
   *Map: unique values on keys `port, protocol` will be kept during a merge*
-
+  
   The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
   -->
 
@@ -119,9 +119,13 @@ ServiceSpec 描述用户在服务上创建的属性。
 
     Service 将公开的端口。
 
-    <!-- 
-    Number or name of the port to access on the Pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
-    -->
+  <!--
+  - **ports.targetPort** (IntOrString)
+
+    Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
+  -->
+
+  - **ports.targetPort** (IntOrString)
 
     在 Service 所针对的 Pod 上要访问的端口号或名称。
     编号必须在 1 到 65535 的范围内。名称必须是 IANA_SVC_NAME。
@@ -134,7 +138,8 @@ ServiceSpec 描述用户在服务上创建的属性。
     <a name="IntOrString"></a>
 
     <!-- 
-    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.* -->
+    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.* 
+    -->
 
     IntOrString 是一种可以保存 int32 或字符串的类型。
     在 JSON 或 YAML 编组和解组中使用时，它会生成或使用内部类型。
@@ -162,7 +167,8 @@ ServiceSpec 描述用户在服务上创建的属性。
   - **ports.nodePort** (int32)
 
     <!-- 
-    The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport -->
+    The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport 
+    -->
 
     当类型为 NodePort 或 LoadBalancer 时，Service 公开在节点上的端口，
     通常由系统分配。如果指定了一个在范围内且未使用的值，则将使用该值，否则操作将失败。
@@ -331,14 +337,15 @@ ServiceSpec 描述用户在服务上创建的属性。
 
 - **loadBalancerClass** (string)
 
-  <!-- loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
+  <!-- 
+  loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
   -->
 
   loadBalancerClass 是此 Service 所属的负载均衡器实现的类。
   如果设置了此字段，则字段值必须是标签风格的标识符，带有可选前缀，例如 ”internal-vip” 或 “example.com/internal-vip”。
   无前缀名称是为最终用户保留的。该字段只能在 Service 类型为 “LoadBalancer” 时设置。
   如果未设置此字段，则使用默认负载均衡器实现。默认负载均衡器现在通常通过云提供商集成完成，但应适用于任何默认实现。
-  如果设置了此字段，则假定负载均衡器实现正在监视具有对应负载均衡器类的 Service。
+  如果设置了此字段，则假定负载均衡器实现正在监测具有对应负载均衡器类的 Service。
   任何默认负载均衡器实现（例如云提供商）都应忽略设置此字段的 Service。
   只有在创建或更新的 Service 的 type 为 “LoadBalancer” 时，才可设置此字段。
   一经设定，不可更改。当 Service 的 type 更新为 “LoadBalancer” 之外的其他类型时，此字段将被移除。
@@ -486,7 +493,7 @@ ServiceStatus 表示 Service 的当前状态。
     lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable. 
   -->
   
-  - **conditions.lastTransitionTime**（时间），必需
+  - **conditions.lastTransitionTime**（Time），必需
 
     lastTransitionTime 是状况最近一次状态转化的时间。
     变化应该发生在下层状况发生变化的时候。如果不知道下层状况发生变化的时间，
@@ -498,7 +505,7 @@ ServiceStatus 表示 Service 的当前状态。
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.* 
     -->
 
-    time 是 time.Time 的包装类，支持正确地序列化为 YAML 和 JSON。
+    Time 是 time.Time 的包装类，支持正确地序列化为 YAML 和 JSON。
     为 time 包提供的许多工厂方法提供了包装类。
 
   <!-- 
@@ -697,7 +704,7 @@ ServiceList 包含一个 Service 列表。
   Service 列表
 
 <!-- 
-## operations  {#operations} 
+## Operations {#Operations}
 -->
 
 ## 操作  {#operations}
@@ -705,12 +712,12 @@ ServiceList 包含一个 Service 列表。
 <hr>
 
 <!--
-### `get` read the specified APIService
+### `get` read the specified Service
 
 #### HTTP Request
 -->
 
-### `get` 读取指定的 APIService
+### `get` 读取指定的 Service
 
 #### HTTP 请求
 
@@ -756,7 +763,7 @@ GET /api/v1/namespaces/{namespace}/services/{name}
 
 #### HTTP 请求
 
-获取 /api/v1/namespaces/{namespace}/services/{name}/status
+GET /api/v1/namespaces/{namespace}/services/{name}/status
 
 <!--
 #### Parameters
@@ -796,11 +803,11 @@ GET /api/v1/namespaces/{namespace}/services/{name}
 #### HTTP Request 
 -->
 
-### `list` 列出或观察 Service 类型的对象
+### `list` 列出或监测 Service 类型的对象
 
 #### HTTP 请求
 
-获取 /api/v1/namespaces/{namespace}/services
+GET /api/v1/namespaces/{namespace}/services
 
 <!--
 #### Parameters
@@ -868,11 +875,11 @@ GET /api/v1/namespaces/{namespace}/services/{name}
 #### HTTP Request 
 -->
 
-### `list` 列出或观察 Service 类型的对象
+### `list` 列出或监测 Service 类型的对象
 
 #### HTTP 请求
 
-获取 /api/v1/服务
+GET /api/v1/services
 
 <!--
 #### Parameters
@@ -1168,6 +1175,11 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}
 
 401: Unauthorized
 
+<!-- 
+### `patch` partially update status of the specified Service
+
+#### HTTP Request
+-->
 ### `patch` 部分更新指定 Service 的状态
 
 #### HTTP 请求

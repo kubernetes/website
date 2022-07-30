@@ -9,13 +9,13 @@ type: docs
 
 <!-- 
 "Release Managers" is an umbrella term that encompasses the set of Kubernetes
-contributors responsible for maintaining release branches, tagging releases,
-and building/packaging Kubernetes.
+contributors responsible for maintaining release branches and creating releases
+by using the tools SIG Release provides.
 
 The responsibilities of each role are described below.
 -->
-“发布管理员（Release Managers）” 是一个总称，包括一批负责维护发布分支、标记发行版本以及构建/打包
-Kubernetes 的 Kubernetes 贡献者。
+“发布管理员（Release Managers）” 是一个总称，通过使用 SIG Release 提供的工具，
+负责维护发布分支、标记发行版本以及创建发行版本的贡献者。
 
 每个角色的职责如下所述。
 

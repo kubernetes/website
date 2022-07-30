@@ -2,7 +2,6 @@
 title: kube-proxy 配置 (v1alpha1)
 content_type: tool-reference
 package: kubeproxy.config.k8s.io/v1alpha1
-auto_generated: true
 ---
 
 <!--
@@ -65,7 +64,7 @@ for all interfaces)
    healthzBindAddress is the IP address and port for the health check server to serve on,
 defaulting to 0.0.0.0:10256
    -->
-   <p><code>healthzBindAddress</code> 字段是健康状态检查服务器提供服务时所使用的的 IP 地址和端口，
+   <p><code>healthzBindAddress</code> 字段是健康状态检查服务器提供服务时所使用的 IP 地址和端口，
    默认设置为 '0.0.0.0:10256'。</p>
 </td>
 </tr>
@@ -77,7 +76,7 @@ defaulting to 0.0.0.0:10256
    metricsBindAddress is the IP address and port for the metrics server to serve on,
 defaulting to 127.0.0.1:10249 (set to 0.0.0.0 for all interfaces)
    -->
-   <p><code>metricsBindAddress</code> 字段是度量值服务器提供服务时所使用的的 IP 地址和端口，
+   <p><code>metricsBindAddress</code> 字段是指标服务器提供服务时所使用的 IP 地址和端口，
    默认设置为 '127.0.0.1:10249'（设置为 0.0.0.0 意味着在所有接口上提供服务）。</p>
 </td>
 </tr>
@@ -101,7 +100,7 @@ defaulting to 127.0.0.1:10249 (set to 0.0.0.0 for all interfaces)
 Profiling handlers will be handled by metrics server.
    -->
    <p><code>enableProfiling</code> 字段通过 '/debug/pprof' 处理程序在 Web 界面上启用性能分析。
-   性能分析处理程序将由度量值服务器执行。</p>
+   性能分析处理程序将由指标服务器执行。</p>
 </td>
 </tr>
 <tr><td><code>clusterCIDR</code> <B><!--[Required]-->[必需]</B><br/>
@@ -192,7 +191,7 @@ the range [-1000, 1000]
 in order to proxy service traffic. If unspecified (0-0) then ports will be randomly chosen.
    -->
    <p><code>portRange</code> 字段是主机端口的范围，形式为 ‘beginPort-endPort’（包含边界），
-   用来设置代理服务所使用的端口。如果未指定（即‘0-0’），则代理服务会随机选择端口号。</p>
+   用来设置代理服务所使用的端口。如果未指定（即 ‘0-0’），则代理服务会随机选择端口号。</p>
 </td>
 </tr>
 <tr><td><code>udpIdleTimeout</code> <B><!--[Required]-->[必需]</B><br/>
@@ -244,8 +243,8 @@ An empty string slice is meant to select all network interfaces.
    <p><code>nodePortAddresses</code> 字段是 kube-proxy 进程的
    <code>--nodeport-addresses</code> 命令行参数设置。
    此值必须是合法的 IP 段。所给的 IP 段会作为参数来选择 NodePort 类型服务所使用的接口。
-   如果有人希望将本地主机（Localhost）上的服务暴露给本地访问，同时暴露在某些其他网络接口上
-   以实现某种目标，可以使用 IP 段的列表。
+   如果有人希望将本地主机（Localhost）上的服务暴露给本地访问，
+   同时暴露在某些其他网络接口上以实现某种目标，可以使用 IP 段的列表。
    如果此值被设置为 &quot;127.0.0.0/8&quot;，则 kube-proxy 将仅为 NodePort
    服务选择本地回路（loopback）接口。
    如果此值被设置为非零的 IP 段，则 kube-proxy 会对 IP 作过滤，仅使用适用于当前节点的 IP 地址。
@@ -270,7 +269,7 @@ An empty string slice is meant to select all network interfaces.
    ShowHiddenMetricsForVersion is the version for which you want to show hidden metrics.
    -->
    <p><code>showHiddenMetricsForVersion</code> 字段给出的是一个 Kubernetes 版本号字符串，
-   用来设置你希望显示隐藏度量值的版本。</p>
+   用来设置你希望显示隐藏指标的版本。</p>
 </td>
 </tr>
 <tr><td><code>detectLocalMode</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1088,10 +1087,10 @@ during leader election cycles.
 
 <!--
 LoggingConfiguration contains logging options
-Refer <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a> for more information.
+Refer <a href="https://git.k8s.io/component-base/logs/api/v1/options.go">Logs Options</a> for more information.
 -->
 LoggingConfiguration 包含日志选项。
-参考 [Logs Options](https://github.com/kubernetes/component-base/blob/master/logs/options.go) 以了解更多信息。
+参考 [Logs Options](https://git.k8s.io/component-base/logs/api/v1/options.go) 以了解更多信息。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
