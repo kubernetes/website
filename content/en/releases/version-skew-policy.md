@@ -103,6 +103,19 @@ Example:
 The supported version skew between components has implications on the order in which components must be upgraded.
 This section describes the order in which components must be upgraded to transition an existing cluster from version **{{< skew currentVersionAddMinor -1 >}}** to version **{{< skew currentVersion >}}**.
 
+Optionally, when preparing to upgrade, the Kubernetes project recommends that
+you do the following to benefit from as many regression and bug fixes as
+possible during your upgrade: 
+
+*  Ensure that components are on the most recent patch version of your current
+   minor version.
+*  Upgrade components to the most recent patch version of the target minor
+   version.
+
+For example, if you're running version {{<skew currentVersionAddMinor -1>}},
+ensure that you're on the most recent patch version. Then, upgrade to the most
+recent patch version of {{<skew currentVersion>}}.
+
 ### kube-apiserver
 
 Pre-requisites:
