@@ -4,8 +4,8 @@ content_type: concept
 feature:
   title: Secret 和配置管理
   description: >
-    部署和更新 Secret 和应用程序的配置而不必重新构建容器镜像，且
-    不必将软件堆栈配置中的秘密信息暴露出来。
+    部署和更新 Secret 和应用程序的配置而不必重新构建容器镜像，
+    且不必将软件堆栈配置中的秘密信息暴露出来。
 weight: 30
 ---
 <!--
@@ -266,10 +266,9 @@ values in the `data` field; for example:
 例如：
 
 ```yaml
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file, it will be
-# reopened with the relevant failures.
-#
+# 请编辑以下对象。以 `#` 开头的几行将被忽略，
+# 且空文件将放弃编辑。如果保存此文件时出错，
+# 则重新打开此文件时也会有相关故障。
 apiVersion: v1
 data:
   username: YWRtaW4=
@@ -915,7 +914,7 @@ You cannot use ConfigMaps or Secrets with
 -->
 ### 在静态 Pod 中使用 Secret    {#restriction-static-pod}
 
-你不可以在{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}}.
+你不可以在{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}}
 中使用 ConfigMap 或 Secret。
 
 <!--
@@ -1113,7 +1112,7 @@ secret "test-db-secret" created
 Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
 -->
 特殊字符（例如 `$`、`\`、`*`、`=` 和 `!`）会被你的
-[Shell](https://zh.wikipedia.org/wiki/Shell_(computing)) 解释，因此需要转义。
+[Shell](https://zh.wikipedia.org/wiki/%E6%AE%BC%E5%B1%A4) 解释，因此需要转义。
 
 <!--
 In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
@@ -1563,7 +1562,7 @@ store the credentials for accessing a container image registry:
 -->
 ### Docker 配置 Secret  {#docker-config-secrets}
 
-你可以使用下面两种 `type` 值之一来创建 Secret，用以存放用于访问容器鏡像倉庫的凭据：
+你可以使用下面两种 `type` 值之一来创建 Secret，用以存放用于访问容器镜像仓库的凭据：
 
 - `kubernetes.io/dockercfg`
 - `kubernetes.io/dockerconfigjson`
@@ -1631,7 +1630,7 @@ to create a Secret for accessing a container registry, you can do:
 不过，API 服务器不会检查 JSON 数据本身是否是一个合法的 Docker 配置文件内容。
 
 当你没有 Docker 配置文件，或者你想使用 `kubectl` 创建一个 Secret
-来访问容器倉庫时，你可以这样做：
+来访问容器仓库时，你可以这样做：
 
 ```shell
 kubectl create secret docker-registry secret-tiger-docker \
