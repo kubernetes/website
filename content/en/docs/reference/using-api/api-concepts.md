@@ -78,8 +78,8 @@ HTTP verb for a **patch** is PATCH.
 
 ## Resource URIs
 
-All resource types are either scoped by the cluster (`/apis/GROUP/VERSION/*`) or to a
-namespace (`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`). A namespace-scoped resource
+All resource types are either scoped by the cluster (`/api/GROUP/VERSION/*`) or to a
+namespace (`/api/GROUP/VERSION/namespaces/NAMESPACE/*`). A namespace-scoped resource
 type will be deleted when its namespace is deleted and access to that resource type
 is controlled by authorization checks on the namespace scope.
 
@@ -88,21 +88,21 @@ The following paths are used to retrieve collections and resources:
 
 * Cluster-scoped resources:
 
-  * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of resources of the resource type
-  * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - return the resource with NAME under the resource type
+  * `GET /api/GROUP/VERSION/RESOURCETYPE` - return the collection of resources of the resource type
+  * `GET /api/GROUP/VERSION/RESOURCETYPE/NAME` - return the resource with NAME under the resource type
 
 * Namespace-scoped resources:
 
-  * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of all instances of the resource type across all namespaces
-  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return collection of all instances of the resource type in NAMESPACE
-  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
+  * `GET /api/GROUP/VERSION/RESOURCETYPE` - return the collection of all instances of the resource type across all namespaces
+  * `GET /api/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return collection of all instances of the resource type in NAMESPACE
+  * `GET /api/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
 
 Since a namespace is a cluster-scoped resource type, you can retrieve the list
 (“collection”) of all namespaces with `GET /api/v1/namespaces` and details about
 a particular namespace with `GET /api/v1/namespaces/NAME`.
 
-* Cluster-scoped subresource: `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME/SUBRESOURCE`
-* Namespace-scoped subresource: `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME/SUBRESOURCE`
+* Cluster-scoped subresource: `GET /api/GROUP/VERSION/RESOURCETYPE/NAME/SUBRESOURCE`
+* Namespace-scoped subresource: `GET /api/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME/SUBRESOURCE`
 
 The verbs supported for each subresource will differ depending on the object -
 see the [API reference](/docs/reference/kubernetes-api/) for more information. It
@@ -463,7 +463,7 @@ plane, the API server returns a default Table response that consists of the reso
 `name` and `creationTimestamp` fields.
 
 ```console
-GET /apis/crd.example.com/v1alpha1/namespaces/default/resources
+GET /api/crd.example.com/v1alpha1/namespaces/default/resources
 ---
 200 OK
 Content-Type: application/json
