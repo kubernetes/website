@@ -678,6 +678,10 @@ spec:
       type: FileOrCreate
 ```
 
+{{< note >}}
+Volumes' names must be different. For example: ```mydir``` & ```myfile``` as shown in the above [`FileOrCreate` configuration](#hostpath-fileorcreate-example)).
+{{< /note >}}
+
 ### iscsi
 
 An `iscsi` volume allows an existing iSCSI (SCSI over IP) volume to be mounted
