@@ -157,32 +157,28 @@ aliases:
     - sftim
     - tengqm
   sig-docs-zh-owners: # Admins for Chinese content
-    # chenopis
     - chenrui333
-    # dchen1107
-    # haibinxie
-    # hanjiayao
     - howieyuen
-    # lichuqiang
     - mengjiao-liu
     - SataQiu
+    - Sea-n
     - tanjunchen
     - tengqm
     - xichengliudui
-    # zhangxiaoyu-zidif
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - chenrui333
     - chenxuc
     - howieyuen
-    - idealhack
+    # idealhack
     - mengjiao-liu
-    - pigletfly
+    # pigletfly
     - SataQiu
+    - Sea-n
     - tanjunchen
     - tengqm
+    - windsonsea
     - xichengliudui
     - ydFu
-    # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
     - edsoncelio
     - femrtnz
