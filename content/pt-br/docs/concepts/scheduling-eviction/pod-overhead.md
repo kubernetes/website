@@ -185,9 +185,6 @@ em execução com uma sobrecarga definida.
 
 ## {{% heading "whatsnext" %}}
 
-
-* Aprenda mais sobre [RuntimeClass](/docs/concepts/containers/runtime-class/)
-* Leia a proposta de aprimoramento de [Desenho de sobrecarga de Pod](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
+* Aprenda Mais Sobre [RuntimeClass](/docs/concepts/containers/runtime-class/)
+* Leia a Proposta de Aprimoramento de [Desenho de sobrecarga de Pod](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
 para um contexto extra
-
-
