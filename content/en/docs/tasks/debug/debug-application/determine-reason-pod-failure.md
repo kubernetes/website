@@ -92,7 +92,7 @@ populate the Container's status message on both success and failure.
 The termination message is intended to be brief final status, such as an assertion failure message.
 The kubelet truncates messages that are longer than 4096 bytes.
 
-The total message length across all containers will be limited to 12KiB, divided equally among each container.
+The total message length across all containers is limited to 12KiB, divided equally among each container.
 For example, if there are 12 containers (`initContainers` or `containers`), each has 1024 bytes of available termination message space.
 
 The default termination message path is `/dev/termination-log`.
