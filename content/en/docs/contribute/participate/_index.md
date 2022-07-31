@@ -53,7 +53,7 @@ GitHub teams and OWNERS files.
 There are two categories of SIG Docs [teams](https://github.com/orgs/kubernetes/teams?query=sig-docs) on GitHub:
 
 - `@sig-docs-{language}-owners` are approvers and leads
-- `@sig-docs-{language}-reviewers` are reviewers
+- `@sig-docs-{language}-reviews` are reviewers
 
 Each can be referenced with their `@name` in GitHub comments to communicate with
 everyone in that group.
