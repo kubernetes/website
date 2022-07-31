@@ -120,6 +120,7 @@ different Kubernetes components.
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
 | `IdentifyPodOS` | `true` | Beta | 1.24 | |
+| `IdentifyPodOS` | `true` | GA | 1.25 | |
 | `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureDiskUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureFileUnregister` | `false` | Alpha | 1.21 | |
