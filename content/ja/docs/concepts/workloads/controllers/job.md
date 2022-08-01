@@ -400,7 +400,7 @@ Jobオブジェクトは、Podの確実な並列実行をサポートするた�
 [静的な処理の割り当てを使用したインデックス付きJob]: /ja/docs/tasks/job/indexed-parallel-processing-static/
 [Jobテンプレート拡張]: /docs/tasks/job/parallel-processing-expansion/
 
-## 上級な使用方法  {#advanced-usage}
+## 高度な使い方  {#advanced-usage}
 
 ### Jobの一時停止  {#suspending-a-job}
 
