@@ -78,9 +78,9 @@ unless the Pod's grace period expires. For more details, see
 [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
 
 {{< note >}}
-Kubernetes only sends the preStop event when a Pod is *terminated*.
-This means that the preStop hook is not invoked when the Pod is *completed*. 
-This limitation is tracked in [issue #55087](https://github.com/kubernetes/kubernetes/issues/55807).
+Kubernetes only sends the preStop event when a Pod or a container in the Pod is *terminated*.
+This means that the preStop hook is not invoked when the Pod is *completed*.
+About this limitation, please see [Container hooks](docs/concepts/containers/container-lifecycle-hooks/#container-hooks) for the detail.
 {{< /note >}}
 
 
