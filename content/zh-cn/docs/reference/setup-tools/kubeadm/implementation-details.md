@@ -20,7 +20,7 @@ weight: 100
 However, it might not be obvious _how_ kubeadm does that.
 -->
 `kubeadm init` 和 `kubeadm join` 结合在一起提供了良好的用户体验，因为从头开始创建实践最佳而配置最基本的 Kubernetes 集群。
-但是，kubeadm _如何_ 做到这一点可能并不明显。
+但是，kubeadm **如何** 做到这一点可能并不明显。
 
 <!-- 
 This document provides additional details on what happen under the hood, 
@@ -69,7 +69,7 @@ with the aim of sharing knowledge on Kubernetes cluster best practices.
   - `kubectl apply -f <所选网络.yaml>`
   - `kubeadm join --token <令牌> <端点>:<端口>`
 - **可扩展的**：
-  - _不_ 应偏向任何特定的网络提供商。不涉及配置集群网络
+  - **不** 应偏向任何特定的网络提供商，不涉及配置集群网络
   - 应该可以使用配置文件来自定义各种参数
 
 <!--
@@ -88,8 +88,8 @@ kubeadm 使用了一组有限的常量值。
 The Kubernetes directory `/etc/kubernetes` is a constant in the application, since it is clearly the given path
 in a majority of cases, and the most intuitive location; other constants paths and file names are:
 -->
-Kubernetes 目录 `/etc/kubernetes` 在应用程序中是一个常量，因为在大多数情况下
-它显然是给定的路径，并且是最直观的位置；其他路径常量和文件名有：
+Kubernetes 目录 `/etc/kubernetes` 在应用程序中是一个常量，
+因为在大多数情况下它显然是给定的路径，并且是最直观的位置；其他路径常量和文件名有：
 
 <!--  
 - `/etc/kubernetes/manifests` as the path where kubelet should look for static Pod manifests. Names of static Pod manifests are:
@@ -116,18 +116,18 @@ Kubernetes 目录 `/etc/kubernetes` 在应用程序中是一个常量，因为�
   - `kube-controller-manager.yaml`
   - `kube-scheduler.yaml`
 - `/etc/kubernetes/` 作为带有控制平面组件身份标识的 kubeconfig 文件的路径。kubeconfig 文件的名称为：
-  - `kubelet.conf` (在 TLS 引导时名称为 `bootstrap-kubelet.conf` )
+  - `kubelet.conf` (在 TLS 引导时名称为 `bootstrap-kubelet.conf`)
   - `controller-manager.conf`
   - `scheduler.conf`
   - `admin.conf` 用于集群管理员和 kubeadm 本身
 - 证书和密钥文件的名称：
-  - `ca.crt`, `ca.key` 用于 Kubernetes 证书颁发机构
-  - `apiserver.crt`, `apiserver.key` 用于 API 服务器证书
-  - `apiserver-kubelet-client.crt`, `apiserver-kubelet-client.key`
+  - `ca.crt`、`ca.key` 用于 Kubernetes 证书颁发机构
+  - `apiserver.crt`、`apiserver.key` 用于 API 服务器证书
+  - `apiserver-kubelet-client.crt`、`apiserver-kubelet-client.key`
     用于 API 服务器安全地连接到 kubelet 的客户端证书
-  - `sa.pub`, `sa.key` 用于控制器管理器签署 ServiceAccount 时使用的密钥
-  - `front-proxy-ca.crt`, `front-proxy-ca.key` 用于前端代理证书颁发机构
-  - `front-proxy-client.crt`, `front-proxy-client.key` 用于前端代理客户端
+  - `sa.pub`、`sa.key` 用于控制器管理器签署 ServiceAccount 时使用的密钥
+  - `front-proxy-ca.crt`、`front-proxy-ca.key` 用于前端代理证书颁发机构
+  - `front-proxy-client.crt`、`front-proxy-client.key` 用于前端代理客户端
 
 <!--
 ## kubeadm init workflow internal design
@@ -146,8 +146,7 @@ The [`kubeadm init phase`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phas
 -->
 [`kubeadm init phase`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/)
 命令允许用户分别调用每个任务，并最终提供可重用且可组合的 API 或工具箱，
-其他 Kubernetes 引导工具、任何 IT 自动化工具和高级用户都可以使用它来
-创建自定义集群。
+其他 Kubernetes 引导工具、任何 IT 自动化工具和高级用户都可以使用它来创建自定义集群。
 
 <!--
 ### Preflight checks
@@ -156,10 +155,10 @@ The [`kubeadm init phase`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phas
 
 <!-- 
 Kubeadm executes a set of preflight checks before starting the init, with the aim to verify preconditions and avoid common cluster startup problems.
-The user can skip specific preflight checks or all of them with the `--ignore-preflight-errors` option. 
+The user can skip specific preflight checks or all of them with the `--ignore-preflight-errors` option.
 -->
 Kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并避免常见的集群启动问题。
-用户可以使用 `--ignore-preflight-errors` 选项跳过特定的预检查或全部检查。
+用户可以使用 `--ignore-preflight-errors` 选项跳过特定的预检或全部检查。
 
 <!--  
 - [warning] If the Kubernetes version to use (specified with the `--kubernetes-version` flag) is at least one minor version higher than the kubeadm CLI version.
@@ -200,7 +199,7 @@ Kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并
 - [错误] 如果机器主机名不是有效的 DNS 子域
 - [警告] 如果通过网络查找无法访问主机名
 - [错误] 如果 kubelet 版本低于 kubeadm 支持的最低 kubelet 版本（当前小版本 -1）
-- [错误] 如果 kubelet 版本比所需的控制平面板版本至少高一个小（不支持的版本偏斜）
+- [错误] 如果 kubelet 版本比所需的控制平面板版本至少高一个小版本（不支持的版本偏差）
 - [警告] 如果 kubelet 服务不存在或已被禁用
 - [警告] 如果 firewalld 处于活动状态
 - [错误] 如果 API ​​服务器绑定的端口或 10250/10251/10252 端口已被占用
@@ -255,7 +254,7 @@ Kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并
 Kubeadm 生成用于不同目的的证书和私钥对：
 
 <!-- 
- - A self signed certificate authority for the Kubernetes cluster saved into `ca.crt` file and `ca.key` private key file 
+ - A self signed certificate authority for the Kubernetes cluster saved into `ca.crt` file and `ca.key` private key file
  - A serving certificate for the API server, generated using `ca.crt` as the CA, and saved into `apiserver.crt` file with
    its private key `apiserver.key`. This certificate should contain following alternative names:
      - The Kubernetes service's internal clusterIP (the first address in the services CIDR, e.g. `10.96.0.1` if service subnet is `10.96.0.0/12`)
@@ -268,22 +267,22 @@ Kubeadm 生成用于不同目的的证书和私钥对：
    This certificate should be in the `system:masters` organization
  - A private key for signing ServiceAccount Tokens saved into `sa.key` file along with its public key `sa.pub`
  - A certificate authority for the front proxy saved into `front-proxy-ca.crt` file with its key `front-proxy-ca.key`
- - A client cert for the front proxy client, generated using `front-proxy-ca.crt` as the CA and saved into `front-proxy-client.crt` file
+ - A client cert for the front proxy client, generate using `front-proxy-ca.crt` as the CA and saved into `front-proxy-client.crt` file
    with its private key`front-proxy-client.key`
 -->
 - Kubernetes 集群的自签名证书颁发机构会保存到 `ca.crt` 文件和 `ca.key` 私钥文件中
 - 用于 API 服务器的服务证书，使用 `ca.crt` 作为 CA 生成，并将证书保存到 `apiserver.crt`
-  文件中，私钥保存到 `apiserver.key` 文件中
+  文件中，私钥保存到 `apiserver.key` 文件中。
   该证书应包含以下备用名称：
 
   - Kubernetes 服务的内部 clusterIP（服务 CIDR 的第一个地址。
     例如：如果服务的子网是 `10.96.0.0/12`，则为 `10.96.0.1`）
   - Kubernetes DNS 名称，例如：如果 `--service-dns-domain` 标志值是 `cluster.local`，
     则为 `kubernetes.default.svc.cluster.local`；
-    加上默认的 DNS 名称 `kubernetes.default.svc`、`kubernetes.default` 和 `kubernetes`，
+    加上默认的 DNS 名称 `kubernetes.default.svc`、`kubernetes.default` 和 `kubernetes`
   - 节点名称
   - `--apiserver-advertise-address`
-  - 用户指定的其他备用名称 
+  - 用户指定的其他备用名称
 
 - 用于 API 服务器安全连接到 kubelet 的客户端证书，使用 `ca.crt` 作为 CA 生成，
   并保存到 `apiserver-kubelet-client.crt`，私钥保存到 `apiserver-kubelet-client.key`
@@ -295,7 +294,7 @@ Kubeadm 生成用于不同目的的证书和私钥对：
   `front-proxy-client.crt` 文件中，私钥保存到 `front-proxy-client.key` 文件中
 
 <!-- 
-Certificates are stored by default in `/etc/kubernetes/pki`, but this directory is configurable using the `--cert-dir` flag. 
+Certificates are stored by default in `/etc/kubernetes/pki`, but this directory is configurable using the `--cert-dir` flag.
 -->
 证书默认情况下存储在 `/etc/kubernetes/pki` 中，但是该目录可以使用 `--cert-dir` 标志进行配置。
 
@@ -325,12 +324,12 @@ Please note that:
 2. 仅对 CA 来说，如果所有其他证书和 kubeconfig 文件都已就位，则可以只提供 `ca.crt` 文件，
    而不提供 `ca.key` 文件。
    kubeadm 能够识别出这种情况并启用 ExternalCA，这也意味着了控制器管理器中的
-   `csrsigner` 控制器将不会启动
+   `csrsigner` 控制器将不会启动。
 3. 如果 kubeadm 在
    [外部 CA 模式](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#external-ca-mode)
-   下运行，所有证书必须由用户提供，因为 kubeadm 无法自行生成它们。
-4. 如果在 `--dry-run` 模式下执行 kubeadm，证书文件将写入一个临时文件夹中
-5. 可以使用 [`kubeadm init phase certs all`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-certs) 
+   下运行，所有证书必须由用户提供，因为 kubeadm 无法自行生成证书。
+4. 如果在 `--dry-run` 模式下执行 kubeadm，证书文件将写入一个临时文件夹中。
+5. 可以使用 [`kubeadm init phase certs all`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-certs)
    命令单独生成证书。
 
 <!--
@@ -398,10 +397,10 @@ CN. Kubeadm uses the `kubernetes-admin` CN.
 -->
 1. `ca.crt` 证书内嵌在所有 kubeconfig 文件中。
 2. 如果给定的 kubeconfig 文件存在且其内容经过评估符合上述规范，则 kubeadm 将使用现有文件，
-   并跳过给定 kubeconfig 的生成阶段
+   并跳过给定 kubeconfig 的生成阶段。
 3. 如果 kubeadm 以 [ExternalCA 模式](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#external-ca-mode)
-   运行，则所有必需的 kubeconfig 也必须由用户提供，因为 kubeadm 不能自己生成
-4. 如果在 `--dry-run` 模式下执行 kubeadm，则 kubeconfig 文件将写入一个临时文件夹中
+   运行，则所有必需的 kubeconfig 也必须由用户提供，因为 kubeadm 不能自己生成。
+4. 如果在 `--dry-run` 模式下执行 kubeadm，则 kubeconfig 文件将写入一个临时文件夹中。
 5. 可以使用
    [`kubeadm init phase kubeconfig all`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-kubeconfig)
    命令分别生成 kubeconfig 文件。
@@ -437,7 +436,7 @@ Kubelet 启动后会监视这个目录以便创建 Pod。
 - 所有静态 Pod 均使用 `system-node-critical` 优先级
 - 所有静态 Pod 都设置了 `hostNetwork:true`，使得控制平面在配置网络之前启动；结果导致：
 
-  * 控制器管理器和调度器用来调用 API 服务器的地址为 127.0.0.1。
+  * 控制器管理器和调度器用来调用 API 服务器的地址为 `127.0.0.1`
   * 如果使用本地 etcd 服务器，则 `etcd-servers` 地址将设置为 `127.0.0.1:2379`
 
 - 同时为控制器管理器和调度器启用了领导者选举
@@ -451,14 +450,14 @@ Kubelet 启动后会监视这个目录以便创建 Pod。
 
 <!--  
 1. All images will be pulled from k8s.gcr.io by default. See [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images) for customizing the image repository
-2. In case of kubeadm is executed in the `-dry-run` mode, static Pods files are written in a temporary folder
+2. In case of kubeadm is executed in the `--dry-run` mode, static Pods files are written in a temporary folder
 3. Static Pod manifest generation for control plane components can be invoked individually with the [`kubeadm init phase control-plane all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-control-plane) command
 -->
-1. 所有镜像默认从 k8s.gcr.io 拉取。 
+1. 所有镜像默认从 k8s.gcr.io 拉取。
    关于自定义镜像仓库，请参阅
    [使用自定义镜像](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)。
 2. 如果在 `--dry-run` 模式下执行 kubeadm，则静态 Pod 文件写入一个临时文件夹中。
-3. 可以使用 [`kubeadm init phase control-plane all`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-control-plane) 
+3. 可以使用 [`kubeadm init phase control-plane all`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-control-plane)
    命令分别生成主控组件的静态 Pod 清单。
 
 <!--
@@ -483,7 +482,7 @@ API 服务器的静态 Pod 清单会受到用户提供的以下参数的影响:
   如果未提供，则这些值默认为机器上默认网络接口的 IP 地址和 6443 端口。
 - `service-cluster-ip-range` 给 service 使用
 - 如果指定了外部 etcd 服务器，则应指定 `etcd-servers` 地址和相关的 TLS 设置
-  （`etcd-cafile`，`etcd-certfile`，`etcd-keyfile`）；
+  （`etcd-cafile`、`etcd-certfile`、`etcd-keyfile`）；
   如果未提供外部 etcd 服务器，则将使用本地 etcd（通过主机网络）
 - 如果指定了云提供商，则配置相应的 `--cloud-provider`，如果该路径存在，则配置 `--cloud-config`
   （这是实验性的，是 Alpha 版本，将在以后的版本中删除）
@@ -519,21 +518,21 @@ API 服务器的静态 Pod 清单会受到用户提供的以下参数的影响:
       (e.g. only pods on this node)
 -->
 - `--enable-admission-plugins` 设为：
-  - [`NamespaceLifecycle`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#namespacelifecycle) 
+  - [`NamespaceLifecycle`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#namespacelifecycle)
     例如，避免删除系统保留的名字空间
   - [`LimitRanger`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#limitranger) 和
     [`ResourceQuota`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#resourcequota)
     对名字空间实施限制
   - [`ServiceAccount`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#serviceaccount)
     实施服务账户自动化
-  - [`PersistentVolumeLabel`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#persistentvolumelabel) 
+  - [`PersistentVolumeLabel`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#persistentvolumelabel)
     将区域（Region）或区（Zone）标签附加到由云提供商定义的 PersistentVolumes
     （此准入控制器已被弃用并将在以后的版本中删除）。
     如果未明确选择使用 `gce` 或 `aws` 作为云提供商，则默认情况下，v1.9 以后的版本 kubeadm 都不会部署。
-  - [`DefaultStorageClass`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) 
+  - [`DefaultStorageClass`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
     在 `PersistentVolumeClaim` 对象上强制使用默认存储类型
   - [`DefaultTolerationSeconds`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaulttolerationseconds)
-  - [`NodeRestriction`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction) 
+  - [`NodeRestriction`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
     限制 kubelet 可以修改的内容（例如，仅此节点上的 pod）
 <!--
  - `--kubelet-preferred-address-types` to `InternalIP,ExternalIP,Hostname;` this makes `kubectl logs` and other API server-kubelet
@@ -554,7 +553,7 @@ API 服务器的静态 Pod 清单会受到用户提供的以下参数的影响:
     - `--requestheader-extra-headers-prefix=X-Remote-Extra-`
     - `--requestheader-allowed-names=front-proxy-client`
 -->
-- `--kubelet-preferred-address-types` 设为 `InternalIP,ExternalIP,Hostname;` 
+- `--kubelet-preferred-address-types` 设为 `InternalIP,ExternalIP,Hostname;`
   这使得在节点的主机名无法解析的环境中，`kubectl log` 和 API 服务器与 kubelet
   的其他通信可以工作
 - 使用在前面步骤中生成的证书的标志：
@@ -596,8 +595,8 @@ The static Pod manifest for the controller manager is affected by following para
  - If a cloud provider is specified, the corresponding `--cloud-provider` is specified, together with the  `--cloud-config` path
    if such configuration file exists (this is experimental, alpha and will be removed in a future version)
 -->
-- 如果调用 kubeadm 时指定了 `--pod-network-cidr` 参数，则可以通过以下方式启用
-  某些 CNI 网络插件所需的子网管理器功能：
+- 如果调用 kubeadm 时指定了 `--pod-network-cidr` 参数，
+  则可以通过以下方式启用某些 CNI 网络插件所需的子网管理器功能：
   - 设置 `--allocate-node-cidrs=true`
   - 根据给定 CIDR 设置 `--cluster-cidr` 和 `--node-cidr-mask-size` 标志
 - 如果指定了云提供商，则指定相应的 `--cloud-provider`，如果存在这样的配置文件，
@@ -670,7 +669,7 @@ a local etcd instance running in a Pod with following attributes:
 2. 如果 kubeadm 以 `--dry-run` 模式执行，etcd 静态 Pod 清单将写入一个临时文件夹。
 3. 可以使用
    ['kubeadm init phase etcd local'](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd)
-   命令单独为本地 etcd 生成静态 Pod 清单
+   命令单独为本地 etcd 生成静态 Pod 清单。
 
 <!--
 ### Wait for the control plane to come up
@@ -682,7 +681,7 @@ kubeadm waits (upto 4m0s) until `localhost:6443/healthz` (kube-apiserver livenes
 deadlock conditions, kubeadm fails fast if `localhost:10255/healthz` (kubelet liveness) or
 `localhost:10255/healthz/syncloop` (kubelet readiness) don't return `ok` within 40s and 60s respectively.
 -->
-kubeadm 等待（最多 4m0s），直到 `localhost:6443/healthz`（kube-apiserver 存活）返回 `ok`。 
+kubeadm 等待（最多 4m0s），直到 `localhost:6443/healthz`（kube-apiserver 存活）返回 `ok`。
 但是为了检测死锁条件，如果 `localhost:10255/healthz`（kubelet 存活）或
 `localhost:10255/healthz/syncloop`（kubelet 就绪）未能在 40s 和 60s 内未返回 `ok`，
 则 kubeadm 会快速失败。
@@ -721,7 +720,7 @@ state and make new decisions based on that data.
 -->
 1. 在保存 ClusterConfiguration 之前，从配置中删除令牌等敏感信息。
 2. 可以使用
-   [`kubeadm init phase upload-config`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-upload-config) 
+   [`kubeadm init phase upload-config`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-upload-config)
    命令单独上传主控节点配置。
 
 <!--
@@ -749,7 +748,7 @@ As soon as the control plane is available, kubeadm executes following actions:
 1. Mark control-plane phase can be invoked individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command
 -->
 1. `node-role.kubernetes.io/master` 污点是已废弃的，将会在 kubeadm 1.25 版本中移除
-1. 可以使用 [`kubeadm init phase mark-control-plane`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) 
+1. 可以使用 [`kubeadm init phase mark-control-plane`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane)
   命令单独触发控制平面标记
 
 <!--
@@ -765,14 +764,13 @@ existing cluster; for more details see also [design proposal](https://github.com
 Kubeadm 使用[引导令牌认证](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
 将新节点连接到现有集群；
 更多的详细信息，请参见
-[设计提案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md)。
+[设计提案](https://github.com/kubernetes/design-proposals-archive/blob/main/cluster-lifecycle/bootstrap-discovery.md)。
 
 <!-- 
 `kubeadm init` ensures that everything is properly configured for this process, and this includes following steps as well as
 setting API server and controller flags as already described in previous paragraphs.
 -->
-`kubeadm init` 确保为该过程正确配置了所有内容，这包括以下步骤以及设置 API 服务器
-和控制器标志，如前几段所述。
+`kubeadm init` 确保为该过程正确配置了所有内容，这包括以下步骤以及设置 API 服务器和控制器标志，如前几段所述。
 
 <!-- Please note that: -->
 请注意：
@@ -782,7 +780,7 @@ setting API server and controller flags as already described in previous paragra
    command, executing all the configuration steps described in following paragraphs; alternatively, each step can be invoked individually
 -->
 1. 可以使用
-   [`kubeadm init phase bootstrap-token`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-bootstrap-token) 
+   [`kubeadm init phase bootstrap-token`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-bootstrap-token)
    命令配置节点的 TLS 引导，执行以下段落中描述的所有配置步骤；
    或者每个步骤都单独触发。
 
@@ -814,9 +812,9 @@ Please note that:
 -->
 1. 由 `kubeadm init` 创建的默认令牌将用于在 TLS 引导过程中验证临时用户；
    这些用户会成为 `system:bootstrappers:kubeadm:default-node-token` 组的成员。
-2. 令牌的有效期有限，默认为 24 小时（间隔可以通过 `-token-ttl` 标志进行更改）
+2. 令牌的有效期有限，默认为 24 小时（间隔可以通过 `-token-ttl` 标志进行更改）。
 3. 可以使用 [`kubeadm token`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-token/)
-   命令创建其他令牌，这些令牌还提供其他有用的令牌管理功能
+   命令创建其他令牌，这些令牌还提供其他有用的令牌管理功能。
 
 <!--
 #### Allow joining nodes to call CSR API
@@ -826,8 +824,7 @@ Please note that:
 <!--
 Kubeadm ensures that users in  `system:bootstrappers:kubeadm:default-node-token` group are able to access the certificate signing API.
 -->
-Kubeadm 确保 `system:bootstrappers:kubeadm:default-node-token` 组中的用户
-能够访问证书签名 API。
+Kubeadm 确保 `system:bootstrappers:kubeadm:default-node-token` 组中的用户能够访问证书签名 API。
 
 <!-- 
 This is implemented by creating a ClusterRoleBinding named `kubeadm:kubelet-bootstrap` between the group above and the default
@@ -871,8 +868,7 @@ POST permission to `/apis/certificates.k8s.io/certificatesigningrequests/nodecli
 Kubeadm ensures that certificate rotation is enabled for nodes, and that new certificate request for nodes will get its CSR request
 automatically approved by the csrapprover controller. 
 -->
-Kubeadm 确保节点启用了证书轮换，csrapprover 控制器将自动批准节点的
-新证书的 CSR 请求。
+Kubeadm 确保节点启用了证书轮换，csrapprover 控制器将自动批准节点的新证书的 CSR 请求。
 
 <!-- 
 This is implemented by creating ClusterRoleBinding named `kubeadm:node-autoapprove-certificate-rotation` between the  `system:nodes` group
@@ -910,10 +906,10 @@ Please note that:
 to the internet; worst-case scenario here is a DoS attack where an attacker uses all the in-flight requests the kube-apiserver
 can handle to serving the `cluster-info` ConfigMap.
 -->
-1. 对 `cluster-info` ConfigMap 的访问 _不受_ 速率限制。
+1. 对 `cluster-info` ConfigMap 的访问 **不受** 速率限制。
    如果你把 API 服务器暴露到外网，这可能是一个问题，也可能不是；
-   这里最坏的情况是 DoS 攻击，攻击者使用 kube-apiserver 能够处理的所有动态请求
-   来为 `cluster-info` ConfigMap 提供服务。
+   这里最坏的情况是 DoS 攻击，攻击者使用 kube-apiserver 能够处理的所有动态请求来为
+   `cluster-info` ConfigMap 提供服务。
 
 <!--
 ### Install addons
@@ -1000,7 +996,7 @@ This is split into discovery (having the Node trust the Kubernetes Master) and T
 see [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) or the corresponding [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md). 
 -->
 请参阅[使用引导令牌进行身份验证](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
-或相应的[设计提案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md)。
+或相应的[设计提案](https://github.com/kubernetes/design-proposals-archive/blob/main/cluster-lifecycle/bootstrap-discovery.md)。
 
 <!--
 ### Preflight checks
@@ -1026,8 +1022,8 @@ cluster startup problems.
 2. 从 1.24 开始，kubeadm 使用 crictl 与所有已知的 CRI 端点进行通信。
 3. 从 1.9 开始，kubeadm 支持加入在 Windows 上运行的节点；在这种情况下，
    将跳过 Linux 特定的控制参数。
-4. 在任何情况下，用户都可以通过 `--ignore-preflight-errors` 选项跳过
-   特定的预检（或者进而跳过所有预检）。
+4. 在任何情况下，用户都可以通过 `--ignore-preflight-errors`
+   选项跳过特定的预检（或者进而跳过所有预检）。
 
 <!--
 ### Discovery cluster-info
@@ -1067,13 +1063,13 @@ the cluster CA certificates from the  `cluster-info` ConfigMap in the `kube-publ
   - As a additional validation, the CA certificate is retrieved via secure connection and then compared with the CA retrieved initially
 -->
 - 首先，通过不安全连接检索 CA 证书（这是可能的，因为 `kubeadm init` 授予
-  `system:unauthenticated` 的用户对 `cluster-info` 访问权限）
+  `system:unauthenticated` 的用户对 `cluster-info` 访问权限）。
 - 然后 CA 证书通过以下验证步骤：
   - 基本验证：使用令牌 ID 而不是 JWT 签名
   - 公钥验证：使用提供的 `--discovery-token-ca-cert-hash`。这个值来自 `kubeadm init` 的输出，
     或者可以使用标准工具计算（哈希值是按 RFC7469 中主体公钥信息（SPKI）对象的字节计算的）
     `--discovery-token-ca-cert-hash` 标志可以重复多次，以允许多个公钥。
-  - 作为附加验证，通过安全连接检索 CA 证书，然后与初始检索的 CA 进行比较
+  - 作为附加验证，通过安全连接检索 CA 证书，然后与初始检索的 CA 进行比较。
 
 <!-- Please note that: -->
 请注意：
@@ -1094,8 +1090,7 @@ the cluster CA certificates from the  `cluster-info` ConfigMap in the `kube-publ
 If `kubeadm join` is invoked with `--discovery-file`, file discovery is used; this file can be a local file or downloaded via an HTTPS URL; in case of HTTPS, the host installed CA bundle is used to verify the connection. 
 -->
 如果带 `--discovery-file` 参数调用 `kubeadm join`，则使用文件发现功能；
-该文件可以是本地文件或通过 HTTPS URL 下载；对于 HTTPS，主机安装的 CA 包
-用于验证连接。
+该文件可以是本地文件或通过 HTTPS URL 下载；对于 HTTPS，主机安装的 CA 包用于验证连接。
 
 <!--  
 With file discovery, the cluster CA certificates is provided into the file itself; in fact, the discovery file is a kubeconfig
@@ -1123,8 +1118,8 @@ TLS 引导。
 The TLS bootstrap mechanism uses the shared token to temporarily authenticate with the Kubernetes API server to submit a certificate
 signing request (CSR) for a locally created key pair.
 -->
-TLS 引导机制使用共享令牌对 Kubernetes API 服务器进行临时身份验证，以便
-为本地创建的密钥对提交证书签名请求（CSR）。
+TLS 引导机制使用共享令牌对 Kubernetes API 服务器进行临时身份验证，
+以便为本地创建的密钥对提交证书签名请求（CSR）。
 
 <!--  
 The request is then automatically approved and the operation completes saving `ca.crt` file and `kubelet.conf` file to be used
