@@ -116,8 +116,9 @@ For example, this is how to start a simple web server as a static Pod:
    ```shell
    ssh my-node1
    ```
+
 <!--
-2. Choose a directory, say `/etc/kubelet.d` and place a web server Pod definition there, e.g. `/etc/kubelet.d/static-web.yaml`:
+2. Choose a directory, say `/etc/kubernetes/manifests` and place a web server Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
 
    ```shell
     # Run this command on the node where kubelet is running
@@ -271,7 +272,7 @@ already be running.
 
 You can view running containers (including static Pods) by running (on the node):
 ```shell
-# Run this command on the node where kubelet is running
+# Run this command on the node where the kubelet is running
 crictl ps
 ```
 
@@ -324,8 +325,7 @@ static-web   1/1     Running   0               2m
 
 {{< note >}}
 <!--
-Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server. See
-[Pod Security admission](/docs/concepts/security/pod-security-admission) and [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/).
+Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server. See [Pod Security admission](/docs/concepts/security/pod-security-admission) and [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/).
 -->
 要确保 kubelet 在 API 服务上有创建镜像 Pod 的权限。如果没有，创建请求会被 API 服务拒绝。
 参阅 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)和
@@ -423,11 +423,11 @@ crictl ps
 ```shell
 # 这里假定你在用主机文件系统上的静态 Pod 配置文件
 # 在 kubelet 运行的节点上执行以下命令
-mv /etc/kubelet.d/static-web.yaml /tmp
+mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
 # 可以看到没有 nginx 容器在运行
-mv /tmp/static-web.yaml  /etc/kubelet.d/
+mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
 sleep 20
 crictl ps
 ```
