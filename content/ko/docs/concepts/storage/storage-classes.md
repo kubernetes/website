@@ -1,9 +1,9 @@
 ---
-
-
-
-
-
+## reviewers:
+## - jsafrane
+## - saad-ali
+## - thockin
+## - msau42
 title: 스토리지 클래스
 content_type: concept
 weight: 30
@@ -87,7 +87,7 @@ volumeBindingMode: Immediate
 여기 목록에서 "내부" 프로비저너를 지정할 수 있다(이
 이름은 "kubernetes.io" 가 접두사로 시작하고, 쿠버네티스와
 함께 제공된다). 또한, 쿠버네티스에서 정의한
-[사양](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md)을
+[사양](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md)을
 따르는 독립적인 프로그램인 외부 프로비저너를 실행하고 지정할 수 있다.
 외부 프로비저너의 작성자는 코드의 수명, 프로비저너의
 배송 방법, 실행 방법, (Flex를 포함한)볼륨 플러그인
