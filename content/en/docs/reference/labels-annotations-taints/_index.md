@@ -622,11 +622,14 @@ for more information.
 
 Example: `kubernetes.io/psp: restricted`
 
-This annotation is only relevant if you are using [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
+Used on: Pod
 
-When the PodSecurityPolicy admission controller admits a Pod, the admission controller
-modifies the Pod to have this annotation.
-The value of the annotation is the name of the PodSecurityPolicy that was used for validation.
+This annotation was only relevant if you were using [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
+Kubernetes v{{< skew currentVersion >}} does not support the PodSecurityPolicy API.
+
+When the PodSecurityPolicy admission controller admitted a Pod, the admission controller
+modified the Pod to have this annotation.
+The value of the annotation was the name of the PodSecurityPolicy that was used for validation.
 
 ### seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
 
