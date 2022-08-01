@@ -74,9 +74,6 @@ different Kubernetes components.
 | `CSIInlineVolume` | `true` | Beta | 1.16 | - |
 | `CSIMigration` | `false` | Alpha | 1.14 | 1.16 |
 | `CSIMigration` | `true` | Beta | 1.17 | |
-| `CSIMigrationAWS` | `false` | Alpha | 1.14 | 1.16 |
-| `CSIMigrationAWS` | `false` | Beta | 1.17 | 1.22 |
-| `CSIMigrationAWS` | `true` | Beta | 1.23 | |
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.19 |
 | `CSIMigrationAzureFile` | `false` | Beta | 1.21 | 1.23 |
 | `CSIMigrationAzureFile` | `true` | Beta | 1.24 | |
@@ -244,6 +241,10 @@ different Kubernetes components.
 | `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | 1.17 |
 | `CSIDriverRegistry` | `true` | GA | 1.18 | - |
+| `CSIMigrationAWS` | `false` | Alpha | 1.14 | 1.16 |
+| `CSIMigrationAWS` | `false` | Beta | 1.17 | 1.22 |
+| `CSIMigrationAWS` | `true` | Beta | 1.23 | 1.24 |
+| `CSIMigrationAWS` | `true` | GA | 1.25 | - |
 | `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationAWSComplete` | - | Deprecated | 1.21 | - |
 | `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | 1.18 |

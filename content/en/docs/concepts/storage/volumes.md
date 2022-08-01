@@ -121,18 +121,17 @@ If the EBS volume is partitioned, you can supply the optional field `partition: 
 
 #### AWS EBS CSI migration
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 The `CSIMigration` feature for `awsElasticBlockStore`, when enabled, redirects
 all plugin operations from the existing in-tree plugin to the `ebs.csi.aws.com` Container
 Storage Interface (CSI) driver. In order to use this feature, the [AWS EBS CSI
 driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationAWS`
-beta features must be enabled.
+must be installed on the cluster.
 
 #### AWS EBS CSI migration complete
 
-{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
 
 To disable the `awsElasticBlockStore` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAWSUnregister` flag to `true`.
