@@ -413,7 +413,7 @@ Jobを一時停止するには、Jobの`.spec.suspend`フィールドをtrueに�
 
 一時停止状態のJobを再開すると、`.status.startTime`フィールドの値は現在時刻にリセットされます。これはつまり、Jobが一時停止して再開すると、`.spec.activeDeadlineSeconds`タイマーは停止してリセットされることになります。
 
-Jobを中断すると、稼働中のPodは全部削除されることを忘れないでください。Jobが中断されると、PodはSIGTERM信号を受信して[終了されます](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。Podのグレースフル終了の猶予期間がカウントダウンされ、この期間内に、Podはこの信号を処理しなければなりません。場合により、プロセスの保存や、操作の取り消しなどの処理が含まれます。この方法で終了したPodは`completions`数にカウントされません。
+Jobを中断すると、稼働中のPodは全部削除されることを忘れないでください。Jobが中断されると、PodはSIGTERMシグナルを受信して[終了されます](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。Podのグレースフル終了の猶予期間がカウントダウンされ、この期間内に、Podはこのシグナルを処理しなければなりません。場合により、その後のために処理状況を保存したり、変更を元に戻したりする処理が含まれます。この方法で終了したPodは`completions`数にカウントされません。
 
 下記は一時停止状態のままで作成されたJobの定義例になります:
 
