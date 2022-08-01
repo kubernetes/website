@@ -1667,7 +1667,7 @@ HorizontalPodAutoscalerList 是水平 Pod 自动扩缩器对象列表。
   items is the list of horizontal pod autoscaler objects.
 -->
 
-- **items** ([]<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>)，必需
 
   items 是水平 Pod 自动扩缩器对象的列表。
 

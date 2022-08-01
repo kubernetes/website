@@ -91,9 +91,9 @@ Some kubelet garbage collection features are deprecated in favor of eviction:
 | ------------- | -------- | --------- |
 | `--image-gc-high-threshold` | `--eviction-hard` or `--eviction-soft` | existing eviction signals can trigger image garbage collection |
 | `--image-gc-low-threshold` | `--eviction-minimum-reclaim` | eviction reclaims achieve the same behavior |
-| `--maximum-dead-containers` | | deprecated once old logs are stored outside of container's context |
-| `--maximum-dead-containers-per-container` | | deprecated once old logs are stored outside of container's context |
-| `--minimum-container-ttl-duration` | | deprecated once old logs are stored outside of container's context |
+| `--maximum-dead-containers` | - | deprecated once old logs are stored outside of container's context |
+| `--maximum-dead-containers-per-container` | - | deprecated once old logs are stored outside of container's context |
+| `--minimum-container-ttl-duration` | - | deprecated once old logs are stored outside of container's context |
 
 ### Eviction thresholds
 
@@ -216,7 +216,7 @@ the kubelet frees up disk space in the following order:
 If the kubelet's attempts to reclaim node-level resources don't bring the eviction
 signal below the threshold, the kubelet begins to evict end-user pods. 
 
-The kubelet uses the following parameters to determine pod eviction order:
+The kubelet uses the following parameters to determine the pod eviction order:
 
 1. Whether the pod's resource usage exceeds requests
 1. [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
@@ -319,7 +319,7 @@ The kubelet sets an `oom_score_adj` value for each container based on the QoS fo
 
 {{<note>}}
 The kubelet also sets an `oom_score_adj` value of `-997` for containers in Pods that have
-`system-node-critical` {{<glossary_tooltip text="Priority" term_id="pod-priority">}}
+`system-node-critical` {{<glossary_tooltip text="Priority" term_id="pod-priority">}}.
 {{</note>}}
 
 If the kubelet can't reclaim memory before a node experiences OOM, the
@@ -401,7 +401,7 @@ counted as `active_file`. If enough of these kernel block buffers are on the
 active LRU list, the kubelet is liable to observe this as high resource use and 
 taint the node as experiencing memory pressure - triggering pod eviction.
 
-For more more details, see [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)
+For more details, see [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)
 
 You can work around that behavior by setting the memory limit and memory request
 the same for containers likely to perform intensive I/O activity. You will need 

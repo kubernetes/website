@@ -29,7 +29,7 @@ Also, you can read [check whether Dockershim removal affects you](/docs/tasks/ad
 关于 Kubernetes kubelets 从容器运行时的角度弃用 Docker 的细节以及这些细节背后的含义，请参考博文
 [别慌: Kubernetes 和 Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
 
-此外，你可以阅读[检查 Dockershim 移除是否影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)以检查它是否会影响你。
+此外，你可以阅读[检查 Dockershim 移除是否影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)以检查它是否会影响你。
 
 <!-- 
 ### Why is dockershim being deprecated?

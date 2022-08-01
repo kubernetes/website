@@ -12,7 +12,9 @@ encryption keys, into Pods.
 -->
 本文展示如何安全地将敏感数据（如密码和加密密钥）注入到 Pods 中。
 
+
 ## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -69,8 +71,10 @@ username and password:
    kubectl apply -f https://k8s.io/examples/pods/inject/secret.yaml
    ```
 
-1. <!-- View information about the Secret -->
-   查看 Secret 相关信息：
+<!--
+1. View information about the Secret:
+-->
+2. 查看 Secret 相关信息：
 
    ```shell
    kubectl get secret test-secret
@@ -79,12 +83,12 @@ username and password:
    <!-- Output: -->
     输出：
 	
-   ```shell
+   ```
    NAME          TYPE      DATA      AGE
    test-secret   Opaque    2         1m
    ```
 
-1. <!-- View more detailed information about the Secret -->
+1. <!-- View more detailed information about the Secret:-->
    查看 Secret 相关的更多详细信息：
 
    ```shell
@@ -94,7 +98,7 @@ username and password:
    <!-- Output: -->
    输出：
 
-   ```shell
+   ```
    Name:       test-secret
    Namespace:  default
    Labels:     <none>
@@ -105,7 +109,7 @@ username and password:
    Data
    ====
    password:   13 bytes
-   username:   7  bytes
+   username:   7 bytes
    ```
 
 <!--
@@ -130,6 +134,7 @@ through each step explicitly to demonstrate what is happening.
 这是一种更为方便的方法。
 前面展示的详细分解步骤有助于了解究竟发生了什么事情。
 
+
 <!--
 ## Create a Pod that has access to the secret data through a Volume
 
@@ -145,7 +150,7 @@ Here is a configuration file you can use to create a Pod:
    创建 Pod：
 
    ```shell
-   kubectl create -f secret-pod.yaml
+   kubectl apply -f https://k8s.io/examples/pods/inject/secret-pod.yaml
    ```
 
 1. <!-- Verify that your Pod is running: -->
@@ -155,9 +160,9 @@ Here is a configuration file you can use to create a Pod:
    kubectl get pod secret-test-pod
    ```
 
+   <!-- Output: -->
    输出：
-
-   ```shell
+   ```
    NAME              READY     STATUS    RESTARTS   AGE
    secret-test-pod   1/1       Running   0          42m
    ```
@@ -166,7 +171,7 @@ Here is a configuration file you can use to create a Pod:
    获取一个 shell 进入 Pod 中运行的容器：
 
    ```shell
-   kubectl exec -it secret-test-pod -- /bin/bash
+   kubectl exec -i -t secret-test-pod -- /bin/bash
    ```
 
 1. <!-- The secret data is exposed to the Container through a Volume mounted under
@@ -179,6 +184,7 @@ Here is a configuration file you can use to create a Pod:
    在 shell 中，列举 `/etc/secret-volume` 目录下的文件：
 
    ```shell
+   # 在容器中 Shell 运行下面命令
    ls /etc/secret-volume
    ```
 
@@ -195,11 +201,10 @@ Here is a configuration file you can use to create a Pod:
    In your shell, display the contents of the `username` and `password` files:
    -->
    在 Shell 中，显示 `username` 和 `password` 文件的内容：
-
    ```shell
    # 在容器中 Shell 运行下面命令
-   echo "$(cat /etc/secret-volume/username)"
-   echo "$(cat /etc/secret-volume/password)"
+   echo "$( cat /etc/secret-volume/username )"
+   echo "$( cat /etc/secret-volume/password )"
    ```
 
    <!--
@@ -207,7 +212,7 @@ Here is a configuration file you can use to create a Pod:
    -->
    输出为用户名和密码：
 
-   ```shell
+   ```
    my-app
    39528$vdg7Jb
    ```
@@ -256,11 +261,14 @@ Here is a configuration file you can use to create a Pod:
    kubectl exec -i -t env-single-secret -- /bin/sh -c 'echo $SECRET_USERNAME'
    ```
 
+   <!--
+   The output is
+   -->
    输出为：
-
    ```
    backend-admin
    ```
+   
 <!--
 ### Define container environment variables with data from multiple Secrets
 -->
@@ -300,12 +308,15 @@ Here is a configuration file you can use to create a Pod:
    ```shell
    kubectl exec -i -t envvars-multiple-secrets -- /bin/sh -c 'env | grep _USERNAME'
    ```
-
+   <!--
+   The output is
+   -->
    输出：
    ```
    DB_USERNAME=db-admin
    BACKEND_USERNAME=backend-admin
    ```
+
 
 <!--
 ## Configure all key-value pairs in a Secret as container environment variables
@@ -353,7 +364,10 @@ This functionality is available in Kubernetes v1.6 and later.
   ```shell
   kubectl exec -i -t envfrom-secret -- /bin/sh -c 'echo "username: $username\npassword: $password\n"'
   ```
-
+  
+   <!--
+   The output is
+   -->
   输出为：
 
   ```
@@ -364,10 +378,9 @@ This functionality is available in Kubernetes v1.6 and later.
 <!-- ### References -->
 ### 参考
 
-* [Secret](/docs/api-reference/{{< param "version" >}}/#secret-v1-core)
-* [Volume](/docs/api-reference/{{< param "version" >}}/#volume-v1-core)
-* [Pod](/docs/api-reference/{{< param "version" >}}/#pod-v1-core)
-
+* [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+* [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
+* [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 
 ## {{% heading "whatsnext" %}}
 

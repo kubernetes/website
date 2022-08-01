@@ -12,43 +12,54 @@ weight: 30
 <!-- overview -->
 
 <!--
-This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Packet (bare metal), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
+This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Equinix Metal (formerly Packet), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
 -->
 此快速入门有助于使用 [Kubespray](https://github.com/kubernetes-sigs/kubespray)
-安装在 GCE、Azure、OpenStack、AWS、vSphere、Packet（裸机）、Oracle Cloud
+安装在 GCE、Azure、OpenStack、AWS、vSphere、Equinix Metal（曾用名 Packet）、Oracle Cloud
 Infrastructure（实验性）或 Baremetal 上托管的 Kubernetes 集群。
 
 <!--
-Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
+Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. 
+
+Kubespray provides:
 -->
 Kubespray 是一个由 [Ansible](https://docs.ansible.com/) playbooks、
-[清单（inventory）](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)、
+[清单（inventory）](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory)、
 制备工具和通用 OS/Kubernetes 集群配置管理任务的领域知识组成的。
+
 Kubespray 提供：
 
 <!--
-* a highly available cluster
-* composable attributes
-* support for most popular Linux distributions
-  * Ubuntu 16.04, 18.04, 20.04, 22.04
-  * CentOS/RHEL/Oracle Linux 7, 8
-  * Debian Buster, Jessie, Stretch, Wheezy
-  * Fedora 34, 35
-  * Fedora CoreOS
-  * openSUSE Leap 15
-  * Flatcar Container Linux by Kinvolk
-* continuous integration tests
+* Highly available cluster.
+* Composable (Choice of the network plugin for instance).
+* Supports most popular Linux distributions:
+  - Flatcar Container Linux by Kinvolk
+  - Debian Bullseye, Buster, Jessie, Stretch
+  - Ubuntu 16.04, 18.04, 20.04, 22.04
+  - CentOS/RHEL 7, 8
+  - Fedora 34, 35
+  - Fedora CoreOS
+  - openSUSE Leap 15.x/Tumbleweed
+  - Oracle Linux 7, 8
+  - Alma Linux 8
+  - Rocky Linux 8
+  - Amazon Linux 2 
+* Continuous integration tests.
 -->
 * 高可用性集群
-* 可组合属性
+* 可组合属性（例如可选择网络插件）
 * 支持大多数流行的 Linux 发行版
+   * Kinvolk 的 Flatcar Container Linux
+   * Debian Bullseye、Buster、Jessie、Stretch
    * Ubuntu 16.04、18.04、20.04, 22.04
-   * CentOS / RHEL / Oracle Linux 7、8
-   * Debian Buster、Jessie、Stretch、Wheezy
+   * CentOS/RHEL 7、8
    * Fedora 34、35
    * Fedora CoreOS
-   * openSUSE Leap 15
-   * Kinvolk 的 Flatcar Container Linux
+   * openSUSE Leap 15.x/Tumbleweed
+   * Oracle Linux 7、8
+   * Alma Linux 8
+   * Rocky Linux 8
+   * Amazon Linux 2
 * 持续集成测试
 
 <!--
@@ -77,23 +88,23 @@ Provision servers with the following [requirements](https://github.com/kubernete
 按以下[要求](https://github.com/kubernetes-sigs/kubespray#requirements)来配置服务器：
 
 <!--
-* **Ansible v2.11 and python-netaddr are installed on the machine that will run Ansible commands**
-* **Jinja 2.11 (or newer) is required to run the Ansible Playbooks**
-* The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
-* The target servers are configured to allow **IPv4 forwarding**
-* **Your ssh key must be copied** to all the servers in your inventory
-* **Firewalls are not managed by kubespray**. You'll need to implement appropriate rules as needed. You should disable your firewall in order to avoid any issues during deployment
-* If kubespray is run from a non-root user account, correct privilege escalation method should be configured in the target servers and the `ansible_become` flag or command parameters `--become` or `-b` should be specified
+* **Minimum required version of Kubernetes is v1.22**
+* **Ansible v2.11+, Jinja 2.11+ and python-netaddr is installed on the machine that will run Ansible commands**
+* The target servers must have **access to the Internet** in order to pull docker images. Otherwise, additional configuration is required See ([Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
+* The target servers are configured to allow **IPv4 forwarding**.
+* If using IPv6 for pods and services, the target servers are configured to allow **IPv6 forwarding**.
+* The **firewalls are not managed**, you'll need to implement your own rules the way you used to. in order to avoid any issue during deployment you should disable your firewall.
+* If kubespray is run from non-root user account, correct privilege escalation method should be configured in the target servers. Then the `ansible_become` flag or command parameters `--become` or `-b` should be specified.
 -->
-* 在将运行 Ansible 命令的计算机上安装 Ansible v2.11 和 python-netaddr
-* **运行 Ansible Playbook 需要 Jinja 2.11（或更高版本）**
-* 目标服务器必须有权访问 Internet 才能拉取 Docker 镜像。否则，
+* **Kubernetes** 的最低版本要求为 V1.22
+* **在将运行 Ansible 命令的计算机上安装 Ansible v2.11（或更高版本）、Jinja 2.11（或更高版本）和 python-netaddr**
+* 目标服务器必须**能够访问 Internet** 才能拉取 Docker 镜像。否则，
   需要其他配置（[请参见离线环境](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md)）
-* 目标服务器配置为允许 IPv4 转发
-* **你的 SSH 密钥必须复制**到部署集群的所有服务器中
+* 目标服务器配置为允许 **IPv4 转发**
+* 如果针对 Pod 和 Service 使用 IPv6，则目标服务器配置为允许 **IPv6 转发**
 * **防火墙不是由 kubespray 管理的**。你需要根据需求设置适当的规则策略。为了避免部署过程中出现问题，可以禁用防火墙。
-* 如果从非 root 用户帐户运行 kubespray，则应在目标服务器中配置正确的特权升级方法
-并指定 `ansible_become` 标志或命令参数 `--become` 或 `-b`
+* 如果从非 root 用户帐户运行 kubespray，则应在目标服务器中配置正确的特权升级方法并指定
+  `ansible_become` 标志或命令参数 `--become` 或 `-b`
 
 <!--
 Kubespray provides the following utilities to help provision your environment:
@@ -101,14 +112,14 @@ Kubespray provides the following utilities to help provision your environment:
 * [Terraform](https://www.terraform.io/) scripts for the following cloud providers:
   * [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
   * [OpenStack](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/openstack)
-  * [Packet](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/packet)
+  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/metal)
 -->
 Kubespray 提供以下实用程序来帮助你设置环境：
 
 * 为以下云驱动提供的 [Terraform](https://www.terraform.io/) 脚本：
-* [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
-* [OpenStack](http://sitebeskuethree/contrigetbernform/contribeskubernform/contribeskupernform/https/sitebesku/master/)
-* [Packet](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/packet)
+  * [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
+  * [OpenStack](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/openstack)
+  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/metal)
 
 <!--
 ### (2/5) Compose an inventory file
@@ -160,8 +171,7 @@ Kubespray customizations can be made to a [variable file](https://docs.ansible.c
 -->
 可以修改[变量文件](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
 以进行 Kubespray 定制。
-如果你刚刚开始使用 Kubespray，请考虑使用 Kubespray 默认设置来部署你的集群
-并探索 Kubernetes 。
+如果你刚刚开始使用 Kubespray，请考虑使用 Kubespray 默认设置来部署你的集群并探索 Kubernetes。
 <!--
 ### (4/5) Deploy a Cluster
 
@@ -207,7 +217,7 @@ Kubespray provides additional playbooks to manage your cluster: _scale_ and _upg
 -->
 ## 集群操作
 
-Kubespray 提供了其他 Playbooks 来管理集群： _scale_ 和 _upgrade_。
+Kubespray 提供了其他 Playbooks 来管理集群： **scale** 和 **upgrade**。
 <!--
 ### Scale your cluster
 
@@ -250,22 +260,23 @@ When running the reset playbook, be sure not to accidentally target your product
 <!--
 ## Feedback
 
-* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) (You can get your invite [here](https://slack.k8s.io/))
-* [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues)
+* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) (You can get your invite [here](https://slack.k8s.io/)).
+* [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues).
 -->
 ## 反馈
 
 * Slack 频道：[#kubespray](https://kubernetes.slack.com/messages/kubespray/)
-  （你可以在[此处](https://slack.k8s.io/)获得邀请）
-* [GitHub 问题](https://github.com/kubernetes-sigs/kubespray/issues)
+  （你可以在[此处](https://slack.k8s.io/)获得邀请）。
+* [GitHub 问题](https://github.com/kubernetes-sigs/kubespray/issues)。
 
 <!--
 ## {{% heading "whatsnext" %}}
 
-Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md).
+* Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md).
+* Learn more about [Kubespray](https://github.com/kubernetes-sigs/kubespray).
 -->
 ## {{% heading "whatsnext" %}}
 
-查看有关 Kubespray 的
-[路线图](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)
-的计划工作。
+* 查看有关 Kubespray 的
+  [路线图](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)的计划工作。
+* 查阅有关 [Kubespray](https://github.com/kubernetes-sigs/kubespray) 的更多信息。

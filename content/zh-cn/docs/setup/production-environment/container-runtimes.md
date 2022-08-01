@@ -398,12 +398,12 @@ When using kubeadm, manually configure the
 <!--
 #### Overriding the sandbox (pause) image {#override-pause-image-containerd}
 
-In your [containerd config](https://github.com/containerd/cri/blob/master/docs/config.md) you can overwrite the
+In your [containerd config](https://github.com/containerd/containerd/blob/main/docs/cri/config.md) you can overwrite the
 sandbox image by setting the following config:
 -->
 #### 重载沙箱（pause）镜像    {#override-pause-image-containerd}
 
-在你的 [containerd 配置](https://github.com/containerd/cri/blob/master/docs/config.md)中，
+在你的 [containerd 配置](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)中，
 你可以通过设置以下选项重载沙箱镜像：
 
 ```toml

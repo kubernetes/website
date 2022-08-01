@@ -4,8 +4,8 @@ content_type: concept
 feature:
   title: Secret 和配置管理
   description: >
-    部署和更新 Secrets 和应用程序的配置而不必重新构建容器镜像，且
-    不必将软件堆栈配置中的秘密信息暴露出来。
+    部署和更新 Secret 和应用程序的配置而不必重新构建容器镜像，
+    且不必将软件堆栈配置中的秘密信息暴露出来。
 weight: 30
 ---
 <!--
@@ -266,10 +266,9 @@ values in the `data` field; for example:
 例如：
 
 ```yaml
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file, it will be
-# reopened with the relevant failures.
-#
+# 请编辑以下对象。以 `#` 开头的几行将被忽略，
+# 且空文件将放弃编辑。如果保存此文件时出错，
+# 则重新打开此文件时也会有相关故障。
 apiVersion: v1
 data:
   username: YWRtaW4=
@@ -295,7 +294,7 @@ You can package many keys and values into one Secret, or use many Secrets, which
 -->
 这一示例清单定义了一个 Secret，其 `data` 字段中包含两个主键：`username` 和 `password`。
 清单中的字段值是 Base64 字符串，不过，当你在 Pod 中使用 Secret 时，kubelet 为 Pod
-及其中的容器提供的是解码后的数据。
+及其中的容器提供的是**解码**后的数据。
 
 你可以在一个 Secret 中打包多个主键和数值，也可以选择使用多个 Secret，
 完全取决于哪种方式最方便。
@@ -437,7 +436,7 @@ invalidated when the Pod they are mounted into is deleted.
 Kubernetes v1.22 版本之前都会自动创建用来访问 Kubernetes API 的凭证。
 这一老的机制是基于创建可被挂载到 Pod 中的令牌 Secret 来实现的。
 在最近的版本中，包括 Kubernetes v{{< skew currentVersion >}} 中，API 凭据是直接通过
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+[TokenRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
 API 来获得的，这一凭据会使用[投射卷](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
 挂载到 Pod 中。使用这种方式获得的令牌有确定的生命期，并且在挂载它们的 Pod
 被删除时自动作废。
@@ -452,7 +451,7 @@ command to obtain a token from the `TokenRequest` API.
 -->
 你仍然可以[手动创建](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)
 服务账号令牌。例如，当你需要一个永远都不过期的令牌时。
-不过，仍然建议使用 [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+不过，仍然建议使用 [TokenRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
 子资源来获得访问 API 服务器的令牌。
 你可以使用 [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
 命令调用 `TokenRequest` API 获得令牌。
@@ -845,7 +844,7 @@ level.
 ### 容器镜像拉取 Secret  {#using-imagepullsecrets}
 
 如果你尝试从私有仓库拉取容器镜像，你需要一种方式让每个节点上的 kubelet
-能够完成与镜像库的身份认证。你可以配置 *镜像拉取 Secret* 来实现这点。
+能够完成与镜像库的身份认证。你可以配置 **镜像拉取 Secret** 来实现这点。
 Secret 是在 Pod 层面来配置的。
 
 <!--
@@ -859,7 +858,7 @@ for more information about the `imagePullSecrets` field.
 Pod 的 `imagePullSecrets` 字段是一个对 Pod 所在的名字空间中的 Secret
 的引用列表。你可以使用 `imagePullSecrets` 来将镜像仓库访问凭据传递给 kubelet。
 kubelet 使用这个信息来替你的 Pod 拉取私有镜像。
-参阅 [Pod API 参考](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
+参阅 [Pod API 参考](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
 中的 `PodSpec` 进一步了解 `imagePullSecrets` 字段。
 
 <!--
@@ -875,7 +874,7 @@ See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "versio
 `imagePullSecrets` 字段是一个列表，包含对同一名字空间中 Secret 的引用。
 你可以使用 `imagePullSecrets` 将包含 Docker（或其他）镜像仓库密码的 Secret
 传递给 kubelet。kubelet 使用此信息来替 Pod 拉取私有镜像。
-参阅 [PodSpec API ](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
+参阅 [PodSpec API ](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
 进一步了解 `imagePullSecrets` 字段。
 
 <!--
@@ -915,7 +914,7 @@ You cannot use ConfigMaps or Secrets with
 -->
 ### 在静态 Pod 中使用 Secret    {#restriction-static-pod}
 
-你不可以在{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}}.
+你不可以在{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}}
 中使用 ConfigMap 或 Secret。
 
 <!--
@@ -1113,7 +1112,7 @@ secret "test-db-secret" created
 Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
 -->
 特殊字符（例如 `$`、`\`、`*`、`=` 和 `!`）会被你的
-[Shell](https://en.wikipedia.org/wiki/Shell_(computing))解释，因此需要转义。
+[Shell](https://zh.wikipedia.org/wiki/%E6%AE%BC%E5%B1%A4) 解释，因此需要转义。
 
 <!--
 In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
@@ -1355,7 +1354,7 @@ Kubernetes imposes on them.
 -->
 ## Secret 的类型  {#secret-types}
 
-创建 Secret 时，你可以使用 [Secret](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)
+创建 Secret 时，你可以使用 [Secret](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)
 资源的 `type` 字段，或者与其等价的 `kubectl` 命令行参数（如果有的话）为其设置类型。
 Secret 类型有助于对 Secret 数据进行编程处理。
 
@@ -1420,8 +1419,8 @@ command creates an empty Secret of type `Opaque`.
 ### Opaque Secret
 
 当 Secret 配置文件中未作显式设定时，默认的 Secret 类型是 `Opaque`。
-当你使用 `kubectl` 来创建一个 Secret 时，你会使用 `generic` 子命令来标明
-要创建的是一个 `Opaque` 类型 Secret。
+当你使用 `kubectl` 来创建一个 Secret 时，你会使用 `generic`
+子命令来标明要创建的是一个 `Opaque` 类型 Secret。
 例如，下面的命令会创建一个空的 `Opaque` 类型 Secret 对象：
 
 ```shell
@@ -1563,7 +1562,7 @@ store the credentials for accessing a container image registry:
 -->
 ### Docker 配置 Secret  {#docker-config-secrets}
 
-你可以使用下面两种 `type` 值之一来创建 Secret，用以存放用于访问容器鏡像倉庫的凭据：
+你可以使用下面两种 `type` 值之一来创建 Secret，用以存放用于访问容器镜像仓库的凭据：
 
 - `kubernetes.io/dockercfg`
 - `kubernetes.io/dockerconfigjson`
@@ -1626,13 +1625,12 @@ server doesn't validate if the JSON actually is a Docker config file.
 When you do not have a Docker config file, or you want to use `kubectl`
 to create a Secret for accessing a container registry, you can do:
 -->
-当你使用清单文件来创建这两类 Secret 时，API 服务器会检查 `data` 字段中是否
-存在所期望的主键，并且验证其中所提供的键值是否是合法的 JSON 数据。
+当你使用清单文件来创建这两类 Secret 时，API 服务器会检查 `data` 字段中是否存在所期望的主键，
+并且验证其中所提供的键值是否是合法的 JSON 数据。
 不过，API 服务器不会检查 JSON 数据本身是否是一个合法的 Docker 配置文件内容。
 
-
 当你没有 Docker 配置文件，或者你想使用 `kubectl` 创建一个 Secret
-来访问容器倉庫时，你可以这样做：
+来访问容器仓库时，你可以这样做：
 
 ```shell
 kubectl create secret docker-registry secret-tiger-docker \
@@ -1750,8 +1748,8 @@ key authentication:
 -->
 ### SSH 身份认证 Secret {#ssh-authentication-secrets}
 
-Kubernetes 所提供的内置类型 `kubernetes.io/ssh-auth` 用来存放 SSH 身份认证中
-所需要的凭据。使用这种 Secret 类型时，你就必须在其 `data` （或 `stringData`）
+Kubernetes 所提供的内置类型 `kubernetes.io/ssh-auth` 用来存放 SSH 身份认证中所需要的凭据。
+使用这种 Secret 类型时，你就必须在其 `data` （或 `stringData`）
 字段中提供一个 `ssh-privatekey` 键值对，作为要使用的 SSH 凭据。
 
 下面的清单是一个 SSH 公钥/私钥身份认证的 Secret 示例：
@@ -1900,8 +1898,8 @@ well-known ConfigMaps.
 -->
 ### 启动引导令牌 Secret  {#bootstrap-token-secrets}
 
-通过将 Secret 的 `type` 设置为 `bootstrap.kubernetes.io/token` 可以创建
-启动引导令牌类型的 Secret。这种类型的 Secret 被设计用来支持节点的启动引导过程。
+通过将 Secret 的 `type` 设置为 `bootstrap.kubernetes.io/token`
+可以创建启动引导令牌类型的 Secret。这种类型的 Secret 被设计用来支持节点的启动引导过程。
 其中包含用来为周知的 ConfigMap 签名的令牌。
 
 <!--
@@ -1913,8 +1911,8 @@ As a Kubernetes manifest, a bootstrap token Secret might look like the
 following:
 -->
 启动引导令牌 Secret 通常创建于 `kube-system` 名字空间内，并以
-`bootstrap-token-<令牌 ID>` 的形式命名；其中 `<令牌 ID>` 是一个由 6 个字符组成
-的字符串，用作令牌的标识。
+`bootstrap-token-<令牌 ID>` 的形式命名；
+其中 `<令牌 ID>` 是一个由 6 个字符组成的字符串，用作令牌的标识。
 
 以 Kubernetes 清单文件的形式，某启动引导令牌 Secret 可能看起来像下面这样：
 
