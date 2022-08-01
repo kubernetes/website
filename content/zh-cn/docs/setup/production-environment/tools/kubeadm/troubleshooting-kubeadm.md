@@ -222,15 +222,15 @@ Right after `kubeadm init` there should not be any pods in these states.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 -->
-## Pods 处于 `RunContainerError`、`CrashLoopBackOff` 或者 `Error` 状态
+## Pod 处于 `RunContainerError`、`CrashLoopBackOff` 或者 `Error` 状态
 
-在 `kubeadm init` 命令运行后，系统中不应该有 pods 处于这类状态。
+在 `kubeadm init` 命令运行后，系统中不应该有 Pod 处于这类状态。
 
-- 在 `kubeadm init` 命令执行完后，如果有 pods 处于这些状态之一，请在 kubeadm
+- 在 `kubeadm init` 命令执行完后，如果有 Pod 处于这些状态之一，请在 kubeadm
   仓库提起一个 issue。`coredns` (或者 `kube-dns`) 应该处于 `Pending` 状态，
   直到你部署了网络插件为止。
 
-- 如果在部署完网络插件之后，有 Pods 处于 `RunContainerError`、`CrashLoopBackOff`
+- 如果在部署完网络插件之后，有 Pod 处于 `RunContainerError`、`CrashLoopBackOff`
   或 `Error` 状态之一，并且 `coredns` （或者 `kube-dns`）仍处于 `Pending` 状态，
   那很可能是你安装的网络插件由于某种原因无法工作。你或许需要授予它更多的
   RBAC 特权或使用较新的版本。请在 Pod Network 提供商的问题跟踪器中提交问题，
@@ -239,7 +239,7 @@ Right after `kubeadm init` there should not be any pods in these states.
 - 如果你安装的 Docker 版本早于 1.12.1，请在使用 `systemd` 来启动 `dockerd` 和重启 `docker` 时，
   删除 `MountFlags=slave` 选项。
   你可以在 `/usr/lib/systemd/system/docker.service` 中看到 MountFlags。
-  MountFlags 可能会干扰 Kubernetes 挂载的卷，并使 Pods 处于 `CrashLoopBackOff` 状态。
+  MountFlags 可能会干扰 Kubernetes 挂载的卷，并使 Pod 处于 `CrashLoopBackOff` 状态。
   当 Kubernetes 不能找到 `var/run/secrets/kubernetes.io/serviceaccount` 文件时会发生错误。
 
 <!--
@@ -254,7 +254,7 @@ before CoreDNS may be deployed fully. Hence the `Pending` state before the netwo
 
 这一行为是 **预期之中** 的，因为系统就是这么设计的。
 kubeadm 的网络供应商是中立的，因此管理员应该选择
-[安装 pod 的网络插件](/zh-cn/docs/concepts/cluster-administration/addons/)。
+[安装 Pod 的网络插件](/zh-cn/docs/concepts/cluster-administration/addons/)。
 你必须完成 Pod 的网络配置，然后才能完全部署 CoreDNS。
 在网络被配置好之前，DNS 组件会一直处于 `Pending` 状态。
 
@@ -346,17 +346,17 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 -->
 ## TLS 证书错误
 
-以下错误指出证书可能不匹配。
+以下错误说明证书可能不匹配。
 
 ```none
 # kubectl get pods
 Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
 ```
 
-- 验证 `$HOME/.kube/config` 文件是否包含有效证书，并
-  在必要时重新生成证书。在 kubeconfig 文件中的证书是 base64 编码的。
-  该 `base64 --decode` 命令可以用来解码证书，`openssl x509 -text -noout` 命令
-  可以用于查看证书信息。
+- 验证 `$HOME/.kube/config` 文件是否包含有效证书，
+  并在必要时重新生成证书。在 kubeconfig 文件中的证书是 base64 编码的。
+  该 `base64 --decode` 命令可以用来解码证书，`openssl x509 -text -noout`
+  命令可以用于查看证书信息。
 - 使用如下方法取消设置 `KUBECONFIG` 环境变量的值：
 
   ```shell
@@ -388,8 +388,8 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
 ## Kubelet 客户端证书轮换失败   {#kubelet-client-cert}
 
 默认情况下，kubeadm 使用 `/etc/kubernetes/kubelet.conf` 中指定的 `/var/lib/kubelet/pki/kubelet-client-current.pem` 符号链接
-来配置 kubelet 自动轮换客户端证书。如果此轮换过程失败，你可能会在 kube-apiserver 日志中看到
-诸如 `x509: certificate has expired or is not yet valid` 之类的错误。要解决此问题，你必须执行以下步骤：
+来配置 kubelet 自动轮换客户端证书。如果此轮换过程失败，你可能会在 kube-apiserver 日志中看到诸如
+`x509: certificate has expired or is not yet valid` 之类的错误。要解决此问题，你必须执行以下步骤：
 <!--
 1. Backup and delete `/etc/kubernetes/kubelet.conf` and `/var/lib/kubelet/pki/kubelet-client*` from the failed node.
 1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key` execute
@@ -447,7 +447,7 @@ Error from server (NotFound): the server could not find the requested resource
   This may lead to problems with flannel, which defaults to the first interface on a host. This leads to all hosts thinking they have the same public IP address. To prevent this, pass the `--iface eth1` flag to flannel so that the second interface is chosen.
 -->
 
-## 在 Vagrant 中使用 flannel 作为 pod 网络时的默认 NIC
+## 在 Vagrant 中使用 flannel 作为 Pod 网络时的默认 NIC
 
 以下错误可能表明 Pod 网络中出现问题：
 
@@ -455,7 +455,7 @@ Error from server (NotFound): the server could not find the requested resource
 Error from server (NotFound): the server could not find the requested resource
 ```
 
-- 如果你正在 Vagrant 中使用 flannel 作为 pod 网络，则必须指定 flannel 的默认接口名称。
+- 如果你正在 Vagrant 中使用 flannel 作为 Pod 网络，则必须指定 flannel 的默认接口名称。
 
   Vagrant 通常为所有 VM 分配两个接口。第一个为所有主机分配了 IP 地址 `10.0.2.15`，用于获得 NATed 的外部流量。
 
@@ -505,7 +505,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 - 这或许是由于 Kubernetes 使用的 IP 无法与看似相同的子网上的其他 IP 进行通信的缘故，
 可能是由机器提供商的政策所导致的。
 - DigitalOcean 既分配一个共有 IP 给 `eth0`，也分配一个私有 IP 在内部用作其浮动 IP 功能的锚点，
-然而 `kubelet` 将选择后者作为节点的 `InternalIP` 而不是公共 IP
+然而 `kubelet` 将选择后者作为节点的 `InternalIP` 而不是公共 IP。
 
   使用 `ip addr show` 命令代替 `ifconfig` 命令去检查这种情况，因为 `ifconfig` 命令
   不会显示有问题的别名 IP 地址。或者指定的 DigitalOcean 的 API 端口允许从 droplet 中
@@ -547,9 +547,9 @@ kubectl -n kube-system get deployment coredns -o yaml | \
 Another cause for CoreDNS to have `CrashLoopBackOff` is when a CoreDNS Pod deployed in Kubernetes detects a loop. [A number of workarounds](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)
 are available to avoid Kubernetes trying to restart the CoreDNS Pod every time CoreDNS detects the loop and exits.
 -->
-## `coredns` pods 有 `CrashLoopBackOff` 或者 `Error` 状态
+## `coredns` Pod 有 `CrashLoopBackOff` 或者 `Error` 状态
 
-如果有些节点运行的是旧版本的 Docker，同时启用了 SELinux，你或许会遇到 `coredns` pods 无法启动的情况。
+如果有些节点运行的是旧版本的 Docker，同时启用了 SELinux，你或许会遇到 `coredns` Pod 无法启动的情况。
 要解决此问题，你可以尝试以下选项之一：
 
 - 升级到 [Docker 的较新版本](/zh-cn/docs/setup/production-environment/container-runtimes/#docker)。
@@ -601,7 +601,7 @@ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dock
 yum install docker-ce-18.06.1.ce-3.el7.x86_64
 ```
 -->
-## etcd pods 持续重启
+## etcd Pod 持续重启
 
 如果你遇到以下错误：
 
@@ -725,8 +725,9 @@ for the feature to work.
 在支持 [FlexVolume](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md)时，
 类似 kubelet 和 kube-controller-manager 这类 Kubernetes 组件使用默认路径
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`，
-而 FlexVolume 的目录 _必须是可写入的_，该功能特性才能正常工作。
+而 FlexVolume 的目录 **必须是可写入的**，该功能特性才能正常工作。
 （**注意**：FlexVolume 在 Kubernetes v1.23 版本中已被弃用）
+
 
 <!--
 To workaround this issue you can configure the flex-volume directory using the kubeadm
@@ -771,8 +772,8 @@ nodeRegistration:
 Alternatively, you can modify `/etc/fstab` to make the `/usr` mount writeable, but please
 be advised that this is modifying a design principle of the Linux distribution.
 -->
-或者，你要可以更改 `/etc/fstab` 使得 `/usr` 目录能够以可写入的方式挂载，不过
-请注意这样做本质上是在更改 Linux 发行版的某种设计原则。
+或者，你要可以更改 `/etc/fstab` 使得 `/usr` 目录能够以可写入的方式挂载，
+不过请注意这样做本质上是在更改 Linux 发行版的某种设计原则。
 
 <!--
 ## `kubeadm upgrade plan` prints out `context deadline exceeded` error message
@@ -800,8 +801,8 @@ This is a regression introduced in kubeadm 1.15. The issue is fixed in 1.20.
 -->
 ## `kubeadm reset` 会卸载 `/var/lib/kubelet`
 
-如果已经挂载了 `/var/lib/kubelet` 目录，执行 `kubeadm reset` 操作的时候
-会将其卸载。
+如果已经挂载了 `/var/lib/kubelet` 目录，执行 `kubeadm reset` 
+操作的时候会将其卸载。
 
 要解决这一问题，可以在执行了 `kubeadm reset` 操作之后重新挂载
 `/var/lib/kubelet` 目录。
