@@ -383,7 +383,7 @@ Jobオブジェクトは、Podの確実な並列実行をサポートするた�
 | [静的な処理の割り当てを使用したインデックス付きJob] |         ✓         |                             |          ✓          | 
 | [Jobテンプレート拡張]                  |                   |                             |          ✓          |
 
-`.spec.completions`で完成数を指定する場合、Jobコントローラーより作成された各Podは同一の[`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)を持ちます。これは、このタスクのすべてのPodが同じコマンドライン、同じイメージ、同じボリューム、そして(ほぼ)同じ環境変数を持つことを意味します。これらのパターンは、Podが異なる作業をするためのさまざまな配置方法になります。
+`.spec.completions`で完了数を指定する場合、Jobコントローラーより作成された各Podは同一の[`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)を持ちます。これは、このタスクのすべてのPodが同じコマンドライン、同じイメージ、同じボリューム、そして(ほぼ)同じ環境変数を持つことを意味します。これらのパターンは、Podが異なる作業をするためのさまざまな配置方法になります。
 
 この表は、各パターンで必要な`.spec.parallelism`と`.spec.completions`の設定を示しています。
 ここで、`W`は作業項目の数を表しています。
