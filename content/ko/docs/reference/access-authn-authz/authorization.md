@@ -87,7 +87,7 @@ DELETE    | delete(개별 리소스), deletecollection(리소스 모음)
 
 쿠버네티스 API 서버는 몇 가지 인가 모드 중 하나를 사용하여 요청을 승인할 수 있다.
 
- * **Node** - 실행되도록 스케줄된 파드에 따라 kubelet에게 권한을 부여하는 특수 목적 인가 모드. Node 인가 모드 사용에 대한 자세한 내용은 [Node 인가](/docs/reference/access-authn-authz/node/)을 참조한다.
+ * **Node** - 실행되도록 스케줄된 파드에 따라 kubelet에게 권한을 부여하는 특수 목적 인가 모드. Node 인가 모드 사용에 대한 자세한 내용은 [Node 인가](/docs/reference/access-authn-authz/node/)를 참조한다.
  * **ABAC** - 속성 기반 접근 제어 (ABAC, Attribute-based access control)는 속성과 결합한 정책의 사용을 통해 사용자에게 접근 권한을 부여하는 접근 제어 패러다임을 말한다. 이 정책은 모든 유형의 속성(사용자 속성, 리소스 속성, 오브젝트, 환경 속성 등)을 사용할 수 있다. ABAC 모드 사용에 대한 자세한 내용은 [ABAC 모드](/docs/reference/access-authn-authz/abac/)를 참조한다.
  * **RBAC** - 역할 기반 접근 제어(RBAC, Role-based access control)는 기업 내 개별 사용자의 역할을 기반으로 컴퓨터나 네트워크 리소스에 대한 접근을 규제하는 방식이다. 이 맥락에서 접근은 개별 사용자가 파일을 보거나 만들거나 수정하는 것과 같은 특정 작업을 수행할 수 있는 능력이다. RBAC 모드 사용에 대한 자세한 내용은 [RBAC 모드](/docs/reference/access-authn-authz/rbac/)를 참조한다.
    * 지정된 RBAC(역할 기반 접근 제어)이 인가 결정을 위해 `rbac.authorization.k8s.io` API 그룹을 사용하면, 관리자가 쿠버네티스 API를 통해 권한 정책을 동적으로 구성할 수 있다.

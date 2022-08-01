@@ -809,7 +809,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   availability during update per node.
   See [Perform a Rolling Update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
-  [default spreading](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints).
+  [default spreading](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints).
 - `DelegateFSGroupToCSIDriver`: If supported by the CSI driver, delegates the
   role of applying `fsGroup` from a Pod's `securityContext` to the driver by
   passing `fsGroup` through the NodeStageVolume and NodePublishVolume CSI calls.
@@ -855,7 +855,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
   to running pods.
 - `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See
-  [Pod Topology Spread Constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
+  [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `ExecProbeTimeout`: Ensure kubelet respects exec probe timeouts.
   This feature gate exists in case any of your existing workloads depend on a
   now-corrected fault where Kubernetes ignored exec probe timeouts. See
@@ -996,7 +996,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `MemoryQoS`: Enable memory protection and usage throttle on pod / container using
   cgroup v2 memory controller.
 - `MinDomainsInPodTopologySpread`: Enable `minDomains` in Pod
-  [topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
+  [topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
 - `MountContainers`: Enable using utility containers on host as the volume mounter.

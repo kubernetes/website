@@ -17,13 +17,13 @@ weight: 10
 <!--
 Kubernetes runs your workload by placing containers into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
-is managed by the 
+is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 and contains the services necessary to run
 {{< glossary_tooltip text="Pods" term_id="pod" >}}.
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
-environment, you might have just one.
+environment, you might have only one node.
 
 The [components](/docs/concepts/overview/components/#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
@@ -32,11 +32,10 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 -->
 Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行你的工作负载。
 节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。
-每个节点包含运行 {{< glossary_tooltip text="Pods" term_id="pod" >}} 所需的服务；
+每个节点包含运行 {{< glossary_tooltip text="Pod" term_id="pod" >}} 所需的服务；
 这些节点由 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 负责管理。
 
-通常集群中会有若干个节点；而在一个学习用或者资源受限的环境中，你的集群中也可能
-只有一个节点。
+通常集群中会有若干个节点；而在一个学习所用或者资源受限的环境中，你的集群中也可能只有一个节点。
 
 节点上的[组件](/zh-cn/docs/concepts/overview/components/#node-components)包括
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、
@@ -50,7 +49,7 @@ Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行
 There are two main ways to have Nodes added to the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}:
 
 1. The kubelet on a node self-registers to the control plane
-2. You, or another human user, manually add a Node object
+2. You (or another human user) manually add a Node object
 
 After you create a Node {{< glossary_tooltip text="object" term_id="object" >}},
 or the kubelet on a node self-registers, the control plane checks whether the new Node object is
@@ -61,7 +60,7 @@ valid. For example, if you try to create a Node from the following JSON manifest
 向 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}添加节点的方式主要有两种：
 
 1. 节点上的 `kubelet` 向控制面执行自注册；
-2. 你，或者别的什么人，手动添加一个 Node 对象。
+2. 你（或者别的什么人）手动添加一个 Node 对象。
 
 在你创建了 Node {{< glossary_tooltip text="对象" term_id="object" >}}或者节点上的
 `kubelet` 执行了自注册操作之后，控制面会检查新的 Node 对象是否合法。
@@ -83,14 +82,14 @@ valid. For example, if you try to create a Node from the following JSON manifest
 <!--
 Kubernetes creates a Node object internally (the representation). Kubernetes checks
 that a kubelet has registered to the API server that matches the `metadata.name`
-field of the Node. If the node is healthy (if all necessary services are running),
-it is eligible to run a Pod. Otherwise, that node is ignored for any cluster activity
+field of the Node. If the node is healthy (i.e. all necessary services are running),
+then it is eligible to run a Pod. Otherwise, that node is ignored for any cluster activity
 until it becomes healthy.
 -->
 Kubernetes 会在内部创建一个 Node 对象作为节点的表示。Kubernetes 检查 `kubelet`
 向 API 服务器注册节点时使用的 `metadata.name` 字段是否匹配。
 如果节点是健康的（即所有必要的服务都在运行中），则该节点可以用来运行 Pod。
-否则，直到该节点变为健康之前，所有的集群活动都会忽略该节点。 
+否则，直到该节点变为健康之前，所有的集群活动都会忽略该节点。
 
 {{< note >}}
 <!--
@@ -136,7 +135,7 @@ first and re-added after the update.
 <!--
 ### Self-registration of Nodes
 
-When the kubelet flag `-register-node` is true (the default), the kubelet will attempt to
+When the kubelet flag `--register-node` is true (the default), the kubelet will attempt to
 register itself with the API server.  This is the preferred pattern, used by most distros.
 
 For self-registration, the kubelet is started with the following options:
@@ -175,7 +174,7 @@ When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
 [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
 kubelets are only authorized to create/modify their own Node resource.
 -->
-启用[Node 鉴权模式](/zh-cn/docs/reference/access-authn-authz/node/)和
+启用 [Node 鉴权模式](/zh-cn/docs/reference/access-authn-authz/node/)和
 [NodeRestriction 准入插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)时，
 仅授权 `kubelet` 创建或修改其自己的节点资源。
 
@@ -216,7 +215,7 @@ You can create and modify Node objects using
 When you want to create Node objects manually, set the kubelet flag `--register-node=false`.
 
 You can modify Node objects regardless of the setting of `--register-node`.
-For example, you can set labels on an existing Node, or mark it unschedulable.
+For example, you can set labels on an existing Node or mark it unschedulable.
 -->
 ### 手动节点管理 {#manual-node-administration}
 
@@ -226,15 +225,15 @@ For example, you can set labels on an existing Node, or mark it unschedulable.
 如果你希望手动创建节点对象时，请设置 kubelet 标志 `--register-node=false`。
 
 你可以修改 Node 对象（忽略 `--register-node` 设置）。
-例如，修改节点上的标签或标记其为不可调度。
+例如，你可以修改节点上的标签或并标记其为不可调度。
 
 <!--
 You can use labels on Nodes in conjunction with node selectors on Pods to control
-scheduling. For example, you can to constrain a Pod to only be eligible to run on
+scheduling. For example, you can constrain a Pod to only be eligible to run on
 a subset of the available nodes.
 
 Marking a node as unschedulable prevents the scheduler from placing new pods onto
-that Node, but does not affect existing Pods on the Node. This is useful as a
+that Node but does not affect existing Pods on the Node. This is useful as a
 preparatory step before a node reboot or other maintenance.
 
 To mark a Node unschedulable, run:
@@ -271,9 +270,9 @@ DaemonSet 通常提供节点本地的服务，即使节点上的负载应用已�
 {{< /note >}}
 
 <!--
-## Node Status
+## Node status
 
-A node's status contains the following information:
+A Node's status contains the following information:
 
 * [Addresses](#addresses)
 * [Conditions](#condition)
@@ -330,13 +329,13 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 
 <!--
 {{< table caption = "Node conditions, and a description of when each condition applies." >}}
-| Node Condition | Description |
-|----------------|-------------|
+| Node Condition       | Description |
+|----------------------|-------------|
 | `Ready`              | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
 | `DiskPressure`       | `True` if pressure exists on the disk size—that is, if the disk capacity is low; otherwise `False` |
 | `MemoryPressure`     | `True` if pressure exists on the node memory—that is, if the node memory is low; otherwise `False` |
-| `PIDPressure`    | `True` if pressure exists on the processes - that is, if there are too many processes on the node; otherwise `False` |
-| `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
+| `PIDPressure`        | `True` if pressure exists on the processes—that is, if there are too many processes on the node; otherwise `False` |
+| `NetworkUnavailable` | `True` if the network for the node is not correctly configured, otherwise `False` |
 {{< /table >}}
 -->
 {{< table caption = "节点状况及每种状况适用场景的描述" >}}
@@ -364,7 +363,7 @@ Condition，被保护起来的节点在其规约中被标记为不可调度（Un
 In the Kubernetes API, a node's condition is represented as part of the `.status`
 of the Node resource. For example, the following JSON structure describes a healthy node:
 -->
-在 Kubernetes API 中，节点的状况表示节点资源中`.status` 的一部分。 
+在 Kubernetes API 中，节点的状况表示节点资源中`.status` 的一部分。
 例如，以下 JSON 结构描述了一个健康节点：
 
 ```json
@@ -393,7 +392,7 @@ for all Pods assigned to that node. The default eviction timeout duration is
 `pod-eviction-timeout` 值（一个传递给
 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
 的参数），[节点控制器](#node-controller)会对节点上的所有 Pod 触发
-{{< glossary_tooltip text="API-发起的驱逐" term_id="api-eviction" >}}。
+{{< glossary_tooltip text="API 发起的驱逐" term_id="api-eviction" >}}。
 默认的逐出超时时长为 **5 分钟**。
 
 <!--
@@ -411,8 +410,8 @@ The node controller does not force delete pods until it is confirmed that they h
 running in the cluster. You can see the pods that might be running on an unreachable node as
 being in the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce from the
 underlying infrastructure if a node has permanently left a cluster, the cluster administrator
-may need to delete the node object by hand.  Deleting the node object from Kubernetes causes
-all the Pod objects running on the node to be deleted from the API server, and frees up their
+may need to delete the node object by hand. Deleting the node object from Kubernetes causes
+all the Pod objects running on the node to be deleted from the API server and frees up their
 names.
 -->
 节点控制器在确认 Pod 在集群中已经停止运行前，不会强制删除它们。
@@ -461,7 +460,8 @@ Node that is available to be consumed by normal Pods.
 
 <!--
 You may read more about capacity and allocatable resources while learning how
-to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) on a Node.
+to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+on a Node.
 -->
 可以在学习如何在节点上[预留计算资源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 的时候了解有关容量和可分配资源的更多信息。
@@ -505,7 +505,7 @@ Kubernetes 节点发送的心跳帮助你的集群确定每个节点的可用性
 -->
 * 更新节点的 `.status`
 * `kube-node-lease` {{<glossary_tooltip term_id="namespace" text="名字空间">}}中的
-  [Lease（租约）](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)对象。
+  [Lease（租约）](/zh-cn/docs/reference/kubernetes-api/cluster-resources/lease-v1/)对象。
   每个节点都有一个关联的 Lease 对象。
 
 <!--
@@ -539,7 +539,7 @@ kubelet 负责创建和更新节点的 `.status`，以及更新它们对应的 L
   最长重试间隔为 7 秒钟。
 
 <!--
-## Node Controller
+## Node controller
 
 The node {{< glossary_tooltip text="controller" term_id="controller" >}} is a
 Kubernetes control plane component that manages various aspects of nodes.
@@ -558,7 +558,7 @@ CIDR block to the node when it is registered (if CIDR assignment is turned on).
 <!--
 The second is keeping the node controller's internal list of nodes up to date with
 the cloud provider's list of available machines. When running in a cloud
-environment, whenever a node is unhealthy, the node controller asks the cloud
+environment and whenever a node is unhealthy, the node controller asks the cloud
 provider if the VM for that node is still available. If not, the node
 controller deletes the node from its list of nodes.
 -->
@@ -586,7 +586,7 @@ This period can be configured using the `--node-monitor-period` flag on the
 第三个是监控节点的健康状况。节点控制器负责：
 
 - 在节点不可达的情况下，在 Node 的 `.status` 中更新 `Ready` 状况。
-  在这种情况下，节点控制器将 NodeReady 状况更新为 `Unknown` 。
+  在这种情况下，节点控制器将 NodeReady 状况更新为 `Unknown`。
 - 如果节点仍然无法访问：对于不可达节点上的所有 Pod 触发
   [API 发起的逐出](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)操作。
   默认情况下，节点控制器在将节点标记为 `Unknown` 后等待 5 分钟提交第一个驱逐请求。
@@ -598,7 +598,7 @@ This period can be configured using the `--node-monitor-period` flag on the
 ### Rate limits on eviction
 
 In most cases, the node controller limits the eviction rate to
-`-node-eviction-rate` (default 0.1) per second, meaning it won't evict pods
+`--node-eviction-rate` (default 0.1) per second, meaning it won't evict pods
 from more than 1 node per 10 seconds.
 -->
 ### 逐出速率限制  {#rate-limits-on-eviction}
@@ -627,7 +627,7 @@ the same time:
 - 如果不健康节点的比例超过 `--unhealthy-zone-threshold` （默认为 0.55），
   驱逐速率将会降低。
 - 如果集群较小（意即小于等于 `--large-cluster-size-threshold` 个节点 - 默认为 50），
-  驱逐操作将会停止。 
+  驱逐操作将会停止。
 - 否则驱逐速率将降为每秒 `--secondary-node-eviction-rate` 个（默认为 0.01）。
 
 <!--
@@ -643,8 +643,8 @@ then the eviction mechanism does not take per-zone unavailability into account.
 <!--
 A key reason for spreading your nodes across availability zones is so that the
 workload can be shifted to healthy zones when one entire zone goes down.
-Therefore, if all nodes in a zone are unhealthy then node controller evicts at
-the normal rate `-node-eviction-rate`.  The corner case is when all zones are
+Therefore, if all nodes in a zone are unhealthy, then the node controller evicts at
+the normal rate of `--node-eviction-rate`.  The corner case is when all zones are
 completely unhealthy (none of the nodes in the cluster are healthy). In such a
 case, the node controller assumes that there is some problem with connectivity
 between the control plane and the nodes, and doesn't perform any evictions.
@@ -660,9 +660,9 @@ evict pods from the remaining nodes that are unhealthy or unreachable).
 （如果故障后部分节点重新连接，节点控制器会从剩下不健康或者不可达节点中驱逐 Pod）。
 
 <!--
-The Node Controller is also responsible for evicting pods running on nodes with
-`NoExecute` taints, unless the pods do not tolerate the taints.
-The Node Controller also adds {{< glossary_tooltip text="taints" term_id="taint" >}}
+The node controller is also responsible for evicting pods running on nodes with
+`NoExecute` taints, unless those pods tolerate that taint.
+The node controller also adds {{< glossary_tooltip text="taints" term_id="taint" >}}
 corresponding to node problems like node unreachable or not ready. This means
 that the scheduler won't place Pods onto unhealthy nodes.
 -->
@@ -743,7 +743,7 @@ Kubelet ensures that pods follow the normal
 [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 during the node shutdown.
 -->
-kubelet 会尝试检测节点系统关闭事件并终止在节点上运行的 Pods。
+kubelet 会尝试检测节点系统关闭事件并终止在节点上运行的所有 Pod。
 
 在节点终止期间，kubelet 保证 Pod 遵从常规的
 [Pod 终止流程](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
@@ -763,7 +763,7 @@ Graceful node shutdown is controlled with the `GracefulNodeShutdown`
 enabled by default in 1.21.
 -->
 节点体面关闭特性受 `GracefulNodeShutdown`
-[特性门控](/docs/reference/command-line-tools-reference/feature-gates/)控制，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)控制，
 在 1.21 版本中是默认启用的。
 
 <!--
@@ -840,7 +840,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 {{< feature-state state="alpha" for_k8s_version="v1.24" >}}
 
 <!--
-A node shutdown action may not be detected by kubelet's Node Shutdown Mananger, 
+A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
 either because the command does not trigger the inhibitor locks mechanism used by 
 kubelet or because of a user error, i.e., the ShutdownGracePeriod and 
 ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above 
@@ -888,7 +888,7 @@ different node.
 -->
 为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
 `node kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
-如果在 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach` 
+如果在 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 并且节点被通过污点标记为无法提供服务，如果节点 Pod 上没有设置对应的容忍度，
 那么这样的 Pod 将被强制删除，并且该在节点上被终止的 Pod 将立即进行卷分离操作。
@@ -1058,7 +1058,7 @@ their respective shutdown periods.
 -->
 如果此功能特性被启用，但没有提供配置数据，则不会出现排序操作。
 
-使用此功能特性需要启用 `GracefulNodeShutdownBasedOnPodPriority` 
+使用此功能特性需要启用 `GracefulNodeShutdownBasedOnPodPriority`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 并将 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 中的 `shutdownGracePeriodByPodPriority` 设置为期望的配置，
@@ -1074,7 +1074,7 @@ the feature is Beta and is enabled by default.
 {{< note >}}
 在节点体面关闭期间考虑 Pod 优先级的能力是作为 Kubernetes v1.23 中的 Alpha 功能引入的。
 在 Kubernetes {{< skew currentVersion >}} 中该功能是 Beta 版，默认启用。
-{{< /note >}} 
+{{< /note >}}
 
 <!--
 Metrics `graceful_shutdown_start_time_seconds` and `graceful_shutdown_end_time_seconds`

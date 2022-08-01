@@ -24,15 +24,15 @@ The good practices laid out here should be read in conjunction with the general
 
 ### Least privilege
 
-Ideally minimal RBAC rights should be assigned to users and service accounts. Only permissions 
-explicitly required for their operation should be used. Whilst each cluster will be different, 
+Ideally, minimal RBAC rights should be assigned to users and service accounts. Only permissions 
+explicitly required for their operation should be used. While each cluster will be different, 
 some general rules that can be applied are :
 
  - Assign permissions at the namespace level where possible. Use RoleBindings as opposed to 
    ClusterRoleBindings to give users rights only within a specific namespace.
  - Avoid providing wildcard permissions when possible, especially to all resources.
    As Kubernetes is an extensible system, providing wildcard access gives rights
-   not just to all object types presently in the cluster, but also to all future object types
+   not just to all object types that currently exist in the cluster, but also to all future object types
    which are created in the future.
  - Administrators should not use `cluster-admin` accounts except where specifically needed. 
    Providing a low privileged account with
@@ -66,7 +66,7 @@ the RBAC rights provided by default can provide opportunities for security harde
 In general, changes should not be made to rights provided to `system:` accounts some options 
 to harden cluster rights exist:
 
-- Review bindings for the `system:unauthenticated` group and remove where possible, as this gives 
+- Review bindings for the `system:unauthenticated` group and remove them where possible, as this gives 
   access to anyone who can contact the API server at a network level.
 - Avoid the default auto-mounting of service account tokens by setting
   `automountServiceAccountToken: false`. For more details, see
@@ -129,20 +129,19 @@ PersistentVolumes, and constrained users should use PersistentVolumeClaims to ac
 ### Access to `proxy` subresource of Nodes
 
 Users with access to the proxy sub-resource of node objects have rights to the Kubelet API, 
-which allows for command execution on every pod on the node(s) which they have rights to. 
+which allows for command execution on every pod on the node(s) to which they have rights. 
 This access bypasses audit logging and admission control, so care should be taken before 
 granting rights to this resource.
 
 ### Escalate verb
 
-Generally the RBAC system prevents users from creating clusterroles with more rights than 
-they possess. The exception to this is the `escalate` verb. As noted in the
-[RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update),
+Generally, the RBAC system prevents users from creating clusterroles with more rights than the user possesses. 
+The exception to this is the `escalate` verb. As noted in the [RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update),
 users with this right can effectively escalate their privileges.
 
 ### Bind verb
 
-Similar to the `escalate` verb, granting users this right allows for bypass of Kubernetes 
+Similar to the `escalate` verb, granting users this right allows for the bypass of Kubernetes 
 in-built protections against privilege escalation, allowing users to create bindings to 
 roles with rights they do not already have.
 

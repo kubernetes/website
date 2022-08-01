@@ -570,7 +570,7 @@ for it, and that containers are restarted when they fail.
 HTTP 和 TCP 的就绪探测器配置也和存活探测器的配置完全相同。
 
 就绪和存活探测可以在同一个容器上并行使用。
-两者都可以确保流量不会发给还未就绪的容器，当这些探测失败时容器会被重新启动。
+两者共同使用，可以确保流量不会发给还未就绪的容器，当这些探测失败时容器会被重新启动。
 
 <!--
 ## Configure Probes

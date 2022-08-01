@@ -35,14 +35,14 @@ This in turn, can make it challenging to initialize or scale a cluster.
 这也使得初始化或者扩缩一个集群的操作变得具有挑战性。
 
 <!--
-In order to simplify the process, beginning in version 1.4, Kubernetes introduced a certificate request and signing API to simplify the process. The proposal can be
+In order to simplify the process, beginning in version 1.4, Kubernetes introduced a certificate request and signing API. The proposal can be
 found [here](https://github.com/kubernetes/kubernetes/pull/20439).
 
 This document describes the process of node initialization, how to set up TLS client certificate bootstrapping for
 kubelets, and how it works.
 -->
 为了简化这一过程，从 1.4 版本开始，Kubernetes 引入了一个证书请求和签名
-API 以便简化此过程。该提案可在
+API。该提案可在
 [这里](https://github.com/kubernetes/kubernetes/pull/20439)看到。
 
 本文档描述节点初始化的过程，如何为 kubelet 配置 TLS 客户端证书启动引导，
@@ -255,7 +255,7 @@ You can use any [authenticator](/docs/reference/access-authn-authz/authenticatio
 
 为了让启动引导的 kubelet 能够连接到 kube-apiserver 并请求证书，
 它必须首先在服务器上认证自身身份。你可以使用任何一种能够对 kubelet 执行身份认证的
-[身份认证组件](/zh/docs/reference/access-authn-authz/authentication/)。
+[身份认证组件](/zh-cn/docs/reference/access-authn-authz/authentication/)。
 
 <!--
 While any authentication strategy can be used for the kubelet's initial
@@ -303,7 +303,7 @@ tokens to a group allows for great flexibility. For example, you could disable a
 particular bootstrap group's access when you are done provisioning the nodes.
 -->
 随着这个功能特性的逐渐成熟，你需要确保令牌绑定到某基于角色的访问控制（RBAC）
-策略上，从而严格限制请求（使用[启动引导令牌](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)）
+策略上，从而严格限制请求（使用[启动引导令牌](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)）
 仅限于客户端申请提供证书。当 RBAC 被配置启用时，可以将令牌限制到某个组，
 从而提高灵活性。例如，你可以在准备节点期间禁止某特定启动引导组的访问。
 
@@ -315,7 +315,7 @@ and then issued to the individual kubelet. You can use a single token for an ent
 -->
 #### 启动引导令牌   {#bootstrap-tokens}
 
-启动引导令牌的细节在[这里](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)
+启动引导令牌的细节在[这里](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
 详述。启动引导令牌在 Kubernetes 集群中存储为 Secret 对象，被发放给各个 kubelet。
 你可以在整个集群中使用同一个令牌，也可以为每个节点发放单独的令牌。
 
@@ -347,7 +347,7 @@ The details for creating the secret are available [here](/docs/reference/access-
 
 If you want to use bootstrap tokens, you must enable it on kube-apiserver with the flag:
 -->
-关于创建 Secret 的进一步细节可访问[这里](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)。
+关于创建 Secret 的进一步细节可访问[这里](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)。
 
 如果你希望使用启动引导令牌，你必须在 kube-apiserver 上使用下面的标志启用之：
 
@@ -397,7 +397,7 @@ further details.
 -->
 向 kube-apiserver 添加 `--token-auth-file=FILENAME` 标志（或许这要对 systemd
 的单元文件作修改）以启用令牌文件。参见
-[这里](/zh/docs/reference/access-authn-authz/authentication/#static-token-file)
+[这里](/zh-cn/docs/reference/access-authn-authz/authentication/#static-token-file)
 的文档以了解进一步的细节。
 
 <!--
@@ -501,7 +501,7 @@ kubelet 身份认证，很重要的一点是为控制器管理器所提供的 CA
 ```
 
 <!--
-For example:
+for example:
 -->
 例如：
 
@@ -603,7 +603,7 @@ collection.
 -->
 作为 [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
 的一部分的 `csrapproving` 控制器是自动被启用的。
-该控制器使用 [`SubjectAccessReview` API](/zh/docs/reference/access-authn-authz/authorization/#checking-api-access)
+该控制器使用 [`SubjectAccessReview` API](/zh-cn/docs/reference/access-authn-authz/authorization/#checking-api-access)
 来确定给定用户是否被授权请求 CSR，之后基于鉴权结果执行批复操作。
 为了避免与其它批复组件发生冲突，内置的批复组件不会显式地拒绝任何 CSRs。
 该组件仅是忽略未被授权的请求。

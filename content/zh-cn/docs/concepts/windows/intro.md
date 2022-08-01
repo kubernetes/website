@@ -154,7 +154,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
     In the above list, wildcards (`*`) indicate all elements in a list.
     For example, `spec.containers[*].securityContext` refers to the SecurityContext object
     for all containers. If any of these fields is specified, the Pod will
-    not be admited by the API server.
+    not be admitted by the API server.
 -->
 * [Pod](/zh-cn/docs/concepts/workloads/pods/)
   
@@ -218,7 +218,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * CronJob
   * ReplicationController
 * {{< glossary_tooltip text="Services" term_id="service" >}}
-  See [Load balancing and Services](#load-balancing-and-services) for more details.
+  See [Load balancing and Services](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) for more details.
 -->
 * [工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)包括：
   
@@ -232,7 +232,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
 
 * {{< glossary_tooltip text="Services" term_id="service" >}}
 
-  有关更多详细信息，请参考[负载均衡和 Service](#load-balancing-and-services)。
+  有关更多详细信息，请参考[负载均衡和 Service](/zh-cn/docs/concepts/services-networking/windows-networking/#load-balancing-and-services)。
 
 <!--
 Pods, workload resources, and Services are critical elements to managing Windows

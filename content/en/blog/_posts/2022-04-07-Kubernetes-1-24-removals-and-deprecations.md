@@ -84,7 +84,7 @@ As stated earlier, there are several guides about
 You can start with [Finding what container runtime are on your nodes](/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/).
 If your nodes are using dockershim, there are other possible Docker Engine dependencies such as 
 Pods or third-party tools executing Docker commands or private registries in the Docker configuration file. You can follow the 
-[Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) guide to review possible 
+[Check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) guide to review possible 
 Docker Engine dependencies. Before upgrading to v1.24, you decide to either remain using Docker Engine and 
 [Migrate Docker Engine nodes from dockershim to cri-dockerd](/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/) or migrate to a CRI-compatible runtime. Here's a guide to 
 [change the container runtime on a node from Docker Engine to containerd](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/).
