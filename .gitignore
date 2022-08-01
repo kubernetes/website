@@ -29,6 +29,7 @@ nohup.out
 # Hugo output
 public/
 resources/
+themes/docsy/
 
 # Netlify Functions build output
 package-lock.json
