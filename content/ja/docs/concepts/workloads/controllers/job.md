@@ -558,7 +558,7 @@ spec:
 この機能が有効でない場合、Job {{< glossary_tooltip term_id="controller" >}}はクラスター内に存在するPodを数えてJobステータスを追跡します。つまり`succeeded`Podと`failed`Podのカウンタを保持します。
 しかし、Podは以下のように削除されることもあります:
 - Nodeがダウンしたときに、孤立した(Orphan)Podはガベージコレクターにより削除されます。
-- 閾値に達すると、終了したPod(`Succeeded`または`Failed`フェーズを問わず)はガベージコレクター二より削除されます。 
+- 閾値に達すると、終了したPod(`Succeeded`または`Failed`フェーズを問わず)はガベージコレクターにより削除されます。 
 - Jobに属するPodの人為的な削除。
 - 外部コントローラー(Kubernetesの一部として提供されていない)よりPodを削除したり置き換えたりします。
 
