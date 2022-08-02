@@ -15,7 +15,7 @@ utilization.
 
 You can set [cluster-level constraints](#cluster-level-default-constraints) as a default,
 or configure topology spread constraints for individual workloads.
-
+ 
 <!-- body -->
 
 ## Motivation
@@ -442,7 +442,7 @@ topology spread constraints are applied to a Pod if, and only if:
 
 Default constraints can be set as part of the `PodTopologySpread` plugin
 arguments in a [scheduling profile](/docs/reference/scheduling/config/#profiles).
-The constraints are specified with the same [API above](#api), except that
+The constraints are specified with the same [API above](#example-topologyspreadconstraints-with-nodeaffinity), except that
 `labelSelector` must be empty. The selectors are calculated from the Services,
 ReplicaSets, StatefulSets or ReplicationControllers that the Pod belongs to.
 
