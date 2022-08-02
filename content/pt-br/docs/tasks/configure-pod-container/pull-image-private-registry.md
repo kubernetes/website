@@ -216,4 +216,4 @@ kubectl get pod private-reg
 * Aprenda mais sobre [usando um registro privado](/docs/concepts/containers/images/#using-a-private-registry).
 * Aprenda mais sobre [adicionando segredos para puxar imagens com uma conta de serviço](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 * Veja [kubectl criando segredos docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).
-* Veja o campo `imagePullSecrets` dentro das [definições do contêiner](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers) of a Pod
+* Veja o campo `imagePullSecrets` dentro das [definições do contêiner](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers) de um Pod
