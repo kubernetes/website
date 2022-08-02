@@ -560,7 +560,7 @@ spec:
 - Nodeがダウンしたときに、孤立した(Orphan)Podはガベージコレクターにより削除されます。
 - 閾値に達すると、終了したPod(`Succeeded`または`Failed`フェーズを問わず)はガベージコレクターにより削除されます。 
 - Jobに属するPodの人為的な削除。
-- 外部コントローラー(Kubernetesの一部として提供されていない)よりPodを削除したり置き換えたりします。
+- 外部コントローラー(Kubernetesの一部として提供されていない)によるPodの削除や置き換え。
 
 クラスターで`JobTrackingWithFinalizers`機能を有効にすると、コントロールプレーンは任意のJobに属するPodを追跡し、そのようなPodがAPIサーバーから削除された場合に通知します。そのために、Jobコントローラーにより作成されたPodは`batch.kubernetes.io/job-tracking`Finalizerを持っています。コントローラーはPodがJobステータスに計上された後にのみFinalizerを削除し、他のコントローラーやユーザーによるPodの削除を可能にします。
 
