@@ -209,7 +209,7 @@ Cada init contêiner deve sair com sucesso antes do próximo contêiner iniciar.
 
 Um Pod não pode estar `Ready` até que todos os init contêineres tenham sucesso. A porta no init contêiner não são agregadas sob os Serviços. O Pod que está inicializando está no estado `Pending` mas deve ter a condição `Initialized` definida para falso.
 
-Se o Pod [reiniciar](#pod-restart-reasons), ou ser reiniciado, todos os init contêineres devem executar novamente.
+Se o Pod [reiniciar](#razões-do-pod-reiniciar), ou ser reiniciado, todos os init contêineres devem executar novamente.
 
 Mudanças na especificação do init contêiner são limitadas para o campo da imagem do contêiner.
 Alterando o campo da imagem do init contêiner é equivalente a reiniciar o Pod.
