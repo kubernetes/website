@@ -475,7 +475,7 @@ Events:
   Normal  Resumed           3s    job-controller  Job resumed
 ```
 
-最後の4つのイベント、特に"Suspended"と"Resumed"のイベントは、`.spec.suspend`フィールドの値が変更されまくったために発生したものになります。この2つのイベントの間に、Podは作成されていないですが、Jobが再開された瞬間に、Podの作成も再開されました。
+最後の4つのイベント、特に"Suspended"と"Resumed"のイベントは、`.spec.suspend`フィールドの値を切り替えた直接の結果です。この2つのイベントの間に、Podは作成されていないことがわかりますが、Jobが再開されるとすぐにPodの作成も再開されました。
 
 ### 可変スケジューリング命令  {#mutable-scheduling-directives}
 
