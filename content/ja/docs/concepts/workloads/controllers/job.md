@@ -585,7 +585,7 @@ Replication Controllerは、終了することが想定されていないPod(Web
 
 もう一つのパターンは、一つのJobが一つPodを作り、そのPodがカスタムコントローラーのような役割を果たし、他のPodを作ります。これは最も柔軟性がありますが、使い始めるにはやや複雑で、Kubernetesとの統合もあまりできません。
 
-このパターンの一例としては、Sparkマスターコントローラーを起動するスクリプトがあり、そのスクリプトを実行するPodをJobで起動し、([spark事例](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)を参照)、sparkドライバーを実行してクリーンアップする、ということが挙げられます。
+このパターンの一例としては、Sparkマスターコントローラーを起動し、sparkドライバーを実行してクリーンアップするスクリプトを実行するPodをJobで起動する([sparkの例](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)を参照)が挙げられます。
 
 
 この方法のメリットは、Jobオブジェクトで実行されているので、プロセスが完了する保障があると同時に、どのPodを作成し、どのように仕事を割り当てるかを完全に制御できることです。
