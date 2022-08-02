@@ -599,5 +599,5 @@ Replication Controllerは、終了することが想定されていないPod(Web
    * [静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/ja/docs/tasks/job/indexed-parallel-processing-static/) を使う(beta段階)
    * テンプレートを元に複数のJobを作成: [拡張機能を用いた並列処理](/docs/tasks/job/parallel-processing-expansion/)
 * [終了したJobの自動クリーンアップ](#clean-up-finished-jobs-automatically)のリンクから、クラスターが完了または失敗したJobをどのようにクリーンアップするかをご確認ください。
-* `Job`はKubernetes REST APIの一部です。Job APIを理解するために、{{< api-reference page="workload-resources/job-v1" >}}オブジェクトの定義をお読みください。
+* `Job`はKubernetes REST APIの一部です。JobのAPIを理解するために、{{< api-reference page="workload-resources/job-v1" >}}オブジェクトの定義をお読みください。
 * UNIXツールの`cron`と同様に、スケジュールに基づいて実行される一連のJobを定義するために使用できる[`CronJob`](/ja/docs/concepts/workloads/controllers/cron-jobs/)についてお読みください。
