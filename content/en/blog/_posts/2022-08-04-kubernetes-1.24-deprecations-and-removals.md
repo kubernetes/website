@@ -5,7 +5,7 @@ date: 2022-08-04
 slug: upcoming-changes-in-kubernetes-1-25
 ---
 
-**Authors**: Kat Cosgrove, Frederico Muñoz
+**Authors**: Kat Cosgrove, Frederico Muñoz, Debabrata Panigrahi
 
 As Kubernetes grows and matures, features may be deprecated, removed, or replaced with improvements for the health of the project. Kubernetes v1.25 includes several major changes and one major removal.
 
@@ -38,6 +38,20 @@ An additional step in improving the security posture of the release process, the
 ### [Support for cgroup v2 Graduating to Stable](https://github.com/kubernetes/enhancements/issues/2254)
 
 The new kernel cgroups v2 API was declared stable more than two years ago, and in this release we're taking solid steps towards full adoption of it. While cgroup v1 will continue to be supported, this change makes us ready to deal with the eventual deprecation of cgroup v1 and its replacement by cgroup v2.
+
+### [Cleaning up IPTables Chain Ownership](https://github.com/kubernetes/enhancements/issues/3178)
+
+From the Kubernetes 1.25 release, the iptables chains created by Kubernetes will only support for internal Kubernetes use cases. Starting with v1.25, the Kubelet will gradually move towards not creating the following iptables chains in the `nat` table:
+
+  - `KUBE-MARK-DROP`
+  - `KUBE-MARK-MASQ`
+  - `KUBE-POSTROUTING`
+
+This change will be phased in via the `IPTablesCleanup` feature gate.
+
+### [Deprecate GlusterFS in-tree Driver](https://github.com/kubernetes/enhancements/issues/3446)
+
+GlusterFS was one of the earliest dynamic provisioners for Kubernetes. When CSI drivers behan to appear, there was one released for GlusterFS. However, it has not been maintained and the last release was several years ago. The possibility of migration to a compatible CSI driver [was discussed](https://github.com/kubernetes/kubernetes/issues/100897), but a decision was ultimately made to begin the deprecation of the GlusterFS plugin from in-tree drivers.
     
 ## Looking ahead
 
