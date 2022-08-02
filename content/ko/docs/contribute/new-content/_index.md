@@ -43,10 +43,10 @@ class S,T spacewhite
 class first,second white
 {{</ mermaid >}}
 
-***Figure - Contributing new content preparation***
+***그림 - 새로운 콘텐츠 기여를 위한 준비***
 
-The figure above depicts the information you should know
-prior to submitting new content. The information details follow.
+위 그림은 새로운 콘텐츠를 제출하기 전에 알아야 할 정보를 설명한다.
+해당 정보에 대한 자세한 내용은 다음과 같다.
 
 
 
