@@ -50,7 +50,7 @@ Kubernetesスケジューラーには、ノードに接続できるボリュー�
 
 * M5、C5、R5、T3、およびZ1DインスタンスタイプのAmazon EBSディスクの場合、Kubernetesは25ボリュームのみをノードにアタッチできます。<a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>の他のインスタンスタイプの場合、Kubernetesでは39個のボリュームをノードに接続できます。
 
-* Azureでは、ノードの種類に応じて、最大64個のディスクをノードに接続できます。詳細については、[Azure の仮想マシンのサイズ](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes)を参照してください。
+* Azureでは、ノードの種類に応じて、最大64個のディスクをノードに接続できます。詳細については、[Azureの仮想マシンのサイズ](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes)を参照してください。
 
 * CSIストレージドライバが(`NodeGetInfo`を使用して)ノードの最大ボリューム数をアドバタイズする場合、{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}はその制限を尊重します。詳細については、[CSIの仕様](https://github.com/ontainer-storage-interface/spec/blob/master/spec.md#nodegetinfo)を参照してください。
 
