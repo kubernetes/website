@@ -349,6 +349,11 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 - annotation，注解
 - anti-affinity，反亲和性
 - attach，挂接
+- authenticate，身份验证
+- authorize，授权或鉴权
+  - 将权限授予某主体时，译为“授权”
+  - 根据某些参数/条件来确定具有哪些权限时，译为“鉴权”
+- authorizer，鉴权器
 - autoscale，自动扩缩容
 - bearer token，持有者令牌
 - capabilities
