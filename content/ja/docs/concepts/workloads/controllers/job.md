@@ -595,7 +595,7 @@ Replication Controllerは、終了することが想定されていないPod(Web
 * [Pods](/ja/docs/concepts/workloads/pods/)について学ぶ。
 * Jobのさまざまな実行方法について学ぶ:
    * [ワークキューを用いた粒度の粗い並列処理](/docs/tasks/job/coarse-parallel-processing-work-queue/)
-   * [ワークキューを用いた粒度の粗い並列処理](/docs/tasks/job/fine-parallel-processing-work-queue/)
+   * [ワークキューを用いた粒度の細かい並列処理](/docs/tasks/job/fine-parallel-processing-work-queue/)
    * [静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/ja/docs/tasks/job/indexed-parallel-processing-static/) を使う(beta段階)
    * テンプレートを元に複数のJobを作成: [拡張機能を用いた並列処理](/docs/tasks/job/parallel-processing-expansion/)
 * [終了したJobの自動クリーンアップ](#clean-up-finished-jobs-automatically)のリンクから、クラスターが完了または失敗したJobをどのようにクリーンアップするかをご確認ください。
