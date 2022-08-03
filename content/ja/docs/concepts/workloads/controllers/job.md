@@ -575,7 +575,7 @@ Podが動作しているノードが再起動または故障した場合、Pod�
 
 ### Replication Controller  {#replication-controller}
 
-Jobsは[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/)を補完するものです。
+Jobは[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/)を補完するものです。
 Replication Controllerは、終了することが想定されていないPod(Webサーバーなど)を管理し、Jobは終了することが想定されているPod(バッチタスクなど)を管理します。
 
 [Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)で説明したように、`Job`は`RestartPolicy`が`OnFailure`か`Never`と設定されているPodに*のみ*適用されます。(注意:`RestartPolicy`が設定されていない場合、デフォルト値は`Always`になります)
