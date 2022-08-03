@@ -4,6 +4,7 @@
     fields:
     - containers
     - initContainers
+    - ephemeralContainers
     - imagePullSecrets
     - enableServiceLinks
     - os
@@ -20,7 +21,9 @@
     - runtimeClassName
     - priorityClassName
     - priority
+    - preemptionPolicy
     - topologySpreadConstraints
+    - overhead
   - name: Lifecycle
     fields:
     - restartPolicy
@@ -48,11 +51,6 @@
   - name: Security context
     fields:
     - securityContext
-  - name: Beta level
-    fields:
-    - ephemeralContainers
-    - preemptionPolicy
-    - overhead
   - name: Deprecated
     fields:
     - serviceAccount
@@ -396,7 +394,7 @@
     - completedIndexes
     - conditions
     - uncountedTerminatedPods
-  - name: Alpha level
+  - name: Beta level
     fields:
     - ready
 
@@ -525,6 +523,7 @@
     - cephfs
     - cinder
     - csi
+    - ephemeral
     - fc
     - flexVolume
     - flocker
@@ -539,9 +538,6 @@
     - scaleIO
     - storageos
     - vsphereVolume
-  - name: Alpha level
-    fields:
-    - ephemeral
   - name: Deprecated
     fields:
     - gitRepo
@@ -591,7 +587,7 @@
     - volumeName
     - storageClassName
     - volumeMode
-  - name: Alpha level
+  - name: Beta level
     fields:
     - dataSource
     - dataSourceRef
@@ -714,6 +710,3 @@
     - resourceVersion
     - selfLink
     - uid
-  - name: Ignored
-    fields:
-    - clusterName

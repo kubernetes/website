@@ -179,9 +179,6 @@ parts:
   - name: PodDisruptionBudget
     group: policy
     version: v1
-  - name: PodSecurityPolicy
-    group: policy
-    version: v1beta1
 - name: Extend Resources
   chapters:
   - name: CustomResourceDefinition
