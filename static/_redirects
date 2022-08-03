@@ -545,3 +545,5 @@
 /id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301
 
 /pt/*         /pt-br/:splat  302!
+
+/zh-cn/docs/tutorials/clusters/apparmor   /zh-cn/docs/tutorials/security/apparmor/
