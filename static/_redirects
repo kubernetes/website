@@ -583,3 +583,5 @@
 
 /pt/*         /pt-br/:splat  302!
 /zh/*         /zh-cn/:splat  302!
+
+/zh-cn/docs/tutorials/clusters/apparmor   /zh-cn/docs/tutorials/security/apparmor/
