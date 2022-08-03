@@ -6,6 +6,7 @@ title: Implementation details
 content_type: concept
 weight: 100
 ---
+
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.10" state="stable" >}}
@@ -110,9 +111,9 @@ The user can skip specific preflight checks or all of them with the `--ignore-pr
 - [Error] if `/proc/sys/net/bridge/bridge-nf-call-iptables` file does not exist/does not contain 1
 - [Error] if advertise address is ipv6 and `/proc/sys/net/bridge/bridge-nf-call-ip6tables` does not exist/does not contain 1.
 - [Error] if swap is on
-- [Error] if `conntrack`, `ip`, `iptables`,  `mount`, `nsenter` commands are not present in the command path
+- [Error] if `conntrack`, `ip`, `iptables`, `mount`, `nsenter` commands are not present in the command path
 - [warning] if `ebtables`, `ethtool`, `socat`, `tc`, `touch`, `crictl` commands are not present in the command path
-- [warning] if extra arg flags for API server, controller manager,  scheduler contains some invalid options
+- [warning] if extra arg flags for API server, controller manager, scheduler contains some invalid options
 - [warning] if connection to https://API.AdvertiseAddress:API.BindPort goes through proxy
 - [warning] if connection to services subnet goes through proxy (only first address checked)
 - [warning] if connection to Pods subnet goes through proxy (only first address checked)
@@ -277,7 +278,7 @@ Other API server flags that are set unconditionally are:
 
 - `--insecure-port=0` to avoid insecure connections to the api server
 - `--enable-bootstrap-token-auth=true` to enable the `BootstrapTokenAuthenticator` authentication module.
-  See [TLS Bootstrapping](/docs/reference/access-authn-authn/kubelet-tls-bootstrapping/) for more details
+  See [TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) for more details
 - `--allow-privileged` to `true` (required e.g. by kube proxy)
 - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
 - `--enable-admission-plugins` to:
