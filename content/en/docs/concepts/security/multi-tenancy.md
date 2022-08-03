@@ -185,7 +185,7 @@ Typically, all pods on a node share a network interface. Without network QoS, so
 
 For storage QoS, you will likely want to create different storage classes or profiles with different performance characteristics. Each storage profile can be associated with a different tier of service that is optimized for different workloads such IO, redundancy, or throughput. Additional logic might be necessary to allow the tenant to associate the appropriate storage profile with their workload.
 
-Finally, there’s [pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/) where you can assign priority values to pods. When scheduling pods, the scheduler will try evicting pods with lower priority when there are insufficient resources to schedule pods that are assigned a higher priority. If you have a use case where tenants have different service tiers in in a shared cluster e.g. free and paid, you may want to give higher priority to certain tiers using this feature.
+Finally, there’s [pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/) where you can assign priority values to pods. When scheduling pods, the scheduler will try evicting pods with lower priority when there are insufficient resources to schedule pods that are assigned a higher priority. If you have a use case where tenants have different service tiers in a shared cluster e.g. free and paid, you may want to give higher priority to certain tiers using this feature.
 
 ### DNS
 
