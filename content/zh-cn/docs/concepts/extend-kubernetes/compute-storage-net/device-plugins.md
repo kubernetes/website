@@ -513,10 +513,9 @@ gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接�
 从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20 开始为 v1。
 
 <!--
-## Device Plugin integration with the Topology Manager
+## Device plugin integration with the Topology Manager
 
-{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
-
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
 -->
@@ -566,10 +565,11 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 Here are some examples of device plugin implementations:
 
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
-* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for Intel GPU, FPGA and QuickAssist devices
+* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
 * The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for hardware-assisted virtualization
 * The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
+* The [SocketCAN device plugin](https://github.com/collabora/k8s-socketcan)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
 * The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin) for Xilinx FPGA devices
@@ -579,7 +579,7 @@ Here are some examples of device plugin implementations:
 下面是一些设备插件实现的示例：
 
 * [AMD GPU 设备插件](https://github.com/RadeonOpenCompute/k8s-device-plugin)
-* [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes) 支持 Intel GPU、FPGA 和 QuickAssist 设备
+* [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes)支持 Intel GPU、FPGA、QAT、VPU、SGX、DSA、DLB 和 IAA 设备
 * [KubeVirt 设备插件](https://github.com/kubevirt/kubernetes-device-plugins) 用于硬件辅助的虚拟化
 * [为 Container-Optimized OS 所提供的 NVIDIA GPU 设备插件](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * [RDMA 设备插件](https://github.com/hustcat/k8s-rdma-device-plugin)
