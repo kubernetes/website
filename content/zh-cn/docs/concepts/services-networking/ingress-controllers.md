@@ -30,7 +30,7 @@ Ingress 控制器不是随集群自动启动的。
 
 Kubernetes 作为一个项目，目前支持和维护
 [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme)、
-[GCE](https://git.k8s.io/ingress-gce/README.md)
+[GCE](https://git.k8s.io/ingress-gce/README.md#readme)
 和 [Nginx](https://git.k8s.io/ingress-nginx/README.md#readme) Ingress 控制器。
 
 <!-- body -->
@@ -43,14 +43,14 @@ Kubernetes 作为一个项目，目前支持和维护
 {{% thirdparty-content %}}
 
 <!--
-* [AKS Application Gateway Ingress Controller](https://docs.microsoft.com/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json) is an ingress controller that configures the [Azure Application Gateway](https://docs.microsoft.com/azure/application-gateway/overview).
+* [AKS Application Gateway Ingress Controller](https://docs.microsoft.com/azure/application-gateway/tutorial-ingress-controller-add-on-existing) is an ingress controller that configures the [Azure Application Gateway](https://docs.microsoft.com/azure/application-gateway/overview).
 * [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io)-based ingress
   controller.
 * [Apache APISIX ingress controller](https://github.com/apache/apisix-ingress-controller) is an [Apache APISIX](https://github.com/apache/apisix)-based ingress controller.
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes) provides L4-L7 load-balancing using [VMware NSX Advanced Load Balancer](https://avinetworks.com/).
 -->
-* [AKS 应用程序网关 Ingress 控制器](https://docs.microsoft.com/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)
-  是一个配置 [Azure 应用程序网关](https://docs.microsoft.com/azure/application-gateway/overview)
+* [AKS 应用程序网关 Ingress 控制器](https://docs.microsoft.com/zh-cn/azure/application-gateway/tutorial-ingress-controller-add-on-existing)
+  是一个配置 [Azure 应用程序网关](https://docs.microsoft.com/zh-cn/azure/application-gateway/overview)
   的 Ingress 控制器。
 * [Ambassador](https://www.getambassador.io/) API 网关是一个基于
   [Envoy](https://www.envoyproxy.io) 的 Ingress 控制器。
@@ -98,8 +98,8 @@ Kubernetes 作为一个项目，目前支持和维护
   [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
 * [用于 Kubernetes 的 HAProxy Ingress 控制器](https://github.com/haproxytech/kubernetes-ingress#readme)
   也是一个针对 [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
-* [Istio Ingress](https://istio.io/latest/docs/tasks/traffic-management/ingress/kubernetes-ingress/)
-  是一个基于 [Istio](https://istio.io/) 的 Ingress 控制器。
+* [Istio Ingress](https://istio.io/latest/zh/docs/tasks/traffic-management/ingress/kubernetes-ingress/)
+  是一个基于 [Istio](https://istio.io/zh/) 的 Ingress 控制器。
 <!--
 * The [Kong Ingress Controller for Kubernetes](https://github.com/Kong/kubernetes-ingress-controller#readme)
   is an ingress controller driving [Kong Gateway](https://konghq.com/kong/).
@@ -111,11 +111,12 @@ Kubernetes 作为一个项目，目前支持和维护
 -->
 * [用于 Kubernetes 的 Kong Ingress 控制器](https://github.com/Kong/kubernetes-ingress-controller#readme)
   是一个用来驱动 [Kong Gateway](https://konghq.com/kong/) 的 Ingress 控制器。
-* [Kusk Gateway](https://kusk.kubeshop.io/) 是基于 [Envoy](https://www.envoyproxy.io) OpenAPI 驱动的入口控制器。
+* [Kusk Gateway](https://kusk.kubeshop.io/) 是一个基于 [Envoy](https://www.envoyproxy.io) 的、
+  OpenAPI 驱动的 Ingress 控制器。
 * [用于 Kubernetes 的 NGINX Ingress 控制器](https://www.nginx.com/products/nginx-ingress-controller/)
   能够与 [NGINX](https://www.nginx.com/resources/glossary/nginx/)
   网页服务器（作为代理）一起使用。
-* [Pomerium Ingress 控制器](https://www.pomerium.com/docs/k8s/ingress.html) 
+* [Pomerium Ingress 控制器](https://www.pomerium.com/docs/k8s/ingress.html)
   基于 [Pomerium](https://pomerium.com/)，能提供上下文感知的准入策略。
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) HTTP
   路由器和反向代理可用于服务组装，支持包括 Kubernetes Ingress
@@ -149,7 +150,7 @@ within a cluster. Note the `.metadata.name` of your ingress class resource. When
 Ingress 控制器。
 请注意你的 Ingress 类资源的 `.metadata.name` 字段。
 当你创建 Ingress 时，你需要用此字段的值来设置 Ingress 对象的 `ingressClassName` 字段（请参考
-[IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)）。
+[IngressSpec v1 reference](/zh-cn/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)）。
 `ingressClassName`
 是之前的[注解](/zh-cn/docs/concepts/services-networking/ingress/#deprecated-annotation)做法的替代。
 
