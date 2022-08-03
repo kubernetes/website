@@ -222,7 +222,7 @@ JobStatus represents the current state of a Job.
 
 
 
-### Alpha level
+### Beta level
 
 
 - **ready** (int32)

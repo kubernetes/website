@@ -329,7 +329,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **csi.controllerExpandSecretRef** (SecretReference)
 
-    controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+    controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
@@ -360,6 +360,21 @@ PersistentVolumeSpec is the specification of a persistent volume.
   - **csi.fsType** (string)
 
     fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+
+  - **csi.nodeExpandSecretRef** (SecretReference)
+
+    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+
+    <a name="SecretReference"></a>
+    *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
+
+    - **csi.nodeExpandSecretRef.name** (string)
+
+      name is unique within a namespace to reference a secret resource.
+
+    - **csi.nodeExpandSecretRef.namespace** (string)
+
+      namespace defines the space within which the secret name must be unique.
 
   - **csi.nodePublishSecretRef** (SecretReference)
 

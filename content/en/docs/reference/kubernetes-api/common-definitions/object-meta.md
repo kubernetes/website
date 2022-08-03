@@ -188,14 +188,5 @@ ObjectMeta is metadata that all persisted resources must have, which includes al
   
   Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
 
-### Ignored {#Ignored}
-
-
-- **clusterName** (string)
-
-  Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-  
-  The name in the go struct is changed to help clients detect accidental use.
-
 
 
