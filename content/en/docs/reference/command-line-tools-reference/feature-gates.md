@@ -80,9 +80,6 @@ different Kubernetes components.
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.19 |
 | `CSIMigrationAzureFile` | `false` | Beta | 1.21 | 1.23 |
 | `CSIMigrationAzureFile` | `true` | Beta | 1.24 | |
-| `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
-| `CSIMigrationGCE` | `false` | Beta | 1.17 | 1.22 |
-| `CSIMigrationGCE` | `true` | Beta | 1.23 | |
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
 | `CSIMigrationPortworx` | `false` | Alpha | 1.23 | |
 | `csiMigrationRBD` | `false` | Alpha | 1.23 | |
@@ -255,6 +252,10 @@ different Kubernetes components.
 | `CSIMigrationAzureDiskComplete` | - | Deprecated | 1.21 | - |
 | `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationAzureFileComplete` | - | Deprecated |  1.21 | - |
+| `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
+| `CSIMigrationGCE` | `false` | Beta | 1.17 | 1.22 |
+| `CSIMigrationGCE` | `true` | Beta | 1.23 | 1.24 |
+| `CSIMigrationGCE` | `true` | GA | 1.25 | - |
 | `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationGCEComplete` | - | Deprecated | 1.21 | - |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
