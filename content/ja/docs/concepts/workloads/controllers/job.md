@@ -552,7 +552,7 @@ spec:
 この機能を使うためには、[APIサーバー](/ja/docs/reference/command-line-tools-reference/kube-apiserver/)と[コントローラーマネージャー](/docs/reference/command-line-tools-reference/kube-controller-manager/)で`JobTrackingWithFinalizers`
 [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
 
-有効にした場合、コントロールプレーンは下記に示す機能で新しいJobを追跡します。この機能が有効になる前に作成されたJobは影響を受けません。ユーザーとして、唯一に実感できる違いは、コントロールプレーンのJob完了ステータス追跡はより正確になったということです。
+有効にした場合、コントロールプレーンは下記に示す機能で新しいJobを追跡します。この機能が有効になる前に作成されたJobは影響を受けません。ユーザーとして実感できる唯一の違いは、コントロールプレーンのJob完了ステータス追跡がより正確になるということだけです。
 {{< /note >}}
 
 この機能が有効でない場合、Job {{< glossary_tooltip term_id="controller" >}}はクラスター内に存在するPodを数えてJobステータスを追跡します。つまり`succeeded`Podと`failed`Podのカウンタを保持します。
