@@ -1,11 +1,12 @@
 ---
-title: 컨테이너 리소스 관리
+title: 파드 및 컨테이너 리소스 관리
 content_type: concept
 weight: 40
 feature:
   title: 자동 빈 패킹(bin packing)
   description: >
-    리소스 요구 사항과 기타 제약 조건에 따라 컨테이너를 자동으로 배치하지만, 가용성은 그대로 유지한다. 활용도를 높이고 더 많은 리소스를 절약하기 위해 중요한(critical) 워크로드와 최선의(best-effort) 워크로드를 혼합한다.
+    리소스 요구 사항과 기타 제약 조건에 따라 컨테이너를 자동으로 배치하지만, 가용성은 그대로 유지한다. 
+    활용도를 높이고 더 많은 리소스를 절약하기 위해 중요한(critical) 워크로드와 최선의(best-effort) 워크로드를 혼합한다.
 ---
 
 <!-- overview -->
@@ -14,7 +15,8 @@ feature:
 {{< glossary_tooltip text="컨테이너" term_id="container" >}}에 필요한 각 리소스의 양을 선택적으로 지정할 수 있다.
 지정할 가장 일반적인 리소스는 CPU와 메모리(RAM) 그리고 다른 것들이 있다.
 
-파드에서 컨테이너에 대한 리소스 _요청(request)_ 을 지정하면, 스케줄러는 이 정보를
+파드에서 컨테이너에 대한 리소스 _요청(request)_ 을 지정하면, 
+{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}는 이 정보를
 사용하여 파드가 배치될 노드를 결정한다. 컨테이너에 대한 리소스 _제한(limit)_ 을
 지정하면, kubelet은 실행 중인 컨테이너가 설정한 제한보다 많은 리소스를
 사용할 수 없도록 해당 제한을 적용한다. 또한 kubelet은
@@ -45,10 +47,9 @@ feature:
 다른 방식으로 동일한 제약을 구현할 수 있다.
 
 {{< note >}}
-컨테이너가 자체 메모리 제한을 지정하지만, 메모리 요청을 지정하지 않는 경우, 쿠버네티스는
-제한과 일치하는 메모리 요청을 자동으로 할당한다. 마찬가지로, 컨테이너가 자체 CPU 제한을
-지정하지만, CPU 요청을 지정하지 않는 경우, 쿠버네티스는 제한과 일치하는 CPU 요청을 자동으로
-할당한다.
+리소스에 대해 제한은 지정하지만 요청은 지정하지 않고, 
+해당 리소스에 대한 요청 기본값을 지정하는 승인-시점 메커니즘(admission-time mechanism)이 없는 경우, 
+쿠버네티스는 당신이 지정한 제한을 복사하여 해당 리소스의 요청 값으로 사용한다.
 {{< /note >}}
 
 ## 리소스 타입
@@ -56,7 +57,7 @@ feature:
 *CPU* 와 *메모리* 는 각각 *리소스 타입* 이다. 리소스 타입에는 기본 단위가 있다.
 CPU는 컴퓨팅 처리를 나타내며 [쿠버네티스 CPU](#cpu의-의미) 단위로 지정된다.
 메모리는 바이트 단위로 지정된다.
-쿠버네티스 v1.14 이상을 사용하는 경우, _huge page_ 리소스를 지정할 수 있다.
+리눅스 워크로드에 대해서는, _huge page_ 리소스를 지정할 수 있다.
 Huge page는 노드 커널이 기본 페이지 크기보다 훨씬 큰 메모리
 블록을 할당하는 리눅스 관련 기능이다.
 
@@ -74,12 +75,12 @@ CPU와 메모리를 통칭하여 *컴퓨트 리소스* 또는 *리소스* 라고
 수량이다. 이것은
 [API 리소스](/ko/docs/concepts/overview/kubernetes-api/)와는 다르다. 파드 및
 [서비스](/ko/docs/concepts/services-networking/service/)와 같은 API 리소스는
-쿠버네티스 API 서버를 통해 읽고 수정할 수
-있는 오브젝트이다.
+쿠버네티스 API 서버를 통해 읽고 수정할 수 있는 오브젝트이다.
 
 ## 파드와 컨테이너의 리소스 요청 및 제한
 
-파드의 각 컨테이너는 다음 중 하나 이상을 지정할 수 있다.
+각 컨테이너에 대해, 다음과 같은 
+리소스 제한(limit) 및 요청(request)을 지정할 수 있다.
 
 * `spec.containers[].resources.limits.cpu`
 * `spec.containers[].resources.limits.memory`
@@ -88,48 +89,64 @@ CPU와 메모리를 통칭하여 *컴퓨트 리소스* 또는 *리소스* 라고
 * `spec.containers[].resources.requests.memory`
 * `spec.containers[].resources.requests.hugepages-<size>`
 
-요청과 제한은 개별 컨테이너에서만 지정할 수 있지만,
-파드 리소스 요청 및 제한에 대해 이야기하는 것이 편리하다.
-특정 리소스 타입에 대한 *파드 리소스 요청/제한* 은 파드의 각 컨테이너에 대한
+요청 및 제한은 개별 컨테이너에 대해서만 지정할 수 있지만, 
+한 파드의 총 리소스 요청 및 제한에 대해 생각해 보는 것도 
+유용할 수 있다.
+특정 리소스 종류에 대해, *파드 리소스 요청/제한* 은 파드의 각 컨테이너에 대한
 해당 타입의 리소스 요청/제한의 합이다.
 
 ## 쿠버네티스의 리소스 단위
 
-### CPU의 의미
+### CPU 리소스 단위 {#meaning-of-cpu}
 
 CPU 리소스에 대한 제한 및 요청은 *cpu* 단위로 측정된다.
-쿠버네티스의 CPU 1개는 클라우드 공급자용 **vCPU/Core 1개** 와 베어메탈 인텔 프로세서에서의 **1개 하이퍼스레드** 에 해당한다.
+쿠버네티스에서, 1 CPU 단위는 노드가 물리 호스트인지 
+아니면 물리 호스트 내에서 실행되는 가상 머신인지에 따라 
+**1 물리 CPU 코어** 또는 **1 가상 코어** 에 해당한다.
 
-분수의 요청이 허용된다.
-`0.5` 의 `spec.containers[].resources.requests.cpu` 요청을 가진
-컨테이너는 CPU 1개를 요구하는 컨테이너의 절반만큼 CPU를 보장한다. `0.1` 이라는 표현은
+요청량을 소수점 형태로 명시할 수도 있다. 컨테이너의 
+`spec.containers[].resources.requests.cpu`를 `0.5`로 설정한다는 것은, 
+`1.0` CPU를 요청했을 때와 비교하여 절반의 CPU 타임을 요청한다는 의미이다. 
+CPU 자원의 단위와 관련하여, `0.1` 이라는 [수량](/docs/reference/kubernetes-api/common-definitions/quantity/) 표현은
 "백 밀리cpu"로 읽을 수 있는 `100m` 표현과 동일하다. 어떤 사람들은
 "백 밀리코어"라고 말하는데, 같은 것을 의미하는 것으로 이해된다.
-`0.1` 과 같이 소수점이 있는 요청은 API에 의해 `100m` 으로 변환되며, 
-`1m` 보다 더 정밀한 단위는 허용되지 않는다. 이러한 이유로, 
-`100m` 과 같은 형식이 선호될 수 있다.
 
-CPU는 항상 절대 수량으로 요청되며, 상대적 수량은 아니다.
-0.1은 단일 코어, 이중 코어 또는 48코어 시스템에서 동일한 양의 CPU이다.
+CPU 리소스는 항상 리소스의 절대량으로 표시되며, 상대량으로 표시되지 않는다. 
+예를 들어, 컨테이너가 싱글 코어, 듀얼 코어, 또는 48 코어 머신 중 어디에서 실행되는지와 상관없이 
+`500m` CPU는 거의 같은 양의 컴퓨팅 파워를 가리킨다.
 
-### 메모리의 의미
+{{< note >}}
+쿠버네티스에서 CPU 리소스를 `1m`보다 더 정밀한 단위로 표기할 수 없다. 
+이 때문에, CPU 단위를 `1.0` 또는 `1000m`보다 작은 밀리CPU 형태로 표기하는 것이 유용하다. 
+예를 들어, `0.005` 보다는 `5m`으로 표기하는 것이 좋다.
+{{< /note >}}
+
+### 메모리 리소스 단위 {#meaning-of-memory}
 
 `memory` 에 대한 제한 및 요청은 바이트 단위로 측정된다.
-E, P, T, G, M, K와 같은 접미사 중 하나를 사용하여 메모리를
+E, P, T, G, M, k 와 같은 
+[수량](/docs/reference/kubernetes-api/common-definitions/quantity/) 접미사 중 하나를 사용하여 메모리를
 일반 정수 또는 고정 소수점 숫자로 표현할 수 있다. Ei, Pi, Ti, Gi, Mi, Ki와
 같은 2의 거듭제곱을 사용할 수도 있다. 예를 들어, 다음은 대략 동일한 값을 나타낸다.
 
 ```shell
-128974848, 129e6, 129M, 123Mi
+128974848, 129e6, 129M, 128974848000m, 123Mi
 ```
 
-다음은 예제이다.
-다음 파드에는 두 개의 컨테이너가 있다. 각 컨테이너에는 0.25 cpu와
-64MiB(2<sup>26</sup> 바이트)의 메모리 요청이 있다. 각 컨테이너는 0.5
-cpu와 128MiB 메모리로 제한된다. 파드에 0.5 cpu와 128 MiB
-메모리, 1 cpu와 256MiB 메모리 제한이 있다고 말할 수 있다.
+접미사의 대소문자에 유의한다. 
+`400m`의 메모리를 요청하면, 이는 0.4 바이트를 요청한 것이다. 
+이 사람은 아마도 400 메비바이트(mebibytes) (`400Mi`) 또는 400 메가바이트 (`400M`) 를 요청하고 싶었을 것이다.
+
+## 컨테이너 리소스 예제 {#example-1}
+
+다음 파드는 두 컨테이너로 구성된다. 
+각 컨테이너는 0.25 CPU와 64 MiB(2<sup>26</sup> 바이트) 메모리 요청을 갖도록 정의되어 있다. 
+또한 각 컨테이너는 0.5 CPU와 128 MiB 메모리 제한을 갖는다. 
+이 경우 파드는 0.5 CPU와 128 MiB 메모리 요청을 가지며, 
+1 CPU와 256 MiB 메모리 제한을 갖는다.
 
 ```yaml
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -162,58 +179,57 @@ spec:
 선택한다. 각 노드는 파드에 제공할 수 있는 CPU와 메모리 양과 같은 각 리소스 타입에 대해
 최대 용량을 갖는다. 스케줄러는 각 리소스 타입마다
 스케줄된 컨테이너의 리소스 요청 합계가
-노드 용량보다 작도록 한다. 참고로 노드의 실제 메모리나
+노드 용량보다 작도록 한다. 
+참고로 노드의 실제 메모리나
 CPU 리소스 사용량은 매우 적지만, 용량 확인에 실패한 경우
 스케줄러는 여전히 노드에 파드를 배치하지 않는다. 이는 리소스 사용량이
 나중에 증가할 때, 예를 들어, 일일 요청 비율이
 최대일 때 노드의 리소스 부족을 방지한다.
 
-## 리소스 제한이 있는 파드가 실행되는 방법
+## 쿠버네티스가 리소스 요청 및 제한을 적용하는 방법 {#how-pods-with-resource-limits-are-run}
 
-kubelet은 파드의 컨테이너를 시작할 때, CPU와 메모리 제한을
-컨테이너 런타임으로 전달한다.
+kubelet이 파드의 컨테이너를 시작할 때, 
+kubelet은 해당 컨테이너의 메모리/CPU 요청 및 제한을 컨테이너 런타임에 전달한다.
 
-도커를 사용하는 경우에는 다음과 같다.
+리눅스에서, 일반적으로 컨테이너 런타임은 
+적용될 커널 {{< glossary_tooltip text="cgroup" term_id="cgroup" >}}을 설정하고, 
+명시한 제한을 적용한다.
 
-- `spec.containers[].resources.requests.cpu` 는 잠재적인 분수이며,
-  1024를 곱한 값인 코어 값으로 변환된다. 이 숫자 또는 2보다
-  큰 값은 `docker run` 명령에서
-  [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#cpu-share-constraint)
-  플래그의 값으로 사용된다.
+- CPU 제한은 해당 컨테이너가 사용할 수 있는 CPU 시간에 대한 강한 상한(hard ceiling)을 정의한다.
+  각 스케줄링 간격(시간 조각)마다, 리눅스 커널은 이 제한이 초과되었는지를 확인하고, 
+  만약 초과되었다면 cgroup의 실행 재개를 허가하지 않고 기다린다.
+- CPU 요청은 일반적으로 가중치 설정(weighting)을 정의한다. 
+  현재 부하율이 높은 시스템에서 여러 개의 컨테이너(cgroup)가 실행되어야 하는 경우, 
+  큰 CPU 요청값을 갖는 워크로드가 작은 CPU 요청값을 갖는 워크로드보다 더 많은 CPU 시간을 할당받는다.
+- 메모리 요청은 주로 (쿠버네티스) 파드 스케줄링 과정에서 사용된다. 
+  cgroup v2를 사용하는 노드에서, 컨테이너 런타임은 메모리 요청을 힌트로 사용하여 
+  `memory.min` 및 `memory.low`을 설정할 수 있다.
+- 메모리 제한은 해당 cgroup에 대한 메모리 사용량 상한을 정의한다. 
+  컨테이너가 제한보다 더 많은 메모리를 할당받으려고 시도하면, 
+  리눅스 커널의 메모리 부족(out-of-memory) 서브시스템이 활성화되고 
+  (일반적으로) 개입하여 메모리를 할당받으려고 했던 컨테이너의 프로세스 중 하나를 종료한다. 
+  해당 프로세스의 PID가 1이고, 컨테이너가 재시작 가능(restartable)으로 표시되어 있으면, 쿠버네티스가 해당 컨테이너를 재시작한다.
+- 파드 또는 컨테이너의 메모리 제한은 메모리 기반 볼륨(예: `emptyDir`)의 페이지에도 적용될 수 있다. 
+  kubelet은 `tmpfs` emptyDir 볼륨을 로컬 임시(ephemeral) 스토리지가 아닌 
+  컨테이너 메모리 사용으로 간주하여 추적한다.
 
-- 이 `spec.containers[].resources.limits.cpu` 값은 밀리코어 값으로 변환되고
-  100을 곱한 값이다. 그 결과 값은 컨테이너가 100ms마다 사용할 수 있는 총 CPU
-  시간이다. 이 간격 동안 컨테이너는 CPU 시간을 초과하여 사용할 수 없다.
+한 컨테이너가 메모리 요청을 초과하고 
+해당 노드의 메모리가 부족하지면, 
+해당 컨테이너가 속한 파드가 {{< glossary_tooltip text="축출" term_id="eviction" >}}될 수 있다.
 
-  {{< note >}}
-  기본 쿼터 기간은 100ms이다. 최소 CPU 쿼터는 1ms이다.
-  {{</ note >}}
+컨테이너가 비교적 긴 시간 동안 CPU 제한을 초과하는 것이 허용될 수도, 허용되지 않을 수도 있다.
+그러나, 컨테이너 런타임은 과도한 CPU 사용률을 이유로 파드 또는 컨테이너를 종료시키지는 않는다.
 
-- `spec.containers[].resources.limits.memory` 는 정수로 변환되어,
-  `docker run` 명령에서
-  [`--memory`](https://docs.docker.com/engine/reference/run/#/user-memory-constraints)
-  플래그의 값으로 사용된다.
-
-컨테이너가 메모리 제한을 초과하면, 컨테이너는 종료될 수 있다. 다시
-시작할 수 있으면, 다른 타입의 런타임 오류와 마찬가지로, kubelet이 다시
-시작한다.
-
-컨테이너가 메모리 요청을 초과하면, 노드에 메모리가
-부족할 때마다 파드가 축출될 수 있다.
-
-컨테이너가 오랫동안 CPU 제한을 초과하는 것은 허용되거나 허용되지
-않을 수 있다. 그러나, 과도한 CPU 사용으로 인해 종료되지는 않는다.
-
-리소스 제한으로 인해 컨테이너를 스케줄할 수 없는지 또는
-종료 중인지 확인하려면,
+리소스 제한으로 인해 컨테이너를 스케줄할 수 없는지 또는 종료 중인지 확인하려면,
 [문제 해결](#문제-해결) 섹션을 참조한다.
 
 ### 컴퓨트 및 메모리 리소스 사용량 모니터링
 
-파드의 리소스 사용량은 파드 상태의 일부로 보고된다.
+kubelet은 파드의 리소스 사용량을 파드 
+[`status`](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#오브젝트-명세-spec-와-상태-status)에 포함하여 보고한다.
 
-클러스터에서 선택적인 모니터링 도구를
-사용할 수 있다면, [메트릭 API](/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#메트릭-api)에서
+클러스터에서 선택적인 [모니터링 도구](/ko/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)를
+사용할 수 있다면, [메트릭 API](/ko/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)에서
 직접 또는 모니터링 도구에서 파드 리소스
 사용량을 검색할 수 있다.
 
@@ -308,21 +324,26 @@ kubelet은 로컬 임시 스토리지가 아닌 컨테이너 메모리 사용으
 
 ### 로컬 임시 스토리지에 대한 요청 및 제한 설정
 
-_임시-스토리지_ 를 사용하여 로컬 임시 저장소를 관리할 수 있다. 파드의 각 컨테이너는 다음 중 하나 이상을 지정할 수 있다.
+`ephemeral-storage`를 명시하여 로컬 임시 저장소를 관리할 수 있다. 
+파드의 각 컨테이너는 다음 중 하나 또는 모두를 명시할 수 있다.
 
 * `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.requests.ephemeral-storage`
 
-`ephemeral-storage` 에 대한 제한 및 요청은 바이트 단위로 측정된다. E, P, T, G, M, K와
-같은 접미사 중 하나를 사용하여 스토리지를 일반 정수 또는 고정 소수점 숫자로 표현할 수 있다.
+`ephemeral-storage` 에 대한 제한 및 요청은 바이트 단위로 측정된다. 
+E, P, T, G, M, K와 같은 접미사 중 하나를 사용하여 스토리지를 일반 정수 또는 고정 소수점 숫자로 표현할 수 있다.
 Ei, Pi, Ti, Gi, Mi, Ki와 같은 2의 거듭제곱을 사용할 수도 있다.
-예를 들어, 다음은 대략 동일한 값을 나타낸다.
+예를 들어, 다음은 거의 동일한 값을 나타낸다.
 
-```shell
-128974848, 129e6, 129M, 123Mi
-```
+- `128974848`
+- `129e6`
+- `129M`
+- `123Mi`
 
-다음 예에서, 파드에 두 개의 컨테이너가 있다. 각 컨테이너에는 2GiB의 로컬 임시 스토리지 요청이 있다. 각 컨테이너에는 4GiB의 로컬 임시 스토리지 제한이 있다. 따라서, 파드는 4GiB의 로컬 임시 스토리지 요청과 8GiB 로컬 임시 스토리지 제한을 가진다.
+다음 예에서, 파드에 두 개의 컨테이너가 있다. 
+각 컨테이너에는 2GiB의 로컬 임시 스토리지 요청이 있다. 
+각 컨테이너에는 4GiB의 로컬 임시 스토리지 제한이 있다. 
+따라서, 파드는 4GiB의 로컬 임시 스토리지 요청과 8GiB 로컬 임시 스토리지 제한을 가진다.
 
 ```yaml
 apiVersion: v1
@@ -338,6 +359,9 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+    - name: ephemeral
+      mountPath: "/tmp"
   - name: log-aggregator
     image: images.my-company.example/log-aggregator:v6
     resources:
@@ -345,12 +369,20 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+    - name: ephemeral
+      mountPath: "/tmp"
+  volumes:
+    - name: ephemeral
+      emptyDir: {}
 ```
 
-### 임시-스토리지 요청이 있는 파드의 스케줄링 방법
+### `ephemeral-storage` 요청이 있는 파드의 스케줄링 방법
 
-파드를 생성할 때, 쿠버네티스 스케줄러는 파드를 실행할 노드를
-선택한다. 각 노드에는 파드에 제공할 수 있는 최대 임시 스토리지 공간이 있다. 자세한 정보는, [노드 할당 가능](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)을 참조한다.
+파드를 생성할 때, 쿠버네티스 스케줄러는 파드를 실행할 노드를 선택한다. 
+각 노드에는 파드에 제공할 수 있는 최대 임시 스토리지 공간이 있다. 
+자세한 정보는, 
+[노드 할당 가능](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)을 참조한다.
 
 스케줄러는 스케줄된 컨테이너의 리소스 요청 합계가 노드 용량보다 작도록 한다.
 
@@ -483,15 +515,19 @@ kubelet은 각 `emptyDir` 볼륨, 컨테이너 로그 디렉터리 및 쓰기 �
 [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)을 참조한다.
 
 ##### 기타 리소스
+
 새로운 노드-레벨의 확장된 리소스를 알리기 위해, 클러스터 운영자는
 API 서버에 `PATCH` HTTP 요청을 제출하여 클러스터의
 노드에 대해 `status.capacity` 에서 사용할 수 있는 수량을 지정할 수 있다. 이 작업
 후에는, 노드의 `status.capacity` 에 새로운 리소스가 포함된다. 이
 `status.allocatable` 필드는 kubelet에 의해 비동기적으로 새로운
-리소스로 자동 업데이트된다. 참고로 스케줄러가 파드 적합성을 평가할 때 노드
-`status.allocatable` 값을 사용하므로, 노드 용량을
-새 리소스로 패치하는 것과 해당 노드에서 리소스를 스케줄하도록 요청하는 첫 번째 파드
-사이에 약간의 지연이 있을 수 있다.
+리소스로 자동 업데이트된다. 
+
+스케줄러가 파드 적합성을 평가할 때 노드의 `status.allocatable` 값을 사용하므로, 
+스케줄러는 해당 비동기 업데이트 이후의 새로운 값만을 고려한다. 
+따라서 노드 용량을 새 리소스로 패치하는 시점과 
+해당 자원을 요청하는 첫 파드가 해당 노드에 스케줄될 수 있는 시점 사이에 
+약간의 지연이 있을 수 있다.
 
 **예제:**
 
@@ -518,7 +554,7 @@ JSON-Pointer로 해석된다. 더 자세한 내용은,
 클러스터-레벨의 확장된 리소스는 노드에 연결되지 않는다. 이들은 일반적으로
 리소스 소비와 리소스 쿼터를 처리하는 스케줄러 익스텐더(extender)에 의해 관리된다.
 
-[스케줄러 정책 구성](/docs/reference/config-api/kube-scheduler-policy-config.v1/)에서
+[스케줄러 구성](/docs/reference/config-api/kube-scheduler-config.v1beta3/)에서
 스케줄러 익스텐더가 처리하는 확장된 리소스를 지정할 수 있다.
 
 **예제:**
@@ -601,26 +637,31 @@ spec:
 
 ## PID 제한
 
-프로세스 ID(PID) 제한은 kubelet의 구성에 대해 주어진 파드가 사용할 수 있는 PID 수를 제한할 수 있도록 허용한다. 자세한 내용은 [Pid 제한](/docs/concepts/policy/pid-limiting/)을 참고한다.
+프로세스 ID(PID) 제한은 kubelet의 구성에 대해 
+주어진 파드가 사용할 수 있는 PID 수를 제한할 수 있도록 허용한다. 
+자세한 내용은 [PID 제한](/docs/concepts/policy/pid-limiting/)을 참고한다.
 
 ## 문제 해결
 
-### 내 파드가 failedScheduling 이벤트 메시지로 보류 중이다
+### 내 파드가 `FailedScheduling` 이벤트 메시지로 보류 중이다
 
-파드가 배치될 수 있는 노드를 스케줄러가 찾을 수 없으면, 노드를
-찾을 수 있을 때까지 파드는 스케줄되지 않은 상태로 유지한다. 스케줄러가 다음과 같이
-파드의 위치를 ​​찾지 못하면 이벤트가 생성된다.
+파드가 배치될 수 있는 노드를 스케줄러가 찾을 수 없으면, 
+노드를 찾을 수 있을 때까지 파드는 스케줄되지 않은 상태로 유지한다. 
+파드가 할당될 곳을 스케줄러가 찾지 못하면 
+[Event](/docs/reference/kubernetes-api/cluster-resources/event-v1/)가 생성된다. 
+다음과 같이 `kubectl`을 사용하여 파드의 이벤트를 볼 수 있다.
 
 ```shell
-kubectl describe pod frontend | grep -A 3 Events
+kubectl describe pod frontend | grep -A 9999999999 Events
 ```
 ```
 Events:
-  FirstSeen LastSeen   Count  From          Subobject   PathReason      Message
-  36s   5s     6      {scheduler }              FailedScheduling  Failed for reason PodExceedsFreeCPU and possibly others
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  23s   default-scheduler  0/42 nodes available: insufficient cpu
 ```
 
-위의 예에서, 노드의 CPU 리소스가 충분하지 않아 이름이
+위의 예에서, 모든 노드의 CPU 리소스가 충분하지 않아 이름이
 "frontend"인 파드를 스케줄하지 못했다. 비슷한 메시지로
 메모리 부족(PodExceedsFreeMemory)으로 인한 장애도 알릴 수 있다. 일반적으로, 파드가
 이 타입의 메시지로 보류 중인 경우, 몇 가지 시도해 볼 것들이 있다.
@@ -630,6 +671,9 @@ Events:
 - 파드가 모든 노드보다 크지 않은지 확인한다. 예를 들어, 모든
   노드의 용량이 `cpu: 1` 인 경우, `cpu: 1.1` 요청이 있는 파드는
   절대 스케줄되지 않는다.
+- 노드 테인트를 확인한다. 
+  대부분의 노드에 테인트가 걸려 있고, 신규 파드가 해당 테인트에 배척된다면, 
+  스케줄러는 해당 테인트가 걸려 있지 않은 나머지 노드에만 배치를 고려할 것이다.
 
 `kubectl describe nodes` 명령으로 노드 용량과 할당된 양을
 확인할 수 있다. 예를 들면, 다음과 같다.
@@ -664,21 +708,34 @@ Allocated resources:
   680m (34%)      400m (20%)    920Mi (11%)        1070Mi (13%)
 ```
 
-위의 출력에서, ​파드가 1120m 이상의 CPU 또는 6.23Gi의 메모리를
-요청하는 것은 노드에 맞지 않음을 알 수 있다.
+위의 출력에서, 1.120 이상의 CPU 또는 6.23 Gi 이상의 메모리를 요청하는 파드는 
+노드에 할당될 수 없음을 확인할 수 있다.
 
-`Pods` 섹션을 살펴보면, 파드가 노드에서 공간을 차지하는 것을
+"Pods" 섹션을 살펴보면, 어떤 파드가 노드에서 공간을 차지하고 있는지를
 볼 수 있다.
 
-시스템 데몬이 사용 가능한 리소스의 일부를 사용하기 때문에, 파드에
-사용 가능한 리소스의 양이 노드 용량보다 적다. `allocatable` 필드
-[NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)는
-파드가 사용할 수 있는 리소스의 양을 제공한다. 자세한 정보는
-[노드 할당 가능 리소스](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md)를 참조한다.
+사용 가능한 리소스의 일부를 시스템 데몬이 사용하기 때문에, 
+파드에 사용 가능한 리소스의 양은 노드 총 용량보다 적다. 
+쿠버네티스 API에서, 각 노드는 `.status.allocatable` 필드(상세 사항은 
+[NodeStatus](/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeStatus) 참조)를 
+갖는다.
 
-[리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/) 기능은
-소비될 수 있는 리소스의 총량을 제한하도록 구성할 수 있다. 네임스페이스와
-함께 사용하면, 한 팀이 모든 리소스를 사용하는 경우를 방지할 수 있다.
+`.status.allocatable` 필드는 해당 노드에서 파드가 사용할 수 있는 
+리소스의 양을 표시한다(예: 15 vCPUs 및 7538 MiB 메모리).
+쿠버네티스의 노드 할당 가능 리소스에 대한 상세 사항은 
+[시스템 데몬을 위한 컴퓨트 자원 예약하기](/docs/tasks/administer-cluster/reserve-compute-resources/)를 참고한다.
+
+[리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/)를 설정하여, 
+한 네임스페이스가 사용할 수 있는 리소스 총량을 제한할 수 있다. 
+특정 네임스페이스 내에 ResourceQuota가 설정되어 있으면 
+쿠버네티스는 오브젝트에 대해 해당 쿼터를 적용한다. 
+예를 들어, 각 팀에 네임스페이스를 할당한다면, 각 네임스페이스에 ResourceQuota를 설정할 수 있다. 
+리소스 쿼터를 설정함으로써 한 팀이 지나치게 많은 리소스를 사용하여 
+다른 팀에 영향을 주는 것을 막을 수 있다.
+
+해당 네임스페이스에 어떤 접근을 허용할지도 고려해야 한다. 
+네임스페이스에 대한 **완전한** 쓰기 권한을 가진 사람은 
+어떠한 리소스(네임스페이스에 설정된 ResourceQuota 포함)라도 삭제할 수 있다.
 
 ### 내 컨테이너가 종료되었다
 
@@ -689,6 +746,8 @@ Allocated resources:
 ```shell
 kubectl describe pod simmemleak-hra99
 ```
+
+출력은 다음과 같다.
 ```
 Name:                           simmemleak-hra99
 Namespace:                      default
@@ -699,56 +758,47 @@ Status:                         Running
 Reason:
 Message:
 IP:                             10.244.2.75
-Replication Controllers:        simmemleak (1/1 replicas created)
 Containers:
   simmemleak:
-    Image:  saadali/simmemleak
+    Image:  saadali/simmemleak:latest
     Limits:
-      cpu:                      100m
-      memory:                   50Mi
-    State:                      Running
-      Started:                  Tue, 07 Jul 2015 12:54:41 -0700
-    Last Termination State:     Terminated
-      Exit Code:                1
-      Started:                  Fri, 07 Jul 2015 12:54:30 -0700
-      Finished:                 Fri, 07 Jul 2015 12:54:33 -0700
-    Ready:                      False
-    Restart Count:              5
+      cpu:          100m
+      memory:       50Mi
+    State:          Running
+      Started:      Tue, 07 Jul 2019 12:54:41 -0700
+    Last State:     Terminated
+      Reason:       OOMKilled
+      Exit Code:    137
+      Started:      Fri, 07 Jul 2019 12:54:30 -0700
+      Finished:     Fri, 07 Jul 2019 12:54:33 -0700
+    Ready:          False
+    Restart Count:  5
 Conditions:
   Type      Status
   Ready     False
 Events:
-  FirstSeen                         LastSeen                         Count  From                              SubobjectPath                       Reason      Message
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {scheduler }                                                          scheduled   Successfully assigned simmemleak-hra99 to kubernetes-node-tf0f
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "k8s.gcr.io/pause:0.8.0" already present on machine
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   created     Created with docker id 6a41280f516d
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   started     Started with docker id 6a41280f516d
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    spec.containers{simmemleak}         created     Created with docker id 87348f12526a
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  42s   default-scheduler  Successfully assigned simmemleak-hra99 to kubernetes-node-tf0f
+  Normal  Pulled     41s   kubelet            Container image "saadali/simmemleak:latest" already present on machine
+  Normal  Created    41s   kubelet            Created container simmemleak
+  Normal  Started    40s   kubelet            Started container simmemleak
+  Normal  Killing    32s   kubelet            Killing container with id ead3fb35-5cf5-44ed-9ae1-488115be66c6: Need to kill Pod
 ```
 
 앞의 예제에서, `Restart Count:  5` 표시는 파드의 `simmemleak`
-컨테이너가 종료되고 5번 다시 시작되었음을 나타낸다.
+컨테이너가 종료되고 (지금까지) 5번 다시 시작되었음을 나타낸다.
+`Reason: OOMKilled`를 통해 컨테이너가 제한보다 많은 양의 메모리를 사용하려고 했다는 것을 확인할 수 있다.
 
-이전에 종료된 컨테이너의 상태를 가져오기 위해 `-o go-template=...` 옵션을 사용해서
-`kubectl get pod` 를 호출할 수 있다.
-
-```shell
-kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
-```
-```
-Container Name: simmemleak
-LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
-```
-
-컨테이너가 `reason:OOM Killed`(`OOM` 은 메모리 부족(Out Of Memory)의 약자) 때문에 종료된 것을 알 수 있다.
+다음 단계로 메모리 누수가 있는지 애플리케이션 코드를 확인해 볼 수 있다. 
+애플리케이션이 예상한 대로 동작하는 것을 확인했다면, 
+해당 컨테이너의 메모리 제한(및 요청)을 더 높게 설정해 본다.
 
 ## {{% heading "whatsnext" %}}
 
 * [컨테이너와 파드에 메모리 리소스를 할당](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)하는 핸즈온 경험을 해보자.
 * [컨테이너와 파드에 CPU 리소스를 할당](/docs/tasks/configure-pod-container/assign-cpu-resource/)하는 핸즈온 경험을 해보자.
-* 요청과 제한의 차이점에 대한 자세한 내용은,
-  [리소스 QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md)를 참조한다.
-* [컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) API 레퍼런스 읽어보기
-* [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API 레퍼런스 읽어보기
-* XFS의 [프로젝트 쿼터](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html)에 대해 읽어보기
-* [kube-scheduler 정책 레퍼런스 (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)에 대해 더 읽어보기
+* API 레퍼런스에 [컨테이너](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)와 
+  [컨테이너 리소스 요구사항](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)이 어떻게 정의되어 있는지 확인한다.
+* XFS의 [프로젝트 쿼터](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F)에 대해 읽어보기
+* [kube-scheduler 정책 레퍼런스 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)에 대해 더 읽어보기

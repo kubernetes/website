@@ -164,7 +164,7 @@ Por fim, adicione os mesmos parâmetros nos parâmetros iniciais do Servidor de 
             "OU": "<organization unit>"
           }]
         }
-1.  Gere a chave CA (`ca-key.pem`) e o certificado (` ca.pem`):
+1.  Gere a chave CA (`ca-key.pem`) e o certificado (`ca.pem`):
 
         ../cfssl gencert -initca ca-csr.json | ../cfssljson -bare ca
 1.  Crie um arquivo de configuração JSON para gerar chaves e certificados para o Servidor de API, por exemplo, `server-csr.json`. Certifique-se de substituir os valores entre colchetes angulares por valores reais que você deseja usar. O `MASTER_CLUSTER_IP` é o IP do serviço do cluster para o servidor da API, conforme descrito na subseção anterior. O exemplo abaixo também assume que você está usando `cluster.local` como DNS de domínio padrão

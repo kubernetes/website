@@ -93,11 +93,12 @@ This may be caused by a number of problems. The most common are:
 configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 - control plane containers are crashlooping or hanging. You can check this by running `docker ps`
 and investigating each container by running `docker logs`. For other container runtime see
-[Debugging Kubernetes nodes with crictl](/docs/tasks/debug-application-cluster/crictl/).
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 
 ## kubeadm blocks when removing managed containers
 
-The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
+The following could happen if the container runtime halts and does not remove
+any Kubernetes-managed containers:
 
 ```shell
 sudo kubeadm reset
@@ -111,18 +112,9 @@ sudo kubeadm reset
 (block)
 ```
 
-A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
-
-```shell
-sudo systemctl restart docker.service
-sudo kubeadm reset
-```
-
-Inspecting the logs for docker may also be useful:
-
-```shell
-journalctl -u docker
-```
+A possible solution is to restart the container runtime and then re-run `kubeadm reset`.
+You can also use `crictl` to debug the state of the container runtime. See
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 
 ## Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
 
@@ -136,10 +128,6 @@ Right after `kubeadm init` there should not be any pods in these states.
   it's very likely that the Pod Network add-on that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
-- If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
-  when booting `dockerd` with `systemd` and restart `docker`. You can see the MountFlags in `/usr/lib/systemd/system/docker.service`.
-  MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
-  The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 
 ## `coredns` is stuck in the `Pending` state
 
@@ -159,11 +147,11 @@ Calico, Canal, and Flannel CNI providers are verified to support HostPort.
 For more information, see the [CNI portmap documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 If your network provider does not support the portmap CNI plugin, you may need to use the [NodePort feature of
-services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetwork=true`.
+services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
 
 ## Pods are not accessible via their Service IP
 
-- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.
@@ -224,9 +212,17 @@ the `ca.key` you must sign the embedded certificates in the `kubelet.conf` exter
 1. Copy this resulted `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the failed node.
 1. Restart the kubelet (`systemctl restart kubelet`) on the failed node and wait for
 `/var/lib/kubelet/pki/kubelet-client-current.pem` to be recreated.
-1. Run `kubeadm init phase kubelet-finalize all` on the failed node. This will make the new
-`kubelet.conf` file use `/var/lib/kubelet/pki/kubelet-client-current.pem` and will restart the kubelet.
+1. Manually edit the `kubelet.conf` to point to the rotated kubelet client certificates, by replacing
+`client-certificate-data` and `client-key-data` with:
+
+    ```yaml
+    client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
+    client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
+    ```
+
+1. Restart the kubelet.
 1. Make sure the node becomes `Ready`.
+
 ## Default NIC When using flannel as the pod network in Vagrant
 
 The following error might indicate that something was wrong in the pod network:
@@ -262,7 +258,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   When using DigitalOcean, it can be the public one (assigned to `eth0`) or
   the private one (assigned to `eth1`) should you want to use the optional
   private network. The `kubeletExtraArgs` section of the kubeadm
-  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta2/#kubeadm-k8s-io-v1beta2-NodeRegistrationOptions)
+  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
   can be used for this.
 
   Then restart `kubelet`:
@@ -336,7 +332,7 @@ Alternatively, you can try separating the `key=value` pairs like so:
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
-A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta2/).
+A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
 
@@ -355,7 +351,7 @@ A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on 
 nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
 conditions abate:
 ```
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
@@ -367,6 +363,7 @@ For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/c
 Kubernetes components like the kubelet and kube-controller-manager use the default path of
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_
 for the feature to work.
+(**Note**: FlexVolume was deprecated in the Kubernetes v1.23 release)
 
 To workaround this issue you can configure the flex-volume directory using the kubeadm
 [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).

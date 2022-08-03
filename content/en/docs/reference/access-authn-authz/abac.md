@@ -33,13 +33,13 @@ properties:
       - `group`, type string; if you specify `group`, it must match one of the groups of the authenticated user. `system:authenticated` matches all authenticated requests. `system:unauthenticated` matches all unauthenticated requests.
     - Resource-matching properties:
       - `apiGroup`, type string; an API group.
-        - Ex: `extensions`
+        - Ex: `apps`, `networking.k8s.io`
         - Wildcard: `*` matches all API groups.
       - `namespace`, type string; a namespace.
         - Ex: `kube-system`
         - Wildcard: `*` matches all resource requests.
       - `resource`, type string; a resource type
-        - Ex: `pods`
+        - Ex: `pods`, `deployments`
         - Wildcard: `*` matches all resource requests.
     - Non-resource-matching properties:
       - `nonResourcePath`, type string; non-resource request paths.

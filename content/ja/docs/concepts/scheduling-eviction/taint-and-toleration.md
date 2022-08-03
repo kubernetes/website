@@ -191,7 +191,7 @@ Kubernetesはユーザーまたはコントローラーが明示的に指定し�
 自動的に設定されるtolerationは、taintに対応する問題がNodeで検知されても5分間はそのNodeにPodが残されることを意味します。
 {{< /note >}}
 
-[DaemonSet](/docs/concepts/workloads/controllers/daemonset/)のPodは次のtaintに対して`NoExecute`のtolerationが`tolerationSeconds`を指定せずに設定されます。
+[DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)のPodは次のtaintに対して`NoExecute`のtolerationが`tolerationSeconds`を指定せずに設定されます。
 
   * `node.kubernetes.io/unreachable`
   * `node.kubernetes.io/not-ready`

@@ -2,21 +2,35 @@
 title: Configure Default Memory Requests and Limits for a Namespace
 content_type: task
 weight: 10
+description: >-
+  Define a default memory resource limit for a namespace, so that every new Pod
+  in that namespace has a memory resource limit configured.
 ---
 
 <!-- overview -->
 
-This page shows how to configure default memory requests and limits for a namespace.
-If a Container is created in a namespace that has a default memory limit, and the Container
-does not specify its own memory limit, then the Container is assigned the default memory limit.
+This page shows how to configure default memory requests and limits for a
+{{< glossary_tooltip text="namespace" term_id="namespace" >}}.
+
+A Kubernetes cluster can be divided into namespaces. Once you have a namespace that
+has a default memory
+[limit](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits),
+and you then try to create a Pod with a container that does not specify its own memory
+limit, then the
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}} assigns the default
+memory limit to that container.
+
 Kubernetes assigns a default memory request under certain conditions that are explained later in this topic.
+
 
 
 
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
+
+You must have access to create namespaces in your cluster.
 
 Each node in your cluster must have at least 2 GiB of memory.
 
@@ -35,8 +49,9 @@ kubectl create namespace default-mem-example
 
 ## Create a LimitRange and a Pod
 
-Here's the configuration file for a LimitRange object. The configuration specifies
-a default memory request and a default memory limit.
+Here's a manifest for an example {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}.
+The manifest specifies a default memory
+request and a default memory limit.
 
 {{< codenew file="admin/resource/memory-defaults.yaml" >}}
 
@@ -46,12 +61,13 @@ Create the LimitRange in the default-mem-example namespace:
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults.yaml --namespace=default-mem-example
 ```
 
-Now if a Container is created in the default-mem-example namespace, and the
-Container does not specify its own values for memory request and memory limit,
-the Container is given a default memory request of 256 MiB and a default
-memory limit of 512 MiB.
+Now if you create a Pod in the default-mem-example namespace, and any container
+within that Pod does not specify its own values for memory request and memory limit,
+then the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
+applies default values: a memory request of 256MiB and a memory limit of 512MiB.
 
-Here's the configuration file for a Pod that has one Container. The Container
+
+Here's an example manifest for a Pod that has one container. The container
 does not specify a memory request and limit.
 
 {{< codenew file="admin/resource/memory-defaults-pod.yaml" >}}
@@ -68,7 +84,7 @@ View detailed information about the Pod:
 kubectl get pod default-mem-demo --output=yaml --namespace=default-mem-example
 ```
 
-The output shows that the Pod's Container has a memory request of 256 MiB and
+The output shows that the Pod's container has a memory request of 256 MiB and
 a memory limit of 512 MiB. These are the default values specified by the LimitRange.
 
 ```shell
@@ -89,9 +105,9 @@ Delete your Pod:
 kubectl delete pod default-mem-demo --namespace=default-mem-example
 ```
 
-## What if you specify a Container's limit, but not its request?
+## What if you specify a container's limit, but not its request?
 
-Here's the configuration file for a Pod that has one Container. The Container
+Here's a manifest for a Pod that has one container. The container
 specifies a memory limit, but not a request:
 
 {{< codenew file="admin/resource/memory-defaults-pod-2.yaml" >}}
@@ -109,8 +125,8 @@ View detailed information about the Pod:
 kubectl get pod default-mem-demo-2 --output=yaml --namespace=default-mem-example
 ```
 
-The output shows that the Container's memory request is set to match its memory limit.
-Notice that the Container was not assigned the default memory request value of 256Mi.
+The output shows that the container's memory request is set to match its memory limit.
+Notice that the container was not assigned the default memory request value of 256Mi.
 
 ```
 resources:
@@ -120,9 +136,9 @@ resources:
     memory: 1Gi
 ```
 
-## What if you specify a Container's request, but not its limit?
+## What if you specify a container's request, but not its limit?
 
-Here's the configuration file for a Pod that has one Container. The Container
+Here's a manifest for a Pod that has one container. The container
 specifies a memory request, but not a limit:
 
 {{< codenew file="admin/resource/memory-defaults-pod-3.yaml" >}}
@@ -139,9 +155,9 @@ View the Pod's specification:
 kubectl get pod default-mem-demo-3 --output=yaml --namespace=default-mem-example
 ```
 
-The output shows that the Container's memory request is set to the value specified in the
-Container's configuration file. The Container's memory limit is set to 512Mi, which is the
-default memory limit for the namespace.
+The output shows that the container's memory request is set to the value specified in the
+container's manifest. The container is limited to use no more than 512MiB of
+memory, which matches the default memory limit for the namespace.
 
 ```
 resources:
@@ -153,15 +169,23 @@ resources:
 
 ## Motivation for default memory limits and requests
 
-If your namespace has a resource quota,
+If your namespace has a memory {{< glossary_tooltip text="resource quota" term_id="resource-quota" >}}
+configured,
 it is helpful to have a default value in place for memory limit.
-Here are two of the restrictions that a resource quota imposes on a namespace:
+Here are three of the restrictions that a resource quota imposes on a namespace:
 
-* Every Container that runs in the namespace must have its own memory limit.
-* The total amount of memory used by all Containers in the namespace must not exceed a specified limit.
+* For every Pod that runs in the namespace, the Pod and each of its containers must have a memory limit.
+  (If you specify a memory limit for every container in a Pod, Kubernetes can infer the Pod-level memory
+  limit by adding up the limits for its containers).
+* Memory limits apply a resource reservation on the node where the Pod in question is scheduled.
+  The total amount of memory reserved for all Pods in the namespace must not exceed a specified limit.
+* The total amount of memory actually used by all Pods in the namespace must also not exceed a specified limit.
 
-If a Container does not specify its own memory limit, it is given the default limit, and then
-it can be allowed to run in a namespace that is restricted by a quota.
+When you add a LimitRange:
+
+If any Pod in that namespace that includes a container does not specify its own memory limit,
+the control plane applies the default memory limit to that container, and the Pod can be
+allowed to run in a namespace that is restricted by a memory ResourceQuota.
 
 ## Clean up
 

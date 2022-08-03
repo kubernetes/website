@@ -9,7 +9,7 @@ weight: 40
 <!-- overview -->
 
 This page covers how to customize the components that kubeadm deploys. For control plane components
-you can use flags in the `ClusteConfiguration` structure or patches per-node. For the kubelet
+you can use flags in the `ClusterConfiguration` structure or patches per-node. For the kubelet
 and kube-proxy you can use `KubeletConfiguration` and `KubeProxyConfiguration`, accordingly.
 
 All of these options are possible via the kubeadm configuration API.
@@ -24,9 +24,12 @@ you can skip the default CoreDNS deployment and deploy your own variant.
 For more details on that see [Using init phases with kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
 {{< /note >}}
 
-<!-- body -->
+{{< note >}}
+To reconfigure a cluster that has already been created see
+[Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
+{{< /note >}}
 
-{{< feature-state for_k8s_version="v1.12" state="stable" >}}
+<!-- body -->
 
 ## Customizing the control plane with flags in `ClusterConfiguration`
 
@@ -144,9 +147,8 @@ You can pass this file to `kubeadm init` with `--config <YOUR CONFIG YAML>`:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
-nodeRegistration:
-  patches:
-    directory: /home/user/somedir
+patches:
+  directory: /home/user/somedir
 ```
 
 {{< note >}}
@@ -159,9 +161,8 @@ You can pass this file to `kubeadm join` with `--config <YOUR CONFIG YAML>`:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
-nodeRegistration:
-  patches:
-    directory: /home/user/somedir
+patches:
+  directory: /home/user/somedir
 ```
 
 The directory must contain files named `target[suffix][+patchtype].extension`.

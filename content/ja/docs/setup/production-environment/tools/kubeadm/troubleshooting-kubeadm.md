@@ -147,7 +147,7 @@ Calico、Canal、FlannelのCNIプロバイダは、HostPortをサポートして
 
 ## サービスIP経由でPodにアクセスすることができない
 
-- 多くのネットワークアドオンは、PodがサービスIPを介して自分自身にアクセスできるようにする[ヘアピンモード](/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)を有効にしていません。これは[CNI](https://github.com/containernetworking/cni/issues/476)に関連する問題です。ヘアピンモードのサポート状況については、ネットワークアドオンプロバイダにお問い合わせください。
+- 多くのネットワークアドオンは、PodがサービスIPを介して自分自身にアクセスできるようにする[ヘアピンモード](/ja/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)を有効にしていません。これは[CNI](https://github.com/containernetworking/cni/issues/476)に関連する問題です。ヘアピンモードのサポート状況については、ネットワークアドオンプロバイダにお問い合わせください。
 
 - VirtualBoxを使用している場合(直接またはVagrant経由)は、`hostname -i`がルーティング可能なIPアドレスを返すことを確認する必要があります。デフォルトでは、最初のインターフェースはルーティング可能でないホスト専用のネットワークに接続されています。これを回避するには`/etc/hosts`を修正する必要があります。例としてはこの[Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)を参照してください。
 

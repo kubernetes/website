@@ -20,8 +20,8 @@ by implementing one or more of these extension points.
 
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
 using the
-KubeSchedulerConfiguration ([v1beta1](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
-or [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)) 
+KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+or [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/))
 struct.
 
 A minimal configuration looks as follows:
@@ -78,6 +78,8 @@ extension points:
    least one bind plugin is required.
 1. `postBind`: This is an informational extension point that is called after
    a Pod has been bound.
+1. `multiPoint`: This is a config-only field that allows plugins to be enabled 
+   or disabled for all of their applicable extension points simultaneously.
 
 For each extension point, you could disable specific [default plugins](#scheduling-plugins)
 or enable your own. For example:
@@ -89,7 +91,7 @@ profiles:
   - plugins:
       score:
         disabled:
-        - name: NodeResourcesLeastAllocated
+        - name: PodTopologySpread
         enabled:
         - name: MyCustomPluginA
           weight: 2
@@ -100,7 +102,7 @@ profiles:
 You can use `*` as name in the disabled array to disable all default plugins
 for that extension point. This can also be used to rearrange plugins order, if
 desired.
-   
+
 ### Scheduling plugins
 
 The following plugins, enabled by default, implement one or more of these
@@ -116,16 +118,12 @@ extension points:
   Extension points: `filter`.
 - `NodePorts`: Checks if a node has free ports for the requested Pod ports.
   Extension points: `preFilter`, `filter`.
-- `NodePreferAvoidPods`: Scores nodes according to the node
-  {{< glossary_tooltip text="annotation" term_id="annotation" >}}
-  `scheduler.alpha.kubernetes.io/preferAvoidPods`.
-  Extension points: `score`.
 - `NodeAffinity`: Implements
   [node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
   and [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).
   Extension points: `filter`, `score`.
 - `PodTopologySpread`: Implements
-  [Pod topology spread](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
+  [Pod topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
   Extension points: `preFilter`, `filter`, `preScore`, `score`.
 - `NodeUnschedulable`: Filters out nodes that have `.spec.unschedulable` set to
   true.
@@ -170,7 +168,7 @@ extension points:
   Extension points: `bind`.
 - `DefaultPreemption`: Provides the default preemption mechanism.
   Extension points: `postFilter`.
-  
+
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:
 
@@ -182,31 +180,7 @@ that are not enabled by default:
 - `CinderLimits`: Checks that [OpenStack Cinder](https://docs.openstack.org/cinder/)
   volume limits can be satisfied for the node.
   Extension points: `filter`.
-  
-The following plugins are deprecated and can only be enabled in a `v1beta1`
-configuration:
 
-- `NodeResourcesLeastAllocated`: Favors nodes that have a low allocation of
-  resources.
-  Extension points: `score`.
-- `NodeResourcesMostAllocated`: Favors nodes that have a high allocation of
-  resources.
-  Extension points: `score`.
-- `RequestedToCapacityRatio`: Favor nodes according to a configured function of
-  the allocated resources.
-  Extension points: `score`.
-- `NodeLabel`: Filters and / or scores a node according to configured
-  {{< glossary_tooltip text="label(s)" term_id="label" >}}.
-  Extension points: `filter`, `score`.
-- `ServiceAffinity`: Checks that Pods that belong to a
-  {{< glossary_tooltip term_id="service" >}} fit in a set of nodes defined by
-  configured labels. This plugin also favors spreading the Pods belonging to a
-  Service across nodes.
-  Extension points: `preFilter`, `filter`, `score`.
-- `NodePreferAvoidPods`: Prioritizes nodes according to the node annotation
-  `scheduler.alpha.kubernetes.io/preferAvoidPods`.
-  Extension points: `score`.
-  
 ### Multiple profiles
 
 You can configure `kube-scheduler` to run more than one profile.
@@ -255,10 +229,233 @@ the same configuration parameters (if applicable). This is because the scheduler
 only has one pending pods queue.
 {{< /note >}}
 
+### Plugins that apply to multiple extension points {#multipoint}
+
+Starting from `kubescheduler.config.k8s.io/v1beta3`, there is an additional field in the 
+profile config, `multiPoint`, which allows for easily enabling or disabling a plugin 
+across several extension points. The intent of `multiPoint` config is to simplify the 
+configuration needed for users and administrators when using custom profiles.
+
+Consider a plugin, `MyPlugin`, which implements the `preScore`, `score`, `preFilter`, 
+and `filter` extension points. To enable `MyPlugin` for all its available extension 
+points, the profile config looks like:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta3
+kind: KubeSchedulerConfiguration
+profiles:
+  - schedulerName: multipoint-scheduler
+    plugins:
+      multiPoint:
+        enabled:
+        - name: MyPlugin
+```
+
+This would equate to manually enabling `MyPlugin` for all of its extension 
+points, like so:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta3
+kind: KubeSchedulerConfiguration
+profiles:
+  - schedulerName: non-multipoint-scheduler
+    plugins:
+      preScore:
+        enabled:
+        - name: MyPlugin
+      score:
+        enabled:
+        - name: MyPlugin
+      preFilter:
+        enabled:
+        - name: MyPlugin
+      filter:
+        enabled:
+        - name: MyPlugin
+```
+
+One benefit of using `multiPoint` here is that if `MyPlugin` implements another 
+extension point in the future, the `multiPoint` config will automatically enable it 
+for the new extension.
+
+Specific extension points can be excluded from `MultiPoint` expansion using 
+the `disabled` field for that extension point. This works with disabling default 
+plugins, non-default plugins, or with the wildcard (`'*'`) to disable all plugins. 
+An example of this, disabling `Score` and `PreScore`, would be:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta3
+kind: KubeSchedulerConfiguration
+profiles:
+  - schedulerName: non-multipoint-scheduler
+    plugins:
+      multiPoint:
+        enabled:
+        - name: 'MyPlugin'
+      preScore:
+        disabled:
+        - name: '*'
+      score:
+        disabled:
+        - name: '*'
+```
+
+In `v1beta3`, all [default plugins](#scheduling-plugins) are enabled internally through `MultiPoint`. 
+However, individual extension points are still available to allow flexible 
+reconfiguration of the default values (such as ordering and Score weights). For 
+example, consider two Score plugins `DefaultScore1` and `DefaultScore2`, each with 
+a weight of `1`. They can be reordered with different weights like so:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta3
+kind: KubeSchedulerConfiguration
+profiles:
+  - schedulerName: multipoint-scheduler
+    plugins:
+      score:
+        enabled:
+        - name: 'DefaultScore2'
+          weight: 5
+```
+
+In this example, it's unnecessary to specify the plugins in `MultiPoint` explicitly 
+because they are default plugins. And the only plugin specified in `Score` is `DefaultScore2`.
+This is because plugins set through specific extension points will always take precedence 
+over `MultiPoint` plugins. So, this snippet essentially re-orders the two plugins 
+without needing to specify both of them.
+
+The general hierarchy for precedence when configuring `MultiPoint` plugins is as follows:
+1. Specific extension points run first, and their settings override whatever is set elsewhere
+2. Plugins manually configured through `MultiPoint` and their settings
+3. Default plugins and their default settings
+
+To demonstrate the above hierarchy, the following example is based on these plugins:
+|Plugin|Extension Points|
+|---|---|
+|`DefaultQueueSort`|`QueueSort`|
+|`CustomQueueSort`|`QueueSort`|
+|`DefaultPlugin1`|`Score`, `Filter`|
+|`DefaultPlugin2`|`Score`|
+|`CustomPlugin1`|`Score`, `Filter`|
+|`CustomPlugin2`|`Score`, `Filter`|
+
+A valid sample configuration for these plugins would be:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta3
+kind: KubeSchedulerConfiguration
+profiles:
+  - schedulerName: multipoint-scheduler
+    plugins:
+      multiPoint:
+        enabled:
+        - name: 'CustomQueueSort'
+        - name: 'CustomPlugin1'
+          weight: 3
+        - name: 'CustomPlugin2'
+        disabled:
+        - name: 'DefaultQueueSort'
+      filter:
+        disabled:
+        - name: 'DefaultPlugin1'
+      score:
+        enabled:
+        - name: 'DefaultPlugin2'
+```
+
+Note that there is no error for re-declaring a `MultiPoint` plugin in a specific 
+extension point. The re-declaration is ignored (and logged), as specific extension points 
+take precedence.
+
+Besides keeping most of the config in one spot, this sample does a few things:
+* Enables the custom `queueSort` plugin and disables the default one
+* Enables `CustomPlugin1` and `CustomPlugin2`, which will run first for all of their extension points
+* Disables `DefaultPlugin1`, but only for `filter`
+* Reorders `DefaultPlugin2` to run first in `score` (even before the custom plugins)
+
+In versions of the config before `v1beta3`, without `multiPoint`, the above snippet would equate to this:
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta2
+kind: KubeSchedulerConfiguration
+profiles:
+  - schedulerName: multipoint-scheduler
+    plugins:
+    
+      # Disable the default QueueSort plugin
+      queueSort:
+        enabled:
+        - name: 'CustomQueueSort'
+        disabled:
+        - name: 'DefaultQueueSort'
+        
+      # Enable custom Filter plugins
+      filter:
+        enabled:
+        - name: 'CustomPlugin1'
+        - name: 'CustomPlugin2'
+        - name: 'DefaultPlugin2'
+        disabled:
+        - name: 'DefaultPlugin1'
+        
+      # Enable and reorder custom score plugins
+      score:
+        enabled:
+        - name: 'DefaultPlugin2'
+          weight: 1
+        - name: 'DefaultPlugin1'
+          weight: 3
+```
+
+While this is a complicated example, it demonstrates the flexibility of `MultiPoint` config 
+as well as its seamless integration with the existing methods for configuring extension points.
+
+## Scheduler configuration migrations
+
+{{< tabs name="tab_with_md" >}}
+{{% tab name="v1beta1 → v1beta2" %}}
+* With the v1beta2 configuration version, you can use a new score extension for the
+  `NodeResourcesFit` plugin.
+  The new extension combines the functionalities of the `NodeResourcesLeastAllocated`,
+  `NodeResourcesMostAllocated` and `RequestedToCapacityRatio` plugins.
+  For example, if you previously used the `NodeResourcesMostAllocated` plugin, you
+  would instead use `NodeResourcesFit` (enabled by default) and add a `pluginConfig`
+  with a `scoreStrategy` that is similar to:
+  ```yaml
+  apiVersion: kubescheduler.config.k8s.io/v1beta2
+  kind: KubeSchedulerConfiguration
+  profiles:
+  - pluginConfig:
+    - args:
+        scoringStrategy:
+          resources:
+          - name: cpu
+            weight: 1
+          type: MostAllocated
+      name: NodeResourcesFit
+  ```
+
+* The scheduler plugin `NodeLabel` is deprecated; instead, use the [`NodeAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
+
+* The scheduler plugin `ServiceAffinity` is deprecated; instead, use the [`InterPodAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
+
+* The scheduler plugin `NodePreferAvoidPods` is deprecated; instead, use [node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) to achieve similar behavior.
+
+* A plugin enabled in a v1beta2 configuration file takes precedence over the default configuration for that plugin.
+
+* Invalid `host` or `port` configured for scheduler healthz and metrics bind address will cause validation failure.
+{{% /tab %}}
+
+{{% tab name="v1beta2 → v1beta3" %}}
+* Three plugins' weight are increased by default:
+  * `InterPodAffinity` from 1 to 2
+  * `NodeAffinity` from 1 to 2
+  * `TaintToleration` from 1 to 3
+{{% /tab %}}
+{{< /tabs >}}
+
 ## {{% heading "whatsnext" %}}
 
 * Read the [kube-scheduler reference](/docs/reference/command-line-tools-reference/kube-scheduler/)
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
-* Read the [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) reference
 * Read the [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) reference
-
+* Read the [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) reference

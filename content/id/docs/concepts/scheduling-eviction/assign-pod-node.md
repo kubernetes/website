@@ -279,7 +279,7 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 ##### Tidak akan pernah ditempatkan bersamaan dalam node yang sama
 
 
-Contoh di atas menggunakan aturan `PodAntiAffinity` dengan` topologyKey: "kubernetes.io/hostname"` untuk melakukan deploy klaster redis sehingga tidak ada dua instance terletak pada hos yang sama.
+Contoh di atas menggunakan aturan `PodAntiAffinity` dengan `topologyKey: "kubernetes.io/hostname"` untuk melakukan deploy klaster redis sehingga tidak ada dua instance terletak pada hos yang sama.
 Lihat [tutorial ZooKeeper](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)  untuk contoh dari konfigurasi StatefulSet dengan anti-afinitas untuk ketersediaan tinggi, menggunakan teknik yang sama.
 
 Untuk informasi lebih lanjut tentang afinitas/anti-afinitas antar pod, lihat [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).

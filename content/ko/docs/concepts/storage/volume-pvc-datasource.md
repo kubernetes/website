@@ -1,7 +1,12 @@
 ---
+
+
+
+
+
 title: CSI 볼륨 복제하기
 content_type: concept
-weight: 30
+weight: 60
 ---
 
 <!-- overview -->

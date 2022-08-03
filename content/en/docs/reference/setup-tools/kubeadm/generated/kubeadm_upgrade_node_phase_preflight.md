@@ -67,6 +67,3 @@ kubeadm upgrade node phase preflight [flags]
 
 </tbody>
 </table>
-
-
-

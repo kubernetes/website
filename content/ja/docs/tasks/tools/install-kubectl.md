@@ -484,7 +484,7 @@ kubectlにエイリアスを張っている場合は、以下のようにシェ�
 
 ```zsh
 echo 'alias k=kubectl' >>~/.zshrc
-echo 'complete -F __start_kubectl k' >>~/.zshrc
+echo 'compdef __start_kubectl k' >>~/.zshrc
 ```
 
 シェルをリロードしたあとに、kubectlの自動補完が機能するはずです。

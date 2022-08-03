@@ -13,15 +13,15 @@ card:
 a tool that runs a single-node Kubernetes cluster in a virtual machine on your personal computer.
 -->
 
-Ця сторінка описує як встановити [Minikube](/docs/tutorials/hello-minikube), інструмент який дозволяє
-запустити  Kubernetes кластер з однієї ноди у віртуальній машині на вашому персональному комп'ютері.
+Ця сторінка описує, як встановити [Minikube](/docs/tutorials/hello-minikube) - інструмент, який дозволяє
+запустити Kubernetes кластер з однієї ноди у віртуальній машині на вашому персональному комп'ютері.
 
 
 ## {{% heading "prerequisites" %}}
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
-Для перевірки, чи підтримується віртуалізація на Linux, запустіть наступну команду і впевніться що вивід команди не пустий:
+Для перевірки, чи підтримується віртуалізація на Linux, запустіть наступну команду і впевніться що її вивід не пустий:
 ```
 grep -E --color 'vmx|svm' /proc/cpuinfo
 ```
@@ -69,7 +69,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 ### Встановлення kubectl
 
-Впевніться що kubectl встановлен. Ви можете встановити kubectl згідно інструкції [Установка та налаштування kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux).
+Впевніться що kubectl встановлений. Ви можете встановити kubectl згідно інструкції [Встановлення та налаштування kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux).
 
 ### Встановлення Hypervisor
 
@@ -196,7 +196,7 @@ choco install minikube
 
 ### Встановлення Minikube за допомогою програми встановлення
 
-Для установкі Minikube вручну на Windows за допомогою [Windows Installer](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal), скачайте [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest/download/minikube-installer.exe) та виконайте програму.
+Для встановлення Minikube вручну на Windows за допомогою [Windows Installer](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal), скачайте [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest/download/minikube-installer.exe) та виконайте програму.
 
 ### Встановлення Minikube за допомогою прямого завантаження
 
@@ -226,7 +226,7 @@ choco install minikube
 minikube start --driver=<driver_name>
 ```
 
-Як тількі `minikube start` закінчився, запустіть команду нижче, щоб перевірити стан кластера:
+Після того як `minikube start` закінчився, запустіть команду нижче, щоб перевірити стан кластера:
 
 ```shell
 minikube status

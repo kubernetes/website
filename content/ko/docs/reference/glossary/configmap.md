@@ -2,7 +2,7 @@
 title: 컨피그맵(ConfigMap)
 id: configmap
 date: 2018-04-12
-full_link: /docs/concepts/configuration/configmap/
+full_link: /ko/docs/concepts/configuration/configmap/
 short_description: >
   키-값 쌍으로 기밀이 아닌 데이터를 저장하는 데 사용하는 API 오브젝트이다. 볼륨에서 환경 변수, 커맨드-라인 인수 또는 구성 파일로 사용될 수 있다.
 

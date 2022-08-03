@@ -173,7 +173,10 @@ automatically responds to changes in the number of replicas of the corresponding
 
 ## Create the PDB object
 
-You can create or update the PDB object with a command like `kubectl apply -f mypdb.yaml`.
+You can create or update the PDB object using kubectl.
+```shell
+kubectl apply -f mypdb.yaml
+```
 
 ## Check the status of the PDB
 

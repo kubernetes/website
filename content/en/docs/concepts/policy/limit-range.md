@@ -53,7 +53,7 @@ Neither contention nor changes to a LimitRange will affect already created resou
 
 ## {{% heading "whatsnext" %}}
 
-Refer to the [LimitRanger design document](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) for more information.
+Refer to the [LimitRanger design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md) for more information.
 
 For examples on using limits, see:
 

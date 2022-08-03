@@ -86,12 +86,20 @@ metadata:
   name: example-configmap-1-8mbdf7882g
 ```
 
-To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`. Here is an example of generating a ConfigMap with a data item from a `.env` file:
+To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`. This can also be used to set values from local environment variables by omitting the `=` and the value.
+
+{{< note >}}
+It's recommended to use the local environment variable population functionality sparingly - an overlay with a patch is often more maintainable. Setting values from the environment may be useful when they cannot easily be predicted, such as a git SHA.
+{{< /note >}}
+
+Here is an example of generating a ConfigMap with a data item from a `.env` file:
 
 ```shell
 # Create a .env file
+# BAZ will be populated from the local environment variable $BAZ
 cat <<EOF >.env
 FOO=Bar
+BAZ
 EOF
 
 cat <<EOF >./kustomization.yaml
@@ -105,7 +113,7 @@ EOF
 The generated ConfigMap can be examined with the following command:
 
 ```shell
-kubectl kustomize ./
+BAZ=Qux kubectl kustomize ./
 ```
 
 The generated ConfigMap is:
@@ -113,10 +121,11 @@ The generated ConfigMap is:
 ```yaml
 apiVersion: v1
 data:
-    FOO=Bar
+  BAZ: Qux
+  FOO: Bar
 kind: ConfigMap
 metadata:
-  name: example-configmap-1-8mbdf7882g
+  name: example-configmap-1-892ghb99c8
 ```
 
 {{< note >}}
@@ -299,7 +308,7 @@ metadata:
 type: Opaque
 ```
 
-Like ConfigMaps, generated Secrets can be used in Deployments by refering to the name of the secretGenerator:
+Like ConfigMaps, generated Secrets can be used in Deployments by referring to the name of the secretGenerator:
 
 ```shell
 # Create a password.txt file
@@ -748,8 +757,8 @@ Since the Service name may change as `namePrefix` or `nameSuffix` is added in th
 not recommended to hard code the Service name in the command argument. For this usage, Kustomize can inject the Service name into containers through `vars`.
 
 ```shell
-# Create a deployment.yaml file
-cat <<EOF > deployment.yaml
+# Create a deployment.yaml file (quoting the here doc delimiter)
+cat <<'EOF' > deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
