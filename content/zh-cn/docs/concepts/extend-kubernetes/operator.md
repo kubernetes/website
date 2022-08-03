@@ -13,15 +13,15 @@ weight: 30
 <!-- overview -->
 
 <!--
-Operators are software extensions to Kubernetes that make use of [custom
-resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+Operators are software extensions to Kubernetes that make use of
+[custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 to manage applications and their components. Operators follow
-Kubernetes principles, notably the [control loop](/docs/concepts/architecture/controller/).
+Kubernetes principles, notably the [control loop](/docs/concepts/architecture/controller).
 -->
 Operator 是 Kubernetes 的扩展软件，它利用
 [定制资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 管理应用及其组件。
-Operator 遵循 Kubernetes 的理念，特别是在[控制器](/zh-cn/docs/concepts/architecture/controller/)
+Operator 遵循 Kubernetes 的理念，特别是在[控制器](/zh-cn/docs/concepts/architecture/controller)
 方面。
 
 <!-- body -->
@@ -214,8 +214,9 @@ Operator.
 * [Charmed Operator Framework](https://juju.is/)
 * [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
+* [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/)
-* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
+* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
 * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that 
 you implement yourself
@@ -229,8 +230,9 @@ you implement yourself
 * [Charmed Operator Framework](https://juju.is/)
 * [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
+* [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/)
-* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
+* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes 通用声明式 Operator)
 * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)，可与 Webhooks 结合使用，以实现自己的功能。
 * [Operator Framework](https://operatorframework.io)
