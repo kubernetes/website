@@ -241,7 +241,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 ## 内存资源单位      {#meaning-of-memory}
 
 `memory` 的约束和请求以字节为单位。
-你可以使用普通的证书，或者带有以下
+你可以使用普通的整数，或者带有以下
 [数量](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)后缀
 的定点数字来表示内存：E、P、T、G、M、k。
 你也可以使用对应的 2 的幂数：Ei、Pi、Ti、Gi、Mi、Ki。
