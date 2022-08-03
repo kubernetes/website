@@ -542,7 +542,7 @@ spec:
   ...
 ```
 
-新しいJobは`a8f3d00d-c6d2-11e5-9f87-42010af00002`ではなく、別のuid を持つことになります。`manualSelector: true`を設定することで、自分は何をしているかを知っていて、またこのミスマッチを許容することをシステムに伝えます。
+新しいJobは`a8f3d00d-c6d2-11e5-9f87-42010af00002`ではなく、別のuidを持つことになります。`manualSelector: true`を設定することで、自分は何をしているかを知っていて、またこのミスマッチを許容することをシステムに伝えます。
 
 ### FinalizerによるJob追跡  {#job-tracking-with-finalizers}
 
