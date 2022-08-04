@@ -20,10 +20,10 @@ implementation (barring any intentional network segmentation policies):
 
    * pods can communicate with all other pods on any other [node](/docs/concepts/architecture/nodes/) 
      without NAT
-   * agents on a node (e.g. system daemons, kubelet) can communicate with all
+   * agents on a node (for example system daemons, kubelet) can communicate with all
      pods on that node
 
-Note: For those platforms that support `Pods` running in the host network (e.g.
+Note: For those platforms that support `Pods` running in the host network (for example
 Linux), when pods are attached to the host network of a node they can still communicate 
 with all pods on all nodes without NAT.
 
