@@ -29,7 +29,17 @@ Kubernetes v1.25 includes several major changes, in addition to the removal of P
 
 ### [CSI Migration](https://github.com/kubernetes/enhancements/issues/625)
 
-The effort to  move the CSI in-tree volume plugins to out-of-tree CSI drivers continues, with the core CSI Migration feature going GA in v1.25. This is an important step towards removing the in-tree CSI volume plugins entirely.
+The effort to  move the in-tree volume plugins to out-of-tree CSI drivers continues, with the core CSI Migration feature going GA in v1.25. This is an important step towards removing the in-tree volume plugins entirely.
+
+### Volume Plugin Deprecations and Removals
+
+Several volume are being deprecated or removed.
+
+[GlusterFS will be deprecated in v1.25](https://github.com/kubernetes/enhancements/issues/3446). While a CSI driver was built for it, it has not been maintained. The possibility of migration to a compatible CSI driver [was discussed](https://github.com/kubernetes/kubernetes/issues/100897), but a decision was ultimately made to begin the deprecation of the GlusterFS plugin from in-tree drivers. The [Portworx in-tree volume plugin](https://github.com/kubernetes/enhancements/issues/2589) is also being deprecated with this release. The Flocker, Quobyte, and StorageOS in-tree volume plugins are being removed.
+
+### [Declare Unsupported vSphere Versions](https://github.com/kubernetes/kubernetes/pull/111255)
+
+From Kubernetes v1.25, the in-tree vSphere volume driver will not support any vSphere release before 7.0u2. Check the v1.25 detailed release notes for more advice on how to handle this.
 
 ### [Signing Release Artifacts](https://github.com/kubernetes/enhancements/issues/3031)
 
@@ -48,10 +58,6 @@ From the Kubernetes 1.25 release, the iptables chains created by Kubernetes will
   - `KUBE-POSTROUTING`
 
 This change will be phased in via the `IPTablesCleanup` feature gate.
-
-### [Deprecate GlusterFS in-tree Driver](https://github.com/kubernetes/enhancements/issues/3446)
-
-GlusterFS was one of the earliest dynamic provisioners for Kubernetes. When CSI drivers behan to appear, there was one released for GlusterFS. However, it has not been maintained and the last release was several years ago. The possibility of migration to a compatible CSI driver [was discussed](https://github.com/kubernetes/kubernetes/issues/100897), but a decision was ultimately made to begin the deprecation of the GlusterFS plugin from in-tree drivers.
     
 ## Looking ahead
 
