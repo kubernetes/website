@@ -124,7 +124,7 @@ metadata:
 spec:
   containers:
     - name: cuda-test
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1

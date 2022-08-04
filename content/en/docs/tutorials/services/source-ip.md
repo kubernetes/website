@@ -48,7 +48,7 @@ The examples use a small nginx webserver that echoes back the source
 IP of requests it receives through an HTTP header. You can create it as follows:
 
 ```shell
-kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
 ```
 The output is:
 ```

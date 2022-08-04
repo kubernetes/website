@@ -68,7 +68,7 @@ metadata:
 spec:
   containers:
     - name: demo-container-1
-      image: k8s.gcr.io/pause:2.0
+      image: registry.k8s.io/pause:2.0
       resources:
         limits:
           hardware-vendor.example/foo: 2

@@ -271,7 +271,7 @@ metadata:
 spec:
   containers:
     - name: pause
-      image: k8s.gcr.io/pause
+      image: registry.k8s.io/pause
 EOF
 ```
 
@@ -342,7 +342,7 @@ metadata:
 spec:
   containers:
     - name: pause
-      image: k8s.gcr.io/pause
+      image: registry.k8s.io/pause
 EOF
 ```
 
@@ -377,7 +377,7 @@ metadata:
 spec:
   containers:
     - name: pause
-      image: k8s.gcr.io/pause
+      image: registry.k8s.io/pause
       securityContext:
         privileged: true
 EOF
@@ -400,7 +400,7 @@ kubectl-user delete pod pause
 Let's try that again, slightly differently:
 
 ```shell
-kubectl-user create deployment pause --image=k8s.gcr.io/pause
+kubectl-user create deployment pause --image=registry.k8s.io/pause
 ```
 
 ```none

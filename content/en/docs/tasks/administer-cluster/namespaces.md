@@ -195,7 +195,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     To demonstrate this, let's spin up a simple Deployment and Pods in the `development` namespace.
 
     ```shell
-    kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname  -n=development --replicas=2
+    kubectl create deployment snowflake --image=registry.k8s.io/serve_hostname  -n=development --replicas=2
     ```
     We have created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that serves the hostname.
 
@@ -229,7 +229,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     Production likes to run cattle, so let's create some cattle pods.
 
     ```shell
-    kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname -n=production
+    kubectl create deployment cattle --image=registry.k8s.io/serve_hostname -n=production
     kubectl scale deployment cattle --replicas=5 -n=production
 
     kubectl get deployment -n=production
