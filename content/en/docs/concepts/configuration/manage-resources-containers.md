@@ -218,8 +218,7 @@ directly or from your monitoring tools.
 
 ## Local ephemeral storage
 
-<!-- feature gate LocalStorageCapacityIsolation -->
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 Nodes have local ephemeral storage, backed by
 locally-attached writeable devices or, sometimes, by RAM.
@@ -240,7 +239,7 @@ Your applications cannot expect any performance SLAs (disk IOPS for example)
 from local ephemeral storage.
 {{< /caution >}}
 
-As a beta feature, Kubernetes lets you track, reserve and limit the amount
+As a GA feature, Kubernetes lets you track, reserve and limit the amount
 of ephemeral local storage a Pod can consume.
 
 ### Configurations for local ephemeral storage
