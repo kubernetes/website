@@ -54,7 +54,7 @@ object. In most cases, Kubernetes manages owner references automatically.
 -->
 ## 属主与依赖   {#owners-dependents}
 
-Kubernetes 中很多对象通过[*属主引用*](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/)
+Kubernetes 中很多对象通过[**属主引用**](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/)
 链接到彼此。属主引用（Owner Reference）可以告诉控制面哪些对象依赖于其他对象。
 Kubernetes 使用属主引用来为控制面以及其他 API 客户端在删除某对象时提供一个清理关联资源的机会。
 在大多数场合，Kubernetes 都是自动管理属主引用的。
@@ -71,7 +71,7 @@ interfering with objects they don’t control.
 -->
 属主关系与某些资源所使用的[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)不同。
 例如，考虑一个创建 `EndpointSlice` 对象的 {{<glossary_tooltip text="Service" term_id="service">}}
-对象。Service 对象使用*标签*来允许控制面确定哪些 `EndpointSlice` 对象被该
+对象。Service 对象使用**标签**来允许控制面确定哪些 `EndpointSlice` 对象被该
 Service 使用。除了标签，每个被 Service 托管的 `EndpointSlice` 对象还有一个属主引用属性。
 属主引用可以帮助 Kubernetes 中的不同组件避免干预并非由它们控制的对象。
 
@@ -149,7 +149,7 @@ owner object:
 -->
 ### 前台级联删除 {#foreground-deletion}
 
-在前台级联删除中，正在被你删除的属主对象首先进入 *deletion in progress* 状态。
+在前台级联删除中，正在被你删除的属主对象首先进入 **deletion in progress** 状态。
 在这种状态下，针对属主对象会发生以下事情：
 
 <!--
@@ -242,7 +242,7 @@ resource type.
 要配置对未使用容器和镜像的垃圾收集选项，可以使用一个
 [配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基于
 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) 
-资源类型来调整与垃圾搜集相关的 kubelet 行为。
+资源类型来调整与垃圾收集相关的 kubelet 行为。
 
 <!--
 ### Container image lifecycle
@@ -253,7 +253,7 @@ which is part of the kubelet, with the cooperation of
 considers the following disk usage limits when making garbage collection
 decisions:
 -->
-### 容器镜像生命期     {#container-image-lifecycle}
+### 容器镜像生命周期     {#container-image-lifecycle}
 
 Kubernetes 通过其镜像管理器（Image Manager）来管理所有镜像的生命周期，
 该管理器是 kubelet 的一部分，工作时与
@@ -270,7 +270,7 @@ starting with the oldest first. The kubelet deletes images
 until disk usage reaches the `LowThresholdPercent` value.
 -->
 磁盘用量超出所配置的 `HighThresholdPercent` 值时会触发垃圾收集，
-垃圾收集器会基于镜像上次被使用的时间来按顺序删除它们，首先删除的是最老的镜像。
+垃圾收集器会基于镜像上次被使用的时间来按顺序删除它们，首先删除的是最早被使用的镜像。
 kubelet 会持续删除镜像，直到磁盘用量到达 `LowThresholdPercent` 值为止。
 
 <!--
@@ -311,12 +311,13 @@ downgrade `MaxPerPodContainer` to `1` and evict the oldest containers.
 Additionally, containers owned by pods that have been deleted are removed once
 they are older than `MinAge`.
 -->
-除以上变量之外，kubelet 还会垃圾收集除无标识的以及已删除的容器，通常从最老的容器开始。
+除以上变量之外，kubelet 还会垃圾收集未被控制器识别的容器和已删除的容器，
+通常从创建时间最早的容器开始进行垃圾收集。
 
 当保持每个 Pod 的最大数量的容器（`MaxPerPodContainer`）会使得全局的已死亡容器个数超出上限
 （`MaxContainers`）时，`MaxPerPodContainer` 和 `MaxContainers` 之间可能会出现冲突。
 在这种情况下，kubelet 会调整 `MaxPerPodContainer` 来解决这一冲突。
-最坏的情形是将 `MaxPerPodContainer` 降格为 `1`，并驱逐最老的容器。
+最坏的情形是将 `MaxPerPodContainer` 降格为 `1`，并驱逐创建时间最早的容器。
 此外，当隶属于某已被删除的 Pod 的容器的年龄超过 `MinAge` 时，它们也会被删除。
 
 {{<note>}}
