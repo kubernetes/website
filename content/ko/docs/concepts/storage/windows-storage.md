@@ -33,7 +33,7 @@ content_type: concept
 
 결과적으로, 윈도우 노드에서는 다음 스토리지 기능이 지원되지 않는다.
 
-* 볼륨 서브패스(subpath) 마운트: 윈도우 컨테이너에는 전체 볼륨만 마운트할 수 있다
+* 볼륨 서브패스(subpath) 마운트: 윈도우 컨테이너에는 전체 볼륨만 마운트할 수 있다.
 * 시크릿을 위한 서브패스 볼륨 마운팅
 * 호스트 마운트 투영(projection)
 * 읽기 전용 루트 파일시스템 (매핑된 볼륨은 여전히 `readOnly`를 지원한다)
@@ -57,7 +57,7 @@ content_type: concept
 윈도우는 다음의 광역 쿠버네티스 볼륨 플러그인 클래스를 지원한다.
 
 * [`FlexVolume 플러그인`](/ko/docs/concepts/storage/volumes/#flexVolume)
-  * FlexVolumes은 1.23부터 사용 중단되었음에 유의한다
+  * FlexVolumes은 1.23부터 사용 중단되었음에 유의한다.
 * [`CSI 플러그인`](/ko/docs/concepts/storage/volumes/#csi)
 
 ##### 인-트리(In-tree) 볼륨 플러그인

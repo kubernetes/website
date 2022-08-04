@@ -62,10 +62,10 @@ HNS를 호출하여 네트워크 세부 정보를 파드 또는 컨테이너로 
 [CNI 플러그인](https://github.com/flannel-io/cni-plugin)은 
 [VXLAN 네트워크 백엔드](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)(**베타 지원**, win-overlay에 위임) 및 
 [host-gateway network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#host-gw)(안정적인 지원, win-bridge에 위임)를 통해 
-윈도우에서도 [지원](https://github.com/flannel-io/cni-plugin#windows-support-experimental)된다.
+윈도우에서도 [지원](https://github.com/flannel-io/cni-plugin#windows-support-experimental)한다.
 
 이 플러그인은 자동 노드 서브넷 임대 할당과 HNS 네트워크 생성을 위해 
-윈도우 상의 Flannel 데몬(Flanneld)과 함께 작동할 수 있도록 
+윈도우의 Flannel 데몬(Flanneld)과 함께 작동할 수 있도록 
 참조 CNI 플러그인(win-overlay, win-bridge) 중 하나에 대한 위임을 지원한다. 
 이 플러그인은 자체 구성 파일 (cni.conf)을 읽고, 
 이를 FlannelD가 생성한 `subnet.env` 파일의 환경 변수와 결합한다. 

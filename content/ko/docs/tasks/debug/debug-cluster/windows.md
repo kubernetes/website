@@ -108,7 +108,7 @@ content_type: concept
 
 1. DNS 해석(resolution)이 제대로 작동하지 않는다.
 
-   이 [섹션](#dns-limitations)에서 윈도우에서의 DNS 제한을 확인한다.
+   이 [섹션](/ko/docs/concepts/services-networking/dns-pod-service/#dns-windows)에서 윈도우에서의 DNS 제한을 확인한다.
 
 1. `kubectl port-forward`가 "unable to do port forwarding: wincat not found" 에러와 함께 실패한다.
 

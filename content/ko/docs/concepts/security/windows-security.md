@@ -22,7 +22,7 @@ weight: 40
 클러스터 운영자로서, 다음 2 가지의 추가 사항을 고려해야 한다.
 
 1. 파일 ACL을 사용하여 시크릿의 파일 위치를 보호한다.
-1. [BitLocker](https://docs.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)를 사용하여 볼륨-수준 암호화를 적용한다.
+1. [BitLocker](https://docs.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)를 사용하여 볼륨 수준의 암호화를 적용한다.
 
 ## 컨테이너 사용자
 
