@@ -192,41 +192,41 @@ kubectl delete clusterrolebinding kubeadm:node-autoapprove-bootstrap
 
 After that, `kubeadm join` will block until the admin has manually approved the CSR in flight:
 
-```shell
-kubectl get csr
-```
+   1. Using `kubectl get csr`, you can see that the original CSR is in the Pending state.
+      ```shell
+      kubectl get csr
+      ```
 
-The output is similar to this:
+      The output is similar to this:
+      ```
+      NAME                                                   AGE       REQUESTOR                 CONDITION
+      node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
+      ```
 
-```
-NAME                                                   AGE       REQUESTOR                 CONDITION
-node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
-```
+   2. `kubectl certificate approve` allows the admin to approve CSR. This action tells a certificate signing controller to issue a certificate to the requestor with the attributes requested in the CSR.
+      ```shell
+      kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
+      ```
 
-```shell
-kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
-```
+      The output is similar to this:
+      ```
+      certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
+      ```
 
-The output is similar to this:
+   3. This would change the CRS resource to Active state.
+      ```shell
+      kubectl get csr
+      ```
 
-```
-certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
-```
-
-```shell
-kubectl get csr
-```
-
-The output is similar to this:
-
-```
-NAME                                                   AGE       REQUESTOR                 CONDITION
-node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
-```
+      The output is similar to this:
+      ```
+      NAME                                                   AGE       REQUESTOR                 CONDITION
+      node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
+      ```
 
 This forces the workflow that `kubeadm join` will only succeed if `kubectl certificate approve` has been run.
 
-#### Turning off public access to the cluster-info ConfigMap
+#### Turning off public access to the `cluster-info` ConfigMap
 
 In order to achieve the joining flow using the token as the only piece of validation information, a
  ConfigMap with some data needed for validation of the control-plane node's identity is exposed publicly by
@@ -242,7 +242,7 @@ kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | g
 
 The output is similar to this:
 
-```
+```yaml
 apiVersion: v1
 kind: Config
 clusters:
@@ -289,6 +289,6 @@ For more information on the fields and usage of the configuration you can naviga
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
-* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node.
+* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`.
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`.
