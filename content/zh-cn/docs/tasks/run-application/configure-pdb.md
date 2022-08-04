@@ -87,7 +87,7 @@ selector goes into the PDBs `.spec.selector`.
 From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
 -->
 从 1.15 版本开始，PDB 支持启用
-[scale 子资源](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)
+[Scale 子资源](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)
 的自定义控制器。
 
 <!--
@@ -158,20 +158,18 @@ Values for `minAvailable` or `maxUnavailable` can be expressed as integers or as
 - When you specify an integer, it represents a number of Pods. For instance, if you set `minAvailable` to 10, then 10
   Pods must always be available, even during a disruption.
 - When you specify a percentage by setting the value to a string representation of a percentage (eg. `"50%"`), it represents a percentage of
-  total Pods. For instance, if you set `minUnavailable` to `"50%"`, then only 50% of the Pods can be unavailable during a
+  total Pods. For instance, if you set `maxUnavailable` to `"50%"`, then only 50% of the Pods can be unavailable during a
   disruption.
 -->
 - 指定整数值时，它表示 Pod 个数。例如，如果将 minAvailable 设置为 10，
   那么即使在干扰期间，也必须始终有 10 个Pod可用。
 - 通过将值设置为百分比的字符串表示形式（例如 “50％”）来指定百分比时，它表示占总 Pod 数的百分比。
-  例如，如果将 "minUnavailable" 设置为 “50％”，则干扰期间只允许 50％ 的 Pod 不可用。
+  例如，如果将 "maxUnavailable" 设置为 “50％”，则干扰期间只允许 50％ 的 Pod 不可用。
 
 <!--
-When you specify the value as a percentage, it may not map to an exact number
-of Pods. For example, if you have 7 Pods and you set `minAvailable` to
-`"50%"`, it's not immediately obvious whether that means 3 Pods or 4 Pods must
-be available.  Kubernetes rounds up to the nearest integer, so in this case, 4
-Pods must be available. You can examine the
+When you specify the value as a percentage, it may not map to an exact number of Pods. For example, if you have 7 Pods and
+you set `minAvailable` to `"50%"`, it's not immediately obvious whether that means 3 Pods or 4 Pods must be available.
+Kubernetes rounds up to the nearest integer, so in this case, 4 Pods must be available. You can examine the
 [code](https://github.com/kubernetes/kubernetes/blob/23be9587a0f8677eb8091464098881df939c44a9/pkg/controller/disruption/disruption.go#L539)
 that controls this behavior.
 -->
@@ -278,12 +276,17 @@ voluntary evictions, not all causes of unavailability.
 {{< /note >}}
 
 <!--
-A `maxUnavailable` of 0% (or 0) or a `minAvailable` of 100% (or equal to the
-number of replicas) may block node drains entirely. This is permitted as per the
+If you set `maxUnavailable` to 0% or 0, or you set `minAvailable` to 100% or the number of replicas,
+you are requiring zero voluntary evictions. When you set zero voluntary evictions for a workload
+object such as ReplicaSet, then you cannot successfully drain a Node running one of those Pods.
+If you try to drain a Node where an unevictable Pod is running, the drain never completes. This is permitted as per the
 semantics of `PodDisruptionBudget`.
 -->
-设置 `maxUnavailable` 值为 0%（或 0）或设置 `minAvailable` 值为 100%（或等于副本数）
-可能会阻塞节点，导致资源耗尽。按照 `PodDisruptionBudget` 的语义，这是允许的。
+如果你将 `maxUnavailable` 的值设置为 0%（或 0）或设置 `minAvailable` 值为 100%（或等于副本数）
+则会阻止所有的自愿驱逐。
+当你为 ReplicaSet 等工作负载对象设置阻止自愿驱逐时，你将无法成功地腾空运行其中一个 Pod 的节点。
+如果你尝试腾空正在运行着被阻止驱逐的 Pod 的节点，则腾空永远不会完成。
+按照 `PodDisruptionBudget` 的语义，这是允许的。
 
 <!--
 You can find examples of pod disruption budgets defined below. They match pods with the label
@@ -372,12 +375,12 @@ zk-pdb   2               N/A               1                     7s
 ```
 
 <!--
-The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller has seen the pods,
+The non-zero value for `ALLOWED DISRUPTIONS` means that the disruption controller has seen the pods,
 counted the matching pods, and updated the status of the PDB.
 
 You can get more information about the status of a PDB with this command:
 -->
-`ALLOWED-DISRUPTIONS` 值非 0 意味着干扰控制器已经感知到相应的 Pod，对匹配的 Pod 进行统计，
+`ALLOWED DISRUPTIONS` 值非 0 意味着干扰控制器已经感知到相应的 Pod，对匹配的 Pod 进行统计，
 并更新了 PDB 的状态。
 
 用户可以通过以下命令获取更多 PDB 状态相关信息：
@@ -390,7 +393,8 @@ kubectl get poddisruptionbudgets zk-pdb -o yaml
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  anntation: {}
+  annotations:
+…
   creationTimestamp: "2020-03-04T04:22:56Z"
   generation: 1
   name: zk-pdb
@@ -431,9 +435,10 @@ You can use a PDB with pods controlled by another type of controller, by an
 
 <!--
 You can use a selector which selects a subset or superset of the pods belonging to a built-in
-controller.  However, when there are multiple PDBs in a namespace, you must be careful not
-to create PDBs whose selectors overlap.
+controller.  The eviction API will disallow eviction of any pod covered by multiple PDBs,
+so most users will want to avoid overlapping selectors.  One reasonable use of overlapping
+PDBs is when pods are being transitioned from one PDB to another.
 -->
 你可以令选择算符选择一个内置控制器所控制 Pod 的子集或父集。
-然而，当名字空间下存在多个 PDB 时，用户必须小心，保证 PDB 的选择算符之间不重叠。
+驱逐 API 将不允许驱逐被多个 PDB 覆盖的任何 Pod，因此大多数用户都希望避免重叠的选择算符。重叠 PDB 的一种合理用途是当 Pod 从一个 PDB 过渡到另一个 PDB 时再使用。
 
