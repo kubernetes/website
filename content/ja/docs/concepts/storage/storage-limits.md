@@ -44,7 +44,7 @@ Kubernetesスケジューラーには、ノードに接続できるボリュー�
 - Azure Disk
 - CSI
 
-ツリー内のボリュームプラグインによって管理されるボリュームの場合、Kubernetesはノードタイプを自動的に決定し、ノードに適切なボリュームの最大数を適用します。例えば：
+ツリー内のボリュームプラグインによって管理されるボリュームの場合、Kubernetesはノードタイプを自動的に決定し、ノードに適切なボリュームの最大数を適用します。例えば:
 
 * <a href="https://cloud.google.com/compute/">Google Compute Engine</a>上では[ノードタイプ](https://cloud.google.com/compute/docs/disks/#pdnumberlimits)に応じて、最大127個のボリュームをノードに接続できます。
 
