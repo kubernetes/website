@@ -165,6 +165,7 @@ different Kubernetes components.
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
+| `PodHasNetworkCondition` | `false` | Alpha | 1.25 | |
 | `PodSecurity` | `false` | Alpha | 1.22 | 1.22 |
 | `PodSecurity` | `true` | Beta | 1.23 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
@@ -1026,13 +1027,14 @@ Each feature gate is designed for enabling/disabling a specific feature:
    feature which allows users to influence ReplicaSet downscaling order.
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
-- `PodAndContainerStatsFromCRI`: Configure the kubelet to gather container and
-  pod stats from the CRI container runtime rather than gathering them from cAdvisor.
-- `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
 - `PodAffinityNamespaceSelector`: Enable the
   [Pod Affinity Namespace Selector](/docs/concepts/scheduling-eviction/assign-pod-node/#namespace-selector)
   and [CrossNamespacePodAffinity](/docs/concepts/policy/resource-quotas/#cross-namespace-pod-affinity-quota)
   quota scope features.
+- `PodAndContainerStatsFromCRI`: Configure the kubelet to gather container and
+  pod stats from the CRI container runtime rather than gathering them from cAdvisor.
+- `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
+- `PodHasNetworkCondition`: Enable the kubelet to mark the [PodHasNetwork](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network) condition on pods.
 - `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)
   feature to account for pod overheads.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their
