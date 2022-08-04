@@ -69,7 +69,7 @@ into the pod when it is instantiated.
 The `kubernetes` service (in `default` namespace) is configured with a virtual IP address that is
 redirected (via `kube-proxy`) to the HTTPS endpoint on the API server.
 
-The control plane components also communicate with the cluster apiserver over the secure port.
+The control plane components also communicate with the API server over the secure port.
 -->
 想要连接到 API 服务器的 Pod 可以使用服务账号安全地进行连接。
 当 Pod 被实例化时，Kubernetes 自动把公共根证书和一个有效的持有者令牌注入到 Pod 里。
@@ -87,7 +87,7 @@ networks.
 能够在不可信的网络或公网上运行。
 
 <!--
-## Control Plane to node
+## Control plane to node
 
 There are two primary communication paths from the control plane (the API server) to the nodes.
 The first is from the API server to the kubelet process which runs on each node in the cluster.
@@ -143,7 +143,7 @@ API 服务器提供一个根证书包，用于 kubelet 的服务证书。
 kubelet 之间使用 [SSH 隧道](#ssh-tunnels)。
 
 最后，应该启用
-[kubelet 用户认证和/或鉴权](/zh-cn/docs/reference/access-authn-authz/kubelet-authn-authz/)
+[Kubelet 认证/鉴权](/zh-cn/docs/reference/access-authn-authz/kubelet-authn-authz/)
 来保护 kubelet API。
 
 <!--
@@ -183,10 +183,12 @@ API 服务器建立一个到集群中各节点的 SSH 隧道（连接到在 22 �
 
 {{< note >}}
 <!--
-SSH tunnels are currently deprecated, so you shouldn't opt to use them unless you know what you are doing. The Konnectivity service is a replacement for this communication channel.
+SSH tunnels are currently deprecated, so you shouldn't opt to use them unless you know what you
+are doing. The [Konnectivity service](#konnectivity-service) is a replacement for this
+communication channel.
 -->
 SSH 隧道目前已被废弃。除非你了解个中细节，否则不应使用。
-Konnectivity 服务是对此通信通道的替代品。
+[Konnectivity 服务](#konnectivity-service)是 SSH 隧道的替代方案。
 {{< /note >}}
 
 <!--
