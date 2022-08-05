@@ -8,7 +8,6 @@ description: >
   Standards.
 content_type: concept
 weight: 20
-min-kubernetes-server-version: v1.22
 ---
 
 <!-- overview -->
@@ -23,10 +22,6 @@ Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip text="admission
 term_id="admission-controller" >}} to enforce the Pod Security Standards. Pod security restrictions
 are applied at the {{< glossary_tooltip text="namespace" term_id="namespace" >}} level when pods are
 created.
-
-## {{% heading "prerequisites" %}}
-
-To use this mechanism, your cluster must enforce Pod Security admission.
 
 ### Built-in Pod Security admission enforcement
 
