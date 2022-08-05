@@ -218,7 +218,7 @@ For more information about working with Kubernetes objects and their
 {{< glossary_tooltip text="manifests" term_id="manifest" >}}, see the
 [managing resources](/docs/concepts/cluster-administration/manage-deployment/),
 and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
-Each manifest for a CrobJob also needs a [`.spec`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status) section.
+Each manifest for a CronJob also needs a [`.spec`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status) section.
 
 -->
 ## 编写 CronJob 声明信息 {#writing-a-cronjob-spec}
