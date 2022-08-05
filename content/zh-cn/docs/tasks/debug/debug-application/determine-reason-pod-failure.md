@@ -127,6 +127,26 @@ Kubernetes 从容器的 `terminationMessagePath` 字段中指定的终止消息�
 Kubernetes 使用指定文件中的内容在成功和失败时填充容器的状态消息。
 
 <!--
+The termination message is intended to be brief final status, such as an assertion failure message.
+The kubelet truncates messages that are longer than 4096 bytes.
+
+The total message length across all containers is limited to 12KiB, divided equally among each container.
+For example, if there are 12 containers (`initContainers` or `containers`), each has 1024 bytes of available termination message space.
+
+The default termination message path is `/dev/termination-log`.
+You cannot set the termination message path after a Pod is launched
+-->
+终止消息旨在简要说明最终状态，例如断言失败消息。 
+kubelet 会截断长度超过 4096 字节的消息。
+
+所有容器的总消息长度限制为 12KiB，将会在每个容器之间平均分配。 
+例如，如果有 12 个容器（`initContainers` 或 `containers`）， 
+每个容器都有 1024 字节的可用终止消息空间。
+
+默认的终止消息路径是 `/dev/termination-log`。 
+Pod 启动后不能设置终止消息路径。
+
+<!--
 In the following example, the container writes termination messages to
 `/tmp/my-log` for Kubernetes to retrieve:
 -->
