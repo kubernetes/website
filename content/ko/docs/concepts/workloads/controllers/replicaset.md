@@ -1,8 +1,8 @@
 ---
-
-
-
-
+reviewers:
+- Kashomon
+- bprashanth
+- madhusudancs
 title: 레플리카셋
 content_type: concept
 weight: 20
@@ -78,7 +78,7 @@ kubectl describe rs/frontend
 
 출력은 다음과 유사할 것이다.
 
-```shell
+```
 Name:         frontend
 Namespace:    default
 Selector:     tier=frontend
@@ -130,7 +130,7 @@ kubectl get pods frontend-b2zdv -o yaml
 
 메타데이터의 ownerReferences 필드에 설정되어 있는 프런트엔드 레플리카셋의 정보가 다음과 유사하게 나오는 것을 볼 수 있다.
 
-```shell
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -181,7 +181,7 @@ kubectl get pods
 
 결과에는 새로운 파드가 이미 종료되었거나 종료가 진행 중인 것을 보여준다.
 
-```shell
+```
 NAME             READY   STATUS        RESTARTS   AGE
 frontend-b2zdv   1/1     Running       0          10m
 frontend-vcmts   1/1     Running       0          10m
@@ -210,7 +210,7 @@ kubectl get pods
 ```
 
 다음 출력에서 볼 수 있다.
-```shell
+```
 NAME             READY   STATUS    RESTARTS   AGE
 frontend-hmmj2   1/1     Running   0          9s
 pod1             1/1     Running   0          36s
