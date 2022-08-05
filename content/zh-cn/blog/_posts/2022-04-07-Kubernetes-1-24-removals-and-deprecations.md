@@ -160,9 +160,9 @@ been deprecated. These removals have been superseded by newer, stable/generally 
 <!--
 * In-tree provisioner to CSI driver migration: This applies to a number of in-tree plugins, including [Portworx](https://github.com/kubernetes/enhancements/issues/2589). Refer to the [In-tree Storage Plugin to CSI Migration Design Doc](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/csi-migration.md#background-and-motivations) for more information.
 -->
-* 树内驱动（In-tree provisioner）向 CSI 卷迁移：这适用于许多树内插件， 
+* 内置驱动（In-tree provisioner）向 CSI 卷迁移：这适用于许多内置插件， 
   包括 [Portworx](https://github.com/kubernetes/enhancements/issues/2589)。
-  参见[树内存储插件向 CSI 卷迁移的设计文档](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/csi-migration.md#background-and-motivations) 
+  参见[内置存储插件向 CSI 卷迁移的设计文档](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/csi-migration.md#background-and-motivations) 
   了解更多信息。
 <!--
 * [Removing Dockershim from kubelet](https://github.com/kubernetes/enhancements/issues/2221): the Container Runtime Interface (CRI) for Docker (i.e. Dockershim) is currently a built-in container runtime in the kubelet code base. It was deprecated in v1.20. As of v1.24, the kubelet will no longer have dockershim. Check out this blog on [what you need to do be ready for v1.24](/blog/2022/03/31/ready-for-dockershim-removal/). 
@@ -184,7 +184,7 @@ been deprecated. These removals have been superseded by newer, stable/generally 
 * [kubeadm 控制面节点上不再存在 `master` 标签](https://github.com/kubernetes/kubernetes/pull/107533)。 
   对于新集群，控制平面节点将不再添加 'node-role.kubernetes.io/master' 标签，
   只会添加 'node-role.kubernetes.io/control-plane' 标签。更多信息请参考
-  [KEP-2067：重命名 kubeadm “master” 标签和污点](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cluster-lifecycle/kubeadm/2067)。
+  [KEP-2067：重命名 kubeadm “master” 标签和污点](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cluster-lifecycle/kubeadm/2067-rename-master-label-taint)。
 <!--
 * [VolumeSnapshot v1beta1 CRD will be removed](https://github.com/kubernetes/enhancements/issues/177). Volume snapshot and restore functionality for Kubernetes and the [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI), which provides standardized APIs design (CRDs) and adds PV snapshot/restore support for CSI volume drivers, entered beta in v1.20. VolumeSnapshot v1beta1 was deprecated in v1.21 and is now unsupported. Refer to [KEP-177: CSI Snapshot](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/177-volume-snapshot#kep-177-csi-snapshot) and [kubernetes-csi/external-snapshotter](https://github.com/kubernetes-csi/external-snapshotter/releases/tag/v4.1.0) for more information.
 -->
