@@ -541,7 +541,7 @@ You can also toggle Job suspension by patching the Job using the command line.
 Suspend an active Job:
 
 ```shell
-kubectl patch job/myjob -p '{"spec":{"suspend":true}}'
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":true}}'
 ```
 
 Resume a suspended Job:
