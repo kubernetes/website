@@ -483,18 +483,18 @@ in the API.
 当 [`JobTrackingWithFinalizers`](#job-tracking-with-finalizers) 特性被禁用时，
 失败的 Pod 数目仅基于 API 中仍然存在的 Pod。
 
+{{< note >}}
 <!--
 If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
 will be terminated once the job backoff limit has been reached. This can make debugging the Job's executable more difficult. We suggest setting
 `restartPolicy = "Never"` when debugging the Job or using a logging system to ensure output
 from failed Jobs is not lost inadvertently.
 -->
-{{< note >}}
 如果你的 Job 的 `restartPolicy` 被设置为 "OnFailure"，就要注意运行该 Job 的 Pod
 会在 Job 到达失效回退次数上限时自动被终止。
 这会使得调试 Job 中可执行文件的工作变得非常棘手。
 我们建议在调试 Job 时将 `restartPolicy` 设置为 "Never"，
-或者使用日志系统来确保失效 Jobs 的输出不会意外遗失。
+或者使用日志系统来确保失效 Job 的输出不会意外遗失。
 {{< /note >}}
 
 <!--
@@ -596,7 +596,7 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 
 完成的 Job 通常不需要留存在系统中。在系统中一直保留它们会给 API 服务器带来额外的压力。
 如果 Job 由某种更高级别的控制器来管理，例如
-[CronJobs](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)，
+[CronJob](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)，
 则 Job 可以被 CronJob 基于特定的根据容量裁定的清理策略清理掉。
 
 ### 已完成 Job 的 TTL 机制  {#ttl-mechanisms-for-finished-jobs}
@@ -618,8 +618,7 @@ be honored.
 For example:
 -->
 自动清理已完成 Job （状态为 `Complete` 或 `Failed`）的另一种方式是使用由
-[TTL 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)所提供
-的 TTL 机制。
+[TTL 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)所提供的 TTL 机制。
 通过设置 Job 的 `.spec.ttlSecondsAfterFinished` 字段，可以让该控制器清理掉已结束的资源。
 
 TTL 控制器清理 Job 时，会级联式地删除 Job 对象。
@@ -711,7 +710,7 @@ The tradeoffs are:
 The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
 The pattern names are also links to examples and more detailed description.
 -->
-下面是对这些权衡的汇总，列 2 到 4 对应上面的权衡比较。
+下面是对这些权衡的汇总，第 2 到 4 列对应上面的权衡比较。
 模式的名称对应了相关示例和更详细描述的链接。
 
 | 模式  | 单个 Job 对象 | Pod 数少于工作条目数？ | 直接使用应用无需修改? |
@@ -767,7 +766,7 @@ decide later when to start them.
 -->
 Job 被创建时，Job 控制器会马上开始执行 Pod 创建操作以满足 Job 的需求，
 并持续执行此操作直到 Job 完成为止。
-不过你可能想要暂时挂起 Job 执行，或启动处于挂起状态的job，
+不过你可能想要暂时挂起 Job 执行，或启动处于挂起状态的 Job，
 并拥有一个自定义控制器以后再决定什么时候开始。
 
 <!--
@@ -790,15 +789,14 @@ timer will be stopped and reset when a Job is suspended and resumed.
 并在 Job 恢复执行时复位。
 
 <!--
-Remember that suspending a Job will delete all active Pods. When the Job is
-suspended, your [Pods will be terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+When you suspend a Job, any running Pods that don't have a status of `Completed` will be [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 with a SIGTERM signal. The Pod's graceful termination period will be honored and
 your Pod must handle this signal in this period. This may involve saving
 progress for later or undoing changes. Pods terminated this way will not count
 towards the Job's `completions` count.
 -->
-要记住的是，挂起 Job 会删除其所有活跃的 Pod。当 Job 被挂起时，
-你的 Pod 会收到 SIGTERM 信号而被[终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+当你挂起一个 Job 时，所有正在运行且状态不是 `Completed` 的 Pod
+将被[终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 Pod 的体面终止期限会被考虑，不过 Pod 自身也必须在此期限之内处理完信号。
 处理逻辑可能包括保存进度以便将来恢复，或者取消已经做出的变更等等。
 Pod 以这种形式终止时，不会被记入 Job 的 `completions` 计数。
@@ -827,6 +825,28 @@ spec:
 ```
 
 <!--
+You can also toggle Job suspension by patching the Job using the command line.
+
+Suspend an active Job:
+-->
+你也可以使用命令行为 Job 打补丁来切换 Job 的挂起状态。
+
+挂起一个活跃的 Job：
+
+```shell
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":true}}'
+```
+
+<!--
+Resume a suspended Job:
+-->
+恢复一个挂起的 Job：
+
+```shell
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":false}}'
+```
+
+<!--
 The Job's status can be used to determine if a Job is suspended or has been
 suspended in the past:
 -->
@@ -839,7 +859,7 @@ kubectl get jobs/myjob -o yaml
 ```yaml
 apiVersion: batch/v1
 kind: Job
-# .metadata and .spec omitted
+# .metadata 和 .spec 已省略
 status:
   conditions:
   - lastProbeTime: "2021-02-05T13:14:33Z"
@@ -899,13 +919,13 @@ Job 被恢复执行时，Pod 创建操作立即被重启执行。
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
+{{< note >}}
 <!--
 In order to use this behavior, you must enable the `JobMutableNodeSchedulingDirectives`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
 It is enabled by default.
 -->
-{{< note >}}
 为了使用此功能，你必须在 [API 服务器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)上启用
 `JobMutableNodeSchedulingDirectives` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 默认情况下启用。
