@@ -336,7 +336,7 @@ kubectl logs -f my-pod -c my-container              # stream pod container logs 
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # Run pod as interactive shell
 kubectl run nginx --image=nginx -n mynamespace      # Start a single instance of nginx pod in the namespace of mynamespace
-kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
+kubectl run nginx --image=nginx                     # Generate spec for running pod nginx and write it into a file called pod.yaml
 --dry-run=client -o yaml > pod.yaml
 
 kubectl attach my-pod -i                            # Attach to Running Container
