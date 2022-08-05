@@ -64,6 +64,10 @@ As shown above, you have defined the correct dependency reference of `SERVICE_AD
 When an environment variable is already defined when being referenced,
 the reference can be correctly resolved, such as in the `SERVICE_ADDRESS` case.
 
+Note that order matters in the `env` list. An environment variable is not considered
+"defined" if it is specified further down the list. That is why `UNCHANGED_REFERENCE`
+fails to resolve `$(PROTOCOL)` in the example above.
+
 When the environment variable is undefined or only includes some variables, the undefined environment variable is treated as a normal string, such as `UNCHANGED_REFERENCE`. Note that incorrectly parsed environment variables, in general, will not block the container from starting.
 
 The `$(VAR_NAME)` syntax can be escaped with a double `$`, ie: `$$(VAR_NAME)`.
