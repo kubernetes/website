@@ -4,7 +4,7 @@ id: approver
 date: 2018-04-12
 full_link: 
 short_description: >
-  쿠버네티스 코드를 리뷰하고 승인할 수 있는 사람.
+  쿠버네티스 코드 컨트리뷰션을 리뷰하고 승인할 수 있는 사람.
 
 aka: 
 tags:
