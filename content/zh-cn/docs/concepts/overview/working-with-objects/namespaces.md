@@ -36,11 +36,11 @@ teams, or projects.  For clusters with a few to tens of users, you should not
 need to create or think about namespaces at all.  Start using namespaces when you
 need the features they provide.
 -->
-名字空间适用于存在很多跨多个团队或项目的用户的场景。对于只有几到几十个用户的集群，根本不需要创建或考虑名字空间。当需要名称空间提供的功能时，请开始使用它们。
+名字空间适用于存在很多跨多个团队或项目的用户的场景。对于只有几到几十个用户的集群，根本不需要创建或考虑名字空间。当需要名字空间提供的功能时，请开始使用它们。
 
 <!--
 Namespaces provide a scope for names.  Names of resources need to be unique within a namespace,
-but not across namespaces. Namespaces can not be nested inside one another and each Kubernetes
+but not across namespaces. Namespaces cannot be nested inside one another and each Kubernetes
 resource can only be in one namespace.
 -->
 名字空间为名称提供了一个范围。资源的名称需要在名字空间内是唯一的，但不能跨名字空间。
@@ -91,11 +91,11 @@ You can list the current namespaces in a cluster using:
 kubectl get namespace
 ```
 ```
-NAME          STATUS    AGE
-default       Active    1d
+NAME              STATUS   AGE
+default           Active   1d
 kube-node-lease   Active   1d
-kube-system   Active    1d
-kube-public   Active    1d
+kube-public       Active   1d
+kube-system       Active   1d
 ```
 
 <!--
@@ -173,7 +173,7 @@ multiple namespaces such as Development, Staging and Production.  If you want to
 across namespaces, you need to use the fully qualified domain name (FQDN).
 -->
 该条目的形式是 `<服务名称>.<名字空间名称>.svc.cluster.local`，这意味着如果容器只使用
-`<服务名称>`，它将被解析到本地名字空间的服务。这对于跨多个名字空间（如开发、分级和生产）
+`<服务名称>`，它将被解析到本地名字空间的服务。这对于跨多个名字空间（如开发、测试和生产）
 使用相同的配置非常有用。如果你希望跨名字空间访问，则需要使用完全限定域名（FQDN）。
 
 <!--
