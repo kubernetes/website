@@ -547,7 +547,7 @@ kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":true}}'
 Resume a suspended Job:
 
 ```shell
-kubectl patch job/myjob -p '{"spec":{"suspend":false}}'
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":false}}'
 ```
 
 The Job's status can be used to determine if a Job is suspended or has been
