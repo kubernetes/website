@@ -14,7 +14,7 @@ tags:
 
 <!--more-->
 
-어피니티에는 두 가지 종류가 있다.
+어피니티에는 다음의 두 가지 종류가 있다.
 
 - [노드 어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)
 - [파드 간 어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
