@@ -79,10 +79,10 @@ following steps:
 4. 为 API 服务器、控制器管理器和调度器生成静态 Pod 的清单文件。假使没有提供一个外部的 etcd
    服务的话，也会为 etcd 生成一份额外的静态 Pod 清单文件。
 
-   静态 Pod 的清单文件被写入到 `/etc/kubernetes/manifests` 目录; 
+   静态 Pod 的清单文件被写入到 `/etc/kubernetes/manifests` 目录；
    kubelet 会监视这个目录以便在系统启动的时候创建 Pod。
 
-   一旦控制平面的 Pod 都运行起来， `kubeadm init` 的工作流程就继续往下执行。
+   一旦控制平面的 Pod 都运行起来，`kubeadm init` 的工作流程就继续往下执行。
 
 <!--
 1. Apply labels and taints to the control-plane node so that no additional workloads will
@@ -131,17 +131,16 @@ following steps:
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
-
-   {{< warning >}}
-   kube-dns usage with kubeadm is deprecated as of v1.18 and is removed in v1.21.
-   {{< /warning >}}
 -->
 8. 通过 API 服务器安装一个 DNS 服务器 (CoreDNS) 和 kube-proxy 附加组件。
    在 Kubernetes 版本 1.11 和更高版本中，CoreDNS 是默认的 DNS 服务器。
    请注意，尽管已部署 DNS 服务器，但直到安装 CNI 时才调度它。
 
    {{< warning >}}
-   从 v1.18 开始，在 kubeadm 中使用 kube-dns 的支持已被废弃，并已在 v1.21 版本中删除。
+   <!--
+   kube-dns usage with kubeadm is deprecated as of v1.18 and is removed in v1.21.
+   -->
+   从 v1.18 开始，在 kubeadm 中使用 kube-dns 的支持已被废弃，并已在 v1.21 版本中移除。
    {{< /warning >}}
 
 <!--
@@ -171,7 +170,7 @@ sudo kubeadm init phase control-plane controller-manager --help
 ```
 
 <!--
-You can also use `-help` to see the list of sub-phases for a certain parent phase:
+You can also use `--help` to see the list of sub-phases for a certain parent phase:
 -->
 你也可以使用 `--help` 查看特定父阶段的子阶段列表：
 
@@ -180,7 +179,8 @@ sudo kubeadm init phase control-plane --help
 ```
 
 <!--
-`kubeadm init` also exposes a flag called `-skip-phases` that can be used to skip certain phases. The flag accepts a list of phase names and the names can be taken from the above ordered list.
+`kubeadm init` also exposes a flag called `--skip-phases` that can be used to skip certain phases.
+The flag accepts a list of phase names and the names can be taken from the above ordered list.
 -->
 `kubeadm init` 还公开了一个名为 `--skip-phases` 的参数，该参数可用于跳过某些阶段。
 参数接受阶段名称列表，并且这些名称可以从上面的有序列表中获取。
@@ -201,9 +201,12 @@ sudo kubeadm init --skip-phases=control-plane,etcd --config=configfile.yaml
 ```
 
 <!--
-What this example would do is write the manifest files for the control plane and etcd in `/etc/kubernetes/manifests` based on the configuration in `configfile.yaml`. This allows you to modify the files and then skip these phases using `-skip-phases`. By calling the last command you will create a control plane node with the custom manifest files.
+What this example would do is write the manifest files for the control plane and etcd in
+`/etc/kubernetes/manifests` based on the configuration in `configfile.yaml`. This allows you to
+modify the files and then skip these phases using `--skip-phases`. By calling the last command you
+will create a control plane node with the custom manifest files.
 -->
-该示例将执行的操作是基于 `configfile.yaml` 中的配置在 `/etc/kubernetes/manifests` 
+该示例将执行的操作是基于 `configfile.yaml` 中的配置在 `/etc/kubernetes/manifests`
 中写入控制平面和 etcd 的清单文件。
 这允许你修改文件，然后使用 `--skip-phases` 跳过这些阶段。
 通过调用最后一个命令，你将使用自定义清单文件创建一个控制平面节点。
@@ -211,7 +214,7 @@ What this example would do is write the manifest files for the control plane and
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 <!-- 
-Alternatively, you can use the `skipPhases` field under `InitConfiguration`. 
+Alternatively, you can use the `skipPhases` field under `InitConfiguration`.
 -->
 或者，你可以使用 `InitConfiguration` 下的 `skipPhases` 字段。
 
@@ -262,12 +265,12 @@ For more information on the fields and usage of the configuration you can naviga
 <!-- 
 ### Using kubeadm init with feature gates {#feature-gates} 
 -->
-### 使用 kubeadm init 时设置特性门控 {#feature-gates} 
+### 使用 kubeadm init 时设置特性门控 {#feature-gates}
 
 <!-- 
 Kubeadm supports a set of feature gates that are unique to kubeadm and can only be applied
 during cluster creation with `kubeadm init`. These features can control the behavior
-of the cluster. Feature gates are removed after a feature graduates to GA. 
+of the cluster. Feature gates are removed after a feature graduates to GA.
 -->
 Kubeadm 支持一组独有的特性门控，只能在 `kubeadm init` 创建集群期间使用。
 这些特性可以控制集群的行为。特性门控会在毕业到 GA 后被移除。
@@ -276,16 +279,16 @@ Kubeadm 支持一组独有的特性门控，只能在 `kubeadm init` 创建集�
 To pass a feature gate you can either use the `--feature-gates` flag for
 `kubeadm init`, or you can add items into the `featureGates` field when you pass
 a [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
-using `--config`. 
+using `--config`.
 -->
 你可以使用 `--feature-gates` 标志来为 `kubeadm init` 设置特性门控，
 或者你可以在用 `--config` 传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
-时添加条目到 `featureGates` 字段中去。
+时添加条目到 `featureGates` 字段中。
 
 <!-- 
 Passing [feature gates for core Kubernetes components](/docs/reference/command-line-tools-reference/feature-gates)
 directly to kubeadm is not supported. Instead, it is possible to pass them by
-[Customizing components with the kubeadm API](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/). 
+[Customizing components with the kubeadm API](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/).
 -->
 直接传递 [Kubernetes 核心组件的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates)给 kubeadm 是不支持的。
 相反，可以通过[使用 kubeadm API 的自定义组件](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)来传递。
@@ -319,7 +322,7 @@ Feature gate descriptions:
 `PublicKeysECDSA`
 : Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
 Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
-switch between the RSA and ECDSA algorithms on the fly or during upgrades. 
+switch between the RSA and ECDSA algorithms on the fly or during upgrades.
 -->
 `PublicKeysECDSA`
 : 可用于创建集群时使用 ECDSA 证书而不是默认 RSA 算法。
@@ -331,10 +334,10 @@ switch between the RSA and ECDSA algorithms on the fly or during upgrades.
 : Setting this flag configures the kubeadm deployed control plane component static Pod containers
 for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
 If the flag is not set, those components run as root. You can change the value of this feature gate before
-you upgrade to a newer version of Kubernetes. 
+you upgrade to a newer version of Kubernetes.
 -->
 `RootlessControlPlane`
-: 设置此标志来配置 kubeadm 所部署的控制平面组件中的静态 Pod 容器 
+: 设置此标志来配置 kubeadm 所部署的控制平面组件中的静态 Pod 容器
 `kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd` 以非 root 用户身份运行。
 如果未设置该标志，则这些组件以 root 身份运行。
 你可以在升级到更新版本的 Kubernetes 之前更改此特性门控的值。
@@ -348,12 +351,12 @@ If you set this flag to `false`, the name of the ConfigMap includes the major an
 that ConfigMap are appropriate for the value you set. When kubeadm writes this ConfigMap (during `kubeadm init`
 or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
 (during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade ...`), kubeadm attempts to use unversioned ConfigMap name first;
-if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap. 
+if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
 -->
 `UnversionedKubeletConfigMap`
 : 此标志控制 kubeadm 存储 kubelet 配置数据的 {{<glossary_tooltip text="ConfigMap" term_id="configmap" >}} 的名称。
 在未指定此标志或设置为 `true` 的情况下，此 ConfigMap 被命名为 `kubelet-config`。
-如果将此标志设置为 `false`，则此 ConfigMap 的名称会包括 Kubernetes 的主要版本和次要版本（例如：`kubelet-config-{{< skew currentVersion >}}`）。 
+如果将此标志设置为 `false`，则此 ConfigMap 的名称会包括 Kubernetes 的主要版本和次要版本（例如：`kubelet-config-{{< skew currentVersion >}}`）。
 Kubeadm 会确保用于读写 ConfigMap 的 RBAC 规则适合你设置的值。
 当 kubeadm 写入此 ConfigMap 时（在 `kubeadm init` 或 `kubeadm upgrade apply` 期间），
 kubeadm 根据 `UnversionedKubeletConfigMap` 的设置值来执行操作。
@@ -361,16 +364,15 @@ kubeadm 根据 `UnversionedKubeletConfigMap` 的设置值来执行操作。
 kubeadm 尝试首先使用无版本（后缀）的 ConfigMap 名称；
 如果不成功，kubeadm 将回退到使用该 ConfigMap 的旧（带版本号的）名称。
 
+{{< note >}}
 <!-- 
 Setting `UnversionedKubeletConfigMap` to `false` is supported but **deprecated**. 
 -->
-{{< note >}}
 设置 `UnversionedKubeletConfigMap` 为 `false` 是被支持的特性，但该特性**已被弃用**。
 {{< /note >}}
 
 <!--
 ### Adding kube-proxy parameters {#kube-proxy}
-
 
 For information about kube-proxy parameters in the kubeadm configuration see:
 - [kube-proxy reference](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
@@ -403,7 +405,7 @@ For information about passing flags to control plane components see:
 <!--
 ### Running kubeadm without an Internet connection {#without-internet-connection}
 
-For running kubeadm without an internet connection you have to pre-pull the required control-plane images.
+For running kubeadm without an Internet connection you have to pre-pull the required control-plane images.
 
 You can list and pull the images using the `kubeadm config images` sub-command:
 -->
@@ -420,7 +422,7 @@ kubeadm config images pull
 
 <!-- 
 You can pass `--config` to the above commands with a [kubeadm configuration file](#config-file)
-to control the `kubernetesVersion` and `imageRepository` fields. 
+to control the `kubernetesVersion` and `imageRepository` fields.
 -->
 你可以通过 `--config` 把 [kubeadm 配置文件](#config-file) 传递给上述命令来控制
 `kubernetesVersion` 和 `imageRepository` 字段。
@@ -450,12 +452,11 @@ Allowed customization are:
 * To provide an alternative `imageRepository` to be used instead of
   `k8s.gcr.io`.
 * To provide a specific `imageRepository` and `imageTag` for etcd or CoreDNS.
-
 -->
 你可以通过使用[带有配置文件的 kubeadm](#config-file) 来重写此操作。
 允许的自定义功能有：
 
-* 提供影响镜像版本的 `kubernetesVersion`。 
+* 提供影响镜像版本的 `kubernetesVersion`。
 * 使用其他的 `imageRepository` 来代替 `k8s.gcr.io`。
 * 为 etcd 或 CoreDNS 提供特定的 `imageRepository` 和 `imageTag`。
 
@@ -480,11 +481,11 @@ can consume, you must:
 * Push images to the paths from `kubeadm config images list --config=config.yaml`,
 where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
 for etcd and CoreDNS.
-* Pass the same `config.yaml` to `kubeadm init`. 
+* Pass the same `config.yaml` to `kubeadm init`.
 -->
 * 使用 `kubeadm config images {list|pull}` 从 `k8s.gcr.io` 的默认路径中拉取镜像。
 * 将镜像推送到 `kubeadm config images list --config=config.yaml` 的路径，
-  其中 `config.yaml` 包含自定义的 `imageRepository` 和/或用于 etcd 和 CoreDNS 的 `imageTag`。 
+  其中 `config.yaml` 包含自定义的 `imageRepository` 和/或用于 etcd 和 CoreDNS 的 `imageTag`。
 * 将相同的 `config.yaml` 传递给 `kubeadm init`。
 
 <!--
@@ -495,30 +496,29 @@ To set a custom image for these you need to configure this in your
 to use the image.
 Consult the documentation for your container runtime to find out how to change this setting;
 for selected container runtimes, you can also find advice within the
-[Container Runtimes]((/docs/setup/production-environment/container-runtimes/) topic.
+[Container Runtimes](/docs/setup/production-environment/container-runtimes/) topic.
 -->
 #### 定制沙箱（pause）镜像  {#custom-pause-image}
 
 如果需要为这些组件设置定制的镜像，你需要在你的{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
 中完成一些配置。参阅你的容器运行时的文档以了解如何改变此设置。
 对于某些容器运行时而言，
-你可以在[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
-主题下找到一些建议。
+你可以在[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)主题下找到一些建议。
 
 <!--
 ### Uploading control-plane certificates to the cluster
 
-By adding the flag `-upload-certs` to `kubeadm init` you can temporary upload
+By adding the flag `--upload-certs` to `kubeadm init` you can temporary upload
 the control-plane certificates to a Secret in the cluster. Please note that this Secret
 will expire automatically after 2 hours. The certificates are encrypted using
-a 32byte key that can be specified using `-certificate-key`. The same key can be used
+a 32byte key that can be specified using `--certificate-key`. The same key can be used
 to download the certificates when additional control-plane nodes are joining, by passing
-`-control-plane` and `-certificate-key` to `kubeadm join`.
+`--control-plane` and `--certificate-key` to `kubeadm join`.
 -->
 ### 将控制平面证书上传到集群  {#uploading-control-plane-certificates-to-the-cluster}
 
 通过将参数 `--upload-certs` 添加到 `kubeadm init`，你可以将控制平面证书临时上传到集群中的 Secret。
-请注意，此 Secret 将在 2 小时后自动过期。证书使用 32 字节密钥加密，可以使用 `--certificate-key` 指定。
+请注意，此 Secret 将在 2 小时后自动过期。这些证书使用 32 字节密钥加密，可以使用 `--certificate-key` 指定该密钥。
 通过将 `--control-plane` 和 `--certificate-key` 传递给 `kubeadm join`，
 可以在添加其他控制平面节点时使用相同的密钥下载证书。
 
@@ -532,7 +532,7 @@ kubeadm init phase upload-certs --upload-certs --certificate-key=SOME_VALUE --co
 ```
 
 <!--
-If the flag `-certificate-key` is not passed to `kubeadm init` and
+If the flag `--certificate-key` is not passed to `kubeadm init` and
 `kubeadm init phase upload-certs` a new key will be generated automatically.
 
 The following command can be used to generate a new key on demand:
@@ -558,12 +558,14 @@ and certificate renewal.
 
 有关使用 kubeadm 进行证书管理的详细信息，
 请参阅[使用 kubeadm 进行证书管理](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
-该文档包括有关使用外部 CA，自定义证书和证书更新的信息。
+该文档包括有关使用外部 CA、自定义证书和证书续订的信息。
 
 <!--
 ### Managing the kubeadm drop-in file for the kubelet {#kubelet-drop-in}
 
-The `kubeadm` package ships with a configuration file for running the `kubelet` by `systemd`. Note that the kubeadm CLI never touches this drop-in file. This drop-in file is part of the kubeadm DEB/RPM package.
+The `kubeadm` package ships with a configuration file for running the `kubelet` by `systemd`.
+Note that the kubeadm CLI never touches this drop-in file. This drop-in file is part of the kubeadm
+DEB/RPM package.
 -->
 ### 管理 kubeadm 为 kubelet 提供的 systemd 配置文件 {#kubelet-drop-in}
 
@@ -579,8 +581,8 @@ For further information, see [Managing the kubeadm drop-in file for systemd](/do
 <!--
 ### Use kubeadm with CRI runtimes
 
-By default kubeadm attempts to detect your container runtime. For more details on this detection, see
-the [kubeadm CRI installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
+By default kubeadm attempts to detect your container runtime. For more details on this detection,
+see the [kubeadm CRI installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 -->
 ### 结合 CRI 运行时使用 kubeadm   {#use-kubeadm-with-cri-runtimes}
 
@@ -590,8 +592,9 @@ the [kubeadm CRI installation guide](/docs/setup/production-environment/tools/ku
 <!--
 ### Setting the node name
 
-By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the `-node-name` flag.
-The flag passes the appropriate [`-hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options)
+By default, `kubeadm` assigns a node name based on a machine's host address.
+You can override this setting with the `--node-name` flag.
+The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options)
 value to the kubelet.
 -->
 ### 设置节点的名称  {#setting-the-node-name}
@@ -601,7 +604,8 @@ value to the kubelet.
 值传递给 kubelet。
 
 <!--
-Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
+Be aware that overriding the hostname can
+[interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
 -->
 要注意，重载主机名可能会[与云驱动发生冲突](https://github.com/kubernetes/website/pull/8873)。
 
@@ -609,16 +613,16 @@ Be aware that overriding the hostname can [interfere with cloud providers](https
 ### Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
-in the [basic kubeadm tutorial](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), you can parallelize the
-token distribution for easier automation. To implement this automation, you must
-know the IP address that the control-plane node will have after it is started,
-or use a DNS name or an address of a load balancer.
+in the [basic kubeadm tutorial](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/),
+you can parallelize the token distribution for easier automation. To implement this automation,
+you must know the IP address that the control-plane node will have after it is started, or use a
+DNS name or an address of a load balancer.
 -->
 ### kubeadm 自动化   {#automating-kubeadm}
 
-除了像文档 [kubeadm 基础教程](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-中所描述的那样，将从 `kubeadm init` 取得的令牌复制到每个节点，
-你还可以并行地分发令牌以实现简单自动化。
+除了像文档
+[kubeadm 基础教程](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)中所描述的那样，
+将从 `kubeadm init` 取得的令牌复制到每个节点，你还可以并行地分发令牌以实现更简单的自动化。
 要实现自动化，你必须知道控制平面节点启动后将拥有的 IP 地址，或使用 DNS 名称或负载均衡器的地址。
 
 <!--
@@ -628,8 +632,8 @@ or use a DNS name or an address of a load balancer.
 
    kubeadm can generate a token for you:
 -->
-1. 生成一个令牌。这个令牌必须具有以下格式：`<6 个字符的字符串>.<16 个字符的字符串>`。
-   更加正式的说法是，它必须符合以下正则表达式：`[a-z0-9]{6}\.[a-z0-9]{16}`。
+1. 生成一个令牌。这个令牌必须采用的格式为：`<6 个字符的字符串>.<16 个字符的字符串>`。
+   更加正式的说法是，它必须符合正则表达式：`[a-z0-9]{6}\.[a-z0-9]{16}`。
    
    kubeadm 可以为你生成一个令牌：
 
@@ -639,17 +643,17 @@ or use a DNS name or an address of a load balancer.
 
 <!--
 1. Start both the control-plane node and the worker nodes concurrently with this token.
-   As they come up they should find each other and form the cluster. The same
-   `-token` argument can be used on both `kubeadm init` and `kubeadm join`. 
+   As they come up they should find each other and form the cluster.  The same
+   `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
 -->
-2. 使用这个令牌同时启动控制平面节点和工作节点。它们一旦运行起来应该就会互相寻找对方并且建立集群。
+2. 使用这个令牌同时启动控制平面节点和工作节点。这些节点一旦运行起来应该就会互相寻找对方并且形成集群。
    同样的 `--token` 参数可以同时用于 `kubeadm init` 和 `kubeadm join` 命令。
 
 <!--
-1. Similar can be done for `-certificate-key` when joining additional control-plane
+1. Similar can be done for `--certificate-key` when joining additional control-plane
    nodes. The key can be generated using:
 -->
-3. 当加入其他控制平面节点时，可以对 `--certificate-key` 执行类似的操作。可以使用以下方式生成密钥：
+3. 当接入其他控制平面节点时，可以对 `--certificate-key` 执行类似的操作。可以使用以下方式生成密钥：
 
    ```shell
    kubeadm certs certificate-key
@@ -665,7 +669,7 @@ at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
 <!--
 Note that this style of bootstrap has some relaxed security guarantees because
 it does not allow the root CA hash to be validated with
-`-discovery-token-ca-cert-hash` (since it's not generated when the nodes are
+`--discovery-token-ca-cert-hash` (since it's not generated when the nodes are
 provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/).
 -->
 注意这种搭建集群的方式在安全保证上会有一些宽松，因为这种方式不允许使用
@@ -677,10 +681,13 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 
 <!--
 * [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) to understand more about
-`kubeadm init` phases
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
-* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+  `kubeadm init` phases
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes
+  worker node and join it to the cluster
+* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes
+  cluster to a newer version
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made
+  to this host by `kubeadm init` or `kubeadm join`
 -->
 * 进一步阅读了解 [kubeadm init 阶段](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/)
 * [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
