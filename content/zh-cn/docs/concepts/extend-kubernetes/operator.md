@@ -29,13 +29,13 @@ Operator 遵循 Kubernetes 的理念，特别是在[控制器](/zh-cn/docs/conce
 <!--
 ## Motivation
 
-The Operator pattern aims to capture the key aim of a human operator who
+The operator pattern aims to capture the key aim of a human operator who
 is managing a service or set of services. Human operators who look after
 specific applications and services have deep knowledge of how the system
 ought to behave, how to deploy it, and how to react if there are problems.
 
 People who run workloads on Kubernetes often like to use automation to take
-care of repeatable tasks. The Operator pattern captures how you can write
+care of repeatable tasks. The operator pattern captures how you can write
 code to automate a task beyond what Kubernetes itself provides.
 -->
 ## 初衷
@@ -58,7 +58,7 @@ Kubernetes' {{< glossary_tooltip text="operator pattern" term_id="operator-patte
 Operators are clients of the Kubernetes API that act as controllers for
 a [Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 -->
-## Kubernetes 上的 Operator
+## Kubernetes 上的 operator
 
 Kubernetes 为自动化而生。无需任何修改，你即可以从 Kubernetes 核心中获得许多内置的自动化功能。
 你可以使用 Kubernetes 自动化部署和运行工作负载， *甚至* 可以自动化 Kubernetes 自身。
@@ -71,7 +71,7 @@ Operator 是 Kubernetes API 的客户端，充当
 的控制器。
 
 <!--
-## An example Operator {#example}
+## An example operator {#example}
 
 Some of the things that you can use an operator to automate include:
 
@@ -97,7 +97,7 @@ Some of the things that you can use an operator to automate include:
 * 在没有内部成员选举程序的情况下，为分布式应用选择首领角色
 
 <!--
-What might an Operator look like in more detail? Here's an example:
+What might an operator look like in more detail? Here's an example:
 
 1. A custom resource named SampleDB, that you can configure into the cluster.
 2. A Deployment that makes sure a Pod is running that contains the
@@ -105,18 +105,18 @@ What might an Operator look like in more detail? Here's an example:
 3. A container image of the operator code.
 4. Controller code that queries the control plane to find out what SampleDB
    resources are configured.
-5. The core of the Operator is code to tell the API server how to make
+5. The core of the operator is code to tell the API server how to make
    reality match the configured resources.
    * If you add a new SampleDB, the operator sets up PersistentVolumeClaims
      to provide durable database storage, a StatefulSet to run SampleDB and
      a Job to handle initial configuration.
-   * If you delete it, the Operator takes a snapshot, then makes sure that
+   * If you delete it, the operator takes a snapshot, then makes sure that
      the StatefulSet and Volumes are also removed.
 6. The operator also manages regular database backups. For each SampleDB
    resource, the operator determines when to create a Pod that can connect
    to the database and take backups. These Pods would rely on a ConfigMap
    and / or a Secret that has database connection details and credentials.
-7. Because the Operator aims to provide robust automation for the resource
+7. Because the operator aims to provide robust automation for the resource
    it manages, there would be additional supporting code. For this example,
    code checks to see if the database is running an old version and, if so,
    creates Job objects that upgrade it for you.
@@ -141,28 +141,28 @@ What might an Operator look like in more detail? Here's an example:
    如果是，则创建 Job 对象为你升级数据库。
 
 <!--
-## Deploying Operators
+## Deploying operators
 
-The most common way to deploy an Operator is to add the
+The most common way to deploy an operator is to add the
 Custom Resource Definition and its associated Controller to your cluster.
 The Controller will normally run outside of the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}},
 much as you would run any containerized application.
 For example, you can run the controller in your cluster as a Deployment.
 -->
-## 部署 Operator
+## 部署 operator
 
-部署 Operator 最常见的方法是将自定义资源及其关联的控制器添加到你的集群中。
+部署 operator 最常见的方法是将自定义资源及其关联的控制器添加到你的集群中。
 跟运行容器化应用一样，控制器通常会运行在
 {{< glossary_tooltip text="控制平面" term_id="control-plane" >}} 之外。
 例如，你可以在集群中将控制器作为 Deployment 运行。
 
 <!--
-## Using an Operator {#using-operators}
+## Using an operator {#using-operators}
 
-Once you have an Operator deployed, you'd use it by adding, modifying or
-deleting the kind of resource that the Operator uses. Following the above
-example, you would set up a Deployment for the Operator itself, and then:
+Once you have an operator deployed, you'd use it by adding, modifying or
+deleting the kind of resource that the operator uses. Following the above
+example, you would set up a Deployment for the operator itself, and then:
 
 ```shell
 kubectl get SampleDB                   # find configured databases
@@ -170,10 +170,10 @@ kubectl get SampleDB                   # find configured databases
 kubectl edit SampleDB/example-database # manually change some settings
 ```
 -->
-## 使用 Operator {#using-operators}
+## 使用 operator {#using-operators}
 
-部署 Operator 后，你可以对 Operator 所使用的资源执行添加、修改或删除操作。
-按照上面的示例，你将为 Operator 本身建立一个 Deployment，然后：
+部署 operator 后，你可以对 operator 所使用的资源执行添加、修改或删除操作。
+按照上面的示例，你将为 operator 本身建立一个 Deployment，然后：
 
 ```shell
 kubectl get SampleDB                   # 查找所配置的数据库
@@ -182,32 +182,32 @@ kubectl edit SampleDB/example-database # 手动修改某些配置
 ```
 
 <!--
-&hellip;and that's it! The Operator will take care of applying the changes as well as keeping the existing service in good shape.
+&hellip;and that's it! The operator will take care of applying the changes as well as keeping the existing service in good shape.
 -->
 可以了！Operator 会负责应用所作的更改并保持现有服务处于良好的状态。
 
 <!--
-## Writing your own Operator {#writing-operator}
+## Writing your own operator {#writing-operator}
 -->
 
 ## 编写你自己的 Operator {#writing-operator}
 
 <!--
-If there isn't an Operator in the ecosystem that implements the behavior you
+If there isn't an operator in the ecosystem that implements the behavior you
 want, you can code your own.
 
-You also implement an Operator (that is, a Controller) using any language / runtime
+You also implement an operator (that is, a Controller) using any language / runtime
 that can act as a [client for the Kubernetes API](/docs/reference/using-api/client-libraries/).
 -->
 
-如果生态系统中没可以实现你目标的 Operator，你可以自己编写代码。
+如果生态系统中没可以实现你目标的 operator，你可以自己编写代码。
 
 你还可以使用任何支持 [Kubernetes API 客户端](/zh-cn/docs/reference/using-api/client-libraries/)
-的语言或运行时来实现 Operator（即控制器）。
+的语言或运行时来实现 operator（即控制器）。
 
 <!--
 Following are a few libraries and tools you can use to write your own cloud native
-Operator.
+operator.
 
 {{% thirdparty-content %}}
 
@@ -245,8 +245,8 @@ you implement yourself
 * Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Find ready-made operators on [OperatorHub.io](https://operatorhub.io/) to suit your use case
 * [Publish](https://operatorhub.io/) your operator for other people to use
-* Read [CoreOS' original article](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html) that introduced the Operator pattern (this is an archived version of the original article).
-* Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) from Google Cloud about best practices for building Operators
+* Read [CoreOS' original article](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html) that introduced the operator pattern (this is an archived version of the original article).
+* Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) from Google Cloud about best practices for building operators
 -->
 
 * 阅读 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [Operator 白皮书](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md)。
