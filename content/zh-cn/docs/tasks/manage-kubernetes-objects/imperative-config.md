@@ -269,12 +269,12 @@ template:
 
 <!--
 * [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
 * [使用命令式命令管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [使用对象配置管理 Kubernetes 对象 (声明式)](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [使用配置文件对 Kubernetes 对象进行声明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 命令参考](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
