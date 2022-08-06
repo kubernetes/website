@@ -14,7 +14,7 @@ Atualize a configuração do kubelet para este nó
 
 ### Sinopse
 
-No cluster baixe a configuração do kubelet do ConfigMap no formato "kubelet-config-1.X", onde X é a menor versão do kubelet. O kubeadm usa o campo KuberneteVersion no kubeadm-config ConfigMap para determinar qual é a versão _desejada_ do kubelet.
+Baixa no cluster o ConfigMap de configuração do kubelet no formato "kubelet-config-1.X", onde X é a menor versão do kubelet. O kubeadm usa o campo KuberneteVersion no ConfigMap kubeadm-config para determinar qual é a versão _desejada_ do kubelet.
 
 ```
 kubeadm upgrade node phase kubelet-config [flags]
@@ -47,7 +47,7 @@ kubeadm upgrade node phase kubelet-config [flags]
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrões locais pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o     cluster. Se a flag não estiver definida, uma série de locais predefinidos pode ser pesquisado por um arquivo kubeconfig e    xistente.</p></td>
 </tr>
 
 </tbody>
