@@ -67,7 +67,7 @@ transient slices for resources that are supported by that init system.
 Depending on the configuration of the associated container runtime,
 operators may have to choose a particular cgroup driver to ensure
 proper system behavior. For example, if operators use the `systemd`
-cgroup driver provided by the `docker` runtime, the `kubelet` must
+cgroup driver provided by the `containerd` runtime, the `kubelet` must
 be configured to use the `systemd` cgroup driver.
 
 ### Kube Reserved
@@ -91,11 +91,14 @@ flag.
 It is recommended that the kubernetes system daemons are placed under a top
 level control group (`runtime.slice` on systemd machines for example). Each
 system daemon should ideally run within its own child control group. Refer to
-[the design proposal](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md#recommended-cgroups-setup)
+[the design proposal](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md#recommended-cgroups-setup)
 for more details on recommended control group hierarchy.
 
 Note that Kubelet **does not** create `--kube-reserved-cgroup` if it doesn't
-exist. Kubelet will fail if an invalid cgroup is specified.
+exist. Kubelet will fail if an invalid cgroup is specified. With `systemd`
+cgroup driver, you should follow a specific pattern for the name of the cgroup you
+define: the name should be the value you set for `--kube-reserved-cgroup`,
+with `.slice` appended.
 
 ### System Reserved
 
@@ -120,7 +123,10 @@ It is recommended that the OS system daemons are placed under a top level
 control group (`system.slice` on systemd machines for example).
 
 Note that `kubelet` **does not** create `--system-reserved-cgroup` if it doesn't
-exist. `kubelet` will fail if an invalid cgroup is specified.
+exist. `kubelet` will fail if an invalid cgroup is specified.  With `systemd`
+cgroup driver, you should follow a specific pattern for the name of the cgroup you
+define: the name should be the value you set for `--system-reserved-cgroup`,
+with `.slice` appended.
 
 ### Explicitly Reserved CPU List
 
@@ -182,8 +188,9 @@ respectively.
 
 ## General Guidelines
 
-System daemons are expected to be treated similar to 'Guaranteed' pods. System
-daemons can burst within their bounding control groups and this behavior needs
+System daemons are expected to be treated similar to 
+[Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed). 
+System daemons can burst within their bounding control groups and this behavior needs
 to be managed as part of kubernetes deployments. For example, `kubelet` should
 have its own control group and share `kube-reserved` resources with the
 container runtime. However, Kubelet cannot burst and use up all available Node

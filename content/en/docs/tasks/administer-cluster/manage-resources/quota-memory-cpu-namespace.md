@@ -2,14 +2,17 @@
 title: Configure Memory and CPU Quotas for a Namespace
 content_type: task
 weight: 50
+description: >-
+  Define overall memory and CPU resource limits for a namespace.
 ---
 
 
 <!-- overview -->
 
 This page shows how to set quotas for the total amount memory and CPU that
-can be used by all Containers running in a namespace. You specify quotas in a
-[ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
+can be used by all Pods running in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
+You specify quotas in a
+[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
 object.
 
 
@@ -17,12 +20,11 @@ object.
 
 ## {{% heading "prerequisites" %}}
 
+{{< include "task-tutorial-prereqs.md" >}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+You must have access to create namespaces in your cluster.
 
 Each node in your cluster must have at least 1 GiB of memory.
-
-
 
 
 <!-- steps -->
@@ -38,7 +40,7 @@ kubectl create namespace quota-mem-cpu-example
 
 ## Create a ResourceQuota
 
-Here is the configuration file for a ResourceQuota object:
+Here is a manifest for an example ResourceQuota:
 
 {{< codenew file="admin/resource/quota-mem-cpu.yaml" >}}
 
@@ -56,15 +58,18 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example --outpu
 
 The ResourceQuota places these requirements on the quota-mem-cpu-example namespace:
 
-* Every Container must have a memory request, memory limit, cpu request, and cpu limit.
-* The memory request total for all Containers must not exceed 1 GiB.
-* The memory limit total for all Containers must not exceed 2 GiB.
-* The CPU request total for all Containers must not exceed 1 cpu.
-* The CPU limit total for all Containers must not exceed 2 cpu.
+* For every Pod in the namespace, each container must have a memory request, memory limit, cpu request, and cpu limit.
+* The memory request total for all Pods in that namespace must not exceed 1 GiB.
+* The memory limit total for all Pods in that namespace must not exceed 2 GiB.
+* The CPU request total for all Pods in that namespace must not exceed 1 cpu.
+* The CPU limit total for all Pods in that namespace must not exceed 2 cpu.
+
+See [meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
+to learn what Kubernetes means by “1 CPU”.
 
 ## Create a Pod
 
-Here is the configuration file for a Pod:
+Here is a manifest for an example Pod:
 
 {{< codenew file="admin/resource/quota-mem-cpu-pod.yaml" >}}
 
@@ -75,15 +80,15 @@ Create the Pod:
 kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod.yaml --namespace=quota-mem-cpu-example
 ```
 
-Verify that the Pod's Container is running:
+Verify that the Pod is running and that its (only) container is healthy:
 
-```
+```shell
 kubectl get pod quota-mem-cpu-demo --namespace=quota-mem-cpu-example
 ```
 
 Once again, view detailed information about the ResourceQuota:
 
-```
+```shell
 kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example --output=yaml
 ```
 
@@ -105,15 +110,22 @@ status:
     requests.memory: 600Mi
 ```
 
+If you have the `jq` tool, you can also query (using [JSONPath](/docs/reference/kubectl/jsonpath/))
+for just the `used` values, **and** pretty-print that that of the output. For example:
+
+```shell
+kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o jsonpath='{ .status.used }' | jq .
+```
+
 ## Attempt to create a second Pod
 
-Here is the configuration file for a second Pod:
+Here is a manifest for a second Pod:
 
 {{< codenew file="admin/resource/quota-mem-cpu-pod-2.yaml" >}}
 
-In the configuration file, you can see that the Pod has a memory request of 700 MiB.
+In the manifest, you can see that the Pod has a memory request of 700 MiB.
 Notice that the sum of the used memory request and this new memory
-request exceeds the memory request quota. 600 MiB + 700 MiB > 1 GiB.
+request exceeds the memory request quota: 600 MiB + 700 MiB > 1 GiB.
 
 Attempt to create the Pod:
 
@@ -133,11 +145,12 @@ requested: requests.memory=700Mi,used: requests.memory=600Mi, limited: requests.
 ## Discussion
 
 As you have seen in this exercise, you can use a ResourceQuota to restrict
-the memory request total for all Containers running in a namespace.
+the memory request total for all Pods running in a namespace.
 You can also restrict the totals for memory limit, cpu request, and cpu limit.
 
-If you want to restrict individual Containers, instead of totals for all Containers, use a
-[LimitRange](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/).
+Instead of managing total resource use within a namespace, you might want to restrict
+individual Pods, or the containers in those Pods. To achieve that kind of limiting, use a
+[LimitRange](/docs/concepts/policy/limit-range/).
 
 ## Clean up
 

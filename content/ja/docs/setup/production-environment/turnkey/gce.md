@@ -146,7 +146,7 @@ Some of the pods may take a few seconds to start up (during this time they'll sh
 
 Then, see [a simple nginx example](/ja/docs/tasks/run-application/run-stateless-application-deployment/) to try out your new cluster.
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/).  The [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) is a good "getting started" walkthrough.
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/master/).  The [guestbook example](https://github.com/kubernetes/examples/tree/master/guestbook/) is a good "getting started" walkthrough.
 
 ## クラスターの解体
 

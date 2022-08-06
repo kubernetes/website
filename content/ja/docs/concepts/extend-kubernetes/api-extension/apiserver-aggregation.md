@@ -8,7 +8,7 @@ weight: 20
 
 アグリゲーションレイヤーを使用すると、KubernetesのコアAPIで提供されている機能を超えて、追加のAPIでKubernetesを拡張できます。追加のAPIは、[service-catalog](/docs/concepts/extend-kubernetes/service-catalog/)のような既製のソリューション、または自分で開発したAPIのいずれかです。
 
-アグリゲーションレイヤーは、[カスタムリソース](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)とは異なり、{{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}に新しい種類のオブジェクトを認識させる方法です。
+アグリゲーションレイヤーは、[カスタムリソース](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)とは異なり、{{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}に新しい種類のオブジェクトを認識させる方法です。
 
 
 

@@ -32,7 +32,7 @@ Anyone can:
 - Suggest improvements on [Slack](https://slack.k8s.io/) or the
   [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 
-After [signing the CLA](/docs/contribute/new-content/overview/#sign-the-cla), anyone can also:
+After [signing the CLA](https://github.com/kubernetes/community/blob/master/CLA.md), anyone can also:
 
 - Open a pull request to improve existing content, add new content, or write a blog post or case study
 - Create diagrams, graphics assets, and embeddable screencasts and videos
@@ -147,7 +147,7 @@ separately for reviewer status in SIG Docs.
 To apply:
 
 1. Open a pull request that adds your GitHub user name to a section of the
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS) file
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES) file
    in the `kubernetes/website` repository.
 
    {{< note >}}
@@ -219,7 +219,7 @@ separately for approver status in SIG Docs.
 To apply:
 
 1. Open a pull request adding yourself to a section of the
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
    file in the `kubernetes/website` repository.
 
     {{< note >}}

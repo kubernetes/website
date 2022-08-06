@@ -25,14 +25,6 @@ Using this phase you can execute preflight checks on a node that is being reset.
 {{< tab name="preflight" include="generated/kubeadm_reset_phase_preflight.md" />}}
 {{< /tabs >}}
 
-## kubeadm reset phase update-cluster-status {#cmd-reset-phase-update-cluster-status}
-
-Using this phase you can remove this control-plane node from the ClusterStatus object.
-
-{{< tabs name="tab-update-cluster-status" >}}
-{{< tab name="update-cluster-status" include="generated/kubeadm_reset_phase_update-cluster-status.md" />}}
-{{< /tabs >}}
-
 ## kubeadm reset phase remove-etcd-member {#cmd-reset-phase-remove-etcd-member}
 
 Using this phase you can remove this control-plane node's etcd member from the etcd cluster.

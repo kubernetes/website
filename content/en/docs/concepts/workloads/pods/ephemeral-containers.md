@@ -9,21 +9,12 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+{{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
 This page provides an overview of ephemeral containers: a special type of container
 that runs temporarily in an existing {{< glossary_tooltip term_id="pod" >}} to
 accomplish user-initiated actions such as troubleshooting. You use ephemeral
 containers to inspect services rather than to build applications.
-
-{{< warning >}}
-Ephemeral containers are in alpha state and are not suitable for production
-clusters. In accordance with the [Kubernetes Deprecation Policy](
-/docs/reference/using-api/deprecation-policy/), this alpha feature could change
-significantly in the future or be removed entirely.
-{{< /warning >}}
-
-
 
 <!-- body -->
 
@@ -79,5 +70,5 @@ you can view processes in other containers.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn how to [debug pods using ephemeral containers](/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container).
+* Learn how to [debug pods using ephemeral containers](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).
 

@@ -1,7 +1,7 @@
 ---
 title: Kubernetesのスケジューラー
 content_type: concept
-weight: 60
+weight: 10
 ---
 
 <!-- overview -->
@@ -62,9 +62,9 @@ _スコアリング_ ステップでは、Podを割り当てるのに最も適�
 * [Podトポロジーの分散制約](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)を参照してください。
 * kube-schedulerの[リファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-scheduler/)を参照してください。
 * [複数のスケジューラーの設定](/docs/tasks/administer-cluster/configure-multiple-schedulers/)について学んでください。
-* [トポロジーの管理ポリシー](/docs/tasks/administer-cluster/topology-manager/)について学んでください。
-* [Podのオーバーヘッド](/docs/concepts/scheduling-eviction/pod-overhead/)について学んでください。
+* [トポロジーの管理ポリシー](/ja/docs/tasks/administer-cluster/topology-manager/)について学んでください。
+* [Podのオーバーヘッド](/ja/docs/concepts/scheduling-eviction/pod-overhead/)について学んでください。
 * ボリュームを使用するPodのスケジューリングについて以下で学んでください。
   * [Volume Topology Support](/docs/concepts/storage/storage-classes/#volume-binding-mode)
-  * [ストレージ容量の追跡](/ja//docs/concepts/storage/storage-capacity/)
+  * [ストレージ容量の追跡](/ja/docs/concepts/storage/storage-capacity/)
   * [Node-specific Volume Limits](/docs/concepts/storage/storage-limits/)

@@ -26,8 +26,9 @@ Kubernetes上でワークロードを稼働させている人は、しばしば�
 Kubernetesは自動化のために設計されています。追加の作業、設定無しに、Kubernetesのコア機能によって多数のビルトインされた自動化機能が提供されます。
 ワークロードのデプロイおよび稼働を自動化するためにKubernetesを使うことができます。 *さらに* Kubernetesがそれをどのように行うかの自動化も可能です。
 
-Kubernetesの{{< glossary_tooltip text="コントローラー" term_id="controller" >}}コンセプトは、Kubernetesのソースコードを修正すること無く、クラスターの振る舞いを拡張することを可能にします。
-オペレーターはKubernetes APIのクライアントで、[Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)にとっての、コントローラーのように振る舞います。
+
+Kubernetesの{{< glossary_tooltip text="オペレーターパターン" term_id="operator-pattern" >}}コンセプトは、Kubernetesのソースコードを修正すること無く、一つ以上のカスタムリソースに{{< glossary_tooltip text="カスタムコントローラー" term_id="controller" >}}をリンクすることで、クラスターの振る舞いを拡張することを可能にします。
+オペレーターはKubernetes APIのクライアントで、[Custom Resource](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)にとっての、コントローラーのように振る舞います。
 
 ## オペレーターの例 {#example}
 
@@ -88,8 +89,11 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
 * ユースケースに合わせた、既製のオペレーターを[OperatorHub.io](https://operatorhub.io/)から見つけます
 * 自前のオペレーターを書くために既存のツールを使います、例:
   * [Charmed Operator Framework](https://juju.is/)
+  * [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+  * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
   * [KUDO](https://kudo.dev/)（Kubernetes Universal Declarative Operator）を使います
   * [kubebuilder](https://book.kubebuilder.io/)を使います
+  * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
   * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)を自分で実装したWebHooksと一緒に使います
   * [Operator Framework](https://operatorframework.io)を使います
   * [shell-operator](https://github.com/flant/shell-operator)

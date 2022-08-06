@@ -50,7 +50,6 @@ RuntimeClass defines a class of container runtime supported in the cluster. The 
 
   Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
    https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-  This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
 
   <a name="Overhead"></a>
   *Overhead structure represents the resource overhead associated with running a pod.*
@@ -86,6 +85,8 @@ RuntimeClass defines a class of container runtime supported in the cluster. The 
     - **scheduling.tolerations.operator** (string)
 
       Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+      
+      
 
     - **scheduling.tolerations.value** (string)
 
@@ -94,6 +95,8 @@ RuntimeClass defines a class of container runtime supported in the cluster. The 
     - **scheduling.tolerations.effect** (string)
 
       Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+      
+      
 
     - **scheduling.tolerations.tolerationSeconds** (int64)
 
@@ -258,6 +261,11 @@ POST /apis/node.k8s.io/v1/runtimeclasses
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -305,6 +313,11 @@ PUT /apis/node.k8s.io/v1/runtimeclasses/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -348,6 +361,11 @@ PATCH /apis/node.k8s.io/v1/runtimeclasses/{name}
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean

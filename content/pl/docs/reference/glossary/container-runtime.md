@@ -15,7 +15,7 @@ tags:
 
 <!--more-->
 
-Kubernetes obsługuje różne *container runtimes*: {{< glossary_tooltip term_id="docker">}},
+Kubernetes obsługuje różne *container runtimes*:
 {{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}}
 oraz każdą implementację zgodną z [Kubernetes CRI (Container Runtime
 Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).

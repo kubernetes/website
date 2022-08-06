@@ -7,13 +7,17 @@ content_type: task
 min-kubernetes-server-version: v1.22
 ---
 
-Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards).
+Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards). The three policies
+[privileged](/docs/concepts/security/pod-security-standards/#privileged), [baseline](/docs/concepts/security/pod-security-standards/#baseline)
+and [restricted](/docs/concepts/security/pod-security-standards/#restricted) broadly cover the security spectrum
+and are implemented by the [Pod Security](/docs/concepts/security/pod-security-admission/) {{< glossary_tooltip
+text="admission controller" term_id="admission-controller" >}}.
 
 ## {{% heading "prerequisites" %}}
 
 {{% version-check %}}
 
-- Enable the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features).
+- Ensure the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) is enabled.
 
 ## Requiring the `baseline` Pod Security Standard with namespace labels
 
@@ -22,7 +26,7 @@ This manifest defines a Namespace `my-baseline-namespace` that:
 - _Blocks_ any pods that don't satisfy the `baseline` policy requirements.
 - Generates a user-facing warning and adds an audit annotation to any created pod that does not
   meet the `restricted` policy requirements.
-- Pins the versions of the `baseline` and `restricted` policies to v{{< skew latestVersion >}}.
+- Pins the versions of the `baseline` and `restricted` policies to v{{< skew currentVersion >}}.
 
 ```yaml
 apiVersion: v1
@@ -31,13 +35,13 @@ metadata:
   name: my-baseline-namespace
   labels:
     pod-security.kubernetes.io/enforce: baseline
-    pod-security.kubernetes.io/enforce-version: v{{< skew latestVersion >}}
+    pod-security.kubernetes.io/enforce-version: v{{< skew currentVersion >}}
 
     # We are setting these to our _desired_ `enforce` level.
     pod-security.kubernetes.io/audit: restricted
-    pod-security.kubernetes.io/audit-version: v{{< skew latestVersion >}}
+    pod-security.kubernetes.io/audit-version: v{{< skew currentVersion >}}
     pod-security.kubernetes.io/warn: restricted
-    pod-security.kubernetes.io/warn-version: v{{< skew latestVersion >}}
+    pod-security.kubernetes.io/warn-version: v{{< skew currentVersion >}}
 ```
 
 ## Add labels to existing namespaces with `kubectl label`
@@ -78,10 +82,10 @@ kubectl get namespaces --selector='!pod-security.kubernetes.io/enforce'
 ### Applying to a single namespace
 
 You can update a specific namespace as well. This command adds the `enforce=restricted`
-policy to `my-existing-namespace`, pinning the restricted policy version to v{{< skew latestVersion >}}.
+policy to `my-existing-namespace`, pinning the restricted policy version to v{{< skew currentVersion >}}.
 
 ```shell
 kubectl label --overwrite ns my-existing-namespace \
   pod-security.kubernetes.io/enforce=restricted \
-  pod-security.kubernetes.io/enforce-version=v{{< skew latestVersion >}}
+  pod-security.kubernetes.io/enforce-version=v{{< skew currentVersion >}}
 ```

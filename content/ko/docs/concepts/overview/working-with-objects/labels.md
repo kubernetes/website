@@ -42,7 +42,7 @@ _레이블_ 은 파드와 같은 오브젝트에 첨부된 키와 값의 쌍이�
    * `"partition" : "customerA"`, `"partition" : "customerB"`
    * `"track" : "daily"`, `"track" : "weekly"`
 
-이 예시는 일반적으로 사용하는 레이블이며, 사용자는 자신만의 규칙(convention)에 따라 자유롭게 개발할 수 있다. 오브젝트에 붙여진 레이블 키는 고유해야 한다는 것을 기억해야 한다.
+이 예시는 [일반적으로 사용하는 레이블](/ko/docs/concepts/overview/working-with-objects/common-labels/)이며, 사용자는 자신만의 규칙(convention)에 따라 자유롭게 개발할 수 있다. 오브젝트에 붙여진 레이블 키는 고유해야 한다는 것을 기억해야 한다.
 
 ## 구문과 캐릭터 셋
 
@@ -50,14 +50,12 @@ _레이블_ 은 키와 값의 쌍이다. 유효한 레이블 키에는 슬래시
 
 접두사를 생략하면 키 레이블은 개인용으로 간주한다. 최종 사용자의 오브젝트에 자동화된 시스템 컴포넌트(예: `kube-scheduler`, `kube-controller-manager`, `kube-apiserver`, `kubectl` 또는 다른 타사의 자동화 구성 요소)의 접두사를 지정해야 한다.
 
-`kubernetes.io/`와 `k8s.io/` 접두사는 쿠버네티스의 핵심 컴포넌트로 예약되어있다.
+`kubernetes.io/`와 `k8s.io/` 접두사는 쿠버네티스의 핵심 컴포넌트로 [예약](/ko/docs/reference/labels-annotations-taints/)되어 있다.
 
 유효한 레이블 값은 다음과 같다.
 * 63 자 이하여야 하고 (공백일 수도 있음),
 * (공백이 아니라면) 시작과 끝은 알파벳과 숫자(`[a-z0-9A-Z]`)이며,
 * 알파벳과 숫자, 대시(`-`), 밑줄(`_`), 점(`.`)을 중간에 포함할 수 있다.
-
-유효한 레이블 값은 63자 미만 또는 공백이며 시작과 끝은 알파벳과 숫자(`[a-z0-9A-Z]`)이며, 대시(`-`), 밑줄(`_`), 점(`.`)과 함께 사용할 수 있다.
 
 다음의 예시는 파드에 `environment: production` 과 `app: nginx` 2개의 레이블이 있는 구성 파일이다.
 
@@ -97,7 +95,7 @@ API는 현재 _일치성 기준_ 과 _집합성 기준_ 이라는 두 종류의 
 {{< /note >}}
 
 {{< caution >}}
-일치성 기준과 집합성 기준 조건 모두에 대해 논리적인 _OR_ (`||`) 연산자가 없다. 필터 구문이 적절히 구성되어있는지 확인해야 한다.
+일치성 기준과 집합성 기준 조건 모두에 대해 논리적인 _OR_ (`||`) 연산자가 없다. 필터 구문이 적절히 구성되어 있는지 확인해야 한다.
 {{< /caution >}}
 
 ### _일치성 기준_ 요건
@@ -233,7 +231,7 @@ selector:
     - {key: environment, operator: NotIn, values: [dev]}
 ```
 
-`matchLabels`는 `{key,value}`의 쌍과 매칭된다. `matchLabels`에 매칭된 단일 `{key,value}`는 `matchExpressions`의 요소와 같으며 `key` 필드는 "key"로, `operator`는 "In" 그리고 `values`에는 "value"만 나열되어 있다. `matchExpressions`는 파드 셀렉터의 요건 목록이다. 유효한 연산자에는 In, NotIn, Exists 및 DoNotExist가 포함된다. In 및 NotIn은 설정된 값이 있어야 한다. `matchLabels`와 `matchExpressions` 모두 AND로 되어있어 일치하기 위해서는 모든 요건을 만족해야 한다.
+`matchLabels`는 `{key,value}`의 쌍과 매칭된다. `matchLabels`에 매칭된 단일 `{key,value}`는 `matchExpressions`의 요소와 같으며 `key` 필드는 "key"로, `operator`는 "In" 그리고 `values`에는 "value"만 나열되어 있다. `matchExpressions`는 파드 셀렉터의 요건 목록이다. 유효한 연산자에는 In, NotIn, Exists 및 DoNotExist가 포함된다. In 및 NotIn은 설정된 값이 있어야 한다. `matchLabels`와 `matchExpressions` 모두 AND로 되어 있어 일치하기 위해서는 모든 요건을 만족해야 한다.
 
 #### 노드 셋 선택
 

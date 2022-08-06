@@ -19,12 +19,12 @@ The `healthz` endpoint is deprecated (since Kubernetes v1.16), and you should us
 The `livez` endpoint can be used with the `--livez-grace-period` [flag](/docs/reference/command-line-tools-reference/kube-apiserver) to specify the startup duration.
 For a graceful shutdown you can specify the `--shutdown-delay-duration` [flag](/docs/reference/command-line-tools-reference/kube-apiserver) with the `/readyz` endpoint.
 Machines that check the `healthz`/`livez`/`readyz` of the API server should rely on the HTTP status code.
-A status code `200` indicates the API server is `healthy`/`live`/`ready`, depending of the called endpoint.
-The more verbose options shown below are intended to be used by human operators to debug their cluster or specially the state of the API server.
+A status code `200` indicates the API server is `healthy`/`live`/`ready`, depending on the called endpoint.
+The more verbose options shown below are intended to be used by human operators to debug their cluster or understand the state of the API server.
 
 The following examples will show how you can interact with the health API endpoints.
 
-For all endpoints you can use the `verbose` parameter to print out the checks and their status.
+For all endpoints, you can use the `verbose` parameter to print out the checks and their status.
 This can be useful for a human operator to debug the current status of the API server, it is not intended to be consumed by a machine:
 
 ```shell
@@ -93,7 +93,7 @@ The output show that the `etcd` check is excluded:
 
 {{< feature-state state="alpha" >}}
 
-Each individual health check exposes an HTTP endpoint and could can be checked individually.
+Each individual health check exposes an HTTP endpoint and can be checked individually.
 The schema for the individual health checks is `/livez/<healthcheck-name>` where `livez` and `readyz` and be used to indicate if you want to check the liveness or the readiness of the API server.
 The `<healthcheck-name>` path can be discovered using the `verbose` flag from above and take the path between `[+]` and `ok`.
 These individual health checks should not be consumed by machines but can be helpful for a human operator to debug a system:

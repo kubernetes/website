@@ -78,7 +78,7 @@ Quando você executa [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-
 Atualmente, se algum sistema externo executou a rotação, apenas o conteúdo do arquivo de log mais recente estará disponível através de `kubectl logs`. Por exemplo, se houver um arquivo de 10MB, o `logrotate` executa a rotação e existem dois arquivos, um com 10MB de tamanho e um vazio, o `kubectl logs` retornará uma resposta vazia.
 {{< /note >}}
 
-[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
+[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh
 
 ### Logs de componentes do sistema
 

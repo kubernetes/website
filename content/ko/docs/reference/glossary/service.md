@@ -2,7 +2,7 @@
 title: 서비스(Service)
 id: service
 date: 2018-04-12
-full_link: /docs/concepts/services-networking/service/
+full_link: /ko/docs/concepts/services-networking/service/
 short_description: >
   네트워크 서비스로 파드 집합에서 실행 중인 애플리케이션을 노출하는 방법
 
