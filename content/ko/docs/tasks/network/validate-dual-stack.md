@@ -3,7 +3,7 @@
 
 
 
-min-kubernetes-server-version: v1.20
+min-kubernetes-server-version: v1.23
 title: IPv4/IPv6 이중 스택 검증
 content_type: task
 ---
@@ -16,11 +16,14 @@ content_type: task
 
 
 * 이중 스택 네트워킹을 위한 제공자 지원 (클라우드 제공자 또는 기타 제공자들은 라우팅 가능한 IPv4/IPv6 네트워크 인터페이스를 제공하는 쿠버네티스 노드들을 제공해야 한다.)
-* 이중 스택을 지원하는 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)  (예. Kubenet 또는 Calico)
+* 이중 스택 네트워킹을 지원하는 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 * [이중 스택 활성화](/ko/docs/concepts/services-networking/dual-stack/) 클러스터
 
 {{< version-check >}}
 
+{{< note >}}
+v1.23 이전 버전에서도 검증을 수행할 수 있지만 GA 기능으로만 제공되며, v1.23부터 공식적으로 지원된다.
+{{< /note >}}
 
 
 <!-- steps -->

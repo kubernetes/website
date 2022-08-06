@@ -4,7 +4,12 @@ date: 2017-11-02
 slug: containerd-container-runtime-options-kubernetes
 url: /blog/2017/11/Containerd-Container-Runtime-Options-Kubernetes
 ---
- **_Editor's note: Today's post is by Lantao Liu, Software Engineer at Google, and Mike Brown, Open Source Developer Advocate at IBM._**  
+
+**Authors:** Lantao Liu (Google), and Mike Brown (IBM)
+
+_Update: Kubernetes support for Docker via `dockershim` is now deprecated.
+For more information, read the [deprecation notice](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation).
+You can also discuss the deprecation via a dedicated [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917)._
 
 A _container runtime_ is software that executes containers and manages container images on a node. Today, the most widely known container runtime is [Docker](https://www.docker.com/), but there are other container runtimes in the ecosystem, such as [rkt](https://coreos.com/rkt/), [containerd](https://containerd.io/), and [lxd](https://linuxcontainers.org/lxd/). Docker is by far the most common container runtime used in production Kubernetes environments, but Docker’s smaller offspring, containerd, may prove to be a better option. This post describes using containerd with Kubernetes.  
 

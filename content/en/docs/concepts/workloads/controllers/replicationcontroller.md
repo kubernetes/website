@@ -185,16 +185,16 @@ delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).  Kubectl wi
 for it to delete each pod before deleting the ReplicationController itself.  If this kubectl
 command is interrupted, it can be restarted.
 
-When using the REST API or Go client library, you need to do the steps explicitly (scale replicas to
+When using the REST API or [client library](/docs/reference/using-api/client-libraries), you need to do the steps explicitly (scale replicas to
 0, wait for pod deletions, then delete the ReplicationController).
 
 ### Deleting only a ReplicationController
 
 You can delete a ReplicationController without affecting any of its pods.
 
-Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
+Using kubectl, specify the `--cascade=orphan` option to [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
 
-When using the REST API or Go client library, you can delete the ReplicationController object.
+When using the REST API or [client library](/docs/reference/using-api/client-libraries), you can delete the ReplicationController object.
 
 Once the original is deleted, you can create a new ReplicationController to replace it.  As long
 as the old and new `.spec.selector` are the same, then the new one will adopt the old pods.
@@ -248,7 +248,7 @@ The ReplicationController ensures that the desired number of pods matches its la
 
 The ReplicationController is forever constrained to this narrow responsibility. It itself will not perform readiness nor liveness probes. Rather than performing auto-scaling, it is intended to be controlled by an external auto-scaler (as discussed in [#492](https://issue.k8s.io/492)), which would change its `replicas` field. We will not add scheduling policies (for example, [spreading](https://issue.k8s.io/367#issuecomment-48428019)) to the ReplicationController. Nor should it verify that the pods controlled match the currently specified template, as that would obstruct auto-sizing and other automated processes. Similarly, completion deadlines, ordering dependencies, configuration expansion, and other features belong elsewhere. We even plan to factor out the mechanism for bulk pod creation ([#170](https://issue.k8s.io/170)).
 
-The ReplicationController is intended to be a composable building-block primitive. We expect higher-level APIs and/or tools to be built on top of it and other complementary primitives for user convenience in the future. The "macro" operations currently supported by kubectl (run, scale) are proof-of-concept examples of this. For instance, we could imagine something like [Asgard](https://techblog.netflix.com/2012/06/asgard-web-based-cloud-management-and.html) managing ReplicationControllers, auto-scalers, services, scheduling policies, canaries, etc.
+The ReplicationController is intended to be a composable building-block primitive. We expect higher-level APIs and/or tools to be built on top of it and other complementary primitives for user convenience in the future. The "macro" operations currently supported by kubectl (run, scale) are proof-of-concept examples of this. For instance, we could imagine something like [Asgard](https://netflixtechblog.com/asgard-web-based-cloud-management-and-deployment-2c9fc4e4d3a1) managing ReplicationControllers, auto-scalers, services, scheduling policies, canaries, etc.
 
 ## API Object
 
@@ -266,7 +266,7 @@ Note that we recommend using Deployments instead of directly using Replica Sets,
 
 ### Deployment (Recommended)
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods. Deployments are recommended if you want this rolling update functionality because, they are declarative, server-side, and have additional features.
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods. Deployments are recommended if you want the rolling update functionality,  because they are declarative, server-side, and have additional features.
 
 ### Bare Pods
 
@@ -284,6 +284,11 @@ machine-level function, such as machine monitoring or machine logging.  These po
 to a machine lifetime: the pod needs to be running on the machine before other pods start, and are
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
-## For more information
+## {{% heading "whatsnext" %}}
 
-Read [Run Stateless Application Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
+* Learn about [Pods](/docs/concepts/workloads/pods).
+* Learn about [Deployment](/docs/concepts/workloads/controllers/deployment/), the replacement
+  for ReplicationController.
+* `ReplicationController` is part of the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/replication-controller-v1" >}}
+  object definition to understand the API for replication controllers.

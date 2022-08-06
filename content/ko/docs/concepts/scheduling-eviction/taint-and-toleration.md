@@ -203,7 +203,7 @@ tolerations:
  * `tolerationSeconds` 가 지정된 테인트를 용인하는 파드는 지정된
   시간 동안 바인딩된 상태로 유지된다.
 
-노드 컨트롤러는 특정 조건이 참일 때 자동으로
+노드 컨트롤러는 특정 컨디션이 참일 때 자동으로
 노드를 테인트시킨다. 다음은 빌트인 테인트이다.
 
  * `node.kubernetes.io/not-ready`: 노드가 준비되지 않았다. 이는 NodeCondition
@@ -264,19 +264,19 @@ tolerations:
 
 이렇게 하면 이러한 문제로 인해 데몬셋 파드가 축출되지 않는다.
 
-## 컨디션을 기준으로 노드 테인트하기
+## 컨디션(condition)을 기준으로 노드 테인트하기
 
 컨트롤 플레인은 노드 {{<glossary_tooltip text="컨트롤러" term_id="controller">}}를 이용하여 
-[노드 조건](/docs/concepts/scheduling-eviction/node-pressure-eviction/)에 대한 `NoSchedule` 효과를 사용하여 자동으로 테인트를 생성한다.
+[노드 컨디션](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions)에 대한 `NoSchedule` 효과를 사용하여 자동으로 테인트를 생성한다.
 
-스케줄러는 스케줄링 결정을 내릴 때 노드 조건을 확인하는 것이 아니라 테인트를 확인한다. 
-이렇게 하면 노드 조건이 스케줄링에 직접적인 영향을 주지 않는다.
-예를 들어 `DiskPressure` 노드 조건이 활성화된 경우 
+스케줄러는 스케줄링 결정을 내릴 때 노드 컨디션을 확인하는 것이 아니라 테인트를 확인한다. 
+이렇게 하면 노드 컨디션이 스케줄링에 직접적인 영향을 주지 않는다.
+예를 들어 `DiskPressure` 노드 컨디션이 활성화된 경우 
 컨트롤 플레인은 `node.kubernetes.io/disk-pressure` 테인트를 추가하고 영향을 받는 노드에 새 파드를 할당하지 않는다. 
-`MemoryPressure` 노드 조건이 활성화되면 
+`MemoryPressure` 노드 컨디션이 활성화되면 
 컨트롤 플레인이 `node.kubernetes.io/memory-pressure` 테인트를 추가한다.
 
-새로 생성된 파드에 파드 톨러레이션을 추가하여 노드 조건을 무시하도록 할 수 있다. 
+새로 생성된 파드에 파드 톨러레이션을 추가하여 노드 컨디션을 무시하도록 할 수 있다. 
 또한 컨트롤 플레인은 `BestEffort` 이외의 
 {{< glossary_tooltip text="QoS 클래스" term_id="qos-class" >}}를 가지는 파드에 
 `node.kubernetes.io/memory-pressure` 톨러레이션을 추가한다. 
@@ -298,5 +298,5 @@ tolerations:
 
 ## {{% heading "whatsnext" %}}
 
-* [리소스 부족 다루기](/docs/concepts/scheduling-eviction/node-pressure-eviction/)와 어떻게 구성하는지에 대해 알아보기
+* [노드-압박(node-pressure) 축출](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)과 어떻게 구성하는지에 대해 알아보기
 * [파드 우선순위](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/)에 대해 알아보기

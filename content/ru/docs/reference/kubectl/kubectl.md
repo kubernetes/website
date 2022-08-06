@@ -158,14 +158,14 @@ kubectl [flags]
 <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;По умолчанию: 300</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Указывает tolerationSeconds для допущения notReady:NoExecute, которое по умолчанию добавляется к каждому поду, у которого нет установлено такое допущение.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Указывает tolerationSeconds для допущения notReady:NoExecute, которое по умолчанию добавляется к каждому поду, у которого не установлено такое допущение.</td>
 </tr>
 
 <tr>
 <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;По умолчанию: 300</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Указывает tolerationSeconds для допущения unreachable:NoExecute, которое по умолчанию добавляется к каждому поду, у которого нет установлено такое допущение.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Указывает tolerationSeconds для допущения unreachable:NoExecute, которое по умолчанию добавляется к каждому поду, у которого не установлено такое допущение.</td>
 </tr>
 
 <tr>
@@ -221,7 +221,7 @@ kubectl [flags]
 <td colspan="2">--docker-tls-cert string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;По умолчанию: "cert.pem"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">путь к клиентскому сертификату</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Путь к клиентскому сертификату</td>
 </tr>
 
 <tr>
@@ -277,7 +277,7 @@ kubectl [flags]
 <td colspan="2">--insecure-skip-tls-verify</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Если true, значит сертификат сервера не будет проверятся на достоверность. Это сделает подключения через HTTPS небезопасными.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Если true, значит сертификат сервера не будет проверяться на достоверность. Это сделает подключения через HTTPS небезопасными.</td>
 </tr>
 
 <tr>
@@ -333,7 +333,7 @@ kubectl [flags]
 <td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;По умолчанию: true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Логировать в стандартный поток ошибок вместо сохранения логов в файлы</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Вывод логов в стандартный поток ошибок вместо сохранения их в файлы</td>
 </tr>
 
 <tr>
@@ -521,48 +521,48 @@ kubectl [flags]
 ## {{% heading "seealso" %}}
 
 
-* [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Обновить аннотации ресурса
-* [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources)	 - Вывести доступные API-ресурсы на сервере
-* [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	 - Вывести доступные API-версии на сервере в виде "group/version".
-* [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply)	 - Внести изменения в конфигурацию ресурса из файла или потока stdin.
-* [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands#attach)	 - Присоединиться к запущенному контейнеру
-* [kubectl auth](/docs/reference/generated/kubectl/kubectl-commands#auth)	 - Проверить разрешение на выполнение определённых действий
-* [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands#autoscale)	 - Автоматически промасштабировать Deployment, ReplicaSet или ReplicationController
-* [kubectl certificate](/docs/reference/generated/kubectl/kubectl-commands#certificate)	 - Изменить сертификаты ресурсов.
-* [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands#cluster-info)	 - Показать информацию по кластеру
-* [kubectl completion](/docs/reference/generated/kubectl/kubectl-commands#completion)	 - Вывод кода автодополнения указанной командной оболочки (bash или zsh)
-* [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)	 - Изменить файлы kubeconfig
-* [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert)	 - Конвертировать конфигурационные файлы в различные API-версии
-* [kubectl cordon](/docs/reference/generated/kubectl/kubectl-commands#cordon)	 - Отметить узел как неназначаемый
-* [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	 - Копировать файлы и директории в/из контейнеров.
-* [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	 - Создать ресурс из файла или потока stdin.
-* [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - Удалить ресурсы из файла, потока stdin, либо с помощью селекторов меток, имен, селекторов ресурсов или ресурсов
-* [kubectl describe](/docs/reference/generated/kubectl/kubectl-commands#describe)	 - Показать подробную информацию о конкретном ресурсе или группе ресурсов
-* [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - Сравнить действующую версию с новой (применяемой)
-* [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain)	 - Вытеснить узел для подготовки к эксплуатации
-* [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands#edit)	 - Отредактировать ресурс на сервере
-* [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	 - Выполнить команду в контейнере
-* [kubectl explain](/docs/reference/generated/kubectl/kubectl-commands#explain)	 - Получить документацию ресурсов
-* [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands#expose)	 - Создать новый сервис Kubernetes из контроллера репликации, сервиса, развёртывания или пода
-* [kubectl get](/docs/reference/generated/kubectl/kubectl-commands#get)	 - Вывести один или несколько ресурсов
-* [kubectl kustomize](/docs/reference/generated/kubectl/kubectl-commands#kustomize)	 - Собрать ресурсы kustomization из директории или URL-адреса.
-* [kubectl label](/docs/reference/generated/kubectl/kubectl-commands#label)	 - Обновить метки ресурса
-* [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands#logs)	 - Вывести логи контейнера в поде
-* [kubectl options](/docs/reference/generated/kubectl/kubectl-commands#options)	 - Вывести список флагов, применяемых ко всем командам
-* [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - Обновить один или несколько полей ресурса, используя стратегию слияния патча
-* [kubectl plugin](/docs/reference/generated/kubectl/kubectl-commands#plugin)	 - Команда для работы с плагинами.
-* [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands#port-forward)	 - Переадресовать один или несколько локальных портов в под
-* [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy)	 - Запустить прокси на API-сервер Kubernetes
-* [kubectl replace](/docs/reference/generated/kubectl/kubectl-commands#replace)	 - Заменить ресурс из определения в файле или потоке stdin.
-* [kubectl rollout](/docs/reference/generated/kubectl/kubectl-commands#rollout)	 - Управление плавающим обновлением ресурса
-* [kubectl run](/docs/reference/generated/kubectl/kubectl-commands#run)	 -  Запустить указанный образ в кластере
-* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - Задать новый размер для Deployment, ReplicaSet или Replication Controller.
-* [kubectl set](/docs/reference/generated/kubectl/kubectl-commands#set)	 - Конфигурировать ресурсы в объектах
-* [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)	 - Обновить ограничения для одного или нескольких узлов
-* [kubectl top](/docs/reference/generated/kubectl/kubectl-commands#top)	 - Показать информацию по использованию системных ресурсов (процессор, память, диск)
-* [kubectl uncordon](/docs/reference/generated/kubectl/kubectl-commands#uncordon)	 - Отметить узел как назначаемый
-* [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Вывести информацию о версии клиента и сервера
-* [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Экспериментально: ожидать выполнения определенного условия в одном или нескольких ресурсах.
+* [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	- Обновить аннотации ресурса.
+* [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources) - Вывести доступные API-ресурсы на сервере.
+* [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	- Вывести доступные API-версии на сервере в виде "group/version".
+* [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply)	- Внести изменения в конфигурацию ресурса из файла или потока stdin.
+* [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands#attach)	- Присоединиться к запущенному контейнеру.
+* [kubectl auth](/docs/reference/generated/kubectl/kubectl-commands#auth)	- Проверить разрешение на выполнение определённых действий.
+* [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands#autoscale)	- Автоматически масштабировать Deployment, ReplicaSet или ReplicationController.
+* [kubectl certificate](/docs/reference/generated/kubectl/kubectl-commands#certificate)	- Изменить сертификаты ресурсов.
+* [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands#cluster-info)	- Показать информацию по кластеру.
+* [kubectl completion](/docs/reference/generated/kubectl/kubectl-commands#completion)	- Вывод кода автодополнения указанной командной оболочки (bash или zsh).
+* [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)	- Изменить файлы kubeconfig.
+* [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert)	- Конвертировать конфигурационные файлы в различные API-версии.
+* [kubectl cordon](/docs/reference/generated/kubectl/kubectl-commands#cordon)	- Отметить узел как неназначаемый.
+* [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	- Копировать файлы и директории в/из контейнеров.
+* [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	- Создать ресурс из файла или потока stdin.
+* [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	- Удалить ресурсы из файла, потока stdin, либо с помощью селекторов меток, имен, селекторов ресурсов или ресурсов.
+* [kubectl describe](/docs/reference/generated/kubectl/kubectl-commands#describe)	- Показать подробную информацию о конкретном ресурсе или группе ресурсов.
+* [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	- Сравнить действующую версию с новой (применяемой).
+* [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain)	- Вытеснить узел для подготовки к эксплуатации.
+* [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands#edit)	- Отредактировать ресурс на сервере.
+* [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	- Выполнить команду в контейнере.
+* [kubectl explain](/docs/reference/generated/kubectl/kubectl-commands#explain)	- Получить документацию ресурсов.
+* [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands#expose)	- Создать новый сервис Kubernetes из контроллера репликации, сервиса, развёртывания или пода.
+* [kubectl get](/docs/reference/generated/kubectl/kubectl-commands#get)	- Вывести один или несколько ресурсов.
+* [kubectl kustomize](/docs/reference/generated/kubectl/kubectl-commands#kustomize)	- Собрать ресурсы kustomization из директории или URL-адреса.
+* [kubectl label](/docs/reference/generated/kubectl/kubectl-commands#label)	- Обновить метки ресурса.
+* [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands#logs)	- Вывести логи контейнера в поде.
+* [kubectl options](/docs/reference/generated/kubectl/kubectl-commands#options)	- Вывести список флагов, применяемых ко всем командам.
+* [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	- Обновить один или несколько полей ресурса, используя стратегию слияния патча.
+* [kubectl plugin](/docs/reference/generated/kubectl/kubectl-commands#plugin)	- Команда для работы с плагинами.
+* [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands#port-forward)	- Переадресовать один или несколько локальных портов в под.
+* [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy)	- Запустить прокси на API-сервер Kubernetes.
+* [kubectl replace](/docs/reference/generated/kubectl/kubectl-commands#replace)	- Заменить ресурс из определения в файле или потоке stdin.
+* [kubectl rollout](/docs/reference/generated/kubectl/kubectl-commands#rollout)	- Управление плавающим обновлением ресурса.
+* [kubectl run](/docs/reference/generated/kubectl/kubectl-commands#run)	- Запустить указанный образ в кластере.
+* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	- Задать новый размер для Deployment, ReplicaSet или Replication Controller.
+* [kubectl set](/docs/reference/generated/kubectl/kubectl-commands#set)	- Конфигурировать ресурсы в объектах.
+* [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)	- Обновить ограничения для одного или нескольких узлов.
+* [kubectl top](/docs/reference/generated/kubectl/kubectl-commands#top)	- Показать информацию по использованию системных ресурсов (процессор, память, диск).
+* [kubectl uncordon](/docs/reference/generated/kubectl/kubectl-commands#uncordon)	- Отметить узел как назначаемый.
+* [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version) - Вывести информацию о версии клиента и сервера.
+* [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait) - Экспериментально: ожидать выполнения определенного условия в одном или нескольких ресурсах.
 
 
 

@@ -196,7 +196,7 @@ kubectl delete pv mysql-pv-volume
 
 * [디플로이먼트 오브젝트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해 더 배워 보기
 
-* [애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/)에 대해 더 배워보기
+* [애플리케이션 배포하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/)에 대해 더 배워보기
 
 * [kubectl run 문서](/docs/reference/generated/kubectl/kubectl-commands/#run)
 

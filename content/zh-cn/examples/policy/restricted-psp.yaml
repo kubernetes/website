@@ -1,0 +1,49 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: restricted
+  annotations:
+    # docker/default 标识 seccomp 的配置文件，但它与 Docker 运行时没有特别关联
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default'
+    apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
+    apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
+spec:
+  privileged: false
+  # 防止权限升级到 root
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - ALL
+  # 允许的核心卷类型.
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
+    - 'downwardAPI'
+    # 假设集群管理员设置的临时 CSI 驱动程序和持久卷可以安全使用
+    - 'csi'
+    - 'persistentVolumeClaim'
+    - 'ephemeral'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    # 要求容器在没有 root 权限的情况下运行
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    # 此策略假定节点使用 AppArmor 而不是 SELinux
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+      # 禁止添加 root 组
+      - min: 1
+        max: 65535
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      # 禁止添加 root 组
+      - min: 1
+        max: 65535
+  readOnlyRootFilesystem: false
+

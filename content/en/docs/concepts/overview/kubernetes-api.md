@@ -23,7 +23,7 @@ The Kubernetes API lets you query and manipulate the state of API objects in Kub
 (for example: Pods, Namespaces, ConfigMaps, and Events).
 
 Most operations can be performed through the
-[kubectl](/docs/reference/kubectl/overview/) command-line interface or other
+[kubectl](/docs/reference/kubectl/) command-line interface or other
 command-line tools, such as
 [kubeadm](/docs/reference/setup-tools/kubeadm/), which in turn use the
 API. However, you can also access the API directly using REST calls.
@@ -37,8 +37,11 @@ if you are writing an application using the Kubernetes API.
 
 Complete API details are documented using [OpenAPI](https://www.openapis.org/).
 
-The Kubernetes API server serves an OpenAPI spec via the `/openapi/v2` endpoint.
-You can request the response format using request headers as follows:
+### OpenAPI V2
+
+The Kubernetes API server serves an aggregated OpenAPI v2 spec via the
+`/openapi/v2` endpoint. You can request the response format using
+request headers as follows:
 
 <table>
   <caption style="display:none">Valid request header values for OpenAPI v2 queries</caption>
@@ -73,9 +76,79 @@ You can request the response format using request headers as follows:
 
 Kubernetes implements an alternative Protobuf based serialization format that
 is primarily intended for intra-cluster communication. For more information
-about this format, see the [Kubernetes Protobuf serialization](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) design proposal and the
+about this format, see the [Kubernetes Protobuf serialization](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md) design proposal and the
 Interface Definition Language (IDL) files for each schema located in the Go
 packages that define the API objects.
+
+### OpenAPI V3
+
+{{< feature-state state="beta"  for_k8s_version="v1.24" >}}
+
+Kubernetes {{< param "version" >}} offers beta support for publishing its APIs as OpenAPI v3; this is a
+beta feature that is enabled by default.
+You can disable the beta feature by turning off the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
+for the kube-apiserver component.
+
+A discovery endpoint `/openapi/v3` is provided to see a list of all
+group/versions available. This endpoint only returns JSON. These group/versions
+are provided in the following format:
+```json
+{
+    "paths": {
+        ...
+        "api/v1": {
+            "serverRelativeURL": "/openapi/v3/api/v1?hash=CC0E9BFD992D8C59AEC98A1E2336F899E8318D3CF4C68944C3DEC640AF5AB52D864AC50DAA8D145B3494F75FA3CFF939FCBDDA431DAD3CA79738B297795818CF"
+        },
+        "apis/admissionregistration.k8s.io/v1": {
+            "serverRelativeURL": "/openapi/v3/apis/admissionregistration.k8s.io/v1?hash=E19CC93A116982CE5422FC42B590A8AFAD92CDE9AE4D59B5CAAD568F083AD07946E6CB5817531680BCE6E215C16973CD39003B0425F3477CFD854E89A9DB6597"
+        },
+        ...
+}
+```
+
+The relative URLs are pointing to immutable OpenAPI descriptions, in
+order to improve client-side caching. The proper HTTP caching headers
+are also set by the API server for that purpose (`Expires` to 1 year in
+the future, and `Cache-Control` to `immutable`). When an obsolete URL is
+used, the API server returns a redirect to the newest URL.
+
+The Kubernetes API server publishes an OpenAPI v3 spec per Kubernetes
+group version at the `/openapi/v3/apis/<group>/<version>?hash=<hash>`
+endpoint.
+
+Refer to the table below for accepted request headers.
+
+<table>
+  <caption style="display:none">Valid request header values for OpenAPI v3 queries</caption>
+  <thead>
+     <tr>
+        <th>Header</th>
+        <th style="min-width: 50%;">Possible values</th>
+        <th>Notes</th>
+     </tr>
+  </thead>
+  <tbody>
+     <tr>
+        <td><code>Accept-Encoding</code></td>
+        <td><code>gzip</code></td>
+        <td><em>not supplying this header is also acceptable</em></td>
+     </tr>
+     <tr>
+        <td rowspan="3"><code>Accept</code></td>
+        <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
+        <td><em>mainly for intra-cluster use</em></td>
+     </tr>
+     <tr>
+        <td><code>application/json</code></td>
+        <td><em>default</em></td>
+     </tr>
+     <tr>
+        <td><code>*</code></td>
+        <td><em>serves </em><code>application/json</code></td>
+     </tr>
+  </tbody>
+</table>
 
 ## Persistence
 

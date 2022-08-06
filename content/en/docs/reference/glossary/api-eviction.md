@@ -19,4 +19,9 @@ You can request eviction either by directly calling the Eviction API
 using a client of the kube-apiserver, like the `kubectl drain` command. 
 When an `Eviction` object is created, the API server terminates the Pod. 
 
-API-initiated eviction is not the same as [node-pressure eviction](/docs/concepts/scheduling-eviction/eviction/#kubelet-eviction).
+API-initiated evictions respect your configured [`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/)
+and [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination).
+
+API-initiated eviction is not the same as [node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
+
+* See [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/) for more information.

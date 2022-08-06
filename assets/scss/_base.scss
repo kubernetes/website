@@ -810,11 +810,10 @@ section#cncf {
   }
 }
 
-.td-search {
-  header > .header-filler {
-    height: $hero-padding-top;
-    background-color: black;
-  }
+// Header filler size adjustment
+
+.header-hero.filler {
+  height: $hero-padding-top;
 }
 
 // Docs specific
@@ -858,17 +857,6 @@ section#cncf {
 }
 
 /* DOCUMENTATION */
-
-body.td-documentation {
-    header > .header-filler {
-      height: $hero-padding-top;
-      background-color: black;
-    }
-    /* Special case for if an announcement is active */
-    header section#announcement ~ .header-filler {
-      display: none;
-    }
-}
 
 // nav-tabs and tab-content
 .nav-tabs {

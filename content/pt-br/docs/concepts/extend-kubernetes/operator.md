@@ -130,7 +130,7 @@ que pode atuar como um [cliente da API do Kubernetes](/docs/reference/using-api/
   * usando [kubebuilder](https://book.kubebuilder.io/)
   * usando [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) juntamente com WebHooks que
     implementa você mesmo
-  * usando o [Operator Framework](https://github.com/operator-framework/getting-started)
+  * usando o [Operator Framework](https://operatorframework.io/)
 * [Publique](https://operatorhub.io/) o seu operador para que outras pessoas o possam usar
 * Leia o [artigo original da CoreOS](https://coreos.com/blog/introducing-operators.html) que introduz o padrão Operador
 * Leia um [artigo](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) da Google Cloud sobre as melhores práticas para contruir Operadores

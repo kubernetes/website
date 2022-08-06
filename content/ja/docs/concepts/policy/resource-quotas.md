@@ -44,7 +44,7 @@ ResourceQuotaのオブジェクト名は、有効な[DNSサブドメイン名](/
 
 ## リソースクォータの計算
 
-特定の名前空間において、[コンピュートリソース](/docs/concepts/configuration/manage-resources-containers/)の合計に上限を設定できます。
+特定の名前空間において、[コンピュートリソース](/ja/docs/concepts/configuration/manage-resources-containers/)の合計に上限を設定できます。
 
 下記のリソースタイプがサポートされています。
 
@@ -152,7 +152,7 @@ Kubernetes v1.8において、ローカルのエフェメラルストレージ�
 | `NotTerminating` | `.spec.activeDeadlineSecondsがnil`であるPodに一致します。 |
 | `BestEffort` | ベストエフォート型のサービス品質のPodに一致します。 |
 | `NotBestEffort` | ベストエフォート型のサービス品質でないPodに一致します。 |
-| `PriorityClass` | 指定された[優先度クラス](/docs/concepts/configuration/pod-priority-preemption)と関連付いているPodに一致します。 |
+| `PriorityClass` | 指定された[優先度クラス](/ja/docs/concepts/configuration/pod-priority-preemption)と関連付いているPodに一致します。 |
 
 `BestEffort`スコープはリソースクォータを次のリソースに対するトラッキングのみに制限します:
 
@@ -201,7 +201,7 @@ Kubernetes v1.8において、ローカルのエフェメラルストレージ�
 
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
-Podは特定の[優先度](/docs/concepts/configuration/pod-priority-preemption/#pod-priority)で作成されます。リソースクォータのSpec内にある`scopeSelector`フィールドを使用して、Podの優先度に基づいてPodのシステムリソースの消費をコントロールできます。
+Podは特定の[優先度](/ja/docs/concepts/configuration/pod-priority-preemption/#pod-priority)で作成されます。リソースクォータのSpec内にある`scopeSelector`フィールドを使用して、Podの優先度に基づいてPodのシステムリソースの消費をコントロールできます。
 
 リソースクォータのSpec内の`scopeSelector`によってPodが選択されたときのみ、そのリソースクォータが一致し、消費されます。
 

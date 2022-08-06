@@ -76,9 +76,9 @@ A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workl
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
 a [Job](/docs/concepts/workloads/controllers/job/).
 
-As of Kubernetes 1.8, you must specify a pod selector that matches the labels of the
-`.spec.template`. The pod selector will no longer be defaulted when left empty. Selector
-defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created,
+You must specify a pod selector that matches the labels of the
+`.spec.template`.
+Also, once a DaemonSet is created,
 its `.spec.selector` can not be mutated. Mutating the pod selector can lead to the
 unintentional orphaning of Pods, and it was found to be confusing to users.
 
@@ -91,8 +91,8 @@ The `.spec.selector` is an object consisting of two fields:
 
 When the two are specified the result is ANDed.
 
-If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`.
-Config with these not matching will be rejected by the API.
+The `.spec.selector` must match the `.spec.template.metadata.labels`.
+Config with these two not matching will be rejected by the API.
 
 ### Running Pods on select Nodes
 
@@ -107,7 +107,7 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ### Scheduled by default scheduler
 
-{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
+{{< feature-state for_k8s_version="1.17" state="stable" >}}
 
 A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
 node that a Pod runs on is selected by the Kubernetes scheduler. However,
@@ -185,7 +185,7 @@ You can modify the Pods that a DaemonSet creates.  However, Pods do not allow al
 fields to be updated.  Also, the DaemonSet controller will use the original template the next
 time a node (even with the same name) is created.
 
-You can delete a DaemonSet.  If you specify `--cascade=false` with `kubectl`, then the Pods
+You can delete a DaemonSet.  If you specify `--cascade=orphan` with `kubectl`, then the Pods
 will be left on the nodes.  If you subsequently create a new DaemonSet with the same selector,
 the new DaemonSet adopts the existing Pods. If any Pods need replacing the DaemonSet replaces
 them according to its `updateStrategy`.
@@ -235,3 +235,18 @@ all or certain hosts, if the DaemonSet provides node-level functionality that al
 For example, [network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) often include a component that runs as a DaemonSet. The DaemonSet component makes sure that the node where it's running has working cluster networking.
 
 
+## {{% heading "whatsnext" %}}
+
+* Learn about [Pods](/docs/concepts/workloads/pods).
+  * Learn about [static Pods](#static-pods), which are useful for running Kubernetes
+    {{< glossary_tooltip text="control plane" term_id="control-plane" >}} components.
+* Find out how to use DaemonSets
+  * [Perform a rolling update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
+  * [Perform a rollback on a DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
+    (for example, if a roll out didn't work how you expected).
+* Understand [how Kubernetes assigns Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
+* Learn about [device plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) and
+  [add ons](/docs/concepts/cluster-administration/addons/), which often run as DaemonSets.
+* `DaemonSet` is a top-level resource in the Kubernetes REST API.
+  Read the {{< api-reference page="workload-resources/daemon-set-v1" >}}
+  object definition to understand the API for daemon sets.

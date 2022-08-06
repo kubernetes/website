@@ -3,18 +3,18 @@
   <head>
     {{ partial "head.html" . }}
   </head>
-  <body class="td-search {{- if ne .Params.cid "" -}}{{- printf " cid-%s" (lower .Params.cid) -}}{{- end -}}">
+  <body class="td-search {{- if ne (lower .Params.cid) "" -}}{{- printf " cid-%s" (lower .Params.cid) -}}{{- end -}}">
     <header>
       {{ partial "navbar.html" . }}
-      <div class="header-filler"></div>
-    </header>
-    {{ block "announcement" . }}
-      {{ if .IsHome }}
-        {{ partial "frontpage-announcement.html" . }}
-      {{ else }}
+      {{ block "announcement" . }}
         {{ partial "announcement.html" . }}
       {{ end }}
-    {{ end }}
+      {{ block "hero" . }}
+        <section class="header-hero filler">
+        </section>
+         {{ block "hero-more" . }}{{ end }}
+      {{ end }}
+    </header>
     <div class="td-outer">
       <main role="main" class="td-main">
         <section class="row td-search-result">
@@ -48,8 +48,8 @@
           </div>
         </section>
       </main>
-    {{ partial "footer.html" . }}
     </div>
+    {{ partial "footer.html" . }}
     {{ partialCached "scripts.html" . }}
   </body>
 </html>

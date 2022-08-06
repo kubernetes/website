@@ -59,7 +59,7 @@ kode selain 0, maka kubelet akan mematikan Container dan mengulangnya kembali.
 Saat dimulai, Container akan menjalankan perintah berikut:
 
 ```shell
-/bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
+/bin/sh -c "touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600"
 ```
 
 Container memiliki berkas `/tmp/healthy` pada saat 30 detik pertama setelah dijalankan.

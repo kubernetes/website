@@ -128,8 +128,8 @@ The "intended" number of pods is computed from the `.spec.replicas` of the workl
 that is managing those pods. The control plane discovers the owning workload resource by
 examining the `.metadata.ownerReferences` of the Pod.
 
-PDBs cannot prevent [involuntary disruptions](#voluntary-and-involuntary-disruptions) from
-occurring, but they do count against the budget.
+[Involuntary disruptions](#voluntary-and-involuntary-disruptions) cannot be prevented by PDBs; however they
+do count against the budget.
 
 Pods which are deleted or unavailable due to a rolling upgrade to an application do count
 against the disruption budget, but workload resources (such as Deployment and StatefulSet)

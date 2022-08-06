@@ -32,7 +32,7 @@ weight: 40
 
 서비스 카탈로그는 [오픈 서비스 브로커 API](https://github.com/openservicebrokerapi/servicebroker)를 사용하여 쿠버네티스 API 서버가 초기 프로비저닝을 협상하고 애플리케이션이 매니지드 서비스를 사용하는데 필요한 자격 증명을 검색하는 중개자 역할을 하는 서비스 브로커와 통신한다.
 
-스토리지에 etcd를 사용하여 확장 API 서버와 컨트롤러로 구현된다. 또한 쿠버네티스 1.7 이상에서 제공하는 [애그리게이션 레이어(aggregation layer)](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를 사용하여 API를 제공한다.
+이는 [CRD 기반](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/#커스텀-리소스) 아키텍처를 사용해서 구현되었다.
 
 <br>
 
@@ -227,7 +227,6 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* 만약 당신이 {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}에 익숙하다면, 당신의 쿠버네티스 클러스터에 [Helm을 이용하여 서비스 카탈로그를 설치](/docs/tasks/service-catalog/install-service-catalog-using-helm/)할 수 있다. 다른 방법으로 [SC tool을 이용하여 서비스 카탈로그를 설치](/docs/tasks/service-catalog/install-service-catalog-using-sc/)할 수 있다.
+* 만약 당신이 {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}에 익숙하다면, 당신의 쿠버네티스 클러스터에 [Helm을 이용하여 서비스 카탈로그를 설치](/docs/tasks/service-catalog/install-service-catalog-using-helm/)할 수 있다. 다른 방법으로 [SC tool을 이용하여 서비스 카탈로그를 설치](/ko/docs/tasks/service-catalog/install-service-catalog-using-sc/)할 수 있다.
 * [샘플 서비스 브로커](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers) 살펴보기
 * [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) 프로젝트 탐색
-* [svc-cat.io](https://svc-cat.io/docs/) 살펴보기

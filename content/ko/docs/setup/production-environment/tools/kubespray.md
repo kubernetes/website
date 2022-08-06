@@ -13,10 +13,10 @@ Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](h
 * 고가용성을 지닌 클러스터
 * 구성할 수 있는 속성들
 * 대부분의 인기있는 리눅스 배포판들에 대한 지원
-    * Ubuntu 16.04, 18.04, 20.04
+    * Ubuntu 16.04, 18.04, 20.04, 22.04
     * CentOS/RHEL/Oracle Linux 7, 8
     * Debian Buster, Jessie, Stretch, Wheezy
-    * Fedora 31, 32
+    * Fedora 34, 35
     * Fedora CoreOS
     * openSUSE Leap 15
     * Flatcar Container Linux by Kinvolk
@@ -33,13 +33,13 @@ Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](h
 
 언더레이(underlay) [요건](https://github.com/kubernetes-sigs/kubespray#requirements)을 만족하는 프로비전 한다.
 
-* **Ansible의 명령어를 실행하기 위해 Ansible v 2.9와 Python netaddr 라이브러리가 머신에 설치되어 있어야 한다**
+* **Ansible의 명령어를 실행하기 위해 Ansible v 2.11와 Python netaddr 라이브러리가 머신에 설치되어 있어야 한다**
 * **Ansible 플레이북을 실행하기 위해 2.11 (혹은 그 이상) 버전의 Jinja가 필요하다**
 * 타겟 서버들은 docker 이미지를 풀(pull) 하기 위해 반드시 인터넷에 접속할 수 있어야 한다. 아니라면, 추가적인 설정을 해야 한다 ([오프라인 환경 확인하기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
 * 타겟 서버들의 **IPv4 포워딩**이 활성화되어야 한다
 * **SSH 키**가 인벤토리의 모든 서버들에 복사되어야 한다
-* **방화벽은 관리되지 않는다**. 사용자가 예전 방식대로 고유한 규칙을 구현해야 한다. 디플로이먼트 과정에서의 문제를 방지하려면 방화벽을 비활성화해야 한다
-* 만약 kubespray가 루트가 아닌 사용자 계정에서 실행되었다면, 타겟 서버에서 알맞은 권한 확대 방법이 설정되어야 한다. 그 뒤 `ansible_become` 플래그나 커맨드 파라미터들, `--become` 또는 `-b` 가 명시되어야 한다
+* **방화벽은 kubespray에 의해 관리되지 않는다**. 사용자는 필요에 따라 적절한 규칙을 구현해야 한다. 디플로이먼트 과정에서의 문제를 방지하려면 방화벽을 비활성화해야 한다
+* 만약 kubespray가 루트가 아닌 사용자 계정에서 실행되었다면, 타겟 서버에서 알맞은 권한 확대 방법이 설정되어야 하며, `ansible_become` 플래그나 커맨드 파라미터들, `--become` 또는 `-b` 가 명시되어야 한다
 
 Kubespray는 환경에 맞는 프로비저닝을 돕기 위해 아래와 같은 서비스를 제공한다:
 

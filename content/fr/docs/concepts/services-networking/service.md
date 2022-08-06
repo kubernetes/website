@@ -209,7 +209,7 @@ Cela signifie que vous évitez d'envoyer du trafic via kube-proxy vers un pod co
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
-En mode `ipvs`, kube-proxy surveille les Services et Endpoints Kubernetes. kube-proxy appelle l'interface` netlink` pour créer les règles IPVS en conséquence et synchronise périodiquement les règles IPVS avec les Services et Endpoints Kubernetes.
+En mode `ipvs`, kube-proxy surveille les Services et Endpoints Kubernetes. kube-proxy appelle l'interface `netlink` pour créer les règles IPVS en conséquence et synchronise périodiquement les règles IPVS avec les Services et Endpoints Kubernetes.
 Cette boucle de contrôle garantit que l'état IPVS correspond à l'état souhaité.
 Lors de l'accès à un service, IPVS dirige le trafic vers l'un des pods backend.
 
@@ -289,7 +289,7 @@ Kubernetes prend en charge 2 modes principaux de recherche d'un service: les var
 ### Variables d'environnement
 
 Lorsqu'un pod est exécuté sur un nœud, le kubelet ajoute un ensemble de variables d'environnement pour chaque service actif.
-Il prend en charge à la fois les variables [Docker links](https://docs.docker.com/userguide/dockerlinks/) (voir [makeLinkVariables](http://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49)) et plus simplement les variables `{SVCNAME}_SERVICE_HOST` et `{SVCNAME}_SERVICE_PORT`, où le nom du service est en majuscules et les tirets sont convertis en underscore.
+Il prend en charge à la fois les variables [Docker links](https://docs.docker.com/userguide/dockerlinks/) (voir [makeLinkVariables](http://releases.k8s.io/master/pkg/kubelet/envvars/envvars.go#L49)) et plus simplement les variables `{SVCNAME}_SERVICE_HOST` et `{SVCNAME}_SERVICE_PORT`, où le nom du service est en majuscules et les tirets sont convertis en underscore.
 
 Par exemple, le service `redis-master` qui expose le port TCP 6379 et a reçu l'adresse IP de cluster 10.0.0.11, produit les variables d'environnement suivantes:
 
@@ -363,12 +363,12 @@ Les valeurs de `Type` et leurs comportements sont:
    * `ClusterIP`: Expose le service sur une IP interne au cluster.
      Le choix de cette valeur rend le service uniquement accessible à partir du cluster.
      Il s'agit du `ServiceType` par défaut.
-   * [`NodePort`](#nodeport): Expose le service sur l'IP de chaque nœud sur un port statique (le `NodePort`).
-     Un service `ClusterIP`, vers lequel le service` NodePort` est automatiquement créé.
+   * [`NodePort`](#type-nodeport): Expose le service sur l'IP de chaque nœud sur un port statique (le `NodePort`).
+     Un service `ClusterIP`, vers lequel le service `NodePort` est automatiquement créé.
      Vous pourrez contacter le service `NodePort`, depuis l'extérieur du cluster, en demandant `<NodeIP>: <NodePort>`.
    * [`LoadBalancer`](#loadbalancer): Expose le service en externe à l'aide de l'équilibreur de charge d'un fournisseur de cloud.
      Les services `NodePort` et `ClusterIP`, vers lesquels les itinéraires de l'équilibreur de charge externe, sont automatiquement créés.
-   * [`ExternalName`](#externalname): Mappe le service au contenu du champ `externalName` (par exemple` foo.bar.example.com`), en renvoyant un enregistrement `CNAME` avec sa valeur.
+   * [`ExternalName`](#externalname): Mappe le service au contenu du champ `externalName` (par exemple `foo.bar.example.com`), en renvoyant un enregistrement `CNAME` avec sa valeur.
      Aucun proxy d'aucune sorte n'est mis en place.
      {{< note >}}
      Vous avez besoin de CoreDNS version 1.7 ou supérieure pour utiliser le type `ExternalName`.
@@ -378,7 +378,7 @@ Vous pouvez également utiliser [Ingress](/fr/docs/concepts/services-networking/
 Ingress n'est pas un type de service, mais il sert de point d'entrée pour votre cluster.
 Il vous permet de consolider vos règles de routage en une seule ressource car il peut exposer plusieurs services sous la même adresse IP.
 
-### Type NodePort {#nodeport}
+### Type NodePort {#type-nodeport}
 
 Si vous définissez le champ `type` sur` NodePort`, le plan de contrôle Kubernetes alloue un port à partir d'une plage spécifiée par l'indicateur `--service-node-port-range` (par défaut: 30000-32767).
 Chaque nœud assure le proxy de ce port (le même numéro de port sur chaque nœud) vers votre service.

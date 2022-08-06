@@ -212,7 +212,7 @@ vous pouvez utiliser efficacement les ressources CPU disponibles sur les Nœuds 
 En gardant une demande faible de CPU de pod, vous donnez au Pod une bonne chance d'être ordonnancé.
 En ayant une limite CPU supérieure à la demande de CPU, vous accomplissez deux choses :
 
-* Le Pod peut avoir des pics d'activité où il utilise les ressources CPU qui se sont déjà disponible.
+* Le Pod peut avoir des pics d'activité où il utilise les ressources CPU qui sont déjà disponibles.
 * La quantité de ressources CPU qu'un Pod peut utiliser pendant une pic d'activité est limitée à une quantité raisonnable.
 
 ## Nettoyage

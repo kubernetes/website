@@ -1,15 +1,9 @@
 ---
-reviewers:
-- jsafrane
-- saad-ali
-- thockin
-- msau42
-- xing-yang
 title: Volumes Persistentes
 feature:
   title: Orquestração de Armazenamento
   description: >
-    Montar automaticamente o armazenamento de sua escolha, seja de um armazenamento local, de um provedor de cloud pública, como <a href="https://cloud.google.com/storage/">GCP</a> ou <a href="https://aws.amazon.com/products/storage/">AWS</a>, ou um armazenameto de rede, como NFS, iSCSI, Gluster, Ceph, Cinder ou Flocker.
+    Monte automaticamente o armazenamento de sua escolha, seja de um armazenamento local, de um provedor de cloud pública, como <a href="https://cloud.google.com/storage/">GCP</a> ou <a href="https://aws.amazon.com/products/storage/">AWS</a>, ou um armazenamento de rede, como NFS, iSCSI, Gluster, Ceph, Cinder ou Flocker.
 
 content_type: conceito
 weight: 20
@@ -28,7 +22,7 @@ O gerenciamento de armazenamento é uma questão bem diferente do gerenciamento 
 
 Um _PersistentVolume_ (PV) é uma parte do armazenamento dentro do cluster que tenha sido provisionada por um administrador, ou dinamicamente utilizando [Classes de Armazenamento](/docs/concepts/storage/storage-classes/). Isso é um recurso dentro do cluster da mesma forma que um nó também é. PVs são plugins de volume da mesma forma que Volumes, porém eles têm um ciclo de vida independente de qualquer Pod que utilize um PV. Essa API tem por objetivo mostrar os detalhes da implementação do armazenamento, seja ele NFS, iSCSI, ou um armazenamento específico de um provedor de cloud pública.
 
-Uma_PersistentVolumeClaim_ (PVC) é uma requisição para armazenamento por um usuário. É similar a um Pod. Pods utilizam recursos do nó e PVCs utilizam recursos do PV. Pods podem solicitar níveis específicos de recursos (CPU e Memória). Claims podem solicitar tamanho e modos de acesso específicos (exemplo: montagem como ReadWriteOnce, ReadOnlyMany ou ReadWriteMany, veja [Modos de Acesso](#modos-de-acesso)).
+Uma _PersistentVolumeClaim_ (PVC) é uma requisição para armazenamento por um usuário. É similar a um Pod. Pods utilizam recursos do nó e PVCs utilizam recursos do PV. Pods podem solicitar níveis específicos de recursos (CPU e Memória). Claims podem solicitar tamanho e modos de acesso específicos (exemplo: montagem como ReadWriteOnce, ReadOnlyMany ou ReadWriteMany, veja [Modos de Acesso](#modos-de-acesso)).
 
 Enquanto as PersistentVolumeClaims permitem que um usuário utilize recursos de armazenamento de forma limitada, é comum que usuários precisem de PersistentVolumes com diversas propriedades, como desempenho, para problemas diversos. Os administradores de cluster precisam estar aptos a oferecer uma variedade de PersistentVolumes que difiram em tamanho e modo de acesso, sem expor os usuários a detalhes de como esses volumes são implementados. Para necessidades como essas, temos o recurso de _StorageClass_.
 
@@ -314,7 +308,7 @@ Tipos de PersistentVolume são implementados como plugins. Atualmente o Kubernet
 
 ## Volumes Persistentes
 
-Cada PV contém uma `spec` e um status, que é a especificação e o status do volume. O nome do PersistentVolume deve ser um [DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
+Cada PV contém uma `spec` e um status, que é a especificação e o status do volume. O nome do PersistentVolume deve ser um [DNS](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
 ```yaml
 apiVersion: v1
@@ -468,7 +462,7 @@ A CLI mostrará o nome do PV que foi atrelado à PVC
 
 ## PersistentVolumeClaims
 
-Cada PVC contém uma `spec` e um status, que é a especificação e estado de uma requisição. O nome de um objeto PersistentVolumeClaim precisa ser um [DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
+Cada PVC contém uma `spec` e um status, que é a especificação e estado de uma requisição. O nome de um objeto PersistentVolumeClaim precisa ser um [DNS](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
 ```yaml
 apiVersion: v1
@@ -729,7 +723,7 @@ Se você está criando templates ou exemplos que rodam numa grande quantidade de
 
 * Saiba mais sobre [Criando um PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * Saiba mais sobre [Criando um PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* Leia a [documentação sobre planejamento de Armazenamento Persistente](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+* Leia a [documentação sobre planejamento de Armazenamento Persistente](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 ### Referência
 

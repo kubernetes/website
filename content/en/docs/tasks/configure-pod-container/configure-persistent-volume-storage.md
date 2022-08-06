@@ -88,7 +88,7 @@ would provision a network resource like a Google Compute Engine persistent disk,
 an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also
 use [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage)
 to set up
-[dynamic provisioning](https://kubernetes.io/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
+[dynamic provisioning](/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
 
 Here is the configuration file for the hostPath PersistentVolume:
 
@@ -236,8 +236,14 @@ sudo rmdir /mnt/data
 
 You can now close the shell to your Node.
 
+## Mounting the same persistentVolume in two places
 
+{{< codenew file="pods/storage/pv-duplicate.yaml" >}}
 
+You can perform 2 volume mounts on your nginx container:
+
+`/usr/share/nginx/html` for the static website
+`/etc/nginx/nginx.conf` for the default config
 
 <!-- discussion -->
 
@@ -276,7 +282,7 @@ PersistentVolume are not present on the Pod resource itself.
 
 
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
-* Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+* Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 ### Reference
 

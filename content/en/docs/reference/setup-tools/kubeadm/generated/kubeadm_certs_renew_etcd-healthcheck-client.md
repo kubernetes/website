@@ -87,6 +87,3 @@ kubeadm certs renew etcd-healthcheck-client [flags]
 
 </tbody>
 </table>
-
-
-

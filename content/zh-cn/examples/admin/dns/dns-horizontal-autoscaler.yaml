@@ -1,0 +1,87 @@
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: kube-dns-autoscaler
+  namespace: kube-system
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: system:kube-dns-autoscaler
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["list", "watch"]
+  - apiGroups: [""]
+    resources: ["replicationcontrollers/scale"]
+    verbs: ["get", "update"]
+  - apiGroups: ["apps"]
+    resources: ["deployments/scale", "replicasets/scale"]
+    verbs: ["get", "update"]
+# 待以下 issue 修复后，请删除 Configmaps
+# kubernetes-incubator/cluster-proportional-autoscaler#16
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "create"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: system:kube-dns-autoscaler
+subjects:
+  - kind: ServiceAccount
+    name: kube-dns-autoscaler
+    namespace: kube-system
+roleRef:
+  kind: ClusterRole
+  name: system:kube-dns-autoscaler
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-dns-autoscaler
+  namespace: kube-system
+  labels:
+    k8s-app: kube-dns-autoscaler
+    kubernetes.io/cluster-service: "true"
+spec:
+  selector:
+    matchLabels:
+      k8s-app: kube-dns-autoscaler
+  template:
+    metadata:
+      labels:
+        k8s-app: kube-dns-autoscaler
+    spec:
+      priorityClassName: system-cluster-critical
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        supplementalGroups: [ 65534 ]
+        fsGroup: 65534
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+      - name: autoscaler
+        image: k8s.gcr.io/cpa/cluster-proportional-autoscaler:1.8.4
+        resources:
+            requests:
+                cpu: "20m"
+                memory: "10Mi"
+        command:
+          - /cluster-proportional-autoscaler
+          - --namespace=kube-system
+          - --configmap=kube-dns-autoscaler
+          # 应该保持目标与 cluster/addons/dns/kube-dns.yaml.base 同步
+          - --target=<SCALE_TARGET>
+          #当集群使用大节点（有更多核）时，“coresPerReplica”应该占主导地位。
+          #如果使用小节点，“nodesPerReplica“ 应该占主导地位。
+          - --default-params={"linear":{"coresPerReplica":256,"nodesPerReplica":16,"preventSinglePointFailure":true,"includeUnschedulableNodes":true}}
+          - --logtostderr=true
+          - --v=2
+      tolerations:
+      - key: "CriticalAddonsOnly"
+        operator: "Exists"
+      serviceAccountName: kube-dns-autoscaler

@@ -30,6 +30,15 @@
 # leave the "announcements" key in place
 announcements:
 
+- name: Dockershim removal
+  startTime: 2022-04-07T00:00:00 # Added in PR: https://github.com/kubernetes/website/pull/32805
+  endTime: 2022-05-09T00:00:00 
+  style: "background: #326ce5"
+  title: "Dockershim removed from Kubernetes"
+  message: |
+    As of Kubernetes 1.24, Dockershim is no longer included in Kubernetes.
+    Read the [Dockershim Removal FAQ](/dockershim) to see what this means to you.
+
 - name: Kubecon 2020 NA
   startTime: 2020-10-26T00:00:00 # Added in https://github.com/kubernetes/website/pull/24714
   endTime: 2020-11-23T00:00:00 # Removed in https://github.com/kubernetes/website/pull/25173
@@ -94,3 +103,16 @@ announcements:
   message: |
     2 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     December 9 + 10, 2021.
+
+- name: Kubecon 2022 EU
+  startTime: 2022-05-10T00:00:00  #Added in https://github.com/kubernetes/website/pull/33578
+  endTime: 2022-05-20T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgb(253, 225, 203) 0%, rgb(236, 107, 67) 75%, rgb(236, 107, 67) 100%);
+    color: #000;
+  title: |
+    <img src ="/images/announcements/kccnc-eu-2022-black.svg" style="float: right; height: 80px;" />
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/">KubeCon + CloudNativeCon EU 2022</a> <em> Valencia, Spain + Virtual</em>.
+  message: |
+    5 days of incredible opportunites to collaborate, learn + share with the entire community!<br />
+    May 16 - 20, 2022.
