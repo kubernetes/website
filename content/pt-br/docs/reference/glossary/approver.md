@@ -14,4 +14,4 @@ tags:
 
 <!--more--> 
 
-Embora a revisão de código esteja focada na qualidade e correção, a aprovação está focada na aceitação integral de uma contribuição. A aceitação inclui a compatibilidade anterior/posterior, adesão a API e convenções das flags, problemas sutis de desempenho e correção, interações com outras partes do sistema, etc. O status do aprovador tem escopo para uma parte código. Os aprovadores eram anteriormente referidos como mantenedores.
+Embora a revisão de código esteja focada na qualidade e correção, a aprovação está focada na aceitação integral de uma contribuição. A aceitação inclui a retrocompatibilidade e compatibilidade futura, adesão a convenções de API e de flags, problemas sutis de desempenho e correção, interações com outras partes do sistema, etc. O status do aprovador tem escopo para uma parte código. Os aprovadores eram anteriormente referidos como mantenedores.
