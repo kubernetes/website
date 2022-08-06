@@ -29,7 +29,7 @@ cpu/io/memory 통계를 수집하기 위해 cgroup API를 사용할 수 있다.
 네임스페이스 필터링 없이 윈도우 컨테이너를 실행할 수 있는 방법은 없다. 
 이는 곧 시스템 권한은 호스트 입장에서 주장할(assert) 수 없고, 
 이로 인해 특권을 가진(privileged) 컨테이너는 윈도우에서 사용할 수 없음을 의미한다. 
-또한 보안 계정 매니져(Security Account Manager, SAM)가 분리되어 있으므로 
+또한 보안 계정 매니저(Security Account Manager, SAM)가 분리되어 있으므로 
 컨테이너는 호스트의 ID를 가정(assume)할 수 없다.
 
 ## 메모리 관리 {#resource-management-memory}

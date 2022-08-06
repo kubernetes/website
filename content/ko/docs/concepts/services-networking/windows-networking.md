@@ -122,14 +122,14 @@ The following IPAM options are supported on Windows:
 {{< /table >}}
 
 {{< warning >}}
-목적지 노드가 Windows Server 2022를 실행 중인 경우, 오버레이 네트워킹 상에서 NodePort 서비스에 문제가 있음이 알려져 있다. 
+목적지 노드가 Windows Server 2022를 실행 중인 경우, 오버레이 네트워킹에서 NodePort 서비스에 문제가 있음이 알려져 있다. 
 이 이슈를 완전히 피하려면, 서비스에 `externalTrafficPolicy: Local`를 설정한다.
 
-KB5005619 또는 그 이상이 설치된 Windows Server 2022의 경우, l2bridge 네트워크 상에서 파드 간 연결성에 문제가 있음이 알려져 있다. 
+KB5005619 또는 그 이상이 설치된 Windows Server 2022의 경우, l2bridge 네트워크에서 파드 간 연결성에 문제가 있음이 알려져 있다. 
 이 이슈를 우회하고 파드 간 연결성을 복구하기 위해, kube-proxy의 WinDSR 기능을 비활성화할 수 있다.
 
-이 이슈들은 운영 체제 패치를 필요로 한다. 
-업데이트하려면 https://github.com/microsoft/Windows-Containers/issues/204 를 참고한다.
+이 이슈들을 해결하기 위해서는 운영 체제를 패치해야 한다. 
+이와 관련해서는 https://github.com/microsoft/Windows-Containers/issues/204 를 참고한다.
 {{< /warning >}}
 
 ## 제한
@@ -141,7 +141,7 @@ KB5005619 또는 그 이상이 설치된 Windows Server 2022의 경우, l2bridge
 * 단일 서비스에 대해 64개를 초과하는 백엔드 파드 (또는 고유한 목적지 주소)
 * 오버레이 네트워크에 연결된 윈도우 파드 간의 IPv6 통신
 * non-DSR 모드에서의 로컬 트래픽 정책(Local Traffic Policy)
-* win-overlay, win-bridge, Azure-CNI 플러그인을 통해 ICMP 프로토콜을 사용하는 아웃바운드 통신.\
+* win-overlay, win-bridge, Azure-CNI 플러그인을 통해 ICMP 프로토콜을 사용하는 아웃바운드 통신.
   특히, 윈도우 데이터 플레인([VFP](https://www.microsoft.com/en-us/research/project/azure-virtual-filtering-platform/))은 
   ICMP 패킷 치환을 지원하지 않는다. 이것은 다음을 의미한다.
   * 동일한 네트워크 내의 목적지로 전달되는 ICMP 패킷(예: ping을 통한 파드 간 통신)은 
