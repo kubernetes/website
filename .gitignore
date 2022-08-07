@@ -33,6 +33,7 @@ resources/
 
 # Netlify Functions build output
 package-lock.json
+package.json
 functions/
 node_modules/
 
