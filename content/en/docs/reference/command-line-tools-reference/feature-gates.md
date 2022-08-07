@@ -118,9 +118,6 @@ different Kubernetes components.
 | `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 |  |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
-| `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
-| `IdentifyPodOS` | `true` | Beta | 1.24 | |
-| `IdentifyPodOS` | `true` | GA | 1.25 | |
 | `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureDiskUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureFileUnregister` | `false` | Alpha | 1.21 | |
@@ -364,6 +361,9 @@ different Kubernetes components.
 | `HugePages` | `true` | GA | 1.14 | - |
 | `HyperVContainer` | `false` | Alpha | 1.10 | 1.19 |
 | `HyperVContainer` | `false` | Deprecated | 1.20 | - |
+| `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
+| `IdentifyPodOS` | `true` | Beta | 1.24 | 1.24 |
+| `IdentifyPodOS` | `true` | GA | 1.25 | - |
 | `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
 | `IPv6DualStack` | `true` | Beta | 1.21 | 1.22 |
 | `IPv6DualStack` | `true` | GA | 1.23 | - |
