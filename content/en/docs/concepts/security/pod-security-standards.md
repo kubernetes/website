@@ -326,7 +326,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Privilege Escalation (v1.8+)</td>
 			<td>
-				<p>Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed.</p>
+				<p>Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em></p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
@@ -381,7 +381,7 @@ fail validation.
 		<tr>
   			<td style="white-space: nowrap">Seccomp (v1.19+)</td>
   			<td>
-  				<p>Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited.</p>
+  				<p>Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em></p>
   				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seccompProfile.type</code></li>
@@ -407,7 +407,7 @@ fail validation.
 			<td>
 				<p>
 					Containers must drop <code>ALL</code> capabilities, and are only permitted to add back
-					the <code>NET_BIND_SERVICE</code> capability.
+ 					the <code>NET_BIND_SERVICE</code> capability. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(.spec.os.name != "windows")</code></em>
 				</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
@@ -461,6 +461,30 @@ Other alternatives for enforcing policies are being developed in the Kubernetes 
 - [Kyverno](https://kyverno.io/policies/pod-security/)
 - [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
 
+## Pod OS field
+
+Kubernetes lets you use nodes that run either Linux or Windows. You can mix both kinds of
+node in one cluster.
+Windows in Kubernetes has some limitations and differentiators from Linux-based
+workloads. Specifically, many of the Pod `securityContext` fields
+[have no effect on Windows](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext).
+
+{{< note >}}
+Kubelets prior to v1.24 don't enforce the pod OS field, and if a cluster has nodes on versions earlier than v1.24 the restricted policies should be pinned to a version prior to v1.25.
+{{< /note >}}
+
+### Restricted Pod Security Standard changes
+Another important change, made in Kubernetes v1.25 is that the  _restricted_ Pod security
+has been updated to use the `pod.spec.os.name` field. Based on the OS name, certain policies that are specific
+to a particular OS can be relaxed for the other OS.
+
+
+#### OS-specific policy controls
+Restrictions on the following controls are only required if `.spec.os.name` is not `windows`:
+- Privilege Escalation
+- Seccomp
+- Linux Capabilities
+
 ## FAQ
 
 ### Why isn't there a profile between privileged and baseline?
@@ -484,23 +508,6 @@ as well as other related parameters outside the Security Context. As of July 202
 [Pod Security Policies](/docs/concepts/security/pod-security-policy/) are deprecated in favor of the
 built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
 
-### What profiles should I apply to my Windows Pods?
-
-Windows in Kubernetes has some limitations and differentiators from standard Linux-based
-workloads. Specifically, many of the Pod SecurityContext fields
-[have no effect on Windows](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext).
-As such, no standardized Pod Security profiles currently exist.
-
-If you apply the restricted profile for a Windows pod, this **may** have an impact on the pod
-at runtime. The restricted profile requires enforcing Linux-specific restrictions (such as seccomp
-profile, and disallowing privilege escalation). If the kubelet and / or its container runtime ignore
-these Linux-specific values, then the Windows pod should still work normally within the restricted
-profile. However, the lack of enforcement means that there is no additional restriction, for Pods
-that use Windows containers, compared to the baseline profile.
-
-The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy.
-Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies,
-so any HostProcess pod should be considered privileged.
 
 ### What about sandboxed Pods?
 
