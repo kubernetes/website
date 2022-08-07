@@ -1,6 +1,6 @@
 ---
-##
-##
+## reviewers:
+## - maplain
 title: 서비스 내부 트래픽 정책
 content_type: concept
 weight: 45
