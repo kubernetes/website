@@ -4,13 +4,13 @@ content_type: concept
 weight: 40
 ---
 
-
 <!-- overview -->
 
-사용자는 _토폴로지 분배 제약 조건_ 을 사용해서 지역, 영역, 노드 그리고 기타 사용자-정의 토폴로지 도메인과 같이 장애-도메인으로 설정된 클러스터에 걸쳐 파드가 분산되는 방식을 제어할 수 있다. 이를 통해 고가용성뿐만 아니라, 효율적인 리소스 활용의 목적을 이루는 데 도움이 된다.
+사용자는 _토폴로지 분배 제약 조건_ 을 사용해서 지역, 영역, 노드 그리고 기타 사용자-정의 토폴로지 도메인과 같이 장애-도메인으로 설정된 클러스터에 걸쳐 {{< glossary_tooltip text="파드" term_id="Pod" >}}가 분산되는 방식을 제어할 수 있다. 이를 통해 고가용성뿐만 아니라, 효율적인 리소스 활용의 목적을 이루는 데 도움이 된다.
 
 
 <!-- body -->
+
 
 ## 필수 구성 요소
 
@@ -64,6 +64,7 @@ metadata:
 spec:
   topologySpreadConstraints:
     - maxSkew: <integer>
+      minDomains: <integer>
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
@@ -76,30 +77,30 @@ spec:
 
   - `whenUnsatisfiable` 이 "DoNotSchedule"과 같을 때, `maxSkew` 는
     대상 토폴로지에서 일치하는 파드 수와 전역 최솟값
-    (토폴로지 도메인에서 레이블 셀렉터와 일치하는 최소 파드 수. 
-    예를 들어 3개의 영역에 각각 0, 2, 3개의 일치하는 파드가 있으면, 
-    전역 최솟값은 0) 
+    (토폴로지 도메인에서 레이블 셀렉터와 일치하는 최소 파드 수.
+    예를 들어 3개의 영역에 각각 0, 2, 3개의 일치하는 파드가 있으면,
+    전역 최솟값은 0)
     사이에 허용되는 최대 차이이다.
   - `whenUnsatisfiable` 이 "ScheduleAnyway"와 같으면, 스케줄러는
     왜곡을 줄이는데 도움이 되는 토폴로지에 더 높은 우선 순위를 부여한다.
 
-- **minDomains** 는 적합한(eligible) 도메인의 최소 수를 나타낸다. 
-  도메인은 토폴로지의 특정 인스턴스 중 하나이다. 
+- **minDomains** 는 적합한(eligible) 도메인의 최소 수를 나타낸다.
+  도메인은 토폴로지의 특정 인스턴스 중 하나이다.
   도메인의 노드가 노드 셀렉터에 매치되면 그 도메인은 적합한 도메인이다.
 
   - `minDomains` 값을 명시하는 경우, 이 값은 0보다 커야 한다.
-  - 매치되는 토폴로지 키의 적합한 도메인 수가 `minDomains`보다 적으면, 
-    파드 토폴로지 스프레드는 "글로벌 미니멈"을 0으로 간주한 뒤, `skew` 계산이 수행된다. 
-    "글로벌 미니멈"은 적합한 도메인 내에 매치되는 파드의 최소 수 이며, 
+  - 매치되는 토폴로지 키의 적합한 도메인 수가 `minDomains`보다 적으면,
+    파드 토폴로지 스프레드는 "글로벌 미니멈"을 0으로 간주한 뒤, `skew` 계산이 수행된다.
+    "글로벌 미니멈"은 적합한 도메인 내에 매치되는 파드의 최소 수 이며,
     적합한 도메인 수가 `minDomains`보다 적은 경우에는 0이다.
-  - 매치되는 토폴로지 키의 적합한 도메인 수가 `minDomains`보다 크거나 같으면, 
+  - 매치되는 토폴로지 키의 적합한 도메인 수가 `minDomains`보다 크거나 같으면,
     이 값은 스케줄링에 영향을 미치지 않는다.
   - `minDomains`가 nil이면, 이 제약은 `minDomains`가 1인 것처럼 동작한다.
   - `minDomains`가 nil이 아니면, `whenUnsatisfiable`의 값은 "`DoNotSchedule`"이어야 한다.
 
   {{< note >}}
-  `minDomains` 필드는 1.24에서 추가된 알파 필드이다. 
-  이를 사용하려면 `MinDomainsInPodToplogySpread` 
+  `minDomains` 필드는 1.24에서 추가된 알파 필드이다.
+  이를 사용하려면 `MinDomainsInPodToplogySpread`
   [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
   {{< /note >}}
 
@@ -190,7 +191,7 @@ graph BT
 
 - `maxSkew` 를 "2" 보다 큰 값으로 변경해서 들어오는 파드들이 "zoneA"에도 배치할 수 있도록 한다.
 - `topologyKey` 를 "node"로 변경해서 파드가 영역이 아닌, 노드에 걸쳐 고르게 분산할 수 있게 한다. 위의 예시에서 만약 `maxSkew` 가 "1"로 유지되면 들어오는 파드는 오직 "node4"에만 배치할 수 있다.
-- `whenUnsatisfiable: DoNotSchedule` 에서 `whenUnsatisfiable: ScheduleAnyway` 로 변경하면 들어오는 파드는 항상 다른 스케줄링 API를 충족한다는 가정하에 스케줄할 수 있도록 보장한다. 그러나 일치하는 파드가 적은 토폴로지 도메인에 배치되는 것이 좋다.  (이 선호도는 리소스 사용 비율 등과 같은 다른 내부 스케줄링 우선순위와 공동으로 정규화 된다는 것을 알아두자.)
+- `whenUnsatisfiable: DoNotSchedule` 에서 `whenUnsatisfiable: ScheduleAnyway` 로 변경하면 들어오는 파드는 항상 다른 스케줄링 API를 충족한다는 가정하에 스케줄할 수 있도록 보장한다. 그러나 일치하는 파드가 적은 토폴로지 도메인에 배치되는 것이 좋다. (이 선호도는 리소스 사용 비율 등과 같은 다른 내부 스케줄링 우선순위와 공동으로 정규화 된다는 것을 알아두자.)
 
 ### 예시: 다중 토폴로지 분배 제약 조건
 
@@ -338,8 +339,8 @@ profiles:
 ```
 
 {{< note >}}
-[`SelectorSpread` 플러그인](/ko/docs/reference/scheduling/config/#스케줄링-플러그인)은 
-기본적으로 비활성화되어 있다. 
+[`SelectorSpread` 플러그인](/ko/docs/reference/scheduling/config/#스케줄링-플러그인)은
+기본적으로 비활성화되어 있다.
 비슷한 효과를 얻기 위해 `PodTopologySpread`를 사용하는 것을 추천한다.
 {{< /note >}}
 
@@ -347,7 +348,7 @@ profiles:
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-파드 토폴로지 스프레딩에 대해 클러스터 수준의 기본 제약을 설정하지 않으면, 
+파드 토폴로지 스프레딩에 대해 클러스터 수준의 기본 제약을 설정하지 않으면,
 kube-scheduler는 다음과 같은 기본 토폴로지 제약을 설정한 것처럼 동작한다.
 
 ```yaml
@@ -365,8 +366,8 @@ defaultConstraints:
 
 {{< note >}}
 `PodTopologySpread` 플러그인은 분배 제약 조건에 지정된 토폴로지 키가
-없는 노드에 점수를 매기지 않는다. 
-이로 인해 기본 토폴로지 제약을 사용하는 경우의 
+없는 노드에 점수를 매기지 않는다.
+이로 인해 기본 토폴로지 제약을 사용하는 경우의
 레거시 `SelectorSpread` 플러그인과는 기본 정책이 다를 수 있다.
 
 노드에 `kubernetes.io/hostname` 및 `topology.kubernetes.io/zone`
@@ -411,7 +412,7 @@ profiles:
 ## 알려진 제한사항
 
 - 파드가 제거된 이후에도 제약 조건이 계속 충족된다는 보장은 없다. 예를 들어 디플로이먼트를 스케일링 다운하면 그 결과로 파드의 분포가 불균형해질 수 있다.
-[Descheduler](https://github.com/kubernetes-sigs/descheduler)를 사용하여 파드 분포를 다시 균형있게 만들 수 있다.
+  [Descheduler](https://github.com/kubernetes-sigs/descheduler)를 사용하여 파드 분포를 다시 균형있게 만들 수 있다.
 - 파드와 일치하는 테인트(taint)가 된 노드가 존중된다. [이슈 80921](https://github.com/kubernetes/kubernetes/issues/80921)을 본다.
 
 ## {{% heading "whatsnext" %}}
