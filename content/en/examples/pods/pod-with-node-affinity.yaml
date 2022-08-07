@@ -6,13 +6,14 @@ spec:
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
+      - preference:
+          matchExpressions:
           - key: topology.kubernetes.io/zone
             operator: In
             values:
             - antarctica-east1
             - antarctica-west1
+        weight: 5
       preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 1
         preference:
