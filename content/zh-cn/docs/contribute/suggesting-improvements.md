@@ -1,6 +1,5 @@
 ---
 title: 提出内容改进建议
-slug: suggest-improvements
 content_type: concept
 weight: 10
 card:
@@ -9,7 +8,6 @@ card:
 ---
 <!--
 title: Suggesting content improvements
-slug: suggest-improvements
 content_type: concept
 weight: 10
 card:
@@ -42,7 +40,7 @@ Kubernetes 贡献者会审阅这些问题并根据需要对其分类、打标签
 
 If you want to suggest improvements to existing content or notice an error, then open an issue.
 
-1. Go to the bottom of the page and click the **Create an Issue** button. This redirects you
+1. Click the **Create an issue** link on the right sidebar. This redirects you
  to a GitHub issue page pre-populated with some headers.
 2. Describe the issue or suggestion for improvement. Provide as many details as you can.
 3. Click **Submit new issue**.
@@ -55,7 +53,7 @@ they can take action on your issue.
 
 如果你希望就改进已有内容提出建议或者在文档中发现了错误，请创建一个问题（issue）。
 
-1. 滚动到页面底部，点击“报告问题”按钮。浏览器会重定向到一个 GitHub 问题页面，其中
+1. 点击右侧边栏的 **报告问题** 按钮。浏览器会重定向到一个 GitHub 问题页面，其中
    包含了一些预先填充的内容。
 1. 请描述遇到的问题或关于改进的建议。尽可能提供细节信息。
 1. 点击 **提交新问题**.

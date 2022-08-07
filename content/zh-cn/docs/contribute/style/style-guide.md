@@ -83,10 +83,6 @@ When you refer specifically to interacting with an API object, use [UpperCamelCa
 
 When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
-You may use the word "resource", "API", or "object" to clarify a Kubernetes resource type in a sentence.
-
-Don't split an API object name into separate words. For example, use PodTemplateList, not Pod Template List.
-
 The following examples focus on capitalization. For more information about formatting API object names, review the related guidance on [Code Style](#code-style-inline-code).
 -->
 ## 文档格式标准 {#documentation-formatting-standards}
@@ -99,12 +95,6 @@ The following examples focus on capitalization. For more information about forma
 
 在一般性地讨论 API 对象时，使用
 [句子式大写](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization)。
-
-你可以使用“资源”、“API”或者“对象”这类词汇来进一步在句子中明确所指的是
-一个 Kubernetes 资源类型。
-
-不要将 API 对象的名称切分成多个单词。例如，使用 PodTemplateList，
-不要使用 Pod Template List。
 
 下面的例子关注的是大小写问题。关于如何格式化 API 对象的名称，
 有关详细细节可参考相关的[代码风格](#code-style-inline-code)指南。
@@ -390,6 +380,79 @@ Set the value of the `replicas` field to 2. | Set the value of the `replicas` fi
 将 `image` 设置为 nginx:1.16. | 将 `image` 设置为 `nginx:1.16`。
 将 `replicas` 字段值设置为 2. | 将 `replicas` 字段值设置为 `2`.
 {{< /table >}}
+
+<!--
+## Referring to Kubernetes API resources
+
+This section talks about how we reference API resources in the documentation.
+
+### Clarification about "resource"
+
+Kubernetes uses the word "resource" to refer to API resources, such as `pod`, `deployment`, and so on. We also use "resource" to talk about CPU and memory requests and limits. Always refer to API resources as "API resources" to avoid confusion with CPU and memory resources.
+-->
+## 引用 Kubernetes API 资源
+
+本节讨论我们如何在文档中引用 API 资源。
+
+### 有关 “资源” 的阐述
+
+Kubernetes 使用 “resource” 一词来指代 API 资源，例如 `pod`、`deployment` 等。
+我们还使用 “resource” 来谈论 CPU 和内存请求和限制。
+所以始终将 API 资源称为 “API resources” 以避免与 CPU 和内存资源混淆。
+
+<!--
+### When to use Kubernetes API terminologies
+
+The different Kubernetes API terminologies are:
+
+- Resource type: the name used in the API URL (such as `pods`, `namespaces`)
+- Resource: a single instance of a resource type (such as `pod`, `secret`)
+- Object: a resource that serves as a "record of intent". An object is a desired state for a specific part of your cluster, which the Kubernetes control plane tries to maintain.
+
+Always use "resource" or "object" when referring to an API resource in docs. For example, use "a `Secret` object" over just "a `Secret`".
+-->
+### 何时使用 Kubernetes API 术语
+
+不同 Kubernetes API 术语的说明如下：
+
+- 资源类型：API URL 中使用的名称（如 `pods`、`namespaces`）
+- 资源：资源类型的单个实例（如 `pod`、`secret`）
+- 对象：作为 “意向记录” 的资源。对象是集群特定部分的期望状态，
+  该状态由 Kubernetes 控制平面负责维护。
+
+在文档中引用 API 资源时始终使用 “资源” 或 “对象”。
+例如，使用 “一个 `Secret` 对象” 而不是 “一个 `Secret`”。
+
+<!--
+### API resource names
+
+Always format API resource names using [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as PascalCase, and code formatting.
+
+For inline code in an HTML document, use the `<code>` tag. In a Markdown document, use the backtick (`` ` ``).
+
+Don't split an API object name into separate words. For example, use `PodTemplateList`, not Pod Template List.
+
+For more information about PascalCase and code formatting, please review the related guidance on [Use upper camel case for API objects](/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects) and [Use code style for inline code, commands, and API objects](/docs/contribute/style/style-guide/#code-style-inline-code).
+
+For more information about Kubernetes API terminologies, please review the related guidance on [Kubernetes API terminology](/docs/reference/using-api/api-concepts/#standard-api-terminology).
+-->
+### API 资源名称
+
+始终使用[大写驼峰式命名法](https://zh.wikipedia.org/wiki/%E9%A7%9D%E5%B3%B0%E5%BC%8F%E5%A4%A7%E5%B0%8F%E5%AF%AB)
+（PascalCase）和代码格式来表达 API 资源名称。
+
+对于 HTML 文档中的内联代码，请使用 `<code>` 标记。
+在 Markdown 文档中，使用反引号 (`` ` ``)。
+
+不要将 API 对象的名称切分成多个单词。
+例如请使用 `PodTemplateList` 而非 `Pod Template List`。
+
+有关 PascalCase 和代码格式的更多信息，
+请查看[对 API 对象使用大写驼峰式命名法](/zh-cn/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects)
+和[针对内嵌代码、命令与 API 对象使用代码样式](/zh-cn/docs/contribute/style/style-guide/#code-style-inline-code)。
+
+有关 Kubernetes API 术语的更多信息，
+请查看 [Kubernetes API 术语](/zh-cn/docs/reference/using-api/api-concepts/#standard-api-terminology)的相关指南。
 
 <!--
 ## Code snippet formatting

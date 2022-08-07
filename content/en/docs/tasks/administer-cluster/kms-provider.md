@@ -57,11 +57,11 @@ You can develop a KMS plugin gRPC server using a stub file available for Go. For
 you use a proto file to create a stub file that you can use to develop the gRPC server code.
 
 * Using Go: Use the functions and data structures in the stub file:
-  [service.pb.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/service.pb.go)
+  [service.pb.go](https://github.com/kubernetes/kubernetes/blob/release-1.24/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/service.pb.go)
   to develop the gRPC server code 
 
 * Using languages other than Go: Use the protoc compiler with the proto file:
-  [service.proto](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/service.proto)
+  [service.proto](https://github.com/kubernetes/kubernetes/blob/release-1.24/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/service.proto)
   to generate a stub file for the specific language
 
 Then use the functions and data structures in the stub file to develop the server code.
