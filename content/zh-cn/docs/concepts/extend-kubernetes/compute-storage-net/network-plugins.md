@@ -9,7 +9,6 @@ content_type: concept
 weight: 10
 -->
 
-
 <!-- overview -->
 
 <!-- 
@@ -87,7 +86,7 @@ For specific information about how to install and manage a CNI plugin, see the d
 For plugin developers and users who regularly build or deploy Kubernetes, the plugin may also need specific configuration to support kube-proxy.
 The iptables proxy depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.
 For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.
-If the plugin does not use a Linux bridge (but instead something like Open vSwitch or some other mechanism) it should ensure container traffic is appropriately routed for the proxy.
+If the plugin does not use a Linux bridge, but uses something like Open vSwitch or some other mechanism instead, it should ensure container traffic is appropriately routed for the proxy.
 -->
 ## 网络插件要求   {#network-plugin-requirements}
 
@@ -96,7 +95,7 @@ If the plugin does not use a Linux bridge (but instead something like Open vSwit
 iptables 代理依赖于 iptables，插件可能需要确保 iptables 能够监控容器的网络通信。
 例如，如果插件将容器连接到 Linux 网桥，插件必须将 `net/bridge/bridge-nf-call-iptables`
 sysctl 参数设置为 `1`，以确保 iptables 代理正常工作。
-如果插件不使用 Linux 网桥（而是类似于 Open vSwitch 或者其它一些机制），
+如果插件不使用 Linux 网桥，而是使用类似于 Open vSwitch 或者其它一些机制，
 它应该确保为代理对容器通信执行正确的路由。
 
 <!--
@@ -143,7 +142,7 @@ CNI 网络插件支持 `hostPort`。 你可以使用官方
 ```json
 {
   "name": "k8s-pod-network",
-  "cniVersion": "0.3.0",
+  "cniVersion": "0.4.0",
   "plugins": [
     {
       "type": "calico",
@@ -196,7 +195,7 @@ CNI 网络插件还支持 pod 入口和出口流量整形。
 ```json
 {
   "name": "k8s-pod-network",
-  "cniVersion": "0.3.0",
+  "cniVersion": "0.4.0",
   "plugins": [
     {
       "type": "calico",
@@ -239,6 +238,3 @@ metadata:
 ```
 
 ## {{% heading "whatsnext" %}}
-
-
-
