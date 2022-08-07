@@ -144,21 +144,24 @@ struct has a `patchStrategy` of `merge`:
 type PodSpec struct {
   ...
   Containers []Container `json:"containers" patchStrategy:"merge" patchMergeKey:"name" ...`
+  ...
+}
 ```
 
 You can also see the patch strategy in the
 [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json):
 
-```json
+```yaml
 "io.k8s.api.core.v1.PodSpec": {
-    ...
-     "containers": {
-      "description": "List of containers belonging to the pod. ...
-      },
-      "x-kubernetes-patch-merge-key": "name",
-      "x-kubernetes-patch-strategy": "merge"
-     },
+    ...,
+    "containers": {
+        "description": "List of containers belonging to the pod.  ...."
+    },
+    "x-kubernetes-patch-merge-key": "name",
+    "x-kubernetes-patch-strategy": "merge"
+}
 ```
+<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 And you can see the patch strategy in the
 [Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
@@ -204,6 +207,8 @@ strategic merge patch uses the default patch strategy, which is `replace`.
 type PodSpec struct {
   ...
   Tolerations []Toleration `json:"tolerations,omitempty" protobuf:"bytes,22,opt,name=tolerations"`
+  ...
+}
 ```
 
 ## Use a JSON merge patch to update a Deployment
@@ -365,19 +370,24 @@ type DeploymentSpec struct {
   ...
   // +patchStrategy=retainKeys
   Strategy DeploymentStrategy `json:"strategy,omitempty" patchStrategy:"retainKeys" ...`
+  ...
+}
 ```
 
 You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json):
 
-```json
+```yaml
 "io.k8s.api.apps.v1.DeploymentSpec": {
-   ...
-  "strategy": {
-    "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStrategy",
-    "description": "The deployment strategy to use to replace existing pods with new ones.",
-    "x-kubernetes-patch-strategy": "retainKeys"
-  },
+    ...,
+    "strategy": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStrategy",
+        "description": "The deployment strategy to use to replace existing pods with new ones.",
+        "x-kubernetes-patch-strategy": "retainKeys"
+    },
+    ....
+}
 ```
+<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 And you can see the `retainKeys` strategy in the
 [Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
