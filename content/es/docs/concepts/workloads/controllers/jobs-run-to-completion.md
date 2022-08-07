@@ -443,7 +443,7 @@ de controlador personalizado para esos Pods. Esto da la máxima flexibilidad, pe
 cueste un poco más de entender y ofrece menos integración con Kubernetes.
 
 Un ejemplo de este patrón sería un Job que arranca un Pod que ejecuta una secuencia de comandos que, a su vez,
-arranca un controlador maestro de Spark (ver el [ejemplo de spark](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/spark/README.md)), 
+arranca un controlador maestro de Spark (ver el [ejemplo de spark](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)), 
 ejecuta un manejador de spark, y a continuación lo limpia todo.
 
 Una ventaja de este enfoque es que el proceso general obtiene la garantía del objeto Job,

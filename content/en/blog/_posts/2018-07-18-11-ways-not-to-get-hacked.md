@@ -66,7 +66,7 @@ There are plenty of [good examples](https://docs.bitnami.com/kubernetes/how-to/c
 
 Incorrect or excessively permissive RBAC policies are a security threat in case of a compromised pod. Maintaining least privilege, and continuously reviewing and improving RBAC rules, should be considered part of the "technical debt hygiene" that teams build into their development lifecycle.
 
-[Audit Logging](/docs/tasks/debug-application-cluster/audit/) (beta in 1.10) provides customisable API logging at the payload (e.g. request and response), and also metadata levels. Log levels can be tuned to your organisation&#39;s security policy - [GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/audit-logging#audit_policy) provides sane defaults to get you started.
+[Audit Logging](/docs/tasks/debug/debug-cluster/audit/) (beta in 1.10) provides customisable API logging at the payload (e.g. request and response), and also metadata levels. Log levels can be tuned to your organisation&#39;s security policy - [GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/audit-logging#audit_policy) provides sane defaults to get you started.
 
 For read requests such as get, list, and watch, only the request object is saved in the audit logs; the response object is not. For requests involving sensitive data such as Secret and ConfigMap, only the metadata is exported. For all other requests, both request and response objects are saved in audit logs.
 

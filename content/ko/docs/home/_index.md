@@ -1,4 +1,6 @@
 ---
+
+
 title: 쿠버네티스 문서
 noedit: true
 cid: docsHome
@@ -20,9 +22,9 @@ overview: >
   쿠버네티스는 배포, 스케일링, 그리고 컨테이너화된 애플리케이션의 관리를 자동화 해주는 오픈 소스 컨테이너 오케스트레이션 엔진이다. 본 오픈 소스 프로젝트는 Cloud Native Computing Foundation(<a href="https://www.cncf.io/about">CNCF</a>)가 주관한다.
 cards:
 - name: concepts
-  title: "기초 이해하기"
+  title: "쿠버네티스 이해하기"
   description: "쿠버네티스와 쿠버네티스의 기본 개념을 배운다."
-  button: "개념 배우기"
+  button: "개념 살펴보기"
   button_path: "/ko/docs/concepts"
 - name: tutorials
   title: "쿠버네티스 사용해보기"
@@ -58,7 +60,7 @@ cards:
   title: K8s 릴리스 노트
   description: 쿠버네티스를 설치하거나 최신의 버전으로 업그레이드하는 경우, 현재 릴리스 노트를 참고한다.
   button: "쿠버네티스 다운로드"
-  button_path: "/docs/setup/release/notes"
+  button_path: "/releases/download"
 - name: about
   title: 문서에 대하여
   description: 이 웹사이트는 현재 버전과 이전 4개 버전의 쿠버네티스 문서를 포함한다.

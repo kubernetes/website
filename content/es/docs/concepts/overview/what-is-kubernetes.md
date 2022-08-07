@@ -54,13 +54,13 @@ facilitar sus flujos de trabajo y hacer más fácil a las herramientas administr
 
 Además, el [Plano de Control](/docs/concepts/overview/components/) de Kubernetes usa las mismas
 [APIs](/docs/reference/using-api/api-overview/) que usan los desarrolladores y usuarios finales.
-Los usuarios pueden escribir sus propios controladores, como por ejemplo un planificador o [scheduler](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md),
+Los usuarios pueden escribir sus propios controladores, como por ejemplo un planificador o [scheduler](https://github.com/kubernetes/community/blob/master/contributors/devel/scheduler.md),
 usando [sus propias
 APIs](/docs/concepts/api-extension/custom-resources/)
 desde una [herramienta de línea de comandos](/docs/user-guide/kubectl-overview/).
 
 Este
-[diseño](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)
+[diseño](https://git.k8s.io/design-proposals-archive/architecture/architecture.md)
 ha permitido que otros sistemas sean construidos sobre Kubernetes.
 
 ## Lo que Kubernetes no es

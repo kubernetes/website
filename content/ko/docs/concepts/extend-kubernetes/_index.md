@@ -2,6 +2,11 @@
 title: 쿠버네티스 확장
 weight: 110
 description: 쿠버네티스 클러스터의 동작을 변경하는 다양한 방법
+
+
+
+
+
 feature:
   title: 확장성을 고려하여 설계됨
   description: >
@@ -34,22 +39,23 @@ no_list: true
 *구성 파일* 및 *플래그* 는 온라인 문서의 레퍼런스 섹션에 각 바이너리 별로 문서화되어 있다.
 
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 
 호스팅된 쿠버네티스 서비스 또는 매니지드 설치 환경의 배포판에서 플래그 및 구성 파일을 항상 변경할 수 있는 것은 아니다. 변경 가능한 경우 일반적으로 클러스터 관리자만 변경할 수 있다. 또한 향후 쿠버네티스 버전에서 변경될 수 있으며, 이를 설정하려면 프로세스를 다시 시작해야 할 수도 있다. 이러한 이유로 다른 옵션이 없는 경우에만 사용해야 한다.
 
-[리소스쿼터](/ko/docs/concepts/policy/resource-quotas/), [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/policy/pod-security-policy/), [네트워크폴리시](/ko/docs/concepts/services-networking/network-policies/) 및 역할 기반 접근 제어([RBAC](/docs/reference/access-authn-authz/rbac/))와 같은 *빌트인 정책 API(built-in Policy API)* 는 기본적으로 제공되는 쿠버네티스 API이다. API는 일반적으로 호스팅된 쿠버네티스 서비스 및 매니지드 쿠버네티스 설치 환경과 함께 사용된다. 그것들은 선언적이며 파드와 같은 다른 쿠버네티스 리소스와 동일한 규칙을 사용하므로, 새로운 클러스터 구성을 반복할 수 있고 애플리케이션과 동일한 방식으로 관리할 수 있다. 또한, 이들 API가 안정적인 경우, 다른 쿠버네티스 API와 같이 [정의된 지원 정책](/docs/reference/using-api/deprecation-policy/)을 사용할 수 있다. 이러한 이유로 인해 *구성 파일* 과 *플래그* 보다 선호된다.
+[리소스쿼터](/ko/docs/concepts/policy/resource-quotas/), [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/security/pod-security-policy/), [네트워크폴리시](/ko/docs/concepts/services-networking/network-policies/) 및 역할 기반 접근 제어([RBAC](/docs/reference/access-authn-authz/rbac/))와 같은 *빌트인 정책 API(built-in Policy API)* 는 기본적으로 제공되는 쿠버네티스 API이다. API는 일반적으로 호스팅된 쿠버네티스 서비스 및 매니지드 쿠버네티스 설치 환경과 함께 사용된다. 그것들은 선언적이며 파드와 같은 다른 쿠버네티스 리소스와 동일한 규칙을 사용하므로, 새로운 클러스터 구성을 반복할 수 있고 애플리케이션과 동일한 방식으로 관리할 수 있다. 또한, 이들 API가 안정적인 경우, 다른 쿠버네티스 API와 같이 [정의된 지원 정책](/docs/reference/using-api/deprecation-policy/)을 사용할 수 있다. 이러한 이유로 인해 *구성 파일* 과 *플래그* 보다 선호된다.
 
 ## 익스텐션
 
 익스텐션은 쿠버네티스를 확장하고 쿠버네티스와 긴밀하게 통합되는 소프트웨어 컴포넌트이다.
 이들 컴포넌트는 쿠버네티스가 새로운 유형과 새로운 종류의 하드웨어를 지원할 수 있게 해준다.
 
-대부분의 클러스터 관리자는 쿠버네티스의 호스팅 또는 배포판 인스턴스를 사용한다.
-결과적으로 대부분의 쿠버네티스 사용자는 익스텐션 기능을 설치할 필요가 없고
-새로운 익스텐션 기능을 작성할 필요가 있는 사람은 더 적다.
+많은 클러스터 관리자가 호스팅 또는 배포판 쿠버네티스 인스턴스를 사용한다.
+이러한 클러스터들은 미리 설치된 익스텐션을 포함한다. 결과적으로 대부분의
+쿠버네티스 사용자는 익스텐션을 설치할 필요가 없고, 새로운 익스텐션을 만들 필요가 있는 사용자는 더 적다.
 
 ## 익스텐션 패턴
 
@@ -72,16 +78,14 @@ no_list: true
 웹훅 모델에서 쿠버네티스는 원격 서비스에 네트워크 요청을 한다.
 *바이너리 플러그인* 모델에서 쿠버네티스는 바이너리(프로그램)를 실행한다.
 바이너리 플러그인은 kubelet(예:
-[Flex Volume 플러그인](/ko/docs/concepts/storage/volumes/#flexVolume)과
+[Flex Volume 플러그인](/ko/docs/concepts/storage/volumes/#flexvolume)과
 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))과
-kubectl에서
-사용한다.
+kubectl에서 사용한다.
 
 아래는 익스텐션 포인트가 쿠버네티스 컨트롤 플레인과 상호 작용하는 방법을
 보여주는 다이어그램이다.
 
 <!-- image source drawing https://docs.google.com/drawings/d/1muJ7Oxuj_7Gtv7HV9-2zJbOnkQJnjxq-v1ym_kZfB-4/edit?ts=5a01e054 -->
-
 ![익스텐션 포인트와 컨트롤 플레인](/ko/docs/concepts/extend-kubernetes/control-plane.png)
 
 ## 익스텐션 포인트
@@ -89,7 +93,6 @@ kubectl에서
 이 다이어그램은 쿠버네티스 시스템의 익스텐션 포인트를 보여준다.
 
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
-
 ![익스텐션 포인트](/docs/concepts/extend-kubernetes/extension-points.png)
 
 1.   사용자는 종종 `kubectl`을 사용하여 쿠버네티스 API와 상호 작용한다. [Kubectl 플러그인](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)은 kubectl 바이너리를 확장한다. 개별 사용자의 로컬 환경에만 영향을 미치므로 사이트 전체 정책을 적용할 수는 없다.
@@ -103,10 +106,10 @@ kubectl에서
 어디서부터 시작해야 할지 모르겠다면, 이 플로우 차트가 도움이 될 수 있다. 일부 솔루션에는 여러 유형의 익스텐션이 포함될 수 있다.
 
 <!-- image source drawing: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
-
 ![익스텐션 플로우차트](/ko/docs/concepts/extend-kubernetes/flowchart.png)
 
 ## API 익스텐션
+
 ### 사용자 정의 유형
 
 새 컨트롤러, 애플리케이션 구성 오브젝트 또는 기타 선언적 API를 정의하고 `kubectl` 과 같은 쿠버네티스 도구를 사용하여 관리하려면 쿠버네티스에 커스텀 리소스를 추가하자.
@@ -143,7 +146,7 @@ API를 추가해도 기존 API(예: 파드)의 동작에 직접 영향을 미치
 
 ### 인가
 
-[인가](/docs/reference/access-authn-authz/webhook/)는 특정 사용자가 API 리소스에서 읽고, 쓰고, 다른 작업을 수행할 수 있는지를 결정한다. 전체 리소스 레벨에서 작동하며 임의의 오브젝트 필드를 기준으로 구별하지 않는다. 빌트인 인증 옵션이 사용자의 요구를 충족시키지 못하면 [인가 웹훅](/docs/reference/access-authn-authz/webhook/)을 통해 사용자가 제공한 코드를 호출하여 인증 결정을 내릴 수 있다.
+[인가](/ko/docs/reference/access-authn-authz/authorization/)는 특정 사용자가 API 리소스에서 읽고, 쓰고, 다른 작업을 수행할 수 있는지를 결정한다. 전체 리소스 레벨에서 작동하며 임의의 오브젝트 필드를 기준으로 구별하지 않는다. 빌트인 인증 옵션이 사용자의 요구를 충족시키지 못하면 [인가 웹훅](/docs/reference/access-authn-authz/webhook/)을 통해 사용자가 제공한 코드를 호출하여 인증 결정을 내릴 수 있다.
 
 
 ### 동적 어드미션 컨트롤
@@ -155,12 +158,13 @@ API를 추가해도 기존 API(예: 파드)의 동작에 직접 영향을 미치
 
 ## 인프라스트럭처 익스텐션
 
-
 ### 스토리지 플러그인
 
 [Flex Volumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md)을 사용하면
 Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도록 함으로써
 빌트인 지원 없이 볼륨 유형을 마운트 할 수 있다.
+
+FlexVolume은 쿠버네티스 v1.23부터 사용 중단(deprecated)되었다. Out-of-tree CSI 드라이버가 쿠버네티스에서 볼륨 드라이버를 작성할 때 추천하는 방식이다. 자세한 정보는 [스토리지 업체를 위한 쿠버네티스 볼륨 플러그인 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)에서 찾을 수 있다.
 
 
 ### 장치 플러그인
@@ -172,7 +176,8 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 
 ### 네트워크 플러그인
 
-노드-레벨의 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)을 통해 다양한 네트워킹 패브릭을 지원할 수 있다.
+노드-레벨의 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+을 통해 다양한 네트워킹 패브릭을 지원할 수 있다.
 
 ### 스케줄러 익스텐션
 
@@ -200,3 +205,4 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
   * [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * [kubectl 플러그인](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)에 대해 알아보기
 * [오퍼레이터 패턴](/ko/docs/concepts/extend-kubernetes/operator/)에 대해 알아보기
+

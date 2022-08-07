@@ -63,7 +63,7 @@ openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app
 
 これにより、"app1"と"app2"の2つのグループに属するユーザー名"jbeda"の証明書署名要求が作成されます。
 
-クライアント証明書の生成方法については、[証明書の管理](/docs/concepts/cluster-administration/certificates/)を参照してください。
+クライアント証明書の生成方法については、[証明書の管理](/ja/docs/concepts/cluster-administration/certificates/)を参照してください。
 
 ### 静的なトークンファイル
 
@@ -105,7 +105,7 @@ APIサーバーの`--enable-bootstrap-token-auth`フラグで、Bootstrap Token 
 
 ブートストラップトークンの認証機能やコントローラーについての詳細な説明、`kubeadm`でこれらのトークンを管理する方法については、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)を参照してください。
 
-### サービスアカウントトークン
+### サービスアカウントトークン {#service-account-token}
 
 サービスアカウントは、自動的に有効化される認証機能で、署名されたBearerトークンを使ってリクエストを検証します。このプラグインは、オプションとして2つのフラグを取ります。
 
@@ -314,7 +314,7 @@ Webhook認証は、Bearerトークンを検証するためのフックです。
 * `--authentication-token-webhook-config-file`: リモートのWebhookサービスへのアクセス方法を記述した設定ファイルです
 * `--authentication-token-webhook-cache-ttl`: 認証をキャッシュする時間を決定します。デフォルトは2分です
 
-設定ファイルは、[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)のファイル形式を使用します。
+設定ファイルは、[kubeconfig](/ja/docs/concepts/configuration/organize-cluster-access-kubeconfig/)のファイル形式を使用します。
 ファイル内で、`clusters`はリモートサービスを、`users`はAPIサーバーのWebhookを指します。例えば、以下のようになります。
 
 ```yaml
@@ -347,7 +347,7 @@ contexts:
 
 クライアントが[上記](#putting-a-bearer-token-in-a-request)のようにBearerトークンを使用してAPIサーバーとの認証を試みた場合、認証Webhookはトークンを含むJSONでシリアライズされた`authentication.k8s.io/v1beta1` `TokenReview`オブジェクトをリモートサービスにPOSTします。Kubernetesはそのようなヘッダーが不足しているリクエストを作成しようとはしません。
 
-Webhook APIオブジェクトは、他のKubernetes APIオブジェクトと同じように、[Versioning Compatibility Rule](/docs/concepts/overview/kubernetes-api/)に従うことに注意してください。実装者は、ベータオブジェクトで保証される互換性が緩いことに注意し、正しいデシリアライゼーションが使用されるようにリクエストの"apiVersion"フィールドを確認する必要があります。さらにAPIサーバーは、API拡張グループ`authentication.k8s.io/v1beta1`を有効にしなければなりません(`--runtime config=authentication.k8s.io/v1beta1=true`)。
+Webhook APIオブジェクトは、他のKubernetes APIオブジェクトと同じように、[Versioning Compatibility Rule](/ja/docs/concepts/overview/kubernetes-api/)に従うことに注意してください。実装者は、ベータオブジェクトで保証される互換性が緩いことに注意し、正しいデシリアライゼーションが使用されるようにリクエストの"apiVersion"フィールドを確認する必要があります。さらにAPIサーバーは、API拡張グループ`authentication.k8s.io/v1beta1`を有効にしなければなりません(`--runtime config=authentication.k8s.io/v1beta1=true`)。
 
 POSTボディは、以下の形式になります。
 
@@ -600,7 +600,7 @@ rules:
 
 ### 設定
 
-クレデンシャルプラグインの設定は、userフィールドの一部として[kubectlの設定ファイル](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)で行います。
+クレデンシャルプラグインの設定は、userフィールドの一部として[kubectlの設定ファイル](/ja/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)で行います。
 
 ```yaml
 apiVersion: v1

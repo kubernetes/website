@@ -28,9 +28,9 @@ description: >
 보안 수정사항을 포함한 해당 수정사항은 심각도와 타당성에 따라 세 개의 릴리스 브랜치로 백포트(backport) 될 수 있다.
 패치 릴리스는 각 브랜치별로 [정기적인 주기](https://git.k8s.io/sig-release/releases/patch-releases.md#cadence)로 제공하며, 필요한 경우 추가 긴급 릴리스도 추가한다.
 
-[릴리스 관리자](https://git.k8s.io/sig-release/release-managers.md) 그룹이 이러한 결정 권한을 가진다.
+[릴리스 관리자](/releases/release-managers/) 그룹이 이러한 결정 권한을 가진다.
 
-자세한 내용은 쿠버네티스 [패치 릴리스](https://git.k8s.io/sig-release/releases/patch-releases.md) 페이지를 참조한다.
+자세한 내용은 쿠버네티스 [패치 릴리스](/releases/patch-releases/) 페이지를 참조한다.
 
 ## 지원되는 버전 차이
 

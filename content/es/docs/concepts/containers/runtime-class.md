@@ -134,7 +134,7 @@ de containerd en `/etc/containerd/config.toml`. Los `handlers` válidos se
 configuran en la sección de motores de ejecución:
 
 ```
-[plugins.cri.containerd.runtimes.${HANDLER_NAME}]
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
 Véase la configuración de containerd para más detalles:
@@ -202,4 +202,4 @@ cuentan en Kubernetes.
 - [Diseño de RuntimeClass](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [Diseño de programación de RuntimeClass](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - Leer sobre el concepto de [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
-- [Diseño de capacidad de PodOverhead](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+- [Diseño de capacidad de PodOverhead](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

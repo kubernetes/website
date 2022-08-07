@@ -139,6 +139,6 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* [Serviceトポトジーを有効にする](/docs/tasks/administer-cluster/enabling-service-topology)を読む。
+* [Serviceトポトジーを有効にする](/ja/docs/tasks/administer-cluster/enabling-service-topology)を読む。
 * [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を読む。
 

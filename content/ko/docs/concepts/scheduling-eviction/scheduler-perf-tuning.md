@@ -43,7 +43,7 @@ kube-scheduler 의 `percentageOfNodesToScore` 설정을 통해
 마치 100을 설정한 것처럼 작동한다.
 
 값을 변경하려면,
-[kube-scheduler 구성 파일](/docs/reference/config-api/kube-scheduler-config.v1beta1/)을
+[kube-scheduler 구성 파일](/docs/reference/config-api/kube-scheduler-config.v1beta3/)을
 편집한 다음 스케줄러를 재시작한다.
 대부분의 경우, 구성 파일은 `/etc/kubernetes/config/kube-scheduler.yaml` 에서 찾을 수 있다.
 
@@ -161,4 +161,4 @@ percentageOfNodesToScore: 50
 
 ## {{% heading "whatsnext" %}}
 
-* [kube-scheduler 구성 레퍼런스(v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) 확인
+* [kube-scheduler 구성 레퍼런스(v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) 확인

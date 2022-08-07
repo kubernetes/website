@@ -8,7 +8,7 @@ date: 2019-04-26
 
 Last year we optimized the Kubernetes website for [hosting multilingual content](/blog/2018/11/08/kubernetes-docs-updates-international-edition/). Contributors responded by adding multiple new localizations: as of April 2019, Kubernetes docs are partially available in nine different languages, with six added in 2019 alone. You can see a list of available languages in the language selector at the top of each page.
 
-By _partially available_, I mean that localizations are ongoing projects. They range from mostly complete ([Chinese docs for 1.12](https://v1-12.docs.kubernetes.io/zh/)) to brand new (1.14 docs in [Portuguese](https://kubernetes.io/pt/)). If you're interested in helping an existing localization, read on!
+By _partially available_, I mean that localizations are ongoing projects. They range from mostly complete ([Chinese docs for 1.12](https://v1-12.docs.kubernetes.io/zh-cn/)) to brand new (1.14 docs in [Portuguese](https://kubernetes.io/pt/)). If you're interested in helping an existing localization, read on!
 
 ## What is a localization?
 

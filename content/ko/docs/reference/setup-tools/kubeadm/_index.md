@@ -8,7 +8,7 @@ card:
   weight: 40
 ---
 
-<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">Kubeadm은 쿠버네티스 클러스터 생성을 위한 모범 사례의 "빠른 경로"로 `kubeadm init` 과 `kubeadm join` 을 제공하도록 만들어진 도구이다.
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">Kubeadm은 쿠버네티스 클러스터 생성을 위한 "빠른 경로"의 모범 사례로 `kubeadm init` 및 `kubeadm join` 을 제공하도록 만들어진 도구이다.
 
 kubeadm은 실행 가능한 최소 클러스터를 시작하고 실행하는 데 필요한 작업을 수행한다. 설계 상, 시스템 프로비저닝이 아닌 부트스트랩(bootstrapping)만 다룬다. 마찬가지로, 쿠버네티스 대시보드, 모니터링 솔루션 및 클라우드별 애드온과 같은 다양한 있으면 좋은(nice-to-have) 애드온을 설치하는 것은 범위에 포함되지 않는다.
 

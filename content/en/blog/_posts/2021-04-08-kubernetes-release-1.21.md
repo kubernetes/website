@@ -3,6 +3,7 @@ layout: blog
 title: 'Kubernetes 1.21: Power to the Community'
 date: 2021-04-08
 slug: kubernetes-1-21-release-announcement
+evergreen: true
 ---
 
 **Authors:** [Kubernetes 1.21 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.21/release-team.md)

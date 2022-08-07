@@ -51,7 +51,7 @@ Probeの動作としては、kubeletは`cat /tmp/healthy`を対象のコンテ�
 このコンテナは、起動すると次のコマンドを実行します:
 
 ```shell
-/bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
+/bin/sh -c "touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600"
 ```
 
 コンテナが起動してから初めの30秒間は`/tmp/healthy`ファイルがコンテナ内に存在します。
@@ -131,7 +131,7 @@ kubeletはコンテナが問題なく動いていると判断します。
 
 200以上400未満のコードは成功とみなされ、その他のコードは失敗とみなされます。
 
-[server.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/liveness/server.go)
+[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)
 にてサーバーのソースコードを確認することができます。
 
 コンテナが生きている初めの10秒間は、`/healthz`ハンドラーが200ステータスを返します。

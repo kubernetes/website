@@ -1,5 +1,7 @@
 ---
 title: PKI 인증서 및 요구 사항
+
+
 content_type: concept
 weight: 40
 ---
@@ -20,6 +22,8 @@ weight: 40
 쿠버네티스는 다음 작업에서 PKI를 필요로 한다.
 
 * kubelet에서 API 서버 인증서를 인증시 사용하는 클라이언트 인증서
+* API 서버가 kubelet과 통신하기 위한 
+  kubelet [서버 인증서](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#client-and-serving-certificates)
 * API 서버 엔드포인트를 위한 서버 인증서
 * API 서버에 클러스터 관리자 인증을 위한 클라이언트 인증서
 * API 서버에서 kubelet과 통신을 위한 클라이언트 인증서
@@ -36,11 +40,13 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 
 ## 인증서를 저장하는 위치
 
-만약 쿠버네티스를 kubeadm으로 설치했다면 인증서는 `/etc/kubernetes/pki`에 저장된다. 이 문서에 언급된 모든 파일 경로는 그 디렉터리에 상대적이다.
+만약 쿠버네티스를 kubeadm으로 설치했다면, 대부분의 인증서는 `/etc/kubernetes/pki`에 저장된다. 이 문서에 언급된 모든 파일 경로는 그 디렉터리에 상대적이나, kubeadm이 `/etc/kubernetes`에 저장하는 사용자 어카운트 인증서는 예외이다.
 
 ## 인증서 수동 설정
 
-필요한 인증서를 kubeadm으로 생성하기 싫다면 다음 방법 중 하나로 생성할 수 있다.
+필요한 인증서를 kubeadm으로 생성하기 싫다면, 단일 루트 CA를 이용하거나 모든 인증서를 제공하여 생성할 수 있다. 소유한 인증기관을 이용해서 생성하는 방법에 대해서는 [인증서](/ko/docs/tasks/administer-cluster/certificates/)를 살펴본다.
+인증서를 관리하는 방법에 대해서는 [kubeadm을 사용한 인증서 관리](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)를 살펴본다.
+
 
 ### 단일 루트 CA
 
@@ -55,7 +61,16 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 위해서  |
 
 위의 CA외에도, 서비스 계정 관리를 위한 공개/개인 키 쌍인 `sa.key` 와 `sa.pub` 을 얻는 것이 필요하다.
+다음은 이전 표에 나온 CA 키와 인증서 파일을 보여준다.
 
+```
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+```
 ### 모든 인증서
 
 이런 개인키를 API 서버에 복사하기 원치 않는다면, 모든 인증서를 스스로 생성할 수 있다.
@@ -64,7 +79,7 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 
 | 기본 CN                       | 부모 CA                   | O (주체에서)   | 종류                                   | 호스트  (SAN)                                |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
-| kube-etcd                     | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`                        |
+| kube-etcd                     | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                             |
 | kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                             |
@@ -72,10 +87,11 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                             |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
-[1]: 클러스터에 접속한 다른 IP 또는 DNS 이름([kubeadm](/ko/docs/reference/setup-tools/kubeadm/) 이 사용하는 로드 밸런서 안정 IP 또는 DNS 이름, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
+[1]: 클러스터에 접속한 다른 IP 또는 DNS 이름([kubeadm](/ko/docs/reference/setup-tools/kubeadm/)이 사용하는
+로드 밸런서 안정 IP 또는 DNS 이름, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
-`kind`는 하나 이상의 [x509 키 사용](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage) 종류를 가진다.
+`kind`는 하나 이상의 [x509 키 사용](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage) 종류를 가진다.
 
 | 종류   | 키 사용                                                                         |
 |--------|---------------------------------------------------------------------------------|
@@ -95,9 +111,10 @@ kubeadm 사용자만 해당:
 
 {{< /note >}}
 
-### 인증서 파일 경로
+### 인증서 파일 경로 {#certificate-paths}
 
-인증서는 권고하는 파일 경로에 존재해야 한다([kubeadm](/ko/docs/reference/setup-tools/kubeadm/)에서 사용되는 것처럼). 경로는 위치에 관계없이 주어진 파라미터를 사용하여 지정해야 한다.
+인증서는 권고하는 파일 경로에 존재해야 한다([kubeadm](/ko/docs/reference/setup-tools/kubeadm/)에서 사용되는 것처럼).
+경로는 위치에 관계없이 주어진 파라미터를 사용하여 지정해야 한다.
 
 | 기본 CN                      | 권고되는 키 파일 경로         | 권고하는 인증서 파일 경로   | 명령어         | 키 파라미터                  | 인증서 파라미터                           |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
@@ -123,6 +140,32 @@ kubeadm 사용자만 해당:
 |  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file   |
 |                              | sa.pub                      | kube-apiserver          | --service-account-key-file           |
 
+다음은 키와 인증서를 모두 생성할 때에 제공해야 하는 [이전 표에 있는](#certificate-paths) 파일의 경로를 보여준다.
+
+```
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/apiserver-etcd-client.key
+/etc/kubernetes/pki/apiserver-etcd-client.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/apiserver.key
+/etc/kubernetes/pki/apiserver.crt
+/etc/kubernetes/pki/apiserver-kubelet-client.key
+/etc/kubernetes/pki/apiserver-kubelet-client.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-client.key
+/etc/kubernetes/pki/front-proxy-client.crt
+/etc/kubernetes/pki/etcd/server.key
+/etc/kubernetes/pki/etcd/server.crt
+/etc/kubernetes/pki/etcd/peer.key
+/etc/kubernetes/pki/etcd/peer.crt
+/etc/kubernetes/pki/etcd/healthcheck-client.key
+/etc/kubernetes/pki/etcd/healthcheck-client.crt
+/etc/kubernetes/pki/sa.key
+/etc/kubernetes/pki/sa.pub
+```
 ## 각 사용자 계정을 위한 인증서 설정하기
 
 반드시 이런 관리자 계정과 서비스 계정을 설정해야 한다.
@@ -142,7 +185,7 @@ kubeadm 사용자만 해당:
 
 1. 각 환경 설정에 대해 다음과 같이 `kubectl`를 실행한다.
 
-```shell
+```
 KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
 KUBECONFIG=<filename> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
 KUBECONFIG=<filename> kubectl config set-context default-system --cluster default-cluster --user <credential-name>
@@ -157,3 +200,12 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 | kubelet.conf            | kubelet                 | 클러스터 각 노드를 위해 필요하다.                            |
 | controller-manager.conf | kube-controller-manager | 반드시 매니페스트를 `manifests/kube-controller-manager.yaml`에 추가해야 한다. |
 | scheduler.conf          | kube-scheduler          | 반드시 매니페스트를 `manifests/kube-scheduler.yaml`에 추가해야 한다.          |
+
+다음의 파일은 이전 표에 나열된 파일의 전체 경로를 보여준다.
+
+```
+/etc/kubernetes/admin.conf
+/etc/kubernetes/kubelet.conf
+/etc/kubernetes/controller-manager.conf
+/etc/kubernetes/scheduler.conf
+```

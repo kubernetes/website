@@ -22,44 +22,59 @@ weight: 20
 
 실리움에 쉽게 친숙해지기 위해
 Minikube에 실리움을 기본적인 데몬셋으로 설치를 수행하는
-[실리움 쿠버네티스 시작하기 안내](https://docs.cilium.io/en/stable/gettingstarted/minikube/)를 따라 해볼 수 있다.
+[실리움 쿠버네티스 시작하기 안내](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/)를 따라 해볼 수 있다.
 
-Minikube를 시작하려면 최소 버전으로 >= v1.3.1 이 필요하고,
+Minikube를 시작하려면 최소 버전으로 >= v1.5.2 이 필요하고,
 다음의 실행 파라미터로 실행한다.
 
 ```shell
 minikube version
 ```
 ```
-minikube version: v1.3.1
+minikube version: v1.5.2
 ```
 
 ```shell
-minikube start --network-plugin=cni --memory=4096
+minikube start --network-plugin=cni
 ```
 
-BPF 파일시스템을 마운트한다
-
-```shell
-minikube ssh -- sudo mount bpffs -t bpf /sys/fs/bpf
-```
-
-Minikube에서 실리움의 데몬셋 구성과 적절한 RBAC 설정을 포함하는 필요한 구성을
-간단한 ``올인원`` YAML 파일로 배포할 수 있다.
+minikube의 경우 CLI 도구를 사용하여 실리움을 설치할 수 있다.
+실리움은 클러스터 구성을 자동으로 감지하고 
+성공적인 설치를 위해 적절한 구성 요소를 설치한다.
 
 ```shell
-kubectl create -f  https://raw.githubusercontent.com/cilium/cilium/v1.8/install/kubernetes/quick-install.yaml
+curl -LO https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz
+sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin
+rm cilium-linux-amd64.tar.gz
+cilium install
 ```
-```
-configmap/cilium-config created
-serviceaccount/cilium created
-serviceaccount/cilium-operator created
-clusterrole.rbac.authorization.k8s.io/cilium created
-clusterrole.rbac.authorization.k8s.io/cilium-operator created
-clusterrolebinding.rbac.authorization.k8s.io/cilium created
-clusterrolebinding.rbac.authorization.k8s.io/cilium-operator created
-daemonset.apps/cilium create
-deployment.apps/cilium-operator created
+
+```shell
+🔮 Auto-detected Kubernetes kind: minikube
+✨ Running "minikube" validation checks
+✅ Detected minikube version "1.20.0"
+ℹ️  Cilium version not set, using default version "v1.10.0"
+🔮 Auto-detected cluster name: minikube
+🔮 Auto-detected IPAM mode: cluster-pool
+🔮 Auto-detected datapath mode: tunnel
+🔑 Generating CA...
+2021/05/27 02:54:44 [INFO] generate received request
+2021/05/27 02:54:44 [INFO] received CSR
+2021/05/27 02:54:44 [INFO] generating key: ecdsa-256
+2021/05/27 02:54:44 [INFO] encoded CSR
+2021/05/27 02:54:44 [INFO] signed certificate with serial number 48713764918856674401136471229482703021230538642
+🔑 Generating certificates for Hubble...
+2021/05/27 02:54:44 [INFO] generate received request
+2021/05/27 02:54:44 [INFO] received CSR
+2021/05/27 02:54:44 [INFO] generating key: ecdsa-256
+2021/05/27 02:54:44 [INFO] encoded CSR
+2021/05/27 02:54:44 [INFO] signed certificate with serial number 3514109734025784310086389188421560613333279574
+🚀 Creating Service accounts...
+🚀 Creating Cluster roles...
+🚀 Creating ConfigMap...
+🚀 Creating Agent DaemonSet...
+🚀 Creating Operator Deployment...
+⌛ Waiting for Cilium to be installed...
 ```
 
 시작하기 안내서의 나머지 부분은 예제 애플리케이션을 이용하여
@@ -82,14 +97,14 @@ L3/L4(예, IP 주소 + 포트) 모두의 보안 정책뿐만 아니라 L7(예, H
 파드의 목록을 보려면 다음을 실행한다.
 
 ```shell
-kubectl get pods --namespace=kube-system
+kubectl get pods --namespace=kube-system -l k8s-app=cilium
 ```
 
 다음과 유사한 파드의 목록을 볼 것이다.
 
 ```console
-NAME            READY   STATUS    RESTARTS   AGE
-cilium-6rxbd    1/1     Running   0          1m
+NAME           READY   STATUS    RESTARTS   AGE
+cilium-kkdhz   1/1     Running   0          3m23s
 ...
 ```
 

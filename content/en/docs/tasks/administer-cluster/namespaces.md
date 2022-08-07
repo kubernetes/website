@@ -71,7 +71,7 @@ to define *Hard* resource usage limits that a *Namespace* may consume.
 A limit range defines min/max constraints on the amount of resources a single entity can consume in
 a *Namespace*.
 
-See [Admission control: Limit Range](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)
+See [Admission control: Limit Range](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)
 
 A namespace can be in one of two phases:
 
@@ -112,7 +112,7 @@ The name of your namespace must be a valid
 
 There's an optional field `finalizers`, which allows observables to purge resources whenever the namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will be created but will get stuck in the `Terminating` state if the user tries to delete it.
 
-More information on `finalizers` can be found in the namespace [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#finalizers).
+More information on `finalizers` can be found in the namespace [design doc](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers).
 
 ## Deleting a namespace
 
@@ -314,7 +314,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* See [namespaces design](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/namespaces.md).
+* See [namespaces design](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md).
 
 
 

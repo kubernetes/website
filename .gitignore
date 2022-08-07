@@ -29,7 +29,6 @@ nohup.out
 # Hugo output
 public/
 resources/
-themes/docsy/
 .hugo_build.lock
 
 # Netlify Functions build output

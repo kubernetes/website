@@ -12,8 +12,8 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다. 예를 들어, v{{< skew latestVersion >}} 클라이언트는 v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, v{{< skew nextMinorVersion >}}의 컨트롤 플레인과 연동될 수 있다.
-최신 버전의 kubectl을 사용하면 예기치 않은 문제를 피할 수 있다.
+클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다. 예를 들어, v{{< skew currentVersion >}} 클라이언트는 v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersion >}}, v{{< skew currentVersionAddMinor 1 >}}의 컨트롤 플레인과 연동될 수 있다.
+호환되는 최신 버전의 kubectl을 사용하면 예기치 않은 문제를 피할 수 있다.
 
 ## 리눅스에 kubectl 설치
 
@@ -52,7 +52,7 @@ card:
    kubectl 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.
@@ -83,9 +83,9 @@ card:
 
    ```bash
    chmod +x kubectl
-   mkdir -p ~/.local/bin/kubectl
+   mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
-   # 그리고 ~/.local/bin/kubectl을 $PATH에 추가
+   # 그리고 ~/.local/bin 을 $PATH의 앞부분 또는 뒷부분에 추가
    ```
 
    {{< /note >}}
@@ -94,6 +94,11 @@ card:
 
    ```bash
    kubectl version --client
+   ```
+   또는 다음을 실행하여 버전에 대한 더 자세한 정보를 본다.
+
+   ```cmd
+   kubectl version --client --output=yaml    
    ```
 
 ### 기본 패키지 관리 도구를 사용하여 설치 {#install-using-native-package-management}
@@ -130,7 +135,7 @@ card:
 {{% /tab %}}
 
 {{< tab name="레드햇 기반의 배포판" codelang="bash" >}}
-cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
@@ -139,7 +144,7 @@ gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
-yum install -y kubectl
+sudo yum install -y kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -176,12 +181,13 @@ kubectl version --client
 
 ### 셸 자동 완성 활성화
 
-kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
+kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
 
-다음은 Bash 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
+다음은 Bash, Fish, 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
+{{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
@@ -192,7 +198,7 @@ kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력
 1. 다음 명령으로 최신 릴리스를 다운로드한다.
 
    ```bash
-   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
    ```
 
 1. 바이너리를 검증한다. (선택 사항)
@@ -206,7 +212,7 @@ kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력
    kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.
