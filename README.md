@@ -5,7 +5,24 @@
 This repository contains the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
 
 - [Contributing to the docs](#contributing-to-the-docs)
-- [Localization ReadMes](#localization-readmemds)
+
+_Read this in other languages:_
+[_German_](README-de.md),
+[_Spanish_](README-es.md),
+[_French_](README-fr.md),
+[_Hindi_](README-hi.md),
+[_Indonesian_](README-id.md),
+[_Italian_](README-it.md),
+[_Japanese_](README-ja.md),
+[_Korean_](README-ko.md),
+[_Polish_](README-pl.md),
+[_Portuguese_](README-pt.md),
+[_Russian_](README-ru.md),
+[_Ukrainian_](README-uk.md),
+[_Vietnamese_](README-vi.md),
+[_Chinese_](README-zh.md).
+
+
 
 ## Using this repository
 
