@@ -15,7 +15,7 @@ weight: 50
 When running Kubernetes in an environment with strict network boundaries, such 
 as on-premises datacenter with physical network firewalls or Virtual 
 Networks in Public Cloud, it is useful to be aware of the ports and protocols 
-used by Kubernetes components
+used by Kubernetes components.
 -->
 当你在一个有严格网络边界的环境里运行 Kubernetes，例如拥有物理网络防火墙或者拥有公有云中虚拟网络的自有数据中心，了解 Kubernetes 组件使用了哪些端口和协议是非常有用的。
 
