@@ -19,45 +19,42 @@ The Kubernetes project has a well-documented [deprecation policy](/docs/referenc
 
 Whether an API is removed as a result of a feature graduating from beta to stable or because that API simply did not succeed, all removals comply with this deprecation policy. Whenever an API is removed, migration options are communicated in the documentation. 
 
-## A Note About PodSecurityPolicy
+## A note about PodSecurityPolicy {#podsecuritypolicy-removal}
 
 In Kubernetes v1.25, we will be removing PodSecurityPolicy [after its deprecation in v1.21](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/). PodSecurityPolicy has served us honorably, but its complex and often confusing usage necessitated changes, which unfortunately would have been breaking changes. To address this, it is being removed in favor of a replacement, Pod Security Admission, which is graduating to stable in this release as well. If you are currently relying on PodSecurityPolicy, follow the instructions for [migration to Pod Security Admission](/docs/tasks/configure-pod-container/migrate-from-psp/).
 
 ## Major Changes for Kubernetes v1.25
 
-Kubernetes v1.25 includes several major changes, in addition to the removal of PodSecurityPolicy.
+Kubernetes v1.25 will include several major changes, in addition to the removal of PodSecurityPolicy.
 
 ### [CSI Migration](https://github.com/kubernetes/enhancements/issues/625)
 
 The effort to  move the in-tree volume plugins to out-of-tree CSI drivers continues, with the core CSI Migration feature going GA in v1.25. This is an important step towards removing the in-tree volume plugins entirely.
 
-### Volume Plugin Deprecations and Removals
+### Deprecations and removals for storage drivers
 
-Several volume are being deprecated or removed.
+Several volume plugins are being deprecated or removed.
 
 [GlusterFS will be deprecated in v1.25](https://github.com/kubernetes/enhancements/issues/3446). While a CSI driver was built for it, it has not been maintained. The possibility of migration to a compatible CSI driver [was discussed](https://github.com/kubernetes/kubernetes/issues/100897), but a decision was ultimately made to begin the deprecation of the GlusterFS plugin from in-tree drivers. The [Portworx in-tree volume plugin](https://github.com/kubernetes/enhancements/issues/2589) is also being deprecated with this release. The Flocker, Quobyte, and StorageOS in-tree volume plugins are being removed.
 
-### [Declare Unsupported vSphere Versions](https://github.com/kubernetes/kubernetes/pull/111255)
+[Flocker](https://github.com/kubernetes/kubernetes/pull/111618), [Quobyte](https://github.com/kubernetes/kubernetes/pull/111619), and [StorageOS](https://github.com/kubernetes/kubernetes/pull/111620) in-tree volume plugins will be removed in v1.25 as part of the [CSI Migration](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/625-csi-migration).
 
-From Kubernetes v1.25, the in-tree vSphere volume driver will not support any vSphere release before 7.0u2. Check the v1.25 detailed release notes for more advice on how to handle this.
+### [Change to vSphere version support](https://github.com/kubernetes/kubernetes/pull/111255)
 
-### [Signing Release Artifacts](https://github.com/kubernetes/enhancements/issues/3031)
-
-An additional step in improving the security posture of the release process, the signing of Kubernetes release artifacts will graduate to Beta in this release. This is in line with the proposed enhancement of targeting SLSA Level 3 compliance for the Kubernetes release process.
-
-### [Support for cgroup v2 Graduating to Stable](https://github.com/kubernetes/enhancements/issues/2254)
-
-The new kernel cgroups v2 API was declared stable more than two years ago, and in this release we're taking solid steps towards full adoption of it. While cgroup v1 will continue to be supported, this change makes us ready to deal with the eventual deprecation of cgroup v1 and its replacement by cgroup v2.
+From Kubernetes v1.25, the in-tree vSphere volume driver will not support any vSphere release before 7.0u2. Once Kubernetes v1.25 is released, check the v1.25 detailed release notes for more advice on how to handle this.
 
 ### [Cleaning up IPTables Chain Ownership](https://github.com/kubernetes/enhancements/issues/3178)
 
-From the Kubernetes 1.25 release, the iptables chains created by Kubernetes will only support for internal Kubernetes use cases. Starting with v1.25, the Kubelet will gradually move towards not creating the following iptables chains in the `nat` table:
+On Linux, Kubernetes (usually) creates iptables chains to ensure that network packets reach
+Although these chains and their names have been an internal implementation detail, some tooling
+has relied upon that behavior.
+will only support for internal Kubernetes use cases. Starting with v1.25, the Kubelet will gradually move towards not creating the following iptables chains in the `nat` table:
 
   - `KUBE-MARK-DROP`
   - `KUBE-MARK-MASQ`
   - `KUBE-POSTROUTING`
 
-This change will be phased in via the `IPTablesCleanup` feature gate.
+This change will be phased in via the `IPTablesCleanup` feature gate. Although this is not formally a deprecation, some end users have come to rely on specific internal behavior of `kube-proxy`. The Kubernetes project overall wants to make it clear that depending on these internal details is not supported, and that future implementations will change their behavior here.
     
 ## Looking ahead
 
