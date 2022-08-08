@@ -45,7 +45,7 @@ LimitRangeに対する競合や変更は、すでに作成済みのリソース�
 
 ## {{% heading "whatsnext" %}}
 
-より詳しい情報は、[LimitRangerの設計ドキュメント](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)を参照してください。
+より詳しい情報は、[LimitRangerの設計ドキュメント](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)を参照してください。
 
 制限の使用例については、以下のページを読んでください。
 
