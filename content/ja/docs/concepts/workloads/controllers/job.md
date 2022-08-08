@@ -492,7 +492,7 @@ Events:
 
 この機能により、Jobが開始される前にスケジューリング命令を更新でき、カスタムキューコントローラーがPodの配置に影響を与えることができると同時に、実際のPodとノードの割り当てをkube-schedulerにオフロードすることができます。これは一時停止されたJobの中で、一度も一時停止解除されたことのないJobに対してのみ許可されます。
 
-JobのPodテンプレートで更新可能なフィールドはnodeAffinity、nodeSelector、tolerations、labelsとannotationsになります。 
+JobのPodテンプレートで更新可能なフィールドはnodeAffinity、nodeSelector、tolerations、labelsとannotationsです。 
 
 ### 独自のPodセレクターを指定  {#specifying-your-own-pod-selector}
 
