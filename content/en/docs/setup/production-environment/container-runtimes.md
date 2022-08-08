@@ -89,12 +89,11 @@ are used to constrain resources that are allocated to processes.
 
 Both {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and the
 underlying container runtime need to interface with control groups to enforce
-[resource mangement for pods and
-containers](/docs/concepts/configuration/manage-resources-containers/) and set
+[resource management for pods and containers](/docs/concepts/configuration/manage-resources-containers/) and set
 resources such as cpu/memory requests and limits. To interface with control
-groups, kubelet and container runtime need to use a "cgroup driver". It's
-critical that both kubelet and the container runtime cgroup driver match and
-are configured the same.
+groups, the kubelet and the container runtime need to use a *cgroup driver*.
+It's critical that the kubelet and the container runtime uses the same cgroup
+driver and are configured the same.
 
 There are two cgroup drivers available:
 
@@ -103,15 +102,15 @@ There are two cgroup drivers available:
 
 ### cgroupfs driver {#cgroupfs-cgroup-driver}
 
-The `cgroupfs` driver is the default cgroup driver in kubelet. When `cgroupfs`
-driver is used, kubelet and the container runtime will directly interface with
+The `cgroupfs` driver is the default cgroup driver in the kubelet. When the `cgroupfs`
+driver is used, the kubelet and the container runtime directly interface with
 the cgroup filesystem to configure cgroups.
 
-The `cgroupfs` is **not** recommended to be used when
-[systemd](https://www.freedesktop.org/wiki/Software/systemd/) is choosen as the
-init system since systemd expects there to only be a single cgroup manager on
-the system. Additionally, if [cgroupv2](/docs/concepts/architecture/cgroups) is
-used, it's also recommended to use the `systemd` cgroup driver instead of
+The `cgroupfs` driver is **not** recommended when
+[systemd](https://www.freedesktop.org/wiki/Software/systemd/) is the
+init system because systemd expects a single cgroup manager on
+the system. Additionally, if you use [cgroup v2](/docs/concepts/architecture/cgroups)
+, use the `systemd` cgroup driver instead of
 `cgroupfs`.
 
 ### systemd cgroup driver {#systemd-cgroup-driver}
@@ -120,39 +119,35 @@ When [systemd](https://www.freedesktop.org/wiki/Software/systemd/) is chosen as 
 system for a Linux distribution, the init process generates and consumes a root control group
 (`cgroup`) and acts as a cgroup manager.
 
-Systemd has a tight integration with cgroups and allocates a cgroup per systemd
-unit. As a result, when using `systemd` as the init system, but `cgroupfs`
-driver, there will be two different cpu managers on the system which is
-undesirable.
+systemd has a tight integration with cgroups and allocates a cgroup per systemd
+unit. As a result, if you use `systemd` as the init system with the `cgroupfs`
+driver, the system gets two different cgroup managers.
 
-A single cgroup manager simplifies the view of what resources are being
-allocated and will by default have a more consistent view of the available and
-in-use resources. When there are two cgroup managers on a system, you end up
-with two views of those resources. In the field, people have reported cases
-where nodes that are configured to use `cgroupfs` for the kubelet and container
-runtime, but `systemd` for the rest of the processes, become unstable under
-resource pressure. Changing the settings such that your container runtime and
-kubelet use `systemd` as the cgroup driver stabilized the system.
+Two cgroup managers result in two views of the available and in-use resources in
+the system. In some cases, nodes that are configured to use `cgroupfs` for the
+kubelet and container runtime, but use `systemd` for the rest of the processes become
+unstable under resource pressure.
 
-Additionally, if your OS distribution is using [cgroupv2](/docs/concepts/architecture/cgroups), it is highly
-recommended to use the `systemd` cgroup driver.
+The approach to mitigate this instability is to use `systemd` as the cgroup driver for
+the kubelet and the container runtime when systemd is the selected init system.
 
-To set `systemd` as the cgroup driver edit the
+To set `systemd` as the cgroup driver, edit the
 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/)
 option of `cgroupDriver` and set it to `systemd`. For example:
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
-... rest of config ...
+...
 cgroupDriver: systemd
 ```
 
-If kubelet is configured with `systemd` as cgroupDriver, the container runtime
-must also be configured to use the `systemd` as the cgroup driver. If using
-containerd, it can be configured to use systemd cgroup driver as described
-[here](#containerd-systemd). [CRI-O](#cri-o) already defaults to systemd cgroup
-driver. For other container runtimes, refer to their specific documentation.
+If you configure `systemd` as the cgroup driver for the kubelet, you must also
+configure `systemd` as the cgroup driver for the container runtime. Refer to
+the documentation for your container runtime for instructions. For example:
+
+*  [containerd](#containerd-systemd)
+*  [CRI-O](#cri-o)
 
 {{< caution >}}
 Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation.
@@ -213,7 +208,7 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
     SystemdCgroup = true
 ```
 
-`systemd` cgroup driver is recommended to set if using [cgroupv2](/docs/concepts/architecture/cgroups).
+The `systemd` cgroup driver is recommended if you use [cgroup v2](/docs/concepts/architecture/cgroups).
 
 {{< note >}}
 If you installed containerd from a package (for example, RPM or `.deb`), you may find
