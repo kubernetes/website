@@ -15,7 +15,7 @@ Kubernetes principles, notably the [control loop](/docs/concepts/architecture/co
 
 ## Motivation
 
-The operator pattern aims to capture the key aim of a human operator who
+The _operator pattern_ aims to capture the key aim of a human operator who
 is managing a service or set of services. Human operators who look after
 specific applications and services have deep knowledge of how the system
 ought to behave, how to deploy it, and how to react if there are problems.
