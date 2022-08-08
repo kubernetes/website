@@ -169,6 +169,9 @@ algolia_docsearch = false
 # Enable Lunr.js offline search
 offlineSearch = false
 
+# Official CVE feed bucket URL
+cveFeedBucket = "https://storage.googleapis.com/k8s-cve-feed/official-cve-feed.json"
+
 [params.pushAssets]
 css = [
   "callouts",
