@@ -1325,7 +1325,7 @@ IP addresses that are no longer used by any Services.
 
 #### IP address ranges for `type: ClusterIP` Services {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 However, there is a problem with this `ClusterIP` allocation strategy, because a user
 can also [choose their own address for the service](#choosing-your-own-ip-address).
 This could result in a conflict if the internal allocator selects the same IP address
