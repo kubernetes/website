@@ -97,7 +97,7 @@ kubectl get pod test-pod -o jsonpath='{.spec.overhead}'
 map[cpu:250m memory:120Mi]
 ```
 
-만약 리소스쿼터 항목이 정의되어 있다면, 컨테이너의 리소스 요청의 합에는
+만약 [리소스쿼터](/ko/docs/concepts/policy/resource-quotas/) 항목이 정의되어 있다면, 컨테이너의 리소스 요청의 합에는
 `overhead` 필드도 추가된다.
 
 kube-scheduler 는 어떤 노드에 파드가 기동 되어야 할지를 정할 때, 파드의 `overhead` 와
@@ -196,3 +196,4 @@ sudo crictl inspectp -o=json $POD_ID | grep cgroupsPath
 * [런타임클래스](/ko/docs/concepts/containers/runtime-class/)에 대해 알아본다.
 * 더 자세한 문맥은 
   [파드오버헤드 디자인](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead) 향상 제안을 확인한다.
+

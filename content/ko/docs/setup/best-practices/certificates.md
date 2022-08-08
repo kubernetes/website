@@ -23,7 +23,7 @@ weight: 40
 
 * kubelet에서 API 서버 인증서를 인증시 사용하는 클라이언트 인증서
 * API 서버가 kubelet과 통신하기 위한 
-  kubelet [서버 인증서](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#client-and-serving-certificates)
+  kubelet [서버 인증서](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)
 * API 서버 엔드포인트를 위한 서버 인증서
 * API 서버에 클러스터 관리자 인증을 위한 클라이언트 인증서
 * API 서버에서 kubelet과 통신을 위한 클라이언트 인증서
