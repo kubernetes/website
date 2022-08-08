@@ -654,6 +654,6 @@ kubelet은 `LimitedSwap` 설정과 같은 행동을
 
 * 노드를 구성하는 [컴포넌트](/ko/docs/concepts/overview/components/#노드-컴포넌트)에 대해 알아본다.
 * [노드에 대한 API 정의](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)를 읽어본다.
-* 아키텍처 디자인 문서의 [노드](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
+* 아키텍처 디자인 문서의 [노드](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   섹션을 읽어본다.
 * [테인트와 톨러레이션](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)을 읽어본다.

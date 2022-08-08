@@ -1,13 +1,13 @@
 ---
-
-
-
+# reviewers:
+# - erictune
+# - soltysh
 title: 잡
 content_type: concept
 feature:
   title: 배치 실행
   description: >
-    쿠버네티스는 서비스 외에도 배치와 CI 워크로드를 관리할 수 있으며, 원하는 경우 실패한 컨테이너를 교체할 수 있다.
+    쿠버네티스는 서비스 외에도 배치(batch)와 CI 워크로드를 관리할 수 있으며, 원하는 경우 실패한 컨테이너를 교체할 수 있다.
 weight: 50
 ---
 
@@ -51,13 +51,8 @@ job.batch/pi created
 
 `kubectl` 을 사용해서 잡 상태를 확인한다.
 
-```shell
-kubectl describe jobs/pi
-```
-
-출력 결과는 다음과 같다.
-
-```
+{{< tabs name="Check status of Job" >}}
+{{< tab name="kubectl describe job pi" codelang="bash" >}}
 Name:           pi
 Namespace:      default
 Selector:       controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
@@ -91,7 +86,62 @@ Events:
   Type    Reason            Age   From            Message
   ----    ------            ----  ----            -------
   Normal  SuccessfulCreate  14m   job-controller  Created pod: pi-5rwd7
-```
+{{< /tab >}}
+{{< tab name="kubectl get job pi -o yaml" codelang="bash" >}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl","name":"pi"}],"restartPolicy":"Never"}}}}
+  creationTimestamp: "2022-06-15T08:40:15Z"
+  generation: 1
+  labels:
+    controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+    job-name: pi
+  name: pi
+  namespace: default
+  resourceVersion: "987"
+  uid: 863452e6-270d-420e-9b94-53a54146c223
+spec:
+  backoffLimit: 4
+  completionMode: NonIndexed
+  completions: 1
+  parallelism: 1
+  selector:
+    matchLabels:
+      controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+  suspend: false
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+        job-name: pi
+    spec:
+      containers:
+      - command:
+        - perl
+        - -Mbignum=bpi
+        - -wle
+        - print bpi(2000)
+        image: perl
+        imagePullPolicy: Always
+        name: pi
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  active: 1
+  ready: 1
+  startTime: "2022-06-15T08:40:15Z"
+{{< /tab >}}
+{{< /tabs >}}
 
 `kubectl get pods` 를 사용해서 잡의 완료된 파드를 본다.
 
@@ -119,7 +169,7 @@ kubectl logs $pods
 
 출력 결과는 다음과 같다.
 
-```shell
+```
 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989380952572010654858632788659361533818279682303019520353018529689957736225994138912497217752834791315155748572424541506959508295331168617278558890750983817546374649393192550604009277016711390098488240128583616035637076601047101819429555961989467678374494482553797747268471040475346462080466842590694912933136770289891521047521620569660240580381501935112533824300355876402474964732639141992726042699227967823547816360093417216412199245863150302861829745557067498385054945885869269956909272107975093029553211653449872027559602364806654991198818347977535663698074265425278625518184175746728909777727938000816470600161452491921732172147723501414419735685481613611573525521334757418494684385233239073941433345477624168625189835694855620992192221842725502542568876717904946016534668049886272327917860857843838279679766814541009538837863609506800642251252051173929848960841284886269456042419652850222106611863067442786220391949450471237137869609563643719172874677646575739624138908658326459958133904780275901
 ```
 
@@ -248,14 +298,24 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 ### 파드 백오프(backoff) 실패 정책
 
-구성 등의 논리적 오류로 인해 약간의 재시도 이후에
-잡을 실패하게 만들려는 경우가 있다.
-이렇게 하려면 `.spec.backoffLimit` 에 잡을 실패로 간주하기 이전에
-재시도할 횟수를 설정한다. 백오프 제한은 기본적으로 6으로 설정되어 있다. 잡과
-관련한 실패한 파드는 최대 6분안에서 기하급수적으로 증가하는 백-오프 지연 (10초, 20초, 40초 ...)
-한도가 되어 잡 컨트롤러에 의해 재생성된다. 잡의 파드가 삭제되거나
-해당 시간 동안 잡에 대한 다른 파드가 실패 없이 성공했을 때 백 오프
-카운트가 재설정된다.
+구성에 논리적 오류가 포함되어 있어서 몇 회의 재시도 이후에
+잡이 실패되도록 만들어야 하는 경우가 있다.
+이렇게 하려면 `.spec.backoffLimit`의 값에
+재시도(잡을 실패로 처리하기 이전까지) 횟수를 설정한다. 백오프 제한은 기본적으로 6으로 설정되어 있다.
+잡에 연계된 실패 상태 파드는 6분 내에서 지수적으로 증가하는
+백-오프 지연(10초, 20초, 40초 ...)을 적용하여, 잡 컨트롤러에 의해 재생성된다. 
+
+재시도 횟수는 다음 두 가지 방법으로 계산된다.
+- `.status.phase = "Failed"`인 파드의 수.
+- `restartPolicy = "OnFailure"`를 사용하는 경우, `.status.phase`가 
+  `Pending`이거나 `Running`인 파드들이 가지고 있는 모든 컨테이너의 수.
+
+계산 중 하나가 `.spec.backoffLimit`에 도달하면, 잡이
+실패한 것으로 간주한다.
+
+[`JobTrackingWithFinalizers`](#종료자-finalizers-를-이용한-잡-추적) 기능이 비활성화되어
+있다면, 실패한 파드의 수는 API에 여전히 표시되고 있는 파드로만
+계산된다.
 
 {{< note >}}
 만약 잡에 `restartPolicy = "OnFailure"` 가 있는 경우 잡 백오프 한계에
@@ -631,7 +691,6 @@ spec:
 [API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)와 
 [컨트롤러 매니저](/docs/reference/command-line-tools-reference/kube-controller-manager/)에 대해 
 `JobTrackingWithFinalizers` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 
-기본적으로는 활성화되어 있다.
 
 이 기능이 활성화되면, 컨트롤 플레인은 아래에 설명할 동작을 이용하여 새로운 잡이 생성되는지 추적한다. 
 이 기능이 활성화되기 이전에 생성된 잡은 영향을 받지 않는다. 

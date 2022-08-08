@@ -77,9 +77,11 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
 * [kube-apiserver 환경설정 (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/)
 * [kube-apiserver 환경설정 (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver 암호화 (v1)](/docs/reference/config-api/apiserver-encryption.v1/)
+* [kube-apiserver 요청 제한 (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 * [kubelet 환경설정 (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) 및
   [kubelet 환경설정 (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-* [kubelet 크리덴셜 제공자 (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
+* [kubelet 자격증명 제공자 (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
+* [kubelet 자격증명 제공자 (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/)
 * [kube-scheduler 환경설정 (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) 및
   [kube-scheduler 환경설정 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * [kube-proxy 환경설정 (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
@@ -87,6 +89,7 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
 * [클라이언트 인증 API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) 및 
   [클라이언트 인증 API (v1)](/docs/reference/config-api/client-authentication.v1/)
 * [WebhookAdmission 환경설정 (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
+* [이미지 정책 API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
 
 ## kubeadm을 위한 API 설정
 
@@ -96,5 +99,5 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
 ## 설계 문서
 
 쿠버네티스 기능에 대한 설계 문서의 아카이브.
-[쿠버네티스 아키텍처](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)와
-[쿠버네티스 디자인 개요](https://git.k8s.io/community/contributors/design-proposals)가 좋은 출발점이다.
+[쿠버네티스 아키텍처](https://git.k8s.io/design-proposals-archive/architecture/architecture.md)와
+[쿠버네티스 디자인 개요](https://git.k8s.io/design-proposals-archive)부터 읽어보는 것이 좋다.

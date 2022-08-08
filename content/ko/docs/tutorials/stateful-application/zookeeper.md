@@ -122,7 +122,7 @@ zk-2      1/1       Running   0         40s
 ```
 
 스테이트풀셋 컨트롤러는 3개의 파드를 생성하고, 각 파드는
-[ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) 서버를 포함한 컨테이너를 가진다.
+[ZooKeeper](https://archive.apache.org/dist/zookeeper/stable/) 서버를 포함한 컨테이너를 가진다.
 
 
 ### 리더 선출 촉진
@@ -305,7 +305,7 @@ numChildren = 0
 
 ### 내구성있는 저장소 제공
 
-[ZooKeeper 기본](#zookeeper-basics) 섹션에서 언급했듯이
+[ZooKeeper 기본](#zookeeper) 섹션에서 언급했듯이
 ZooKeeper는 모든 항목을 내구성있는 WAL에 커밋하고 메모리 상태의 스냅샷을 저장 미디에에 주기적으로 저장한다.
 내구성을 제공하기 위해 WAL을 이용하는 것은
 복제된 상태 머신을 이루는 합의 프로토콜에서

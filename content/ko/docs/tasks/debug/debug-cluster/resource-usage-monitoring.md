@@ -42,8 +42,11 @@ Kubelet은 쿠버네티스 마스터와 노드 간의 다리 역할을 하면서
 Kubelet은 각각의 파드를 해당하는 컨테이너에 매치시키고 
 컨테이너 런타임 인터페이스를 통해 
 컨테이너 런타임에서 개별 컨테이너의 사용량 통계를 가져온다. 
-Kubelet은 이 정보를 레거시 도커와의 통합을 위해 kubelet에 통합된 cAdvisor를 통해 가져온다. 
-그 다음으로 취합된 파드 리소스 사용량 통계를 metric-server 리소스 메트릭 API를 통해 노출한다. 
+컨테이너를 구현하기 위해 리눅스 cgroup 및 네임스페이스를 활용하는 컨테이너 런타임을 사용하며, 
+해당 컨테이너 런타임이 사용 통계치를 퍼블리싱 하지 않는 경우, 
+kubelet은 해당 통계치를 ([cAdvisor](https://github.com/google/cadvisor)의 코드 사용하여) 직접 조회 할 수 있다.
+이런 통계가 어떻게 도착하든 kubelet은 취합된 파드 리소스 사용량 통계를 
+metric-server 리소스 메트릭 API를 통해 노출한다.
 이 API는 kubelet의 인증이 필요한 읽기 전용 포트 상의 
 `/metrics/resource/v1beta1`에서 제공된다.
 

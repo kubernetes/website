@@ -173,7 +173,7 @@ curl http://localhost:8080/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/po
 [API 집계(aggregation) 계층](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)을 활성화하고 
 [APIService](/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)를 등록해야 한다.
 
-메트릭 API에 대해 더 알아보려면, [리소스 메트릭 API 디자인](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/resource-metrics-api.md),
+메트릭 API에 대해 더 알아보려면, [리소스 메트릭 API 디자인](https://git.k8s.io/design-proposals-archive/instrumentation/resource-metrics-api.md),
 [metrics-server 저장소](https://github.com/kubernetes-sigs/metrics-server) 및 
 [리소스 메트릭 API](https://github.com/kubernetes/metrics#resource-metrics-api)를 참고한다.
 
@@ -237,7 +237,7 @@ metrics-server에 대한 더 많은 정보는
 
 또한 다음을 참고할 수도 있다.
 
-* [metrics-server 디자인](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)
+* [metrics-server 디자인](https://git.k8s.io/design-proposals-archive/instrumentation/metrics-server.md)
 * [metrics-server 자주 묻는 질문](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
 * [metrics-server 알려진 이슈](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
 * [metrics-server 릴리스](https://github.com/kubernetes-sigs/metrics-server/releases)
