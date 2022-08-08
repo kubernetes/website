@@ -31,10 +31,12 @@ use informers and react to failures of API requests with exponential
 back-off, and other clients that also work this way.
 
 {{< caution >}}
-Requests classified as "long-running" — primarily watches — are not
-subject to the API Priority and Fairness filter. This is also true for
-the `--max-requests-inflight` flag without the API Priority and
-Fairness feature enabled.
+Some requests classified as "long-running" — such as remote command
+execution or log tailing — are not subject to the API Priority and
+Fairness filter. This is also true for the `--max-requests-inflight`
+flag without the API Priority and Fairness feature enabled.  WATCH
+requests are considered long-running if API Priority and Fairness is
+disabled, NOT long-running if it enabled.
 {{< /caution >}}
 
 <!-- body -->
@@ -92,6 +94,40 @@ leader-election requests, requests from built-in controllers, and requests from
 Pods. This means that an ill-behaved Pod that floods the API server with
 requests cannot prevent leader election or actions by the built-in controllers
 from succeeding.
+
+### Request Width
+
+The above description of concurrency management is the baseline story.
+In it, all requests have equal "width": each takes up one "seat", one
+unit of concurrency.
+
+But some requests take up more than one seat.  Some of these are LIST
+requests that the server estimates will return a large number of
+objects.  These have been found to put an exceptionally heavy burden
+on the server, among requests that take a similar amount of time to
+run.  For this reason, the server estimates the number of objects that
+will be returned and considers the request to take a number of seats
+that is proportional to that estimated number.
+
+### Execution Time Tweaks for WATCH
+
+API Priority and Fairness manages WATCH requests but this involves a
+couple more excursions from the baseline behavior.  The first concerns
+how long a WATCH request is considered to occupy its seat.  Depending
+on request parameters, the response to a WATCH request may or may not
+begin with CREATE notifications for all the relevant pre-existing
+objects.  API Priority and Fairness considers a WATCH request to be
+done with its seat once that initial burst of notifications, if any,
+is over.
+
+The normal notifications are sent in a concurrent burst to all
+relevant WATCH response streams whenever the server is notified of an
+object create/update/delete.  To account for this work, API Priority
+and Fairness consiers every write request to spend some additional
+time occupying seats after the actual writing is done.  The server
+estimates the number of notifications to be sent and adjusts the write
+request's number of seats and seat occupancy time to include this
+extra work.
 
 ### Queuing
 
