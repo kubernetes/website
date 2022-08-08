@@ -562,7 +562,7 @@ spec:
 - Jobに属するPodの人為的な削除。
 - 外部コントローラー(Kubernetesの一部として提供されていない)によるPodの削除や置き換え。
 
-クラスターで`JobTrackingWithFinalizers`機能を有効にすると、コントロールプレーンは任意のJobに属するPodを追跡し、そのようなPodがAPIサーバーから削除された場合に通知します。そのために、Jobコントローラーは`batch.kubernetes.io/job-tracking`Finalizerを持つJobを作成します。コントローラーはPodがJobステータスに計上された後にのみFinalizerを削除し、他のコントローラーやユーザーによるPodの削除を可能にします。
+クラスターで`JobTrackingWithFinalizers`機能を有効にすると、コントロールプレーンは任意のJobに属するPodを追跡し、そのようなPodがAPIサーバーから削除された場合に通知します。そのために、Jobコントローラーは`batch.kubernetes.io/job-tracking`Finalizerを持つPodを作成します。コントローラーはPodがJobステータスに計上された後にのみFinalizerを削除し、他のコントローラーやユーザーによるPodの削除を可能にします。
 
 Jobコントローラーは、新しいJobに対してのみ新しいアルゴリズムを使用します。この機能が有効になる前に作成されたJobは影響を受けません。JobコントローラーがPod FinalizerでJob追跡しているかどうかは、Jobが`batch.kubernetes.io/job-tracking`というアノテーションを持っているかどうかで判断できます。
 このアノテーションを手動で追加または削除しては**いけません**。
