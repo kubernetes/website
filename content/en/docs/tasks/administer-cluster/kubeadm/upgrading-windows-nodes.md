@@ -32,9 +32,9 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
 1.  From the Windows node, upgrade kubeadm:
 
-    ```shell
+    ```powershell
     # replace {{< param "fullversion" >}} with your desired version
-    curl.exe -Lo <path-to-kubeadm.exe>  https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe
+    curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe"
     ```
 
 ### Drain the node
@@ -66,17 +66,17 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
 1.  From the Windows node, upgrade and restart the kubelet:
 
-    ```shell
+    ```powershell
     stop-service kubelet
-    curl.exe -Lo <path-to-kubelet.exe> https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe
+    curl.exe -Lo <path-to-kubelet.exe> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe"
     restart-service kubelet
     ```
 
 2. From the Windows node, upgrade and restart the kube-proxy.
 
-    ```shell
+    ```powershell
     stop-service kube-proxy
-    curl.exe -Lo <path-to-kube-proxy.exe> https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kube-proxy.exe
+    curl.exe -Lo <path-to-kube-proxy.exe> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kube-proxy.exe"
     restart-service kube-proxy
     ```
 
