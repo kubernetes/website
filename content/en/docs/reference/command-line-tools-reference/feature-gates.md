@@ -148,7 +148,8 @@ different Kubernetes components.
 | `MemoryManager` | `false` | Alpha | 1.21 | 1.21 |
 | `MemoryManager` | `true` | Beta | 1.22 | |
 | `MemoryQoS` | `false` | Alpha | 1.22 | |
-| `MinDomainsInPodTopologySpread` | `false` | Alpha | 1.24 | |
+| `MinDomainsInPodTopologySpread` | `false` | Alpha | 1.24 | 1.24 |
+| `MinDomainsInPodTopologySpread` | `true` | Beta | 1.25 | |
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
 | `MixedProtocolLBService` | `true` | Beta | 1.24 | |
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 | 1.21 |

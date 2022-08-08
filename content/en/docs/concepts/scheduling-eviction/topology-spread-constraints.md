@@ -60,7 +60,7 @@ spec:
   # Configure a topology spread constraint
   topologySpreadConstraints:
     - maxSkew: <integer>
-      minDomains: <integer> # optional; alpha since v1.24
+      minDomains: <integer> # optional; beta since v1.25
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
@@ -93,9 +93,8 @@ your cluster. Those fields are:
   nodes match the node selector.
 
   {{< note >}}
-  The `minDomains` field is an alpha field added in 1.24. You have to enable the
-  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `minDomains` field is a beta field and enabled by default in 1.25. You can disable it by disabling the
+  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
   - The value of `minDomains` must be greater than 0, when specified.
