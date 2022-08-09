@@ -36,7 +36,7 @@ _dockershim_ 이라는 구성 요소를 사용하여 도커 엔진과의 직접 
 더 이상 쿠버네티스에 포함되지 않는다(이 제거는 
 v1.20 릴리스의 일부로 [공지](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)되었다). 
 이 제거가 어떻게 영향을 미치는지 알아보려면 
-[Dockershim 사용 중단이 영향을 미치는지 확인하기](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) 문서를 확인한다. 
+[dockershim 제거가 영향을 미치는지 확인하기](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) 문서를 확인한다. 
 dockershim을 사용하던 환경에서 이전(migrating)하는 방법을 보려면, 
 [dockershim에서 이전하기](/docs/tasks/administer-cluster/migrating-from-dockershim/)를 확인한다.
 
@@ -46,6 +46,41 @@ v{{< skew currentVersion >}} 이외의 쿠버네티스 버전을 사용하고 �
 
 
 <!-- body -->
+## 필수 요소들 설치 및 구성하기
+
+다음 단계에서는 리눅스의 쿠버네티스 노드를 위한 일반적인 설정들을 적용한다.
+
+만약 필요하지 않다고 생각한다면 몇몇 설정들은 넘어가도 무방하다.
+
+더 자세한 정보는, [네트워크 플러그인 요구사항](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)이나 각자 사용 중인 컨테이너 런타임에 해당하는 문서를 확인한다.
+
+### IPv4를 포워딩하여 iptables가 브리지된 트래픽을 보게 하기
+
+`lsmod | grep br_netfilter`를 실행하여 `br_netfilter` 모듈이 로드되었는지 확인한다.
+
+명시적으로 로드하려면, `sudo modprobe br_netfilter`를 실행한다.
+
+리눅스 노드의 iptables가 브리지된 트래픽을 올바르게 보기 위한 요구 사항으로, `sysctl` 구성에서 `net.bridge.bridge-nf-call-iptables`가 1로 설정되어 있는지 확인한다. 예를 들어,
+
+```bash
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# 필요한 sysctl 파라미터를 설정하면, 재부팅 후에도 값이 유지된다.
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+# 재부팅하지 않고 sysctl 파라미터 적용하기
+sudo sysctl --system
+```
 
 ## cgroup 드라이버
 
@@ -132,45 +167,22 @@ kubelet은 대신 (사용 중단된) v1alpha2 API를 사용하도록 설정된�
 
 {{% thirdparty-content %}}
 
-
 ### containerd
 
 이 섹션에는 containerd를 CRI 런타임으로 사용하는 데 필요한 단계를 간략하게 설명한다.
 
 다음 명령을 사용하여 시스템에 containerd를 설치한다.
 
-1. 필수 구성 요소를 설치 및 구성한다.
+[containerd 시작하기](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)의 지침에 따라, 유효한 환경 설정 파일(`config.toml`)을 생성한다.
 
-   (이 지침은 리눅스 노드에만 적용된다)
-
-   ```shell
-   cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
-   overlay
-   br_netfilter
-   EOF
-
-   sudo modprobe overlay
-   sudo modprobe br_netfilter
-
-   # 필요한 sysctl 파라미터를 설정하면 재부팅 후에도 유지된다.
-   cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-   net.bridge.bridge-nf-call-iptables  = 1
-   net.ipv4.ip_forward                 = 1
-   net.bridge.bridge-nf-call-ip6tables = 1
-   EOF
-
-   # 재부팅하지 않고 sysctl 파라미터 적용
-   sudo sysctl --system
-   ```
-
-1. containerd를 설치한다.
-
-   [containerd 시작하기](https://github.com/containerd/containerd/blob/main/docs/getting-started.md) 
-   문서를 확인하고, 
-   유효한 환경 설정 파일(`config.toml`)을 작성하는 부분까지의 
-   가이드를 따른다. 
-   리눅스에서, 이 파일은 `/etc/containerd/config.toml`에 존재한다. 
-   윈도우에서, 이 파일은 `C:\Program Files\containerd\config.toml`에 존재한다.
+{{< tabs name="Finding your config.toml file" >}}
+{{% tab name="Linux" %}}
+`/etc/containerd/config.toml` 경로에서 파일을 찾을 수 있음.
+{{% /tab %}}
+{{< tab name="Windows" >}}
+`C:\Program Files\containerd\config.toml` 경로에서 파일을 찾을 수 있음.
+{{< /tab >}}
+{{< /tabs >}}
 
 리눅스에서, containerd를 위한 기본 CRI 소켓은 `/run/containerd/containerd.sock`이다.
 윈도우에서, 기본 CRI 엔드포인트는 `npipe://./pipe/containerd-containerd`이다.
@@ -185,6 +197,14 @@ kubelet은 대신 (사용 중단된) v1alpha2 API를 사용하도록 설정된�
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
+{{< note >}}
+만약 containerd를 패키지(RPM, `.deb` 등)를 통해 설치하였다면,
+CRI integration 플러그인은 기본적으로 비활성화되어 있다.
+
+쿠버네티스에서 containerd를 사용하기 위해서는 CRI support가 활성화되어 있어야 한다.
+`cri`가 `/etc/containerd/config.toml` 파일 안에 있는 `disabled_plugins` 목록에 포함되지 않도록 주의하자.
+만약 해당 파일을 변경하였다면, `containerd`를 다시 시작한다.
+{{< /note >}}
 
 이 변경 사항을 적용하려면, containerd를 재시작한다.
 
@@ -193,7 +213,19 @@ sudo systemctl restart containerd
 ```
 
 kubeadm을 사용하는 경우,
-[kubelet용 cgroup 드라이버](/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#컨트롤-플레인-노드에서-kubelet이-사용하는-cgroup-드라이버-구성)를 수동으로 구성한다.
+[kubelet용 cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver)를 수동으로 구성한다.
+
+#### 샌드박스(pause) 이미지 덮어쓰기 {#override-pause-image-containerd}
+
+[containerd 설정](https://github.com/containerd/cri/blob/master/docs/config.md)에서
+아래와 같이 샌드박스 이미지를 덮어쓸 수 있다.
+
+```toml
+[plugins."io.containerd.grpc.v1.cri"]
+  sandbox_image = "k8s.gcr.io/pause:3.2"
+```
+
+설정 파일을 변경하는 경우 역시 `systemctl restart containerd`를 통해 `containerd`를 재시작해야 한다.
 
 ### CRI-O
 
@@ -221,6 +253,19 @@ CRI-O의 cgroup 드라이버 구성을 동기화 상태로
 
 CRI-O의 경우, CRI 소켓은 기본적으로 `/var/run/crio/crio.sock`이다.
 
+#### 샌드박스(pause) 이미지 덮어쓰기 {#override-pause-image-cri-o}
+
+[CRI-O 설정](https://github.com/cri-o/cri-o/blob/main/docs/crio.conf.5.md)에서
+아래와 같이 샌드박스 이미지를 덮어쓸 수 있다.
+
+```toml
+[crio.image]
+pause_image="registry.k8s.io/pause:3.6"
+```
+
+이 옵션은 `systemctl reload crio` 혹은 `crio` 프로세스에 `SIGHUP`을 보내 변경사항을 적용하기 위한
+live configuration reload 기능을 지원한다.
+
 ### 도커 엔진 {#docker}
 
 {{< note >}}
@@ -237,6 +282,12 @@ CRI-O의 경우, CRI 소켓은 기본적으로 `/var/run/crio/crio.sock`이다.
 
 `cri-dockerd`의 경우, CRI 소켓은 기본적으로 `/run/cri-dockerd.sock`이다.
 
+#### 샌드박스(pause) 이미지 덮어쓰기 {#override-pause-image-cri-dockerd}
+
+`cri-dockerd` 어댑터는, 
+파드 인프라 컨테이너("pause image")를 위해 어떤 컨테이너 이미지를 사용할지 명시하는 커맨드라인 인자를 받는다.
+해당 커맨드라인 인자는 `--pod-infra-container-image`이다.
+
 ### 미란티스 컨테이너 런타임 {#mcr}
 
 [미란티스 컨테이너 런타임](https://docs.mirantis.com/mcr/20.10/overview.html)(MCR)은 상용 컨테이너 런타임이며 
@@ -250,6 +301,12 @@ CRI-O의 경우, CRI 소켓은 기본적으로 `/var/run/crio/crio.sock`이다.
 
 CRI 소켓의 경로를 찾으려면 
 `cri-docker.socket`라는 이름의 systemd 유닛을 확인한다.
+
+#### 샌드박스(pause) 이미지 덮어쓰기 {#override-pause-image-cri-dockerd-mcr}
+
+`cri-dockerd` 어댑터는, 
+파드 인프라 컨테이너("pause image")를 위해 어떤 컨테이너 이미지를 사용할지 명시하는 커맨드라인 인자를 받는다.
+해당 커맨드라인 인자는 `--pod-infra-container-image`이다.
 
 ## {{% heading "whatsnext" %}}
 

@@ -1,6 +1,6 @@
 ---
-
-
+## reviewers:
+## - bprashanth
 title: 서비스
 feature:
   title: 서비스 디스커버리와 로드 밸런싱
@@ -122,7 +122,7 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:11.14.2
+    image: nginx:stable
     ports:
       - containerPort: 80
         name: http-web-svc
@@ -192,6 +192,7 @@ spec:
 apiVersion: v1
 kind: Endpoints
 metadata:
+  # 여기서의 이름은 서비스의 이름과 일치해야 한다.
   name: my-service
 subsets:
   - addresses:
@@ -202,6 +203,10 @@ subsets:
 
 엔드포인트 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
+
+서비스를 위한 객체인 [엔드포인트](/ko/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+를 만들 때, 새로운 객체의 이름을 
+그것의 서비스 이름과 같게 설정해야 한다.
 
 {{< note >}}
 엔드포인트 IP는 루프백(loopback) (IPv4의 경우 127.0.0.0/8, IPv6의 경우 ::1/128), 또는
@@ -393,6 +398,10 @@ iptables 프록시 모드에서 다시 실행된다.
 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds`를 적절히 설정하여
 최대 세션 고정 시간을 설정할 수도 있다.
 (기본값은 10800으로, 3시간)
+
+{{< note >}}
+윈도우에서, 서비스들의 최대 세션 고정 시간(maximum session sticky time)을 설정하는 것은 지원되지 않는다.
+{{< /note >}}
 
 ## 멀티-포트 서비스
 
@@ -853,6 +862,17 @@ metadata:
 [...]
 ```
 
+{{% /tab %}}
+{{% tab name="OCI" %}}
+
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.beta.kubernetes.io/oci-load-balancer-internal: true
+[...]
+```
 {{% /tab %}}
 {{< /tabs >}}
 

@@ -1,9 +1,10 @@
 ---
-
-
-
+# reviewers:
+# - erictune
+# - lavalamp
 title: 쿠버네티스 API 접근 제어하기
 content_type: concept
+weight: 50
 ---
 
 <!-- overview -->
@@ -164,7 +165,27 @@ API 서버는 실제로 다음과 같이 2개의 포트에서 서비스할 수 �
       - 요청이 어드미션 제어 모듈(들)에 의해 처리된다.
       - 인증 및 인가 모듈을 실행한다.
 
-GCE(구글 컴퓨트 엔진) 및 다른 클라우드 제공자에서 `kube-up.sh`로 클러스터를 생성하면
-API 서버는 포트 443에서 서비스한다.
-GCE에서는 외부 HTTPS가 API에 접근할 수 있도록 프로젝트에서 방화벽 규칙이 구성된다.
-이외에 클러스터 설정 방법은 다양하다.
+## {{% heading "whatsnext" %}}
+
+인증 및 인가 그리고 API 접근 제어에 대한 추가적인 문서는 아래에서 찾을 수 있다.
+
+- [인증하기](/docs/reference/access-authn-authz/authentication/)
+   - [부트스트랩 토큰(bootstrap token)으로 인증하기](/docs/reference/access-authn-authz/bootstrap-tokens/)
+- [어드미션 컨트롤러(admission controller)](/docs/reference/access-authn-authz/admission-controllers/)
+   - [동적 어드미션(admission) 제어](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- [인가](/ko/docs/reference/access-authn-authz/authorization/)
+   - [역할 기반 접근 제어(role based access control)](/docs/reference/access-authn-authz/rbac/)
+   - [속성 기반 접근 제어(attribute based access control)](/docs/reference/access-authn-authz/abac/)
+   - [노드 인가](/docs/reference/access-authn-authz/node/)
+   - [웹훅(webhook) 인가](/docs/reference/access-authn-authz/webhook/)
+- [인증서 서명 요청(Certificate Signing Request)](/docs/reference/access-authn-authz/certificate-signing-requests/)
+   - [CSR 승인](/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection) 및
+     [인증서 서명](/docs/reference/access-authn-authz/certificate-signing-requests/#signing) 포함하기
+- 서비스 어카운트
+  - [개발자 가이드](/docs/tasks/configure-pod-container/configure-service-account/)
+  - [운영](/ko/docs/reference/access-authn-authz/service-accounts-admin/)
+
+또한, 다음 사항을 익힐 수 있다.
+- 파드가 API 크리덴셜(credential)을 얻기 위해
+  [시크릿(Secret)](/ko/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
+  을 사용하는 방법.
