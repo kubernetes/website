@@ -99,8 +99,10 @@ from succeeding.
 ### Request Width
 
 The above description of concurrency management is the baseline story.
-In it, all requests have equal "width": each takes up one "seat", one
-unit of concurrency.
+In it, all requests have equal "width": each takes up one _unit of
+concurrency_, which we call a "seat" because this is similar to how
+each passenger takes up one of the fixed supply of seats on a train or
+aircraft.
 
 But some requests take up more than one seat.  Some of these are **list**
 requests that the server estimates will return a large number of
