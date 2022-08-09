@@ -625,6 +625,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
 - `APIServerIdentity`: Assign each API server an ID in a cluster.
 - `APIServerTracing`: Add support for distributed tracing in the API server.
+  See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/traces-for-kubernetes-system-components) for more details.
 - `Accelerators`: Provided an early form of plugin to enable Nvidia GPU support when using
   Docker Engine; no longer available. See
   [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) for
@@ -998,9 +999,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   feature-specific labels provided by `NodeDisruptionExclusion` and `ServiceNodeExclusion`.
 - `KubeletTracing`: Add support for distributed tracing in the kubelet.
   When enabled, kubelet CRI interface and authenticated http servers are instrumented to generate
-  OpenTelemetry trace spans. Sampling rate and collector address are configurable. When enabled without
-  a tracing configuration, a parent span's sampling decision is respected and the default collector
-  address of 0.0.0.0:4317 is set.
+  OpenTelemetry trace spans.
+  See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/traces-for-kubernetes-system-components) for more details.
 - `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
   [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 - `LocalStorageCapacityIsolation`: Enable the consumption of
