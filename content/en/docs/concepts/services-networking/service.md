@@ -1331,9 +1331,8 @@ can also [choose their own address for the service](#choosing-your-own-ip-addres
 This could result in a conflict if the internal allocator selects the same IP address
 for another Service.
 
-If you enable the `ServiceIPStaticSubrange`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-the allocation strategy divides the `ClusterIP` range into two bands, based on
+The `ServiceIPStaticSubrange`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default in v1.25 and later, using an allocation strategy that divides the `ClusterIP` range into two bands, based on
 the size of the configured `service-cluster-ip-range` by using the following formula
 `min(max(16, cidrSize / 16), 256)`, described as _never less than 16 or more than 256,
 with a graduated step function between them_. Dynamic IP allocations will be preferentially
