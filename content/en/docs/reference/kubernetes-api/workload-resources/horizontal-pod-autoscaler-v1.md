@@ -73,7 +73,7 @@ specification of a horizontal pod autoscaler.
 
   - **scaleTargetRef.kind** (string), required
 
-    Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+    Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
   - **scaleTargetRef.name** (string), required
 
