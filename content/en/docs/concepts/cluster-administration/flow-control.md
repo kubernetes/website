@@ -31,12 +31,13 @@ use informers and react to failures of API requests with exponential
 back-off, and other clients that also work this way.
 
 {{< caution >}}
-Some requests classified as "long-running"&mdash;such as remote command
-execution or log tailing&mdash;are not subject to the API Priority and
-Fairness filter. This is also true for the `--max-requests-inflight`
-flag without the API Priority and Fairness feature enabled.  WATCH
-requests are considered long-running if API Priority and Fairness is
-disabled, NOT long-running if it is enabled.
+Some requests classified as "long-running"&mdash;such as remote
+command execution or log tailing&mdash;are not subject to the API
+Priority and Fairness filter. This is also true for the
+`--max-requests-inflight` flag without the API Priority and Fairness
+feature enabled. API Priority and Fairness _does_ apply to WATCH
+requests. When API Priority and Fairness is disabled, WATCH requests
+are not subject to the `--max-requests-inflight` limit.
 {{< /caution >}}
 
 <!-- body -->
