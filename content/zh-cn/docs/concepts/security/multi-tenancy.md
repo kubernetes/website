@@ -29,7 +29,7 @@ All these types of sharing are frequently described using the umbrella term _mul
 -->
 集群可以通过多种方式共享。在某些情况下，不同的应用可能会在同一个集群中运行。
 在其他情况下，同一应用的多个实例可能在同一个集群中运行，每个实例对应一个最终用户。
-所有这些类型的共享经常使用一个总括术语**多租户（Multi-Tenancy）**来表述。
+所有这些类型的共享经常使用一个总括术语 **多租户（Multi-Tenancy）** 来表述。
 
 <!--
 While Kubernetes does not have first-class concepts of end users or tenants, 
