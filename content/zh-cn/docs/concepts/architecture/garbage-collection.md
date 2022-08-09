@@ -20,7 +20,7 @@ allows the clean up of resources like the following:
 垃圾收集允许系统清理如下资源：
 
 <!--
-* [Failed pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+* [Terminated pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
 * [Completed Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)
 * [Objects without owner references](#owners-dependents)
 * [Unused containers and container images](#containers-images)
@@ -32,7 +32,7 @@ allows the clean up of resources like the following:
     manager
 * [Node Lease objects](/docs/concepts/architecture/nodes/#heartbeats)
 -->
-* [失败的 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+* [终止的 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
 * [已完成的 Job](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)
 * [不再存在属主引用的对象](#owners-dependents)
 * [未使用的容器和容器镜像](#containers-images)
@@ -357,4 +357,3 @@ configure garbage collection:
 * 进一步了解 Kubernetes [finalizers](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)。
 * 进一步了解 [TTL 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/) (beta)，
   该控制器负责清理已完成的 Job。
-
