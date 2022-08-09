@@ -152,8 +152,6 @@ different Kubernetes components.
 | `MinDomainsInPodTopologySpread` | `true` | Beta | 1.25 | |
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
 | `MixedProtocolLBService` | `true` | Beta | 1.24 | |
-| `NetworkPolicyEndPort` | `false` | Alpha | 1.21 | 1.21 |
-| `NetworkPolicyEndPort` | `true` | Beta | 1.22 |  |
 | `NetworkPolicyStatus` | `false` | Alpha | 1.24 |  |
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | |
@@ -395,6 +393,9 @@ different Kubernetes components.
 | `MountPropagation` | `true` | GA | 1.12 | - |
 | `NamespaceDefaultLabelName` | `true` | Beta | 1.21 | 1.21 |
 | `NamespaceDefaultLabelName` | `true` | GA | 1.22 | - |
+| `NetworkPolicyEndPort` | `false` | Alpha | 1.21 | 1.21 |
+| `NetworkPolicyEndPort` | `true` | Beta | 1.22 |  |
+| `NetworkPolicyEndPort` | `true` | GA | 1.25 | - |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | 1.18 |
 | `NodeDisruptionExclusion` | `true` | Beta | 1.19 | 1.20 |
 | `NodeDisruptionExclusion` | `true` | GA | 1.21 | - |
