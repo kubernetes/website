@@ -43,7 +43,7 @@ broken states, and cannot recover except by being restarted. Kubernetes provides
 liveness probes to detect and remedy such situations.
 
 In this exercise, you create a Pod that runs a container based on the
-`k8s.gcr.io/busybox` image. Here is the configuration file for the Pod:
+`registry.k8s.io/busybox` image. Here is the configuration file for the Pod:
 
 {{< codenew file="pods/probe/exec-liveness.yaml" >}}
 
@@ -84,8 +84,8 @@ The output indicates that no liveness probes have failed yet:
 Type    Reason     Age   From               Message
   ----    ------     ----  ----               -------
   Normal  Scheduled  11s   default-scheduler  Successfully assigned default/liveness-exec to node01
-  Normal  Pulling    9s    kubelet, node01    Pulling image "k8s.gcr.io/busybox"
-  Normal  Pulled     7s    kubelet, node01    Successfully pulled image "k8s.gcr.io/busybox"
+  Normal  Pulling    9s    kubelet, node01    Pulling image "registry.k8s.io/busybox"
+  Normal  Pulled     7s    kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
   Normal  Created    7s    kubelet, node01    Created container liveness
   Normal  Started    7s    kubelet, node01    Started container liveness
 ```
@@ -103,8 +103,8 @@ probes have failed, and the failed containers have been killed and recreated.
   Type     Reason     Age                From               Message
   ----     ------     ----               ----               -------
   Normal   Scheduled  57s                default-scheduler  Successfully assigned default/liveness-exec to node01
-  Normal   Pulling    55s                kubelet, node01    Pulling image "k8s.gcr.io/busybox"
-  Normal   Pulled     53s                kubelet, node01    Successfully pulled image "k8s.gcr.io/busybox"
+  Normal   Pulling    55s                kubelet, node01    Pulling image "registry.k8s.io/busybox"
+  Normal   Pulled     53s                kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
   Normal   Created    53s                kubelet, node01    Created container liveness
   Normal   Started    53s                kubelet, node01    Started container liveness
   Warning  Unhealthy  10s (x3 over 20s)  kubelet, node01    Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
@@ -127,7 +127,7 @@ liveness-exec   1/1       Running   1          1m
 ## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
-file for a Pod that runs a container based on the `k8s.gcr.io/liveness`
+file for a Pod that runs a container based on the `registry.k8s.io/liveness`
 image.
 
 {{< codenew file="pods/probe/http-liveness.yaml" >}}
