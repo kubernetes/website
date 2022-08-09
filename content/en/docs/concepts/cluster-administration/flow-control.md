@@ -31,12 +31,12 @@ use informers and react to failures of API requests with exponential
 back-off, and other clients that also work this way.
 
 {{< caution >}}
-Some requests classified as "long-running" — such as remote command
-execution or log tailing — are not subject to the API Priority and
+Some requests classified as "long-running"&mdash;such as remote command
+execution or log tailing&mdash;are not subject to the API Priority and
 Fairness filter. This is also true for the `--max-requests-inflight`
 flag without the API Priority and Fairness feature enabled.  WATCH
 requests are considered long-running if API Priority and Fairness is
-disabled, NOT long-running if it enabled.
+disabled, NOT long-running if it is enabled.
 {{< /caution >}}
 
 <!-- body -->
@@ -111,7 +111,7 @@ that is proportional to that estimated number.
 
 ### Execution Time Tweaks for WATCH
 
-API Priority and Fairness manages WATCH requests but this involves a
+API Priority and Fairness manages WATCH requests, but this involves a
 couple more excursions from the baseline behavior.  The first concerns
 how long a WATCH request is considered to occupy its seat.  Depending
 on request parameters, the response to a WATCH request may or may not
@@ -123,7 +123,7 @@ is over.
 The normal notifications are sent in a concurrent burst to all
 relevant WATCH response streams whenever the server is notified of an
 object create/update/delete.  To account for this work, API Priority
-and Fairness consiers every write request to spend some additional
+and Fairness considers every write request to spend some additional
 time occupying seats after the actual writing is done.  The server
 estimates the number of notifications to be sent and adjusts the write
 request's number of seats and seat occupancy time to include this
