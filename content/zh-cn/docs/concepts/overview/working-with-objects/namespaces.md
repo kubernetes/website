@@ -18,7 +18,7 @@ weight: 30
 <!--
 In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 -->
-在 Kubernetes 中，**名字空间（Namespace）**提供一种机制，将同一集群中的资源划分为相互隔离的组。
+在 Kubernetes 中，**名字空间（Namespace）** 提供一种机制，将同一集群中的资源划分为相互隔离的组。
 同一名字空间内的资源名称要唯一，但跨名字空间时没有这个要求。
 名字空间作用域仅针对带有名字空间的对象，例如 Deployment、Service 等，
 这种作用域对集群访问的对象不适用，例如 StorageClass、Node、PersistentVolume 等。
@@ -193,8 +193,8 @@ be redirected to those services, taking precedence over public DNS.
 -->
 通过创建与[公共顶级域名](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)
 同名的名字空间，这些名字空间中的服务可以拥有与公共 DNS 记录重叠的、较短的 DNS 名称。
-所有名字空间中的负载在执行 DNS 查找时，如果查找的名称没有
-[尾部句点](https://datatracker.ietf.org/doc/html/rfc1034#page-8)，
+所有名字空间中的负载在执行 DNS 查找时，
+如果查找的名称没有[尾部句点](https://datatracker.ietf.org/doc/html/rfc1034#page-8)，
 就会被重定向到这些服务上，因此呈现出比公共 DNS 更高的优先序。
 
 <!--
@@ -206,8 +206,8 @@ to block creating any namespace with the name of [public
 TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
 -->
 为了缓解这类问题，需要将创建名字空间的权限授予可信的用户。
-如果需要，你可以额外部署第三方的安全控制机制，例如以
-[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
+如果需要，你可以额外部署第三方的安全控制机制，
+例如以[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 的形式，阻止用户创建与公共 [TLD](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)
 同名的名字空间。
 {{< /warning >}}
@@ -225,8 +225,8 @@ And low-level resources, such as
 persistentVolumes, are not in any namespace.
 -->
 大多数 kubernetes 资源（例如 Pod、Service、副本控制器等）都位于某些名字空间中。
-但是名字空间资源本身并不在名字空间中。而且底层资源，例如
-[节点](/zh-cn/docs/concepts/architecture/nodes/)和持久化卷不属于任何名字空间。
+但是名字空间资源本身并不在名字空间中。而且底层资源，
+例如[节点](/zh-cn/docs/concepts/architecture/nodes/)和持久化卷不属于任何名字空间。
 
 <!--
 To see which Kubernetes resources are and aren't in a namespace:
@@ -256,9 +256,9 @@ The value of the label is the namespace name.
 -->
 Kubernetes 控制面会为所有名字空间设置一个不可变更的
 {{< glossary_tooltip text="标签" term_id="label" >}}
-`kubernetes.io/metadata.name`，只要 `NamespaceDefaultLabelName` 这一
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-被启用。标签的值是名字空间的名称。
+`kubernetes.io/metadata.name`，只要 `NamespaceDefaultLabelName`
+这一[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用。
+标签的值是名字空间的名称。
 
 ## {{% heading "whatsnext" %}}
 
