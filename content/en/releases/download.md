@@ -69,11 +69,11 @@ container image name, for example
 those derivations are signed in the same way as the multi-architecture manifest lists.
 
 The Kubernetes project publishes a list of signed Kubernetes container images
-in SBoM (Software Bill of Materials) format.
+in [SPDX 2.2](https://spdx.dev/specifications/) format.
 You can fetch that list using:
 
 ```shell
-curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release"  | awk '/PackageName: k8s.gcr.io\// {print $2}'
+curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release"  | awk '/Package: registry.k8s.io\// {print $3}'
 ```
 For Kubernetes v{{< skew currentVersion >}}, the only kind of code artifact that
 you can verify integrity for is a container image, using the experimental
