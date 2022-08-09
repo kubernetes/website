@@ -68,7 +68,7 @@ Kubernetes v1.25 将移除 PodSecurityPolicy。PodSecurityPolicy 曾光荣地为
 <!--
 ## Major Changes for Kubernetes v1.25
 
-Kubernetes v1.25 includes several major changes, in addition to the removal of PodSecurityPolicy.
+Kubernetes v1.25 will include several major changes, in addition to the removal of PodSecurityPolicy.
 
 ### [CSI Migration](https://github.com/kubernetes/enhancements/issues/625)
 
@@ -76,7 +76,7 @@ The effort to  move the in-tree volume plugins to out-of-tree CSI drivers contin
 -->
 ## Kubernetes v1.25 的主要变更 {#major-changes-for-kubernetes-v1.25}
 
-Kubernetes v1.25 除了移除 PodSecurityPolicy 之外，还包括以下几个主要变更。
+Kubernetes v1.25 除了移除 PodSecurityPolicy 之外，还将包括以下几个主要变更。
 
 ### [CSI Migration](https://github.com/kubernetes/enhancements/issues/625)
 
@@ -84,15 +84,15 @@ Kubernetes v1.25 除了移除 PodSecurityPolicy 之外，还包括以下几个�
 对于全面移除树内卷插件而言，这是重要的一步。
 
 <!--
-### Volume Plugin Deprecations and Removals
+### Deprecations and removals for storage drivers
 
-Several volume are being deprecated or removed.
+Several volume plugins are being deprecated or removed.
 
 [GlusterFS will be deprecated in v1.25](https://github.com/kubernetes/enhancements/issues/3446). While a CSI driver was built for it, it has not been maintained. The possibility of migration to a compatible CSI driver [was discussed](https://github.com/kubernetes/kubernetes/issues/100897), but a decision was ultimately made to begin the deprecation of the GlusterFS plugin from in-tree drivers. The [Portworx in-tree volume plugin](https://github.com/kubernetes/enhancements/issues/2589) is also being deprecated with this release. The Flocker, Quobyte, and StorageOS in-tree volume plugins are being removed.
 -->
-### 卷插件弃用和移除 {#volume-plugin-deprecation-and-removals}
+### 存储驱动的弃用和移除 {#deprecations-and-removals-for-storage-drivers}
 
-若干卷将被弃用或移除。
+若干卷插件将被弃用或移除。
 
 [GlusterFS 将在 v1.25](https://github.com/kubernetes/enhancements/issues/3446) 中被弃用。
 虽然为其构建了 CSI 驱动，但未曾得到维护。
@@ -102,44 +102,37 @@ Several volume are being deprecated or removed.
 Flocker、Quobyte 和 StorageOS 树内卷插件将被移除。
 
 <!--
-### [Declare Unsupported vSphere Versions](https://github.com/kubernetes/kubernetes/pull/111255)
+[Flocker](https://github.com/kubernetes/kubernetes/pull/111618), [Quobyte](https://github.com/kubernetes/kubernetes/pull/111619), and [StorageOS](https://github.com/kubernetes/kubernetes/pull/111620) in-tree volume plugins will be removed in v1.25 as part of the [CSI Migration](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/625-csi-migration).
+-->
+[Flocker](https://github.com/kubernetes/kubernetes/pull/111618)、
+[Quobyte](https://github.com/kubernetes/kubernetes/pull/111619) 和
+[StorageOS](https://github.com/kubernetes/kubernetes/pull/111620) 树内卷插件将作为
+[CSI Migration](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/625-csi-migration)
+的一部分在 v1.25 中移除。
+
+<!--
+### [Change to vSphere version support](https://github.com/kubernetes/kubernetes/pull/111255)
 
 From Kubernetes v1.25, the in-tree vSphere volume driver will not support any vSphere release before 7.0u2. Check the v1.25 detailed release notes for more advice on how to handle this.
 -->
-### [声明不支持的 vSphere 版本](https://github.com/kubernetes/kubernetes/pull/111255)
+### [对 vSphere 版本支持的变更](https://github.com/kubernetes/kubernetes/pull/111255)
 
 从 Kubernetes v1.25 开始，树内 vSphere 卷驱动将不支持任何早于 7.0u2 的 vSphere 版本。
 查阅 v1.25 详细发行说明，了解如何处理这种状况的更多建议。
 
 <!--
-### [Signing Release Artifacts](https://github.com/kubernetes/enhancements/issues/3031)
-
-An additional step in improving the security posture of the release process, the signing of Kubernetes release artifacts will graduate to Beta in this release. This is in line with the proposed enhancement of targeting SLSA Level 3 compliance for the Kubernetes release process.
--->
-### [签署发行工件](https://github.com/kubernetes/enhancements/issues/3031)
-
-作为改善发行过程安全状况的附加步骤，Kubernetes 发行工件的签署将在本次发行中进入 Beta 阶段。
-这与提议的加强 Kubernetes 发行流程的 SLSA 3 级合规性的目标相一致。
-
-<!--
-### [Support for cgroup v2 Graduating to Stable](https://github.com/kubernetes/enhancements/issues/2254)
-
-The new kernel cgroups v2 API was declared stable more than two years ago, and in this release we're taking solid steps towards full adoption of it. While cgroup v1 will continue to be supported, this change makes us ready to deal with the eventual deprecation of cgroup v1 and its replacement by cgroup v2.
--->
-### [对 cgroup v2 的支持进入稳定阶段](https://github.com/kubernetes/enhancements/issues/2254)
-
-新的内核 cgroups v2 API 在两年多前就被宣布进入稳定阶段。
-在本次发行中，我们又为全面采用此 API 迈出了坚实的步伐。
-虽然还会继续支持 cgroup v1，但这一变更使我们准备好应对 cgroup v1 的最终弃用并被 cgroup v2 取代。
-
-<!--
 ### [Cleaning up IPTables Chain Ownership](https://github.com/kubernetes/enhancements/issues/3178)
 
-From the Kubernetes 1.25 release, the iptables chains created by Kubernetes will only support for internal Kubernetes use cases. Starting with v1.25, the Kubelet will gradually move towards not creating the following iptables chains in the `nat` table:
+On Linux, Kubernetes (usually) creates iptables chains to ensure that network packets reach
+Although these chains and their names have been an internal implementation detail, some tooling
+has relied upon that behavior.
+will only support for internal Kubernetes use cases. Starting with v1.25, the Kubelet will gradually move towards not creating the following iptables chains in the `nat` table:
 -->
 ### [清理 IPTables 链的所有权](https://github.com/kubernetes/enhancements/issues/3178)
 
-从 Kubernetes 1.25 版本开始，Kubernetes 创建的 iptables 链将仅支持 Kubernetes 内部的使用场景。
+在 Linux 上，Kubernetes（通常）创建 iptables 链来确保这些网络数据包到达，
+尽管这些链及其名称已成为内部实现的细节，但某些工具已依赖于此行为。
+将仅支持内部 Kubernetes 使用场景。
 从 v1.25 开始，Kubelet 将逐渐迁移为不在 `nat` 表中创建以下 iptables 链：
 
 - `KUBE-MARK-DROP`
@@ -147,9 +140,11 @@ From the Kubernetes 1.25 release, the iptables chains created by Kubernetes will
 - `KUBE-POSTROUTING`
 
 <!--
-This change will be phased in via the `IPTablesCleanup` feature gate.
+This change will be phased in via the `IPTablesCleanup` feature gate. Although this is not formally a deprecation, some end users have come to rely on specific internal behavior of `kube-proxy`. The Kubernetes project overall wants to make it clear that depending on these internal details is not supported, and that future implementations will change their behavior here.
 -->
 此项变更将通过 `IPTablesCleanup` 特性门控分阶段完成。
+尽管这不是正式的弃用，但某些最终用户已开始依赖 `kube-proxy` 特定的内部行为。
+Kubernetes 项目总体上希望明确表示不支持依赖这些内部细节，并且未来的实现将更改它们在此处的行为。
 
 <!--
 ## Looking ahead
