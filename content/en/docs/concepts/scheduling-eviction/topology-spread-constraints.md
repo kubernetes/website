@@ -64,6 +64,7 @@ spec:
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
+      matchLabelKeys: <list> # optional; alpha since v1.25
   ### other Pod fields go here
 ```
 
@@ -122,6 +123,27 @@ your cluster. Those fields are:
   number of Pods in their corresponding topology domain.
   See [Label Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
   for more details.
+
+- **matchLabelKeys** is a list of pod label keys to select the pods over which
+  spreading will be calculated. The keys are used to lookup values from the pod labels, those key-value labels are ANDed with `labelSelector` to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the pod labels will be ignored. A null or empty list means only match against the `labelSelector`.
+
+  With `matchLabelKeys`, users don't need to update the `pod.spec` between different revisions. The controller/operator just needs to set different values to the same `label` key for different revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For example, if users use Deployment, they can use the label keyed with `pod-template-hash`, which is added automatically by the Deployment controller, to distinguish between different revisions in a single Deployment.
+
+  ```yaml
+      topologySpreadConstraints:
+          - maxSkew: 1
+            topologyKey: kubernetes.io/hostname
+            whenUnsatisfiable: DoNotSchedule
+            matchLabelKeys:
+              - app
+              - pod-template-hash
+  ```
+
+  {{< note >}}
+  The `matchLabelKeys` field is an alpha field added in 1.25. You have to enable the
+  `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  in order to use it.
+  {{< /note >}}
 
 When a Pod defines more than one `topologySpreadConstraint`, those constraints are
 combined using a logical AND operation: the kube-scheduler looks for a node for the incoming Pod
