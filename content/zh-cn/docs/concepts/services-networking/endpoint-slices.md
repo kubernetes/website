@@ -21,7 +21,7 @@ _EndpointSlices_ provide a simple way to track network endpoints within a
 Kubernetes cluster. They offer a more scalable and extensible alternative to
 Endpoints.
 -->
-_端点切片（EndpointSlices）_ 提供了一种简单的方法来跟踪 Kubernetes 集群中的网络端点
+**端点切片（EndpointSlices）**提供了一种简单的方法来跟踪 Kubernetes 集群中的网络端点
 （network endpoints）。它们为 Endpoints 提供了一种可伸缩和可拓展的替代方案。
 
 <!-- body -->
@@ -65,7 +65,7 @@ In Kubernetes, an EndpointSlice contains references to a set of network
 endpoints. The control plane automatically creates EndpointSlices
 for any Kubernetes Service that has a {{< glossary_tooltip text="selector"
 term_id="selector" >}} specified. These EndpointSlices include
-references to any Pods that match the Service selector. EndpointSlices group
+references to all the Pods that match the Service selector. EndpointSlices group
 network endpoints together by unique combinations of protocol, port number, and
 Service name.  
 The name of a EndpointSlice object must be a valid
@@ -111,7 +111,7 @@ endpoints:
 <!--
 By default, the control plane creates and manages EndpointSlices to have no
 more than 100 endpoints each. You can configure this with the
-`-max-endpoints-per-slice`
+`--max-endpoints-per-slice`
 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
 flag, up to a maximum of 1000.
 
@@ -130,7 +130,7 @@ improvement for services with large numbers of endpoints.
 启用该功能后，在服务的端点数量庞大时会有可观的性能提升。
 
 <!--
-## Address Types
+## Address types
 
 EndpointSlices support three address types:
 
@@ -180,7 +180,7 @@ Services will always have the `ready` condition set to `true`.
 <!--
 #### Serving
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `serving` is identical to the `ready` condition, except it does not account for terminating states.
 Consumers of the EndpointSlice API should check this condition if they care about pod readiness while
@@ -188,7 +188,7 @@ the pod is also terminating.
 -->
 #### Serving（服务中）
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `serving` 状况与 `ready` 状况相同，不同之处在于它不考虑终止状态。
 如果 EndpointSlice API 的使用者关心 Pod 终止时的就绪情况，就应检查此状况。
@@ -213,14 +213,14 @@ for terminating pods independent of the existing semantics for `ready`.
 <!-- 
 #### Terminating
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `Terminating` is a condition that indicates whether an endpoint is terminating.
 For pods, this is any pod that has a deletion timestamp set.
 -->
 #### Terminating（终止中）
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `Terminating` 是表示端点是否处于终止中的状况。
 对于 Pod 来说，这是设置了删除时间戳的 Pod。
