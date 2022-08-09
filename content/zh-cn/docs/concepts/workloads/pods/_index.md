@@ -25,9 +25,7 @@ card:
 _Pods_ are the smallest deployable units of computing that you can create and manage in Kubernetes.
 
 A _Pod_ (as in a pod of whales or pea pod) is a group of one or more
-{{< glossary_tooltip text="containers" term_id="container" >}}
-with shared storage and network resources, and a specification
-for how to run the containers. A Pod's contents are always co-located and
+{{< glossary_tooltip text="containers" term_id="container" >}}, with shared storage and network resources, and a specification for how to run the containers. A Pod's contents are always co-located and
 co-scheduled, and run in a shared context. A Pod models an
 application-specific "logical host": it contains one or more application
 containers which are relatively tightly coupled. 
@@ -218,8 +216,8 @@ that updates those files from a remote source, as in the following diagram:
 {{< figure src="/images/docs/pod.svg" alt="Pod 创建示意图" class="diagram-medium" >}}
 
 <!--
-Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}}
-as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}.
+Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}} 
+as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}. 
 Init containers run and complete before the app containers are started.
 
 Pods natively provide two kinds of shared resources for their constituent containers:
@@ -311,7 +309,7 @@ PodTemplates are specifications for creating Pods, and are included in workload 
 Pod 模板是包含在工作负载对象中的规范，用来创建 Pod。这类负载资源包括
 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)、
 [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 和
-[DaemonSets](/zh-cn/docs/concepts/workloads/controllers/daemonset/) 等。
+[DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/) 等。
 
 <!--
 Each controller for a workload resource uses the `PodTemplate` inside the workload
@@ -345,22 +343,30 @@ spec:
 ```
 
 <!--
-Modifying the pod template or switching to a new pod template has no effect on the
-Pods that already exist. Pods do not receive template updates directly. Instead,
-a new Pod is created to match the revised pod template.
+Modifying the pod template or switching to a new pod template has no direct effect
+on the Pods that already exist. If you change the pod template for a workload
+resource, that resource needs to create replacement Pods that use the updated template.
 
-For example, the deployment controller ensures that the running Pods match the current
-pod template for each Deployment object. If the template is updated, the Deployment has
-to remove the existing Pods and create new Pods based on the updated template. Each workload
-resource implements its own rules for handling changes to the Pod template.
+For example, the StatefulSet controller ensures that the running Pods match the current
+pod template for each StatefulSet object. If you edit the StatefulSet to change its pod
+template, the StatefulSet starts to create new Pods based on the updated template.
+Eventually, all of the old Pods are replaced with new Pods, and the update is complete.
+
+Each workload resource implements its own rules for handling changes to the Pod template.
+If you want to read more about StatefulSet specifically, read
+[Update strategy](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) in the StatefulSet Basics tutorial.
 -->
-修改 Pod 模板或者切换到新的 Pod 模板都不会对已经存在的 Pod 起作用。
-Pod 不会直接收到模板的更新。相反，
-新的 Pod 会被创建出来，与更改后的 Pod 模板匹配。
+修改 Pod 模板或者切换到新的 Pod 模板都不会对已经存在的 Pod 直接起作用。
+如果改变工作负载资源的 Pod 模板，工作负载资源需要使用更新后的模板来创建 Pod，
+并使用新创建的 Pod 替换旧的 Pod。
 
-例如，Deployment 控制器针对每个 Deployment 对象确保运行中的 Pod 与当前的 Pod
-模板匹配。如果模板被更新，则 Deployment 必须删除现有的 Pod，基于更新后的模板创建新的 Pod。
+例如，StatefulSet 控制器针对每个 StatefulSet 对象确保运行中的 Pod 与当前的 Pod
+模板匹配。如果编辑 StatefulSet 以更改其 Pod 模板，
+StatefulSet 将开始基于更新后的模板创建新的 Pod。
+
 每个工作负载资源都实现了自己的规则，用来处理对 Pod 模板的更新。
+如果你想了解更多关于 StatefulSet 的具体信息，
+请阅读 StatefulSet 基础教程中的[更新策略](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets)。
 
 <!--
 On Nodes, the {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} does not
@@ -434,7 +440,7 @@ Kubernetes 并不禁止你直接管理 Pod。对运行中的 Pod 的某些字段
 ## Resource sharing and communication
 
 Pods enable data sharing and communication among their constituent
-containters.
+containers.
 -->
 ### 资源共享和通信 {#resource-sharing-and-communication}
 
@@ -481,14 +487,13 @@ Within a Pod, containers share an IP address and port space, and
 can find each other via `localhost`. The containers in a Pod can also communicate
 with each other using standard inter-process communications like SystemV semaphores
 or POSIX shared memory.  Containers in different Pods have distinct IP addresses
-and can not communicate by IPC without
 and can not communicate by OS-level IPC without special configuration.
 Containers that want to interact with a container running in a different Pod can
 use IP networking to communicate.
 -->
 在同一个 Pod 内，所有容器共享一个 IP 地址和端口空间，并且可以通过 `localhost` 发现对方。
 他们也能通过如 SystemV 信号量或 POSIX 共享内存这类标准的进程间通信方式互相通信。
-不同 Pod 中的容器的 IP 地址互不相同，没有特殊配置，无法通过 OS 级 IPC 进行通信就不能使用 IPC 进行通信。
+不同 Pod 中的容器的 IP 地址互不相同，如果没有特殊配置，就无法通过 OS 级 IPC 进行通信。
 如果某容器希望与运行于其他 Pod 中的容器通信，可以通过 IP 联网的方式实现。
 
 <!--
@@ -609,7 +614,7 @@ in the Pod Lifecycle documentation.
   The {{< api-reference page="workload-resources/pod-v1" >}}
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
-* Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints//).
+* Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 -->
 * 了解 [Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
 * 了解 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)，以及如何使用它
@@ -621,7 +626,7 @@ in the Pod Lifecycle documentation.
   对象的定义中包含了更多的细节信息。
 * 博客 [分布式系统工具箱：复合容器模式](/blog/2015/06/the-distributed-system-toolkit-patterns/)
   中解释了在同一 Pod 中包含多个容器时的几种常见布局。
-* 了解 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints//)。
+* 了解 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)。
 
 <!--
 To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}), you can read about the prior art, including:
