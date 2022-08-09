@@ -99,14 +99,14 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
   - **scaleTargetRef.kind** (string), required
 
-    Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+    Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
   
   **CrossVersionObjectReference 包含足够的信息来让你识别出所引用的资源。**
 
   - **scaleTargetRef.kind** (string)，必需
 
-    被引用对象的类别；更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+    被引用对象的类别；更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
   <!--
   - **scaleTargetRef.name** (string), required
@@ -633,14 +633,14 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       - **metrics.object.describedObject.kind** (string), required
 
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
       -->
       
       **CrossVersionObjectReference 包含足够的信息来让你识别所引用的资源。**
 
       - **metrics.object.describedObject.kind** (string)，必需
 
-        被引用对象的类别；更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"。
+        被引用对象的类别；更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds。
   
       <!--
       - **metrics.object.describedObject.name** (string), required
@@ -1355,14 +1355,14 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自动扩缩器的当前状态
 
       - **currentMetrics.object.describedObject.kind** (string), required
 
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
       -->
       
       **CrossVersionObjectReference 包含足够的信息来让你识别所引用的资源。**
 
       - **currentMetrics.object.describedObject.kind** (string)，必需
 
-        被引用对象的类别；更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        被引用对象的类别；更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   
       <!--
       - **currentMetrics.object.describedObject.name** (string), required
