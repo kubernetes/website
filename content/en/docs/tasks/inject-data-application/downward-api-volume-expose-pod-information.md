@@ -13,7 +13,7 @@ A `downwardAPI` volume can expose Pod fields and container fields.
 
 In Kubernetes, there are two ways to expose Pod and container fields to a running container:
 
-* [Environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* [Environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * Volume files, as explained in this task
 
 Together, these two ways of exposing Pod and container fields are called the
