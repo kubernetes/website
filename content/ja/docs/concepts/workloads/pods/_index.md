@@ -28,6 +28,20 @@ Dockerの概念を使って説明すると、Podは共有の名前空間と共�
 
 ## Podを使用する
 
+以下は、`nginx:1.14.2`イメージが実行されるコンテナからなるPodの例を記載しています。
+
+{{< codenew file="pods/simple-pod.yaml" >}}
+
+上記のようなPodを作成するには、以下のコマンドを実行します:
+```shell
+kubectl apply -f https://k8s.io/examples/pods/simple-pod.yaml
+```
+
+Podは通常、直接作成されず、ワークロードリソースで作成されます。
+ワークロードリソースでPodを作成する方法の詳細については、[Podを利用する](#working-with-pods)を参照してください。
+
+### Podを管理するためのワークロードリソース
+
 通常、たとえ単一のコンテナしか持たないシングルトンのPodだとしても、自分でPodを直接作成する必要はありません。その代わりに、{{< glossary_tooltip text="Deployment"
 term_id="deployment" >}}や{{< glossary_tooltip text="Job" term_id="job" >}}などのワークロードリソースを使用してPodを作成します。もしPodが状態を保持する必要がある場合は、{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}リソースを使用することを検討してください。
 
@@ -50,13 +64,13 @@ Podは、まとまりの強いサービスのユニットを構成する、複�
 
 たとえば、あるコンテナが共有ボリューム内のファイルを配信するウェブサーバーとして動作し、別の「サイドカー」コンテナがリモートのリソースからファイルをアップデートするような構成が考えられます。この構成を以下のダイアグラムに示します。
 
-{{< figure src="/images/docs/pod.svg" alt="Podのダイアグラムの例" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" alt="Pod作成ダイアグラム" class="diagram-medium" >}}
 
 Podによっては、{{< glossary_tooltip text="appコンテナ" term_id="app-container" >}}に加えて{{< glossary_tooltip text="initコンテナ" term_id="init-container" >}}を持っている場合があります。initコンテナはappコンテナが起動する前に実行・完了するコンテナです。
 
 Podは、Podを構成する複数のコンテナに対して、[ネットワーク](#pod-networking)と[ストレージ](#pod-storage)の2種類の共有リソースを提供します。
 
-## Podを利用する
+## Podを利用する {#working-with-pods}
 
 通常Kubernetesでは、たとえ単一のコンテナしか持たないシングルトンのPodだとしても、個別のPodを直接作成することはめったにありません。その理由は、Podがある程度一時的で使い捨てできる存在として設計されているためです。Podが作成されると(あなたが直接作成した場合でも、{{< glossary_tooltip text="コントローラー" term_id="controller" >}}が間接的に作成した場合でも)、新しいPodはクラスター内の{{< glossary_tooltip term_id="node" >}}上で実行されるようにスケジューリングされます。Podは、実行が完了するか、Podオブジェクトが削除されるか、リソース不足によって*強制退去*されるか、ノードが停止するまで、そのノード上にとどまります。
 
@@ -97,7 +111,7 @@ spec:
     spec:
       containers:
       - name: hello
-        image: busybox
+        image: busybox:1.28
         command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
       restartPolicy: OnFailure
     # Podテンプレートはここまでです
@@ -119,15 +133,17 @@ Podは、データの共有と構成するコンテナ間での通信を可能�
 
 Podでは、共有ストレージである{{< glossary_tooltip text="ボリューム" term_id="volume" >}}の集合を指定できます。Pod内のすべてのコンテナは共有ボリュームにアクセスできるため、それら複数のコンテナでデータを共有できるようになります。また、ボリュームを利用すれば、Pod内のコンテナの1つに再起動が必要になった場合にも、Pod内の永続化データを保持し続けられるようにできます。Kubernetesの共有ストレージの実装方法とPodで利用できるようにする方法に関するさらに詳しい情報は、[ストレージ](/ja/docs/concepts/storage/)を読んでください。
 
-### Podネットワーク
+### Podネットワーク {#pod-networking}
 
-各Podには、各アドレスファミリーごとにユニークなIPアドレスが割り当てられます。Pod内のすべてのコンテナは、IPアドレスとネットワークポートを含むネットワーク名前空間を共有します。Podの中では(かつその場合に**のみ**)、そのPod内のコンテナは`localhost`を使用して他のコンテナと通信できます。Podの内部にあるコンテナが*Podの外部にある*エンティティと通信する場合、(ポートなどの)共有ネットワークリソースの使い方をコンテナ間で調整しなければなりません。Pod内では、コンテナはIPアドレスとポートの空間を共有するため、`localhost`で他のコンテナにアクセスできます。また、Pod内のコンテナは、SystemVのセマフォやPOSIXの共有メモリなど、標準のプロセス間通信を使って他のコンテナと通信することもできます。異なるPod内のコンテナは異なるIPアドレスを持つため、[特別な設定](/docs/concepts/policy/pod-security-policy/)をしない限りIPCで通信することはできません。異なるPod上で実行中のコンテナ間でやり取りをしたい場合は、IPネットワークを使用して通信できます。
+各Podには、各アドレスファミリーごとにユニークなIPアドレスが割り当てられます。Pod内のすべてのコンテナは、IPアドレスとネットワークポートを含むネットワーク名前空間を共有します。Podの中では(かつその場合に**のみ**)、そのPod内のコンテナは`localhost`を使用して他のコンテナと通信できます。Podの内部にあるコンテナが*Podの外部にある*エンティティと通信する場合、(ポートなどの)共有ネットワークリソースの使い方をコンテナ間で調整しなければなりません。Pod内では、コンテナはIPアドレスとポートの空間を共有するため、`localhost`で他のコンテナにアクセスできます。また、Pod内のコンテナは、SystemVのセマフォやPOSIXの共有メモリなど、標準のプロセス間通信を使って他のコンテナと通信することもできます。異なるPod内のコンテナは異なるIPアドレスを持つため、特別な設定をしない限り、OSレベルIPCで通信することはできません。異なるPod上で実行中のコンテナ間でやり取りをしたい場合は、IPネットワークを使用して通信できます。
 
 Pod内のコンテナは、システムのhostnameがPodに設定した`name`と同一であると考えます。ネットワークについての詳しい情報は、[ネットワーク](/ja/docs/concepts/cluster-administration/networking/)で説明しています。
 
 ## コンテナの特権モード
 
-Pod内のどんなコンテナも、`privileged`フラグをコンテナのspecの[security context](/docs/tasks/configure-pod-container/security-context/)に設定することで、特権モード(privileged mode)を有効にできます。これは、ネットワークスタックの操作やハードウェアデバイスへのアクセスなど、オペレーティングシステムの管理者の権限が必要なコンテナの場合に役に立ちます。特権コンテナ内のプロセスはコンテナ外のプロセスが利用できるのとほぼ同等の権限を取得します。
+Linuxでは、Pod内のどんなコンテナも、`privileged`フラグをコンテナのspecの[security context](/docs/tasks/configure-pod-container/security-context/)に設定することで、特権モード(privileged mode)を有効にできます。これは、ネットワークスタックの操作やハードウェアデバイスへのアクセスなど、オペレーティングシステムの管理者の権限が必要なコンテナの場合に役に立ちます。
+
+クラスタが`WindowsHostProcessContainers`機能を有効にした場合、Pod仕様のsecurityContextに`windowsOptions.hostProcess`フラグを設定することで、[Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod)を作成することが可能です。これらのPod内のすべてのコンテナは、Windows HostProcessコンテナとして実行する必要があります。HostProcess Podはホスト上で直接実行され、Linuxの特権コンテナで行われるような管理作業を行うのにも使用できます。
 
 {{< note >}}
 この設定を有効にするには、{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}が特権コンテナの概念をサポートしていなければなりません。
@@ -141,15 +157,32 @@ static Podは常に特定のノード上の1つの{{< glossary_tooltip term_id="
 
 kubeletは自動的にKubernetes APIサーバー上に各static Podに対応する{{< glossary_tooltip text="ミラーPod" term_id="mirror-pod" >}}の作成を試みます。つまり、ノード上で実行中のPodはAPIサーバー上でも見えるようになるけれども、APIサーバー上から制御はできないということです。
 
+{{< note >}}
+Static Podの`spec`は他のAPIオブジェクト
+(例えば{{< glossary_tooltip text="サービスアカウント" term_id="service-account" >}}、
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}、
+{{< glossary_tooltip text="Secret" term_id="secret" >}}, etc)を参照することはできません。
+{{< /note >}}
+
+## コンテナのProbe
+
+_Probe_ はkubeletがコンテナに対して行う定期診断です。診断を実行するために、kubeletはさまざまなアクションを実行できます:
+
+- `ExecAction` (コンテナランタイムの助けを借りて実行)
+- `TCPSocketAction` (kubeletにより直接検測)
+- `HTTPGetAction` (kubeletにより直接検測)
+
+更に詳しく知りたい場合は、Podのライフサイクルドキュメントにある[Probe](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を読んでください。 
+
 ## {{% heading "whatsnext" %}}
 
 * [Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)について学ぶ。
 * [PodPreset](/ja/docs/concepts/workloads/pods/podpreset/)について学ぶ。
 * [RuntimeClass](/ja/docs/concepts/containers/runtime-class/)と、それを用いてPodごとに異なるコンテナランタイム設定する方法について学ぶ。
-* [Podトポロジー分布制約](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)について読む。
 * [PodDisruptionBudget](/ja/docs/concepts/workloads/pods/disruptions/)と、それを使用してクラスターの停止(disruption)中にアプリケーションの可用性を管理する方法について読む。
-* PodはKubernetes REST API内のトップレベルのリソースです。[Pod](/ja/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)オブジェクトの定義では、オブジェクトの詳細について記述されています。
-* [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)では、2つ以上のコンテナを利用する場合の一般的なレイアウトについて説明しています。
+* PodはKubernetes REST API内のトップレベルのリソースです。{{< api-reference page="workload-resources/pod-v1" >}}オブジェクトの定義では、オブジェクトの詳細について記述されています。
+* [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/)では、2つ以上のコンテナを利用する場合の一般的なレイアウトについて説明しています。
+* [Podトポロジー分布制約](/docs/concepts/scheduling-eviction/topology-spread-constraints/)について読む。
 
 Kubernetesが共通のPod APIを他のリソース内(たとえば{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}や{{< glossary_tooltip text="Deployment" term_id="deployment" >}}など)にラッピングしている理由の文脈を理解するためには、Kubernetes以前から存在する以下のような既存技術について読むのが助けになります。
 
