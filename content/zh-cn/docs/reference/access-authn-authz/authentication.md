@@ -315,8 +315,10 @@ how to manage these tokens with `kubeadm`.
 A service account is an automatically enabled authenticator that uses signed
 bearer tokens to verify requests. The plugin takes two optional flags:
 
-* `--service-account-key-file` A file containing a PEM encoded key for signing bearer tokens.
-If unspecified, the API server's TLS private key will be used.
+* `--service-account-key-file` File containing PEM-encoded x509 RSA or ECDSA
+private or public keys, used to verify ServiceAccount tokens. The specified file
+can contain multiple keys, and the flag can be specified multiple times with
+different files. If unspecified, --tls-private-key-file is used.
 * `--service-account-lookup` If enabled, tokens which are deleted from the API will be revoked.
 -->
 ### 服务账号令牌   {#service-account-tokens}
@@ -324,8 +326,9 @@ If unspecified, the API server's TLS private key will be used.
 服务账号（Service Account）是一种自动被启用的用户认证机制，使用经过签名的持有者令牌来验证请求。
 该插件可接受两个可选参数：
 
-* `--service-account-key-file` 一个包含用来为持有者令牌签名的 PEM 编码密钥。
-  若未指定，则使用 API 服务器的 TLS 私钥。
+* `--service-account-key-file` 文件包含 PEM 编码的 x509 RSA 或 ECDSA 私钥或公钥，
+  用于验证 ServiceAccount 令牌。这样指定的文件可以包含多个密钥，
+  并且可以使用不同的文件多次指定此参数。若未指定，则使用 --tls-private-key-file 参数。
 * `--service-account-lookup` 如果启用，则从 API 删除的令牌会被回收。
 
 <!--
