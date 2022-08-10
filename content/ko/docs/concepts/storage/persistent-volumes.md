@@ -558,10 +558,10 @@ CLI에서 접근 모드는 다음과 같이 약어로 표시된다.
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | AzureDisk            | &#x2713;               | -                     | -             | -                      |
 | CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| Cinder               | &#x2713;               | -                     | -             | -                      |
-| CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
+| Cinder               | &#x2713;               | -                     | ([다중 부착(multi-attached)이 가능한 볼륨이라면](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/features.md#multi-attach-volumes))            | -                      |
+| CSI                  | 드라이버에 의존            | 드라이버에 의존           | 드라이버에 의존   | 드라이버에 의존            |
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
-| FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
+| FlexVolume           | &#x2713;               | &#x2713;              | 드라이버에 의존   | -                      |
 | Flocker              | &#x2713;               | -                     | -             | -                      |
 | GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
 | Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
@@ -570,7 +570,7 @@ CLI에서 접근 모드는 다음과 같이 약어로 표시된다.
 | Quobyte              | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | RBD                  | &#x2713;               | &#x2713;              | -             | -                      |
-| VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated) | - |
+| VsphereVolume        | &#x2713;               | -                     | - (파드를 배치할(collocated) 때 동작한다)      | - |
 | PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
 | StorageOS            | &#x2713;               | -                     | -             | -                      |
 
@@ -1002,12 +1002,12 @@ PVC를 위한 적절한 파퓰레이터가 설치되어 있다면,
   퍼시스턴트볼륨 오브젝트를 구성에 포함하지 않는다.
 - 템플릿을 인스턴스화 할 때 스토리지 클래스 이름을 제공하는 옵션을
   사용자에게 제공한다.
-	- 사용자가 스토리지 클래스 이름을 제공하는 경우 해당 값을
-  	`permanentVolumeClaim.storageClassName` 필드에 입력한다.
+  - 사용자가 스토리지 클래스 이름을 제공하는 경우 해당 값을
+    `permanentVolumeClaim.storageClassName` 필드에 입력한다.
     클러스터에서 관리자가 스토리지클래스를 활성화한 경우
     PVC가 올바른 스토리지 클래스와 일치하게 된다.
-	- 사용자가 스토리지 클래스 이름을 제공하지 않으면
-  	`permanentVolumeClaim.storageClassName` 필드를 nil로 남겨둔다.
+  - 사용자가 스토리지 클래스 이름을 제공하지 않으면
+    `permanentVolumeClaim.storageClassName` 필드를 nil로 남겨둔다.
     그러면 클러스터에 기본 스토리지클래스가 있는 사용자에 대해 PV가 자동으로 프로비저닝된다.
     많은 클러스터 환경에 기본 스토리지클래스가 설치되어 있거나 관리자가
     고유한 기본 스토리지클래스를 생성할 수 있다.

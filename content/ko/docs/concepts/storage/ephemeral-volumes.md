@@ -136,8 +136,11 @@ CSI 임시 볼륨은 사용자로 하여금 `volumeAttributes`를
 
 클러스터 관리자가 이처럼 파드 스펙 내장 임시 볼륨 사용이 가능한 CSI 드라이버를 제한하려면 
 다음을 수행할 수 있다.
-- CSIDriver 스펙의 `volumeLifecycleModes`에서 `Ephemeral`을 제거하여, 해당 드라이버가 내장 임시 볼륨으로 사용되는 것을 막는다.
-- [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 사용하여 드라이버를 활용하는 방법을 제한한다.
+
+- CSIDriver 스펙의 `volumeLifecycleModes`에서 `Ephemeral`을 제거하여, 
+  해당 드라이버가 내장 임시 볼륨으로 사용되는 것을 막는다.
+- [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 사용하여 
+  드라이버를 활용하는 방법을 제한한다.
 
 ### 일반 임시 볼륨 {#generic-ephemeral-volumes}
 
@@ -207,7 +210,7 @@ spec:
 즉각적인 바인딩을 사용하는 경우, 
 스케줄러는 볼륨이 사용 가능해지는 즉시 해당 볼륨에 접근 가능한 노드를 선택하도록 강요받는다.
 
-[리소스 소유권](/docs/concepts/workloads/controllers/garbage-collection/#owners-dependents) 관점에서, 
+[리소스 소유권](/ko/docs/concepts/architecture/garbage-collection/#owners-dependents) 관점에서, 
 일반 임시 스토리지를 갖는 파드는 
 해당 임시 스토리지를 제공하는 퍼시스턴트볼륨클레임의 소유자이다. 
 파드가 삭제되면, 쿠버네티스 가비지 콜렉터는 해당 PVC를 삭제하는데, 
@@ -250,8 +253,9 @@ PVC 이름 규칙에 따라 서로 다른 파드 간 이름 충돌이 발생할 
 
 GenericEphemeralVolume 기능을 활성화하면 
 사용자가 파드를 생성할 수 있는 경우 PVC를 간접적으로 생성할 수 있도록 허용하며, 
-심지어 사용자가 PVC를 직접적으로 만들 수 있는 권한이 없는 경우에도 이를 허용한다. 클러스터 관리자는 이를 명심해야 한다. 
-이것이 보안 모델에 부합하지 않는다면, [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 사용하여 
+심지어 사용자가 PVC를 직접적으로 만들 수 있는 권한이 없는 경우에도 이를 허용한다. 
+클러스터 관리자는 이를 명심해야 한다. 이것이 보안 모델에 부합하지 않는다면,
+[어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 사용하여 
 일반 임시 볼륨을 갖는 파드와 같은 오브젝트를 거부해야 한다.
 
 일반적인 [PVC의 네임스페이스 쿼터](/ko/docs/concepts/policy/resource-quotas/#스토리지-리소스-쿼터)는 여전히 적용되므로, 

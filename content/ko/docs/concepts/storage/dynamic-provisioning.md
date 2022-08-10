@@ -110,7 +110,7 @@ spec:
 - API 서버에서 [`DefaultStorageClass` 어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)를
   사용하도록 설정한다.
 
-관리자는 `storageclass.kubernetes.io/is-default-class` 어노테이션을
+관리자는 `storageclass.kubernetes.io/is-default-class` [어노테이션](/ko/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class)을
 추가해서 특정 `StorageClass` 를 기본으로 표시할 수 있다.
 기본 `StorageClass` 가 클러스터에 존재하고 사용자가
 `storageClassName` 를 지정하지 않은 `PersistentVolumeClaim` 을
