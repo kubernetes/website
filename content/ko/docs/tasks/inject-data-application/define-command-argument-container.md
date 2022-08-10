@@ -114,5 +114,5 @@ args: ["-c", "while true; do echo hello; sleep 10;done"]
 
 
 * [파드와 컨테이너를 구성하는 방법](/ko/docs/tasks/)에 대해 더 알아본다.
-* [컨테이너 안에서 커맨드를 실행하는 방법](/ko/docs/tasks/debug-application-cluster/get-shell-running-container/)에 대해 더 알아본다.
+* [컨테이너 안에서 커맨드를 실행하는 방법](/ko/docs/tasks/debug/debug-application/get-shell-running-container/)에 대해 더 알아본다.
 * [컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)를 확인한다.

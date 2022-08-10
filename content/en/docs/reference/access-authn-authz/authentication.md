@@ -171,8 +171,10 @@ how to manage these tokens with `kubeadm`.
 A service account is an automatically enabled authenticator that uses signed
 bearer tokens to verify requests. The plugin takes two optional flags:
 
-* `--service-account-key-file` A file containing a PEM encoded key for signing bearer tokens.
-If unspecified, the API server's TLS private key will be used.
+* `--service-account-key-file` File containing PEM-encoded x509 RSA or ECDSA
+private or public keys, used to verify ServiceAccount tokens. The specified file
+can contain multiple keys, and the flag can be specified multiple times with
+different files. If unspecified, --tls-private-key-file is used.
 * `--service-account-lookup` If enabled, tokens which are deleted from the API will be revoked.
 
 Service accounts are usually created automatically by the API server and
@@ -855,6 +857,14 @@ rules:
   verbs: ["impersonate"]
   resourceNames: ["06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"]
 ```
+
+{{< note >}}
+Impersonating a user or group allows you to perform any action as if you were that user or group;
+for that reason, impersonation is not namespace scoped.
+If you want to allow impersonation using Kubernetes RBAC, 
+this requires using a `ClusterRole` and a `ClusterRoleBinding`,
+not a `Role` and `RoleBinding`.
+{{< /note >}}
 
 ## client-go credential plugins
 

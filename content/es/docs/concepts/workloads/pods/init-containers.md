@@ -113,7 +113,7 @@ kind: Pod
 metadata:
   name: myapp-pod
   labels:
-    app: myapp
+    app.kubernetes.io/name: MyApp
 spec:
   containers:
   - name: myapp-container
@@ -165,7 +165,7 @@ El resultado es similar a esto:
 Name:          myapp-pod
 Namespace:     default
 [...]
-Labels:        app=myapp
+Labels:        app.kubernetes.io/name=MyApp
 Status:        Pending
 [...]
 Init Containers:
@@ -338,4 +338,4 @@ Kubernetes, consulta la documentación de la versión que estás utilizando.
 ## {{% heading "whatsnext" %}}
 
 * Lee acerca de [creando un Pod que tiene un contenedor de inicialización](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* Aprende cómo [depurar contenedores de inicialización](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* Aprende cómo [depurar contenedores de inicialización](/docs/tasks/debug/debug-application/debug-init-containers/)

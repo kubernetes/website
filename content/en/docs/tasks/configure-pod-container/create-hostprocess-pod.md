@@ -214,3 +214,10 @@ container, aiming to limit the degree of privileges so as to avoid accidental (o
 malicious) damage to the host. The LocalSystem service account has the highest level
 of privilege of the three and should be used only if absolutely necessary. Where possible,
 use the LocalService service account as it is the least privileged of the three options.
+
+## Troubleshooting HostProcess containers
+
+- HostProcess containers fail to start with `failed to create user process token: failed to logon user: Access is denied.: unknown`
+
+  Ensure containerd is running as `LocalSystem` or `LocalService` service accounts. User accounts (even Administrator accounts) do not have permissions to create logon tokens for any of the supported [user accounts](#choosing-a-user-account).
+  

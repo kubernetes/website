@@ -26,7 +26,7 @@ Currently, the following types of volume sources can be projected:
 * [`serviceAccountToken`](#serviceaccounttoken)
 
 All sources are required to be in the same namespace as the Pod. For more details,
-see the [all-in-one volume](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md) design document.
+see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
 
 ### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
 
@@ -73,7 +73,7 @@ volume mount will not receive updates for those volume sources.
 
 ## SecurityContext interactions
 
-The [proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the the correct owner permissions set.
+The [proposal](https://git.k8s.io/enhancements/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the correct owner permissions set.
 
 ### Linux
 
@@ -99,6 +99,7 @@ into their own volume mount outside of `C:\`.
 
 By default, the projected files will have the following ownership as shown for
 an example projected volume file:
+
 ```powershell
 PS C:\> Get-Acl C:\var\run\secrets\kubernetes.io\serviceaccount\..2021_08_31_22_22_18.318230061\ca.crt | Format-List
 
@@ -111,6 +112,7 @@ Access : NT AUTHORITY\SYSTEM Allow  FullControl
 Audit  :
 Sddl   : O:BAG:SYD:AI(A;ID;FA;;;SY)(A;ID;FA;;;BA)(A;ID;0x1200a9;;;BU)
 ```
+
 This implies all administrator users like `ContainerAdministrator` will have
 read, write and execute access while, non-administrator users will have read and
 execute access.

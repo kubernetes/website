@@ -19,8 +19,6 @@ weight: 20
 
 보안 및 주요 API 공지에 대한 이메일을 위해서는 [kubernetes-security-announce](https://groups.google.com/forum/#!forum/kubernetes-security-announce)) 그룹에 가입한다.
 
-[이 링크](https://groups.google.com/forum/feed/kubernetes-security-announce/msgs/rss_v2_0.xml?num=50)를 사용하여 RSS 피드도 구독할 수 있다.
-
 ## 취약점 보고
 
 우리는 쿠버네티스 오픈소스 커뮤니티에 취약점을 보고하는 보안 연구원들과 사용자들에게 매우 감사하고 있다. 모든 보고서는 커뮤니티 자원 봉사자들에 의해 철저히 조사된다.

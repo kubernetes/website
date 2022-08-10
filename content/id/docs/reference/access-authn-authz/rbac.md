@@ -64,7 +64,7 @@ untuk memberikan akses baca pada {{< glossary_tooltip text="Pod" term_id="pod" >
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  Namespace: default
+  namespace: default
   name: pod-reader
 rules:
 - apiGroups: [""] # "" mengindikasikan grup API inti

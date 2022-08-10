@@ -17,14 +17,18 @@ created. This tutorial shows you how to enforce the `baseline` Pod Security
 Standard at the cluster level which applies a standard configuration
 to all namespaces in a cluster.
 
-To apply Pod Security Standards to specific namespaces, refer to [Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
+To apply Pod Security Standards to specific namespaces, refer to
+[Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
+
+If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
+check the documentation for that version.
 
 ## {{% heading "prerequisites" %}}
 
 Install the following on your workstation:
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [kubectl](/docs/tasks/tools/)
 
 ## Choose the right Pod Security Standard to apply
 
@@ -38,12 +42,12 @@ that are most appropriate for your configuration, do the following:
 1. Create a cluster with no Pod Security Standards applied:
 
     ```shell
-    kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.23.0
+    kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.24.0
     ```
    The output is similar to this:
     ```
     Creating cluster "psa-wo-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v1.23.0) 🖼
+    ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
     ✓ Preparing nodes 📦  
     ✓ Writing configuration 📜
     ✓ Starting control-plane 🕹️
@@ -245,12 +249,12 @@ following:
    these Pod Security Standards:
 
    ```shell
-    kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.23.0 --config /tmp/pss/cluster-config.yaml
+    kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.24.0 --config /tmp/pss/cluster-config.yaml
    ```
    The output is similar to this:
    ```
     Creating cluster "psa-with-cluster-pss" ...
-     ✓ Ensuring node image (kindest/node:v1.23.0) 🖼 
+     ✓ Ensuring node image (kindest/node:v1.24.0) 🖼 
      ✓ Preparing nodes 📦  
      ✓ Writing configuration 📜 
      ✓ Starting control-plane 🕹️ 

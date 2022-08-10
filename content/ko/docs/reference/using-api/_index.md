@@ -1,5 +1,9 @@
 ---
 title: API 개요
+
+
+
+
 content_type: concept
 weight: 10
 no_list: true
@@ -35,7 +39,7 @@ JSON과 Protobuf 직렬화 스키마 모두 스키마 변경에 대해서
 동일한 가이드라인을 따른다. 이후 설명에서는 이 형식 모두를 다룬다.
 
 API 버전 규칙과 소프트웨어 버전 규칙은 간접적으로 연관된다.
-[API와 릴리스 버전 부여에 관한 제안](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)에는
+[API와 릴리스 버전 부여에 관한 제안](https://git.k8s.io/design-proposals-archive/release/versioning.md)에는
 API 버전 규칙과 소프트웨어 버전 규칙 간의 관계가 기술되어 있다.
 
 API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
@@ -79,8 +83,8 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 
 ## API 그룹
 
-[API 그룹](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)은
-쿠버네티스 API를 더 쉽게 확장하게 해준다.
+[API 그룹](https://git.k8s.io/design-proposals-archive/api-machinery/api-group.md)은
+쿠버네티스 API를 더 쉽게 확장할 수 있도록 해 준다.
 API 그룹은 REST 경로와 직렬화된 오브젝트의 `apiVersion` 필드에
 명시된다.
 
@@ -104,6 +108,7 @@ API 그룹은 REST 경로와 직렬화된 오브젝트의 `apiVersion` 필드에
 
  - `batch/v1` 을 비활성화하려면, `--runtime-config=batch/v1=false` 로 설정
  - `batch/v2alpha1` 을 활성화하려면, `--runtime-config=batch/v2alpha1` 으로 설정
+ - 예를 들어 `storage.k8s.io/v1beta1/csistoragecapacities`와 같이 특정 버전의 API를 활성화하려면, `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`와 같이 설정
 
 {{< note >}}
 그룹이나 리소스를 활성화 또는 비활성화하려면, apiserver와 controller-manager를 재시작하여
@@ -118,5 +123,5 @@ API 그룹은 REST 경로와 직렬화된 오브젝트의 `apiVersion` 필드에
 ## {{% heading "whatsnext" %}}
 
 - [API 규칙](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)에 대해 자세히 알아보기
-- [애그리게이터(aggregator)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)에
+- [애그리게이터(aggregator)](https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)에
   대한 디자인 문서 읽기

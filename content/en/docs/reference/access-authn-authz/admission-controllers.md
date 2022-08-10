@@ -139,7 +139,7 @@ requests with the `spec.signerName` requested on the CertificateSigningRequest r
 See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
 information on the permissions required to perform different actions on CertificateSigningRequest resources.
 
-### CertificateSubjectRestrictions {#certificatesubjectrestrictions}
+### CertificateSubjectRestriction {#certificatesubjectrestriction}
 
 This admission controller observes creation of CertificateSigningRequest resources that have a `spec.signerName`
 of `kubernetes.io/kube-apiserver-client`. It rejects any request that specifies a 'group' (or 'organization attribute')

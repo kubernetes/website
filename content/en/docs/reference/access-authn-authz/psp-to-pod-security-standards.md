@@ -9,7 +9,7 @@ weight: 95
 
 <!-- overview -->
 The tables below enumerate the configuration parameters on
-[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) objects, whether the field mutates
+[PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) objects, whether the field mutates
 and/or validates pods, and how the configuration values map to the
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/).
 
@@ -17,7 +17,7 @@ For each applicable parameter, the allowed values for the
 [Baseline](/docs/concepts/security/pod-security-standards/#baseline) and
 [Restricted](/docs/concepts/security/pod-security-standards/#restricted) profiles are listed.
 Anything outside the allowed values for those profiles would fall under the
-[Privileged](/docs/concepts/security/pod-security-standards/#priveleged) profile. "No opinion"
+[Privileged](/docs/concepts/security/pod-security-standards/#privileged) profile. "No opinion"
 means all values are allowed under all Pod Security Standards.
 
 For a step-by-step migration guide, see
@@ -31,9 +31,9 @@ The fields enumerated in this table are part of the `PodSecurityPolicySpec`, whi
 under the `.spec` field path.
 
 <table class="no-word-break">
-	<caption style="display:none">Mapping PodSecurityPolicySpec fields to Pod Security Standards</caption>
-	<tbody>
-		<tr>
+  <caption style="display:none">Mapping PodSecurityPolicySpec fields to Pod Security Standards</caption>
+  <tbody>
+    <tr>
       <th><code>PodSecurityPolicySpec</code></th>
       <th>Type</th>
       <th>Pod Security Standards Equivalent</th>
@@ -54,19 +54,19 @@ under the `.spec` field path.
       <td>
         <p><b>Baseline</b>: subset of</p>
         <ul>
-					<li><code>AUDIT_WRITE</code></li>
-					<li><code>CHOWN</code></li>
-					<li><code>DAC_OVERRIDE</code></li>
-					<li><code>FOWNER</code></li>
-					<li><code>FSETID</code></li>
-					<li><code>KILL</code></li>
-					<li><code>MKNOD</code></li>
-					<li><code>NET_BIND_SERVICE</code></li>
-					<li><code>SETFCAP</code></li>
-					<li><code>SETGID</code></li>
-					<li><code>SETPCAP</code></li>
-					<li><code>SETUID</code></li>
-					<li><code>SYS_CHROOT</code></li>
+          <li><code>AUDIT_WRITE</code></li>
+          <li><code>CHOWN</code></li>
+          <li><code>DAC_OVERRIDE</code></li>
+          <li><code>FOWNER</code></li>
+          <li><code>FSETID</code></li>
+          <li><code>KILL</code></li>
+          <li><code>MKNOD</code></li>
+          <li><code>NET_BIND_SERVICE</code></li>
+          <li><code>SETFCAP</code></li>
+          <li><code>SETGID</code></li>
+          <li><code>SETPCAP</code></li>
+          <li><code>SETUID</code></li>
+          <li><code>SYS_CHROOT</code></li>
         </ul>
         <p><b>Restricted</b>: empty / undefined / nil OR a list containing <i>only</i> <code>NET_BIND_SERVICE</code>
       </td>
@@ -236,9 +236,9 @@ The [annotations](/docs/concepts/overview/working-with-objects/annotations/) enu
 table can be specified under `.metadata.annotations` on the PodSecurityPolicy object.
 
 <table class="no-word-break">
-	<caption style="display:none">Mapping PodSecurityPolicy annotations to Pod Security Standards</caption>
-	<tbody>
-		<tr>
+  <caption style="display:none">Mapping PodSecurityPolicy annotations to Pod Security Standards</caption>
+  <tbody>
+    <tr>
       <th><code>PSP Annotation</code></th>
       <th>Type</th>
       <th>Pod Security Standards Equivalent</th>

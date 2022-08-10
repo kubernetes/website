@@ -36,7 +36,13 @@ kubectl cluster-info dump
 
 ### Example: debugging a down/unreachable node
 
-Sometimes when debugging it can be useful to look at the status of a node -- for example, because you've noticed strange behavior of a Pod that's running on the node, or to find out why a Pod won't schedule onto the node. As with Pods, you can use `kubectl describe node` and `kubectl get node -o yaml` to retrieve detailed information about nodes. For example, here's what you'll see if a node is down (disconnected from the network, or kubelet dies and won't restart, etc.). Notice the events that show the node is NotReady, and also notice that the pods are no longer running (they are evicted after five minutes of NotReady status).
+Sometimes when debugging it can be useful to look at the status of a node -- for example, because
+you've noticed strange behavior of a Pod that's running on the node, or to find out why a Pod
+won't schedule onto the node. As with Pods, you can use `kubectl describe node` and `kubectl get
+node -o yaml` to retrieve detailed information about nodes. For example, here's what you'll see if
+a node is down (disconnected from the network, or kubelet dies and won't restart, etc.). Notice
+the events that show the node is NotReady, and also notice that the pods are no longer running
+(they are evicted after five minutes of NotReady status).
 
 ```shell
 kubectl get nodes
@@ -222,14 +228,16 @@ of the relevant log files.  On systemd-based systems, you may need to use `journ
 
 ### Control Plane nodes
 
-   * `/var/log/kube-apiserver.log` - API Server, responsible for serving the API
-   * `/var/log/kube-scheduler.log` - Scheduler, responsible for making scheduling decisions
-   * `/var/log/kube-controller-manager.log` - a component that runs most Kubernetes built-in {{<glossary_tooltip text="controllers" term_id="controller">}}, with the notable exception of scheduling (the kube-scheduler handles scheduling).
+* `/var/log/kube-apiserver.log` - API Server, responsible for serving the API
+* `/var/log/kube-scheduler.log` - Scheduler, responsible for making scheduling decisions
+* `/var/log/kube-controller-manager.log` - a component that runs most Kubernetes built-in
+  {{<glossary_tooltip text="controllers" term_id="controller">}}, with the notable exception of scheduling
+  (the kube-scheduler handles scheduling).
 
 ### Worker Nodes
 
-   * `/var/log/kubelet.log` - logs from the kubelet, responsible for running containers on the node
-   * `/var/log/kube-proxy.log` - logs from `kube-proxy`, which is responsible for directing traffic to Service endpoints
+* `/var/log/kubelet.log` - logs from the kubelet, responsible for running containers on the node
+* `/var/log/kube-proxy.log` - logs from `kube-proxy`, which is responsible for directing traffic to Service endpoints
 
 ## Cluster failure modes
 
@@ -237,45 +245,46 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 
 ### Contributing causes
 
-  - VM(s) shutdown
-  - Network partition within cluster, or between cluster and users
-  - Crashes in Kubernetes software
-  - Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
-  - Operator error, for example misconfigured Kubernetes software or application software
+- VM(s) shutdown
+- Network partition within cluster, or between cluster and users
+- Crashes in Kubernetes software
+- Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
+- Operator error, for example misconfigured Kubernetes software or application software
 
 ### Specific scenarios
 
-  - API server VM shutdown or apiserver crashing
-    - Results
-      - unable to stop, update, or start new pods, services, replication controller
-      - existing pods and services should continue to work normally, unless they depend on the Kubernetes API
-  - API server backing storage lost
-    - Results
-      - the kube-apiserver component fails to start successfully and become healthy
-      - kubelets will not be able to reach it but will continue to run the same pods and provide the same service proxying
-      - manual recovery or recreation of apiserver state necessary before apiserver is restarted
-  - Supporting services (node controller, replication controller manager, scheduler, etc) VM shutdown or crashes
-    - currently those are colocated with the apiserver, and their unavailability has similar consequences as apiserver
-    - in future, these will be replicated as well and may not be co-located
-    - they do not have their own persistent state
-  - Individual node (VM or physical machine) shuts down
-    - Results
-      - pods on that Node stop running
-  - Network partition
-    - Results
-      - partition A thinks the nodes in partition B are down; partition B thinks the apiserver is down. (Assuming the master VM ends up in partition A.)
-  - Kubelet software fault
-    - Results
-      - crashing kubelet cannot start new pods on the node
-      - kubelet might delete the pods or not
-      - node marked unhealthy
-      - replication controllers start new pods elsewhere
-  - Cluster operator error
-    - Results
-      - loss of pods, services, etc
-      - lost of apiserver backing store
-      - users unable to read API
-      - etc.
+- API server VM shutdown or apiserver crashing
+  - Results
+    - unable to stop, update, or start new pods, services, replication controller
+    - existing pods and services should continue to work normally, unless they depend on the Kubernetes API
+- API server backing storage lost
+  - Results
+    - the kube-apiserver component fails to start successfully and become healthy
+    - kubelets will not be able to reach it but will continue to run the same pods and provide the same service proxying
+    - manual recovery or recreation of apiserver state necessary before apiserver is restarted
+- Supporting services (node controller, replication controller manager, scheduler, etc) VM shutdown or crashes
+  - currently those are colocated with the apiserver, and their unavailability has similar consequences as apiserver
+  - in future, these will be replicated as well and may not be co-located
+  - they do not have their own persistent state
+- Individual node (VM or physical machine) shuts down
+  - Results
+    - pods on that Node stop running
+- Network partition
+  - Results
+    - partition A thinks the nodes in partition B are down; partition B thinks the apiserver is down.
+      (Assuming the master VM ends up in partition A.)
+- Kubelet software fault
+  - Results
+    - crashing kubelet cannot start new pods on the node
+    - kubelet might delete the pods or not
+    - node marked unhealthy
+    - replication controllers start new pods elsewhere
+- Cluster operator error
+  - Results
+    - loss of pods, services, etc
+    - lost of apiserver backing store
+    - users unable to read API
+    - etc.
 
 ### Mitigations
 
@@ -308,9 +317,13 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about the metrics available in the [Resource Metrics Pipeline](resource-metrics-pipeline)
-* Discover additional tools for [monitoring resource usage](resource-usage-monitoring)
-* Use Node Problem Detector to [monitor node health](monitor-node-health)
-* Use `crictl` to [debug Kubernetes nodes](crictl)
-* Get more information about [Kubernetes auditing](audit)
-* Use `telepresence` to [develop and debug services locally](local-debugging)
+* Learn about the metrics available in the
+  [Resource Metrics Pipeline](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
+* Discover additional tools for
+  [monitoring resource usage](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
+* Use Node Problem Detector to
+  [monitor node health](/docs/tasks/debug/debug-cluster/monitor-node-health/)
+* Use `crictl` to [debug Kubernetes nodes](/docs/tasks/debug/debug-cluster/crictl/)
+* Get more information about [Kubernetes auditing](/docs/tasks/debug/debug-cluster/audit/)
+* Use `telepresence` to [develop and debug services locally](/docs/tasks/debug/debug-cluster/local-debugging/)
+

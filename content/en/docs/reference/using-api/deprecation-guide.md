@@ -110,8 +110,10 @@ The **policy/v1beta1** API version of PodDisruptionBudget will no longer be serv
 
 PodSecurityPolicy in the **policy/v1beta1** API version will no longer be served in v1.25, and the PodSecurityPolicy admission controller will be removed.
 
-PodSecurityPolicy replacements are still under discussion, but current use can be migrated to
-[3rd-party admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/) now.
+Migrate to [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+or a [3rd party admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/).
+For a migration guide, see [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp/).
+For more information on the deprecation, see [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
 
 #### RuntimeClass {#runtimeclass-v125}
 
@@ -328,7 +330,7 @@ For example:
 
 ### Locate use of deprecated APIs
 
-Use [client warnings, metrics, and audit information available in 1.19+](https://kubernetes.io/blog/2020/09/03/warnings/#deprecation-warnings)
+Use [client warnings, metrics, and audit information available in 1.19+](/blog/2020/09/03/warnings/#deprecation-warnings)
 to locate use of deprecated APIs.
 
 ### Migrate to non-deprecated APIs
@@ -338,11 +340,11 @@ to locate use of deprecated APIs.
 
   You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
   to automatically convert an existing object:
-    
+
   `kubectl-convert -f <file> --output-version <group>/<version>`.
 
   For example, to convert an older Deployment to `apps/v1`, you can run:
-    
+
   `kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
 
   Note that this may use non-ideal default values. To learn more about a specific

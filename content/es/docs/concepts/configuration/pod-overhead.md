@@ -38,4 +38,4 @@ Para obtener más detalles vea la [documentación sobre autorización](/docs/ref
 <!-- whatsnext -->
 
 * [RuntimeClass](/docs/concepts/containers/runtime-class/)
-* [PodOverhead Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+* [Diseño de capacidad de PodOverhead](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

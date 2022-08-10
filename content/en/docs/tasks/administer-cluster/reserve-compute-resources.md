@@ -95,7 +95,10 @@ system daemon should ideally run within its own child control group. Refer to
 for more details on recommended control group hierarchy.
 
 Note that Kubelet **does not** create `--kube-reserved-cgroup` if it doesn't
-exist. Kubelet will fail if an invalid cgroup is specified.
+exist. Kubelet will fail if an invalid cgroup is specified. With `systemd`
+cgroup driver, you should follow a specific pattern for the name of the cgroup you
+define: the name should be the value you set for `--kube-reserved-cgroup`,
+with `.slice` appended.
 
 ### System Reserved
 
@@ -120,7 +123,10 @@ It is recommended that the OS system daemons are placed under a top level
 control group (`system.slice` on systemd machines for example).
 
 Note that `kubelet` **does not** create `--system-reserved-cgroup` if it doesn't
-exist. `kubelet` will fail if an invalid cgroup is specified.
+exist. `kubelet` will fail if an invalid cgroup is specified.  With `systemd`
+cgroup driver, you should follow a specific pattern for the name of the cgroup you
+define: the name should be the value you set for `--system-reserved-cgroup`,
+with `.slice` appended.
 
 ### Explicitly Reserved CPU List
 

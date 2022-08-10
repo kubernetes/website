@@ -1,6 +1,7 @@
 {{/* template adapted from Docsy theme */}}
-{{ if .Path }}
-  {{ $pathFormatted := replace .Path "\\" "/" }}
+
+{{ if .File.Path }}
+  {{ $pathFormatted := replace .File.Path "\\" "/" }}
   {{ $gh_repo := ($.Param "github_repo") }}
   {{ $gh_subdir := ($.Param "github_subdir") }}
   {{ $gh_project_repo := ($.Param "github_project_repo") }}

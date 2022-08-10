@@ -59,11 +59,11 @@ no_list: true
 
 * [쿠버네티스 클러스터에서 Sysctls 사용하기](/ko/docs/tasks/administer-cluster/sysctl-cluster/)는 관리자가 `sysctl` 커맨드라인 도구를 사용하여 커널 파라미터를 설정하는 방법에 대해 설명한다.
 
-* [감사(audit)](/docs/tasks/debug-application-cluster/audit/)는 쿠버네티스의 감사 로그를 다루는 방법에 대해 설명한다.
+* [감사(audit)](/docs/tasks/debug/debug-cluster/audit/)는 쿠버네티스의 감사 로그를 다루는 방법에 대해 설명한다.
 
 ### kubelet 보안
   * [컨트롤 플레인-노드 통신](/ko/docs/concepts/architecture/control-plane-node-communication/)
-  * [TLS 부트스트래핑(bootstrapping)](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+  * [TLS 부트스트래핑(bootstrapping)](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
   * [Kubelet 인증/인가](/ko/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
 
 ## 선택적 클러스터 서비스

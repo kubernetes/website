@@ -1,6 +1,6 @@
 ---
-
-
+## reviewers:
+## - bprashanth
 title: 인그레스(Ingress)
 content_type: concept
 weight: 40
@@ -30,23 +30,8 @@ weight: 40
 트래픽 라우팅은 인그레스 리소스에 정의된 규칙에 의해 컨트롤된다.
 
 다음은 인그레스가 모든 트래픽을 하나의 서비스로 보내는 간단한 예시이다.
-{{< mermaid >}}
-graph LR;
-  client([클라이언트])-. 인그레스-매니지드 <br> 로드 밸런서 .->ingress[인그레스];
-  ingress-->|라우팅 규칙|service[서비스];
-  subgraph 클러스터
-  ingress;
-  service-->pod1[파드];
-  service-->pod2[파드];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service,pod1,pod2 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
 
+{{< figure src="/ko/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="그림. 인그레스" link="https://mermaid.live/edit#pako:eNqNksFK7DAUhl8lZDYKrYzjVSQjs9KdK11OZ5E2p06w05Yk1XtR4QojiM5OuHBlBhUENy5mIVjBJzLtO5ja6kxx4yY55PznO39OcoS9iAEmeE_QuI-2d9pOiJAXcAjVQjc_fdKT12zylP1L84u0t2gvoWySvj2n-vY8u7i39cO9vjzPHv7qqzHacEUH6btxEetpqm-m2XCMluwOD_cESNmdL-19NKoytt05LhpdT_PRGXp7Hmcv_48liAPuQddA9Mvwq0Qmbum1MHfzaM7z4XSOVYrKWsONI7bczUcjY6r3PdWqpSBk5e2plJvgozigPEQ-DwLSYIxZUoloH0jD9_0qtg85U33yK_5teVEQCdJoNpvtGmR_XVaIldaaB6s_ophcneIFiVQgKtKslDRc161jWjNM2XFG-pyRVQ3BKqZTLK3C5pyu_ADlAGrHpYtqb2MLD0AMKGfmBx0VOgerPgzAwcSEDHyaBMrBTnhipEnMqIItxlUkMPFpIMHCNFHR7p_Qw0SJBD5Fm5yaRx5UqpN3zjkTIA" >}}
 
 인그레스는 외부에서 서비스로 접속이 가능한 URL, 로드 밸런스 트래픽, SSL / TLS 종료 그리고 이름-기반의 가상 호스팅을 제공하도록 구성할 수 있다. [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 일반적으로 로드 밸런서를 사용해서 인그레스를 수행할 책임이 있으며, 트래픽을 처리하는데 도움이 되도록 에지 라우터 또는 추가 프런트 엔드를 구성할 수도 있다.
 
@@ -74,7 +59,7 @@ graph LR;
 
 {{< codenew file="service/networking/minimal-ingress.yaml" >}}
 
-다른 모든 쿠버네티스 리소스와 마찬가지로 인그레스에는 `apiVersion`, `kind`, 그리고 `metadata` 필드가 필요하다.
+인그레스에는 `apiVersion`, `kind`, `metadata` 및 `spec` 필드가 명시되어야 한다.
 인그레스 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/), [컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/ko/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
@@ -118,8 +103,14 @@ graph LR;
 
 ### DefaultBackend {#default-backend}
 
-규칙이 없는 인그레스는 모든 트래픽을 단일 기본 백엔드로 전송한다. `defaultBackend` 는 일반적으로
-[인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)의 구성 옵션이며, 인그레스 리소스에 지정되어 있지 않다.
+규칙이 없는 인그레스는 모든 트래픽을 단일 기본 백엔드로 전송하며, 
+`.spec.defaultBackend`는 이와 같은 경우에 요청을 처리할 백엔드를 지정한다. 
+`defaultBackend` 는 일반적으로 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)의 구성 옵션이며, 
+인그레스 리소스에 지정되어 있지 않다. 
+`.spec.rules` 가 명시되어 있지 않으면, 
+`.spec.defaultBackend` 는 반드시 명시되어 있어야 한다. 
+`defaultBackend` 가 설정되어 있지 않으면, 어느 규칙에도 해당되지 않는 요청의 처리는 인그레스 컨트롤러의 구현을 따른다(이러한 
+경우를 어떻게 처리하는지 알아보려면 해당 인그레스 컨트롤러 문서를 참고한다).
 
 만약 인그레스 오브젝트의 HTTP 요청과 일치하는 호스트 또는 경로가 없으면, 트래픽은
 기본 백엔드로 라우팅 된다.
@@ -309,7 +300,7 @@ spec:
   controller: example.com/ingress-controller
   parameters:
     # 이 인그레스클래스에 대한 파라미터는 
-    # "external-configuration" 환경 설정 네임스페이스에 있는
+    # "external-configuration" 네임스페이스에 있는
     # "external-config" 라는 IngressParameter(API 그룹 k8s.example.com)에 기재되어 있다.
     scope: Namespace
     apiGroup: k8s.example.com
@@ -392,25 +383,8 @@ test-ingress   external-lb   *       203.0.113.123   80      59s
 트래픽을 라우팅 한다. 인그레스를 사용하면 로드 밸런서의 수를
 최소로 유지할 수 있다. 예를 들어 다음과 같은 설정을 한다.
 
-{{< mermaid >}}
-graph LR;
-  client([클라이언트])-. 인그레스-매니지드 <br> 로드 밸런서 .->ingress[인그레스, 178.91.123.132];
-  ingress-->|/foo|service1[서비스 service1:4200];
-  ingress-->|/bar|service2[서비스 service2:8080];
-  subgraph 클러스터
-  ingress;
-  service1-->pod1[파드];
-  service1-->pod2[파드];
-  service2-->pod3[파드];
-  service2-->pod4[파드];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
+{{< figure src="/ko/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="그림. 인그레스 팬아웃" link="https://mermaid.live/edit#pako:eNqNUk1r2zAY_itCuXRgu7acrak6cupuO23HOAfZkhtRRzaSvA_awgY5lK63wk4J3aDQSw85FOZBf9Hs_IfJtd2k6wa7SC96Pl69D-8RjFLKIIYHkmQT8PrNXiCihDOht0arz7fl4q5a3FZfi9VZMX5mO6BaFL9-FOW30-rsyi6vr8ovp9X1p_Ji_jKUw_L73FSgXBbl5bKazYFjD7k4kEyp0abQAt7OwNn1HA_5juejsWna8mx7eLwdp-mxYvIdj5g3Mj7lz5lRge4J95Hr_qkJiew06KkG4YE7MBoQCJWHzaz1eJc3hrSaLcGD2T2lbWSMs5R6o9X5uZlr_BRCf4FQA_n_hvqbEBMU1JETpfZZDLKEcAFiniS4Rym1lJbpIcO9OI7b2n7PqZ7gfvbBitIklbjnuu7epsfhQLUOPnoRsef_ZWKwRyZRkivNZGu0VuJeGIaPXdDapWn4YATaUK0utq5AVh1sfdxXfn3064-vpc0WNoFsvjbfam-zBIGAFpwyOSWcmj0-CgQAAdQTNmUBxKakLCZ5ogMYiBNDzTNKNHtFuU4lxDFJFLMgyXX69qOIINYyZx1pnxOzKtOWdfIbg1JDXw" >}}
+
 
 다음과 같은 인그레스가 필요하다.
 
@@ -454,25 +428,7 @@ Events:
 
 이름 기반의 가상 호스트는 동일한 IP 주소에서 여러 호스트 이름으로 HTTP 트래픽을 라우팅하는 것을 지원한다.
 
-{{< mermaid >}}
-graph LR;
-  client([클라이언트])-. 인그레스-매니지드 <br> 로드 밸런서 .->ingress[인그레스, 178.91.123.132];
-  ingress-->|호스트: foo.bar.com|service1[서비스 service1:80];
-  ingress-->|호스트: bar.foo.com|service2[서비스 service2:80];
-  subgraph 클러스터
-  ingress;
-  service1-->pod1[파드];
-  service1-->pod2[파드];
-  service2-->pod3[파드];
-  service2-->pod4[파드];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
+{{< figure src="/ko/docs/images/ingressNameBased.svg" alt="ingress-namebase-diagram" class="diagram-large" caption="그림. 이름 기반의 가상 호스팅 인그레스" link="https://mermaid.live/edit#pako:eNqNks9r2zAUx_8VoVw2sE1sZ1umjJy6207bMc5BtuTG1JaMJO8HbWGDHErX22DskNANCr3skENhHuwvmpz_YXJsLy7tYBf5oe_3fd7T8zuGEScUIngocL4AL15OQMCiNKFMPZhtP9zo9a9qfVN9Lrfn5fyh7YBqXf7-UeqvZ9X5la2vr_THs-r6vf60ehaKqf62MhHQm1JfbqrlCjj2NGGHgko56ydawH0ydp66juv5jut780nAWp9tT0-2X0pjMhURiDl3QiyciGcnkorXSUTdmSHrn0tjAd0VGg_ndef3Q2pADepBvLsQr4PIImymUb__8ntNWW728J2lrWsK5Zy4s-3FhXn4_K7k3SN5jeT_Wxr1JcrI7p9gKQ9oDPIUJwzESZqiASHEkkrwI4oGcRy3sf0mIWqBRvlbK-IpF2gwHA4nfcbRWLYE33sc0Uf_BTHaLUiUFlJR0YL2mWgQhuFtirenNAX_gkA7VKsbWxd4Vj3Y-thFfn2M6sb3qc2aNgPp3zZttd8JtGBGRYYTYrb8OGAABFAtaEYDiExIaIyLVAUwYKfGWuQEK_qcJIoLiGKcSmpBXCj-6h2LIFKioJ3pIMFmTbLWdfoHV6NUVg" >}}
 
 
 다음 인그레스는 [호스트 헤더](https://tools.ietf.org/html/rfc7230#section-5.4)에 기반한 요청을

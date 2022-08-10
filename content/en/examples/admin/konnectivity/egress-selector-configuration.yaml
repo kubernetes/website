@@ -2,7 +2,7 @@ apiVersion: apiserver.k8s.io/v1beta1
 kind: EgressSelectorConfiguration
 egressSelections:
 # Since we want to control the egress traffic to the cluster, we use the
-# "cluster" as the name. Other supported values are "etcd", and "master".
+# "cluster" as the name. Other supported values are "etcd", and "controlplane".
 - name: cluster
   connection:
     # This controls the protocol between the API Server and the Konnectivity

@@ -77,7 +77,7 @@ operator to use or manage a cluster.
 * [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/)
 * [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver encryption (v1)](/docs/reference/config-api/apiserver-encryption.v1/)
-* [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1/)
+* [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 * [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) and
   [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
 * [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
@@ -99,6 +99,6 @@ operator to use or manage a cluster.
 ## Design Docs
 
 An archive of the design docs for Kubernetes functionality. Good starting points are
-[Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
-[Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+[Kubernetes Architecture](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) and
+[Kubernetes Design Overview](https://git.k8s.io/design-proposals-archive).
 

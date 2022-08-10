@@ -9,17 +9,20 @@ options:
 steps:
     # It's fine to bump the tag to a recent version, as needed
   - name: "gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20210917-12df099d55"
-    entrypoint: make
+    entrypoint: 'bash'
     env:
       - DOCKER_CLI_EXPERIMENTAL=enabled
       - TAG=$_GIT_TAG
       - BASE_REF=$_PULL_BASE_REF
     args:
-      - container-image
+      - -c
+      - |
+        gcloud auth configure-docker \
+        && make container-push
 substitutions:
   # _GIT_TAG will be filled with a git-based tag for the image, of the form vYYYYMMDD-hash, and
   # can be used as a substitution
   _GIT_TAG: "12345"
   # _PULL_BASE_REF will contain the ref that was pushed to to trigger this build -
-  # a branch like 'master' or 'release-0.2', or a tag like 'v0.2'.
-  _PULL_BASE_REF: "master"
+  # a branch like 'main' or 'release-0.2', or a tag like 'v0.2'.
+  _PULL_BASE_REF: "main"

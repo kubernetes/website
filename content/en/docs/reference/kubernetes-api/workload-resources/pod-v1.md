@@ -1773,7 +1773,7 @@ Probe describes a health check to be performed against a container to determine 
 
   - **grpc.service** (string)
 
-    Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+    Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md ).
     
     If this is not specified, the default behavior is defined by gRPC.
 
@@ -1879,7 +1879,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
 - **qosClass** (string)
 
-  The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+  The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/design-proposals-archive/node/resource-qos.md
   
   
 

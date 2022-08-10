@@ -3,19 +3,18 @@ layout: blog
 title: "Contributor Summit San Diego Registration Open!"
 date: 2019-09-24
 slug: san-diego-contributor-summit
+evergreen: true
 ---
 
-**Authors: Paris Pittman (Google), Jeffrey Sica (Red Hat), Jonas Rosland (VMware)**
-
-
+**Authors:** Paris Pittman (Google), Jeffrey Sica (Red Hat), Jonas Rosland (VMware)
 
 [Contributor Summit San Diego 2019 Event Page]  
-Registration is now open and in record time, we’ve hit capacity for the
-*new contributor workshop* session of the event! Waitlist is now available.
+In record time, we’ve hit capacity for the *new contributor workshop* session of
+the event!
 
 **Sunday, November 17**  
 Evening Contributor Celebration:  
-[QuartYard]*  
+[QuartYard]†  
 Address: 1301 Market Street, San Diego, CA 92101  
 Time: 6:00PM - 9:00PM  
 
@@ -68,7 +67,7 @@ Check out past blogs on [persona building around our events] and the [Barcelona 
 
 ![Group Picture in 2018](/images/blog/2019-09-24-san-diego-contributor-summit/IMG_2588.JPG)
 
-*=QuartYard has a huge stage! Want to perform something in front of your contributor peers? Reach out to us! community@kubernetes.io
+†=QuartYard has a huge stage! Want to perform something in front of your contributor peers? Reach out to us! community@kubernetes.io
 
 
 

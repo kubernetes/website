@@ -1,6 +1,6 @@
 ---
-
-
+## reviewers:
+## - maplain
 title: 서비스 내부 트래픽 정책
 content_type: concept
 weight: 45
@@ -60,14 +60,8 @@ kube-proxy는 `spec.internalTrafficPolicy` 의 설정에 따라서 라우팅되�
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)의 
 `ServiceInternalTrafficPolicy`를 활성화한다면, `spec.internalTrafficPolicy`는 기본값 "Cluster"로 설정된다.
 
-## 제약조건
-
-* 같은 서비스에서 `externalTrafficPolicy` 가 `Local`로 설정된 경우 
-서비스 내부 트래픽 정책이 사용되지 않는다. 
-클러스터에서 동일하지 않은 다른 서비스에서 이 두 가지 기능은 동시에 사용할 수 있다.
-
 ## {{% heading "whatsnext" %}}
 
-* [토폴로지 인식 힌트](/docs/concepts/services-networking/topology-aware-hints/)에 대해서 읽기
+* [토폴로지 인지 힌트](/ko/docs/concepts/services-networking/topology-aware-hints/)에 대해서 읽기
 * [서비스 외부 트래픽 정책](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)에 대해서 읽기
 * [서비스와 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/) 읽기

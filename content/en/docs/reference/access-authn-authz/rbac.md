@@ -54,8 +54,8 @@ it can't be both.
 
 ClusterRoles have several uses. You can use a ClusterRole to:
 
-1. define permissions on namespaced resources and be granted within individual namespace(s)
-1. define permissions on namespaced resources and be granted across all namespaces
+1. define permissions on namespaced resources and be granted access within individual namespace(s)
+1. define permissions on namespaced resources and be granted access across all namespaces
 1. define permissions on cluster-scoped resources
 
 If you want to define a role within a namespace, use a Role; if you want to define
@@ -798,7 +798,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <td><b>system:node-bootstrapper</b></td>
 <td>None</td>
 <td>Allows access to the resources required to perform
-<a href="/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/">kubelet TLS bootstrapping</a>.</td>
+<a href="/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">kubelet TLS bootstrapping</a>.</td>
 </tr>
 <tr>
 <td><b>system:node-problem-detector</b></td>
