@@ -204,8 +204,8 @@ subsets:
 엔드포인트 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
-서비스를 위한 객체인 [엔드포인트](/ko/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
-를 만들 때, 새로운 객체의 이름을 
+서비스를 위한 객체인 [엔드포인트](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)를 만들 때, 
+새로운 객체의 이름을 
 그것의 서비스 이름과 같게 설정해야 한다.
 
 {{< note >}}

@@ -6,7 +6,7 @@ content_type: task
 <!--overview-->
 
 이 페이지에서는 {{<glossary_tooltip text="가비지 수집" term_id="garbage-collection">}} 중 
-클러스터에서 사용할 [캐스케이딩 삭제](ko/docs/concepts/architecture/garbage-collection/#cascading-deletion) 
+클러스터에서 사용할 [캐스케이딩 삭제](/ko/docs/concepts/architecture/garbage-collection/#cascading-deletion) 
 타입을 지정하는 방법을 보여준다.
 
 ## {{% heading "prerequisites" %}}
@@ -14,7 +14,7 @@ content_type: task
 {{< include "task-tutorial-prereqs.md" >}}
 
 또한 다양한 타입들의 캐스케이딩 삭제를 실험하려면 
-[샘플 디플로이먼트를 생성](ko/docs/tasks/run-application/run-stateless-application-deployment/#nginx-디플로이먼트-생성하고-탐색하기)할 필요가 있다. 각 타입에 대해 디플로이먼트를 
+[샘플 디플로이먼트를 생성](/ko/docs/tasks/run-application/run-stateless-application-deployment/#nginx-디플로이먼트-생성하고-탐색하기)할 필요가 있다. 각 타입에 대해 디플로이먼트를 
 다시 생성해야 할 수도 있다.
 
 ## 파드에서 소유자 참조 확인
@@ -101,7 +101,7 @@ kubectl delete deployment nginx-deployment --cascade=foreground
 쿠버네티스 API를 사용해 
 포그라운드 캐스케이딩 삭제로 오브젝트들을 삭제할 수 있다.
 
-상세한 내용은 [쿠버네티스 버전에 따른 문서](ko/docs/home/supported-doc-versions/)를 참고한다.
+상세한 내용은 [쿠버네티스 버전에 따른 문서](/ko/docs/home/supported-doc-versions/)를 참고한다.
 
 1. 로컬 프록시 세션을 시작한다.
 
@@ -198,7 +198,7 @@ kubectl delete deployment nginx-deployment --cascade=background
 또는 `propagationPolicy: Background` 인수 없이 
 다음 명령을 실행해도 같은 작업을 수행한다.
 
-상세한 내용은 [쿠버네티스 버전에 따른 문서](ko/docs/home/supported-doc-versions/)를 참고한다.
+상세한 내용은 [쿠버네티스 버전에 따른 문서](/ko/docs/home/supported-doc-versions/)를 참고한다.
 
 **kubectl 사용**
 
@@ -296,7 +296,7 @@ kubectl delete deployment nginx-deployment --cascade=orphan
 {{% /tab %}}
 {{% tab name="쿠버네티스 1.20.x 전 버전" %}}
 
-상세한 내용은 [쿠버네티스 버전에 따른 문서](ko/docs/home/supported-doc-versions/)를 참고한다.
+상세한 내용은 [쿠버네티스 버전에 따른 문서](/ko/docs/home/supported-doc-versions/)를 참고한다.
 
 **kubectl 사용**
 
@@ -349,5 +349,5 @@ kubectl get pods -l app=nginx
 ## {{% heading "whatsnext" %}}
 
 * 쿠버네티스의 [소유자와 종속 오브젝트](/docs/concepts/overview/working-with-objects/owners-dependents/)에 대해 알아보자.
-* 쿠버네티스 [파이널라이저(finalizers)](/docs/concepts/overview/working-with-objects/finalizers/)에 대해 알아보자.
+* 쿠버네티스 [파이널라이저(finalizers)](/ko/docs/concepts/overview/working-with-objects/finalizers/)에 대해 알아보자.
 * [가비지(garbage) 수집](/ko/docs/concepts/architecture/garbage-collection/)에 대해 알아보자.

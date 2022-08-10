@@ -643,7 +643,7 @@ spec:
 
 프로세스 ID(PID) 제한은 kubelet의 구성에 대해 
 주어진 파드가 사용할 수 있는 PID 수를 제한할 수 있도록 허용한다. 
-자세한 내용은 [PID 제한](/docs/concepts/policy/pid-limiting/)을 참고한다.
+자세한 내용은 [PID 제한](/ko/docs/concepts/policy/pid-limiting/)을 참고한다.
 
 ## 문제 해결
 
