@@ -132,7 +132,7 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
   * 크론잡(CronJob)
   * 레플리케이션컨트롤러(ReplicationController)  
 * {{< glossary_tooltip text="서비스" term_id="service" >}}
-  [로드 밸런싱과 서비스](#load-balancing-and-services)에서 상세 사항을 확인한다.
+  [로드 밸런싱과 서비스](/ko/docs/concepts/services-networking/windows-networking/#load-balancing-and-services)에서 상세 사항을 확인한다.
 
 파드, 워크로드 리소스 및 서비스는 
 쿠버네티스에서 윈도우 워크로드를 관리하는 데 중요한 요소이다. 
