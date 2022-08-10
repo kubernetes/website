@@ -179,12 +179,12 @@ data:
 `HS256` 방식(HMAC-SHA256)을 사용함으로 JWS를 확인할 수 있다.
 사용자는 _반드시_ HS256이 사용되고 있는지 확인해야 한다.
 
-{{< 주의 >}}
+{{< warning >}}
 부트스트래핑 토큰을 가진 모든 당사자는 해당 토큰에 대한 유효한 서명을 만들 수 있다.
 컨피그맵(ConfigMap) 서명을 사용할 때 많은 클라이언트와 동일한 토큰을 공유하는 것은 권장되지 않는다.
 손상된 클라이언트는 잠재적으로 서명에 의존하여
 TLS 트러스트를 부트스트랩하는 다른 클라이언트를 대신할 수 있기 때문이다.
-{{< /주의 >}}
+{{< /warning >}}
 
 자세한 내용은 [kubeadm implementation details](/docs/reference/setup-tools/kubeadm/implementation-details/)
 섹션을 참조하면 된다.
