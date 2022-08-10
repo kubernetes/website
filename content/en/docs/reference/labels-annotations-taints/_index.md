@@ -85,6 +85,18 @@ The current version of the application (e.g., a semantic version, revision hash,
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
+### cluster-autoscaler.kubernetes.io/safe-to-evict
+
+Example: `cluster-autoscaler.kubernetes.io/safe-to-evict: "true"`
+
+Used on: Pod
+
+When this annotation is set to `"true"`, the cluster autoscaler is allowed to evict a Pod
+even if other rules would normally prevent that.
+The cluster autoscaler never evicts Pods that have this annotation explicitly set to
+`"false"`; you could set that on an important Pod that you want to keep running.
+If this annotation is not set then the cluster autoscaler follows its Pod-level behavior.
+
 ### kubernetes.io/arch
 
 Example: `kubernetes.io/arch: "amd64"`
