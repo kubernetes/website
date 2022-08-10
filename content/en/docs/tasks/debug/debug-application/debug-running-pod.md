@@ -611,8 +611,8 @@ kubectl delete pod myapp myapp-debug
 ## Debugging via a shell on the node {#node-shell-session}
 
 If none of these approaches work, you can find the Node on which the Pod is
-running and create a privileged Pod running in the host namespaces. To create
-an interactive shell on a node using `kubectl debug`, run:
+running and create a Pod running on the Node. To create
+an interactive shell on a Node using `kubectl debug`, run:
 
 ```shell
 kubectl debug node/mynode -it --image=ubuntu
@@ -628,8 +628,11 @@ When creating a debugging session on a node, keep in mind that:
 
 * `kubectl debug` automatically generates the name of the new Pod based on
   the name of the Node.
-* The container runs in the host IPC, Network, and PID namespaces.
 * The root filesystem of the Node will be mounted at `/host`.
+* The container runs in the host IPC, Network, and PID namespaces, although
+  the pod isn't privileged, so reading some process information may fail,
+  and `chroot /host` will fail.
+* If you need a privileged pod, create it manually.
 
 Don't forget to clean up the debugging Pod when you're finished with it:
 
