@@ -34,7 +34,7 @@ weight: 40
 
     ```powershell
     # {{< param "fullversion" >}}을 사용 중인 쿠버네티스 버전으로 변경한다.
-    curl.exe -Lo <kubeadm.exe을 저장할 경로> https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe
+    curl.exe -Lo <kubeadm.exe을 저장할 경로> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe"
     ```
 
 ### 노드 드레인
@@ -68,7 +68,7 @@ weight: 40
 
     ```powershell
     stop-service kubelet
-    curl.exe -Lo <kubelet.exe을 저장할 경로> https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe
+    curl.exe -Lo <kubelet.exe을 저장할 경로> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe"
     restart-service kubelet
     ```
 
@@ -76,7 +76,7 @@ weight: 40
 
     ```powershell
     stop-service kube-proxy
-    curl.exe -Lo <kube-proxy.exe을 저장할 경로> https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kube-proxy.exe
+    curl.exe -Lo <kube-proxy.exe을 저장할 경로> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kube-proxy.exe"
     restart-service kube-proxy
     ```
 
