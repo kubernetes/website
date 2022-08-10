@@ -1,9 +1,9 @@
 ---
-
-
-
-
-
+## reviewers:
+## - jsafrane
+## - saad-ali
+## - thockin
+## - msau42
 title: 볼륨
 content_type: concept
 weight: 10
@@ -64,7 +64,9 @@ weight: 10
 
 쿠버네티스는 여러 유형의 볼륨을 지원한다.
 
-### awsElasticBlockStore {#awselasticblockstore}
+### awsElasticBlockStore (사용 중단됨) {#awselasticblockstore}
+
+{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
 
 `awsElasticBlockStore` 볼륨은 아마존 웹 서비스 (AWS)
 [EBS 볼륨](https://aws.amazon.com/ebs/)을 파드에 마운트 한다. 파드를
@@ -135,7 +137,9 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 컨트롤러 관리자와 kubelet에 의해 로드되지 않도록 `awsElasticBlockStore` 스토리지
 플러그인을 끄려면, `InTreePluginAWSUnregister` 플래그를 `true` 로 설정한다.
 
-### azureDisk {#azuredisk}
+### azureDisk (사용 중단됨) {#azuredisk}
+
+{{< feature-state for_k8s_version="v1.19" state="deprecated" >}}
 
 `azureDisk` 볼륨 유형은 Microsoft Azure [데이터 디스크](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers)를 파드에 마운트한다.
 
@@ -158,7 +162,9 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 컨트롤러 매니저 및 kubelet이 `azureDisk` 스토리지 플러그인을 로드하지 않도록 하려면, 
 `InTreePluginAzureDiskUnregister` 플래그를 `true`로 설정한다.
 
-### azureFile {#azurefile}
+### azureFile (사용 중단됨) {#azurefile}
+
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 `azureFile` 볼륨 유형은 Microsoft Azure 파일 볼륨(SMB 2.1과 3.0)을 파드에
 마운트한다.
@@ -201,7 +207,9 @@ CephFS를 사용하기 위해선 먼저 Ceph 서버를 실행하고 공유를 �
 
 더 자세한 내용은 [CephFS 예시](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/)를 참조한다.
 
-### cinder
+### cinder (사용 중단됨)
+
+{{< feature-state for_k8s_version="v1.18" state="deprecated" >}}
 
 {{< note >}}
 쿠버네티스는 오픈스택 클라우드 공급자로 구성되어야 한다.
@@ -295,15 +303,17 @@ spec:
 
 ### downwardAPI {#downwardapi}
 
-`downwardAPI` 볼륨은 애플리케이션에서 다운워드(downward) API 데이터를 사용할 수 있도록 한다.
-이것은 디렉터리를 마운트하고 요청된 데이터를 일반 텍스트 파일로 작성한다.
+`downwardAPI` 볼륨은 애플리케이션에서 {{< glossary_tooltip term_id="downward-api" text="다운워드(downward) API" >}}
+데이터를 사용할 수 있도록 한다. 볼륨 내에서 노출된 데이터를
+일반 텍스트 형식의 읽기 전용 파일로 찾을 수 있다.
 
 {{< note >}}
 다운워드 API를 [`subPath`](#using-subpath) 볼륨 마운트로 사용하는 컨테이너는 다운워드 API
 업데이트를 수신하지 않는다.
 {{< /note >}}
 
-더 자세한 내용은 [다운워드 API 예시](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)를 참고한다.
+더 자세한 내용은 [다운워드 API 예시](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
+를 참고한다.
 
 ### emptyDir {#emptydir}
 
@@ -390,7 +400,9 @@ Flocker는 파드가 스케줄 되어 있는 노드에 다시 연결한다. 이�
 
 더 자세한 내용은 [Flocker 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker)를 참조한다.
 
-### gcePersistentDisk
+### gcePersistentDisk (사용 중단됨) {#gcepersistentdisk}
+
+{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
 
 `gcePersistentDisk` 볼륨은 구글 컴퓨트 엔진(GCE)
 [영구 디스크](https://cloud.google.com/compute/docs/disks)(PD)를 파드에 마운트한다.
@@ -1146,7 +1158,7 @@ CSI와 FlexVolume을 통해 쿠버네티스 코드 베이스와는
 컨테이너 오케스트레이션 시스템(쿠버네티스와 같은)을 위한 표준 인터페이스를
 정의하여 임의의 스토리지 시스템을 컨테이너 워크로드에 노출시킨다.
 
-더 자세한 정보는 [CSI 디자인 제안](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)을 읽어본다.
+더 자세한 정보는 [CSI 디자인 제안](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)을 읽어본다.
 
 {{< note >}}
 CSI 규격 버전 0.2와 0.3에 대한 지원은 쿠버네티스 v1.13에서 사용중단(deprecated)
@@ -1240,6 +1252,20 @@ CSI 설정 변경 없이 평소와 같이
 CSI 드라이버의 개발 방법에 대한 더 자세한 정보는
 [쿠버네티스-csi 문서](https://kubernetes-csi.github.io/docs/)를 참조한다.
 
+#### 윈도우 CSI 프록시
+
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+
+CSI 노드 플러그인은 디스크 장치 검색 및 파일 시스템 마운트 같은
+다양한 권한이 부여된 작업을 수행해야 한다. 이러한 작업은
+호스트 운영 체제마다 다르다. 리눅스 워커 노드의 경우, 일반적으로 컨테이너형
+CSI 노드 플러그인은 권한 있는 컨테이너로 배포된다. 윈도우 워커 노드의 경우,
+각 윈도우 노드에 미리 설치해야 하는 커뮤니티판 스탠드얼론(stand-alone) 바이너리인
+[csi-proxy](https://github.com/kubernetes-csi/csi-proxy)를 이용하여
+컨테이너형 CSI 노드 플러그인에 대한 권한 있는 작업을 지원한다.
+
+자세한 내용은 배포할 CSI 플러그인의 배포 가이드를 참고한다.
+
 #### 인-트리 플러그인으로부터 CSI 드라이버로 마이그레이션하기
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
@@ -1256,6 +1282,14 @@ CSI 드라이버로 전환할 때 기존 스토리지 클래스, 퍼시스턴트
 `CSIMigration` 을 지원하고 해당 CSI 드라이버가 구현된 인-트리 플러그인은
 [볼륨 유형들](#volume-types)에 나열되어 있다.
 
+다음 인-트리 플러그인은 윈도우 노드에서 퍼시스턴트볼륨을 지원한다.
+
+* [`awsElasticBlockStore`](#awselasticblockstore)
+* [`azureDisk`](#azuredisk)
+* [`azureFile`](#azurefile)
+* [`gcePersistentDisk`](#gcepersistentdisk)
+* [`vsphereVolume`](#vspherevolume)
+
 ### flexVolume
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
@@ -1266,6 +1300,12 @@ FlexVolume 드라이버 바이너리 파일은 각 노드의 미리 정의된 �
 
 파드는 `flexvolume` 인-트리 볼륨 플러그인을 통해 FlexVolume 드라이버와 상호 작용한다.
 더 자세한 내용은 FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) 문서를 참고한다.
+
+호스트에 PowerShell 스크립트로 배포된 다음과 같은
+FlexVolume [플러그인](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)은 윈도우 노드를 지원한다.
+
+* [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
+* [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
 
 {{< note >}}
 FlexVolume은 사용 중단되었다. 쿠버네티스에 외부 스토리지를 연결하려면 아웃-오브-트리 CSI 드라이버를 사용하는 것을 권장한다.
