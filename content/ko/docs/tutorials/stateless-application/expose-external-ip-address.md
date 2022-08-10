@@ -14,7 +14,7 @@ weight: 10
  * [kubectl](/ko/docs/tasks/tools/)을 설치한다.
  * Google Kubernetes Engine 또는 Amazon Web Services와 같은 클라우드 공급자를 사용하여
    쿠버네티스 클러스터를 생성한다. 이 튜토리얼은
-   [외부 로드 밸런서](/docs/tasks/access-application-cluster/create-external-load-balancer/)를 생성하는데,
+   [외부 로드 밸런서](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/)를 생성하는데,
    클라우드 공급자가 필요하다.
  * `kubectl`이 쿠버네티스 API 서버와 통신하도록 설정한다.
    자세한 내용은 클라우드 공급자의 설명을 참고한다.

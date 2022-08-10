@@ -122,7 +122,7 @@ profiles:
   [노드 어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-어피니티)를
   구현한다.
   익스텐션 포인트: `filter`, `score`.
-- `PodTopologySpread`: [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/pod-topology-spread-constraints/)을
+- `PodTopologySpread`: [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)을
   구현한다.
   익스텐션 포인트: `preFilter`, `filter`, `preScore`, `score`.
 - `NodeUnschedulable`: `.spec.unschedulable` 이 true로 설정된 노드를

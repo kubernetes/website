@@ -126,7 +126,7 @@ debian 컨테이너에서 안녕하세요
 ## {{% heading "whatsnext" %}}
 
 
-* [합성 컨테이너(composite container) 패턴](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)에 관하여 더 공부한다.
+* [합성 컨테이너(composite container) 패턴](/blog/2015/06/the-distributed-system-toolkit-patterns)에 관하여 더 공부한다.
 
 * [모듈 구조를 위한 합성 컨테이너 구조](https://www.slideshare.net/Docker/slideshare-burns)에 관하여 더 공부한다.
 
