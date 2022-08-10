@@ -91,7 +91,7 @@ To submit a blog post, follow these steps:
 - Blog posts should be relevant to Kubernetes users.
 
   - Topics related to participation in or results of Kubernetes SIGs activities are always on
-    topic (see the work in the [Upstream Marketing Team](https://github.com/kubernetes/community/blob/master/communication/marketing-team/blog-guidelines.md#upstream-marketing-blog-guidelines)
+    topic (see the work in the [Upstream Marketing Team](https://github.com/kubernetes/community/blob/master/communication/marketing-team/storytelling-resources/blog-guidelines.md#upstream-marketing-blog-guidelines)
     for support on these posts). 
   - The components of Kubernetes are purposely modular, so tools that use existing integration
     points like CNI and CSI are on topic. 
