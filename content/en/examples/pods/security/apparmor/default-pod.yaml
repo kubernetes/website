@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: default-pod
+  labels:
+    app: default-pod
+spec:
+  securityContext:
+    appArmorProfile:
+      type: RuntimeDefault
+  containers:
+    - name: hello
+      image: busybox:1.28
+      command: ["sh", "-c", "echo 'Hello AppArmor!' && sleep 1h"]

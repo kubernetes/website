@@ -63,7 +63,6 @@ different Kubernetes components.
 | `AllowInsecureBackendProxy` | `true` | Beta | 1.17 | |
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | 1.23 |
 | `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
-| `AppArmor` | `true` | Beta | 1.4 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CPUManagerPolicyAlphaOptions` | `false` | Alpha | 1.23 | |
@@ -615,8 +614,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   kubelets on Pod log requests.
 - `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
-- `AppArmor`: Enable use of AppArmor mandatory access control for Pods running on Linux nodes.
-  See [AppArmor Tutorial](/docs/tutorials/security/apparmor/) for more details.
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
   that can be attached to a node.
   See [dynamic volume limits](/docs/concepts/storage/storage-limits/#dynamic-volume-limits)

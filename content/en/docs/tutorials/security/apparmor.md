@@ -8,7 +8,7 @@ weight: 10
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.4" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 
 AppArmor is a Linux kernel security module that supplements the standard Linux user and group based
@@ -44,17 +44,17 @@ applications and cluster from other angles as well.
 Make sure:
 
 1. Kubernetes version is at least v1.4 -- Kubernetes support for AppArmor was added in
-   v1.4. Kubernetes components older than v1.4 are not aware of the new AppArmor annotations, and
-   will **silently ignore** any AppArmor settings that are provided. To ensure that your Pods are
+   v1.4. Kubernetes components older than v1.4 do not support the AppArmor API, and
+   will **reject** any worloads with AppArmor settings provided. To ensure that your Pods are
    receiving the expected protections, it is important to verify the Kubelet version of your nodes:
 
    ```shell
    kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.kubeletVersion}\n{end}'
    ```
    ```
-   gke-test-default-pool-239f5d02-gyn2: v1.4.0
-   gke-test-default-pool-239f5d02-x1kf: v1.4.0
-   gke-test-default-pool-239f5d02-xwux: v1.4.0
+   gke-test-default-pool-239f5d02-gyn2: v1.26.0
+   gke-test-default-pool-239f5d02-x1kf: v1.26.0
+   gke-test-default-pool-239f5d02-xwux: v1.26.0
    ```
 
 2. AppArmor kernel module is enabled -- For the Linux kernel to enforce an AppArmor profile, the
@@ -91,8 +91,8 @@ Make sure:
    ssh gke-test-default-pool-239f5d02-gyn2 "sudo cat /sys/kernel/security/apparmor/profiles | sort"
    ```
    ```
-   apparmor-test-deny-write (enforce)
-   apparmor-test-audit-write (enforce)
+   apparmor-deny-write (enforce)
+   apparmor-audit-write (enforce)
    docker-default (enforce)
    k8s-nginx (enforce)
    ```
@@ -118,29 +118,9 @@ gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor e
 
 <!-- lessoncontent -->
 
-## Securing a Pod
+## Loading AppArmor profiles onto nodes
 
-{{< note >}}
-AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
-general availability, the annotations will be replaced with first-class fields (more details in
-[Upgrade path to GA](#upgrade-path-to-general-availability)).
-{{< /note >}}
-
-AppArmor profiles are specified *per-container*. To specify the AppArmor profile to run a Pod
-container with, add an annotation to the Pod's metadata:
-
-```yaml
-container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
-```
-
-Where `<container_name>` is the name of the container to apply the profile to, and `<profile_ref>`
-specifies the profile to apply. The `profile_ref` can be one of:
-
-* `runtime/default` to apply the runtime's default profile
-* `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
-* `unconfined` to indicate that no profiles will be loaded
-
-See the [API Reference](#api-reference) for the full details on the annotation and profile name formats.
+*This example assumes you have already set up a cluster with AppArmor support.*
 
 Kubernetes AppArmor enforcement works by first checking that all the prerequisites have been
 met, and then forwarding the profile selection to the container runtime for enforcement. If the
@@ -152,7 +132,7 @@ To verify that the profile was applied, you can look for the AppArmor security o
 kubectl get events | grep Created
 ```
 ```
-22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
+22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-deny-write]
 ```
 
 You can also verify directly that the container's root process is running with the correct profile by checking its proc attr:
@@ -161,19 +141,15 @@ You can also verify directly that the container's root process is running with t
 kubectl exec <pod_name> cat /proc/1/attr/current
 ```
 ```
-k8s-apparmor-example-deny-write (enforce)
+k8s-apparmor-deny-write (enforce)
 ```
-
-## Example
-
-*This example assumes you have already set up a cluster with AppArmor support.*
 
 First, we need to load the profile we want to use onto our nodes. This profile denies all file writes:
 
 ```shell
 #include <tunables/global>
 
-profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
+profile k8s-apparmor-deny-write flags=(attach_disconnected) {
   #include <abstractions/base>
 
   file,
@@ -196,7 +172,7 @@ NODES=(
 for NODE in ${NODES[*]}; do ssh $NODE 'sudo apparmor_parser -q <<EOF
 #include <tunables/global>
 
-profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
+profile k8s-apparmor-deny-write flags=(attach_disconnected) {
   #include <abstractions/base>
 
   file,
@@ -208,16 +184,27 @@ EOF'
 done
 ```
 
-Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
+## Running a pod with an AppArmor profile
 
-{{< codenew file="pods/security/hello-apparmor.yaml" >}}
+We can run a simple "Hello AppArmor" pod using a "deny-write" profile loaded on the host by 
+specifying it in the pod or container's `securityContext`:
+
+{{< codenew file="pods/security/apparmor/hello-apparmor.yaml" >}}
+
+{{< note >}}
+The functional support for the deprecated AppArmor annotation
+`container.apparmor.security.beta.kubernetes.io/[container_name]`
+is going to be removed with the release of Kubernetes v1.30. Please always use
+the native API fields in favor of the annotations.
+{{< /note >}}
+
 
 ```shell
 kubectl create -f ./hello-apparmor.yaml
 ```
 
 If we look at the pod events, we can see that the Pod container was created with the AppArmor
-profile "k8s-apparmor-example-deny-write":
+profile "k8s-apparmor-deny-write":
 
 ```shell
 kubectl get events | grep hello-apparmor
@@ -226,7 +213,7 @@ kubectl get events | grep hello-apparmor
 14s        14s         1         hello-apparmor   Pod                                Normal    Scheduled   {default-scheduler }                           Successfully assigned hello-apparmor to gke-test-default-pool-239f5d02-gyn2
 14s        14s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Pulling     {kubelet gke-test-default-pool-239f5d02-gyn2}   pulling image "busybox"
 13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Pulled      {kubelet gke-test-default-pool-239f5d02-gyn2}   Successfully pulled image "busybox"
-13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Created     {kubelet gke-test-default-pool-239f5d02-gyn2}   Created container with docker id 06b6cd1c0989; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
+13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Created     {kubelet gke-test-default-pool-239f5d02-gyn2}   Created container with docker id 06b6cd1c0989; Security:[seccomp=unconfined apparmor=k8s-apparmor-deny-write]
 13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Started     {kubelet gke-test-default-pool-239f5d02-gyn2}   Started container with docker id 06b6cd1c0989
 ```
 
@@ -236,7 +223,7 @@ We can verify that the container is actually running with that profile by checki
 kubectl exec hello-apparmor -- cat /proc/1/attr/current
 ```
 ```
-k8s-apparmor-example-deny-write (enforce)
+k8s-apparmor-deny-write (enforce)
 ```
 
 Finally, we can see what happens if we try to violate the profile by writing to a file:
@@ -259,9 +246,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: hello-apparmor-2
-  annotations:
-    container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-allow-write
 spec:
+  securityContext:
+    apparmorProfile:
+      type: Localhost
+      localHost: profiles/k8s-apparmor-allow-write
   containers:
   - name: hello
     image: busybox:1.28
@@ -279,10 +268,10 @@ Namespace:     default
 Node:          gke-test-default-pool-239f5d02-x1kf/
 Start Time:    Tue, 30 Aug 2016 17:58:56 -0700
 Labels:        <none>
-Annotations:   container.apparmor.security.beta.kubernetes.io/hello=localhost/k8s-apparmor-example-allow-write
+Annotations:   
 Status:        Pending
 Reason:        AppArmor
-Message:       Pod Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
+Message:       Pod Cannot enforce AppArmor: profile "k8s-apparmor-allow-write" is not loaded
 IP:
 Controllers:   <none>
 Containers:
@@ -319,11 +308,43 @@ Events:
   FirstSeen    LastSeen    Count    From                        SubobjectPath    Type        Reason        Message
   ---------    --------    -----    ----                        -------------    --------    ------        -------
   23s          23s         1        {default-scheduler }                         Normal      Scheduled     Successfully assigned hello-apparmor-2 to e2e-test-stclair-node-pool-t1f5
-  23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
+  23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-allow-write" is not loaded
 ```
 
 Note the pod status is Pending, with a helpful error message: `Pod Cannot enforce AppArmor: profile
-"k8s-apparmor-example-allow-write" is not loaded`. An event was also recorded with the same message.
+"k8s-apparmor-allow-write" is not loaded`. An event was also recorded with the same message.
+
+## Create a Pod that runs with the runtime default AppArmor profile
+
+Most container runtimes provide a sane set of default syscalls that are allowed
+or not. You can adopt these defaults for your workload by setting the apparmor
+type in the security context of a pod or container to `RuntimeDefault`.
+
+Here's a manifest for a Pod that specifies the `RuntimeDefault` AppArmor profile 
+for all of its containers:
+
+{{< codenew file="pods/security/apparmor/default-pod.yaml" >}}
+
+Create that Pod:
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/apparmor/default-pod.yaml
+```
+
+```shell
+kubectl get pod default-pod
+```
+
+The Pod should be showing as having started successfully:
+```
+NAME        READY   STATUS    RESTARTS   AGE
+default-pod 1/1     Running   0          20s
+```
+
+Clean up the pod:
+
+```shell
+kubectl delete pod default-pod --wait --now
+```
 
 ## Administration
 
@@ -338,7 +359,7 @@ nodes. There are lots of ways to setup the profiles though, such as:
 * At node initialization time, using your node initialization scripts (e.g. Salt, Ansible, etc.) or
   image.
 * By copying the profiles to each node and loading them through SSH, as demonstrated in the
-  [Example](#example).
+  [example](#running-a-pod-with-an-apparmor-profile).
 
 The scheduler is not aware of which profiles are loaded onto which node, so the full set of profiles
 must be loaded onto every node.  An alternative approach is to add a node label for each profile (or
@@ -346,51 +367,7 @@ class of profiles) on the node, and use a
 [node selector](/docs/concepts/scheduling-eviction/assign-pod-node/) to ensure the Pod is run on a
 node with the required profile.
 
-### Restricting profiles with the PodSecurityPolicy
-
-{{< note >}}
-PodSecurityPolicy is deprecated in Kubernetes v1.21, and will be removed in v1.25.
-See [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation for more information.
-{{< /note >}}
-
-If the PodSecurityPolicy extension is enabled, cluster-wide AppArmor restrictions can be applied. To
-enable the PodSecurityPolicy, the following flag must be set on the `apiserver`:
-
-```
---enable-admission-plugins=PodSecurityPolicy[,others...]
-```
-
-The AppArmor options can be specified as annotations on the PodSecurityPolicy:
-
-```yaml
-apparmor.security.beta.kubernetes.io/defaultProfileName: <profile_ref>
-apparmor.security.beta.kubernetes.io/allowedProfileNames: <profile_ref>[,others...]
-```
-
-The default profile name option specifies the profile to apply to containers by default when none is
-specified. The allowed profile names option specifies a list of profiles that Pod containers are
-allowed to be run with. If both options are provided, the default must be allowed. The profiles are
-specified in the same format as on containers. See the [API Reference](#api-reference) for the full
-specification.
-
-### Disabling AppArmor
-
-If you do not want AppArmor to be available on your cluster, it can be disabled by a command-line flag:
-
-```
---feature-gates=AppArmor=false
-```
-
-When disabled, any Pod that includes an AppArmor profile will fail validation with a "Forbidden"
-error.
-
-{{<note>}}
-Even if the Kubernetes feature is disabled, runtimes may still enforce the default profile. The
-option to disable the AppArmor feature will be removed when AppArmor graduates to general
-availability (GA).
-{{</note>}}
-
-## Authoring Profiles
+### Authoring Profiles
 
 Getting AppArmor profiles specified correctly can be a tricky business. Fortunately there are some
 tools to help with that:
@@ -405,48 +382,6 @@ To debug problems with AppArmor, you can check the system logs to see what, spec
 denied. AppArmor logs verbose messages to `dmesg`, and errors can usually be found in the system
 logs or through `journalctl`. More information is provided in
 [AppArmor failures](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures).
-
-
-## API Reference
-
-### Pod Annotation
-
-Specifying the profile a container will run with:
-
-- **key**: `container.apparmor.security.beta.kubernetes.io/<container_name>`
-  Where `<container_name>` matches the name of a container in the Pod.
-  A separate profile can be specified for each container in the Pod.
-- **value**: a profile reference, described below
-
-### Profile Reference
-
-- `runtime/default`: Refers to the default runtime profile.
-  - Equivalent to not specifying a profile (without a PodSecurityPolicy default), except it still
-    requires AppArmor to be enabled.
-  - In practice, many container runtimes use the same OCI default profile, defined here:
-    https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
-- `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.
-  - The possible profile names are detailed in the
-    [core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications).
-- `unconfined`: This effectively disables AppArmor on the container.
-
-Any other profile reference format is invalid.
-
-### PodSecurityPolicy Annotations
-
-Specifying the default profile to apply to containers when none is provided:
-
-* **key**: `apparmor.security.beta.kubernetes.io/defaultProfileName`
-* **value**: a profile reference, described above
-
-Specifying the list of profiles Pod containers is allowed to specify:
-
-* **key**: `apparmor.security.beta.kubernetes.io/allowedProfileNames`
-* **value**: a comma-separated list of profile references (described above)
-  - Although an escaped comma is a legal character in a profile name, it cannot be explicitly
-    allowed here.
-
-
 
 ## {{% heading "whatsnext" %}}
 
