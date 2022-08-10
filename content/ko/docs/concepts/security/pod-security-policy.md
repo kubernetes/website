@@ -159,7 +159,7 @@ text="어드미션 컨트롤러" term_id="admission-controller" >}}로 대체되
 새로운 어드미션 컨트롤러로 쉽게 전환할 수 있다.
 
 1. 파드시큐리티폴리시를
-   [파드 보안 표준](/docs/concepts/security/pod-security-standards/)에 의해 정의된 폴리시로 한정한다.
+   [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)에 의해 정의된 폴리시로 한정한다.
 
    - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
    - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
@@ -497,7 +497,7 @@ podsecuritypolicy "example" deleted
 {{< codenew file="policy/restricted-psp.yaml" >}}
 
 더 많은 예제는
-[파드 보안 표준](/docs/concepts/security/pod-security-standards/#policy-instantiation)을 본다.
+[파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/#정책-초기화)을 본다.
 
 ## 정책 레퍼런스
 
@@ -773,7 +773,7 @@ spec:
 미래](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)에서 
 파드시큐리티폴리시의 미래에 대해 알아본다.
 
-- 폴리시 권장 사항에 대해서는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)을 참조한다.
+- 폴리시 권장 사항에 대해서는 [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)을 참조한다.
 
 - API 세부 정보는
   [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.

@@ -201,7 +201,7 @@ cat /etc/podinfo/cpu_limit
 
 * [`spec`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)을 읽어보자.
   파드에 대한 API 정의다. 여기에는 컨테이너 (파드의 일부)의 정의가 포함되어 있다.
-* downward API를 사용하여 노출할 수 있는 [이용 가능한 필드](/docs/concepts/workloads/pods/downward-api/#available-fields) 목록을 읽어보자.
+* downward API를 사용하여 노출할 수 있는 [이용 가능한 필드](/ko/docs/concepts/workloads/pods/downward-api/#사용-가능한-필드) 목록을 읽어보자.
 
 레거시 API 레퍼런스에서 볼륨에 대해 읽어본다.
 * 컨테이너가 접근할 파드 내의 일반 볼륨을 정의하는 

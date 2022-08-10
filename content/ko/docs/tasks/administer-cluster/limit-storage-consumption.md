@@ -9,7 +9,7 @@ content_type: task
 
 예제에서는 다음과 같은 리소스가 사용된다. [리소스쿼터(ResourceQuota)](/ko/docs/concepts/policy/resource-quotas/),
 [리밋레인지(LimitRange)](/ko/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/),
-그리고 [퍼시스턴트볼륨클레임(PersistentVolumeClaim)](ko/docs/concepts/storage/persistent-volumes/).
+그리고 [퍼시스턴트볼륨클레임(PersistentVolumeClaim)](/ko/docs/concepts/storage/persistent-volumes/).
 
 
 ## {{% heading "prerequisites" %}}

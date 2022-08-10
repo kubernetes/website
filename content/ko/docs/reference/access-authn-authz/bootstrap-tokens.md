@@ -12,7 +12,7 @@ weight: 20
 
 부트스트랩 토큰은 새 클러스터를 만들거나 새 노드를 기존 클러스터에 결합할 때
 사용되는 간단한 전달자 토큰이다.
-[kubeadm](/docs/reference/setup-tools/kubeadm/)을 지원하도록 구축되었지만
+[kubeadm](/ko/docs/reference/setup-tools/kubeadm/)을 지원하도록 구축되었지만
  `kubeadm` 없이 클러스터를 시작하려는 사용자를 위해 다른 컨텍스트에서 사용할 수 있다.
 또한 RBAC 정책을 통해 [Kubelet TLS 부트스트래핑](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 시스템과 함께 동작하도록 구축되었다.

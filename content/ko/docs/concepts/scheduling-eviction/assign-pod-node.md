@@ -481,7 +481,7 @@ spec:
 
 _토폴로지 분배 제약 조건_을 사용하여 지역(regions), 영역(zones), 노드 또는 사용자가 정의한 다른 토폴로지 도메인과 같은 장애 도메인 사이에서 {{< glossary_tooltip text="파드" term_id="Pod" >}}가 클러스터 전체에 분산되는 방식을 제어할 수 있다. 성능, 예상 가용성 또는 전체 활용도를 개선하기 위해 이 작업을 수행할 수 있다.
 
-[파드 토폴로지 분배 제약 조건](/docs/concepts/scheduling-eviction/topology-spread-constraints/)에서 
+[파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)에서 
 작동 방식에 대해 더 자세히 알아볼 수 있다.
 
 ## {{% heading "whatsnext" %}}
