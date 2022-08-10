@@ -49,7 +49,7 @@ O Kubernetes revisa somente os seguintes atributos de uma requisição de API:
  * **Recurso** - O identificador ou nome do recurso que está sendo acessado (somente para requisições de recursos) -- Para requisições de recursos usando os verbos `get`, `update`, `patch` e `delete`, deve-se fornecer o nome do recurso.
  * **Subrecurso** - O sub-recurso que está sendo acessado (somente para solicitações de recursos).
  * **Namespace** - O namespace do objeto que está sendo acessado (somente para solicitações de recursos com namespace).
- * **Grupo de API** - O {{< glossary_tooltip text="API Group" term_id="api-group" >}} sendo acessado (somente para requisições de recursos). Uma string vazia designa o _core_ [Grupo de API](/pt-br/docs/reference/using-api/#api-groups).
+ * **Grupo de API** - O {{< glossary_tooltip text="API Group" term_id="api-group" >}} sendo acessado (somente para requisições de recursos). Uma string vazia designa o _core_ [Grupo de API](/docs/reference/using-api/#api-groups).
 
 ## Determine o verbo da requisição {#determine-the-request-verb}
 
@@ -85,12 +85,12 @@ DELETE     | delete (para recursos individuais), deletecollection (para coleçõ
 
 O servidor da API Kubernetes pode autorizar uma solicitação usando um dos vários modos de autorização:
 
- * **Node** - Um modo de autorização de finalidade especial que concede permissões a `kubelets` com base nos `pods` que estão programados para execução. Para saber mais sobre como utilizar o modo de autorização do nó, consulte [Node Authorization](/pt-br/docs/reference/access-authn-authz/node/).
- * **ABAC** - Attribute-based access control (ABAC), ou Controle de acesso baseado em atributos, define um paradigma de controle de acesso pelo qual os direitos de acesso são concedidos aos usuários por meio do uso de políticas que combinam atributos. As políticas podem usar qualquer tipo de atributo (atributos de usuário, atributos de recurso, objeto, atributos de ambiente, etc.). Para saber mais sobre como usar o modo ABAC, consulte [ABAC Mode](/pt-br/docs/reference/access-authn-authz/abac/).
- * **RBAC** - Role-based access control (RBAC), ou controle de acesso baseado em função, é um método de regular o acesso a recursos de computador ou rede com base nas funções de usuários individuais dentro de uma empresa. Nesse contexto, acesso é a capacidade de um usuário individual realizar uma tarefa específica, como visualizar, criar ou modificar um arquivo. Para saber mais sobre como usar o modo RBAC, consulte [RBAC Mode](/pt-br/docs/reference/access-authn-authz/rbac/)
+ * **Node** - Um modo de autorização de finalidade especial que concede permissões a `kubelets` com base nos `pods` que estão programados para execução. Para saber mais sobre como utilizar o modo de autorização do nó, consulte [Node Authorization](/docs/reference/access-authn-authz/node/).
+ * **ABAC** - Attribute-based access control (ABAC), ou Controle de acesso baseado em atributos, define um paradigma de controle de acesso pelo qual os direitos de acesso são concedidos aos usuários por meio do uso de políticas que combinam atributos. As políticas podem usar qualquer tipo de atributo (atributos de usuário, atributos de recurso, objeto, atributos de ambiente, etc.). Para saber mais sobre como usar o modo ABAC, consulte [ABAC Mode](/docs/reference/access-authn-authz/abac/).
+ * **RBAC** - Role-based access control (RBAC), ou controle de acesso baseado em função, é um método de regular o acesso a recursos de computador ou rede com base nas funções de usuários individuais dentro de uma empresa. Nesse contexto, acesso é a capacidade de um usuário individual realizar uma tarefa específica, como visualizar, criar ou modificar um arquivo. Para saber mais sobre como usar o modo RBAC, consulte [RBAC Mode](/docs/reference/access-authn-authz/rbac/)
    * Quando especificado RBAC (Role-Based Access Control) usa o group de API `rbac.authorization.k8s.io` para orientar as decisões de autorização, permitindo que os administradores configurem dinamicamente as políticas de permissão por meio da API do Kubernetes.
    * Para habilitar o modo RBAC, inicie o servidor de API (apiserver) com a opção `--authorization-mode=RBAC`.
- * **Webhook** - Um WebHook é um retorno de chamada HTTP: um HTTP POST que ocorre quando algo acontece; uma simples notificação de evento via HTTP POST. Um aplicativo da Web que implementa WebHooks postará uma mensagem em um URL quando ocorrerem determinadas coisas. Para saber mais sobre como usar o modo Webhook, consulte [Webhook Mode](/pt-br/docs/reference/access-authn-authz/webhook/).
+ * **Webhook** - Um WebHook é um retorno de chamada HTTP: um HTTP POST que ocorre quando algo acontece; uma simples notificação de evento via HTTP POST. Um aplicativo da Web que implementa WebHooks postará uma mensagem em um URL quando ocorrerem determinadas coisas. Para saber mais sobre como usar o modo Webhook, consulte [Webhook Mode](/docs/reference/access-authn-authz/webhook/).
 
 #### Verificando acesso a API
 
@@ -244,5 +244,5 @@ Isto deve ser considerado ao decidir os controles de acesso baseado em função 
 
 ## {{% heading "whatsnext?" %}}
 
-* Para aprender mais sobre autenticação, visite **Authentication** in [Controlando acesso a APIs do Kubernetes](/pt-br/docsconcepts/security/controlling-access/).
-* Para aprender mais sobre Admission Control, visite [Utilizando Admission Controllers](/pt-br/docs/reference/access-authn-authz/admission-controllers/).
+* Para aprender mais sobre autenticação, visite **Authentication** in [Controlando acesso a APIs do Kubernetes](/pt-br/docs/concepts/security/controlling-access/).
+* Para aprender mais sobre Admission Control, visite [Utilizando Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
