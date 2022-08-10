@@ -659,7 +659,7 @@ Consider the following scenario:
 
 * 节点内存容量：`10Gi`
 * 操作员希望为系统守护进程（内核、`kubelet` 等）保留 10% 的内存容量
-* 操作员希望驱逐内存利用率为 95% 的 Pod，以减少系统 OOM 的概率。
+* 操作员希望在节点内存利用率达到 95% 以上时驱逐 Pod，以减少系统 OOM 的概率。
 
 <!-- 
 For this to work, the kubelet is launched as follows:
