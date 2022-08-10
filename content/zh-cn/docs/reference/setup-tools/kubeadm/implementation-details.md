@@ -432,7 +432,7 @@ Kubelet 启动后会监视这个目录以便创建 Pod。
 - All static Pods get any extra Volumes specified by the user (Host path)
 -->
 - 所有静态 Pod 都部署在 `kube-system` 名字空间
-- 所有静态 Pod 都打上 `tier:ontrol-plane` 和 `component:{组件名称}` 标签
+- 所有静态 Pod 都打上 `tier:control-plane` 和 `component:{组件名称}` 标签
 - 所有静态 Pod 均使用 `system-node-critical` 优先级
 - 所有静态 Pod 都设置了 `hostNetwork:true`，使得控制平面在配置网络之前启动；结果导致：
 
