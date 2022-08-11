@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Enhancing Kubernetes one KEP at a Time"
-date: 2022-08-15
+date: 2022-08-11
 slug: enhancing-kubernetes-one-kep-at-a-time
 ---
 
