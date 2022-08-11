@@ -6,7 +6,9 @@ slug: tbd
 canonicalUrl: tbd
 ---
 
-In Kubernetes 1.25, [Validation rules for CustomResourceDefinitions](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules) (CRDs) have been promoted to Beta!
+**Authors:** Joe Betz (Google), Kermit Alexander (Google)
+
+In Kubernetes 1.25, [Validation rules for CustomResourceDefinitions](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules) (CRDs) have graduated to Beta!
 
 Validation rules make it possible to declare how custom resources are validated using the [Common Expression Language](https://github.com/google/cel-spec) (CEL). For example:
 
@@ -78,7 +80,7 @@ Best practice examples:
 | Validate an integer is between 0 and 100. | Use OpenAPIv3 value validations. | <pre>type: integer<br>minimum: 0<br>maximum: 100</pre> |
 | Constraint the max size limits on maps (objects with additionalProperties), arrays and string. | Use OpenAPIv3 value validations. Recommended for all maps, arrays and strings. This best practice is essential for rule cost estimation (explained below). | <pre>type:<br>maxItems: 100</pre> |
 | Require a date-time be more recent than a particular timestamp. | Use OpenAPIv3 string formats to declare that the field is a date-time. Use validation rules to compare it to a particular timestamp. | <pre>type: string<br>format: date-time<br>x-kubernetes-validations:<br>  - rule: "self >= timestamp('2000-01-01T00:00:00.000Z')"</pre> |
-| Require two sets to be disjoint. | Use x-kubernetes-list-type to validate that the arrays are sets. | Use validation rules to validate the sets are disjoint. | <pre>type: object<br>properties:<br>  set1:<br>    type: array<br>    x-kubernetes-list-type: set<br>  set2: ...<br>  x-kubernetes-validations:<br>    - rule: "!self.set1.all(e, !(e in self.set2))"</pre>
+| Require two sets to be disjoint. | Use x-kubernetes-list-type to validate that the arrays are sets. <br>Use validation rules to validate the sets are disjoint. | <pre>type: object<br>properties:<br>  set1:<br>    type: array<br>    x-kubernetes-list-type: set<br>  set2: ...<br>  x-kubernetes-validations:<br>    - rule: "!self.set1.all(e, !(e in self.set2))"</pre>
 
 ## Using Transition Rules
 
@@ -113,7 +115,7 @@ Examples of function libraries in use:
 | `int(self.find('^[0-9]*')) < 100` | Validate that a string starts with a number less than 100. |
 | `self.isSorted()` | Validates that a list is sorted. |
 
-#Resource Limits
+## Resource Limits
 
 To prevent CEL evaluation from consuming excessive compute resources, validation rules impose some limits. These limits are based on CEL "cost units", a platform and machine independent measure of execution cost. As a result, the limits are the same regardless of where they are enforced.
 
@@ -131,7 +133,7 @@ In addition to the estimated cost limit, CEL keeps track of actual cost while ev
 
 With the estimated cost limit already in place, the runtime cost limit is rarely encountered. But it is possible. For example, it might be encountered for a large resource composed entirely of a single large list and a validation rule that is either evaluated on each element in the list, or traverses the entire list.
 
-CRD authors can ensure the runtime cost limit will not be exceeded in much the same way the estimated cost limit is avoided: by setting maxItems, maxProperties and maxLength on array, map and string types.
+CRD authors can ensure the runtime cost limit will not be exceeded in much the same way the estimated cost limit is avoided: by setting `maxItems`, `maxProperties` and `maxLength` on array, map and string types.
 
 ## Future Work
 
@@ -139,4 +141,6 @@ We look forward to working with the community on the adoption of Validation Rule
 
 There is a growing community of Kubernetes contributors thinking about how to make it possible to write extensible admission controllers using CEL as a substitute for admission webhooks for policy enforcement use cases. Anyone interested should reach out to us on the usual [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) channels or via slack at [#sig-api-machinery-cel-dev](https://kubernetes.slack.com/archives/C02TTBG6LF4).
 
-Special thanks to @liggitt, @deads2k, @lavalamp, @sttts, @leilajal and everyone who contributed to Validation Rules!
+## Acknowledgements
+
+Special thanks to Cici Huang, Ben Luddy, Jordan Liggitt, David Eads, Daniel Smith, Dr. Stefan Schimanski, Leila Jalali and everyone who contributed to Validation Rules!
