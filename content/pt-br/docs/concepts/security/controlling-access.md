@@ -100,7 +100,7 @@ A autorização do Kubernetes requer que você use atributos comuns a REST para 
 
 O Kubernetes oferece suporte a vários módulos de autorização, como o modo de controle de acesso baseado em atributos (ABAC), o modo de controle de acesso baseado em função (RBAC) e o modo Webhook. Quando um administrador cria um cluster, ele configura os módulos de autorização que devem ser utilizados no servidor de API. Se mais de um módulo de autorização for configurado, o Kubernetes verificará cada módulo e, se algum módulo autorizar a requisição, a requisição poderá prosseguir. Se todos os módulos negarem a requisição, a requisição será negada (com código de status HTTP 403 - Acesso Proibido).
 
-Para saber mais sobre a autorização do Kubernetes, incluindo detalhes sobre como criar políticas usando os módulos de autorização compatíveis, consulte [Authorization](/pt-br/docs/reference/access-authn-authz/authorization/).
+Para saber mais sobre a autorização do Kubernetes, incluindo detalhes sobre como criar políticas usando os módulos de autorização compatíveis, consulte [Autorização](/pt-br/docs/reference/access-authn-authz/authorization/).
 
 ## Controle de admissão
 
