@@ -23,6 +23,7 @@ no_list: true
 * [쿠버네티스 스케줄러](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)
 * [노드에 파드 할당하기](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)
 * [파드 오버헤드](/ko/docs/concepts/scheduling-eviction/pod-overhead/)
+* [파드 토폴로지 분배 제약 조건](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * [테인트(Taints)와 톨러레이션(Tolerations)](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)
 * [스케줄링 프레임워크](/docs/concepts/scheduling-eviction/scheduling-framework/)
 * [스케줄러 성능 튜닝](/ko/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
