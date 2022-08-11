@@ -257,7 +257,7 @@ deleted by the Kubelet.
        "attempt": 1,
        "uid": "hdishd83djaidwnduwk28bcsb"
      },
-     "logDirectory": "/tmp",
+     "log_directory": "/tmp",
      "linux": {
      }
    }
@@ -293,10 +293,10 @@ deleted by the Kubelet.
    ```json
    {
      "metadata": {
-       "name": "nginx-sandbox",
+       "name": "busybox-sandbox",
        "namespace": "default",
        "attempt": 1,
-       "uid": "hdishd83djaidwnduwk28bcsb"
+       "uid": "aewi4aeThua7ooShohbo1phoj"
      },
      "log_directory": "/tmp",
      "linux": {
