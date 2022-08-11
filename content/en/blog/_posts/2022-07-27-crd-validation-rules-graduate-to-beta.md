@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "CustomResourceDefinition Validation Rules Graduating to Beta in 1.25"
+title: "Kubernetes 1.25: CustomResourceDefinition Validation Rules Graduate to Beta"
 date: 2022-07-27
 slug: tbd
 canonicalUrl: tbd
