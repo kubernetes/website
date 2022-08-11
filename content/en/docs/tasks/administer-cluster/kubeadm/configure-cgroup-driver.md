@@ -22,7 +22,7 @@ The [Container runtimes](/docs/setup/production-environment/container-runtimes) 
 explains that the `systemd` driver is recommended for kubeadm based setups instead
 of the `cgroupfs` driver, because kubeadm manages the kubelet as a systemd service.
 
-The page also provides details on how to setup a number of different container runtimes with the
+The page also provides details on how to set up a number of different container runtimes with the
 `systemd` driver by default.
 
 ## Configuring the kubelet cgroup driver

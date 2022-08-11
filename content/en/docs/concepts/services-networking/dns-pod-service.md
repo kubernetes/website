@@ -301,7 +301,7 @@ search ns1.svc.cluster-domain.example my.dns.search.suffix
 options ndots:2 edns0
 ```
 
-For IPv6 setup, search path and name server should be setup like this:
+For IPv6 setup, search path and name server should be set up like this:
 
 ```shell
 kubectl exec -it dns-example -- cat /etc/resolv.conf
