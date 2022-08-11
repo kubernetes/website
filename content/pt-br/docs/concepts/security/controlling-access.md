@@ -174,8 +174,8 @@ Consulte mais documentação sobre autenticação, autorização e controle de a
    - [Using Node Authorization](/docs/reference/access-authn-authz/node/)
    - [Webhook Mode](/docs/reference/access-authn-authz/webhook/)
 - [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/)
-   - including [Approval or rejection of Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
-     and [Signing certificates](/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
+   - incluindo [Approval or rejection of Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
+     e [Signing certificates](/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
 - Contas de serviço
   - [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/)
   - [Managing Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
