@@ -7,10 +7,10 @@ content_type: concept
 Esta página fornece uma visão geral do controle de acesso à API do Kubernetes.
 
 <!-- body -->
-Usuários podem acessar a [API do Kubernetes](/pt-br/docs/concepts/overview/kubernetes-api/) utilizando `kubectl`,
+Usuários podem acessar a [The Kubernetes API](/docs/concepts/overview/kubernetes-api/) utilizando `kubectl`,
 bibliotecas, ou executando requisições REST.  Ambos, usuários humanos e
-[Contas de serviço do Kubernetes](/pt-br/docs/tasks/configure-pod-container/configure-service-account/) podem ser autorizados
-a acessar a API.
+[Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/) podem ser autorizados
+a acessar à API.
 Quando uma requisição chega a API, ela passa por diversos estágios,
 ilustrados no seguinte diagrama:
 
@@ -18,16 +18,16 @@ ilustrados no seguinte diagrama:
 
 ## Segurança na camada de transporte
 
-Em um tipico cluster Kubernetes, a API fica disponível na porta 443, protegida por segurança na camada de transporte (TLS).
+Em um cluster Kubernetes típico, a API fica disponível na porta 443, protegida por segurança na camada de transporte (TLS).
 O servidor de API apresenta um certificado. Este certificado pode ser assinado utilizando
 uma autoridade privada de certificados (CA), ou baseado em uma infraestrutura de chave publica ligada
 a uma autoridade de certificados reconhecida publicamente.
 
-Se o seu cluster utiliza uma autoridade privada de certificados, voce precisa de uma copia do certificado
+Se o seu cluster utiliza uma autoridade privada de certificados, voce precisa de uma cópia do certificado
 da autoridade de certificados (CA) dentro do arquivo de configuração `~/.kube/config`, no lado do cliente, para que
-voce possa confiar na conexão e tenha a garantia de que nao ha interceptação de trafico.
+voce possa confiar na conexão e tenha a garantia de que não há interceptação de tráfego.
 
-O seu cliente pode apresentar o certificado de cliente TLS neste estagio.
+O seu cliente pode apresentar o certificado de cliente TLS neste estágio.
 
 ## Autenticação
 
@@ -48,7 +48,7 @@ tokens de auto-inicialização e JSON Web Tokens (utilizados para contas de serv
 Vários módulos de autenticação podem ser especificados, em que cada um é tentado em sequência,
 até que um deles tenha sucesso.
 
-Se a requisição nao pode ser autenticada, será rejeitada com o código de status HTTP 401 (não autorizado).
+Se a requisição não pode ser autenticada, será rejeitada com o código de status HTTP 401 (não autorizado).
 Caso contrário, o usuário é autenticado com um "nome de usuário" específico e o nome de usuário
 está disponível para as etapas subsequentes para usar em suas decisões. Alguns autenticadores
 também fornecem as associações de grupo do usuário, enquanto outros autenticadores
@@ -120,7 +120,7 @@ rejeita, a solicitação é imediatamente rejeitada.
 Além de rejeitar objetos, os controladores de admissão também podem definir padrões complexos para
 campos.
 
-Os módulos de Controle de Admissão disponíveis são descritos em [Controladores de Admissão](/pt-br/docs/reference/access-authn-authz/admission-controllers/).
+Os módulos de Controle de Admissão disponíveis são descritos em [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
 
 Após uma requisição passar por todos os controladores de admissão, ela é validada usando as rotinas de validação
 para o objeto de API correspondente e, em seguida, gravados no armazenamento de objetos (mostrado como etapa **4** no diagrama).
@@ -130,7 +130,7 @@ para o objeto de API correspondente e, em seguida, gravados no armazenamento de 
 A auditoria do Kubernetes fornece um conjunto de registros cronológicos relevantes para a segurança que documentam a sequência de ações em um cluster.
 O cluster audita as atividades geradas pelos usuários, pelos aplicativos que usam a API do Kubernetes e pela própria camada de gerenciamento.
 
-Para mais informações, consulte [Auditoria](/pt-br/docs/tasks/debug/debug-cluster/audit/).
+Para mais informações, consulte [Auditing](/docs/tasks/debug/debug-cluster/audit/).
 
 ## Portas e IPs do servidor de API
 
@@ -146,7 +146,7 @@ Por padrão, o servidor da API Kubernetes atende HTTP em 2 portas:
        - sem segurança na camada de transporte (TLS)
        - o padrão é a porta 8080
        - IP padrão é localhost, mude com a flag `--insecure-bind-address`.
-       - requisitar módulos de autenticação e autorização **ignora**.
+       - a requisição **ignora** os módulos de autenticação e autorização .
        - requisição tratada pelo(s) módulo(s) de controle de admissão.
        - protegido pela necessidade de ter acesso ao host
 
@@ -160,27 +160,25 @@ Por padrão, o servidor da API Kubernetes atende HTTP em 2 portas:
        - requisição tratada pelo(s) módulo(s) de controle de admissão.
        - módulos de autenticação e autorização executados.
 
-## {{% heading "whatsnext?" %}}
+## {{% heading "whatsnext" %}}
 
 Consulte mais documentação sobre autenticação, autorização e controle de acesso à API:
 
-- [Autenticando](/pt-br/docs/reference/access-authn-authz/authentication/)
-   - [Autenticando com tokens de auto-inicialização](/pt-br/docs/reference/access-authn-authz/bootstrap-tokens/)
-- [Controladores de Admissão](/pt-br/docs/reference/access-authn-authz/admission-controllers/)
-   - [Controle de Admissão Dinâmico](/pt-br/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- [Autenticação](/pt-br/docs/reference/access-authn-authz/authentication/)
+   - [Autenticando com Tokens de Inicialização](/pt-br/docs/reference/access-authn-authz/bootstrap-tokens/)
+- [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
+   - [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 - [Autorização](/pt-br/docs/reference/access-authn-authz/authorization/)
-   - [Controle de acesso baseado em função](/pt-br/docs/reference/access-authn-authz/rbac/)
-   - [Controle de acesso baseado em atributos](/pt-br/docs/reference/access-authn-authz/abac/)
-   - [Autorização Node ](/pt-br/docs/reference/access-authn-authz/node/)
-   - [Webhook de Autorização](/pt-br/docs/reference/access-authn-authz/webhook/)
-- [Requisições de assinatura de certificado](/pt-br/docs/reference/access-authn-authz/certificate-signing-requests/)
-   - including [Aprovação de Requisições de assinatura de certificado](/pt-br/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
-     and [Assinando certificados](/pt-br/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
+   - [Using RBAC Authorization](/docs/reference/access-authn-authz/rbac/)
+   - [Using ABAC Authorization](/docs/reference/access-authn-authz/abac/)
+   - [Using Node Authorization](/docs/reference/access-authn-authz/node/)
+   - [Webhook Mode](/docs/reference/access-authn-authz/webhook/)
+- [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/)
+   - including [Approval or rejection of Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
+     and [Signing certificates](/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
 - Contas de serviço
-  - [Guia do desenvolvedor](/pt-br/docs/tasks/configure-pod-container/configure-service-account/)
-  - [Administração](/pt-br/docs/reference/access-authn-authz/service-accounts-admin/)
+  - [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/)
+  - [Managing Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
 
 Você pode aprender mais sobre:
-- como os pods podem usar
-  [Secrets](/pt-br/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
-  para obter credenciais de API.
+- como os pods podem usar [Secrets](/docs/concepts/configuration/secret/) para obter credenciais de API.
