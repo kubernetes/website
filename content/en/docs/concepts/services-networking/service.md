@@ -637,7 +637,7 @@ to specify IP address ranges that kube-proxy should consider as local to this no
 For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag,
 kube-proxy only selects the loopback interface for NodePort Services.
 The default for `--nodeport-addresses` is an empty list.
-his means that kube-proxy should consider all available network interfaces for NodePort.
+This means that kube-proxy should consider all available network interfaces for NodePort.
 (That's also compatible with earlier Kubernetes releases).
 
 If you want a specific port number, you can specify a value in the `nodePort`
