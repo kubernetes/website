@@ -996,20 +996,22 @@ For more information, see the [vSphere volume](https://github.com/kubernetes/exa
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-The `CSIMigration` feature for `vsphereVolume`, when enabled, redirects all plugin operations
-from the existing in-tree plugin to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver. In order to use this feature, the
+The `CSIMigrationvSphere` feature for `vsphereVolume` is enabled by default as of Kubernetes v1.25.
+All plugin operations from the in-tree `vspherevolume` will be redirected to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver unless `CSIMigrationvSphere` feature gate is disabled.
+
+
 [vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere`
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
-You can find additional advice on how to migrate in VMware's
+must be installed on the cluster. You can find additional advice on how to migrate in-tree `vsphereVolume` in VMware's
 documentation page [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
 
-Kubernetes v{{< skew currentVersion >}} requires that you are using vSphere 7.0u2 or later
-in order to migrate to the out-of-tree CSI driver.
+As of Kubernetes v1.25, vSphere releases less than 7.0u2 are not supported for the
+(deprecated) in-tree vSphere storage driver. You must run vSphere 7.0u2 or later
+in order to either continue using the deprecated driver, or to migrate to
+the replacement CSI driver.
+
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}}, consult
 the documentation for that version of Kubernetes.
-If you are running Kubernetes v{{< skew currentVersion >}} and an older version of vSphere,
-consider upgrading to at least vSphere 7.0u2.
+
 
 {{< note >}}
 The following StorageClass parameters from the built-in `vsphereVolume` plugin are not supported by the vSphere CSI driver:
