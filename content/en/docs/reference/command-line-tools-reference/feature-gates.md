@@ -285,7 +285,8 @@ different Kubernetes components.
 | `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
 | `CronJobControllerV2` | `true` | Beta | 1.21 | 1.21 |
 | `CronJobControllerV2` | `true` | GA | 1.22 | - |
-| `CronJobTimeZone` | `false` | Alpha | 1.24 | |
+| `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
+| `CronJobTimeZone` | `true` | Beta | 1.25 | |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
