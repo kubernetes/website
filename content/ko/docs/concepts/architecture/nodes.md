@@ -476,13 +476,11 @@ kubelet의 노드 셧다운 관리자(Node Shutdown Mananger)가
 기존의 셧다운된 노드가 정상으로 돌아오지 못하면, 
 이러한 파드는 셧다운된 노드에 '종료 중(terminating)' 상태로 영원히 고착될 것이다.
 
-위와 같은 상황을 완화하기 위해, 
-사용자가 `node.kubernetes.io/out-of-service` 테인트를 
+위와 같은 상황을 완화하기 위해, 사용자가 `node.kubernetes.io/out-of-service` 테인트를 
 `NoExecute` 또는 `NoSchedule` 값으로 추가하여 
 노드를 서비스 불가(out-of-service) 상태로 표시할 수 있다. 
-`kube-controller-manager`에 `NodeOutOfServiceVolumeDetach` 
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있고, 
-노드가 이 테인트에 의해 서비스 불가 상태로 표시되어 있는 경우, 
+`kube-controller-manager`에 `NodeOutOfServiceVolumeDetach`[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
+가 활성화되어 있고, 노드가 이 테인트에 의해 서비스 불가 상태로 표시되어 있는 경우, 
 노드에 매치되는 톨러레이션이 없다면 노드 상의 파드는 강제로 삭제될 것이고, 
 노드 상에서 종료되는 파드에 대한 볼륨 해제(detach) 작업은 즉시 수행될 것이다. 
 이를 통해 서비스 불가 상태 노드의 파드가 빠르게 다른 노드에서 복구될 수 있다.
@@ -492,7 +490,6 @@ kubelet의 노드 셧다운 관리자(Node Shutdown Mananger)가
 1. 매치되는 `out-of-service` 톨러레이션이 없는 파드를 강제로 삭제한다.
 2. 이러한 파드에 대한 볼륨 해제 작업을 즉시 수행한다.
 
-
 {{< note >}}
 - `node.kubernetes.io/out-of-service` 테인트를 추가하기 전에, 
   노드가 완전한 셧다운 또는 전원 꺼짐 상태에 있는지 
@@ -500,8 +497,6 @@ kubelet의 노드 셧다운 관리자(Node Shutdown Mananger)가
 - 사용자가 서비스 불가 상태 테인트를 직접 추가한 것이기 때문에, 
   파드가 다른 노드로 옮겨졌고 셧다운 상태였던 노드가 복구된 것을 확인했다면 
   사용자가 서비스 불가 상태 테인트를 수동으로 제거해야 한다.
-
-
 {{< /note >}}
 
 ### 파드 우선순위 기반 그레이스풀 노드 셧다운 {#pod-priority-graceful-node-shutdown}
