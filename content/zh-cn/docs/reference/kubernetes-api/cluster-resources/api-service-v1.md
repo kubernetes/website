@@ -200,13 +200,13 @@ APIServiceStatus 包含有关 API 服务器的派生信息
     <!--
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
     -->
-    Time 是对 time.Time 的封装。Time 支持对 YAML 和 JSON 进行正确封包。为 time 包的许多函数方法提供了封装器。
+    **Time 是对 time.Time 的封装。Time 支持对 YAML 和 JSON 进行正确封包。为 time 包的许多函数方法提供了封装器。**
   
   - **conditions.message** (string)
     <!--
     Human-readable message indicating details about last transition.
     -->
-    指示上次转换的详细可读信息。  
+    指示有关上次转换详细信息的人类可读信息。  
   
   - **conditions.reason** (string)
     <!--
