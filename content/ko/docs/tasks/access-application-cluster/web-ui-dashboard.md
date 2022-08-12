@@ -1,9 +1,9 @@
 ---
-
-
-
-
-
+# reviewers:
+# - floreks
+# - maciaszczykm
+# - shu-mutou
+# - mikedanese
 title: 쿠버네티스 대시보드를 배포하고 접속하기
 description: >-
   웹 UI(쿠버네티스 대시보드)를 배포하고 접속한다.

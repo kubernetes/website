@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - chenopis
 title: 쿠버네티스 API
 content_type: concept
 weight: 30

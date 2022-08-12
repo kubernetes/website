@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - caesarxuchao
+# - dchen1107
 title: 노드
 content_type: concept
 weight: 10

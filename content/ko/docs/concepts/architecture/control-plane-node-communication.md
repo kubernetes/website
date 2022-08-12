@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - dchen1107
+# - liggitt
 title: 컨트롤 플레인-노드 간 통신
 content_type: concept
 weight: 20
