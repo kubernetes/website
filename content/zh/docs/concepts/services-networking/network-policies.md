@@ -41,9 +41,8 @@ When defining a pod- or namespace- based NetworkPolicy, you use a {{< glossary_t
 
 Meanwhile, when IP based NetworkPolicies are created, we define policies based on IP blocks (CIDR ranges).
 -->
-在定义基于 Pod 或名字空间的 NetworkPolicy 时，你会使用 
-{{< glossary_tooltip text="选择算符" term_id="selector">}} 来设定哪些流量
-可以进入或离开与该算符匹配的 Pod。
+在定义基于 Pod 或名字空间的 NetworkPolicy 时，
+你会使用{{< glossary_tooltip text="选择算符" term_id="selector">}}来设定哪些流量可以进入或离开与该算符匹配的 Pod。
 
 同时，当基于 IP 的 NetworkPolicy 被创建时，我们基于 IP 组块（CIDR 范围）
 来定义策略。
@@ -531,11 +530,11 @@ standardized label to target a specific namespace.
 <!--
 ## What you can't do with network policies (at least, not yet)
 
-As of Kubernetes {{< skew latestVersion >}}, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.
+As of Kubernetes {{< skew currentVersion >}}, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.
 -->
 ## 通过网络策略（至少目前还）无法完成的工作
 
-到 Kubernetes {{< skew latestVersion >}} 为止，NetworkPolicy API 还不支持以下功能，不过
+到 Kubernetes {{< skew currentVersion >}} 为止，NetworkPolicy API 还不支持以下功能，不过
 你可能可以使用操作系统组件（如 SELinux、OpenVSwitch、IPTables 等等）
 或者第七层技术（Ingress 控制器、服务网格实现）或准入控制器来实现一些
 替代方案。
