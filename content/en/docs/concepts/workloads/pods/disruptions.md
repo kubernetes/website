@@ -232,28 +232,37 @@ can happen, according to:
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
 {{< note >}}
-In order to use this behavior, you must enable `PodDisruptionsCondition`
+In order to use this behavior, you must enable the `PodDisruptionsCondition`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 in your cluster.
 {{< /note >}}
 
-When enabled, a dedicated Pod `DisruptionTarget` condition is added to indicate
-an imminent disruption of a Pod. The `reason` field of the condition additionally
+When enabled, a dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is added to indicate
+that the Pod is about to be deleted due to a {{<glossary_tooltip term_id="disruption" text="disruption">}}.
+The `reason` field of the condition additionally
 indicates one of the following reasons for the Pod termination:
-- `PreemptionByKubeScheduler`: Pod preempted by kube-scheduler to accommodate a Pod with higher priority. For more information, see [Pod priority preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
-- `DeletionByTaintManager`: Pod deleted by taint manager due to NoExecute taint, see more [here](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions).
-- `EvictionByEvictionAPI`: Pod evicted by [Eviction API](/docs/concepts/scheduling-eviction/api-eviction/).
-- `DeletionByPodGC`: an orphaned Pod deleted by [PodGC](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+
+`PreemptionByKubeScheduler`
+: Pod has been {{<glossary_tooltip term_id="preemption" text="preempted">}} by a scheduler in order to accommodate a new Pod with a higher priority. For more information, see [Pod priority preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
+
+`DeletionByTaintManager`
+: Pod is due to be deleted by Taint Manager due to to a `NoExecute` taint that the Pod does not tolerate; see {{<glossary_tooltip term_id="taint" text="taint">}}-based evictions.
+
+`EvictionByEvictionAPI`
+: Pod has been marked for {{<glossary_tooltip term_id="api-eviction" text="eviction using the Kubernetes API">}} .
+
+`DeletionByPodGC`
+: an orphaned Pod deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
 
 {{< note >}}
 A Pod disruption might be interrupted. The control plane might re-attempt to
 continue the disruption of the same Pod, but it is not guaranteed. As a result,
-the `DisruptionTarget` condition might be added to Pod, but the Pod might not be
+the `DisruptionTarget` condition might be added to a Pod, but that Pod might then not actually be
 deleted. In such a situation, after some time, the
 Pod disruption condition will be cleared.
 {{< /note >}}
 
-When using a Job, you may want to use these Pod disruption conditions you defined in your
+When using a Job (or CronJob), you may want to use these Pod disruption conditions as part of your Job's
 [Pod failure policy](/docs/concepts/workloads/controllers/job#pod-failure-policy).
 
 ## Separating Cluster Owner and Application Owner Roles

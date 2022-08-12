@@ -16,11 +16,11 @@ in combination with the default
 to improve the control over the handling of container- or Pod-level failure
 within a {{<glossary_tooltip text="Job" term_id="job">}}.
 
-The definition of Pod failure policy may help you to better utilize the computational
-resources by avoiding unnecessary Pod retries. This policy also lets you avoid Job
-failures due to Pod disruptions (such {{< glossary_tooltip text="preemption" term_id="preemption" >}},
-{{< glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
-or {{< glossary_tooltip text="taint" term_id="taint" >}}-based eviction).
+The definition of Pod failure policy may help you to:
+* better utilize the computational resources by avoiding unnecessary Pod retries.
+* avoid Job failures due to Pod disruptions (such {{<glossary_tooltip text="preemption" term_id="preemption" >}},
+{{<glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
+or {{<glossary_tooltip text="taint" term_id="taint" >}}-based eviction).
 
 ## {{% heading "prerequisites" %}}
 
