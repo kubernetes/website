@@ -142,9 +142,9 @@ kubectl delete pod cpu-demo --namespace=cpu-example
 
 Requisitos e limites de CPU são associados aos Contêineres, mas é útil pensar num Pod como tendo requisito e limite de CPU. O requisito de CPU para um Pod é a soma dos requisitos de CPU de todos os Contêineres no Pod. Da mesma forma, o limite de CPU para um Pod é a soma dos limites de CPU para todos os Contêineres no Pod. 
 
-O agendamento do Pod é baseado em requisições. Um Pod é agendado para executar em um Nó, somente se o Nó possuir suficiente recursos de CPU disponíveis para satisfazer os requisitos de CPU do Pod.
+O agendamento do Pod é baseado em requisições. Um Pod é agendado para executar em um Nó, somente se o Nó possuir recursos de CPU suficientes disponíveis para satisfazer os requisitos de CPU do Pod.
 
-Neste exercício, você cria um Pod que tem um requisito de CPU tão grande, que excede a capacidade de qualquer Nó em seu cluster. Aqui está o arquivo de configuração para o Pod que tem um Contêiner. O Contêiner requer 100 CPU, que provávelmente excede a capacidade de qualquer Nó em seu cluster.
+Neste exercício, você cria um Pod que tem um requisito de CPU tão grande, que excede a capacidade de qualquer Nó em seu cluster. Aqui está o arquivo de configuração para o Pod que tem um Contêiner. O Contêiner requer 100 CPU, que provavelmente excede a capacidade de qualquer Nó em seu cluster.
 
 {{< codenew file="pods/resource/cpu-request-limit-2.yaml" >}}
 
@@ -217,18 +217,17 @@ Se você especificar o limite de CPU para um Contêiner mas não especificar
 os requisitos de CPU, o Kubernetes automaticamente irá atribuir os requisitos 
 de CPU que correspondem ao limite. Similarmente, se o Contêiner especifica 
 seu próprio limite de CPU mas não especifica os requisitos de CPU, 
-o kubernetes automáticamente atribui os requisitos de CPU que correspondem ao limite.
+o kubernetes automaticamente atribui os requisitos de CPU que correspondem ao limite.
 
 ## Motivos para usar requisitos e limites de CPU
 
 Ao configurar os requisitos de CPU e limites dos Contêneres que executam no seu cluster, 
-você faz um uso eficiente dos recursos de CPU disponívies nos Nós do seu cluster. 
+você faz um uso eficiente dos recursos de CPU disponíveis nos Nós do seu cluster. 
 Mantendo baixos os recursos de CPU de um Pod, você proporciona ao Pod uma boa chance 
 de ser agendado. Ao especificar um limite de CPU que é maior que os requisitos de CPU, 
-você estará realizando duas coisas: 
+permitindo as seguintes situações: 
 
-* o Pod pode ter picos de atividade quando estiver fazendo uso de recursos de CPU 
-que deveriam estar disponíveis.
+* O Pod pode ter picos de atividade onde utilizará recursos de CPU que estão disponíveis.
 * O total de recursos de CPU que um Pod pode usar durante um pico vai estar limitado 
 a uma quantidade razoável.
 
