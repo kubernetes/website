@@ -188,21 +188,20 @@ replace it with `member4=http://10.0.0.4`.
    fd422379fda50e48, started, member3, http://10.0.0.3:2380, http://10.0.0.3:2379
    ```
 
-2. Do either of the following:
+1. Do either of the following:
 
    1. If each Kubernetes API server is configured to communicate with all etcd
       members, remove the failed member from the `--etcd-servers` flag, then
       restart each Kubernetes API server.
-   2. If each Kubernetes API server communicates with a single etcd member,
+   1. If each Kubernetes API server communicates with a single etcd member,
       then stop the Kubernetes API server that communicates with the failed
       etcd.
-    
 
-    3. Stop the etcd server on the broken node. It is possible that other 
-    clients besides the Kubernetes API server is causing traffic to etcd 
-    and it is desirable to stop all traffic to prevent writes to the data
-    dir.
-    
+1. Stop the etcd server on the broken node. It is possible that other 
+   clients besides the Kubernetes API server is causing traffic to etcd 
+   and it is desirable to stop all traffic to prevent writes to the data
+   dir.
+
 1. Remove the failed member:
 
    ```shell
