@@ -1181,8 +1181,7 @@ A `csi` volume can be used in a Pod in three different ways:
 
 * through a reference to a [PersistentVolumeClaim](#persistentvolumeclaim)
 * with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
-* with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
-if the driver supports that (beta feature)
+* with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes) if the driver supports that
 
 The following fields are available to storage administrators to configure a CSI
 persistent volume:
@@ -1243,7 +1242,7 @@ You can set up your
 
 #### CSI ephemeral volumes
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 You can directly configure CSI volumes within the Pod
 specification. Volumes specified in this way are ephemeral and do not
