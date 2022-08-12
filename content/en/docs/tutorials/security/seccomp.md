@@ -56,7 +56,6 @@ run as `Unconfined`.
 
 <!-- steps -->
 
-
 ## Download example seccomp profiles {#download-profiles}
 
 The contents of these profiles will be explored later on, but for now go ahead
@@ -64,7 +63,7 @@ and download them into a directory named `profiles/` so that they can be loaded
 into the cluster.
 
 {{< tabs name="tab_with_code" >}}
-{{{< tab name="audit.json" >}}
+{{< tab name="audit.json" >}}
 {{< codenew file="pods/security/seccomp/profiles/audit.json" >}}
 {{< /tab >}}
 {{< tab name="violation.json" >}}
@@ -363,7 +362,7 @@ kubectl delete service audit-pod --wait
 kubectl delete pod audit-pod --wait --now
 ```
 
-## Create Pod with seccomp profile that causes violation
+## Create Pod with a seccomp profile that causes violation
 
 For demonstration, apply a profile to the Pod that does not allow for any
 syscalls.
@@ -402,7 +401,7 @@ Clean up that Pod before moving to the next section:
 kubectl delete pod violation-pod --wait --now
 ```
 
-## Create Pod with seccomp profile that only allows necessary syscalls
+## Create Pod with a seccomp profile that only allows necessary syscalls
 
 If you take a look at the `fine-grained.json` profile, you will notice some of the syscalls
 seen in syslog of the first example where the profile set `"defaultAction":
