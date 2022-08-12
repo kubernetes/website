@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - davidopp
+# - kevin-wangzefeng
+# - bsalamat
 title: 노드에 파드 할당하기
 content_type: concept
 weight: 20

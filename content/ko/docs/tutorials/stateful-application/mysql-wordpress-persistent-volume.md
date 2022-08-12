@@ -1,5 +1,7 @@
 ---
 title: "예시: WordPress와 MySQL을 퍼시스턴트 볼륨에 배포하기"
+# reviewers:
+# - ahmetb
 content_type: tutorial
 weight: 20
 card:

@@ -1,7 +1,7 @@
 ---
-reviewers:
-
-
+# reviewers:
+# - davidopp
+# - madhusudancs
 title: 다중 스케줄러 설정
 content_type: task
 weight: 20

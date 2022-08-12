@@ -1,9 +1,9 @@
 ---
-
-
-
-
-
+# reviewers:
+# - fgrzadkowski
+# - jszczepkowski
+# - justinsb
+# - directxman12
 title: HorizontalPodAutoscaler 연습
 content_type: task
 weight: 100

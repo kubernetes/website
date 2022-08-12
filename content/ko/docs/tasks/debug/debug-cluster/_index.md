@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - davidopp
 title: 클러스터 트러블슈팅
 description: 일반적인 클러스터 이슈를 디버깅한다.
 weight: 20

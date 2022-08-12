@@ -1,6 +1,6 @@
 ---
-## reviewers:
-## - jsafrane
+# reviewers:
+# - jsafrane
 title: 스태틱(static) 파드 생성하기
 weight: 170
 content_template: task
