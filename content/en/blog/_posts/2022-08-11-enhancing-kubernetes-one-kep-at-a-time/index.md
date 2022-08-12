@@ -3,6 +3,7 @@ layout: blog
 title: "Enhancing Kubernetes one KEP at a Time"
 date: 2022-08-11
 slug: enhancing-kubernetes-one-kep-at-a-time
+canonicalUrl: https://www.k8s.dev/blog/2022/08/11/enhancing-kubernetes-one-kep-at-a-time/
 ---
 
 **Author:** Ryler Hockenbury (Mastercard)
