@@ -174,13 +174,15 @@ Example: `cluster-autoscaler.kubernetes.io/enable-ds-eviction: "true"`
 
 Used on: Pod
 
-This annotation is controlling whether a DaemonSet pod should be evicted or not by  ClusterAutoscaler. This annotation needs to be specified on DaemonSet pods, not the DaemonSet object itself. In order to do that for all DaemonSet pods, it is sufficient to modify the pod spec in the DaemonSet object.
-
-When this annotation is set to `true`, the Cluster Autoscaler is allowed to evict a DaemonSet Pod even if other rules would normally prevent that. To disable the DaemonSet pods eviction so that the Cluster Autoscaler never evicts DaemonSet pods, Explicitly set this annotation to `false`; you could set that on an important pod that you want to keep running.
-If this annotation is not set then the Cluster Autoscaler follows its overall behaviour.
+This annotation controls whether a DaemonSet pod should be evicted by a ClusterAutoscaler.
+This annotation needs to be specified on DaemonSet pods in a DaemonSet manifest.
+When this annotation is set to `"true"`, the ClusterAutoscaler is allowed to evict a DaemonSet Pod
+even if other rules would normally prevent that. To disallow the ClusterAutoscaler from evicting DaemonSet pods,
+you can set this annotation to `"false"` for important DaemonSet pods.
+If this annotation is not set then the Cluster Autoscaler follows its overall behaviour i.e evict the DaemonSets based on its configuration.
 
 {{< note >}}
-This annotation has no effect on pods that are not a part of any DaemonSet.
+This annotation only impacts DaemonSet pods.
 {{< /note >}}
 
 ### kubernetes.io/ingress-bandwidth
