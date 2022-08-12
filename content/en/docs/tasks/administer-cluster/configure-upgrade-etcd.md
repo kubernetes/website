@@ -194,12 +194,16 @@ replace it with `member4=http://10.0.0.4`.
       members, remove the failed member from the `--etcd-servers` flag, then
       restart each Kubernetes API server.
    2. If each Kubernetes API server communicates with a single etcd member,
-      configure Kubernetes API server clients to not route requests to the
-      Kubernetes API server that communicates with the failed etcd member.
-      This can often be done by configuring a load balancer. Then stop the
-      Kubernetes API server that communicates with the failed etcd.
+      then stop the Kubernetes API server that communicates with the failed
+      etcd.
+    
 
-3. Remove the failed member:
+    3. Stop the etcd server on the broken node. It is possible that other 
+    clients besides the Kubernetes API server is causing traffic to etcd 
+    and it is desirable to stop all traffic to prevent writes to the data
+    dir.
+    
+1. Remove the failed member:
 
    ```shell
    etcdctl member remove 8211f1d0f64f3269
@@ -211,7 +215,7 @@ replace it with `member4=http://10.0.0.4`.
    Removed member 8211f1d0f64f3269 from cluster
    ```
 
-4. Add the new member:
+1. Add the new member:
 
    ```shell
    etcdctl member add member4 --peer-urls=http://10.0.0.4:2380
@@ -223,7 +227,7 @@ replace it with `member4=http://10.0.0.4`.
    Member 2be1eb8f84b7f63e added to cluster ef37ad9dc622a7c4
    ```
 
-5. Start the newly added member on a machine with the IP `10.0.0.4`:
+1. Start the newly added member on a machine with the IP `10.0.0.4`:
 
    ```shell
    export ETCD_NAME="member4"
@@ -232,12 +236,12 @@ replace it with `member4=http://10.0.0.4`.
    etcd [flags]
    ```
 
-6. Do either of the following:
+1. Do either of the following:
 
    1. If each Kubernetes API server is configured to communicate with all etcd
       members, add the newly added member to the `--etcd-servers` flag, then
       restart each Kubernetes API server.
-   2. If each Kubernetes API server communicates with a single etcd member,
+   1. If each Kubernetes API server communicates with a single etcd member,
       start the Kubernetes API server that was stopped in step 2. Then
       configure Kubernetes API server clients to again route requests to the
       Kubernetes API server that was stopped. This can often be done by
