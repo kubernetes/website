@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - derekwaynecarr
+# - janetkuo
 title: 네임스페이스를 사용해 클러스터 공유하기
 content_type: task
 ---
