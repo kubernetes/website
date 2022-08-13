@@ -1,5 +1,5 @@
 ---
-title: Configurando GMSA para Pods e contêineres Windows
+title: Configurando GMSA Para Pods e Contêineres Windows
 content_type: task
 weight: 20
 ---
@@ -13,7 +13,7 @@ Esta página mostra como configurar [Contas de serviço gerenciadas em grupo]
 para Pods e contêineres que vão executar em nós Windows. Contas de serviço gerenciadas em grupo 
 são um tipo específico de conta do `Active Directory` que provê gerenciamento automático 
 de senhas, gerenciamento simplificado de `service principal name` (SPN), e a habilidade 
-de delegar o gerenciamento à outros administradores através de múltiplos servidores.
+de delegar o gerenciamento a outros administradores através de múltiplos servidores.
 
 No Kubernetes, especificações de credenciais GMSA são configuradas dentro do escopo 
 do cluster Kubernetes como recursos personalizados. Os Pods Windows, assim como contêineres 
@@ -26,7 +26,7 @@ serviços Windows.
 Você precisa ter um cluster Kubernetes, e a ferramenta de linha de comando `kubectl` 
 precisa estar configurada para comunicar-se com seu cluster.
 O cluster está esperando que haja nós trabalhadores Windows. 
-Esta seção cobre o conjunto incial de passos requeridos para cada cluster:
+Esta seção cobre o conjunto inicial de passos requeridos para cada cluster:
 
 ### Instale o `GMSACredentialSpec CRD`
 
@@ -71,7 +71,7 @@ associados manualmente (com as substituições apropriadas para os parâmetros).
 
 ## Configurar GMSAs e nós Windows em Active Directory
 
-Antes que os Pods no Kubernetes possam ser comfigurados para usar GMSAs, as apropriadas 
+Antes que os Pods no Kubernetes possam ser configurados para usar GMSAs, as apropriadas 
 GMSAs precisam ser provisionadas no Active Directory como descrito na 
 [documentação do Windows GMSA]
 (https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1). 
@@ -84,10 +84,10 @@ como descrito na [documentação Windows GMSA]
 
 Com o `GMSACredentialSpec CRD` instalado (como descrito anteriormente), 
 recursos customizados contendo recursos de especificação de credenciais GMSA podem 
-ser configurados. A especificação de credenciail GMSA não contém segredos nem dados 
+ser configurados. A especificação de credencial GMSA não contém segredos nem dados 
 sensíveis. É informação que o contêiner runtime pode usar para descrever a apropriada 
 GMSA de um contêiner para o Windows. Especificações de credenciais GMSA podem 
-ser geradas em fomato YAML com o utilitário [PowerShell script]
+ser geradas em formato YAML com o utilitário [PowerShell script]
 (https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1).
 
 A seguir são os passos para gerar a especificação de credencial GMSA YAML 
