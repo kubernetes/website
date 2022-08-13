@@ -1,11 +1,7 @@
 ---
 title: Atribuindo Recursos de CPU aos Contêineres e Pods
 content_type: task
-<<<<<<< HEAD
-weight: 20
-=======
 weight: 20 
->>>>>>> [pt-br] add content/pt-br/docs/tasks/configure-pod-container/assign-cpu-resource.md
 ---
 
 <!-- overview -->
@@ -244,9 +240,7 @@ kubectl delete namespace cpu-example
 ```
 
 
-
 ## {{% heading "whatsnext" %}}
-
 
 
 ### Para desenvolvedores de App
