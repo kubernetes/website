@@ -1,16 +1,16 @@
 ---
-title: Add-ons
+title: ऐड-ऑन
 id: addons
 date: 2019-12-15
 full_link: /docs/concepts/cluster-administration/addons/
 short_description: >
-  Resources that extend the functionality of Kubernetes.
+  संसाधन जो कुबेरनेट्स की कार्यक्षमता का विस्तार करते हैं।
 
 aka:
 tags:
 - tool
 ---
-  Resources that extend the functionality of Kubernetes.
+  संसाधन जो कुबेरनेट्स की कार्यक्षमता का विस्तार करते हैं।
 
 <!--more-->
-[Installing addons](/docs/concepts/cluster-administration/addons/) explains more about using add-ons with your cluster, and lists some popular add-ons.
+[एडॉन्स इंस्टॉल करना](/docs/concepts/cluster-administration/addons/) आपके क्लस्टर के साथ ऐड-ऑन का उपयोग करने के बारे में अधिक बताता है, और कुछ लोकप्रिय ऐड-ऑन को सूचीबद्ध करता है।
