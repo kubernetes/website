@@ -878,8 +878,8 @@ Uma vez que um driver de volume compatível com CSI seja implantado em um cluste
 Um volume `csi` pode ser utilizado em um Pod de três formas diferentes:
 
 * Através de uma referência a [PersistentVolumeClaim](#persistentvolumeclaim)
-* com um [volume efêmero genérico](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume) (recurso alfa)
-* com [volume efêmero de CSI](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) se o driver suportar esse (recurso beta)
+* com um [volume efêmero genérico](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes) (recurso alfa)
+* com [volume efêmero de CSI](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes) se o driver suportar esse (recurso beta)
 
 Os seguintes campos estão disponíveis para administradores de armazenamento configurarem um volume persistente de CSI:
 
@@ -904,7 +904,7 @@ Você pode configurar o [PersistentVolume/PersistentVolumeClaim com suporte de v
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-É possível configurar diretamente volumes CSI dentro da especificação do Pod. Os volumes especificados desta forma são efêmeros e não persistem nas reinicializações do pod. Consulte [Volumes efêmeros](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) para obter mais informações.
+É possível configurar diretamente volumes CSI dentro da especificação do Pod. Os volumes especificados desta forma são efêmeros e não persistem nas reinicializações do pod. Consulte [Volumes efêmeros](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes) para obter mais informações.
 
 Para obter mais informações sobre como desenvolver um driver CSI, consulte a [documentação kubernetes-csi](https://kubernetes-csi.github.io/docs/)
 
