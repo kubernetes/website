@@ -176,10 +176,10 @@ Used on: Pod
 
 This annotation controls whether a DaemonSet pod should be evicted by a ClusterAutoscaler.
 This annotation needs to be specified on DaemonSet pods in a DaemonSet manifest.
-When this annotation is set to `"true"`, the ClusterAutoscaler is allowed to evict a DaemonSet Pod
+When this annotation is set to `"true"`, the ClusterAutoscaler is allowed to evict a DaemonSet Pod,
 even if other rules would normally prevent that. To disallow the ClusterAutoscaler from evicting DaemonSet pods,
 you can set this annotation to `"false"` for important DaemonSet pods.
-If this annotation is not set then the Cluster Autoscaler follows its overall behaviour i.e evict the DaemonSets based on its configuration.
+If this annotation is not set, then the Cluster Autoscaler follows its overall behaviour (i.e evict the DaemonSets based on its configuration).
 
 {{< note >}}
 This annotation only impacts DaemonSet pods.
