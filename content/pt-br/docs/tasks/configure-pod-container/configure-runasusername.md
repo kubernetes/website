@@ -30,7 +30,7 @@ na especificação do Pod, e dentro dela, o campo `WindowsOptions` ([WindowsSecu
 contendo o campo `runAsUserName`.
 
 As opções de contexto de segurança do Windows que você especificar para um Pod, 
-se aplicam a todos os Contêineres do Pod, inclusive os de inicialização.
+se aplicam a todos os contêineres do Pod, inclusive os de inicialização.
 
 Aqui está um arquivo de configuração para um Pod do Windows que possui o campo 
 `runAsUserName` definido:
@@ -49,7 +49,7 @@ Verifique se o contêiner do pod está em execução:
 kubectl get pod run-as-username-pod-demo
 ```
 
-Abra um shell para o Contêiner em execução:
+Abra um shell para o contêiner em execução:
 
 ```shell
 kubectl exec -it run-as-username-pod-demo -- powershell
@@ -67,21 +67,21 @@ A saída deve ser:
 ContainerUser
 ```
 
-## Defina o nome de usuário para o Contêiner
+## Defina o nome de usuário para o contêiner
 
-Para especificar o nome de usuário com o qual executar os processos de um Contêiner, 
+Para especificar o nome de usuário com o qual executar os processos de um contêiner, 
 inclua o campo `SecurityContext` ([SecurityContext] 
 (/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)) 
-no manifesto do Contêiner, e dentro dele, o campo `WindowsOptions` 
+no manifesto do contêiner, e dentro dele, o campo `WindowsOptions` 
 ([WindowsSecurityContextOptions] (/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core)) 
 contendo o campo `runAsUserName`.
 
-As opções de contexto de segurança do Windows que você especificar para um Contêiner, 
-se aplicam apenas a esse Contêiner individual, e substituem as configurações feitas 
+As opções de contexto de segurança do Windows que você especificar para um contêiner, 
+se aplicam apenas a esse contêiner individual, e substituem as configurações feitas 
 no nível do Pod.
 
-Aqui está o arquivo de configuração para um pod que possui um Contêiner, 
-e o campo `runAsUserName` está definido no nível do Pod e no nível do Contêiner:
+Aqui está o arquivo de configuração para um pod que possui um contêiner, 
+e o campo `runAsUserName` está definido no nível do Pod e no nível do contêiner:
 
 {{< codenew file="windows/run-as-username-container.yaml" >}}
 
@@ -91,7 +91,7 @@ Crie o Pod:
 kubectl apply -f https://k8s.io/examples/windows/run-as-username-container.yaml
 ```
 
-Verifique se o Contêiner do Pod está em execução:
+Verifique se o contêiner do Pod está em execução:
 
 ```shell
 kubectl get pod run-as-username-container-demo
@@ -103,7 +103,7 @@ Abra um shell para o contêiner em execução:
 kubectl exec -it run-as-username-container-demo -- powershell
 ```
 
-Verifique se o shell está executando o usuário correto, (aquele definido no nível do Contêiner):
+Verifique se o shell está executando o usuário correto, (aquele definido no nível do contêiner):
 
 ```powershell
 echo $env:USERNAME
@@ -122,7 +122,7 @@ de usuário válido. Deve ter o seguinte formato: `DOMAIN\USER`, onde ` DOMAIN\`
 é opcional. Os nomes de usuário do Windows não diferenciam letras maiúsculas 
 e minúsculas. Além disso, existem algumas restrições em relação ao `DOMÍNIO` e `USUÁRIO`:
 - O campo `runAsUserName`: não pode estar vazio, e não pode conter caracteres 
-  de contrôle (Valores ASCII : `0x00-0x1F`, `0x7F`)
+  de controle (Valores ASCII : `0x00-0x1F`, `0x7F`)
 - O nome de `DOMÍNIO` NetBios, ou um nome de DNS: cada um com suas próprias restrições:
   - Nomes NetBios: máximo de 15 caracteres, não podem iniciar com `.` (ponto), 
   e não podem conter os seguintes caracteres: `\ / : * ? " < > |`
