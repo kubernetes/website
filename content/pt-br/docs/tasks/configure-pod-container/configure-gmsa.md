@@ -21,7 +21,7 @@ individuais dentro de um Pod, podem ser configurados para usar as funções GMSA
 baseadas em domínio (ex. autenticação Kerberos) quando interagirem com outros 
 serviços Windows.
 
-## {{% heading "pré-requisitos" %}}
+## {{% heading "prerequisites" %}}
 
 Você precisa ter um cluster Kubernetes, e a ferramenta de linha de comando `kubectl` 
 precisa estar configurada para comunicar-se com seu cluster.
@@ -65,11 +65,11 @@ no seu cluster.
 
 O [YAML template](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl) 
 usado pelo script também pode ser usado para implantar os webhooks e objetos 
-associados manualmente (com as substituições apropriadas para os parâmetros)
+associados manualmente (com as substituições apropriadas para os parâmetros).
 
 <!-- steps -->
 
-## Configurar GMSAs e nodes Windows em Active Directory
+## Configurar GMSAs e nós Windows em Active Directory
 
 Antes que os Pods no Kubernetes possam ser comfigurados para usar GMSAs, as apropriadas 
 GMSAs precisam ser provisionadas no Active Directory como descrito na 
@@ -78,7 +78,7 @@ GMSAs precisam ser provisionadas no Active Directory como descrito na
 Nós `worker` Windows (que são parte do cluster Kubernetes) precisam ser configurados no 
 Active Directory para acessar as credenciais secretas associadas com a apropriada GMSA, 
 como descrito na [documentação Windows GMSA]
-(https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet)
+(https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet).
 
 ## Crie recursos de especificação de GMSA
 
@@ -134,10 +134,10 @@ credspec:
 ```
 
 O recurso de especificação de credencial acima deve ser salvo como 
-`gmsa-Webapp1-credspec.yaml` e apliado no cluster usando: 
+`gmsa-Webapp1-credspec.yaml` e aplicado no cluster usando: 
 `kubectl apply -f gmsa-Webapp1-credspec.yml`
 
-## Configurando cluster `role` para habilitar RBAC nas especificações 
+## Configure a `cluster role` para habilitar RBAC nas especificações 
 de credenciais GMSA específicas
 
 Uma `cluster role` precisa ser definida para cada recurso de especificação 
@@ -257,7 +257,7 @@ spec:
 Assim que as especificações do Pod com os campos GMSA preenchidos 
 (como descrito acima) são aplicadas em um cluster, ocorre a seguinte sequência de eventos:
 
-1.O webhook mutante resolve e expande todas as referências aos recursos de 
+1. O webhook mutante resolve e expande todas as referências aos recursos de 
 especificações de credenciais GMSA para o conteúdo das especificações de credenciais GMSA.
 
 1. O webhook validador garante que a conta de serviço associada ao Pod, seja autorizada 
@@ -316,7 +316,7 @@ Isso vai nos dizer 3 coisas:
 Se o DNS e o teste de comunicação passarem, em seguida, 
 você precisará verificar se o Pod estabeleceu um canal de comunicação segura 
 com o domínio. Para fazer isso, novamente, em seu Pod 
-e execute o comando `nltest.exe /query`.
+execute o comando `nltest.exe /query`.
 
 ```PowerShell
 nltest.exe /query
@@ -329,7 +329,7 @@ I_NetLogonControl failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
 Isso nos diz que, por algum motivo, o Pod não conseguiu se logar no domínio 
-usando a conta especificada na especificação de credencial. Você pode tentar reparar 
+usando a conta definida na especificação de credencial. Você pode tentar reparar 
 o canal seguro executando o seguinte:
 
 ```PowerShell
