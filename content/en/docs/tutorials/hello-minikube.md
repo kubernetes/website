@@ -97,6 +97,13 @@ Pod runs a Container based on the provided Docker image.
     kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
+_Note that the image used in the command above is currently incompatible with Apple Silicon, if the
+pod fails to start with `CrashLoopBackOff` try the command bellow._
+
+  ```shell
+  kubectl create deployment hello-node --image=polyverse/node-echo-server
+  ```
+
 2. View the Deployment:
 
     ```shell
