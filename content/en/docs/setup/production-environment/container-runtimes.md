@@ -87,22 +87,67 @@ sudo sysctl --system
 On Linux, {{< glossary_tooltip text="control groups" term_id="cgroup" >}}
 are used to constrain resources that are allocated to processes.
 
+Both {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and the
+underlying container runtime need to interface with control groups to enforce
+[resource management for pods and containers](/docs/concepts/configuration/manage-resources-containers/) and set
+resources such as cpu/memory requests and limits. To interface with control
+groups, the kubelet and the container runtime need to use a *cgroup driver*.
+It's critical that the kubelet and the container runtime uses the same cgroup
+driver and are configured the same.
+
+There are two cgroup drivers available:
+
+* [`cgroupfs`](#cgroupfs-cgroup-driver)
+* [`systemd`](#systemd-cgroup-driver)
+
+### cgroupfs driver {#cgroupfs-cgroup-driver}
+
+The `cgroupfs` driver is the default cgroup driver in the kubelet. When the `cgroupfs`
+driver is used, the kubelet and the container runtime directly interface with
+the cgroup filesystem to configure cgroups.
+
+The `cgroupfs` driver is **not** recommended when
+[systemd](https://www.freedesktop.org/wiki/Software/systemd/) is the
+init system because systemd expects a single cgroup manager on
+the system. Additionally, if you use [cgroup v2](/docs/concepts/architecture/cgroups)
+, use the `systemd` cgroup driver instead of
+`cgroupfs`.
+
+### systemd cgroup driver {#systemd-cgroup-driver}
+
 When [systemd](https://www.freedesktop.org/wiki/Software/systemd/) is chosen as the init
 system for a Linux distribution, the init process generates and consumes a root control group
 (`cgroup`) and acts as a cgroup manager.
-Systemd has a tight integration with cgroups and allocates a cgroup per systemd unit. It's possible
-to configure your container runtime and the kubelet to use `cgroupfs`. Using `cgroupfs` alongside
-systemd means that there will be two different cgroup managers.
 
-A single cgroup manager simplifies the view of what resources are being allocated
-and will by default have a more consistent view of the available and in-use resources.
-When there are two cgroup managers on a system, you end up with two views of those resources.
-In the field, people have reported cases where nodes that are configured to use `cgroupfs`
-for the kubelet and Docker, but `systemd` for the rest of the processes, become unstable under
-resource pressure.
+systemd has a tight integration with cgroups and allocates a cgroup per systemd
+unit. As a result, if you use `systemd` as the init system with the `cgroupfs`
+driver, the system gets two different cgroup managers.
 
-Changing the settings such that your container runtime and kubelet use `systemd` as the cgroup driver
-stabilized the system. To configure this for Docker, set `native.cgroupdriver=systemd`.
+Two cgroup managers result in two views of the available and in-use resources in
+the system. In some cases, nodes that are configured to use `cgroupfs` for the
+kubelet and container runtime, but use `systemd` for the rest of the processes become
+unstable under resource pressure.
+
+The approach to mitigate this instability is to use `systemd` as the cgroup driver for
+the kubelet and the container runtime when systemd is the selected init system.
+
+To set `systemd` as the cgroup driver, edit the
+[`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/)
+option of `cgroupDriver` and set it to `systemd`. For example:
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+...
+cgroupDriver: systemd
+```
+
+If you configure `systemd` as the cgroup driver for the kubelet, you must also
+configure `systemd` as the cgroup driver for the container runtime. Refer to
+the documentation for your container runtime for instructions. For example:
+
+*  [containerd](#containerd-systemd)
+*  [CRI-O](#cri-o)
 
 {{< caution >}}
 Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation.
@@ -114,41 +159,6 @@ If you have automation that makes it feasible, replace the node with another usi
 configuration, or reinstall it using automation.
 {{< /caution >}}
 
-### Cgroup version 2 {#cgroup-v2}
-
-Cgroup v2 is the next version of the cgroup Linux API.  Differently than cgroup v1, there is a single
-hierarchy instead of a different one for each controller.
-
-The new version offers several improvements over cgroup v1, some of these improvements are:
-
-- cleaner and easier to use API
-- safe sub-tree delegation to containers
-- newer features like Pressure Stall Information
-
-Even if the kernel supports a hybrid configuration where some controllers are managed by cgroup v1
-and some others by cgroup v2, Kubernetes supports only the same cgroup version to manage all the
-controllers.
-
-If systemd doesn't use cgroup v2 by default, you can configure the system to use it by adding
-`systemd.unified_cgroup_hierarchy=1` to the kernel command line.
-
-```shell
-# This example is for a Linux OS that uses the DNF package manager
-# Your system might use a different method for setting the command line
-# that the Linux kernel uses.
-sudo dnf install -y grubby && \
-  sudo grubby \
-  --update-kernel=ALL \
-  --args="systemd.unified_cgroup_hierarchy=1"
-```
-
-If you change the command line for the kernel, you must reboot the node before your
-change takes effect.
-
-There should not be any noticeable difference in the user experience when switching to cgroup v2, unless
-users are accessing the cgroup file system directly, either on the node or from within the containers.
-
-In order to use it, cgroup v2 must be supported by the CRI runtime as well.
 
 ### Migrating to the `systemd` driver in kubeadm managed clusters
 
@@ -197,6 +207,9 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
+
+The `systemd` cgroup driver is recommended if you use [cgroup v2](/docs/concepts/architecture/cgroups).
+
 {{< note >}}
 If you installed containerd from a package (for example, RPM or `.deb`), you may find
 that the CRI integration plugin is disabled by default.
