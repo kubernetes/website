@@ -113,7 +113,7 @@ porque o contêiner está tentando usar mais recursos de CPU que o seu limite.
 
 {{< note >}}
 Outra possível explicação para o uso de CPU estar abaixo de 1,0, é que o Nó 
-não dispõe de recuros de CPU suficientes disponíveis. Lembre-se que o pré-requisito 
+não dispõe de recursos de CPU suficientes disponíveis. Lembre-se que o pré-requisito 
 para este exercício, é que o seu cluster tenha disponível ao menos 1 CPU para uso. 
 Se o seu Contêiner executa em um Nó que tem apenas 1 CPU, o Contêiner não pode usar 
 mais que 1 CPU, sem contar o limite de CPU especificado para o Contêiner. 
