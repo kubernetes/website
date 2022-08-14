@@ -371,12 +371,7 @@ static Pod manifest file for creating a local etcd instance running in a Pod wit
 
 Please note that:
 
-<<<<<<< HEAD
-1. The etcd image will be pulled from `registry.k8s.io` by default. See [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images) for customizing the image repository
-2. in case of kubeadm is executed in the `--dry-run` mode, the etcd static Pod manifest is written in a temporary folder
-3. Static Pod manifest generation for local etcd can be invoked individually with the [`kubeadm init phase etcd local`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd) command
-=======
-1. The etcd image will be pulled from `k8s.gcr.io` by default. See
+1. The etcd container image will be pulled from `registry.gcr.io` by default. See
    [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)
    for customizing the image repository
 2. In case of kubeadm is executed in the `--dry-run` mode, the etcd static Pod manifest is written
@@ -384,7 +379,6 @@ Please note that:
 3. Static Pod manifest generation for local etcd can be invoked individually with the
    [`kubeadm init phase etcd local`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd)
    command.
->>>>>>> upstream/main
 
 ### Wait for the control plane to come up
 
