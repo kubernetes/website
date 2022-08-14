@@ -1332,7 +1332,8 @@ This could result in a conflict if the internal allocator selects the same IP ad
 for another Service.
 
 The `ServiceIPStaticSubrange`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default in v1.25 and later, using an allocation strategy that divides the `ClusterIP` range into two bands, based on
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default in v1.25
+and later, using an allocation strategy that divides the `ClusterIP` range into two bands, based on
 the size of the configured `service-cluster-ip-range` by using the following formula
 `min(max(16, cidrSize / 16), 256)`, described as _never less than 16 or more than 256,
 with a graduated step function between them_. Dynamic IP allocations will be preferentially
