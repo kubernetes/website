@@ -138,15 +138,13 @@ Provisioner.
 
 ### Minimum ready seconds
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 `.spec.minReadySeconds` is an optional field that specifies the minimum number of seconds for which a newly
-created Pod should be ready without any of its containers crashing, for it to be considered available.
-Please note that this feature is beta and enabled by default. Please opt out by unsetting the
-StatefulSetMinReadySeconds flag, if you don't
-want this feature to be enabled. This field defaults to 0 (the Pod will be considered 
-available as soon as it is ready). To learn more about when a Pod is considered ready, see
-[Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+created Pod should be running and ready without any of its containers crashing, for it to be considered available.
+This is used to check progression of a rollout when using a [Rolling Update](#rolling-updates) strategy.
+This field defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
+a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 ## Pod Identity
 
