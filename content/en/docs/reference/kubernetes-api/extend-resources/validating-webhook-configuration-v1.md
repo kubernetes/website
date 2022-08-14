@@ -174,11 +174,11 @@ ValidatingWebhookConfiguration describes the configuration of and admission webh
 
     - **webhooks.rules.apiGroups** ([]string)
 
-      APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+      APIGroups is the API groups the resources belong to. '\*' is all groups. If '*' is present, the length of the slice must be one. Required.
 
     - **webhooks.rules.apiVersions** ([]string)
 
-      APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+      APIVersions is the API versions the resources belong to. '\*' is all versions. If '*' is present, the length of the slice must be one. Required.
 
     - **webhooks.rules.operations** ([]string)
 
