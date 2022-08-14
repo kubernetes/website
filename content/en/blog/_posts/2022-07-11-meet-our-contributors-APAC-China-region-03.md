@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Meet Our Contributors - APAC (China region)"
-date: 2022-07-11T12:00:00+0000
-slug: meet-our-contributors-chn-ep-03
+date: 2022-08-15
+slug: meet-our-contributors-china-ep-03
 canonicalUrl: https://www.kubernetes.dev/blog/2022/07/11/meet-our-contributors-chn-ep-03/
 ---
 
@@ -12,12 +12,11 @@ canonicalUrl: https://www.kubernetes.dev/blog/2022/07/11/meet-our-contributors-c
 
 Hello, everyone 👋
 
-Welcome back to the third episode of the "Meet Our Contributors" blog post series for APAC.
+Welcome back to the third edition of the "Meet Our Contributors" blog post series for APAC.
 
-This post features four outstanding contributors from  China, who have played diverse leadership and community roles in the upstream Kubernetes project.
+This post features four outstanding contributors from China, who have played diverse leadership and community roles in the upstream Kubernetes project.
 
 So, without further ado, let's get straight to the article.
-
 
 ## [Andy Zhang](https://github.com/andyzhangx)
 
@@ -34,7 +33,7 @@ Andy is an active member of the China Kubernetes community. He adds that the Kub
 
 Shiming Zhang is a Software Engineer working on Kubernetes for DaoCloud in Shanghai, China. 
 
-He has mostly been involved with SIG Node, as a reviewer. His major contributions have mainly been bug fixes and feature improvements in an ongoing [KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2712-pod-priority-based-graceful-node-shutdown), all revolving around SIG Node.
+He has mostly been involved with SIG Node as a reviewer. His major contributions have mainly been bug fixes and feature improvements in an ongoing [KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2712-pod-priority-based-graceful-node-shutdown), all revolving around SIG Node.
 
 Some of his major PRs are [fixing watchForLockfileContention memory leak](https://github.com/kubernetes/kubernetes/pull/100326), [fixing startupProbe behaviour](https://github.com/kubernetes/kubernetes/pull/101093), [adding Field status.hostIPs for Pod](https://github.com/kubernetes/enhancements/pull/2661).
 
@@ -50,6 +49,7 @@ Currently, Paco is a reviewer for `kubeadm` (a SIG Cluster Lifecycle product), a
 Paco says that you should contribute to open source projects you use. For him, an open source project is like a book to learn, getting inspired through discussions with the project maintainers.
 
 > In my opinion, the best way for me is learning how owners work on the project.
+
 ## [Jintao Zhang](https://github.com/tao12345666333)
 
 Jintao Zhang is presently employed at API7, where he focuses on ingress and service mesh.
@@ -64,7 +64,7 @@ He suggests keeping track of job opportunities at open source companies so that 
 ---
 
 
-If you have any recommendations/suggestions for who we should interview next, please let us know in the #sig-contribex channel on the Kubernetes Slack. Your suggestions would be much appreciated. We're thrilled to have additional folks assisting us in reaching out to even more wonderful individuals of the community.
+If you have any recommendations/suggestions for who we should interview next, please let us know in the [#sig-contribex channel](https://kubernetes.slack.com/archives/C1TU9EB9S) channel on the Kubernetes Slack. Your suggestions would be much appreciated. We're thrilled to have additional folks assisting us in reaching out to even more wonderful individuals of the community.
 
 
 We'll see you all in the next one. Everyone, till then, have a happy contributing! 👋
