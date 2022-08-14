@@ -51,3 +51,10 @@ bash-completion sources all completion scripts in `/etc/bash_completion.d`.
 {{< /note >}}
 
 Both approaches are equivalent. After reloading your shell, kubectl autocompletion should be working.
+
+To enable autocompletion in current session of shell, source the .bashrc file:
+
+```bash
+source ~/.bashrc
+```bash
+
