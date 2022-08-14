@@ -282,7 +282,11 @@ Pre-requisites:
 
 * The `kube-apiserver` instances these components communicate with are at **{{< skew currentVersion >}}** (in HA clusters in which these control plane components can communicate with any `kube-apiserver` instance in the cluster, all `kube-apiserver` instances must be upgraded before upgrading these components)
 
-Upgrade `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` to **{{< skew currentVersion >}}**
+Upgrade `kube-controller-manager`, `kube-scheduler`, and
+`cloud-controller-manager` to **{{< skew currentVersion >}}**. There is no
+required upgrade order between `kube-controller-manager`, `kube-scheduler`, and
+`cloud-controller-manager`. You can upgrade these components in any order, or
+even simultaneously.
 -->
 ### kube-controller-manager、kube-scheduler 和 cloud-controller-manager  {#kube-controller-manager-kube-scheduler-and-cloud-controller-manager-1}
 
@@ -293,7 +297,9 @@ Upgrade `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manag
   所有 `kube-apiserver` 实例必须在升级这些组件之前升级）
 
 将 `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager`
-升级到 **{{< skew currentVersion >}}** 版本
+升级到 **{{< skew currentVersion >}}** 版本。
+`kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager` 的升级顺序没有要求。
+你可以按任意顺序升级这些组件，甚至可以同时升级这些组件。
 
 <!-- 
 ### kubelet

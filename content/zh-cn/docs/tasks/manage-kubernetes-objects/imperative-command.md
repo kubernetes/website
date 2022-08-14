@@ -283,13 +283,13 @@ kubectl create --edit -f /tmp/srv.yaml
 ## {{% heading "whatsnext" %}}
 
 <!--
-* [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
-* [使用指令式对象配置管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [使用声明式对象配置管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [使用配置文件对 Kubernetes 对象进行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [使用配置文件对 Kubernetes 对象进行声明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 命令参考](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 

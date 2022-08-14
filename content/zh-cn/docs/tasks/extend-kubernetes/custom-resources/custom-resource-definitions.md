@@ -206,7 +206,7 @@ If you save the following YAML to `my-crontab.yaml`:
 
 在创建了 CustomResourceDefinition 对象之后，你可以创建定制对象（Custom
 Objects）。定制对象可以包含定制字段。这些字段可以包含任意的 JSON 数据。
-在下面的例子中，在类别为 `CrontTab` 的定制对象中，设置了`cronSpec` 和 `image`
+在下面的例子中，在类别为 `CronTab` 的定制对象中，设置了`cronSpec` 和 `image`
 定制字段。类别 `CronTab` 来自你在上面所创建的 CRD 的规约。
 
 如果你将下面的 YAML 保存到 `my-crontab.yaml`：

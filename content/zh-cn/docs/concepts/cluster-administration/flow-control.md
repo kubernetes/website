@@ -20,7 +20,7 @@ that the most important requests get through in a period of high traffic.
 -->
 对于集群管理员来说，控制 Kubernetes API 服务器在过载情况下的行为是一项关键任务。
 {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
-有一些控件（例如：命令行标志 `--max-requests-inflight` 和 `--max-mutating-requests-inflight` ）,
+有一些控件（例如：命令行标志 `--max-requests-inflight` 和 `--max-mutating-requests-inflight`），
 可以限制将要接受的未处理的请求，从而防止过量请求入站，潜在导致 API 服务器崩溃。
 但是这些标志不足以保证在高流量期间，最重要的请求仍能被服务器接受。
 
@@ -76,9 +76,9 @@ for a general explanation of feature gates and how to enable and
 disable them.  The name of the feature gate for APF is
 "APIPriorityAndFairness".  This feature also involves an {{<
 glossary_tooltip term_id="api-group" text="API Group" >}} with: (a) a
-`v1alpha1` version, disabled by default, and (b) a `v1beta1` and
-`v1beta21 versions,  enabled by default.  You can disable the feature
-gate and API group beta version by adding the following
+`v1alpha1` version, disabled by default, and (b) `v1beta1` and
+`v1beta2` versions, enabled by default.  You can disable the feature
+gate and API group beta versions by adding the following
 command-line flags to your `kube-apiserver` invocation:
 -->
 API 优先级与公平性（APF）特性由特性门控控制，默认情况下启用。
@@ -184,7 +184,7 @@ many instances should authenticate with distinct usernames
 公平排队算法在处理具有相同优先级的请求时，实现了上述场景。
 每个请求都被分配到某个 **流（Flow）** 中，该 **流** 由对应的 FlowSchema 的名字加上一个
 **流区分项（Flow Distinguisher）** 来标识。
-这里的流区分项可以是发出请求的用户、目标资源的名称空间或什么都不是。
+这里的流区分项可以是发出请求的用户、目标资源的名字空间或什么都不是。
 系统尝试为不同流中具有相同优先级的请求赋予近似相等的权重。
 要启用对不同实例的不同处理方式，多实例的控制器要分别用不同的用户名来执行身份认证。
 
@@ -227,10 +227,10 @@ server.
 ## Resources
 
 The flow control API involves two kinds of resources.
-[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta1-flowcontrol-apiserver-k8s-io)
+[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
 define the available isolation classes, the share of the available concurrency
 budget that each can handle, and allow for fine-tuning queuing behavior.
-[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta1-flowcontrol-apiserver-k8s-io)
+[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta2-flowcontrol-apiserver-k8s-io)
 are used to classify individual inbound requests, matching each to a
 single PriorityLevelConfiguration. There is also a `v1alpha1` version
 of the same API group, and it has the same Kinds with the same syntax and
@@ -239,9 +239,9 @@ semantics.
 ## 资源    {#Resources}
 
 流控 API 涉及两种资源。
-[PriorityLevelConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io)
+[PriorityLevelConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
 定义隔离类型和可处理的并发预算量，还可以微调排队行为。
-[FlowSchema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1alpha1-flowcontrol-apiserver-k8s-io)
+[FlowSchema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta2-flowcontrol-apiserver-k8s-io)
 用于对每个入站请求进行分类，并与一个 PriorityLevelConfiguration 相匹配。
 此外同一 API 组还有一个 `v1alpha1` 版本，其中包含语法和语义都相同的资源类别。
 
@@ -426,7 +426,7 @@ the wildcard `*` may be specified to match all values for the given field,
 effectively removing it from consideration.
 -->
 对于 `subjects` 中的 `name` 字段和资源和非资源规则的
-`verbs`，`apiGroups`，`resources`，`namespaces` 和 `nonResourceURLs` 字段，
+`verbs`、`apiGroups`、`resources`、`namespaces` 和 `nonResourceURLs` 字段，
 可以指定通配符 `*` 来匹配任意值，从而有效地忽略该字段。
 
 <!--
@@ -441,8 +441,8 @@ considered part of a single flow. The correct choice for a given FlowSchema
 depends on the resource and your particular environment.
 -->
 FlowSchema 的 `distinguisherMethod.type` 字段决定了如何把与该模式匹配的请求分散到各个流中。
-可能是 `ByUser` ，在这种情况下，一个请求用户将无法饿死其他容量的用户；
-或者是 `ByNamespace` ，在这种情况下，一个名称空间中的资源请求将无法饿死其它名称空间的资源请求；
+可能是 `ByUser`，在这种情况下，一个请求用户将无法饿死其他容量的用户；
+或者是 `ByNamespace`，在这种情况下，一个名字空间中的资源请求将无法饿死其它名字空间的资源请求；
 或者它可以为空（或者可以完全省略 `distinguisherMethod`），
 在这种情况下，与此 FlowSchema 匹配的请求将被视为单个流的一部分。
 资源和你的特定环境决定了如何选择正确一个 FlowSchema。
@@ -543,7 +543,7 @@ The suggested configuration groups requests into six priority levels:
   causes more expensive traffic as the new controllers sync their informers.
 -->
 * `leader-election` 优先级用于内置控制器的领导选举的请求
-  （特别是来自 `kube-system` 名称空间中 `system:kube-controller-manager` 和
+  （特别是来自 `kube-system` 名字空间中 `system:kube-controller-manager` 和
   `system:kube-scheduler` 用户和服务账号，针对 `endpoints`、`configmaps` 或 `leases` 的请求）。
   将这些请求与其他流量相隔离非常重要，因为领导者选举失败会导致控制器发生故障并重新启动，
   这反过来会导致新启动的控制器在同步信息时，流量开销更大。
@@ -758,8 +758,7 @@ should refer to the documentation for your version.
 -->
 在 Kubernetes v1.20 之前的版本中，标签 `flow_schema` 和 `priority_level`
 的名称有时被写作 `flowSchema` 和 `priorityLevel`，即存在不一致的情况。
-如果你在运行 Kubernetes v1.19 或者更早版本，你需要参考你所使用的集群
-版本对应的文档。
+如果你在运行 Kubernetes v1.19 或者更早版本，你需要参考你所使用的集群版本对应的文档。
 {{< /note >}}
 
 <!--
@@ -782,7 +781,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_rejected_requests_total` 是一个计数器向量，
   记录被拒绝的请求数量（自服务器启动以来累计值），
-  由标签 `flow_chema`（表示与请求匹配的 FlowSchema），`priority_evel` 
+  由标签 `flow_chema`（表示与请求匹配的 FlowSchema）、`priority_evel`
   （表示分配给请该求的优先级）和 `reason` 来区分。
   `reason` 标签将具有以下值之一：
   <!--
@@ -794,10 +793,10 @@ poorly-behaved workloads that may be harming system health.
   * `time-out`, indicating that the request was still in the queue
     when its queuing time limit expired.
   -->
-  * `queue-full` ，表明已经有太多请求排队，
+  * `queue-full`，表明已经有太多请求排队，
   * `concurrency-limit`，表示将 PriorityLevelConfiguration 配置为
-    `Reject` 而不是 `Queue` ，或者
-  * `time-out`, 表示在其排队时间超期的请求仍在队列中。
+    `Reject` 而不是 `Queue`，或者
+  * `time-out`，表示在其排队时间超期的请求仍在队列中。
 
 <!--
 * `apiserver_flowcontrol_dispatched_requests_total` is a counter
@@ -834,12 +833,17 @@ poorly-behaved workloads that may be harming system health.
   requests, broken down by the labels `phase` (which takes on the
   values `waiting` and `executing`) and `request_kind` (which takes on
   the values `mutating` and `readOnly`).  The observations are made
-  periodically at a high rate.
+  periodically at a high rate.  Each observed value is a ratio,
+  between 0 and 1, of a number of requests divided by the
+  corresponding limit on the number of requests (queue length limit
+  for waiting and concurrency limit for executing).
 -->
 * `apiserver_flowcontrol_read_vs_write_request_count_samples` 是一个直方图向量，
   记录当前请求数量的观察值，
   由标签 `phase`（取值为 `waiting` 和 `executing`）和 `request_kind`
   （取值 `mutating` 和 `readOnly`）拆分。定期以高速率观察该值。
+  每个观察到的值是一个介于 0 和 1 之间的比值，计算方式为请求数除以该请求数的对应限制
+  （等待的队列长度限制和执行所用的并发限制）。
 
 <!--
 * `apiserver_flowcontrol_read_vs_write_request_count_watermarks` is a
@@ -941,7 +945,7 @@ poorly-behaved workloads that may be harming system health.
   level are longer than those for other priority levels, it may be appropriate
   to increase that PriorityLevelConfiguration's concurrency shares.
   -->
-  直方图中的离群值在这里表示单个流（即，一个用户或一个名称空间的请求，
+  直方图中的离群值在这里表示单个流（即，一个用户或一个名字空间的请求，
   具体取决于配置）正在疯狂地向 API 服务器发请求，并受到限制。
   相反，如果一个优先级的直方图显示该优先级的所有队列都比其他优先级的队列长，
   则增加 PriorityLevelConfiguration 的并发份额是比较合适的。
@@ -979,8 +983,7 @@ poorly-behaved workloads that may be harming system health.
   requests assigned to that priority level.
   -->
   由于每个 FlowSchema 总会给请求分配 PriorityLevelConfiguration，
-  因此你可以为一个优先级添加所有 FlowSchema 的直方图，以获取分配给
-  该优先级的请求的有效直方图。
+  因此你可以为一个优先级添加所有 FlowSchema 的直方图，以获取分配给该优先级的请求的有效直方图。
   {{< /note >}}
 
 <!--
@@ -1062,7 +1065,7 @@ serves the following additional paths at its HTTP[S] ports.
 - `/debug/api_priority_and_fairness/dump_requests` - a listing of all the requests
   that are currently waiting in a queue.  You can fetch like this:
 -->
-- `/debug/api_priority_and_fairness/dump_requests` ——当前正在队列中等待的所有请求的列表。
+- `/debug/api_priority_and_fairness/dump_requests` —— 当前正在队列中等待的所有请求的列表。
   你可以这样获取：
 
   ```shell

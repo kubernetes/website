@@ -292,7 +292,7 @@ kubectl delete namespace default-cpu-example
 删除你的命名空间：
 
 ```shell
-kubectl delete namespace constraints-cpu-example
+kubectl delete namespace default-cpu-example
 ```
 
 ## {{% heading "whatsnext" %}}
