@@ -92,9 +92,9 @@ as documented in [Resources](#resources).
 Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
 `startupProbe` because they must run to completion before the Pod can be ready.
 
-If you specify multiple init containers for a Pod, Kubelet runs each init
+If you specify multiple init containers for a Pod, kubelet runs each init
 container sequentially. Each init container must succeed before the next can run.
-When all of the init containers have run to completion, Kubelet initializes
+When all of the init containers have run to completion, kubelet initializes
 the application containers for the Pod and runs them as usual.
 -->
 ### 与普通容器的不同之处
@@ -184,6 +184,7 @@ Here are some ideas for how to use init containers:
   ```shell
   sleep 60
   ```
+
 <!--
 * Clone a Git repository into a {{< glossary_tooltip text="Volume" term_id="volume" >}}
 
@@ -364,15 +365,15 @@ To create the `mydb` and `myservice` services:
 创建 `mydb` 和 `myservice` 服务的命令：
 
 ```shell
-kubectl create -f services.yaml
+kubectl apply -f services.yaml
 ```
 <!--
 The output is similar to this:
 -->
 输出类似于：
 ```
-service "myservice" created
-service "mydb" created
+service/myservice created
+service/mydb created
 ```
 
 <!--

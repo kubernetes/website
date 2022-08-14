@@ -48,7 +48,7 @@ Before reviewing, it's a good idea to:
 
 Before you start a review:
 
-- Read the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) and ensure that you abide by it at all times.
+- Read the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md) and ensure that you abide by it at all times.
 - Be polite, considerate, and helpful.
 - Comment on positive aspects of PRs as well as changes.
 - Be empathetic and mindful of how your review may be received.
@@ -59,7 +59,7 @@ Before you start a review:
 
 在你开始评审之前：
 
-- 阅读 [CNCF 行为准则](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)。
+- 阅读 [CNCF 行为准则](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)。
   确保你会始终遵从其中约定。
 - 保持有礼貌、体谅他人，怀助人为乐初心。
 - 评论时若给出修改建议，也要兼顾 PR 的积极方面。
@@ -113,15 +113,16 @@ Figure 1. Review process steps.
 图 1. 评审流程步骤。
 
 <!--
-1.  Go to
-    [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
-    You see a list of every open pull request against the Kubernetes website and
-    docs.
+1. Go to [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
+   You see a list of every open pull request against the Kubernetes website and docs.
 
-2.  Filter the open PRs using one or all of the following labels:
-    - `cncf-cla: yes` (Recommended): PRs submitted by contributors who have not signed the CLA cannot be merged. See [Sign the CLA](/docs/contribute/new-content/overview/#sign-the-cla) for more information.
-    - `language/en` (Recommended): Filters for english language PRs only.
-    - `size/<size>`: filters for PRs of a certain size. If you're new, start with smaller PRs.
+2. Filter the open PRs using one or all of the following labels:
+
+   - `cncf-cla: yes` (Recommended): PRs submitted by contributors who have not signed the CLA
+     cannot be merged. See [Sign the CLA](/docs/contribute/new-content/#sign-the-cla)
+     for more information.
+         - `language/en` (Recommended): Filters for english language PRs only.
+   - `size/<size>`: filters for PRs of a certain size. If you're new, start with smaller PRs.
 
     Additionally, ensure the PR isn't marked as a work in progress. PRs using the `work in progress` label are not ready for review yet.
 -->
@@ -130,25 +131,25 @@ Figure 1. Review process steps.
 
 2. 使用以下标签（组合）对待处理 PR 进行过滤：
 
-    - `cncf-cla: yes` （建议）：由尚未签署 CLA 的贡献者所发起的 PR 不可以合并。
-      参考[签署 CLA](/zh-cn/docs/contribute/new-content/#sign-the-cla) 以了解更多信息。
-    - `language/en` （建议）：仅查看英语语言的 PR。
-    - `size/<尺寸>`：过滤特定尺寸（规模）的 PR。
-      如果你刚入门，可以从较小的 PR 开始。
+   - `cncf-cla: yes` （建议）：由尚未签署 CLA 的贡献者所发起的 PR 不可以合并。
+     参考[签署 CLA](/zh-cn/docs/contribute/new-content/#sign-the-cla) 以了解更多信息。
+   - `language/en` （建议）：仅查看英语语言的 PR。
+   - `size/<尺寸>`：过滤特定尺寸（规模）的 PR。
+     如果你刚入门，可以从较小的 PR 开始。
 
-    此外，确保 PR 没有标记为尚未完成（Work in Progress）。
-    包含 `work in progress` 的 PR 通常还没准备好被评审。
+   此外，确保 PR 没有标记为尚未完成（Work in Progress）。
+   包含 `work in progress` 的 PR 通常还没准备好被评审。
 
 <!-- 
 3.  Once you've selected a PR to review, understand the change by:
-    - Reading the PR description to understand the changes made, and read any linked issues
-    - Reading any comments by other reviewers
-    - Clicking the **Files changed** tab to see the files and lines changed
-    - Previewing the changes in the Netlify preview build by scrolling to the PR's build check section at the bottom of the **Conversation** tab.
-      Here's a screenshot (this shows GitHub's desktop site; if you're reviewing
-      on a tablet or smartphone device, the GitHub web UI is slightly different):
-      {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub pull request details including link to Netlify preview" >}}
-      To open the preview, click on the  **Details** link of the **deploy/netlify** line in the list of checks.
+   - Reading the PR description to understand the changes made, and read any linked issues
+   - Reading any comments by other reviewers
+   - Clicking the **Files changed** tab to see the files and lines changed
+   - Previewing the changes in the Netlify preview build by scrolling to the PR's build check section at the bottom of the **Conversation** tab.
+     Here's a screenshot (this shows GitHub's desktop site; if you're reviewing
+     on a tablet or smartphone device, the GitHub web UI is slightly different):
+     {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub pull request details including link to Netlify preview" >}}
+     To open the preview, click on the  **Details** link of the **deploy/netlify** line in the list of checks.
 -->
 3. 选定 PR 评审之后，可以通过以下方式理解所作的变更：
 
@@ -165,23 +166,40 @@ Figure 1. Review process steps.
 
 <!--
 4.  Go to the **Files changed** tab to start your review.
-    1. Click on the `+` symbol  beside the line you want to comment on.
-    2. Fill in any comments you have about the line and click either **Add single comment** (if you have only one comment to make) or  **Start a review** (if you have multiple comments to make).
-    3. When finished, click **Review changes** at the top of the page. Here, you can add
-      a summary of your review (and leave some positive comments for the contributor!),
-      approve the PR, comment or request changes as needed. New contributors should always
-      choose **Comment**.
+
+   1. Click on the `+` symbol  beside the line you want to comment on.
+   1. Fill in any comments you have about the line and click either **Add single comment**
+      (if you have only one comment to make) or **Start a review** (if you have multiple comments to make).
+   1. When finished, click **Review changes** at the top of the page. Here, you can add
+      a summary of your review (and leave some positive comments for the contributor!).
+      Please always use the "Comment"
+
+      - Avoid clicking the "Request changes" button when finishing your review.
+        If you want to block a PR from being merged before some further changes are made,
+        you can leave a "/hold" comment.
+        Mention why you are setting a hold, and optionally specify the conditions under
+        which the hold can be removed by you or other reviewers.
+
+      - Avoid clicking the "Approve" button when finishing your review.
+        Leaving a "/approve" comment is recommended most of the time.
+
 -->
 4. 前往 **Files changed** Tab 页面，开始你的评审工作。
 
    1. 点击你希望评论的行旁边的 `+` 号。
-   2. 填写你对该行的评论，
+   1. 填写你对该行的评论，
       之后选择 **Add single comment**（如果你只有一条评论）
       或者 **Start a review**（如果你还有其他评论要添加）。
-   3. 评论结束时，点击页面顶部的 **Review changes**。
+   1. 评论结束时，点击页面顶部的 **Review changes**。
       这里你可以添加你的评论结语（记得留下一些正能量的评论！）、
       根据需要批准 PR、请求作者进一步修改等等。
       新手应该选择 **Comment**。
+
+      - 避免在完成审查后点击 "Request changes（请求修改）"按钮。
+        如果在完成进一步修改之前你想阻止某 PR 被合并。你可以在评论中留下一个 “/hold”。
+        同时在评论中说明你为什么要设置 Hold，并且在必要时指定在什么条件下可以由你或其他评审人取消 Hold。
+      - 避免在完成审查后直接点击 "Approve（批准）"按钮。
+        在大多数情况下，建议在评论区留下一个"/approve（批准）"的评论。
 
 <!-- 
 ## Reviewing checklist

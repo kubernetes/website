@@ -16,8 +16,8 @@ no_list: true
 
 <!--
 Whether your workload is a single component or several that work together, on Kubernetes you run
-it inside a set of [Pods](/docs/concepts/workloads/pods).
-In Kubernetes, a Pod represents a set of running
+it inside a set of [_pods_](/docs/concepts/workloads/pods).
+In Kubernetes, a `Pod` represents a set of running
 {{< glossary_tooltip text="containers" term_id="container" >}} on your cluster.
 
 A Pod has a defined lifecycle. For example, once a Pod is running in your cluster then
@@ -26,8 +26,8 @@ Pod is running means that all the Pods on that node fail. Kubernetes treats that
 of failure as final: you would need to create a new Pod even if the node later recovers.
 -->
 在 Kubernetes 中，无论你的负载是由单个组件还是由多个一同工作的组件构成，
-你都可以在一组 [Pod](/zh-cn/docs/concepts/workloads/pods) 中运行它。
-在 Kubernetes 中，Pod 代表的是集群上处于运行状态的一组
+你都可以在一组 [**Pod**](/zh-cn/docs/concepts/workloads/pods) 中运行它。
+在 Kubernetes 中，`Pod` 代表的是集群上处于运行状态的一组
 {{< glossary_tooltip text="容器" term_id="container" >}} 的集合。
 
 <!--
@@ -44,15 +44,15 @@ Kubernetes Pods 遵循[预定义的生命周期](/zh-cn/docs/concepts/workloads/
 即使该节点后来恢复正常运行，你也需要创建新的 Pod 以恢复应用。
 
 <!--
-However, to make life considerably easier, you don't need to manage each Pod directly.
-Instead, you can use _workload resources_ that manage a set of Pods on your behalf.
+However, to make life considerably easier, you don't need to manage each `Pod` directly.
+Instead, you can use _workload resources_ that manage a set of pods on your behalf.
 These resources configure {{< glossary_tooltip term_id="controller" text="controllers" >}}
-that make sure the right number of the right kind of Pod are running, to match the state
+that make sure the right number of the right kind of pod are running, to match the state
 you specified.
 
 Kubernetes provides several built-in workload resources:
 -->
-不过，为了减轻用户的使用负担，通常不需要用户直接管理每个 Pod。
+不过，为了减轻用户的使用负担，通常不需要用户直接管理每个 `Pod`。
 而是使用**负载资源**来替用户管理一组 Pod。
 这些负载资源通过配置 {{< glossary_tooltip term_id="controller" text="控制器" >}}
 来确保正确类型的、处于运行状态的 Pod 个数是正确的，与用户所指定的状态相一致。
@@ -60,7 +60,7 @@ Kubernetes provides several built-in workload resources:
 Kubernetes 提供若干种内置的工作负载资源：
 
 <!--
-* [Deployment](/docs/concepts/workloads/controllers/deployment/) and [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+* [`Deployment`](/docs/concepts/workloads/controllers/deployment/) and [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/)
   (replacing the legacy resource
   {{< glossary_tooltip text="ReplicationController" term_id="replication-controller" >}}).
   `Deployment` is a good fit for managing a stateless application workload on your cluster,
@@ -72,8 +72,8 @@ Kubernetes 提供若干种内置的工作负载资源：
   `Pods` for that `StatefulSet`, can replicate data to other `Pods` in the same `StatefulSet`
   to improve overall resilience.
 -->
-* [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 和
-  [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
+* [`Deployment`](/zh-cn/docs/concepts/workloads/controllers/deployment/) 和
+  [`ReplicaSet`](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
   （替换原来的资源 {{< glossary_tooltip text="ReplicationController" term_id="replication-controller" >}}）。
   `Deployment` 很适合用来管理你的集群上的无状态应用，`Deployment` 中的所有
   `Pod` 都是相互等价的，并且在需要的时候被替换。
@@ -127,14 +127,14 @@ then you can implement or install an extension that does provide that feature.
 <!--
 As well as reading about each resource, you can learn about specific tasks that relate to them:
 
-* [Run a stateless application using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/)
+* [Run a stateless application using a `Deployment`](/docs/tasks/run-application/run-stateless-application-deployment/)
 * Run a stateful application either as a [single instance](/docs/tasks/run-application/run-single-instance-stateful-application/)
   or as a [replicated set](/docs/tasks/run-application/run-replicated-stateful-application/)
-* [Run Automated Tasks with a `CronJob`](/docs/tasks/job/automated-tasks-with-cron-jobs/)
+* [Run automated tasks with a `CronJob`](/docs/tasks/job/automated-tasks-with-cron-jobs/)
 -->
 除了阅读了解每类资源外，你还可以了解与这些资源相关的任务：
 
-* [使用 Deployment 运行一个无状态的应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
+* [使用 `Deployment` 运行一个无状态的应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
 * 以[单实例](/zh-cn/docs/tasks/run-application/run-single-instance-stateful-application/)或者[多副本集合](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)
   的形式运行有状态的应用；
 * [使用 `CronJob` 运行自动化的任务](/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/)
