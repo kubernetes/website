@@ -68,10 +68,10 @@ into the cluster.
 {{< /tab >}}
 {{< tab name="violation.json" >}}
 {{< codenew file="pods/security/seccomp/profiles/violation.json" >}}
-{{< /tab >}}}
+{{< /tab >}}
 {{< tab name="fine-grained.json" >}}
 {{< codenew file="pods/security/seccomp/profiles/fine-grained.json" >}}
-{{< /tab >}}}
+{{< /tab >}}
 {{< /tabs >}}
 
 Run these commands:
@@ -89,9 +89,7 @@ You should see three profiles listed at the end of the final step:
 audit.json  fine-grained.json  violation.json
 ```
 
-
 ## Create a local Kubernetes cluster with kind
-
 
 For simplicity, [kind](https://kind.sigs.k8s.io/) can be used to create a single
 node cluster with the seccomp profiles loaded. Kind runs Kubernetes in Docker,
