@@ -56,5 +56,5 @@ To enable autocompletion in current session of shell, source the .bashrc file:
 
 ```bash
 source ~/.bashrc
-```bash
+```
 
