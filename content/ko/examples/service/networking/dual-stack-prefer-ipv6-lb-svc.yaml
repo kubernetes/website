@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: my-service
   labels:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
 spec:
   ipFamily: IPv6
   type: LoadBalancer
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80

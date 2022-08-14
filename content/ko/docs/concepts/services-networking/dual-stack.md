@@ -63,9 +63,9 @@ IPv4/IPv6 이중 스택을 구성하려면, 이중 스택 클러스터 네트워
 * kubelet:
   * `--cloud-provider`가 명시되지 않았다면 관리자는 해당 노드에 듀얼 스택
     `.status.addresses`를 수동으로 설정하기 위해 쉼표로 구분된 IP 주소 쌍을 `--node-ip` 플래그로 전달할 수 있다.
-    해당 노드의 파드가 HostNetwork 모드로 실행된다면, 
+    해당 노드의 파드가 HostNetwork 모드로 실행된다면,
     파드는 이 IP 주소들을 자신의 `.status.podIPs` 필드에 보고한다.
-    노드의 모든 `podIPs`는 해당 노드의 `.status.addresses` 필드에 의해 정의된 
+    노드의 모든 `podIPs`는 해당 노드의 `.status.addresses` 필드에 의해 정의된
     IP 패밀리 선호사항을 만족한다.
 
 {{< note >}}
@@ -174,7 +174,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
    kind: Service
    metadata:
      labels:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      name: my-service
    spec:
      clusterIP: 10.0.197.123
@@ -188,7 +188,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
        protocol: TCP
        targetPort: 80
      selector:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      type: ClusterIP
    status:
      loadBalancer: {}
@@ -214,7 +214,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
    kind: Service
    metadata:
      labels:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      name: my-service
    spec:
      clusterIP: None
@@ -228,7 +228,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
        protocol: TCP
        targetPort: 80
      selector:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
    ```
 
 #### 단일 스택과 이중 스택 간 서비스 전환
