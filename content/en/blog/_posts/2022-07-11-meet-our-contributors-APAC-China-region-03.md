@@ -3,7 +3,7 @@ layout: blog
 title: "Meet Our Contributors - APAC (China region)"
 date: 2022-08-15
 slug: meet-our-contributors-china-ep-03
-canonicalUrl: https://www.kubernetes.dev/blog/2022/07/11/meet-our-contributors-chn-ep-03/
+canonicalUrl: https://www.kubernetes.dev/blog/2022/08/15/meet-our-contributors-chn-ep-03/
 ---
 
 **Authors & Interviewers:** [Avinesh Tripathi](https://github.com/AvineshTripathi), [Debabrata Panigrahi](https://github.com/Debanitrkl), [Jayesh Srivastava](https://github.com/jayesh-srivastava), [Priyanka Saggu](https://github.com/Priyankasaggu11929/), [Purneswar Prasad](https://github.com/PurneswarPrasad), [Vedant Kakde](https://github.com/vedant-kakde)
