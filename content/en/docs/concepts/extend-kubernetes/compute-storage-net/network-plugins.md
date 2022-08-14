@@ -67,7 +67,7 @@ For example:
 ```json
 {
   "name": "k8s-pod-network",
-  "cniVersion": "0.3.0",
+  "cniVersion": "0.4.0",
   "plugins": [
     {
       "type": "calico",
@@ -106,7 +106,7 @@ If you want to enable traffic shaping support, you must add the `bandwidth` plug
 ```json
 {
   "name": "k8s-pod-network",
-  "cniVersion": "0.3.0",
+  "cniVersion": "0.4.0",
   "plugins": [
     {
       "type": "calico",

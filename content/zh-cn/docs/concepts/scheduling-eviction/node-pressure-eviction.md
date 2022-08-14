@@ -411,7 +411,7 @@ kubelet 按以下顺序释放磁盘空间：
 If the kubelet's attempts to reclaim node-level resources don't bring the eviction
 signal below the threshold, the kubelet begins to evict end-user pods. 
 
-The kubelet uses the following parameters to determine pod eviction order:
+The kubelet uses the following parameters to determine the pod eviction order:
 
 1. Whether the pod's resource usage exceeds requests
 1. [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
@@ -598,7 +598,7 @@ kubelet 根据 Pod 的服务质量（QoS）为每个容器设置一个 `oom_scor
 {{<note>}}
 <!-- 
 The kubelet also sets an `oom_score_adj` value of `-997` for containers in Pods that have
-`system-node-critical` {{<glossary_tooltip text="Priority" term_id="pod-priority">}}
+`system-node-critical` {{<glossary_tooltip text="Priority" term_id="pod-priority">}}.
 -->
 kubelet 还将具有 `system-node-critical`
 {{<glossary_tooltip text="优先级" term_id="pod-priority">}}
@@ -762,7 +762,7 @@ kubelet 将 `active_file` 内存区域视为不可回收。
 kubelet 很容易将其视为资源用量过量并为节点设置内存压力污点，从而触发 Pod 驱逐。
 
 <!-- 
-For more more details, see [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)
+For more details, see [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)
 
 You can work around that behavior by setting the memory limit and memory request
 the same for containers likely to perform intensive I/O activity. You will need 

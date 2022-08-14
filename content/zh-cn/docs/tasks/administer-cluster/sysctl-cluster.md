@@ -97,9 +97,9 @@ node. This means that setting a _safe_ sysctl for one pod
 -->
 ## 启用非安全的 Sysctl 参数
 
-sysctl 参数分为 _安全_ 和 _非安全的_。
-_安全_ sysctl 参数除了需要设置恰当的命名空间外，在同一 node 上的不同 Pod 
-之间也必须是 _相互隔离的_。这意味着在 Pod 上设置 _安全_ sysctl 参数
+sysctl 参数分为 **安全** 和 **非安全的**。
+**安全** 的 sysctl 参数除了需要设置恰当的命名空间外，在同一节点上的不同 Pod 
+之间也必须是 **相互隔离的**。这意味着 Pod 上设置 **安全** sysctl 参数：
 
 <!--
 - must not have any influence on any other pod on the node
@@ -115,8 +115,8 @@ _安全_ sysctl 参数除了需要设置恰当的命名空间外，在同一 nod
 By far, most of the _namespaced_ sysctls are not necessarily considered _safe_.
 The following sysctls are supported in the _safe_ set:
 -->
-至今为止，大多数 _有命名空间的_ sysctl 参数不一定被认为是 _安全_ 的。
-以下几种 sysctl 参数是 _安全的_：
+至今为止，大多数 **有命名空间的** sysctl 参数不一定被认为是 **安全** 的。
+以下几种 sysctl 参数是 **安全的**：
 
 - `kernel.shm_rmid_forced`
 - `net.ipv4.ip_local_port_range`
@@ -136,30 +136,30 @@ This list will be extended in future Kubernetes versions when the kubelet
 supports better isolation mechanisms.
 -->
 在未来的 Kubernetes 版本中，若 kubelet 支持更好的隔离机制，则上述列表中将会
-列出更多 _安全的_ sysctl 参数。
+列出更多 **安全的** sysctl 参数。
 
 <!--
 All _safe_ sysctls are enabled by default.
 -->
-所有 _安全的_ sysctl 参数都默认启用。
+所有 **安全的** sysctl 参数都默认启用。
 
 <!--
 All _unsafe_ sysctls are disabled by default and must be allowed manually by the
 cluster admin on a per-node basis. Pods with disabled unsafe sysctls will be
 scheduled, but will fail to launch.
 -->
-所有 _非安全的_ sysctl 参数都默认禁用，且必须由集群管理员在每个节点上手动开启。
+所有 **非安全的** sysctl 参数都默认禁用，且必须由集群管理员在每个节点上手动开启。
 那些设置了不安全 sysctl 参数的 Pod 仍会被调度，但无法正常启动。
 
 <!--
 With the warning above in mind, the cluster admin can allow certain _unsafe_
-sysctls for very special situations like e.g. high-performance or real-time
+sysctls for very special situations such as high-performance or real-time
 application tuning. _Unsafe_ sysctls are enabled on a node-by-node basis with a
-flag of the kubelet, e.g.:
+flag of the kubelet; for example:
 -->
 参考上述警告，集群管理员只有在一些非常特殊的情况下（如：高可用或实时应用调整），
-才可以启用特定的 _非安全的_ sysctl 参数。
-如需启用 _非安全的_ sysctl 参数，请你在每个节点上分别设置 kubelet 命令行参数，例如：
+才可以启用特定的 **非安全的** sysctl 参数。
+如需启用 **非安全的** sysctl 参数，请你在每个节点上分别设置 kubelet 命令行参数，例如：
 
 ```shell
 kubelet --allowed-unsafe-sysctls \
@@ -177,7 +177,7 @@ minikube start --extra-config="kubelet.allowed-unsafe-sysctls=kernel.msg*,net.co
 <!--
 Only _namespaced_ sysctls can be enabled this way.
 -->
-只有 _有命名空间的_ sysctl 参数可以通过该方式启用。
+只有 **有命名空间的** sysctl 参数可以通过该方式启用。
 
 <!--
 ## Setting Sysctls for a Pod
@@ -211,7 +211,7 @@ Sysctls with no namespace are called _node-level_ sysctls. If you need to set
 them, you must manually configure them on each node's operating system, or by
 using a DaemonSet with privileged containers.
 -->
-没有命名空间的 sysctl 参数称为 _节点级别的_ sysctl 参数。
+没有命名空间的 sysctl 参数称为 **节点级别的** sysctl 参数。
 如果需要对其进行设置，则必须在每个节点的操作系统上手动地去配置它们，
 或者通过在 DaemonSet 中运行特权模式容器来配置。
 
@@ -231,7 +231,7 @@ the specification.
 此示例中，使用 Pod SecurityContext 来对一个安全的 sysctl 参数
 `kernel.shm_rmid_forced` 以及两个非安全的 sysctl 参数
 `net.core.somaxconn` 和 `kernel.msgmax` 进行设置。
-在 Pod 规约中对 _安全的_ 和 _非安全的_ sysctl 参数不做区分。
+在 Pod 规约中对 **安全的** 和 **非安全的** sysctl 参数不做区分。
 
 <!--
 Only modify sysctl parameters after you understand their effects, to avoid
@@ -266,7 +266,7 @@ is at-your-own-risk and can lead to severe problems like wrong behavior of
 containers, resource shortage or complete breakage of a node.
 -->
 {{< warning >}}
-由于 _非安全的_ sysctl 参数其本身具有不稳定性，在使用 _非安全的_ sysctl 参数
+由于 **非安全的** sysctl 参数其本身具有不稳定性，在使用 **非安全的** sysctl 参数
 时可能会导致一些严重问题，如容器的错误行为、机器资源不足或节点被完全破坏，
 用户需自行承担风险。
 {{< /warning >}}
@@ -277,7 +277,7 @@ _tainted_ within a cluster, and only schedule pods onto them which need those
 sysctl settings. It is suggested to use the Kubernetes [_taints and toleration_
 feature](/docs/reference/generated/kubectl/kubectl-commands/#taint) to implement this.
 -->
-最佳实践方案是将集群中具有特殊 sysctl 设置的节点视为 _有污点的_，并且只调度
+最佳实践方案是将集群中具有特殊 sysctl 设置的节点视为 **有污点的**，并且只调度
 需要使用到特殊 sysctl 设置的 Pod 到这些节点上。
 建议使用 Kubernetes 的
 [污点和容忍度特性](/docs/reference/generated/kubectl/kubectl-commands/#taint) 来实现它。
@@ -287,11 +287,11 @@ A pod with the _unsafe_ sysctls will fail to launch on any node which has not
 enabled those two _unsafe_ sysctls explicitly. As with _node-level_ sysctls it
 is recommended to use
 [_taints and toleration_ feature](/docs/reference/generated/kubectl/kubectl-commands/#taint) or
-[taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
+[taints on nodes](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 to schedule those pods onto the right nodes.
 -->
-设置了 _非安全的_ sysctl 参数的 Pod 在禁用了这两种 _非安全的_ sysctl 参数配置
-的节点上启动都会失败。与 _节点级别的_ sysctl 一样，建议开启
+设置了 **非安全的** sysctl 参数的 Pod 在禁用了这两种 **非安全的** sysctl 参数配置
+的节点上启动都会失败。与 **节点级别的** sysctl 一样，建议开启
 [污点和容忍度特性](/docs/reference/generated/kubectl/kubectl-commands/#taint) 或
 [为节点配置污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)
 以便将 Pod 调度到正确的节点之上。
@@ -315,7 +315,7 @@ sysctl 参数匹配模式以 `*` 字符结尾，如 `kernel.*`。
 <!--
 By default, all safe sysctls are allowed.
 -->
-所有 _安全的_ sysctl 参数都默认启用。
+所有 **安全的** sysctl 参数都默认启用。
 
 <!--
 Both `forbiddenSysctls` and `allowedUnsafeSysctls` are lists of plain sysctl names

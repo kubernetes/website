@@ -230,11 +230,11 @@ The running kubelet periodically scans the configured directory (`/etc/kubernete
 # This assumes you are using filesystem-hosted static Pod configuration
 # Run these commands on the node where the kubelet is running
 #
-mv /etc/kubelet.d/static-web.yaml /tmp
+mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
 # You see that no nginx container is running
-mv /tmp/static-web.yaml  /etc/kubelet.d/
+mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
 sleep 20
 crictl ps
 ```

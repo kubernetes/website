@@ -108,6 +108,7 @@ stringData:
     username: <user>
     password: <password>
 ```
+
 When you retrieve the Secret data, the command returns the encoded values,
 and not the plaintext values you provided in `stringData`.
 
@@ -133,7 +134,7 @@ metadata:
 type: Opaque
 ```
 
-### Specifying both `data` and `stringData`
+### Specify both `data` and `stringData`
 
 If you specify a field in both `data` and `stringData`, the value from `stringData` is used.
 
@@ -169,7 +170,7 @@ type: Opaque
 
 `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
 
-## Clean Up
+## Clean up
 
 To delete the Secret you have created:
 
@@ -180,6 +181,6 @@ kubectl delete secret mysecret
 ## {{% heading "whatsnext" %}}
 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secrets with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 

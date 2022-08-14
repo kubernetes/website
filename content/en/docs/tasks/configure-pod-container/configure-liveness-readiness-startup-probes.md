@@ -506,7 +506,7 @@ those existing Pods.
 
 When you (or the control plane, or some other component) create replacement
 Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
-API server ignores the Pod-level `terminationGracePeriodSeconds` field, even if
+API server ignores the Probe-level `terminationGracePeriodSeconds` field, even if
 a Pod or pod template specifies it.
 {{< /note >}}
 

@@ -50,13 +50,13 @@ Here is an overview of the steps in this example:
 
 <!--
 Be familiar with the basic,
-non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
+non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 -->
 
 要熟悉 Job 基本用法（非并行的），请参考
 [Job](/zh-cn/docs/concepts/workloads/controllers/job/)。
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}} 
 
 <!-- steps -->
 
@@ -70,7 +70,7 @@ cluster and reuse it for many jobs, as well as for long-running services.
 
 Start RabbitMQ as follows:
 -->
-## 启动消息队列服务
+## 启动消息队列服务   {#starting-a-message-queue-service}
 
 本例使用了 RabbitMQ，但你可以更改该示例，使用其他 AMQP 类型的消息服务。
 
@@ -108,7 +108,7 @@ and experiment with queues.
 
 First create a temporary interactive Pod.
 -->
-## 测试消息队列服务
+## 测试消息队列服务   {#testing-the-message-queue-service}
 
 现在，我们可以试着访问消息队列。我们将会创建一个临时的可交互的 Pod，在它上面安装一些工具，然后用队列做实验。
 
@@ -154,7 +154,7 @@ Next, we will check that we can discover the rabbitmq service:
 # Note the rabbitmq-service has a DNS name, provided by Kubernetes:
 -->
 ```
-# 请注意 rabbitmq-service 有Kubernetes 提供的 DNS 名称，
+# 请注意 rabbitmq-service 拥有一个由 Kubernetes 提供的 DNS 名称：
 
 root@temp-loe07:/# nslookup rabbitmq-service
 Server:        10.0.0.10
@@ -196,8 +196,6 @@ Next we will verify we can create a queue, and publish and consume messages.
 # then use this command instead:
 # root@temp-loe07:/# BROKER_URL=amqp://guest:guest@$RABBITMQ_SERVICE_SERVICE_HOST:5672
 # Now create a queue:
-# and publish a message to it:
-# and get it back.
 -->
 
 ```shell
@@ -246,7 +244,7 @@ In a practice, the content of the messages might be:
 - configuration parameters to a simulation
 - frame numbers of a scene to be rendered
 -->
-## 为队列增加任务
+## 为队列增加任务  {#filling-the-queue-with-tasks}
 
 现在让我们给队列增加一些任务。在我们的示例中，任务是多个待打印的字符串。
 
@@ -268,7 +266,9 @@ For our example, we will create the queue and fill it using the amqp command lin
 In practice, you might write a program to fill the queue using an amqp client library.
 -->
 
-本例中，如果有大量的数据需要被 Job 的所有 Pod 读取，典型的做法是把它们放在一个共享文件系统中，如NFS，并以只读的方式挂载到所有 Pod，或者 Pod 中的程序从类似 HDFS 的集群文件系统中读取。
+本例中，如果有大量的数据需要被 Job 的所有 Pod 读取，典型的做法是把它们放在一个共享文件系统中，
+如 NFS（Network File System 网络文件系统），并以只读的方式挂载到所有 Pod，或者 Pod 中的程序从类似 HDFS
+（Hadoop Distributed File System 分布式文件系统）的集群文件系统中读取。
 
 例如，我们创建队列并使用 amqp 命令行工具向队列中填充消息。实践中，你可以写个程序来利用 amqp 客户端库来填充这些队列。
 
@@ -294,13 +294,23 @@ example program:
 -->
 这样，我们给队列中填充了8个消息。
 
-## 创建镜像
+## 创建镜像   {#create-an-image}
 
 现在我们可以创建一个做为 Job 来运行的镜像。
 
 我们将用 `amqp-consume` 来从队列中读取消息并实际运行我们的程序。这里给出一个非常简单的示例程序：
 
 {{< codenew language="python" file="application/job/rabbitmq/worker.py" >}}
+
+<!--
+Give the script execution permission:
+-->
+赋予脚本执行权限:
+
+```shell
+chmod +x worker.py
+```
+
 
 <!--
 Now, build an image.  If you are working in the source
@@ -355,7 +365,7 @@ gcloud docker -- push gcr.io/<project>/job-wq-1
 Here is a job definition.  You'll need to make a copy of the Job and edit the
 image to match the name you used, and call it `./job.yaml`.
 -->
-## 定义 Job
+## 定义 Job   {#defining-a-job}
 
 这里给出一个 Job 定义 yaml文件。你需要拷贝一份并编辑镜像以匹配你使用的名称，保存为 `./job.yaml`。
 
@@ -372,18 +382,17 @@ So, now run the Job:
 -->
 本例中，每个 Pod 使用队列中的一个消息然后退出。这样，Job 的完成计数就代表了完成的工作项的数量。本例中我们设置 `.spec.completions: 8`，因为我们放了8项内容在队列中。
 
-## 运行 Job
+## 运行 Job   {#running-the-job}
 
 现在我们运行 Job：
 
 ```shell
-kubectl create -f ./job.yaml
+kubectl apply -f ./job.yaml
 ```
 
 <!--
 Now wait a bit, then check on the job.
 -->
-
 稍等片刻，然后检查 Job。
 
 ```shell
@@ -441,9 +450,9 @@ do not need to modify your "worker" program to be aware that there is a work que
 
 It does require that you run a message queue service.
 If running a queue service is inconvenient, you may
-want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns).
+want to consider one of the other [job patterns](/docs/concepts/workloads/controllers/job/#job-patterns).
 -->
-## 替代方案
+## 替代方案   {#alternatives}
 
 本文所讲述的处理方法的好处是你不需要修改你的 "worker" 程序使其知道工作队列的存在。
 
@@ -455,7 +464,7 @@ This approach creates a pod for every work item.  If your work items only take a
 though, creating a Pod for every work item may add a lot of overhead.  Consider another
 [example](/docs/tasks/job/fine-parallel-processing-work-queue/), that executes multiple work items per Pod.
 
-In this example, we used use the `amqp-consume` utility to read the message
+In this example, we use the `amqp-consume` utility to read the message
 from the queue and run our actual program.  This has the advantage that you
 do not need to modify your program to be aware of the queue.
 A [different example](/docs/tasks/job/fine-parallel-processing-work-queue/), shows how to
@@ -489,7 +498,7 @@ exits with success, or if the node crashes before the kubelet is able to post th
 back to the api-server, then the Job will not appear to be complete, even though all items
 in the queue have been processed.
 -->
-## 友情提醒
+## 友情提醒   {#caveats}
 
 如果设置的完成数量小于队列中的消息数量，会导致一部分消息项不会被执行。
 

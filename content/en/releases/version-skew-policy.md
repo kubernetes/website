@@ -103,6 +103,19 @@ Example:
 The supported version skew between components has implications on the order in which components must be upgraded.
 This section describes the order in which components must be upgraded to transition an existing cluster from version **{{< skew currentVersionAddMinor -1 >}}** to version **{{< skew currentVersion >}}**.
 
+Optionally, when preparing to upgrade, the Kubernetes project recommends that
+you do the following to benefit from as many regression and bug fixes as
+possible during your upgrade: 
+
+*  Ensure that components are on the most recent patch version of your current
+   minor version.
+*  Upgrade components to the most recent patch version of the target minor
+   version.
+
+For example, if you're running version {{<skew currentVersionAddMinor -1>}},
+ensure that you're on the most recent patch version. Then, upgrade to the most
+recent patch version of {{<skew currentVersion>}}.
+
 ### kube-apiserver
 
 Pre-requisites:
@@ -129,7 +142,11 @@ Pre-requisites:
 
 * The `kube-apiserver` instances these components communicate with are at **{{< skew currentVersion >}}** (in HA clusters in which these control plane components can communicate with any `kube-apiserver` instance in the cluster, all `kube-apiserver` instances must be upgraded before upgrading these components)
 
-Upgrade `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` to **{{< skew currentVersion >}}**
+Upgrade `kube-controller-manager`, `kube-scheduler`, and
+`cloud-controller-manager` to **{{< skew currentVersion >}}**. There is no
+required upgrade order between `kube-controller-manager`, `kube-scheduler`, and
+`cloud-controller-manager`. You can upgrade these components in any order, or
+even simultaneously.
 
 ### kubelet
 

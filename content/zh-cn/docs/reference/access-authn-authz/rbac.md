@@ -133,7 +133,7 @@ Here's an example Role in the "default" namespace that can be used to grant read
 #### Role 示例 {#role-example}
 
 下面是一个位于 "default" 名字空间的 Role 的示例，可用来授予对
-{{< glossary_tooltip text="pods" term_id="pod" >}} 的读访问权限：
+{{< glossary_tooltip text="Pod" term_id="pod" >}} 的读访问权限：
 
 <!--
 ```yaml
@@ -175,7 +175,7 @@ Because ClusterRoles are cluster-scoped, you can also use them to grant access t
 -->
 ###  ClusterRole 示例 {#clusterrole-example}
 
-ClusterRole 可以和 Role 相同完成授权。
+ClusterRole 同样可以用于授予 Role 能够授予的权限。
 因为 ClusterRole 属于集群范围，所以它也可以为以下资源授予访问权限：
 
 * 集群范围资源（比如{{< glossary_tooltip text="节点（Node）" term_id="node" >}}）
@@ -226,7 +226,7 @@ rules:
 The name of a Role or a ClusterRole object must be a valid
 [path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
 -->
-Role 或 ClusterRole 对象的名称必须是合法的[路径区段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
+Role 或 ClusterRole 对象的名称必须是合法的[路径分段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
 
 <!--
 ### RoleBinding and ClusterRoleBinding
@@ -257,7 +257,7 @@ RoleBinding 所在的名字空间。
 如果你希望将某  ClusterRole 绑定到集群中所有名字空间，你要使用 ClusterRoleBinding。
 
 RoleBinding 或 ClusterRoleBinding 对象的名称必须是合法的
-[路径区段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
+[路径分段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
 
 <!--
 #### RoleBinding examples {#rolebinding-example}
@@ -269,7 +269,7 @@ This allows "jane" to read pods in the "default" namespace.
 #### RoleBinding 示例   {#rolebinding-example}
 
 下面的例子中的 RoleBinding 将 "pod-reader" Role 授予在 "default" 名字空间中的用户 "jane"。
-这样，用户 "jane" 就具有了读取 "default" 名字空间中 pods 的权限。
+这样，用户 "jane" 就具有了读取 "default" 名字空间中所有 Pod 的权限。
 
 <!--
 ```yaml

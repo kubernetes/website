@@ -690,7 +690,7 @@ kubectl logs -f my-pod -c my-container              # 流式输出 Pod 容器的
 kubectl logs -f -l name=myLabel --all-containers    # 流式输出含 name=myLabel 标签的 Pod 的所有日志（标准输出）
 kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # 以交互式 Shell 运行 Pod
 kubectl run nginx --image=nginx -n mynamespace      # 在 “mynamespace” 命名空间中运行单个 nginx Pod
-kubectl run nginx --image=nginx                     # 运行 ngins Pod 并将其规约写入到名为 pod.yaml 的文件
+kubectl run nginx --image=nginx                     # 运行 nginx Pod 并将其规约写入到名为 pod.yaml 的文件
   --dry-run=client -o yaml > pod.yaml
 
 kubectl attach my-pod -i                            # 挂接到一个运行的容器中

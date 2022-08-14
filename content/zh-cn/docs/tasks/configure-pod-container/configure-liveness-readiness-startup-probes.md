@@ -146,9 +146,9 @@ kubectl describe pod liveness-exec
 
 <!--
 At the bottom of the output, there are messages indicating that the liveness
-probes have failed, and the containers have been killed and recreated.
+probes have failed, and the failed containers have been killed and recreated.
 -->
-在输出结果的最下面，有信息显示存活探测器失败了，这个容器被杀死并且被重建了。
+在输出结果的最下面，有信息显示存活探测器失败了，这个失败的容器被杀死并且被重建了。
 
 ```
 FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
@@ -171,9 +171,9 @@ kubectl get pod liveness-exec
 ```
 
 <!--
-The output shows that `RESTARTS` has been incremented:
+The output shows that `RESTARTS` has been incremented. Note that the `RESTARTS` counter increments as soon as a failed container comes back to the running state:
 -->
-输出结果显示 `RESTARTS` 的值增加了 1。
+输出结果显示 `RESTARTS` 的值增加了 1。请注意，一旦失败的容器恢复为运行状态，`RESTARTS` 计数器就会增加 1：
 
 ```
 NAME            READY     STATUS    RESTARTS   AGE
@@ -816,11 +816,11 @@ those existing Pods.
 <!--
 When you (or the control plane, or some other component) create replacement
 Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
-API server ignores the Pod-level `terminationGracePeriodSeconds` field, even if
+API server ignores the Probe-level `terminationGracePeriodSeconds` field, even if
 a Pod or pod template specifies it.
 -->
 当你（或控制平面或某些其他组件）创建替换 Pod，并且特性门控 `ProbeTerminationGracePeriod`
-被禁用时，API 服务器会忽略 Pod 级别的 `terminationGracePeriodSeconds` 字段设置，
+被禁用时，API 服务器会忽略探针级别的 `terminationGracePeriodSeconds` 字段设置，
 即使 Pod 或 Pod 模板指定了它。
 
 例如:

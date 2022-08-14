@@ -185,16 +185,11 @@ Or use this for detailed view of version:
    <!--
    If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
    -->
-   {{< note >}}
-
    如果你使用 Debian 9（stretch）或更早版本，则你还需要安装 `apt-transport-https`：
-
    ```shell
-    sudo apt-get install -y apt-transport-https
+   sudo apt-get install -y apt-transport-https
    ```
 
-   {{< /note >}}
-   
 <!--
 2. Download the Google Cloud public signing key:
 -->
@@ -228,8 +223,9 @@ Or use this for detailed view of version:
 
 {{% /tab %}}
 
-{{< tab name="基于 Red Hat 的发行版" codelang="bash" >}}
+{{% tab name="基于 Red Hat 的发行版" %}}
 
+```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -239,7 +235,9 @@ gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
-{{< /tab >}}
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 <!-- 
@@ -400,4 +398,3 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
-
