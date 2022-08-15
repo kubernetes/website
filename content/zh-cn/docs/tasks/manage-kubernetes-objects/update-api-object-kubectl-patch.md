@@ -21,7 +21,6 @@ in this task demonstrate a strategic merge patch and a JSON merge patch.
 这个任务展示如何使用 `kubectl patch` 就地更新 API 对象。
 这个任务中的练习演示了一个策略性合并 patch 和一个 JSON 合并 patch。
 
-
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
@@ -62,7 +61,7 @@ kubectl get pods
 The output shows that the Deployment has two Pods. The `1/1` indicates that
 each Pod has one container:
 -->
-输出显示 Deployment 有两个 Pod。`1/1` 表示每个 Pod 有一个容器:
+输出显示 Deployment 有两个 Pod。`1/1` 表示每个 Pod 有一个容器：
 
 ```
 NAME                        READY     STATUS    RESTARTS   AGE
@@ -85,7 +84,7 @@ you want each Pod to have two containers: one that runs nginx and one that runs 
 <!--
 Create a file named `patch-file.yaml` that has this content:
 -->
-创建一个名为 `patch-file.yaml` 的文件。内容如下:
+创建一个名为 `patch-file.yaml` 的文件。内容如下：
 
 ```yaml
 spec:
@@ -116,7 +115,7 @@ kubectl get deployment patch-demo --output yaml
 <!--
 The output shows that the PodSpec in the Deployment has two Containers:
 -->
-输出显示 Deployment 中的 PodSpec 有两个容器:
+输出显示 Deployment 中的 PodSpec 有两个容器：
 
 ```yaml
 containers:
@@ -133,7 +132,7 @@ containers:
 <!--
 View the Pods associated with your patched Deployment:
 -->
-查看与 patch Deployment 相关的 Pod:
+查看与 patch Deployment 相关的 Pod：
 
 ```shell
 kubectl get pods
@@ -145,8 +144,8 @@ were running previously. The Deployment terminated the old Pods and created two
 new Pods that comply with the updated Deployment spec. The `2/2` indicates that
 each Pod has two Containers:
 -->
-输出显示正在运行的 Pod 与以前运行的 Pod 有不同的名称。Deployment 终止了旧的 Pod，并创建了两个
-符合更新的部署规范的新 Pod。`2/2` 表示每个 Pod 有两个容器:
+输出显示正在运行的 Pod 与以前运行的 Pod 有不同的名称。Deployment 终止了旧的 Pod，
+并创建了两个符合更新后的 Deployment 规约的新 Pod。`2/2` 表示每个 Pod 有两个容器:
 
 ```
 NAME                          READY     STATUS    RESTARTS   AGE
@@ -157,7 +156,7 @@ patch-demo-1081991389-jmg7b   2/2       Running   0          1m
 <!--
 Take a closer look at one of the patch-demo Pods:
 -->
-仔细查看其中一个 patch-demo Pod:
+仔细查看其中一个 patch-demo Pod：
 
 ```shell
 kubectl get pod <your-pod-name> --output yaml
@@ -166,7 +165,7 @@ kubectl get pod <your-pod-name> --output yaml
 <!--
 The output shows that the Pod has two Containers: one running nginx and one running redis:
 -->
-输出显示 Pod 有两个容器:一个运行 nginx，一个运行 redis:
+输出显示 Pod 有两个容器：一个运行 nginx，一个运行 redis：
 
 ```
 containers:
@@ -206,25 +205,29 @@ patch 策略由 Kubernetes 源代码中字段标记中的 `patchStrategy` 键的
 type PodSpec struct {
   ...
   Containers []Container `json:"containers" patchStrategy:"merge" patchMergeKey:"name" ...`
+  ...
+}
 ```
 
 <!--
 You can also see the patch strategy in the
 [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json):
 -->
-你还可以在 [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json)
-规范中看到 patch 策略：
+你还可以在
+[OpenApi 规范](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json)中看到
+patch 策略：
 
-```json
+```yaml
 "io.k8s.api.core.v1.PodSpec": {
-    ...
-     "containers": {
-      "description": "List of containers belonging to the pod. ...
-      },
-      "x-kubernetes-patch-merge-key": "name",
-      "x-kubernetes-patch-strategy": "merge"
-     },
+    ...,
+    "containers": {
+        "description": "List of containers belonging to the pod.  ...."
+    },
+    "x-kubernetes-patch-merge-key": "name",
+    "x-kubernetes-patch-strategy": "merge"
+}
 ```
+<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 <!--
 And you can see the patch strategy in the
@@ -253,7 +256,7 @@ Patch your Deployment:
 -->
 对 Deployment 执行 patch 操作：
 
-```
+```shell
 kubectl patch deployment patch-demo --patch-file patch-file-tolerations.yaml
 ```
 
@@ -271,23 +274,11 @@ The output shows that the PodSpec in the Deployment has only one Toleration:
 -->
 输出结果显示 Deployment 中的 PodSpec 只有一个容忍度设置：
 
-```shell
-
-containers:
-- image: redis
-  imagePullPolicy: Always
-  name: patch-demo-ctr-2
-  ...
-- image: nginx
-  imagePullPolicy: Always
-  name: patch-demo-ctr
-  ...
-```
 ```yaml
 tolerations:
-  - effect: NoSchedule
-    key: disktype
-    value: ssd
+- effect: NoSchedule
+  key: disktype
+  value: ssd
 ```
 
 <!--
@@ -302,6 +293,8 @@ strategic merge patch uses the default patch strategy, which is `replace`.
 type PodSpec struct {
   ...
   Tolerations []Toleration `json:"tolerations,omitempty" protobuf:"bytes,22,opt,name=tolerations"`
+  ...
+}
 ```
 
 <!--
@@ -321,7 +314,7 @@ replaces the existing list.
 <!--
 The `kubectl patch` command has a `type` parameter that you can set to one of these values:
 -->
-`kubectl patch` 命令有一个 `type` 参数，你可以将其设置为以下值之一:
+`kubectl patch` 命令有一个 `type` 参数，你可以将其设置为以下值之一：
 
 <table>
   <!--
@@ -353,7 +346,7 @@ did a strategic merge patch.
 Next, do a JSON merge patch on your same Deployment. Create a file named `patch-file-2.yaml`
 that has this content:
 -->
-下一步，在相同的 Deployment 上执行 JSON 合并 patch。创建一个名为 `patch-file-2` 的文件。内容如下:
+下一步，在相同的 Deployment 上执行 JSON 合并 patch。创建一个名为 `patch-file-2` 的文件。内容如下：
 
 ```yaml
 spec:
@@ -400,7 +393,7 @@ spec:
 <!--
 List the running Pods:
 -->
-列表中运行的 Pod：
+列出正运行的 Pod：
 
 ```shell
 kubectl get pods
@@ -475,8 +468,8 @@ The way to remove the value for `spec.strategy.rollingUpdate` when updating the 
 
 Create another file named `patch-file-retainkeys.yaml` that has this content:
 -->
-更新 `type` 取值的同时移除 `spec.strategy.rollingUpdate` 现有值的方法是
-为策略性合并操作设置 `retainKeys` 策略：
+更新 `type` 取值的同时移除 `spec.strategy.rollingUpdate`
+现有值的方法是为策略性合并操作设置 `retainKeys` 策略：
 
 创建另一个名为 `patch-file-retainkeys.yaml` 的文件，内容如下：
 
@@ -536,8 +529,8 @@ The patch you did in the preceding exercise is called a *strategic merge patch w
 -->
 ### 关于使用 retainKeys 策略的策略合并 patch 操作的说明    {#notes-on-the-strategic-merge-patch-using-the-retainkeys-strategy}
 
-在前文练习中所执行的称作 *带 `retainKeys` 策略的策略合并 patch（Strategic Merge
-Patch with retainKeys Strategy）*。
+在前文练习中所执行的称作 **带 `retainKeys` 策略的策略合并 patch（Strategic Merge
+Patch with retainKeys Strategy）**。
 这种方法引入了一种新的 `$retainKey` 指令，具有如下策略：
 
 - 其中包含一个字符串列表；
@@ -559,30 +552,37 @@ type DeploymentSpec struct {
   ...
   // +patchStrategy=retainKeys
   Strategy DeploymentStrategy `json:"strategy,omitempty" patchStrategy:"retainKeys" ...`
+  ...
+}
 ```
 
 <!--
 You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json):
 -->
-你也可以查看 [OpenAPI 规范](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json)中的 `retainKeys` 策略：
+你也可以查看
+[OpenAPI 规范](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json)中的
+`retainKeys` 策略：
 
-```json
+```yaml
 "io.k8s.api.apps.v1.DeploymentSpec": {
-   ...
-  "strategy": {
-    "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStrategy",
-    "description": "The deployment strategy to use to replace existing pods with new ones.",
-    "x-kubernetes-patch-strategy": "retainKeys"
-  },
+    ...,
+    "strategy": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStrategy",
+        "description": "The deployment strategy to use to replace existing pods with new ones.",
+        "x-kubernetes-patch-strategy": "retainKeys"
+    },
+    ....
+}
 ```
+<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 <!--
 And you can see the `retainKeys` strategy in the
 [Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
 -->
 而且你也可以在
-[Kubernetes API 文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
-中看到 `retainKey` 策略。
+[Kubernetes API 文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)中看到
+`retainKey` 策略。
 
 <!--
 ## Alternate forms of the kubectl patch command
@@ -592,8 +592,7 @@ directly on the command line.
 -->
 ## kubectl patch 命令的其他形式    {#alternate-forms-of-the-kubectl-patch-command}
 
-`kubectl patch` 命令使用 YAML 或 JSON。它可以接受以文件形式提供的补丁，也可以
-接受直接在命令行中给出的补丁。
+`kubectl patch` 命令使用 YAML 或 JSON。它可以接受以文件形式提供的补丁，也可以接受直接在命令行中给出的补丁。
 
 <!--
 Create a file named `patch-file.json` that has this content:
@@ -654,16 +653,12 @@ and
 [`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale) 和
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)。
 
-
+{{< note >}}
 <!--
-{{< note >}}
 Strategic merge patch is not supported for custom resources.
-{{< /note >}}
 -->
-{{< note >}}
 定制资源不支持策略性合并 patch。
 {{< /note >}}
-
 
 ## {{% heading "whatsnext" %}}
 
@@ -675,6 +670,6 @@ Strategic merge patch is not supported for custom resources.
 -->
 * [Kubernetes 对象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)
 * [使用指令式命令管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [使用配置文件执行 Kubernetes 对象的指令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config)
+* [使用配置文件对 Kubernetes 对象进行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [使用配置文件对 Kubernetes 对象进行声明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
 
