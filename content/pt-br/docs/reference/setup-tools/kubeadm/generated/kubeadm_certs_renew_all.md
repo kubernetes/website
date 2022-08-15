@@ -48,7 +48,7 @@ kubeadm certs renew all [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para tudo</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ajuda para all</p></td>
 </tr>
 
 <tr>

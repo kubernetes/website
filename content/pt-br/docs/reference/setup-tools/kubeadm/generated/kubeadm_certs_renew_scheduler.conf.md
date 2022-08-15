@@ -17,7 +17,7 @@ Renove o certificado incorporado no arquivo kubeconfig para o gerenciador de age
 
 Renove o certificado incorporado no arquivo kubeconfig para o gerenciador de agendamento usar.
 
-As renovações são executadas incondicionalmente, independentemente da data de expiração do certificado; atributos extras, como SANs, serão baseados no arquivo/certificados existentes, não há necessidade de reabastecê-los.
+As renovações são executadas incondicionalmente, independentemente da data de expiração do certificado; atributos extras, como SANs, serão baseados no arquivo/certificados existentes, não há necessidade de informá-los novamente.
 
 A renovação, por padrão, tenta usar a autoridade de certificação na PKI local gerenciada pelo kubeadm; como alternativa, é possível usar o certificado K8s da API para renovação de certificado, ou como última opção, para gerar uma solicitação CSR.
 
