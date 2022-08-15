@@ -137,8 +137,6 @@ different Kubernetes components.
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
-| `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
-| `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
@@ -387,6 +385,9 @@ different Kubernetes components.
 | `LegacyNodeRoleBehavior` | `true` | Beta | 1.19 | 1.20 |
 | `LegacyNodeRoleBehavior` | `false` | GA | 1.21 | - |
 | `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | |
+| `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
+| `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | 1.24 |
+| `LocalStorageCapacityIsolation` | `true` | GA | 1.25 | - |
 | `MountContainers` | `false` | Alpha | 1.9 | 1.16 |
 | `MountContainers` | `false` | Deprecated | 1.17 | - |
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
