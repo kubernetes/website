@@ -525,6 +525,4 @@ Minikube использует [libmachine](https://github.com/docker/machine/tre
 
 ## Сообщество
 
-Помощь, вопросы и комментарии приветствуются и поощряются! Разработчики Minikube проводят время на [Slack](https://kubernetes.slack.com) в канале #minikube (получить приглашение можно [здесь](http://slack.kubernetes.io/)). У нас также есть [список рассылки kubernetes-dev на Google Groups](https://groups.google.com/forum/#!forum/kubernetes-dev). Если вы отправляете сообщение в список, пожалуйста, начните вашу тему с "minikube: ".
-
-
+Помощь, вопросы и комментарии приветствуются и поощряются! Разработчики Minikube проводят время на [Slack](https://kubernetes.slack.com) в канале #minikube (получить приглашение можно [здесь](http://slack.kubernetes.io/)). У нас также есть [список рассылки dev@kubernetes на Google Groups](https://groups.google.com/a/kubernetes.io/g/dev/). Если вы отправляете сообщение в список, пожалуйста, начните вашу тему с "minikube: ".

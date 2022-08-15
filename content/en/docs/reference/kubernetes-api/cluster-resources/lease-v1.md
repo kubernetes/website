@@ -324,6 +324,11 @@ POST /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -376,6 +381,11 @@ PUT /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -426,6 +436,11 @@ PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -441,6 +456,8 @@ PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
 
 200 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>): OK
+
+201 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>): Created
 
 401: Unauthorized
 

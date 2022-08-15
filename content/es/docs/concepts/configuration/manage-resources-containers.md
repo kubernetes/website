@@ -110,11 +110,11 @@ CPU es siempre solicitada como una cantidad absoluta, nunca como una cantidad re
 
 Los límites y peticiones de `memoria` son medidos en bytes. Puedes expresar la memoria como
 un número entero o como un número decimal usando alguno de estos sufijos:
-E, P, T, G, M, K. También puedes usar los equivalentes en potencia de dos: Ei, Pi, Ti, Gi,
+E, P, T, G, M, k, m (millis). También puedes usar los equivalentes en potencia de dos: Ei, Pi, Ti, Gi,
 Mi, Ki. Por ejemplo, los siguientes valores representan lo mismo:
 
 ```shell
-128974848, 129e6, 129M, 123Mi
+128974848, 129e6, 129M, 128974848000m, 123Mi
 ```
 
 Aquí un ejemplo.
@@ -329,6 +329,9 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+      - name: ephemeral
+        mountPath: "/tmp"
   - name: log-aggregator
     image: images.my-company.example/log-aggregator:v6
     resources:
@@ -336,6 +339,12 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+      - name: ephemeral
+        mountPath: "/tmp"
+  volumes:
+    - name: ephemeral
+      emptyDir: {}
 ```
 
 ### Como son programados los Pods con solicitudes de almacenamiento efímero
@@ -555,8 +564,8 @@ El {{< glossary_tooltip text="planificador" term_id="kube-scheduler" >}} se enca
 la cantidad disponible sea asignada simultáneamente a los Pods.
 
 El servidor de API restringe las cantidades de recursos extendidos a números enteros.
-Ejemplos de cantidades _validas_ son `3`,` 3000m` y `3Ki`. Ejemplos de
-_cantidades no válidas_ son `0.5` y` 1500m`.
+Ejemplos de cantidades _validas_ son `3`, `3000m` y `3Ki`. Ejemplos de
+_cantidades no válidas_ son `0.5` y `1500m`.
 
 {{< note >}}
 Los recursos extendidos reemplazan los Recursos Integrales Opacos.
@@ -621,7 +630,7 @@ está pendiente con un mensaje de este tipo, hay varias cosas para probar:
 - Añadir más nodos al clúster.
 - Terminar Pods innecesarios para hacer hueco a los Pods en estado pendiente.
 - Compruebe que el Pod no sea más grande que todos los nodos. Por ejemplo, si todos los
-  los nodos tienen una capacidad de `cpu: 1`, entonces un Pod con una solicitud de` cpu: 1.1`
+  los nodos tienen una capacidad de `cpu: 1`, entonces un Pod con una solicitud de `cpu: 1.1`
   nunca se programará.
 
 Puedes comprobar las capacidades del nodo y cantidad utilizada con el comando 
@@ -667,7 +676,7 @@ La cantidad de recursos disponibles para los pods es menor que la capacidad del 
 los demonios del sistema utilizan una parte de los recursos disponibles. El campo `allocatable`
 [NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
 indica la cantidad de recursos que están disponibles para los Pods. Para más información, mira 
-[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
+[Node Allocatable Resources](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md).
 
 La característica [resource quota](/docs/concepts/policy/resource-quotas/) se puede configurar
 para limitar la cantidad total de recursos que se pueden consumir. Si se usa en conjunto
@@ -748,10 +757,10 @@ Puedes ver que el Contenedor fué terminado a causa de `reason:OOM Killed`, dond
 * Obtén experiencia práctica [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
 * Para más detalles sobre la diferencia entre solicitudes y límites, mira
-  [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
+  [Resource QoS](https://git.k8s.io/design-proposals-archive/node/resource-qos.md).
 
 * Lee [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) referencia de API
 
 * Lee [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) referencia de API
 
-* Lee sobre [project quotas](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) en XFS
+* Lee sobre [cuotas de proyecto](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F) en XFS

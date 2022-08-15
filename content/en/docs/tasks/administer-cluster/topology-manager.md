@@ -20,7 +20,7 @@ An increasing number of systems leverage a combination of CPUs and hardware acce
 
 In order to extract the best performance, optimizations related to CPU isolation, memory and device locality are required. However, in Kubernetes, these optimizations are handled by a disjoint set of components.
 
-_Topology Manager_ is a Kubelet component that aims to co-ordinate the set of components that are responsible for these optimizations.
+_Topology Manager_ is a Kubelet component that aims to coordinate the set of components that are responsible for these optimizations.
  
 
 

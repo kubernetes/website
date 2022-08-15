@@ -6,7 +6,7 @@ reviewers:
 - msau42
 title: CSI Volume Cloning
 content_type: concept
-weight: 30
+weight: 60
 ---
 
 <!-- overview -->
@@ -32,9 +32,9 @@ Users need to be aware of the following when using this feature:
 * Cloning support is only available for dynamic provisioners.
 * CSI drivers may or may not have implemented the volume cloning functionality.
 * You can only clone a PVC when it exists in the same namespace as the destination PVC (source and destination must be in the same namespace).
-* Cloning is only supported within the same Storage Class.
-    - Destination volume must be the same storage class as the source
-    - Default storage class can be used and storageClassName omitted in the spec
+* Cloning is supported with a different Storage Class.
+    - Destination volume can be the same or a different storage class as the source.
+    - Default storage class can be used and storageClassName omitted in the spec.
 * Cloning can only be performed between two volumes that use the same VolumeMode setting (if you request a block mode volume, the source MUST also be block mode)
 
 

@@ -222,7 +222,7 @@ Lars Kellogg-Stedman.
 
 ### Multus (Plugin multi redes) {#multus}
 
-[Multus](https://github.com/Intel-Corp/multus-cni) é um plugin Multi CNI para
+Multus é um plugin Multi CNI para
 suportar a funcionalidade multi redes do Kubernetes usando objetos baseados em {{< glossary_tooltip text="CRDs" term_id="CustomResourceDefinition" >}}. 
 
 Multus suporta todos os  [plugins referência](https://github.com/containernetworking/plugins) (ex. [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), 
@@ -247,4 +247,4 @@ documentação em [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes
 
 Design inicial do modelo de conectividade do Kubernetes e alguns planos futuros 
 estão descritos com maiores detalhes no 
-[documento de design de redes](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
+[documento de design de redes](https://git.k8s.io/design-proposals-archive/network/networking.md).

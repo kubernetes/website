@@ -24,7 +24,7 @@ card:
 
 ## Язык
 
-Документация Kubernetes была переведена на несколько языков (см. [README-файлы локализаций](https://github.com/kubernetes/website/blob/master/README.md#localization-readmemds)).
+Документация Kubernetes была переведена на несколько языков (см. [README-файлы локализаций](https://github.com/kubernetes/website/blob/main/README.md#localization-readmemds)).
 
 Процесс локализации документации на другие языки описан в [соответствующей странице по локализации](/ru/docs/contribute/localization/).
 
@@ -567,5 +567,3 @@ Create a new cluster. | Turn up a new cluster.
 * Подробнее про [написание новой темы](/ru/docs/contribute/style/write-new-topic/).
 * Подробнее про [использование шаблонов страниц](/ru/docs/contribute/style/page-templates/).
 * Подробнее про [создание пулреквеста](/ru/docs/contribute/start/#отправка-пулреквеста)).
-
-

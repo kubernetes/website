@@ -6,6 +6,8 @@ date: 2018-07-11
 
 **Author**: Michael Taufen (Google)
 
+**Editor’s note: The feature has been removed in the version 1.24 after deprecation in 1.22.**
+
 **Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2018/06/27/kubernetes-1.11-release-announcement/) on what’s new in Kubernetes 1.11**
 
 ## Why Dynamic Kubelet Configuration?

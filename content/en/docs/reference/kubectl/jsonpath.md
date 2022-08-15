@@ -1,7 +1,6 @@
 ---
 title: JSONPath Support
 content_type: concept
-weight: 25
 ---
 
 <!-- overview -->

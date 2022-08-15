@@ -10,7 +10,7 @@ aka:
 tags:
 - core-object
 ---
- SI 접미사를 사용하는 작거나 큰 숫자의 정수(whole-number) 표현.
+ [SI](https://en.wikipedia.org/wiki/International_System_of_Units) 접미사를 사용하는 작거나 큰 숫자의 정수(whole-number) 표현.
 
 <!--more-->
 
@@ -19,9 +19,8 @@ tags:
 큰 숫자는 킬로(kilo), 메가(mega), 또는 기가(giga) 
 단위로 표시할 수 있다.
 
-
 예를 들어, 숫자 `1.5`는 `1500m`으로, 숫자 `1000`은 `1k`로, `1000000`은
-`1M`으로 표시할 수 있다. 또한, 이진 표기법 접미사도 명시 가능하므로,
+`1M`으로 표시할 수 있다. 또한, [이진 표기법](https://en.wikipedia.org/wiki/Binary_prefix) 접미사도 명시 가능하므로,
 숫자 2048은 `2Ki`로 표기될 수 있다. 
 
 허용되는 10진수(10의 거듭 제곱) 단위는 `m` (밀리), `k` (킬로, 의도적인 소문자),

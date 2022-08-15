@@ -15,7 +15,7 @@ Generate the certificate for the API server to connect to kubelet
 ### Synopsis
 
 
-Generate the certificate for the API server to connect to kubelet, and save them into apiserver-kubelet-client.cert and apiserver-kubelet-client.key files.
+Generate the certificate for the API server to connect to kubelet, and save them into apiserver-kubelet-client.crt and apiserver-kubelet-client.key files.
 
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 

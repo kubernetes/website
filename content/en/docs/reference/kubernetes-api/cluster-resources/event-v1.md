@@ -374,6 +374,11 @@ POST /apis/events.k8s.io/v1/namespaces/{namespace}/events
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -426,6 +431,11 @@ PUT /apis/events.k8s.io/v1/namespaces/{namespace}/events/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -476,6 +486,11 @@ PATCH /apis/events.k8s.io/v1/namespaces/{namespace}/events/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -491,6 +506,8 @@ PATCH /apis/events.k8s.io/v1/namespaces/{namespace}/events/{name}
 
 
 200 (<a href="{{< ref "../cluster-resources/event-v1#Event" >}}">Event</a>): OK
+
+201 (<a href="{{< ref "../cluster-resources/event-v1#Event" >}}">Event</a>): Created
 
 401: Unauthorized
 

@@ -66,11 +66,11 @@ ClusterRole is a cluster level, logical grouping of PolicyRules that can be refe
 
   - **rules.resources** ([]string)
 
-    Resources is a list of resources this rule applies to.  ResourceAll represents all resources.
+    Resources is a list of resources this rule applies to. '*' represents all resources.
 
   - **rules.verbs** ([]string), required
 
-    Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+    Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
 
   - **rules.resourceNames** ([]string)
 
@@ -239,6 +239,11 @@ POST /apis/rbac.authorization.k8s.io/v1/clusterroles
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -286,6 +291,11 @@ PUT /apis/rbac.authorization.k8s.io/v1/clusterroles/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -331,6 +341,11 @@ PATCH /apis/rbac.authorization.k8s.io/v1/clusterroles/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -346,6 +361,8 @@ PATCH /apis/rbac.authorization.k8s.io/v1/clusterroles/{name}
 
 
 200 (<a href="{{< ref "../authorization-resources/cluster-role-v1#ClusterRole" >}}">ClusterRole</a>): OK
+
+201 (<a href="{{< ref "../authorization-resources/cluster-role-v1#ClusterRole" >}}">ClusterRole</a>): Created
 
 401: Unauthorized
 

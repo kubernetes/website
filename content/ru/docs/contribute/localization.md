@@ -209,7 +209,7 @@ To ensure accuracy in grammar and meaning, members of your localization team sho
 
 ### Сообщения на сайте в i18n/
 
-Локализации должны включать содержимое файла [`i18n/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml) в новый языковой файл. В качестве примера рассмотрим немецкую локализацию: `i18n/de.toml`.
+Локализации должны включать содержимое файла [`i18n/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en.toml) в новый языковой файл. В качестве примера рассмотрим немецкую локализацию: `i18n/de.toml`.
 
 Добавьте новый файл локализации в `i18n/`. Например, для немецкой локализации (`de`):
 
@@ -283,5 +283,3 @@ SIG Docs приветствует [участие и дополнения](/ru/d
 
 - Добавит язык на сайт
 - Сообщит о новой локализации на каналах [Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF), включая [блог Kubernetes](https://kubernetes.io/blog/).
-
-

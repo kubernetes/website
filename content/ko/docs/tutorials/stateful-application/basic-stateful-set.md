@@ -1,5 +1,11 @@
 ---
-reviewers:
+
+
+
+
+
+
+
 title: 스테이트풀셋 기본
 content_type: tutorial
 weight: 10
@@ -16,11 +22,11 @@ weight: 10
 튜토리얼을 시작하기 전에 다음의 쿠버네티스 컨셉에 대해
 익숙해야 한다.
 
-* [파드](/docs/user-guide/pods/single-container/)
+* [파드](/ko/docs/concepts/workloads/pods/)
 * [클러스터 DNS(Cluster DNS)](/ko/docs/concepts/services-networking/dns-pod-service/)
 * [헤드리스 서비스(Headless Services)](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
 * [퍼시스턴트볼륨(PersistentVolumes)](/ko/docs/concepts/storage/persistent-volumes/)
-* [퍼시턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+* [퍼시턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 * [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl](/ko/docs/reference/kubectl/kubectl/) 커맨드 라인 도구
 
@@ -121,8 +127,8 @@ web-1     0/1       ContainerCreating   0         0s
 web-1     1/1       Running   0         18s
 ```
 
-참고로 `web-1` 파드는 `web-0` 파드가 _Running_ ([파드의 단계](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계-phase) 참고)
-및 _Ready_ ([파드의 조건](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-조건-condition)에서 `type` 참고) 상태가 되기 전에 시작하지 않음을 주의하자.
+참고로 `web-1` 파드는 `web-0` 파드가 _Running_ ([파드의 단계](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계) 참고)
+및 _Ready_ ([파드의 컨디션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-컨디션)에서 `type` 참고) 상태가 되기 전에 시작하지 않음을 주의하자.
 
 ## 스테이트풀셋 안에 파드
 
@@ -833,11 +839,11 @@ kubectl get pods -w -l app=nginx
 
 다른 터미널에서는 스테이트풀셋을 지우기 위해
 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) 명령어를 이용하자.
-이 명령어에 `--cascade=false` 파라미터가 추가되었다.
+이 명령어에 `--cascade=orphan` 파라미터가 추가되었다.
 이 파라미터는 쿠버네티스에 스테이트풀셋만 삭제하고 그에 속한 파드는 지우지 않도록 요청한다.
 
 ```shell
-kubectl delete statefulset web --cascade=false
+kubectl delete statefulset web --cascade=orphan
 ```
 ```
 statefulset.apps "web" deleted
@@ -953,7 +959,7 @@ kubectl get pods -w -l app=nginx
 ```
 
 다른 터미널창에서 스테이트풀셋을 다시 지우자. 이번에는
-`--cascade=false` 파라미터를 생략하자.
+`--cascade=orphan` 파라미터를 생략하자.
 
 ```shell
 kubectl delete statefulset web

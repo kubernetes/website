@@ -58,7 +58,7 @@ kubectl create secret generic db-user-pass \
 たとえば、実際のパスワードが`S!B\*d$zDsb=`の場合、次のようにコマンドを実行します:
 
 ```shell
-kubectl create secret generic dev-db-secret \
+kubectl create secret generic db-user-pass \
   --from-literal=username=devuser \
   --from-literal=password='S!B\*d$zDsb='
 ```
@@ -114,10 +114,10 @@ kubectl get secret db-user-pass -o jsonpath='{.data}'
 出力は次のようになります:
 
 ```json
-{"password.txt":"MWYyZDFlMmU2N2Rm","username.txt":"YWRtaW4="}
+{"password":"MWYyZDFlMmU2N2Rm","username":"YWRtaW4="}
 ```
 
-`password.txt`のデータをデコードします:
+`password`のデータをデコードします:
 
 ```shell
 echo 'MWYyZDFlMmU2N2Rm' | base64 --decode

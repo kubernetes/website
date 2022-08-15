@@ -25,6 +25,8 @@ weight: 20
   - [Golang](https://golang.org/doc/install) версии 1.13+
   - [Docker](https://docs.docker.com/engine/installation/)
   - [etcd](https://github.com/coreos/etcd/)
+  - [make](https://www.gnu.org/software/make/)
+  - [gcc compiler/linker](https://gcc.gnu.org/)
 
 - Созданная переменная окружения `GOPATH`, а путь к `etcd` должен быть прописан в переменной окружения `PATH`.
 
@@ -113,7 +115,6 @@ On branch master
 hack/update-generated-swagger-docs.sh
 hack/update-openapi-spec.sh
 hack/update-generated-protobuf.sh
-hack/update-api-reference-docs.sh
 ```
 
 Выполните команду `git status`, чтобы посмотреть, какие файлы изменились.
@@ -122,10 +123,9 @@ hack/update-api-reference-docs.sh
 On branch master
 ...
     modified:   api/openapi-spec/swagger.json
-    modified:   api/swagger-spec/apps_v1.json
-    modified:   docs/api-reference/apps/v1/definitions.html
+    modified:   api/openapi-spec/v3/apis__apps__v1_openapi.json
+    modified:   pkg/generated/openapi/zz_generated.openapi.go
     modified:   staging/src/k8s.io/api/apps/v1/generated.proto
-    modified:   staging/src/k8s.io/api/apps/v1/types.go
     modified:   staging/src/k8s.io/api/apps/v1/types_swagger_doc_generated.go
 ```
 

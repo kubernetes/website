@@ -107,7 +107,7 @@ dapat menemukan kata-kata tersebut dalam bahasa Indonesia.
 ### Panduan untuk kata-kata API Objek Kubernetes
 
 Gunakan gaya "CamelCase" untuk menulis objek API Kubernetes, lihat daftar 
-lengkapnya [di sini](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/).
+lengkapnya [di sini](/docs/reference/kubernetes-api/).
 Sebagai contoh:
 
 * *Benar*: PersistentVolume. *Salah*: volume persisten, `PersistentVolume`, 
@@ -130,7 +130,7 @@ ditulis dalam huruf kapital pada halaman asli bahasa Inggris.
 
 ### Panduan untuk "Feature Gate" Kubernetes
 
-Istilah [_functional gate_](https://kubernetes.io/ko/docs/reference/command-line-tools-reference/feature-gates/) 
+Istilah [_feature gate_](/docs/reference/command-line-tools-reference/feature-gates/) 
 Kubernetes tidak perlu diterjemahkan ke dalam bahasa Indonesia dan tetap 
 dipertahankan dalam bentuk aslinya.
 

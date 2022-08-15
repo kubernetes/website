@@ -2,7 +2,7 @@
 title: 리소스 쿼터(Resource Quotas)
 id: resource-quota
 date: 2018-04-12
-full_link: /docs/concepts/policy/resource-quotas/
+full_link: /ko/docs/concepts/policy/resource-quotas/
 short_description: >
   네임스페이스당 전체 리소스 소비를 제한하는 제약을 제공한다.
 

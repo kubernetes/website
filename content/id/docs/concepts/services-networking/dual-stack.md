@@ -113,7 +113,7 @@ yang dikonfigurasi untuk Service ini.
 ### Tipe _LoadBalancer_
 
 Penyedia layanan _cloud_ yang mendukung IPv6 untuk pengaturan beban eksternal,
-Mengatur bagian `type` menjadi` LoadBalancer` sebagai tambahan terhadap mengatur bagian 
+Mengatur bagian `type` menjadi `LoadBalancer` sebagai tambahan terhadap mengatur bagian 
 `ipFamily` menjadi `IPv6` menyediakan sebuah _cloud load balancer_ untuk Service kamu.
 
 ## Lalu lintas _egress_

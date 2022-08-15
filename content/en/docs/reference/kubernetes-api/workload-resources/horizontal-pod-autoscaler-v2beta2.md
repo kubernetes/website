@@ -411,7 +411,15 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
 <hr>
 
-- **conditions** ([]HorizontalPodAutoscalerCondition), required
+- **currentReplicas** (int32), required
+
+  currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
+
+- **desiredReplicas** (int32), required
+
+  desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
+
+- **conditions** ([]HorizontalPodAutoscalerCondition)
 
   conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
 
@@ -440,14 +448,6 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
   - **conditions.reason** (string)
 
     reason is the reason for the condition's last transition.
-
-- **currentReplicas** (int32), required
-
-  currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
-
-- **desiredReplicas** (int32), required
-
-  desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
 
 - **currentMetrics** ([]MetricStatus)
 
@@ -951,6 +951,11 @@ POST /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1003,6 +1008,11 @@ PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1051,6 +1061,11 @@ PUT /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{n
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** (*in query*): string
@@ -1103,6 +1118,11 @@ PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -1118,6 +1138,8 @@ PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/
 
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 
@@ -1156,6 +1178,11 @@ PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -1171,6 +1198,8 @@ PATCH /apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/
 
 
 200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2beta2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 

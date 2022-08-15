@@ -19,7 +19,7 @@ Security:
 - [Node authorizer](/docs/reference/access-authn-authz/node/) and admission control plugin are new additions that restrict kubelet’s access to secrets, pods and other objects based on its node.
 - [Encryption for Secrets](/docs/tasks/administer-cluster/encrypt-data/), and other resources in etcd, is now available as alpha.&nbsp;
 - [Kubelet TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) now supports client and server certificate rotation.
-- [Audit logs](/docs/tasks/debug-application-cluster/audit/) stored by the API server are now more customizable and extensible with support for event filtering and webhooks. They also provide richer data for system audit.
+- [Audit logs](/docs/tasks/debug/debug-cluster/audit/) stored by the API server are now more customizable and extensible with support for event filtering and webhooks. They also provide richer data for system audit.
 
 Stateful workloads:  
 

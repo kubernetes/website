@@ -16,7 +16,7 @@ weight: 10
 
 이 기능, 특히 알파 `topologyKeys` API는 쿠버네티스 v1.21부터
 더 이상 사용되지 않는다.
-쿠버네티스 v1.21에 도입된 [토폴로지 인지 힌트](/docs/concepts/services-networking/topology-aware-hints/)는
+쿠버네티스 v1.21에 도입된 [토폴로지 인지 힌트](/ko/docs/concepts/services-networking/topology-aware-hints/)는
 유사한 기능을 제공한다.
 
 {{</ note >}}
@@ -96,7 +96,7 @@ _서비스 토폴로지_ 를 활성화 하면 서비스는 클러스터의 노�
 
 * 유효한 토폴로지 키는 현재 `kubernetes.io/hostname`,
   `topology.kubernetes.io/zone` 그리고 `topology.kubernetes.io/region` 로
-  제한되어있지만, 앞으로 다른 노드 레이블로 일반화 될 것이다.
+  제한되어 있지만, 앞으로 다른 노드 레이블로 일반화 될 것이다.
 
 * 토폴로지 키는 유효한 레이블 키이어야 하며 최대 16개의 키를 지정할 수 있다.
 

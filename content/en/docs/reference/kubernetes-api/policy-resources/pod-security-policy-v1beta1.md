@@ -482,6 +482,11 @@ POST /apis/policy/v1beta1/podsecuritypolicies
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -529,6 +534,11 @@ PUT /apis/policy/v1beta1/podsecuritypolicies/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -574,6 +584,11 @@ PATCH /apis/policy/v1beta1/podsecuritypolicies/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -589,6 +604,8 @@ PATCH /apis/policy/v1beta1/podsecuritypolicies/{name}
 
 
 200 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): OK
+
+201 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): Created
 
 401: Unauthorized
 

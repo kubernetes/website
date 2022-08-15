@@ -54,7 +54,7 @@ parameters:
 
 ユーザーは`PersistentVolumeClaim`リソース内でStorageClassを含むことで、動的にプロビジョンされたStorageをリクエストできます。Kubernetes v1.6以前では、この機能は`volume.beta.kubernetes.io/storage-class`アノテーションを介して使うことができました。しかしこのアノテーションではv1.6から廃止になりました。その代わりユーザーは現在では`PersistentVolumeClaim`オブジェクトの`storageClassName`を使う必要があります。このフィールドの値は、管理者によって設定された`StorageClass`の名前と一致しなければなりません([下記](#enabling-dynamic-provisioning)のセクションも参照ください)。
 
-"fast"というStorageClassを選択するために、例としてユーザーは下記の`PersistentVolumeClaim`を作成します。
+"fast"というStorageClassを選択するために、例としてユーザーは下記のPersistentVolumeClaimを作成します。
 
 ```yaml
 apiVersion: v1

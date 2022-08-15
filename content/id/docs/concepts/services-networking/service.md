@@ -387,7 +387,7 @@ _Value_ dan perilaku dari tipe `Service` dijelaskan sebagai berikut:
    * `ClusterIP`: Mengekspos `Service` ke _range_ alamat IP di dalam klaster. Apabila kamu memilih _value_ ini
      `Service` yang kamu miliki hanya dapat diakses secara internal. tipe ini adalah
      _default_ _value_ dari _ServiceType_.
-   * [`NodePort`](#nodeport): Mengekspos `Service` pada setiap IP *node* pada _port_ statis
+   * [`NodePort`](#type-nodeport): Mengekspos `Service` pada setiap IP *node* pada _port_ statis
      atau _port_ yang sama. Sebuah `Service` `ClusterIP`, yang mana `Service` `NodePort` akan di-_route_
      , dibuat secara otomatis. Kamu dapat mengakses `Service` dengan tipe ini,
      dari luar klaster melalui `<NodeIP>:<NodePort>`.
@@ -399,7 +399,7 @@ _Value_ dan perilaku dari tipe `Service` dijelaskan sebagai berikut:
       catatan `CNAME` beserta _value_-nya. Tidak ada metode _proxy_ apa pun yang diaktifkan. Mekanisme ini
       setidaknya membutuhkan `kube-dns` versi 1.7.
 
-### Type NodePort {#nodeport}
+### Type NodePort {#type-nodeport}
 
 Jika kamu menerapkan _value_ `NodePort` pada _field_ _type_, master Kubernetes akan mengalokasikan
 _port_ dari _range_ yang dispesifikasikan oleh penanda `--service-node-port-range` (secara _default_, 30000-32767)

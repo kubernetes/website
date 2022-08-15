@@ -1,4 +1,4 @@
-{{- if eq (getenv "HUGO_ENV") "production" }}
+{{- if eq hugo.Environment "production" }}
 {{- $cssFilesFromConfig := site.Params.pushAssets.css -}}
 {{- $jsFilesFromConfig := site.Params.pushAssets.js -}}
 {{- $pages := site.RegularPages -}}
@@ -13,7 +13,7 @@
   {{- end -}}
 {{- range $pages }}
 {{- if or (.Params.deprecated) (eq .Params.class "gridPage") (.Params.case_study_styles) (.Params.css) (.Params.js) }}
-{{ .URL }}
+{{ .RelPermalink }}
   {{- if eq .Params.class "gridPage" }}
   Link: </css/gridpage.css>; rel=preload; as=style
   {{- end -}}

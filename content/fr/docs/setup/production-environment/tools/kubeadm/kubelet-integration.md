@@ -38,7 +38,7 @@ utilisant kubeadm, plutôt que de gérer manuellement la configuration des kubel
 ### Propagation de la configuration niveau cluster à chaque kubelet {#propagating-cluster-level-configuration-to-each-kubelet}
 
 Vous pouvez fournir à la kubelet les valeurs par défaut à utiliser par les commandes `kubeadm init` et
-` kubeadm join`. Des exemples intéressants incluent l’utilisation d’un runtime CRI différent ou la
+ `kubeadm join`. Des exemples intéressants incluent l’utilisation d’un runtime CRI différent ou la
  définition du sous-réseau par défaut utilisé par les services.
 
 Si vous souhaitez que vos services utilisent le sous-réseau `10.96.0.0 / 12` par défaut pour les

@@ -392,7 +392,7 @@ client_address=198.51.100.79
 
 2. クライアントからロードバランサーのVIPに送信されたリクエストが、中間のプロキシーではなく、クライアントの送信元IPとともにノードまで到達するようなパケット転送が使用される。
 
-1つめのカテゴリーのロードバランサーの場合、真のクライアントIPと通信するために、 HTTPの[Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)ヘッダーや[X-FORWARDED-FOR](https://ja.wikipedia.org/wiki/X-Forwarded-For)ヘッダー、[proxy protocol](https://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)などの、ロードバランサーとバックエンドの間で合意されたプロトコルを使用する必要があります。2つ目のカテゴリーのロードバランサーの場合、Serviceの`service.spec.healthCheckNodePort`フィールドに保存されたポートを指すHTTPのヘルスチェックを作成することで、上記の機能を活用できます。
+1つめのカテゴリーのロードバランサーの場合、真のクライアントIPと通信するために、 HTTPの[Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)ヘッダーや[X-FORWARDED-FOR](https://ja.wikipedia.org/wiki/X-Forwarded-For)ヘッダー、[proxy protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)などの、ロードバランサーとバックエンドの間で合意されたプロトコルを使用する必要があります。2つ目のカテゴリーのロードバランサーの場合、Serviceの`service.spec.healthCheckNodePort`フィールドに保存されたポートを指すHTTPのヘルスチェックを作成することで、上記の機能を活用できます。
 
 ## {{% heading "cleanup" %}}
 

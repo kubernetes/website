@@ -17,8 +17,6 @@ Output a kubeconfig file for an additional user
 
 Output a kubeconfig file for an additional user.
 
-Alpha Disclaimer: this command is currently alpha.
-
 ```
 kubeadm kubeconfig user [flags]
 ```
@@ -27,7 +25,7 @@ kubeadm kubeconfig user [flags]
 
 ```
   # Output a kubeconfig file for an additional user named foo using a kubeadm config file bar
-  kubeadm alpha kubeconfig user --client-name=foo --config=bar
+  kubeadm kubeconfig user --client-name=foo --config=bar
 ```
 
 ### Options
@@ -72,6 +70,13 @@ kubeadm kubeconfig user [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The token that should be used as the authentication mechanism for this kubeconfig, instead of client certificates</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--validity-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 8760h0m0s</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The validity period of the client certificate. It is an offset from the current time.</p></td>
 </tr>
 
 </tbody>

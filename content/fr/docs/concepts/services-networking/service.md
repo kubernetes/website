@@ -56,7 +56,7 @@ Pour les applications non natives, Kubernetes propose des moyens de placer un po
 Un service dans Kubernetes est un objet REST, semblable à un pod.
 Comme tous les objets REST, vous pouvez effectuer un `POST` d'une définition de service sur le serveur API pour créer une nouvelle instance.
 
-Par exemple, supposons que vous ayez un ensemble de pods qui écoutent chacun sur le port TCP 9376 et portent une étiquette `app=MyApp`:
+Par exemple, supposons que vous ayez un ensemble de pods qui écoutent chacun sur le port TCP 9376 et portent une étiquette `app.kubernetes.io/name=MyApp`:
 
 ```yaml
 apiVersion: v1
@@ -65,14 +65,14 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
       targetPort: 9376
 ```
 
-Cette spécification crée un nouvel objet Service nommé «my-service», qui cible le port TCP 9376 sur n'importe quel pod avec l'étiquette «app=MyApp».
+Cette spécification crée un nouvel objet Service nommé «my-service», qui cible le port TCP 9376 sur n'importe quel pod avec l'étiquette «app.kubernetes.io/name=MyApp».
 
 Kubernetes attribue à ce service une adresse IP (parfois appelé l'"IP cluster"), qui est utilisé par les proxies Service (voir [IP virtuelles et proxy de service](#virtual-ips-and-service-proxies)).
 
@@ -209,7 +209,7 @@ Cela signifie que vous évitez d'envoyer du trafic via kube-proxy vers un pod co
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
-En mode `ipvs`, kube-proxy surveille les Services et Endpoints Kubernetes. kube-proxy appelle l'interface` netlink` pour créer les règles IPVS en conséquence et synchronise périodiquement les règles IPVS avec les Services et Endpoints Kubernetes.
+En mode `ipvs`, kube-proxy surveille les Services et Endpoints Kubernetes. kube-proxy appelle l'interface `netlink` pour créer les règles IPVS en conséquence et synchronise périodiquement les règles IPVS avec les Services et Endpoints Kubernetes.
 Cette boucle de contrôle garantit que l'état IPVS correspond à l'état souhaité.
 Lors de l'accès à un service, IPVS dirige le trafic vers l'un des pods backend.
 
@@ -254,7 +254,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - name: http
       protocol: TCP
@@ -289,7 +289,7 @@ Kubernetes prend en charge 2 modes principaux de recherche d'un service: les var
 ### Variables d'environnement
 
 Lorsqu'un pod est exécuté sur un nœud, le kubelet ajoute un ensemble de variables d'environnement pour chaque service actif.
-Il prend en charge à la fois les variables [Docker links](https://docs.docker.com/userguide/dockerlinks/) (voir [makeLinkVariables](http://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49)) et plus simplement les variables `{SVCNAME}_SERVICE_HOST` et `{SVCNAME}_SERVICE_PORT`, où le nom du service est en majuscules et les tirets sont convertis en underscore.
+Il prend en charge à la fois les variables [Docker links](https://docs.docker.com/userguide/dockerlinks/) (voir [makeLinkVariables](http://releases.k8s.io/master/pkg/kubelet/envvars/envvars.go#L49)) et plus simplement les variables `{SVCNAME}_SERVICE_HOST` et `{SVCNAME}_SERVICE_PORT`, où le nom du service est en majuscules et les tirets sont convertis en underscore.
 
 Par exemple, le service `redis-master` qui expose le port TCP 6379 et a reçu l'adresse IP de cluster 10.0.0.11, produit les variables d'environnement suivantes:
 
@@ -363,12 +363,12 @@ Les valeurs de `Type` et leurs comportements sont:
    * `ClusterIP`: Expose le service sur une IP interne au cluster.
      Le choix de cette valeur rend le service uniquement accessible à partir du cluster.
      Il s'agit du `ServiceType` par défaut.
-   * [`NodePort`](#nodeport): Expose le service sur l'IP de chaque nœud sur un port statique (le `NodePort`).
-     Un service `ClusterIP`, vers lequel le service` NodePort` est automatiquement créé.
+   * [`NodePort`](#type-nodeport): Expose le service sur l'IP de chaque nœud sur un port statique (le `NodePort`).
+     Un service `ClusterIP`, vers lequel le service `NodePort` est automatiquement créé.
      Vous pourrez contacter le service `NodePort`, depuis l'extérieur du cluster, en demandant `<NodeIP>: <NodePort>`.
    * [`LoadBalancer`](#loadbalancer): Expose le service en externe à l'aide de l'équilibreur de charge d'un fournisseur de cloud.
      Les services `NodePort` et `ClusterIP`, vers lesquels les itinéraires de l'équilibreur de charge externe, sont automatiquement créés.
-   * [`ExternalName`](#externalname): Mappe le service au contenu du champ `externalName` (par exemple` foo.bar.example.com`), en renvoyant un enregistrement `CNAME` avec sa valeur.
+   * [`ExternalName`](#externalname): Mappe le service au contenu du champ `externalName` (par exemple `foo.bar.example.com`), en renvoyant un enregistrement `CNAME` avec sa valeur.
      Aucun proxy d'aucune sorte n'est mis en place.
      {{< note >}}
      Vous avez besoin de CoreDNS version 1.7 ou supérieure pour utiliser le type `ExternalName`.
@@ -378,7 +378,7 @@ Vous pouvez également utiliser [Ingress](/fr/docs/concepts/services-networking/
 Ingress n'est pas un type de service, mais il sert de point d'entrée pour votre cluster.
 Il vous permet de consolider vos règles de routage en une seule ressource car il peut exposer plusieurs services sous la même adresse IP.
 
-### Type NodePort {#nodeport}
+### Type NodePort {#type-nodeport}
 
 Si vous définissez le champ `type` sur` NodePort`, le plan de contrôle Kubernetes alloue un port à partir d'une plage spécifiée par l'indicateur `--service-node-port-range` (par défaut: 30000-32767).
 Chaque nœud assure le proxy de ce port (le même numéro de port sur chaque nœud) vers votre service.
@@ -414,7 +414,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -518,7 +518,7 @@ metadata:
 ```yaml
 [...]
 metadata:
-  annotations:  
+  annotations:
     service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
 [...]
 ```
@@ -740,13 +740,13 @@ Il existe d'autres annotations pour la gestion des équilibreurs de charge cloud
 
         # ID d'un load balancer existant
         service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
-        
+
         # Paramètres personnalisés pour le load balancer (LB), ne prend pas encore en charge la modification du type LB
         service.kubernetes.io/service.extensiveParameters: ""
-        
-        # Paramètres personnalisés pour le listener LB 
+
+        # Paramètres personnalisés pour le listener LB
         service.kubernetes.io/service.listenerParameters: ""
-        
+
         # Spécifie le type de Load balancer;
         # valeurs valides: classic (Classic Cloud Load Balancer) ou application (Application Cloud Load Balancer)
         service.kubernetes.io/loadbalance-type: xxxxx
@@ -817,7 +817,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - name: http
       protocol: TCP
@@ -952,7 +952,7 @@ suivi des données du client.
 Kubernetes prend en charge SCTP en tant que valeur de «protocole» dans les définitions de Service, Endpoint, NetworkPolicy et Pod en tant que fonctionnalité alpha.
 Pour activer cette fonction, l'administrateur du cluster doit activer le flag `SCTPSupport` sur l'apiserver, par exemple, `--feature-gates=SCTPSupport=true,…`.
 
-When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoint, NetworkPolicy or Pod to `SCTP`. 
+When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoint, NetworkPolicy or Pod to `SCTP`.
 Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
 
 #### Avertissements {#caveat-sctp-overview}

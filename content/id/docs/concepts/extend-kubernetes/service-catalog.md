@@ -275,7 +275,6 @@ dengan nama `topic` ke dalam _environment variable_ `TOPIC`.
   ke dalam klaster Kubernetes. Alternatif lain, kamu dapat [memasang Service Catalog dengan SC tool](/docs/tasks/service-catalog/install-service-catalog-using-sc/).
 * Lihat [contoh makelar servis](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
 * Pelajari mengenai [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) proyek.
-* Lihat [svc-cat.io](https://svc-cat.io/docs/).
 
 
 

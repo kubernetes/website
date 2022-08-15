@@ -59,7 +59,7 @@ kubeadm init phase control-plane all [flags]
 <td colspan="2">--apiserver-extra-args &lt;comma-separated 'key=value' pairs&gt;</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of extra flags to pass to the API Server or override default ones in form of <!-- raw HTML omitted -->=<!-- raw HTML omitted --></p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of extra flags to pass to the API Server or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</p></td>
 </tr>
 
 <tr>
@@ -87,21 +87,21 @@ kubeadm init phase control-plane all [flags]
 <td colspan="2">--controller-manager-extra-args &lt;comma-separated 'key=value' pairs&gt;</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of extra flags to pass to the Controller Manager or override default ones in form of <!-- raw HTML omitted -->=<!-- raw HTML omitted --></p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of extra flags to pass to the Controller Manager or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--experimental-patches string</td>
+<td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (BETA - default=true)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (BETA - default=true)</p></td>
 </tr>
 
 <tr>
@@ -126,6 +126,13 @@ kubeadm init phase control-plane all [flags]
 </tr>
 
 <tr>
+<td colspan="2">--patches string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--pod-network-cidr string</td>
 </tr>
 <tr>
@@ -136,7 +143,7 @@ kubeadm init phase control-plane all [flags]
 <td colspan="2">--scheduler-extra-args &lt;comma-separated 'key=value' pairs&gt;</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of extra flags to pass to the Scheduler or override default ones in form of <!-- raw HTML omitted -->=<!-- raw HTML omitted --></p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</p></td>
 </tr>
 
 <tr>

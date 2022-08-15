@@ -67,6 +67,3 @@ kubeadm join phase control-plane-prepare [flags]
 
 </tbody>
 </table>
-
-
-

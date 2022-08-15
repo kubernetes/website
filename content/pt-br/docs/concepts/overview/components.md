@@ -59,7 +59,7 @@ O cloud-controller-manager executa apenas controladores que são específicos pa
 Se você estiver executando o Kubernetes em suas próprias instalações ou em um ambiente de aprendizagem dentro de seu
 próprio PC, o cluster não possui um gerenciador de controlador de nuvem.
 
-Tal como acontece com o kube-controller-manager, o cloud-controller-manager combina vários ciclos de controle logicamente independentes em um binário único que você executa como um processo único. Você pode escalar horizontalmente (exectuar mais de uma cópia) para melhorar o desempenho ou para auxiliar na tolerância a falhas.
+Tal como acontece com o kube-controller-manager, o cloud-controller-manager combina vários ciclos de controle logicamente independentes em um binário único que você executa como um processo único. Você pode escalar horizontalmente (executar mais de uma cópia) para melhorar o desempenho ou para auxiliar na tolerância a falhas.
 
 Os seguintes controladores podem ter dependências de provedor de nuvem:
 

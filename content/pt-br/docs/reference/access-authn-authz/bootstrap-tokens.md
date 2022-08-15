@@ -57,7 +57,7 @@ do gerenciador de controle - kube-controller-manager.
 ## Formato do _secret_ dos tokens de inicialização
  
 Cada token válido possui um _secret_ no namespace `kube-system`. Você pode
-encontrar a documentação completa [aqui](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
+encontrar a documentação completa [aqui](https://github.com/kubernetes/design-proposals-archive/blob/main/cluster-lifecycle/bootstrap-discovery.md).
  
 Um _secret_ de token se parece com o exemplo abaixo:
  

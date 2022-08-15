@@ -99,10 +99,10 @@ kubectl get pod memory-demo --output=yaml --namespace=mem-example
 ```yaml
 ...
 resources:
-  limits:
-    memory: 200Mi
   requests:
     memory: 100Mi
+  limits:
+    memory: 200Mi
 ...
 ```
 
@@ -171,10 +171,10 @@ kubectl get pod memory-demo-2 --output=yaml --namespace=mem-example
 
 컨테이너가 메모리 부족 (OOM) 으로 종료되었음이 출력된다.
 
-```shell
+```yaml
 lastState:
    terminated:
-     containerID: docker://65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
+     containerID: 65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
      exitCode: 137
      finishedAt: 2017-06-20T20:52:19Z
      reason: OOMKilled
@@ -278,7 +278,7 @@ kubectl describe pod memory-demo-3 --namespace=mem-example
 
 출력은 노드 내 메모리가 부족하여 파드가 스케줄링될 수 없음을 보여준다.
 
-```shell
+```
 Events:
   ...  Reason            Message
        ------            -------
@@ -291,8 +291,8 @@ Events:
 메모리를 표시할 수 있다. E, P, T, G, M, K, Ei, Pi, Ti, Gi, Mi, Ki.
 예를 들어 다음은 거의 유사한 값을 나타낸다.
 
-```shell
-128974848, 129e6, 129M , 123Mi
+```
+128974848, 129e6, 129M, 123Mi
 ```
 
 파드 삭제:

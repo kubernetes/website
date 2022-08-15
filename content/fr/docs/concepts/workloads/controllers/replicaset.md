@@ -214,7 +214,7 @@ Un ReplicaSet a également besoin de [`.spec` section](https://git.k8s.io/commun
 L'attribut `.spec.template` est un [modèle de pod](/docs/concepts/workloads/Pods/pod-overview/#pod-templates) qui requiert d'avoir des labels. Dans notre exemple `frontend.yaml`, nous avons un label : `tier: frontend`.
 Il faut faire attention à ne pas avoir des selecteurs que d'autres controllers utilisent, afin d'éviter que le ReplicaSet n'adopte ce pod.
 
-Pour le champ [restart policy](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy),
+Pour le champ [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy),
 `.spec.template.spec.restartPolicy`, la seule valeur autorisée est `Always`, qui est la valeur par défaut.
 
 ### Sélecteur de Pod

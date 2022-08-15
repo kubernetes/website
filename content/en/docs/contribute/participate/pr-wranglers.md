@@ -26,9 +26,16 @@ Each day in a week-long shift as PR Wrangler:
     - If you need to verify content, comment on the PR and request more details.
     - Assign relevant `sig/` label(s).
     - If needed, assign reviewers from the `reviewers:` block in the file's front matter.
+    - You can also tag a [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md) for a review by commenting `@kubernetes/<sig>-pr-reviews` on the PR.
 - Use the `/approve` comment to approve a PR for merging. Merge the PR when ready.
     - PRs should have a `/lgtm` comment from another member before merging.
-    - Consider accepting technically accurate content that doesn't meet the [style guidelines](/docs/contribute/style/style-guide/). Open a new issue with the label `good first issue` to address style concerns.
+    - Consider accepting technically accurate content that doesn't meet the
+      [style guidelines](/docs/contribute/style/style-guide/). As you approve the change,
+      open a new issue to address the style concern. You can usually write these style fix
+      issues as [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue).
+    - Using style fixups as good first issues is a good way to ensure a supply of easier tasks
+      to help onboard new contributors.
+
 
 ### Helpful GitHub queries for wranglers
 
@@ -44,8 +51,8 @@ These queries exclude localization PRs. All queries are against the main branch 
   Lists PRs that need an LGTM from a member. If the PR needs technical review, loop in one of the reviewers suggested by the bot. If the content needs work, add suggestions and feedback in-line.
 - [Has LGTM, needs docs approval](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge%2Fwork-in-progress+-label%3Ado-not-merge%2Fhold+label%3Alanguage%2Fen+label%3Algtm+):
   Lists PRs that need an `/approve` comment to merge.
-- [Quick Wins](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+base%3Amaster+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3A%22cncf-cla%3A+yes%22+label%3A%22size%2FXS%22+label%3A%22language%2Fen%22): Lists PRs against the main branch with no clear blockers. (change "XS" in the size label as you work through the PRs [XS, S, M, L, XL, XXL]).
-- [Not against the main branch](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3Alanguage%2Fen+-base%3Amaster): If the PR is against a `dev-` branch, it's for an upcoming release. Assign the [docs release manager](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles) using: `/assign @<manager's_github-username>`. If the PR is against an old branch, help the author figure out whether it's targeted against the best branch.
+- [Quick Wins](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+base%3Amain+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3A%22cncf-cla%3A+yes%22+label%3A%22size%2FXS%22+label%3A%22language%2Fen%22): Lists PRs against the main branch with no clear blockers. (change "XS" in the size label as you work through the PRs [XS, S, M, L, XL, XXL]).
+- [Not against the primary branch](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3Alanguage%2Fen+-base%3Amain): If the PR is against a `dev-` branch, it's for an upcoming release. Assign the [docs release manager](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles) using: `/assign @<manager's_github-username>`. If the PR is against an old branch, help the author figure out whether it's targeted against the best branch.
 
 ### Helpful Prow commands for wranglers
 
@@ -77,6 +84,20 @@ To close a pull request, leave a `/close` comment on the PR.
 
 {{< note >}}
 
-The [`fejta-bot`](https://github.com/fejta-bot) bot marks issues as stale after 90 days of inactivity. After 30 more days it marks issues as rotten and closes them.  PR wranglers should close issues after 14-30 days of inactivity.
+The [`k8s-triage-robot`](https://github.com/k8s-triage-robot) bot marks issues as stale after 90 days of inactivity. After 30 more days it marks issues as rotten and closes them.  PR wranglers should close issues after 14-30 days of inactivity.
 
 {{< /note >}}
+
+## PR Wrangler shadow program
+
+In late 2021, SIG Docs introduced the PR Wrangler Shadow Program. The program was introduced to help new contributors understand the PR wrangling process.
+
+### Become a shadow
+
+- If you are interested in shadowing as a PR wrangler, please visit the [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers) to see the PR wrangling schedule for this year and sign up.
+
+- Kubernetes org members can edit the [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers) and sign up to shadow an existing PR Wrangler for a week.
+
+- Others can reach out on the [#sig-docs Slack channel](https://kubernetes.slack.com/messages/sig-docs) for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to Brad Topol (`@bradtopol`) or one of the [SIG Docs co-chairs/leads](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
+
+- Once you've signed up to shadow a PR Wrangler, introduce yourself to the PR Wrangler on the [Kubernetes Slack](https://slack.k8s.io).

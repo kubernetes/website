@@ -57,10 +57,10 @@ curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
 
-예를 들어 kops 버전을 v1.15.0을 다운로드 하려면 다음을 입력한다.
+예를 들어 kops 버전을 v1.20.0을 다운로드 하려면 다음을 입력한다.
 
 ```shell
-curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-darwin-amd64
 ```
 
 kops 바이너리를 실행 가능하게 만든다.
@@ -94,10 +94,10 @@ curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://
 ```shell
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
-예를 들어 kops 버전을 v1.15.0을 다운로드 하려면 다음을 입력한다.
+예를 들어 kops 버전을 v1.20.0을 다운로드 하려면 다음을 입력한다.
 
 ```shell
-curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-linux-amd64
 ```
 
 kops 바이너리를 실행 가능하게 만든다.
@@ -231,7 +231,7 @@ kops는 클러스터에 사용될 설정을 생성할것이다. 여기서 주의
 ## {{% heading "whatsnext" %}}
 
 
-* 쿠버네티스 [개념](/ko/docs/concepts/) 과 [`kubectl`](/ko/docs/reference/kubectl/overview/)에 대해 더 알아보기.
+* 쿠버네티스 [개념](/ko/docs/concepts/) 과 [`kubectl`](/ko/docs/reference/kubectl/)에 대해 더 알아보기.
 * 튜토리얼, 모범사례 및 고급 구성 옵션에 대한 `kops` [고급 사용법](https://kops.sigs.k8s.io/)에 대해 더 자세히 알아본다.
 * 슬랙(Slack)에서 `kops` 커뮤니티 토론을 할 수 있다: [커뮤니티 토론](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
 * 문제를 해결하거나 이슈를 제기하여 `kops` 에 기여한다. [깃헙 이슈](https://github.com/kubernetes/kops/issues)

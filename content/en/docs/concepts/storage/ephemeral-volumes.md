@@ -7,7 +7,7 @@ reviewers:
 - pohly
 title: Ephemeral Volumes
 content_type: concept
-weight: 50
+weight: 30
 ---
 
 <!-- overview -->
@@ -76,8 +76,8 @@ is managed by kubelet, or injecting different data.
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-This feature requires the `CSIInlineVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It
-is enabled by default starting with Kubernetes 1.16.
+This feature requires the `CSIInlineVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to be enabled. It is enabled by default starting with Kubernetes 1.16.
 
 {{< note >}}
 CSI ephemeral volumes are only supported by a subset of CSI drivers.
@@ -107,7 +107,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/data"
         name: my-csi-inline-vol
@@ -125,15 +125,26 @@ driver. These attributes are specific to each driver and not
 standardized. See the documentation of each CSI driver for further
 instructions.
 
-As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) to control which CSI drivers can be used in a Pod, specified with the
-[`allowedCSIDrivers` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy).
+### CSI driver restrictions
+
+CSI ephemeral volumes allow users to provide `volumeAttributes`
+directly to the CSI driver as part of the Pod spec. A CSI driver
+allowing `volumeAttributes` that are typically restricted to
+administrators is NOT suitable for use in an inline ephemeral volume.
+For example, parameters that are normally defined in the StorageClass
+should not be exposed to users through the use of inline ephemeral volumes.
+
+Cluster administrators who need to restrict the CSI drivers that are
+allowed to be used as inline volumes within a Pod spec may do so by:
+
+- Removing `Ephemeral` from `volumeLifecycleModes` in the CSIDriver spec, which prevents the
+  driver from being used as an inline ephemeral volume.
+- Using an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  to restrict how this driver is used.
 
 ### Generic ephemeral volumes
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
-
-This feature requires the `GenericEphemeralVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
-enabled. Because this is a beta feature, it is enabled by default.
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 Generic ephemeral volumes are similar to `emptyDir` volumes in the
 sense that they provide a per-pod directory for scratch data that is
@@ -146,7 +157,7 @@ features:
   parameters.
 - Typical operations on volumes are supported assuming that the driver
   supports them, including
-  ([snapshotting](/docs/concepts/storage/volume-snapshots/),
+  [snapshotting](/docs/concepts/storage/volume-snapshots/),
   [cloning](/docs/concepts/storage/volume-pvc-datasource/),
   [resizing](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),
   and [storage capacity tracking](/docs/concepts/storage/storage-capacity/).
@@ -161,7 +172,7 @@ metadata:
 spec:
   containers:
     - name: my-frontend
-      image: busybox
+      image: busybox:1.28
       volumeMounts:
       - mountPath: "/scratch"
         name: scratch-volume
@@ -199,7 +210,7 @@ because then the scheduler is free to choose a suitable node for
 the Pod. With immediate binding, the scheduler is forced to select a node that has
 access to the volume once it is available.
 
-In terms of [resource ownership](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents),
+In terms of [resource ownership](/docs/concepts/architecture/garbage-collection/#owners-dependents),
 a Pod that has generic ephemeral storage is the owner of the PersistentVolumeClaim(s)
 that provide that ephemeral storage. When the Pod is deleted,
 the Kubernetes garbage collector deletes the PVC, which then usually
@@ -243,19 +254,12 @@ same namespace, so that these conflicts can't occur.
 Enabling the GenericEphemeralVolume feature allows users to create
 PVCs indirectly if they can create Pods, even if they do not have
 permission to create PVCs directly. Cluster administrators must be
-aware of this. If this does not fit their security model, they have
-two choices:
-- Explicitly disable the feature through the feature gate.
-- Use a [Pod Security
-  Policy](/docs/concepts/policy/pod-security-policy/) where the
-  `volumes` list does not contain the `ephemeral` volume type
-  (deprecated in Kubernetes 1.21).
-- Use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  which rejects objects like Pods that have a generic ephemeral
-  volume.
+aware of this. If this does not fit their security model, they should
+use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+that rejects objects like Pods that have a generic ephemeral volume.
 
-The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota) still applies, so
-even if users are allowed to use this new mechanism, they cannot use
+The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota)
+still applies, so even if users are allowed to use this new mechanism, they cannot use
 it to circumvent other policies.
 
 ## {{% heading "whatsnext" %}}
@@ -266,12 +270,13 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 
 ### CSI ephemeral volumes
 
-- For more information on the design, see the [Ephemeral Inline CSI
-  volumes KEP](https://github.com/kubernetes/enhancements/blob/ad6021b3d61a49040a3f835e12c8bb5424db2bbb/keps/sig-storage/20190122-csi-inline-volumes.md).
-- For more information on further development of this feature, see the [enhancement tracking issue #596](https://github.com/kubernetes/enhancements/issues/596).
+- For more information on the design, see the
+  [Ephemeral Inline CSI volumes KEP](https://github.com/kubernetes/enhancements/blob/ad6021b3d61a49040a3f835e12c8bb5424db2bbb/keps/sig-storage/20190122-csi-inline-volumes.md).
+- For more information on further development of this feature, see the
+  [enhancement tracking issue #596](https://github.com/kubernetes/enhancements/issues/596).
 
 ### Generic ephemeral volumes
 
 - For more information on the design, see the
-[Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md).
-- For more information on further development of this feature, see the [enhancement tracking issue #1698](https://github.com/kubernetes/enhancements/issues/1698).
+  [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md).
+

@@ -61,7 +61,7 @@ Kontroler merupakan objek mendasar dengan fungsi tambahan, contoh dari kontroler
 * [Deployment](/id/docs/concepts/workloads/controllers/deployment/)
 * [StatefulSet](/id/docs/concepts/workloads/controllers/statefulset/)
 * [DaemonSet](/id/docs/concepts/workloads/controllers/daemonset/)
-* [Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* [Job](/id/docs/concepts/workloads/controllers/job/)
 
 ## *Control Plane* Kubernetes
 

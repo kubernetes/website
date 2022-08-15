@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iis
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: iis
+  template:
+    metadata:
+      labels:
+        app: iis
+    spec:
+      containers:
+      - name: iis
+        image: microsoft/iis
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: 2
+        ports:
+        - containerPort: 80
+

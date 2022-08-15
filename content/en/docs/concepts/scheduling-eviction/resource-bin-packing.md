@@ -3,69 +3,100 @@ reviewers:
 - bsalamat
 - k82cn
 - ahg-g
-title: Resource Bin Packing for Extended Resources
+title: Resource Bin Packing
 content_type: concept
-weight: 30
+weight: 80
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
-
-The kube-scheduler can be configured to enable bin packing of resources along
-with extended resources using `RequestedToCapacityRatioResourceAllocation`
-priority function. Priority functions can be used to fine-tune the
-kube-scheduler as per custom needs. 
+In the [scheduling-plugin](/docs/reference/scheduling/config/#scheduling-plugins)  `NodeResourcesFit` of kube-scheduler, there are two 
+scoring strategies that support the bin packing of resources: `MostAllocated` and `RequestedToCapacityRatio`.
 
 <!-- body -->
 
-## Enabling Bin Packing using RequestedToCapacityRatioResourceAllocation
+## Enabling bin packing using MostAllocated strategy
+The `MostAllocated` strategy scores the nodes based on the utilization of resources, favoring the ones with higher allocation.
+For each resource type, you can set a weight to modify its influence in the node score.
 
-Kubernetes allows the users to specify the resources along with weights for
-each resource to score nodes based on the request to capacity ratio. This
-allows users to bin pack extended resources by using appropriate parameters
-and improves the utilization of scarce resources in large clusters. The
-behavior of the `RequestedToCapacityRatioResourceAllocation` priority function
-can be controlled by a configuration option called
-`requestedToCapacityRatioArguments`. This argument consists of two parameters
-`shape` and `resources`. The `shape` parameter allows the user to tune the
-function as least requested or most requested based on `utilization` and
-`score` values.  The `resources` parameter consists of `name` of the resource
-to be considered during scoring and `weight` specify the weight of each
-resource.
-
-Below is an example configuration that sets
-`requestedToCapacityRatioArguments` to bin packing behavior for extended
-resources `intel.com/foo` and `intel.com/bar`.
+To set the `MostAllocated` strategy for the `NodeResourcesFit` plugin, use a
+[scheduler configuration](/docs/reference/scheduling/config) similar to the following:
 
 ```yaml
-apiVersion: v1
-kind: Policy
-# ...
-priorities:
-  # ...
-  - name: RequestedToCapacityRatioPriority
-    weight: 2
-    argument:
-      requestedToCapacityRatioArguments:
-        shape:
+apiVersion: kubescheduler.config.k8s.io/v1beta3
+kind: KubeSchedulerConfiguration
+profiles:
+- pluginConfig:
+  - args:
+      scoringStrategy:
+        resources:
+        - name: cpu
+          weight: 1
+        - name: memory
+          weight: 1
+        - name: intel.com/foo
+          weight: 3
+        - name: intel.com/bar
+          weight: 3
+        type: MostAllocated
+    name: NodeResourcesFit
+```
+
+To learn more about other parameters and their default configuration, see the API documentation for 
+[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs).
+
+## Enabling bin packing using RequestedToCapacityRatio
+
+The `RequestedToCapacityRatio` strategy allows the users to specify the resources along with weights for
+each resource to score nodes based on the request to capacity ratio. This
+allows users to bin pack extended resources by using appropriate parameters
+to improve the utilization of scarce resources in large clusters. It favors nodes according to a
+configured function of the allocated resources. The behavior of the `RequestedToCapacityRatio` in
+the `NodeResourcesFit` score function can be controlled by the
+[scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy) field.
+Within the `scoringStrategy` field, you can configure two parameters: `requestedToCapacityRatioParam` and
+`resources`. The `shape` in `requestedToCapacityRatioParam` 
+parameter allows the user to tune the function as least requested or most 
+requested based on `utilization` and `score` values.  The `resources` parameter 
+consists of `name` of the resource to be considered during scoring and `weight` 
+specify the weight of each resource.
+
+Below is an example configuration that sets
+the bin packing behavior for extended resources `intel.com/foo` and `intel.com/bar`
+using the `requestedToCapacityRatio` field.
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta3
+kind: KubeSchedulerConfiguration
+profiles:
+- pluginConfig:
+  - args:
+      scoringStrategy:
+        resources:
+        - name: intel.com/foo
+          weight: 3
+        - name: intel.com/bar
+          weight: 3
+        requestedToCapacityRatioParam:
+          shape:
           - utilization: 0
             score: 0
           - utilization: 100
             score: 10
-        resources:
-          - name: intel.com/foo
-            weight: 3
-          - name: intel.com/bar
-            weight: 5
+        type: RequestedToCapacityRatio
+    name: NodeResourcesFit
 ```
 
-**This feature is disabled by default**
+Referencing the `KubeSchedulerConfiguration` file with the kube-scheduler 
+flag `--config=/path/to/config/file` will pass the configuration to the 
+scheduler.
 
-### Tuning the Priority Function
+To learn more about other parameters and their default configuration, see the API documentation for 
+[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs).
 
-`shape` is used to specify the behavior of the
-`RequestedToCapacityRatioPriority` function.
+### Tuning the score function
+
+`shape` is used to specify the behavior of the `RequestedToCapacityRatio` function.
 
 ```yaml
 shape:
@@ -91,9 +122,9 @@ shape:
 
 ``` yaml
 resources:
-  - name: CPU
+  - name: cpu
     weight: 1
-  - name: Memory
+  - name: memory
     weight: 1
 ```
 
@@ -103,9 +134,9 @@ It can be used to add extended resources as follows:
 resources:
   - name: intel.com/foo
     weight: 5
-  - name: CPU
+  - name: cpu
     weight: 3
-  - name: Memory
+  - name: memory
     weight: 1
 ```
 
@@ -122,16 +153,16 @@ Requested resources:
 
 ```
 intel.com/foo : 2
-Memory: 256MB
-CPU: 2
+memory: 256MB
+cpu: 2
 ```
 
 Resource weights:
 
 ```
 intel.com/foo : 5
-Memory: 1
-CPU: 3
+memory: 1
+cpu: 3
 ```
 
 FunctionShapePoint {{0, 0}, {100, 10}}
@@ -141,13 +172,13 @@ Node 1 spec:
 ```
 Available:
   intel.com/foo: 4
-  Memory: 1 GB
-  CPU: 8
+  memory: 1 GB
+  cpu: 8
 
 Used:
   intel.com/foo: 1
-  Memory: 256MB
-  CPU: 1
+  memory: 256MB
+  cpu: 1
 ```
 
 Node score:
@@ -160,13 +191,13 @@ intel.com/foo  = resourceScoringFunction((2+1),4)
                = rawScoringFunction(75) 
                = 7                        # floor(75/10) 
 
-Memory         = resourceScoringFunction((256+256),1024)
+memory         = resourceScoringFunction((256+256),1024)
                = (100 -((1024-512)*100/1024))
                = 50                       # requested + used = 50% * available
                = rawScoringFunction(50)
                = 5                        # floor(50/10)
 
-CPU            = resourceScoringFunction((2+1),8)
+cpu            = resourceScoringFunction((2+1),8)
                = (100 -((8-3)*100/8))
                = 37.5                     # requested + used = 37.5% * available
                = rawScoringFunction(37.5)
@@ -181,12 +212,12 @@ Node 2 spec:
 ```
 Available:
   intel.com/foo: 8
-  Memory: 1GB
-  CPU: 8
+  memory: 1GB
+  cpu: 8
 Used:
   intel.com/foo: 2
-  Memory: 512MB
-  CPU: 6
+  memory: 512MB
+  cpu: 6
 ```
 
 Node score:
@@ -199,13 +230,13 @@ intel.com/foo  = resourceScoringFunction((2+2),8)
                =  rawScoringFunction(50)
                = 5
 
-Memory         = resourceScoringFunction((256+512),1024)
+memory         = resourceScoringFunction((256+512),1024)
                = (100 -((1024-768)*100/1024))
                = 75
                = rawScoringFunction(75)
                = 7
 
-CPU            = resourceScoringFunction((2+6),8)
+cpu            = resourceScoringFunction((2+6),8)
                = (100 -((8-8)*100/8))
                = 100
                = rawScoringFunction(100)

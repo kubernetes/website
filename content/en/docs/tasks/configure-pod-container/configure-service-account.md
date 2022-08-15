@@ -29,7 +29,7 @@ When they do, they are authenticated as a particular Service Account (for exampl
 
 <!-- steps -->
 
-## Use the Default Service Account to access the API server.
+## Use the Default Service Account to access the API server
 
 When you create a pod, if you do not specify a service account, it is
 automatically assigned the `default` service account in the same namespace.
@@ -42,7 +42,7 @@ You can access the API from inside a pod using automatically mounted service acc
 The API permissions of the service account depend on the
 [authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
 
-In version 1.6+, you can opt out of automounting API credentials for a service account by setting `automountServiceAccountToken: false` on the service account:
+You can opt out of automounting API credentials on `/var/run/secrets/kubernetes.io/serviceaccount/token` for a service account by setting `automountServiceAccountToken: false` on the ServiceAccount:
 
 ```yaml
 apiVersion: v1
@@ -68,7 +68,7 @@ spec:
 
 The pod spec takes precedence over the service account if both specify a `automountServiceAccountToken` value.
 
-## Use Multiple Service Accounts.
+## Use Multiple Service Accounts
 
 Every namespace has a default service account resource called `default`.
 You can list this and any other serviceAccount resources in the namespace with this command:
@@ -136,7 +136,7 @@ You can clean up the service account from this example like this:
 kubectl delete serviceaccount/build-robot
 ```
 
-## Manually create a service account API token.
+## Manually create a service account API token
 
 Suppose we have an existing service account named "build-robot" as mentioned above, and we create
 a new secret manually.
@@ -167,8 +167,8 @@ The output is similar to this:
 Name:           build-robot-secret
 Namespace:      default
 Labels:         <none>
-Annotations:    kubernetes.io/service-account.name=build-robot
-                kubernetes.io/service-account.uid=da68f9c6-9d26-11e7-b84e-002dc52800da
+Annotations:    kubernetes.io/service-account.name: build-robot
+                kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800da
 
 Type:   kubernetes.io/service-account-token
 
@@ -290,9 +290,17 @@ To enable and use token request projection, you must specify each of the followi
 command line arguments to `kube-apiserver`:
 
 * `--service-account-issuer`
+
+     It can be used as the Identifier of the service account token issuer. You can specify the `--service-account-issuer` argument multiple times, this can be useful to enable a non-disruptive change of the issuer. When this flag is specified multiple times, the first is used to generate tokens and all are used to determine which issuers are accepted. You must be running Kubernetes v1.22 or later to be able to specify `--service-account-issuer` multiple times.
 * `--service-account-key-file`
+
+     File containing PEM-encoded x509 RSA or ECDSA private or public keys, used to verify ServiceAccount tokens. The specified file can contain multiple keys, and the flag can be specified multiple times with different files. If specified multiple times, tokens signed by any of the specified keys are considered valid by the Kubernetes API server.
 * `--service-account-signing-key-file`
-* `--api-audiences`
+
+     Path to the file that contains the current private key of the service account token issuer. The issuer signs issued ID tokens with this private key.
+* `--api-audiences` (can be omitted)
+
+     The service account token authenticator validates that tokens used against the API are bound to at least one of these audiences. If `api-audiences` is specified multiple times, tokens for any of the specified audiences are considered valid by the Kubernetes API server. If the `--service-account-issuer` flag is configured and this flag is not, this field defaults to a single element list containing the issuer URL.
 
 {{< /note >}}
 
@@ -349,8 +357,11 @@ JSON Web Key Set (JWKS) at `/openid/v1/jwks`. The OpenID Provider Configuration
 is sometimes referred to as the _discovery document_.
 
 Clusters include a default RBAC ClusterRole called
-`system:service-account-issuer-discovery`. No role bindings are provided
-by default. Administrators may, for example, choose whether to bind the role to
+`system:service-account-issuer-discovery`. A default RBAC ClusterRoleBinding
+assigns this role to the `system:serviceaccounts` group, which all service
+accounts implicitly belong to. This allows pods running on the cluster to access
+the service account discovery document via their mounted service account token.
+Administrators may, additionally, choose to bind the role to
 `system:authenticated` or `system:unauthenticated` depending on their security
 requirements and which external systems they intend to federate with.
 
@@ -380,5 +391,5 @@ JWKS URI is required to use the `https` scheme.
 See also:
 
 - [Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
-- [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
+- [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
 - [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)

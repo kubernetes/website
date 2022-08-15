@@ -1,8 +1,8 @@
 ---
-
-
-
-
+#reviewers:
+#- Kashomon
+#- bprashanth
+#- madhusudancs
 title: 레플리카셋
 content_type: concept
 weight: 20
@@ -26,7 +26,7 @@ weight: 20
 레플리카셋이 새로운 파드를 생성해야 할 경우, 명시된 파드 템플릿을
 사용한다.
 
-레플리카셋은 파드의 [metadata.ownerReferences](/ko/docs/concepts/workloads/controllers/garbage-collection/#소유자-owner-와-종속-dependent)
+레플리카셋은 파드의 [metadata.ownerReferences](/ko/docs/concepts/architecture/garbage-collection/#소유자-owner-와-종속-dependent)
 필드를 통해 파드에 연결되며, 이는 현재 오브젝트가 소유한 리소스를 명시한다.
 레플리카셋이 가지고 있는 모든 파드의 ownerReferences 필드는 해당 파드를 소유한 레플리카셋을 식별하기 위한 소유자 정보를 가진다.
 이 링크를 통해 레플리카셋은 자신이 유지하는 파드의 상태를 확인하고 이에 따라 관리 한다.
@@ -50,7 +50,7 @@ OwnerReference가 {{< glossary_tooltip term_id="controller" >}} 가 아니고 �
 
 {{< codenew file="controllers/frontend.yaml" >}}
 
-이 매니페스트를 `frontend.yaml`에 저장하고 쿠버네티스 클러스터에 적용하면 정의되어있는 레플리카셋이
+이 매니페스트를 `frontend.yaml`에 저장하고 쿠버네티스 클러스터에 적용하면 정의되어 있는 레플리카셋이
 생성되고 레플리카셋이 관리하는 파드가 생성된다.
 
 ```shell
@@ -78,7 +78,7 @@ kubectl describe rs/frontend
 
 출력은 다음과 유사할 것이다.
 
-```shell
+```
 Name:         frontend
 Namespace:    default
 Selector:     tier=frontend
@@ -128,9 +128,9 @@ frontend-wtsmm   1/1     Running   0          6m36s
 kubectl get pods frontend-b2zdv -o yaml
 ```
 
-메타데이터의 ownerReferences 필드에 설정되어있는 프런트엔드 레플리카셋의 정보가 다음과 유사하게 나오는 것을 볼 수 있다.
+메타데이터의 ownerReferences 필드에 설정되어 있는 프런트엔드 레플리카셋의 정보가 다음과 유사하게 나오는 것을 볼 수 있다.
 
-```shell
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -181,7 +181,7 @@ kubectl get pods
 
 결과에는 새로운 파드가 이미 종료되었거나 종료가 진행 중인 것을 보여준다.
 
-```shell
+```
 NAME             READY   STATUS        RESTARTS   AGE
 frontend-b2zdv   1/1     Running       0          10m
 frontend-vcmts   1/1     Running       0          10m
@@ -210,7 +210,7 @@ kubectl get pods
 ```
 
 다음 출력에서 볼 수 있다.
-```shell
+```
 NAME             READY   STATUS    RESTARTS   AGE
 frontend-hmmj2   1/1     Running   0          9s
 pod1             1/1     Running   0          36s
@@ -223,8 +223,6 @@ pod2             1/1     Running   0          36s
 
 레플리카셋은 모든 쿠버네티스 API 오브젝트와 마찬가지로 `apiVersion`, `kind`, `metadata` 필드가 필요하다.
 레플리카셋에 대한 `kind` 필드의 값은 항상 레플리카셋이다.
-쿠버네티스 1.9에서의 레플리카셋의 kind에 있는 API 버전 `apps/v1`은 현재 버전이며, 기본으로 활성화 되어있다. API 버전 `apps/v1beta2`은 사용 중단(deprecated)되었다.
-API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한다.
 
 레플리카셋 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
@@ -233,7 +231,7 @@ API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한
 
 ### 파드 템플릿
 
-`.spec.template`은 레이블을 붙이도록 되어있는 [파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이다.
+`.spec.template`은 레이블을 붙이도록 되어 있는 [파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이다.
 우리는 `frontend.yaml` 예제에서 `tier: frontend`이라는 레이블을 하나 가지고 있다.
 이 파드를 다른 컨트롤러가 취하지 않도록 다른 컨트롤러의 셀렉터와 겹치지 않도록 주의해야 한다.
 
@@ -269,7 +267,7 @@ matchLabels:
 
 ### 레플리카셋과 해당 파드 삭제
 
-레플리카셋 및 모든 파드를 삭제하려면 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)를 사용한다. [가비지 수집기](/ko/docs/concepts/workloads/controllers/garbage-collection/)는 기본적으로 종속되어있는 모든 파드를 자동으로 삭제한다.
+레플리카셋 및 모든 파드를 삭제하려면 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)를 사용한다. [가비지 수집기](/ko/docs/concepts/architecture/garbage-collection/)는 기본적으로 종속되어 있는 모든 파드를 자동으로 삭제한다.
 
 REST API또는 `client-go` 라이브러리를 이용할 때는 -d 옵션으로 `propagationPolicy`를 `Background`또는 `Foreground`로
 설정해야 한다.
@@ -323,9 +321,9 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 모든 기준에 대해 동등하다면, 스케일 다운할 파드가 임의로 선택된다.
 
 ### 파드 삭제 비용
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-[`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost) 어노테이션을 이용하여, 
+[`controller.kubernetes.io/pod-deletion-cost`](/ko/docs/reference/labels-annotations-taints/#pod-deletion-cost) 어노테이션을 이용하여, 
 레플리카셋을 스케일 다운할 때 어떤 파드부터 먼저 삭제할지에 대한 우선순위를 설정할 수 있다.
 
 이 어노테이션은 파드에 설정되어야 하며, [-2147483647, 2147483647] 범위를 갖는다.
@@ -335,9 +333,9 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 파드에 대해 이 값을 명시하지 않으면 기본값은 0이다. 음수로도 설정할 수 있다.
 유효하지 않은 값은 API 서버가 거부한다.
 
-이 기능은 알파 상태이며 기본적으로는 비활성화되어 있다. 
-kube-apiserver와 kube-controller-manager에서 `PodDeletionCost` 
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 켜서 활성화할 수 있다.
+이 기능은 베타 상태이며 기본적으로 활성화되어 있다. 
+kube-apiserver와 kube-controller-manager에 대해 `PodDeletionCost` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 이용하여 비활성화할 수 있다.
 
 {{< note >}}
 - 이 기능은 best-effort 방식으로 동작하므로, 파드 삭제 순서를 보장하지는 않는다.
@@ -389,7 +387,7 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 
 ### 기본 파드
 
-사용자가 직접 파드를 생성하는 경우와는 다르게, 레플리카셋은 노드 장애 또는 노드의 커널 업그레이드와 같은 관리  목적의 중단 등 어떤 이유로든 종료되거나 삭제된 파드를 교체한다. 이런 이유로 애플리케이션이 단일 파드가 필요하더라도 레플리카셋을 이용하는 것을 권장한다. 레플리카셋을 프로세스 관리자와 비교해서 생각해본다면, 레플리카셋은 단일 노드에서의 개별 프로세스들이 아닌 다수의 노드에 걸쳐있는 다수의 파드를 관리하는 것이다. 레플리카셋은 로컬 컨테이너의 재시작을 노드에 있는 어떤 에이전트에게 위임한다(예를들어 Kubelet 또는 도커).
+사용자가 직접 파드를 생성하는 경우와는 다르게, 레플리카셋은 노드 장애 또는 노드의 커널 업그레이드와 같은 관리  목적의 중단 등 어떤 이유로든 종료되거나 삭제된 파드를 교체한다. 이런 이유로 애플리케이션이 단일 파드가 필요하더라도 레플리카셋을 이용하는 것을 권장한다. 레플리카셋을 프로세스 관리자와 비교해서 생각해본다면, 레플리카셋은 단일 노드에서의 개별 프로세스들이 아닌 다수의 노드에 걸쳐있는 다수의 파드를 관리하는 것이다. 레플리카셋은 로컬 컨테이너의 재시작을 노드에 있는 Kubelet과 같은 에이전트에게 위임한다.
 
 ### 잡
 
@@ -408,3 +406,16 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 이 두 개의 용도는 동일하고, 유사하게 동작하며, 레플리케이션 컨트롤러가 [레이블 사용자 가이드](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)에
 설명된 설정-기반의 셀렉터의 요건을 지원하지 않는다는 점을 제외하면 유사하다.
 따라서 레플리카셋이 레플리케이션 컨트롤러보다 선호된다.
+
+
+## {{% heading "whatsnext" %}}
+
+* [파드](/ko/docs/concepts/workloads/pods)에 대해 배운다.
+* [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해 배운다.
+* 레플리카셋에 의존해서 동작하는 [디플로이먼트로 스테이트리스 애플리케이션을 실행한다](/ko/docs/tasks/run-application/run-stateless-application-deployment/).
+* `ReplicaSet`는 쿠버네티스 REST API의 상위-수준 리소스이다.
+  레플리카셋 API에 대해 이해하기 위해
+  {{< api-reference page="workload-resources/replica-set-v1" >}}
+  오브젝트 정의를 읽는다.
+* [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과
+  이를 사용해서 어떻게 중단 중에 애플리케이션 가용성을 관리할 수 있는지에 대해 읽는다.

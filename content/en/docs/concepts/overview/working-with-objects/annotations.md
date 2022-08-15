@@ -30,6 +30,11 @@ Annotations, like labels, are key/value maps:
 }
 ```
 
+{{<note>}}
+The keys and the values in the map must be strings. In other words, you cannot use
+numeric, boolean, list or other types for either the keys or the values.
+{{</note>}}
+
 Here are some examples of information that could be recorded in annotations:
 
 * Fields managed by a declarative configuration layer. Attaching these fields

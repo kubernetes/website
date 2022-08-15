@@ -9,7 +9,7 @@ url: /blog/2017/08/High-Performance-Networking-With-Ec2
 One of the most popular platforms for running Kubernetes is Amazon Web Services’ Elastic Compute Cloud (AWS EC2). With more than a decade of experience delivering IaaS, and expanding over time to include a rich set of services with easy to consume APIs, EC2 has captured developer mindshare and loyalty worldwide.
 
 
-When it comes to networking, however, EC2 has some limits that hinder performance and make deploying Kubernetes clusters to production unnecessarily complex. The preview release of [Romana v2.0](http://romana.io/), a network and security automation solution for Cloud Native applications, includes features that address some well known network issues when running Kubernetes in EC2.
+When it comes to networking, however, EC2 has some limits that hinder performance and make deploying Kubernetes clusters to production unnecessarily complex. The preview release of Romana v2.0, a network and security automation solution for Cloud Native applications, includes features that address some well known network issues when running Kubernetes in EC2.
 
 
 ## Traditional VPC Networking Performance Roadblocks
@@ -40,7 +40,7 @@ Whether you were interested in advanced networking for traffic isolation or runn
 The way to avoid running out of VPC routes is to use them sparingly by making them forward pod traffic for multiple instances. From a networking perspective, what that means is that the VPC route needs to forward to a router, which can then forward traffic on to the final destination instance.
 
 
-[Romana](http://romana.io/) is a CNI network provider that configures routes on the host to forward pod network traffic without an overlay. Since inter-node routes are installed on hosts, no VPC routes are necessary at all. However, when the VPC is split into subnets for an HA deployment across zones, VPC routes are necessary.
+Romana is a CNI network provider that configures routes on the host to forward pod network traffic without an overlay. Since inter-node routes are installed on hosts, no VPC routes are necessary at all. However, when the VPC is split into subnets for an HA deployment across zones, VPC routes are necessary.
 
 
 Fortunately, inter-node routes on hosts allows them to act as a network router and forward traffic inbound from another zone just as it would for traffic from local pods. This makes any Kubernetes node configured by Romana able to accept inbound pod traffic from other zones and forward it to the proper destination node on the subnet.
@@ -71,9 +71,6 @@ When using Romana v2.0, native VPC networking is now available for clusters of a
 
 
 ![](https://archive.org/download/hpc-ec2-vpc-2/hpc-ec2-vpc-2.png)
-
-
-The preview release of Romana v2.0 is available [here](http://romana.io/preview). We welcome comments and feedback so we can make EC2 deployments of Kubernetes as fast and reliable as possible.    
 
 
 

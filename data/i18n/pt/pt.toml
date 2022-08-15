@@ -1,0 +1,225 @@
+ # i18n strings for the Portuguese (main) site.
+[caution]
+other = "Cuidado:"
+
+[cleanup_heading]
+other = "Limpando"
+
+[community_events_calendar]
+other = "Calendário de Eventos"
+
+[community_forum_name]
+other = "Fórum"
+
+[community_github_name]
+other = "GitHub"
+
+# Community links
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[deprecation_file_warning]
+other = "Descontinuado"
+
+[deprecation_title]
+other = "Você está vendo a documentação do Kubernetes versão:"
+
+[deprecation_warning]
+other = " a documentação não é mais mantida ativamente. A versão que você está visualizando no momento é uma captura instantânea estática. Para obter documentação atualizada, consulte "
+
+[docs_label_browse]
+other = "Procurar documentos"
+
+[docs_label_contributors]
+other = "Colaboradores"
+
+[docs_label_i_am]
+other = "Eu sou..."
+
+[docs_label_users]
+other = "Usuários"
+
+[docs_version_current]
+other = "(esta documentação)"
+
+[docs_version_latest_heading]
+other = "Versão mais recente"
+
+[docs_version_other_heading]
+other = "Versões mais antigas"
+
+[error_404_were_you_looking_for]
+other = "Talvez você estivesse procurando por:"
+
+[examples_heading]
+other = "Exemplos"
+
+[feedback_heading]
+other = "Comentários"
+
+[feedback_no]
+other = "Não"
+
+[feedback_question]
+other = "Esta página foi útil?"
+
+[feedback_yes]
+other = "Sim"
+
+[input_placeholder_email_address]
+other = "endereço de e-mail"
+
+[latest_version]
+other = "última versão."
+
+[layouts_blog_pager_next]
+other = "Próximo >>"
+
+[layouts_blog_pager_prev]
+other = "<< Anterior"
+
+[layouts_case_studies_list_tell]
+other = "Conte seu caso"
+
+[layouts_docs_glossary_aka]
+other = "Também conhecido como"
+
+[layouts_docs_glossary_click_details_after]
+other = "indicadores abaixo para uma maior explicação sobre um termo em particular."
+
+[layouts_docs_glossary_click_details_before]
+other = "Clique nos"
+
+[layouts_docs_glossary_description]
+other = "Este glossário pretende ser uma lista padronizada e abrangente da terminologia do Kubernetes. Inclui termos técnicos específicos dos K8s, além de termos mais gerais que fornecem um contexto útil."
+
+[layouts_docs_glossary_deselect_all]
+other = "Desmarcar tudo"
+
+[layouts_docs_glossary_filter]
+other = "Filtrar termos de acordo com suas tags"
+
+[layouts_docs_glossary_select_all]
+other = "Selecionar tudo"
+
+[layouts_docs_partials_feedback_improvement]
+other = "sugerir uma melhoria"
+
+[layouts_docs_partials_feedback_issue]
+other = "Abra um bug no repositório do GitHub se você deseja "
+
+[layouts_docs_partials_feedback_or]
+other = "ou"
+
+[layouts_docs_partials_feedback_problem]
+other = "reportar um problema"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Obrigado pelo feedback. Se você tiver uma pergunta específica sobre como utilizar o Kubernetes, faça em"
+
+[layouts_docs_search_fetching]
+other = "Buscando resultados.."
+
+# Main page localization
+
+[main_by]
+other = "por"
+
+[main_cncf_project]
+other = """Nós somos uma <a href="https://cncf.io/">CNCF</a> projeto graduado</p>"""
+
+[main_community_explore]
+other = "Explore a comunidade"
+
+[main_contribute]
+other = "Contribuir"
+
+[main_copyright_notice]
+other = """A Fundação Linux &reg;. Todos os direitos reservados. A Linux Foundation tem marcas registradas e usa marcas registradas. Para uma lista de marcas registradas da The Linux Foundation, por favor, veja nossa <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Página de uso de marca registrada</a>"""
+
+[main_documentation_license]
+other = """Os autores do Kubernetes | Documentação Distribuída sob <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_edit_this_page]
+other = "Edite essa página"
+
+[main_github_create_an_issue]
+other = "Abra um bug"
+
+[main_github_invite]
+other = "Interessado em mergulhar na base de código do Kubernetes?"
+
+[main_github_view_on]
+other = "Veja no Github"
+
+[main_kubernetes_features]
+other = "Recursos do Kubernetes"
+
+[main_kubernetes_past_link]
+other = "Veja boletins passados"
+
+[main_kubeweekly_baseline]
+other = "Interessado em receber as últimas novidades sobre Kubernetes? Inscreva-se no KubeWeekly."
+
+[main_kubeweekly_signup]
+other = "Se inscrever"
+
+[main_page_history]
+other ="História da página"
+
+[main_page_last_modified_on]
+other = "Última modificação da página em"
+
+[main_read_about]
+other = "Ler sobre"
+
+[main_read_more]
+other = "Consulte Mais informação"
+
+# Miscellaneous
+
+[note]
+other = "Nota:"
+
+[objectives_heading]
+other = "Objetivos"
+
+[options_heading]
+other = "Opções"
+
+[post_create_issue]
+other = "Abra um bug"
+
+[prerequisites_heading]
+other = "Antes de você começar"
+
+[subscribe_button]
+other = "Se inscrever"
+
+[thirdparty_message]
+other = """Esta seção tem links para projetos de terceiros que fornecem a funcionalidade exigida pelo Kubernetes. Os autores do projeto Kubernetes não são responsáveis por esses projetos. Esta página obedece as <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">diretrizes de conteúdo do site CNCF</a>, listando os itens em ordem alfabética. Para adicionar um projeto a esta lista, leia o <a href="/docs/contribute/style/content-guide/#third-party-content">guia de conteúdo</a> antes de enviar sua alteração."""
+
+[ui_search_placeholder]
+other = "Procurar"
+
+[version_check_mustbeorlater]
+other = "O seu servidor Kubernetes deve estar em ou depois da versão "
+
+[version_check_mustbe]
+other = "Seu servidor Kubernetes deve ser versão"
+
+[version_check_tocheck]
+other = "Para verificar a versão, digite "
+
+[warning]
+other = "Aviso:"
+
+[whatsnext_heading]
+other = "Qual é o próximo"

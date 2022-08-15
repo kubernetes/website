@@ -1,6 +1,8 @@
 ---
 title: 크론잡(CronJob)으로 자동화된 작업 실행
 min-kubernetes-server-version: v1.21
+
+
 content_type: task
 weight: 10
 ---
@@ -34,10 +36,10 @@ weight: 10
 
 <!-- steps -->
 
-## 크론 잡 생성
+## 크론잡(CronJob) 생성 {#creating-a-cron-job}
 
 크론 잡은 구성 파일이 필요하다.
-아래의 크론 잡 구성 `.spec` 파일의 예제는 매 분마다 현재 시간과 hello 메시지를 출력한다.
+다음은 1분마다 간단한 데모 작업을 실행하는 크론잡 매니페스트다.
 
 {{< codenew file="application/job/cronjob.yaml" >}}
 
@@ -57,6 +59,7 @@ cronjob.batch/hello created
 ```shell
 kubectl get cronjob hello
 ```
+
 출력 결과는 다음과 비슷하다.
 
 ```
@@ -85,6 +88,7 @@ hello-4111706356   1/1           5s         5s
 ```shell
 kubectl get cronjob hello
 ```
+
 출력 결과는 다음과 비슷하다.
 
 ```
@@ -92,7 +96,9 @@ NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 hello   */1 * * * *   False     0        50s             75s
 ```
 
-크론 잡 `hello` 가 `LAST SCHEDULE` 에 지정된 시간에 성공적으로 잡을 스케줄했는지 확인해야 한다. 현재는 0개의 활성 잡이 있고, 이는 작업이 완료되었거나 실패했음을 의미한다.
+크론 잡 `hello` 가 지정된 시간에 성공적으로 잡을 스케줄했는지 
+`LAST SCHEDULE`에서 확인해야 한다. 
+현재는 0개의 활성 잡이 있고, 이는 작업이 완료되었거나 실패했음을 의미한다.
 
 이제, 마지막으로 스케줄된 잡이 생성한 파드를 찾고 생성된 파드 중 하나의 표준 출력을 확인한다.
 
@@ -116,7 +122,7 @@ Fri Feb 22 11:02:09 UTC 2019
 Hello from the Kubernetes cluster
 ```
 
-## 크론 잡 삭제
+## 크론잡(CronJob) 삭제 {#deleting-a-cron-job}
 
 더 이상 크론 잡이 필요하지 않으면, `kubectl delete cronjob <cronjob name>` 명령을 사용해서 삭제한다.
 
@@ -125,18 +131,17 @@ kubectl delete cronjob hello
 ```
 
 크론 잡을 삭제하면 생성된 모든 잡과 파드가 제거되고 추가 잡 생성이 중지된다.
-[가비지(garbage) 수집](/ko/docs/concepts/workloads/controllers/garbage-collection/)에서 잡 제거에 대해 상세한 내용을 읽을 수 있다.
+[가비지(garbage) 수집](/ko/docs/concepts/architecture/garbage-collection/)에서 잡 제거에 대해 상세한 내용을 읽을 수 있다.
 
-## 크론 잡 명세 작성
+## 크론잡(CronJob) 명세 작성 {#writing-a-cron-job-spec}
 
-다른 모든 쿠버네티스 구성과 마찬가지로, 크론 잡은 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다. 구성 파일
-작업에 대한 일반적인 정보는 [애플리케이션 배포](/docs/tasks/run-application/run-stateless-application-deployment/)와
+다른 모든 쿠버네티스 오브젝트들과 마찬가지로, 크론잡은 `apiVersion`, `kind` 그리고 `metadata` 필드가 반드시 필요하다. Kubernetes 개체 작업과 {{< glossary_tooltip text="매니페스트" term_id="manifest" >}} 대한 자세한 내용은 [리소스 관리하기](/ko/docs/concepts/cluster-administration/manage-deployment/)와
 [kubectl을 사용하여 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참고한다.
 
-크론 잡 구성에는 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.
+크론잡(CronJob)의 각 매니페스트에는 [`.spec`](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#오브젝트-명세-spec-와-상태-status) 섹션도 필요하다.
 
 {{< note >}}
-크론 잡, 특히 해당 잡의 `.spec` 에 대한 모든 수정 사항은 다음 번 실행에만 적용된다.
+크론잡(CrontJob)을 수정한 경우, 수정 후 새로 실행하는 작업부터 적용된다. 이미 시작된 작업(및 해당 파드)은 변경 없이 계속 실행된다. 즉, 크론잡(CrontJob)은 기존 작업이 계속 실행 중이라면, 작업을 변경하지 _않는다._
 {{< /note >}}
 
 ### 스케줄
@@ -144,7 +149,7 @@ kubectl delete cronjob hello
 `.spec.schedule` 은 `.spec` 의 필수 필드이다.
 이는 해당 잡이 생성되고 실행되는 스케줄 시간으로 `0 * * * *` 또는 `@hourly` 와 같이 [크론](https://ko.wikipedia.org/wiki/Cron) 형식의 문자열을 받아들인다.
 
-이 형식은 확장된 `vixie cron` 스텝(step) 값도 포함한다. 이 내용은
+이 형식은 확장된 "Vixie cron" 스텝(step) 값도 포함한다. 이 내용은
 [FreeBSD 매뉴얼](https://www.freebsd.org/cgi/man.cgi?crontab%285%29)에 설명되어 있다.
 
 > 스텝 값은 범위(range)와 함께 사용할 수 있다. 범위 뒤에 `/<number>` 를
@@ -172,8 +177,8 @@ kubectl delete cronjob hello
 이러한 방식으로 기한을 맞추지 못한 잡은 실패한 작업으로 간주된다.
 이 필드를 지정하지 않으면, 잡에 기한이 없다.
 
-`.spec.startingDeadlineSeconds` 필드가 (null이 아닌 값으로) 설정되어 있다면, 
-크론잡 컨트롤러는 잡 생성 완료 예상 시각과 현재 시각의 차이를 측정하고, 
+`.spec.startingDeadlineSeconds` 필드가 (null이 아닌 값으로) 설정되어 있다면,
+크론잡 컨트롤러는 잡 생성 완료 예상 시각과 현재 시각의 차이를 측정하고,
 시각 차이가 설정한 값보다 커지면 잡 생성 동작을 스킵한다.
 
 예를 들어, `200` 으로 설정되었다면, 잡 생성 완료 예상 시각으로부터 200초까지는 잡이 생성될 수 있다.

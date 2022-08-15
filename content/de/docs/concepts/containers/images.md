@@ -16,7 +16,7 @@ Die `image` Eigenschaft eines Containers unterstüzt die gleiche Syntax wie die 
 
 ## Aktualisieren von Images
 
-Die Standardregel für das Herunterladen von Images ist `IfNotPresent`, dies führt dazu, dass das Kubelet Images überspringt, die bereits auf einem Node vorliegen.
+Die Standardregel für das Herunterladen von Images ist `IfNotPresent`, dies führt dazu, dass das Image wird nur heruntergeladen wenn es noch nicht lokal verfügbar ist.
 Wenn sie stattdessen möchten, dass ein Image immer forciert heruntergeladen wird, können sie folgendes tun:
 
 

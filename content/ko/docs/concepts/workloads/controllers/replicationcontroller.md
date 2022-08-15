@@ -118,7 +118,6 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 다른 형식의 파일인 `replication.yaml` 의 것과 동일하다. `--output=jsonpath` 은
 반환된 목록의 각 파드의 이름을 출력하도록 하는 옵션이다.
 
-
 ## 레플리케이션 컨트롤러의 Spec 작성
 
 다른 모든 쿠버네티스 컨피그와 마찬가지로 레플리케이션 컨트롤러는 `apiVersion`, `kind`, `metadata` 와 같은 필드가 필요하다.
@@ -186,16 +185,16 @@ delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 를 사용�
 Kubectl은 레플리케이션 컨트롤러를 0으로 스케일하고 레플리케이션 컨트롤러 자체를
 삭제하기 전에 각 파드를 삭제하기를 기다린다. 이 kubectl 명령이 인터럽트되면 다시 시작할 수 있다.
 
-REST API나 Go 클라이언트 라이브러리를 사용하는 경우 명시적으로 단계를 수행해야 한다(레플리카를 0으로 스케일하고 파드의 삭제를 기다린 이후,
-레플리케이션 컨트롤러를 삭제).
+REST API나 [클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries)를 사용하는 경우 
+명시적으로 단계를 수행해야 한다(레플리카를 0으로 스케일하고 파드의 삭제를 기다린 이후, 레플리케이션 컨트롤러를 삭제).
 
 ### 레플리케이션 컨트롤러만 삭제
 
 해당 파드에 영향을 주지 않고 레플리케이션 컨트롤러를 삭제할 수 있다.
 
-kubectl을 사용하여, [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)에 옵션으로 `--cascade=false`를 지정하라.
+kubectl을 사용하여, [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)에 옵션으로 `--cascade=orphan`을 지정하라.
 
-REST API나 Go 클라이언트 라이브러리를 사용하는 경우 레플리케이션 컨트롤러 오브젝트를 삭제하라.
+REST API나 [클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries)를 사용하는 경우 레플리케이션 컨트롤러 오브젝트를 삭제하라.
 
 원본이 삭제되면 대체할 새로운 레플리케이션 컨트롤러를 생성하여 교체할 수 있다. 오래된 파드와 새로운 파드의 `.spec.selector` 가 동일하다면,
 새로운 레플리케이션 컨트롤러는 오래된 파드를 채택할 것이다. 그러나 기존 파드를
@@ -249,7 +248,7 @@ REST API나 Go 클라이언트 라이브러리를 사용하는 경우 레플리�
 
 레플리케이션 컨트롤러는 이 좁은 책임에 영원히 제약을 받는다. 그 자체로는 준비성 또는 활성 프로브를 실행하지 않을 것이다. 오토 스케일링을 수행하는 대신, 외부 오토 스케일러 ([#492](https://issue.k8s.io/492)에서 논의된)가 레플리케이션 컨트롤러의 `replicas` 필드를 변경함으로써 제어되도록 의도되었다. 레플리케이션 컨트롤러에 스케줄링 정책 (예를 들어 [spreading](https://issue.k8s.io/367#issuecomment-48428019))을 추가하지 않을 것이다. 오토사이징 및 기타 자동화 된 프로세스를 방해할 수 있으므로 제어된 파드가 현재 지정된 템플릿과 일치하는지 확인해야 한다. 마찬가지로 기한 완료, 순서 종속성, 구성 확장 및 기타 기능은 다른 곳에 속한다. 대량의 파드 생성 메커니즘 ([#170](https://issue.k8s.io/170))까지도 고려해야 한다.
 
-레플리케이션 컨트롤러는 조합 가능한 빌딩-블록 프리미티브가 되도록 고안되었다. 향후 사용자의 편의를 위해 더 상위 수준의 API 및/또는 도구와 그리고 다른 보완적인 기본 요소가 그 위에 구축 될 것으로 기대한다. 현재 kubectl이 지원하는 "매크로" 작업 (실행, 스케일)은 개념 증명의 예시이다. 예를 들어 [Asgard](https://techblog.netflix.com/2012/06/asgard-web-based-cloud-management-and.html)와 같이 레플리케이션 컨트롤러, 오토 스케일러, 서비스, 정책 스케줄링, 카나리 등을 관리할 수 있다.
+레플리케이션 컨트롤러는 조합 가능한 빌딩-블록 프리미티브가 되도록 고안되었다. 향후 사용자의 편의를 위해 더 상위 수준의 API 및/또는 도구와 그리고 다른 보완적인 기본 요소가 그 위에 구축 될 것으로 기대한다. 현재 kubectl이 지원하는 "매크로" 작업 (실행, 스케일)은 개념 증명의 예시이다. 예를 들어 [Asgard](https://netflixtechblog.com/asgard-web-based-cloud-management-and-deployment-2c9fc4e4d3a1)와 같이 레플리케이션 컨트롤러, 오토 스케일러, 서비스, 정책 스케줄링, 카나리 등을 관리할 수 있다.
 
 ## API 오브젝트
 
@@ -285,6 +284,11 @@ API 오브젝트에 대한 더 자세한 것은
 다른 파드가 시작되기 전에 파드가 머신에서 실행되어야 하며,
 머신이 재부팅/종료 준비가 되어 있을 때 안전하게 종료된다.
 
-## 더 자세한 정보는
+## {{% heading "whatsnext" %}}
 
-[스테이트리스 애플리케이션 디플로이먼트 실행하기](/docs/tasks/run-application/run-stateless-application-deployment/)를 참고한다.
+* [파드](/ko/docs/concepts/workloads/pods)에 대해 배운다.
+* 레플리케이션 컨트롤러를 대신하는 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해 배운다.
+* `ReplicationController`는 쿠버네티스 REST API의 일부이다.
+  레플리케이션 컨트롤러 API에 대해 이해하기 위해
+  {{< api-reference page="workload-resources/replication-controller-v1" >}}
+  오브젝트 정의를 읽는다.

@@ -64,9 +64,11 @@ CSIDriverSpec is the specification of a CSIDriver.
 
 - **fsGroupPolicy** (string)
 
-  Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is alpha-level, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.
+  Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
   
   This field is immutable.
+  
+  Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 
 - **podInfoOnMount** (boolean)
 
@@ -82,8 +84,6 @@ CSIDriverSpec is the specification of a CSIDriver.
   RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
   
   Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
-  
-  This is a beta feature and only available when the CSIServiceAccountToken feature is enabled.
 
 - **storageCapacity** (boolean)
 
@@ -93,9 +93,7 @@ CSIDriverSpec is the specification of a CSIDriver.
   
   Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
   
-  This field is immutable.
-  
-  This is a beta field and only available when the CSIStorageCapacity feature is enabled. The default is false.
+  This field was immutable in Kubernetes \<= 1.22 and now is mutable.
 
 - **tokenRequests** ([]TokenRequest)
 
@@ -110,8 +108,6 @@ CSIDriverSpec is the specification of a CSIDriver.
   }
   
   Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
-  
-  This is a beta feature and only available when the CSIServiceAccountToken feature is enabled.
 
   <a name="TokenRequest"></a>
   *TokenRequest contains parameters of a service account token.*
@@ -291,6 +287,11 @@ POST /apis/storage.k8s.io/v1/csidrivers
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -338,6 +339,11 @@ PUT /apis/storage.k8s.io/v1/csidrivers/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -383,6 +389,11 @@ PATCH /apis/storage.k8s.io/v1/csidrivers/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -398,6 +409,8 @@ PATCH /apis/storage.k8s.io/v1/csidrivers/{name}
 
 
 200 (<a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriver" >}}">CSIDriver</a>): OK
+
+201 (<a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriver" >}}">CSIDriver</a>): Created
 
 401: Unauthorized
 

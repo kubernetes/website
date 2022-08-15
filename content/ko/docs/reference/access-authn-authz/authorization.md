@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 title: 인가 개요
 content_type: concept
 weight: 60
@@ -71,7 +76,7 @@ DELETE    | delete(개별 리소스), deletecollection(리소스 모음)
 
 쿠버네티스는 종종 전문 동사를 사용하여 부가적인 권한 인가를 확인한다. 예를 들면,
 
-* [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/policy/pod-security-policy/)
+* [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/security/pod-security-policy/)
   * `policy` API 그룹의 `podsecuritypolicies` 리소스에 대한 `use` 동사.
 * [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * `rbac.authorization.k8s.io` API 그룹의 `roles` 및 `clusterroles` 리소스에 대한 `bind` 동사.
@@ -82,7 +87,7 @@ DELETE    | delete(개별 리소스), deletecollection(리소스 모음)
 
 쿠버네티스 API 서버는 몇 가지 인가 모드 중 하나를 사용하여 요청을 승인할 수 있다.
 
- * **Node** - 실행되도록 스케줄된 파드에 따라 kubelet에게 권한을 부여하는 특수 목적 인가 모드. Node 인가 모드 사용에 대한 자세한 내용은 [Node 인가](/docs/reference/access-authn-authz/node/)을 참조한다.
+ * **Node** - 실행되도록 스케줄된 파드에 따라 kubelet에게 권한을 부여하는 특수 목적 인가 모드. Node 인가 모드 사용에 대한 자세한 내용은 [Node 인가](/docs/reference/access-authn-authz/node/)를 참조한다.
  * **ABAC** - 속성 기반 접근 제어 (ABAC, Attribute-based access control)는 속성과 결합한 정책의 사용을 통해 사용자에게 접근 권한을 부여하는 접근 제어 패러다임을 말한다. 이 정책은 모든 유형의 속성(사용자 속성, 리소스 속성, 오브젝트, 환경 속성 등)을 사용할 수 있다. ABAC 모드 사용에 대한 자세한 내용은 [ABAC 모드](/docs/reference/access-authn-authz/abac/)를 참조한다.
  * **RBAC** - 역할 기반 접근 제어(RBAC, Role-based access control)는 기업 내 개별 사용자의 역할을 기반으로 컴퓨터나 네트워크 리소스에 대한 접근을 규제하는 방식이다. 이 맥락에서 접근은 개별 사용자가 파일을 보거나 만들거나 수정하는 것과 같은 특정 작업을 수행할 수 있는 능력이다. RBAC 모드 사용에 대한 자세한 내용은 [RBAC 모드](/docs/reference/access-authn-authz/rbac/)를 참조한다.
    * 지정된 RBAC(역할 기반 접근 제어)이 인가 결정을 위해 `rbac.authorization.k8s.io` API 그룹을 사용하면, 관리자가 쿠버네티스 API를 통해 권한 정책을 동적으로 구성할 수 있다.
@@ -91,7 +96,7 @@ DELETE    | delete(개별 리소스), deletecollection(리소스 모음)
 
 #### API 접근 확인
 
-`kubectl`은 API 인증 계층을 신속하게 쿼리하기 위한 "auth can-i" 하위 명령어를 제공한다.
+`kubectl`은 API 인증 계층을 신속하게 쿼리하기 위한 `auth can-i` 하위 명령어를 제공한다.
 이 명령은 현재 사용자가 지정된 작업을 수행할 수 있는지 여부를 알아내기 위해 `SelfSubjectAccessReview` API를 사용하며,
 사용되는 인가 모드에 관계없이 작동한다.
 
@@ -127,6 +132,21 @@ kubectl auth can-i list secrets --namespace dev --as dave
 
 ```
 no
+```
+
+유사하게, `dev` 네임스페이스의 `dev-sa` 서비스어카운트가 
+`target` 네임스페이스의 파드 목록을 볼 수 있는지 확인하려면 다음을 실행한다.
+
+```bash
+kubectl auth can-i list pods \
+	--namespace target \
+	--as system:serviceaccount:dev:dev-sa
+```
+
+다음과 유사하게 출력된다.
+
+```
+yes
 ```
 
 `SelfSubjectAccessReview`는 `authorization.k8s.io` API 그룹의 일부로서
@@ -187,22 +207,33 @@ status:
 하나 이상의 인가 모듈을 선택할 수 있다. 모듈이 순서대로 확인되기 때문에
 우선 순위가 더 높은 모듈이 요청을 허용하거나 거부할 수 있다.
 
-## 파드 생성을 통한 권한 확대
+## 워크로드 생성 및 수정을 통한 권한 확대 {#privilege-escalation-via-pod-creation}
 
-네임스페이스에서 파드를 생성할 수 있는 권한을 가진 사용자는
-해당 네임스페이스 안에서 자신의 권한을 확대할 가능성이 있다.
-네임스페이스에서 자신의 권한에 접근할 수 있는 파드를 만들 수 있다.
-사용자가 스스로 읽을 수 없는 시크릿에 접근할 수 있는 파드나
-서로 다른/더 큰 권한을 가진 서비스 어카운트로 실행되는 파드를 생성할 수 있다.
+네임스페이스에서 파드를 직접, 또는 오퍼레이터와 같은 [컨트롤러](/ko/docs/concepts/architecture/controller/)를 통해 생성/수정할 수 있는 사용자는 
+해당 네임스페이스 안에서 자신의 권한을 확대할 수 있다.
 
 {{< caution >}}
-시스템 관리자는 파드 생성에 대한 접근 권한을 부여할 때 주의한다.
-네임스페이스에서 파드(또는 파드를 생성하는 컨트롤러)를 생성할 수 있는 권한을 부여받은 사용자는
-네임스페이스의 모든 시크릿을 읽을 수 있으며 네임스페이스의 모든 컨피그 맵을 읽을 수 있고
-네임스페이스의 모든 서비스 어카운트를 가장하고 해당 어카운트가 취할 수 있는 모든 작업을 취할 수 있다.
-이는 인가 모드에 관계없이 적용된다.
+시스템 관리자는 파드 생성/수정에 대한 접근 권한을 부여할 때 주의한다.
+[권한 확대 경로](#escalation-paths)에서 접근 권한이 잘못 사용되었을 때의 상세사항을 확인할 수 있다.
 {{< /caution >}}
 
+### 권한 확대 경로 {#escalation-paths}
+- 네임스페이스 내의 임의의 시크릿을 마운트
+  - 다른 워크로드를 위한 시크릿으로의 접근에 사용될 수 있음
+  - 더 권한이 많은 서비스 어카운트의 서비스 어카운트 토큰 획득에 사용될 수 있음
+- 네임스페이스 내의 임의의 서비스 어카운트를 사용
+  - 다른 워크로드인것처럼 사칭하여 쿠버네티스 API 액션을 수행할 수 있음
+  - 서비스 어카운트가 갖고 있는 '권한이 필요한 액션'을 수행할 수 있음
+- 네임스페이스 내의 다른 워크로드를 위한 컨피그맵을 마운트
+  - 다른 워크로드를 위한 정보(예: DB 호스트 이름) 획득에 사용될 수 있음
+- 네임스페이스 내의 다른 워크로드를 위한 볼륨을 마운트
+  - 다른 워크로드를 위한 정보의 획득 및 수정에 사용될 수 있음
+
+{{< caution >}}
+시스템 관리자는 위와 같은 영역을 수정하는 CRD를 배포할 때 주의를 기울여야 한다. 
+이들은 의도하지 않은 권한 확대 경로를 노출할 수 있다. 
+RBAC 제어에 대해 결정할 때 이와 같은 사항을 고려해야 한다.
+{{< /caution >}}
 
 ## {{% heading "whatsnext" %}}
 

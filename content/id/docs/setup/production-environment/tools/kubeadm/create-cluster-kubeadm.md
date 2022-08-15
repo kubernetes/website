@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-Perkakas <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">`kubeadm` membantu kamu membuat sebuah klaster Kubernetes minimum yang layak dan sesuai dengan _best practice_. Bahkan, kamu dapat menggunakan `kubeadm` untuk membuat sebuah klaster yang lolos [uji Kubernetes Conformance](https://kubernetes.io/blog/2017/10/software-conformance-certification).  
+Perkakas <img src="/images/kubeadm-stacked-color.png" align="right" width="150px">`kubeadm` membantu kamu membuat sebuah klaster Kubernetes minimum yang layak dan sesuai dengan _best practice_. Bahkan, kamu dapat menggunakan `kubeadm` untuk membuat sebuah klaster yang lolos [uji Kubernetes Conformance](https://kubernetes.io/blog/2017/10/software-conformance-certification).  
 `kubeadm` juga mendukung fungsi siklus hidup (_lifecycle_)
 klaster lainnya, seperti [_bootstrap token_](/docs/reference/access-authn-authz/bootstrap-tokens/) dan pembaruan klaster (_cluster upgrade_).
 
@@ -635,5 +635,3 @@ mendukung platform pilihanmu.
 ## Penyelesaian masalah
 
 Jika kamu menemui kesulitan dengan kubeadm, silakan merujuk pada [dokumen penyelesaian masalah](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
-
-

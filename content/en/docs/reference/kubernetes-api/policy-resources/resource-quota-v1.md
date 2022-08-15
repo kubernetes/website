@@ -81,10 +81,14 @@ ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
     - **scopeSelector.matchExpressions.operator** (string), required
 
       Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
+      
+      
 
     - **scopeSelector.matchExpressions.scopeName** (string), required
 
       The name of the scope that the selector applies to.
+      
+      
 
     - **scopeSelector.matchExpressions.values** ([]string)
 
@@ -387,6 +391,11 @@ POST /api/v1/namespaces/{namespace}/resourcequotas
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -439,6 +448,11 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -487,6 +501,11 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** (*in query*): string
@@ -539,6 +558,11 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -554,6 +578,8 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}
 
 
 200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
+
+201 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Created
 
 401: Unauthorized
 
@@ -592,6 +618,11 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -607,6 +638,8 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 
 
 200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
+
+201 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Created
 
 401: Unauthorized
 

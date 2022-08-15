@@ -72,14 +72,14 @@ PR 코멘트를 남기는 것이 도움이 되지만, 대신 다른 사람의 PR
 [Prow](https://github.com/kubernetes/test-infra/blob/master/prow/README.md)는
 풀 리퀘스트 (PR)에 대한 작업을 실행하는 쿠버네티스 기반 CI/CD 시스템이다. Prow는
 챗봇 스타일 명령으로 쿠버네티스
-조직 전체에서 [레이블 추가와 제거](#이슈-레이블-추가와-제거), 이슈 종료 및 승인자 할당과 같은 GitHub 작업을 처리할 수 ​​있다. `/<command-name>` 형식을 사용하여 Prow 명령을 GitHub 코멘트로 입력한다.
+조직 전체에서 [레이블 추가와 제거](#이슈-레이블-추가와-제거), 이슈 종료 및 승인자 할당과 같은 GitHub 작업을 처리할 수 있다. `/<command-name>` 형식을 사용하여 Prow 명령을 GitHub 코멘트로 입력한다.
 
 리뷰어와 승인자가 사용하는 가장 일반적인 Prow 명령은 다음과 같다.
 
 {{< table caption="리뷰를 위한 Prow 명령" >}}
 Prow 명령     | 역할 제한           | 설명
 :------------|:------------------|:-----------
-`/lgtm` | 누구나, 리뷰어나 승인자가 사용한다면 자동화를 트리거한다. | PR 리뷰를 마치고 변경 사항에 만족했음을 나타낸다.
+`/lgtm` | 조직 멤버 | PR 리뷰를 마치고 변경 사항에 만족했음을 나타낸다.
 `/approve` | 승인자 | PR을 병합(merge)하기 위해 승인한다.
 `/assign` | 리뷰어 또는 승인자 | PR을 리뷰하거나 승인할 사람을 지정한다.
 `/close` | 리뷰어 또는 승인자 | 이슈 또는 PR을 닫는다.
@@ -121,7 +121,7 @@ PR에서 사용할 수 있는 명령의 전체 목록을 보려면
   `priority/important-longterm` | 6개월 이내에 이 작업을 수행한다.
   `priority/backlog` | 무기한 연기할 수 있다. 자원이 있을 때 수행한다.
   `priority/awaiting-more-evidence` | 잠재적으로 좋은 이슈에 대해 잊지 않도록 표시한다.
-  `help` 또는 `good first issue` | 쿠버네티스나 SIG Docs 경험이 거의 없는 사람에게 적합하다. 자세한 내용은 [도움이 필요함 및 좋은 첫 번째 이슈 레이블](https://github.com/kubernetes/community/blob/master/contributors/guide/help-wanted.md)을 참고한다.
+  `help` 또는 `good first issue` | 쿠버네티스나 SIG Docs 경험이 거의 없는 사람에게 적합하다. 자세한 내용은 [도움이 필요함 및 좋은 첫 번째 이슈 레이블](https://kubernetes.dev/docs/guide/help-wanted/)을 참고한다.
 
   {{< /table >}}
 
@@ -181,7 +181,7 @@ SIG Docs가 처리 방법을 문서화할 정도로 다음과 같은 유형의 �
 
 ### 블로그 이슈
 
-[쿠버네티스 블로그](https://kubernetes.io/blog/) 항목은 시간이 지남에 따라
+[쿠버네티스 블로그](/blog/) 항목은 시간이 지남에 따라
 구식이 될 것으로 예상한다. 따라서, 1년 미만의 블로그 항목만 유지 관리한다.
 1년이 지난 블로그 항목과 관련된 이슈일 경우,
 수정하지 않고 이슈를 닫는다.
@@ -221,3 +221,5 @@ https://github.com/kubernetes/kubernetes 에서
 
 문서에 대한 이슈인 경우 이 이슈를 다시 여십시오.
 ```
+
+

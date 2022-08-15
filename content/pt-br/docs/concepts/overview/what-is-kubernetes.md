@@ -90,5 +90,5 @@ Kubernetes:
 
 ## {{% heading "whatsnext" %}}
 
-*   Dê uma olhada em [Componentes do Kubernetes](/docs/concepts/overview/components/).
+*   Dê uma olhada em [Componentes do Kubernetes](/pt-br/docs/concepts/overview/components/).
 *   Pronto para [Iniciar](/docs/setup/)?

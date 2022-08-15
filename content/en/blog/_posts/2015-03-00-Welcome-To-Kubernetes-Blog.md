@@ -1,9 +1,13 @@
 ---
-title: Welcome to the Kubernetes Blog! 
+title: Welcome to the Kubernetes Blog!
 date: 2015-03-20
 slug: welcome-to-kubernetes-blog
 url: /blog/2015/03/Welcome-To-Kubernetes-Blog
+evergreen: true
 ---
+
+**Author:** Kit Merker (Google)
+
 Welcome to the new Kubernetes Blog. Follow this blog to learn about the Kubernetes Open Source project. We plan to post release notes, how-to articles, events, and maybe even some off topic fun here from time to time.
 
 
@@ -25,6 +29,3 @@ To start things off, here's a roundup of recent Kubernetes posts from other site
 
 
 Happy cloud computing!
-
-
- - Kit Merker - Product Manager, Google Cloud Platform

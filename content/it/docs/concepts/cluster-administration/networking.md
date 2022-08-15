@@ -59,7 +59,7 @@ parla con altre macchine virtuali nel tuo progetto. Questo è lo stesso modello 
 
 Gli indirizzi IP di Kubernetes esistono nello scope `Pod` - contenitori all'interno di un 'Pod`
 condividere i loro spazi dei nomi di rete, compreso il loro indirizzo IP. Ciò significa che
-i contenitori all'interno di un `Pod` possono raggiungere tutti gli altri porti su` localhost`. Questo
+i contenitori all'interno di un `Pod` possono raggiungere tutti gli altri porti su `localhost`. Questo
 significa anche che i contenitori all'interno di un 'Pod` devono coordinare l'utilizzo della porta, ma questo
 non è diverso dai processi in una VM. Questo è chiamato il modello "IP-per-pod".
 
@@ -127,7 +127,7 @@ di [avere simultaneamente accesso a diverse implementazioni](https://github.com/
 del [modello di rete Kubernetes](https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) in runtime.
 Ciò include qualsiasi implementazione che funziona come un [plugin CNI](https://github.com/containernetworking/cni#3rd-party-plugins),
 come [Flannel](https://github.com/coreos/flannel#flanella), [Calico](http://docs.projectcalico.org/),
-[Romana](http://romana.io), [Weave-net](https://www.weave.works/products/tessere-net/).
+[Romana](https://github.com/romana/romana), [Weave-net](https://www.weave.works/products/tessere-net/).
 
 CNI-Genie supporta anche [assegnando più indirizzi IP a un pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-indirizzi-per-pod), ciascuno da un diverso plugin CNI.
 
@@ -153,7 +153,7 @@ complessità della rete richiesta per implementare Kubernetes su larga scala all
 
 226/5000
 [Contiv](https://github.com/contiv/netplugin) fornisce un networking configurabile (nativo l3 usando BGP,
-overlay usando vxlan, classic l2 o Cisco-SDN / ACI) per vari casi d'uso. [Contiv](http://contiv.io) è tutto aperto.
+overlay usando vxlan, classic l2 o Cisco-SDN / ACI) per vari casi d'uso. [Contiv](https://contivpp.io/) è tutto aperto.
 
 ### Contrail / Tungsten Fabric
 
@@ -195,10 +195,10 @@ Docker è avviato con:
 DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
 ```
 
-Questo bridge è creato da Kubelet (controllato da `--network-plugin = kubenet` flag) in base al `Nodo` .spec.podCIDR`.
+Questo bridge è creato da Kubelet (controllato da `--network-plugin = kubenet` flag) in base al Nodo `.spec.podCIDR`.
 
 Docker ora assegna gli IP dal blocco `cbr-cidr`. I contenitori possono raggiungere l'un l'altro e `Nodi` sul
-ponte` cbr0`. Questi IP sono tutti instradabili all'interno della rete del progetto GCE.
+ponte `cbr0`. Questi IP sono tutti instradabili all'interno della rete del progetto GCE.
 
 GCE non sa nulla di questi IP, quindi non lo farà loro per il traffico internet in uscita. Per ottenere ciò viene
 utilizzata una regola iptables masquerade (aka SNAT - per far sembrare che i pacchetti provengano dal `Node` stesso)
@@ -255,7 +255,7 @@ Lars Kellogg-Stedman.
 
 ### Multus (a Multi Network plugin)
 
-[Multus](https://github.com/Intel-Corp/multus-cni) è un plugin Multi CNI per supportare la funzionalità Multi
+[Multus](https://github.com/k8snetworkplumbingwg/multus-cni) è un plugin Multi CNI per supportare la funzionalità Multi
 Networking in Kubernetes utilizzando oggetti di rete basati su CRD in Kubernetes.
 
 Multus supporta tutti i [plug-in di riferimento](https://github.com/containernetworking/plugins)
@@ -292,12 +292,6 @@ Nuage è stato progettato pensando alle applicazioni e semplifica la dichiarazio
 applicazioni. Il motore di analisi in tempo reale della piattaforma consente la visibilità e il monitoraggio della
 sicurezza per le applicazioni Kubernetes.
 
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/) è un po 'più maturo ma anche
-modo complicato per costruire una rete di sovrapposizione. Questo è approvato da molti dei
-"Grandi negozi" per il networking.
-
 ### OVN (Apri rete virtuale)
 
 OVN è una soluzione di virtualizzazione della rete opensource sviluppata da
@@ -322,7 +316,7 @@ Flannel, alias [canal](https://github.com/tigera/canal) o native GCE, AWS o netw
 
 ### Romana
 
-[Romana](http://romana.io) è una soluzione di automazione della sicurezza e della rete open source che consente di
+[Romana](https://github.com/romana/romana) è una soluzione di automazione della sicurezza e della rete open source che consente di
 distribuire Kubernetes senza una rete di overlay. Romana supporta Kubernetes
 [Politica di rete](/docs/concepts/services-networking/network-policies/) per fornire isolamento tra gli spazi dei nomi
 di rete.
@@ -341,5 +335,3 @@ entrambi i casi, la rete fornisce un indirizzo IP per pod, come è standard per 
 
 Il progetto iniziale del modello di rete e la sua logica, e un po 'di futuro i piani sono descritti in maggior
 dettaglio nella [progettazione della rete documento](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
-
-

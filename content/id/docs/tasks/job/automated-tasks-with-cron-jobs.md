@@ -146,7 +146,7 @@ Semua modifikasi pada sebuah CronJob, terutama `.spec`, akan diterapkan pada pro
 `.spec.schedule` adalah _field_ yang wajib diisi dari sebuah `.spec`
 Dibutuhkan sebuah format string [Cron](https://en.wikipedia.org/wiki/Cron), misalnya `0 * * * *` atau `@hourly`, sebagai jadwal Job untuk dibuat dan dieksekusi.
 
-Format ini juga mencakup nilai langkah `Vixie cron`. Seperti penjelasan di [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
+Format ini juga mencakup nilai langkah "Vixie cron". Seperti penjelasan di [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
 
 > Nilai langkah dapat digunakan bersama dengan rentang. Sebuah rentang diikuti dengan
 > `/<number>` menentukan lompatan angka melalui rentang. 
@@ -162,8 +162,8 @@ Sebuah tanda tanya (`?`) dalam penjadwalan memiliki makna yang sama dengan tanda
 ### Templat Job
 
 `.spec.JobTemplate` adalah templat untuk sebuah Job, dan itu wajib.
-Templat Job memiliki skema yang sama dengan [Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/), kecuali jika bersarang dan tidak memiliki sebuah `apiVersion` atau `kind`.
-Untuk informasi lebih lanjut tentang menulis sebuah Job `.spec` lihat [Menulis spesifikasi Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/#writing-a-job-spec).
+Templat Job memiliki skema yang sama dengan [Job](/id/docs/concepts/workloads/controllers/job/), kecuali jika bersarang dan tidak memiliki sebuah `apiVersion` atau `kind`.
+Untuk informasi lebih lanjut tentang menulis sebuah Job `.spec` lihat [Menulis spesifikasi Job](/id/docs/concepts/workloads/controllers/job/#writing-a-job-spec).
 
 ### _Starting Deadline_
 

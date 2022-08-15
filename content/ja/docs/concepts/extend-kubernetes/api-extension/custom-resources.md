@@ -14,7 +14,7 @@ weight: 10
 
 ## カスタムリソース
 
-*リソース* は、[Kubernetes API](/docs/reference/using-api/api-overview/)のエンドポイントで、特定の[APIオブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)のコレクションを保持します。例えば、ビルトインの *Pods* リソースは、Podオブジェクトのコレクションを包含しています。
+*リソース* は、[Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)のエンドポイントで、特定の[APIオブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)のコレクションを保持します。例えば、ビルトインの *Pods* リソースは、Podオブジェクトのコレクションを包含しています。
 
 *カスタムリソース* は、Kubernetes APIの拡張で、デフォルトのKubernetesインストールでは、必ずしも利用できるとは限りません。つまりそれは、特定のKubernetesインストールのカスタマイズを表します。しかし、今現在、多数のKubernetesのコア機能は、カスタムリソースを用いて作られており、Kubernetesをモジュール化しています。
 
@@ -118,7 +118,7 @@ CRDオブジェクトの名前は[DNSサブドメイン名](/ja/docs/concepts/ov
 
 通常、Kubernetes APIの各リソースは、RESTリクエストとオブジェクトの永続的なストレージを管理するためのコードが必要です。メインのKubernetes APIサーバーは *Pod* や *Service* のようなビルトインのリソースを処理し、またカスタムリソースも[CRD](#customresourcedefinition)を通じて同じように管理することができます。
 
-[アグリゲーションレイヤー](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)は、独自のスタンドアローンAPIサーバーを書き、デプロイすることで、カスタムリソースに特化した実装の提供を可能にします。メインのAPIサーバーが、処理したいカスタムリソースへのリクエストを委譲することで、他のクライアントからも利用できるようにします。
+[アグリゲーションレイヤー](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)は、独自のAPIサーバーを書き、デプロイすることで、カスタムリソースに特化した実装の提供を可能にします。メインのAPIサーバーが、処理したいカスタムリソースへのリクエストを独自のAPIサーバーに委譲することで、他のクライアントからも利用できるようにします。
 
 ## カスタムリソースの追加方法を選択する
 

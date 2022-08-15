@@ -15,7 +15,7 @@ Generate the certificate for serving etcd
 ### Synopsis
 
 
-Generate the certificate for serving etcd, and save them into etcd/server.cert and etcd/server.key files.
+Generate the certificate for serving etcd, and save them into etcd/server.crt and etcd/server.key files.
 
 Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1
 

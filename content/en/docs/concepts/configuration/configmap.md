@@ -15,7 +15,6 @@ If the data you want to store are confidential, use a
 or use additional (third party) tools to keep your data private.
 {{< /caution >}}
 
-
 <!-- body -->
 ## Motivation
 
@@ -42,7 +41,7 @@ that lets you store configuration for other objects to use. Unlike most
 Kubernetes objects that have a `spec`, a ConfigMap has `data` and `binaryData`
 fields. These fields accept key-value pairs as their values.  Both the `data`
 field and the `binaryData` are optional. The `data` field is designed to
-contain UTF-8 byte sequences while the `binaryData` field is designed to
+contain UTF-8 strings while the `binaryData` field is designed to
 contain binary data as base64-encoded strings.
 
 The name of a ConfigMap must be a valid
@@ -60,6 +59,11 @@ definition to create an [immutable ConfigMap](#configmap-immutable).
 You can write a Pod `spec` that refers to a ConfigMap and configures the container(s)
 in that Pod based on the data in the ConfigMap. The Pod and the ConfigMap must be in
 the same {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
+
+{{< note >}}
+The `spec` of a {{< glossary_tooltip text="static Pod" term_id="static-pod" >}} cannot refer to a ConfigMap
+or any other API objects.
+{{< /note >}}
 
 Here's an example ConfigMap that has some keys with single values,
 and other keys where the value looks like a fragment of a configuration
@@ -234,6 +238,10 @@ propagation delay, where the cache propagation delay depends on the chosen cache
 
 ConfigMaps consumed as environment variables are not updated automatically and require a pod restart. 
 
+{{< note >}}
+A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive ConfigMap updates.
+{{< /note >}}
+
 ## Immutable ConfigMaps {#configmap-immutable}
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
@@ -271,7 +279,6 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
 
 * Read about [Secrets](/docs/concepts/configuration/secret/).
 * Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* Read about [changing a ConfigMap (or any other Kubernetes object)](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
-
-

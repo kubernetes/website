@@ -67,6 +67,3 @@ kubeadm reset phase remove-etcd-member [flags]
 
 </tbody>
 </table>
-
-
-

@@ -108,7 +108,7 @@ Services will always have the `ready` condition set to `true`.
 
 #### Serving
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `serving` is identical to the `ready` condition, except it does not account for terminating states.
 Consumers of the EndpointSlice API should check this condition if they care about pod readiness while
@@ -127,7 +127,7 @@ for terminating pods independent of the existing semantics for `ready`.
 
 #### Terminating
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `Terminating` is a condition that indicates whether an endpoint is terminating.
 For pods, this is any pod that has a deletion timestamp set.
@@ -147,9 +147,9 @@ In the v1 API, the per endpoint `topology` was effectively removed in favor of
 the dedicated fields `nodeName` and `zone`.
 
 Setting arbitrary topology fields on the `endpoint` field of an `EndpointSlice`
-resource has been deprecated and is not be supported in the v1 API. Instead,
-the v1 API supports setting individual `nodeName` and `zone` fields. These
-fields are automatically translated between API versions. For example, the
+resource has been deprecated and is not supported in the v1 API.
+Instead, the v1 API supports setting individual `nodeName` and `zone` fields.
+These fields are automatically translated between API versions. For example, the
 value of the `"topology.kubernetes.io/zone"` key in the `topology` field in
 the v1beta1 API is accessible as the `zone` field in the v1 API.
 {{< /note >}}
@@ -249,5 +249,4 @@ implementation in `kube-proxy`.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Enabling EndpointSlices](/docs/tasks/administer-cluster/enabling-endpointslices)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)

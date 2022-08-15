@@ -70,14 +70,9 @@ spec:
 
 Patch your Deployment:
 
-{{< tabs name="kubectl_patch_example" >}}
-{{{< tab name="Bash" codelang="bash" >}}
-kubectl patch deployment patch-demo --patch "$(cat patch-file.yaml)"
-{{< /tab >}}
-{{< tab name="PowerShell" codelang="posh" >}}
-kubectl patch deployment patch-demo --patch $(Get-Content patch-file.yaml -Raw)
-{{< /tab >}}}
-{{< /tabs >}}
+```shell
+kubectl patch deployment patch-demo --patch-file patch-file.yaml
+```
 
 View the patched Deployment:
 
@@ -87,7 +82,7 @@ kubectl get deployment patch-demo --output yaml
 
 The output shows that the PodSpec in the Deployment has two Containers:
 
-```shell
+```yaml
 containers:
 - image: redis
   imagePullPolicy: Always
@@ -149,21 +144,24 @@ struct has a `patchStrategy` of `merge`:
 type PodSpec struct {
   ...
   Containers []Container `json:"containers" patchStrategy:"merge" patchMergeKey:"name" ...`
+  ...
+}
 ```
 
 You can also see the patch strategy in the
 [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json):
 
-```json
+```yaml
 "io.k8s.api.core.v1.PodSpec": {
-    ...
-     "containers": {
-      "description": "List of containers belonging to the pod. ...
-      },
-      "x-kubernetes-patch-merge-key": "name",
-      "x-kubernetes-patch-strategy": "merge"
-     },
+    ...,
+    "containers": {
+        "description": "List of containers belonging to the pod.  ...."
+    },
+    "x-kubernetes-patch-merge-key": "name",
+    "x-kubernetes-patch-strategy": "merge"
+}
 ```
+<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 And you can see the patch strategy in the
 [Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
@@ -183,7 +181,7 @@ spec:
 Patch your Deployment:
 
 ```shell
-kubectl patch deployment patch-demo --patch "$(cat patch-file-tolerations.yaml)"
+kubectl patch deployment patch-demo --patch-file patch-file-tolerations.yaml
 ```
 
 View the patched Deployment:
@@ -194,11 +192,11 @@ kubectl get deployment patch-demo --output yaml
 
 The output shows that the PodSpec in the Deployment has only one Toleration:
 
-```shell
+```yaml
 tolerations:
-      - effect: NoSchedule
-        key: disktype
-        value: ssd
+- effect: NoSchedule
+  key: disktype
+  value: ssd
 ```
 
 Notice that the `tolerations` list in the PodSpec was replaced, not merged. This is because
@@ -209,6 +207,8 @@ strategic merge patch uses the default patch strategy, which is `replace`.
 type PodSpec struct {
   ...
   Tolerations []Toleration `json:"tolerations,omitempty" protobuf:"bytes,22,opt,name=tolerations"`
+  ...
+}
 ```
 
 ## Use a JSON merge patch to update a Deployment
@@ -249,7 +249,7 @@ spec:
 In your patch command, set `type` to `merge`:
 
 ```shell
-kubectl patch deployment patch-demo --type merge --patch "$(cat patch-file-2.yaml)"
+kubectl patch deployment patch-demo --type merge --patch-file patch-file-2.yaml
 ```
 
 View the patched Deployment:
@@ -308,18 +308,13 @@ spec:
 
 Patch your Deployment:
 
-{{< tabs name="kubectl_retainkeys_example" >}}
-{{{< tab name="Bash" codelang="bash" >}}
-kubectl patch deployment retainkeys-demo --patch "$(cat patch-file-no-retainkeys.yaml)"
-{{< /tab >}}
-{{< tab name="PowerShell" codelang="posh" >}}
-kubectl patch deployment retainkeys-demo --patch $(Get-Content patch-file-no-retainkeys.yaml -Raw)
-{{< /tab >}}}
-{{< /tabs >}}
+```shell
+kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-no-retainkeys.yaml
+```
 
 In the output, you can see that it is not possible to set `type` as `Recreate` when a value is defined for `spec.strategy.rollingUpdate`:
 
-```shell
+```
 The Deployment "retainkeys-demo" is invalid: spec.strategy.rollingUpdate: Forbidden: may not be specified when strategy `type` is 'Recreate'
 ```
 
@@ -339,14 +334,9 @@ With this patch, we indicate that we want to retain only the `type` key of the `
 
 Patch your Deployment again with this new patch:
 
-{{< tabs name="kubectl_retainkeys2_example" >}}
-{{{< tab name="Bash" codelang="bash" >}}
-kubectl patch deployment retainkeys-demo --patch "$(cat patch-file-retainkeys.yaml)"
-{{< /tab >}}
-{{< tab name="PowerShell" codelang="posh" >}}
-kubectl patch deployment retainkeys-demo --patch $(Get-Content patch-file-retainkeys.yaml -Raw)
-{{< /tab >}}}
-{{< /tabs >}}
+```shell
+kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-retainkeys.yaml
+```
 
 Examine the content of the Deployment:
 
@@ -356,7 +346,7 @@ kubectl get deployment retainkeys-demo --output yaml
 
 The output shows that the strategy object in the Deployment does not contain the `rollingUpdate` key anymore:
 
-```shell
+```yaml
 spec:
   strategy:
     type: Recreate
@@ -380,19 +370,24 @@ type DeploymentSpec struct {
   ...
   // +patchStrategy=retainKeys
   Strategy DeploymentStrategy `json:"strategy,omitempty" patchStrategy:"retainKeys" ...`
+  ...
+}
 ```
 
 You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json):
 
-```json
+```yaml
 "io.k8s.api.apps.v1.DeploymentSpec": {
-   ...
-  "strategy": {
-    "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStrategy",
-    "description": "The deployment strategy to use to replace existing pods with new ones.",
-    "x-kubernetes-patch-strategy": "retainKeys"
-  },
+    ...,
+    "strategy": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStrategy",
+        "description": "The deployment strategy to use to replace existing pods with new ones.",
+        "x-kubernetes-patch-strategy": "retainKeys"
+    },
+    ....
+}
 ```
+<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 And you can see the `retainKeys` strategy in the
 [Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
@@ -425,10 +420,10 @@ The following commands are equivalent:
 
 
 ```shell
-kubectl patch deployment patch-demo --patch "$(cat patch-file.yaml)"
+kubectl patch deployment patch-demo --patch-file patch-file.yaml
 kubectl patch deployment patch-demo --patch 'spec:\n template:\n  spec:\n   containers:\n   - name: patch-demo-ctr-2\n     image: redis'
 
-kubectl patch deployment patch-demo --patch "$(cat patch-file.json)"
+kubectl patch deployment patch-demo --patch-file patch-file.json
 kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"containers": [{"name": "patch-demo-ctr-2","image": "redis"}]}}}}'
 ```
 

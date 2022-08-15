@@ -43,17 +43,17 @@ You may need to delete the associated headless service separately after the Stat
 kubectl delete service <service-name>
 ```
 
-When deleting a StatefulSet through `kubectl`, the StatefulSet scales down to 0. All Pods that are part of this workload are also deleted. If you want to delete only the StatefulSet and not the Pods, use `--cascade=false`.
+When deleting a StatefulSet through `kubectl`, the StatefulSet scales down to 0. All Pods that are part of this workload are also deleted. If you want to delete only the StatefulSet and not the Pods, use `--cascade=orphan`.
 For example:
 
 ```shell
-kubectl delete -f <file.yaml> --cascade=false
+kubectl delete -f <file.yaml> --cascade=orphan
 ```
 
-By passing `--cascade=false` to `kubectl delete`, the Pods managed by the StatefulSet are left behind even after the StatefulSet object itself is deleted. If the pods have a label `app=myapp`, you can then delete them as follows:
+By passing `--cascade=orphan` to `kubectl delete`, the Pods managed by the StatefulSet are left behind even after the StatefulSet object itself is deleted. If the pods have a label `app.kubernetes.io/name=MyApp`, you can then delete them as follows:
 
 ```shell
-kubectl delete pods -l app=myapp
+kubectl delete pods -l app.kubernetes.io/name=MyApp
 ```
 
 ### Persistent Volumes
@@ -70,13 +70,13 @@ To delete everything in a StatefulSet, including the associated pods, you can ru
 
 ```shell
 grace=$(kubectl get pods <stateful-set-pod> --template '{{.spec.terminationGracePeriodSeconds}}')
-kubectl delete statefulset -l app=myapp
+kubectl delete statefulset -l app.kubernetes.io/name=MyApp
 sleep $grace
-kubectl delete pvc -l app=myapp
+kubectl delete pvc -l app.kubernetes.io/name=MyApp
 
 ```
 
-In the example above, the Pods have the label `app=myapp`; substitute your own label as appropriate.
+In the example above, the Pods have the label `app.kubernetes.io/name=MyApp`; substitute your own label as appropriate.
 
 ### Force deletion of StatefulSet pods
 

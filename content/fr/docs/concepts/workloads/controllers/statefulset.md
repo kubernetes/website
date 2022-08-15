@@ -32,7 +32,7 @@ Un [Deployment](/fr/docs/concepts/workloads/controllers/deployment/) ou
 
 ## Limitations
 
-* Le stockage pour un Pod donné doit être provisionné soit par un [approvisionneur de PersistentVolume](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) basé sur un `storage class` donné, soit pré-provisionné par un admin.
+* Le stockage pour un Pod donné doit être provisionné soit par un [approvisionneur de PersistentVolume](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md) basé sur un `storage class` donné, soit pré-provisionné par un admin.
 * Supprimer et/ou réduire l'échelle d'un StatefulSet à zéro ne supprimera *pas* les volumes associés avec le StatefulSet. Ceci est fait pour garantir la sécurité des données, ce qui a généralement plus de valeur qu'une purge automatique de toutes les ressources relatives à un StatefulSet.
 * Les StatefulSets nécessitent actuellement un [Service Headless](/fr/docs/concepts/services-networking/service/#headless-services) qui est responsable de l'identité réseau des Pods. Vous êtes responsable de la création de ce Service.
 * Les StatefulSets ne fournissent aucune garantie de la terminaison des pods lorsqu'un StatefulSet est supprimé. Pour avoir une terminaison ordonnée et maîtrisée des pods du StatefulSet, il est possible de réduire l'échelle du StatefulSet à 0 avant de le supprimer.
@@ -178,7 +178,7 @@ Lorsque le StatefulSet {{< glossary_tooltip term_id="controller" >}} crée un Po
 il ajoute une étiquette, `statefulset.kubernetes.io/pod-name`, renseignée avec le nom du Pod.
 Cette étiquette vous permet d'attacher un Service à un Pod spécifique du StatefulSet.
 
-## Garanties de déploiment et de mise à l'échelle
+## Garanties de déploiement et de mise à l'échelle
 
 * Pour un StatefulSet avec N réplicas, lorsque les Pods sont déployés, ils sont créés de manière séquentielle, dans l'ordre {0..N-1}.
 * Lorsque les Pods sont supprimés, ils sont terminés dans l'ordre inverse, {N-1..0}.

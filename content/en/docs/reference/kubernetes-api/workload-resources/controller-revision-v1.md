@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ControllerRevision implements an immutable snapshot of state data."
 title: "ControllerRevision"
-weight: 8
+weight: 7
 auto_generated: true
 ---
 
@@ -322,6 +322,11 @@ POST /apis/apps/v1/namespaces/{namespace}/controllerrevisions
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -374,6 +379,11 @@ PUT /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -424,6 +434,11 @@ PATCH /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -439,6 +454,8 @@ PATCH /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 
 
 200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): Created
 
 401: Unauthorized
 

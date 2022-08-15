@@ -9,7 +9,7 @@ weight: 20
 <!-- overview -->
 
 Quando si utilizza l'autenticazione del certificato client, è possibile generare certificati
-manualmente tramite `easyrsa`,` openssl` o `cfssl`.
+manualmente tramite `easyrsa`, `openssl` o `cfssl`.
 
 
 

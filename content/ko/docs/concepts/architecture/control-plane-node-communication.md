@@ -8,7 +8,7 @@ aliases:
 
 <!-- overview -->
 
-이 문서는 컨트롤 플레인(API 서버)과 쿠버네티스 클러스터 사이에 대한 통신 경로의 목록을 작성한다. 이는 사용자가 신뢰할 수 없는 네트워크(또는 클라우드 공급자의 완전한 퍼블릭 IP)에서 클러스터를 실행할 수 있도록 네트워크 구성을 강화하기 위한 맞춤 설치를 할 수 있도록 한다.
+이 문서는 API 서버와 쿠버네티스 클러스터 사이에 대한 통신 경로의 목록을 작성한다. 이는 사용자가 신뢰할 수 없는 네트워크(또는 클라우드 공급자의 완전한 퍼블릭 IP)에서 클러스터를 실행할 수 있도록 네트워크 구성을 강화하기 위한 맞춤 설치를 할 수 있도록 한다.
 
 
 
@@ -37,7 +37,7 @@ API 서버에 연결하려는 파드는 쿠버네티스가 공개 루트 인증�
 API 서버에서 kubelet으로의 연결은 다음의 용도로 사용된다.
 
 * 파드에 대한 로그를 가져온다.
-* 실행 중인 파드에 (kubectl을 통해) 연결한다.
+* 실행 중인 파드에 (보통의 경우 kubectl을 통해) 연결한다.
 * kubelet의 포트-포워딩 기능을 제공한다.
 
 이 연결은 kubelet의 HTTPS 엔드포인트에서 종료된다. 기본적으로, API 서버는 kubelet의 서빙(serving) 인증서를 확인하지 않으므로, 연결이 중간자(man-in-the-middle) 공격의 대상이 되며, 신뢰할 수 없는 네트워크 및/또는 공용 네트워크에서 실행하기에 **안전하지 않다** .
@@ -58,13 +58,15 @@ API 서버에서 노드, 파드 또는 서비스로의 연결은 기본적으로
 쿠버네티스는 SSH 터널을 지원하여 컨트롤 플레인에서 노드로의 통신 경로를 보호한다. 이 구성에서, API 서버는 클러스터의 각 노드에 SSH 터널을 시작하고(포트 22에서 수신 대기하는 ssh 서버에 연결) 터널을 통해 kubelet, 노드, 파드 또는 서비스로 향하는 모든 트래픽을 전달한다.
 이 터널은 트래픽이 노드가 실행 중인 네트워크 외부에 노출되지 않도록 한다.
 
-SSH 터널은 현재 더 이상 사용되지 않으므로, 수행 중인 작업이 어떤 것인지 모른다면 사용하면 안된다. Konnectivity 서비스는 이 통신 채널을 대체한다.
+{{< note >}}
+SSH 터널은 현재 더 이상 사용되지 않으므로, 수행 중인 작업이 어떤 것인지 모른다면 사용하면 안 된다. [Konnectivity 서비스](#konnectivity-service)가 SSH 통신 채널을 대체한다.
+{{< note >}}
 
-### Konnectivity 서비스
+### Konnectivity 서비스 {#konnectivity-service}
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 SSH 터널을 대체하는 Konnectivity 서비스는 컨트롤 플레인에서 클러스터 통신에 TCP 레벨 프록시를 제공한다. Konnectivity 서비스는 컨트롤 플레인 네트워크의 Konnectivity 서버와 노드 네트워크의 Konnectivity 에이전트, 두 부분으로 구성된다. Konnectivity 에이전트는 Konnectivity 서버에 대한 연결을 시작하고 네트워크 연결을 유지한다.
 Konnectivity 서비스를 활성화한 후, 모든 컨트롤 플레인에서 노드로의 트래픽은 이 연결을 통과한다.
 
-[Konnectivity 서비스 태스크](/docs/tasks/extend-kubernetes/setup-konnectivity/)에 따라 클러스터에서 Konnectivity 서비스를 설정한다.
+[Konnectivity 서비스 태스크](/ko/docs/tasks/extend-kubernetes/setup-konnectivity/)에 따라 클러스터에서 Konnectivity 서비스를 설정한다.

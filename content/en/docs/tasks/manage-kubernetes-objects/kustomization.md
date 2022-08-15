@@ -86,6 +86,43 @@ metadata:
   name: example-configmap-1-8mbdf7882g
 ```
 
+To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`. Here is an example of generating a ConfigMap with a data item from a `.env` file:
+
+```shell
+# Create a .env file
+cat <<EOF >.env
+FOO=Bar
+EOF
+
+cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: example-configmap-1
+  envs:
+  - .env
+EOF
+```
+
+The generated ConfigMap can be examined with the following command:
+
+```shell
+kubectl kustomize ./
+```
+
+The generated ConfigMap is:
+
+```yaml
+apiVersion: v1
+data:
+  FOO: Bar
+kind: ConfigMap
+metadata:
+  name: example-configmap-1-42cfbf598f
+```
+
+{{< note >}}
+Each variable in the `.env` file becomes a separate key in the ConfigMap that you generate. This is different from the previous example which embeds a file named `.properties` (and all its entries) as the value for a single key.
+{{< /note >}}
+
 ConfigMaps can also be generated from literal key-value pairs. To generate a ConfigMap from a literal key-value pair, add an entry to the `literals` list in configMapGenerator. Here is an example of generating a ConfigMap with a data item from a key-value pair:
 
 ```shell
@@ -143,7 +180,7 @@ spec:
       containers:
       - name: app
         image: my-app
-        volumeMount:
+        volumeMounts:
         - name: config
           mountPath: /config
       volumes:
@@ -197,7 +234,7 @@ spec:
       containers:
       - image: my-app
         name: app
-        volumeMount:
+        volumeMounts:
         - mountPath: /config
           name: config
       volumes:
@@ -262,7 +299,7 @@ metadata:
 type: Opaque
 ```
 
-Like ConfigMaps, generated Secrets can be used in Deployments by refering to the name of the secretGenerator:
+Like ConfigMaps, generated Secrets can be used in Deployments by referring to the name of the secretGenerator:
 
 ```shell
 # Create a password.txt file
@@ -290,7 +327,7 @@ spec:
       containers:
       - name: app
         image: my-app
-        volumeMount:
+        volumeMounts:
         - name: password
           mountPath: /secrets
       volumes:
@@ -711,8 +748,8 @@ Since the Service name may change as `namePrefix` or `nameSuffix` is added in th
 not recommended to hard code the Service name in the command argument. For this usage, Kustomize can inject the Service name into containers through `vars`.
 
 ```shell
-# Create a deployment.yaml file
-cat <<EOF > deployment.yaml
+# Create a deployment.yaml file (quoting the here doc delimiter)
+cat <<'EOF' > deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -974,5 +1011,4 @@ deployment.apps "dev-my-nginx" deleted
 * [Kubectl Book](https://kubectl.docs.kubernetes.io)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-
 

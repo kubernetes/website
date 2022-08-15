@@ -46,7 +46,7 @@ FOO_SERVICE_PORT=<porta su cui il servizio è pubblicato>
 ```
 
 I servizi hanno un indirizzo IP dedicato e sono disponibili nei Container anche via DNS
-se il [DNS addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/) è installato nel cluster.
+se il [DNS addon](http://releases.k8s.io/master/cluster/addons/dns/) è installato nel cluster.
 
 ## {{% heading "whatsnext" %}}
 

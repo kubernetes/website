@@ -1,0 +1,68 @@
+# i18n strings for the Norwegian translation.
+
+[main_read_about]
+other = "Les om"
+
+[main_read_more]
+other = "Les mer"
+
+[main_github_invite]
+other = "Interessert kode i Kubernetes?"
+
+[main_github_view_on]
+other = "Åpne på GitHub"
+
+[main_github_create_an_issue]
+other = "Opprett en issue"
+
+[main_community_explore]
+other = "Utforsk folkene bak Kubernetes"
+
+[main_kubernetes_features]
+other = "Egenskaper i Kubernetes"
+
+[main_cncf_project]
+other = """Vi er et <a href="https://cncf.io/">CNCF</a>-prosjekt</p>"""
+
+[main_contribute]
+other = "Bidra"
+
+[main_edit_this_page]
+other = "Endre denne siden"
+
+[main_page_history]
+other ="Side-historikk"
+
+[main_page_last_modified_on]
+other = "Side sist endret"
+
+[main_by]
+other = "av"
+
+[main_documentation_license]
+other = """Kubernetes-forfatterene | Dokumentasjonen er utgitt med <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0-lisens</a>"""
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. Alle retter er reservert. The Linux Foundation har registrerte varemerker. For en oversikt, se <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Bruk av varemerker</a>"""
+
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "All dokumentasjon"
+
+# Community links
+[community_twitter_name]
+other = "Twitter"
+[community_github_name]
+other = "GitHub"
+[community_slack_name]
+other = "Slack"
+[community_stack_overflow_name]
+other = "Stack Overflow"
+[community_forum_name]
+other = "Forum"
+[community_events_calendar]
+other = "Kalender"
+
+# UI elements
+[ui_search_placeholder]
+other = "Søk"

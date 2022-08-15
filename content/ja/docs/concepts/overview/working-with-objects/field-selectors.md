@@ -3,7 +3,7 @@ title: フィールドセレクター(Field Selectors)
 weight: 60
 ---
 
-_フィールドセレクター(Field Selectors)_ は、1つかそれ以上のリソースフィールドの値を元に[Kubernetesリソースを選択](/docs/concepts/overview/working-with-objects/kubernetes-objects)するためのものです。  
+_フィールドセレクター(Field Selectors)_ は、1つかそれ以上のリソースフィールドの値を元に[Kubernetesリソースを選択](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects)するためのものです。  
 フィールドセレクタークエリの例は以下の通りです。  
 
 * `metadata.name=my-service`

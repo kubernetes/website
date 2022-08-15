@@ -151,8 +151,8 @@ Keluarannya akan serupa dengan:
 Name:           build-robot-secret
 Namespace:      default
 Labels:         <none>
-Annotations:    kubernetes.io/service-account.name=build-robot
-                kubernetes.io/service-account.uid=da68f9c6-9d26-11e7-b84e-002dc52800da
+Annotations:    kubernetes.io/service-account.name: build-robot
+                kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800da
 
 Type:   kubernetes.io/service-account-token
 
