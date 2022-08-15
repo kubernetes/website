@@ -48,7 +48,8 @@ Pod topology spread constraints offer you a declarative way to configure that.
 
 ## `topologySpreadConstraints` field
 
-The Pod API includes a field, `spec.topologySpreadConstraints`. Here is an example:
+The Pod API includes a field, `spec.topologySpreadConstraints`. The usage of this field looks like
+the following:
 
 ```yaml
 ---
@@ -67,7 +68,8 @@ spec:
   ### other Pod fields go here
 ```
 
-You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints`.
+You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints` or refer to the
+documents in [scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling).
 
 ### Spread constraint definition
 
@@ -82,9 +84,9 @@ your cluster. Those fields are:
   - if you select `whenUnsatisfiable: DoNotSchedule`, then `maxSkew` defines the
     maximum permitted difference between the number of matching pods in the target
     topology and the _global minimum_
-    (the minimum number of pods that match the label selector in a topology domain).
-    For example, if you have 3 zones with 2, 4 and 5 matching pods respectively,
-    then the global minimum is 2 and `maxSkew` is compared relative to that number.
+    (the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains).
+    For example, if you have 3 zones with 2, 2 and 1 matching pods respectively,
+    `MaxSkew` is set to 1 then the global minimum is 1.
   - if you select `whenUnsatisfiable: ScheduleAnyway`, the scheduler gives higher
     precedence to topologies that would help reduce the skew.
 
@@ -108,10 +110,13 @@ your cluster. Those fields are:
     `minDomains`, this value has no effect on scheduling.
   - If you do not specify `minDomains`, the constraint behaves as if `minDomains` is 1.
 
-- **topologyKey** is the key of [node labels](#node-labels). If two Nodes are labelled
-  with this key and have identical values for that label, the scheduler treats both
-  Nodes as being in the same topology. The scheduler tries to place a balanced number
-  of Pods into each topology domain.
+- **topologyKey** is the key of [node labels](#node-labels). Nodes that have a label with this key
+	and identical values are considered to be in the same topology.
+	We consider each <key, value> as a "bucket", and try to put balanced number
+	of pods into each bucket.
+	We define a domain as a particular instance of a topology.
+	Also, we define an eligible domain as a domain whose nodes meet the requirements of
+	nodeAffinityPolicy and nodeTaintsPolicy.
 
 - **whenUnsatisfiable** indicates how to deal with a Pod if it doesn't satisfy the spread constraint:
   - `DoNotSchedule` (default) tells the scheduler not to schedule it.
@@ -556,7 +561,7 @@ section of the enhancement proposal about Pod topology spread constraints.
   cluster. This could lead to a problem in autoscaled clusters, when a node pool (or
   node group) is scaled to zero nodes, and you're expecting the cluster to scale up,
   because, in this case, those topology domains won't be considered until there is
-  at least one node in them.  
+  at least one node in them.
   You can work around this by using an cluster autoscaling tool that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
