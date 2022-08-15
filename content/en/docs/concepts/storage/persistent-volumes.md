@@ -719,9 +719,13 @@ is turned on.
   more than one default is specified, the admission plugin forbids the creation of
   all PVCs.
 * If the admission plugin is turned off, there is no notion of a default
-  StorageClass. All PVCs that have no `storageClassName` can be bound only to PVs that
-  have no class. In this case, the PVCs that have no `storageClassName` are treated the
-  same way as PVCs that have their `storageClassName` set to `""`.
+  StorageClass. All PVCs that have `storageClassName` set to `""` can be
+  bound only to PVs that have `storageClassName` also set to `""`.
+  However, PVCs with missing `storageClassName` can be updated later once
+  default StorageClass becomes available. If the PVC gets updated it will no
+  longer bind to PVs that have `storageClassName` also set to `""`.
+
+See [retroactive default StorageClass assignment](#retroactive-default-storageclass-assignment) for more details.
 
 Depending on installation method, a default StorageClass may be deployed
 to a Kubernetes cluster by addon manager during installation.
@@ -737,6 +741,20 @@ Currently, a PVC with a non-empty `selector` can't have a PV dynamically provisi
 In the past, the annotation `volume.beta.kubernetes.io/storage-class` was used instead
 of `storageClassName` attribute. This annotation is still working; however,
 it won't be supported in a future Kubernetes release.
+
+
+#### Retroactive default StorageClass assignment
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+You can create a PersistentVolumeClaim without specifying a `storageClassName` for the new PVC, and you can do so even when no default StorageClass exists in your cluster. In this case, the new PVC creates as you defined it, and the `storageClassName` of that PVC remains unset until default becomes available.
+However, if you enable the [`RetroactiveDefaultStorageClass` feature gate](/docs/reference/command-line-tools-reference/feature-gates/) then Kubernetes behaves differently: existing PVCs without `storageClassName` update to use the new default StorageClass.
+
+When a default StorageClass becomes available, the control plane identifies any existing PVCs without `storageClassName`. For the PVCs that either have an empty value for `storageClassName` or do not have this key, the control plane then updates those PVCs to set `storageClassName` to match the new default StorageClass. If you have an existing PVC where the `storageClassName` is `""`, and you configure a default StorageClass, then this PVC will not get updated.
+
+In order to keep binding to PVs with `storageClassName` set to `""` (while a default StorageClass is present), you need to set the `storageClassName` of the associated PVC to `""`.
+
+This behavior helps administrators change default StorageClass by removing the old one first and then creating or setting another one. This brief window while there is no default causes PVCs without `storageClassName` created at that time to not have any default, but due to the retroactive default StorageClass assignment this way of changing defaults is safe.
 
 ## Claims As Volumes
 
