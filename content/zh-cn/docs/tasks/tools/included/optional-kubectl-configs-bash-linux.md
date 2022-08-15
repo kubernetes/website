@@ -71,12 +71,12 @@ You now need to ensure that the kubectl completion script gets sourced in all yo
 可以通过以下两种方法进行设置：
 
 {{< tabs name="kubectl_bash_autocompletion" >}}
-{{{< tab name="当前用户" codelang="bash" >}}
+{{< tab name="当前用户" codelang="bash" >}}
 echo 'source <(kubectl completion bash)' >>~/.bashrc
 {{< /tab >}}
 {{< tab name="系统全局" codelang="bash" >}}
 kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
-{{< /tab >}}}
+{{< /tab >}}
 {{< /tabs >}}
 
 <!-- 
