@@ -227,6 +227,35 @@ can happen, according to:
 - the type of controller
 - the cluster's resource capacity
 
+## Pod disruption conditions {#pod-disruption-conditions}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+{{< note >}}
+In order to use this behavior, you must enable `PodDisruptionsCondition`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+in your cluster.
+{{< /note >}}
+
+When enabled, a dedicated Pod `DisruptionTarget` condition is added to indicate
+an imminent disruption of a Pod. The `reason` field of the condition additionally
+indicates one of the following reasons for the Pod termination:
+- `PreemptionByKubeScheduler`: Pod preempted by kube-scheduler to accommodate a Pod with higher priority. For more information, see [Pod priority preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
+- `DeletionByTaintManager`: Pod deleted by taint manager due to NoExecute taint, see more [here](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions).
+- `EvictionByEvictionAPI`: Pod evicted by [Eviction API](/docs/concepts/scheduling-eviction/api-eviction/).
+- `DeletionByPodGC`: an orphaned Pod deleted by [PodGC](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+
+{{< note >}}
+A Pod disruption might be interrupted. The control plane might re-attempt to
+continue the disruption of the same Pod, but it is not guaranteed. As a result,
+the `DisruptionTarget` condition might be added to Pod, but the Pod might not be
+deleted. In such a situation, after some time, the
+Pod disruption condition will be cleared.
+{{< /note >}}
+
+When using a Job, you may want to use these Pod disruption conditions you defined in your
+[Pod failure policy](/docs/concepts/workloads/controllers/job#pod-failure-policy).
+
 ## Separating Cluster Owner and Application Owner Roles
 
 Often, it is useful to think of the Cluster Manager
