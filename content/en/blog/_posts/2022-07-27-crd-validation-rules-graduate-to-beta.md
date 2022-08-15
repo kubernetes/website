@@ -5,7 +5,7 @@ date: 2022-07-27
 slug: crd-validation-rules-beta
 ---
 
-**Authors:** Joe Betz (Google), Kermit Alexander (Google)
+**Authors:** Joe Betz (Google), Cici Huang (Google), Kermit Alexander (Google)
 
 In Kubernetes 1.25, [Validation rules for CustomResourceDefinitions](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules) (CRDs) have graduated to Beta!
 
@@ -101,8 +101,8 @@ Validation rules have access to a couple different function libraries:
 
 * CEL standard functions, defined in the [list of standard definitions](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)
 * CEL standard [macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
-* CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
-* Kubernetes [CEL extension library](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions) which includes supplemental functions for [lists](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions), [regex](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#Regex), and [URLs](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#Regex).
+* CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go/ext#Strings)
+* Kubernetes [CEL extension library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#pkg-functions) which includes supplemental functions for [lists](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#pkg-functions), [regex](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Regex), and [URLs](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Regex).
 
 Examples of function libraries in use:
 
