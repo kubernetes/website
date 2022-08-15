@@ -20,9 +20,9 @@ O comando "reset" executa as seguintes fases:
 
 
 ```
-preflight           Run reset pre-flight checks
-remove-etcd-member  Remove a local etcd member.
-cleanup-node        Run cleanup node.
+preflight           Executa as verificações de redefinição do preflight.
+remove-etcd-member  Remove um membro etcd local.
+cleanup-node        Executa a limpeza do nó.
 ```
 
 
@@ -43,14 +43,14 @@ kubeadm reset [flags]
 <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/pki"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O caminho para o diretório onde os certificados estão armazenados. Se especificado, limpe este diretório</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O caminho para o diretório onde os certificados estão armazenados. Se especificado, limpe este diretório.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--cri-socket string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o socket CRI se conectar. Se o kubeadm vazio tentar detectar automaticamente esse valor; use essa opção somente se você tiver mais de um CRI instalado ou se tiver um socket CRI não padrão.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o socket CRI se conectar. Se vazio, o kubeadm tentará detectar automaticamente esse valor; use essa opção somente se você tiver mais de um CRI instalado ou se tiver um socket CRI não padrão.</p></td>
 </tr>
 
 <tr>
@@ -78,7 +78,7 @@ kubeadm reset [flags]
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão local pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de locais predefinidos pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>
