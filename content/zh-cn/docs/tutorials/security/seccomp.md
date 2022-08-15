@@ -114,10 +114,10 @@ into the cluster.
 {{< /tab >}}
 {{< tab name="violation.json" >}}
 {{< codenew file="pods/security/seccomp/profiles/violation.json" >}}
-{{< /tab >}}}
+{{< /tab >}}
 {{< tab name="fine-grained.json" >}}
 {{< codenew file="pods/security/seccomp/profiles/fine-grained.json" >}}
-{{< /tab >}}}
+{{< /tab >}}
 {{< /tabs >}}
 
 <!--
