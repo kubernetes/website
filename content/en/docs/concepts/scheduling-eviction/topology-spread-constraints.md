@@ -68,8 +68,8 @@ spec:
   ### other Pod fields go here
 ```
 
-You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints` or refer to the
-documents in [scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling).
+You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints` or
+refer to [scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling) section of the API reference for Pod.
 
 ### Spread constraint definition
 
@@ -562,6 +562,7 @@ section of the enhancement proposal about Pod topology spread constraints.
   node group) is scaled to zero nodes, and you're expecting the cluster to scale up,
   because, in this case, those topology domains won't be considered until there is
   at least one node in them.
+
   You can work around this by using an cluster autoscaling tool that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
