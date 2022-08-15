@@ -10,14 +10,14 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Renove o certificado que o apiserver usa para acessar etcd.
+Renove o certificado que o apiserver usa para acessar o etcd.
 
 ### Sinopse
 
 
-Renove o certificado que o apiserver usa para acessar etcd.
+Renove o certificado que o apiserver usa para acessar o etcd.
 
-As renovações são executadas incondicionalmente, independentemente da data de expiração do certificado; atributos extras, como SANs, serão baseados no arquivo/certificados existentes, não há necessidade de reabastecê-los.
+As renovações são executadas incondicionalmente, independentemente da data de expiração do certificado; atributos extras, como SANs, serão baseados no arquivo/certificados existentes, não há necessidade de informá-los novamente.
 
 A renovação, por padrão, tenta usar a autoridade de certificação na PKI local gerenciada pelo kubeadm; como alternativa, é possível usar a API de certificado K8s para renovação do certificado, ou como última opção, para gerar uma solicitação CSR.
 

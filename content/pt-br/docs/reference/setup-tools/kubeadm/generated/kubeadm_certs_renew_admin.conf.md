@@ -16,9 +16,9 @@ Renove o certificado incorporado no arquivo kubeconfig para o administrador e o 
 
 Renove o certificado incorporado no arquivo kubeconfig para o administrador e o kubeadm usarem.
 
-As renovações são executadas incondicionalmente, independentemente da data de expiração do certificado; atributos extras, como SANs, serão baseados no arquivo/certificados existentes, não há necessidade de reabastecê-los.
+As renovações são executadas incondicionalmente, independentemente da data de expiração do certificado; atributos extras, como SANs, serão baseados no arquivo/certificados existentes, não há necessidade de informá-los novamente.
 
-A renovação, por padrão, tenta usar a autoridade de certificação na PKI local gerenciada pelo kubeadm; como alternativa, é possível usar o certificado K8s da API para renovação de certificado, ou como última opção, para gerar uma solicitação CSR.
+A renovação, por padrão, tenta usar a autoridade de certificação na PKI local gerenciada pelo kubeadm; como alternativa, é possível usar a API de certificados do K8s para renovação de certificado, ou como última opção, para gerar uma solicitação CSR.
 
 Após a renovação, para tornar as alterações efetivas, é necessário reiniciar os componentes da camada de gerenciamento e, eventualmente, redistribuir o certificado renovado, caso o arquivo seja usado em outro lugar.
 
