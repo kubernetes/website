@@ -96,13 +96,15 @@ Pods. This means that an ill-behaved Pod that floods the API server with
 requests cannot prevent leader election or actions by the built-in controllers
 from succeeding.
 
-### Request Width
+### Seats Occupied by a Request
 
 The above description of concurrency management is the baseline story.
-In it, all requests have equal "width": each takes up one _unit of
-concurrency_, which we call a "seat" because this is similar to how
-each passenger takes up one of the fixed supply of seats on a train or
-aircraft.
+In it, requests have different durations but are counted equally at
+any given moment when comparing against a priority level's concurrency
+limit. In the baseline story, each request occupies one unit of
+concurrency. The word "seat" is used to mean one unit of concurrency,
+inspired by the way each passenger on a train or aircraft takes up one
+of the fixed supply of seats.
 
 But some requests take up more than one seat.  Some of these are **list**
 requests that the server estimates will return a large number of
