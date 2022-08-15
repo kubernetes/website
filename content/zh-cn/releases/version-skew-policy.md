@@ -34,7 +34,7 @@ Specific cluster deployment tools may place additional restrictions on version s
 Kubernetes versions are expressed as **x.y.z**, where **x** is the major version, **y** is the minor version, and **z** is the patch version, following [Semantic Versioning](https://semver.org/) terminology.
 For more information, see [Kubernetes Release Versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning).
 
-The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew currentVersion >}}, {{< skew currentVersionAddMinor -1 >}}, {{< skew currentVersionAddMinor -2 >}}).  Kubernetes 1.19 and newer receive approximately 1 year of patch support. Kubernetes 1.18 and older received approximately 9 months of patch support.
+The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}). Kubernetes 1.19 and newer receive [approximately 1 year of patch support](/releases/patch-releases/#support-period). Kubernetes 1.18 and older received approximately 9 months of patch support.
 -->
 ## 支持的版本  {#supported-versions}
 
@@ -43,8 +43,8 @@ Kubernetes 版本以 **x.y.z** 表示，其中 **x** 是主要版本，
 更多信息请参见
 [Kubernetes 版本发布控制](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)。
 
-Kubernetes 项目维护最近的三个次要版本（{{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、{{< skew currentVersionAddMinor -2 >}}）的发布分支。
-Kubernetes 1.19 和更新的版本获得大约 1 年的补丁支持。
+Kubernetes 项目维护最近的三个次要版本（{{< skew latestVersion >}}、{{< skew prevMinorVersion >}}、{{< skew oldestMinorVersion >}}）的发布分支。
+Kubernetes 1.19 和更新的版本获得[大约 1 年的补丁支持](/zh-cn/releases/patch-releases/#support-period)。
 Kubernetes 1.18 及更早的版本获得了大约 9 个月的补丁支持。
 
 <!-- 
@@ -224,6 +224,30 @@ This section describes the order in which components must be upgraded to transit
 组件之间支持的版本偏差会影响必须升级组件的顺序。
 本节介绍了将现有集群从 **{{< skew currentVersionAddMinor -1 >}}**
 版本转换到 **{{< skew currentVersion >}}** 版本时必须升级组件的顺序。
+
+<!--
+Optionally, when preparing to upgrade, the Kubernetes project recommends that
+you do the following to benefit from as many regression and bug fixes as
+possible during your upgrade: 
+
+*  Ensure that components are on the most recent patch version of your current
+   minor version.
+*  Upgrade components to the most recent patch version of the target minor
+   version.
+
+For example, if you're running version {{<skew currentVersionAddMinor -1>}},
+ensure that you're on the most recent patch version. Then, upgrade to the most
+recent patch version of {{<skew currentVersion>}}.
+-->
+作为一种可选方案，在准备升级时，Kubernetes 项目建议你执行以下操作，
+有利于升级时包含尽可能多的回归和错误修复：
+
+* 确保组件是当前次要版本的最新补丁版本。
+* 将组件升级到目标次要版本的最新补丁版本。
+
+例如，如果你正在运行版本 {{<skew currentVersionAddMinor -1>}}，
+请确保你使用的是最新的补丁版本。
+然后，升级到 {{<skew currentVersion>}} 的最新补丁版本。
 
 <!-- 
 ### kube-apiserver
