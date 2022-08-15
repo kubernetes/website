@@ -127,6 +127,7 @@ aliases:
     - nasa9084
     # oke-py
     - ptux
+    - t-inu
   sig-docs-ko-owners: # Admins for Korean content
     - ClaudiaJKang
     - gochist
