@@ -2,8 +2,7 @@
 layout: blog
 title: "Kubernetes 1.25: CustomResourceDefinition Validation Rules Graduate to Beta"
 date: 2022-07-27
-slug: tbd
-canonicalUrl: tbd
+slug: crd-validation-rules-beta
 ---
 
 **Authors:** Joe Betz (Google), Kermit Alexander (Google)
@@ -42,7 +41,7 @@ Validation rules support a wide range of use cases. To get a sense of some of th
 | `self.created + self.ttl < self.expired` | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration |
 
 
-Validation rules are expressive and flexible. See the [Validation Rules documentation](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules) to learn more about what validation rules are capable of.
+Validation rules are expressive and flexible. See the [Validation Rules documentation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules) to learn more about what validation rules are capable of.
 
 ## Why CEL?
 
@@ -59,13 +58,13 @@ Benefits of using validation rules when compared with validation webhooks:
 * Cluster administrators benefit by no longer having to install, upgrade and operate webhooks for the purposes of CRD validation.
 * Cluster operability improves because CRD validation no longer requires a remote call to a webhook endpoint, eliminating a potential point of failure in the request-serving-path of the Kubernetes API server. This allows clusters to retain high availability while scaling to larger amounts of installed CRD extensions, since expected control plane availability would otherwise decrease with each additional webhook installed. 
 
-## Getting Started with Validation Rules
+## Getting started with validation rules
 
-### Writing Validation Rules in OpenAPIv3 Schemas
+### Writing validation rules in OpenAPIv3 schemas
 
-Validation rules can be declared at any level of a CRD's OpenAPIv3 schema and are scoped to their location in the schema they are declared.
+You can define validation rules for any level of a CRD's OpenAPIv3 schema. Validation rules are automatically scoped to their location in the schema where they are declared.
 
-Best practices for validation rules:
+Good practices for CRD validation rules:
 
 * Scope validation rules as close as possible to the fields(s) they validate.
 * Use multiple rules when validating independent constraints.
@@ -73,7 +72,7 @@ Best practices for validation rules:
 * Use OpenAPIv3 [value validations](https://swagger.io/specification/#properties) (`maxLength`, `maxItems`, `maxProperties`, `required`, `enum`, `minimum`, `maximum`, ..) and [string formats](https://swagger.io/docs/specification/data-models/data-types/#format) where available.
 * Use `x-kubernetes-int-or-string`, `x-kubernetes-embedded-type` and `x-kubernetes-list-type=(set|map)` were appropriate.
 
-Best practice examples:
+Examples of good practice:
 
 | Validation | Best Practice | Example(s) |
 | - | - | - |
@@ -82,17 +81,17 @@ Best practice examples:
 | Require a date-time be more recent than a particular timestamp. | Use OpenAPIv3 string formats to declare that the field is a date-time. Use validation rules to compare it to a particular timestamp. | <pre>type: string<br>format: date-time<br>x-kubernetes-validations:<br>  - rule: "self >= timestamp('2000-01-01T00:00:00.000Z')"</pre> |
 | Require two sets to be disjoint. | Use x-kubernetes-list-type to validate that the arrays are sets. <br>Use validation rules to validate the sets are disjoint. | <pre>type: object<br>properties:<br>  set1:<br>    type: array<br>    x-kubernetes-list-type: set<br>  set2: ...<br>  x-kubernetes-validations:<br>    - rule: "!self.set1.all(e, !(e in self.set2))"</pre>
 
-## Using Transition Rules
+## CRD transition rules
 
-[Transition Rules](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#transition-rules) make it possible to compare the new state against the old state of a resource in validation rules.  Any validation rule that uses 'oldSelf' is a transition rule.  Transition rules are only evaluated when an old value and new value exist.
+[Transition Rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#transition-rules) make it possible to compare the new state against the old state of a resource in validation rules. You use transition rules to make sure that the cluster's API server does not accept invalid state transitions. A transition rule is a validation rule that references 'oldSelf'. The API server only evaluates transition rules when both an old value and new value exist.
 
 Transition rule examples:
 
 | Transition Rule | Purpose |
 | - | - |
-| `self == oldSelf` | Validate that a required field is immutable once it is set. This does not prevent an optional field from transitioning from unset to set or set to unset.|
-| on parent of field: `has(self.field) == has(oldSelf.field)`<br>on field:  `self == oldSelf` | Validate that an optional field never changes after the resource is created.|
-| `self.all(x, x in oldSelf)` | Validate that a set is append-only.|
+| `self == oldSelf` | For a required field, make that field immutable once it is set. For an optional field, only allow transitioning from unset to set, or from set to unset. |
+| (on parent of field) `has(self.field) == has(oldSelf.field)`<br>on field:  `self == oldSelf` | Make a field immutable: validate that a field, even if optional, never changes after the resource is created (for a required field, the previous rule is simpler). |
+| `self.all(x, x in oldSelf)` | Only allow adding items to a field that represents a set (prevent removals). |
 | `self >= oldSelf` | Validate that a number is monotonically increasing.|
 
 
@@ -115,19 +114,19 @@ Examples of function libraries in use:
 | `int(self.find('^[0-9]*')) < 100` | Validate that a string starts with a number less than 100. |
 | `self.isSorted()` | Validates that a list is sorted. |
 
-## Resource Limits
+## Resource use and limits
 
-To prevent CEL evaluation from consuming excessive compute resources, validation rules impose some limits. These limits are based on CEL "cost units", a platform and machine independent measure of execution cost. As a result, the limits are the same regardless of where they are enforced.
+To prevent CEL evaluation from consuming excessive compute resources, validation rules impose some limits. These limits are based on CEL _cost units_, a platform and machine independent measure of execution cost. As a result, the limits are the same regardless of where they are enforced.
 
-### Estimated Cost Limit
+### Estimated cost limit
 
-CEL is, by design, non-Turing-complete in such a way that the halting problem isn’t a concern. CEL takes advantage of this design choice to include an "estimated cost" subsystem that can statically compute the worst case run time cost of any CEL expression. Validation rules are [integrated with the estimated cost system](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#resource-use-by-validation-functions) and disallow CEL expressions from being included in CRDs if they have a sufficiently poor (high) estimated cost. The estimated cost limit is set quite high and typically requires an O(n^2) or worse operation, across something of unbounded size, to be exceeded. Fortunately the fix is usually quite simple: because the cost system is aware of size limits declared in the CRD's schema, CRD authors can add size limits to the CRD's schema  (`maxItems` for arrays, `maxProperties` for maps, `maxLength` for strings) to reduce the estimated cost.
+CEL is, by design, non-Turing-complete in such a way that the halting problem isn’t a concern. CEL takes advantage of this design choice to include an "estimated cost" subsystem that can statically compute the worst case run time cost of any CEL expression. Validation rules are [integrated with the estimated cost system](o/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#resource-use-by-validation-functions) and disallow CEL expressions from being included in CRDs if they have a sufficiently poor (high) estimated cost. The estimated cost limit is set quite high and typically requires an O(n^2) or worse operation, across something of unbounded size, to be exceeded. Fortunately the fix is usually quite simple: because the cost system is aware of size limits declared in the CRD's schema, CRD authors can add size limits to the CRD's schema  (`maxItems` for arrays, `maxProperties` for maps, `maxLength` for strings) to reduce the estimated cost.
 
-Best Practice:
+Good practice:
 
 Set `maxItems`, `maxProperties` and `maxLength` on all array, map (`object` with `additionalProperties`) and string types in CRD schemas! This results in lower and more accurate estimated costs and generally makes a CRD safer to use.
 
-### Runtime Cost Limit
+### Runtime cost limits for CRD validation rules
 
 In addition to the estimated cost limit, CEL keeps track of actual cost while evaluating a CEL expression and will halt execution of the expression if a limit is exceeded.
 
@@ -135,9 +134,9 @@ With the estimated cost limit already in place, the runtime cost limit is rarely
 
 CRD authors can ensure the runtime cost limit will not be exceeded in much the same way the estimated cost limit is avoided: by setting `maxItems`, `maxProperties` and `maxLength` on array, map and string types.
 
-## Future Work
+## Future work
 
-We look forward to working with the community on the adoption of Validation Rules and hope to see it promoted to GA in the near future!
+We look forward to working with the community on the adoption of CRD Validation Rules, and hope to see this feature promoted to general availability in an upcoming Kubernetes release!
 
 There is a growing community of Kubernetes contributors thinking about how to make it possible to write extensible admission controllers using CEL as a substitute for admission webhooks for policy enforcement use cases. Anyone interested should reach out to us on the usual [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) channels or via slack at [#sig-api-machinery-cel-dev](https://kubernetes.slack.com/archives/C02TTBG6LF4).
 
