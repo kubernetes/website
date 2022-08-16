@@ -346,33 +346,6 @@ class of profiles) on the node, and use a
 [node selector](/docs/concepts/scheduling-eviction/assign-pod-node/) to ensure the Pod is run on a
 node with the required profile.
 
-### Restricting profiles with the PodSecurityPolicy
-
-{{< note >}}
-PodSecurityPolicy is deprecated in Kubernetes v1.21, and will be removed in v1.25.
-See [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation for more information.
-{{< /note >}}
-
-If the PodSecurityPolicy extension is enabled, cluster-wide AppArmor restrictions can be applied. To
-enable the PodSecurityPolicy, the following flag must be set on the `apiserver`:
-
-```
---enable-admission-plugins=PodSecurityPolicy[,others...]
-```
-
-The AppArmor options can be specified as annotations on the PodSecurityPolicy:
-
-```yaml
-apparmor.security.beta.kubernetes.io/defaultProfileName: <profile_ref>
-apparmor.security.beta.kubernetes.io/allowedProfileNames: <profile_ref>[,others...]
-```
-
-The default profile name option specifies the profile to apply to containers by default when none is
-specified. The allowed profile names option specifies a list of profiles that Pod containers are
-allowed to be run with. If both options are provided, the default must be allowed. The profiles are
-specified in the same format as on containers. See the [API Reference](#api-reference) for the full
-specification.
-
 ### Disabling AppArmor
 
 If you do not want AppArmor to be available on your cluster, it can be disabled by a command-line flag:
@@ -421,7 +394,7 @@ Specifying the profile a container will run with:
 ### Profile Reference
 
 - `runtime/default`: Refers to the default runtime profile.
-  - Equivalent to not specifying a profile (without a PodSecurityPolicy default), except it still
+  - Equivalent to not specifying a profile, except it still
     requires AppArmor to be enabled.
   - In practice, many container runtimes use the same OCI default profile, defined here:
     https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
@@ -431,22 +404,6 @@ Specifying the profile a container will run with:
 - `unconfined`: This effectively disables AppArmor on the container.
 
 Any other profile reference format is invalid.
-
-### PodSecurityPolicy Annotations
-
-Specifying the default profile to apply to containers when none is provided:
-
-* **key**: `apparmor.security.beta.kubernetes.io/defaultProfileName`
-* **value**: a profile reference, described above
-
-Specifying the list of profiles Pod containers is allowed to specify:
-
-* **key**: `apparmor.security.beta.kubernetes.io/allowedProfileNames`
-* **value**: a comma-separated list of profile references (described above)
-  - Although an escaped comma is a legal character in a profile name, it cannot be explicitly
-    allowed here.
-
-
 
 ## {{% heading "whatsnext" %}}
 
