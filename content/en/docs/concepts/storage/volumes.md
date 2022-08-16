@@ -121,14 +121,13 @@ If the EBS volume is partitioned, you can supply the optional field `partition: 
 
 #### AWS EBS CSI migration
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 The `CSIMigration` feature for `awsElasticBlockStore`, when enabled, redirects
 all plugin operations from the existing in-tree plugin to the `ebs.csi.aws.com` Container
 Storage Interface (CSI) driver. In order to use this feature, the [AWS EBS CSI
 driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationAWS`
-beta features must be enabled.
+must be installed on the cluster.
 
 #### AWS EBS CSI migration complete
 
@@ -153,7 +152,7 @@ The `CSIMigration` feature for `azureDisk`, when enabled, redirects all plugin o
 from the existing in-tree plugin to the `disk.csi.azure.com` Container
 Storage Interface (CSI) Driver. In order to use this feature, the
 [Azure Disk CSI Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
-must be installed on the cluster and the `CSIMigration` feature must be enabled.
+must be installed on the cluster.
 
 #### azureDisk CSI migration complete
 
@@ -179,7 +178,7 @@ The `CSIMigration` feature for `azureFile`, when enabled, redirects all plugin o
 from the existing in-tree plugin to the `file.csi.azure.com` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
 Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
+must be installed on the cluster and the `CSIMigrationAzureFile`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
 
 Azure File CSI driver does not support using same volume with different fsgroups. If
@@ -382,24 +381,6 @@ beforehand so that Kubernetes hosts can access them.
 
 See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) for more details.
 
-### flocker (deprecated) {#flocker}
-
-[Flocker](https://github.com/ClusterHQ/flocker) is an open-source, clustered
-container data volume manager. Flocker provides management
-and orchestration of data volumes backed by a variety of storage backends.
-
-A `flocker` volume allows a Flocker dataset to be mounted into a Pod. If the
-dataset does not already exist in Flocker, it needs to be first created with the Flocker
-CLI or by using the Flocker API. If the dataset already exists it will be
-reattached by Flocker to the node that the pod is scheduled. This means data
-can be shared between pods as required.
-
-{{< note >}}
-You must have your own Flocker installation running before you can use it.
-{{< /note >}}
-
-See the [Flocker example](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker) for more details.
-
 ### gcePersistentDisk (deprecated) {#gcepersistentdisk}
 
 {{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
@@ -507,14 +488,13 @@ spec:
 
 #### GCE CSI migration
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 The `CSIMigration` feature for GCE PD, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `pd.csi.storage.gke.io` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [GCE PD CSI
 Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationGCE`
-beta features must be enabled.
+must be installed on the cluster.
 
 #### GCE CSI migration complete
 
@@ -554,7 +534,9 @@ spec:
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
 ```
 
-### glusterfs
+### glusterfs (deprecated)
+
+{{< feature-state for_k8s_version="v1.25" state="deprecated" >}}
 
 A `glusterfs` volume allows a [Glusterfs](https://www.gluster.org) (an open
 source networked filesystem) volume to be mounted into your Pod. Unlike
@@ -796,7 +778,9 @@ iSCSI volume) without knowing the details of the particular cloud environment.
 See the information about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) for more
 details.
 
-### portworxVolume {#portworxvolume}
+### portworxVolume (deprecated) {#portworxvolume}
+
+{{< feature-state for_k8s_version="v1.25" state="deprecated" >}}
 
 A `portworxVolume` is an elastic block storage layer that runs hyperconverged with
 Kubernetes. [Portworx](https://portworx.com/use-case/kubernetes-storage/) fingerprints storage
@@ -834,24 +818,21 @@ before using it in the Pod.
 
 For more details, see the [Portworx volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) examples.
 
+#### Portworx CSI migration
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+
+The `CSIMigration` feature for Portworx has been added but disabled by default in Kubernetes 1.23 since it's in alpha state.
+It has been beta now since v1.25 but it is still turned off by default.
+It redirects all plugin operations from the existing in-tree plugin to the
+`pxd.portworx.com` Container Storage Interface (CSI) Driver.
+[Portworx CSI Driver](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)
+must be installed on the cluster.
+To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet.
+
 ### projected
 
 A projected volume maps several existing volume sources into the same
 directory. For more details, see [projected volumes](/docs/concepts/storage/projected-volumes/).
-
-### quobyte (deprecated) {#quobyte}
-
-A `quobyte` volume allows an existing [Quobyte](https://www.quobyte.com) volume to
-be mounted into your Pod.
-
-{{< note >}}
-You must have your own Quobyte setup and running with the volumes
-created before you can use it.
-{{< /note >}}
-
-Quobyte supports the {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}.
-CSI is the recommended plugin to use Quobyte volumes inside Kubernetes. Quobyte's
-GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte-csi) for deploying Quobyte using CSI, along with examples.
 
 ### rbd
 
@@ -884,9 +865,10 @@ operations from the existing in-tree plugin to the `rbd.csi.ceph.com` {{<
 glossary_tooltip text="CSI" term_id="csi" >}} driver. In order to use this
 feature, the
 [Ceph CSI driver](https://github.com/ceph/ceph-csi)
-must be installed on the cluster and the `CSIMigration` and `csiMigrationRBD`
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-must be enabled.
+must be installed on the cluster and the `CSIMigrationRBD`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+must be enabled. (Note that the `csiMigrationRBD` flag has been removed and
+replaced with `CSIMigrationRBD` in release v1.24)
 
 {{< note >}}
 
@@ -926,61 +908,6 @@ receive Secret updates.
 
 For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
 
-### storageOS (deprecated) {#storageos}
-
-A `storageos` volume allows an existing [StorageOS](https://www.storageos.com)
-volume to mount into your Pod.
-
-StorageOS runs as a container within your Kubernetes environment, making local
-or attached storage accessible from any node within the Kubernetes cluster.
-Data can be replicated to protect against node failure. Thin provisioning and
-compression can improve utilization and reduce cost.
-
-At its core, StorageOS provides block storage to containers, accessible from a file system.
-
-The StorageOS Container requires 64-bit Linux and has no additional dependencies.
-A free developer license is available.
-
-{{< caution >}}
-You must run the StorageOS container on each node that wants to
-access StorageOS volumes or that will contribute storage capacity to the pool.
-For installation instructions, consult the
-[StorageOS documentation](https://docs.storageos.com).
-{{< /caution >}}
-
-The following example is a Pod configuration with StorageOS:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    name: redis
-    role: master
-  name: test-storageos-redis
-spec:
-  containers:
-    - name: master
-      image: kubernetes/redis:v1
-      env:
-        - name: MASTER
-          value: "true"
-      ports:
-        - containerPort: 6379
-      volumeMounts:
-        - mountPath: /redis-master-data
-          name: redis-data
-  volumes:
-    - name: redis-data
-      storageos:
-        # The `redis-vol01` volume must already exist within StorageOS in the `default` namespace.
-        volumeName: redis-vol01
-        fsType: ext4
-```
-
-For more information about StorageOS, dynamic provisioning, and PersistentVolumeClaims, see the
-[StorageOS examples](https://github.com/kubernetes/examples/blob/master/volumes/storageos).
-
 ### vsphereVolume (deprecated) {#vspherevolume}
 
 {{< note >}}
@@ -1001,8 +928,8 @@ All plugin operations from the in-tree `vspherevolume` will be redirected to the
 
 
 [vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
-must be installed on the cluster. You can find additional advice on how to migrate in-tree `vsphereVolume` in VMware's
-documentation page [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
+must be installed on the cluster. You can find additional advice on how to migrate in-tree `vsphereVolume` in VMware's documentation page 
+[Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
 
 As of Kubernetes v1.25, vSphere releases less than 7.0u2 are not supported for the
 (deprecated) in-tree vSphere storage driver. You must run vSphere 7.0u2 or later
@@ -1033,16 +960,6 @@ but new volumes created by the vSphere CSI driver will not be honoring these par
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 To turn off the `vsphereVolume` plugin from being loaded by the controller manager and the kubelet, you need to set `InTreePluginvSphereUnregister` feature flag to `true`. You must install a `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver on all worker nodes.
-
-#### Portworx CSI migration
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
-
-The `CSIMigration` feature for Portworx has been added but disabled by default in Kubernetes 1.23 since it's in alpha state.
-It redirects all plugin operations from the existing in-tree plugin to the
-`pxd.portworx.com` Container Storage Interface (CSI) Driver.
-[Portworx CSI Driver](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)
-must be installed on the cluster.
-To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet.
 
 ## Using subPath {#using-subpath}
 
@@ -1281,9 +1198,9 @@ For more details, refer to the deployment guide of the CSI plugin you wish to de
 
 #### Migrating to CSI drivers from in-tree plugins
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-The `CSIMigration` feature, when enabled, directs operations against existing in-tree
+The `CSIMigration` feature directs operations against existing in-tree
 plugins to corresponding CSI plugins (which are expected to be installed and configured).
 As a result, operators do not have to make any
 configuration changes to existing Storage Classes, PersistentVolumes or PersistentVolumeClaims
@@ -1303,7 +1220,7 @@ The following in-tree plugins support persistent storage on Windows nodes:
 * [`gcePersistentDisk`](#gcepersistentdisk)
 * [`vsphereVolume`](#vspherevolume)
 
-### flexVolume
+### flexVolume (deprecated)
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
