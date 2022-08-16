@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes 1.25: CSI Inline Volumes have graduated to GA"
-date: 2022-08-16
+date: 2022-08-29
 slug: csi-inline-volumes-ga
 ---
 
