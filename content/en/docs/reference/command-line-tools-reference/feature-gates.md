@@ -159,7 +159,8 @@ different Kubernetes components.
 | `PodSecurity` | `false` | Alpha | 1.22 | 1.22 |
 | `PodSecurity` | `true` | Beta | 1.23 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
-| `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | |
+| `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | 1.24 |
+| `ProbeTerminationGracePeriod` | `true` | Beta | 1.25 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
