@@ -36,8 +36,8 @@ complete -o default -F __start_kubectl k
 ### ZSH
 
 ```bash
-source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
-echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # add autocomplete permanently to your zsh shell
+ # setup autocomplete in zsh into the current shell. add autocomplete permanently to your zsh shell
+source <(kubectl completion zsh) echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 ```
 ### A Note on --all-namespaces
 
