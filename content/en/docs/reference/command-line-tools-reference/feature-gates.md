@@ -85,6 +85,7 @@ different Kubernetes components.
 | `CSIMigrationPortworx` | `false` | Alpha | 1.23 | |
 | `CSIMigrationPortworx` | `false` | Beta | 1.25 | |
 | `csiMigrationRBD` | `false` | Alpha | 1.23 | |
+| `CSINodeExpandSecret` | `false` | Alpha | 1.25 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `ContextualLogging` | `false` | Alpha | 1.24 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
@@ -772,6 +773,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   from the Portworx in-tree plugin to Portworx CSI plugin.
   Requires Portworx CSI driver to be installed and configured in the cluster.
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in `csi.storage.k8s.io`.
+- `CSINodeExpandSecret`: Enable passing secret authentication data to a CSI driver for use
+   during a `NodeExpandVolume` CSI operation.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)
   compatible volume plugin.
