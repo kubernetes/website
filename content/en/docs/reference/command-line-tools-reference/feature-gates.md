@@ -142,6 +142,7 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
+| `MatchLabelKeysInPodTopologySpread` | `false` | Alpha | 1.25 | |
 | `MaxUnavailableStatefulSet` | `false` | Alpha | 1.24 | |
 | `MemoryManager` | `false` | Alpha | 1.21 | 1.21 |
 | `MemoryManager` | `true` | Beta | 1.22 | |
@@ -1003,6 +1004,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   filesystem walk for better performance and accuracy.
 - `LogarithmicScaleDown`: Enable semi-random selection of pods to evict on controller scaledown
   based on logarithmic bucketing of pod timestamps.
+- `MatchLabelKeysInPodTopologySpread`: Enable the `matchLabelKeys` field for 
+  [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `MaxUnavailableStatefulSet`: Enables setting the `maxUnavailable` field for the
   [rolling update strategy](/docs/concepts/workloads/controllers/statefulset/#rolling-updates)
   of a StatefulSet. The field specifies the maximum number of Pods
