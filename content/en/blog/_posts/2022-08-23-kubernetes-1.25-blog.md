@@ -40,7 +40,7 @@ PodSecurityPolicy was initially [deprecated in v1.21](/blog/2021/04/06/podsecuri
 It has been more than two years since the Linux kernel cgroups v2 API was declared stable. With some distributions now defaulting to this API, Kubernetes must support it to continue operating on those distributions. cgroups v2 offers several improvements over cgroups v1, for more information see the [cgroups v2](https://kubernetes.io/docs/concepts/architecture/cgroups/) documentation. While cgroups v1 will continue to be supported, this enhancement puts us in a position to be ready for its eventual deprecation and replacement.
 
 
-### Windows support improved
+### Improved Windows support
 
 - [Performance dashboards](http://perf-dash.k8s.io/#/?jobname=soak-tests-capz-windows-2019) added support for Windows
 - [Unit tests](https://github.com/kubernetes/kubernetes/issues/51540) added support for Windows
