@@ -106,7 +106,7 @@ This release includes a total of thirteen enhancements promoted to stable:
 * [NetworkPolicy Port Range](https://github.com/kubernetes/enhancements/issues/2079)
 * [cgroups v2](https://github.com/kubernetes/enhancements/issues/2254)
 * [Pod Security Admission](https://github.com/kubernetes/enhancements/issues/2579)
-* [Add minReadySeconds to Statefulsets](https://github.com/kubernetes/enhancements/issues/2599)
+* [Add `minReadySeconds` to Statefulsets](https://github.com/kubernetes/enhancements/issues/2599)
 * [Identify Windows pods at API admission level authoritatively](https://github.com/kubernetes/enhancements/issues/2802)
 
 ### Deprecations and Removals
