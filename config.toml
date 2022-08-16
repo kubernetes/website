@@ -117,7 +117,8 @@ anchor = "smart"
 
 [services]
 [services.googleAnalytics]
-id = "G-JPP6RFM2BP"
+# Bogus value in support of params.ui.feedback.
+id = "G-0000000000"
 
 [params]
 copyright_k8s = "The Kubernetes Authors"
