@@ -236,7 +236,7 @@ directly or from your monitoring tools.
 ## Local ephemeral storage
 
 <!-- feature gate LocalStorageCapacityIsolation -->
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 Nodes have local ephemeral storage, backed by
 locally-attached writeable devices or, sometimes, by RAM.
@@ -306,12 +306,7 @@ as you like.
 {{< /tabs >}}
 
 The kubelet can measure how much local storage it is using. It does this provided
-that:
-
-- the `LocalStorageCapacityIsolation`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled (the feature is on by default), and
-- you have set up the node using one of the supported configurations
+that you have set up the node using one of the supported configurations
   for local ephemeral storage.
 
 If you have a different configuration, then the kubelet does not apply resource
