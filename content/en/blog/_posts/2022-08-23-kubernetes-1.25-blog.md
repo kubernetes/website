@@ -156,7 +156,7 @@ TODO: Pull devstats for [companies](https://k8s.devstats.cncf.io/d/9/companies-t
 
 Join members of the Kubernetes v1.25 release team on Thursday September 22, 2022 10am – 11am PT to learn about 
 the major features of this release, as well as deprecations and removals to help plan for upgrades. 
-For more information and registration, [visit the event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-v125-release/).
+For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-v125-release/).
 
 ## Get Involved
 
