@@ -455,7 +455,7 @@ as well as its seamless integration with the existing methods for configuring ex
 {{% /tab %}}
 
 {{% tab name="v1beta3 → v1" %}}
-* The scheduler plugin `SelectorSpread` is removed, instead, use the `PodTopologySpread` plugin(enabled by default)
+* The scheduler plugin `SelectorSpread` is removed, instead, use the `PodTopologySpread` plugin (enabled by default)
 to achieve similar behavior.
 {{% /tab %}}
 {{< /tabs >}}
