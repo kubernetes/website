@@ -281,8 +281,14 @@ Here's a manifest for that Pod:
 The functional support for the already deprecated seccomp annotations
 `seccomp.security.alpha.kubernetes.io/pod` (for the whole pod) and
 `container.seccomp.security.alpha.kubernetes.io/[name]` (for a single container)
-is going to be removed with the release of Kubernetes v1.25. Please always use
+is going to be removed with a future release of Kubernetes. Please always use
 the native API fields in favor of the annotations.
+
+Since Kubernetes v1.25, kubelets no longer support the annotations, use of the
+annotations in static pods is no longer supported, and the seccomp annotations
+are no longer auto-populated when pods with seccomp fields are created.
+Auto-population of the seccomp fields from the annotations is planned to be
+removed in a future release.
 {{< /note >}}
 
 Create the Pod in the cluster:
