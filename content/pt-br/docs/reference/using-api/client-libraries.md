@@ -2,7 +2,7 @@
 title: Bibliotecas de clientes
 reviewers:
 - ahmetb
-content_type: concept
+content_type: conceito
 weight: 30
 ---
 
