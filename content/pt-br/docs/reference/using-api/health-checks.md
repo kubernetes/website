@@ -2,7 +2,7 @@
 title: Kubernetes API health endpoints
 reviewers:
 - logicalhan
-content_type: concept
+content_type: conceito
 weight: 50
 ---
 
