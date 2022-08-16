@@ -27,7 +27,7 @@ Inspired by our release lead's son, Albert Song, Kubernetes v1.25 is named for e
 
 ## What's New (Major Themes)
 
-### PodSecurityPolicy is Removed, Pod Security Admission graduates to Stable
+### PodSecurityPolicy is removed; Pod Security Admission graduates to Stable {#pod-security-changes}
 
 PodSecurityPolicy was initially [deprecated in v1.21](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/), and with the release of v1.25, it has been removed. The updates required to improve its usability would have introduced breaking changes, so it became necessary to remove it in favor of a more friendly replacement. That replacement is [Pod Security Admission](/docs/concepts/security/pod-security-admission/), which graduates to Stable with this release. If you are currently relying on PodSecurityPolicy, please follow the instructions for [migration to Pod Security Admission](/docs/tasks/configure-pod-container/migrate-from-psp/).
 
