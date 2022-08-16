@@ -6,17 +6,6 @@
 {{- else -}}
 <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
 {{- end -}}
-{{- if in (slice "production" "nonprod") hugo.Environment -}}
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36037335-10"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-36037335-10');
-</script>
-{{- end -}}
 
 <!-- alternative translations -->
 {{ range .Translations -}}
@@ -36,7 +25,7 @@
 {{- template "_internal/schema.html" . -}}
 {{- template "_internal/twitter_cards.html" . -}}
 {{- if hugo.IsProduction -}}
-{{ template "_internal/google_analytics_async.html" . }}
+{{ template "_internal/google_analytics.html" . }}
 {{ end }}
 {{ partialCached "head-css.html" . "asdf" }}
 <script
