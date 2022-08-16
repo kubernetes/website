@@ -1019,8 +1019,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   NUMA topology.
 - `MemoryQoS`: Enable memory protection and usage throttle on pod / container using
   cgroup v2 memory controller.
-- `MinDomainsInPodTopologySpread`: Enable `minDomains` in Pod
-  [topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
+- `MinDomainsInPodTopologySpread`: Enable `minDomains` in
+  [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
 - `MountContainers`: Enable using utility containers on host as the volume mounter.
