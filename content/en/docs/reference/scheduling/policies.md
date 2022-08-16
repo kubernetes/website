@@ -16,5 +16,4 @@ This scheduling policy is not supported since Kubernetes v1.23. Associated flags
 
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Learn about [kube-scheduler Configuration](/docs/reference/scheduling/config/)
-* Read the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-
+* Read the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
