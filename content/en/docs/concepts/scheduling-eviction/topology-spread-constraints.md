@@ -112,9 +112,8 @@ your cluster. Those fields are:
 
 - **topologyKey** is the key of [node labels](#node-labels). Nodes that have a label with this key
 	and identical values are considered to be in the same topology.
-	We consider each <key, value> as a "bucket", and try to put balanced number
-	of pods into each bucket.
-	We define a domain as a particular instance of a topology.
+  We call each instance of a topology (in other words, a <key, value> pair) a domain. The scheduler
+  will try to put a balanced number of pods into each domain.
 	Also, we define an eligible domain as a domain whose nodes meet the requirements of
 	nodeAffinityPolicy and nodeTaintsPolicy.
 
