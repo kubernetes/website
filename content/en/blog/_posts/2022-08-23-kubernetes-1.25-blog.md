@@ -11,7 +11,7 @@ Announcing the release of Kubernetes v1.25!
 
 This release includes a total of 40 enhancements. Fifteen of those enhancements are entering Alpha, ten are graduating to Beta, and thirteen are graduating to Stable. We also have two features being deprecated or removed.
 
-### Release Theme and Logo 
+## Release theme and logo 
 
 **Kubernetes 1.25: Combiner**
 
