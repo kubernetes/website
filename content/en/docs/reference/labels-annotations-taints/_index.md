@@ -114,6 +114,17 @@ to the name of the namespace. You can't change this label's value.
 This is useful if you want to target a specific namespace with a label
 {{< glossary_tooltip text="selector" term_id="selector" >}}.
 
+### kubernetes.io/bootstrapping
+
+Example: ` kubernetes.io/bootstrapping=rbac-defaults`
+
+Used on: Clusters
+
+This annotation is used to view the cluster roles and bindings.
+
+To view the cluster roles and their associated rule sets:
+
+``$ oc describe clusterrole.rbac``
 ### beta.kubernetes.io/arch (deprecated)
 
 This label has been deprecated. Please use `kubernetes.io/arch` instead.
