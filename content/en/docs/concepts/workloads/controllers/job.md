@@ -714,9 +714,8 @@ your cluster to handle Pod failures based on the container exit codes and the
 Pod conditions.
 
 In some situations, you  may want to have a better control when handling Pod
-failures than the control provided by the default policy, which is based on the
-Job's (`.spec.backoffLimit`](#pod-backoff-failure-policy)). These are some
-examples of use cases:
+failures than the control provided by the [Pod backoff failure policy](#pod-backoff-failure-policy),
+which is based on the Job's `.spec.backoffLimit`. These are some examples of use cases:
 * To optimize costs of running workloads by avoiding unnecessary Pod restarts,
   you can terminate a Job as soon as one of its Pods fails with an exit code
   indicating a software bug.
