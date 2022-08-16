@@ -1,6 +1,7 @@
 HUGO_VERSION      = $(shell grep ^HUGO_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
 NODE_BIN          = node_modules/.bin
 NETLIFY_FUNC      = $(NODE_BIN)/netlify-lambda
+DEPLOY_PRIME_URL ?=/
 
 # The CONTAINER_ENGINE variable is used for specifying the container engine. By default 'docker' is used
 # but this can be overridden when calling make, e.g.
@@ -29,13 +30,13 @@ module-init: ## Initialize required submodules.
 all: build ## Build site with production settings and put deliverables in ./public
 
 build: module-check ## Build site with non-production settings and put deliverables in ./public
-	hugo --minify --environment development
+	hugo --cleanDestinationDir --minify --environment development
 
 build-preview: module-check ## Build site with drafts and future posts enabled
-	hugo --buildDrafts --buildFuture --environment preview
+	hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview
 
 deploy-preview: ## Deploy preview site via netlify
-	hugo --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
+	hugo --cleanDestinationDir --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
@@ -44,11 +45,11 @@ check-headers-file:
 	scripts/check-headers-file.sh
 
 production-build: module-check ## Build the production site and ensure that noindex headers aren't added
-	hugo --minify --environment production
+	hugo --cleanDestinationDir --minify --environment production
 	HUGO_ENV=production $(MAKE) check-headers-file
 
 non-production-build: module-check ## Build the non-production site, which adds noindex headers to prevent indexing
-	hugo --enableGitInfo --environment nonprod
+	hugo --cleanDestinationDir --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
 	hugo server --buildFuture --environment development
