@@ -55,7 +55,7 @@ part of Kubernetes (this removal was
 [announced](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
 as part of the v1.20 release).
 -->
-v1.24 之前的 Kubernetes 版本包括与 Docker Engine 的直接集成，使用名为 **dockershim** 的组件。 
+kubernetes v1.24 之前的版本，使用 **dockershim** 组件直接整合了 Docker Engine 。
 这种特殊的直接整合不再是 Kubernetes 的一部分
 （这次删除被作为 v1.20 发行版本的一部分[宣布](/zh-cn/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)）。
 
