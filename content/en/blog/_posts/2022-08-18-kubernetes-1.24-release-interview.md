@@ -4,7 +4,7 @@ title: "Stargazing, solutions and staycations: the Kubernetes 1.24 release inter
 date: 2022-08-18
 ---
 
-**Author**: Craig Box (Google)∫
+**Author**: Craig Box (Google)
 
 The Kubernetes project has participants from all around the globe. Some are friends, some are colleagues, and some are strangers. The one thing that unifies them, no matter their differences, are that they all have an interesting story. It is my pleasure to be the documentarian for the stories of the Kubernetes community in the weekly [Kubernetes Podcast from Google](https://kubernetespodcast.com/). With every new Kubernetes release comes an interview with the release team lead, telling the story of that release, but also their own personal story.
 
@@ -20,7 +20,7 @@ Make sure you [subscribe, wherever you get your podcasts](https://kubernetespodc
 
 JAMES LAVERACK: I took a pretty traditional path to software engineering. I went through school and then I did a computer science degree at the University of Bristol, and then I just ended up taking a software engineer job from there. Somewhat rather by accident, I ended up doing fintech work, which is pretty interesting, pretty engaging.
 
-But in my most recent Fintech job before I joined Jetstack, I ended up working on this software project. We needed Kubernetes to solve a technical problem. So we implemented Kubernetes, and as often happens, I ended up as the one person of a team that understood the infrastructure, while everyone else was doing all of the application development.
+But in my most recent fintech job before I joined Jetstack, I ended up working on a software project. We needed Kubernetes to solve a technical problem. So we implemented Kubernetes, and as often happens, I ended up as the one person of a team that understood the infrastructure, while everyone else was doing all of the application development.
 
 I ended up enjoying the infrastructure side so much that I decided to move and do that full time. So I looked around and I found Jetstack, whose offices were literally across the road. I could see them out of our office window. And so I decided to just hop across the road and join them, and do all of this Kubernetes stuff more.
 
@@ -64,7 +64,7 @@ Which was just completely fine, and that made sense for the needs of the team at
 
 **CRAIG BOX: Do you think that talks to the split between Kubernetes being for developers or for operators? Do you think there's always going to be the need to have a different set of people who are maintaining the running infrastructure versus the people who are writing the code that run on it?**
 
-JAMES LAVERACK: I think to some extent, yes, whether or not that's a separate platform team or whether or not that is because the people running it are consultants of some kind. Or whether or not this has been abstracted away from you in some of the more batteries-included versions of Kubernetes — some of the cloud-hosted ones, especially.somewhat remove that need. So I don't think it's absolutely necessary to employ a platform team. But I think someone needs to do it or you need to implicitly or explicitly pay for someone to do it in some way.
+JAMES LAVERACK: I think to some extent, yes, whether or not that's a separate platform team or whether or not that is because the people running it are consultants of some kind. Or whether or not this has been abstracted away from you in some of the more batteries-included versions of Kubernetes — some of the cloud-hosted ones, especially,somewhat remove that need. So I don't think it's absolutely necessary to employ a platform team. But I think someone needs to do it or you need to implicitly or explicitly pay for someone to do it in some way.
 
 **CRAIG BOX: In the three years you have been at Jetstack now, how different are the jobs that you do for the customers? Is this just a case of learning one thing and rolling it out to multiple people, or is there always a different challenge with everyone you come across?**
 
@@ -219,9 +219,9 @@ JAMES LAVERACK: If you're downloading and running Kubernetes yourself, you can u
 
 As an end user, this isn't something that will necessarily directly impact you. But it means that service providers that provide managed Kubernetes options, such as Google and GKE, can provide even greater levels of security and safety themselves about the services that they run.
 
-**CRAIG BOX: A lot of people get access to their Kubernetes server just by being granted an API endpoint. And they start running kubectl against it. So they're not actually installing their own Kubernetes. They have a provider or a platform team do it for them. Do you think it's feasible to get to a world where there's something that you can run when you're deploying your workloads which queries the API server, for example, and gets access to that same provenance data?**
+**CRAIG BOX: A lot of people get access to their Kubernetes server just by being granted an API endpoint, and they start running kubectl against it. They're not actually installing their own Kubernetes. They have a provider or a platform team do it for them. Do you think it's feasible to get to a world where there's something that you can run when you're deploying your workloads which queries the API server, for example, and gets access to that same provenance data?**
 
-JAMES LAVERACK: I think it's going to be very difficult to do it that way, simply because this provenance and assertation data implies that you actually have access to the underlying executables, which typically, when you're really in a managed platform, you don't. So if you're having Kubernetes provided to you, I think you're still going to have to trust the platform team or the organization that's providing it to you.
+JAMES LAVERACK: I think it's going to be very difficult to do it that way, simply because this provenance and assertation data implies that you actually have access to the underlying executables, which typically, when you're really in a managed platform, you don't. If you're having Kubernetes provided to you, I think you're still going to have to trust the platform team or the organization that's providing it to you.
 
 **CRAIG BOX: Just like when you go to the hotel breakfast bar, you have to trust that they've been good with their orange juice.**
 
@@ -271,7 +271,7 @@ JAMES LAVERACK: [LAUGHING]
 
 JAMES LAVERACK: Every release lead gets to pick their theme, pretty much by themselves. When I started, I asked Rey, the previous release lead, how he picked his theme, because he picked the Next Frontier for Kubernetes 1.23. And he told me that he'd actually picked it before the release even started, which meant for the first couple of weeks and months of the release, I was really worried about it, because I hadn't picked one yet, and I wasn't sure what to pick.
 
-Then again, I was speaking to another former release lead, and they told me that they picked theirs like two weeks out. So it seems to really vary. About halfway through the release, I had some ideas down. I thought maybe we could talk about — I live in a city called Bristol in the UK, which has a very famous bridge — and I thought, oh, we could talk about bridges and architectural and a metaphor for community bridging gaps and things like this. I kind of liked the idea, but it didn't really grab me. 
+Then again, I was speaking to another former release lead, and they told me that they picked theirs like two weeks out. It seems to really vary. About halfway through the release, I had some ideas down. I thought maybe we could talk about — I live in a city called Bristol in the UK, which has a very famous bridge — and I thought, oh, we could talk about bridges and architectural and a metaphor for community bridging gaps and things like this. I kind of liked the idea, but it didn't really grab me. 
 
 One thing about me is that I am a serious night owl. I cannot work effectively in the mornings. I've always enjoyed the night. And that got me thinking about astronomy and the stars. I think one night I was trying to get to sleep, because I couldn't sleep, and I was watching PBS Space Time, which is this fantastic YouTube channel talking about physics. And I'm not a physicist. I don't understand any of the maths. But I find it really interesting as a topic. 
 
@@ -279,13 +279,13 @@ I just thought, well, why don't I make a theme about stars. Kubernetes has often
 
 **CRAIG BOX: Once you have a theme, you then need a release logo. I understand you have a household artist?**
 
-JAMES LAVERACK: [LAUGHS] I don't think she'd appreciate being called that, but, yes. So my wife is an artist, and in particular, a digital artist. I had a bit of a conversation with the SIG Release folks to see if they'd be comfortable with my wife doing it, and they said they'd be completely fine with that.
+JAMES LAVERACK: [LAUGHS] I don't think she'd appreciate being called that, but, yes. My wife is an artist, and in particular, a digital artist. I had a bit of a conversation with the SIG Release folks to see if they'd be comfortable with my wife doing it, and they said they'd be completely fine with that.
 
 I asked if she would be willing to spend some time creating a logo for us. And thankfully for me, she was. She has produced this — well, I'm somewhat obliged to say — she produced us a beautiful logo, which you can see in our release blog and probably around social media. It is a telescope set over starry skies, and I absolutely love it.
 
 **CRAIG BOX: It is objectively very nice. It obviously has the seven stars or the Seven Sisters of the Pleiades. Do the colors have any particular meaning?**
 
-JAMES LAVERACK: So the colors are based on the Kubernetes blue. If you look in the background, that haze is actually in the shape of a Kubernetes wheel from the original Kubernetes logo.
+JAMES LAVERACK: The colors are based on the Kubernetes blue. If you look in the background, that haze is actually in the shape of a Kubernetes wheel from the original Kubernetes logo.
 
 **CRAIG BOX: You must have to squint at it the right way. Very abstract. As is the wont of art.**
 
