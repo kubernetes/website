@@ -66,16 +66,16 @@ to understand how this removal might
 affect you. To learn about migrating from using dockershim, see
 [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
 -->
-你可以阅读[检查 Dockershim 弃用是否会影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) 
+你可以阅读[检查弃用 Dockershim 是否会影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
 以了解此删除可能会如何影响你。 
-要了解如何使用 dockershim 进行迁移，
+要了解如何从使用 dockershim 中进行迁移，
 请参阅[从 dockershim 迁移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)。
 
 <!--
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
 check the documentation for that version.
 -->
-如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，检查该版本的文档。
+如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，查看对应版本的文档。
 {{< /note >}}
 
 <!-- body -->
@@ -172,8 +172,8 @@ resource pressure.
 单个 cgroup 管理器将简化分配资源的视图，并且默认情况下将对可用资源和使用
 中的资源具有更一致的视图。
 当有两个管理器共存于一个系统中时，最终将对这些资源产生两种视图。
-在此领域人们已经报告过一些案例，某些节点配置让 kubelet 和 docker 使用
-`cgroupfs`，而节点上运行的其余进程则使用 systemd; 这类节点在资源压力下
+在这方面，人们已经报告过一些示例，某些节点的 kubelet 和 docker 使用
+`cgroupfs`，而节点上运行的其余进程则使用 `systemd`，这类节点在资源压力下
 会变得不稳定。
 
 <!--
@@ -198,7 +198,7 @@ configuration, or reinstall it using automation.
 别的 cgroup 驱动，当为现有 Pods 重新创建 PodSandbox 时会产生错误。
 重启 kubelet 也可能无法解决此类问题。
 
-如果你有切实可行的自动化方案，使用其他已更新配置的节点来替换该节点，
+除非你有切实可行的自动化方案，使用其他已更新配置的节点来替换该节点，
 或者使用自动化方案来重新安装。
 {{< /caution >}}
 
@@ -282,7 +282,7 @@ In order to use it, cgroup v2 must be supported by the CRI runtime as well.
 If you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters,
 follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 -->
-### 将 kubeadm 托管的集群迁移到 `systemd` 驱动
+### 将 kubeadm 管理的集群迁移到 `systemd` 驱动
 
 如果你希望将现有的由 kubeadm 管理的集群迁移到 `systemd` cgroup 驱动程序，
 请按照[配置 cgroup 驱动程序](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)操作。
@@ -298,10 +298,10 @@ using the (deprecated) v1alpha2 API instead.
 -->
 ## CRI 版本支持 {#cri-versions}
 
-你的容器运行时必须至少支持容器运行时接口的 v1alpha2。
+你的容器运行时必须至少支持v1alpha2 版本的容器运行时接口。
 
-Kubernetes {{< skew currentVersion >}} 默认使用 v1 的 CRI API。如果容器运行时不支持 v1 API，
-则 kubelet 会回退到使用（已弃用的）v1alpha2 API。
+Kubernetes {{< skew currentVersion >}} 默认使用 v1 版本的 CRI API。如果容器运行时不支持 v1 版本的API，
+则 kubelet 会回退到使用（已弃用的）v1alpha2 版本的API。
 
 <!-- 
 ## Container runtimes
@@ -319,7 +319,7 @@ Use the following commands to install Containerd on your system:
 -->
 本节概述了使用 containerd 作为 CRI 运行时的必要步骤。
 
-使用以下命令在系统上安装 Containerd：
+使用以下命令在系统上安装 Containerd ：
 
 <!-- 
 Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
@@ -374,7 +374,7 @@ if you made changes to that file, also restart `containerd`.
 如果你从软件包（例如，RPM 或者 `.deb`）中安装 containerd，你可能会发现其中默认禁止了
 CRI 集成插件。
 
-你需要启用 CRI 支持才能在 Kubernetes 集群中使用 containerd。
+你需要启用 CRI 支持才能在 Kubernetes 集群中使用 containerd 。
 要确保 `cri` 没有出现在 `/etc/containerd/config.toml` 文件中 `disabled_plugins`
 列表内。如果你更改了这个文件，也请记得要重启 `containerd`。
 {{< /note >}}
@@ -382,7 +382,7 @@ CRI 集成插件。
 <!--
 If you apply this change, make sure to restart containerd:
 -->
-如果你应用此更改，请确保重新启动 containerd：
+如果你应用此更改，请确保重新启动 containerd ：
 
 ```shell
 sudo systemctl restart containerd
@@ -453,7 +453,7 @@ You should also note the changed `conmon_cgroup`, which has to be set to the val
 cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
 in sync.
 -->
-你还应该注意到 `conmon_cgroup` 被更改，当使用 CRI-O 和 `cgroupfs` 时，必须将其设置为值 `pod`。
+你还应该注意当使用CRI-O时，并且CRI-O 的 cgroup 设置为 `cgroupfs` 时，必须将`conmon_cgroup` 设置为值 `pod`。
 通常需要保持 kubelet 的 cgroup 驱动配置（通常通过 kubeadm 完成）和 CRI-O 同步。
 
 <!-- 
@@ -551,8 +551,7 @@ The command line argument to use is `--pod-infra-container-image`.
 -->
 #### 重载沙箱（pause）镜像   {#override-pause-image-cri-dockerd-mcr}
 
-`cri-dockerd` 适配器能够接受一个命令行参数是，设置用哪个容器镜像作为 Pod
-的基础设施容器（“pause 镜像”）。
+`cri-dockerd` 适配器能够接受指定用作 Pod 的基础容器的容器镜像（“pause 镜像”）作为命令行参数。
 要使用的命令行参数是 `--pod-infra-container-image`。
 
 ## {{% heading "whatsnext" %}}
