@@ -135,7 +135,8 @@ different Kubernetes components.
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
 | `KubeletTracing` | `false` | Alpha | 1.25 | |
-| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
+| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | 1.24 |
+| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `true` | Beta | 1.25 | |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
 | `MatchLabelKeysInPodTopologySpread` | `false` | Alpha | 1.25 | |
