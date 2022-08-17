@@ -64,17 +64,17 @@ juntamente com seus rótulos:
 ## Crie um pod que é agendado em seu nó escolhido
 
 Este arquivo de configuração de pod descreve um pod que tem um seletor de nó, 
-`disktype: ssd`. Isto significa que o pod vai ser agendado em um nó que tem o rótulo `disktype=ssd`.
+`disktype: ssd`. Isto significa que o pod será agendado em um nó que tem o rótulo `disktype=ssd`.
 
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
-1. Use o arquivo de configuração para criar um pod que é agendado em um nó escolhido:
+1. Use o arquivo de configuração para criar um pod que será agendado no nó escolhido:
     
     ```shell
     kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml
     ```
 
-1. Verifique se o pod é executando em seu nó escolhido:
+1. Verifique se o pod está executando no nó escolhido:
 
     ```shell
     kubectl get pods --output=wide
@@ -93,7 +93,7 @@ Você pode também agendar um pod para um nó específico usando `nodeName`.
 
 {{< codenew file="pods/pod-nginx-specific-node.yaml" >}}
 
-Use o arquivo de configuração para criar um pod que será agendado somente no `foo-node`.
+Use o arquivo de configuração para criar um pod que será agendado somente no nó `foo-node`.
 
 
 
