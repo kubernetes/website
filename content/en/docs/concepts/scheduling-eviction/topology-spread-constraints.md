@@ -66,6 +66,8 @@ spec:
       whenUnsatisfiable: <string>
       labelSelector: <object>
       matchLabelKeys: <list> # optional; alpha since v1.25
+      nodeAffinityPolicy: [Honor|Ignore] # optional; alpha since v1.25
+      nodeTaintsPolicy: [Honor|Ignore] # optional; alpha since v1.25
   ### other Pod fields go here
 ```
 
@@ -145,6 +147,33 @@ your cluster. Those fields are:
   {{< note >}}
   The `matchLabelKeys` field is an alpha field added in 1.25. You have to enable the
   `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  in order to use it.
+  {{< /note >}}
+
+- **nodeAffinityPolicy** indicates how we will treat Pod's nodeAffinity/nodeSelector
+  when calculating pod topology spread skew. Options are:
+  - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations.
+  - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+
+  If this value is null, the behavior is equivalent to the Honor policy.
+
+  {{< note >}}
+  The `nodeAffinityPolicy` is an alpha-level field added in 1.25. You have to enable the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  in order to use it.
+  {{< /note >}}
+
+- **nodeTaintsPolicy** indicates how we will treat node taints when calculating
+  pod topology spread skew. Options are:
+  - Honor: nodes without taints, along with tainted nodes for which the incoming pod
+    has a toleration, are included.
+  - Ignore: node taints are ignored. All nodes are included.
+
+  If this value is null, the behavior is equivalent to the Ignore policy.
+
+  {{< note >}}
+  The `nodeTaintsPolicy` is an alpha-level field added in 1.25. You have to enable the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   in order to use it.
   {{< /note >}}
 
