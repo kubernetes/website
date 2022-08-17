@@ -55,7 +55,7 @@ part of Kubernetes (this removal was
 [announced](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
 as part of the v1.20 release).
 -->
-v1.24 之前的 Kubernetes 版本包括与 Docker Engine 的直接集成，使用名为 **dockershim** 的组件。 
+Kubernetes v1.24 之前的版本，使用 **dockershim** 组件直接整合了 Docker Engine。
 这种特殊的直接整合不再是 Kubernetes 的一部分
 （这次删除被作为 v1.20 发行版本的一部分[宣布](/zh-cn/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)）。
 
@@ -66,16 +66,16 @@ to understand how this removal might
 affect you. To learn about migrating from using dockershim, see
 [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
 -->
-你可以阅读[检查 Dockershim 弃用是否会影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) 
+你可以阅读[检查移除 Dockershim 是否对你有影响](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
 以了解此删除可能会如何影响你。 
-要了解如何使用 dockershim 进行迁移，
+要了解如何从使用 dockershim 中进行迁移，
 请参阅[从 dockershim 迁移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)。
 
 <!--
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
 check the documentation for that version.
 -->
-如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，检查该版本的文档。
+如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，查看对应版本的文档。
 {{< /note >}}
 
 <!-- body -->
@@ -172,9 +172,9 @@ resource pressure.
 单个 cgroup 管理器将简化分配资源的视图，并且默认情况下将对可用资源和使用
 中的资源具有更一致的视图。
 当有两个管理器共存于一个系统中时，最终将对这些资源产生两种视图。
-在此领域人们已经报告过一些案例，某些节点配置让 kubelet 和 docker 使用
-`cgroupfs`，而节点上运行的其余进程则使用 systemd; 这类节点在资源压力下
-会变得不稳定。
+在这方面，人们已经报告过一些示例，某些节点的 kubelet 和 docker 使用
+`cgroupfs`，而节点上运行的其余进程则使用 `systemd`，
+这类节点在资源压力下会变得不稳定。
 
 <!--
 Changing the settings such that your container runtime and kubelet use `systemd` as the cgroup driver
@@ -282,7 +282,7 @@ In order to use it, cgroup v2 must be supported by the CRI runtime as well.
 If you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters,
 follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 -->
-### 将 kubeadm 托管的集群迁移到 `systemd` 驱动
+### 将 kubeadm 管理的集群迁移到 `systemd` 驱动
 
 如果你希望将现有的由 kubeadm 管理的集群迁移到 `systemd` cgroup 驱动程序，
 请按照[配置 cgroup 驱动程序](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)操作。
@@ -298,10 +298,10 @@ using the (deprecated) v1alpha2 API instead.
 -->
 ## CRI 版本支持 {#cri-versions}
 
-你的容器运行时必须至少支持容器运行时接口的 v1alpha2。
+你的容器运行时必须至少支持 v1alpha2 版本的容器运行时接口。
 
-Kubernetes {{< skew currentVersion >}} 默认使用 v1 的 CRI API。如果容器运行时不支持 v1 API，
-则 kubelet 会回退到使用（已弃用的）v1alpha2 API。
+Kubernetes {{< skew currentVersion >}} 默认使用 v1 版本的 CRI API。如果容器运行时不支持 v1 版本的 API，
+则 kubelet 会回退到使用（已弃用的）v1alpha2 版本的 API。
 
 <!-- 
 ## Container runtimes
@@ -453,7 +453,7 @@ You should also note the changed `conmon_cgroup`, which has to be set to the val
 cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
 in sync.
 -->
-你还应该注意到 `conmon_cgroup` 被更改，当使用 CRI-O 和 `cgroupfs` 时，必须将其设置为值 `pod`。
+你还应该注意当使用 CRI-O 时，并且 CRI-O 的 cgroup 设置为 `cgroupfs` 时，必须将 `conmon_cgroup` 设置为值 `pod`。
 通常需要保持 kubelet 的 cgroup 驱动配置（通常通过 kubeadm 完成）和 CRI-O 同步。
 
 <!-- 
@@ -551,8 +551,7 @@ The command line argument to use is `--pod-infra-container-image`.
 -->
 #### 重载沙箱（pause）镜像   {#override-pause-image-cri-dockerd-mcr}
 
-`cri-dockerd` 适配器能够接受一个命令行参数，用于设置使用哪个容器镜像作为 Pod
-的基础设施容器（“pause 镜像”）。
+`cri-dockerd` 适配器能够接受指定用作 Pod 的基础容器的容器镜像（“pause 镜像”）作为命令行参数。
 要使用的命令行参数是 `--pod-infra-container-image`。
 
 ## {{% heading "whatsnext" %}}
