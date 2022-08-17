@@ -209,7 +209,7 @@ You can check the current status of the newly-made HorizontalPodAutoscaler, by r
 
 <!--# You can use "hpa" or "horizontalpodautoscaler"; either name works OK. -->
 ```shell
-# 你可以使用 “hap” 或 “horizontalpodautoscaler”；任何一个名字都可以。
+# 你可以使用 “hpa” 或 “horizontalpodautoscaler”；任何一个名字都可以。
 kubectl get hpa
 ```
 
