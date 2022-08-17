@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: nginx
 spec:
-  nodeName: foo-node # agende o Pod para um Nó específico
+  nodeName: foo-node # schedule pod to specific node
   containers:
   - name: nginx
     image: nginx
