@@ -51,6 +51,9 @@
   - name: Security context
     fields:
     - securityContext
+  - name: Alpha level
+    fields:
+    - hostUsers
   - name: Deprecated
     fields:
     - serviceAccount
@@ -382,6 +385,9 @@
     fields:
     - selector
     - manualSelector
+  - name: Alpha level
+    fields:
+    - podFailurePolicy
 
 - definition: io.k8s.api.batch.v1.JobStatus
   field_categories:

@@ -117,6 +117,85 @@ JobSpec describes how the job execution will look like.
 
   manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 
+### Alpha level
+
+
+- **podFailurePolicy** (PodFailurePolicy)
+
+  Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+  
+  This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+
+  <a name="PodFailurePolicy"></a>
+  *PodFailurePolicy describes how failed pods influence the backoffLimit.*
+
+  - **podFailurePolicy.rules** ([]PodFailurePolicyRule), required
+
+    *Atomic: will be replaced during a merge*
+    
+    A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+
+    <a name="PodFailurePolicyRule"></a>
+    *PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.*
+
+    - **podFailurePolicy.rules.action** (string), required
+
+      Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+        running pods are terminated.
+      - Ignore: indicates that the counter towards the .backoffLimit is not
+        incremented and a replacement pod is created.
+      - Count: indicates that the pod is handled in the default way - the
+        counter towards the .backoffLimit is incremented.
+      Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+      
+      
+
+    - **podFailurePolicy.rules.onPodConditions** ([]PodFailurePolicyOnPodConditionsPattern), required
+
+      *Atomic: will be replaced during a merge*
+      
+      Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+
+      <a name="PodFailurePolicyOnPodConditionsPattern"></a>
+      *PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.*
+
+      - **podFailurePolicy.rules.onPodConditions.status** (string), required
+
+        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+
+      - **podFailurePolicy.rules.onPodConditions.type** (string), required
+
+        Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+
+    - **podFailurePolicy.rules.onExitCodes** (PodFailurePolicyOnExitCodesRequirement)
+
+      Represents the requirement on the container exit codes.
+
+      <a name="PodFailurePolicyOnExitCodesRequirement"></a>
+      *PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.*
+
+      - **podFailurePolicy.rules.onExitCodes.operator** (string), required
+
+        Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+          (might be multiple if there are multiple containers not restricted
+          by the 'containerName' field) is in the set of specified values.
+        - NotIn: the requirement is satisfied if at least one container exit code
+          (might be multiple if there are multiple containers not restricted
+          by the 'containerName' field) is not in the set of specified values.
+        Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+        
+        
+
+      - **podFailurePolicy.rules.onExitCodes.values** ([]int32), required
+
+        *Set: unique values will be kept during a merge*
+        
+        Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+
+      - **podFailurePolicy.rules.onExitCodes.containerName** (string)
+
+        Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+
 
 
 ## JobStatus {#JobStatus}
