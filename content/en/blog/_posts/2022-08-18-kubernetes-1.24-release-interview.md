@@ -20,7 +20,7 @@ Make sure you [subscribe, wherever you get your podcasts](https://kubernetespodc
 
 JAMES LAVERACK: I took a pretty traditional path to software engineering. I went through school and then I did a computer science degree at the University of Bristol, and then I just ended up taking a software engineer job from there. Somewhat rather by accident, I ended up doing fintech work, which is pretty interesting, pretty engaging.
 
-But in my most recent fintech job before I joined Jetstack, I ended up working on a software project. We needed Kubernetes to solve a technical problem. So we implemented Kubernetes, and as often happens, I ended up as the one person of a team that understood the infrastructure, while everyone else was doing all of the application development.
+But in my most recent fintech job before I joined [Jetstack](https://www.jetstack.io/), I ended up working on a software project. We needed Kubernetes to solve a technical problem. So we implemented Kubernetes, and as often happens, I ended up as the one person of a team that understood the infrastructure, while everyone else was doing all of the application development.
 
 I ended up enjoying the infrastructure side so much that I decided to move and do that full time. So I looked around and I found Jetstack, whose offices were literally across the road. I could see them out of our office window. And so I decided to just hop across the road and join them, and do all of this Kubernetes stuff more.
 
@@ -48,7 +48,7 @@ JAMES LAVERACK: To where, sorry?
 
 JAMES LAVERACK: Oh, no, I don't think I have.
 
-**CRAIG BOX: Well, look it up if you're ever in the region, everybody. Let's get back to Jetstack, though. They were across the road. Great company, the two Matts, the co-founders there. What was the interview process like for you?**
+**CRAIG BOX: Well, look it up if you're ever in the region, everybody. Let's get back to Jetstack, though. They were across the road. Great company, the [two](https://www.jetstack.io/about/mattbarker/) [Matts](https://www.jetstack.io/about/mattbates/), the co-founders there. What was the interview process like for you?**
 
 JAMES LAVERACK: It was pretty relaxed. One lunchtime, I just walked down the road and went to a coffee shop with Matt and we had this lovely conversation talking about my background and Jetstack and what I was looking to achieve in a new role and all this. And I'd applied to be a software engineer. And then they kind of at the end of it, he looked over at me and was like, "well, how about being a solutions engineer instead?" And I was like, what's that?
 
@@ -92,7 +92,7 @@ JAMES LAVERACK: I wouldn't really consider it less technical. I mean, yes, you d
 
 I don't think my role has really changed to have less coding. In fact, one of my more recent projects at Jetstack, a client project, involved a lot of coding. But I think that what attracted me to this role within Kubernetes is really the community. I found it really rewarding to engage with SIG Release and to engage with the release team. So I've always just enjoyed doing it, even though there is, as you say, not all that much coding involved.
 
-**CRAIG BOX: Indeed [your wife said to you, "I don't think your job is to code anymore. You just talk to people all day."](https://twitter.com/JamesLaverack/status/1483201645286678529) How did that make you feel?**
+**CRAIG BOX: Indeed; your wife said to you, ["I don't think your job is to code anymore. You just talk to people all day."](https://twitter.com/JamesLaverack/status/1483201645286678529) How did that make you feel?**
 
 JAMES LAVERACK: Ahh, annoyed, because she was right. This was kind of a couple of months ago when I was in the middle of it with all of the Kubernetes meetings. Also, my client project at the time involved a lot of technical discussion. I was in three or four hours of calls every day. And I don't mind that. But I would come out, in part because of course you're working from home, so she sees me all the time. So I'd come out, I'd grab a coffee and be like, "oh, I've got a meeting, I've got to go." And she'd be like, "do you ever code anymore?"
 I think it was in fact just after Christmas when she asked me, "when was the last time you programmed anything?" And I had to think about it. Then I realized that perhaps there was a problem there. Well, not a problem, but I realized that perhaps I don't code as much as I used to.
