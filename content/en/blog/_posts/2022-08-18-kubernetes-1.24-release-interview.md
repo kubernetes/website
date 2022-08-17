@@ -151,7 +151,7 @@ JAMES LAVERACK: I started out as a release notes shadow, and did that for a coup
 
 JAMES LAVERACK: I think I'm going to be around in SIG Release for as long as people want me there. I find it a really interesting part of the community. And I find the people super-interesting and super-inviting.
 
-**CRAIG BOX: Let's talk then about [Kubernetes 1.24](https://kubernetes.io/blog/2022/05/03/kubernetes-1-24-release-announcement/). First, as always, congratulations on the release.**
+**CRAIG BOX: Let's talk then about [Kubernetes 1.24](/blog/2022/05/03/kubernetes-1-24-release-announcement/). First, as always, congratulations on the release.**
 
 JAMES LAVERACK: Thank you.
 
