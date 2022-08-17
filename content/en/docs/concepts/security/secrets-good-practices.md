@@ -85,7 +85,7 @@ recommendations include:
 
 ### Improve etcd management policies
 
-Consider wiping / shredding the durable storage used by etcd once it is
+Consider wiping or shredding the durable storage used by `etcd` once it is
 no longer in use.
 
 If there are multiple `etcd` instances, configure encrypted SSL/TLS
