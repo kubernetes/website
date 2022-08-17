@@ -17,7 +17,7 @@ weight: 10
 
 파드 시큐리티 스탠다드를 클러스터 수준에서 여러 네임스페이스에 한 번에 적용할 수도 있다. 
 이에 대한 안내는 
-[파드 시큐리티 스탠다드를 클러스터 수준에 적용하기](/ko/docs/tutorials/security/cluster-level-pss/)를 참고한다.
+[파드 시큐리티 스탠다드를 클러스터 수준에 적용하기](/ko/docs/tutorials/security/cluster-level-pss/)를 참고한다. 
 
 ## {{% heading "prerequisites" %}}
 
