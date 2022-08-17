@@ -1,8 +1,5 @@
 ---
 title: Aplicando os Padrões de Segurança do Pod, Configurando o Controlador de Admissão Embutido
-reviewers:
-- tallclair
-- liggitt
 content_type: task
 min-kubernetes-server-version: v1.22
 ---
@@ -52,11 +49,11 @@ plugins:
       warn: "privileged"
       warn-version: "latest"
     exemptions:
-      # `Array`de nomes de usuários autenticados para isentar.
+      # Array of authenticated usernames to exempt.
       usernames: []
-      # `Array` de nomes de classe `runtime` para isentar.
+      # Array of runtime class names to exempt.
       runtimeClasses: []
-      # `Array` de namespaces para isentar.
+      # Array of namespaces to exempt.
       namespaces: []
 ```
 
@@ -66,6 +63,7 @@ A v1beta1 de configuração requer v1.23+. Para v1.22, use v1alpha1.
 
 {{% /tab %}}
 {{% tab name="pod-security.admission.config.k8s.io/v1alpha1" %}}
+
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -74,16 +72,16 @@ plugins:
   configuration:
     apiVersion: pod-security.admission.config.k8s.io/v1alpha1
     kind: PodSecurityConfiguration
-    # Os padrões aplicados quando uma label de modo não está definida.
+    # Defaults applied when a mode label is not set.
     #
-    # Valor de nível de label precisa ser um dos:
+    # Level label values must be one of:
     # - "privileged" (default)
     # - "baseline"
     # - "restricted"
     #
-    # Valor de versão de label precisa ser um dos:
+    # Version label values must be one of:
     # - "latest" (default) 
-    # - Versão especifica como "v{{< skew currentVersion >}}"
+    # - specific version like "v{{< skew currentVersion >}}"
     defaults:
       enforce: "privileged"
       enforce-version: "latest"
@@ -92,12 +90,12 @@ plugins:
       warn: "privileged"
       warn-version: "latest"
     exemptions:
-      # `Array` de nomes de usuários autenticados para isentar.
+      # Array of authenticated usernames to exempt.
       usernames: []
-      # `Array` de nomes de calsses `runtime` para isentar.
+      # Array of runtime class names to exempt.
       runtimeClasses: []
-      # `Array` de namespaces para isentar.
-      namespaces: []
+      # Array of namespaces to exempt.
+      namespaces: [] 
 ```
 {{% /tab %}}
 {{< /tabs >}}
