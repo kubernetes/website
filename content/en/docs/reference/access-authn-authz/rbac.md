@@ -285,6 +285,28 @@ If you restrict `list` or `watch` by resourceName, clients must include a `metad
 For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
+Rather than referring to individual `resources` and `verbs` you can use the wildcard `*` symbol to refer to all such objects.
+For `nonResourceURLs` you can use the wildcard `*` symbol as a suffix glob match and for `apiGroups` and `resourceNames` an empty set means that everything is allowed.
+Here is an example that allows access to perform any current and future action on all current and future resources (note, this is similar to the built-in `cluster-admin` role).
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: example.com-superuser  # DO NOT USE THIS ROLE, IT IS JUST AN EXAMPLE
+rules:
+- apiGroups: ["example.com"]
+  resources: ["*"]
+  verbs: ["*"]
+```
+
+{{< caution >}}
+Using wildcards in resource and verb entries could result in overly permissive access being granted to sensitive resources.
+For instance, if a new resource type is added, or a new subresource is added, or a new custom verb is checked, the wildcard entry automatically grants access, which may be undesirable.
+The [principle of least privilege](/docs/concepts/security/rbac-good-practices/#least-privilege) should be employed, using specific resources and verbs to ensure only the permissions required for the workload to function correctly are applied. 
+{{< /caution >}}
+
 
 ### Aggregated ClusterRoles
 
