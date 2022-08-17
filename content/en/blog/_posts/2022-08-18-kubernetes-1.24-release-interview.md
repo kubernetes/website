@@ -4,11 +4,11 @@ title: "Stargazing, solutions and staycations: the Kubernetes 1.24 release inter
 date: 2022-08-18
 ---
 
-**Author**: Craig Box (Google)
+**Author**: Craig Box (Google)∫
 
 The Kubernetes project has participants from all around the globe. Some are friends, some are colleagues, and some are strangers. The one thing that unifies them, no matter their differences, are that they all have an interesting story. It is my pleasure to be the documentarian for the stories of the Kubernetes community in the weekly [Kubernetes Podcast from Google](https://kubernetespodcast.com/). With every new Kubernetes release comes an interview with the release team lead, telling the story of that release, but also their own personal story.
 
-With 1.25 around the corner, [the tradition continues](https://www.google.com/search?q=%22release+interview%22+site%3Akubernetes.io%2Fblog) with a look back at the story of 1.24. That release was led by [James Laverack](https://twitter.com/jameslaverack) of JetStack. [James was on the podcast](https://kubernetespodcast.com/episode/178-kubernetes-1.24/) in May, and while you can read his story below, if you can, please do listen to it in his own voice.
+With 1.25 around the corner, [the tradition continues](https://www.google.com/search?q=%22release+interview%22+site%3Akubernetes.io%2Fblog) with a look back at the story of 1.24. That release was led by [James Laverack](https://twitter.com/jameslaverack) of Jetstack. [James was on the podcast](https://kubernetespodcast.com/episode/178-kubernetes-1.24/) in May, and while you can read his story below, if you can, please do listen to it in his own voice.
 
 Make sure you [subscribe, wherever you get your podcasts](https://kubernetespodcast.com/subscribe/), so you hear all our stories from the Cloud Native community, including the story of 1.25 next week.
 
