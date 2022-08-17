@@ -99,7 +99,7 @@ I think it was in fact just after Christmas when she asked me, "when was the las
 
 **CRAIG BOX: Are you the kind of person who will pick up a hobby project to try and fix that?**
 
-JAMES LAVERACK: Absolutely. I've recently started writing [a Kubernetes operator for my Minecraft server]](https://github.com/JamesLaverack/minecraft-operator). That probably tells you about the state I'm in.
+JAMES LAVERACK: Absolutely. I've recently started writing [a Kubernetes operator for my Minecraft server](https://github.com/JamesLaverack/minecraft-operator). That probably tells you about the state I'm in.
 
 **CRAIG BOX: If it's got Kubernetes in it, it doesn't sound that much of a hobby.**
 
