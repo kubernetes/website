@@ -148,6 +148,7 @@ different Kubernetes components.
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
 | `MixedProtocolLBService` | `true` | Beta | 1.24 | |
 | `NetworkPolicyStatus` | `false` | Alpha | 1.24 |  |
+| `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | |
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
@@ -1040,6 +1041,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `NetworkPolicyEndPort`: Enable use of the field `endPort` in NetworkPolicy objects,
   allowing the selection of a port range instead of a single port.
 - `NetworkPolicyStatus`: Enable the `status` subresource for NetworkPolicy objects.
+- `NodeInclusionPolicyInPodTopologySpread`: Enable using `nodeAffinityPolicy` and `nodeTaintsPolicy` in
+  [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+  when calculating pod topology spread skew.
 - `NodeDisruptionExclusion`: Enable use of the Node label `node.kubernetes.io/exclude-disruption`
   which prevents nodes from being evacuated during zone failures.
 - `NodeLease`: Enable the new Lease API to report node heartbeats, which could be used as a node health signal.
