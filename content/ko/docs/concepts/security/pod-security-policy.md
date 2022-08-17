@@ -11,9 +11,13 @@ weight: 30
 
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
-파드시큐리티폴리시(PodSecurityPolicy)는 쿠버네티스 v1.21부터 더 이상 사용되지 않으며, v1.25에서 제거될 예정이다. 
-파드시큐리티폴리시는 [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)으로 대체되었다.
-사용 중단에 대한 상세 사항은 [파드시큐리티폴리시 사용 중단: 과거, 현재, 그리고 미래](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)를 참조한다.
+{{< caution >}}
+파드시큐리티폴리시(PodSecurityPolicy)는 쿠버네티스 v1.21부터 더 이상 사용되지 않으며, **v1.25에서 제거될 예정**이다.
+[파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/) 혹은 써드파티 어드미션 플러그인으로 대체하는 것을 권장한다.
+상세 가이드는 [파드시큐리티폴리시를 파드 시큐리티 어드미션 컨트롤러로 대체하기](/docs/tasks/configure-pod-container/migrate-from-psp/)를 참조한다.
+사용 중단에 대한 상세 사항은
+[파드시큐리티폴리시 사용 중단: 과거, 현재, 그리고 미래](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)를 참조한다.
+{{< /caution >}}
 
 파드 시큐리티 폴리시를 사용하면 파드 생성 및 업데이트에 대한 세분화된 권한을
 부여할 수 있다.
@@ -23,10 +27,11 @@ weight: 30
 ## 파드 시큐리티 폴리시란?
 
 _Pod Security Policy_ 는 파드 명세의 보안 관련 측면을 제어하는 클러스터-레벨의
-리소스이다. [파드시큐리티폴리시](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 오브젝트는
+리소스이다.
+[파드시큐리티폴리시](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 오브젝트는
 관련 필드에 대한 기본값뿐만 아니라 시스템에 적용하기 위해 파드가 실행해야만 하는
-조건 셋을 정의한다. 관리자는
-다음을 제어할 수 있다.
+조건 셋을 정의한다.
+관리자는 다음을 제어할 수 있다.
 
 | 제어 측면                                            | 필드 이름                                 |
 | ----------------------------------------------------| ------------------------------------------- |
@@ -150,14 +155,17 @@ RBAC 바인딩에 대한 자세한 예는,
 text="어드미션 컨트롤러" term_id="admission-controller" >}}로 대체되고 있다.
 이 변경에 대한 상세사항은 
 [파드시큐리티폴리시 사용 중단: 과거, 현재, 그리고 미래](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)를 참조한다.
-다음 가이드라인을 참조하여 파드시큐리티폴리시를 새로운 어드미션 컨트롤러로 쉽게 전환할 수 있다.
+다음 가이드라인을 참조하여 파드시큐리티폴리시를
+새로운 어드미션 컨트롤러로 쉽게 전환할 수 있다.
 
-1. 파드시큐리티폴리시를 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)에 의해 정의된 폴리시로 한정한다.
-    - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
-    - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
-    - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
+1. 파드시큐리티폴리시를
+   [파드 보안 표준](/docs/concepts/security/pod-security-standards/)에 의해 정의된 폴리시로 한정한다.
 
-2. `system:serviceaccounts:<namespace>` (여기서 `<namespace>`는 타겟 네임스페이스) 그룹을 사용하여 
+   - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
+   - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
+   - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
+
+1. `system:serviceaccounts:<namespace>` (여기서 `<namespace>`는 타겟 네임스페이스) 그룹을 사용하여 
   파드시큐리티폴리시를 전체 네임스페이스에만 바인드한다. 예시는 다음과 같다.
 
     ```yaml
@@ -182,16 +190,16 @@ text="어드미션 컨트롤러" term_id="admission-controller" >}}로 대체되
 ### 문제 해결
 
 - [컨트롤러 관리자](/docs/reference/command-line-tools-reference/kube-controller-manager/)는
-보안 API 포트에 대해 실행되어야 하며 수퍼유저 권한이 없어야 한다.
-API 서버 접근 제어에 대한 자세한 내용은
-[쿠버네티스 API에 대한 접근 제어](/ko/docs/concepts/security/controlling-access)를 참고하길 바란다.
-컨트롤러 관리자가 신뢰할 수 있는 API 포트(`localhost` 리스너라고도 함)를
-통해 연결된 경우, 요청이 인증 및 권한 부여 모듈을 우회하고,
-모든 파드시큐리티폴리시 오브젝트가 허용되며 사용자는 특권을 가진 컨테이너를
-만들 수 있는 권한을 부여할 수 있다.
+  보안 API 포트에 대해 실행되어야 하며 수퍼유저 권한이 없어야 한다.
+  API 서버 접근 제어에 대한 자세한 내용은
+  [쿠버네티스 API에 대한 접근 제어](/ko/docs/concepts/security/controlling-access)를 참고하길 바란다.
+  컨트롤러 관리자가 신뢰할 수 있는 API 포트(`localhost` 리스너라고도 함)를
+  통해 연결된 경우, 요청이 인증 및 권한 부여 모듈을 우회하고,
+  모든 파드시큐리티폴리시 오브젝트가 허용되며 사용자는 특권을 가진 컨테이너를
+  만들 수 있는 권한을 부여할 수 있다.
 
-컨트롤러 관리자 권한 구성에 대한 자세한 내용은
-[컨트롤러 역할](/docs/reference/access-authn-authz/rbac/#controller-roles)을 참고하기 바란다.
+  컨트롤러 관리자 권한 구성에 대한 자세한 내용은
+  [컨트롤러 역할](/docs/reference/access-authn-authz/rbac/#controller-roles)을 참고한다.
 
 ## 정책 순서
 
@@ -205,6 +213,9 @@ API 서버 접근 제어에 대한 자세한 내용은
    순서는 중요하지 않다.
 2. 파드를 기본값으로 설정하거나 변경해야 하는 경우, 파드를 허용할 첫 번째 파드시큐리티폴리시
    (이름순)가 선택된다.
+
+파드시큐리티폴리시에 대해 파드의 유효성이 검증되면,
+파드시큐리티폴리시의 이름을 어노테이션 값으로 사용하는 [`kubernetes.io/psp` 어노테이션]이 파드에 추가된다.
 
 {{< note >}}
 업데이트 작업 중(파드 스펙에 대한 변경이 허용되지 않는 동안) 비-변이 파드시큐리티폴리시만
@@ -237,8 +248,7 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 
 ### 정책과 파드 생성
 
-파일에서 예제 파드시큐리티폴리시 오브젝트를 정의한다. 이는 특권있는 파드를
-만들지 못하게 하는 정책이다.
+이는 특권있는 파드를 만들지 못하게 하는 정책이다.
 파드시큐리티폴리시 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names#dns-서브도메인-이름)이어야 한다.
 
@@ -247,7 +257,7 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 그리고 kubectl로 생성한다.
 
 ```shell
-kubectl-admin create -f example-psp.yaml
+kubectl-admin create -f https://k8s.io/examples/policy/example-psp.yaml
 ```
 
 이제 권한이 없는 사용자로서 간단한 파드를 생성해보자.
@@ -276,6 +286,11 @@ Error from server (Forbidden): error when creating "STDIN": pods "pause" is forb
 
 ```shell
 kubectl-user auth can-i use podsecuritypolicy/example
+```
+
+결과는 다음과 같다:
+
+```
 no
 ```
 
@@ -292,14 +307,27 @@ kubectl-admin create role psp:unprivileged \
     --verb=use \
     --resource=podsecuritypolicy \
     --resource-name=example
-role "psp:unprivileged" created
+```
 
+```
+role "psp:unprivileged" created
+```
+
+```shell
 kubectl-admin create rolebinding fake-user:psp:unprivileged \
     --role=psp:unprivileged \
     --serviceaccount=psp-example:fake-user
-rolebinding "fake-user:psp:unprivileged" created
+```
 
+```
+rolebinding "fake-user:psp:unprivileged" created
+```
+
+```shell
 kubectl-user auth can-i use podsecuritypolicy/example
+```
+
+```
 yes
 ```
 
@@ -324,7 +352,20 @@ EOF
 pod "pause" created
 ```
 
-예상대로 작동한다! 그러나 특권있는 파드를 만들려는 시도는 여전히
+예상대로 작동한다!
+새로 생성된 파드시큐리티폴리시에 대해서도 파드가 유효한지 검증한다:
+
+```shell
+kubectl-user get pod pause -o yaml | grep kubernetes.io/psp
+```
+
+결과는 다음과 같다:
+
+```
+kubernetes.io/psp: example
+```
+
+그러나 특권있는 파드를 만들려는 시도는 여전히
 거부되어야 한다.
 
 ```shell
@@ -360,12 +401,24 @@ kubectl-user delete pod pause
 
 ```shell
 kubectl-user create deployment pause --image=k8s.gcr.io/pause
+```
+
+```none
 deployment "pause" created
-
+```
+```shell
 kubectl-user get pods
-No resources found.
+```
 
+```
+No resources found.
+```
+
+```shell
 kubectl-user get events | head -n 2
+```
+
+```
 LASTSEEN   FIRSTSEEN   COUNT     NAME              KIND         SUBOBJECT                TYPE      REASON                  SOURCE                                  MESSAGE
 1m         2m          15        pause-7774d79b5   ReplicaSet                            Warning   FailedCreate            replicaset-controller                   Error creating: pods "pause-7774d79b5-" is forbidden: no providers available to validate pod request
 ```
@@ -386,6 +439,9 @@ forbidden: no providers available to validate pod request` 오류가
 kubectl-admin create rolebinding default:psp:unprivileged \
     --role=psp:unprivileged \
     --serviceaccount=psp-example:default
+```
+
+```none
 rolebinding "default:psp:unprivileged" created
 ```
 
@@ -394,6 +450,9 @@ rolebinding "default:psp:unprivileged" created
 
 ```shell
 kubectl-user get pods --watch
+```
+
+```none
 NAME                    READY     STATUS    RESTARTS   AGE
 pause-7774d79b5-qrgcb   0/1       Pending   0         1s
 pause-7774d79b5-qrgcb   0/1       Pending   0         1s
@@ -407,6 +466,9 @@ pause-7774d79b5-qrgcb   1/1       Running   0         2s
 
 ```shell
 kubectl-admin delete ns psp-example
+```
+
+```
 namespace "psp-example" deleted
 ```
 
@@ -415,6 +477,9 @@ namespace "psp-example" deleted
 
 ```shell
 kubectl-admin delete psp example
+```
+
+```
 podsecuritypolicy "example" deleted
 ```
 
@@ -431,7 +496,8 @@ podsecuritypolicy "example" deleted
 
 {{< codenew file="policy/restricted-psp.yaml" >}}
 
-더 많은 예제는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/#policy-instantiation)을 본다.
+더 많은 예제는
+[파드 보안 표준](/docs/concepts/security/pod-security-standards/#policy-instantiation)을 본다.
 
 ## 정책 레퍼런스
 
@@ -511,7 +577,8 @@ podsecuritypolicy "example" deleted
      readOnly: true # 읽기 전용 마운트만 허용
 ```
 
-{{< warning >}}호스트 파일시스템에 제한없는 접근을 부여하며, 컨테이너가 특권을 에스컬레이션
+{{< warning >}}
+호스트 파일시스템에 제한없는 접근을 부여하며, 컨테이너가 특권을 에스컬레이션
 (다른 컨테이너들에 있는 데이터를 읽고, 시스템 서비스의 자격 증명을 어뷰징(abusing)하는 등)할
 수 있도록 만드는 다양한 방법이 있다. 예를 들면, Kubelet과 같다.
 
@@ -624,8 +691,7 @@ spec:
 
 **DefaultAddCapabilities** - 런타임 기본값 외에 기본적으로 컨테이너에 추가되는 기능이다.
 도커 런타임을 사용할 때 기본 기능 목록은
-[도커 문서](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities)를
-참고하길 바란다.
+[도커 문서](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities)를 참고한다.
 
 ### SELinux
 
@@ -658,8 +724,9 @@ spec:
 
 쿠버네티스 v1.19부터 파드나 컨테이너의 `securityContext` 에서
 `seccompProfile` 필드를 사용하여 [seccomp 프로파일 사용을
-제어](/docs/tutorials/security/seccomp/)할 수 있다. 이전 버전에서는, 파드에
-어노테이션을 추가하여 seccomp를 제어했다. 두 버전에서 동일한 파드시큐리티폴리시를 사용하여
+제어](/docs/tutorials/security/seccomp/)할 수 있다.
+이전 버전에서는, 파드에 어노테이션을 추가하여 seccomp를 제어했다.
+두 버전에서 동일한 파드시큐리티폴리시를 사용하여
 이러한 필드나 어노테이션이 적용되는 방식을 적용할 수 있다.
 
 **seccomp.security.alpha.kubernetes.io/defaultProfileName** - 컨테이너에
@@ -692,11 +759,13 @@ spec:
 
 기본적으로 모든 안전한 sysctls가 허용된다.
 
-- `forbiddenSysctls` - 특정 sysctls를 제외한다. 목록에서 안전한 것과 안전하지 않은 sysctls의 조합을 금지할 수 있다. 모든 sysctls 설정을 금지하려면 자체적으로 `*`를 사용한다.
-- `allowedUnsafeSysctls` - `forbiddenSysctls`에 나열되지 않는 한 기본 목록에서 허용하지 않은 특정 sysctls를 허용한다.
+- `forbiddenSysctls` - 특정 sysctls를 제외한다.
+  목록에서 안전한 것과 안전하지 않은 sysctls의 조합을 금지할 수 있다.
+  모든 sysctls 설정을 금지하려면 자체적으로 `*`를 사용한다.
+- `allowedUnsafeSysctls` - `forbiddenSysctls`에 나열되지 않는 한
+  기본 목록에서 허용하지 않은 특정 sysctls를 허용한다.
 
-[Sysctl 문서](
-/ko/docs/tasks/administer-cluster/sysctl-cluster/#파드시큐리티폴리시-podsecuritypolicy)를 참고하길 바란다.
+[Sysctl 문서](/ko/docs/tasks/administer-cluster/sysctl-cluster/#파드시큐리티폴리시-podsecuritypolicy)를 참고하길 바란다.
 
 ## {{% heading "whatsnext" %}}
 
@@ -706,4 +775,6 @@ spec:
 
 - 폴리시 권장 사항에 대해서는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)을 참조한다.
 
-- API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.
+- API 세부 정보는
+  [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.
+
