@@ -41,7 +41,19 @@ your Secrets.
   listing Secrets allows the clients to inspect the values of every Secret in that
   namespace.
 
-### Security recommendations for cluster administrators
+## Cluster administrators
+
+### Configure encryption at rest
+
+By default, Secret objects are stored unencrypted in {{<glossary_tooltip
+term_id="etcd" text="etcd">}}. You should configure encryption of your Secret
+data in `etcd`. For instructions, refer to [Encrypt Secret data at
+rest](/docs/tasks/administer-cluster/encrypt-data/).
+
+### Configure RBAC policies for Secrets
+
+When planning your {{<glossary_tooltip term_id="rbac" text="Role-based Access Control">}} [(RBAC)](/docs/reference/access-authn-authz/rbac/) policies,
+consider the following guidelines for `Secret` objects. You should also follow the other guidelines in [RBAC good practices](/docs/concepts/security/rbac-good-practices).
 
 {{< caution >}}
 A user who can create a Pod that uses a Secret can also see the value of that Secret. Even
@@ -49,19 +61,46 @@ if cluster policies do not allow a user to read the Secret directly, the same us
 have access to run a Pod that then exposes the Secret.
 {{< /caution >}}
 
-- Reserve the ability to `watch` or `list` all secrets in a cluster (using the Kubernetes
-  API), so that only the most privileged, system-level components can perform this action.
-- When deploying applications that interact with the Secret API, you should
-  limit access using
-  [authorization policies](/docs/reference/access-authn-authz/authorization/) such as
-  [RBAC](/docs/reference/access-authn-authz/rbac/).
+- Restrict `watch` or `list` access to only the most privileged, system-level
+  components.
 - In the API server, objects (including Secrets) are persisted into
   {{< glossary_tooltip term_id="etcd" >}}; therefore:
-  - only allow cluster admistrators to access etcd (this includes read-only access);
-  - enable [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
-    for Secret objects, so that the data of these Secrets are not stored in the clear
-    into {{< glossary_tooltip term_id="etcd" >}};
-  - consider wiping / shredding the durable storage used by etcd once it is
-    no longer in use;
-  - if there are multiple etcd instances, make sure that etcd is
-    using SSL/TLS for communication between etcd peers.
+- Only allow cluster admistrators to access `etcd`. This includes read-only access.
+
+{{< caution >}}
+Granting `list` access to Secrets implicitly lets the subject fetch the
+contents of the Secrets.
+{{< /caution >}}
+
+A user who can create a Pod that uses a Secret can also see the value of that
+Secret. Even if cluster policies do not allow a user to read the Secret
+directly, the same user could have access to run a Pod that then exposes the
+Secret. You can detect or limit the impact caused by Secret data being exposed,
+either intentionally or unintentionally, by a user with this access. Some
+recommendations include:
+
+*  Use short-lived Secrets
+*  Implement audit rules that alert on specific events, such as concurrent
+   reading of multiple Secrets by a single user
+
+### Improve etcd management policies
+
+Consider wiping / shredding the durable storage used by etcd once it is
+no longer in use.
+
+If there are multiple `etcd` instances, configure encrypted SSL/TLS
+communication between the instances to protect the Secret data in transit.
+
+### Configure access to external Secrets
+
+{{% thirdparty-content %}}
+
+You can use third-party Secrets store providers to keep your confidential data
+outside your cluster and then configure Pods to access that information.
+The [Kubernetes Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/)
+is a DaemonSet that lets the kubelet retrieve Secrets from external stores, and
+mount the Secrets as a volume into specific Pods that you authorize to access
+the data.
+
+For a list of supported providers, refer to
+[Providers for the Secret Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver).
