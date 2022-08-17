@@ -356,7 +356,7 @@ NodeStatus is information about the current status of a node.
 
   - **images.names** ([]string)
 
-    Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+    Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
 
   - **images.sizeBytes** (int64)
 
