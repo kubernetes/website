@@ -551,7 +551,7 @@ The command line argument to use is `--pod-infra-container-image`.
 -->
 #### 重载沙箱（pause）镜像   {#override-pause-image-cri-dockerd-mcr}
 
-`cri-dockerd` 适配器能够接受一个命令行参数是，设置用哪个容器镜像作为 Pod
+`cri-dockerd` 适配器能够接受一个命令行参数，用于设置使用哪个容器镜像作为 Pod
 的基础设施容器（“pause 镜像”）。
 要使用的命令行参数是 `--pod-infra-container-image`。
 
