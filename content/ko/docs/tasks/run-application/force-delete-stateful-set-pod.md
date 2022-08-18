@@ -52,7 +52,7 @@ kubectl delete pods <pod>
 사용자가 연결할 수 없는 노드에서 파드를 단계적으로 삭제하려고 하면 파드가 이러한 상태에 들어갈 수도 있다.
 이러한 상태의 파드를 apiserver에서 제거할 수 있는 유일한 방법은 다음과 같다.
 
-* 노드 오브젝트가 삭제된다(사용자 또는 [노드 컨트롤러](/ko/docs/concepts/architecture/nodes/)에 의해).
+* 노드 오브젝트가 삭제된다(사용자 또는 [노드 컨트롤러](/ko/docs/concepts/architecture/nodes/#노드-컨트롤러)에 의해).
 * 응답하지 않는 노드의 kubelet이 응답을 시작하고 파드를 종료하여 apiserver에서 항목을 제거한다.
 * 사용자가 파드를 강제로 삭제한다.
 

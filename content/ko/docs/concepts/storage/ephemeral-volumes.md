@@ -1,10 +1,10 @@
 ---
-
-
-
-
-
-
+## reviewers:
+## - jsafrane
+## - saad-ali
+## - msau42
+## - xing-yang
+## - pohly
 title: 임시 볼륨
 content_type: concept
 weight: 30
@@ -207,7 +207,7 @@ spec:
 즉각적인 바인딩을 사용하는 경우, 
 스케줄러는 볼륨이 사용 가능해지는 즉시 해당 볼륨에 접근 가능한 노드를 선택하도록 강요받는다.
 
-[리소스 소유권](/ko/docs/concepts/architecture/garbage-collection/#owners-dependents) 관점에서, 
+[리소스 소유권](/docs/concepts/workloads/controllers/garbage-collection/#owners-dependents) 관점에서, 
 일반 임시 스토리지를 갖는 파드는 
 해당 임시 스토리지를 제공하는 퍼시스턴트볼륨클레임의 소유자이다. 
 파드가 삭제되면, 쿠버네티스 가비지 콜렉터는 해당 PVC를 삭제하는데, 

@@ -878,7 +878,7 @@ API 服务器直接删除 Pod 对象，这样新的与之同名的 Pod 即可以
 的任务文档。
 
 <!--
-### Garbage collection of failed Pods {#pod-garbage-collection}
+### Garbage collection of terminated Pods {#pod-garbage-collection}
 
 For failed Pods, the API objects remain in the cluster's API until a human or
 {{< glossary_tooltip term_id="controller" text="controller" >}} process
@@ -889,7 +889,7 @@ The control plane cleans up terminated Pods (with a phase of `Succeeded` or
 (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
 This avoids a resource leak as Pods are created and terminated over time.
 -->
-### 失效 Pod 的垃圾收集    {#pod-garbage-collection}
+### 已终止 Pod 的垃圾收集    {#pod-garbage-collection}
 
 对于已失败的 Pod 而言，对应的 API 对象仍然会保留在集群的 API 服务器上，直到
 用户或者{{< glossary_tooltip term_id="controller" text="控制器" >}}进程显式地
@@ -920,4 +920,3 @@ This avoids a resource leak as Pods are created and terminated over time.
 * 进一步了解[容器生命周期回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks/)。
 * 关于 API 中定义的有关 Pod 和容器状态的详细规范信息，
   可参阅 API 参考文档中 Pod 的 [`.status`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodStatus) 字段。
-

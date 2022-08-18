@@ -46,6 +46,7 @@ weight: 40
   기반 인그레스 컨트롤러다.
 * [쿠버네티스 용 Kong 인그레스 컨트롤러](https://github.com/Kong/kubernetes-ingress-controller#readme)는 [Kong 게이트웨이](https://konghq.com/kong/)를
   구동하는 인그레스 컨트롤러다.
+* [Kusk 게이트웨이](https://kusk.kubeshop.io/)는 OpenAPI 중심의 [Envoy](https://www.envoyproxy.io) 기반 인그레스 컨트롤러다.
 * [쿠버네티스 용 NGINX 인그레스 컨트롤러](https://www.nginx.com/products/nginx-ingress-controller/)는 [NGINX](https://www.nginx.com/resources/glossary/nginx/)
   웹서버(프록시로 사용)와 함께 작동한다.
 * [Pomerium 인그레스 컨트롤러](https://www.pomerium.com/docs/k8s/ingress.html)는 [Pomerium](https://pomerium.com/) 기반 인그레스 컨트롤러이며, 상황 인지 접근 정책을 제공한다.

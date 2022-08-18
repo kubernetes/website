@@ -24,7 +24,7 @@ This page describes how to build, configure, use, and monitor admission webhooks
 <!--
 ## What are admission webhooks?
 -->
-## 什么是准入 Webhook？
+## 什么是准入 Webhook？ {#what-are-admission-webhooks}
 
 <!--
 Admission webhooks are HTTP callbacks that receive admission requests and do
@@ -65,7 +65,7 @@ guides](/docs/reference/access-authn-authz/extensible-admission-controllers/#wri
 instructions if you intend to write/deploy production-grade admission webhooks.
 In the following, we describe how to quickly experiment with admission webhooks.
 -->
-### 尝试准入 Webhook
+### 尝试准入 Webhook {#experimenting-with-admission-webhooks}
 
 准入 Webhook 本质上是集群控制平面的一部分。你应该非常谨慎地编写和部署它们。
 如果你打算编写或者部署生产级准入 webhook，请阅读[用户指南](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server)以获取相关说明。
@@ -92,7 +92,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 <!--
 ### Write an admission webhook server
 -->
-### 编写一个准入 Webhook 服务器
+### 编写一个准入 Webhook 服务器 {#write-an-admission-webhook-server}
 
 <!--
 Please refer to the implementation of the [admission webhook server](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
@@ -132,7 +132,7 @@ how to [authenticate API servers](#authenticate-apiservers).
 <!--
 ### Deploy the admission webhook service
 -->
-### 部署准入 Webhook 服务
+### 部署准入 Webhook 服务 {#deploy-the-admission-webhook-service}
 
 <!--
 The webhook server in the e2e test is deployed in the Kubernetes cluster, via
@@ -157,7 +157,7 @@ your webhook configurations accordingly.
 <!--
 ### Configure admission webhooks on the fly
 -->
-### 即时配置准入 Webhook
+### 即时配置准入 Webhook {#configure-admission-webhooks-on-the-fly}
 
 <!--
 You can dynamically configure what resources are subject to what admission
@@ -379,6 +379,9 @@ See the [webhook configuration](#webhook-configuration) section for details abou
 Of course you need to set up the webhook server to handle these authentication requests.
 -->
 当然，你需要设置 Webhook 服务器来处理这些身份验证请求。
+
+<!-- ## Webhook request and response -->
+## Webhook 请求与响应 {#webhook-request-and-response}
 
 <!--
 ### Request
@@ -1058,7 +1061,7 @@ The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 <!--
 ### Contacting the webhook
 -->
-### 调用 Webhook
+### 调用 Webhook {#contacting-the-webhook}
 
 <!--
 Once the API server has determined a request should be sent to a webhook,
@@ -1423,7 +1426,7 @@ API 服务器提供了监视准入 Webhook 行为的方法。这些监视机制�
 <!--
 ### Mutating webhook auditing annotations
 -->
-### Mutating Webhook 审计注解
+### Mutating Webhook 审计注解 {#mutating-webhook-auditing-annotations}
 
 <!--
 Sometimes it's useful to know which mutating webhook mutated the object in a API request, and what change did the
@@ -1574,7 +1577,7 @@ The audit level of a event determines which annotations get recorded:
 <!--
 ### Admission webhook metrics
 -->
-### 准入 Webhook 度量值
+### 准入 Webhook 度量值 {#admission-webhook-metrics}
 
 <!--
 The API server  exposes Prometheus metrics from the `/metrics` endpoint, which can be used for monitoring and
@@ -1586,7 +1589,7 @@ API 服务器从 `/metrics` 端点公开 Prometheus 指标，这些指标可用�
 <!--
 #### API server admission webhook rejection count
 -->
-#### apiserver 准入 Webhook 拒绝次数
+#### apiserver 准入 Webhook 拒绝次数 {#api-server-admission-webhook-rejection-count}
 
 <!--
 Sometimes it's useful to know which admission webhooks are frequently rejecting API requests, and the
@@ -1645,7 +1648,7 @@ apiserver_admission_webhook_rejection_count{error_type="no_error",name="deny-unw
 
 ### Idempotence
 -->
-## 最佳实践和警告
+## 最佳实践和警告 {#best-practices-and-warnings}
 
 ### 幂等性  {#idempotence}
 
@@ -1670,7 +1673,7 @@ the initial application.
 
 In the cases above, the webhook can be safely reinvoked, or admit an object that already has the fields set.
 -->
-#### 幂等 mutating admission Webhook 的示例：
+#### 幂等 mutating admission Webhook 的示例： {#example-of-idempotent-mutating-admission-webhooks}
 
 1. 对于 `CREATE` Pod 请求，将 Pod 的字段 `.spec.securityContext.runAsNonRoot`
    设置为 true，以实施安全最佳实践。
@@ -1684,7 +1687,7 @@ In the cases above, the webhook can be safely reinvoked, or admit an object that
 <!--
 #### Example of non-idempotent mutating admission webhooks:
 -->
-#### 非幂等 mutating admission Webhook 的示例：
+#### 非幂等 mutating admission Webhook 的示例： {#example-of-non-idempotent-mutating-admission-webhooks}
 
 <!--
 1. For a `CREATE` pod request, inject a sidecar container with name `foo-sidecar`
@@ -1731,7 +1734,7 @@ to `Equivalent`. It is also recommended that admission webhooks should prefer re
 Failure to intercept all versions of an object can result in admission policies not being enforced for requests in certain
 versions. See [Matching requests: matchPolicy](#matching-requests-matchpolicy) for examples.
 -->
-### 拦截对象的所有版本
+### 拦截对象的所有版本 {#intercepting-all-versions-of-an-object}
 
 建议通过将 `.webhooks[].matchPolicy` 设置为 `Equivalent`，
 以确保准入 Webhooks 始终拦截对象的所有版本。
@@ -1768,7 +1771,7 @@ For example, a mutating admission webhook is configured to inject a sidecar cont
 that a container with name "foo-sidecar" with the expected configuration exists in the to-be-created object.
 -->
 
-### 确保看到对象的最终状态
+### 确保看到对象的最终状态 {#guaranteeing-the-final-state-of-the-object-is-seen}
 
 如果某准入 Webhook 需要保证自己能够看到对象的最终状态以实施策略，
 则应该使用一个验证性质的 webhook，
@@ -1795,7 +1798,7 @@ get rejected by the existing webhook server since the `"env"` label is unset, an
 
 It is recommended to exclude the namespace where your webhook is running with a [namespaceSelector](#matching-requests-namespaceselector).
 -->
-### 避免自托管的 Webhooks 中出现死锁
+### 避免自托管的 Webhooks 中出现死锁 {#avoiding-deadlocks-in-self-hosted-webhooks}
 
 如果集群内的 Webhook 配置能够拦截启动其自己的 Pod 所需的资源，
 则该 Webhook 可能导致其自身部署时发生死锁。
@@ -1834,7 +1837,7 @@ set to `NoneOnDryRun`. See [Side effects](#side-effects) for more detail.
 <!--
 ### Avoiding operating on the kube-system namespace
 -->
-### 避免对 kube-system 名字空间进行操作
+### 避免对 kube-system 名字空间进行操作 {#avoiding-operating-on-the-kube-system-namespace}
 
 <!--
 The `kube-system` namespace contains objects created by the Kubernetes system,

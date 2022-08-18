@@ -305,7 +305,7 @@ Noteworthy points about the nginx-secure-app manifest:
   serves HTTP traffic on port 80 and HTTPS traffic on 443, and nginx Service
   exposes both ports.
 - Each container has access to the keys through a volume mounted at `/etc/nginx/ssl`.
-  This is setup *before* the nginx server is started.
+  This is set up *before* the nginx server is started.
 
 ```shell
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml
