@@ -265,7 +265,7 @@ during leader election cycles.</p>
 
 
 <p>LoggingConfiguration contains logging options
-Refer <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a> for more information.</p>
+Refer <a href="https://github.com/kubernetes/component-base/blob/master/logs/api/v1/options.go">Logs Options</a> for more information.</p>
 
 
 <table class="table">

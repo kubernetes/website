@@ -1018,7 +1018,7 @@ Default: false</p>
 </td>
 <td>
    <p>logging specifies the options of logging.
-Refer to <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a>
+Refer to <a href="https://github.com/kubernetes/component-base/blob/master/logs/api/v1/options.go">Logs Options</a>
 for more information.
 Default:
 Format: text</p>
