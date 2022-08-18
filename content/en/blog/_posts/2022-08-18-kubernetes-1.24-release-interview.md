@@ -211,7 +211,7 @@ SLSA is a framework that describes software supply chain security. That is, of c
 
 **CRAIG BOX: I was looking back at [the conversation I had with Rey Lejano about the 1.23 release](https://kubernetespodcast.com/episode/167-kubernetes-1.23/), and we were basically approaching Level 2. We're now obviously stepping up to Level 3. I think I asked Rey at the time was, is it fair to say that SLSA is inspired by large projects like Kubernetes, and in theory, it should be really easy for these projects to tick the boxes to get to that level, because the SLSA framework is written with a project like Kubernetes in mind?**
 
-JAMES LAVERACK: I think so. I think it's been somewhat difficult, just because it's one thing to do it, but it's another thing to prove that you're doing it, which is the whole point around these frameworks — the ascertation, that proof.
+JAMES LAVERACK: I think so. I think it's been somewhat difficult, just because it's one thing to do it, but it's another thing to prove that you're doing it, which is the whole point around these frameworks — the assertation, that proof.
 
 **CRAIG BOX: As an end user of Kubernetes, whether I install it myself or I take it from a service like GKE, what will this provenance then let me prove? If we think back to [the orange juice example we talked to Santiago about recently](https://kubernetespodcast.com/episode/174-in-toto/), how do I tell that my software is safe to run?**
 
