@@ -7,9 +7,9 @@ content_type: concept
 Esta página fornece uma visão geral do controle de acesso à API do Kubernetes.
 
 <!-- body -->
-Usuários podem acessar a [The Kubernetes API](/docs/concepts/overview/kubernetes-api/) utilizando `kubectl`,
+Usuários podem acessar a [API do Kubernetes](/docs/concepts/overview/kubernetes-api/) utilizando `kubectl`,
 bibliotecas, ou executando requisições REST.  Ambos, usuários humanos e
-[Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/) podem ser autorizados
+[Contas de serviço do Kubernetes](/docs/tasks/configure-pod-container/configure-service-account/) podem ser autorizados
 a acessar à API.
 Quando uma requisição chega a API, ela passa por diversos estágios,
 ilustrados no seguinte diagrama:
@@ -32,14 +32,14 @@ O seu cliente pode apresentar o certificado de cliente TLS neste estágio.
 ## Autenticação
 
 Uma vez em que a segurança na camada de transporte (TLS) é estabelecida, a requisição HTTP move para o passo de autenticação.
-Isto é demonstrado no passo **1** no diagrama abaixo.
+Isto é demonstrado no passo **1** no diagrama acima.
 O script de criação do cluster ou configurações de administração configuram o servidor de API para executar
 um ou mais módulos autenticadores.
 
 Autenticadores sao descritos em maiores detalhes em
 [Autenticação](/pt-br/docs/reference/access-authn-authz/authentication/).
 
-A entrada para o passo de autenticação é a completa requisição HTTP; no entanto, tipicamente
+A entrada para o passo de autenticação é a requisição HTTP completa; no entanto, tipicamente
 sao verificados os cabeçalhos e/ou o certificado de cliente.
 
 Módulos de autenticação incluem certificados de cliente, senhas, tokens simples,
