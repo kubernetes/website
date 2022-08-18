@@ -138,7 +138,7 @@ Para mais informações sobre estas limitações, verifique [aqui](https://suppo
 
 ## {{% heading "whatsnext" %}}
 
-* [Guia para agendar contêineres Windows em Kubernetes](/docs/concepts/windows/user-guide/)
+* [Guia Para Agendar Contêineres Windows em Kubernetes](/docs/concepts/windows/user-guide/)
 * [Gerenciando Identidade de Cargas de Trabalho com Contas de Serviço Gerenciadas em Grupo (GMSA)](/docs/concepts/windows/user-guide/#managing-workload-identity-with-group-managed-service-accounts)
-* [Configure GMSA para pods e contêineres Windows](/docs/tasks/configure-pod-container/configure-gmsa/)
+* [Configure GMSA Para Pods e Contêineres Windows](/docs/tasks/configure-pod-container/configure-gmsa/)
 
