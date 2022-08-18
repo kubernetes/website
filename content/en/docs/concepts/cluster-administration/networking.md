@@ -37,7 +37,6 @@ To learn about the Kubernetes networking model, see [here](/docs/concepts/servic
 The network model is implemented by the container runtime on each node. The most common container runtimes use [Container Network Interface](https://github.com/containernetworking/cni) (CNI) plugins to manage their network and security capabilities. Many different CNI plugins exist from many different vendors. Some of these provide only basic features of adding and removing network interfaces, while others provide more sophisticated solutions, such as integration with other container orchestration systems, running multiple CNI plugins, advanced IPAM features etc.
 
 See [this page](/docs/concepts/cluster-administration/addons/#networking-and-network-policy) for a non-exhaustive list of networking addons supported by Kubernetes.
-imply any preferential status. 
 
 ## {{% heading "whatsnext" %}}
 
