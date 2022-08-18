@@ -83,7 +83,7 @@ fieldManager 是与进行这些更改的参与者或实体相关联的名称。
 A selector to restrict the list of returned objects by their fields. Defaults to everything.
 <hr>
 -->
-根据返回对象的字段限制返回对象列表的选择器。默认为返回所有字段。
+根据返回对象的字段限制返回对象列表的选择器。默认为返回所有对象。
 <hr>
 
 ## fieldValidation {#fieldValidation}
