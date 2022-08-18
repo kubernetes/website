@@ -119,7 +119,7 @@ JAMES LAVERACK: Just after I joined Jetstack, I got the opportunity to go to Kub
 
 **CRAIG BOX: We did.**
 
-JAMES LAVERACK: We had dinner, didn't we? So when I went, I'd only been at Jetstack for a few months. I really wasn't involved in the community in any serious way at all. As a result, I just ended up following around my event colleague, James Munnelly. James is lovely. And, you know, I just kind of went around with him, because he knew everyone.
+JAMES LAVERACK: We had dinner, didn't we? So when I went, I'd only been at Jetstack for a few months. I really wasn't involved in the community in any serious way at all. As a result, I just ended up following around my then colleague, James Munnelly. James is lovely. And, you know, I just kind of went around with him, because he knew everyone.
 
 I ended up in this hotel bar with a bunch of Kubernetes people, including Stephen Augustus, the co-chair of SIG Release and holder of a bunch of other roles within the community. I happened to ask him, I want to get involved. What is a good way to get involved with the Kubernetes community, if I've never been involved before? And he said, oh, you should join the release team.
 
