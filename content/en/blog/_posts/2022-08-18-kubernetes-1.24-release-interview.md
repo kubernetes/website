@@ -64,7 +64,7 @@ Which was just completely fine, and that made sense for the needs of the team at
 
 **CRAIG BOX: Do you think that talks to the split between Kubernetes being for developers or for operators? Do you think there's always going to be the need to have a different set of people who are maintaining the running infrastructure versus the people who are writing the code that run on it?**
 
-JAMES LAVERACK: I think to some extent, yes, whether or not that's a separate platform team or whether or not that is because the people running it are consultants of some kind. Or whether or not this has been abstracted away from you in some of the more batteries-included versions of Kubernetes — some of the cloud-hosted ones, especially,somewhat remove that need. So I don't think it's absolutely necessary to employ a platform team. But I think someone needs to do it or you need to implicitly or explicitly pay for someone to do it in some way.
+JAMES LAVERACK: I think to some extent, yes, whether or not that's a separate platform team or whether or not that is because the people running it are consultants of some kind. Or whether or not this has been abstracted away from you in some of the more batteries-included versions of Kubernetes — some of the cloud-hosted ones, especially, somewhat remove that need. So I don't think it's absolutely necessary to employ a platform team. But I think someone needs to do it or you need to implicitly or explicitly pay for someone to do it in some way.
 
 **CRAIG BOX: In the three years you have been at Jetstack now, how different are the jobs that you do for the customers? Is this just a case of learning one thing and rolling it out to multiple people, or is there always a different challenge with everyone you come across?**
 
