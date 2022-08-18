@@ -221,7 +221,7 @@ As an end user, this isn't something that will necessarily directly impact you. 
 
 **CRAIG BOX: A lot of people get access to their Kubernetes server just by being granted an API endpoint, and they start running kubectl against it. They're not actually installing their own Kubernetes. They have a provider or a platform team do it for them. Do you think it's feasible to get to a world where there's something that you can run when you're deploying your workloads which queries the API server, for example, and gets access to that same provenance data?**
 
-JAMES LAVERACK: I think it's going to be very difficult to do it that way, simply because this provenance and assertation data implies that you actually have access to the underlying executables, which typically, when you're really in a managed platform, you don't. If you're having Kubernetes provided to you, I think you're still going to have to trust the platform team or the organization that's providing it to you.
+JAMES LAVERACK: I think it's going to be very difficult to do it that way, simply because this provenance and assertation data implies that you actually have access to the underlying executables, which typically, when you're running in a managed platform, you don't. If you're having Kubernetes provided to you, I think you're still going to have to trust the platform team or the organization that's providing it to you.
 
 **CRAIG BOX: Just like when you go to the hotel breakfast bar, you have to trust that they've been good with their orange juice.**
 
