@@ -173,7 +173,7 @@ JAMES LAVERACK: I don't think we worry. This is something that the community has
 
 It's only really platform teams that administer Kubernetes clusters and people in very specific circumstances that are using Docker directly, not through the Kubernetes API, that are going to experience any issue at all.
 
-**CRAIG BOX: And I see that Marantis and Docker have developed a CRI plugin for Docker anyway, so you can just switch over to that and everything continues.**
+**CRAIG BOX: And I see that Mirantis and Docker have developed a CRI plugin for Docker anyway, so you can just switch over to that and everything continues.**
 
 JAMES LAVERACK: Yeah, absolutely, or you can use one of the many other CRI implementations. There are two in the CNCF, [containerd](https://containerd.io/), and [CRI-O](https://cri-o.io/).
 
