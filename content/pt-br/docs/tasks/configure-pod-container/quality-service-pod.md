@@ -7,7 +7,7 @@ weight: 30
 
 <!-- overview -->
 
-Esta página mostra como configurar os Pods para que, à eles sejam atribuídos particularmente classes de
+Esta página mostra como configurar os Pods para que, a eles sejam atribuídos particularmente classes de
 Qualidade de Serviço (QoS). O Kubernetes usa classes QoS para tomar decisões sobre
 agendamento e despejo de Pods.
 
@@ -45,10 +45,10 @@ kubectl create namespace qos-example
 
 Para que um Pod receba uma classe de QoS `Guaranteed`:
 
-* Todo Contêiner no Pod deve ter um limite de memória e um requisito de memória.
-* Para cada Contêiner no Pod, o limite de memória deve ser igual ao requisito de memória.
-* Todo Contêiner no Pod deve ter um limite de CPU e um requisito de CPU.
-* Para cada Contêiner no Pod, o limite da CPU deve ser igual ao requisito da CPU.
+* Todo contêiner no Pod deve ter um limite de memória e um requisito de memória.
+* Para cada contêiner no Pod, o limite de memória deve ser igual ao requisito de memória.
+* Todo contêiner no Pod deve ter um limite de CPU e um requisito de CPU.
+* Para cada contêiner no Pod, o limite da CPU deve ser igual ao requisito da CPU.
 
 Essas restrições se aplicam a contêineres de inicialização e contêineres de aplicativos, igualmente.
 
@@ -69,7 +69,7 @@ kubectl get pod qos-demo --namespace=qos-example --output=yaml
 ```
 
 A saída mostra que o Kubernetes forneceu ao pod uma classe de QoS `Guaranteed`. A saída também
-verifica se o Contêiner do Pod tem um requisito de memória que corresponde ao seu limite de memória, e possui
+verifica se o contêiner do Pod tem um requisito de memória que corresponde ao seu limite de memória, e possui
 um requisito de CPU que corresponde ao seu limite de CPU.
 
 ```yaml
@@ -90,7 +90,7 @@ status:
 
 {{< note >}}
 Se um contêiner especificar seu próprio limite de memória, mas não especificar um requisito de memória, o Kubernetes
-automaticamente atribui um requisito de memória que corresponda ao limite. Similarmente, se um Contêiner especifica o seu próprio
+automaticamente atribui um requisito de memória que corresponda ao limite. Similarmente, se um contêiner especifica o seu próprio
 limite da CPU, mas não especifica um requisito de CPU, o Kubernetes atribui automaticamente uma solicitação de CPU que corresponde
 ao limite.
 {{< /note >}}
@@ -106,9 +106,9 @@ kubectl delete pod qos-demo --namespace=qos-example
 Um Pod recebe uma classe de QoS `Burstable` se:
 
 * O Pod não atende aos critérios para a classe de QoS `Guaranteed`.
-* Pelo menos um Contêiner no Pod tem um requisito ou limite de memória ou CPU.
+* Pelo menos um contêiner no Pod tem um requisito ou limite de memória ou CPU.
 
-Aqui está o arquivo de configuração para um Pod que possui um Contêiner. O Contêiner tem um limite de memória de 200 MiB
+Aqui está o arquivo de configuração para um Pod que possui um contêiner. O contêiner tem um limite de memória de 200 MiB
 e um requisito de memória de 100 MiB.
 
 {{< codenew file="pods/qos/qos-pod-2.yaml" >}}
@@ -151,10 +151,10 @@ kubectl delete pod qos-demo-2 --namespace=qos-example
 
 ## Crie um Pod ao qual seja atribuída uma classe de QoS `BestEffort`
 
-Para que um Pod receba uma classe de QoS `BestEffort`, os Contêineres no pod não devem
+Para que um Pod receba uma classe de QoS `BestEffort`, os contêineres no pod não devem
 ter quaisquer requisitos ou limites de CPU ou memória.
 
-Aqui está o arquivo de configuração para um Pod que possui um Contêiner. O Contêiner não tem requisitos ou limites de memória ou CPU:
+Aqui está o arquivo de configuração para um Pod que possui um contêiner. O contêiner não tem requisitos ou limites de memória ou CPU:
 
 {{< codenew file="pods/qos/qos-pod-3.yaml" >}}
 
@@ -188,14 +188,14 @@ Apague seu Pod:
 kubectl delete pod qos-demo-3 --namespace=qos-example
 ```
 
-## Crie um Pod que tenha dois Contêineres
+## Crie um Pod que tenha dois contêineres
 
-Aqui está o arquivo de configuração para um Pod que possui dois Contêineres. Um contêiner especifica um requisito de memória de 200 MiB. O outro Contêiner não especifica nenhum requisito ou limite.
+Aqui está o arquivo de configuração para um Pod que possui dois contêineres. Um contêiner especifica um requisito de memória de 200 MiB. O outro contêiner não especifica nenhum requisito ou limite.
 
 {{< codenew file="pods/qos/qos-pod-4.yaml" >}}
 
 Observe que este Pod atende aos critérios para a classe de QoS `Burstable`. Isto é, ele não atende aos
-critérios para a classe de QoS `Guaranteed`, e um de seus Contêineres tem um requisito de memória.
+critérios para a classe de QoS `Guaranteed`, e um de seus contêineres tem um requisito de memória.
 
 Crie o Pod:
 
@@ -251,19 +251,19 @@ kubectl delete namespace qos-example
 
 * [Atribuir Recursos de Memória a Contêineres e Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Atribuir recursos da CPU a Contêineres e Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Atribuir Recursos da CPU a Contêineres e Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 ### Para administradores de cluster
 
 * [Configurar Requisitos e Limites de Memória Padrão Para um Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configurar Requisitos e limites Padrão de CPU Para um Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [Configurar Requisitos e Limites Padrão de CPU Para um Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
 * [Configurar Restrições de Memória Mínima e Máxima Para um Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
 * [Configurar Restrições Mínimas e Máximas da CPU Para um Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configurar cotas de Memória e CPU Para um Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [Configurar Cotas de Memória e CPU Para um Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
 * [Configurar uma Cota de Pod Para um Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
