@@ -143,7 +143,7 @@ JAMES LAVERACK: It was that they needed something very specific. The ones that e
 
 JAMES LAVERACK: It's much easier to throw all the data away. We needed to be a little bit careful about how we managed it. We thought about forking and changing an existing one. But we realized it would probably just be as easy to start from scratch, so we did that.
 
-**CRAIG BOX: You've been a member of every release team since that point, since Kubernetes 1.18 in 2020, in a wide range of roles. What shared roles have you been through?**
+**CRAIG BOX: You've been a member of every release team since that point, since Kubernetes 1.18 in 2020, in a wide range of roles. Which set of roles have you been through?**
 
 JAMES LAVERACK: I started out as a release notes shadow, and did that for a couple of releases, in 1.18 and 1.19. In 1.20, I was the release notes lead. And then in 1.21, I moved into being a shadow again as an enhancement shadow, before in 1.22 becoming an enhancements lead, but in 1.23 a release lead shadow, and finally in 1.24, release lead as a whole.
 
