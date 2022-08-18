@@ -382,82 +382,7 @@ You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.git
 And you can see the `retainKeys` strategy in the
 [Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
 
-## Use subresource flag with kubectl patch command to update the deployment
-
-In kubernetes v1.24, kubectl commands like get, patch, edit and replace will now contain a new flag `--subresource=[subresource-name]` which will allow fetching and updating `status` and `scale` subresources for all resources (built-in and CRs) that support these subresources.
-
-Here's the configuration file for a Deployment that has two replicas.
-
-{{< codenew file="application/deployment-subresource.yaml" >}}
-
-Create the Deployment:
-
-```shell
-kubectl apply -f https://k8s.io/examples/application/deployment-subresource.yaml
-```
-
-View the Pods associated with your Deployment:
-
-```shell
-kubectl get pods
-```
-
-In the output, you can see that Deployment has two Pods.
-
-```
-NAME                                READY   STATUS    RESTARTS   AGE
-subresource-demo-777d58f9d8-7wzff   1/1     Running   0          28s
-subresource-demo-777d58f9d8-fkf4l   1/1     Running   0          28s
-```
-
-Now, Patch your Deployment with `--subresource=[subresource-name]` flag:
-
-```shell
-kubectl patch deployment subresource-demo --subresource='scale' --type='merge' -p '{"spec":{"replicas":3}}'
-```
-
-you can see following output, which means your deployment is successfully patched:
-
-```shell
-scale.autoscaling/subresource-demo patched
-```
-
-View the Pods associated with your patched Deployment:
-
-```shell
-kubectl get pods
-```
-
-In the output, you can see one new pod is created, so now you have 3 running pods.
-
-```
-NAME                                READY   STATUS    RESTARTS   AGE
-subresource-demo-777d58f9d8-7wzff   1/1     Running   0          2m10s
-subresource-demo-777d58f9d8-fkf4l   1/1     Running   0          2m10s
-subresource-demo-777d58f9d8-v8cjk   1/1     Running   0          19s
-```
-
-View the patched Deployment:
-
-```shell
-kubectl get deployment subresource-demo -o yaml
-```
-
-```yaml
-spec:
-  replicas: 3
-  ...
-status:
-  availableReplicas: 3
-  readyReplicas: 3
-  replicas: 3
-```
-
-{{< note >}}
-If `--subresource` flag is used for a resource that doesn't support the subresource, a NotFound error will be returned.
-{{< /note >}}
-
-## Alternate forms of the kubectl patch command
+### Alternate forms of the kubectl patch command
 
 The `kubectl patch` command takes YAML or JSON. It can take the patch as a file or
 directly on the command line.
@@ -491,6 +416,86 @@ kubectl patch deployment patch-demo --patch 'spec:\n template:\n  spec:\n   cont
 kubectl patch deployment patch-demo --patch-file patch-file.json
 kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"containers": [{"name": "patch-demo-ctr-2","image": "redis"}]}}}}'
 ```
+
+### Update an object's replica count using `kubectl patch` with `--subresource` {#scale-kubectl-patch}
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+The flag `--subresource=[subresource-name]` is used with kubectl commands like get, patch, edit and replace to fetch and update `status` and `scale` subresources of the resources (applicable for kubectl version v1.24 or more). This flag is used with all the API resources (built-in and CRs) which has `status` or `scale` subresource, Deployment is one of the examples which supports these subresources.
+
+Here's a manifest for a Deployment that has two replicas:
+
+{{< codenew file="application/deployment-subresource.yaml" >}}
+
+Create the Deployment:
+
+```shell
+kubectl apply -f https://k8s.io/examples/application/deployment-subresource.yaml
+```
+
+View the Pods associated with your Deployment:
+
+```shell
+kubectl get pods -l app=nginx
+```
+
+In the output, you can see that Deployment has two Pods. For example:
+
+```
+NAME                                READY   STATUS    RESTARTS   AGE
+subresource-demo-777d58f9d8-7wzff   1/1     Running   0          28s
+subresource-demo-777d58f9d8-fkf4l   1/1     Running   0          28s
+```
+
+Now, patch that Deployment with `--subresource=[subresource-name]` flag:
+
+```shell
+kubectl patch deployment subresource-demo --subresource='scale' --type='merge' -p '{"spec":{"replicas":3}}'
+```
+
+The output is:
+
+```shell
+scale.autoscaling/subresource-demo patched
+```
+
+View the Pods associated with your patched Deployment:
+
+```shell
+kubectl get pods -l app=nginx
+```
+
+In the output, you can see one new pod is created, so now you have 3 running pods.
+
+```
+NAME                                READY   STATUS    RESTARTS   AGE
+subresource-demo-777d58f9d8-7wzff   1/1     Running   0          2m10s
+subresource-demo-777d58f9d8-fkf4l   1/1     Running   0          2m10s
+subresource-demo-777d58f9d8-v8cjk   1/1     Running   0          19s
+```
+
+View the patched Deployment:
+
+```shell
+kubectl get deployment subresource-demo -o yaml
+```
+
+```yaml
+...
+spec:
+  replicas: 3
+  ...
+status:
+  ...
+  availableReplicas: 3
+  readyReplicas: 3
+  replicas: 3
+```
+
+{{< note >}}
+If you run `kubectl patch` and specify `--subresource` flag for resource that doesn't support that
+particular subresource, the API server returns a 404 Not Found error.
+{{< /note >}}
 
 ## Summary
 

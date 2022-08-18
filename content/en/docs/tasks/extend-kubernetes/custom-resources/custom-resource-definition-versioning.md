@@ -1053,13 +1053,17 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
 3.  Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 
 {{< note >}}
-In Kubernetes v1.24, an alpha flag `--subresource` is added to get, patch, edit and replace 
-with kubectl commands to fetch and update `status` and `scale` subresources. Due to this, 
-from Kubernetes v1.24 the `kubectl` tool can now be used to edit or patch the `status`
-subresource on a CRD. See [How to patch deployment by using subresource flag](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/#Use-subresource-flag-with-kubectl-patch-command-to-update-the-deployment).
-This page is part of the documentation for Kubernetesv{currentVersion}. If you are running a different version of Kubernetes, consult the documentation for that release.
+The flag `--subresource` is added to get, patch, edit and replace with kubectl commands to 
+fetch and update `status` and `scale` subresources of all the API resources that support 
+these subresources. It is applicable for kubectl version v1.24 or more. Previously fetching 
+subresources (like status) of API objects via kubectl involved using `kubectl --raw`, and 
+patching subresources using kubectl is not possible at all and requires using curl directly, 
+this method was not user-friendly. So from now, onwards `kubectl` tool can be used to edit or 
+patch the `status` subresource on a CRD. See [How to patch deployment by using subresource flag](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/#Use-subresource-flag-with-kubectl-patch-command-to-update-the-deployment).
 
-Here is an example of How to patch the `status` subresource for the CRD using `kubectl`:
+This page is part of the documentation for Kubernetes v{{< skew currentVersion >}}. If you are running a different version of Kubernetes, consult the documentation for that release.
+
+Here is an example of how to patch the `status` subresource for the CRD, using `kubectl`:
 ```bash
 kubectl patch customresourcedefinitions <CRD_Name> --subresource='status' --type='merge' -p '{"status":{"storedVersions":["v1"]}}'
 ```
