@@ -1,13 +1,11 @@
 ---
 title: Bibliotecas de clientes
-reviewers:
-- ahmetb
 content_type: conceito
 weight: 30
 ---
 
 <!-- overview -->
-Esta página contém uma visão geral das bibliotecas clientes para usar a API Kubernetes de várias linguagens de programação.
+Esta página contém uma visão geral das bibliotecas clientes para usar a API do Kubernetes por meio de várias linguagens de programação.
 
 
 <!-- body -->
@@ -15,9 +13,9 @@ Para desenvolver aplicações usando a [API REST do Kubernetes](/docs/reference/
 você não precisa implementar as chamadas da API e os tipos de solicitação/resposta. 
 Você pode usar uma biblioteca cliente para a linguagem de programação que está usando.
 
-As bibliotecas clientes geralmente lidam com tarefas comuns, como autenticação para você.
-A maioria das bibliotecas de clientes pode descobrir e usar a Conta de Serviço do Kubernetes para
-se autenticar, se o cliente API está sendo executado dentro do cluster do Kubernetes, ou pode
+As bibliotecas clientes geralmente lidam com tarefas comuns para você, como autenticação.
+A maioria das bibliotecas de clientes podem fazer a descoberta e usar a Conta de Serviço do Kubernetes para
+se autenticar, se o cliente API estiver sendo executado dentro do cluster do Kubernetes, ou pode
 entender o formato do [arquivo kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 para ler as credenciais e o endereço do Servidor da API.
 
