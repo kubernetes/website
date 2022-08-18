@@ -454,7 +454,7 @@ deployment.apps/my-nginx scaled
 kubectl edit deployment/my-nginx
 ```
 
-이것으로 끝이다! 디플로이먼트는 배포된 nginx 애플리케이션을 배후에서 점차적으로 업데이트한다. 업데이트되는 동안 특정 수의 이전 레플리카만 중단될 수 있으며, 원하는 수의 파드 위에 특정 수의 새 레플리카만 생성될 수 있다. 이에 대한 더 자세한 내용을 보려면, [디플로이먼트 페이지](/ko/docs/concepts/workloads/controllers/deployment/)를 방문한다.
+이것으로 끝이다! 디플로이먼트는 배포된 nginx 애플리케이션을 배후에서 점차적으로 업데이트한다. 업데이트되는 동안 특정 수의 이전 레플리카만 중단될 수 있으며, 원하는 수의 파드 위에 특정 수의 새 레플리카만 생성될 수 있다. 이에 대한 더 자세한 내용을 보려면, [디플로이먼트 페이지](/ko/docs/tasks/debug/debug-application/debug-running-pod/)를 방문한다.
 
 
 

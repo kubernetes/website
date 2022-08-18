@@ -1,11 +1,28 @@
 ---
 title: API 概述
+content_type: concept
 weight: 10
 no_list: true
 card:
-   name: reference
-   weight: 50
+  name: reference
+  weight: 50
+  title: API 概述
 ---
+
+<!--
+title: API Overview
+reviewers:
+- erictune
+- lavalamp
+- jbeda
+content_type: concept
+weight: 10
+no_list: true
+card:
+  name: reference
+  weight: 50
+  title: Overview of API
+-->
 
 <!-- overview -->
 
@@ -30,8 +47,8 @@ REST API 是 Kubernetes 的基本结构。
 The [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 lists the API for Kubernetes version {{< param "version" >}}.
 -->
-[Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)列
-出了 Kubernetes {{< param "version" >}} 版本的 API。
+[Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+列出了 Kubernetes {{< param "version" >}} 版本的 API。
 
 <!--
 For general background information, read
@@ -48,7 +65,7 @@ requests are authorized.
 <!--
 ## API versioning
 -->
-## API 版本控制
+## API 版本控制 {#api-reference}
 
 <!--
 The JSON and Protobuf serialization schemas follow the same guidelines for
@@ -90,8 +107,8 @@ Here's a summary of each level:
   - The software is recommended for use only in short-lived testing clusters,
     due to increased risk of bugs and lack of long-term support.
 -->
-- Alpha:
-  - 版本名称包含 `alpha`（例如，`v1alpha1`）。
+- Alpha：
+  - 版本名称包含 `alpha`（例如：`v1alpha1`）。
   - 软件可能会有 Bug。启用某个特性可能会暴露出 Bug。
     某些特性可能默认禁用。
   - 对某个特性的支持可能会随时被删除，恕不另行通知。
@@ -105,8 +122,8 @@ Here's a summary of each level:
     Features are enabled by default.
   - The support for a feature will not be dropped, though the details may change.
 -->
-- Beta:
-  - 版本名称包含 `beta` （例如， `v2beta3`）。
+- Beta：
+  - 版本名称包含 `beta`（例如：`v2beta3`）。
   - 软件被很好的测试过。启用某个特性被认为是安全的。
     特性默认开启。
   - 尽管一些特性会发生细节上的变化，但它们将会被长期支持。
@@ -121,22 +138,22 @@ Here's a summary of each level:
     may introduce incompatible changes. If you have multiple clusters which
     can be upgraded independently, you may be able to relax this restriction.
   -->
-  - 在随后的 Beta 版或稳定版中，对象的模式和（或）语义可能以不兼容的方式改变。
+  - 在随后的 Beta 版或 Stable 版中，对象的模式和（或）语义可能以不兼容的方式改变。
     当这种情况发生时，将提供迁移说明。
-     模式更改可能需要删除、编辑和重建 API 对象。
+    模式更改可能需要删除、编辑和重建 API 对象。
     编辑过程可能并不简单。
     对于依赖此功能的应用程序，可能需要停机迁移。
   - 该版本的软件不建议生产使用。
     后续发布版本可能会有不兼容的变动。
     如果你有多个集群可以独立升级，可以放宽这一限制。
 
+  {{< note >}}
   <!--
   Please try beta features and provide feedback. After the features exit beta, it
   may not be practical to make more changes.
   -->
-  {{< note >}}
-  请试用测试版特性时并提供反馈。特性完成 Beta 阶段测试后，
-  就可能不会有太多的变更了。
+  请尝试 Beta 版时特性时并提供反馈。
+  特性完成 Beta 阶段测试后，就可能不会有太多的变更了。
   {{< /note >}}
 
 <!--
@@ -144,12 +161,14 @@ Here's a summary of each level:
   - The version name is `vX` where `X` is an integer.
   - The stable versions of features appear in released software for many subsequent versions.
 -->
-- Stable:
+- Stable：
   - 版本名称如 `vX`，其中 `X` 为整数。
-  - 特性的稳定版本会出现在后续很多版本的发布软件中。
+  - 特性的 Stable 版本会出现在后续很多版本的发布软件中。
 
-<!--## API groups-->
-## API 组
+<!--
+## API groups
+-->
+## API 组 {#api-groups}
 
 <!--
 [API groups](https://git.k8s.io/design-proposals-archive/api-machinery/api-group.md)
@@ -173,7 +192,7 @@ There are several API groups in Kubernetes:
    [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#-strong-api-groups-strong-).
 -->
 以下是 Kubernetes 中的几个组：
-*  *核心*（也叫 *legacy*）组的 REST 路径为 `/api/v1`。
+*  **核心（core）**（也被称为 **legacy**）组的 REST 路径为 `/api/v1`。
    核心组并不作为 `apiVersion` 字段的一部分，例如， `apiVersion: v1`。
 *  指定的组位于 REST 路径 `/apis/$GROUP_NAME/$VERSION`，
    并且使用 `apiVersion: $GROUP_NAME/$VERSION` （例如， `apiVersion: batch/v1`）。
@@ -199,16 +218,16 @@ part is omitted, it is treated as if `=true` is specified. For example:
 `--runtime-config` 参数接受逗号分隔的 `<key>[=<value>]` 对，
 来描述 API 服务器的运行时配置。如果省略了 `=<value>` 部分，那么视其指定为 `=true`。
 例如：
- - 禁用 `batch/v1`， 对应参数设置 `--runtime-config=batch/v1=false`
- - 启用 `batch/v2alpha1`， 对应参数设置 `--runtime-config=batch/v2alpha1`
+ - 禁用 `batch/v1`，对应参数设置 `--runtime-config=batch/v1=false`
+ - 启用 `batch/v2alpha1`，对应参数设置 `--runtime-config=batch/v2alpha1`
  - 要启用特定版本的 API，如 `storage.k8s.io/v1beta1/csistoragecapacities`，可以设置
    `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`
 
+{{< note >}}
 <!--
 When you enable or disable groups or resources, you need to restart the API
 server and controller manager to pick up the `--runtime-config` changes.
 -->
-{{< note >}}
 启用或禁用组或资源时，
 你需要重启 API 服务器和控制器管理器来使 `--runtime-config` 生效。
 {{< /note >}}
@@ -216,10 +235,11 @@ server and controller manager to pick up the `--runtime-config` changes.
 <!--
 ## Persistence
 -->
-## 持久化
+## 持久化 {#persistence}
 
 <!--
 Kubernetes stores its serialized state in terms of the API resources by writing them into
+{{< glossary_tooltip term_id="etcd" >}}.
 -->
 Kubernetes 通过 API 资源来将序列化的状态写到 {{< glossary_tooltip term_id="etcd" >}} 中存储。
 
@@ -228,7 +248,7 @@ Kubernetes 通过 API 资源来将序列化的状态写到 {{< glossary_tooltip 
 <!--
 - Learn more about [API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
 - Read the design documentation for
-  [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)
+  [aggregator](https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)
 -->
 - 进一步了解 [API 惯例](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
-- 阅读 [聚合器](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)
+- 阅读 [聚合器](https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)

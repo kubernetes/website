@@ -54,7 +54,7 @@ If you see "dns-autoscaler" in the output, DNS horizontal autoscaling is
 already enabled, and you can skip to
 [Tuning autoscaling parameters](#tuning-autoscaling-parameters).
 -->
-## 确定是否 DNS 水平 水平自动扩缩特性已经启用 {#determining-whether-dns-horizontal-autoscaling-is-already-enabled}
+## 确定是否 DNS 水平自动扩缩特性已经启用 {#determining-whether-dns-horizontal-autoscaling-is-already-enabled}
 
 在 kube-system 命名空间中列出集群中的 {{< glossary_tooltip text="Deployments" term_id="deployment" >}} ：
 

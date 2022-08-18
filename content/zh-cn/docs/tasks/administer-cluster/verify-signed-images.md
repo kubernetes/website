@@ -100,21 +100,21 @@ section.
 For non-control plane images (
 e.g. [conformance image](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md))
 , signatures can also be verified at deploy time using
-[cosigned](https://docs.sigstore.dev/cosign/kubernetes/#cosigned-admission-controller)
-admission controller. To get started with `cosigned` here are a few helpful
+[sigstore policy-controller](https://docs.sigstore.dev/policy-controller/overview)
+admission controller. To get started with `policy-controller` here are a few helpful
 resources:
 
-* [Installation](https://github.com/sigstore/helm-charts/tree/main/charts/cosigned)
-* [Configuration Options](https://github.com/sigstore/cosign/tree/main/config)
+* [Installation](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
+* [Configuration Options](https://github.com/sigstore/policy-controller/tree/main/config)
 -->
 ## 使用准入控制器验证镜像签名   {#verifying-image-signatures-with-admission-controller}
 
 有一些非控制平面镜像
 （例如 [conformance 镜像](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md)），
 也可以在部署时使用
-[cosigned](https://docs.sigstore.dev/cosign/kubernetes/#cosigned-admission-controller)
-控制器验证其签名。如要使用 `cosigned`，下面是一些有帮助的资源：
+[sigstore policy-controller](https://docs.sigstore.dev/policy-controller/overview)
+控制器验证其签名。如要使用 `policy-controller`，下面是一些有帮助的资源：
 
-* [安装](https://github.com/sigstore/cosign#installation)
-* [配置选项](https://github.com/sigstore/cosign/blob/main/USAGE.md#detailed-usage)
+* [安装](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
+* [配置选项](https://github.com/sigstore/policy-controller/tree/main/config)
 

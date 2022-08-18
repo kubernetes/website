@@ -15,7 +15,7 @@ weight: 10
 Kubernetes {{< skew currentVersion >}} supports [Container Network Interface](https://github.com/containernetworking/cni)
 (CNI) plugins for cluster networking. You must use a CNI plugin that is compatible with your cluster and that suits your needs. Different plugins are available (both open- and closed- source) in the wider Kubernetes ecosystem. 
 -->
-Kubernetes {{< skew currentVersion >}} 支持[容器网络接口](https://github.com/containernetworking/cni) (CNI) 集群网络插件。
+Kubernetes {{< skew currentVersion >}} 支持用于集群联网的[容器网络接口](https://github.com/containernetworking/cni) (CNI) 插件。
 你必须使用和你的集群相兼容并且满足你的需求的 CNI 插件。
 在更广泛的 Kubernetes 生态系统中你可以使用不同的插件（开源和闭源）。
 

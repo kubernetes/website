@@ -168,6 +168,23 @@ Used on: Pod
 This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
 which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
 
+### cluster-autoscaler.kubernetes.io/enable-ds-eviction
+
+Example: `cluster-autoscaler.kubernetes.io/enable-ds-eviction: "true"`
+
+Used on: Pod
+
+This annotation controls whether a DaemonSet pod should be evicted by a ClusterAutoscaler.
+This annotation needs to be specified on DaemonSet pods in a DaemonSet manifest.
+When this annotation is set to `"true"`, the ClusterAutoscaler is allowed to evict a DaemonSet Pod,
+even if other rules would normally prevent that. To disallow the ClusterAutoscaler from evicting DaemonSet pods,
+you can set this annotation to `"false"` for important DaemonSet pods.
+If this annotation is not set, then the Cluster Autoscaler follows its overall behaviour (i.e evict the DaemonSets based on its configuration).
+
+{{< note >}}
+This annotation only impacts DaemonSet pods.
+{{< /note >}}
+
 ### kubernetes.io/ingress-bandwidth
 
 {{< note >}}

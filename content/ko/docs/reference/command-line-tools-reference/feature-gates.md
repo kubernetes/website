@@ -760,7 +760,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면,
   Portworx CSI 플러그인으로 라우트하는 심(shim)과 변환 로직을 활성화한다. 
   Portworx CSI 드라이버가 설치 및 설정되어 있어야 한다.
 - `CSINodeInfo`: `csi.storage.k8s.io` 내의 CSINodeInfo API 오브젝트와 관련된 모든 로직을 활성화한다.
-- `CSIPersistentVolume`: [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
+- `CSIPersistentVolume`: [CSI (Container Storage Interface)](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)
   호환 볼륨 플러그인을 통해 프로비저닝된 볼륨을 감지하고
   마운트할 수 있다.
 - `CSIServiceAccountToken` : 볼륨을 마운트하는 파드의 서비스 계정 토큰을 받을 수 있도록
@@ -1087,10 +1087,10 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면,
   참조한다.
 - `RotateKubeletClientCertificate`: kubelet에서 클라이언트 TLS 인증서의 로테이션을 활성화한다.
   자세한 내용은 
-  [kubelet 구성](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)을 참고한다.
+  [kubelet 구성](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)을 참고한다.
 - `RotateKubeletServerCertificate`: kubelet에서 서버 TLS 인증서의 로테이션을 활성화한다.
   자세한 사항은
-  [kubelet 구성](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)을 확인한다.
+  [kubelet 구성](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)을 확인한다.
 - `RunAsGroup`: 컨테이너의 init 프로세스에 설정된 기본 그룹 ID 제어를
   활성화한다.
 - `RuntimeClass`: 컨테이너 런타임 구성을 선택하기 위해 [런타임클래스(RuntimeClass)](/ko/docs/concepts/containers/runtime-class/)
