@@ -194,12 +194,12 @@ The tab **name** in a `tabs` definition must be unique within a content page.
 
 ```go-text-template
 {{</* tabs name="tab_with_code" >}}
-{{{< tab name="Tab 1" codelang="bash" >}}
+{{< tab name="Tab 1" codelang="bash" >}}
 echo "This is tab 1."
 {{< /tab >}}
 {{< tab name="Tab 2" codelang="go" >}}
 println "This is tab 2."
-{{< /tab >}}}
+{{< /tab >}}
 {{< /tabs */>}}
 ```
 
@@ -306,7 +306,6 @@ Add the shortcode:
 
 before the item, or just below the heading for the specific item.
 
-
 ## Version strings
 
 To generate a version string for inclusion in the documentation, you can choose from
@@ -378,4 +377,3 @@ Renders to:
 * Learn about [page content types](/docs/contribute/style/page-content-types/).
 * Learn about [opening a pull request](/docs/contribute/new-content/open-a-pr/).
 * Learn about [advanced contributing](/docs/contribute/advanced/).
-

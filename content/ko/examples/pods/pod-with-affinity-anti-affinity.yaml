@@ -30,4 +30,4 @@ spec:
             - key-2
   containers:
   - name: with-node-affinity
-    image: k8s.gcr.io/pause:2.0
+    image: k8s.gcr.io/pause:2.0 

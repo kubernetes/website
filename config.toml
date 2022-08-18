@@ -15,7 +15,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
 
 ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
-timeout = 3000
+timeout = "180s"
 
 # Highlighting config.
 pygmentsCodeFences = true

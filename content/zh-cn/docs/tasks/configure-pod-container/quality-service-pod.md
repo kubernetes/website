@@ -21,7 +21,6 @@ scheduling and evicting Pods.
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!-- steps -->
@@ -45,8 +44,7 @@ Kubernetes 创建 Pod 时就给它指定了下列一种 QoS 类：
 Create a namespace so that the resources you create in this exercise are
 isolated from the rest of your cluster.
 -->
-
-## 创建命名空间
+## 创建命名空间  {#create-a-namespace}
 
 创建一个命名空间，以便将本练习所创建的资源与集群的其余资源相隔离。
 
@@ -69,7 +67,7 @@ These restrictions apply to init containers and app containers equally.
 Here is the configuration file for a Pod that has one Container. The Container has a memory limit and a
 memory request, both equal to 200 MiB. The Container has a CPU limit and a CPU request, both equal to 700 milliCPU:
 -->
-## 创建一个 QoS 类为 Guaranteed 的 Pod
+## 创建一个 QoS 类为 Guaranteed 的 Pod  {#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed}
 
 对于 QoS 类为 Guaranteed 的 Pod：
 
@@ -81,25 +79,23 @@ memory request, both equal to 200 MiB. The Container has a CPU limit and a CPU r
 这些限制同样适用于初始化容器和应用程序容器。
 
 下面是包含一个容器的 Pod 配置文件。
-容器设置了内存请求和内存限制，值都是 200 MiB。
-容器设置了 CPU 请求和 CPU 限制，值都是 700 milliCPU：
+该容器设置了内存请求和内存限制，值都是 200 MiB。
+该容器设置了 CPU 请求和 CPU 限制，值都是 700 milliCPU：
 
 {{< codenew file="pods/qos/qos-pod.yaml" >}}
 
 <!--
 Create the Pod:
 -->
-
 创建 Pod：
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/qos/qos-pod.yaml --namespace=qos-example
+kubectl apply -f https://k8s.io/examples/pods/qos/qos-pod.yaml --namespace=qos-example
 ```
 
 <!--
 View detailed information about the Pod:
 -->
-
 查看 Pod 详情：
 
 ```shell
@@ -111,7 +107,6 @@ The output shows that Kubernetes gave the Pod a QoS class of Guaranteed. The out
 verifies that the Pod Container has a memory request that matches its memory limit, and it has
 a CPU request that matches its CPU limit.
 -->
-
 结果表明 Kubernetes 为 Pod 配置的 QoS 类为 Guaranteed。
 结果也确认了 Pod 容器设置了与内存限制匹配的内存请求，设置了与 CPU 限制匹配的 CPU 请求。
 
@@ -126,7 +121,7 @@ spec:
       requests:
         cpu: 700m
         memory: 200Mi
-  ...
+    ...
 status:
   qosClass: Guaranteed
 ```
@@ -145,7 +140,6 @@ the limit.
 <!--
 Delete your Pod:
 -->
-
 删除 Pod：
 
 ```shell
@@ -163,7 +157,7 @@ A Pod is given a QoS class of Burstable if:
 Here is the configuration file for a Pod that has one Container. The Container has a memory limit of 200 MiB
 and a memory request of 100 MiB.
 -->
-## 创建一个 QoS 类为 Burstable 的 Pod
+## 创建一个 QoS 类为 Burstable 的 Pod  {#create-a-pod-that-gets-assigned-a-qos-class-of-burstable}
 
 如果满足下面条件，将会指定 Pod 的 QoS 类为 Burstable：
 
@@ -171,24 +165,22 @@ and a memory request of 100 MiB.
 * Pod 中至少一个容器具有内存或 CPU 的请求或限制。
 
 下面是包含一个容器的 Pod 配置文件。
-容器设置了内存限制 200 MiB 和内存请求 100 MiB。
+该容器设置了内存限制 200 MiB 和内存请求 100 MiB。
 
 {{< codenew file="pods/qos/qos-pod-2.yaml" >}}
 
 <!--
 Create the Pod:
 -->
-
 创建 Pod：
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/qos/qos-pod-2.yaml --namespace=qos-example
+kubectl apply -f https://k8s.io/examples/pods/qos/qos-pod-2.yaml --namespace=qos-example
 ```
 
 <!--
 View detailed information about the Pod:
 -->
-
 查看 Pod 详情：
 
 ```shell
@@ -198,7 +190,6 @@ kubectl get pod qos-demo-2 --namespace=qos-example --output=yaml
 <!--
 The output shows that Kubernetes gave the Pod a QoS class of Burstable.
 -->
-
 结果表明 Kubernetes 为 Pod 配置的 QoS 类为 Burstable。
 
 ```yaml
@@ -235,12 +226,12 @@ have any memory or CPU limits or requests.
 Here is the configuration file for a Pod that has one Container. The Container has no memory or CPU
 limits or requests:
 -->
-## 创建一个 QoS 类为 BestEffort 的 Pod
+## 创建一个 QoS 类为 BestEffort 的 Pod  {#create-a-pod-that-gets-assigned-a-qos-class-of-besteffort}
 
 对于 QoS 类为 BestEffort 的 Pod，Pod 中的容器必须没有设置内存和 CPU 限制或请求。
 
 下面是包含一个容器的 Pod 配置文件。
-容器没有设置内存和 CPU 限制或请求。
+该容器没有设置内存和 CPU 限制或请求。
 
 {{< codenew file="pods/qos/qos-pod-3.yaml" >}}
 
@@ -250,7 +241,7 @@ Create the Pod:
 创建 Pod：
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/qos/qos-pod-3.yaml --namespace=qos-example
+kubectl apply -f https://k8s.io/examples/pods/qos/qos-pod-3.yaml --namespace=qos-example
 ```
 
 <!--
@@ -292,7 +283,7 @@ kubectl delete pod qos-demo-3 --namespace=qos-example
 Here is the configuration file for a Pod that has two Containers. One container specifies a memory
 request of 200 MiB. The other Container does not specify any requests or limits.
 -->
-## 创建包含两个容器的 Pod
+## 创建包含两个容器的 Pod  {#create-a-pod-that-has-two-containers}
 
 下面是包含两个容器的 Pod 配置文件。
 一个容器指定了内存请求 200 MiB。
@@ -312,7 +303,7 @@ Create the Pod:
 创建 Pod：
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/qos/qos-pod-4.yaml --namespace=qos-example
+kubectl apply -f https://k8s.io/examples/pods/qos/qos-pod-4.yaml --namespace=qos-example
 ```
 
 <!--
@@ -359,7 +350,7 @@ kubectl delete pod qos-demo-4 --namespace=qos-example
 
 Delete your namespace:
 -->
-## 环境清理
+## 环境清理  {#clean-up}
 
 删除命名空间：
 
@@ -385,17 +376,17 @@ kubectl delete namespace qos-example
 <!--
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
@@ -405,7 +396,8 @@ kubectl delete namespace qos-example
 ### 集群管理员参考
 
 * [为命名空间配置默认的内存请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [为命名空间配置默认的 CPU 请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace)
+
+* [为命名空间配置默认的 CPU 请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
 * [为命名空间配置最小和最大内存限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
@@ -418,6 +410,4 @@ kubectl delete namespace qos-example
 * [为 API 对象配置配额](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 
 * [控制节点上的拓扑管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)
-
-
 

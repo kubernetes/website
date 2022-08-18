@@ -24,3 +24,5 @@ no_list: true
 - 서비스 어카운트
   - [개발자 가이드](/docs/tasks/configure-pod-container/configure-service-account/)
   - [관리](/ko/docs/reference/access-authn-authz/service-accounts-admin/)
+- [kubelet 인증과 인가](/docs/reference/access-authn-authz/kubelet-authn-authz/)
+  - kubelet [TLS 부트스트래핑](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)을 포함함

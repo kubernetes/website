@@ -36,10 +36,10 @@ weight: 10
 
 <!-- steps -->
 
-## 크론 잡 생성
+## 크론잡(CronJob) 생성 {#creating-a-cron-job}
 
 크론 잡은 구성 파일이 필요하다.
-아래의 크론 잡 구성 `.spec` 파일의 예제는 매 분마다 현재 시간과 hello 메시지를 출력한다.
+다음은 1분마다 간단한 데모 작업을 실행하는 크론잡 매니페스트다.
 
 {{< codenew file="application/job/cronjob.yaml" >}}
 
@@ -59,6 +59,7 @@ cronjob.batch/hello created
 ```shell
 kubectl get cronjob hello
 ```
+
 출력 결과는 다음과 비슷하다.
 
 ```
@@ -87,6 +88,7 @@ hello-4111706356   1/1           5s         5s
 ```shell
 kubectl get cronjob hello
 ```
+
 출력 결과는 다음과 비슷하다.
 
 ```
@@ -94,7 +96,9 @@ NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 hello   */1 * * * *   False     0        50s             75s
 ```
 
-크론 잡 `hello` 가 `LAST SCHEDULE` 에 지정된 시간에 성공적으로 잡을 스케줄했는지 확인해야 한다. 현재는 0개의 활성 잡이 있고, 이는 작업이 완료되었거나 실패했음을 의미한다.
+크론 잡 `hello` 가 지정된 시간에 성공적으로 잡을 스케줄했는지 
+`LAST SCHEDULE`에서 확인해야 한다. 
+현재는 0개의 활성 잡이 있고, 이는 작업이 완료되었거나 실패했음을 의미한다.
 
 이제, 마지막으로 스케줄된 잡이 생성한 파드를 찾고 생성된 파드 중 하나의 표준 출력을 확인한다.
 
@@ -118,7 +122,7 @@ Fri Feb 22 11:02:09 UTC 2019
 Hello from the Kubernetes cluster
 ```
 
-## 크론 잡 삭제
+## 크론잡(CronJob) 삭제 {#deleting-a-cron-job}
 
 더 이상 크론 잡이 필요하지 않으면, `kubectl delete cronjob <cronjob name>` 명령을 사용해서 삭제한다.
 
@@ -129,16 +133,15 @@ kubectl delete cronjob hello
 크론 잡을 삭제하면 생성된 모든 잡과 파드가 제거되고 추가 잡 생성이 중지된다.
 [가비지(garbage) 수집](/ko/docs/concepts/architecture/garbage-collection/)에서 잡 제거에 대해 상세한 내용을 읽을 수 있다.
 
-## 크론 잡 명세 작성
+## 크론잡(CronJob) 명세 작성 {#writing-a-cron-job-spec}
 
-다른 모든 쿠버네티스 구성과 마찬가지로, 크론 잡은 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다. 구성 파일
-작업에 대한 일반적인 정보는 [애플리케이션 배포](/ko/docs/tasks/run-application/run-stateless-application-deployment/)와
+다른 모든 쿠버네티스 오브젝트들과 마찬가지로, 크론잡은 `apiVersion`, `kind` 그리고 `metadata` 필드가 반드시 필요하다. Kubernetes 개체 작업과 {{< glossary_tooltip text="매니페스트" term_id="manifest" >}} 대한 자세한 내용은 [리소스 관리하기](/ko/docs/concepts/cluster-administration/manage-deployment/)와
 [kubectl을 사용하여 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참고한다.
 
-크론 잡 구성에는 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.
+크론잡(CronJob)의 각 매니페스트에는 [`.spec`](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#오브젝트-명세-spec-와-상태-status) 섹션도 필요하다.
 
 {{< note >}}
-크론 잡, 특히 해당 잡의 `.spec` 에 대한 모든 수정 사항은 다음 번 실행에만 적용된다.
+크론잡(CrontJob)을 수정한 경우, 수정 후 새로 실행하는 작업부터 적용된다. 이미 시작된 작업(및 해당 파드)은 변경 없이 계속 실행된다. 즉, 크론잡(CrontJob)은 기존 작업이 계속 실행 중이라면, 작업을 변경하지 _않는다._
 {{< /note >}}
 
 ### 스케줄

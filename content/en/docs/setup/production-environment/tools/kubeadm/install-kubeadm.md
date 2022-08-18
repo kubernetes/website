@@ -12,7 +12,7 @@ card:
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 This page shows how to install the `kubeadm` toolbox.
-For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
+For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
 
 ## {{% heading "prerequisites" %}}
@@ -89,7 +89,7 @@ The tables below include the known endpoints for supported operating systems:
 {{< tabs name="container_runtime" >}}
 {{% tab name="Linux" %}}
 
-{{< table >}}
+{{< table caption="Linux container runtimes" >}}
 | Runtime                            | Path to Unix domain socket                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `unix:///var/run/containerd/containerd.sock` |
@@ -101,7 +101,7 @@ The tables below include the known endpoints for supported operating systems:
 
 {{% tab name="Windows" %}}
 
-{{< table >}}
+{{< table caption="Windows container runtimes" >}}
 | Runtime                            | Path to Windows named pipe                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `npipe:////./pipe/containerd-containerd`     |

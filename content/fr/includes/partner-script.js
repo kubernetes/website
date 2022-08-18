@@ -509,7 +509,7 @@
 			name: 'Nirmata',
 			logo: 'nirmata',
 			link: 'https://www.nirmata.com/',
-			blurb: 'Nirmata - Nirmata Managed Kubernets'
+			blurb: 'Nirmata - Nirmata Managed Kubernetes'
 				},
 		{
 			type: 2,

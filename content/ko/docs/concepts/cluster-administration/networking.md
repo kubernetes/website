@@ -202,5 +202,5 @@ OVN은 Open vSwitch 커뮤니티에서 개발한 오픈소스 네트워크
 ## {{% heading "whatsnext" %}}
 
 네트워크 모델의 초기 설계와 그 근거 및 미래의 계획은
-[네트워킹 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)에
+[네트워킹 디자인 문서](https://git.k8s.io/design-proposals-archive/network/networking.md)에
 자세히 설명되어 있다.
