@@ -19,7 +19,7 @@ Labels are intended to be used to specify identifying attributes of objects that
 Labels can be used to organize and to select subsets of objects. Labels can be attached to objects at creation time and subsequently added and modified at any time.
 Each object can have a set of key/value labels defined. Each Key must be unique for a given object.
 -->
-**标签（Labels）**是附加到 Kubernetes 对象（比如 Pods）上的键值对。
+**标签（Labels）**是附加到 Kubernetes 对象（比如 Pod）上的键值对。
 标签旨在用于指定对用户有意义且相关的对象的标识属性，但不直接对核心系统有语义含义。
 标签可以用于组织和选择对象的子集。标签可以在创建时附加到对象，随后可以随时添加和修改。
 每个对象都可以定义一组键/值标签。每个键对于给定对象必须是唯一的。
@@ -262,7 +262,7 @@ Similarly the comma separator acts as an _AND_ operator. So filtering resources 
 * 第三个示例选择了所有包含了有 `partition` 标签的资源；没有校验它的值。
 * 第四个示例选择了所有没有 `partition` 标签的资源；没有校验它的值。
 
-类似地，逗号分隔符充当 **与**运算符。因此，使用 `partition` 键（无论为何值）和
+类似地，逗号分隔符充当**与**运算符。因此，使用 `partition` 键（无论为何值）和
 `environment` 不同于 `qa` 来过滤资源可以使用 `partition, environment notin (qa)` 来实现。
 
 <!--
@@ -357,8 +357,8 @@ Labels selectors for both objects are defined in `json` or `yaml` files using ma
 -->
 #### Service 和 ReplicationController
 
-一个 `Service` 指向的一组 Pods 是由标签选择算符定义的。同样，一个 `ReplicationController`
-应该管理的 pods 的数量也是由标签选择算符定义的。
+一个 `Service` 指向的一组 Pod 是由标签选择算符定义的。同样，一个 `ReplicationController`
+应该管理的 Pod 的数量也是由标签选择算符定义的。
 
 两个对象的标签选择算符都是在 `json` 或者 `yaml` 文件中使用映射定义的，并且只支持
 **基于等值**需求的选择算符：
