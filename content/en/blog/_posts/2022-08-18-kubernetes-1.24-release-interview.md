@@ -163,7 +163,7 @@ JAMES LAVERACK: I think it's pretty similar. Most of the recent releases have be
 
 JAMES LAVERACK: No, I don't think so. I think we had enough going on.
 
-**CRAIG BOX: The release team is obviously beholden to what features the SIGs are developing and what their plans are. Is there ever any coordination between the release process and the SIGs in terms of things like saying, this release is going to be a catch-up release, like the old Snow Leopard releases for Mac OS, for example, where we say we don't want as many new features, but we really want more stabilization, and could you please work on those kind of things?**
+**CRAIG BOX: The release team is obviously beholden to what features the SIGs are developing and what their plans are. Is there ever any coordination between the release process and the SIGs in terms of things like saying, this release is going to be a catch-up release, like the old Snow Leopard releases for macOS, for example, where we say we don't want as many new features, but we really want more stabilization, and could you please work on those kind of things?**
 
 JAMES LAVERACK: Not really. The cornerstone of a Kubernetes organization is the SIGs themselves, so the special interest groups that make up the organization. It's really up to them what they want to do. We don't do any particular coordination on the style of thing that should be implemented. A lot of SIGs have roadmaps, are looking over multiple releases to try to get features that they think are important in.
 
