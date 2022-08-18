@@ -45,7 +45,7 @@ It has been more than two years since the Linux kernel cgroups v2 API was declar
 - [Performance dashboards](http://perf-dash.k8s.io/#/?jobname=soak-tests-capz-windows-2019) added support for Windows
 - [Unit tests](https://github.com/kubernetes/kubernetes/issues/51540) added support for Windows
 - [Conformance tests](https://github.com/kubernetes/kubernetes/pull/108592) added support for Windows
-- New repository created for [Windows Operational Readiness](https://github.com/kubernetes-sigs/windows-operational-readiness)
+- New GitHub repository created for [Windows Operational Readiness](https://github.com/kubernetes-sigs/windows-operational-readiness)
 
 ### Moved container registry service from k8s.gcr.io to registry.k8s.io
 
@@ -111,7 +111,7 @@ This release includes a total of thirteen enhancements promoted to stable:
 
 ### Deprecations and Removals
 
-Two features were deprecated or removed from Kubernetes with this release.
+Two features were [deprecated or removed](/blog/2022/08/04/upcoming-changes-in-kubernetes-1-25/) from Kubernetes with this release.
 
 * [PodSecurityPolicy is removed](https://github.com/kubernetes/enhancements/issues/5)
 * [GlusterFS plugin deprecated from available in-tree drivers](https://github.com/kubernetes/enhancements/issues/3446)
@@ -135,11 +135,15 @@ We would like to thank the entire release team for the hours spent hard at work 
    
 ### User Highlights
 
-TODO: Find interesting highlights
+* Finleap Connect operates in a highly regulated environment. [In 2019, they had five months to implement mutual TLS (mTLS) across all services in their clusters for their business code to comply with the new European PSD2 payment directive](https://www.cncf.io/case-studies/finleap-connect/).
+* PNC sought to develop a way to ensure new code would meet security standards and audit compliance requirements automatically—replacing the cumbersome 30-day manual process they had in place. Using Knative, [PNC developed internal tools to automatically check new code and changes to existing code](https://www.cncf.io/case-studies/pnc-bank/).
+* Nexxiot needed highly-reliable, secure, performant, and cost efficient Kubernetes clusters. [They turned to Cilium as the CNI to lock down their clusters and enable resilient networking with reliable day two operations](https://www.cncf.io/case-studies/nexxiot/).
+* Because the process of creating cyber insurance policies is a complicated multi-step process, At-Bay sought to improve operations by using asynchronous message-based communication patterns/facilities. [They determined that Dapr fulfilled its desired list of requirements and much more](https://www.cncf.io/case-studies/at-bay/). 
 
 ### Ecosystem Updates
 
 * KubeCon + CloudNativeCon North America 2022 will take place in Detroit, Michigan from 24 – 28 October 2022! You can find more information about the conference and registration on the [event site](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/).
+* KubeDay event series kicks off with KubeDay Japan December 7! Register or submit a proposal on the [event site](https://events.linuxfoundation.org/kubeday-japan/)
 * In the [2021 Cloud Native Survey](https://www.cncf.io/announcements/2022/02/10/cncf-sees-record-kubernetes-and-container-adoption-in-2021-cloud-native-survey/), the CNCF saw record Kubernetes and container adoption. Take a look at the [results of the survey](https://www.cncf.io/reports/cncf-annual-survey-2021/). 
 
 ### Project Velocity
