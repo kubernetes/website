@@ -251,7 +251,7 @@ With Kubernetes 1.24, we're enabling a beta feature that allows them to use gRPC
 
 **CRAIG BOX: Are there any other enhancements that are particularly notable or relevant perhaps to the work you've been doing?**
 
-JAMES LAVERACK: There's a really interesting one from SIG Network which is about [avoiding collisions in IP allocations to services](https://kubernetes.io/blog/2022/05/03/kubernetes-1-24-release-announcement/#avoiding-collisions-in-ip-allocation-to-services). In existing versions of Kubernetes, you can allocate a service to have a particular internal cluster IPor you can leave it blank and it will generate its own IP.
+JAMES LAVERACK: There's a really interesting one from SIG Network which is about [avoiding collisions in IP allocations to services](https://kubernetes.io/blog/2022/05/03/kubernetes-1-24-release-announcement/#avoiding-collisions-in-ip-allocation-to-services). In existing versions of Kubernetes, you can allocate a service to have a particular internal cluster IP, or you can leave it blank and it will generate its own IP.
 
 In Kubernetes 1.24, there's an opt-in feature, which allows you to specify a pool for dynamic IPs to be generated from. This means that you can statically allocate an IP to a service and know that IP can not be accidentally dynamically allocated. This is a problem I've actually had in my local Kubernetes cluster, where I use static IP addresses for a bunch of port forwarding rules. I've always worried that during server start-up, they're going to get dynamically allocated to one of the other services. Now, with 1.24, and this feature, I won't have to worry about it more.
 
