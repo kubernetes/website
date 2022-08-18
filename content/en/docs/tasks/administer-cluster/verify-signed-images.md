@@ -28,7 +28,7 @@ Let's pick one image from this list and verify its signature using
 the `cosign verify` command:
 
 ```shell
-COSIGN_EXPERIMENTAL=1 cosign verify k8s.gcr.io/kube-apiserver-amd64:v1.24.0
+COSIGN_EXPERIMENTAL=1 cosign verify registry.k8s.io/kube-apiserver-amd64:v1.24.0
 ```
 
 {{< note >}}
@@ -42,7 +42,7 @@ in `KEYLESS` mode. To learn more about keyless signing, please refer to
 To verify all signed control plane images, please run this command:
 
 ```shell
-curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: k8s.gcr.io/' | awk '{print $2}' > images.txt
+curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: registry.k8s.io/' | awk '{print $2}' > images.txt
 input=images.txt
 while IFS= read -r image
 do
