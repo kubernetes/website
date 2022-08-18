@@ -69,7 +69,7 @@ click V "https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZmxv
 <!--
 Figure 1. Topics covered in this section.
 -->
-图 1. 本节中涉及的话题.
+图 1. 本节中涉及的话题。
 
 <!--
 All you need to begin working with Mermaid is the following:
@@ -105,7 +105,7 @@ diagram in the Mermaid live editor.
 
 Diagrams improve documentation clarity and comprehension. There are advantages for both the user and the contributor.
 -->
-## 你为什么应该在代码中使用图表
+## 你为什么应该在代码中使用图表 {#why-you-should-use-diagram-in-documentation}
 
 图表可以增进文档的清晰度，便于理解。对于用户和贡献者而言都有好处。
 
@@ -140,7 +140,7 @@ The contributor benefits include:
 
 * __帮助确立所贡献文档的结构和内容__。例如，
   你可以先提供一个覆盖所有顶层要点的图表，然后再逐步展开细节。
-* __培养用户社区并提升其能力__ 容易理解的文档，附以图表，能够吸引新的用户，
+* __培养用户社区并提升其能力__。容易理解的文档，附以图表，能够吸引新的用户，
   尤其是那些因为预见到复杂性而不愿参与的用户。
 
 <!--
@@ -149,7 +149,7 @@ users, you will have many who are new to Kubernetes. Even a simple diagram can
 assist new users in absorbing Kubernetes concepts. They become emboldened and
 more confident to further explore Kubernetes and the documentation.  
 -->
-你需要考虑你的目标受众。除了一些有经验的 K8s 用户外，你还会遇到很多刚接触
+你需要考虑你的目标受众。除了一些有经验的 Kubernetes 用户外，你还会遇到很多刚接触
 Kubernetes 的用户。即使一张简单的图表也可以帮助新用户吸收 Kubernetes 概念。
 他们会变得更为大胆和自信，进一步地了解 Kubernetes 及其文档。
 
@@ -223,7 +223,7 @@ a web-based tool that enables you to create, edit and review diagrams.
 -->
 ### 在线编辑器
 
-[Mermaid 在线编辑器](https://mermaid-js.github.io/mermaid-live-editor)是一个基于 
+[Mermaid 在线编辑器](https://mermaid-js.github.io/mermaid-live-editor)是一个基于
 Web 的工具，允许你创建、编辑和审阅图表。
 
 <!--
@@ -289,7 +289,6 @@ click D "https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZ3Jh
 Figure 2. Methods to create diagrams.
 -->
 图 2. 创建图表的方法
-
 
 <!--
 ### Inline
@@ -369,7 +368,7 @@ Here is a sample code snippet contained in an `.md` file:
 ---
 title: 我的文档
 ---
-Figure 17 给出从 A 到 B 的一个简单流程。
+图 17 给出从 A 到 B 的一个简单流程。
 这里是其他 markdown 文本
 ...
 {{</* mermaid */>}} 
@@ -860,7 +859,7 @@ K8s components to start a container.
 
 图 8 给出的是一个 Mermaid 时序图，展示启动容器时 K8s 组件间的控制流。
 
-{{< figure src="/zh-cn/docs/images/diagram-guide-example-3.svg" alt="K8s system flow diagram" class="diagram-large" caption="Figure 8. K8s system flow diagram" link="https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiJSV7aW5pdDp7XCJ0aGVtZVwiOlwibmV1dHJhbFwifX0lJVxuc2VxdWVuY2VEaWFncmFtXG4gICAgYWN0b3IgbWVcbiAgICBwYXJ0aWNpcGFudCBhcGlTcnYgYXMgY29udHJvbCBwbGFuZTxicj48YnI-YXBpLXNlcnZlclxuICAgIHBhcnRpY2lwYW50IGV0Y2QgYXMgY29udHJvbCBwbGFuZTxicj48YnI-ZXRjZCBkYXRhc3RvcmVcbiAgICBwYXJ0aWNpcGFudCBjbnRybE1nciBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5jb250cm9sbGVyPGJyPm1hbmFnZXJcbiAgICBwYXJ0aWNpcGFudCBzY2hlZCBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5zY2hlZHVsZXJcbiAgICBwYXJ0aWNpcGFudCBrdWJlbGV0IGFzIG5vZGU8YnI-PGJyPmt1YmVsZXRcbiAgICBwYXJ0aWNpcGFudCBjb250YWluZXIgYXMgbm9kZTxicj48YnI-Y29udGFpbmVyPGJyPnJ1bnRpbWVcbiAgICBtZS0-PmFwaVNydjogMS4ga3ViZWN0bCBjcmVhdGUgLWYgcG9kLnlhbWxcbiAgICBhcGlTcnYtLT4-ZXRjZDogMi4gc2F2ZSBuZXcgc3RhdGVcbiAgICBjbnRybE1nci0-PmFwaVNydjogMy4gY2hlY2sgZm9yIGNoYW5nZXNcbiAgICBzY2hlZC0-PmFwaVNydjogNC4gd2F0Y2ggZm9yIHVuYXNzaWduZWQgcG9kcyhzKVxuICAgIGFwaVNydi0-PnNjaGVkOiA1LiBub3RpZnkgYWJvdXQgcG9kIHcgbm9kZW5hbWU9XCIgXCJcbiAgICBzY2hlZC0-PmFwaVNydjogNi4gYXNzaWduIHBvZCB0byBub2RlXG4gICAgYXBpU3J2LS0-PmV0Y2Q6IDcuIHNhdmUgbmV3IHN0YXRlXG4gICAga3ViZWxldC0-PmFwaVNydjogOC4gbG9vayBmb3IgbmV3bHkgYXNzaWduZWQgcG9kKHMpXG4gICAgYXBpU3J2LT4-a3ViZWxldDogOS4gYmluZCBwb2QgdG8gbm9kZVxuICAgIGt1YmVsZXQtPj5jb250YWluZXI6IDEwLiBzdGFydCBjb250YWluZXJcbiAgICBrdWJlbGV0LT4-YXBpU3J2OiAxMS4gdXBkYXRlIHBvZCBzdGF0dXNcbiAgICBhcGlTcnYtLT4-ZXRjZDogMTIuIHNhdmUgbmV3IHN0YXRlIiwibWVybWFpZCI6IntcbiAgXCJ0aGVtZVwiOiBcImRlZmF1bHRcIlxufSIsInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjp0cnVlfQ" >}}
+{{< figure src="/zh-cn/docs/images/diagram-guide-example-3.svg" alt="K8s system flow diagram" class="diagram-large" caption="图 8. K8s 系统流程图" link="https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiJSV7aW5pdDp7XCJ0aGVtZVwiOlwibmV1dHJhbFwifX0lJVxuc2VxdWVuY2VEaWFncmFtXG4gICAgYWN0b3IgbWVcbiAgICBwYXJ0aWNpcGFudCBhcGlTcnYgYXMgY29udHJvbCBwbGFuZTxicj48YnI-YXBpLXNlcnZlclxuICAgIHBhcnRpY2lwYW50IGV0Y2QgYXMgY29udHJvbCBwbGFuZTxicj48YnI-ZXRjZCBkYXRhc3RvcmVcbiAgICBwYXJ0aWNpcGFudCBjbnRybE1nciBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5jb250cm9sbGVyPGJyPm1hbmFnZXJcbiAgICBwYXJ0aWNpcGFudCBzY2hlZCBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5zY2hlZHVsZXJcbiAgICBwYXJ0aWNpcGFudCBrdWJlbGV0IGFzIG5vZGU8YnI-PGJyPmt1YmVsZXRcbiAgICBwYXJ0aWNpcGFudCBjb250YWluZXIgYXMgbm9kZTxicj48YnI-Y29udGFpbmVyPGJyPnJ1bnRpbWVcbiAgICBtZS0-PmFwaVNydjogMS4ga3ViZWN0bCBjcmVhdGUgLWYgcG9kLnlhbWxcbiAgICBhcGlTcnYtLT4-ZXRjZDogMi4gc2F2ZSBuZXcgc3RhdGVcbiAgICBjbnRybE1nci0-PmFwaVNydjogMy4gY2hlY2sgZm9yIGNoYW5nZXNcbiAgICBzY2hlZC0-PmFwaVNydjogNC4gd2F0Y2ggZm9yIHVuYXNzaWduZWQgcG9kcyhzKVxuICAgIGFwaVNydi0-PnNjaGVkOiA1LiBub3RpZnkgYWJvdXQgcG9kIHcgbm9kZW5hbWU9XCIgXCJcbiAgICBzY2hlZC0-PmFwaVNydjogNi4gYXNzaWduIHBvZCB0byBub2RlXG4gICAgYXBpU3J2LS0-PmV0Y2Q6IDcuIHNhdmUgbmV3IHN0YXRlXG4gICAga3ViZWxldC0-PmFwaVNydjogOC4gbG9vayBmb3IgbmV3bHkgYXNzaWduZWQgcG9kKHMpXG4gICAgYXBpU3J2LT4-a3ViZWxldDogOS4gYmluZCBwb2QgdG8gbm9kZVxuICAgIGt1YmVsZXQtPj5jb250YWluZXI6IDEwLiBzdGFydCBjb250YWluZXJcbiAgICBrdWJlbGV0LT4-YXBpU3J2OiAxMS4gdXBkYXRlIHBvZCBzdGF0dXNcbiAgICBhcGlTcnYtLT4-ZXRjZDogMTIuIHNhdmUgbmV3IHN0YXRlIiwibWVybWFpZCI6IntcbiAgXCJ0aGVtZVwiOiBcImRlZmF1bHRcIlxufSIsInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjp0cnVlfQ" >}}
 
 
 <!--
@@ -926,7 +925,7 @@ class ingress,service,pod1,pod2 k8s; // k8s class is applied to elements ingress
 -->
 ```
 classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff; // 定义 k8s 类的样式
-class ingress,service,pod1,pod2 k8s; // k8s 类会应用到 ingress, service, pod1 and pod2 这些元素之上
+class ingress,service,pod1,pod2 k8s; // k8s 类会应用到 ingress、service、pod1 和 pod2 这些元素之上
 ```
 
 <!--
@@ -952,12 +951,6 @@ explanatory text you have in your documentation. Rather, they serve as a
 -->
 ## 如何使用标题   {#how-to-use-captions}
 
-<!--
-A caption is a brief description of a diagram. A title or a short description
-of the diagram are examples of captions. Captions aren't meant to replace
-explanatory text you have in your documentation. Rather, they serve as a
-"context link" between that text and your diagram. 
--->
 标题用来为图表提供简要的描述。标题或短描述都可以作为图表标题。
 标题不是用来替换你在文档中要提供的解释性文字。
 相反，它们是用来在文字与图表之间建立“语境连接”的。
@@ -1026,7 +1019,7 @@ Here is the `{{</* figure */>}}` shortcode for the diagram defined in an
 
 Mermaid+SVG 和外部工具方法都会生成 `.svg` 图片文件。
 
-下面的 `{{</* figure */>}}` 短代码是针对定义在保存于 
+下面的 `{{</* figure */>}}` 短代码是针对定义在保存于
 `/images/docs/components-of-kubernetes.svg` 中的 `.svg` 图片文件的。
 
 ```none
@@ -1139,6 +1132,8 @@ Here is an example of a diagram referral:
 -->
 你要避免使用空间上的相对引用，例如 `..下面的图片..` 或者 `..下面的图形..`。
 
+以下是一个参考引用的示例。
+
 <!--
 ```text
 Figure 10 depicts the components of the Kubernetes architecture.
@@ -1172,7 +1167,6 @@ Here is the `{{</* figure */>}}` shortcode for this diagram:
 **完整全图**
 
 图 10 展示的是一个 Kubernetes 架构图表，其中包含了图表本身、图表标题和图表引用。
-
 这里的 `{{</* figure */>}}` 短代码负责渲染图表，添加标题并包含可选的 `link`
 参数，以便于你为图表提供超级链接。图表引用也被包含在段落中。
 
@@ -1184,13 +1178,13 @@ Here is the `{{</* figure */>}}` shortcode for this diagram:
 ```
 -->
 ```
-{{</* figure src="/images/docs/components-of-kubernetes.svg" alt="运行在集群中的 Kubernetes Pod " class="diagram-large" caption="图 10. Kubernetes 架构." link="https://kubernetes.io/docs/concepts/overview/components/" */>}}
+{{</* figure src="/images/docs/components-of-kubernetes.svg" alt="运行在集群中的 Kubernetes Pod" class="diagram-large" caption="图 10. Kubernetes 架构" link="https://kubernetes.io/zh-cn/docs/concepts/overview/components/" */>}}
 ```
 
 <!--
 {{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes pod running inside a cluster" class="diagram-large" caption="Figure 10. Kubernetes Architecture." link="https://kubernetes.io/docs/concepts/overview/components/" >}}
 -->
-{{< figure src="/images/docs/components-of-kubernetes.svg" alt="运行在集群中的 Kubernetes Pod" class="diagram-large" caption="图 10. Kubernetes 架构." link="https://kubernetes.io/docs/concepts/overview/components/" >}}
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="运行在集群中的 Kubernetes Pod" class="diagram-large" caption="图 10. Kubernetes 架构" link="https://kubernetes.io/zh-cn/docs/concepts/overview/components/" >}}
 
 <!--
 ## Tips
@@ -1206,8 +1200,11 @@ Here is the `{{</* figure */>}}` shortcode for this diagram:
 ## 提示  {#tips}
  
 * 总是使用在线编辑器来创建和编辑你的图表。
-* 总是使用 Hugo 本地和 Netlify 预览来检查图表在文档中的渲染效果。 
+
+* 总是使用 Hugo 本地和 Netlify 预览来检查图表在文档中的渲染效果。
+
 * 提供图表源代码指针，例如 URL、源代码位置或者标明代码时是说明的。
+
 <!-- 
 * Always use diagram captions.
   
@@ -1223,9 +1220,12 @@ Here is the `{{</* figure */>}}` shortcode for this diagram:
   availability and font rendering support.
 -->
 * 总是提供图表标题。
+
 * 在问题报告或 PR 中包含 `.svg` 或 `.png` 图片与/或 Mermaid 代码会很有帮助。
+
 * 对于 Mermaid+SVG 方法和外部工具方法而言，尽量使用 `.svg` 图片文件，
   因为这类文件在被放大之后仍能清晰地显示。
+
 * 对于 `.svg` 文件的最佳实践是将其加载到一个 SVG 编辑工具中，并使用
   “将文字转换为路径”功能完成转换。
 <!--
@@ -1240,8 +1240,11 @@ Here is the `{{</* figure */>}}` shortcode for this diagram:
   in the live editor.
 -->
 * Mermaid 不支持额外的图表或艺术形式。
+
 * Hugo Mermaid 短代码在在线编辑器中无法显示。
+
 * 如果你想要在在线编辑器中更改图表，你 __必须__ 保存它以便为图表生成新的 URL。
+
 * 点击本节中的图表，你可以查看其源代码及其在在线编辑器中的渲染效果。
 <!--
 * Look over the source code of this page, `diagram-guide.md`, for more examples.
@@ -1250,6 +1253,7 @@ Here is the `{{</* figure */>}}` shortcode for this diagram:
   for explanations and examples.
 -->
 * 查看本页的源代码，`diagram-guide.md` 文件，可以将其作为示例。
+
 * 查阅 [Mermaid docs](https://mermaid-js.github.io/mermaid/#/) 以获得更多的解释和示例。
 
 <!--

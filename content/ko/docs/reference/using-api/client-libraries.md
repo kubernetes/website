@@ -28,14 +28,17 @@ API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 [쿠버네티스 SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)에서 공식적으로 관리된다.
 
 
-| 언어      | 클라이언트 라이브러리 | 예제 프로그램 |
-|----------|----------------|-----------------|
-| dotnet   | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [둘러보기](https://github.com/kubernetes-client/csharp/tree/master/examples/simple)
-| Go       | [github.com/kubernetes/client-go/](https://github.com/kubernetes/client-go/) | [둘러보기](https://github.com/kubernetes/client-go/tree/master/examples)
-| Haskell  | [github.com/kubernetes-client/haskell](https://github.com/kubernetes-client/haskell) | [둘러보기](https://github.com/kubernetes-client/haskell/tree/master/kubernetes-client/example)
-| Java     | [github.com/kubernetes-client/java](https://github.com/kubernetes-client/java/) | [둘러보기](https://github.com/kubernetes-client/java#installation)
-| JavaScript   | [github.com/kubernetes-client/javascript](https://github.com/kubernetes-client/javascript) | [둘러보기](https://github.com/kubernetes-client/javascript/tree/master/examples)
-| Python   | [github.com/kubernetes-client/python/](https://github.com/kubernetes-client/python/) | [둘러보기](https://github.com/kubernetes-client/python/tree/master/examples)
+| 언어        | 클라이언트 라이브러리 | 예제 프로그램 |
+|------------|----------------|-----------------|
+| C          | [github.com/kubernetes-client/c](https://github.com/kubernetes-client/c/) | [둘러보기](https://github.com/kubernetes-client/c/tree/master/examples)
+| dotnet     | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [둘러보기](https://github.com/kubernetes-client/csharp/tree/master/examples/simple)
+| Go         | [github.com/kubernetes/client-go/](https://github.com/kubernetes/client-go/) | [둘러보기](https://github.com/kubernetes/client-go/tree/master/examples)
+| Haskell    | [github.com/kubernetes-client/haskell](https://github.com/kubernetes-client/haskell) | [둘러보기](https://github.com/kubernetes-client/haskell/tree/master/kubernetes-client/example)
+| Java       | [github.com/kubernetes-client/java](https://github.com/kubernetes-client/java/) | [둘러보기](https://github.com/kubernetes-client/java#installation)
+| JavaScript | [github.com/kubernetes-client/javascript](https://github.com/kubernetes-client/javascript) | [둘러보기](https://github.com/kubernetes-client/javascript/tree/master/examples)
+| Perl       | [github.com/kubernetes-client/perl/](https://github.com/kubernetes-client/perl/) | [둘러보기](https://github.com/kubernetes-client/perl/tree/master/examples)
+| Python     | [github.com/kubernetes-client/python/](https://github.com/kubernetes-client/python/) | [둘러보기](https://github.com/kubernetes-client/python/tree/master/examples)
+| Ruby       | [github.com/kubernetes-client/ruby/](https://github.com/kubernetes-client/ruby/) | [둘러보기](https://github.com/kubernetes-client/ruby/tree/master/examples)
 
 ## 커뮤니티에 의해 관리되는 클라이언트 라이브러리
 

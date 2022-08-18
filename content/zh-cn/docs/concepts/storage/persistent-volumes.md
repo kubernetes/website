@@ -76,7 +76,7 @@ See the [detailed walkthrough with working examples](/docs/tasks/configure-pod-c
 常见的情况是针对不同的问题用户需要的是具有不同属性（如，性能）的 PersistentVolume 卷。
 集群管理员需要能够提供不同性质的 PersistentVolume，
 并且这些 PV 卷之间的差别不仅限于卷大小和访问模式，同时又不能将卷是如何实现的这些细节暴露给用户。
-为了满足这类需求，就有了 **存储类（StorageClass）** 资源。
+为了满足这类需求，就有了**存储类（StorageClass）**资源。
 
 参见[基于运行示例的详细演练](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
 
@@ -317,7 +317,7 @@ Cinder 卷）中移除所关联的存储资产。
 动态制备的卷会继承[其 StorageClass 中设置的回收策略](#reclaim-policy)，
 该策略默认为 `Delete`。管理员需要根据用户的期望来配置 StorageClass；
 否则 PV 卷被创建之后必须要被编辑或者修补。
-参阅[更改 PV 卷的回收策略](/zh-cn/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
+参阅[更改 PV 卷的回收策略](/zh-cn/docs/tasks/administer-cluster/change-pv-reclaim-policy/)。
 
 <!--
 #### Recycle
@@ -1822,9 +1822,9 @@ and need persistent storage, it is recommended that you use the following patter
 * Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
 * Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 -->
-* 进一步了解[创建持久卷](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
-* 进一步学习[创建 PVC 申领](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* 阅读[持久存储的设计文档](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
+* 进一步了解[创建持久卷](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)。
+* 进一步学习[创建 PVC 申领](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)。
+* 阅读[持久存储的设计文档](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md)。
 
 <!--
 ### API references {#reference}

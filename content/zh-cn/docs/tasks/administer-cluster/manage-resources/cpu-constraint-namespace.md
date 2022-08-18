@@ -128,7 +128,7 @@ of the Kubernetes API creates an equivalent Pod), Kubernetes performs these step
 * Verify that every container in that Pod specifies a CPU limit that is less than or equal to 800 millicpu.
 -->
 
-现在，每当你在 constraints-mem-example 命名空间中创建 Pod 时，或者某些其他的
+现在，每当你在 constraints-cpu-example 命名空间中创建 Pod 时，或者某些其他的
 Kubernetes API 客户端创建了等价的 Pod 时，Kubernetes 就会执行下面的步骤：
 
 * 如果 Pod 中的任何容器未声明自己的 CPU 请求和限制，控制面将为该容器设置默认的 CPU 请求和限制。

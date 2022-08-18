@@ -503,7 +503,7 @@ If you need to force-delete Pods that are part of a StatefulSet, refer to the ta
 documentation for
 [deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
-### Garbage collection of failed Pods {#pod-garbage-collection}
+### Garbage collection of terminated Pods {#pod-garbage-collection}
 
 For failed Pods, the API objects remain in the cluster's API until a human or
 {{< glossary_tooltip term_id="controller" text="controller" >}} process
