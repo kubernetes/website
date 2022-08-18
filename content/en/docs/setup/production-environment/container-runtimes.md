@@ -235,7 +235,7 @@ sandbox image by setting the following config:
 
 ```toml
 [plugins."io.containerd.grpc.v1.cri"]
-  sandbox_image = "k8s.gcr.io/pause:3.2"
+  sandbox_image = "registry.k8s.io/pause:3.2"
 ```
 
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
