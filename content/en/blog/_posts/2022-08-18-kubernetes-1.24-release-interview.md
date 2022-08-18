@@ -10,7 +10,7 @@ The Kubernetes project has participants from all around the globe. Some are frie
 
 With 1.25 around the corner, [the tradition continues](https://www.google.com/search?q=%22release+interview%22+site%3Akubernetes.io%2Fblog) with a look back at the story of 1.24. That release was led by [James Laverack](https://twitter.com/jameslaverack) of Jetstack. [James was on the podcast](https://kubernetespodcast.com/episode/178-kubernetes-1.24/) in May, and while you can read his story below, if you can, please do listen to it in his own voice.
 
-Make sure you [subscribe, wherever you get your podcasts](https://kubernetespodcast.com/subscribe/), so you hear all our stories from the Cloud Native community, including the story of 1.25 next week.
+Make sure you [subscribe, wherever you get your podcasts](https://kubernetespodcast.com/subscribe/), so you hear all our stories from the cloud native community, including the story of 1.25 next week.
 
 *This transcript has been lightly edited and condensed for clarity.*
 
