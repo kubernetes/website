@@ -20,10 +20,10 @@ ou de provedores de nuvem que possam lidar com outras APIs além das APIs do Kub
 
 ## Determinar se uma requisição é permitida ou negada
 
-Kubernetes autoriza requisições de API utilizando o servidor de API. Ele avalia
-todos os atributos de uma requisição em relação a todas as políticas disponíveis a permite ou nega a requisição.
-Todas as partes de uma requisição de API deve ser permitido por alguma política para que possa prosseguir.
-Isto significa que permissões sao negadas por padrão.
+O Kubernetes autoriza requisições de API utilizando o servidor de API. Ele avalia
+todos os atributos de uma requisição em relação a todas as políticas disponíveis e permite ou nega a requisição.
+Todas as partes de uma requisição de API deve ser permitidas por alguma política para que possa prosseguir.
+Isto significa que permissões são negadas por padrão.
 
 (Embora o Kubernetes use o servidor de API, controles de acesso e políticas que
 dependem de campos específicos de tipos específicos de objetos são tratados pelo Admission
@@ -225,12 +225,12 @@ Detalhes de como estas permissões podem ser usadas de forma maliciosa podem ser
 
 ### Caminhos para escalonamento {#escalation-paths}
 
-- Montar segredos arbitrários nesse namespace
-   - Pode ser utilizado para acessar segredos destinados a outras cargas de trabalho
-   - Pode ser utilizado para obter um token da conta de serviço com maior privilegio
+- Montar Secret arbitrários nesse namespace
+   - Pode ser utilizado para acessar Secret destinados a outras cargas de trabalho
+   - Pode ser utilizado para obter um token da conta de serviço com maior privilégio
 - Usando contas de serviço arbitrárias nesse namespace
    - Pode executar ações da API do Kubernetes como outra carga de trabalho (personificação)
-   - Pode executar quaisquer ações privilegiadas que a conta de serviço tenha
+   - Pode executar quaisquer ações privilegiadas que a conta de serviço tenha acesso
 - Montagem de configmaps destinados a outras cargas de trabalho nesse namespace
    - Pode ser utilizado para obter informações destinadas a outras cargas de trabalho, como nomes de host de banco de dados.
 - Montar volumes destinados a outras cargas de trabalho nesse namespace
@@ -238,11 +238,11 @@ Detalhes de como estas permissões podem ser usadas de forma maliciosa podem ser
 
 {{< caution >}}
 Administradores de sistemas devem ser cuidadosos ao instalar CRDs que
-promovam mudanças nas areas mencionadas acima. Estes podem abrir caminhos para escalonamento.
+promovam mudanças nas áreas mencionadas acima. Estes podem abrir caminhos para escalonamento.
 Isto deve ser considerado ao decidir os controles de acesso baseado em função (RBAC).
 {{< /caution >}}
 
-## {{% heading "whatsnext?" %}}
+## {{% heading "whatsnext" %}}
 
 * Para aprender mais sobre autenticação, visite **Authentication** in [Controlando acesso a APIs do Kubernetes](/pt-br/docs/concepts/security/controlling-access/).
 * Para aprender mais sobre Admission Control, visite [Utilizando Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
