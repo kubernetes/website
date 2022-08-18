@@ -32,12 +32,12 @@ This is different from _vertical_ scaling, which for Kubernetes would mean
 assigning more resources (for example: memory or CPU) to the Pods that are already
 running for the workload.
 -->
-[HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/) （简称 HPA ）
+[HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)（简称 HPA ）
 自动更新工作负载资源（例如 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 或者
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}），
 目的是自动扩缩工作负载以满足需求。
 
-水平扩缩意味着对增加的负载的响应是部署更多的 {{< glossary_tooltip text="Pods" term_id="pod" >}}。
+水平扩缩意味着对增加的负载的响应是部署更多的 {{< glossary_tooltip text="Pod" term_id="pod" >}}。
 这与 “垂直（Vertical）” 扩缩不同，对于 Kubernetes，
 垂直扩缩意味着将更多资源（例如：内存或 CPU）分配给已经为工作负载运行的 Pod。
 
@@ -51,7 +51,7 @@ automatically manage scale for an example web app. This example workload is Apac
 httpd running some PHP code.
 -->
 如果负载减少，并且 Pod 的数量高于配置的最小值，
-HorizontalPodAutoscaler 会指示工作负载资源（ Deployment、StatefulSet 或其他类似资源）缩减。
+HorizontalPodAutoscaler 会指示工作负载资源（Deployment、StatefulSet 或其他类似资源）缩减。
 
 本文档将引导你完成启用 HorizontalPodAutoscaler 以自动管理示例 Web 应用程序的扩缩的示例。
 此示例工作负载是运行一些 PHP 代码的 Apache httpd。
@@ -97,44 +97,12 @@ Kubernetes Metrics Server 从集群中的 {{<glossary_tooltip term_id="kubelet" 
 ## 运行 php-apache 服务器并暴露服务 {#run-and-expose-php-apache-server}
 
 <!--
-To demonstrate a HorizontalPodAutoscaler, you will first make a custom container image that uses
-the `php-apache` image from Docker Hub as its starting point. The `Dockerfile` is ready-made for you,
-and has the following content:
--->
-为了演示 HorizontalPodAutoscaler，你将首先制作一个自定义容器镜像，
-该镜像使用来自 Docker Hub 的 `php-apache` 镜像作为其起点。
-`Dockerfile` 已经为你准备好了，内容如下：
-
-```dockerfile
-FROM php:5-apache
-COPY index.php /var/www/html/index.php
-RUN chmod a+rx index.php
-```
-
-<!--
-This code defines a simple `index.php` page that performs some CPU intensive computations,
-in order to simulate load in your cluster.
--->
-代码定义了一个简单的 `index.php` 页面，该页面执行一些 CPU 密集型计算，
-以模拟集群中的负载。
-
-```php
-<?php
-  $x = 0.0001;
-  for ($i = 0; $i <= 1000000; $i++) {
-    $x += sqrt($x);
-  }
-  echo "OK!";
-?>
-```
-
-<!--
-Once you have made that container image, start a Deployment that runs a container using the
-image you made, and expose it as a {{< glossary_tooltip term_id="service">}}
+To demonstrate a HorizontalPodAutoscaler, you will first start a Deployment that runs a container using the
+`hpa-example` image, and expose it as a {{< glossary_tooltip term_id="service">}}
 using the following manifest:
 -->
-制作完该容器镜像后，使用你制作的镜像启动运行一个容器的 Deployment，
-并使用以下清单将其公开为{{< glossary_tooltip term_id="service" text="服务" >}}：
+为了演示 HorizontalPodAutoscaler，你将首先启动一个 Deployment 用 `hpa-example` 镜像运行一个容器，
+然后使用以下清单文件将其暴露为一个 {{< glossary_tooltip term_id="service">}}：
 
 {{< codenew file="application/php-apache.yaml" >}}
 
@@ -398,7 +366,7 @@ kubectl get hpa php-apache -o yaml > /tmp/hpa-v2.yaml
 <!--
 Open the `/tmp/hpa-v2.yaml` file in an editor, and you should see YAML which looks like this:
 -->
-在编辑器中打开 `/tmp/hpa-v2.yaml`：
+在编辑器中打开 `/tmp/hpa-v2.yaml`，你应看到如下所示的 YAML 文件：
 
 ```yaml
 apiVersion: autoscaling/v2
@@ -475,7 +443,7 @@ They work much like resource metrics, except that they *only* support a `target`
 <!--
 Pod metrics are specified using a metric block like this:
 -->
-pod 度量指标通过如下代码块定义：
+Pod 度量指标通过如下代码块定义：
 
 ```yaml
 type: Pods
@@ -496,8 +464,8 @@ metric from the API. With `AverageValue`, the value returned from the custom met
 by the number of Pods before being compared to the target. The following example is the YAML
 representation of the `requests-per-second` metric.
 -->
-第二种可选的度量指标类型是对象 **（Object）度量指标**。这些度量指标用于描述
-在相同名字空间中的别的对象，而非 Pods。
+第二种可选的度量指标类型是对象 **（Object）度量指标**。
+这些度量指标用于描述在相同名字空间中的别的对象，而非 Pod。
 请注意这些度量指标不一定来自某对象，它们仅用于描述这些对象。
 对象度量指标支持的 `target` 类型包括 `Value` 和 `AverageValue`。
 如果是 `Value` 类型，`target` 值将直接与 API 返回的度量指标比较，
@@ -531,8 +499,8 @@ HorizontalPodAutoscaler 将会计算每一个指标所提议的副本数量，�
 For example, if you had your monitoring system collecting metrics about network traffic,
 you could update the definition above using `kubectl edit` to look like this:
 -->
-比如，如果你的监控系统能够提供网络流量数据，你可以通过 `kubectl edit` 命令
-将上述 Horizontal Pod Autoscaler 的定义更改为：
+比如，如果你的监控系统能够提供网络流量数据，你可以通过 `kubectl edit`
+命令将上述 Horizontal Pod Autoscaler 的定义更改为：
 
 ```yaml
 apiVersion: autoscaling/v2
@@ -615,7 +583,7 @@ label, you can specify the following metric block to scale only on GET requests:
 -->
 ### 基于更特别的度量值来扩缩   {#autoscaing-on-more-specific-metrics}
 
-许多度量流水线允许你通过名称或附加的 _标签_ 来描述度量指标。
+许多度量流水线允许你通过名称或附加的 **标签** 来描述度量指标。
 对于所有非资源类型度量指标（Pod、Object 和后面将介绍的 External），
 可以额外指定一个标签选择算符。例如，如果你希望收集包含 `verb` 标签的
 `http_requests` 度量指标，可以按如下所示设置度量指标块，使得扩缩操作仅针对
@@ -638,8 +606,7 @@ type, and the described object in the case of the `Object` type).
 -->
 这个选择算符使用与 Kubernetes 标签选择算符相同的语法。
 如果名称和标签选择算符匹配到多个系列，监测管道会决定如何将多个系列合并成单个值。
-选择算符是可以累加的，它不会选择目标以外的对象（类型为 `Pods` 的目标 Pods 或者
-类型为 `Object` 的目标对象）。
+选择算符是可以累加的，它不会选择目标以外的对象（类型为 `Pods` 的目标 Pod 或者类型为 `Object` 的目标对象）。
 
 <!--
 ### Autoscaling on metrics not related to Kubernetes objects
@@ -651,8 +618,8 @@ with *external metrics*.
 -->
 ### 基于与 Kubernetes 对象无关的度量指标执行扩缩   {#autoscaling-on-metrics-not-related-to-kubernetes-objects}
 
-运行在 Kubernetes 上的应用程序可能需要基于与 Kubernetes 集群中的任何对象
-没有明显关系的度量指标进行自动扩缩，
+运行在 Kubernetes 上的应用程序可能需要基于与 Kubernetes
+集群中的任何对象没有明显关系的度量指标进行自动扩缩，
 例如那些描述与任何 Kubernetes 名字空间中的服务都无直接关联的度量指标。
 在 Kubernetes 1.10 及之后版本中，你可以使用外部度量指标（external metrics）。
 
@@ -781,12 +748,11 @@ between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.
 -->
 ## 量纲    {#quantities}
 
-HorizontalPodAutoscaler 和 度量指标 API 中的所有的度量指标使用 Kubernetes 中称为
-{{< glossary_tooltip term_id="quantity" text="量纲（Quantity）">}}
-的特殊整数表示。
+HorizontalPodAutoscaler 和 度量指标 API 中的所有的度量指标使用 Kubernetes
+中称为{{< glossary_tooltip term_id="quantity" text="量纲（Quantity）">}}的特殊整数表示。
 例如，数量 `10500m` 用十进制表示为 `10.5`。
 如果可能的话，度量指标 API 将返回没有后缀的整数，否则返回以千分单位的数量。
-这意味着你可能会看到你的度量指标在 `1` 和 `1500m` （也就是在十进制记数法中的 `1` 和 `1.5`）之间波动。
+这意味着你可能会看到你的度量指标在 `1` 和 `1500m`（也就是在十进制记数法中的 `1` 和 `1.5`）之间波动。
 
 <!--
 ## Other possible scenarios
@@ -808,7 +774,7 @@ can use the following manifest to create it declaratively:
 <!--
 Then, create the autoscaler by executing the following command:
 -->
-使用如下命令创建 autoscaler：
+使用如下命令创建 Autoscaler：
 
 ```shell
 kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
