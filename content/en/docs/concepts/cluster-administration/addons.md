@@ -9,7 +9,7 @@ content_type: concept
 
 Add-ons extend the functionality of Kubernetes.
 
-This page lists some of the available add-ons and links to their respective installation instructions.
+This page lists some of the available add-ons and links to their respective installation instructions. The list does not try to be exhaustive.
 
 <!-- body -->
 
@@ -27,7 +27,7 @@ This page lists some of the available add-ons and links to their respective inst
 * [Knitter](https://github.com/ZTE/Knitter/) is a plugin to support multiple network interfaces in a Kubernetes pod.
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) is a Multi plugin for multiple network support in Kubernetes to support all CNI plugins (e.g. Calico, Cilium, Contiv, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and VPP based workloads in Kubernetes.
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) is a networking provider for Kubernetes based on [OVN (Open Virtual Network)](https://github.com/ovn-org/ovn/), a virtual networking implementation that came out of the Open vSwitch (OVS) project. OVN-Kubernetes provides an overlay based networking implementation for Kubernetes, including an OVS based implementation of load balancing and network policy.
-* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) is OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC), Multiple OVN overlay networking, dynamic subnet creation, dynamic creation of virtual networks, VLAN Provider network, Direct provider network and pluggable with other Multi-network plugins, ideal for edge based cloud native workloads in Multi-cluster networking.
+* [Nodus](https://github.com/akraino-edge-stack/icn-nodus) is an OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC).
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) Container Plug-in (NCP) provides integration between VMware NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst) is an SDN platform that provides policy-based networking between Kubernetes Pods and non-Kubernetes environments with visibility and security monitoring.
 * [Romana](https://github.com/romana) is a Layer 3 networking solution for pod networks that also supports the [NetworkPolicy](/docs/concepts/services-networking/network-policies/) API.
