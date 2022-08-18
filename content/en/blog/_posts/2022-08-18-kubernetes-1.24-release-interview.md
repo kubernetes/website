@@ -177,7 +177,7 @@ It's only really platform teams that administer Kubernetes clusters and people i
 
 JAMES LAVERACK: Yeah, absolutely, or you can use one of the many other CRI implementations. There are two in the CNCF, [containerd](https://containerd.io/), and [CRI-O](https://cri-o.io/).
 
-**CRAIG BOX: Having gone through the process of communicating this change over several releases, what has the team learned in terms of how to communicate a message like this in future?**
+**CRAIG BOX: Having gone through the process of communicating this change over several releases, what has the team learnt in terms of how we will communicate a message like this in future?**
 
 JAMES LAVERACK: I think that this has been really interesting from the perspective that this is the biggest removal that the Kubernetes project has had to date. We've removed features before. In fact, we're removing another one in this release as well. But this is one of the most user-visible changes we've made.
 
