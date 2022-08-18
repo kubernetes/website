@@ -169,7 +169,7 @@ JAMES LAVERACK: Not really. The cornerstone of a Kubernetes organization is the 
 
 **CRAIG BOX: Let's talk about some of the new features in 1.24. We have been hearing for many releases now about the impending doom which is the removal of Dockershim. [It is gone in 1.24](https://github.com/kubernetes/enhancements/issues/2221). Do we worry?**
 
-JAMES LAVERACK: I don't think we worry. This is something that the community has been preparing for for a long time. We've published a lot of documentation about how you need to approach this. The honest truth is that most users, most application developers in Kubernetes, will simply not notice a difference or have to worry about it.
+JAMES LAVERACK: I don't think we worry. This is something that the community has been preparing for for a long time. [We've](https://kubernetes.io/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/) [published](https://kubernetes.io/blog/2022/02/17/dockershim-faq/) a [lot](https://kubernetes.io/blog/2021/11/12/are-you-ready-for-dockershim-removal/) of [documentation](https://kubernetes.io/blog/2022/03/31/ready-for-dockershim-removal/) [about](https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) [how](https://kubernetes.io/blog/2022/05/03/dockershim-historical-context/) you need to approach this. The honest truth is that most users, most application developers in Kubernetes, will simply not notice a difference or have to worry about it.
 
 It's only really platform teams that administer Kubernetes clusters and people in very specific circumstances that are using Docker directly, not through the Kubernetes API, that are going to experience any issue at all.
 
