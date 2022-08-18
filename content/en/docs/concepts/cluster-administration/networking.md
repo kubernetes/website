@@ -73,7 +73,7 @@ Azure CNI is available natively in the [Azure Kubernetes Service (AKS)](https://
 
 [Cilium](https://github.com/cilium/cilium) is a networking, observability, and security solution with an eBPF-based dataplane. It provides a simple flat Layer 3 network with the ability to span multiple clusters in either a native routing or overlay mode. It is L7-protocol aware and can enforce network policies on L3-L7 using an identity based security model that is decoupled from network addressing.
 
-Cilium implements distributed load balancing for traffic between pods and to external services, and is able to fully replace kube-proxy, using efficient hash tables in eBPF allowing for almost unlimited scale. It also supports advanced functionality like integrated ingress and egress gateway, bandwidth management and service mesh, and provides deep network and security visibility and monitoring.
+Cilium implements distributed load balancing for traffic between pods and to external services, and is able to fully replace kube-proxy, using hash tables and eBPF to improve scalability. Cilium also supports advanced functionality such as an integrated ingress and egress gateway, bandwidth management and service mesh; it also offers additional, opt-in observability and security features.
 
 ### CNI-Genie from Huawei
 
