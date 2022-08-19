@@ -103,7 +103,8 @@ CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultI
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
-This admission controller allows all pods into the cluster. It is deprecated because its behavior is the same as if there were no admission controller at all.
+This admission controller allows all pods into the cluster. It is deprecated because
+its behavior is the same as if there were no admission controller at all.
 
 ### AlwaysDeny {#alwaysdeny}
 
@@ -185,33 +186,6 @@ have toleration for taints `node.kubernetes.io/not-ready:NoExecute` or
 `node.kubernetes.io/unreachable:NoExecute`.
 The default value for `default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` is 5 minutes.
 
-### DenyEscalatingExec {#denyescalatingexec}
-
-{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
-
-This admission controller will deny exec and attach commands to pods that run with escalated privileges that
-allow host access.  This includes pods that run as privileged, have access to the host IPC namespace, and
-have access to the host PID namespace.
-
-The DenyEscalatingExec admission plugin is deprecated.
-
-Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
-which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
-is recommended instead.
-
-### DenyExecOnPrivileged {#denyexeconprivileged}
-
-{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
-
-This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
-
-This functionality has been merged into [DenyEscalatingExec](#denyescalatingexec).
-The DenyExecOnPrivileged admission plugin is deprecated.
-
-Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
-which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
-is recommended instead.
-
 ### DenyServiceExternalIPs
 
 This admission controller rejects all net-new usage of the `Service` field `externalIPs`.  This
@@ -224,6 +198,8 @@ and users may remove values from `externalIPs` on existing `Service` objects.
 Most users do not need this feature at all, and cluster admins should consider disabling it.
 Clusters that do need to use this feature should consider using some custom policy to manage usage
 of it.
+
+This admission controller is disabled by default.
 
 ### EventRateLimit {#eventratelimit}
 
@@ -240,8 +216,8 @@ event requests. The cluster admin can specify event rate limits by:
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
-- name: EventRateLimit
-  path: eventconfig.yaml
+  - name: EventRateLimit
+    path: eventconfig.yaml
 ...
 ```
 
@@ -259,17 +235,19 @@ Below is a sample `eventconfig.yaml` for such a configuration:
 apiVersion: eventratelimit.admission.k8s.io/v1alpha1
 kind: Configuration
 limits:
-- type: Namespace
-  qps: 50
-  burst: 100
-  cacheSize: 2000
-- type: User
-  qps: 10
-  burst: 50
+  - type: Namespace
+    qps: 50
+    burst: 100
+    cacheSize: 2000
+  - type: User
+    qps: 10
+    burst: 50
 ```
 
 See the [EventRateLimit Config API (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 for more details.
+
+This admission controller is disabled by default.
 
 ### ExtendedResourceToleration {#extendedresourcetoleration}
 
@@ -280,9 +258,13 @@ name as the key. This admission controller, if enabled, automatically
 adds tolerations for such taints to pods requesting extended resources, so users don't have to manually
 add these tolerations.
 
+This admission controller is diabled by default.
+
 ### ImagePolicyWebhook {#imagepolicywebhook}
 
 The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions.
+
+This admission controller is disabled by default.
 
 #### Configuration File Format
 
@@ -308,8 +290,8 @@ Reference the ImagePolicyWebhook configuration file from the file provided to th
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
-- name: ImagePolicyWebhook
-  path: imagepolicyconfig.yaml
+  - name: ImagePolicyWebhook
+    path: imagepolicyconfig.yaml
 ...
 ```
 
@@ -319,14 +301,14 @@ Alternatively, you can embed the configuration directly in the file:
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
-- name: ImagePolicyWebhook
-  configuration:
-    imagePolicy:
-      kubeConfigFile: <path-to-kubeconfig-file>
-      allowTTL: 50
-      denyTTL: 50
-      retryBackoff: 500
-      defaultAllow: true
+  - name: ImagePolicyWebhook
+    configuration:
+      imagePolicy:
+        kubeConfigFile: <path-to-kubeconfig-file>
+        allowTTL: 50
+        denyTTL: 50
+        retryBackoff: 500
+        defaultAllow: true
 ```
 
 The ImagePolicyWebhook config file must reference a
@@ -340,17 +322,17 @@ must contain the returned authorizer.
 ```yaml
 # clusters refers to the remote service.
 clusters:
-- name: name-of-remote-imagepolicy-service
-  cluster:
-    certificate-authority: /path/to/ca.pem    # CA for verifying the remote service.
-    server: https://images.example.com/policy # URL of remote service to query. Must use 'https'.
+  - name: name-of-remote-imagepolicy-service
+    cluster:
+      certificate-authority: /path/to/ca.pem    # CA for verifying the remote service.
+      server: https://images.example.com/policy # URL of remote service to query. Must use 'https'.
 
 # users refers to the API server's webhook configuration.
 users:
-- name: name-of-api-server
-  user:
-    client-certificate: /path/to/cert.pem # cert for the webhook admission controller to use
-    client-key: /path/to/key.pem          # key matching the cert
+  - name: name-of-api-server
+    user:
+      client-certificate: /path/to/cert.pem # cert for the webhook admission controller to use
+      client-key: /path/to/key.pem          # key matching the cert
 ```
 
 For additional HTTP configuration, refer to the
@@ -444,6 +426,8 @@ In any case, the annotations are provided by the user and are not validated by K
 
 This admission controller denies any pod that defines `AntiAffinity` topology key other than
 `kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
+
+This admission controller is disabled by default.
 
 ### LimitRanger {#limitranger}
 
@@ -591,7 +575,8 @@ If the admission controller doesn't support automatic labelling your PersistentV
 may need to add the labels manually to prevent pods from mounting volumes from
 a different zone. PersistentVolumeLabel is DEPRECATED and labeling persistent volumes has been taken over by
 the {{< glossary_tooltip text="cloud-controller-manager" term_id="cloud-controller-manager" >}}.
-Starting from 1.11, this admission controller is disabled by default.
+
+This admission controller is disabled by default.
 
 ### PodNodeSelector {#podnodeselector}
 
@@ -599,6 +584,8 @@ Starting from 1.11, this admission controller is disabled by default.
 
 This admission controller defaults and limits what node selectors may be used within a namespace
 by reading a namespace annotation and a global configuration.
+
+This admission controller is disabled by default.
 
 #### Configuration file format
 
@@ -709,6 +696,8 @@ metadata:
     scheduler.alpha.kubernetes.io/tolerationsWhitelist: '[{"operator": "Exists", "effect": "NoSchedule", "key": "dedicated-node"}]'
 ```
 
+This admission controller is disabled by default.
+
 ### Priority {#priority}
 
 The priority admission controller uses the `priorityClassName` field and populates the integer
@@ -726,8 +715,6 @@ See the [ResourceQuota API reference](/docs/reference/kubernetes-api/policy-reso
 and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 
 ### RuntimeClass {#runtimeclass}
-
-{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 If you define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 configured, this admission controller checks incoming Pods.
@@ -773,8 +760,6 @@ for more detailed information.
 
 ### TaintNodesByCondition {#taintnodesbycondition}
 
-{{< feature-state for_k8s_version="v1.17" state="stable" >}}
-
 This admission controller {{< glossary_tooltip text="taints" term_id="taint" >}} newly created
 Nodes as `NotReady` and `NoSchedule`. That tainting avoids a race condition that could cause Pods
 to be scheduled on new Nodes before their taints were updated to accurately reflect their reported
@@ -793,8 +778,7 @@ webhooks or other validating admission controllers will permit the request to fi
 
 If you disable the ValidatingAdmissionWebhook, you must also disable the
 `ValidatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1`
-group/version via the `--runtime-config` flag (both are on by default in
-versions 1.9 and later).
+group/version via the `--runtime-config` flag.
 
 ## Is there a recommended set of admission controllers to use?
 

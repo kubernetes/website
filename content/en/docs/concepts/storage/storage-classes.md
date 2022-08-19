@@ -543,7 +543,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
         persistent volume (virtual disk) is being created. The virtual disk is
         distributed across the Virtual SAN datastore to meet the requirements.
 
-        You can see [Storage Policy Based Management for dynamic provisioning of volumes](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)
+        You can see [Storage Policy Based Management for dynamic provisioning of volumes](https://github.com/vmware-archive/vsphere-storage-for-kubernetes/blob/fa4c8b8ad46a85b6555d715dd9d27ff69839df53/documentation/policy-based-mgmt.md)
         for more details on how to use storage policies for persistent volumes
         management.
 
