@@ -34,9 +34,10 @@ kops 是一个自动化的制备系统：
 * 全自动安装流程
 * 使用 DNS 识别集群
 * 自我修复：一切都在自动扩缩组中运行
-* 支持多种操作系统（如 Debian、Ubuntu 16.04、CentOS、RHEL、Amazon Linux 和 CoreOS） - 参考 [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
-* 支持高可用 - 参考 [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
-* 可以直接提供或者生成 terraform 清单 - 参考 [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
+* 支持多种操作系统（如 Debian、Ubuntu 16.04、CentOS、RHEL、Amazon Linux 和 CoreOS），
+  参考 [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)。
+* 支持高可用，参考 [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)。
+* 可以直接提供或者生成 terraform 清单，参考 [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -322,8 +323,8 @@ kops will create the configuration for your cluster.  Note that it _only_ create
 not actually create the cloud resources - you'll do that in the next step with a `kops update cluster`.  This
 give you an opportunity to review the configuration or change it.
 -->
-kops 将为你的集群创建配置。请注意，它_仅_创建配置，实际上并没有创建云资源 -
-你将在下一步中使用 `kops update cluster` 进行配置。
+kops 将为你的集群创建配置。请注意，它**仅**创建配置，实际上并没有创建云资源。
+你将在下一步中使用 `kops update cluster` 进行创建。
 这使你有机会查看配置或进行更改。
 
 <!--
@@ -348,9 +349,9 @@ set of instances, which will be registered as kubernetes nodes.  On AWS this is 
 You can have several instance groups, for example if you wanted nodes that are a mix of spot and on-demand instances, or
 GPU and non-GPU instances.
 -->
-如果这是你第一次使用 kops，请花几分钟尝试一下！实例组是一组实例，将被注册为 kubernetes 节点。
+如果这是你第一次使用 kops，请花几分钟尝试一下！实例组是一组实例，将被注册为 Kubernetes 节点。
 在 AWS 上，这是通过 auto-scaling-groups 实现的。你可以有多个实例组。
-例如，如果你想要的是混合实例和按需实例的节点，或者 GPU 和非 GPU 实例。
+例如，你可能想要混合了 Spot 实例和按需实例的节点，或者混合了 GPU 实例和非 GPU 实例的节点。
 
 <!--
 ### (5/5) Create the cluster in AWS
@@ -372,7 +373,7 @@ applies the changes you have made to the configuration to your cluster - reconfi
 -->
 这需要几秒钟的时间才能运行，但实际上集群可能需要几分钟才能准备就绪。
 每当更改集群配置时，都会使用 `kops update cluster` 工具。
-它将对配置进行的更改应用于你的集群 - 根据需要重新配置 AWS 或者 kubernetes。
+它将在集群中应用你对配置进行的更改，根据需要重新配置 AWS 或者 Kubernetes。
 
 <!--
 For example, after you `kops edit ig nodes`, then `kops update cluster --yes` to apply your configuration, and
