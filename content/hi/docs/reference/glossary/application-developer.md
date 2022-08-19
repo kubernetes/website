@@ -4,7 +4,7 @@ id: application-developer
 date: 2018-04-12
 full_link: 
 short_description: >
- एक व्यक्ति जो Kubernetes क्लस्टर में चलने वाला एप्लिकेशन लिखता है।
+ एक व्यक्ति जो Kubernetes क्लस्टर में चलने वाले एप्लिकेशन लिखता है।
 
 aka: 
 tags:
