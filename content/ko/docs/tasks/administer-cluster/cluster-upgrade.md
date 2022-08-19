@@ -29,7 +29,7 @@ content_type: task
 
 ### kubeadm {#upgrade-kubeadm}
 
-클러스터가 'kubeadm' 도구를 사용하여 배포된 경우
+클러스터가 `kubeadm` 도구를 사용하여 배포된 경우
 클러스터 업그레이드 방법에 대한 자세한 내용은
 [kubeadm 클러스터 업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)를 참조한다.
 
