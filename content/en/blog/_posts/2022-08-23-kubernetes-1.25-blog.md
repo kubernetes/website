@@ -15,7 +15,7 @@ This release includes a total of 40 enhancements. Fifteen of those enhancements 
 
 **Kubernetes 1.25: Combiner**
 
-TODO: Add release logo here
+{{< figure src="/images/blog/2022-08-23-kubernetes-1.25-release/kubernetes-1.25.png" alt="" class="release-logo" >}}
 
 The theme for Kubernetes v1.25 is _Combiner_.
 
