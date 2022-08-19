@@ -118,7 +118,7 @@ announcements:
     May 16 - 20, 2022.
 
 - name: Kubecon 2022 NA
-  startTime: 2022-08-22T00:00:00 #Added in https://github.com/kubernetes/website/pull/36107
+  startTime: 2022-10-17T00:00:00 #Added in https://github.com/kubernetes/website/pull/36107
   endTime: 2022-10-28T18:00:00
   style: >-
     background: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(114,114,255) 100%);
