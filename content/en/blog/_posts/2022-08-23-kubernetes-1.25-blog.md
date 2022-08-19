@@ -85,10 +85,6 @@ Promoted the `ServerSideFieldValidation` feature gate to beta (on by default). T
 
 Introduce KMS v2alpha1 API to add performance, rotation, and observability improvements. Encrypt data at rest (ie Kubernetes `Secrets`) with DEK using AES-GCM instead of AES-CBC for kms data encryption. No user action is required. Reads with AES-GCM and AES-CBC will continue to be allowed. See the guide [Using a KMS provider for data encryption](https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/) for more information.
 
-### Removed AKS and GKE authentication from kubectl
-
-The `gcp` and `azure` auth plugins have been removed from client-go and kubectl. See [AKS](https://github.com/Azure/kubelogin) and [GKE](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke) documentation for details about the cloud-specific replacements.
-
 ## Other Updates
 
 ### Graduations to Stable
