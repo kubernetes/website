@@ -335,7 +335,7 @@ With this patch, we indicate that we want to retain only the `type` key of the `
 Patch your Deployment again with this new patch:
 
 ```shell
-kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-retainkeys.yaml
+kubectl patch deployment retainkeys-demo --type strategic --patch-file patch-file-retainkeys.yaml
 ```
 
 Examine the content of the Deployment:
