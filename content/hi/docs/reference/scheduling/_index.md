@@ -1,5 +1,5 @@
 ---
-title: निर्धारण
+title: शेडुलिंग
 weight: 70
 toc-hide: true
 ---
