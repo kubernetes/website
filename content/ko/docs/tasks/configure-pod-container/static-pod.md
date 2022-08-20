@@ -230,11 +230,11 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 # 예제를 수행하는 사용자가 파일시스템이 호스팅하는 스태틱 파드 설정을 사용한다고 가정한다.
 # kubelet 이 동작하고 있는 노드에서 이 명령을 수행한다.
 #
-mv /etc/kubelet.d/static-web.yaml /tmp
+mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
 # 구동 중인 nginx 컨테이너가 없는 것을 확인한다.
-mv /tmp/static-web.yaml  /etc/kubelet.d/
+mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
 sleep 20
 crictl ps
 ```
