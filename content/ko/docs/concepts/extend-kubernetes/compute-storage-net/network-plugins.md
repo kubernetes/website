@@ -1,8 +1,8 @@
 ---
-
-
-
-
+reviewers:
+## - dcbw
+## - freehan
+## - thockin
 title: 네트워크 플러그인
 content_type: concept
 weight: 10
@@ -67,7 +67,7 @@ CNI 네트워킹 플러그인은 `hostPort` 를 지원한다. CNI 플러그인 �
 ```json
 {
   "name": "k8s-pod-network",
-  "cniVersion": "0.3.0",
+  "cniVersion": "0.4.0",
   "plugins": [
     {
       "type": "calico",
@@ -106,7 +106,7 @@ CNI 네트워킹 플러그인은 파드 수신 및 송신 트래픽 셰이핑도
 ```json
 {
   "name": "k8s-pod-network",
-  "cniVersion": "0.3.0",
+  "cniVersion": "0.4.0",
   "plugins": [
     {
       "type": "calico",
