@@ -7,13 +7,13 @@ slug: storage-capacity-ga
 
  **Authors:** Patrick Ohly (Intel)
 
-The v1.24 release of Kubernetes brings [storage capacity](/docs/concepts/storage/storage-capacity/)
+The v1.24 release of Kubernetes brings [storage capacity](https://kubernetes.io/docs/concepts/storage/storage-capacity/)
 tracking as a generally available feature.
 
 ## Problems we have solved
 
 As explained in more detail in the [previous blog post about this
-feature](/blog/2021/04/14/local-storage-features-go-beta/), storage capacity
+feature](https://kubernetes.io/blog/2021/04/14/local-storage-features-go-beta/), storage capacity
 tracking allows a CSI driver to publish information about remaining
 capacity. The kube-scheduler then uses that information to pick suitable nodes
 for a Pod when that Pod has volumes that still need to be provisioned.
