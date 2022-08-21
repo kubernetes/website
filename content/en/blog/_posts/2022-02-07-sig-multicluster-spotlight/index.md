@@ -24,7 +24,7 @@ canonicalUrl: https://www.kubernetes.dev/blog/2022/02/04/sig-multicluster-spotli
 
 Now this is the shift to solving real specific problems. For example, 
 
-> I've got workloads that are spread across multiple clusters and I need them to talk to each other. 
+> I've got workloads those are spread across multiple clusters and I need them to talk to each other. 
  
 Okay, that's very straightforward and we know that we need to solve that. To get started, let's make sure that these projects can work together on a common API so you get the same kind of portability that you get with Kubernetes.
 
