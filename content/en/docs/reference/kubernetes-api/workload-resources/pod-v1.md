@@ -1773,7 +1773,7 @@ Probe describes a health check to be performed against a container to determine 
 
   - **grpc.service** (string)
 
-    Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+    Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md ).
     
     If this is not specified, the default behavior is defined by gRPC.
 

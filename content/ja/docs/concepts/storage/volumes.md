@@ -1018,8 +1018,8 @@ CSI互換のボリュームドライバーがKubernetesクラスター上に展�
 `csi`ボリュームはPodで3つの異なる方法によって使用することができます。
 
 * [PersistentVolumeClaim](#persistentvolumeclaim)の参照を通して
-* [一般的なエフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)(alpha機能)で
-* ドライバーがそれをサポートしている場合は、[CSIエフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)(beta機能)を使って
+* [一般的なエフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)(alpha機能)で
+* ドライバーがそれをサポートしている場合は、[CSIエフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)(beta機能)を使って
 
 ストレージ管理者は、CSI永続ボリュームを構成するために次のフィールドを使用できます。
 
@@ -1046,7 +1046,7 @@ CSI固有の変更を行うことなく、通常どおり、[rawブロックボ�
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-Pod仕様内でCSIボリュームを直接構成できます。この方法で指定されたボリュームは一時的なものであり、Podを再起動しても持続しません。詳細については[エフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)を参照してください。
+Pod仕様内でCSIボリュームを直接構成できます。この方法で指定されたボリュームは一時的なものであり、Podを再起動しても持続しません。詳細については[エフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)を参照してください。
 
 CSIドライバーの開発方法の詳細については[kubernetes-csiドキュメント](https://kubernetes-csi.github.io/docs/)を参照してください。
 

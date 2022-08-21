@@ -469,7 +469,7 @@ as a PersistentVolume; referencing the volume directly from a pod is not support
 #### Manually provisioning a Regional PD PersistentVolume
 
 Dynamic provisioning is possible using a
-[StorageClass for GCE PD](/docs/concepts/storage/storage-classes/#gce).
+[StorageClass for GCE PD](/docs/concepts/storage/storage-classes/#gce-pd).
 Before creating a PersistentVolume, you must create the persistent disk:
 
 ```shell

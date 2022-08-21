@@ -64,9 +64,9 @@ section.
 For non-control plane images (
 e.g. [conformance image](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md))
 , signatures can also be verified at deploy time using
-[cosigned](https://docs.sigstore.dev/cosign/kubernetes/#cosigned-admission-controller)
-admission controller. To get started with `cosigned` here are a few helpful
+[sigstore policy-controller](https://docs.sigstore.dev/policy-controller/overview)
+admission controller. To get started with `policy-controller` here are a few helpful
 resources:
 
-* [Installation](https://github.com/sigstore/cosign#installation)
-* [Configuration Options](https://github.com/sigstore/cosign/blob/main/USAGE.md#detailed-usage)
+* [Installation](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
+* [Configuration Options](https://github.com/sigstore/policy-controller/tree/main/config)

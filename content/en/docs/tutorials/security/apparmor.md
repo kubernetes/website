@@ -330,7 +330,7 @@ Note the pod status is Pending, with a helpful error message: `Pod Cannot enforc
 ### Setting up nodes with profiles
 
 Kubernetes does not currently provide any native mechanisms for loading AppArmor profiles onto
-nodes. There are lots of ways to setup the profiles though, such as:
+nodes. There are lots of ways to set up the profiles though, such as:
 
 * Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
   ensure the correct profiles are loaded. An example implementation can be found

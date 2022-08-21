@@ -52,13 +52,17 @@ back-off, and other clients that also work this way.
 
 {{< caution >}}
 <!--
-Requests classified as "long-running" — primarily watches — are not
-subject to the API Priority and Fairness filter. This is also true for
-the `--max-requests-inflight` flag without the API Priority and
-Fairness feature enabled.
+Some requests classified as "long-running"&mdash;such as remote
+command execution or log tailing&mdash;are not subject to the API
+Priority and Fairness filter. This is also true for the
+`--max-requests-inflight` flag without the API Priority and Fairness
+feature enabled. API Priority and Fairness _does_ apply to **watch**
+requests. When API Priority and Fairness is disabled, **watch** requests
+are not subject to the `--max-requests-inflight` limit.
 -->
-属于“长时间运行”类型的请求（主要是 `watch`）不受 API 优先级和公平性过滤器的约束。
+属于 “长时间运行” 类型的某些请求（例如远程命令执行或日志拖尾）不受 API 优先级和公平性过滤器的约束。
 如果未启用 APF 特性，即便设置 `--max-requests-inflight` 标志，该类请求也不受约束。
+APF **不** 适用于 **watch** 请求。当 APF 被禁用时，**watch** 请求不受 `--max-requests-inflight` 限制。
 {{< /caution >}}
 
 <!-- body -->
@@ -157,6 +161,68 @@ from succeeding.
 -->
 例如，默认配置包括针对领导者选举请求、内置控制器请求和 Pod 请求都单独设置优先级。
 这表示即使异常的 Pod 向 API 服务器发送大量请求，也无法阻止领导者选举或内置控制器的操作执行成功。
+
+<!--
+### Seats Occupied by a Request
+
+The above description of concurrency management is the baseline story.
+In it, requests have different durations but are counted equally at
+any given moment when comparing against a priority level's concurrency
+limit. In the baseline story, each request occupies one unit of
+concurrency. The word "seat" is used to mean one unit of concurrency,
+inspired by the way each passenger on a train or aircraft takes up one
+of the fixed supply of seats.
+
+But some requests take up more than one seat.  Some of these are **list**
+requests that the server estimates will return a large number of
+objects.  These have been found to put an exceptionally heavy burden
+on the server, among requests that take a similar amount of time to
+run.  For this reason, the server estimates the number of objects that
+will be returned and considers the request to take a number of seats
+that is proportional to that estimated number.
+-->
+### 请求占用的席位  {#seats-occupied-by-a-request}
+
+上述并发管理的描述是基线情况。其中，各个请求具有不同的持续时间，
+但在与一个优先级的并发限制进行比较时，这些请求在任何给定时刻都以同等方式进行计数。
+在这个基线场景中，每个请求占用一个并发单位。
+我们用 “席位（Seat）” 一词来表示一个并发单位，其灵感来自火车或飞机上每位乘客占用一个固定座位的供应方式。
+
+但有些请求所占用的席位不止一个。有些请求是服务器预估将返回大量对象的 **list** 请求。
+和所需运行时间相近的其他请求相比，我们发现这类请求会给服务器带来异常沉重的负担。
+出于这个原因，服务器估算将返回的对象数量，并认为请求所占用的席位数与估算得到的数量成正比。
+
+<!--
+### Execution time tweaks for watch requests
+
+API Priority and Fairness manages **watch** requests, but this involves a
+couple more excursions from the baseline behavior.  The first concerns
+how long a **watch**  request is considered to occupy its seat.  Depending
+on request parameters, the response to a **watch**  request may or may not
+begin with **create**  notifications for all the relevant pre-existing
+objects.  API Priority and Fairness considers a **watch**  request to be
+done with its seat once that initial burst of notifications, if any,
+is over.
+
+The normal notifications are sent in a concurrent burst to all
+relevant **watch**  response streams whenever the server is notified of an
+object create/update/delete.  To account for this work, API Priority
+and Fairness considers every write request to spend some additional
+time occupying seats after the actual writing is done.  The server
+estimates the number of notifications to be sent and adjusts the write
+request's number of seats and seat occupancy time to include this
+extra work.
+-->
+### watch 请求的执行时间调整  {#execution-time-tweak-for-watch-requests}
+
+APF 管理 **watch** 请求，但这需要考量基线行为之外的一些情况。
+第一个关注点是如何判定 **watch** 请求的席位占用时长。
+取决于请求参数不同，对 **watch** 请求的响应可能以针对所有预先存在的对象 **create** 通知开头，也可能不这样。
+一旦最初的突发通知（如果有）结束，APF 将认为 **watch** 请求已经用完其席位。
+
+每当向服务器通知创建/更新/删除一个对象时，正常通知都会以并发突发的方式发送到所有相关的 **watch** 响应流。
+为此，APF 认为每个写入请求都会在实际写入完成后花费一些额外的时间来占用席位。
+服务器估算要发送的通知数量，并调整写入请求的席位数以及包含这些额外工作后的席位占用时间。
 
 <!--
 ### Queuing
@@ -386,7 +452,7 @@ FlowSchema in turn, starting with those with numerically lowest ---
 which we take to be the logically highest --- `matchingPrecedence` and
 working onward.  The first match wins.
 -->
-### FlowSchema
+### FlowSchema  {#flowschema}
 
 FlowSchema 匹配一些入站请求，并将它们分配给优先级。
 每个入站请求都会对所有 FlowSchema 测试是否匹配，
@@ -918,7 +984,7 @@ poorly-behaved workloads that may be harming system health.
 * `apiserver_flowcontrol_priority_level_request_count_watermarks` 是一个直方图向量，
   记录请求数的高/低水位线，由标签 `phase`（取值为 `waiting` 和 `executing`）和
   `priority_level` 拆分；
-  标签 `mark` 取值为 `high` 和 `low` 。
+  标签 `mark` 取值为 `high` 和 `low`。
   `apiserver_flowcontrol_priority_level_request_count_samples` 向量观察到有值新增，
   则该向量累积。这些水位线显示了样本值的范围。
 
@@ -971,7 +1037,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_request_wait_duration_seconds` 是一个直方图向量，
   记录请求排队的时间，
-  由标签 `flow_schema`（表示与请求匹配的 FlowSchema ），
+  由标签 `flow_schema`（表示与请求匹配的 FlowSchema），
   `priority_level`（表示分配该请求的优先级）
   和 `execute`（表示请求是否开始执行）进一步区分。
 
@@ -995,7 +1061,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_request_execution_seconds` 是一个直方图向量，
   记录请求实际执行需要花费的时间，
-  由标签 `flow_schema`（表示与请求匹配的 FlowSchema ）和
+  由标签 `flow_schema`（表示与请求匹配的 FlowSchema）和
   `priority_level`（表示分配给该请求的优先级）进一步区分。
 
 <!--
@@ -1120,6 +1186,5 @@ or the feature's [slack channel](https://kubernetes.slack.com/messages/api-prior
 有关 API 优先级和公平性的设计细节的背景信息，
 请参阅[增强提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness)。
 你可以通过 [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery/)
-或特性的 [Slack 频道](https://kubernetes.slack.com/messages/api-priority-and-fairness/)
-提出建议和特性请求。
+或特性的 [Slack 频道](https://kubernetes.slack.com/messages/api-priority-and-fairness/)提出建议和特性请求。
 

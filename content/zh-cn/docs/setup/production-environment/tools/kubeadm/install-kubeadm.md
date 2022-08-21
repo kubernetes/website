@@ -20,29 +20,31 @@ card:
 <!-- overview -->
 
 <!--
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
-For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
+This page shows how to install the `kubeadm` toolbox.
+For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 -->
-<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">本页面显示如何安装 `kubeadm` 工具箱。
-有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，请参见
-[使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)页面。
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
+本页面显示如何安装 `kubeadm` 工具箱。
+有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，
+请参见[使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)。
 
 ## {{% heading "prerequisites" %}}
 
 <!--
 * A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
-* 2 GB or more of RAM per machine (any less will leave little room for your apps)
-* 2 CPUs or more
-* Full network connectivity between all machines in the cluster (public or private network is fine)
+* 2 GB or more of RAM per machine (any less will leave little room for your apps).
+* 2 CPUs or more.
+* Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
 -->
 * 一台兼容的 Linux 主机。Kubernetes 项目为基于 Debian 和 Red Hat 的 Linux
-  发行版以及一些不提供包管理器的发行版提供通用的指令
-* 每台机器 2 GB 或更多的 RAM（如果少于这个数字将会影响你应用的运行内存）
-* 2 CPU 核或更多
-* 集群中的所有机器的网络彼此均能相互连接（公网和内网都可以）
+  发行版以及一些不提供包管理器的发行版提供通用的指令。
+* 每台机器 2 GB 或更多的 RAM（如果少于这个数字将会影响你应用的运行内存）。
+* CPU 2 核心及以上。
+* 集群中的所有机器的网络彼此均能相互连接（公网和内网都可以）。
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
 * 禁用交换分区。为了保证 kubelet 正常工作，你 **必须** 禁用交换分区。
@@ -50,7 +52,7 @@ For information on how to create a cluster with kubeadm once you have performed 
 <!-- steps -->
 
 <!--
-## Verify the MAC address and product_uuid are unique for every node
+## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
 
 * You can get the MAC address of the network interfaces using the command `ip link` or `ifconfig -a`
 * The product_uuid can be checked by using the command `sudo cat /sys/class/dmi/id/product_uuid`
@@ -75,42 +77,10 @@ Kubernetes 使用这些值来唯一确定集群中的节点。
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 -->
-## 检查网络适配器
+## 检查网络适配器   {#check-network-adapters}
 
 如果你有一个以上的网络适配器，同时你的 Kubernetes 组件通过默认路由不可达，我们建议你预先添加 IP 路由规则，
 这样 Kubernetes 集群就可以通过对应的适配器完成连接。
-
-<!--
-## Letting iptables see bridged traffic
-
-Make sure that the `br_netfilter` module is loaded. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `sudo modprobe br_netfilter`.
-
-As a requirement for your Linux Node's iptables to correctly see bridged traffic, you should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
--->
-## 允许 iptables 检查桥接流量
-
-确保 `br_netfilter` 模块被加载。这一操作可以通过运行 `lsmod | grep br_netfilter`
-来完成。若要显式加载该模块，可执行 `sudo modprobe br_netfilter`。
-
-为了让你的 Linux 节点上的 iptables 能够正确地查看桥接流量，你需要确保在
-`sysctl` 配置中将 `net.bridge.bridge-nf-call-iptables` 设置为 1。例如：
-
-```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-br_netfilter
-EOF
-
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-sudo sysctl --system
-```
-
-<!--
-For more details please see the [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
--->
-更多的相关细节可查看[网络插件需求](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)页面。
 
 <!--
 ## Check required ports
@@ -142,7 +112,7 @@ documentation for the plugins about what port(s) those need.
 To run containers in Pods, Kubernetes uses a
 {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}.
 -->
-## 安装容器运行时{#installing-runtime}
+## 安装容器运行时   {#installing-runtime}
 
 为了在 Pod 中运行容器，Kubernetes 使用
 {{< glossary_tooltip term_id="container-runtime" text="容器运行时（Container Runtime）" >}}。
@@ -196,6 +166,7 @@ The tables below include the known endpoints for supported operating systems:
 {{< tabs name="container_runtime" >}}
 {{% tab name="Linux" %}}
 
+{{< table caption="Linux 容器运行时" >}}
 <!--
 | Runtime                            | Path to Unix domain socket                   |
 |------------------------------------|----------------------------------------------|
@@ -203,7 +174,6 @@ The tables below include the known endpoints for supported operating systems:
 | CRI-O                              | `unix:///var/run/crio/crio.sock`             |
 | Docker Engine (using cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
 -->
-{{< table >}}
 | 运行时                              | Unix 域套接字                                     |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `unix:///var/run/containerd/containerd.sock` |
@@ -212,15 +182,16 @@ The tables below include the known endpoints for supported operating systems:
 {{< /table >}}
 
 {{% /tab %}}
+
 {{% tab name="Windows" %}}
+
+{{< table caption="Windows 容器运行时" >}}
 <!--
 | Runtime                            | Path to Windows named pipe                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `npipe:////./pipe/containerd-containerd`     |
 | Docker Engine (using cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
 -->
-
-{{< table >}}
 | 运行时                              |  Windows 命名管道路径                         |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `npipe:////./pipe/containerd-containerd`     |
@@ -242,7 +213,7 @@ You will install these packages on all of your machines:
 
 * `kubectl`: the command line util to talk to your cluster.
 -->
-## 安装 kubeadm、kubelet 和 kubectl
+## 安装 kubeadm、kubelet 和 kubectl   {#installing-kubeadm-kubelet-and-kubectl}
 
 你需要在每台机器上安装以下的软件包：
 
@@ -258,7 +229,7 @@ need to ensure they match the version of the Kubernetes control plane you want
 kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
 can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
 kubelet and the control plane is supported, but the kubelet version may never exceed the API
-server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
+server version. For example, the kubelet running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa.
 
 For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/).
@@ -276,7 +247,7 @@ kubeadm **不能**帮你安装或者管理 `kubelet` 或 `kubectl`，
 <!--
 These instructions exclude all Kubernetes packages from any system upgrades.
 This is because kubeadm and Kubernetes require
-[special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/).
+[special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 -->
 这些指南不包括系统升级时使用的所有 Kubernetes 程序包。这是因为 kubeadm 和 Kubernetes
 有[特殊的升级注意事项](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
@@ -346,7 +317,6 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 exclude=kubelet kubeadm kubectl
 EOF
@@ -361,13 +331,14 @@ sudo systemctl enable --now kubelet
 ```
 
 <!--
-  **Note:**
+  **Notes:**
 
   - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
     This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
     You have to do this until SELinux support is improved in the kubelet.
 
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
+
   - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
     Type `uname -m` to see that value.
     For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
@@ -381,6 +352,7 @@ sudo systemctl enable --now kubelet
   你必须这么做，直到 kubelet 做出对 SELinux 的支持进行升级为止。
 
 - 如果你知道如何配置 SELinux 则可以将其保持启用状态，但可能需要设定 kubeadm 不支持的部分配置
+
 - 如果由于该 Red Hat 的发行版无法解析 `basearch` 导致获取 `baseurl` 失败，请将 `\$basearch` 替换为你计算机的架构。
   输入 `uname -m` 以查看该值。
   例如，`x86_64` 的 `baseurl` URL 可以是：`https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`。
@@ -478,13 +450,13 @@ kubeadm to tell it what to do.
 kubelet 现在每隔几秒就会重启，因为它陷入了一个等待 kubeadm 指令的死循环。
 
 <!--
-## Configure cgroup driver
+## Configuring a cgroup driver
 
 Both the container runtime and the kubelet have a property called
 ["cgroup driver"](/docs/setup/production-environment/container-runtimes/), which is important
 for the management of cgroups on Linux machines.
 -->
-## 配置 cgroup 驱动程序  {#configure-cgroup-driver}
+## 配置 cgroup 驱动程序  {#configuring-a-cgroup-driver}
 
 容器运行时和 kubelet 都具有名字为
 ["cgroup driver"](/zh-cn/docs/setup/production-environment/container-runtimes/)
@@ -518,4 +490,3 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 -->
 * [使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-

@@ -1,6 +1,6 @@
 ---
-
-
+## reviewers:
+## - jsafrane
 title: 스태틱(static) 파드 생성하기
 weight: 170
 content_template: task
@@ -67,12 +67,12 @@ Kubelet 이 특정 디렉터리를 스캔할 때 점(.)으로 시작하는 단�
     ssh my-node1
     ```
 
-2. `/etc/kubelet.d` 와 같은 디렉터리를 선택하고 웹 서버 파드의 정의를 해당 위치에, 예를 들어 `/etc/kubelet.d/static-web.yaml` 에 배치한다.  
+2. `/etc/kubernetes/manifests` 와 같은 디렉터리를 선택하고 웹 서버 파드의 정의를 해당 위치에, 예를 들어 `/etc/kubernetes/manifests/static-web.yaml` 에 배치한다.  
 
     ```shell
 	  # kubelet 이 동작하고 있는 노드에서 이 명령을 수행한다.
-    mkdir /etc/kubelet.d/
-    cat <<EOF >/etc/kubelet.d/static-web.yaml
+    mkdir -p /etc/kubernetes/manifests/
+    cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -90,10 +90,10 @@ Kubelet 이 특정 디렉터리를 스캔할 때 점(.)으로 시작하는 단�
     EOF
     ```
 
-3. 노드에서 kubelet 실행 시에 `--pod-manifest-path=/etc/kubelet.d/` 와 같이 인자를 제공하여 해당 디렉터리를 사용하도록 구성한다. Fedora 의 경우 이 줄을 포함하기 위하여 `/etc/kubernetes/kubelet` 파일을 다음과 같이 수정한다.
+3. 노드에서 kubelet 실행 시에 `--pod-manifest-path=/etc/kubernetes/manifests/` 와 같이 인자를 제공하여 해당 디렉터리를 사용하도록 구성한다. Fedora 의 경우 이 줄을 포함하기 위하여 `/etc/kubernetes/kubelet` 파일을 다음과 같이 수정한다.
 
    ```
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
+   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubernetes/manifests/"
    ```
    혹은 [kubelet 구성 파일](/docs/reference/config-api/kubelet-config.v1beta1/)에 
    `staticPodPath: <the directory>` 필드를 추가한다.
@@ -224,7 +224,7 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 
 ## 스태틱 파드의 동적 추가 및 제거
 
-실행 중인 kubelet 은 주기적으로, 설정된 디렉터리(예제에서는 `/etc/kubelet.d`)에서 변경 사항을 스캔하고, 이 디렉터리에 새로운 파일이 생성되거나 삭제될 경우, 파드를 생성/삭제 한다.
+실행 중인 kubelet 은 주기적으로, 설정된 디렉터리(예제에서는 `/etc/kubernetes/manifests`)에서 변경 사항을 스캔하고, 이 디렉터리에 새로운 파일이 생성되거나 삭제될 경우, 파드를 생성/삭제 한다.
 
 ```shell
 # 예제를 수행하는 사용자가 파일시스템이 호스팅하는 스태틱 파드 설정을 사용한다고 가정한다.

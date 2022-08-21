@@ -22,9 +22,8 @@ This document describes the concept of a StorageClass in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 -->
-本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉
-[卷](/zh-cn/docs/concepts/storage/volumes/)和
-[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes)的概念。
+本文描述了 Kubernetes 中 StorageClass 的概念。
+建议先熟悉[卷](/zh-cn/docs/concepts/storage/volumes/)和[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes)的概念。
 
 <!-- body -->
 
@@ -50,7 +49,6 @@ Kubernetes 本身并不清楚各种类代表的什么。这个类的概念在其
 Each StorageClass contains the fields `provisioner`, `parameters`, and
 `reclaimPolicy`, which are used when a PersistentVolume belonging to the
 class needs to be dynamically provisioned.
-
 -->
 ## StorageClass 资源 {#the-storageclass-resource}
 
@@ -62,7 +60,7 @@ The name of a StorageClass object is significant, and is how users can
 request a particular class. Administrators set the name and other parameters
 of a class when first creating StorageClass objects, and the objects cannot
 be updated once they are created.
- -->
+-->
 StorageClass 对象的命名很重要，用户使用这个命名来请求生成一个特定的类。
 当创建 StorageClass 对象时，管理员设置 StorageClass 对象的命名和其他参数，一旦创建了对象就不能再对其更新。
 
@@ -71,7 +69,7 @@ Administrators can specify a default StorageClass only for PVCs that don't
 request any particular class to bind to: see the
 [PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 for details.
- -->
+-->
 管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类：
 更多详情请参阅
 [PersistentVolumeClaim 章节](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
@@ -96,7 +94,7 @@ volumeBindingMode: Immediate
 
 Each StorageClass has a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified.
- -->
+-->
 ### 存储制备器  {#provisioner}
 
 每个 StorageClass 都有一个制备器（Provisioner），用来决定使用哪个卷插件制备 PV。
@@ -130,9 +128,10 @@ for provisioning PVs. This field must be specified.
 
 <!--
 You are not restricted to specifying the "internal" provisioners
+You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
 alongside Kubernetes). You can also run and specify external provisioners,
-which are independent programs that follow a [specification](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md))
+which are independent programs that follow a [specification](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md)
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
 run, what volume plugin it uses (including Flex), etc. The repository
@@ -140,22 +139,21 @@ run, what volume plugin it uses (including Flex), etc. The repository
 houses a library for writing external provisioners that implements the bulk of
 the specification. Some external provisioners are listed under the repository
 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner).
- -->
+-->
 你不限于指定此处列出的 "内置" 制备器（其名称前缀为 "kubernetes.io" 并打包在 Kubernetes 中）。
-你还可以运行和指定外部制备器，这些独立的程序遵循由 Kubernetes 定义的
-[规范](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md)。
+你还可以运行和指定外部制备器，这些独立的程序遵循由 Kubernetes
+定义的[规范](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md)。
 外部供应商的作者完全可以自由决定他们的代码保存于何处、打包方式、运行方式、使用的插件（包括 Flex）等。
 代码仓库 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 包含一个用于为外部制备器编写功能实现的类库。你可以访问代码仓库
 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 了解外部驱动列表。
 
-
 <!--
 For example, NFS doesn't provide an internal provisioner, but an external
 provisioner can be used. There are also cases when 3rd party storage
 vendors provide their own external provisioner.
- -->
+-->
 例如，NFS 没有内部制备器，但可以使用外部制备器。
 也有第三方存储供应商提供自己的外部制备器。
 
@@ -169,18 +167,17 @@ StorageClass object is created, it will default to `Delete`.
 
 PersistentVolumes that are created manually and managed via a StorageClass will have
 whatever reclaim policy they were assigned at creation.
- -->
+-->
 ### 回收策略 {#reclaim-policy}
 
 由 StorageClass 动态创建的 PersistentVolume 会在类的 `reclaimPolicy` 字段中指定回收策略，可以是
 `Delete` 或者 `Retain`。如果 StorageClass 对象被创建时没有指定 `reclaimPolicy`，它将默认为 `Delete`。
 
-通过 StorageClass 手动创建并管理的 PersistentVolume 会使用它们被创建时指定的回收政策。
+通过 StorageClass 手动创建并管理的 PersistentVolume 会使用它们被创建时指定的回收策略。
 
 <!--
 ### Allow Volume Expansion
 -->
-
 ### 允许卷扩展 {#allow-volume-expansion}
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
@@ -232,7 +229,7 @@ mount options specified in the `mountOptions` field of the class.
 If the volume plugin does not support mount options but mount options are
 specified, provisioning will fail. Mount options are not validated on either
 the class or PV, If a mount option is invalid, the PV mount fails.
- -->
+-->
 ### 挂载选项 {#mount-options}
 
 由 StorageClass 动态创建的 PersistentVolume 将使用类中 `mountOptions` 字段指定的挂载选项。
@@ -242,15 +239,15 @@ the class or PV, If a mount option is invalid, the PV mount fails.
 
 <!--
 ### Volume Binding Mode
- -->
+-->
 ### 卷绑定模式 {#volume-binding-mode}
 
 <!--
 The `volumeBindingMode` field controls when [volume binding and dynamic
 provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur.
- -->
-`volumeBindingMode` 字段控制了[卷绑定和动态制备](/zh-cn/docs/concepts/storage/persistent-volumes/#provisioning)
-应该发生在什么时候。
+-->
+`volumeBindingMode`
+字段控制了[卷绑定和动态制备](/zh-cn/docs/concepts/storage/persistent-volumes/#provisioning)应该发生在什么时候。
 
 <!--
 By default, the `Immediate` mode indicates that volume binding and dynamic
@@ -258,7 +255,7 @@ provisioning occurs once the PersistentVolumeClaim is created. For storage
 backends that are topology-constrained and not globally accessible from all Nodes
 in the cluster, PersistentVolumes will be bound or provisioned without knowledge of the Pod's scheduling
 requirements. This may result in unschedulable Pods.
- -->
+-->
 默认情况下，`Immediate` 模式表示一旦创建了 PersistentVolumeClaim 也就完成了卷绑定和动态制备。
 对于由于拓扑限制而非集群所有节点可达的存储后端，PersistentVolume
 会在不知道 Pod 调度要求的情况下绑定或者制备。
@@ -276,10 +273,10 @@ and [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-tolera
 -->
 集群管理员可以通过指定 `WaitForFirstConsumer` 模式来解决此问题。
 该模式将延迟 PersistentVolume 的绑定和制备，直到使用该 PersistentVolumeClaim 的 Pod 被创建。
-PersistentVolume 会根据 Pod 调度约束指定的拓扑来选择或制备。这些包括但不限于
-[资源需求](/zh-cn/docs/concepts/configuration/manage-resources-containers/)、
+PersistentVolume 会根据 Pod 调度约束指定的拓扑来选择或制备。
+这些包括但不限于[资源需求](/zh-cn/docs/concepts/configuration/manage-resources-containers/)、
 [节点筛选器](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)、
-[pod 亲和性和互斥性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity/)、
+[Pod 亲和性和互斥性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity/)、
 以及[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration)。
 
 <!--
@@ -289,7 +286,7 @@ The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
 * [GCEPersistentDisk](#gce-pd)
 * [AzureDisk](#azure-disk)
 -->
-以下插件支持动态供应的 `WaitForFirstConsumer` 模式:
+以下插件支持动态制备的 `WaitForFirstConsumer` 模式:
 
 * [AWSElasticBlockStore](#aws-ebs)
 * [GCEPersistentDisk](#gce-pd)
@@ -313,8 +310,8 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
 to see its supported topology keys and examples.
 -->
-动态配置和预先创建的 PV 也支持 [CSI卷](/zh-cn/docs/concepts/storage/volumes/#csi)，
-但是你需要查看特定 CSI 驱动程序的文档以查看其支持的拓扑键名和例子。
+动态制备和预先创建的 PV 也支持 [CSI 卷](/zh-cn/docs/concepts/storage/volumes/#csi)，
+但是你需要查看特定 CSI 驱动的文档以查看其支持的拓扑键名和例子。
 
 {{< note >}}
 <!-- 
@@ -357,6 +354,7 @@ spec:
 ### Allowed Topologies
 -->
 ### 允许的拓扑结构  {#allowed-topologies}
+
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 <!--
@@ -373,8 +371,8 @@ This example demonstrates how to restrict the topology of provisioned volumes to
 zones and should be used as a replacement for the `zone` and `zones` parameters for the
 supported plugins.
 -->
-这个例子描述了如何将供应卷的拓扑限制在特定的区域，在使用时应该根据插件
-支持情况替换 `zone` 和 `zones` 参数。
+这个例子描述了如何将制备卷的拓扑限制在特定的区域，
+在使用时应该根据插件支持情况替换 `zone` 和 `zones` 参数。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -405,15 +403,14 @@ used.
 There can be at most 512 parameters defined for a StorageClass.
 The total length of the parameters object including its keys and values cannot
 exceed 256 KiB.
- -->
+-->
 ## 参数 {#parameters}
 
 Storage Classes 的参数描述了存储类的卷。取决于制备器，可以接受不同的参数。
 例如，参数 type 的值 io1 和参数 iopsPerGB 特定于 EBS PV。
 当参数被省略时，会使用默认值。
 
-一个 StorageClass 最多可以定义 512 个参数。这些参数对象的总长度不能
-超过 256 KiB, 包括参数的键和值。
+一个 StorageClass 最多可以定义 512 个参数。这些参数对象的总长度不能超过 256 KiB, 包括参数的键和值。
 
 ### AWS EBS
 
@@ -430,7 +427,6 @@ parameters:
 ```
 
 <!--
-* `type`: `io1`, `gp2`, `gp2`, `sc1`, `st1`. See
 * `type`: `io1`, `gp2`, `sc1`, `st1`. See
   [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
   for details. Default: `gp2`.
@@ -460,8 +456,8 @@ parameters:
   通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。
   `zone` 和 `zones` 参数不能同时使用。
 * `zones`(弃用)：以逗号分隔的 AWS 区域列表。
-  如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的
-  活动区域中轮询调度分配。`zone`和`zones`参数不能同时使用。
+  如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。
+  `zone`和`zones`参数不能同时使用。
 * `iopsPerGB`：只适用于 `io1` 卷。每 GiB 每秒 I/O 操作。
   AWS 卷插件将其与请求卷的大小相乘以计算 IOPS 的容量，
   并将其限制在 20000 IOPS（AWS 支持的最高值，请参阅
@@ -477,7 +473,7 @@ parameters:
 <!--
 `zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
- -->
+-->
 `zone` 和 `zones` 已被弃用并被 [允许的拓扑结构](#allowed-topologies) 取代。
 {{< /note >}}
 
@@ -508,8 +504,8 @@ parameters:
 * `replication-type`: `none` or `regional-pd`. Default: `none`.
 -->
 * `type`：`pd-standard` 或者 `pd-ssd`。默认：`pd-standard`
-* `zone`(弃用)：GCE 区域。如果没有指定 `zone` 和 `zones`，通常
-  卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。
+* `zone`(弃用)：GCE 区域。如果没有指定 `zone` 和 `zones`，
+  通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。
   `zone` 和 `zones` 参数不能同时使用。
 * `zones`(弃用)：逗号分隔的 GCE 区域列表。如果没有指定 `zone` 和 `zones`，
   通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。
@@ -533,8 +529,8 @@ as the zone that the Pod is scheduled in. The other zone is randomly picked
 from the zones available to the cluster. Disk zones can be further constrained
 using `allowedTopologies`.
 -->
-如果 `replication-type` 设置为 `regional-pd`，会制备一个
-[区域性持久化磁盘（Regional Persistent Disk）](https://cloud.google.com/compute/docs/disks/#repds)。
+如果 `replication-type` 设置为 `regional-pd`，
+会制备一个[区域性持久化磁盘（Regional Persistent Disk）](https://cloud.google.com/compute/docs/disks/#repds)。
 
 强烈建议设置 `volumeBindingMode: WaitForFirstConsumer`，这样设置后，
 当你创建一个 Pod，它使用的 PersistentVolumeClaim 使用了这个 StorageClass，
@@ -619,13 +615,14 @@ parameters:
   这些参数是可选的，`secretNamespace` 和 `secretName` 都省略时使用空密码。
   所提供的 Secret 必须将类型设置为 "kubernetes.io/glusterfs"，例如以这种方式创建：
 
-    ```
-    kubectl create secret generic heketi-secret \
-      --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
-      --namespace=default
-    ```
+  ```
+  kubectl create secret generic heketi-secret \
+    --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
+    --namespace=default
+  ```
 
-  Secret 的例子可以在 [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml) 中找到。
+  Secret 的例子可以在
+  [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml) 中找到。
 
 <!--
 * `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster
@@ -668,19 +665,18 @@ parameters:
     `gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically
     deleted when the persistent volume claim is deleted.
 -->
-* `volumetype`：卷的类型及其参数可以用这个可选值进行配置。如果未声明卷类型，则
-  由制备器决定卷的类型。
+* `volumetype`：卷的类型及其参数可以用这个可选值进行配置。如果未声明卷类型，则由制备器决定卷的类型。
   例如：
 
-  * 'Replica volume': `volumetype: replicate:3` 其中 '3' 是 replica 数量.
-  * 'Disperse/EC volume': `volumetype: disperse:4:2` 其中 '4' 是数据，'2' 是冗余数量.
+  * 'Replica volume': `volumetype: replicate:3` 其中 '3' 是 replica 数量。
+  * 'Disperse/EC volume': `volumetype: disperse:4:2` 其中 '4' 是数据，'2' 是冗余数量。
   * 'Distribute volume': `volumetype: none`
 
-  有关可用的卷类型和管理选项，请参阅
-  [管理指南](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html)。
+  有关可用的卷类型和管理选项，
+  请参阅[管理指南](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html)。
 
-  更多相关的参考信息，请参阅
-  [如何配置 Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology)。
+  更多相关的参考信息，
+  请参阅[如何配置 Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology)。
 
   当动态制备持久卷时，Gluster 插件自动创建名为 `gluster-dynamic-<claimname>`
   的端点和无头服务。在 PVC 被删除时动态端点和无头服务会自动被删除。
@@ -719,7 +715,6 @@ Kubernetes 不包含内部 NFS 驱动。你需要使用外部驱动为 NFS 创�
 * [NFS Ganesha 服务器和外部驱动](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
 * [NFS subdir 外部驱动](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
 
-
 ### OpenStack Cinder
 
 ```yaml
@@ -736,15 +731,11 @@ parameters:
 * `availability`: Availability Zone. If not specified, volumes are generally
   round-robin-ed across all active zones where Kubernetes cluster has a node.
 -->
-* `availability`：可用区域。如果没有指定，通常卷会在 Kubernetes 集群节点
-  所在的活动区域中轮转调度。
+* `availability`：可用区域。如果没有指定，通常卷会在 Kubernetes 集群节点所在的活动区域中轮转调度。
 
 <!--
-{{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
 This internal provisioner of OpenStack is deprecated. Please use [the external cloud provider for OpenStack](https://github.com/kubernetes/cloud-provider-openstack).
-{{< /note >}}
- -->
+-->
 {{< note >}}
 {{< feature-state state="deprecated" for_k8s_version="1.11" >}}
 OpenStack 的内部驱动已经被弃用。请使用
@@ -763,12 +754,12 @@ In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-c
 -->
 vSphere 存储类有两种制备器
 
-- [CSI 制备器](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
-- [vCP 制备器](#vcp-provisioner): `kubernetes.io/vsphere-volume`
+- [CSI 制备器](#vsphere-provisioner-csi)：`csi.vsphere.vmware.com`
+- [vCP 制备器](#vcp-provisioner)：`kubernetes.io/vsphere-volume`
 
 树内制备器已经被
 [弃用](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)。
-更多关于 CSI 制备器的详情，请参阅 
+更多关于 CSI 制备器的详情，请参阅
 [Kubernetes vSphere CSI 驱动](https://vsphere-csi-driver.sigs.k8s.io/)
 和 [vSphereVolume CSI 迁移](/zh-cn/docs/concepts/storage/volumes/#csi-migration-5)。
 
@@ -779,7 +770,7 @@ The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters. F
 -->
 #### CSI 制备器 {#vsphere-provisioner-csi}
 
-vSphere CSI StorageClass 制备器在 Tanzu Kubernetes 集群下运行。示例请参
+vSphere CSI StorageClass 制备器在 Tanzu Kubernetes 集群下运行。示例请参阅
 [vSphere CSI 仓库](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml)。
 
 <!--
@@ -789,11 +780,11 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
 -->
 #### vCP 制备器 {#vcp-provisioner}
 
-以下示例使用 VMware Cloud Provider (vCP) StorageClass 调度器
+以下示例使用 VMware Cloud Provider (vCP) StorageClass 调度器。
 
 <!--
 1. Create a StorageClass with a user specified disk format.
- -->
+-->
 1. 使用用户指定的磁盘格式创建一个 StorageClass。
 
    ```yaml
@@ -839,7 +830,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
    `datastore`：用户也可以在 StorageClass 中指定数据存储。
    卷将在 storage class 中指定的数据存储上创建，在这种情况下是 `VSANDatastore`。
    该字段是可选的。
-   如果未指定数据存储，则将在用于初始化 vSphere Cloud Provider 的 vSphere 
+   如果未指定数据存储，则将在用于初始化 vSphere Cloud Provider 的 vSphere
    配置文件中指定的数据存储上创建该卷。
 
 <!--
@@ -865,9 +856,8 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
     * 使用现有的 vCenter SPBM 策略
 
       vSphere 用于存储管理的最重要特性之一是基于策略的管理。
-      基于存储策略的管理（SPBM）是一个存储策略框架，提供单一的统一控制平面的
-      跨越广泛的数据服务和存储解决方案。
-      SPBM 使能 vSphere 管理员克服先期的存储配置挑战，如容量规划，差异化服务等级和管理容量空间。
+      基于存储策略的管理（SPBM）是一个存储策略框架，提供单一的统一控制平面的跨越广泛的数据服务和存储解决方案。
+      SPBM 使得 vSphere 管理员能够克服先期的存储配置挑战，如容量规划、差异化服务等级和管理容量空间。
 
       SPBM 策略可以在 StorageClass 中使用 `storagePolicyName` 参数声明。
 
@@ -883,7 +873,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
       persistent volume (virtual disk) is being created. The virtual disk is
       distributed across the Virtual SAN datastore to meet the requirements.
 
-      You can see [Storage Policy Based Management for dynamic provisioning of volumes](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)
+      You can see [Storage Policy Based Management for dynamic provisioning of volumes](https://github.com/vmware-archive/vsphere-storage-for-kubernetes/blob/fa4c8b8ad46a85b6555d715dd9d27ff69839df53/documentation/policy-based-mgmt.md)
       for more details on how to use storage policies for persistent volumes
       management.
     -->
@@ -895,7 +885,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
       存储能力需求会转换为 Virtual SAN 策略，之后当持久卷（虚拟磁盘）被创建时，
       会将其推送到 Virtual SAN 层。虚拟磁盘分布在 Virtual SAN 数据存储中以满足要求。
 
-      你可以参考[基于存储策略的动态制备卷管理](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)，
+      你可以参考[基于存储策略的动态制备卷管理](https://github.com/vmware-archive/vsphere-storage-for-kubernetes/blob/fa4c8b8ad46a85b6555d715dd9d27ff69839df53/documentation/policy-based-mgmt.md)，
       进一步了解有关持久卷管理的存储策略的详细信息。
 
 <!--
@@ -903,8 +893,8 @@ There are few
 [vSphere examples](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere)
 which you try out for persistent volume management inside Kubernetes for vSphere.
 -->
-有几个 [vSphere 例子](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere)
-供你在 Kubernetes for vSphere 中尝试进行持久卷管理。
+有几个 [vSphere 例子](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere)供你在
+Kubernetes for vSphere 中尝试进行持久卷管理。
 
 ### Ceph RBD
 
@@ -1037,7 +1027,7 @@ parameters:
 * `adminSecretName`: secret that holds information about the Quobyte user and
   the password to authenticate against the API server. The provided secret
   must have type "kubernetes.io/quobyte" and the keys `user` and `password`,
-  e.g. created in this way:
+  for example:
 
     ```shell
     kubectl create secret generic quobyte-admin-secret \
@@ -1048,12 +1038,11 @@ parameters:
 
 * `adminSecretName`：保存关于 Quobyte 用户和密码的 Secret，用于对 API 服务器进行身份验证。
   提供的 secret 必须有值为 "kubernetes.io/quobyte" 的 type 参数和 `user`
-  与 `password` 的键值，
-  例如以这种方式创建：
+  与 `password` 的键值，例如：
 
   ```shell
   kubectl create secret generic quobyte-admin-secret \
-    --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
+    --type="kubernetes.io/quobyte" --from-literal=user='admin' --from-literal=password='opensesame' \
     --namespace=kube-system
   ```
 <!--
@@ -1070,8 +1059,8 @@ parameters:
 * `group`：对这个组映射的所有访问权限。默认是 "nfsnobody"。
 * `quobyteConfig`：使用指定的配置来创建卷。你可以创建一个新的配置，
   或者，可以修改 Web 控制台或 quobyte CLI 中现有的配置。默认是 "BASE"。
-* `quobyteTenant`：使用指定的租户 ID 创建/删除卷。这个 Quobyte 租户必须
-  已经于 Quobyte 中存在。默认是 "DEFAULT"。
+* `quobyteTenant`：使用指定的租户 ID 创建/删除卷。这个 Quobyte 租户必须已经于 Quobyte 中存在。
+  默认是 "DEFAULT"。
 
 <!--
 ### Azure Disk
@@ -1193,7 +1182,7 @@ parameters:
   如果不提供存储帐户，会搜索所有与资源相关的存储帐户，以找到一个匹配
   `skuName` 和 `location` 的账号。
   如果提供存储帐户，它必须存在于与集群相同的资源组中，`skuName` 和 `location` 会被忽略。
-* `secretNamespace`：包含 Azure 存储帐户名称和密钥的密钥的名称空间。
+* `secretNamespace`：包含 Azure 存储帐户名称和密钥的密钥的名字空间。
   默认值与 Pod 相同。
 * `secretName`：包含 Azure 存储帐户名称和密钥的密钥的名称。
   默认值为 `azure-storage-account-<accountName>-secret`
@@ -1209,8 +1198,8 @@ add the `create` permission of resource `secret` for clusterrole
 `system:controller:persistent-volume-binder`.
 -->
 在存储制备期间，为挂载凭证创建一个名为 `secretName` 的 Secret。如果集群同时启用了
-[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 和
-[控制器角色](/zh-cn/docs/reference/access-authn-authz/rbac/#controller-roles)，
+[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)
+和[控制器角色](/zh-cn/docs/reference/access-authn-authz/rbac/#controller-roles)，
 为 `system:controller:persistent-volume-binder` 的 clusterrole 添加
 `Secret` 资源的 `create` 权限。
 
@@ -1219,12 +1208,11 @@ In a multi-tenancy context, it is strongly recommended to set the value for
 `secretNamespace` explicitly, otherwise the storage account credentials may
 be read by other users.
 -->
-在多租户上下文中，强烈建议显式设置 `secretNamespace` 的值，否则
-其他用户可能会读取存储帐户凭据。
+在多租户上下文中，强烈建议显式设置 `secretNamespace` 的值，否则其他用户可能会读取存储帐户凭据。
 
 <!--
 ### Portworx Volume
- -->
+-->
 ### Portworx 卷 {#portworx-volume}
 
 ```yaml
@@ -1273,7 +1261,7 @@ parameters:
 * `aggregation_level`：指定卷分配到的块数量，0 表示一个非聚合卷（默认：`0`）。
   这里需要填写字符串，即，是 `"0"` 而不是 `0`。
 * `ephemeral`：指定卷在卸载后进行清理还是持久化。
-  `emptyDir` 的使用场景可以将这个值设置为 true ，
+  `emptyDir` 的使用场景可以将这个值设置为 true，
   `persistent volumes` 的使用场景可以将这个值设置为 false
   （例如 Cassandra 这样的数据库）
   `true/false`（默认为 `false`）。这里需要填写字符串，即，
@@ -1334,7 +1322,7 @@ kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" \
 -->
 ScaleIO Kubernetes 卷插件需要配置一个 Secret 对象。
 Secret 必须用 `kubernetes.io/scaleio` 类型创建，并与引用它的
-PVC 所属的名称空间使用相同的值。如下面的命令所示：
+PVC 所属的名字空间使用相同的值。如下面的命令所示：
 
 ```shell
 kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" \
@@ -1372,8 +1360,7 @@ parameters:
 * `adminSecretName`: The name of the secret to use for obtaining the StorageOS
   API credentials. If not specified, default values will be attempted.
 -->
-* `pool`：制备卷的 StorageOS 分布式容量池的名称。如果未指定，则使用
-  通常存在的 `default` 池。
+* `pool`：制备卷的 StorageOS 分布式容量池的名称。如果未指定，则使用通常存在的 `default` 池。
 * `description`：指定给动态创建的卷的描述。所有卷描述对于存储类而言都是相同的，
   但不同的 storage class 可以使用不同的描述，以区分不同的使用场景。
   默认为 `Kubernetes volume`。
@@ -1419,9 +1406,9 @@ and referenced with the `adminSecretNamespace` parameter. Secrets used by
 pre-provisioned volumes must be created in the same namespace as the PVC that
 references it.
 -->
-用于动态制备卷的 Secret 可以在任何名称空间中创建，并通过
+用于动态制备卷的 Secret 可以在任何名字空间中创建，并通过
 `adminSecretNamespace` 参数引用。
-预先配置的卷使用的 Secret 必须在与引用它的 PVC 在相同的名称空间中。
+预先配置的卷使用的 Secret 必须在与引用它的 PVC 在相同的名字空间中。
 
 <!--
 ### Local
@@ -1431,8 +1418,8 @@ references it.
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: local-storage
 provisioner: kubernetes.io/no-provisioner
@@ -1441,14 +1428,14 @@ volumeBindingMode: WaitForFirstConsumer
 
 <!--
 Local volumes do not currently support dynamic provisioning, however a StorageClass
-should still be created to delay volume binding until pod scheduling. This is
+should still be created to delay volume binding until Pod scheduling. This is
 specified by the `WaitForFirstConsumer` volume binding mode.
 -->
 本地卷还不支持动态制备，然而还是需要创建 StorageClass 以延迟卷绑定，
 直到完成 Pod 的调度。这是由 `WaitForFirstConsumer` 卷绑定模式指定的。
 
 <!--
-Delaying volume binding allows the scheduler to consider all of a pod's
+Delaying volume binding allows the scheduler to consider all of a Pod's
 scheduling constraints when choosing an appropriate PersistentVolume for a
 PersistentVolumeClaim.
 -->
