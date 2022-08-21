@@ -1,5 +1,5 @@
 ---
-title: कण्ट्रोल प्लेन
+title: कण्ट्रोल प्लेन (Control Plane)
 id: control-plane
 date: 2019-05-12
 full_link:
