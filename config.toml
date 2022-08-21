@@ -138,10 +138,17 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
+<<<<<<< HEAD
 latest = "v1.24"
 
 fullversion = "v1.24.0"
 version = "v1.24"
+=======
+latest = "v1.23"
+
+fullversion = "v1.23.0"
+version = "v1.23"
+>>>>>>> 5db769d46c (update config.toml for 1.23 release)
 githubbranch = "main"
 docsbranch = "main"
 deprecated = false
@@ -178,13 +185,20 @@ js = [
 ]
 
 [[params.versions]]
+<<<<<<< HEAD
 fullversion = "v1.24.0"
 version = "v1.24"
 githubbranch = "v1.24.0"
+=======
+fullversion = "v1.23.0"
+version = "v1.23"
+githubbranch = "v1.23.0"
+>>>>>>> 5db769d46c (update config.toml for 1.23 release)
 docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
+<<<<<<< HEAD
 fullversion = "v1.23.6"
 version = "v1.23"
 githubbranch = "v1.23.6"
@@ -195,11 +209,20 @@ url = "https://v1-23.docs.kubernetes.io"
 fullversion = "v1.22.9"
 version = "v1.22"
 githubbranch = "v1.22.9"
+=======
+fullversion = "v1.22.1"
+version = "v1.22"
+githubbranch = "v1.22.1"
+>>>>>>> 5db769d46c (update config.toml for 1.23 release)
 docsbranch = "release-1.22"
 url = "https://v1-22.docs.kubernetes.io"
 
 [[params.versions]]
+<<<<<<< HEAD
 fullversion = "v1.21.12"
+=======
+fullversion = "v1.21.4"
+>>>>>>> 5db769d46c (update config.toml for 1.23 release)
 version = "v1.21"
 githubbranch = "v1.21.12"
 docsbranch = "release-1.21"
@@ -212,6 +235,16 @@ githubbranch = "v1.20.15"
 docsbranch = "release-1.20"
 url = "https://v1-20.docs.kubernetes.io"
 
+<<<<<<< HEAD
+=======
+[[params.versions]]
+fullversion = "v1.19.14"
+version = "v1.19"
+githubbranch = "v1.19.14"
+docsbranch = "release-1.19"
+url = "https://v1-19.docs.kubernetes.io"
+
+>>>>>>> 5db769d46c (update config.toml for 1.23 release)
 # User interface configuration
 [params.ui]
 # Enable to show the side bar menu in its compact state.
