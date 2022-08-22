@@ -23,7 +23,7 @@ Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [i
 
 Kubespray provides:
 -->
-Kubespray 是一个由 [Ansible](https://docs.ansible.com/) playbooks、
+Kubespray 是由若干 [Ansible](https://docs.ansible.com/) Playbook、
 [清单（inventory）](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory)、
 制备工具和通用 OS/Kubernetes 集群配置管理任务的领域知识组成的。
 
@@ -207,7 +207,7 @@ Kubespray provides a way to verify inter-pod connectivity and DNS resolve with [
 Kubespray 提供了一种使用
 [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md)
 验证 Pod 间连接和 DNS 解析的方法。
-Netchecker 确保 netchecker-agents Pods 可以解析 DNS 请求，
+Netchecker 确保 netchecker-agents Pod 可以解析 DNS 请求，
 并在默认命名空间内对每个请求执行 ping 操作。
 这些 Pod 模仿其他工作负载类似的行为，并用作集群运行状况指示器。
 <!--
@@ -217,7 +217,7 @@ Kubespray provides additional playbooks to manage your cluster: _scale_ and _upg
 -->
 ## 集群操作
 
-Kubespray 提供了其他 Playbooks 来管理集群： **scale** 和 **upgrade**。
+Kubespray 提供了其他 Playbook 来管理集群： **scale** 和 **upgrade**。
 <!--
 ### Scale your cluster
 

@@ -10,11 +10,11 @@ content_type: concept
 <!--
 Add-ons extend the functionality of Kubernetes.
 
-This page lists some of the available add-ons and links to their respective installation instructions.
+This page lists some of the available add-ons and links to their respective installation instructions. The list does not try to be exhaustive.
 -->
 Add-ons 扩展了 Kubernetes 的功能。
 
-本文列举了一些可用的 add-ons 以及到它们各自安装说明的链接。
+本文列举了一些可用的 add-ons 以及到它们各自安装说明的链接。该列表并不试图详尽无遗。
 
 <!-- body -->
 
@@ -66,16 +66,14 @@ Add-ons 扩展了 Kubernetes 的功能。
   而且包含了在 Kubernetes 中基于 SRIOV、DPDK、OVS-DPDK 和 VPP 的工作负载。
 <!--
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) is a networking provider for Kubernetes based on [OVN (Open Virtual Network)](https://github.com/ovn-org/ovn/), a virtual networking implementation that came out of the Open vSwitch (OVS) project. OVN-Kubernetes provides an overlay based networking implementation for Kubernetes, including an OVS based implementation of load balancing and network policy.
-* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) is OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC), Multiple OVN overlay networking, dynamic subnet creation, dynamic creation of virtual networks, VLAN Provider network, Direct provider network and pluggable with other Multi-network plugins, ideal for edge based cloud native workloads in Multi-cluster networking.
+* [Nodus](https://github.com/akraino-edge-stack/icn-nodus) is an OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC).
 -->
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) 是一个 Kubernetes 网络驱动，
   基于 [OVN（Open Virtual Network）](https://github.com/ovn-org/ovn/)实现，是从 Open vSwitch (OVS)
   项目衍生出来的虚拟网络实现。OVN-Kubernetes 为 Kubernetes 提供基于覆盖网络的网络实现，
   包括一个基于 OVS 实现的负载均衡器和网络策略。
-* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) 是一个基于 OVN 的 CNI 控制器插件，
-  提供基于云原生的服务功能链条（Service Function Chaining，SFC）、多种 OVN 覆盖网络、动态子网创建、
-  动态虚拟网络创建、VLAN 驱动网络、直接驱动网络，并且可以驳接其他的多网络插件，
-  适用于基于边缘的、多集群联网的云原生工作负载。
+* [Nodus](https://github.com/akraino-edge-stack/icn-nodus) 是一个基于 OVN 的 CNI 控制器插件，
+  提供基于云原生的服务功能链 (SFC)。
 <!--
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) Container Plug-in (NCP) provides integration between VMware NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst) is an SDN platform that provides policy-based networking between Kubernetes Pods and non-Kubernetes environments with visibility and security monitoring.
