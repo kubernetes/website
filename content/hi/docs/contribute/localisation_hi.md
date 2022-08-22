@@ -68,4 +68,4 @@ English | हिन्दी (पूर्ण)
 Pod | पोड
 node | नोड
 cluster | क्लस्टर
-kubernetes | कुबेरनेटिस
+Kubernetes | कुबेरनेटिस
