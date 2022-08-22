@@ -326,7 +326,7 @@ The `service.spec.healthCheckNodePort` field points to a port on every node
 serving the health check at `/healthz`. You can test this:
 
 ```shell
-kubectl get pod -o wide -l run=source-ip-app
+kubectl get pod -o wide -l app=source-ip-app
 ```
 The output is similar to this:
 ```

@@ -38,10 +38,10 @@ PersistentVolumes 和 PersistentVolumeClaims 独立于 Pod 生命周期而存在
 
 {{< warning >}}
 <!--
-This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress) to deploy WordPress in production.
+This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/bitnami/charts/tree/master/bitnami/wordpress) to deploy WordPress in production.
 -->
 这种部署并不适合生产场景，因为它使用的是单实例 WordPress 和 MySQL Pod。
-在生产场景中，请考虑使用 [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress)
+在生产场景中，请考虑使用 [WordPress Helm Chart](https://github.com/bitnami/charts/tree/master/bitnami/wordpress)
 部署 WordPress。
 {{< /warning >}}
 

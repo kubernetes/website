@@ -203,7 +203,7 @@ webhooks:
 You must replace the `<CA_BUNDLE>` in the above example by a valid CA bundle
 which is a PEM-encoded CA bundle for validating the webhook's server certificate.
 -->
-你必须在以上示例中将 `<CA_BUNDLE>` 替换为一个有效的 VA 证书包，
+你必须在以上示例中将 `<CA_BUNDLE>` 替换为一个有效的 CA 证书包，
 这是一个用 PEM 编码的 CA 证书包，用于校验 Webhook 的服务器证书。
 {{< /note >}}
 
