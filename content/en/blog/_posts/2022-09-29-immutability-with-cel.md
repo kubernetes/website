@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Enforce CRD Immutability with CEL Transition Rules"
-date: 2022-08-15
+date: 2022-09-29
 slug: enforce-immutability-using-cel
 ---
 
