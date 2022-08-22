@@ -146,7 +146,7 @@ You should set the `.spec.os.name` field to either `windows` or `linux` to indic
 which you want the pod to run. These two are the only operating systems supported for now by 
 Kubernetes. In future, this list may be expanded.
 
-In Kubernetes v{{ skew currentVersion}}, the value you set for this field has no
+In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
 effect on {{< glossary_tooltip text="scheduling" term_id="kube-scheduler" >}} of the pods.
 Setting the `.spec.os.name` helps to identify the pod OS
 authoratitively and is used for validation. The kubelet refuses to run a Pod where you have
