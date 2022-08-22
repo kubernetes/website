@@ -36,6 +36,9 @@ other = " documentation is no longer actively maintained. The version you are cu
 [deprecation_file_warning]
 other = "Deprecated"
 
+[dockershim_message]
+other = """Dockershim has been removed from the Kubernetes project as of release 1.24. Read the <a href="/dockershim">Dockershim Removal FAQ</a> for further details."""
+
 [docs_label_browse]
 other = "Browse Docs"
 
@@ -69,6 +72,9 @@ other = "Were you looking for:"
 [examples_heading]
 other = "Examples"
 
+[feature_state]
+other = "FEATURE STATE:"
+
 [feedback_heading]
 other = "Feedback"
 
@@ -86,6 +92,9 @@ other = ","
 
 [input_placeholder_email_address]
 other = "email address"
+
+[javascript_required]
+other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
 
 [latest_release]
 other = "Latest Release:"
@@ -189,6 +198,10 @@ other = "Read about"
 [main_read_more]
 other = "Read more"
 
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "n/a"
+
 [note]
 other = "Note:"
 
@@ -198,6 +211,9 @@ other = "Objectives"
 [options_heading]
 other = "Options"
 
+[outdated_blog__message]
+other = "This article is more than one year old. Older articles may contain outdated content. Check that the information in the page has not become incorrect since its publication."
+
 [post_create_issue]
 other = "Create an issue"
 
@@ -206,6 +222,17 @@ other = "Before you begin"
 
 [previous_patches]
 other = "Patch Releases:"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(released: "
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "2006-01-02"
 
 [seealso_heading]
 other = "See Also"
@@ -217,7 +244,17 @@ other = "Subscribe"
 other = "Synopsis"
 
 [thirdparty_message]
-other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects. This page follows <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> by listing projects alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change."""
+other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""
+
+[thirdparty_message_edit_disclaimer]
+other="""Third party content advice"""
+
+
+[thirdparty_message_single_item]
+other = """&#128711; This item links to a third party project or product that is not part of Kubernetes itself. <a class="alert-more-info" href="#third-party-content-disclaimer">More information</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>Items on this page refer to third party products or projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. See the <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> for more details.</p><p>You should read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before proposing a change that adds an extra third-party link.</p>"""
 
 [ui_search_placeholder]
 other = "Search"

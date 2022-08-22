@@ -35,7 +35,7 @@ AppArmorを利用すれば、コンテナに許可することを制限したり
    gke-test-default-pool-239f5d02-xwux: v1.4.0
    ```
 
-2. AppArmorカーネルモジュールが有効であること。LinuxカーネルがAppArmorプロファイルを強制するためには、AppArmorカーネルモジュールのインストールと有効化が必須です。UbuntuやSUSEなどのディストリビューションではデフォルトで有効化されますが、他の多くのディストリビューションでのサポートはオプションです。モジュールが有効になっているかチェックするには、次のように`/sys/module/apparmor/parameters/enabled`ファイルを確認します。
+2. AppArmorカーネルモジュールが有効であること。LinuxカーネルがAppArmorプロファイルを強制するためには、AppArmorカーネルモジュールのインストールと有効化が必須です。UbuntuやSUSEなどのディストリビューションではデフォルトで有効化されますが、他の多くのディストリビューションでのサポートはオプションです。モジュールが有効になっているかチェックするには、次のように`/sys/module/apparmor/parameters/enabled`ファイルを確認します。
 
    ```shell
    cat /sys/module/apparmor/parameters/enabled
@@ -183,7 +183,7 @@ kubectl get events | grep hello-apparmor
 コンテナがこのプロファイルで実際に実行されていることを確認するために、コンテナのproc attrをチェックします。
 
 ```shell
-kubectl exec hello-apparmor cat /proc/1/attr/current
+kubectl exec hello-apparmor -- cat /proc/1/attr/current
 ```
 ```
 k8s-apparmor-example-deny-write (enforce)
@@ -192,7 +192,7 @@ k8s-apparmor-example-deny-write (enforce)
 最後に、ファイルへの書き込みを行おうとすることで、プロファイルに違反すると何が起こるか見てみましょう。
 
 ```shell
-kubectl exec hello-apparmor touch /tmp/test
+kubectl exec hello-apparmor touch -- /tmp/test
 ```
 ```
 touch: /tmp/test: Permission denied

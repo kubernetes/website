@@ -144,10 +144,9 @@ ways to address it.
 - Specifically add an iptables rule to drop the packets that are marked as
   *INVALID*, so it won’t reach to client pod and cause harm.
 
-The fix is drafted (https://github.com/kubernetes/kubernetes/pull/74840), but
-unfortunately it didn’t catch the v1.14 release window. However, for the users
-that are affected by this bug, there is a way to mitigate the problem by applying
-the following rule in your cluster.
+The [fix](https://github.com/kubernetes/kubernetes/pull/74840) is available in v1.15+.
+However, for the users that are affected by this bug, there is a way to mitigate the
+problem by applying the following rule in your cluster.
 
 ```yaml
 apiVersion: extensions/v1beta1

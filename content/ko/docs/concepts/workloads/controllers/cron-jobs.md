@@ -26,6 +26,16 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 크론잡 컨트롤러가 사용하는 시간대로 결정한다.
 {{< /caution >}}
 
+{{< caution >}}
+[v1 CronJob API](/docs/reference/kubernetes-api/workload-resources/cron-job-v1/)은 
+위에서 설명한 타임존 설정을 공식적으로 지원하지는 않는다.
+
+`CRON_TZ` 또는 `TZ` 와 같은 변수를 설정하는 것은 쿠버네티스 프로젝트에서 공식적으로 지원하지는 않는다.
+`CRON_TZ` 또는 `TZ` 와 같은 변수를 설정하는 것은 
+크론탭을 파싱하고 다음 잡 생성 시간을 계산하는 내부 라이브러리의 구현 상세사항이다.
+프로덕션 클러스터에서는 사용을 권장하지 않는다.
+{{< /caution >}}
+
 크론잡 리소스에 대한 매니페스트를 생성할 때에는 제공하는 이름이
 유효한 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 이름은 52자 이하여야 한다. 이는 크론잡 컨트롤러는 제공된 잡 이름에
@@ -36,9 +46,10 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 
 ## 크론잡
 
-크론잡은 백업 실행 또는 이메일 전송과 같은 정기적이고 반복적인
-작업을 만드는데 유용하다. 또한 크론잡은 클러스터가 유휴 상태일 때 잡을
-스케줄링하는 것과 같이 특정 시간 동안의 개별 작업을 스케줄할 수 있다.
+크론잡은 백업, 리포트 생성 등의 정기적 작업을 수행하기 위해 사용된다. 
+각 작업은 무기한 반복되도록 구성해야 한다(예: 
+1일/1주/1달마다 1회). 
+작업을 시작해야 하는 해당 간격 내 특정 시점을 정의할 수 있다.
 
 ### 예시
 
@@ -58,7 +69,7 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 # │ │ │ ┌───────────── 월 (1 - 12)
 # │ │ │ │ ┌───────────── 요일 (0 - 6) (일요일부터 토요일까지;
 # │ │ │ │ │                                   특정 시스템에서는 7도 일요일)
-# │ │ │ │ │
+# │ │ │ │ │                                   또는 sun, mon, tue, wed, thu, fri, sat
 # │ │ │ │ │
 # * * * * *
 ```
@@ -73,11 +84,27 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 | @hourly 									| 매시 0분에 시작                          								       | 0 * * * * 		|
 
 
+
 예를 들면, 다음은 해당 작업이 매주 금요일 자정에 시작되어야 하고, 매월 13일 자정에도 시작되어야 한다는 뜻이다.
 
 `0 0 13 * 5`
 
 크론잡 스케줄 표현을 생성하기 위해서 [crontab.guru](https://crontab.guru/)와 같은 웹 도구를 사용할 수도 있다.
+
+## 타임 존
+크론잡에 타임 존이 명시되어 있지 않으면, kube-controller-manager는 로컬 타임 존을 기준으로 스케줄을 해석한다.
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+`CronJobTimeZone` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화하면, 
+크론잡에 대해 타임 존을 명시할 수 있다(기능 게이트를 활성화하지 않거나, 
+타임 존에 대한 실험적 지원을 제공하지 않는 쿠버네티스 버전을 사용 중인 경우, 
+클러스터의 모든 크론잡은 타임 존이 명시되지 않은 것으로 동작한다).
+
+이 기능을 활성화하면, `spec.timeZone`을 유효한 [타임 존](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) 이름으로 지정할 수 있다. 
+예를 들어, `spec.timeZone: "Etc/UTC"`와 같이 설정하면 쿠버네티스는 협정 세계시를 기준으로 스케줄을 해석한다.
+
+Go 표준 라이브러리의 타임 존 데이터베이스가 바이너리로 인클루드되며, 시스템에서 외부 데이터베이스를 사용할 수 없을 때 폴백(fallback)으로 사용된다.
 
 ## 크론잡의 한계 {#cron-job-limitations}
 
@@ -131,8 +158,16 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 
 ## {{% heading "whatsnext" %}}
 
-[크론 표현 포맷](https://ko.wikipedia.org/wiki/Cron)은
-크론잡 `schedule` 필드의 포맷을 문서화 한다.
-
-크론잡 생성과 작업에 대한 지침과 크론잡 매니페스트의
-예는 [크론잡으로 자동화된 작업 실행하기](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)를 참조한다.
+* 크론잡이 의존하고 있는 [파드](/ko/docs/concepts/workloads/pods/)와
+  [잡](/ko/docs/concepts/workloads/controllers/job/) 두 개념에
+  대해 배운다.
+* 크론잡 `.spec.schedule` 필드의 [형식](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)에
+  대해서 읽는다.
+* 크론잡을 생성하고 다루기 위한 지침 및
+  크론잡 매니페스트의 예제로
+  [크론잡으로 자동화된 작업 실행](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)를 읽는다.
+* 실패했거나 완료된 잡을 자동으로 정리하도록 하려면, 
+  [완료된 잡을 자동으로 정리](/ko/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)를 확인한다.
+* `CronJob`은 쿠버네티스 REST API의 일부이다.
+  {{< api-reference page="workload-resources/cron-job-v1" >}}
+  오브젝트 정의를 읽고 쿠버네티스 크론잡 API에 대해 이해한다.

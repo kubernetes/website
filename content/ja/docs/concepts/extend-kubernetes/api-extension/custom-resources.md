@@ -118,7 +118,7 @@ CRDオブジェクトの名前は[DNSサブドメイン名](/ja/docs/concepts/ov
 
 通常、Kubernetes APIの各リソースは、RESTリクエストとオブジェクトの永続的なストレージを管理するためのコードが必要です。メインのKubernetes APIサーバーは *Pod* や *Service* のようなビルトインのリソースを処理し、またカスタムリソースも[CRD](#customresourcedefinition)を通じて同じように管理することができます。
 
-[アグリゲーションレイヤー](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)は、独自のスタンドアローンAPIサーバーを書き、デプロイすることで、カスタムリソースに特化した実装の提供を可能にします。メインのAPIサーバーが、処理したいカスタムリソースへのリクエストを委譲することで、他のクライアントからも利用できるようにします。
+[アグリゲーションレイヤー](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)は、独自のAPIサーバーを書き、デプロイすることで、カスタムリソースに特化した実装の提供を可能にします。メインのAPIサーバーが、処理したいカスタムリソースへのリクエストを独自のAPIサーバーに委譲することで、他のクライアントからも利用できるようにします。
 
 ## カスタムリソースの追加方法を選択する
 

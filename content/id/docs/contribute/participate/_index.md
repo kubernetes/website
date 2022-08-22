@@ -71,8 +71,8 @@ dua buah [prow _plugin_](https://github.com/kubernetes/test-infra/tree/master/pr
 - approve
 
 Kedua _plugin_ menggunakan berkas
-[OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) dan
-[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS_ALIASES)
+[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) dan
+[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
 dalam level teratas dari repositori GitHub `kubernetes/website` untuk mengontrol
 bagaimana prow bekerja di dalam repositori.
 

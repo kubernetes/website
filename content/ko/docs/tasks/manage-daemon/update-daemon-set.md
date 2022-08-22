@@ -11,6 +11,8 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
+{{< include "task-tutorial-prereqs.md" >}}
+
 <!-- steps -->
 
 ## 데몬셋 업데이트 전략
@@ -32,10 +34,12 @@ weight: 10
 데몬셋의 롤링 업데이트 기능을 사용하려면,
 `.spec.updateStrategy.type` 에 `RollingUpdate` 를 설정해야 한다.
 
-[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/ko/docs/concepts/workloads/controllers/deployment/#최대-불가max-unavailable)
-(기본값은 1)과
-[`.spec.minReadySeconds`](/ko/docs/concepts/workloads/controllers/deployment/#최소-대기-시간초)
-(기본값은 0)으로 
+[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
+(기본값은 1),
+[`.spec.minReadySeconds`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
+(기본값은 0),
+[`.spec.updateStrategy.rollingUpdate.maxSurge`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
+(베타 기능, 기본값은 0)를 
 설정할 수도 있다.
 
 ### `RollingUpdate` 업데이트 전략으로 데몬셋 생성
@@ -143,7 +147,7 @@ daemonset "fluentd-elasticsearch" successfully rolled out
 #### 일부 노드에 리소스가 부족하다
 
 적어도 하나의 노드에서 새 데몬셋 파드를 스케줄링할 수 없어서 롤아웃이
-중단되었다. 노드에 [리소스가 부족](/docs/concepts/scheduling-eviction/node-pressure-eviction/)할 때
+중단되었다. 노드에 [리소스가 부족](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)할 때
 발생할 수 있다.
 
 이 경우, `kubectl get nodes` 의 출력 결과와 다음의 출력 결과를 비교하여

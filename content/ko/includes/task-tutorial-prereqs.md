@@ -4,5 +4,5 @@
 [minikube](/ko/docs/tasks/tools/#minikube)를 사용해서 생성하거나
 다음의 쿠버네티스 플레이그라운드 중 하나를 사용할 수 있다.
 
-* [Katacoda](https://www.katacoda.com/courses/kubernetes/playground)
+* [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
 * [Play with Kubernetes](https://labs.play-with-k8s.com/)

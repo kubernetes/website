@@ -100,7 +100,7 @@ Kubernetesのビルトインのdockershim CRIは、ランタイムハンドラ�
 正しいハンドラーは、その`runtime`セクションで設定されます。
 
 ```
-[plugins.cri.containerd.runtimes.${HANDLER_NAME}]
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
 containerdの設定に関する詳細なドキュメントは下記を参照してください。  

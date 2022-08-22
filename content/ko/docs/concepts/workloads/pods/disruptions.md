@@ -31,7 +31,7 @@ weight: 60
 - 클라우드 공급자 또는 하이퍼바이저의 오류로 인한 VM 장애
 - 커널 패닉
 - 클러스터 네트워크 파티션의 발생으로 클러스터에서 노드가 사라짐
-- 노드의 [리소스 부족](/docs/concepts/scheduling-eviction/node-pressure-eviction/)으로 파드가 축출됨
+- 노드의 [리소스 부족](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)으로 파드가 축출됨
 
 리소스 부족을 제외한 나머지 조건은 대부분의 사용자가 익숙할 것이다.
 왜냐하면
@@ -71,7 +71,7 @@ weight: 60
 
 - 파드가 필요로 하는 [리소스를 요청](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)하는지 확인한다.
 - 고가용성이 필요한 경우 애플리케이션을 복제한다.
-  (복제된 [스테이트리스](/docs/tasks/run-application/run-stateless-application-deployment/) 및
+  (복제된 [스테이트리스](/ko/docs/tasks/run-application/run-stateless-application-deployment/) 및
   [스테이트풀](/docs/tasks/run-application/run-replicated-stateful-application/) 애플리케이션에 대해 알아보기.)
 - 복제된 애플리케이션의 구동 시 훨씬 더 높은 가용성을 위해 랙 전체
   ([안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#파드간-어피니티와-안티-어피니티) 이용)
@@ -128,8 +128,8 @@ Eviction API는 한 번에 1개(2개의 파드가 아닌)의 파드의 자발적
 기반으로 계산한다. 컨트롤 플레인은 파드의 `.metadata.ownerReferences` 를 검사하여
 소유하는 워크로드 리소스를 발견한다.
 
-PDB는 [비자발적 중단](#자발적-중단과-비자발적-중단)이 발생하는 것을 막을 수는 없지만,
-버짓이 차감된다.
+[비자발적 중단](#자발적-중단과-비자발적-중단)은 PDB로는 막을 수 없지만, 
+버짓은 차감된다.
 
 애플리케이션의 롤링 업그레이드로 파드가 삭제되거나 사용할 수 없는 경우 중단 버짓에 영향을 준다.
 그러나 워크로드 리소스(디플로이먼트, 스테이트풀셋과 같은)는

@@ -1,0 +1,78 @@
+---
+title: adidas Case Study
+linkTitle: adidas
+case_study_styles: true
+cid: caseStudies
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/adidas/banner1.png
+heading_title_text: adidas
+use_gradient_overlay: true
+subheading: >
+  Staying True to Its Culture, adidas Got 40% of Its Most Impactful Systems Running on Kubernetes in a Year
+case_study_details:
+  - Company: adidas
+  - Location: Herzogenaurach, Germany
+  - Industry: Fashion
+---
+
+<h2>Challenge</h2>
+
+<p>In recent years, the adidas team was happy with its software choices from a technology perspective—but accessing all of the tools was a problem. For instance, "just to get a developer VM, you had to send a request form, give the purpose, give the title of the project, who's responsible, give the internal cost center a call so that they can do recharges," says Daniel Eichten, Senior Director of Platform Engineering. "The best case is you got your machine in half an hour. Worst case is half a week or sometimes even a week."</p>
+
+<h2>Solution</h2>
+
+<p>To improve the process, "we started from the developer point of view," and looked for ways to shorten the time it took to get a project up and running and into the adidas infrastructure, says Senior Director of Platform Engineering Fernando Cornago. They found the solution with containerization, agile development, continuous delivery, and a cloud native platform that includes Kubernetes and Prometheus.</p>
+
+<h2>Impact</h2>
+
+<p>Just six months after the project began, 100% of the adidas e-commerce site was running on Kubernetes. Load time for the e-commerce site was reduced by half. Releases went from every 4-6 weeks to 3-4 times a day. With 4,000 pods, 200 nodes, and 80,000 builds per month, adidas is now running 40% of its most critical, impactful systems on its cloud native platform.</p>
+
+{{< case-studies/quote 
+  image="/images/case-studies/adidas/banner2.png"
+  author="FERNANDO CORNAGO, SENIOR DIRECTOR OF PLATFORM ENGINEERING AT ADIDAS"
+>}}
+"For me, Kubernetes is a platform made by engineers for engineers. It's relieving the development team from tasks that they don't want to do, but at the same time giving the visibility of what is behind the curtain, so they can also control it."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+In recent years, the adidas team was happy with its software choices from a technology perspective—but accessing all of the tools was a problem.
+{{< /case-studies/lead >}}
+
+<p>For engineers at adidas, says Daniel Eichten, Senior Director of Platform Engineering, "it felt like being an artist with your hands tied behind your back, and you're supposed to paint something."</p>
+
+<p>For instance, "just to get a developer VM, you had to send a request form, give the purpose, give the title of the project, who's responsible, give the internal cost center a call so that they can do recharges," says Eichten. "Eventually, after a ton of approvals, then the provisioning of the machine happened within minutes, and then the best case is you got your machine in half an hour. Worst case is half a week or sometimes even a week."</p>
+
+<p>To improve the process, "we started from the developer point of view," and looked for ways to shorten the time it took to get a project up and running and into the adidas infrastructure, says Senior Director of Platform Engineering Fernando Cornago.</p>
+
+{{< case-studies/quote author="DANIEL EICHTEN, SENIOR DIRECTOR OF PLATFORM ENGINEERING AT ADIDAS" >}}
+"I call our cloud native platform the field of dreams. We built it, and we never anticipated that people would come and just love it."
+{{< /case-studies/quote >}}
+
+<p>"We were engineers before," adds Eichten. "We know what a typical engineer needs, is craving for, what he or she doesn't want to take care of. For us it was pretty clear. We filled the gaps that no one wants to take care of, and we make the stuff that is usually painful as painless as possible." The goals: to improve speed, operability, and observability.</p>
+
+<p>Cornago and Eichten found the solution with containerization, agile development, continuous delivery, and a cloud native platform that includes Kubernetes and Prometheus. "Choosing Kubernetes was pretty clear," says Eichten. "Day zero, deciding, easy. Day one, installing, configuring, easy. Day two, keeping it up and running even with small workloads, if something goes wrong, you don't know how these things work in detail, you're lost. For day two problems, we needed a partner who's helping us."</p>
+
+<p>In early 2017, adidas chose Giant Swarm to consult, install, configure, and run all of its Kubernetes clusters in AWS and on premise. "There is no competitive edge over our competitors like Puma or Nike in running and operating a Kubernetes cluster," says Eichten. "Our competitive edge is that we teach our internal engineers how to build cool e-comm stores that are fast, that are resilient, that are running perfectly."</p>
+
+{{< case-studies/quote 
+  image="/images/case-studies/adidas/banner3.png"
+  author="DANIEL EICHTEN, SENIOR DIRECTOR OF PLATFORM ENGINEERING AT ADIDAS"
+>}}
+"There is no competitive edge over our competitors like Puma or Nike in running and operating a Kubernetes cluster. Our competitive edge is that we teach our internal engineers how to build cool e-comm stores that are fast, that are resilient, that are running perfectly."
+{{< /case-studies/quote >}}
+
+<p>Adds Cornago: "For me, our Kubernetes platform is made by engineers for engineers. It's relieving the development team from tasks that they don't want to do, but at the same time giving the visibility of what is behind the curtain, so they can also control it."</p>
+
+<p>Case in point: For Cyber Week, the team has to create a lot of custom metrics. In November 2017, "because we used the same Prometheus that we use for monitoring the cluster, we really filled the Prometheus database, and we were not able to reduce the retention period [enough]," says Cornago. So during the freeze period before the peak shopping week, five engineers from the platform team worked with five engineers from the e-comm team to figure out a federated solution that was implemented in two days.</p>
+
+<p>In addition to being ready for Cyber Week—100% of the adidas e-commerce site was running on Kubernetes then, just six months after the project began—the cloud native stack has had other impressive results. Load time for the e-commerce site was reduced by half. Releases went from every 4-6 weeks to 3-4 times a day. With 4,000 pods, 200 nodes, and 80,000 builds per month, adidas is now running 40% of its most critical, impactful systems on its cloud native platform.</p>
+
+<p>And adoption has spread quickly among adidas's 300-strong engineering corps. "I call our cloud native platform the field of dreams," says Eichten. "We built it, and we never anticipated that people would come and just love it."</p>
+
+<p>For one thing, "everybody who can touch a line of code" has spent one full week onboarding and learning the platform with members of the 35-person platform engineering team, says Cornago. "We try to spend 50% of our time sitting with the teams, because this is the only way to understand how our platform is being used. And this is how the teams will feel safe that there is someone on the other side of the wall, also feeling the pain."</p>
+
+<p>Additionally, Cornago and Eichten took advantage of the fact that as a fashion athletic wear brand, adidas has sports and competition in its DNA. "Top-down mandates don't work at adidas, but gamification works," says Cornago. "So this year we had a DevOps Cup competition. Every team created new technical capabilities and had a hypothesis of how this affected business value. We announced the winner at a big internal tech summit with more than 600 people. It's been really, really useful for the teams."</p>
+
+<p>So if they had any advice for other companies looking to start a cloud native journey, it would be this: "There is no one-size-fits-all for all companies," says Cornago. "Apply your company's culture to everything that you do."</p>

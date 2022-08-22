@@ -10,9 +10,9 @@ card:
 
 <!-- overview -->
 
-<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">이 페이지에서는 `kubeadm` 툴박스를 설치하는 방법을 보여준다.
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
+이 페이지에서는 `kubeadm` 툴박스 설치 방법을 보여준다.
 이 설치 프로세스를 수행한 후 kubeadm으로 클러스터를 만드는 방법에 대한 자세한 내용은 [kubeadm을 사용하여 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 페이지를 참고한다.
-
 
 
 ## {{% heading "prerequisites" %}}
@@ -31,6 +31,7 @@ card:
 <!-- steps -->
 
 ## MAC 주소 및 product_uuid가 모든 노드에 대해 고유한지 확인 {#verify-mac-address}
+
 * 사용자는 `ip link` 또는 `ifconfig -a` 명령을 사용하여 네트워크 인터페이스의 MAC 주소를 확인할 수 있다.
 * product_uuid는 `sudo cat /sys/class/dmi/id/product_uuid` 명령을 사용하여 확인할 수 있다.
 
@@ -65,80 +66,70 @@ sudo sysctl --system
 자세한 내용은 [네트워크 플러그인 요구 사항](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#네트워크-플러그인-요구-사항) 페이지를 참고한다.
 
 ## 필수 포트 확인 {#check-required-ports}
+[필수 포트들](/ko/docs/reference/ports-and-protocols/)은
+쿠버네티스 컴포넌트들이 서로 통신하기 위해서 열려 있어야
+한다. 다음과 같이 netcat과 같은 도구를 이용하여 포트가 열려 있는지 확인해 볼 수 있다.
 
-### 컨트롤 플레인 노드
-
-| 프로토콜   | 방향       | 포트 범위    | 목적                      | 사용자                     |
-|----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | 인바운드    | 6443\*      | 쿠버네티스 API 서버         | 모두                       |
-| TCP      | 인바운드    | 2379-2380  | etcd 서버 클라이언트 API    | kube-apiserver, etcd      |
-| TCP      | 인바운드    | 10250      | kubelet API             | 자체, 컨트롤 플레인          |
-| TCP      | 인바운드    | 10251      | kube-scheduler          | 자체                      |
-| TCP      | 인바운드    | 10252      | kube-controller-manager | 자체                      |
-
-### 워커 노드
-
-| 프로토콜   | 방향       | 포트 범위      | 목적                   | 사용자                   |
-|----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | 인바운드    | 10250       | kubelet API           | 자체, 컨트롤 플레인        |
-| TCP      | 인바운드    | 30000-32767 | NodePort 서비스†        | 모두                     |
-
-† [NodePort 서비스](/ko/docs/concepts/services-networking/service/)의 기본 포트 범위.
-
-*로 표시된 모든 포트 번호는 재정의할 수 있으므로, 사용자 지정 포트도
-열려 있는지 확인해야 한다.
-
-etcd 포트가 컨트롤 플레인 노드에 포함되어 있지만, 외부 또는 사용자 지정 포트에서
-자체 etcd 클러스터를 호스팅할 수도 있다.
+```shell
+nc 127.0.0.1 6443
+```
 
 사용자가 사용하는 파드 네트워크 플러그인(아래 참조)은 특정 포트를 열어야 할 수도
 있다. 이것은 각 파드 네트워크 플러그인마다 다르므로, 필요한 포트에 대한
 플러그인 문서를 참고한다.
 
-## 런타임 설치 {#installing-runtime}
+## 컨테이너 런타임 설치 {#installing-runtime}
 
 파드에서 컨테이너를 실행하기 위해, 쿠버네티스는
 {{< glossary_tooltip term_id="container-runtime" text="컨테이너 런타임" >}}을 사용한다.
-
-{{< tabs name="container_runtime" >}}
-{{% tab name="리눅스 노드" %}}
 
 기본적으로, 쿠버네티스는
 {{< glossary_tooltip term_id="cri" text="컨테이너 런타임 인터페이스">}}(CRI)를
 사용하여 사용자가 선택한 컨테이너 런타임과 인터페이스한다.
 
-런타임을 지정하지 않으면, kubeadm은 잘 알려진 유닉스 도메인 소켓 목록을 검색하여
+런타임을 지정하지 않으면, kubeadm은 잘 알려진 엔드포인트를 스캐닝하여 
 설치된 컨테이너 런타임을 자동으로 감지하려고 한다.
-다음 표에는 컨테이너 런타임 및 관련 소켓 경로가 나열되어 있다.
 
-{{< table caption = "컨테이너 런타임과 소켓 경로" >}}
-| 런타임       | 유닉스 도메인 소켓 경로                |
-|------------|-----------------------------------|
-| 도커        | `/var/run/dockershim.sock`            |
-| containerd | `/run/containerd/containerd.sock` |
-| CRI-O      | `/var/run/crio/crio.sock`         |
+컨테이너 런타임이 여러 개 감지되거나 하나도 감지되지 않은 경우, 
+kubeadm은 에러를 반환하고 사용자가 어떤 것을 사용할지를 명시하도록 요청할 것이다.
+
+더 많은 정보는 
+[컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/)을 참고한다.
+
+{{< note >}}
+도커 엔진은 컨테이너 런타임이 쿠버네티스와 호환되기 위한 요구 사항인 
+[CRI](/ko/docs/concepts/architecture/cri/)를 만족하지 않는다. 
+이러한 이유로, 추가 서비스인 [cri-dockerd](https://github.com/Mirantis/cri-dockerd)가 설치되어야 한다. 
+cri-dockerd는 쿠버네티스 버전 1.24부터 kubelet에서 [제거](/dockershim/)된 
+기존 내장 도커 엔진 지원을 기반으로 한 프로젝트이다.
+{{< /note >}}
+
+아래 표는 지원 운영 체제에 대한 알려진 엔드포인트를 담고 있다.
+
+{{< tabs name="container_runtime" >}}
+{{% tab name="리눅스" %}}
+
+{{< table >}}
+| 런타임                            | 유닉스 도메인 소켓 경로                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `unix:///var/run/containerd/containerd.sock` |
+| CRI-O                              | `unix:///var/run/crio/crio.sock`             |
+| 도커 엔진 (cri-dockerd 사용)  | `unix:///var/run/cri-dockerd.sock`           |
 {{< /table >}}
 
-<br />
-도커와 containerd가 모두 감지되면 도커가 우선시된다. 이것이 필요한 이유는 도커 18.09에서
-도커만 설치한 경우에도 containerd와 함께 제공되므로 둘 다 감지될 수 있기
-때문이다.
-다른 두 개 이상의 런타임이 감지되면, kubeadm은 오류와 함께 종료된다.
-
-kubelet은 빌트인 `dockershim` CRI 구현을 통해 도커와 통합된다.
-
-자세한 내용은 [컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/)을
-참고한다.
 {{% /tab %}}
-{{% tab name="다른 운영 체제" %}}
-기본적으로, kubeadm은 컨테이너 런타임으로 {{< glossary_tooltip term_id="docker" >}}를 사용한다.
-kubelet은 빌트인 `dockershim` CRI 구현을 통해 도커와 통합된다.
 
-자세한 내용은 [컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/)을
-참고한다.
+{{% tab name="윈도우" %}}
+
+{{< table >}}
+| 런타임                            | 윈도우 네임드 파이프(named pipe) 경로                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `npipe:////./pipe/containerd-containerd`     |
+| 도커 엔진 (cri-dockerd 사용)  | `npipe:////./pipe/cri-dockerd`               |
+{{< /table >}}
+
 {{% /tab %}}
 {{< /tabs >}}
-
 
 ## kubeadm, kubelet 및 kubectl 설치
 
@@ -233,14 +224,19 @@ sudo systemctl enable --now kubelet
 
   - 구성 방법을 알고 있는 경우 SELinux를 활성화된 상태로 둘 수 있지만 kubeadm에서 지원하지 않는 설정이 필요할 수 있다.
 
+  - 사용 중인 레드햇 배포판이 `basearch`를 해석하지 못하여 `baseurl`이 실패하면, `\$basearch`를 당신의 컴퓨터의 아키텍처로 치환한다.
+    `uname -m` 명령을 실행하여 해당 값을 확인한다.
+    예를 들어, `x86_64`에 대한 `baseurl` URL은 `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64` 이다.
+
 {{% /tab %}}
 {{% tab name="패키지 매니저를 사용하지 않는 경우" %}}
 CNI 플러그인 설치(대부분의 파드 네트워크에 필요)
 
 ```bash
 CNI_VERSION="v0.8.2"
+ARCH="amd64"
 sudo mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
 ```
 
 명령어 파일을 다운로드할 디렉터리 정의
@@ -258,16 +254,18 @@ sudo mkdir -p $DOWNLOAD_DIR
 crictl 설치(kubeadm / Kubelet 컨테이너 런타임 인터페이스(CRI)에 필요)
 
 ```bash
-CRICTL_VERSION="v1.17.0"
-curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
+CRICTL_VERSION="v1.22.0"
+ARCH="amd64"
+curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
 `kubeadm`, `kubelet`, `kubectl` 설치 및 `kubelet` systemd 서비스 추가
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 sudo chmod +x {kubeadm,kubelet,kubectl}
 
 RELEASE_VERSION="v0.4.0"

@@ -7,7 +7,7 @@ $announcement-size-adjustment: 8px;
   }
 
   main {
-    img {
+    *:not(figure) > img {
       max-width: 100%;
     }
 
@@ -26,6 +26,10 @@ $announcement-size-adjustment: 8px;
   }
 }
 
+.header-hero #quickstartButton.button {
+  margin-top: 1em;
+}
+
 section {
   .main-section {
     @media only screen and (min-width: 1024px) {
@@ -34,8 +38,11 @@ section {
   }
 }
 
-.td-outer {
-  padding: 0 !important;
+body {
+  header + .td-outer {
+    min-height: 50vh;
+    height: auto;
+  }
 }
 
 
@@ -215,8 +222,14 @@ footer {
   padding: 1rem !important;
   min-height: initial !important;
 
-  .footer__links {
-    width: 100%;
+  > div, > p {
+    max-width: 95%;
+    @media only screen and (min-width: 768px) {
+      max-width: calc(min(80rem,90vw)); // avoid spreading too wide
+    }
+  }
+
+  > .footer__links {
     margin: auto;
     padding-bottom: 1rem;
 
@@ -226,6 +239,8 @@ footer {
     }
 
     @media only screen and (min-width: 768px) {
+      max-width: calc(min(60rem,90vw)); // avoid spreading too wide
+
       nav {
         display: flex;
         flex-direction: row;
@@ -298,6 +313,12 @@ footer {
   padding-top: 1.5rem !important;
   top: 5rem !important;
 
+  @supports (position: sticky) {
+    position: sticky !important;
+    height: calc(100vh - 10rem);
+    overflow-y: auto;
+  }
+
   #TableOfContents {
     padding-top: 1rem;
   }
@@ -308,50 +329,100 @@ main {
   .td-content>table td {
     word-break: break-word;
   }
+
+  table.no-word-break td,
+  table.no-word-break code {
+    word-break: normal;
+  }
 }
 
 
 // blockquotes and callouts
 
-.td-content, body {
-  blockquote.callout {
+body {
+  .alert {
+    // Override Docsy styles
     padding: 0.4rem 0.4rem 0.4rem 1rem;
-    border: 1px solid #eee;
-    border-left-width: 0.5em;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-radius: 0.25em;
+    border-left-width: 0.5em; // fallback in case calc() is missing
     background: #fff;
     color: #000;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
   }
-  blockquote.callout {
-    border-radius: calc(1em/3);
+  // Set minimum width and radius for alert color
+  .alert {
+      border-left-width: calc(max(0.5em, 4px));
+      border-top-left-radius: calc(max(0.5em, 4px));
+      border-bottom-left-radius: calc(max(0.5em, 4px));
   }
-  .callout.caution {
+  .alert.callout.caution {
     border-left-color: #f0ad4e;
   }
-
-  .callout.note {
+  .alert.callout.note {
     border-left-color: #428bca;
   }
-
-  .callout.warning {
+  .alert.callout.warning {
     border-left-color: #d9534f;
   }
+  .alert.third-party-content {
+    border-left-color: #444;
+  }
 
-  h1:first-of-type + blockquote.callout {
+  h1:first-of-type + .alert.callout {
     margin-top: 1.5em;
   }
 }
 
-.deprecation-warning {
-    padding: 20px;
-    margin: 20px 0;
+// Special color for third party content disclaimers
+.alert.third-party-content { border-left-color: #222 };
+
+// Highlight disclaimer when targeted as a fragment
+
+#third-party-content-disclaimer {
+  color: #000;
+  background: #f8f9fa;
+  transition: all 0.5s ease;
+}
+
+@keyframes disclaimer-highlight {
+  from { background: #f8f922; color: #000; }
+  50% { background: #f8f944; color: #000; }
+  to { background: #f8f9cb; color: #000; }
+}
+
+#third-party-content-disclaimer:target {
+  color: #000;
+  animation: disclaimer-highlight 1.25s ease;
+  background: #f8f9cb;
+}
+
+.deprecation-warning, .pageinfo.deprecation-warning {
+    padding: clamp(10px, 2vmin, 20px);
+    margin: clamp(10px, 1vh, 20px) 0;
     background-color: #faf5b6;
     color: #000;
 }
 
+.deprecation-warning.outdated-blog, .pageinfo.deprecation-warning.outdated-blog {
+    background-color: $blue;
+    color: $white;
+}
+
 body.td-home .deprecation-warning, body.td-blog .deprecation-warning, body.td-documentation .deprecation-warning {
     border-radius: 3px;
+}
+
+.deprecation-warning p:only-child {
+  margin-bottom: 0;
+}
+
+.td-documentation .td-content > .highlight {
+  max-width: initial;
+  width: 100%;
 }
 
 body.td-home #deprecation-warning {
@@ -495,7 +566,8 @@ main.content {
   }
 }
 
-/* COMMUNITY */
+/* COMMUNITY legacy styles */
+/* Leave these in place until localizations are caught up */
 
 .newcommunitywrapper {
   .news {
@@ -524,34 +596,6 @@ main.content {
   }
 }
 
-/* ANNOUNCEMENTS */
-section#fp-announcement ~ .header-hero {
-    padding: $announcement-size-adjustment  0;
-
-    > div {
-       margin-top: $announcement-size-adjustment;
-       margin-bottom: $announcement-size-adjustment;
-    }
-
-    h1, h2, h3, h4, h5 {
-      margin: $announcement-size-adjustment 0;
-    }
-}
-
-section#announcement ~ .header-hero {
-    padding: #{$announcement-size-adjustment / 2} 0;
-
-    > div {
-       margin-top: #{$announcement-size-adjustment / 2};
-       margin-bottom: #{$announcement-size-adjustment / 2};
-       padding-bottom: #{$announcement-size-adjustment / 2};
-    }
-
-    h1, h2, h3, h4, h5 {
-      margin: #{$announcement-size-adjustment / 2} 0;
-    }
-}
-
 /* DOCUMENTATION */
 
 /* Don't show lead text */
@@ -577,61 +621,138 @@ body.td-documentation {
 
 @media print {
   /* Do not print announcements */
-  #announcement, section#announcement, #fp-announcement, section#fp-announcement {
+  #announcement {
     display: none;
   }
 }
 
-#announcement, #fp-announcement {
+#announcement {
   > * {
     color: inherit;
-    background: inherit;
+    background: transparent;
   }
 
   a {
     color: inherit;
-    border-bottom: 1px solid #fff;
+    text-decoration: underline;
   }
 
   a:hover {
     color: inherit;
-    border-bottom: none;
+    text-decoration: initial;
   }
-}
-
-#announcement {
-  padding-top: 105px;
-  padding-bottom: 25px;
 }
 
 .header-hero {
   padding-top: 40px;
 }
 
-/* Extra announcement height only for landscape viewports */
-@media (min-aspect-ratio: 8/9) {
-  #fp-announcement {
-    min-height: 25vh;
-  }
-}
+#announcement {
+  // default background is blue; overrides are possible
+  color: #fff;
 
-#fp-announcement aside {
-  padding-top: 115px;
-  padding-bottom: 25px;
-}
-
-.announcement {
-  .content {
+  .announcement-main {
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 0px;
+
+    // for padding-top see _size.scss
+    padding-bottom: calc(max(2em, 2rem));
+
+    max-width: calc(min(1200px - 8em, 80vw));
   }
 
 
-  > p {
-    .gridPage #announcement .content p,
-    .announcement > h4,
-    .announcement > h3 {
-      color: #ffffff;
+  h1, h2, h3, h4, h5, h6, p * {
+    color: inherit; /* defaults to white */
+    background: transparent;
+
+    img.event-logo {
+      display: inline-block;
+      max-height: calc(min(80px, 8em));
+      max-width: calc(min(240px, 33vw));
+      float: right;
     }
+  }
+}
+
+#announcement + .header-hero {
+  padding-top: 2em;
+}
+
+// Extra padding for anything except wide viewports
+@media (min-width: 992px) {
+  #announcement aside { // more specific
+    .announcement-main {
+      padding-top: calc(max(8em, 8rem));
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #announcement {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    .announcement-main, aside .announcement-main {
+      padding-top: calc(min(2rem,2em));
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  #announcement {
+    padding-bottom: 0.5em;
+  }
+  #announcement aside {
+    h1, h2, h3, h4, h5, h6 {
+      img.event-logo {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0.75em;
+        display: block;
+        max-height: initial;
+        max-width: calc(min(calc(100vw - 2em), 240px));
+        float: initial;
+      }
+    }
+  }
+}
+
+#announcement + .header-hero.filler {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  #announcement + .header-hero {
+    display: none;
+  }
+}
+
+figure {
+  > figcaption {
+    padding-top: 1em;
+    margin-bottom: 3em;
+  }
+}
+
+// Clamp size for release logos
+figure.release-logo {
+  > figcaption {
+    font-size: 1.8em;
+  }
+  > img {
+    max-width: 100%;
+    max-height: calc(max(40em,min(80vh,70em)));
+    height: auto;
+    width: auto;
+  }
+}
+
+
+// Match Docsy-imposed max width on text body
+@media (min-width: 1200px) {
+  body.td-blog main .td-content > figure {
+    max-width: 80%;
   }
 }
 
@@ -641,4 +762,94 @@ body.td-documentation {
     color: inherit !important;
     font-size: inherit !important;
   }
+}
+
+/* Force size constraints on figures */
+figure {
+  &.diagram-small img {
+    max-height: clamp(20mm,12em,80vh);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  &.diagram-medium img {
+    max-height: clamp(25mm,20em,80vh);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  &.diagram-large img {
+    max-width: clamp(0vw, 95vw, 100%);
+    max-height: calc(80vh - 8rem);
+  }
+
+  figure + noscript > *{
+    max-width: calc(max(100%, 100vw));
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  figure {
+    &.diagram-small, &.diagram-medium {
+      max-width: 80%;
+    }
+    &.diagram-large {
+      max-width: 100%;
+      width: 100%;
+    }
+    &.diagram-small img {
+      max-width: clamp(30rem, 45ch, 100mm);
+    }
+    &.diagram-medium img {
+      max-width: clamp(50rem, 20ch, 160mm);
+    }
+    &.diagram-large img {
+      max-width: clamp(25vw, 95vw, 100%);
+      max-height: calc(100vh - 10rem);
+    }
+  }
+  figure + noscript > * {
+    max-width: 80%;
+  }
+}
+
+// Indent definition lists
+dl {
+  padding-left: 1.5em;
+
+  // Add vertical space before definitions
+  > *:not(dt) + dt, dt:first-child {
+    margin-top: 1.5em;
+  }
+}
+
+.release-details {
+  padding-left: 2em;
+
+  > :not(p) {
+    font-size: 1.125em;
+  }
+
+  .release-inline-heading, .release-inline-value {
+    display: inline-block
+  }
+
+  .release-inline-value {
+    padding-left: 0.25em;
+  }
+
+  p {
+     margin-top: 1em;
+     margin-bottom: 1em;
+  }
+}
+
+.no-js .mermaid {
+  display: none;
+}
+
+div.alert > em.javascript-required {
+  display: inline-block;
+  min-height: 1.5em;
+  margin: calc(max(4em, ( 8vh + 4em ) / 2)) 0 0.25em 0;
 }

@@ -55,7 +55,7 @@ exists. If that Pod is deleted for any reason, and even if an identical replacem
 is created, the related thing (a volume, in this example) is also destroyed and
 created anew.
 
-{{< figure src="/images/docs/pod.svg" title="Pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" title="Pod diagram" class="diagram-medium" >}}
 
 *A multi-container Pod that contains a file puller and a
 web server that uses a persistent volume for shared storage between the containers.*
@@ -136,7 +136,7 @@ completion or failed for some reason. When you use `kubectl` to query a Pod with
 a container that is `Terminated`, you see a reason, an exit code, and the start and
 finish time for that container's period of execution.
 
-If a container has a `preStop` hook configured, that runs before the container enters
+If a container has a `preStop` hook configured, this hook runs before the container enters
 the `Terminated` state.
 
 ## Container restart policy {#restart-policy}
@@ -159,7 +159,7 @@ through which the Pod has or has not passed:
 * `PodScheduled`: the Pod has been scheduled to a node.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
-  have started successfully.
+  have completed successfully.
 * `Ready`: the Pod is able to serve requests and should be added to the load
   balancing pools of all matching Services.
 
@@ -229,61 +229,91 @@ when both the following statements apply:
 * All conditions specified in `readinessGates` are `True`.
 
 When a Pod's containers are Ready but at least one custom condition is missing or
-`False`, the kubelet sets the Pod's [condition](#pod-condition) to `ContainersReady`.
+`False`, the kubelet sets the Pod's [condition](#pod-conditions) to `ContainersReady`.
 
 ## Container probes
 
-A [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) is a diagnostic
+A _probe_ is a diagnostic
 performed periodically by the
 [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
-on a Container. To perform a diagnostic,
-the kubelet calls a
-[Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core) implemented by
-the container. There are three types of handlers:
+on a container. To perform a diagnostic,
+the kubelet either executes code within the container, or makes
+a network request.
 
-* [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core):
-  Executes a specified command inside the container. The diagnostic
+### Check mechanisms {#probe-check-methods}
+
+There are four different ways to check a container using a probe.
+Each probe must define exactly one of these four mechanisms:
+
+`exec`
+: Executes a specified command inside the container. The diagnostic
   is considered successful if the command exits with a status code of 0.
 
-* [TCPSocketAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#tcpsocketaction-v1-core):
-  Performs a TCP check against the Pod's IP address on
-  a specified port. The diagnostic is considered successful if the port is open.
+`grpc`
+: Performs a remote procedure call using [gRPC](https://grpc.io/).
+  The target should implement
+  [gRPC health checks](https://grpc.io/grpc/core/md_doc_health-checking.html).
+  The diagnostic is considered successful if the `status`
+  of the response is `SERVING`.  
+  gRPC probes are an alpha feature and are only available if you
+  enable the `GRPCContainerProbe`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
-* [HTTPGetAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core):
-  Performs an HTTP `GET` request against the Pod's IP
-  address on a specified port and path. The diagnostic is considered successful
-  if the response has a status code greater than or equal to 200 and less than 400.
+`httpGet`
+: Performs an HTTP `GET` request against the Pod's IP
+  address on a specified port and path. The diagnostic is
+  considered successful if the response has a status code
+  greater than or equal to 200 and less than 400.
+
+`tcpSocket`
+: Performs a TCP check against the Pod's IP address on
+  a specified port. The diagnostic is considered successful if
+  the port is open. If the remote system (the container) closes
+  the connection immediately after it opens, this counts as healthy.
+
+### Probe outcome
 
 Each probe has one of three results:
 
-* `Success`: The container passed the diagnostic.
-* `Failure`: The container failed the diagnostic.
-* `Unknown`: The diagnostic failed, so no action should be taken.
+`Success`
+: The container passed the diagnostic.
+
+`Failure`
+: The container failed the diagnostic.
+
+`Unknown`
+: The diagnostic failed (no action should be taken, and the kubelet
+  will make further checks).
+
+### Types of probe
 
 The kubelet can optionally perform and react to three kinds of probes on running
 containers:
 
-* `livenessProbe`: Indicates whether the container is running. If
-   the liveness probe fails, the kubelet kills the container, and the container
-   is subjected to its [restart policy](#restart-policy). If a Container does not
-   provide a liveness probe, the default state is `Success`.
+`livenessProbe`
+: Indicates whether the container is running. If
+  the liveness probe fails, the kubelet kills the container, and the container
+  is subjected to its [restart policy](#restart-policy). If a container does not
+  provide a liveness probe, the default state is `Success`.
 
-* `readinessProbe`: Indicates whether the container is ready to respond to requests.
-   If the readiness probe fails, the endpoints controller removes the Pod's IP
-   address from the endpoints of all Services that match the Pod. The default
-   state of readiness before the initial delay is `Failure`. If a Container does
-   not provide a readiness probe, the default state is `Success`.
+`readinessProbe`
+: Indicates whether the container is ready to respond to requests.
+  If the readiness probe fails, the endpoints controller removes the Pod's IP
+  address from the endpoints of all Services that match the Pod. The default
+  state of readiness before the initial delay is `Failure`. If a container does
+  not provide a readiness probe, the default state is `Success`.
 
-* `startupProbe`: Indicates whether the application within the container is started.
-   All other probes are disabled if a startup probe is provided, until it succeeds.
-   If the startup probe fails, the kubelet kills the container, and the container
-   is subjected to its [restart policy](#restart-policy). If a Container does not
-   provide a startup probe, the default state is `Success`.
+`startupProbe`
+: Indicates whether the application within the container is started.
+  All other probes are disabled if a startup probe is provided, until it succeeds.
+  If the startup probe fails, the kubelet kills the container, and the container
+ is subjected to its [restart policy](#restart-policy). If a container does not
+  provide a startup probe, the default state is `Success`.
 
 For more information about how to set up a liveness, readiness, or startup probe,
 see [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
-### When should you use a liveness probe?
+#### When should you use a liveness probe?
 
 {{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
@@ -295,7 +325,7 @@ with the Pod's `restartPolicy`.
 If you'd like your container to be killed and restarted if a probe fails, then
 specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
 
-### When should you use a readiness probe?
+#### When should you use a readiness probe?
 
 {{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
@@ -329,7 +359,7 @@ The Pod remains in the unready state while it waits for the containers in the Po
 to stop.
 {{< /note >}}
 
-### When should you use a startup probe?
+#### When should you use a startup probe?
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -451,13 +481,13 @@ This avoids a resource leak as Pods are created and terminated over time.
 ## {{% heading "whatsnext" %}}
 
 * Get hands-on experience
-  [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
+  [attaching handlers to container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Get hands-on experience
   [configuring Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 * Learn more about [container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 
-* For detailed information about Pod / Container status in the API, see [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
-and
-[ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
+* For detailed information about Pod and container status in the API, see
+  the API reference documentation covering
+  [`.status`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodStatus) for Pod.

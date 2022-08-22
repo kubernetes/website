@@ -151,6 +151,3 @@ kubeadm join phase control-plane-prepare all [api-server-endpoint] [flags]
 
 </tbody>
 </table>
-
-
-

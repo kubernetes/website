@@ -263,7 +263,7 @@ perlu memastikan bahwa tidak ada dua FlowSchema yang memiliki `matchingPrecedenc
 
 Sebuah FlowSchema dianggap cocok dengan sebuah permintaan yang diberikan jika setidaknya salah satu dari `rules` nya
 ada yang cocok. Sebuah aturan (_rule_) cocok jika setidaknya satu dari `subject` *dan*
-ada salah satu dari `resourceRules` atau` nonResourceRules` (tergantung dari apakah permintaan 
+ada salah satu dari `resourceRules` atau `nonResourceRules` (tergantung dari apakah permintaan 
 yang masuk adalah untuk URL sumber daya atau non-sumber daya) yang cocok dengan permintaan tersebut.
 
 Untuk bagian `name` dalam subjek, dan bagian `verbs`, `apiGroups`, `resources`,

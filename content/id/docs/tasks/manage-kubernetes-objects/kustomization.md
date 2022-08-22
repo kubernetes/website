@@ -80,10 +80,10 @@ Isinya seperti di bawah ini:
 apiVersion: v1
 data:
   application.properties: |
-    FOO=Bar
+    FOO: Bar
 kind: ConfigMap
 metadata:
-  name: example-configmap-1-8mbdf7882g
+  name: example-configmap-1-42cfbf598f
 ```
 
 ConfigMap juga dapat dibangkitkan dari pasangan _key-value_ literal. Untuk membangkitkan secara literal, tambahkan entri pada daftar `literals` di `configMapGenerator`.

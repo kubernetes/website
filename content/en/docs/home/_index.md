@@ -60,7 +60,7 @@ cards:
   title: K8s Release Notes
   description: If you are installing Kubernetes or upgrading to the newest version, refer to the current release notes.
   button: "Download Kubernetes"
-  button_path: "/docs/setup/release/notes"
+  button_path: "/releases/download"
 - name: about
   title: About the documentation
   description: This website contains documentation for the current and previous 4 versions of Kubernetes.

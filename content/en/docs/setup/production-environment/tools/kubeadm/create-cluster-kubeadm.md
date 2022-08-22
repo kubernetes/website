@@ -11,7 +11,7 @@ weight: 30
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 Using `kubeadm`, you can create a minimum viable Kubernetes cluster that conforms to best practices.
 In fact, you can use `kubeadm` to set up a cluster that will pass the
-[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).
+[Kubernetes Conformance tests](/blog/2017/10/software-conformance-certification/).
 `kubeadm` also supports other cluster lifecycle functions, such as
 [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and cluster upgrades.
 
@@ -70,18 +70,34 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 
 ## Instructions
 
-### Installing kubeadm on your hosts
+### Preparing the hosts
 
-See ["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+Install a {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}} and kubeadm on all the hosts.
+For detailed instructions and other prerequisites, see [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 {{< note >}}
-If you have already installed kubeadm, run `apt-get update &&
-apt-get upgrade` or `yum update` to get the latest version of kubeadm.
+If you have already installed kubeadm, run
+`apt-get update && apt-get upgrade` or
+`yum update` to get the latest version of kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal.
 After you initialize your control-plane, the kubelet runs normally.
 {{< /note >}}
+
+### Preparing the required container images
+
+This step is optional and only applies in case you wish `kubeadm init` and `kubeadm join`
+to not download the default container images which are hosted at `k8s.gcr.io`.
+
+Kubeadm has commands that can help you pre-pull the required images
+when creating a cluster without an internet connection on its nodes.
+See [Running kubeadm without an internet connection](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection)
+for more details.
+
+Kubeadm allows you to use a custom image repository for the required images.
+See [Using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
+for more details.
 
 ### Initializing your control-plane node
 
@@ -98,18 +114,15 @@ for all control-plane nodes. Such an endpoint can be either a DNS name or an IP 
 be passed to `kubeadm init`. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
 a provider-specific value. See [Installing a Pod network add-on](#pod-network).
-1. (Optional) Since version 1.14, `kubeadm` tries to detect the container runtime on Linux
-by using a list of well known domain socket paths. To use different container runtime or
-if there are more than one installed on the provisioned node, specify the `--cri-socket`
-argument to `kubeadm init`. See
+1. (Optional) `kubeadm` tries to detect the container runtime by using a list of well
+known endpoints. To use different container runtime or if there are more than one installed
+on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
 [Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, `kubeadm` uses the network interface associated
 with the default gateway to set the advertise address for this particular control-plane node's API server.
 To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
-1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
-connectivity to the gcr.io container image registry.
 
 To initialize the control-plane node run:
 
@@ -150,6 +163,9 @@ To configure `kubeadm init` with a configuration file see
 To customize control plane components, including optional IPv6 assignment to liveness probe
 for control plane components and etcd server, provide extra arguments to each component as documented in
 [custom arguments](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/).
+
+To reconfigure a cluster that has already been created see
+[Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
 
 To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
 
@@ -199,7 +215,8 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 Kubeadm signs the certificate in the `admin.conf` to have `Subject: O = system:masters, CN = kubernetes-admin`.
 `system:masters` is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
 Do not share the `admin.conf` file with anyone and instead grant users custom permissions by generating
-them a kubeconfig file using the `kubeadm kubeconfig user` command.
+them a kubeconfig file using the `kubeadm kubeconfig user` command. For more details see
+[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 {{< /warning >}}
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
@@ -272,27 +289,40 @@ If your network is not working or CoreDNS is not in the `Running` state, check o
 [troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)
 for `kubeadm`.
 
+### Managed node labels
+
+By default, kubeadm enables the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
+admission controller that restricts what labels can be self-applied by kubelets on node registration.
+The admission controller documentation covers what labels are permitted to be used with the kubelet `--node-labels` option.
+The `node-role.kubernetes.io/control-plane` label is such a restricted label and kubeadm manually applies it using
+a privileged client after a node has been created. To do that manually you can do the same by using `kubectl label`
+and ensure it is using a privileged kubeconfig such as the kubeadm managed `/etc/kubernetes/admin.conf`.
+
 ### Control plane node isolation
 
-By default, your cluster will not schedule Pods on the control-plane node for security
-reasons. If you want to be able to schedule Pods on the control-plane node, for example for a
-single-machine Kubernetes cluster for development, run:
+By default, your cluster will not schedule Pods on the control plane nodes for security
+reasons. If you want to be able to schedule Pods on the control plane nodes,
+for example for a single machine Kubernetes cluster, run:
 
 ```bash
-kubectl taint nodes --all node-role.kubernetes.io/master-
+kubectl taint nodes --all node-role.kubernetes.io/control-plane- node-role.kubernetes.io/master-
 ```
 
-With output looking something like:
+The output will look something like:
 
 ```
 node "test-01" untainted
-taint "node-role.kubernetes.io/master:" not found
-taint "node-role.kubernetes.io/master:" not found
+...
 ```
 
-This will remove the `node-role.kubernetes.io/master` taint from any nodes that
-have it, including the control-plane node, meaning that the scheduler will then be able
+This will remove the `node-role.kubernetes.io/control-plane` and
+`node-role.kubernetes.io/master` taints from any nodes that have them,
+including the control plane nodes, meaning that the scheduler will then be able
 to schedule Pods everywhere.
+
+{{< note >}}
+The `node-role.kubernetes.io/master` taint is deprecated and kubeadm will stop using it in version 1.25.
+{{< /note >}}
 
 ### Joining your nodes {#join-nodes}
 
@@ -337,7 +367,8 @@ The output is similar to this:
 5didvk.d09sbcov8ph2amjw
 ```
 
-If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the control-plane node:
+If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the
+following command chain on the control-plane node:
 
 ```bash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
@@ -371,6 +402,12 @@ Run 'kubectl get nodes' on control-plane to see this machine join.
 
 A few seconds later, you should notice this node in the output from `kubectl get
 nodes` when run on the control-plane node.
+
+{{< note >}}
+As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run
+on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods
+with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
+{{< /note >}}
 
 ### (Optional) Controlling your cluster from machines other than the control-plane node
 
@@ -472,8 +509,8 @@ options.
 * Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
 * <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
   for details about upgrading your cluster using `kubeadm`.
-* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm)
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/overview/).
+* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/)
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
 * See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
   of Pod network add-ons.
 * <a id="other-addons" />See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to
@@ -497,15 +534,56 @@ options.
 
 ## Version skew policy {#version-skew-policy}
 
-The `kubeadm` tool of version v{{< skew latestVersion >}} may deploy clusters with a control plane of version v{{< skew latestVersion >}} or v{{< skew prevMinorVersion >}}.
-`kubeadm` v{{< skew latestVersion >}} can also upgrade an existing kubeadm-created cluster of version v{{< skew prevMinorVersion >}}.
+While kubeadm allows version skew against some components that it manages, it is recommended that you
+match the kubeadm version with the versions of the control plane components, kube-proxy and kubelet.
 
-Due to that we can't see into the future, kubeadm CLI v{{< skew latestVersion >}} may or may not be able to deploy v{{< skew nextMinorVersion >}} clusters.
+### kubeadm's skew against the Kubernetes version
 
-These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
+kubeadm can be used with Kubernetes components that are the same version as kubeadm
+or one version older. The Kubernetes version can be specified to kubeadm by using the
+`--kubernetes-version` flag of `kubeadm init` or the
+[`ClusterConfiguration.kubernetesVersion`](/docs/reference/config-api/kubeadm-config.v1beta3/)
+field when using `--config`. This option will control the versions
+of kube-apiserver, kube-controller-manager, kube-scheduler and kube-proxy.
 
-* Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
-* Kubeadm-specific [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+Example:
+* kubeadm is at {{< skew currentVersion >}}
+* `kubernetesVersion` must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
+
+### kubeadm's skew against the kubelet
+
+Similarly to the Kubernetes version, kubeadm can be used with a kubelet version that is the same
+version as kubeadm or one version older.
+
+Example:
+* kubeadm is at {{< skew currentVersion >}}
+* kubelet on the host must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
+
+### kubeadm's skew against kubeadm
+
+There are certain limitations on how kubeadm commands can operate on existing nodes or whole clusters
+managed by kubeadm.
+
+If new nodes are joined to the cluster, the kubeadm binary used for `kubeadm join` must match
+the last version of kubeadm used to either create the cluster with `kubeadm init` or to upgrade
+the same node with `kubeadm upgrade`. Similar rules apply to the rest of the kubeadm commands
+with the exception of `kubeadm upgrade`.
+
+Example for `kubeadm join`:
+* kubeadm version {{< skew currentVersion >}} was used to create a cluster with `kubeadm init`
+* Joining nodes must use a kubeadm binary that is at version {{< skew currentVersion >}}
+
+Nodes that are being upgraded must use a version of kubeadm that is the same MINOR
+version or one MINOR version newer than the version of kubeadm used for managing the
+node.
+
+Example for `kubeadm upgrade`:
+* kubeadm version {{< skew currentVersionAddMinor -1 >}} was used to create or upgrade the node
+* The version of kubeadm used for upgrading the node must be at {{< skew currentVersionAddMinor -1 >}}
+or {{< skew currentVersion >}}
+
+To learn more about the version skew between the different Kubernetes component see
+the [Version Skew Policy](/releases/version-skew-policy/).
 
 ## Limitations {#limitations}
 
@@ -528,7 +606,7 @@ Workarounds:
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
 following the [multi-platform
-proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md).
+proposal](https://git.k8s.io/design-proposals-archive/multi-platform.md).
 
 Multiplatform container images for the control plane and addons are also supported since v1.12.
 
@@ -538,4 +616,6 @@ supports your chosen platform.
 
 ## Troubleshooting {#troubleshooting}
 
-If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+If you are running into difficulties with kubeadm, please consult our
+[troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+

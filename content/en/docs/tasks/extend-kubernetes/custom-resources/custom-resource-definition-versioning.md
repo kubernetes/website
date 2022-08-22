@@ -353,6 +353,34 @@ spec:
 {{< /tabs >}}
 
 
+### Version removal
+
+An older API version cannot be dropped from a CustomResourceDefinition manifest until existing persisted data has been migrated to the newer API version for all clusters that served the older version of the custom resource, and the old version is removed from the `status.storedVersions` of the CustomResourceDefinition.
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+  name: crontabs.example.com
+spec:
+  group: example.com
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    # This indicates the v1beta1 version of the custom resource is no longer served.
+    # API requests to this version receive a not found error in the server response.
+    served: false
+    schema: ...
+  - name: v1
+    served: true
+    # The new served version should be set as the storage version
+    storage: true
+    schema: ...
+```
+
 ## Webhook conversion
 
 {{< feature-state state="stable" for_k8s_version="v1.16" >}}
@@ -444,7 +472,7 @@ spec:
     served: true
     # One and only one version must be marked as the storage version.
     storage: true
-    # Each version can define it's own schema when there is no top-level
+    # Each version can define its own schema when there is no top-level
     # schema is defined.
     schema:
       openAPIV3Schema:
@@ -512,7 +540,7 @@ spec:
     served: true
     # One and only one version must be marked as the storage version.
     storage: true
-    # Each version can define it's own schema when there is no top-level
+    # Each version can define its own schema when there is no top-level
     # schema is defined.
     schema:
       openAPIV3Schema:
@@ -1038,8 +1066,8 @@ procedure.
 
 *Option 1:* Use the Storage Version Migrator
 
-1. Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
-2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
+1.  Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
+2.  Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
 
 *Option 2:* Manually upgrade the existing objects to a new stored version
 
@@ -1050,6 +1078,16 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
 2.  Write an upgrade procedure to list all existing objects and write them with
     the same content. This forces the backend to write objects in the current
     storage version, which is `v1`.
-2. Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
+3.  Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 
+{{< note >}}
+The `kubectl` tool currently cannot be used to edit or patch the `status` subresource on a CRD: see the [Kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource) for more details.
 
+The easier way to patch the status subresource from the CLI is directly interacting with the API server using the `curl` tool, in this example:
+```bash
+kubectl proxy &
+curl --header "Content-Type: application/json-patch+json" \
+  --request PATCH http://localhost:8001/apis/apiextensions.k8s.io/v1/customresourcedefinitions/<your CRD name here>/status \
+  --data '[{"op": "replace", "path": "/status/storedVersions", "value":["v1"]}]'
+```
+{{< /note >}}

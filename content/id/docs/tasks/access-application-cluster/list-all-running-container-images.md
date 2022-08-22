@@ -76,7 +76,7 @@ Format dapat dikontrol lebih lanjut dengan menggunakan operasi `range` untuk
 melakukan iterasi untuk setiap elemen secara individual.
 
 ```sh
-kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
 sort
 ```
 
@@ -86,7 +86,7 @@ Untuk menargetkan hanya Pod yang cocok dengan label tertentu saja, gunakan tanda
 dibawah ini akan menghasilkan Pod dengan label yang cocok dengan `app=nginx`.
 
 ```sh
-kubectl get pods --all-namespaces -o=jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
 ```
 
 ## Membuat daftar _image_ Container yang difilter berdasarkan Namespace Pod

@@ -9,7 +9,7 @@ CONTAINER_ENGINE ?= docker
 IMAGE_REGISTRY ?= gcr.io/k8s-staging-sig-docs
 IMAGE_VERSION=$(shell scripts/hash-files.sh Dockerfile Makefile | cut -c 1-12)
 CONTAINER_IMAGE   = $(IMAGE_REGISTRY)/k8s-website-hugo:v$(HUGO_VERSION)-$(IMAGE_VERSION)
-CONTAINER_RUN     = $(CONTAINER_ENGINE) run --rm --interactive --tty --volume $(CURDIR):/src
+CONTAINER_RUN     = "$(CONTAINER_ENGINE)" run --rm --interactive --tty --volume "$(CURDIR):/src"
 
 CCRED=\033[0;31m
 CCEND=\033[0m
@@ -19,23 +19,23 @@ CCEND=\033[0m
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {sub("\\\\n",sprintf("\n%22c"," "), $$2);printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-module-check:
+module-check: ## Check if all of the required submodules are correctly initialized.
 	@git submodule status --recursive | awk '/^[+-]/ {err = 1; printf "\033[31mWARNING\033[0m Submodule not initialized: \033[34m%s\033[0m\n",$$2} END { if (err != 0) print "You need to run \033[32mmake module-init\033[0m to initialize missing modules first"; exit err }' 1>&2
 
-module-init:
+module-init: ## Initialize required submodules.
 	@echo "Initializing submodules..." 1>&2
 	@git submodule update --init --recursive --depth 1
 
 all: build ## Build site with production settings and put deliverables in ./public
 
-build: module-check ## Build site with production settings and put deliverables in ./public
-	hugo --minify
+build: module-check ## Build site with non-production settings and put deliverables in ./public
+	hugo --minify --environment development
 
 build-preview: module-check ## Build site with drafts and future posts enabled
-	hugo --buildDrafts --buildFuture
+	hugo --buildDrafts --buildFuture --environment preview
 
 deploy-preview: ## Deploy preview site via netlify
-	hugo --enableGitInfo --buildFuture -b $(DEPLOY_PRIME_URL)
+	hugo --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
@@ -43,13 +43,15 @@ functions-build:
 check-headers-file:
 	scripts/check-headers-file.sh
 
-production-build: build check-headers-file ## Build the production site and ensure that noindex headers aren't added
+production-build: module-check ## Build the production site and ensure that noindex headers aren't added
+	hugo --minify --environment production
+	HUGO_ENV=production $(MAKE) check-headers-file
 
-non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
-	hugo --enableGitInfo
+non-production-build: module-check ## Build the non-production site, which adds noindex headers to prevent indexing
+	hugo --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
-	hugo server --buildFuture
+	hugo server --buildFuture --environment development
 
 docker-image:
 	@echo -e "$(CCRED)**** The use of docker-image is deprecated. Use container-image instead. ****$(CCEND)"
@@ -69,11 +71,15 @@ container-image: ## Build a container image for the preview of the website
 		--tag $(CONTAINER_IMAGE) \
 		--build-arg HUGO_VERSION=$(HUGO_VERSION)
 
-container-build: module-check
-	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify"
+container-push: container-image ## Push container image for the preview of the website
+	$(CONTAINER_ENGINE) push $(CONTAINER_IMAGE)
 
-container-serve: module-check ## Boot the development server using container. Run `make container-image` before this.
-	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir
+container-build: module-check
+	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development"
+
+# no build lock to allow for read-only mounts
+container-serve: module-check ## Boot the development server using container.
+	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir --noBuildLock
 
 test-examples:
 	scripts/test_examples.sh install
@@ -88,8 +94,8 @@ docker-internal-linkcheck:
 	$(MAKE) container-internal-linkcheck
 
 container-internal-linkcheck: link-checker-image-pull
-	$(CONTAINER_RUN) $(CONTAINER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture
-	$(CONTAINER_ENGINE) run --mount type=bind,source=$(CURDIR),target=/test --rm wjdp/htmltest htmltest
+	$(CONTAINER_RUN) $(CONTAINER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture --environment test
+	$(CONTAINER_ENGINE) run --mount "type=bind,source=$(CURDIR),target=/test" --rm wjdp/htmltest htmltest
 
 clean-api-reference: ## Clean all directories in API reference directory, preserve _index.md
 	rm -rf content/en/docs/reference/kubernetes-api/*/

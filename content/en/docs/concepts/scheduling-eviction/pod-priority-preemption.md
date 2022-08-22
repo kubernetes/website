@@ -104,9 +104,9 @@ description: "This priority class should be used for XYZ service pods only."
 
 ## Non-preempting PriorityClass {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-Pods with `PreemptionPolicy: Never` will be placed in the scheduling queue
+Pods with `preemptionPolicy: Never` will be placed in the scheduling queue
 ahead of lower-priority pods,
 but they cannot preempt other pods.
 A non-preempting pod waiting to be scheduled will stay in the scheduling queue,
@@ -122,16 +122,16 @@ allowing other pods with lower priority to be scheduled before them.
 Non-preempting pods may still be preempted by other,
 high-priority pods.
 
-`PreemptionPolicy` defaults to `PreemptLowerPriority`,
+`preemptionPolicy` defaults to `PreemptLowerPriority`,
 which will allow pods of that PriorityClass to preempt lower-priority pods
 (as is existing default behavior).
-If `PreemptionPolicy` is set to `Never`,
+If `preemptionPolicy` is set to `Never`,
 pods in that PriorityClass will be non-preempting.
 
 An example use case is for data science workloads.
 A user may submit a job that they want to be prioritized above other workloads,
 but do not wish to discard existing work by preempting running pods.
-The high priority job with `PreemptionPolicy: Never` will be scheduled
+The high priority job with `preemptionPolicy: Never` will be scheduled
 ahead of other queued pods,
 as soon as sufficient cluster resources "naturally" become free.
 
@@ -203,9 +203,10 @@ resources reserved for Pod P and also gives users information about preemptions
 in their clusters.
 
 Please note that Pod P is not necessarily scheduled to the "nominated Node".
+The scheduler always tries the "nominated Node" before iterating over any other nodes.
 After victim Pods are preempted, they get their graceful termination period. If
 another node becomes available while scheduler is waiting for the victim Pods to
-terminate, scheduler will use the other node to schedule Pod P. As a result
+terminate, scheduler may use the other node to schedule Pod P. As a result
 `nominatedNodeName` and `nodeName` of Pod spec are not always the same. Also, if
 scheduler preempts Pods on Node N, but then a higher priority Pod than Pod P
 arrives, scheduler may give Node N to the new higher priority Pod. In such a

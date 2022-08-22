@@ -89,6 +89,8 @@ A StatefulSetSpec is the specification of a StatefulSet.
   - **updateStrategy.type** (string)
 
     Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+    
+    
 
   - **updateStrategy.rollingUpdate** (RollingUpdateStatefulSetStrategy)
 
@@ -97,13 +99,22 @@ A StatefulSetSpec is the specification of a StatefulSet.
     <a name="RollingUpdateStatefulSetStrategy"></a>
     *RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.*
 
+    - **updateStrategy.rollingUpdate.maxUnavailable** (IntOrString)
+
+      The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
+
+      <a name="IntOrString"></a>
+      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+
     - **updateStrategy.rollingUpdate.partition** (int32)
 
-      Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
+      Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
 
 - **podManagementPolicy** (string)
 
   podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+  
+  
 
 - **revisionHistoryLimit** (int32)
 
@@ -116,6 +127,21 @@ A StatefulSetSpec is the specification of a StatefulSet.
 - **minReadySeconds** (int32)
 
   Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+
+- **persistentVolumeClaimRetentionPolicy** (StatefulSetPersistentVolumeClaimRetentionPolicy)
+
+  persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
+
+  <a name="StatefulSetPersistentVolumeClaimRetentionPolicy"></a>
+  *StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.*
+
+  - **persistentVolumeClaimRetentionPolicy.whenDeleted** (string)
+
+    WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
+
+  - **persistentVolumeClaimRetentionPolicy.whenScaled** (string)
+
+    WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
 
 
 
@@ -133,7 +159,7 @@ StatefulSetStatus represents the current state of a StatefulSet.
 
 - **readyReplicas** (int32)
 
-  readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+  readyReplicas is the number of pods created for this StatefulSet with a Ready Condition.
 
 - **currentReplicas** (int32)
 
@@ -145,7 +171,7 @@ StatefulSetStatus represents the current state of a StatefulSet.
 
 - **availableReplicas** (int32)
 
-  Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
+  Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
 
 - **collisionCount** (int32)
 
@@ -470,6 +496,11 @@ POST /apis/apps/v1/namespaces/{namespace}/statefulsets
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -522,6 +553,11 @@ PUT /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -572,6 +608,11 @@ PUT /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -620,6 +661,11 @@ PATCH /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean
@@ -675,6 +721,11 @@ PATCH /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/status
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **force** (*in query*): boolean

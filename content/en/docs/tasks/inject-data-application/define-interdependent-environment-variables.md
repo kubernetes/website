@@ -23,7 +23,7 @@ in a Kubernetes Pod.
 When you create a Pod, you can set dependent environment variables for the containers that run in the Pod. To set dependent environment variables, you can use $(VAR_NAME) in the `value` of `env` in the configuration file.
 
 In this exercise, you create a Pod that runs one container. The configuration
-file for the Pod defines an dependent environment variable with common usage defined. Here is the configuration manifest for the
+file for the Pod defines a dependent environment variable with common usage defined. Here is the configuration manifest for the
 Pod:
 
 {{< codenew file="pods/inject/dependent-envars.yaml" >}}

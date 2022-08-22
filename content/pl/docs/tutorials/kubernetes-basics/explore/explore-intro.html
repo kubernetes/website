@@ -74,11 +74,11 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
                 <h2>Węzły</h2>
-                <p>Pod jest uruchamiany na <b>węźle <em>(Node)</em></b>. Węzeł jest maszyną roboczą, fizyczną lub wirtualną, w zależności od klastra. Każdy z węzłów jest zarządzany przez węzeł główny <em>(Master)</em>. Węzeł może zawierać wiele podów. Kubernetes master automatycznie zleca uruchomienie podów na różnych węzłach w ramach klastra. Automatyczne zlecanie uruchomienia bierze pod uwagę zasoby dostępne na każdym z węzłów.</p>
+                <p>Pod jest uruchamiany na <b>węźle <em>(Node)</em></b>. Węzeł jest maszyną roboczą, fizyczną lub wirtualną, w zależności od klastra. Każdy z węzłów jest zarządzany przez warstwę sterowania <em>(Control Plane)</em>. Węzeł może zawierać wiele podów. Warstwa sterowania Kubernetesa automatycznie zleca uruchomienie podów na różnych węzłach w ramach klastra. Automatyczne zlecanie uruchomienia bierze pod uwagę zasoby dostępne na każdym z węzłów.</p>
 
                 <p>Na każdym węźle Kubernetes działają co najmniej:</p>
                 <ul>
-                    <li>Kubelet, proces odpowiedzialny za komunikację pomiędzy Kubernetes Master i węzłami; zarządza podami i kontenerami działającymi na maszynie.</li>
+                    <li>Kubelet, proces odpowiedzialny za komunikację pomiędzy warstwą sterowania Kubernetesa i węzłami; zarządza podami i kontenerami działającymi na maszynie.</li>
                     <li>Proces wykonawczy kontenera (np. Docker), który zajmuje się pobraniem obrazu dla kontenera z repozytorium, rozpakowaniem kontenera i uruchomieniem aplikacji.</li>
                 </ul>
 

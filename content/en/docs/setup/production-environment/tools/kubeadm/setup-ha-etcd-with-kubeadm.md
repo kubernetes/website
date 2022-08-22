@@ -1,7 +1,7 @@
 ---
 reviewers:
 - sig-cluster-lifecycle
-title: Set up a High Availability etcd cluster with kubeadm
+title: Set up a High Availability etcd Cluster with kubeadm
 content_type: task
 weight: 70
 ---
@@ -16,19 +16,21 @@ or upgrades for such nodes. The long term plan is to empower the tool
 aspects.
 {{< /note >}}
 
-Kubeadm defaults to running a single member etcd cluster in a static pod managed
-by the kubelet on the control plane node. This is not a high availability setup
-as the etcd cluster contains only one member and cannot sustain any members
-becoming unavailable. This task walks through the process of creating a high
-availability etcd cluster of three members that can be used as an external etcd
-when using kubeadm to set up a kubernetes cluster.
+By default, kubeadm runs a local etcd instance on each control plane node.
+It is also possible to treat the etcd cluster as external and provision
+etcd instances on separate hosts. The differences between the two approaches are covered in the
+[Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology) page.
+
+This task walks through the process of creating a high availability external
+etcd cluster of three members that can be used by kubeadm during cluster creation.
 
 ## {{% heading "prerequisites" %}}
 
-* Three hosts that can talk to each other over ports 2379 and 2380. This
+* Three hosts that can talk to each other over TCP ports 2379 and 2380. This
   document assumes these default ports. However, they are configurable through
   the kubeadm config file.
-* Each host must [have docker, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+* Each host must have systemd and a bash compatible shell installed.
+* Each host must [have a container runtime, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 * Each host should have access to the Kubernetes container image registry (`k8s.gcr.io`) or list/pull the required etcd image using
 `kubeadm config images list/pull`. This guide will setup etcd instances as
 [static pods](/docs/tasks/configure-pod-container/static-pod/) managed by a kubelet.
@@ -43,11 +45,16 @@ The general approach is to generate all certs on one node and only distribute
 the *necessary* files to the other nodes.
 
 {{< note >}}
-kubeadm contains all the necessary crytographic machinery to generate
+kubeadm contains all the necessary cryptographic machinery to generate
 the certificates described below; no other cryptographic tooling is required for
 this example.
 {{< /note >}}
 
+{{< note >}}
+The examples below use IPv4 addresses but you can also configure kubeadm, the kubelet and etcd
+to use IPv6 addresses. Dual-stack is supported by some Kubernetes options, but not by etcd. For more details
+on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
+{{< /note >}}
 
 1. Configure the kubelet to be a service manager for etcd.
 
@@ -59,8 +66,9 @@ this example.
     cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
     [Service]
     ExecStart=
-    #  Replace "systemd" with the cgroup driver of your container runtime. The default value in the kubelet is "cgroupfs".
-    ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests --cgroup-driver=systemd
+    # Replace "systemd" with the cgroup driver of your container runtime. The default value in the kubelet is "cgroupfs".
+    # Replace the value of "--container-runtime-endpoint" for a different container runtime if needed.
+    ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests --cgroup-driver=systemd --container-runtime=remote --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock
     Restart=always
     EOF
 
@@ -80,21 +88,34 @@ this example.
     member running on it using the following script.
 
     ```sh
-    # Update HOST0, HOST1, and HOST2 with the IPs or resolvable names of your hosts
+    # Update HOST0, HOST1 and HOST2 with the IPs of your hosts
     export HOST0=10.0.0.6
     export HOST1=10.0.0.7
     export HOST2=10.0.0.8
 
+    # Update NAME0, NAME1 and NAME2 with the hostnames of your hosts
+    export NAME0="infra0"
+    export NAME1="infra1"
+    export NAME2="infra2"
+
     # Create temp directories to store files that will end up on other hosts.
     mkdir -p /tmp/${HOST0}/ /tmp/${HOST1}/ /tmp/${HOST2}/
 
-    ETCDHOSTS=(${HOST0} ${HOST1} ${HOST2})
-    NAMES=("infra0" "infra1" "infra2")
+    HOSTS=(${HOST0} ${HOST1} ${HOST2})
+    NAMES=(${NAME0} ${NAME1} ${NAME2})
 
-    for i in "${!ETCDHOSTS[@]}"; do
-    HOST=${ETCDHOSTS[$i]}
+    for i in "${!HOSTS[@]}"; do
+    HOST=${HOSTS[$i]}
     NAME=${NAMES[$i]}
     cat << EOF > /tmp/${HOST}/kubeadmcfg.yaml
+    ---
+    apiVersion: "kubeadm.k8s.io/v1beta3"
+    kind: InitConfiguration
+    nodeRegistration:
+        name: ${NAME}
+    localAPIEndpoint:
+        advertiseAddress: ${HOST}
+    ---
     apiVersion: "kubeadm.k8s.io/v1beta3"
     kind: ClusterConfiguration
     etcd:
@@ -104,7 +125,7 @@ this example.
             peerCertSANs:
             - "${HOST}"
             extraArgs:
-                initial-cluster: ${NAMES[0]}=https://${ETCDHOSTS[0]}:2380,${NAMES[1]}=https://${ETCDHOSTS[1]}:2380,${NAMES[2]}=https://${ETCDHOSTS[2]}:2380
+                initial-cluster: ${NAMES[0]}=https://${HOSTS[0]}:2380,${NAMES[1]}=https://${HOSTS[1]}:2380,${NAMES[2]}=https://${HOSTS[2]}:2380
                 initial-cluster-state: new
                 name: ${NAME}
                 listen-peer-urls: https://${HOST}:2380
@@ -246,8 +267,8 @@ this example.
 
     ```sh
     root@HOST0 $ kubeadm init phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    root@HOST1 $ kubeadm init phase etcd local --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    root@HOST2 $ kubeadm init phase etcd local --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    root@HOST1 $ kubeadm init phase etcd local --config=$HOME/kubeadmcfg.yaml
+    root@HOST2 $ kubeadm init phase etcd local --config=$HOME/kubeadmcfg.yaml
     ```
 
 1. Optional: Check the cluster health

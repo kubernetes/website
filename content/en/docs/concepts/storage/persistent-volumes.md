@@ -10,14 +10,13 @@ feature:
   title: Storage orchestration
   description: >
     Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
-
 content_type: concept
 weight: 20
 ---
 
 <!-- overview -->
 
-This document describes the current state of _persistent volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
+This document describes _persistent volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 
 <!-- body -->
 
@@ -131,7 +130,9 @@ The `Retain` reclaim policy allows for manual reclamation of the resource. When 
 
 1. Delete the PersistentVolume. The associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume) still exists after the PV is deleted.
 1. Manually clean up the data on the associated storage asset accordingly.
-1. Manually delete the associated storage asset, or if you want to reuse the same storage asset, create a new PersistentVolume with the storage asset definition.
+1. Manually delete the associated storage asset.
+
+If you want to reuse the same storage asset, create a new PersistentVolume with the same storage asset definition.
 
 #### Delete
 
@@ -173,6 +174,74 @@ spec:
 ```
 
 However, the particular path specified in the custom recycler Pod template in the `volumes` part is replaced with the particular path of the volume that is being recycled.
+
+### PersistentVolume deletion protection finalizer
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+Finalizers can be added on a PersistentVolume to ensure that PersistentVolumes
+having `Delete` reclaim policy are deleted only after the backing storage are deleted.
+
+The newly introduced finalizers `kubernetes.io/pv-controller` and `external-provisioner.volume.kubernetes.io/finalizer` 
+are only added to dynamically provisioned volumes.
+
+The finalizer `kubernetes.io/pv-controller` is added to in-tree plugin volumes. The following is an example
+
+```shell
+kubectl describe pv pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Name:            pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Labels:          <none>
+Annotations:     kubernetes.io/createdby: vsphere-volume-dynamic-provisioner
+                 pv.kubernetes.io/bound-by-controller: yes
+                 pv.kubernetes.io/provisioned-by: kubernetes.io/vsphere-volume
+Finalizers:      [kubernetes.io/pv-protection kubernetes.io/pv-controller]
+StorageClass:    vcp-sc
+Status:          Bound
+Claim:           default/vcp-pvc-1
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        1Gi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:               vSphereVolume (a Persistent Disk resource in vSphere)
+    VolumePath:         [vsanDatastore] d49c4a62-166f-ce12-c464-020077ba5d46/kubernetes-dynamic-pvc-74a498d6-3929-47e8-8c02-078c1ece4d78.vmdk
+    FSType:             ext4
+    StoragePolicyName:  vSAN Default Storage Policy
+Events:                 <none>
+```
+
+The finalizer `external-provisioner.volume.kubernetes.io/finalizer` is added for CSI volumes.
+The following is an example:
+```shell
+Name:            pvc-2f0bab97-85a8-4552-8044-eb8be45cf48d
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: csi.vsphere.vmware.com
+Finalizers:      [kubernetes.io/pv-protection external-provisioner.volume.kubernetes.io/finalizer]
+StorageClass:    fast
+Status:          Bound
+Claim:           demo-app/nginx-logs
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        200Mi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:              CSI (a Container Storage Interface (CSI) volume source)
+    Driver:            csi.vsphere.vmware.com
+    FSType:            ext4
+    VolumeHandle:      44830fa8-79b4-406b-8b58-621ba25353fd
+    ReadOnly:          false
+    VolumeAttributes:      storage.kubernetes.io/csiProvisionerIdentity=1648442357185-8081-csi.vsphere.vmware.com
+                           type=vSphere CNS Block Volume
+Events:                <none>
+```
+
+Enabling the `CSIMigration` feature for a specific in-tree volume plugin will remove
+the `kubernetes.io/pv-controller` finalizer, while adding the `external-provisioner.volume.kubernetes.io/finalizer`
+finalizer. Similarly, disabling `CSIMigration` will remove the `external-provisioner.volume.kubernetes.io/finalizer`
+finalizer, while adding the `kubernetes.io/pv-controller` finalizer.
 
 ### Reserving a PersistentVolume
 
@@ -219,19 +288,19 @@ to `Retain`, including cases where you are reusing an existing PV.
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
-Support for expanding PersistentVolumeClaims (PVCs) is now enabled by default. You can expand
+Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You can expand
 the following types of volumes:
 
-* gcePersistentDisk
+* azureDisk
+* azureFile
 * awsElasticBlockStore
-* Cinder
+* cinder (deprecated)
+* {{< glossary_tooltip text="csi" term_id="csi" >}}
+* flexVolume (deprecated)
+* gcePersistentDisk
 * glusterfs
 * rbd
-* Azure File
-* Azure Disk
-* Portworx
-* FlexVolumes
-* {{< glossary_tooltip text="CSI" term_id="csi" >}}
+* portworxVolume
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
@@ -253,6 +322,16 @@ To request a larger volume for a PVC, edit the PVC object and specify a larger
 size. This triggers expansion of the volume that backs the underlying PersistentVolume. A
 new PersistentVolume is never created to satisfy the claim. Instead, an existing volume is resized.
 
+{{< warning >}}
+Directly editing the size of a PersistentVolume can prevent an automatic resize of that volume.
+If you edit the capacity of a PersistentVolume, and then edit the `.spec` of a matching
+PersistentVolumeClaim to make the size of the PersistentVolumeClaim match the PersistentVolume,
+then no storage resize happens.
+The Kubernetes control plane will see that the desired state of both resources matches,
+conclude that the backing volume size has been manually
+increased and that no resize is necessary.
+{{< /warning >}}
+
 #### CSI Volume expansion
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
@@ -268,22 +347,17 @@ When a volume contains a file system, the file system is only resized when a new
 the PersistentVolumeClaim in `ReadWrite` mode. File system expansion is either done when a Pod is starting up
 or when a Pod is running and the underlying file system supports online expansion.
 
-FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to `true`.
-The FlexVolume can be resized on Pod restart.
+FlexVolumes (deprecated since Kubernetes v1.23) allow resize if the driver is configured with the
+`RequiresFSResize` capability to `true`. The FlexVolume can be resized on Pod restart.
 
 #### Resizing an in-use PersistentVolumeClaim
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
-
-{{< note >}}
-Expanding in-use PVCs is available as beta since Kubernetes 1.15, and as alpha since 1.11. The `ExpandInUsePersistentVolumes` feature must be enabled, which is the case automatically for many clusters for beta features. Refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 In this case, you don't need to delete and recreate a Pod or deployment that is using an existing PVC.
 Any in-use PVC automatically becomes available to its Pod as soon as its file system has been expanded.
 This feature has no effect on PVCs that are not in use by a Pod or deployment. You must create a Pod that
 uses the PVC before the expansion can complete.
-
 
 Similar to other volume types - FlexVolume volumes can also be expanded when in-use by a Pod.
 
@@ -297,6 +371,11 @@ Expanding EBS volumes is a time-consuming operation. Also, there is a per-volume
 
 #### Recovering from Failure when Expanding Volumes
 
+If a user specifies a new size that is too big to be satisfied by underlying storage system, expansion of PVC will be continuously retried until user or cluster administrator takes some action. This can be undesirable and hence Kubernetes provides following methods of recovering from such failures.
+
+{{< tabs name="recovery_methods" >}}
+{{% tab name="Manually with Cluster Administrator access" %}}
+
 If expanding underlying storage fails, the cluster administrator can manually recover the Persistent Volume Claim (PVC) state and cancel the resize requests. Otherwise, the resize requests are continuously retried by the controller without administrator intervention.
 
 1. Mark the PersistentVolume(PV) that is bound to the PersistentVolumeClaim(PVC) with `Retain` reclaim policy.
@@ -304,6 +383,30 @@ If expanding underlying storage fails, the cluster administrator can manually re
 3. Delete the `claimRef` entry from PV specs, so as new PVC can bind to it. This should make the PV `Available`.
 4. Re-create the PVC with smaller size than PV and set `volumeName` field of the PVC to the name of the PV. This should bind new PVC to existing PV.
 5. Don't forget to restore the reclaim policy of the PV.
+
+{{% /tab %}}
+{{% tab name="By requesting expansion to smaller size" %}}
+{{% feature-state for_k8s_version="v1.23" state="alpha" %}}
+
+{{< note >}}
+Recovery from failing PVC expansion by users is available as an alpha feature since Kubernetes 1.23. The `RecoverVolumeExpansionFailure` feature must be enabled for this feature to work. Refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+{{< /note >}}
+
+If the feature gates `RecoverVolumeExpansionFailure` is
+enabled in your cluster, and expansion has failed for a PVC, you can retry expansion with a
+smaller size than the previously requested value. To request a new expansion attempt with a
+smaller proposed size, edit `.spec.resources` for that PVC and choose a value that is less than the
+value you previously tried.
+This is useful if expansion to a higher value did not succeed because of capacity constraint.
+If that has happened, or you suspect that it might have, you can retry expansion by specifying a
+size that is within the capacity limits of underlying storage provider. You can monitor status of resize operation by watching `.status.resizeStatus` and events on the PVC.
+
+Note that,
+although you can specify a lower amount of storage than what was requested previously,
+the new value must still be higher than `.status.capacity`.
+Kubernetes does not support shrinking a PVC to less than its current size.
+{{% /tab %}}
+{{% /tabs %}}
 
 
 ## Types of Persistent Volumes
@@ -316,7 +419,6 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
 * [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
-* [`flexVolume`](/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
 * [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
 * [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
@@ -334,6 +436,8 @@ The following types of PersistentVolume are deprecated. This means that support 
 
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
   (**deprecated** in v1.18)
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+  (**deprecated** in v1.23)
 * [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
   (**deprecated** in v1.22)
 * [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
@@ -381,7 +485,7 @@ Helper programs relating to the volume type may be required for consumption of a
 
 ### Capacity
 
-Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) to understand the units expected by `capacity`.
+Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  Read the glossary term [Quantity](/docs/reference/glossary/?all=true#term-quantity) to understand the units expected by `capacity`.
 
 Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
 
@@ -412,11 +516,22 @@ A PersistentVolume can be mounted on a host in any way supported by the resource
 
 The access modes are:
 
-* ReadWriteOnce -- the volume can be mounted as read-write by a single node
-* ReadOnlyMany -- the volume can be mounted read-only by many nodes
-* ReadWriteMany -- the volume can be mounted as read-write by many nodes
-* ReadWriteOncePod -- the volume can be mounted as read-write by a single Pod.
-  This is only supported for CSI volumes and Kubernetes version 1.22+.
+`ReadWriteOnce` 
+: the volume can be mounted as read-write by a single node. ReadWriteOnce access mode still can allow multiple pods to access the volume when the pods are running on the same node.
+
+`ReadOnlyMany`
+: the volume can be mounted as read-only by many nodes.
+
+`ReadWriteMany`
+: the volume can be mounted as read-write by many nodes.
+
+ `ReadWriteOncePod`
+: the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod access mode if you want to ensure that only one pod across whole cluster can read that PVC or write to it. This is only supported for CSI volumes and Kubernetes version 1.22+.
+
+
+
+The blog article [Introducing Single Pod Access Mode for PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/) covers this in more detail.
+ 
 
 In the CLI, the access modes are abbreviated to:
 
@@ -424,6 +539,15 @@ In the CLI, the access modes are abbreviated to:
 * ROX - ReadOnlyMany
 * RWX - ReadWriteMany
 * RWOP - ReadWriteOncePod
+
+{{< note >}}
+Kubernetes uses volume access modes to match PersistentVolumeClaims and PersistentVolumes.
+In some cases, the volume access modes also constrain where the PersistentVolume can be mounted.
+Volume access modes do **not** enforce write protection once the storage has been mounted.
+Even if the access modes are specified as ReadWriteOnce, ReadOnlyMany, or ReadWriteMany, they don't set any constraints on the volume.
+For example, even if a PersistentVolume is created as ReadOnlyMany, it is no guarantee that it will be read-only.
+If the access modes are specified as ReadWriteOncePod, the volume is constrained and can be mounted on only a single Pod.
+{{< /note >}}
 
 > __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
 
@@ -434,7 +558,7 @@ In the CLI, the access modes are abbreviated to:
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | AzureDisk            | &#x2713;               | -                     | -             | -                      |
 | CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| Cinder               | &#x2713;               | -                     | -             | -                      |
+| Cinder               | &#x2713;               | -                     | ([if multi-attach volumes are available](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/features.md#multi-attach-volumes))            | -                      |
 | CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
 | FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
@@ -483,19 +607,19 @@ Not all Persistent Volume types support mount options.
 
 The following volume types support mount options:
 
-* AWSElasticBlockStore
-* AzureDisk
-* AzureFile
-* CephFS
-* Cinder (OpenStack block storage)
-* GCEPersistentDisk
-* Glusterfs
-* NFS
-* Quobyte Volumes
-* RBD (Ceph Block Device)
-* StorageOS
-* VsphereVolume
-* iSCSI
+* `awsElasticBlockStore`
+* `azureDisk`
+* `azureFile`
+* `cephfs`
+* `cinder` (**deprecated** in v1.18)
+* `gcePersistentDisk`
+* `glusterfs`
+* `iscsi`
+* `nfs`
+* `quobyte` (**deprecated** in v1.22)
+* `rbd`
+* `storageos` (**deprecated** in v1.22)
+* `vsphereVolume`
 
 Mount options are not validated. If a mount option is invalid, the mount fails.
 
@@ -558,7 +682,7 @@ Claims use [the same convention as volumes](#volume-mode) to indicate the consum
 
 ### Resources
 
-Claims, like Pods, can request specific quantities of a resource. In this case, the request is for storage. The same [resource model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) applies to both volumes and claims.
+Claims, like Pods, can request specific quantities of a resource. In this case, the request is for storage. The same [resource model](https://git.k8s.io/design-proposals-archive/scheduling/resources.md) applies to both volumes and claims.
 
 ### Selector
 
@@ -797,17 +921,12 @@ spec:
 
 ## Volume populators and data sources
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
-{{< note >}}
-Kubernetes supports custom volume populators; this alpha feature was introduced
-in Kubernetes 1.18. Kubernetes 1.22 reimplemented the mechanism with a redesigned API.
-Check that you are reading the version of the Kubernetes documentation that matches your
-cluster. {{% version-check %}}
+Kubernetes supports custom volume populators.
 To use custom volume populators, you must enable the `AnyVolumeDataSource`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for
 the kube-apiserver and kube-controller-manager.
-{{< /note >}}
 
 Volume populators take advantage of a PVC spec field called `dataSourceRef`. Unlike the
 `dataSource` field, which can only contain either a reference to another PersistentVolumeClaim
@@ -825,6 +944,7 @@ contents.
 
 There are two differences between the `dataSourceRef` field and the `dataSource` field that
 users should be aware of:
+
 * The `dataSource` field ignores invalid values (as if the field was blank) while the
   `dataSourceRef` field never ignores values and will cause an error if an invalid value is
   used. Invalid values are any core object (objects with no apiGroup) except for PVCs.
@@ -901,7 +1021,7 @@ and need persistent storage, it is recommended that you use the following patter
 
 * Learn more about [Creating a PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+* Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 ### API references {#reference}
 

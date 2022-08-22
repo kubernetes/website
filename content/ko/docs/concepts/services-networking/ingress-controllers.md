@@ -23,15 +23,17 @@ weight: 40
 
 {{% thirdparty-content %}}
 
-* [AKS 애플리케이션 게이트웨이 인그레스 컨트롤러](https://azure.github.io/application-gateway-kubernetes-ingress/)는 [Azure 애플리케이션 게이트웨이](https://docs.microsoft.com)를 구성하는 인그레스 컨트롤러다.
+* [AKS 애플리케이션 게이트웨이 인그레스 컨트롤러](https://docs.microsoft.com/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)는 [Azure 애플리케이션 게이트웨이](https://docs.microsoft.com/azure/application-gateway/overview)를 구성하는 인그레스 컨트롤러다.
 * [Ambassador](https://www.getambassador.io/) API 게이트웨이는 [Envoy](https://www.envoyproxy.io) 기반 인그레스
   컨트롤러다.
 * [Apache APISIX 인그레스 컨트롤러](https://github.com/apache/apisix-ingress-controller)는 [Apache APISIX](https://github.com/apache/apisix) 기반의 인그레스 컨트롤러이다.
 * [Avi 쿠버네티스 오퍼레이터](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)는 [VMware NSX Advanced Load Balancer](https://avinetworks.com/)을 사용하는 L4-L7 로드 밸런싱을 제공한다.
+* [BFE Ingress Controller](https://github.com/bfenetworks/ingress-bfe)는 [BFE](https://www.bfe-networks.net) 기반 인그레스 컨트롤러다.
 * [Citrix 인그레스 컨트롤러](https://github.com/citrix/citrix-k8s-ingress-controller#readme)는
   Citrix 애플리케이션 딜리버리 컨트롤러에서 작동한다.
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러다.
 * [EnRoute](https://getenroute.io/)는 인그레스 컨트롤러로 실행할 수 있는 [Envoy](https://www.envoyproxy.io) 기반 API 게이트웨이다.
+* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md)는 인그레스 컨트롤러로서 실행할 수 있는 [Easegress](https://megaease.com/easegress/) 기반 API 게이트웨이다.
 * F5 BIG-IP [쿠버네티스 용 컨테이너 인그레스 서비스](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)를
   이용하면 인그레스를 사용하여 F5 BIG-IP 가상 서버를 구성할 수 있다.
 * [Gloo](https://gloo.solo.io)는 API 게이트웨이 기능을 제공하는 [Envoy](https://www.envoyproxy.io) 기반의
@@ -46,6 +48,7 @@ weight: 40
   구동하는 인그레스 컨트롤러다.
 * [쿠버네티스 용 NGINX 인그레스 컨트롤러](https://www.nginx.com/products/nginx-ingress-controller/)는 [NGINX](https://www.nginx.com/resources/glossary/nginx/)
   웹서버(프록시로 사용)와 함께 작동한다.
+* [Pomerium 인그레스 컨트롤러](https://www.pomerium.com/docs/k8s/ingress.html)는 [Pomerium](https://pomerium.com/) 기반 인그레스 컨트롤러이며, 상황 인지 접근 정책을 제공한다.
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/)는 사용자의 커스텀 프록시를 구축하기 위한 라이브러리로 설계된 쿠버네티스 인그레스와 같은 유스케이스를 포함한 서비스 구성을 위한 HTTP 라우터 및 역방향 프록시다.
 * [Traefik 쿠버네티스 인그레스 제공자](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)는
   [Traefik](https://traefik.io/traefik/) 프록시 용 인그레스 컨트롤러다.
@@ -75,4 +78,4 @@ weight: 40
 
 
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 자세히 알아보기.
-* [NGINX 컨트롤러로 Minikube에서 인그레스를 설정하기](/docs/tasks/access-application-cluster/ingress-minikube).
+* [NGINX 컨트롤러로 Minikube에서 인그레스를 설정하기](/ko/docs/tasks/access-application-cluster/ingress-minikube/).

@@ -104,7 +104,7 @@ Ini dilakukan dengan menspesifikasikan _parent_ cgroup sebagai nilai dari _flag_
 Kami merekomendasikan _daemon_ sistem Kubernetes untuk ditempatkan pada
 tingkatan cgroup yang tertinggi (contohnya, `runtime.slice` pada mesin systemd).
 Secara ideal, setiap _daemon_ sistem sebaiknya dijalankan pada _child_ cgroup
-di bawah _parent_ ini. Lihat [dokumentasi](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md#recommended-cgroups-setup)
+di bawah _parent_ ini. Lihat [dokumentasi](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md#recommended-cgroups-setup)
 untuk mengetahui rekomendasi hierarki cgroup secara detail.
 
 Catatan: kubelet **tidak membuat** `--kube-reserved-cgroup` jika cgroup

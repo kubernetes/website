@@ -1,4 +1,12 @@
 ---
+
+
+
+
+
+
+
+
 title: 분산 시스템 코디네이터 ZooKeeper 실행하기
 content_type: tutorial
 weight: 40
@@ -19,7 +27,7 @@ weight: 40
 - [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)
 - [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
 - [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)
-- [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+- [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 - [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 - [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets)
 - [파드안티어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
@@ -32,7 +40,6 @@ weight: 40
 튜토리얼을 시작하기 전에 수동으로 3개의 20 GiB 볼륨을
 프로비저닝해야 한다.
 
-
 ## {{% heading "objectives" %}}
 
 이 튜토리얼을 마치면 다음에 대해 알게 된다.
@@ -41,7 +48,6 @@ weight: 40
 - 어떻게 앙상블을 일관되게 설정하는가.
 - 어떻게 ZooKeeper 서버 디플로이먼트를 앙상블 안에서 퍼뜨리는가.
 - 어떻게 PodDisruptionBudget을 이용하여 계획된 점검 기간 동안 서비스 가용성을 보장하는가.
-
 
 <!-- lessoncontent -->
 
@@ -254,13 +260,15 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 
 ### 앙상블 무결성 테스트
 
-가장 기본적인 테스트는 한 ZooKeeper 서버에 데이터를 쓰고 다른 ZooKeeper 서버에서 데이터를 읽는 것이다.
+가장 기본적인 테스트는 한 ZooKeeper 서버에 데이터를 쓰고 
+다른 ZooKeeper 서버에서 데이터를 읽는 것이다.
 
 아래 명령어는 앙상블 내에 `zk-0` 파드에서 `/hello` 경로로 `world`를 쓰는 스크립트인 `zkCli.sh`를 실행한다.
 
 ```shell
-kubectl exec zk-0 zkCli.sh create /hello world
+kubectl exec zk-0 -- zkCli.sh create /hello world
 ```
+
 ```
 WATCHER::
 
@@ -271,7 +279,7 @@ Created /hello
 `zk-1` 파드에서 데이터를 읽기 위해 다음 명령어를 이용하자.
 
 ```shell
-kubectl exec zk-1 zkCli.sh get /hello
+kubectl exec zk-1 -- zkCli.sh get /hello
 ```
 
 `zk-0`에서 생성한 그 데이터는 앙상블 내에 모든 서버에서
@@ -401,7 +409,6 @@ numChildren = 0
 
 `zk` 스테이트풀셋의 `spec`에 `volumeClaimTemplates` 필드는 각 파드에 프로비전될 퍼시스턴트볼륨을 지정한다.
 
-
 ```yaml
 volumeClaimTemplates:
   - metadata:
@@ -435,8 +442,7 @@ datadir-zk-2   Bound     pvc-bee0817e-bcb1-11e6-994f-42010a800002   20Gi       R
 
 `스테이트풀셋`의 컨테이너 `template`의 `volumeMounts` 부분이 ZooKeeper 서버의 데이터 디렉터리에 퍼시스턴트볼륨 마운트하는 내용이다.
 
-
-```shell
+```yaml
 volumeMounts:
 - name: datadir
   mountPath: /var/lib/zookeeper
@@ -583,6 +589,7 @@ kubectl exec zk-0 -- ps -elf
 
 `securityContext` 오브젝트의 `runAsUser` 필드 값이 1000 이므로
 루트 사용자로 실행하는 대신 ZooKeeper 프로세스는 ZooKeeper 사용자로 실행된다.
+
 ```
 F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
 4 S zookeep+     1     0  0  80   0 -  1127 -      20:46 ?        00:00:00 sh -c zkGenConfig.sh && zkServer.sh start-foreground
@@ -654,6 +661,8 @@ statefulset rolling update complete 3 pods at revision zk-5db4499664...
 kubectl rollout history sts/zk
 ```
 
+출력은 다음과 비슷할 것이다.
+
 ```
 statefulsets "zk"
 REVISION
@@ -666,6 +675,8 @@ REVISION
 ```shell
 kubectl rollout undo sts/zk
 ```
+
+출력은 다음과 비슷할 것이다.
 
 ```
 statefulset.apps/zk rolled back
@@ -687,6 +698,7 @@ kubectl exec zk-0 -- ps -ef
 
 컨테이너의 엔트리 포인트로 PID 1 인 명령이 사용되었으며
 ZooKeeper 프로세스는 엔트리 포인트의 자식 프로세스로 PID 27 이다.
+
 ```
 UID        PID  PPID  C STIME TTY          TIME CMD
 zookeep+     1     0  0 15:03 ?        00:00:00 sh -c zkGenConfig.sh && zkServer.sh start-foreground
@@ -734,14 +746,14 @@ zk-0      1/1       Running   1         29m
 `zk` `스테이트풀셋`에 파드 `template`에 활성도 검사를 명시한다.
 
 ```yaml
- livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - "zookeeper-ready 2181"
-          initialDelaySeconds: 15
-          timeoutSeconds: 5
+  livenessProbe:
+    exec:
+      command:
+      - sh
+      - -c
+      - "zookeeper-ready 2181"
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
 ```
 
 검사는 ZooKeeper의 `ruok` 4 글자 단어를 이용해서 서버의 건강을 테스트하는
@@ -765,7 +777,7 @@ kubectl get pod -w -l app=zk
 다른 창에서 `zk-0` 파드의 파일시스템에서 `zookeeper-ready` 스크립트를 삭제하기 위해 다음 명령어를 이용하자.
 
 ```shell
-kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
+kubectl exec zk-0 -- rm /opt/zookeeper/bin/zookeeper-ready
 ```
 
 ZooKeeper의 활성도 검사에 실패하면,
@@ -852,16 +864,16 @@ kubernetes-node-2g2d
 이는 `zk` `스테이트풀셋`의 파드에 `파드안티어피니티(PodAntiAffinity)`를 지정했기 때문이다.
 
 ```yaml
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: "app"
-                    operator: In
-                    values:
-                    - zk
-              topologyKey: "kubernetes.io/hostname"
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app"
+              operator: In
+              values:
+                - zk
+        topologyKey: "kubernetes.io/hostname"
 ```
 
 `requiredDuringSchedulingIgnoredDuringExecution` 필드는
@@ -886,8 +898,7 @@ kubernetes-node-2g2d
 kubectl get nodes
 ```
 
-[`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon)을 이용하여
-클러스터 내에 4개 노드를 제외하고 다른 모든 노드를 통제해보자.
+이 튜토리얼에서는 클러스터가 최소 4개의 노드로 구성되었다고 가정한다. 클러스터의 노드가 4개보다 많다면, [`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon) 명령을 이용하여 4개 노드를 제외하고 다른 모든 노드를 통제(cordon)한다. 이렇게 4개 노드만 사용하도록 제한하여, 다음의 유지보수 시뮬레이션 예시에서 주키퍼 파드를 스케줄링할 때 어피니티와 PodDisruptionBudget 제약이 발생하도록 할 수 있다.
 
 ```shell
 kubectl cordon <노드-이름>
@@ -919,6 +930,8 @@ kubectl get pods -w -l app=zk
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
 ```
 
+출력은 다음과 비슷할 것이다.
+
 ```
 kubernetes-node-pb41
 kubernetes-node-ixsl
@@ -929,8 +942,10 @@ kubernetes-node-i4c4
 [`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain)를 이용하자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
+
+출력은 다음과 비슷할 것이다.
 
 ```
 node "kubernetes-node-group-pb41" cordoned
@@ -964,14 +979,18 @@ zk-0      1/1       Running   0         1m
 `zk-1` 이 스케줄된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-node-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
+출력은 다음과 비슷할 것이다.
+
 ```
+"kubernetes-node-ixsl" cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-ixsl, kube-proxy-kubernetes-node-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
 node "kubernetes-node-ixsl" drained
 ```
+
 
 `zk-1` 파드는 스케줄되지 않는데 이는 `zk` `StatefulSet`이 오직 2개 노드가 스케줄되도록 파드를 위치시키는 것을 금하는
 `PodAntiAffinity` 규칙을 포함하였기 때문이고 그 파드는 Pending 상태로 남을 것이다.
@@ -979,6 +998,8 @@ node "kubernetes-node-ixsl" drained
 ```shell
 kubectl get pods -w -l app=zk
 ```
+
+출력은 다음과 비슷할 것이다.
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1007,8 +1028,10 @@ zk-1      0/1       Pending   0         0s
 `zk-2`가 스케줄된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
+
+출력은 다음과 비슷할 것이다.
 
 ```
 node "kubernetes-node-i4c4" cordoned
@@ -1024,7 +1047,6 @@ kubectl 을 종료하기 위해 `CTRL-C`를 이용하자.
 `zk-2`를 추출하는 것은 `zk-budget`을 위반하기 때문에 셋째 노드를 비울 수 없다. 그러나 그 노드는 통제 상태로 남는다.
 
 `zk-0`에서 온전성 테스트 때에 입력한 값을 가져오는 `zkCli.sh`를 이용하자.
-
 
 ```shell
 kubectl exec zk-0 zkCli.sh get /hello
@@ -1054,6 +1076,8 @@ numChildren = 0
 kubectl uncordon kubernetes-node-pb41
 ```
 
+출력은 다음과 비슷할 것이다.
+
 ```
 node "kubernetes-node-pb41" uncordoned
 ```
@@ -1063,6 +1087,8 @@ node "kubernetes-node-pb41" uncordoned
 ```shell
 kubectl get pods -w -l app=zk
 ```
+
+출력은 다음과 비슷할 것이다.
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1094,10 +1120,10 @@ zk-1      1/1       Running   0         13m
 `zk-2`가 스케줄된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
-출력은
+출력은 다음과 비슷할 것이다.
 
 ```
 node "kubernetes-node-i4c4" already cordoned
@@ -1115,6 +1141,8 @@ node "kubernetes-node-i4c4" drained
 kubectl uncordon kubernetes-node-ixsl
 ```
 
+출력은 다음과 비슷할 것이다.
+
 ```
 node "kubernetes-node-ixsl" uncordoned
 ```
@@ -1124,9 +1152,7 @@ drain으로 노드를 통제하고 유지보수를 위해 노드를 오프라인
 서비스는 혼란 예산을 표기한 서비스는 그 예산이 존중은 존중될 것이다.
 파드가 즉각적으로 재스케줄 할 수 있도록 항상 중요 서비스를 위한 추가 용량을 할당해야 한다.
 
-
 ## {{% heading "cleanup" %}}
-
 
 - `kubectl uncordon`은 클러스터 내에 모든 노드를 통제 해제한다.
 - 반드시 이 튜토리얼에서 사용한 퍼시스턴트 볼륨을 위한 퍼시스턴트 스토리지 미디어를 삭제하자.

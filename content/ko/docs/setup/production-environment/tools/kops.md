@@ -231,7 +231,7 @@ kops는 클러스터에 사용될 설정을 생성할것이다. 여기서 주의
 ## {{% heading "whatsnext" %}}
 
 
-* 쿠버네티스 [개념](/ko/docs/concepts/) 과 [`kubectl`](/ko/docs/reference/kubectl/overview/)에 대해 더 알아보기.
+* 쿠버네티스 [개념](/ko/docs/concepts/) 과 [`kubectl`](/ko/docs/reference/kubectl/)에 대해 더 알아보기.
 * 튜토리얼, 모범사례 및 고급 구성 옵션에 대한 `kops` [고급 사용법](https://kops.sigs.k8s.io/)에 대해 더 자세히 알아본다.
 * 슬랙(Slack)에서 `kops` 커뮤니티 토론을 할 수 있다: [커뮤니티 토론](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
 * 문제를 해결하거나 이슈를 제기하여 `kops` 에 기여한다. [깃헙 이슈](https://github.com/kubernetes/kops/issues)

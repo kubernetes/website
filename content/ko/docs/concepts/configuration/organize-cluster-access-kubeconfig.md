@@ -148,7 +148,28 @@ kubeconfig 파일에서 파일과 경로 참조는 kubeconfig 파일의 위치�
 `$HOME/.kube/config`에서 상대 경로는 상대적으로, 절대 경로는
 절대적으로 저장한다.
 
+## 프록시
 
+다음과 같이 kubeconfig 파일에 `proxy-url`을 설정하여 `kubectl`이 프록시를 거치도록 설정할 수 있다.
+
+```yaml
+apiVersion: v1
+kind: Config
+
+proxy-url: https://proxy.host:3128
+
+clusters:
+- cluster:
+  name: development
+
+users:
+- name: developer
+
+contexts:
+- context:
+  name: development
+
+```
 
 
 ## {{% heading "whatsnext" %}}

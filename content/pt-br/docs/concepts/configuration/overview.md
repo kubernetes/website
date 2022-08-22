@@ -23,7 +23,7 @@ Isso permite que você reverta rapidamente uma alteração de configuração, ca
 - Escreva seus arquivos de configuração usando YAML ao invés de JSON. Embora esses formatos possam ser usados alternadamente em quase todos os cenários, YAML tende a ser mais amigável.
 
 - Agrupe objetos relacionados em um único arquivo sempre que fizer sentido. Geralmente, um arquivo é mais fácil de
-gerenciar do que vários. Veja o [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/all-in-one/guestbook-all-in-one.yaml) como exemplo dessa sintaxe.
+gerenciar do que vários. Veja o [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml) como exemplo dessa sintaxe.
 
 - Observe também que vários comandos `kubectl` podem ser chamados em um diretório. Por exemplo, você pode chamar
 `kubectl apply` em um diretório de arquivos de configuração.
@@ -70,7 +70,7 @@ combinação de <`hostIP`, `hostPort`, `protocol`> deve ser única. Se você nã
 ## Usando Labels
 
 - Defina e use [labels](/docs/concepts/overview/working-with-objects/labels/) que identifiquem _atributos semânticos_ da sua aplicação ou Deployment, como `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. Você pode usar essas labels para selecionar os Pods apropriados para outros recursos; por exemplo, um Service que seleciona todos os Pods `tier: frontend`, ou todos
-os componentes de `app: myapp`. Veja o app [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) para exemplos dessa abordagem.
+os componentes de `app: myapp`. Veja o app [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) para exemplos dessa abordagem.
 
 Um Service pode ser feito para abranger vários Deployments, omitindo labels específicas de lançamento de seu seletor. Quando você
 precisar atualizar um serviço em execução sem _downtime_, use um [Deployment](/docs/concepts/workloads/controllers/deployment/).

@@ -1,5 +1,9 @@
 ---
 title: API 개요
+
+
+
+
 content_type: concept
 weight: 10
 no_list: true
@@ -104,6 +108,7 @@ API 그룹은 REST 경로와 직렬화된 오브젝트의 `apiVersion` 필드에
 
  - `batch/v1` 을 비활성화하려면, `--runtime-config=batch/v1=false` 로 설정
  - `batch/v2alpha1` 을 활성화하려면, `--runtime-config=batch/v2alpha1` 으로 설정
+ - 예를 들어 `storage.k8s.io/v1beta1/csistoragecapacities`와 같이 특정 버전의 API를 활성화하려면, `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`와 같이 설정
 
 {{< note >}}
 그룹이나 리소스를 활성화 또는 비활성화하려면, apiserver와 controller-manager를 재시작하여

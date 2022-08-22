@@ -87,6 +87,3 @@ kubeadm certs renew apiserver [flags]
 
 </tbody>
 </table>
-
-
-

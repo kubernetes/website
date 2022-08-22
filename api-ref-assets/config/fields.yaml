@@ -6,6 +6,7 @@
     - initContainers
     - imagePullSecrets
     - enableServiceLinks
+    - os
   - name: Volumes
     fields:
     - volumes
@@ -49,11 +50,9 @@
     - securityContext
   - name: Beta level
     fields:
+    - ephemeralContainers
     - preemptionPolicy
     - overhead
-  - name: Alpha level
-    fields:
-    - ephemeralContainers
   - name: Deprecated
     fields:
     - serviceAccount
@@ -154,6 +153,7 @@
     - timeoutSeconds
     - failureThreshold
     - successThreshold
+    - grpc
 
 - definition: io.k8s.api.core.v1.SecurityContext
   field_categories:
@@ -225,6 +225,9 @@
     - stdin
     - stdinOnce
     - tty
+  - name: Security context
+    fields:
+    - securityContext
   - name: Not allowed
     fields:
     - ports
@@ -232,7 +235,6 @@
     - lifecycle
     - livenessProbe
     - readinessProbe
-    - securityContext
     - startupProbe
 
 - definition: io.k8s.api.core.v1.ReplicationControllerSpec
@@ -313,6 +315,7 @@
     - revisionHistoryLimit
     - volumeClaimTemplates
     - minReadySeconds
+    - persistentVolumeClaimRetentionPolicy
 
 - definition: io.k8s.api.apps.v1.StatefulSetUpdateStrategy
   field_categories:
@@ -393,12 +396,16 @@
     - completedIndexes
     - conditions
     - uncountedTerminatedPods
+  - name: Alpha level
+    fields:
+    - ready
 
 - definition: io.k8s.api.batch.v1.CronJobSpec
   field_categories:
   - fields:
     - jobTemplate
     - schedule
+    - timeZone
     - concurrencyPolicy
     - startingDeadlineSeconds
     - suspend
@@ -415,6 +422,22 @@
     - metrics
 
 - definition: io.k8s.api.autoscaling.v2beta2.HPAScalingPolicy
+  field_categories:
+  - fields:
+    - type
+    - value
+    - periodSeconds
+
+- definition: io.k8s.api.autoscaling.v2.HorizontalPodAutoscalerSpec
+  field_categories:
+  - fields:
+    - maxReplicas
+    - scaleTargetRef
+    - minReplicas
+    - behavior
+    - metrics
+
+- definition: io.k8s.api.autoscaling.v2.HPAScalingPolicy
   field_categories:
   - fields:
     - type

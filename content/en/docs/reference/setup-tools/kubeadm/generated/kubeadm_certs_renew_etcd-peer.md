@@ -87,6 +87,3 @@ kubeadm certs renew etcd-peer [flags]
 
 </tbody>
 </table>
-
-
-

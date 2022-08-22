@@ -8,18 +8,18 @@ weight: 20
 
 <!-- overview -->
 
-이 페이지는 kubeadm으로 생성된 쿠버네티스 클러스터를
-{{< skew latestVersionAddMinor -1 >}}.x 버전에서 {{< skew latestVersion >}}.x 버전으로,
-{{< skew latestVersion >}}.x 버전에서 {{< skew latestVersion >}}.y(여기서 `y > x`) 버전으로 업그레이드하는 방법을 설명한다.  업그레이드가 지원되지 않는 경우
-마이너 버전을 건너뛴다.
+이 페이지는 kubeadm으로 생성된 쿠버네티스 클러스터를 {{< skew currentVersionAddMinor -1 >}}.x 버전에서 {{< skew currentVersion >}}.x 버전으로, 
+{{< skew currentVersion >}}.x 버전에서 {{< skew currentVersion >}}.y(여기서 `y > x`) 버전으로 업그레이드하는 방법을 설명한다. 
+업그레이드가 지원되지 않는 경우 마이너 버전을 건너뛴다. 
+더 자세한 정보는 [버전 차이(skew) 정책](/ko/releases/version-skew-policy/)을 참고한다.
 
 이전 버전의 kubeadm을 사용하여 생성된 클러스터 업그레이드에 대한 정보를 보려면,
 이 페이지 대신 다음의 페이지들을 참고한다.
 
-- [kubeadm 클러스터를 {{< skew latestVersionAddMinor -2 >}}에서 {{< skew latestVersionAddMinor -1 >}}로 업그레이드](https://v{{< skew latestVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [kubeadm 클러스터를 {{< skew latestVersionAddMinor -3 >}}에서 {{< skew latestVersionAddMinor -2 >}}로 업그레이드](https://v{{< skew latestVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [kubeadm 클러스터를 {{< skew latestVersionAddMinor -4 >}}에서 {{< skew latestVersionAddMinor -3 >}}로 업그레이드](https://v{{< skew latestVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [kubeadm 클러스터를 {{< skew latestVersionAddMinor -5 >}}에서 {{< skew latestVersionAddMinor -4 >}}으로 업그레이드](https://v{{< skew latestVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -2 >}}에서 {{< skew currentVersionAddMinor -1 >}}로 업그레이드](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -3 >}}에서 {{< skew currentVersionAddMinor -2 >}}로 업그레이드](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -4 >}}에서 {{< skew currentVersionAddMinor -3 >}}로 업그레이드](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [kubeadm 클러스터를 {{< skew currentVersionAddMinor -5 >}}에서 {{< skew currentVersionAddMinor -4 >}}으로 업그레이드](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 
 추상적인 업그레이드 작업 절차는 다음과 같다.
 
@@ -37,27 +37,36 @@ weight: 20
 
 ### 추가 정보
 
-- kubelet 마이너 버전을 업그레이드하기 전에 [노드 드레이닝(draining)](/docs/tasks/administer-cluster/safely-drain-node/)이
-  필요하다. 컨트롤 플레인 노드의 경우 CoreDNS 파드 또는 기타 중요한 워크로드를 실행할 수 있다.
+- 아래의 지침은 업그레이드 과정 중 언제 각 노드를 드레인해야 하는지를 제시한다. 
+  kubelet에 대해 **마이너** 버전 업그레이드를 하는 경우, 
+  먼저 업그레이드할 노드(들)을 드레인**해야 한다**. 
+  컨트롤 플레인 노드의 경우, CoreDNS 파드 또는 다른 중요한 워크로드를 실행 중일 수 있다. 
+  더 많은 정보는 [노드 드레인하기](/docs/tasks/administer-cluster/safely-drain-node/)를 참조한다.
 - 컨테이너 사양 해시 값이 변경되므로, 업그레이드 후 모든 컨테이너가 다시 시작된다.
+- kubelet이 업그레이드된 이후 kubelet 서비스가 성공적으로 재시작되었는지 확인하려면, 
+  `systemctl status kubelet` 명령을 실행하거나, `journalctl -xeu kubelet` 명령을 실행하여 서비스 로그를 확인할 수 있다.
+- 클러스터를 재구성하기 위해 `kubeadm upgrade` 시에 
+  [kubeadm 구성 API 종류](/docs/reference/config-api/kubeadm-config.v1beta3)를 명시하여 
+  `--config` 플래그를 사용하는 것은 추천하지 않으며 예상치 못한 결과를 초래할 수 있다. 
+  대신 [kubeadm 클러스터 재구성하기](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)를 참조한다.
 
 <!-- steps -->
 
 ## 업그레이드할 버전 결정
 
-OS 패키지 관리자를 사용하여 최신의 안정 버전({{< skew latestVersion >}})을 찾는다.
+OS 패키지 관리자를 사용하여 쿠버네티스의 최신 패치 릴리스 버전({{< skew currentVersion >}})을 찾는다.
 
 {{< tabs name="k8s_install_versions" >}}
 {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
     apt update
     apt-cache madison kubeadm
-    # 목록에서 최신 버전({{< skew latestVersion >}})을 찾는다
-    # {{< skew latestVersion >}}.x-00과 같아야 한다. 여기서 x는 최신 패치이다.
+    # 목록에서 최신 버전({{< skew currentVersion >}})을 찾는다
+    # {{< skew currentVersion >}}.x-00과 같아야 한다. 여기서 x는 최신 패치이다.
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
     yum list --showduplicates kubeadm --disableexcludes=kubernetes
-    # 목록에서 최신 버전({{< skew latestVersion >}})을 찾는다
-    # {{< skew latestVersion >}}.x-0과 같아야 한다. 여기서 x는 최신 패치이다.
+    # 목록에서 최신 버전({{< skew currentVersion >}})을 찾는다
+    # {{< skew currentVersion >}}.x-0과 같아야 한다. 여기서 x는 최신 패치이다.
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -74,20 +83,17 @@ OS 패키지 관리자를 사용하여 최신의 안정 버전({{< skew latestVe
 
 {{< tabs name="k8s_install_kubeadm_first_cp" >}}
 {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-    # {{< skew latestVersion >}}.x-00에서 x를 최신 패치 버전으로 바꾼다.
+    # {{< skew currentVersion >}}.x-00에서 x를 최신 패치 버전으로 바꾼다.
     apt-mark unhold kubeadm && \
-    apt-get update && apt-get install -y kubeadm={{< skew latestVersion >}}.x-00 && \
+    apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
     apt-mark hold kubeadm
-    -
-    # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubeadm={{< skew latestVersion >}}.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-    # {{< skew latestVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다.
-    yum install -y kubeadm-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernetes
+    # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다.
+    yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
+<br />
 
 -  다운로드하려는 버전이 잘 받아졌는지 확인한다.
 
@@ -120,13 +126,13 @@ OS 패키지 관리자를 사용하여 최신의 안정 버전({{< skew latestVe
 
     ```shell
     # 이 업그레이드를 위해 선택한 패치 버전으로 x를 바꾼다.
-    sudo kubeadm upgrade apply v{{< skew latestVersion >}}.x
+    sudo kubeadm upgrade apply v{{< skew currentVersion >}}.x
     ```
 
     명령이 완료되면 다음을 확인해야 한다.
 
     ```
-    [upgrade/successful] SUCCESS! Your cluster was upgraded to "v{{< skew latestVersion >}}.x". Enjoy!
+    [upgrade/successful] SUCCESS! Your cluster was upgraded to "v{{< skew currentVersion >}}.x". Enjoy!
 
     [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
     ```
@@ -169,25 +175,18 @@ sudo kubeadm upgrade apply
 -  모든 컨트롤 플레인 노드에서 kubelet 및 kubectl을 업그레이드한다.
 
 {{< tabs name="k8s_install_kubelet" >}}
-{{< tab name="Ubuntu, Debian 또는 HypriotOS" >}}
-    <pre>>
-    # {{< skew latestVersion >}}.x-00의 x를 최신 패치 버전으로 바꾼다
+{{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
+    # replace x in {{< skew currentVersion >}}.x-00의 x를 최신 패치 버전으로 바꾼다
     apt-mark unhold kubelet kubectl && \
-    apt-get update && apt-get install -y kubelet={{< skew latestVersion >}}.x-00 kubectl={{< skew latestVersion >}}.x-00 && \
+    apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
     apt-mark hold kubelet kubectl
-    -
-    # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubelet={{< skew latestVersion >}}.x-00 kubectl={{< skew latestVersion >}}.x-00
-    </pre>
-{{< /tab >}}
-{{< tab name="CentOS, RHEL 또는 Fedora" >}}
-    <pre>
-    # {{< skew latestVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
-    yum install -y kubelet-{{< skew latestVersion >}}.x-0 kubectl-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernetes
-    </pre>
-{{< /tab >}}
+{{% /tab %}}
+{{% tab name="CentOS, RHEL 또는 Fedora" %}}
+    # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
+    yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+{{% /tab %}}
 {{< /tabs >}}
+<br />
 
 -  kubelet을 다시 시작한다.
 
@@ -216,18 +215,14 @@ sudo systemctl restart kubelet
 
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
 {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-    # {{< skew latestVersion >}}.x-00의 x를 최신 패치 버전으로 바꾼다
+    # {{< skew currentVersion >}}.x-00의 x를 최신 패치 버전으로 바꾼다
     apt-mark unhold kubeadm && \
-    apt-get update && apt-get install -y kubeadm={{< skew latestVersion >}}.x-00 && \
+    apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
     apt-mark hold kubeadm
-    -
-    # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubeadm={{< skew latestVersion >}}.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-    # {{< skew latestVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
-    yum install -y kubeadm-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernetes
+    # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
+    yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -254,20 +249,17 @@ sudo systemctl restart kubelet
 
 {{< tabs name="k8s_kubelet_and_kubectl" >}}
 {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-    # {{< skew latestVersion >}}.x-00의 x를 최신 패치 버전으로 바꾼다
+    # {{< skew currentVersion >}}.x-00의 x를 최신 패치 버전으로 바꾼다
     apt-mark unhold kubelet kubectl && \
-    apt-get update && apt-get install -y kubelet={{< skew latestVersion >}}.x-00 kubectl={{< skew latestVersion >}}.x-00 && \
+    apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
     apt-mark hold kubelet kubectl
-    -
-    # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubelet={{< skew latestVersion >}}.x-00 kubectl={{< skew latestVersion >}}.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-    # {{< skew latestVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
-    yum install -y kubelet-{{< skew latestVersion >}}.x-0 kubectl-{{< skew latestVersion >}}.x-0 --disableexcludes=kubernetes
+    # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
+    yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
+<br />
 
 -  kubelet을 다시 시작한다.
 

@@ -34,13 +34,13 @@ DaemonSet has two update strategy types:
 To enable the rolling update feature of a DaemonSet, you must set its
 `.spec.updateStrategy.type` to `RollingUpdate`.
 
-You may want to set 
-[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/concepts/workloads/controllers/deployment/#max-unavailable) 
+You may want to set
+[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) 
 (default to 1),
-[`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) 
-(default to 0) and 
-[`.spec.maxSurge`](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#max-surge) 
-(a beta feature and defaults to 25%) as well.
+[`.spec.minReadySeconds`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
+(default to 0) and
+[`.spec.updateStrategy.rollingUpdate.maxSurge`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
+(a beta feature and defaults to 0) as well.
 
 ### Creating a DaemonSet with `RollingUpdate` update strategy
 
@@ -79,7 +79,7 @@ kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml --dr
 
 The output from both commands should be:
 
-```shell
+```
 RollingUpdate
 ```
 

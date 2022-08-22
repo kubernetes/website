@@ -72,7 +72,7 @@ The ServiceAccount admission controller will add the following projected volume 
     defaultMode: 420 # 0644
     sources:
       - serviceAccountToken:
-          expirationSeconds: 3600
+          expirationSeconds: 3607
           path: token
       - configMap:
           items:

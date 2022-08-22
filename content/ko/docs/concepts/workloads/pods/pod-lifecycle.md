@@ -17,8 +17,8 @@ weight: 30
 결정한다.
 
 쿠버네티스 API에서 파드는 명세와 실제 상태를 모두 가진다.
-파드 오브젝트의 상태는 일련의 [파드 조건](#파드의-조건)으로 구성된다.
-사용자의 애플리케이션에 유용한 경우, 파드의 조건 데이터에
+파드 오브젝트의 상태는 일련의 [파드 컨디션](#파드의-컨디션)으로 구성된다.
+사용자의 애플리케이션에 유용한 경우, 파드의 컨디션 데이터에
 [사용자 정의 준비성 정보](#pod-readiness-gate)를 삽입할 수도 있다.
 
 파드는 파드의 수명 중 한 번만 [스케줄](/ko/docs/concepts/scheduling-eviction/)된다.
@@ -55,7 +55,7 @@ UID로 정의된 특정 파드는 다른 노드로 절대 "다시 스케줄"되�
 생성되더라도, 관련된 그것(이 예에서는 볼륨)도 폐기되고
 새로 생성된다.
 
-{{< figure src="/images/docs/pod.svg" title="Pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" title="Pod diagram" class="diagram-medium" >}}
 
 *컨테이너 간의 공유 스토리지에 퍼시스턴트 볼륨을 사용하는 웹 서버와
 파일 풀러(puller)가 포함된 다중 컨테이너 파드이다.*
@@ -136,8 +136,8 @@ UID로 정의된 특정 파드는 다른 노드로 절대 "다시 스케줄"되�
 쿼리하면, 이유와 종료 코드 그리고 해당 컨테이너의 실행 기간에 대한 시작과
 종료 시간이 표시된다.
 
-컨테이너에 구성된 `preStop` 훅이 있는 경우, 컨테이너가 `Terminated` 상태에 들어가기 전에
-실행된다.
+컨테이너에 구성된 `preStop` 훅이 있는 경우, 
+이 혹은 컨테이너가 `Terminated` 상태에 들어가기 전에 실행된다.
 
 ## 컨테이너 재시작 정책 {#restart-policy}
 
@@ -150,26 +150,26 @@ Never이다. 기본값은 Always이다.
 컨테이너를 재시작한다. 컨테이너가 10분 동안 아무런 문제없이 실행되면,
 kubelet은 해당 컨테이너의 재시작 백오프 타이머를 재설정한다.
 
-## 파드의 조건
+## 파드의 컨디션
 
 파드는 하나의 PodStatus를 가지며,
-그것은 파드가 통과했거나 통과하지 못한 조건에 대한
+그것은 파드가 통과했거나 통과하지 못한 
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core) 배열을 가진다.
 
 * `PodScheduled`: 파드가 노드에 스케줄되었다.
 * `ContainersReady`: 파드의 모든 컨테이너가 준비되었다.
 * `Initialized`: 모든 [초기화 컨테이너](/ko/docs/concepts/workloads/pods/init-containers/)가
-  성공적으로 시작되었다.
+  성공적으로 완료(completed)되었다.
 * `Ready`: 파드는 요청을 처리할 수 있으며 일치하는 모든 서비스의 로드
   밸런싱 풀에 추가되어야 한다.
 
 필드 이름              | 설명
 :--------------------|:-----------
-`type`               | 이 파드 조건의 이름이다.
-`status`             | 가능한 값이 "`True`", "`False`", 또는 "`Unknown`"으로, 해당 조건이 적용 가능한지 여부를 나타낸다.
-`lastProbeTime`      | 파드 조건이 마지막으로 프로브된 시간의 타임스탬프이다.
+`type`               | 이 파드 컨디션의 이름이다.
+`status`             | 가능한 값이 "`True`", "`False`", 또는 "`Unknown`"으로, 해당 컨디션이 적용 가능한지 여부를 나타낸다.
+`lastProbeTime`      | 파드 컨디션이 마지막으로 프로브된 시간의 타임스탬프이다.
 `lastTransitionTime` | 파드가 한 상태에서 다른 상태로 전환된 마지막 시간에 대한 타임스탬프이다.
-`reason`             | 조건의 마지막 전환에 대한 이유를 나타내는 기계가 판독 가능한 UpperCamelCase 텍스트이다.
+`reason`             | 컨디션의 마지막 전환에 대한 이유를 나타내는 기계가 판독 가능한 UpperCamelCase 텍스트이다.
 `message`            | 마지막 상태 전환에 대한 세부 정보를 나타내는 사람이 읽을 수 있는 메시지이다.
 
 
@@ -179,11 +179,11 @@ kubelet은 해당 컨테이너의 재시작 백오프 타이머를 재설정한�
 
 애플리케이션은 추가 피드백 또는 신호를 PodStatus: _Pod readiness_
 와 같이 주입할 수 있다. 이를 사용하기 위해, kubelet이 파드의 준비성을 평가하기
-위한 추가적인 조건들을 파드의 `spec` 내 `readinessGate` 필드를 통해서 지정할 수 있다.
+위한 추가적인 컨디션들을 파드의 `spec` 내 `readinessGate` 필드를 통해서 지정할 수 있다.
 
 준비성 게이트는 파드에 대한 `status.condition` 필드의 현재
 상태에 따라 결정된다. 만약 쿠버네티스가 `status.conditions` 필드에서 해당하는
-조건을 찾지 못한다면, 그 조건의 상태는
+컨디션을 찾지 못한다면, 그 컨디션의 상태는
 기본 값인 "`False`"가 된다.
 
 여기 예제가 있다.
@@ -220,70 +220,100 @@ status:
 {{< glossary_tooltip term_id="operator-pattern" text="오퍼레이터">}}의
 `PATCH` 액션을 필요로 한다.
 [쿠버네티스 클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/)를
-사용해서 파드 준비성에 대한 사용자 지정 파드 조건을 설정하는 코드를 작성할 수 있다.
+사용해서 파드 준비성에 대한 사용자 지정 파드 컨디션을 설정하는 코드를 작성할 수 있다.
 
-사용자 지정 조건을 사용하는 파드의 경우, 다음 두 조건이 모두 적용되는
+사용자 지정 컨디션을 사용하는 파드의 경우, 다음 두 컨디션이 모두 적용되는
 경우에 **만** 해당 파드가 준비된 것으로 평가된다.
 
 * 파드 내의 모든 컨테이너들이 준비 상태이다.
-* `readinessGates`에 지정된 모든 조건들이 `True` 이다.
+* `readinessGates`에 지정된 모든 컨디션들이 `True` 이다.
 
-파드의 컨테이너가 Ready 이나 적어도 한 개의 사용자 지정 조건이 빠졌거나 `False` 이면,
-kubelet은 파드의 [조건](#파드의-조건)을 `ContainerReady` 로 설정한다.
+파드의 컨테이너가 Ready 이나 적어도 한 개의 사용자 지정 컨디션이 빠졌거나 `False` 이면,
+kubelet은 파드의 [컨디션](#파드의-컨디션)을 `ContainerReady` 로 설정한다.
 
 ## 컨테이너 프로브(probe)
 
-[프로브](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)는
+_프로브_ 는
 컨테이너에서 [kubelet](/docs/reference/command-line-tools-reference/kubelet/)에 의해
 주기적으로 수행되는 진단(diagnostic)이다.
 진단을 수행하기 위해서,
-kubelet은 컨테이너에 의해서 구현된
-[핸들러](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core)를 호출한다.
-핸들러에는 다음과 같이 세 가지 타입이 있다.
+kubelet은 컨테이너 안에서 코드를 실행하거나, 
+또는 네트워크 요청을 전송한다.
 
-* [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core)은
-  컨테이너 내에서 지정된 명령어를 실행한다.
+### 체크 메커니즘 {#probe-check-methods}
+
+프로브를 사용하여 컨테이너를 체크하는 방법에는 4가지가 있다.
+각 프로브는 다음의 4가지 메커니즘 중 단 하나만을 정의해야 한다.
+
+`exec`
+: 컨테이너 내에서 지정된 명령어를 실행한다.
   명령어가 상태 코드 0으로 종료되면 진단이 성공한 것으로 간주한다.
 
-* [TCPSocketAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#tcpsocketaction-v1-core)은
-  지정된 포트에서 컨테이너의 IP주소에 대해 TCP 검사를 수행한다.
-  포트가 활성화되어 있다면 진단이 성공한 것으로 간주한다.
+`grpc`
+: [gRPC](https://grpc.io/)를 사용하여 
+  원격 프로시저 호출을 수행한다. 
+  체크 대상이 [gRPC 헬스 체크](https://grpc.io/grpc/core/md_doc_health-checking.html)를 구현해야 한다. 
+  응답의 `status` 가 `SERVING` 이면 
+  진단이 성공했다고 간주한다. 
+  gRPC 프로브는 알파 기능이며 
+  `GRPCContainerProbe` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 
+  활성화해야 사용할 수 있다.
 
-* [HTTPGetAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)은
-  지정한 포트 및 경로에서 컨테이너의 IP주소에
-  대한 HTTP `GET` 요청을 수행한다. 응답의 상태 코드가 200 이상 400 미만이면
+`httpGet`
+: 지정한 포트 및 경로에서 컨테이너의 IP주소에 대한
+  HTTP `GET` 요청을 수행한다. 
+  응답의 상태 코드가 200 이상 400 미만이면
   진단이 성공한 것으로 간주한다.
+
+`tcpSocket`
+: 지정된 포트에서 컨테이너의 IP주소에 대해 TCP 검사를 수행한다.
+  포트가 활성화되어 있다면 진단이 성공한 것으로 간주한다. 
+  원격 시스템(컨테이너)가 연결을 연 이후 즉시 닫는다면, 
+  이 또한 진단이 성공한 것으로 간주한다.
+
+### 프로브 결과
 
 각 probe는 다음 세 가지 결과 중 하나를 가진다.
 
-* `Success`: 컨테이너가 진단을 통과함.
-* `Failure`: 컨테이너가 진단에 실패함.
-* `Unknown`: 진단 자체가 실패하였으므로 아무런 액션도 수행되면 안됨.
+`Success`
+: 컨테이너가 진단을 통과함.
+
+`Failure`
+: 컨테이너가 진단에 실패함.
+
+`Unknown`
+: 진단 자체가 실패함(아무런 조치를 수행해서는 안 되며, kubelet이 
+  추가 체크를 수행할 것이다)
+
+### 프로브 종류
 
 kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지 종류의 프로브를 수행하고
 그에 반응할 수 있다.
 
-* `livenessProbe`: 컨테이너가 동작 중인지 여부를 나타낸다. 만약
-   활성 프로브(liveness probe)에 실패한다면, kubelet은 컨테이너를 죽이고, 해당 컨테이너는
-   [재시작 정책](#restart-policy)의 대상이 된다. 만약 컨테이너가
-   활성 프로브를 제공하지 않는 경우, 기본 상태는 `Success`이다.
+`livenessProbe`
+: 컨테이너가 동작 중인지 여부를 나타낸다. 만약
+  활성 프로브(liveness probe)에 실패한다면, kubelet은 컨테이너를 죽이고, 해당 컨테이너는
+  [재시작 정책](#restart-policy)의 대상이 된다. 만약 컨테이너가
+  활성 프로브를 제공하지 않는 경우, 기본 상태는 `Success` 이다.
 
-* `readinessProbe`: 컨테이너가 요청을 처리할 준비가 되었는지 여부를 나타낸다.
-   만약 준비성 프로브(readiness probe)가 실패한다면, 엔드포인트 컨트롤러는
-   파드에 연관된 모든 서비스들의 엔드포인트에서 파드의 IP주소를 제거한다. 준비성 프로브의
-   초기 지연 이전의 기본 상태는 `Failure`이다. 만약 컨테이너가 준비성 프로브를
-   지원하지 않는다면, 기본 상태는 `Success`이다.
+`readinessProbe`
+: 컨테이너가 요청을 처리할 준비가 되었는지 여부를 나타낸다.
+  만약 준비성 프로브(readiness probe)가 실패한다면, 엔드포인트 컨트롤러는
+  파드에 연관된 모든 서비스들의 엔드포인트에서 파드의 IP주소를 제거한다. 준비성 프로브의
+  초기 지연 이전의 기본 상태는 `Failure` 이다. 만약 컨테이너가 준비성 프로브를
+  지원하지 않는다면, 기본 상태는 `Success` 이다.
 
-* `startupProbe`: 컨테이너 내의 애플리케이션이 시작되었는지를 나타낸다.
-   스타트업 프로브(startup probe)가 주어진 경우, 성공할 때까지 다른 나머지 프로브는
-   활성화되지 않는다. 만약 스타트업 프로브가 실패하면, kubelet이 컨테이너를 죽이고,
-   컨테이너는 [재시작 정책](#restart-policy)에 따라 처리된다. 컨테이너에 스타트업
-   프로브가 없는 경우, 기본 상태는 `Success`이다.
+`startupProbe`
+: 컨테이너 내의 애플리케이션이 시작되었는지를 나타낸다.
+  스타트업 프로브(startup probe)가 주어진 경우, 성공할 때까지 다른 나머지 프로브는
+  활성화되지 않는다. 만약 스타트업 프로브가 실패하면, kubelet이 컨테이너를 죽이고,
+  컨테이너는 [재시작 정책](#restart-policy)에 따라 처리된다. 컨테이너에 스타트업
+  프로브가 없는 경우, 기본 상태는 `Success` 이다.
 
 활성, 준비성 및 스타트업 프로브를 설정하는 방법에 대한 추가적인 정보는,
 [활성, 준비성 및 스타트업 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)를 참조하면 된다.
 
-### 언제 활성 프로브를 사용해야 하는가?
+#### 언제 활성 프로브를 사용해야 하는가?
 
 {{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
@@ -295,7 +325,7 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
 프로브가 실패한 후 컨테이너가 종료되거나 재시작되길 원한다면, 활성 프로브를
 지정하고, `restartPolicy`를 항상(Always) 또는 실패 시(OnFailure)로 지정한다.
 
-### 언제 준비성 프로브를 사용해야 하는가?
+#### 언제 준비성 프로브를 사용해야 하는가?
 
 {{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
@@ -329,7 +359,7 @@ failed 애플리케이션과 시동 중에 아직 데이터를 처리하고 있�
 남아 있다.
 {{< /note >}}
 
-### 언제 스타트업 프로브를 사용해야 하는가?
+#### 언제 스타트업 프로브를 사용해야 하는가?
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -379,7 +409,7 @@ TERM 대신 이 값을 보낸다.
    확인하는 즉시(정상적인 종료 기간이 설정됨), kubelet은 로컬 파드의 종료
    프로세스를 시작한다.
    1. 파드의 컨테이너 중 하나가 `preStop`
-      [훅](/ko/docs/concepts/containers/container-lifecycle-hooks/#hook-details)을 정의한 경우, kubelet은
+      [훅](/ko/docs/concepts/containers/container-lifecycle-hooks)을 정의한 경우, kubelet은
       컨테이너 내부에서 해당 훅을 실행한다. 유예 기간이 만료된 후 `preStop` 훅이
       계속 실행되면, kubelet은 2초의 작은 일회성 유예 기간 연장을
       요청한다.
@@ -433,7 +463,7 @@ API에서 즉시 파드를 제거하므로 동일한 이름으로 새로운 파�
 작은 유예 기간이 계속 제공된다.
 
 스테이트풀셋(StatefulSet)의 일부인 파드를 강제 삭제해야 하는 경우,
-[스테이트풀셋에서 파드를 삭제하기](/docs/tasks/run-application/force-delete-stateful-set-pod/)에 대한
+[스테이트풀셋에서 파드를 삭제하기](/ko/docs/tasks/run-application/force-delete-stateful-set-pod/)에 대한
 태스크 문서를 참고한다.
 
 ### 실패한 파드의 가비지 콜렉션 {#pod-garbage-collection}
@@ -458,6 +488,6 @@ API에서 즉시 파드를 제거하므로 동일한 이름으로 새로운 파�
 
 * [컨테이너 라이프사이클 훅](/ko/docs/concepts/containers/container-lifecycle-hooks/)에 대해 자세히 알아보자.
 
-* API의 파드 / 컨테이너 상태에 대한 자세한 내용은 [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
-그리고
-[ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)를 참고한다.
+* API의 파드와 컨테이너 상태에 대한 자세한 내용은 
+  파드의 [`.status`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodStatus)에 대해 다루는 
+  API 레퍼런스 문서를 참고한다.

@@ -70,7 +70,7 @@ jsonpath에서 `.items[*]` 부분은 생략해야 하는데, 이는 명령어가
 반복하여 출력할 수 있다.
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
 sort
 ```
 
@@ -80,7 +80,7 @@ sort
 명령어 결과값은 `app=nginx` 레이블에 일치하는 파드만 출력한다.
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
 ```
 
 ## 파드 네임스페이스로 필터링된 컨테이너 이미지 목록 보기

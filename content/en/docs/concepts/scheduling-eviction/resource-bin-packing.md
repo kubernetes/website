@@ -3,70 +3,100 @@ reviewers:
 - bsalamat
 - k82cn
 - ahg-g
-title: Resource Bin Packing for Extended Resources
+title: Resource Bin Packing
 content_type: concept
 weight: 80
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
-
-The kube-scheduler can be configured to enable bin packing of resources along
-with extended resources using `RequestedToCapacityRatioResourceAllocation`
-priority function. Priority functions can be used to fine-tune the
-kube-scheduler as per custom needs. 
+In the [scheduling-plugin](/docs/reference/scheduling/config/#scheduling-plugins)  `NodeResourcesFit` of kube-scheduler, there are two 
+scoring strategies that support the bin packing of resources: `MostAllocated` and `RequestedToCapacityRatio`.
 
 <!-- body -->
 
-## Enabling Bin Packing using RequestedToCapacityRatioResourceAllocation
+## Enabling bin packing using MostAllocated strategy
+The `MostAllocated` strategy scores the nodes based on the utilization of resources, favoring the ones with higher allocation.
+For each resource type, you can set a weight to modify its influence in the node score.
 
-Kubernetes allows the users to specify the resources along with weights for
+To set the `MostAllocated` strategy for the `NodeResourcesFit` plugin, use a
+[scheduler configuration](/docs/reference/scheduling/config) similar to the following:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta3
+kind: KubeSchedulerConfiguration
+profiles:
+- pluginConfig:
+  - args:
+      scoringStrategy:
+        resources:
+        - name: cpu
+          weight: 1
+        - name: memory
+          weight: 1
+        - name: intel.com/foo
+          weight: 3
+        - name: intel.com/bar
+          weight: 3
+        type: MostAllocated
+    name: NodeResourcesFit
+```
+
+To learn more about other parameters and their default configuration, see the API documentation for 
+[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs).
+
+## Enabling bin packing using RequestedToCapacityRatio
+
+The `RequestedToCapacityRatio` strategy allows the users to specify the resources along with weights for
 each resource to score nodes based on the request to capacity ratio. This
 allows users to bin pack extended resources by using appropriate parameters
-and improves the utilization of scarce resources in large clusters. The
-behavior of the `RequestedToCapacityRatioResourceAllocation` priority function
-can be controlled by a configuration option called `RequestedToCapacityRatioArgs`. 
-This argument consists of two parameters `shape` and `resources`. The `shape` 
+to improve the utilization of scarce resources in large clusters. It favors nodes according to a
+configured function of the allocated resources. The behavior of the `RequestedToCapacityRatio` in
+the `NodeResourcesFit` score function can be controlled by the
+[scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy) field.
+Within the `scoringStrategy` field, you can configure two parameters: `requestedToCapacityRatioParam` and
+`resources`. The `shape` in `requestedToCapacityRatioParam` 
 parameter allows the user to tune the function as least requested or most 
 requested based on `utilization` and `score` values.  The `resources` parameter 
 consists of `name` of the resource to be considered during scoring and `weight` 
 specify the weight of each resource.
 
 Below is an example configuration that sets
-`requestedToCapacityRatioArguments` to bin packing behavior for extended
-resources `intel.com/foo` and `intel.com/bar`.
+the bin packing behavior for extended resources `intel.com/foo` and `intel.com/bar`
+using the `requestedToCapacityRatio` field.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 profiles:
-# ...
-  pluginConfig:
-  - name: RequestedToCapacityRatio
-    args: 
-      shape:
-      - utilization: 0
-        score: 10
-      - utilization: 100
-        score: 0
-      resources:
-      - name: intel.com/foo
-        weight: 3
-      - name: intel.com/bar
-        weight: 5
+- pluginConfig:
+  - args:
+      scoringStrategy:
+        resources:
+        - name: intel.com/foo
+          weight: 3
+        - name: intel.com/bar
+          weight: 3
+        requestedToCapacityRatioParam:
+          shape:
+          - utilization: 0
+            score: 0
+          - utilization: 100
+            score: 10
+        type: RequestedToCapacityRatio
+    name: NodeResourcesFit
 ```
 
 Referencing the `KubeSchedulerConfiguration` file with the kube-scheduler 
 flag `--config=/path/to/config/file` will pass the configuration to the 
 scheduler.
 
-**This feature is disabled by default**
+To learn more about other parameters and their default configuration, see the API documentation for 
+[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs).
 
-### Tuning the Priority Function
+### Tuning the score function
 
-`shape` is used to specify the behavior of the
-`RequestedToCapacityRatioPriority` function.
+`shape` is used to specify the behavior of the `RequestedToCapacityRatio` function.
 
 ```yaml
 shape:

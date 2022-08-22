@@ -67,4 +67,4 @@ SSH 터널은 현재 더 이상 사용되지 않으므로, 수행 중인 작업�
 SSH 터널을 대체하는 Konnectivity 서비스는 컨트롤 플레인에서 클러스터 통신에 TCP 레벨 프록시를 제공한다. Konnectivity 서비스는 컨트롤 플레인 네트워크의 Konnectivity 서버와 노드 네트워크의 Konnectivity 에이전트, 두 부분으로 구성된다. Konnectivity 에이전트는 Konnectivity 서버에 대한 연결을 시작하고 네트워크 연결을 유지한다.
 Konnectivity 서비스를 활성화한 후, 모든 컨트롤 플레인에서 노드로의 트래픽은 이 연결을 통과한다.
 
-[Konnectivity 서비스 태스크](/docs/tasks/extend-kubernetes/setup-konnectivity/)에 따라 클러스터에서 Konnectivity 서비스를 설정한다.
+[Konnectivity 서비스 태스크](/ko/docs/tasks/extend-kubernetes/setup-konnectivity/)에 따라 클러스터에서 Konnectivity 서비스를 설정한다.

@@ -9,7 +9,7 @@ weight: 30
 
 kubectl은 쿠버네티스 클러스터 관리자를 제어한다.
 
- 자세한 정보는 [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 확인한다.
+ 자세한 정보는 [kubectl 개요](/ko/docs/reference/kubectl/)를 확인한다.
 
 ```
 kubectl [flags]
@@ -328,7 +328,31 @@ kubectl [flags]
 </tbody>
 </table>
 
+## {{% heading "envvars" %}}
 
+<table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
+
+<tr>
+<td colspan="2">KUBECONFIG</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">kubectl 구성 ("kubeconfig") 파일 경로. 기본: "$HOME/.kube/config"</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_COMMAND_HEADERS</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">false로 설정하면, 호출된 kubectl 명령(쿠버네티스 버전 v1.22 이상)을 자세히 설명하는 추가 HTTP 헤더를 해제</td>
+</tr>
+
+</tbody>
+</table>
 
 ## {{% heading "seealso" %}}
 

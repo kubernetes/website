@@ -234,7 +234,7 @@ WordPressのインストールをこのページのまま放置してはいけ�
 ## {{% heading "whatsnext" %}}
 
 
-* [イントロスペクションとデバッグ](/docs/tasks/debug-application-cluster/debug-application-introspection/)についてさらに学ぶ
+* [イントロスペクションとデバッグ](/docs/tasks/debug/debug-application)についてさらに学ぶ
 * [Job](/docs/concepts/workloads/controllers/job/)についてさらに学ぶ
 * [Portフォワーディング](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)についてさらに学ぶ
 * [コンテナへのシェルを取得する](/ja/docs/tasks/debug-application-cluster/get-shell-running-container/)方法について学ぶ

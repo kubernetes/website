@@ -73,21 +73,23 @@ knows how to convert between them in both directions.  Additionally, any new
 field added in v2 must be able to round-trip to v1 and back, which means v1
 might have to add an equivalent field or represent it as an annotation.
 
-**Rule #3: An API version in a given track may not be deprecated until a new
-API version at least as stable is released.**
+**Rule #3: An API version in a given track may not be deprecated in favor of a less stable API version.**
 
-GA API versions can replace GA API versions as well as beta and alpha API
-versions.  Beta API versions *may not* replace GA API versions.
+  * GA API versions can replace beta and alpha API versions.
+  * Beta API versions can replace earlier beta and alpha API versions, but *may not* replace GA API versions.
+  * Alpha API versions can replace earlier alpha API versions, but *may not* replace GA or beta API versions.
 
-**Rule #4a: Other than the most recent API versions in each track, older API
-versions must be supported after their announced deprecation for a duration of
-no less than:**
+**Rule #4a: minimum API lifetime is determined by the API stability level**
 
-   * **GA: 12 months or 3 releases (whichever is longer)**
-   * **Beta: 9 months or 3 releases (whichever is longer)**
-   * **Alpha: 0 releases**
+   * **GA API versions may be marked as deprecated, but must not be removed within a major version of Kubernetes**
+   * **Beta API versions must be supported for 9 months or 3 releases (whichever is longer) after deprecation**
+   * **Alpha API versions may be removed in any release without prior deprecation notice**
 
-This covers the [maximum supported version skew of 2 releases](/docs/setup/release/version-skew-policy/).
+This ensures beta API support covers the [maximum supported version skew of 2 releases](/releases/version-skew-policy/).
+
+{{< note >}}
+There are no current plans for a major version revision of Kubernetes that removes GA APIs.
+{{< /note >}}
 
 {{< note >}}
 Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
@@ -109,7 +111,7 @@ objects.
 
 All of this is best illustrated by examples.  Imagine a Kubernetes release,
 version X, which introduces a new API group.  A new Kubernetes release is made
-every approximately 3 months (4 per year).  The following table describes which
+every approximately 4 months (3 per year).  The following table describes which
 API versions are supported in a series of subsequent releases.
 
 <table>
@@ -237,7 +239,7 @@ API versions are supported in a series of subsequent releases.
       <td>
         <ul>
           <li>v2beta2 is deprecated, "action required" relnote</li>
-          <li>v1 is deprecated, "action required" relnote</li>
+          <li>v1 is deprecated in favor of v2, but will not be removed</li>
         </ul>
       </td>
     </tr>
@@ -267,22 +269,6 @@ API versions are supported in a series of subsequent releases.
         </ul>
       </td>
     </tr>
-    <tr>
-      <td>X+16</td>
-      <td>v2, v1 (deprecated)</td>
-      <td>v2</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>X+17</td>
-      <td>v2</td>
-      <td>v2</td>
-      <td>
-        <ul>
-          <li>v1 is removed, "action required" relnote</li>
-        </ul>
-      </td>
-    </tr>
   </tbody>
 </table>
 
@@ -300,7 +286,7 @@ behavior get removed.
 Starting in Kubernetes v1.19, making an API request to a deprecated REST API endpoint:
 
 1. Returns a `Warning` header (as defined in [RFC7234, Section 5.5](https://tools.ietf.org/html/rfc7234#section-5.5)) in the API response.
-2. Adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug-application-cluster/audit/) recorded for the request.
+2. Adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug/debug-cluster/audit/) recorded for the request.
 3. Sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver`
    process. The metric has labels for `group`, `version`, `resource`, `subresource` that can be joined
    to the `apiserver_request_total` metric, and a `removed_release` label that indicates the

@@ -47,10 +47,11 @@ weight: 120
 호스트 이름을 사용하여 API 서버를 쿼리할 수 있다. 공식 클라이언트 라이브러리는
 이를 자동으로 수행한다.
 
-API 서버를 인증하는 권장 방법은 [서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-account/)
-자격 증명을 사용하는 것이다. 기본적으로, 파드는
-서비스 어카운트와 연결되어 있으며, 해당 서비스 어카운트에 대한 자격 증명(토큰)은
-해당 파드에 있는 각 컨테이너의 파일시스템 트리의
+API 서버를 인증하는 권장 방법은 
+[서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-account/) 자격 증명을 사용하는 것이다. 
+기본적으로, 파드는 서비스 어카운트와 연결되어 있으며, 
+해당 서비스 어카운트에 대한 자격 증명(토큰)은 
+해당 파드에 있는 각 컨테이너의 파일시스템 트리의 
 `/var/run/secrets/kubernetes.io/serviceaccount/token` 에 있다.
 
 사용 가능한 경우, 인증서 번들은 각 컨테이너의

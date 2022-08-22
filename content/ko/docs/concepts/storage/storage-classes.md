@@ -76,7 +76,7 @@ volumeBindingMode: Immediate
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
 | Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
-| NFS                  | -                   | -                                    |
+| NFS                  | -                   | [NFS](#nfs)       |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
 | VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
 | PortworxVolume       | &#x2713;            | [Portworx 볼륨](#portworx-볼륨)  |
@@ -87,7 +87,7 @@ volumeBindingMode: Immediate
 여기 목록에서 "내부" 프로비저너를 지정할 수 있다(이
 이름은 "kubernetes.io" 가 접두사로 시작하고, 쿠버네티스와
 함께 제공된다). 또한, 쿠버네티스에서 정의한
-[사양](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)을
+[사양](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md)을
 따르는 독립적인 프로그램인 외부 프로비저너를 실행하고 지정할 수 있다.
 외부 프로비저너의 작성자는 코드의 수명, 프로비저너의
 배송 방법, 실행 방법, (Flex를 포함한)볼륨 플러그인
@@ -241,8 +241,8 @@ allowedTopologies:
 - matchLabelExpressions:
   - key: failure-domain.beta.kubernetes.io/zone
     values:
-    - us-central1-a
-    - us-central1-b
+    - us-central-1a
+    - us-central-1b
 ```
 
 ## 파라미터
@@ -423,6 +423,29 @@ parameters:
     헤드리스 서비스를 자동으로 생성한다. 퍼시스턴트 볼륨 클레임을
     삭제하면 동적 엔드포인트와 서비스가 자동으로 삭제된다.
 
+### NFS
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: example-nfs
+provisioner: example.com/external-nfs
+parameters:
+  server: nfs-server.example.com
+  path: /share
+  readOnly: "false"
+```
+
+* `server`: NFS 서버의 호스트네임 또는 IP 주소.
+* `path`: NFS 서버가 익스포트(export)한 경로.
+* `readOnly`: 스토리지를 읽기 전용으로 마운트할지 나타내는 플래그(기본값: false).
+
+쿠버네티스에는 내장 NFS 프로비저너가 없다. NFS를 위한 스토리지클래스를 생성하려면 외부 프로비저너를 사용해야 한다.
+예시는 다음과 같다.
+* [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
+* [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+
 ### OpenStack Cinder
 
 ```yaml
@@ -447,14 +470,14 @@ parameters:
 
 vSphere 스토리지 클래스에는 두 가지 유형의 프로비저닝 도구가 있다.
 
-- [CSI 프로비저닝 도구](#csi-프로비저닝-도구): `csi.vsphere.vmware.com`
+- [CSI 프로비저닝 도구](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP 프로비저닝 도구](#vcp-프로비저닝-도구): `kubernetes.io/vsphere-volume`
 
 인-트리 프로비저닝 도구는 [사용 중단](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)되었다. CSI 프로비저닝 도구에 대한 자세한 내용은 [쿠버네티스 vSphere CSI 드라이버](https://vsphere-csi-driver.sigs.k8s.io/) 및 [vSphereVolume CSI 마이그레이션](/ko/docs/concepts/storage/volumes/#csi-마이그레이션)을 참고한다.
 
 #### CSI 프로비저닝 도구 {#vsphere-provisioner-csi}
 
-vSphere CSI 스토리지클래스 프로비저닝 도구는 Tanzu 쿠버네티스 클러스터에서 작동한다. 예시는 [vSphere CSI 리포지터리](https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/example/vanilla-k8s-file-driver/example-sc.yaml)를 참조한다.
+vSphere CSI 스토리지클래스 프로비저닝 도구는 Tanzu 쿠버네티스 클러스터에서 작동한다. 예시는 [vSphere CSI 리포지터리](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml)를 참조한다.
 
 #### vCP 프로비저닝 도구
 
@@ -577,6 +600,12 @@ parameters:
   기본값은 ""이며, 기능이 설정되어 있지 않다.
 
 ### Quobyte
+
+{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
+
+Quobyte 인-트리 스토리지 플러그인은 사용 중단되었으며, 
+아웃-오브-트리 Quobyte 플러그인에 대한 [예제](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml) 
+`StorageClass`는 Quobyte CSI 저장소에서 찾을 수 있다.
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -768,7 +797,7 @@ parameters:
   storagePool: sp1
   storageMode: ThinProvisioned
   secretRef: sio-secret
-  readOnly: false
+  readOnly: "false"
   fsType: xfs
 ```
 
