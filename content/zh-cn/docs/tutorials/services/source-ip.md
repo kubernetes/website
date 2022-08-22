@@ -390,7 +390,6 @@ Visually:
 用图表示：
 {{< figure src="/zh-cn/docs/images/tutor-service-nodePort-fig02.svg" alt="图 2：源 IP NodePort" class="diagram-large" caption="如图。源 IP（Type=NodePort）保存客户端源 IP 地址" link="" >}}
 
-
 <!-- 
 ## Source IP for Services with `Type=LoadBalancer`
 
@@ -510,7 +509,7 @@ serving the health check at `/healthz`. You can test this:
 路径上提供健康检查的节点的端口。你可以这样测试：
 
 ```shell
-kubectl get pod -o wide -l run=source-ip-app
+kubectl get pod -o wide -l app=source-ip-app
 ```
 <!-- 
 The output is similar to this:
@@ -611,8 +610,8 @@ the `service.spec.healthCheckNodePort` field on the Service.
 -->
 第一类负载均衡器必须使用负载均衡器和后端之间商定的协议来传达真实的客户端 IP，
 例如 HTTP [转发](https://tools.ietf.org/html/rfc7239#section-5.2)或
-[X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For)
-表头，或[代理协议](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)。
+[X-FORWARDED-FOR](https://zh.wikipedia.org/wiki/X-Forwarded-For)
+标头，或[代理协议](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)。
 第二类负载均衡器可以通过创建指向存储在 Service 上的 `service.spec.healthCheckNodePort`
 字段中的端口的 HTTP 健康检查来利用上述功能。
 
@@ -623,8 +622,8 @@ Delete the Services:
 -->
 删除 Service：
 
-```console
-$ kubectl delete svc -l app=source-ip-app
+```shell
+kubectl delete svc -l app=source-ip-app
 ```
 
 <!--
@@ -632,8 +631,8 @@ Delete the Deployment, ReplicaSet and Pod:
 -->
 删除 Deployment、ReplicaSet 和 Pod：
 
-```console
-$ kubectl delete deployment source-ip-app
+```shell
+kubectl delete deployment source-ip-app
 ```
 
 ## {{% heading "whatsnext" %}}
