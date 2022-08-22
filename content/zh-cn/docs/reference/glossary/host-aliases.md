@@ -2,7 +2,7 @@
 title: HostAliases
 id: HostAliases
 date: 2019-01-31
-full_link: /zh-cn/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#hostalias-v1-core
+full_link: /docs/reference/generated/kubernetes-api/{{< param "version" >}}/#hostalias-v1-core
 short_description: >
   主机别名 (HostAliases) 是一组 IP 地址和主机名的映射，用于注入到 Pod 内的 hosts 文件。
 
