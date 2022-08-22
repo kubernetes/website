@@ -258,7 +258,7 @@ name as the key. This admission controller, if enabled, automatically
 adds tolerations for such taints to pods requesting extended resources, so users don't have to manually
 add these tolerations.
 
-This admission controller is diabled by default.
+This admission controller is disabled by default.
 
 ### ImagePolicyWebhook {#imagepolicywebhook}
 
