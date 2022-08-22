@@ -203,6 +203,8 @@ The following table includes a list of all the supported resource types and thei
 | `events` | `ev` | events.k8s.io/v1 | true | Event |
 | `flowschemas` |  | flowcontrol.apiserver.k8s.io/v1beta2 | false | FlowSchema |
 | `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io/v1beta2 | false | PriorityLevelConfiguration |
+| `nodes` |  | metrics.k8s.io/v1beta1 | false | NodeMetrics |
+| `pods` |  | metrics.k8s.io/v1beta1 | true | PodMetrics |
 | `ingressclasses` |  | networking.k8s.io/v1 | false | IngressClass |
 | `ingresses` | `ing` | networking.k8s.io/v1 | true | Ingress |
 | `networkpolicies` | `netpol` | networking.k8s.io/v1 | true | NetworkPolicy |
