@@ -30,6 +30,8 @@ nohup.out
 public/
 resources/
 .hugo_build.lock
+themes/docsy
+.hugo_build
 
 # Netlify Functions build output
 package-lock.json
