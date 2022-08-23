@@ -39,7 +39,7 @@ of the Cassandra cluster (called a _ring_). When those Pods run in your Kubernet
 the Kubernetes control plane schedules those Pods onto Kubernetes
 {{< glossary_tooltip text="Nodes" term_id="node" >}}.
 -->
-Cassandra 和 Kubernetes 都使用术语**节点（node）**来表示集群的成员。
+Cassandra 和 Kubernetes 都使用术语**节点（node）** 来表示集群的成员。
 在本教程中，属于 StatefulSet 的 Pod 是 Cassandra 节点，并且是 Cassandra 集群的成员（称为 **ring**）。
 当这些 Pod 在你的 Kubernetes 集群中运行时，Kubernetes 控制平面会将这些 Pod 调度到 Kubernetes 的
 {{< glossary_tooltip text="节点" term_id="node" >}}上。
