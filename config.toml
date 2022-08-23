@@ -189,7 +189,7 @@ url = "https://kubernetes.io"
 fullversion = "v1.24.4"
 version = "v1.24"
 githubbranch = "v1.24.4"
-docsbranch = "main"
+docsbranch = "release-1.24"
 url = "https://kubernetes.io"
 
 [[params.versions]]
