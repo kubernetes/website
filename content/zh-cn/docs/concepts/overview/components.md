@@ -2,7 +2,7 @@
 title: Kubernetes 组件
 content_type: concept
 description: >
-  Kubernetes 集群由代表控制平面的组件和一组称为节点的机器组成。
+  Kubernetes 集群由控制平面的组件和一组称为节点的机器组成。
 weight: 20
 card:
   name: concepts
@@ -14,8 +14,8 @@ reviewers:
 title: Kubernetes Components
 content_type: concept
 description: >
-  A Kubernetes cluster consists of the components that represent the control plane
-  and a set of machines called nodes
+  A Kubernetes cluster consists of the components that are a part of the control
+  plane and a set of machines called nodes.
 weight: 20
 card:
   name: concepts
@@ -24,13 +24,12 @@ card:
 
 <!--
 When you deploy Kubernetes, you get a cluster.
-{{</* glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of" */>}}
+{{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
 This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
 {{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
-
 -->
 <!-- overview -->
 当你部署完 Kubernetes，便拥有了一个完整的集群。
@@ -59,7 +58,7 @@ for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
 [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 for an example control plane setup that runs across multiple machines.
- -->
+-->
 控制平面组件可以在集群中的任何节点上运行。
 然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，
 并且不会在此计算机上运行用户容器。
@@ -190,8 +189,8 @@ Containers started by Kubernetes automatically include this DNS server in their 
 -->
 ### DNS   {#dns}
 
-尽管其他插件都并非严格意义上的必需组件，但几乎所有 Kubernetes 集群都应该
-有[集群 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)，
+尽管其他插件都并非严格意义上的必需组件，但几乎所有 Kubernetes
+集群都应该有[集群 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)，
 因为很多示例都需要 DNS 服务。
 
 集群 DNS 是一个 DNS 服务器，和环境中的其他 DNS 服务器一起工作，它为 Kubernetes 服务提供 DNS 记录。
@@ -230,8 +229,7 @@ saving container logs to a central log store with search/browsing interface.
 -->
 ### 集群层面日志   {#cluster-level-logging}
 
-[集群层面日志](/zh-cn/docs/concepts/cluster-administration/logging/) 
-机制负责将容器的日志数据保存到一个集中的日志存储中，
+[集群层面日志](/zh-cn/docs/concepts/cluster-administration/logging/)机制负责将容器的日志数据保存到一个集中的日志存储中，
 这种集中日志存储提供搜索和浏览接口。
 
 ## {{% heading "whatsnext" %}}
