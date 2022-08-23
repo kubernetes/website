@@ -1,5 +1,5 @@
 ---
-title: क्लस्टर आर्किटेक्ट (Cluster Architect)
+title: क्लस्टर आर्किटेक्ट 
 id: cluster-architect
 date: 2018-04-12
 full_link: 
