@@ -198,7 +198,7 @@ The following table includes a list of all the supported resource types and thei
 | `cronjobs` | `cj` | batch/v1 | true | CronJob |
 | `jobs` |  | batch/v1 | true | Job |
 | `certificatesigningrequests` | `csr` | certificates.k8s.io/v1 | false | CertificateSigningRequest |
-| `leases |  | coordination.k8s.io/v1 | true | Lease |
+| `leases` |  | coordination.k8s.io/v1 | true | Lease |
 | `endpointslices` |  | discovery.k8s.io/v1 | true | EndpointSlice |
 | `events` | `ev` | events.k8s.io/v1 | true | Event |
 | `flowschemas` |  | flowcontrol.apiserver.k8s.io/v1beta2 | false | FlowSchema |
