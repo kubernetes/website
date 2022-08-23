@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes 1.25: CustomResourceDefinition Validation Rules Graduate to Beta"
-date: 2022-07-27
+date: 2022-09-23
 slug: crd-validation-rules-beta
 ---
 
