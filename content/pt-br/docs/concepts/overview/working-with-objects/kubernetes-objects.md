@@ -65,7 +65,7 @@ No arquivo `.yaml` para o objeto Kubernetes que pretende criar, você precisará
 O formato preciso do objeto `spec` é diferente para cada objeto Kubernetes, e contém campos aninhados específicos para aquele objeto. A documentação de [referência da API do Kubernetes](/docs/reference/kubernetes-api/) pode ajudar a encontrar o formato de especificação para todos os objetos que você pode criar usando Kubernetes. 
 
 Por exemplo, veja o campo de [`spec` field](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) para a referência Pod API.
-Para cada POD, o campo `.spec` especifica o pod e seu estado desejado (como o nome da imagem do contêiner para cada recipiente dentro daquela cápsula).
+Para cada Pod, o campo `.spec` especifica o pod e seu estado desejado (como o nome da imagem do contêiner para cada recipiente dentro daquela cápsula).
 Outro exemplo de especificação de um objeto é o 
 [campo `spec` ](/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/#StatefulSetSpec).
 Para o StatefulSet, o campo `.spec` especifica o StatefulSet e seu estado desejado.
