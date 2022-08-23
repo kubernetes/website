@@ -72,17 +72,14 @@ in the resultant OpenAPI extensions.
 Begin with a folder structure of a Go module set up like the following. If
 you have your own project already set up feel free to adapt this tutorial to your liking:
 
-```console
-cel-immutability-tutorial
-├── generate.go
-├── pkg
-│  └── apis
-│     └── stable.example.com
-│        └── v1
-│           ├── doc.go
-│           └── types.go
-└── tools.go
-```
+{{< mermaid >}}
+graph LR
+    . --> generate.go
+    . --> pkg --> apis --> stable.example.com --> v1
+    v1 --> doc.go
+    v1 --> types.go
+    . --> tools.go
+{{</ mermaid >}}
 
 This is the typical folder structure used by Kubernetes projects for defining new API resources.
 
@@ -153,23 +150,20 @@ go generate ./...
 ```
 
 After running these commands you now have completed the basic project structure.
-Your folder tree should look like this:
+Your folder tree should look like the following:
 
-```console
-cel-immutability-tutorial
-├── crds
-│  └── stable.example.com_testcrds.yaml
-├── generate.go
-├── go.mod
-├── go.sum
-├── pkg
-│  └── apis
-│     └── stable.example.com
-│        └── v1
-│           ├── doc.go
-│           └── types.go
-└── tools.go
-```
+{{< mermaid >}}
+graph LR
+    . --> crds --> stable.example.com_testcrds.yaml
+    . --> generate.go
+    . --> go.mod
+    . --> go.sum
+    . --> pkg --> apis --> stable.example.com --> v1
+    v1 --> doc.go
+    v1 --> types.go
+    . --> tools.go
+
+{{</ mermaid >}}
 
 The manifest for the example CRD is now available in `crds/stable.example.com_testcrds.yaml`.
 
