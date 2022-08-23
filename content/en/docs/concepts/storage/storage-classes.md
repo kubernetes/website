@@ -71,17 +71,13 @@ for provisioning PVs. This field must be specified.
 | Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
 | FC                   | -                   | -                                    |
 | FlexVolume           | -                   | -                                    |
-| Flocker              | &#x2713;            | -                                    |
 | GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
-| Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
 | NFS                  | -                   | [NFS](#nfs)       |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
 | VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
 | PortworxVolume       | &#x2713;            | [Portworx Volume](#portworx-volume)  |
-| ScaleIO              | &#x2713;            | [ScaleIO](#scaleio)                  |
-| StorageOS            | &#x2713;            | [StorageOS](#storageos)              |
 | Local                | -                   | [Local](#local)              |
 
 You are not restricted to specifying the "internal" provisioners
@@ -599,61 +595,6 @@ parameters:
   set `imageFormat` to "2". Currently supported features are `layering` only.
   Default is "", and no features are turned on.
 
-### Quobyte
-
-{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
-
-The Quobyte in-tree storage plugin is deprecated, an 
-[example](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml)
-`StorageClass` for the out-of-tree Quobyte plugin can be found at the Quobyte CSI repository.
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-   name: slow
-provisioner: kubernetes.io/quobyte
-parameters:
-    quobyteAPIServer: "http://138.68.74.142:7860"
-    registry: "138.68.74.142:7861"
-    adminSecretName: "quobyte-admin-secret"
-    adminSecretNamespace: "kube-system"
-    user: "root"
-    group: "root"
-    quobyteConfig: "BASE"
-    quobyteTenant: "DEFAULT"
-```
-
-* `quobyteAPIServer`: API Server of Quobyte in the format
-  `"http(s)://api-server:7860"`
-* `registry`: Quobyte registry to use to mount the volume. You can specify the
-  registry as ``<host>:<port>`` pair or if you want to specify multiple
-  registries, put a comma between them.
-  ``<host1>:<port>,<host2>:<port>,<host3>:<port>``.
-  The host can be an IP address or if you have a working DNS you can also
-  provide the DNS names.
-* `adminSecretNamespace`: The namespace for `adminSecretName`.
-  Default is "default".
-* `adminSecretName`: secret that holds information about the Quobyte user and
-  the password to authenticate against the API server. The provided secret
-  must have type "kubernetes.io/quobyte" and the keys `user` and `password`,
-  for example:
-
-    ```shell
-    kubectl create secret generic quobyte-admin-secret \
-      --type="kubernetes.io/quobyte" --from-literal=user='admin' --from-literal=password='opensesame' \
-      --namespace=kube-system
-    ```
-
-* `user`: maps all access to this user. Default is "root".
-* `group`: maps all access to this group. Default is "nfsnobody".
-* `quobyteConfig`: use the specified configuration to create the volume. You
-  can create a new configuration or modify an existing one with the Web
-  console or the quobyte CLI. Default is "BASE".
-* `quobyteTenant`: use the specified tenant ID to create/delete the volume.
-  This Quobyte tenant has to be already present in Quobyte.
-  Default is "DEFAULT".
-
 ### Azure Disk
 
 #### Azure Unmanaged Disk storage class {#azure-unmanaged-disk-storage-class}
@@ -781,96 +722,6 @@ parameters:
   `persistent volumes` use case such as for databases like Cassandra should set
   to false, `true/false` (default `false`). A string is expected here i.e.
   `"true"` and not `true`.
-
-### ScaleIO
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/scaleio
-parameters:
-  gateway: https://192.168.99.200:443/api
-  system: scaleio
-  protectionDomain: pd0
-  storagePool: sp1
-  storageMode: ThinProvisioned
-  secretRef: sio-secret
-  readOnly: "false"
-  fsType: xfs
-```
-
-* `provisioner`: attribute is set to `kubernetes.io/scaleio`
-* `gateway`: address to a ScaleIO API gateway (required)
-* `system`: the name of the ScaleIO system (required)
-* `protectionDomain`: the name of the ScaleIO protection domain (required)
-* `storagePool`: the name of the volume storage pool (required)
-* `storageMode`: the storage provision mode: `ThinProvisioned` (default) or
-  `ThickProvisioned`
-* `secretRef`: reference to a configured Secret object (required)
-* `readOnly`: specifies the access mode to the mounted volume (default false)
-* `fsType`: the file system to use for the volume (default ext4)
-
-The ScaleIO Kubernetes volume plugin requires a configured Secret object.
-The secret must be created with type `kubernetes.io/scaleio` and use the same
-namespace value as that of the PVC where it is referenced
-as shown in the following command:
-
-```shell
-kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" \
---from-literal=username=sioadmin --from-literal=password=d2NABDNjMA== \
---namespace=default
-```
-
-### StorageOS
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: fast
-provisioner: kubernetes.io/storageos
-parameters:
-  pool: default
-  description: Kubernetes volume
-  fsType: ext4
-  adminSecretNamespace: default
-  adminSecretName: storageos-secret
-```
-
-* `pool`: The name of the StorageOS distributed capacity pool to provision the
-  volume from.  Uses the `default` pool which is normally present if not specified.
-* `description`: The description to assign to volumes that were created dynamically.
-  All volume descriptions will be the same for the storage class, but different
-  storage classes can be used to allow descriptions for different use cases.
-  Defaults to `Kubernetes volume`.
-* `fsType`: The default filesystem type to request. Note that user-defined rules
-  within StorageOS may override this value.  Defaults to `ext4`.
-* `adminSecretNamespace`: The namespace where the API configuration secret is
-  located. Required if adminSecretName set.
-* `adminSecretName`: The name of the secret to use for obtaining the StorageOS
-  API credentials. If not specified, default values will be attempted.
-
-The StorageOS Kubernetes volume plugin can use a Secret object to specify an
-endpoint and credentials to access the StorageOS API. This is only required when
-the defaults have been changed.
-The secret must be created with type `kubernetes.io/storageos` as shown in the
-following command:
-
-```shell
-kubectl create secret generic storageos-secret \
---type="kubernetes.io/storageos" \
---from-literal=apiAddress=tcp://localhost:5705 \
---from-literal=apiUsername=storageos \
---from-literal=apiPassword=storageos \
---namespace=default
-```
-
-Secrets used for dynamically provisioned volumes may be created in any namespace
-and referenced with the `adminSecretNamespace` parameter. Secrets used by
-pre-provisioned volumes must be created in the same namespace as the PVC that
-references it.
 
 ### Local
 

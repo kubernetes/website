@@ -48,7 +48,8 @@ Pod topology spread constraints offer you a declarative way to configure that.
 
 ## `topologySpreadConstraints` field
 
-The Pod API includes a field, `spec.topologySpreadConstraints`. Here is an example:
+The Pod API includes a field, `spec.topologySpreadConstraints`. The usage of this field looks like
+the following:
 
 ```yaml
 ---
@@ -60,14 +61,18 @@ spec:
   # Configure a topology spread constraint
   topologySpreadConstraints:
     - maxSkew: <integer>
-      minDomains: <integer> # optional; alpha since v1.24
+      minDomains: <integer> # optional; beta since v1.25
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
+      matchLabelKeys: <list> # optional; alpha since v1.25
+      nodeAffinityPolicy: [Honor|Ignore] # optional; alpha since v1.25
+      nodeTaintsPolicy: [Honor|Ignore] # optional; alpha since v1.25
   ### other Pod fields go here
 ```
 
-You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints`.
+You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints` or
+refer to [scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling) section of the API reference for Pod.
 
 ### Spread constraint definition
 
@@ -82,9 +87,9 @@ your cluster. Those fields are:
   - if you select `whenUnsatisfiable: DoNotSchedule`, then `maxSkew` defines the
     maximum permitted difference between the number of matching pods in the target
     topology and the _global minimum_
-    (the minimum number of pods that match the label selector in a topology domain).
-    For example, if you have 3 zones with 2, 4 and 5 matching pods respectively,
-    then the global minimum is 2 and `maxSkew` is compared relative to that number.
+    (the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains).
+    For example, if you have 3 zones with 2, 2 and 1 matching pods respectively,
+    `MaxSkew` is set to 1 then the global minimum is 1.
   - if you select `whenUnsatisfiable: ScheduleAnyway`, the scheduler gives higher
     precedence to topologies that would help reduce the skew.
 
@@ -93,9 +98,8 @@ your cluster. Those fields are:
   nodes match the node selector.
 
   {{< note >}}
-  The `minDomains` field is an alpha field added in 1.24. You have to enable the
-  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `minDomains` field is a beta field and enabled by default in 1.25. You can disable it by disabling the
+  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
   - The value of `minDomains` must be greater than 0, when specified.
@@ -108,10 +112,12 @@ your cluster. Those fields are:
     `minDomains`, this value has no effect on scheduling.
   - If you do not specify `minDomains`, the constraint behaves as if `minDomains` is 1.
 
-- **topologyKey** is the key of [node labels](#node-labels). If two Nodes are labelled
-  with this key and have identical values for that label, the scheduler treats both
-  Nodes as being in the same topology. The scheduler tries to place a balanced number
-  of Pods into each topology domain.
+- **topologyKey** is the key of [node labels](#node-labels). Nodes that have a label with this key
+	and identical values are considered to be in the same topology.
+  We call each instance of a topology (in other words, a <key, value> pair) a domain. The scheduler
+  will try to put a balanced number of pods into each domain.
+	Also, we define an eligible domain as a domain whose nodes meet the requirements of
+	nodeAffinityPolicy and nodeTaintsPolicy.
 
 - **whenUnsatisfiable** indicates how to deal with a Pod if it doesn't satisfy the spread constraint:
   - `DoNotSchedule` (default) tells the scheduler not to schedule it.
@@ -122,6 +128,54 @@ your cluster. Those fields are:
   number of Pods in their corresponding topology domain.
   See [Label Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
   for more details.
+
+- **matchLabelKeys** is a list of pod label keys to select the pods over which
+  spreading will be calculated. The keys are used to lookup values from the pod labels, those key-value labels are ANDed with `labelSelector` to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the pod labels will be ignored. A null or empty list means only match against the `labelSelector`.
+
+  With `matchLabelKeys`, users don't need to update the `pod.spec` between different revisions. The controller/operator just needs to set different values to the same `label` key for different revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For example, if users use Deployment, they can use the label keyed with `pod-template-hash`, which is added automatically by the Deployment controller, to distinguish between different revisions in a single Deployment.
+
+  ```yaml
+      topologySpreadConstraints:
+          - maxSkew: 1
+            topologyKey: kubernetes.io/hostname
+            whenUnsatisfiable: DoNotSchedule
+            matchLabelKeys:
+              - app
+              - pod-template-hash
+  ```
+
+  {{< note >}}
+  The `matchLabelKeys` field is an alpha field added in 1.25. You have to enable the
+  `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  in order to use it.
+  {{< /note >}}
+
+- **nodeAffinityPolicy** indicates how we will treat Pod's nodeAffinity/nodeSelector
+  when calculating pod topology spread skew. Options are:
+  - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations.
+  - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+
+  If this value is null, the behavior is equivalent to the Honor policy.
+
+  {{< note >}}
+  The `nodeAffinityPolicy` is an alpha-level field added in 1.25. You have to enable the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  in order to use it.
+  {{< /note >}}
+
+- **nodeTaintsPolicy** indicates how we will treat node taints when calculating
+  pod topology spread skew. Options are:
+  - Honor: nodes without taints, along with tainted nodes for which the incoming pod
+    has a toleration, are included.
+  - Ignore: node taints are ignored. All nodes are included.
+
+  If this value is null, the behavior is equivalent to the Ignore policy.
+
+  {{< note >}}
+  The `nodeTaintsPolicy` is an alpha-level field added in 1.25. You have to enable the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  in order to use it.
+  {{< /note >}}
 
 When a Pod defines more than one `topologySpreadConstraint`, those constraints are
 combined using a logical AND operation: the kube-scheduler looks for a node for the incoming Pod
@@ -556,7 +610,8 @@ section of the enhancement proposal about Pod topology spread constraints.
   cluster. This could lead to a problem in autoscaled clusters, when a node pool (or
   node group) is scaled to zero nodes, and you're expecting the cluster to scale up,
   because, in this case, those topology domains won't be considered until there is
-  at least one node in them.  
+  at least one node in them.
+
   You can work around this by using an cluster autoscaling tool that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
