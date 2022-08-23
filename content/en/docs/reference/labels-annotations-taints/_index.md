@@ -437,7 +437,7 @@ Used on: Node
 
 The kubelet can set this annotation on a Node to denote its configured IPv4 address.
 
-When kubelet is started with the "external" cloud provider, it sets this annotation on the Node to denote an IP address set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid by the cloud-controller-manager.
+When kubelet is started with the `--cloud-provider` flag set to any value (includes both external and legacy in-tree cloud providers), it sets this annotation on the Node to denote an IP address set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid by the cloud-controller-manager.
 
 ### batch.kubernetes.io/job-completion-index
 
@@ -528,9 +528,9 @@ The kubelet checks D-value of the size of `/proc/sys/kernel/pid_max` and the PID
 
 Example: `node.kubernetes.io/out-of-service:NoExecute`
 
-A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach` 
+A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled on
-`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node. 
+`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node.
 
 {{< caution >}}
 Refer to
@@ -639,15 +639,19 @@ for more information.
 
 Example: `kubernetes.io/psp: restricted`
 
-This annotation is only relevant if you are using [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
+Used on: Pod
 
-When the PodSecurityPolicy admission controller admits a Pod, the admission controller
-modifies the Pod to have this annotation.
-The value of the annotation is the name of the PodSecurityPolicy that was used for validation.
+This annotation was only relevant if you were using [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
+Kubernetes v{{< skew currentVersion >}} does not support the PodSecurityPolicy API.
+
+When the PodSecurityPolicy admission controller admitted a Pod, the admission controller
+modified the Pod to have this annotation.
+The value of the annotation was the name of the PodSecurityPolicy that was used for validation.
 
 ### seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
 
-This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
+This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in a future release.
+please use the corresponding pod or container `securityContext.seccompProfile` field instead.
 To specify security settings for a Pod, include the `securityContext` field in the Pod specification.
 The [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) field within a Pod's `.spec` defines pod-level security attributes.
 When you [specify the security context for a Pod](/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod),
@@ -655,7 +659,8 @@ the settings you specify apply to all containers in that Pod.
 
 ### container.seccomp.security.alpha.kubernetes.io/[NAME] (deprecated) {#container-seccomp-security-alpha-kubernetes-io}
 
-This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
+This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in a future release.
+please use the corresponding pod or container `securityContext.seccompProfile` field instead.
 The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/) takes
 you through the steps you follow to apply a seccomp profile to a Pod or to one of
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
@@ -672,7 +677,7 @@ This determines whether a user can modify the mode of the source volume when a
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} is being
 created from a VolumeSnapshot.
 
-Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode) 
+Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode)
 and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/) for more information.
 
 ## Annotations used for audit
@@ -740,14 +745,3 @@ Used on: Node
 Example: `node-role.kubernetes.io/control-plane:NoSchedule`
 
 Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
-
-### node-role.kubernetes.io/master
-
-Used on: Node
-
-Example: `node-role.kubernetes.io/master:NoSchedule`
-
-Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
-
-{{< note >}} Starting in v1.20, this taint is deprecated in favor of `node-role.kubernetes.io/control-plane`
-and will be removed in v1.25.{{< /note >}}

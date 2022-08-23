@@ -74,10 +74,7 @@ is managed by kubelet, or injecting different data.
 
 ### CSI ephemeral volumes
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
-
-This feature requires the `CSIInlineVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to be enabled. It is enabled by default starting with Kubernetes 1.16.
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 {{< note >}}
 CSI ephemeral volumes are only supported by a subset of CSI drivers.

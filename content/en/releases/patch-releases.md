@@ -84,6 +84,16 @@ releases may also occur in between these.
 
 ## Detailed Release History for Active Branches
 
+### 1.25
+
+Next patch release is **1.25.1**
+
+End of Life for **1.25** is **2023-10-27**
+
+| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE |
+|---------------|----------------------|-------------|------|
+| 1.25.1        | 2022-09-09           | 2022-09-14  |      |
+
 ### 1.24
 
 Next patch release is **1.24.4**

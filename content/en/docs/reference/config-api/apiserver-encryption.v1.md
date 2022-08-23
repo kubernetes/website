@@ -94,7 +94,6 @@ Each key has to be 32 bytes long for AES-CBC and 16, 24 or 32 bytes for AES-GCM.
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
 <tbody>
     
-  
 <tr><td><code>name</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>

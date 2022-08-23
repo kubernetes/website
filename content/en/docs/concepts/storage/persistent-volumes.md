@@ -9,7 +9,7 @@ title: Persistent Volumes
 feature:
   title: Storage orchestration
   description: >
-    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
+    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://aws.amazon.com/products/storage/">AWS</a> or <a href="https://cloud.google.com/storage/">GCP</a>, or a network storage system such as NFS, iSCSI, Ceph, Cinder.
 content_type: concept
 weight: 20
 ---
@@ -166,7 +166,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "k8s.gcr.io/busybox"
+    image: "registry.k8s.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol
@@ -238,10 +238,9 @@ Source:
 Events:                <none>
 ```
 
-Enabling the `CSIMigration` feature for a specific in-tree volume plugin will remove
-the `kubernetes.io/pv-controller` finalizer, while adding the `external-provisioner.volume.kubernetes.io/finalizer`
-finalizer. Similarly, disabling `CSIMigration` will remove the `external-provisioner.volume.kubernetes.io/finalizer`
-finalizer, while adding the `kubernetes.io/pv-controller` finalizer.
+When the `CSIMigration{provider}` feature flag is enabled for a specific in-tree volume plugin,
+the `kubernetes.io/pv-controller` finalizer is replaced by the
+`external-provisioner.volume.kubernetes.io/finalizer` finalizer.
 
 ### Reserving a PersistentVolume
 
@@ -413,14 +412,9 @@ Kubernetes does not support shrinking a PVC to less than its current size.
 
 PersistentVolume types are implemented as plugins. Kubernetes currently supports the following plugins:
 
-* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
-* [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
 * [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
-* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
-* [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
 * [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
   (for single node testing only; WILL NOT WORK in a multi-node cluster;
   consider using `local` volume instead)
@@ -428,29 +422,41 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 * [`local`](/docs/concepts/storage/volumes/#local) - local storage devices
   mounted on nodes.
 * [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
-* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
 * [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
-* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
 
 The following types of PersistentVolume are deprecated. This means that support is still available but will be removed in a future Kubernetes release.
 
+* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+  (**deprecated** in v1.17)
+* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
+  (**deprecated** in v1.19)
+* [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
+  (**deprecated** in v1.21)
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
   (**deprecated** in v1.18)
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**deprecated** in v1.23)
-* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
-  (**deprecated** in v1.22)
-* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
-  (**deprecated** in v1.22)
-* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
-  (**deprecated** in v1.22)
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
+  (**deprecated** in v1.17)
+* [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
+  (**deprecated** in v1.25)
+* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
+  (**deprecated** in v1.25)
+* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
+  (**deprecated** in v1.19)
 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
 * `photonPersistentDisk` - Photon controller persistent disk.
-  (**not available** after v1.15)
+  (**not available** starting v1.15)
 * [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
-  (**not available** after v1.21)
+  (**not available** starting v1.21)
+* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
+  (**not available** starting v1.25)
+* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
+  (**not available** starting v1.25)
+* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
+  (**not available** starting v1.25)
 
 ## Persistent Volumes
 
@@ -562,17 +568,14 @@ If the access modes are specified as ReadWriteOncePod, the volume is constrained
 | CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
 | FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
-| Flocker              | &#x2713;               | -                     | -             | -                      |
 | GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
 | Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | HostPath             | &#x2713;               | -                     | -             | -                      |
 | iSCSI                | &#x2713;               | &#x2713;              | -             | -                      |
-| Quobyte              | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | RBD                  | &#x2713;               | &#x2713;              | -             | -                      |
 | VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated) | - |
 | PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
-| StorageOS            | &#x2713;               | -                     | -             | -                      |
 
 ### Class
 
@@ -616,9 +619,7 @@ The following volume types support mount options:
 * `glusterfs`
 * `iscsi`
 * `nfs`
-* `quobyte` (**deprecated** in v1.22)
 * `rbd`
-* `storageos` (**deprecated** in v1.22)
 * `vsphereVolume`
 
 Mount options are not validated. If a mount option is invalid, the mount fails.
@@ -718,9 +719,13 @@ is turned on.
   more than one default is specified, the admission plugin forbids the creation of
   all PVCs.
 * If the admission plugin is turned off, there is no notion of a default
-  StorageClass. All PVCs that have no `storageClassName` can be bound only to PVs that
-  have no class. In this case, the PVCs that have no `storageClassName` are treated the
-  same way as PVCs that have their `storageClassName` set to `""`.
+  StorageClass. All PVCs that have `storageClassName` set to `""` can be
+  bound only to PVs that have `storageClassName` also set to `""`.
+  However, PVCs with missing `storageClassName` can be updated later once
+  default StorageClass becomes available. If the PVC gets updated it will no
+  longer bind to PVs that have `storageClassName` also set to `""`.
+
+See [retroactive default StorageClass assignment](#retroactive-default-storageclass-assignment) for more details.
 
 Depending on installation method, a default StorageClass may be deployed
 to a Kubernetes cluster by addon manager during installation.
@@ -736,6 +741,20 @@ Currently, a PVC with a non-empty `selector` can't have a PV dynamically provisi
 In the past, the annotation `volume.beta.kubernetes.io/storage-class` was used instead
 of `storageClassName` attribute. This annotation is still working; however,
 it won't be supported in a future Kubernetes release.
+
+
+#### Retroactive default StorageClass assignment
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+You can create a PersistentVolumeClaim without specifying a `storageClassName` for the new PVC, and you can do so even when no default StorageClass exists in your cluster. In this case, the new PVC creates as you defined it, and the `storageClassName` of that PVC remains unset until default becomes available.
+However, if you enable the [`RetroactiveDefaultStorageClass` feature gate](/docs/reference/command-line-tools-reference/feature-gates/) then Kubernetes behaves differently: existing PVCs without `storageClassName` update to use the new default StorageClass.
+
+When a default StorageClass becomes available, the control plane identifies any existing PVCs without `storageClassName`. For the PVCs that either have an empty value for `storageClassName` or do not have this key, the control plane then updates those PVCs to set `storageClassName` to match the new default StorageClass. If you have an existing PVC where the `storageClassName` is `""`, and you configure a default StorageClass, then this PVC will not get updated.
+
+In order to keep binding to PVs with `storageClassName` set to `""` (while a default StorageClass is present), you need to set the `storageClassName` of the associated PVC to `""`.
+
+This behavior helps administrators change default StorageClass by removing the old one first and then creating or setting another one. This brief window while there is no default causes PVCs without `storageClassName` created at that time to not have any default, but due to the retroactive default StorageClass assignment this way of changing defaults is safe.
 
 ## Claims As Volumes
 
