@@ -409,7 +409,7 @@ parameters:
     * Distribute volume: `volumetype: none`
 
     For available volume types and administration options, refer to the
-    [Administration Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
+    [Administration Guide](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/).
 
     For further reference information, see
     [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
