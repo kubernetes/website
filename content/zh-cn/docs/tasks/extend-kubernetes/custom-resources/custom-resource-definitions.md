@@ -105,7 +105,7 @@ spec:
     plural: crontabs
     # singular name to be used as an alias on the CLI and for display
     singular: crontab
-    # kind is normally the PascalCased singular type. Your resource manifests use this.
+    # kind is normally the CamelCased singular type. Your resource manifests use this.
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
@@ -148,7 +148,7 @@ spec:
     plural: crontabs
     # 名称的单数形式，作为命令行使用时和显示时的别名
     singular: crontab
-    # kind 通常是单数形式的帕斯卡编码（PascalCased）形式。你的资源清单会使用这一形式。
+    # kind 通常是单数形式的驼峰命名（CamelCased）形式。你的资源清单会使用这一形式。
     kind: CronTab
     # shortNames 允许你在命令行使用较短的字符串来匹配资源
     shortNames:
@@ -322,7 +322,7 @@ If you later recreate the same CustomResourceDefinition, it will start out empty
 <!--
 ## Specifying a structural schema
 
-CustomResources store structured data in custom fiels (alongside the built-in
+CustomResources store structured data in custom fields (alongside the built-in
 fields `apiVersion`, `kind` and `metadata`, which the API server validates
 implicitly). With [OpenAPI v3.0 validation](#validation) a schema can be
 specified, which is validated during creation and updates, compare below for
@@ -330,7 +330,7 @@ details and limits of such a schema.
 
 With `apiextensions.k8s.io/v1` the definition of a structural schema is
 mandatory for CustomResourceDefinitions. In the beta version of
-CustomResourceDefinition, structural schemas were optional.
+CustomResourceDefinition, the structural schema was optional.
 -->
 ## 设置结构化的模式   {#specifying-a-structural-schema}
 
@@ -1137,18 +1137,25 @@ crontab "my-new-cron-object" created
 -->
 ## 验证规则
 
-{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
+{{< feature-state state="beta" for_k8s_version="v1.25" >}}
 
 <!--
-Validation rules are in alpha since 1.23 and validate custom resources when the
+Validation rules are in beta since 1.25 and the
 `CustomResourceValidationExpressions` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default to validate custom resource
+ based on _validation rules_. You can disable this feature by explicitly setting the
+ `CustomResourceValidationExpressions` feature gate to `false`,
+ for the `[kube-apiserver](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/)` component.
 This feature is only available if the schema is a
 [structural schema](#specifying-a-structural-schema).
 -->
-验证规则从 1.23 开始处于 Alpha 状态，
-当 `CustomResourceValidationExpressions` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用时，
-验证定制资源。这个功能只有在模式是[结构化的模式](#specifying-a-structural-schema)时才可用。
+验证规则从 1.25 开始处于 Beta 状态，
+默认情况下，`CustomResourceValidationExpressions` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+是被启用的，以便根据**验证规则**来验证定制资源。
+对于 [`kube-apiserver`](docs/reference/command-line-tools-reference/kube-apiserver/) 组件，
+特性门控显式设置为 false 来禁用此特性。
+
+这个特性只有在模式是[结构化的模式](#specifying-a-structural-schema)时才可用。
 
 <!--
 Validation rules use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
@@ -1306,7 +1313,7 @@ Validation Rules Examples:
 | `'Available' in self.stateCounts`                                                | Validate that an entry with the 'Available' key exists in a map                   |
 | `(size(self.list1) == 0) != (size(self.list2) == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
 | <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code>               | Validate the value of a map for a specific key, if it is in the map               |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
+| `self.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
 | `has(self.expired) && self.created + self.ttl < self.expired`                    | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `self.health.startsWith('ok')`                                                   | Validate a 'health' string field has the prefix 'ok'                              |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                             | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
@@ -1506,6 +1513,7 @@ Accessible property names are escaped according to the following rules when acce
 当在表达式中访问时，可访问的属性名称会根据以下规则进行转义：
 
 <!--
+| escape sequence         | property name equivalent  |
 | ----------------------- | -----------------------|
 | `__underscores__`       | `__`                  |
 | `__dot__`               | `.`                   |
@@ -2438,7 +2446,7 @@ the status replica value in the `/scale` subresource will default to 0.
     副本个数状态值默认为 0。
 
 <!--
-- `labelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `scale.status.selector`.
+- `labelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Selector`.
 
   - It is an optional value.
   - It must be set to work with HPA.
@@ -2448,7 +2456,7 @@ the status replica value in the `/scale` subresource will default to 0.
   - The field pointed by this JSON path must be a string field (not a complex selector struct)
     which contains a serialized label selector in string form.
 -->
-- `labelSelectorPath` 指定定制资源内与 `scale.status.selector` 对应的 JSON 路径。
+- `labelSelectorPath` 指定定制资源内与 `Scale.Status.Selector` 对应的 JSON 路径。
 
   - 此字段为可选值。
   - 此字段必须设置才能使用 HPA。
@@ -2706,9 +2714,9 @@ kubectl get all
 ```
 
 <!--
-The output will include the custom resources of kind `CronTab`:
+and it will include the custom resources of kind `CronTab`:
 -->
-输出中会包含类别为 `CronTab` 的定制资源：
+输出中将包含类别为 `CronTab` 的定制资源：
 
 ```console
 NAME                          AGE
