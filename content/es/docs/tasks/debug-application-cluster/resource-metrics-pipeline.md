@@ -44,7 +44,7 @@ de datos de uso de recursos de todo el clúster.
 A partir de Kubernetes 1.8, el servidor de métricas se despliega por defecto como un objeto de
 tipo [Deployment](https://github.com/docs/concepts/workloads/controllers/deployment/) en clústeres
 creados con el script `kube-up.sh`. Si usas otro mecanismo de configuración de Kubernetes, puedes desplegarlo
-usando los [yamls de despliegue](https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy)
+usando los [yamls de despliegue](https://github.com/kubernetes-sigs/metrics-server/releases)
 proporcionados. Está soportado a partir de Kubernetes 1.7 (más detalles al final).
 
 El servidor reune métricas de la Summary API, que es expuesta por el [Kubelet](/docs/admin/kubelet/) en cada nodo.
@@ -52,6 +52,6 @@ El servidor reune métricas de la Summary API, que es expuesta por el [Kubelet](
 El servidor de métricas se añadió a la API de Kubernetes utilizando el
 [Kubernetes aggregator](/docs/concepts/api-extension/apiserver-aggregation/) introducido en Kubernetes 1.7.
 
-Puedes aprender más acerca del servidor de métricas en el [documento de diseño](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
+Puedes aprender más acerca del servidor de métricas en el [documento de diseño](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/metrics-server.md).
 
 

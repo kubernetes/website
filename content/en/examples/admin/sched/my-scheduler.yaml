@@ -30,6 +30,20 @@ roleRef:
   name: system:volume-scheduler
   apiGroup: rbac.authorization.k8s.io
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-scheduler-config
+  namespace: kube-system
+data:
+  my-scheduler-config.yaml: |
+    apiVersion: kubescheduler.config.k8s.io/v1beta2
+    kind: KubeSchedulerConfiguration
+    profiles:
+      - schedulerName: my-scheduler
+    leaderElection:
+      leaderElect: false
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -55,26 +69,31 @@ spec:
       containers:
       - command:
         - /usr/local/bin/kube-scheduler
-        - --address=0.0.0.0
-        - --leader-elect=false
-        - --scheduler-name=my-scheduler
+        - --config=/etc/kubernetes/my-scheduler/my-scheduler-config.yaml
         image: gcr.io/my-gcp-project/my-kube-scheduler:1.0
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 10251
+            port: 10259
+            scheme: HTTPS
           initialDelaySeconds: 15
         name: kube-second-scheduler
         readinessProbe:
           httpGet:
             path: /healthz
-            port: 10251
+            port: 10259
+            scheme: HTTPS
         resources:
           requests:
             cpu: '0.1'
         securityContext:
           privileged: false
-        volumeMounts: []
+        volumeMounts:
+          - name: config-volume
+            mountPath: /etc/kubernetes/my-scheduler
       hostNetwork: false
       hostPID: false
-      volumes: []
+      volumes:
+        - name: config-volume
+          configMap:
+            name: my-scheduler-config

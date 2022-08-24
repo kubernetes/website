@@ -85,6 +85,3 @@ kubeadm init phase certs etcd-ca [flags]
 
 </tbody>
 </table>
-
-
-

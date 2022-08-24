@@ -15,7 +15,7 @@ weight: 10
 * [Cluster DNS](/ja/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Service](/ja/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)
-* [PersistentVolumeのプロビジョニング](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+* [PersistentVolumeのプロビジョニング](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 * [StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl](/docs/reference/kubectl/kubectl/)コマンドラインツール
 

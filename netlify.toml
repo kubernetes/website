@@ -8,7 +8,7 @@ command = "git submodule update --init --recursive --depth 1 && make non-product
 
 [build.environment]
 NODE_VERSION = "10.20.0"
-HUGO_VERSION = "0.87.0"
+HUGO_VERSION = "0.101.0"
 RUBY_VERSION = "3.0.1"
 
 [context.production.environment]
@@ -20,17 +20,10 @@ HUGO_ENABLEGITINFO = "true"
 command = "git submodule update --init --recursive --depth 1 && make deploy-preview"
 
 [context.branch-deploy]
-command = "git submodule update --init --recursive --depth 1 && make deploy-preview"
+command = "git submodule update --init --recursive --depth 1 && make non-production-build"
 
-[context.master]
-# This context is triggered by the `master` branch and allows search indexing
+[context.main]
+# This context is triggered by the `main` branch and allows search indexing
 # DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
 command = "git submodule update --init --recursive --depth 1 && make production-build"
-
-# adding in headers to prevent clickjacking
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"

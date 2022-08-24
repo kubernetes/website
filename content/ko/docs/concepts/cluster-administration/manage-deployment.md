@@ -154,13 +154,13 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-`kubectl` 에 대해 더 자세히 알고 싶다면, [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 참조한다.
+`kubectl` 에 대해 더 자세히 알고 싶다면, [명령줄 도구 (kubectl)](/ko/docs/reference/kubectl/)를 참조한다.
 
 ## 효과적인 레이블 사용
 
 지금까지 사용한 예는 모든 리소스에 최대 한 개의 레이블만 적용하는 것이었다. 세트를 서로 구별하기 위해 여러 레이블을 사용해야 하는 많은 시나리오가 있다.
 
-예를 들어, 애플리케이션마다 `app` 레이블에 다른 값을 사용하지만, [방명록 예제](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)와 같은 멀티-티어 애플리케이션은 각 티어를 추가로 구별해야 한다. 프론트엔드는 다음의 레이블을 가질 수 있다.
+예를 들어, 애플리케이션마다 `app` 레이블에 다른 값을 사용하지만, [방명록 예제](https://github.com/kubernetes/examples/tree/master/guestbook/)와 같은 멀티-티어 애플리케이션은 각 티어를 추가로 구별해야 한다. 프론트엔드는 다음의 레이블을 가질 수 있다.
 
 ```yaml
      labels:
@@ -397,7 +397,7 @@ deployment.apps/my-nginx configured
 rm /tmp/nginx.yaml
 ```
 
-이를 통해 보다 중요한 변경을 더 쉽게 ​​수행할 수 있다. 참고로 `EDITOR` 또는 `KUBE_EDITOR` 환경 변수를 사용하여 편집기를 지정할 수 있다.
+이를 통해 보다 중요한 변경을 더 쉽게 수행할 수 있다. 참고로 `EDITOR` 또는 `KUBE_EDITOR` 환경 변수를 사용하여 편집기를 지정할 수 있다.
 
 더 자세한 내용은, [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit) 문서를 참고하길 바란다.
 
@@ -461,5 +461,5 @@ kubectl edit deployment/my-nginx
 ## {{% heading "whatsnext" %}}
 
 
-- [애플리케이션 검사 및 디버깅에 `kubectl` 을 사용하는 방법](/docs/tasks/debug-application-cluster/debug-application-introspection/)에 대해 알아본다.
+- [애플리케이션 검사 및 디버깅에 `kubectl` 을 사용하는 방법](/ko/docs/tasks/debug/debug-application/debug-running-pod/)에 대해 알아본다.
 - [구성 모범 사례 및 팁](/ko/docs/concepts/configuration/overview/)을 참고한다.

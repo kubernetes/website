@@ -12,8 +12,8 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew latestVersion >}} client can communicate with v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, and v{{< skew nextMinorVersion >}} control planes.
-Using the latest version of kubectl helps avoid unforeseen issues.
+You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
+Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
 ## Install kubectl on macOS
 
@@ -69,7 +69,7 @@ The following methods exist for installing kubectl on macOS:
    Validate the kubectl binary against the checksum file:
 
    ```bash
-   echo "$(<kubectl.sha256)  kubectl" | shasum -a 256 --check
+   echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
 
    If valid, the output is:
@@ -111,6 +111,11 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    kubectl version --client
    ```
+   Or use this for detailed view of version:
+
+   ```cmd
+   kubectl version --client --output=yaml
+   ```
 
 ### Install with Homebrew on macOS
 
@@ -119,7 +124,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 1. Run the installation command:
 
    ```bash
-   brew install kubectl 
+   brew install kubectl
    ```
 
    or
@@ -159,12 +164,13 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 
 ### Enable shell autocompletion
 
-kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell which can save you a lot of typing.
 
-Below are the procedures to set up autocompletion for Bash and Zsh.
+Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
+{{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
@@ -199,7 +205,7 @@ Below are the procedures to set up autocompletion for Bash and Zsh.
    Validate the kubectl-convert binary against the checksum file:
 
    ```bash
-   echo "$(<kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
+   echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
    ```
 
    If valid, the output is:

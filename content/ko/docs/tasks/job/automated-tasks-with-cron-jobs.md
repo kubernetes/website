@@ -127,12 +127,12 @@ kubectl delete cronjob hello
 ```
 
 크론 잡을 삭제하면 생성된 모든 잡과 파드가 제거되고 추가 잡 생성이 중지된다.
-[가비지(garbage) 수집](/ko/docs/concepts/workloads/controllers/garbage-collection/)에서 잡 제거에 대해 상세한 내용을 읽을 수 있다.
+[가비지(garbage) 수집](/ko/docs/concepts/architecture/garbage-collection/)에서 잡 제거에 대해 상세한 내용을 읽을 수 있다.
 
 ## 크론 잡 명세 작성
 
 다른 모든 쿠버네티스 구성과 마찬가지로, 크론 잡은 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다. 구성 파일
-작업에 대한 일반적인 정보는 [애플리케이션 배포](/docs/tasks/run-application/run-stateless-application-deployment/)와
+작업에 대한 일반적인 정보는 [애플리케이션 배포](/ko/docs/tasks/run-application/run-stateless-application-deployment/)와
 [kubectl을 사용하여 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참고한다.
 
 크론 잡 구성에는 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.

@@ -47,6 +47,8 @@ Antes de iniciar um tutorial, é interessante que vocẽ salve a página de [Glo
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 
+* [seccomp](/docs/tutorials/clusters/seccomp/)
+
 ## Serviços / "Services"
 
 * [Usando IP de origem](/docs/tutorials/services/source-ip/)

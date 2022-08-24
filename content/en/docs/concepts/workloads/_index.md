@@ -70,7 +70,7 @@ visit [Configuration](/docs/concepts/configuration/).
 
 There are two supporting concepts that provide backgrounds about how Kubernetes manages pods
 for applications:
-* [Garbage collection](/docs/concepts/workloads/controllers/garbage-collection/) tidies up objects
+* [Garbage collection](/docs/concepts/architecture/garbage-collection/) tidies up objects
   from your cluster after their _owning resource_ has been removed.
 * The [_time-to-live after finished_ controller](/docs/concepts/workloads/controllers/ttlafterfinished/)
   removes Jobs once a defined time has passed since they completed.

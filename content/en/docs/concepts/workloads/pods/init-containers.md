@@ -28,7 +28,7 @@ Init containers are exactly like regular containers, except:
 * Init containers always run to completion.
 * Each init container must complete successfully before the next one starts.
 
-If a Pod's init container fails, the kubelet repeatedly restarts that init container until it succeeds. 
+If a Pod's init container fails, the kubelet repeatedly restarts that init container until it succeeds.
 However, if the Pod has a `restartPolicy` of Never, and an init container fails during startup of that Pod, Kubernetes treats the overall Pod as failed.
 
 To specify an init container for a Pod, add the `initContainers` field into
@@ -115,7 +115,7 @@ kind: Pod
 metadata:
   name: myapp-pod
   labels:
-    app: myapp
+    app.kubernetes.io/name: MyApp
 spec:
   containers:
   - name: myapp-container
@@ -159,7 +159,7 @@ The output is similar to this:
 Name:          myapp-pod
 Namespace:     default
 [...]
-Labels:        app=myapp
+Labels:        app.kubernetes.io/name=MyApp
 Status:        Pending
 [...]
 Init Containers:
@@ -282,7 +282,7 @@ define readiness distinct from completion. This is enforced during validation.
 
 Use `activeDeadlineSeconds` on the Pod to prevent init containers from failing forever.
 The active deadline includes init containers.
-However it is recommended to use `activeDeadlineSeconds` if user deploy their application
+However it is recommended to use `activeDeadlineSeconds` only if teams deploy their application
 as a Job, because `activeDeadlineSeconds` has an effect even after initContainer finished.
 The Pod which is already running correctly would be killed by `activeDeadlineSeconds` if you set.
 
@@ -332,5 +332,5 @@ Kubernetes, consult the documentation for the version you are using.
 ## {{% heading "whatsnext" %}}
 
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
 

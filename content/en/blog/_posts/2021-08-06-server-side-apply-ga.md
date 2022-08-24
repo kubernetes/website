@@ -121,7 +121,7 @@ deploymentApplyConfig.Spec.Template.Spec.WithContainers(corev1ac.Container().
 )
 
 // apply
-applied, err := deploymentClient.Apply(ctx, extractedDeployment, metav1.ApplyOptions{FieldManager: fieldMgr})
+applied, err := deploymentClient.Apply(ctx, deploymentApplyConfig, metav1.ApplyOptions{FieldManager: fieldMgr})
 ```
 
 For developers using Custom Resource Definitions (CRDs), the Kubebuilder apply support will provide the same capabilities. Documentation will be included in the Kubebuilder book when available.

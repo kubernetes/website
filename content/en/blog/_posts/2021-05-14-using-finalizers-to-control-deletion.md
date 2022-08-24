@@ -108,7 +108,7 @@ metadata:
   uid: 93a37fed-23e3-45e8-b6ee-b2521db81638
 ```
 
-In short, what’s happened is that the object was updated, not deleted. That’s because Kubernetes saw that the object contained finalizers and put it into a read-only state. The deletion timestamp signals that the object can only be read, with the exception of removing the finalizer key updates. In other words, the deletion will not be complete until we edit the object and remove the finalizer.
+In short, what’s happened is that the object was updated, not deleted. That’s because Kubernetes saw that the object contained finalizers and blocked removal of the object from etcd. The deletion timestamp signals that deletion was requested, but the deletion will not be complete until we edit the object and remove the finalizer.
 
 Here's a demonstration of using the `patch` command to remove finalizers. If we want to delete an object, we can simply patch it on the command line to remove the finalizers. In this way, the deletion that was running in the background will complete and the object will be deleted. When we attempt to `get` that configmap, it will be gone. 
 
@@ -190,9 +190,10 @@ kubectl get configmap
 No resources found in default namespace.
 ```
 
-To sum things up, when there's an override owner reference from a child to a parent, deleting the parent deletes the children automatically. This is called `cascade`. The default for cascade is `true`, however, you can use the --cascade=false option for `kubectl delete` to delete an object and orphan its children. 
+To sum things up, when there's an override owner reference from a child to a parent, deleting the parent deletes the children automatically. This is called `cascade`. The default for cascade is `true`, however, you can use the --cascade=orphan option for `kubectl delete` to delete an object and orphan its children.  *Update: starting with kubectl v1.20, the default for cascade is `background`.*
 
-In the following example, there is a parent and a child. Notice the owner references are still included. If I delete the parent using --cascade=false, the parent is deleted but the child still exists:
+
+In the following example, there is a parent and a child. Notice the owner references are still included. If I delete the parent using --cascade=orphan, the parent is deleted but the child still exists:
 
 ```
 kubectl get configmap
@@ -200,7 +201,7 @@ NAME           DATA   AGE
 mymap-child    0      13m8s
 mymap-parent   0      13m8s
 
-kubectl delete --cascade=false configmap/mymap-parent
+kubectl delete --cascade=orphan configmap/mymap-parent
 configmap "mymap-parent" deleted
 
 kubectl get configmap

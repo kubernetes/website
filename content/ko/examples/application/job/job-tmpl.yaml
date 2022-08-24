@@ -13,6 +13,6 @@ spec:
     spec:
       containers:
       - name: c
-        image: busybox
+        image: busybox:1.28
         command: ["sh", "-c", "echo Processing item $ITEM && sleep 5"]
       restartPolicy: Never

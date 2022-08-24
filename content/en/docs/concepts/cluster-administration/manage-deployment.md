@@ -154,7 +154,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-If you're interested in learning more about `kubectl`, go ahead and read [kubectl Overview](/docs/reference/kubectl/overview/).
+If you're interested in learning more about `kubectl`, go ahead and read [Command line tool (kubectl)](/docs/reference/kubectl/).
 
 ## Using labels effectively
 
@@ -461,7 +461,7 @@ That's it! The Deployment will declaratively update the deployed nginx applicati
 ## {{% heading "whatsnext" %}}
 
 
-- Learn about [how to use `kubectl` for application introspection and debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/).
+- Learn about [how to use `kubectl` for application introspection and debugging](/docs/tasks/debug/debug-application/debug-running-pod/).
 - See [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/).
 
 

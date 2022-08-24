@@ -119,7 +119,7 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 그리고 동일한 클러스터의 파드에서 `클러스터IP`를 치면:
 
 ```shell
-kubectl run busybox -it --image=busybox --restart=Never --rm
+kubectl run busybox -it --image=busybox:1.28 --restart=Never --rm
 ```
 출력은 다음과 같다.
 ```
@@ -163,7 +163,7 @@ command=GET
 
 ## `Type=NodePort` 인 서비스에서 소스 IP
 
-[`Type=NodePort`](/ko/docs/concepts/services-networking/service/#nodeport)인
+[`Type=NodePort`](/ko/docs/concepts/services-networking/service/#type-nodeport)인
 서비스로 보내진 패킷은
 소스 NAT가 기본으로 적용된다. `NodePort` 서비스를 생성하여 이것을 테스트할 수 있다.
 

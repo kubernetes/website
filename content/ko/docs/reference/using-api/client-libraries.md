@@ -1,5 +1,7 @@
 ---
 title: 클라이언트 라이브러리
+
+
 content_type: concept
 weight: 30
 ---
@@ -35,7 +37,6 @@ API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 | JavaScript   | [github.com/kubernetes-client/javascript](https://github.com/kubernetes-client/javascript) | [둘러보기](https://github.com/kubernetes-client/javascript/tree/master/examples)
 | Python   | [github.com/kubernetes-client/python/](https://github.com/kubernetes-client/python/) | [둘러보기](https://github.com/kubernetes-client/python/tree/master/examples)
 
-
 ## 커뮤니티에 의해 관리되는 클라이언트 라이브러리
 
 {{% thirdparty-content %}}
@@ -66,11 +67,11 @@ API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 | PHP                  | [github.com/travisghansen/kubernetes-client-php](https://github.com/travisghansen/kubernetes-client-php) |
 | PHP                  | [github.com/renoki-co/php-k8s](https://github.com/renoki-co/php-k8s) |
 | Python               | [github.com/fiaas/k8s](https://github.com/fiaas/k8s) |
+| Python               | [github.com/gtsystem/lightkube](https://github.com/gtsystem/lightkube) |
 | Python               | [github.com/mnubo/kubernetes-py](https://github.com/mnubo/kubernetes-py) |
 | Python               | [github.com/tomplus/kubernetes_asyncio](https://github.com/tomplus/kubernetes_asyncio) |
 | Python               | [github.com/Frankkkkk/pykorm](https://github.com/Frankkkkk/pykorm) |
 | Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
-| Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
 | Ruby                 | [github.com/k8s-ruby/k8s-ruby](https://github.com/k8s-ruby/k8s-ruby) |
 | Ruby                 | [github.com/kontena/k8s-client](https://github.com/kontena/k8s-client) |
 | Rust                 | [github.com/clux/kube-rs](https://github.com/clux/kube-rs) |

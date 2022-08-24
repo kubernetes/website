@@ -19,10 +19,9 @@ Performs a best effort revert of changes made to this host by 'kubeadm init' or 
 
 The "reset" command executes the following phases:
 ```
-preflight              Run reset pre-flight checks
-update-cluster-status  Remove this node from the ClusterStatus object (DEPRECATED).
-remove-etcd-member     Remove a local etcd member.
-cleanup-node           Run cleanup node.
+preflight           Run reset pre-flight checks
+remove-etcd-member  Remove a local etcd member.
+cleanup-node        Run cleanup node.
 ```
 
 
@@ -51,6 +50,13 @@ kubeadm reset [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
 </tr>
 
 <tr>
@@ -111,6 +117,3 @@ kubeadm reset [flags]
 
 </tbody>
 </table>
-
-
-

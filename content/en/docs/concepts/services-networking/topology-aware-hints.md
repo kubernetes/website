@@ -9,7 +9,7 @@ weight: 45
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 _Topology Aware Hints_ enable topology aware routing by including suggestions
 for how clients should consume endpoints. This approach adds metadata to enable
@@ -18,6 +18,12 @@ those network endpoints can be routed closer to where it originated.
 
 For example, you can route traffic within a locality to reduce
 costs, or to improve network performance.
+
+{{< note >}}
+The "topology-aware hints" feature is at Beta stage and it is **NOT** enabled
+by default. To try out this feature, you have to enable the `TopologyAwareHints`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+{{< /note >}}
 
 <!-- body -->
 
@@ -30,13 +36,12 @@ Routing". When calculating the endpoints for a {{< glossary_tooltip term_id="Ser
 the EndpointSlice controller considers the topology (region and zone) of each endpoint
 and populates the hints field to allocate it to a zone.
 Cluster components such as the {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}
-can then consume those hints, and use them to influence how traffic to is routed
+can then consume those hints, and use them to influence how the traffic is routed
 (favoring topologically closer endpoints).
 
 ## Using Topology Aware Hints
 
-If you have [enabled](/docs/tasks/administer-cluster/enabling-topology-aware-hints) the
-overall feature, you can activate Topology Aware Hints for a Service by setting the
+You can activate Topology Aware Hints for a Service by setting the
 `service.kubernetes.io/topology-aware-hints` annotation to `auto`. This tells
 the EndpointSlice controller to set topology hints if it is deemed safe.
 Importantly, this does not guarantee that hints will always be set.
@@ -156,5 +161,4 @@ zone.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [enabling Topology Aware Hints](/docs/tasks/administer-cluster/enabling-topology-aware-hints/)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)

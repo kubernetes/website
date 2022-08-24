@@ -57,10 +57,9 @@ weight: 50
 
 #### 바인딩된 서비스 어카운트 토큰 볼륨
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
-`BoundServiceAccountTokenVolume` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되면, 
-토큰 컨트롤러에 의해 생성된 무기한 서비스 어카운트 토큰을 위해, 서비스 어카운트 어드미션 컨트롤러가 시크릿 기반 볼륨 대신 다음과 같은 프로젝티드 볼륨을 추가한다.
+서비스 어카운트 어드미션 컨트롤러는 토큰 컨트롤러에서 생성한 만료되지 않은 서비스 계정 토큰에 시크릿 기반 볼륨 대신 다음과 같은 프로젝티드 볼륨을 추가한다.
 
 ```yaml
 - name: kube-api-access-<random-suffix>
@@ -68,7 +67,7 @@ weight: 50
     defaultMode: 420 # 0644
     sources:
       - serviceAccountToken:
-          expirationSeconds: 3600
+          expirationSeconds: 3607
           path: token
       - configMap:
           items:
@@ -90,10 +89,6 @@ weight: 50
 1. 파드의 네임스페이스를 참조하는 DownwardAPI.
 
 상세 사항은 [프로젝티드 볼륨](/docs/tasks/configure-pod-container/configure-projected-volume-storage/)을 참고한다.
-
-`BoundServiceAccountTokenVolume` 기능 게이트가 활성화되어 있지 않은 경우, 
-위의 프로젝티드 볼륨을 파드 스펙에 추가하여 
-시크릿 기반 서비스 어카운트 볼륨을 프로젝티드 볼륨으로 수동으로 옮길 수 있다.
 
 ### 토큰 컨트롤러
 

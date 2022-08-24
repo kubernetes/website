@@ -16,8 +16,7 @@ Performs a best effort revert of changes made by `kubeadm init` or `kubeadm join
 
 `kubeadm reset` is responsible for cleaning up a node local file system from files that were created using
 the `kubeadm init` or `kubeadm join` commands. For control-plane nodes `reset` also removes the local stacked
-etcd member of this node from the etcd cluster and also removes this node's information from the kubeadm
-`ClusterStatus` object. `ClusterStatus` is a kubeadm managed Kubernetes API object that holds a list of kube-apiserver endpoints.
+etcd member of this node from the etcd cluster.
 
 `kubeadm reset phase` can be used to execute the separate phases of the above workflow.
 To skip a list of phases you can use the `--skip-phases` flag, which works in a similar way to

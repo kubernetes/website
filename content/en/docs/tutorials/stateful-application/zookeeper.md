@@ -123,7 +123,7 @@ zk-2      1/1       Running   0         40s
 ```
 
 The StatefulSet controller creates three Pods, and each Pod has a container with
-a [ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) server.
+a [ZooKeeper](https://archive.apache.org/dist/zookeeper/stable/) server.
 
 ### Facilitating leader election
 
@@ -266,7 +266,7 @@ to read the data from another.
 The command below executes the `zkCli.sh` script to write `world` to the path `/hello` on the `zk-0` Pod in the ensemble.
 
 ```shell
-kubectl exec zk-0 zkCli.sh create /hello world
+kubectl exec zk-0 -- zkCli.sh create /hello world
 ```
 
 ```
@@ -279,7 +279,7 @@ Created /hello
 To get the data from the `zk-1` Pod use the following command.
 
 ```shell
-kubectl exec zk-1 zkCli.sh get /hello
+kubectl exec zk-1 -- zkCli.sh get /hello
 ```
 
 The data that you created on `zk-0` is available on all the servers in the
@@ -305,7 +305,7 @@ numChildren = 0
 
 ### Providing durable storage
 
-As mentioned in the [ZooKeeper Basics](#zookeeper-basics) section,
+As mentioned in the [ZooKeeper Basics](#zookeeper) section,
 ZooKeeper commits all entries to a durable WAL, and periodically writes snapshots
 in memory state, to storage media. Using WALs to provide durability is a common
 technique for applications that use consensus protocols to achieve a replicated
@@ -442,7 +442,7 @@ datadir-zk-2   Bound     pvc-bee0817e-bcb1-11e6-994f-42010a800002   20Gi       R
 
 The `volumeMounts` section of the `StatefulSet`'s container `template` mounts the PersistentVolumes in the ZooKeeper servers' data directories.
 
-```shell
+```yaml
 volumeMounts:
 - name: datadir
   mountPath: /var/lib/zookeeper
@@ -661,6 +661,8 @@ Use the `kubectl rollout history` command to view a history or previous configur
 kubectl rollout history sts/zk
 ```
 
+The output is similar to this:
+
 ```
 statefulsets "zk"
 REVISION
@@ -673,6 +675,8 @@ Use the `kubectl rollout undo` command to roll back the modification.
 ```shell
 kubectl rollout undo sts/zk
 ```
+
+The output is similar to this:
 
 ```
 statefulset.apps/zk rolled back
@@ -742,14 +746,14 @@ that your application's processes are unhealthy and it should restart them.
 The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
 
 ```yaml
- livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - "zookeeper-ready 2181"
-          initialDelaySeconds: 15
-          timeoutSeconds: 5
+  livenessProbe:
+    exec:
+      command:
+      - sh
+      - -c
+      - "zookeeper-ready 2181"
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
 ```
 
 The probe calls a bash script that uses the ZooKeeper `ruok` four letter
@@ -773,7 +777,7 @@ kubectl get pod -w -l app=zk
 In another window, using the following command to delete the `zookeeper-ready` script from the file system of Pod `zk-0`.
 
 ```shell
-kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
+kubectl exec zk-0 -- rm /opt/zookeeper/bin/zookeeper-ready
 ```
 
 When the liveness probe for the ZooKeeper process fails, Kubernetes will
@@ -860,16 +864,16 @@ kubernetes-node-2g2d
 This is because the Pods in the `zk` `StatefulSet` have a `PodAntiAffinity` specified.
 
 ```yaml
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: "app"
-                    operator: In
-                    values:
-                    - zk
-              topologyKey: "kubernetes.io/hostname"
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app"
+              operator: In
+              values:
+                - zk
+        topologyKey: "kubernetes.io/hostname"
 ```
 
 The `requiredDuringSchedulingIgnoredDuringExecution` field tells the
@@ -894,8 +898,7 @@ Use this command to get the nodes in your cluster.
 kubectl get nodes
 ```
 
-Use [`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon) to
-cordon all but four of the nodes in your cluster.
+This tutorial assumes a cluster with at least four nodes. If the cluster has more than four, use [`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon) to cordon all but four nodes. Constraining to four nodes will ensure Kubernetes encounters affinity and PodDisruptionBudget constraints when scheduling zookeeper Pods in the following maintenance simulation.
 
 ```shell
 kubectl cordon <node-name>
@@ -927,6 +930,8 @@ In another terminal, use this command to get the nodes that the Pods are current
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
 ```
 
+The output is similar to this:
+
 ```
 kubernetes-node-pb41
 kubernetes-node-ixsl
@@ -939,6 +944,8 @@ drain the node on which the `zk-0` Pod is scheduled.
 ```shell
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
+
+The output is similar to this:
 
 ```
 node "kubernetes-node-pb41" cordoned
@@ -972,14 +979,18 @@ Keep watching the `StatefulSet`'s Pods in the first terminal and drain the node 
 `zk-1` is scheduled.
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data "kubernetes-node-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
+The output is similar to this:
+
 ```
+"kubernetes-node-ixsl" cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-ixsl, kube-proxy-kubernetes-node-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
 node "kubernetes-node-ixsl" drained
 ```
+
 
 The `zk-1` Pod cannot be scheduled because the `zk` `StatefulSet` contains a `PodAntiAffinity` rule preventing
 co-location of the Pods, and as only two nodes are schedulable, the Pod will remain in a Pending state.
@@ -987,6 +998,8 @@ co-location of the Pods, and as only two nodes are schedulable, the Pod will rem
 ```shell
 kubectl get pods -w -l app=zk
 ```
+
+The output is similar to this:
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1011,12 +1024,14 @@ zk-1      0/1       Pending   0         0s
 zk-1      0/1       Pending   0         0s
 ```
 
-Continue to watch the Pods of the stateful set, and drain the node on which
+Continue to watch the Pods of the StatefulSet, and drain the node on which
 `zk-2` is scheduled.
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
+
+The output is similar to this:
 
 ```
 node "kubernetes-node-i4c4" cordoned
@@ -1061,6 +1076,8 @@ Use [`kubectl uncordon`](/docs/reference/generated/kubectl/kubectl-commands/#unc
 kubectl uncordon kubernetes-node-pb41
 ```
 
+The output is similar to this:
+
 ```
 node "kubernetes-node-pb41" uncordoned
 ```
@@ -1070,6 +1087,8 @@ node "kubernetes-node-pb41" uncordoned
 ```shell
 kubectl get pods -w -l app=zk
 ```
+
+The output is similar to this:
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1104,7 +1123,7 @@ Attempt to drain the node on which `zk-2` is scheduled.
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
-The output:
+The output is similar to this:
 
 ```
 node "kubernetes-node-i4c4" already cordoned
@@ -1121,6 +1140,8 @@ Uncordon the second node to allow `zk-2` to be rescheduled.
 ```shell
 kubectl uncordon kubernetes-node-ixsl
 ```
+
+The output is similar to this:
 
 ```
 node "kubernetes-node-ixsl" uncordoned

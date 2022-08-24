@@ -137,7 +137,7 @@ kubectl describe node <ノード名をここに挿入>
 `SchedulingDisabled`はKubernetesのAPIにおけるConditionではありません;その代わり、cordonされたノードはUnschedulableとしてマークされます。
 {{< /note >}}
 
-ノードのConditionはJSONオブジェクトで表現されます。例えば、正常なノードの場合は以下のような構造体が表示されます。
+Nodeの状態は、Nodeリソースの`.status`の一部として表現されます。例えば、正常なノードの場合は以下のようなjson構造が表示されます。
 
 ```json
 "conditions": [
@@ -173,36 +173,25 @@ CapacityとAllocatableについて深く知りたい場合は、ノード上で�
 ### Info {#info}
 
 カーネルのバージョン、Kubernetesのバージョン（kubeletおよびkube-proxyのバージョン）、（使用されている場合）Dockerのバージョン、OS名など、ノードに関する一般的な情報です。
-この情報はノードからkubeletを通じて取得されます。
+この情報はノードからkubeletを通じて取得され、Kubernetes APIに公開されます。
 
-## 管理 {#management}
 
-[Pod](/ja/docs/concepts/workloads/pods/pod/)や[Service](/ja/docs/concepts/services-networking/service/)と違い、ノードは本質的にはKubernetesによって作成されません。GCPのようなクラウドプロバイダーによって外的に作成されるか、VMや物理マシンのプールに存在するものです。そのため、Kubernetesがノードを作成すると、そのノードを表すオブジェクトが作成されます。作成後、Kubernetesはそのノードが有効かどうかを確認します。 たとえば、次の内容からノードを作成しようとしたとします:
+## ハートビート
+ハートビートは、Kubernetesノードから送信され、ノードが利用可能か判断するのに役立ちます。
+以下の２つのハートビートがあります：
+* Nodeの`.status`の更新
+* [Lease object](/docs/reference/generated/kubernetes-api/{{< latest-version >}}#lease-v1-coordination-k8s-io)です。
+各ノードは`kube-node-lease`という{{< glossary_tooltip term_id="namespace" text="namespace">}}に関連したLeaseオブジェクトを持ちます。
+Leaseは軽量なリソースで、クラスターのスケールに応じてノードのハートビートにおけるパフォーマンスを改善します。
 
-```json
-{
-  "kind": "Node",
-  "apiVersion": "v1",
-  "metadata": {
-    "name": "10.240.79.157",
-    "labels": {
-      "name": "my-first-k8s-node"
-    }
-  }
-}
-```
+kubeletが`NodeStatus`とLeaseオブジェクトの作成および更新を担当します。
 
-Kubernetesは内部的にNodeオブジェクトを作成し、 `metadata.name`フィールドに基づくヘルスチェックによってノードを検証します。ノードが有効な場合、つまり必要なサービスがすべて実行されている場合は、Podを実行する資格があります。それ以外の場合、該当ノードが有効になるまではいかなるクラスターの活動に対しても無視されます。
-Nodeオブジェクトの名前は有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+- kubeletは、ステータスに変化があったり、設定した間隔の間に更新がない時に`NodeStatus`を更新します。`NodeStatus`更新のデフォルト間隔は５分です。(到達不能の場合のデフォルトタイムアウトである40秒よりもはるかに長いです)
+- kubeletは10秒間隔(デフォルトの更新間隔)でLeaseオブジェクトの生成と更新を実施します。Leaseの更新は`NodeStatus`の更新とは独立されて行われます。Leaseの更新が失敗した場合、kubeletは200ミリ秒から始まり7秒を上限とした指数バックオフでリトライします。
 
-{{< note >}}
-Kubernetesは無効なノードのためにオブジェクトを保存し、それをチェックし続けます。
-このプロセスを停止するには、Nodeオブジェクトを明示的に削除する必要があります。
-{{< /note >}}
 
-現在、Kubernetesのノードインターフェースと相互作用する3つのコンポーネントがあります。ノードコントローラー、kubelet、およびkubectlです。
 
-### ノードコントローラー
+## ノードコントローラー
 
 ノード{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は、ノードのさまざまな側面を管理するKubernetesのコントロールプレーンコンポーネントです。
 
@@ -216,16 +205,6 @@ Kubernetesは無効なノードのためにオブジェクトを保存し、そ�
 ノードが到達不能(例えば、ノードがダウンしているなどので理由で、ノードコントローラーがハートビートの受信を停止した場合)になると、ノードコントローラーは、NodeStatusのNodeReady conditionをConditionUnknownに変更する役割があります。その後も該当ノードが到達不能のままであった場合、Graceful Terminationを使って全てのPodを退役させます。デフォルトのタイムアウトは、ConditionUnknownの報告を開始するまで40秒、その後Podの追い出しを開始するまで5分に設定されています。
 ノードコントローラーは、`--node-monitor-period`に設定された秒数ごとに各ノードの状態をチェックします。
 
-#### ハートビート
-ハートビートは、Kubernetesノードから送信され、ノードが利用可能か判断するのに役立ちます。
-２つのハートビートがあります：`NodeStatus`の更新と[Lease object](/docs/reference/generated/kubernetes-api/{{< latest-version >}}#lease-v1-coordination-k8s-io)です。
-各ノードは`kube-node-lease`という{{< glossary_tooltip term_id="namespace" text="namespace">}}に関連したLeaseオブジェクトを持ちます。
-Leaseは軽量なリソースで、クラスターのスケールに応じてノードのハートビートにおけるパフォーマンスを改善します。
-
-kubeletが`NodeStatus`とLeaseオブジェクトの作成および更新を担当します。
-
-- kubeletは、ステータスに変化があったり、設定した間隔の間に更新がない時に`NodeStatus`を更新します。`NodeStatus`更新のデフォルト間隔は５分です。（到達不能の場合のデフォルトタイムアウトである40秒よりもはるかに長いです）
-- kubeletは10秒間隔(デフォルトの更新間隔)でLeaseオブジェクトの生成と更新を実施します。Leaseの更新は`NodeStatus`の更新とは独立されて行われます。Leaseの更新が失敗した場合、kubeletは200ミリ秒から始まり7秒を上限とした指数バックオフでリトライします。
 
 #### 信頼性
 
@@ -267,7 +246,89 @@ Pod以外のプロセス用にリソースを明示的に予約したい場合�
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 `TopologyManager`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、
 kubeletはリソースの割当を決定する際にトポロジーのヒントを利用できます。
-詳細は、[ノードのトポロジー管理ポリシーを制御する](/docs/tasks/administer-cluster/topology-manager/)を参照してください。
+詳細は、[ノードのトポロジー管理ポリシーを制御する](/ja/docs/tasks/administer-cluster/topology-manager/)を参照してください。
+
+## ノードの正常終了 {#graceful-node-shutdown}
+
+{{< feature-state state="beta" for_k8s_version="v1.21" >}}
+
+kubeletは、ノードのシステムシャットダウンを検出すると、ノード上で動作しているPodを終了させます。
+
+Kubelet は、ノードのシャットダウン時に、ポッドが通常の[通常のポッド終了プロセス](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)に従うようにします。
+
+Graceful Node Shutdownはsystemdに依存しているため、[systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)を
+利用してノードのシャットダウンを一定時間遅らせることができます。
+
+Graceful Node Shutdownは、v1.21でデフォルトで有効になっている`GracefulNodeShutdown` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)で制御されます。
+
+なお、デフォルトでは、後述の設定オプション`ShutdownGracePeriod`および`ShutdownGracePeriodCriticalPods`の両方がゼロに設定されているため、Graceful node shutdownは有効になりません。この機能を有効にするには、この2つのkubeletの設定を適切に設定し、ゼロ以外の値を設定する必要があります。
+
+Graceful shutdownでは、kubeletは以下の2段階でPodを終了させます。
+
+1. そのノード上で動作している通常のPodを終了させます。
+2. そのノード上で動作している[critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)を終了させます。
+
+Graceful Node Shutdownには、2つの[`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/)オプションを設定します。:
+* `ShutdownGracePeriod`:
+  *  ノードがシャットダウンを遅らせるべき合計期間を指定します。これは、通常のPodと[critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)の両方のPod終了の合計猶予期間です。
+* `ShutdownGracePeriodCriticalPods`:
+  * ノードのシャットダウン時に[critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)を終了させるために使用する期間を指定します。この値は、ShutdownGracePeriodよりも小さくする必要があります。
+
+例えば、`ShutdownGracePeriod=30s`、`ShutdownGracePeriodCriticalPods=10s`とすると、
+kubeletはノードのシャットダウンを30秒遅らせます。シャットダウンの間、最初の20(30-10)秒は通常のポッドを優雅に終了させるために確保され、
+残りの10秒は重要なポッドを終了させるために確保されることになります。
+
+{{< note >}}
+Graceful Node Shutdown中にPodが退避された場合、それらのPodの`.status`は`Failed`になります。
+`kubectl get pods`を実行すると、退避させられたPodのステータスが `Shutdown` と表示されます。
+また、`kubectl describe pod`を実行すると、ノードのシャットダウンのためにPodが退避されたことがわかります。
+
+```
+Status:         Failed
+Reason:         Shutdown
+Message:        Node is shutting, evicting pods
+```
+
+失敗したポッドオブジェクトは、明示的に削除されるか、[GCによってクリーンアップ](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)されるまで保存されます。
+これは、ノードが突然終了した場合とは異なった振る舞いです。
+
+{{< /note >}}
+
+## スワップメモリの管理 {#swap-memory}
+
+{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+
+Kubernetes 1.22以前では、ノードはスワップメモリの使用をサポートしておらず、ノード上でスワップが検出された場合、
+kubeletはデフォルトで起動に失敗していました。1.22以降では、スワップメモリのサポートをノードごとに有効にすることができます。
+
+
+
+ノードでスワップを有効にするには、kubeletの `NodeSwap` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にし、
+`--fail-swap-on`コマンドラインフラグまたは`failSwapOn`[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)を false に設定する必要があります。
+
+
+ユーザーはオプションで、ノードがスワップメモリをどのように使用するかを指定するために、`memorySwap.swapBehavior`を設定することもできます。ノードがスワップメモリをどのように使用するかを指定します。例えば、以下のようになります。
+
+```yaml
+memorySwap:
+  swapBehavior: LimitedSwap
+```
+
+swapBehaviorで使用できる設定オプションは以下の通りです。:
+- `LimitedSwap`: Kubernetesのワークロードが、使用できるスワップ量に制限を設けます。Kubernetesが管理していないノード上のワークロードは、依然としてスワップを使用できます。
+- `UnlimitedSwap`: Kubernetesのワークロードが使用できるスワップ量に制限を設けません。システムの限界まで、要求されただけのスワップメモリを使用することができます。
+
+`memorySwap`の設定が指定されておらず、[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効な場合、デフォルトのkubeletは`LimitedSwap`の設定と同じ動作を適用します。
+
+`LimitedSwap`設定の動作は、ノードがコントロールグループ(「cgroups」とも呼ばれる)のv1とv2のどちらで動作しているかによって異なります。
+
+Kubernetesのワークロードでは、メモリとスワップを組み合わせて使用することができ、ポッドのメモリ制限が設定されている場合はその制限まで使用できます。
+- **cgroupsv1:** Kubernetesのワークロードは、メモリとスワップを組み合わせて使用することができ、ポッドのメモリ制限が設定されている場合はその制限まで使用できます。
+- **cgroupsv2:** Kubernetesのワークロードは、スワップメモリを使用できません。
+
+詳しくは、[KEP-2400](https://github.com/kubernetes/enhancements/issues/2400)と
+[design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md)をご覧いただき、テストにご協力、ご意見をお聞かせください。
+
 
 ## {{% heading "whatsnext" %}}
 

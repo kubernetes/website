@@ -24,3 +24,5 @@ Reference documentation:
 - Service accounts
   - [Developer guide](/docs/tasks/configure-pod-container/configure-service-account/)
   - [Administration](/docs/reference/access-authn-authz/service-accounts-admin/)
+- [Kubelet Authentication & Authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/)
+  - including kubelet [TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)

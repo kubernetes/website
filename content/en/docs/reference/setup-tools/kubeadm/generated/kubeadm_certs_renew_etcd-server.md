@@ -87,6 +87,3 @@ kubeadm certs renew etcd-server [flags]
 
 </tbody>
 </table>
-
-
-

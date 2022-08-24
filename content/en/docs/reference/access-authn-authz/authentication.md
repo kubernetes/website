@@ -53,7 +53,7 @@ or be treated as an anonymous user.
 
 ## Authentication strategies
 
-Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to
+Kubernetes uses client certificates, bearer tokens, or an authenticating proxy to
 authenticate API requests through authentication plugins. As HTTP requests are
 made to the API server, plugins attempt to associate the following attributes
 with the request:
@@ -104,7 +104,7 @@ See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for ho
 ### Static Token File
 
 The API server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
-changed without restarting API server.
+changed without restarting the API server.
 
 The token file is a csv file with a minimum of 3 columns: token, user name, user uid,
 followed by optional group names.
@@ -121,7 +121,7 @@ token,user,uid,"group1,group2,group3"
 
 When using bearer token authentication from an http client, the API
 server expects an `Authorization` header with a value of `Bearer
-THETOKEN`.  The bearer token must be a character sequence that can be
+<token>`.  The bearer token must be a character sequence that can be
 put in an HTTP header value using no more than the encoding and
 quoting facilities of HTTP.  For example: if the bearer token is
 `31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
@@ -356,7 +356,7 @@ You can use an existing public OpenID Connect Identity Provider (such as Google,
 Or, you can run your own Identity Provider, such as [dex](https://dexidp.io/),
 [Keycloak](https://github.com/keycloak/keycloak),
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
-Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
+Tremolo Security's [OpenUnison](https://openunison.github.io/).
 
 For an identity provider to work with Kubernetes it must:
 
@@ -733,7 +733,7 @@ The following HTTP headers can be used to performing an impersonation request:
 
 * `Impersonate-User`: The username to act as.
 * `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User".
-* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` should be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
+* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` must be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
 * `Impersonate-Uid`: A unique identifier that represents the user being impersonated. Optional. Requires "Impersonate-User". Kubernetes does not impose any format requirements on this string.
 
 {{< note >}}
@@ -856,6 +856,14 @@ rules:
   resourceNames: ["06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"]
 ```
 
+{{< note >}}
+Impersonating a user or group allows you to perform any action as if you were that user or group;
+for that reason, impersonation is not namespace scoped.
+If you want to allow impersonation using Kubernetes RBAC, 
+this requires using a `ClusterRole` and a `ClusterRoleBinding`,
+not a `Role` and `RoleBinding`.
+{{< /note >}}
+
 ## client-go credential plugins
 
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
@@ -905,7 +913,7 @@ users:
       #
       # The API version returned by the plugin MUST match the version listed here.
       #
-      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1alpha1),
+      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1beta1),
       # set an environment variable, pass an argument to the tool that indicates which version the exec plugin expects,
       # or read the version from the ExecCredential object in the KUBERNETES_EXEC_INFO environment variable.
       apiVersion: "client.authentication.k8s.io/v1"
@@ -978,7 +986,7 @@ users:
       #
       # The API version returned by the plugin MUST match the version listed here.
       #
-      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1alpha1),
+      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1),
       # set an environment variable, pass an argument to the tool that indicates which version the exec plugin expects,
       # or read the version from the ExecCredential object in the KUBERNETES_EXEC_INFO environment variable.
       apiVersion: "client.authentication.k8s.io/v1beta1"
@@ -1144,7 +1152,9 @@ If specified, `clientKeyData` and `clientCertificateData` must both must be pres
 {{< /tabs >}}
 
 Optionally, the response can include the expiry of the credential formatted as a
-RFC3339 timestamp. Presence or absence of an expiry has the following impact:
+[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) timestamp.
+
+Presence or absence of an expiry has the following impact:
 
 - If an expiry is included, the bearer token and TLS credentials are cached until
   the expiry time is reached, or if the server responds with a 401 HTTP status code,
@@ -1232,3 +1242,5 @@ The following `ExecCredential` manifest describes a cluster information sample.
 ## {{% heading "whatsnext" %}}
 
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+* Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
+

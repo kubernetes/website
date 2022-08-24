@@ -527,5 +527,5 @@ Pour plus d'informations sur Minikube, voir la [proposition](https://git.k8s.io/
 
 Les contributions, questions et commentaires sont les bienvenus et sont encouragés !
 Les développeurs de minikube sont dans le canal #minikube du [Slack](https://kubernetes.slack.com) de Kubernetes (recevoir une invitation [ici](http://slack.kubernetes.io/)).
-Nous avons également la liste de diffusion [kubernetes-dev Google Groupes](https://groups.google.com/forum/#!forum/kubernetes-dev).
+Nous avons également la liste de diffusion [dev@kubernetes Google Groupes](https://groups.google.com/a/kubernetes.io/g/dev/).
 Si vous publiez sur la liste, veuillez préfixer votre sujet avec "minikube:".

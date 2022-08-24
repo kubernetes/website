@@ -81,6 +81,3 @@ kubeadm init phase kubelet-finalize all [flags]
 
 </tbody>
 </table>
-
-
-

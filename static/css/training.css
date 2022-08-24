@@ -124,6 +124,25 @@ body.cid-training #get-certified .col-nav a.button {
   body.cid-training section.call-to-action .main-section > div.call-to-action > div {
     padding: 0 2rem 0 2rem;
   }
+  body.cid-training section.call-to-action .main-section > div.call-to-action div.cta-image {
+    padding: 0 2rem 0 2rem;
+    /* Change display to CSS Grid layout with 2 columns that autofill */
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+  }
+  /* Make the CTA text fill 100% of the viewport */
+  body.cid-training section.call-to-action .main-section > div.call-to-action > div.cta-text {
+    width: 100%;
+  }
+
+  /* Resize the div that contains the images so that the images wrap 2 at a time
+ and have no margin issues */
+
+  body.cid-training section.call-to-action .main-section > div.call-to-action {
+    width: 60%;
+    margin: auto;
+    padding-top: 20px;
+  }
 }
 
 

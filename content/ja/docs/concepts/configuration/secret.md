@@ -10,14 +10,29 @@ weight: 30
 
 <!-- overview -->
 
-KubernetesのSecretはパスワード、OAuthトークン、SSHキーのような機密情報を保存し、管理できるようにします。
-Secretに機密情報を保存することは、それらを{{< glossary_tooltip text="Pod" term_id="pod" >}}の定義や{{< glossary_tooltip text="コンテナイメージ" term_id="image" >}}に直接記載するより、安全で柔軟です。
-詳しくは[Secretの設計文書](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md)を参照してください。
 
-Secretはパスワード、トークン、キーのような小容量の機密データを含むオブジェクトです。
-他の方法としては、そのような情報はPodの定義やイメージに含めることができます。
-ユーザーはSecretを作ることができ、またシステムが作るSecretもあります。
+Secretとは、パスワードやトークン、キーなどの少量の機密データを含むオブジェクトのことです。
+このような情報は、Secretを用いないと{{< glossary_tooltip term_id="pod" >}}の定義や{{< glossary_tooltip text="コンテナイメージ" term_id="image" >}}に直接記載することになってしまうかもしれません。
+Secretを使用すれば、アプリケーションコードに機密データを含める必要がなくなります。
 
+なぜなら、Secretは、それを使用するPodとは独立して作成することができ、
+Podの作成、閲覧、編集といったワークフローの中でSecret(およびそのデータ)が漏洩する危険性が低くなるためです。
+また、Kubernetesやクラスター内で動作するアプリケーションは、不揮発性ストレージに機密データを書き込まないようにするなど、Secretで追加の予防措置を取ることができます。
+
+Secretsは、{{< glossary_tooltip text="ConfigMaps" term_id="configmap" >}}に似ていますが、機密データを保持するために用います。
+
+
+{{< caution >}}
+KubernetesのSecretは、デフォルトでは、APIサーバーの基礎となるデータストア(etcd)に暗号化されずに保存されます。APIにアクセスできる人は誰でもSecretを取得または変更でき、etcdにアクセスできる人も同様です。
+さらに、名前空間でPodを作成する権限を持つ人は、そのアクセスを使用して、その名前空間のあらゆるSecretを読むことができます。これには、Deploymentを作成する能力などの間接的なアクセスも含まれます。
+
+Secretsを安全に使用するには、以下の手順を推奨します。
+
+1. Secretsを[安全に暗号化する](/docs/tasks/administer-cluster/encrypt-data/)
+2. Secretsのデータの読み取りを制限する[RBACルール](/docs/reference/access-authn-authz/authorization/)の有効化または設定 
+3. 適切な場合には、RBACなどのメカニズムを使用して、どの原則が新しいSecretの作成や既存のSecretの置き換えを許可されるかを制限します。
+
+{{< /caution >}}
 
 <!-- body -->
 
@@ -30,6 +45,7 @@ PodがSecretを使う方法は3種類あります。
 - [コンテナの環境変数](#using-secrets-as-environment-variables)として利用する
 - Podを生成するために[kubeletがイメージをpullする](#using-imagepullsecrets)ときに使用する
 
+KubernetesのコントロールプレーンでもSecretsは使われています。例えば、[bootstrap token Secrets](#bootstrap-token-secrets)は、ノード登録を自動化するための仕組みです。
 
 Secretオブジェクトの名称は正当な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)である必要があります。
 シークレットの構成ファイルを作成するときに、`data`および/または`stringData`フィールドを指定できます。`data`フィールドと`stringData`フィールドはオプションです。
@@ -145,7 +161,8 @@ Docker configファイルがない場合、または`kubectl`を使用してDock
 kubectl create secret docker-registry secret-tiger-docker \
   --docker-username=tiger \
   --docker-password=pass113 \
-  --docker-email=tiger@acme.com
+  --docker-email=tiger@acme.com \
+  --docker-server=my-registry.example:5000
 ```
 
 このコマンドは、`kubernetes.io/dockerconfigjson`型のSecretを作成します。
@@ -153,15 +170,21 @@ kubectl create secret docker-registry secret-tiger-docker \
 
 ```json
 {
-  "auths": {
-    "https://index.docker.io/v1/": {
-      "username": "tiger",
-      "password": "pass113",
-      "email": "tiger@acme.com",
-      "auth": "dGlnZXI6cGFzczExMw=="
-    }
-  }
+    "apiVersion": "v1",
+    "data": {
+        ".dockerconfigjson": "eyJhdXRocyI6eyJteS1yZWdpc3RyeTo1MDAwIjp7InVzZXJuYW1lIjoidGlnZXIiLCJwYXNzd29yZCI6InBhc3MxMTMiLCJlbWFpbCI6InRpZ2VyQGFjbWUuY29tIiwiYXV0aCI6ImRHbG5aWEk2Y0dGemN6RXhNdz09In19fQ=="
+    },
+    "kind": "Secret",
+    "metadata": {
+        "creationTimestamp": "2021-07-01T07:30:59Z",
+        "name": "secret-tiger-docker",
+        "namespace": "default",
+        "resourceVersion": "566718",
+        "uid": "e15c1d7b-9071-4100-8681-f3a7a2ce89ca"
+    },
+    "type": "kubernetes.io/dockerconfigjson"
 }
+
 ```
 
 ### Basic authentication Secret
@@ -254,7 +277,7 @@ kubectl create secret tls my-tls-secret \
 
 Bootstrap token Secretは、Secretの`type`を`bootstrap.kubernetes.io/token`に明示的に指定することで作成できます。このタイプのSecretは、ノードのブートストラッププロセス中に使用されるトークン用に設計されています。よく知られているConfigMapに署名するために使用されるトークンを格納します。
 
-Bootstrap toke Secretは通常、`kube-system`namespaceで作成され`bootstrap-token-<token-id>`の形式で名前が付けられます。ここで`<token-id>`はトークンIDの6文字の文字列です。
+Bootstrap token Secretは通常、`kube-system`namespaceで作成され`bootstrap-token-<token-id>`の形式で名前が付けられます。ここで`<token-id>`はトークンIDの6文字の文字列です。
 
 Kubernetesマニフェストとして、Bootstrap token Secretは次のようになります。
 
@@ -311,9 +334,9 @@ stringData:
 
 Secretを作成するには、いくつかのオプションがあります。
 
-- [create Secret using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [create Secret from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [create Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- [create Secret using `kubectl` command](/ja/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [create Secret from config file](/ja/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [create Secret using kustomize](/ja/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 ## Secretの編集
 
@@ -636,7 +659,7 @@ Kubernetesベータ機能*ImmutableSecrets and ConfigMaps*は、個々のSecrets
 - アプリケーションの停止を引き起こす可能性のある偶発的な（または不要な）更新からユーザーを保護します
 - imutableとしてマークされたSecretのウォッチを閉じることで、kube-apiserverの負荷を大幅に削減することができ、クラスターのパフォーマンスを向上させます。
 
-この機能は、`ImmutableEphemeralVolumes`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)によって制御されます。これは、v1.19以降デフォルトで有効になっています。`immutable`フィールドを`true`に設定することで、imutableのSecretを作成できます。例えば、
+この機能は、`ImmutableEphemeralVolumes`[feature gate](/ja/docs/reference/command-line-tools-reference/feature-gates/)によって制御されます。これは、v1.19以降デフォルトで有効になっています。`immutable`フィールドを`true`に設定することで、imutableのSecretを作成できます。例えば、
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -662,7 +685,7 @@ kubeletはこの情報をPodのためにプライベートイメージをpullす
 
 #### imagePullSecretを手動で指定する
 
-`ImagePullSecrets`の指定の方法は[コンテナイメージのドキュメント](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)に記載されています。
+`ImagePullSecrets`の指定の方法は[コンテナイメージのドキュメント](/ja/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)に記載されています。
 
 ### imagePullSecretsが自動的にアタッチされるようにする
 
@@ -1006,7 +1029,7 @@ HTTPリクエストを扱い、複雑なビジネスロジックを処理し、�
 ### Secret APIを使用するクライアント
 
 Secret APIとやりとりするアプリケーションをデプロイするときには、[RBAC](
-/docs/reference/access-authn-authz/rbac/)のような[認可ポリシー](
+/ja/docs/reference/access-authn-authz/rbac/)のような[認可ポリシー](
 /docs/reference/access-authn-authz/authorization/)を使用して、アクセスを制限すべきです。
 Secretは様々な種類の重要な値を保持することが多く、サービスアカウントのトークンのようにKubernetes内部や、外部のシステムで昇格できるものも多くあります。個々のアプリケーションが、Secretの能力について推論することができたとしても、同じネームスペースの別のアプリケーションがその推定を覆すこともあります。
 
@@ -1062,3 +1085,4 @@ Podに複数のコンテナが含まれることもあります。しかし、Po
 - [`kubectl`を使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)方法を学ぶ
 - [config fileを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-config-file/)方法を学ぶ
 - [kustomizeを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)方法を学ぶ
+- [SecretのAPIリファレンス](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)を読む

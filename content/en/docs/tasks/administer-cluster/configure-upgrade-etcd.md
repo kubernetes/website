@@ -150,7 +150,7 @@ access to clients with the certificate `k8sclient.cert`.
 
 Once etcd is configured correctly, only clients with valid certificates can
 access it. To give Kubernetes API servers the access, configure them with the
-flags `--etcd-certfile=k8sclient.cert`,`--etcd-keyfile=k8sclient.key` and
+flags `--etcd-certfile=k8sclient.cert`, `--etcd-keyfile=k8sclient.key` and
 `--etcd-cafile=ca.cert`.
 
 {{< note >}}
@@ -319,11 +319,15 @@ employed to recover the data of a failed cluster.
 
 Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
-[data directory]( https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
+[data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
 Here is an example:
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
+```
+Another example for restoring using etcdctl options:
+```shell
+ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
 ```
 
 For more information and examples on restoring a cluster from a snapshot file, see
@@ -356,4 +360,13 @@ We also recommend restarting any components (e.g. `kube-scheduler`,
 `kube-controller-manager`, `kubelet`) to ensure that they don't rely on some
 stale data. Note that in practice, the restore takes a bit of time.  During the
 restoration, critical components will lose leader lock and restart themselves.
+{{< /note >}}
+
+## Upgrading etcd clusters
+
+
+For more details on etcd upgrade, please refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
+
+{{< note >}}
+Before you start an upgrade, please back up your etcd cluster first.
 {{< /note >}}

@@ -32,7 +32,7 @@ other = "Descontinuado"
 other = "Você está vendo a documentação do Kubernetes versão:"
 
 [deprecation_warning]
-other = " a documentação não é mais mantida ativamente. A versão que você está visualizando no momento é uma captura instantânea estática. Para obter documentação atualizada, consulte "
+other = " a documentação não é mais mantida ativamente. A versão que você está visualizando no momento é uma cópia estática. Para obter a documentação atualizada, consulte "
 
 [docs_label_browse]
 other = "Procurar documentos"
@@ -98,7 +98,7 @@ other = "indicadores abaixo para uma maior explicação sobre um termo em partic
 other = "Clique nos"
 
 [layouts_docs_glossary_description]
-other = "Este glossário pretende ser uma lista padronizada e abrangente da terminologia do Kubernetes. Inclui termos técnicos específicos dos K8s, além de termos mais gerais que fornecem um contexto útil."
+other = "Este glossário tem por objetivo ser uma lista padronizada e abrangente da terminologia do Kubernetes. Inclui termos técnicos específicos do K8s, além de termos mais gerais que fornecem um contexto útil."
 
 [layouts_docs_glossary_deselect_all]
 other = "Desmarcar tudo"
@@ -119,7 +119,7 @@ other = "Abra um bug no repositório do GitHub se você deseja "
 other = "ou"
 
 [layouts_docs_partials_feedback_problem]
-other = "reportar um problema"
+other = "relatar um problema"
 
 [layouts_docs_partials_feedback_thanks]
 other = "Obrigado pelo feedback. Se você tiver uma pergunta específica sobre como utilizar o Kubernetes, faça em"
@@ -133,7 +133,7 @@ other = "Buscando resultados.."
 other = "por"
 
 [main_cncf_project]
-other = """Nós somos uma <a href="https://cncf.io/">CNCF</a> projeto graduado</p>"""
+other = """Nós somos um projeto graduado da <a href="https://cncf.io/">CNCF</a></p>"""
 
 [main_community_explore]
 other = "Explore a comunidade"
@@ -210,10 +210,10 @@ other = """Esta seção tem links para projetos de terceiros que fornecem a func
 other = "Procurar"
 
 [version_check_mustbeorlater]
-other = "O seu servidor Kubernetes deve estar em ou depois da versão "
+other = "O seu servidor Kubernetes deve estar numa versão igual ou superior a "
 
 [version_check_mustbe]
-other = "Seu servidor Kubernetes deve ser versão"
+other = "O seu servidor Kubernetes deve estar na versão "
 
 [version_check_tocheck]
 other = "Para verificar a versão, digite "
@@ -225,7 +225,7 @@ other = "Versões"
 other = "Aviso:"
 
 [whatsnext_heading]
-other = "Qual é o próximo"
+other = "Próximos passos"
 
 [print_printable_section]
 other = "Essa é a versão completa de impressão dessa seção"

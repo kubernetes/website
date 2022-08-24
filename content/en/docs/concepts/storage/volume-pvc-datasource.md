@@ -6,7 +6,7 @@ reviewers:
 - msau42
 title: CSI Volume Cloning
 content_type: concept
-weight: 30
+weight: 60
 ---
 
 <!-- overview -->

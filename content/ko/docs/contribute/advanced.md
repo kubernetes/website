@@ -8,12 +8,10 @@ weight: 98
 <!-- overview -->
 
 이 페이지에서는 당신이
-[새로운 콘텐츠에 기여](/ko/docs/contribute/new-content/overview)하고
+[새로운 콘텐츠에 기여](/ko/docs/contribute/new-content/)하고
 [다른 사람의 작업을 리뷰](/ko/docs/contribute/review/reviewing-prs/)하는 방법을
 이해한다고 가정한다. 또한 기여하기 위한 더 많은 방법에 대해 배울 준비가 되었다고 가정한다. 이러한
 작업 중 일부에는 Git 커맨드 라인 클라이언트와 다른 도구를 사용해야 한다.
-
-
 
 <!-- body -->
 
@@ -29,8 +27,8 @@ website 스타일, 풀 리퀘스트 리뷰와 병합
 프로세스 또는 문서 작성의 다른 측면을 개선하기 위한 아이디어가 있을 수 있다. 투명성을 극대화하려면,
 이러한 유형의 제안을 SIG Docs 회의나
 [kubernetes-sig-docs 메일링리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에서 논의해야 한다.
-또한, 현재의 작업 방식과 과거의 결정이 왜 획기적인 변경을
-제안하기 전에 결정되었는지에 대한 맥락을 이해하는 데 실제로
+또한, 획기적인 변경을 제안하기 전에, 현재의 작업 방식과 과거의 결정이 
+어떻게 정해졌는지에 대한 맥락을 이해하는 데 실제로
 도움이 될 수 있다. 현재의 문서 작업이 어떻게 진행되는지에 대한 질문의
 답변을 얻는 가장 빠른 방법은 [kubernetes.slack.com](https://kubernetes.slack.com)의
 `#sig-docs` 슬랙 채널에 문의하는 것이다.
@@ -84,10 +82,11 @@ SIG Docs [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/
 새로운 기여자 홍보대사의 책임은 다음과 같다.
 
 - [#sig-docs 슬랙 채널](https://kubernetes.slack.com)에서 새로운 기여자의 질문을 모니터링한다.
-- PR 랭글러와 협력하여 새로운 기여자에게 좋은 첫 이슈를 파악한다.
+- PR 랭글러와 협력하여 새로운 기여자에게 [좋은 첫 이슈](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue)를 파악한다.
 - 문서 리포지터리에 대한 처음 몇 번의 PR을 통해 새로운 기여자를 멘토링한다.
 - 새로운 기여자가 쿠버네티스 멤버가 되기 위해 필요한 보다 복잡한 PR을 작성하도록 지원한다.
 - 쿠버네티스 멤버 가입을 위해 [기여자를 후원](/ko/docs/contribute/advanced/#새로운-기여자-후원)한다.
+- 월간 미팅을 개최하여 새로운 기여자에게 도움을 주고 조언을 해 준다.
 
 현재 새로운 기여자 홍보대사는 각 SIG-Docs 회의와 [쿠버네티스 #sig-docs 채널](https://kubernetes.slack.com)에서 발표된다.
 
@@ -112,15 +111,13 @@ SIG Docs [리뷰어](/ko/docs/contribute/participate/roles-and-responsibilities/
 
 ## SIG 공동 의장으로 봉사
 
-SIG Docs [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/#승인자)는
+SIG Docs [멤버](/ko/docs/contribute/participate/roles-and-responsibilities/#멤버)는
 SIG Docs의 공동 의장 역할을 할 수 있다.
 
 ### 전제 조건
 
-승인자는 공동 의장이 되려면 다음의 요구 사항을 충족해야 한다.
+쿠버네티스 멤버가 공동 의장이 되려면 다음의 요구 사항을 충족해야 한다.
 
-- 6개월 이상 SIG Docs 승인자로 활동한다.
-- [쿠버네티스 문서 릴리스 주도](/ko/docs/contribute/advanced/#쿠버네티스-릴리스를-위한-문서-조정) 또는 두 개의 릴리스에서 섀도잉을 수행한다.
 - SIG Docs 워크플로와 툴링을 이해한다(git, Hugo, 현지화, 블로그 하위 프로젝트).
 - [k/org의 팀](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml),
   [k/community의 프로세스](https://github.com/kubernetes/community/tree/master/sig-docs),
@@ -128,6 +125,8 @@ SIG Docs의 공동 의장 역할을 할 수 있다.
   [SIG 아키텍처](https://github.com/kubernetes/community/tree/master/sig-architecture)의
   역할을 포함하여 다른 쿠버네티스 SIG와 리포지터리가 SIG Docs 워크플로에 미치는
   영향을 이해한다.
+  추가로, [쿠버네티스 문서 릴리스 프로세스](/ko/docs/contribute/advanced/#쿠버네티스-릴리스를-위한-문서-조정)가 어떻게 동작하는지 이해한다.
+- SIG Docs 커뮤니티에 이해 직접적으로 또는 lazy consensus(특정 기간 내에 아무런 의견이 없으면 통과)를 통해 승인된다.
 - 최소 6개월 동안 일주일에 5시간 이상(대부분 더)을 역할에 책임진다.
 
 ### 책임

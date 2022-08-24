@@ -59,7 +59,7 @@ and restarts it.
 When the container starts, it executes this command:
 
 ```shell
-/bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
+/bin/sh -c "touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600"
 ```
 
 For the first 30 seconds of the container's life, there is a `/tmp/healthy` file.
@@ -81,13 +81,13 @@ kubectl describe pod liveness-exec
 The output indicates that no liveness probes have failed yet:
 
 ```
-FirstSeen    LastSeen    Count   From            SubobjectPath           Type        Reason      Message
---------- --------    -----   ----            -------------           --------    ------      -------
-24s       24s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
+Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  11s   default-scheduler  Successfully assigned default/liveness-exec to node01
+  Normal  Pulling    9s    kubelet, node01    Pulling image "k8s.gcr.io/busybox"
+  Normal  Pulled     7s    kubelet, node01    Successfully pulled image "k8s.gcr.io/busybox"
+  Normal  Created    7s    kubelet, node01    Created container liveness
+  Normal  Started    7s    kubelet, node01    Started container liveness
 ```
 
 After 35 seconds, view the Pod events again:
@@ -97,17 +97,18 @@ kubectl describe pod liveness-exec
 ```
 
 At the bottom of the output, there are messages indicating that the liveness
-probes have failed, and the containers have been killed and recreated.
+probes have failed, and the failed containers have been killed and recreated.
 
 ```
-FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
---------- --------    -----   ----            -------------           --------    ------      -------
-37s       37s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
-2s        2s      1   {kubelet worker0}   spec.containers{liveness}   Warning     Unhealthy   Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  57s                default-scheduler  Successfully assigned default/liveness-exec to node01
+  Normal   Pulling    55s                kubelet, node01    Pulling image "k8s.gcr.io/busybox"
+  Normal   Pulled     53s                kubelet, node01    Successfully pulled image "k8s.gcr.io/busybox"
+  Normal   Created    53s                kubelet, node01    Created container liveness
+  Normal   Started    53s                kubelet, node01    Started container liveness
+  Warning  Unhealthy  10s (x3 over 20s)  kubelet, node01    Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
+  Normal   Killing    10s                kubelet, node01    Container liveness failed liveness probe, will be restarted
 ```
 
 Wait another 30 seconds, and verify that the container has been restarted:
@@ -116,7 +117,7 @@ Wait another 30 seconds, and verify that the container has been restarted:
 kubectl get pod liveness-exec
 ```
 
-The output shows that `RESTARTS` has been incremented:
+The output shows that `RESTARTS` has been incremented. Note that the `RESTARTS` counter increments as soon as a failed container comes back to the running state:
 
 ```
 NAME            READY     STATUS    RESTARTS   AGE
@@ -220,11 +221,62 @@ After 15 seconds, view Pod events to verify that liveness probes:
 kubectl describe pod goproxy
 ```
 
+## Define a gRPC liveness probe
+
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+
+If your application implements [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
+kubelet can be configured to use it for application liveness checks.
+You must enable the `GRPCContainerProbe`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+in order to configure checks that rely on gRPC.
+
+Here is an example manifest:
+
+{{< codenew file="pods/probe/grpc-liveness.yaml" >}}
+
+To use a gRPC probe, `port` must be configured. If the health endpoint is configured
+on a non-default service, you must also specify the `service`.
+
+{{< note >}}
+Unlike HTTP and TCP probes, named ports cannot be used and custom host cannot be configured.
+{{< /note >}}
+
+Configuration problems (for example: incorrect port and service, unimplemented health checking protocol)
+are considered a probe failure, similar to HTTP and TCP probes.
+
+To try the gRPC liveness check, create a Pod using the command below.
+In the example below, the etcd pod is configured to use gRPC liveness probe.
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/probe/grpc-liveness.yaml
+```
+
+After 15 seconds, view Pod events to verify that the liveness check has not failed:
+
+```shell
+kubectl describe pod etcd-with-grpc
+```
+
+Before Kubernetes 1.23, gRPC health probes were often implemented using [grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/),
+as described in the blog post [Health checking gRPC servers on Kubernetes](/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/).
+The built-in gRPC probes behavior is similar to one implemented by grpc-health-probe.
+When migrating from grpc-health-probe to built-in probes, remember the following differences:
+
+- Built-in probes run against the pod IP address, unlike grpc-health-probe that often runs against `127.0.0.1`.
+  Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
+- Built-in probes do not support any authentication parameters (like `-tls`).
+- There are no error codes for built-in probes. All errors are considered as probe failures.
+- If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not** respect the `timeoutSeconds` setting (which defaults to 1s),
+  while built-in probe would fail on timeout.
+
 ## Use a named port
 
 You can use a named
-[ContainerPort](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerport-v1-core)
-for HTTP or TCP liveness checks:
+[`port`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#ports)
+for HTTP and TCP probes. (gRPC probes do not support named ports).
+
+For example:
 
 ```yaml
 ports:
@@ -349,7 +401,7 @@ This defect was corrected in Kubernetes v1.20. You may have been relying on the 
 even without realizing it, as the default timeout is 1 second.
 As a cluster administrator, you can disable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `ExecProbeTimeout` (set it to `false`)
 on each kubelet to restore the  behavior from older versions, then remove that override
-once all the exec probes in the cluster have a `timeoutSeconds` value set.  
+once all the exec probes in the cluster have a `timeoutSeconds` value set.
 If you have pods that are impacted from the default 1 second timeout,
 you should update their probe timeout so that you're ready for the
 eventual removal of that feature gate.
@@ -386,8 +438,8 @@ to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more co
 case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
 For an HTTP probe, the kubelet sends two request headers in addition to the mandatory `Host` header:
-`User-Agent`, and `Accept`. The default values for these headers are `kube-probe/{{< skew latestVersion >}}`
-(where `{{< skew latestVersion >}}` is the version of the kubelet ), and `*/*` respectively.
+`User-Agent`, and `Accept`. The default values for these headers are `kube-probe/{{< skew currentVersion >}}`
+(where `{{< skew currentVersion >}}` is the version of the kubelet ), and `*/*` respectively.
 
 You can override the default headers by defining `.httpHeaders` for the probe; for example
 
@@ -454,7 +506,7 @@ those existing Pods.
 
 When you (or the control plane, or some other component) create replacement
 Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
-API server ignores the Pod-level `terminationGracePeriodSeconds` field, even if
+API server ignores the Probe-level `terminationGracePeriodSeconds` field, even if
 a Pod or pod template specifies it.
 {{< /note >}}
 
@@ -487,12 +539,11 @@ It will be rejected by the API server.
 
 ## {{% heading "whatsnext" %}}
 
-
 * Learn more about
 [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 You can also read the API references for:
 
-* [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
-* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-* [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
+* [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/), and specifically:
+  * [container(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
+  * [probe(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)

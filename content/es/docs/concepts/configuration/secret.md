@@ -14,7 +14,7 @@ weight: 50
 
 Los objetos de tipo {{< glossary_tooltip text="Secret" term_id="secret" >}} en Kubernetes te permiten almacenar y administrar información confidencial, como
 contraseñas, tokens OAuth y llaves ssh.  Poniendo esta información en un Secret
-es más seguro y más flexible que ponerlo en la definición de un {{< glossary_tooltip term_id="pod" >}} o en un {{< glossary_tooltip text="container image" term_id="image" >}}. Ver [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) para más información.
+es más seguro y más flexible que ponerlo en la definición de un {{< glossary_tooltip term_id="pod" >}} o en un {{< glossary_tooltip text="container image" term_id="image" >}}. Ver [Secrets design document](https://git.k8s.io/design-proposals-archive/auth/secrets.md) para más información.
 
 <!-- body -->
 
@@ -345,7 +345,7 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ## Usando Secrets
 
 Los Secrets se pueden montar como volúmenes de datos o ser expuestos como 
-{{< glossary_tooltip text="variables de ambiente" term_id="container-env-variables" >}}
+{{< glossary_tooltip text="variables de entorno" term_id="container-env-variables" >}}
 para ser usados por un contenedor en un pod.  También pueden ser utilizados por otras partes del sistema, 
 sin estar directamente expuesto en el pod.  Por ejemplo, pueden tener credenciales que otras partes del sistema usan para interactuar con sistemas externos en su nombre.
 
@@ -862,7 +862,7 @@ tu debes usar `ls -la` para verlos al enumerar los contenidos del directorio.
 
 ### Caso de uso: Secret visible para un contenedor en un pod
 
-Considere un programa que necesita manejar solicitudes HTTP, hacer una lógicca empresarial compleja y luego firmar algunos mensajes con un HMAC. Debido a que tiene una lógica de aplicación compleja, puede haber una vulnerabilidad de lectura remota de archivos inadvertida en el servidor, lo que podría exponer la clave privada a un atacante.
+Considere un programa que necesita manejar solicitudes HTTP, hacer una lógica empresarial compleja y luego firmar algunos mensajes con un HMAC. Debido a que tiene una lógica de aplicación compleja, puede haber una vulnerabilidad de lectura remota de archivos inadvertida en el servidor, lo que podría exponer la clave privada a un atacante.
 
 Esto podría dividirse en dos procesos en dos contenedores: un contenedor de frontend que maneja la interacción del usuario y la lógica empresarial. pero que no puede ver la clave privada; y un contenedor de firmante que puede ver la clave privada, y responde a solicitudes de firma simples del frontend (ejemplo, a través de redes de localhost).
 

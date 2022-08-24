@@ -65,7 +65,7 @@ Network policies are an exciting feature, which the Kubernetes community has wor
 
 
 
-There are only a few policy-capable networking backends available for Kubernetes today: [Romana](http://romana.io/), [Calico](http://projectcalico.org/), and [Canal](https://github.com/tigera/canal); with [Weave](http://www.weave.works/) indicating support in the near future. Red Hat’s OpenShift includes network policy features as well.
+There are only a few policy-capable networking backends available for Kubernetes today: Romana, [Calico](http://projectcalico.org/), and [Canal](https://github.com/tigera/canal); with [Weave](http://www.weave.works/) indicating support in the near future. Red Hat’s OpenShift includes network policy features as well.
 
 
 
@@ -100,7 +100,7 @@ This is because during a typical network performance benchmark, there’s no app
 - Hardware: Two servers with Intel Core i5-5250U CPUs (2 core, 2 threads per core) running at 1.60GHz, 16GB RAM and 512GB SSD. NIC: Intel Ethernet Connection I218-V (rev 03)
 - Ubuntu 14.04.5
 - Kubernetes 1.3 for data collection (verified samples on [v1.4.0-beta.5](http://v1.4.0-beta.5/))
-- [Romana v0.9.3.1](https://github.com/romana/romana)
+- Romana v0.9.3.1
 - Client and server load test [software](https://github.com/paninetworks/testing-tools)
 
 For the tests we had a client pod send 2,000 HTTP requests to a server pod. HTTP requests were sent by the client pod at a rate that ensured that neither the server nor network ever saturated. We also made sure each request started a new TCP session by disabling persistent connections (i.e. HTTP [keep-alive](https://en.wikipedia.org/wiki/HTTP_persistent_connection)). We ran each test with different response sizes and measured the average request duration time (how long does it take to complete a request of that size). Finally, we repeated each set of measurements with different policy configurations.
@@ -189,4 +189,4 @@ These tests were performed using Romana as the backend policy provider and other
 
 
 
-If you wish to try it for yourself, we invite you to check out [Romana](http://romana.io/). In our [GitHub repo](https://github.com/romana/romana) you can find an easy to use installer, which works with AWS, Vagrant VMs or any other servers. You can use it to quickly get you started with a Romana powered Kubernetes or OpenStack cluster.
+If you wish to try it for yourself, we invite you to check out Romana. In our GitHub repo you can find an easy to use installer, which works with AWS, Vagrant VMs or any other servers. You can use it to quickly get you started with a Romana powered Kubernetes or OpenStack cluster.

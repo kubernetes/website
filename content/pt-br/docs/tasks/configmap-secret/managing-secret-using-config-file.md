@@ -59,7 +59,7 @@ data:
 ```
 
 Perceba que o nome do objeto Secret precisa ser um 
-[nome de subdomínio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-name) válido.
+[nome de subdomínio DNS](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
 {{< note >}}
 Os valores serializados dos dados JSON e YAML de um Secret são codificados em strings

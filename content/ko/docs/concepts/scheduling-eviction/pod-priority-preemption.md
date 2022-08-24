@@ -1,4 +1,7 @@
 ---
+
+
+
 title: 파드 우선순위(priority)와 선점(preemption)
 content_type: concept
 weight: 70
@@ -45,7 +48,7 @@ weight: 70
 {{< note >}}
 쿠버네티스는 이미 `system-cluster-critical` 과 `system-node-critical`,
 두 개의 프라이어리티클래스를 제공한다.
-이들은 일반적인 클래스이며 [중요한(critical) 컴포넌트가 항상 먼저 스케줄링이 되도록 하는 데](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 사용된다.
+이들은 일반적인 클래스이며 [중요한(critical) 컴포넌트가 항상 먼저 스케줄링이 되도록 하는 데](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 사용된다.
 {{< /note >}}
 
 ## 프라이어리티클래스
@@ -101,9 +104,9 @@ description: "이 프라이어리티클래스는 XYZ 서비스 파드에만 사�
 
 ## 비-선점 프라이어리티클래스 {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-`PreemptionPolicy: Never` 를 가진 파드는 낮은 우선순위 파드의 스케줄링 대기열의
+`preemptionPolicy: Never` 를 가진 파드는 낮은 우선순위 파드의 스케줄링 대기열의
 앞쪽에 배치되지만,
 그 파드는 다른 파드를 축출할 수 없다.
 스케줄링 대기 중인 비-선점 파드는 충분한 리소스가 확보되고
@@ -119,17 +122,17 @@ description: "이 프라이어리티클래스는 XYZ 서비스 파드에만 사�
 비-선점 파드는 다른 우선순위가 높은 파드에 의해
 축출될 수 있다.
 
-`PreemptionPolicy` 는 기본값으로 `PreemptLowerPriority` 로 설정되어,
+`preemptionPolicy` 는 기본값으로 `PreemptLowerPriority` 로 설정되어,
 해당 프라이어리티클래스의 파드가 우선순위가 낮은 파드를 축출할 수
 있다(기존의 기본 동작과 동일).
-`PreemptionPolicy` 가 `Never` 로 설정된 경우,
+`preemptionPolicy` 가 `Never` 로 설정된 경우,
 해당 프라이어리티클래스의 파드는 비-선점될 것이다.
 
 예제 유스케이스는 데이터 과학 관련 워크로드이다.
 사용자는 다른 워크로드보다 우선순위가 높은 잡(job)을 제출할 수 있지만,
 실행 중인 파드를 축출하여 기존의 작업을 삭제하지는 않을 것이다.
 클러스터 리소스가 "자연스럽게" 충분히 사용할 수 있게 되면,
-`PreemptionPolicy: Never` 의 우선순위가 높은 잡이
+`preemptionPolicy: Never` 의 우선순위가 높은 잡이
 다른 대기 중인 파드보다 먼저 스케줄링된다.
 
 ### 비-선점 프라이어리티클래스 예제
@@ -200,9 +203,11 @@ spec:
 정보를 제공한다.
 
 파드 P는 반드시 "지정된 노드"로 스케줄링되지는 않는다.
+The scheduler always tries the "nominated Node" before iterating over any other nodes.
+스케줄러는 다른 노드에 스케줄링을 시도하기 전에 항상 "지정된 노드"부터 시도한다.
 피해자 파드가 축출된 후, 그것은 정상적(graceful)으로 종료되는 기간을 갖는다.
 스케줄러가 종료될 피해자 파드를 기다리는 동안 다른 노드를 사용할 수
-있게 되면, 스케줄러는 파드 P를 스케줄링하기 위해 다른 노드를 사용한다. 그 결과,
+있게 되면, 스케줄러는 파드 P를 스케줄링하기 위해 다른 노드를 사용할 수 있다. 그 결과,
 파드 스펙의 `nominatedNodeName` 과 `nodeName` 은 항상 동일하지 않다. 또한,
 스케줄러가 노드 N에서 파드를 축출했지만, 파드 P보다 우선순위가 높은 파드가
 도착하면, 스케줄러가 노드 N에 새로운 우선순위가 높은 파드를 제공할 수 있다. 이러한
@@ -350,21 +355,25 @@ spec:
 `PodDisruptionBudget` 으로 보호되는 경우에만, 우선순위가 가장 낮은 파드를
 축출 대상으로 고려한다.
 
-QoS와 파드 우선순위를 모두 고려하는 유일한 컴포넌트는
-[kubelet 리소스 부족 축출](/docs/concepts/scheduling-eviction/node-pressure-eviction/)이다.
-kubelet은 부족한 리소스의 사용이 요청을 초과하는지 여부에 따라, 그런 다음 우선순위에 따라,
-파드의 스케줄링 요청에 대한 부족한 컴퓨팅 리소스의 소비에 의해
-먼저 축출 대상 파드의 순위를 매긴다.
-더 자세한 내용은
-[엔드유저 파드 축출](/docs/concepts/scheduling-eviction/node-pressure-eviction/#evicting-end-user-pods)을
+kubelet은 우선순위를 사용하여 파드의 [노드-압박(node-pressure) 축출](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/) 순서를 결정한다.
+사용자는 QoS 클래스를 사용하여 어떤 파드가 축출될 것인지
+예상할 수 있다. kubelet은 다음의 요소들을 통해서 파드의 축출 순위를 매긴다.
+
+  1. 기아(starved) 리소스 사용량이 요청을 초과하는지 여부
+  1. 파드 우선순위
+  1. 요청 대비 리소스 사용량
+
+더 자세한 내용은 [kubelet 축출을 위한 파드 선택](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/#kubelet-축출을-위한-파드-선택)을
 참조한다.
 
-kubelet 리소스 부족 축출은 사용량이 요청을 초과하지 않는 경우
+kubelet 노드-압박 축출은 사용량이 요청을 초과하지 않는 경우
 파드를 축출하지 않는다. 우선순위가 낮은 파드가 요청을
 초과하지 않으면, 축출되지 않는다. 요청을 초과하는 우선순위가
 더 높은 다른 파드가 축출될 수 있다.
 
-
 ## {{% heading "whatsnext" %}}
 
-* 프라이어리티클래스와 관련하여 리소스쿼터 사용에 대해 [기본적으로 프라이어리티클래스 소비 제한](/ko/docs/concepts/policy/resource-quotas/#기본적으로-우선-순위-클래스-소비-제한)을 읽어보자.
+* 프라이어리티클래스와 함께 리소스쿼터 사용에 대해 읽기: [기본으로 프라이어리티 클래스 소비 제한](/ko/docs/concepts/policy/resource-quotas/#기본적으로-우선-순위-클래스-소비-제한)
+* [파드 중단(disruption)](/ko/docs/concepts/workloads/pods/disruptions/)에 대해 학습한다.
+* [API를 이용한 축출](/ko/docs/concepts/scheduling-eviction/api-eviction/)에 대해 학습한다.
+* [노드-압박(node-pressure) 축출](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)에 대해 학습한다.

@@ -39,7 +39,7 @@ DNS 쿼리는 그것을 생성하는 파드의 네임스페이스에 따라 다�
 
 DNS 쿼리는 파드의 `/etc/resolv.conf` 를 사용하여 확장될 수 있을 것이다. Kubelet은
 각 파드에 대해서 파일을 설정한다. 예를 들어, `data` 만을 위한 쿼리는
-`data.test.cluster.local` 로 확장된다. `search` 옵션의 값은
+`data.test.svc.cluster.local` 로 확장된다. `search` 옵션의 값은
 쿼리를 확장하기 위해서 사용된다. DNS 쿼리에 대해 더 자세히 알고 싶은 경우,
 [`resolv.conf` 설명 페이지.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)를 참고한다.
 
@@ -106,10 +106,9 @@ SRV 레코드는 노멀 서비스 또는
 
 `172-17-0-3.default.pod.cluster.local`.
 
-서비스에 의해 노출된 디플로이먼트(Deployment)나 데몬셋(DaemonSet)에 의해 생성된
-모든 파드는 다음과 같은 DNS 주소를 갖는다.
+서비스에 의해 노출된 모든 파드는 다음과 같은 DNS 주소를 갖는다.
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
+`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
 
 ### 파드의 hostname 및 subdomain 필드
 
@@ -197,7 +196,7 @@ A 또는 AAAA 레코드만 생성할 수 있다. (`default-subdomain.my-namespac
 
 ### 파드의 setHostnameAsFQDN 필드 {#pod-sethostnameasfqdn-field}
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 파드가 전체 주소 도메인 이름(FQDN)을 갖도록 구성된 경우, 해당 호스트네임은 짧은 호스트네임이다. 예를 들어, 전체 주소 도메인 이름이 `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example` 인 파드가 있는 경우, 기본적으로 해당 파드 내부의 `hostname` 명령어는 `busybox-1` 을 반환하고 `hostname --fqdn` 명령은 FQDN을 반환한다.
 
@@ -217,13 +216,13 @@ DNS 정책은 파드별로 설정할 수 있다.
 
 - "`Default`": 파드는 파드가 실행되고 있는 노드로부터 네임 해석 설정(the name resolution configuration)을 상속받는다.
   자세한 내용은
-  [관련 논의](/ko/docs/tasks/administer-cluster/dns-custom-nameservers/)에서
+  [관련 논의](/ko/docs/tasks/administer-cluster/dns-custom-nameservers)에서
   확인할 수 있다.
 - "`ClusterFirst`": "`www.kubernetes.io`"와 같이 클러스터 도메인 suffix 구성과
   일치하지 않는 DNS 쿼리는 노드에서 상속된 업스트림 네임서버로 전달된다.
   클러스터 관리자는 추가 스텁-도메인(stub-domain)과 업스트림 DNS 서버를 구축할 수 있다.
   그러한 경우 DNS 쿼리를 어떻게 처리하는지에 대한 자세한 내용은
-  [관련 논의](/ko/docs/tasks/administer-cluster/dns-custom-nameservers/)에서
+  [관련 논의](/ko/docs/tasks/administer-cluster/dns-custom-nameservers)에서
   확인할 수 있다.
 - "`ClusterFirstWithHostNet`": hostNetwork에서 running 상태인 파드의 경우 DNS 정책인
   "`ClusterFirstWithHostNet`"을 명시적으로 설정해야 한다.
@@ -233,7 +232,7 @@ DNS 정책은 파드별로 설정할 수 있다.
   자세한 내용을 확인할 수 있다.
 
 {{< note >}}
-"Default"는 기본 DNS 정책이 아니다. `dnsPolicy`가 명시적으로 지정되어있지 않다면
+"Default"는 기본 DNS 정책이 아니다. `dnsPolicy`가 명시적으로 지정되어 있지 않다면
 "ClusterFirst"가 기본값으로 사용된다.
 {{< /note >}}
 
@@ -312,6 +311,17 @@ nameserver fd00:79:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
+
+#### 확장된 DNS 환경 설정
+
+{{< feature-state for_k8s_version="1.22" state="alpha" >}}
+
+쿠버네티스는 파드의 DNS 환경 설정을 위해 기본적으로 최대 6개의 탐색 도메인과 
+최대 256자의 탐색 도메인 목록을 허용한다.
+
+kube-apiserver와 kubelet에 `ExpandedDNSConfig` 기능 게이트가 활성화되어 있으면, 
+쿠버네티스는 최대 32개의 탐색 도메인과 
+최대 2048자의 탐색 도메인 목록을 허용한다.
 
 ## {{% heading "whatsnext" %}}
 

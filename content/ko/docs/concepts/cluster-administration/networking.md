@@ -1,4 +1,6 @@
 ---
+
+
 title: 클러스터 네트워킹
 content_type: concept
 weight: 50
@@ -28,46 +30,7 @@ weight: 50
 찾는 방법 등을 알아야 한다. 쿠버네티스는 이런 것들을 다루는 대신
 다른 접근법을 취한다.
 
-## 쿠버네티스 네트워크 모델
-
-모든 `Pod` 에는 고유의 IP 주소가 있다. 즉, `Pod` 간에 링크를 명시적으로
-생성할 필요가 없으며 컨테이너 포트를 호스트 포트에 매핑할
-필요가 거의 없다. 이렇게 하면 포트 할당, 이름 지정, 서비스 검색, 로드 밸런싱,
-애플리케이션 구성 및 마이그레이션 관점에서 `Pod` 를 VM 또는
-물리적 호스트처럼 취급할 수 있는 깔끔하고, 하위 호환성
-있는 모델이 생성된다.
-
-쿠버네티스는 모든 네트워크 구현에 다음과 같은
-기본 요구 사항을 적용한다(의도적 네트워크 세분화 정책 제외).
-
-   * 노드의 파드는 NAT 없이 모든 노드의 모든 파드와 통신할 수 있다.
-   * 노드의 에이전트(예: 시스템 데몬, kubelet)는 해당 노드의 모든
-     파드와 통신할 수 있다.
-
-참고: 호스트 네트워크에서 실행되는 `Pod` 를 지원하는 리눅스와 같은 플랫폼의 경우, 다음의 요구 사항을
-적용한다.
-
-   * 노드의 호스트 네트워크에 있는 파드는 NAT 없이 모든 노드에 있는 모든
-     파드와 통신할 수 있다.
-
-이 모델은 전체적으로 덜 복잡할 뿐만 아니라, 쿠버네티스를 위해 VM에서
-컨테이너로 애플리케이션을 포팅할 때 충돌이 적게 구현하려는 요구와
-주로 호환된다. 잡이 이전에 VM에서 실행된 경우, VM에 IP가 있고
-프로젝트의 다른 VM과 통신할 수 있다. 이것은 동일한 기본 모델이다.
-
-쿠버네티스의 IP 주소는 그것의 IP 주소와 MAC 주소를 포함하여 `Pod` 범위에 존재한다(`Pod` 내
-컨테이너는 네트워크 네임스페이스를 공유함). 이것은 `Pod` 내 컨테이너가 모두
-`localhost` 에서 서로의 포트에 도달할 수 있다는 것을 의미한다. 또한
-`Pod` 내부의 컨테이너 포트의 사용을 조정해야하는 것을 의미하지만, 이것도
-VM 내의 프로세스와 동일하다. 이것을 "IP-per-pod(파드별 IP)" 모델이라고 
-한다.
-
-이것이 어떻게 구현되는 지는 사용 중인 특정 컨테이너 런타임의 세부 사항이다.
-
-`Pod` 로 전달하는 `Node` 자체의 포트(호스트 포트라고 함)를
-요청할 수 있지만, 이는 매우 틈새 작업이다. 전달이 구현되는 방법은
-컨테이너 런타임의 세부 사항이기도 하다. `Pod` 자체는
-호스트 포트의 존재 여부에 대해 인식하지 못한다.
+쿠버네티스 네트워킹 모델에 대한 상세 정보는 [여기](/ko/docs/concepts/services-networking/)를 참고한다.
 
 ## 쿠버네티스 네트워크 모델의 구현 방법
 
@@ -89,18 +52,6 @@ VM 내의 프로세스와 동일하다. 이것을 "IP-per-pod(파드별 IP)" 모
 프로젝트 [Antrea](https://github.com/vmware-tanzu/antrea)는 쿠버네티스 고유의 오픈소스 쿠버네티스 네트워킹 솔루션이다. 네트워킹 데이터 플레인으로 Open vSwitch를 활용한다. Open vSwitch는 리눅스와 윈도우를 모두 지원하는 고성능의 프로그래밍이 가능한 가상 스위치이다. Antrea는 Open vSwitch를 통해 쿠버네티스 네트워크 정책을 고성능의 효율적인 방식으로 구현할 수 있다.
 Antrea는 Open vSwitch의 "프로그래밍이 가능한" 특성으로 인해 Open vSwitch 위에 광범위한 네트워킹 및 보안 기능과 서비스를 구현할 수 있다.
 
-### Apstra의 AOS
-
-[AOS](https://www.apstra.com/products/aos/)는 단순한 통합 플랫폼에서 복잡한 데이터센터 환경을 만들고 관리하는 의도기반(Intent-Based) 네트워킹 시스템이다. AOS는 확장성이 뛰어난 분산 설계를 활용하여 네트워크 중단을 제거하면서 비용을 최소화한다.
-
-AOS 레퍼런스 디자인은 현재 레거시 Layer-2 스위칭 문제를 제거하는 Layer-3 연결 호스트를 지원한다. 이 Layer-3 호스트는 리눅스 서버(Debian, Ubuntu, CentOS)일 수 있으며 랙 상단 스위치(TOR)와 직접 BGP 인접 관계를 만든다. AOS는 라우팅 인접성을 자동화한 다음 쿠버네티스 디플로이먼트에서 일반적으로 사용되는 RHI(Route Health Injection)에 대한 세밀한 제어를 제공한다.
-
-AOS는 쿠버네티스가 애플리케이션 요구 사항에 따라 네트워크 정책을 신속하게 변경할 수 있는 풍부한 REST API 엔드포인트 셋을 제공한다. 네트워크 설계에 사용된 AOS 그래프 모델을 워크로드 프로비저닝과 통합하여 프라이빗 클라우드와 퍼블릭 클라우드 모두에 대한 엔드-투-엔드 관리 시스템을 향상시킬 수 있다.
-
-AOS는 Cisco, Arista, Dell, Mellanox, HPE 그리고 Microsoft SONiC, Dell OPX 및 Cumulus Linux와 같은 개방형 네트워크 운영체제와 수많은 화이트-박스 시스템을 포함한 제조업체의 일반적인 벤더 장비 사용을 지원한다.
-
-AOS 시스템 작동 방식에 대한 자세한 내용은 다음을 참고한다. https://www.apstra.com/products/how-it-works/
-
 ### 쿠버네티스용 AWS VPC CNI
 
 [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s)는 쿠버네티스 클러스터를 위한 통합된 AWS 버추얼 프라이빗 클라우드(Virtual Private Cloud, VPC) 네트워킹을 제공한다. 이 CNI 플러그인은 높은 처리량과 가용성, 낮은 레이턴시(latency) 그리고 최소 네트워크 지터(jitter)를 제공한다. 또한, 사용자는 쿠버네티스 클러스터를 구축하기 위한 기존의 AWS VPC 네트워킹 및 보안 모범 사례를 적용할 수 있다. 여기에는 VPC 플로우 로그, VPC 라우팅 정책과 네트워크 트래픽 격리를 위한 보안 그룹을 사용하는 기능이 포함되어 있다.
@@ -114,18 +65,9 @@ AOS 시스템 작동 방식에 대한 자세한 내용은 다음을 참고한다
 
 Azure CNI는 [Azure 쿠버네티스 서비스(Azure Kubernetes Service, AKS)](https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni)에서 기본적으로 사용할 수 있다.
 
-
-### Big Switch Networks의 빅 클라우드 패브릭(Big Cloud Fabric)
-
-[빅 클라우드 패브릭](https://www.bigswitch.com/container-network-automation)은 클라우드 네이티브 네트워킹 아키텍처로, 프라이빗 클라우드/온-프레미스 환경에서 쿠버네티스를 실행하도록 디자인되었다. 통합된 물리 및 가상 SDN을 사용하여, 빅 클라우드 패브릭은 로드 밸런싱, 가시성, 문제 해결, 보안 정책 및 컨테이너 트래픽 모니터링과 같은 내재한 컨테이너 네트워킹 문제를 해결한다.
-
-빅 클라우드 패브릭의 가상 파드 멀티 테넌트 아키텍처를 통해 쿠버네티스, RedHat OpenShift, Mesosphere DC/OS 및 Docker Swarm과 같은 컨테이너 오케스트레이션 시스템은 VMware, OpenStack 및 Nutanix와 같은 VM 오케스트레이션 시스템과 함께 네이티브로 통합된다. 고객은 원하는 수의 클러스터를 안전하게 상호 연결할 수 있으며 필요한 경우 이들 사이의 테넌트 간 통신을 활성화할 수 있다.
-
-가트너는 최신의 [매직 쿼드런트(Magic Quadrant)](https://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html)에서 BCF를 비저너리(Visionary)로 인정했다. BCF 쿠버네티스 온-프레미스 디플로이먼트 중 하나(지리적으로 다른 리전에 걸쳐 여러 DC에서 실행되는 쿠버네티스, DC/OS 및 VMware 포함)도 [여기](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/)에서 사례로 참조된다.
-
 ### 캘리코
 
-[캘리코](https://docs.projectcalico.org/)는 컨테이너, 가상 시스템 및 기본 호스트 기반 워크로드를 위한 오픈소스 네트워킹 및 네트워크 보안 솔루션이다. 캘리코는 순수 리눅스 eBPF 데이터플레인, 표준 리눅스 네트워킹 데이터플레인, 윈도우 HNS 데이터플레인을 포함한 여러 데이터플레인을 지원한다. 캘리코는 완전한 네트워킹 스택을 제공하지만, [클라우드 제공자 CNI](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations)와 함께 사용하여 네트워크 정책 시행을 제공할 수도 있다.
+[캘리코](https://projectcalico.docs.tigera.io/about/about-calico/)는 컨테이너, 가상 시스템 및 기본 호스트 기반 워크로드를 위한 오픈소스 네트워킹 및 네트워크 보안 솔루션이다. 캘리코는 순수 리눅스 eBPF 데이터플레인, 표준 리눅스 네트워킹 데이터플레인, 윈도우 HNS 데이터플레인을 포함한 여러 데이터플레인을 지원한다. 캘리코는 완전한 네트워킹 스택을 제공하지만, [클라우드 제공자 CNI](https://projectcalico.docs.tigera.io/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations)와 함께 사용하여 네트워크 정책 시행을 제공할 수도 있다.
 
 ### 실리움(Cilium)
 
@@ -137,9 +79,9 @@ Azure CNI는 [Azure 쿠버네티스 서비스(Azure Kubernetes Service, AKS)](ht
 
 ### 화웨이의 CNI-Genie
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)는 쿠버네티스가 런타임 시 [쿠버네티스 네트워크 모델](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model)의 [서로 다른 구현에 동시에 접근](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)할 수 있는 CNI 플러그인이다. 여기에는 [플라넬(Flannel)](https://github.com/coreos/flannel#flannel), [캘리코](https://docs.projectcalico.org/), [로마나(Romana)](https://romana.io), [위브넷(Weave-net)](https://www.weave.works/products/weave-net/)과 같은 [CNI 플러그인](https://github.com/containernetworking/cni#3rd-party-plugins)으로 실행되는 모든 구현이 포함된다.
+[CNI-Genie](https://github.com/cni-genie/CNI-Genie)는 쿠버네티스가 런타임 시 [쿠버네티스 네트워크 모델](/ko/docs/concepts/cluster-administration/networking/#쿠버네티스-네트워크-모델)의 [서로 다른 구현에 동시에 접근](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)할 수 있는 CNI 플러그인이다. 여기에는 [플라넬(Flannel)](https://github.com/flannel-io/flannel#flannel), [캘리코](https://projectcalico.docs.tigera.io/about/about-calico/), [위브넷(Weave-net)](https://www.weave.works/oss/net/)과 같은 [CNI 플러그인](https://github.com/containernetworking/cni#3rd-party-plugins)으로 실행되는 모든 구현이 포함된다.
 
-CNI-Genie는 각각 다른 CNI 플러그인에서 [하나의 파드에 여러 IP 주소를 할당](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod)하는 것도 지원한다.
+CNI-Genie는 각각 다른 CNI 플러그인에서 [하나의 파드에 여러 IP 주소를 할당](https://github.com/cni-genie/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod)하는 것도 지원한다.
 
 ### cni-ipvlan-vpc-k8s
 [cni-ipvlan-vpc-k8s](https://github.com/lyft/cni-ipvlan-vpc-k8s)는
@@ -162,9 +104,10 @@ VPC 라우팅 테이블을 조정하여 각 호스트에 인스턴스별 서브�
 [Coil](https://github.com/cybozu-go/coil)은 통합이 용이하도록 설계된 CNI 플러그인으로 유연한 이그레스(egress) 네트워킹을 제공한다.
 Coil은 베어메탈에 비해 낮은 오버헤드로 작동하며, 외부 네트워크에 대해 임의의 이그레스 NAT 게이트웨이를 정의할 수 있다.
 
-### 콘티브(Contiv)
+### 콘티브-VPP(Contiv-VPP)
 
-[콘티브](https://github.com/contiv/netplugin)는 다양한 적용 사례에서 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3, vxlan을 사용하는 오버레이, 클래식 L2 또는 Cisco-SDN/ACI)을 제공한다. [콘티브](https://contiv.io)는 모두 오픈소스이다.
+[Contiv-VPP](https://contivpp.io/)는 유저 스페이스에서 동작하고 성능을 중시하는 쿠버네티스 네트워크 플러그인이며, 
+데이터 플레인으로 [fd.io](https://fd.io/)를 사용한다.
 
 ### 콘트레일(Contrail) / 텅스텐 패브릭(Tungsten Fabric)
 
@@ -184,52 +127,13 @@ Coil은 베어메탈에 비해 낮은 오버헤드로 작동하며, 외부 네�
 
 ### 플라넬
 
-[플라넬](https://github.com/coreos/flannel#flannel)은 쿠버네티스 요구 사항을
+[플라넬](https://github.com/flannel-io/flannel#flannel)은 쿠버네티스 요구 사항을
 충족하는 매우 간단한 오버레이 네트워크이다. 많은
 경우에 쿠버네티스와 플라넬은 성공적으로 적용이 가능하다.
 
-### Google 컴퓨트 엔진(GCE)
+### Hybridnet
 
-Google 컴퓨트 엔진 클러스터 구성 스크립트의 경우, [고급
-라우팅](https://cloud.google.com/vpc/docs/routes)을 사용하여
-각 VM에 서브넷을 할당한다(기본값은 `/24` - 254개 IP). 해당 서브넷에 바인딩된
-모든 트래픽은 GCE 네트워크 패브릭에 의해 VM으로 직접 라우팅된다. 이는
-아웃 바운드 인터넷 접근을 위해 NAT로 구성된 VM에 할당된 "기본"
-IP 주소에 추가된다. 리눅스 브릿지(`cbr0`)는 해당 서브넷에 존재하도록
-구성되며, 도커의 `--bridge` 플래그로 전달된다.
-
-도커는 다음의 설정으로 시작한다.
-
-```shell
-DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
-```
-
-이 브릿지는 노드의 `.spec.podCIDR`에 따라 Kubelet(`--network-plugin=kubenet`
-플래그로 제어되는)에 의해 생성된다.
-
-도커는 이제 `cbr-cidr` 블록에서 IP를 할당한다. 컨테이너는 `cbr0` 브릿지를
-통해 서로 `Node` 에 도달할 수 있다. 이러한 IP는 모두 GCE 프로젝트 네트워크
-내에서 라우팅할 수 있다.
-
-그러나, GCE 자체는 이러한 IP에 대해 전혀 알지 못하므로, 아웃 바운드 인터넷 트래픽을 위해
-IP를 NAT하지 않는다. 그것을 달성하기 위해 iptables 규칙을 사용하여
-GCE 프로젝트 네트워크(10.0.0.0/8) 외부의 IP에 바인딩된 트래픽을
-마스커레이드(일명 SNAT - 마치 패킷이 `Node` 자체에서 온 것처럼
-보이게 함)한다.
-
-```shell
-iptables -t nat -A POSTROUTING ! -d 10.0.0.0/8 -o eth0 -j MASQUERADE
-```
-
-마지막으로 커널에서 IP 포워딩이 활성화되어 있으므로, 커널은 브릿지된 컨테이너에
-대한 패킷을 처리한다.
-
-```shell
-sysctl net.ipv4.ip_forward=1
-```
-
-이 모든 것의 결과는 모든 `Pod` 가 서로에게 도달할 수 있고 인터넷으로 트래픽을
-송신할 수 있다는 것이다.
+[Hybridnet](https://github.com/alibaba/hybridnet)은 하이브리드 클라우드를 위해 디자인된 오픈소스 CNI 플러그인이며 하나 또는 다수의 클러스터에 있는 컨테이너를 위한 오버레이 및 언더레이 네트워킹을 제공한다. 오버레이 및 언더레이 컨테이너는 동일한 노드에서 실행될 수 있으며 클러스터 범위의 양방향 네트워크 연결성을 가진다.
 
 ### 재규어(Jaguar)
 
@@ -265,9 +169,9 @@ Lars Kellogg-Stedman이 제공하는
 
 ### Multus(멀티 네트워크 플러그인)
 
-[Multus](https://github.com/Intel-Corp/multus-cni)는 쿠버네티스의 CRD 기반 네트워크 오브젝트를 사용하여 쿠버네티스에서 멀티 네트워킹 기능을 지원하는 멀티 CNI 플러그인이다.
+Multus는 쿠버네티스의 CRD 기반 네트워크 오브젝트를 사용하여 쿠버네티스에서 멀티 네트워킹 기능을 지원하는 멀티 CNI 플러그인이다.
 
-Multus는 CNI 명세를 구현하는 모든 [레퍼런스 플러그인](https://github.com/containernetworking/plugins)(예: [플라넬](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) 및 써드파티 플러그인(예: [캘리코](https://github.com/projectcalico/cni-plugin), [위브(Weave)](https://github.com/weaveworks/weave), [실리움](https://github.com/cilium/cilium), [콘티브](https://github.com/contiv/netplugin))을 지원한다. 또한, Multus는 쿠버네티스의 클라우드 네이티브 애플리케이션과 NFV 기반 애플리케이션을 통해 쿠버네티스의 [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK 및 VPP](https://github.com/intel/vhost-user-net-plugin) 워크로드를 지원한다.
+Multus는 CNI 명세를 구현하는 모든 [레퍼런스 플러그인](https://github.com/containernetworking/plugins)(예: [플라넬](https://github.com/containernetworking/cni.dev/blob/main/content/plugins/v0.9/meta/flannel.md), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) 및 써드파티 플러그인(예: [캘리코](https://github.com/projectcalico/cni-plugin), [위브(Weave)](https://github.com/weaveworks/weave), [실리움](https://github.com/cilium/cilium), [콘티브](https://github.com/contiv/netplugin))을 지원한다. 또한, Multus는 쿠버네티스의 클라우드 네이티브 애플리케이션과 NFV 기반 애플리케이션을 통해 쿠버네티스의 [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK 및 VPP](https://github.com/intel/vhost-user-net-plugin) 워크로드를 지원한다.
 
 ### OVN4NFV-K8s-Plugin (OVN 기반의 CNI 컨트롤러 & 플러그인)
 
@@ -279,18 +183,6 @@ Multus는 CNI 명세를 구현하는 모든 [레퍼런스 플러그인](https://
 
 [NSX-T 컨테이너 플러그인(NCP)](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf)은 NSX-T와 쿠버네티스와 같은 컨테이너 오케스트레이터 사이의 통합은 물론, NSX-T와 Pivotal 컨테이너 서비스(PKS) 및 OpenShift와 같은 컨테이너 기반 CaaS/PaaS 플랫폼 간의 통합을 제공한다.
 
-### Nuage Networks VCS(가상 클라우드 서비스)
-
-[Nuage](https://www.nuagenetworks.net)는 확장성이 뛰어난 정책 기반의 소프트웨어 정의 네트워킹(SDN) 플랫폼을 제공한다. Nuage는 개방형 표준을 기반으로 구축된 풍부한 기능의 SDN 컨트롤러와 함께 데이터 플레인용 오픈소스 Open vSwitch를 사용한다.
-
-Nuage 플랫폼은 오버레이를 사용하여 쿠버네티스 파드와 쿠버네티스가 아닌 환경(VM 및 베어메탈 서버) 간에 완벽한 정책 기반의 네트워킹을 제공한다. Nuage의 정책 추상화 모델은 애플리케이션을 염두에 두고 설계되었으며 애플리케이션에 대한 세분화된 정책을 쉽게 선언할 수 있도록 한다. 플랫폼의 실시간 분석 엔진을 통해 쿠버네티스 애플리케이션에 대한 가시성과 보안 모니터링이 가능하다.
-
-### OpenVSwitch
-
-[OpenVSwitch](https://www.openvswitch.org/)는 다소 성숙하지만
-오버레이 네트워크를 구축하는 복잡한 방법이다. 이것은 네트워킹 분야의 몇몇
-"대형 벤더"에 의해 승인되었다.
-
 ### OVN(오픈 버추얼 네트워킹)
 
 OVN은 Open vSwitch 커뮤니티에서 개발한 오픈소스 네트워크
@@ -299,13 +191,9 @@ OVN은 Open vSwitch 커뮤니티에서 개발한 오픈소스 네트워크
 [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)에
 특정 쿠버네티스 플러그인 및 문서가 있다.
 
-### 로마나
-
-[로마나](https://romana.io)는 오버레이 네트워크 없이 쿠버네티스를 배포할 수 있는 오픈소스 네트워크 및 보안 자동화 솔루션이다. 로마나는 쿠버네티스 [네트워크 폴리시](/ko/docs/concepts/services-networking/network-policies/)를 지원하여 네트워크 네임스페이스에서 격리를 제공한다.
-
 ### Weaveworks의 위브넷
 
-[위브넷](https://www.weave.works/products/weave-net/)은
+[위브넷](https://www.weave.works/oss/net/)은
 쿠버네티스 및 호스팅된 애플리케이션을 위한 탄력적이고 사용하기 쉬운 네트워크이다.
 위브넷은 [CNI 플러그인](https://www.weave.works/docs/net/latest/cni-plugin/) 또는
 독립형으로 실행된다. 두 버전에서, 실행하기 위해 구성이나 추가 코드가 필요하지 않으며,

@@ -3,7 +3,7 @@ reviewers:
 - lachie83
 - khenidak
 - bridgetkromhout
-min-kubernetes-server-version: v1.20
+min-kubernetes-server-version: v1.23
 title: Validate IPv4/IPv6 dual-stack
 content_type: task
 ---
@@ -16,11 +16,14 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 
 
 * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-* A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack (such as Calico, Cilium or Kubenet)
+* A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking.
 * [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
 
 {{< version-check >}}
 
+{{< note >}}
+While you can validate with an earlier version, the feature is only GA and officially supported since v1.23.
+{{< /note >}}
 
 
 <!-- steps -->
@@ -131,7 +134,7 @@ spec:
     protocol: TCP
     targetPort: 9376
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   sessionAffinity: None
   type: ClusterIP
 status:
@@ -155,7 +158,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   name: my-service
 spec:
   clusterIP: fd00::5118
@@ -169,7 +172,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   sessionAffinity: None
   type: ClusterIP
 status:
@@ -184,7 +187,7 @@ Create the following Service that explicitly defines `PreferDualStack` in `.spec
 The `kubectl get svc` command will only show the primary IP in the `CLUSTER-IP` field.
 
 ```shell
-kubectl get svc -l app=MyApp
+kubectl get svc -l app.kubernetes.io/name=MyApp
 
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 my-service   ClusterIP   10.0.216.242   <none>        80/TCP    5s
@@ -194,15 +197,15 @@ my-service   ClusterIP   10.0.216.242   <none>        80/TCP    5s
 Validate that the Service gets cluster IPs from the IPv4 and IPv6 address blocks using `kubectl describe`. You may then validate access to the service via the IPs and ports.
 
 ```shell
-kubectl describe svc -l app=MyApp
+kubectl describe svc -l app.kubernetes.io/name=MyApp
 ```
 
 ```
 Name:              my-service
 Namespace:         default
-Labels:            app=MyApp
+Labels:            app.kubernetes.io/name=MyApp
 Annotations:       <none>
-Selector:          app=MyApp
+Selector:          app.kubernetes.io/name=MyApp
 Type:              ClusterIP
 IP Family Policy:  PreferDualStack
 IP Families:       IPv4,IPv6
@@ -217,14 +220,14 @@ Events:            <none>
 
 ### Create a dual-stack load balanced Service
 
-If the cloud provider supports the provisioning of IPv6 enabled external load balancers, create the following Service with `PreferDualStack` in `.spec.ipFamilyPolicy`, `IPv6` as the first element of the `.spec.ipFamilies` array and the `type` field set to `LoadBalancer`. 
+If the cloud provider supports the provisioning of IPv6 enabled external load balancers, create the following Service with `PreferDualStack` in `.spec.ipFamilyPolicy`, `IPv6` as the first element of the `.spec.ipFamilies` array and the `type` field set to `LoadBalancer`.
 
 {{< codenew file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" >}}
 
 Check the Service:
 
 ```shell
-kubectl get svc -l app=MyApp
+kubectl get svc -l app.kubernetes.io/name=MyApp
 ```
 
 Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address block along with an `EXTERNAL-IP`. You may then validate access to the service via the IP and port.

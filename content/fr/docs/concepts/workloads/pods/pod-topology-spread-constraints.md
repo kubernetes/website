@@ -205,6 +205,7 @@ apiVersion: kubescheduler.config.k8s.io/v1alpha2
 kind: KubeSchedulerConfiguration
 
 profiles:
+  - schedulerName: default-scheduler
   - pluginConfig:
       - name: PodTopologySpread
         args:

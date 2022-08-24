@@ -4,8 +4,8 @@ type: docs
 ---
 
 "Release Managers" is an umbrella term that encompasses the set of Kubernetes
-contributors responsible for maintaining release branches, tagging releases,
-and building/packaging Kubernetes.
+contributors responsible for maintaining release branches and creating releases
+by using the tools SIG Release provides.
 
 The responsibilities of each role are described below.
 
@@ -31,7 +31,7 @@ The responsibilities of each role are described below.
 
 ### Security Embargo Policy
 
-Some information about releases is subject to embargo and we have defined policy about how those embargos are set. Please refer [Security Embargo Policy](https://github.com/kubernetes/security/blob/master/private-distributors-list.md#embargo-policy) here for more information.
+Some information about releases is subject to embargo and we have defined policy about how those embargoes are set. Please refer to the [Security Embargo Policy](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.md#embargo-policy) for more information.
 
 ## Handbooks
 
@@ -69,7 +69,7 @@ Release Managers are responsible for:
   - Reviewing cherry picks
   - Ensuring the release branch stays healthy and that no unintended patch
     gets merged
-- Mentoring the [Release Manager Associates](#associates) group
+- Mentoring the [Release Manager Associates](#release-manager-associates) group
 - Actively developing features and maintaining the code in k/release
 - Supporting Release Manager Associates and contributors through actively
   participating in the Buddy program
@@ -88,10 +88,11 @@ GitHub Mentions: [@kubernetes/release-engineering](https://github.com/orgs/kuber
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
-- Daniel Mangum ([@hasheddan](https://github.com/hasheddan))
 - Marko Mudrinić ([@xmudrii](https://github.com/xmudrii))
+- Nabarun Pal ([@palnabarun](https://github.com/palnabarun))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
 - Stephen Augustus ([@justaugustus](https://github.com/justaugustus))
+- Verónica López ([@verolop](https://github.com/verolop))
 
 ### Becoming a Release Manager
 
@@ -132,13 +133,13 @@ referred to as Release Manager shadows. They are responsible for:
 GitHub Mentions: @kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
+- Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
 - Joyce Kung ([@thejoycekung](https://github.com/thejoycekung))
 - Max Körbächer ([@mkorbi](https://github.com/mkorbi))
-- Nabarun Pal ([@palnabarun](https://github.com/palnabarun))
 - Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
 - Taylor Dolezal ([@onlydole](https://github.com/onlydole))
-- Verónica López ([@verolop](https://github.com/verolop))
 - Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
 
 ### Becoming a Release Manager Associate
@@ -170,9 +171,9 @@ of each minor (1.Y) and patch (1.Y.Z) release
 GitHub team: [@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams/build-admins)
 
 - Aaron Crickenberger ([@spiffxp](https://github.com/spiffxp))
-- Amit Watve ([@amwat](https://github.com/amwat))
 - Benjamin Elder ([@BenTheElder](https://github.com/BenTheElder))
 - Grant McCloskey ([@MushuEE](https://github.com/MushuEE))
+- Juan Escobar ([@juanfescobar](https://github.com/juanfescobar))
 
 ## SIG Release Leads
 
@@ -199,7 +200,6 @@ GitHub team: [@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
-- Daniel Mangum ([@hasheddan](https://github.com/hasheddan))
 - Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 
 ---
@@ -211,10 +211,10 @@ Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.1
 
 [community-membership]: https://git.k8s.io/community/community-membership.md#member
 [handbook-branch-mgmt]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/branch-manager.md
-[handbook-packaging]: https://git.k8s.io/sig-release/release-engineering/packaging.md
+[handbook-packaging]: https://git.k8s.io/release/hack/rapture/README.md
 [handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [k-sig-release-releases]: https://git.k8s.io/sig-release/releases
-[patches]: /patch-releases.md
-[src]: https://git.k8s.io/community/committee-product-security/README.md
+[patches]: /releases/patch-releases/
+[src]: https://git.k8s.io/community/committee-security-response/README.md
 [release-team]: https://git.k8s.io/sig-release/release-team/README.md
 [security-release-process]: https://git.k8s.io/security/security-release-process.md

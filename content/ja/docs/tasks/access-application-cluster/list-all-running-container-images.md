@@ -62,7 +62,7 @@ jsonpathは次のように解釈されます:
 `range`を使用して要素を個別に繰り返し処理することにより、フォーマットをさらに制御できます。
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
 sort
 ```
 
@@ -71,7 +71,7 @@ sort
 特定のラベルに一致するPodのみを対象とするには、-lフラグを使用します。以下は、`app=nginx`に一致するラベルを持つPodのみに一致します。
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath="{..image}" -l app=nginx
+kubectl get pods --all-namespaces -o jsonpath="{..image}" -l app=nginx
 ```
 
 ## Podの名前空間でコンテナイメージ一覧をフィルタリングする {#list-container-images-filtering-by-pod-namespace}

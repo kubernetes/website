@@ -13,14 +13,9 @@ content_type: task
 This document covers topics related to protecting a cluster from accidental or malicious access
 and provides recommendations on overall security.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -63,7 +58,7 @@ actions a client might want to perform. It is recommended that you use the
 
 As with authentication, simple and broad roles may be appropriate for smaller clusters, but as
 more users interact with the cluster, it may become necessary to separate teams into separate
-namespaces with more limited roles.
+{{< glossary_tooltip text="namespaces" term_id="namespace" >}} with more limited roles.
 
 With authorization, it is important to understand how updates on one object may cause actions in
 other places. For instance, a user may not be able to create pods directly, but allowing them to
@@ -77,11 +72,13 @@ Consult the [authorization reference section](/docs/reference/access-authn-authz
 
 ## Controlling access to the Kubelet
 
-Kubelets expose HTTPS endpoints which grant powerful control over the node and containers. By default Kubelets allow unauthenticated access to this API.
+Kubelets expose HTTPS endpoints which grant powerful control over the node and containers.
+By default Kubelets allow unauthenticated access to this API.
 
 Production clusters should enable Kubelet authentication and authorization.
 
-Consult the [Kubelet authentication/authorization reference](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization) for more information.
+Consult the [Kubelet authentication/authorization reference](/docs/reference/access-authn-authz/kubelet-authn-authz/)
+for more information.
 
 ## Controlling the capabilities of a workload or user at runtime
 
@@ -106,15 +103,18 @@ reserved resources like memory, or to provide default limits when none are speci
 A pod definition contains a [security context](/docs/tasks/configure-pod-container/security-context/)
 that allows it to request access to run as a specific Linux user on a node (like root),
 access to run privileged or access the host network, and other controls that would otherwise
-allow it to run unfettered on a hosting node. [Pod security policies](/docs/concepts/policy/pod-security-policy/)
-can limit which users or service accounts can provide dangerous security context settings. For example, pod security policies can limit volume mounts, especially `hostPath`, which are aspects of a pod that should be controlled.
+allow it to run unfettered on a hosting node.
+
+You can configure [Pod security admission](/docs/concepts/security/pod-security-admission/)
+to enforce use of a particular [Pod Security Standard](/docs/concepts/security/pod-security-standards/)
+in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}, or to detect breaches.
 
 Generally, most application workloads need limited access to host resources so they can
 successfully run as a root process (uid 0) without access to host information. However,
 considering the privileges associated with the root user, you should write application
 containers to run as a non-root user. Similarly, administrators who wish to prevent
-client applications from escaping their containers should use a restrictive pod security
-policy.
+client applications from escaping their containers should apply the **Baseline**
+or **Restricted** Pod Security Standard.
 
 
 ### Preventing containers from loading unwanted kernel modules
@@ -207,7 +207,7 @@ access to a subset of the keyspace is strongly recommended.
 
 ### Enable audit logging
 
-The [audit logger](/docs/tasks/debug-application-cluster/audit/) is a beta feature that records actions taken by the
+The [audit logger](/docs/tasks/debug/debug-cluster/audit/) is a beta feature that records actions taken by the
 API for later analysis in the event of a compromise. It is recommended to enable audit logging
 and archive the audit file on a secure server.
 
@@ -238,7 +238,15 @@ restrict the integration to functioning in a single namespace if possible.
 Components that create pods may also be unexpectedly powerful if they can do so inside namespaces
 like the `kube-system` namespace, because those pods can gain access to service account secrets
 or run with elevated permissions if those service accounts are granted access to permissive
-[pod security policies](/docs/concepts/policy/pod-security-policy/).
+[PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
+
+If you use [Pod Security admission](/docs/concepts/security/pod-security-admission/) and allow
+any component to create Pods within a namespace that permits privileged Pods, those Pods may
+be able to escape their containers and use this widened access to elevate their privileges.
+
+You should not allow untrusted components to create Pods in any system namespace (those with
+names that start with `kube-`) nor in any namespace where that access grant allows the possibility
+of privilege escalation.
 
 ### Encrypt secrets at rest
 

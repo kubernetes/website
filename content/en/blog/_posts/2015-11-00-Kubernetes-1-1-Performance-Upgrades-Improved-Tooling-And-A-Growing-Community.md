@@ -1,9 +1,13 @@
 ---
-title: " Kubernetes 1.1 Performance upgrades, improved tooling and a growing community  "
+title: "Kubernetes 1.1 Performance upgrades, improved tooling and a growing community"
 date: 2015-11-09
 slug: kubernetes-1-1-performance-upgrades-improved-tooling-and-a-growing-community
 url: /blog/2015/11/Kubernetes-1-1-Performance-Upgrades-Improved-Tooling-And-A-Growing-Community
+evergreen: true
 ---
+
+**Author:** David Aronchick (Google)
+
 Since the Kubernetes 1.0 release in July, we’ve seen tremendous adoption by companies building distributed systems to manage their container clusters. We’re also been humbled by the rapid growth of the community who help make Kubernetes better everyday. We have seen commercial offerings such as Tectonic by CoreOS and RedHat Atomic Host emerge to deliver deployment and support of Kubernetes. And a growing ecosystem has added Kubernetes support including tool vendors such as Sysdig and Project Calico.  
 
 With the help of hundreds of contributors, we’re proud to announce the availability of Kubernetes 1.1, which offers major performance upgrades, improved tooling, and new features that make applications even easier to build and deploy.  
@@ -50,4 +54,3 @@ As we mentioned above, we would love your help:
 
 But, most of all, just let us know how you are transforming your business using Kubernetes, and how we can help you do it even faster. Thank you for your support!  
 
-&nbsp;- David Aronchick, Senior Product Manager for Kubernetes and Google Container Engine

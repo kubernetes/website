@@ -1,9 +1,13 @@
 ---
-title: " Kubernetes 1.9: Apps Workloads GA and Expanded Ecosystem "
+title: "Kubernetes 1.9: Apps Workloads GA and Expanded Ecosystem"
 date: 2017-12-15
 slug: kubernetes-19-workloads-expanded-ecosystem
 url: /blog/2017/12/Kubernetes-19-Workloads-Expanded-Ecosystem
+evergreen: true
 ---
+
+**Authors:** Kubernetes v1.9 release team
+
 We’re pleased to announce the delivery of Kubernetes 1.9, our fourth and final release this year.  
 
 Today’s release continues the evolution of an increasingly rich feature set, more robust stability, and even greater community contributions. As the fourth release of the year, it gives us an opportunity to look back at the progress made in key areas. Particularly notable is the advancement of the Apps Workloads API to stable. This removes any reservations potential adopters might have had about the functional stability required to run mission-critical workloads. Another big milestone is the beta release of Windows support, which opens the door for many Windows-specific applications and workloads to run in Kubernetes, significantly expanding the implementation scenarios and enterprise readiness of Kubernetes.  
@@ -87,7 +91,7 @@ For recorded sessions from the largest Kubernetes gathering, [KubeCon + CloudNat
 
 ## Webinar
 
-Join members of the Kubernetes 1.9 release team on **January 9th from 10am-11am PT** to learn about the major features in this release as they demo some of the highlights in the areas of Windows and Docker support, storage, admission control, and the workloads API.&nbsp;[Register here](https://zoom.us/webinar/register/WN_oVjQMwyzQFOmWsfVzDsa2A).  
+Join members of the Kubernetes 1.9 release team on **January 9th from 10am-11am PT** to learn about the major features in this release as they demo some of the highlights in the areas of Windows and Docker support, storage, admission control, and the workloads API.&nbsp;[~Register here~](https://zoom.us/webinar/register/WN_oVjQMwyzQFOmWsfVzDsa2A).  
 
 
 ## Get involved:

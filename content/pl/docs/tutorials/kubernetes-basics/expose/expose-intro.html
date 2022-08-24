@@ -19,7 +19,7 @@ weight: 10
 			<div class="col-md-8">
     		<h3>Cele</h3>
 				<ul>
-					<li>Poznać Serwis w Kubernetes</li>
+					<li>Poznać Serwis w Kubernetesie</li>
 					<li>Zrozumieć, jak obiekty Label i LabelSelector są powiązane z Serwisem</li>
 					<li>Udostępnić aplikację na zewnątrz klastra Kubernetes korzystając z Serwisu</li>
 				</ul>
@@ -37,7 +37,7 @@ weight: 10
 				<li><i>ClusterIP</i> (domyślnie) - Wystawia serwis poprzez wewnętrzny adres IP w klastrze. W ten sposób serwis jest dostępny tylko wewnątrz klastra.</li>
 				<li><i>NodePort</i> - Wystawia serwis na tym samym porcie na każdym z wybranych węzłów klastra przy pomocy NAT. W ten sposób serwis jest dostępny z zewnątrz klastra poprzez <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Nadzbiór ClusterIP.</li>
 				<li><i>LoadBalancer</i> - Tworzy zewnętrzny load balancer u bieżącego dostawcy usług chmurowych (o ile jest taka możliwość) i przypisuje serwisowi stały, zewnętrzny adres IP. Nadzbiór NodePort.</li>
-				<li><i>ExternalName</i> - Wystawia Service przy pomocy wybranej nazwy (wyspecyfikowanej jako <code>externalName</code>) poprzez zwracanie wartości rekordu CNAME przypisanego w usłudze DNS. W tym przypadku nie jest wykorzystywany proces przekierowania ruchu metodą proxy. Ten typ wymaga wersji v1.7 lub wyższej usługi <code>kube-dns</code>.</li>
+				<li><i>ExternalName</i> - Przypisuje Service do <code>externalName</code> (np. <code>foo.bar.example.com</code>), zwracając rekord <code>CNAME</code> wraz z zawartością. W tym przypadku nie jest wykorzystywany proces przekierowania ruchu metodą proxy. Ta metoda wymaga <code>kube-dns</code> w wersji v1.7 lub wyższej lub CoreDNS w wersji 0.0.8 lub wyższej.</li>
 			</ul>
 			<p>Więcej informacji na temat różnych typów serwisów znajduje się w  samouczku <a href="/docs/tutorials/services/source-ip/">Używanie adresu źródłowego (Source IP)</a>. Warto też zapoznać się z <a href="/docs/concepts/services-networking/connect-applications-service">Łączeniem Aplikacji z Serwisami</a>.</p>
 			<p>W pewnych przypadkach w serwisie nie specyfikuje się <code>selector</code>. Serwis, który został stworzony bez pola <code>selector</code>, nie utworzy odpowiedniego obiektu Endpoints. W ten sposób użytkownik ma możliwość ręcznego przyporządkowania serwisu do konkretnych endpoints. Inny przypadek, kiedy nie używa się selektora, ma miejsce, kiedy stosujemy <code>type: ExternalName</code>.</p>
@@ -52,7 +52,7 @@ weight: 10
 					</ul>
 				</div>
 				<div class="content__box content__box_fill">
-						<p><i>Serwis Kubernetes to warstwa abstrakcji, która definiuje logiczny zbiór Podów i umożliwia kierowanie ruchu przychodzącego do Podów, jego równoważenie oraz service discovery.</i></p>
+						<p><i>Serwis Kubernetesa to warstwa abstrakcji, która definiuje logiczny zbiór Podów i umożliwia kierowanie ruchu przychodzącego do Podów, jego równoważenie oraz service discovery.</i></p>
 				</div>
 			</div>
 		</div>

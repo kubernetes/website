@@ -26,19 +26,18 @@ source /usr/share/bash-completion/bash_completion
 
 ### kubectl 자동 완성 활성화
 
+#### Bash
+
 이제 kubectl 자동 완성 스크립트가 모든 셸 세션에서 제공되도록 해야 한다. 이를 수행할 수 있는 두 가지 방법이 있다.
 
-- `~/.bashrc` 파일에서 자동 완성 스크립트를 소싱한다.
-
-   ```bash
-   echo 'source <(kubectl completion bash)' >>~/.bashrc
-   ```
-
-- 자동 완성 스크립트를 `/etc/bash_completion.d` 디렉터리에 추가한다.
-
-   ```bash
-   kubectl completion bash >/etc/bash_completion.d/kubectl
-   ```
+{{< tabs name="kubectl_bash_autocompletion" >}}
+{{{< tab name="현재 사용자에만 적용" codelang="bash" >}}
+echo 'source <(kubectl completion bash)' >>~/.bashrc
+{{< /tab >}}
+{{< tab name="시스템 전체에 적용" codelang="bash" >}}
+kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
+{{< /tab >}}}
+{{< /tabs >}}
 
 kubectl에 대한 앨리어스(alias)가 있는 경우, 해당 앨리어스로 작업하도록 셸 자동 완성을 확장할 수 있다.
 

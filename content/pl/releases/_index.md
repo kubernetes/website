@@ -7,7 +7,7 @@ type: docs
 
 <!-- overview -->
 
-Projekt Kubernetes zapewnia wsparcie dla trzech ostatnich wydań _minor_ ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}). Poprawki do wydania 1.19 i nowszych będą publikowane przez około rok. Kuberetes w wersji 1.18 i wcześniejszych będzie otrzymywał poprawki przez 9 miesięcy.
+Projekt Kubernetes zapewnia wsparcie dla trzech ostatnich wydań _minor_ ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}). Poprawki do wydania 1.19 i nowszych będą publikowane przez około rok. Kubernetes w wersji 1.18 i wcześniejszych będzie otrzymywał poprawki przez 9 miesięcy.
 
 Wersje Kubernetesa oznaczane są jako **x.y.z**,
 gdzie **x** jest oznaczeniem wersji głównej (_major_), **y** — podwersji (_minor_), a **z** — numer poprawki (_patch_), zgodnie z terminologią [Semantic Versioning](https://semver.org/).

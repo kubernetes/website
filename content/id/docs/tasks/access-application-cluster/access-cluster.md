@@ -207,7 +207,7 @@ Dalam banyak kasus, IP Node, IP Pod, dan beberapa IP Service pada sebuah klaster
 Kamu memiliki beberapa opsi untuk menghubungi Node, Pod, dan Service dari luar klaster:
 
   - Mengakses Service melalui IP publik.
-    - Gunakan Service dengan tipe `NodePort` atau` LoadBalancer` untuk membuat Service dapat dijangkau di luar klaster. Lihat dokumentasi [Service](/docs/user-guide/services) dan perintah [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose).
+    - Gunakan Service dengan tipe `NodePort` atau `LoadBalancer` untuk membuat Service dapat dijangkau di luar klaster. Lihat dokumentasi [Service](/docs/user-guide/services) dan perintah [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose).
     - Bergantung pada lingkungan klaster kamu, hal ini mungkin hanya mengekspos Service ke jaringan perusahaan kamu, atau mungkin mengeksposnya ke internet. Pikirkan apakah Service yang diekspos aman atau tidak. Apakah layanan di balik Service tersebut melakukan autentikasinya sendiri?
     - Tempatkan Pod di belakang Service. Untuk mengakses satu Pod tertentu dari sekumpulan replika, misalnya untuk pengawakutuan (_debugging_), letakkan label unik di Pod dan buat Service baru yang memilih label ini.
     - Pada kebanyakan kasus, pengembang aplikasi tidak perlu langsung mengakses Node melalui IP Node mereka.

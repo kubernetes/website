@@ -31,7 +31,7 @@ kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
 The RBAC API declares four kinds of Kubernetes object: _Role_, _ClusterRole_,
 _RoleBinding_ and _ClusterRoleBinding_. You can
 [describe objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects),
-or amend them, using tools such as `kubectl,` just like any other Kubernetes object.
+or amend them, using tools such as `kubectl`, just like any other Kubernetes object.
 
 {{< caution >}}
 These objects, by design, impose access restrictions. If you are making changes
@@ -54,8 +54,8 @@ it can't be both.
 
 ClusterRoles have several uses. You can use a ClusterRole to:
 
-1. define permissions on namespaced resources and be granted within individual namespace(s)
-1. define permissions on namespaced resources and be granted across all namespaces
+1. define permissions on namespaced resources and be granted access within individual namespace(s)
+1. define permissions on namespaced resources and be granted access across all namespaces
 1. define permissions on cluster-scoped resources
 
 If you want to define a role within a namespace, use a Role; if you want to define
@@ -384,11 +384,11 @@ rules:
 ```
 
 Allow reading/writing Deployments (at the HTTP level: objects with `"deployments"`
-in the resource part of their URL) in both the `"extensions"` and `"apps"` API groups:
+in the resource part of their URL) in the `"apps"` API groups:
 
 ```yaml
 rules:
-- apiGroups: ["extensions", "apps"]
+- apiGroups: ["apps"]
   #
   # at the HTTP level, the name of the resource for accessing Deployment
   # objects is "deployments"
@@ -397,7 +397,7 @@ rules:
 ```
 
 Allow reading Pods in the core API group, as well as reading or writing Job
-resources in the `"batch"` or `"extensions"` API groups:
+resources in the `"batch"` API group:
 
 ```yaml
 rules:
@@ -407,7 +407,7 @@ rules:
   # objects is "pods"
   resources: ["pods"]
   verbs: ["get", "list", "watch"]
-- apiGroups: ["batch", "extensions"]
+- apiGroups: ["batch"]
   #
   # at the HTTP level, the name of the resource for accessing Job
   # objects is "jobs"
@@ -517,22 +517,13 @@ subjects:
   namespace: kube-system
 ```
 
-For all service accounts in the "qa" group in any namespace:
+For all service accounts in the "qa" namespace:
 
 ```yaml
 subjects:
 - kind: Group
   name: system:serviceaccounts:qa
   apiGroup: rbac.authorization.k8s.io
-```
-For all service accounts in the "dev" group in the "development" namespace:
-
-```yaml
-subjects:
-- kind: Group
-  name: system:serviceaccounts:dev
-  apiGroup: rbac.authorization.k8s.io
-  namespace: development
 ```
 
 For all service accounts in any namespace:
@@ -807,7 +798,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <td><b>system:node-bootstrapper</b></td>
 <td>None</td>
 <td>Allows access to the resources required to perform
-<a href="/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/">kubelet TLS bootstrapping</a>.</td>
+<a href="/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">kubelet TLS bootstrapping</a>.</td>
 </tr>
 <tr>
 <td><b>system:node-problem-detector</b></td>
@@ -817,7 +808,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:persistent-volume-provisioner</b></td>
 <td>None</td>
-<td>Allows access to the resources required by most <a href="/docs/concepts/storage/persistent-volumes/#provisioner">dynamic volume provisioners</a>.</td>
+<td>Allows access to the resources required by most <a href="/docs/concepts/storage/persistent-volumes/#dynamic">dynamic volume provisioners</a>.</td>
 </tr>
 <tr>
 <td><b>system:monitoring</b></td>

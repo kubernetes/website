@@ -17,7 +17,7 @@ weight: 20
 ## クラスターからマスターへの通信
 
 クラスターからマスターへのすべての通信経路は、APIサーバーで終端します(他のマスターコンポーネントはどれもリモートサービスを公開するように設計されていません)。
-一般的には、1つ以上の形式のクライアント[認証](/docs/reference/access-authn-authz/authentication/)が有効になっている状態で、APIサーバーはセキュアなHTTPSポート(443)でリモート接続をlistenするように構成されています。
+一般的には、1つ以上の形式のクライアント[認証](/ja/docs/reference/access-authn-authz/authentication/)が有効になっている状態で、APIサーバーはセキュアなHTTPSポート(443)でリモート接続をlistenするように構成されています。
 特に[匿名のリクエスト](/docs/reference/access-authn-authz/authentication/#anonymous-requests)または[サービスアカウントトークン](/docs/reference/access-authn-authz/authentication/#service-account-tokens)が許可されている場合は、1つまたは複数の[認証](/docs/reference/access-authn-authz/authorization/)を有効にする必要があります。
 
 ノードには、有効なクライアント認証情報を使って安全にAPIサーバーに接続できるように、クラスターのパブリックなルート証明書をプロビジョニングする必要があります。

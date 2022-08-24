@@ -32,7 +32,7 @@ GitHub 계정을 가진 누구나 쿠버네티스에 기여할 수 있다. SIG D
 - [슬랙](https://slack.k8s.io/) 또는
   [SIG docs 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에 개선을 제안한다.
 
-[CLA에 서명](/ko/docs/contribute/new-content/overview/#sign-the-cla) 후에 누구나 다음을 할 수 있다.
+[CLA에 서명](/ko/docs/contribute/new-content/#sign-the-cla) 후에 누구나 다음을 할 수 있다.
 
 - 기존 콘텐츠를 개선하거나, 새 콘텐츠를 추가하거나, 블로그 게시물 또는 사례연구 작성을 위해 풀 리퀘스트를 연다.
 - 다이어그램, 그래픽 자산 그리고 포함할 수 있는 스크린캐스트와 비디오를 제작한다.
@@ -51,7 +51,8 @@ GitHub 계정을 가진 누구나 쿠버네티스에 기여할 수 있다. SIG D
 - 풀 리퀘스트에 `/lgtm` 코멘트를 사용하여 LGTM(looks good to me) 레이블을 추가한다.
 
   {{< note >}}
-  `/lgtm` 사용은 자동화를 트리거한다. 만약 구속력 없는 승인을 제공하려면, "LGTM" 코멘트를 남기는 것도 좋다!
+  `/lgtm` 사용은 자동화를 트리거한다. 만약 구속력 없는 승인을 제공하려면, 
+  "LGTM" 코멘트를 남기는 것도 좋다!
   {{< /note >}}
 
 - `/hold` 코멘트를 사용하여 풀 리퀘스트에 대한 병합을 차단한다.
@@ -89,7 +90,8 @@ GitHub 계정을 가진 누구나 쿠버네티스에 기여할 수 있다. SIG D
      쿠버네티스 GitHub 관리자가 여러분을 멤버로 추가한다.
      축하한다!
 
-     만약 멤버십이 수락되지 않으면 피드백을 받게 될 것이다. 피드백의 내용을 해결한 후, 다시 지원하자.
+     만약 멤버십이 수락되지 않으면 피드백을 받게 될 것이다. 
+     피드백의 내용을 해결한 후, 다시 지원하자.
 
 1. 여러분의 이메일 계정으로 수신된 쿠버네티스 GitHub 조직으로의 초대를 수락한다.
 
@@ -138,13 +140,14 @@ LGTM은 "Looks good to me"의 약자이며 풀 리퀘스트가 기술적으로
 ### 리뷰어 되기
 
 [요건](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer)을
-충족하면, SIG Docs 리뷰어가 될 수 있다. 다른 SIG의 리뷰어는 SIG Docs의 리뷰어 자격에
+충족하면, SIG Docs 리뷰어가 될 수 있다. 
+다른 SIG의 리뷰어는 SIG Docs의 리뷰어 자격에
 반드시 별도로 지원해야 한다.
 
 지원하려면, 다음을 수행한다.
 
 1. `kubernetes/website` 리포지터리 내
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS) 파일의 섹션에
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES) 파일의 섹션에
    여러분의 GitHub 사용자 이름을 추가하는 풀 리퀘스트를 연다.
    
      {{< note >}}
@@ -216,7 +219,7 @@ PR은 자동으로 병합된다. SIG Docs 승인자는 추가적인 기술 리�
 지원하려면 다음을 수행한다.
 
 1. `kubernetes/website` 리포지터리 내
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
    파일의 섹션에 자신을 추가하는 풀 리퀘스트를 연다.
 
     {{< note >}}

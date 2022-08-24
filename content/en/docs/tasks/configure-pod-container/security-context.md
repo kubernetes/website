@@ -14,37 +14,39 @@ A security context defines privilege and access control settings for
 a Pod or Container. Security context settings include, but are not limited to:
 
 * Discretionary Access Control: Permission to access an object, like a file, is based on
-[user ID (UID) and group ID (GID)](https://wiki.archlinux.org/index.php/users_and_groups).
+  [user ID (UID) and group ID (GID)](https://wiki.archlinux.org/index.php/users_and_groups).
 
-* [Security Enhanced Linux (SELinux)](https://en.wikipedia.org/wiki/Security-Enhanced_Linux): Objects are assigned security labels.
+* [Security Enhanced Linux (SELinux)](https://en.wikipedia.org/wiki/Security-Enhanced_Linux):
+  Objects are assigned security labels.
 
 * Running as privileged or unprivileged.
 
-* [Linux Capabilities](https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/): Give a process some privileges, but not all the privileges of the root user.
+* [Linux Capabilities](https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/):
+  Give a process some privileges, but not all the privileges of the root user.
 
-* [AppArmor](/docs/tutorials/clusters/apparmor/): Use program profiles to restrict the capabilities of individual programs.
+* [AppArmor](/docs/tutorials/security/apparmor/):
+  Use program profiles to restrict the capabilities of individual programs.
 
-* [Seccomp](/docs/tutorials/clusters/seccomp/): Filter a process's system calls.
+* [Seccomp](/docs/tutorials/security/seccomp/): Filter a process's system calls.
 
-* AllowPrivilegeEscalation: Controls whether a process can gain more privileges than its parent process. This bool directly controls whether the [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt) flag gets set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged OR 2) has `CAP_SYS_ADMIN`.
+* `allowPrivilegeEscalation`: Controls whether a process can gain more privileges than
+  its parent process. This bool directly controls whether the
+  [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)
+  flag gets set on the container process.
+  `allowPrivilegeEscalation` is always true when the container:
 
-* readOnlyRootFilesystem: Mounts the container's root filesystem as read-only.
+  - is run as privileged, or
+  - has `CAP_SYS_ADMIN`
+
+* `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
 
 The above bullets are not a complete set of security context settings -- please see
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 for a comprehensive list.
 
-For more information about security mechanisms in Linux, see
-[Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -91,7 +93,7 @@ ps
 
 The output shows that the processes are running as user 1000, which is the value of `runAsUser`:
 
-```shell
+```none
 PID   USER     TIME  COMMAND
     1 1000      0:00 sleep 1h
     6 1000      0:00 sh
@@ -108,7 +110,7 @@ ls -l
 The output shows that the `/data/demo` directory has group ID 2000, which is
 the value of `fsGroup`.
 
-```shell
+```none
 drwxrwsrwx 2 root 2000 4096 Jun  6 20:08 demo
 ```
 
@@ -127,19 +129,26 @@ ls -l
 
 The output shows that `testfile` has group ID 2000, which is the value of `fsGroup`.
 
-```shell
+```none
 -rw-r--r-- 1 1000 2000 6 Jun  6 20:08 testfile
 ```
 
 Run the following command:
 
 ```shell
-$ id
+id
+```
+
+The output is similar to this:
+
+```none
 uid=1000 gid=3000 groups=2000
 ```
-You will see that gid is 3000 which is same as `runAsGroup` field. If the `runAsGroup` was omitted the gid would
-remain as 0(root) and the process will be able to interact with files that are owned by root(0) group and that have
-the required group permissions for root(0) group.
+
+From the output, you can see that `gid` is 3000 which is same as the `runAsGroup` field.
+If the `runAsGroup` was omitted, the `gid` would remain as 0 (root) and the process will
+be able to interact with files that are owned by the root(0) group and groups that have
+the required group permissions for the root (0) group.
 
 Exit your shell:
 
@@ -149,7 +158,7 @@ exit
 
 ## Configure volume permission and ownership change policy for Pods
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 By default, Kubernetes recursively changes ownership and permissions for the contents of each
 volume to match the `fsGroup` specified in a Pod's `securityContext` when that volume is
@@ -159,11 +168,14 @@ slowing Pod startup. You can use the `fsGroupChangePolicy` field inside a `secur
 to control the way that Kubernetes checks and manages ownership and permissions
 for a volume.
 
-**fsGroupChangePolicy** -  `fsGroupChangePolicy` defines behavior for changing ownership and permission of the volume
-before being exposed inside a Pod. This field only applies to volume types that support
-`fsGroup` controlled ownership and permissions. This field has two possible values:
+**fsGroupChangePolicy** - `fsGroupChangePolicy` defines behavior for changing ownership
+  and permission of the volume before being exposed inside a Pod.
+  This field only applies to volume types that support `fsGroup` controlled ownership and permissions.
+  This field has two possible values:
 
-* _OnRootMismatch_: Only change permissions and ownership if permission and ownership of root directory does not match with expected permissions of the volume. This could help shorten the time it takes to change ownership and permission of a volume.
+* _OnRootMismatch_: Only change permissions and ownership if permission and ownership of
+  root directory does not match with expected permissions of the volume.
+  This could help shorten the time it takes to change ownership and permission of a volume.
 * _Always_: Always change permission and ownership of the volume when volume is mounted.
 
 For example:
@@ -176,7 +188,6 @@ securityContext:
   fsGroupChangePolicy: "OnRootMismatch"
 ```
 
-
 {{< note >}}
 This field has no effect on ephemeral volume types such as
 [`secret`](/docs/concepts/storage/volumes/#secret),
@@ -186,7 +197,7 @@ and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
 
 ## Delegating volume permission and ownership change to CSI driver
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 If you deploy a [Container Storage Interface (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)
 driver which supports the `VOLUME_MOUNT_GROUP` `NodeServiceCapability`, the
@@ -238,7 +249,7 @@ kubectl exec -it security-context-demo-2 -- sh
 
 In your shell, list the running processes:
 
-```
+```shell
 ps aux
 ```
 
@@ -297,7 +308,7 @@ ps aux
 
 The output shows the process IDs (PIDs) for the Container:
 
-```shell
+```
 USER  PID %CPU %MEM    VSZ   RSS TTY   STAT START   TIME COMMAND
 root    1  0.0  0.0   4336   796 ?     Ss   18:17   0:00 /bin/sh -c node server.js
 root    5  0.1  0.5 772124 22700 ?     Sl   18:17   0:00 node server.js
@@ -354,7 +365,7 @@ cat status
 
 The output shows capabilities bitmap for the process:
 
-```shell
+```
 ...
 CapPrm:	00000000aa0435fb
 CapEff:	00000000aa0435fb
@@ -374,7 +385,10 @@ See [capability.h](https://github.com/torvalds/linux/blob/master/include/uapi/li
 for definitions of the capability constants.
 
 {{< note >}}
-Linux capability constants have the form `CAP_XXX`. But when you list capabilities in your Container manifest, you must omit the `CAP_` portion of the constant. For example, to add `CAP_SYS_TIME`, include `SYS_TIME` in your list of capabilities.
+Linux capability constants have the form `CAP_XXX`.
+But when you list capabilities in your container manifest, you must
+omit the `CAP_` portion of the constant.
+For example, to add `CAP_SYS_TIME`, include `SYS_TIME` in your list of capabilities.
 {{< /note >}}
 
 ## Set the Seccomp Profile for a Container
@@ -385,7 +399,7 @@ in the `securityContext` section of your Pod or Container manifest. The
 [SeccompProfile](/docs/reference/generated/kubernetes-api/{{< param "version"
 >}}/#seccompprofile-v1-core) object consisting of `type` and `localhostProfile`.
 Valid options for `type` include `RuntimeDefault`, `Unconfined`, and
-`Localhost`. `localhostProfile` must only be set set if `type: Localhost`. It
+`Localhost`. `localhostProfile` must only be set if `type: Localhost`. It
 indicates the path of the pre-configured profile on the node, relative to the
 kubelet's configured Seccomp profile location (configured with the `--root-dir`
 flag).
@@ -437,18 +451,19 @@ the Pod's Volumes when applicable. Specifically `fsGroup` and `seLinuxOptions` a
 applied to Volumes as follows:
 
 * `fsGroup`: Volumes that support ownership management are modified to be owned
-and writable by the GID specified in `fsGroup`. See the
-[Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
-for more details.
+  and writable by the GID specified in `fsGroup`. See the
+  [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
+  for more details.
 
 * `seLinuxOptions`: Volumes that support SELinux labeling are relabeled to be accessible
-by the label specified under `seLinuxOptions`. Usually you only
-need to set the `level` section. This sets the
-[Multi-Category Security (MCS)](https://selinuxproject.org/page/NB_MLS)
-label given to all Containers in the Pod as well as the Volumes.
+  by the label specified under `seLinuxOptions`. Usually you only
+  need to set the `level` section. This sets the
+  [Multi-Category Security (MCS)](https://selinuxproject.org/page/NB_MLS)
+  label given to all Containers in the Pod as well as the Volumes.
 
 {{< warning >}}
-After you specify an MCS label for a Pod, all Pods with the same label can access the Volume. If you need inter-Pod protection, you must assign a unique MCS label to each Pod.
+After you specify an MCS label for a Pod, all Pods with the same label can access the Volume.
+If you need inter-Pod protection, you must assign a unique MCS label to each Pod.
 {{< /warning >}}
 
 ## Clean up
@@ -462,16 +477,15 @@ kubectl delete pod security-context-demo-3
 kubectl delete pod security-context-demo-4
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
-* [Tuning Docker with the newest security enhancements](https://opensource.com/business/15/3/docker-security-tuning)
-* [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
-* [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
-* [Pod Security Policies](/docs/concepts/policy/pod-security-policy/)
+* [Tuning Docker with the newest security enhancements](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
+* [Security Contexts design document](https://git.k8s.io/design-proposals-archive/auth/security_context.md)
+* [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
+* [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/)
 * [AllowPrivilegeEscalation design
-  document](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
+  document](https://git.k8s.io/design-proposals-archive/auth/no-new-privs.md)
+* For more information about security mechanisms in Linux, see
+[Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features) (Note: Some information is out of date)

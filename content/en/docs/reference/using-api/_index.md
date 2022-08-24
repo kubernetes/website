@@ -39,7 +39,7 @@ The JSON and Protobuf serialization schemas follow the same guidelines for
 schema changes. The following descriptions cover both formats.
 
 The API versioning and software versioning are indirectly related.
-The [API and release versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)
+The [API and release versioning proposal](https://git.k8s.io/sig-release/release-engineering/versioning.md)
 describes the relationship between API versioning and software versioning.
 
 Different API versions indicate different levels of stability and support. You
@@ -83,7 +83,7 @@ Here's a summary of each level:
 
 ## API groups
 
-[API groups](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)
+[API groups](https://git.k8s.io/design-proposals-archive/api-machinery/api-group.md)
 make it easier to extend the Kubernetes API.
 The API group is specified in a REST path and in the `apiVersion` field of a
 serialized object.
@@ -108,6 +108,7 @@ part is omitted, it is treated as if `=true` is specified. For example:
 
  - to disable `batch/v1`, set `--runtime-config=batch/v1=false`
  - to enable `batch/v2alpha1`, set `--runtime-config=batch/v2alpha1`
+ - to enable a specific version of an API, such as `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`
 
 {{< note >}}
 When you enable or disable groups or resources, you need to restart the API
@@ -123,4 +124,4 @@ Kubernetes stores its serialized state in terms of the API resources by writing 
 
 - Learn more about [API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
 - Read the design documentation for
-  [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)
+  [aggregator](https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)

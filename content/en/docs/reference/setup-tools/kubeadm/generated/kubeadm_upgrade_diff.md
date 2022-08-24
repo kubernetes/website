@@ -102,6 +102,3 @@ kubeadm upgrade diff [version] [flags]
 
 </tbody>
 </table>
-
-
-

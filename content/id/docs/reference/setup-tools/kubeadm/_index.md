@@ -8,7 +8,7 @@ card:
   weight: 40
 ---
 
-<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">Kubeadm adalah fitur yang dibuat untuk menyediakan `kubeadm init` dan` kubeadm join` sebagai praktik terbaik dengan "jalur cepat" untuk membuat klaster Kubernetes.
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">Kubeadm adalah fitur yang dibuat untuk menyediakan `kubeadm init` dan `kubeadm join` sebagai praktik terbaik dengan "jalur cepat" untuk membuat klaster Kubernetes.
 
 kubeadm melakukan tindakan yang diperlukan untuk membuat klaster minimum yang layak untuk aktif dan berjalan. Secara desain, ini hanya memperdulikan tentang *bootstrap*, bukan tentang mesin *provisioning*. Demikian pula, dengan instalasi berbagai *addon* atau tambahan yang bagus untuk dimiliki, seperti Dasbor Kubernetes, solusi pemantauan, dan tambahan khusus cloud, tidak termasuk dalam cakupan.
 

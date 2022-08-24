@@ -111,7 +111,7 @@ Googleは、GKE上でNVIDIAのGPUを使用するための[手順](https://cloud.
 
 ## 異なる種類のGPUを搭載するクラスター
 
-クラスター上の別のノードに異なる種類のGPUが搭載されている場合、[NodeラベルとNodeセレクター](/docs/tasks/configure-pod-container/assign-pods-nodes/)を使用することで、Podを適切なノードにスケジューリングできます。
+クラスター上の別のノードに異なる種類のGPUが搭載されている場合、[NodeラベルとNodeセレクター](/ja/docs/tasks/configure-pod-container/assign-pods-nodes/)を使用することで、Podを適切なノードにスケジューリングできます。
 
 以下に例を示します。
 
