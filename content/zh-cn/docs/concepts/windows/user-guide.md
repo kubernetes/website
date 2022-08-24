@@ -252,27 +252,25 @@ schedule Linux and Windows workloads to their respective OS-specific nodes.
 The recommended approach is outlined below,
 with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
 
-If the `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-enabled, you can (and should) set `.spec.os.name` for a Pod to indicate the operating system
+Starting from 1.25, you can (and should) set `.spec.os.name` for each Pod, to indicate the operating system
 that the containers in that Pod are designed for. For Pods that run Linux containers, set
 `.spec.os.name` to `linux`. For Pods that run Windows containers, set `.spec.os.name`
-to Windows.
+to `windows`.
 -->
 ## 污点和容忍度  {#taints-and-tolerations}
 
 用户需要使用某种污点（Taint）和节点选择器的组合，以便将 Linux 和 Windows 工作负载各自调度到特定操作系统的节点。
 下面概述了推荐的方法，其主要目标之一是该方法不应破坏现有 Linux 工作负载的兼容性。
 
-如果启用了 `IdentifyPodOS` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-你可以（并且应该）将 Pod 的 `.spec.os.name` 设置为该 Pod 中的容器设计所用于的操作系统。
+从 1.25 开始，你可以（并且应该）将每个 Pod 的 `.spec.os.name` 设置为 Pod 中的容器设计所用于的操作系统。
 对于运行 Linux 容器的 Pod，将 `.spec.os.name` 设置为 `linux`。
-对于运行 Windows 容器的 Pod，将 `.spec.os.name` 设置为 `Windows`。
+对于运行 Windows 容器的 Pod，将 `.spec.os.name` 设置为 `windows`。
 
 {{< note >}}
 <!-- 
-Starting from 1.24, the `IdentifyPodOS` feature is in Beta stage and defaults to be enabled.
+Starting from 1.25, the `IdentifyPodOS` feature is in GA stage and defaults to be enabled.
 -->
-从 1.24 开始，`IdentifyPodOS` 特性处于 Beta 阶段，默认启用。
+从 1.25 开始，`IdentifyPodOS` 特性处于 GA 阶段，默认启用。
 {{< /note >}}
 
 <!-- 
