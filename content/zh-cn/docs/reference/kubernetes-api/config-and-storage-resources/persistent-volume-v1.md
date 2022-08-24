@@ -597,7 +597,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
 <!--
   - **csi.controllerExpandSecretRef** (SecretReference)
-    controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+    controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
@@ -612,7 +612,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
     controllerExpandSecretRef 是对包含敏感信息的 Secret 对象的引用，
     该 Secret 会被传递到 CSI 驱动以完成 CSI ControllerExpandVolume 调用。
-    这是一个 Alpha 字段，需要启用 ExpandCSIVolumes 特性门控。
+    这是一个 Beta 字段，需要启用 ExpandCSIVolumes 特性门控。
     此字段是可选的，且如果不需要 Secret，则此字段可以为空。
     如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
     
@@ -660,41 +660,82 @@ PersistentVolumeSpec 是持久卷的规约。
 
 <!--
   - **csi.fsType** (string)
+
     fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 
-  - **csi.nodePublishSecretRef** (SecretReference)
-    nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+  - **csi.nodeExpandSecretRef** (SecretReference)
+
+    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
 
-    - **csi.nodePublishSecretRef.name** (string)
+    - **csi.nodeExpandSecretRef.name** (string)
+
       name is unique within a namespace to reference a secret resource.
 
-    - **csi.nodePublishSecretRef.namespace** (string)
+    - **csi.nodeExpandSecretRef.namespace** (string)
+
       namespace defines the space within which the secret name must be unique.
 -->  
   - **csi.fsType** (string)
 
     要挂载的 fsType。必须是主机操作系统所支持的文件系统类型之一。例如 “ext4”、“xfs”、“ntfs”。
   
-  - **csi.nodePublishSecretRef** (SecretReference)
+  - **csi.nodeExpandSecretRef** (SecretReference)
 
-    nodePublishSecretRef 是对包含敏感信息的 Secret 对象的引用，
-    从而传递到 CSI 驱动以完成 CSI NodePublishVolume 和 NodeUnpublishVolume 调用。
+    nodeExpandSecretRef 是对包含敏感信息的 Secret 对象的引用，
+    从而传递到 CSI 驱动以完成 CSI NodeExpandVolume 和 NodeUnpublishVolume 调用。
+    这是一个 Alpha 字段，需要启用 CSINodeExpandSecret 特性门控。
     此字段是可选的，且如果不需要 Secret，则此字段可以为空。
     如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
     
     <a name="SecretReference"></a> 
     **SecretReference 表示对某 Secret 的引用，其中包含足够的信息来访问任何名字空间中的 Secret。**
     
-    - **csi.nodePublishSecretRef.name** (string)
+    - **csi.nodeExpandSecretRef.name** (string)
 
       name 在名字空间内是唯一的，以引用一个 Secret 资源。
     
-    - **csi.nodePublishSecretRef.namespace** (string)
+    - **csi.nodeExpandSecretRef.namespace** (string)
 
       namespace 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
+
+
+  <!--
+  - **csi.nodePublishSecretRef** (SecretReference)
+
+    nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+
+    <a name="SecretReference"></a>
+    *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
+
+    - **csi.nodePublishSecretRef.name** (string)
+
+      name is unique within a namespace to reference a secret resource.
+
+    - **csi.nodePublishSecretRef.namespace** (string)
+
+      namespace defines the space within which the secret name must be unique.
+  -->
+  - **csi.nodePublishSecretRef** (SecretReference)
+
+      nodePublishSecretRef 是对包含敏感信息的 Secret 对象的引用，
+      以传递到 CSI 驱动以完成 CSI NodePublishVolume 和 NodeUnpublishVolume 调用。
+      此字段是可选的，且如果不需要 Secret，则此字段可以为空。
+      如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
+
+    **SecretReference 表示对某 Secret 的引用，其中包含足够的信息来访问任何名字空间中的 Secret。**
+
+    - **csi.nodePublishSecretRef.name** (string)
+
+      name 在名字空间内是唯一的，以引用一个 Secret 资源。
+
+    - **csi.nodePublishSecretRef.namespace** (string)
+
+      namespace 定义了 Secret 名称必须唯一的空间。
+
+
 <!--
   - **csi.nodeStageSecretRef** (SecretReference)
     nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
