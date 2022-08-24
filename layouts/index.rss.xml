@@ -17,7 +17,8 @@
     {{ with .OutputFormats.Get "RSS" }}
 	{{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
     {{ end }}
-    {{ range first 50 (where site.RegularPages "Type" "in" (slice "blog")) }}
+    {{ $pages := (where site.RegularPages "Type" "in" (slice "blog")) }}
+    {{ range first $.Site.Config.Services.RSS.Limit $pages }}
     <item>
       <title>{{ .Section | title }}: {{ .Title }}</title>
       <link>{{ .Permalink }}</link>

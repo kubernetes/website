@@ -33,6 +33,8 @@ enableGitInfo = true
 # Hindi is disabled because it's currently in development.
 disableLanguages = ["hi", "no"]
 
+rssLimit = 10
+
 [caches]
  [caches.assets]
   dir = ":cacheDir/_gen"
