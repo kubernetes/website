@@ -56,7 +56,7 @@ Jintao Zhang is presently employed at API7, where he focuses on ingress and serv
 
 In 2017, he encountered an issue which led to a community discussion and his contributions to Kubernetes started. Before contributing to Kubernetes, Jintao was a long-time contributor to Docker-related open source projects. 
 
-Currently Jintao is a reviewer for the [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) project.
+Currently Jintao is a maintainer for the [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) project.
 
 He suggests keeping track of job opportunities at open source companies so that you can find one that allows you to contribute full time. For new contributors Jintao says that if anyone wants to make a significant contribution to an open source project, then they should choose the project based on their interests and should generously invest time.
 
