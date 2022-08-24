@@ -72,11 +72,11 @@ spec:
         driver: hostpath.csi.k8s.io
 ```
 
-If the driver supports any volume attributes, these may also be provided as part of the pod spec.
+If the driver supports any volume attributes, you can provide these as part of the `spec` for the Pod as well:
 
 ```
       csi:
-        driver: example.csi.k8s.io
+        driver: block.csi.vendor.example
         volumeAttributes:
           foo: bar
 ```
@@ -93,7 +93,7 @@ The [Cert-Manager CSI Driver](https://github.com/cert-manager/csi-driver) works 
 
 Special consideration should be given to which CSI drivers may be used as inline volumes. `volumeAttributes` are typically controlled through the `StorageClass`, and may contain attributes that should remain restricted to the cluster administrator. Allowing a CSI driver to be used for inline ephmeral volumes means that any user with permission to create pods may also provide `volumeAttributes` to the driver through a pod spec.
 
-Cluster administrators may choose to remove `Ephemeral` from `volumeLifecycleModes` in the CSIDriver spec to prevent the driver from being used as an inline ephemeral volume, or use an [admission webhook](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) to restrict how the driver is used.
+Cluster administrators may choose to omit (or remove) `Ephemeral` from `volumeLifecycleModes` in the CSIDriver spec to prevent the driver from being used as an inline ephemeral volume, or use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/) to restrict how the driver is used.
 
 ## References
 
