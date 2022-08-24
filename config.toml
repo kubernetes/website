@@ -144,7 +144,7 @@ latest = "v1.25"
 fullversion = "v1.24.4"
 version = "v1.24"
 githubbranch = "v1.24.4"
-docsbranch = "main"
+docsbranch = "release-1.24"
 deprecated = true
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
@@ -180,17 +180,17 @@ js = [
 
 [[params.versions]]
 fullversion = "v1.25.0"
-version = "v1.24"
+version = "v1.25"
 githubbranch = "v1.25.0"
-docsbranch = "release-1.24"
+docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.24.4"
 version = "v1.24"
 githubbranch = "v1.24.4"
-docsbranch = "main"
-url = "https://kubernetes.io"
+docsbranch = "release-1.24"
+url = "https://v1-24.docs.kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.23.10"
