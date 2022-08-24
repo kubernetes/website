@@ -61,11 +61,11 @@ TypedLocalObjectReference 包含足够的信息，可以让你在同一个名称
 
 <hr>
 
-- **kind** (string), 必需
+- **kind** (string)，必需
 
   Kind 是被引用的资源的类型
 
-- **name** (string), 必需
+- **name** (string)，必需
 
   Name 是被引用的资源的名称
 
