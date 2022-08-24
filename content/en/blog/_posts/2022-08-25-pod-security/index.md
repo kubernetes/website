@@ -3,16 +3,15 @@ layout: blog
 title: "Kubernetes v1.25: Pod Security Admission Controller in Stable"
 date: 2022-08-25
 slug: pod-security-admission-stable
-canonicalUrl: https://kubernetes.dev/blog/2022/08/25/pod-security-admission-stable/
 ---
 
- **Authors:** Tim Allclair and Sam Stoelinga (Google)
+**Authors:** Tim Allclair (Google), Sam Stoelinga (Google)
 
 The release of Kubernetes v1.25 marks a major milestone for Kubernetes out-of-the-box pod security
 controls: Pod Security admission (PSA) graduated to stable, and Pod Security Policy (PSP) has been
 removed.
 [PSP was deprecated in Kubernetes v1.21](https://kubernetes.io/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/),
-and will no longer function starting in v1.25.
+and no longer functions in Kubernetes v1.25 and later.
 
 The Pod Security admission controller replaces PodSecurityPolicy, making it easier to enforce predefined
 [Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/) by
@@ -47,7 +46,7 @@ pods "admin-pod" is forbidden: violates PodSecurity "restricted:latest": unrestr
 
 When you modify the `enforce` Pod Security labels on a namespace, the Pod Security
 admission controller checks all existing pods for
-violations and surfaces a warning if any are out of compliance. These
+violations and surfaces a [warning](/blog/2020/09/03/warnings/) if any are out of compliance. These
 [warnings are now aggregated](https://github.com/kubernetes/kubernetes/pull/105889) for pods with
 identical violations, making large namespaces with many replicas much more manageable. For example:
 
@@ -75,8 +74,8 @@ longer be required if you explicitly set the pod's `.spec.os.name` field to `win
 * Privilege escalation - The `allowPrivilegeEscalation` field on container security contexts
 * Capabilities - The requirement to drop `ALL` capabilities in the `capabilities` field on containers
 
-In Kubernetes v1.23 and earlier, the kubelet didn't enforce the Pod OS field. If your cluster runs
-nodes with any of those versions, you should explicitly
+In Kubernetes v1.23 and earlier, the kubelet didn't enforce the Pod OS field.
+If your cluster includes nodes running a v1.23 or older kubelet, you should explicitly
 [pin Restricted policies](https://kubernetes.io/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces)
 to a version prior to v1.25.
 
