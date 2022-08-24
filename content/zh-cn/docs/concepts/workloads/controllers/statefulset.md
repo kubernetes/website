@@ -210,7 +210,7 @@ Provisioner.
 <!-- ### Minimum ready seconds -->
 ### 最短就绪秒数 {#minimum-ready-seconds}
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 <!--
 `.spec.minReadySeconds` is an optional field that specifies the minimum number of seconds for which a newly
@@ -220,7 +220,7 @@ This field defaults to 0 (the Pod will be considered available as soon as it is 
 a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 -->
 `.spec.minReadySeconds` 是一个可选字段。
-它指定新创建的 Pod 应该准备好且其任何容器不崩溃的最小秒数，以使其被视为可用。
+它指定新创建的 Pod 应该在没有任何容器崩溃的情况下运行并准备就绪，才能被认为是可用的。
 这用于在使用[滚动更新](#rolling-updates)策略时检查滚动的进度。
 该字段默认为 0（Pod 准备就绪后将被视为可用）。
 要了解有关何时认为 Pod 准备就绪的更多信息，
