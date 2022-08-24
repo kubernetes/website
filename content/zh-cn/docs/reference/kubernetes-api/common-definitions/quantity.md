@@ -52,19 +52,19 @@ The serialization format is:
 序列化格式如下：
 
 <!-- 
-\<quantity>        ::= \<signedNumber>\<suffix>
-  (Note that \<suffix> may be empty, from the "" case in \<decimalSI>.)
-\<digit>           ::= 0 | 1 | ... | 9 
-\<digits>          ::= \<digit> | \<digit>\<digits> 
-\<number>          ::= \<digits> | \<digits>.\<digits> | \<digits>. | .\<digits> 
-\<sign>            ::= "+" | "-" 
-\<signedNumber>    ::= \<number> | \<sign>\<number> 
-\<suffix>          ::= \<binarySI> | \<decimalExponent> | \<decimalSI> 
-\<binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei
-  (International System of units; See: http://physics.nist.gov/cuu/Units/binary.html)
+``` \<quantity>        ::= \<signedNumber>\<suffix>
+
+	(Note that \<suffix> may be empty, from the "" case in \<decimalSI>.)
+
+\<digit>           ::= 0 | 1 | ... | 9 \<digits>          ::= \<digit> | \<digit>\<digits> \<number>          ::= \<digits> | \<digits>.\<digits> | \<digits>. | .\<digits> \<sign>            ::= "+" | "-" \<signedNumber>    ::= \<number> | \<sign>\<number> \<suffix>          ::= \<binarySI> | \<decimalExponent> | \<decimalSI> \<binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei
+
+	(International System of units; See: http://physics.nist.gov/cuu/Units/binary.html)
+
 \<decimalSI>       ::= m | "" | k | M | G | T | P | E
-  (Note that 1024 = 1Ki but 1000 = 1k; I didn't choose the capitalization.)
-\<decimalExponent> ::= "e" \<signedNumber> | "E" \<signedNumber>
+
+	(Note that 1024 = 1Ki but 1000 = 1k; I didn't choose the capitalization.)
+
+\<decimalExponent> ::= "e" \<signedNumber> | "E" \<signedNumber> ```
 -->
 ```
 <quantity>        ::= <signedNumber><suffix>
@@ -97,25 +97,23 @@ When a Quantity is parsed from a string, it will remember the type of suffix it 
 <!-- 
 Before serializing, Quantity will be put in "canonical form". 
 This means that Exponent/suffix will be adjusted up or down (with a corresponding increase or decrease in Mantissa) such that:
-  a. No precision is lost
-  b. No fractional digits will be emitted
-  c. The exponent (or suffix) is as large as possible.
+
+- No precision is lost - No fractional digits will be emitted - The exponent (or suffix) is as large as possible.
+
 The sign will be omitted unless the number is negative.
 -->
-在序列化之前，数量将以“规范形式”放置。这意味着指数或者后缀将被向上或向下调整（尾数相应增加或减少），并确保：
-  1. 没有精度丢失
-  2. 不会输出小数数字
-  3. 指数（或后缀）尽可能大。
+在序列化之前，数量将以“规范形式”放置。
+这意味着指数或者后缀将被向上或向下调整（尾数相应增加或减少），并确保：
+- 没有精度丢失 - 不会输出小数数字 - 指数（或后缀）尽可能大。
+
 除非数量是负数，否则将省略正负号。
 
 <!-- 
 Examples:
-  1.5 will be serialized as "1500m"
-  1.5Gi will be serialized as "1536Mi"
+- 1.5 will be serialized as "1500m" - 1.5Gi will be serialized as "1536Mi"
 -->
 例如：
-  - 1.5 将会被序列化成 “1500m”
-  - 1.5Gi 将会被序列化成 “1536Mi”
+- 1.5 Gi 将会被序列化成“1500m”或“1536Mi”。
 
 <!-- 
 Note that the quantity will NEVER be internally represented by a floating point number. 
