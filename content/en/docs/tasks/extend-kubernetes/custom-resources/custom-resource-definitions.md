@@ -725,7 +725,7 @@ Validation rules are in beta since 1.25 and the
 gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default to validate custom resource
  based on _validation rules_. You can disable this feature by explicitly setting the
  `CustomResourceValidationExpressions` feature gate to `false`,
- for the `[kube-apiserver](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/)` component.
+ for the [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) component.
 This feature is only available if the schema is a
 [structural schema](#specifying-a-structural-schema).
 
