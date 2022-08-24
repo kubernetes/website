@@ -39,7 +39,7 @@ of the Cassandra cluster (called a _ring_). When those Pods run in your Kubernet
 the Kubernetes control plane schedules those Pods onto Kubernetes
 {{< glossary_tooltip text="Nodes" term_id="node" >}}.
 -->
-Cassandra 和 Kubernetes 都使用术语**节点（node）**来表示集群的成员。
+Cassandra 和 Kubernetes 都使用术语 **节点（node）** 来表示集群的成员。
 在本教程中，属于 StatefulSet 的 Pod 是 Cassandra 节点，并且是 Cassandra 集群的成员（称为 **ring**）。
 当这些 Pod 在你的 Kubernetes 集群中运行时，Kubernetes 控制平面会将这些 Pod 调度到 Kubernetes 的
 {{< glossary_tooltip text="节点" term_id="node" >}}上。
@@ -86,15 +86,15 @@ To complete this tutorial, you should already have a basic familiarity with
 
 <!--
 ### Additional Minikube setup instructions
+-->
+### 额外的 Minikube 设置说明 {#additional-minikube-setup-instructions}
 
 {{< caution >}}
+<!--
 [Minikube](https://minikube.sigs.k8s.io/docs/) defaults to 2048MB of memory and 2 CPU.
 Running Minikube with the default resource configuration results in insufficient resource
 errors during this tutorial. To avoid these errors, start Minikube with the following settings:
 -->
-### 额外的 Minikube 设置说明
-
-{{< caution >}}
 [Minikube](https://minikube.sigs.k8s.io/docs/) 默认需要 2048MB 内存和 2 个 CPU。
 在本教程中，使用默认资源配置运行 Minikube 会出现资源不足的错误。为避免这些错误，请使用以下设置启动 Minikube：
 
@@ -143,7 +143,7 @@ Get the Cassandra Service.
 kubectl get svc cassandra
 ```
 
-<!-- 
+<!--
 The response is 
 -->
 响应是：
@@ -165,17 +165,16 @@ for help troubleshooting common issues.
 ## Using a StatefulSet to create a Cassandra ring
 
 The StatefulSet manifest, included below, creates a Cassandra ring that consists of three Pods.
-
-{{< note >}}
-This example uses the default provisioner for Minikube.
-Please update the following StatefulSet for the cloud you are working with.
-{{< /note >}}
 -->
-## 使用 StatefulSet 创建 Cassandra Ring
+## 使用 StatefulSet 创建 Cassandra Ring {#using-a-statefulset-to-create-a-cassandra-ring}
 
 下面包含的 StatefulSet 清单创建了一个由三个 Pod 组成的 Cassandra ring。
 
 {{< note >}}
+<!--
+This example uses the default provisioner for Minikube.
+Please update the following StatefulSet for the cloud you are working with.
+-->
 本示例使用 Minikube 的默认配置程序。
 请为正在使用的云更新以下 StatefulSet。
 {{< /note >}}
@@ -202,7 +201,7 @@ that manifest, from the folder you saved the modified version into:
 然后 apply 修改后的清单。
 
 ```shell
-# 如果使用本地的 cassandra-statefulset.yaml ，请使用此命令
+# 如果使用本地的 cassandra-statefulset.yaml，请使用此命令
 kubectl apply -f cassandra-statefulset.yaml
 ```
 
@@ -211,7 +210,7 @@ kubectl apply -f cassandra-statefulset.yaml
 
 1. Get the Cassandra StatefulSet:
 -->
-## 验证 Cassandra StatefulSet
+## 验证 Cassandra StatefulSet {#validating-the-cassandra-statefulset}
 
 1. 获取 Cassandra StatefulSet:
 
@@ -248,7 +247,7 @@ kubectl apply -f cassandra-statefulset.yaml
    -->
    响应应该与此类似：
 
-   ```
+   ```shell
    NAME          READY     STATUS              RESTARTS   AGE
    cassandra-0   1/1       Running             0          1m
    cassandra-1   0/1       ContainerCreating   0          8s
@@ -278,9 +277,9 @@ kubectl apply -f cassandra-statefulset.yaml
    ```
 
    <!--
-   The response should be similar to:
+   The response should look something like:
    -->
-   响应应该与此类似：
+   响应应该类似于：
 
    ```
    Datacenter: DC1-K8Demo
@@ -300,7 +299,7 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 1. Run the following command:
 -->
-## 修改 Cassandra StatefulSet
+## 修改 Cassandra StatefulSet {#modifying-the-cassandra-statefulset}
 
 使用 `kubectl edit` 修改 Cassandra StatefulSet 的大小。
 
@@ -413,7 +412,7 @@ and includes OpenJDK 8.
 This image includes a standard Cassandra installation from the Apache Debian repo.
 By using environment variables you can change values that are inserted into `cassandra.yaml`.
 -->
-## Cassandra 容器环境变量
+## Cassandra 容器环境变量 {#cassandra-container-environment-variables}
 
 本教程中的 Pod 使用来自 Google [容器镜像库](https://cloud.google.com/container-registry/docs/)
 的 [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
@@ -423,6 +422,13 @@ By using environment variables you can change values that are inserted into `cas
 该镜像包括来自 Apache Debian 存储库的标准 Cassandra 安装。
 通过使用环境变量，你可以更改插入到 `cassandra.yaml` 中的值。
 
+<!--
+| Environment variable     | Default value    |
+| ------------------------ |:---------------: |
+| `CASSANDRA_CLUSTER_NAME` | `'Test Cluster'` |
+| `CASSANDRA_NUM_TOKENS`   | `32`             |
+| `CASSANDRA_RPC_ADDRESS`  | `0.0.0.0`        |
+-->
 | 环境变量                 | 默认值           |
 | ------------------------ |:---------------: |
 | `CASSANDRA_CLUSTER_NAME` | `'Test Cluster'` |
@@ -436,7 +442,6 @@ By using environment variables you can change values that are inserted into `cas
 * Learn more about the [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
 * See more custom [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
 -->
-* 了解如何[扩缩 StatefulSet](/docs/tasks/run-application/scale-stateful-set/)。
-* 了解有关 [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 的更多信息
+* 了解如何[扩缩 StatefulSet](/zh-cn/docs/tasks/run-application/scale-stateful-set/)。
+* 了解有关 [**KubernetesSeedProvider**](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 的更多信息
 * 查看更多自定义 [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
-
