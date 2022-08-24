@@ -179,8 +179,8 @@ following cases (not an exhaustive list):
   [FlexVolume](/docs/concepts/storage/volumes#flexvolume) implementation.
 - The code is an incomplete example because its purpose is to highlight a
   portion of a larger file. For example, when describing ways to
-  customize the [PodSecurityPolicy](/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)
-  for some reasons, you can provide a short snippet directly in your topic file.
+  customize a [RoleBinding](/docs/reference/access-authn-authz/rbac/#role-binding-examples),
+  you can provide a short snippet directly in your topic file.
 - The code is not meant for users to try out due to other reasons. For example,
   when describing how a new attribute should be added to a resource using the
   `kubectl edit` command, you can provide a short example that includes only
@@ -191,9 +191,9 @@ following cases (not an exhaustive list):
 - 代码不够通用，用户无法验证。例如，你可以嵌入 YAML 文件来创建一个依赖于特定
   [FlexVolume](/zh-cn/docs/concepts/storage/volumes#flexvolume) 实现的 Pod。
 - 该代码是一个不完整的示例，因为其目的是突出展现某个大文件中的部分内容。
-  例如，在描述出于某些原因定制
-  [PodSecurityPolicy](/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)
-  的方法时，你可以在主题文件中直接提供一个短的代码段。
+  例如，在描述一个
+  [RoleBinding](/zh-cn/docs/reference/access-authn-authz/rbac/#role-binding-examples)
+  时，你可以在主题文件中直接提供一个短的代码段。
 - 由于某些其他原因，该代码不适合用户验证。
   例如，当使用 `kubectl edit` 命令描述如何将新属性添加到资源时，
   你可以提供一个仅包含要添加的属性的简短示例。
