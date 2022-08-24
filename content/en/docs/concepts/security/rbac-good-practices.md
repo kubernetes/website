@@ -32,7 +32,7 @@ some general rules that can be applied are :
    ClusterRoleBindings to give users rights only within a specific namespace.
  - Avoid providing wildcard permissions when possible, especially to all resources.
    As Kubernetes is an extensible system, providing wildcard access gives rights
-   not just to all object types that currently exist in the cluster, but also to all future object types
+   not just to all object types that currently exist in the cluster, but also to all object types
    which are created in the future.
  - Administrators should not use `cluster-admin` accounts except where specifically needed. 
    Providing a low privileged account with
