@@ -29,19 +29,18 @@ A CSI driver is not suitable for inline use when:
 
 ## How to use this feature
 
-In order to use this feature, the `CSIDriver` spec must explicitly list `Ephemeral` as one of the supported `volumeLifecycleModes`. Here is a simple example from the [CSI host-path driver](https://github.com/kubernetes-csi/csi-driver-host-path).
+In order to use this feature, the `CSIDriver` spec must explicitly list `Ephemeral` as one of the supported `volumeLifecycleModes`. Here is a simple example from the [Secrets Store CSI Driver](https://github.com/kubernetes-sigs/secrets-store-csi-driver).
 
 ```
 apiVersion: storage.k8s.io/v1
 kind: CSIDriver
 metadata:
-  name: hostpath.csi.k8s.io
+  name: secrets-store.csi.k8s.io
 spec:
-  volumeLifecycleModes:
-  - Persistent
-  - Ephemeral
   podInfoOnMount: true
-  fsGroupPolicy: File
+  attachRequired: false
+  volumeLifecycleModes:
+  - Ephemeral
 ```
 
 Any pod spec may then reference that CSI driver to create an inline volume, as in this example.
@@ -52,24 +51,21 @@ apiVersion: v1
 metadata:
   name: my-csi-app-inline
 spec:
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: topology.hostpath.csi/node
-            operator: Exists
   containers:
     - name: my-frontend
       image: busybox
       volumeMounts:
-      - mountPath: "/data"
-        name: my-csi-volume
+      - name: secrets-store-inline
+        mountPath: "/mnt/secrets-store"
+        readOnly: true
       command: [ "sleep", "1000000" ]
   volumes:
-    - name: my-csi-volume
+    - name: secrets-store-inline
       csi:
-        driver: hostpath.csi.k8s.io
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: "my-provider"
 ```
 
 If the driver supports any volume attributes, you can provide these as part of the `spec` for the Pod as well:
