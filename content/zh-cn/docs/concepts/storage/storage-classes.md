@@ -3,7 +3,6 @@ title: 存储类
 content_type: concept
 weight: 30
 ---
-
 <!--
 reviewers:
 - jsafrane
@@ -113,17 +112,13 @@ for provisioning PVs. This field must be specified.
 | Cinder               |  &#x2713;  | [OpenStack Cinder](#openstack-cinder) |
 | FC                   |     -      |                   -                   |
 | FlexVolume           |     -      |                   -                   |
-| Flocker              |  &#x2713;  |                   -                   |
 | GCEPersistentDisk    |  &#x2713;  |           [GCE PD](#gce-pd)           |
 | Glusterfs            |  &#x2713;  |        [Glusterfs](#glusterfs)        |
 | iSCSI                |     -      |                   -                   |
-| Quobyte              |  &#x2713;  |          [Quobyte](#quobyte)          |
 | NFS                  |     -      |              [NFS](#nfs)              |
 | RBD                  |  &#x2713;  |         [Ceph RBD](#ceph-rbd)         |
 | VsphereVolume        |  &#x2713;  |          [vSphere](#vsphere)          |
 | PortworxVolume       |  &#x2713;  |  [Portworx Volume](#portworx-卷)  |
-| ScaleIO              |  &#x2713;  |          [ScaleIO](#scaleio)          |
-| StorageOS            |  &#x2713;  |        [StorageOS](#storageos)        |
 | Local                |     -      |            [Local](#本地)            |
 
 <!--
@@ -355,8 +350,6 @@ spec:
 -->
 ### 允许的拓扑结构  {#allowed-topologies}
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
-
 <!--
 When a cluster operator specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
 to restrict provisioning to specific topologies in most situations. However,
@@ -477,7 +470,7 @@ parameters:
 `zone` 和 `zones` 已被弃用并被 [允许的拓扑结构](#allowed-topologies) 取代。
 {{< /note >}}
 
-### GCE PD
+### GCE PD  {#gce-pd}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -681,7 +674,7 @@ parameters:
   当动态制备持久卷时，Gluster 插件自动创建名为 `gluster-dynamic-<claimname>`
   的端点和无头服务。在 PVC 被删除时动态端点和无头服务会自动被删除。
 
-### NFS
+### NFS  {#nfs}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -742,7 +735,7 @@ OpenStack 的内部驱动已经被弃用。请使用
 [OpenStack 的外部云驱动](https://github.com/kubernetes/cloud-provider-openstack)。
 {{< /note >}}
 
-### vSphere
+### vSphere {#vsphere}
 
 <!--
 There are two types of provisioners for vSphere storage classes: 
@@ -896,7 +889,7 @@ which you try out for persistent volume management inside Kubernetes for vSphere
 有几个 [vSphere 例子](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere)供你在
 Kubernetes for vSphere 中尝试进行持久卷管理。
 
-### Ceph RBD
+### Ceph RBD  {#ceph-rbd}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -942,12 +935,6 @@ parameters:
   must exist in the same namespace as PVCs. This parameter is required.
   The provided secret must have type "kubernetes.io/rbd", e.g. created in this
   way:
-
-    ```shell
-    kubectl create secret generic ceph-secret --type="kubernetes.io/rbd" \
-      --from-literal=key='QVFEQ1pMdFhPUnQrSmhBQUFYaERWNHJsZ3BsMmNjcDR6RFZST0E9PQ==' \
-      --namespace=kube-system
-    ```
 -->
 * `userSecretName`：用于映射 RBD 镜像的 `userId` 的 Ceph Secret 的名字。
   它必须与 PVC 存在于相同的 namespace 中。该参数是必需的。
@@ -972,95 +959,6 @@ parameters:
 * `imageFormat`：Ceph RBD 镜像格式，"1" 或者 "2"。默认值是 "1"。
 * `imageFeatures`：这个参数是可选的，只能在你将 `imageFormat` 设置为 "2" 才使用。
   目前支持的功能只是 `layering`。默认是 ""，没有功能打开。
-
-### Quobyte
-
-{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
-
-<!-- 
-The Quobyte in-tree storage plugin is deprecated, an 
-[example](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml)
-`StorageClass` for the out-of-tree Quobyte plugin can be found at the Quobyte CSI repository.
--->
-Quobyte 树内（in-tree）存储插件已弃用，
-你可以在 Quobyte CSI 仓库中找到用于树外（out-of-tree）Quobyte 插件的 `StorageClass`
-[示例](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml)。
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-   name: slow
-provisioner: kubernetes.io/quobyte
-parameters:
-    quobyteAPIServer: "http://138.68.74.142:7860"
-    registry: "138.68.74.142:7861"
-    adminSecretName: "quobyte-admin-secret"
-    adminSecretNamespace: "kube-system"
-    user: "root"
-    group: "root"
-    quobyteConfig: "BASE"
-    quobyteTenant: "DEFAULT"
-```
-
-<!--
-* `quobyteAPIServer`: API Server of Quobyte in the format
-  `"http(s)://api-server:7860"`
-* `registry`: Quobyte registry to use to mount the volume. You can specify the
-  registry as ``<host>:<port>`` pair or if you want to specify multiple
-  registries, put a comma between them.
-  ``<host1>:<port>,<host2>:<port>,<host3>:<port>``.
-  The host can be an IP address or if you have a working DNS you can also
-  provide the DNS names.
-* `adminSecretNamespace`: The namespace for `adminSecretName`.
-  Default is "default".
--->
-* `quobyteAPIServer`：Quobyte API 服务器的格式是 `"http(s)://api-server:7860"`
-* `registry`：用于挂载卷的 Quobyte 仓库。你可以指定仓库为 `<host>:<port>`
-  或者如果你想指定多个 registry，在它们之间添加逗号，例如
-  `<host1>:<port>,<host2>:<port>,<host3>:<port>`。
-  主机可以是一个 IP 地址，或者如果你有正在运行的 DNS，你也可以提供 DNS 名称。
-* `adminSecretNamespace`：`adminSecretName` 的名字空间。
-  默认值是 "default"。
-
-<!--
-* `adminSecretName`: secret that holds information about the Quobyte user and
-  the password to authenticate against the API server. The provided secret
-  must have type "kubernetes.io/quobyte" and the keys `user` and `password`,
-  for example:
-
-    ```shell
-    kubectl create secret generic quobyte-admin-secret \
-      --type="kubernetes.io/quobyte" --from-literal=user='admin' --from-literal=password='opensesame' \
-      --namespace=kube-system
-    ```
--->
-
-* `adminSecretName`：保存关于 Quobyte 用户和密码的 Secret，用于对 API 服务器进行身份验证。
-  提供的 secret 必须有值为 "kubernetes.io/quobyte" 的 type 参数和 `user`
-  与 `password` 的键值，例如：
-
-  ```shell
-  kubectl create secret generic quobyte-admin-secret \
-    --type="kubernetes.io/quobyte" --from-literal=user='admin' --from-literal=password='opensesame' \
-    --namespace=kube-system
-  ```
-<!--
-* `user`: maps all access to this user. Default is "root".
-* `group`: maps all access to this group. Default is "nfsnobody".
-* `quobyteConfig`: use the specified configuration to create the volume. You
-  can create a new configuration or modify an existing one with the Web
-  console or the quobyte CLI. Default is "BASE".
-* `quobyteTenant`: use the specified tenant ID to create/delete the volume.
-  This Quobyte tenant has to be already present in Quobyte.
-  Default is "DEFAULT".
--->
-* `user`：对这个用户映射的所有访问权限。默认是 "root"。
-* `group`：对这个组映射的所有访问权限。默认是 "nfsnobody"。
-* `quobyteConfig`：使用指定的配置来创建卷。你可以创建一个新的配置，
-  或者，可以修改 Web 控制台或 quobyte CLI 中现有的配置。默认是 "BASE"。
-* `quobyteTenant`：使用指定的租户 ID 创建/删除卷。这个 Quobyte 租户必须已经于 Quobyte 中存在。
-  默认是 "DEFAULT"。
 
 <!--
 ### Azure Disk
@@ -1266,149 +1164,6 @@ parameters:
   （例如 Cassandra 这样的数据库）
   `true/false`（默认为 `false`）。这里需要填写字符串，即，
   是 `"true"` 而不是 `true`。
-
-### ScaleIO
-
-```yaml
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: slow
-provisioner: kubernetes.io/scaleio
-parameters:
-  gateway: https://192.168.99.200:443/api
-  system: scaleio
-  protectionDomain: pd0
-  storagePool: sp1
-  storageMode: ThinProvisioned
-  secretRef: sio-secret
-  readOnly: "false"
-  fsType: xfs
-```
-
-<!--
-* `provisioner`: attribute is set to `kubernetes.io/scaleio`
-* `gateway`: address to a ScaleIO API gateway (required)
-* `system`: the name of the ScaleIO system (required)
-* `protectionDomain`: the name of the ScaleIO protection domain (required)
-* `storagePool`: the name of the volume storage pool (required)
-* `storageMode`: the storage provision mode: `ThinProvisioned` (default) or
-  `ThickProvisioned`
-* `secretRef`: reference to a configured Secret object (required)
-* `readOnly`: specifies the access mode to the mounted volume (default false)
-* `fsType`: the file system to use for the volume (default ext4)
--->
-* `provisioner`：属性设置为 `kubernetes.io/scaleio`
-* `gateway` 到 ScaleIO API 网关的地址（必需）
-* `system`：ScaleIO 系统的名称（必需）
-* `protectionDomain`：ScaleIO 保护域的名称（必需）
-* `storagePool`：卷存储池的名称（必需）
-* `storageMode`：存储提供模式：`ThinProvisioned`（默认）或 `ThickProvisioned`
-* `secretRef`：对已配置的 Secret 对象的引用（必需）
-* `readOnly`：指定挂载卷的访问模式（默认为 false）
-* `fsType`：卷的文件系统（默认是 ext4）
-
-<!--
-The ScaleIO Kubernetes volume plugin requires a configured Secret object.
-The secret must be created with type `kubernetes.io/scaleio` and use the same
-namespace value as that of the PVC where it is referenced
-as shown in the following command:
-
-```shell
-kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" \
---from-literal=username=sioadmin --from-literal=password=d2NABDNjMA== \
---namespace=default
-```
--->
-ScaleIO Kubernetes 卷插件需要配置一个 Secret 对象。
-Secret 必须用 `kubernetes.io/scaleio` 类型创建，并与引用它的
-PVC 所属的名字空间使用相同的值。如下面的命令所示：
-
-```shell
-kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" \
-  --from-literal=username=sioadmin --from-literal=password=d2NABDNjMA== \
-  --namespace=default
-```
-
-### StorageOS
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: fast
-provisioner: kubernetes.io/storageos
-parameters:
-  pool: default
-  description: Kubernetes volume
-  fsType: ext4
-  adminSecretNamespace: default
-  adminSecretName: storageos-secret
-```
-
-<!--
-* `pool`: The name of the StorageOS distributed capacity pool to provision the
-  volume from.  Uses the `default` pool which is normally present if not specified.
-* `description`: The description to assign to volumes that were created dynamically.
-  All volume descriptions will be the same for the storage class, but different
-  storage classes can be used to allow descriptions for different use cases.
-  Defaults to `Kubernetes volume`.
-* `fsType`: The default filesystem type to request. Note that user-defined rules
-  within StorageOS may override this value.  Defaults to `ext4`.
-* `adminSecretNamespace`: The namespace where the API configuration secret is
-  located. Required if adminSecretName set.
-* `adminSecretName`: The name of the secret to use for obtaining the StorageOS
-  API credentials. If not specified, default values will be attempted.
--->
-* `pool`：制备卷的 StorageOS 分布式容量池的名称。如果未指定，则使用通常存在的 `default` 池。
-* `description`：指定给动态创建的卷的描述。所有卷描述对于存储类而言都是相同的，
-  但不同的 storage class 可以使用不同的描述，以区分不同的使用场景。
-  默认为 `Kubernetes volume`。
-* `fsType`：请求的默认文件系统类型。
-  请注意，在 StorageOS 中用户定义的规则可以覆盖此值。默认为 `ext4`
-* `adminSecretNamespace`：API 配置 secret 所在的命名空间。
-  如果设置了 adminSecretName，则是必需的。
-* `adminSecretName`：用于获取 StorageOS API 凭证的 secret 名称。
-  如果未指定，则将尝试默认值。
-
-<!--
-The StorageOS Kubernetes volume plugin can use a Secret object to specify an
-endpoint and credentials to access the StorageOS API. This is only required when
-the defaults have been changed.
-The secret must be created with type `kubernetes.io/storageos` as shown in the
-following command:
-
-```shell
-kubectl create secret generic storageos-secret \
---type="kubernetes.io/storageos" \
---from-literal=apiAddress=tcp://localhost:5705 \
---from-literal=apiUsername=storageos \
---from-literal=apiPassword=storageos \
---namespace=default
-```
--->
-StorageOS Kubernetes 卷插件可以使 Secret 对象来指定用于访问 StorageOS API 的端点和凭据。
-只有当默认值已被更改时，这才是必须的。
-Secret 必须使用 `kubernetes.io/storageos` 类型创建，如以下命令：
-
-```shell
-kubectl create secret generic storageos-secret \
---type="kubernetes.io/storageos" \
---from-literal=apiAddress=tcp://localhost:5705 \
---from-literal=apiUsername=storageos \
---from-literal=apiPassword=storageos \
---namespace=default
-```
-
-<!--
-Secrets used for dynamically provisioned volumes may be created in any namespace
-and referenced with the `adminSecretNamespace` parameter. Secrets used by
-pre-provisioned volumes must be created in the same namespace as the PVC that
-references it.
--->
-用于动态制备卷的 Secret 可以在任何名字空间中创建，并通过
-`adminSecretNamespace` 参数引用。
-预先配置的卷使用的 Secret 必须在与引用它的 PVC 在相同的名字空间中。
 
 <!--
 ### Local
