@@ -502,10 +502,3 @@ In cases where the reset operation is combined with changes to other fields
 than the managedFields, this will result in the managedFields being reset
 first and the other changes being processed afterwards. As a result the
 applier takes ownership of any fields updated in the same request.
-
-{{< caution >}}
-Server Side Apply does not correctly track ownership on
-sub-resources that don't receive the resource object type. If you are
-using Server Side Apply with such a sub-resource, the changed fields
-won't be tracked.
-{{< /caution >}}
