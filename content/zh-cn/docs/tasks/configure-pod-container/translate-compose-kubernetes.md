@@ -51,13 +51,13 @@ Kompose 通过 GitHub 发布，发布周期为三星期。
 
 ```shell
 # Linux
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.24.0/kompose-linux-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-linux-amd64 -o kompose
 
 # macOS
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.24.0/kompose-darwin-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-darwin-amd64 -o kompose
 
 # Windows
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.24.0/kompose-windows-amd64.exe -o kompose.exe
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-windows-amd64.exe -o kompose.exe
 
 chmod +x kompose
 sudo mv ./kompose /usr/local/bin/kompose
@@ -183,6 +183,11 @@ you need is an existing `docker-compose.yml` file.
    kompose convert                           
    ```
 
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
    ```none
    INFO Kubernetes file "frontend-service.yaml" created
       INFO Kubernetes file "frontend-service.yaml" created
@@ -205,7 +210,7 @@ you need is an existing `docker-compose.yml` file.
    ```
 
    ```bash
-   kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,
+   kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
    ```
 
    <!--
@@ -434,11 +439,11 @@ INFO OpenShift file "foo-buildconfig.yaml" created
 ```
 
 <!--
-If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 .
+If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this OpenShift issue: https://github.com/openshift/origin/issues/4518 .
 -->
 {{< note >}}
-如果使用 ``oc create -f`` 手动推送 Openshift 工件，则需要确保在构建配置工件之前推送
-imagestream 工件，以解决 Openshift 的这个问题： https://github.com/openshift/origin/issues/4518 。
+如果使用 ``oc create -f`` 手动推送 OpenShift 工件，则需要确保在构建配置工件之前推送
+imagestream 工件，以解决 OpenShift 的这个问题： https://github.com/openshift/origin/issues/4518 。
 {{< /note >}}
 
 <!--
@@ -449,11 +454,11 @@ The default `kompose` transformation will generate Kubernetes [Deployments](/doc
 ## 其他转换方式    {#alternative-conversions}
 
 默认的 `kompose` 转换会生成 yaml 格式的 Kubernetes
-[Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 和
-[Service](/zh/docs/concepts/services-networking/service/) 对象。
+[Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 和
+[Service](/zh-cn/docs/concepts/services-networking/service/) 对象。
 你可以选择通过 `-j` 参数生成 json 格式的对象。
-你也可以替换生成 [Replication Controllers](/zh/docs/concepts/workloads/controllers/replicationcontroller/) 对象、
-[Daemon Sets](/zh/docs/concepts/workloads/controllers/daemonset/) 或
+你也可以替换生成 [Replication Controllers](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/) 对象、
+[Daemon Sets](/zh-cn/docs/concepts/workloads/controllers/daemonset/) 或
 [Helm](https://github.com/helm/helm) charts。
 
 ```shell
@@ -484,7 +489,7 @@ INFO Kubernetes file "web-replicationcontroller.yaml" created
 ```
 
 <!--
-The `*-replicationcontroller.yaml` files contain the Replication Controller objects. If you want to specify replicas (default is 1), use `--replicas` flag: `$ kompose convert --replication-controller --replicas 3`
+The `*-replicationcontroller.yaml` files contain the Replication Controller objects. If you want to specify replicas (default is 1), use `--replicas` flag: `kompose convert --replication-controller --replicas 3`
 -->
 `*-replicationcontroller.yaml` 文件包含 Replication Controller 对象。
 如果你想指定副本数（默认为 1），可以使用 `--replicas` 参数：
@@ -503,7 +508,7 @@ INFO Kubernetes file "web-daemonset.yaml" created
 
 <!--
 The `*-daemonset.yaml` files contain the DaemonSet objects
-If you want to generate a Chart to be used with [Helm](https://github.com/kubernetes/helm) simply do:
+If you want to generate a Chart to be used with [Helm](https://github.com/kubernetes/helm) run:
 -->
 `*-daemonset.yaml` 文件包含 DaemonSet 对象。
 

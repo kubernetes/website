@@ -18,7 +18,7 @@ content_type: task
 This guide demonstrates how to install and write extensions for [kubectl](/docs/reference/kubectl/kubectl/). By thinking of core `kubectl` commands as essential building blocks for interacting with a Kubernetes cluster, a cluster administrator can think
 of plugins as a means of utilizing these building blocks to create more complex behavior. Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
 -->
-本指南演示了如何为 [kubectl](/zh/docs/reference/kubectl/kubectl/) 安装和编写扩展。
+本指南演示了如何为 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 安装和编写扩展。
 通过将核心 `kubectl` 命令看作与 Kubernetes 集群交互的基本构建块，
 集群管理员可以将插件视为一种利用这些构建块创建更复杂行为的方法。
 插件用新的子命令扩展了 `kubectl`，允许新的和自定义的特性不包括在 `kubectl` 的主要发行版中。
@@ -510,7 +510,7 @@ an example usage of the tools provided in the CLI Runtime repo.
 [cli-runtime](https://github.com/kubernetes/cli-runtime) 工具库。
 
 这些库提供了一些辅助函数，用来解析和更新用户的
-[kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 文件，向 API 服务器发起 REST 风格的请求，或者将参数绑定到某配置上，
 抑或将其打印输出。
 

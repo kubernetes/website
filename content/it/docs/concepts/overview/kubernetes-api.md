@@ -1,5 +1,7 @@
 ---
-title: Le API di Kubernetes 
+title: Le API di Kubernetes
+description: >
+  Le API di Kubernetes ti permettono di interrogare e manipolare lo stato degli oggetti in Kubernetes. Il cuore del Control Plane di Kubernetes è l'API server e le API HTTP che esso espone. Ogni entità o componente che si interfaccia con il cluster (gli utenti, le singole parti del tuo cluster, i componenti esterni), comunica attraverso l'API server.
 content_type: concept
 weight: 30
 card: 

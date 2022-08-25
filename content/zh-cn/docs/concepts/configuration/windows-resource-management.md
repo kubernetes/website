@@ -104,7 +104,7 @@ On Windows these values are only used to calculate the node's
 
 为了满足操作系统、容器运行时和 kubelet 等 Kubernetes 主机进程使用的内存和 CPU，
 你可以（且应该）用 `--kube-reserved` 和/或 `--system-reserved` kubelet 标志来预留内存和 CPU 资源。
-在 Windows 上，这些值仅用于计算节点的[可分配](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)资源。
+在 Windows 上，这些值仅用于计算节点的[可分配](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)资源。
 
 <!--
 As you deploy workloads, set resource memory and CPU limits on containers.

@@ -24,8 +24,8 @@ where bottlenecks can be removed to improve overall performance.
 -->
 要扩展应用程序并提供可靠的服务，你需要了解应用程序在部署时的行为。
 你可以通过检测容器检查 Kubernetes 集群中的应用程序性能，
-[Pods](/zh/docs/concepts/workloads/pods), 
-[服务](/zh/docs/concepts/services-networking/service/)
+[Pods](/zh-cn/docs/concepts/workloads/pods), 
+[服务](/zh-cn/docs/concepts/services-networking/service/)
 和整个集群的特征。
 Kubernetes 在每个级别上提供有关应用程序资源使用情况的详细信息。
 此信息使你可以评估应用程序的性能，以及在何处可以消除瓶颈以提高整体性能。
@@ -55,7 +55,7 @@ These  metrics are collected by the lightweight, short-term, in-memory
 ## 资源度量管道  {#resource-metrics-pipeline}
 
 资源指标管道提供了一组与集群组件，例如
-[Horizontal Pod Autoscaler](/zh/docs/tasks/run-application/horizontal-pod-autoscale/)
+[Horizontal Pod Autoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 控制器以及 `kubectl top` 实用程序相关的有限度量。
 这些指标是由轻量级的、短期、内存存储的
 [metrics-server](https://github.com/kubernetes-sigs/metrics-server) 收集的，
@@ -76,7 +76,7 @@ This API is served at `/metrics/resource/v1beta1` on the kubelet's authenticated
 read-only ports. 
 -->
 度量服务器发现集群中的所有节点，并且查询每个节点的
-[kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/)
+[kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 以获取 CPU 和内存使用情况。
 Kubelet 充当 Kubernetes 主节点与节点之间的桥梁，管理机器上运行的 Pod 和容器。
 kubelet 将每个 Pod 转换为其组成的容器，并在容器运行时通过容器运行时接口

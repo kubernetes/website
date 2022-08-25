@@ -23,9 +23,9 @@ Kubernetes v1.23 introduced a new, alpha-level policy for
 StatefulSet spec template for cases when they should be deleted automatically when the StatefulSet
 is deleted or pods in the StatefulSet are scaled down.
 -->
-Kubernetes v1.23 为 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/)
+Kubernetes v1.23 为 [StatefulSets](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
 引入了一个新的 alpha 级策略，用来控制由 StatefulSet 规约模板生成的
-[PersistentVolumeClaims](/zh/docs/concepts/storage/persistent-volumes/) (PVCs) 的生命周期，
+[PersistentVolumeClaims](/zh-cn/docs/concepts/storage/persistent-volumes/) (PVCs) 的生命周期，
 用于当删除 StatefulSet 或减少 StatefulSet 中的 Pods 数量时 PVCs 应该被自动删除的场景。
 
 <!--
@@ -91,7 +91,7 @@ retention policies for the underlying PV are respected.
 第一种情况是 StatefulSet 资源被删除时（这意味着所有副本也被删除），这由 `whenDeleted` 策略控制的。
 第二种情况是 StatefulSet 缩小时，即删除 StatefulSet 部分副本，这由 `whenScaled` 策略控制。
 在这两种情况下，策略即可以是 `Retain` 不涉及相应 PVCs 的改变，也可以是 `Delete` 即删除对应的 PVCs。
-删除是通过普通的[对象删除](/zh/docs/concepts/architecture/garbage-collection/)完成的，
+删除是通过普通的[对象删除](/zh-cn/docs/concepts/architecture/garbage-collection/)完成的，
 因此，的所有保留策略都会被遵照执行。
 
 <!--
@@ -168,7 +168,7 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
 [documentation](/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-policies) to
 see all the details.
 -->
-查阅[文档](/zh/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-policies)
+查阅[文档](/zh-cn/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-policies)
 获取更多详细信息。
 
 <!--

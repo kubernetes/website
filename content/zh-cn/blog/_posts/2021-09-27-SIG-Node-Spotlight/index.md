@@ -168,7 +168,8 @@ SK/EH: It takes time and effort to get to any open source community. SIG Node ma
 ### 最后你有什么想法/资源要分享吗？
 
 SK/EH：进入任何开源社区都需要时间和努力。一开始 SIG Node 可能会因为参与者的数量、工作量和项目范围而让你不知所措。但这是完全值得的。
-请加入我们这个热情的社区! [SIG Node GitHub Repo]（https://github.com/kubernetes/community/tree/master/sig-node）包含许多有用的资源，包括 Slack、邮件列表和其他联系信息。
+请加入我们这个热情的社区! [SIG Node GitHub Repo](https://github.com/kubernetes/community/tree/master/sig-node)
+包含许多有用的资源，包括 Slack、邮件列表和其他联系信息。
 <!--
 ## Wrap Up
 

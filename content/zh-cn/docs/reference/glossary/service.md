@@ -2,7 +2,7 @@
 title: 服务（Service）
 id: service
 date: 2018-04-12
-full_link: /zh/docs/concepts/services-networking/service/
+full_link: /zh-cn/docs/concepts/services-networking/service/
 short_description: >
   将运行在一组 Pods 上的应用程序公开为网络服务的抽象方法。
 

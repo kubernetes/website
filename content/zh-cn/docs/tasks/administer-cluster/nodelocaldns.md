@@ -6,7 +6,7 @@ content_type: task
 reviewers:
 - bowei
 - zihongz
-title: Using NodeLocal DNSCache in Kubernetes clusters
+title: Using NodeLocal DNSCache in Kubernetes Clusters
 content_type: task
 -->
 
@@ -70,7 +70,7 @@ NodeLocal DNSCache 通过在集群节点上作为 DaemonSet 运行 DNS 缓存代
   并避免 UDP DNS 条目填满 conntrack 表。
 
 <!--
-* Connections from local caching agent to kube-dns service can be upgraded to TCP.
+* Connections from the local caching agent to kube-dns service can be upgraded to TCP.
   TCP conntrack entries will be removed on connection close in contrast with
   UDP entries that have to timeout
   ([default](https://www.kernel.org/doc/Documentation/networking/nf_conntrack-sysctl.txt)
@@ -96,7 +96,7 @@ NodeLocal DNSCache 通过在集群节点上作为 DaemonSet 运行 DNS 缓存代
 * 在节点级别对 DNS 请求的度量和可见性。
 
 <!--
-* Negative caching can be re-enabled, thereby reducing number of queries to kube-dns service.
+* Negative caching can be re-enabled, thereby reducing the number of queries for the kube-dns service.
 -->
 * 可以重新启用负缓存，从而减少对 kube-dns 服务的查询数量。
 
@@ -124,7 +124,7 @@ This is the path followed by DNS Queries after NodeLocal DNSCache is enabled:
 {{< note >}}
 The local listen IP address for NodeLocal DNSCache can be any address that
 can be guaranteed to not collide with any existing IP in your cluster.
-It's recommended to use an address with a local scope, per example,
+It's recommended to use an address with a local scope, for example,
 from the 'link-local' range '169.254.0.0/16' for IPv4 or from the
 'Unique Local Address' range in IPv6 'fd00::/8'.
 {{< /note >}}
@@ -149,9 +149,9 @@ This feature can be enabled using the following steps:
   准备一个清单，把它保存为 `nodelocaldns.yaml`。
 
 <!--
-* If using IPv6, the CoreDNS configuration file need to enclose all the IPv6 addresses
+* If using IPv6, the CoreDNS configuration file needs to enclose all the IPv6 addresses
   into square brackets if used in 'IP:Port' format.
-  If you are using the sample manifest from the previous point, this will require to modify
+  If you are using the sample manifest from the previous point, this will require you to modify
   [the configuration line L70](https://github.com/kubernetes/kubernetes/blob/b2ecd1b3a3192fbbe2b9e348e095326f51dc43dd/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml#L70)
   like this: "`health [__PILLAR__LOCAL__DNS__]:8080`"
 -->
@@ -193,7 +193,7 @@ This feature can be enabled using the following steps:
     `__PILLAR__CLUSTER__DNS__` and `__PILLAR__UPSTREAM__SERVERS__` will be populated by
     the `node-local-dns` pods.
     In this mode, the `node-local-dns` pods listen on both the kube-dns service IP
-    as well as `<node-local-address>`, so pods can lookup DNS records using either IP address.
+    as well as `<node-local-address>`, so pods can look up DNS records using either IP address.
 -->
   * 如果 kube-proxy 运行在 IPTABLES 模式：
 
@@ -275,7 +275,7 @@ In those cases, the `kube-dns` ConfigMap can be updated.
 -->
 `node-local-dns` Pod 能够自动读取 `kube-system` 名字空间中 `kube-dns` ConfigMap
 中保存的 StubDomains 和上游服务器信息。ConfigMap 中的内容需要遵从
-[此示例](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1)
+[此示例](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1)
 中所给的格式。
 `node-local-dns` ConfigMap 也可被直接修改，使用 Corefile 格式设置 stubDomain 配置。
 某些云厂商可能不允许直接修改 `node-local-dns` ConfigMap 的内容。
@@ -327,7 +327,7 @@ will lead to a brief DNS downtime each time that the container fails: the packet
 DNS queries to a local Pod that is unhealthy.
 -->
 如果一个 `node-local-dns` Pod 尝试使用的内存超出可提供的内存量
-（因为系统资源总量的，或者所配置的[资源约束](/zh/docs/concepts/configuration/manage-resources-containers/)）的原因，
+（因为系统资源总量的，或者所配置的[资源约束](/zh-cn/docs/concepts/configuration/manage-resources-containers/)）的原因，
 操作系统可能会关闭这一 Pod 的容器。
 发生这种情况时，被终止的（"OOMKilled"）容器不会清理其启动期间所添加的定制包过滤规则。
 该 `node-local-dns` 容器应该会被重启（因其作为 DaemonSet 的一部分被管理），

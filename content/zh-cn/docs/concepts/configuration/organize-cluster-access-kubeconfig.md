@@ -58,7 +58,7 @@ For step-by-step instructions on creating and specifying kubeconfig files, see
 [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 -->
 有关创建和指定 kubeconfig 文件的分步说明，请参阅
-[配置对多集群的访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters)。
+[配置对多集群的访问](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters)。
 
 <!-- body -->
 
@@ -193,7 +193,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    [Setting the KUBECONFIG environment variable](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable).
 -->
    有关设置 `KUBECONFIG` 环境变量的示例，请参阅
-   [设置 KUBECONFIG 环境变量](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable)。
+   [设置 KUBECONFIG 环境变量](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable)。
 
 <!--
    Otherwise, use the default kubeconfig file, `$HOME/.kube/config`, with no merging.
@@ -319,5 +319,5 @@ contexts:
 * [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 --->
-* [配置对多集群的访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+* [配置对多集群的访问](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)

@@ -145,7 +145,7 @@ class first,second white
 {{</ mermaid >}}
 Figure 2. Preparation for your first contribution.
 
-- Read the [Contribution overview](/docs/contribute/new-content/overview/) to
+- Read the [Contribution overview](/docs/contribute/new-content/) to
   learn about the different ways you can contribute.
 - Check [`kubernetes/website` issues list](https://github.com/kubernetes/website/issues/)
   for issues that make good entry points.

@@ -3,6 +3,7 @@ layout: blog
 title: '쿠버네티스 1.22: 새로운 정점에 도달(Reaching New Peaks)'
 date: 2021-08-04
 slug: kubernetes-1-22-release-announcement
+evergreen: true
 ---
 
 **저자:** [쿠버네티스 1.22 릴리스 팀](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.22/release-team.md)
@@ -50,7 +51,7 @@ SIG Windows는 계속해서 성장하는 개발자 커뮤니티를 지원하기 
 
 ### 기본(default) seccomp 프로파일
 
-알파 기능인 기본 seccomp 프로파일이 신규 커맨드라인 플래그 및 설정과 함께 kubelet에 추가되었습니다. 이 신규 기능을 사용하면, `Unconfined`대신 `RuntimeDefault` seccomp 프로파일을 기본으로 사용하는 seccomp이 클러스터 전반에서 기본이 됩니다. 이는 쿠버네티스 디플로이먼트(Deployment)의 기본 보안을 강화합니다. 워크로드에 대한 보안이 기본으로 더 강화되었으므로, 이제 보안 관리자도 조금 더 안심하고 쉴 수 있습니다. 이 기능에 대한 자세한 사항은 공식적인 [seccomp 튜토리얼](https://kubernetes.io/docs/tutorials/clusters/seccomp/#enable-the-use-of-runtimedefault-as-the-default-seccomp-profile-for-all-workloads)을 참고하시기 바랍니다.
+알파 기능인 기본 seccomp 프로파일이 신규 커맨드라인 플래그 및 설정과 함께 kubelet에 추가되었습니다. 이 신규 기능을 사용하면, `Unconfined`대신 `RuntimeDefault` seccomp 프로파일을 기본으로 사용하는 seccomp이 클러스터 전반에서 기본이 됩니다. 이는 쿠버네티스 디플로이먼트(Deployment)의 기본 보안을 강화합니다. 워크로드에 대한 보안이 기본으로 더 강화되었으므로, 이제 보안 관리자도 조금 더 안심하고 쉴 수 있습니다. 이 기능에 대한 자세한 사항은 공식적인 [seccomp 튜토리얼](/docs/tutorials/security/seccomp/#enable-the-use-of-runtimedefault-as-the-default-seccomp-profile-for-all-workloads)을 참고하시기 바랍니다.
 
 ### kubeadm을 통한 보안성이 더 높은 컨트롤 플레인
 

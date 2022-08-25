@@ -22,7 +22,7 @@ block for running complex stateful applications. As the use of Kubernetes has gr
 StatefulSets. Many of these scenarios, require faster rolling updates than the currently supported one-pod-at-a-time updates, in the 
 case where you're using the `OrderedReady` Pod management policy for a StatefulSet.
 -->
-Kubernetes [StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/)，
+Kubernetes [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)，
 自 1.5 版本中引入并在 1.9 版本中变得稳定以来，已被广泛用于运行有状态应用。它提供固定的 Pod 身份标识、
 每个 Pod 的持久存储以及 Pod 的有序部署、扩缩容和滚动更新功能。你可以将 StatefulSet
 视为运行复杂有状态应用程序的原子构建块。随着 Kubernetes 的使用增多，需要 StatefulSet 的场景也越来越多。
@@ -233,7 +233,7 @@ break applications or catch them by surprise? Please [open an issue](https://git
 - [Enhancement Tracking Issue](https://github.com/kubernetes/enhancements/issues/961)
 -->
 ## 进一步阅读和后续步骤 {#next-steps}
-- [最多不可用 Pod 数](/zh/docs/concepts/workloads/controllers/statefulset/#maximum-unavailable-pods)
+- [最多不可用 Pod 数](/zh-cn/docs/concepts/workloads/controllers/statefulset/#maximum-unavailable-pods)
 - [KEP for MaxUnavailable for StatefulSet](https://github.com/kubernetes/enhancements/tree/master/keps/sig-apps/961-maxunavailable-for-statefulset)
 - [代码实现](https://github.com/kubernetes/kubernetes/pull/82162/files)
 - [增强跟踪 Issue](https://github.com/kubernetes/enhancements/issues/961)

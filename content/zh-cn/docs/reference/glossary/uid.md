@@ -2,7 +2,7 @@
 title: UID
 id: uid
 date: 2018-04-12
-full_link: /zh/docs/concepts/overview/working-with-objects/names/
+full_link: /zh-cn/docs/concepts/overview/working-with-objects/names/
 short_description: >
   由 Kubernetes 系统生成、用来唯一标识对象的字符串。
 

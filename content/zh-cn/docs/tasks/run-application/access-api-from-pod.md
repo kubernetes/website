@@ -40,7 +40,7 @@ one of the official [client libraries](/docs/reference/using-api/client-librarie
 libraries can automatically discover the API server and authenticate.
 -->
 从 Pod 使用 Kubernetes API 的最简单的方法就是使用官方的
-[客户端库](/zh/docs/reference/using-api/client-libraries/)。
+[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)。
 这些库可以自动发现 API 服务器并进行身份验证。
 
 <!--
@@ -73,7 +73,7 @@ securely with the API server.
   函数 `config.load_incluster_config()` 自动处理 API 主机的发现和身份认证。
   参见[这里的一个例子](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py)。
 
-- 还有一些其他可用的客户端库，请参阅[客户端库](/zh/docs/reference/using-api/client-libraries/)页面。
+- 还有一些其他可用的客户端库，请参阅[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)页面。
 
 在以上场景中，客户端库都使用 Pod 的服务账号凭据来与 API 服务器安全地通信。
 
@@ -100,7 +100,7 @@ service account is placed into the filesystem tree of each container in that Pod
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
 -->
 向 API 服务器进行身份认证的推荐做法是使用
-[服务账号](/zh/docs/tasks/configure-pod-container/configure-service-account/)凭据。
+[服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)凭据。
 默认情况下，每个 Pod 与一个服务账号关联，该服务账户的凭证（令牌）放置在此 Pod 中
 每个容器的文件系统树中的 `/var/run/secrets/kubernetes.io/serviceaccount/token` 处。
 
@@ -132,7 +132,7 @@ in the Pod can use it directly.
 #### 使用 kubectl proxy   {#use-kubectl-proxy}
 
 如果你希望不使用官方客户端库就完成 API 查询，可以将 `kubectl proxy` 作为
-[command](/zh/docs/tasks/inject-data-application/define-command-argument-container/)
+[command](/zh-cn/docs/tasks/inject-data-application/define-command-argument-container/)
 在 Pod 中启动一个边车（Sidecar）容器。这样，`kubectl proxy` 自动完成对 API
 的身份认证，并将其暴露到 Pod 的 `localhost` 接口，从而 Pod 中的其他容器可以
 直接使用 API。

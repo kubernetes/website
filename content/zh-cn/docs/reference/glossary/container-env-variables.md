@@ -2,7 +2,7 @@
 title: 容器环境变量（Container Environment Variables）
 id: container-env-variables
 date: 2018-04-12
-full_link: /zh/docs/concepts/containers/container-environment/
+full_link: /zh-cn/docs/concepts/containers/container-environment/
 short_description: >
   容器环境变量提供了 name=value 形式的、运行容器化应用所必须的一些重要信息。
 

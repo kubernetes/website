@@ -13,11 +13,6 @@ To avoid CNI plugin-related errors, verify that you are using or upgrading to a
 container runtime that has been tested to work correctly with your version of
 Kubernetes.
 
-For example, the following container runtimes are being prepared, or have already been prepared, for Kubernetes v1.24:
-
-* containerd v1.6.4 and later, v1.5.11 and later
-* The CRI-O v1.24.0 and later
-
 ## About the "Incompatible CNI versions" and "Failed to destroy network for sandbox" errors
 
 Service issues exist for pod CNI network setup and tear down in containerd

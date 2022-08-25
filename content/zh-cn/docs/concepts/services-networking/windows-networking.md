@@ -42,7 +42,7 @@ is responsible for the management of networking resources such as:
 -->
 ## Windows 容器网络 {#networking}
 
-Windows 容器网络通过 [CNI 插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)暴露。
+Windows 容器网络通过 [CNI 插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)暴露。
 Windows 容器网络的工作方式与虚拟机类似。
 每个容器都有一个连接到 Hyper-V 虚拟交换机（vSwitch）的虚拟网络适配器（vNIC）。
 主机网络服务（Host Networking Service，HNS）和主机计算服务（Host Comute Service，HCS）

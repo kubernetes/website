@@ -21,7 +21,7 @@ application configuration, and migration.
 独一无二的 IP 地址，
 这就意味着你不需要显式地在 `Pod` 之间创建链接，你几乎不需要处理容器端口到主机端口之间的映射。
 这将形成一个干净的、向后兼容的模型；在这个模型里，从端口分配、命名、服务发现、
-[负载均衡](/zh/docs/concepts/services-networking/ingress/#load-balancing)、
+[负载均衡](/zh-cn/docs/concepts/services-networking/ingress/#load-balancing)、
 应用配置和迁移的角度来看，`Pod` 可以被视作虚拟机或者物理主机。
 
 <!--

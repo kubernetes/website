@@ -2,8 +2,8 @@
 layout: blog
 title:  '使用 CSI 和 Kubernetes 实现卷的动态扩容'
 date:   2018-08-02
+slug: dynamically-expand-volume-with-csi-and-kubernetes
 ---
-
 <!--
 layout: blog
 title:  'Dynamically Expand Volume with CSI and Kubernetes'

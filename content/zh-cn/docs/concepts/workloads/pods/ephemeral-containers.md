@@ -124,11 +124,11 @@ sharing](/docs/tasks/configure-pod-container/share-process-namespace/) so
 you can view processes in other containers.
 -->
 使用临时容器时，启用
-[进程名字空间共享](/zh/docs/tasks/configure-pod-container/share-process-namespace/)
+[进程名字空间共享](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)
 很有帮助，可以查看其他容器中的进程。
 
 {{% heading "whatsnext" %}}
 <!--
 * Learn how to [debug pods using ephemeral containers](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).
 -->
-* 了解如何[使用临时调试容器来进行调试](/zh/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container)
+* 了解如何[使用临时调试容器来进行调试](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container)

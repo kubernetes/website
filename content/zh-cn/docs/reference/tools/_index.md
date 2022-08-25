@@ -41,7 +41,7 @@ to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resou
 -->
 ## 仪表盘
 
-[`Dashboard`](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/)，
+[`Dashboard`](/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard/)，
 基于 Web 的 Kubernetes 用户界面，
 允许你将容器化的应用程序部署到 Kubernetes 集群，
 对它们进行故障排查，并管理集群及其资源本身。

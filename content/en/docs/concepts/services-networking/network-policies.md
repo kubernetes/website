@@ -193,9 +193,9 @@ When the feature gate is enabled, you can set the `protocol` field of a NetworkP
 You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that supports SCTP protocol NetworkPolicies.
 {{< /note >}}
 
-## Targeting a range of Ports
+## Targeting a range of ports
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 When writing a NetworkPolicy, you can target a range of ports instead of a single port.
 
@@ -228,10 +228,6 @@ with any IP within the range `10.0.0.0/24` over TCP, provided that the target
 port is between the range 32000 and 32768.
 
 The following restrictions apply when using this field:
-* As a beta feature, this is enabled by default. To disable the `endPort` field 
-at a cluster level, you (or your cluster administrator) need to disable the 
-`NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
-for the API server with `--feature-gates=NetworkPolicyEndPort=false,…`.
 * The `endPort` field must be equal to or greater than the `port` field.
 * `endPort` can only be defined if `port` is also defined.
 * Both ports must be numeric.
@@ -258,7 +254,7 @@ standardized label to target a specific namespace.
 
 ## What you can't do with network policies (at least, not yet)
 
-As of Kubernetes {{< skew latestVersion >}}, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.
+As of Kubernetes {{< skew currentVersion >}}, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.
 
 - Forcing internal cluster traffic to go through a common gateway (this might be best served with a service mesh or other proxy).
 - Anything TLS related (use a service mesh or ingress controller for this).

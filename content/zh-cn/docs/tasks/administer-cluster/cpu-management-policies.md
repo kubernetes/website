@@ -69,7 +69,7 @@ There are two supported policies:
 ### 配置
 
 CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy`
-或 [KubeletConfiguration](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
+或 [KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 中的 `cpuManagerPolicy` 字段来指定。
 支持两种策略：
 
@@ -134,7 +134,7 @@ CPUManager so that the cpu-sets set up by the new policy won’t conflict with i
 4. Edit the kubelet configuration to change the CPU manager policy to the desired value.
 5. Start kubelet.
 -->
-1. [腾空](/zh/docs/tasks/administer-cluster/safely-drain-node)节点。
+1. [腾空](/zh-cn/docs/tasks/administer-cluster/safely-drain-node)节点。
 2. 停止 kubelet。
 3. 删除旧的 CPU 管理器状态文件。该文件的路径默认为 `/var/lib/kubelet/cpu_manager_state`。
    这将清除 CPUManager 维护的状态，以便新策略设置的 cpu-sets 不会与之冲突。
@@ -169,8 +169,8 @@ are enforced using CFS quota.
 ### none 策略
 
 `none` 策略显式地启用现有的默认 CPU 亲和方案，不提供操作系统调度器默认行为之外的亲和性策略。
-通过 CFS 配额来实现 [Guaranteed Pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
-和 [Burstable Pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
+通过 CFS 配额来实现 [Guaranteed Pods](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
+和 [Burstable Pods](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
 的 CPU 使用限制。
 
 <!--

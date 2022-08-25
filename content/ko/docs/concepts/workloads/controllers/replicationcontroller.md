@@ -185,8 +185,8 @@ delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 를 사용�
 Kubectl은 레플리케이션 컨트롤러를 0으로 스케일하고 레플리케이션 컨트롤러 자체를
 삭제하기 전에 각 파드를 삭제하기를 기다린다. 이 kubectl 명령이 인터럽트되면 다시 시작할 수 있다.
 
-REST API나 Go 클라이언트 라이브러리를 사용하는 경우 명시적으로 단계를 수행해야 한다(레플리카를 0으로 스케일하고 파드의 삭제를 기다린 이후,
-레플리케이션 컨트롤러를 삭제).
+REST API나 [클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries)를 사용하는 경우 
+명시적으로 단계를 수행해야 한다(레플리카를 0으로 스케일하고 파드의 삭제를 기다린 이후, 레플리케이션 컨트롤러를 삭제).
 
 ### 레플리케이션 컨트롤러만 삭제
 
@@ -194,7 +194,7 @@ REST API나 Go 클라이언트 라이브러리를 사용하는 경우 명시적�
 
 kubectl을 사용하여, [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)에 옵션으로 `--cascade=orphan`을 지정하라.
 
-REST API나 Go 클라이언트 라이브러리를 사용하는 경우 레플리케이션 컨트롤러 오브젝트를 삭제하라.
+REST API나 [클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries)를 사용하는 경우 레플리케이션 컨트롤러 오브젝트를 삭제하라.
 
 원본이 삭제되면 대체할 새로운 레플리케이션 컨트롤러를 생성하여 교체할 수 있다. 오래된 파드와 새로운 파드의 `.spec.selector` 가 동일하다면,
 새로운 레플리케이션 컨트롤러는 오래된 파드를 채택할 것이다. 그러나 기존 파드를

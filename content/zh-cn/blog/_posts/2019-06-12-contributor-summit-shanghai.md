@@ -2,6 +2,7 @@
 layout: blog
 title: '欢迎参加在上海举行的贡献者峰会'
 date: 2019-06-11
+slug: join-us-at-the-contributor-summit-in-shanghai
 ---
 
 <!-- ---

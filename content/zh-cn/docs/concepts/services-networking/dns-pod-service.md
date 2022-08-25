@@ -168,7 +168,7 @@ of the form `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`
 #### SRV 记录  {#srv-records}
 
 Kubernetes 根据普通 Service 或
-[Headless Service](/zh/docs/concepts/services-networking/service/#headless-services)
+[Headless Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 中的命名端口创建 SRV 记录。每个命名端口，
 SRV 记录格式为 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`。
 普通 Service，该记录会被解析成端口号和域名：`my-svc.my-namespace.svc.cluster-domain.example`。
@@ -370,7 +370,7 @@ Pod 会一直出于 `Pending` 状态（通过 `kubectl` 所看到的 `ContainerC
 （无法基于 Pod 主机名和集群域名构造 FQDN，FQDN `long-FQDN` 过长，至多 64
 字符，请求字符数为 70）。
 对于这种场景而言，改善用户体验的一种方式是创建一个
-[准入 Webhook 控制器](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)，
+[准入 Webhook 控制器](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)，
 在用户创建顶层对象（如 Deployment）的时候控制 FQDN 的长度。
 {{< /note >}}
 
@@ -405,11 +405,11 @@ DNS 策略可以逐个 Pod 来设定。目前 Kubernetes 支持以下特定 Pod 
 这些策略可以在 Pod 规约中的 `dnsPolicy` 字段设置：
 
 - "`Default`": Pod 从运行所在的节点继承名称解析配置。参考
-  [相关讨论](/zh/docs/tasks/administer-cluster/dns-custom-nameservers)
+  [相关讨论](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)
   获取更多信息。
 - "`ClusterFirst`": 与配置的集群域后缀不匹配的任何 DNS 查询（例如 "www.kubernetes.io"）
   都将转发到从节点继承的上游名称服务器。集群管理员可能配置了额外的存根域和上游 DNS 服务器。
-  参阅[相关讨论](/zh/docs/tasks/administer-cluster/dns-custom-nameservers)
+  参阅[相关讨论](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)
   了解在这些场景中如何处理 DNS 查询的信息。
 - "`ClusterFirstWithHostNet`"：对于以 hostNetwork 方式运行的 Pod，应显式设置其 DNS 策略
   "`ClusterFirstWithHostNet`"。
@@ -609,5 +609,5 @@ For guidance on administering DNS configurations, check
 [Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 -->
 有关管理 DNS 配置的指导，请查看
-[配置 DNS 服务](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/)
+[配置 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/)
 

@@ -112,7 +112,7 @@ EndpointSlice represents a subset of the endpoints that implement a service. For
 
   - **endpoints.nodeName** (string)
 
-    nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+    nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
 
   - **endpoints.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 

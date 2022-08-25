@@ -2,14 +2,12 @@
 layout: blog
 title: '新贡献者工作坊上海站'
 date: 2018-12-05
+slug: new-contributor-workshop-shanghai
 ---
- 
 <!-- 
----
 layout: blog
 title: 'New Contributor Workshop Shanghai'
 date: 2018-12-05
----
  -->
 
 <!--

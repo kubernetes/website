@@ -21,7 +21,7 @@ if you wish to apply customization.
 and behind the scene both use the same code.
 -->
 `kubeadm join phase` 与
-[kubeadm join 工作流程](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/#join-workflow)
+[kubeadm join 工作流程](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/#join-workflow)
 一致，后台都使用相同的代码。
 
 ## kubeadm join phase {#cmd-join-phase}
@@ -91,11 +91,11 @@ Using this phase you can join a node as a control-plane instance.
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
-* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+* [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
   引导 Kubernetes 控制平面节点
-* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)
+* [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
   将节点添加到集群
-* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
+* [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
   恢复通过 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改
-* [kubeadm alpha](/zh/docs/reference/setup-tools/kubeadm/kubeadm-alpha/)
+* [kubeadm alpha](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-alpha/)
   尝试实验性功能

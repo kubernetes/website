@@ -1,6 +1,6 @@
 apiVersion: apps/v1
-# Alternatively, you can deploy the agents as Deployments. It is not necessary
-# to have an agent on each node.
+# 作为另一种替代方案，你可以将代理部署为 Deployment。
+# 没有必要在每个节点上都有一个代理。
 kind: DaemonSet
 metadata:
   labels:
@@ -28,8 +28,8 @@ spec:
           args: [
                   "--logtostderr=true",
                   "--ca-cert=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt",
-                  # Since the konnectivity server runs with hostNetwork=true,
-                  # this is the IP address of the master machine.
+                  # 由于 konnectivity 服务器以 hostNetwork=true 运行，
+                  # 所以这是控制面节点的 IP 地址。
                   "--proxy-server-host=35.225.206.7",
                   "--proxy-server-port=8132",
                   "--admin-server-port=8133",

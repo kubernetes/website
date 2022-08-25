@@ -11,7 +11,7 @@ metadata:
       intended to prevent/isolate access to those backends.
   labels:
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
-  name: custom:aggregate-to-edit:endpoints # you can change this if you wish
+  name: custom:aggregate-to-edit:endpoints # 你可以随意愿更改这个 name
 rules:
   - apiGroups: [""]
     resources: ["endpoints"]

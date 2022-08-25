@@ -67,4 +67,5 @@ for deploying Kubernetes is [kubeadm](/docs/setup/production-environment/tools/k
 Kubernetes is designed for its {{< glossary_tooltip term_id="control-plane" text="control plane" >}} to
 run on Linux. Within your cluster you can run applications on Linux or other operating systems, including
 Windows.
-- Learn to [set up clusters with Windows nodes](/docs/setup/production-environment/windows/)
+
+- Learn to [set up clusters with Windows nodes](/docs/concepts/windows/)

@@ -21,9 +21,9 @@ spec:
         k8s-app: fluentd-gcp
         kubernetes.io/cluster-service: "true"
         version: v2.0
-      # This annotation ensures that fluentd does not get evicted if the node
-      # supports critical pod annotation based priority scheme.
-      # Note that this does not guarantee admission on the nodes (#40573).
+      # 如果节点支持基于关键 Pod 注解的优先级方案，
+      # 此注解可确保 fluentd 不会被驱逐。
+      # 请注意，此注解并不保证在这些节点上准入 (#40573)。
       annotations:
         scheduler.alpha.kubernetes.io/critical-pod: ''
     spec:
@@ -31,11 +31,11 @@ spec:
       containers:
       - name: fluentd-gcp
         image: k8s.gcr.io/fluentd-gcp:2.0.2
-        # If fluentd consumes its own logs, the following situation may happen:
-        # fluentd fails to send a chunk to the server => writes it to the log =>
-        # tries to send this message to the server => fails to send a chunk and so on.
-        # Writing to a file, which is not exported to the back-end prevents it.
-        # It also allows to increase the fluentd verbosity by default.
+        # 如果 fluentd 消耗它自己的日志，则可能出现以下情形：
+        # fluentd 将一个块发送到服务器时失败 => 将其写入到日志 =>
+        # 尝试将此消息发送到该服务器 => 发送一个块时失败等等。
+        # 写入一个未导出到后端的文件，可以避免发生这类事情。
+        # 它还默认允许增加 fluentd 的详细程度。
         command:
           - '/bin/sh'
           - '-c'
@@ -60,13 +60,12 @@ spec:
           readOnly: true
         - name: config-volume
           mountPath: /etc/fluent/config.d
-        # Liveness probe is aimed to help in situations where fluentd
-        # silently hangs for no apparent reasons until manual restart.
-        # The idea of this probe is that if fluentd is not queueing or
-        # flushing chunks for 5 minutes, something is not right. If
-        # you want to change the fluentd configuration, reducing amount of
-        # logs fluentd collects, consider changing the threshold or turning
-        # liveness probe off completely.
+        # 存活探针旨在帮助处理 fluentd 无明显原因就静默挂起的情况，
+        # 这种情况通常只能手动重启。这个探针的思路是：
+        # 如果 fluentd 有 5 分钟未执行队列操作或未清洗数据分块，
+        # 那么肯定出现了什么问题。
+        # 如果你要更改 fluentd 配置以减少 fluentd 收集的日志量，
+        # 请考虑更改阈值或彻底关闭存活探针。
         livenessProbe:
           initialDelaySeconds: 600
           periodSeconds: 60

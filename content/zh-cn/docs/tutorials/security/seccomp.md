@@ -74,8 +74,8 @@ for the version you are using.
 The tutorial also uses the `curl` tool for downloading examples to your computer.
 You can adapt the steps to use a different tool if you prefer.
 -->
-为了完成本篇教程中的所有步骤，你必须安装 [kind](/zh/docs/tasks/tools/#kind)
-和 [kubectl](/zh/docs/tasks/tools/#kubectl)。
+为了完成本篇教程中的所有步骤，你必须安装 [kind](/zh-cn/docs/tasks/tools/#kind)
+和 [kubectl](/zh-cn/docs/tasks/tools/#kubectl)。
 
 本篇教程演示的某些示例仍然是 alpha 状态（自 v1.22 起），另一些示例则仅使用 seccomp 正式发布的功能。
 你应该确保，针对你使用的版本，
@@ -109,18 +109,20 @@ into the cluster.
 现在先将它们下载到名为 `profiles/` 的目录中，以便将它们加载到集群中。
 
 {{< tabs name="tab_with_code" >}}
-{{{< tab name="audit.json" >}}
+{{< tab name="audit.json" >}}
 {{< codenew file="pods/security/seccomp/profiles/audit.json" >}}
 {{< /tab >}}
 {{< tab name="violation.json" >}}
 {{< codenew file="pods/security/seccomp/profiles/violation.json" >}}
-{{< /tab >}}}
+{{< /tab >}}
 {{< tab name="fine-grained.json" >}}
 {{< codenew file="pods/security/seccomp/profiles/fine-grained.json" >}}
-{{< /tab >}}}
+{{< /tab >}}
 {{< /tabs >}}
 
-<!-- Run these commands: -->
+<!--
+Run these commands:
+-->
 执行这些命令：
 
 ```shell
@@ -131,7 +133,9 @@ curl -L -o profiles/fine-grained.json https://k8s.io/examples/pods/security/secc
 ls profiles
 ```
 
-<!-- You should see three profiles listed at the end of the final step: -->
+<!--
+You should see three profiles listed at the end of the final step:
+-->
 你应该看到在最后一步的末尾列出有三个配置文件：
 ```
 audit.json  fine-grained.json  violation.json
@@ -186,7 +190,7 @@ before you continue.
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
 默认首选的配置文件，而不是回退到 `Unconfined`。
 如果你想尝试，请在继续之前参阅
-[启用使用 `RuntimeDefault` 作为所有工作负载的默认 seccomp 配置文件](#enable-runtimedefault-as-default)
+[启用使用 `RuntimeDefault` 作为所有工作负载的默认 seccomp 配置文件](#enable-runtimedefault-as-default)。
 
 <!--
 Once you have a kind configuration in place, create the kind cluster with
@@ -214,6 +218,7 @@ You should see output indicating that a container is running with name
 -->
 你应该看到输出中名为 `kind-control-plane` 的容器正在运行。
 输出类似于：
+
 ```
 CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                       NAMES
 6a96207fed4b        kindest/node:v1.18.2   "/usr/local/bin/entr…"   27 seconds ago      Up 24 seconds       127.0.0.1:42223->6443/tcp   kind-control-plane
@@ -257,8 +262,8 @@ well as corresponding `--seccomp-default`
 [command line flag](/docs/reference/command-line-tools-reference/kubelet).
 Both have to be enabled simultaneously to use the feature.
 -->
-`SeccompDefault` 是一个可选的 kubelet [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates)
-以及相应的 `--seccomp-default` [命令行标志](/zh/docs/reference/command-line-tools-reference/kubelet)。
+`SeccompDefault` 是一个可选的 kubelet [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates)
+以及相应的 `--seccomp-default` [命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kubelet)。
 两者必须同时启用才能使用该功能。
 
 <!-- 
@@ -366,7 +371,9 @@ nodes:
             seccomp-default: "true"
 ```
 
-<!-- If the cluster is ready, then running a pod: -->
+<!--
+If the cluster is ready, then running a pod:
+-->
 如果集群已就绪，则运行一个 Pod：
 
 ```shell
@@ -428,7 +435,9 @@ the native API fields in favor of the annotations.
 请在可能的情况下使用原生 API 字段而不是注解。
 {{< /note >}}
 
-<!-- Create the Pod in the cluster: -->
+<!--
+Create the Pod in the cluster:
+-->
 在集群中创建 Pod：
 
 ```shell
@@ -463,15 +472,20 @@ that allows access to the endpoint from inside the kind control plane container.
 kubectl expose pod audit-pod --type NodePort --port 5678
 ```
 
-<!-- Check what port the Service has been assigned on the node. -->
+<!--
+Check what port the Service has been assigned on the node.
+-->
 检查 Service 在节点上分配的端口。
 
 ```shell
 kubectl get service audit-pod
 ```
 
-<!-- The output is similar to: -->
+<!--
+The output is similar to:
+-->
 输出类似于：
+
 ```
 NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 audit-pod   NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
@@ -548,14 +562,14 @@ kubectl delete pod audit-pod --wait --now
 ```
 
 <!-- 
-## Create Pod with seccomp profile that causes violation
+## Create Pod with a seccomp profile that causes violation
 
 For demonstration, apply a profile to the Pod that does not allow for any
 syscalls.
 
 The manifest for this demonstration is:
 -->
-## 使用导致违规的 seccomp 配置文件创建 Pod {#create-pod-with-seccomp-profile-that-causes-violation}
+## 使用导致违规的 seccomp 配置文件创建 Pod {#create-pod-with-a-seccomp-profile-that-causes-violation}
 
 出于演示目的，将配置文件应用于不允许任何系统调用的 Pod 上。
 
@@ -563,7 +577,9 @@ The manifest for this demonstration is:
 
 {{< codenew file="pods/security/seccomp/ga/violation-pod.yaml" >}}
 
-<!-- Attempt to create the Pod in the cluster: -->
+<!--
+Attempt to create the Pod in the cluster:
+-->
 尝试在集群中创建 Pod：
 
 ```shell
@@ -606,8 +622,8 @@ Clean up that Pod before moving to the next section:
 kubectl delete pod violation-pod --wait --now
 ```
 
-<!-- 
-## Create Pod with seccomp profile that only allows necessary syscalls
+<!--
+## Create Pod with a seccomp profile that only allows necessary syscalls
 
 If you take a look at the `fine-grained.json` profile, you will notice some of the syscalls
 seen in syslog of the first example where the profile set `"defaultAction":
@@ -618,7 +634,7 @@ sent to `syslog`.
 
 The manifest for this example is:
 -->
-## 使用只允许必要的系统调用的 seccomp 配置文件创建 Pod {#create-pod-with-seccomp-profile-that-only-allows-necessary-syscalls}
+## 使用只允许必要的系统调用的 seccomp 配置文件创建 Pod {#create-pod-with-a-seccomp-profile-that-only-allows-necessary-syscalls}
 
 如果你看一看 `fine-grained.json` 配置文件，
 你会注意到第一个示例的 syslog 中看到的一些系统调用，
@@ -631,7 +647,9 @@ The manifest for this example is:
 
 {{< codenew file="pods/security/seccomp/ga/fine-pod.yaml" >}}
 
-<!-- Create the Pod in your cluster: -->
+<!--
+Create the Pod in your cluster:
+-->
 在你的集群中创建 Pod：
 
 ```shell
@@ -642,8 +660,11 @@ kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/fine-pod.yaml
 kubectl get pod fine-pod
 ```
 
-<!-- The Pod should be showing as having started successfully: -->
+<!--
+The Pod should be showing as having started successfully:
+-->
 此 Pod 应该显示为已成功启动：
+
 ```
 NAME        READY   STATUS    RESTARTS   AGE
 fine-pod   1/1     Running   0          30s
@@ -660,28 +681,36 @@ mention calls from `http-echo`:
 tail -f /var/log/syslog | grep 'http-echo'
 ```
 
-<!-- Next, expose the Pod with a NodePort Service: -->
+<!--
+Next, expose the Pod with a NodePort Service:
+-->
 接着，使用 NodePort Service 公开 Pod：
 
 ```shell
 kubectl expose pod fine-pod --type NodePort --port 5678
 ```
 
-<!-- Check what port the Service has been assigned on the node: -->
+<!--
+Check what port the Service has been assigned on the node:
+-->
 检查节点上的 Service 分配了什么端口：
 
 ```shell
 kubectl get service fine-pod
 ```
 
-<!-- The output is similar to: -->
+<!--
+The output is similar to:
+-->
 输出类似于：
 ```
 NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 fine-pod    NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
 ```
 
-<!-- Use `curl` to access that endpoint from inside the kind control plane container: -->
+<!--
+Use `curl` to access that endpoint from inside the kind control plane container:
+-->
 使用 `curl` 从 kind 控制平面容器内部访问端点：
 
 ```shell
@@ -732,7 +761,7 @@ type in the security context of a pod or container to `RuntimeDefault`.
 If you have the `SeccompDefault` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
 no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
 -->
-如果你已经启用了 `SeccompDefault` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+如果你已经启用了 `SeccompDefault` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 只要没有指定其他 seccomp 配置文件，那么 Pod 就会使用 `SeccompDefault` 的 seccomp 配置文件。
 否则，默认值为 `Unconfined`。
 {{< /note >}}
@@ -745,8 +774,11 @@ for all its containers:
 
 {{< codenew file="pods/security/seccomp/ga/default-pod.yaml" >}}
 
-<!-- Create that Pod: -->
+<!--
+Create that Pod:
+-->
 创建此 Pod：
+
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/default-pod.yaml
 ```
@@ -755,14 +787,19 @@ kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/default-pod.ya
 kubectl get pod default-pod
 ```
 
-<!-- The Pod should be showing as having started successfully: -->
+<!--
+The Pod should be showing as having started successfully:
+-->
 此 Pod 应该显示为成功启动：
+
 ```
 NAME        READY   STATUS    RESTARTS   AGE
 default-pod 1/1     Running   0          20s
 ```
 
-<!-- Finally, now that you saw that work OK, clean up: -->
+<!--
+Finally, now that you saw that work OK, clean up:
+-->
 最后，你看到一切正常之后，请清理：
 
 ```shell

@@ -141,7 +141,7 @@ To add a label, leave a comment in one of the following formats:
 To remove a label, leave a comment in one of the following formats:
 
 - `/remove-<label-to-remove>` (for example, `/remove-help`)
-- `/remove-<label-category> <label-to-remove>` (for example, `/remove-triage needs-information`)`
+- `/remove-<label-category> <label-to-remove>` (for example, `/remove-triage needs-information`)
 
 In both cases, the label must already exist. If you try to add a label that does not exist, the command is
 silently ignored.
@@ -181,7 +181,7 @@ If the dead link issue is in the API or `kubectl` documentation, assign them `/p
 
 ### Blog issues
 
-We expect [Kubernetes Blog](https://kubernetes.io/blog/) entries to become
+We expect [Kubernetes Blog](/blog/) entries to become
 outdated over time. Therefore, we only maintain blog entries less than a year old.
 If an issue is related to a blog entry that is more than one year old,
 close the issue without fixing.

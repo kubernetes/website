@@ -54,8 +54,8 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 * readOnlyRootFilesystem: Mounts the container's root filesystem as read-only.
 -->
-* [AppArmor](/zh/docs/tutorials/security/apparmor/)：使用程序配置来限制个别程序的权能。
-* [Seccomp](/zh/docs/tutorials/security/seccomp/)：过滤进程的系统调用。
+* [AppArmor](/zh-cn/docs/tutorials/security/apparmor/)：使用程序配置来限制个别程序的权能。
+* [Seccomp](/zh-cn/docs/tutorials/security/seccomp/)：过滤进程的系统调用。
 * `allowPrivilegeEscalation`：控制进程是否可以获得超出其父进程的特权。
   此布尔值直接控制是否为容器进程设置
   [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)标志。
@@ -306,9 +306,9 @@ This field has no effect on ephemeral volume types such as
 and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
 -->
 {{< note >}}
-此字段对于 [`secret`](/zh/docs/concepts/storage/volumes/#secret)、
-[`configMap`](/zh/docs/concepts/storage/volumes/#configmap)
-和 [`emptydir`](/zh/docs/concepts/storage/volumes/#emptydir)
+此字段对于 [`secret`](/zh-cn/docs/concepts/storage/volumes/#secret)、
+[`configMap`](/zh-cn/docs/concepts/storage/volumes/#configmap)
+和 [`emptydir`](/zh-cn/docs/concepts/storage/volumes/#emptydir)
 这类临时性存储无效。
 {{< /note >}}
 
@@ -721,7 +721,7 @@ Pod 的安全上下文适用于 Pod 中的容器，也适用于 Pod 所挂载的
 <!--
 * `fsGroup`: Volumes that support ownership management are modified to be owned
   and writable by the GID specified in `fsGroup`. See the
-  [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
+  [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
   for more details.
 
 * `seLinuxOptions`: Volumes that support SELinux labeling are relabeled to be accessible
@@ -732,7 +732,7 @@ Pod 的安全上下文适用于 Pod 中的容器，也适用于 Pod 所挂载的
 -->
 * `fsGroup`：支持属主管理的卷会被修改，将其属主变更为 `fsGroup` 所指定的 GID，
   并且对该 GID 可写。进一步的细节可参阅
-  [属主变更设计文档](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)。
+  [属主变更设计文档](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)。
 
 * `seLinuxOptions`：支持 SELinux 标签的卷会被重新打标签，以便可被 `seLinuxOptions`
   下所设置的标签访问。通常你只需要设置 `level` 部分。
@@ -771,21 +771,21 @@ kubectl delete pod security-context-demo-4
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 * [Tuning Docker with the newest security enhancements](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
-* [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
-* [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
+* [Security Contexts design document](https://git.k8s.io/design-proposals-archive/auth/security_context.md)
+* [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
 * [Pod Security Policies](/docs/concepts/security/pod-security-policy/)
 * [AllowPrivilegeEscalation design
-  document](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
+  document](https://git.k8s.io/design-proposals-archive/auth/no-new-privs.md)
 * For more information about security mechanisms in Linux, see
   [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
 -->
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core) API 定义
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core) API 定义
 * [使用最新的安全性增强来调优 Docker（英文）](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
-* [安全上下文的设计文档（英文）](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
-* [属主管理的设计文档（英文）](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
-* [Pod 安全策略](/zh/docs/concepts/security/pod-security-policy/)
-* [AllowPrivilegeEscalation 的设计文档（英文）](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
+* [安全上下文的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/security_context.md)
+* [属主管理的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-ownership-management.md)
+* [Pod 安全策略](/zh-cn/docs/concepts/security/pod-security-policy/)
+* [AllowPrivilegeEscalation 的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/no-new-privs.md)
 * 关于在 Linux 系统中的安全机制的更多信息，可参阅
   [Linux 内核安全性能力概述](https://www.linux.com/learn/overview-linux-kernel-security-features)。
 

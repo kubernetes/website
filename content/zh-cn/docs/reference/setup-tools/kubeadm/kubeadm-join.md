@@ -115,7 +115,7 @@ command, `kubeadm join phase` allows you to skip a list of phases using the `--s
 
 For example:
 -->
-类似于 [kubeadm init phase](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases) 命令，
+类似于 [kubeadm init phase](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases) 命令，
 `kubeadm join phase` 允许你使用 `--skip-phases` 标志跳过阶段列表。
 
 例如：
@@ -310,7 +310,7 @@ In case the discovery file does not contain credentials, the TLS discovery token
 这种方案提供了一种带外方式在控制平面节点和引导节点之间建立信任根。
 如果使用 kubeadm 构建自动配置，请考虑使用此模式。
 发现文件的格式为常规的 Kubernetes
-[kubeconfig](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 文件。
+[kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 文件。
 
 如果发现文件不包含凭据，则将使用 TLS 发现令牌。
 
@@ -529,11 +529,11 @@ The default configuration can be printed out using the
 If your configuration is not using the latest version it is **recommended** that you migrate using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 -->
-使用 [kubeadm config print](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
+使用 [kubeadm config print](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令可以打印默认配置。
 
 如果你的配置没有使用最新版本，
-**推荐**使用 [kubeadm config migrate](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
+**推荐**使用 [kubeadm config migrate](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令转换。
 
 <!--
@@ -541,7 +541,7 @@ For more information on the fields and usage of the configuration you can naviga
 [API reference](/docs/reference/config-api/kubeadm-config.v1beta3/).
 -->
 有关配置的字段和用法的更多信息，你可以导航到我们的
-[API 参考页](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)。
+[API 参考页](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 
 ## {{% heading "whatsnext" %}}
@@ -551,10 +551,10 @@ For more information on the fields and usage of the configuration you can naviga
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 -->
-* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+* [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
   初始化 Kubernetes 控制平面节点
-* [kubeadm token](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token/)
+* [kubeadm token](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-token/)
   管理 `kubeadm join` 的令牌
-* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
+* [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
   将 `kubeadm init` 或 `kubeadm join` 对主机的更改恢复到之前状态
 

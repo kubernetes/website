@@ -6,7 +6,7 @@ weight: 110
 
 <!-- overview -->
 <!--
-This page shows how to configure liveness, readiness and startup probes for Containers.
+This page shows how to configure liveness, readiness and startup probes for containers.
 
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses liveness probes to know when to
 restart a container. For example, liveness probes could catch a deadlock,
@@ -16,7 +16,7 @@ despite bugs.
 -->
 这篇文章介绍如何给容器配置活跃（Liveness）、就绪（Readiness）和启动（Startup）探测器。
 
-[kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/)
+[kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 使用存活探测器来确定什么时候要重启容器。
 例如，存活探测器可以探测到应用死锁（应用程序在运行，但是无法继续执行后面的步骤）情况。
 重启这种状态下的容器有助于提高应用的可用性，即使其中存在缺陷。
@@ -146,9 +146,9 @@ kubectl describe pod liveness-exec
 
 <!--
 At the bottom of the output, there are messages indicating that the liveness
-probes have failed, and the containers have been killed and recreated.
+probes have failed, and the failed containers have been killed and recreated.
 -->
-在输出结果的最下面，有信息显示存活探测器失败了，这个容器被杀死并且被重建了。
+在输出结果的最下面，有信息显示存活探测器失败了，这个失败的容器被杀死并且被重建了。
 
 ```
 FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
@@ -171,9 +171,9 @@ kubectl get pod liveness-exec
 ```
 
 <!--
-The output shows that `RESTARTS` has been incremented:
+The output shows that `RESTARTS` has been incremented. Note that the `RESTARTS` counter increments as soon as a failed container comes back to the running state:
 -->
-输出结果显示 `RESTARTS` 的值增加了 1。
+输出结果显示 `RESTARTS` 的值增加了 1。请注意，一旦失败的容器恢复为运行状态，`RESTARTS` 计数器就会增加 1：
 
 ```
 NAME            READY     STATUS    RESTARTS   AGE
@@ -341,7 +341,6 @@ kubectl describe pod goproxy
 
 {{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
-
 <!--
 If your application implements [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
 kubelet can be configured to use it for application liveness checks.
@@ -351,10 +350,11 @@ in order to configure checks that rely on gRPC.
 
 Here is an example manifest:
 -->
-如果你的应用实现了 [gRPC 健康检查协议](https://github.com/grpc/grpc/blob/master/doc/health-checking.md)，
+如果你的应用实现了
+[gRPC 健康检查协议](https://github.com/grpc/grpc/blob/master/doc/health-checking.md)，
 kubelet 可以配置为使用该协议来执行应用活跃性检查。
 你必须启用 `GRPCContainerProbe`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 才能配置依赖于 gRPC 的检查机制。
 
 下面是一个示例清单：
@@ -421,7 +421,7 @@ When migrating from grpc-health-probe to built-in probes, remember the following
 - 内置探测器运行时针对的是 Pod 的 IP 地址，不像 `grpc-health-probe`
   那样通常针对 `127.0.0.1` 执行探测；
   请一定配置你的 gRPC 端点使之监听于 Pod 的 IP 地址之上。
-- 内置探测器不支持任何身份认证参数（例如 `tls`）。
+- 内置探测器不支持任何身份认证参数（例如 `-tls`）。
 - 对于内置的探测器而言，不存在错误代码。所有错误都被视作探测失败。
 - 如果 `ExecProbeTimeout` 特性门控被设置为 `false`，则 `grpc-health-probe`
   不会考虑 `timeoutSeconds` 设置状态（默认值为 1s），
@@ -431,13 +431,13 @@ When migrating from grpc-health-probe to built-in probes, remember the following
 ## Use a named port
 
 You can use a named
-[ContainerPort](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerport-v1-core)
+[`port`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#ports)
 for HTTP or TCP liveness checks:
 -->
 ## 使用命名端口 {#use-a-named-port}
 
 对于 HTTP 或者 TCP 存活检测可以使用命名的
-[ContainerPort](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerport-v1-core)。
+[`port`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#ports)。
 
 ```yaml
 ports:
@@ -527,17 +527,17 @@ Services.
 Kubernetes 提供了就绪探测器来发现并缓解这些情况。
 容器所在 Pod 上报还未就绪的信息，并且不接受通过 Kubernetes Service 的流量。
 
+{{< note >}}
 <!--
 Readiness probes runs on the container during its whole lifecycle.
 -->
-{{< note >}}
 就绪探测器在容器的整个生命周期中保持运行状态。
 {{< /note >}}
 
+{{< caution >}}
 <!--
 Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
 -->
-{{< caution >}}
 活跃探测器 **不等待** 就绪性探测器成功。
 如果要在执行活跃探测器之前等待，应该使用 `initialDelaySeconds` 或 `startupProbe`。
 {{< /caution >}}
@@ -570,7 +570,7 @@ for it, and that containers are restarted when they fail.
 HTTP 和 TCP 的就绪探测器配置也和存活探测器的配置完全相同。
 
 就绪和存活探测可以在同一个容器上并行使用。
-两者都可以确保流量不会发给还未就绪的容器，当这些探测失败时容器会被重新启动。
+两者共同使用，可以确保流量不会发给还未就绪的容器，当这些探测失败时容器会被重新启动。
 
 <!--
 ## Configure Probes
@@ -638,7 +638,7 @@ eventual removal of that feature gate.
 这一缺陷在 Kubernetes v1.20 版本中得到修复。你可能一直依赖于之前错误的探测行为，
 甚至都没有觉察到这一问题的存在，因为默认的超时值是 1 秒钟。
 作为集群管理员，你可以在所有的 kubelet 上禁用 `ExecProbeTimeout`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 （将其设置为 `false`），从而恢复之前版本中的运行行为。之后当集群中所有的
 exec 探针都设置了 `timeoutSeconds` 参数后，移除此标志重载。
 如果你有 Pod 受到此默认 1 秒钟超时值的影响，你应该更新这些 Pod 对应的探针的超时值，
@@ -709,14 +709,14 @@ case, you should not use `host`, but rather set the `Host` header in `httpHeader
 
 <!--
 For an HTTP probe, the kubelet sends two request headers in addition to the mandatory `Host` header:
-`User-Agent`, and `Accept`. The default values for these headers are `kube-probe/{{< skew latestVersion >}}`
-(where `{{< skew latestVersion >}}` is the version of the kubelet ), and `*/*` respectively.
+`User-Agent`, and `Accept`. The default values for these headers are `kube-probe/{{< skew currentVersion >}}`
+(where `{{< skew currentVersion >}}` is the version of the kubelet ), and `*/*` respectively.
 
 You can override the default headers by defining `.httpHeaders` for the probe; for example
 -->
 针对 HTTP 探针，kubelet 除了必需的 `Host` 头部之外还发送两个请求头部字段：
-`User-Agent` 和 `Accept`。这些头部的默认值分别是 `kube-probe/{{ skew latestVersion >}}`
-（其中 `{{< skew latestVersion >}}` 是 kubelet 的版本号）和 `*/*`。
+`User-Agent` 和 `Accept`。这些头部的默认值分别是 `kube-probe/{{ skew currentVersion >}}`
+（其中 `{{< skew currentVersion >}}` 是 kubelet 的版本号）和 `*/*`。
 
 你可以通过为探测设置 `.httpHeaders` 来重载默认的头部字段值；例如：
 
@@ -816,18 +816,18 @@ those existing Pods.
 <!--
 When you (or the control plane, or some other component) create replacement
 Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
-API server ignores the Pod-level `terminationGracePeriodSeconds` field, even if
+API server ignores the Probe-level `terminationGracePeriodSeconds` field, even if
 a Pod or pod template specifies it.
 -->
 当你（或控制平面或某些其他组件）创建替换 Pod，并且特性门控 `ProbeTerminationGracePeriod`
-被禁用时，API 服务器会忽略 Pod 级别的 `terminationGracePeriodSeconds` 字段设置，
+被禁用时，API 服务器会忽略探针级别的 `terminationGracePeriodSeconds` 字段设置，
 即使 Pod 或 Pod 模板指定了它。
 
 例如:
 
 ```yaml
 spec:
-  terminationGracePeriodSeconds: 3600  # pod-level
+  terminationGracePeriodSeconds: 3600  # Pod 级别设置
   containers:
   - name: test
     image: ...
@@ -843,7 +843,7 @@ spec:
         port: liveness-port
       failureThreshold: 1
       periodSeconds: 60
-      # Override pod-level terminationGracePeriodSeconds #
+      # 重载 Pod 级别的 terminationGracePeriodSeconds
       terminationGracePeriodSeconds: 60
 ```
 
@@ -858,20 +858,20 @@ It will be rejected by the API server.
 
 <!--
 * Learn more about
-[Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+  [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 -->
-* 进一步了解[容器探针](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
+* 进一步了解[容器探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
 
 <!--
 You can also read the API references for:
 
-* [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
-* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-* [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
+* [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/), and specifically:
+  * [container(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
+  * [probe(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)
 -->
 你也可以阅读以下的 API 参考资料：
 
-* [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
-* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-* [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
+* [Pod](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/)，尤其是：
+  * [container](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
+  * [probe](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)
 

@@ -242,7 +242,7 @@ Figure 17. A to B
 more text
 ```
 {{< note >}}
-You must include the `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}` shortcode
+You must include the Hugo Mermaid shortcode
 tags at the start and end of the Mermaid code block. You should add a diagram
 caption below the diagram. 
 {{< /note >}}
@@ -429,7 +429,7 @@ Don't forget to check that your diagram renders correctly using the
 This section shows several examples of Mermaid diagrams. 
 
 {{< note >}}
-The code block examples omit the Hugo  `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}`
+The code block examples omit the Hugo Mermaid
 shortcode tags. This allows you to copy the code block into the live editor
 to experiment on your own.
 Note that the live editor doesn't recognize Hugo shortcodes. 
@@ -438,7 +438,7 @@ Note that the live editor doesn't recognize Hugo shortcodes.
 ### Example 1 - Pod topology spread constraints
 
 Figure 6 shows the diagram appearing in the
-[Pod topology pread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#node-labels)
+[Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/#node-labels)
 page.
 
 {{< mermaid >}}

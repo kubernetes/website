@@ -13,7 +13,7 @@ weight: 50
   * [소유자 참조가 없는 오브젝트](#owners-dependents)
   * [사용되지 않는 컨테이너와 컨테이너 이미지](#containers-images)
   * [반환 정책이 삭제인 스토리지클래스에 의해 동적으로 생성된 퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/#delete)
-  * [Stale 또는 만료된 CertificateSigningRequests (CSRs)](/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process) <!-- en 글에서부터 링크가 깨져있어 /docs를 따로 추가-->
+  * [Stale 또는 만료된 CertificateSigningRequests (CSRs)](/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
   * {{<glossary_tooltip text="노드" term_id="node">}} 는 다음과 같은 상황에서 삭제된다:
     * 클러스터가 [클라우드 컨트롤러 매니저](/ko/docs/concepts/architecture/cloud-controller/)를 사용하는 클라우드
     * 클러스터가 클라우드 컨트롤러 매니저와 유사한 애드온을 사용하는 온프레미스

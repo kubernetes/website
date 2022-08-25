@@ -24,7 +24,7 @@ This page shows how to use Romana for NetworkPolicy.
 <!--
 Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/).
 -->
-完成 [kubeadm 入门指南](/zh/docs/reference/setup-tools/kubeadm/)中的 1、2、3 步。
+完成 [kubeadm 入门指南](/zh-cn/docs/reference/setup-tools/kubeadm/)中的 1、2、3 步。
 
 <!-- steps -->
 <!--
@@ -59,6 +59,6 @@ To apply network policies use one of the following:
 Once you have installed Romana, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
  -->
 Romana 安装完成后，你可以按照
-[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
+[声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
 去尝试使用 Kubernetes NetworkPolicy。
 

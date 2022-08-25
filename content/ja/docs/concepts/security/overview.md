@@ -125,7 +125,7 @@ TLS経由のアクセスのみ | コードがTCP通信を必要とする場合�
 関連するKubernetesセキュリティについて学びます。
 
 * [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)
-* [Podのネットワークポリシー]](/ja/docs/concepts/services-networking/network-policies/)
+* [Podのネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)
 * [Kubernetes APIへのアクセスを制御する](/docs/concepts/security/controlling-access)
 * [クラスターの保護](/docs/tasks/administer-cluster/securing-a-cluster/)
 * コントロールプレーンとの[通信時のデータ暗号化](/docs/tasks/tls/managing-tls-in-a-cluster/)

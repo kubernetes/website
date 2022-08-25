@@ -34,7 +34,7 @@ As cotas de recursos funcionam assim:
   Veja o [passo a passo](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
   para um exemplo de como evitar este problema. 
 
-O nome de um objeto `ResourceQuota` deve ser um [nome do subdomínio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
+O nome de um objeto `ResourceQuota` deve ser um [nome do subdomínio DNS](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
 Exemplos de políticas que podem ser criadas usando _namespaces_ e cotas são:
 

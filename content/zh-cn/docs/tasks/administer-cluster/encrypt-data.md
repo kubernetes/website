@@ -39,7 +39,7 @@ An example configuration is provided below.
 ## 配置并确定是否已启用静态数据加密
 
 `kube-apiserver` 的参数 `--encryption-provider-config` 控制 API 数据在 etcd 中的加密方式。
-该配置作为一个名为 [`EncryptionConfiguration`](/zh/docs/reference/config-api/apiserver-encryption.v1/) 的 API 提供。
+该配置作为一个名为 [`EncryptionConfiguration`](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/) 的 API 提供。
 下面提供了一个示例配置。
 
 <!--
@@ -108,7 +108,7 @@ For more detailed information about the `EncryptionConfiguration` struct, please
 当从存储器读取资源时，与存储的数据匹配的所有 provider 将按顺序尝试解密数据。
 如果由于格式或密钥不匹配而导致没有 provider 能够读取存储的数据，则会返回一个错误，以防止客户端访问该资源。
 
-有关 `EncryptionConfiguration` 结构体的更多详细信息，请参阅[加密配置 API](/zh/docs/reference/config-api/apiserver-encryption.v1/)。
+有关 `EncryptionConfiguration` 结构体的更多详细信息，请参阅[加密配置 API](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
 
 <!--
 If any resource is not readable via the encryption config (because keys were changed),
@@ -141,7 +141,7 @@ is the first provider, the first key is used for encryption.
 `secretbox` | XSalsa20 和 Poly1305 | 强 | 更快 | 32字节 | 较新的标准，在需要高度评审的环境中可能不被接受。
 `aesgcm` | 带有随机数的 AES-GCM | 必须每 200k 写入一次 | 最快 | 16, 24 或者 32字节 | 建议不要使用，除非实施了自动密钥循环方案。
 `aescbc` | 填充 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 的 AES-CBC | 弱 | 快 | 32字节 | 由于 CBC 容易受到密文填塞攻击（Padding Oracle Attack），不推荐使用。
-`kms` | 使用信封加密方案：数据使用带有 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 填充的 AES-CBC 通过数据加密密钥（DEK）加密，DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密 | 最强 | 快 | 32字节 | 建议使用第三方工具进行密钥管理。为每个加密生成新的 DEK，并由用户控制 KEK 轮换来简化密钥轮换。[配置 KMS 提供程序](/zh/docs/tasks/administer-cluster/kms-provider/)
+`kms` | 使用信封加密方案：数据使用带有 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 填充的 AES-CBC 通过数据加密密钥（DEK）加密，DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密 | 最强 | 快 | 32字节 | 建议使用第三方工具进行密钥管理。为每个加密生成新的 DEK，并由用户控制 KEK 轮换来简化密钥轮换。[配置 KMS 提供程序](/zh-cn/docs/tasks/administer-cluster/kms-provider/)
 
 每个 provider 都支持多个密钥 - 在解密时会按顺序使用密钥，如果是第一个 provider，则第一个密钥用于加密。
 
@@ -289,7 +289,7 @@ program to retrieve the contents of your Secret.
    to completely decode the Secret.
    -->
    其输出应该包含 `mykey: bXlkYXRh`，`mydata` 的内容是被加密过的，
-   请参阅[解密 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)
+   请参阅[解密 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)
    了解如何完全解码 Secret 内容。
 
 <!--
@@ -391,4 +391,4 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 <!--
 * Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
 -->
-进一步学习 [EncryptionConfiguration 配置 API (v1)](/zh/docs/reference/config-api/apiserver-encryption.v1/)。
+进一步学习 [EncryptionConfiguration 配置 API (v1)](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。

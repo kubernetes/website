@@ -4,12 +4,12 @@ date: 2016-01-14
 slug: why-kubernetes-doesnt-use-libnetwork
 ---
 
-<!-- ---
+<!--
 title: " Why Kubernetes doesn’t use libnetwork "
 date: 2016-01-14
 slug: why-kubernetes-doesnt-use-libnetwork
-url: /zh/blog/2016/01/Why-Kubernetes-Doesnt-Use-Libnetwork
---- -->
+url: /blog/2016/01/Why-Kubernetes-Doesnt-Use-Libnetwork
+-->
 
 <!-- Kubernetes has had a very basic form of network plugins since before version 1.0 was released — around the same time as Docker's [libnetwork](https://github.com/docker/libnetwork) and Container Network Model ([CNM](https://github.com/docker/libnetwork/blob/master/docs/design.md)) was introduced. Unlike libnetwork, the Kubernetes plugin system still retains its "alpha" designation. Now that Docker's network plugin support is released and supported, an obvious question we get is why Kubernetes has not adopted it yet. After all, vendors will almost certainly be writing plugins for Docker — we would all be better off using the same drivers, right?   -->
 

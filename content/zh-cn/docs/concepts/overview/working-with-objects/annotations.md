@@ -163,5 +163,5 @@ spec:
 <!--
 * Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
 -->
-* 进一步了解[标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)。
+* 进一步了解[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。
 

@@ -30,7 +30,7 @@ Your cluster must be running the CoreDNS add-on.
 explains how to use `kubeadm` to migrate from `kube-dns`.
 -->
 你的集群必须运行 CoreDNS 插件。
-文档[迁移到 CoreDNS](/zh/docs/tasks/administer-cluster/coredns/#migrating-to-coredns)
+文档[迁移到 CoreDNS](/zh-cn/docs/tasks/administer-cluster/coredns/#migrating-to-coredns)
 解释了如何使用 `kubeadm` 从 `kube-dns` 迁移到 CoreDNS。
 
 <!-- steps -->
@@ -84,7 +84,7 @@ The DNS server supports forward lookups (A and AAAA records), port lookups (SRV 
 and more. For more information, see [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/).
 -->
 DNS 服务器支持正向查找（A 和 AAAA 记录）、端口发现（SRV 记录）、反向 IP 地址发现（PTR 记录）等。
-更多信息，请参见[Pod 和 服务的 DNS](/zh/docs/concepts/services-networking/dns-pod-service/)。
+更多信息，请参见[Pod 和 服务的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 
 <!-- 
 If a Pod's `dnsPolicy` is set to "`default`", it inherits the name resolution
@@ -94,7 +94,7 @@ But see [Known issues](/docs/tasks/administer-cluster/dns-debugging-resolution/#
 -->
 如果 Pod 的 `dnsPolicy` 设置为 "`default`"，则它将从 Pod 运行所在节点继承名称解析配置。
 Pod 的 DNS 解析行为应该与节点相同。
-但请参阅[已知问题](/zh/docs/tasks/administer-cluster/dns-debugging-resolution/#known-issues)。
+但请参阅[已知问题](/zh-cn/docs/tasks/administer-cluster/dns-debugging-resolution/#known-issues)。
 
 <!-- 
 If you don't want this, or if you want a different DNS config for pods, you can
@@ -399,5 +399,5 @@ A cluster administrator can also migrate using [the deploy script](https://githu
 <!--
 - Read [Debugging DNS Resolution](/docs/tasks/administer-cluster/dns-debugging-resolution/).
 -->
-- 阅读[调试 DNS 解析](/zh/docs/tasks/administer-cluster/dns-debugging-resolution/)
+- 阅读[调试 DNS 解析](/zh-cn/docs/tasks/administer-cluster/dns-debugging-resolution/)
 

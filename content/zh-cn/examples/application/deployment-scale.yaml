@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: nginx
-  replicas: 4 # Update the replicas from 2 to 4
+  replicas: 4 # 将副本数从 2 更新为 4
   template:
     metadata:
       labels:

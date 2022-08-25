@@ -2,7 +2,7 @@
 title: Job
 id: job
 date: 2018-04-12
-full_link: /zh/docs/concepts/workloads/controllers/job/
+full_link: /zh-cn/docs/concepts/workloads/controllers/job/
 short_description: >
   Job 是需要运行完成的确定性的或批量的任务。
 

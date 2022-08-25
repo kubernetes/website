@@ -4,7 +4,7 @@
 # change is that the Hugo version is now an overridable argument rather than a fixed
 # environment variable.
 
-FROM golang:1.16-alpine
+FROM golang:1.18-alpine
 
 LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
 
@@ -24,7 +24,7 @@ RUN mkdir $HOME/src && \
     cd "hugo-${HUGO_VERSION}" && \
     go install --tags extended
 
-FROM golang:1.16-alpine
+FROM golang:1.18-alpine
 
 RUN apk add --no-cache \
     runuser \

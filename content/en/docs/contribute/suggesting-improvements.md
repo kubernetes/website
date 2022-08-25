@@ -1,6 +1,5 @@
 ---
 title: Suggesting content improvements
-slug: suggest-improvements
 content_type: concept
 weight: 10
 card:

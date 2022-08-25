@@ -57,8 +57,8 @@ This version improves on the v1beta1 format by fixing some minor issues and addi
 （从更老版本的 kubeadm 配置文件迁移需要使用更老版本的 kubeadm。例如：</p>
 <ul>
 <li>kubeadm v1.11 版本可以用来从 v1alpha1 迁移到 v1alpha2 版本；kubeadm v1.12
-可用来将 v1alpha2 翻译为 v1alpha3。</li>
-<li>kubeadm v1.13 或 v1.14 可以用来将 v1alpha3 迁移到 v1beta1。</li>
+可用来将 v1alpha2 转换为 v1alpha3。</li>
+<li>kubeadm v1.13 或 v1.14 可以用来将 v1alpha3 转换为 v1beta1。</li>
 </ul>
 ）
 
@@ -243,10 +243,10 @@ https://godoc.org/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
 for kube proxy official documentation.</p>
 -->
 <p>KubeProxyConfiguration 类型用来更改传递给在集群中部署的 kube-proxy 实例的配置。
-如果此对象没有提供，或者仅部分提供，kubeadm 使用默认值。</p>
+如果此对象没有提供，或者仅部分提供，kubeadm 将使用默认值。</p>
 
 <p>关于 kube-proxy 的官方文档，可参阅
-https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kube-proxy/
+https://kubernetes.io/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/
 或者 https://godoc.org/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration。
 </p>
 
@@ -267,7 +267,7 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 如果此对象没有提供，或者仅部分提供，kubeadm 使用默认值。</p>
 
 <p>关于 kubelet 的官方文档，可参阅
-https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kubelet/
+https://kubernetes.io/zh-cn/docs/reference/command-line-tools-reference/kubelet/
 或者
 https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 
@@ -410,7 +410,7 @@ node only (e.g. the node IP).</p>
 
 <ul>
 <li><code>nodeRegistration</code>：其中包含向集群注册新节点相关的配置字段；
-使用这个类型可以定制节点名称、用使用的 CRI 套接字和所有其他仅适用于当前节点的设置
+使用这个类型可以定制节点名称、要使用的 CRI 套接字和所有其他仅适用于当前节点的设置
 （例如节点 IP 地址）。</li>
 <li><code>apiEndpoint</code>：用来代表最终要部署到此节点上的 API
 服务器实例的端点。</li>
@@ -699,7 +699,7 @@ configuration object lets you customize what IP/DNS name and port the local API 
 on. By default, kubeadm tries to auto-detect the IP of the default interface and use that, but in case that process
 fails you may set the desired value here.</p>
    -->
-   <p><code>localAPIEndpoint</code> 所代表的的是在此控制面节点上要部署的 API 服务器的端点。
+   <p><code>localAPIEndpoint</code> 所代表的是在此控制面节点上要部署的 API 服务器的端点。
 在高可用（HA）配置中，此字段与 <code>ClusterConfiguration.controlPlaneEndpoint</code>
 的取值不同：后者代表的是整个集群的全局端点，该端点上的请求会被负载均衡到每个 API 服务器。
 此配置对象允许你定制本地 API 服务器所公布的、可访问的 IP/DNS 名称和端口。
@@ -869,7 +869,7 @@ APIServer 包含集群中 API 服务器部署所必需的设置。
    <!--
    No description provided.
    -->
-   无描述
+   无描述。
    </span>
 </tr>
 <tr><td><code>certSANs</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1194,7 +1194,7 @@ DNS 结构定义要在集群中使用的 DNS 插件。
    <!--
    <code>imageMeta</code> allows to customize the image used for the DNS component.
    -->
-   <code>imageMeta</code> 允许对 DNS 组件所使用的的镜像作定制。
+   <code>imageMeta</code> 允许对 DNS 组件所使用的镜像作定制。
 </p>
 </td>
 </tr>
@@ -1717,7 +1717,7 @@ signing certificate.</p>
    <!--
    <p><code>serviceSubnet</code> is the subnet used by kubernetes Services. Defaults to &quot;10.96.0.0/12&quot;.</p>
    -->
-   <p><code>serviceSubnet</code> 是 kubernetes 服务所使用的的子网。
+   <p><code>serviceSubnet</code> 是 kubernetes 服务所使用的子网。
 默认值为 &quot;10.96.0.0/12&quot;。</p>
 </td>
 </tr>
@@ -1734,7 +1734,7 @@ signing certificate.</p>
 </td>
 <td>
    <!--p><code>dnsDomain</code> is the DNS domain used by kubernetes Services. Defaults to &quot;cluster.local&quot;.</p-->
-   <p><code>dnsDomain</code> 是 kubernetes 服务所使用的的 DNS 域名。
+   <p><code>dnsDomain</code> 是 kubernetes 服务所使用的 DNS 域名。
 默认值为 &quot;cluster.local&quot;。</p>
 </td>
 </tr>
@@ -1802,7 +1802,7 @@ a control-plane taint for control-plane nodes. If you don't want to taint your c
 node, set this field to an empty list, i.e. <code>taints: []</code>, in the YAML file. This field is
 solely used for Node registration.</p>
 -->
-   <p><code>tains</code> 设定 Node API 对象被注册时要附带的污点。
+   <p><code>taints</code> 设定 Node API 对象被注册时要附带的污点。
 若未设置此字段（即字段值为 null），在 <code>kubeadm init</code> 期间，默认为控制平面节点添加控制平面污点。
 如果你不想污染你的控制平面节点，可以将此字段设置为空列表（即 YAML 文件中的 <code>taints: []</code>），
 这个字段只用于节点注册。</p>

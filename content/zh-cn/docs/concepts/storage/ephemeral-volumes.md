@@ -23,7 +23,7 @@ with [volumes](/docs/concepts/storage/volumes/) is suggested, in
 particular PersistentVolumeClaim and PersistentVolume.
 -->
 本文档描述 Kubernetes 中的 _临时卷（Ephemeral Volume）_。
-建议先了解[卷](/zh/docs/concepts/storage/volumes/)，特别是 PersistentVolumeClaim 和 PersistentVolume。
+建议先了解[卷](/zh-cn/docs/concepts/storage/volumes/)，特别是 PersistentVolumeClaim 和 PersistentVolume。
 
 <!-- body -->
 <!--
@@ -80,13 +80,13 @@ different purposes:
   can be provided by all storage drivers that also support persistent volumes
 -->
 Kubernetes 为了不同的目的，支持几种不同类型的临时卷：
-- [emptyDir](/zh/docs/concepts/storage/volumes/#emptydir)：
+- [emptyDir](/zh-cn/docs/concepts/storage/volumes/#emptydir)：
   Pod 启动时为空，存储空间来自本地的 kubelet 根目录（通常是根磁盘）或内存
-- [configMap](/zh/docs/concepts/storage/volumes/#configmap)、
-  [downwardAPI](/zh/docs/concepts/storage/volumes/#downwardapi)、
-  [secret](/zh/docs/concepts/storage/volumes/#secret)：
+- [configMap](/zh-cn/docs/concepts/storage/volumes/#configmap)、
+  [downwardAPI](/zh-cn/docs/concepts/storage/volumes/#downwardapi)、
+  [secret](/zh-cn/docs/concepts/storage/volumes/#secret)：
   将不同类型的 Kubernetes 数据注入到 Pod 中
-- [CSI 临时卷](/zh/docs/concepts/storage/volumes/#csi-ephemeral-volumes)：
+- [CSI 临时卷](/zh-cn/docs/concepts/storage/volumes/#csi-ephemeral-volumes)：
   类似于前面的卷类型，但由专门[支持此特性](https://kubernetes-csi.github.io/docs/drivers.html)
   的指定
   [CSI 驱动程序](https://github.com/container-storage-interface/spec/blob/master/spec.md)提供
@@ -103,7 +103,7 @@ CSI ephemeral volumes *must* be provided by third-party CSI storage
 drivers.
 -->
 `emptyDir`、`configMap`、`downwardAPI`、`secret` 是作为
-[本地临时存储](/zh/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)
+[本地临时存储](/zh-cn/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)
 提供的。它们由各个节点上的 kubelet 管理。
 
 CSI 临时卷 *必须* 由第三方 CSI 存储驱动程序提供。
@@ -144,7 +144,7 @@ shows which drivers support ephemeral volumes.
 -->
 
 该特性需要启用参数 `CSIInlineVolume`
-[特性门控（feature gate）](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控（feature gate）](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 该参数从 Kubernetes 1.16 开始默认启用。
 
 {{< note >}}
@@ -171,7 +171,7 @@ Here's an example manifest for a Pod that uses CSI ephemeral storage:
 从概念上讲，CSI 临时卷类似于 `configMap`、`downwardAPI` 和 `secret` 类型的卷：
 其存储在每个节点本地管理，并在将 Pod 调度到节点后与其他本地资源一起创建。
 在这个阶段，Kubernetes 没有重新调度 Pods 的概念。卷创建不太可能失败，否则 Pod 启动将会受阻。
-特别是，这些卷 **不** 支持[感知存储容量的 Pod 调度](/zh/docs/concepts/storage/storage-capacity/)。
+特别是，这些卷 **不** 支持[感知存储容量的 Pod 调度](/zh-cn/docs/concepts/storage/storage-capacity/)。
 它们目前也没包括在 Pod 的存储资源使用限制中，因为 kubelet 只能对它自己管理的存储强制执行。
 
 下面是使用 CSI 临时存储的 Pod 的示例清单：
@@ -226,7 +226,7 @@ CSI 临时卷允许用户直接向 CSI 驱动程序提供 `volumeAttributes`，�
 例如，通常在 StorageClass 中定义的参数不应通过使用内联临时卷向用户公开。
 
 作为一个集群管理员，你可以使用
-[PodSecurityPolicy](/zh/docs/concepts/security/pod-security-policy/)
+[PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)
 来控制在 Pod 中可以使用哪些 CSI 驱动程序，
 具体则是通过 [`allowedCSIDrivers` 字段](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicyspec-v1beta1-policy)
 指定。
@@ -239,7 +239,7 @@ allowed to be used as inline volumes within a Pod spec may do so by:
 -->
 如果集群管理员需要限制 CSI 驱动程序在 Pod 规约中被作为内联卷使用，可以这样做：
 - 从 CSIDriver 规约的 `volumeLifecycleModes` 中删除 `Ephemeral`，这可以防止驱动程序被用作内联临时卷。
-- 使用[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- 使用[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
   来限制如何使用此驱动程序。
 
 <!--
@@ -275,10 +275,10 @@ Example:
 - 卷可以有固定的大小，Pod 不能超量使用。
 - 卷可能有一些初始数据，这取决于驱动程序和参数。
 - 当驱动程序支持，卷上的典型操作将被支持，包括
-  （[快照](/zh/docs/concepts/storage/volume-snapshots/)、
-  [克隆](/zh/docs/concepts/storage/volume-pvc-datasource/)、
-  [调整大小](/zh/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)和
-  [存储容量跟踪](/zh/docs/concepts/storage/storage-capacity/)）。
+  （[快照](/zh-cn/docs/concepts/storage/volume-snapshots/)、
+  [克隆](/zh-cn/docs/concepts/storage/volume-pvc-datasource/)、
+  [调整大小](/zh-cn/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)和
+  [存储容量跟踪](/zh-cn/docs/concepts/storage/storage-capacity/)）。
 
 示例：
 
@@ -357,7 +357,7 @@ storage classes is to delete volumes. You can create quasi-ephemeral local stora
 using a StorageClass with a reclaim policy of `retain`: the storage outlives the Pod,
 and in this case you need to ensure that volume clean up happens separately.
 -->
-就[资源所有权](/zh/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)而言，
+就[资源所有权](/zh-cn/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)而言，
 拥有通用临时存储的 Pod 是提供临时存储 (ephemeral storage) 的 PersistentVolumeClaim 的所有者。
 当 Pod 被删除时，Kubernetes 垃圾收集器会删除 PVC，
 然后 PVC 通常会触发卷的删除，因为存储类的默认回收策略是删除卷。
@@ -436,7 +436,7 @@ use an [admission webhook](/docs/reference/access-authn-authz/extensible-admissi
 启用 GenericEphemeralVolume 特性会导致那些没有 PVCs 创建权限的用户，
 在创建 Pods 时，被允许间接的创建 PVCs。
 集群管理员必须意识到这一点。
-如果这不符合他们的安全模型，他们应该使用一个[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+如果这不符合他们的安全模型，他们应该使用一个[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 拒绝包含通用临时卷的 Pods。
 
 <!--
@@ -444,7 +444,7 @@ The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#sto
 even if users are allowed to use this new mechanism, they cannot use
 it to circumvent other policies.
 -->
-[为 PVC 卷所设置的逐名字空间的配额](/zh/docs/concepts/policy/resource-quotas/#storage-resource-quota)
+[为 PVC 卷所设置的逐名字空间的配额](/zh-cn/docs/concepts/policy/resource-quotas/#storage-resource-quota)
 仍然有效，因此即使允许用户使用这种新机制，他们也不能使用它来规避其他策略。
 
 ## {{% heading "whatsnext" %}}
@@ -456,7 +456,7 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 -->
 ### kubelet 管理的临时卷 {#ephemeral-volumes-managed-by-kubelet}
 
-参阅[本地临时存储](/zh/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)。
+参阅[本地临时存储](/zh-cn/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)。
 
 <!--
 ### CSI ephemeral volumes

@@ -16,7 +16,7 @@ This page shows you how to specify the type of
 to use in your cluster during {{<glossary_tooltip text="garbage collection" term_id="garbage-collection">}}.
 -->
 本页面向你展示如何设置在你的集群执行{{<glossary_tooltip text="垃圾收集" term_id="garbage-collection">}}
-时要使用的[级联删除](/zh/docs/concepts/architecture/garbage-collection/#cascading-deletion)
+时要使用的[级联删除](/zh-cn/docs/concepts/architecture/garbage-collection/#cascading-deletion)
 类型。
 
 ## {{% heading "prerequisites" %}}
@@ -28,7 +28,7 @@ You also need to [create a sample Deployment](/docs/tasks/run-application/run-st
 to experiment with the different types of cascading deletion. You will need to
 recreate the Deployment for each type.
 -->
-你还需要[创建一个 Deployment 示例](/zh/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)
+你还需要[创建一个 Deployment 示例](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)
 以试验不同类型的级联删除。你需要为每种级联删除类型来重建 Deployment。
 
 <!--
@@ -72,7 +72,7 @@ version your cluster runs. {{<version-check>}}
 -->
 ## 使用前台级联删除    {#use-foreground-cascading-deletion}
 
-默认情况下，Kubernetes 使用[后台级联删除](/zh/docs/concepts/architecture/garbage-collection/#background-deletion)
+默认情况下，Kubernetes 使用[后台级联删除](/zh-cn/docs/concepts/architecture/garbage-collection/#background-deletion)
 以删除依赖某对象的其他对象。取决于你的集群所运行的 Kubernetes 版本，
 你可以使用 `kubectl` 或者 Kubernetes API 来切换到前台级联删除。
 {{<version-check>}}
@@ -160,7 +160,7 @@ For details, read the [documentation for your Kubernetes version](/docs/home/sup
 -->
 你可以通过调用 Kubernetes API 来基于前台级联删除模式删除对象。
 
-进一步的细节，可阅读[特定于你的 Kubernetes 版本的文档](/zh/docs/home/supported-doc-versions)。
+进一步的细节，可阅读[特定于你的 Kubernetes 版本的文档](/zh-cn/docs/home/supported-doc-versions)。
 
 <!--
 1. Start a local proxy session:
@@ -217,7 +217,7 @@ For details, read the [documentation for your Kubernetes version](/docs/home/sup
 1. Use either `kubectl` or the Kubernetes API to delete the Deployment,
    depending on the Kubernetes version your cluster runs. {{<version-check>}}
 -->
-1. [创建一个 Deployment 示例](/zh/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)。
+1. [创建一个 Deployment 示例](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)。
 1. 基于你的集群所运行的 Kubernetes 版本，使用 `kubectl` 或者 Kubernetes API 来删除 Deployment。
    {{<version-check>}}
 
@@ -306,7 +306,7 @@ Kubernetes 默认采用后台级联删除方式，如果你在运行下面的命
 <!--
 For details, read the [documentation for your Kubernetes version](/docs/home/supported-doc-versions/).
 -->
-进一步的细节，可阅读[特定于你的 Kubernetes 版本的文档](/zh/docs/home/supported-doc-versions)。
+进一步的细节，可阅读[特定于你的 Kubernetes 版本的文档](/zh-cn/docs/home/supported-doc-versions)。
 
 <!--
 **Using kubectl**
@@ -449,7 +449,7 @@ kubectl delete deployment nginx-deployment --cascade=orphan
 <!--
 For details, read the [documentation for your Kubernetes version](/docs/home/supported-doc-versions/).
 -->
-进一步的细节，可阅读[特定于你的 Kubernetes 版本的文档](/zh/docs/home/supported-doc-versions)。
+进一步的细节，可阅读[特定于你的 Kubernetes 版本的文档](/zh-cn/docs/home/supported-doc-versions)。
 
 <!--
 **Using kubectl**
@@ -527,7 +527,7 @@ kubectl get pods -l app=nginx
 * Learn about Kubernetes [finalizers](/docs/concepts/overview/working-with-objects/finalizers/).
 * Learn about [garbage collection](/docs/concepts/workloads/controllers/garbage-collection/).
 -->
-* 了解 Kubernetes 中的[属主与依赖](/zh/docs/concepts/overview/working-with-objects/owners-dependents/)
-* 了解 Kubernetes [finalizers](/zh/docs/concepts/overview/working-with-objects/finalizers/)
-* 了解[垃圾收集](/zh/docs/concepts/architecture/garbage-collection/).
+* 了解 Kubernetes 中的[属主与依赖](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/)
+* 了解 Kubernetes [finalizers](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)
+* 了解[垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection/).
 

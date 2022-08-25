@@ -2,7 +2,7 @@
 title: 动态卷供应（Dynamic Volume Provisioning）
 id: dynamicvolumeprovisioning
 date: 2018-04-12
-full_link: /zh/docs/concepts/storage/dynamic-provisioning/
+full_link: /zh-cn/docs/concepts/storage/dynamic-provisioning/
 short_description: >
   允许用户请求自动创建存储卷。
 

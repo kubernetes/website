@@ -142,7 +142,7 @@ number of dongles. See
 [Assign Extended Resources to a Container](/docs/tasks/configure-pod-container/extended-resource/).
 -->
 现在，应用开发者可以创建请求一定数量 dongle 资源的 Pod 了。
-参见[将扩展资源分配给容器](/zh/docs/tasks/configure-pod-container/extended-resource/)。
+参见[将扩展资源分配给容器](/zh-cn/docs/tasks/configure-pod-container/extended-resource/)。
 
 <!--
 ## Discussion
@@ -294,10 +294,10 @@ kubectl describe node <your-node-name> | grep dongle
 -->
 ### 针对应用开发人员
 
-* [将扩展资源分配给容器](/zh/docs/tasks/configure-pod-container/extended-resource/)
+* [将扩展资源分配给容器](/zh-cn/docs/tasks/configure-pod-container/extended-resource/)
   
 ### 针对集群管理员
 
-* [为名字空间配置最小和最大内存约束](/zh/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [为名字空间配置最小和最大 CPU 约束](/zh/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [为名字空间配置最小和最大内存约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [为名字空间配置最小和最大 CPU 约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 

@@ -20,7 +20,7 @@ several existing volume sources into the same directory. Currently, `secret`, `c
 and `serviceAccountToken` volumes can be projected.
 -->
 
-本文介绍怎样通过[`projected`](/zh/docs/concepts/storage/volumes/#projected) 卷将现有的多个卷资源挂载到相同的目录。
+本文介绍怎样通过[`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷将现有的多个卷资源挂载到相同的目录。
 当前，`secret`、`configMap`、`downwardAPI` 和 `serviceAccountToken` 卷可以被投射。
 
 <!--
@@ -47,7 +47,7 @@ Here is the configuration file for the Pod:
 ## 为 Pod 配置 projected 卷
 
 本练习中，你将从本地文件来创建包含有用户名和密码的 Secret。然后创建运行一个容器的 Pod，
-该 Pod 使用[`projected`](/zh/docs/concepts/storage/volumes/#projected) 卷将 Secret 挂载到相同的路径下。
+该 Pod 使用[`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷将 Secret 挂载到相同的路径下。
 
 下面是 Pod 的配置文件：
 
@@ -126,6 +126,6 @@ kubectl delete secret user pass
 * Read the [all-in-one volume](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md) design document.
 -->
 
-* 进一步了解[`projected`](/zh/docs/concepts/storage/volumes/#projected) 卷。
+* 进一步了解[`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷。
 * 阅读[一体卷](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md)设计文档。
 

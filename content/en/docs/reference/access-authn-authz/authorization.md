@@ -74,10 +74,12 @@ PUT       | update
 PATCH     | patch
 DELETE    | delete (for individual resources), deletecollection (for collections)
 
+{{< caution >}}
+The `get`, `list` and `watch` verbs can all return the full details of a resource. In terms of the returned data they are equivalent. For example, `list` on `secrets` will still reveal the `data` attributes of any returned resources.
+{{< /caution >}}
+
 Kubernetes sometimes checks authorization for additional permissions using specialized verbs. For example:
 
-* [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/)
-  * `use` verb on `podsecuritypolicies` resources in the `policy` API group.
 * [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * `bind` and `escalate` verbs on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
 * [Authentication](/docs/reference/access-authn-authz/authentication/)

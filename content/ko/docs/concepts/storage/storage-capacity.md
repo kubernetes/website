@@ -16,37 +16,41 @@ weight: 70
 예를 들어, 일부 노드에서 NAS(Network Attached Storage)에 접근할 수 없는 경우가 있을 수 있으며,
 또는 각 노드에 종속적인 로컬 스토리지를 사용하는 경우일 수도 있다.
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 이 페이지에서는 쿠버네티스가 어떻게 스토리지 용량을 추적하고
 스케줄러가 남아 있는 볼륨을 제공하기 위해 스토리지 용량이 충분한 노드에
-파드를 스케줄링하기 위해 이 정보를 어떻게 사용하는지 설명한다.
+[파드를 스케줄링](/ko/docs/concepts/scheduling-eviction/)하기 위해 이 정보를 어떻게 사용하는지 설명한다.
 스토리지 용량을 추적하지 않으면, 스케줄러는
 볼륨을 제공할 충분한 용량이 없는 노드를 선정할 수 있으며,
 스케줄링을 여러 번 다시 시도해야 한다.
 
-스토리지 용량 추적은 {{< glossary_tooltip
-text="컨테이너 스토리지 인터페이스(CSI)" term_id="csi" >}} 드라이버에서 지원하며,
-CSI 드라이버를 설치할 때 [사용하도록 설정](#스토리지-용량-추적-활성화)해야 한다.
+## {{% heading "prerequisites" %}}
+
+쿠버네티스 v{{< skew currentVersion >}} 버전은 스토리지 용량 추적을 위한 클러스터-수준 API를 지원한다. 
+이를 사용하려면, 스토리지 용량 추적을 지원하는 CSI 드라이버를 사용하고 있어야 한다. 
+사용 중인 CSI 드라이버가 이를 지원하는지, 지원한다면 어떻게 사용하는지를 알아보려면 
+해당 CSI 드라이버의 문서를 참고한다. 
+쿠버네티스 v{{< skew currentVersion >}} 버전을 사용하고 있지 않다면, 
+해당 버전 쿠버네티스 문서를 참고한다.
 
 <!-- body -->
 
 ## API
 
  이 기능에는 다음 두 가지 API 확장이 있다.
-- CSIStorageCapacity 오브젝트:
+- [CSIStorageCapacity](/docs/reference/kubernetes-api/config-and-storage-resources/csi-storage-capacity-v1/) 오브젝트:
   CSI 드라이버가 설치된 네임스페이스에
   CSI 드라이버가 이 오브젝트를 생성한다. 각 오브젝트는
   하나의 스토리지 클래스에 대한 용량 정보를 담고 있으며,
   어떤 노드가 해당 스토리지에 접근할 수 있는지를 정의한다.
-- [ `CSIDriverSpec.StorageCapacity` 필드](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csidriverspec-v1-storage-k8s-io):
+- [`CSIDriverSpec.StorageCapacity` 필드](/docs/reference/kubernetes-api/config-and-storage-resources/csi-driver-v1/#CSIDriverSpec):
   `true`로 설정하면, 쿠버네티스 스케줄러가
   CSI 드라이버를 사용하는 볼륨의 스토리지 용량을 고려하게 된다.
 
 ## 스케줄링
 
 다음과 같은 경우 쿠버네티스 스케줄러에서 스토리지 용량 정보를 사용한다.
-- `CSIStorageCapacity` 기능 게이트(feature gate)가 true이고,
 - 파드가 아직 생성되지 않은 볼륨을 사용하고,
 - 해당 볼륨은 CSI 드라이버를 참조하고
   `WaitForFirstConsumer`
@@ -97,20 +101,9 @@ CSI 스토리지 드라이버에 볼륨 생성을 요청한다
 토폴로지 세그먼트에 하나의 볼륨이 이미 생성되어
 다른 볼륨에 충분한 용량이 남아 있지 않을 수 있다.
 이러한 상황을 복구하려면
-용량을 늘리거나 이미 생성된 볼륨을 삭제하는 등의 수작업이 필요하며,
-자동으로 처리하려면
-[추가 작업](https://github.com/kubernetes/enhancements/pull/1703)이 필요하다.
-
-## 스토리지 용량 추적 활성화
-
-스토리지 용량 추적은 베타 기능이며,
-쿠버네티스 1.21 이후 버전부터 쿠버네티스 클러스터에 기본적으로 활성화되어 있다.
-클러스터에서 스토리지 용량 추적 기능을 활성화하는 것뿐만 아니라, CSI 드라이버에서도 이 기능을 지원해야 한다.
-자세한 내용은 드라이버 문서를 참조한다.
+용량을 늘리거나 이미 생성된 볼륨을 삭제하는 등의 수작업이 필요하다.
 
 ## {{% heading "whatsnext" %}}
 
 - 설계에 대한 자세한 내용은
  [파드 스케줄링 스토리지 용량 제약 조건](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1472-storage-capacity-tracking/README.md)을 참조한다.
-- 이 기능의 추가 개발에 대한 자세한 내용은 [개선 추적 이슈 #1472](https://github.com/kubernetes/enhancements/issues/1472)를 참조한다.
-- [쿠버네티스 스케줄러](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 살펴본다.

@@ -2,7 +2,7 @@
 title: 对象（Object）
 id: object
 date: 2020-10-12
-full_link: /zh/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects
+full_link: /zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects
 short_description: >
    Kubernetes 系统中的实体, 代表了集群的部分状态。
 aka: 

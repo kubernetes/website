@@ -15,7 +15,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
 
 ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
-timeout = 3000
+timeout = "180s"
 
 # Highlighting config.
 pygmentsCodeFences = true
@@ -117,7 +117,7 @@ anchor = "smart"
 
 [services]
 [services.googleAnalytics]
-# Comment out the next line to disable GA tracking. Also disables the feature described in [params.ui.feedback].
+# Fake ID in support of [params.ui.feedback]. The real GA ID is set in the Netlify config.
 id = "UA-00000000-0"
 
 [params]
@@ -139,10 +139,10 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.24"
+latest = "v1.25"
 
-fullversion = "v1.24.0"
-version = "v1.24"
+fullversion = "v1.25.0"
+version = "v1.25"
 githubbranch = "main"
 docsbranch = "main"
 deprecated = false
@@ -169,6 +169,9 @@ algolia_docsearch = false
 # Enable Lunr.js offline search
 offlineSearch = false
 
+# Official CVE feed bucket URL
+cveFeedBucket = "https://storage.googleapis.com/k8s-cve-feed/official-cve-feed.json"
+
 [params.pushAssets]
 css = [
   "callouts",
@@ -179,39 +182,39 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.24.0"
-version = "v1.24"
-githubbranch = "v1.24.0"
+fullversion = "v1.25.0"
+version = "v1.25"
+githubbranch = "v1.25.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.23.6"
+fullversion = "v1.24.2"
+version = "v1.24"
+githubbranch = "v1.24.2"
+docsbranch = "release-1.24"
+url = "https://v1-24.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.23.8"
 version = "v1.23"
-githubbranch = "v1.23.6"
+githubbranch = "v1.23.8"
 docsbranch = "release-1.23"
 url = "https://v1-23.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.22.9"
+fullversion = "v1.22.11"
 version = "v1.22"
-githubbranch = "v1.22.9"
+githubbranch = "v1.22.11"
 docsbranch = "release-1.22"
 url = "https://v1-22.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.21.12"
+fullversion = "v1.21.14"
 version = "v1.21"
-githubbranch = "v1.21.12"
+githubbranch = "v1.21.14"
 docsbranch = "release-1.21"
 url = "https://v1-21.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.20.15"
-version = "v1.20"
-githubbranch = "v1.20.15"
-docsbranch = "release-1.20"
-url = "https://v1-20.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
@@ -305,7 +308,8 @@ languagedirection = "ltr"
 [languages.zh-cn]
 title = "Kubernetes"
 description = "生产级别的容器编排系统"
-languageName = "中文 Chinese"
+languageName = "中文 (Chinese)"
+languageNameLatinScript = "Chinese"
 weight = 2
 contentDir = "content/zh-cn"
 languagedirection = "ltr"
@@ -317,7 +321,8 @@ language_alternatives = ["en"]
 [languages.ko]
 title = "Kubernetes"
 description = "운영 수준의 컨테이너 오케스트레이션"
-languageName = "한국어 Korean"
+languageName = "한국어 (Korean)"
+languageNameLatinScript = "Korean"
 weight = 3
 contentDir = "content/ko"
 languagedirection = "ltr"
@@ -329,7 +334,8 @@ language_alternatives = ["en"]
 [languages.ja]
 title = "Kubernetes"
 description = "プロダクショングレードのコンテナ管理基盤"
-languageName = "日本語 Japanese"
+languageName = "日本語 (Japanese)"
+languageNameLatinScript = "Japanese"
 weight = 4
 contentDir = "content/ja"
 languagedirection = "ltr"
@@ -341,7 +347,8 @@ language_alternatives = ["en"]
 [languages.fr]
 title = "Kubernetes"
 description = "Solution professionnelle d’orchestration de conteneurs"
-languageName = "Français"
+languageName = "Français (French)"
+languageNameLatinScript = "Français"
 weight = 5
 contentDir = "content/fr"
 languagedirection = "ltr"
@@ -354,7 +361,8 @@ language_alternatives = ["en"]
 [languages.it]
 title = "Kubernetes"
 description = "Orchestrazione di Container in produzione"
-languageName = "Italiano"
+languageName = "Italiano (Italian)"
+languageNameLatinScript = "Italiano"
 weight = 6
 contentDir = "content/it"
 languagedirection = "ltr"
@@ -367,7 +375,8 @@ language_alternatives = ["en"]
 [languages.no]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName = "Norsk"
+languageName = "Norsk (Norwegian)"
+languageNameLatinScript = "Norsk"
 weight = 7
 contentDir = "content/no"
 languagedirection = "ltr"
@@ -380,7 +389,8 @@ language_alternatives = ["en"]
 [languages.de]
 title = "Kubernetes"
 description = "Produktionsreife Container-Orchestrierung"
-languageName = "Deutsch"
+languageName = "Deutsch (German)"
+languageNameLatinScript = "Deutsch"
 weight = 8
 contentDir = "content/de"
 languagedirection = "ltr"
@@ -393,7 +403,8 @@ language_alternatives = ["en"]
 [languages.es]
 title = "Kubernetes"
 description = "Orquestación de contenedores para producción"
-languageName = "Español"
+languageName = "Español (Spanish)"
+languageNameLatinScript = "Español"
 weight = 9
 contentDir = "content/es"
 languagedirection = "ltr"
@@ -406,8 +417,10 @@ language_alternatives = ["en"]
 [languages.pt-br]
 title = "Kubernetes"
 description = "Orquestração de contêineres em nível de produção"
-languageName = "Português"
+languageName = "Português (Portuguese)"
+languageNameLatinScript = "Português"
 weight = 10
+
 contentDir = "content/pt-br"
 languagedirection = "ltr"
 
@@ -419,7 +432,8 @@ language_alternatives = ["en"]
 [languages.id]
 title = "Kubernetes"
 description = "Orkestrasi Kontainer dengan Skala Produksi"
-languageName = "Bahasa Indonesia"
+languageName ="Bahasa Indonesia"
+languageNameLatinScript = "Bahasa Indonesia"
 weight = 11
 contentDir = "content/id"
 languagedirection = "ltr"
@@ -432,7 +446,8 @@ language_alternatives = ["en"]
 [languages.hi]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName = "Hindi"
+languageName = "हिन्दी (Hindi)"
+languageNameLatinScript = "Hindi"
 weight = 12
 contentDir = "content/hi"
 languagedirection = "ltr"
@@ -444,7 +459,8 @@ language_alternatives = ["en"]
 [languages.vi]
 title = "Kubernetes"
 description = "Giải pháp điều phối container trong môi trường production"
-languageName = "Tiếng Việt"
+languageName = "Tiếng Việt (Vietnamese)"
+languageNameLatinScript = "Tiếng Việt"
 contentDir = "content/vi"
 weight = 13
 languagedirection = "ltr"
@@ -452,7 +468,8 @@ languagedirection = "ltr"
 [languages.ru]
 title = "Kubernetes"
 description = "Первоклассная оркестрация контейнеров"
-languageName = "Русский"
+languageName = "Русский (Russian)"
+languageNameLatinScript = "Russian"
 weight = 14
 contentDir = "content/ru"
 languagedirection = "ltr"
@@ -465,7 +482,8 @@ language_alternatives = ["en"]
 [languages.pl]
 title = "Kubernetes"
 description = "Produkcyjny system zarządzania kontenerami"
-languageName = "Polski"
+languageName = "Polski (Polish)"
+languageNameLatinScript = "Polski"
 weight = 15
 contentDir = "content/pl"
 languagedirection = "ltr"
@@ -478,7 +496,8 @@ language_alternatives = ["en"]
 [languages.uk]
 title = "Kubernetes"
 description = "Довершена система оркестрації контейнерів"
-languageName = "Українська"
+languageName = "Українська (Ukrainian)"
+languageNameLatinScript = "Ukrainian"
 weight = 16
 contentDir = "content/uk"
 languagedirection = "ltr"

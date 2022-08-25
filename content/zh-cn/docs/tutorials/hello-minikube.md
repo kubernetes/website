@@ -166,9 +166,9 @@ recommended way to manage the creation and scaling of Pods.
 
 ## 创建 Deployment
 
-Kubernetes [*Pod*](/zh/docs/concepts/workloads/pods/) 是由一个或多个
+Kubernetes [*Pod*](/zh-cn/docs/concepts/workloads/pods/) 是由一个或多个
 为了管理和联网而绑定在一起的容器构成的组。 本教程中的 Pod 只有一个容器。
-Kubernetes [*Deployment*](/zh/docs/concepts/workloads/controllers/deployment/)
+Kubernetes [*Deployment*](/zh-cn/docs/concepts/workloads/controllers/deployment/)
 检查 Pod 的健康状况，并在 Pod 中的容器终止的情况下重新启动新的容器。
 Deployment 是管理 Pod 创建和扩展的推荐方法。
 
@@ -247,7 +247,7 @@ For more information about `kubectl`commands, see the
 [kubectl overview](/docs/reference/kubectl/).
 -->
 {{< note >}}
-有关 `kubectl` 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/reference/kubectl/)。
+有关 `kubectl` 命令的更多信息，请参阅 [kubectl 概述](/zh-cn/docs/reference/kubectl/)。
 {{< /note >}}
 
 <!--
@@ -262,7 +262,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 默认情况下，Pod 只能通过 Kubernetes 集群中的内部 IP 地址访问。
 要使得 `hello-node` 容器可以从 Kubernetes 虚拟网络的外部访问，你必须将 Pod
-暴露为 Kubernetes [*Service*](/zh/docs/concepts/services-networking/service/)。
+暴露为 Kubernetes [*Service*](/zh-cn/docs/concepts/services-networking/service/)。
 
 <!--
 1. Expose the Pod to the public internet using the `kubectl expose` command:
@@ -497,7 +497,7 @@ minikube delete
 * Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
 -->
-* 进一步了解 [Deployment 对象](/zh/docs/concepts/workloads/controllers/deployment/)。
-* 进一步了解[部署应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)。
-* 进一步了解 [Service 对象](/zh/docs/concepts/services-networking/service/)。
+* 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
+* 进一步了解[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)。
+* 进一步了解 [Service 对象](/zh-cn/docs/concepts/services-networking/service/)。
 

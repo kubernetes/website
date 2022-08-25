@@ -76,11 +76,11 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 `.spec.selector` 필드는 파드 셀렉터이다. 이것은
 [잡](/ko/docs/concepts/workloads/controllers/job/)의 `.spec.selector` 와 같은 동작을 한다.
 
-쿠버네티스 1.8 부터는 레이블이 `.spec.template` 와 일치하는 파드 셀렉터를 명시해야 한다.
-파드 셀렉터는 비워두면 더 이상 기본 값이 설정이 되지 않는다.
-셀렉터의 기본 값은 `kubectl apply` 과 호환되지 않는다.
-또한, 한 번 데몬셋이 만들어지면 `.spec.selector` 의 변형은 가능하지 않다.
-파드 셀렉터를 변형하면 의도하지 않게 파드는 고아가 되거나 사용자에게 혼란을 주는 것으로 밝혀졌다.
+`.spec.template`의 레이블과 매치되는 
+파드 셀렉터를 명시해야 한다.
+또한, 한 번 데몬셋이 만들어지면 
+`.spec.selector` 는 바꿀 수 없다.
+파드 셀렉터를 변형하면 의도치 않게 파드가 고아가 될 수 있으며, 이는 사용자에게 혼란을 주는 것으로 밝혀졌다.
 
 `.spec.selector` 는 다음 2개의 필드로 구성된 오브젝트이다.
 
@@ -91,8 +91,8 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 2개의 필드가 명시되면 두 필드를 모두 만족하는 것(ANDed)이 결과가 된다.
 
-만약 `.spec.selector` 를 명시하면, 이것은 `.spec.template.metadata.labels` 와 일치해야 한다. 
-일치하지 않는 구성은 API에 의해 거부된다.
+`.spec.selector` 는 `.spec.template.metadata.labels` 와 일치해야 한다. 
+이 둘이 서로 일치하지 않는 구성은 API에 의해 거부된다.
 
 ### 오직 일부 노드에서만 파드 실행
 
@@ -107,7 +107,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 ### 기본 스케줄러로 스케줄
 
-{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
+{{< feature-state for_k8s_version="1.17" state="stable" >}}
 
 데몬셋은 자격이 되는 모든 노드에서 파드 사본이 실행하도록 보장한다. 일반적으로
 쿠버네티스 스케줄러에 의해 파드가 실행되는 노드가 선택된다. 그러나

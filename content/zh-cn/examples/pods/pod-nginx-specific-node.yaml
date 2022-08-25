@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: nginx
 spec:
-  nodeName: foo-node # schedule pod to specific node
+  nodeName: foo-node # 调度 Pod 到特定的节点
   containers:
   - name: nginx
     image: nginx

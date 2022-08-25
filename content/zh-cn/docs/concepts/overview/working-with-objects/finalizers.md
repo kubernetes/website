@@ -87,7 +87,7 @@ Kubernetes 清除 `pv-protection` Finalizer，控制器就会删除该卷。
 ## Owner references, labels, and finalizers {#owners-labels-finalizers}
 
 Like {{<glossary_tooltip text="labels" term_id="label">}},
-[owner references](/concepts/overview/working-with-objects/owners-dependents/)
+[owner references](/docs/concepts/overview/working-with-objects/owners-dependents/)
 describe the relationships between objects in Kubernetes, but are used for a
 different purpose. When a
 {{<glossary_tooltip text="controller" term_id="controller">}} manages objects
@@ -99,7 +99,7 @@ any Pods in the cluster with the same label.
 ## 属主引用、标签和 Finalizers {#owners-labels-finalizers}
 
 与{{<glossary_tooltip text="标签" term_id="label">}}类似，
-[属主引用](/zh/concepts/overview/working-with-objects/owners-dependents/)
+[属主引用](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/)
 描述了 Kubernetes 中对象之间的关系，但它们作用不同。
 当一个{{<glossary_tooltip text="控制器" term_id="controller">}}
 管理类似于 Pod 的对象时，它使用标签来跟踪相关对象组的变化。
@@ -154,4 +154,3 @@ Finalizers 通常因为特殊原因被添加到资源上，所以强行删除它
   on the Kubernetes blog.
 -->
 * 在 Kubernetes 博客上阅读[使用 Finalizers 控制删除](/blog/2021/05/14/using-finalizers-to-control-deletion/)。
-

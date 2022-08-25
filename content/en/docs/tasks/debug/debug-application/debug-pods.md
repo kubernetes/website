@@ -3,7 +3,7 @@ reviewers:
 - mikedanese
 - thockin
 title: Debug Pods
-content_type: concept
+content_type: task
 weight: 10
 ---
 

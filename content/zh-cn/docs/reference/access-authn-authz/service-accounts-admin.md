@@ -17,14 +17,14 @@ weight: 50
 
 <!-- overview -->
 <!--
-This is a Cluster Administrator guide to service accounts. You should be familiar with 
+This is a Cluster Administrator guide to service accounts. You should be familiar with
 [configuring Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/).
 
 Support for authorization and user accounts is planned but incomplete. Sometimes
 incomplete features are referred to in order to better describe service accounts.
 -->
 这是一篇针对服务账号的集群管理员指南。你应该熟悉
-[配置 Kubernetes 服务账号](/zh/docs/tasks/configure-pod-container/configure-service-account/)。
+[配置 Kubernetes 服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)。
 
 对鉴权和用户账号的支持已在规划中，当前并不完备。
 为了更好地描述服务账号，有时这些不完善的特性也会被提及。
@@ -56,16 +56,15 @@ Kubernetes 区分用户账号和服务账号的概念，主要基于以下原因
   accounts for components of that system. Because service accounts can be created
   without many constraints and have namespaced names, such config is portable.
 -->
-- 用户账号是针对人而言的。 服务账号是针对运行在 Pod 中的进程而言的。
-- 用户账号是全局性的。其名称跨集群中名字空间唯一的。服务账号是名字空间作用域的。
+- 用户账号是针对人而言的。而服务账号是针对运行在 Pod 中的进程而言的。
+- 用户账号是全局性的。其名称在某集群中的所有名字空间中必须是唯一的。服务账号是名字空间作用域的。
 - 通常情况下，集群的用户账号可能会从企业数据库进行同步，其创建需要特殊权限，
   并且涉及到复杂的业务流程。
-  服务账号创建有意做得更轻量，允许集群用户为了具体的任务创建服务账号 
-  以遵从权限最小化原则。
+  服务账号创建有意做得更轻量，允许集群用户为了具体的任务创建服务账号以遵从权限最小化原则。
 - 对人员和服务账号审计所考虑的因素可能不同。
-- 针对复杂系统的配置包可能包含系统组件相关的各种服务账号的定义。因为服务账号
-  的创建约束不多并且有名字空间域的名称，这种配置是很轻量的。
-
+- 针对复杂系统的配置包可能包含系统组件相关的各种服务账号的定义。
+  因为服务账号的创建约束不多并且有名字空间域的名称，这种配置是很轻量的。
+  
 <!--
 ## Service account automation
 
@@ -77,7 +76,7 @@ Three separate components cooperate to implement the automation around service a
 -->
 ## 服务账号的自动化   {#service-account-automation}
 
-三个独立组件协作完成服务账号相关的自动化：
+以下三个独立组件协作完成服务账号相关的自动化：
 
 - `ServiceAccount` 准入控制器
 - Token 控制器
@@ -95,11 +94,11 @@ It acts synchronously to modify pods as they are created or updated. When this p
 ### ServiceAccount 准入控制器   {#serviceaccount-admission-controller}
 
 对 Pod 的改动通过一个被称为
-[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
+[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
 的插件来实现。它是 API 服务器的一部分。
 当 Pod 被创建或更新时，它会同步地修改 Pod。
-如果该插件处于激活状态（在大多数发行版中都是默认激活的），当 Pod 被创建
-或更新时它会进行以下操作：
+如果该插件处于激活状态（在大多数发行版中都是默认激活的），
+当 Pod 被创建或更新时它会进行以下操作：
 
 <!--
 1. If the pod does not have a `ServiceAccount` set, it sets the `ServiceAccount` to `default`.
@@ -120,9 +119,9 @@ It acts synchronously to modify pods as they are created or updated. When this p
 1. 如果前一步中为服务账号令牌创建了卷，则为 Pod 中的每个容器添加一个
    `volumeSource`，挂载在其 `/var/run/secrets/kubernetes.io/serviceaccount`
    目录下。
-1. 如果 Pod 不包含 `imagePullSecrets` 设置，将 `ServiceAccount` 所引用
-   的服务账号中的 `imagePullSecrets` 信息添加到 Pod 中。
-
+1. 如果 Pod 不包含 `imagePullSecrets` 设置，将 `ServiceAccount`
+   所引用的服务账号中的 `imagePullSecrets` 信息添加到 Pod 中。
+   
 <!--
 #### Bound Service Account Token Volume
 -->
@@ -133,8 +132,8 @@ It acts synchronously to modify pods as they are created or updated. When this p
 <!--
 The ServiceAccount admission controller will add the following projected volume instead of a Secret-based volume for the non-expiring service account token created by Token Controller.
 -->
-ServiceAccount 准入控制器将添加如下投射卷，而不是为令牌控制器
-所生成的不过期的服务账号令牌而创建的基于 Secret 的卷。
+ServiceAccount 准入控制器将添加如下投射卷，
+而不是为令牌控制器所生成的不过期的服务账号令牌而创建的基于 Secret 的卷。
 
 ```yaml
 - name: kube-api-access-<随机后缀>
@@ -161,7 +160,7 @@ ServiceAccount 准入控制器将添加如下投射卷，而不是为令牌控�
 This projected volume consists of three sources:
 
 1. A ServiceAccountToken acquired from kube-apiserver via TokenRequest API. It will expire after 1 hour by default or when the pod is deleted. It is bound to the pod and has kube-apiserver as the audience.
-1. A ConfigMap containing a CA bundle used for verifying connections to the kube-apiserver. This feature depends on the `RootCAConfigMap` feature gate, which publishes a "kube-root-ca.crt" ConfigMap to every namespace. `RootCAConfigMap` feature gate is graduated to GA in 1.21 and default to true. (This feature will be removed from --feature-gate arg in 1.22).
+1. A ConfigMap containing a CA bundle used for verifying connections to the kube-apiserver. This feature depends on the `RootCAConfigMap` feature gate, which publishes a "kube-root-ca.crt" ConfigMap to every namespace. `RootCAConfigMap` feature gate is graduated to GA in 1.21 and default to true. (This flag will be removed from --feature-gate arg in 1.22)
 1. A DownwardAPI that references the namespace of the pod.
 -->
 此投射卷有三个数据源：
@@ -179,7 +178,7 @@ This projected volume consists of three sources:
 <!--
 See more details about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 -->
-参阅[投射卷](/zh/docs/tasks/configure-pod-container/configure-projected-volume-storage/)
+参阅[投射卷](/zh-cn/docs/tasks/configure-pod-container/configure-projected-volume-storage/)
 了解进一步的细节。
 
 <!--
@@ -251,7 +250,7 @@ type: kubernetes.io/service-account-token
 ```
 
 ```shell
-kubectl create -f ./secret.json
+kubectl create -f ./secret.yaml
 kubectl describe secret mysecretname
 ```
 
@@ -272,6 +271,6 @@ ensures a ServiceAccount named "default" exists in every active namespace.
 -->
 ### 服务账号控制器   {#serviceaccount-controller}
 
-服务账号控制器管理各名字空间下的 ServiceAccount 对象，并且保证每个活跃的
-名字空间下存在一个名为 "default" 的 ServiceAccount。
+服务账号控制器管理各名字空间下的 ServiceAccount 对象，
+并且保证每个活跃的名字空间下存在一个名为 "default" 的 ServiceAccount。
 

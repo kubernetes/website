@@ -1,16 +1,13 @@
 ---
-title: " 使用 Puppet 管理 Kubernetes Pods，Services 和 Replication Controllers "
+title: "使用 Puppet 管理 Kubernetes Pod、Service 和 Replication Controller"
 date: 2015-12-17
 slug: managing-kubernetes-pods-services-and-replication-controllers-with-puppet
 ---
-
 <!--
----
 title: " Managing Kubernetes Pods, Services and Replication Controllers with Puppet "
 date: 2015-12-17
 slug: managing-kubernetes-pods-services-and-replication-controllers-with-puppet
-url: /zh/blog/2015/12/Managing-Kubernetes-Pods-Services-And-Replication-Controllers-With-Puppet
----
+url: /blog/2015/12/Managing-Kubernetes-Pods-Services-And-Replication-Controllers-With-Puppet
 -->
 
 <!--

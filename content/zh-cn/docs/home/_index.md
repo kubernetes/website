@@ -62,7 +62,7 @@ overview:
 #   title: K8s Release Notes
 #   description: If you are installing Kubernetes or upgrading to the newest version, refer to the current release notes.
 #   button: "Download Kubernetes"
-#   button_path: "/zh/docs/setup/release/notes"
+#   button_path: "/zh-cn/docs/setup/release/notes"
 # - name: about
 #   title: About the documentation
 #   description: This website contains documentation for the current and previous 4 versions of Kubernetes.
@@ -71,37 +71,37 @@ cards:
   title: "了解 Kubernetes"
   description: "了解 Kubernetes 和其基础概念。"
   button: "查看概念"
-  button_path: "/zh/docs/concepts"
+  button_path: "/zh-cn/docs/concepts"
 - name: tutorials
   title: "尝试 Kubernetes"
   description: "按照教程学习如何在 Kubernetes 上部署应用。"
   button: "查看教程"
-  button_path: "/zh/docs/tutorials"
+  button_path: "/zh-cn/docs/tutorials"
 - name: setup
   title: "设置 K8s 集群"
   description: "按照你的资源情况和需求运行 Kubernetes。"
   button: "设置 Kubernetes"
-  button_path: "/zh/docs/setup"
+  button_path: "/zh-cn/docs/setup"
 - name: tasks
   title: "了解如何使用 Kubernetes"
   description: "查看常见任务以及如何使用简单步骤执行它们。"
   button: "查看任务"
-  button_path: "/zh/docs/tasks"
+  button_path: "/zh-cn/docs/tasks"
 - name: training
   title: "培训"
   description: "通过 Kubernetes 认证，助你的云原生项目成功！"
   button: "查看培训"
-  button_path: "/zh/training"
+  button_path: "/zh-cn/training"
 - name: reference
   title: 查阅参考信息 
   description: 浏览术语、命令行语法、API 资源类型和安装工具文档。
   button: 查看参考
-  button_path: /zh/docs/reference
+  button_path: /zh-cn/docs/reference
 - name: contribute
   title: 为文档作贡献
   description: 任何人，无论对该项目熟悉与否，都能贡献自己的力量。
   button: 为文档作贡献
-  button_path: /zh/docs/contribute
+  button_path: /zh-cn/docs/contribute
 - name: release-notes
   title: K8s 发布说明
   description: 如果你正在安装或升级 Kubernetes，最好参考最新的发布说明。

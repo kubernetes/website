@@ -2,16 +2,14 @@
 title: " Kubernetes 社区指导委员会选举结果 "
 date: 2017-10-05
 slug: kubernetes-community-steering-committee-election-results
-url: /zh/blog/2017/10/Kubernetes-Community-Steering-Committee-Election-Results
 ---
 <!--
----
 title: " Kubernetes Community Steering Committee Election Results "
 date: 2017-10-05
 slug: kubernetes-community-steering-committee-election-results
-url: /zh/blog/2017/10/Kubernetes-Community-Steering-Committee-Election-Results
----
+url: /blog/2017/10/Kubernetes-Community-Steering-Committee-Election-Results
 -->
+
 <!--
 Beginning with the announcement of Kubernetes 1.0 at OSCON in 2015, there has been a concerted effort to share the power and burden of leadership across the Kubernetes community.  
 -->

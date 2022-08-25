@@ -130,6 +130,12 @@ kubectl get secret db-user-pass -o jsonpath='{.data}'
 이제 `password` 데이터를 디코딩할 수 있다.
 
 ```shell
+# 이 예시는 문서화를 위한 것이다. 
+# 아래와 같은 방법으로 이를 수행했다면, 
+# 'MWYyZDFlMmU2N2Rm' 데이터가 셸 히스토리에 저장될 수 있다. 
+# 당신의 컴퓨터에 접근할 수 있는 사람이 당신 몰래 저장된 명령을 찾아 
+# 시크릿을 base-64 디코드할 수도 있다. 
+# 따라서 이 페이지의 아래 부분에 나오는 다른 단계들과 조합하는 것이 좋다.
 echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ```
 
@@ -138,6 +144,15 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ```
 1f2d1e2e67df
 ```
+
+인코딩된 시크릿 값이 셸 히스토리에 저장되는 것을 피하려면, 
+다음의 명령을 실행할 수 있다.
+
+```shell
+kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
+```
+
+출력은 위의 경우와 유사할 것이다.
 
 ## 삭제
 

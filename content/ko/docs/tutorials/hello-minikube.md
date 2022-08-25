@@ -136,7 +136,7 @@ minikube dashboard --url
     ```
 
 {{< note >}}
-`kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개요](/ko/docs/reference/kubectl/overview/)을 살펴보자.
+`kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개요](/ko/docs/reference/kubectl/)을 살펴보자.
 {{< /note >}}
 
 ## 서비스 만들기

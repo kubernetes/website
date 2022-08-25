@@ -6,7 +6,7 @@ metadata:
     app: guestbook
     tier: frontend
 spec:
-  # modify replicas according to your case
+  # 按你的实际情况修改副本数
   replicas: 3
   selector:
     matchLabels:

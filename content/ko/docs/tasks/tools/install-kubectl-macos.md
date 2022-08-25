@@ -69,7 +69,7 @@ card:
    kubectl 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl.sha256)  kubectl" | shasum -a 256 --check
+   echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.
@@ -110,6 +110,11 @@ card:
 
    ```bash
    kubectl version --client
+   ```
+   또는 다음을 실행하여 버전에 대한 더 자세한 정보를 본다.
+
+   ```cmd
+   kubectl version --client --output=yaml    
    ```
 
 ### macOS에서 Homebrew를 사용하여 설치 {#install-with-homebrew-on-macos}
@@ -200,7 +205,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
    kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
+   echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.

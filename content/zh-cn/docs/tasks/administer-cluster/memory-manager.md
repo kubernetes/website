@@ -62,9 +62,9 @@ To align memory resources with other requested resources in a Pod Spec:
 为了使得内存资源与 Pod 规约中所请求的其他资源对齐：
 
 - CPU 管理器应该被启用，并且在节点（Node）上要配置合适的 CPU 管理器策略，
-  参见[控制 CPU 管理策略](/zh/docs/tasks/administer-cluster/cpu-management-policies/)；
+  参见[控制 CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)；
 - 拓扑管理器要被启用，并且要在节点上配置合适的拓扑管理器策略，参见
-  [控制拓扑管理器策略](/zh/docs/tasks/administer-cluster/topology-manager/)。
+  [控制拓扑管理器策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)。
 
 <!--
 Starting from v1.22, the Memory Manager is enabled by default through `MemoryManager`
@@ -77,7 +77,7 @@ Preceding v1.22, the `kubelet` must be started with the following flag:
 in order to enable the Memory Manager feature.
 -->
 从 v1.22 开始，内存管理器通过
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 `MemoryManager` 默认启用。
 
 在 v1.22 之前，`kubelet` 必须在启动时设置如下标志：
@@ -266,7 +266,7 @@ A dedicated set of flags can be used for this purpose to set the total amount of
 for a node. This pre-configured value is subsequently utilized to calculate
 the real amount of node's "allocatable" memory available to pods.
 -->
-[节点可分配](/zh/docs/tasks/administer-cluster/reserve-compute-resources/)机制通常
+[节点可分配](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/)机制通常
 被节点管理员用来为 kubelet 或操作系统进程预留 K8S 节点上的系统资源，目的是提高节点稳定性。
 有一组专用的标志可用于这个目的，为节点设置总的预留内存量。
 此预配置的值接下来会被用来计算节点上对 Pods “可分配的”内存。
@@ -315,7 +315,7 @@ In fact, `eviction-hard` threshold value is equal to `100Mi` by default, so
 if `Static` policy is used, `--reserved-memory` is obligatory.
 -->
 你也可以忽略此参数，不过这样做时，你要清楚，所有 NUMA 节点上预留内存的数量要等于
-[节点可分配特性](/zh/docs/tasks/administer-cluster/reserve-compute-resources/)
+[节点可分配特性](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/)
 所设定的内存量。如果至少有一个节点可分配参数值为非零，你就需要至少为一个 NUMA
 节点设置 `--reserved-memory`。实际上，`eviction-hard` 阈值默认为 `100Mi`，
 所以当使用 `Static` 策略时，`--reserved-memory` 是必须设置的。
@@ -777,7 +777,7 @@ This information can be retrieved solely for pods in Guaranteed QoS class.
 -->
 ### 设备插件资源 API     {#device-plugin-resource-api}
 
-通过使用此 [API](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)，
+通过使用此 [API](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)，
 可以获得每个容器的预留内存信息，该信息位于 protobuf 协议的 `ContainerMemory` 消息中。
 只能针对 Guaranteed QoS 类中的 Pod 来检索此信息。
 

@@ -31,13 +31,13 @@ You must be able to log in to the SSH service on the remote server.
 <!--
 ## Task context
 -->
-## 任务上下文
+## 任务上下文  {#task-context}
 
+{{< note >}}
 <!--
 This example tunnels traffic using SSH, with the SSH client and server acting as a SOCKS proxy.
 You can instead use any other kind of [SOCKS5](https://en.wikipedia.org/wiki/SOCKS#SOCKS5) proxies.
 -->
-{{< note >}}
 此示例使用 SSH 隧道传输流量，SSH 客户端和服务器充当 SOCKS 代理。
 你可以使用其他任意类型的 [SOCKS5](https://zh.wikipedia.org/wiki/SOCKS#SOCKS5) 代理代替。
 {{</ note >}}
@@ -53,11 +53,12 @@ Figure 1 represents what you're going to achieve in this task.
 -->
 图 1 表示你将在此任务中实现的目标。
 
-* 你有一台在后面的步骤中被称为本地计算机的客户端计算机，你将在这台计算机上创建与 Kubernetes API 对话的请求。
+* 你有一台在后面的步骤中被称为本地计算机的客户端计算机，你将在这台计算机上创建与
+  Kubernetes API 对话的请求。
 * Kubernetes 服务器/API 托管在远程服务器上。
 * 你将使用 SSH 客户端和服务器软件在本地和远程服务器之间创建安全的 SOCKS5 隧道。
-  客户端和 Kubernetes API 之间的 HTTPS 流量将流经 SOCKS5 隧道，该隧道本身通过 SSH 进行隧道传输。
-
+  客户端和 Kubernetes API 之间的 HTTPS 流量将流经 SOCKS5 隧道，该隧道本身通过
+  SSH 进行隧道传输。
 
 <!--
 graph LR;
@@ -108,13 +109,12 @@ Figure 1. SOCKS5 tutorial components
 
 <!--
 ## Using ssh to create a SOCKS5 proxy
--->
-## 使用 ssh 创建 SOCKS5 代理
 
-<!--
 This command starts a SOCKS5 proxy between your client machine and the remote server.
 The SOCKS5 proxy lets you connect to your cluster's API server.
 -->
+## 使用 SSH 创建 SOCKS5 代理
+
 此命令在你的客户端计算机和远程服务器之间启动一个 SOCKS5 代理。
 SOCKS5 代理允许你连接到集群的 API 服务器。
 
@@ -136,16 +136,16 @@ ssh -D 1080 -q -N username@kubernetes-remote-server.example
 
 <!--
 ## Client configuration
--->
-## 客户端配置
 
-<!--
 To explore the Kubernetes API you'll first need to instruct your clients to send their queries through
 the SOCKS5 proxy we created earlier.
 
 For command-line tools, set the `https_proxy` environment variable and pass it to commands that you run.
 -->
-要探索 Kubernetes API，你首先需要指示你的客户端通过我们之前创建的 SOCKS5 代理发送他们的查询。
+## 客户端配置
+
+要探索 Kubernetes API，你首先需要指示你的客户端通过我们之前创建的 SOCKS5
+代理发送他们的查询。
 对于命令行工具，设置 `https_proxy` 环境变量并将其传递给你运行的命令。
 
 ```shell
@@ -155,22 +155,21 @@ export https_proxy=socks5h://localhost:1080
 <!--
 When you set the `https_proxy` variable, tools such as `curl` route HTTPS traffic through the proxy
 you configured. For this to work, the tool must support SOCKS5 proxying.
-
-{{< note >}}
-In the URL https://localhost/api, `localhost` does not refer to your local client computer.
-Instead, it refers to the endpoint on the remote server knows as `localhost`.
-The `curl` tool sends the hostname from the HTTPS URL over SOCKS, and the remote server
-resolves that locally (to an address that belongs to its loopback interface).
-{{</ note >}}
 -->
 当你设置 `https_proxy` 变量时，`curl` 等工具会通过你配置的代理路由 HTTPS 流量。
 为此，该工具必须支持 SOCKS5 代理。
 
 {{< note >}}
+<!--
+In the URL https://localhost/api, `localhost` does not refer to your local client computer.
+Instead, it refers to the endpoint on the remote server known as `localhost`.
+The `curl` tool sends the hostname from the HTTPS URL over SOCKS, and the remote server
+resolves that locally (to an address that belongs to its loopback interface).
+-->
 在 URL https://localhost/api 中，`localhost` 不是指你的本地客户端计算机。
 它指的是远程服务器上称为 “localhost” 的端点。
 `curl` 工具通过 SOCKS 从 HTTPS URL 发送主机名，远程服务器在本地解析（到属于其环回接口的地址）。
-{{</ note >}}
+{{< /note >}}
 
 ```shell
 curl -k -v https://localhost/api
@@ -187,9 +186,11 @@ for the relevant `cluster` entry within  your `~/.kube/config` file. For example
 apiVersion: v1
 clusters:
 - cluster:
-    certificate-authority-data: LRMEMMW2 # 为了便于阅读缩短
-    server: https://localhost            # 上图中的“Kubernetes API”
-    proxy-url: socks5://localhost:1080   # 上图中的“SSH SOCKS5代理”（内置DNS解析）
+    certificate-authority-data: LRMEMMW2 # 简化以便阅读
+    # “Kubernetes API”服务器，换言之，kubernetes-remote-server.example 的 IP 地址
+    server: https://<API_SERVER_IP_ADRESS>:6443  
+    # 上图中的“SSH SOCKS5代理”（内置 DNS 解析）
+    proxy-url: socks5://localhost:1080
   name: default
 contexts:
 - context:
@@ -202,8 +203,8 @@ preferences: {}
 users:
 - name: default
   user:
-    client-certificate-data: LS0tLS1CR== # 为了便于阅读缩短
-    client-key-data: LS0tLS1CRUdJT=      # 为了便于阅读缩短
+    client-certificate-data: LS0tLS1CR== # 节略，为了便于阅读
+    client-key-data: LS0tLS1CRUdJT=      # 节略，为了便于阅读
 ```
 
 <!--
@@ -223,24 +224,23 @@ kube-system   coredns-85cb69466-klwq8                  1/1     Running     0    
 
 <!--
 ## Clean up
--->
-## 清理
 
-<!--
 Stop the ssh port-forwarding process by pressing `CTRL+C` on the terminal where it is running.
 
 Type `unset https_proxy` in a terminal to stop forwarding http traffic through the proxy.
 -->
-通过在运行它的终端上按“CTRL+C”来停止 ssh 端口转发进程。
+## 清理
+
+通过在运行它的终端上按 “CTRL+C” 来停止 SSH 端口转发进程。
 
 在终端中键入 `unset https_proxy` 以停止通过代理转发 http 流量。
 
 <!--
 ## Further reading
+
+* [OpenSSH remote login client](https://man.openbsd.org/ssh)
 -->
 ## 进一步阅读
 
-<!--
-* [OpenSSH remote login client](https://man.openbsd.org/ssh)
--->
 * [OpenSSH远程登录客户端](https://man.openbsd.org/ssh)
+

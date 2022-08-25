@@ -55,7 +55,7 @@ Note: The password is defined in the config yaml, and this is insecure. See
 for a secure solution.
 -->
 注意：在配置的 YAML 文件中定义密码的做法是不安全的。具体安全解决方案请参考
-[Kubernetes Secrets](/zh/docs/concepts/configuration/secret/).
+[Kubernetes Secrets](/zh-cn/docs/concepts/configuration/secret/).
 
 {{< codenew file="application/mysql/mysql-deployment.yaml" >}}
 {{< codenew file="application/mysql/mysql-pv.yaml" >}}
@@ -231,7 +231,7 @@ Deployment 中镜像或其他部分同往常一样可以通过 `kubectl apply` �
 -->
 * 不要对应用进行规模扩缩。这里的设置仅适用于单实例应用。下层的 PersistentVolume
   仅只能挂载到一个 Pod 上。对于集群级有状态应用，请参考
-  [StatefulSet 文档](/zh/docs/concepts/workloads/controllers/statefulset/).
+  [StatefulSet 文档](/zh-cn/docs/concepts/workloads/controllers/statefulset/).
 * 在 Deployment 的 YAML 文件中使用 `strategy:` `type: Recreate`。
   该选项指示 Kubernetes _不_ 使用滚动升级。滚动升级无法工作，因为这里一次不能
   运行多个 Pod。在使用更新的配置文件创建新的 Pod 前，`Recreate` 策略将
@@ -276,11 +276,11 @@ PersistentVolume 将被自动删除。
 
 * [Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 -->
-* 欲进一步了解 Deployment 对象，请参考 [Deployment 对象](/zh/docs/concepts/workloads/controllers/deployment/)
-* 进一步了解[部署应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)
+* 欲进一步了解 Deployment 对象，请参考 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)
+* 进一步了解[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
 
 * 参阅 [kubectl run 文档](/docs/reference/generated/kubectl/kubectl-commands/#run)
 
-* 参阅[卷](/zh/docs/concepts/storage/volumes/)和[持久卷](/zh/docs/concepts/storage/persistent-volumes/)
+* 参阅[卷](/zh-cn/docs/concepts/storage/volumes/)和[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)
 
 

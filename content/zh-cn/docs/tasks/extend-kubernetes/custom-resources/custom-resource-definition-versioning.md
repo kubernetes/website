@@ -33,7 +33,7 @@ API 升级时需要在不同 API 表示形式之间进行转换。
 <!--
 You should have a initial understanding of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 -->
-你应该对[定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+你应该对[定制资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 有一些初步了解。
 
 {{< version-check >}}
@@ -509,6 +509,39 @@ spec:
 {{% /tab %}}
 {{< /tabs >}}
 
+<!--
+### Version removal
+
+An older API version cannot be dropped from a CustomResourceDefinition manifest until existing persisted data has been migrated to the newer API version for all clusters that served the older version of the custom resource, and the old version is removed from the `status.storedVersions` of the CustomResourceDefinition.
+-->
+### 版本删除   {#version-removal}
+
+在为所有提供旧版本自定义资源的集群将现有数据迁移到新 API 版本，并且从 CustomResourceDefinition 的
+`status.storedVersions` 中删除旧版本之前，无法从 CustomResourceDefinition 清单文件中删除旧 API 版本。
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+  name: crontabs.example.com
+spec:
+  group: example.com
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    # 此属性标明该自定义资源的 v1beta1 版本已不再提供。
+    # 发给此版本的 API 请求会在服务器响应中收到未找到的错误。
+    served: false
+    schema: ...
+  - name: v1
+    served: true
+    # 新提供的版本应该设置为存储版本。
+    storage: true
+    schema: ...
+```
 
 <!--
 ## Webhook conversion
@@ -524,7 +557,7 @@ Webhook conversion is available as beta since 1.15, and as alpha since Kubernete
 Webhook 转换在 Kubernetes 1.13 版本引入，在 Kubernetes 1.15 中成为 Beta 功能。
 要使用此功能，应启用 `CustomResourceWebhookConversion` 特性。
 在大多数集群上，这类 Beta 特性应该是自动启用的。
-请参阅[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+请参阅[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 文档以获得更多信息。
 {{< /note >}}
 
@@ -599,7 +632,7 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 默认为 `NoClientCert`。
 这意味着 webhook 服务器没有验证客户端（也就是 API 服务器）的身份。
 如果你需要双向 TLS 或者其他方式来验证客户端，请参阅如何
-[验证 API 服务](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticate-apiservers)。
+[验证 API 服务](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticate-apiservers)。
 {{< /note >}}
 
 <!--
@@ -626,7 +659,7 @@ The assumption for next sections is that the conversion webhook server is deploy
 ### 部署转换 Webhook 服务
 
 用于部署转换 webhook 的文档与
-[准入 Webhook 服务示例](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service)相同。
+[准入 Webhook 服务示例](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service)相同。
 这里的假设是转换 Webhook 服务器被部署为 `default` 名字空间中名为
 `example-conversion-webhook-server` 的服务，并在路径 `/crdconvert`
 上处理请求。

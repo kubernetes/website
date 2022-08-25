@@ -245,7 +245,7 @@ of this feature.
 [Volume populators and data sources](/docs/concepts/storage/persistent-volumes/#volume-populators-and-data-sources), within the documentation topic about persistent volumes,
 explains how to use this feature in your cluster.
 -->
-[卷填充器与数据源](/zh/docs/concepts/storage/persistent-volumes/#volume-populators-and-data-sources),
+[卷填充器与数据源](/zh-cn/docs/concepts/storage/persistent-volumes/#volume-populators-and-data-sources),
 在有关持久卷的文档主题中，解释了如何在集群中使用此功能。
 
 <!--

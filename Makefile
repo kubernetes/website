@@ -9,7 +9,7 @@ CONTAINER_ENGINE ?= docker
 IMAGE_REGISTRY ?= gcr.io/k8s-staging-sig-docs
 IMAGE_VERSION=$(shell scripts/hash-files.sh Dockerfile Makefile | cut -c 1-12)
 CONTAINER_IMAGE   = $(IMAGE_REGISTRY)/k8s-website-hugo:v$(HUGO_VERSION)-$(IMAGE_VERSION)
-CONTAINER_RUN     = $(CONTAINER_ENGINE) run --rm --interactive --tty --volume $(CURDIR):/src
+CONTAINER_RUN     = "$(CONTAINER_ENGINE)" run --rm --interactive --tty --volume "$(CURDIR):/src"
 
 CCRED=\033[0;31m
 CCEND=\033[0m
@@ -77,8 +77,9 @@ container-push: container-image ## Push container image for the preview of the w
 container-build: module-check
 	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development"
 
-container-serve: module-check ## Boot the development server using container. Run `make container-image` before this.
-	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir
+# no build lock to allow for read-only mounts
+container-serve: module-check ## Boot the development server using container.
+	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir --noBuildLock
 
 test-examples:
 	scripts/test_examples.sh install
@@ -94,7 +95,7 @@ docker-internal-linkcheck:
 
 container-internal-linkcheck: link-checker-image-pull
 	$(CONTAINER_RUN) $(CONTAINER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture --environment test
-	$(CONTAINER_ENGINE) run --mount type=bind,source=$(CURDIR),target=/test --rm wjdp/htmltest htmltest
+	$(CONTAINER_ENGINE) run --mount "type=bind,source=$(CURDIR),target=/test" --rm wjdp/htmltest htmltest
 
 clean-api-reference: ## Clean all directories in API reference directory, preserve _index.md
 	rm -rf content/en/docs/reference/kubernetes-api/*/

@@ -1,16 +1,15 @@
-<!--
----
-layout: blog
-title:  'The Machines Can Do the Work, a Story of Kubernetes Testing, CI, and Automating the Contributor Experience'
-date:   2018-08-29
----
--->
-
 ---
 layout: blog
 title: '机器可以完成这项工作，一个关于 kubernetes 测试、CI 和自动化贡献者体验的故事'
 date: 2019-08-29
+slug: the-machines-can-do-the-work-a-story-of-kubernetes-testing-ci-and-automating-the-contributor-experience
 ---
+<!--
+layout: blog
+title:  'The Machines Can Do the Work, a Story of Kubernetes Testing, CI, and Automating the Contributor Experience'
+date:   2018-08-29
+-->
+
 
 <!--
 **Author**: Aaron Crickenberger (Google) and Benjamin Elder (Google)

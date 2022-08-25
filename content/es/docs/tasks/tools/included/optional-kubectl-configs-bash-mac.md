@@ -76,7 +76,7 @@ Ahora debe asegurarse de que el script de completado de kubectl se obtenga en to
 
     ```bash
     echo 'alias k=kubectl' >>~/.bash_profile
-    echo 'complete -F __start_kubectl k' >>~/.bash_profile
+    echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
     ```
 
 - Si instaló kubectl con Homebrew (como se explica [aquí](/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)), entonces el script de completado de kubectl ya debería estar en `/usr/local/etc/bash_completion.d/kubectl`. En ese caso, no necesita hacer nada.

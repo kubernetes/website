@@ -3,6 +3,7 @@ title: 基于角色的访问控制良好实践
 description: >
   为集群操作人员提供的良好的 RBAC 设计原则和实践。
 content_type: concept
+weight: 60
 ---
 
 <!--
@@ -11,6 +12,7 @@ title: Role Based Access Control Good Practices
 description: >
   Principles and practices for good RBAC design for cluster operators.
 content_type: concept
+weight: 60
 -->
 
 <!-- overview -->
@@ -22,7 +24,8 @@ execute their roles. It is important to ensure that, when designing permissions 
 users, the cluster administrator understands the areas where privilge escalation could occur, 
 to reduce the risk of excessive access leading to security incidents.
 
-The good practices laid out here should be read in conjunction with the general [RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update).
+The good practices laid out here should be read in conjunction with the general
+[RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update).
 -->
 
 Kubernetes {{< glossary_tooltip text="RBAC" term_id="rbac" >}}
@@ -31,7 +34,7 @@ Kubernetes {{< glossary_tooltip text="RBAC" term_id="rbac" >}}
 降低因过多权限而导致安全事件的风险。
 
 此文档的良好实践应该与通用
-[RBAC 文档](/zh/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update)一起阅读。
+[RBAC 文档](/zh-cn/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update)一起阅读。
 
 <!-- body -->
 
@@ -45,8 +48,8 @@ Kubernetes {{< glossary_tooltip text="RBAC" term_id="rbac" >}}
 ### 最小特权  {#least-privilege}
 
 <!--
-Ideally minimal RBAC rights should be assigned to users and service accounts. Only permissions 
-explicitly required for their operation should be used. Whilst each cluster will be different, 
+Ideally, minimal RBAC rights should be assigned to users and service accounts. Only permissions 
+explicitly required for their operation should be used. While each cluster will be different, 
 some general rules that can be applied are :
 -->
 理想情况下，分配给用户和服务帐户的 RBAC 权限应该是最小的。
@@ -57,14 +60,15 @@ some general rules that can be applied are :
    ClusterRoleBindings to give users rights only within a specific namespace.
  - Avoid providing wildcard permissions when possible, especially to all resources.
    As Kubernetes is an extensible system, providing wildcard access gives rights
-   not just to all object types presently in the cluster, but also to all future object types
+   not just to all object types that currently exist in the cluster, but also to all future object types
    which are created in the future.
  - Administrators should not use `cluster-admin` accounts except where specifically needed. 
-   Providing a low privileged account with [impersonation rights](/docs/reference/access-authn-authz/authentication/#user-impersonation)
+   Providing a low privileged account with
+   [impersonation rights](/docs/reference/access-authn-authz/authentication/#user-impersonation)
    can avoid accidental modification of cluster resources.
  - Avoid adding users to the `system:masters` group. Any user who is a member of this group 
    bypasses all RBAC rights checks and will always have unrestricted superuser access, which cannot be 
-   revoked by removing Role Bindings or Cluster Role Bindings. As an aside, if a cluster is 
+   revoked by removing RoleBindings or ClusterRoleBindings. As an aside, if a cluster is 
    using an authorization webhook, membership of this group also bypasses that webhook (requests 
    from users who are members of that group are never sent to the webhook)
 -->
@@ -74,7 +78,7 @@ some general rules that can be applied are :
   由于 Kubernetes 是一个可扩展的系统，因此通过通配符来授予访问权限不仅会授予集群中当前的所有对象类型，
   还包含所有未来被创建的所有对象类型。
 - 管理员不应使用 `cluster-admin` 账号，除非特别需要。为低特权帐户提供
-  [伪装权限](/zh/docs/reference/access-authn-authz/authentication/#user-impersonation)
+  [伪装权限](/zh-cn/docs/reference/access-authn-authz/authentication/#user-impersonation)
   可以避免意外修改集群资源。
 - 避免将用户添加到 `system:masters` 组。任何属于此组成员的用户都会绕过所有 RBAC 权限检查，
   始终具有不受限制的超级用户访问权限，并且不能通过删除 `RoleBinding` 或 `ClusterRoleBinding`
@@ -87,14 +91,17 @@ some general rules that can be applied are :
 ### 最大限度地减少特权令牌的分发 {#minimize-distribution-of-privileged-tokens}
 
 <!--
-Ideally, pods shouldn't be assigned service accounts that have been granted powerful permissions (for example, any of the rights listed under
-[privilege escalation risks](#privilege-escalation-risks)). 
+Ideally, pods shouldn't be assigned service accounts that have been granted powerful permissions
+(for example, any of the rights listed under [privilege escalation risks](#privilege-escalation-risks)). 
 In cases where a workload requires powerful permissions, consider the following practices:
+
  - Limit the number of nodes running powerful pods. Ensure that any DaemonSets you run
   are necessary and are run with least privilege to limit the blast radius of container escapes.
  - Avoid running powerful pods alongside untrusted or publicly-exposed ones. Consider using 
-   [Taints and Toleration](/docs/concepts/scheduling-eviction/taint-and-toleration/), [NodeAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity), or [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) to ensure 
-   pods don't run alongside untrusted or less-trusted Pods. Pay especial attention to
+   [Taints and Toleration](/docs/concepts/scheduling-eviction/taint-and-toleration/),
+   [NodeAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity), or
+   [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
+   to ensure pods don't run alongside untrusted or less-trusted Pods. Pay especial attention to
    situations where less-trustworthy Pods are not meeting the **Restricted** Pod Security Standard.
 -->
 理想情况下，不应为 Pod 分配具有强大权限（例如，在[特权提级的风险](#privilege-escalation-risks)中列出的任一权限）的服务帐户。
@@ -102,11 +109,12 @@ In cases where a workload requires powerful permissions, consider the following 
 - 限制运行此类 Pod 的节点数量。确保你运行的任何 DaemonSet 都是必需的，
   并且以最小权限运行，以限制容器逃逸的影响范围。
 - 避免将此类 Pod 与不可信任或公开的 Pod 在一起运行。
-  考虑使用[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)、
-  [节点亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)或
-  [Pod 反亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)确保 
+  考虑使用[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)、
+  [节点亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)或
+  [Pod 反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)确保 
   Pod 不会与不可信或不太受信任的 Pod 一起运行。
   特别注意可信度不高的 Pod 不符合 **Restricted** Pod 安全标准的情况。
+
 <!--
 ### Hardening
 
@@ -122,7 +130,7 @@ Kubernetes 默认提供访问权限并非是每个集群都需要的。
 一般来说，不应该更改 `system:` 帐户的某些权限，有一些方式来强化现有集群的权限：
 
 <!--
-- Review bindings for the `system:unauthenticated` group and remove where possible, as this gives 
+- Review bindings for the `system:unauthenticated` group and remove them where possible, as this gives 
   access to anyone who can contact the API server at a network level.
 - Avoid the default auto-mounting of service account tokens by setting
   `automountServiceAccountToken: false`. For more details, see
@@ -133,7 +141,7 @@ Kubernetes 默认提供访问权限并非是每个集群都需要的。
 - 审查 `system:unauthenticated` 组的绑定，并在可能的情况下将其删除，
   因为这会给所有能够访问 API 服务器的人以网络级别的权限。
 - 通过设置 `automountServiceAccountToken: false` 来避免服务账号令牌的默认自动挂载，
-  有关更多详细信息，请参阅[使用默认服务账号令牌](/zh/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)。
+  有关更多详细信息，请参阅[使用默认服务账号令牌](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)。
   此参数可覆盖 Pod 服务账号设置，而需要服务账号令牌的工作负载仍可以挂载。
 
 <!--
@@ -157,7 +165,7 @@ Within Kubernetes RBAC there are a number of privileges which, if granted, can a
 to escalate their privileges in the cluster or affect systems outside the cluster.
 
 This section is intended to provide visibility of the areas where cluster operators 
-should take care, to ensure that they do not inadvertantly allow for more access to clusters than intended.
+should take care, to ensure that they do not inadvertently allow for more access to clusters than intended.
 -->
 ## Kubernetes RBAC - 权限提权的风险 {#privilege-escalation-risks}
 
@@ -192,9 +200,9 @@ be able to gain access to the underlying node unless restrictions based on the K
 -->
 ### 工作负载的创建 {#workload-creation}
 
-能够创建工作负载的用户（Pod 或管理 Pod 的[工作负载资源](/zh/docs/concepts/workloads/controllers/)） 
+能够创建工作负载的用户（Pod 或管理 Pod 的[工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)） 
 能够访问下层的节点，除非基于 Kubernetes 的
-[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)做限制。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)做限制。
 
 <!--
 Users who can run privileged Pods can use that access to gain node access and potentially to
@@ -208,14 +216,14 @@ or other (third party) mechanisms to implement that enforcement.
 并可能进一步提升他们的特权。如果你不完全信任某用户或其他主体，
 不相信他们能够创建比较安全且相互隔离的 Pod，你应该强制实施 **Baseline**
 或 **Restricted** Pod 安全标准。
-你可以使用 [Pod 安全性准入](/zh/docs/concepts/security/pod-security-admission/)或其他（第三方）机制来强制实施这些限制。
+你可以使用 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)或其他（第三方）机制来强制实施这些限制。
 
 <!--
-You can also use the deprecated [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) mechanism
+You can also use the deprecated [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) mechanism
 to restrict users' abilities to create privileged Pods (N.B. PodSecurityPolicy is scheduled for removal
 in version 1.25).
 -->
-你还可以使用已弃用的 [PodSecurityPolicy](/zh/docs/concepts/policy/pod-security-policy/)
+你还可以使用已弃用的 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)
 机制以限制用户创建特权 Pod 的能力 （特别注意：PodSecurityPolicy 已计划在版本 1.25 中删除）。
 
 <!--
@@ -230,12 +238,14 @@ Secrets they would not have through RBAC directly.
 <!--
 ### Persistent volume creation
 
-As noted in the [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/#volumes-and-file-systems) documentation, access to create PersistentVolumes can allow for escalation of access to the underlying host. Where access to persistent storage is required trusted administrators should create 
+As noted in the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/#volumes-and-file-systems)
+documentation, access to create PersistentVolumes can allow for escalation of access to the underlying host.
+Where access to persistent storage is required trusted administrators should create
 PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
 -->
 ### 持久卷的创建 {#persistent-volume-creation}
 
-如 [PodSecurityPolicy](/zh/docs/concepts/policy/pod-security-policy/#volumes-and-file-systems) 
+如 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/#volumes-and-file-systems) 
 文档中所述，创建 PersistentVolumes 的权限可以提权访问底层主机。
 如果需要访问 PersistentVolume，受信任的管理员应该创建 `PersistentVolume`，
 受约束的用户应该使用 `PersistentVolumeClaim` 访问该存储。
@@ -244,7 +254,7 @@ PersistentVolumes, and constrained users should use PersistentVolumeClaims to ac
 ### Access to `proxy` subresource of Nodes
 
 Users with access to the proxy sub-resource of node objects have rights to the Kubelet API, 
-which allows for command execution on every pod on the node(s) which they have rights to. 
+which allows for command execution on every pod on the node(s) to which they have rights. 
 This access bypasses audit logging and admission control, so care should be taken before 
 granting rights to this resource.
 -->
@@ -257,20 +267,20 @@ granting rights to this resource.
 <!--
 ### Escalate verb
 
-Generally the RBAC system prevents users from creating clusterroles with more rights than 
-they possess. The exception to this is the `escalate` verb. As noted in the [RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update),
+Generally, the RBAC system prevents users from creating clusterroles with more rights than the user possesses. 
+The exception to this is the `escalate` verb. As noted in the [RBAC documentation](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update),
 users with this right can effectively escalate their privileges.
 -->
 ### esclate 动词 {#escalate-verb}
 通常，RBAC 系统会阻止用户创建比他所拥有的更多权限的 `ClusterRole`。
 而 `escalate` 动词是个例外。如
-[RBAC 文档](/zh/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update)
+[RBAC 文档](/zh-cn/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update)
 中所述，拥有此权限的用户可以有效地提升他们的权限。
 
 <!--
 ### Bind verb
 
-Similar to the `escalate` verb, granting users this right allows for bypass of Kubernetes 
+Similar to the `escalate` verb, granting users this right allows for the bypass of Kubernetes 
 in-built protections against privilege escalation, allowing users to create bindings to 
 roles with rights they do not already have.
 -->
@@ -342,7 +352,8 @@ objects to create a denial of service condition either based on the size or numb
 specifically relevant in multi-tenant clusters if semi-trusted or untrusted users 
 are allowed limited access to a system.
 
-One option for mitigation of this issue would be to use [resource quotas](/docs/concepts/policy/resource-quotas/#object-count-quota)
+One option for mitigation of this issue would be to use
+[resource quotas](/docs/concepts/policy/resource-quotas/#object-count-quota)
 to limit the quantity of objects which can be created.
 -->
 ## Kubernetes RBAC - 拒绝服务攻击的风险 {#denial-of-service-risks}
@@ -352,4 +363,11 @@ to limit the quantity of objects which can be created.
 产生拒绝服务状况，如 [Kubernetes 使用的 etcd 容易受到 OOM 攻击](https://github.com/kubernetes/kubernetes/issues/107325)中的讨论。
 允许太不受信任或者不受信任的用户对系统进行有限的访问在多租户集群中是特别重要的。
 
-缓解此问题的一种选择是使用[资源配额](/zh/docs/concepts/policy/resource-quotas/#object-count-quota)以限制可以创建的对象数量。
+缓解此问题的一种选择是使用[资源配额](/zh-cn/docs/concepts/policy/resource-quotas/#object-count-quota)以限制可以创建的对象数量。
+
+## {{% heading "whatsnext" %}}
+
+<!--
+* To learn more about RBAC, see the [RBAC documentation](/docs/reference/access-authn-authz/rbac/).
+-->
+* 了解有关 RBAC 的更多信息，请参阅 [RBAC 文档](/zh-cn/docs/reference/access-authn-authz/rbac/)。

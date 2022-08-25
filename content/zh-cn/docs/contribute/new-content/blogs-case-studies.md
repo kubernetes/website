@@ -119,7 +119,7 @@ To submit a blog post, follow these steps:
 - 博客内容不可以是销售用语。
   - 文章内容必须是对整个 Kubernetes 社区中很多人都有参考意义。
     例如，所提交的文章应该关注上游的 Kubernetes 项目本身，而不是某个厂商特定的配置。
-    请参阅[文档风格指南](/zh/docs/contribute/style/content-guide/#what-s-allowed)
+    请参阅[文档风格指南](/zh-cn/docs/contribute/style/content-guide/#what-s-allowed)
     以了解哪些内容是 Kubernetes 所允许的。
   - 链接应该主要指向官方的 Kubernetes 文档。
     当引用外部信息时，链接应该是多样的。
@@ -217,7 +217,7 @@ SIG Docs [博客子项目](https://github.com/kubernetes/community/tree/master/s
   - Do **not** include dots in the filename. A name like `2020-01-01-whats-new-in-1.19.md` causes failures during a build.
   - The front matter must include the following:
 -->
-- [发起一个包含新博文的 PR](/zh/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
+- [发起一个包含新博文的 PR](/zh-cn/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
   新博文要创建于 [`content/en/blog/_posts`](https://github.com/kubernetes/website/tree/main/content/en/blog/_posts) 目录下。
 
 - 确保你的博文遵从合适的命名规范，并带有下面的引言（元数据）信息：

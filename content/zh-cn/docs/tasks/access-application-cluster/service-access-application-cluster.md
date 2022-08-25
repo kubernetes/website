@@ -70,9 +70,9 @@ Here is the configuration file for the application Deployment:
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
 
-   上面的命令创建一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 对象
-   和一个关联的 [ReplicaSet](/zh/docs/concepts/workloads/controllers/replicaset/) 对象。
-   这个 ReplicaSet 有两个 [Pod](/zh/docs/concepts/workloads/pods/)，
+   上面的命令创建一个 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 对象
+   和一个关联的 [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/) 对象。
+   这个 ReplicaSet 有两个 [Pod](/zh-cn/docs/concepts/workloads/pods/)，
    每个 Pod 都运行着 Hello World 应用。
   
 <!--
@@ -211,7 +211,7 @@ to create a Service.
 ## 使用服务配置文件
 
 作为 `kubectl expose` 的替代方法，你可以使用
-[服务配置文件](/zh/docs/concepts/services-networking/service/) 来创建服务。
+[服务配置文件](/zh-cn/docs/concepts/services-networking/service/) 来创建服务。
 
 ## {{% heading "cleanup" %}}
 
@@ -240,5 +240,5 @@ kubectl delete deployment hello-world
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 -->
-- 进一步了解[通过服务连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)。
+- 进一步了解[通过服务连接应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)。
 

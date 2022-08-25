@@ -2,13 +2,12 @@
 layout: blog
 title: '2018 年督导委员会选举结果'
 date: 2018-10-15
+slug: 2018-steering-committee-election-results
 ---
 <!--
----
 layout: blog
 title: '2018 Steering Committee Election Results'
 date: 2018-10-15
----
 -->
 
 <!-- **Authors**: Jorge Castro (Heptio), Ihor Dvoretskyi (CNCF), Paris Pittman (Google) -->

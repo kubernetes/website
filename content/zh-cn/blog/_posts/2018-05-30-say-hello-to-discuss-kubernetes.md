@@ -1,17 +1,13 @@
 ---
-title: 'Kubernetes 1 11：向 discuss kubernetes 问好'
 layout: blog
+title: 向 Discuss Kubernetes 问好
 date: 2018-05-30
+slug: say-hello-to-discuss-kubernetes
 ---
-
 <!--
----
-title: ' Kubernetes 1 11：say-hello-to-discuss-kubernetes '
-cn-approvers:
-- congfairy
 layout: blog
+title: Say Hello to Discuss Kubernetes
 date: 2018-05-30
----
 -->
 
 <!--   

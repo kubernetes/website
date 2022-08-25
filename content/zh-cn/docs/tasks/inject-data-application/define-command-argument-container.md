@@ -131,8 +131,8 @@ and
 [Secrets](/docs/concepts/configuration/secret/).
 -->
 这意味着你可以将那些用来设置环境变量的方法应用于设置命令的参数，其中包括了
-[ConfigMaps](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/) 与
-[Secrets](/zh/docs/concepts/configuration/secret/)。
+[ConfigMaps](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 与
+[Secrets](/zh-cn/docs/concepts/configuration/secret/)。
 
 <!--
 The environment variable appears in parentheses, `"$(VAR)"`. This is
@@ -168,7 +168,7 @@ args: ["-c", "while true; do echo hello; sleep 10;done"]
 * Learn more about [running commands in a container](/docs/tasks/debug/debug-application/get-shell-running-container/).
 * See [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
 -->
-* 进一步了解[配置 Pod 和容器](/zh/docs/tasks/)
-* 进一步了解[在容器中运行命令](/zh/docs/tasks/debug/debug-application/get-shell-running-container/)
+* 进一步了解[配置 Pod 和容器](/zh-cn/docs/tasks/)
+* 进一步了解[在容器中运行命令](/zh-cn/docs/tasks/debug/debug-application/get-shell-running-container/)
 * 参阅 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
   API 资源

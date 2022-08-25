@@ -335,7 +335,7 @@ dual-stack.)
    kind: Service
    metadata:
      labels:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      name: my-service
    spec:
      clusterIP: 10.0.197.123
@@ -349,7 +349,7 @@ dual-stack.)
        protocol: TCP
        targetPort: 80
      selector:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      type: ClusterIP
    status:
      loadBalancer: {}
@@ -385,7 +385,7 @@ dual-stack.)
    kind: Service
    metadata:
      labels:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      name: my-service
    spec:
      clusterIP: None
@@ -399,7 +399,7 @@ dual-stack.)
        protocol: TCP
        targetPort: 80
      selector:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
    ```
 
 <!--

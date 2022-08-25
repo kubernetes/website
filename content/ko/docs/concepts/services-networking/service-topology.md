@@ -16,7 +16,7 @@ weight: 10
 
 이 기능, 특히 알파 `topologyKeys` API는 쿠버네티스 v1.21부터
 더 이상 사용되지 않는다.
-쿠버네티스 v1.21에 도입된 [토폴로지 인지 힌트](/docs/concepts/services-networking/topology-aware-hints/)는
+쿠버네티스 v1.21에 도입된 [토폴로지 인지 힌트](/ko/docs/concepts/services-networking/topology-aware-hints/)는
 유사한 기능을 제공한다.
 
 {{</ note >}}

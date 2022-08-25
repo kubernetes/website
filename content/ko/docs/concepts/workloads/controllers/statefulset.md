@@ -115,7 +115,7 @@ spec:
 
 ### 파드 셀렉터
 
-스테이트풀셋의 `.spec.selector` 필드는 `.spec.template.metadata.labels` 레이블과 일치하도록 설정해야 한다. 1.8 버전 이상에서는, 해당되는 파드 셀렉터를 찾지 못하면 스테이트풀셋 생성 과정에서 검증 오류가 발생한다.
+스테이트풀셋의 `.spec.selector` 필드는 `.spec.template.metadata.labels` 레이블과 일치하도록 설정해야 한다. 해당되는 파드 셀렉터를 찾지 못하면 스테이트풀셋 생성 과정에서 검증 오류가 발생한다.
 
 ### 볼륨 클레임 템플릿
 
@@ -226,8 +226,8 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 되기 전까지 종료되지 않는다.
 
 ### 파드 관리 정책
-쿠버네티스 1.7 및 이후에는 스테이트풀셋의 `.spec.podManagementPolicy` 필드를
-통해 고유성 및 신원 보증을 유지하면서 순차 보증을 완화한다.
+스테이트풀셋의 `.spec.podManagementPolicy` 필드를 통해 
+고유성 및 신원 보증을 유지하면서 순차 보증을 완화한다.
 
 #### OrderedReady 파드 관리
 
@@ -266,7 +266,9 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 각 파드의 업데이트는 한 번에 하나씩 한다.
 
 쿠버네티스 컨트롤 플레인은 이전 버전을 업데이트 하기 전에, 업데이트된 파드가 실행 및 준비될 때까지 기다린다.
-`.spec.minReadySeconds`([최소 준비 시간 초](#minimum-ready-seconds) 참조)를 설정한 경우, 컨트롤 플레인은 파드가 준비 상태로 전환된 후 해당 시간을 추가로 기다린 후 이동한다.
+`.spec.minReadySeconds`([최소 준비 시간 초](#minimum-ready-seconds) 참조)를 
+설정한 경우, 
+컨트롤 플레인은 파드가 준비 상태로 전환된 후 해당 시간을 추가로 기다린 후 이동한다.
 
 ### 파티션 롤링 업데이트 {#partitions}
 
@@ -279,6 +281,27 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 `.spec.replicas` 보다 큰 경우 `.spec.template` 의 업데이트는 해당 파드에 전달하지 않는다.
 대부분의 케이스는 파티션을 사용할 필요가 없지만 업데이트를 준비하거나,
 카나리의 롤 아웃 또는 단계적인 롤 아웃을 행하려는 경우에는 유용하다.
+
+### 최대 사용 불가능(unavailable) 파드 수
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+`.spec.updateStrategy.rollingUpdate.maxUnavailable` 필드를 명시하여, 
+업데이트 과정에서 사용 불가능(unavailable) 파드를 최대 몇 개까지 허용할 것인지를 조절할 수 있다. 
+값은 절대값(예: `5`) 또는 목표 파드 퍼센티지(예: `10%`)로 명시할 수 있다. 
+절대값은 퍼센티지 값으로 계산한 뒤 올림하여 얻는다. 
+이 필드는 0일 수 없다. 기본값은 1이다.
+
+이 필드는 `0` 에서 `replicas - 1` 사이 범위에 있는 모든 파드에 적용된다. 
+이 범위 내에 사용 불가능한 파드가 있으면, 
+`maxUnavailable`로 집계된다.
+
+{{< note >}}
+`maxUnavailable` 필드는 현재 알파 단계이며 
+`MaxUnavailableStatefulSet` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 API 서버에서만 
+동작한다.
+{{< /note >}}
 
 ### 강제 롤백
 

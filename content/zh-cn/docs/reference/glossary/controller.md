@@ -2,7 +2,7 @@
 title: 控制器（Controller）
 id: controller
 date: 2018-04-12
-full_link: /zh/docs/concepts/architecture/controller/
+full_link: /zh-cn/docs/concepts/architecture/controller/
 short_description: >
   控制器通过 apiserver 监控集群的公共状态，并致力于将当前状态转变为期望的状态。
 

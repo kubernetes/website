@@ -2,7 +2,6 @@
 title: Kubelet 配置 (v1beta1)
 content_type: tool-reference
 package: kubelet.config.k8s.io/v1beta1
-auto_generated: true
 ---
 
 <!--
@@ -683,7 +682,7 @@ The cgroupRoot must be specified if this field is not empty.
 Default: &quot;&qout;
    -->
    <p><code>systemCgroups</code>是用来放置那些未被容器化的、非内核的进程的控制组
-(CGroup）的绝对名称。设置为空字符串表示没有这类容器。回滚此字段设置需要重启节点。
+（CGroup）的绝对名称。设置为空字符串表示没有这类容器。回滚此字段设置需要重启节点。
 当此字段非空时，必须设置<code>cgroupRoot</code>字段。</p>
    <p>默认值：&quot;&quot;</p>
 </td>
@@ -696,7 +695,7 @@ Default: &quot;&qout;
    <!--cgroupRoot is the root cgroup to use for pods. This is handled by the
 container runtime on a best effort basis.
    -->
-   <p><code>cgroupRoot</code>是用来运行 Pod 的控制组 (CGroup）。
+   <p><code>cgroupRoot</code>是用来运行 Pod 的控制组（CGroup）。
 容器运行时会尽可能处理此字段的设置值。</p>
 </td>
 </tr>
@@ -725,7 +724,7 @@ Default: true
 or systemd).
 Default: &quot;cgroupfs&quot;
    -->
-   <p><code>cgroupDriver</code>是 kubelet 用来操控宿主系统上控制组 (CGroup）
+   <p><code>cgroupDriver</code>是 kubelet 用来操控宿主系统上控制组（CGroup）
 的驱动程序（cgroupfs 或 systemd）。</p>
    <p>默认值：&quot;cgroupfs&quot;</p>
 </td>
@@ -972,7 +971,7 @@ run those in addition to the pods specified by static pod files, and exit.
 Default: false
    -->
    <p><code>runOnce</code>字段被设置时，kubelet 会咨询 API 服务器一次并获得 Pod 列表，
-运行在静态 Pod 文件中指定的 Pod 及这里所获得的的 Pod，然后退出。</p>
+运行在静态 Pod 文件中指定的 Pod 及这里所获得的 Pod，然后退出。</p>
    <p>默认值：false</p>
 </td>
 </tr>
@@ -1399,7 +1398,8 @@ Default: nil
    -->
    <p><code>systemReserved</code>是一组<code>资源名称=资源数量</code>对，
 用来描述为非 Kubernetes 组件预留的资源（例如：'cpu=200m,memory=150G'）。</p>
-   <p>目前仅支持 CPU 和内存。更多细节可参见 http://kubernetes.io/zh/docs/user-guide/compute-resources。</p>
+   <p>目前仅支持 CPU 和内存。更多细节可参见
+   https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/ 。</p>
    <p>默认值：Nil</p>
 </td>
 </tr>
@@ -1467,13 +1467,13 @@ Default: &quot;&quot;
 <td>
    <!--systemReservedCgroup helps the kubelet identify absolute name of top level CGroup used
 to enforce <code>systemReserved</code> compute resource reservation for OS system daemons.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://git.k8s.io/design-proposals-archive/node/node-allocatable.md">Node Allocatable</a>
 doc for more information.
 Default: &quot;&quot;
    -->
    <p><code>systemReservedCgroup</code>帮助 kubelet 识别用来为 OS 系统级守护进程实施
 <code>systemReserved</code>计算资源预留时使用的顶级控制组（CGroup）。
-参考 <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+参考 <a href="https://git.k8s.io/design-proposals-archive/node/node-allocatable.md">Node Allocatable</a>
 以了解详细信息。</p>
    <p>默认值：&quot;&quot;</p>
 </td>
@@ -1486,13 +1486,13 @@ Default: &quot;&quot;
 <td>
    <!--kubeReservedCgroup helps the kubelet identify absolute name of top level CGroup used
 to enforce `KubeReserved` compute resource reservation for Kubernetes node system daemons.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://git.k8s.io/design-proposals-archive/node/node-allocatable.md">Node Allocatable</a>
 doc for more information.
 Default: ""
    -->
    <p><code>kubeReservedCgroup</code> 帮助 kubelet 识别用来为 Kubernetes 节点系统级守护进程实施
 <code>kubeReserved</code>计算资源预留时使用的顶级控制组（CGroup）。
-参阅 <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+参阅 <a href="https://git.k8s.io/design-proposals-archive/node/node-allocatable.md">Node Allocatable</a>
 了解进一步的信息。</p>
    <p>默认值：&quot;&quot;</p>
 </td>
@@ -1509,7 +1509,7 @@ If <code>none</code> is specified, no other options may be specified.
 When <code>system-reserved</code> is in the list, systemReservedCgroup must be specified.
 When <code>kube-reserved</code> is in the list, kubeReservedCgroup must be specified.
 This field is supported only when <code>cgroupsPerQOS</code> is set to true.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://git.k8s.io/design-proposals-archive/node/node-allocatable.md">Node Allocatable</a>
 for more information.
 Default: [&quot;pods&quot;]
    -->
@@ -1520,7 +1520,7 @@ Default: [&quot;pods&quot;]
    <p>如果列表中包含<code>system-reserved</code>，则必须设置<code>systemReservedCgroup</code>。</p>
    <p>如果列表中包含<code>kube-reserved</code>，则必须设置<code>kubeReservedCgroup</code>。</p>
    <p>这个字段只有在<code>cgroupsPerQOS</code>被设置为<code>true</code>才被支持。</p>
-   <p>参阅<a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+   <p>参阅<a href="https://git.k8s.io/design-proposals-archive/node/node-allocatable.md">Node Allocatable</a>
 了解进一步的信息。</p>
    <p>默认值：[&quot;pods&quot;]</p>
 </td>

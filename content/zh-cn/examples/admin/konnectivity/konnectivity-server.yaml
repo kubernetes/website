@@ -12,14 +12,13 @@ spec:
     command: ["/proxy-server"]
     args: [
             "--logtostderr=true",
-            # This needs to be consistent with the value set in egressSelectorConfiguration.
+            # 下一行需与 egressSelectorConfiguration 中设置的值一致。
             "--uds-name=/etc/kubernetes/konnectivity-server/konnectivity-server.socket",
-            # The following two lines assume the Konnectivity server is
-            # deployed on the same machine as the apiserver, and the certs and
-            # key of the API Server are at the specified location.
+            # 下面两行假定 Konnectivity 服务器被部署在与 apiserver 相同的机器上，
+            # 并且该 API 服务器的证书和密钥位于指定的位置。
             "--cluster-cert=/etc/kubernetes/pki/apiserver.crt",
             "--cluster-key=/etc/kubernetes/pki/apiserver.key",
-            # This needs to be consistent with the value set in egressSelectorConfiguration.
+            # 下一行需与 egressSelectorConfiguration 中设置的值一致。
             "--mode=grpc",
             "--server-port=0",
             "--agent-port=8132",

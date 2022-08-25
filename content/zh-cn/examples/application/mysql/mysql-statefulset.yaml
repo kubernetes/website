@@ -6,12 +6,14 @@ spec:
   selector:
     matchLabels:
       app: mysql
+      app.kubernetes.io/name: mysql
   serviceName: mysql
   replicas: 3
   template:
     metadata:
       labels:
         app: mysql
+        app.kubernetes.io/name: mysql
     spec:
       initContainers:
       - name: init-mysql
@@ -27,7 +29,6 @@ spec:
           echo [mysqld] > /mnt/conf.d/server-id.cnf
           # 添加偏移量以避免使用 server-id=0 这一保留值。
           echo server-id=$((100 + $ordinal)) >> /mnt/conf.d/server-id.cnf
-          # Copy appropriate conf.d files from config-map to emptyDir.
           # 将合适的 conf.d 文件从 config-map 复制到 emptyDir。
           if [[ $ordinal -eq 0 ]]; then
             cp /mnt/config-map/primary.cnf /mnt/conf.d/

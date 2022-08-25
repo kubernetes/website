@@ -1,5 +1,5 @@
 ---
-title: Pods
+title: Pod
 content_type: concept
 weight: 10
 no_list: true
@@ -25,24 +25,21 @@ card:
 _Pods_ are the smallest deployable units of computing that you can create and manage in Kubernetes.
 
 A _Pod_ (as in a pod of whales or pea pod) is a group of one or more
-{{< glossary_tooltip text="containers" term_id="container" >}}
-with shared storage and network resources, and a specification
-for how to run the containers. A Pod's contents are always co-located and
+{{< glossary_tooltip text="containers" term_id="container" >}}, with shared storage and network resources, and a specification for how to run the containers. A Pod's contents are always co-located and
 co-scheduled, and run in a shared context. A Pod models an
 application-specific "logical host": it contains one or more application
 containers which are relatively tightly coupled. 
 In non-cloud contexts, applications executed on the same physical or virtual machine are analogous to cloud applications executed on the same logical host.
 -->
-_Pod_ 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。
+**Pod** 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。
 
-_Pod_ （就像在鲸鱼荚或者豌豆荚中）是一组（一个或多个）
+**Pod**（就像在鲸鱼荚或者豌豆荚中）是一组（一个或多个）
 {{< glossary_tooltip text="容器" term_id="container" >}}；
 这些容器共享存储、网络、以及怎样运行这些容器的声明。
 Pod 中的内容总是并置（colocated）的并且一同调度，在共享的上下文中运行。
-Pod 所建模的是特定于应用的“逻辑主机”，其中包含一个或多个应用容器，
-这些容器是相对紧密的耦合在一起的。
-在非云环境中，在相同的物理机或虚拟机上运行的应用类似于
-在同一逻辑主机上运行的云应用。
+Pod 所建模的是特定于应用的 “逻辑主机”，其中包含一个或多个应用容器，
+这些容器相对紧密地耦合在一起。
+在非云环境中，在相同的物理机或虚拟机上运行的应用类似于在同一逻辑主机上运行的云应用。
 
 <!--
 As well as application containers, a Pod can contain
@@ -52,8 +49,8 @@ during Pod startup. You can also inject
 for debugging if your cluster offers this.
 -->
 除了应用容器，Pod 还可以包含在 Pod 启动期间运行的
-[Init 容器](/zh/docs/concepts/workloads/pods/init-containers/)。
-你也可以在集群中支持[临时性容器](/zh/docs/concepts/workloads/pods/ephemeral-containers/)
+[Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)。
+你也可以在集群中支持[临时性容器](/zh-cn/docs/concepts/workloads/pods/ephemeral-containers/)
 的情况下，为调试的目的注入临时性容器。
 
 <!-- body -->
@@ -82,12 +79,11 @@ further sub-isolations applied.
 In terms of Docker concepts, a Pod is similar to a group of Docker containers
 with shared namespaces and shared filesystem volumes.
 -->
-Pod 的共享上下文包括一组 Linux 名字空间、控制组（cgroup）和可能一些其他的隔离
-方面，即用来隔离 Docker 容器的技术。
+Pod 的共享上下文包括一组 Linux 名字空间、控制组（cgroup）和可能一些其他的隔离方面，
+即用来隔离 Docker 容器的技术。
 在 Pod 的上下文中，每个独立的应用可能会进一步实施隔离。
 
-就 Docker 概念的术语而言，Pod 类似于共享名字空间和文件系统卷的一组 Docker
-容器。
+就 Docker 概念的术语而言，Pod 类似于共享名字空间和文件系统卷的一组 Docker 容器。
 
 <!--
 ## Using Pods
@@ -118,7 +114,7 @@ with workload resources.
 ### Workload resources for managing pods
 -->
 Pod 通常不是直接创建的，而是使用工作负载资源创建的。
-有关如何将 Pod 用于工作负载资源的更多信息，请参阅 [使用 Pod](#working-with-pods)。
+有关如何将 Pod 用于工作负载资源的更多信息，请参阅[使用 Pod](#working-with-pods)。
 
 ### 用于管理 pod 的工作负载资源
 
@@ -134,10 +130,9 @@ Pods in a Kubernetes cluster are used in two main ways:
 通常你不需要直接创建 Pod，甚至单实例 Pod。
 相反，你会使用诸如
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 或
-{{< glossary_tooltip text="Job" term_id="job" >}} 这类工作负载资源
-来创建 Pod。如果 Pod 需要跟踪状态，
-可以考虑 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
-资源。
+{{< glossary_tooltip text="Job" term_id="job" >}} 这类工作负载资源来创建 Pod。
+如果 Pod 需要跟踪状态，可以考虑
+{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} 资源。
 
 Kubernetes 集群中的 Pod 主要有两种用法：
 
@@ -159,12 +154,12 @@ Kubernetes 集群中的 Pod 主要有两种用法：
   relatively advanced use case. You should use this pattern only in specific
   instances in which your containers are tightly coupled.
 -->
-* **运行单个容器的 Pod**。"每个 Pod 一个容器"模型是最常见的 Kubernetes 用例；
+* **运行单个容器的 Pod**。"每个 Pod 一个容器" 模型是最常见的 Kubernetes 用例；
   在这种情况下，可以将 Pod 看作单个容器的包装器，并且 Kubernetes 直接管理 Pod，而不是容器。
 * **运行多个协同工作的容器的 Pod**。
   Pod 可能封装由多个紧密耦合且需要共享资源的共处容器组成的应用程序。
   这些位于同一位置的容器可能形成单个内聚的服务单元 —— 一个容器将文件从共享卷提供给公众，
-  而另一个单独的“边车”（sidecar）容器则刷新或更新这些文件。
+  而另一个单独的 “边车”（sidecar）容器则刷新或更新这些文件。
   Pod 将这些容器和存储资源打包为一个可管理的实体。
 
   {{< note >}}
@@ -185,9 +180,9 @@ Kubernetes uses workload resources, and their controllers, to implement applicat
 scaling and auto-healing.
 -->
 
-每个 Pod 都旨在运行给定应用程序的单个实例。如果希望横向扩展应用程序（例如，运行多个实例
-以提供更多的资源），则应该使用多个 Pod，每个实例使用一个 Pod。
-在 Kubernetes 中，这通常被称为 _副本（Replication）_。
+每个 Pod 都旨在运行给定应用程序的单个实例。如果希望横向扩展应用程序
+（例如，运行多个实例以提供更多的资源），则应该使用多个 Pod，每个实例使用一个 Pod。
+在 Kubernetes 中，这通常被称为**副本（Replication）**。
 通常使用一种工作负载资源及其{{< glossary_tooltip text="控制器" term_id="controller" >}}
 来创建和管理一组 Pod 副本。
 
@@ -218,22 +213,21 @@ that updates those files from a remote source, as in the following diagram:
 例如，你可能有一个容器，为共享卷中的文件提供 Web 服务器支持，以及一个单独的
 "边车 (sidercar)" 容器负责从远端更新这些文件，如下图所示：
 
-{{< figure src="/images/docs/pod.svg" alt="Pod creation diagram" class="diagram-medium" >}}
+{{< figure src="/images/docs/pod.svg" alt="Pod 创建示意图" class="diagram-medium" >}}
 
 <!--
-Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}}
-as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}.
+Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}} 
+as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}. 
 Init containers run and complete before the app containers are started.
 
 Pods natively provide two kinds of shared resources for their constituent containers:
 [networking](#pod-networking) and [storage](#pod-storage).
 -->
-有些 Pod 具有 {{< glossary_tooltip text="Init 容器" term_id="init-container" >}} 和
+有些 Pod 具有 {{< glossary_tooltip text="Init 容器" term_id="init-container" >}}和
 {{< glossary_tooltip text="应用容器" term_id="app-container" >}}。
 Init 容器会在启动应用容器之前运行并完成。
 
-Pod 天生地为其成员容器提供了两种共享资源：[网络](#pod-networking)和
-[存储](#pod-storage)。
+Pod 天生地为其成员容器提供了两种共享资源：[网络](#pod-networking)和[存储](#pod-storage)。
 
 <!--
 ## Working with Pods
@@ -250,10 +244,9 @@ the Pod is *evicted* for lack of resources, or the node fails.
 
 你很少在 Kubernetes 中直接创建一个个的 Pod，甚至是单实例（Singleton）的 Pod。
 这是因为 Pod 被设计成了相对临时性的、用后即抛的一次性实体。
-当 Pod 由你或者间接地由 {{< glossary_tooltip text="控制器" term_id="controller" >}}
+当 Pod 由你或者间接地由{{< glossary_tooltip text="控制器" term_id="controller" >}}
 创建时，它被调度在集群中的{{< glossary_tooltip text="节点" term_id="node" >}}上运行。
-Pod 会保持在该节点上运行，直到 Pod 结束执行、Pod 对象被删除、Pod 因资源不足而被
-*驱逐* 或者节点失效为止。
+Pod 会保持在该节点上运行，直到 Pod 结束执行、Pod 对象被删除、Pod 因资源不足而被**驱逐**或者节点失效为止。
 
 <!--
 Restarting a container in a Pod should not be confused with restarting a Pod. A Pod
@@ -271,7 +264,7 @@ When you create the manifest for a Pod object, make sure the name specified is a
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 当你为 Pod 对象创建清单时，要确保所指定的 Pod 名称是合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 ### Pods and controllers
@@ -308,15 +301,15 @@ PodTemplates are specifications for creating Pods, and are included in workload 
 [Jobs](/docs/concepts/workloads/controllers/job/), and
 [DaemonSets](/docs/concepts/workloads/controllers/daemonset/).
 -->
-### Pod 模版    {#pod-templates}
+### Pod 模板    {#pod-templates}
 
 {{< glossary_tooltip text="负载" term_id="workload" >}}资源的控制器通常使用
-_Pod 模板（Pod Template）_ 来替你创建 Pod 并管理它们。
+**Pod 模板（Pod Template）**来替你创建 Pod 并管理它们。
 
 Pod 模板是包含在工作负载对象中的规范，用来创建 Pod。这类负载资源包括
-[Deployment](/zh/docs/concepts/workloads/controllers/deployment/)、
-[Job](/zh/docs/concepts/workloads/controllers/job/) 和
-[DaemonSets](/zh/docs/concepts/workloads/controllers/daemonset/) 等。
+[Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)、
+[Job](/zh-cn/docs/concepts/workloads/controllers/job/) 和
+[DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/) 等。
 
 <!--
 Each controller for a workload resource uses the `PodTemplate` inside the workload
@@ -339,33 +332,41 @@ metadata:
   name: hello
 spec:
   template:
-    # 这里是 Pod 模版
+    # 这里是 Pod 模板
     spec:
       containers:
       - name: hello
         image: busybox:1.28
         command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
       restartPolicy: OnFailure
-    # 以上为 Pod 模版
+    # 以上为 Pod 模板
 ```
 
 <!--
-Modifying the pod template or switching to a new pod template has no effect on the
-Pods that already exist. Pods do not receive template updates directly. Instead,
-a new Pod is created to match the revised pod template.
+Modifying the pod template or switching to a new pod template has no direct effect
+on the Pods that already exist. If you change the pod template for a workload
+resource, that resource needs to create replacement Pods that use the updated template.
 
-For example, the deployment controller ensures that the running Pods match the current
-pod template for each Deployment object. If the template is updated, the Deployment has
-to remove the existing Pods and create new Pods based on the updated template. Each workload
-resource implements its own rules for handling changes to the Pod template.
+For example, the StatefulSet controller ensures that the running Pods match the current
+pod template for each StatefulSet object. If you edit the StatefulSet to change its pod
+template, the StatefulSet starts to create new Pods based on the updated template.
+Eventually, all of the old Pods are replaced with new Pods, and the update is complete.
+
+Each workload resource implements its own rules for handling changes to the Pod template.
+If you want to read more about StatefulSet specifically, read
+[Update strategy](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) in the StatefulSet Basics tutorial.
 -->
-修改 Pod 模版或者切换到新的 Pod 模版都不会对已经存在的 Pod 起作用。
-Pod 不会直接收到模版的更新。相反，
-新的 Pod 会被创建出来，与更改后的 Pod 模版匹配。
+修改 Pod 模板或者切换到新的 Pod 模板都不会对已经存在的 Pod 直接起作用。
+如果改变工作负载资源的 Pod 模板，工作负载资源需要使用更新后的模板来创建 Pod，
+并使用新创建的 Pod 替换旧的 Pod。
 
-例如，Deployment 控制器针对每个 Deployment 对象确保运行中的 Pod 与当前的 Pod
-模版匹配。如果模版被更新，则 Deployment 必须删除现有的 Pod，基于更新后的模版
-创建新的 Pod。每个工作负载资源都实现了自己的规则，用来处理对 Pod 模版的更新。
+例如，StatefulSet 控制器针对每个 StatefulSet 对象确保运行中的 Pod 与当前的 Pod
+模板匹配。如果编辑 StatefulSet 以更改其 Pod 模板，
+StatefulSet 将开始基于更新后的模板创建新的 Pod。
+
+每个工作负载资源都实现了自己的规则，用来处理对 Pod 模板的更新。
+如果你想了解更多关于 StatefulSet 的具体信息，
+请阅读 StatefulSet 基础教程中的[更新策略](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets)。
 
 <!--
 On Nodes, the {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} does not
@@ -375,9 +376,9 @@ system semantics, and makes it feasible to extend the cluster's behavior without
 changing existing code.
 -->
 在节点上，{{< glossary_tooltip term_id="kubelet" text="kubelet" >}} 并不直接监测
-或管理与 Pod 模版相关的细节或模版的更新，这些细节都被抽象出来。
-这种抽象和关注点分离简化了整个系统的语义，并且使得用户可以在不改变现有代码的
-前提下就能扩展集群的行为。
+或管理与 Pod 模板相关的细节或模板的更新，这些细节都被抽象出来。
+这种抽象和关注点分离简化了整个系统的语义，
+并且使得用户可以在不改变现有代码的前提下就能扩展集群的行为。
 
 <!--
 ## Pod update and replacement
@@ -388,8 +389,8 @@ template instead of updating or patching the existing Pods.
 -->
 ## Pod 更新与替换   {#pod-update-and-replacement}
 
-正如前面章节所述，当某工作负载的 Pod 模板被改变时，控制器会基于更新的模板
-创建新的 Pod 对象而不是对现有 Pod 执行更新或者修补操作。
+正如前面章节所述，当某工作负载的 Pod 模板被改变时，
+控制器会基于更新的模板创建新的 Pod 对象而不是对现有 Pod 执行更新或者修补操作。
 
 <!--
 Kubernetes doesn't prevent you from managing Pods directly. It is possible to
@@ -423,8 +424,8 @@ Kubernetes 并不禁止你直接管理 Pod。对运行中的 Pod 的某些字段
      number.
 -->
 - Pod 的绝大多数元数据都是不可变的。例如，你不可以改变其 `namespace`、`name`、
-  `uid` 或者 `creationTimestamp` 字段；`generation` 字段是比较特别的，如果更新
-  该字段，只能增加字段取值而不能减少。
+  `uid` 或者 `creationTimestamp` 字段；`generation` 字段是比较特别的，
+  如果更新该字段，只能增加字段取值而不能减少。
 - 如果 `metadata.deletionTimestamp` 已经被设置，则不可以向 `metadata.finalizers`
   列表中添加新的条目。
 - Pod 更新不可以改变除 `spec.containers[*].image`、`spec.initContainers[*].image`、
@@ -439,7 +440,7 @@ Kubernetes 并不禁止你直接管理 Pod。对运行中的 Pod 的某些字段
 ## Resource sharing and communication
 
 Pods enable data sharing and communication among their constituent
-containters.
+containers.
 -->
 ### 资源共享和通信 {#resource-sharing-and-communication}
 
@@ -462,7 +463,7 @@ Kubernetes implements shared storage and makes it available to Pods.
 Pod 中的所有容器都可以访问该共享卷，从而允许这些容器共享数据。
 卷还允许 Pod 中的持久数据保留下来，即使其中的容器需要重新启动。
 有关 Kubernetes 如何在 Pod 中实现共享存储并将其提供给 Pod 的更多信息，
-请参考[卷](/zh/docs/concepts/storage/)。
+请参考[卷](/zh-cn/docs/concepts/storage/)。
 
 <!--
 ### Pod networking
@@ -478,23 +479,21 @@ they must coordinate how they use the shared network resources (such as ports).
 
 每个 Pod 都在每个地址族中获得一个唯一的 IP 地址。
 Pod 中的每个容器共享网络名字空间，包括 IP 地址和网络端口。
-*Pod 内* 的容器可以使用 `localhost` 互相通信。
-当 Pod 中的容器与 *Pod 之外* 的实体通信时，它们必须协调如何使用共享的网络资源
-（例如端口）。
+**Pod 内**的容器可以使用 `localhost` 互相通信。
+当 Pod 中的容器与 **Pod 之外**的实体通信时，它们必须协调如何使用共享的网络资源（例如端口）。
 
 <!--
 Within a Pod, containers share an IP address and port space, and
 can find each other via `localhost`. The containers in a Pod can also communicate
 with each other using standard inter-process communications like SystemV semaphores
 or POSIX shared memory.  Containers in different Pods have distinct IP addresses
-and can not communicate by IPC without
 and can not communicate by OS-level IPC without special configuration.
 Containers that want to interact with a container running in a different Pod can
 use IP networking to communicate.
 -->
 在同一个 Pod 内，所有容器共享一个 IP 地址和端口空间，并且可以通过 `localhost` 发现对方。
 他们也能通过如 SystemV 信号量或 POSIX 共享内存这类标准的进程间通信方式互相通信。
-不同 Pod 中的容器的 IP 地址互不相同，没有特殊配置，无法通过 OS 级 IPC 进行通信就不能使用 IPC 进行通信。
+不同 Pod 中的容器的 IP 地址互不相同，如果没有特殊配置，就无法通过 OS 级 IPC 进行通信。
 如果某容器希望与运行于其他 Pod 中的容器通信，可以通过 IP 联网的方式实现。
 
 <!--
@@ -503,7 +502,7 @@ Containers within the Pod see the system hostname as being the same as the confi
 section.
 -->
 Pod 中的容器所看到的系统主机名与为 Pod 配置的 `name` 属性值相同。
-[网络](/zh/docs/concepts/cluster-administration/networking/)部分提供了更多有关此内容的信息。
+[网络](/zh-cn/docs/concepts/cluster-administration/networking/)部分提供了更多有关此内容的信息。
 
 <!--
 ## Privileged mode for containers
@@ -515,14 +514,13 @@ If your cluster has the `WindowsHostProcessContainers` feature enabled, you can 
 ## 容器的特权模式     {#privileged-mode-for-containers}
 
 在 Linux 中，Pod 中的任何容器都可以使用容器规约中的
-[安全性上下文](/zh/docs/tasks/configure-pod-container/security-context/)中的
+[安全性上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)中的
 `privileged`（Linux）参数启用特权模式。
-这对于想要使用操作系统管理权能（Capabilities，如操纵网络堆栈和访问设备）
-的容器很有用。
+这对于想要使用操作系统管理权能（Capabilities，如操纵网络堆栈和访问设备）的容器很有用。
 
 如果你的集群启用了 `WindowsHostProcessContainers` 特性，你可以使用 Pod 规约中安全上下文的
 `windowsOptions.hostProcess` 参数来创建
-[Windows HostProcess Pod](/zh/docs/tasks/configure-pod-container/create-hostprocess-pod/)。
+[Windows HostProcess Pod](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)。
 这些 Pod 中的所有容器都必须以 Windows HostProcess 容器方式运行。
 HostProcess Pod 可以直接运行在主机上，它也能像 Linux 特权容器一样，用于执行管理任务。
 
@@ -530,8 +528,8 @@ HostProcess Pod 可以直接运行在主机上，它也能像 Linux 特权容器
 Your {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} must support the concept of a privileged container for this setting to be relevant.
 -->
 {{< note >}}
-你的{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}必须支持
-特权容器的概念才能使用这一配置。
+你的{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
+必须支持特权容器的概念才能使用这一配置。
 {{< /note >}}
 
 <!--
@@ -546,8 +544,8 @@ Pods, the kubelet directly supervises each static Pod (and restarts it if it fai
 -->
 ## 静态 Pod    {#static-pods}
 
-_静态 Pod（Static Pod）_ 直接由特定节点上的 `kubelet` 守护进程管理，
-不需要{{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}看到它们。
+**静态 Pod（Static Pod）**直接由特定节点上的 `kubelet` 守护进程管理，
+不需要 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}看到它们。
 尽管大多数 Pod 都是通过控制面（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 来管理的，对于静态 Pod 而言，`kubelet` 直接监控每个 Pod，并在其失效时重启之。
 
@@ -564,12 +562,11 @@ but cannot be controlled from there.
 静态 Pod 通常绑定到某个节点上的 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}。
 其主要用途是运行自托管的控制面。
 在自托管场景中，使用 `kubelet` 来管理各个独立的
-[控制面组件](/zh/docs/concepts/overview/components/#control-plane-components)。
+[控制面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)。
 
 `kubelet` 自动尝试为每个静态 Pod 在 Kubernetes API 服务器上创建一个
 {{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。
-这意味着在节点上运行的 Pod 在 API 服务器上是可见的，但不可以通过 API
-服务器来控制。
+这意味着在节点上运行的 Pod 在 API 服务器上是可见的，但不可以通过 API 服务器来控制。
 
 {{< note >}}
 <!--
@@ -578,7 +575,10 @@ The `spec` of a static Pod cannot refer to other API objects
 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
 {{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
 -->
-静态 Pod 的 `spec` 不能引用其他的 API 对象（例如：{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}、{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}、{{< glossary_tooltip text="Secret" term_id="secret" >}}等）。
+静态 Pod 的 `spec` 不能引用其他的 API 对象（例如：
+{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}、
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}、
+{{< glossary_tooltip text="Secret" term_id="secret" >}} 等）。
 {{< /note >}}
 
 <!--
@@ -595,13 +595,13 @@ in the Pod Lifecycle documentation.
 -->
 ## 容器探针   {#container-probes}
 
-_Probe_ 是由 kubelet 对容器执行的定期诊断。要执行诊断，kubelet 可以执行三种动作：
+**Probe** 是由 kubelet 对容器执行的定期诊断。要执行诊断，kubelet 可以执行三种动作：
     
 - `ExecAction`（借助容器运行时执行）
 - `TCPSocketAction`（由 kubelet 直接检测）
 - `HTTPGetAction`（由 kubelet 直接检测）
 
-你可以参阅 Pod 的生命周期文档中的[探针](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)部分。
+你可以参阅 Pod 的生命周期文档中的[探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)部分。
 
 ## {{% heading "whatsnext" %}}
 
@@ -609,24 +609,24 @@ _Probe_ 是由 kubelet 对容器执行的定期诊断。要执行诊断，kubele
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
 * Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
   configure different Pods with different container runtime configurations.
-* Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how you can use it to manage application availability during disruptions.
 * Pod is a top-level resource in the Kubernetes REST API.
   The {{< api-reference page="workload-resources/pod-v1" >}}
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
+* Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 -->
-* 了解 [Pod 生命周期](/zh/docs/concepts/workloads/pods/pod-lifecycle/)
-* 了解 [RuntimeClass](/zh/docs/concepts/containers/runtime-class/)，以及如何使用它
-  来配置不同的 Pod 使用不同的容器运行时配置
-* 了解 [Pod 拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
-* 了解 [PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/)，以及你
+* 了解 [Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
+* 了解 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)，以及如何使用它
+  来配置不同的 Pod 使用不同的容器运行时配置。
+* 了解 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)，以及你
   如何可以利用它在出现干扰因素时管理应用的可用性。
 * Pod 在 Kubernetes REST API 中是一个顶层资源。
   {{< api-reference page="workload-resources/pod-v1" >}}
   对象的定义中包含了更多的细节信息。
 * 博客 [分布式系统工具箱：复合容器模式](/blog/2015/06/the-distributed-system-toolkit-patterns/)
   中解释了在同一 Pod 中包含多个容器时的几种常见布局。
+* 了解 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)。
 
 <!--
 To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}), you can read about the prior art, including:
@@ -641,4 +641,3 @@ To understand the context for why Kubernetes wraps a common Pod API in other res
 * [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
 * [Omega](https://research.google/pubs/pub41684/)
 * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
-

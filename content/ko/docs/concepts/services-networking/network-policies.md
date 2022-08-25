@@ -1,8 +1,8 @@
 ---
-
-
-
-
+## reviewers:
+## - thockin
+## - caseydavenport
+## - danwinship
 title: 네트워크 정책
 content_type: concept
 weight: 50
@@ -45,42 +45,7 @@ pod- 또는 namespace- 기반의 네트워크폴리시를 정의할 때, {{< glo
 
 네트워크폴리시 의 예시는 다음과 같다.
 
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: test-network-policy
-  namespace: default
-spec:
-  podSelector:
-    matchLabels:
-      role: db
-  policyTypes:
-  - Ingress
-  - Egress
-  ingress:
-  - from:
-    - ipBlock:
-        cidr: 172.17.0.0/16
-        except:
-        - 172.17.1.0/24
-    - namespaceSelector:
-        matchLabels:
-          project: myproject
-    - podSelector:
-        matchLabels:
-          role: frontend
-    ports:
-    - protocol: TCP
-      port: 6379
-  egress:
-  - to:
-    - ipBlock:
-        cidr: 10.0.0.0/24
-    ports:
-    - protocol: TCP
-      port: 5978
-```
+{{< codenew file="service/networking/networkpolicy.yaml" >}}
 
 {{< note >}}
 선택한 네트워킹 솔루션이 네트워킹 정책을 지원하지 않으면 클러스터의 API 서버에 이를 POST 하더라도 효과가 없다.
@@ -89,7 +54,7 @@ spec:
 __필수 필드들__: 다른 모든 쿠버네티스 설정과 마찬가지로 네트워크폴리시 에는
 `apiVersion`, `kind`, 그리고 `metadata` 필드가 필요하다. 구성 파일
 작업에 대한 일반적인 정보는
-[컨피그 맵을 사용해서 컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+[컨피그맵을 사용하도록 파드 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 그리고 [오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management) 를 본다.
 
 __spec__: 네트워크폴리시 [사양](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)에는 지정된 네임스페이스에서 특정 네트워크 정책을 정의하는데 필요한 모든 정보가 있다.
@@ -281,7 +246,7 @@ API 서버에 대해 `--feature-gates=NetworkPolicyEndPort=false,…` 명령을 
 
 ## 이름으로 네임스페이스 지정
 
-{{< feature-state state="beta" for_k8s_version="1.21" >}}
+{{< feature-state for_k8s_version="1.22" state="stable" >}}
 
 쿠버네티스 컨트롤 플레인은 `NamespaceDefaultLabelName`
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 경우
@@ -293,7 +258,7 @@ API 서버에 대해 `--feature-gates=NetworkPolicyEndPort=false,…` 명령을 
 
 ## 네트워크 정책으로 할 수 없는 것(적어도 아직은 할 수 없는)
 
-쿠버네티스 {{< skew latestVersion >}}부터 다음의 기능은 네트워크폴리시 API에 존재하지 않지만, 운영 체제 컴포넌트(예: SELinux, OpenVSwitch, IPTables 등) 또는 Layer 7 기술(인그레스 컨트롤러, 서비스 메시 구현) 또는 어드미션 컨트롤러를 사용하여 제2의 해결책을 구현할 수 있다. 쿠버네티스의 네트워크 보안을 처음 사용하는 경우, 네트워크폴리시 API를 사용하여 다음의 사용자 스토리를 (아직) 구현할 수 없다는 점에 유의할 필요가 있다.
+쿠버네티스 {{< skew currentVersion >}}부터 다음의 기능은 네트워크폴리시 API에 존재하지 않지만, 운영 체제 컴포넌트(예: SELinux, OpenVSwitch, IPTables 등) 또는 Layer 7 기술(인그레스 컨트롤러, 서비스 메시 구현) 또는 어드미션 컨트롤러를 사용하여 제2의 해결책을 구현할 수 있다. 쿠버네티스의 네트워크 보안을 처음 사용하는 경우, 네트워크폴리시 API를 사용하여 다음의 사용자 스토리를 (아직) 구현할 수 없다는 점에 유의할 필요가 있다.
 
 - 내부 클러스터 트래픽이 공통 게이트웨이를 통과하도록 강제한다(서비스 메시나 기타 프록시와 함께 제공하는 것이 가장 좋을 수 있음).
 - TLS와 관련된 모든 것(이를 위해 서비스 메시나 인그레스 컨트롤러 사용).

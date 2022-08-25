@@ -42,7 +42,7 @@ or read on to learn about the API in general.
 Kubernetes 支持通过 **watchs** 实现高效的资源变更通知。
 Kubernetes 还提供了一致的列表操作，以便 API 客户端可以有效地缓存、跟踪和同步资源的状态。
 
-你可以在线查看 [API 参考](/zh/docs/reference/kubernetes-api/)，
+你可以在线查看 [API 参考](/zh-cn/docs/reference/kubernetes-api/)，
 或继续阅读以了解 API 的一般信息。
 
 <!--
@@ -79,11 +79,11 @@ as a permission check
 [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/)).
 -->
 大多数 Kubernetes API 资源类型都是
-[对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)：
+[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)：
 它们代表集群上某个概念的具体实例，例如 Pod 或命名空间。
 少数 API 资源类型是 “虚拟的”，它们通常代表的是操作而非对象本身，
 例如权限检查（使用带有 JSON 编码的 `SubjectAccessReview` 主体的 POST 到 `subjectaccessreviews` 资源），
-或 Pod 的子资源 `eviction`（用于触发 [API-发起的驱逐](/zh/docs/concepts/scheduling-eviction/api-eviction/)）。
+或 Pod 的子资源 `eviction`（用于触发 [API-发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)）。
 
 <!--
 ### Object names
@@ -127,7 +127,7 @@ HTTP verb for a **patch** is PATCH.
 -->
 ### API 动词 {#api-verbs}
 
-几乎所有对象资源类型都支持标准 HTTP 动词 - GET、POST、PUT、PATCH 和 DELETE。 
+几乎所有对象资源类型都支持标准 HTTP 动词 - GET、POST、PUT、PATCH 和 DELETE。
 Kubernetes 也使用自己的动词，这些动词通常写成小写，以区别于 HTTP 动词。
 
 Kubernetes 使用术语 **list** 来描述返回资源[集合](#collections)，
@@ -198,7 +198,7 @@ virtual resource type would be used if that becomes necessary.
 * 集群作用域的子资源：`GET /apis/GROUP/VERSION/RESOURCETYPE/NAME/SUBRESOURCE`
 * 名字空间作用域的子资源：`GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME/SUBRESOURCE`
 
-取决于对象是什么，每个子资源所支持的动词有所不同 - 参见 [API 文档](/zh/docs/reference/kubernetes-api/)以了解更多信息。
+取决于对象是什么，每个子资源所支持的动词有所不同 - 参见 [API 文档](/zh-cn/docs/reference/kubernetes-api/)以了解更多信息。
 跨多个资源来访问其子资源是不可能的 - 如果需要这一能力，则通常意味着需要一种
 新的虚拟资源类型了。
 
@@ -315,7 +315,7 @@ this is called a `Reflector` and is located in the `k8s.io/client-go/tools/cache
 并基于新返回的 `resourceVersion` 来开始新的 **watch** 操作。
 
 对于订阅集合，Kubernetes 客户端库通常会为 **list** -然后- **watch** 的逻辑提供某种形式的标准工具。
-（在 Go 客户端库中，这称为`反射器（Reflector）`，位于 `k8s.io/client-go/tools/cache` 包中。）
+（在 Go 客户端库中，这称为 `反射器（Reflector）`，位于 `k8s.io/client-go/tools/cache` 包中。）
 
 <!--
 ### Watch bookmarks
@@ -385,7 +385,7 @@ into many smaller chunks while preserving the consistency of the total request. 
 chunk can be returned sequentially which reduces both the total size of the request and
 allows user-oriented clients to display results incrementally to improve responsiveness.
 -->
-如果你没有明确禁用 `APIListChunking` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+如果你没有明确禁用 `APIListChunking` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 Kubernetes API 服务器支持将单个大型集合请求分解为许多较小块的能力，同时保持总请求的一致性。
 
 <!--
@@ -525,7 +525,7 @@ last chunk), then there are no more remaining items and the API server does not 
 is estimating the size of a collection.
 -->
 `remainingItemCount` 是集合中未包含在此响应中的后续项目的数量。
-如果 **list** 请求包含标签或字段{{< glossary_tooltip text="选择器" term_id="selector">}} ，
+如果 **list** 请求包含标签或字段{{< glossary_tooltip text="选择器" term_id="selector">}}，
 则剩余项目的数量是未知的，并且 API 服务器在其响应中不包含 `remainingItemCount` 字段。
 如果 **list** 是完整的（因为它没有分块，或者因为这是最后一个块），没有更多的剩余项目，
 API 服务器在其响应中不包含 `remainingItemCount` 字段。
@@ -553,7 +553,7 @@ has `kind` set to
 
 当你查询特定类型的 API 时，该查询返回的所有项目都属于该类型。
 例如，当你 **list** Service 对象时，集合响应的 `kind` 设置为
-[`ServiceList`](/zh/docs/reference/kubernetes-api/service-resources/service-v1/#ServiceList)；
+[`ServiceList`](/zh-cn/docs/reference/kubernetes-api/service-resources/service-v1/#ServiceList)；
 该集合中的每个项目都代表一个 Service。例如：
 
 ```
@@ -591,7 +591,7 @@ multiple **list** operations at the API level, `kubectl` represents
 a list of items using `kind: List`. For example:
 -->
 Kubernetes API 中定义了数十种集合类型（如 `PodList`、`ServiceList` 和 `NodeList`）。
-你可以从 [Kubernetes API](/zh/docs/reference/kubernetes-api/) 文档中获取有关每种集合类型的更多信息。
+你可以从 [Kubernetes API](/zh-cn/docs/reference/kubernetes-api/) 文档中获取有关每种集合类型的更多信息。
 
 一些工具，例如 `kubectl`，对于 Kubernetes 集合的表现机制与 Kubernetes API 本身略有不同。
 因为 `kubectl` 的输出可能包含来自 API 级别的多个 **list** 操作的响应，
@@ -660,7 +660,7 @@ had to be in place for types unrecognized by a client.
 -->
 ## 以表格形式接收资源  {#receiving-resources-as-tables}
 
-当你执行`kubectl get` 时，默认的输出格式是特定资源类型的一个或多个实例的简单表格形式。
+当你执行 `kubectl get` 时，默认的输出格式是特定资源类型的一个或多个实例的简单表格形式。
 过去，客户端需要重复 `kubectl` 中所实现的表格输出和描述输出逻辑，以执行
 简单的对象列表操作。
 该方法的一些限制包括处理某些对象时的不可忽视逻辑。
@@ -748,7 +748,7 @@ extensions, you should make requests that specify multiple content types in the
 -->
 并非所有 API 资源类型都支持 Table 响应；
 例如，{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}} 可能没有定义字段到表的映射，
-[扩展核心 Kubernetes API](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+[扩展核心 Kubernetes API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 的 APIService 可能根本不提供 Table 响应。
 如果你正在实现使用 Table 信息并且必须针对所有资源类型（包括扩展）工作的客户端，
 你应该在 `Accept` 请求头中指定多种内容类型的请求。例如：
@@ -775,7 +775,7 @@ header appropriately.
 默认情况下，Kubernetes 返回序列化为 JSON 的对象，内容类型为 `application/json`。
 这是 API 的默认序列化格式。
 但是，客户端可能会使用更有效的 [Protobuf 表示](#protobuf-encoding) 请求这些对象，
-以获得更好的大规模性能。 Kubernetes API 实现标准的 HTTP 内容类型协商：
+以获得更好的大规模性能。Kubernetes API 实现标准的 HTTP 内容类型协商：
 带有 `Accept` 请求头部的 `GET` 调用会请求服务器尝试以你的首选媒体类型返回响应，
 而将 Protobuf 中的对象发送到服务器以进行 `PUT` 或 `POST` 调用意味着你必须适当地设置
 `Content-Type` 请求头。
@@ -795,7 +795,7 @@ For example:
 如果不支持你请求的媒体类型，则返回 `406 Not Acceptable` 错误。
 所有内置资源类型都支持 `application/json` 媒体类型。
 
-有关每个 API 支持的内容类型列表，请参阅 Kubernetes [API 参考](/zh/docs/reference/kubernetes-api/)。
+有关每个 API 支持的内容类型列表，请参阅 Kubernetes [API 参考](/zh-cn/docs/reference/kubernetes-api/)。
 
 例如：
 
@@ -846,7 +846,7 @@ content types in the request `Accept` header to support fallback to JSON.
 For example:
 -->
 并非所有 API 资源类型都支持 Protobuf；具体来说，
-Protobuf 不适用于定义为 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}} 
+Protobuf 不适用于定义为 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}}
 或通过{{< glossary_tooltip text="聚合层" term_id="aggregation-layer" >}}提供服务的资源。
 作为客户端，如果你可能需要使用扩展类型，则应在请求 `Accept` 请求头中指定多种内容类型以支持回退到 JSON。
 例如：
@@ -1100,7 +1100,7 @@ that they do not have side effects, by setting their `sideEffects` field to `Non
 -->
 如果请求的非试运行版本会触发具有副作用的准入控制器，则该请求将失败，而不是冒不希望的副作用的风险。
 所有内置准入控制插件都支持试运行。
-此外，准入 Webhook 还可以设置[配置对象](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#webhook-v1beta1-admissionregistration-k8s-io)
+此外，准入 Webhook 还可以设置[配置对象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#webhook-v1beta1-admissionregistration-k8s-io)
 的 `sideEffects` 字段为 `None`，借此声明它们没有副作用。
 
 <!--
@@ -1152,9 +1152,9 @@ Some values of an object are typically generated before the object is persisted.
 
 * `name`：如果设置了 `generateName` 字段，则 `name` 会获得一个唯一的随机名称
 * `creationTimestamp` / `deletionTimestamp`：记录对象的创建/删除时间
-* `UID`：[唯一标识](/zh/docs/concepts/overview/working-with-objects/names/#uids)对象，
+* `UID`：[唯一标识](/zh-cn/docs/concepts/overview/working-with-objects/names/#uids)对象，
   取值随机生成（非确定性）
-* `resourceVersion`： 跟踪对象的持久化（存储）版本
+* `resourceVersion`：跟踪对象的持久化（存储）版本
 * 变更性准入控制器所设置的字段
 * 对于 `Service` 资源：`kube-apiserver` 为 `Service` 对象分配的端口和 IP 地址
 
@@ -1187,7 +1187,7 @@ rules:
 <!--
 See [Authorization Overview](/docs/reference/access-authn-authz/authorization/).
 -->
-参阅[鉴权概述](/zh/docs/reference/access-authn-authz/authorization/)以了解鉴权细节。
+参阅[鉴权概述](/zh-cn/docs/reference/access-authn-authz/authorization/)以了解鉴权细节。
 
 <!--
 ## Server Side Apply
@@ -1204,12 +1204,12 @@ client-side functionality of `kubectl apply`.
 The API verb for Server-Side Apply is **apply**.
 See [Server Side Apply](/docs/reference/using-api/server-side-apply/) for more details.
 -->
-Kubernetes 的[服务器端应用](/zh/docs/reference/using-api/server-side-apply/)功能允许控制平面跟踪新创建对象的托管字段。
+Kubernetes 的[服务器端应用](/zh-cn/docs/reference/using-api/server-side-apply/)功能允许控制平面跟踪新创建对象的托管字段。
 服务端应用为管理字段冲突提供了清晰的模式，提供了服务器端 `Apply` 和 `Update` 操作，
 并替换了 `kubectl apply` 的客户端功能。
 
 服务端应用的 API 动词是 **apply**。有关详细信息，
-请参阅[服务器端应用](/zh/docs/reference/using-api/server-side-apply/)。
+请参阅[服务器端应用](/zh-cn/docs/reference/using-api/server-side-apply/)。
 
 <!--
 ## Resource Versions
@@ -1281,9 +1281,9 @@ API 服务器根据你请求的操作和 `resourceVersion` 的值对 `resourceVe
 For **get** and **list**, the semantics of `resourceVersion` are:
 
 -->
-### **get** 和 **list** 语义
+### **get** 和 **list** 语义   {#semantics-for-get-and-list}
 
-对于 **get** 和 **list** 而言，`resourceVersion`的语义为：
+对于 **get** 和 **list** 而言，`resourceVersion` 的语义为：
 
 **get:**
 
@@ -1453,8 +1453,8 @@ the object is when served.
 
 {{< note >}}
 当你 **list** 资源并收到集合响应时，
-响应包括集合的[元数据](/zh/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)
-以及该集合中每个项目的[对象元数据](/zh/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)。
+响应包括集合的[元数据](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)
+以及该集合中每个项目的[对象元数据](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)。
 对于在集合响应中找到的单个对象，`.metadata.resourceVersion` 跟踪该对象的最后更新时间，
 而不是对象在服务时的最新程度。
 {{< /note >}}
@@ -1484,7 +1484,7 @@ example, the client might fall back to a request with `limit` set.
 
 For watch, the semantics of resource version are:
 -->
-### **watch** 语义
+### **watch** 语义   {#semantics-for-watch}
 
 对于 watch 操作而言，资源版本的语义如下：
 

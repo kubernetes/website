@@ -72,9 +72,9 @@ You may want to set
 
 -->
 你可能想设置
-[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) (默认为 1)，
-[`.spec.minReadySeconds`](/zh/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) (默认为 0) 和
-[`.spec.updateStrategy.rollingUpdate.maxSurge`](/zh/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
+[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh-cn/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) (默认为 1)，
+[`.spec.minReadySeconds`](/zh-cn/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) (默认为 0) 和
+[`.spec.updateStrategy.rollingUpdate.maxSurge`](/zh-cn/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 （一种 Beta 阶段的特性，默认为 0）。
 
 <!--
@@ -170,7 +170,7 @@ use `kubectl apply`:
 #### 声明式命令    {#declarative-commands}
 
 如果你使用
-[配置文件](/zh/docs/tasks/manage-kubernetes-objects/declarative-config/)
+[配置文件](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
 来更新 DaemonSet，请使用 `kubectl apply`:
 
 ```shell
@@ -187,7 +187,7 @@ use `kubectl edit`:
 #### 指令式命令    {#imperative-commands}
 
 如果你使用
-[指令式命令](/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
+[指令式命令](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
 来更新 DaemonSets，请使用 `kubectl edit`：
 
 ```shell
@@ -260,7 +260,7 @@ When this happens, find the nodes that don't have the DaemonSet pods scheduled o
 by comparing the output of `kubectl get nodes` and the output of:
 -->
 DaemonSet 滚动更新可能会卡住，其 Pod 至少在某个节点上无法调度运行。
-当节点上[可用资源耗尽](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)时，
+当节点上[可用资源耗尽](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)时，
 这是可能的。
 
 发生这种情况时，通过对 `kubectl get nodes` 和下面命令行的输出作比较，
@@ -284,7 +284,7 @@ either.
 {{< note >}}
 当所删除的 Pod 不受任何控制器管理，也不是多副本的 Pod时，上述操作将导致服务中断。
 同时，上述操作也不会考虑
-[PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/)
+[PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/)
 所施加的约束。
 {{< /note >}}
 
@@ -337,6 +337,6 @@ kubectl delete ds fluentd-elasticsearch -n kube-system
 * See [Performing a rollback on a DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
 * See [Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
 -->
-* 查看[在 DaemonSet 上执行回滚](/zh/docs/tasks/manage-daemon/rollback-daemon-set/)
-* 查看[创建 DaemonSet 以收养现有 DaemonSet Pod](/zh/docs/concepts/workloads/controllers/daemonset/)
+* 查看[在 DaemonSet 上执行回滚](/zh-cn/docs/tasks/manage-daemon/rollback-daemon-set/)
+* 查看[创建 DaemonSet 以收养现有 DaemonSet Pod](/zh-cn/docs/concepts/workloads/controllers/daemonset/)
 

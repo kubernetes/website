@@ -3,12 +3,12 @@ title: "宣布首个Kubernetes企业培训课程 "
 date: 2015-07-08
 slug: announcing-first-kubernetes-enterprise
 ---
-<!-- ---
+<!--
 title: " Announcing the First Kubernetes Enterprise Training Course "
 date: 2015-07-08
 slug: announcing-first-kubernetes-enterprise
-url: /zh/blog/2015/07/Announcing-First-Kubernetes-Enterprise
---- -->
+url: /blog/2015/07/Announcing-First-Kubernetes-Enterprise
+-->
 
 <!-- At Google we rely on Linux application containers to run our core infrastructure. Everything from Search to Gmail runs in containers. &nbsp;In fact, we like containers so much that even our Google Compute Engine VMs run in containers! &nbsp;Because containers are critical to our business, we have been working with the community on many of the basic container technologies (from cgroups to Docker’s LibContainer) and even decided to build the next generation of Google’s container scheduling technology, Kubernetes, in the open. -->
 在谷歌，我们依赖 Linux 容器应用程序去运行我们的核心基础架构。所有服务，从搜索引擎到Gmail服务，都运行在容器中。事实上，我们非常喜欢容器，甚至我们的谷歌云计算引擎虚拟机也运行在容器上！由于容器对于我们的业务至关重要，我们已经与社区合作开发许多基本的容器技术（从 cgroups 到 Docker 的 LibContainer）,甚至决定去构建谷歌的下一代开源容器调度技术，Kubernetes。

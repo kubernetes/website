@@ -28,7 +28,7 @@ Generates keys and certificate signing requests (CSRs) for all the certificates 
 This command is designed for use in [Kubeadm External CA Mode](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode). It generates CSRs which you can then submit to your external certificate authority for signing.
 -->
 此命令设计用于
-[Kubeadm 外部 CA 模式](https://kubernetes.io/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode)。 
+[Kubeadm 外部 CA 模式](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode)。 
 它生成你可以提交给外部证书颁发机构进行签名的 CSR。
 
 <!--  

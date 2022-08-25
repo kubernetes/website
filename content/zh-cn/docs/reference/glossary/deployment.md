@@ -2,7 +2,7 @@
 title: Deployment
 id: deployment
 date: 2018-04-12
-full_link: /zh/docs/concepts/workloads/controllers/deployment/
+full_link: /zh-cn/docs/concepts/workloads/controllers/deployment/
 short_description: >
   Deployment 是管理应用副本的 API 对象。
 

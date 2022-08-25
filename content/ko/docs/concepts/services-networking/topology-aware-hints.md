@@ -19,6 +19,12 @@ _토폴로지 인지 힌트(Topology Aware Hints)_ 는 클라이언트가 엔드
 예를 들어, 비용을 줄이거나 네트워크 성능을 높이기 위해, 
 인접성을 고려하여 트래픽을 라우트할 수 있다.
 
+{{< note >}}
+"토폴로지 인지 힌트" 기능은 베타 단계이며 기본적으로 활성화되어 있지 **않다**. 
+이 기능을 사용해 보려면, 
+`TopologyAwareHints` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+{{< /note >}}
+
 <!-- body -->
 
 ## 동기(motivation)

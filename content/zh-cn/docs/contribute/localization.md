@@ -73,7 +73,7 @@ The website content directory includes sub-directories for each language. The lo
 ### 派生（fork）并且克隆仓库 {#fork-and-clone-the-repo}
 
 首先，为 [kubernetes/website](https://github.com/kubernetes/website) 仓库
-[创建你自己的副本](/zh/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
+[创建你自己的副本](/zh-cn/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
 
 <!--
 Then, clone your fork and `cd` into it:
@@ -116,7 +116,7 @@ that localization. The process is very similar to proposing changes to the upstr
 
 请将拉取请求限制为单个本地化，因为在多个本地化中更改内容的拉取请求可能难以审查。
 
-按照[内容改进建议](/zh/docs/contribute/suggest-improvements/)提出对该本地化的更改。
+按照[内容改进建议](/zh-cn/docs/contribute/suggest-improvements/)提出对该本地化的更改。
 该过程与提议更改上游（英文）内容非常相似。
 
 <!--
@@ -434,7 +434,7 @@ For an example of adding a new localization, see the PR to enable [docs in Frenc
 -->
 ### 打开拉取请求  {#open-a-pull-request}
 
-接下来，[打开拉取请求](/zh/docs/contribute/new-content/open-a-pr/#open-a-pr)（PR）
+接下来，[打开拉取请求](/zh-cn/docs/contribute/new-content/open-a-pr/#open-a-pr)（PR）
 将本地化添加到 `kubernetes/website` 存储库。
 
 PR 必须包含所有[最低要求内容](#minimum-required-content)才能获得批准。
@@ -445,7 +445,7 @@ PR 必须包含所有[最低要求内容](#minimum-required-content)才能获得
 <!--
 ### Add a localized README file
 
-To guide other localization contributors, add a new [`README-**.md`](https://help.github.com/articles/about-readmes/) to the top level of [k/website](https://github.com/kubernetes/website/), where `**` is the two-letter language code. For example, a German README file would be `README-de.md`.
+To guide other localization contributors, add a new [`README-**.md`](https://help.github.com/articles/about-readmes/) to the top level of [kubernetes/website](https://github.com/kubernetes/website/), where `**` is the two-letter language code. For example, a German README file would be `README-de.md`.
 
 Provide guidance to localization contributors in the localized `README-**.md` file. Include the same information contained in `README.md` as well as:
 
@@ -454,7 +454,7 @@ Provide guidance to localization contributors in the localized `README-**.md` fi
 -->
 ### 添加本地化的 README 文件 {#add-a-localized-readme-file}
 
-为了指导其他本地化贡献者，请在 [k/website](https://github.com/kubernetes/website/)
+为了指导其他本地化贡献者，请在 [kubernetes/website](https://github.com/kubernetes/website/)
 的根目录添加一个新的 [`README-**.md`](https://help.github.com/articles/about-readmes/)，
 其中 `**` 是两个字母的语言代码。例如，德语 README 文件为 `README-de.md`。
 
@@ -515,9 +515,9 @@ Releases | [All heading and subheading URLs](/releases)
 -->
 描述 | 网址
 -----|-----
-主页 | [所有标题和副标题网址](/zh/docs/home/)
-安装 | [所有标题和副标题网址](/zh/docs/setup/)
-教程 | [Kubernetes 基础](/zh/docs/tutorials/kubernetes-basics/), [Hello Minikube](/zh/docs/tutorials/hello-minikube/)
+主页 | [所有标题和副标题网址](/zh-cn/docs/home/)
+安装 | [所有标题和副标题网址](/zh-cn/docs/setup/)
+教程 | [Kubernetes 基础](/zh-cn/docs/tutorials/kubernetes-basics/), [Hello Minikube](/zh-cn/docs/tutorials/hello-minikube/)
 网站字符串 | [所有网站字符串](#Site-strings-in-i18n)
 发行版本 | [所有标题和副标题 URL](/releases)
 
@@ -525,7 +525,7 @@ Releases | [All heading and subheading URLs](/releases)
 Translated documents must reside in their own `content/**/` subdirectory, but otherwise follow the same URL path as the English source. For example, to prepare the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial for translation into German, create a subfolder under the `content/de/` folder and copy the English source:
 -->
 翻译后的文档必须保存在自己的 `content/**/` 子目录中，否则将遵循与英文源相同的 URL 路径。
-例如，要准备将 [Kubernetes 基础](/zh/docs/tutorials/kubernetes-basics/) 教程翻译为德语，
+例如，要准备将 [Kubernetes 基础](/zh-cn/docs/tutorials/kubernetes-basics/) 教程翻译为德语，
 请在 `content/de/` 文件夹下创建一个子文件夹并复制英文源：
 
 ```shell
@@ -634,7 +634,7 @@ Some language teams have their own language-specific style guide and glossary. F
 ### 特定语言的样式指南和词汇表 {#language-specific-style-guide-and-glossary}
 
 一些语言团队有自己的特定语言样式指南和词汇表。
-例如，请参见[中文本地化指南](/zh/docs/contribute/localization_zh/)。
+例如，请参见[中文本地化指南](/zh-cn/docs/contribute/localization_zh/)。
 
 <!--
 ### Language specific Zoom meetings
@@ -679,7 +679,7 @@ To collaborate on a localization branch:
 
     `dev-<source version>-<language code>.<team milestone>`
 
-    For example, an approver on a German localization team opens the localization branch `dev-1.12-de.1` directly against the k/website repository, based on the source branch for Kubernetes v1.12.
+    For example, an approver on a German localization team opens the localization branch `dev-1.12-de.1` directly against the kubernetes/website repository, based on the source branch for Kubernetes v1.12.
 -->
 1. [@kubernetes/website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers)
    中的团队成员从 https://github.com/kubernetes/website 原有分支新建一个本地化分支。
@@ -691,7 +691,7 @@ To collaborate on a localization branch:
    `dev-<source version>-<language code>.<team milestone>`
 
    例如，一个德语本地化团队的批准人基于 Kubernetes v1.12 版本的源分支，
-   直接新建了 k/website 仓库的本地化分支 `dev-1.12-de.1`。
+   直接新建了 kubernetes/website 仓库的本地化分支 `dev-1.12-de.1`。
 
 <!--
 2. Individual contributors open feature branches based on the localization branch.

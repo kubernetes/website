@@ -244,7 +244,7 @@ serverTLSBootstrap: true
 ```
 
 If you have already created the cluster you must adapt it by doing the following:
- - Find and edit the `kubelet-config-{{< skew latestVersion >}}` ConfigMap in the `kube-system` namespace.
+ - Find and edit the `kubelet-config-{{< skew currentVersion >}}` ConfigMap in the `kube-system` namespace.
 In that ConfigMap, the `kubelet` key has a
 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.

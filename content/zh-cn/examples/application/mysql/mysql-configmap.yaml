@@ -4,15 +4,14 @@ metadata:
   name: mysql
   labels:
     app: mysql
+    app.kubernetes.io/name: mysql
 data:
   primary.cnf: |
-    # Apply this config only on the primary.
+    # 仅在主服务器上应用此配置
     [mysqld]
     log-bin
-    datadir=/var/lib/mysql/mysql
   replica.cnf: |
-    # Apply this config only on replicas.
+    # 仅在副本服务器上应用此配置
     [mysqld]
     super-read-only
-    datadir=/var/lib/mysql/mysql
 

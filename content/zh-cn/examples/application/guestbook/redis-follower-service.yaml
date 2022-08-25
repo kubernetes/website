@@ -1,4 +1,4 @@
-# SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+# 来源：https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
 apiVersion: v1
 kind: Service
 metadata:
@@ -9,7 +9,7 @@ metadata:
     tier: backend
 spec:
   ports:
-    # the port that this service should serve on
+    # 此服务应使用的端口
   - port: 6379
   selector:
     app: redis

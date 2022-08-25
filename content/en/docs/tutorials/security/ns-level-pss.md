@@ -17,7 +17,7 @@ one namespace at a time.
 
 You can also apply Pod Security Standards to multiple namespaces at once at the cluster
 level. For instructions, refer to
-[Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss).
+[Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss/).
 
 ## {{% heading "prerequisites" %}}
 

@@ -30,12 +30,12 @@ on the Pod.
 此操作创建一个 `Eviction` 对象，该对象再驱动 API 服务器终止选定的 Pod。
 
 API 发起的驱逐将遵从你的
-[`PodDisruptionBudgets`](/zh/docs/tasks/run-application/configure-pdb/)
-和 [`terminationGracePeriodSeconds`](/zh/docs/concepts/workloads/pods/pod-lifecycle#pod-termination)
+[`PodDisruptionBudgets`](/zh-cn/docs/tasks/run-application/configure-pdb/)
+和 [`terminationGracePeriodSeconds`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle#pod-termination)
 配置。
 
 使用 API 创建 Eviction 对象，就像对 Pod 执行策略控制的
-[`DELETE` 操作](/zh/docs/reference/kubernetes-api/workload-resources/pod-v1/#delete-delete-a-pod)
+[`DELETE` 操作](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#delete-delete-a-pod)
 
 <!--
 ## Calling the Eviction API
@@ -46,7 +46,7 @@ POST the attempted operation, similar to the following example:
 -->
 ## 调用 Eviction API
 
-你可以使用 [Kubernetes 语言客户端](/zh/docs/tasks/administer-cluster/access-cluster-api/#programmatic-access-to-the-api)
+你可以使用 [Kubernetes 语言客户端](/zh-cn/docs/tasks/administer-cluster/access-cluster-api/#programmatic-access-to-the-api)
 来访问 Kubernetes API 并创建 `Eviction` 对象。
 要执行此操作，你应该用 POST 发出要尝试的请求，类似于下面的示例：
 
@@ -201,6 +201,6 @@ If you notice stuck evictions, try one of the following solutions:
 * Learn about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 * Learn about [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 -->
-* 了解如何使用 [Pod 干扰预算](/zh/docs/tasks/run-application/configure-pdb/) 保护你的应用。
-* 了解[节点压力引发的驱逐](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
-* 了解 [Pod 优先级和抢占](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
+* 了解如何使用 [Pod 干扰预算](/zh-cn/docs/tasks/run-application/configure-pdb/) 保护你的应用。
+* 了解[节点压力引发的驱逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
+* 了解 [Pod 优先级和抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。

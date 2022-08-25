@@ -47,10 +47,9 @@ feature:
 다른 방식으로 동일한 제약을 구현할 수 있다.
 
 {{< note >}}
-컨테이너가 자체 메모리 제한을 지정하지만, 메모리 요청을 지정하지 않는 경우, 쿠버네티스는
-제한과 일치하는 메모리 요청을 자동으로 할당한다. 마찬가지로, 컨테이너가 자체 CPU 제한을
-지정하지만, CPU 요청을 지정하지 않는 경우, 쿠버네티스는 제한과 일치하는 CPU 요청을 자동으로
-할당한다.
+리소스에 대해 제한은 지정하지만 요청은 지정하지 않고, 
+해당 리소스에 대한 요청 기본값을 지정하는 승인-시점 메커니즘(admission-time mechanism)이 없는 경우, 
+쿠버네티스는 당신이 지정한 제한을 복사하여 해당 리소스의 요청 값으로 사용한다.
 {{< /note >}}
 
 ## 리소스 타입
@@ -229,8 +228,8 @@ kubelet은 해당 컨테이너의 메모리/CPU 요청 및 제한을 컨테이�
 kubelet은 파드의 리소스 사용량을 파드 
 [`status`](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#오브젝트-명세-spec-와-상태-status)에 포함하여 보고한다.
 
-클러스터에서 선택적인 모니터링 도구를
-사용할 수 있다면, [메트릭 API](/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#메트릭-api)에서
+클러스터에서 선택적인 [모니터링 도구](/ko/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)를
+사용할 수 있다면, [메트릭 API](/ko/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)에서
 직접 또는 모니터링 도구에서 파드 리소스
 사용량을 검색할 수 있다.
 
@@ -801,5 +800,5 @@ Events:
 * [컨테이너와 파드에 CPU 리소스를 할당](/docs/tasks/configure-pod-container/assign-cpu-resource/)하는 핸즈온 경험을 해보자.
 * API 레퍼런스에 [컨테이너](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)와 
   [컨테이너 리소스 요구사항](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)이 어떻게 정의되어 있는지 확인한다.
-* XFS의 [프로젝트 쿼터](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html)에 대해 읽어보기
+* XFS의 [프로젝트 쿼터](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F)에 대해 읽어보기
 * [kube-scheduler 정책 레퍼런스 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)에 대해 더 읽어보기

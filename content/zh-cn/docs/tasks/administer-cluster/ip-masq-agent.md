@@ -149,7 +149,7 @@ to your cluster.
 或者你使用的集群 CIDR 不在 10.0.0.0/8 范围内，
 则 `ip-masq-agent` 将在你的集群中运行。
 如果你在其他环境中运行，可以将 `ip-masq-agent`
-[DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/) 添加到你的集群中。
+[DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/) 添加到你的集群中。
 
 <!-- steps -->
 
@@ -183,10 +183,10 @@ More information can be found in the ip-masq-agent documentation [here](https://
 In most cases, the default set of rules should be sufficient; however, if this is not the case for your cluster, you can create and apply a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to customize the IP ranges that are affected.  For example, to allow only 10.0.0.0/8 to be considered by the ip-masq-agent, you can create the following [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) in a file called "config".
 -->
 在大多数情况下，默认的规则集应该足够；但是，如果你的集群不是这种情况，则可以创建并应用
-[ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
+[ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 来自定义受影响的 IP 范围。
 例如，要允许 ip-masq-agent 仅作用于 10.0.0.0/8，你可以在一个名为 “config” 的文件中创建以下
-[ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/) 。
+[ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 。
 
 {{< note >}}
 <!--

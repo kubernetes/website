@@ -2,7 +2,7 @@
 title: 容器运行时接口
 id: container-runtime-interface
 date: 2021-11-24
-full_link: /zh/docs/concepts/architecture/cri
+full_link: /zh-cn/docs/concepts/architecture/cri
 short_description: >
   kubelet 和容器运行时之间通信的主要协议。
 
@@ -37,6 +37,6 @@ The Kubernetes Container Runtime Interface (CRI) defines the main
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 -->
 Kubernetes 容器运行时接口（CRI）定义了主要 [gRPC](https://grpc.io) 协议，
-用于[集群组件](/zh/docs/concepts/overview/components/#node-components)
+用于[集群组件](/zh-cn/docs/concepts/overview/components/#node-components)
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 和
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}。

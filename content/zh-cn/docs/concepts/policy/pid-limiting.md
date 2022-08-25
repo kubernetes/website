@@ -105,7 +105,7 @@ and limits. However, you specify it in a different way: rather than defining a
 Pod's resource limit in the `.spec` for a Pod, you configure the limit as a
 setting on the kubelet. Pod-defined PID limits are not currently supported.
 -->
-PID 限制是与[计算资源](/zh/docs/concepts/configuration/manage-resources-containers/)
+PID 限制是与[计算资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
 请求和限制相辅相成的一种机制。不过，你需要用一种不同的方式来设置这一限制：
 你需要将其设置到 kubelet 上而不是在 Pod 的 `.spec` 中为 Pod 设置资源限制。
 目前还不支持在 Pod 级别设置 PID 限制。
@@ -146,7 +146,7 @@ gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `SupportNodePidsLimit` to work.
 -->
 在 Kubernetes 1.20 版本之前，在节点级别通过 PID 资源限制预留 PID 的能力
-需要启用[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+需要启用[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 `SupportNodePidsLimit` 才行。
 {{< /note >}}
 
@@ -166,7 +166,7 @@ Kubernetes 允许你限制 Pod 中运行的进程个数。你可以在节点级�
 而不是为特定的 Pod 来将其设置为资源限制。
 每个节点都可以有不同的 PID 限制设置。
 要设置限制值，你可以设置 kubelet 的命令行参数 `--pod-max-pids`，或者
-在 kubelet 的[配置文件](/zh/docs/tasks/administer-cluster/kubelet-config-file/)
+在 kubelet 的[配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)
 中设置 `PodPidsLimit`。
 
 {{< note >}}
@@ -176,7 +176,7 @@ the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `SupportPodPidsLimit` to work.
 -->
 在 Kubernetes 1.20 版本之前，为 Pod 设置 PID 资源限制的能力需要启用
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 `SupportNodePidsLimit` 才行。
 {{< /note >}}
 
@@ -197,7 +197,7 @@ Eviction signal value is calculated periodically and does NOT enforce the limit.
 
 你可以配置 kubelet 使之在 Pod 行为不正常或者消耗不正常数量资源的时候将其终止。
 这一特性称作驱逐。你可以针对不同的驱逐信号
-[配置资源不足的处理](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
+[配置资源不足的处理](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
 使用 `pid.available` 驱逐信号来配置 Pod 使用的 PID 个数的阈值。
 你可以设置硬性的和软性的驱逐策略。不过，即使使用硬性的驱逐策略，
 如果 PID 个数增长过快，节点仍然可能因为触及节点 PID 限制而进入一种不稳定状态。
@@ -233,6 +233,6 @@ Pod 行为不正常而没有 PID 可用。
 - 关于历史背景，请阅读
   [Kubernetes 1.14 中限制进程 ID 以提升稳定性](/blog/2019/04/15/process-id-limiting-for-stability-improvements-in-kubernetes-1.14/)
   的博文。
-- 请阅读[为容器管理资源](/zh/docs/concepts/configuration/manage-resources-containers/)。
-- 学习如何[配置资源不足情况的处理](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
+- 请阅读[为容器管理资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
+- 学习如何[配置资源不足情况的处理](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
 

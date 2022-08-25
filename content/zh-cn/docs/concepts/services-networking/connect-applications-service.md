@@ -82,7 +82,7 @@ You can read more about the [Kubernetes Networking Model](/docs/concepts/cluster
 Pod 或节点上使用 IP 的方式访问到它们。
 如果你想的话，你依然可以将宿主节点的某个端口的流量转发到 Pod 中，但是出于网络模型的原因，你不必这么做。
 
-如果对此好奇，请参考 [Kubernetes 网络模型](/zh/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model)。
+如果对此好奇，请参考 [Kubernetes 网络模型](/zh-cn/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model)。
 
 <!--
 ## Creating a Service
@@ -193,7 +193,7 @@ about the [service proxy](/docs/concepts/services-networking/service/#virtual-ip
 
 现在，你应该能够从集群中任意节点上使用 curl 命令向 `<CLUSTER-IP>:<PORT>` 发送请求以访问 Nginx Service。
 注意 Service IP 完全是虚拟的，它从来没有走过网络，如果对它如何工作的原理感到好奇，
-可以进一步阅读[服务代理](/zh/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
+可以进一步阅读[服务代理](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
 的内容。
 
 <!--
@@ -312,7 +312,7 @@ IP 分配名称的 DNS 服务器。 这里我们使用 CoreDNS 集群插件（�
 所以在集群中的任何 Pod 中，你都可以使用标准方法（例如：`gethostbyname()`）与该 Service 通信。
 如果 CoreDNS 没有在运行，你可以参照
 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes)
-或者[安装 CoreDNS](/zh/docs/tasks/administer-cluster/coredns/#installing-coredns) 来启用它。
+或者[安装 CoreDNS](/zh-cn/docs/tasks/administer-cluster/coredns/#installing-coredns) 来启用它。
 让我们运行另一个 curl 应用来进行测试：
 
 ```shell
@@ -357,7 +357,7 @@ You can acquire all these from the [nginx https example](https://github.com/kube
 
 * 用于 HTTPS 的自签名证书（除非已经有了一个身份证书）
 * 使用证书配置的 Nginx 服务器
-* 使 Pod 可以访问证书的 [Secret](/zh/docs/concepts/configuration/secret/)
+* 使 Pod 可以访问证书的 [Secret](/zh-cn/docs/concepts/configuration/secret/)
 
 你可以从
 [Nginx https 示例](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/)获取所有上述内容。
@@ -620,6 +620,6 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 * Learn more about [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/)
 * Learn more about [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 -->
-* 进一步了解如何[使用 Service 访问集群中的应用](/zh/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* 进一步了解如何[使用 Service 将前端连接到后端](/zh/docs/tasks/access-application-cluster/connecting-frontend-backend/)
-* 进一步了解如何[创建外部负载均衡器](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)
+* 进一步了解如何[使用 Service 访问集群中的应用](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* 进一步了解如何[使用 Service 将前端连接到后端](/zh-cn/docs/tasks/access-application-cluster/connecting-frontend-backend/)
+* 进一步了解如何[创建外部负载均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)

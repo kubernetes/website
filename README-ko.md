@@ -4,6 +4,9 @@
 
 이 저장소에는 [쿠버네티스 웹사이트 및 문서](https://kubernetes.io/)를 빌드하는 데 필요한 자산이 포함되어 있습니다. 기여해주셔서 감사합니다!
 
+- [문서에 기여하기](#contributing-to-the-docs)
+- [`README.md`에 대한 쿠버네티스 문서 현지화](#localization-readmemds)
+
 # 저장소 사용하기
 
 Hugo(확장 버전)를 사용하여 웹사이트를 로컬에서 실행하거나, 컨테이너 런타임에서 실행할 수 있습니다. 라이브 웹사이트와의 배포 일관성을 제공하므로, 컨테이너 런타임을 사용하는 것을 적극 권장합니다.
@@ -40,6 +43,8 @@ make container-image
 make container-serve
 ```
 
+에러가 발생한다면, Hugo 컨테이너를 위한 컴퓨팅 리소스가 충분하지 않기 때문일 수 있습니다. 이를 해결하려면, 머신에서 도커에 허용할 CPU 및 메모리 사용량을 늘립니다([MacOSX](https://docs.docker.com/docker-for-mac/#resources) / [Windows](https://docs.docker.com/docker-for-windows/#resources)).
+
 웹사이트를 보려면 브라우저를 http://localhost:1313 으로 엽니다. 소스 파일을 변경하면 Hugo가 웹사이트를 업데이트하고 브라우저를 강제로 새로 고칩니다.
 
 ## Hugo를 사용하여 로컬에서 웹사이트 실행하기
@@ -56,7 +61,45 @@ make serve
 
 그러면 포트 1313에서 로컬 Hugo 서버가 시작됩니다. 웹사이트를 보려면 http://localhost:1313 으로 브라우저를 엽니다. 소스 파일을 변경하면, Hugo가 웹사이트를 업데이트하고 브라우저를 강제로 새로 고칩니다.
 
+## API 레퍼런스 페이지 빌드하기
+
+`content/en/docs/reference/kubernetes-api`에 있는 API 레퍼런스 페이지는 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>를 사용하여 Swagger 명세로부터 빌드되었습니다.
+
+새로운 쿠버네티스 릴리스를 위해 레퍼런스 페이지를 업데이트하려면 다음 단계를 수행합니다.
+
+1. `api-ref-generator` 서브모듈을 받아옵니다.
+
+   ```bash
+   git submodule update --init --recursive --depth 1
+   ```
+
+2. Swagger 명세를 업데이트합니다.
+
+   ```bash
+   curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-assets/api/swagger.json
+   ```
+
+3. `api-ref-assets/config/`에서, 새 릴리스의 변경 사항이 반영되도록 `toc.yaml` 및 `fields.yaml` 파일을 업데이트합니다.
+
+4. 다음으로, 페이지를 빌드합니다.
+
+   ```bash
+   make api-reference
+   ```
+
+   로컬에서 결과를 테스트하기 위해 컨테이너 이미지를 이용하여 사이트를 빌드 및 실행합니다.
+
+   ```bash
+   make container-image
+   make container-serve
+   ```
+
+   웹 브라우저에서, <http://localhost:1313/docs/reference/kubernetes-api/>로 이동하여 API 레퍼런스를 확인합니다.
+
+5. 모든 API 변경사항이 `toc.yaml` 및 `fields.yaml` 구성 파일에 반영되었다면, 새로 생성된 API 레퍼런스 페이지에 대한 PR을 엽니다.
+
 ## 문제 해결
+
 ### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
 
 Hugo는 기술적인 이유로 2개의 바이너리 세트로 제공됩니다. 현재 웹사이트는 **Hugo 확장** 버전 기반에서만 실행됩니다. [릴리스 페이지](https://github.com/gohugoio/hugo/releases)에서 이름에 `extended` 가 포함된 아카이브를 찾습니다. 확인하려면, `hugo version` 을 실행하고 `extended` 라는 단어를 찾습니다.
@@ -97,17 +140,17 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 이 내용은 Catalina와 Mojave macOS에서 작동합니다.
 
-
 # SIG Docs에 참여하기
 
 [커뮤니티 페이지](https://github.com/kubernetes/community/tree/master/sig-docs#meetings)에서 SIG Docs 쿠버네티스 커뮤니티 및 회의에 대한 자세한 내용을 확인합니다.
 
 이 프로젝트의 메인테이너에게 연락을 할 수도 있습니다.
 
-- [슬랙](https://kubernetes.slack.com/messages/sig-docs) [슬랙에 초대 받기](https://slack.k8s.io/)
+- [슬랙](https://kubernetes.slack.com/messages/sig-docs)
+  - [슬랙에 초대 받기](https://slack.k8s.io/)
 - [메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
-# 문서에 기여하기
+# 문서에 기여하기 {#contributing-to-the-docs}
 
 이 저장소에 대한 복제본을 여러분의 GitHub 계정에 생성하기 위해 화면 오른쪽 위 영역에 있는 **Fork** 버튼을 클릭하면 됩니다. 이 복제본은 *fork* 라고 부릅니다. 여러분의 fork에서 원하는 임의의 변경 사항을 만들고, 해당 변경 사항을 보낼 준비가 되었다면, 여러분의 fork로 이동하여 새로운 풀 리퀘스트를 만들어 우리에게 알려주시기 바랍니다.
 
@@ -124,7 +167,15 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 * [문서화 스타일 가이드](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [쿠버네티스 문서 현지화](https://kubernetes.io/docs/contribute/localization/)
 
-# `README.md`에 대한 쿠버네티스 문서 현지화(localization)
+### 신규 기여자 대사(ambassadors)
+
+기여 과정에서 도움이 필요하다면, [신규 기여자 대사](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador)에게 연락하는 것이 좋습니다. 이들은 신규 기여자를 멘토링하고 첫 PR 과정에서 도움을 주는 역할도 담당하는 SIG Docs 승인자입니다. 신규 기여자 대사에게 문의할 가장 좋은 곳은 [쿠버네티스 슬랙](https://slack.k8s.io/)입니다. 현재 SIG Docs 신규 기여자 대사는 다음과 같습니다.
+
+| Name                       | Slack                      | GitHub                     |                   
+| -------------------------- | -------------------------- | -------------------------- |
+| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+
+# `README.md`에 대한 쿠버네티스 문서 현지화(localization) {#localization-readmemds}
 
 ## 한국어
 
@@ -134,6 +185,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 * 손석호 ([GitHub - @seokho-son](https://github.com/seokho-son))
 * [슬랙 채널](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
+
 
 # 행동 강령
 

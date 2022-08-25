@@ -41,5 +41,5 @@
 
 - 你需要知道如何为一个 GitHub 仓库创建拉取请求（PR）。
   这牵涉到创建仓库的派生（fork）副本。
-  有关信息可进一步查看[基于本地副本开展工作](/zh/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
+  有关信息可进一步查看[基于本地副本开展工作](/zh-cn/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
 

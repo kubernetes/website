@@ -28,9 +28,9 @@ external IP address.
 * Configure `kubectl` to communicate with your Kubernetes API server. For instructions, see the
   documentation for your cloud provider.
 -->
- * 安装 [kubectl](/zh/docs/tasks/tools/)。
+ * 安装 [kubectl](/zh-cn/docs/tasks/tools/)。
  * 使用 Google Kubernetes Engine 或 Amazon Web Services 等云供应商创建 Kubernetes 集群。
-   本教程创建了一个[外部负载均衡器](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)，
+   本教程创建了一个[外部负载均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)，
    需要云供应商。
  * 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
 
@@ -132,7 +132,7 @@ external IP address.
    {{< /note >}}
    -->
    提示：`type=LoadBalancer` 服务由外部云服务提供商提供支持，本例中不包含此部分，
-   详细信息请参考[此页](/zh/docs/concepts/services-networking/service/#loadbalancer)
+   详细信息请参考[此页](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
 
    <!--
    {{< note >}}
@@ -265,5 +265,5 @@ kubectl delete deployment hello-world
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 -->
-进一步了解[将应用程序与服务连接](/zh/docs/concepts/services-networking/connect-applications-service/)。
+进一步了解[将应用程序与服务连接](/zh-cn/docs/concepts/services-networking/connect-applications-service/)。
 

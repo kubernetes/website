@@ -25,7 +25,7 @@ multiple scheduling retries will be needed.
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 本页面描述了 Kubernetes 如何跟踪存储容量以及调度程序如何为了余下的尚未挂载的卷使用该信息将
-[Pod 调度](/zh/docs/concepts/scheduling-eviction/)到能够访问到足够存储容量的节点上。
+[Pod 调度](/zh-cn/docs/concepts/scheduling-eviction/)到能够访问到足够存储容量的节点上。
 如果没有跟踪存储容量，调度程序可能会选择一个没有足够容量来提供卷的节点，并且需要多次调度重试。
 
 ## {{% heading "prerequisites" %}}
@@ -100,7 +100,7 @@ significant resources there.
 如果有以下情况，存储容量信息将会被 Kubernetes 调度程序使用：
 - Pod 使用的卷还没有被创建，
 - 卷使用引用了 CSI 驱动的 {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}，
-并且使用了 `WaitForFirstConsumer` [卷绑定模式](/zh/docs/concepts/storage/storage-classes/#volume-binding-mode)，
+并且使用了 `WaitForFirstConsumer` [卷绑定模式](/zh-cn/docs/concepts/storage/storage-classes/#volume-binding-mode)，
 - 驱动程序的 `CSIDriver` 对象的 `StorageCapacity` 被设置为 true。
 
 在这种情况下，调度程序仅考虑将 Pod 调度到有足够存储容量的节点上。这个检测非常简单，
@@ -109,7 +109,7 @@ significant resources there.
 对于具有 `Immediate` 卷绑定模式的卷，存储驱动程序将决定在何处创建该卷，而不取决于将使用该卷的 Pod。
 然后，调度程序将 Pod 调度到创建卷后可使用该卷的节点上。
 
-对于 [CSI 临时卷](/zh/docs/concepts/storage/volumes/#csi)，调度总是在不考虑存储容量的情况下进行。
+对于 [CSI 临时卷](/zh-cn/docs/concepts/storage/volumes/#csi)，调度总是在不考虑存储容量的情况下进行。
 这是基于这样的假设：该卷类型仅由节点本地的特殊 CSI 驱动程序使用，并且不需要大量资源。
 
 <!--

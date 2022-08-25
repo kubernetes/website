@@ -26,9 +26,9 @@ affected, refer to [Check whether dockershim removal affects you](/docs/tasks/ad
 -->
 Kubernetes 将在即将发布的 1.24 版本中移除 dockershim。我们很高兴能够通过支持开源容器运行时、支持更小的
 kubelet 以及为使用 Kubernetes 的团队提高工程速度来重申我们的社区价值。
-如果你[使用 Docker Engine 作为 Kubernetes 集群的容器运行时](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)，
+如果你[使用 Docker Engine 作为 Kubernetes 集群的容器运行时](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)，
 请准备好在 1.24 中迁移！要检查你是否受到影响，
-请参考[检查移除 Dockershim 对你的影响](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)。
+请参考[检查移除 Dockershim 对你的影响](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)。
 
 <!--
 ## Why we’re moving away from dockershim
@@ -79,10 +79,10 @@ after their announced deprecation.
 -->
 ## 弃用时间线  {#deprecation-timeline}
 
-我们[正式宣布](/zh/blog/2020/12/08/kubernetes-1-20-release-announcement/)于
+我们[正式宣布](/zh-cn/blog/2020/12/08/kubernetes-1-20-release-announcement/)于
 2020 年 12 月弃用 dockershim。目标是在 2022 年 4 月，
 Kubernetes 1.24 中完全移除 dockershim。
-此时间线与我们的[弃用策略](/zh/docs/reference/using api/deprecation-policy/#deprecating-a-feature-or-behavior)一致，
+此时间线与我们的[弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)一致，
 即规定已弃用的行为必须在其宣布弃用后至少运行 1 年。
 
 <!--
@@ -96,7 +96,7 @@ to the [Dockershim Deprecation FAQ](/dockershim).
 包括 dockershim 的 Kubernetes 1.23 版本，在 Kubernetes 项目中将再支持一年。
 对于托管 Kubernetes 的供应商，供应商支持可能会持续更长时间，但这取决于公司本身。
 无论如何，我们相信所有集群操作都有时间进行迁移。如果你有更多关于 dockershim 移除的问题，
-请参考[弃用 Dockershim 的常见问题](/zh/blog/2020/12/02/dockershim-faq/)。
+请参考[弃用 Dockershim 的常见问题](/zh-cn/blog/2020/12/02/dockershim-faq/)。
 
 <!--
 We asked you whether you feel prepared for the migration from dockershim in this
@@ -194,6 +194,6 @@ dockershim removal makes up for the migration effort you'll have. Start planning
 now to avoid surprises. We'll have more updates and guides before Kubernetes
 1.24 is released.
 -->
-在这一点上，我们相信你（和 Kubernetes）从移除 dockershim 中获得的价值可以弥补你将要进行的迁移工作。 
+在这一点上，我们相信你（和 Kubernetes）从移除 dockershim 中获得的价值可以弥补你将要进行的迁移工作。
 现在就开始计划以避免出现意外。在 Kubernetes 1.24 发布之前，我们将提供更多更新信息和指南。
 

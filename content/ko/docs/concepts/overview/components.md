@@ -28,7 +28,7 @@ card:
 
 컨트롤 플레인 컴포넌트는 클러스터 내 어떠한 머신에서든지 동작할 수 있다. 그러나
 간결성을 위하여, 구성 스크립트는 보통 동일 머신 상에 모든 컨트롤 플레인 컴포넌트를 구동시키고,
-사용자 컨테이너는 해당 머신 상에 동작시키지 않는다. 여러 VM에서
+사용자 컨테이너는 해당 머신 상에 동작시키지 않는다. 여러 머신에서
 실행되는 컨트롤 플레인 설정의 예제를 보려면
 [kubeadm을 사용하여 고가용성 클러스터 만들기](/docs/setup/production-environment/tools/kubeadm/high-availability/)를 확인해본다.
 
@@ -114,7 +114,7 @@ kube-controller-manager와 마찬가지로 cloud-controller-manager는 논리적
 
 ### 컨테이너 리소스 모니터링
 
-[컨테이너 리소스 모니터링](/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)은
+[컨테이너 리소스 모니터링](/ko/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)은
 중앙 데이터베이스 내의 컨테이너들에 대한 포괄적인 시계열 매트릭스를 기록하고 그 데이터를 열람하기 위한 UI를 제공해 준다.
 
 ### 클러스터-레벨 로깅

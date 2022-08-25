@@ -19,7 +19,7 @@ by using a custom [operator](/docs/concepts/extend-kubernetes/operator/).
 -->
 kubeadm 不支持自动重新配置部署在托管节点上的组件的方式。 
 一种自动化的方法是使用自定义的 
-[operator](/zh/docs/concepts/extend-kubernetes/operator/)。
+[operator](/zh-cn/docs/concepts/extend-kubernetes/operator/)。
 
 <!--
 To modify the components configuration you must manually edit associated cluster
@@ -114,7 +114,7 @@ The configuration is located under the `data.ClusterConfiguration` key.
 #### 更新 `ClusterConfiguration`
 
 在集群创建和升级期间，kubeadm 将其
-[`ClusterConfiguration`](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)
+[`ClusterConfiguration`](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
 写入 `kube-system` 命名空间中名为 `kubeadm-config` 的 ConfigMap。
 
 要更改 `ClusterConfiguration` 中的特定选项，你可以使用以下命令编辑 ConfigMap：
@@ -219,7 +219,7 @@ The configuration is located under the `data.kubelet` key.
 #### 更新 `KubeletConfiguration`
 
 在集群创建和升级期间，kubeadm 将其 
-[`KubeletConfiguration`](/zh/docs/reference/config-api/kubelet-config.v1beta1/) 
+[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 
 写入 `kube-system` 命名空间中名为 `kubelet-config` 的 ConfigMap。
 你可以使用以下命令编辑 ConfigMap：
 
@@ -291,7 +291,7 @@ The configuration is located under the `data.config.conf` key.
 #### 更新 `KubeProxyConfiguration`
 
 在集群创建和升级期间，kubeadm 将其写入
-[`KubeProxyConfiguration`](/zh/docs/reference/config-api/kube-proxy-config.v1alpha1/) 
+[`KubeProxyConfiguration`](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/) 
 在名为 `kube-proxy` 的 `kube-system` 命名空间中的 ConfigMap 中。
 
 此 ConfigMap 由 `kube-system` 命名空间中的 `kube-proxy` DaemonSet 使用。
@@ -440,7 +440,7 @@ and apply it to the Node object:
 -->
 在 `kubeadm upgrade` 期间，此类节点的内容可能会被覆盖。
 如果你想在升级后保留对 Node 对象的修改，你可以准备一个
-[kubectl patch](/zh/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
+[kubectl patch](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 并将其应用到 Node 对象：
 
 ```shell
@@ -464,7 +464,7 @@ the set of node specific patches must be updated accordingly.
 
 控制平面配置的主要来源是存储在集群中的 `ClusterConfiguration` 对象。
 要扩展静态 Pod 清单配置，可以使用 
-[patches](/zh/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#patches)。
+[patches](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#patches)。
 
 这些补丁文件必须作为文件保留在控制平面节点上，以确保它们可以被 
 `kubeadm upgrade ... --patches <directory>` 使用。
@@ -504,6 +504,6 @@ kubelet 标志会覆盖相关的 `KubeletConfiguration` 选项，但请注意，
 - [Certificate management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)
 -->
 
-- [升级 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)
-- [使用 kubeadm API 自定义组件](/zh/docs/setup/production-environment/tools/kubeadm/control-plane-flags)
-- [使用 kubeadm 管理证书](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)
+- [升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)
+- [使用 kubeadm API 自定义组件](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags)
+- [使用 kubeadm 管理证书](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)

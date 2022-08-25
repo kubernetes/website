@@ -47,7 +47,7 @@ into 3 main tracks, each of which has different policies for deprecation:
 由于 Kubernetes 是一个 API 驱动的系统，API 会随着时间推移而演化，以反映
 人们对问题空间的认识的变化。Kubernetes API 实际上是一个 API 集合，其中每个
 成员称作“API 组（API Group）”，并且每个 API 组都是独立管理版本的。
-[API 版本](/zh/docs/reference/using-api/#api-versioning)会有
+[API 版本](/zh-cn/docs/reference/using-api/#api-versioning)会有
 三类，每类有不同的废弃策略：
 
 <!--
@@ -169,7 +169,7 @@ This ensures beta API support covers the [maximum supported version skew of 2 re
    * **Beta API 版本必须支持 9 个月或弃用后的 3 个版本（以较长者为准）**
    * **Alpha API 版本可能会在任何版本中被删除，不另行通知**
 
-这确保了 beta API 支持涵盖了[最多 2 个版本的支持版本偏差](/zh/releases/version-skew-policy/)。
+这确保了 beta API 支持涵盖了[最多 2 个版本的支持版本偏差](/zh-cn/releases/version-skew-policy/)。
 
 {{< note >}}
 <!--
@@ -450,7 +450,7 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
 
 1. API 响应中会包含一个 `Warning` 头部字段（如 [RFC7234 5.5 节](https://tools.ietf.org/html/rfc7234#section-5.5)所定义）；
 2. 该请求会导致对应的 
-   [审计事件](/zh/docs/tasks/debug/debug-cluster/audit/)
+   [审计事件](/zh-cn/docs/tasks/debug/debug-cluster/audit/)
    中会增加一个注解 `"k8s.io/deprecated":"true"`。
 3. `kube-apiserver` 进程的 `apiserver_requested_deprecated_apis` 度量值会被
    设置为 `1`。

@@ -27,6 +27,34 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
+
+[cve_id]
+other = "CVE ID"
+
+[cve_issue_url]
+other = "CVE GitHub Issue URL"
+
+[cve_json_external_url]
+other = "external_url"
+
+[cve_json_id]
+other = "id"
+
+[cve_json_summary]
+other = "summary"
+
+[cve_json_url]
+other = "url"
+
+[cve_summary]
+other = "Issue Summary"
+
+[cve_table]
+other = "Official Kubernetes CVE List"
+
+[cve_url]
+other = "CVE URL"
+
 [deprecation_title]
 other = "You are viewing documentation for Kubernetes version:"
 
@@ -95,9 +123,6 @@ other = "email address"
 
 [javascript_required]
 other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
-
-[katacoda_removal_warning]
-other = """This online tutorial on this page uses functionality that will [not be available](https://www.oreilly.com/online-learning/leveraging-katacoda-technology.html) past <time datetime="2022-06-15">June 15th, 2022</time>."""
 
 [latest_release]
 other = "Latest Release:"

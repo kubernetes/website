@@ -25,10 +25,10 @@ work, via RBAC policy, with the
 -->
 启动引导令牌是一种简单的持有者令牌（Bearer Token），这种令牌是在新建集群
 或者在现有集群中添加新节点时使用的。
-它被设计成能够支持 [`kubeadm`](/zh/docs/reference/setup-tools/kubeadm/)，
+它被设计成能够支持 [`kubeadm`](/zh-cn/docs/reference/setup-tools/kubeadm/)，
 但是也可以被用在其他的案例中以便用户在不使用 `kubeadm` 的情况下启动集群。
 它也被设计成可以通过 RBAC 策略，结合
-[Kubelet TLS 启动引导](/zh/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+[Kubelet TLS 启动引导](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 系统进行工作。
 
 <!-- body -->
@@ -202,7 +202,7 @@ You can use the `kubeadm` tool to manage tokens on a running cluster. See the
 ## 使用 `kubeadm` 管理令牌   {#token-management-with-kubeadm}
 
 你可以使用 `kubeadm` 工具管理运行中集群上的令牌。
-参见 [kubeadm token 文档](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token/)
+参见 [kubeadm token 文档](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-token/)
 以了解详细信息。
 
 <!--
@@ -285,7 +285,7 @@ is used.
 `kubeconfig` 的载荷进行编码。完成编码的载荷会被插入到两个句点中间，形成完整的
 JWS。你可以使用完整的令牌（比如 `07401b.f395accd246ae52d`）作为共享密钥，
 通过 `HS256` 方式 (HMAC-SHA256) 对 JWS 进行校验。
-用户 _必须_ 确保使用了 HS256。
+用户**必须**确保使用了 HS256。
 
 {{< warning >}}
 <!--
@@ -303,6 +303,6 @@ client relying on the signature to bootstrap TLS trust.
 Consult the [kubeadm implementation details](/docs/reference/setup-tools/kubeadm/implementation-details/)
 section for more information.
 -->
-参考 [kubeadm 实现细节](/zh/docs/reference/setup-tools/kubeadm/implementation-details/)
+参考 [kubeadm 实现细节](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/)
 了解更多信息。
 

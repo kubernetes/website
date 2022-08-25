@@ -4,16 +4,14 @@ title: 'SIG Apps: 为 Kubernetes 构建应用并在 Kubernetes 中进行运维'
 date: 2016-08-16
 slug: sig-apps-running-apps-in-kubernetes
 ---
-
 <!--
----
 title: " SIG Apps: build apps for and operate them in Kubernetes "
 date: 2016-08-16
 slug: sig-apps-running-apps-in-kubernetes
 canonicalUrl: https://kubernetes.io/blog/2016/08/sig-apps-running-apps-in-kubernetes/
 url: /blog/2016/08/Sig-Apps-Running-Apps-In-Kubernetes
----
 -->
+
 <!--
 _Editor’s note: This post is by the Kubernetes SIG-Apps team sharing how they focus on the developer and devops experience of running applications in Kubernetes._  
 

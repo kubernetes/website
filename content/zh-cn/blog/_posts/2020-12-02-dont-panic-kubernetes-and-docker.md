@@ -21,7 +21,7 @@ For more information, read the [removal FAQ](/dockershim).
 You can also discuss the deprecation via a dedicated [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917)._
 -->
 **更新**：Kubernetes 通过 `dockershim` 对 Docker 的支持现已移除。
-有关更多信息，请阅读[移除 FAQ](/zh/dockershim)。
+有关更多信息，请阅读[移除 FAQ](/zh-cn/dockershim)。
 你还可以通过专门的 [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917) 讨论弃用。
 
 <!-- 
@@ -217,4 +217,4 @@ Kubernetes 有很多变化中的功能，没有人是100%的专家。
 Looking for more answers? Check out our accompanying [Dockershim Removal FAQ](/blog/2022/02/17/dockershim-faq/) _(updated February 2022)_.
 -->
 还在寻求更多答案吗？请参考我们附带的
-[移除 Dockershim 的常见问题](/zh/blog/2020/12/02/dockershim-faq/) _(2022年2月更新)_。
+[移除 Dockershim 的常见问题](/zh-cn/blog/2020/12/02/dockershim-faq/) _(2022年2月更新)_。

@@ -75,7 +75,7 @@ kubectl config view --minify | grep namespace:
 Quando você cria um [Serviço](/docs/concepts/services-networking/service/), ele cria uma
 [entrada DNS](/docs/concepts/services-networking/dns-pod-service/) correspondente.
 Esta entrada possui o formato: `<service-name>.<namespace-name>.svc.cluster.local`, de forma que se um contêiner utilizar apenas `<service-name>` ele será resolvido para um serviço que é local ao namespace.
-Isso é útil para utilizar a mesma configuração em vários namespaces, por exemplo em Desenvolvimento, `Staging` e Produç. Se você quiser acessar múltiplos namespaces, precisará utilizar um _Fully Qualified Domain Name_ (FQDN).
+Isso é útil para utilizar a mesma configuração em vários namespaces, por exemplo em Desenvolvimento, `Staging` e Produção. Se você quiser acessar múltiplos namespaces, precisará utilizar um _Fully Qualified Domain Name_ (FQDN).
 
 ## Nem todos os objetos pertencem a algum Namespace
 

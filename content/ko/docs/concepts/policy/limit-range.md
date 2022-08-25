@@ -51,7 +51,7 @@ _리밋레인지_ 는 다음과 같은 제약 조건을 제공한다.
 
 ## {{% heading "whatsnext" %}}
 
-자세한 내용은 [LimitRanger 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)를 참조한다.
+자세한 내용은 [LimitRanger 디자인 문서](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)를 참조한다.
 
 제한의 사용에 대한 예시는 다음을 참조한다.
 

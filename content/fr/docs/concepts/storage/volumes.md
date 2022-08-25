@@ -137,7 +137,7 @@ Afin d'utiliser cette fonctionnalité, le [Pilote AWS EBS CSI](https://github.co
 
 Un type de volume `azureDisk` est utilisé pour monter un disque de données ([Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/)) dans un Pod.
 
-Plus de détails sont disponibles [ici](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md).
+Plus de détails sont disponibles [ici](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md).
 
 #### Migration CSI
 
@@ -150,7 +150,7 @@ Afin d'utiliser cette fonctionnalité, le [Pilote Azure Disk CSI](https://github
 
 Un type de volume `azureFile` est utilisé pour monter un volume de fichier Microsoft Azure (SMB 2.1 et 3.0) dans un Pod.
 
-Plus de détails sont disponibles [ici](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
+Plus de détails sont disponibles [ici](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md).
 
 #### Migration CSI
 
@@ -170,7 +170,7 @@ CephFS peut être monté plusieurs fois en écriture simultanément.
 Vous devez exécuter votre propre serveur Ceph avec le partage exporté avant de pouvoir l'utiliser.
 {{< /caution >}}
 
-Voir [l'exemple CephFS](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/) pour plus de détails.
+Voir [l'exemple CephFS](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) pour plus de détails.
 
 ### cinder {#cinder}
 
@@ -315,7 +315,7 @@ Si plusieurs WWNs sont spécifiés, targetWWNs s'attend à ce que ces WWNs provi
 Vous devez configurer un zonage FC SAN pour allouer et masquer au préalable ces LUNs (volumes) aux cibles WWNs afin que les hôtes Kubernetes puissent y accéder.
 {{< /caution >}}
 
-Voir [l'exemple FC](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel) pour plus de détails.
+Voir [l'exemple FC](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) pour plus de détails.
 
 ### flocker {#flocker}
 
@@ -330,7 +330,7 @@ Cela signifie que les données peuvent être transmises entre les Pods selon les
 Vous devez exécuter votre propre installation de Flocker avant de pouvoir l'utiliser.
 {{< /caution >}}
 
-Voir [l'exemple Flocker](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker) pour plus de détails.
+Voir [l'exemple Flocker](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker) pour plus de détails.
 
 ### gcePersistentDisk {#gcepersistentdisk}
 
@@ -465,7 +465,7 @@ GlusterFS peut être monté plusieurs fois en écriture simultanément.
 Vous devez exécuter votre propre installation de GlusterFS avant de pouvoir l'utiliser.
 {{< /caution >}}
 
-Voir [l'exemple GlusterFS](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs) pour plus de détails.
+Voir [l'exemple GlusterFS](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs) pour plus de détails.
 
 ### hostPath {#hostpath}
 
@@ -537,7 +537,7 @@ Une fonctionnalité de iSCSI est qu'il peut être monté en lecture seule par pl
 Cela signifie que vous pouvez préremplir un volume avec votre jeu de données et l'exposer en parallèle à partir d'autant de Pods que nécessaire.
 Malheureusement, les volumes iSCSI peuvent seulement être montés par un seul consommateur en mode lecture-écriture - les écritures simultanées ne sont pas autorisées.
 
-Voir [l'exemple iSCSI](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi) pour plus de détails.
+Voir [l'exemple iSCSI](https://github.com/kubernetes/examples/tree/master/volumes/iscsi) pour plus de détails.
 
 ### local {#local}
 
@@ -605,7 +605,7 @@ Cela signifie qu'un volume NFS peut être prérempli avec des données et que le
 Vous devez exécuter votre propre serveur NFS avec le partage exporté avant de pouvoir l'utiliser.
 {{< /caution >}}
 
-Voir [l'exemple NFS](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs) pour plus de détails.
+Voir [l'exemple NFS](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) pour plus de détails.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -624,7 +624,7 @@ Actuellement, les types de sources de volume suivantes peuvent être projetés :
 - [`configMap`](#configmap)
 - `serviceAccountToken`
 
-Toutes les sources doivent se trouver dans le même namespace que celui du Pod. Pour plus de détails, voir le [document de conception tout-en-un ](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
+Toutes les sources doivent se trouver dans le même namespace que celui du Pod. Pour plus de détails, voir le [document de conception tout-en-un ](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md).
 
 La projection des jetons de compte de service (service account) est une fonctionnalité introduite dans Kubernetes 1.11 et promue en Beta dans la version 1.12.
 Pour activer cette fonctionnalité dans la version 1.11, il faut configurer explicitement la ["feature gate" `TokenRequestProjection`](/docs/reference/command-line-tools-reference/feature-gates/) à "True".
@@ -776,7 +776,7 @@ spec:
 Il faut s'assurer d'avoir un PortworxVolume existant avec le nom `pxvol` avant de l'utiliser dans le Pod.
 {{< /caution >}}
 
-Plus de détails et d'exemples peuvent être trouvé [ici](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/portworx/README.md).
+Plus de détails et d'exemples peuvent être trouvé [ici](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md).
 
 ### quobyte {#quobyte}
 
@@ -804,7 +804,7 @@ Une fonctionnalité de RBD est qu'il peut être monté en lecture seule par plus
 Cela signifie que vous pouvez préremplir un volume avec votre jeu de données et l'exposer en parallèle à partir d'autant de Pods que nécessaire.
 Malheureusement, les volumes RBD peuvent seulement être montés par un seul consommateur en mode lecture-écriture - les écritures simultanées ne sont pas autorisées.
 
-Voir [l'exemple RBD](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd) pour plus de détails.
+Voir [l'exemple RBD](https://github.com/kubernetes/examples/tree/master/volumes/rbd) pour plus de détails.
 
 ### scaleIO {#scaleio}
 
@@ -842,7 +842,7 @@ spec:
       fsType: xfs
 ```
 
-Pour plus de détails, consulter [les exemples ScaleIO](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio).
+Pour plus de détails, consulter [les exemples ScaleIO](https://github.com/kubernetes/examples/tree/master/staging/volumes/scaleio).
 
 ### secret {#secret}
 

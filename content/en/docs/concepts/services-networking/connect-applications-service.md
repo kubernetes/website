@@ -45,9 +45,10 @@ my-nginx-3800858182-kna2y   1/1       Running   0          13s       10.244.2.5 
 Check your pods' IPs:
 
 ```shell
-kubectl get pods -l run=my-nginx -o yaml | grep podIP
-    podIP: 10.244.3.4
-    podIP: 10.244.2.5
+kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
+    POD_IP
+    [map[ip:10.244.3.4]]
+    [map[ip:10.244.2.5]]
 ```
 
 You should be able to ssh into any node in your cluster and use a tool such as `curl` to make queries against both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same `containerPort`, and access them from any other pod or node in your cluster using the assigned IP address for the Service. If you want to arrange for a specific port on the host Node to be forwarded to backing Pods, you can - but the networking model should mean that you do not need to do so.
@@ -305,7 +306,7 @@ Noteworthy points about the nginx-secure-app manifest:
   serves HTTP traffic on port 80 and HTTPS traffic on 443, and nginx Service
   exposes both ports.
 - Each container has access to the keys through a volume mounted at `/etc/nginx/ssl`.
-  This is setup *before* the nginx server is started.
+  This is set up *before* the nginx server is started.
 
 ```shell
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml

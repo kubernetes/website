@@ -17,7 +17,8 @@ weight: 10 # highlight it
 card:
   name: reference
   weight: 30
---- -->
+---
+-->
 
 <!-- overview -->
 
@@ -25,7 +26,7 @@ card:
 This page contains a list of commonly used `kubectl` commands and flags.
 -->
 
-本页列举了常用的 “kubectl” 命令和标志
+本页列举了常用的 `kubectl` 命令和标志。
 
 <!-- body -->
 
@@ -49,14 +50,14 @@ You can also use a shorthand alias for `kubectl` that also works with completion
 -->
 ```bash
 source <(kubectl completion bash) # 在 bash 中设置当前 shell 的自动补全，要先安装 bash-completion 包。
-echo "source <(kubectl completion bash)" >> ~/.bashrc # 在您的 bash shell 中永久的添加自动补全
+echo "source <(kubectl completion bash)" >> ~/.bashrc # 在你的 bash shell 中永久地添加自动补全
 ```
 
-您还可以为 `kubectl` 使用一个速记别名，该别名也可以与 completion 一起使用：
+你还可以在补全时为 `kubectl` 使用一个速记别名：
 
 ```bash
 alias k=kubectl
-complete -F __start_kubectl k
+complete -o default -F __start_kubectl k
 ```
 
 ### ZSH
@@ -64,12 +65,12 @@ complete -F __start_kubectl k
 <!--
 ```bash
 source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
-echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
+echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
 -->
 ```bash
 source <(kubectl completion zsh)  # 在 zsh 中设置当前 shell 的自动补全
-echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # 在您的 zsh shell 中永久的添加自动补全
+echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # 在你的 zsh shell 中永久地添加自动补全
 ```
 
 <!--
@@ -78,23 +79,23 @@ echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc 
 ### 关于 --all-namespaces 的一点说明
 
 <!--
-Appending `--all-namespaces` happens frequently enough where you should be aware of the shorthand for `--all-namespaces`:
+Appending `--all-namespaces` happens frequently enough where you should be aware of the  shorthand for `--all-namespaces`:
 -->
 我们经常用到 `--all-namespaces` 参数，你应该要知道它的简写：
 
 ```kubectl -A```
 
 <!--
-## Kubectl Context and Configuration
+## Kubectl context and configuration
 
 Set which Kubernetes cluster `kubectl` communicates with and modifies configuration
 information. See [Authenticating Across Clusters with kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation for
 detailed config file information.
 -->
-##  Kubectl 上下文和配置
+## Kubectl 上下文和配置
 
 设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。
-查看[使用 kubeconfig 跨集群授权访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+查看[使用 kubeconfig 跨集群授权访问](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 文档获取配置文件详细信息。
 
 <!--
@@ -112,8 +113,13 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
 kubectl config get-contexts                          # display list of contexts
-kubectl config current-context           # display the current-context
+kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
+
+kubectl config set-cluster my-cluster-name           # set a cluster entry in the kubeconfig
+
+# configure the URL to a proxy server to use for requests made by this client in the kubeconfig
+kubectl config set-cluster my-cluster-name --proxy-url=my-proxy-url
 
 # add a new user to your kubeconf that supports basic auth
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
@@ -136,7 +142,9 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 kubectl config view # 显示合并的 kubeconfig 配置。
 
 # 同时使用多个 kubeconfig 文件并查看合并的配置
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
+
+kubectl config view
 
 # 获取 e2e 用户的密码
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
@@ -146,6 +154,11 @@ kubectl config view -o jsonpath='{.users[*].name}'   # 获取用户列表
 kubectl config get-contexts                          # 显示上下文列表
 kubectl config current-context                       # 展示当前所处的上下文
 kubectl config use-context my-cluster-name           # 设置默认的上下文为 my-cluster-name
+
+kubectl config set-cluster my-cluster-name           # 在 kubeconfig 中设置集群条目
+
+# 在 kubeconfig 中配置代理服务器的 URL，以用于该客户端的请求
+kubectl config set-cluster my-cluster-name --proxy-url=my-proxy-url
 
 # 添加新的用户配置到 kubeconf 中，使用 basic auth 进行身份认证
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
@@ -170,10 +183,11 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 `apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 -->
 ## Kubectl apply
+
 `apply` 通过定义 Kubernetes 资源的文件来管理应用。
 它通过运行 `kubectl apply` 在集群中创建和更新资源。
 这是在生产中管理 Kubernetes 应用的推荐方法。
-参见 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。
+参见 [Kubectl 文档](https://kubectl.docs.kubernetes.io/zh/)。
 
 <!--
 ## Creating objects
@@ -198,7 +212,7 @@ kubectl create deployment nginx --image=nginx  # start a single instance of ngin
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
 
 # create a CronJob that prints "Hello World" every minute
-kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"    
+kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"
 
 kubectl explain pods                           # get the documentation for pod manifests
 
@@ -333,6 +347,9 @@ kubectl get pods --selector=app=cassandra -o \
 kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
 
+# Retrieve a base64 encoded value with dashes instead of underscores.
+kubectl get secret my-secret --template='{{index .data "key-name-with-dashes"}}'
+
 # Get all worker nodes (use a selector to exclude results that have a label
 # named 'node-role.kubernetes.io/control-plane')
 kubectl get node --selector='!node-role.kubernetes.io/control-plane'
@@ -415,6 +432,9 @@ kubectl get pods --selector=app=cassandra -o \
 # 检索带有 “.” 键值，例： 'ca.crt'
 kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
+
+# 检索一个 base64 编码的值，其中的键名应该包含减号而不是下划线。
+kubectl get secret my-secret --template='{{index .data "key-name-with-dashes"}}'
 
 # 获取所有工作节点（使用选择器以排除标签名称为 'node-role.kubernetes.io/control-plane' 的结果）
 kubectl get node --selector='!node-role.kubernetes.io/control-plane'
@@ -611,10 +631,10 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 伸缩多个
 ## 删除资源
 
 <!-- ```bash
-kubectl delete -f ./pod.json                                              # Delete a pod using the type and name specified in pod.json
-kubectl delete pod,service baz foo                                        # Delete pods and services with same names "baz" and "foo"
-kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
-kubectl -n my-ns delete pod,svc --all                                      # Delete all pods and services in namespace my-ns,
+kubectl delete -f ./pod.json                                      # Delete a pod using the type and name specified in pod.json
+kubectl delete pod,service baz foo                                # Delete pods and services with same names "baz" and "foo"
+kubectl delete pods,services -l name=myLabel                      # Delete pods and services with label name=myLabel
+kubectl -n my-ns delete pod,svc --all                             # Delete all pods and services in namespace my-ns,
 # Delete all pods matching the awk pattern1 or pattern2
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
@@ -631,7 +651,7 @@ kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{pr
 <!--
 ## Interacting with running Pods
 -->
-## 与运行中的 Pods 进行交互
+## 与运行中的 Pod 进行交互
 
 <!--
 ```bash
@@ -652,7 +672,7 @@ kubectl run nginx --image=nginx                     # Run pod nginx and write it
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
-kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case) 
+kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case)
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
@@ -670,7 +690,7 @@ kubectl logs -f my-pod -c my-container              # 流式输出 Pod 容器的
 kubectl logs -f -l name=myLabel --all-containers    # 流式输出含 name=myLabel 标签的 Pod 的所有日志（标准输出）
 kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # 以交互式 Shell 运行 Pod
 kubectl run nginx --image=nginx -n mynamespace      # 在 “mynamespace” 命名空间中运行单个 nginx Pod
-kubectl run nginx --image=nginx                     # 运行 ngins Pod 并将其规约写入到名为 pod.yaml 的文件
+kubectl run nginx --image=nginx                     # 运行 nginx Pod 并将其规约写入到名为 pod.yaml 的文件
   --dry-run=client -o yaml > pod.yaml
 
 kubectl attach my-pod -i                            # 挂接到一个运行的容器中
@@ -720,6 +740,8 @@ kubectl exec -n my-namespace my-pod -- tar cf - /tmp/foo | tar xf - -C /tmp/bar 
 ```bash
 tar cf - /tmp/foo | kubectl exec -i -n my-namespace my-pod -- tar xf - -C /tmp/bar  # 将 /tmp/foo 本地文件复制到远程 “my-namespace” 命名空间中 pod 中的 /tmp/bar
 kubectl exec -n my-namespace my-pod -- tar cf - /tmp/foo | tar xf - -C /tmp/bar    # 将 /tmp/foo 从远程 pod 复制到本地 /tmp/bar
+```
+
 <!--
 ## Interacting with Deployments and Services
 -->
@@ -749,7 +771,7 @@ kubectl exec deploy/my-deployment -- ls                   # 在 Deployment 里�
 ```
 
 <!--
-## Interacting with Nodes and Cluster
+## Interacting with Nodes and cluster
 -->
 ## 与节点和集群进行交互
 
@@ -762,6 +784,9 @@ kubectl top node my-node                                              # Show met
 kubectl cluster-info                                                  # Display addresses of the master and services
 kubectl cluster-info dump                                             # Dump current cluster state to stdout
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump current cluster state to /path/to/cluster-state
+
+# View existing taints on which exist on current nodes.
+kubectl get nodes -o=custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect
 
 # If a taint with that key and effect already exists, its value is replaced as specified.
 kubectl taint nodes foo dedicated=special-user:NoSchedule
@@ -776,6 +801,9 @@ kubectl cluster-info                                                  # 显示�
 kubectl cluster-info dump                                             # 将当前集群状态转储到标准输出
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # 将当前集群状态输出到 /path/to/cluster-state
 
+# 查看当前节点上存在的现有污点。
+kubectl get nodes -o=custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect
+
 # 如果已存在具有指定键和效果的污点，则替换其值为指定值。
 kubectl taint nodes foo dedicated=special-user:NoSchedule
 ```
@@ -788,7 +816,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 <!--
 List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 -->
-列出所支持的全部资源类型和它们的简称、[API 组](/zh/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), 是否是[名字空间作用域](/zh/docs/concepts/overview/working-with-objects/namespaces) 和 [Kind](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects)。
+列出所支持的全部资源类型和它们的简称、[API 组](/zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), 是否是[名字空间作用域](/zh-cn/docs/concepts/overview/working-with-objects/namespaces) 和 [Kind](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects)。
 
 ```bash
 kubectl api-resources
@@ -844,8 +872,8 @@ Output format | Description
 `-o=custom-columns=<spec>` | 使用逗号分隔的自定义列来打印表格
 `-o=custom-columns-file=<filename>` | 使用 `<filename>` 文件中的自定义列模板打印表格
 `-o=json`     | 输出 JSON 格式的 API 对象
-`-o=jsonpath=<template>` | 打印 [jsonpath](/zh/docs/reference/kubectl/jsonpath) 表达式中定义的字段
-`-o=jsonpath-file=<filename>` | 打印在 `<filename>` 文件中定义的 [jsonpath](/zh/docs/reference/kubectl/jsonpath) 表达式所指定的字段。
+`-o=jsonpath=<template>` | 打印 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath) 表达式中定义的字段
+`-o=jsonpath-file=<filename>` | 打印在 `<filename>` 文件中定义的 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath) 表达式所指定的字段。
 `-o=name`     | 仅打印资源名称而不打印其他内容
 `-o=wide`     | 以纯文本格式输出额外信息，对于 Pod 来说，输出中包含了节点名称
 `-o=yaml`     | 输出 YAML 格式的 API 对象
@@ -860,7 +888,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 # All images running in namespace: default, grouped by Pod
 kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
-# All images excluding "k8s.gcr.io/coredns:1.6.2"
+ # All images excluding "k8s.gcr.io/coredns:1.6.2"
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
 
 # All fields under metadata regardless of name
@@ -885,7 +913,10 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
-有关更多示例，请参看 kubectl [参考文档](/zh/docs/reference/kubectl/#custom-columns)。
+<!--
+More examples in the kubectl [reference documentation](/docs/reference/kubectl/#custom-columns).
+-->
+有关更多示例，请参看 kubectl [参考文档](/zh-cn/docs/reference/kubectl/#custom-columns)。
 
 <!--
 ### Kubectl output verbosity and debugging
@@ -915,7 +946,7 @@ Verbosity | Description
 详细程度      | 描述
 --------------| -----------
 `--v=0` | 用于那些应该 *始终* 对运维人员可见的信息，因为这些信息一般很有用。
-`--v=1` | 如果您不想要看到冗余信息，此值是一个合理的默认日志级别。
+`--v=1` | 如果你不想要看到冗余信息，此值是一个合理的默认日志级别。
 `--v=2` | 输出有关服务的稳定状态的信息以及重要的日志消息，这些信息可能与系统中的重大变化有关。这是建议大多数系统设置的默认日志级别。
 `--v=3` | 包含有关系统状态变化的扩展信息。
 `--v=4` | 包含调试级别的冗余信息。
@@ -928,7 +959,6 @@ Verbosity | Description
 ## {{% heading "whatsnext" %}}
 
 <!--
-
 * Read the [kubectl overview](/docs/reference/kubectl/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
 
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
@@ -937,7 +967,7 @@ Verbosity | Description
 
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 -->
-* 参阅 [kubectl 概述](/zh/docs/reference/kubectl/)，进一步了解 [JsonPath](/zh/docs/reference/kubectl/jsonpath)。
-* 参阅 [kubectl](/zh/docs/reference/kubectl/kubectl/) 选项。
-* 参阅 [kubectl 使用约定](/zh/docs/reference/kubectl/conventions/)来理解如何在可复用的脚本中使用它。
+* 参阅 [kubectl 概述](/zh-cn/docs/reference/kubectl/)，进一步了解 [JsonPath](/zh-cn/docs/reference/kubectl/jsonpath)。
+* 参阅 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 选项。
+* 参阅 [kubectl 使用约定](/zh-cn/docs/reference/kubectl/conventions/)来理解如何在可复用的脚本中使用它。
 * 查看社区中其他的 [kubectl 备忘单](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)。

@@ -36,7 +36,7 @@ For clarity, this guide defines the following terms:
   在此示例和在大多数常见的 Kubernetes 部署环境中，集群中的节点都不在公共网络中。
 * 边缘路由器（Edge Router）: 在集群中强制执行防火墙策略的路由器。可以是由云提供商管理的网关，也可以是物理硬件。
 * 集群网络（Cluster Network）: 一组逻辑的或物理的连接，根据 Kubernetes
-  [网络模型](/zh/docs/concepts/cluster-administration/networking/)在集群内实现通信。
+  [网络模型](/zh-cn/docs/concepts/cluster-administration/networking/)在集群内实现通信。
 * 服务（Service）：Kubernetes {{< glossary_tooltip term_id="service" >}}，
   使用{{< glossary_tooltip text="标签" term_id="label" >}}选择器（selectors）辨认一组 Pod。
   除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
@@ -51,7 +51,7 @@ Traffic routing is controlled by rules defined on the Ingress resource.
 ## Ingress 是什么？  {#what-is-ingress}
 
 [Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
-公开从集群外部到集群内[服务](/zh/docs/concepts/services-networking/service/)的
+公开从集群外部到集群内[服务](/zh-cn/docs/concepts/services-networking/service/)的
 HTTP 和 HTTPS 路由。
 流量路由由 Ingress 资源上定义的规则控制。
 
@@ -60,13 +60,13 @@ Here is a simple example where an Ingress sends all its traffic to one Service:
 -->
 下面是一个将所有流量都发送到同一 Service 的简单 Ingress 示例：
 
-{{< figure src="/zh-cn/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="图. Ingress" link="https://mermaid.live/edit#pako:eNqNkstuwyAQRX8F4U0r2VHqPlSRKqt0UamLqlnaWWAYJygYLB59KMm_Fxcix-qmGwbuXA7DwAEzzQETXKutof0Ovb4vaoUQkwKUu6pi3FwXM_QSHGBt0VFFt8DRU2OWSGrKUUMlVQwMmhVLEV1Vcm9-aUksiuXRaO_CEhkv4WjBfAgG1TrGaLa-iaUw6a0DcwGI-WgOsF7zm-pN881fvRx1UDzeiFq7ghb1kgqFWiElyTjnuXVG74FkbdumefEpuNuRu_4rZ1pqQ7L5fL6YQPaPNiFuywcG9_-ihNyUkm6YSONWkjVNM8WUIyaeOJLO3clTB_KhL8NQDmVe-OJjxgZM5FhFiiFTK5zjDkxHBQ9_4zB4a-x20EGNSZhyaKmXrg7f5hSsvufUwTMXThtMWiot5Jh6p9ffimHijIezaSVoeN0uiqcfMJvf7w" >}}
+{{< figure src="/zh-cn/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="图. Ingress" link="https://mermaid.live/edit#pako:eNqNkktLAzEQgP9KSC8Ku6XWBxKlJz0IHsQeuz1kN7M2uC-SrA9sb6X26MFLFZGKoCC0CIIn_Td1139halZq8eJlE2a--TI7yRn2YgaYYCc6EDRpod39DSdCyAs4RGqhMRndffRfs6dxc9Euox0NgZR2NhpmF73sqos2XVFD-ctt_vY2uTnPh8PJ4BGV7Ro3ZKOoaH5Li6Bt19r56zi7fM4fupP-oC1BHHEPGnWzGlimruno87qXvd__qjdpw2pXErOlxl7Mmn_j1VkcImb-i0q5BT5KAsoj5PMgICXGmCWViA-BlHzfL_b2MWeqRVaSE8uLg1iQUqVS2ZiTHK7LQrFcXfNg9V8WnZu3eEEqFYjCNCslJdd15zXVmcacODP9TMcqJmBN5zL9VKdt_uLM1ZoBzIVNF8WqM06ELRyCCCln-oWcTVkHqxaE4GCitwx8mgbK0Y-no9E0YVTBNuMqFpj4NJBgYZqquH4aeZgokcIPtMWpvtywoDpfU3_yww" >}}
 
 <!-- 
 An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 -->
 Ingress 可为 Service 提供外部可访问的 URL、负载均衡流量、终止 SSL/TLS，以及基于名称的虚拟托管。
-[Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers)
+[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)
 通常负责通过负载均衡器来实现 Ingress，尽管它也可以配置边缘路由器或其他前端来帮助处理流量。
 
 <!-- 
@@ -76,8 +76,8 @@ uses a service of type [Service.Type=NodePort](/docs/concepts/services-networkin
 -->
 Ingress 不会公开任意端口或协议。
 将 HTTP 和 HTTPS 以外的服务公开到 Internet 时，通常使用
-[Service.Type=NodePort](/zh/docs/concepts/services-networking/service/#type-nodeport)
-或 [Service.Type=LoadBalancer](/zh/docs/concepts/services-networking/service/#loadbalancer)
+[Service.Type=NodePort](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)
+或 [Service.Type=LoadBalancer](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
 类型的 Service。
 
 <!--
@@ -87,7 +87,7 @@ You must have an [ingress controller](/docs/concepts/services-networking/ingress
 -->
 ## 环境准备
 
-你必须拥有一个 [Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers) 才能满足 Ingress 的要求。
+你必须拥有一个 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers) 才能满足 Ingress 的要求。
 仅创建 Ingress 资源本身没有任何效果。
 
 <!-- 
@@ -95,7 +95,7 @@ You may need to deploy an Ingress controller such as [ingress-nginx](https://kub
 [Ingress controllers](/docs/concepts/services-networking/ingress-controllers).
 -->
 你可能需要部署 Ingress 控制器，例如 [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/)。
-你可以从许多 [Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers) 中进行选择。
+你可以从许多 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers) 中进行选择。
 
 <!-- 
 Ideally, all Ingress controllers should fit the reference specification. In reality, the various Ingress
@@ -133,13 +133,13 @@ Different [Ingress controllers](/docs/concepts/services-networking/ingress-contr
  your choice of Ingress controller to learn which annotations are supported.
 -->
 Ingress 需要指定 `apiVersion`、`kind`、 `metadata`和 `spec` 字段。
-Ingress 对象的命名必须是合法的 [DNS 子域名名称](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
-关于如何使用配置文件，请参见[部署应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)、
-[配置容器](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)、
-[管理资源](/zh/docs/concepts/cluster-administration/manage-deployment/)。
+Ingress 对象的命名必须是合法的 [DNS 子域名名称](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+关于如何使用配置文件，请参见[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
+[配置容器](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)、
+[管理资源](/zh-cn/docs/concepts/cluster-administration/manage-deployment/)。
 Ingress 经常使用注解（annotations）来配置一些选项，具体取决于 Ingress
 控制器，例如[重写目标注解](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)。
-不同的 [Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers)支持不同的注解。
+不同的 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)支持不同的注解。
 查看你所选的 Ingress 控制器的文档，以了解其支持哪些注解。
 
 <!-- 
@@ -195,7 +195,7 @@ Each HTTP rule contains the following information:
   如果提供了 `host`（例如 foo.bar.com），则 `rules` 适用于该 `host`。
 * 路径列表 paths（例如，`/testpath`）,每个路径都有一个由 `serviceName` 和 `servicePort` 定义的关联后端。
   在负载均衡器将流量定向到引用的服务之前，主机和路径都必须匹配传入请求的内容。
-* `backend`（后端）是 [Service 文档](/zh/docs/concepts/services-networking/service/)中所述的服务和端口名称的组合。
+* `backend`（后端）是 [Service 文档](/zh-cn/docs/concepts/services-networking/service/)中所述的服务和端口名称的组合。
   与规则的 `host` 和 `path` 匹配的对 Ingress 的 HTTP（和 HTTPS ）请求将发送到列出的 `backend`。
 
 <!-- 
@@ -224,7 +224,7 @@ routed to your default backend.
 没有设置规则的 Ingress 将所有流量发送到同一个默认后端，而
 `.spec.defaultBackend` 则是在这种情况下处理请求的那个默认后端。
 `defaultBackend` 通常是
-[Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers)的配置选项，而非在
+[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)的配置选项，而非在
 Ingress 资源中指定。
 如果未设置任何的 `.spec.rules`，那么必须指定 `.spec.defaultBackend`。
 如果未设置 `defaultBackend`，那么如何处理所有与规则不匹配的流量将交由
@@ -524,7 +524,7 @@ that is used for a workload. If you used a cluster-scoped parameter then either:
 网关定义）。如果你使用集群作用域的参数，那么你必须从以下两项中选择一项执行：
 
 - 每次修改配置，集群操作团队需要批准其他团队的修改。
-- 集群操作团队定义具体的准入控制，比如 [RBAC](/zh/docs/reference/access-authn-authz/rbac/)
+- 集群操作团队定义具体的准入控制，比如 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)
   角色与角色绑定，以使得应用程序团队可以修改集群作用域的配置参数资源。
 
 <!--
@@ -685,8 +685,7 @@ down to a minimum. For example, a setup like:
 一个扇出（fanout）配置根据请求的 HTTP URI 将来自同一 IP 地址的流量路由到多个 Service。
 Ingress 允许你将负载均衡器的数量降至最低。例如，这样的设置：
 
-{{< figure src="/zh-cn/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="图. Ingress 扇出" link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
-
+{{< figure src="/zh-cn/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="图. Ingress 扇出" link="https://mermaid.live/edit#pako:eNqNUk1v0zAY_iuWewEpyRKnjM5FPY0DEgfEjk0PTvxmtZbGke3woW03NDjuChNCRRyQkMYFidP4NyXlX5DMjroykLg4j_x8vM6j9xhnkgOm-FCxao4ePx0nJUJZIaA0d6ary48_33xvvnyd3fUD9Kg8VKC131wum_Oz5t0r9CBVE7T-9mF9dbV6_3q9XK7efkaBPxFWOXUOD0X3R8FeFEQkDqKYzK6HOJHvT052cilPNKhnIoNoemAB6i_okIThbU_KVO8hf3oIHYUj59F1an_u18VZ8-PTjRhLuyltZiV5NH0i-ewvBLlFEEvE_yKGGwJKbmtlWu9DjqqCiRLloijogHPuaaPkEdBBnucO-88FN3M6rF54mSykooMwDMdbIUcj7SJispvBvf9KabntlKyotQHlkjZWOkjTdDuGbGLsxE1S36jXl9YD4nWldsc1irtj2D39htdumy1l69q-zH3H2MMLUAsmeLuux50uwWYOC0gwbSGHnNWFSXBSnrbSuuLMwEMujFSY5qzQ4GFWG3nwsswwNaqGXrQvWLsgC6c6_Q0zxBrK" >}}
 
 <!--
 would require an Ingress such as:
@@ -739,8 +738,8 @@ you are using, you may need to create a default-http-backend
 [Service](/docs/concepts/services-networking/service/).
 -->
 {{< note >}}
-取决于你所使用的 [Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers)，
-你可能需要创建默认 HTTP 后端[服务](/zh/docs/concepts/services-networking/service/)。
+取决于你所使用的 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)，
+你可能需要创建默认 HTTP 后端[服务](/zh-cn/docs/concepts/services-networking/service/)。
 {{< /note >}}
 
 <!--
@@ -752,7 +751,7 @@ Name-based virtual hosts support routing HTTP traffic to multiple host names at 
 
 基于名称的虚拟主机支持将针对多个主机名的 HTTP 流量路由到同一 IP 地址上。
 
-{{< figure src="/zh-cn/docs/images/ingressNameBased.svg" alt="ingress-namebase-diagram" class="diagram-large" caption="图. 基于名称实现虚拟托管的 Ingress" link="https://mermaid.live/edit#pako:eNqNkl9PwyAUxb8KYS-atM1Kp05m9qSJJj4Y97jugcLtRqTQAPVPdN_dVlq3qUt8gZt7zvkBN7xjbgRgiteW1Rt0_zjLNUJcSdD-ZBn21WmcoDu9tuBcXDHN1iDQVWHnSBkmUMEU0xwsSuK5DK5l745QejFNLtMkJVmSZmT1Re9NcTz_uDXOU1QakxTMJtxUHw7ss-SQLhehQEODTsdH4l20Q-zFyc84-Y67pghv5apxHuweMuj9eS2_NiJdPhix-kMgvwQShOyYMNkJoEUYM3PuGkpUKyY1KqVSdCSEiJy35gnoqCzLvo5fpPAbOqlfI26UsXQ0Ho9nB5CnqesRGTnncPYvSqsdUvqp9KRdlI6KojjEkB0mnLgjDRONhqENBYm6oXbLV5V1y6S7-l42_LowlIN2uFm_twqOcAW2YlK0H_i9c-bYb6CCHNO2FFCyRvkc53rbWptaMA83QnpjMS2ZchBh1nizeNMcU28bGEzXkrV_pArN7Sc0rBTu" >}}
+{{< figure src="/zh-cn/docs/images/ingressNameBased.svg" alt="ingress-namebase-diagram" class="diagram-large" caption="图. 基于名称实现虚拟托管的 Ingress" link="https://mermaid.live/edit#pako:eNqNkk9v0zAYxr-K5V6GlESNU6B4qKdxQOKA2LHpwYnfrNaSOLId_mjbDQ2OXAdMUxEHJKRxQWLaND4NXcq3IJkT2gKTuDiv_Dzv73UevXs4lhwwxTuKFVP06MlmmCMUpwJyszGen364ev2t-vxlcsv10MN8R4HWbnU6q94cVm9fovuRGqHF15PF5eX8-NViNpsffUKeOxLWOW47HOTfHXr3fM8ngecHZHI9pDW57mj_x9nF1ftzihIpvYgpL5bZvgb1VMTgj7dtgboLOuzfCGiaG8gKgPwJIL8Buozsb_98d1h9_7jCtHI7sB5QSO6PH0s--YdA_hKIFYKbhMFSgJzbwJnWW5CgImUiR4lIU9rjnDvaKLkLtJckSVu7zwQ3UzoonjuxTKWivX6_v7kG2R3qFhGQOzHc_i9Kra1T4rTUBlRLWrbSXhRF6xiyxNiJS1KXqNOF1hXEaUJtjusqaI5B8_SVXruHNpS1a_uy9lsr2MEZqIwJXq_yXuMMsZlCBiGmdckhYWVqQhzmB7W1LDgz8IALIxWmCUs1OJiVRm6_yGNMjSqhM20JVq9I1roOfgEKNyn5" >}}
 
 <!--
 The following Ingress tells the backing load balancer to route requests based on
@@ -881,7 +880,7 @@ specific documentation to see how they handle health checks (
 -->
 值得注意的是，尽管健康检查不是通过 Ingress 直接暴露的，在 Kubernetes
 中存在并行的概念，比如
-[就绪检查](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)，
+[就绪检查](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)，
 允许你实现相同的目的。
 请检查特定控制器的说明文档（[nginx](https://git.k8s.io/ingress-nginx/README.md)、
 [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)）以了解它们是怎样处理健康检查的。
@@ -1000,7 +999,7 @@ Please check the documentation of the relevant [Ingress controller](/docs/concep
 ## 跨可用区失败  {#failing-across-availability-zones}
 
 不同的云厂商使用不同的技术来实现跨故障域的流量分布。详情请查阅相关 Ingress 控制器的文档。
-请查看相关 [Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers)的文档以了解详细信息。
+请查看相关 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)的文档以了解详细信息。
 
 <!--
 ## Alternatives
@@ -1015,8 +1014,8 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
 * Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 -->
-* 使用 [Service.Type=LoadBalancer](/zh/docs/concepts/services-networking/service/#loadbalancer)
-* 使用 [Service.Type=NodePort](/zh/docs/concepts/services-networking/service/#nodeport)
+* 使用 [Service.Type=LoadBalancer](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
+* 使用 [Service.Type=NodePort](/zh-cn/docs/concepts/services-networking/service/#nodeport)
 
 ## {{% heading "whatsnext" %}}
 
@@ -1026,6 +1025,6 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)
 -->
 * 进一步了解 [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
-* 进一步了解 [Ingress 控制器](/zh/docs/concepts/services-networking/ingress-controllers/)
-* [使用 NGINX 控制器在 Minikube 上安装 Ingress](/zh/docs/tasks/access-application-cluster/ingress-minikube/)
+* 进一步了解 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers/)
+* [使用 NGINX 控制器在 Minikube 上安装 Ingress](/zh-cn/docs/tasks/access-application-cluster/ingress-minikube/)
 

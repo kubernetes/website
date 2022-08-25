@@ -3,14 +3,11 @@ title: " Kubernetes 中自动缩放 "
 date: 2017-11-17
 slug: autoscaling-in-kubernetes
 ---
-
 <!--
----
 title: " Autoscaling in Kubernetes "
 date: 2017-11-17
 slug: autoscaling-in-kubernetes
-url: /zh/blog/2017/11/Autoscaling-In-Kubernetes
----
+url: /blog/2017/11/Autoscaling-In-Kubernetes
 -->
 
 <!--

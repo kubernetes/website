@@ -1,18 +1,14 @@
-<!--
 ---
+title: " Kubernetes 社区每周环聊笔记——2015 年 7 月 31 日 "
+date: 2015-08-04
+slug: weekly-kubernetes-community-hangout
+---
+<!--
 title: " Weekly Kubernetes Community Hangout Notes - July 31 2015 "
 date: 2015-08-04
 slug: weekly-kubernetes-community-hangout
-url: /zh/blog/2015/08/Weekly-Kubernetes-Community-Hangout
----
+url: /blog/2015/08/Weekly-Kubernetes-Community-Hangout
 -->
-
----
-title: " Kubernetes社区每周环聊笔记-2015年7月31日 "
-date: 2015-08-04
-slug: weekly-kubernetes-community-hangout
-url: /zh/blog/2015/08/Weekly-Kubernetes-Community-Hangout
----
 
 <!--
 Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.  

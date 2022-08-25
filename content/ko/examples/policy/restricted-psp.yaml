@@ -3,6 +3,7 @@ kind: PodSecurityPolicy
 metadata:
   name: restricted
   annotations:
+    # docker/default 는 seccomp를 위한 프로파일을 나타내지만, 특별히 도커 런타임에 묶여 있는 것은 아니다.
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default'
     apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
     apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'

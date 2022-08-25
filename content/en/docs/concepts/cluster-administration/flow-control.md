@@ -31,10 +31,13 @@ use informers and react to failures of API requests with exponential
 back-off, and other clients that also work this way.
 
 {{< caution >}}
-Requests classified as "long-running" — primarily watches — are not
-subject to the API Priority and Fairness filter. This is also true for
-the `--max-requests-inflight` flag without the API Priority and
-Fairness feature enabled.
+Some requests classified as "long-running"&mdash;such as remote
+command execution or log tailing&mdash;are not subject to the API
+Priority and Fairness filter. This is also true for the
+`--max-requests-inflight` flag without the API Priority and Fairness
+feature enabled. API Priority and Fairness _does_ apply to **watch**
+requests. When API Priority and Fairness is disabled, **watch** requests
+are not subject to the `--max-requests-inflight` limit.
 {{< /caution >}}
 
 <!-- body -->
@@ -92,6 +95,44 @@ leader-election requests, requests from built-in controllers, and requests from
 Pods. This means that an ill-behaved Pod that floods the API server with
 requests cannot prevent leader election or actions by the built-in controllers
 from succeeding.
+
+### Seats Occupied by a Request
+
+The above description of concurrency management is the baseline story.
+In it, requests have different durations but are counted equally at
+any given moment when comparing against a priority level's concurrency
+limit. In the baseline story, each request occupies one unit of
+concurrency. The word "seat" is used to mean one unit of concurrency,
+inspired by the way each passenger on a train or aircraft takes up one
+of the fixed supply of seats.
+
+But some requests take up more than one seat.  Some of these are **list**
+requests that the server estimates will return a large number of
+objects.  These have been found to put an exceptionally heavy burden
+on the server, among requests that take a similar amount of time to
+run.  For this reason, the server estimates the number of objects that
+will be returned and considers the request to take a number of seats
+that is proportional to that estimated number.
+
+### Execution time tweaks for watch requests
+
+API Priority and Fairness manages **watch** requests, but this involves a
+couple more excursions from the baseline behavior.  The first concerns
+how long a **watch**  request is considered to occupy its seat.  Depending
+on request parameters, the response to a **watch**  request may or may not
+begin with **create**  notifications for all the relevant pre-existing
+objects.  API Priority and Fairness considers a **watch**  request to be
+done with its seat once that initial burst of notifications, if any,
+is over.
+
+The normal notifications are sent in a concurrent burst to all
+relevant **watch**  response streams whenever the server is notified of an
+object create/update/delete.  To account for this work, API Priority
+and Fairness considers every write request to spend some additional
+time occupying seats after the actual writing is done.  The server
+estimates the number of notifications to be sent and adjusts the write
+request's number of seats and seat occupancy time to include this
+extra work.
 
 ### Queuing
 
@@ -174,7 +215,7 @@ to balance progress between request flows.
 
 The queuing configuration allows tuning the fair queuing algorithm for a
 priority level. Details of the algorithm can be read in the
-[enhancement proposal](#what-s-next), but in short:
+[enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness), but in short:
 
 * Increasing `queues` reduces the rate of collisions between different flows, at
   the cost of increased memory usage. A value of 1 here effectively disables the
@@ -471,11 +512,15 @@ poorly-behaved workloads that may be harming system health.
   requests, broken down by the labels `phase` (which takes on the
   values `waiting` and `executing`) and `request_kind` (which takes on
   the values `mutating` and `readOnly`).  The observations are made
-  periodically at a high rate.
+  periodically at a high rate.  Each observed value is a ratio,
+  between 0 and 1, of a number of requests divided by the
+  corresponding limit on the number of requests (queue length limit
+  for waiting and concurrency limit for executing).
 
 * `apiserver_flowcontrol_read_vs_write_request_count_watermarks` is a
   histogram vector of high or low water marks of the number of
-  requests broken down by the labels `phase` (which takes on the
+  requests (divided by the corresponding limit to get a ratio in the
+  range 0 to 1) broken down by the labels `phase` (which takes on the
   values `waiting` and `executing`) and `request_kind` (which takes on
   the values `mutating` and `readOnly`); the label `mark` takes on
   values `high` and `low`.  The water marks are accumulated over
@@ -502,16 +547,45 @@ poorly-behaved workloads that may be harming system health.
   values `waiting` and `executing`) and `priority_level`.  Each
   histogram gets observations taken periodically, up through the last
   activity of the relevant sort.  The observations are made at a high
-  rate.
+  rate.  Each observed value is a ratio, between 0 and 1, of a number
+  of requests divided by the corresponding limit on the number of
+  requests (queue length limit for waiting and concurrency limit for
+  executing).
 
 * `apiserver_flowcontrol_priority_level_request_count_watermarks` is a
   histogram vector of high or low water marks of the number of
-  requests broken down by the labels `phase` (which takes on the
+  requests (divided by the corresponding limit to get a ratio in the
+  range 0 to 1) broken down by the labels `phase` (which takes on the
   values `waiting` and `executing`) and `priority_level`; the label
   `mark` takes on values `high` and `low`.  The water marks are
   accumulated over windows bounded by the times when an observation
   was added to
   `apiserver_flowcontrol_priority_level_request_count_samples`.  These
+  water marks show the range of values that occurred between samples.
+
+* `apiserver_flowcontrol_priority_level_seat_count_samples` is a
+  histogram vector of observations of the utilization of a priority
+  level's concurrency limit, broken down by `priority_level`.  This
+  utilization is the fraction (number of seats occupied) /
+  (concurrency limit).  This metric considers all stages of execution
+  (both normal and the extra delay at the end of a write to cover for
+  the corresponding notification work) of all requests except WATCHes;
+  for those it considers only the initial stage that delivers
+  notifications of pre-existing objects.  Each histogram in the vector
+  is also labeled with `phase: executing` (there is no seat limit for
+  the waiting phase).  Each histogram gets observations taken
+  periodically, up through the last activity of the relevant sort.
+  The observations
+  are made at a high rate.  
+
+* `apiserver_flowcontrol_priority_level_seat_count_watermarks` is a
+  histogram vector of high or low water marks of the utilization of a
+  priority level's concurrency limit, broken down by `priority_level`
+  and `mark` (which takes on values `high` and `low`).  Each histogram
+  in the vector is also labeled with `phase: executing` (there is no
+  seat limit for the waiting phase).  The water marks are accumulated
+  over windows bounded by the times when an observation was added to
+  `apiserver_flowcontrol_priority_level_seat_count_samples`.  These
   water marks show the range of values that occurred between samples.
 
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` is a
@@ -555,6 +629,22 @@ poorly-behaved workloads that may be harming system health.
   the labels `flow_schema` (indicating which one matched the request)
   and `priority_level` (indicating the one to which the request was
   assigned).
+
+* `apiserver_flowcontrol_watch_count_samples` is a histogram vector of
+  the number of active WATCH requests relevant to a given write,
+  broken down by `flow_schema` and `priority_level`.
+
+* `apiserver_flowcontrol_work_estimated_seats` is a histogram vector
+  of the number of estimated seats (maximum of initial and final stage
+  of execution) associated with requests, broken down by `flow_schema`
+  and `priority_level`.
+
+* `apiserver_flowcontrol_request_dispatch_no_accommodation_total` is a
+  counter vec of the number of events that in principle could have led
+  to a request being dispatched but did not, due to lack of available
+  concurrency, broken down by `flow_schema` and `priority_level`.  The
+  relevant sorts of events are arrival of a request and completion of
+  a request.
 
 ### Debug endpoints
 

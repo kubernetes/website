@@ -3,8 +3,8 @@ kind: Pod
 metadata:
   name: hello-apparmor
   annotations:
-    # Tell Kubernetes to apply the AppArmor profile "k8s-apparmor-example-deny-write".
-    # Note that this is ignored if the Kubernetes node is not running version 1.4 or greater.
+    # 告知 Kubernetes 去应用 AppArmor 配置 "k8s-apparmor-example-deny-write"。
+    # 请注意，如果节点上运行的 Kubernetes 不是 1.4 或更高版本，此注解将被忽略。
     container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-deny-write
 spec:
   containers:

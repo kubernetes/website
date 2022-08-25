@@ -54,8 +54,8 @@ it can't be both.
 
 ClusterRoles have several uses. You can use a ClusterRole to:
 
-1. define permissions on namespaced resources and be granted within individual namespace(s)
-1. define permissions on namespaced resources and be granted across all namespaces
+1. define permissions on namespaced resources and be granted access within individual namespace(s)
+1. define permissions on namespaced resources and be granted access across all namespaces
 1. define permissions on cluster-scoped resources
 
 If you want to define a role within a namespace, use a Role; if you want to define
@@ -927,7 +927,6 @@ When bootstrapping the first roles and role bindings, it is necessary for the in
 To bootstrap initial roles and role bindings:
 
 * Use a credential with the "system:masters" group, which is bound to the "cluster-admin" super-user role by the default bindings.
-* If your API server runs with the insecure port enabled (`--insecure-port`), you can also make API calls via that port, which does not enforce authentication or authorization.
 
 ## Command-line utilities
 

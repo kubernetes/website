@@ -2,7 +2,7 @@
 title: 干扰（Disruption）
 id: disruption
 date: 2019-09-10
-full_link: /zh/docs/concepts/workloads/pods/disruptions/
+full_link: /zh-cn/docs/concepts/workloads/pods/disruptions/
 short_description: >
    导致 Pod 服务停止的事件。
 aka:
@@ -44,4 +44,4 @@ See [Disruptions](/docs/concepts/workloads/pods/disruptions/) for more informati
 如果你作为一个集群操作人员，销毁了一个从属于某个应用的 Pod, Kubernetes 视之为**自愿干扰（Voluntary Disruption）**。
 如果由于节点故障 或者影响更大区域故障的断电导致 Pod 离线，kubernetes 视之为**非愿干扰（Involuntary Disruption）**。
 
-更多信息请查阅[Disruptions](/zh/docs/concepts/workloads/pods/disruptions/)
+更多信息请查阅[Disruptions](/zh-cn/docs/concepts/workloads/pods/disruptions/)

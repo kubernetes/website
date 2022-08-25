@@ -7,8 +7,9 @@ slug: kubernetes-community-meeting-notes
 title: " Kubernetes community meeting notes - 20160204 "
 date: 2016-02-09
 slug: kubernetes-community-meeting-notes
-url: /zh/blog/2016/02/Kubernetes-Community-Meeting-Notes
+url: /blog/2016/02/Kubernetes-Community-Meeting-Notes
 -->
+
 <!--
 ####  February 4th - rkt demo (congratulations on the 1.0, CoreOS!), eBay puts k8s on Openstack and considers Openstack on k8s, SIGs, and flaky test surge makes progress.
 -->

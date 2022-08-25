@@ -34,7 +34,7 @@ etcd instances on separate hosts. The differences between the two approaches are
 -->
 
 默认情况下，kubeadm 在每个控制平面节点上运行一个本地 etcd 实例。也可以使用外部的 etcd 集群，并在不同的主机上提供 etcd 实例。
-这两种方法的区别在 [高可用拓扑的选项](/zh/docs/setup/production-environment/tools/kubeadm/ha-topology) 页面中阐述。
+这两种方法的区别在 [高可用拓扑的选项](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology) 页面中阐述。
 
 <!--
 This task walks through the process of creating a high availability external
@@ -55,7 +55,7 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
 * Each host must [have a container runtime, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 -->
 * 每个主机必须安装 systemd 和 bash 兼容的 shell。
-* 每台主机必须[安装有容器运行时、kubelet 和 kubeadm](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
+* 每台主机必须[安装有容器运行时、kubelet 和 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
 
 <!--
 * Some infrastructure to copy files between hosts. For example `ssh` and `scp` can satisfy this requirement.
@@ -76,22 +76,19 @@ The general approach is to generate all certs on one node and only distribute th
 
 {{< note >}}
 <!--
-kubeadm contains all the necessary crytographic machinery to generate the certificates described below; no other cryptographic tooling is required for this example.
+kubeadm contains all the necessary cryptographic machinery to generate the certificates described below; no other cryptographic tooling is required for this example.
 -->
 kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这个例子中，不需要其他加密工具。
 {{< /note >}}
 
-<!--
 {{< note >}}
+<!--
 The examples below use IPv4 addresses but you can also configure kubeadm, the kubelet and etcd
 to use IPv6 addresses. Dual-stack is supported by some Kubernetes options, but not by etcd. For more details
 on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
-{{< /note >}}
 -->
-
-{{< note >}}
 下面的例子使用 IPv4 地址，但是你也可以使用 IPv6 地址配置 kubeadm、kubelet 和 etcd。一些 Kubernetes 选项支持双协议栈，但是 etcd 不支持。
-关于 Kubernetes 双协议栈支持的更多细节，请参见 [kubeadm 的双栈支持](/zh/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
+关于 Kubernetes 双协议栈支持的更多细节，请参见 [kubeadm 的双栈支持](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
 {{< /note >}}
 
 <!--
@@ -127,7 +124,6 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    <!--
    Check the kubelet status to ensure it is running.
    -->
-
    检查 kubelet 的状态以确保其处于运行状态：
 
    ```shell
@@ -150,47 +146,47 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    export HOST1=10.0.0.7
    export HOST2=10.0.0.8
 
-    # 使用你的主机名更新 NAME0, NAME1 和 NAME2
-    export NAME0="infra0"
-    export NAME1="infra1"
-    export NAME2="infra2"
+   # 使用你的主机名更新 NAME0、NAME1 和 NAME2
+   export NAME0="infra0"
+   export NAME1="infra1"
+   export NAME2="infra2"
 
    # 创建临时目录来存储将被分发到其它主机上的文件
    mkdir -p /tmp/${HOST0}/ /tmp/${HOST1}/ /tmp/${HOST2}/
 
-    HOSTS=(${HOST0} ${HOST1} ${HOST2})
-    NAMES=(${NAME0} ${NAME1} ${NAME2})
+   HOSTS=(${HOST0} ${HOST1} ${HOST2})
+   NAMES=(${NAME0} ${NAME1} ${NAME2})
 
-    for i in "${!HOSTS[@]}"; do
-    HOST=${HOSTS[$i]}
-    NAME=${NAMES[$i]}
-    cat << EOF > /tmp/${HOST}/kubeadmcfg.yaml
-    ---
-    apiVersion: "kubeadm.k8s.io/v1beta3"
-    kind: InitConfiguration
-    nodeRegistration:
-        name: ${NAME}
-    localAPIEndpoint:
-        advertiseAddress: ${HOST}
-    ---
-    apiVersion: "kubeadm.k8s.io/v1beta3"
-    kind: ClusterConfiguration
-    etcd:
-        local:
-            serverCertSANs:
-            - "${HOST}"
-            peerCertSANs:
-            - "${HOST}"
-            extraArgs:
-                initial-cluster: ${NAMES[0]}=https://${HOSTS[0]}:2380,${NAMES[1]}=https://${HOSTS[1]}:2380,${NAMES[2]}=https://${HOSTS[2]}:2380
-                initial-cluster-state: new
-                name: ${NAME}
-                listen-peer-urls: https://${HOST}:2380
-                listen-client-urls: https://${HOST}:2379
-                advertise-client-urls: https://${HOST}:2379
-                initial-advertise-peer-urls: https://${HOST}:2380
-    EOF
-    done
+   for i in "${!HOSTS[@]}"; do
+   HOST=${HOSTS[$i]}
+   NAME=${NAMES[$i]}
+   cat << EOF > /tmp/${HOST}/kubeadmcfg.yaml
+   ---
+   apiVersion: "kubeadm.k8s.io/v1beta3"
+   kind: InitConfiguration
+   nodeRegistration:
+       name: ${NAME}
+   localAPIEndpoint:
+       advertiseAddress: ${HOST}
+   ---
+   apiVersion: "kubeadm.k8s.io/v1beta3"
+   kind: ClusterConfiguration
+   etcd:
+       local:
+           serverCertSANs:
+           - "${HOST}"
+           peerCertSANs:
+           - "${HOST}"
+           extraArgs:
+               initial-cluster: ${NAMES[0]}=https://${HOSTS[0]}:2380,${NAMES[1]}=https://${HOSTS[1]}:2380,${NAMES[2]}=https://${HOSTS[2]}:2380
+               initial-cluster-state: new
+               name: ${NAME}
+               listen-peer-urls: https://${HOST}:2380
+               listen-client-urls: https://${HOST}:2379
+               advertise-client-urls: https://${HOST}:2379
+               initial-advertise-peer-urls: https://${HOST}:2380
+   EOF
+   done
    ```
 
 <!--
@@ -219,7 +215,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    <!--
    This creates two files
    -->
-   这一操作创建如下两个文件
+   这一操作创建如下两个文件：
 
    - `/etc/kubernetes/pki/etcd/ca.crt`
    - `/etc/kubernetes/pki/etcd/ca.key`
@@ -400,5 +396,6 @@ highly available control plane using the [external etcd method with
 kubeadm](/docs/setup/independent/high-availability/).
 -->
 一旦拥有了一个正常工作的 3 成员的 etcd 集群，你就可以基于
-[使用 kubeadm 外部 etcd 的方法](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)，
+[使用 kubeadm 外部 etcd 的方法](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)，
 继续部署一个高可用的控制平面。
+

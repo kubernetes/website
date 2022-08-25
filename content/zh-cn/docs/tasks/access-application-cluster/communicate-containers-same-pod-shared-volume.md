@@ -17,7 +17,7 @@ between containers.
 -->
 本文旨在说明如何让一个 Pod 内的两个容器使用一个卷（Volume）进行通信。
 参阅如何让两个进程跨容器通过
-[共享进程名字空间](/zh/docs/tasks/configure-pod-container/share-process-namespace/)。
+[共享进程名字空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -205,8 +205,8 @@ the shared Volume is lost.
 -->
 * 进一步了解[复合容器的模式](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns.html)
 * 学习[模块化架构中的复合容器](https://www.slideshare.net/Docker/slideshare-burns)
-* 参见[配置 Pod 使用卷来存储数据](/zh/docs/tasks/configure-pod-container/configure-volume-storage/)
-* 参考[在 Pod 中的容器之间共享进程命名空间](/zh/docs/tasks/configure-pod-container/share-process-namespace/)
+* 参见[配置 Pod 使用卷来存储数据](/zh-cn/docs/tasks/configure-pod-container/configure-volume-storage/)
+* 参考[在 Pod 中的容器之间共享进程命名空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)
 * 参考 [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
 * 参考 [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 

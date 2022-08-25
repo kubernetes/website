@@ -38,7 +38,7 @@ plugins:
     #
     # Version label values must be one of:
     # - "latest" (default) 
-    # - specific version like "v{{< skew latestVersion >}}"
+    # - specific version like "v{{< skew currentVersion >}}"
     defaults:
       enforce: "privileged"
       enforce-version: "latest"
@@ -78,7 +78,7 @@ plugins:
     #
     # Version label values must be one of:
     # - "latest" (default) 
-    # - specific version like "v{{< skew latestVersion >}}"
+    # - specific version like "v{{< skew currentVersion >}}"
     defaults:
       enforce: "privileged"
       enforce-version: "latest"

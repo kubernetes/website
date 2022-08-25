@@ -2,7 +2,7 @@
 title: 设备插件（Device Plugin）
 id: device-plugin
 date: 2019-02-02
-full_link: /zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
+full_link: /zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
   一种软件扩展，可以使 Pod 访问由特定厂商初始化或者安装的设备。
 aka:
@@ -49,4 +49,4 @@ See
 [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 for more information.
 -->
-更多信息请查阅[设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) 
+更多信息请查阅[设备插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) 
