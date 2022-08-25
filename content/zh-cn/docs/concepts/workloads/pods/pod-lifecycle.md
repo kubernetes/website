@@ -301,16 +301,20 @@ Always、OnFailure 和 Never。默认值是 Always。
 
 A Pod has a PodStatus, which has an array of
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
-through which the Pod has or has not passed:
+through which the Pod has or has not passed. Kubelet manages the following
+PodConditions:
 -->
 ## Pod 状况  {#pod-conditions}
 
 Pod 有一个 PodStatus 对象，其中包含一个
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
 数组。Pod 可能通过也可能未通过其中的一些状况测试。
+Kubelet 管理以下 PodCondition：
 
 <!--
 * `PodScheduled`: the Pod has been scheduled to a node.
+* `PodHasNetwork`: (alpha feature; must be [enabled explicitly](#pod-has-network)) the
+  Pod sandbox has been successfully created and networking configured.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
   have completed successfully.
@@ -318,6 +322,7 @@ Pod 有一个 PodStatus 对象，其中包含一个
   balancing pools of all matching Services.
 -->
 * `PodScheduled`：Pod 已经被调度到某节点；
+* `PodHasNetwork`：Pod 沙箱被成功创建并且配置了网络（Alpha 特性，必须被[显式启用](#pod-has-network)）；
 * `ContainersReady`：Pod 中所有容器都已就绪；
 * `Initialized`：所有的 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)
   都已成功完成；
@@ -435,6 +440,72 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 
 当 Pod 的容器都已就绪，但至少一个定制状况没有取值或者取值为 `False`，
 `kubelet` 将 Pod 的[状况](#pod-conditions)设置为 `ContainersReady`。
+
+<!-- 
+### Pod network readiness {#pod-has-network} 
+-->
+### Pod 网络就绪 {#pod-has-network}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+<!-- 
+After a Pod gets scheduled on a node, it needs to be admitted by the Kubelet and
+have any volumes mounted. Once these phases are complete, the Kubelet works with
+a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
+runtime sandbox and configure networking for the Pod. If the
+`PodHasNetworkCondition` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+Kubelet reports whether a pod has reached this initialization milestone through
+the `PodHasNetwork` condition in the `status.conditions` field of a Pod. 
+-->
+在 Pod 被调度到某节点后，它需要被 Kubelet 接受并且挂载所需的卷。
+一旦这些阶段完成，Kubelet 将与容器运行时（使用{{< glossary_tooltip term_id="cri" >}}）
+一起为 Pod 生成运行时沙箱并配置网络。
+如果启用了 `PodHasNetworkCondition` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) ，
+kubelet 会通过 Pod 的 `status.conditions` 字段中的 `PodHasNetwork` 状况来报告
+Pod 是否达到了初始化里程碑。
+
+<!-- 
+The `PodHasNetwork` condition is set to `False` by the Kubelet when it detects a
+Pod does not have a runtime sandbox with networking configured. This occurs in
+the following scenarios: 
+-->
+当 kubelet 检测到 Pod 不具备配置了网络的运行时沙箱时，`PodHasNetwork` 状况将被设置为 `False`。
+以下场景中将会发生这种状况：
+<!-- 
+* Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for the Pod using the container runtime.
+* Later in the lifecycle of the Pod, when the Pod sandbox has been destroyed due
+  to either:
+  * the node rebooting, without the Pod getting evicted
+  * for container runtimes that use virtual machines for isolation, the Pod
+    sandbox virtual machine rebooting, which then requires creating a new sandbox and fresh container network configuration. 
+-->
+* 在 Pod 生命周期的早期阶段，kubelet 还没有开始使用容器运行时为 Pod 设置沙箱时。
+* 在 Pod 生命周期的末期阶段，Pod 的沙箱由于以下原因被销毁时：
+  * 节点重启时 Pod 没有被驱逐
+  * 对于使用虚拟机进行隔离的容器运行时，Pod 沙箱虚拟机重启时，需要创建一个新的沙箱和全新的容器网络配置。
+
+<!-- 
+The `PodHasNetwork` condition is set to `True` by the Kubelet after the
+successful completion of sandbox creation and network configuration for the Pod
+by the runtime plugin. The kubelet can start pulling container images and create
+containers after `PodHasNetwork` condition has been set to `True`. 
+-->
+在运行时插件成功完成 Pod 的沙箱创建和网络配置后，
+kubelet 会将 `PodHasNetwork` 状况设置为 `True`。
+当 `PodHasNetwork` 状况设置为 `True` 后，
+Kubelet 可以开始拉取容器镜像和创建容器。
+
+<!-- 
+For a Pod with init containers, the Kubelet sets the `Initialized` condition to
+`True` after the init containers have successfully completed (which happens
+after successful sandbox creation and network configuration by the runtime
+plugin). For a Pod without init containers, the Kubelet sets the `Initialized`
+condition to `True` before sandbox creation and network configuration starts. 
+-->
+对于带有 Init 容器的 Pod，kubelet 会在 Init 容器成功完成后将 `Initialized` 状况设置为 `True`
+（这发生在运行时成功创建沙箱和配置网络之后），
+对于没有 Init 容器的 Pod，kubelet 会在创建沙箱和网络配置开始之前将
+`Initialized` 状况设置为 `True`。
 
 <!--
 ## Container probes
