@@ -62,6 +62,7 @@ metadata:
 spec:
   topologySpreadConstraints:
     - maxSkew: <integer>
+      minDomains: <integer>
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
