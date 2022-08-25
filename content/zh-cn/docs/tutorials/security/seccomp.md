@@ -65,7 +65,7 @@ seccomp 配置文件应用到你的 Pod 和容器。
 In order to complete all steps in this tutorial, you must install
 [kind](/docs/tasks/tools/#kind) and [kubectl](/docs/tasks/tools/#kubectl).
 
-This tutorial shows some examples that are still alpha (since v1.22) and
+This tutorial shows some examples that are still beta (since v1.25) and
 others that use only generally available seccomp functionality. You should
 make sure that your cluster is
 [configured correctly](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)
@@ -77,7 +77,7 @@ You can adapt the steps to use a different tool if you prefer.
 为了完成本篇教程中的所有步骤，你必须安装 [kind](/zh-cn/docs/tasks/tools/#kind)
 和 [kubectl](/zh-cn/docs/tasks/tools/#kubectl)。
 
-本篇教程演示的某些示例仍然是 alpha 状态（自 v1.22 起），另一些示例则仅使用 seccomp 正式发布的功能。
+本篇教程演示的某些示例仍然是 Beta 状态（自 v1.25 起），另一些示例则仅使用 seccomp 正式发布的功能。
 你应该确保，针对你使用的版本，
 [正确配置](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)了集群。
 
@@ -179,16 +179,16 @@ This tutorial assumes you are using Kubernetes {{< param "version" >}}.
 本篇教程假定你正在使用 Kubernetes {{< param "version" >}}。
 
 <!-- 
-As an alpha feature, you can configure Kubernetes to use the profile that the
+As a beta feature, you can configure Kubernetes to use the profile that the
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 prefers by default, rather than falling back to `Unconfined`.
 If you want to try that, see
 [enable the use of `RuntimeDefault` as the default seccomp profile for all workloads](#enable-the-use-of-runtimedefault-as-the-default-seccomp-profile-for-all-workloads)
 before you continue.
 -->
-作为 alpha 特性，你可以将 Kubernetes 配置为使用
-{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
-默认首选的配置文件，而不是回退到 `Unconfined`。
+作为 Beta 特性，你可以将 Kubernetes
+配置为使用{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}默认首选的配置文件，
+而不是回退到 `Unconfined`。
 如果你想尝试，请在继续之前参阅
 [启用使用 `RuntimeDefault` 作为所有工作负载的默认 seccomp 配置文件](#enable-runtimedefault-as-default)。
 
@@ -253,18 +253,21 @@ running within kind.
 -->
 ## 启用使用 `RuntimeDefault` 作为所有工作负载的默认 seccomp 配置文件 {#enable-runtimedefault-as-default}
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+{{< feature-state state="beta" for_k8s_version="v1.25" >}}
 
 <!-- 
-`SeccompDefault` is an optional kubelet
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates) as
-well as corresponding `--seccomp-default`
+To use seccomp profile defaulting, you must run the kubelet with the `SeccompDefault`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled
+(this is the default). You must also explicitly enable the defaulting behavior for each
+node where you want to use this with the corresponding `--seccomp-default`
 [command line flag](/docs/reference/command-line-tools-reference/kubelet).
 Both have to be enabled simultaneously to use the feature.
 -->
-`SeccompDefault` 是一个可选的 kubelet [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates)
-以及相应的 `--seccomp-default` [命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kubelet)。
-两者必须同时启用才能使用该功能。
+要使用 Seccomp（安全计算模式）配置文件来设定默认值，你必须要在启用 `SeccompDefault`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)的情况下运行 kubelet
+（这是默认值）。
+你还必须显式地启用每个节点的默认行为，以及相应的
+`--seccomp-default` [命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kubelet)。两者必须同时启用才能使用该特性。
 
 <!-- 
 If enabled, the kubelet will use the `RuntimeDefault` seccomp profile by default, which is
@@ -311,7 +314,7 @@ profile. To mitigate such a failure, you can:
 要应对此类故障，你可以：
 
 - 将工作负载显式运行为 `Unconfined`。
-- 禁用节点的 `SeccompDefault` 功能。还要确保工作负载被调度到禁用该功能的节点上。
+- 禁用节点的 `SeccompDefault` 特性。还要确保工作负载被调度到禁用该特性的节点上。
 - 为工作负载创建自定义 seccomp 配置文件。
 
 <!-- 
@@ -319,28 +322,44 @@ If you were introducing this feature into production-like cluster, the Kubernete
 recommends that you enable this feature gate on a subset of your nodes and then
 test workload execution before rolling the change out cluster-wide.
 
-More detailed information about a possible upgrade and downgrade strategy can be
-found in the [related Kubernetes Enhancement Proposal (KEP)](https://github.com/kubernetes/enhancements/tree/a70cc18/keps/sig-node/2413-seccomp-by-default#upgrade--downgrade-strategy).
+You can find more detailed information about a possible upgrade and downgrade strategy
+in the related Kubernetes Enhancement Proposal (KEP):
+[Enable seccomp by default](https://github.com/kubernetes/enhancements/tree/9a124fd29d1f9ddf2ff455c49a630e3181992c25/keps/sig-node/2413-seccomp-by-default#upgrade--downgrade-strategy).
 -->
-如果你将此功能引入到类似生产的集群中，
+如果你将此特性引入到类似的生产集群中，
 Kubernetes 项目建议你在部分节点上启用此特性门控，
 然后在整个集群范围内推出更改之前，测试工作负载执行情况。
 
-有关可能的升级和降级策略的更多详细信息，
-请参阅[相关的 Kubernetes 增强提案 (KEP)](https://github.com/kubernetes/enhancements/tree/a70cc18/keps/sig-node/2413-seccomp-by-default#upgrade--downgrade-strategy)。
+你可以在相关的 Kubernetes 增强提案（KEP）
+中找到可能的升级和降级策略的更详细信息:
+[默认启用 Seccomp](https://github.com/kubernetes/enhancements/tree/9a124fd29d1f9ddf2ff455c49a630e3181992c25/keps/sig-node/2413-seccomp-by-default#upgrade--downgrade-strategy)。
 
-<!-- 
-Since the feature is in alpha state it is disabled per default. To enable it,
-pass the flags `--feature-gates=SeccompDefault=true --seccomp-default` to the
-`kubelet` CLI or enable it via the [kubelet configuration
+<!--
+Kubernetes {{< skew currentVersion >}} lets you configure the seccomp profile
+that applies when the spec for a Pod doesn't define a specific seccomp profile.
+This is a beta feature and the corresponding `SeccompDefault` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by
+default. However, you still need to enable this defaulting for each node where
+you would like to use it.
+-->
+Kubernetes {{< skew currentVersion >}} 允许你配置 Seccomp 配置文件，
+当 Pod 的规约未定义特定的 Seccomp 配置文件时应用该配置文件。
+这是一个 Beta 特性，默认启用相应的 `SeccompDefault` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+但是，你仍然需要为要使用它的每个节点启用此默认设置。
+
+<!--
+If you are running a Kubernetes {{< skew currentVersion >}} cluster and want to
+enable the feature, either run the kubelet with the `--seccomp-default` command
+line flag, or enable it through the [kubelet configuration
 file](/docs/tasks/administer-cluster/kubelet-config-file/). To enable the
 feature gate in [kind](https://kind.sigs.k8s.io), ensure that `kind` provides
 the minimum required Kubernetes version and enables the `SeccompDefault` feature
 [in the kind configuration](https://kind.sigs.k8s.io/docs/user/quick-start/#enable-feature-gates-in-your-cluster):
 -->
-由于此特性处于 alpha 阶段，默认是被禁用的。
-要启用它，传递标志 `--feature-gates=SeccompDefault=true --seccomp-default` 到
-kubelet CLI 或者通过 [kubelet 配置文件](/docs/tasks/administer-cluster/kubelet-config-file/)启用。
+如果你正在运行 Kubernetes {{< skew currentVersion >}}
+集群并希望启用该特性，请使用 `--seccomp-default` 命令行参数运行 kubelet，
+或通过 [kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)启用。
+
 要在 [kind](https://kind.sigs.k8s.io) 启用特性门控，
 请确保 `kind` 提供所需的最低 Kubernetes 版本，
 并[在 kind 配置中](https://kind.sigs.k8s.io/docs/user/quick-start/#enable-feature-gates-in-your-cluster)
@@ -426,13 +445,23 @@ Here's a manifest for that Pod:
 The functional support for the already deprecated seccomp annotations
 `seccomp.security.alpha.kubernetes.io/pod` (for the whole pod) and
 `container.seccomp.security.alpha.kubernetes.io/[name]` (for a single container)
-is going to be removed with the release of Kubernetes v1.25. Please always use
+is going to be removed with a future release of Kubernetes. Please always use
 the native API fields in favor of the annotations.
+
+Since Kubernetes v1.25, kubelets no longer support the annotations, use of the
+annotations in static pods is no longer supported, and the seccomp annotations
+are no longer auto-populated when pods with seccomp fields are created.
+Auto-population of the seccomp fields from the annotations is planned to be
+removed in a future release.
 -->
 已弃用的 seccomp 注解 `seccomp.security.alpha.kubernetes.io/pod`（针对整个 Pod）和
 `container.seccomp.security.alpha.kubernetes.io/[name]`（针对单个容器）
-将随着 Kubernetes v1.25 的发布而被删除。
+将随着未来 Kubernetes 的发布而被删除。
 请在可能的情况下使用原生 API 字段而不是注解。
+
+从 Kubernetes v1.25 开始，kubelet 不再支持这些注解，
+也不再支持在静态 Pod 中使用注解，并且当创建带有 seccomp 字段的 Pod 时不再自动填充 seccomp 注解。
+从注释中自动填充 seccomp 字段的特性，将计划在未来的版本中删除。
 {{< /note >}}
 
 <!--
