@@ -186,8 +186,8 @@ the same namespace, the Pod will see its own FQDN as
 A or AAAA record at that name, pointing to the Pod's IP. Both Pods "`busybox1`" and
 "`busybox2`" can have their distinct A or AAAA records.
 
-The Endpoints object can specify the `hostname` for any endpoint addresses,
-along with its IP.
+An {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}} can specify
+the DNS hostname for any endpoint addresses, along with its IP.
 
 {{< note >}}
 Because A or AAAA records are not created for Pod names, `hostname` is required for the Pod's A or AAAA

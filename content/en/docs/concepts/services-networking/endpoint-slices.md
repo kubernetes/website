@@ -23,24 +23,7 @@ Endpoints.
 
 <!-- body -->
 
-## Motivation
-
-The Endpoints API has provided a simple and straightforward way of
-tracking network endpoints in Kubernetes. Unfortunately as Kubernetes clusters
-and {{< glossary_tooltip text="Services" term_id="service" >}} have grown to handle and
-send more traffic to more backend Pods, limitations of that original API became
-more visible.
-Most notably, those included challenges with scaling to larger numbers of
-network endpoints.
-
-Since all network endpoints for a Service were stored in a single Endpoints
-resource, those resources could get quite large. That affected the performance
-of Kubernetes components (notably the master control plane) and resulted in
-significant amounts of network traffic and processing when Endpoints changed.
-EndpointSlices help you mitigate those issues as well as provide an extensible
-platform for additional features such as topological routing.
-
-## EndpointSlice resources {#endpointslice-resource}
+## EndpointSlice API {#endpointslice-resource}
 
 In Kubernetes, an EndpointSlice contains references to a set of network
 endpoints. The control plane automatically creates EndpointSlices
@@ -52,7 +35,7 @@ Service name.
 The name of a EndpointSlice object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-As an example, here's a sample EndpointSlice resource for the `example`
+As an example, here's a sample EndpointSlice object, that's owned by the `example`
 Kubernetes Service.
 
 ```yaml
@@ -85,8 +68,7 @@ flag, up to a maximum of 1000.
 
 EndpointSlices can act as the source of truth for
 {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}} when it comes to
-how to route internal traffic. When enabled, they should provide a performance
-improvement for services with large numbers of endpoints.
+how to route internal traffic.
 
 ### Address types
 
@@ -95,6 +77,10 @@ EndpointSlices support three address types:
 * IPv4
 * IPv6
 * FQDN (Fully Qualified Domain Name)
+
+Each `EndpointSlice` object represents a specific IP address type. If you have
+a Service that is available via IPv4 and IPv6, there will be at least two
+`EndpointSlice` objects (one for IPv4, and one for IPv6).
 
 ### Conditions
 
@@ -245,11 +231,45 @@ getting replaced.
 
 Due to the nature of EndpointSlice changes, endpoints may be represented in more
 than one EndpointSlice at the same time. This naturally occurs as changes to
-different EndpointSlice objects can arrive at the Kubernetes client watch/cache
-at different times. Implementations using EndpointSlice must be able to have the
-endpoint appear in more than one slice. A reference implementation of how to
-perform endpoint deduplication can be found in the `EndpointSliceCache`
-implementation in `kube-proxy`.
+different EndpointSlice objects can arrive at the Kubernetes client watch / cache
+at different times.
+
+{{< note >}}
+Clients of the EndpointSlice API must be able to handle the situation where
+a particular endpoint address appears in more than one slice.
+
+You can find a reference implementation for how to perform this endpoint deduplication
+as part of the `EndpointSliceCache` code within `kube-proxy`.
+{{< /note >}}
+
+## Comparison with Endpoints {#motivation}
+
+The original Endpoints API provided a simple and straightforward way of
+tracking network endpoints in Kubernetes. As Kubernetes clusters
+and {{< glossary_tooltip text="Services" term_id="service" >}} grew to handle
+more traffic and to send more traffic to more backend Pods, the
+limitations of that original API became more visible.
+Most notably, those included challenges with scaling to larger numbers of
+network endpoints.
+
+Since all network endpoints for a Service were stored in a single Endpoints
+object, those Endpoints objects could get quite large. For Services that stayed
+stable (the same set of endpoints over a long period of time) the impact was
+less noticeable; even then, some use cases of Kubernetes weren't well served.
+
+When a Service had a lot of backend endpoints and the workload was either
+ scaling frequently, or rolling out new changes frequently, each update to
+the single Endpoints object for that Service meant a lot of traffic between
+Kubernetes cluster components (within the control plane, and also between
+nodes and the API server). This extra traffic also had a cost in terms of
+CPU use.
+
+With EndpointSlices, adding or removing a single Pod triggers the same _number_
+of updates to clients that are watching for changes, but the size of those
+update message is much smaller at large scale.
+
+EndpointSlices also enabled innovation around new features such dual-stack
+networking and topology-aware routing.
 
 ## {{% heading "whatsnext" %}}
 
