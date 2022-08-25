@@ -471,6 +471,12 @@ Apply can send partially specified objects as YAML to this endpoint.  When
 applying a configuration, one should always include all the fields that they
 have an opinion about.
 
+### RBAC And permissions
+
+Since Server-Side Apply is a type of `PATCH`, a role will require the
+`PATCH` permission to edit resources, but will also need the `CREATE`
+verb permission in order to create resources with Server-Side Apply.
+
 ## Clearing ManagedFields
 
 It is possible to strip all managedFields from an object by overwriting them
