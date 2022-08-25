@@ -86,8 +86,7 @@ Podオブジェクトのためのマニフェストを作成したときは、�
 
 `.spec.os.name`フィールドで`windows`か`linux`のいずれかを設定し、Podを実行させたいOSを指定する必要があります。Kubernetesは今のところ、この2つのOSだけサポートしています。将来的には増える可能性があります。
 
-Kubernetes v{{< skew currentVersion >}}では、このフィールドに設定した値はPodの{{< glossary_tooltip text="スケジューリング" term_id="kube-scheduler" >}}に影響を与えません。
-`.spec.os.name`を設定することで、Pod OSに権限を認証することができ、バリデーションにも使用されます。kubeletが実行されているノードのOSは指定されたPod OSと異なる場合、kubeletはPosの実行を拒否します。
+Kubernetes v{{< skew currentVersion >}}では、このフィールドに設定した値はPodの{{< glossary_tooltip text="スケジューリング" term_id="kube-scheduler" >}}に影響を与えません。`.spec.os.name`を設定することで、Pod OSに権限を認証することができ、バリデーションにも使用されます。kubeletが実行されているノードのOSは指定されたPod OSと異なる場合、kubeletはPosの実行を拒否します。
 [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)もこのフィールドを使用し、指定したOSと関係ないポリシーの適用を回避しています。
 
 ### Podとコンテナコントローラー {#pods-and-controllers}
@@ -202,7 +201,6 @@ _Probe_ はkubeletがコンテナに対して行う定期診断です。診断�
 ## {{% heading "whatsnext" %}}
 
 * [Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)について学ぶ。
-* [PodPreset](/ja/docs/concepts/workloads/pods/podpreset/)について学ぶ。
 * [RuntimeClass](/ja/docs/concepts/containers/runtime-class/)と、それを用いてPodごとに異なるコンテナランタイム設定する方法について学ぶ。
 * [PodDisruptionBudget](/ja/docs/concepts/workloads/pods/disruptions/)と、それを使用してクラスターの停止(disruption)中にアプリケーションの可用性を管理する方法について読む。
 * PodはKubernetes REST API内のトップレベルのリソースです。{{< api-reference page="workload-resources/pod-v1" >}}オブジェクトの定義では、オブジェクトの詳細について記述されています。
