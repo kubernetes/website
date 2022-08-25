@@ -150,14 +150,15 @@ permissions on your control-plane nodes so only the user who runs the `kube-apis
 {{< /caution >}}
 
 {{< note >}}
-We need to mount the new encryption config file to the kube-apiserver static pod.
+You need to mount the new encryption config file to the kube-apiserver static pod.
 {{< /note >}}
 
 Example steps to set the `--encryption-provider-config` flag on the `kube-apiserver`:
 
 - Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml`.
 
-- Edit static pod definition of kube-apiserver pod `/etc/kubernetes/manifests/kube-apiserver.yaml`.
+- Edit the manifest for the `kube-apiserver` static pod: `/etc/kubernetes/manifests/kube-apiserver.yaml`.
+- ```
 
   ```yaml
   apiVersion: v1
