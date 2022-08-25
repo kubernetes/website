@@ -31,10 +31,6 @@ Inspired by our release lead's son, Albert Song, Kubernetes v1.25 is named for e
 
 PodSecurityPolicy was initially [deprecated in v1.21](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/), and with the release of v1.25, it has been removed. The updates required to improve its usability would have introduced breaking changes, so it became necessary to remove it in favor of a more friendly replacement. That replacement is [Pod Security Admission](/docs/concepts/security/pod-security-admission/), which graduates to Stable with this release. If you are currently relying on PodSecurityPolicy, please follow the instructions for [migration to Pod Security Admission](/docs/tasks/configure-pod-container/migrate-from-psp/).
 
-### Kube-proxy images are now based in distroless
-
-In previous releases, kube-proxy container images were built using Debian as the base image. Starting with this release the images are now built using [distroless](https://github.com/GoogleContainerTools/distroless). This change reduced image size by almost 50% and reduced the number of installed packages and files to only to those strictly required for kube-proxy do its job.
-
 ### Ephemeral Containers Graduate to Stable
 
 [Ephemeral Containers](/docs/concepts/workloads/pods/ephemeral-containers/) are containers that exist for only a limited time within an existing pod. This is particularly useful for troubleshooting when you need to examine another container but cannot use `kubectl exec` because that container has crashed or its image lacks debugging utilities. Ephemeral containers graduated to Beta in Kubernetes v1.23, and with this release, the feature graduates to Stable.
@@ -88,6 +84,10 @@ Promoted the `ServerSideFieldValidation` feature gate to beta (on by default). T
 ###  Introduced KMS v2 API
 
 Introduce KMS v2alpha1 API to add performance, rotation, and observability improvements. Encrypt data at rest (ie Kubernetes `Secrets`) with DEK using AES-GCM instead of AES-CBC for kms data encryption. No user action is required. Reads with AES-GCM and AES-CBC will continue to be allowed. See the guide [Using a KMS provider for data encryption](https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/) for more information.
+
+### Kube-proxy images are now based in distroless
+
+In previous releases, kube-proxy container images were built using Debian as the base image. Starting with this release the images are now built using [distroless](https://github.com/GoogleContainerTools/distroless). This change reduced image size by almost 50% and reduced the number of installed packages and files to only to those strictly required for kube-proxy do its job.
 
 ## Other Updates
 
