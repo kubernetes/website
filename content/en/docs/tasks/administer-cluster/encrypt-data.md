@@ -158,7 +158,6 @@ Example steps to set the `--encryption-provider-config` flag on the `kube-apiser
 - Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml`.
 
 - Edit the manifest for the `kube-apiserver` static pod: `/etc/kubernetes/manifests/kube-apiserver.yaml`.
-- ```
 
   ```yaml
   apiVersion: v1
@@ -213,12 +212,17 @@ program to retrieve the contents of your Secret.
 
    Example:
 
-   ```
+   ```shell
    ETCDCTL_API=3 etcdctl \
       --cacert=/etc/kubernetes/pki/etcd/ca.crt \
       --cert=/etc/kubernetes/pki/etcd/server.crt \
       --key=/etc/kubernetes/pki/etcd/server.key \
       get /registry/secrets/default/secret1  | hexdump -C
+   ```
+
+   the sample output:
+
+   ```
    00000000  2f 72 65 67 69 73 74 72  79 2f 73 65 63 72 65 74  |/registry/secret|
    00000010  73 2f 64 65 66 61 75 6c  74 2f 73 65 63 72 65 74  |s/default/secret|
    00000020  31 0a 6b 38 73 3a 65 6e  63 3a 61 65 73 63 62 63  |1.k8s:enc:aescbc|
