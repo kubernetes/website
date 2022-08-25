@@ -102,19 +102,17 @@ The following controllers can have cloud provider dependencies:
 
 {{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
-The cloud-controller-manager only runs controllers that are specific to your cloud provider.
-If you are running Kubernetes on your own premises, or in a learning environment inside your
-own PC, the cluster does not have a cloud controller manager.
+Cloud-controller-manager запускає тількі ті контроллери, що специфіковані саме для вашого cloud провайдера.
+Якщо ж Ви запускаєте Kubernetes класетр на персональній обчислювальній машині, або ж в навчальному оточенні вашого ПК, Kubernetes кластер не має cloud-controller-manager.
 
-As with the kube-controller-manager, the cloud-controller-manager combines several logically
-independent control loops into a single binary that you run as a single process. You can
-scale horizontally (run more than one copy) to improve performance or to help tolerate failures.
+Так само як і kube-controller-manager, cloud-controller-manager поєднує у собі багато логічно незалежних циклів контролю, що в подальшому запаковуються в один бінарний файл, що запускається як окремий процес.
+Ви можете масштабуватися горизонтально(запускати більш ніж один екземпляр) для того, щоб покращити продуктивність, або ж для дебагінгу
 
-The following controllers can have cloud provider dependencies:
+Нижче описані контроллери, що мають залежність від cloud провайдера:
 
-  * Node controller: For checking the cloud provider to determine if a node has been deleted in the cloud after it stops responding
-  * Route controller: For setting up routes in the underlying cloud infrastructure
-  * Service controller: For creating, updating and deleting cloud provider load balancers
+  * Node контроллери: Для перевірки cloud провайдеру, щоб зʼясувати, чи node була видалена з кластеру, якщо вона перестала відповідати на запроси
+  * Route контроллери: Для встановлення мережевих шляхів у cloud інфраструктурі
+  * Service контроллери: Для створення, зміни, видалення балансерів навантаження у cloud оточенні
 
 <!-- 
 Node components run on every node, maintaining running pods and providing the Kubernetes runtime environment.
