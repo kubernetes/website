@@ -13,8 +13,7 @@ for multiple operating systems as well as hardware architectures.
 ## Container Images
 
 All Kubernetes container images are deployed to the
-[registry.k8s.io](https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/GLOBAL)
-container registry.
+`registry.k8s.io` container image registry.
 
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
