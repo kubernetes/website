@@ -10,10 +10,11 @@ community_styles_migrated: true
 Kubernetes follows the
 <a href="https://github.com/cncf/foundation/blob/main/code-of-conduct.md">CNCF Code of Conduct</a>.
 The text of the CNCF CoC is replicated below, as of
-<a href="https://github.com/cncf/foundation/blob/71b12a2f8b4589788ef2d69b351a3d035c68d927/code-of-conduct.md">commit 71b12a2</a>.
+<a href="https://github.com/cncf/foundation/blob/d1aa4b995b2eb6a665a0bf0c76f609508d6ec15a/code-of-conduct.md">commit d1aa4b995</a>.
 If you notice that this is out of date, please
 <a href="https://github.com/kubernetes/website/issues/new">file an issue</a>.
 </p>
+
 
 <p>
 If you notice a violation of the Code of Conduct at an event or meeting, in
