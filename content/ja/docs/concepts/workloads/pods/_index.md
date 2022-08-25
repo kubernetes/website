@@ -8,9 +8,9 @@ card:
   weight: 60
 ---
 
-*Pod*は、Kubernetes内で作成・管理できるコンピューティングの最小のデプロイ可能なユニットです(Podという名前は、たとえばクジラの群れ(pod of whales)やえんどう豆のさや(pea pod)などの表現と同じような意味です)。
+*Pod*は、Kubernetes内で作成・管理できるコンピューティングの最小のデプロイ可能なユニットです。
 
-*Pod*は、1つまたは複数の{{< glossary_tooltip text="コンテナ" term_id="container" >}}のグループであり、ストレージやネットワークの共有リソースを持ち、コンテナの実行方法に関する仕様を持っています。同じPodに含まれるリソースは、常に同じ場所で同時にスケジューリングされ、共有されたコンテキストの中で実行されます。Podはアプリケーションに特化した「論理的なホスト」をモデル化します。つまり、1つのPod内には、1つまたは複数の比較的密に結合されたアプリケーションコンテナが含まれます。クラウド外の文脈で説明すると、アプリケーションが同じ物理ホストや同じバーチャルマシンで実行されることが、クラウドアプリケーションの場合には同じ論理ホスト上で実行されることに相当します。
+*Pod*(Podという名前は、たとえばクジラの群れ(pod of whales)やえんどう豆のさや(pea pod)などの表現と同じような意味です)は、1つまたは複数の{{< glossary_tooltip text="コンテナ" term_id="container" >}}のグループであり、ストレージやネットワークの共有リソースを持ち、コンテナの実行方法に関する仕様を持っています。同じPodに含まれるリソースは、常に同じ場所で同時にスケジューリングされ、共有されたコンテキストの中で実行されます。Podはアプリケーションに特化した「論理的なホスト」をモデル化します。つまり、1つのPod内には、1つまたは複数の比較的密に結合されたアプリケーションコンテナが含まれます。クラウド外の文脈で説明すると、アプリケーションが同じ物理ホストや同じバーチャルマシンで実行されることが、クラウドアプリケーションの場合には同じ論理ホスト上で実行されることに相当します。
 
 アプリケーションコンテナと同様に、Podでも、Podのスタートアップ時に実行される[initコンテナ](/ja/docs/concepts/workloads/pods/init-containers/)を含めることができます。また、クラスターで利用できる場合には、[エフェメラルコンテナ](/ja/docs/concepts/workloads/pods/ephemeral-containers/)を注入してデバッグすることもできます。
 
@@ -80,6 +80,16 @@ Pod内のコンテナの再起動とPodの再起動を混同しないでくだ�
 
 Podオブジェクトのためのマニフェストを作成したときは、指定したPodの名前が有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)であることを確認してください。
 
+### Pod OS
+
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
+
+`.spec.os.name`フィールドで`windows`か`linux`のいずれかを設定し、Podを実行させたいOSを指定する必要があります。Kubernetesは今のところ、この2つのOSだけサポートしています。将来的には増える可能性があります。
+
+Kubernetes v{{< skew currentVersion >}}では、このフィールドに設定した値はPodの{{< glossary_tooltip text="スケジューリング" term_id="kube-scheduler" >}}に影響を与えません。
+`.spec.os.name`を設定することで、Pod OSに権限を認証することができ、バリデーションにも使用されます。kubeletが実行されているノードのOSは指定されたPod OSと異なる場合、kubeletはPosの実行を拒否します。
+[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)もこのフィールドを使用し、指定したOSと関係ないポリシーの適用を回避しています。
+
 ### Podとコンテナコントローラー {#pods-and-controllers}
 
 ワークロードリソースは、複数のPodを作成・管理するために利用できます。リソースに対応するコントローラーが、複製やロールアウトを扱い、Podの障害時には自動回復を行います。たとえば、あるノードに障害が発生した場合、コントローラーはそのノードの動作が停止したことを検知し、代わりのPodを作成します。そして、スケジューラーが代わりのPodを健全なノード上に配置します。
@@ -90,7 +100,7 @@ Podオブジェクトのためのマニフェストを作成したときは、�
 * {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
-### Podテンプレート
+### Podテンプレート {#pod-template}
 
 {{< glossary_tooltip text="workload" term_id="workload" >}}リソース向けのコントローラーは、Podを*Podテンプレート*を元に作成し、あなたの代わりにPodを管理してくれます。
 
@@ -124,6 +134,21 @@ Podテンプレートを修正するか新しいPodに切り替えたとして�
 各ワークロードリソースは、Podテンプレートへの変更を処理するための独自のルールを実装しています。特にStatefulSetについて更に詳しく知りたい場合は、StatefulSetの基本チュートリアル内の[アップデート戦略](/ja/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets)を読んでください。
 
 ノード上では、{{< glossary_tooltip term_id="kubelet" text="kubelet" >}}はPodテンプレートに関する詳細について監視や管理を直接行うわけではありません。こうした詳細は抽象化されています。こうした抽象化や関心の分離のおかげでシステムのセマンティクスが単純化され、既存のコードを変更せずにクラスターの動作を容易に拡張できるようになっているのです。
+
+## Podの更新と取替
+
+前のセクションで述べたように、ワークロードリソースのPodテンプレートが変更されると、コントローラーは既存のPodを更新したりパッチを適用したりするのではなく、更新されたテンプレートに基づいて新しいPodを作成します。
+
+KubernetesはPodを直接管理することを防げません。実行中のPodの一部のフィールドをその場で更新することが可能です。しかし、[`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core)と[`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)といった、Podのアップデート操作にはいくつかの制限があります:
+
+- Podのメタデータのほとんどは固定されたものです。たとえば`namespace`、`name`、`uid`または`creationTimestamp`フィールドは変更できません。`generation`フィールドは特別で、現在の値を増加させる更新のみを受け付けます。
+- `metadata.deletionTimestamp`が設定されている場合、`metadata.finalizers`リストに新しい項目を追加することはできません。
+- Podの更新では`spec.containers[*].image`、`spec.initContainers[*].image`、`spec.activeDeadlineSeconds`または`spec.tolerations`以外のフィールドを変更してはなりません。
+`spec.tolerations`については新しい項目のみを追加することができます。
+- `spec.activeDeadlineSeconds`フィールドを更新する場合、2種類の更新が可能です:
+
+  1. 未割り当てのフィールドに正の数を設定する
+  1. 現在の値から負の数でない、より小さい数に更新する
 
 ## リソースの共有と通信
 
