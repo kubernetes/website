@@ -54,8 +54,8 @@ to improve the utilization of scarce resources in large clusters. It favors node
 configured function of the allocated resources. The behavior of the `RequestedToCapacityRatio` in
 the `NodeResourcesFit` score function can be controlled by the
 [scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy) field.
-Within the `scoringStrategy` field, you can configure two parameters: `requestedToCapacityRatioParam` and
-`resources`. The `shape` in `requestedToCapacityRatioParam` 
+Within the `scoringStrategy` field, you can configure two parameters: `requestedToCapacityRatio` and
+`resources`. The `shape` in the `requestedToCapacityRatio` 
 parameter allows the user to tune the function as least requested or most 
 requested based on `utilization` and `score` values.  The `resources` parameter 
 consists of `name` of the resource to be considered during scoring and `weight` 
@@ -77,7 +77,7 @@ profiles:
           weight: 3
         - name: intel.com/bar
           weight: 3
-        requestedToCapacityRatioParam:
+        requestedToCapacityRatio:
           shape:
           - utilization: 0
             score: 0
