@@ -15,7 +15,7 @@ for multiple operating systems as well as hardware architectures.
 All Kubernetes container images are deployed to the
 `registry.k8s.io` container image registry.
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
 
 For Kubernetes {{< param "version" >}}, the following
 container images are signed using [cosign](https://github.com/sigstore/cosign)
