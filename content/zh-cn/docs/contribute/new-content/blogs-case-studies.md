@@ -147,7 +147,7 @@ To submit a blog post, follow these steps:
     联系博客团队，以获得实时反馈。
 <!--
 - Blog posts should be relevant to Kubernetes users.
-  - Topics related to participation in or results of Kubernetes SIGs activities are always on topic (see the work in the [Upstream Marketing Team](https://github.com/kubernetes/community/blob/master/communication/marketing-team/blog-guidelines.md#upstream-marketing-blog-guidelines) for support on these posts). 
+  - Topics related to participation in or results of Kubernetes SIGs activities are always on topic (see the work in the [Upstream Marketing Team](https://github.com/kubernetes/community/blob/master/communication/marketing-team/storytelling-resources/blog-guidelines.md#upstream-marketing-blog-guidelines) for support on these posts). 
   - The components of Kubernetes are purposely modular, so tools that use existing integration points like CNI and CSI are on topic. 
   - Posts about other CNCF projects may or may not be on topic. We recommend asking the blog team before submitting a draft.
     - Many CNCF projects have their own blog. These are often a better choice for posts. There are times of major feature or milestone for a CNCF project that users would be interested in reading on the Kubernetes blog.
@@ -155,9 +155,8 @@ To submit a blog post, follow these steps:
 -->
 - 博客内容应该对 Kubernetes 用户有用。
   - 与参与 Kubernetes SIGs 活动相关，或者与这类活动的结果相关的主题通常是切题的。
-    请参考[上游推广团队](https://github.com/kubernetes/community/blob/master/communication/marketing-team/blog-guidelines.md#upstream-marketing-blog-guidelines)的工作以获得对此类博文的支持。
-  - Kubernetes 的组件都有意设计得模块化，因此使用类似 CNI、CSI 等集成点的工具
-    通常都是切题的。
+    请参考[上游推广团队](https://github.com/kubernetes/community/blob/master/communication/marketing-team/storytelling-resources/blog-guidelines.md#upstream-marketing-blog-guidelines)的工作以获得对此类博文的支持。
+  - Kubernetes 的组件都有意设计得模块化，因此使用类似 CNI、CSI 等集成点的工具通常都是切题的。
   - 关于其他 CNCF 项目的博客可能切题也可能不切题。
     我们建议你在提交草稿之前与博客团队联系。
     - 很多 CNCF 项目有自己的博客。这些博客通常是更好的选择。
