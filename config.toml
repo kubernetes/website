@@ -33,7 +33,9 @@ enableGitInfo = true
 # Hindi is disabled because it's currently in development.
 disableLanguages = ["hi", "no"]
 
-rssLimit = 10
+# Limit number of blog articles included in the syndication feed
+[services.rss]
+limit = 10
 
 [caches]
  [caches.assets]
