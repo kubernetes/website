@@ -1,5 +1,5 @@
 ---
-title: API 发起的驱逐
+title: API 发起的驱逐（API-initiated eviction）
 id: api-eviction
 date: 2021-04-27
 full_link: /zh-cn/docs/concepts/scheduling-eviction/api-eviction/
