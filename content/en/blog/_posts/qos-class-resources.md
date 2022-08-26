@@ -18,11 +18,11 @@ and describes what is already possible with the latest container runtimes.
 
 There are some resources that applications are forced to share, such as cache,
 memory bandwidth, and disk I/O. There are technologies for managing those
-resources–making it possible to prioritize or isolate applications–but
-currently Kubernetes support for them is missing. The “QoS-class resources”
-concept aims at changing this in a generalized way: enabling support for cache,
-memory, and disk I/O, and making it easy to enable other QoS resource types in
-the future.
+resources&mdash;making it possible to prioritize or isolate
+applications&mdash;but currently Kubernetes support for them is missing. The
+“QoS-class resources” concept aims at changing this in a generalized way:
+enabling support for cache, memory, and disk I/O, and making it easy to enable
+other QoS resource types in the future.
 
 The properties of QoS-class resources are:
 
@@ -39,7 +39,7 @@ already supported by container runtimes (CRI-O and containerd).
 
 Intel® Resource Director Technology (Intel® RDT) is a technology for
 controlling the cache and memory bandwidth allocation of applications. It
-provides in hardware a class-based approach for QoS control of these shared
+provides, in hardware, a class-based approach for QoS control of these shared
 resources. Other hardware vendors and architectures have corresponding
 technologies. Intel RDT allows a limited number of classes to be configured and
 processes to be assigned to them. All processes in the same class share the
@@ -116,7 +116,7 @@ broader context and understand what the full solution would look like.
   QoS-class resource types and the available classes within each resource type
   to kubelet
 - Resource status/capacity: hold the information of discovered resources (e.g.
-  in node status) e.g. for users to see what is available
+  in node status) for users to see what is available
 - Scheduler support: with resource discovery and status/capacity (above) in
   place it is possible to handle QoS-class resource assignments in the
   Kubernetes scheduler
@@ -151,7 +151,7 @@ Pod annotations used for assigning the QoS-class resources:
 | Annotation  | Description
 | :---------- | :----------
 | `rdt.resources.beta.kubernetes.io/pod` | set a Pod-level default RDT class for all containers
-| `rdt.resources.beta.kubernetes.io/container.<container-name>` | set ‘RDT class of one container
+| `rdt.resources.beta.kubernetes.io/container.<container-name>` | set RDT class of one container
 | `blockio.resources.beta.kubernetes.io/pod` | set a Pod-level default blockio class for all containers
 | `blockio.resources.beta.kubernetes.io/container.<container-name>` | set blockio class of one container
 
@@ -161,7 +161,7 @@ Configuration file format is described in detail with more examples
 ### An example
 
 The following example demonstrates the configuration of RDT and blockio
-QoS-class resources with CRI-O runtime
+QoS-class resources with CRI-O runtime.
 
 #### RDT configuration
 
@@ -233,7 +233,7 @@ Below is a referential example leveraging both RDT and blockio resources. It
 creates a Pod of three containers with:
 
 - all containers are assigned to the “limited” RDT class by default, except for
-  “data-path” container getting assigned to “unlimited” class allowing full
+  the “data-path” container getting assigned to “unlimited” class allowing full
   cache usage
 - all containers are assigned to the “normal” blockio class by default, except
   for the “logger” container getting assigned to the “low-prio” class
@@ -272,9 +272,9 @@ classes.
 ### Limitations of the runtime-only approach
 
 The biggest limitations in this runtime-only approach probably lies in the user
-interface. Users have no visibility what QoS-class resource types (or classes
-within) are available on the nodes and there is no support in Kubernetes
-scheduler.
+interface. Users have no visibility into what QoS-class resource types (or
+classes within) are available on the nodes and there is no support in
+Kubernetes scheduler.
 
 ## How to participate
 
