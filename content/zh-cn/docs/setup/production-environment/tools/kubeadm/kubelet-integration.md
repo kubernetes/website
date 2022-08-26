@@ -139,8 +139,8 @@ networking, or other host-specific parameters. The following list provides a few
 - To specify the container runtime you must set its endpoint with the
   `--container-runtime-endpoint=<path>` flag.
 
-You can specify these flags by configuring an individual kubelet's configuration in your service manager,
-such as systemd.
+The recommended way of applying such instance-specific configuration is by using
+[`KubeletConfiguration` patches](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#patches).
 -->
 - 由 kubelet 配置标志 `--resolv-conf` 指定的 DNS 解析文件的路径在操作系统之间可能有所不同，
   它取决于你是否使用 `systemd-resolved`。
@@ -154,29 +154,31 @@ such as systemd.
 
 - 要指定容器运行时，你必须用 `--container-runtime-endpoint=<path>` 标志来指定端点。
 
-你可以在服务管理器（例如 systemd）中设定某个 kubelet 的配置来指定这些参数。
+应用此类特定于实例的配置的推荐方法是使用 [`KubeletConfiguration` 补丁](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags#patches)。
 
 <!--
 ## Configure kubelets using kubeadm
 
-It is possible to configure the kubelet that kubeadm will start if a custom `KubeletConfiguration`
+It is possible to configure the kubelet that kubeadm will start if a custom
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 API object is passed with a configuration file like so `kubeadm ... --config some-config-file.yaml`.
 
 By calling `kubeadm config print init-defaults --component-configs KubeletConfiguration` you can
 see all the default values for this structure.
 
-Also have a look at the
-[reference for the KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
-for more information on the individual fields.
+It is also possible to apply instance-specific patches over the base `KubeletConfiguration`.
+Have a look at [Customizing the kubelet](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#customizing-the-kubelet)
+for more details.
 -->
 ## 使用 kubeadm 配置 kubelet    {#configure-kubelets-using-kubeadm}
 
-如果自定义的 `KubeletConfiguration` API 对象使用像  `kubeadm ... --config some-config-file.yaml` 这样的配置文件进行传递，则可以配置 kubeadm 启动的 kubelet。
+如果自定义的 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) API 对象使用像 `kubeadm ... --config some-config-file.yaml` 这样的配置文件进行传递，则可以配置 kubeadm 启动的 kubelet。
 
 通过调用 `kubeadm config print init-defaults --component-configs KubeletConfiguration`，
 你可以看到此结构中的所有默认值。
 
-也可以阅读 [KubeletConfiguration 参考](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
+也可以在基础 `KubeletConfiguration` 上应用实例特定的补丁。
+阅读[自定义 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags#customizing-the-kubelet)
 来获取有关各个字段的更多信息。
 
 <!--

@@ -14,7 +14,7 @@ content_type: task
 <!--
 This page shows how to enable and configure encryption of secret data at rest.
 -->
-本文展示如何启用和配置静态 Secret 数据的加密
+本文展示如何启用和配置静态 Secret 数据的加密。
 
 ## {{% heading "prerequisites" %}}
 
@@ -134,14 +134,14 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
 -->
-{{< table caption="Kubernetes 静态数据加密的 Providers" >}}
+{{< table caption="Kubernetes 静态数据加密的 Provider" >}}
 名称 | 加密类型   | 强度     | 速度  | 密钥长度   | 其它事项
 -----|------------|----------|-------|------------|---------------------
 `identity` | 无 | N/A | N/A | N/A | 不加密写入的资源。当设置为第一个 provider 时，资源将在新值写入时被解密。
-`secretbox` | XSalsa20 和 Poly1305 | 强 | 更快 | 32字节 | 较新的标准，在需要高度评审的环境中可能不被接受。
-`aesgcm` | 带有随机数的 AES-GCM | 必须每 200k 写入一次 | 最快 | 16, 24 或者 32字节 | 建议不要使用，除非实施了自动密钥循环方案。
-`aescbc` | 填充 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 的 AES-CBC | 弱 | 快 | 32字节 | 由于 CBC 容易受到密文填塞攻击（Padding Oracle Attack），不推荐使用。
-`kms` | 使用信封加密方案：数据使用带有 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 填充的 AES-CBC 通过数据加密密钥（DEK）加密，DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密 | 最强 | 快 | 32字节 | 建议使用第三方工具进行密钥管理。为每个加密生成新的 DEK，并由用户控制 KEK 轮换来简化密钥轮换。[配置 KMS 提供程序](/zh-cn/docs/tasks/administer-cluster/kms-provider/)
+`secretbox` | XSalsa20 和 Poly1305 | 强 | 更快 | 32 字节 | 较新的标准，在需要高度评审的环境中可能不被接受。
+`aesgcm` | 带有随机数的 AES-GCM | 必须每 200k 写入一次 | 最快 | 16、24 或者 32字节 | 建议不要使用，除非实施了自动密钥循环方案。
+`aescbc` | 填充 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 的 AES-CBC | 弱 | 快 | 32 字节 | 由于 CBC 容易受到密文填塞攻击（Padding Oracle Attack），不推荐使用。
+`kms` | 使用信封加密方案：数据使用带有 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 填充的 AES-CBC（v1.25 之前），从 v1.25 开始使用 AES-GCM 通过数据加密密钥（DEK）加密，DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密 | 最强 | 快 | 32 字节 | 建议使用第三方工具进行密钥管理。为每个加密生成新的 DEK，并由用户控制 KEK 轮换来简化密钥轮换。[配置 KMS 提供程序](/zh-cn/docs/tasks/administer-cluster/kms-provider/)
 
 每个 provider 都支持多个密钥 - 在解密时会按顺序使用密钥，如果是第一个 provider，则第一个密钥用于加密。
 
@@ -171,10 +171,9 @@ retrieve the plaintext values, providing a higher level of security than locally
 默认情况下，`identity` 驱动被用来对 etcd 中的 Secret 提供保护，而这个驱动不提供加密能力。
 `EncryptionConfiguration` 的引入是为了能够使用本地管理的密钥来在本地加密 Secret 数据。
 
-使用本地管理的密钥来加密 Secret 能够保护数据免受 etcd 破坏的影响，不过无法针对
-主机被侵入提供防护。
-这是因为加密的密钥保存在主机上的 EncryptionConfig YAML 文件中，有经验的入侵者
-仍能访问该文件并从中提取出加密密钥。
+使用本地管理的密钥来加密 Secret 能够保护数据免受 etcd 破坏的影响，不过无法针对主机被侵入提供防护。
+这是因为加密的密钥保存在主机上的 EncryptionConfig YAML 文件中，
+有经验的入侵者仍能访问该文件并从中提取出加密密钥。
 
 封套加密（Envelope Encryption）引入了对独立密钥的依赖，而这个密钥并不保存在 Kubernetes 中。
 在这种情况下，入侵者需要攻破 etcd、kube-apiserver 和第三方的 KMS
@@ -223,9 +222,8 @@ To create a new Secret, perform the following steps:
 1. Restart your API server.
 -->
 2. 将这个值放入到 `EncryptionConfiguration` 结构体的 `secret` 字段中。
-3. 设置 `kube-apiserver` 的 `--encryption-provider-config` 参数，将其指向
-   配置文件所在位置。
-4. 重启你的 API server。
+3. 设置 `kube-apiserver` 的 `--encryption-provider-config` 参数，将其指向配置文件所在位置。
+4. 重启你的 API 服务器。
 
 <!--
 Your config file contains keys that can decrypt the contents in etcd, so you must properly restrict
@@ -260,6 +258,7 @@ program to retrieve the contents of your Secret.
 1. Using the `etcdctl` command line, read that Secret out of etcd:
 -->
 2. 使用 etcdctl 命令行，从 etcd 中读取 Secret：
+
    ```shell
    ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
    ```
@@ -349,7 +348,7 @@ When running a single `kube-apiserver` instance, step 2 may be skipped.
    以用新密钥加密所有现有的 Secret
 1. 在使用新密钥备份 etcd 后，从配置中删除旧的解密密钥并更新所有密钥
 
-当只运行一个 `kube-apiserver` 实例时，第 2 步可能可以忽略。
+当只运行一个 `kube-apiserver` 实例时，第 2 步可以忽略。
 
 <!--
 ## Decrypting all data

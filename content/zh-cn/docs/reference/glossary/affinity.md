@@ -10,7 +10,6 @@ tags:
 - fundamental
 ---
 <!--
----
 title: Affinity
 id: affinity
 date: 2019-01-11
@@ -20,7 +19,6 @@ short_description: >
 aka:
 tags:
 - fundamental
----
 -->
 
 <!--
