@@ -87,10 +87,13 @@ then the kubelet  ensures that the contents of the `serviceAccountToken` volume 
 and that every file has its permission mode set to `0600`.
 
 {{< note >}}
-If you add any {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}} to
-a Pod, those won't have been present when the pod started running on that node.
-Adding an ephemeral container to a pod does **not** change any volume permissions
-that were set when the pod was created.
+{{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
+added to a Pod after it is created do *not* change volume permissions that were
+set when the pod was created.
+
+If a Pod's `serviceAccountToken` volume permissions were set to `0600` because
+all other containers in the Pod have the same `runAsUser`, ephemeral
+containers must use the same `runAsUser` to be able to read the token.
 {{< /note >}}
 
 #### Windows
