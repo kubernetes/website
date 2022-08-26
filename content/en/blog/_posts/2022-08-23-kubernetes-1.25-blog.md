@@ -11,7 +11,7 @@ Announcing the release of Kubernetes v1.25!
 
 This release includes a total of 40 enhancements. Fifteen of those enhancements are entering Alpha, ten are graduating to Beta, and thirteen are graduating to Stable. We also have two features being deprecated or removed.
 
-## Release theme and logo 
+## Release theme and logo
 
 **Kubernetes 1.25: Combiner**
 
@@ -85,23 +85,23 @@ Promoted the `ServerSideFieldValidation` feature gate to beta (on by default). T
 
 Introduce KMS v2alpha1 API to add performance, rotation, and observability improvements. Encrypt data at rest (ie Kubernetes `Secrets`) with DEK using AES-GCM instead of AES-CBC for kms data encryption. No user action is required. Reads with AES-GCM and AES-CBC will continue to be allowed. See the guide [Using a KMS provider for data encryption](https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/) for more information.
 
-### Kube-proxy images are now based in distroless
+### Kube-proxy images are now based on distroless images
 
-In previous releases, kube-proxy container images were built using Debian as the base image. Starting with this release the images are now built using [distroless](https://github.com/GoogleContainerTools/distroless). This change reduced image size by almost 50% and reduced the number of installed packages and files to only to those strictly required for kube-proxy do its job.
+In previous releases, kube-proxy container images were built using Debian as the base image. Starting with this release, the images are now built using [distroless](https://github.com/GoogleContainerTools/distroless). This change reduced image size by almost 50% and decreased the number of installed packages and files to only those strictly required for kube-proxy to do its job.
 
 ## Other Updates
 
 ### Graduations to Stable
 
-This release includes a total of thirteen enhancements promoted to stable: 
+This release includes a total of thirteen enhancements promoted to stable:
 
 * [Ephemeral Containers](https://github.com/kubernetes/enhancements/issues/277)
 * [Local Ephemeral Storage Resource Management](https://github.com/kubernetes/enhancements/issues/361)
 * [CSI Ephemeral Volumes](https://github.com/kubernetes/enhancements/issues/596)
-* [CSI Migration - Core](https://github.com/kubernetes/enhancements/issues/625) 
+* [CSI Migration - Core](https://github.com/kubernetes/enhancements/issues/625)
 * [Graduate the kube-scheduler ComponentConfig to GA](https://github.com/kubernetes/enhancements/issues/785)
 * [CSI Migration - AWS](https://github.com/kubernetes/enhancements/issues/1487)
-* [CSI Migration - GCE](https://github.com/kubernetes/enhancements/issues/1488) 
+* [CSI Migration - GCE](https://github.com/kubernetes/enhancements/issues/1488)
 * [DaemonSets Support MaxSurge](https://github.com/kubernetes/enhancements/issues/1591)
 * [NetworkPolicy Port Range](https://github.com/kubernetes/enhancements/issues/2079)
 * [cgroups v2](https://github.com/kubernetes/enhancements/issues/2254)
@@ -119,11 +119,11 @@ Two features were [deprecated or removed](/blog/2022/08/04/upcoming-changes-in-k
 ### Release Notes
 
 The complete details of the Kubernetes v1.25 release are available in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.25.md).
-    
+
 ### Availability
 
 Kubernetes v1.25 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.25.0).
-To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/) or run local 
+To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/) or run local
 Kubernetes clusters using containers as “nodes”, with [kind](https://kind.sigs.k8s.io/).
 You can also easily install 1.25 using [kubeadm](/docs/setup/independent/create-cluster-kubeadm/).
 
@@ -132,38 +132,38 @@ You can also easily install 1.25 using [kubeadm](/docs/setup/independent/create-
 Kubernetes is only possible with the support, commitment, and hard work of its community. Each release team is made up of dedicated community volunteers who work together to build the many pieces that, when combined, make up the Kubernetes releases you rely on. This requires the specialized skills of people from all corners of our community, from the code itself to its documentation and project management.
 
 We would like to thank the entire release team for the hours spent hard at work to ensure we deliver a solid Kubernetes v1.25 release for our community. Every one of you had a part to play in building this, and you all executed beautifully. We would like to extend special thanks to our fearless release lead, Cici Huang, for all she did to guarantee we had what we needed to succeed.
-   
+
 ### User Highlights
 
 * Finleap Connect operates in a highly regulated environment. [In 2019, they had five months to implement mutual TLS (mTLS) across all services in their clusters for their business code to comply with the new European PSD2 payment directive](https://www.cncf.io/case-studies/finleap-connect/).
 * PNC sought to develop a way to ensure new code would meet security standards and audit compliance requirements automatically—replacing the cumbersome 30-day manual process they had in place. Using Knative, [PNC developed internal tools to automatically check new code and changes to existing code](https://www.cncf.io/case-studies/pnc-bank/).
 * Nexxiot needed highly-reliable, secure, performant, and cost efficient Kubernetes clusters. [They turned to Cilium as the CNI to lock down their clusters and enable resilient networking with reliable day two operations](https://www.cncf.io/case-studies/nexxiot/).
-* Because the process of creating cyber insurance policies is a complicated multi-step process, At-Bay sought to improve operations by using asynchronous message-based communication patterns/facilities. [They determined that Dapr fulfilled its desired list of requirements and much more](https://www.cncf.io/case-studies/at-bay/). 
+* Because the process of creating cyber insurance policies is a complicated multi-step process, At-Bay sought to improve operations by using asynchronous message-based communication patterns/facilities. [They determined that Dapr fulfilled its desired list of requirements and much more](https://www.cncf.io/case-studies/at-bay/).
 
 ### Ecosystem Updates
 
 * KubeCon + CloudNativeCon North America 2022 will take place in Detroit, Michigan from 24 – 28 October 2022! You can find more information about the conference and registration on the [event site](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/).
 * KubeDay event series kicks off with KubeDay Japan December 7! Register or submit a proposal on the [event site](https://events.linuxfoundation.org/kubeday-japan/)
-* In the [2021 Cloud Native Survey](https://www.cncf.io/announcements/2022/02/10/cncf-sees-record-kubernetes-and-container-adoption-in-2021-cloud-native-survey/), the CNCF saw record Kubernetes and container adoption. Take a look at the [results of the survey](https://www.cncf.io/reports/cncf-annual-survey-2021/). 
+* In the [2021 Cloud Native Survey](https://www.cncf.io/announcements/2022/02/10/cncf-sees-record-kubernetes-and-container-adoption-in-2021-cloud-native-survey/), the CNCF saw record Kubernetes and container adoption. Take a look at the [results of the survey](https://www.cncf.io/reports/cncf-annual-survey-2021/).
 
 ### Project Velocity
 
-The [CNCF K8s DevStats](https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1&refresh=15m) project 
-aggregates a number of interesting data points related to the velocity of Kubernetes and various 
-sub-projects. This includes everything from individual contributions to the number of companies that 
+The [CNCF K8s DevStats](https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1&refresh=15m) project
+aggregates a number of interesting data points related to the velocity of Kubernetes and various
+sub-projects. This includes everything from individual contributions to the number of companies that
 are contributing, and is an illustration of the depth and breadth of effort that goes into evolving this ecosystem.
 
 In the v1.25 release cycle, which [ran for 14 weeks](https://github.com/kubernetes/sig-release/tree/master/releases/release-1.25) (May 23 to August 23), we saw contributions from [1065 companies](https://k8s.devstats.cncf.io/d/9/companies-table?orgId=1&var-period_name=v1.24.0%20-%20v1.25.0&var-metric=contributions) and [1620 individuals](https://k8s.devstats.cncf.io/d/66/developer-activity-counts-by-companies?orgId=1&var-period_name=v1.24.0%20-%20v1.25.0&var-metric=contributions&var-repogroup_name=Kubernetes&var-country_name=All&var-companies=All&var-repo_name=kubernetes%2Fkubernetes).
 
 ## Upcoming Release Webinar
 
-Join members of the Kubernetes v1.25 release team on Thursday September 22, 2022 10am – 11am PT to learn about 
-the major features of this release, as well as deprecations and removals to help plan for upgrades. 
+Join members of the Kubernetes v1.25 release team on Thursday September 22, 2022 10am – 11am PT to learn about
+the major features of this release, as well as deprecations and removals to help plan for upgrades.
 For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-v125-release/).
 
 ## Get Involved
 
-The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. 
+The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests.
 Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below:
 
 * Find out more about contributing to Kubernetes at the [Kubernetes Contributors](https://www.kubernetes.dev/) website
