@@ -37,8 +37,7 @@ Dockerの概念を使って説明すると、Podは共有の名前空間と共�
 kubectl apply -f https://k8s.io/examples/pods/simple-pod.yaml
 ```
 
-Podは通常、直接作成されず、ワークロードリソースで作成されます。
-ワークロードリソースでPodを作成する方法の詳細については、[Podを利用する](#working-with-pods)を参照してください。
+Podは通常、直接作成されず、ワークロードリソースで作成されます。ワークロードリソースでPodを作成する方法の詳細については、[Podを利用する](#working-with-pods)を参照してください。
 
 ### Podを管理するためのワークロードリソース
 
