@@ -1,7 +1,7 @@
 {{- $isBlogPost := eq .Section "blog" }}
 {{- $ogType := cond (.IsHome) "website" "article" }}
 <!-- per-page robot indexing controls -->
-{{- if hugo.IsProduction -}}
+{{- if and hugo.IsProduction (not .Site.Params.deprecated) -}}
 <meta name="ROBOTS" content="INDEX, FOLLOW">
 {{- else -}}
 <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">

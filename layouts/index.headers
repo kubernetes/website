@@ -1,4 +1,4 @@
-{{- if eq hugo.Environment "production" }}
+{{- if and hugo.IsProduction (not .Site.Params.deprecated) }}
 {{- $cssFilesFromConfig := site.Params.pushAssets.css -}}
 {{- $jsFilesFromConfig := site.Params.pushAssets.js -}}
 {{- $pages := site.RegularPages -}}
