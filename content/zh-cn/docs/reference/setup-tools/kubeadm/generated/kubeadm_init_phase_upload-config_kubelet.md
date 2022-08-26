@@ -6,14 +6,13 @@ Upload the kubelet component config to a ConfigMap
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Upload the kubelet configuration extracted from the kubeadm InitConfiguration object to a kubelet-config ConfigMap in the cluster
 -->
-
-将从 kubeadm InitConfiguration 对象提取的 kubelet 配置上传到集群中的 kubelet-config ConfigMap
+将从 kubeadm InitConfiguration 对象提取的 kubelet 配置上传到集群中的
+`kubelet-config` ConfigMap。
 
 ```
 kubeadm init phase upload-config kubelet [flags]
@@ -22,7 +21,6 @@ kubeadm init phase upload-config kubelet [flags]
 <!--
 ### Examples
 -->
-
 ### 示例
 
 <!--
@@ -31,7 +29,6 @@ kubeadm init phase upload-config kubelet [flags]
   kubeadm init phase upload-config kubelet --config kubeadm.yaml
 ```
 -->
-
 ```
 # 将 kubelet 配置从 kubeadm 配置文件上传到集群中的 ConfigMap。
 kubeadm init phase upload-config kubelet --config kubeadm.yaml
@@ -40,10 +37,9 @@ kubeadm init phase upload-config kubelet --config kubeadm.yaml
 <!--
 ### Options
 -->
-
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -75,9 +71,7 @@ kubelet 操作的帮助命令
 </tr>
 
 <tr>
-<td colspan="2">
-<!-- kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf" -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"</td>
+<td colspan="2">-- kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -85,7 +79,8 @@ kubelet 操作的帮助命令
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
 <p>
-与集群通信时使用的 kubeconfig 文件。如果未设置该标签，则可以通过一组标准路径来寻找已有的 kubeconfig 文件。
+与集群通信时使用的 kubeconfig 文件。如果未设置该标签，
+则可以通过一组标准路径来寻找已有的 kubeconfig 文件。
 </p>
 </td>
 </tr>
@@ -96,10 +91,9 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -110,13 +104,8 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
--->
-<p>
-[实验] 到 '真实' 主机根文件系统的路径。
-</p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><!--[EXPERIMENTAL] The path to the 'real' host root filesystem. -->
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 
