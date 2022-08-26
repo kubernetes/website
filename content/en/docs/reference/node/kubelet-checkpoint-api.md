@@ -31,7 +31,7 @@ system all memory pages will be readable by the owner of the checkpoint archive.
 
 Tell the kubelet to checkpoint a specific container from the specified Pod.
 
-Consult the [Kubelet authentication/authorization reference](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization)
+Consult the [Kubelet authentication/authorization reference](/docs/reference/access-authn-authz/kubelet-authn-authz)
 for more information about how access to the kubelet checkpoint interface is
 controlled.
 
