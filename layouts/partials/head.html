@@ -24,7 +24,7 @@
 {{- template "_internal/opengraph.html" . -}}
 {{- template "_internal/schema.html" . -}}
 {{- template "_internal/twitter_cards.html" . -}}
-{{- if hugo.IsProduction -}}
+{{- if in hugo.Environment "prod" -}}
 {{ template "_internal/google_analytics.html" . }}
 {{ end }}
 {{ partialCached "head-css.html" . "asdf" }}
