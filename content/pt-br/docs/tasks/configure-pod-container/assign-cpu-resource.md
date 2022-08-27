@@ -221,7 +221,7 @@ o kubernetes automaticamente atribui os requisitos de CPU que correspondem ao li
 
 ## Motivos para usar requisitos e limites de CPU
 
-Ao configurar os requisitos de CPU e limites dos Contêneres que executam no seu cluster, 
+Ao configurar os requisitos de CPU e limites dos Contêineres que executam no seu cluster, 
 você faz um uso eficiente dos recursos de CPU disponíveis nos Nós do seu cluster. 
 Mantendo baixos os recursos de CPU de um Pod, você proporciona ao Pod uma boa chance 
 de ser agendado. Ao especificar um limite de CPU que é maior que os requisitos de CPU, 
