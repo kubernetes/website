@@ -368,7 +368,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    ```shell
    docker run --rm -it \
    --net host \
-   -v /etc/kubernetes:/etc/kubernetes k8s.gcr.io/etcd:${ETCD_TAG} etcdctl \
+   -v /etc/kubernetes:/etc/kubernetes registry.k8s.io/etcd:${ETCD_TAG} etcdctl \
    --cert /etc/kubernetes/pki/etcd/peer.crt \
    --key /etc/kubernetes/pki/etcd/peer.key \
    --cacert /etc/kubernetes/pki/etcd/ca.crt \
