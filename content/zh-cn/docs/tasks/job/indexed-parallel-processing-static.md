@@ -15,7 +15,6 @@ weight: 30
 
 <!-- overview -->
 
-
 <!-- 
 In this example, you will run a Kubernetes Job that uses multiple parallel
 worker processes.
@@ -25,7 +24,7 @@ to identify which part of the overall task to work on.
 -->
 在此示例中，你将运行一个使用多个并行工作进程的 Kubernetes Job。
 每个 worker 都是在自己的 Pod 中运行的不同容器。
-Pod 具有控制平面自动设置的 _索引编号（index number）_，
+Pod 具有控制平面自动设置的**索引编号（index number）**，
 这些编号使得每个 Pod 能识别出要处理整个任务的哪个部分。
 
 <!-- 
@@ -42,7 +41,7 @@ Pod 索引在{{<glossary_tooltip text="注解" term_id="annotation" >}}
 为了让容器化的任务进程获得此索引，你可以使用
 [downward API](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
 机制发布注解的值。为方便起见，
-控制平面自动设置 downward API 以在 `JOB_COMPLETION_INDEX` 环境变量中公开索引。
+控制平面自动设置 Downward API 以在 `JOB_COMPLETION_INDEX` 环境变量中公开索引。
 
 <!-- 
 Here is an overview of the steps in this example:
@@ -55,7 +54,7 @@ Here is an overview of the steps in this example:
 以下是此示例中步骤的概述：
 
 1. **定义使用带索引完成信息的 Job 清单**。
-   Downward API 使你可以将 Pod 索引注释作为环境变量或文件传递给容器。
+   Downward API 使你可以将 Pod 索引注解作为环境变量或文件传递给容器。
 2. **根据该清单启动一个带索引（`Indexed`）的 Job**。
 
 ## {{% heading "prerequisites" %}}
@@ -70,8 +69,10 @@ non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 
 <!-- steps -->
 
-<!-- ## Choose an approach -->
-## 选择一种方法
+<!-- 
+## Choose an approach
+ -->
+## 选择一种方法 {#choose-an-approach}
 
 <!-- 
 To access the work item from the worker program, you have a few options:
@@ -85,7 +86,7 @@ To access the work item from the worker program, you have a few options:
    that reads the index using any of the methods above and converts it into
    something that the program can use as input.
  -->
-要从工作程序访问工作项，你有几个选择：
+要从工作程序访问工作项，你有几个选项：
 
 1. 读取 `JOB_COMPLETION_INDEX` 环境变量。Job
    {{< glossary_tooltip text="控制器" term_id="controller" >}}
@@ -99,7 +100,7 @@ For this example, imagine that you chose option 3 and you want to run the
 [rev](https://man7.org/linux/man-pages/man1/rev.1.html) utility. This
 program accepts a file as an argument and prints its content reversed.
 -->
-对于此示例，假设你选择了方法 3 并且想要运行
+对于此示例，假设你选择了选项 3 并且想要运行
 [rev](https://man7.org/linux/man-pages/man1/rev.1.html) 实用程序。
 这个程序接受一个文件作为参数并按逆序打印其内容。
 
@@ -111,7 +112,7 @@ rev data.txt
 You'll use the `rev` tool from the
 [`busybox`](https://hub.docker.com/_/busybox) container image.
 -->
-你将使用 [`busybox`](https://hub.docker.com/_/busybox) 容器映像中的 `rev` 工具。
+你将使用 [`busybox`](https://hub.docker.com/_/busybox) 容器镜像中的 `rev` 工具。
 
 <!-- 
 As this is only an example, each Pod only does a tiny piece of work (reversing a short
@@ -123,17 +124,18 @@ frame of that video clip. Indexed completion would mean that each Pod in
 the Job knows which frame to render and publish, by counting frames from
 the start of the clip.
 -->
-由于这只是一个例子，每个 Pod 只做一小部分工作（反转一个短字符串）。 
-例如，在实际工作负载中，你可能会创建一个表示基于场景数据制作 60 秒视频的任务的 Job 。
-视频渲染 Job 中的每个工作项都将渲染该视频剪辑的特定帧。
-索引完成意味着 Job 中的每个 Pod 都知道通过从剪辑开始计算帧数，来确定渲染和发布哪一帧，。
-
-<!-- ## Define an Indexed Job -->
-## 定义索引作业
+由于这只是一个例子，每个 Pod 只做一小部分工作（反转一个短字符串）。
+例如，在实际工作负载中，你可能会创建一个表示基于场景数据制作 60 秒视频任务的 Job 。
+此视频渲染 Job 中的每个工作项都将渲染该视频剪辑的特定帧。
+索引完成意味着 Job 中的每个 Pod 都知道通过从剪辑开始计算帧数，来确定渲染和发布哪一帧。
 
 <!-- 
+## Define an Indexed Job 
+ 
 Here is a sample Job manifest that uses `Indexed` completion mode:
 -->
+## 定义索引作业 {#define-an-indexed-job}
+
 这是一个使用 `Indexed` 完成模式的示例 Job 清单：
 
 {{< codenew language="yaml" file="application/job/indexed-job.yaml" >}}
@@ -150,7 +152,7 @@ from a [ConfigMap as an environment variable or file](/docs/tasks/configure-pod-
 -->
 在上面的示例中，你使用 Job 控制器为所有容器设置的内置 `JOB_COMPLETION_INDEX` 环境变量。
 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)
-将索引映射到一个静态值，并将其写入一个文件，该文件通过 
+将索引映射到一个静态值，并将其写入一个文件，该文件通过
 [emptyDir 卷](/zh-cn/docs/concepts/storage/volumes/#emptydir)
 与运行 worker 的容器共享。或者，你可以
 [通过 Downward API 定义自己的环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
@@ -169,10 +171,13 @@ like shown in the following example:
 
 {{< codenew language="yaml" file="application/job/indexed-job-vol.yaml" >}}
 
-<!-- ## Running the Job -->
-## 执行 Job
+<!-- 
+## Running the Job 
 
-<!-- Now run the Job: -->
+Now run the Job: 
+-->
+## 执行 Job {running-the-job}
+
 现在执行 Job：
 
 ```shell
@@ -187,20 +192,22 @@ Because `.spec.parallelism` is less than `.spec.completions`, the control plane 
 
 Once you have created the Job, wait a moment then check on progress:
 -->
-当你创建此 Job 时，控制平面会创建一系列 Pod，每个索引都由你指定。
-`.spec.parallelism` 的值决定了一次可以运行多少个，
+当你创建此 Job 时，控制平面会创建一系列 Pod，你指定的每个索引都会运行一个 Pod。
+`.spec.parallelism` 的值决定了一次可以运行多少个 Pod，
 而 `.spec.completions` 决定了 Job 总共创建了多少个 Pod。
 
 因为 `.spec.parallelism` 小于 `.spec.completions`，
-控制平面在启动更多 Pod 之前，等待部分第一批 Pod 完成。
+所以控制平面在启动更多 Pod 之前，将等待第一批的某些 Pod 完成。
 
-创建 Job 后，稍等片刻，然后检查进度：
+创建 Job 后，稍等片刻，就能检查进度：
 
 ```shell
 kubectl describe jobs/indexed-job
 ```
 
-<!-- The output is similar to: -->
+<!-- 
+The output is similar to: 
+-->
 输出类似于：
 
 ```
@@ -269,7 +276,9 @@ inspect the output of one of the pods:
 kubectl logs indexed-job-fdhq5 # 更改它以匹配来自该 Job 的 Pod 的名称
 ```
 
-<!-- The output is similar to: -->
+<!-- 
+The output is similar to: 
+-->
 输出类似于：
 
 ```

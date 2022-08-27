@@ -20,7 +20,6 @@ aliases:
   sig-docs-en-owners: # Admins for English content
     - annajung
     - bradtopol
-    - celestehorgan
     - divya-mohan0209
     - jimangel
     - jlbutler
@@ -33,10 +32,8 @@ aliases:
     - savitharaghunathan
     - sftim
     - tengqm
-    - zacharysarah
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
-    - celestehorgan
     - daminisatya
     - divya-mohan0209
     - jimangel
@@ -48,7 +45,6 @@ aliases:
     - sftim
     - shannonxtreme
     - tengqm
-    - zacharysarah
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - electrocucaracha
@@ -86,11 +82,10 @@ aliases:
   sig-docs-hi-owners: # Admins for Hindi content
     - anubha-v-ardhan
     - divya-mohan0209
-    - mittalyashu
   sig-docs-hi-reviews: # PR reviews for Hindi content
     - anubha-v-ardhan
     - divya-mohan0209
-    - mittalyashu
+    - Garima-Negi
     - verma-kunal
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
@@ -130,12 +125,14 @@ aliases:
     - nasa9084
     # oke-py
     - ptux
+    - t-inu
   sig-docs-ko-owners: # Admins for Korean content
     - ClaudiaJKang
     - gochist
     - ianychoi
     - jihoon-seo
     - seokho-son
+    - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
     - ClaudiaJKang
@@ -157,32 +154,28 @@ aliases:
     - sftim
     - tengqm
   sig-docs-zh-owners: # Admins for Chinese content
-    # chenopis
     - chenrui333
-    # dchen1107
-    # haibinxie
-    # hanjiayao
     - howieyuen
-    # lichuqiang
     - mengjiao-liu
     - SataQiu
+    - Sea-n
     - tanjunchen
     - tengqm
     - xichengliudui
-    # zhangxiaoyu-zidif
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - chenrui333
     - chenxuc
     - howieyuen
-    - idealhack
+    # idealhack
     - mengjiao-liu
-    - pigletfly
+    # pigletfly
     - SataQiu
+    - Sea-n
     - tanjunchen
     - tengqm
+    - windsonsea
     - xichengliudui
     - ydFu
-    # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
     - edsoncelio
     - femrtnz
@@ -200,6 +193,7 @@ aliases:
     - devlware
     - jhonmike
     - rikatz
+    - stormqueen1990
     - yagonobre
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem

@@ -1,4 +1,4 @@
-# This is an example of how to setup cloud-controller-manager as a Daemonset in your cluster.
+# This is an example of how to set up cloud-controller-manager as a Daemonset in your cluster.
 # It assumes that your masters can run pods and has the role node-role.kubernetes.io/master
 # Note that this Daemonset will not work straight out of the box for your cloud, this is
 # meant to be a guideline.
@@ -42,9 +42,9 @@ spec:
       serviceAccountName: cloud-controller-manager
       containers:
       - name: cloud-controller-manager
-        # for in-tree providers we use k8s.gcr.io/cloud-controller-manager
+        # for in-tree providers we use registry.k8s.io/cloud-controller-manager
         # this can be replaced with any other image for out-of-tree providers
-        image: k8s.gcr.io/cloud-controller-manager:v1.8.0
+        image: registry.k8s.io/cloud-controller-manager:v1.8.0
         command:
         - /usr/local/bin/cloud-controller-manager
         - --cloud-provider=[YOUR_CLOUD_PROVIDER]  # Add your own cloud provider here!

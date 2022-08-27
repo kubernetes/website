@@ -256,6 +256,7 @@ You will still have to enable each option using the `CPUManagerPolicyOptions` ku
 The following policy options exist for the static `CPUManager` policy:
 * `full-pcpus-only` (beta, visible by default)
 * `distribute-cpus-across-numa` (alpha, hidden by default)
+* `align-by-socket` (alpha, hidden by default)
 
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
 By default, without this option, the static policy allocates CPUs using a topology-aware best-fit allocation.
@@ -279,6 +280,19 @@ By distributing CPUs evenly across NUMA nodes, application developers can more
 easily ensure that no single worker suffers from NUMA effects more than any
 other, improving the overall performance of these types of applications.
 
+If the `align-by-socket` policy option is specified, CPUs will be considered
+aligned at the socket boundary when deciding how to allocate CPUs to a
+container. By default, the `CPUManager` aligns CPU allocations at the NUMA
+boundary, which could result in performance degradation if CPUs need to be
+pulled from more than one NUMA node to satisfy the allocation. Although it
+tries to ensure that all CPUs are allocated from the _minimum_ number of NUMA
+nodes, there is no guarantee that those NUMA nodes will be on the same socket.
+By directing the `CPUManager` to explicitly align CPUs at the socket boundary
+rather than the NUMA boundary, we are able to avoid such issues. Note, this
+policy option is not compatible with `TopologyManager` `single-numa-node`
+policy and does not apply to hardware where the number of sockets is greater
+than number of NUMA nodes.
+
 The `full-pcpus-only` option can be enabled by adding `full-pcups-only=true` to
 the CPUManager policy options.
 Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
@@ -286,3 +300,6 @@ Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
 When both are set, they are "additive" in the sense that CPUs will be
 distributed across NUMA nodes in chunks of full-pcpus rather than individual
 cores.
+The `align-by-socket` policy option can be enabled by adding `align-by-socket=true`
+to the `CPUManager` policy options. It is also additive to the `full-pcpus-only`
+and `distribute-cpus-across-numa` policy options.

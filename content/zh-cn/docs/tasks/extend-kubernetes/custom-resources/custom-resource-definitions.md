@@ -105,7 +105,7 @@ spec:
     plural: crontabs
     # singular name to be used as an alias on the CLI and for display
     singular: crontab
-    # kind is normally the PascalCased singular type. Your resource manifests use this.
+    # kind is normally the CamelCased singular type. Your resource manifests use this.
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
@@ -148,7 +148,7 @@ spec:
     plural: crontabs
     # 名称的单数形式，作为命令行使用时和显示时的别名
     singular: crontab
-    # kind 通常是单数形式的帕斯卡编码（PascalCased）形式。你的资源清单会使用这一形式。
+    # kind 通常是单数形式的驼峰命名（CamelCased）形式。你的资源清单会使用这一形式。
     kind: CronTab
     # shortNames 允许你在命令行使用较短的字符串来匹配资源
     shortNames:
@@ -206,7 +206,7 @@ If you save the following YAML to `my-crontab.yaml`:
 
 在创建了 CustomResourceDefinition 对象之后，你可以创建定制对象（Custom
 Objects）。定制对象可以包含定制字段。这些字段可以包含任意的 JSON 数据。
-在下面的例子中，在类别为 `CrontTab` 的定制对象中，设置了`cronSpec` 和 `image`
+在下面的例子中，在类别为 `CronTab` 的定制对象中，设置了`cronSpec` 和 `image`
 定制字段。类别 `CronTab` 来自你在上面所创建的 CRD 的规约。
 
 如果你将下面的 YAML 保存到 `my-crontab.yaml`：
@@ -310,7 +310,8 @@ kubectl get crontabs
 ```
 
 ```none
-Error from server (NotFound): Unable to list {"stable.example.com" "v1" "crontabs"}: the server could not find the requested resource (get crontabs.stable.example.com)
+Error from server (NotFound): Unable to list {"stable.example.com" "v1" "crontabs"}: the server could not
+find the requested resource (get crontabs.stable.example.com)
 ```
 
 <!--
@@ -321,7 +322,7 @@ If you later recreate the same CustomResourceDefinition, it will start out empty
 <!--
 ## Specifying a structural schema
 
-CustomResources store structured data in custom fiels (alongside the built-in
+CustomResources store structured data in custom fields (alongside the built-in
 fields `apiVersion`, `kind` and `metadata`, which the API server validates
 implicitly). With [OpenAPI v3.0 validation](#validation) a schema can be
 specified, which is validated during creation and updates, compare below for
@@ -329,7 +330,7 @@ details and limits of such a schema.
 
 With `apiextensions.k8s.io/v1` the definition of a structural schema is
 mandatory for CustomResourceDefinitions. In the beta version of
-CustomResourceDefinition, structural schemas were optional.
+CustomResourceDefinition, the structural schema was optional.
 -->
 ## 设置结构化的模式   {#specifying-a-structural-schema}
 
@@ -346,11 +347,15 @@ CustomResource 对象在定制字段中保存结构化的数据，这些字段�
 <!--
 A structural schema is an [OpenAPI v3.0 validation schema](#validation) which:
 
-1. specifies a non-empty type (via `type` in OpenAPI) for the root, for each specified field of an object node (via `properties` or `additionalProperties` in OpenAPI) and for each item in an array node (via `items` in OpenAPI), with the exception of:
+1. specifies a non-empty type (via `type` in OpenAPI) for the root, for each specified field of an object node
+   (via `properties` or `additionalProperties` in OpenAPI) and for each item in an array node
+   (via `items` in OpenAPI), with the exception of:
    * a node with `x-kubernetes-int-or-string: true`
    * a node with `x-kubernetes-preserve-unknown-fields: true`
-2. for each field in an object and each item in an array which is specified within any of `allOf`, `anyOf`, `oneOf` or `not`, the schema also specifies the field/item outside of those logical junctors (compare example 1 and 2).
-3. does not set `description`, `type`, `default`, `additionalProperties`, `nullable` within an `allOf`, `anyOf`, `oneOf` or `not`, with the exception of the two pattern for `x-kubernetes-int-or-string: true` (see below).
+2. for each field in an object and each item in an array which is specified within any of `allOf`, `anyOf`,
+   `oneOf` or `not`, the schema also specifies the field/item outside of those logical junctors (compare example 1 and 2).
+3. does not set `description`, `type`, `default`, `additionalProperties`, `nullable` within an `allOf`, `anyOf`,
+   `oneOf` or `not`, with the exception of the two pattern for `x-kubernetes-int-or-string: true` (see below).
 4. if `metadata` is specified, then only restrictions on `metadata.name` and `metadata.generateName` are allowed.
 -->
 结构化模式本身是一个 [OpenAPI v3.0 验证模式](#validation)，其中：
@@ -509,7 +514,9 @@ Violations of the structural schema rules are reported in the `NonStructural` co
 <!--
 ### Field pruning
 
-CustomResourceDefinitions store validated resource data in the cluster's persistence store, {{< glossary_tooltip term_id="etcd" text="etcd">}}. As with native Kubernetes resources such as {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}, if you specify a field that the API server does not recognize, the unknown field  is _pruned_ (removed) before being persisted.
+CustomResourceDefinitions store validated resource data in the cluster's persistence store, {{< glossary_tooltip term_id="etcd" text="etcd">}}.
+As with native Kubernetes resources such as {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
+if you specify a field that the API server does not recognize, the unknown field  is _pruned_ (removed) before being persisted.
 -->
 ### 字段剪裁     {#field-pruning}
 
@@ -521,9 +528,8 @@ CustomResourceDefinition 在集群的持久性存储
 被 _剪裁（Pruned）_ 掉（删除）。
 
 <!--
-CRDs converted from `apiextensions.k8s.io/v1beta1` to
-`apiextensions.k8s.io/v1` might lack structural schemas, and
-`spec.preserveUnknownFields` might be `true`.
+CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack structural schemas,
+and `spec.preserveUnknownFields` might be `true`.
 
 For legacy CustomResourceDefinition objects created as
 `apiextensions.k8s.io/v1beta1` with `spec.preserveUnknownFields` set to
@@ -581,11 +587,11 @@ kubectl create --validate=false -f my-crontab.yaml -o yaml
 ```
 
 <!--
-your output is similar to:
+Your output is similar to:
 -->
 输出类似于：
 
-```console
+```yaml
 apiVersion: stable.example.com/v1
 kind: CronTab
 metadata:
@@ -618,7 +624,9 @@ to clients, `kubectl` also checks for unknown fields and rejects those objects w
 <!--
 #### Controlling pruning
 
-By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specific sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
+By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to
+opt-out of that for specifc sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the
+[structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
 For example:
 -->
 #### 控制剪裁   {#controlling-pruning}
@@ -731,9 +739,8 @@ properties:
 ```
 
 <!--
-Also those nodes are partially excluded from rule 3 in the sense that the
-following two patterns are allowed (exactly those, without variations in order
-to additional fields):
+Also those nodes are partially excluded from rule 3 in the sense that the following two patterns are allowed
+(exactly those, without variations in order to additional fields):
 -->
 此外，所有这类节点也不再受规则 3 约束，也就是说，下面两种模式是被允许的
 （注意，仅限于这两种模式，不支持添加新字段的任何其他变种）：
@@ -776,7 +783,8 @@ RawExtensions (as in `runtime.RawExtension` defined in
 [k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94))
 holds complete Kubernetes objects, i.e. with `apiVersion` and `kind` fields.
 
-It is possible to specify those embedded objects (both completely without constraints or partially specified) by setting `x-kubernetes-embedded-resource: true`. For example:
+It is possible to specify those embedded objects (both completely without constraints or partially specified)
+by setting `x-kubernetes-embedded-resource: true`. For example:
 -->
 RawExtensions（就像在
 [k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94)
@@ -809,9 +817,8 @@ foo:
 ```
 
 <!--
-Because `x-kubernetes-preserve-unknown-fields: true` is specified alongside,
-nothing is pruned. The use of `x-kubernetes-preserve-unknown-fields: true` is
-optional though.
+Because `x-kubernetes-preserve-unknown-fields: true` is specified alongside, nothing is pruned.
+The use of `x-kubernetes-preserve-unknown-fields: true` is optional though.
 
 With `x-kubernetes-embedded-resource: true`, the `apiVersion`, `kind` and `metadata` are implicitly specified and validated.
 -->
@@ -1130,18 +1137,25 @@ crontab "my-new-cron-object" created
 -->
 ## 验证规则
 
-{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
+{{< feature-state state="beta" for_k8s_version="v1.25" >}}
 
 <!--
-Validation rules are in alpha since 1.23 and validate custom resources when the
+Validation rules are in beta since 1.25 and the
 `CustomResourceValidationExpressions` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default to validate custom resource
+ based on _validation rules_. You can disable this feature by explicitly setting the
+ `CustomResourceValidationExpressions` feature gate to `false`,
+ for the `[kube-apiserver](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/)` component.
 This feature is only available if the schema is a
 [structural schema](#specifying-a-structural-schema).
 -->
-验证规则从 1.23 开始处于 Alpha 状态，
-当 `CustomResourceValidationExpressions` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用时，
-验证定制资源。这个功能只有在模式是[结构化的模式](#specifying-a-structural-schema)时才可用。
+验证规则从 1.25 开始处于 Beta 状态，
+默认情况下，`CustomResourceValidationExpressions` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+是被启用的，以便根据**验证规则**来验证定制资源。
+对于 [`kube-apiserver`](docs/reference/command-line-tools-reference/kube-apiserver/) 组件，
+特性门控显式设置为 false 来禁用此特性。
+
+这个特性只有在模式是[结构化的模式](#specifying-a-structural-schema)时才可用。
 
 <!--
 Validation rules use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
@@ -1250,14 +1264,14 @@ Compilation process includes type checking as well.
 The compilation failure:
 - `no_matching_overload`: this function has no overload for the types of the arguments.
 
-   e.g. Rule like `self == true` against a field of integer type will get error:
+  e.g. Rule like `self == true` against a field of integer type will get error:
   ```
   Invalid value: apiextensions.ValidationRule{Rule:"self == true", Message:""}: compilation failed: ERROR: \<input>:1:6: found no matching overload for '_==_' applied to '(int, bool)'
   ```
 
 - `no_such_field`: does not contain the desired field.
 
-   e.g. Rule like `self.nonExistingField > 0` against a non-existing field will return the error:
+  e.g. Rule like `self.nonExistingField > 0` against a non-existing field will return the error:
   ```
   Invalid value: apiextensions.ValidationRule{Rule:"self.nonExistingField > 0", Message:""}: compilation failed: ERROR: \<input>:1:5: undefined field 'nonExistingField'
   ```
@@ -1299,11 +1313,11 @@ Validation Rules Examples:
 | `'Available' in self.stateCounts`                                                | Validate that an entry with the 'Available' key exists in a map                   |
 | `(size(self.list1) == 0) != (size(self.list2) == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
 | <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code>               | Validate the value of a map for a specific key, if it is in the map               |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
+| `self.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
 | `has(self.expired) && self.created + self.ttl < self.expired`                    | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `self.health.startsWith('ok')`                                                   | Validate a 'health' string field has the prefix 'ok'                              |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                             | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
-| `type(self) == string ? self == '100%' : self == 1000`                           | Validate an int-or-string field for both the the int and string cases             |
+| `type(self) == string ? self == '100%' : self == 1000`                           | Validate an int-or-string field for both the int and string cases             |
 | `self.metadata.name.startsWith(self.prefix)`                                     | Validate that an object's name has the prefix of another field value              |
 | `self.set1.all(e, !(e in self.set2))`                                            | Validate that two listSets are disjoint                                           |
 | `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
@@ -1469,7 +1483,7 @@ Examples:
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the
 object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
 -->
-`apiVersion`、`kind``metadata.name` 和 `metadata.generateName` 始终可以从对象的根目录和任何
+`apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName` 始终可以从对象的根目录和任何
 带有 `x-kubernetes-embedded-resource` 注解的对象访问。
 其他元数据属性都不可访问。
 
@@ -1499,6 +1513,7 @@ Accessible property names are escaped according to the following rules when acce
 当在表达式中访问时，可访问的属性名称会根据以下规则进行转义：
 
 <!--
+| escape sequence         | property name equivalent  |
 | ----------------------- | -----------------------|
 | `__underscores__`       | `__`                  |
 | `__dot__`               | `.`                   |
@@ -1605,8 +1620,9 @@ Here is the declarations type mapping between OpenAPIv3 and CEL type:
 | 带有 format=duration 字符串                      | duration (google.protobuf.Duration)                                                                                          |
 
 <!--
-xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values), [OpenAPI
-types](https://swagger.io/specification/#data-types), [Kubernetes Structural Schemas](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
+xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values),
+[OpenAPI types](https://swagger.io/specification/#data-types),
+[Kubernetes Structural Schemas](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
 -->
 参考：[CEL 类型](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values)，
 [OpenAPI 类型](https://swagger.io/specification/#data-types)，
@@ -1619,10 +1635,10 @@ types](https://swagger.io/specification/#data-types), [Kubernetes Structural Sch
 
 <!--
 Functions available include:
-  - CEL standard functions, defined in the [list of standard definitions](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)
-  - CEL standard [macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
-  - CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
-  - Kubernetes [CEL extension library](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions)
+- CEL standard functions, defined in the [list of standard definitions](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)
+- CEL standard [macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
+- CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
+- Kubernetes [CEL extension library](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions)
 -->
 可用的函数包括：
   - CEL 标准函数，在[标准定义列表](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)中定义
@@ -1690,7 +1706,8 @@ schema is not mergeable"。
 
 <!--
 Transition rules are only allowed on _correlatable portions_ of a schema.
-A portion of the schema is correlatable if all `array` parent schemas are of type `x-kubernetes-list-type=map`; any `set`or `atomic`array parent schemas make it impossible to unambiguously correlate a `self` with `oldSelf`.
+A portion of the schema is correlatable if all `array` parent schemas are of type `x-kubernetes-list-type=map`;
+any `set`or `atomic`array parent schemas make it impossible to unambiguously correlate a `self` with `oldSelf`.
 -->
 转换规则只允许在模式的“可关联部分（Correlatable Portions）”中使用。
 如果所有 `array` 父模式都是 `x-kubernetes-list-type=map`类型的，那么该模式的一部分就是可关联的；
@@ -1766,16 +1783,17 @@ longer to execute depending on how long `foo` is.
 但是，如果 `foo` 是一个字符串，而你定义了一个验证规则 `self.foo.contains("someString")`，
 这个规则需要更长的时间来执行，取决于 `foo` 有多长。
 <!--
-Another example would be if `foo` were an array, and you specified a validation rule `self.foo.all(x, x > 5)`. The cost system always assumes the worst-case scenario if
-a limit on the length of `foo` is not given, and this will happen for anything that can be iterated
-over (lists, maps, etc.).
+Another example would be if `foo` were an array, and you specified a validation rule `self.foo.all(x, x > 5)`.
+The cost system always assumes the worst-case scenario if a limit on the length of `foo` is not
+given, and this will happen for anything that can be iterated over (lists, maps, etc.).
 -->
 另一个例子是如果 `foo` 是一个数组，而你指定了验证规则 `self.foo.all(x, x > 5)`。
 如果没有给出 `foo` 的长度限制，成本系统总是假设最坏的情况，这将发生在任何可以被迭代的事物上（list、map 等）。
 
 <!--
 Because of this, it is considered best practice to put a limit via `maxItems`, `maxProperties`, and
-`maxLength` for anything that will be processed in a validation rule in order to prevent validation errors during cost estimation. For example, given this schema with one rule:
+`maxLength` for anything that will be processed in a validation rule in order to prevent validation
+errors during cost estimation. For example, given this schema with one rule:
 -->
 因此，通过 `maxItems`，`maxProperties` 和 `maxLength` 进行限制被认为是最佳实践，
 以在验证规则中处理任何内容，以防止在成本估算期间验证错误。例如，给定具有一个规则的模式：
@@ -1797,9 +1815,9 @@ then the API server rejects this rule on validation budget grounds with error:
 -->
 API 服务器以验证预算为由拒绝该规则，并显示错误：
 ```
- spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden:
- CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and
- maxLength where arrays, maps, and strings are used)
+spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden: 
+CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and 
+maxLength where arrays, maps, and strings are used)
 ```
 
 <!--
@@ -1855,7 +1873,8 @@ openAPIV3Schema:
 
 <!--
 If a list inside of a list has a validation rule that uses `self.all`, that is significantly more expensive
-than a non-nested list with the same rule. A rule that would have been allowed on a non-nested list might need lower limits set on both nested lists in order to be allowed. For example, even without having limits set,
+than a non-nested list with the same rule. A rule that would have been allowed on a non-nested list might need
+lower limits set on both nested lists in order to be allowed. For example, even without having limits set,
 the following rule is allowed:
 -->
 如果在一个列表内部的一个列表有一个使用 `self.all` 的验证规则，那就会比具有相同规则的非嵌套列表的成本高得多。
@@ -1993,7 +2012,8 @@ Defaulting happens on the object
 * when reading from etcd using the storage version defaults,
 * after mutating admission plugins with non-empty patches using the admission webhook object version defaults.
 
-Defaults applied when reading data from etcd are not automatically written back to etcd. An update request via the API is required to persist those defaults back into etcd.
+Defaults applied when reading data from etcd are not automatically written back to etcd.
+An update request via the API is required to persist those defaults back into etcd.
 -->
 默认值设定的行为发生在定制对象上：
 
@@ -2008,7 +2028,9 @@ Defaults applied when reading data from etcd are not automatically written back 
 <!--
 Default values must be pruned (with the exception of defaults for `metadata` fields) and must validate against a provided schema.
 
-Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` nodes (or parts of a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but through the pruning step during handling of requests.
+Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` nodes (or parts of
+a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but
+through the pruning step during handling of requests.
 -->
 默认值一定会被剪裁（除了 `metadata` 字段的默认值设置），且必须通过所提供
 的模式定义的检查。
@@ -2020,7 +2042,9 @@ Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` 
 <!--
 #### Defaulting and Nullable
 
-**New in 1.20:** null values for fields that either don't specify the nullable flag, or give it a `false` value, will be pruned before defaulting happens. If a default is present, it will be applied. When nullable is `true`, null values will be conserved and won't be defaulted.
+**New in 1.20:** null values for fields that either don't specify the nullable flag, or give it a
+`false` value, will be pruned before defaulting happens. If a default is present, it will be
+applied. When nullable is `true`, null values will be conserved and won't be defaulted.
 
 For example, given the OpenAPI schema below:
 -->
@@ -2074,7 +2098,9 @@ spec:
 ```
 
 <!--
-with `foo` pruned and defaulted because the field is non-nullable, `bar` maintaining the null value due to `nullable: true`, and `baz` pruned because the field is non-nullable and has no default.
+with `foo` pruned and defaulted because the field is non-nullable, `bar` maintaining the null
+value due to `nullable: true`, and `baz` pruned because the field is non-nullable and has no
+default.
 -->
 其中的 `foo` 字段被剪裁掉并重新设置默认值，因为该字段是不可为空的。
 `bar` 字段的 `nullable: true` 使得其能够保有其空值。
@@ -2083,9 +2109,14 @@ with `foo` pruned and defaulted because the field is non-nullable, `bar` maintai
 <!--
 ### Publish Validation Schema in OpenAPI v2
 
-CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#field-pruning) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
+CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are
+[structural](#specifying-a-structural-schema) and [enable pruning](#field-pruning) are published
+as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)
+from Kubernetes API server.
 
-The [kubectl](/docs/reference/kubectl/) command-line tool consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
+The [kubectl](/docs/reference/kubectl/) command-line tool consumes the published schema to perform
+client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`)
+on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
 -->
 ### 以 OpenAPI v2 形式发布合法性检查模式      {#publish-validation-schema-in-openapi-v2}
 
@@ -2117,9 +2148,13 @@ OpenAPI v3 合法性检查模式定义会被转换为 OpenAPI v2 模式定义，
 的[合法性检查](#validation)。
 
 <!--
-1. The following fields are removed as they aren't supported by OpenAPI v2 (in future versions OpenAPI v3 will be used without these restrictions)
+1. The following fields are removed as they aren't supported by OpenAPI v2
+   (in future versions OpenAPI v3 will be used without these restrictions)
+
    - The fields `allOf`, `anyOf`, `oneOf` and `not` are removed
-2. If `nullable: true` is set, we drop `type`, `nullable`, `items` and `properties` because OpenAPI v2 is not able to express nullable. To avoid kubectl to reject good objects, this is necessary.
+
+2. If `nullable: true` is set, we drop `type`, `nullable`, `items` and `properties` because OpenAPI v2 is
+   not able to express nullable. To avoid kubectl to reject good objects, this is necessary.
 -->
 1. 以下字段会被移除，因为它们在 OpenAPI v2 中不支持（在将来版本中将使用 OpenAPI v3，
    因而不会有这些限制）
@@ -2251,7 +2286,8 @@ View）和宽视图（Wide View）（使用 `-o wide` 标志）中显示的列�
 <!--
 #### Type
 
-A column's `type` field can be any of the following (compare [OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
+A column's `type` field can be any of the following (compare
+[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
 
 - `integer` – non-floating-point numbers
 - `number` – floating point numbers
@@ -2410,16 +2446,17 @@ the status replica value in the `/scale` subresource will default to 0.
     副本个数状态值默认为 0。
 
 <!--
-- `labelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `scale.status.selector`.
+- `labelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Selector`.
 
   - It is an optional value.
   - It must be set to work with HPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
   - If there is no value under the `labelSelectorPath` in the custom resource,
-the status selector value in the `/scale` subresource will default to the empty string.
-  - The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form.
+    the status selector value in the `/scale` subresource will default to the empty string.
+  - The field pointed by this JSON path must be a string field (not a complex selector struct)
+    which contains a serialized label selector in string form.
 -->
-- `labelSelectorPath` 指定定制资源内与 `scale.status.selector` 对应的 JSON 路径。
+- `labelSelectorPath` 指定定制资源内与 `Scale.Status.Selector` 对应的 JSON 路径。
 
   - 此字段为可选值。
   - 此字段必须设置才能使用 HPA。
@@ -2677,9 +2714,9 @@ kubectl get all
 ```
 
 <!--
-The output will include the custom resources of kind `CronTab`:
+and it will include the custom resources of kind `CronTab`:
 -->
-输出中会包含类别为 `CronTab` 的定制资源：
+输出中将包含类别为 `CronTab` 的定制资源：
 
 ```console
 NAME                          AGE
@@ -2695,6 +2732,7 @@ crontabs/my-new-cron-object   3s
 
 * Serve [multiple versions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/) of a
   CustomResourceDefinition.
+
 -->
 * 阅读了解[定制资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 参阅 [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io)

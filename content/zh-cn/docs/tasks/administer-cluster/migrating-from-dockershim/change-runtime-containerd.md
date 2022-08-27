@@ -12,15 +12,15 @@ content_type: task
 
 <!--
 This task outlines the steps needed to update your container runtime to containerd from Docker. It
-is applicable for cluster operators running Kubernetes 1.23 or earlier. Also  this covers an
-example scenario for migrating from dockershim to containerd and alternative container runtimes
+is applicable for cluster operators running Kubernetes 1.23 or earlier. This also covers an
+example scenario for migrating from dockershim to containerd. Alternative container runtimes
 can be picked from this [page](/docs/setup/production-environment/container-runtimes/).
 -->
 本任务给出将容器运行时从 Docker 改为 containerd 所需的步骤。
 此任务适用于运行 1.23 或更早版本 Kubernetes 的集群操作人员。
-同时，此任务也涉及从 dockershim 迁移到 containerd 的示例场景，
-以及可以从[此页面](/zh-cn/docs/setup/production-environment/container-runtimes/)
-获得的其他容器运行时列表。
+同时，此任务也涉及从 dockershim 迁移到 containerd 的示例场景。
+有关其他备选的容器运行时，可查阅
+[此页面](/zh-cn/docs/setup/production-environment/container-runtimes/)进行拣选。
 
 ## {{% heading "prerequisites" %}}
 
@@ -48,7 +48,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 <!--
 Replace `<node-to-drain>` with the name of your node you are draining.
 -->
-将 `<node-to-drain>` 替换为你所要腾空的节点的名称
+将 `<node-to-drain>` 替换为你所要腾空的节点的名称。
 
 <!--
 ## Stop the Docker daemon
@@ -159,13 +159,13 @@ then run the following commands:
 
 Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags.
 `--container-runtime=remote` and
-`--container-runtime-endpoint=unix:///run/containerd/containerd.sock"`.
+`--container-runtime-endpoint=unix:///run/containerd/containerd.sock`.
 -->
 ## 配置 kubelet 使用 containerd 作为其容器运行时
 
 编辑文件 `/var/lib/kubelet/kubeadm-flags.env`，将 containerd 运行时添加到标志中：
 `--container-runtime=remote` 和
-`--container-runtime-endpoint=unix:///run/containerd/containerd.sock"`。
+`--container-runtime-endpoint=unix:///run/containerd/containerd.sock`。
 
 <!--
 Users using kubeadm should be aware that the `kubeadm` tool stores the CRI socket for each host as
@@ -233,7 +233,7 @@ Finally if everything goes well, remove Docker.
 -->
 最后，在一切顺利时删除 Docker。
 
-{{< tabs name="tab-remove-docker-enigine" >}}
+{{< tabs name="tab-remove-docker-engine" >}}
 {{% tab name="CentOS" %}}
 
 ```shell

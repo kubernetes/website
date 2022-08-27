@@ -52,6 +52,6 @@ El servidor reune métricas de la Summary API, que es expuesta por el [Kubelet](
 El servidor de métricas se añadió a la API de Kubernetes utilizando el
 [Kubernetes aggregator](/docs/concepts/api-extension/apiserver-aggregation/) introducido en Kubernetes 1.7.
 
-Puedes aprender más acerca del servidor de métricas en el [documento de diseño](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
+Puedes aprender más acerca del servidor de métricas en el [documento de diseño](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/metrics-server.md).
 
 

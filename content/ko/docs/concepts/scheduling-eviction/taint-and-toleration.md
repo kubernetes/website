@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - davidopp
+# - kevin-wangzefeng
+# - bsalamat
 title: 테인트(Taints)와 톨러레이션(Tolerations)
 content_type: concept
 weight: 40
@@ -15,8 +15,7 @@ weight: 40
 (기본 설정 또는 어려운 요구 사항으로) *끌어들이는* {{< glossary_tooltip text="파드" term_id="pod" >}}의 속성이다.
 _테인트_ 는 그 반대로, 노드가 파드 셋을 제외할 수 있다.
 
-_톨러레이션_ 은 파드에 적용되며, 파드를 일치하는 테인트가 있는 노드에
-스케줄되게 하지만 필수는 아니다.
+_톨러레이션_ 은 파드에 적용된다. 톨러레이션을 통해 스케줄러는 그와 일치하는 테인트가 있는 파드를 스케줄할 수 있다. 톨러레이션은 스케줄을 허용하지만 보장하지는 않는다. 스케줄러는 그 기능의 일부로서 [다른 매개변수를](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/) 고려한다.
 
 테인트와 톨러레이션은 함께 작동하여 파드가 부적절한 노드에 스케줄되지
 않게 한다. 하나 이상의 테인트가 노드에 적용된다. 이것은

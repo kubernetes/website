@@ -143,18 +143,17 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * Resource limits
   * OS field: 
     The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
-    The `IdentifyPodOS` feature gate needs to be enabled for this field to be recognized.
 
     {{< note >}}
-    Starting from 1.24, the `IdentifyPodOS` feature gate is in Beta stage and defaults to be enabled.
+    Starting from 1.25, the `IdentifyPodOS` feature gate is in GA stage and defaults to be enabled.
     {{< /note >}}
 
-    If the `IdentifyPodOS` feature gate is enabled and you set the `.spec.os.name` field to `windows`,
+    If you set the `.spec.os.name` field to `windows`,
     you must not set the following fields in the `.spec` of that Pod:  
     In the above list, wildcards (`*`) indicate all elements in a list.
     For example, `spec.containers[*].securityContext` refers to the SecurityContext object
     for all containers. If any of these fields is specified, the Pod will
-    not be admited by the API server.
+    not be admitted by the API server.
 -->
 * [Pod](/zh-cn/docs/concepts/workloads/pods/)
   
@@ -174,15 +173,14 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * 操作系统字段：
 
     `.spec.os.name` 字段应设置为 `windows` 以表明当前 Pod 使用 Windows 容器。
-    需要启用 `IdentifyPodOS` 特性门控才能让这个字段被识别。
-    
-    {{< note >}} 
-    从 1.24 开始，`IdentifyPodOS` 特性门控进入 Beta 阶段，默认启用。
+
+    {{< note >}}
+    从 1.25 开始，`IdentifyPodOS` 特性门控进入 GA 阶段，默认启用。
     {{< /note >}}
-    
-    如果 `IdentifyPodOS` 特性门控已启用并且你将 `.spec.os.name` 字段设置为 `windows`，
-    则你不得在对应 Pod 的 `.spec` 中设置以下字段：
-    
+
+    如果你将 `.spec.os.name` 字段设置为 `windows`，
+    则你必须不能在对应 Pod 的 `.spec` 中设置以下字段：
+
     * `spec.hostPID`
     * `spec.hostIPC`
     * `spec.securityContext.seLinuxOptions`
@@ -218,7 +216,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * CronJob
   * ReplicationController
 * {{< glossary_tooltip text="Services" term_id="service" >}}
-  See [Load balancing and Services](#load-balancing-and-services) for more details.
+  See [Load balancing and Services](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) for more details.
 -->
 * [工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)包括：
   
@@ -232,7 +230,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
 
 * {{< glossary_tooltip text="Services" term_id="service" >}}
 
-  有关更多详细信息，请参考[负载均衡和 Service](#load-balancing-and-services)。
+  有关更多详细信息，请参考[负载均衡和 Service](/zh-cn/docs/concepts/services-networking/windows-networking/#load-balancing-and-services)。
 
 <!--
 Pods, workload resources, and Services are critical elements to managing Windows
@@ -524,7 +522,7 @@ Kubernetes 使用 pause 容器以允许工作容器崩溃或重启，而不会�
 
 <!--
 Kubernetes maintains a multi-architecture image that includes support for Windows.
-For Kubernetes v{{< skew currentVersion >}} the recommended pause image is `k8s.gcr.io/pause:3.6`.
+For Kubernetes v{{< skew currentVersion >}} the recommended pause image is `registry.k8s.io/pause:3.6`.
 The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
 is available on GitHub.
 
@@ -537,7 +535,7 @@ deploying to a production or production-like environment that requires signed
 binaries.
 -->
 Kubernetes 维护一个多体系结构的镜像，包括对 Windows 的支持。
-对于 Kubernetes v{{< skew currentVersion >}}，推荐的 pause 镜像为 `k8s.gcr.io/pause:3.6`。
+对于 Kubernetes v{{< skew currentVersion >}}，推荐的 pause 镜像为 `registry.k8s.io/pause:3.6`。
 可在 GitHub 上获得[源代码](https://github.com/kubernetes/kubernetes/tree/master/build/pause)。
 
 Microsoft 维护一个不同的多体系结构镜像，支持 Linux 和 Windows amd64，

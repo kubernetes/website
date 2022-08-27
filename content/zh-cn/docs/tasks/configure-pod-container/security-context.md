@@ -721,7 +721,7 @@ Pod 的安全上下文适用于 Pod 中的容器，也适用于 Pod 所挂载的
 <!--
 * `fsGroup`: Volumes that support ownership management are modified to be owned
   and writable by the GID specified in `fsGroup`. See the
-  [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
+  [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
   for more details.
 
 * `seLinuxOptions`: Volumes that support SELinux labeling are relabeled to be accessible
@@ -732,7 +732,7 @@ Pod 的安全上下文适用于 Pod 中的容器，也适用于 Pod 所挂载的
 -->
 * `fsGroup`：支持属主管理的卷会被修改，将其属主变更为 `fsGroup` 所指定的 GID，
   并且对该 GID 可写。进一步的细节可参阅
-  [属主变更设计文档](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)。
+  [属主变更设计文档](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)。
 
 * `seLinuxOptions`：支持 SELinux 标签的卷会被重新打标签，以便可被 `seLinuxOptions`
   下所设置的标签访问。通常你只需要设置 `level` 部分。
@@ -771,11 +771,11 @@ kubectl delete pod security-context-demo-4
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 * [Tuning Docker with the newest security enhancements](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
-* [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
-* [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
+* [Security Contexts design document](https://git.k8s.io/design-proposals-archive/auth/security_context.md)
+* [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
 * [Pod Security Policies](/docs/concepts/security/pod-security-policy/)
 * [AllowPrivilegeEscalation design
-  document](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
+  document](https://git.k8s.io/design-proposals-archive/auth/no-new-privs.md)
 * For more information about security mechanisms in Linux, see
   [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
 -->

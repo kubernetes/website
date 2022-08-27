@@ -18,19 +18,18 @@ This tutorial shows you how to run [Apache Cassandra](https://cassandra.apache.o
 Cassandra, a database, needs persistent storage to provide data durability (application _state_).
 In this example, a custom Cassandra seed provider lets the database discover new Cassandra instances as they join the Cassandra cluster.
 -->
-本教程描述拉如何在 Kubernetes 上运行 [Apache Cassandra](https://cassandra.apache.org/)。
-数据库 Cassandra 需要永久性存储提供数据持久性（应用“状态”）。
-在此示例中，自定义 Cassandra seed provider 使数据库在加入 Cassandra
-集群时发现新的 Cassandra 实例。
+本教程描述了如何在 Kubernetes 上运行 [Apache Cassandra](https://cassandra.apache.org/)。
+数据库 Cassandra 需要永久性存储提供数据持久性（应用**状态**）。
+在此示例中，自定义 Cassandra seed provider 使数据库在接入 Cassandra 集群时能够发现新的 Cassandra 实例。
 
 <!--
 *StatefulSets* make it easier to deploy stateful applications into your Kubernetes cluster.
 For more information on the features used in this tutorial, see
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 -->
-使用"StatefulSets"可以更轻松地将有状态的应用程序部署到你的 Kubernetes 集群中。
+使用**StatefulSet**可以更轻松地将有状态的应用程序部署到你的 Kubernetes 集群中。
 有关本教程中使用的功能的更多信息，
-参阅 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
+请参阅 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
 
 {{< note >}}
 <!--
@@ -40,8 +39,8 @@ of the Cassandra cluster (called a _ring_). When those Pods run in your Kubernet
 the Kubernetes control plane schedules those Pods onto Kubernetes
 {{< glossary_tooltip text="Nodes" term_id="node" >}}.
 -->
-Cassandra 和 Kubernetes 都使用术语“节点（node）”来表示集群的成员。
-在本教程中，属于 StatefulSet 的 Pod 是 Cassandra 节点，并且是 Cassandra 集群的成员（称为 “ring”）。
+Cassandra 和 Kubernetes 都使用术语**节点（node）**来表示集群的成员。
+在本教程中，属于 StatefulSet 的 Pod 是 Cassandra 节点，并且是 Cassandra 集群的成员（称为 **ring**）。
 当这些 Pod 在你的 Kubernetes 集群中运行时，Kubernetes 控制平面会将这些 Pod 调度到 Kubernetes 的
 {{< glossary_tooltip text="节点" term_id="node" >}}上。
 
@@ -51,9 +50,9 @@ nodes in the ring.
 This tutorial deploys a custom Cassandra seed provider that lets the database discover
 new Cassandra Pods as they appear inside your Kubernetes cluster.
 -->
-当 Cassandra 节点启动时，使用 _seed列表_ 来引导发现 ring 中其他节点。
-本教程部署了一个自定义的 Cassandra seed provider，使数据库可以发现新的 Cassandra Pod
-出现在 Kubernetes 集群中。
+当 Cassandra 节点启动时，使用 **seed 列表**来引导发现 ring 中的其他节点。
+本教程部署了一个自定义的 Cassandra seed provider，
+使数据库可以发现 Kubernetes 集群中出现的新的 Cassandra Pod。
 {{< /note >}}
 
 ## {{% heading "objectives" %}}
@@ -65,11 +64,11 @@ new Cassandra Pods as they appear inside your Kubernetes cluster.
 * Modify the StatefulSet.
 * Delete the StatefulSet and its {{< glossary_tooltip text="Pods" term_id="pod" >}}.
 -->
-* 创建并验证 Cassandra 无头（headless）{{< glossary_tooltip text="Service" term_id="service" >}}..
+* 创建并验证 Cassandra 无头（headless）{{< glossary_tooltip text="Service" term_id="service" >}}。
 * 使用 {{< glossary_tooltip term_id="StatefulSet" >}} 创建一个 Cassandra ring。
 * 验证 StatefulSet。
 * 修改 StatefulSet。
-* 删除 StatefulSet 及其 {{< glossary_tooltip text="Pod" term_id="pod" >}}.
+* 删除 StatefulSet 及其 {{< glossary_tooltip text="Pod" term_id="pod" >}}。
 
 ## {{% heading "prerequisites" %}}
 
@@ -81,7 +80,7 @@ To complete this tutorial, you should already have a basic familiarity with
 {{< glossary_tooltip text="Services" term_id="service" >}}, and
 {{< glossary_tooltip text="StatefulSets" term_id="StatefulSet" >}}.
 -->
-要完成本教程，你应该已经熟悉 {{< glossary_tooltip text="Pod" term_id="pod" >}}，
+要完成本教程，你应该已经熟悉 {{< glossary_tooltip text="Pod" term_id="pod" >}}、
 {{< glossary_tooltip text="Service" term_id="service" >}} 和
 {{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}}。
 
@@ -96,14 +95,14 @@ errors during this tutorial. To avoid these errors, start Minikube with the foll
 ### 额外的 Minikube 设置说明
 
 {{< caution >}}
-[Minikube](https://minikube.sigs.k8s.io/docs/)默认为 2048MB 内存和 2 个 CPU。
-在本教程中，使用默认资源配置运行 Minikube 会导致资源不足的错误。为避免这些错误，请使用以下设置启动 Minikube：
+[Minikube](https://minikube.sigs.k8s.io/docs/) 默认需要 2048MB 内存和 2 个 CPU。
+在本教程中，使用默认资源配置运行 Minikube 会出现资源不足的错误。为避免这些错误，请使用以下设置启动 Minikube：
 
 ```shell
 minikube start --memory 5120 --cpus=4
 ```
-{{< /caution >}}
 
+{{< /caution >}}
 
 <!-- lessoncontent -->
 <!--
@@ -186,7 +185,7 @@ Please update the following StatefulSet for the cloud you are working with.
 <!--
 Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
 -->
-使用 `cassandra-statefulset.yaml` 文件创建 Cassandra StatefulSet ：
+使用 `cassandra-statefulset.yaml` 文件创建 Cassandra StatefulSet：
 
 ```shell
 # 如果你能未经修改地 apply cassandra-statefulset.yaml，请使用此命令
@@ -318,10 +317,9 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
    此命令你的终端中打开一个编辑器。需要更改的是 `replicas` 字段。下面是 StatefulSet 文件的片段示例：
 
     ```yaml
-    # Please edit the object below. Lines beginning with a '#' will be ignored,
-    # and an empty file will abort the edit. If an error occurs while saving this file will be
-    # reopened with the relevant failures.
-    #
+    # 请编辑以下对象。以 '#' 开头的行将被忽略，
+    # 且空文件将放弃编辑。如果保存此文件时发生错误，
+    # 将重新打开并显示相关故障。
     apiVersion: apps/v1
     kind: StatefulSet
     metadata:
@@ -378,7 +376,7 @@ This setting is for your safety because your data is more valuable than automati
 Depending on the storage class and reclaim policy, deleting the *PersistentVolumeClaims* may cause the associated volumes
 to also be deleted. Never assume you'll be able to access data if its volume claims are deleted.
 -->
-根据存储类和回收策略，删除 *PersistentVolumeClaims* 可能导致关联的卷也被删除。
+根据存储类和回收策略，删除 **PersistentVolumeClaims** 可能导致关联的卷也被删除。
 千万不要认为其容量声明被删除，你就能访问数据。
 {{< /warning >}}
 
@@ -422,7 +420,7 @@ By using environment variables you can change values that are inserted into `cas
 镜像。上面的 Docker 镜像基于 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)，
 并且包含 OpenJDK 8。
 
-该映像包括来自 Apache Debian 存储库的标准 Cassandra 安装。
+该镜像包括来自 Apache Debian 存储库的标准 Cassandra 安装。
 通过使用环境变量，你可以更改插入到 `cassandra.yaml` 中的值。
 
 | 环境变量                 | 默认值           |

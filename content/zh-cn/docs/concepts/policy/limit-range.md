@@ -28,7 +28,7 @@ A _LimitRange_ provides constraints that can:
 - Set default request/limit for compute resources in a namespace and automatically inject them to Containers at runtime.
 -->
 
-一个 _LimitRange（限制范围）_ 对象提供的限制能够做到：
+一个 **LimitRange（限制范围）** 对象提供的限制能够做到：
 
 - 在一个命名空间中实施对每个 Pod 或 Container 最小和最大的资源使用量的限制。
 - 在一个命名空间中实施对每个 PersistentVolumeClaim 能申请的最小和最大的存储空间大小的限制。
@@ -40,13 +40,14 @@ A _LimitRange_ provides constraints that can:
 
 LimitRange support has been enabled by default since Kubernetes 1.10.
 
-LimitRange support is enabled by default for many Kubernetes distributions.
+A LimitRange is enforced in a particular namespace when there is a
+LimitRange object in that namespace.
 -->
 ## 启用 LimitRange
 
 对 LimitRange 的支持自 Kubernetes 1.10 版本默认启用。
 
-LimitRange 支持在很多 Kubernetes 发行版本中也是默认启用的。
+当某命名空间中有一个 LimitRange 对象时，将在该命名空间中实施 LimitRange 限制。
 
 <!--
 The name of a LimitRange object must be a valid
@@ -58,7 +59,7 @@ LimitRange 的名称必须是合法的
 <!--
 ### Overview of Limit Range
 
-- The administrator creates one `LimitRange` in one namespace.
+- The administrator creates one LimitRange in one namespace.
 - Users create resources like Pods, Containers, and PersistentVolumeClaims in the namespace.
 - The `LimitRanger` admission controller enforces defaults and limits for all Pods and Containers that do not set compute resource requirements and tracks usage to ensure it does not exceed resource minimum, maximum and ratio defined in any LimitRange present in the namespace.
 - If creating or updating a resource (Pod, Container, PersistentVolumeClaim) that violates a LimitRange constraint, the request to the API server will fail with an HTTP status code `403 FORBIDDEN` and a message explaining the constraint that have been violated.
@@ -106,21 +107,21 @@ Neither contention nor changes to a LimitRange will affect already created resou
 ## {{% heading "whatsnext" %}}
 
 <!--
-See [LimitRanger design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) for more information.
+Refer to the [LimitRanger design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md) for more information.
 -->
-参阅 [LimitRanger 设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)获取更多信息。
+参阅 [LimitRanger 设计文档](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)获取更多信息。
 
 <!--
 For examples on using limits, see:
 
-- See [how to configure minimum and maximum CPU constraints per namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/).
-- See [how to configure minimum and maximum Memory constraints per namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/).
-- See [how to configure default CPU Requests and Limits per namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/).
-- See [how to configure default Memory Requests and Limits per namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/).
-- Check [how to configure minimum and maximum Storage consumption per namespace](/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage).
-- See a [detailed example on configuring quota per namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/).
+- [how to configure minimum and maximum CPU constraints per namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/).
+- [how to configure minimum and maximum Memory constraints per namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/).
+- [how to configure default CPU Requests and Limits per namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/).
+- [how to configure default Memory Requests and Limits per namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/).
+- [how to configure minimum and maximum Storage consumption per namespace](/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage).
+- a [detailed example on configuring quota per namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/).
 -->
-关于使用限值的例子，可参看
+关于使用限值的例子，可参阅：
 
 - [如何配置每个命名空间最小和最大的 CPU 约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)。
 - [如何配置每个命名空间最小和最大的内存约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)。

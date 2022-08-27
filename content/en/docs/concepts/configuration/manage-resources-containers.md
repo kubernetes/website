@@ -236,7 +236,7 @@ directly or from your monitoring tools.
 ## Local ephemeral storage
 
 <!-- feature gate LocalStorageCapacityIsolation -->
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 Nodes have local ephemeral storage, backed by
 locally-attached writeable devices or, sometimes, by RAM.
@@ -306,13 +306,15 @@ as you like.
 {{< /tabs >}}
 
 The kubelet can measure how much local storage it is using. It does this provided
-that:
+that you have set up the node using one of the supported configurations for local
+ephemeral storage.
 
 - the `LocalStorageCapacityIsolation`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled (the feature is on by default), and
-- you have set up the node using one of the supported configurations
-  for local ephemeral storage.
+  is enabled (the feature is on by default), and you have set up the node using one
+  of the supported configurations for local ephemeral storage.
+- Quotas are faster and more accurate than directory scanning. The
+  `LocalStorageCapacityIsolationFSQuotaMonitoring` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (the feature is on by default), 
 
 If you have a different configuration, then the kubelet does not apply resource
 limits for ephemeral local storage.
@@ -332,13 +334,17 @@ container of a Pod can specify either or both of the following:
 
 Limits and requests for `ephemeral-storage` are measured in byte quantities.
 You can express storage as a plain integer or as a fixed-point number using one of these suffixes:
-E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following quantities all represent roughly the same value:
 
 - `128974848`
 - `129e6`
 - `129M`
 - `123Mi`
+
+Pay attention to the case of the suffixes. If you request `400m` of ephemeral-storage, this is a request
+for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
+or 400 megabytes (`400M`).
 
 In the following example, the Pod has two containers. Each container has a request of
 2GiB of local ephemeral storage. Each container has a limit of 4GiB of local ephemeral
@@ -442,7 +448,7 @@ that file but the kubelet does not categorize the space as in use.
 {{% /tab %}}
 {{% tab name="Filesystem project quota" %}}
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
 Project quotas are an operating-system level feature for managing
 storage use on filesystems. With Kubernetes, you can enable project

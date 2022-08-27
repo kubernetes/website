@@ -28,7 +28,7 @@ In a cluster, logs should have a separate storage and lifecycle independent of n
 但是，由容器引擎或运行时提供的原生功能通常不足以构成完整的日志记录方案。
 例如，如果发生容器崩溃、Pod 被逐出或节点宕机等情况，你可能想访问应用日志。
 在集群中，日志应该具有独立的存储和生命周期，与节点、Pod 或容器的生命周期相独立。
-这个概念叫 _集群级的日志_ 。
+这个概念叫 **集群级的日志**。
 
 <!-- body -->
 
@@ -175,11 +175,11 @@ The two kubelet parameters [`containerLogMaxSize` and `containerLogMaxFiles`](/d
 in [kubelet config file](/docs/tasks/administer-cluster/kubelet-config-file/)
 can be used to configure the maximum size for each log file and the maximum number of files allowed for each container respectively.
 -->
-当使用某 *CRI 容器运行时* 时，kubelet 要负责对日志进行轮换，并
-管理日志目录的结构。kubelet 将此信息发送给 CRI 容器运行时，后者
-将容器日志写入到指定的位置。在 [kubelet 配置文件](/docs/tasks/administer-cluster/kubelet-config-file/)
+当使用某 **CRI 容器运行时** 时，kubelet 要负责对日志进行轮换，并管理日志目录的结构。
+kubelet 将此信息发送给 CRI 容器运行时，后者将容器日志写入到指定的位置。
+在 [kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)
 中的两个 kubelet 参数
-[`containerLogMaxSize` 和 `containerLogMaxFiles`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[`containerLogMaxSize` 和 `containerLogMaxFiles`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 可以用来配置每个日志文件的最大长度和每个容器可以生成的日志文件个数上限。
 
 <!--
@@ -198,11 +198,10 @@ the rotation and there are two files: one file that is 10MB in size and a second
 `kubectl logs` returns the latest log file which in this example is an empty response.
 -->
 {{< note >}}
-如果有外部系统执行日志轮转或者使用了 CRI 容器运行时，那么 `kubectl logs` 
+如果有外部系统执行日志轮转或者使用了 CRI 容器运行时，那么 `kubectl logs`
 仅可查询到最新的日志内容。
 比如，对于一个 10MB 大小的文件，通过 `logrotate` 执行轮转后生成两个文件，
-一个 10MB 大小，一个为空，`kubectl logs` 返回最新的日志文件，而该日志文件
-在这个例子中为空。
+一个 10MB 大小，一个为空，`kubectl logs` 返回最新的日志文件，而该日志文件在这个例子中为空。
 {{< /note >}}
 
 <!--
@@ -278,7 +277,7 @@ While Kubernetes does not provide a native solution for cluster-level logging, t
 <!--
 You can implement cluster-level logging by including a _node-level logging agent_ on each node. The logging agent is a dedicated tool that exposes logs or pushes logs to a backend. Commonly, the logging agent is a container that has access to a directory with log files from all of the application containers on that node.
 -->
-你可以通过在每个节点上使用 _节点级的日志记录代理_ 来实现集群级日志记录。
+你可以通过在每个节点上使用 **节点级的日志记录代理** 来实现集群级日志记录。
 日志记录代理是一种用于暴露日志或将日志推送到后端的专用工具。
 通常，日志记录代理程序是一个容器，它可以访问包含该节点上所有应用程序容器的日志文件的目录。
 
@@ -294,8 +293,7 @@ Node-level logging creates only one agent per node, and doesn't require any chan
 Containers write to stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
 -->
 容器向标准输出和标准错误输出写出数据，但在格式上并不统一。
-节点级代理
-收集这些日志并将其进行转发以完成汇总。
+节点级代理收集这些日志并将其进行转发以完成汇总。
 
 <!--
 ### Using a sidecar container with the logging agent {#sidecar-container-with-logging-agent}
@@ -342,7 +340,7 @@ like `kubectl logs`.
 -->
 这种方法允许你将日志流从应用程序的不同部分分离开，其中一些可能缺乏对写入
 `stdout` 或 `stderr` 的支持。重定向日志背后的逻辑是最小的，因此它的开销几乎可以忽略不计。
-另外，因为 `stdout`、`stderr` 由 kubelet 处理，你可以使用内置的工具 `kubectl logs`。
+另外，因为 `stdout` 和 `stderr` 由 kubelet 处理，所以你可以使用内置的工具 `kubectl logs`。
 
 <!--
 For example, a pod runs a single container, and the container
@@ -350,7 +348,7 @@ writes to two different log files, using two different formats. Here's a
 configuration file for the Pod:
 -->
 例如，某 Pod 中运行一个容器，该容器向两个文件写不同格式的日志。
-下面是这个 pod 的配置文件:
+下面是这个 Pod 的配置文件:
 
 {{< codenew file="admin/logging/two-files-counter-pod.yaml" >}}
 
@@ -361,9 +359,9 @@ the container. Instead, you can create two sidecar containers. Each sidecar
 container could tail a particular log file from a shared volume and then redirect
 the logs to its own `stdout` stream.
 -->
-不建议在同一个日志流中写入不同格式的日志条目，即使你成功地将其重定向到容器的
-`stdout` 流。相反，你可以创建两个边车容器。每个边车容器可以从共享卷
-跟踪特定的日志文件，并将文件内容重定向到各自的 `stdout` 流。
+不建议在同一个日志流中写入不同格式的日志条目，即使你成功地将其重定向到容器的 `stdout` 流。
+相反，你可以创建两个边车容器。每个边车容器可以从共享卷跟踪特定的日志文件，
+并将文件内容重定向到各自的 `stdout` 流。
 
 <!--
 Here's a configuration file for a pod that has two sidecar containers:
@@ -439,8 +437,7 @@ and retention policies to the kubelet.
 -->
 应用本身如果不具备轮转日志文件的功能，可以通过边车容器实现。
 该方式的一个例子是运行一个小的、定期轮转日志的容器。
-然而，还是推荐直接使用 `stdout` 和 `stderr`，将日志的轮转和保留策略
-交给 kubelet。
+然而，还是推荐直接使用 `stdout` 和 `stderr`，将日志的轮转和保留策略交给 kubelet。
 
 <!--
 #### Sidecar container with a logging agent
@@ -456,8 +453,8 @@ If the node-level logging agent is not flexible enough for your situation, you
 can create a sidecar container with a separate logging agent that you have
 configured specifically to run with your application.
 -->
-如果节点级日志记录代理程序对于你的场景来说不够灵活，你可以创建一个
-带有单独日志记录代理的边车容器，将代理程序专门配置为与你的应用程序一起运行。
+如果节点级日志记录代理程序对于你的场景来说不够灵活，
+你可以创建一个带有单独日志记录代理的边车容器，将代理程序专门配置为与你的应用程序一起运行。
 
 {{< note >}}
 <!--
@@ -499,8 +496,7 @@ flutend 通过 Pod 的挂载卷获取它的配置数据。
 <!--
 In the sample configurations, you can replace fluentd with any logging agent, reading from any source inside an application container.
 -->
-在示例配置中，你可以将 fluentd 替换为任何日志代理，从应用容器内
-的任何来源读取数据。
+在示例配置中，你可以将 fluentd 替换为任何日志代理，从应用容器内的任何来源读取数据。
 
 <!--
 ### Exposing logs directly from the application
@@ -514,6 +510,5 @@ In the sample configurations, you can replace fluentd with any logging agent, re
 <!--
 Cluster-logging that exposes or pushes logs directly from every application is outside the scope of Kubernetes.
 -->
-从各个应用中直接暴露和推送日志数据的集群日志机制
-已超出 Kubernetes 的范围。
+从各个应用中直接暴露和推送日志数据的集群日志机制已超出 Kubernetes 的范围。
 

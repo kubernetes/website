@@ -17,7 +17,7 @@ weight: 95
 
 <!--
 The tables below enumerate the configuration parameters on
-[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) objects, whether the field mutates
+[PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) objects, whether the field mutates
 and/or validates pods, and how the configuration values map to the
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/).
 -->
@@ -289,9 +289,9 @@ table can be specified under `.metadata.annotations` on the PodSecurityPolicy ob
 `.metadata.annotations` 设置到 PodSecurityPolicy 对象之上。
 
 <table class="no-word-break">
-    <caption style="display:none"><!-- Mapping PodSecurityPolicy annotations to Pod Security Standards-->将 PodSecurityPolicy 注解映射到 Pod 安全性标准</caption>
-    <tbody>
-        <tr>
+  <caption style="display:none"><!-- Mapping PodSecurityPolicy annotations to Pod Security Standards-->将 PodSecurityPolicy 注解映射到 Pod 安全性标准</caption>
+  <tbody>
+    <tr>
       <th><code><!--PSP Annotation-->PSP 注解</code></th>
       <th><!-- Type -->类型</th>
       <th><!-- Pod Security Standards Equivalent-->Pod 安全性标准中对应设置</th>

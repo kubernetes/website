@@ -289,7 +289,7 @@ The Kubernetes apiserver will use the files indicated by `--proxy-client-*-file`
 1. The connection must be made using a client certificate that is signed by the CA whose certificate is in `--requestheader-client-ca-file`.
 2. The connection must be made using a client certificate whose CN is one of those listed in `--requestheader-allowed-names`. **Note:** You can set this option to blank as `--requestheader-allowed-names=""`. This will indicate to an extension apiserver that _any_ CN is acceptable.
 -->
-Kubernetes apiserver 将使用由 `--proxy-client-*-file` 指示的文件来验证扩展 apiserver。
+Kubernetes apiserver 将使用由 `--proxy-client-*-file` 指示的文件来向扩展 apiserver认证。
 为了使合规的扩展 apiserver 能够将该请求视为有效，必须满足以下条件：
 
 1. 连接必须使用由 CA 签署的客户端证书，该证书的证书位于 `--requestheader-client-ca-file` 中。

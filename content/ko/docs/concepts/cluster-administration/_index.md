@@ -63,7 +63,7 @@ no_list: true
 
 ### kubelet 보안
   * [컨트롤 플레인-노드 통신](/ko/docs/concepts/architecture/control-plane-node-communication/)
-  * [TLS 부트스트래핑(bootstrapping)](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+  * [TLS 부트스트래핑(bootstrapping)](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
   * [Kubelet 인증/인가](/ko/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
 
 ## 선택적 클러스터 서비스

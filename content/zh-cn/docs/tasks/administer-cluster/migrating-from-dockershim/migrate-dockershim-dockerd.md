@@ -122,7 +122,7 @@ to `cri-dockerd`.
    将 `<NODE_NAME>` 替换为节点名称。
 
 <!--
-1.  Drain the node to safely evict running Pods: 
+1.  Drain the node to safely evict running Pods:
 -->
 2. 腾空节点以安全地逐出所有运行中的 Pod：
 
@@ -186,8 +186,7 @@ kubeadm 工具将节点上的套接字存储为控制面上 `Node` 对象的注�
 
 1. 将 `kubeadm.alpha.kubernetes.io/cri-socket` 标志从
    `/var/run/dockershim.sock` 更改为 `unix:///var/run/cri-dockerd.sock`；
-1. 保存所作更改。保存时，`Node` 对象被更新
-
+1. 保存所作更改。保存时，`Node` 对象被更新。
 
 <!--
 ## Restart the kubelet
@@ -228,6 +227,6 @@ kubectl uncordon <NODE_NAME>
 *   Read the [dockershim removal FAQ](/dockershim/).
 *   [Learn how to migrate from Docker Engine with dockershim to containerd](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/).
 -->
-* 阅读 [dockershim 移除常见问题](/zh-cn/dockershim)。
+* 阅读 [移除 Dockershim 的常见问题](/zh-cn/dockershim)。
 * [了解如何从基于 dockershim 的 Docker Engine 迁移到 containerd](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)。
 

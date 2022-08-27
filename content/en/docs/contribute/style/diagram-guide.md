@@ -438,7 +438,7 @@ Note that the live editor doesn't recognize Hugo shortcodes.
 ### Example 1 - Pod topology spread constraints
 
 Figure 6 shows the diagram appearing in the
-[Pod topology pread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#node-labels)
+[Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/#node-labels)
 page.
 
 {{< mermaid >}}

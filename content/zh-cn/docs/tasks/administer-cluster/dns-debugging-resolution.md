@@ -54,8 +54,9 @@ busybox   1/1       Running   0          <some-time>
 {{< codenew file="admin/dns/dnsutils.yaml" >}}
 
 {{< note >}}
-此示例在 `default` 命名空间创建 pod。 服务的 DNS 名字解析取决于 pod 的命名空间。 详细信息请查阅
-[服务和 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
+此示例在 `default` 名字空间创建 Pod。
+服务的 DNS 名字解析取决于 Pod 的名字空间。
+详细信息请查阅 [Pod 与 Service 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
 {{< /note >}}
 
 使用上面的清单来创建一个 Pod：
@@ -92,6 +93,9 @@ If you see something like the following, DNS is working correctly.
 ```shell
 kubectl exec -i -t dnsutils -- nslookup kubernetes.default
 ```
+
+输出为：
+
 ```
 Server:    10.0.0.10
 Address 1: 10.0.0.10
@@ -156,6 +160,12 @@ nslookup: can't resolve 'kubernetes.default'
 
 或者
 
+```shell
+kubectl exec -i -t dnsutils -- nslookup kubernetes.default
+```
+
+输出为：
+
 ```
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -175,6 +185,8 @@ Use the `kubectl get pods` command to verify that the DNS pod is running.
 ```shell
 kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
 ```
+
+输出为：
 
 ```
 NAME                       READY     STATUS    RESTARTS   AGE
@@ -207,6 +219,11 @@ Use `kubectl logs` command to see logs for the DNS containers.
 ### 检查 DNS Pod 里的错误    {#check-for-errors-in-the-dns-pod}
 
 使用 `kubectl logs` 命令来查看 DNS 容器的日志信息。
+
+<!--
+For CoreDNS:
+-->
+如查看 CoreDNS 的日志信息：
 
 ```shell
 kubectl logs --namespace=kube-system -l k8s-app=kube-dns
@@ -244,6 +261,8 @@ Verify that the DNS service is up by using the `kubectl get service` command.
 kubectl get svc --namespace=kube-system
 ```
 
+输出为：
+
 ```
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
 ...
@@ -280,7 +299,7 @@ command.
 你可以使用 `kubectl get endpoints` 命令来验证 DNS 的端点是否公开了。
 
 ```shell
-kubectl get ep kube-dns --namespace=kube-system
+kubectl get endpoints kube-dns --namespace=kube-system
 ```
 
 ```
@@ -306,12 +325,13 @@ in the Kubernetes GitHub repository.
 ### Are DNS queries being received/processed?
 
 You can verify if queries are being received by CoreDNS by adding the `log` plugin to the CoreDNS configuration (aka Corefile).
-The CoreDNS Corefile is held in a ConfigMap named `coredns`. To edit it, use the command ...
+The CoreDNS Corefile is held in a {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} named `coredns`. To edit it, use the command:
 -->
 ### DNS 查询有被接收或者执行吗？   {#are-dns-queries-bing-received-processed}
 
 你可以通过给 CoreDNS 的配置文件（也叫 Corefile）添加 `log` 插件来检查查询是否被正确接收。
-CoreDNS 的 Corefile 被保存在一个叫 `coredns` 的 ConfigMap 里，使用下列命令来编辑它：
+CoreDNS 的 Corefile 被保存在一个叫 `coredns` 的
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} 里，使用下列命令来编辑它：
 
 ```shell
 kubectl -n kube-system edit configmap coredns
@@ -455,13 +475,13 @@ the namespace of the service.
 
 This query is limited to the pod's namespace:
 -->
-### 你的服务在正确的命名空间中吗？
+### 你的服务在正确的名字空间中吗？
 
-未指定命名空间的 DNS 查询仅作用于 pod 所在的命名空间。
+未指定名字空间的 DNS 查询仅作用于 Pod 所在的名字空间。
 
-如果 pod 和服务的命名空间不相同，则 DNS 查询必须指定服务所在的命名空间。
+如果 Pod 和服务的名字空间不相同，则 DNS 查询必须指定服务所在的名字空间。
 
-该查询仅限于 pod 所在的名称空间：
+该查询仅限于 Pod 所在的名字空间：
 ```shell
 kubectl exec -i -t dnsutils -- nslookup <service-name>
 ```
@@ -469,7 +489,7 @@ kubectl exec -i -t dnsutils -- nslookup <service-name>
 <!--
 This query specifies the namespace:
 -->
-指定命名空间的查询：
+指定名字空间的查询：
 ```shell
 kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
 ```
@@ -479,7 +499,7 @@ To learn more about name resolution, see
 [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
 -->
 要进一步了解名字解析，请查看
-[服务和 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
+[Pod 与 Service 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
 
 <!--
 ## Known issues
@@ -547,16 +567,16 @@ work properly owing to a known issue with Alpine.
 Check [here](https://github.com/kubernetes/kubernetes/issues/30215)
 for more information.
 -->
-如果你使用 Alpine  3.3 或更早版本作为你的基础镜像，DNS 可能会由于 Alpine 中
+如果你使用 Alpine 3.3 或更早版本作为你的基础镜像，DNS 可能会由于 Alpine 中
 一个已知的问题导致无法正常工作。
 请查看[这里](https://github.com/kubernetes/kubernetes/issues/30215)获取更多信息。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-- [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
-- [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/)
+- See [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
+- Read [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/)
 -->
 - 参阅[自动扩缩集群中的 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
-- 阅读[服务和 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
+- 阅读 [Pod 与 Service 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
 

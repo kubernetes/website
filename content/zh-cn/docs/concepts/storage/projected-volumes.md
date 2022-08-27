@@ -1,7 +1,7 @@
 ---
 title: 投射卷
 content_type: concept
-weight: 21 # just after persistent volumes
+weight: 21 # 跟在持久卷之后
 ---
 
 <!--
@@ -19,7 +19,7 @@ weight: 21 # just after persistent volumes
 <!--
 This document describes _projected volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 -->
-本文档描述 Kubernetes 中的*投射卷（Projected Volumes）*。
+本文档描述 Kubernetes 中的**投射卷（Projected Volumes）**。
 建议先熟悉[卷](/zh-cn/docs/concepts/storage/volumes/)概念。
 
 <!-- body -->
@@ -49,10 +49,10 @@ Currently, the following types of volume sources can be projected:
 
 <!--
 All sources are required to be in the same namespace as the Pod. For more details,
-see the [all-in-one volume](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md) design document.
+see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
 -->
 所有的卷源都要求处于 Pod 所在的同一个名字空间内。进一步的详细信息，可参考
-[一体化卷](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md)设计文档。
+[一体化卷](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md)设计文档。
 
 <!--
 ### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
@@ -82,7 +82,7 @@ parameters are nearly the same with two exceptions:
 
 * 对于 Secret，`secretName` 字段被改为 `name` 以便于 ConfigMap 的命名一致；
 * `defaultMode` 只能在投射层级设置，不能在卷源层级设置。不过，正如上面所展示的，
-  你可以显式地为每个投射单独设置 `mode` 属性。 
+  你可以显式地为每个投射单独设置 `mode` 属性。
 
 <!--
 ## serviceAccountToken projected volumes {#serviceaccounttoken}
@@ -91,6 +91,7 @@ for the current [service account](/docs/reference/access-authn-authz/authenticat
 into a Pod at a specified path. For example:
 -->
 ## serviceAccountToken 投射卷 {#serviceaccounttoken}
+
 当 `TokenRequestProjection` 特性被启用时，你可以将当前
 [服务账号](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 的令牌注入到 Pod 中特定路径下。例如：
@@ -107,8 +108,8 @@ in the audience of the token, and otherwise should reject the token. This field
 is optional and it defaults to the identifier of the API server.
 -->
 示例 Pod 中包含一个投射卷，其中包含注入的服务账号令牌。
-此 Pod 中的容器可以使用该令牌访问 Kubernetes API 服务器， 使用 
-[pod 的 ServiceAccount](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
+此 Pod 中的容器可以使用该令牌访问 Kubernetes API 服务器， 使用
+[Pod 的 ServiceAccount](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
 进行身份验证。`audience` 字段包含令牌所针对的受众。
 收到令牌的主体必须使用令牌受众中所指定的某个标识符来标识自身，否则应该拒绝该令牌。
 此字段是可选的，默认值为 API 服务器的标识。
@@ -122,8 +123,8 @@ of the projected volume.
 -->
 字段 `expirationSeconds` 是服务账号令牌预期的生命期长度。默认值为 1 小时，
 必须至少为 10 分钟（600 秒）。管理员也可以通过设置 API 服务器的命令行参数
-`--service-account-max-token-expiration` 来为其设置最大值上限。`path` 字段给出
-与投射卷挂载点之间的相对路径。
+`--service-account-max-token-expiration` 来为其设置最大值上限。
+`path` 字段给出与投射卷挂载点之间的相对路径。
 
 {{< note >}}
 <!--
@@ -140,9 +141,9 @@ volume mount will not receive updates for those volume sources.
 ## 与 SecurityContext 间的关系    {#securitycontext-interactions}
 
 <!--
-The [proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the the correct owner permissions set.
+The [proposal](https://git.k8s.io/enhancements/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the correct owner permissions set.
 -->
-关于在投射的服务账号卷中处理文件访问权限的[提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#proposal)
+关于在投射的服务账号卷中处理文件访问权限的[提案](https://git.k8s.io/enhancements/keps/sig-storage/2451-service-account-token-volumes#proposal)
 介绍了如何使得所投射的文件具有合适的属主访问权限。
 
 ### Linux
@@ -154,7 +155,7 @@ the projected files have the correct ownership set including container user
 ownership.
 -->
 在包含了投射卷并在
-[`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+[`SecurityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
 中设置了 `RunAsUser` 属性的 Linux Pod 中，投射文件具有正确的属主属性设置，
 其中包含了容器用户属主。
 
@@ -181,8 +182,7 @@ Windows 在名为安全账号管理器（Security Account Manager，SAM）
 宿主系统无法窥视到容器运行期间数据库内容。Windows 容器被设计用来运行操作系统的用户态部分，
 与宿主系统之间隔离，因此维护了一个虚拟的 SAM 数据库。
 所以，在宿主系统上运行的 kubelet 无法动态为虚拟的容器账号配置宿主文件的属主。
-如果需要将宿主机器上的文件与容器共享，建议将它们放到挂载于 `C:\` 之外
-的独立卷中。
+如果需要将宿主机器上的文件与容器共享，建议将它们放到挂载于 `C:\` 之外的独立卷中。
 
 <!--
 By default, the projected files will have the following ownership as shown for
@@ -222,7 +222,7 @@ the Linux only `RunAsUser` option with Windows Pods.
 -->
 总体而言，为容器授予访问宿主系统的权限这种做法是不推荐的，因为这样做可能会打开潜在的安全性攻击之门。
 
-在创建 Windows Pod 时，如过在其 `SecurityContext` 中设置了 `RunAsUser`，
+在创建 Windows Pod 时，如果在其 `SecurityContext` 中设置了 `RunAsUser`，
 Pod 会一直阻塞在 `ContainerCreating` 状态。因此，建议不要在 Windows
 节点上使用仅针对 Linux 的 `RunAsUser` 选项。
 {{< /note >}}

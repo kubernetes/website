@@ -64,7 +64,7 @@ Sometimes when debugging it can be useful to look at the status of a node -- for
 -->
 ### 示例：调试关闭/无法访问的节点 {#example-debugging-a-down-unreachable-node}
 
-有时在调试时查看节点的状态很有用——例如，因为你注意到在节点上运行的 Pod 的奇怪行为，
+有时在调试时查看节点的状态很有用 —— 例如，因为你注意到在节点上运行的 Pod 的奇怪行为，
 或者找出为什么 Pod 不会调度到节点上。与 Pod 一样，你可以使用 `kubectl describe node`
 和 `kubectl get node -o yaml` 来检索有关节点的详细信息。
 例如，如果节点关闭（与网络断开连接，或者 kubelet 进程挂起并且不会重新启动等），
@@ -260,28 +260,30 @@ of the relevant log files.  On systemd-based systems, you may need to use `journ
 <!--
 ### Control Plane nodes
 
-   * `/var/log/kube-apiserver.log` - API Server, responsible for serving the API
-   * `/var/log/kube-scheduler.log` - Scheduler, responsible for making scheduling decisions
-   * `/var/log/kube-controller-manager.log` - a component that runs most Kubernetes built-in {{<glossary_tooltip text="controllers" term_id="controller">}}, with the notable exception of scheduling (the kube-scheduler handles scheduling).
+* `/var/log/kube-apiserver.log` - API Server, responsible for serving the API
+* `/var/log/kube-scheduler.log` - Scheduler, responsible for making scheduling decisions
+* `/var/log/kube-controller-manager.log` - a component that runs most Kubernetes built-in
+  {{<glossary_tooltip text="controllers" term_id="controller">}}, with the notable exception of scheduling
+  (the kube-scheduler handles scheduling).
 -->
 ### 控制平面节点 {#control-plane-nodes}
 
-   * `/var/log/kube-apiserver.log` —— API 服务器 API
-   * `/var/log/kube-scheduler.log` —— 调度器，负责制定调度决策
-   * `/var/log/kube-controller-manager.log` —— 运行大多数 Kubernetes
-     内置{{<glossary_tooltip text="控制器" term_id="controller">}}的组件，除了调度（kube-scheduler 处理调度）。
+* `/var/log/kube-apiserver.log` —— API 服务器，负责提供 API 服务
+* `/var/log/kube-scheduler.log` —— 调度器，负责制定调度决策
+* `/var/log/kube-controller-manager.log` —— 运行大多数 Kubernetes
+  内置{{<glossary_tooltip text="控制器" term_id="controller">}}的组件，除了调度（kube-scheduler 处理调度）。
 
 <!--
 ### Worker Nodes
 
-   * `/var/log/kubelet.log` - logs from the kubelet, responsible for running containers on the node
-   * `/var/log/kube-proxy.log` - logs from `kube-proxy`, which is responsible for directing traffic to Service endpoints
+* `/var/log/kubelet.log` - logs from the kubelet, responsible for running containers on the node
+* `/var/log/kube-proxy.log` - logs from `kube-proxy`, which is responsible for directing traffic to Service endpoints
 -->
 
 ### 工作节点 {#worker-nodes}
 
-   * `/var/log/kubelet.log` —— 来自 `kubelet` 的日志，负责在节点运行容器
-   * `/var/log/kube-proxy.log` —— 来自 `kube-proxy` 的日志，负责将流量转发到服务端点
+* `/var/log/kubelet.log` —— 来自 `kubelet` 的日志，负责在节点运行容器
+* `/var/log/kube-proxy.log` —— 来自 `kube-proxy` 的日志，负责将流量转发到服务端点
 
 <!-- 
 ## Cluster failure modes
@@ -295,32 +297,32 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 <!-- 
 ### Contributing causes
 
-  - VM(s) shutdown
-  - Network partition within cluster, or between cluster and users
-  - Crashes in Kubernetes software
-  - Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
-  - Operator error, for example misconfigured Kubernetes software or application software
+- VM(s) shutdown
+- Network partition within cluster, or between cluster and users
+- Crashes in Kubernetes software
+- Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
+- Operator error, for example misconfigured Kubernetes software or application software
 -->
-### 造成原因 {#contributing-causes}
+### 故障原因 {#contributing-causes}
 
-   - 虚拟机关闭
-   - 集群内或集群与用户之间的网络分区
-   - Kubernetes 软件崩溃
-   - 持久存储（例如 GCE PD 或 AWS EBS 卷）的数据丢失或不可用
-   - 操作员错误，例如配置错误的 Kubernetes 软件或应用程序软件
+- 虚拟机关闭
+- 集群内或集群与用户之间的网络分区
+- Kubernetes 软件崩溃
+- 持久存储（例如 GCE PD 或 AWS EBS 卷）的数据丢失或不可用
+- 操作员错误，例如配置错误的 Kubernetes 软件或应用程序软件
 
 <!--
 ### Specific scenarios
 
-  - API server VM shutdown or apiserver crashing
-    - Results
-      - unable to stop, update, or start new pods, services, replication controller
-      - existing pods and services should continue to work normally, unless they depend on the Kubernetes API
-  - API server backing storage lost
-    - Results
-      - the kube-apiserver component fails to start successfully and become healthy
-      - kubelets will not be able to reach it but will continue to run the same pods and provide the same service proxying
-      - manual recovery or recreation of apiserver state necessary before apiserver is restarted
+- API server VM shutdown or apiserver crashing
+  - Results
+    - unable to stop, update, or start new pods, services, replication controller
+    - existing pods and services should continue to work normally, unless they depend on the Kubernetes API
+- API server backing storage lost
+  - Results
+    - the kube-apiserver component fails to start successfully and become healthy
+    - kubelets will not be able to reach it but will continue to run the same pods and provide the same service proxying
+    - manual recovery or recreation of apiserver state necessary before apiserver is restarted
 -->
 ### 具体情况 {#specific-scenarios}
 
@@ -334,16 +336,17 @@ This is an incomplete list of things that could go wrong, and how to adjust your
     - kubelet 将不能访问 API 服务器，但是能够继续运行之前的 Pod 和提供相同的服务代理
     - 在 API 服务器重启之前，需要手动恢复或者重建 API 服务器的状态
 <!--
-  - Supporting services (node controller, replication controller manager, scheduler, etc) VM shutdown or crashes
-    - currently those are colocated with the apiserver, and their unavailability has similar consequences as apiserver
-    - in future, these will be replicated as well and may not be co-located
-    - they do not have their own persistent state
-  - Individual node (VM or physical machine) shuts down
-    - Results
-      - pods on that Node stop running
-  - Network partition
-    - Results
-      - partition A thinks the nodes in partition B are down; partition B thinks the apiserver is down. (Assuming the master VM ends up in partition A.)
+- Supporting services (node controller, replication controller manager, scheduler, etc) VM shutdown or crashes
+  - currently those are colocated with the apiserver, and their unavailability has similar consequences as apiserver
+  - in future, these will be replicated as well and may not be co-located
+  - they do not have their own persistent state
+- Individual node (VM or physical machine) shuts down
+  - Results
+    - pods on that Node stop running
+- Network partition
+  - Results
+    - partition A thinks the nodes in partition B are down; partition B thinks the apiserver is down.
+      (Assuming the master VM ends up in partition A.)
 -->
 - Kubernetes 服务组件（节点控制器、副本控制器管理器、调度器等）所在的 VM 关机或者崩溃
   - 当前，这些控制器是和 API 服务器在一起运行的，它们不可用的现象是与 API 服务器类似的
@@ -357,18 +360,18 @@ This is an incomplete list of things that could go wrong, and how to adjust your
     - 分区 A 认为分区 B 中所有的节点都已宕机；分区 B 认为 API 服务器宕机
       （假定主控节点所在的 VM 位于分区 A 内）。
 <!--
-  - Kubelet software fault
-    - Results
-      - crashing kubelet cannot start new pods on the node
-      - kubelet might delete the pods or not
-      - node marked unhealthy
-      - replication controllers start new pods elsewhere
-  - Cluster operator error
-    - Results
-      - loss of pods, services, etc
-      - lost of apiserver backing store
-      - users unable to read API
-      - etc.
+- Kubelet software fault
+  - Results
+    - crashing kubelet cannot start new pods on the node
+    - kubelet might delete the pods or not
+    - node marked unhealthy
+    - replication controllers start new pods elsewhere
+- Cluster operator error
+  - Results
+    - loss of pods, services, etc
+    - lost of apiserver backing store
+    - users unable to read API
+    - etc.
 -->
 - kubelet 软件故障
   - 结果
@@ -380,11 +383,11 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - 结果
     - 丢失 Pod 或服务等等
     - 丢失 API 服务器的后端存储
-    - 用户无法读取API
+    - 用户无法读取 API
     - 等等
 
 <!--
-### Mitigations:
+### Mitigations
 
 - Action: Use IaaS provider's automatic VM restarting feature for IaaS VMs
   - Mitigates: Apiserver VM shutdown or apiserver crashing
@@ -409,7 +412,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - 缓解：API 服务器后端存储的丢失
 
 - 措施：使用[高可用性](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)的配置
-  - 缓解：主控节点 VM 关机或者主控节点组件（调度器、API 服务器、控制器管理器）崩馈
+  - 缓解：主控节点 VM 关机或者主控节点组件（调度器、API 服务器、控制器管理器）崩溃
     - 将容许一个或多个节点或组件同时出现故障
   - 缓解：API 服务器后端存储（例如 etcd 的数据目录）丢失
     - 假定你使用了高可用的 etcd 配置
@@ -428,7 +431,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Mitigates: Node shutdown
   - Mitigates: Kubelet software fault
 -->
-- 措施：定期对 API 服务器的 PDs/EBS 卷执行快照操作
+- 措施：定期对 API 服务器的 PD 或 EBS 卷执行快照操作
   - 缓解：API 服务器后端存储丢失
   - 缓解：一些操作错误的场景
   - 缓解：一些 Kubernetes 软件本身故障的场景
@@ -444,16 +447,19 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-* Learn about the metrics available in the [Resource Metrics Pipeline](resource-metrics-pipeline)
-* Discover additional tools for [monitoring resource usage](resource-usage-monitoring)
-* Use Node Problem Detector to [monitor node health](monitor-node-health)
-* Use `crictl` to [debug Kubernetes nodes](crictl)
-* Get more information about [Kubernetes auditing](audit)
-* Use `telepresence` to [develop and debug services locally](local-debugging)
+* Learn about the metrics available in the
+  [Resource Metrics Pipeline](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
+* Discover additional tools for
+  [monitoring resource usage](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
+* Use Node Problem Detector to
+  [monitor node health](/docs/tasks/debug/debug-cluster/monitor-node-health/)
+* Use `crictl` to [debug Kubernetes nodes](/docs/tasks/debug/debug-cluster/crictl/)
+* Get more information about [Kubernetes auditing](/docs/tasks/debug/debug-cluster/audit/)
+* Use `telepresence` to [develop and debug services locally](/docs/tasks/debug/debug-cluster/local-debugging/)
 -->
-* 了解[资源指标管道](resource-metrics-pipeline)中可用的指标
-* 发现用于[监控资源使用](resource-usage-monitoring)的其他工具
-* 使用节点问题检测器[监控节点健康](monitor-node-health)
-* 使用 `crictl` 来[调试 Kubernetes 节点](crictl)
-* 获取更多关于 [Kubernetes 审计](audit)的信息
-* 使用 `telepresence` [本地开发和调试服务](local-debugging)
+* 了解[资源指标管道](/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)中可用的指标
+* 发现用于[监控资源使用](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)的其他工具
+* 使用节点问题检测器[监控节点健康](/zh-cn/docs/tasks/debug/debug-cluster/monitor-node-health/)
+* 使用 `crictl` 来[调试 Kubernetes 节点](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)
+* 获取更多关于 [Kubernetes 审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)的信息
+* 使用 `telepresence` [本地开发和调试服务](/zh-cn/docs/tasks/debug/debug-cluster/local-debugging/)

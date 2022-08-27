@@ -24,9 +24,9 @@ This page shows how to view, work in, and delete {{< glossary_tooltip text="name
 * You have a basic understanding of Kubernetes {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip term_id="service" text="Services" >}}, and {{< glossary_tooltip text="Deployments" term_id="deployment" >}}.
 -->
 * 你已拥有一个[配置好的 Kubernetes 集群](/zh-cn/docs/setup/)。
-* 你已对 Kubernetes 的 {{< glossary_tooltip text="Pods" term_id="pod" >}} , 
-  {{< glossary_tooltip term_id="service" text="Services" >}} , 和
-  {{< glossary_tooltip text="Deployments" term_id="deployment" >}} 有基本理解。
+* 你已对 Kubernetes 的 {{< glossary_tooltip text="Pod" term_id="pod" >}}、
+  {{< glossary_tooltip term_id="service" text="Service" >}} 和
+  {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 有基本理解。
 
 <!-- steps -->
 
@@ -91,16 +91,18 @@ Resource Limits
 
 <!-- Resource quota tracks aggregate usage of resources in the *Namespace* and allows cluster operators
 to define *Hard* resource usage limits that a *Namespace* may consume. -->
-资源配额跟踪并聚合 *Namespace* 中资源的使用情况，并允许集群运营者定义 *Namespace* 可能消耗的 *Hard* 资源使用限制。
+资源配额跟踪并聚合 **Namespace** 中资源的使用情况，并允许集群运营者定义 **Namespace** 可能消耗的 **Hard** 资源使用限制。
 
-<!-- A limit range defines min/max constraints on the amount of resources a single entity can consume in
+<!-- 
+A limit range defines min/max constraints on the amount of resources a single entity can consume in
 a *Namespace*.
 
-See [Admission control: Limit Range](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) -->
+See [Admission control: Limit Range](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)
+-->
 
-限制区间定义了单个实体在一个 *Namespace* 中可使用的最小/最大资源量约束。
+限制区间定义了单个实体在一个 **Namespace** 中可使用的最小/最大资源量约束。
 
-参阅 [准入控制: 限制区间](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)
+参阅 [准入控制：限制区间](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)。
 
 <!--
 A namespace can be in one of two phases:
@@ -110,14 +112,14 @@ A namespace can be in one of two phases:
 
 For more details, see [Namespace](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)
 in the API reference.
- -->
+-->
 
 名字空间可以处于下列两个阶段中的一个:
 
 * `Active` 名字空间正在被使用中
 * `Terminating` 名字空间正在被删除，且不能被用于新对象。
 
-更多细节，参阅 API 参考中的[命名空间](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)。
+更多细节，参阅 API 参考中的[命名空间](/zh-cn/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)。
 
 <!-- ## Creating a new namespace -->
 ## 创建名字空间
@@ -165,11 +167,14 @@ The name of your namespace must be a valid
 <!--
 There's an optional field `finalizers`, which allows observables to purge resources whenever the namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will be created but will get stuck in the `Terminating` state if the user tries to delete it.
 
-More information on `finalizers` can be found in the namespace [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#finalizers).
+More information on `finalizers` can be found in the namespace [design doc](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers).
 -->
-可选字段 `finalizers` 允许观察者们在名字空间被删除时清除资源。记住如果指定了一个不存在的终结器，名字空间仍会被创建，但如果用户试图删除它，它将陷入 `Terminating` 状态。
+可选字段 `finalizers` 允许观察者们在名字空间被删除时清除资源。
+记住如果指定了一个不存在的终结器，名字空间仍会被创建，
+但如果用户试图删除它，它将陷入 `Terminating` 状态。
 
-更多有关 `finalizers` 的信息请查阅 [设计文档](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#finalizers) 中名字空间部分。
+更多有关 `finalizers` 的信息请查阅
+[设计文档](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers)中名字空间部分。
 
 <!-- ## Deleting a namespace -->
 ## 删除名字空间
@@ -185,7 +190,7 @@ kubectl delete namespaces <insert-some-namespace-name>
 
 <!-- This deletes _everything_ under the namespace! -->
 {{< warning >}}
-这会删除名字空间下的 _所有内容_ ！
+这会删除名字空间下的 **所有内容** ！
 {{< /warning >}}
 
 <!-- This delete is asynchronous, so for a time you will see the namespace in the `Terminating` state. -->
@@ -206,13 +211,13 @@ kubectl delete namespaces <insert-some-namespace-name>
 1. 理解 default 名字空间
 
    默认情况下，Kubernetes 集群会在配置集群时实例化一个 default 名字空间，用以存放集群所使用的默认
-   Pods、Services 和 Deployments 集合。
+   Pod、Service 和 Deployment 集合。
 
    <!--
    Assuming you have a fresh cluster, you can introspect the available namespace's by doing the following:
    -->
 
-   假设你有一个新的集群，你可以通过执行以下操作来内省可用的名字空间
+   假设你有一个新的集群，你可以通过执行以下操作来内省可用的名字空间：
 
    ```shell
    kubectl get namespaces
@@ -245,8 +250,8 @@ kubectl delete namespaces <insert-some-namespace-name>
    and go, and the restrictions on who can or cannot modify resources
    are relaxed to enable agile development.
    -->
-   开发团队希望在集群中维护一个空间，以便他们可以查看用于构建和运行其应用程序的 Pods、Services
-   和 Deployments 列表。在这个空间里，Kubernetes 资源被自由地加入或移除，
+   开发团队希望在集群中维护一个空间，以便他们可以查看用于构建和运行其应用程序的 Pod、Service
+   和 Deployment 列表。在这个空间里，Kubernetes 资源被自由地加入或移除，
    对谁能够或不能修改资源的限制被放宽，以实现敏捷开发。
    
    <!--
@@ -255,13 +260,13 @@ kubectl delete namespaces <insert-some-namespace-name>
    Pods, Services, and Deployments that run the production site.
    -->
    运维团队希望在集群中维护一个空间，以便他们可以强制实施一些严格的规程，
-   对谁可以或不可以操作运行生产站点的 Pods、Services 和 Deployments 集合进行控制。
+   对谁可以或不可以操作运行生产站点的 Pod、Service 和 Deployment 集合进行控制。
    
    <!--
    One pattern this organization could follow is to partition the Kubernetes cluster into
    two namespaces: `development` and `production`.
    -->
-   该组织可以遵循的一种模式是将 Kubernetes 集群划分为两个名字空间：development 和 production。
+   该组织可以遵循的一种模式是将 Kubernetes 集群划分为两个名字空间：`development` 和 `production`。
    
    <!-- Let's create two new namespaces to hold our work. -->
    让我们创建两个新的名字空间来保存我们的工作。
@@ -294,14 +299,14 @@ kubectl delete namespaces <insert-some-namespace-name>
    ```
 
 <!-- 3. Create pods in each namespace -->
-3. 在每个名字空间中创建 pod
+3. 在每个名字空间中创建 Pod
 
    <!--
    A Kubernetes namespace provides the scope for Pods, Services, and Deployments in the cluster.
 
    Users interacting with one namespace do not see the content in another namespace.
    -->
-   Kubernetes 名字空间为集群中的 Pods、Services 和 Deployments 提供了作用域。
+   Kubernetes 名字空间为集群中的 Pod、Service 和 Deployment 提供了作用域。
    
    与一个名字空间交互的用户不会看到另一个名字空间中的内容。
    
@@ -346,8 +351,8 @@ kubectl delete namespaces <insert-some-namespace-name>
    看起来还不错，开发人员能够做他们想做的事，而且他们不必担心会影响到
    `production` 名字空间下面的内容。
 
-   让我们切换到 `production` 名字空间，展示一下一个名字空间中的资源是如何对
-   另一个名字空间隐藏的。
+   让我们切换到 `production` 名字空间，
+   展示一下一个名字空间中的资源是如何对另一个名字空间隐藏的。
 
    名字空间 `production` 应该是空的，下面的命令应该不会返回任何东西。
 
@@ -387,7 +392,7 @@ kubectl delete namespaces <insert-some-namespace-name>
 <!--
 At this point, it should be clear that the resources users create in one namespace are hidden from the other namespace.
 -->
-此时，应该很清楚的展示了用户在一个名字空间中创建的资源对另一个名字空间是隐藏的。
+此时，应该很清楚地展示了用户在一个名字空间中创建的资源对另一个名字空间是隐藏的。
 
 <!--
 As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
@@ -408,7 +413,7 @@ A single cluster should be able to satisfy the needs of multiple users or groups
 单个集群应该能满足多个用户及用户组的需求（以下称为 “用户社区”）。
 
 <!-- Kubernetes _namespaces_ help different projects, teams, or customers to share a Kubernetes cluster. -->
-Kubernetes _名字空间_ 帮助不同的项目、团队或客户去共享 Kubernetes 集群。
+Kubernetes **名字空间** 帮助不同的项目、团队或客户去共享 Kubernetes 集群。
 
 <!--
 It does this by providing the following:
@@ -440,9 +445,9 @@ Each user community has its own:
 -->
 每个用户社区都有自己的：
 
-1. 资源（pods、服务、 副本控制器等等）
+1. 资源（Pod、服务、副本控制器等等）
 2. 策略（谁能或不能在他们的社区里执行操作）
-3. 约束（该社区允许多少配额，等等）
+3. 约束（该社区允许多少配额等等）
 
 <!--
 A cluster operator may create a Namespace for each unique user community.
@@ -505,10 +510,10 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 <!--
 * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* See [namespaces design](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/namespaces.md).
+* See [namespaces design](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md).
 -->
 
 * 进一步了解[设置名字空间偏好](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference)
 * 进一步了解[设置请求的名字空间](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* 参阅[名字空间的设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/namespaces.md)
+* 参阅[名字空间的设计文档](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md)
 

@@ -43,8 +43,6 @@ Pod 安全性标准定义了三种不同的 **策略（Policy）**，以广泛�
 
 <!--
 ## Profile Details
-
-### Privileged
 -->
 ## Profile 细节    {#profile-details}
 
@@ -98,10 +96,9 @@ fail validation.
 			<td>控制（Control）</td>
 			<td>策略（Policy）</td>
 		</tr>
-    		<tr>
-			<!-- <td style="white-space: nowrap">HostProcess</td> -->
-      			<td style="white-space: nowrap">HostProcess</td>
-      			<td>
+		<tr>
+			<td style="white-space: nowrap">HostProcess</td>
+			<td>
 				<p><!--Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. -->
                                 Windows Pod 提供了运行 <a href="/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess 容器</a> 的能力，这使得对 Windows 节点的特权访问成为可能。Baseline 策略中禁止对宿主的特权访问。{{< feature-state for_k8s_version="v1.23" state="beta" >}}
                                 </p>
@@ -121,7 +118,7 @@ fail validation.
 		</tr>
 		<tr>
 			<td style="white-space: nowrap"><!--Host Namespaces-->宿主名字空间</td>
-                        <td>
+			<td>
 				<p><!--Sharing the host namespaces must be disallowed.-->必须禁止共享宿主上的名字空间。</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
@@ -195,7 +192,6 @@ fail validation.
 					<li><!--Undefined/nil-->未定义、nil</li>
 				</ul>
 			</td>
-			<td>
 		</tr>
 		<tr>
 			<td style="white-space: nowrap"><!--Host Ports-->宿主端口</td>
@@ -284,7 +280,7 @@ fail validation.
 				</ul>
 			</td>
 		</tr>
-    <tr>
+		<tr>
   			<td>Seccomp</td>
   			<td>
   				<p><!--Seccomp profile must not be explicitly set to <code>Unconfined</code>.-->Seccomp 配置必须不能显式设置为 <code>Unconfined</code>。</p>
@@ -304,7 +300,7 @@ fail validation.
   			</td>
   		</tr>
 		<tr>
-			<td>Sysctls</td>
+			<td style="white-space: nowrap">Sysctls</td>
 			<td>
 				<p><!--Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.-->Sysctls 可以禁用安全机制或影响宿主上所有容器，因此除了若干“安全”的子集之外，应该被禁止。如果某 sysctl 是受容器或 Pod 的名字空间限制，且与节点上其他 Pod 或进程相隔离，可认为是安全的。</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
@@ -360,7 +356,7 @@ fail validation.
 			<td colspan="2"><em><!--Everything from the baseline profile.-->Baseline 策略的所有要求。</em></td>
 		</tr>
 		<tr>
-      			<td style="white-space: nowrap"><!--Volume Types-->卷类型</td>
+			<td style="white-space: nowrap"><!--Volume Types-->卷类型</td>
 			<td>
 				<p><!--In addition to restricting HostPath volumes, the restricted policy limits usage of non-core volume types to those defined through PersistentVolumes.-->除了限制 HostPath 卷之外，此类策略还限制可以通过 PersistentVolumes 定义的非核心卷类型。</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
@@ -382,7 +378,7 @@ fail validation.
 			</td>
 		</tr>
 		<tr>
-      			<td style="white-space: nowrap"><!--Privilege Escalation (v1.8+)-->特权提升（v1.8+）</td>
+			<td style="white-space: nowrap"><!--Privilege Escalation (v1.8+)-->特权提升（v1.8+）</td>
 			<td>
 				<p><!--Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed.-->禁止（通过 SetUID 或 SetGID 文件模式）获得特权提升。</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
@@ -398,8 +394,8 @@ fail validation.
 			</td>
 		</tr>
 		<tr>
-      			<td style="white-space: nowrap"><!--Running as Non-root-->以非 root 账号运行</td>
-      			<td>
+			<td style="white-space: nowrap"><!--Running as Non-root-->以非 root 账号运行</td>
+			<td>
 				<p><!--Containers must be required to run as non-root users.-->容器必须以非 root 账号运行。</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
@@ -453,15 +449,29 @@ fail validation.
 					<li><code>Localhost</code></li>
 				</ul>
 				<small>
-					<!--The container fields may be undefined/<code>nil</code> if the pod-level <code>spec.securityContext.seccompProfile.type</code> field is set appropriately.  Conversely, the pod-level field may be undefined/<code>nil</code> if _all_ container- level fields are set.-->如果 Pod 级别的 <code>spec.securityContext.seccompProfile.type</code> 已设置得当，容器级别的安全上下文字段可以为 未定义/<code>nil</code>。反而言之，如果 <bold>所有的</bold> 容器级别的安全上下文字段已设置，则 Pod 级别的字段可为 未定义/<code>nil</code>。
+					<!--
+          The container fields may be undefined/<code>nil</code> if the pod-level
+					<code>spec.securityContext.seccompProfile.type</code> field is set appropriately.
+					Conversely, the pod-level field may be undefined/<code>nil</code> if _all_ container-
+					level fields are set.
+          -->
+          如果 Pod 级别的 <code>spec.securityContext.seccompProfile.type</code>
+          已设置得当，容器级别的安全上下文字段可以为未定义/<code>nil</code>。
+          反之如果 <bold>所有的</bold> 容器级别的安全上下文字段已设置，
+          则 Pod 级别的字段可为 未定义/<code>nil</code>。
 				</small>
   			</td>
-		</tr>
-    		<tr>
+  		</tr>
+		  <tr>
 			<td style="white-space: nowrap"><!--Capabilities (v1.22+) -->权能（v1.22+）</td>
-      			<td>
+			<td>
 				<p>
-					<!--Containers must drop <code>ALL</code> capabilities, and are only permitted to add back the <code>NET_BIND_SERVICE</code> capability.-->容器必须弃用 <code>ALL</code> 权能，并且只允许添加 <code>NET_BIND_SERVICE</code> 权能。
+					<!--
+					Containers must drop <code>ALL</code> capabilities, and are only permitted to add back
+					the <code>NET_BIND_SERVICE</code> capability.
+          -->
+          容器必须弃用 <code>ALL</code> 权能，并且只允许添加
+          <code>NET_BIND_SERVICE</code> 权能。
 				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
@@ -568,13 +578,13 @@ SIG Auth may reconsider this position in the future, should a clear need for oth
 SIG Auth 可能会在将来考虑这个范围的框架，前提是有对其他框架的需求。
 
 <!--
-### What's the difference between a security policy and a security context?
+### What's the difference between a security profile and a security context?
 
 [Security Contexts](/docs/tasks/configure-pod-container/security-context/) configure Pods and
 Containers at runtime. Security contexts are defined as part of the Pod and container specifications
 in the Pod manifest, and represent parameters to the container runtime.
 -->
-### 安全策略与安全上下文的区别是什么？
+### 安全配置与安全上下文的区别是什么？
 
 [安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)在运行时配置 Pod
 和容器。安全上下文是在 Pod 清单中作为 Pod 和容器规约的一部分来定义的，
@@ -595,18 +605,18 @@ built-in [Pod Security Admission Controller](/docs/concepts/security/pod-securit
 ### What profiles should I apply to my Windows Pods?
 
 Windows in Kubernetes has some limitations and differentiators from standard Linux-based
-workloads. Specifically, the Pod SecurityContext fields [have no effect on
-Windows](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext). As
-such, no standardized Pod Security profiles currently exists.
+workloads. Specifically, many of the Pod SecurityContext fields
+[have no effect on Windows](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext).
+As such, no standardized Pod Security profiles currently exist.
 -->
 ### 我应该为我的 Windows Pod 实施哪种框架？
 
 Kubernetes 中的 Windows 负载与标准的基于 Linux 的负载相比有一些局限性和区别。
 尤其是 Pod SecurityContext
-字段[对 Windows 不起作用](/zh-cn/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext)。
+字段[对 Windows 不起作用](/zh-cn/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext)。
 因此，目前没有对应的标准 Pod 安全性框架。
 
-<!-- 
+<!--
 If you apply the restricted profile for a Windows pod, this **may** have an impact on the pod
 at runtime. The restricted profile requires enforcing Linux-specific restrictions (such as seccomp
 profile, and disallowing privilege escalation). If the kubelet and / or its container runtime ignore
@@ -620,7 +630,9 @@ Restricted 策略需要强制执行 Linux 特有的限制（如 seccomp Profile�
 然而，对于使用 Windows 容器的 Pod 来说，缺乏强制执行意味着相比于 Restricted 策略，没有任何额外的限制。
 
 <!--
-The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy. Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies, so any HostProcess pod should be considered privileged.
+The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy.
+Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies,
+so any HostProcess pod should be considered privileged.
 -->
 你应该只在 Privileged 策略下使用 HostProcess 标志来创建 HostProcess Pod。
 在 Baseline 和 Restricted 策略下，创建 Windows HostProcess Pod 是被禁止的，
@@ -645,11 +657,11 @@ restrict privileged permissions is lessened when the workload is isolated from t
 kernel. This allows for workloads requiring heightened permissions to still be isolated.
 
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
-sandboxing. As such, no single recommended policy is recommended for all sandboxed workloads.
+sandboxing. As such, no single recommended profile is recommended for all sandboxed workloads.
 -->
 沙箱化负载所需要的保护可能彼此各不相同。例如，当负载与下层内核直接隔离开来时，
 限制特权化操作的许可就不那么重要。这使得那些需要更多许可权限的负载仍能被有效隔离。
 
 此外，沙箱化负载的保护高度依赖于沙箱化的实现方法。
-因此，现在还没有针对所有沙箱化负载的建议策略。
+因此，现在还没有针对所有沙箱化负载的建议配置。
 

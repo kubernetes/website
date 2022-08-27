@@ -566,7 +566,7 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: k8s.gcr.io/busybox
+      image: registry.k8s.io/busybox
       command: [ "/bin/sh", "-c", "env" ]
       envFrom:
       - secretRef:
@@ -794,7 +794,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: k8s.gcr.io/busybox
+    image: registry.k8s.io/busybox
     command:
     - ls
     - "-l"
@@ -1324,7 +1324,7 @@ have access to run a Pod that then exposes the Secret.
   [RBAC](/docs/reference/access-authn-authz/rbac/).
 - In the API server, objects (including Secrets) are persisted into
   {{< glossary_tooltip term_id="etcd" >}}; therefore:
-  - only allow cluster admistrators to access etcd (this includes read-only access);
+  - only allow cluster administrators to access etcd (this includes read-only access);
   - enable [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
     for Secret objects, so that the data of these Secrets are not stored in the clear
     into {{< glossary_tooltip term_id="etcd" >}};

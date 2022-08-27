@@ -17,14 +17,14 @@ weight: 30
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 Using `kubeadm`, you can create a minimum viable Kubernetes cluster that conforms to best practices.
 In fact, you can use `kubeadm` to set up a cluster that will pass the
-[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).
+[Kubernetes Conformance tests](/blog/2017/10/software-conformance-certification/).
 `kubeadm` also supports other cluster lifecycle functions, such as
 [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and cluster upgrades.
 -->
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 使用 `kubeadm`，你能创建一个符合最佳实践的最小化 Kubernetes 集群。
 事实上，你可以使用 `kubeadm` 配置一个通过
-[Kubernetes 一致性测试](https://kubernetes.io/blog/2017/10/software-conformance-certification)的集群。
+[Kubernetes 一致性测试](/blog/2017/10/software-conformance-certification/)的集群。
 `kubeadm` 还支持其他集群生命周期功能，
 例如[启动引导令牌](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)和集群升级。
 
@@ -68,7 +68,7 @@ To follow this guide, you need:
 
 - 一台或多台运行兼容 deb/rpm 的 Linux 操作系统的计算机；例如：Ubuntu 或 CentOS。
 - 每台机器 2 GB 以上的内存，内存不足时应用会受限制。
-- 用作控制平面节点的计算机上至少有2个 CPU。
+- 用作控制平面节点的计算机上至少有 2 个 CPU。
 - 集群中所有计算机之间具有完全的网络连接。你可以使用公共网络或专用网络。
 
 <!--
@@ -135,16 +135,17 @@ For detailed instructions and other prerequisites, see [Installing kubeadm](/doc
 详细说明和其他前提条件，请参见[安装 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
 
 <!--
-If you have already installed kubeadm, run `apt-get update &&
-apt-get upgrade` or `yum update` to get the latest version of kubeadm.
+If you have already installed kubeadm, run
+`apt-get update && apt-get upgrade` or
+`yum update` to get the latest version of kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal.
 After you initialize your control-plane, the kubelet runs normally.
 -->
 {{< note >}}
-如果你已经安装了kubeadm，执行 `apt-get update &&
-apt-get upgrade` 或 `yum update` 以获取 kubeadm 的最新版本。
+如果你已经安装了kubeadm，执行 `apt-get update && apt-get upgrade` 或 `yum update`
+以获取 kubeadm 的最新版本。
 
 升级时，kubelet 每隔几秒钟重新启动一次，
 在 crashloop 状态中等待 kubeadm 发布指令。crashloop 状态是正常现象。
@@ -162,7 +163,8 @@ to not download the default container images which are hosted at `k8s.gcr.io`.
 
 Kubeadm has commands that can help you pre-pull the required images
 when creating a cluster without an internet connection on its nodes.
-See [Running kubeadm without an internet connection](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection) for more details.
+See [Running kubeadm without an internet connection](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection)
+for more details.
 
 Kubeadm allows you to use a custom image repository for the required images.
 See [Using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
@@ -171,7 +173,7 @@ for more details.
 这个步骤是可选的，只适用于你希望 `kubeadm init` 和 `kubeadm join` 不去下载存放在 `k8s.gcr.io` 上的默认的容器镜像的情况。
 
 当你在离线的节点上创建一个集群的时候，Kubeadm 有一些命令可以帮助你预拉取所需的镜像。
-阅读[离线运行 kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
+阅读[离线运行 kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection)
 获取更多的详情。
 
 Kubeadm 允许你给所需要的镜像指定一个自定义的镜像仓库。
@@ -519,7 +521,8 @@ Once a Pod network has been installed, you can confirm that it is working by
 checking that the CoreDNS Pod is `Running` in the output of `kubectl get pods --all-namespaces`.
 And once the CoreDNS Pod is up and running, you can continue by joining your nodes.
 -->
-安装 Pod 网络后，你可以通过在 `kubectl get pods --all-namespaces` 输出中检查 CoreDNS Pod 是否 `Running` 来确认其是否正常运行。
+安装 Pod 网络后，你可以通过在 `kubectl get pods --all-namespaces` 输出中检查
+CoreDNS Pod 是否 `Running` 来确认其是否正常运行。
 一旦 CoreDNS Pod 启用并运行，你就可以继续加入节点。
 
 <!--
@@ -610,10 +613,13 @@ The nodes are where your workloads (containers and Pods, etc) run. To add new no
 <!--
 * SSH to the machine
 * Become root (e.g. `sudo su -`)
+* [Install a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)
+  if needed
 * Run the command that was output by `kubeadm init`. For example:
 -->
 * SSH 到机器
 * 成为 root （例如 `sudo su -`）
+* 必要时[安装一个运行时](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)
 * 运行 `kubeadm init` 输出的命令，例如：
 
   ```bash
@@ -662,7 +668,8 @@ The output is similar to this:
 ```
 
 <!--
-If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the control-plane node:
+If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the
+following command chain on the control-plane node:
 -->
 如果你没有 `--discovery-token-ca-cert-hash` 的值，则可以通过在控制平面节点上执行以下命令链来获取它：
 
@@ -717,9 +724,9 @@ on the first control-plane node. To provide higher availability, please rebalanc
 with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
 -->
 {{< note >}}
-由于集群节点通常是按顺序初始化的，CoreDNS Pods 很可能都运行在第一个控制面节点上。
+由于集群节点通常是按顺序初始化的，CoreDNS Pod 很可能都运行在第一个控制面节点上。
 为了提供更高的可用性，请在加入至少一个新节点后
-使用 `kubectl -n kube-system rollout restart deployment coredns` 命令，重新平衡 CoreDNS Pods。
+使用 `kubectl -n kube-system rollout restart deployment coredns` 命令，重新平衡这些 CoreDNS Pod。
 {{< /note >}}
 
 <!--
@@ -907,9 +914,9 @@ options.
 * 了解有关 Kubernetes [概念](/zh-cn/docs/concepts/)和 [`kubectl`](/zh-cn/docs/reference/kubectl/)的更多信息。
 * 有关 Pod 网络附加组件的更多列表，请参见[集群网络](/zh-cn/docs/concepts/cluster-administration/networking/)页面。
 * <a id="other-addons" />请参阅[附加组件列表](/zh-cn/docs/concepts/cluster-administration/addons/)以探索其他附加组件，
-  包括用于 Kubernetes 集群的日志记录，监视，网络策略，可视化和控制的工具。
+  包括用于 Kubernetes 集群的日志记录、监视、网络策略、可视化和控制的工具。
 * 配置集群如何处理集群事件的日志以及
-   在 Pods 中运行的应用程序。
+   在 Pod 中运行的应用程序。
   有关所涉及内容的概述，请参见[日志架构](/zh-cn/docs/concepts/cluster-administration/logging/)。
 
 <!--
@@ -964,7 +971,7 @@ of kube-apiserver, kube-controller-manager, kube-scheduler and kube-proxy.
 -->
 kubeadm 可以与 Kubernetes 组件一起使用，这些组件的版本与 kubeadm 相同，或者比它大一个版本。
 Kubernetes 版本可以通过使用 `--kubeadm init` 的 `--kubernetes-version` 标志或使用 `--config` 时的
-[`ClusterConfiguration.kubernetesVersion`](/zh-cn/docs/reference/configapi/kubeadm-config.v1beta3/)
+[`ClusterConfiguration.kubernetesVersion`](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
 字段指定给 kubeadm。
 这个选项将控制 kube-apiserver、kube-controller-manager、kube-scheduler 和 kube-proxy 的版本。
 
@@ -1051,7 +1058,7 @@ or {{< skew currentVersion >}}
 
 <!--
 To learn more about the version skew between the different Kubernetes component see
-the [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
+the [Version Skew Policy](/releases/version-skew-policy/).
 -->
 要了解更多关于不同 Kubernetes 组件之间的版本偏差，请参见
 [版本偏差策略](/zh-cn/releases/version-skew-policy/)。
@@ -1126,7 +1133,8 @@ supports your chosen platform.
 ## 故障排除 {#troubleshooting}
 
 <!--
-If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+If you are running into difficulties with kubeadm, please consult our
+[troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 -->
 如果你在使用 kubeadm 时遇到困难，
 请查阅我们的[故障排除文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
