@@ -10,7 +10,6 @@ tags:
 - extension
 - security
 ---
-
 <!--
 title: Admission Controller
 id: admission-controller
