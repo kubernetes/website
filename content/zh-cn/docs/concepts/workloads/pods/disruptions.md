@@ -432,6 +432,88 @@ can happen, according to:
 - 控制器的类型
 - 集群的资源能力
 
+<!-- 
+## Pod disruption conditions {#pod-disruption-conditions} 
+-->
+## Pod 干扰状况 {#pod-disruption-conditions}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+{{< note >}}
+<!-- 
+In order to use this behavior, you must enable the `PodDisruptionsCondition`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+in your cluster. 
+-->
+要使用此行为，你必须在集群中启用 `PodDisruptionsCondition`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+{{< /note >}}
+
+<!-- 
+When enabled, a dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is added to indicate
+that the Pod is about to be deleted due to a {{<glossary_tooltip term_id="disruption" text="disruption">}}.
+The `reason` field of the condition additionally
+indicates one of the following reasons for the Pod termination: 
+-->
+启用后，会给 Pod 添加一个 `DisruptionTarget`
+[状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)，
+用来表明该 Pod 因为发生{{<glossary_tooltip term_id="disruption" text="干扰">}}而被删除。
+状况中的 `reason` 字段进一步给出 Pod 终止的原因，如下：
+
+<!-- 
+`PreemptionByKubeScheduler`
+: Pod is due to be {{<glossary_tooltip term_id="preemption" text="preempted">}} by a scheduler in order to accommodate a new Pod with a higher priority. For more information, see [Pod priority preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/). 
+-->
+`PreemptionByKubeScheduler`
+: Pod 将被调度器{{<glossary_tooltip term_id="preemption" text="抢占">}}，
+目的是接受优先级更高的新 Pod。
+要了解更多的相关信息，请参阅 [Pod 优先级和抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
+
+<!-- 
+`DeletionByTaintManager`
+: Pod is due to be deleted by Taint Manager (which is part of the node lifecycle controller within `kube-controller-manager`) due to a `NoExecute` taint that the Pod does not tolerate; see {{<glossary_tooltip term_id="taint" text="taint">}}-based evictions. 
+-->
+`DeletionByTaintManager`
+: 由于 Pod 不能容忍 `NoExecute` 污点，Pod 将被
+Taint Manager（`kube-controller-manager` 中节点生命周期控制器的一部分）删除；
+请参阅基于{{<glossary_tooltip term_id="taint" text="污点">}}的驱逐。
+
+<!--
+`EvictionByEvictionAPI`
+: Pod has been marked for {{<glossary_tooltip term_id="api-eviction" text="eviction using the Kubernetes API">}} . 
+-->
+`EvictionByEvictionAPI`
+: Pod 已被标记为{{<glossary_tooltip term_id="api-eviction" text="通过 Kubernetes API 驱逐">}}。
+
+<!-- 
+`DeletionByPodGC`
+: Pod, that is bound to a no longer existing Node, is due to be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection). 
+-->
+`DeletionByPodGC`
+: 绑定到一个不再存在的 Node 上的 Pod 将被
+[Pod 垃圾收集](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)删除。
+
+{{< note >}}
+<!-- 
+A Pod disruption might be interrupted. The control plane might re-attempt to
+continue the disruption of the same Pod, but it is not guaranteed. As a result,
+the `DisruptionTarget` condition might be added to a Pod, but that Pod might then not actually be
+deleted. In such a situation, after some time, the
+Pod disruption condition will be cleared. 
+-->
+Pod 的干扰可能会被中断。控制平面可能会重新尝试继续干扰同一个 Pod，但这没办法保证。
+因此，`DisruptionTarget` 条件可能会添被加到 Pod 上，
+但该 Pod 实际上可能不会被删除。
+在这种情况下，一段时间后，Pod 干扰状况将被清除。
+{{< /note >}}
+
+<!-- 
+When using a Job (or CronJob), you may want to use these Pod disruption conditions as part of your Job's
+[Pod failure policy](/docs/concepts/workloads/controllers/job#pod-failure-policy). 
+-->
+使用 Job（或 CronJob）时，你可能希望将这些 Pod 干扰状况作为 Job
+[Pod 失效策略](/zh-cn/docs/concepts/workloads/controllers/job#pod-failure-policy)的一部分。
+
 <!--
 ## Separating Cluster Owner and Application Owner Roles
 
