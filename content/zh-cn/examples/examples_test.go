@@ -61,7 +61,7 @@ import (
 	"k8s.io/kubernetes/pkg/capabilities"
 	"k8s.io/kubernetes/pkg/registry/batch/job"
 
-	// initialize install packages
+	// 初始化安装包
 	_ "k8s.io/kubernetes/pkg/apis/apps/install"
 	_ "k8s.io/kubernetes/pkg/apis/autoscaling/install"
 	_ "k8s.io/kubernetes/pkg/apis/batch/install"
@@ -77,18 +77,18 @@ var (
 	serializer runtime.SerializerInfo
 )
 
-// TestGroup contains GroupVersion to uniquely identify the API
+// TestGroup 包含 GroupVersion 以唯一地标识该 API
 type TestGroup struct {
 	externalGroupVersion schema.GroupVersion
 }
 
-// GroupVersion makes copy of schema.GroupVersion
+// GroupVersion 制作 schema.GroupVersion 的副本
 func (g TestGroup) GroupVersion() *schema.GroupVersion {
 	copyOfGroupVersion := g.externalGroupVersion
 	return &copyOfGroupVersion
 }
 
-// Codec returns the codec for the API version to test against
+// Codec 为要测试的 API 版本返回编解码器
 func (g TestGroup) Codec() runtime.Codec {
 	if serializer.Serializer == nil {
 		return legacyscheme.Codecs.LegacyCodec(g.externalGroupVersion)
@@ -136,7 +136,7 @@ func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
 			return group.Codec(), nil
 		}
 	}
-	// Codec used for unversioned types
+	// 还未版本化的类别所用的 Codec
 	if legacyscheme.Scheme.Recognizes(kind) {
 		serializer, ok := runtime.SerializerInfoForMediaType(legacyscheme.Codecs.SupportedMediaTypes(), runtime.ContentTypeJSON)
 		if !ok {
@@ -160,7 +160,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		AllowPodAffinityNamespaceSelector: true,
 	}
 
-	// Enable CustomPodDNS for testing
+	// 为测试启用 CustomPodDNS
 	// feature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
 	case *api.ConfigMap:
@@ -230,7 +230,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		// handle clusterIPs, logic copied from service strategy
+		// 处理几个 ClusterIP，根据服务策略进行逻辑复制
 		if len(t.Spec.ClusterIP) > 0 && len(t.Spec.ClusterIPs) == 0 {
 			t.Spec.ClusterIPs = []string{t.Spec.ClusterIP}
 		}
@@ -258,8 +258,8 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		// Job needs generateSelector called before validation, and job.Validate does this.
-		// See: https://github.com/kubernetes/kubernetes/issues/20951#issuecomment-187787040
+		// Job 需要在校验前调用 generateSelector，然后 job.Validate 执行校验。
+		// 请参阅：https://github.com/kubernetes/kubernetes/issues/20951#issuecomment-187787040
 		t.ObjectMeta.UID = types.UID("fakeuid")
 		if strings.Index(t.ObjectMeta.Name, "$") > -1 {
 			t.ObjectMeta.Name = "skip-for-good"
@@ -315,13 +315,13 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		}
 		errors = policy_validation.ValidatePodDisruptionBudget(t)
 	case *rbac.ClusterRole:
-		// clusterole does not accept namespace
+		// ClusterRole 不接受名字空间
 		errors = rbac_validation.ValidateClusterRole(t)
 	case *rbac.ClusterRoleBinding:
-		// clusterolebinding does not accept namespace
+		// ClusterRoleBinding 不接受名字空间
 		errors = rbac_validation.ValidateClusterRoleBinding(t)
 	case *storage.StorageClass:
-		// storageclass does not accept namespace
+		// StorageClass 不接受名字空间
 		errors = storage_validation.ValidateStorageClass(t)
 	default:
 		errors = field.ErrorList{}
@@ -330,8 +330,8 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	return errors
 }
 
-// Walks inDir for any json/yaml files. Converts yaml to json, and calls fn for
-// each file found with the contents in data.
+// 遍历 inDir 目录查找所有 json/yaml 文件。将 yaml 转换为 json，
+// 并根据 data 中的内容找到的每个文件来调用 fn。
 func walkConfigFiles(inDir string, t *testing.T, fn func(name, path string, data [][]byte)) error {
 	return filepath.Walk(inDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -352,7 +352,7 @@ func walkConfigFiles(inDir string, t *testing.T, fn func(name, path string, data
 
 			var docs [][]byte
 			if ext == ".yaml" {
-				// YAML can contain multiple documents.
+				// YAML 可以包含多个文档。
 				splitter := yaml.NewYAMLReader(bufio.NewReader(bytes.NewBuffer(data)))
 				for {
 					doc, err := splitter.Read()
@@ -366,7 +366,7 @@ func walkConfigFiles(inDir string, t *testing.T, fn func(name, path string, data
 					if err != nil {
 						return fmt.Errorf("%s: %v", path, err)
 					}
-					// deal with "empty" document (e.g. pure comments)
+					// 处理 "空白" 文档（例如纯注释）
 					if string(out) != "null" {
 						docs = append(docs, out)
 					}
@@ -385,7 +385,7 @@ func walkConfigFiles(inDir string, t *testing.T, fn func(name, path string, data
 func TestExampleObjectSchemas(t *testing.T) {
 	initGroups()
 
-	// Please help maintain the alphabeta order in the map
+	// 请帮助保持映射图中的 alphabeta 顺序
 	cases := map[string]map[string][]runtime.Object{
 		"admin": {
 			"namespace-dev":        {&api.Namespace{}},
@@ -691,7 +691,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 	}
 
-	// Note a key in the following map has to be complete relative path
+	// 请注意，以下映射中的某个键必须是完整的相对路径
 	filesIgnore := map[string]map[string]bool{
 		"audit": {
 			"audit-policy": true,
@@ -705,7 +705,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		tested := 0
 		numExpected := 0
 		path := dir
-		// Test if artifacts do exist
+		// 测试这些工件是否存在
 		for name := range expected {
 			fn := path + "/" + name
 			_, err1 := os.Stat(fn + ".yaml")

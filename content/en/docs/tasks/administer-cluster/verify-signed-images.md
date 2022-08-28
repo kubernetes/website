@@ -28,7 +28,7 @@ Let's pick one image from this list and verify its signature using
 the `cosign verify` command:
 
 ```shell
-COSIGN_EXPERIMENTAL=1 cosign verify k8s.gcr.io/kube-apiserver-amd64:v1.24.0
+COSIGN_EXPERIMENTAL=1 cosign verify registry.k8s.io/kube-apiserver-amd64:v1.24.0
 ```
 
 {{< note >}}
@@ -42,7 +42,7 @@ in `KEYLESS` mode. To learn more about keyless signing, please refer to
 To verify all signed control plane images, please run this command:
 
 ```shell
-curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: k8s.gcr.io/' | awk '{print $2}' > images.txt
+curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: registry.k8s.io/' | awk '{print $2}' > images.txt
 input=images.txt
 while IFS= read -r image
 do
@@ -64,9 +64,9 @@ section.
 For non-control plane images (
 e.g. [conformance image](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md))
 , signatures can also be verified at deploy time using
-[cosigned](https://docs.sigstore.dev/cosign/kubernetes/#cosigned-admission-controller)
-admission controller. To get started with `cosigned` here are a few helpful
+[sigstore policy-controller](https://docs.sigstore.dev/policy-controller/overview)
+admission controller. To get started with `policy-controller` here are a few helpful
 resources:
 
-* [Installation](https://github.com/sigstore/cosign#installation)
-* [Configuration Options](https://github.com/sigstore/cosign/blob/main/USAGE.md#detailed-usage)
+* [Installation](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
+* [Configuration Options](https://github.com/sigstore/policy-controller/tree/main/config)

@@ -22,7 +22,6 @@ cluster using kubeadm:
   and control plane nodes are co-located.
 - With an external etcd cluster. This approach requires more infrastructure. The
   control plane nodes and etcd members are separated.
-
 -->
 本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式：
 
@@ -36,27 +35,26 @@ and environment. [Options for Highly Available topology](/docs/setup/production-
 If you encounter issues with setting up the HA cluster, please report these
 in the kubeadm [issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
 
-See also the [upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15).
+See also the [upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 -->
-在下一步之前，你应该仔细考虑哪种方法更好的满足你的应用程序和环境的需求。 
+在下一步之前，你应该仔细考虑哪种方法更好地满足你的应用程序和环境的需求。
 [高可用拓扑选项](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/) 讲述了每种方法的优缺点。
 
 如果你在安装 HA 集群时遇到问题，请在 kubeadm [问题跟踪](https://github.com/kubernetes/kubeadm/issues/new)里向我们提供反馈。
 
-你也可以阅读[升级文档](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+你也可以阅读[升级文档](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+
+{{< caution >}}
 <!--
 This page does not address running your cluster on a cloud provider. In a cloud
 environment, neither approach documented here works with Service objects of type
 LoadBalancer, or with dynamic PersistentVolumes.
 -->
-{{< caution >}}
-这篇文档没有讲述在云提供商上运行集群的问题。在云环境中，此处记录的方法不适用于类型为 LoadBalancer 的服务对象，或者具有动态的 PersistentVolumes。
+这篇文档没有讲述在云提供商上运行集群的问题。在云环境中，
+此处记录的方法不适用于类型为 LoadBalancer 的服务对象，也不适用于具有动态 PersistentVolume 的对象。
 {{< /caution >}}
 
-
-
 ## {{% heading "prerequisites" %}}
-
 
 <!--
 The prerequisites depend on which topology you have selected for your cluster's
@@ -66,6 +64,7 @@ control plane:
 
 {{< tabs name="prerequisite_tabs" >}}
 {{% tab name="堆叠（Stacked） etcd 拓扑" %}}
+
 <!--
     note to reviewers: these prerequisites should match the start of the
     external etc tab
@@ -103,9 +102,11 @@ _See [Stacked etcd topology](/docs/setup/production-environment/tools/kubeadm/ha
 - 从某台设备通过 SSH 访问系统中所有节点的能力
 - 所有机器上已经安装 `kubeadm` 和 `kubelet`
 
-_拓扑详情请参考[堆叠（Stacked）etcd 拓扑](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/#堆叠-stacked-etcd-拓扑)。_
+**拓扑详情请参考[堆叠（Stacked）etcd 拓扑](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/#stacked-etcd-topology)。**
+
 {{% /tab %}}
 {{% tab name="外部 etcd 拓扑" %}}
+
 <!--
     note to reviewers: these prerequisites should match the start of the
     stacked etc tab
@@ -140,6 +141,7 @@ You need:
   - 可以使用其他工具；本教程以 `sudo` 举例
 - 从某台设备通过 SSH 访问系统中所有节点的能力
 - 所有机器上已经安装 `kubeadm` 和 `kubelet`
+
 <!-- end of shared prerequisites -->
 <!--
 And you also need:
@@ -153,10 +155,12 @@ And you also need:
 - 给 etcd 集群使用的另外三台及以上机器。为了分布式一致性算法达到更好的投票效果，集群必须由奇数个节点组成。
   - 机器上已经安装 `kubeadm` 和 `kubelet`。
   - 机器上同样需要安装好容器运行时，并能正常运行。
+
 <!--
 _See [External etcd topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology) for context._
 -->
-_拓扑详情请参考[外部 etcd 拓扑](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/#外部-etcd-拓扑)。_
+**拓扑详情请参考[外部 etcd 拓扑](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)。**
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -167,7 +171,7 @@ _拓扑详情请参考[外部 etcd 拓扑](/zh-cn/docs/setup/production-environm
 Each host should have access read and fetch images from the Kubernetes container image registry, `k8s.gcr.io`.
 If you want to deploy a highly-available cluster where the hosts do not have access to pull images, this is possible. You must ensure by some other means that the correct container images are already available on the relevant hosts.
 -->
-每台主机需要能够从 Kubernetes 容器镜像仓库（ `k8s.gcr.io` ）读取和拉取镜像。
+每台主机需要能够从 Kubernetes 容器镜像仓库（`k8s.gcr.io`）读取和拉取镜像。
 想要在无法拉取 Kubernetes 仓库镜像的机器上部署高可用集群也是可行的。通过其他的手段保证主机上已经有对应的容器镜像即可。
 
 <!-- ### Command line interface {#kubectl} -->
@@ -179,7 +183,8 @@ To manage Kubernetes once your cluster is set up, you should
 to install the `kubectl` tool on each control plane node, as this can be
 helpful for troubleshooting.
 -->
-一旦集群创建成功，需要在 PC 上[安装 kubectl](/zh-cn/docs/tasks/tools/#kubectl) 用于管理 Kubernetes。为了方便故障排查，也可以在每个控制平面节点上安装 `kubectl`。
+一旦集群创建成功，需要在 PC 上[安装 kubectl](/zh-cn/docs/tasks/tools/#kubectl) 用于管理 Kubernetes。
+为了方便故障排查，也可以在每个控制平面节点上安装 `kubectl`。
 
 <!-- steps -->
 
@@ -192,13 +197,12 @@ helpful for troubleshooting.
 
 ### 为 kube-apiserver 创建负载均衡器
 
+{{< note >}}
 <!--
 There are many configurations for load balancers. The following example is only one
 option. Your cluster requirements may need a different configuration.
 -->
-{{< note >}}
-使用负载均衡器需要许多配置。你的集群搭建可能需要不同的配置。
-下面的例子只是其中的一方面配置。
+使用负载均衡器需要许多配置。你的集群搭建可能需要不同的配置。下面的例子只是其中的一方面配置。
 {{< /note >}}
 
 <!--
@@ -240,17 +244,17 @@ option. Your cluster requirements may need a different configuration.
      以获取更多详细信息。
 
 <!--
-1. Add the first control plane nodes to the load balancer and test the
+1. Add the first control plane node to the load balancer, and test the
    connection:
 
-   ```sh
-   nc -v LOAD_BALANCER_IP PORT
+   ```shell
+   nc -v <LOAD_BALANCER_IP> <PORT>
    ```
 
-   - A connection refused error is expected because the apiserver is not yet
-     running. A timeout, however, means the load balancer cannot communicate
-     with the control plane node. If a timeout occurs, reconfigure the load
-     balancer to communicate with the control plane node.
+   A connection refused error is expected because the API server is not yet
+   running. A timeout, however, means the load balancer cannot communicate
+   with the control plane node. If a timeout occurs, reconfigure the load
+   balancer to communicate with the control plane node.
 
 1. Add the remaining control plane nodes to the load balancer target group.
 -->
@@ -260,7 +264,7 @@ option. Your cluster requirements may need a different configuration.
    nc -v LOAD_BALANCER_IP PORT
    ```
 
-   由于 apiserver 尚未运行，预期会出现一个连接拒绝错误。
+   由于 API 服务器尚未运行，预期会出现一个连接拒绝错误。
    然而超时意味着负载均衡器不能和控制平面节点通信。
    如果发生超时，请重新配置负载均衡器与控制平面节点进行通信。
 
@@ -288,7 +292,7 @@ option. Your cluster requirements may need a different configuration.
    - The `--upload-certs` flag is used to upload the certificates that should be shared
      across all the control-plane instances to the cluster. If instead, you prefer to copy certs across
      control-plane nodes manually or using automation tools, please remove this flag and refer to [Manual
-     certificate distribution](#manual-certs) section bellow.
+     certificate distribution](#manual-certs) section below.
 -->
 1. 初始化控制平面：
 
@@ -303,25 +307,27 @@ option. Your cluster requirements may need a different configuration.
      如果正好相反，你更喜欢手动地通过控制平面节点或者使用自动化工具复制证书，
      请删除此标志并参考如下部分[证书分配手册](#manual-certs)。
 
+   {{< note >}}
    <!--
    The `kubeadm init` flags `--config` and `--certificate-key` cannot be mixed, therefore if you want
-   to use the [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta3/) you must add the `certificateKey` field in the appropriate config locations (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
+   to use the [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta3/)
+   you must add the `certificateKey` field in the appropriate config locations
+   (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
    -->
-   {{< note >}}
    标志 `kubeadm init`、`--config` 和 `--certificate-key` 不能混合使用，
    因此如果你要使用
-   [kubeadm 配置](/docs/reference/config-api/kubeadm-config.v1beta3/)，你必须在相应的配置结构
+   [kubeadm 配置](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)，你必须在相应的配置结构
    （位于 `InitConfiguration` 和 `JoinConfiguration: controlPlane`）添加 `certificateKey` 字段。
    {{< /note >}}
 
+   {{< note >}}
    <!--
-   Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
-   some like Weave do not. See the [CNI network documentation](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network).
+   Some CNI network plugins require additional configuration, for example specifying the pod IP CIDR, while others do not.
+   See the [CNI network documentation](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network).
    To add a pod CIDR pass the flag `--pod-network-cidr`, or if you are using a kubeadm configuration file
    set the `podSubnet` field under the `networking` object of `ClusterConfiguration`.
    -->
-   {{< note >}}
-   一些 CNI 网络插件如 Calico 需要 CIDR 例如 `192.168.0.0/16` 和一些像 Weave 没有。参考
+   一些 CNI 网络插件需要更多配置，例如指定 Pod IP CIDR，而其他插件则不需要。参考
    [CNI 网络文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
    通过传递 `--pod-network-cidr` 标志添加 pod CIDR，或者你可以使用 kubeadm
    配置文件，在 `ClusterConfiguration` 的 `networking` 对象下设置 `podSubnet` 字段。
@@ -358,6 +364,7 @@ option. Your cluster requirements may need a different configuration.
      ```shell
      sudo kubeadm init phase upload-certs --upload-certs
      ```
+
    <!--
    - You can also specify a custom `--certificate-key` during `init` that can later be used by `join`.
      To generate such a key you can use the following command:
@@ -368,17 +375,18 @@ option. Your cluster requirements may need a different configuration.
      ```shell
      kubeadm certs certificate-key
      ```
+
+   {{< note >}}
    <!--
    The `kubeadm-certs` Secret and decryption key expire after two hours.
    -->
-   {{< note >}}
    `kubeadm-certs` Secret 和解密密钥会在两个小时后失效。
    {{< /note >}}
 
+   {{< caution >}}
    <!--
    As stated in the command output, the certificate key gives access to cluster sensitive data, keep it secret!
    -->
-   {{< caution >}}
    正如命令输出中所述，证书密钥可访问集群敏感数据。请妥善保管！
    {{< /caution >}}
 
@@ -390,20 +398,20 @@ option. Your cluster requirements may need a different configuration.
    [请遵循以下指示](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
    安装 CNI 驱动。如果适用，请确保配置与 kubeadm 配置文件中指定的 Pod
    CIDR 相对应。
+
+   {{< note >}}
    <!--
    You must pick a network plugin that suits your use case and deploy it before you move on to next step.
    If you don't do this, you will not be able to launch your cluster properly.
    -->
-   {{< note >}}
    在进行下一步之前，必须选择并部署合适的网络插件。
    否则集群不会正常运行。
    {{< /note >}}
 
-
 <!--
 1. Type the following and watch the pods of the control plane components get started:
 -->
-3. 输入以下内容，并查看控制平面组件的 Pods 启动：
+3. 输入以下内容，并查看控制平面组件的 Pod 启动：
 
    ```shell
    kubectl get pod -n kube-system -w
@@ -413,16 +421,6 @@ option. Your cluster requirements may need a different configuration.
 ### Steps for the rest of the control plane nodes
 -->
 ### 其余控制平面节点的步骤
-
-<!--
-Since kubeadm version 1.15 you can join multiple control-plane nodes in parallel.
-Prior to this version, you must join new control plane nodes sequentially, only after
-the first node has finished initializing.
--->
-{{< note >}}
-从 kubeadm 1.15 版本开始，你可以并行加入多个控制平面节点。
-在此版本之前，你必须在第一个节点初始化后才能依序的增加新的控制平面节点。
-{{< /note >}}
 
 <!--
 For each additional control plane node you should:
@@ -436,7 +434,7 @@ For each additional control plane node you should:
 
    - The `--control-plane` flag tells `kubeadm join` to create a new control plane.
    - The `--certificate-key ...` will cause the control plane certificates to be downloaded
-   from the `kubeadm-certs` Secret in the cluster and be decrypted using the given key.
+     from the `kubeadm-certs` Secret in the cluster and be decrypted using the given key.
 
 -->
 对于每个其他控制平面节点，你应该：
@@ -467,7 +465,7 @@ in the kubeadm config file.
 <!--
 ### Set up the etcd cluster
 
-1. Follow [these instructions](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) to set up the etcd cluster.
+1. Follow these [instructions](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) to set up the etcd cluster.
 
 1. Setup SSH as described [here](#manual-certs).
 
@@ -480,11 +478,11 @@ in the kubeadm config file.
    scp /etc/kubernetes/pki/apiserver-etcd-client.key "${CONTROL_PLANE}":
    ```
 
-   - Replace the value of `CONTROL_PLANE` with the `user@host` of the first control-plane machine.
+   - Replace the value of `CONTROL_PLANE` with the `user@host` of the first control-plane node.
 -->
 ### 设置 ectd 集群
 
-1. 按照[这些指示](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) 
+1. 按照这些[指示](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) 
    去设置 etcd 集群。
 
 1. 根据[这里](#manual-certs) 的描述配置 SSH。
@@ -498,7 +496,7 @@ in the kubeadm config file.
    scp /etc/kubernetes/pki/apiserver-etcd-client.key "${CONTROL_PLANE}":
    ```
 
-   - 用第一台控制平面机的 `user@host` 替换 `CONTROL_PLANE` 的值。
+   - 用第一台控制平面节点的 `user@host` 替换 `CONTROL_PLANE` 的值。
 
 <!--
 ### Set up the first control plane node
@@ -536,19 +534,20 @@ in the kubeadm config file.
    etcd:
      external:
        endpoints:
-         - https://ETCD_0_IP:2379 # change ETCD_0_IP appropriately
-         - https://ETCD_1_IP:2379 # change ETCD_1_IP appropriately
-         - https://ETCD_2_IP:2379 # change ETCD_2_IP appropriately
+         - https://ETCD_0_IP:2379 # 适当地更改 ETCD_0_IP
+         - https://ETCD_1_IP:2379 # 适当地更改 ETCD_1_IP
+         - https://ETCD_2_IP:2379 # 适当地更改 ETCD_2_IP
        caFile: /etc/kubernetes/pki/etcd/ca.crt
        certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
        keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
    ```
+
+   {{< note >}}
    <!--
    The difference between stacked etcd and external etcd here is that the external etcd setup requires
    a configuration file with the etcd endpoints under the `external` object for `etcd`.
-   In the case of the stacked etcd topology this is managed automatically.
+   In the case of the stacked etcd topology, this is managed automatically.
    -->
-   {{< note >}}
    这里的堆叠（stacked）etcd 和外部 etcd 之前的区别在于设置外部 etcd
    需要一个 `etcd` 的 `external` 对象下带有 etcd 端点的配置文件。
    如果是内部 etcd，是自动管理的。
@@ -575,18 +574,19 @@ The following steps are similar to the stacked etcd setup:
 
 1. Write the output join commands that are returned to a text file for later use.
 
-1. Apply the CNI plugin of your choice. 
+1. Apply the CNI plugin of your choice.
 -->
 1. 在节点上运行 `sudo kubeadm init --config kubeadm-config.yaml --upload-certs` 命令。
 
 1. 记下输出的 join 命令，这些命令将在以后使用。
 
 1. 应用你选择的 CNI 插件。
+
+   {{< note >}}
    <!--
    You must pick a network plugin that suits your use case and deploy it before you move on to next step.
    If you don't do this, you will not be able to launch your cluster properly.
    -->
-   {{< note >}}
    在进行下一步之前，必须选择并部署合适的网络插件。
    否则集群不会正常运行。
    {{< /note >}}
@@ -598,7 +598,7 @@ The steps are the same as for the stacked etcd setup:
 
 - Make sure the first control plane node is fully initialized.
 - Join each control plane node with the join command you saved to a text file. It's recommended
-to join the control plane nodes one at a time.
+  to join the control plane nodes one at a time.
 - Don't forget that the decryption key from `--certificate-key` expires after two hours, by default.
 -->
 ### 其他控制平面节点的步骤
@@ -636,17 +636,16 @@ If you choose to not use `kubeadm init` with the `--upload-certs` flag this mean
 you are going to have to manually copy the certificates from the primary control plane node to the
 joining control plane nodes.
 
-There are many ways to do this. In the following example we are using `ssh` and `scp`:
+There are many ways to do this. The following example uses `ssh` and `scp`:
 
 SSH is required if you want to control all nodes from a single machine.
 -->
 ## 手动证书分发 {#manual-certs}
 
 如果你选择不将 `kubeadm init` 与 `--upload-certs` 命令一起使用，
-则意味着你将必须手动将证书从主控制平面节点复制到
-将要加入的控制平面节点上。
+则意味着你将必须手动将证书从主控制平面节点复制到将要加入的控制平面节点上。
 
-有许多方法可以实现这种操作。在下面的例子中我们使用 `ssh` 和 `scp`：
+有许多方法可以实现这种操作。下面的例子使用了 `ssh` 和 `scp`：
 
 如果要在单独的一台计算机控制所有节点，则需要 SSH。
 
@@ -675,9 +674,13 @@ SSH is required if you want to control all nodes from a single machine.
 3. 检查节点间的 SSH 以确保连接是正常运行的
 
    <!--
-   - When you SSH to any node, make sure to add the `-A` flag:
+   - When you SSH to any node, add the `-A` flag. This flag allows the node that you
+     have logged into via SSH to access the SSH agent on your PC. Consider alternative
+     methods if you do not fully trust the security of your user session on the node.
    -->
-   - SSH 到任何节点时，请确保添加 `-A` 标志：
+   - SSH 到任何节点时，请确保添加 `-A` 标志。
+     此标志允许你通过 SSH 登录到节点后从该节点上访问你自己 PC 上的 SSH 代理。
+     如果你不完全信任该节点上的用户会话安全，可以考虑使用其他替代方法。
 
      ```shell
      ssh -A 10.0.0.7
@@ -694,12 +697,11 @@ SSH is required if you want to control all nodes from a single machine.
      sudo -E -s
      ```
 <!--
-1. After configuring SSH on all the nodes you should run the following script on the first control plane node after
-   running `kubeadm init`. This script will copy the certificates from the first control plane node to the other
-   control plane nodes:
+1. After configuring SSH on all the nodes you should run the following script on the first
+   control plane node after running `kubeadm init`. This script will copy the certificates from
+   the first control plane node to the other control plane nodes:
 -->
-4. 在所有节点上配置 SSH 之后，你应该在运行过 `kubeadm init` 命令的第一个
-   控制平面节点上运行以下脚本。
+4. 在所有节点上配置 SSH 之后，你应该在运行过 `kubeadm init` 命令的第一个控制平面节点上运行以下脚本。
    该脚本会将证书从第一个控制平面节点复制到另一个控制平面节点：
 
    <!--
@@ -719,15 +721,17 @@ SSH is required if you want to control all nodes from a single machine.
        scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
        scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
        scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
+       # 如果你正使用外部 etcd，忽略下一行
        scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
    done
    ```
+   
+   {{< caution >}}
    <!--
    Copy only the certificates in the above list. kubeadm will take care of generating the rest of the certificates
    with the required SANs for the joining control-plane instances. If you copy all the certificates by mistake,
    the creation of additional nodes could fail due to a lack of required SANs.
    -->
-   {{< caution >}}
    只需要复制上面列表中的证书。kubeadm 将负责生成其余证书以及加入控制平面实例所需的 SAN。
    如果你错误地复制了所有证书，由于缺少所需的 SAN，创建其他节点可能会失败。
    {{< /caution >}}
@@ -736,11 +740,10 @@ SSH is required if you want to control all nodes from a single machine.
 1. Then on each joining control plane node you have to run the following script before running `kubeadm join`.
    This script will move the previously copied certificates from the home directory to `/etc/kubernetes/pki`:
 -->
-5. 然后，在每个即将加入集群的控制平面节点上，你必须先运行以下脚本，然后
-   再运行 `kubeadm join`。
+5. 然后，在每个即将加入集群的控制平面节点上，你必须先运行以下脚本，然后再运行 `kubeadm join`。
    该脚本会将先前复制的证书从主目录移动到 `/etc/kubernetes/pki`：
 
-   ```shell
+   ```sh
    USER=ubuntu # 可定制
    mkdir -p /etc/kubernetes/pki/etcd
    mv /home/${USER}/ca.crt /etc/kubernetes/pki/
@@ -750,6 +753,7 @@ SSH is required if you want to control all nodes from a single machine.
    mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
    mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
    mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
+   # 如果你正使用外部 etcd，忽略下一行
    mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
    ```
 

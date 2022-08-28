@@ -1,8 +1,8 @@
 ---
-
-
-
-
+#reviewers:
+#- Kashomon
+#- bprashanth
+#- madhusudancs
 title: 레플리카셋
 content_type: concept
 weight: 20
@@ -78,7 +78,7 @@ kubectl describe rs/frontend
 
 출력은 다음과 유사할 것이다.
 
-```shell
+```
 Name:         frontend
 Namespace:    default
 Selector:     tier=frontend
@@ -130,7 +130,7 @@ kubectl get pods frontend-b2zdv -o yaml
 
 메타데이터의 ownerReferences 필드에 설정되어 있는 프런트엔드 레플리카셋의 정보가 다음과 유사하게 나오는 것을 볼 수 있다.
 
-```shell
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -181,7 +181,7 @@ kubectl get pods
 
 결과에는 새로운 파드가 이미 종료되었거나 종료가 진행 중인 것을 보여준다.
 
-```shell
+```
 NAME             READY   STATUS        RESTARTS   AGE
 frontend-b2zdv   1/1     Running       0          10m
 frontend-vcmts   1/1     Running       0          10m
@@ -210,7 +210,7 @@ kubectl get pods
 ```
 
 다음 출력에서 볼 수 있다.
-```shell
+```
 NAME             READY   STATUS    RESTARTS   AGE
 frontend-hmmj2   1/1     Running   0          9s
 pod1             1/1     Running   0          36s
@@ -387,7 +387,7 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 
 ### 기본 파드
 
-사용자가 직접 파드를 생성하는 경우와는 다르게, 레플리카셋은 노드 장애 또는 노드의 커널 업그레이드와 같은 관리  목적의 중단 등 어떤 이유로든 종료되거나 삭제된 파드를 교체한다. 이런 이유로 애플리케이션이 단일 파드가 필요하더라도 레플리카셋을 이용하는 것을 권장한다. 레플리카셋을 프로세스 관리자와 비교해서 생각해본다면, 레플리카셋은 단일 노드에서의 개별 프로세스들이 아닌 다수의 노드에 걸쳐있는 다수의 파드를 관리하는 것이다. 레플리카셋은 로컬 컨테이너의 재시작을 노드에 있는 어떤 에이전트에게 위임한다(예를들어 Kubelet 또는 도커).
+사용자가 직접 파드를 생성하는 경우와는 다르게, 레플리카셋은 노드 장애 또는 노드의 커널 업그레이드와 같은 관리  목적의 중단 등 어떤 이유로든 종료되거나 삭제된 파드를 교체한다. 이런 이유로 애플리케이션이 단일 파드가 필요하더라도 레플리카셋을 이용하는 것을 권장한다. 레플리카셋을 프로세스 관리자와 비교해서 생각해본다면, 레플리카셋은 단일 노드에서의 개별 프로세스들이 아닌 다수의 노드에 걸쳐있는 다수의 파드를 관리하는 것이다. 레플리카셋은 로컬 컨테이너의 재시작을 노드에 있는 Kubelet과 같은 에이전트에게 위임한다.
 
 ### 잡
 

@@ -17,7 +17,7 @@ This page shows how to assign a memory *request* and a memory *limit* to a
 Container. A Container is guaranteed to have as much memory as it requests,
 but is not allowed to use more memory than its limit.
 -->
-此页面展示如何将内存 *请求* （request）和内存 *限制* （limit）分配给一个容器。
+此页面展示如何将内存**请求**（request）和内存**限制**（limit）分配给一个容器。
 我们保障容器拥有它请求数量的内存，但不允许使用超过限制数量的内存。
 
 ## {{% heading "prerequisites" %}}

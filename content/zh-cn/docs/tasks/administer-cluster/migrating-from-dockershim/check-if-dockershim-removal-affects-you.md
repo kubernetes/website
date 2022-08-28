@@ -1,11 +1,11 @@
 ---
-title: 检查弃用 Dockershim 是否对你有影响
+title: 检查移除 Dockershim 是否对你有影响
 content_type: task 
 weight: 20
 ---
 <!-- 
-title: Check whether Dockershim deprecation affects you
-content_type: task 
+title: Check whether dockershim removal affects you
+content_type: task
 reviewers:
 - SergeyKanzhelev
 weight: 20
@@ -23,7 +23,6 @@ Kubernetes 的 `dockershim` 组件使得你可以把 Docker 用作 Kubernetes �
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}。
 在 Kubernetes v1.24 版本中，内建组件 `dockershim` 被移除。
 
-
 <!-- 
 This page explains how your cluster could be using Docker as a container runtime,
 provides details on the role that `dockershim` plays when in use, and shows steps
@@ -31,10 +30,10 @@ you can take to check whether any workloads could be affected by `dockershim` re
 -->
 本页讲解你的集群把 Docker 用作容器运行时的运作机制，
 并提供使用 `dockershim` 时，它所扮演角色的详细信息，
-继而展示了一组操作，可用来检查弃用 `dockershim` 对你的工作负载是否有影响。
+继而展示了一组操作，可用来检查移除 `dockershim` 对你的工作负载是否有影响。
 
 <!-- 
-## Finding if your app has a dependencies on Docker {#find-docker-dependencies} 
+## Finding if your app has a dependencies on Docker {#find-docker-dependencies}
 -->
 ## 检查你的应用是否依赖于 Docker {#find-docker-dependencies}
 
@@ -106,7 +105,7 @@ execute the containers that make up a Kubernetes pod. Kubernetes is responsible 
 and scheduling of Pods; on each node, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
 uses the container runtime interface as an abstraction so that you can use any compatible
 container runtime.
- -->
+-->
 [容器运行时](/zh-cn/docs/concepts/containers/#container-runtimes)是一个软件，
 用来运行组成 Kubernetes Pod 的容器。
 Kubernetes 负责编排和调度 Pod；在每一个节点上，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
@@ -119,7 +118,7 @@ The CRI was designed to allow this kind of flexibility - and the kubelet began s
 because Docker existed before the CRI specification was invented, the Kubernetes project created an
 adapter component, `dockershim`. The dockershim adapter allows the kubelet to interact with Docker as
 if Docker were a CRI compatible runtime.
- -->
+-->
 在早期版本中，Kubernetes 提供的兼容性支持一个容器运行时：Docker。
 在 Kubernetes 后来的发展历史中，集群运营人员希望采用别的容器运行时。
 于是 CRI 被设计出来满足这类灵活性需求 - 而 kubelet 亦开始支持 CRI。
@@ -128,9 +127,9 @@ dockershim 适配器允许 kubelet 与 Docker 交互，就好像 Docker 是一�
 
 <!-- 
 You can read about it in [Kubernetes Containerd integration goes GA](/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/) blog post.
- -->
+-->
 你可以阅读博文
-[Kubernetes 正式支持集成 Containerd](/zh-cn/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/)。
+[Kubernetes 正式支持集成 Containerd](/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/)。
 
 <!-- Dockershim vs. CRI with Containerd -->
 ![Dockershim 和 Containerd CRI 的实现对比图](/images/blog/2018-05-24-kubernetes-containerd-integration-goes-ga/cri-containerd.png)
@@ -141,7 +140,7 @@ same containers can be run by container runtimes like Containerd as before. But
 now, since containers schedule directly with the container runtime, they are not visible to Docker.
 So any Docker tooling or fancy UI you might have used
 before to check on these containers is no longer available.
- -->
+-->
 切换到 Containerd 容器运行时可以消除掉中间环节。
 所有相同的容器都可由 Containerd 这类容器运行时来运行。
 但是现在，由于直接用容器运行时调度容器，它们对 Docker 是不可见的。
@@ -151,7 +150,7 @@ before to check on these containers is no longer available.
 You cannot get container information using `docker ps` or `docker inspect`
 commands. As you cannot list containers, you cannot get logs, stop containers,
 or execute something inside container using `docker exec`.
- -->
+-->
 你不能再使用 `docker ps` 或 `docker inspect` 命令来获取容器信息。
 由于你不能列出容器，因此你不能获取日志、停止容器，甚至不能通过 `docker exec` 在容器中执行命令。
 
@@ -160,10 +159,9 @@ or execute something inside container using `docker exec`.
 If you're running workloads via Kubernetes, the best way to stop a container is through
 the Kubernetes API rather than directly through the container runtime (this advice applies
 for all container runtimes, not only Docker).
- -->
+-->
 如果你在用 Kubernetes 运行工作负载，最好通过 Kubernetes API 停止容器，
-而不是通过容器运行时来停止它们
-（此建议适用于所有容器运行时，不仅仅是针对 Docker）。
+而不是通过容器运行时来停止它们（此建议适用于所有容器运行时，不仅仅是针对 Docker）。
 {{< /note >}}
 
 <!-- 
@@ -180,9 +178,9 @@ by Kubernetes.
 
 <!--
 - Read [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) to understand your next steps
-- Read the [dockershim deprecation FAQ](/blog/2020/12/02/dockershim-faq/) article for more information. 
+- Read the [dockershim deprecation FAQ](/blog/2020/12/02/dockershim-faq/) article for more information.
 -->
 - 阅读[从 dockershim 迁移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)，
   以了解你的下一步工作。
-- 阅读[dockershim 弃用常见问题解答](/zh-cn/blog/2020/12/02/dockershim-faq/)文章，了解更多信息。
+- 阅读[弃用 Dockershim 的常见问题](/zh-cn/blog/2020/12/02/dockershim-faq/)，了解更多信息。
 

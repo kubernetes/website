@@ -72,11 +72,11 @@ The status of the init containers is returned in `.status.initContainerStatuses`
 field as an array of the container statuses (similar to the `.status.containerStatuses`
 field).
 -->
-为 Pod 设置 Init 容器需要在 [Pod 规约](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
+为 Pod 设置 Init 容器需要在 [Pod 规约](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
 中添加 `initContainers` 字段，
 该字段以 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 类型对象数组的形式组织，和应用的 `containers` 数组同级相邻。
-参阅 API 参考的[容器](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)章节了解详情。
+参阅 API 参考的[容器](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)章节了解详情。
 
 Init 容器的状态在 `status.initContainerStatuses` 字段中以容器状态数组的格式返回
 （类似 `status.containerStatuses` 字段）。
@@ -215,7 +215,7 @@ kind: Pod
 metadata:
   name: myapp-pod
   labels:
-    app: myapp
+    app.kubernetes.io/name: MyApp
 spec:
   containers:
   - name: myapp-container
@@ -284,7 +284,7 @@ The output is similar to this:
 Name:          myapp-pod
 Namespace:     default
 [...]
-Labels:        app=myapp
+Labels:        app.kubernetes.io/name=MyApp
 Status:        Pending
 [...]
 Init Containers:
@@ -545,7 +545,7 @@ Pod 重启会导致 Init 容器重新执行，主要有如下几个原因：
 * Pod 的基础设施容器 (译者注：如 `pause` 容器) 被重启。这种情况不多见，
   必须由具备 root 权限访问节点的人员来完成。
 
-* 当 `restartPolicy` 设置为 "`Always`"，Pod 中所有容器会终止而强制重启。
+* 当 `restartPolicy` 设置为 `Always`，Pod 中所有容器会终止而强制重启。
   由于垃圾收集机制的原因，Init 容器的完成记录将会丢失。
 
 <!--

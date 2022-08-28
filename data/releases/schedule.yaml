@@ -1,4 +1,10 @@
 schedules:
+- release: 1.25
+  releaseDate: 2022-08-23
+  next: 1.25.1
+  cherryPickDeadline: 2022-09-09
+  targetDate: 2022-09-14
+  endOfLifeDate: 2023-10-27
 - release: 1.24
   releaseDate: 2022-05-03
   next: 1.24.4

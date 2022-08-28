@@ -1,8 +1,8 @@
 ---
-
-
-
-
+## reviewers:
+## - thockin
+## - caseydavenport
+## - danwinship
 title: 네트워크 정책
 content_type: concept
 weight: 50
@@ -54,7 +54,7 @@ pod- 또는 namespace- 기반의 네트워크폴리시를 정의할 때, {{< glo
 __필수 필드들__: 다른 모든 쿠버네티스 설정과 마찬가지로 네트워크폴리시 에는
 `apiVersion`, `kind`, 그리고 `metadata` 필드가 필요하다. 구성 파일
 작업에 대한 일반적인 정보는
-[컨피그 맵을 사용해서 컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+[컨피그맵을 사용하도록 파드 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 그리고 [오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management) 를 본다.
 
 __spec__: 네트워크폴리시 [사양](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)에는 지정된 네임스페이스에서 특정 네트워크 정책을 정의하는데 필요한 모든 정보가 있다.
@@ -258,7 +258,7 @@ API 서버에 대해 `--feature-gates=NetworkPolicyEndPort=false,…` 명령을 
 
 ## 네트워크 정책으로 할 수 없는 것(적어도 아직은 할 수 없는)
 
-쿠버네티스 {{< skew latestVersion >}}부터 다음의 기능은 네트워크폴리시 API에 존재하지 않지만, 운영 체제 컴포넌트(예: SELinux, OpenVSwitch, IPTables 등) 또는 Layer 7 기술(인그레스 컨트롤러, 서비스 메시 구현) 또는 어드미션 컨트롤러를 사용하여 제2의 해결책을 구현할 수 있다. 쿠버네티스의 네트워크 보안을 처음 사용하는 경우, 네트워크폴리시 API를 사용하여 다음의 사용자 스토리를 (아직) 구현할 수 없다는 점에 유의할 필요가 있다.
+쿠버네티스 {{< skew currentVersion >}}부터 다음의 기능은 네트워크폴리시 API에 존재하지 않지만, 운영 체제 컴포넌트(예: SELinux, OpenVSwitch, IPTables 등) 또는 Layer 7 기술(인그레스 컨트롤러, 서비스 메시 구현) 또는 어드미션 컨트롤러를 사용하여 제2의 해결책을 구현할 수 있다. 쿠버네티스의 네트워크 보안을 처음 사용하는 경우, 네트워크폴리시 API를 사용하여 다음의 사용자 스토리를 (아직) 구현할 수 없다는 점에 유의할 필요가 있다.
 
 - 내부 클러스터 트래픽이 공통 게이트웨이를 통과하도록 강제한다(서비스 메시나 기타 프록시와 함께 제공하는 것이 가장 좋을 수 있음).
 - TLS와 관련된 모든 것(이를 위해 서비스 메시나 인그레스 컨트롤러 사용).

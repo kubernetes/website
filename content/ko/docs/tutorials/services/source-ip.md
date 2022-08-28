@@ -204,21 +204,9 @@ client_address=10.240.0.3
 * 파드의 응답은 node2로 다시 라우팅된다.
 * 파드의 응답은 클라이언트로 다시 전송된다.
 
-시각적으로
+이를 그림으로 표현하면 다음과 같다.
 
-{{< mermaid >}}
-graph LR;
-  client(client)-->node2[Node 2];
-  node2-->client;
-  node2-. SNAT .->node1[Node 1];
-  node1-. SNAT .->node2;
-  node1-->endpoint(Endpoint);
-
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class node1,node2,endpoint k8s;
-  class client plain;
-{{</ mermaid >}}
+{{< figure src="/docs/images/tutor-service-nodePort-fig01.svg" alt="source IP nodeport figure 01" class="diagram-large" caption="그림. Source IP Type=NodePort using SNAT" link="https://mermaid.live/edit#pako:eNqNkV9rwyAUxb-K3LysYEqS_WFYKAzat9GHdW9zDxKvi9RoMIZtlH732ZjSbE970cu5v3s86hFqJxEYfHjRNeT5ZcUtIbXRaMNN2hZ5vrYRqt52cSXV-4iMSuwkZiYtyX739EqWaahMQ-V1qPxDVLNOvkYrO6fj2dupWMR2iiT6foOKdEZoS5Q2hmVSStoH7w7IMqXUVOefWoaG3XVftHbGeZYVRbH6ZXJ47CeL2-qhxvt_ucTe1SUlpuMN6CX12XeGpLdJiaMMFFr0rdAyvvfxjHEIDbbIgcVSohKDCRy4PUV06KQIuJU6OA9MCdMjBTEEt_-2NbDgB7xAGy3i97VJPP0ABRmcqg" >}}
 
 이를 피하기 위해 쿠버네티스는
 [클라이언트 소스 IP 주소를 보존](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)하는 기능이 있다.
@@ -260,20 +248,9 @@ client_address=104.132.1.79
 * 클라이언트는 패킷을 엔드포인트를 가진 `node1:nodePort` 보낸다.
 * node1은 패킷을 올바른 소스 IP 주소로 엔드포인트로 라우팅 한다.
 
-시각적으로
+이를 시각적으로 표현하면 다음과 같다.
 
-{{< mermaid >}}
-graph TD;
-  client --> node1[Node 1];
-  client(client) --x node2[Node 2];
-  node1 --> endpoint(endpoint);
-  endpoint --> node1;
-
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class node1,node2,endpoint k8s;
-  class client plain;
-{{</ mermaid >}}
+{{< figure src="/docs/images/tutor-service-nodePort-fig02.svg" alt="source IP nodeport figure 02" class="diagram-large" caption="그림. Source IP Type=NodePort preserves client source IP address" link="" >}}
 
 
 
@@ -324,7 +301,7 @@ client_address=10.240.0.5
 강제로 로드밸런싱 트래픽을 받을 수 있는 노드 목록에서
 자신을 스스로 제거한다.
 
-시각적으로:
+이를 그림으로 표현하면 다음과 같다.
 
 ![Source IP with externalTrafficPolicy](/images/docs/sourceip-externaltrafficpolicy.svg)
 

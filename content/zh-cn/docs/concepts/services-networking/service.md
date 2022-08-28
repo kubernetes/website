@@ -54,7 +54,6 @@ to, so that the frontend can use the backend part of the workload?
 
 Enter _Services_.
 -->
-
 ## 动机
 
 创建和销毁 Kubernetes {{< glossary_tooltip term_id="pod" text="Pod" >}} 以匹配集群的期望状态。
@@ -132,7 +131,6 @@ The name of a Service object must be a valid
 For example, suppose you have a set of Pods where each listens on TCP port 9376
 and contains a label `app=MyApp`:
 -->
-
 ## 定义 Service
 
 Service 在 Kubernetes 中是一个 REST 对象，和 Pod 类似。
@@ -149,7 +147,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -157,8 +155,8 @@ spec:
 ```
  
 <!--
-This specification creates a new Service object named “my-service”, which
-targets TCP port 9376 on any Pod with the `app=MyApp` label.
+This specification creates a new Service object named "my-service", which
+targets TCP port 9376 on any Pod with the `app.kubernetes.io/name=MyApp` label.
 
 Kubernetes assigns this Service an IP address (sometimes called the "cluster IP"),
 which is used by the Service proxies
@@ -169,7 +167,7 @@ match its selector, and then POSTs any updates to an Endpoint object
 also named "my-service".
 -->
 上述配置创建一个名称为 "my-service" 的 Service 对象，它会将请求代理到使用
-TCP 端口 9376，并且具有标签 `"app=MyApp"` 的 Pod 上。
+TCP 端口 9376，并且具有标签 `app.kubernetes.io/name=MyApp` 的 Pod 上。
 
 Kubernetes 为该服务分配一个 IP 地址（有时称为 “集群 IP”），该 IP 地址由服务代理使用。
 (请参见下面的 [VIP 和 Service 代理](#virtual-ips-and-service-proxies)).
@@ -209,7 +207,7 @@ spec:
     ports:
       - containerPort: 80
         name: http-web-svc
-        
+
 ---
 apiVersion: v1
 kind: Service
@@ -337,8 +335,8 @@ Endpoint IP addresses cannot be the cluster IPs of other Kubernetes Services,
 because {{< glossary_tooltip term_id="kube-proxy" >}} doesn't support virtual IPs
 as a destination.
 -->
-端点 IPs _必须不可以_ 是：本地回路（IPv4 的 127.0.0.0/8, IPv6 的 ::1/128）或
-本地链接（IPv4 的 169.254.0.0/16 和 224.0.0.0/24，IPv6 的 fe80::/64)。
+端点 IPs **必须不可以** 是：本地回路（IPv4 的 127.0.0.0/8, IPv6 的 ::1/128）
+或本地链接（IPv4 的 169.254.0.0/16 和 224.0.0.0/24，IPv6 的 fe80::/64)。
 
 端点 IP 地址不能是其他 Kubernetes 服务的集群 IP，因为
 {{< glossary_tooltip term_id ="kube-proxy">}} 不支持将虚拟 IP 作为目标。
@@ -666,7 +664,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - name: http
       protocol: TCP
@@ -1100,7 +1098,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
       # 默认情况下，为了方便起见，`targetPort` 被设置为与 `port` 字段相同的值。
     - port: 80
@@ -1136,7 +1134,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -1146,7 +1144,7 @@ spec:
 status:
   loadBalancer:
     ingress:
-      - ip: 192.0.2.127
+    - ip: 192.0.2.127
 ```
 
 <!--
@@ -2061,7 +2059,7 @@ Kubernetes 通过在为 API 服务器配置的 `service-cluster-ip-range` CIDR
 <!--
 #### IP address ranges for `type: ClusterIP` Services {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 However, there is a problem with this `ClusterIP` allocation strategy, because a user
 can also [choose their own address for the service](#choosing-your-own-ip-address).
 This could result in a conflict if the internal allocator selects the same IP address
@@ -2069,14 +2067,14 @@ for another Service.
 -->
 #### `type: ClusterIP` 服务的 IP 地址范围  {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 但是，这种 `ClusterIP` 分配策略存在一个问题，因为用户还可以[为服务选择自己的地址](#choosing-your-own-ip-address)。
 如果内部分配器为另一个服务选择相同的 IP 地址，这可能会导致冲突。
 
 <!--
-If you enable the `ServiceIPStaticSubrange`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-the allocation strategy divides the `ClusterIP` range into two bands, based on
+The `ServiceIPStaticSubrange`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default in v1.25
+and later, using an allocation strategy that divides the `ClusterIP` range into two bands, based on
 the size of the configured `service-cluster-ip-range` by using the following formula
 `min(max(16, cidrSize / 16), 256)`, described as _never less than 16 or more than 256,
 with a graduated step function between them_. Dynamic IP allocations will be preferentially
@@ -2085,8 +2083,8 @@ assigned from the lower band.
 This allows users to use the lower band of the `service-cluster-ip-range` for their
 Services with static IPs assigned with a very low risk of running into conflicts.
 -->
-如果启用 `ServiceIPStaticSubrange`[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-分配策略根据配置的 `service-cluster-ip-range` 的大小，使用以下公式
+`ServiceIPStaticSubrange` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)在
+v1.25 及后续版本中默认启用，其分配策略根据配置的 `service-cluster-ip-range` 的大小，使用以下公式
 `min(max(16, cidrSize / 16), 256)` 进行划分，该公式可描述为
 “在不小于 16 且不大于 256 之间有一个步进量（Graduated Step）”，将
 `ClusterIP` 范围分成两段。动态 IP 分配将优先从上半段地址中选择，
@@ -2225,10 +2223,7 @@ depends on the cloud provider offering this facility.
 你可以将 UDP 用于大多数服务。 对于 type=LoadBalancer 服务，对 UDP 的支持取决于提供此功能的云提供商。
 
 <!-- 
-
 ### SCTP
-
-{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 When using a network plugin that supports SCTP traffic, you can use SCTP for
 most Services. For type=LoadBalancer Services, SCTP support depends on the cloud
@@ -2250,14 +2245,12 @@ provider offering this facility. (Most do not).
 
 ##### 支持多宿主 SCTP 关联 {#caveat-sctp-multihomed}
 
-<!--
 {{< warning >}}
+<!--
 The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a Pod.
 
 NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
-{{< /warning >}}
 -->
-{{< warning >}}
 支持多宿主SCTP关联要求 CNI 插件能够支持为一个 Pod 分配多个接口和 IP 地址。
 
 用于多宿主 SCTP 关联的 NAT 在相应的内核模块中需要特殊的逻辑。
@@ -2265,27 +2258,25 @@ NAT for multihomed SCTP associations requires special logic in the corresponding
 
 <!--
 ##### Windows {#caveat-sctp-windows-os}
-
-{{< note >}}
-SCTP is not supported on Windows based nodes.
-{{< /note >}}
 -->
 ##### Windows {#caveat-sctp-windows-os}
 
 {{< note >}}
+<!--
+SCTP is not supported on Windows based nodes.
+-->
 基于 Windows 的节点不支持 SCTP。
 {{< /note >}}
 
 <!--
 ##### Userspace kube-proxy {#caveat-sctp-kube-proxy-userspace}
-
-{{< warning >}}
-The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
-{{< /warning >}}
 -->
 ##### 用户空间 kube-proxy {#caveat-sctp-kube-proxy-userspace}
 
 {{< warning >}}
+<!--
+The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
+-->
 当 kube-proxy 处于用户空间模式时，它不支持 SCTP 关联的管理。
 {{< /warning >}}
 
@@ -2343,7 +2334,7 @@ followed by the data from the client.
 <!--
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read about [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
+* Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 -->
 * 阅读[使用服务访问应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
 * 阅读了解 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)

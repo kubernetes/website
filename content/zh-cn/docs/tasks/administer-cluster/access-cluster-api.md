@@ -69,7 +69,8 @@ kubectl handles locating and authenticating to the API server. If you want to di
 -->
 ### 直接访问 REST API
 
-kubectl 处理对 API 服务器的定位和身份验证。如果你想通过 http 客户端（如 `curl` 或 `wget`，或浏览器）直接访问 REST API，你可以通过多种方式对 API 服务器进行定位和身份验证：
+kubectl 处理对 API 服务器的定位和身份验证。如果你想通过 http 客户端（如 `curl` 或 `wget`，
+或浏览器）直接访问 REST API，你可以通过多种方式对 API 服务器进行定位和身份验证：
 
  <!--
 1. Run kubectl in proxy mode (recommended). This method is recommended, since it uses the stored apiserver location and verifies the identity of the API server using a self-signed cert. No man-in-the-middle (MITM) attack is possible using this method.
@@ -235,8 +236,8 @@ Kubernetes officially supports client libraries for [Go](#go-client), [Python](#
 Kubernetes 官方支持 [Go](#go-client)、[Python](#python-client)、[Java](#java-client)、
 [dotnet](#dotnet-client)、[JavaScript](#javascript-client) 和 [Haskell](#haskell-client)
 语言的客户端库。还有一些其他客户端库由对应作者而非 Kubernetes 团队提供并维护。
-参考[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)了解如何使用其他语言
-来访问 API 以及如何执行身份认证。
+参考[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)了解如何使用其他语言来访问 API
+以及如何执行身份认证。
 
 <!-- #### Go client -->
 
@@ -280,12 +281,12 @@ import (
 )
 
 func main() {
-  // uses the current context in kubeconfig
-  // path-to-kubeconfig -- for example, /root/.kube/config
+  // 在 kubeconfig 中使用当前上下文
+  // path-to-kubeconfig -- 例如 /root/.kube/config
   config, _ := clientcmd.BuildConfigFromFlags("", "<path-to-kubeconfig>")
-  // creates the clientset
+  // 创建 clientset
   clientset, _ := kubernetes.NewForConfig(config)
-  // access the API to list pods
+  // 访问 API 以列出 Pod
   pods, _ := clientset.CoreV1().Pods("").List(context.TODO(), v1.ListOptions{})
   fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
 }
@@ -305,7 +306,7 @@ To use [Python client](https://github.com/kubernetes-client/python), run the fol
 -->
 要使用 [Python 客户端](https://github.com/kubernetes-client/python)，运行下列命令：
 `pip install kubernetes`。
-参见 [Python 客户端库主页](https://github.com/kubernetes-client/python) 了解更多安装选项。
+参见 [Python 客户端库主页](https://github.com/kubernetes-client/python)了解更多安装选项。
 
 <!--
 The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
@@ -349,7 +350,7 @@ mvn install
 See [https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases) to see which versions are supported.
 
 The Java client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/java/blob/master/examples/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java):
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-15/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java):
 -->
 参阅[https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases)
 了解当前支持的版本。
@@ -357,7 +358,7 @@ as the kubectl CLI does to locate and authenticate to the API server. See this [
 Java 客户端可以使用 kubectl 命令行所使用的
 [kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 以定位 API 服务器并向其认证身份。
-参看此[示例](https://github.com/kubernetes-client/java/blob/master/examples/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java)：
+参看此[示例](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-15/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java)：
 
 ```java
 package io.kubernetes.client.examples;
@@ -519,4 +520,4 @@ exampleWithKubeConfig = do
 <!--
 * [Accessing the Kubernetes API from a Pod](/docs/tasks/run-application/access-api-from-pod/)
 -->
-* [从 Pod 中访问 API](/zh-cn/docs/tasks/run-application/access-api-from-pod/)
+* [从 Pod 中访问 Kubernetes API](/zh-cn/docs/tasks/run-application/access-api-from-pod/)

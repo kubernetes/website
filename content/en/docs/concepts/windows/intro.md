@@ -88,13 +88,12 @@ section refers to several key workload abstractions and how they map to Windows.
   * OS field: 
 
     The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
-    The `IdentifyPodOS` feature gate needs to be enabled for this field to be recognized.
 
     {{< note >}}
-    Starting from 1.24, the `IdentifyPodOS` feature gate is in Beta stage and defaults to be enabled.
+    Starting from 1.25, the `IdentifyPodOS` feature gate is in GA stage and defaults to be enabled.
     {{< /note >}}
 
-    If the `IdentifyPodOS` feature gate is enabled and you set the `.spec.os.name` field to `windows`,
+    If you set the `.spec.os.name` field to `windows`,
     you must not set the following fields in the `.spec` of that Pod:
 
     * `spec.hostPID`
@@ -284,7 +283,7 @@ network port spaces). Kubernetes uses pause containers to allow for worker conta
 crashing or restarting without losing any of the networking configuration.
 
 Kubernetes maintains a multi-architecture image that includes support for Windows.
-For Kubernetes v{{< skew currentVersion >}} the recommended pause image is `k8s.gcr.io/pause:3.6`.
+For Kubernetes v{{< skew currentVersion >}} the recommended pause image is `registry.k8s.io/pause:3.6`.
 The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
 is available on GitHub.
 

@@ -44,10 +44,10 @@ see [this guide](/blog/2022/03/31/ready-for-dockershim-removal/).
 ### 从 kubelet 中删除 Dockershim
 
 在 v1.20 版本中被废弃后，dockershim 组件已被从 Kubernetes v1.24 版本的 kubelet 中移除。
-从v1.24开始，如果你依赖 Docker Engine 作为容器运行时，
+从 v1.24 开始，如果你依赖 Docker Engine 作为容器运行时，
 则需要使用其他[受支持的运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)之一
 （如 containerd 或 CRI-O）或使用 CRI dockerd。
-有关确保群集已准备好进行此删除的更多信息，请参阅[本指南](/zh-cn/blog/2022/03/31/ready-for-dockershim-removal/)。
+有关确保集群已准备好进行此删除的更多信息，请参阅[本指南](/zh-cn/blog/2022/03/31/ready-for-dockershim-removal/)。
 
 <!--
 ### Beta APIs Off by Default
@@ -98,7 +98,7 @@ for resizing existing persistent volumes.
 
 [存储容量跟踪](https://github.com/kubernetes/enhancements/issues/1472)支持通过
 [CSIStorageCapacity 对象](/zh-cn/docs/concepts/storage/storage-capacity/#api)公开当前可用的存储容量，
-并增强使用具有后期绑定的 CSI 卷的 pod 的调度。
+并增强使用具有后期绑定的 CSI 卷的 Pod 的调度。
 
 [卷的扩展](https://github.com/kubernetes/enhancements/issues/284)增加了对调整现有持久性卷大小的支持。
 
@@ -139,7 +139,7 @@ using an extra executable.
 
 在 Kubernetes 1.24 中，[gRPC 探测功能](https://github.com/kubernetes/enhancements/issues/2727)
 已进入测试版，默认可用。现在，你可以在 Kubernetes 中为你的 gRPC
-应用程序原生地[配置启动、活跃度和就绪性探测](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)，
+应用程序原生地[配置启动、存活和就绪性探测](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)，
 而无需暴露 HTTP 端点或使用额外的可执行文件。
 
 <!--
@@ -202,10 +202,10 @@ Service `ClusterIP` are unique; hence, trying to create a Service with a `Cluste
 
 After being deprecated in Kubernetes 1.22, Dynamic Kubelet Configuration has been removed from the kubelet. The feature will be removed from the API server in Kubernetes 1.26.
 -->
-### 从 Kubelet 中删除动态 Kubelet 配置
+### 从 Kubelet 中移除动态 Kubelet 配置
 
-在 Kubernetes 1.22 中被弃用后，动态 Kubelet 配置已从 kubelet 中删除。
-该功能将从 Kubernetes 1.26 的 API 服务器中删除。
+在 Kubernetes 1.22 中被弃用后，动态 Kubelet 配置已从 kubelet 中移除。
+该功能将从 Kubernetes 1.26 的 API 服务器中移除。
 
 <!--
 ## CNI Version-Related Breaking Change
@@ -237,7 +237,7 @@ declare the CNI config version, you might encounter the following "Incompatible
 CNI versions" or "Failed to destroy network for sandbox" error conditions.
 -->
 当 CNI 插件尚未升级和/或 CNI 配置版本未在 CNI 配置文件中声明时，在 containerd v1.6.0–v1.6.3
-中存在 pod CNI 网络设置和拆除的服务问题。containerd 团队报告说，“这些问题在 containerd v1.6.4 中得到解决。”
+中存在 Pod CNI 网络设置和拆除的服务问题。containerd 团队报告说，“这些问题在 containerd v1.6.4 中得到解决。”
 
 在 containerd v1.6.0-v1.6.3 版本中，如果你不升级 CNI 插件和/或声明 CNI 配置版本，
 你可能会遇到以下 “Incompatible CNI versions” 或 “Failed to destroy network for sandbox” 的错误情况。
@@ -256,7 +256,7 @@ Volume snapshot and restore functionality for Kubernetes and the Container Stora
 
 [VolumeSnapshot v1beta1 CRD 已被移除](https://github.com/kubernetes/enhancements/issues/177)。
 Kubernetes 和容器存储接口 (CSI) 的卷快照和恢复功能，提供标准化的 API 设计 (CRD) 并添加了对 CSI 卷驱动程序的
-PV 快照/恢复支持，在 v1.20 中移至 GA。VolumeSnapshot v1beta1 在 v1.20 中被弃用，现在不受支持。
+PV 快照/恢复支持，在 v1.20 中升级至 GA。VolumeSnapshot v1beta1 在 v1.20 中被弃用，现在不受支持。
 有关详细信息，请参阅 [KEP-177: CSI 快照](https://git.k8s.io/enhancements/keps/sig-storage/177-volume-snapshot#kep-177-csi-snapshot)
 和[卷快照 GA 博客](/blog/2020/12/10/kubernetes-1.20-volume-snapshot-moves-to-ga/)。
 
@@ -269,7 +269,7 @@ This release saw fourteen enhancements promoted to stable:
 -->
 ## 其他更新
 
-### 毕业到稳定
+### 毕业到稳定版
 
 在此版本中，有 14 项增强功能升级为稳定版：
 
@@ -297,7 +297,7 @@ This release saw fourteen enhancements promoted to stable:
 * [高效的监视恢复](https://github.com/kubernetes/enhancements/issues/1904)：
   kube-apiserver 重新启动后，可以高效地恢复监视。
 * [Service Type=LoadBalancer 类字段](https://github.com/kubernetes/enhancements/issues/1959)：
-  引入新的服务注解 `service.kubernetes.io/load-balancer-class` ，
+  引入新的服务注解 `service.kubernetes.io/load-balancer-class`，
   允许在同一个集群中提供 `type: LoadBalancer` 服务的多个实现。
 * [带索引的 Job](https://github.com/kubernetes/enhancements/issues/2214)：为带有固定完成计数的 Job 的 Pod 添加完成索引。
 * [在 Job API 中增加 suspend 字段](https://github.com/kubernetes/enhancements/issues/2232)：
@@ -317,12 +317,12 @@ This release saw two major changes:
 * [Dockershim Removal](https://github.com/kubernetes/enhancements/issues/2221)
 * [Beta APIs are off by Default](https://github.com/kubernetes/enhancements/issues/3136)
 -->
-### 主要变化
+### 主要变更
 
-此版本有两个主要变化：
+此版本有两个主要变更：
 
-* [Dockershim 移除](https://github.com/kubernetes/enhancements/issues/2221)
-* [Beta APIs 默认关闭](https://github.com/kubernetes/enhancements/issues/3136)
+* [移除 Dockershim](https://github.com/kubernetes/enhancements/issues/2221)
+* [默认关闭 Beta API](https://github.com/kubernetes/enhancements/issues/3136)
 
 <!--
 ### Release Notes
@@ -361,7 +361,7 @@ release for the Kubernetes community.
 -->
 ### 发布团队
 
-如果没有组成 Kubernetes 1.24 发布团队的坚定个人的共同努力，这个版本是不可能实现的。
+如果没有 Kubernetes 1.24 发布团队每个人做出的共同努力，这个版本是不可能实现的。
 该团队齐心协力交付每个 Kubernetes 版本中的所有组件，包括代码、文档、发行说明等。
 
 特别感谢我们的发布负责人 James Laverack 指导我们完成了一个成功的发布周期，
@@ -394,7 +394,7 @@ is the work of hundreds of contributors across the globe and thousands of end-us
 applications that serve millions. Every one is a star in our sky, helping us chart our course.
 -->
 古代天文学家到建造 James Webb 太空望远镜的科学家，几代人都怀着敬畏和惊奇的心情仰望星空。
-星星启发了我们，点燃了我们的想象力，并引导我们在艰难的海上度过了漫长的夜晚。
+是这些星辰启发了我们，点燃了我们的想象力，引导我们在艰难的海上度过了漫长的夜晚。
 
 通过此版本，我们向上凝视，当我们的社区聚集在一起时可能发生的事情。
 Kubernetes 是全球数百名贡献者和数千名最终用户支持的成果，
@@ -450,7 +450,7 @@ all the stargazers out there. ✨
 -->
 ### 生态系统更新
 
-* KubeCon + CloudNativeCon Europe 2022 将于 2022 年 5 月 16 日至 20 日在西班牙巴伦西亚举行！
+* KubeCon + CloudNativeCon Europe 2022 于 2022 年 5 月 16 日至 20 日在西班牙巴伦西亚举行！
   你可以在[活动网站](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/)上找到有关会议和注册的更多信息。
 * 在 [2021 年云原生调查](https://www.cncf.io/announcements/2022/02/10/cncf-sees-record-kubernetes-and-container-adoption-in-2021-cloud-native-survey/)
   中，CNCF 看到了创纪录的 Kubernetes 和容器采用。参阅[调查结果](https://www.cncf.io/reports/cncf-annual-survey-2021/)。
@@ -509,7 +509,7 @@ Have something you’d like to broadcast to the Kubernetes community? Share your
 -->
 ## 参与进来
 
-参与 Kubernetes 的最简单方法是加入符合你兴趣的众多 [特别兴趣组](https://git.k8s.io/community/sig-list.md)(SIG) 之一。
+参与 Kubernetes 的最简单方法是加入符合你兴趣的众多[特别兴趣组](https://git.k8s.io/community/sig-list.md)（SIG）之一。
 你有什么想向 Kubernetes 社区广播的内容吗？
 在我们的每周的[社区会议](https://git.k8s.io/community/communication)上分享你的声音，并通过以下渠道：
 
