@@ -74,7 +74,7 @@ Some information about releases is subject to embargo and we have defined policy
 <!-- 
 ## Handbooks
 
-**NOTE:** The Patch Release Team and Branch Manager handbooks will be de-duplicated at a later date.
+**NOTE: The Patch Release Team and Branch Manager handbooks will be de-duplicated at a later date.**
 
 - [Patch Release Team][handbook-patch-release]
 - [Branch Managers][handbook-branch-mgmt]
@@ -82,7 +82,7 @@ Some information about releases is subject to embargo and we have defined policy
 -->
 ## 手册  {#handbooks}
 
-**注意：**补丁发布团队和分支管理员手册以后将会删除重复数据。
+**注意：补丁发布团队和分支管理员手册以后将会删除重复数据。**
 
 - [补丁发布团队][handbook-patch-release]
 - [分支管理员][handbook-branch-mgmt]
@@ -374,6 +374,9 @@ Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.1
 [handbook-packaging]: https://git.k8s.io/release/hack/rapture/README.md
 [handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [k-sig-release-releases]: https://git.k8s.io/sig-release/releases
+<!--
+[patches]: /releases/patch-releases/
+-->
 [patches]: /zh-cn/releases/patch-releases/
 [src]: https://git.k8s.io/community/committee-security-response/README.md
 [release-team]: https://git.k8s.io/sig-release/release-team/README.md
