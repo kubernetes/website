@@ -85,7 +85,7 @@ Podオブジェクトのためのマニフェストを作成したときは、�
 
 `.spec.os.name`フィールドで`windows`か`linux`のいずれかを設定し、Podを実行させたいOSを指定する必要があります。Kubernetesは今のところ、この2つのOSだけサポートしています。将来的には増える可能性があります。
 
-Kubernetes v{{< skew currentVersion >}}では、このフィールドに設定した値はPodの{{< glossary_tooltip text="スケジューリング" term_id="kube-scheduler" >}}に影響を与えません。`.spec.os.name`を設定することで、Pod OSに権限を認証することができ、バリデーションにも使用されます。kubeletが実行されているノードのOSは指定されたPod OSと異なる場合、kubeletはPosの実行を拒否します。
+Kubernetes v{{< skew currentVersion >}}では、このフィールドに設定した値はPodの{{< glossary_tooltip text="スケジューリング" term_id="kube-scheduler" >}}に影響を与えません。`.spec.os.name`を設定することで、Pod OSに権限を認証することができ、バリデーションにも使用されます。kubeletが実行されているノードのOSが、指定されたPod OSと異なる場合、kubeletはPodの実行を拒否します。
 [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)もこのフィールドを使用し、指定したOSと関係ないポリシーの適用を回避しています。
 
 ### Podとコンテナコントローラー {#pods-and-controllers}
