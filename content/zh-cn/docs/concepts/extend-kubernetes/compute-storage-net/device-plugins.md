@@ -86,7 +86,7 @@ other resources, with the following differences:
 * Devices cannot be shared between containers.
 -->
 然后，用户可以请求设备作为 Pod 规范的一部分，
-参见[Container](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)。
+参见 [Container](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)。
 请求扩展资源类似于管理请求和限制的方式，
 其他资源，有以下区别：
 
@@ -334,7 +334,7 @@ kubelet 提供了 gRPC 服务来使得正在使用中的设备被发现，并且
 
 ```gRPC
 // PodResourcesLister 是一个由 kubelet 提供的服务，用来提供供节点上 
-// Pods 和容器使用的节点资源的信息
+// Pod 和容器使用的节点资源的信息
 service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
     rpc GetAllocatableResources(AllocatableResourcesRequest) returns (AllocatableResourcesResponse) {}
@@ -349,7 +349,7 @@ id of exclusively allocated CPUs, device id as it was reported by device plugins
 the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains
 the information about memory and hugepages reserved for a container.
 -->
-这一 `List` 端点提供运行中 Pods 的资源信息，包括类似独占式分配的
+这一 `List` 端点提供运行中 Pod 的资源信息，包括类似独占式分配的
 CPU ID、设备插件所报告的设备 ID 以及这些设备分配所处的 NUMA 节点 ID。
 此外，对于基于 NUMA 的机器，它还会包含为容器保留的内存和大页的信息。
 
@@ -414,7 +414,7 @@ below:
 `List` 端点中的 `ContainerResources` 中的 cpu_ids 对应于分配给某个容器的专属 CPU。
 如果要统计共享池中的 CPU，`List` 端点需要与 `GetAllocatableResources` 端点一起使用，如下所述:
 
-1. 调用 `GetAllocatableResources` 获取所有可用的 CPUs。
+1. 调用 `GetAllocatableResources` 获取所有可用的 CPU。
 2. 在系统中所有的 `ContainerResources` 上调用 `GetCpuIds`。
 3. 用 `GetAllocatableResources` 获取的 CPU 数减去 `GetCpuIds` 获取的 CPU 数。
 {{< /note >}}
@@ -441,9 +441,9 @@ it does (for example: hotplug/hotunplug, device health changes), client is expec
 However, calling `GetAllocatableResources` endpoint is not sufficient in case of cpu and/or memory
 update and Kubelet needs to be restarted to reflect the correct resource capacity and allocatable.
 -->
-`GetAllocatableResources` 应该仅被用于评估一个节点上的[可分配的](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-资源。如果目标是评估空闲/未分配的资源，此调用应该与 List() 端点一起使用。
-除非暴露给 kubelet 的底层资源发生变化 否则 `GetAllocatableResources` 得到的结果将保持不变。
+`GetAllocatableResources` 应该仅被用于评估一个节点上的[可分配的](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)资源。
+如果目标是评估空闲/未分配的资源，此调用应该与 List() 端点一起使用。
+除非暴露给 kubelet 的底层资源发生变化，否则 `GetAllocatableResources` 得到的结果将保持不变。
 这种情况很少发生，但当发生时（例如：热插拔，设备健康状况改变），客户端应该调用 `GetAlloctableResources` 端点。
 然而，调用 `GetAllocatableResources` 端点在 cpu、内存被更新的情况下是不够的，
 Kubelet 需要重新启动以获取正确的资源容量和可分配的资源。
@@ -471,7 +471,7 @@ Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started wit
 -->
 从 Kubernetes v1.23 开始，`GetAllocatableResources` 被默认启用。
 你可以通过关闭 `KubeletPodResourcesGetAllocatable`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 来禁用。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用。
 
 在 Kubernetes v1.23 之前，要启用这一功能，`kubelet` 必须用以下标志启动：
 
@@ -508,7 +508,7 @@ gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接�
 中声明将 `/var/lib/kubelet/pod-resources` 目录以
 {{< glossary_tooltip text="卷" term_id="volume" >}}的形式被挂载到设备监控代理中。
 
-对“PodResourcesLister 服务”的支持要求启用 `KubeletPodResources`
+对 “PodResourcesLister 服务”的支持要求启用 `KubeletPodResources`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20 开始为 v1。
 
