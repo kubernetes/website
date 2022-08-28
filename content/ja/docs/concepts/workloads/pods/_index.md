@@ -137,7 +137,7 @@ Podテンプレートを修正するか新しいPodに切り替えたとして�
 
 前のセクションで述べたように、ワークロードリソースのPodテンプレートが変更されると、コントローラーは既存のPodを更新したりパッチを適用したりするのではなく、更新されたテンプレートに基づいて新しいPodを作成します。
 
-KubernetesはPodを直接管理することを防げません。実行中のPodの一部のフィールドをその場で更新することが可能です。しかし、[`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core)と[`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)といった、Podのアップデート操作にはいくつかの制限があります:
+KubernetesはPodを直接管理することを妨げません。実行中のPodの一部のフィールドをその場で更新することが可能です。しかし、[`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core)と[`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)といった、Podのアップデート操作にはいくつかの制限があります:
 
 - Podのメタデータのほとんどは固定されたものです。たとえば`namespace`、`name`、`uid`または`creationTimestamp`フィールドは変更できません。`generation`フィールドは特別で、現在の値を増加させる更新のみを受け付けます。
 - `metadata.deletionTimestamp`が設定されている場合、`metadata.finalizers`リストに新しい項目を追加することはできません。
