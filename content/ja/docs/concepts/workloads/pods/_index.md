@@ -192,8 +192,8 @@ Static Podの`spec`は他のAPIオブジェクト
 _Probe_ はkubeletがコンテナに対して行う定期診断です。診断を実行するために、kubeletはさまざまなアクションを実行できます:
 
 - `ExecAction` (コンテナランタイムの助けを借りて実行)
-- `TCPSocketAction` (kubeletにより直接検測)
-- `HTTPGetAction` (kubeletにより直接検測)
+- `TCPSocketAction` (kubeletにより直接チェック)
+- `HTTPGetAction` (kubeletにより直接チェック)
 
 更に詳しく知りたい場合は、Podのライフサイクルドキュメントにある[Probe](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を読んでください。 
 
