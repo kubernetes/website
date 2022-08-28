@@ -262,6 +262,9 @@ kubectl replace --force -f ./pod.json
 # Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000
 kubectl expose rc nginx --port=80 --target-port=8000
 
+# Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379
+kubectl expose pod redis --port=6379 --name redis-service 
+
 # Update a single-container pod's image version (tag) to v4
 kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
 
