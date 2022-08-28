@@ -184,7 +184,7 @@ kubeletは自動的にKubernetes APIサーバー上に各static Podに対応す�
 Static Podの`spec`は他のAPIオブジェクト
 (例えば{{< glossary_tooltip text="サービスアカウント" term_id="service-account" >}}、
 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}、
-{{< glossary_tooltip text="Secret" term_id="secret" >}}, etc)を参照することはできません。
+{{< glossary_tooltip text="Secret" term_id="secret" >}}、など)を参照することはできません。
 {{< /note >}}
 
 ## コンテナのProbe
