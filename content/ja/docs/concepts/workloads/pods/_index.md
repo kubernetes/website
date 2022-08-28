@@ -166,7 +166,7 @@ Pod内のコンテナは、システムのhostnameがPodに設定した`name`と
 
 Linuxでは、Pod内のどんなコンテナも、`privileged`フラグをコンテナのspecの[security context](/docs/tasks/configure-pod-container/security-context/)に設定することで、特権モード(privileged mode)を有効にできます。これは、ネットワークスタックの操作やハードウェアデバイスへのアクセスなど、オペレーティングシステムの管理者の権限が必要なコンテナの場合に役に立ちます。
 
-クラスタが`WindowsHostProcessContainers`機能を有効にした場合、Pod仕様のsecurityContextに`windowsOptions.hostProcess`フラグを設定することで、[Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod)を作成することが可能です。これらのPod内のすべてのコンテナは、Windows HostProcessコンテナとして実行する必要があります。HostProcess Podはホスト上で直接実行され、Linuxの特権コンテナで行われるような管理作業を行うのにも使用できます。
+`WindowsHostProcessContainers`機能を有効にしたクラスターの場合、Pod仕様のsecurityContextに`windowsOptions.hostProcess`フラグを設定することで、[Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod)を作成することが可能です。これらのPod内のすべてのコンテナは、Windows HostProcessコンテナとして実行する必要があります。HostProcess Podはホスト上で直接実行され、Linuxの特権コンテナで行われるような管理作業を行うのにも使用できます。
 
 {{< note >}}
 この設定を有効にするには、{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}が特権コンテナの概念をサポートしていなければなりません。
