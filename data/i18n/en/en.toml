@@ -262,6 +262,15 @@ other = "(released: "
 [release_date_format]
 other = "2006-01-02"
 
+[release_full_details_initial_text]
+other = "Complete"
+
+[release_schedule]
+other = "Schedule"
+
+[release_changelog]
+other = "Changelog"
+
 [seealso_heading]
 other = "See Also"
 
