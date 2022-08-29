@@ -12,7 +12,7 @@ weight: 60
 Kubernetes {{< glossary_tooltip text="RBAC" term_id="rbac" >}} is a key security control 
 to ensure that cluster users and workloads have only the access to resources required to 
 execute their roles. It is important to ensure that, when designing permissions for cluster
-users, the cluster administrator understands the areas where privilge escalation could occur, 
+users, the cluster administrator understands the areas where privilege escalation could occur, 
 to reduce the risk of excessive access leading to security incidents.
 
 The good practices laid out here should be read in conjunction with the general
@@ -32,7 +32,7 @@ some general rules that can be applied are :
    ClusterRoleBindings to give users rights only within a specific namespace.
  - Avoid providing wildcard permissions when possible, especially to all resources.
    As Kubernetes is an extensible system, providing wildcard access gives rights
-   not just to all object types that currently exist in the cluster, but also to all future object types
+   not just to all object types that currently exist in the cluster, but also to all object types
    which are created in the future.
  - Administrators should not use `cluster-admin` accounts except where specifically needed. 
    Providing a low privileged account with

@@ -158,14 +158,13 @@ schedule Linux and Windows workloads to their respective OS-specific nodes.
 The recommended approach is outlined below,
 with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
 
-If the `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-enabled, you can (and should) set `.spec.os.name` for a Pod to indicate the operating system
+Starting from 1.25, you can (and should) set `.spec.os.name` for each Pod, to indicate the operating system
 that the containers in that Pod are designed for. For Pods that run Linux containers, set
 `.spec.os.name` to `linux`. For Pods that run Windows containers, set `.spec.os.name`
-to Windows.
+to `windows`.
 
 {{< note >}}
-Starting from 1.24, the `IdentifyPodOS` feature is in Beta stage and defaults to be enabled.
+Starting from 1.25, the `IdentifyPodOS` feature is in GA stage and defaults to be enabled.
 {{< /note >}}
 
 The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes. You should

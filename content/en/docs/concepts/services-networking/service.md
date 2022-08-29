@@ -637,7 +637,7 @@ to specify IP address ranges that kube-proxy should consider as local to this no
 For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag,
 kube-proxy only selects the loopback interface for NodePort Services.
 The default for `--nodeport-addresses` is an empty list.
-his means that kube-proxy should consider all available network interfaces for NodePort.
+This means that kube-proxy should consider all available network interfaces for NodePort.
 (That's also compatible with earlier Kubernetes releases).
 
 If you want a specific port number, you can specify a value in the `nodePort`
@@ -1325,15 +1325,15 @@ IP addresses that are no longer used by any Services.
 
 #### IP address ranges for `type: ClusterIP` Services {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 However, there is a problem with this `ClusterIP` allocation strategy, because a user
 can also [choose their own address for the service](#choosing-your-own-ip-address).
 This could result in a conflict if the internal allocator selects the same IP address
 for another Service.
 
-If you enable the `ServiceIPStaticSubrange`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-the allocation strategy divides the `ClusterIP` range into two bands, based on
+The `ServiceIPStaticSubrange`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default in v1.25
+and later, using an allocation strategy that divides the `ClusterIP` range into two bands, based on
 the size of the configured `service-cluster-ip-range` by using the following formula
 `min(max(16, cidrSize / 16), 256)`, described as _never less than 16 or more than 256,
 with a graduated step function between them_. Dynamic IP allocations will be preferentially

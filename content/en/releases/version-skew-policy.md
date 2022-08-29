@@ -23,7 +23,7 @@ Specific cluster deployment tools may place additional restrictions on version s
 Kubernetes versions are expressed as **x.y.z**, where **x** is the major version, **y** is the minor version, and **z** is the patch version, following [Semantic Versioning](https://semver.org/) terminology.
 For more information, see [Kubernetes Release Versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning).
 
-The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew currentVersion >}}, {{< skew currentVersionAddMinor -1 >}}, {{< skew currentVersionAddMinor -2 >}}).  Kubernetes 1.19 and newer receive approximately 1 year of patch support. Kubernetes 1.18 and older received approximately 9 months of patch support.
+The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}). Kubernetes 1.19 and newer receive [approximately 1 year of patch support](/releases/patch-releases/#support-period). Kubernetes 1.18 and older received approximately 9 months of patch support.
 
 Applicable fixes, including security fixes, may be backported to those three release branches, depending on severity and feasibility.
 Patch releases are cut from those branches at a [regular cadence](/releases/patch-releases/#cadence), plus additional urgent releases, when required.
@@ -103,6 +103,19 @@ Example:
 The supported version skew between components has implications on the order in which components must be upgraded.
 This section describes the order in which components must be upgraded to transition an existing cluster from version **{{< skew currentVersionAddMinor -1 >}}** to version **{{< skew currentVersion >}}**.
 
+Optionally, when preparing to upgrade, the Kubernetes project recommends that
+you do the following to benefit from as many regression and bug fixes as
+possible during your upgrade: 
+
+*  Ensure that components are on the most recent patch version of your current
+   minor version.
+*  Upgrade components to the most recent patch version of the target minor
+   version.
+
+For example, if you're running version {{<skew currentVersionAddMinor -1>}},
+ensure that you're on the most recent patch version. Then, upgrade to the most
+recent patch version of {{<skew currentVersion>}}.
+
 ### kube-apiserver
 
 Pre-requisites:
@@ -129,7 +142,11 @@ Pre-requisites:
 
 * The `kube-apiserver` instances these components communicate with are at **{{< skew currentVersion >}}** (in HA clusters in which these control plane components can communicate with any `kube-apiserver` instance in the cluster, all `kube-apiserver` instances must be upgraded before upgrading these components)
 
-Upgrade `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` to **{{< skew currentVersion >}}**
+Upgrade `kube-controller-manager`, `kube-scheduler`, and
+`cloud-controller-manager` to **{{< skew currentVersion >}}**. There is no
+required upgrade order between `kube-controller-manager`, `kube-scheduler`, and
+`cloud-controller-manager`. You can upgrade these components in any order, or
+even simultaneously.
 
 ### kubelet
 

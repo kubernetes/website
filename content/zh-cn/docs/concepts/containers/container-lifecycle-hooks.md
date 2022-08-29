@@ -41,7 +41,7 @@ and run code implemented in a handler when the corresponding lifecycle hook is e
 
 There are two hooks that are exposed to Containers:
 -->
-## 容器回调
+## 容器回调 {#container-hooks}
 
 有两个回调暴露给容器：
 
@@ -80,7 +80,7 @@ A more detailed description of the termination behavior can be found in
 [Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 -->
 有关终止行为的更详细描述，请参见
-[终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#termination-of-pods)。
+[终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!--
 ### Hook handler implementations
@@ -99,7 +99,7 @@ Resources consumed by the command are counted against the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
 -->
 
-* Exec - 在容器的 cgroups 和名称空间中执行特定的命令（例如 `pre-stop.sh`）。
+* Exec - 在容器的 cgroups 和名字空间中执行特定的命令（例如 `pre-stop.sh`）。
   命令所消耗的资源计入容器的资源消耗。
 * HTTP - 对容器上的特定端点执行 HTTP 请求。
 
@@ -140,31 +140,14 @@ takes 55 seconds to complete, and the Container takes 10 seconds to stop
 normally after receiving the signal, then the Container will be killed
 before it can stop normally, since `terminationGracePeriodSeconds` is
 less than the total time (55+10) it takes for these two things to happen.
-
-`PreStop` hooks are not executed asynchronously from the signal
-to stop the Container; the hook must complete its execution before
-the signal can be sent.
-If a `PreStop` hook hangs during execution,
-the Pod's phase will be `Terminating` and remain there until the Pod is
-killed after its `terminationGracePeriodSeconds` expires.
-This grace period applies to the total time it takes for both
-the `PreStop` hook to execute and for the Container to stop normally.
-If, for example, `terminationGracePeriodSeconds` is 60, and the hook
-takes 55 seconds to complete, and the Container takes 10 seconds to stop
-normally after receiving the signal, then the Container will be killed
-before it can stop normally, since `terminationGracePeriodSeconds` is
-less than the total time (55+10) it takes for these two things to happen.
 -->
-`PreStop` 回调并不会与停止容器的信号处理程序异步执行；回调必须在
-可以发送信号之前完成执行。
-如果 `PreStop` 回调在执行期间停滞不前，Pod 的阶段会变成 `Terminating`
-并且一直处于该状态，直到其 `terminationGracePeriodSeconds` 耗尽为止，
-这时 Pod 会被杀死。
+`PreStop` 回调并不会与停止容器的信号处理程序异步执行；回调必须在可以发送信号之前完成执行。
+如果 `PreStop` 回调在执行期间停滞不前，Pod 的阶段会变成 `Terminating`并且一直处于该状态，
+直到其 `terminationGracePeriodSeconds` 耗尽为止，这时 Pod 会被杀死。
 这一宽限期是针对 `PreStop` 回调的执行时间及容器正常停止时间的总和而言的。
-例如，如果 `terminationGracePeriodSeconds` 是 60，回调函数花了 55 秒钟
-完成执行，而容器在收到信号之后花了 10 秒钟来正常结束，那么容器会在其
-能够正常结束之前即被杀死，因为 `terminationGracePeriodSeconds` 的值
-小于后面两件事情所花费的总时间（55+10）。
+例如，如果 `terminationGracePeriodSeconds` 是 60，回调函数花了 55 秒钟完成执行，
+而容器在收到信号之后花了 10 秒钟来正常结束，那么容器会在其能够正常结束之前即被杀死，
+因为 `terminationGracePeriodSeconds` 的值小于后面两件事情所花费的总时间（55+10）。
 
 <!--
 If either a `PostStart` or `PreStop` hook fails,
@@ -224,7 +207,7 @@ Here is some example output of the resulting events you see from running `kubect
 对于 `PostStart`，这是 `FailedPostStartHook` 事件，对于 `PreStop`，这是 `FailedPreStopHook` 事件。
 要自己生成失败的 `FailedPreStopHook` 事件，请修改
 [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml)
-文件将 postStart 命令更改为 ”badcommand“ 并应用它。
+文件将 postStart 命令更改为 “badcommand” 并应用它。
 以下是通过运行 `kubectl describe pod lifecycle-demo` 后你看到的一些结果事件的示例输出：
 
 ```
@@ -250,6 +233,6 @@ Events:
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 -->
 
-* 进一步了解[容器环境](/zh-cn/docs/concepts/containers/container-environment/)
-* 动手实践，[为容器生命周期事件添加处理程序](/zh-cn/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
+* 进一步了解[容器环境](/zh-cn/docs/concepts/containers/container-environment/)。
+* 动手[为容器的生命周期事件设置处理函数](/zh-cn/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)。
 

@@ -351,7 +351,7 @@ A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on 
 nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
 conditions abate:
 ```
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).

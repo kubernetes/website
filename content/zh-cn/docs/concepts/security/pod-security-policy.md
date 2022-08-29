@@ -13,6 +13,8 @@ content_type: concept
 weight: 30
 -->
 
+<!-- overview -->
+
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 {{< caution >}}
@@ -50,9 +52,9 @@ administrator to control the following:
 -->
 ## 什么是 Pod 安全策略？   {#what-is-a-pod-security-policy}
 
-**Pod 安全策略（Pod Security Policy）**是集群级别的资源，它能够控制 Pod
+**Pod 安全策略（Pod Security Policy）** 是集群级别的资源，它能够控制 Pod
 规约中与安全性相关的各个方面。
-[PodSecurityPolicy](/zh-cn/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)
+[PodSecurityPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)
 对象定义了一组 Pod 运行时必须遵循的条件及相关字段的默认值，只有 Pod 满足这些条件才会被系统接受。
 Pod 安全策略允许管理员控制如下操作：
 
@@ -269,7 +271,7 @@ paired with system groups to grant access to all pods run in the namespace:
 
 <!--
 For more examples of RBAC bindings, see
-[Role Binding Examples](/docs/reference/access-authn-authz/rbac#role-binding-examples).
+[RoleBinding examples](/docs/reference/access-authn-authz/rbac#role-binding-examples).
 For a complete example of authorizing a PodSecurityPolicy, see [below](#example).
 -->
 参阅[角色绑定示例](/zh-cn/docs/reference/access-authn-authz/rbac#role-binding-examples)查看
@@ -310,7 +312,7 @@ PodSecurityPolicy 正在被一个新的、简化的 `PodSecurity`
    - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
 
 <!--
-2. Only bind PSPs to entire namespaces, by using the `system:serviceaccounts:<namespace>` group
+1. Only bind PSPs to entire namespaces, by using the `system:serviceaccounts:<namespace>` group
    (where `<namespace>` is the target namespace). For example:
 
    ```yaml
@@ -357,7 +359,7 @@ PodSecurityPolicy 正在被一个新的、简化的 `PodSecurity`
 <!--
 ### Troubleshooting
 
-- The [Controller Manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+- The [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
   must be run against the secured API port and must not have superuser permissions. See
   [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access)
   to learn about API server access controls.  
@@ -620,9 +622,9 @@ kubectl-user get pod pause -o yaml | grep kubernetes.io/psp
 ```
 
 <!--
-The output is similar to this:
+The output is similar to this
 -->
-输出类似于：
+输出类似于
 
 ```
 kubernetes.io/psp: example
@@ -679,17 +681,14 @@ Let's try that again, slightly differently:
 kubectl-user create deployment pause --image=k8s.gcr.io/pause
 ```
 
-输出为：
 
-```
+
+```none
 deployment "pause" created
 ```
-
 ```shell
 kubectl-user get pods
 ```
-
-输出为：
 
 ```
 No resources found.
@@ -699,7 +698,6 @@ No resources found.
 kubectl-user get events | head -n 2
 ```
 
-输出为：
 ```
 LASTSEEN   FIRSTSEEN   COUNT     NAME              KIND         SUBOBJECT                TYPE      REASON                  SOURCE                                  MESSAGE
 1m         2m          15        pause-7774d79b5   ReplicaSet                            Warning   FailedCreate            replicaset-controller                   Error creating: pods "pause-7774d79b5-" is forbidden: no providers available to validate pod request
@@ -791,9 +789,7 @@ up separately:
 kubectl-admin delete psp example
 ```
 
-输出类似于：
-
-```none
+```
 podsecuritypolicy "example" deleted
 ```
 
@@ -1379,5 +1375,5 @@ Refer to the [Sysctl documentation](/docs/tasks/administer-cluster/sysctl-cluste
 
 - 参阅 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)，
   了解策略建议。
-- 阅读 [PodSecurityPolicy 参考](/zh-cn/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)，
+- 阅读 [PodSecurityPolicy 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)，
   了解 API 细节。

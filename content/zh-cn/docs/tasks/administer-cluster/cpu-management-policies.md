@@ -85,8 +85,8 @@ CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy`
 The CPU manager periodically writes resource updates through the CRI in
 order to reconcile in-memory CPU assignments with cgroupfs. The reconcile
 frequency is set through a new Kubelet configuration value
-`-cpu-manager-reconcile-period`. If not specified, it defaults to the same
-duration as `-node-status-update-frequency`.
+`--cpu-manager-reconcile-period`. If not specified, it defaults to the same
+duration as `--node-status-update-frequency`.
 -->
 CPU 管理器定期通过 CRI 写入资源更新，以保证内存中 CPU 分配与 cgroupfs 一致。
 同步频率通过新增的 Kubelet 配置参数 `--cpu-manager-reconcile-period` 来设置。
@@ -233,7 +233,7 @@ exclusive CPUs.
 
 <!--
 The kubelet requires a CPU reservation greater than zero be made
-using either `--kube-reserved` and/or `--system-reserved`  or `--reserved-cpus` when the static
+using either `--kube-reserved` and/or `--system-reserved` or `--reserved-cpus` when the static
 policy is enabled. This is because zero CPU reservation would allow the shared
 pool to become empty.
 --->
@@ -397,6 +397,7 @@ You will still have to enable each option using the `CPUManagerPolicyOptions` ku
 The following policy options exist for the static `CPUManager` policy:
 * `full-pcpus-only` (beta, visible by default)
 * `distribute-cpus-across-numa` (alpha, hidden by default)
+* `align-by-socket` (alpha, hidden by default)
 -->
 #### Static 策略选项
 
@@ -408,6 +409,7 @@ The following policy options exist for the static `CPUManager` policy:
 静态 `CPUManager` 策略存在以下策略选项：
 * `full-pcpus-only`（beta，默认可见）
 * `distribute-cpus-across-numa`（alpha，默认隐藏）
+* `align-by-socket`（alpha，默认隐藏）
 
 <!--
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
@@ -457,6 +459,26 @@ static 策略会在 NUMA 节点上平均分配 CPU。
 从而提高这些类型应用程序的整体性能。
 
 <!--
+If the `align-by-socket` policy option is specified, CPUs will be considered
+aligned at the socket boundary when deciding how to allocate CPUs to a
+container. By default, the `CPUManager` aligns CPU allocations at the NUMA
+boundary, which could result in performance degradation if CPUs need to be
+pulled from more than one NUMA node to satisfy the allocation. Although it
+tries to ensure that all CPUs are allocated from the _minimum_ number of NUMA
+nodes, there is no guarantee that those NUMA nodes will be on the same socket.
+By directing the `CPUManager` to explicitly align CPUs at the socket boundary
+rather than the NUMA boundary, we are able to avoid such issues. Note, this
+policy option is not compatible with `TopologyManager` `single-numa-node`
+policy and does not apply to hardware where the number of sockets is greater
+than number of NUMA nodes.
+-->
+如果指定了 `align-by-socket` 策略选项，那么在决定如何分配 CPU 给容器时，CPU 将被视为在 CPU 的插槽边界对齐。
+默认情况下，`CPUManager` 在 NUMA 边界对齐 CPU 分配，如果需要从多个 NUMA 节点提取出 CPU 以满足分配，将可能会导致系统性能下降。
+尽管 `align-by-socket` 策略试图确保从 NUMA 节点的**最小**数量分配所有 CPU，但不能保证这些 NUMA 节点将位于同一个 CPU 的插槽上。
+通过指示 `CPUManager` 在 CPU 的插槽边界而不是 NUMA 边界显式对齐 CPU，我们能够避免此类问题。
+注意，此策略选项不兼容 `TopologyManager` 与 `single-numa-node` 策略，并且不适用于 CPU 的插槽数量大于 NUMA 节点数量的硬件。
+
+<!--
 The `full-pcpus-only` option can be enabled by adding `full-pcups-only=true` to
 the CPUManager policy options.
 Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
@@ -464,9 +486,13 @@ Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
 When both are set, they are "additive" in the sense that CPUs will be
 distributed across NUMA nodes in chunks of full-pcpus rather than individual
 cores.
+The `align-by-socket` policy option can be enabled by adding `align-by-socket=true`
+to the `CPUManager` policy options. It is also additive to the `full-pcpus-only`
+and `distribute-cpus-across-numa` policy options.
 -->
 可以通过将 `full-pcups-only=true` 添加到 CPUManager 策略选项来启用 `full-pcpus-only` 选项。
-同样地，可以通过将 `distribute-cpus-across-numa=true`
-添加到 CPUManager 策略选项来启用 `distribute-cpus-across-numa` 选项。
-当两者都设置时，它们是“累加的”，因为 CPU 将分布在 NUMA 节点的 full-pcpus 块中，
-而不是单个核心。
+同样地，可以通过将 `distribute-cpus-across-numa=true` 添加到 CPUManager 策略选项来启用 `distribute-cpus-across-numa` 选项。
+当两者都设置时，它们是“累加的”，因为 CPU 将分布在 NUMA 节点的 full-pcpus 块中，而不是单个核心。
+可以通过将 `align-by-socket=true` 添加到 `CPUManager` 策略选项来启用 `align-by-socket` 策略选项。
+同样，也能够将 `distribute-cpus-across-numa=true` 添加到 `full-pcpus-only`
+和 `distribute-cpus-across-numa` 策略选项中。

@@ -108,5 +108,5 @@ UUIDs seguem os padrões ISO/IEC 9834-8 e ITU-T X.667.
 ## {{% heading "whatsnext" %}}
 
 * Leia sobre [labels](/docs/concepts/overview/working-with-objects/labels/) no Kubernetes.
-* Consulte o documento de design [Identifiers and Names in Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md).
+* Consulte o documento de design [Identifiers and Names in Kubernetes](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md).
 

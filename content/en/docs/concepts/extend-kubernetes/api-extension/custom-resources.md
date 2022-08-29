@@ -26,8 +26,8 @@ many core Kubernetes functions are now built using custom resources, making Kube
 Custom resources can appear and disappear in a running cluster through dynamic registration,
 and cluster admins can update custom resources independently of the cluster itself.
 Once a custom resource is installed, users can create and access its objects using
-[kubectl](/docs/reference/kubectl/), just as they do for built-in resources like
-*Pods*.
+{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}, just as they do for built-in resources
+like *Pods*.
 
 ## Custom controllers
 
@@ -48,7 +48,7 @@ but they are especially effective when combined with custom resources. The
 resources and custom controllers. You can use custom controllers to encode domain knowledge
 for specific applications into an extension of the Kubernetes API.
 
-## Should I add a custom resource to my Kubernetes Cluster?
+## Should I add a custom resource to my Kubernetes cluster?
 
 When creating a new API, consider whether to
 [aggregate your API with the Kubernetes cluster APIs](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
@@ -88,18 +88,18 @@ Signs that your API might not be declarative include:
  - The API is not easily modeled as objects.
  - You chose to represent pending operations with an operation ID or an operation object.
 
-## Should I use a configMap or a custom resource?
+## Should I use a ConfigMap or a custom resource?
 
 Use a ConfigMap if any of the following apply:
 
-* There is an existing, well-documented config file format, such as a `mysql.cnf` or `pom.xml`.
-* You want to put the entire config file into one key of a configMap.
-* The main use of the config file is for a program running in a Pod on your cluster to consume the file to configure itself.
+* There is an existing, well-documented configuration file format, such as a `mysql.cnf` or `pom.xml`.
+* You want to put the entire configuration into one key of a ConfigMap.
+* The main use of the configuration file is for a program running in a Pod on your cluster to consume the file to configure itself.
 * Consumers of the file prefer to consume via file in a Pod or environment variable in a pod, rather than the Kubernetes API.
 * You want to perform rolling updates via Deployment, etc., when the file is updated.
 
 {{< note >}}
-Use a [secret](/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
+Use a {{< glossary_tooltip text="Secret" term_id="secret" >}} for sensitive data, which is similar to a ConfigMap but more secure.
 {{< /note >}}
 
 Use a custom resource (CRD or Aggregated API) if most of the following apply:
@@ -242,7 +242,7 @@ Kubernetes [client libraries](/docs/reference/using-api/client-libraries/) can b
 When you add a custom resource, you can access it using:
 
 - `kubectl`
-- The kubernetes dynamic client.
+- The Kubernetes dynamic client.
 - A REST client that you write.
 - A client generated using [Kubernetes client generation tools](https://github.com/kubernetes/code-generator) (generating one is an advanced undertaking, but some projects may provide a client along with the CRD or AA).
 

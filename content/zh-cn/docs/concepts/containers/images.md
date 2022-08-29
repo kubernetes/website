@@ -26,8 +26,7 @@ before referring to it in a
 This page provides an outline of the container image concept.
 -->
 容器镜像（Image）所承载的是封装了应用程序及其所有软件依赖的二进制数据。
-容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有
-良定（Well Defined）的假定。
+容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有良定（Well Defined）的假定。
 
 你通常会创建应用的容器镜像并将其推送到某仓库（Registry），然后在
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中引用它。
@@ -85,8 +84,8 @@ image if it already exists.
 
 当你最初创建一个 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}、
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}、Pod
-或者其他包含 Pod 模板的对象时，如果没有显式设定的话，Pod 中所有容器的默认镜像
-拉取策略是 `IfNotPresent`。这一策略会使得
+或者其他包含 Pod 模板的对象时，如果没有显式设定的话，
+Pod 中所有容器的默认镜像拉取策略是 `IfNotPresent`。这一策略会使得
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
 在镜像已经存在的情况下直接略过拉取镜像的操作。
 
@@ -101,7 +100,8 @@ these values have:
 -->
 ### 镜像拉取策略   {#image-pull-policy}
 
-容器的 `imagePullPolicy` 和镜像的标签会影响 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 尝试拉取（下载）指定的镜像。
+容器的 `imagePullPolicy` 和镜像的标签会影响
+[kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 尝试拉取（下载）指定的镜像。
 
 以下列表包含了 `imagePullPolicy` 可以设置的值，以及这些值的效果：
 
@@ -221,8 +221,8 @@ the pull policy of any object after its initial creation.
 -->
 容器的 `imagePullPolicy` 的值总是在对象初次 _创建_ 时设置的，如果后来镜像的标签发生变化，则不会更新。
 
-例如，如果你用一个 _非_ `:latest` 的镜像标签创建一个 Deployment，
-并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy` 字段 _不会_ 变成 `Always`。
+例如，如果你用一个 **非** `:latest` 的镜像标签创建一个 Deployment，
+并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy` 字段 **不会** 变成 `Always`。
 你必须手动更改已经创建的资源的拉取策略。
 {{< /note >}}
 
@@ -273,7 +273,7 @@ which is 300 seconds (5 minutes).
 -->
 `ImagePullBackOff` 状态意味着容器无法启动，
 因为 Kubernetes 无法拉取容器镜像（原因包括无效的镜像名称，或从私有仓库拉取而没有 `imagePullSecret`）。
- `BackOff` 部分表示 Kubernetes 将继续尝试拉取镜像，并增加回退延迟。
+`BackOff` 部分表示 Kubernetes 将继续尝试拉取镜像，并增加回退延迟。
 
 Kubernetes 会增加每次尝试之间的延迟，直到达到编译限制，即 300 秒（5 分钟）。
 
@@ -286,10 +286,10 @@ Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For
 -->
 ## 带镜像索引的多架构镜像  {#multi-architecture-images-with-image-indexes}
 
-除了提供二进制的镜像之外，容器仓库也可以提供
-[容器镜像索引](https://github.com/opencontainers/image-spec/blob/master/image-index.md)。
-镜像索引可以根据特定于体系结构版本的容器指向镜像的多个
-[镜像清单](https://github.com/opencontainers/image-spec/blob/master/manifest.md)。
+除了提供二进制的镜像之外，
+容器仓库也可以提供[容器镜像索引](https://github.com/opencontainers/image-spec/blob/master/image-index.md)。
+镜像索引可以指向镜像的多个[镜像清单](https://github.com/opencontainers/image-spec/blob/master/manifest.md)，
+提供特定于体系结构版本的容器。
 这背后的理念是让你可以为镜像命名（例如：`pause`、`example/mycontainer`、`kube-apiserver`）
 的同时，允许不同的系统基于它们所使用的机器体系结构取回正确的二进制镜像。
 
@@ -316,7 +316,7 @@ Credentials can be provided in several ways:
     - requires node configuration by cluster administrator
   - Pre-pulled Images
     - all pods can use any images cached on a node
-    - requires root access to all nodes to setup
+    - requires root access to all nodes to set up
   - Specifying ImagePullSecrets on a Pod
     - only pods which provide own keys can access the private registry
   - Vendor-specific or local extensions
@@ -333,8 +333,7 @@ Credentials can be provided in several ways:
 - 在 Pod 中设置 ImagePullSecrets
   - 只有提供自己密钥的 Pod 才能访问私有仓库
 - 特定于厂商的扩展或者本地扩展
-  - 如果你在使用定制的节点配置，你（或者云平台提供商）可以实现让节点
-    向容器仓库认证的机制
+  - 如果你在使用定制的节点配置，你（或者云平台提供商）可以实现让节点向容器仓库认证的机制
 
 <!--
 These options are explained in more detail below.
@@ -365,8 +364,8 @@ For an example of configuring a private container image registry, see the
 [Pull an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry)
 task. That example uses a private registry in Docker Hub.
 -->
-有关配置私有容器镜像仓库的示例，请参阅任务
-[从私有镜像库中拉取镜像](/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry)。
+有关配置私有容器镜像仓库的示例，
+请参阅任务[从私有镜像库中拉取镜像](/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry)。
 该示例使用 Docker Hub 中的私有注册表。
 
 <!--
@@ -381,8 +380,8 @@ can only specify root URLs, whereas Kubernetes allows glob URLs as well as
 prefix-matched paths. This means that a `config.json` like this is valid:
 -->
 对于 `config.json` 的解释在原始 Docker 实现和 Kubernetes 的解释之间有所不同。
-在 Docker 中，`auths` 键只能指定根 URL ，而 Kubernetes 允许 glob URLs 以及
-前缀匹配的路径。这意味着，像这样的 `config.json` 是有效的：
+在 Docker 中，`auths` 键只能指定根 URL，而 Kubernetes 允许 glob URLs 以及前缀匹配的路径。
+这意味着，像这样的 `config.json` 是有效的：
 ```json
 {
     "auths": {
@@ -456,7 +455,7 @@ would match successfully:
 The kubelet performs image pulls sequentially for every found credential. This
 means, that multiple entries in `config.json` are possible, too:
 -->
-kubelet 为每个找到的凭证的镜像按顺序拉取。 这意味着在 `config.json` 中可能有多项：
+kubelet 为每个找到的凭证的镜像按顺序拉取。这意味着在 `config.json` 中可能有多项：
 
 ```json
 {
@@ -532,8 +531,12 @@ in private registries.
 
 <!--
 Kubernetes supports specifying container image registry keys on a Pod.
+`imagePullSecrets` must all be in the same namespace as the Pod. The referenced
+Secrets must be of type `kubernetes.io/dockercfg` or `kubernetes.io/dockerconfigjson`.
 -->
 Kubernetes 支持在 Pod 中设置容器镜像仓库的密钥。
+`imagePullSecrets` 必须全部与 Pod 位于同一个名字空间中。
+引用的 Secret 必须是 `kubernetes.io/dockercfg` 或 `kubernetes.io/dockerconfigjson` 类型。
 
 <!--
 #### Creating a Secret with a Docker config
@@ -576,21 +579,22 @@ Pods can only reference image pull secrets in their own namespace,
 so this process needs to be done one time per namespace.
 -->
 {{< note >}}
-Pod 只能引用位于自身所在名字空间中的 Secret，因此需要针对每个名字空间
-重复执行上述过程。
+Pod 只能引用位于自身所在名字空间中的 Secret，因此需要针对每个名字空间重复执行上述过程。
 {{< /note >}}
 
 <!--
 #### Referring to an imagePullSecrets on a Pod
 
 Now, you can create pods which reference that secret by adding an `imagePullSecrets`
-section to a Pod definition.
+section to a Pod definition. Each item in the `imagePullSecrets` array can only
+reference a Secret in the same namespace.
 
 For example:
 -->
 #### 在 Pod 中引用 ImagePullSecrets
 
 现在，在创建 Pod 时，可以在 Pod 定义中增加 `imagePullSecrets` 部分来引用该 Secret。
+`imagePullSecrets` 数组中的每一项只能引用同一名字空间中的 Secret。
 
 例如：
 
@@ -626,12 +630,11 @@ Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-cont
 You can use this in conjunction with a per-node `.docker/config.json`.  The credentials
 will be merged.
 -->
-你需要对使用私有仓库的每个 Pod 执行以上操作。
-不过，设置该字段的过程也可以通过为
-[服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
-资源设置 `imagePullSecrets` 来自动完成。
-有关详细指令可参见
-[将 ImagePullSecrets 添加到服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)。
+你需要对使用私有仓库的每个 Pod 执行以上操作。不过，
+设置该字段的过程也可以通过为[服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)资源设置
+`imagePullSecrets` 来自动完成。
+有关详细指令，
+可参见[将 ImagePullSecrets 添加到服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)。
 
 你也可以将此方法与节点级别的 `.docker/config.json` 配置结合使用。
 来自不同来源的凭据会被合并。
@@ -670,7 +673,7 @@ common use cases and suggested solutions.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 -->
 2. 集群运行一些专有镜像，这些镜像需要对公司外部隐藏，对所有集群用户可见
-   - 使用托管的私有 [Docker 仓库](https://docs.docker.com/registry/)。
+   - 使用托管的私有 [Docker 仓库](https://docs.docker.com/registry/)
      - 可以托管在 [Docker Hub](https://hub.docker.com/account/signup/) 或者其他地方
      - 按照上面的描述，在每个节点上手动配置 `.docker/config.json` 文件
    - 或者，在防火墙内运行一个组织内部的私有仓库，并开放读取权限
@@ -698,7 +701,7 @@ common use cases and suggested solutions.
 4. 集群是多租户的并且每个租户需要自己的私有仓库
    - 确保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。否则，所有租户的所有的 Pod 都可以使用所有镜像。
    - 为私有仓库启用鉴权
-   - 为每个租户生成访问仓库的凭据，放置在 Secret 中，并将 Secrert 发布到各租户的命名空间下。
+   - 为每个租户生成访问仓库的凭据，放置在 Secret 中，并将 Secret 发布到各租户的名字空间下。
    - 租户将 Secret 添加到每个名字空间中的 imagePullSecrets
 
 <!--
@@ -714,6 +717,8 @@ Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.
 <!--
 * Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
 * Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
+* Learn more about [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry).
 -->
 * 阅读 [OCI Image Manifest 规范](https://github.com/opencontainers/image-spec/blob/master/manifest.md)。
 * 了解[容器镜像垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)。
+* 了解[从私有仓库拉取镜像](/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry)。
