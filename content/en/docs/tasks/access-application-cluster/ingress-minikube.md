@@ -145,6 +145,19 @@ storage-provisioner                         1/1       Running   0          2m
 
    You can now access the sample app via the Minikube IP address and NodePort. The next step lets you access
    the app using the Ingress resource.
+   
+2. Extract the node port from the tunnel
+
+   _If the URL and port are not shown in your Terminal window, but instead a tunnel is created, open another Terminal window to [inspect the tunnel host and port](https://minikube.sigs.k8s.io/docs/handbook/accessing/)_
+
+   ```
+   $ ps -ef | grep docker@127.0.0.1
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -N docker@127.0.0.1 -p 55972 -i /Users/FOO/.minikube/machines/minikube/id_rsa -L TUNNEL_PORT:CLUSTER_IP:TARGET_PORT
+   ```
+
+   The information at the end can be used to access your Service:
+   
+   `curl http://127.0.0.1:TUNNEL_PORT`
 
 ## Create an Ingress
 
