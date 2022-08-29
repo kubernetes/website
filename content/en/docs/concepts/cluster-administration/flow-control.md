@@ -182,7 +182,7 @@ semantics.
 
 ### PriorityLevelConfiguration
 
-A PriorityLevelConfiguration represents a single isolation class. Each
+A PriorityLevelConfiguration represents a single priority level. Each
 PriorityLevelConfiguration has an independent limit on the number of outstanding
 requests, and limitations on the number of queued requests.
 
