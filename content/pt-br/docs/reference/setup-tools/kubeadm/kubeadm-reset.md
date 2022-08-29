@@ -11,7 +11,7 @@ Executa o melhor esforço para reverter as alterações feitas pelo `kubeadm ini
 
 ### Fluxo de execução do comando `reset` {#reset-workflow}
 
-O `kubeadm reset` é o responsável por substituir o sistema de arquivos local dos nós a partir dos arquivos que foram criados usando os comandos `kubeadm init` ou `kubeadm join`. O `reset` dos nós do plano de controle também remove o etcd local do nó do cluster etcd.
+O `kubeadm reset` é o responsável por limpar o sistema de arquivos local dos nós a partir dos arquivos que foram criados usando os comandos `kubeadm init` ou `kubeadm join`. O `reset` dos nós da camanda de gerenciamento também remove o etcd local do nó do cluster etcd.
 
 O `kubeadm reset phase` pode ser usado para executar separadamente as fases do fluxo de trabalho acima. Para pular uma lista de fases você pode usar `--skip-phases`, que funciona de maneira semelhante aos executores de fases dos comandos `kubeadm join` e `kubeadm init`.
 
