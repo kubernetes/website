@@ -1,7 +1,7 @@
 ---
 title: 레퍼런스
-
-
+# approvers:
+# - chenopis
 linkTitle: "레퍼런스"
 main_menu: true
 weight: 70
@@ -86,7 +86,7 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
   [kube-scheduler 환경설정 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * [kube-proxy 환경설정 (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-* [클라이언트 인증 API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) 및 
+* [클라이언트 인증 API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) 및
   [클라이언트 인증 API (v1)](/docs/reference/config-api/client-authentication.v1/)
 * [WebhookAdmission 환경설정 (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 * [이미지 정책 API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
