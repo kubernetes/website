@@ -19,7 +19,7 @@ weight: 10
 resource to your Kubernetes cluster and when to use a standalone service. It describes the two
 methods for adding custom resources and how to choose between them.
 -->
-*定制资源（Custom Resource）* 是对 Kubernetes API 的扩展。
+**定制资源（Custom Resource）** 是对 Kubernetes API 的扩展。
 本页讨论何时向 Kubernetes 集群添加定制资源，何时使用独立的服务。
 本页描述添加定制资源的两种方法以及怎样在二者之间做出抉择。
 
@@ -36,12 +36,11 @@ collection of Pod objects.
 -->
 ## 定制资源
 
-*资源（Resource）* 是
+**资源（Resource）** 是
 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/) 中的一个端点，
 其中存储的是某个类别的
-[API 对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)
-的一个集合。
-例如内置的 *pods* 资源包含一组 Pod 对象。
+[API 对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)的一个集合。
+例如内置的 **Pod** 资源包含一组 Pod 对象。
 
 <!--
 A *custom resource* is an extension of the Kubernetes API that is not necessarily available in a default
@@ -54,15 +53,14 @@ Once a custom resource is installed, users can create and access its objects usi
 [kubectl](/docs/reference/kubectl/), just as they do for built-in resources like
 *Pods*.
 -->
-*定制资源（Custom Resource）* 是对 Kubernetes API 的扩展，不一定在默认的
-Kubernetes 安装中就可用。定制资源所代表的是对特定 Kubernetes 安装的一种定制。
-不过，很多 Kubernetes 核心功能现在都用定制资源来实现，这使得 Kubernetes
-更加模块化。
+**定制资源（Custom Resource）** 是对 Kubernetes API 的扩展，不一定在默认的
+Kubernetes 安装中就可用。
+定制资源所代表的是对特定 Kubernetes 安装的一种定制。
+不过，很多 Kubernetes 核心功能现在都用定制资源来实现，这使得 Kubernetes 更加模块化。
 
-定制资源可以通过动态注册的方式在运行中的集群内或出现或消失，集群管理员可以独立于集群
-更新定制资源。一旦某定制资源被安装，用户可以使用 
-[kubectl](/docs/reference/kubectl/)
-来创建和访问其中的对象，就像他们为 *pods* 这种内置资源所做的一样。
+定制资源可以通过动态注册的方式在运行中的集群内或出现或消失，集群管理员可以独立于集群更新定制资源。
+一旦某定制资源被安装，用户可以使用 [kubectl](/zh-cn/docs/reference/kubectl/) 来创建和访问其中的对象，
+就像他们为 **Pod** 这种内置资源所做的一样。
 
 <!--
 ## Custom controllers
@@ -74,20 +72,19 @@ provide a true _declarative API_.
 ## 定制控制器   {#custom-controllers}
 
 就定制资源本身而言，它只能用来存取结构化的数据。
-当你将定制资源与 *定制控制器（Custom Controller）* 相结合时，定制资源就能够
-提供真正的 _声明式 API（Declarative API）_。
+当你将定制资源与**定制控制器（Custom Controller）** 结合时，
+定制资源就能够提供真正的**声明式 API（Declarative API）**。
 
 <!--
-A [declarative API](/docs/concepts/overview/kubernetes-api/)
-allows you to _declare_ or specify the desired state of your resource and tries to
-keep the current state of Kubernetes objects in sync with the desired state.
-The controller interprets the structured data as a record of the user's
-desired state, and continually maintains this state.
+The Kubernetes [declarative API](/docs/concepts/overview/kubernetes-api/)
+enforces a separation of responsibilities. You declare the desired state of
+your resource. The Kubernetes controller keeps the current state of Kubernetes
+objects in sync with your declared desired state. This is in contrast to an
+imperative API, where you *instruct* a server what to do.
 -->
-使用[声明式 API](/zh-cn/docs/concepts/overview/kubernetes-api/)，
-你可以 _声明_ 或者设定你的资源的期望状态，并尝试让 Kubernetes 对象的当前状态
-同步到其期望状态。控制器负责将结构化的数据解释为用户所期望状态的记录，并
-持续地维护该状态。
+Kubernetes [声明式 API](/zh-cn/docs/concepts/overview/kubernetes-api/) 强制对职权做了一次分离操作。
+你声明所用资源的期望状态，而 Kubernetes 控制器使 Kubernetes 对象的当前状态与你所声明的期望状态保持同步。
+声明式 API 的这种机制与命令式 API（你**指示**服务器要做什么，服务器就去做什么）形成鲜明对比。
 
 <!--
 You can deploy and update a custom controller on a running cluster, independently
@@ -99,9 +96,8 @@ for specific applications into an extension of the Kubernetes API.
 -->
 你可以在一个运行中的集群上部署和更新定制控制器，这类操作与集群的生命周期无关。
 定制控制器可以用于任何类别的资源，不过它们与定制资源结合起来时最为有效。
-[Operator 模式](/zh-cn/docs/concepts/extend-kubernetes/operator/)就是将定制资源
-与定制控制器相结合的。你可以使用定制控制器来将特定于某应用的领域知识组织
-起来，以编码的形式构造对 Kubernetes API 的扩展。
+[Operator 模式](/zh-cn/docs/concepts/extend-kubernetes/operator/)就是将定制资源与定制控制器相结合的。
+你可以使用定制控制器来将特定于某应用的领域知识组织起来，以编码的形式构造对 Kubernetes API 的扩展。
 
 <!--
 ## Should I add a custom resource to my Kubernetes Cluster?
@@ -364,14 +360,14 @@ CRD 比聚合 API 更容易创建
 <!--
 | CRDs                        | Aggregated API |
 | --------------------------- | -------------- |
-| Do not require programming. Users can choose any language for a CRD controller. | Requires programming in Go and building binary and image. |
+| Do not require programming. Users can choose any language for a CRD controller. | Requires programming and building binary and image. |
 | No additional service to run; CRDs are handled by API server. | An additional service to create and that could fail. |
 | No ongoing support once the CRD is created. Any bug fixes are picked up as part of normal Kubernetes Master upgrades. | May need to periodically pickup bug fixes from upstream and rebuild and update the Aggregated API server. |
 | No need to handle multiple versions of your API; for example, when you control the client for this resource, you can upgrade it in sync with the API. | You need to handle multiple versions of your API; for example, when developing an extension to share with the world. |
 -->
-| CRDs                        | 聚合 API       |
+| CRD                        | 聚合 API       |
 | --------------------------- | -------------- |
-| 无需编程。用户可选择任何语言来实现 CRD 控制器。 | 需要使用 Go 来编程，并构建可执行文件和镜像。 |
+| 无需编程。用户可选择任何语言来实现 CRD 控制器。 | 需要编程，并构建可执行文件和镜像。 |
 | 无需额外运行服务；CRD 由 API 服务器处理。 | 需要额外创建服务，且该服务可能失效。 |
 | 一旦 CRD 被创建，不需要持续提供支持。Kubernetes 主控节点升级过程中自动会带入缺陷修复。 | 可能需要周期性地从上游提取缺陷修复并更新聚合 API 服务器。 |
 | 无需处理 API 的多个版本；例如，当你控制资源的客户端时，你可以更新它使之与 API 同步。 | 你需要处理 API 的多个版本；例如，在开发打算与很多人共享的扩展时。 |
@@ -400,7 +396,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
 | OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an `int` in a `string` field?) | Yes, based on the [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) schema (GA in 1.16). | Yes |
 -->
-| 特性    | 描述        | CRDs | 聚合 API       |
+| 特性    | 描述        | CRD | 聚合 API       |
 | ------- | ----------- | ---- | -------------- |
 | 合法性检查 | 帮助用户避免错误，允许你独立于客户端版本演化 API。这些特性对于由很多无法同时更新的客户端的场合。| 可以。大多数验证可以使用 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) 来设定。其他合法性检查操作可以通过添加[合法性检查 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)来实现。 | 可以，可执行任何合法性检查。|
 | 默认值设置 | 同上 | 可以。可通过 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)的 `default` 关键词（自 1.17 正式发布）或[更改性（Mutating）Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)来实现（不过从 etcd 中读取老的对象时不会执行这些 Webhook）。 | 可以。 |
