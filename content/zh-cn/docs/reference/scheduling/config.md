@@ -8,7 +8,7 @@ title: Scheduler Configuration
 content_type: concept
 weight: 20
 -->
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 <!--
 You can customize the behavior of the `kube-scheduler` by writing a configuration
@@ -30,14 +30,14 @@ by implementing one or more of these extension points.
 
 <!--
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
-using the 
-KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-or [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/))
+using the
+KubeSchedulerConfiguration ([v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+or [v1](/docs/reference/config-api/kube-scheduler-config.v1/))
 struct.
 -->
 你可以通过运行 `kube-scheduler --config <filename>` 来设置调度模板，
-使用 KubeSchedulerConfiguration （[v1beta2](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-或者 [v1beta3](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)） 结构体。
+使用 KubeSchedulerConfiguration（[v1beta3](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+或 [v1](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)）结构体。
 
 <!--
 A minimal configuration looks as follows:
@@ -45,11 +45,23 @@ A minimal configuration looks as follows:
 最简单的配置如下：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta2
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 clientConnection:
   kubeconfig: /etc/srv/kubernetes/kube-scheduler/kubeconfig
 ```
+
+{{< note >}}
+<!--
+KubeSchedulerConfiguration [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+is deprecated in v1.25 and will be removed in v1.26. Please migrate KubeSchedulerConfiguration to
+[v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/) or [v1](/docs/reference/config-api/kube-scheduler-config.v1/)
+before upgrading Kubernetes to v1.25.
+-->
+KubeSchedulerConfiguration [v1beta2](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+在 v1.25 中已弃用，并将在 v1.26 中移除。在将 Kubernetes 升级到 v1.25 之前，请将 KubeSchedulerConfiguration 迁移到
+[v1beta3](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/) 或 [v1](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)。
+{{< /note >}}
 
 <!--
 ## Profiles
@@ -153,7 +165,7 @@ extension points:
 -->
 11. `postBind`：这是一个信息扩展点，在 Pod 绑定了节点之后调用。
 <!--
-1. `multiPoint`: This is a config-only field that allows plugins to be enabled 
+1. `multiPoint`: This is a config-only field that allows plugins to be enabled
    or disabled for all of their applicable extension points simultaneously.
 -->
 12. `multiPoint`：这是一个仅配置字段，允许同时为所有适用的扩展点启用或禁用插件。
@@ -165,7 +177,7 @@ or enable your own. For example:
 对每个扩展点，你可以禁用[默认插件](#scheduling-plugins)或者是启用自己的插件，例如：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta2
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - plugins:
@@ -392,20 +404,6 @@ that are not enabled by default:
 你也可以通过组件配置 API 启用以下插件（默认不启用）：
 
 <!--
-- `SelectorSpread`: Favors spreading across nodes for Pods that belong to
-  {{< glossary_tooltip text="Services" term_id="service" >}},
-  {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and
-  {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}}.
-  Extension points: `preScore`, `score`.
--->
-- `SelectorSpread`：偏向把属于
-  {{< glossary_tooltip text="Services" term_id="service" >}}，
-  {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} 和
-  {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} 的 Pod 跨节点分布。
-
-  实现的扩展点：`preScore`、`score`。
-
-<!--
 - `CinderLimits`: Checks that [OpenStack Cinder](https://docs.openstack.org/cinder/)
   volume limits can be satisfied for the node.
   Extension points: `filter`.
@@ -433,7 +431,7 @@ disabled.
 使用下面的配置样例，调度器将运行两个配置文件：一个使用默认插件，另一个禁用所有打分插件。
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta2
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: default-scheduler
@@ -513,7 +511,7 @@ points, the profile config looks like:
 要为其所有可用的扩展点启用 `MyPlugin`，配置文件配置如下所示：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: multipoint-scheduler
@@ -530,7 +528,7 @@ points, like so:
 这相当于为所有扩展点手动启用 `MyPlugin`，如下所示：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: non-multipoint-scheduler
@@ -562,12 +560,12 @@ the `disabled` field for that extension point. This works with disabling default
 plugins, non-default plugins, or with the wildcard (`'*'`) to disable all plugins.
 An example of this, disabling `Score` and `PreScore`, would be:
 -->
-可以使用该扩展点的 `disabled` 字段将特定扩展点从 `MultiPoint` 扩展中排除。 
-这适用于禁用默认插件、非默认插件或使用通配符 (`'*'`) 来禁用所有插件。 
+可以使用该扩展点的 `disabled` 字段将特定扩展点从 `MultiPoint` 扩展中排除。
+这适用于禁用默认插件、非默认插件或使用通配符 (`'*'`) 来禁用所有插件。
 禁用 `Score` 和 `PreScore` 的一个例子是：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: non-multipoint-scheduler
@@ -584,19 +582,20 @@ profiles:
 ```
 
 <!--
-In `v1beta3`, all [default plugins](#scheduling-plugins) are enabled internally through `MultiPoint`.
+Starting from `kubescheduler.config.k8s.io/v1beta3`, all [default plugins](#scheduling-plugins)
+are enabled internally through `MultiPoint`.
 However, individual extension points are still available to allow flexible
 reconfiguration of the default values (such as ordering and Score weights). For
 example, consider two Score plugins `DefaultScore1` and `DefaultScore2`, each with
 a weight of `1`. They can be reordered with different weights like so:
 -->
-在 `v1beta3` 中，所有 [默认插件](#scheduling-plugins) 都通过 `MultiPoint` 在内部启用。 
-但是，仍然可以使用单独的扩展点来灵活地重新配置默认值（例如排序和分数权重）。 
-例如，考虑两个Score插件 `DefaultScore1` 和 `DefaultScore2` ，每个插件的权重为 `1` 。 
+从 `kubescheduler.config.k8s.io/v1beta3` 开始，所有[默认插件](#scheduling-plugins)都通过 `MultiPoint` 在内部启用。
+但是，仍然可以使用单独的扩展点来灵活地重新配置默认值（例如排序和分数权重）。
+例如，考虑两个 Score 插件 `DefaultScore1` 和 `DefaultScore2`，每个插件的权重为 `1`。
 它们可以用不同的权重重新排序，如下所示：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: multipoint-scheduler
@@ -614,9 +613,9 @@ This is because plugins set through specific extension points will always take p
 over `MultiPoint` plugins. So, this snippet essentially re-orders the two plugins
 without needing to specify both of them.
 -->
-在这个例子中，没有必要在 `MultiPoint` 中明确指定插件，因为它们是默认插件。 
-`Score` 中指定的唯一插件是 `DefaultScore2`。 
-这是因为通过特定扩展点设置的插件将始终优先于 `MultiPoint` 插件。 
+在这个例子中，没有必要在 `MultiPoint` 中明确指定插件，因为它们是默认插件。
+`Score` 中指定的唯一插件是 `DefaultScore2`。
+这是因为通过特定扩展点设置的插件将始终优先于 `MultiPoint` 插件。
 因此，此代码段实质上重新排序了这两个插件，而无需同时指定它们。
 
 <!--
@@ -658,7 +657,7 @@ A valid sample configuration for these plugins would be:
 这些插件的一个有效示例配置是：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: multipoint-scheduler
@@ -684,7 +683,7 @@ Note that there is no error for re-declaring a `MultiPoint` plugin in a specific
 extension point. The re-declaration is ignored (and logged), as specific extension points
 take precedence.
 -->
-请注意，在特定扩展点中重新声明 `MultiPoint` 插件不会出错。 
+请注意，在特定扩展点中重新声明 `MultiPoint` 插件不会出错。
 重新声明被忽略（并记录），因为特定的扩展点优先。
 
 <!--
@@ -715,14 +714,14 @@ profiles:
   - schedulerName: multipoint-scheduler
     plugins:
 
-      # Disable the default QueueSort plugin
+      # 禁用默认的 QueueSort 插件
       queueSort:
         enabled:
         - name: 'CustomQueueSort'
         disabled:
         - name: 'DefaultQueueSort'
 
-      # Enable custom Filter plugins
+      # 启用自定义的 Filter 插件
       filter:
         enabled:
         - name: 'CustomPlugin1'
@@ -731,7 +730,7 @@ profiles:
         disabled:
         - name: 'DefaultPlugin1'
 
-      # Enable and reorder custom score plugins
+      # 启用并重新排序自定义的打分插件
       score:
         enabled:
         - name: 'DefaultPlugin2'
@@ -750,6 +749,7 @@ as well as its seamless integration with the existing methods for configuring ex
 ## Scheduler configuration migrations
 -->
 ## 调度程序配置迁移   {#scheduler-configuration-migrations}
+
 {{< tabs name="tab_with_md" >}}
 {{% tab name="v1beta1 → v1beta2" %}}
 
@@ -763,9 +763,9 @@ as well as its seamless integration with the existing methods for configuring ex
   with a `scoreStrategy` that is similar to:
 -->
 * 在 v1beta2 配置版本中，你可以为 `NodeResourcesFit` 插件使用新的 score 扩展。
- 新的扩展结合了 `NodeResourcesLeastAllocated`、`NodeResourcesMostAllocated` 和 `RequestedToCapacityRatio` 插件的功能。 
- 例如，如果你之前使用了 `NodeResourcesMostAllocated` 插件，
- 则可以改用 `NodeResourcesFit`（默认启用）并添加一个 `pluginConfig` 和 `scoreStrategy`，类似于：
+  新的扩展结合了 `NodeResourcesLeastAllocated`、`NodeResourcesMostAllocated` 和 `RequestedToCapacityRatio` 插件的功能。
+  例如，如果你之前使用了 `NodeResourcesMostAllocated` 插件，
+  则可以改用 `NodeResourcesFit`（默认启用）并添加一个 `pluginConfig` 和 `scoreStrategy`，类似于：
 
   ```yaml
   apiVersion: kubescheduler.config.k8s.io/v1beta2
@@ -792,7 +792,7 @@ as well as its seamless integration with the existing methods for configuring ex
 * The scheduler plugin `ServiceAffinity` is deprecated; instead, use the [`InterPodAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
 -->
 * 调度程序插件 `ServiceAffinity` 已弃用；
-  相反，使用 [`InterPodAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity) 
+  相反，使用 [`InterPodAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
   插件（默认启用）来实现类似的行为。
   
 <!--
@@ -825,6 +825,16 @@ as well as its seamless integration with the existing methods for configuring ex
   * `NodeAffinity` 从 1 到 2
   * `TaintToleration` 从 1 到 3
 {{% /tab %}}
+
+{{% tab name="v1beta3 → v1" %}}
+
+<!--
+* The scheduler plugin `SelectorSpread` is removed, instead, use the `PodTopologySpread` plugin (enabled by default)
+to achieve similar behavior.
+-->
+* 调度器插件 `SelectorSpread` 被移除，改为使用 `PodTopologySpread` 插件（默认启用）来实现类似的行为。
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}
@@ -834,8 +844,10 @@ as well as its seamless integration with the existing methods for configuring ex
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Read the [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) reference
 * Read the [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) reference
+* Read the [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/) reference
 -->
 * 阅读 [kube-scheduler 参考](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 了解[调度](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)
 * 阅读 [kube-scheduler 配置 (v1beta2)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta2/) 参考
 * 阅读 [kube-scheduler 配置 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/) 参考
+* 阅读 [kube-scheduler 配置 (v1)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/) 参考
