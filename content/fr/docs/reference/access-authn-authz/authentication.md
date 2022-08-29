@@ -23,7 +23,7 @@ On suppose qu'un service indépendant du cluster gère les utilisateurs normaux 
 
 - un administateur est en charge de distribuer les clés privées
 - un (service d'identité)/registre d'utilisateur comme (OpenStack) Keystone and Google Accounts
-- un fichier contenant une liste des utilisateurs et des mots de passes
+- un fichier contenant une liste des utilisateurs et des mots de passe
 
 A ce sujet, _Kubernetes ne possède pas d'objets qui représentent des comptes d'utilisateurs normaux._ Les utilisateurs normaux ne peuvent pas être ajoutés à un cluster par le biais d'un appel à l'API.
 
