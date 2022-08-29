@@ -133,6 +133,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   Linux containers in the same Pod. All containers in a Pod are scheduled onto a single
   Node where each Node represents a specific platform and architecture. The following
   Pod capabilities, properties and events are supported with Windows containers:
+
   * Single or multiple containers per Pod with process isolation and volume sharing
   * Pod `status` fields
   * Readiness, liveness, and startup probes
@@ -142,6 +143,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * Named pipe host mounts
   * Resource limits
   * OS field: 
+
     The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
 
     {{< note >}}
@@ -266,7 +268,7 @@ Some kubelet command line options behave differently on Windows, as described be
 <!--
 * The `--windows-priorityclass` lets you set the scheduling priority of the kubelet process
   (see [CPU resource management](/docs/concepts/configuration/windows-resource-management/#resource-management-cpu))
-* The `--kubelet-reserve`, `--system-reserve` , and `--eviction-hard` flags update
+* The `--kube-reserved`, `--system-reserved` , and `--eviction-hard` flags update
   [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 * Eviction by using `--enforce-node-allocable` is not implemented
 * Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
@@ -280,7 +282,7 @@ Some kubelet command line options behave differently on Windows, as described be
 -->
 * `--windows-priorityclass` 允许你设置 kubelet 进程的调度优先级
   （参考 [CPU 资源管理](/zh-cn/docs/concepts/configuration/windows-resource-management/#resource-management-cpu)）。
-* `--kubelet-reserve`、`--system-reserve` 和 `--eviction-hard` 标志更新
+* `--kube-reserved`、`--system-reserved` 和 `--eviction-hard` 标志更新
   [NodeAllocatable](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)。
 * 未实现使用 `--enforce-node-allocable` 驱逐。
 * 未实现使用 `--eviction-hard` 和 `--eviction-soft` 驱逐。
@@ -339,6 +341,7 @@ At a high level, these OS concepts are different:
   * Console apps handle Ctrl-C or Ctrl-break using a Control Handler.
   * Services register a Service Control Handler function that can accept
     `SERVICE_CONTROL_STOP` control codes.
+
 Container exit codes follow the same convention where 0 is success, and nonzero is failure.
 The specific error codes may differ across Windows and Linux. However, exit codes
 passed from the Kubernetes components (kubelet, kube-proxy) are unchanged.
@@ -596,7 +599,8 @@ kernel patch.
 <!--
 #### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is available as a container runtime for all Windows Server 2019 and later versions.
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
+is available as a container runtime for all Windows Server 2019 and later versions.
 
 See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
 -->
@@ -704,7 +708,8 @@ Kubernetes [集群 API](https://cluster-api.sigs.k8s.io/) 项目也提供了自�
 <!--
 ### Windows distribution channels
 
-For a detailed explanation of Windows distribution channels see the [Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
+For a detailed explanation of Windows distribution channels see the
+[Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
 
 Information on the different Windows Server servicing channels
 including their support models can be found at

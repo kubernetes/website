@@ -160,6 +160,19 @@ Value | Description
 `Unknown`（未知） | 因为某些原因无法取得 Pod 的状态。这种情况通常是因为与 Pod 所在主机通信失败。
 
 <!--
+When a Pod is being deleted, it is shown as `Terminating` by some kubectl commands.
+This `Terminating` status is not one of the Pod phases.
+A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
+You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
+-->
+{{< note >}}
+当一个 Pod 被删除时，执行一些 kubectl 命令会展示这个 Pod 的状态为 `Terminating`（终止）。
+这个 `Terminating` 状态并不是 Pod 阶段之一。
+Pod 被赋予一个可以体面终止的期限，默认为 30 秒。
+你可以使用 `--force` 参数来[强制终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)。
+{{< /note >}}
+
+<!--
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
 -->
@@ -312,6 +325,7 @@ Pod 有一个 PodStatus 对象，其中包含一个
 
 <!--
 Field name           | Description
+:--------------------|:-----------
 `type`               | Name of this Pod condition.
 `status`             | Indicates whether that condition is applicable, with possible values "`True`", "`False`", or "`Unknown`".
 `lastProbeTime`      | Timestamp of when the Pod condition was last probed.
@@ -339,7 +353,7 @@ specify a list of additional conditions that the kubelet evaluates for Pod readi
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-你的应用可以向 PodStatus 中注入额外的反馈或者信号：_Pod Readiness（Pod 就绪态）_。
+你的应用可以向 PodStatus 中注入额外的反馈或者信号：**Pod Readiness（Pod 就绪态）**。
 要使用这一特性，可以设置 Pod 规约中的 `readinessGates` 列表，为 kubelet
 提供一组额外的状况供其评估 Pod 就绪态时使用。
 
@@ -662,7 +676,7 @@ to stop.
 -->
 #### 何时该使用启动探针？   {#when-should-you-use-a-startup-probe}
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 <!--
 Startup probes are useful for Pods that have containers that take a long time to
@@ -706,7 +720,7 @@ The design aim is for you to be able to request deletion and know when processes
 terminate, but also be able to ensure that deletes eventually complete.
 When you request deletion of a Pod, the cluster records and tracks the intended grace period
 before the Pod is allowed to be forcefully killed. With that forceful shutdown tracking in
-place, the {< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts graceful
+place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts graceful
 shutdown.
 -->
 设计的目标是令你能够请求删除进程，并且知道进程何时被终止，同时也能够确保删除
@@ -719,7 +733,7 @@ Pod。
 Typically, the container runtime sends a TERM signal to the main process in each
 container. Many container runtimes respect the `STOPSIGNAL` value defined in the container
 image and send this instead of TERM.
-Once the grace period has expired, the KILL signal is sent to any remainig
+Once the grace period has expired, the KILL signal is sent to any remaining
 processes, and the Pod is then deleted from the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
 container runtime's management service is restarted while waiting for processes to terminate, the
@@ -828,7 +842,7 @@ An example flow:
 Forced deletions can be potentially disruptive for some workloads and their Pods.
 
 By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports
-the `-grace-period=<seconds>` option which allows you to override the default and specify your
+the `--grace-period=<seconds>` option which allows you to override the default and specify your
 own value.
 -->
 ### 强制终止 Pod     {#pod-termination-forced}
