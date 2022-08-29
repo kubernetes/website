@@ -49,17 +49,18 @@ sur sa machine de travail, des `kubelets` sur les noeuds, des composants du plan
 doivent être authentifiés lorsqu'ils réalisent des requêtes au serveur API, sinon ils seront
 **traités** comme un utilisateur anonyme.
 
-## Authentication strategies
+## Stratégies d'authentification
 
-Kubernetes uses client certificates, bearer tokens, or an authenticating proxy to
-authenticate API requests through authentication plugins. As HTTP requests are
-made to the API server, plugins attempt to associate the following attributes
-with the request:
+Kubernetes utilise des certificats clients, des **bearer tokens**, ou un proxy d'authentification
+pour authentifier les requêtes à l'API à travers des plugins d'authentification. Au fur et à mesure 
+que les requêtes HTTP sont envoyées au serveur d'API, les plugins vont essayer d'associer les attributs
+suivants avec la requête :
 
-* Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
-* UID: a string which identifies the end user and attempts to be more consistent and unique than username.
-* Groups: a set of strings, each of which indicates the user's membership in a named logical collection of users. Common values might be `system:masters` or `devops-team`.
-* Extra fields: a map of strings to list of strings which holds additional information authorizers may find useful.
+* Nom d'utilisateur : une chaîne de caractères identifiant l'utilisateur final. `kube-admin` ou `jane@example.com` peuvent être des valeurs courantes pour ce dernier.
+* **UID** : une chaîne de caractères identifiant l'utilisateur final. Ce dernier **offre** une cohérence et une unicité plus forte de que le nom d'utilisateur. 
+* Groupes : un ensemble de chaîne de caractères, chaque élement indiquant l'appartenance de l'utilisateur à une collection logique d'utilisateurs. Des valeurs courantes pour ce dernier peuvent être
+`system:masters` ou `devops-team`.
+* **Champs complémentaires** : un **dictionnaire** de chaîne de caractères contenant des informations additionnelles pouvant être utiles aux **composants d'autorisation**.
 
 All values are opaque to the authentication system and only hold significance
 when interpreted by an [authorizer](/docs/reference/access-authn-authz/authorization/).
