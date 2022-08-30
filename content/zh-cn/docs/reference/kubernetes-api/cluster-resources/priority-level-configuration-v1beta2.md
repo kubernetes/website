@@ -94,8 +94,8 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
 
   <a name="LimitedPriorityLevelConfiguration"></a>
   *LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-   * How are requests for this priority level limited?
-   * What should be done with requests that exceed the limit?*
+    - How are requests for this priority level limited?
+    - What should be done with requests that exceed the limit?*
 -->
 - **limited** (LimitedPriorityLevelConfiguration)
   
@@ -104,8 +104,8 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
   
   <a name="LimitedPriorityLevelConfiguration"></a>
   LimitedPriorityLevelConfiguration 指定如何处理需要被限制的请求。它解决两个问题：
-  * 如何限制此优先级的请求？
-  * 应如何处理超出此限制的请求？
+    - 如何限制此优先级的请求？
+    - 应如何处理超出此限制的请求？
   
   <!--
   - **limited.assuredConcurrencyShares** (int32)
