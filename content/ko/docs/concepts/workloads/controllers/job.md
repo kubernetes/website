@@ -71,7 +71,7 @@ Pod Template:
            job-name=pi
   Containers:
    pi:
-    Image:      perl
+    Image:      perl:5.34.0
     Port:       <none>
     Host Port:  <none>
     Command:
@@ -125,7 +125,7 @@ spec:
         - -Mbignum=bpi
         - -wle
         - print bpi(2000)
-        image: perl
+        image: perl:5.34.0
         imagePullPolicy: Always
         name: pi
         resources: {}
@@ -356,7 +356,7 @@ spec:
     spec:
       containers:
       - name: pi
-        image: perl
+        image: perl:5.34.0
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
@@ -402,7 +402,7 @@ spec:
     spec:
       containers:
       - name: pi
-        image: perl
+        image: perl:5.34.0
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
@@ -510,8 +510,7 @@ spec:
 현재 시간으로 재설정된다. 즉, 잡이 일시 중지 및 재개되면 `.spec.activeDeadlineSeconds`
 타이머가 중지되고 재설정된다.
 
-잡을 일시 중지하면 모든 활성 파드가 삭제된다. 잡이
-일시 중지되면, SIGTERM 시그널로 [파드가 종료된다](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
+잡을 일시 중지하면, `Completed` 상태가 아닌 모든 실행중인 파드가 SIGTERM 시그널로 [종료된다](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 파드의 정상 종료 기간이 적용되며 사용자의 파드는 이 기간 동안에
 이 시그널을 처리해야 한다. 나중에 진행 상황을 저장하거나
 변경 사항을 취소하는 작업이 포함될 수 있다. 이 방법으로 종료된 파드는
@@ -535,6 +534,20 @@ spec:
   template:
     spec:
       ...
+```
+
+명령 줄에서 잡을 패치하여 잡 일시 중지를 전환할 수 있다.
+
+활성화된 잡 일시 중지
+
+```shell
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":true}}'
+```
+
+일시 중지된 잡 재개
+
+```shell
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":false}}'
 ```
 
 잡의 상태를 사용하여 잡이 일시 중지되었는지 또는 과거에 일시 중지되었는지
