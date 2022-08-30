@@ -21,7 +21,7 @@ The theme for Kubernetes v1.25 is _Combiner_.
 
 The Kubernetes project itself is made up of many, many individual components that, when combined, take the form of the project you see today. It is also built and maintained by many individuals, all of them with different skills, experiences, histories, and interests, who join forces not just as the release team but as the many SIGs that support the project and the community year-round.
 
-With this release we wish to honor the collaborative, open spirit that takes us from isolated developers, writers, and users spread around the globe to a combined force capable of changing the world. Kubernetes v1.25 includes a staggering 40 enhancements, none of which would exist without the incredible power we have when we work together.
+With this release, we wish to honor the collaborative, open spirit that takes us from isolated developers, writers, and users spread around the globe to a combined force capable of changing the world. Kubernetes v1.25 includes a staggering 40 enhancements, none of which would exist without the incredible power we have when we work together.
 
 Inspired by our release lead's son, Albert Song, Kubernetes v1.25 is named for each and every one of you, no matter how you choose to contribute your unique power to the combined force that becomes Kubernetes.
 
@@ -49,7 +49,7 @@ It has been more than two years since the Linux kernel cgroups v2 API was declar
 
 ### Moved container registry service from k8s.gcr.io to registry.k8s.io
 
-[Moving container registry from k8s.gcr.io to registry.k8s.io](https://github.com/kubernetes/kubernetes/pull/109938) got merged. For more details, see the [wiki page](https://github.com/kubernetes/k8s.io/wiki/New-Registry-url-for-Kubernetes-\(registry.k8s.io\)), [annoucement](https://groups.google.com/a/kubernetes.io/g/dev/c/DYZYNQ_A6_c/m/oD9_Q8Q9AAAJ) was sent to the kubernetes development mailing list.
+[Moving container registry from k8s.gcr.io to registry.k8s.io](https://github.com/kubernetes/kubernetes/pull/109938) got merged. For more details, see the [wiki page](https://github.com/kubernetes/k8s.io/wiki/New-Registry-url-for-Kubernetes-\(registry.k8s.io\)), [announcement](https://groups.google.com/a/kubernetes.io/g/dev/c/DYZYNQ_A6_c/m/oD9_Q8Q9AAAJ) was sent to the kubernetes development mailing list.
 
 ### Promoted SeccompDefault to Beta
 
@@ -131,19 +131,19 @@ You can also easily install 1.25 using [kubeadm](/docs/setup/independent/create-
 
 Kubernetes is only possible with the support, commitment, and hard work of its community. Each release team is made up of dedicated community volunteers who work together to build the many pieces that, when combined, make up the Kubernetes releases you rely on. This requires the specialized skills of people from all corners of our community, from the code itself to its documentation and project management.
 
-We would like to thank the entire release team for the hours spent hard at work to ensure we deliver a solid Kubernetes v1.25 release for our community. Every one of you had a part to play in building this, and you all executed beautifully. We would like to extend special thanks to our fearless release lead, Cici Huang, for all she did to guarantee we had what we needed to succeed.
+We would like to thank the entire release team for the hours spent hard at work to ensure we deliver a solid Kubernetes v1.25 release for our community. Every one of you had a part to play in building this, and you all executed it beautifully. We would like to extend special thanks to our fearless release lead, Cici Huang, for all she did to guarantee we had what we needed to succeed.
 
 ### User Highlights
 
 * Finleap Connect operates in a highly regulated environment. [In 2019, they had five months to implement mutual TLS (mTLS) across all services in their clusters for their business code to comply with the new European PSD2 payment directive](https://www.cncf.io/case-studies/finleap-connect/).
-* PNC sought to develop a way to ensure new code would meet security standards and audit compliance requirements automatically—replacing the cumbersome 30-day manual process they had in place. Using Knative, [PNC developed internal tools to automatically check new code and changes to existing code](https://www.cncf.io/case-studies/pnc-bank/).
+* PNC sought to develop a way to ensure the new code would meet security standards and audit compliance requirements automatically—replacing the cumbersome 30-day manual process they had in place. Using Knative, [PNC developed internal tools to automatically check new code and changes to existing code](https://www.cncf.io/case-studies/pnc-bank/).
 * Nexxiot needed highly-reliable, secure, performant, and cost efficient Kubernetes clusters. [They turned to Cilium as the CNI to lock down their clusters and enable resilient networking with reliable day two operations](https://www.cncf.io/case-studies/nexxiot/).
 * Because the process of creating cyber insurance policies is a complicated multi-step process, At-Bay sought to improve operations by using asynchronous message-based communication patterns/facilities. [They determined that Dapr fulfilled its desired list of requirements and much more](https://www.cncf.io/case-studies/at-bay/).
 
 ### Ecosystem Updates
 
 * KubeCon + CloudNativeCon North America 2022 will take place in Detroit, Michigan from 24 – 28 October 2022! You can find more information about the conference and registration on the [event site](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/).
-* KubeDay event series kicks off with KubeDay Japan December 7! Register or submit a proposal on the [event site](https://events.linuxfoundation.org/kubeday-japan/)
+* KubeDay event series kicks off with KubeDay Japan on December 7! Register or submit a proposal on the [event site](https://events.linuxfoundation.org/kubeday-japan/)
 * In the [2021 Cloud Native Survey](https://www.cncf.io/announcements/2022/02/10/cncf-sees-record-kubernetes-and-container-adoption-in-2021-cloud-native-survey/), the CNCF saw record Kubernetes and container adoption. Take a look at the [results of the survey](https://www.cncf.io/reports/cncf-annual-survey-2021/).
 
 ### Project Velocity
