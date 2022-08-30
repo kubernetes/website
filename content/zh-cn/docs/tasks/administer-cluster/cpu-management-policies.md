@@ -182,9 +182,9 @@ using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cg
 -->
 ### static 策略
 
-`static` 策略针对具有整数型 CPU `requests` 的 `Guaranteed` Pod ，它允许该类 Pod
-中的容器访问节点上的独占 CPU 资源。这种独占性是使用
-[cpuset cgroup 控制器](https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt) 来实现的。
+`static` 策略针对具有整数型 CPU `requests` 的 `Guaranteed` Pod，
+它允许该类 Pod 中的容器访问节点上的独占 CPU 资源。这种独占性是使用
+[cpuset cgroup 控制器](https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt)来实现的。
 
 <!--
 System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
@@ -200,7 +200,7 @@ the node must be drained and CPU manager manually reset by deleting the
 state file `cpu_manager_state` in the kubelet root directory.
 -->
 {{< note >}}
-CPU 管理器不支持运行时下线和上线 CPUs。此外，如果节点上的在线 CPUs 集合发生变化，
+CPU 管理器不支持运行时下线和上线 CPU。此外，如果节点上的在线 CPU 集合发生变化，
 则必须驱逐节点上的 Pod，并通过删除 kubelet 根目录中的状态文件 `cpu_manager_state`
 来手动重置 CPU 管理器。
 {{< /note >}}
