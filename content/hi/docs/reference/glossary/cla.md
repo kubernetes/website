@@ -10,7 +10,8 @@ aka:
 tags:
 - community
 ---
- {{< glossary_tooltip text="योगदान देने वाला" term_id="contributor" >}} अनुबंध की शर्तें जो ओपन सोर्स प्रोजेक्ट में योगदान करने का लाइसेंस देती हैं।
+ शर्तें जिसके तहत एक {{< glossary_tooltip text="योगदानकर्ता" term_id="contributor" >}} अपने योगदान के लिए एक ओपन सोर्स प्रोजेक्ट को लाइसेंस देता है।
+
  
 <!--more--> 
 
