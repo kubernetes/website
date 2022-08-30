@@ -314,11 +314,11 @@ ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
 ```
 where `trusted-ca-file`, `cert-file` and `key-file` can be obtained from the description of the etcd Pod.
 
-## Scaling up etcd clusters
+## Scaling out etcd clusters
 
-Scaling up etcd clusters increases availability by trading off performance.
+Scaling out etcd clusters increases availability by trading off performance.
 Scaling does not increase cluster performance nor capability. A general rule
-is not to scale up or down etcd clusters. Do not configure any auto scaling
+is not to scale out or in etcd clusters. Do not configure any auto scaling
 groups for etcd clusters. It is highly recommended to always run a static
 five-member etcd cluster for production Kubernetes clusters at any officially
 supported scale.
