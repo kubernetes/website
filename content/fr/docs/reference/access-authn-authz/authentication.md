@@ -62,17 +62,17 @@ suivants avec la requête :
 `system:masters` ou `devops-team`.
 * **Champs complémentaires** : un **dictionnaire** de chaîne de caractères contenant des informations additionnelles pouvant être utiles aux **composants d'autorisation**.
 
-All values are opaque to the authentication system and only hold significance
-when interpreted by an [authorizer](/docs/reference/access-authn-authz/authorization/).
+Toutes les valeurs sont opaques pour le système d'authentification et n'ont un sens
+que lorsqu'elles sont interprétées par un [authorizer](/docs/reference/access-authn-authz/authorization/).
 
-You can enable multiple authentication methods at once. You should usually use at least two methods:
+Il est possible d'activer plusieurs méthodes d'authentification à la fois. Il est cependant préférable d'utiliser au moins deux méthodes :
 
-- service account tokens for service accounts
-- at least one other method for user authentication.
+- des **jetons** de compte de service pour les comptes de services
+- au minimum une autre méthode pour gérer l'authentification des utilisateurs.
 
-When multiple authenticator modules are enabled, the first module
-to successfully authenticate the request short-circuits evaluation.
-The API server does not guarantee the order authenticators run in.
+Quand plusieurs modules d'authentifications sont activés, le premier module
+à authentifier avec succès la requête met fin à l'évaluation de cette dernière.
+Le serveur d'API ne garantit pas l'ordre dans lequel les modules d'authentifications s'exécutent.
 
 The `system:authenticated` group is included in the list of groups for all authenticated users.
 
