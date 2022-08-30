@@ -145,24 +145,25 @@ so that they don't need to be downloaded again.
 只要能够可靠地访问镜像仓库，底层镜像提供者的缓存语义甚至可以使 `imagePullPolicy: Always` 高效。
 你的容器运行时可以注意到节点上已经存在的镜像层，这样就不需要再次下载。
 
+{{< note >}}
 <!--
 You should avoid using the `:latest` tag when deploying containers in production as
 it is harder to track which version of the image is running and more difficult to
 roll back properly.
 
 Instead, specify a meaningful tag such as `v1.42.0`.
-
-To make sure the Pod always uses the same version of a container image, you can specify
-the image's digest;
-replace `<image-name>:<tag>` with `<image-name>@<digest>`
-(for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
 -->
-{{< note >}}
 在生产环境中部署容器时，你应该避免使用 `:latest` 标签，因为这使得正在运行的镜像的版本难以追踪，并且难以正确地回滚。
 
 相反，应指定一个有意义的标签，如 `v1.42.0`。
 {{< /note >}}
 
+<!--
+To make sure the Pod always uses the same version of a container image, you can specify
+the image's digest;
+replace `<image-name>:<tag>` with `<image-name>@<digest>`
+(for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
+-->
 为了确保 Pod 总是使用相同版本的容器镜像，你可以指定镜像的摘要；
 将 `<image-name>:<tag>` 替换为 `<image-name>@<digest>`，例如 `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
 
@@ -345,7 +346,7 @@ These options are explained in more detail below.
 
 Specific instructions for setting credentials depends on the container runtime and registry you chose to use. You should refer to your solution's documentation for the most accurate information.
 -->
-### 配置 Node 对私有仓库认证
+### 配置 Node 对私有仓库认证 {configuring-nodes-to-authenticate-to-a-private-registry}
 
 设置凭据的具体说明取决于你选择使用的容器运行时和仓库。
 你应该参考解决方案的文档来获取最准确的信息。
@@ -423,11 +424,11 @@ term:
     '?'         匹配任意单个非分隔符
     '[' [ '^' ] 字符范围
                   字符集（必须非空）
-    c           匹配字符 c （c 不为 '*','?','\\','['）
+    c           匹配字符 c （c 不为 '*', '?', '\\', '['）
     '\\' c      匹配字符 c
 
 字符范围: 
-    c           匹配字符 c （c 不为 '\\','?','-',']'）
+    c           匹配字符 c （c 不为 '\\', '?', '-', ']'）
     '\\' c      匹配字符 c
     lo '-' hi   匹配字符范围在 lo 到 hi 之间字符
 ```
@@ -483,12 +484,12 @@ authentication sources if one of them fails.
 -->
 ### 提前拉取镜像   {#pre-pulled-images}
 
+{{< note >}}
 <!--
 This approach is suitable if you can control node configuration.  It
 will not work reliably if your cloud provider manages nodes and replaces
 them automatically.
 -->
-{{< note >}}
 该方法适用于你能够控制节点配置的场合。
 如果你的云供应商负责管理节点并自动置换节点，这一方案无法可靠地工作。
 {{< /note >}}
@@ -521,11 +522,11 @@ All pods will have read access to any pre-pulled images.
 -->
 ### 在 Pod 上指定 ImagePullSecrets   {#specifying-imagepullsecrets-on-a-pod}
 
+{{< note >}}
 <!--
 This is the recommended approach to run containers based on images
 in private registries.
 -->
-{{< note >}}
 运行使用私有仓库中镜像的容器时，建议使用这种方法。
 {{< /note >}}
 
@@ -574,11 +575,11 @@ only works with a single private registry.
 如果你在使用多个私有容器仓库，这种技术将特别有用。
 原因是 `kubectl create secret docker-registry` 创建的是仅适用于某个私有仓库的 Secret。
 
+{{< note >}}
 <!--
 Pods can only reference image pull secrets in their own namespace,
 so this process needs to be done one time per namespace.
 -->
-{{< note >}}
 Pod 只能引用位于自身所在名字空间中的 Secret，因此需要针对每个名字空间重复执行上述过程。
 {{< /note >}}
 
@@ -591,7 +592,7 @@ reference a Secret in the same namespace.
 
 For example:
 -->
-#### 在 Pod 中引用 ImagePullSecrets
+#### 在 Pod 中引用 ImagePullSecrets {referring-to-an-imagepullsecrets-on-a-pod}
 
 现在，在创建 Pod 时，可以在 Pod 定义中增加 `imagePullSecrets` 部分来引用该 Secret。
 `imagePullSecrets` 数组中的每一项只能引用同一名字空间中的 Secret。
@@ -620,7 +621,7 @@ EOF
 ```
 
 <!--
-This needs to be done for each pod that is using a private registry.  
+This needs to be done for each pod that is using a private registry.
 
 However, setting of this field can be automated by setting the imagePullSecrets
 in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) resource.
@@ -651,21 +652,20 @@ common use cases and suggested solutions.
 
 <!--
 1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
-   - Use public images on the Docker hub.
+   - Use public images from a public registry
      - No configuration required.
      - Some cloud providers automatically cache or mirror public images, which improves availability and reduces the time to pull images.
 -->
 1. 集群运行非专有镜像（例如，开源镜像）。镜像不需要隐藏。
-   - 使用 Docker hub 上的公开镜像
+   - 使用来自公共仓库的公共镜像
      - 无需配置
      - 某些云厂商会自动为公开镜像提供高速缓存，以便提升可用性并缩短拉取镜像所需时间
 
 <!--
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
    visible to all cluster users.
-   - Use a hosted private [Docker registry](https://docs.docker.com/registry/).
-     - It may be hosted on the [Docker Hub](https://hub.docker.com/signup), or elsewhere.
-     - Manually configure .docker/config.json on each node as described above.
+   - Use a hosted private registry
+     - Manual configuration may be required on the nodes that need to access to private registry
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.
    - Use a hosted container image registry service that controls image access
@@ -673,11 +673,10 @@ common use cases and suggested solutions.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 -->
 2. 集群运行一些专有镜像，这些镜像需要对公司外部隐藏，对所有集群用户可见
-   - 使用托管的私有 [Docker 仓库](https://docs.docker.com/registry/)
-     - 可以托管在 [Docker Hub](https://hub.docker.com/account/signup/) 或者其他地方
-     - 按照上面的描述，在每个节点上手动配置 `.docker/config.json` 文件
+   - 使用托管的私有仓库
+     - 在需要访问私有仓库的节点上可能需要手动配置
    - 或者，在防火墙内运行一个组织内部的私有仓库，并开放读取权限
-     - 不需要配置 Kubenretes
+     - 不需要配置 Kubernetes
    - 使用控制镜像访问的托管容器镜像仓库服务
      - 与手动配置节点相比，这种方案能更好地处理集群自动扩缩容
    - 或者，在不方便更改节点配置的集群中，使用 `imagePullSecrets`
