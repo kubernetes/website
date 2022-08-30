@@ -686,7 +686,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **csi.nodeExpandSecretRef** (SecretReference)
 
-    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an beta field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
@@ -708,7 +708,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
     nodeExpandSecretRef 是对包含敏感信息的 Secret 对象的引用，
     从而传递到 CSI 驱动以完成 CSI NodeExpandVolume 和 NodeUnpublishVolume 调用。
-    这是一个 Alpha 字段，需要启用 CSINodeExpandSecret 特性门控。
+    这是一个 Beta 字段，需要启用 CSINodeExpandSecret 特性门控。
     此字段是可选的，且如果不需要 Secret，则此字段可以为空。
     如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
     
