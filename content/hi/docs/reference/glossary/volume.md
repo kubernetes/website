@@ -4,7 +4,7 @@ id: volume
 date: 2018-04-12
 full_link: /docs/concepts/storage/volumes/
 short_description: >
-  डेटा युक्त एक निर्देशिका, जो एक पॉड में कंटेनरों के लिए सुलभ है।
+  एक डायरेक्टरी जिसमें रहने बाले डेटा एक पोड की कंटेनरों तक अभिगम्य होता हैं।
 
 aka:
 tags:
