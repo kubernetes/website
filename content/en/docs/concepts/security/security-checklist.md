@@ -252,7 +252,7 @@ for time-bound service account credentials.
 
 ## Images
 
-- [ ] Container images contain only the bare minimum.
+- [ ] Minimize unnecessary content in container images.
 - [ ] Container images are configured to be run as unprivileged user.
 - [ ] References to container images are made by sha256 digests (rather than
 tags) or the provenance of the image is validated by verifying the image's
