@@ -138,8 +138,8 @@ labels and an appropriate restart policy. For labels, make sure not to overlap w
 
 Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Always` is allowed, which is the default if not specified.
 
-For local container restarts, ReplicationControllers delegate to an agent on the node,
-for example the [Kubelet](/docs/reference/command-line-tools-reference/kubelet/) or Docker.
+For local container restarts, ReplicationControllers delegate to some agent on the node,
+such as the [Kubelet](/docs/reference/command-line-tools-reference/kubelet/).
 
 ### Labels on the ReplicationController
 
