@@ -118,10 +118,6 @@ define three different policies that restrict how fields can be set in the `PodS
 For a hands-on tutorial on Pod Security, see the blog post
 "[Kubernetes 1.23: Pod Security Graduates to Beta](/blog/2021/12/09/pod-security-admission-beta/)".
 
-{{< note >}}
-[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/)
-will be removed in version 1.25.
-{{< /note >}}
 
 Pod Security admission `restricted` policy [can operate in several modes](/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces),
 `enforce`, `audit` or `warn` to help properly set the [security context](/docs/tasks/configure-pod-container/security-context/)
