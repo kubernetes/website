@@ -98,7 +98,7 @@ because it may leak information.
 ## Pod security
 
 - [ ] RBAC rights to `create`, `update`, `patch`, `delete` workloads is only granted if necessary.
-- [ ] Appropriate pod security is enforced for all workloads.
+- [ ] Appropriate Pod Security Standards policy is applied for all namespaces in `enforce` mode.
 - [ ] Memory limit is set for the workloads with a limit equal or inferior to the request.
 - [ ] CPU limit might be set on sensitive workloads.
 - [ ] For nodes that support it, Seccomp is enabled with appropriate syscalls
