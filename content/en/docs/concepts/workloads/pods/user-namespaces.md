@@ -52,7 +52,7 @@ User namespaces is a Linux feature that allows to map users in the container to
 different users in the host. Furthermore, the capabilities granted to a pod in
 a user namespace are valid only in the namespace and void outside of it.
 
-A pod can opt-in to use user nameapces by setting the `pod.spec.hostUsers` field
+A pod can opt-in to use user namespaces by setting the `pod.spec.hostUsers` field
 to `false`.
 
 The kubelet will pick host UIDs/GIDs a pod is mapped to, and will do so in a way

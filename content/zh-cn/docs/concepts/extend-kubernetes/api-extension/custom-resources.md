@@ -50,8 +50,8 @@ many core Kubernetes functions are now built using custom resources, making Kube
 Custom resources can appear and disappear in a running cluster through dynamic registration,
 and cluster admins can update custom resources independently of the cluster itself.
 Once a custom resource is installed, users can create and access its objects using
-[kubectl](/docs/reference/kubectl/), just as they do for built-in resources like
-*Pods*.
+{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}, just as they do for built-in resources
+like *Pods*.
 -->
 **定制资源（Custom Resource）** 是对 Kubernetes API 的扩展，不一定在默认的
 Kubernetes 安装中就可用。
@@ -59,7 +59,7 @@ Kubernetes 安装中就可用。
 不过，很多 Kubernetes 核心功能现在都用定制资源来实现，这使得 Kubernetes 更加模块化。
 
 定制资源可以通过动态注册的方式在运行中的集群内或出现或消失，集群管理员可以独立于集群更新定制资源。
-一旦某定制资源被安装，用户可以使用 [kubectl](/zh-cn/docs/reference/kubectl/) 来创建和访问其中的对象，
+一旦某定制资源被安装，用户可以使用 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 来创建和访问其中的对象，
 就像他们为 **Pod** 这种内置资源所做的一样。
 
 <!--
@@ -100,7 +100,7 @@ for specific applications into an extension of the Kubernetes API.
 你可以使用定制控制器来将特定于某应用的领域知识组织起来，以编码的形式构造对 Kubernetes API 的扩展。
 
 <!--
-## Should I add a custom resource to my Kubernetes Cluster?
+## Should I add a custom resource to my Kubernetes cluster?
 
 When creating a new API, consider whether to
 [aggregate your API with the Kubernetes cluster APIs](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
@@ -185,13 +185,13 @@ Signs that your API might not be declarative include:
 - 你决定使用操作 ID 或者操作对象来表现悬决的操作。
 
 <!--
-## Should I use a configMap or a custom resource?
+## Should I use a ConfigMap or a custom resource?
 
 Use a ConfigMap if any of the following apply:
 
-* There is an existing, well-documented config file format, such as a `mysql.cnf` or `pom.xml`.
-* You want to put the entire config file into one key of a configMap.
-* The main use of the config file is for a program running in a Pod on your cluster to consume the file to configure itself.
+* There is an existing, well-documented configuration file format, such as a `mysql.cnf` or `pom.xml`.
+* You want to put the entire configuration file into one key of a configMap.
+* The main use of the configuration file is for a program running in a Pod on your cluster to consume the file to configure itself.
 * Consumers of the file prefer to consume via file in a Pod or environment variable in a pod, rather than the Kubernetes API.
 * You want to perform rolling updates via Deployment, etc., when the file is updated.
 -->
@@ -207,10 +207,10 @@ Use a ConfigMap if any of the following apply:
 * 你希望当文件被更新时通过类似 Deployment 之类的资源完成滚动更新操作。
 
 <!--
-Use a [secret](/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
+Use a {{< glossary_tooltip text="Secret" term_id="secret" >}} for sensitive data, which is similar to a configMap but more secure.
 -->
 {{< note >}}
-请使用 [Secret](/zh-cn/docs/concepts/configuration/secret/) 来保存敏感数据。
+请使用 {{< glossary_tooltip text="Secret" term_id="secret" >}} 来保存敏感数据。
 Secret 类似于 configMap，但更为安全。
 {{< /note >}}
 
@@ -525,7 +525,7 @@ Kubernetes [client libraries](/docs/reference/using-api/client-libraries/) can b
 When you add a custom resource, you can access it using:
 
 - `kubectl`
-- The kubernetes dynamic client.
+- The Kubernetes dynamic client.
 - A REST client that you write.
 - A client generated using [Kubernetes client generation tools](https://github.com/kubernetes/code-generator) (generating one is an advanced undertaking, but some projects may provide a client along with the CRD or AA).
 -->
