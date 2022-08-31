@@ -1490,7 +1490,7 @@ When using this Secret type, you need to ensure that the
 service account name. If you are creating both the ServiceAccount and
 the Secret objects, you should create the ServiceAccount object first.
 -->
-使用这种 Secret 类型时，你需要确保对象的注解 `kubernetes.io/service-account-name`
+使用这种 Secret 类型时，你需要确保对象的注解 `kubernetes.io/service-account.name`
 被设置为某个已有的服务账号名称。
 如果你同时负责 ServiceAccount 和 Secret 对象的创建，应该先创建 ServiceAccount 对象。
 
