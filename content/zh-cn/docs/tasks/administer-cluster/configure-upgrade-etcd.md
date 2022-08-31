@@ -552,14 +552,14 @@ where `trusted-ca-file`, `cert-file` and `key-file` can be obtained from the des
 可以从 etcd Pod 的描述中获得 `trusted-ca-file`、`cert-file` 和 `key-file`。
 
 <!--
-## Scaling up etcd clusters
+## Scaling out etcd clusters
 -->
-## 为 etcd 集群扩容    {#scaling-up-etcd-clusters}
+## 为 etcd 集群扩容    {#scaling-out-etcd-clusters}
 
 <!--
-Scaling up etcd clusters increases availability by trading off performance.
+Scaling out etcd clusters increases availability by trading off performance.
 Scaling does not increase cluster performance nor capability. A general rule
-is not to scale up or down etcd clusters. Do not configure any auto scaling
+is not to scale out or in etcd clusters. Do not configure any auto scaling
 groups for etcd clusters. It is highly recommended to always run a static
 five-member etcd cluster for production Kubernetes clusters at any officially
 supported scale.
