@@ -314,13 +314,13 @@ Admission controllers can help to improve the security of the cluster. However,
 they can present risks themselves as they extend the API server and
 [should be properly secured](/blog/2022/01/19/secure-your-admission-controllers-and-webhooks/).
 
-The following list present a number of admission controllers that could be
+The following lists present a number of admission controllers that could be
 considered to enhance the security posture of your cluster and application. It
-includes controllers that may be referenced in other parts of this document:
+includes controllers that may be referenced in other parts of this document.
 
-[`AlwaysPullImages`](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
-: Enforces the usage of the latest version of a tagged image and ensures that the deployer
-has permissions to use the image.
+This first group of admission controllers includes plugins
+[enabled by default](/docs/reference/access-authn-authz/admission-controllers/#which-plugins-are-enabled-by-default),
+consider to leave them enabled unless you know what you are doing:
 
 [`CertificateApproval`](/docs/reference/access-authn-authz/admission-controllers/#certificateapproval)
 : Performs additional authorization checks to ensure the approving user has
@@ -334,36 +334,16 @@ permission to sign certificate requests.
 : Rejects any certificate request that specifies a 'group' (or 'organization
 attribute') of `system:masters`.
 
-[`DenyServiceExternalIPs`](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
-: Rejects all net-new usage of the `Service.spec.externalIPs` field. This is a mitigation for
-[CVE-2020-8554: Man in the middle using LoadBalancer or ExternalIPs](https://github.com/kubernetes/kubernetes/issues/97076).
-
-[`EventRateLimit`](/docs/reference/access-authn-authz/admission-controllers/#eventratelimit)
-: Rate limits adding new Events to the API server.
-
-[`ImagePolicyWebhook`](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)
-: Allows enforcing additional controls for images through webhooks.
+[`LimitRanger`](/docs/reference/access-authn-authz/admission-controllers/#limitranger)
+: Enforce the LimitRange API constraints.
 
 [`MutatingAdmissionWebhook`](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
 : Allows the use of custom controllers through webhooks, these controllers may
 mutate requests that it reviews.
 
-[`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
-: Restricts kubelet's permissions to only modify the pods API resources they own
-or the node API ressource that represent themselves. It also prevents kubelet
-from using the `node-restriction.kubernetes.io/` annotation, which can be used
-by an attacker with access to the kubelet's credentials to influence pod
-placement to the controlled node.
-
-[`PodNodeSelector`](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)
-: Allows controls of node selectors within namespaces and cluster-wide.
-
 [`PodSecurity`](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
 : Replacement for Pod Security Policy, restricts security contexts of deployed
 Pods.
-
-[`PodTolerationRestriction`](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
-: Allows control of pod tolerations permitted for pods within a namespace.
 
 [`ResourceQuota`](/docs/reference/access-authn-authz/admission-controllers/#resourcequota)
 : Enforces resource quotas to prevent over-usage of resources.
@@ -372,9 +352,41 @@ Pods.
 : Allows the use of custom controllers through webhooks, these controllers do
 not mutate requests that it reviews.
 
-{{< note >}}
-Many of these admission controllers are [enabled by default](/docs/reference/access-authn-authz/admission-controllers/#which-plugins-are-enabled-by-default) by the API server.
-{{< /note >}}
+The second group includes plugin that are not enabled by default but in general
+availability state and recommended to improve your security posture:
+
+[`DenyServiceExternalIPs`](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
+: Rejects all net-new usage of the `Service.spec.externalIPs` field. This is a mitigation for
+[CVE-2020-8554: Man in the middle using LoadBalancer or ExternalIPs](https://github.com/kubernetes/kubernetes/issues/97076).
+
+[`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
+: Restricts kubelet's permissions to only modify the pods API resources they own
+or the node API ressource that represent themselves. It also prevents kubelet
+from using the `node-restriction.kubernetes.io/` annotation, which can be used
+by an attacker with access to the kubelet's credentials to influence pod
+placement to the controlled node.
+
+The third group includes plugins that are not enabled by default but could be
+considered for certain use cases:
+
+[`AlwaysPullImages`](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
+: Enforces the usage of the latest version of a tagged image and ensures that the deployer
+has permissions to use the image.
+
+[`ImagePolicyWebhook`](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)
+: Allows enforcing additional controls for images through webhooks.
+
+<!-- The fourth group includes plugins that are not enabled by default, still in
+alpha state but could be considered for certain use cases:
+
+[`EventRateLimit`](/docs/reference/access-authn-authz/admission-controllers/#eventratelimit)
+: Rate limits adding new Events to the API server.
+
+[`PodNodeSelector`](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)
+: Allows controls of node selectors within namespaces and cluster-wide.
+
+[`PodTolerationRestriction`](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
+: Allows control of pod tolerations permitted for pods within a namespace. -->
 
 ## What's next
 
