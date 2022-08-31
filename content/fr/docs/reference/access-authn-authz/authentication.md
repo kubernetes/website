@@ -65,7 +65,7 @@ suivants avec la requête :
 Toutes les valeurs sont opaques pour le système d'authentification et n'ont un sens
 que lorsqu'elles sont interprétées par un [authorizer](/docs/reference/access-authn-authz/authorization/).
 
-Il est possible d'activer plusieurs méthodes d'authentification à la fois. Il est cependant préférable d'utiliser au moins deux méthodes :
+Il est possible d'activer plusieurs méthodes d'authentification à la fois. Il est cependant préférable d'utiliser au moins deux d'entre elles :
 
 - des **jetons** de compte de service pour les comptes de services
 - au minimum une autre méthode pour gérer l'authentification des utilisateurs.
@@ -74,7 +74,10 @@ Quand plusieurs modules d'authentifications sont activés, le premier module
 à authentifier avec succès la requête met fin à l'évaluation de cette dernière.
 Le serveur d'API ne garantit pas l'ordre dans lequel les modules d'authentifications s'exécutent.
 
-The `system:authenticated` group is included in the list of groups for all authenticated users.
+Le groupe `system:authenticated` fait parti de la liste des groupes pour tous les utilisateurs authentifiés.  
+
+Les intégrations avec d'autres procotoles d'authentification (LDAP, SAML, Kerberos, **alternate x509 schemes**, etc) peuvent être réalisés à l'aide d'un [proxy d'authentification](#authenticating-proxy)
+ou d'un [webhook d'authentification](#webhook-token-authentication).
 
 Integrations with other authentication protocols (LDAP, SAML, Kerberos, alternate x509 schemes, etc)
 can be accomplished using an [authenticating proxy](#authenticating-proxy) or the
