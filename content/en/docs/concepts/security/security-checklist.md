@@ -58,7 +58,7 @@ an admin user.
 - [ ] Use of a service mesh to encrypt all communications inside of the cluster.
 - [ ] The Kubernetes API, kubelet API and etcd are not exposed publicly on Internet.
 - [ ] Access from the workloads to the cloud metadata API is filtered.
-- [ ] Use of LoadBalancer and ExternalIPs is restricted.
+- [ ] Use of LoadBalancer and ExternalIPs is restricted.
 
 A number of [Container Network Interface (CNI) plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 plugins provide the functionality to
