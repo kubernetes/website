@@ -11,7 +11,9 @@ This checklist aims at providing a basic list of guidance with links to more
 comprehensive documentation on each topic. It does not claim to be exhaustive
 and is meant to evolve.
 
-The order of topics does not reflect an order of priority.
+On how to read and use this document:
+- The order of topics does not reflect an order of priority.
+- Some checklist items are detailed in the paragraph below the list of each section.
 
 {{< caution >}}
 Checklists are **not** sufficient for attaining a good security posture on their
