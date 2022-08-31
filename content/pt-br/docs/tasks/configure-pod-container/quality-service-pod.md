@@ -48,11 +48,11 @@ Para que um Pod receba uma classe de QoS `Guaranteed`:
 * Todo contêiner no Pod deve ter um limite de memória e um requisito de memória.
 * Para cada contêiner no Pod, o limite de memória deve ser igual ao requisito de memória.
 * Todo contêiner no Pod deve ter um limite de CPU e um requisito de CPU.
-* Para cada contêiner no Pod, o limite da CPU deve ser igual ao requisito da CPU.
+* Para cada contêiner no Pod, o limite de CPU deve ser igual ao requisito de CPU.
 
-Essas restrições se aplicam a contêineres de inicialização e contêineres de aplicativos, igualmente.
+Essas restrições se aplicam igualmente a contẽineres de inicialização bem como de aplicativos.
 
-Aqui está o arquivo de configuração para um pod que possui um contêiner. O contêiner tem um limite de memória e um requisito de memória, ambos iguais a 200 MiB. O contêiner tem um limite de CPU e uma solicitação de CPU, ambos iguais a 700 milicpu:
+Aqui está o arquivo de configuração para um pod que possui um contêiner. O contêiner tem um limite de memória e um requisito de memória, ambos iguais a 200 MiB. O contêiner tem um limite de CPU e uma solicitação de CPU, ambos iguais a 700 miliCPU:
 
 {{< codenew file="pods/qos/qos-pod.yaml" >}}
 
@@ -91,7 +91,7 @@ status:
 {{< note >}}
 Se um contêiner especificar seu próprio limite de memória, mas não especificar um requisito de memória, o Kubernetes
 automaticamente atribui um requisito de memória que corresponda ao limite. Similarmente, se um contêiner especifica o seu próprio
-limite da CPU, mas não especifica um requisito de CPU, o Kubernetes atribui automaticamente uma solicitação de CPU que corresponde
+limite de CPU, mas não especifica um requisito de CPU, o Kubernetes atribui automaticamente uma solicitação de CPU que corresponde
 ao limite.
 {{< /note >}}
 
@@ -251,7 +251,7 @@ kubectl delete namespace qos-example
 
 * [Atribuir Recursos de Memória a Contêineres e Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Atribuir Recursos da CPU a Contêineres e Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Atribuir Recursos de CPU a Contêineres e Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 ### Para administradores de cluster
 
@@ -261,7 +261,7 @@ kubectl delete namespace qos-example
 
 * [Configurar Restrições de Memória Mínima e Máxima Para um Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configurar Restrições Mínimas e Máximas da CPU Para um Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [Configurar Restrições Mínimas e Máximas de CPU Para um Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
 * [Configurar Cotas de Memória e CPU Para um Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
