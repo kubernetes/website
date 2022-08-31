@@ -11,7 +11,7 @@ tags:
 - core-object
 - fundamental
 ---
- डेटा युक्त एक निर्देशिका, जो एक {{< glossary_tooltip text="पॉड" term_id="pod" >}} में {{< glossary_tooltip text="कंटेनरों" term_id="container" >}} 
+  एक डायरेक्टरी जिसमें रहने बाले डेटा एक {{< glossary_tooltip text="पोड" term_id="pod" >}} की {{< glossary_tooltip text="कंटेनरों" term_id="container" >}} तक अभिगम्य होता हैं।
 
 <!--more-->
 
