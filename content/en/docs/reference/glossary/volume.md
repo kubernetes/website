@@ -11,7 +11,7 @@ tags:
 - core-object
 - fundamental
 ---
- A directory containing data, accessible to the {{< glossary_tooltip text="containers" term_id="container" >}} in a {{< glossary_tooltip term_id="pod" >}}.
+ A directory containing data, accessible to the {{< glossary_tooltip text="containers" term_id="container" >}} in a {{< glossary_tooltip text="pod" term_id="pod" >}}.
 
 <!--more-->
 
