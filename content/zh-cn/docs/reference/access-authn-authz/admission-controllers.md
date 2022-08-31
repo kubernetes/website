@@ -163,7 +163,7 @@ In the current version, the default ones are:
 -->
 在目前版本中，默认启用的插件有：
 
-```
+```shell
 CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook
 ```
 
@@ -354,9 +354,11 @@ and users may remove values from `externalIPs` on existing `Service` objects.
 Most users do not need this feature at all, and cluster admins should consider disabling it.
 Clusters that do need to use this feature should consider using some custom policy to manage usage
 of it.
+This admission controller is disabled by default.
 -->
 大多数用户根本不需要此特性，集群管理员应考虑将其禁用。
 确实需要使用此特性的集群应考虑使用一些自定义策略来管理 `externalIPs` 的使用。
+此准入控制器默认被禁用。
 
 ### EventRateLimit {#eventratelimit}
 
