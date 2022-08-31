@@ -55,7 +55,7 @@ an admin user.
   cluster.
 - [ ] Default network policies within each namespace, selecting all pods, denying
   everything, are in place.
-- [ ] Use of a service mesh to encrypt all communications inside of the cluster.
+- [ ] If appropriate, a service mesh is used to encrypt all communications inside of the cluster.
 - [ ] The Kubernetes API, kubelet API and etcd are not exposed publicly on Internet.
 - [ ] Access from the workloads to the cloud metadata API is filtered.
 - [ ] Use of LoadBalancer and ExternalIPs is restricted.
