@@ -99,7 +99,8 @@ because it may leak information.
 
 - [ ] RBAC rights to `create`, `update`, `patch`, `delete` workloads is only granted if necessary.
 - [ ] Appropriate pod security is enforced for all workloads.
-- [ ] Memory and CPU limits are set for the workloads.
+- [ ] Memory limit is set for the workloads with a limit equal or inferior to the request.
+- [ ] CPU limit might be set on sensitive workloads.
 - [ ] For nodes that support it, Seccomp is enabled with appropriate syscalls
   profile for programs.
 - [ ] For nodes that support it, AppArmor or SELinux is enabled with appropriate
@@ -128,8 +129,15 @@ should be separately investigated to limit the privileges and access pods may ha
 
 [Memory and CPU limits](/docs/concepts/configuration/manage-resources-containers/)
 should be set in order to restrict the memory and CPU resources a pod can
-consume on a node, and therefore prevent potential DoS attacks. It can be
-enforced by an admission controller.
+consume on a node, and therefore prevent potential DoS attacks from malicious or
+breached workloads. Such policy can be enforced by an admission controller.
+Please note that CPU limits will throttle usage and thus can have unintended
+effects on auto-scaling features or efficiency i.e. running the process in best
+effort with the CPU resource available.
+
+{{< caution >}}
+Memory limit superior to request can expose the whole node to OOM issues.
+{{< /caution >}}
 
 ### Enabling Seccomp
 
