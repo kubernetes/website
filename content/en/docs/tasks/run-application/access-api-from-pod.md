@@ -76,7 +76,7 @@ directly to the API server.  The internal certificate secures the connection.
 
 ```shell
 # Point to the internal API server hostname
-APISERVER=https://kubernetes.default.svc
+APISERVER=https://kubernetes.default.svc.cluster.local
 
 # Path to ServiceAccount token
 SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
