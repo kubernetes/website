@@ -308,7 +308,7 @@ Production.
 - [ ] An appropriate selection of admission controllers is enabled.
 - [ ] A pod security policy is enforced by the Pod Security Admission or/and a
   webhook admission controller.
-- [ ] The admission chain plugins and webhooks are securly configured.
+- [ ] The admission chain plugins and webhooks are securely configured.
 
 Admission controllers can help to improve the security of the cluster. However,
 they can present risks themselves as they extend the API server and
