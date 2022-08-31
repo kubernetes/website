@@ -76,12 +76,8 @@ Le serveur d'API ne garantit pas l'ordre dans lequel les modules d'authentificat
 
 Le groupe `system:authenticated` fait parti de la liste des groupes pour tous les utilisateurs authentifiés.  
 
-Les intégrations avec d'autres procotoles d'authentification (LDAP, SAML, Kerberos, **alternate x509 schemes**, etc) peuvent être réalisés à l'aide d'un [proxy d'authentification](#authenticating-proxy)
+Les intégrations avec d'autres procotoles d'authentification (LDAP, SAML, Kerberos, **autres schémas x509 **, etc) peuvent être réalisées à l'aide d'un [proxy d'authentification](#authenticating-proxy)
 ou d'un [webhook d'authentification](#webhook-token-authentication).
-
-Integrations with other authentication protocols (LDAP, SAML, Kerberos, alternate x509 schemes, etc)
-can be accomplished using an [authenticating proxy](#authenticating-proxy) or the
-[authentication webhook](#webhook-token-authentication).
 
 ### X509 Client Certs
 
