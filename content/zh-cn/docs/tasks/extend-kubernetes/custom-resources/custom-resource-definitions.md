@@ -111,49 +111,6 @@ spec:
     shortNames:
     - ct
 ```
--->
-```yaml
-apiVersion: apiextensions.k8s.io/v1
-kind: CustomResourceDefinition
-metadata:
-  # 名字必需与下面的 spec 字段匹配，并且格式为 '<名称的复数形式>.<组名>'
-  name: crontabs.stable.example.com
-spec:
-  # 组名称，用于 REST API: /apis/<组>/<版本>
-  group: stable.example.com
-  # 列举此 CustomResourceDefinition 所支持的版本
-  versions:
-    - name: v1
-      # 每个版本都可以通过 served 标志来独立启用或禁止
-      served: true
-      # 其中一个且只有一个版本必需被标记为存储版本
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                cronSpec:
-                  type: string
-                image:
-                  type: string
-                replicas:
-                  type: integer
-  # 可以是 Namespaced 或 Cluster
-  scope: Namespaced
-  names:
-    # 名称的复数形式，用于 URL：/apis/<组>/<版本>/<名称的复数形式>
-    plural: crontabs
-    # 名称的单数形式，作为命令行使用时和显示时的别名
-    singular: crontab
-    # kind 通常是单数形式的驼峰命名（CamelCased）形式。你的资源清单会使用这一形式。
-    kind: CronTab
-    # shortNames 允许你在命令行使用较短的字符串来匹配资源
-    shortNames:
-    - ct
-```
 
 <!--
 and create it:
@@ -390,7 +347,7 @@ conflicts with rule 2. The following would be correct:
 -->
 违反了第 2 条规则。下面的是正确的：
 
-```yaml
+```none
 properties:
   foo:
     ...
@@ -405,7 +362,7 @@ Non-structural example 2:
 -->
 非结构化的例 2：
 
-```yaml
+```none
 allOf:
 - items:
     properties:
@@ -418,7 +375,7 @@ conflicts with rule 2. The following would be correct:
 -->
 违反了第 2 条规则。下面的是正确的：
 
-```yaml
+```none
 items:
   properties:
     foo:
@@ -435,7 +392,7 @@ Non-structural example 3:
 -->
 非结构化的例 3：
 
-```yaml
+```none
 properties:
   foo:
     pattern: "abc"
@@ -745,17 +702,17 @@ Also those nodes are partially excluded from rule 3 in the sense that the follow
 此外，所有这类节点也不再受规则 3 约束，也就是说，下面两种模式是被允许的
 （注意，仅限于这两种模式，不支持添加新字段的任何其他变种）：
 
-```yaml
+```none
 x-kubernetes-int-or-string: true
 anyOf:
 - type: integer
 - type: string
 ...
 ```
-
+<!--and-->
 和
 
-```yaml
+```none
 x-kubernetes-int-or-string: true
 allOf:
 - anyOf:
@@ -779,16 +736,13 @@ In [Validation Schema Publishing](#publish-validation-schema-in-openapi-v2),
 ### RawExtension
 
 <!--
-RawExtensions (as in `runtime.RawExtension` defined in
-[k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94))
+RawExtensions (as in [`runtime.RawExtension`](/docs/reference//kubernetes-api/workload-resources/controller-revision-v1#RawExtension))
 holds complete Kubernetes objects, i.e. with `apiVersion` and `kind` fields.
 
 It is possible to specify those embedded objects (both completely without constraints or partially specified)
 by setting `x-kubernetes-embedded-resource: true`. For example:
 -->
-RawExtensions（就像在
-[k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94)
-项目中 `runtime.RawExtension` 所定义的那样）
+RawExtensions（参阅 [`runtime.RawExtension`](zh-cn/docs/reference//kubernetes-api/workload-resources/controller-revision-v1#RawExtension)）
 可以保存完整的 Kubernetes 对象，也就是，其中会包含 `apiVersion` 和 `kind`
 字段。
 
@@ -808,7 +762,7 @@ Here, the field `foo` holds a complete object, e.g.:
 -->
 这里，字段 `foo` 包含一个完整的对象，例如：
 
-```yaml
+```none
 foo:
   apiVersion: v1
   kind: Pod
@@ -851,7 +805,7 @@ CustomResourceDefinition and migrating your objects from one version to another.
 -->
 ## 高级主题     {#advanced-topics}
 
-### Finalizers
+### Finalizer
 
 <!--
 *Finalizers* allow controllers to implement asynchronous pre-delete hooks.
@@ -859,7 +813,7 @@ Custom objects support finalizers similar to built-in objects.
 
 You can add a finalizer to a custom object like this:
 -->
-*Finalizer* 能够让控制器实现异步的删除前（Pre-delete）回调。
+**Finalizer** 能够让控制器实现异步的删除前（Pre-delete）回调。
 与内置对象类似，定制对象也支持 Finalizer。
 
 你可以像下面一样为定制对象添加 Finalizer：
@@ -968,20 +922,6 @@ rules](#validation-rules) feature is enabled and the CustomResourceDefinition sc
 当[验证规则特性](#validation-rules)被启用并且 CustomResourceDefinition
 模式是一个[结构化的模式定义](#specifying-a-structural-schema)时，
 `x-kubernetes-validations` 扩展可以使用[通用表达式语言(CEL)](https://github.com/google/cel-spec)表达式来验证定制资源。
-
-<!--
-The `default` field can be set when the [Defaulting feature](#defaulting) is enabled,
-which is the case with `apiextensions.k8s.io/v1` CustomResourceDefinitions.
-Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled, which is the case automatically for many clusters for beta features).
--->
-当[设置默认值特性](#defaulting)被启用时，可以设置字段 `default`。
-就 `apiextensions.k8s.io/v1` 组的 CustomResourceDefinitions，这一条件是满足的。
-设置默认值的功能特性从 1.17 开始正式发布。该特性在 1.16 版本中处于
-Beta 状态，要求 `CustomResourceDefaulting`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-被启用。对于大多数集群而言，Beta 状态的特性门控默认都是自动启用的。
 
 <!--
 Refer to the [structural schemas](#specifying-a-structural-schema) section for other
@@ -1182,7 +1122,7 @@ For example:
 -->
 例如:
 
-```yaml
+```none
     ...
     openAPIV3Schema:
       type: object
@@ -1264,22 +1204,25 @@ Compilation process includes type checking as well.
 The compilation failure:
 - `no_matching_overload`: this function has no overload for the types of the arguments.
 
-  e.g. Rule like `self == true` against a field of integer type will get error:
-  ```
+ For example, a rule like `self == true` against a field of integer type will get error:
+ 
+  ```none
   Invalid value: apiextensions.ValidationRule{Rule:"self == true", Message:""}: compilation failed: ERROR: \<input>:1:6: found no matching overload for '_==_' applied to '(int, bool)'
   ```
 
 - `no_such_field`: does not contain the desired field.
 
-  e.g. Rule like `self.nonExistingField > 0` against a non-existing field will return the error:
-  ```
+  For example, a rule like `self.nonExistingField > 0` against a non-existing field will return the error:
+  
+  ```none
   Invalid value: apiextensions.ValidationRule{Rule:"self.nonExistingField > 0", Message:""}: compilation failed: ERROR: \<input>:1:5: undefined field 'nonExistingField'
   ```
 
 - `invalid argument`: invalid argument to macros.
 
-  e.g. Rule like `has(self)` will return error:
-  ```
+  For example, a rule like `has(self)` will return error:
+
+  ```none
   Invalid value: apiextensions.ValidationRule{Rule:"has(self)", Message:""}: compilation failed: ERROR: <input>:1:4: invalid argument to has() macro
   ```
 -->
@@ -1287,19 +1230,22 @@ The compilation failure:
 - `no_matching_overload`：此函数没有参数类型的重载。
 
   例如，像 `self == true` 这样的规则对一个整数类型的字段将得到错误：
-  ```
+
+  ```none
   Invalid value: apiextensions.ValidationRule{Rule:"self == true", Message:""}: compilation failed: ERROR: \<input>:1:6: found no matching overload for '_==_' applied to '(int, bool)'
   ```
 
 - `no_such_field`：不包含所需的字段。
   例如，针对一个不存在的字段，像 `self.nonExistingField > 0` 这样的规则将返回错误：
-  ```
+
+  ```none
   Invalid value: apiextensions.ValidationRule{Rule:"self.nonExistingField > 0", Message:""}: compilation failed: ERROR: \<input>:1:5: undefined field 'nonExistingField'
   ```
 
 - `invalid argument`：对宏的无效参数。
   例如，像 `has(self)` 这样的规则将返回错误：
-  ```
+
+  ```none
   Invalid value: apiextensions.ValidationRule{Rule:"has(self)", Message:""}: compilation failed: ERROR: <input>:1:4: invalid argument to has() macro
   ```
 
@@ -1321,6 +1267,7 @@ Validation Rules Examples:
 | `self.metadata.name.startsWith(self.prefix)`                                     | Validate that an object's name has the prefix of another field value              |
 | `self.set1.all(e, !(e in self.set2))`                                            | Validate that two listSets are disjoint                                           |
 | `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
+| `size(self.clusters.filter(c, c.name == self.primary)) == 1`                     | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
 
 Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 -->
@@ -1340,6 +1287,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 | `self.metadata.name.startsWith(self.prefix)`                                     | 验证对象的名称是否具有另一个字段值的前缀                                         |
 | `self.set1.all(e, !(e in self.set2))`                                            | 验证两个 listSet 是否不相交                                                      |
 | `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | 验证 'details' map 是由 'names' listSet 的项目所决定的。                         |
+| `size(self.clusters.filter(c, c.name == self.primary)) == 1`                     | 验证 'primary' 属性在 'clusters' listMap 中出现且仅出现一次           |
 
 参考：[CEL 中支持的求值](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 
@@ -1353,7 +1301,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 - 如果规则的作用域是某资源的根，则它可以对 CRD 的 OpenAPIv3 模式表达式中声明的任何字段进行字段选择，
   以及 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`。
   这包括在同一表达式中对 `spec` 和 `status` 的字段进行选择：
-  ```yaml
+
+  ```none
       ...
       openAPIV3Schema:
         type: object
@@ -1382,7 +1331,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   而字段存在与否可以通过 `has(self.field)` 来检查。
   在 CEL 表达式中，Null 值的字段被视为不存在的字段。
 
-  ```yaml
+  ```none
       ...
       openAPIV3Schema:
         type: object
@@ -1405,7 +1354,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 - 如果规则的作用域是一个带有 additionalProperties 的对象（即map），那么 map 的值
   可以通过 `self[mapKey]` 访问，map 的包含性可以通过 `mapKey in self` 检查，
   map 中的所有条目可以通过 CEL 宏和函数如 `self.all(...)` 访问。
-  ```yaml
+
+  ```none
       ...
       openAPIV3Schema:
         type: object
@@ -1427,7 +1377,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   functions.
 -->
 - 如果规则的作用域是 array，则 array 的元素可以通过 `self[i]` 访问，也可以通过宏和函数访问。
-  ```yaml
+  
+  ```none
       ...
       openAPIV3Schema:
         type: object
@@ -1445,7 +1396,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 - If the Rule is scoped to a scalar, `self` is bound to the scalar value.
 -->
 - 如果规则的作用域为标量，则 `self` 将绑定到标量值。
-  ```yaml
+
+  ```none
       ...
       openAPIV3Schema:
         type: object
@@ -2042,7 +1994,7 @@ through the pruning step during handling of requests.
 <!--
 #### Defaulting and Nullable
 
-**New in 1.20:** null values for fields that either don't specify the nullable flag, or give it a
+Null values for fields that either don't specify the nullable flag, or give it a
 `false` value, will be pruned before defaulting happens. If a default is present, it will be
 applied. When nullable is `true`, null values will be conserved and won't be defaulted.
 
@@ -2050,7 +2002,7 @@ For example, given the OpenAPI schema below:
 -->
 #### 设置默认值和字段是否可为空（Nullable）   {#defaulting-and-nullable}
 
-**1.20 版本新增:** 对于未设置其 nullable 标志的字段或者将该标志设置为
+对于未设置其 nullable 标志的字段或者将该标志设置为
 `false` 的字段，其空值（Null）会在设置默认值之前被剪裁掉。如果对应字段
 存在默认值，则默认值会被赋予该字段。当 `nullable` 被设置为 `true` 时，
 字段的空值会被保留，且不会在设置默认值时被覆盖。
@@ -2512,11 +2464,11 @@ spec:
         status: {}
         # scale 启用 scale 子资源
         scale:
-          # specReplicasPath 定义定制资源中对应 scale.spec.replicas 的 JSON 路径
+          # specReplicasPath 定义定制资源中对应 Scale.Spec.Replicas 的 JSON 路径
           specReplicasPath: .spec.replicas
-          # statusReplicasPath 定义定制资源中对应 scale.status.replicas 的 JSON 路径 
+          # statusReplicasPath 定义定制资源中对应 Scale.Status.Replicas 的 JSON 路径 
           statusReplicasPath: .status.replicas
-          # labelSelectorPath  定义定制资源中对应 scale.status.selector 的 JSON 路径 
+          # labelSelectorPath  定义定制资源中对应 Scale.Status.Selector 的 JSON 路径 
           labelSelectorPath: .status.labelSelector
   scope: Namespaced
   names:
@@ -2577,7 +2529,7 @@ Then new namespaced RESTful API endpoints are created at:
 <!-- and -->
 和
 
-```
+```none
 /apis/stable.example.com/v1/namespaces/*/crontabs/scale
 ```
 
@@ -2591,14 +2543,9 @@ custom resource created above to 5:
 
 ```shell
 kubectl scale --replicas=5 crontabs/my-new-cron-object
-```
-```
 crontabs "my-new-cron-object" scaled
-```
-```shell
+
 kubectl get crontabs my-new-cron-object -o jsonpath='{.spec.replicas}'
-```
-```
 5
 ```
 
@@ -2718,7 +2665,7 @@ and it will include the custom resources of kind `CronTab`:
 -->
 输出中将包含类别为 `CronTab` 的定制资源：
 
-```console
+```none
 NAME                          AGE
 crontabs/my-new-cron-object   3s
 ```
