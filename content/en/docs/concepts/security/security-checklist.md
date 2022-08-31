@@ -112,7 +112,7 @@ unrestricted access to the schedulable nodes of a cluster.
 
 [Pod Security Admission](/docs/concepts/security/pod-security-admission/) is an
 admission controller to enable fine-grained authorization of Pod creation and
-updates. It replaces the Pod Security Policy admission controller.
+updates. It replaces the PodSecurityPolicy admission controller.
 The [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 define three different policies that restrict how fields can be set in the `PodSpec`.
 For a hands-on tutorial on Pod Security, see the blog post
