@@ -30,8 +30,7 @@ pygmentsStyle = "emacs"
 enableGitInfo = true
 
 # Norwegian ("no") is sometimes but not currently used for testing.
-# Hindi is disabled because it's currently in development.
-disableLanguages = ["hi", "no"]
+disableLanguages = ["no"]
 
 [caches]
  [caches.assets]
@@ -445,15 +444,16 @@ language_alternatives = ["en"]
 
 [languages.hi]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
-languageName = "हिन्दी (Hindi)"
+description = "प्रोडक्शन-ग्रेड कंटेनर ऑर्केस्ट्रेशन"
+languageName = "हिन्दी (Hindi)"  
 languageNameLatinScript = "Hindi"
 weight = 12
 contentDir = "content/hi"
 languagedirection = "ltr"
 
 [languages.hi.params]
-time_format_blog = "01.02.2006"
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
 
 [languages.vi]
