@@ -131,7 +131,7 @@ You can also easily install 1.25 using [kubeadm](/docs/setup/independent/create-
 
 Kubernetes is only possible with the support, commitment, and hard work of its community. Each release team is made up of dedicated community volunteers who work together to build the many pieces that, when combined, make up the Kubernetes releases you rely on. This requires the specialized skills of people from all corners of our community, from the code itself to its documentation and project management.
 
-We would like to thank the entire release team for the hours spent hard at work to ensure we deliver a solid Kubernetes v1.25 release for our community. Every one of you had a part to play in building this, and you all executed it beautifully. We would like to extend special thanks to our fearless release lead, Cici Huang, for all she did to guarantee we had what we needed to succeed.
+We would like to thank the entire release team for the hours spent hard at work to ensure we deliver a solid Kubernetes v1.25 release for our community. Every one of you had a part to play in building this, and you all executed beautifully. We would like to extend special thanks to our fearless release lead, Cici Huang, for all she did to guarantee we had what we needed to succeed.
 
 ### User Highlights
 
