@@ -1,22 +1,19 @@
 ---
-title: Aplicando os Padrões de Segurança do Pod, Configurando o Controlador de Admissão Embutido
+title: Aplicando os Padrões de Segurança do Pod Através da Configuração do Controlador de Admissão Embutido
 content_type: task
 min-kubernetes-server-version: v1.22
 ---
 
-Desde a versão v1.22, o Kubernetes fornece um [controlador de admissão]
-(/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
-embutido para fazer cumprir os [padrões de segurança do Pod]
-(/docs/concepts/security/pod-security-standards).
+Desde a versão v1.22, o Kubernetes fornece um [controlador de admissão](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
+embutido para fazer cumprir os [padrões de segurança do Pod](/docs/concepts/security/pod-security-standards).
 Você pode configurar esse controlador de admissão para definir padrões em todo 
-o cluster e [excessões](/docs/concepts/security/pod-security-admission/#exemptions).
+o cluster e [exceções](/docs/concepts/security/pod-security-admission/#exemptions).
 
 ## {{% heading "prerequisites" %}}
 
 {{% version-check %}}
 
-- Garanta que a `PodSecurity` do [portal de funcionalidade]
-(/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) 
+- Garanta que a `PodSecurity` do [`feature gate`](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) 
 está ativada.
 
 ## Configure o Controlador de Admissão
@@ -58,7 +55,7 @@ plugins:
 ```
 
 {{< note >}}
-A v1beta1 de configuração requer v1.23+. Para v1.22, use v1alpha1.
+A versão da configuração v1beta1 requer a versão v1.23 ou superior do Kubernetes. Para a versão v1.22 do Kubernetes, utilize v1alpha1.
 {{< /note >}}
 
 {{% /tab %}}
