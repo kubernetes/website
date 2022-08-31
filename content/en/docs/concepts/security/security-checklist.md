@@ -232,8 +232,8 @@ overhead.
 
 - [ ] ConfigMaps are not used to hold confidential data.
 - [ ] Encryption at rest is configured for the Secret API.
-- [ ] A mechanism to inject secrets stored in third party storage is deployed
-  and available.
+- [ ] If appropriate, a mechanism to inject secrets stored in third-party storage
+  is deployed and available.
 - [ ] Service account tokens are not mounted in pods that don't require them.
 - [ ] [Bound service account token volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
   is in-use instead of non-expiring tokens.
