@@ -58,10 +58,7 @@ an admin user.
 - [ ] Use of a service mesh to encrypt all communications inside of the cluster.
 - [ ] The Kubernetes API, kubelet API and etcd are not exposed publicly on Internet.
 - [ ] Access from the workloads to the cloud metadata API is filtered.
-- [ ] Use of LoadBalancer and ExternalIPs is restricted, see
-[CVE-2020-8554: Man in the middle using LoadBalancer or ExternalIPs](https://github.com/kubernetes/kubernetes/issues/97076)
-and the [DenyServiceExternalIPs admission controller](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
-for further information.
+- [ ] Use of LoadBalancer and ExternalIPs is restricted.
 
 A number of [Container Network Interface (CNI) plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 plugins provide the functionality to
@@ -95,6 +92,10 @@ If a cloud provider is used for hosting Kubernetes, the access from pods to the 
 metadata API `169.254.169.254` should also be restricted or blocked if not needed
 because it may leak information.
 
+For restricted LoadBalancer and ExternalIPs use, see
+[CVE-2020-8554: Man in the middle using LoadBalancer or ExternalIPs](https://github.com/kubernetes/kubernetes/issues/97076)
+and the [DenyServiceExternalIPs admission controller](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
+for further information.
 ## Pod security
 
 - [ ] RBAC rights to `create`, `update`, `patch`, `delete` workloads is only granted if necessary.
