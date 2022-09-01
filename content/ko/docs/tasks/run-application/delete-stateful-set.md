@@ -1,10 +1,10 @@
 ---
-
-
-
-
-
-
+# reviewers:
+# - bprashanth
+# - erictune
+# - foxish
+# - janetkuo
+# - smarterclayton
 title: 스테이트풀셋(StatefulSet) 삭제하기
 content_type: task
 weight: 60

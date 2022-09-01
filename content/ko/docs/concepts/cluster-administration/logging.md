@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - piosz
+# - x13n
 title: 로깅 아키텍처
 content_type: concept
 weight: 60

@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - caesarxuchao
+# - lavalamp
+# - thockin
 title: 서비스와 애플리케이션 연결하기
 content_type: concept
 weight: 30

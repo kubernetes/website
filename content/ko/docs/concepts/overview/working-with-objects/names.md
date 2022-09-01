@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - mikedanese
+# - thockin
 title: 오브젝트 이름과 ID
 content_type: concept
 weight: 20
