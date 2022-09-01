@@ -1,5 +1,13 @@
 # i18n strings for the English (main) site.
 # NOTE: Please keep the entries in alphabetical order when editing
+
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "and"
+
 [caution]
 other = "Caution:"
 
@@ -261,6 +269,21 @@ other = "(released: "
 # Use a suitable format for your locale
 [release_date_format]
 other = "2006-01-02"
+
+# Deprecated. Planned for removal in a future release.
+# Use [release_full_details_initial_text] instead.
+[release_complete]
+other = "Complete"
+
+# Replace [release_complete] with [release_full_details_initial_text]
+[release_full_details_initial_text]
+other = "Complete"
+
+[release_schedule]
+other = "Schedule"
+
+[release_changelog]
+other = "Changelog"
 
 [seealso_heading]
 other = "See Also"
