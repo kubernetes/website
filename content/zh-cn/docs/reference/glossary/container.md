@@ -11,7 +11,6 @@ tags:
 - fundamental
 - workload
 ---
-
 <!--
 title: Container
 id: container
@@ -37,4 +36,3 @@ tags:
 Containers decouple applications from underlying host infrastructure to make deployment easier in different cloud or OS environments, and for easier scaling.
 -->
 容器使应用和底层的主机基础设施解耦，降低了应用在不同云环境或者操作系统上的部署难度，便于应用扩展。
-
