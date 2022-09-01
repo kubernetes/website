@@ -187,7 +187,7 @@ following:
     plugins:
     - name: PodSecurity
       configuration:
-        apiVersion: pod-security.admission.config.k8s.io/v1beta1
+        apiVersion: pod-security.admission.config.k8s.io/v1
         kind: PodSecurityConfiguration
         defaults:
           enforce: "baseline"
@@ -202,6 +202,13 @@ following:
           namespaces: [kube-system]
     EOF
     ```
+
+    {{< note >}}
+    `pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
+    For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+    For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+    {{< /note >}}
+
 
 1. Configure the API server to consume this file during cluster creation:
 
