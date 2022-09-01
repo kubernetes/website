@@ -33,7 +33,8 @@ a complete and working Kubernetes cluster.
 -->
 <!-- overview -->
 当你部署完 Kubernetes，便拥有了一个完整的集群。
-{{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes">}}
+
+{{< glossary_definition term_id="cluster" length="all" >}}
 
 本文档概述了一个正常运行的 Kubernetes 集群所需的各种组件。
 
