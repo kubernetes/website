@@ -47,7 +47,7 @@ system all memory pages will be readable by the owner of the checkpoint archive.
 
 Tell the kubelet to checkpoint a specific container from the specified Pod.
 
-Consult the [Kubelet authentication/authorization reference](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization)
+Consult the [Kubelet authentication/authorization reference](/docs/reference/access-authn-authz/kubelet-authn-authz)
 for more information about how access to the kubelet checkpoint interface is
 controlled.
 -->
@@ -57,7 +57,7 @@ controlled.
 
 告知 kubelet 对指定 Pod 中的特定容器执行检查点操作。
 
-查阅 [Kubelet 身份验证/鉴权参考](/zh-cn/docs/reference/command-line-tools-reference/kubelet-authentication-authorization)了解如何控制对
+查阅 [Kubelet 身份验证/鉴权参考](/zh-cn/docs/reference/access-authn-authz/kubelet-authn-authz)了解如何控制对
 kubelet 检查点接口的访问。
 
 <!--
