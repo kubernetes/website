@@ -250,7 +250,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 
 一度元のReplicaSetが削除されると、ユーザーは新しいものに置き換えるため新しいReplicaSetを作ることができます。新旧のReplicaSetの`.spec.selector`の値が同じである間、新しいReplicaSetは古いReplicaSetで稼働していたPodを取り入れます。
 しかし、存在するPodが新しく異なるPodテンプレートとマッチさせようとするとき、この仕組みは機能しません。
-ユーザーのコントロール下において新しいspecのPodをアップデートしたい場合は、[ローリングアップデート](#rolling-updates)を使用してください。
+ReplicaSetはローリングアップデートを直接サポートしないため、ユーザーのコントロール下において新しいspecのPodをアップデートしたい場合は、[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)を使用してください。
 
 ### PodをReplicaSetから分離させる
 
@@ -327,7 +327,7 @@ ReplicaSetは、Node上のいくつかのKubeletのようなエージェント�
 
 ### Job
 
-PodをPodそれ自身で停止させたいような場合(例えば、バッチ用のジョブなど)は、ReplicaSetの代わりに[`Job`](/docs/concepts/workloads/controllers/job/)を使用してください。
+PodをPodそれ自身で停止させたいような場合(例えば、バッチ用のジョブなど)は、ReplicaSetの代わりに[`Job`](/ja/docs/concepts/workloads/controllers/job/)を使用してください。
 
 ### DaemonSet
 
