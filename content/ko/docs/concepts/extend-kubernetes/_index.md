@@ -2,11 +2,11 @@
 title: 쿠버네티스 확장
 weight: 110
 description: 쿠버네티스 클러스터의 동작을 변경하는 다양한 방법
-
-
-
-
-
+# reviewers:
+# - erictune
+# - lavalamp
+# - cheftako
+# - chenopis
 feature:
   title: 확장성을 고려하여 설계됨
   description: >

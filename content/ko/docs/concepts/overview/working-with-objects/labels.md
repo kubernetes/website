@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - mikedanese
 title: 레이블과 셀렉터
 content_type: concept
 weight: 40

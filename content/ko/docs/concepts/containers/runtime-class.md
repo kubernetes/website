@@ -1,5 +1,5 @@
 ---
-# reviewers:
+# reviewers
 #   - tallclair
 #   - dchen1107
 title: 런타임클래스(RuntimeClass)

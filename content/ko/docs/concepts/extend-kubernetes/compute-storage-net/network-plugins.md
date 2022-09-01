@@ -1,8 +1,8 @@
 ---
-reviewers:
-## - dcbw
-## - freehan
-## - thockin
+# reviewers:
+# - dcbw
+# - freehan
+# - thockin
 title: 네트워크 플러그인
 content_type: concept
 weight: 10

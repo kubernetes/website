@@ -1,11 +1,11 @@
 ---
-
-
-
-
-
-
-
+# reviewers:
+# - enisoc
+# - erictune
+# - foxish
+# - janetkuo
+# - kow3ns
+# - smarterclayton
 title: 스테이트풀셋 기본
 content_type: tutorial
 weight: 10

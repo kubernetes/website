@@ -1,4 +1,7 @@
 ---
+# reviewers:
+# - davidopp
+# - lavalamp
 title: 대형 클러스터에 대한 고려 사항
 weight: 20
 ---

@@ -1,8 +1,8 @@
 ---
 title: 크론잡(CronJob)으로 자동화된 작업 실행
 min-kubernetes-server-version: v1.21
-
-
+# reviewers:
+# - chenopis
 content_type: task
 weight: 10
 ---
