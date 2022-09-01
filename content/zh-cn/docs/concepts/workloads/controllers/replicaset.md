@@ -588,9 +588,9 @@ This feature is beta and enabled by default. You can disable it using the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `PodDeletionCost` in both kube-apiserver and kube-controller-manager.
 -->
-此功能特性处于 Beta 阶段，默认被禁用。你可以通过为 kube-apiserver 和
+此功能特性处于 Beta 阶段，默认被启用。你可以通过为 kube-apiserver 和
 kube-controller-manager 设置[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-`PodDeletionCost` 来启用此功能。
+`PodDeletionCost` 来禁用此功能。
 
 {{< note >}}
 <!--

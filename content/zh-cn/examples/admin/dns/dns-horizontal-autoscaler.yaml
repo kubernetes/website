@@ -65,7 +65,7 @@ spec:
         kubernetes.io/os: linux
       containers:
       - name: autoscaler
-        image: k8s.gcr.io/cpa/cluster-proportional-autoscaler:1.8.4
+        image: registry.k8s.io/cpa/cluster-proportional-autoscaler:1.8.4
         resources:
             requests:
                 cpu: "20m"
@@ -74,10 +74,10 @@ spec:
           - /cluster-proportional-autoscaler
           - --namespace=kube-system
           - --configmap=kube-dns-autoscaler
-          # 应该保持目标与 cluster/addons/dns/kube-dns.yaml.base 同步
+          # 应该保持目标与 cluster/addons/dns/kube-dns.yaml.base 同步。
           - --target=<SCALE_TARGET>
-          #当集群使用大节点（有更多核）时，“coresPerReplica”应该占主导地位。
-          #如果使用小节点，“nodesPerReplica“ 应该占主导地位。
+          # 当集群使用大节点（有更多核）时，“coresPerReplica”应该占主导地位。
+          # 如果使用小节点，“nodesPerReplica“ 应该占主导地位。
           - --default-params={"linear":{"coresPerReplica":256,"nodesPerReplica":16,"preventSinglePointFailure":true,"includeUnschedulableNodes":true}}
           - --logtostderr=true
           - --v=2
