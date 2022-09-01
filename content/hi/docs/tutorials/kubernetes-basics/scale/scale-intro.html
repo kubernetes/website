@@ -1,0 +1,121 @@
+---
+title: अपने ऐप के कई इंस्टेंस चलाना
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="hi">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>उद्देश्य</h3>
+                <ul>
+                    <li>kubectl का उपयोग करके किसी ऐप को स्केल करें।</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+       <h3>एक एप्लीकेशन को स्केल करना</h3>
+
+            <p>पिछले मॉड्यूल में हमने एक <a href="/docs/concepts/workloads/controllers/deployment/">डिप्लॉयमेंट</a> बनाया और इसे <a href="/docs/concepts/services-networking/service/">सर्विस</a> के माध्यम से सार्वजनिक रूप से प्रदर्शित किया। डिप्लॉयमेंट ने हमारे एप्लिकेशन को चलाने के लिए केवल एक पॉड बनाया। जब ट्रैफ़िक बढ़ता है, तो हमें उपयोगकर्ता की मांग को पूरा करने के लिए एप्लिकेशन को स्केल करना होता है।</p>
+
+            <p>डिप्लॉयमेंट में रेप्लिका की संख्या को बदलकर <b>स्केलिंग</b> पूरा किया जाता है</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>सारांश:</h3>
+                    <ul>
+                        <li>एक डिप्लॉयमेंट को स्केल करना</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>आप kubectl create deployment कमांड के लिए --replicas पैरामीटर का उपयोग करके कई इंस्टेंस के साथ एक डिप्लॉयमेंट शुरू से बना सकते हैं।</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">स्केलिंग अवलोकन</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">पिछला</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">अगला</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>एक डिप्लॉयमेंट को स्केल करना यह सुनिश्चित करेगा कि नए पॉड बनाए गए हैं और उपलब्ध संसाधनों के साथ नोड्स के लिए शेड्यूल किए गए हैं। स्केलिंग से पॉड्स की संख्या नई वांछित स्थिति में बढ़ जाएगी। कुबेरनेट्स पॉड्स के <a href="/docs/user-guide/horizontal-pod-autoscaling/">ऑटोस्केलिंग</a> का भी समर्थन करता है, लेकिन यह इस ट्यूटोरियल के दायरे से बाहर है। शून्य पर स्केलिंग भी संभव है, और यह निर्दिष्ट डिप्लॉयमेंट के सभी पॉड्स को समाप्त कर देगा।</p>
+
+                <p>किसी एप्लिकेशन के कई इंस्टेंस को चलाने के लिए उन सभी को ट्रैफ़िक वितरित करने के तरीके की आवश्यकता होगी। सर्विसों में एक एकीकृत लोड-बैलेंसर होता है जो एक एक्सपोज्ड डिप्लॉयमेंट के सभी पॉड्स को नेटवर्क ट्रैफ़िक वितरित करेगा। सर्विसे एंडपॉइंट्स का उपयोग करते हुए रनिंग पॉड्स की लगातार निगरानी करेंगी यह सुनिश्चित करने के लिए कि ट्रैफ़िक केवल उपलब्ध पॉड्स को ही भेजा जाए।</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>डिप्लॉयमेंट में रेप्लिका की संख्या को बदलकर स्केलिंग को पूरा किया जाता है।</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>एक बार जब आपके पास किसी एप्लिकेशन के चलने के कई इंस्टेंस हैं, तो आप डाउनटाइम के बिना रोलिंग अपडेट करने में सक्षम होंगे। हम इसे अगले मॉड्यूल में करेंगे। अब, ऑनलाइन टर्मिनल पर चलते हैं और हमारे एप्लिकेशन को स्केल करते हैं।</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">इंटरएक्टिव ट्यूटोरियल शुरू करें<span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
