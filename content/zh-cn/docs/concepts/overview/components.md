@@ -33,7 +33,10 @@ a complete and working Kubernetes cluster.
 -->
 <!-- overview -->
 当你部署完 Kubernetes，便拥有了一个完整的集群。
-{{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes">}}
+
+一个 Kubernetes 集群是由一组被称作节点（node）的机器组成， 这些节点上会运行由 Kubernetes 所管理的容器化应用。 且每个集群至少有一个工作节点。
+
+工作节点会托管所谓的 Pods，而 Pod 就是作为应用负载的组件。 控制平面管理集群中的工作节点和 Pods。 为集群提供故障转移和高可用性， 这些控制平面一般跨多主机运行，而集群也会跨多个节点运行。
 
 本文档概述了一个正常运行的 Kubernetes 集群所需的各种组件。
 
