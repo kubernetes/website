@@ -99,7 +99,7 @@ for further information.
 ## Pod security
 
 - [ ] RBAC rights to `create`, `update`, `patch`, `delete` workloads is only granted if necessary.
-- [ ] Appropriate Pod Security Standards policy is applied for all namespaces in `enforce` mode.
+- [ ] Appropriate Pod Security Standards policy is applied for all namespaces and enforced.
 - [ ] Memory limit is set for the workloads with a limit equal or inferior to the request.
 - [ ] CPU limit might be set on sensitive workloads.
 - [ ] For nodes that support it, Seccomp is enabled with appropriate syscalls
@@ -114,18 +114,29 @@ on the resource itself, for example, `create` on Pods. Without
 additional admission, the authorization to create these resources allows direct
 unrestricted access to the schedulable nodes of a cluster.
 
-[Pod Security Admission](/docs/concepts/security/pod-security-admission/) is an
-admission controller to enable fine-grained authorization of Pod creation and
-updates. It replaces the PodSecurityPolicy admission controller.
 The [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
-define three different policies that restrict how fields can be set in the `PodSpec`.
-For a hands-on tutorial on Pod Security, see the blog post
-"[Kubernetes 1.23: Pod Security Graduates to Beta](/blog/2021/12/09/pod-security-admission-beta/)".
+define three different policies, privileged, baseline and restricted that limit
+how fields can be set in the `PodSpec` regarding security.
+These standards can be enforced at the namespace level with the new
+[Pod Security](/docs/concepts/security/pod-security-admission/) admission,
+enabled by default, or by third-party admission webhook. Please note that,
+contrary to the removed PodSecurityPolicy admission it replaces,
+[Pod Security](/docs/concepts/security/pod-security-admission/)
+admission can be easily combined with admission webhooks and external services.
 
-Pod Security admission `restricted` policy [can operate in several modes](/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces),
-`enforce`, `audit` or `warn` to help properly set the [security context](/docs/tasks/configure-pod-container/security-context/)
-according to security best practices. Nevertheless, pods' [security context](/docs/tasks/configure-pod-container/security-context/)
-should be separately investigated to limit the privileges and access pods may have.
+Pod Security admission `restricted` policy, the most restrictive policy of the
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/) set,
+[can operate in several modes](/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces),
+`warn`, `audit` or `enforce` to gradually apply the most appropriate
+[security context](/docs/tasks/configure-pod-container/security-context/)
+according to security best practices. Nevertheless, pods'
+[security context](/docs/tasks/configure-pod-container/security-context/)
+should be separately investigated to limit the privileges and access pods may
+have on top of the predefined security standards, for specific use cases.
+
+For a hands-on tutorial on [Pod Security](/docs/concepts/security/pod-security-admission/),
+see the blog post
+[Kubernetes 1.23: Pod Security Graduates to Beta](/blog/2021/12/09/pod-security-admission-beta/).
 
 [Memory and CPU limits](/docs/concepts/configuration/manage-resources-containers/)
 should be set in order to restrict the memory and CPU resources a pod can
