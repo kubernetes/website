@@ -41,9 +41,9 @@ spec:
       serviceAccountName: cloud-controller-manager
       containers:
       - name: cloud-controller-manager
-        # 对于树内驱动，我们使用 k8s.gcr.io/cloud-controller-manager，
+        # 对于树内驱动，我们使用 registry.k8s.io/cloud-controller-manager，
         # 镜像可以替换为其他树外驱动的镜像
-        image: k8s.gcr.io/cloud-controller-manager:v1.8.0
+        image: registry.k8s.io/cloud-controller-manager:v1.8.0
         command:
         - /usr/local/bin/cloud-controller-manager
         - --cloud-provider=[YOUR_CLOUD_PROVIDER]  # 在此处添加你自己的云驱动！
