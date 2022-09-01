@@ -50,7 +50,7 @@ Para que um Pod receba uma classe de QoS `Guaranteed`:
 * Todo contêiner no Pod deve ter um limite de CPU e um requisito de CPU.
 * Para cada contêiner no Pod, o limite de CPU deve ser igual ao requisito de CPU.
 
-Essas restrições se aplicam igualmente a contẽineres de inicialização bem como de aplicativos.
+Essas restrições se aplicam igualmente a contêineres de inicialização bem como de aplicativos.
 
 Aqui está o arquivo de configuração para um pod que possui um contêiner. O contêiner tem um limite de memória e um requisito de memória, ambos iguais a 200 MiB. O contêiner tem um limite de CPU e uma solicitação de CPU, ambos iguais a 700 miliCPU:
 
