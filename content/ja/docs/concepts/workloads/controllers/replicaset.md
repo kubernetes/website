@@ -265,7 +265,7 @@ ReplicaSetは、ただ`.spec.replicas`フィールドを更新することによ
  1. 保留している(またはスケジュール不可な)Podが先にスケールダウンされます。
  2. `controller.kubernetes.io/pod-deletion-cost` アノテーションが設定されている場合、値の小さいPodが優先されます。
  3. レプリカ数の多いノード上のPodが、レプリカ数の少ないノード上のPodより優先されます。
- 4. Podの作成時間が異なる場合、より新しく作成されたPodが古いPodより優先されます(`LogarithmicScaleDown` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効の場合、作成時間は整数対数スケールでバケット化されます。)
+ 4. Podの作成時間が異なる場合、より新しく作成されたPodが古いPodより優先されます(`LogarithmicScaleDown`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効の場合、作成時間は整数対数スケールでバケット化されます。)
 
 上記条件のすべてに該当する場合は、ランダム選択となります。
 
