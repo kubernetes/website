@@ -15,6 +15,7 @@ tags:
 
 <!--more-->
 
-A Kubernetes volume lives as long as the Pod that encloses it. Consequently, a volume outlives any containers that run within the Pod, and data in the volume is preserved across container restarts.
+Kubernetes supports two fundamental types of volumes - Ephemeral and Persistent. 
+Ephemeral volumes exist for the lifetime of their associated pods, while Persistent volumes are designed to exist beyond the lifetime of pods associated with it. However, irrespective of the volume type, data is always preserved across container restarts.
 
 See [storage](/docs/concepts/storage/) for more information.
