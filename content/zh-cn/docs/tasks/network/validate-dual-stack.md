@@ -213,7 +213,7 @@ status:
 <!--
 Create the following Service that explicitly defines `IPv6` as the first array element in `.spec.ipFamilies`. Kubernetes will assign a cluster IP for the Service from the IPv6 range configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 -->
-创建以下显示定义 `.spec.ipFamilies` 数组中的第一个元素为 IPv6 的 Service。
+创建以下显式定义 `.spec.ipFamilies` 数组中的第一个元素为 IPv6 的 Service。
 Kubernetes 将 `service-cluster-ip-range` 配置的 IPv6 地址范围给 Service 分配集群 IP，
 并将 `.spec.ipFamilyPolicy` 设置为 `SingleStack`。
 
