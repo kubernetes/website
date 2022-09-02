@@ -33,10 +33,8 @@ Used on: All Objects
 
 The controller/user who created this resource.
 
-One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
-
 {{< note >}}
-Starting from v1.9, this annotation is deprecated.
+Starting from v1.9, this label is deprecated.
 {{< /note >}}
 
 ### app.kubernetes.io/instance
