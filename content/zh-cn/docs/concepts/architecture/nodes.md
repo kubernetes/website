@@ -887,7 +887,7 @@ immediately. This allows the Pods on the out-of-service node to recover quickly 
 different node. 
 -->
 为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
-`node kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
+`node.kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
 如果在 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 并且节点被通过污点标记为无法提供服务，如果节点 Pod 上没有设置对应的容忍度，
