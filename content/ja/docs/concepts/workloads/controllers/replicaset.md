@@ -343,7 +343,7 @@ ReplicaSetは[_ReplicationControllers_](/docs/concepts/workloads/controllers/rep
 ## {{% heading "whatsnext" %}}
 
 * [Pod](/ja/docs/concepts/workloads/pods/)について学ぶ。
-* [Deployments](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ。
+* [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ。
 * ReplicaSetsに依存した[Deploymentを使用してステートレスアプリケーションを実行する](/ja/docs/tasks/run-application/run-stateless-application-deployment/)。
 * `ReplicaSet`はKubernetes REST APIのトップレベルのリソースです。{{< api-reference page="workload-resources/replica-set-v1" >}}オブジェクトの定義を読み、レプリカセットのAPIを理解する。
 * [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/)について、またPodDisruptionBudgetで障害発生時のアプリケーションの可用性を管理する方法について読む。
