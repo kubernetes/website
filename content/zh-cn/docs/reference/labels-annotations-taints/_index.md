@@ -921,7 +921,7 @@ Used on: Node
 
 The kubelet can set this annotation on a Node to denote its configured IPv4 address.
 
-When kubelet is started with the "external" cloud provider, it sets this annotation on the Node to denote an IP address set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid by the cloud-controller-manager.
+When kubelet is started with the `--cloud-provider` flag set to any value (includes both external and legacy in-tree cloud providers), it sets this annotation on the Node to denote an IP address set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid by the cloud-controller-manager.
 -->
 ### alpha.kubernetes.io/provided-node-ip {#alpha-kubernetes-io-provided-node-ip}
 
@@ -931,7 +931,8 @@ When kubelet is started with the "external" cloud provider, it sets this annotat
 
 kubelet 可以在 Node 上设置此注解来表示其配置的 IPv4 地址。
 
-当使用“外部”云驱动启动时，kubelet 会在 Node 上设置此注解以表示从命令行标志 ( `--node-ip` ) 设置的 IP 地址。
+如果 kubelet 被启动时 `--cloud-provider` 标志设置为任一云驱动（包括外部云驱动和传统树内云驱动）
+kubelet 会在 Node 上设置此注解以表示从命令行标志（`--node-ip`）设置的 IP 地址。
 云控制器管理器通过云驱动验证此 IP 是否有效。
 
 <!--
@@ -1129,7 +1130,7 @@ kubelet 检查 `/proc/sys/kernel/pid_max` 大小的 D 值和 Kubernetes 在 Node
 <!--
 Example: `node.kubernetes.io/out-of-service:NoExecute`
 
-A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach` 
+A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled on
 `kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node.
 -->
@@ -1348,7 +1349,10 @@ for more information.
 
 Example: `kubernetes.io/psp: restricted`
 
-This annotation is only relevant if you are using [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
+Used on: Pod
+
+This annotation was only relevant if you were using [PodSecurityPolicies](/docs/concepts/security/pod-security-policy/).
+Kubernetes v{{< skew currentVersion >}} does not support the PodSecurityPolicy API.
 
 When the PodSecurityPolicy admission controller admits a Pod, the admission controller
 modifies the Pod to have this annotation.
@@ -1359,7 +1363,10 @@ The value of the annotation is the name of the PodSecurityPolicy that was used f
 
 例如：`kubernetes.io/psp: restricted`
 
+用于：Pod
+
 这个注解只在你使用 [PodSecurityPolicies](/zh-cn/docs/concepts/security/pod-security-policy/) 时才有意义。
+Kubernetes v{{< skew currentVersion >}} 不支持 PodSecurityPolicy API。
 
 当 PodSecurityPolicy 准入控制器接受一个 Pod 时，会修改该 Pod，
 并给这个 Pod 添加此注解。
@@ -1368,7 +1375,8 @@ The value of the annotation is the name of the PodSecurityPolicy that was used f
 <!--
 ### seccomp.security.alpha.kubernetes.io/pod (deprecated) {#seccomp-security-alpha-kubernetes-io-pod}
 
-This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
+This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in a future release.
+please use the corresponding pod or container `securityContext.seccompProfile` field instead.
 To specify security settings for a Pod, include the `securityContext` field in the Pod specification.
 The [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) field within a Pod's `.spec` defines pod-level security attributes.
 When you [specify the security context for a Pod](/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod),
@@ -1376,7 +1384,8 @@ the settings you specify apply to all containers in that Pod.
 -->
 ### seccomp.security.alpha.kubernetes.io/pod (已弃用) {#seccomp-security-alpha-kubernetes-io-pod}
 
-此注解自 Kubernetes v1.19 起已被弃用，将在 v1.25 中失效。
+此注解自 Kubernetes v1.19 起已被弃用，将在未来的版本中失效。
+请使用对应 Pod 或容器的 `securityContext.seccompProfile` 字段替代。
 要为 Pod 指定安全设置，请在 Pod 规范中包含 `securityContext` 字段。
 Pod 的 `.spec` 中的 [`securityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
 字段定义了 Pod 级别的安全属性。
@@ -1386,7 +1395,8 @@ Pod 的 `.spec` 中的 [`securityContext`](/zh-cn/docs/reference/kubernetes-api/
 <!--
 ### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
 
-This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in v1.25.
+This annotation has been deprecated since Kubernetes v1.19 and will become non-functional in a future release.
+please use the corresponding pod or container `securityContext.seccompProfile` field instead.
 The tutorial [Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/) takes
 you through the steps you follow to apply a seccomp profile to a Pod or to one of
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
@@ -1394,7 +1404,8 @@ based on setting `securityContext` within the Pod's `.spec`.
 -->
 ### container.seccomp.security.alpha.kubernetes.io/[NAME] {#container-seccomp-security-alpha-kubernetes-io}
 
-此注解自 Kubernetes v1.19 起已被弃用，将在 v1.25 中失效。
+此注解自 Kubernetes v1.19 起已被弃用，将在未来的版本中失效。
+请使用对应 Pod 或容器的 `securityContext.seccompProfile` 字段替代。
 教程[使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)将引导你完成将
 seccomp 配置文件应用于 Pod 或其容器的步骤。
 该教程介绍了在 Kubernetes 中配置 seccomp 的支持机制，基于在 Pod 的 `.spec` 中设置 `securityContext`。
@@ -1541,25 +1552,3 @@ Example: `node-role.kubernetes.io/control-plane:NoSchedule`
 Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
 -->
 kubeadm 应用在控制平面节点上的污点，仅允许在其上调度关键工作负载。
-
-### node-role.kubernetes.io/master
-
-<!--
-Used on: Node
-
-Example: `node-role.kubernetes.io/master:NoSchedule`
--->
-例子：`node-role.kubernetes.io/master:NoSchedule`
-
-用于：Node
-
-<!--
-Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
-
-Starting in v1.20, this taint is deprecated in favor of `node-role.kubernetes.io/control-plane` and will be removed in v1.25.
--->
-kubeadm 应用在控制平面节点上的污点，仅允许在其上调度关键工作负载。
-
-{{< note >}}
-从 v1.20 开始，此污点已弃用，并将在 v1.25 中将其删除，取而代之的是 `node-role.kubernetes.io/control-plane`。
-{{< /note >}}
