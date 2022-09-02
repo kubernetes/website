@@ -25,7 +25,7 @@ The component within the architecture.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
-### app.kubernetes.io/created-by
+### app.kubernetes.io/created-by (deprecated)
 
 Example: `app.kubernetes.io/created-by: "controller-manager"`
 
@@ -33,7 +33,9 @@ Used on: All Objects
 
 The controller/user who created this resource.
 
-One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+{{< note >}}
+Starting from v1.9, this label is deprecated.
+{{< /note >}}
 
 ### app.kubernetes.io/instance
 
