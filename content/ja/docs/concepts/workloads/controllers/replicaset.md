@@ -196,7 +196,7 @@ ReplicaSetオブジェクトの名前は、有効な
 `.spec.template`はラベルを持つことが必要な[Pod テンプレート](/ja/docs/concepts/workloads/pods/#podテンプレート) です。先ほど作成した`frontend.yaml`の例では、`tier: frontend`というラベルを1つ持っています。
 他のコントローラーがこのPodを所有しようとしないためにも、他のコントローラーのセレクターでラベルを上書きしないように注意してください。
 
-テンプレートの[再起動ポリシー](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)のためのフィールドである`.spec.template.spec.restartPolicy`は`Always`のみ許可されていて、そしてそれがデフォルト値です。
+テンプレートの[再起動ポリシー](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)のためのフィールドである`.spec.template.spec.restartPolicy`は`Always`のみ許可されていて、そしてそれがデフォルト値です。
 
 ### Pod セレクター
 
