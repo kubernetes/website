@@ -762,11 +762,33 @@ unmounted. This means that an NFS volume can be pre-populated with data, and
 that data can be shared between pods. NFS can be mounted by multiple
 writers simultaneously.
 
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: registry.k8s.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /my-nfs-data
+      name: test-volume
+  volumes:
+  - name: test-volume
+    nfs:
+      server: my-nfs-server.example.com
+      path: /my-nfs-volume
+      readonly: true
+```
+
 {{< note >}}
 You must have your own NFS server running with the share exported before you can use it.
+
+Also note that you can't specify NFS mount options in a Pod spec. You can either set mount options server-side or use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html).
 {{< /note >}}
 
-See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) for more details.
+See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) for an example of mounting NFS volumes with PersistentVolumes.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
