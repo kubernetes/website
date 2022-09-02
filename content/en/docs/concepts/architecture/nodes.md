@@ -476,8 +476,8 @@ shutdown node comes up, the pods will be deleted by kubelet and new pods will be
 created on a different running node. If the original shutdown node does not come up,  
 these pods will be stuck in terminating status on the shutdown node forever.
 
-To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute` or `NoSchedule` effect to 
-a Node marking it out-of-service. 
+To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
+or `NoSchedule` effect to a Node marking it out-of-service. 
 If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled on `kube-controller-manager`, and a Node is marked out-of-service with this taint, the
 pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
