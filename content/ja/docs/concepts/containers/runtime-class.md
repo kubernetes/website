@@ -104,7 +104,7 @@ Kubernetesのビルトインのdockershim CRIは、ランタイムハンドラ�
 ```
 
 containerdの設定に関する詳細なドキュメントは下記を参照してください。  
-https://github.com/containerd/cri/blob/master/docs/config.md
+https://github.com/containerd/containerd/blob/main/docs/cri/config.md
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
