@@ -15,7 +15,7 @@ tags:
 
 <!--more-->
 
-Kubernetes supports two fundamental types of volumes - Ephemeral and Persistent. 
+Kubernetes supports two fundamental types of volumes - ephemeral and persistent. 
 Ephemeral volumes exist for the lifetime of their associated pods, while persistent volumes are designed to exist beyond the lifetime of pods associated with them. However, irrespective of the volume type, data is always preserved across container restarts.
 
 See [storage](/docs/concepts/storage/) for more information.
