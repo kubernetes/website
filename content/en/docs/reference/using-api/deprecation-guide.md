@@ -215,7 +215,7 @@ The **extensions/v1beta1** and **networking.k8s.io/v1beta1** API versions of Ing
     * `spec.backend` is renamed to `spec.defaultBackend`
     * The backend `serviceName` field is renamed to `service.name`
     * Numeric backend `servicePort` fields are renamed to `service.port.number`
-    * String backend `servicePort` fields are renamed to `service.port.name`
+    * String backend `serviceName` fields are renamed to `service.port.name`
     * `pathType` is now required for each specified path. Options are `Prefix`, `Exact`, and `ImplementationSpecific`. To match the undefined `v1beta1` behavior, use `ImplementationSpecific`.
 
 #### IngressClass {#ingressclass-v122}
