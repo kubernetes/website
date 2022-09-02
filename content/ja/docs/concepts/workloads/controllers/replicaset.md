@@ -11,7 +11,7 @@ ReplicaSetの目的は、どのような時でも安定したレプリカPodの�
 
 <!-- body -->
 
-## ReplicaSetがどのように動くか
+## ReplicaSetがどのように動くか {#how-a-replicaset-works}
 
 ReplicaSetは、ReplicaSetが対象とするPodをどう特定するかを示すためのセレクターや、稼働させたいPodのレプリカ数、Podテンプレート(理想のレプリカ数の条件を満たすために作成される新しいPodのデータを指定するために用意されるもの)といったフィールドとともに定義されます。ReplicaSetは、指定された理想のレプリカ数にするためにPodの作成と削除を行うことにより、その目的を達成します。ReplicaSetが新しいPodを作成するとき、ReplicaSetはそのPodテンプレートを使用します。
 
