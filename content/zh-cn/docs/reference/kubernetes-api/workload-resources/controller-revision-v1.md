@@ -46,7 +46,7 @@ ControllerRevision 实现了状态数据的不可变快照。
 成功创建 ControllerRevision 后，将无法对其进行更新。
 API 服务器将无法成功验证所有尝试改变 data 字段的请求。
 但是，可以删除 ControllerRevisions。
-请注意，由于 DaemonSet 和 StatefulSet 控制器都使用它来进行更新和回滚，所以这个对象是 beta 版。
+请注意，由于 DaemonSet 和 StatefulSet 控制器都使用它来进行更新和回滚，所以这个对象是 Beta 版。
 但是，它可能会在未来版本中更改名称和表示形式，客户不应依赖其稳定性。
 它主要供控制器内部使用。
 
@@ -94,79 +94,72 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
   <a name="RawExtension"></a>
     *RawExtension is used to hold extensions in external versions.
   -->
+
   <a name="RawExtension"></a>
   **RawExtension 用于以外部版本来保存扩展数据。**
   
   <!--
   To use this, make a field which has RawExtension as its type in your external, versioned struct, and Object in your internal struct. You also need to register your various plugin types.
   -->
+
   要使用它，请生成一个字段，在外部、版本化结构中以 RawExtension 作为其类型，在内部结构中以 Object 作为其类型。
+  你还需要注册你的各个插件类型。
   
   <!--
-  // Internal package: type MyAPIObject struct {
-    	runtime.TypeMeta `json:",inline"`
-    	MyPlugin runtime.Object `json:"myPlugin"`
-    } type PluginA struct {
-    	AOption string `json:"aOption"`
-    }
+  // Internal package:
   -->
-  内部包：
+  
+  // 内部包：
 
-  ```go
-  type MyAPIObject struct {  
-  	runtime.TypeMeta `json:",inline"`   
-  	MyPlugin runtime.Object `json:"myPlugin"`  
-  }       
-  type PluginA struct {  
-  	AOption string `json:"aOption"`  
-  }
-  ```
-  
-  <!--
-  // External package: type MyAPIObject struct {
-    	runtime.TypeMeta `json:",inline"`
-    	MyPlugin runtime.RawExtension `json:"myPlugin"`
-    } type PluginA struct {
-    	AOption string `json:"aOption"`
-    }
-  -->
-  外部包：
+    ```go
+    type MyAPIObject struct {  
+      runtime.TypeMeta `json:",inline"`   
+      MyPlugin runtime.Object `json:"myPlugin"`  
+    } 
 
-  ```go
-  type MyAPIObject struct {  
-  	runtime.TypeMeta `json:",inline"`  
-  	MyPlugin runtime.RawExtension `json:"myPlugin"`    
-  }   
-  type PluginA struct {  
-  	AOption string `json:"aOption"`  
-  }
-  ```
+    type PluginA struct {  
+      AOption string `json:"aOption"`  
+    }
+    ```
   
   <!--
-  // On the wire, the JSON will look something like this: {
-    	"kind":"MyAPIObject",
-    	"apiVersion":"v1",
-    	"myPlugin": {
-    		"kind":"PluginA",
-    		"aOption":"foo",
-    	},
-    }
+  // External package:
   -->
-  在网络上，JSON 看起来像这样：
-  ```json
-  {  
-  	"kind":"MyAPIObject",  
-  	"apiVersion":"v1",  
-  	"myPlugin": {  
-  		"kind":"PluginA",  
-  		"aOption":"foo",  
-  	},  
-  }
-  ```
+
+  // 外部包：
+
+    ```go
+    type MyAPIObject struct {  
+      runtime.TypeMeta `json:",inline"`  
+      MyPlugin runtime.RawExtension `json:"myPlugin"`    
+    } 
+
+    type PluginA struct {  
+      AOption string `json:"aOption"`  
+    }
+    ```
+  
+  <!--
+  // On the wire, the JSON will look something like this:
+  -->
+
+  // 在网络上，JSON 看起来像这样：
+
+    ```json
+    {  
+      "kind":"MyAPIObject",  
+      "apiVersion":"v1",  
+      "myPlugin": {  
+        "kind":"PluginA",  
+        "aOption":"foo",  
+      },  
+    }
+    ```
   
   <!--
   So what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)*
   -->
+  
   那么会发生什么？
   解码首先使用 json 或 yaml 将序列化数据解组到你的外部 MyAPIObject 中。
   这会导致原始 JSON 被存储下来，但不会被解包。
@@ -275,13 +268,11 @@ GET /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 <!--
 #### Response
 
-
 200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
 
 401: Unauthorized
 -->
 #### 响应
-
 
 200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
 
@@ -529,7 +520,6 @@ GET /apis/apps/v1/controllerrevisions
 
 <!--
 #### Response
-
 
 200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevisionList" >}}">ControllerRevisionList</a>): OK
 
@@ -814,7 +804,6 @@ PATCH /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
 <!--
 #### Response
 
@@ -909,7 +898,6 @@ DELETE /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 - **propagationPolicy** （**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
-
 
 <!--
 #### Response
@@ -1059,7 +1047,6 @@ DELETE /apis/apps/v1/namespaces/{namespace}/controllerrevisions
 - **timeoutSeconds** （**查询参数**）： integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
-
 
 <!--
 #### Response
