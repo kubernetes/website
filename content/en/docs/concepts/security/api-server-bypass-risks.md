@@ -29,7 +29,7 @@ your cluster. The API server doesn't manage these static Pods. An attacker with 
 access to this location could modify the configuration of static pods loaded from that
 source, or could introduce new static Pods.
 
-Static Pods are restricted from accessing other objects in the Kubernetes API . For example,
+Static Pods are restricted from accessing other objects in the Kubernetes API. For example,
 you can't configure a static Pod to mount a Secret from the cluster. However, these Pods can
 take other security sensitive actions, such as using `hostPath` mounts from the underlying
 node.
@@ -41,7 +41,7 @@ be discovered by tooling that has access to the affected host(s).
 
 If a static Pod fails admission control, the kubelet won't register the Pod with the
 API server. However, the Pod still runs on the node. For more information, refer to
-[kubeadm issue #1541](https://github.com/kubernetes/kubeadm/issues/1541#issuecomment-487331701)). 
+[kubeadm issue #1541](https://github.com/kubernetes/kubeadm/issues/1541#issuecomment-487331701).
 
 ### Mitigations {#static-pods-mitigations}
 
@@ -89,7 +89,7 @@ The default anonymous access doesn't make this assertion with the control plane.
 ## The etcd API
 
 Kubernetes clusters use etcd as a datastore. The `etcd` service listens on TCP port 2379.
-the only clients that need access are the Kubernetes API server and any backup tooling
+The only clients that need access are the Kubernetes API server and any backup tooling
 that you use. Direct access to this API allows for disclosure or modification of any
 data held in the cluster.
 
@@ -117,7 +117,7 @@ that are only used for health checking can also grant full read and write access
   authentication to that service.
 - Control access to the private key for the etcd server certificate, and to the API server's
   client certificate and key.
-- Consider restricting access to the the etcd port at a network level, to only allow access
+- Consider restricting access to the etcd port at a network level, to only allow access
   from specified and trusted IP address ranges.
 
 
