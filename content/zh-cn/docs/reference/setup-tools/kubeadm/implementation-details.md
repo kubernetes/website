@@ -788,16 +788,16 @@ Please note that:
 请注意：
 
 <!--  
-1. The etcd container image will be pulled from `registry.k8s.io` by default. See
+1. The etcd container image will be pulled from `registry.gcr.io` by default. See
    [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)
-   for customizing the image repository
+   for customizing the image repository.
 2. If you run kubeadm in `--dry-run` mode, the etcd static Pod manifest is written
    into a temporary folder.
 3. You can directly invoke static Pod manifest generation for local etcd, using the
     [`kubeadm init phase etcd local`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd)
     command.
 -->
-1. etcd 容器镜像默认从 `registry.k8s.io` 拉取。有关自定义镜像仓库，
+1. etcd 容器镜像默认从 `registry.gcr.io` 拉取。有关自定义镜像仓库，
    请参阅[使用自定义镜像](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)。
 2. 如果你以 `--dry-run` 模式执行 kubeadm 命令，etcd 的静态 Pod 清单将被写入一个临时文件夹。
 3. 你可以使用 ['kubeadm init phase etcd local'](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd)
@@ -876,6 +876,9 @@ As soon as the control plane is available, kubeadm executes following actions:
 Please note that the phase to mark the control-plane phase can be invoked
 individually with the
 [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command.
+
+- Taints the node with `node-role.kubernetes.io/master:NoSchedule` and
+  `node-role.kubernetes.io/control-plane:NoSchedule`
 -->
 - 给节点打上 `node-role.kubernetes.io/control-plane=""` 标签，标记其为控制平面
 - 给节点打上 `node-role.kubernetes.io/control-plane:NoSchedule` 污点
@@ -883,6 +886,9 @@ individually with the
 请注意，标记控制面的这个阶段可以单独通过
 [`kubeadm init phase mark-control-plane`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane)
 命令来实现。
+
+- 给节点打上 `node-role.kubernetes.io/master:NoSchedule` 和
+  `node-role.kubernetes.io/control-plane:NoSchedule` 污点
 
 <!--
 Please note that:
