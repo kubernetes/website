@@ -15,7 +15,7 @@ Puxe imagens usadas pelo kubeadm
 ### Sinopse
 
 
-Puxe imagens usadas pelo kubeadm
+Baixa imagens usadas pelo kubeadm
 
 ```
 kubeadm config images pull [flags]
@@ -41,14 +41,14 @@ kubeadm config images pull [flags]
 <td colspan="2">--cri-socket string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para se conectar ao socket CRI. Se um kubeadm vazio tentar detectar automaticamente esse valor; use essa opção somente se você tiver mais de um CRI instalado ou se tiver um socket CRI não padrão.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para se conectar ao socket CRI. Se vazio, o kubeadm tentará detectar automaticamente esse valor; use essa opção somente se você tiver mais de um CRI instalado ou se tiver um socket CRI não padrão.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Um conjunto de pares chave=valor que descrevem opções para vários recursos. As opções são:<br/>PublicKeysECDSA=true|false (ALPHA - padrão=false)<br/>RootlessControlPlane=true|false (ALPHA - padrão=false)<br/>UnversionedKubeletConfigMap=true|false (ALPHA - padrão=false)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Um conjunto de pares chave=valor que descrevem feature gates para vários recursos. As opções são:<br/>PublicKeysECDSA=true|false (ALPHA - padrão=false)<br/>RootlessControlPlane=true|false (ALPHA - padrão=false)<br/>UnversionedKubeletConfigMap=true|false (ALPHA - padrão=false)</p></td>
 </tr>
 
 <tr>
@@ -62,7 +62,7 @@ kubeadm config images pull [flags]
 <td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "k8s.gcr.io"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Escolha um registro de contêineres para extrair imagens da camada de gerenciamento</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Escolha um registro de contêineres para baixar imagens da camada de gerenciamento</p></td>
 </tr>
 
 <tr>
@@ -90,7 +90,7 @@ kubeadm config images pull [flags]
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig pode ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão local pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de locais predefinidos pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>

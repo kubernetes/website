@@ -10,7 +10,7 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Exibir configurações
+Exibe configurações
 
 ### Sinopse
 
@@ -55,7 +55,7 @@ kubeadm config print [flags]
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig pode ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão local pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de locais predefinidos pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>

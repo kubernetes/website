@@ -47,7 +47,7 @@ kubeadm config images list [flags]
 <td colspan="2">-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "text"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Formato de saída. Um dos: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Formato de saída. Valores válidos: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.</p></td>
 </tr>
 
 <tr>
@@ -68,7 +68,7 @@ kubeadm config images list [flags]
 <td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "k8s.gcr.io"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Escolha um registro de contêineres para extrair imagens da camada de gerenciamento</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Escolha um registro de contêineres para baixar imagens da camada de gerenciamento</p></td>
 </tr>
 
 <tr>
@@ -103,7 +103,7 @@ kubeadm config images list [flags]
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig pode ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de padrão local pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O arquivo kubeconfig a ser usado para se comunicar com o cluster. Se a flag não estiver definida, um conjunto de locais predefinidos pode ser pesquisado por um arquivo kubeconfig existente.</p></td>
 </tr>
 
 <tr>

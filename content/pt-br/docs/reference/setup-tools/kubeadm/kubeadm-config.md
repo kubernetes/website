@@ -13,13 +13,13 @@ Você pode usar o `kubeadm config print` para exibir a configuração estática 
 A saída do comando deve servir de exemplo. Você deve editar manualmente a saída deste comando para adaptar à sua configuração. Remova os campos sobre os quais você não tem certeza e o kubeadm tentará usá-los como padrão, examinando o host durante a execução.
 {{< /note >}}
 
-Para obter mais informações sobre `init` e `join`, navegue até [Usando o init do kubeadm com um arquivo de configuração](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) ou [Usando o kubeadm join com um arquivo de configuração](/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file).
+Para obter mais informações sobre `init` e `join`, navegue até [Usando o kubeadm init com um arquivo de configuração](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) ou [Usando o kubeadm join com um arquivo de configuração](/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file).
 
 Para obter mais informações sobre como usar a API de configuração do kubeadm, navegue até [Personalizando componentes com a API do kubeadm.](/docs/setup/production-environment/tools/kubeadm/control-plane-flags).
 
 Você pode usar o `kubeadm config migrate` para converter seus arquivos de configuração antigos que contêm uma versão obsoleta da API para uma versão mais recente e suportada da API.
 
-`kubeadm config images list` e `kubeadm config images pull` podem ser usadas para listar e puxar as imagens que o kubeadm precisa.
+`kubeadm config images list` e `kubeadm config images pull` podem ser usadas para listar e baixar as imagens que o kubeadm precisa.
 
 
 <!-- body -->
