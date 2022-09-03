@@ -14,7 +14,7 @@ tracking as a generally available feature.
 
 As explained in more detail in the [previous blog post about this
 feature](/blog/2021/04/14/local-storage-features-go-beta/), storage capacity
-tracking allows a CSI driver to publish information about remaining
+tracking allows a CSI driver to publish information about the remaining
 capacity. The kube-scheduler then uses that information to pick suitable nodes
 for a Pod when that Pod has volumes that still need to be provisioned.
 
@@ -56,12 +56,12 @@ Also not solved is support in Cluster Autoscaler for Pods with volumes. For CSI
 drivers with storage capacity tracking, a prototype was developed and discussed
 in [a PR](https://github.com/kubernetes/autoscaler/pull/3887). It was meant to
 work with arbitrary CSI drivers, but that flexibility made it hard to configure
-and slowed down scale up operations: because autoscaler was unable to simulate
+and slowed downscale up operations: because autoscaler was unable to simulate
 volume provisioning, it only scaled the cluster by one node at a time, which
 was seen as insufficient.
 
 Therefore that PR was not merged and a different approach with tighter coupling
-between autoscaler and CSI driver will be needed. For this a better
+between autoscaler and CSI driver will be needed. For this, a better
 understanding is needed about which local storage CSI drivers are used in
 combination with cluster autoscaling. Should this lead to a new KEP, then users
 will have to try out an implementation in practice before it can move to beta
