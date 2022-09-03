@@ -20,7 +20,7 @@ O comando "reset" executa as seguintes fases:
 
 
 ```
-preflight           Executa as verificações de redefinição do preflight.
+preflight           Executa as verificações pré-execução do preflight.
 remove-etcd-member  Remove um membro etcd local.
 cleanup-node        Executa a limpeza do nó.
 ```

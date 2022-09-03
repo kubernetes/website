@@ -15,7 +15,7 @@ O `kubeadm reset` é o responsável por limpar o sistema de arquivos local dos n
 
 O `kubeadm reset phase` pode ser usado para executar separadamente as fases do fluxo de trabalho acima. Para pular uma lista de fases você pode usar `--skip-phases`, que funciona de maneira semelhante aos executores de fases dos comandos `kubeadm join` e `kubeadm init`.
 
-### External etcd clean up
+### Limpeza do etcd externo
 
 O `kubeadm reset` não excluirá nenhum dado do etcd se o etcd externo estiver em uso. Isso significa que, se você executar o `kubeadm init` novamente usando os mesmos etcd endpoints, verá o estado dos clusters anteriores.
 
