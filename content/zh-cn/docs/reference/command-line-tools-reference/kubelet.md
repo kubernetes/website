@@ -1731,7 +1731,12 @@ The CIDR to use for pod IP addresses, only used in standalone mode. In cluster m
 </tr>
 
 <tr>
-<td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>k8s.gcr.io/pause:3.2</code>-->默认值：<code>k8s.gcr.io/pause:3.2</code></td>
+<td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!--
+Default: <code>registry.k8s.io/pause:3.6
+-->
+默认值: <code>registry.k8s.io/pause:3.6
+</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
