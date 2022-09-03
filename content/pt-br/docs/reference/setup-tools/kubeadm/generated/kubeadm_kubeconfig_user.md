@@ -14,7 +14,7 @@ Saída do arquivo kubeconfig para um usuário adicional.
 
 ### Sinopse
 
-Saída do arquivo kubeconfig para um usuário adicional.
+Exibe o arquivo kubeconfig para um usuário adicional.
 
 ```
 kubeadm kubeconfig user [flags]
@@ -23,7 +23,7 @@ kubeadm kubeconfig user [flags]
 ### Exemplos
 
 ```
-  # Envie um arquivo kubeconfig para um usuário adicional chamado foo usando um arquivo bar de configuração
+  # Exibe um arquivo kubeconfig para um usuário adicional chamado foo usando um arquivo bar de configuração
   kubeadm kubeconfig user --client-name=foo --config=bar
 ```
 
@@ -40,7 +40,7 @@ kubeadm kubeconfig user [flags]
 <td colspan="2">--client-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O nome do usuário. Ele será usado como CN se os certificados do cliente forem criados.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>O nome do usuário. Será usado como CN se os certificados do cliente forem criados.</p></td>
 </tr>
 
 <tr>
@@ -61,7 +61,7 @@ kubeadm kubeconfig user [flags]
 <td colspan="2">--org strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>As organizações do certificado do cliente. Ele será usado como O se os certificados de cliente forem criados.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>As organizações do certificado do cliente. Será usado como O se os certificados de cliente forem criados.</p></td>
 </tr>
 
 <tr>

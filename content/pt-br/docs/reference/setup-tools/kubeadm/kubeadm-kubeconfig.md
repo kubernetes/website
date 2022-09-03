@@ -6,7 +6,7 @@ weight: 90
 
 `kubeadm kubeconfig` fornece utilitários para gerenciar arquivos kubeconfig.
 
-Exemplos de como usar `kubeadm kubeconfig user`, consulte [Gerando arquivos kubeconfig para usuários adicionais](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
+Para exemplos de uso do comando `kubeadm kubeconfig user`, consulte [Gerando arquivos kubeconfig para usuários adicionais](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 
 
 ## kubeadm kubeconfig {#cmd-kubeconfig}
@@ -20,5 +20,5 @@ Exemplos de como usar `kubeadm kubeconfig user`, consulte [Gerando arquivos kube
 Esse comando pode ser usado para gerar um arquivo kubeconfig para um usuário adicional.
 
 {{< tabs name="tab-kubeconfig-user" >}}
-{{< tab name="usuário" include="generated/kubeadm_kubeconfig_user.md" />}}
+{{< tab name="user" include="generated/kubeadm_kubeconfig_user.md" />}}
 {{< /tabs >}}
