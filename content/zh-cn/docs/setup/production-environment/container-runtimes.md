@@ -61,12 +61,11 @@ v1.24 之前的 Kubernetes 版本直接集成了 Docker Engine 的一个组件�
 
 <!--
 You can read
-[Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-to understand how this removal might
-affect you. To learn about migrating from using dockershim, see
+[Check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
+to understand how this removal might affect you. To learn about migrating from using dockershim, see
 [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
 -->
-你可以阅读[检查 Dockershim 移除是否会影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)以了解此删除可能会如何影响你。
+你可以阅读[检查 Dockershim 移除是否会影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)以了解此移除可能会如何影响你。
 要了解如何使用 dockershim 进行迁移，
 请参阅[从 dockershim 迁移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)。
 
@@ -301,7 +300,7 @@ Kubernetes {{< skew currentVersion >}} 默认使用 v1 版本的 CRI API。如�
 
 <!-- 
 ## Container runtimes
- -->
+-->
 ## 容器运行时
 
 {{% thirdparty-content %}}
@@ -317,25 +316,29 @@ Use the following commands to install Containerd on your system:
 
 使用以下命令在系统上安装 Containerd：
 
-<!-- 
+<!--
 Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
- -->
+-->
 
 按照[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md) 的说明进行操作。 
 创建有效的配置文件 `config.toml` 后返回此步骤。
 
 {{< tabs name="找到 config.toml 文件" >}}
 {{% tab name="Linux" %}}
-<!-- You can find this file under the path `/etc/containerd/config.toml`. -->
+<!--
+You can find this file under the path `/etc/containerd/config.toml`.
+-->
 你可以在路径 `/etc/containerd/config.toml` 下找到此文件。
 {{% /tab %}}
 {{% tab name="Windows" %}}
-<!-- You can find this file under the path `C:\Program Files\containerd\config.toml`. -->
+<!--
+You can find this file under the path `C:\Program Files\containerd\config.toml`.
+-->
 你可以在路径 `C:\Program Files\containerd\config.toml` 下找到此文件。
 {{% /tab %}}
 {{< /tabs >}}
 
-<!-- 
+<!--
 On Linux the default CRI socket for containerd is `/run/containerd/containerd.sock`.
 On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 -->
@@ -514,6 +517,18 @@ Docker Engine 与 Kubernetes 集成。
 For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 -->
 对于 `cri-dockerd`，默认情况下，CRI 套接字是 `/run/cri-dockerd.sock`。
+
+<!--
+#### Overriding the sandbox (pause) image {#override-pause-image-cri-dockerd}
+
+The `cri-dockerd` adapter accepts a command line argument for
+specifying which container image to use as the Pod infrastructure container (“pause image”).
+The command line argument to use is `--pod-infra-container-image`.
+-->
+#### 重载沙箱（pause）镜像   {#override-pause-image-cri-dockerd}
+
+`cri-dockerd` 适配器支持通过命令行参数指定将哪个容器镜像用作 Pod 的基础容器（“pause 镜像”）。
+要使用的命令行参数是 `--pod-infra-container-image`。
 
 <!-- 
 ### Mirantis Container Runtime {#mcr}
