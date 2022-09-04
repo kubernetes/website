@@ -148,7 +148,7 @@ zone.
   portion of nodes are unready.
 
 * The EndpointSlice controller does not take into account {{< glossary_tooltip
-  text="tolerations" term_id="toleration" >}} when deploying calculating the
+  text="tolerations" term_id="toleration" >}} when deploying or calculating the
   proportions of each zone. If the Pods backing a Service are limited to a
   subset of Nodes in the cluster, this will not be taken into account.
 
