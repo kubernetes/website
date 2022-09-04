@@ -50,10 +50,14 @@ the container starts.
 
 {{< codenew file="debug/termination.yaml" >}}
 
-<!-- 1. Create a Pod based on the YAML configuration file: -->
+<!--
+1. Create a Pod based on the YAML configuration file:
+-->
 1. 基于 YAML 配置文件创建 Pod：
 
-        kubectl apply -f https://k8s.io/examples/debug/termination.yaml   
+   ```shell
+   kubectl apply -f https://k8s.io/examples/debug/termination.yaml   
+   ```
 
    <!--
    In the YAML file, in the `command` and `args` fields, you can see that the
@@ -65,56 +69,72 @@ the container starts.
    写入 `/dev/termination-log` 文件。
    容器写完 "Sleep expired" 消息后就终止了。
 
-<!-- 1. Display information about the Pod: -->
-1. 显示 Pod 的信息：
+<!--
+1. Display information about the Pod:
+-->
+2. 显示 Pod 的信息：
 
-        kubectl get pod termination-demo
+   ```shell
+   kubectl get pod termination-demo
+   ```
 
-   <!--Repeat the preceding command until the Pod is no longer running.-->
+   <!--
+   Repeat the preceding command until the Pod is no longer running.
+   -->
    重复前面的命令直到 Pod 不再运行。
 
-<!-- 1. Display detailed information about the Pod: -->
-1. 显示 Pod 的详细信息：
+<!--
+1. Display detailed information about the Pod:
+-->
+3. 显示 Pod 的详细信息：
 
-        kubectl get pod termination-demo --output=yaml
+   ```shell
+   kubectl get pod termination-demo --output=yaml
+   ```
 
-   <!--The output includes the "Sleep expired" message:-->
+   <!--
+   The output includes the "Sleep expired" message:
+   -->
    输出结果包含 "Sleep expired" 消息：
 
-        apiVersion: v1
-        kind: Pod
-        ...
-            lastState:
-              terminated:
-                containerID: ...
-                exitCode: 0
-                finishedAt: ...
-                message: |
-                  Sleep expired
-                ...
+   ```
+   apiVersion: v1
+   kind: Pod
+   ...
+       lastState:
+         terminated:
+           containerID: ...
+           exitCode: 0
+           finishedAt: ...
+           message: |
+             Sleep expired
+           ...
+   ```
 
 <!-- 
 1. Use a Go template to filter the output so that it includes
 only the termination message:
 -->
-1. 使用 Go 模板过滤输出结果，使其只含有终止消息：
+4. 使用 Go 模板过滤输出结果，使其只含有终止消息：
 
-        kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
-   
-<!--
-If you are running a multi-container pod, you can use a Go template to include the container's name. By doing so, you can discover which of the containers is failing:
--->
-如果你正在运行多容器 Pod，则可以使用 Go 模板来包含容器的名称。这样，你可以发现哪些容器出现故障:
+   ```shell
+   kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
+   ```
 
-```shell
-kubectl get pod multi-container-pod -o go-template='{{range .status.containerStatuses}}{{printf "%s:\n%s\n\n" .name .lastState.terminated.message}}{{end}}'
-```
+   <!--
+   If you are running a multi-container pod, you can use a Go template to include the container's name. By doing so, you can discover which of the containers is failing:
+   -->
+   如果你正在运行多容器 Pod，则可以使用 Go 模板来包含容器的名称。这样，你可以发现哪些容器出现故障：
+
+   ```shell
+   kubectl get pod multi-container-pod -o go-template='{{range .status.containerStatuses}}{{printf "%s:\n%s\n\n" .name .lastState.terminated.message}}{{end}}'
+   ```
 
 <!--
 ## Customizing the termination message
 
 Kubernetes retrieves termination messages from the termination message file
-specified in the `terminationMessagePath` field of a Container, which as a default
+specified in the `terminationMessagePath` field of a Container, which has a default
 value of `/dev/termination-log`. By customizing this field, you can tell Kubernetes
 to use a different file. Kubernetes use the contents from the specified file to
 populate the Container's status message on both success and failure.
@@ -143,7 +163,7 @@ kubelet 会截断长度超过 4096 字节的消息。
 例如，如果有 12 个容器（`initContainers` 或 `containers`）， 
 每个容器都有 1024 字节的可用终止消息空间。
 
-默认的终止消息路径是 `/dev/termination-log`。 
+默认的终止消息路径是 `/dev/termination-log`。
 Pod 启动后不能设置终止消息路径。
 
 <!--
