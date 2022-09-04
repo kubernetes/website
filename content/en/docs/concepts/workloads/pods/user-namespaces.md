@@ -89,10 +89,10 @@ isolate the users in the container from the users in the node.
 This means containers can run as root and be mapped to a non-root user on the
 host. Inside the container the process will think it is running as root (and
 therefore tools like `apt`, `yum`, etc. work fine), while in reality the process
-doesn't have privileges on the host. You can verify this, for example, if you
-check the user the container process is running `ps` from the host. The user
-`ps` shows is not the same as the user you see if you execute inside the
-container the command `id`.
+doesn't have privileges on the host. You can verify it from the host by checking the user's 
+container in which the process `ps` is running. The user `ps` shows is not the same as the user 
+you see if the command `id` is execute inside the container. The command `ps` command doesn't 
+show the user ID or user name.
 
 This abstraction limits what can happen, for example, if the container manages
 to escape to the host. Given that the container is running as a non-privileged
