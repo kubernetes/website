@@ -76,7 +76,7 @@ can follow along and get a second data point.
 或者你也可以跟着教程并开始下面的步骤来获得第二个数据点。
 
 ```shell
-kubectl  create deployment hostnames --image=k8s.gcr.io/serve_hostname 
+kubectl create deployment hostnames --image=registry.k8s.io/serve_hostname
 ```
 
 ```none
@@ -100,7 +100,8 @@ deployment.apps/hostnames scaled
 ```
 
 <!--
-Note that this is the same as if you had the Deployment with the following YAML:
+Note that this is the same as if you had started the Deployment with the following
+YAML:
 -->
 请注意这与你使用以下 YAML 方式启动 Deployment 类似：
 
@@ -123,7 +124,7 @@ spec:
     spec:
       containers:
       - name: hostnames
-        image: k8s.gcr.io/serve_hostname
+        image: registry.k8s.io/serve_hostname
 ```
 
 <!--
@@ -133,7 +134,7 @@ You can confirm your Pods are running:
 -->
 "app" 标签是 `kubectl create deployment` 根据 Deployment 名称自动设置的。
 
-确认你的 Pods 是运行状态:
+确认你的 Pod 是运行状态:
 
 ```shell
 kubectl get pods -l app=hostnames
@@ -281,16 +282,18 @@ hostnames   ClusterIP   10.0.1.175   <none>        80/TCP    5s
 <!--
 Now you know that the Service exists.
 
-As before, this is the same as if you had started the `Service` with YAML:
+As before, this is the same as if you had started the Service with YAML:
 -->
 现在你知道了 Service 确实存在。
 
-同前，此步骤效果与通过 YAML 方式启动 `Service` 一样：
+同前，此步骤效果与通过 YAML 方式启动 Service 一样：
 
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    app: hostnames
   name: hostnames
 spec:
   selector:
@@ -393,7 +396,7 @@ Namespace you're operating in.  The "svc" denotes that this is a Service.
 The "cluster.local" is your cluster domain, which COULD be different in your
 own cluster.
 
-You can also try this from a `Node` in the cluster:
+You can also try this from a Node in the cluster:
 
 -->
 注意这里的后缀："default.svc.cluster.local"。"default" 是我们正在操作的命名空间。
@@ -444,7 +447,7 @@ options ndots:5
 ```
 
 <!--
-The `nameserver` line must indicate your cluster's DNS `Service`.  This is
+The `nameserver` line must indicate your cluster's DNS Service. This is
 passed into `kubelet` with the `--cluster-dns` flag.
 -->
 `nameserver` 行必须指示你的集群的 DNS Service，
@@ -550,7 +553,7 @@ are a number of things that could be going wrong.  Read on.
 ## Is the Service defined correctly?
 
 It might sound silly, but you should really double and triple check that your
-`Service` is correct and matches your `Pod`'s port.  Read back your `Service`
+Service is correct and matches your Pod's port.  Read back your Service
 and verify it:
 -->
 ## Service 的配置是否正确？   {#is-the-service-defined-correctly}
@@ -598,6 +601,7 @@ kubectl get service hostnames -o json
     }
 }
 ```
+
 <!--
 * Is the Service port you are trying to access listed in `spec.ports[]`?
 * Is the `targetPort` correct for your Pods (some Pods use a different port than the Service)?
@@ -763,7 +767,7 @@ Service 的默认实现（在大多数集群上应用的）是 kube-proxy。
 如果你的集群不使用 kube-proxy，则以下各节将不适用，你将必须检查你正在使用的 Service 的实现方式。
 
 <!--
-## Is kube-proxy working?
+### Is kube-proxy running?
 
 Confirm that `kube-proxy` is running on your Nodes.  Running directly on a
 Node, you should get something like the below:
@@ -1122,7 +1126,7 @@ Contact us on
 ## {{% heading "whatsnext" %}}
 
 <!--
-Visit [troubleshooting document](/docs/tasks/debug/) for more information.
+Visit the [troubleshooting overview document](/docs/tasks/debug/) for more information.
 -->
-访问[故障排查文档](/zh-cn/docs/tasks/debug/)获取更多信息。
+访问[故障排查概述文档](/zh-cn/docs/tasks/debug/)获取更多信息。
 
