@@ -25,96 +25,96 @@ SIG डॉक्स सभी योगदानकर्ताओं की स
 [अनुमोदक](/docs/contribute/participate/roles-and-responsibilities/#approvers).
 इन भूमिकाओं के लिए अधिक पहुंच की आवश्यकता होती है और इसके लिए कुछ जिम्मेदारियों की आवश्यकता होती है
 अनुमोदन और परिवर्तन करना। देखना
-[](https://github.com/kubernetes/community/blob/master/community-membership.md)
-for more information on how membership works within the Kubernetes community.
+[समुदाय-सदस्यता](https://github.com/kubernetes/community/blob/master/community-membership.md)
+कुबेरनेट्स समुदाय के भीतर सदस्यता कैसे काम करती है, इस बारे में अधिक जानकारी के लिए।
 
-The rest of this document outlines some unique ways these roles function within
-SIG Docs, which is responsible for maintaining one of the most public-facing
-aspects of Kubernetes -- the Kubernetes website and documentation.
+इस दस्तावेज़ के बाकी हिस्सों में इन भूमिकाओं के कार्य करने के कुछ अनूठे तरीकों की रूपरेखा दी गई है
+SIG डॉक्स, जो सबसे सार्वजनिक-सामना करने वाले में से एक को बनाए रखने के लिए जिम्मेदार है
+Kubernetes के पहलू -- Kubernetes वेबसाइट और दस्तावेज़ीकरण।
 
 <!-- body -->
 
-## SIG Docs chairperson
+## एसआईजी डॉक्स चेयरपर्सन
 
-Each SIG, including SIG Docs, selects one or more SIG members to act as
-chairpersons. These are points of contact between SIG Docs and other parts of
-the Kubernetes organization. They require extensive knowledge of the structure
-of the Kubernetes project as a whole and how SIG Docs works within it. See
-[Leadership](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)
-for the current list of chairpersons.
+SIG डॉक्स सहित प्रत्येक SIG, के रूप में कार्य करने के लिए एक या अधिक SIG सदस्यों का चयन करता है
+अध्यक्षों. ये SIG डॉक्स और के अन्य भागों के बीच संपर्क के बिंदु हैं
+कुबेरनेट्स संगठन। उन्हें संरचना के व्यापक ज्ञान की आवश्यकता होती है
+कुबेरनेट्स परियोजना का समग्र रूप से और इसके भीतर SIG डॉक्स कैसे काम करता है। देखना
+[नेतृत्व](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)
+अध्यक्षों की वर्तमान सूची के लिए।
 
-## SIG Docs teams and automation
+## SIG डॉक्स टीम और स्वचालन
 
-Automation in SIG Docs relies on two different mechanisms:
-GitHub teams and OWNERS files.
+ऑटोमेशन इन SIG डॉक्स दो अलग-अलग तंत्रों पर निर्भर करता है:
+GitHub टीमों और मालिकों की फ़ाइलें.
 
-### GitHub teams
+### GitHub टीमों
 
-There are two categories of SIG Docs [teams](https://github.com/orgs/kubernetes/teams?query=sig-docs) on GitHub:
+की दो श्रेणियां हैं SIG डॉक्स [टीम](https://github.com/orgs/kubernetes/teams?query=sig-docs) पर GitHub:
 
-- `@sig-docs-{language}-owners` are approvers and leads
-- `@sig-docs-{language}-reviews` are reviewers
+- `@sig-docs-{language}-owners` अनुमोदक और लीड हैं
+- `@sig-docs-{language}-reviews` समीक्षक हैं
 
-Each can be referenced with their `@name` in GitHub comments to communicate with
-everyone in that group.
+प्रत्येक को उनके के साथ संदर्भित किया जा सकता है `@name` के साथ संवाद करने के लिए GitHub टिप्पणियों में
+उस समूह में हर कोई। 
 
-Sometimes Prow and GitHub teams overlap without matching exactly. For
-assignment of issues, pull requests, and to support PR approvals, the
-automation uses information from `OWNERS` files.
+कभी-कभी प्रो और गिटहब टीम बिल्कुल मिलान किए बिना ओवरलैप करती हैं। के लिये
+मुद्दों का असाइनमेंट, पुल अनुरोध, और पीआर अनुमोदन का समर्थन करने के लिए,
+स्वचालन से जानकारी का उपयोग करता है `OWNERS` फ़ाइलें।
 
-### OWNERS files and front-matter
+### मालिकों फ़ाइलें और सामने का मामला
 
-The Kubernetes project uses an automation tool called prow for automation
-related to GitHub issues and pull requests. The
-[Kubernetes website repository](https://github.com/kubernetes/website) uses
-two [prow plugins](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
+कुबेरनेट्स परियोजना एक स्वचालन उपकरण का उपयोग करती है जिसे ऑटोमेशन के लिए प्रो कहा जाता है
+GitHub मुद्दों और पुल अनुरोधों से संबंधित।
+[कुबेरनेट्स वेबसाइट रिपॉजिटरी](https://github.com/kubernetes/website) उपयोग
+दो [प्रो प्लगइन्स](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
 
-- blunderbuss
-- approve
+- ब्लंडरबस
+- मंजूर
 
-These two plugins use the
-[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) and
+ये दो प्लगइन्स का उपयोग करते हैं
+[मालिकों](https://github.com/kubernetes/website/blob/main/OWNERS) and
 [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
-files in the top level of the `kubernetes/website` GitHub repository to control
-how prow works within the repository.
+के शीर्ष स्तर में फ़ाइलें `kubernetes/website` GitHub रिपॉजिटरी को नियंत्रित करने के लिए
+कैसे prow भंडार के भीतर काम करता है।
 
-An OWNERS file contains a list of people who are SIG Docs reviewers and
-approvers. OWNERS files can also exist in subdirectories, and can override who
-can act as a reviewer or approver of files in that subdirectory and its
-descendants. For more information about OWNERS files in general, see
-[OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
+OWNERS फ़ाइल में उन लोगों की सूची होती है जो SIG डॉक्स समीक्षक हैं और
+अनुमोदक मालिकों फ़ाइलें उपनिर्देशिकाओं में भी मौजूद हो सकती हैं, और किसे ओवरराइड कर सकती हैं
+उस उपनिर्देशिका में फ़ाइलों के समीक्षक या अनुमोदनकर्ता के रूप में कार्य कर सकते हैं और इसकी
+वंशज। सामान्य रूप से मालिकों फ़ाइलों के बारे में अधिक जानकारी के लिए, देखें
+[मालिकों](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
 
-In addition, an individual Markdown file can list reviewers and approvers in its
-front-matter, either by listing individual GitHub usernames or GitHub groups.
+इसके अलावा, एक व्यक्तिगत मार्कडाउन फ़ाइल अपने में समीक्षकों और अनुमोदनकर्ताओं को सूचीबद्ध कर सकती है
+फ्रंट-मैटर, या तो व्यक्तिगत GitHub उपयोगकर्ता नाम या GitHub समूहों को सूचीबद्ध करके।
 
-The combination of OWNERS files and front-matter in Markdown files determines
-the advice PR owners get from automated systems about who to ask for technical
-and editorial review of their PR.
+मार्कडाउन फाइलों में मालिकों फाइलों और फ्रंट-मैटर का संयोजन निर्धारित करता है
+पीआर मालिकों को स्वचालित सिस्टम से सलाह मिलती है कि तकनीकी के लिए किसे पूछना है
+और उनके पीआर की संपादकीय समीक्षा।
 
-## How merging works
+## विलय कैसे काम करता है
 
-When a pull request is merged to the branch used to publish content, that content is published to http://kubernetes.io. To ensure that
-the quality of our published content is high, we limit merging pull requests to
-SIG Docs approvers. Here's how it works.
+जब एक पुल अनुरोध सामग्री प्रकाशित करने के लिए उपयोग की जाने वाली शाखा में विलय कर दिया जाता है, तो वह सामग्री प्रकाशित की जाती है http://kubernetes.io. यह सुनिश्चित करने के लिए
+हमारी प्रकाशित सामग्री की गुणवत्ता उच्च है, हम पुल अनुरोधों को मर्ज करने तक सीमित करते हैं
+SIG डॉक्स अनुमोदक। यहां देखिए यह कैसे काम करता है।
 
-- When a pull request has both the `lgtm` and `approve` labels, has no `hold`
-  labels, and all tests are passing, the pull request merges automatically.
-- Kubernetes organization members and SIG Docs approvers can add comments to
-  prevent automatic merging of a given pull request (by adding a `/hold` comment
-  or withholding a `/lgtm` comment).
-- Any Kubernetes member can add the `lgtm` label by adding a `/lgtm` comment.
-- Only SIG Docs approvers can merge a pull request
-  by adding an `/approve` comment. Some approvers also perform additional
-  specific roles, such as [PR Wrangler](/docs/contribute/participate/pr-wranglers/) or
+- जब एक पुल अनुरोध में दोनों होते हैं `lgtm` तथा `approve` लेबल, नहीं है `hold`
+  लेबल, और सभी परीक्षण पास हो रहे हैं, पुल अनुरोध स्वचालित रूप से विलीन हो जाता है।
+- कुबेरनेट्स संगठन के सदस्य और SIG डॉक्स अनुमोदक इसमें टिप्पणियाँ जोड़ सकते हैं
+  किसी दिए गए पुल अनुरोध के स्वचालित विलय को रोकें (by adding a `/hold` टिप्पणी
+  या रोक रहा है `/lgtm` टिप्पणी ).
+- कुबेरनेट्स का कोई भी सदस्य जोड़ सकता है `lgtm` लेबल जोड़ कर `/lgtm` टिप्पणी|
+- केवल SIG दस्तावेज़ अनुमोदक ही पुल अनुरोध को मर्ज कर सकते हैं
+  by adding an `/approve` टिप्पणी। कुछ अनुमोदक अतिरिक्त प्रदर्शन भी करते हैं
+  विशिष्ट भूमिकाएँ, जैसे [पीआर रैंगलर](/docs/contribute/participate/pr-wranglers/) or
   [SIG Docs chairperson](#sig-docs-chairperson).
 
 
 
-## {{% heading "whatsnext" %}}
+## {{%  शीर्षक "आगे क्या होगा"  %}}
 
 
-For more information about contributing to the Kubernetes documentation, see:
+ दस्तावेज़ीकरण में योगदान के बारे में अधिक जानकारी के लिए, देखें:
 
-- [Contributing new content](/docs/contribute/new-content/)
-- [Reviewing content](/docs/contribute/review/reviewing-prs)
-- [Documentation style guide](/docs/contribute/style/)
+- [नई सामग्री का योगदान](/docs/contribute/new-content/)
+- [सामग्री की समीक्षा करना](/docs/contribute/review/reviewing-prs)
+- [दस्तावेज़ीकरण शैली गाइड](/docs/contribute/style/)
