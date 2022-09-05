@@ -31,6 +31,7 @@ The manifest for that Pod specifies a command that runs when the container start
 
 1. Create a Pod based on the YAML configuration file:
 
+<<<<<<< HEAD
     ```shell
     kubectl apply -f https://k8s.io/examples/debug/termination.yaml
     ```
@@ -78,10 +79,58 @@ The manifest for that Pod specifies a command that runs when the container start
 
 If you are running a multi-container Pod, you can use a Go template to include the container's name.
 By doing so, you can discover which of the containers is failing:
+=======
+   ```shell
+   kubectl apply -f https://k8s.io/examples/debug/termination.yaml
+   ```
 
-```shell
-kubectl get pod multi-container-pod -o go-template='{{range .status.containerStatuses}}{{printf "%s:\n%s\n\n" .name .lastState.terminated.message}}{{end}}'
-```
+   In the YAML file, in the `command` and `args` fields, you can see that the
+   container sleeps for 10 seconds and then writes "Sleep expired" to
+   the `/dev/termination-log` file. After the container writes
+   the "Sleep expired" message, it terminates.
+
+1. Display information about the Pod:
+
+   ```shell
+   kubectl get pod termination-demo
+   ```
+   Repeat the preceding command until the Pod is no longer running.
+
+1. Display detailed information about the Pod:
+
+   ```shell
+   kubectl get pod termination-demo --output=yaml
+   ```
+
+   The output includes the "Sleep expired" message:
+
+   ```
+   apiVersion: v1
+   kind: Pod
+   ...
+       lastState:
+         terminated:
+           containerID: ...
+           exitCode: 0
+           finishedAt: ...
+           message: |
+             Sleep expired
+           ...
+   ```
+
+1. Use a Go template to filter the output so that it includes
+only the termination message:
+
+   ```shell
+   kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
+   ```
+
+   If you are running a multi-container pod, you can use a Go template to include the container's name. By doing so, you can discover which of the containers is failing:
+>>>>>>> e422808a74 (Update custom-resource-definition-versioning.md)
+
+   ```shell
+   kubectl get pod multi-container-pod -o go-template='{{range .status.containerStatuses}}{{printf "%s:\n%s\n\n" .name .lastState.terminated.message}}{{end}}'
+   ```
 
 ## Customizing the termination message
 
