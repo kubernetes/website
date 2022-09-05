@@ -20,7 +20,7 @@ A `downwardAPI` volume can expose Pod fields and container fields.
 <!--
 In Kubernetes, there are two ways to expose Pod and container fields to a running container:
 
-* [Environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* [Environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * Volume files, as explained in this task
 
 Together, these two ways of exposing Pod and container fields are called the
@@ -75,7 +75,7 @@ field should be stored in a file named `annotations`.
 
 <!--
 The fields in this example are Pod fields. They are not
-fields of the Container in the Pod.
+fields of the container in the Pod.
 -->
 {{< note >}}
 本示例中的字段是 Pod 字段，不是 Pod 中容器的字段。
