@@ -16,8 +16,8 @@ weight: 200
 <!--
 What's Kompose? It's a conversion tool for all things compose (namely Docker Compose) to container orchestrators (Kubernetes or OpenShift).
 -->
-Kompose 是什么？它是个转换工具，可将 compose（即 Docker Compose）所组装的所有内容
-转换成容器编排器（Kubernetes 或 OpenShift）可识别的形式。
+Kompose 是什么？它是一个转换工具，可将 compose
+（即 Docker Compose）所组装的所有内容转换成容器编排器（Kubernetes 或 OpenShift）可识别的形式。
 
 <!--
 More information can be found on the Kompose website at [http://kompose.io](http://kompose.io).
@@ -46,8 +46,7 @@ We have multiple ways to install Kompose. Our preferred method is downloading th
 Kompose is released via GitHub on a three-week cycle, you can see all current releases on the [GitHub release page](https://github.com/kubernetes/kompose/releases).
 -->
 Kompose 通过 GitHub 发布，发布周期为三星期。
-你可以在 [GitHub 发布页面](https://github.com/kubernetes/kompose/releases)
-上看到所有当前版本。
+你可以在 [GitHub 发布页面](https://github.com/kubernetes/kompose/releases)上看到所有当前版本。
 
 ```shell
 # Linux
@@ -88,7 +87,7 @@ Kompose is in [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS repository.
 If you don't have [EPEL](https://fedoraproject.org/wiki/EPEL) repository already installed and enabled you can do it by running  `sudo yum install epel-release`
 -->
 Kompose 位于 [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS 代码仓库。
-如果你还没有安装启用 [EPEL](https://fedoraproject.org/wiki/EPEL) 代码仓库，
+如果你还没有安装并启用 [EPEL](https://fedoraproject.org/wiki/EPEL) 代码仓库，
 请运行命令 `sudo yum install epel-release`。
 
 <!--
@@ -102,7 +101,7 @@ sudo yum -y install kompose
 ```
 
 {{% /tab %}}
-{{% tab name="Fedora package" %}}
+{{% tab name="Fedora 包" %}}
 
 <!--
 Kompose is in Fedora 24, 25 and 26 repositories. You can install it like any other package.
@@ -137,7 +136,7 @@ brew install kompose
 In a few steps, we'll take you from Docker Compose to Kubernetes. All
 you need is an existing `docker-compose.yml` file.
 -->
-再需几步，我们就把你从 Docker Compose 带到 Kubernetes。
+只需几步，我们就把你从 Docker Compose 带到 Kubernetes。
 你只需要一个现有的 `docker-compose.yml` 文件。
 
 <!--
@@ -151,7 +150,7 @@ you need is an existing `docker-compose.yml` file.
    services:
 
      redis-master:
-       image: k8s.gcr.io/redis:e2e
+       image: registry.k8s.io/redis:e2e
        ports:
          - "6379"
 
@@ -235,7 +234,7 @@ you need is an existing `docker-compose.yml` file.
 <!--
 3. Access your application.
 -->
-3. 访问你的应用
+3. 访问你的应用。
 
    <!--
    If you're already using `minikube` for your development process:
@@ -274,7 +273,7 @@ you need is an existing `docker-compose.yml` file.
    <!--
    If you're using a cloud provider, your IP will be listed next to `LoadBalancer Ingress`.
    -->
-   如果你使用的是云提供商，你的 IP 将在 `LoadBalancer Ingress` 字段给出。
+   如果你使用的是云驱动，你的 IP 将在 `LoadBalancer Ingress` 字段给出。
 
    ```shell
    curl http://192.0.2.89
@@ -300,7 +299,7 @@ you need is an existing `docker-compose.yml` file.
   - [`kompose convert`](#kompose-convert)
 
 - 文档
-  - [其他转换方式](#其他转换方式)
+  - [其他转换方式](#alternative-conversions)
   - [标签](#labels)
   - [重启](#restart)
   - [Docker Compose 版本](#docker-compose-versions)
@@ -380,7 +379,7 @@ INFO Kubernetes file "redis-slave-deployment.yaml" created
 ls
 ```
 
-```
+```none
 mlbparks-deployment.yaml  mongodb-service.yaml                       redis-slave-service.jsonmlbparks-service.yaml  
 frontend-deployment.yaml  mongodb-claim0-persistentvolumeclaim.yaml  redis-master-service.yaml
 frontend-service.yaml     mongodb-deployment.yaml                    redis-slave-deployment.yaml
@@ -401,7 +400,7 @@ When multiple docker-compose files are provided the configuration is merged. Any
 kompose --provider openshift --file docker-voting.yml convert
 ```
 
-```
+```none
 WARN [worker] Service cannot be created because of missing port.
 INFO OpenShift file "vote-service.yaml" created             
 INFO OpenShift file "db-service.yaml" created               
@@ -443,7 +442,7 @@ If you are manually pushing the Openshift artifacts using ``oc create -f``, you 
 -->
 {{< note >}}
 如果使用 ``oc create -f`` 手动推送 OpenShift 工件，则需要确保在构建配置工件之前推送
-imagestream 工件，以解决 OpenShift 的这个问题： https://github.com/openshift/origin/issues/4518 。
+imagestream 工件，以解决 OpenShift 的这个问题： https://github.com/openshift/origin/issues/4518。
 {{< /note >}}
 
 <!--
@@ -458,8 +457,8 @@ The default `kompose` transformation will generate Kubernetes [Deployments](/doc
 [Service](/zh-cn/docs/concepts/services-networking/service/) 对象。
 你可以选择通过 `-j` 参数生成 json 格式的对象。
 你也可以替换生成 [Replication Controllers](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/) 对象、
-[Daemon Sets](/zh-cn/docs/concepts/workloads/controllers/daemonset/) 或
-[Helm](https://github.com/helm/helm) charts。
+[DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/) 或
+[Helm](https://github.com/helm/helm) Chart。
 
 ```shell
 kompose convert -j
@@ -531,7 +530,7 @@ chart created in "./docker-compose/"
 tree docker-compose/
 ```
 
-```
+```none
 docker-compose
 ├── Chart.yaml
 ├── README.md
@@ -557,8 +556,8 @@ For example:
 -->
 ## 标签   {#labels}
 
-`kompose` 支持 `docker-compose.yml` 文件中用于 Kompose 的标签，以便
-在转换时明确定义 Service 的行为。
+`kompose` 支持 `docker-compose.yml` 文件中用于 Kompose 的标签，
+以便在转换时明确定义 Service 的行为。
 
 - `kompose.service.type` 定义要创建的 Service 类型。例如：
 
@@ -587,8 +586,7 @@ For example:
   对于任何其他值，该值将被设置为主机名。
   如果在 Service 中定义了多个端口，则选择第一个端口作为公开端口。
 
-  - 如果使用 Kubernetes 驱动，会有一个 Ingress 资源被创建，并且假定
-    已经配置了相应的 Ingress 控制器。
+  - 如果使用 Kubernetes 驱动，会有一个 Ingress 资源被创建，并且假定已经配置了相应的 Ingress 控制器。
   - 如果使用 OpenShift 驱动，则会有一个 route 被创建。
 
   例如：
@@ -657,7 +655,6 @@ If you want to create normal pods without controllers you can use `restart` cons
 | `on-failure`               | Pod               | `OnFailure`         |
 | `no`                       | Pod               | `Never`             |
 
-
 <!--
 The controller object could be `deployment` or `replicationcontroller`, etc.
 -->
@@ -713,6 +710,6 @@ A full list on compatibility between all three versions is listed in our [conver
 Kompose 支持的 Docker Compose 版本包括：1、2 和 3。
 对 2.1 和 3.2 版本的支持还有限，因为它们还在实验阶段。
 
-所有三个版本的兼容性列表请查看我们的
-[转换文档](https://github.com/kubernetes/kompose/blob/master/docs/conversion.md)，
+所有三个版本的兼容性列表，
+请查看我们的[转换文档](https://github.com/kubernetes/kompose/blob/master/docs/conversion.md)，
 文档中列出了所有不兼容的 Docker Compose 关键字。
