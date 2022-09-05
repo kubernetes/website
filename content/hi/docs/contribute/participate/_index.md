@@ -1,31 +1,31 @@
 ---
-title: Participating in SIG Docs
-content_type: concept
-weight: 60
-card:
-  name: contribute
-  weight: 60
+शीर्षक: SIG डॉक्स में भाग लेना
+सामग्री प्रकार: संकल्पना
+वजन: 60
+कार्ड:
+  नाम: योगदान देना
+  वजन: 60
 ---
 
 <!-- overview -->
 
-SIG Docs is one of the
-[special interest groups](https://github.com/kubernetes/community/blob/master/sig-list.md)
-within the Kubernetes project, focused on writing, updating, and maintaining
-the documentation for Kubernetes as a whole. See
-[SIG Docs from the community github repo](https://github.com/kubernetes/community/tree/master/sig-docs)
-for more information about the SIG.
+SIG डॉक्स उनमें से एक है
+[विशेष रुचि समूह](https://github.com/kubernetes/community/blob/master/sig-list.md)
+कुबेरनेट्स परियोजना के भीतर, लेखन, अद्यतन और रखरखाव पर केंद्रित
+कुबेरनेट्स के लिए समग्र रूप से प्रलेखन। देखना
+[समुदाय जीथब रेपो से एसआईजी डॉक्स](https://github.com/kubernetes/community/tree/master/sig-docs)
+एसआईजी के बारे में अधिक जानकारी के लिए।
 
-SIG Docs welcomes content and reviews from all contributors. Anyone can open a
-pull request (PR), and anyone is welcome to file issues about content or comment
-on pull requests in progress.
+SIG डॉक्स सभी योगदानकर्ताओं की सामग्री और समीक्षाओं का स्वागत करता है। कोई भी खोल सकता है
+पुल अनुरोध (पीआर), और सामग्री या टिप्पणी के बारे में मुद्दों को दर्ज करने के लिए किसी का भी स्वागत है
+पुल अनुरोधों पर प्रगति पर।
 
-You can also become a [member](/docs/contribute/participate/roles-and-responsibilities/#members),
-[reviewer](/docs/contribute/participate/roles-and-responsibilities/#reviewers), or
-[approver](/docs/contribute/participate/roles-and-responsibilities/#approvers).
-These roles require greater access and entail certain responsibilities for
-approving and committing changes.  See
-[community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md)
+आप भी बन सकते हैं [सदस्य](/docs/contribute/participate/roles-and-responsibilities/#members),
+[आलोचक](/docs/contribute/participate/roles-and-responsibilities/#reviewers), या
+[अनुमोदक](/docs/contribute/participate/roles-and-responsibilities/#approvers).
+इन भूमिकाओं के लिए अधिक पहुंच की आवश्यकता होती है और इसके लिए कुछ जिम्मेदारियों की आवश्यकता होती है
+अनुमोदन और परिवर्तन करना। देखना
+[](https://github.com/kubernetes/community/blob/master/community-membership.md)
 for more information on how membership works within the Kubernetes community.
 
 The rest of this document outlines some unique ways these roles function within
