@@ -264,7 +264,7 @@ ReplicaSetは、ただ`.spec.replicas`フィールドを更新することによ
 スケールダウンする場合、ReplicaSetコントローラーは以下の一般的なアルゴリズムに基づき、利用可能なPodをソートし、スケールダウンするPodの優先順位を付け、削除するPodを選択します:
  1. 保留している(またはスケジュール不可な)Podが先にスケールダウンされます。
  1. `controller.kubernetes.io/pod-deletion-cost`アノテーションが設定されている場合、値の小さいPodが優先されます。
- 3. レプリカ数の多いノード上のPodが、レプリカ数の少ないノード上のPodより優先されます。
+ 1. レプリカ数の多いノード上のPodが、レプリカ数の少ないノード上のPodより優先されます。
  4. Podの作成時間が異なる場合、より新しく作成されたPodが古いPodより優先されます(`LogarithmicScaleDown`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効の場合、作成時間は整数対数スケールでバケット化されます)。
 
 上記条件のすべてに該当する場合は、ランダム選択となります。
