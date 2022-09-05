@@ -7,7 +7,7 @@ no_list: true
 
 <!-- overview -->
 
-Kubernetes reserves all labels and annotations in the kubernetes.io namespace.
+Kubernetes reserves all labels and annotations in the k8s.io namespace.
 
 This document serves both as a reference to the values and as a coordination point for assigning values.
 
