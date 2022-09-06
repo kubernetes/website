@@ -78,15 +78,18 @@ releases may also occur in between these.
 
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| August 2022           | 2022-08-12           | 2022-08-17  |
 | September 2022        | 2022-09-09           | 2022-09-14  |
 | October 2022          | 2022-10-07           | 2022-10-12  |
+| November 2022         | 2022-11-11           | 2022-11-16  |
+| December 2022         | 2022-12-09           | 2022-12-14  |
 
 ## Detailed Release History for Active Branches
 
 ### 1.25
 
 Next patch release is **1.25.1**
+
+**1.25** enters maintenance mode on **2023-08-28**
 
 End of Life for **1.25** is **2023-10-27**
 
@@ -96,12 +99,15 @@ End of Life for **1.25** is **2023-10-27**
 
 ### 1.24
 
-Next patch release is **1.24.4**
+Next patch release is **1.24.5**
+
+**1.24** enters maintenance mode on **2023-05-28**.
 
 End of Life for **1.24** is **2023-07-28**
 
 | PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE |
 |---------------|----------------------|-------------|------|
+| 1.24.5        | 2022-09-09           | 2022-09-14  |      |
 | 1.24.4        | 2022-08-12           | 2022-08-17  |      |
 | 1.24.3        | 2022-07-08           | 2022-07-13  |      |
 | 1.24.2        | 2022-06-10           | 2022-06-15  |      |
@@ -109,7 +115,7 @@ End of Life for **1.24** is **2023-07-28**
 
 ### 1.23
 
-Next patch release is **1.23.10**
+Next patch release is **1.23.11**
 
 **1.23** enters maintenance mode on **2022-12-28**.
 
@@ -117,6 +123,7 @@ End of Life for **1.23** is **2023-02-28**.
 
 | Patch Release | Cherry Pick Deadline | Target Date | Note |
 |---------------|----------------------|-------------|------|
+| 1.23.11       | 2022-09-09           | 2022-09-14  |      |
 | 1.23.10       | 2022-08-12           | 2022-08-17  |      |
 | 1.23.9        | 2022-07-08           | 2022-07-13  |      |
 | 1.23.8        | 2022-06-10           | 2022-06-15  |      |
@@ -130,7 +137,7 @@ End of Life for **1.23** is **2023-02-28**.
 
 ### 1.22
 
-Next patch release is **1.22.13**
+Next patch release is **1.22.14**. **Since 1.22 is in maintenance mode, this patch release may not be shipped. For more information, see the Support Period policy above.**
 
 **1.22** enters maintenance mode on **2022-08-28**
 
@@ -138,6 +145,7 @@ End of Life for **1.22** is **2022-10-28**
 
 | Patch Release | Cherry Pick Deadline | Target Date | Note |
 |---------------|----------------------|-------------|------|
+| 1.22.14       | 2022-09-09           | 2022-09-14  |      |
 | 1.22.13       | 2022-08-12           | 2022-08-17  |      |
 | 1.22.12       | 2022-07-08           | 2022-07-13  |      |
 | 1.22.11       | 2022-06-10           | 2022-06-15  |      |
