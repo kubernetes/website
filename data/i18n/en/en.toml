@@ -1,12 +1,7 @@
 # i18n strings for the English (main) site.
 # NOTE: Please keep the entries in alphabetical order when editing
 
-# Avoid using conjunction_1.
-# Must match the context in layouts/shortcodes/release-data.html
-# Appears on https://kubernetes.io/releases/
-# For example the "and" in "Complete 1.25 Schedule and Changelog"
-[conjunction_1]
-other = "and"
+# For "and", see [conjunction_1]
 
 [caution]
 other = "Caution:"
@@ -35,6 +30,12 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "and"
 
 [cve_id]
 other = "CVE ID"
