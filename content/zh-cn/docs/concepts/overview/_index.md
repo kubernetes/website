@@ -257,7 +257,7 @@ Kubernetes：
 * Does not provide nor adopt any comprehensive machine configuration, maintenance, management, or self-healing systems.
 * Additionally, Kubernetes is not a mere orchestration system. In fact, it eliminates the need for orchestration. The technical definition of orchestration is execution of a defined workflow: first do A, then B, then C. In contrast, Kubernetes comprises a set of independent, composable control processes that continuously drive the current state towards the provided desired state. It shouldn't matter how you get from A to C. Centralized control is also not required. This results in a system that is easier to use and more powerful, robust, resilient, and extensible.
 -->
-* 不是日志记录、监视或警报的解决方案。
+* 不提供日志记录、监视或警报的解决方案。
   它集成了一些功能作为概念证明，并提供了收集和导出指标的机制。
 * 不提供也不要求配置用的语言、系统（例如 jsonnet），它提供了声明性 API，
   该声明性 API 可以由任意形式的声明性规范所构成。
