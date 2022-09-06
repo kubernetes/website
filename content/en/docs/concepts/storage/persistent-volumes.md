@@ -285,7 +285,7 @@ to `Retain`, including cases where you are reusing an existing PV.
 
 ### Expanding Persistent Volumes Claims
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You can expand
 the following types of volumes:
