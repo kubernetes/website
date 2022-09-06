@@ -465,7 +465,7 @@ ensuring that they are a trusted basis for your policies.
 {{< warning >}}
 <!--
 Network policies require a 
-[CNI plugin](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni) 
+[CNI plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni) 
 that supports the implementation of network policies. 
 Otherwise, NetworkPolicy resources will be ignored.
 -->
@@ -477,7 +477,7 @@ Otherwise, NetworkPolicy resources will be ignored.
 <!--
 More advanced network isolation may be provided by service meshes, 
 which provide OSI Layer 7 policies based on workload identity, in addition to namespaces. 
-These higher-level policies can make it easier to manage namespaced based multi-tenancy, 
+These higher-level policies can make it easier to manage namespace-based multi-tenancy, 
 especially when multiple namespaces are dedicated to a single tenant. 
 They frequently also offer encryption using mutual TLS, 
 protecting your data even in the presence of a compromised node, 
@@ -531,8 +531,7 @@ PersistentVolumeClaim 是一种命名空间作用域的资源，
 
 <!--
 For example, you can configure a separate StorageClass for each tenant and use this to strengthen isolation.
-If a StorageClass is shared, you should set a [reclaim policy of `Delete`]
-(/docs/concepts/storage/storage-classes/#reclaim-policy)
+If a StorageClass is shared, you should set a [reclaim policy of `Delete`](/docs/concepts/storage/storage-classes/#reclaim-policy)
 to ensure that a PersistentVolume cannot be reused across different namespaces.
 -->
 例如，你可以为每个租户配置一个单独的 StorageClass，并使用它来加强隔离。
@@ -669,7 +668,7 @@ so that they run on a specific set of nodes designated for that tenant.
 
 <!--
 Node isolation can be implemented using an 
-[pod node selectors](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) 
+[pod node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/) 
 or a [Virtual Kubelet](https://github.com/virtual-kubelet).
 -->
 节点隔离可以使用
@@ -771,7 +770,7 @@ Finally, there’s [pod priority and preemption](/docs/concepts/scheduling-evict
 where you can assign priority values to pods. 
 When scheduling pods, the scheduler will try evicting pods with lower priority 
 when there are insufficient resources to schedule pods that are assigned a higher priority. 
-If you have a use case where tenants have different service tiers in in a shared cluster e.g. free and paid, 
+If you have a use case where tenants have different service tiers in a shared cluster e.g. free and paid, 
 you may want to give higher priority to certain tiers using this feature.
 -->
 最后，还有 [Pod 优先级和抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)，
