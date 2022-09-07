@@ -324,6 +324,10 @@ The kubelet tracks `tmpfs` emptyDir volumes as container memory use, rather
 than as local ephemeral storage.
 {{< /note >}}
 
+{{< note >}}
+The kubelet will only track the root filesystem for ephemeral storage. OS layouts that mount a separate disk to `/var/lib/kubelet` or `/var/lib/containers` will not report ephemeral storage correctly.
+{{< /note >}}
+
 ### Setting requests and limits for local ephemeral storage
 
 You can specify `ephemeral-storage` for managing local ephemeral storage. Each
