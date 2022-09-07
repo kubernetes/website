@@ -99,10 +99,13 @@ includes the contents of all Secrets.
 
 ### Workload creation
 
-Users who are able to create workloads (either Pods, or
-[workload resources](/docs/concepts/workloads/controllers/) that manage Pods) will
-be able to gain access to the underlying node unless restrictions based on the Kubernetes
-[Pod Security Standards](/docs/concepts/security/pod-security-standards/) are in place.
+Permission to create workloads (either Pods, or
+[workload resources](/docs/concepts/workloads/controllers/) that manage Pods) in a namespace
+implicitly grants access to many other resources in that namespace, such as Secrets, ConfigMaps, and
+PersistentVolumes that can be mounted in Pods. Additionally, since Pods can run as any
+[ServiceAccount](/docs/reference/access-authn-authz/service-accounts-admin/), granting permission
+to create workloads also implicitly grants the API access levels of any service account in that
+namespace.
 
 Users who can run privileged Pods can use that access to gain node access and potentially to
 further elevate their privileges. Where you do not fully trust a user or other principal
@@ -111,13 +114,10 @@ with the ability to create suitably secure and isolated Pods, you should enforce
 You can use [Pod Security admission](/docs/concepts/security/pod-security-admission/)
 or other (third party) mechanisms to implement that enforcement.
 
-You can also use the deprecated [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) mechanism
-to restrict users' abilities to create privileged Pods (N.B. PodSecurityPolicy is scheduled for removal
-in version 1.25).
-
-Creating a workload in a namespace also grants indirect access to Secrets in that namespace. 
-Creating a pod in kube-system or a similarly privileged namespace can grant a user access to 
-Secrets they would not have through RBAC directly.
+For these reasons, namespaces should be used to separate resources requiring different levels of
+trust or tenancy. It is still considered best practice to follow [least privilege](#least-privilege)
+principles and assign the minimum set of permissions, but boundaries within a namespace should be
+considered weak.
 
 ### Persistent volume creation
 
@@ -186,4 +186,3 @@ to limit the quantity of objects which can be created.
 ## {{% heading "whatsnext" %}}
 
 * To learn more about RBAC, see the [RBAC documentation](/docs/reference/access-authn-authz/rbac/).
-
