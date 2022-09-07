@@ -210,65 +210,42 @@ Service account bearer tokens are perfectly valid to use outside the cluster and
 can be used to create identities for long standing jobs that wish to talk to the
 Kubernetes API. To manually create a service account, use the `kubectl create
 serviceaccount (NAME)` command. This creates a service account in the current
-namespace and an associated secret.
+namespace.
 
 ```bash
 kubectl create serviceaccount jenkins
 ```
 
 ```none
-serviceaccount "jenkins" created
+serviceaccount/jenkins created
 ```
 
-Check an associated secret:
+Create an associated token:
 
 ```bash
-kubectl get serviceaccounts jenkins -o yaml
+kubectl create token jenkins
 ```
 
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  # ...
-secrets:
-- name: jenkins-token-1yvwg
+```none
+eyJhbGciOiJSUzI1NiIsImtp...
 ```
 
-The created secret holds the public CA of the API server and a signed JSON Web
-Token (JWT).
-
-```bash
-kubectl get secret jenkins-token-1yvwg -o yaml
-```
-
-```yaml
-apiVersion: v1
-data:
-  ca.crt: (APISERVER'S CA BASE64 ENCODED)
-  namespace: ZGVmYXVsdA==
-  token: (BEARER TOKEN BASE64 ENCODED)
-kind: Secret
-metadata:
-  # ...
-type: kubernetes.io/service-account-token
-```
-
-{{< note >}}
-Values are base64 encoded because secrets are always base64 encoded.
-{{< /note >}}
+The created token is a signed JSON Web Token (JWT).
 
 The signed JWT can be used as a bearer token to authenticate as the given service
 account. See [above](#putting-a-bearer-token-in-a-request) for how the token is included
-in a request.  Normally these secrets are mounted into pods for in-cluster access to
+in a request.  Normally these tokens are mounted into pods for in-cluster access to
 the API server, but can be used from outside the cluster as well.
 
 Service accounts authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
 and are assigned to the groups `system:serviceaccounts` and `system:serviceaccounts:(NAMESPACE)`.
 
-WARNING: Because service account tokens are stored in secrets, any user with
-read access to those secrets can authenticate as the service account. Be cautious
-when granting permissions to service accounts and read capabilities for secrets.
+{{< warning >}}
+Because service account tokens can also be stored in Secret API objects, any user with
+write access to Secrets can request a token, and any user with read access to those 
+Secrets can authenticate as the service account. Be cautious when granting permissions
+to service accounts and read or write capabilities for Secrets.
+{{< /warning >}}
 
 ### OpenID Connect Tokens
 
