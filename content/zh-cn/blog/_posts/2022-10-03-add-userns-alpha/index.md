@@ -150,7 +150,10 @@ You can also contact us directly:
 你可以通过多种方式访问 SIG Node：
 - Slack: [#sig-node](https://kubernetes.slack.com/messages/sig-node)
 - [邮件类标](https://groups.google.com/forum/#!forum/kubernetes-sig-node)
+
 - [Open Community Issues/PRs](https://github.com/kubernetes/community/labels/sig%2Fnode)
 
 你也可以直接联系我们：
 - GitHub / Slack: @rata @giuseppe
+
+- [Open Community Issues/PRs](https://github.com/kubernetes/community/labels/sig%2Fnode)
