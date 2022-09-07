@@ -266,6 +266,36 @@ When you create the manifest for a Pod object, make sure the name specified is a
 当你为 Pod 对象创建清单时，要确保所指定的 Pod 名称是合法的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
+<!-- 
+### Pod OS
+
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
+
+You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the OS on which you want the pod to run. These two are the only operating systems supported for now by Kubernetes. In future, this list may be expanded.
+
+In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
+effect on {{< glossary_tooltip text="scheduling" term_id="kube-scheduler" >}} of the pods.
+Setting the `.spec.os.name` helps to identify the pod OS
+authoratitively and is used for validation. The kubelet refuses to run a Pod where you have
+specified a Pod OS, if this isn't the same as the operating system for the node where
+that kubelet is running.
+The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
+field to avoid enforcing policies that aren't relevant to that operating system.  
+-->
+### Pod 操作系统   {#pod-os}
+
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
+
+你应该将 `.spec.os.name` 字段设置为 `windows` 或 `linux` 以表示你希望 Pod 运行在哪个操作系统之上。
+这两个是 Kubernetes 目前支持的操作系统。将来，这个列表可能会被扩充。
+
+在 Kubernetes v{{< skew currentVersion >}} 中，为此字段设置的值对 Pod
+的{{<glossary_tooltip text="调度" term_id="kube-scheduler" >}}没有影响。
+设置 `. spec.os.name` 有助于确定性地标识 Pod 的操作系统并用于验证。
+如果你指定的 Pod 操作系统与运行 kubelet 所在节点的操作系统不同，
+那么 kubelet 将会拒绝运行该 Pod。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)也使用这个字段来避免强制执行与该操作系统无关的策略。
+
 <!--
 ### Pods and controllers
 
