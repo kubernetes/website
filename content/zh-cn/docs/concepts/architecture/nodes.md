@@ -875,9 +875,8 @@ these pods will be stuck in terminating status on the shutdown node forever.
 如果原来的已关闭节点没有被恢复，那些在已关闭节点上的 Pod 将永远滞留在终止状态。
 
 <!--
-To mitigate the above situation, a  user can manually add the taint `node 
-kubernetes.io/out-of-service` with either `NoExecute` or `NoSchedule` effect to 
-a Node marking it out-of-service. 
+To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute` 
+or `NoSchedule` effect to a Node marking it out-of-service. 
 If the `NodeOutOfServiceVolumeDetach`  [feature gate](/docs/reference/
 command-line-tools-reference/feature-gates/) is enabled on
 `kube-controller-manager`, and a Node is marked out-of-service with this taint, the 
