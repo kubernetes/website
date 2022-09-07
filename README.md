@@ -29,9 +29,16 @@ cd website
 
 The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme). Even if you plan to run the website in a container, we strongly recommend pulling in the submodule and other development dependencies by running the following:
 
-```bash
+### Windows
+```powershell
 # pull in the Docsy submodule
 git submodule update --init --recursive --depth 1
+```
+
+### Linux
+```bash
+# fetch all the dependencies
+make module-init
 ```
 
 ## Running the website using a container
