@@ -244,7 +244,6 @@ kubectl get secrets
 ```
 ```
 NAME                  TYPE                                  DATA      AGE
-default-token-il9rc   kubernetes.io/service-account-token   1         1d
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
 And also the configmap:
@@ -291,7 +290,6 @@ kubectl get secrets
 ```
 ```
 NAME                  TYPE                                  DATA      AGE
-default-token-il9rc   kubernetes.io/service-account-token   1         1d
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
 
