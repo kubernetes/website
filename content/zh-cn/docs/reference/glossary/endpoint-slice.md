@@ -10,9 +10,7 @@ aka:
 tags:
 - networking
 ---
-
 <!--
----
 title: EndpointSlice
 id: endpoint-slice
 date: 2018-04-12
