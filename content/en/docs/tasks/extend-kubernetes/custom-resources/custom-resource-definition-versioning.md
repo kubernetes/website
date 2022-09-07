@@ -1053,12 +1053,12 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
 3.  Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 
 {{< note >}}
-The flag `--subresource` is added to get, patch, edit and replace with kubectl commands to 
-fetch and update `status` and `scale` subresources of all the API resources that support 
-these subresources. It is applicable for kubectl version v1.24 or more. Previously fetching 
-subresources (like status) of API objects via kubectl involved using `kubectl --raw`, and 
-patching subresources using kubectl is not possible at all and requires using curl directly, 
-this method was not user-friendly. So from now, onwards `kubectl` tool can be used to edit or 
+The flag `--subresource` is used with the kubectl get, patch, edit, and replace commands to
+fetch and update the subresources, `status` and `scale`, for all the API resources that
+support them. It is applicable for kubectl version v1.24 or higher. Previously fetching
+subresources (like status) of API objects via kubectl involved using `kubectl --raw`, and
+patching subresources using kubectl was not possible at all and required using curl directly.
+This was not user-friendly. From v1.24, onwards `kubectl` tool can be used to edit or
 patch the `status` subresource on a CRD. See [How to patch deployment by using subresource flag](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/#scale-kubectl-patch).
 
 This page is part of the documentation for Kubernetes v{{< skew currentVersion >}}. If you are running a different version of Kubernetes, consult the documentation for that release.
