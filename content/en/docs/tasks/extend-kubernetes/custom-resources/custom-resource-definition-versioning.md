@@ -1055,15 +1055,15 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
 {{< note >}}
 The flag `--subresource` is used with the kubectl get, patch, edit, and replace commands to
 fetch and update the subresources, `status` and `scale`, for all the API resources that
-support them. It is applicable for kubectl version v1.24 or higher. Previously fetching
-subresources (like status) of API objects via kubectl involved using `kubectl --raw`, and
-patching subresources using kubectl was not possible at all and required using curl directly.
-This was not user-friendly. From v1.24, onwards `kubectl` tool can be used to edit or
-patch the `status` subresource on a CRD. See [How to patch deployment by using subresource flag](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/#scale-kubectl-patch).
+support them. This flag is available starting from kubectl version v1.24. Previously, reading
+subresources (like `status`) via kubectl involved using `kubectl --raw`, and updating
+subresources using kubectl was not possible at all. Starting from v1.24, the `kubectl` tool
+can be used to edit or patch the `status` subresource on a CRD object. See [How to patch a Deployment using the subresource flag](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/#scale-kubectl-patch).
 
-This page is part of the documentation for Kubernetes v{{< skew currentVersion >}}. If you are running a different version of Kubernetes, consult the documentation for that release.
+This page is part of the documentation for Kubernetes v{{< skew currentVersion >}}.
+If you are running a different version of Kubernetes, consult the documentation for that release.
 
-Here is an example of how to patch the `status` subresource for the CRD, using `kubectl`:
+Here is an example of how to patch the `status` subresource for a CRD object using `kubectl`:
 ```bash
 kubectl patch customresourcedefinitions <CRD_Name> --subresource='status' --type='merge' -p '{"status":{"storedVersions":["v1"]}}'
 ```
