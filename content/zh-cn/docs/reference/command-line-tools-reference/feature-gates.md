@@ -174,8 +174,7 @@ different Kubernetes components.
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
 | `KubeletTracing` | `false` | Alpha | 1.25 | |
-| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | 1.24 |
-| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `true` | Beta | 1.25 | |
+| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
 | `MatchLabelKeysInPodTopologySpread` | `false` | Alpha | 1.25 | |
@@ -731,10 +730,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/traces-for-kubernetes-system-components) for more details.
 -->
 - `APIListChunking`：启用 API 客户端以块的形式从 API 服务器检索（“LIST” 或 “GET”）资源。
-- `APIPriorityAndFairness`: 在每个服务器上启用优先级和公平性来管理请求并发（由 `RequestManagement` 重命名而来）。
+- `APIPriorityAndFairness`：在每个服务器上启用优先级和公平性来管理请求并发（由 `RequestManagement` 重命名而来）。
 - `APIResponseCompression`：压缩 “LIST” 或 “GET” 请求的 API 响应。
 - `APIServerIdentity`：为集群中的每个 API 服务器赋予一个 ID。
-- `APIServerTracing`: 为集群中的每个 API 服务器添加对分布式跟踪的支持。
+- `APIServerTracing`：为集群中的每个 API 服务器添加对分布式跟踪的支持。
   参阅[针对 Kubernetes 系统组件的追踪](/zh-cn/docs/concepts/cluster-administration/system-traces/)获取更多详细信息。
 <!--
 - `Accelerators`: Provided an early form of plugin to enable Nvidia GPU support when using
@@ -758,7 +757,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `AffinityInAnnotations`：启用 [Pod 亲和或反亲和](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)。
 - `AllowExtTrafficLocalEndpoints`：启用服务用于将外部请求路由到节点本地终端。
 - `AllowInsecureBackendProxy`：允许用户在执行 Pod 日志访问请求时跳过 TLS 验证。
-- `AnyVolumeDataSource`: 允许使用任何自定义的资源来做作为
+- `AnyVolumeDataSource`：允许使用任何自定义的资源来做作为
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}} 中的 `DataSource`。
 - `AppArmor`：在 Linux 节点上为 Pod 启用 AppArmor 机制的强制访问控制。
   请参见 [AppArmor 教程](/zh-cn/docs/tutorials/security/apparmor/)获取详细信息。
@@ -803,7 +802,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   查看[绑定服务账号令牌](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)获取更多详细信息。
 - `CheckpointContainer`：启用 kubelet `checkpoint` API。
   参阅 [Kubelet Checkpoint API](/zh-cn/docs/reference/node/kubelet-checkpoint-api/) 获取更多详细信息。
-- `ControllerManagerLeaderMigration`: 为
+- `ControllerManagerLeaderMigration`：为
   [kube-controller-manager](/zh-cn/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) 和
   [cloud-controller-manager](/zh-cn/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager)
   启用 Leader 迁移，它允许集群管理者在没有停机的高可用集群环境下，实时把 kube-controller-manager
@@ -829,7 +828,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CPUManagerPolicyBetaOptions`：允许对 CPUManager 策略进行微调，针对试验性的、Beta 质量级别的选项。
   此特性门控用来保护一组质量级别为 Beta 的 CPUManager 选项。
   此特性门控永远不会被升级为稳定版本。
-- `CPUManagerPolicyOptions`: 允许微调 CPU 管理策略。
+- `CPUManagerPolicyOptions`：允许微调 CPU 管理策略。
 <!--
 - `CRIContainerLogRotation`: Enable container log rotation for CRI container runtime.
   The default max size of a log file is 10MB and the default max number of
@@ -1011,15 +1010,15 @@ Each feature gate is designed for enabling/disabling a specific feature:
   of the `InTreePluginvSphereUnregister` feature flag which prevents the
   registration of in-tree vsphere plugin.
 -->
-- `CSIMigrationvSphere`: 允许封装和转换逻辑将卷操作从 vSphere 内嵌插件路由到
+- `CSIMigrationvSphere`：允许封装和转换逻辑将卷操作从 vSphere 内嵌插件路由到
   vSphere CSI 插件。如果节点禁用了此特性门控或者未安装和配置 vSphere CSI 插件，
   则支持回退到 vSphere 内嵌插件来执行挂载操作。
   不支持回退到内嵌插件来执行制备操作，因为对应的 CSI 插件必须已安装且正确配置。
   这需要启用 CSIMigration 特性标志。
-- `CSIMigrationvSphereComplete`: 停止在 kubelet 和卷控制器中注册 vSphere 内嵌插件，
+- `CSIMigrationvSphereComplete`：停止在 kubelet 和卷控制器中注册 vSphere 内嵌插件，
   并启用填充和转换逻辑以将卷操作从 vSphere 内嵌插件路由到 vSphere CSI 插件。
   这需要启用 CSIMigration 和 CSIMigrationvSphere 特性标志，并在集群中的所有节点上安装和配置
-  vSphere CSI 插件。该特性标志已被废弃，取而代之的是能防止注册内嵌 vsphere 插件的
+  vSphere CSI 插件。该特性标志已被废弃，取而代之的是能防止注册内嵌 vSphere 插件的
   `InTreePluginvSphereUnregister` 特性标志。
 <!--
 - `CSIMigrationPortworx`: Enables shims and translation logic to route volume operations
@@ -1049,11 +1048,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CSIPersistentVolume`：启用发现和挂载通过
   [CSI（容器存储接口）](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)
   兼容卷插件配置的卷。
-- `CSIServiceAccountToken`: 允许 CSI 驱动接收挂载卷目标 Pods 的服务账户令牌。
+- `CSIServiceAccountToken`：允许 CSI 驱动接收挂载卷目标 Pods 的服务账户令牌。
   参阅[令牌请求（Token Requests）](https://kubernetes-csi.github.io/docs/token-requests.html)。
-- `CSIStorageCapacity`: 使 CSI 驱动程序可以发布存储容量信息，并使 Kubernetes
-  调度程序在调度 Pod 时使用该信息。参见
-  [存储容量](/zh-cn/docs/concepts/storage/storage-capacity/)。
+- `CSIStorageCapacity`：使 CSI 驱动程序可以发布存储容量信息，并使 Kubernetes
+  调度程序在调度 Pod 时使用该信息。参见[存储容量](/zh-cn/docs/concepts/storage/storage-capacity/)。
   详情请参见 [`csi` 卷类型](/zh-cn/docs/concepts/storage/volumes/#csi)。
 <!--
 - `CSIVolumeFSGroupPolicy`: Allows CSIDrivers to use the `fsGroupPolicy` field.
@@ -1131,7 +1129,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CustomResourceWebhookConversion`：对于用
   [CustomResourceDefinition](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
   创建的资源启用基于 Webhook 的转换。
-- `DaemonSetUpdateSurge`: 使 DaemonSet 工作负载在每个节点的更新期间保持可用性。
+- `DaemonSetUpdateSurge`：使 DaemonSet 工作负载在每个节点的更新期间保持可用性。
   参阅[对 DaemonSet 执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)。
 <!--
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
@@ -1144,16 +1142,14 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DisableAcceleratorUsageMetrics`:
   [Disable accelerator metrics collected by the kubelet](/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics).
 -->
-- `DefaultPodTopologySpread`: 启用 `PodTopologySpread` 调度插件来完成
-  [默认的调度传播](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints).
-- `DelegateFSGroupToCSIDriver`: 如果 CSI 驱动程序支持，则通过 NodeStageVolume 和
-  NodePublishVolume CSI 调用传递 `fsGroup` ，将应用 `fsGroup` 从 Pod 的
+- `DefaultPodTopologySpread`：启用 `PodTopologySpread` 调度插件来完成
+  [默认的调度传播](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)。
+- `DelegateFSGroupToCSIDriver`：如果 CSI 驱动程序支持，则通过 NodeStageVolume 和
+  NodePublishVolume CSI 调用传递 `fsGroup`，将应用 `fsGroup` 从 Pod 的
   `securityContext` 的角色委托给驱动。
-- `DevicePlugins`：在节点上启用基于
-  [设备插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
-  的资源制备。
-- `DisableAcceleratorUsageMetrics`： 
-  [禁用 kubelet 收集加速器指标](/zh-cn/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics).
+- `DevicePlugins`：在节点上启用基于[设备插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)的资源制备。
+- `DisableAcceleratorUsageMetrics`：
+  [禁用 kubelet 收集加速器指标](/zh-cn/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics)。
 <!--
 - `DisableCloudProviders`: Disables any functionality in `kube-apiserver`,
   `kube-controller-manager` and `kubelet` related to the `--cloud-provider`
@@ -1166,15 +1162,14 @@ Each feature gate is designed for enabling/disabling a specific feature:
   so that validation, merging, and mutation can be tested without committing.
 - `DynamicAuditing`: Used to enable dynamic auditing before v1.19.
 -->
-- `DisableCloudProviders`: 禁用 `kube-apiserver`，`kube-controller-manager` 和
+- `DisableCloudProviders`：禁用 `kube-apiserver`，`kube-controller-manager` 和
   `kubelet` 组件的 `--cloud-provider` 标志相关的所有功能。
 - `DisableKubeletCloudCredentialProviders`：禁用 kubelet 中为拉取镜像内置的凭据机制，
   该凭据用于向某云提供商的容器镜像仓库执行身份认证。
-- `DownwardAPIHugePages`：允许在
-  [下行（Downward）API](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information)
+- `DownwardAPIHugePages`：
+  允许在[下行（Downward）API](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information)
   中使用巨页信息。
-- `DryRun`：启用在服务器端对请求进行
-  [试运行（Dry Run）](/zh-cn/docs/reference/using-api/api-concepts/#dry-run)，
+- `DryRun`：启用在服务器端对请求进行[试运行（Dry Run）](/zh-cn/docs/reference/using-api/api-concepts/#dry-run)，
   以便测试验证、合并和修改，同时避免提交更改。
 - `DynamicAuditing`：在 v1.19 版本前用于启用动态审计。
 <!--
@@ -1258,17 +1253,17 @@ Each feature gate is designed for enabling/disabling a specific feature:
   so that their [scheduling is guaranteed](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
   This feature is deprecated by Pod Priority and Preemption as of v1.13.
 -->
-- `ExpandCSIVolumes`: 启用扩展 CSI 卷。
-- `ExpandedDNSConfig`: 在 kubelet 和 kube-apiserver 上启用后，
+- `ExpandCSIVolumes`：启用扩展 CSI 卷。
+- `ExpandedDNSConfig`：在 kubelet 和 kube-apiserver 上启用后，
   允许使用更多的 DNS 搜索域和搜索域列表。此功能特性需要容器运行时
-  （Containerd：v1.5.6 或更高，CRI-O：v1.22 或更高）的支持。参阅
-  [扩展 DNS 配置](/zh-cn/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration).
-- `ExpandInUsePersistentVolumes`：启用扩充使用中的 PVC 的尺寸。请查阅
-  [调整使用中的 PersistentVolumeClaim 的大小](/zh-cn/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)。
-- `ExpandPersistentVolumes`：允许扩充持久卷。请查阅
-  [扩展持久卷申领](/zh-cn/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)。
-- `ExperimentalCriticalPodAnnotation`：启用将特定 Pod 注解为 **critical** 的方式，用于
-  [确保其被调度](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。
+  （Containerd：v1.5.6 或更高，CRI-O：v1.22 或更高）的支持。
+  参阅[扩展 DNS 配置](/zh-cn/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration).
+- `ExpandInUsePersistentVolumes`：启用扩充使用中的 PVC 的尺寸。
+  请查阅[调整使用中的 PersistentVolumeClaim 的大小](/zh-cn/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)。
+- `ExpandPersistentVolumes`：允许扩充持久卷。
+  请查阅[扩展持久卷申领](/zh-cn/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)。
+- `ExperimentalCriticalPodAnnotation`：启用将特定 Pod 注解为 **critical** 的方式，
+  用于[确保其被调度](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。
   从 v1.13 开始已弃用此特性，转而使用 Pod 优先级和抢占功能。
 <!--
 - `ExperimentalHostUserNamespaceDefaulting`: Enabling the defaulting user
@@ -1318,7 +1313,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   参阅[配置活跃态、就绪态和启动探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)。
 - `HonorPVReclaimPolicy`：无论 PV 和 PVC 的删除顺序如何，当持久卷申领的策略为 `Delete`
   时，确保这种策略得到处理。
-  更多详细信息，请参阅 [PersistentVolume 删除保护 finalizer](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolume-deletion-protection-finalizer)文档。
+  更多详细信息，请参阅 [PersistentVolume 删除保护 finalizer](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolume-deletion-protection-finalizer) 文档。
 <!--
 - `HPAContainerMetrics`: Enable the `HorizontalPodAutoscaler` to scale based on
   metrics from individual containers in target pods.
@@ -1332,14 +1327,13 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)
   for Windows containers.
 -->
-- `HPAContainerMetrics`：允许 `HorizontalPodAutoscaler` 基于目标 Pods 中各容器
-  的度量值来执行扩缩操作。
+- `HPAContainerMetrics`：允许 `HorizontalPodAutoscaler` 基于目标 Pods 中各容器的度量值来执行扩缩操作。
 - `HPAScaleToZero`：使用自定义指标或外部指标时，可将 `HorizontalPodAutoscaler`
   资源的 `minReplicas` 设置为 0。
-- `HugePages`：启用分配和使用预分配的
-  [巨页资源](/zh-cn/docs/tasks/manage-hugepages/scheduling-hugepages/)。
-- `HugePageStorageMediumSize`：启用支持多种大小的预分配
-  [巨页资源](/zh-cn/docs/tasks/manage-hugepages/scheduling-hugepages/)。
+- `HugePages`：
+  启用分配和使用预分配的[巨页资源](/zh-cn/docs/tasks/manage-hugepages/scheduling-hugepages/)。
+- `HugePageStorageMediumSize`：
+  启用支持多种大小的预分配[巨页资源](/zh-cn/docs/tasks/manage-hugepages/scheduling-hugepages/)。
 - `HyperVContainer`：为 Windows 容器启用
   [Hyper-V 隔离](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)。
 <!--
@@ -1373,9 +1367,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `IngressClassNamespacedParams`：允许在 `IngressClass` 资源中使用命名空间范围的参数引用。
   此功能为 `IngressClass.spec.parameters` 添加了两个字段 - `scope` 和 `namespace`。
 - `Initializers`：允许使用 Intializers 准入插件来异步协调对象创建操作。
-- `InTreePluginAWSUnregister`: 在 kubelet 和卷控制器上关闭注册 aws-ebs 内嵌插件。
-- `InTreePluginAzureDiskUnregister`: 在 kubelet 和卷控制器上关闭注册 azuredisk 内嵌插件。
-- `InTreePluginAzureFileUnregister`: 在 kubelet 和卷控制器上关闭注册 azurefile 内嵌插件。
+- `InTreePluginAWSUnregister`：在 kubelet 和卷控制器上关闭注册 aws-ebs 内嵌插件。
+- `InTreePluginAzureDiskUnregister`：在 kubelet 和卷控制器上关闭注册 azuredisk 内嵌插件。
+- `InTreePluginAzureFileUnregister`：在 kubelet 和卷控制器上关闭注册 azurefile 内嵌插件。
 <!--
 - `InTreePluginGCEUnregister`: Stops registering the gce-pd in-tree plugin in kubelet
   and volume controllers.
@@ -1386,10 +1380,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `InTreePluginRBDUnregister`: Stops registering the RBD in-tree plugin in kubelet
   and volume controllers.
 -->
-- `InTreePluginGCEUnregister`: 在 kubelet 和卷控制器上关闭注册 gce-pd 内嵌插件。
-- `InTreePluginOpenStackUnregister`: 在 kubelet 和卷控制器上关闭注册 OpenStack cinder 内嵌插件。
-- `InTreePluginPortworxUnregister`: 在 kubelet 和卷控制器上关闭注册 Portworx 内嵌插件。
-- `InTreePluginRBDUnregister`: 在 kubelet 和卷控制器上关闭注册 RBD 内嵌插件。
+- `InTreePluginGCEUnregister`：在 kubelet 和卷控制器上关闭注册 gce-pd 内嵌插件。
+- `InTreePluginOpenStackUnregister`：在 kubelet 和卷控制器上关闭注册 OpenStack cinder 内嵌插件。
+- `InTreePluginPortworxUnregister`：在 kubelet 和卷控制器上关闭注册 Portworx 内嵌插件。
+- `InTreePluginRBDUnregister`：在 kubelet 和卷控制器上关闭注册 RBD 内嵌插件。
 <!--
 - `InTreePluginvSphereUnregister`: Stops registering the vSphere in-tree plugin in kubelet
   and volume controllers.
@@ -1401,7 +1395,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `Initializers`: Allow asynchronous coordination of object creation using the
   Initializers admission plugin.
 -->
-- `InTreePluginvSphereUnregister`: 在 kubelet 和卷控制器上关闭注册 vSphere 内嵌插件。
+- `InTreePluginvSphereUnregister`：在 kubelet 和卷控制器上关闭注册 vSphere 内嵌插件。
 - `IndexedJob`：允许 [Job](/zh-cn/docs/concepts/workloads/controllers/job/)
   控制器根据完成索引来管理 Pod 完成。
 - `IngressClassNamespacedParams`：允许在 `IngressClass` 资源中引用命名空间范围的参数。
@@ -1438,12 +1432,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
   for more details.
 -->
-- `JobTrackingWithFinalizers`: 启用跟踪 [Job](/zh-cn/docs/concepts/workloads/controllers/job)
+- `JobTrackingWithFinalizers`：启用跟踪 [Job](/zh-cn/docs/concepts/workloads/controllers/job)
   完成情况，而不是永远从集群剩余 Pod 来获取信息判断完成情况。Job 控制器使用
   Pod finalizers 和 Job 状态中的一个字段来跟踪已完成的 Pod 以计算完成。
 - `KubeletConfigFile`：启用从使用配置文件指定的文件中加载 kubelet 配置。
-  有关更多详细信息，请参见
-  [通过配置文件设置 kubelet 参数](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
+  有关更多详细信息，
+  请参见[通过配置文件设置 kubelet 参数](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
 <!--
 - `KubeletCredentialProviders`: Enable kubelet exec credential providers for
   image pull credentials.
@@ -1454,8 +1448,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   to discover plugins such as [CSI volume drivers](/docs/concepts/storage/volumes/#csi).
 -->
 - `KubeletCredentialProviders`：允许使用 kubelet exec 凭据提供程序来设置镜像拉取凭据。
-- `KubeletInUserNamespace`: 支持在{{<glossary_tooltip text="用户名字空间" term_id="userns">}}
-  里运行 kubelet 。
+- `KubeletInUserNamespace`：支持在{{<glossary_tooltip text="用户名字空间" term_id="userns">}}里运行 kubelet。
   请参见[使用非 Root 用户来运行 Kubernetes 节点组件](/zh-cn/docs/tasks/administer-cluster/kubelet-in-userns/)。
 - `KubeletPluginsWatcher`：启用基于探针的插件监视应用程序，使 kubelet 能够发现类似
   [CSI 卷驱动程序](/zh-cn/docs/concepts/storage/volumes/#csi)这类插件。
@@ -1591,7 +1584,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `NodeOutOfServiceVolumeDetach`：当使用 `node.kubernetes.io/out-of-service`
   污点将节点标记为停止服务时，节点上不能容忍这个污点的 Pod 将被强制删除，
   并且该在节点上被终止的 Pod 将立即进行卷分离操作。
-- `NodeSwap`: 启用 kubelet 为节点上的 Kubernetes 工作负载分配交换内存的能力。
+- `NodeSwap`：启用 kubelet 为节点上的 Kubernetes 工作负载分配交换内存的能力。
   必须将 `KubeletConfiguration.failSwapOn` 设置为 false 的情况下才能使用。
   更多详细信息，请参见[交换内存](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
 - `NonPreemptingPriority`：为 PriorityClass 和 Pod 启用 `preemptionPolicy` 选项。
@@ -1675,7 +1668,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   有关更多信息，请参见[改进提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2238-liveness-probe-grace-period)。
 - `ProcMountType`：允许容器通过设置 SecurityContext 的 `procMount` 字段来控制对
   proc 文件系统的挂载方式。
-- `ProxyTerminatingEndpoints`: 当 `ExternalTrafficPolicy=Local` 时，
+- `ProxyTerminatingEndpoints`：当 `ExternalTrafficPolicy=Local` 时，
   允许 kube-proxy 来处理终止过程中的端点。
 - `PVCProtection`：当 PersistentVolumeClaim (PVC) 仍然在 Pod 使用时被删除，启用保护。
 - `QOSReserved`：允许在 QoS 级别进行资源预留，以防止处于较低 QoS 级别的 Pod
@@ -1856,8 +1849,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 -->
 - `StorageObjectInUseProtection`：如果仍在使用 PersistentVolume 或
   PersistentVolumeClaim 对象，则将其删除操作推迟。
-- `StorageVersionAPI`: 启用
-  [存储版本 API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageversion-v1alpha1-internal-apiserver-k8s-io)。
+- `StorageVersionAPI`：
+  启用[存储版本 API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageversion-v1alpha1-internal-apiserver-k8s-io)。
 - `StorageVersionHash`：允许 API 服务器在版本发现中公开存储版本的哈希值。
 - `StreamingProxyRedirects`：指示 API 服务器拦截（并跟踪）后端（kubelet）的重定向以处理流请求。
   流请求的例子包括 `exec`、`attach` 和 `port-forward` 请求。
@@ -1960,7 +1953,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WarningHeaders`：允许在 API 响应中发送警告头部。
 - `WatchBookmark`：启用对 watch 操作中 bookmark 事件的支持。
 - `WinDSR`：允许 kube-proxy 为 Windows 创建 DSR 负载均衡。
-- `WinOverlay`：允许在 Windows 的覆盖网络模式下运行 kube-proxy 。
+- `WinOverlay`：允许在 Windows 的覆盖网络模式下运行 kube-proxy。
 <!--
 - `WindowsEndpointSliceProxying`: When enabled, kube-proxy running on Windows
   will use EndpointSlices as the primary data source instead of Endpoints,
@@ -1973,11 +1966,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Configuring RunAsUserName](/docs/tasks/configure-pod-container/configure-runasusername)
   for more details.
 -->
-- `WindowsEndpointSliceProxying`: 当启用时，运行在 Windows 上的 kube-proxy
+- `WindowsEndpointSliceProxying`：当启用时，运行在 Windows 上的 kube-proxy
   将使用 EndpointSlices 而不是 Endpoints 作为主要数据源，从而实现可伸缩性和并改进性能。
   详情请参见[启用端点切片](/zh-cn/docs/concepts/services-networking/endpoint-slices/)。
 - `WindowsGMSA`：允许将 GMSA 凭据规范从 Pod 传递到容器运行时。
-- `WindowsHostProcessContainers`: 启用对 Windows HostProcess 容器的支持。
+- `WindowsHostProcessContainers`：启用对 Windows HostProcess 容器的支持。
 - `WindowsRunAsUserName`：提供使用非默认用户在 Windows 容器中运行应用程序的支持。
   详情请参见[配置 RunAsUserName](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername)。
 
