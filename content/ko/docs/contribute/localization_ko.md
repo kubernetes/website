@@ -260,6 +260,7 @@ beta | 베타 |
 Binding | 바인딩(Binding) | API 오브젝트인 경우
 boilerplate | 상용구 |
 Boot | 부트 |
+Bootstrap | 부트스트랩 |
 Build | 빌드 |
 Cache | 캐시 |
 Calico | 캘리코(Calico) |
@@ -321,6 +322,7 @@ extension | 익스텐션(extension) |
 Failed | Failed | 파드의 상태에 한함
 Federation | 페더레이션 |
 field | 필드 |
+finalizer | 파이널라이저(finalizer) |
 Flannel | 플란넬(Flannel) |
 form | 형식 |
 Google Compute Engine | Google Compute Engine |
@@ -379,10 +381,13 @@ NetworkPolicy | 네트워크폴리시(NetworkPolicy) | API 오브젝트인 경�
 Node | 노드(Node) | API 오브젝트인 경우
 node lease | 노드 리스(lease)
 Object | 오브젝트 |
+observability | 가시성(observability) |
+Operator | 오퍼레이터 | [쿠버네티스의 소프트웨어 익스텐션](https://kubernetes.io/ko/docs/concepts/extend-kubernetes/operator/)을 의미하는 경우
 Orchestrate | 오케스트레이션하다 |
 Output | 출력 |
 parameter | 파라미터 |
 patch | 패치 |
+payload | 페이로드(payload) |
 Pending | Pending | 파드, 클레임의 상태에 한함
 PersistentVolume | 퍼시스턴트볼륨(PersistentVolume) | API 오브젝트인 경우
 PersistentVolumeClaim | 퍼시스턴트볼륨클레임(PersistentVolumeClaim) | API 오브젝트인 경우
@@ -445,6 +450,7 @@ Session | 세션 |
 Session Affinity | 세션 어피니티(Affinity) |
 Setting | 세팅 |
 Shell | 셸 |
+sidecar | 사이드카(sidecar) |
 Sign In | 로그인 |
 Sign Out | 로그아웃 |
 skew | 차이(skew) |
@@ -462,6 +468,7 @@ Surge | 증가율 | 롤링업데이트 전략에 한함
 System | 시스템 |
 taint | 테인트(taint) |
 Task | 태스크 |
+telepresence | 텔레프레즌스(telepresence) |
 Terminated | Terminated | 파드의 상태에 한함
 TokenReview | 토큰리뷰(TokenReview) | API 오브젝트인 경우
 tolerations | 톨러레이션(toleration) |
