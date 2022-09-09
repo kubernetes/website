@@ -15,7 +15,7 @@ If you have questions about what's allowed, join the #sig-docs channel in
 You can register for Kubernetes Slack at https://slack.k8s.io/.
 
 For information on creating new content for the Kubernetes
-docs, follow the [style guide](https://github.com/kubernetes/website/content/en/docs/contribute/style/style-guide).
+docs, follow the [style guide](style-guide.md).
 
 
 
@@ -46,7 +46,7 @@ Kubernetes documentation includes applied examples of projects in the Kubernetes
 Links to active content in the Kubernetes project are always allowed.
 
 Kubernetes requires some third party content to function. Examples include container runtimes (containerd, CRI-O, Docker),
-[networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/), and [logging](/docs/concepts/cluster-administration/logging/).
+[networking policy](../../concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](../../concepts/services-networking/ingress-controllers/), and [logging](../../concepts/cluster-administration/logging/).
 
 Docs can link to third-party open source software (OSS) outside the Kubernetes project only if it's necessary for Kubernetes to function.
 
@@ -74,4 +74,4 @@ If you have questions about allowed content, join the [Kubernetes Slack](https:/
 ## {{% heading "whatsnext" %}}
 
 
-* Read the [Style guide](/docs/contribute/style/style-guide).
+* Read the [Style guide](style-guide.md).
