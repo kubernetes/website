@@ -677,7 +677,7 @@ PATCH /api/v1/namespaces/{name}
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -748,7 +748,7 @@ PATCH /api/v1/namespaces/{name}/status
 <!--
 - **force** (*in query*): boolean
 -->
-- **force** (**查询参数**): boolean
+- **force** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 

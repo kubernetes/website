@@ -154,7 +154,7 @@ Events 应被视为通知性质的、尽最大努力而提供的补充数据。
   <!--
   reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
   -->
-  reason 是采取行动的原因。它是人类可读的。对于新的 Event，此字段不能为空，且最多为128个字符。
+  reason 是采取行动的原因。它是人类可读的。对于新的 Event，此字段不能为空，且最多为 128 个字符。
 
 - **regarding** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 

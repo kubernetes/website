@@ -76,12 +76,12 @@ POST /api/v1/namespaces/{namespace}/bindings
 
 - **body**: <a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -94,12 +94,12 @@ POST /api/v1/namespaces/{namespace}/bindings
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 -->
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
@@ -115,12 +115,12 @@ POST /api/v1/namespaces/{namespace}/bindings
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -167,15 +167,15 @@ POST /api/v1/namespaces/{namespace}/pods/{name}/binding
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   Binding 的名称
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -194,20 +194,20 @@ POST /api/v1/namespaces/{namespace}/pods/{name}/binding
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 

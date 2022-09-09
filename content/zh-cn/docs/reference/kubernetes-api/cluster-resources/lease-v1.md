@@ -142,7 +142,10 @@ LeaseList 是 Lease 对象的列表。
 -->
    标准列表元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
+<!--
 - **items** ([]<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>), required
+-->
+- **items** ([]<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>)，必需
 
 <!--
   Items is a list of schema objects.
@@ -195,15 +198,15 @@ GET /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   Lease 名称
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)： string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -290,56 +293,56 @@ GET /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 #### 参数
 
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **allowWatchBookmarks** (**查询参数**): boolean
+- **allowWatchBookmarks** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
-- **watch** (**查询参数**): boolean
+- **watch** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -419,50 +422,50 @@ GET /apis/coordination.k8s.io/v1/leases
 #### 参数
 
 
-- **allowWatchBookmarks** (**查询参数**): boolean
+- **allowWatchBookmarks** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
-- **watch** (**查询参数**): boolean
+- **watch** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -477,7 +480,7 @@ GET /apis/coordination.k8s.io/v1/leases
 #### 响应
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-v1#LeaseList" >}}">LeaseList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-v1#LeaseList" >}}">LeaseList</a>)：OK
 
 401: Unauthorized
 
@@ -530,32 +533,32 @@ POST /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 #### 参数
 
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>，必需
 
   
 
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -574,11 +577,11 @@ POST /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 #### 响应
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>)：OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>)：Created
 
-202 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>)：Accepted
 
 401: Unauthorized
 
@@ -635,36 +638,36 @@ PUT /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 #### 参数
 
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   租贷名称
 
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>，必需
 
   
 
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -681,9 +684,9 @@ PUT /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 #### 响应
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>)：OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>)：Created
 
 401: Unauthorized
 
@@ -745,42 +748,42 @@ PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 #### 参数
 
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   租贷名称
 
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
   
 
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
-- **force** (**查询参数**): boolean
+- **force** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -797,9 +800,9 @@ PATCH /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 #### 响应
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>)：OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-v1#Lease" >}}">Lease</a>)：Created
 
 401: Unauthorized
 
@@ -856,12 +859,12 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 #### 参数
 
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   租贷的名称
 
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -871,22 +874,22 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
   
 
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
@@ -903,9 +906,9 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}
 #### 响应
 
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>)：OK
 
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>)：Accepted
 
 401: Unauthorized
 
@@ -992,7 +995,7 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 #### 参数
 
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1002,57 +1005,57 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
   
 
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
@@ -1067,7 +1070,7 @@ DELETE /apis/coordination.k8s.io/v1/namespaces/{namespace}/leases
 #### 响应
 
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>)：OK
 
 401: Unauthorized
 
