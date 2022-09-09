@@ -39,11 +39,6 @@ memory or CPU resources must be requested as well.
 A pod may consume multiple huge page sizes in a single pod spec. In this case it
 must use `medium: HugePages-<hugepagesize>` notation for all volume mounts.
 
-This Volume and VolumeMount are only necessary if your application
-requests huge pages with the `mmap` syscall and without the `MAP_HUGETLB` flag. If your
-application requests huge pages with `shmat`, `shmget`, or `mmap` with the
-`MAP_HUGETLB` flag then you do not need to add them.
-
 
 ```yaml
 apiVersion: v1
@@ -118,4 +113,5 @@ spec:
 - Huge page usage in a namespace is controllable via ResourceQuota similar
   to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
   token.
+- EmptyDir Volume/VolumeMount usage is not required if the pod consumes huge pages with `shmat`/`shmget` system calls or `mmap` with the `MAP_HUGETLB` flag.
 
