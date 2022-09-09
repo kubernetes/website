@@ -15,7 +15,7 @@ If you have questions about what's allowed, join the #sig-docs channel in
 You can register for Kubernetes Slack at https://slack.k8s.io/.
 
 For information on creating new content for the Kubernetes
-docs, follow the [style guide](/docs/contribute/style/style-guide).
+docs, follow the [style guide](/content/en/docs/contribute/style/style-guide).
 
 
 
