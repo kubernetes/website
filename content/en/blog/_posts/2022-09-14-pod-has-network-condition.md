@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes 1.25: PodHasNetwork condition for pods'
+title: 'Kubernetes 1.25: PodHasNetwork Condition for Pods'
 date: 2022-09-14
 slug: pod-has-network-condition
 ---
@@ -15,7 +15,7 @@ state of a pod from the perspective of pod sandbox creation and network
 configuration by a container runtime (typically in coordination with CNI
 plugins). The kubelet starts to pull container images and start individual
 containers (including init containers) after the status of the `PodHasNetwork`
-condition is set to `True`. Metrics collection services that report latency of
+condition is set to `"True"`. Metrics collection services that report latency of
 pod initialization from a cluster infrastructural perspective (i.e. agnostic of
 per container characteristics like image size or payload) can utilize the
 `PodHasNetwork` condition to accurately generate Service Level Indicators
@@ -29,7 +29,7 @@ The kubelet sets the status of the existing `Initialized` condition reported in
 the status field of a pod depending on the presence of init containers in a pod.
 
 If a pod specifies init containers, the status of the `Initialized` condition in
-the pod status will not be set to `True` until all init containers for the pod
+the pod status will not be set to `"True"` until all init containers for the pod
 have succeeded. However, init containers, configured by users, may have errors
 (payload crashing, invalid image, etc) and the number of init containers
 configured in a pod may vary across different workloads. Therefore,
@@ -37,19 +37,28 @@ cluster-wide, infrastructural SLIs around pod initialization cannot depend on
 the `Initialized` condition of pods.
 
 If a pod does not specify init containers, the status of the `Initialized`
-condition in the pod status is set to `True` very early in the lifecycle of the
-pod. This occurs before the kubelet initiates any pod runtime sandbox creation
-and network configuration steps. As a result, a pod without init containers will
-report the status of the `Initialized` condition as `True` even if the container
-runtime is not able to successfully initialize the pod sandbox environment.
+condition in the pod status is set to `"True"` very early in the lifecycle of
+the pod. This occurs before the kubelet initiates any pod runtime sandbox
+creation and network configuration steps. As a result, a pod without init
+containers will report the status of the `Initialized` condition as `"True"`
+even if the container runtime is not able to successfully initialize the pod
+sandbox environment.
 
 Relative to either situation above, the `PodHasNetwork` condition surfaces more
 accurate data around when the pod runtime sandbox was initialized with
 networking configured so that the kubelet can proceed to launch user-configured
 containers (including init containers) in the pod.
 
-Note that a node agent may dynamically re-configure network interface(s) for a
-pod by watching changes in pod annotations that specify additional networking
+### Special Cases
+
+If a pod specifies `hostNetwork` as `"True"`, the `PodHasNetwork` condition is
+set to `"True"` based on successful creation of the pod sandbox while the
+network configuration state of the pod sandbox is ignored. This is because the
+CRI implementation typically skips any pod sandbox network configuration when
+`hostNetwork` is set to `"True"` for a pod.
+
+A node agent may dynamically re-configure network interface(s) for a pod by
+watching changes in pod annotations that specify additional networking
 configuration (e.g. `k8s.v1.cni.cncf.io/networks`). Dynamic updates of pod
 networking configuration after the pod sandbox is initialized by Kubelet (in
 coordination with a container runtime) are not reflected by the `PodHasNetwork`
@@ -62,7 +71,7 @@ field of a pod, please enable the `PodHasNetworkCondition` feature gate on the
 kubelet.
 
 For a pod whose runtime sandbox has been successfully created and has networking
-configured, the kubelet will report the `PodHasNetwork` condition with status set to `True`:
+configured, the kubelet will report the `PodHasNetwork` condition with status set to `"True"`:
 
 ```
 $ kubectl describe pod nginx1
@@ -80,7 +89,7 @@ Conditions:
 
 For a pod whose runtime sandbox has not been created yet (and networking not
 configured either), the kubelet will report the `PodHasNetwork` condition with
-status set to `False`:
+status set to `"False"`:
 
 ```
 $ kubectl describe pod nginx2
