@@ -33,7 +33,7 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 {{< note >}}
 As the features are in Alpha, prepare the Kubernetes cluster with the two
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled: `JobPodFailurePolicy` and `PodDisruptionsCondition`.
+enabled: `JobPodFailurePolicy` and `PodDisruptionConditions`.
 {{< /note >}}
 
 ## Using Pod failure policy to avoid unnecessary Pod retries
