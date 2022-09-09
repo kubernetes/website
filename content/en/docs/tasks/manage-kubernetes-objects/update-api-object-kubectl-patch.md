@@ -429,12 +429,12 @@ examples which supports these subresources.
 
 Here's a manifest for a Deployment that has two replicas:
 
-{{< codenew file="application/deployment-subresource.yaml" >}}
+{{< codenew file="application/deployment.yaml" >}}
 
 Create the Deployment:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/application/deployment-subresource.yaml
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 ```
 
 View the Pods associated with your Deployment:
@@ -447,20 +447,20 @@ In the output, you can see that Deployment has two Pods. For example:
 
 ```
 NAME                                READY   STATUS    RESTARTS   AGE
-subresource-demo-777d58f9d8-7wzff   1/1     Running   0          28s
-subresource-demo-777d58f9d8-fkf4l   1/1     Running   0          28s
+nginx-deployment-7fb96c846b-22567   1/1     Running   0          47s
+nginx-deployment-7fb96c846b-mlgns   1/1     Running   0          47s
 ```
 
 Now, patch that Deployment with `--subresource=[subresource-name]` flag:
 
 ```shell
-kubectl patch deployment subresource-demo --subresource='scale' --type='merge' -p '{"spec":{"replicas":3}}'
+kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":3}}'
 ```
 
 The output is:
 
 ```shell
-scale.autoscaling/subresource-demo patched
+scale.autoscaling/nginx-deployment patched
 ```
 
 View the Pods associated with your patched Deployment:
@@ -473,15 +473,15 @@ In the output, you can see one new pod is created, so now you have 3 running pod
 
 ```
 NAME                                READY   STATUS    RESTARTS   AGE
-subresource-demo-777d58f9d8-7wzff   1/1     Running   0          2m10s
-subresource-demo-777d58f9d8-fkf4l   1/1     Running   0          2m10s
-subresource-demo-777d58f9d8-v8cjk   1/1     Running   0          19s
+nginx-deployment-7fb96c846b-22567   1/1     Running   0          107s
+nginx-deployment-7fb96c846b-lxfr2   1/1     Running   0          14s
+nginx-deployment-7fb96c846b-mlgns   1/1     Running   0          107s
 ```
 
 View the patched Deployment:
 
 ```shell
-kubectl get deployment subresource-demo -o yaml
+kubectl get deployment nginx-deployment -o yaml
 ```
 
 ```yaml
