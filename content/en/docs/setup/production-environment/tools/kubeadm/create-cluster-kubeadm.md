@@ -122,7 +122,7 @@ on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
 with the default gateway to set the advertise address for this particular control-plane node's API server.
 To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
-must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
+must specify an IPv6 address, for example `--apiserver-advertise-address=2001:db8::101`
 
 To initialize the control-plane node run:
 
@@ -377,7 +377,7 @@ The output is similar to:
 ```
 
 {{< note >}}
-To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[2001:db8::101]:2073`.
 {{< /note >}}
 
 The output should look something like:
