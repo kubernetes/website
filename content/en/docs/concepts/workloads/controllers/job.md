@@ -703,7 +703,7 @@ mismatch.
 You can only configure a Pod failure policy for a Job if you have the
 `JobPodFailurePolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled in your cluster. Additionally, it is recommended
-to enable the `PodDisruptionsCondition` feature gate in order to be able to detect and handle
+to enable the `PodDisruptionConditions` feature gate in order to be able to detect and handle
 Pod disruption conditions in the Pod failure policy (see also:
 [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)). Both feature gates are
 available in Kubernetes v1.25.
