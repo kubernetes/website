@@ -207,7 +207,7 @@ IPv6用のセットアップのためには、サーチパスとname serverは�
 
 ```
 $ kubectl exec -it dns-example -- cat /etc/resolv.conf
-nameserver fd00:79:30::a
+nameserver 2001:db8:30::a
 search default.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
 ```
