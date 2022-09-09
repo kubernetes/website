@@ -198,7 +198,7 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
 
     - **rules.subjects.kind** (string)，必需
 
-      `kind` 标示其他字段中的哪个字段必须非空。必需。
+      `kind` 标示其他字段中的哪个字段必须非空。必需
 
     - **rules.subjects.group** (GroupSubject)
 
@@ -216,7 +216,7 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
       - **rules.subjects.group.name** (string)，必需
 
         name 是要匹配的用户组，或使用 `*` 匹配所有用户组。有关一些广为人知的组名，请参阅
-        https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go。必需。
+        https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go。必需
     
     <!--
     - **rules.subjects.serviceAccount** (ServiceAccountSubject)
@@ -248,7 +248,7 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
 
       - **rules.subjects.serviceAccount.namespace** (string)，必需
 
-        `namespace` 是要匹配的 ServiceAccount 对象的名字空间。必需。
+        `namespace` 是要匹配的 ServiceAccount 对象的名字空间。必需
     
     <!--
     - **rules.subjects.user** (UserSubject)
@@ -272,7 +272,7 @@ FlowSchemaSpec 描述 FlowSchema 的规约看起来是怎样的。
 
       - **rules.subjects.user.name** (string)，必需
 
-        `name` 是要匹配的用户名，可使用 `*` 匹配所有用户名。必需。
+        `name` 是要匹配的用户名，可使用 `*` 匹配所有用户名。必需
   
   <!--
   - **rules.nonResourceRules** ([]NonResourcePolicyRule)
@@ -575,11 +575,11 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
 
   FlowSchema 的名称
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -610,11 +610,11 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
 
   FlowSchema 的名称
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -652,43 +652,43 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 -->
 #### 参数
 
-- **allowWatchBookmarks** (**查询参数**): boolean
+- **allowWatchBookmarks** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-- **watch** (**查询参数**): boolean
+- **watch** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -723,19 +723,19 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 
 - **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -774,25 +774,25 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
 
   FlowSchema 的名称
 
 - **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -835,19 +835,19 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 
 - **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -885,29 +885,29 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
 
   FlowSchema 的名称
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (**查询参数**): boolean
+- **force** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -945,29 +945,29 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
 
   FlowSchema 的名称
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (**查询参数**): boolean
+- **force** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -1004,25 +1004,25 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
 
   FlowSchema 的名称
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
@@ -1066,47 +1066,47 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 

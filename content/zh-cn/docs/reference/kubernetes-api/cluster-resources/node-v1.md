@@ -120,7 +120,7 @@ NodeSpec 描述了创建节点时使用的属性。
       KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases. 
     -->
 
-    - **configSource.configMap.kubeletConfigKey** (string), 必需
+    - **configSource.configMap.kubeletConfigKey** (string)，必需
 
       kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
       该字段在所有情况下都是必需的。
@@ -131,18 +131,18 @@ NodeSpec 描述了创建节点时使用的属性。
       Name is the metadata.name of the referenced ConfigMap. This field is required in all cases. 
     -->
 
-    - **configSource.configMap.name** (string), 必需
+    - **configSource.configMap.name** (string)，必需
 
       name 是被引用的 ConfigMap 的 metadata.name。
       此字段在所有情况下都是必需的。
 
     <!-- 
-    - **configSource.configMap.namespace** (string), required
+    - **configSource.configMap.namespace** (string)，required
 
       Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases. 
     -->
 
-    - **configSource.configMap.namespace** (string), 必需
+    - **configSource.configMap.namespace** (string)，必需
 
       namespace 是所引用的 ConfigMap 的 metadata.namespace。
       此字段在所有情况下都是必需的。
@@ -220,7 +220,7 @@ NodeSpec 描述了创建节点时使用的属性。
     Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute. 
   -->
 
-  - **taints.effect** (string), 必需
+  - **taints.effect** (string)，必需
 
    必需的。污点对不容忍污点的 Pod 的影响。合法的 effect 值有 NoSchedule、PreferNoSchedule 和 NoExecute。
 
@@ -230,7 +230,7 @@ NodeSpec 描述了创建节点时使用的属性。
     Required. The taint key to be applied to a node.
   -->
 
-  - **taints.key** (string), 必需
+  - **taints.key** (string)，必需
 
     必需的。被应用到节点上的污点的键。
 
@@ -307,7 +307,7 @@ NodeStatus 是有关节点当前状态的信息。
     The node address. 
   -->
 
-  - **addresses.address** (string), 必需
+  - **addresses.address** (string)，必需
 
     节点地址。
 
@@ -317,7 +317,7 @@ NodeStatus 是有关节点当前状态的信息。
     Node address type, one of Hostname, ExternalIP or InternalIP. 
   -->
 
-  - **addresses.type** (string), 必需
+  - **addresses.type** (string)，必需
 
     节点地址类型，Hostname、ExternalIP 或 InternalIP 之一。
    
@@ -364,7 +364,7 @@ NodeStatus 是有关节点当前状态的信息。
     Status of the condition, one of True, False, Unknown.
   -->
 
-  - **conditions.status** (string), 必需
+  - **conditions.status** (string)，必需
 
     状况的状态为 True、False、Unknown 之一。
   
@@ -374,7 +374,7 @@ NodeStatus 是有关节点当前状态的信息。
     Type of node condition. 
   -->
 
-  - **conditions.type** (string), 必需
+  - **conditions.type** (string)，必需
 
     节点状况的类型。
 
@@ -479,7 +479,7 @@ NodeStatus 是有关节点当前状态的信息。
         KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases. 
       -->
 
-      - **config.active.configMap.kubeletConfigKey** (string), 必需
+      - **config.active.configMap.kubeletConfigKey** (string)，必需
 
         kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
         该字段在所有情况下都是必需的。
@@ -490,7 +490,7 @@ NodeStatus 是有关节点当前状态的信息。
         Name is the metadata.name of the referenced ConfigMap. This field is required in all cases. 
       -->
 
-      - **config.active.configMap.name** (string), 必需
+      - **config.active.configMap.name** (string)，必需
 
         name 是所引用的 ConfigMap 的 metadata.name。
         此字段在所有情况下都是必需的。
@@ -501,7 +501,7 @@ NodeStatus 是有关节点当前状态的信息。
         Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases. 
       -->
 
-      - **config.active.configMap.namespace** (string), 必需
+      - **config.active.configMap.namespace** (string)，必需
 
         namespace 是所引用的 ConfigMap 的 metadata.namespace。
         此字段在所有情况下都是必需的。
@@ -564,7 +564,7 @@ NodeStatus 是有关节点当前状态的信息。
         KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases. 
       -->
 
-      - **config.assigned.configMap.kubeletConfigKey** (string), 必需
+      - **config.assigned.configMap.kubeletConfigKey** (string)，必需
 
         kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
         该字段在所有情况下都是必需的。
@@ -575,7 +575,7 @@ NodeStatus 是有关节点当前状态的信息。
         Name is the metadata.name of the referenced ConfigMap. This field is required in all cases. 
       -->
 
-      - **config.assigned.configMap.name** (string), 必需
+      - **config.assigned.configMap.name** (string)，必需
 
         name 是所引用的 ConfigMap 的 metadata.name。
         此字段在所有情况下都是必需的。
@@ -586,7 +586,7 @@ NodeStatus 是有关节点当前状态的信息。
         Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases. 
       -->
 
-      - **config.assigned.configMap.namespace** (string), 必需
+      - **config.assigned.configMap.namespace** (string)，必需
 
         namespace 是所引用的 ConfigMap 的 metadata.namespace。
         此字段在所有情况下都是必需的。
@@ -667,7 +667,7 @@ NodeStatus 是有关节点当前状态的信息。
         KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases. 
       -->
 
-      - **config.lastKnownGood.configMap.kubeletConfigKey** (string), 必需
+      - **config.lastKnownGood.configMap.kubeletConfigKey** (string)，必需
 
         kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
         该字段在所有情况下都是必需的。
@@ -678,7 +678,7 @@ NodeStatus 是有关节点当前状态的信息。
         Name is the metadata.name of the referenced ConfigMap. This field is required in all cases. 
       -->
 
-      - **config.lastKnownGood.configMap.name** (string), 必需
+      - **config.lastKnownGood.configMap.name** (string)，必需
 
         name 是所引用的 ConfigMap 的 metadata.name。 
         此字段在所有情况下都是必需的。
@@ -689,7 +689,7 @@ NodeStatus 是有关节点当前状态的信息。
         Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases. 
       -->
 
-      - **config.lastKnownGood.configMap.namespace** (string), 必需
+      - **config.lastKnownGood.configMap.namespace** (string)，必需
 
        namespace 是所引用的 ConfigMap 的 metadata.namespace。 
        此字段在所有情况下都是必需的。
@@ -747,7 +747,7 @@ NodeStatus 是有关节点当前状态的信息。
       Port number of the given endpoint. 
     -->
 
-    - **daemonEndpoints.kubeletEndpoint.Port** (int32), 必需
+    - **daemonEndpoints.kubeletEndpoint.Port** (int32)，必需
 
       给定端点的端口号。
 
@@ -804,7 +804,7 @@ NodeStatus 是有关节点当前状态的信息。
     The Architecture reported by the node 
   -->
 
-  - **nodeInfo.architecture** (string), 必需
+  - **nodeInfo.architecture** (string)，必需
 
     节点报告的 architecture。
 
@@ -814,7 +814,7 @@ NodeStatus 是有关节点当前状态的信息。
     Boot ID reported by the node. 
   -->
 
-  - **nodeInfo.bootID** (string), 必需
+  - **nodeInfo.bootID** (string)，必需
 
    节点报告的 bootID。
 
@@ -824,7 +824,7 @@ NodeStatus 是有关节点当前状态的信息。
     ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2). 
   -->
 
-  - **nodeInfo.containerRuntimeVersion** (string), 必需
+  - **nodeInfo.containerRuntimeVersion** (string)，必需
 
     节点通过运行时远程 API 报告的 ContainerRuntime 版本（例如 containerd://1.4.2）。
 
@@ -834,7 +834,7 @@ NodeStatus 是有关节点当前状态的信息。
     Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64). 
   -->
 
-  - **nodeInfo.kernelVersion** (string), 必需
+  - **nodeInfo.kernelVersion** (string)，必需
 
     节点来自 “uname -r” 报告的内核版本（例如 3.16.0-0.bpo.4-amd64）。
 
@@ -844,7 +844,7 @@ NodeStatus 是有关节点当前状态的信息。
     KubeProxy Version reported by the node. 
   -->
 
-  - **nodeInfo.kubeProxyVersion** (string), 必需
+  - **nodeInfo.kubeProxyVersion** (string)，必需
 
     节点报告的 KubeProxy 版本。
 
@@ -854,7 +854,7 @@ NodeStatus 是有关节点当前状态的信息。
     Kubelet Version reported by the node. 
   -->
 
-  - **nodeInfo.kubeletVersion** (string), 必需
+  - **nodeInfo.kubeletVersion** (string)，必需
 
     节点报告的 Kubelet 版本。
 
@@ -864,7 +864,7 @@ NodeStatus 是有关节点当前状态的信息。
     MachineID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id: http://man7.org/linux/man-pages/man5/machine-id.5.html 
   -->
 
-  - **nodeInfo.machineID** (string), 必需
+  - **nodeInfo.machineID** (string)，必需
 
     节点上报的 machineID。
     对于集群中的唯一机器标识，此字段是首选。
@@ -876,7 +876,7 @@ NodeStatus 是有关节点当前状态的信息。
     The Operating System reported by the node 
   -->
 
-  - **nodeInfo.operatingSystem** (string), 必需
+  - **nodeInfo.operatingSystem** (string)，必需
 
    节点上报的操作系统。
 
@@ -886,7 +886,7 @@ NodeStatus 是有关节点当前状态的信息。
     OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)). 
   -->
 
-  - **nodeInfo.osImage** (string), 必需
+  - **nodeInfo.osImage** (string)，必需
 
     节点从 /etc/os-release 报告的操作系统映像（例如 Debian GNU/Linux 7 (wheezy)）。
 
@@ -896,7 +896,7 @@ NodeStatus 是有关节点当前状态的信息。
     SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid 
   -->
 
-  - **nodeInfo.systemUUID** (string), 必需
+  - **nodeInfo.systemUUID** (string)，必需
 
     节点报告的 systemUUID。
     对于唯一的机器标识 MachineID 是首选。 
@@ -932,7 +932,7 @@ NodeStatus 是有关节点当前状态的信息。
     DevicePath represents the device path where the volume should be available 
   -->
 
-   - **volumesAttached.devicePath** (string), 必需
+   - **volumesAttached.devicePath** (string)，必需
 
     devicePath 表示卷应该可用的设备路径。
 
@@ -942,7 +942,7 @@ NodeStatus 是有关节点当前状态的信息。
     Name of the attached volume 
   -->
 
-  - **volumesAttached.name** (string), 必需
+  - **volumesAttached.name** (string)，必需
 
     附加卷的名称。
 
@@ -983,7 +983,7 @@ NodeList 是已注册到 master 的所有节点的完整列表。
   List of nodes
 -->
 
-- **items** ([]<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>), 必需
+- **items** ([]<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>)，必需
 
   节点的列表。
 
@@ -1015,11 +1015,11 @@ GET /api/v1/nodes/{name}
 #### Response 
 -->
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   节点的名称。
 
-- **pretty** (**路径参数**): string
+- **pretty** (**路径参数**)： string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -1051,11 +1051,11 @@ GET /api/v1/nodes/{name}/status
 #### Response 
 -->
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   节点的名称。
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)： string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -1094,43 +1094,43 @@ GET /api/v1/nodes
 #### Response
 -->
 
-- **allowWatchBookmarks** (**查询参数**): boolean
+- **allowWatchBookmarks** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-- **watch** (**查询参数**): boolean
+- **watch** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -1164,21 +1164,20 @@ POST /api/v1/nodes
 #### Response 
 -->
 
-- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -1218,25 +1217,25 @@ PUT /api/v1/nodes/{name}
 #### Response 
 -->
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -1277,25 +1276,25 @@ PUT /api/v1/nodes/{name}/status
 #### Response 
 -->
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -1334,29 +1333,29 @@ PATCH /api/v1/nodes/{name}
 #### Response 
 -->
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (**查询参数**): boolean
+- **force** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -1395,29 +1394,29 @@ PATCH /api/v1/nodes/{name}/status
 #### Response 
 -->
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (**查询参数**): boolean
+- **force** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -1454,25 +1453,25 @@ DELETE /api/v1/nodes/{name}
 #### Response 
 -->
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string，必需
 
   节点的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
@@ -1516,47 +1515,47 @@ DELETE /api/v1/nodes
 #### Response
 -->
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
