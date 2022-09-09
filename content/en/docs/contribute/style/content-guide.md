@@ -46,7 +46,7 @@ Kubernetes documentation includes applied examples of projects in the Kubernetes
 Links to active content in the Kubernetes project are always allowed.
 
 Kubernetes requires some third party content to function. Examples include container runtimes (containerd, CRI-O, Docker),
-[networking policy](../../concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](../../concepts/services-networking/ingress-controllers/), and [logging](../../concepts/cluster-administration/logging/).
+[networking policy](../../concepts/extend-kubernetes/compute-storage-net/network-plugins.md) (CNI plugins), [Ingress controllers](../../concepts/services-networking/ingress-controllers.md), and [logging](../../concepts/cluster-administration/logging.md).
 
 Docs can link to third-party open source software (OSS) outside the Kubernetes project only if it's necessary for Kubernetes to function.
 
