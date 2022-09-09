@@ -62,7 +62,7 @@ kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .
 
 ```
 10.244.1.0/24
-a00:100::/24
+2001:db8::/64
 ```
 
 <!--
@@ -82,8 +82,8 @@ kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .
 
 ```
 Hostname: k8s-linuxpool1-34450317-0
-InternalIP: 10.240.0.5
-InternalIP: 2001:1234:5678:9abc::5
+InternalIP: 10.0.0.5
+InternalIP: 2001:db8:10::5
 ```
 
 <!--
@@ -102,7 +102,7 @@ kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{prin
 
 ```
 10.244.1.4
-a00:100::4
+2001:db8::4
 ```
 
 <!--
@@ -130,7 +130,7 @@ kubectl exec -it pod01 -- set | grep MY_POD_IPS
 ```
 
 ```
-MY_POD_IPS=10.244.1.4,a00:100::4
+MY_POD_IPS=10.244.1.4,2001:db8::4
 ```
 
 <!--
@@ -153,7 +153,7 @@ fe00::0    ip6-mcastprefix
 fe00::1    ip6-allnodes
 fe00::2    ip6-allrouters
 10.244.1.4    pod01
-a00:100::4    pod01
+2001:db8::4    pod01
 ```
 
 <!--
@@ -243,9 +243,9 @@ metadata:
     app.kubernetes.io/name: MyApp
   name: my-service
 spec:
-  clusterIP: fd00::5118
+  clusterIP: 2001:db8:fd00::5118
   clusterIPs:
-  - fd00::5118
+  - 2001:db8:fd00::5118
   ipFamilies:
   - IPv6
   ipFamilyPolicy: SingleStack
@@ -305,7 +305,7 @@ Type:              ClusterIP
 IP Family Policy:  PreferDualStack
 IP Families:       IPv4,IPv6
 IP:                10.0.216.242
-IPs:               10.0.216.242,fd00::af55
+IPs:               10.0.216.242,2001:db8:fd00::af55
 Port:              <unset>  80/TCP
 TargetPort:        9376/TCP
 Endpoints:         <none>
@@ -342,7 +342,6 @@ Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address 
 然后，你可以通过 IP 和端口验证对服务的访问。
 
 ```shell
-NAME         TYPE           CLUSTER-IP   EXTERNAL-IP        PORT(S)        AGE
-my-service   LoadBalancer   fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
+NAME         TYPE           CLUSTER-IP            EXTERNAL-IP        PORT(S)        AGE
+my-service   LoadBalancer   2001:db8:fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
 ```
-
