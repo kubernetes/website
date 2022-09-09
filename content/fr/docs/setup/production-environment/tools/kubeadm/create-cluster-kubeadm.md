@@ -127,7 +127,7 @@ une valeur spécifique au fournisseur. Voir [Installation d'un add-on réseau de
 avec la passerelle par défaut pour annoncer l’IP du master. Pour utiliser une autre
 interface réseau, spécifiez l'option `--apiserver-advertise-address=<ip-address>`
 à `kubeadm init`. Pour déployer un cluster Kubernetes en utilisant l’adressage IPv6, vous devez
- spécifier une adresse IPv6, par exemple `--apiserver-advertise-address=fd00::101`
+ spécifier une adresse IPv6, par exemple `--apiserver-advertise-address=2001:db8::101`
 1. (Optional) Lancez `kubeadm config images pull` avant de faire `kubeadm init` pour vérifier la
 connectivité aux registres gcr.io.
 
@@ -513,7 +513,7 @@ L'output est similaire à ceci:
 
 {{< note >}}
 Pour spécifier un tuple IPv6 pour `<maître-ip>: <maître-port>`, l'adresse IPv6 doit être placée
-entre crochets, par exemple: `[fd00 :: 101]: 2073`.{{< /note >}}
+entre crochets, par exemple: `[2001:db8 :: 101]: 2073`.{{< /note >}}
 
 Le resultat devrait ressembler à quelque chose comme:
 ```

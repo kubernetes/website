@@ -99,7 +99,7 @@ pada `kubeadm init`. Lihat [Menginstal _runtime_](/id/docs/setup/production-envi
 dengan _default gateway_ untuk mengatur alamat _advertise_ untuk API Server pada Node _control-plane_ ini.
 Untuk menggunakan antarmuka jaringan yang berbeda, tentukan argumen `--apiserver-advertise-address=<ip-address>` 
 pada `kubeadm init`. Untuk men-_deploy_ klaster Kubernetes IPv6 menggunakan pengalamatan IPv6, kamu
-harus menentukan alamat IPv6, sebagai contoh `--apiserver-advertise-address=fd00::101`
+harus menentukan alamat IPv6, sebagai contoh `--apiserver-advertise-address=2001:db8::101`
 5. (Opsional) Jalankan `kubeadm config images pull` sebelum `kubeadm init` untuk memastikan
 konektivitas ke _container image registry_ gcr.io.
 
@@ -453,7 +453,7 @@ Keluaran yang diberikan kurang lebih akan ditampilkan sebagai berikut:
 ```
 
 {{< note >}}
-Untuk menentukan _tuple_ IPv6 untuk `<control-plane-host>:<control-plane-port>`, alamat IPv6 harus be ditutup dengan kurung siku, sebagai contoh: `[fd00::101]:2073`.
+Untuk menentukan _tuple_ IPv6 untuk `<control-plane-host>:<control-plane-port>`, alamat IPv6 harus be ditutup dengan kurung siku, sebagai contoh: `[2001:db8::101]:2073`.
 {{< /note >}}
 
 Keluaran yang diberikan kurang lebih akan ditampilkan sebagai berikut:

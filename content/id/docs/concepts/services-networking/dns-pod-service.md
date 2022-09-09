@@ -243,7 +243,7 @@ kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
 Keluaran yang dihasilkan akan menyerupai:
 ```shell
-nameserver fd00:79:30::a
+nameserver 2001:db8:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```

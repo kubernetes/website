@@ -216,7 +216,7 @@ Pour la configuration IPv6, le chemin de recherche et le serveur de noms doivent
 
 ```
 $ kubectl exec -it exemple-dns -- cat /etc/resolv.conf
-nameserver fd00:79:30::a
+nameserver 2001:db8:30::a
 search default.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
 ```
