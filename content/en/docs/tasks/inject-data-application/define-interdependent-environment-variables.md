@@ -30,34 +30,34 @@ Pod:
 
 1. Create a Pod based on that manifest:
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/inject/dependent-envars.yaml
-    ```
-    ```
-    pod/dependent-envars-demo created
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/inject/dependent-envars.yaml
+   ```
+   ```
+   pod/dependent-envars-demo created
+   ```
 
 2. List the running Pods:
 
-    ```shell
-    kubectl get pods dependent-envars-demo
-    ```
-    ```
-    NAME                      READY     STATUS    RESTARTS   AGE
-    dependent-envars-demo     1/1       Running   0          9s
-    ```
+   ```shell
+   kubectl get pods dependent-envars-demo
+   ```
+   ```
+   NAME                      READY     STATUS    RESTARTS   AGE
+   dependent-envars-demo     1/1       Running   0          9s
+   ```
 
 3. Check the logs for the container running in your Pod:
 
-    ```shell
-    kubectl logs pod/dependent-envars-demo
-    ```
-    ```
+   ```shell
+   kubectl logs pod/dependent-envars-demo
+   ```
+   ```
 
-    UNCHANGED_REFERENCE=$(PROTOCOL)://172.17.0.1:80
-    SERVICE_ADDRESS=https://172.17.0.1:80
-    ESCAPED_REFERENCE=$(PROTOCOL)://172.17.0.1:80
-    ```
+   UNCHANGED_REFERENCE=$(PROTOCOL)://172.17.0.1:80
+   SERVICE_ADDRESS=https://172.17.0.1:80
+   ESCAPED_REFERENCE=$(PROTOCOL)://172.17.0.1:80
+   ```
 
 As shown above, you have defined the correct dependency reference of `SERVICE_ADDRESS`, bad dependency reference of `UNCHANGED_REFERENCE` and skip dependent references of `ESCAPED_REFERENCE`.
 
