@@ -1,6 +1,6 @@
 ---
 content_type: concept
-title: 调度 GPUs
+title: 调度 GPU
 description: 配置和调度 GPU 成一类资源以供集群中节点使用。
 ---
 <!--
@@ -76,7 +76,7 @@ when using GPUs:
 - Each container can request one or more GPUs. It is not possible to request a
   fraction of a GPU.
 -->
-- GPUs 只能设置在 `limits` 部分，这意味着：
+- GPU 只能设置在 `limits` 部分，这意味着：
   * 你可以指定 GPU 的 `limits` 而不指定其 `requests`，Kubernetes 将使用限制
     值作为默认的请求值；
   * 你可以同时指定 `limits` 和 `requests`，不过这两个值必须相等。
@@ -87,6 +87,8 @@ when using GPUs:
 <!--
 Here's an example:
 -->
+这里是一个例子：
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -111,27 +113,20 @@ has the following requirements:
 -->
 ### 部署 AMD GPU 设备插件   {#deploying-amd-gpu-device-plugin}
 
-[官方的 AMD GPU 设备插件](https://github.com/RadeonOpenCompute/k8s-device-plugin) 有以下要求：
+[官方的 AMD GPU 设备插件](https://github.com/RadeonOpenCompute/k8s-device-plugin)有以下要求：
 
 <!--
 - Kubernetes nodes have to be pre-installed with AMD GPU Linux driver.
 
 To deploy the AMD device plugin once your cluster is running and the above
 requirements are satisfied:
-```
-# For Kubernetes v1.9
-kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/r1.9/k8s-ds-amdgpu-dp.yaml
-
-# For Kubernetes v1.10
-kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/r1.10/k8s-ds-amdgpu-dp.yaml
-```
 -->
 - Kubernetes 节点必须预先安装 AMD GPU 的 Linux 驱动。
 
 如果你的集群已经启动并且满足上述要求的话，可以这样部署 AMD 设备插件：
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/r1.10/k8s-ds-amdgpu-dp.yaml
+kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/v1.10/k8s-ds-amdgpu-dp.yaml
 ```
 
 <!--
@@ -148,7 +143,7 @@ There are currently two device plugin implementations for NVIDIA GPUs:
 -->
 ### 部署 NVIDIA GPU 设备插件  {#deploying-nvidia-gpu-device-plugin}
 
-对于 NVIDIA GPUs，目前存在两种设备插件的实现：
+对于 NVIDIA GPU，目前存在两种设备插件的实现：
 
 <!--
 #### Official NVIDIA GPU device plugin
@@ -163,24 +158,32 @@ has the following requirements:
 <!--
 - Kubernetes nodes have to be pre-installed with NVIDIA drivers.
 - Kubernetes nodes have to be pre-installed with [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker)
-- nvidia-container-runtime must be configured as the [default runtime](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)
-  for docker instead of runc.
-- NVIDIA drivers ~= 361.93
+- Kubelet must use Docker as its container runtime
+- `nvidia-container-runtime` must be configured as the [default runtime](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)
+  for Docker, instead of runc.
+- The version of the NVIDIA drivers must match the constraint ~= 384.81.
 
 To deploy the NVIDIA device plugin once your cluster is running and the above
 requirements are satisfied:
 -->
 - Kubernetes 的节点必须预先安装了 NVIDIA 驱动
 - Kubernetes 的节点必须预先安装 [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker)
-- Docker 的[默认运行时](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)必须设置为 nvidia-container-runtime，而不是 runc
-- NVIDIA 驱动版本 ~= 384.81
+- Kubelet 的容器运行时必须使用 Docker
+- Docker 的[默认运行时](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)必须设置为
+  `nvidia-container-runtime`，而不是 `runc`。
+- NVIDIA 驱动程序的版本必须匹配 ~= 361.93
 
 如果你的集群已经启动并且满足上述要求的话，可以这样部署 NVIDIA 设备插件：
 
 ```shell
 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta4/nvidia-device-plugin.yml
 ```
-请到 [NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin)项目报告有关此设备插件的问题。
+
+<!--
+You can report issues with this third-party device plugin by logging an issue in
+[NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin).
+-->
+你可以通过在 [NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin) 中记录问题来报告此第三方设备插件的问题。
 
 <!--
 #### NVIDIA GPU device plugin used by GCE
@@ -195,6 +198,9 @@ and has experimental code for Ubuntu from 1.9 onwards.
 
 [GCE 使用的 NVIDIA GPU 设备插件](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu) 并不要求使用 nvidia-docker，并且对于任何实现了 Kubernetes CRI 的容器运行时，都应该能够使用。这一实现已经在 [Container-Optimized OS](https://cloud.google.com/container-optimized-os/) 上进行了测试，并且在 1.9 版本之后会有对于 Ubuntu 的实验性代码。
 
+<!--
+You can use the following commands to install the NVIDIA drivers and device plugin:
+-->
 你可以使用下面的命令来安装 NVIDIA 驱动以及设备插件：
 
 ```
@@ -209,13 +215,15 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/releas
 ```
 
 <!--
-Report issues with this device plugin and installation method to [GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators).
+You can report issues with using or deploying this third-party device plugin by logging an issue in
+[GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators).
 
 Google publishes its own [instructions](https://cloud.google.com/kubernetes-engine/docs/how-to/gpus) for using NVIDIA GPUs on GKE .
 -->
-请到 [GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators) 报告有关此设备插件以及安装方法的问题。
+你可以通过在 [GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators)
+中记录问题来报告使用或部署此第三方设备插件的问题。
 
-关于如何在 GKE 上使用 NVIDIA GPUs，Google 也提供自己的[指令](https://cloud.google.com/kubernetes-engine/docs/how-to/gpus)。
+关于如何在 GKE 上使用 NVIDIA GPU，Google 也提供自己的[指令](https://cloud.google.com/kubernetes-engine/docs/how-to/gpus)。
 
 <!--
 ## Clusters containing different types of GPUs
@@ -249,14 +257,14 @@ kubectl label nodes <node-with-p100> accelerator=nvidia-tesla-p100
 If you're using AMD GPU devices, you can deploy
 [Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller).
 Node Labeller is a {{< glossary_tooltip text="controller" term_id="controller" >}} that automatically
-labels your nodes with GPU properties.
+labels your nodes with GPU device properties.
 
 At the moment, that controller can add labels for:
 -->
-如果你在使用 AMD GPUs，你可以部署
+如果你在使用 AMD GPU，你可以部署
 [Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller)，
 它是一个 {{< glossary_tooltip text="控制器" term_id="controller" >}}，
-会自动给节点打上 GPU 属性标签。目前支持的属性：
+会自动给节点打上 GPU 设备属性标签。目前支持的属性：
 
 <!--
 * Device ID (-device-id)
@@ -307,7 +315,7 @@ kubectl describe node cluster-node-23
                         kubernetes.io/hostname=cluster-node-23
     Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
                         node.alpha.kubernetes.io/ttl: 0
-    ......
+    …
 ```
 
 <!--
