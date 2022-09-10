@@ -1,78 +1,71 @@
 
 ---
-title: Documentation Content Guide
-linktitle: Content guide
+title: डॉक्यूमेंटेशन सामग्री के लिए निर्देश (Documentation Content Guide)
+linktitle: सामग्री के लिए निर्देश
 content_type: concept
 weight: 10
 ---
 
 <!-- overview -->
 
+यह पेज कुबेरनट्स के प्रलेखन (दस्तावेजीकरण | डॉक्यूमेटेशम )  के लिए निर्देश उपलब्ध कराता है |
 This page contains guidelines for Kubernetes documentation.
 
-If you have questions about what's allowed, join the #sig-docs channel in
-[Kubernetes Slack](https://slack.k8s.io/) and ask!
+अगर आपके पास कोई अनुमत प्रश्न है तो स्लैक पर कुबेरनट्स से जुड़े 
+[कुबेरनट्स स्लैक (Kubernetes Slack)](https://slack.k8s.io/) और पूछे! 
 
-You can register for Kubernetes Slack at https://slack.k8s.io/.
+आप कुबेरनट्स के लिए स्लैक(Slack) पर यहां https://slack.k8s.io/ 
+पंजीकरण (Registration) कर सकते है ।
 
-For information on creating new content for the Kubernetes
-docs, follow the [style guide](/docs/contribute/style/style-guide).
-
-
+कुबेरनट्स पर नई सामग्री (कंटेंट) बनाने के बारे में ज्यादा जानने के लिए इन निर्देश [कुबेरनट्स शैली(Kubernates Style)](/docs/contribute/style/style-guide) अनुसरण करें ।
 
 <!-- body -->
 
-## Overview
+## अवलोकन (Overview)
 
-Source for the Kubernetes website, including the docs, resides in the
-[kubernetes/website](https://github.com/kubernetes/website) repository.
+कुबेरनट्स वेबसाइट (वेबसाइट) के लिए स्रोत (Source) जिसमे डॉक्यूमेंटेशन भी समिल है 
+[kubernetes/website](https://github.com/kubernetes/website) पर उपलब्ध है.
 
-Located in the `kubernetes/website/content/<language_code>/docs` folder, the
-majority of Kubernetes documentation is specific to the [Kubernetes
-project](https://github.com/kubernetes/kubernetes).
+कुबेरनट्स डॉक्स `kubernetes/website/content/<language_code>/docs` फोल्डर में उपलब्ध है, ज्यादातर योगदान  (Contribution) कुबेरनट्स संस्था [Kubernetes
+project](https://github.com/kubernetes/kubernetes) के लिए होते है
 
-## What's allowed
+## क्या अनुमत है 
 
-Kubernetes docs allow content for third-party projects only when:
+कुबेरनट्स अन्य पार्टी के परियोजना (प्रोजेक्ट |project) के सामग्री (कंटेंट|content) को अनुमत करता है जब :
+- सॉफ्टवेयर की सामग्री कुबेरनट्स परियोजना (प्रोजेक्ट) में हो 
+- सॉफ्टवेयर का सामाग्री कुबेरनट्स परियोजना (प्रोजेक्ट) के बाहर का हो लेकिन कुबेरनट्स को कार्य करने के लिए उनकी जरूरत हो 
+- विषय (सामग्री) kubernetes.io पर विहित है, या कही और के विहित कंटेंट से जुड़ी है (उस कंटेंट से जुड़ी है जो kubernetes.io से जुड़ी है)
 
-- Content documents software in the Kubernetes project
-- Content documents software that's out of project but necessary for Kubernetes to function
-- Content is canonical on kubernetes.io, or links to canonical content elsewhere
+### अन्य संगठन की सामग्री (थर्ड पार्टी कंटेंट)
 
-### Third party content
+कुबेरनट्स डॉक्यूमेटेशन, कुबेरनट्स के अन्तरगत आने वाली परियोजनाओं के लिए लागू होने वाले उदाहरण शामिल करती है जो कि [कुबेरनेट्स(kubernetes)](https://github.com/kubernetes) और [kubernetes-sigs](https://github.com/kubernetes-sigs) गिटहब(Github) संगठन (संस्था) में है। 
 
-Kubernetes documentation includes applied examples of projects in the Kubernetes project&mdash;projects that live in the [kubernetes](https://github.com/kubernetes) and
-[kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizations.
+कुबेरनट्स परियोजना(प्रोजेक्ट) के सक्रिय(एक्टिव) सामग्री(कंटेंट) के लिंक(link) अनुमत है।
 
-Links to active content in the Kubernetes project are always allowed.
+कुबेरनट्स को कार्य करने के लिए कुछ तीसरी पार्टी(थर्ड पार्टी) के सामग्री की आवश्यकता होती है। उदाहरण के लिए कंटेनर रनटाइम(container runtimes) ( कंटेनरडी (containerd), सीआरआई-ओ(CRI-O), डोकर (Docker)),
+[नेटवर्किंग नीति(पालिसी)](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (सीएनआई प्लग-इन), [इंग्रेस नियंत्रक(Ingress Controller)](/docs/concepts/services-networking/ingress-controllers/), और  [लॉगिंग(logging)](/docs/concepts/cluster-administration/logging/)|
 
-Kubernetes requires some third party content to function. Examples include container runtimes (containerd, CRI-O, Docker),
-[networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/), and [logging](/docs/concepts/cluster-administration/logging/).
+डॉक्स को तीसरी पार्टी के ओपन सोर्स सॉफ्टवेयर से जोड़ा(लिंक) किया जा सकता है केवल जब कुबेरनट्स को कार्य करने के लिए उसकी जरूरत हो।
 
-Docs can link to third-party open source software (OSS) outside the Kubernetes project only if it's necessary for Kubernetes to function.
+### दोहरी स्रोत वाली सामाग्री
 
-### Dual sourced content
+जब भी संभव हो, दोहरी स्रोत वाली सामग्री की जगह कुबेरनट्स डॉक्स को विहित(कैनोनिकल) स्रोत से जोड़े।
 
-Wherever possible, Kubernetes docs link to canonical sources instead of hosting
-dual-sourced content.
-
-Dual-sourced content requires double the effort (or more!) to maintain
-and grows stale more quickly.
+दोहरी स्रोत की सामग्री को प्रबंधित करने के लिए दोहरे प्रयास(या उससे ज्यादा) प्रयास की जरूरत जोति है और बहुत जल्द ही पुराना हो जाता है।
 
 {{< note >}}
 
-If you're a maintainer for a Kubernetes project and need help hosting your own docs,
-ask for help in [#sig-docs on Kubernetes Slack](https://kubernetes.slack.com/messages/C1J0BPD2M/).
+यदि आप किसी कुबेरनट्स परियोजना(प्रोजेक्ट) के प्रबंधक है और अपने डॉक्स की होस्टिंग के लिए मदद चाहिए, [#sig-docs कुबेरनट्स स्लैक](https://kubernetes.slack.com/messages/C1J0BPD2M/) पर पूछे ।
 
 {{< /note >}}
 
-### More information
+### और जानकारी
 
-If you have questions about allowed content, join the [Kubernetes Slack](https://slack.k8s.io/) #sig-docs channel and ask!
-
-
-
-## {{% heading "whatsnext" %}}
+यदि आपके पास अनुमत सामग्री (allowed कॉन्टेंट) के बारे में कोई प्रश्न है तो [कुबेरनट्स स्लैक(Kubernetes Slack)](https://kubernetes.slack.com/messages/C1J0BPD2M/) #sig-docs चैनल से जुड़े और पूछे।
 
 
-* Read the [Style guide](/docs/contribute/style/style-guide).
+
+## {{% heading "आगे क्या है" %}}
+
+
+* [स्टाइल मार्गेदर्शक (स्टाइल गाइड।Style guide)](/docs/contribute/style/style-guide) पढ़े।
