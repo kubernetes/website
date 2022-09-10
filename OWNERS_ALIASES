@@ -9,6 +9,17 @@ aliases:
     - onlydole
     - sftim
     - nate-double-u
+  sig-docs-localization-owners: # Admins for localization content
+    - a-mccarthy
+    - bradtopol
+    - divya-mohan0209
+    - jimangel
+    - kbhawkey
+    - natalisucks
+    - onlydole
+    - reylejano
+    - sftim
+    - tengqm
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -27,9 +38,7 @@ aliases:
     - kcmartin
     - natalisucks
     - onlydole
-    - pi-victor
     - reylejano
-    - savitharaghunathan
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
@@ -42,6 +51,7 @@ aliases:
     - natalisucks
     - onlydole
     - rajeshdeshpande02
+    - reylejano
     - sftim
     - shannonxtreme
     - tengqm
