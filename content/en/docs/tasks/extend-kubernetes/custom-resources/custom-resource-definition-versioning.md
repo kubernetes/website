@@ -10,7 +10,7 @@ min-kubernetes-server-version: v1.16
 
 <!-- overview -->
 This page explains how to add versioning information to
-[CustomResourceDefinitions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/customresourcedefinition-v1-apiextensions-k8s-io), to indicate the stability
+[CustomResourceDefinitions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io), to indicate the stability
 level of your CustomResourceDefinitions or advance your API to a new version with conversion between API representations. It also describes how to upgrade an object from one version to another.
 
 ## {{% heading "prerequisites" %}}
