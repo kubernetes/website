@@ -36,10 +36,19 @@ Run debug commands to help you gather information and troubleshoot issues. Comma
 that you might use to debug, such as `ip`, `ifconfig`, `nc`, `ping`, and `ps`. You can also
 install other tools, such as `mtr`, `tcpdump`, and `curl`, from the respective package manager.
 
+Get the following logs from the shell session to look for issues on the Node. Note that the root filesystem
+of the Node will be mounted at `/host`
+
+* `/host/var/log/kubelet.log` - logs from the `kubelet`, responsible for running containers on the node
+* `/host/var/log/kube-proxy.log` - logs from `kube-proxy`, which is responsible for directing traffic to Service endpoints
+* `/host/var/log/containerd.log` - logs from `containerd` process running on node
+* `/host/var/log/syslog` - shows general messages and info regarding the system
+* `/host/var/log/kern.log` - shows kernel logs
+
 When creating a debugging session on a Node, keep in mind that:
 
-* `kubectl debug` automatically generates the name of the new Pod based on
-  the name of the Node.
+* `kubectl debug` automatically generates the name of the new pod based on
+  the name of the node.
 * The root filesystem of the Node will be mounted at `/host`.
 * The container runs in the host IPC, Network, and PID namespaces, although
   the pod isn't privileged, so reading some process information may fail,
