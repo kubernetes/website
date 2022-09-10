@@ -608,7 +608,7 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 kubectl delete pod myapp myapp-debug
 ```
 
-## {{% heading "whatsnext" %}}
+## Debugging via a shell on the node {#node-shell-session}
 
 If none of these approaches work, you can find the Node on which the Pod is
 running and create a Pod running on the Node. To create
