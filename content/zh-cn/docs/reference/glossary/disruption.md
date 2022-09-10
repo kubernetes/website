@@ -9,11 +9,7 @@ aka:
 tags:
 - fundamental
 ---
- 干扰是指导致一个或者多个 {{< glossary_tooltip term_id="pod" text="Pod" >}} 服务停止的事件。
-干扰会影响工作负载资源，比如 {{< glossary_tooltip term_id="deployment" >}} 这种依赖于受影响 Pod 的资源。
-
 <!-- 
----
 title: Disruption
 id: disruption
 date: 2019-09-10
@@ -23,13 +19,17 @@ short_description: >
 aka:
 tags:
 - fundamental
----
+-->
+
+<!--
  Disruptions are events that lead to one or more
 {{< glossary_tooltip term_id="pod" text="Pods" >}} going out of service.
 A disruption has consequences for workload resources, such as
 {{< glossary_tooltip term_id="deployment" >}}, that rely on the affected
 Pods.
- -->
+-->
+干扰（Disruption）是指导致一个或者多个 {{< glossary_tooltip term_id="pod" text="Pod" >}} 服务停止的事件。
+干扰会影响依赖于受影响的 Pod 的资源，例如 {{< glossary_tooltip term_id="deployment" >}}。
 
 <!--more-->
 
@@ -41,7 +41,9 @@ Kubernetes terms that an _involuntary disruption_.
 
 See [Disruptions](/docs/concepts/workloads/pods/disruptions/) for more information.
  -->
-如果你作为一个集群操作人员，销毁了一个从属于某个应用的 Pod, Kubernetes 视之为**自愿干扰（Voluntary Disruption）**。
-如果由于节点故障 或者影响更大区域故障的断电导致 Pod 离线，kubernetes 视之为**非愿干扰（Involuntary Disruption）**。
+如果你作为一个集群操作人员，销毁了一个从属于某个应用的 Pod，
+Kubernetes 视之为**自愿干扰（Voluntary Disruption）**。
+如果由于节点故障或者影响更大区域故障的断电导致 Pod 离线，
+Kubernetes 视之为**非愿干扰（Involuntary Disruption）**。
 
-更多信息请查阅[Disruptions](/zh-cn/docs/concepts/workloads/pods/disruptions/)
+更多信息请查阅[干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/)。
