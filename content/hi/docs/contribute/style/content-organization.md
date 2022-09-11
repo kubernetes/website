@@ -1,5 +1,5 @@
 ---
-title: Content organization
+title: सामग्री संगठन  Content organization
 content_type: concept
 weight: 40
 ---
@@ -7,92 +7,93 @@ weight: 40
 
 <!-- overview -->
 
-This site uses Hugo. In Hugo, [content organization](https://gohugo.io/content-management/organization/) is a core concept.
+यह साइट हुगो(Hugo) का उपयोग करती है। ह्यूगो में सामग्री संगठन [कंटेंट आर्गेनाइजेशन(content organization)](https://gohugo.io/content-management/organization/) एक मूल संकल्पना(कांसेप्ट|Concept) है।
 
 
 
 <!-- body -->
 
 {{% note %}}
-**Hugo Tip:** Start Hugo with `hugo server --navigateToChanged` for content edit-sessions.
+**ह्यूगो सलाह:** ह्यूगो को सामग्री(कंटेंट) एडिट-सेशंस के लिए `hugo server --navigateToChanged` से शुरू(start) करे।
 {{% /note %}}
 
-## Page Lists
+## पृष्ठ सूची
 
-### Page Order
+### पृष्ठ क्रम
 
-The documentation side menu, the documentation page browser etc. are listed using Hugo's default sort order, which sorts by weight (from 1), date (newest first), and finally by the link title.
+ह्यूगो की मदद से डॉक्यूमेंटेशन साइड मेनू, डॉक्यूमेंटशन पेज ब्राउज़र इत्यादि को पूर्वनिर्धारित क्रम में क्रम से लगाया जाता है जोकि उसके भार(1 से सुरु होता है),दिनाँक(नया पहले) और लिंक शीर्षक के अनुसार होता है। 
 
-Given that, if you want to move a page or a section up, set a weight in the page's front matter:
+यदि आप किसी पेज को पहले रखना चाहते है तो उसका भार(वेट) पृष्ठ फॉन्ट-मैंटर में सेट करे, जैसा नीचे दिखाया गया है:
 
 ```yaml
-title: My Page
+title: मेरा पेज
 weight: 10
 ```
 
 
 {{% note %}}
-For page weights, it can be smart not to use 1, 2, 3 ..., but some other interval, say 10, 20, 30... This allows you to insert pages where you want later.
+पृष्ठ(पेज) भार के लिए 1,2,3... की जगह कोई 10,20,30.. अंतर का इस्तेमाल करना ज्यादा अच्छा होता है। यह आपको बाद में बीच में पेज लगाने की अनुमति देता है। 
 {{% /note %}}
 
 
-### Documentation Main Menu
+### डॉक्यूमेंटशन मेन मेनू
 
-The `Documentation` main menu is built from the sections below `docs/` with the `main_menu` flag set in front matter of the `_index.md` section content file:
+`डॉक्यूमेंटशन(Documentation)` मेन मेनू docs/ के अंदर _index.md में फ्लैग मेन मेनू के साथ वाले भाग के बनाना जाता है । is built from the sections below `docs/` with the `main_menu` flag set in front matter of the `_index.md` section content file:
 
 ```yaml
 main_menu: true
 ```
 
 
-Note that the link title is fetched from the page's `linkTitle`, so if you want it to be something different than the title, change it in the content file:
+ध्यान दें कि लिंक शीर्षक पृष्ठ(पेज) के `linkTitle` से प्राप्त किया जाता है , यदि आप शीर्षक कुछ और रखना चाहते है तो इसे सामग्री(कंटेंट) फ़ाइल में बदल लें:
 
 
 ```yaml
 main_menu: true
-title: Page Title
-linkTitle: Title used in links
+title: पेज शीर्षक
+linkTitle: लिंक के लिए उपयोग होने वाला शीर्षक
 ```
 
 
 {{% note %}}
-The above needs to be done per language. If you don't see your section in the menu, it is probably because it is not identified as a section by Hugo. Create a `_index.md` content file in the section folder.
+यह हर भाषा के लिए किया जाना होता है यदि आप अपने भाग को मेनू में नही देख पा रहे है तो जो सकता है कि यह ह्यूगो(Hugo) इसे नही पहचान पा रहा है। सेक्शन फोल्डर में `_index.md` सामाग्री(कंटेंट) फ़ाइल बनाये।
 {{% /note %}}
 
-### Documentation Side Menu
+### डॉक्यूमेंटशन साइड मेनू
 
-The documentation side-bar menu is built from the _current section tree_ starting below `docs/`.
+डॉक्यूमेंटशन साइड मेनू _current section tree_ द्वारा बनाया जाता है जोकि `docs/` शुरु होता है।
 
-It will show all sections and their pages.
+यह सभी भाग और उनके पृष्ठ(पेजेज) को दिखता है।
 
-If you don't want to list a section or page, set the `toc_hide` flag to `true` in front matter:
 
-```yaml
-toc_hide: true
-```
-
-When you navigate to a section that has content, the specific section or page (e.g. `_index.md`) is shown. Else, the first page inside that section is shown.
-
-### Documentation Browser
-
-The page browser on the documentation home page is built using all the sections and pages that are directly below the `docs section`.
-
-If you don't want to list a section or page, set the `toc_hide` flag to `true` in front matter:
+यदि आप किसी भाग(सेक्शन) या पृष्ठ(पेज) को साइड मेनू में नही दिखाना चाहते तो `toc_hide` फ्लैग को फ्रंट-मेटर में `true` सेट करे:
 
 ```yaml
 toc_hide: true
 ```
 
-### The Main Menu
+जब आप किसी भाग में जाते है जिसमे कुछ सामग्री(कंटेंट) है तो वह भाग(सेक्शन) या पेज(उदाहरण के लिए `_index.md`) दिखाई देता है अन्यथा उस भाग का पहला पेज दिखाया जाता है। 
 
-The site links in the top-right menu -- and also in the footer -- are built by page-lookups. This is to make sure that the page actually exists. So, if the `case-studies` section does not exist in a site (language), it will not be linked to.
+### डॉक्यूमेंटशन ब्राउज़र
+
+डॉक्यूमेंटशन होम पेज पर पेज ब्राऊज़र सीधे `docs section` के अंदर के भाग(सेक्शन) और पृष्ठ(पेजेज) से बनाये जाते है।
+
+यदि आप किसी भाग(सेक्शन) या पृष्ठ(पेज) को साइड मेनू में नही दिखाना चाहते तो `toc_hide` फ्लैग को फ्रंट-मेटर में `true` सेट करे:
+
+```yaml
+toc_hide: true
+```
+
+### मेन मेनू
+
+टॉप-राइट मेनू में साइट लिंक्स और फुटर में भी, पेज लूकउप से बनाये जाते है। यह सुनिश्चित करना है कि पृष्ठ(पेज) वास्तव में मौजूद है इसलिए यदि 'case-studies' भाग मौजूद नही है तो यह भी लिंक नही होगा।
 
 
-## Page Bundles
+## पेज बंडल्स
 
-In addition to standalone content pages (Markdown files), Hugo supports [Page Bundles](https://gohugo.io/content-management/page-bundles/).
+स्टैंडअलोन सामग्री(कंटेंग) पृष्ठ(पेजेज) (मार्कडाउन फाइल्स) के अलावा, ह्यूगो [पेज बंडल्स(Page Bundles)](https://gohugo.io/content-management/page-bundles/) को सप्पोर्ट करता है।
 
-One example is [Custom Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/). It is considered a `leaf bundle`. Everything below the directory, including the `index.md`, will be part of the bundle. This also includes page-relative links, images that can be processed etc.:
+एक उदाहरण [कस्टम ह्यूगो शॉर्टकोडस(Custom Hugo Shortcodes)](/docs/contribute/style/hugo-shortcodes/) है। यह `लीफ बण्डल(leaf bundle)` कहा जाता है। डायरेक्टरी के अंदर सभी `_index.md` को मिलाकर बण्डल का भाग हैं। इसके अंतर्गत रिलेटिव-पेजेज और चित्र(इमेजेज) इत्यादि भी आते है जिन्हें प्रोसेस किया जा सकता है:
 
 ```bash
 en/docs/home/contribute/includes
@@ -102,7 +103,7 @@ en/docs/home/contribute/includes
 └── podtemplate.json
 ```
 
-Another widely used example is the `includes` bundle. It sets `headless: true` in front matter, which means that it does not get its own URL. It is only used in other pages.
+अन्य सबसे ज्यादा उपयोग होने वाला उदाहरण `includes` बण्डल है। यह `headless: true` फ्रंट-मैटर में सेट करता है, जिसका मतलब है कि इसे खुद का URL नही मिलेगा यह केवल अन्य पेजेज में उपयोग होगा।
 
 ```bash
 en/includes
@@ -115,22 +116,22 @@ en/includes
 └── user-guide-migration-notice.md
 ```
 
-Some important notes to the files in the bundles:
+बंडल्स की फ़ाइल के लिए कुछ महत्वपूर्ण बाते:
 
-* For translated bundles, any missing non-content files will be inherited from languages above. This avoids duplication.
-* All the files in a bundle are what Hugo calls `Resources` and you can provide metadata per language, such as parameters and title, even if it does not supports front matter (YAML files etc.). See [Page Resources Metadata](https://gohugo.io/content-management/page-resources/#page-resources-metadata).
-* The value you get from `.RelPermalink` of a `Resource` is page-relative. See [Permalinks](https://gohugo.io/content-management/urls/#permalinks).
-
-
-## Styles
-
-The [SASS](https://sass-lang.com/) source of the stylesheets for this site is stored in `assets/sass` and is automatically built by Hugo.
+* अनुवादित बण्डल के लिए कोई भी गम हुई(मिसिंग|missing) मूल लैंग्वेज के फाइल्स ले आयी जाती है। यह डुप्लीकेशन से बचाता है।
+* बंडल की सभी फाइल्स को ह्यूगो संसाधन(रिसोर्स|resource) कहता है और आप हर भाषा के लिए अतिरिक्त इन्फॉर्मेशन(मेटा डेटा|meta data) दे सकते है उदाहरण के लिए शीर्षक,यदि फॉन्ट-मैटर(YAML फाइल्स इत्यादि) सपोर्ट नही करता फिर भी। देखे [पृष्ठ संसाधन(Page Resources) Metadata](https://gohugo.io/content-management/page-resources/#page-resources-metadata).
+* `.RelPermalink` से मिलने वाली `संसाधन(Resource)` की वैल्यू पेज के रिलेटिव होती है। देखे [Permalinks](https://gohugo.io/content-management/urls/#permalinks).
 
 
+## स्टाइल्स(स्टाइल्स)
 
-## {{% heading "whatsnext" %}}
+[SASS](https://sass-lang.com/) इस साइट के स्टाइल के लिए स्रोत है, यह `assets/sass` में उपस्थित है और ह्यूगो द्वारा स्वचालित(आटोमेटिक) रूप से बनाई जाती है(बिल्ड की जाती है)।
 
 
-* Learn about [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
-* Learn about the [Style guide](/docs/contribute/style/style-guide)
-* Learn about the [Content guide](/docs/contribute/style/content-guide)
+
+## {{% heading "आगे क्या है" %}}
+
+
+* [ह्यूगो शॉर्टकोडस(custom Hugo shortcodes)](/docs/contribute/style/hugo-shortcodes/) के बारे में पढ़े
+* [स्टाइल गाइड(Style guide)](/docs/contribute/style/style-guide) के बारे में पढ़े
+* [कन्टेन्ट गाइड(Content guide)](/docs/contribute/style/content-guide) के बारे में पढ़े
