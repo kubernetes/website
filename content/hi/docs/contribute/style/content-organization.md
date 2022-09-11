@@ -123,7 +123,7 @@ en/includes
 * `.RelPermalink` से मिलने वाली `संसाधन(Resource)` की वैल्यू पेज के रिलेटिव होती है। देखे [Permalinks](https://gohugo.io/content-management/urls/#permalinks).
 
 
-## स्टाइल्स(स्टाइल्स)
+## स्टाइल्स(Styles)
 
 [SASS](https://sass-lang.com/) इस साइट के स्टाइल के लिए स्रोत है, यह `assets/sass` में उपस्थित है और ह्यूगो द्वारा स्वचालित(आटोमेटिक) रूप से बनाई जाती है(बिल्ड की जाती है)।
 
