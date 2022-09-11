@@ -106,7 +106,7 @@ different Kubernetes components.
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | 1.23 |
 | `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
-| `CheckpointContainer` | `false` | Alpha | 1.25 | |
+| `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CPUManagerPolicyAlphaOptions` | `false` | Alpha | 1.23 | |
@@ -727,7 +727,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
 - `APIServerIdentity`: Assign each API server an ID in a cluster.
 - `APIServerTracing`: Add support for distributed tracing in the API server.
-  See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/traces-for-kubernetes-system-components) for more details.
+  See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 -->
 - `APIListChunking`：启用 API 客户端以块的形式从 API 服务器检索（“LIST” 或 “GET”）资源。
 - `APIPriorityAndFairness`：在每个服务器上启用优先级和公平性来管理请求并发（由 `RequestManagement` 重命名而来）。
@@ -779,7 +779,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   flag `--service-account-extend-token-expiration=false`.
   Check [Bound Service Account Tokens](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
   for more details.
-- `CheckpointContainer`: Enables the kubelet `checkpoint` API.
+- `ContainerCheckpoint`: Enables the kubelet `checkpoint` API.
   See [Kubelet Checkpoint API](/docs/reference/node/kubelet-checkpoint-api/) for more details.
 - `ControllerManagerLeaderMigration`: Enables Leader Migration for
   [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and
@@ -800,7 +800,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   如果没有这种类型的负载，你可以在启动 `kube-apiserver` 时添加
   `--service-account-extend-token-expiration=false` 参数关闭扩展令牌。
   查看[绑定服务账号令牌](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)获取更多详细信息。
-- `CheckpointContainer`：启用 kubelet `checkpoint` API。
+- `ContainerCheckpoint`：启用 kubelet `checkpoint` API。
   参阅 [Kubelet Checkpoint API](/zh-cn/docs/reference/node/kubelet-checkpoint-api/) 获取更多详细信息。
 - `ControllerManagerLeaderMigration`：为
   [kube-controller-manager](/zh-cn/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) 和
@@ -1467,7 +1467,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `KubeletTracing`: Add support for distributed tracing in the kubelet.
   When enabled, kubelet CRI interface and authenticated http servers are instrumented to generate
   OpenTelemetry trace spans.
-  See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/traces-for-kubernetes-system-components) for more details.
+ See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 - `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
   [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 -->
@@ -1625,7 +1625,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their
   [priorities](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 - `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
-  Pod readiness evaluation. See [Pod readiness gate](/docs/concepts/scheduling-eviction/lifecycle/#pod-readiness-gate)
+  Pod readiness evaluation. See [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
   for more details.
 - `PodSecurity`: Enables the `PodSecurity` admission plugin.
 - `PodShareProcessNamespace`: Enable the setting of `shareProcessNamespace` in a Pod for sharing
@@ -1639,7 +1639,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   的 Pod 调度和抢占。
 - `PodReadinessGates`：启用 `podReadinessGate` 字段的设置以扩展 Pod 准备状态评估。
   有关更多详细信息，请参见
-  [Pod 就绪状态判别](/zh-cn/docs/concepts/scheduling-eviction/lifecycle/#pod-readiness-gate)。
+  [Pod 就绪状态判别](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)。
 - `PodSecurity`: 开启 `PodSecurity` 准入控制插件。
 - `PodShareProcessNamespace`：在 Pod 中启用 `shareProcessNamespace` 的设置，
   以便在 Pod 中运行的容器之间共享同一进程名字空间。更多详细信息，请参见
@@ -1825,7 +1825,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `SizeMemoryBackedVolumes`: Enable kubelets to determine the size limit for
   memory-backed volumes (mainly `emptyDir` volumes).
 - `StartupProbe`: Enable the
-  [startup](/docs/concepts/scheduling-eviction/lifecycle/#when-should-you-use-a-startup-probe)
+  [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)
   probe in the kubelet.
 - `StatefulSetMinReadySeconds`: Allows `minReadySeconds` to be respected by
   the StatefulSet controller.
@@ -1834,7 +1834,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   请参见[为 Pod 设置 `setHostnameAsFQDN` 字段](/zh-cn/docs/concepts/services-networking/dns-pod-service/#pod-sethostnameasfqdn-field)。
 - `SizeMemoryBackedVolumes`：允许 kubelet 检查基于内存制备的卷的尺寸约束（目前主要针对 `emptyDir` 卷）。
 - `StartupProbe`：在 kubelet
-  中启用[启动探针](/zh-cn/docs/concepts/scheduling-eviction/lifecycle/#when-should-you-use-a-startup-probe)。
+  中启用[启动探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)。
 - `StatefulSetMinReadySeconds`: 允许 StatefulSet 控制器采纳 `minReadySeconds` 设置。
 <!--
 - `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
