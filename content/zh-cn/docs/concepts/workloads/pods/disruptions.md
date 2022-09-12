@@ -275,8 +275,7 @@ during application updates is configured in the spec for the specific workload r
 
 <!--
 When a pod is evicted using the eviction API, it is gracefully
-[terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination),
-hornoring the
+[terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), honoring the
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 当使用驱逐 API 驱逐 Pod 时，Pod 会被体面地
@@ -443,11 +442,11 @@ can happen, according to:
 
 {{< note >}}
 <!-- 
-In order to use this behavior, you must enable the `PodDisruptionsCondition`
+In order to use this behavior, you must enable the `PodDisruptionConditions`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 in your cluster. 
 -->
-要使用此行为，你必须在集群中启用 `PodDisruptionsCondition`
+要使用此行为，你必须在集群中启用 `PodDisruptionConditions`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 {{< /note >}}
 
@@ -586,11 +585,15 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 
 <!--
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
+
 * Learn more about [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/)
+
 * Learn about [updating a deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   including steps to maintain its availability during the rollout.
 -->
 * 参考[配置 Pod 干扰预算](/zh-cn/docs/tasks/run-application/configure-pdb/)中的方法来保护你的应用。
+
 * 进一步了解[排空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+
 * 了解[更新 Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性
