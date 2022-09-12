@@ -17,15 +17,15 @@ no_list: true
 
 - [শব্দকোষ](/docs/reference/glossary/) - কুবারনেটিস পরিভাষার একটি ব্যাপক, প্রমিত তালিকা
 
-- [কুবারনেটিস API রেফারেন্স](/docs/reference/kubernetes-api/)
-- [কুবারনেটিস জন্য এক-পৃষ্ঠা API রেফারেন্স {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-- [কুবারনেটিস API-এর ব্যবহার](/docs/reference/using-api/) - কুবারনেটিস API-এর পরিদর্শন
-- [API প্রবেশাধিকার নিয়ন্ত্রণ](/docs/reference/access-authn-authz/) - কুবারনেটিস কীভাবে API অ্যাক্সেস নিয়ন্ত্রণ করে তার বিশদ বিবরণ
+- [কুবারনেটিস এপিআই রেফারেন্স](/docs/reference/kubernetes-api/)
+- [কুবারনেটিস জন্য এক-পৃষ্ঠা এপিআই রেফারেন্স {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+- [কুবারনেটিস এপিআই-এর ব্যবহার](/docs/reference/using-api/) - কুবারনেটিস এপিআই-এর পরিদর্শন
+- [এপিআই প্রবেশাধিকার নিয়ন্ত্রণ](/docs/reference/access-authn-authz/) - কুবারনেটিস কীভাবে এপিআই অ্যাক্সেস নিয়ন্ত্রণ করে তার বিশদ বিবরণ
 - [সুপরিচিত লেবেল, টীকা এবং কলঙ্ক](/docs/reference/labels-annotations-taints/)
 
 ## অধিকারীরূপে সমর্থিত ক্লায়েন্ট লাইব্রেরি
 
-একটি প্রোগ্রামিং ভাষা থেকে কুবারনেটিস API কল করতে, আপনি ব্যবহার করতে পারেন
+একটি প্রোগ্রামিং ভাষা থেকে কুবারনেটিস এপিআই কল করতে, আপনি ব্যবহার করতে পারেন
 [ক্লায়েন্ট লাইব্রেরি](/docs/reference/using-api/client-libraries/). অধিকারীরূপে সমর্থিত ক্লায়েন্ট লাইব্রেরিগুলি:
 
 - [কুবারনেটিস Go ক্লায়েন্ট লাইব্রেরি](https://github.com/kubernetes/client-go/)
