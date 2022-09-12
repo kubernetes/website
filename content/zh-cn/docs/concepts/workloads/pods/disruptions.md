@@ -593,7 +593,11 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 -->
 * 参考[配置 Pod 干扰预算](/zh-cn/docs/tasks/run-application/configure-pdb/)中的方法来保护你的应用。
 
+<<<<<<< HEAD
 * 进一步了解[排空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+=======
+* 进一步了解[滕空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+>>>>>>> a90e65d943 (PodDisruptionsCondition to PodDisruptionConditions)
 
 * 了解[更新 Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性

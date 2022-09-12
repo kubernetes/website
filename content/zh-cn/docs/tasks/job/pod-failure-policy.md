@@ -238,10 +238,14 @@ You could rely solely on the
 [Pod backoff failure policy](/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy),
 by specifying the Job's `.spec.backoffLimit` field. However, in many situations
 <<<<<<< HEAD
+<<<<<<< HEAD
 iit is problematic to find a balance between setting a low value for `.spec.backoffLimit`
 =======
 it is problematic to find a balance between setting a low value for `.spec.backoffLimit`
 >>>>>>> 0585f1e3b75ea541a8cd43c685c91cdacc2f3fbe
+=======
+it is problematic to find a balance between setting a low value for `.spec.backoffLimit`
+>>>>>>> a90e65d943 (PodDisruptionsCondition to PodDisruptionConditions)
  to avoid unnecessary Pod retries, yet high enough to make sure the Job would
 not be terminated by Pod disruptions.
 -->
