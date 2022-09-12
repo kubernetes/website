@@ -353,7 +353,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 {{< /note >}}
 
 ```yaml
-apiVersion: apps/v1
+apiVersion: apps/v1 # 此 apiVersion 从 Kubernetes 1.9 开始可用
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -375,106 +375,68 @@ Service account bearer tokens are perfectly valid to use outside the cluster and
 can be used to create identities for long standing jobs that wish to talk to the
 Kubernetes API. To manually create a service account, use the `kubectl create
 serviceaccount (NAME)` command. This creates a service account in the current
-namespace and an associated secret.
+namespace.
 -->
 在集群外部使用服务账号持有者令牌也是完全合法的，且可用来为长时间运行的、需要与 Kubernetes
 API 服务器通信的任务创建标识。要手动创建服务账号，可以使用
 `kubectl create serviceaccount <名称>` 命令。
-此命令会在当前的名字空间中生成一个服务账号和一个与之关联的 Secret。
+此命令会在当前的名字空间中生成一个服务账号。
 
 ```bash
 kubectl create serviceaccount jenkins
 ```
 
-```
-serviceaccount "jenkins" created
+```none
+serviceaccount/jenkins created
 ```
 
 <!--
-Check an associated secret:
+Create an associated token:
 -->
-查验相关联的 Secret：
+创建相关联的令牌：
 
 ```bash
-kubectl get serviceaccounts jenkins -o yaml
+kubectl create token jenkins
 ```
 
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  # ...
-secrets:
-- name: jenkins-token-1yvwg
+```none
+eyJhbGciOiJSUzI1NiIsImtp...
 ```
 
 <!--
-The created secret holds the public CA of the API server and a signed JSON Web
-Token (JWT).
+The created token is a signed JSON Web Token (JWT).
 -->
-所创建的 Secret 中会保存 API 服务器的公开的 CA 证书和一个已签名的 JSON Web 令牌（JWT）。
-
-```bash
-kubectl get secret jenkins-token-1yvwg -o yaml
-```
-
-<!--
-```yaml
-apiVersion: v1
-data:
-  ca.crt: (APISERVER'S CA BASE64 ENCODED)
-  namespace: ZGVmYXVsdA==
-  token: (BEARER TOKEN BASE64 ENCODED)
-kind: Secret
-metadata:
-  # ...
-type: kubernetes.io/service-account-token
-```
--->
-```yaml
-apiVersion: v1
-data:
-  ca.crt: <Base64 编码的 API 服务器 CA>
-  namespace: ZGVmYXVsdA==
-  token: <Base64 编码的持有者令牌>
-kind: Secret
-metadata:
-  # ...
-type: kubernetes.io/service-account-token
-```
-
-{{< note >}}
-<!--
-Values are base64 encoded because secrets are always base64 encoded.
--->
-字段值是按 Base64 编码的，这是因为 Secret 数据总是采用 Base64 编码来存储。
-{{< /note >}}
+所创建的令牌是一个已签名的 JWT 令牌。
 
 <!--
 The signed JWT can be used as a bearer token to authenticate as the given service
 account. See [above](#putting-a-bearer-token-in-a-request) for how the token is included
-in a request.  Normally these secrets are mounted into pods for in-cluster access to
+in a request.  Normally these tokens are mounted into pods for in-cluster access to
 the API server, but can be used from outside the cluster as well.
 -->
 已签名的 JWT 可以用作持有者令牌，并将被认证为所给的服务账号。
 关于如何在请求中包含令牌，请参阅[前文](#putting-a-bearer-token-in-a-request)。
-通常，这些 Secret 数据会被挂载到 Pod 中以便集群内访问 API 服务器时使用，
+通常，这些令牌数据会被挂载到 Pod 中以便集群内访问 API 服务器时使用，
 不过也可以在集群外部使用。
 
 <!--
 Service accounts authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
 and are assigned to the groups `system:serviceaccounts` and `system:serviceaccounts:(NAMESPACE)`.
-
-WARNING: Because service account tokens are stored in secrets, any user with
-read access to those secrets can authenticate as the service account. Be cautious
-when granting permissions to service accounts and read capabilities for secrets.
 -->
 服务账号被身份认证后，所确定的用户名为 `system:serviceaccount:<名字空间>:<服务账号>`，
 并被分配到用户组 `system:serviceaccounts` 和 `system:serviceaccounts:<名字空间>`。
 
-警告：由于服务账号令牌保存在 Secret 对象中，任何能够读取这些 Secret
-的用户都可以被认证为对应的服务账号。在为用户授予访问服务账号的权限时，以及对 Secret
-的读权限时，要格外小心。
+{{< warning >}}
+<!--
+Because service account tokens can also be stored in Secret API objects, any user with
+write access to Secrets can request a token, and any user with read access to those 
+Secrets can authenticate as the service account. Be cautious when granting permissions
+to service accounts and read or write capabilities for Secrets.
+-->
+由于服务账号令牌也可以保存在 Secret API 对象中，任何能够写入这些 Secret
+的用户都可以请求一个令牌，且任何能够读取这些 Secret 的用户都可以被认证为对应的服务账号。
+在为用户授予访问服务账号的权限以及对 Secret 的读取或写入权能时，要格外小心。
+{{< /warning >}}
 
 <!--
 ### OpenID Connect Tokens
@@ -488,11 +450,11 @@ email, signed by the server.
 -->
 ### OpenID Connect（OIDC）令牌   {#openid-connect-tokens}
 
-[OpenID Connect](https://openid.net/connect/) 是一种 OAuth2  认证方式，
+[OpenID Connect](https://openid.net/connect/) 是一种 OAuth2 认证方式，
 被某些 OAuth2 提供者支持，例如 Azure 活动目录、Salesforce 和 Google。
 协议对 OAuth2 的主要扩充体现在有一个附加字段会和访问令牌一起返回，
 这一字段称作 [ID Token（ID 令牌）](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)。
-ID 令牌是一种由服务器签名的 JSON Web 令牌（JWT），其中包含一些可预知的字段，
+ID 令牌是一种由服务器签名的 JWT 令牌，其中包含一些可预知的字段，
 例如用户的邮箱地址，
 
 <!--
