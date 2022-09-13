@@ -8,7 +8,13 @@ aliases:
     - mrbobbytables
     - onlydole
     - sftim
-    - nate-double-u
+    - nate-double-u  
+  sig-docs-bn-owners: # Admins for Bengali content
+    - Imtiaz1234
+    - mitul3737
+  sig-docs-bn-reviews: # PR reviews for Bengali content
+    - Imtiaz1234
+    - mitul3737
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
