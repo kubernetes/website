@@ -77,7 +77,7 @@ request is rejected immediately and an error is returned to the end-user.
 Finally, in addition to sometimes mutating the object in question, admission
 controllers may sometimes have side effects, that is, mutate related
 resources as part of request processing. Incrementing quota usage is the
-canonical example of why this is necessary. Any such side-effect needs a
+canonical example of why this is necessary. Any such side effect needs a
 corresponding reclamation or reconciliation process, as a given admission
 controller does not know for sure that a given request will pass all of the
 other admission controllers.
@@ -260,7 +260,7 @@ CertificateSigningRequest 资源创建请求，并拒绝所有将 “group”（
 <!--
 This admission controller observes creation of `Ingress` objects that do not request any specific
 ingress class and automatically adds a default ingress class to them.  This way, users that do not
-request any special ingress class do not need to care about them at all and they will get the
+request any special ingress class do not need to care about them at all, and they will get the
 default one.
 -->
 该准入控制器监测没有请求任何特定 Ingress 类的 `Ingress` 对象创建请求，并自动向其添加默认 Ingress 类。

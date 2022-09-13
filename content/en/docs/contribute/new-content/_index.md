@@ -58,7 +58,7 @@ prior to submitting new content. The information details follow.
   using [Hugo](https://gohugo.io/).
 - Kubernetes documentation uses [CommonMark](https://commonmark.org/) as its flavor of  Markdown. 
 - The source is in [GitHub](https://github.com/kubernetes/website). You can find
-  Kubernetes documentation at `/content/en/docs/`. Some of the reference
+  Kubernetes documentation at `/content/en/docs/`. Some reference
   documentation is automatically generated from scripts in
   the `update-imported-docs/` directory.
 - [Page content types](/docs/contribute/style/page-content-types/) describe the
@@ -102,7 +102,7 @@ Content in other languages (localizations) | Use the localization's convention. 
 
 If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
 
-{{< note >}} If you already submitted your pull request and you know that the
+{{< note >}} If you already submitted your pull request, and you know that the
 base branch was wrong, you (and only you, the submitter) can change it. {{<
 /note >}}
 

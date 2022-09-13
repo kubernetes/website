@@ -234,7 +234,7 @@ services are run by an init service (such as systemd), each service should run o
 least three machines. However, running control plane services as pods in
 Kubernetes ensures that the replicated number of services that you request
 will always be available.
-The scheduler should be fault tolerant,
+The scheduler should be fault-tolerant,
 but not highly available. Some deployment tools set up [Raft](https://raft.github.io/)
 consensus algorithm to do leader election of Kubernetes services. If the
 primary goes away, another service elects itself and take over. 

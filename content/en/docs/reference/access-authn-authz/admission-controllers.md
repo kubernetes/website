@@ -45,9 +45,9 @@ request is rejected immediately and an error is returned to the end-user.
 Finally, in addition to sometimes mutating the object in question, admission
 controllers may sometimes have side effects, that is, mutate related
 resources as part of request processing. Incrementing quota usage is the
-canonical example of why this is necessary. Any such side-effect needs a
+canonical example of why this is necessary. Any such side effect needs a
 corresponding reclamation or reconciliation process, as a given admission
-controller does not know for sure that a given request will pass all of the
+controller does not know for sure that a given request will pass all the
 other admission controllers.
 
 ## Why do I need them?
@@ -150,7 +150,7 @@ of `system:masters`.
 
 This admission controller observes creation of `Ingress` objects that do not request any specific
 ingress class and automatically adds a default ingress class to them.  This way, users that do not
-request any special ingress class do not need to care about them at all and they will get the
+request any special ingress class do not need to care about them at all, and they will get the
 default one.
 
 This admission controller does not do anything when no default ingress class is configured. When more than one ingress
@@ -166,7 +166,7 @@ classes and how to mark one as default.
 
 This admission controller observes creation of `PersistentVolumeClaim` objects that do not request any specific storage class
 and automatically adds a default storage class to them.
-This way, users that do not request any special storage class do not need to care about them at all and they
+This way, users that do not request any special storage class do not need to care about them at all, and they
 will get the default one.
 
 This admission controller does not do anything when no default storage class is configured. When more than one storage

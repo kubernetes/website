@@ -4,7 +4,7 @@ date: 2015-04-04
 slug: weekly-kubernetes-community-hangout
 ---
 <!--
-title: " Weekly Kubernetes Community Hangout Notes - April 3 2015 "
+title: " Weekly Kubernetes Community Hangout Notes - April, 3 2015 "
 date: 2015-04-04
 slug: weekly-kubernetes-community-hangout
 url: /blog/2015/04/Weekly-Kubernetes-Community-Hangout
@@ -70,7 +70,7 @@ Agenda:
 
 1. Zone (un) availability : Resilient to zone failures
 
-2. Hybrid cloud: some in cloud, some on prem. for various reasons
+2. Hybrid cloud: some in cloud, some on prem for various reasons
 
 3. Avoid cloud provider lock-in.  For various reasons
 
@@ -195,7 +195,7 @@ Agenda:
 
     1. Likely at the availability zone, but could be at the rack, or the region
 
-2. Important to not pigeon hole and prevent other users
+2. Important to not pigeonhole and prevent other users
  -->
  * 讨论：
 

@@ -336,9 +336,9 @@ This is an incomplete list of things that could go wrong, and how to adjust your
     - kubelet 将不能访问 API 服务器，但是能够继续运行之前的 Pod 和提供相同的服务代理
     - 在 API 服务器重启之前，需要手动恢复或者重建 API 服务器的状态
 <!--
-- Supporting services (node controller, replication controller manager, scheduler, etc) VM shutdown or crashes
+- Supporting services (node controller, replication controller manager, scheduler, etc.) VM shutdown or crashes
   - currently those are colocated with the apiserver, and their unavailability has similar consequences as apiserver
-  - in future, these will be replicated as well and may not be co-located
+  - in the future, these will be replicated as well and may not be co-located
   - they do not have their own persistent state
 - Individual node (VM or physical machine) shuts down
   - Results

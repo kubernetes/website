@@ -33,7 +33,7 @@ Early on, organizations ran applications on physical servers. There was no way t
 
 **Virtualized deployment era:**  As a solution, virtualization was introduced. It allows you to run multiple Virtual Machines (VMs) on a single physical server's CPU. Virtualization allows applications to be isolated between VMs and provides a level of security as the information of one application cannot be freely accessed by another application.
 
-Virtualization allows better utilization of resources in a physical server and allows better scalability because an application can be added or updated easily, reduces hardware costs, and much more. With virtualization you can present a set of physical resources as a cluster of disposable virtual machines.
+Virtualization allows better utilization of resources in a physical server and allows better scalability because an application can be added or updated easily, reduces hardware costs, and much more. With virtualization, you can present a set of physical resources as a cluster of disposable virtual machines.
 
 Each VM is a full machine running all the components, including its own operating system, on top of the virtualized hardware.
 
@@ -48,7 +48,7 @@ Containers have become popular because they provide extra benefits, such as:
 * Environmental consistency across development, testing, and production: Runs the same on a laptop as it does in the cloud.
 * Cloud and OS distribution portability: Runs on Ubuntu, RHEL, CoreOS, on-premises, on major public clouds, and anywhere else.
 * Application-centric management: Raises the level of abstraction from running an OS on virtual hardware to running an application on an OS using logical resources.
-* Loosely coupled, distributed, elastic, liberated micro-services: applications are broken into smaller, independent pieces and can be deployed and managed dynamically – not a monolithic stack running on one big single-purpose machine.
+* Loosely coupled, distributed, elastic, liberated microservices: applications are broken into smaller, independent pieces and can be deployed and managed dynamically – not a monolithic stack running on one big single-purpose machine.
 * Resource isolation: predictable application performance.
 * Resource utilization: high efficiency and density.
 
@@ -92,6 +92,6 @@ Kubernetes:
 ## {{% heading "whatsnext" %}}
 
 *   Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
-*   Take a look at the [The Kubernetes API](/docs/concepts/overview/kubernetes-api/)
+*   Take a look at the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 *  Take a look at the [Cluster Architecture](/docs/concepts/architecture/)
 *   Ready to [Get Started](/docs/setup/)?

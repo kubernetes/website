@@ -191,7 +191,7 @@ You're welcome to join the official Kubernetes Forum: [discuss.kubernetes.io](ht
 ### Bugs and Feature requests
 
 If you have what looks like a bug, or you would like to make a feature request,
-please use the [Github issue tracking system](https://github.com/kubernetes/kubernetes/issues).
+please use the [GitHub issue tracking system](https://github.com/kubernetes/kubernetes/issues).
 -->
 ### Bugs 和功能请求   {#bugs-and-feature-requests}
 

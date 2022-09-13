@@ -83,7 +83,8 @@ Early on, organizations ran applications on physical servers. There was no way t
 因为一个应用程序的信息不能被另一应用程序随意访问。
 
 <!--
-Virtualization allows better utilization of resources in a physical server and allows better scalability because an application can be added or updated easily, reduces hardware costs, and much more. With virtualization you can present a set of physical resources as a cluster of disposable virtual machines.
+Virtualization allows better utilization of resources in a physical server and allows better scalability because an application can be added or updated easily, reduces hardware costs, and much more. With 
+virtualization, you can present a set of physical resources as a cluster of disposable virtual machines.
 
 Each VM is a full machine running all the components, including its own operating system, on top of the virtualized hardware.
 -->
@@ -115,7 +116,7 @@ Containers have become popular because they provide extra benefits, such as:
 * Environmental consistency across development, testing, and production: Runs the same on a laptop as it does in the cloud.
 * Cloud and OS distribution portability: Runs on Ubuntu, RHEL, CoreOS, on-premises, on major public clouds, and anywhere else.
 * Application-centric management: Raises the level of abstraction from running an OS on virtual hardware to running an application on an OS using logical resources.
-* Loosely coupled, distributed, elastic, liberated micro-services: applications are broken into smaller, independent pieces and can be deployed and managed dynamically – not a monolithic stack running on one big single-purpose machine.
+* Loosely coupled, distributed, elastic, liberated microservices: applications are broken into smaller, independent pieces and can be deployed and managed dynamically – not a monolithic stack running on one big single-purpose machine.
 * Resource isolation: predictable application performance.
 * Resource utilization: high efficiency and density.
 -->

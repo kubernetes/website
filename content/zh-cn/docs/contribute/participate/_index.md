@@ -165,7 +165,7 @@ In addition, an individual Markdown file can list reviewers and approvers in its
 front-matter, either by listing individual GitHub usernames or GitHub groups.
 
 The combination of OWNERS files and front-matter in Markdown files determines
-the advice PR owners get from automated systems about who to ask for technical
+the advice PR owners get from automated systems about whom to ask for technical
 and editorial review of their PR.
 -->
 此外，每个独立的 Markdown 文件都可以在其前言部分列出评阅人和批准人，

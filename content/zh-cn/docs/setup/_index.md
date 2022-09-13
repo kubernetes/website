@@ -60,7 +60,7 @@ Components that run containers - notably, the kubelet - can't be included in thi
 
 If you don't want to manage a Kubernetes cluster yourself, you could pick a managed service, including
 [certified platforms](/docs/setup/production-environment/turnkey-solutions/).
-There are also other standardized and custom solutions across a wide range of cloud and
+There are other standardized and custom solutions across a wide range of cloud and
 bare metal environments.
 -->
 你可以[下载 Kubernetes](/zh-cn/releases/download/)，在本地机器、云或你自己的数据中心上部署 Kubernetes 集群。

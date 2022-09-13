@@ -253,7 +253,7 @@ kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类�
 
 ## A quick note on service accounts
 
-Every service account has a corresponding ABAC username, and that service account's user name is generated according to the naming convention:
+Every service account has a corresponding ABAC username, and that service account's username is generated according to the naming convention:
 
 ```shell
 system:serviceaccount:<namespace>:<serviceaccountname>
@@ -284,7 +284,7 @@ privilege to the API using ABAC, you would add this line to your policy file:
 {"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}}
 ```
 
-The apiserver will need to be restarted to pickup the new policy lines.
+The apiserver will need to be restarted to pick up the new policy lines.
 -->
 
 创建新的命名空间也会导致创建一个新的服务帐户：

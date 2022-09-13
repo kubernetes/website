@@ -17,7 +17,7 @@ By way of background, Kubernetes is a cluster management framework that was star
 
 * **Container oriented deployments**  Package up your application components with all their dependencies and deploy them using technologies like Docker or Rocket.  Containers radically simplify the deployment process, making rollouts repeatable and predictable.
 * **Dynamically managed**  Rely on modern control systems to make moment-to-moment decisions around the health management and scheduling of applications to radically improve reliability and efficiency.  There are some things that just machines do better than people, and actively running applications is one of those things.  
-* **Micro-services oriented**  Tease applications apart into small semi-autonomous services that can be consumed easily so that the resulting systems are easier to understand, extend and adapt.
+* **Microservices oriented**  Tease applications apart into small semi-autonomous services that can be consumed easily so that the resulting systems are easier to understand, extend and adapt.
 
 Kubernetes was designed from the start to make these capabilities available to everyone, and built by the same engineers that built the system internally known as Borg.  For many users the promise of 'Google style app management' is interesting, but they want to run these new classes of applications on the same set of physical resources as their existing workloads like Hadoop, Spark, Kafka, etc.  Now they will have access to commercially supported offering that brings the two worlds together.
 

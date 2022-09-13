@@ -4,7 +4,7 @@ date: 2015-03-28
 slug: weekly-kubernetes-community-hangout
 ---
 <!--
-title: " Weekly Kubernetes Community Hangout Notes - March 27 2015 "
+title: " Weekly Kubernetes Community Hangout Notes - March, 27 2015 "
 date: 2015-03-28
 slug: weekly-kubernetes-community-hangout
 url: /blog/2015/03/Weekly-Kubernetes-Community-Hangout
@@ -61,7 +61,7 @@ Notes from meeting:
 
     * kubectl exec -p $POD -- $CMD
 
-    * Makes a connection to the master as proxy, figures out which node the pod is on, proxies connection to kubelet, which does the interesting bit.  via nsenter.
+    * Makes a connection to the master as proxy, figures out which node the pod is on, proxies connection to kubelet, which does the interesting bit via nsenter.
 
     * Multiplexed streaming over HTTP using SPDY
 
@@ -69,9 +69,10 @@ Notes from meeting:
 
     * Assumes first container.  Can use -c $CONTAINER to pick a particular one.
 
-    * If have gdb pre-installed in container, then can interactively attach it to running process
+    * If you have gdb pre-installed in container, then can interactively attach 
+it to running process
 
-        * backtrace, symbol tbles, print, etc.  Most things you can do with gdb.
+        * backtrace, symbol tables, print, etc.  Most things you can do with gdb.
 
     * Can also with careful flag crafting run rsync over this or set up sshd inside container.
 

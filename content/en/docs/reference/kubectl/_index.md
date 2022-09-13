@@ -41,7 +41,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 * `command`: Specifies the operation that you want to perform on one or more resources, 
 for example `create`, `get`, `describe`, `delete`.
 
-* `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and
+* `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive, and
   you can specify the singular, plural, or abbreviated forms.
   For example, the following commands produce the same output:
 
@@ -99,8 +99,8 @@ If:
 
 then kubectl assumes it is running in your cluster. The kubectl tool looks up the
 namespace of that ServiceAccount (this is the same as the namespace of the Pod)
-and acts against that namespace. This is different from what happens outside of a
-cluster; when kubectl runs outside a cluster and you don't specify a namespace,
+and acts against that namespace. This is different from what happens outside a
+cluster; when kubectl runs outside a cluster, and you don't specify a namespace,
 the kubectl command acts against the `default` namespace.
 
 ## Operations
@@ -226,7 +226,7 @@ Use the following sections for information about how you can format or sort the 
 
 ### Formatting output
 
-The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
+The default output format for all `kubectl` commands is the human-readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
 
 #### Syntax
 

@@ -77,7 +77,7 @@ Kubernetes оперує певною кількістю абстракцій, щ
 
 ## Площина управління Kubernetes (*Kubernetes Control Plane*) {#площина-управління-kubernetes}
 
-<!--The various parts of the Kubernetes Control Plane, such as the Kubernetes Master and kubelet processes, govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all of the Kubernetes Objects in the system, and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system match the desired state that you provided.
+<!--The various parts of the Kubernetes Control Plane, such as the Kubernetes Master and kubelet processes, govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all the Kubernetes Objects in the system, and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system match the desired state that you provided.
 -->
 Різні частини площини управління Kubernetes, такі як Kubernetes Master і kubelet, регулюють, як Kubernetes спілкується з вашим кластером. Площина управління веде облік усіх об'єктів Kubernetes в системі та безперервно, в циклі перевіряє стан цих об'єктів. У будь-який момент часу контрольні цикли, запущені площиною управління, реагуватимуть на зміни у кластері і намагатимуться привести поточний стан об'єктів до бажаного, що заданий у конфігурації.
 
@@ -94,7 +94,7 @@ Kubernetes оперує певною кількістю абстракцій, щ
 -->
 Kubernetes Master відповідає за підтримку бажаного стану вашого кластера. Щоразу, як ви взаємодієте з Kubernetes, наприклад при використанні інтерфейсу командного рядка `kubectl`, ви обмінюєтесь даними із Kubernetes master вашого кластера.
 
-<!--The "master" refers to a collection of processes managing the cluster state.  Typically all these processes run on a single node in the cluster, and this node is also referred to as the master. The master can also be replicated for availability and redundancy.
+<!--The "master" refers to a collection of processes managing the cluster state.  Typically, all these processes run on a single node in the cluster, and this node is also referred to as the master. The master can also be replicated for availability and redundancy.
 -->
 Слово "master" стосується набору процесів, які управляють станом кластера. Переважно всі ці процеси виконуються на одному вузлі кластера, який також називається master. Master-вузол можна реплікувати для забезпечення високої доступності кластера.
 
@@ -103,7 +103,7 @@ Kubernetes Master відповідає за підтримку бажаного 
 
 ### Вузли Kubernetes
 
-<!--The nodes in a cluster are the machines (VMs, physical servers, etc) that run your applications and cloud workflows. The Kubernetes master controls each node; you'll rarely interact with nodes directly.
+<!--The nodes in a cluster are the machines (VMs, physical servers, etc.) that run your applications and cloud workflows. The Kubernetes master controls each node; you'll rarely interact with nodes directly.
 -->
 Вузлами кластера називають машини (ВМ, фізичні сервери тощо), на яких запущені ваші застосунки та хмарні робочі навантаження. Кожен вузол керується Kubernetes master; ви лише зрідка взаємодіятимете безпосередньо із вузлами.
 

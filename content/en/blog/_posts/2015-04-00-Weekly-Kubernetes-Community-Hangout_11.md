@@ -1,5 +1,5 @@
 ---
-title: " Weekly Kubernetes Community Hangout Notes - April 10 2015 "
+title: " Weekly Kubernetes Community Hangout Notes - April, 10 2015 "
 date: 2015-04-11
 slug: weekly-kubernetes-community-hangout_11
 url: /blog/2015/04/Weekly-Kubernetes-Community-Hangout_11

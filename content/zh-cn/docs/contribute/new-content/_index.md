@@ -164,7 +164,7 @@ If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
 如果你仍不能确定要选择哪个分支，请在 Slack 的 `#sig-docs` 频道上提出问题。  
 
 <!-- 
-{{< note >}} If you already submitted your pull request and you know that the
+{{< note >}} If you already submitted your pull request, and you know that the
 base branch was wrong, you (and only you, the submitter) can change it. {{<
 /note >}}
 -->

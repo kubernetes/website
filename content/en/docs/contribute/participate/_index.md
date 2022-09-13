@@ -13,7 +13,7 @@ SIG Docs is one of the
 [special interest groups](https://github.com/kubernetes/community/blob/master/sig-list.md)
 within the Kubernetes project, focused on writing, updating, and maintaining
 the documentation for Kubernetes as a whole. See
-[SIG Docs from the community github repo](https://github.com/kubernetes/community/tree/master/sig-docs)
+[SIG Docs from the community GitHub repo](https://github.com/kubernetes/community/tree/master/sig-docs)
 for more information about the SIG.
 
 SIG Docs welcomes content and reviews from all contributors. Anyone can open a
@@ -88,7 +88,7 @@ In addition, an individual Markdown file can list reviewers and approvers in its
 front-matter, either by listing individual GitHub usernames or GitHub groups.
 
 The combination of OWNERS files and front-matter in Markdown files determines
-the advice PR owners get from automated systems about who to ask for technical
+the advice PR owners get from automated systems about whom to ask for technical
 and editorial review of their PR.
 
 ## How merging works

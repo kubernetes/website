@@ -161,7 +161,7 @@ If you need help, run `kubectl help` from the terminal window.
 ## 集群内身份验证和命名空间覆盖
 
 <!--
-By default `kubectl` will first determine if it is running within a pod, and thus in a cluster. It starts by checking for the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT` environment variables and the existence of a service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`. If all three are found in-cluster authentication is assumed.
+By default, `kubectl` will first determine if it is running within a pod, and thus in a cluster. It starts by checking for the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT` environment variables and the existence of a service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`. If all three are found in-cluster authentication is assumed.
 -->
 默认情况下，`kubectl` 命令首先确定它是否在 Pod 中运行，从而被视为在集群中运行。
 它首先检查 `KUBERNETES_SERVICE_HOST` 和 `KUBERNETES_SERVICE_PORT` 环境变量以及
@@ -215,8 +215,8 @@ If:
 <!--
 then kubectl assumes it is running in your cluster. The kubectl tool looks up the
 namespace of that ServiceAccount (this is the same as the namespace of the Pod)
-and acts against that namespace. This is different from what happens outside of a
-cluster; when kubectl runs outside a cluster and you don't specify a namespace,
+and acts against that namespace. This is different from what happens outside a
+cluster; when kubectl runs outside a cluster, and you don't specify a namespace,
 the kubectl command acts against the `default` namespace.
 -->
 然后 kubectl 假定它正在你的集群中运行。
@@ -431,7 +431,7 @@ Use the following sections for information about how you can format or sort the 
 ### 格式化输出
 
 <!--
-The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
+The default output format for all `kubectl` commands is the human-readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
 -->
 所有 `kubectl` 命令的默认输出格式都是人类可读的纯文本格式。要以特定格式在终端窗口输出详细信息，
 可以将 `-o` 或 `--output` 参数添加到受支持的 `kubectl` 命令中。

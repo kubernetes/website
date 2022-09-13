@@ -110,7 +110,7 @@ Once you have `minikube` working, you can use it to
 
 <!--
 You can use the {{< glossary_tooltip term_id="kubeadm" text="kubeadm" >}} tool to create and manage Kubernetes clusters.
-It performs the actions necessary to get a minimum viable, secure cluster up and running in a user friendly way.
+It performs the actions necessary to get a minimum viable, secure cluster up and running in a user-friendly way.
 -->
 你可以使用 {{< glossary_tooltip term_id="kubeadm" text="kubeadm" >}} 工具来
 创建和管理 Kubernetes 集群。

@@ -106,7 +106,7 @@ consider these steps:
   are available to use with your deployments.
 - *Manage certificates*: Secure communications between control plane services
   are implemented using certificates. Certificates are automatically generated
-  during deployment or you can generate them using your own certificate authority.
+  during deployment, or you can generate them using your own certificate authority.
   See [PKI certificates and requirements](/docs/setup/best-practices/certificates/) for details.
 - *Configure load balancer for apiserver*: Configure a load balancer
   to distribute external API requests to the apiserver service instances running on different nodes. See 
@@ -127,7 +127,7 @@ consider these steps:
   least three machines. However, running control plane services as pods in
   Kubernetes ensures that the replicated number of services that you request
   will always be available.
-  The scheduler should be fault tolerant,
+  The scheduler should be fault-tolerant,
   but not highly available. Some deployment tools set up [Raft](https://raft.github.io/)
   consensus algorithm to do leader election of Kubernetes services. If the
   primary goes away, another service elects itself and take over. 
@@ -138,7 +138,7 @@ consider these steps:
   multiple zones in the same region, it can improve the chances that your
   cluster will continue to function even if one zone becomes unavailable.
   See [Running in multiple zones](/docs/setup/best-practices/multiple-zones/) for details.
-- *Manage on-going features*: If you plan to keep your cluster over time,
+- *Manage ongoing features*: If you plan to keep your cluster over time,
   there are tasks you need to do to maintain its health and security. For example,
   if you installed with kubeadm, there are instructions to help you with
   [Certificate Management](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)
@@ -260,8 +260,8 @@ As someone setting up authentication and authorization on your production Kubern
 
 ## Set limits on workload resources
 
-Demands from production workloads can cause pressure both inside and outside
-of the Kubernetes control plane. Consider these items when setting up for the
+Demands from production workloads can cause pressure both inside and 
+outside the Kubernetes control plane. Consider these items when setting up for the
 needs of your cluster's workloads:
 
 - *Set namespace limits*: Set per-namespace quotas on things like memory and CPU. See

@@ -41,7 +41,7 @@ curl or wget, or a browser, there are several ways to locate and authenticate:
     - Uses stored apiserver location.
     - Verifies identity of apiserver using self-signed cert.  No MITM possible.
     - Authenticates to apiserver.
-    - In future, may do intelligent client-side load-balancing and failover.
+    - In the future, may do intelligent client-side load-balancing and failover.
   - Provide the location and credentials directly to the http client.
     - Alternate approach.
     - Works with some types of client code that are confused by using a proxy.
@@ -236,7 +236,7 @@ There are several different proxies you may encounter when using Kubernetes:
 1.  The [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
 
     - is a bastion built into the apiserver
-    - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
+    - connects a user outside the cluster to cluster IPs which otherwise might not be reachable
     - runs in the apiserver processes
     - client to proxy uses HTTPS (or http if apiserver so configured)
     - proxy to target may use HTTP or HTTPS as chosen by proxy using available information

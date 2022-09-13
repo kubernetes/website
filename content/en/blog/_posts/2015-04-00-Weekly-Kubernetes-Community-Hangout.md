@@ -1,5 +1,5 @@
 ---
-title: " Weekly Kubernetes Community Hangout Notes - April 3 2015 "
+title: " Weekly Kubernetes Community Hangout Notes - April, 3 2015 "
 date: 2015-04-04
 slug: weekly-kubernetes-community-hangout
 url: /blog/2015/04/Weekly-Kubernetes-Community-Hangout
@@ -93,7 +93,7 @@ Agenda:
 
     1. Likely at the availability zone, but could be at the rack, or the region
 
-2. Important to not pigeon hole and prevent other users
+2. Important to not pigeonhole and prevent other users
 
 
 

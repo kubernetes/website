@@ -262,9 +262,9 @@ This is an incomplete list of things that could go wrong, and how to adjust your
     - the kube-apiserver component fails to start successfully and become healthy
     - kubelets will not be able to reach it but will continue to run the same pods and provide the same service proxying
     - manual recovery or recreation of apiserver state necessary before apiserver is restarted
-- Supporting services (node controller, replication controller manager, scheduler, etc) VM shutdown or crashes
+- Supporting services (node controller, replication controller manager, scheduler, etc.) VM shutdown or crashes
   - currently those are colocated with the apiserver, and their unavailability has similar consequences as apiserver
-  - in future, these will be replicated as well and may not be co-located
+  - in the future, these will be replicated as well and may not be co-located
   - they do not have their own persistent state
 - Individual node (VM or physical machine) shuts down
   - Results

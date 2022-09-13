@@ -30,7 +30,8 @@ Kubernetes CLI, `kubectl`.
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it.  Typically, this is automatically set-up when you work through
 a [Getting started guide](/docs/setup/),
-or someone else setup the cluster and provided you with credentials and a location.
+or someone else set up the cluster and provided you with credentials and a 
+location.
 
 Check the location and credentials that kubectl knows about with this command:
 -->
@@ -68,7 +69,7 @@ curl or wget, or a browser, there are several ways to locate and authenticate:
     - Uses stored apiserver location.
     - Verifies identity of apiserver using self-signed cert.  No MITM possible.
     - Authenticates to apiserver.
-    - In future, may do intelligent client-side load-balancing and failover.
+    - In the future, may do intelligent client-side load-balancing and failover.
   - Provide the location and credentials directly to the http client.
     - Alternate approach.
     - Works with some types of client code that are confused by using a proxy.
@@ -407,7 +408,7 @@ There are several different proxies you may encounter when using Kubernetes:
 1.  The [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
 
     - is a bastion built into the apiserver
-    - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
+    - connects a user outside the cluster to cluster IPs which otherwise might not be reachable
     - runs in the apiserver processes
     - client to proxy uses HTTPS (or http if apiserver so configured)
     - proxy to target may use HTTP or HTTPS as chosen by proxy using available information
@@ -463,7 +464,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - implementation varies by cloud provider.
 
 Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
-will typically ensure that the latter types are setup correctly.
+will typically ensure that the latter types are set up correctly.
 -->
 5. 外部服务上的云负载均衡器：
 
