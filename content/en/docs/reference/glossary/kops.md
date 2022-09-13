@@ -1,32 +1,29 @@
 ---
-title: Kops
+title: kOps (Kubernetes Operations)
 id: kops
 date: 2018-04-12
-full_link: /docs/getting-started-guides/kops/
+full_link: /docs/setup/production-environment/kops/
 short_description: >
-  A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters.
+  kOps will not only help you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes cluster, but it will also provision the necessary cloud infrastructure.
 
 aka: 
 tags:
 - tool
 - operation
 ---
- A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters.
+
+`kOps` will not only help you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes cluster, but it will also provision the necessary cloud infrastructure.
 
 <!--more--> 
 
 {{< note >}}
-kops has general availability support only for AWS.
-Support for using kops with GCE and VMware vSphere are in alpha.
+AWS (Amazon Web Services) is currently officially supported, with DigitalOcean, GCE and OpenStack in beta support, and Azure in alpha.
 {{< /note >}}
 
-`kops` provisions your cluster with&#58;
-
+`kOps` is an automated provisioning system:
   * Fully automated installation
-  * DNS-based cluster identification
-  * Self-healing&#58; everything runs in Auto-Scaling Groups
-  * Limited OS support (Debian preferred, Ubuntu 16.04 supported, early support for CentOS & RHEL)
-  * High availability (HA) support
-  * The ability to directly provision, or to generate Terraform manifests
-
-You can also build your own cluster using {{< glossary_tooltip term_id="kubeadm" >}} as a building block. `kops` builds on the kubeadm work.
+  * Uses DNS to identify clusters
+  * Self-healing: everything runs in Auto-Scaling Groups
+  * Multiple OS support (Amazon Linux, Debian, Flatcar, RHEL, Rocky and Ubuntu)
+  * High-Availability support
+  * Can directly provision, or generate terraform manifests
