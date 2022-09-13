@@ -1,6 +1,9 @@
 ---
 title: Learning environment
+main_menu: true
 weight: 20
+content_type: concept
+no_list: true
 ---
 
 <!--
@@ -11,7 +14,9 @@ weight: 20
 {{/* If you're localizing this page, you only need to copy the front matter */}}
 {{/* and add a redirect into "/static/_redirects", for YOUR localization. */}}
 -->
-<!--
+
+<!-- overview -->
+
 ## kind
 
 [`kind`](https://kind.sigs.k8s.io/docs/) lets you run Kubernetes on
@@ -20,6 +25,8 @@ your local computer. This tool requires that you have
 
 The kind [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) page
 shows you what you need to do to get up and running with kind.
+
+<a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="View kind Quick Start Guide">View kind Quick Start Guide</a>
 
 ## minikube
 
@@ -31,5 +38,18 @@ Kubernetes, or for daily development work.
 You can follow the official
 [Get Started!](https://minikube.sigs.k8s.io/docs/start/) guide if your focus is
 on getting the tool installed.
--->
+
+<a class="btn btn-primary" href="https://minikube.sigs.k8s.io/docs/start/" role="button" aria-label="View minikube Get Started! Guide">View minikube Get Started! Guide</a>
+
+Once you have `minikube` working, you can use it to
+[run a sample application](/docs/tutorials/hello-minikube/).
+
+
+## {{% heading "whatsnext" %}}
+
+- Make sure to install [`kubectl`](https://kubernetes.io/docs/tasks/tools/#kubectl) as well.
+
+- If you still can't decide, pick `minicube` and start [here](https://kubernetes.io/docs/tutorials/hello-minikube/). `kubeadm` installs are a lot to cover for a beginner.
+
+- Continue your learning journey with a [production environment](https://k8s.io/docs/setup/production-environment/).
 
