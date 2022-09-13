@@ -244,7 +244,7 @@ FlexVolume은 쿠버네티스 v1.23부터 사용 중단(deprecated)되었다. Ou
 스케줄러는 파드를 감시하고 파드를 노드에 할당하는 특수한 유형의
 컨트롤러이다. 다른 쿠버네티스 컴포넌트를 계속 사용하면서
 기본 스케줄러를 완전히 교체하거나,
-[여러 스케줄러](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)를
+[여러 스케줄러](/ko/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)를
 동시에 실행할 수 있다.
 
 이것은 중요한 부분이며, 거의 모든 쿠버네티스 사용자는 스케줄러를 수정할

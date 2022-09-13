@@ -101,7 +101,7 @@ weight: 60
 
 워크로드(파드 혹은 파드를 관리하는 
 [워크로드 리소스](/ko/docs/concepts/workloads/controllers/))를 생성할 수 있는 사용자는
-[파드 시큐리티 스탠다드](/docs/concepts/security/pod-security-standards/)에 
+[파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)에 
 기반한 제한 사항이 없을 시에는 해당 노드에 대한 접근 권한을 부여받을 수 있다.
 
 특권 파드 실행 권한을 가지는 사용자는 해당 노드에 대한 권한을 부여받을 수 있으며, 

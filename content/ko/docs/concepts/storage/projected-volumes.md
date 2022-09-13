@@ -67,7 +67,7 @@ weight: 21 # just after persistent volumes
 `path` 필드는 프로젝티드 볼륨의 마운트 지점에 대한 상대 경로를 지정한다.
 
 {{< note >}}
-[`하위 경로`](/docs/concepts/storage/volumes/#using-subpath) 볼륨 마운트로 프로젝티드 볼륨 소스를 사용하는 컨테이너는
+[`하위 경로`](/ko/docs/concepts/storage/volumes/#using-subpath) 볼륨 마운트로 프로젝티드 볼륨 소스를 사용하는 컨테이너는
 해당 볼륨 소스에 대한 업데이트를 수신하지 않는다.
 {{< /note >}}
 

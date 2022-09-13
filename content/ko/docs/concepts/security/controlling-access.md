@@ -143,7 +143,7 @@ Bob이 `projectCaribou` 네임스페이스에 있는 오브젝트에 쓰기(`cre
 인증 및 인가 그리고 API 접근 제어에 대한 추가적인 문서는 아래에서 찾을 수 있다.
 
 - [인증하기](/docs/reference/access-authn-authz/authentication/)
-   - [부트스트랩 토큰(bootstrap token)으로 인증하기](/docs/reference/access-authn-authz/bootstrap-tokens/)
+   - [부트스트랩 토큰(bootstrap token)으로 인증하기](/ko/docs/reference/access-authn-authz/bootstrap-tokens/)
 - [어드미션 컨트롤러(admission controller)](/docs/reference/access-authn-authz/admission-controllers/)
    - [동적 어드미션(admission) 제어](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 - [인가](/ko/docs/reference/access-authn-authz/authorization/)
