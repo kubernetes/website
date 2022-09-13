@@ -560,6 +560,50 @@ For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap
 {{< /note >}}
 
 <!--
+Rather than referring to individual `resources` and `verbs`
+you can use the wildcard `*` symbol to refer to all such objects.
+For `nonResourceURLs` you can use the wildcard `*` symbol as a suffix glob match and
+for `apiGroups` and `resourceNames` an empty set means that everything is allowed.
+Here is an example that allows access to perform any current and future action on
+all current and future resources (note, this is similar to the built-in `cluster-admin` role).
+-->
+使用通配符 `*` 可以批量引用所有的 `resources` 和 `verbs` 对象，无需逐一引用。
+对于 `nonResourceURLs`，可以将通配符 `*` 作为后缀实现全局通配，
+对于 `apiGroups` 和 `resourceNames`，空集表示没有任何限制。
+下面的示例允许对所有当前和未来资源执行所有动作（注意，这类似于内置的 `cluster-admin`）。
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: example.com-superuser  # 此角色仅作示范，请勿使用
+rules:
+- apiGroups: ["example.com"]
+  resources: ["*"]
+  verbs: ["*"]
+```
+
+{{< caution >}}
+<!--
+Using wildcards in resource and verb entries could result in 
+overly permissive access being granted to sensitive resources.
+For instance, if a new resource type is added, or a new subresource is added,
+or a new custom verb is checked, the wildcard entry automatically grants access,
+which may be undesirable.
+The [principle of least privilege](/docs/concepts/security/rbac-good-practices/#least-privilege)
+should be employed, using specific resources and verbs to ensure
+only the permissions required for the workload to function correctly are applied.
+-->
+在 resources 和 verbs 条目中使用通配符会为敏感资源授予过多的访问权限。
+例如，如果添加了新的资源类型、新的子资源或新的自定义动词，
+通配符条目会自动授予访问权限，用户可能不希望出现这种情况。
+应该执行[最小特权原则](zh-cn/docs/concepts/security/rbac-good-practices/#least-privilege)，
+使用具体的 resources 和 verbs 确保仅赋予工作负载正常运行所需的权限。
+{{< /caution >}}
+
+
+<!--
 ### Aggregated ClusterRoles
 
 You can _aggregate_ several ClusterRoles into one combined ClusterRole.
@@ -2331,7 +2375,7 @@ This is not a recommended policy.
 -->
 下面的策略允许 **所有** 服务帐户充当集群管理员。
 容器中运行的所有应用程序都会自动收到服务帐户的凭据，可以对 API 执行任何操作，
-包括查看 Secrets 和修改权限。这一策略是不被推荐的。
+包括查看 Secret 和修改权限。这一策略是不被推荐的。
 
 ```shell
 kubectl create clusterrolebinding permissive-binding \
