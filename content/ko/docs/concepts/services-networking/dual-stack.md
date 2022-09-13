@@ -305,7 +305,7 @@ IP 위장과 같은 메커니즘을 통해 공개적으로 라우팅한 IPv6 주
 {{< /note >}}
 
 윈도우의 다른 네트워크 모델에 대한 내용은
-[윈도우에서의 네트워킹](/docs/concepts/services-networking/windows-networking#network-modes)을 살펴본다.
+[윈도우에서의 네트워킹](/ko/docs/concepts/services-networking/windows-networking/#네트워크-모드)을 살펴본다.
 
 ## {{% heading "whatsnext" %}}
 

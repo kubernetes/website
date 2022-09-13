@@ -268,7 +268,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
   각 인덱스에 대해 성공적으로 완료된 파드가 하나 있으면 작업이 완료된 것으로
   간주된다. 이 모드를 사용하는 방법에 대한 자세한 내용은
-  [정적 작업 할당을 사용한 병렬 처리를 위해 인덱싱된 잡](/docs/tasks/job/indexed-parallel-processing-static/)을 참고한다.
+  [정적 작업 할당을 사용한 병렬 처리를 위해 인덱싱된 잡](/ko/docs/tasks/job/indexed-parallel-processing-static/)을 참고한다.
   참고로, 드물기는 하지만, 동일한 인덱스에 대해 둘 이상의 파드를 시작할 수
   있지만, 그 중 하나만 완료 횟수에 포함된다.
 
@@ -486,7 +486,7 @@ spec:
 
 [작업 항목 당 파드가 있는 큐]: /ko/docs/tasks/job/coarse-parallel-processing-work-queue/
 [가변 파드 수를 가진 큐]: /ko/docs/tasks/job/fine-parallel-processing-work-queue/
-[정적 작업 할당을 사용한 인덱싱된 잡]: /docs/tasks/job/indexed-parallel-processing-static/
+[정적 작업 할당을 사용한 인덱싱된 잡]: /ko/docs/tasks/job/indexed-parallel-processing-static/
 [잡 템플릿 확장]: /ko/docs/tasks/job/parallel-processing-expansion/
 
 ## 고급 사용법
@@ -773,7 +773,7 @@ API 서버에서 파드가 제거되면 이를 알아챈다.
 * 다른 방식으로 잡을 구동하는 방법에 대해서 읽는다.
   * [작업 대기열을 사용한 거친 병렬 처리](/ko/docs/tasks/job/coarse-parallel-processing-work-queue/)
   * [작업 대기열을 사용한 정밀 병렬 처리](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)
-  * [병렬 처리를 위한 정적 작업 할당으로 인덱스된 잡](/docs/tasks/job/indexed-parallel-processing-static/)(베타) 사용
+  * [병렬 처리를 위한 정적 작업 할당으로 인덱스된 잡](/ko/docs/tasks/job/indexed-parallel-processing-static/)(베타) 사용
   * 템플릿 기반으로 복수의 잡 생성: [확장을 사용한 병렬 처리](/ko/docs/tasks/job/parallel-processing-expansion/)
 * [완료된 잡을 자동으로 정리](#clean-up-finished-jobs-automatically) 섹션 내 링크를 따라서
   클러스터가 완료되거나 실패된 태스크를 어떻게 정리하는지에 대해 더 배운다.

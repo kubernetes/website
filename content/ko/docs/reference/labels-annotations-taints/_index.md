@@ -540,7 +540,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 
 적용 대상: 네임스페이스
 
-값은 **반드시** [파드 보안 표준](/docs/concepts/security/pod-security-standards) 레벨과 상응하는
+값은 **반드시** [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/) 레벨과 상응하는
 `privileged`, `baseline`, 또는 `restricted` 중 하나여야 한다.
 특히 `enforce` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는
 레이블 네임스페이스에 모든 파드의 생성을 금지한다.
@@ -555,7 +555,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 적용 대상: 네임스페이스
 
 값은 **반드시** `latest`이거나 `v<MAJOR>.<MINOR>` 형식의 유효한 쿠버네티스 버전이어야 한다.
-설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/docs/concepts/security/pod-security-standards)
+설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)
 정책의 버전이 결정된다.
 
 더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
@@ -567,7 +567,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 
 적용 대상: 네임스페이스
 
-값은 **반드시** [파드 보안 표준](/docs/concepts/security/pod-security-standards) 레벨과 상응하는
+값은 **반드시** [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/) 레벨과 상응하는
 `privileged`, `baseline`, 또는 `restricted` 중 하나여야 한다.
 특히 `audit` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는 레이블 네임스페이스에 파드를 생성하는 것을
 방지하지 않지만, 해당 파드에 audit 어노테이션을 추가한다.
@@ -582,7 +582,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 적용 대상: 네임스페이스
 
 값은 **반드시** `latest`이거나 `v<MAJOR>.<MINOR>` 형식의 유효한 쿠버네티스 버전이어야 한다.
-설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/docs/concepts/security/pod-security-standards)
+설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)
 정책의 버전이 결정된다.
 
 더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
@@ -594,7 +594,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 
 적용 대상: 네임스페이스
 
-값은 **반드시** [파드 보안 표준](/docs/concepts/security/pod-security-standards) 레벨과 상응하는
+값은 **반드시** [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/) 레벨과 상응하는
 `privileged`, `baseline`, 또는 `restricted` 중 하나여야 한다.
 특히 `warn` 레이블은 해당 레이블이 달린 네임스페이스에, 표시된 레벨에 명시된 요구 사항을 충족하지 않는 파드를 생성하는 것을
 방지하지는 않지만, 그러한 파드가 생성되면 사용자에게 경고를 반환한다.
@@ -611,7 +611,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 적용 대상: 네임스페이스
 
 값은 **반드시** `latest`이거나 `v<MAJOR>.<MINOR>` 형식의 유효한 쿠버네티스 버전이어야 한다.
-설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/docs/concepts/security/pod-security-standards)
+설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)
 정책의 버전이 결정된다. 디플로이먼트, 잡, 스테이트풀셋 등과 같은 파드 템플릿을 포함하는
 객체를 만들거나 업데이트할 때에도 경고가 표시된다.
 
@@ -655,8 +655,8 @@ seccomp 프로파일을 파드 또는 파드 내 컨테이너에 적용하는 �
 볼륨스냅샷(VolumeSnapshot)으로부터 생성될 경우,
 사용자가 소스 볼륨의 모드를 수정할 수 있는지 여부를 결정한다.
 
-자세한 사항은 [스냅샷의 볼륨 모드 변환하기](/docs/concepts/storage/volume-snapshots/#convert-volume-mode)
-와 [쿠버네티스 CSI 개발자용 문서](https://kubernetes-csi.github.io/docs/)를 참조한다.
+자세한 사항은 [스냅샷의 볼륨 모드 변환하기](/ko/docs/concepts/storage/volume-snapshots/#convert-volume-mode)와 
+[쿠버네티스 CSI 개발자용 문서](https://kubernetes-csi.github.io/docs/)를 참조한다.
 
 ## Audit을 위한 어노테이션들
 
