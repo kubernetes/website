@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - janetkuo
 title: 완료된 잡 자동 정리
 content_type: concept
 weight: 70

@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - freehan
 title: 엔드포인트슬라이스
 content_type: concept
 weight: 45
