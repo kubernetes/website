@@ -238,8 +238,6 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | 1.23 |
 | `CSIStorageCapacity` | `true` | GA | 1.24 | - |
-| `CSRDuration` | `true` | Beta | 1.22 | 1.23 |
-| `CSRDuration` | `true` | GA | 1.24 | - |
 | `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
 | `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | 1.23 |
 | `ControllerManagerLeaderMigration` | `true` | GA | 1.24 | - |
@@ -463,8 +461,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Storage Capacity](/docs/concepts/storage/storage-capacity/).
   Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
 - `CSIVolumeHealth`: Enable support for CSI volume health monitoring on node.
-- `CSRDuration`: Allows clients to request a duration for certificates issued
-  via the Kubernetes CSR API.
 - `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
    contextual logging add extra detail to log output.
 - `ControllerManagerLeaderMigration`: Enables leader migration for
