@@ -10,8 +10,7 @@ weight: 10
 누구나 문서화에 대한 풀 리퀘스트를 리뷰할 수 있다.
 쿠버네티스 website 리포지터리의 [풀 리퀘스트](https://github.com/kubernetes/website/pulls) 섹션을 방문하여 열린(open) 풀 리퀘스트를 확인한다.
 
-문서화에 대한 풀 리퀘스트를 리뷰하는 것은
-쿠버네티스 커뮤니티에 자신을 소개하는 훌륭한 방법이다.
+문서화에 대한 풀 리퀘스트를 리뷰하는 것은 쿠버네티스 커뮤니티에 자신을 소개하는 훌륭한 방법이다.
 아울러, 코드 베이스(code base)를 배우고 다른 기여자와 신뢰를 구축하는 데 도움이 된다.
 
 리뷰하기 전에, 다음을 수행하는 것이 좋다.
@@ -27,7 +26,6 @@ weight: 10
 ## 시작하기 전에
 
 리뷰를 시작하기 전에 다음을 명심하자.
-
 
 - [CNCF 행동 강령](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/ko.md)을 읽고
   항상 준수한다.
@@ -72,6 +70,7 @@ class third,fourth white
 {{</ mermaid >}}
 
 그림 1. 리뷰 과정 절차.
+
 
 1.  [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls)로 이동한다.
     쿠버네티스 website와 문서에 대한 모든 열린 풀 리퀘스트 목록이 표시된다.
