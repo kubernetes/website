@@ -171,7 +171,7 @@ requirements are satisfied:
 - Kubelet 的容器运行时必须使用 Docker
 - Docker 的[默认运行时](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)必须设置为
   `nvidia-container-runtime`，而不是 `runc`。
-- NVIDIA 驱动程序的版本必须匹配 ~= 361.93
+- NVIDIA 驱动程序的版本必须匹配 ~= 384.81
 
 如果你的集群已经启动并且满足上述要求的话，可以这样部署 NVIDIA 设备插件：
 
@@ -203,8 +203,8 @@ You can use the following commands to install the NVIDIA drivers and device plug
 -->
 你可以使用下面的命令来安装 NVIDIA 驱动以及设备插件：
 
-```
-# 在 COntainer-Optimized OS 上安装 NVIDIA 驱动:
+```shell
+# 在 Container-Optimized OS 上安装 NVIDIA 驱动:
 kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/daemonset.yaml
 
 # 在 Ubuntu 上安装 NVIDIA 驱动 (实验性质):
