@@ -203,8 +203,8 @@ You can use the following commands to install the NVIDIA drivers and device plug
 -->
 你可以使用下面的命令来安装 NVIDIA 驱动以及设备插件：
 
-```
-# 在 COntainer-Optimized OS 上安装 NVIDIA 驱动:
+```shell
+# 在 Container-Optimized OS 上安装 NVIDIA 驱动:
 kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/daemonset.yaml
 
 # 在 Ubuntu 上安装 NVIDIA 驱动 (实验性质):
