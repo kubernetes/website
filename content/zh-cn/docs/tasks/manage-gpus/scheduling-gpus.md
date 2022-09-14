@@ -171,7 +171,7 @@ requirements are satisfied:
 - Kubelet 的容器运行时必须使用 Docker
 - Docker 的[默认运行时](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)必须设置为
   `nvidia-container-runtime`，而不是 `runc`。
-- NVIDIA 驱动程序的版本必须匹配 ~= 361.93
+- NVIDIA 驱动程序的版本必须匹配 ~= 384.81
 
 如果你的集群已经启动并且满足上述要求的话，可以这样部署 NVIDIA 设备插件：
 
