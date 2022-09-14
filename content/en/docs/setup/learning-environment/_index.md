@@ -2,8 +2,6 @@
 title: Learning environment
 main_menu: true
 weight: 20
-content_type: concept
-no_list: true
 ---
 
 <!--
@@ -47,9 +45,11 @@ Once you have `minikube` working, you can use it to
 
 ## {{% heading "whatsnext" %}}
 
-- Make sure to install [`kubectl`](https://kubernetes.io/docs/tasks/tools/#kubectl) as well.
+- Make sure to [install `kubectl`](/docs/tasks/tools/#kubectl) as well.
 
-- If you still can't decide, pick `minicube` and start [here](https://kubernetes.io/docs/tutorials/hello-minikube/). `kubeadm` installs are a lot to cover for a beginner.
+- If you still can't decide, pick `minikube` and start with [Hello Minikube](/docs/tutorials/hello-minikube/). `kubeadm` installs are a lot to cover for a beginner.
 
-- Continue your learning journey with a [production environment](https://k8s.io/docs/setup/production-environment/).
+- Already familiar with Kubernetes? Learn how to deploy a cluster for a
+[production environment](https://k8s.io/docs/setup/production-environment/).
+That guidance is also useful if you want to deploy an environment that matches a production setup.
 
