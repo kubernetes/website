@@ -1,4 +1,7 @@
 ---
+# reviewers:
+# - danwent
+# - aanm
 title: 네트워크 폴리시로 실리움(Cilium) 사용하기
 content_type: task
 weight: 20

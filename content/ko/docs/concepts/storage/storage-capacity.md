@@ -1,10 +1,10 @@
 ---
-
-
-
-
-
-
+# reviewers:
+# - jsafrane
+# - saad-ali
+# - msau42
+# - xing-yang
+# - pohly
 title: 스토리지 용량
 content_type: concept
 weight: 70

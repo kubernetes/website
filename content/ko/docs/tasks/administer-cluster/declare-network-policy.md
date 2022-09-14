@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - caseydavenport
+# - danwinship
 title: 네트워크 폴리시(Network Policy) 선언하기
 min-kubernetes-server-version: v1.8
 content_type: task

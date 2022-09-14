@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - jcbsmpsn
+# - mikedanese
 title: Kubelet의 인증서 갱신 구성
 content_type: task
 ---

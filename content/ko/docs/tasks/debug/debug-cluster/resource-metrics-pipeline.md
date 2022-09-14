@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - fgrzadkowski
+# - piosz
 title: 리소스 메트릭 파이프라인
 content_type: concept
 weight: 15

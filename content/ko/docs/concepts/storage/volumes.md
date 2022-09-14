@@ -1,9 +1,9 @@
 ---
-## reviewers:
-## - jsafrane
-## - saad-ali
-## - thockin
-## - msau42
+# reviewers:
+# - jsafrane
+# - saad-ali
+# - thockin
+# - msau42
 title: 볼륨
 content_type: concept
 weight: 10
@@ -837,7 +837,7 @@ spec:
 ### projected
 
 `Projected` 볼륨은 여러 기존 볼륨 소스를 동일한 디렉터리에 매핑한다.
-더 자세한 사항은 [projected volumes](/docs/concepts/storage/projected-volumes/)를 참고한다.
+더 자세한 사항은 [projected volumes](/ko/docs/concepts/storage/projected-volumes/)를 참고한다.
 
 ### quobyte (사용 중단됨) {#quobyte}
 

@@ -72,7 +72,7 @@ kubectl expose deployment example --port=8765 --target-port=9376 \
 {{< glossary_tooltip text="디플로이먼트(Deployment)" term_id="deployment" >}} ).
 
 명령줄 옵션 플래그를 포함한, 더 자세한 내용은 
-[`kubectl expose` 레퍼런스](/ko/docs/reference/generated/kubectl/kubectl-commands/#expose) 문서를 참고한다.
+[`kubectl expose` 레퍼런스](/docs/reference/generated/kubectl/kubectl-commands/#expose) 문서를 참고한다.
 
 ## IP 주소 찾기
 

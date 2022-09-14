@@ -9,7 +9,7 @@ weight: 40
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-이 페이지는 [kubeadm으로 생성된](/ko/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes) 윈도우 노드를 업그레이드하는 방법을 설명한다.
+이 페이지는 [kubeadm으로 생성된](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 윈도우 노드를 업그레이드하는 방법을 설명한다.
 
 
 
