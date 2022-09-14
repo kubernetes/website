@@ -91,7 +91,7 @@ host. Inside the container the process will think it is running as root (and
 therefore tools like `apt`, `yum`, etc. work fine), while in reality the process
 doesn't have privileges on the host. You can verify this, for example, if you 
 check the user that the container process is running as by executing `ps` on the host.
-The user in the ouput of the `ps` command is not the same if you execute the command 
+The user in the output of the `ps` command is not the same as you execute the command
 `id` inside the container.
 
 This abstraction limits what can happen, for example, if the container manages
