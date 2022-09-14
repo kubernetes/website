@@ -22,7 +22,7 @@ Initコンテナは下記の項目をのぞいて、通常のコンテナと全�
 
 もしあるPodの単一のInitコンテナが失敗した場合、Kubeletは成功するまで何度もそのInitコンテナを再起動します。しかし、もしそのPodの`restartPolicy`がNeverで、そのPodの起動時にInitコンテナが失敗した場合、KubernetesはそのPod全体を失敗として扱います。
 
-PodにInitコンテナを指定するためには、[Podの仕様](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)に`initContainers`フィールドを`containers`アイテムの配列として指定してください(アプリケーションの`containers`フィールドとそのコンテンツに似ています)。
+PodにInitコンテナを指定するためには、[Podの仕様](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)に`initContainers`フィールドを`container`アイテムの配列として追加してください(アプリケーションの`containers`フィールドとそのコンテンツに似ています)。
 詳細については、APIリファレンスの[Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)を参照してください。
 
 
