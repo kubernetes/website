@@ -159,6 +159,17 @@ Used on: ServiceAccount
 
 The value for this annotation must be **true** to take effect. This annotation indicates that pods running as this service account may only reference Secret API objects specified in the service account's `secrets` field.
 
+### node.kubernetes.io/exclude-from-external-load-balancer
+
+Example: `node.kubernetes.io/exclude-from-external-load-balancer`
+
+Used on: Node
+
+Kubernetes automatically enables the `ServiceNodeExclusion` feature gate on the clusters it creates. With this feature gate enabled on a cluster,
+you can add label to particular worker nodes to exclude them from the list of backend servers.
+The following command can be used to exclude a worker node from the list of backend servers in a backend set-
+`kubectl label nodes <node-name> node.kubernetes.io/exclude-from-external-load-balancers=true`
+
 ### controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
 Example: `controller.kubernetes.io/pod-deletion-cost: "10"`
@@ -511,9 +522,9 @@ The kubelet checks D-value of the size of `/proc/sys/kernel/pid_max` and the PID
 
 Example: `node.kubernetes.io/out-of-service:NoExecute`
 
-A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach` 
+A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled on
-`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node. 
+`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node.
 
 {{< caution >}}
 Refer to
@@ -645,7 +656,7 @@ This determines whether a user can modify the mode of the source volume when a
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} is being
 created from a VolumeSnapshot.
 
-Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode) 
+Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode)
 and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/) for more information.
 
 ## Annotations used for audit
