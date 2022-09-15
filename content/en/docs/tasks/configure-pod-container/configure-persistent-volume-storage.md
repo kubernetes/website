@@ -86,7 +86,7 @@ PersistentVolume uses a file or directory on the Node to emulate network-attache
 In a production cluster, you would not use hostPath. Instead a cluster administrator
 would provision a network resource like a Google Compute Engine persistent disk,
 an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also
-use [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage)
+use [StorageClasses](/docs/concepts/storage/storage-classes/)
 to set up
 [dynamic provisioning](/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
 
