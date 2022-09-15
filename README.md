@@ -31,13 +31,13 @@ The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/doc
 
 ### Windows
 ```powershell
-# pull in the Docsy submodule
+# fetch submodule dependencies
 git submodule update --init --recursive --depth 1
 ```
 
-### Linux
+### Linux / other Unix
 ```bash
-# fetch all the dependencies
+# fetch submodule dependencies
 make module-init
 ```
 
