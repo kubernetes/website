@@ -156,7 +156,7 @@ NodeStatus is information about the current status of a node.
 
   *Patch strategy: merge on key `type`*
   
-  List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example.
+  List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example. Besides, it is possible its addresses get changed because the Node or kubelet restarts. In this case, related network resources like Node routes should be updated as well.
 
   <a name="NodeAddress"></a>
   *NodeAddress contains information for the node's address.*
