@@ -1421,7 +1421,7 @@ procedure.
 2.  Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
 -->
 
-*选项 1：* 使用存储版本迁移程序（Storage Version Migrator）
+**选项 1：** 使用存储版本迁移程序（Storage Version Migrator）
 
 1. 运行[存储版本迁移程序](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
 2. 从 CustomResourceDefinition 的 `status.storedVersions` 字段中去掉
@@ -1432,7 +1432,7 @@ procedure.
 
 The following is an example procedure to upgrade from `v1beta1` to `v1`.
 -->
-*选项 2：* 手动将现有对象升级到新的存储版本
+**选项 2：** 手动将现有对象升级到新的存储版本
 
 以下是从 `v1beta1` 升级到 `v1` 的示例过程。
 
@@ -1450,21 +1450,34 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
     这会强制后端使用当前存储版本（即 `v1`）写入对象。
 3.  从 CustomResourceDefinition  的 `status.storedVersions` 字段中删除 `v1beta1`。
 
-<!--
-The `kubectl` tool currently cannot be used to edit or patch the `status` subresource on a CRD: see the [Kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource) for more details.
-
-The easier way to patch the status subresource from the CLI is directly interacting with the API server using the `curl` tool, in this example:
--->
 {{< note >}}
-`kubectl` 工具目前不能用于编辑或修补 CRD 上的 `status` 子资源：请参阅
-[kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource)
-了解更多细节。
+<!--
+The flag `--subresource` is used with the kubectl get, patch, edit, and replace commands to
+fetch and update the subresources, `status` and `scale`, for all the API resources that
+support them. This flag is available starting from kubectl version v1.24. Previously, reading
+subresources (like `status`) via kubectl involved using `kubectl --raw`, and updating
+subresources using kubectl was not possible at all. Starting from v1.24, the `kubectl` tool
+can be used to edit or patch the `status` subresource on a CRD object. See [How to patch a Deployment using the subresource flag](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/#scale-kubectl-patch).
+-->
+`--subresource` 标志在 kubectl get、patch、edit 和 replace 命令中用于获取和更新所有支持它们的
+API 资源的子资源、`status` 和 `scale`。此标志从 kubectl 版本 v1.24 开始可用。
+以前通过 kubectl 读取子资源（如 `status`）涉及使用 `kubectl --raw`，并且根本不可能使用 kubectl 更新子资源。
+从 v1.24 开始，`kubectl` 工具可用于编辑或修补有关 CRD 对象的 `status` 子资源。
+请参阅[如何使用子资源标志修补 Deployment](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/#scale-kubectl-patch)。
 
-从 CLI 给 `status` 子资源打补丁的更简单的方法是使用 `curl` 工具直接与 API 服务器交互，示例:
+<!--
+This page is part of the documentation for Kubernetes v{{< skew currentVersion >}}.
+If you are running a different version of Kubernetes, consult the documentation for that release.
+
+Here is an example of how to patch the `status` subresource for a CRD object using `kubectl`:
+-->
+此页面是 Kubernetes v{{< skew currentVersion >}} 文档的一部分。
+如果你运行的是不同版本的 Kubernetes，请查阅相应版本的文档。
+
+以下是如何使用 `kubectl` 为一个 CRD 对象修补 `status` 子资源的示例：
+
 ```bash
-kubectl proxy &
-curl --header "Content-Type: application/json-patch+json" \
-  --request PATCH http://localhost:8001/apis/apiextensions.k8s.io/v1/customresourcedefinitions/<your CRD name here>/status \
-  --data '[{"op": "replace", "path": "/status/storedVersions", "value":["v1"]}]'
+kubectl patch customresourcedefinitions <CRD_Name> --subresource='status' --type='merge' -p '{"status":{"storedVersions":["v1"]}}'
 ```
 {{< /note >}}
+
