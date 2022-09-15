@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - verb
+# - yujuhong
 title: 임시(Ephemeral) 컨테이너
 content_type: concept
 weight: 80

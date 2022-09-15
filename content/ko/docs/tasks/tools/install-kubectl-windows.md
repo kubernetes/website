@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - mikedanese
 title: 윈도우에 kubectl 설치 및 설정
 content_type: task
 weight: 10

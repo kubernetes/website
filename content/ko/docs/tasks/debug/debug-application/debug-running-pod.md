@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - verb
+# - soltysh
 title: 동작 중인 파드 디버그
 content_type: task
 ---

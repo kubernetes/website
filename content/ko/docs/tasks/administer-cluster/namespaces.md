@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - derekwaynecarr
+# - janetkuo
 title: 네임스페이스를 사용해 클러스터 공유하기
 content_type: task
 ---
@@ -108,7 +108,7 @@ Resource Limits
     ``` 
 
 네임스페이스의 이름은 
-유효한 [DNS 레이블](/docs/concepts/overview/working-with-objects/names#dns-label-names)이어야 한다.
+유효한 [DNS 레이블](/ko/docs/concepts/overview/working-with-objects/names/#dns-label-names)이어야 한다.
 
 옵션 필드인 `finalizer`는 네임스페이스가 삭제 될 때 관찰자가 리소스를 제거할 수 있도록 한다. 존재하지 않는 파이널라이저(finalizer)를 명시한 경우 네임스페이스는 생성되지만 사용자가 삭제하려 하면 `Terminating` 상태가 된다.
 

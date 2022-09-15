@@ -1,4 +1,6 @@
 ---
+# reviewers:
+# - stclair
 title: AppArmor를 사용하여 리소스에 대한 컨테이너의 접근 제한
 content_type: tutorial
 weight: 10
