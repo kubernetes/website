@@ -1,8 +1,8 @@
 ---
 layout: blog
-title: "SIG Apps Features Graduating to Stable in Kubernetes 1.25"
+title: "Kubernetes 1.25: Two Features for Apps Rollouts Graduate to Stable"
 date: 2022-09-15
-slug: "sig-apps-features-stable-1-25"
+slug: "app-rollout-features-reach-stable"
 ---
 
 **Authors:** Ravi Gudimetla (Apple), Filip Křepinský (Red Hat), Maciej Szulik (Red Hat)
