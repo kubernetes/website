@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "sig-apps features graduating to stable in 1.25"
-date: 2022-07-27
+date: 2022-09-15
 slug: "sig-apps features graduating to stable in 1.25"
 ---
 
