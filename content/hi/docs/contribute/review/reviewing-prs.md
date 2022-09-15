@@ -25,9 +25,9 @@ weight: 10
 
 ## Before you begin
 
-Before you start a review:
+समीक्षा शुरू करने से पहले:
 
-- Read the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)
+- इसे पढ़िए [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)
   और सुनिश्चित करें कि आप हर समय इसका पालन करते हैं।
 - विनम्र, विचारशील और मददगार बनें।
 - पीआर के सकारात्मक पहलुओं के साथ-साथ परिवर्तनों पर टिप्पणी करें।
@@ -75,65 +75,64 @@ Figure 1. Review process steps.
 1. Go to [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
    You see a list of every open pull request against the Kubernetes website and docs.
 
-2. Filter the open PRs using one or all of the following labels:
-
+2.निम्नलिखित में से एक या सभी लेबल का उपयोग करके खुले पीआर को फ़िल्टर करें:
    - `cncf-cla: yes` (Recommended): PRs submitted by contributors who have not signed the CLA
      cannot be merged. See [Sign the CLA](/docs/contribute/new-content/#sign-the-cla)
-     for more information.
-   - `language/en` (Recommended): Filters for english language PRs only.
-   - `size/<size>`: filters for PRs of a certain size. If you're new, start with smaller PRs.
+अधिक जानकारी के लिए।
+   - `भाषा/एन` (अनुशंसित): केवल अंग्रेजी भाषा के पीआर के लिए फ़िल्टर।
+   - `आकार/<आकार>`: एक निश्चित आकार के पीआर के लिए फ़िल्टर। अगर आप नए हैं, तो छोटे पीआर से शुरुआत करें।
 
-   Additionally, ensure the PR isn't marked as a work in progress. PRs using the `work in
-   progress` label are not ready for review yet.
+   इसके अतिरिक्त, सुनिश्चित करें कि पीआर को प्रगति पर चल रहे कार्य के रूप में चिह्नित नहीं किया गया है। 'वर्क इन' का उपयोग करते हुए पीआर
+   प्रगति' लेबल अभी समीक्षा के लिए तैयार नहीं हैं।
 
-3. Once you've selected a PR to review, understand the change by:
+3. एक बार जब आप समीक्षा के लिए पीआर का चयन कर लेते हैं, तो इसके द्वारा परिवर्तन को समझें:
 
-   - Reading the PR description to understand the changes made, and read any linked issues
-   - Reading any comments by other reviewers
-   - Clicking the **Files changed** tab to see the files and lines changed
-   - Previewing the changes in the Netlify preview build by scrolling to the PR's build check
-     section at the bottom of the **Conversation** tab.
-     Here's a screenshot (this shows GitHub's desktop site; if you're reviewing
-     on a tablet or smartphone device, the GitHub web UI is slightly different):
-     {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub pull request details including link to Netlify preview" >}}
-     To open the preview, click on the  **Details** link of the **deploy/netlify** line in the
-     list of checks.
+   - किए गए परिवर्तनों को समझने के लिए पीआर विवरण पढ़ना, और किसी भी जुड़े मुद्दों को पढ़ना
+   - अन्य समीक्षकों द्वारा किसी भी टिप्पणी को पढ़ना
+   - फाइलों और लाइनों को बदले हुए देखने के लिए **फ़ाइलें बदली गई** टैब पर क्लिक करें
+   - पीआर के बिल्ड चेक पर स्क्रॉल करके Netlify प्रीव्यू बिल्ड में बदलावों का पूर्वावलोकन करना
+     **वार्तालाप** टैब के निचले भाग में अनुभाग।
+     यहां एक स्क्रीनशॉट है (यह गिटहब की डेस्कटॉप साइट दिखाता है; यदि आप समीक्षा कर रहे हैं
+     टैबलेट या स्मार्टफोन डिवाइस पर, GitHub वेब UI थोड़ा अलग है):
+     {{<आंकड़ा src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub Netlify पूर्वावलोकन के लिंक सहित अनुरोध विवरण खींचें">}}
+     पूर्वावलोकन खोलने के लिए, में **तैनाती/नेटलिफ़ाई** लाइन के **विवरण** लिंक पर क्लिक करें
+     चेक की सूची।
 
-4. Go to the **Files changed** tab to start your review.
+4. अपनी समीक्षा शुरू करने के लिए **फ़ाइलें बदली गई** टैब पर जाएं.
 
-   1. Click on the `+` symbol  beside the line you want to comment on.
-   1. Fill in any comments you have about the line and click either **Add single comment**
-      (if you have only one comment to make) or **Start a review** (if you have multiple comments to make).
-   1. When finished, click **Review changes** at the top of the page. Here, you can add
-      a summary of your review (and leave some positive comments for the contributor!).
-      Please always use the "Comment"
+   1. आप जिस लाइन पर टिप्पणी करना चाहते हैं, उसके बगल में स्थित `+` चिह्न पर क्लिक करें।
+   1. लाइन के बारे में अपनी कोई भी टिप्पणी भरें और **एकल टिप्पणी जोड़ें** पर क्लिक करें
+      (यदि आपके पास करने के लिए केवल एक टिप्पणी है) या **समीक्षा शुरू करें** (यदि आपके पास करने के लिए एक से अधिक टिप्पणियां हैं)।
+   1. समाप्त होने पर, पृष्ठ के शीर्ष पर **परिवर्तनों की समीक्षा करें** पर क्लिक करें। यहां, आप जोड़ सकते हैं
+      आपकी समीक्षा का सारांश (और योगदानकर्ता के लिए कुछ सकारात्मक टिप्पणियां छोड़ दें!)
+      कृपया हमेशा "टिप्पणी" का प्रयोग करें
 
-     - Avoid clicking the "Request changes" button when finishing your review.
-       If you want to block a PR from being merged before some further changes are made,
-       you can leave a "/hold" comment.
-       Mention why you are setting a hold, and optionally specify the conditions under
-       which the hold can be removed by you or other reviewers.
+     - अपनी समीक्षा समाप्त करते समय "परिवर्तनों का अनुरोध करें" बटन पर क्लिक करने से बचें।
+       अगर आप कुछ और बदलाव करने से पहले किसी पीआर को मर्ज होने से रोकना चाहते हैं,
+       आप एक "/ होल्ड" टिप्पणी छोड़ सकते हैं।
+       उल्लेख करें कि आप होल्ड क्यों सेट कर रहे हैं, और वैकल्पिक रूप से इसके अंतर्गत शर्तें निर्दिष्ट करें
+       जिसे आप या अन्य समीक्षकों द्वारा होल्ड हटाया जा सकता है।
 
-     - Avoid clicking the "Approve" button when finishing your review.
-       Leaving a "/approve" comment is recommended most of the time.
+     - अपनी समीक्षा समाप्त करते समय "स्वीकार करें" बटन पर क्लिक करने से बचें।
+       अधिकांश समय "/स्वीकृत करें" टिप्पणी छोड़ने की अनुशंसा की जाती है।
 
-## Reviewing checklist
+## चेकलिस्ट की समीक्षा करना
 
-When reviewing, use the following as a starting point.
+समीक्षा करते समय, निम्नलिखित को प्रारंभिक बिंदु के रूप में उपयोग करें।
 
-### Language and grammar
+### भाषा और व्याकरण
 
-- Are there any obvious errors in language or grammar? Is there a better way to phrase something?
-- Are there any complicated or archaic words which could be replaced with a simpler word?
-- Are there any words, terms or phrases in use which could be replaced with a non-discriminatory alternative?
-- Does the word choice and its capitalization follow the [style guide](/docs/contribute/style/style-guide/)?
-- Are there long sentences which could be shorter or less complex?
-- Are there any long paragraphs which might work better as a list or table?
+- क्या भाषा या व्याकरण में कोई स्पष्ट त्रुटि है? क्या कुछ वाक्यांश करने का कोई बेहतर तरीका है?
+- क्या कोई जटिल या पुरातन शब्द है जिसे सरल शब्द से बदला जा सकता है?
+- क्या ऐसे कोई शब्द, शब्द या वाक्यांश उपयोग में हैं जिन्हें एक गैर-भेदभावपूर्ण विकल्प से बदला जा सकता है?
+- क्या शब्द का चुनाव और उसका कैपिटलाइज़ेशन [स्टाइल गाइड](/docs/contribute/style/style-guide/) का पालन करता है?
+- क्या ऐसे लंबे वाक्य हैं जो छोटे या कम जटिल हो सकते हैं?
+- क्या कोई लंबे पैराग्राफ हैं जो सूची या तालिका के रूप में बेहतर काम कर सकते हैं?
 
-### Content
+### विषय
 
-- Does similar content exist elsewhere on the Kubernetes site?
-- Does the content excessively link to off-site, individual vendor or non-open source documentation?
+- क्या इसी तरह की सामग्री कुबेरनेट्स साइट पर कहीं और मौजूद है?
+- क्या सामग्री अत्यधिक रूप से ऑफ-साइट, व्यक्तिगत विक्रेता या गैर-ओपन सोर्स दस्तावेज़ीकरण से लिंक होती है?
 
 ### Website
 
@@ -143,13 +142,13 @@ When reviewing, use the following as a starting point.
 
 - क्या पीआर एक नया पेज पेश करता है? यदि ऐसा है तो:
 
-  - Is the page using the right [page content type](/docs/contribute/style/page-content-types/)
-    and associated Hugo shortcodes?
-  - Does the page appear correctly in the section's side navigation (or at all)?
-  - Should the page appear on the [Docs Home](/docs/home/) listing?
+  - क्या पेज सही [page content type](/docs/contribute/style/page-content-types/)
+    और संबद्ध ह्यूगो शॉर्टकोड का उपयोग कर रहा है?
+  - क्या पृष्ठ अनुभाग के पार्श्व नेविगेशन (या बिल्कुल) में सही ढंग से दिखाई देता है?
+  - क्या पेज पर दिखाई देना चाहिए[Docs Home](/docs/home/) लिस्टिंग?
 
-- Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code
-  blocks, tables, notes and images.
+- क्या परिवर्तन Netlify पूर्वावलोकन में दिखाई देते हैं? सूचियों, कोड के बारे में विशेष रूप से सतर्क रहें
+  ब्लॉक, टेबल, नोट्स और चित्र।
 
 ### Other
 
