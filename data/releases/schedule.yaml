@@ -62,7 +62,7 @@ schedules:
       cherryPickDeadline: 2022-01-24
       targetDate: 2022-01-25
       note: >-
-        [Out-of-Bound Release](https://groups.google.com/a/kubernetes.io/g/dev/c/Xl1sm-CItaY)
+        [Out-of-Band Release](https://groups.google.com/a/kubernetes.io/g/dev/c/Xl1sm-CItaY)
     - release: 1.23.2
       cherryPickDeadline: 2022-01-14
       targetDate: 2022-01-19
