@@ -44,7 +44,7 @@ Campo `.spec.ttlSecondsAfterFinished` de um Trabalho:
 
 Observe que o período TTL, o campo `.spec.ttlSecondsAfterFinished` de Jobs, pode ser modificado após a criação ou conclusão do Trabalho. No entanto, uma vez que o Trabalho se torna elegível para exclusão (quando o TTL expirou), o sistema não garante que os Jobs serão mantidos, mesmo que uma atualização para estender o TTL retorne uma resposta de API bem-sucedido.
 
-### Time Skew
+### Tempo de defasagem
 
 Como o controlador TTL-after-finished usa identificadores de data/hora armazenados nos trabalhos do Kubernetes para determinar se o TTL expirou ou não, esse recurso é sensível a distorção de tempo no cluster, o que pode fazer com que o controlador TTL-after-finish limpe objetos de Trabalho na hora errada.
 
