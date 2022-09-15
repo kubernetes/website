@@ -37,11 +37,11 @@ For example, once a pod is running in your cluster then a critical fault on the
 all the pods on that node fail. Kubernetes treats that level of failure as final: you
 would need to create a new `Pod` to recover, even if the node later becomes healthy.
 -->
-Kubernetes Pods 遵循[预定义的生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
+Kubernetes Pod 遵循[预定义的生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
 例如，当在你的集群中运行了某个 Pod，但是 Pod 所在的
 {{< glossary_tooltip text="节点" term_id="node" >}} 出现致命错误时，
-所有该节点上的 Pods 的状态都会变成失败。Kubernetes 将这类失败视为最终状态：
-即使该节点后来恢复正常运行，你也需要创建新的 Pod 以恢复应用。
+所有该节点上的 Pod 的状态都会变成失败。Kubernetes 将这类失败视为最终状态：
+即使该节点后来恢复正常运行，你也需要创建新的 `Pod` 以恢复应用。
 
 <!--
 However, to make life considerably easier, you don't need to manage each `Pod` directly.
@@ -78,7 +78,7 @@ Kubernetes 提供若干种内置的工作负载资源：
   `Deployment` 很适合用来管理你的集群上的无状态应用，`Deployment` 中的所有
   `Pod` 都是相互等价的，并且在需要的时候被替换。
 * [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
-  让你能够运行一个或者多个以某种方式跟踪应用状态的 Pods。
+  让你能够运行一个或者多个以某种方式跟踪应用状态的 Pod。
   例如，如果你的负载会将数据作持久存储，你可以运行一个 `StatefulSet`，将每个
   `Pod` 与某个 [`PersistentVolume`](/zh-cn/docs/concepts/storage/persistent-volumes/)
   对应起来。你在 `StatefulSet` 中各个 `Pod` 内运行的代码可以将数据复制到同一
@@ -96,15 +96,15 @@ Kubernetes 提供若干种内置的工作负载资源：
   `CronJobs` recur according to a schedule.
 -->
 * [DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/)
-  定义提供节点本地支撑设施的 `Pods`。这些 Pods 可能对于你的集群的运维是
+  定义提供节点本地支撑设施的 `Pod`。这些 Pod 可能对于你的集群的运维是
   非常重要的，例如作为网络链接的辅助工具或者作为网络
   {{< glossary_tooltip text="插件" term_id="addons" >}}
   的一部分等等。每次你向集群中添加一个新节点时，如果该节点与某 `DaemonSet`
-  的规约匹配，则控制面会为该 `DaemonSet` 调度一个 `Pod` 到该新节点上运行。
+  的规约匹配，则控制平面会为该 `DaemonSet` 调度一个 `Pod` 到该新节点上运行。
 * [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 和
   [CronJob](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)。
-  定义一些一直运行到结束并停止的任务。`Job` 用来表达的是一次性的任务，而
-  `CronJob` 会根据其时间规划反复运行。
+  定义一些一直运行到结束并停止的任务。`Job` 用来执行一次性任务，而
+  `CronJob` 用来执行的根据时间规划反复运行的任务。
 
 <!--
 In the wider Kubernetes ecosystem, you can find third-party workload resources that provide
@@ -118,7 +118,7 @@ then you can implement or install an extension that does provide that feature.
 在庞大的 Kubernetes 生态系统中，你还可以找到一些提供额外操作的第三方工作负载相关的资源。
 通过使用[定制资源定义（CRD）](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)，
 你可以添加第三方工作负载资源，以完成原本不是 Kubernetes 核心功能的工作。
-例如，如果你希望运行一组 `Pods`，但要求所有 Pods 都可用时才执行操作
+例如，如果你希望运行一组 `Pod`，但要求**所有** Pod 都可用时才执行操作
 （比如针对某种高吞吐量的分布式任务），你可以基于定制资源实现一个能够满足这一需求的扩展，
 并将其安装到集群中运行。
 
@@ -153,10 +153,10 @@ for applications:
 * The [_time-to-live after finished_ controller](/docs/concepts/workloads/controllers/ttlafterfinished/)
   removes Jobs once a defined time has passed since they completed.
 -->
-关于 Kubernetes 如何为应用管理 Pods，还有两个支撑概念能够提供相关背景信息：
+关于 Kubernetes 如何为应用管理 Pod，还有两个支撑概念能够提供相关背景信息：
 
 * [垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection/)机制负责在
-  对象的 _属主资源_ 被删除时在集群中清理这些对象。
+  对象的**属主资源**被删除时在集群中清理这些对象。
 * [**Time-to-Live** 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)会在 Job
   结束之后的指定时间间隔之后删除它们。
 
