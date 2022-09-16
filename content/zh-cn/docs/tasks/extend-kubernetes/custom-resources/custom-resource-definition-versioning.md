@@ -82,9 +82,9 @@ Adding a new version:
    webhook should be used. If there are no schema changes, the default `None`
    conversion strategy may be used and only the `apiVersion` field will be
    modified when serving different versions.
-2. If using conversion webhooks, create and deploy the conversion webhook. See
+1. If using conversion webhooks, create and deploy the conversion webhook. See
    the [Webhook conversion](#webhook-conversion) for more details.
-3. Update the CustomResourceDefinition to include the new version in the
+1. Update the CustomResourceDefinition to include the new version in the
    `spec.versions` list with `served:true`.  Also, set `spec.conversion` field
    to the selected conversion strategy. If using a conversion webhook, configure
    `spec.conversion.webhookClientConfig` field to call the webhook.
@@ -111,8 +111,8 @@ others use the new version.
 
 Migrate stored objects to the new version:
 -->
-添加新版本后，客户端可以逐步迁移到新版本。让某些客户使用旧版本的同时
-支持其他人使用新版本是相当安全的。
+   添加新版本后，客户端可以逐步迁移到新版本。
+   让某些客户使用旧版本的同时支持其他人使用新版本是相当安全的。
 
 将存储的对象迁移到新版本：
 
@@ -125,7 +125,7 @@ after upgrading the objects to a new stored version.
 
 1. 请参阅[将现有对象升级到新的存储版本](#upgrade-existing-objects-to-a-new-stored-version)节。
 
-对于客户来说，在将对象升级到新的存储版本之前、期间和之后使用旧版本和新版本都是安全的。
+   对于客户来说，在将对象升级到新的存储版本之前、期间和之后使用旧版本和新版本都是安全的。
 
 <!--
 Removing an old version:
@@ -172,13 +172,13 @@ Specifically, See the [API change documentation](https://github.com/kubernetes/c
 ## 指定多个版本  {#specify-multiple-versions}
 
 CustomResourceDefinition API 的 `versions` 字段可用于支持你所开发的
-定制资源的多个版本。版本可以具有不同的模式，并且转换 Webhooks
+定制资源的多个版本。版本可以具有不同的模式，并且转换 Webhook
 可以在多个版本之间转换定制资源。
 在适当的情况下，Webhook 转换应遵循
 [Kubernetes API 约定](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md)。
-尤其是，请查阅
+具体来说，请查阅
 [API 变更文档](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
-以了解一些有用的常见错误和建议。
+以获取一些有用的问题和建议。
 
 <!--
 In `apiextensions.k8s.io/v1beta1`, there was a `version` field instead of `versions`. The
@@ -239,11 +239,9 @@ spec:
             type: string
           port:
             type: string
-  # conversion 节是 Kubernetes 1.13+ 版本引入的，其默认值为无转换，即
-  # strategy 子字段设置为 None。
+  # conversion 节是 Kubernetes 1.13+ 版本引入的，其默认值为无转换，即 strategy 子字段设置为 None。
   conversion:
-    # None 转换假定所有版本采用相同的模式定义，仅仅将定制资源的 apiVersion
-    # 设置为合适的值.
+    # None 转换假定所有版本采用相同的模式定义，仅仅将定制资源的 apiVersion 设置为合适的值.
     strategy: None
   # 可以是 Namespaced 或 Cluster
   scope: Namespaced
@@ -289,11 +287,9 @@ spec:
           type: string
         port:
           type: string
-  # conversion 节是 Kubernetes 1.13+ 版本引入的，其默认值为无转换，即
-  # strategy 子字段设置为 None。
+  # conversion 节是 Kubernetes 1.13+ 版本引入的，其默认值为无转换，即 strategy 子字段设置为 None。
   conversion:
-    # None 转换假定所有版本采用相同的模式定义，仅仅将定制资源的 apiVersion
-    # 设置为合适的值.
+    # None 转换假定所有版本采用相同的模式定义，仅仅将定制资源的 apiVersion 设置为合适的值.
     strategy: None
   # 可以是 Namespaced 或 Cluster
   scope: Namespaced
@@ -344,8 +340,8 @@ by parsing the _name_ field to determine the version number, the stability
 
 不考虑 CustomResourceDefinition 中版本被定义的顺序，kubectl 使用
 具有最高优先级的版本作为访问对象的默认版本。
-通过解析 _name_ 字段确定优先级来决定版本号，稳定性（GA、Beta 或 Alpha）
-级别及该稳定性级别内的序列。
+优先级是通过解析 **name** 字段来确定版本号、稳定性（GA、Beta 或 Alpha）
+以及该稳定性级别内的序列。
 
 <!--
 The algorithm used for sorting the versions is designed to sort versions in the
@@ -425,10 +421,10 @@ Starting in v1.19, a CustomResourceDefinition can indicate a particular version 
 When API requests to a deprecated version of that resource are made, a warning message is returned in the API response as a header.
 The warning message for each deprecated version of the resource can be customized if desired.
 -->
-从 v1.19 开始，CustomResourceDefinition 可用来标明所定义的资源的特定版本
-被废弃。当发起对已废弃的版本的 API 请求时，会在 API 响应中以 HTTP 头部
+从 v1.19 开始，CustomResourceDefinition 可以指示其定义的资源的特定版本已废弃。
+当 CustomResourceDefinition 该资源的已废弃版本发出 API 请求时，会在 API 响应中以报头
 的形式返回警告消息。
-如果需要，可以对资源的每个废弃版本定制该警告消息。
+如果需要，可以自定义每个不推荐使用的资源版本的警告消息。
 
 <!--
 A customized warning message should indicate the deprecated API group, version, and kind,
@@ -553,8 +549,12 @@ Webhook conversion is available as beta since 1.15, and as alpha since Kubernete
 
 {{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
+<!--
+Webhook conversion is available as beta since 1.15, and as alpha since Kubernetes 1.13. The
+`CustomResourceWebhookConversion` feature must be enabled, which is the case automatically for many clusters for beta features. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+-->
 {{< note >}}
-Webhook 转换在 Kubernetes 1.13 版本引入，在 Kubernetes 1.15 中成为 Beta 功能。
+Webhook 转换在 Kubernetes 1.13 版本作为 Alpha 功能引入，在 Kubernetes 1.15 版本中成为 Beta 功能。
 要使用此功能，应启用 `CustomResourceWebhookConversion` 特性。
 在大多数集群上，这类 Beta 特性应该是自动启用的。
 请参阅[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
@@ -727,11 +727,9 @@ spec:
           port:
             type: string
   conversion:
-    # Webhook strategy 告诉 API 服务器调用外部 Webhook 来完成定制资源
-    # 之间的转换
+    # Webhook strategy 告诉 API 服务器调用外部 Webhook 来完成定制资源之间的转换
     strategy: Webhook
-    # 当 strategy 为 "Webhook" 时，webhook 属性是必需的
-    # 该属性配置将被 API 服务器调用的 Webhook 端点
+    # 当 strategy 为 "Webhook" 时，webhook 属性是必需的，该属性配置将被 API 服务器调用的 Webhook 端点
     webhook:
       # conversionReviewVersions 标明 Webhook 所能理解或偏好使用的
       # ConversionReview 对象版本。
@@ -887,7 +885,7 @@ url 以标准 URL 形式给出 Webhook 的位置（`scheme://host:port/path`）�
 <!--
 The scheme must be "https"; the URL must begin with "https://".
 
-Attempting to use a user or basic auth e.g. "user:password@" is not allowed.
+Attempting to use a user or basic auth (for example "user:password@") is not allowed.
 Fragments ("#...") and query parameters ("?...") are also not allowed.
 
 Here is an example of a conversion webhook configured to call a URL
@@ -895,7 +893,7 @@ Here is an example of a conversion webhook configured to call a URL
 -->
 HTTP 协议必须为 `https`；URL 必须以 `https://` 开头。
 
-尝试使用用户或基本身份验证（例如，使用`user:password@`）是不允许的。
+尝试使用用户或基本身份验证（例如，使用 `user:password@`）是不允许的。
 URL 片段（`#...`）和查询参数（`?...`）也是不允许的。
 
 下面是为调用 URL 来执行转换 Webhook 的示例，其中期望使用系统信任根
@@ -1016,11 +1014,11 @@ with the `conversionReviewVersions` field in their CustomResourceDefinition:
 
 ### 请求
 
-向 Webhooks 发起请求的动词是 POST，请求的 `Content-Type` 为 `application/json`。
+向 Webhook 发起请求的动词是 POST，请求的 `Content-Type` 为 `application/json`。
 请求的主题为 JSON 序列化形式的
 apiextensions.k8s.io API 组的 ConversionReview API 对象。
 
-Webhooks 可以在其 CustomResourceDefinition 中使用`conversionReviewVersions` 字段
+Webhook 可以在其 CustomResourceDefinition 中使用`conversionReviewVersions` 字段
 设置它们接受的 `ConversionReview` 对象的版本：
 
 {{< tabs name="conversionReviewVersions" >}}
@@ -1046,7 +1044,7 @@ version understood by the current and previous API server.
 -->
 创建 `apiextensions.k8s.io/v1` 版本的自定义资源定义时，
 `conversionReviewVersions`是必填字段。
-Webhooks 要求支持至少一个 `ConversionReview` 当前和以前的 API 服务器
+Webhook 要求支持至少一个 `ConversionReview` 当前和以前的 API 服务器
 可以理解的版本。
 
 {{% /tab %}}
@@ -1096,69 +1094,87 @@ for a request to convert `CronTab` objects to `example.com/v1`:
 {{< tabs name="ConversionReview_request" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
 ```yaml
-apiVersion: apiextensions.k8s.io/v1
-kind: ConversionReview
-request:
-  # 用来唯一标识此转换调用的随机 UID
-  uid: 705ab4f5-6393-11e8-b7cc-42010a800002
-  
-  # 对象要转换到的目标 API 组和版本
-  desiredAPIVersion: example.com/v1
-  
-  # 要转换的对象列表
-  # 其中可能包含一个或多个对象，版本可能相同也可能不同
-  objects:
-    - kind: CronTab
-      apiVersion: example.com/v1beta1
-      metadata:
-        creationTimestamp: "2019-09-04T14:03:02Z"
-        name: local-crontab
-        namespace: default
-        resourceVersion: "143"
-        uid: "3415a7fc-162b-4300-b5da-fd6083580d66"
-      hostPort: "localhost:1234"
-    - kind: CronTab
-      apiVersion: example.com/v1beta1
-      metadata:
-        creationTimestamp: "2019-09-03T13:02:01Z"
-        name: remote-crontab
-        resourceVersion: "12893",
-        uid: "359a83ec-b575-460d-b553-d859cedde8a0"
-      hostPort: example.com:2345
+{
+  "apiVersion": "apiextensions.k8s.io/v1",
+  "kind": "ConversionReview",
+  "request": {
+    # 用来唯一标识此转换调用的随机 UID
+    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
+    
+    # 对象要转换到的目标 API 组和版本
+    "desiredAPIVersion": "example.com/v1",
+    
+    # 要转换的对象列表，其中可能包含一个或多个对象，版本可能相同也可能不同
+    "objects": [
+      {
+        "kind": "CronTab",
+        "apiVersion": "example.com/v1beta1",
+        "metadata": {
+          "creationTimestamp": "2019-09-04T14:03:02Z",
+          "name": "local-crontab",
+          "namespace": "default",
+          "resourceVersion": "143",
+          "uid": "3415a7fc-162b-4300-b5da-fd6083580d66"
+        },
+        "hostPort": "localhost:1234"
+      },
+      {
+        "kind": "CronTab",
+        "apiVersion": "example.com/v1beta1",
+        "metadata": {
+          "creationTimestamp": "2019-09-03T13:02:01Z",
+          "name": "remote-crontab",
+          "resourceVersion": "12893",
+          "uid": "359a83ec-b575-460d-b553-d859cedde8a0"
+        },
+        "hostPort": "example.com:2345"
+      }
+    ]
+  }
+}
 ```
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
 ```yaml
-# v1.16 中已废弃以推荐使用 apiextensions.k8s.io/v1
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: ConversionReview
-request:
-  # 用来唯一标识此转换调用的随机 UID
-  uid: 705ab4f5-6393-11e8-b7cc-42010a800002
-  
-  # 对象要转换到的目标 API 组和版本
-  desiredAPIVersion: example.com/v1
-  
-  # 要转换的对象列表
-  # 其中可能包含一个或多个对象，版本可能相同也可能不同
-  objects:
-    - kind: CronTab
-      apiVersion: example.com/v1beta1
-      metadata:
-        creationTimestamp: "2019-09-04T14:03:02Z"
-        name: local-crontab
-        namespace: default
-        resourceVersion: "143"
-        uid: "3415a7fc-162b-4300-b5da-fd6083580d66"
-      hostPort: "localhost:1234"
-    - kind: CronTab
-      apiVersion: example.com/v1beta1
-      metadata:
-        creationTimestamp: "2019-09-03T13:02:01Z"
-        name: remote-crontab
-        resourceVersion: "12893",
-        uid: "359a83ec-b575-460d-b553-d859cedde8a0"
-      hostPort: example.com:2345
+{
+  # v1.16 中已废弃以推荐使用 apiextensions.k8s.io/v1
+  "apiVersion": "apiextensions.k8s.io/v1beta1",
+  "kind": "ConversionReview",
+  "request": {
+    # 用来唯一标识此转换调用的随机 UID
+    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
+    
+    # 对象要转换到的目标 API 组和版本
+    "desiredAPIVersion": "example.com/v1",
+    
+    # 要转换的对象列表，其中可能包含一个或多个对象，版本可能相同也可能不同
+    "objects": [
+      {
+        "kind": "CronTab",
+        "apiVersion": "example.com/v1beta1",
+        "metadata": {
+          "creationTimestamp": "2019-09-04T14:03:02Z",
+          "name": "local-crontab",
+          "namespace": "default",
+          "resourceVersion": "143",
+          "uid": "3415a7fc-162b-4300-b5da-fd6083580d66"
+        },
+        "hostPort": "localhost:1234"
+      },
+      {
+        "kind": "CronTab",
+        "apiVersion": "example.com/v1beta1",
+        "metadata": {
+          "creationTimestamp": "2019-09-03T13:02:01Z",
+          "name": "remote-crontab",
+          "resourceVersion": "12893",
+          "uid": "359a83ec-b575-460d-b553-d859cedde8a0"
+        },
+        "hostPort": "example.com:2345"
+      }
+    ]
+  }
+}
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -1179,7 +1195,7 @@ Example of a minimal successful response from a webhook:
 -->
 ### 响应
 
-Webhooks 响应包含 200 HTTP 状态代码、`Content-Type: application/json`，
+Webhook 响应包含 200 HTTP 状态代码、`Content-Type: application/json`，
 在主体中包含 JSON 序列化形式的数据，在 `response` 节中给出
  ConversionReview 对象（与发送的版本相同）。
 
@@ -1195,77 +1211,95 @@ Webhook 的最简单成功响应示例：
 {{< tabs name="ConversionReview_response_success" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
 ```yaml
-apiVersion: apiextensions.k8s.io/v1
-kind: ConversionReview
-response:
-  # 必须与 <request.uid> 匹配
-  uid: "705ab4f5-6393-11e8-b7cc-42010a800002"
-  result:
-    status: Success
-  # 这里的对象必须与 request.objects 中的对象顺序相同并且其 apiVersion
-  # 被设置为 <request.desiredAPIVersion>。
-  # kind、metadata.uid、metadata.name 和 metadata.namespace 等字段都不可
-  # 被 Webhook 修改。
-  # Webhook 可以更改 metadata.labels 和 metadata.annotations 字段值
-  # Webhook 对 metadata 中其他字段的更改都会被忽略
-  convertedObjects:
-    - kind: CronTab
-      apiVersion: example.com/v1
-      metadata:
-        creationTimestamp: "2019-09-04T14:03:02Z"
-        name: local-crontab
-        namespace: default
-        resourceVersion: "143",
-        uid: "3415a7fc-162b-4300-b5da-fd6083580d66"
-      host: localhost
-      port: "1234"
-    - kind: CronTab
-      apiVersion: example.com/v1
-      metadata:
-        creationTimestamp: "2019-09-03T13:02:01Z",
-        name: remote-crontab
-        resourceVersion: "12893",
-        uid: "359a83ec-b575-460d-b553-d859cedde8a0"
-      host: example.com
-      port: "2345"
+{
+  "apiVersion": "apiextensions.k8s.io/v1",
+  "kind": "ConversionReview",
+  "response": {
+    # 必须与 <request.uid> 匹配
+    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
+    "result": {
+      "status": "Success"
+    },
+    # 这里的对象必须与 request.objects 中的对象顺序相同并且其 apiVersion 被设置为 <request.desiredAPIVersion>。
+    # kind、metadata.uid、metadata.name 和 metadata.namespace 等字段都不可被 Webhook 修改。
+    # Webhook 可以更改 metadata.labels 和 metadata.annotations 字段值。
+    # Webhook 对 metadata 中其他字段的更改都会被忽略
+    "convertedObjects": [
+      {
+        "kind": "CronTab",
+        "apiVersion": "example.com/v1",
+        "metadata": {
+          "creationTimestamp": "2019-09-04T14:03:02Z",
+          "name": "local-crontab",
+          "namespace": "default",
+          "resourceVersion": "143",
+          "uid": "3415a7fc-162b-4300-b5da-fd6083580d66"
+        },
+        "host": "localhost",
+        "port": "1234"
+      },
+      {
+        "kind": "CronTab",
+        "apiVersion": "example.com/v1",
+        "metadata": {
+          "creationTimestamp": "2019-09-03T13:02:01Z",
+          "name": "remote-crontab",
+          "resourceVersion": "12893",
+          "uid": "359a83ec-b575-460d-b553-d859cedde8a0"
+        },
+        "host": "example.com",
+        "port": "2345"
+      }
+    ]
+  }
+}
 ```
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
 ```yaml
-# v1.16 中已弃用以推荐使用  apiextensions.k8s.io/v1
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: ConversionReview
-response:
-  # 必须与 <request.uid> 匹配
-  uid: "705ab4f5-6393-11e8-b7cc-42010a800002"
-  result:
-    status: Failed
-  # 这里的对象必须与 request.objects 中的对象顺序相同并且其 apiVersion
-  # 被设置为 <request.desiredAPIVersion>。
-  # kind、metadata.uid、metadata.name 和 metadata.namespace 等字段都不可
-  # 被 Webhook 修改。
-  # Webhook 可以更改 metadata.labels 和 metadata.annotations 字段值
-  # Webhook 对 metadata 中其他字段的更改都会被忽略
-  convertedObjects:
-    - kind: CronTab
-      apiVersion: example.com/v1
-      metadata:
-        creationTimestamp: "2019-09-04T14:03:02Z"
-        name: local-crontab
-        namespace: default
-        resourceVersion: "143",
-        uid: "3415a7fc-162b-4300-b5da-fd6083580d66"
-      host: localhost
-      port: "1234"
-    - kind: CronTab
-      apiVersion: example.com/v1
-      metadata:
-        creationTimestamp: "2019-09-03T13:02:01Z",
-        name: remote-crontab
-        resourceVersion: "12893",
-        uid: "359a83ec-b575-460d-b553-d859cedde8a0"
-      host: example.com
-      port: "2345"
+{
+  # v1.16 中已弃用以推荐使用  apiextensions.k8s.io/v1
+  "apiVersion": "apiextensions.k8s.io/v1beta1",
+  "kind": "ConversionReview",
+  "response": {
+    # 必须与 <request.uid> 匹配
+    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
+    "result": {
+      "status": "Failed"
+    },
+    # 这里的对象必须与 request.objects 中的对象顺序相同并且其 apiVersion 被设置为 <request.desiredAPIVersion>。
+    # kind、metadata.uid、metadata.name 和 metadata.namespace 等字段都不可被 Webhook 修改。
+    # Webhook 可以更改 metadata.labels 和 metadata.annotations 字段值。
+    # Webhook 对 metadata 中其他字段的更改都会被忽略。
+    "convertedObjects": [
+      {
+        "kind": "CronTab",
+        "apiVersion": "example.com/v1",
+        "metadata": {
+          "creationTimestamp": "2019-09-04T14:03:02Z",
+          "name": "local-crontab",
+          "namespace": "default",
+          "resourceVersion": "143",
+          "uid": "3415a7fc-162b-4300-b5da-fd6083580d66"
+        },
+        "host": "localhost",
+        "port": "1234"
+      },
+      {
+        "kind": "CronTab",
+        "apiVersion": "example.com/v1",
+        "metadata": {
+          "creationTimestamp": "2019-09-03T13:02:01Z",
+          "name": "remote-crontab",
+          "resourceVersion": "12893",
+          "uid": "359a83ec-b575-460d-b553-d859cedde8a0"
+        },
+        "host": "example.com",
+        "port": "2345"
+      }
+    ]
+  }
+}
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -1300,25 +1334,33 @@ Example of a response from a webhook indicating a conversion request failed, wit
 {{< tabs name="ConversionReview_response_failure" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
 ```yaml
-  apiVersion: apiextensions.k8s.io/v1
-  kind: ConversionReview
-  response:
-    uid: <value from request.uid>
-    result: {
-      status: Failed
-      message: hostPort could not be parsed into a separate host and port
+{
+  "apiVersion": "apiextensions.k8s.io/v1",
+  "kind": "ConversionReview",
+  "response": {
+    "uid": "<value from request.uid>",
+    "result": {
+      "status": "Failed",
+      "message": "hostPort could not be parsed into a separate host and port"
+    }
+  }
+}
 ```
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
 ```yaml
+{
   # v1.16 中弃用以推荐使用 apiextensions.k8s.io/v1
-  apiVersion: apiextensions.k8s.io/v1beta1
-  kind: ConversionReview
-  response:
-    uid: <value from request.uid>
-    result:
-      status: Failed
-      message: hostPort could not be parsed into a separate host and port
+  "apiVersion": "apiextensions.k8s.io/v1beta1",
+  "kind": "ConversionReview",
+  "response": {
+    "uid": "<value from request.uid>",
+    "result": {
+      "status": "Failed",
+      "message": "hostPort could not be parsed into a separate host and port"
+    }
+  }
+}
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -1409,10 +1451,10 @@ API 服务器在状态字段 `storedVersions` 中记录曾被标记为存储版�
 ## 将现有对象升级到新的存储版本     {#upgrade-existing-objects-to-a-new-stored-version} 
 
 <!--
-When deprecating versions and dropping support, devise a storage upgrade
+When deprecating versions and dropping support, select a storage upgrade
 procedure.
 -->
-弃用版本并删除其支持时，请设计存储升级过程。
+弃用版本并删除其支持时，请选择存储升级过程。
 
 <!--
 *Option 1:* Use the Storage Version Migrator
