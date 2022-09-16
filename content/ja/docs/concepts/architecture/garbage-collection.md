@@ -7,7 +7,7 @@ weight: 50
 <!-- overview -->
 ガベージコレクションは、Kubernetesがクラスターリソースをクリーンアップするために使用するさまざまなメカニズムの総称です。これにより、次のようなリソースのクリーンアップが可能になります:
 
-  * [失敗したPod](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+  * [終了したPod](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
   * [完了したJob](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)
   * [owner referenceのないオブジェクト](#owners-dependents)
   * [未使用のコンテナとコンテナイメージ](#containers-images)
@@ -102,7 +102,7 @@ Kubernetesは、kubeletの一部である*イメージマネージャー*を通�
 ガベージコレクションは、最後に使用された時間に基づいて、最も古いものから順にイメージを削除します。
 kubeletは、ディスク使用量が`LowThresholdPercent`値に達するまでイメージを削除します。
 
-### コンテナイメージのガベージコレクション {#container-image-garbage-collection}
+### コンテナのガベージコレクション {#container-image-garbage-collection}
 
 kubeletは、次の変数に基づいて未使用のコンテナをガベージコレクションします。
 
@@ -112,8 +112,8 @@ kubeletは、次の変数に基づいて未使用のコンテナをガベージ�
 
 これらの変数に加えて、kubeletは、通常、最も古いものから順に、定義されていない削除されたコンテナをガベージコレクションします。
 
-`MaxPerPodContainer`と`MaxContainer`は、Podごとのコンテナーの最大数(`MaxPerPodContainer`)を保持すると、グローバルなデッドコンテナの許容合計(`MaxContainers`)を超える状況で、互いに競合する可能性があります。
-この状況では、kubeletは`MaxPodPerContainer`を調整して競合に対処します。最悪のシナリオは、`MaxPerPodContainer`を1にダウングレードし、最も古いコンテナーを削除することです。
+`MaxPerPodContainer`と`MaxContainers`は、Podごとのコンテナーの最大数(`MaxPerPodContainer`)を保持すると、グローバルなデッドコンテナの許容合計(`MaxContainers`)を超える状況で、互いに競合する可能性があります。
+この状況では、kubeletは`MaxPerPodContainer`を調整して競合に対処します。最悪のシナリオは、`MaxPerPodContainer`を1にダウングレードし、最も古いコンテナーを削除することです。
 さらに、削除されたPodが所有するコンテナは、`MinAge`より古くなると削除されます。
 
 {{<note>}}
