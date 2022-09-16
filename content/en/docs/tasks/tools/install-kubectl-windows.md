@@ -26,11 +26,12 @@ The following methods exist for installing kubectl on Windows:
 
 1. Download the [latest release {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 
-   Or if you have `curl` installed, use this command:
+   use this command:
 
    ```powershell
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
+   Invoke-WebRequest -Uri "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe" -OutFile "kubectl.exe"
    ```
+  
 
    {{< note >}}
    To find out the latest stable version (for example, for scripting), take a look at [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
@@ -41,7 +42,7 @@ The following methods exist for installing kubectl on Windows:
    Download the `kubectl` checksum file:
 
    ```powershell
-   curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
+   Invoke-WebRequest -Uri "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256" -OutFile "kubectl.exe.sha256"
    ```
 
    Validate the `kubectl` binary against the checksum file:
@@ -151,7 +152,7 @@ Below are the procedures to set up autocompletion for PowerShell.
 1. Download the latest release with the command:
 
    ```powershell
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
+   Invoke-WebRequest -Uri "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe" -OutFile "kubectl-convert.exe"
    ```
 
 1. Validate the binary (optional)
