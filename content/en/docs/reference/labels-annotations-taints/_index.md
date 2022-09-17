@@ -247,7 +247,7 @@ StatefulSet topic for more details.
 
 ### scheduler.alpha.kubernetes.io/node-selector {#schedulerkubernetesnode-selector}
 
-Example: `scheduler.alpha.kubernetes.io/node-selector: name-of-node-selector`
+Example: `scheduler.alpha.kubernetes.io/node-selector: "name-of-node-selector"`
 
 Used on: Pod
 
