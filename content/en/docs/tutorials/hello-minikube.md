@@ -94,10 +94,10 @@ recommended way to manage the creation and scaling of Pods.
 Pod runs a Container based on the provided Docker image.
 
     ```shell
-    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.8
     ```
     
-    (for ARM-based deployments, use `--image=k8s.gcr.io/echoserver-arm:1.8`)
+    (for ARM-based deployments, use `--image=registry.k8s.io/echoserver-arm:1.8`)
     
 2. View the Deployment:
 
