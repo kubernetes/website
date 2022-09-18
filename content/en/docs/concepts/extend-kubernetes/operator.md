@@ -1,5 +1,5 @@
 ---
-title: Operator pattern
+title: Operator Pattern
 content_type: concept
 weight: 30
 ---
