@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Identifying pod operating system authoritatively during pod admission time"
+title: "Identifying Pod Operating System Authoritatively During Pod Admission Time"
 date: 2022-09-05
 slug: pod-os-field-explained
 ---
