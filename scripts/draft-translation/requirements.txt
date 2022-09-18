@@ -1,0 +1,2 @@
+# based on python 3.8
+googletrans==3.1.0a0
