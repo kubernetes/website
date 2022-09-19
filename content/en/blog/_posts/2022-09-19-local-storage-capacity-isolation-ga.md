@@ -98,7 +98,7 @@ spec:
     type: Container
 
 
-Also, ephemeral-storage may be specified to reserve for kubelet or system. example, --system-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=10Gi][,][pid=1000] --kube-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=5Gi][,][pid=1000]. If your cluster node root disk capacity is 100Gi, after setting system-reserved and kube-reserved value, the available allocatable ephemeral storage would become 85Gi. The schedule will use this information to assign pods based on request and allocatable resources from each node. The eviction manager will also use allocatable resource to determine pod eviction. See more details from [Reserve Compute Resources for System Daemons](docs/tasks/administer-cluster/reserve-compute-resources/)
+Also, ephemeral-storage may be specified to reserve for kubelet or system. example, --system-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=10Gi][,][pid=1000] --kube-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=5Gi][,][pid=1000]. If your cluster node root disk capacity is 100Gi, after setting system-reserved and kube-reserved value, the available allocatable ephemeral storage would become 85Gi. The schedule will use this information to assign pods based on request and allocatable resources from each node. The eviction manager will also use allocatable resource to determine pod eviction. See more details from [Reserve Compute Resources for System Daemons](/docs/tasks/administer-cluster/reserve-compute-resources/)
 
 ### How do I get involved? 
 
