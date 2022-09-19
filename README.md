@@ -23,7 +23,7 @@ To use this repository, you need the following installed locally:
 Before you start, install the dependencies. Clone the repository and navigate to the directory:
 
 ```bash
-git clone https://github.com/kubernetes/website.git
+git clone https://github.com/MagicXStudio/k8s-website.git
 cd website
 ```
 
