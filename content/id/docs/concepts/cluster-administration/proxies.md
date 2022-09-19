@@ -23,7 +23,7 @@ Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes
     - mencari lokasi apiserver
     - menambahkan <i>header</i> autentikasi
 
-1.  [apiserver proxy](/id/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
+1.  [apiserver proxy](/id/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
 
     - merupakan sebuah <i>bastion</i> yang ada di dalam apiserver
     - menghubungkan pengguna di luar klaster ke alamat-alamat IP di dalam klaster yang tidak bisa terjangkau
