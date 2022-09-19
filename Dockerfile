@@ -16,16 +16,16 @@ RUN apk add --no-cache \
     build-base \
     libc6-compat
 
-ARG HUGO_VERSION
+ARG HUGO_VERSION=0.103.1
 
 RUN mkdir $HOME/src && \
     cd $HOME/src && \
-    curl -L https://github.com/gohugoio/hugo/archive/refs/tags/v${HUGO_VERSION}.tar.gz | tar -xz && \
+    curl -L https://github.com/gohugoio/hugo/archive/refs/tags/v0.103.1.tar.gz | tar -xz && \
     cd "hugo-${HUGO_VERSION}" && \
     go install --tags extended
 
 FROM golang:1.18-alpine
-
+RUN  go env -w GOPROXY=https://goproxy.cn,direct
 RUN apk add --no-cache \
     runuser \
     git \
