@@ -85,8 +85,8 @@ To submit a blog post, follow these steps:
   - If you are looking for greater coordination on post release dates, coordinating with
     [CNCF marketing](https://www.cncf.io/about/contact/) is a more appropriate choice than submitting a blog post.
   - Sometimes reviews can get backed up. If you feel your review isn't getting the attention it needs,
-    you can reach out to the blog team via [this slack channel](https://kubernetes.slack.com/messages/sig-docs-blog/)
-    to ask in real time. 
+    you can reach out to the blog team on the [`#sig-docs-blog` Slack channel](https://kubernetes.slack.com/messages/sig-docs-blog/)
+    to ask in real time.
 
 - Blog posts should be relevant to Kubernetes users.
 
