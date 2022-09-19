@@ -32,7 +32,7 @@ After you've chosen a feature to document or assist, ask about it in the `#sig-d
 Slack channel, in a weekly SIG Docs meeting, or directly on the PR filed by the
 feature SIG. If you're given the go-ahead, you can edit into the PR using one of
 the techniques described in
-[Commit into another person's PR](/docs/contribute/review/for-approvers/#commit-into-another-persons-pr).
+[Commit into another person's PR](/docs/contribute/review/for-approvers/#commit-into-another-person-s-pr).
 
 ### Find out about upcoming features
 
@@ -117,7 +117,7 @@ When ready, populate your placeholder PR with feature documentation and change
 the state of the PR from draft to **ready for review**. To mark a pull request
 as ready for review, navigate to the merge box and click **Ready for review**.
 
-Do your best to describe your feature and how to use it. If you need help structuring your documentation, ask in the `#sig-docs` slack channel.
+Do your best to describe your feature and how to use it. If you need help structuring your documentation, ask in the `#sig-docs` Slack channel.
 
 When you complete your content, the documentation person assigned to your feature reviews it.
 To ensure technical accuracy, the content may also require a technical review from corresponding SIG(s).
