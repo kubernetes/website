@@ -32,7 +32,7 @@ After you've chosen a feature to document or assist, ask about it in the `#sig-d
 Slack channel, in a weekly SIG Docs meeting, or directly on the PR filed by the
 feature SIG. If you're given the go-ahead, you can edit into the PR using one of
 the techniques described in
-[Commit into another person's PR](/docs/contribute/review/for-approvers/#commit-into-another-persons-pr).
+[Commit into another person's PR](/docs/contribute/review/for-approvers/#commit-into-another-person-s-pr).
 
 ### Find out about upcoming features
 
