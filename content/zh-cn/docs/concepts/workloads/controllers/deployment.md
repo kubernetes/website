@@ -112,7 +112,7 @@ In this example:
 -->
 * `selector` 字段定义 Deployment 如何查找要管理的 Pod。
   在这里，你选择在 Pod 模板中定义的标签（`app: nginx`）。
-  不过，更复杂的选择规则是也可能的，只要 Pod 模板本身满足所给规则即可。
+  不过，更复杂的选择规则也是有可能的，只要 Pod 模板本身满足所给规则即可。
 
   {{< note >}}
   <!--
@@ -136,7 +136,7 @@ In this example:
   * Create one container and name it `nginx` using the `.spec.template.spec.containers[0].name` field.
 -->
 * `template` 字段包含以下子字段：
-  * Pod 被使用 `.metadata.labels` 字段打上 `app: nginx` 标签。
+  * Pod 使用 `.metadata.labels` 字段打上 `app: nginx` 标签。
   * Pod 模板规约（即 `.template.spec` 字段）指示 Pod 运行一个 `nginx` 容器，
     该容器运行版本为 1.14.2 的 `nginx` [Docker Hub](https://hub.docker.com/) 镜像。
   * 创建一个容器并使用 `.spec.template.spec.containers[0].name` 字段将其命名为 `nginx`。
@@ -183,7 +183,7 @@ Follow the steps given below to create the above Deployment:
    * `AGE` displays the amount of time that the application has been running.
    -->
    * `NAME` 列出了名字空间中 Deployment 的名称。
-   * `READY` 显示应用程序的可用的“副本”数。显示的模式是“就绪个数/期望个数”。
+   * `READY` 显示应用程序的就绪的“副本”数。显示的格式是“就绪个数/期望个数”。
    * `UP-TO-DATE` 显示为了达到期望状态已经更新的副本数。
    * `AVAILABLE` 显示应用可供用户使用的副本数。
    * `AGE` 显示应用程序运行的时间。
