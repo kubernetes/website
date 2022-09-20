@@ -18,10 +18,11 @@ RUN apk add --no-cache \
 
 ARG HUGO_VERSION=0.103.1
 
-RUN mkdir $HOME/src && \
-    cd $HOME/src && \
-    curl -L https://github.com/gohugoio/hugo/archive/refs/tags/v0.103.1.tar.gz | tar -xz && \
-    cd "hugo-${HUGO_VERSION}" && \
+RUN mkdir $HOME/src
+COPY [hugo-0.103.1.tar.gz, $HOME/src/]
+
+RUN cd $HOME/src/ \
+    tar -xz ./hugo-0.103.1.tar.gz \
     go install --tags extended
 
 FROM golang:1.18-alpine
@@ -40,7 +41,7 @@ RUN mkdir -p /var/hugo && \
     chown -R hugo: /var/hugo && \
     runuser -u hugo -- git config --global --add safe.directory /src
 
-COPY --from=0 /go/bin/hugo /usr/local/bin/hugo
+#COPY --from=0 /go/bin/hugo /usr/local/bin/hugo
 
 WORKDIR /src
 
