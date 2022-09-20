@@ -291,6 +291,9 @@ other = "End Of Life Date"
 [release_full_details_initial_text]
 other = "Complete"
 
+[release_information_navbar]
+other = "Release Information"
+
 [release_minor_version]
 other = "Minor Version"
 
