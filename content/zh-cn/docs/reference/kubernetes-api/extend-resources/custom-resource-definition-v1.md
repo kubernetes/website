@@ -581,7 +581,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式
   preserveUnknownFields 表示将对象写入持久性存储时应保留 OpenAPI 模式中未规定的对象字段。
   apiVersion、kind、元数据（metadata）和元数据中的已知字段始终保留。不推荐使用此字段，而建议在
   `spec.versions[*].schema.openAPIV3Schema` 中设置 `x-preserve-unknown-fields` 为 true。
-  更多详细信息参见： https://kubernetes.io/zh-cn/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields
+  更多详细信息参见： https://kubernetes.io/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning
 
 ## JSONSchemaProps {#JSONSchemaProps}
 
