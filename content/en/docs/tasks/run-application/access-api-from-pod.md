@@ -44,14 +44,9 @@ securely with the API server.
 
 While running in a Pod, your container can create an HTTPS URL for the Kubernetes API
 server by fetching the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT_HTTPS`
-environment variables. As a convenience,
-the API server may also be referenced via a Service named `kubernetes` in the `default`
-namespace. Therefore, Pods can use the `kubernetes.default.svc` hostname to query the
-API server.
-
-The API server's in-cluster address is published to a Service named `kubernetes` in
-the `default` namespace. This means that pods may reference `kubernetes.default.svc`
-as a DNS name for the local API server.
+environment variables. The API server's in-cluster address is also published to a
+Service named `kubernetes` in the `default` namespace so that pods may reference
+`kubernetes.default.svc` as a DNS name for the local API server.
 
 {{< note >}}
 Kubernetes does not guarantee that the API server has a valid certificate for
