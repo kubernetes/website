@@ -198,7 +198,7 @@ kubectl get node --selector='!node-role.kubernetes.io/control-plane'
 kubectl get pods --field-selector=status.phase=Running
 
 # Get ExternalIPs of all nodes
-kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
+kubectl get nodes -o wide
 
 # List Names of Pods that belong to Particular RC
 # "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://stedolan.github.io/jq/
