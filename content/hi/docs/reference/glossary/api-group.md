@@ -3,7 +3,7 @@ title: API समूह
 id: API-समूह
 date: 2019-09-02
 full_link: /docs/concepts/overview/kubernetes-api/#api-groups-and-versioning
-संक्षिप्त_विवरण: >
+short_description: >
   कुबेरनेट्स API में संबंधित पथों का एक सेट।
 
 aka:
