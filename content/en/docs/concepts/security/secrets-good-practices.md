@@ -27,25 +27,24 @@ improve the security of confidential information in the cluster.
 
 By default, Secret objects are stored unencrypted in {{<glossary_tooltip
 term_id="etcd" text="etcd">}}. You should configure encryption of your Secret
-data in `etcd`. For instructions, refer to [Encrypt Secret data at
-rest](/docs/tasks/administer-cluster/encrypt-data/).
+data in `etcd`. For instructions, refer to
+[Encrypt Secret Data at Rest](/docs/tasks/administer-cluster/encrypt-data/).
 
-### Configure RBAC policies for Secrets
+### Configure least-privilege access to Secrets {#least-privilege-secrets}
 
-When planning your {{<glossary_tooltip term_id="rbac" text="Role-based Access Control">}} [(RBAC)](/docs/reference/access-authn-authz/rbac/) policies,
-consider the following guidelines for `Secret` objects. You should also follow the other guidelines in [RBAC good practices](/docs/concepts/security/rbac-good-practices).
+When planning your access control mechanism, such as Kubernetes
+{{<glossary_tooltip term_id="rbac" text="Role-based Access Control">}} [(RBAC)](/docs/reference/access-authn-authz/rbac/),
+consider the following guidelines for access to `Secret` objects. You should
+also follow the other guidelines in
+[RBAC good practices](/docs/concepts/security/rbac-good-practices).
 
-{{< caution >}}
-A user who can create a Pod that uses a Secret can also see the value of that Secret. Even
-if cluster policies do not allow a user to read the Secret directly, the same user could
-have access to run a Pod that then exposes the Secret.
-{{< /caution >}}
-
-- Restrict `watch` or `list` access to only the most privileged, system-level
-  components.
-- In the API server, objects (including Secrets) are persisted into
-  {{< glossary_tooltip term_id="etcd" >}}; therefore:
-- Only allow cluster admistrators to access `etcd`. This includes read-only access.
+- **Components**: Restrict `watch` or `list` access to only the most
+  privileged, system-level components. Only grant `get` access for Secrets if
+  the component's normal behavior requires it.
+- **Humans**: Restrict `get`, `watch`, or `list` access to Secrets. Only allow
+  cluster admistrators to access `etcd`. This includes read-only access. For
+  more complex access control, such as restricting access to Secrets with
+  specific annotations, consider using third-party authorization mechanisms.
 
 {{< caution >}}
 Granting `list` access to Secrets implicitly lets the subject fetch the
