@@ -142,6 +142,45 @@ To create a new Secret, perform the following steps:
 1. Place that value in the `secret` field of the `EncryptionConfiguration` struct.
 1. Set the `--encryption-provider-config` flag on the `kube-apiserver` to point to
    the location of the config file.
+
+   You will need to mount the new encryption config file to the `kube-apiserver` static pod. Here is an example on how to do that:
+
+   1. Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml` on the control-plane node.
+   1. Edit the manifest for the `kube-apiserver` static pod: `/etc/kubernetes/manifests/kube-apiserver.yaml` similarly to this:
+
+   ```yaml
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     annotations:
+       kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 10.10.30.4:6443
+     creationTimestamp: null
+     labels:
+       component: kube-apiserver
+       tier: control-plane
+     name: kube-apiserver
+     namespace: kube-system
+   spec:
+     containers:
+     - command:
+       - kube-apiserver
+       ...
+       - --encryption-provider-config=/etc/kubernetes/enc/enc.yaml  # <-- add this line
+       volumeMounts:
+       ...
+       - name: enc                           # <-- add this line
+         mountPath: /etc/kubernetes/enc      # <-- add this line
+         readonly: true                      # <-- add this line
+       ...
+     volumes:
+     ...
+     - name: enc                             # <-- add this line
+       hostPath:                             # <-- add this line
+         path: /etc/kubernetes/enc           # <-- add this line
+         type: DirectoryOrCreate             # <-- add this line
+     ...
+   ```
+
 1. Restart your API server.
 
 {{< caution >}}
@@ -167,13 +206,39 @@ program to retrieve the contents of your Secret.
 
    where `[...]` must be the additional arguments for connecting to the etcd server.
 
+   For example:
+
+   ```shell
+   ETCDCTL_API=3 etcdctl \
+      --cacert=/etc/kubernetes/pki/etcd/ca.crt   \
+      --cert=/etc/kubernetes/pki/etcd/server.crt \
+      --key=/etc/kubernetes/pki/etcd/server.key  \
+      get /registry/secrets/default/secret1 | hexdump -C
+   ```
+
+   The output is similar to this (abbreviated):
+
+   ```hexdump
+   00000000  2f 72 65 67 69 73 74 72  79 2f 73 65 63 72 65 74  |/registry/secret|
+   00000010  73 2f 64 65 66 61 75 6c  74 2f 73 65 63 72 65 74  |s/default/secret|
+   00000020  31 0a 6b 38 73 3a 65 6e  63 3a 61 65 73 63 62 63  |1.k8s:enc:aescbc|
+   00000030  3a 76 31 3a 6b 65 79 31  3a c7 6c e7 d3 09 bc 06  |:v1:key1:.l.....|
+   00000040  25 51 91 e4 e0 6c e5 b1  4d 7a 8b 3d b9 c2 7c 6e  |%Q...l..Mz.=..|n|
+   00000050  b4 79 df 05 28 ae 0d 8e  5f 35 13 2c c0 18 99 3e  |.y..(..._5.,...>|
+   [...]
+   00000110  23 3a 0d fc 28 ca 48 2d  6b 2d 46 cc 72 0b 70 4c  |#:..(.H-k-F.r.pL|
+   00000120  a5 fc 35 43 12 4e 60 ef  bf 6f fe cf df 0b ad 1f  |..5C.N`..o......|
+   00000130  82 c4 88 53 02 da 3e 66  ff 0a                    |...S..>f..|
+   0000013a
+   ```
+
 1. Verify the stored Secret is prefixed with `k8s:enc:aescbc:v1:` which indicates
    the `aescbc` provider has encrypted the resulting data.
 
 1. Verify the Secret is correctly decrypted when retrieved via the API:
 
    ```shell
-   kubectl describe secret secret1 -n default
+   kubectl get secret secret1 -n default -o yaml
    ```
 
    The output should contain `mykey: bXlkYXRh`, with contents of `mydata` encoded, check
