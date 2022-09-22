@@ -10,7 +10,7 @@ aka:
 tags:
 - workload
 ---
-एप्लिकेशन कंटेनर (या ऐप कंटेनर) {{<glossary_tooltip text="init कंटेनर" term_id="init-container">}} {{<glossary_tooltip text="pod" term_id="pod" >}} एक {{<glossary_tooltip text="pod" term_id="pod" >}} में होते हैं, जो किसी के बाद शुरू होते हैं {{< glossary_tooltip text="init container" term_id="init-container" >}} पूरा हो गया है।
+एप्लिकेशन कंटेनर (या ऐप कंटेनर) एक {{<glossary_tooltip text="पॉड" term_id="pod" >}} में {{< glossary_tooltip text="कंटेनर" term_id="container" >}} होता हैं, जो किसी भी {{< glossary_tooltip text="इनिट कंटेनर" term_id="init-container" >}} के पूरा हो जाने के बाद शुरू होते हैं।
 
 <!--more-->
 
