@@ -23,6 +23,8 @@ some of the limitations in the implementation.
 Kubernetes implements {{< glossary_tooltip text="device plugins" term_id="device-plugin" >}}
 to let Pods access specialized hardware features such as GPUs.
 
+{{% thirdparty-content %}}
+
 As an administrator, you have to install GPU drivers from the corresponding
 hardware vendor on the nodes and run the corresponding device plugin from the
 GPU vendor. Here are some links to vendors' instructions:
