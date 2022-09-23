@@ -796,10 +796,10 @@ An example flow:
    cannot continue to serve traffic as load balancers (like the service proxy) remove the Pod from
    the list of endpoints as soon as the termination grace period _begins_.
 -->
-3. 与此同时，`kubelet` 启动体面关闭逻辑，控制面会将 Pod 从对应的端点列表（以及端点切片列表，
-   如果启用了的话）中移除，过滤条件是 Pod 被对应的
-   {{< glossary_tooltip term_id="service" text="服务" >}}以某
-   {{< glossary_tooltip text="选择算符" term_id="selector" >}}选定。
+3. 在 `kubelet` 启动体面关闭逻辑的同时，控制面会将 Pod 从配置了该 Pod 
+   {{< glossary_tooltip text="选择符" term_id="selector" >}}的
+   {{< glossary_tooltip term_id="service" text="服务" >}}端点列表
+   （以及端点切片列表，如果启用了的话）中移除。
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}和其他工作负载资源
    不再将关闭进程中的 Pod 视为合法的、能够提供服务的副本。关闭动作很慢的 Pod
    也无法继续处理请求数据，因为负载均衡器（例如服务代理）已经在终止宽限期开始的时候
