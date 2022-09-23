@@ -1,5 +1,5 @@
 ---
-title: Autorização
+title: Visão Geral de Autorização
 content_type: concept
 weight: 60
 ---
@@ -26,12 +26,11 @@ Todas as partes de uma requisição de API deve ser permitidas por alguma polít
 Isto significa que permissões são negadas por padrão.
 
 (Embora o Kubernetes use o servidor de API, controles de acesso e políticas que
-dependem de campos específicos de tipos específicos de objetos são tratados pelo Admission
-Controller.)
+dependem de campos específicos de tipos específicos de objetos são tratados pelos controladores de admissão.)
 
-Quando múltiplos modules de autorização são configurados, cada um será verificado em sequência.
+Quando múltiplos módulos de autorização são configurados, cada um será verificado em sequência.
 Se qualquer dos autorizadores aprovarem ou negarem uma requisição, a decisão é imediatamente
-retornada e nenhum outro autorizador é consultado. Se todos os módulos de autorização não tiverem
+retornada e nenhum outro autorizador é consultado. Se nenhum módulo de autorização tiver
 nenhuma opinião sobre requisição, então a requisição é negada. Uma negação retorna um
 código de status HTTP 403.
 
@@ -43,10 +42,10 @@ O Kubernetes revisa somente os seguintes atributos de uma requisição de API:
  * **group** - A lista de nomes de grupos aos quais o usuário autenticado pertence.
  * **extra** - Um mapa de chaves de string arbitrárias para valores de string, fornecido pela camada de autenticação.
  * **API** - Indica se a solicitação é para um recurso de API.
- * **Caminho da requisição** - Caminho para diversos endpoints sem recursos, como `/api` ou `/healthz`.
+ * **Caminho da requisição** - Caminho para diversos endpoints que não manipulam recursos, como `/api` ou `/healthz`.
  * **Verbo de requisição de API** - Verbos da API como `get`, `list`, `create`, `update`, `patch`, `watch`, `delete` e `deletecollection` que são utilizados para solicitações de recursos. Para determinar o verbo de requisição para um endpoint de recurso de API , consulte [Determine o verbo da requisição](/pt-br/docs/reference/access-authn-authz/authorization/#determine-the-request-verb).
  * **Verbo de requisição HTTP** - Métodos HTTP em letras minúsculas como `get`, `post`, `put` e `delete` que são utilizados para requisições que não são de recursos.
- * **Recurso** - O identificador ou nome do recurso que está sendo acessado (somente para requisições de recursos) -- Para requisições de recursos usando os verbos `get`, `update`, `patch` e `delete`, deve-se fornecer o nome do recurso.
+ * **Recurso** - O identificador ou nome do recurso que está sendo acessado (somente para requisições de recursos) - para requisições de recursos usando os verbos `get`, `update`, `patch` e `delete`, deve-se fornecer o nome do recurso.
  * **Subrecurso** - O sub-recurso que está sendo acessado (somente para solicitações de recursos).
  * **Namespace** - O namespace do objeto que está sendo acessado (somente para solicitações de recursos com namespace).
  * **Grupo de API** - O {{< glossary_tooltip text="API Group" term_id="api-group" >}} sendo acessado (somente para requisições de recursos). Uma string vazia designa o _core_ [Grupo de API](/docs/reference/using-api/#api-groups).
@@ -54,8 +53,7 @@ O Kubernetes revisa somente os seguintes atributos de uma requisição de API:
 ## Determine o verbo da requisição {#determine-the-request-verb}
 
 **Requisições de não-recursos**
-
-Requisições para endpoints diferentes de `/api/v1/...` ou `/apis/<group>/<version>/...`
+Requisições sem recursos de `/api/v1/...` ou `/apis/<group>/<version>/...`
 são considerados "requisições sem recursos" e usam o método HTTP em letras minúsculas da solicitação como o verbo.
 Por exemplo, uma solicitação `GET` para endpoints como `/api` ou `/healthz` usaria `get` como o verbo.
 
@@ -79,18 +77,18 @@ DELETE     | delete (para recursos individuais), deletecollection (para coleçõ
 * [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * `bind` e `escalate` verbos em `roles` e recursos `clusterroles` no grupo `rbac.authorization.k8s.io` de API.
 * [Authentication](/pt-br/docs/reference/access-authn-authz/authentication/)
-  * `impersonate` verbo em `users`, `groups`, e `serviceaccounts` no grupo de API principal, e o `userextras` no grupo `authentication.k8s.io` de API.
+  * `impersonate` verbo em `users`, `groups`, e `serviceaccounts` no grupo de API `core`, e o `userextras` no grupo `authentication.k8s.io` de API.
 
 ## Modos de Autorização {#authorization-modules}
 
 O servidor da API Kubernetes pode autorizar uma solicitação usando um dos vários modos de autorização:
 
- * **Node** - Um modo de autorização de finalidade especial que concede permissões a `kubelets` com base nos `pods` que estão programados para execução. Para saber mais sobre como utilizar o modo de autorização do nó, consulte [Node Authorization](/docs/reference/access-authn-authz/node/).
+ * **Node** - Um modo de autorização de finalidade especial que concede permissões a `kubelets` com base nos `Pods` que estão programados para execução. Para saber mais sobre como utilizar o modo de autorização do nó, consulte [Node Authorization](/docs/reference/access-authn-authz/node/).
  * **ABAC** - Attribute-based access control (ABAC), ou Controle de acesso baseado em atributos, define um paradigma de controle de acesso pelo qual os direitos de acesso são concedidos aos usuários por meio do uso de políticas que combinam atributos. As políticas podem usar qualquer tipo de atributo (atributos de usuário, atributos de recurso, objeto, atributos de ambiente, etc.). Para saber mais sobre como usar o modo ABAC, consulte [ABAC Mode](/docs/reference/access-authn-authz/abac/).
- * **RBAC** - Role-based access control (RBAC), ou controle de acesso baseado em função, é um método de regular o acesso a recursos de computador ou rede com base nas funções de usuários individuais dentro de uma empresa. Nesse contexto, acesso é a capacidade de um usuário individual realizar uma tarefa específica, como visualizar, criar ou modificar um arquivo. Para saber mais sobre como usar o modo RBAC, consulte [RBAC Mode](/docs/reference/access-authn-authz/rbac/)
-   * Quando especificado RBAC (Role-Based Access Control) usa o group de API `rbac.authorization.k8s.io` para orientar as decisões de autorização, permitindo que os administradores configurem dinamicamente as políticas de permissão por meio da API do Kubernetes.
+ * **RBAC** - Role-based access control (RBAC), ou controle de acesso baseado em função, é um método de regular o acesso a recursos computacionais ou de rede com base nas funções de usuários individuais dentro de uma empresa. Nesse contexto, acesso é a capacidade de um usuário individual realizar uma tarefa específica, como visualizar, criar ou modificar um arquivo. Para saber mais sobre como usar o modo RBAC, consulte [RBAC Mode](/docs/reference/access-authn-authz/rbac/)
+   * Quando especificado RBAC (Role-Based Access Control) usa o grupo de API `rbac.authorization.k8s.io` para orientar as decisões de autorização, permitindo que os administradores configurem dinamicamente as políticas de permissão por meio da API do Kubernetes.
    * Para habilitar o modo RBAC, inicie o servidor de API (apiserver) com a opção `--authorization-mode=RBAC`.
- * **Webhook** - Um WebHook é um retorno de chamada HTTP: um HTTP POST que ocorre quando algo acontece; uma simples notificação de evento via HTTP POST. Um aplicativo da Web que implementa WebHooks postará uma mensagem em um URL quando ocorrerem determinadas coisas. Para saber mais sobre como usar o modo Webhook, consulte [Webhook Mode](/docs/reference/access-authn-authz/webhook/).
+ * **Webhook** - Um WebHook é um retorno de chamada HTTP: um HTTP POST que ocorre quando algo acontece; uma simples notificação de evento via HTTP POST. Um aplicativo da Web que implementa WebHooks postará uma mensagem em um URL quando um determinado evento ocorrer. Para saber mais sobre como usar o modo Webhook, consulte [Webhook Mode](/docs/reference/access-authn-authz/webhook/).
 
 #### Verificando acesso a API
 
@@ -121,7 +119,7 @@ A saída é semelhante a esta:
 no
 ```
 
-Os administradores podem combinar isso com [user impersonation](/pt-br/docs/reference/access-authn-authz/authentication/#user-impersonation)
+Os administradores podem combinar isso com [personificação de usuário](/pt-br/docs/reference/access-authn-authz/authentication/#personificação-de-usuário)
 para determinar qual ação outros usuários podem executar.
 
 ```bash
@@ -153,14 +151,14 @@ yes
 ```
 
 `SelfSubjectAccessReview` faz parte do grupo de API `authorization.k8s.io`, que
-expõe a autorização do servidor de API para serviços externos. Outros recursos em
-este grupo inclui:
+expõe a autorização do servidor de API para serviços externos. Outros recursos
+neste grupo inclui:
 
-* `SubjectAccessReview` - * `SubjectAccessReview` - Revisão de acesso para qualquer usuário, não apenas o atual. Útil para delegar decisões de autorização para o servidor de API. Por exemplo, o kubelet e extensões de servidores de API utilizam disso para determinar o acesso do usuário às suas próprias APIs.
+* `SubjectAccessReview` - Revisão de acesso para qualquer usuário, não apenas o atual. Útil para delegar decisões de autorização para o servidor de API. Por exemplo, o kubelet e extensões de servidores de API utilizam disso para determinar o acesso do usuário às suas próprias APIs.
 
 * `LocalSubjectAccessReview` - Similar a `SubjectAccessReview`, mas restrito a um namespace específico.
 
-* `SelfSubjectRulesReview` - Uma revisão que retorna o conjunto de ações que um usuário pode executar em um namespace. Útil para usuários resumirem rapidamente seu próprio acesso ou para Interfaces de Usuário ocultarem/mostrar ações.
+* `SelfSubjectRulesReview` - Uma revisão que retorna o conjunto de ações que um usuário pode executar em um namespace. Útil para usuários resumirem rapidamente seu próprio acesso ou para interfaces de usuário mostrarem ações.
 
 Essas APIs podem ser consultadas criando recursos normais do Kubernetes, onde a resposta `status`
 campo do objeto retornado é o resultado da consulta.
@@ -203,7 +201,7 @@ suas políticas incluem:
 As seguintes flags podem ser utilizadas:
 
   * `--authorization-mode=ABAC` O modo de controle de acesso baseado em atributos [Attribute-Based Access Control (ABAC)] permite configurar políticas usando arquivos locais.
-  * `--authorization-mode=RBAC` O modo de controle de acesso baseado em função [Role-based access control (RBAC)] permite que você crie e armazene políticas usando a API Kubernetes.
+  * `--authorization-mode=RBAC` O modo de controle de acesso baseado em função [Role-based access control (RBAC)] permite que você crie e armazene políticas usando a API do Kubernetes.
   * `--authorization-mode=Webhook` WebHook é um modo de retorno de chamada HTTP que permite gerenciar a autorização usando endpoint REST.
   * `--authorization-mode=Node` A autorização de nó é um modo de autorização de propósito especial que autoriza especificamente requisições de API feitas por kubelets.
   * `--authorization-mode=AlwaysDeny` Esta flag bloqueia todas as requisições. Utilize esta flag somente para testes.
@@ -215,7 +213,7 @@ em ordem, então, um modulo anterior tem maior prioridade para permitir ou negar
 ## Escalonamento de privilégios através da criação ou edição da cargas de trabalho {#privilege-escalation-via-pod-creation}
 
 Usuários que podem criar ou editar pods em um namespace diretamente ou através de um [controlador](/pt-br/docs/concepts/architecture/controller/)
-como, por exemplo, um operador e então poderiam escalar privilégios naquele namespace.
+como, por exemplo, um operador, e conseguiriam escalar seus próprios privilégios naquele namespace.
 
 {{< caution >}}
 Administradores de sistemas, tenham cuidado ao permitir acesso para criar ou editar cargas de trabalho.
