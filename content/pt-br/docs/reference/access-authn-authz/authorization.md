@@ -70,6 +70,10 @@ PUT        | update
 PATCH      | patch
 DELETE     | delete (para recursos individuais), deletecollection (para coleções)
 
+{{< caution >}}
+Os verbos `get`, `list` e `watch` podem retornar todos os detalhes de um recurso. Eles são equivalentes em relação aos dados retornados. Por exemplo, `list` em `secrets` revelará os atributos de `data` de qualquer recurso retornado.
+{{< /caution >}}
+
 Às vezes, o Kubernetes verifica a autorização para permissões adicionais utilizando verbos especializados. Por exemplo:
 
 * [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/)
