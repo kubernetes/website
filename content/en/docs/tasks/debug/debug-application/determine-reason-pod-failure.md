@@ -69,6 +69,7 @@ The manifest for that Pod specifies a command that runs when the container start
               Sleep expired
             ...
     ```
+<<<<<<< HEAD
 
 1. Use a Go template to filter the output so that it includes only the termination message:
 
@@ -116,15 +117,25 @@ By doing so, you can discover which of the containers is failing:
              Sleep expired
            ...
    ```
+=======
+>>>>>>> 1ca77d26b9 (Update Determine the Reason for Pod Failure)
 
-1. Use a Go template to filter the output so that it includes
-only the termination message:
+1. Use a Go template to filter the output so that it includes only the termination message:
 
+<<<<<<< HEAD
    ```shell
    kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
    ```
 
    If you are running a multi-container pod, you can use a Go template to include the container's name. By doing so, you can discover which of the containers is failing:
+=======
+    ```shell
+    kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
+    ```
+
+If you are running a multi-container Pod, you can use a Go template to include the container's name.
+By doing so, you can discover which of the containers is failing:
+>>>>>>> 1ca77d26b9 (Update Determine the Reason for Pod Failure)
 
    ```shell
    kubectl get pod multi-container-pod -o go-template='{{range .status.containerStatuses}}{{printf "%s:\n%s\n\n" .name .lastState.terminated.message}}{{end}}'
