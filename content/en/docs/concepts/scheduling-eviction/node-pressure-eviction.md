@@ -7,7 +7,7 @@ weight: 60
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
 The {{<glossary_tooltip term_id="kubelet" text="kubelet">}} monitors resources 
-like CPU, memory, disk space, and filesystem inodes on your cluster's nodes. 
+like memory, disk space, and filesystem inodes on your cluster's nodes. 
 When one or more of these resources reach specific consumption levels, the 
 kubelet can proactively fail one or more pods on the node to reclaim resources
 and prevent starvation. 
