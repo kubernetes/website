@@ -1093,7 +1093,7 @@ mismatch.
 You can only configure a Pod failure policy for a Job if you have the
 `JobPodFailurePolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled in your cluster. Additionally, it is recommended
-to enable the `PodDisruptionsCondition` feature gate in order to be able to detect and handle
+to enable the `PodDisruptionConditions` feature gate in order to be able to detect and handle
 Pod disruption conditions in the Pod failure policy (see also:
 [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)). Both feature gates are
 available in Kubernetes v1.25. 
@@ -1101,7 +1101,7 @@ available in Kubernetes v1.25.
 只有你在集群中启用了
 `JobPodFailurePolicy` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 你才能为某个 Job 配置 Pod 失效策略。
-此外，建议启用 `PodDisruptionsCondition` 特性门控以便在 Pod 失效策略中检测和处理 Pod 干扰状况
+此外，建议启用 `PodDisruptionConditions` 特性门控以便在 Pod 失效策略中检测和处理 Pod 干扰状况
 （参考：[Pod 干扰状况](/zh-cn/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)）。
 这两个特性门控都是在 Kubernetes v1.25 中提供的。
 {{< /note >}}
@@ -1391,7 +1391,7 @@ object, but maintains complete control over what Pods are created and how work i
 * Read about different ways of running Jobs:
    * [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
    * [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
-   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/) (beta)
+   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/)
    * Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
 * Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
   to learn more about how your cluster can clean up completed and / or failed tasks.
@@ -1406,7 +1406,7 @@ object, but maintains complete control over what Pods are created and how work i
 * 了解运行 Job 的不同的方式：
   * [使用工作队列进行粗粒度并行处理](/zh-cn/docs/tasks/job/coarse-parallel-processing-work-queue/)
   * [使用工作队列进行精细的并行处理](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/)
-  * [使用索引作业完成静态工作分配下的并行处理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)（Beta 阶段）
+  * [使用索引作业完成静态工作分配下的并行处理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)
   * 基于一个模板运行多个 Job：[使用展开的方式进行并行处理](/zh-cn/docs/tasks/job/parallel-processing-expansion/)
 * 跟随[自动清理完成的 Job](#clean-up-finished-jobs-automatically) 文中的链接，了解你的集群如何清理完成和失败的任务。
 * `Job` 是 Kubernetes REST API 的一部分。阅读 {{< api-reference page="workload-resources/job-v1" >}}
