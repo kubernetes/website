@@ -539,7 +539,9 @@ message NUMANode {
 <!--
 Device Plugins that wish to leverage the Topology Manager can send back a populated TopologyInfo struct as part of the device registration, along with the device IDs and the health of the device. The device manager will then use this information to consult with the Topology Manager and make resource assignment decisions.
 
-`TopologyInfo` supports a `nodes` field that is either `nil` (the default) or a list of NUMA nodes. This lets the Device Plugin publish that can span NUMA nodes.
+`TopologyInfo` supports setting a `nodes` field to either `nil` or a list of NUMA nodes. This allows the Device Plugin to advertise a device that spans multiple NUMA nodes.
+
+Setting `TopologyInfo` to `nil`  or providing an empty list of NUMA nodes for a given device indicates that the Device Plugin does not have a NUMA affinity preference for that device.
 
 An example `TopologyInfo` struct populated for a device by a Device Plugin:
 
@@ -550,8 +552,11 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 设备插件希望拓扑管理器可以将填充的 TopologyInfo 结构体作为设备注册的一部分以及设备 ID
 和设备的运行状况发送回去。然后设备管理器将使用此信息来咨询拓扑管理器并做出资源分配决策。
 
-`TopologyInfo` 支持定义 `nodes` 字段，允许为 `nil`（默认）或者是一个 NUMA 节点的列表。
-这样就可以使设备插件可以跨越 NUMA 节点去发布。
+`TopologyInfo` 支持将 `nodes` 字段设置为 `nil` 或一个 NUMA 节点的列表。
+这样就可以使设备插件通告跨越多个 NUMA 节点的设备。
+
+将 `TopologyInfo` 设置为 `nil` 或为给定设备提供一个空的
+NUMA 节点列表表示设备插件没有该设备的 NUMA 亲和偏好。
 
 下面是一个由设备插件为设备填充 `TopologyInfo` 结构体的示例：
 
