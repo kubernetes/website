@@ -74,10 +74,7 @@ kubelet에서 관리하는 디스크와 성능 특성이 다른 스토리지, �
 
 ### CSI 임시 볼륨 {#csi-ephemeral-volumes}
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
-
-이 기능을 사용하려면 `CSIInlineVolume` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 
-쿠버네티스 1.16부터는 기본적으로 활성화되어 있다.
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 {{< note >}}
 CSI 드라이버 중 일부만 CSI 임시 볼륨을 지원한다.
