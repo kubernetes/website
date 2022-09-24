@@ -51,8 +51,7 @@ brew install bash-completion@2
 As stated in the output of this command, add the following to your `~/.bash_profile` file:
 
 ```bash
-export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+brew_etc="$(brew --prefix)/etc" && [[ -r "${brew_etc}/profile.d/bash_completion.sh" ]] && . "${brew_etc}/profile.d/bash_completion.sh"
 ```
 
 Reload your shell and verify that bash-completion v2 is correctly installed with `type _init_completion`.
