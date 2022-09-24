@@ -30,7 +30,7 @@ spec:
       dnsPolicy: Default
       containers:
       - name: fluentd-gcp
-        image: k8s.gcr.io/fluentd-gcp:2.0.2
+        image: registry.k8s.io/fluentd-gcp:2.0.2
         # 如果 fluentd 消耗它自己的日志，则可能出现以下情形：
         # fluentd 将一个块发送到服务器时失败 => 将其写入到日志 =>
         # 尝试将此消息发送到该服务器 => 发送一个块时失败等等。
