@@ -88,7 +88,7 @@ would provision a network resource like a Google Compute Engine persistent disk,
 an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also
 use [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io)
 to set up
-[dynamic provisioning](/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
+[dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/).
 
 Here is the configuration file for the hostPath PersistentVolume:
 

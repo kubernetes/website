@@ -1,7 +1,9 @@
 ---
-title: Pod 与 Service 的 DNS
+title: Service 与 Pod 的 DNS
 content_type: concept
-weight: 20
+weight: 60
+description: >-
+  你的工作负载可以使用 DNS 发现集群内的 Service，本页说明具体工作原理。
 ---
 <!--
 reviewers:
@@ -9,7 +11,10 @@ reviewers:
 - thockin
 title: DNS for Services and Pods
 content_type: concept
-weight: 20
+weight: 60
+description: >-
+  Your workload can discover Services within your cluster using DNS;
+  this page explains how that works.
 -->
 
 <!-- overview -->
