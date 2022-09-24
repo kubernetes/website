@@ -246,4 +246,4 @@ not be terminated by Pod disruptions.
 通过指定 Job 的 `.spec.backoffLimit` 字段，你可以完全依赖
 [Pod 回退失效策略](/zh-cn/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy)。
 然而在许多情况下，难题在于如何找到一个平衡，为 `.spec.backoffLimit` 设置一个较小的值以避免不必要的 Pod 重试，
-或者设置一个足够大的值以确保 Job 不会因 Pod 干扰而终止。
+同时这个值又足以确保 Job 不会因 Pod 干扰而终止。
