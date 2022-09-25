@@ -16,22 +16,22 @@ card:
 -->
 
 <!-- overview -->
-<!--
+
 {{< note >}}
+<!--
 **Code developers**: If you are documenting a new feature for an
 upcoming Kubernetes release, see
 [Document a new feature](/docs/contribute/new-content/new-features/).
-{{< /note >}}
-
-To contribute new content pages or improve existing content pages, open a pull request (PR).
-Make sure you follow all the requirements in the
-[Before you begin](/docs/contribute/new-content/) section.
 -->
-{{< note >}}
 **代码开发者们**：如果你在为下一个 Kubernetes 发行版本中的某功能特性撰写文档，
 请参考[为发行版本撰写功能特性文档](/zh-cn/docs/contribute/new-content/new-features/)。
 {{< /note >}}
 
+<!--
+To contribute new content pages or improve existing content pages, open a pull request (PR).
+Make sure you follow all the requirements in the
+[Before you begin](/docs/contribute/new-content/) section.
+-->
 要贡献新的内容页面或者改进已有内容页面，请发起拉取请求（PR）。
 请确保你满足了[开始之前](/zh-cn/docs/contribute/new-content/)一节中所列举的所有要求。
 
@@ -42,11 +42,11 @@ If your change is small, or you're unfamiliar with git, read
 If your changes are large, read [Work from a local fork](#fork-the-repo) to learn how to make
 changes locally on your computer.
 -->
-如果你所提交的变更足够小，或者你对 git 工具不熟悉，可以阅读
-[使用 GitHub 提交变更](#changes-using-github)以了解如何编辑页面。
+如果你所提交的变更足够小，或者你对 git 工具不熟悉，
+可以阅读[使用 GitHub 提交变更](#changes-using-github)以了解如何编辑页面。
 
-如果所提交的变更较大，请阅读[基于本地克隆副本开展工作](#fork-the-repo)以学习
-如何在你本地计算机上进行修改。
+如果所提交的变更较大，
+请阅读[基于本地克隆副本开展工作](#fork-the-repo)以学习如何在你本地计算机上进行修改。
 
 <!-- body -->
 
@@ -116,11 +116,11 @@ Figure 1. Steps for opening a PR using GitHub.
    在第一个字段中，为你的提交消息取一个标题。
    在第二个字段中，为你的提交写一些描述文字。
 
-   <!-- 
+   {{< note >}}
+   <!--
    Do not use any [GitHub Keywords](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
    in your commit message. You can add those to the pull request description later.
    -->
-   {{< note >}}
    不要在提交消息中使用 [GitHub 关键词](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)。
    你可以在后续的 PR 描述中使用这些关键词。
    {{< /note >}}
@@ -145,22 +145,23 @@ Figure 1. Steps for opening a PR using GitHub.
 
 6. 出现 **Open a pull request** 界面。填写表单：
 
-   - **Subject** 字段默认为提交的概要信息。你可以根据需要修改它。
-   - **Body** 字段包含更为详细的提交消息，如果你之前有填写过的话，
-     以及一些模板文字。填写模板所要求的详细信息，
-     之后删除多余的模板文字。
+   - **Subject** 字段默认为提交的概要信息，你可以根据需要进行修改。
+   - **Body** 字段包含更为详细的提交消息（如果你之前有填写过的话）和一些模板文字。
+     填写模板所要求的详细信息，之后删除多余的模板文字。
    - 确保 **Allow edits from maintainers** 复选框被勾选。
 
+   {{< note >}}
    <!--
    PR descriptions are a great way to help reviewers understand your change.
    For more information, see [Opening a PR](#open-a-pr).
    -->
-   {{< note >}}
    PR 描述信息是帮助 PR 评阅人了解你所提议的变更的重要途径。
    更多信息请参考[发起一个 PR](#open-a-pr)。
    {{< /note >}}
 
-<!-- 1. Select **Create pull request**. -->
+<!--
+1. Select **Create pull request**.
+-->
 7. 选择 **Create pull request**。
 
 <!--
@@ -216,14 +217,12 @@ Figure 2 shows the steps to follow when you work from a local fork. The details 
 -->
 ## 基于本地克隆副本开展工作   {#fork-the-repo}
 
-如果你有 git 的使用经验，或者你要提议的修改不仅仅几行，请使用本地克隆副本
-来开展工作。
+如果你有 git 的使用经验，或者你要提议的修改不仅仅几行，请使用本地克隆副本来开展工作。
 
 首先要确保你在本地计算机上安装了 [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)。
 你也可以使用 git 的带用户界面的应用。
 
-图 2 显示了基于本地克隆副本开展工作的步骤。
-每个步骤的细节如下。
+图 2 显示了基于本地克隆副本开展工作的步骤。每个步骤的细节如下。
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -299,13 +298,16 @@ Figure 2. Working from a local fork to make your changes.
 <!--
 1. Confirm your `origin` and `upstream` repositories:
 -->
-3. 确认你现在有两个仓库，`origin` 和 `upstream`：
+3. 确认你现在有两个仓库 `origin` 和 `upstream`：
 
    ```shell
    git remote -v
    ```
 
+   <!--
    Output is similar to:
+   -->
+   输出类似于：
 
    ```none
    origin	git@github.com:<github_username>/website.git (fetch)
@@ -313,6 +315,7 @@ Figure 2. Working from a local fork to make your changes.
    upstream	https://github.com/kubernetes/website.git (fetch)
    upstream	https://github.com/kubernetes/website.git (push)
    ```
+
 <!--
 1. Fetch commits from your fork's `origin/main` and `kubernetes/website`'s `upstream/main`:
 -->
@@ -328,13 +331,13 @@ Figure 2. Working from a local fork to make your changes.
    -->
    这样可以确保你本地的仓库在开始工作前是最新的。
 
+   {{< note >}}
    <!--
    This workflow is different than the
    [Kubernetes Community GitHub Workflow](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md).
    You do not need to merge your local copy of `main` with `upstream/main` before pushing updates
    to your fork.
    -->
-   {{< note >}}
    此工作流程与 [Kubernetes 社区 GitHub 工作流](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md)有所不同。
    在推送你的变更到你的远程派生副本库之前，你不需要将你本地的 `main` 与 `upstream/main` 合并。
    {{< /note >}}
@@ -344,16 +347,16 @@ Figure 2. Working from a local fork to make your changes.
 
 1. Decide which branch base to your work on:
 
-  - For improvements to existing content, use `upstream/main`.
-  - For new content about existing features, use `upstream/main`.
-  - For localized content, use the localization's conventions. For more information, see
-    [localizing Kubernetes documentation](/docs/contribute/localization/).
-  - For new features in an upcoming Kubernetes release, use the feature branch. For more
-    information, see [documenting for a release](/docs/contribute/new-content/new-features/).
-  - For long-running efforts that multiple SIG Docs contributors collaborate on,
-    like content reorganization, use a specific feature branch created for that effort.
+   - For improvements to existing content, use `upstream/main`.
+   - For new content about existing features, use `upstream/main`.
+   - For localized content, use the localization's conventions. For more information, see
+     [localizing Kubernetes documentation](/docs/contribute/localization/).
+   - For new features in an upcoming Kubernetes release, use the feature branch. For more
+     information, see [documenting for a release](/docs/contribute/new-content/new-features/).
+   - For long-running efforts that multiple SIG Docs contributors collaborate on,
+     like content reorganization, use a specific feature branch created for that effort.
 
-    If you need help choosing a branch, ask in the `#sig-docs` Slack channel.
+   If you need help choosing a branch, ask in the `#sig-docs` Slack channel.
 -->
 ### 创建一个分支   {#create-a-branch}
 
@@ -382,7 +385,7 @@ Figure 2. Working from a local fork to make your changes.
    ```
 
 <!--
-3. Make your changes using a text editor.
+1. Make your changes using a text editor.
 -->
 3. 使用文本编辑器进行修改。
 
@@ -829,10 +832,10 @@ conflict. You must resolve all merge conflicts in your PR.
 4. 打开每个存在冲突的文件，查找冲突标记：`>>>`、`<<<` 和 `===`。
    解决完冲突之后删除冲突标记。
 
+   {{< note >}}
    <!--
    For more information, see [How conflicts are presented](https://git-scm.com/docs/git-merge#_how_conflicts_are_presented).
    -->
-   {{< note >}}
    进一步的详细信息可参见
    [冲突是怎样表示的](https://git-scm.com/docs/git-merge#_how_conflicts_are_presented).
    {{< /note >}}
@@ -883,11 +886,11 @@ conflict. You must resolve all merge conflicts in your PR.
 -->
 ### 压缩（Squashing）提交   {#squashing-commits}
 
+{{< note >}}
 <!--
 For more information, see [Git Tools - Rewriting History](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History),
 or ask in the `#sig-docs` Slack channel for help.
 -->
-{{< note >}}
 要了解更多信息，可参看
 [Git Tools - Rewriting History](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)，
 或者在 `#sig-docs` Slack 频道寻求帮助。
@@ -902,10 +905,10 @@ command locally.
 你可以在 PR 的 **Commits** Tab 页面查看提交个数，也可以在本地通过
 `git log` 命令查看提交个数。
 
+{{< note >}}
 <!--
 This topic assumes `vim` as the command line text editor.
 -->
-{{< note >}}
 本主题假定使用 `vim` 作为命令行文本编辑器。
 {{< /note >}}
 
@@ -922,6 +925,7 @@ This topic assumes `vim` as the command line text editor.
    Squashing commits is a form of rebasing. The `-i` switch tells git you want to rebase interactively.
    `HEAD~<number_of_commits_in_branch` indicates how many commits to look at for the rebase.
    -->
+
    压缩提交的过程也是一种重设基线的过程。
    这里的 `-i` 开关告诉 git 你希望交互式地执行重设基线操作。
    `HEAD~<number_of_commits_in_branch` 表明在 rebase 操作中查看多少个提交。
@@ -929,6 +933,7 @@ This topic assumes `vim` as the command line text editor.
    <!--
    Output is similar to:
    -->
+
    输出类似于；
 
    ```none
@@ -950,16 +955,17 @@ This topic assumes `vim` as the command line text editor.
 
    For the purposes of rebasing, focus on `squash` and `pick`.
    -->
+
    输出的第一部分列举了重设基线操作中的提交。
    第二部分给出每个提交的选项。
    改变单词 `pick` 就可以改变重设基线操作之后提交的状态。
 
    就重设基线操作本身，我们关注 `squash` 和 `pick` 选项。
 
+   {{< note >}}
    <!--
    For more information, see [Interactive Mode](https://git-scm.com/docs/git-rebase#_interactive_mode).
    -->
-   {{< note >}}
    进一步的详细信息可参考 [Interactive Mode](https://git-scm.com/docs/git-rebase#_interactive_mode)。
    {{< /note >}}
 
