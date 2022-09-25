@@ -73,15 +73,9 @@ Kubernetesは、他の手段として主にクラスター間の連携用途向�
 
 {{< feature-state state="beta"  for_k8s_version="v1.24" >}}
 
-Kubernetes {{< param "version" >}} offers beta support for publishing its APIs as OpenAPI v3; this is a
-beta feature that is enabled by default.
-You can disable the beta feature by turning off the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
-for the kube-apiserver component.
+Kubernetes {{< param "version" >}} では、 OpenAPI v3によるAPI仕様をベータサポートとして提供しています。これは、デフォルトで有効化されているベータ機能です。kube-apiserverの`OpenAPIV3`という[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)を切ることにより、このベータ機能を無効化することができます。
 
-A discovery endpoint `/openapi/v3` is provided to see a list of all
-group/versions available. This endpoint only returns JSON. These group/versions
-are provided in the following format:
+`/openapi/v3` が、全ての利用可能なグループ/バージョンの一覧を閲覧するためのディスカバリーエンドポイントとして提供されています。 このエンドポイントは、JSONのみを返却します。利用可能なグループ/バージョンは、 次のような形式で提供されます。
 
 ```yaml
 {
@@ -99,25 +93,20 @@ are provided in the following format:
 ```
 <!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
 
-The relative URLs are pointing to immutable OpenAPI descriptions, in
-order to improve client-side caching. The proper HTTP caching headers
-are also set by the API server for that purpose (`Expires` to 1 year in
-the future, and `Cache-Control` to `immutable`). When an obsolete URL is
-used, the API server returns a redirect to the newest URL.
+相対URLは、クライアントサイドのキャッシングを改善するために、イミュータブルなOpenAPIの記述を指しています。
+また、APIサーバーも、同様の目的で適切なHTTPキャッシュヘッダー（`Expires`には1年先の日付、`Cache-Control`には`immutable`）をセットします。廃止されたURLが使用された場合、APIサーバーは最新のURLへリダイレクトします。
 
-The Kubernetes API server publishes an OpenAPI v3 spec per Kubernetes
-group version at the `/openapi/v3/apis/<group>/<version>?hash=<hash>`
-endpoint.
+Kubernetes APIサーバーは、`/openapi/v3/apis/<group>/<version>?hash=<hash>`のエンドポイントにて、KubernetesのグループバージョンごとにOpenAPI v3仕様を公開しています。
 
-Refer to the table below for accepted request headers.
+受理されるリクエストヘッダーについては、以下の表の通りです。
 
 <table>
-  <caption style="display:none">Valid request header values for OpenAPI v3 queries</caption>
+  <caption style="display:none">OpenAPI v3において有効なリクエストヘッダー</caption>
   <thead>
      <tr>
-        <th>Header</th>
-        <th style="min-width: 50%;">Possible values</th>
-        <th>Notes</th>
+        <th>ヘッダー</th>
+        <th style="min-width: 50%;">取りうる値</th>
+        <th>備考</th>
      </tr>
   </thead>
   <tbody>
