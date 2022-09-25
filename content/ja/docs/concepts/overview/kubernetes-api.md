@@ -75,7 +75,7 @@ Kubernetesは、他の手段として主にクラスター間の連携用途向�
 
 Kubernetes {{< param "version" >}} では、 OpenAPI v3によるAPI仕様をベータサポートとして提供しています。これは、デフォルトで有効化されているベータ機能です。kube-apiserverの`OpenAPIV3`という[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)を切ることにより、このベータ機能を無効化することができます。
 
-`/openapi/v3` が、全ての利用可能なグループ/バージョンの一覧を閲覧するためのディスカバリーエンドポイントとして提供されています。 このエンドポイントは、JSONのみを返却します。利用可能なグループ/バージョンは、 次のような形式で提供されます。
+`/openapi/v3` が、全ての利用可能なグループやバージョンの一覧を閲覧するためのディスカバリーエンドポイントとして提供されています。 このエンドポイントは、JSONのみを返却します。利用可能なグループやバージョンは、 次のような形式で提供されます。
 
 ```yaml
 {
@@ -93,8 +93,8 @@ Kubernetes {{< param "version" >}} では、 OpenAPI v3によるAPI仕様をベ�
 ```
 <!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
 
-相対URLは、クライアントサイドのキャッシングを改善するために、イミュータブルなOpenAPIの記述を指しています。
-また、APIサーバーも、同様の目的で適切なHTTPキャッシュヘッダー（`Expires`には1年先の日付、`Cache-Control`には`immutable`）をセットします。廃止されたURLが使用された場合、APIサーバーは最新のURLへリダイレクトします。
+クライアントサイドのキャッシングを改善するために、相対URLはイミュータブルなOpenAPI記述を指しています。
+また、APIサーバーも、同様の目的で適切なHTTPキャッシュヘッダー（`Expires`には1年先の日付、`Cache-Control`には`immutable`）をセットします。廃止されたURLが使用された場合、APIサーバーは最新のURLへリダイレクトを行います。
 
 Kubernetes APIサーバーは、`/openapi/v3/apis/<group>/<version>?hash=<hash>`のエンドポイントにて、KubernetesのグループバージョンごとにOpenAPI v3仕様を公開しています。
 
