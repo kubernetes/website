@@ -113,12 +113,12 @@ Kubernetes APIサーバーは、`/openapi/v3/apis/<group>/<version>?hash=<hash>`
      <tr>
         <td><code>Accept-Encoding</code></td>
         <td><code>gzip</code></td>
-        <td><em>not supplying this header is also acceptable</em></td>
+        <td><em>このヘッダーを与えなくても受理されます。</em></td>
      </tr>
      <tr>
         <td rowspan="3"><code>Accept</code></td>
         <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
-        <td><em>mainly for intra-cluster use</em></td>
+        <td><em>主にクラスター内部での使用のため。</em></td>
      </tr>
      <tr>
         <td><code>application/json</code></td>
