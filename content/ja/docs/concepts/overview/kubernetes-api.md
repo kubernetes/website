@@ -113,7 +113,7 @@ Kubernetes APIサーバーは、`/openapi/v3/apis/<group>/<version>?hash=<hash>`
      <tr>
         <td><code>Accept-Encoding</code></td>
         <td><code>gzip</code></td>
-        <td><em>このヘッダーを与えなくても受理されます。</em></td>
+        <td><em>このヘッダーを与えずとも受理されます。</em></td>
      </tr>
      <tr>
         <td rowspan="3"><code>Accept</code></td>
