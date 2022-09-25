@@ -192,37 +192,44 @@ kubectl delete clusterrolebinding kubeadm:node-autoapprove-bootstrap
 
 After that, `kubeadm join` will block until the admin has manually approved the CSR in flight:
 
-   1. Using `kubectl get csr`, you can see that the original CSR is in the Pending state.
-      ```shell
-      kubectl get csr
-      ```
+1. Using `kubectl get csr`, you can see that the original CSR is in the Pending state.
 
-      The output is similar to this:
-      ```
-      NAME                                                   AGE       REQUESTOR                 CONDITION
-      node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
-      ```
+   ```shell
+   kubectl get csr
+   ```
 
-   2. `kubectl certificate approve` allows the admin to approve CSR. This action tells a certificate signing controller to issue a certificate to the requestor with the attributes requested in the CSR.
-      ```shell
-      kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
-      ```
+   The output is similar to this:
 
-      The output is similar to this:
-      ```
-      certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
-      ```
+   ```
+   NAME                                                   AGE       REQUESTOR                 CONDITION
+   node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
+   ```
 
-   3. This would change the CRS resource to Active state.
-      ```shell
-      kubectl get csr
-      ```
+2. `kubectl certificate approve` allows the admin to approve CSR.This action tells a certificate signing
+   controller to issue a certificate to the requestor with the attributes requested in the CSR.
 
-      The output is similar to this:
-      ```
-      NAME                                                   AGE       REQUESTOR                 CONDITION
-      node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
-      ```
+   ```shell
+   kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
+   ```
+
+   The output is similar to this:
+
+   ```
+   certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
+   ```
+
+3. This would change the CRS resource to Active state.
+
+   ```shell
+   kubectl get csr
+   ```
+
+   The output is similar to this:
+
+   ```
+   NAME                                                   AGE       REQUESTOR                 CONDITION
+   node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
+   ```
 
 This forces the workflow that `kubeadm join` will only succeed if `kubectl certificate approve` has been run.
 
@@ -279,10 +286,10 @@ contain a `JoinConfiguration` structure. Mixing `--config` with others flags may
 allowed in some cases.
 
 The default configuration can be printed out using the
-[kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+[kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-print) command.
 
 If your configuration is not using the latest version it is **recommended** that you migrate using
-the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate) command.
 
 For more information on the fields and usage of the configuration you can navigate to our
 [API reference](/docs/reference/config-api/kubeadm-config.v1beta3/).
