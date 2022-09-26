@@ -155,7 +155,7 @@ The kubelet has the following default hard eviction thresholds:
 * `nodefs.inodesFree<5%` (Linux nodes)
 
 These default values of hard eviction thresholds will only be set if none 
-of the parameter is changed. If you changed the value of any of the parameter, 
+of the parameters is changed. If you changed the value of any parameter, 
 then the values of other parameters will not be inherited as the default 
 values and will be set to zero. In order to provide custom values, you 
 should provide all the thresholds respectively.
