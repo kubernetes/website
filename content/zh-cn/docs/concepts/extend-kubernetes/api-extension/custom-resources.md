@@ -523,7 +523,7 @@ Aggregated API servers may or may not use the same authentication, authorization
 
 CRD 通常与 API 服务器上的内置资源一样使用相同的身份认证、鉴权授权和审计日志机制。
 
-如果你使用 RBAC 来执行鉴权授权，大多数 RBAC 角色都会授权对新资源的访问
+如果你使用 RBAC 来执行鉴权授权，大多数 RBAC 角色都不会授权对新资源的访问
 （除了 cluster-admin 角色以及使用通配符规则创建的其他角色）。
 你要显式地为新资源的访问授权。CRD 和聚合 API 通常在交付时会包含针对所添加的类别的新的角色定义。
 
