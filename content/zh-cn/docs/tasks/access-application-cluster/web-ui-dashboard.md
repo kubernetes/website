@@ -57,7 +57,7 @@ The Dashboard UI is not deployed by default. To deploy it, run the following com
 默认情况下不会部署 Dashboard。可以通过以下命令部署：
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml
 ```
 
 <!--
