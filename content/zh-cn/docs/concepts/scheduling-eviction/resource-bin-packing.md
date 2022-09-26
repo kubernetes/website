@@ -92,7 +92,7 @@ specify the weight of each resource.
 ## 使用 RequestedToCapacityRatio 策略来启用资源装箱 {#enabling-bin-packing-using-requestedtocapacityratio}
 
 `RequestedToCapacityRatio` 策略允许用户基于请求值与容量的比率，针对参与节点计分的每类资源设置权重。
-这一策略是的用户可以使用合适的参数来对扩展资源执行装箱操作，进而提升大规模集群中稀有资源的利用率。
+这一策略使得用户可以使用合适的参数来对扩展资源执行装箱操作，进而提升大规模集群中稀有资源的利用率。
 此策略根据所分配资源的一个配置函数来评价节点。
 `NodeResourcesFit` 计分函数中的 `RequestedToCapacityRatio` 可以通过字段
 [scoringStrategy](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy)
