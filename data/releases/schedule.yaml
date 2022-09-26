@@ -4,18 +4,39 @@ schedules:
   maintenanceModeStartDate: 2023-08-28
   endOfLifeDate: 2023-10-27
   next:
-    release: 1.25.1
-    cherryPickDeadline: 2022-09-09
-    targetDate: 2022-09-14
+    release: 1.25.3
+    cherryPickDeadline: 2022-10-07
+    targetDate: 2022-10-12
+  previousPatches:
+    - release: 1.25.2
+      cherryPickDeadline: 2022-09-20
+      targetDate: 2022-09-21
+      note: >-
+        [Out-of-Band release to fix the regression introduced in 1.25.1](https://groups.google.com/a/kubernetes.io/g/dev/c/tA6LNOQTR4Q/m/zL73maPTAQAJ)
+    - release: 1.25.1
+      cherryPickDeadline: 2022-09-09
+      targetDate: 2022-09-14
+      note: >-
+        [Regression](https://groups.google.com/a/kubernetes.io/g/dev/c/tA6LNOQTR4Q/m/zL73maPTAQAJ)
 - release: 1.24
   releaseDate: 2022-05-03
   maintenanceModeStartDate: 2023-05-28
   endOfLifeDate: 2023-07-28
   next:
-    release: 1.24.5
-    cherryPickDeadline: 2022-09-09
-    targetDate: 2022-09-14
+    release: 1.24.7
+    cherryPickDeadline: 2022-10-07
+    targetDate: 2022-10-12
   previousPatches:
+    - release: 1.24.6
+      cherryPickDeadline: 2022-09-20
+      targetDate: 2022-09-21
+      note: >-
+        [Out-of-Band release to fix the regression introduced in 1.24.5](https://groups.google.com/a/kubernetes.io/g/dev/c/tA6LNOQTR4Q/m/zL73maPTAQAJ)
+    - release: 1.24.5
+      cherryPickDeadline: 2022-09-09
+      targetDate: 2022-09-14
+      note: >-
+        [Regression](https://groups.google.com/a/kubernetes.io/g/dev/c/tA6LNOQTR4Q/m/zL73maPTAQAJ)
     - release: 1.24.4
       cherryPickDeadline: 2022-08-12
       targetDate: 2022-08-17
@@ -33,10 +54,20 @@ schedules:
   maintenanceModeStartDate: 2022-12-28
   endOfLifeDate: 2023-02-28
   next:
-    release: 1.23.11
-    cherryPickDeadline: 2022-09-09
-    targetDate: 2022-09-14
+    release: 1.23.13
+    cherryPickDeadline: 2022-10-07
+    targetDate: 2022-10-12
   previousPatches:
+    - release: 1.23.12
+      cherryPickDeadline: 2022-09-20
+      targetDate: 2022-09-21
+      note: >-
+        [Out-of-Band release to fix the regression introduced in 1.23.11](https://groups.google.com/a/kubernetes.io/g/dev/c/tA6LNOQTR4Q/m/zL73maPTAQAJ)
+    - release: 1.23.11
+      cherryPickDeadline: 2022-09-09
+      targetDate: 2022-09-14
+      note: >-
+        [Regression](https://groups.google.com/a/kubernetes.io/g/dev/c/tA6LNOQTR4Q/m/zL73maPTAQAJ)
     - release: 1.23.10
       cherryPickDeadline: 2022-08-12
       targetDate: 2022-08-17
@@ -74,10 +105,22 @@ schedules:
   maintenanceModeStartDate: 2022-08-28
   endOfLifeDate: 2022-10-28
   next:
-    release: 1.22.14
-    cherryPickDeadline: 2022-09-09
-    targetDate: 2022-09-14
+    release: 1.22.16
+    cherryPickDeadline: 2022-10-07
+    targetDate: 2022-10-12
+    note: >-
+      The 1.22 release is in maintenance mode. As per the support policy, 1.22.16 will be released **only** if there are critical and/or security issues.
   previousPatches:
+    - release: 1.22.15
+      cherryPickDeadline: 2022-09-20
+      targetDate: 2022-09-21
+      note: >-
+        [Out-of-Band release to fix the regression introduced in 1.22.14](https://groups.google.com/a/kubernetes.io/g/dev/c/tA6LNOQTR4Q/m/zL73maPTAQAJ)
+    - release: 1.22.14
+      cherryPickDeadline: 2022-09-09
+      targetDate: 2022-09-14
+      note: >-
+        [Regression](https://groups.google.com/a/kubernetes.io/g/dev/c/tA6LNOQTR4Q/m/zL73maPTAQAJ)
     - release: 1.22.13
       cherryPickDeadline: 2022-08-12
       targetDate: 2022-08-17
