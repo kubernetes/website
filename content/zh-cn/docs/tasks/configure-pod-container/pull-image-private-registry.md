@@ -101,9 +101,11 @@ The output contains a section similar to this:
 
 <!--
 If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
+In that case, you can create a secret directly. See [Create a Secret by providing credentials on the command line](#create-a-secret-by-providing-credentials-on-the-command-line).
 -->
 {{< note >}}
 如果使用 Docker 凭证仓库，则不会看到 `auth` 条目，看到的将是以仓库名称作为值的 `credsStore` 条目。
+在这种情况下，你可以直接创建一个 Secret。请参阅[在命令行上提供凭证来创建 Secret](#create-a-secret-by-providing-credentials-on-the-command-line)。
 {{< /note >}}
 
 <!--

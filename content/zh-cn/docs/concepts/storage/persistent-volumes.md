@@ -604,7 +604,7 @@ Kubernetes 控制平面将看到两个资源的所需状态匹配，
 -->
 #### CSI 卷的扩充     {#csi-volume-expansion}
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 Support for expanding CSI volumes is enabled by default but it also requires a specific CSI driver to support volume expansion. Refer to documentation of the specific CSI driver for more information.

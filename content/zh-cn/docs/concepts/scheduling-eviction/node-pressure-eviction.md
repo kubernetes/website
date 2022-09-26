@@ -13,7 +13,7 @@ weight: 60
 
 <!-- 
 The {{<glossary_tooltip term_id="kubelet" text="kubelet">}} monitors resources 
-like CPU, memory, disk space, and filesystem inodes on your cluster's nodes. 
+like memory, disk space, and filesystem inodes on your cluster's nodes. 
 When one or more of these resources reach specific consumption levels, the 
 kubelet can proactively fail one or more pods on the node to reclaim resources
 and prevent starvation. 
@@ -25,7 +25,7 @@ Node-pressure eviction is not the same as
 [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
 -->
 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}
-监控集群节点的 CPU、内存、磁盘空间和文件系统的 inode 等资源。
+监控集群节点的内存、磁盘空间和文件系统的 inode 等资源。
 当这些资源中的一个或者多个达到特定的消耗水平，
 kubelet 可以主动地使节点上一个或者多个 Pod 失效，以回收资源防止饥饿。
 
