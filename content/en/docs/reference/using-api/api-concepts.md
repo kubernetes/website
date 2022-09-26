@@ -782,7 +782,7 @@ If the non-dry-run version of a request would trigger an admission controller th
 side effects, the request will be failed rather than risk an unwanted side effect. All
 built in admission control plugins support dry-run. Additionally, admission webhooks can
 declare in their
-[configuration object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#webhook-v1beta1-admissionregistration-k8s-io)
+[configuration object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
 that they do not have side effects, by setting their `sideEffects` field to `None`.
 
 {{< note >}}
