@@ -118,15 +118,15 @@ Kubernetes APIサーバーは、`/openapi/v3/apis/<group>/<version>?hash=<hash>`
      <tr>
         <td rowspan="3"><code>Accept</code></td>
         <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
-        <td><em>主にクラスター内部での使用のため。</em></td>
+        <td><em>主にクラスター内部での使用のため</em></td>
      </tr>
      <tr>
         <td><code>application/json</code></td>
-        <td><em>default</em></td>
+        <td><em>デフォルト</em></td>
      </tr>
      <tr>
         <td><code>*</code></td>
-        <td><em>serves </em><code>application/json</code></td>
+        <td><em></em><code>application/json</code>を提供</td>
      </tr>
   </tbody>
 </table>
