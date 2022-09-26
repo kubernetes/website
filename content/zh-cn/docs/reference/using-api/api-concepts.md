@@ -80,8 +80,8 @@ as a permission check
 (used to trigger
 [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/)).
 -->
-大多数 Kubernetes API 资源类型都是
-[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)：
+大多数 Kubernetes API
+资源类型都是[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)：
 它们代表集群上某个概念的具体实例，例如 Pod 或命名空间。
 少数 API 资源类型是 “虚拟的”，它们通常代表的是操作而非对象本身，
 例如权限检查（使用带有 JSON 编码的 `SubjectAccessReview` 主体的 POST 到 `subjectaccessreviews` 资源），
@@ -163,13 +163,13 @@ The following paths are used to retrieve collections and resources:
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
 -->
 ## 资源 URI {#resource-uris}
-所有资源类型要么是集群作用域的（`/apis/GROUP/VERSION/*`），要么是名字空间
-作用域的（`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`）。
-名字空间作用域的资源类型会在其名字空间被删除时也被删除，并且对该资源类型的
-访问是由定义在名字空间域中的授权检查来控制的。
+
+所有资源类型要么是集群作用域的（`/apis/GROUP/VERSION/*`），
+要么是名字空间作用域的（`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`）。
+名字空间作用域的资源类型会在其名字空间被删除时也被删除，
+并且对该资源类型的访问是由定义在名字空间域中的授权检查来控制的。
 
 你还可以访问资源集合（例如：列出所有 Node）。以下路径用于检索集合和资源：
-
 
 * 集群作用域的资源：
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - 返回指定资源类型的资源的集合
@@ -185,8 +185,7 @@ Since a namespace is a cluster-scoped resource type, you can retrieve the list
 a particular namespace with `GET /api/v1/namespaces/NAME`.
 -->
 由于名字空间本身是一个集群作用域的资源类型，你可以通过 `GET /api/v1/namespaces/`
-检视所有名字空间的列表（“集合”），使用 `GET /api/v1/namespaces/NAME` 查看特定名字空间的
-详细信息。
+检视所有名字空间的列表（“集合”），使用 `GET /api/v1/namespaces/NAME` 查看特定名字空间的详细信息。
 
 <!--
 * Cluster-scoped subresource: `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME/SUBRESOURCE`
@@ -201,8 +200,7 @@ virtual resource type would be used if that becomes necessary.
 * 名字空间作用域的子资源：`GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME/SUBRESOURCE`
 
 取决于对象是什么，每个子资源所支持的动词有所不同 - 参见 [API 文档](/zh-cn/docs/reference/kubernetes-api/)以了解更多信息。
-跨多个资源来访问其子资源是不可能的 - 如果需要这一能力，则通常意味着需要一种
-新的虚拟资源类型了。
+跨多个资源来访问其子资源是不可能的 - 如果需要这一能力，则通常意味着需要一种新的虚拟资源类型了。
 
 <!--
 ## Efficient detection of changes
@@ -431,8 +429,8 @@ of 500 pods at a time, request those chunks as follows:
 并在无法返回更多结果时返回 `410 Gone` 代码。
 这时，客户端需要从头开始执行上述检视操作或者忽略 `limit` 参数。
 
-例如，如果集群上有 1253 个 Pod，客户端希望每次收到包含至多 500 个 Pod 的
-数据块，它应按下面的步骤来请求数据块：
+例如，如果集群上有 1253 个 Pod，客户端希望每次收到包含至多 500 个 Pod
+的数据块，它应按下面的步骤来请求数据块：
 
 <!--
 1. List all of the pods on a cluster, retrieving up to 500 pods each time.
@@ -667,8 +665,7 @@ had to be in place for types unrecognized by a client.
 ## 以表格形式接收资源  {#receiving-resources-as-tables}
 
 当你执行 `kubectl get` 时，默认的输出格式是特定资源类型的一个或多个实例的简单表格形式。
-过去，客户端需要重复 `kubectl` 中所实现的表格输出和描述输出逻辑，以执行
-简单的对象列表操作。
+过去，客户端需要重复 `kubectl` 中所实现的表格输出和描述输出逻辑，以执行简单的对象列表操作。
 该方法的一些限制包括处理某些对象时的不可忽视逻辑。
 此外，API 聚合或第三方资源提供的类型在编译时是未知的。
 这意味着必须为客户端无法识别的类型提供通用实现。
@@ -685,8 +682,8 @@ For example, list all of the pods on a cluster in the Table format.
 -->
 为了避免上述各种潜在的局限性，客户端可以请求服务器端返回对象的表格（Table）
 表现形式，从而将打印输出的特定细节委托给服务器。
-Kubernetes API 实现标准的 HTTP 内容类型（Content Type）协商：为 `GET` 调用
-传入一个值为 `application/json;as=Table;g=meta.k8s.io;v=v1` 的 `Accept`
+Kubernetes API 实现标准的 HTTP 内容类型（Content Type）协商：为 `GET`
+调用传入一个值为 `application/json;as=Table;g=meta.k8s.io;v=v1` 的 `Accept`
 头部即可请求服务器以 Table 的内容类型返回对象。
 
 例如，以 Table 格式列举集群中所有 Pod：
@@ -713,8 +710,8 @@ For API resource types that do not have a custom Table definition known to the c
 plane, the API server returns a default Table response that consists of the resource's
 `name` and `creationTimestamp` fields.
 -->
-对于在控制平面上不存在定制的 Table 定义的 API 资源类型而言，服务器会返回
-一个默认的 Table 响应，其中包含资源的 `name` 和 `creationTimestamp` 字段。
+对于在控制平面上不存在定制的 Table 定义的 API 资源类型而言，服务器会返回一个默认的
+Table 响应，其中包含资源的 `name` 和 `creationTimestamp` 字段。
 
 ```console
 GET /apis/crd.example.com/v1alpha1/namespaces/default/resources
@@ -808,7 +805,7 @@ For example:
 <!--
 1. List all of the pods on a cluster in Protobuf format.
 -->
-1. 以 Protobuf 格式列举集群上的所有 Pods：
+1. 以 Protobuf 格式列举集群上的所有 Pod：
 
    ```console
    GET /api/v1/pods
@@ -871,7 +868,7 @@ describes the encoding and type of the underlying object and then contains the o
 
 The wrapper format is:
 -->
-### Kubernetes Protobuf encoding {#protobuf-encoding}
+### Kubernetes Protobuf 编码 {#protobuf-encoding}
 
 Kubernetes 使用封套形式来对 Protobuf 响应进行编码。
 封套外层由 4 个字节的特殊数字开头，便于从磁盘文件或 etcd 中辩识 Protobuf
@@ -928,7 +925,7 @@ An encoded Protobuf message with the following IDL:
     optional string contentEncoding = 3;
 
     // contentType 包含 raw 数据所采用的序列化方法。
-    // 未设置此值意味着  application/vnd.kubernetes.protobuf，且通常被忽略
+    // 未设置此值意味着 application/vnd.kubernetes.protobuf，且通常被忽略
     optional string contentType = 4;
   }
 
@@ -940,15 +937,15 @@ An encoded Protobuf message with the following IDL:
   }
 ```
 
+{{< note >}}
 <!--
 Clients that receive a response in `application/vnd.kubernetes.protobuf` that does
 not match the expected prefix should reject the response, as future versions may need
 to alter the serialization format in an incompatible way and will do so by changing
 the prefix.
 -->
-{{< note >}}
-收到 `application/vnd.kubernetes.protobuf` 格式响应的客户端在响应与预期的前缀
-不匹配时应该拒绝响应，因为将来的版本可能需要以某种不兼容的方式更改序列化格式，
+收到 `application/vnd.kubernetes.protobuf` 格式响应的客户端在响应与预期的前缀不匹配时应该拒绝响应，
+因为将来的版本可能需要以某种不兼容的方式更改序列化格式，
 并且这种更改是通过变更前缀完成的。
 {{< /note >}}
 
@@ -966,7 +963,6 @@ When you **delete** a resource this takes place in two phases.
 
 1. 终结（finalization）
 2. 移除
-
 
 ```yaml
 {
@@ -1260,12 +1256,12 @@ If the non-dry-run version of a request would trigger an admission controller th
 side effects, the request will be failed rather than risk an unwanted side effect. All
 built in admission control plugins support dry-run. Additionally, admission webhooks can
 declare in their
-[configuration object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#webhook-v1beta1-admissionregistration-k8s-io)
+[configuration object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
 that they do not have side effects, by setting their `sideEffects` field to `None`.
 -->
 如果请求的非试运行版本会触发具有副作用的准入控制器，则该请求将失败，而不是冒不希望的副作用的风险。
 所有内置准入控制插件都支持试运行。
-此外，准入 Webhook 还可以设置[配置对象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#webhook-v1beta1-admissionregistration-k8s-io)
+此外，准入 Webhook 还可以设置[配置对象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
 的 `sideEffects` 字段为 `None`，借此声明它们没有副作用。
 
 <!--
@@ -1312,9 +1308,8 @@ Some values of an object are typically generated before the object is persisted.
 -->
 ### 生成值  {#generated-values}
 
-对象的某些值通常是在对象被写入数据库之前生成的。很重要的一点是不要依赖试运行
-请求为这些字段所设置的值，因为试运行模式下所得到的这些值与真实请求所获得的
-值很可能不同。这类字段有：
+对象的某些值通常是在对象被写入数据库之前生成的。很重要的一点是不要依赖试运行请求为这些字段所设置的值，
+因为试运行模式下所得到的这些值与真实请求所获得的值很可能不同。这类字段有：
 
 * `name`：如果设置了 `generateName` 字段，则 `name` 会获得一个唯一的随机名称
 * `creationTimestamp` / `deletionTimestamp`：记录对象的创建/删除时间
@@ -1414,12 +1409,11 @@ stream for a **watch**, or when using **list** to enumerate resources.
 
 客户端在资源中查找资源版本，这些资源包括来自用于 **watch** 的响应流资源，或者使用 **list** 枚举的资源。
 
-[v1.meta/ObjectMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta) - 资源
-的 `metadata.resourceVersion` 值标明该实例上次被更改时的资源版本。
+[v1.meta/ObjectMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta) -
+资源的 `metadata.resourceVersion` 值标明该实例上次被更改时的资源版本。
 
-[v1.meta/ListMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) - 资源集合
-即 **list** 操作的响应）的 `metadata.resourceVersion` 所标明的是 list
-响应被构造时的资源版本。
+[v1.meta/ListMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) - 资源集合即
+**list** 操作的响应）的 `metadata.resourceVersion` 所标明的是 list 响应被构造时的资源版本。
 
 <!--
 ### `resourceVersion` parameters in query strings {#the-resourceversion-parameter}
@@ -1462,7 +1456,6 @@ For **get** and **list**, the semantics of `resourceVersion` are:
 |-----------------------|---------------------|----------------------------------------|
 | 最新版本               | 任何版本            | 不老于给定版本                         |
 
-
 **list:**
 
 <!--
@@ -1491,14 +1484,13 @@ quorum read to be served.
 
 Setting the `resourceVersionMatch` parameter without setting `resourceVersion` is not valid.
 
-
 This table explains the behavior of **list** requests with various combinations of
 `resourceVersion` and `resourceVersionMatch`:
 -->
 除非你对一致性有着非常强烈的需求，使用 `resourceVersionMatch=NotOlderThan`
 同时为 `resourceVersion` 设定一个已知值是优选的交互方式，因为与不设置
-`resourceVersion` 和 `resourceVersionMatch` 相比，这种配置可以取得更好的
-集群性能和可扩缩性。后者需要提供带票选能力的读操作。
+`resourceVersion` 和 `resourceVersionMatch` 相比，这种配置可以取得更好的集群性能和可扩缩性。
+后者需要提供带票选能力的读操作。
 
 设置 `resourceVersionMatch` 参数而不设置 `resourceVersion` 参数是不合法的。
 
@@ -1521,13 +1513,13 @@ This table explains the behavior of **list** requests with various combinations 
 
 | resourceVersionMatch 参数               | 分页参数                        | resourceVersion 未设置  | resourceVersion="0"                     | resourceVersion="\<非零值\>"     |
 |-----------------------------------------|---------------------------------|-------------------------|-----------------------------------------|----------------------------------|
-| _未设置_             | _limit 未设置_                      | 最新版本                | 任意版本                                | 不老于指定版本                   |
-| _未设置_             | limit=\<n\>, _continue 未设置_        | 最新版本                | 任意版本                                | 精确匹配                         |
-| _未设置_            | limit=\<n\>, continue=\<token\>     | 从 token 开始、精确匹配 | 非法请求，视为从 token 开始、精确匹配  | 非法请求，返回 HTTP `400 Bad Request` |
-| `resourceVersionMatch=Exact` [1]         | _limit 未设置_                      | 非法请求                | 非法请求                                | 精确匹配                         |
-| `resourceVersionMatch=Exact` [1]         | limit=\<n\>, _continue 未设置_        | 非法请求                | 非法请求                                | 精确匹配                         |
-| `resourceVersionMatch=NotOlderThan` [1]  | _limit 未设置_             | 非法请求                | 任意版本                                | 不老于指定版本                   |
-| `resourceVersionMatch=NotOlderThan` [1]  | limit=\<n\>, _continue 未设置_ | 非法请求                | 任意版本                                | 不老于指定版本                   |
+| **未设置**            | **limit 未设置**                      | 最新版本                | 任意版本                                | 不老于指定版本                   |
+| **未设置**            | limit=\<n\>, **continue 未设置**        | 最新版本                | 任意版本                                | 精确匹配                         |
+| **未设置**           | limit=\<n\>, continue=\<token\>     | 从 token 开始、精确匹配 | 非法请求，视为从 token 开始、精确匹配  | 非法请求，返回 HTTP `400 Bad Request` |
+| `resourceVersionMatch=Exact` [1]         | **limit 未设置**                      | 非法请求                | 非法请求                                | 精确匹配                         |
+| `resourceVersionMatch=Exact` [1]         | limit=\<n\>, **continue 未设置**        | 非法请求                | 非法请求                                | 精确匹配                         |
+| `resourceVersionMatch=NotOlderThan` [1]  | **limit 未设置**             | 非法请求                | 任意版本                                | 不老于指定版本                   |
+| `resourceVersionMatch=NotOlderThan` [1]  | limit=\<n\>, **continue 未设置** | 非法请求                | 任意版本                                | 不老于指定版本                   |
 
 {{< /table >}}
 
@@ -1609,6 +1601,8 @@ Continue Token, Exact
 : 返回初始分页 **list** 调用的资源版本的数据。
   返回的 _Continue 令牌_ 负责跟踪最初提供的资源版本，最初提供的资源版本用于在初始分页 **list** 之后的所有分页 **list** 中。
 
+
+{{< note >}}
 <!--
 When you **list** resources and receive a collection response, the response includes the
 [metadata](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta) of the collection as
@@ -1617,8 +1611,6 @@ for each item in that collection. For individual objects found within a collecti
 `.metadata.resourceVersion` tracks when that object was last updated, and not how up-to-date
 the object is when served.
 -->
-
-{{< note >}}
 当你 **list** 资源并收到集合响应时，
 响应包括集合的[元数据](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)
 以及该集合中每个项目的[对象元数据](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)。
@@ -1644,7 +1636,6 @@ example, the client might fall back to a request with `limit` set.
 当使用 `resourceVersionMatch=Exact` 并且未设置限制时，
 客户端必须验证集合的 `.metadata.resourceVersion` 是否与请求的 `resourceVersion` 匹配，
 并处理不匹配的情况。例如，客户端可能会退回到设置了限制的请求。
-
 
 <!--
 ### Semantics for **watch**
@@ -1754,11 +1745,11 @@ on whether a request is served from cache or not, the API server may reply with 
 服务器不需要提供所有老的资源版本，在客户端请求的是早于服务器端所保留版本的
 `resourceVersion` 时，可以返回 HTTP `410 (Gone)` 状态码。
 客户端必须能够容忍 `410 (Gone)` 响应。
-参阅[高效检测变更](#efficient-detection-of-changes)以了解如何在监测资源时
-处理 `410 (Gone)` 响应。
+参阅[高效检测变更](#efficient-detection-of-changes)以了解如何在监测资源时处理
+`410 (Gone)` 响应。
 
-如果所请求的 `resourceVersion` 超出了可应用的 `limit`，那么取决于请求是否
-是通过高速缓存来满足的，API 服务器可能会返回一个 `410 Gone` HTTP 响应。
+如果所请求的 `resourceVersion` 超出了可应用的 `limit`，
+那么取决于请求是否是通过高速缓存来满足的，API 服务器可能会返回一个 `410 Gone` HTTP 响应。
 
 <!--
 ### Unavailable resource versions
