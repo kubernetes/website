@@ -31,7 +31,7 @@ Kubernetes APIを利用してアプリケーションを書いているのであ
 
 ### OpenAPI V2
 
-Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOpenAPI仕様を提供します。
+Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOpenAPI v2仕様を提供します。
 次のように要求ヘッダーを使用して、応答フォーマットを要求できます。
 
 
