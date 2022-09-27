@@ -73,7 +73,7 @@ Kubernetesは、他の手段として主にクラスター間の連携用途向�
 
 {{< feature-state state="beta"  for_k8s_version="v1.24" >}}
 
-Kubernetes {{< param "version" >}} では、 OpenAPI v3によるAPI仕様をベータサポートとして提供しています。これは、デフォルトで有効化されているベータ機能です。kube-apiserverの`OpenAPIV3`という[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)を切ることにより、このベータ機能を無効化することができます。
+Kubernetes {{< param "version" >}}では、OpenAPI v3によるAPI仕様をベータサポートとして提供しています。これは、デフォルトで有効化されているベータ機能です。kube-apiserverの`OpenAPIV3`という[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)を切ることにより、このベータ機能を無効化することができます。
 
 `/openapi/v3` が、全ての利用可能なグループやバージョンの一覧を閲覧するためのディスカバリーエンドポイントとして提供されています。 このエンドポイントは、JSONのみを返却します。利用可能なグループやバージョンは、 次のような形式で提供されます。
 
