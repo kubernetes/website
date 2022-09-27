@@ -94,7 +94,7 @@ Kubernetes {{< param "version" >}}では、OpenAPI v3によるAPI仕様をベー
 <!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 クライアントサイドのキャッシングを改善するために、相対URLはイミュータブルな(不変の)OpenAPI記述を指しています。
-また、APIサーバーも、同様の目的で適切なHTTPキャッシュヘッダー（`Expires`には1年先の日付、`Cache-Control`には`immutable`）をセットします。廃止されたURLが使用された場合、APIサーバーは最新のURLへリダイレクトを行います。
+また、APIサーバーも、同様の目的で適切なHTTPキャッシュヘッダー(`Expires`には1年先の日付、`Cache-Control`には`immutable`)をセットします。廃止されたURLが使用された場合、APIサーバーは最新のURLへのリダイレクトを返します。
 
 Kubernetes APIサーバーは、`/openapi/v3/apis/<group>/<version>?hash=<hash>`のエンドポイントにて、KubernetesのグループバージョンごとにOpenAPI v3仕様を公開しています。
 
