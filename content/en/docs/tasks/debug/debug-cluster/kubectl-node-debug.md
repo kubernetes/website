@@ -23,13 +23,13 @@ You also need to be authorized to create Pods that access filesystems from the h
 Use the `kubectl debug node` command to deploy a Pod to a Node that you want to troubleshoot.
 This command is helpful in scenarios where you can't access your Node by using an SSH connection.
 When the Pod is created, the Pod opens a interactive shell on the Node.
-To create an interactive shell on a Node using `kubectl debug`, run:
+To create an interactive shell on a Node named “mynode”, run:
 
 ```shell
 kubectl debug node/mynode -it --image=ubuntu
 ```
 
-```shell
+```console
 Creating debugging pod node-debugger-mynode-pdx84 with container debugger on node mynode.
 If you don't see a command prompt, try pressing enter.
 root@ek8s:/#
@@ -39,14 +39,24 @@ Run debug commands to help you gather information and troubleshoot issues. Comma
 that you might use to debug, such as `ip`, `ifconfig`, `nc`, `ping`, and `ps`. You can also
 install other tools, such as `mtr`, `tcpdump`, and `curl`, from the respective package manager.
 
-Get the following logs from the shell session to look for issues on the Node. Note that the root filesystem
-of the Node will be mounted at `/host`
+The debugging Pod can access the root filesystem of the Node, mounted at `/host`. If you run your kubelet in a filesystem namespace,
+the debugging Pod sees the root for that namespace, not for the entire node. For a typical Linux node,
+you can look at the following paths to find relevant logs:
 
-* `/host/var/log/kubelet.log` - logs from the `kubelet`, responsible for running containers on the node
-* `/host/var/log/kube-proxy.log` - logs from `kube-proxy`, which is responsible for directing traffic to Service endpoints
-* `/host/var/log/containerd.log` - logs from `containerd` process running on node
-* `/host/var/log/syslog` - shows general messages and info regarding the system
-* `/host/var/log/kern.log` - shows kernel logs
+`/host/var/log/kubelet.log`
+: Logs from the `kubelet`, responsible for running containers on the node.
+
+`/host/var/log/kube-proxy.log`
+: Logs from `kube-proxy`, which is responsible for directing traffic to Service endpoints.
+
+`/host/var/log/containerd.log`
+: Logs from `containerd` process running on node.
+
+`/host/var/log/syslog`
+: Shows general messages and info regarding the system.
+
+`/host/var/log/kern.log`
+: Shows kernel logs.
 
 When creating a debugging session on a Node, keep in mind that:
 
@@ -63,10 +73,10 @@ When creating a debugging session on a Node, keep in mind that:
 Clean up the debugging Pod when you're finished with it, by deleting that Pod:
 
 ```shell
+# Change <pod-name> to the name of the Pod that kubectl created in the previous step.
 kubectl delete pod <pod-name> --now
-
-Change <pod-name> to the name of the Pod that kubectl created in the previous step.
 ```
+
 {{< note >}}
 
 The `kubectl debug node` command won't work if the Node is down (disconnected
