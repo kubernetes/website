@@ -1,16 +1,21 @@
 ---
 title: 拓扑感知提示
 content_type: concept
-weight: 45
+weight: 70
+description: >-
+  **拓扑感知提示（Topology Aware Hints）**提供了一种机制来帮助将网络流量保持在其请求方所在的区域内。
+  在集群中的 Pod 之间优先选用相同区域的流量有助于提高可靠性、增强性能（网络延迟和吞吐量）或降低成本。
 ---
-<!-- 
----
+<!--
 reviewers:
 - robscott
 title: Topology Aware Hints
 content_type: concept
-weight: 45
----
+weight: 70
+description: >-
+  _Topology Aware Hints_ provides a mechanism to help keep network traffic within the zone
+  where it originated. Preferring same-zone traffic between Pods in your cluster can help
+  with reliability, performance (network latency and throughput), or cost.
 -->
 
 <!-- overview -->
