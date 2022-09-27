@@ -1,6 +1,7 @@
 ---
 title: Debugging Kubernetes nodes with kubectl
 content_type: task
+min-kubernetes-server-version: 1.20
 ---
 
 <!-- overview -->
@@ -11,11 +12,13 @@ This page shows how to debug a [node](/docs/concepts/architecture/nodes/) runnin
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+You need to have access to create Pods and to assign those new Pods to arbitrary nodes.
+You also need to be authorized to create Pods that access filesystems from the host.
 
 
 <!-- steps -->
 
-## Debugging Node using kubectl debug node
+## Debugging a Node using `kubectl debug node`
 
 Use the `kubectl debug node` command to deploy a Pod to a Node that you want to troubleshoot.
 This command is helpful in scenarios where you can't access your Node by using an SSH connection.
@@ -47,22 +50,26 @@ of the Node will be mounted at `/host`
 
 When creating a debugging session on a Node, keep in mind that:
 
-* `kubectl debug` automatically generates the name of the new pod based on
+* `kubectl debug` automatically generates the name of the new pod, based on
   the name of the node.
 * The root filesystem of the Node will be mounted at `/host`.
-* The container runs in the host IPC, Network, and PID namespaces, although
-  the pod isn't privileged, so reading some process information may fail,
-  and `chroot /host` will fail.
+* Although the container runs in the host IPC, Network, and PID namespaces,
+  the pod isn't privileged. This means that reading some process information might fail
+  because access to that information is restricted to superusers. `chroot /host` will fail.
 * If you need a privileged pod, create it manually.
 
-Don't forget to clean up the debugging Pod when you're finished with it:
+## {{% heading "cleanup" %}}
+
+Clean up the debugging Pod when you're finished with it, by deleting that Pod:
 
 ```shell
-kubectl delete pod node-debugger-mynode-pdx84
+kubectl delete pod <pod-name> --now
+
+Change <pod-name> to the name of the Pod that kubectl created in the previous step.
 ```
 {{< note >}}
 
 The `kubectl debug node` command won't work if the Node is down (disconnected
-from the network, or kubelet dies and won't restart, etc.). Check [Debugging Unreachable Node](/docs/tasks/debug/debug-cluster/#example-debugging-a-down-unreachable-node)
+from the network, or kubelet dies and won't restart, etc.). Check [debugging a down/unreachable node ](/docs/tasks/debug/debug-cluster/#example-debugging-a-down-unreachable-node) in that case.
 
 {{< /note >}}
