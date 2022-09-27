@@ -1,7 +1,7 @@
 ---
 title: Multi-tenancy
 content_type: concept
-weight: 70
+weight: 80
 ---
 
 <!-- overview -->
@@ -27,7 +27,7 @@ The first step to determining how to share your cluster is understanding your us
 evaluate the patterns and tools available. In general, multi-tenancy in Kubernetes clusters falls
 into two broad categories, though many variations and hybrids are also possible.
 
-### Multiple teams 
+### Multiple teams
 
 A common form of multi-tenancy is to share a cluster between multiple teams within an
 organization, each of whom may operate one or more workloads. These workloads frequently need to
@@ -39,7 +39,7 @@ automation tools. There is often some level of trust between members of differen
 Kubernetes policies such as RBAC, quotas, and network policies are essential to safely and fairly
 share clusters.
 
-### Multiple customers 
+### Multiple customers
 
 The other major form of multi-tenancy frequently involves a Software-as-a-Service (SaaS) vendor
 running multiple instances of a workload for customers. This business model is so strongly
@@ -83,7 +83,7 @@ services.
 
 There are several ways to design and build multi-tenant solutions with Kubernetes. Each of these
 methods comes with its own set of tradeoffs that impact the isolation level, implementation
-effort, operational complexity, and cost of service. 
+effort, operational complexity, and cost of service.
 
 A Kubernetes cluster consists of a control plane which runs Kubernetes software, and a data plane
 consisting of worker nodes where tenant workloads are executed as pods. Tenant isolation can be
@@ -95,7 +95,7 @@ implies strong isolation, and “soft” multi-tenancy, which implies weaker iso
 often from security and resource sharing perspectives (e.g. guarding against attacks such as data
 exfiltration or DoS). Since data planes typically have much larger attack surfaces, "hard"
 multi-tenancy often requires extra attention to isolating the data-plane, though control plane
-isolation  also remains critical. 
+isolation  also remains critical.
 
 However, the terms "hard" and "soft" can often be confusing, as there is no single definition that
 will apply to all users. Rather, "hardness" or "softness" is better understood as a broad
@@ -118,7 +118,7 @@ your needs or capabilities change.
 ## Control plane isolation
 
 Control plane isolation ensures that different tenants cannot access or affect each others'
-Kubernetes API resources. 
+Kubernetes API resources.
 
 ### Namespaces
 
@@ -161,7 +161,7 @@ are less useful for multi-tenant clusters.
 
 In a multi-team environment, RBAC must be used to restrict tenants' access to the appropriate
 namespaces, and ensure that cluster-wide resources can only be accessed or modified by privileged
-users such as cluster administrators. 
+users such as cluster administrators.
 
 If a policy ends up granting a user more permissions than they need, this is likely a signal that
 the namespace containing the affected resources should be refactored into finer-grained
@@ -169,7 +169,7 @@ namespaces. Namespace management tools may simplify the management of these fine
 namespaces by applying common RBAC policies to different namespaces, while still allowing
 fine-grained policies where necessary.
 
-### Quotas 
+### Quotas
 
 Kubernetes workloads consume node resources, like CPU and memory.  In a multi-tenant environment,
 you can use [Resource Quotas](/docs/concepts/policy/resource-quotas/) to manage resource usage of
@@ -188,7 +188,7 @@ than built-in quotas.
 
 Quotas prevent a single tenant from consuming greater than their allocated share of resources
 hence minimizing the “noisy neighbor” issue, where one tenant negatively impacts the performance
-of other tenants' workloads. 
+of other tenants' workloads.
 
 When you apply a quota to namespace, Kubernetes requires you to also specify resource requests and
 limits for each container. Limits are the upper bound for the amount of resources that a container
@@ -242,11 +242,11 @@ However, they can be significantly more complex to manage and may not be appropr
 
 Kubernetes offers several types of volumes that can be used as persistent storage for workloads.
 For security and data-isolation, [dynamic volume provisioning](/docs/concepts/storage/dynamic-provisioning/)
-is recommended and volume types that use node resources should be avoided. 
+is recommended and volume types that use node resources should be avoided.
 
 [StorageClasses](/docs/concepts/storage/storage-classes/) allow you to describe custom "classes"
 of storage offered by your cluster, based on quality-of-service levels, backup policies, or custom
-policies determined by the cluster administrators. 
+policies determined by the cluster administrators.
 
 Pods can request storage using a [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 A PersistentVolumeClaim is a namespaced resource, which enables isolating portions of the storage
@@ -291,7 +291,7 @@ sandboxing implementations are available:
   userspace kernel, written in Go, with limited access to the underlying host.
 * [Kata Containers](https://katacontainers.io/) is an OCI compliant runtime that allows you to run
   containers in a VM. The hardware virtualization available in Kata offers an added layer of
-  security for containers running untrusted code. 
+  security for containers running untrusted code.
 
 ### Node Isolation
 
@@ -308,7 +308,7 @@ services. A skilled attacker could use the permissions assigned to the kubelet o
 running on the node to move laterally within the cluster and gain access to tenant workloads
 running on other nodes. If this is a major concern, consider implementing compensating controls
 such as seccomp, AppArmor or SELinux or explore using sandboxed containers or creating separate
-clusters for each tenant. 
+clusters for each tenant.
 
 Node isolation is a little easier to reason about from a billing standpoint than sandboxing
 containers since you can charge back per node rather than per pod. It also has fewer compatibility
@@ -332,7 +332,7 @@ feature that allows you to assign a priority to certain pods running within the 
 When an application calls the Kubernetes API, the API server evaluates the priority assigned to pod.
 Calls from pods with higher priority are fulfilled before those with a lower priority.
 When contention is high, lower priority calls can be queued until the server is less busy or you
-can reject the requests. 
+can reject the requests.
 
 Using API priority and fairness will not be very common in SaaS environments unless you are
 allowing customers to run applications that interface with the Kubernetes API, for example,
@@ -346,7 +346,7 @@ service that comes with fewer performance guarantees and features and a for-fee 
 specific performance guarantees. Fortunately, there are several Kubernetes constructs that can
 help you accomplish this within a shared cluster, including network QoS, storage classes, and pod
 priority and preemption. The idea with each of these is to provide tenants with the quality of
-service that they paid for. Let’s start by looking at networking QoS. 
+service that they paid for. Let’s start by looking at networking QoS.
 
 Typically, all pods on a node share a network interface. Without network QoS, some pods may
 consume an unfair share of the available bandwidth at the expense of other pods.
@@ -356,7 +356,7 @@ for networking that allows you to use Kubernetes resources constructs, i.e. requ
 apply rate limits to pods by using Linux tc queues.
 Be aware that the plugin is considered experimental as per the
 [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#support-traffic-shaping)
-documentation and should be thoroughly tested before use in production environments. 
+documentation and should be thoroughly tested before use in production environments.
 
 For storage QoS, you will likely want to create different storage classes or profiles with
 different performance characteristics. Each storage profile can be associated with a different
@@ -396,14 +396,14 @@ that supports multiple tenants.
 [Operators](/docs/concepts/extend-kubernetes/operator/) are Kubernetes controllers that manage
 applications. Operators can simplify the management of multiple instances of an application, like
 a database service, which makes them a common building block in the multi-consumer (SaaS)
-multi-tenancy use case.  
+multi-tenancy use case.
 
 Operators used in a multi-tenant environment should follow a stricter set of guidelines.
-Specifically, the Operator should: 
+Specifically, the Operator should:
 
 * Support creating resources within different tenant namespaces, rather than just in the namespace
   in which the Operator is deployed.
-* Ensure that the Pods are configured with resource requests and limits, to ensure scheduling and fairness.  
+* Ensure that the Pods are configured with resource requests and limits, to ensure scheduling and fairness.
 * Support configuration of Pods for data-plane isolation techniques such as node isolation and
   sandboxed containers.
 
@@ -416,7 +416,7 @@ There are two primary ways to share a Kubernetes cluster for multi-tenancy: usin
 plane per tenant).
 
 In both cases, data plane isolation, and management of additional considerations such as API
-Priority and Fairness, is also recommended. 
+Priority and Fairness, is also recommended.
 
 Namespace isolation is well-supported by Kubernetes, has a negligible resource cost, and provides
 mechanisms to allow tenants to interact appropriately, such as by allowing service-to-service
@@ -492,14 +492,14 @@ referred to as a _virtual control plane_.
 A virtual control plane typically consists of the Kubernetes API server, the controller manager,
 and the etcd data store. It interacts with the super cluster via a metadata synchronization
 controller which coordinates changes across tenant control planes and the control plane of the
-super-cluster. 
+super-cluster.
 
 By using per-tenant dedicated control planes, most of the isolation problems due to sharing one
 API server among all tenants are solved. Examples include noisy neighbors in the control plane,
 uncontrollable blast radius of policy misconfigurations, and conflicts between cluster scope
 objects such as webhooks and CRDs.  Hence, the virtual control plane model is particularly
 suitable for cases where each tenant requires access to a Kubernetes API server and expects the
-full cluster manageability. 
+full cluster manageability.
 
 The improved isolation comes at the  cost of running and maintaining an individual virtual control
 plane per tenant. In addition, per-tenant control planes do not solve isolation problems in the
@@ -507,10 +507,9 @@ data plane, such as node-level noisy neighbors or security threats. These must s
 separately.
 
 The Kubernetes [Cluster API - Nested (CAPN)](https://github.com/kubernetes-sigs/cluster-api-provider-nested/tree/main/virtualcluster)
-project provides an implementation of virtual control planes. 
+project provides an implementation of virtual control planes.
 
 #### Other implementations
 
 * [Kamaji](https://github.com/clastix/kamaji)
 * [vcluster](https://github.com/loft-sh/vcluster)
-
