@@ -79,13 +79,15 @@ might have to add an equivalent field or represent it as an annotation.
   * Beta API versions can replace earlier beta and alpha API versions, but *may not* replace GA API versions.
   * Alpha API versions can replace earlier alpha API versions, but *may not* replace GA or beta API versions.
 
-**Rule #4a: minimum API lifetime is determined by the API stability level**
+**Rule #4a: API lifetime is determined by the API stability level**
 
-   * **GA API versions may be marked as deprecated, but must not be removed within a major version of Kubernetes**
-   * **Beta API versions must be supported for 9 months or 3 releases (whichever is longer) after deprecation**
-   * **Alpha API versions may be removed in any release without prior deprecation notice**
+   * GA API versions may be marked as deprecated, but must not be removed within a major version of Kubernetes
+   * Beta API versions are deprecated no more than 9 months or 3 minor releases after introduction (whichever is longer),
+     and are no longer served 9 months or 3 minor releases after deprecation (whichever is longer)
+   * Alpha API versions may be removed in any release without prior deprecation notice
 
-This ensures beta API support covers the [maximum supported version skew of 2 releases](/releases/version-skew-policy/).
+This ensures beta API support covers the [maximum supported version skew of 2 releases](/releases/version-skew-policy/),
+and that APIs don't stagnate on unstable beta versions, accumulating production usage that will be disrupted when support for the beta API ends.
 
 {{< note >}}
 There are no current plans for a major version revision of Kubernetes that removes GA APIs.
