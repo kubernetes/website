@@ -4,6 +4,11 @@ title = "Kubernetes"
 # Hugo allows theme composition (and inheritance). The precedence is from left to right.
 theme = ["docsy"]
 
+[[module.imports]]
+  path = 'github.com/google/docsy'
+[[module.imports]]
+  path = "github.com/google/docsy/dependencies"
+
 # Language settings
 contentDir = "content/en"
 defaultContentLanguage = "en"

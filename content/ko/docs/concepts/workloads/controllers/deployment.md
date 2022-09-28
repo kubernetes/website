@@ -532,7 +532,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     ```
     deployment.apps/nginx-deployment rolled back
     ```
-    Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
+    또는 --to-revision으로 지정하여 특정 수정 버전으로 롤백할 수 있다.
 
     ```shell
     kubectl rollout undo deployment/nginx-deployment --to-revision=2
