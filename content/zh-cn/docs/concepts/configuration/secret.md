@@ -61,11 +61,9 @@ Additionally, anyone who is authorized to create a Pod in a namespace can use th
 In order to safely use Secrets, take at least the following steps:
 
 1. [Enable Encryption at Rest](/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
-1. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) that
-   restrict reading and writing the Secret. Be aware that secrets can be obtained
-   implicitly by anyone with the permission to create a Pod.
-1. Where appropriate, also use mechanisms such as RBAC to limit which principals are allowed
-   to create new Secrets or replace existing ones.
+1. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) with least-privilege access to Secrets.
+1. Restrict Secret access to specific containers.
+1. [Consider using external Secret store providers](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver).
 -->
 默认情况下，Kubernetes Secret 未加密地存储在 API 服务器的底层数据存储（etcd）中。
 任何拥有 API 访问权限的人都可以检索或修改 Secret，任何有权访问 etcd 的人也可以。
@@ -74,11 +72,17 @@ In order to safely use Secrets, take at least the following steps:
 
 为了安全地使用 Secret，请至少执行以下步骤：
 
-1. 为 Secret [启用静态加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)；
-1. [启用或配置 RBAC 规则](/zh-cn/docs/reference/access-authn-authz/authorization/)来限制读取和写入
-   Secret 的数据（包括通过间接方式）。需要注意的是，被准许创建 Pod 的人也隐式地被授权获取
-   Secret 内容。
-1. 在适当的情况下，还可以使用 RBAC 等机制来限制允许哪些主体创建新 Secret 或替换现有 Secret。
+1. 为 Secret [启用静态加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)。
+1. 以最小特权访问 Secret 并[启用或配置 RBAC 规则](/zh-cn/docs/reference/access-authn-authz/authorization/)。
+1. 限制 Secret 对特定容器的访问。
+1. [考虑使用外部 Secret 存储驱动](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver)。
+
+<!--
+For more guidelines to manage and improve the security of your Secrets, refer to
+[Good practices for Kubernetes Secrets](/docs/concepts/security/secrets-good-practices).
+-->
+有关管理和提升 Secret 安全性的指南，请参阅
+[Kubernetes Secret 良好实践](/zh-cn/docs/concepts/security/secrets-good-practices)。
 {{< /caution >}}
 
 <!--
@@ -318,7 +322,7 @@ Secret 可以以数据卷的形式挂载，也可以作为{{< glossary_tooltip t
 <!--
 Secret volume sources are validated to ensure that the specified object
 reference actually points to an object of type Secret. Therefore, a Secret
-needs to be created before any Pods that depend on it.  
+needs to be created before any Pods that depend on it.
 
 If the Secret cannot be fetched (perhaps because it does not exist, or
 due to a temporary lack of connection to the API server) the kubelet
@@ -561,7 +565,7 @@ secret volume mount have permission `0400`.
 <!--
 If you're defining a Pod or a Pod template using JSON, beware that the JSON
 specification doesn't support octal notation. You can use the decimal value
-for the `defaultMode` (for example, 0400 in octal is 256 in decimal) instead.  
+for the `defaultMode` (for example, 0400 in octal is 256 in decimal) instead.
 If you're writing YAML, you can write the `defaultMode` in octal.
 -->
 如果你是使用 JSON 来定义 Pod 或 Pod 模板，需要注意 JSON 规范不支持八进制的记数方式。
@@ -1542,7 +1546,7 @@ After creating the Secret, wait for Kubernetes to populate the `token` key in th
 
 <!--
 See the [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)
-documentation for more information on how service accounts work.  
+documentation for more information on how service accounts work.
 You can also check the `automountServiceAccountToken` field and the
 `serviceAccountName` field of the
 [`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
@@ -2122,117 +2126,23 @@ Therefore, one Pod does not have access to the Secrets of another Pod.
 
 {{< warning >}}
 <!--
-Any privileged containers on a node are liable to have access to all Secrets used
-on that node.
+Any containers that run with `privileged: true` on a node can access all
+Secrets used on that node.
 -->
-节点上的所有特权容器都可能访问到该节点上使用的所有 Secret。
+在一个节点上以 `privileged: true` 运行的所有容器可以访问该节点上使用的所有 Secret。
 {{< /warning >}}
-
-<!--
-### Security recommendations for developers
-
-- Applications still need to protect the value of confidential information after reading it
-  from an environment variable or volume. For example, your application must avoid logging
-  the secret data in the clear or transmitting it to an untrusted party.
-- If you are defining multiple containers in a Pod, and only one of those
-  containers needs access to a Secret, define the volume mount or environment
-  variable configuration so that the other containers do not have access to that
-  Secret.
--->
-### 针对开发人员的安全性建议 {#security-recommendations-for-developers}
-
-- 应用在从环境变量或卷中读取了机密信息内容之后仍要对其进行保护。例如，
-  你的应用应该避免用明文的方式将 Secret 数据写入日志，或者将其传递给不可信的第三方。
-- 如果你在一个 Pod 中定义了多个容器，而只有一个容器需要访问某 Secret，
-  定义卷挂载或环境变量配置时，应确保其他容器无法访问该 Secret。
-<!--
-- If you configure a Secret through a {{< glossary_tooltip text="manifest" term_id="manifest" >}},
-  with the secret data encoded as base64, sharing this file or checking it in to a
-  source repository means the secret is available to everyone who can read the manifest.
-  Base64 encoding is _not_ an encryption method, it provides no additional confidentiality
-  over plain text.
--->
-- 如果你通过{{< glossary_tooltip text="清单" term_id="manifest" >}}来配置某 Secret，
-  Secret 数据以 Base64 的形式编码，将此文件共享，或者将其检入到某源码仓库，
-  都意味着 Secret 对于任何可以读取清单的人都是可见的。
-  Base64 编码 **不是** 一种加密方法，与明文相比没有任何安全性提升。
-<!--
-- When deploying applications that interact with the Secret API, you should
-  limit access using
-  [authorization policies](/docs/reference/access-authn-authz/authorization/) such as
-  [RBAC](/docs/reference/access-authn-authz/rbac/).
--->
-- 部署与 Secret API 交互的应用时，你应该使用 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)
-  这类[鉴权策略](/zh-cn/docs/reference/access-authn-authz/authorization/)来限制访问。
-<!--
-- In the Kubernetes API, `watch` and `list` requests for Secrets within a namespace
-  are extremely powerful capabilities. Avoid granting this access where feasible, since
-  listing Secrets allows the clients to inspect the values of every Secret in that
-  namespace.
--->
-- 在 Kubernetes API 中，名字空间内对 Secret 对象的 `watch` 和 `list` 请求是非常强大的能力。
-  在可能的时候应该避免授予这类访问权限，因为通过列举 Secret，
-  客户端能够查看对应名字空间内所有 Secret 的取值。
-
-<!--
-### Security recommendations for cluster administrators
--->
-### 针对集群管理员的安全性建议 {#security-recommendations-for-cluster-administrators}
-
-{{< caution >}}
-<!--
-A user who can create a Pod that uses a Secret can also see the value of that Secret. Even
-if cluster policies do not allow a user to read the Secret directly, the same user could
-have access to run a Pod that then exposes the Secret.
--->
-能够创建使用 Secret 的 Pod 的用户也可以查看该 Secret 的取值。
-即使集群策略不允许某用户直接读取 Secret 对象，这一用户仍然可以通过运行一个
-Pod 来访问 Secret 的内容。
-{{< /caution >}}
-
-<!--
-- Reserve the ability to `watch` or `list` all secrets in a cluster (using the Kubernetes
-  API), so that only the most privileged, system-level components can perform this action.
-- When deploying applications that interact with the Secret API, you should
-  limit access using
-  [authorization policies](/docs/reference/access-authn-authz/authorization/) such as
-  [RBAC](/docs/reference/access-authn-authz/rbac/).
--->
-- 保留（使用 Kubernetes API）对集群中所有 Secret 对象执行 `watch` 或 `list` 操作的能力，
-  这样只有特权级最高、系统级别的组件能够执行这类操作。
-- 在部署需要通过 Secret API 交互的应用时，你应该通过使用
-  [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)
-  这类[鉴权策略](/zh-cn/docs/reference/access-authn-authz/authorization/)来限制访问。
-<!--
-- In the API server, objects (including Secrets) are persisted into
-  {{< glossary_tooltip term_id="etcd" >}}; therefore:
-  - only allow cluster administrators to access etcd (this includes read-only access);
-  - enable [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
-    for Secret objects, so that the data of these Secrets are not stored in the clear
-    into {{< glossary_tooltip term_id="etcd" >}};
-  - consider wiping / shredding the durable storage used by etcd once it is
-    no longer in use;
-  - if there are multiple etcd instances, make sure that etcd is
-    using SSL/TLS for communication between etcd peers.
--->
-- 在 API 服务器上，对象（包括 Secret）会被持久化到 {{< glossary_tooltip term_id="etcd" >}} 中；
-  因此：
-
-  - 只应准许集群管理员访问 etcd（包括只读访问）；
-  - 为 Secret 对象启用[静态加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)，
-    这样这些 Secret 的数据就不会以明文的形式保存到
-    {{< glossary_tooltip term_id="etcd" >}} 中；
-  - 当 etcd 的持久化存储不再被使用时，请考虑彻底擦除存储介质；
-  - 如果存在多个 etcd 实例，请确保 etcd 使用 SSL/TLS 来完成其对等通信。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
+- For guidelines to manage and improve the security of your Secrets, refer to
+  [Good practices for Kubernetes Secrets](/docs/concepts/security/secrets-good-practices).
 - Learn how to [manage Secrets using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 - Read the [API reference](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/) for `Secret`
 -->
+- 有关管理和提升 Secret 安全性的指南，请参阅 [Kubernetes Secret 良好实践](/zh-cn/docs/concepts/security/secrets-good-practices)
 - 学习如何[使用 `kubectl` 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - 学习如何[使用配置文件管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - 学习如何[使用 kustomize 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
