@@ -23,6 +23,7 @@ Kubernetes 将所有标签和注解保留在 kubernetes.io 和 k8s.io 名字空�
 本文档既可作为值的参考，也可作为分配值的协调点。
 
 <!-- body -->
+
 <!--
 ## Labels, annotations and taints used on API objects
 
@@ -30,7 +31,7 @@ Kubernetes 将所有标签和注解保留在 kubernetes.io 和 k8s.io 名字空�
 
 Example: `app.kubernetes.io/component: "database"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The component within the architecture.
 
@@ -42,7 +43,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 例子: `app.kubernetes.io/component: "database"`
 
-用于: 所有对象
+用于: 所有对象（通常用于[工作负载资源](/zh-cn/docs/reference/kubernetes-api/workload-resources/)）。
 
 架构中的组件。
 
@@ -53,7 +54,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/created-by: "controller-manager"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The controller/user who created this resource.
 -->
@@ -61,7 +62,7 @@ The controller/user who created this resource.
 
 示例：`app.kubernetes.io/created-by: "controller-manager"`
 
-用于：所有对象
+用于：所有对象（通常用于[工作负载资源](/zh-cn/docs/reference/kubernetes-api/workload-resources/)）。
 
 创建此资源的控制器/用户。
 
@@ -77,9 +78,9 @@ Starting from v1.9, this label is deprecated.
 
 Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
-A unique name identifying the instance of an application.
+A unique name identifying the instance of an application. To assign a non-unique name, use [app.kubernetes.io/name](#app-kubernetes-io-name).
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
@@ -87,9 +88,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 示例：`app.kubernetes.io/instance: "mysql-abcxzy"`
 
-用于：所有对象
+用于：所有对象（通常用于[工作负载资源](/zh-cn/docs/reference/kubernetes-api/workload-resources/)）。
 
-标识应用实例的唯一名称。
+标识应用实例的唯一名称。要分配一个不唯一的名称，可使用 [app.kubernetes.io/name](#app-kubernetes-io-name)。
 
 [推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
@@ -98,7 +99,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/managed-by: "helm"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The tool being used to manage the operation of an application.
 
@@ -108,7 +109,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 示例：`app.kubernetes.io/managed-by: "helm"`
 
-用于：所有对象
+用于：所有对象（通常用于[工作负载资源](/zh-cn/docs/reference/kubernetes-api/workload-resources/)）。
 
 用于管理应用操作的工具。
 
@@ -119,7 +120,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/name: "mysql"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The name of the application.
 
@@ -129,7 +130,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 示例：`app.kubernetes.io/name: "mysql"`
 
-用于：所有对象
+用于：所有对象（通常用于[工作负载资源](/zh-cn/docs/reference/kubernetes-api/workload-resources/)）。
 
 应用的名称。
 
@@ -140,9 +141,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/part-of: "wordpress"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
-The name of a higher level application this one is part of.
+The name of a higher-level application this one is part of.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
@@ -150,7 +151,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 示例：`app.kubernetes.io/part-of: "wordpress"`
 
-用于：所有对象
+用于：所有对象（通常用于[工作负载资源](/zh-cn/docs/reference/kubernetes-api/workload-resources/)）。
 
 此应用所属的更高级别应用的名称。
 
@@ -161,9 +162,14 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/version: "5.7.21"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
-The current version of the application (e.g., a semantic version, revision hash, etc.).
+The current version of the application.
+
+Common forms of values include:
+
+- [semantic version](https://semver.org/spec/v1.0.0.html)
+- the Git [revision hash](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection#_single_revisions) for the source code.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
@@ -171,9 +177,12 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 示例：`app.kubernetes.io/version: "5.7.21"`
 
-用于：所有对象
+用于：所有对象（通常用于[工作负载资源](/zh-cn/docs/reference/kubernetes-api/workload-resources/)）。
 
-应用的当前版本（例如，语义版本、修订哈希等）。
+值的常见形式包括：
+
+- [语义版本](https://semver.org/spec/v1.0.0.html)
+- 针对源代码的 Git [修订哈希](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection#_single_revisions)。
 
 [推荐标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/#labels)之一。
 
