@@ -101,7 +101,7 @@ to one or more Kubernetes repositories, they are eligible to apply for
 in the Kubernetes organization. The contributor's membership needs to be
 backed by two sponsors who are already reviewers.
 
-New docs contributors can request sponsors by asking in the #sig-docs channel
+New docs contributors can request sponsors by asking in the `#sig-docs` channel
 on the [Kubernetes Slack instance](https://kubernetes.slack.com) or on the
 [SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 If you feel confident about the applicant's work, you volunteer to sponsor them.
