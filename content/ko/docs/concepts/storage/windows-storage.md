@@ -56,7 +56,7 @@ content_type: concept
 [플러그인](/ko/docs/concepts/storage/volumes/#volume-types) 형태로 제공된다. 
 윈도우는 다음의 광역 쿠버네티스 볼륨 플러그인 클래스를 지원한다.
 
-* [`FlexVolume 플러그인`](/ko/docs/concepts/storage/volumes/#flexVolume)
+* [`FlexVolume 플러그인`](/ko/docs/concepts/storage/volumes/#flexvolume-deprecated)
   * FlexVolumes은 1.23부터 사용 중단되었음에 유의한다.
 * [`CSI 플러그인`](/ko/docs/concepts/storage/volumes/#csi)
 
