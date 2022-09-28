@@ -409,7 +409,8 @@ After that, `kubeadm join` will block until the admin has manually approved the 
    ```
 
 <!--
-2. `kubectl certificate approve` allows the admin to approve CSR. This action tells a certificate signing controller to issue a certificate to the requestor with the attributes requested in the CSR.
+2. `kubectl certificate approve` allows the admin to approve CSR. This action tells a certificate signing
+  controller to issue a certificate to the requestor with the attributes requested in the CSR.
 -->
 2. `kubectl certificate approve` 允许管理员批准 CSR。
    此操作告知证书签名控制器向请求者颁发一个证书，该证书具有 CSR 中所请求的那些属性。
@@ -540,10 +541,10 @@ allowed in some cases.
 
 <!--
 The default configuration can be printed out using the
-[kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+[kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-print) command.
 
 If your configuration is not using the latest version it is **recommended** that you migrate using
-the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate) command.
 -->
 使用 [kubeadm config print](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-print)
 命令可以打印默认配置。
