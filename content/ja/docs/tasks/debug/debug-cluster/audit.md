@@ -1,7 +1,6 @@
 ---
 content_type: concept
 title: 監査
-weight: 30
 ---
 
 <!-- overview -->
