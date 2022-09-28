@@ -1,13 +1,13 @@
 ---
 title: 多租户
 content_type: concept
-weight: 70
+weight: 80
 ---
 
 <!--
 title: Multi-tenancy
 content_type: concept
-weight: 70
+weight: 80
 -->
 
 <!--
@@ -29,7 +29,7 @@ All these types of sharing are frequently described using the umbrella term _mul
 -->
 集群可以通过多种方式共享。在某些情况下，不同的应用可能会在同一个集群中运行。
 在其他情况下，同一应用的多个实例可能在同一个集群中运行，每个实例对应一个最终用户。
-所有这些类型的共享经常使用一个总括术语**多租户（Multi-Tenancy）**来表述。
+所有这些类型的共享经常使用一个总括术语 **多租户（Multi-Tenancy）** 来表述。
 
 <!--
 While Kubernetes does not have first-class concepts of end users or tenants, 
@@ -53,7 +53,7 @@ though many variations and hybrids are also possible.
 一般来说，Kubernetes 集群中的多租户分为两大类，但也可以有许多变体和混合。
 
 <!--
-### Multiple teams 
+### Multiple teams
 -->
 ### 多团队 {#multiple-teams}
 
@@ -78,7 +78,7 @@ but Kubernetes policies such as RBAC, quotas, and network policies are essential
 但 RBAC、配额和网络策略等 Kubernetes 策略对于安全、公平地共享集群至关重要。
 
 <!--
-### Multiple customers 
+### Multiple customers
 -->
 ### 多客户 {#multiple-customers}
 
@@ -88,7 +88,7 @@ This business model is so strongly associated with this deployment style that ma
 However, a better term might be "multi-customer tenancy,” since SaaS vendors may also use other deployment models, 
 and this deployment model can also be used outside of SaaS.
 -->
-多租户的另一种主要形式通常涉及为客户运行多个工作负载实例的软件即服务 (SaaS) 供应商。 
+多租户的另一种主要形式通常涉及为客户运行多个工作负载实例的软件即服务 (SaaS) 供应商。
 这种业务模型与其部署风格之间的相关非常密切，以至于许多人称之为 “SaaS 租户”。  
 但是，更好的术语可能是“多客户租户（Multi-Customer Tenancy）”，因为 SaaS 供应商也可以使用其他部署模型，
 并且这种部署模型也可以在 SaaS 之外使用。
@@ -167,7 +167,7 @@ combined with multi-tenant shared services.
 <!--
 There are several ways to design and build multi-tenant solutions with Kubernetes. 
 Each of these methods comes with its own set of tradeoffs that impact the isolation level, 
-implementation effort, operational complexity, and cost of service. 
+implementation effort, operational complexity, and cost of service.
 -->
 使用 Kubernetes 设计和构建多租户解决方案有多种方法。
 每种方法都有自己的一组权衡，这些权衡会影响隔离级别、实现工作量、操作复杂性和服务成本。
@@ -188,7 +188,7 @@ In particular, "hard" multi-tenancy is often used to describe cases where the te
 often from security and resource sharing perspectives (e.g. guarding against attacks such as data exfiltration or DoS). 
 Since data planes typically have much larger attack surfaces, 
 "hard" multi-tenancy often requires extra attention to isolating the data-plane, 
-though control plane isolation  also remains critical. 
+though control plane isolation  also remains critical.
 -->
 所提供的隔离级别有时会使用一些术语来描述，例如 “硬性（Hard）” 多租户意味着强隔离，
 而 “柔性（Soft）” 多租户意味着较弱的隔离。
@@ -237,7 +237,7 @@ as it will give you the flexibility to shift to shared clusters in the future if
 ## 控制面隔离 {#control-plane-isolation}
 
 <!--
-Control plane isolation ensures that different tenants cannot access or affect each others' Kubernetes API resources. 
+Control plane isolation ensures that different tenants cannot access or affect each others' Kubernetes API resources.
 -->
 控制平面隔离确保不同租户无法访问或影响彼此的 Kubernetes API 资源。
 
@@ -325,7 +325,7 @@ though these are less useful for multi-tenant clusters.
 
 <!--
 In a multi-team environment, RBAC must be used to restrict tenants' access to the appropriate namespaces, 
-and ensure that cluster-wide resources can only be accessed or modified by privileged users such as cluster administrators. 
+and ensure that cluster-wide resources can only be accessed or modified by privileged users such as cluster administrators.
 -->
 在多团队环境中，必须使用 RBAC 来限制租户只能访问合适的命名空间，
 并确保集群范围的资源只能由集群管理员等特权用户访问或修改。
@@ -342,7 +342,7 @@ while still allowing fine-grained policies where necessary.
 同时在必要时仍允许细粒度策略。
 
 <!--
-### Quotas 
+### Quotas
 -->
 ### 配额 {#quotas}
 
@@ -379,7 +379,7 @@ giving administrators far more flexibility with less effort than built-in quotas
 
 <!--
 Quotas prevent a single tenant from consuming greater than their allocated share of resources hence minimizing the “noisy neighbor” issue, 
-where one tenant negatively impacts the performance of other tenants' workloads. 
+where one tenant negatively impacts the performance of other tenants' workloads.
 -->
 配额可防止单个租户所消耗的资源超过其被分配的份额，从而最大限度地减少**嘈杂邻居**问题，
 即一个租户对其他租户工作负载的性能产生负面影响。
@@ -501,7 +501,7 @@ However, they can be significantly more complex to manage and may not be appropr
 <!--
 Kubernetes offers several types of volumes that can be used as persistent storage for workloads. 
 For security and data-isolation, [dynamic volume provisioning](/docs/concepts/storage/dynamic-provisioning/) 
-is recommended and volume types that use node resources should be avoided. 
+is recommended and volume types that use node resources should be avoided.
 -->
 Kubernetes 提供了若干类型的卷，可以用作工作负载的持久存储。
 为了安全和数据隔离，建议使用[动态卷制备](/zh-cn/docs/concepts/storage/dynamic-provisioning/)，
@@ -510,7 +510,7 @@ Kubernetes 提供了若干类型的卷，可以用作工作负载的持久存储
 <!--
 [StorageClasses](/docs/concepts/storage/storage-classes/) 
 allow you to describe custom "classes" of storage offered by your cluster, based on quality-of-service levels, 
-backup policies, or custom policies determined by the cluster administrators. 
+backup policies, or custom policies determined by the cluster administrators.
 -->
 [存储类（StorageClass）](/zh-cn/docs/concepts/storage/storage-classes/)允许你根据服务质量级别、
 备份策略或由集群管理员确定的自定义策略描述集群提供的自定义存储“类”。
@@ -601,7 +601,7 @@ The following sandboxing implementations are available:
 * [gVisor](https://gvisor.dev/) intercepts syscalls from containers 
 and runs them through a userspace kernel, written in Go, with limited access to the underlying host.
 * [Kata Containers](https://katacontainers.io/) is an OCI compliant runtime that allows you to run containers in a VM. 
-The hardware virtualization available in Kata offers an added layer of security for containers running untrusted code. 
+The hardware virtualization available in Kata offers an added layer of security for containers running untrusted code.
 -->
 虚拟机和用户空间内核是两种流行的沙箱方法。
 可以使用以下沙箱实现：
@@ -724,7 +724,7 @@ and a for-fee service tier with specific performance guarantees.
 Fortunately, there are several Kubernetes constructs that can help you accomplish this within a shared cluster, 
 including network QoS, storage classes, and pod priority and preemption. 
 The idea with each of these is to provide tenants with the quality of service 
-that they paid for. Let’s start by looking at networking QoS. 
+that they paid for. Let’s start by looking at networking QoS.
 -->
 当你运行 SaaS 应用时，
 你可能希望能够为不同的租户提供不同的服务质量 (QoS) 层级。
@@ -744,7 +744,7 @@ that allows you to use Kubernetes resources constructs, i.e. requests/limits,
 to apply rate limits to pods by using Linux tc queues. 
 Be aware that the plugin is considered experimental as per the 
 [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#support-traffic-shaping) documentation 
-and should be thoroughly tested before use in production environments. 
+and should be thoroughly tested before use in production environments.
 -->
 通常，节点上的所有 Pod 共享一个网络接口。
 如果没有网络 QoS，一些 Pod 可能会以牺牲其他 Pod 为代价不公平地消耗可用带宽。
@@ -834,7 +834,7 @@ that supports multiple tenants.
 <!--
 [Operators](/docs/concepts/extend-kubernetes/operator/) are Kubernetes controllers that manage applications. 
 Operators can simplify the management of multiple instances of an application, like a database service, 
-which makes them a common building block in the multi-consumer (SaaS) multi-tenancy use case.  
+which makes them a common building block in the multi-consumer (SaaS) multi-tenancy use case.
 -->
 [Operator 模式](/zh-cn/docs/concepts/extend-kubernetes/operator/)是管理应用的 Kubernetes 控制器。
 Operators 可以简化应用的多个实例的管理，例如数据库服务，
@@ -842,9 +842,9 @@ Operators 可以简化应用的多个实例的管理，例如数据库服务，
 
 <!--
 Operators used in a multi-tenant environment should follow a stricter set of guidelines. 
-Specifically, the Operator should: 
+Specifically, the Operator should:
 * Support creating resources within different tenant namespaces, rather than just in the namespace in which the Operator is deployed.
-* Ensure that the Pods are configured with resource requests and limits, to ensure scheduling and fairness.  
+* Ensure that the Pods are configured with resource requests and limits, to ensure scheduling and fairness.
 * Support configuration of Pods for data-plane isolation techniques such as node isolation and sandboxed containers.
 -->
 在多租户环境中使用 Operators 应遵循一套更严格的准则。具体而言，Operator 应：
@@ -870,7 +870,7 @@ or by virtualizing the control plane (i.e. Virtual control plane per tenant).
 
 <!--
 In both cases, data plane isolation, and management of additional considerations 
-such as API Priority and Fairness, is also recommended. 
+such as API Priority and Fairness, is also recommended.
 -->
 在这两种情况下，还建议对数据平面隔离和其他考虑事项，如 API 优先级和公平性，进行管理。
 
@@ -1041,7 +1041,7 @@ with underlying compute resources it is referred to as a _virtual control plane_
 A virtual control plane typically consists of the Kubernetes API server, 
 the controller manager, and the etcd data store. 
 It interacts with the super cluster via a metadata synchronization controller 
-which coordinates changes across tenant control planes and the control plane of the super--cluster. 
+which coordinates changes across tenant control planes and the control plane of the super-cluster.
 -->
 虚拟控制面通常由 Kubernetes API 服务器、控制器管理器和 etcd 数据存储组成。
 它通过元数据同步控制器与超集群交互，
@@ -1054,11 +1054,11 @@ Examples include noisy neighbors in the control plane,
 uncontrollable blast radius of policy misconfigurations, 
 and conflicts between cluster scope objects such as webhooks and CRDs.  
 Hence, the virtual control plane model is particularly suitable for cases 
-where each tenant requires access to a Kubernetes API server and expects the full cluster manageability. 
+where each tenant requires access to a Kubernetes API server and expects the full cluster manageability.
 -->
 通过使用每个租户单独的专用控制面，可以解决由于所有租户共享一个 API 服务器而导致的大部分隔离问题。
 例如，控制平面中的嘈杂邻居、策略错误配置导致的不可控爆炸半径以及如
-webhook 和 CRD 等集群范围对象之间的冲突。
+Webhook 和 CRD 等集群范围对象之间的冲突。
 因此，虚拟控制平面模型特别适用于每个租户都需要访问
 Kubernetes API 服务器并期望具有完整集群可管理性的情况。
 
@@ -1071,22 +1071,20 @@ These must still be addressed separately.
 -->
 改进的隔离是以每个租户运行和维护一个单独的虚拟控制平面为代价的。
 此外，租户层面的控制面不能解决数据面的隔离问题，
-例如节点级的嘈杂邻居或安全威胁。
-这些仍然必须单独解决。
+例如节点级的嘈杂邻居或安全威胁。这些仍然必须单独解决。
 
 <!--
 The Kubernetes [Cluster API - Nested (CAPN)]
 (https://github.com/kubernetes-sigs/cluster-api-provider-nested/tree/main/virtualcluster) 
-project provides an implementation of virtual control planes. 
+project provides an implementation of virtual control planes.
 -->
 Kubernetes [Cluster API - Nested (CAPN)](https://github.com/kubernetes-sigs/cluster-api-provider-nested/tree/main/virtualcluster)
 项目提供了虚拟控制平面的实现。
 
 <!--
 #### Other implementations
-* [Kamaji](https://github.com/clastix/kamaji)
-* [vcluster](https://github.com/loft-sh/vcluster)
 -->
 #### 其他实现 {#other-implementations}
+
 * [Kamaji](https://github.com/clastix/kamaji)
 * [vcluster](https://github.com/loft-sh/vcluster)
