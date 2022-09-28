@@ -66,11 +66,11 @@ When creating a debugging session on a Node, keep in mind that:
 * Although the container runs in the host IPC, Network, and PID namespaces,
   the pod isn't privileged. This means that reading some process information might fail
   because access to that information is restricted to superusers. `chroot /host` will fail.
-* If you need a privileged pod, create it manually.
+  If you need a privileged pod, create it manually.
 
 ## {{% heading "cleanup" %}}
 
-Clean up the debugging Pod when you're finished with it, by deleting that Pod:
+When you finish using the debugging Pod, delete it:
 
 ```shell
 # Change <pod-name> to the name of the Pod that kubectl created in the previous step.
