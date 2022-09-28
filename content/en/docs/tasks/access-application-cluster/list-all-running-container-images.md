@@ -42,22 +42,6 @@ uniq -c
 The above command will recursively return all fields named `image`
 for all items returned.
 
-As an alternative, it is possible to use the absolute path to the image
-field within the Pod.  This ensures the correct field is retrieved
-even when the field name is repeated,
-e.g. many fields are called `name` within a given item:
-
-```shell
-kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}"
-```
-
-The jsonpath is interpreted as follows:
-
-- `.items[*]`: for each returned value
-- `.spec`: get the spec
-- `.containers[*]`: for each container
-- `.image`: get the image
-
 {{< note >}}
 When fetching a single Pod by name, for example `kubectl get pod nginx`,
 the `.items[*]` portion of the path should be omitted because a single
