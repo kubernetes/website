@@ -194,7 +194,7 @@ are provided in the following format:
     }
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 <!-- 
 The relative URLs are pointing to immutable OpenAPI descriptions, in
