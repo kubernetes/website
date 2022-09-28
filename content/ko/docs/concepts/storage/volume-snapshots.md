@@ -155,6 +155,8 @@ spec:
 소스 볼륨 모드가 명시되어 있지 않으면, 
 쿠버네티스는 해당 스냅샷의 소스 볼륨 모드를 알려지지 않은 상태(unknown)로 간주하여 스냅샷을 처리한다.
 
+`volumeSnapshotRef`은 상응하는 `VolumeSnapshot`의 참조이다. `VolumeSnapshotContent`이 이전에 프로비전된 스냅샷으로 생성된 경우, `volumeSnapshotRef`에서 참조하는 `VolumeSnapshot`은 아직 존재하지 않을 수도 있음에 주의한다.
+
 ## 스냅샷의 볼륨 모드 변환하기 {#convert-volume-mode}
 
 클러스터에 설치된 `VolumeSnapshots` API가 `sourceVolumeMode` 필드를 지원한다면, 
