@@ -426,7 +426,7 @@ IngressでこのSecretを参照すると、クライアントとロードバラ�
 
 Ingressコントローラーは、負荷分散アルゴリズムやバックエンドの重みスキームなど、すべてのIngressに適用されるいくつかの負荷分散ポリシーの設定とともにブートストラップされます。発展した負荷分散のコンセプト(例: セッションの永続化、動的重み付けなど)はIngressによってサポートされていません。代わりに、それらの機能はService用のロードバランサーを介して利用できます。
 
-Ingressによってヘルスチェックの機能が直接に公開されていませんが、Kubernetesにおいて、同等の機能を提供する[Readiness Probe](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のようなコンセプトが存在することは注目に値します。コントローラーがどのようにヘルスチェックを行うかについては、コントローラーのドキュメントを参照してください(例えば[nginx](https://git.k8s.io/ingress-nginx/README.md)、または[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks))。
+ヘルスチェックの機能はIngressによって直接には公開されていませんが、Kubernetesにおいて、同等の機能を提供する[Readiness Probe](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のようなコンセプトが存在することは注目に値します。コントローラーがどのようにヘルスチェックを行うかについては、コントローラーのドキュメントを参照してください(例えば[nginx](https://git.k8s.io/ingress-nginx/README.md)、または[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks))。
 
 ## Ingressの更新
 
