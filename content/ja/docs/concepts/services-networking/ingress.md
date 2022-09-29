@@ -222,7 +222,7 @@ spec:
 `.spec.parameters`フィールドを設定して`.spec.parameters.scope`フィールドを`Namespace`に設定した場合、IngressClassはNamespaceスコープのリソースを参照します。また`.spec.parameters`内の`namespace`フィールドには、使用するパラメータが含まれているNamespaceを設定する必要があります。
 
 パラメータの`kind`(および`apiGroup`)はNamespaceスコープのAPI(例えば:ConfigMap)を指し、パラメータの`name`
-は`namespace`で指定した名前空間内の特定のリソースを特定します。
+は`namespace`で指定したNamespace内の特定のリソースを特定します。
 
 名前空間スコープのパラメータはクラスターオペレーターがワークロードに使用される設定(例えば:ロードバランサー設定、APIゲートウェイ定義)に対する制御を委譲するのに役立ちます。クラスタースコープパラメータを使用した場合は以下のいずれかになります:
 
