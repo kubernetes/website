@@ -243,7 +243,7 @@ spec:
   parameters:
     # このIngressClassのパラメータは「external-config」という名前の
     # IngressParameter(APIグループk8s.example.com)で指定されています。
-    # このリソースは「external-configuration」という名前空間にあります。
+    # このリソースは「external-configuration」というNamespaceにあります。
     scope: Namespace
     apiGroup: k8s.example.com
     kind: IngressParameter
