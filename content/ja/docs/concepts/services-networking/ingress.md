@@ -218,7 +218,7 @@ spec:
 {{% tab name="Namespaceスコープ" %}}
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-`.spec.parameters`フィールドを設定して`.spec.parameters.scope`フィールドを`Namespace`に設定した場合、IngressClassはNamespaceスコープのリソースを参照します。また`.spec.parameters`内の`namespace`フィールドには、使用するパラメータが含まれているNamespaceを設定する必要があります。
+`.spec.parameters`フィールドを設定して`.spec.parameters.scope`フィールドを`Namespace`に設定した場合、IngressClassはNamespaceスコープのリソースを参照します。また`.spec.parameters`内の`namespace`フィールドには、使用するパラメーターが含まれているNamespaceを設定する必要があります。
 
 パラメータの`kind`(および`apiGroup`)はNamespaceスコープのAPI(例えば:ConfigMap)を指し、パラメータの`name`
 は`namespace`で指定したNamespace内の特定のリソースを特定します。
