@@ -39,9 +39,9 @@ Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOp
   <caption style="display:none">OpenAPI v2クエリの有効なリクエストヘッダー値</caption>
   <thead>
      <tr>
-        <th>Header</th>
-        <th style="min-width: 50%;">Possible values</th>
-        <th>Notes</th>
+        <th>ヘッダー</th>
+        <th style="min-width: 50%;">取りうる値</th>
+        <th>備考</th>
      </tr>
   </thead>
   <tbody>
