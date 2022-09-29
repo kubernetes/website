@@ -7,7 +7,6 @@ slug: enforce-immutability-using-cel
 
 **Author:** [Alexander Zielenski](https://github.com/alexzielenski) (Google)
 
----
 Immutable fields can be found in a few places in the built-in Kubernetes types.
 For example, you can't change the `.metadata.name` of an object. Specific objects
 have fields where changes to existing objects are constrained; for example, the
@@ -293,7 +292,7 @@ openAPIV3Schema:
     rule: '!has(oldSelf.value) || has(self.value)'
 ```
 
-## Immutablility upon object creation
+## Immutability upon object creation
 
 A field which is immutable upon creation time is implemented similarly to the
 earlier example. The difference is that that field is marked required, and the
