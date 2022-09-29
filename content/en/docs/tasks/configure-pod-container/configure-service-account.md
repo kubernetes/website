@@ -126,6 +126,12 @@ The service account has to exist at the time the pod is created, or it will be r
 
 You cannot update the service account of an already created pod.
 
+{{< note >}}
+The `spec.serviceAccount` field is a deprecated alias for `spec.serviceAccountName`.
+If you want to remove the fields from a workload resource, set both fields to empty explicitly
+on the [pod template](/docs/concepts/workloads/pods#pod-templates).
+{{< /note >}}
+
 You can clean up the service account from this example like this:
 
 ```shell
