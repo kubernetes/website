@@ -230,7 +230,7 @@ Namespaceスコープのパラメータはクラスターオペレーターが�
 
 IngressClass API自体は常にクラスタースコープです。
 
-以下はNamespaceスコープのパラメータを参照しているIngressClassの例です:
+以下はNamespaceスコープのパラメーターを参照しているIngressClassの例です:
 ```yaml
 ---
 apiVersion: networking.k8s.io/v1
