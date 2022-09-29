@@ -522,7 +522,7 @@ Events:
 
 ## Ingressの代替案 {#alternatives}
 
-Ingressリソースを直接含まなくサービスを公開できる方法は複数あります。
+Ingressリソースを直接含まずにサービスを公開する方法は複数あります。
 
 * [Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)
 * [Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#nodeport)
