@@ -240,7 +240,7 @@ metadata:
 spec:
   controller: example.com/ingress-controller
   parameters:
-    # このIngressClassのパラメータは「external-config」という名前の
+    # このIngressClassのパラメーターは「external-config」という名前の
     # IngressParameter(APIグループk8s.example.com)で指定されています。
     # このリソースは「external-configuration」というNamespaceにあります。
     scope: Namespace
