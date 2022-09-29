@@ -183,7 +183,7 @@ Ingressは異なったコントローラーで実装されうるため、しば�
 
 IngressClassの`.spec.parameters`フィールドを使って、そのIngressClassに関連する設定を持っている別のリソースを参照することができます。
 
-使用するパラメータの種類は、IngressClassの`.spec.controller`フィールドで指定したIngressコントローラに依存します。
+使用するパラメーターの種類は、IngressClassの`.spec.controller`フィールドで指定したIngressコントローラーに依存します。
 
 ### IngressClassスコープ
 
