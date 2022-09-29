@@ -101,7 +101,13 @@ then kubectl assumes it is running in your cluster. The kubectl tool looks up th
 namespace of that ServiceAccount (this is the same as the namespace of the Pod)
 and acts against that namespace. This is different from what happens outside of a
 cluster; when kubectl runs outside a cluster and you don't specify a namespace,
-the kubectl command acts against the current-context's namespace.
+the kubectl command acts against the namespace set for the current context in your
+client configuration. To change the default namespace for your kubectl you can use the
+following command:
+
+```shell
+kubectl config set-context --current --namespace=<namespace-name>
+```
 
 ## Operations
 
