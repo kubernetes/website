@@ -191,7 +191,7 @@ Ingressコントローラーによっては、クラスター全体で設定し�
 
 {{< tabs name="tabs_ingressclass_parameter_scope" >}}
 {{% tab name="クラスタースコープ" %}}
-IngressClassパラメータのデフォルトのスコープは、クラスター全体です。
+IngressClassパラメーターのデフォルトのスコープは、クラスター全体です。
 
 `.spec.parameters`フィールドを設定して`.spec.parameters.scope`フィールドを設定しなかった場合、または`.spec.parameters.scope`を`Cluster`に設定した場合、IngressClassはクラスタースコープのリソースを参照します。
 パラメータの`kind`(および`apiGroup`)はクラスタースコープのAPI(カスタムリソースの場合もあり)を指し、パラメータの`name`はそのAPIの特定のクラスタースコープのリソースを特定します。
