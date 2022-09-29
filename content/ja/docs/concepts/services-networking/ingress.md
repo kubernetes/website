@@ -73,7 +73,7 @@ Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/
 
 `ingressClassName`が省略された場合、[デフォルトのIngressClass](#default-ingress-class)を定義する必要があります。
 
-デフォルトの`IngressClass`を定義しなくても動作するIngressコントローラーがいくつかあります。例えば、Ingress-NGINXコントローラー は[フラグ](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
+デフォルトの`IngressClass`を定義しなくても動作するIngressコントローラーがいくつかあります。例えば、Ingress-NGINXコントローラーは[フラグ](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
 `--watch-ingress-without-class`で設定できます。ただし、[下記](#default-ingress-class)のようにデフォルトの`IngressClass`を指定することを[推奨します](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)。
 
 ### Ingressのルール
