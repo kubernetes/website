@@ -206,7 +206,7 @@ metadata:
 spec:
   controller: example.com/ingress-controller
   parameters:
-    # このIngressClassのパラメータは「external-config-1」という名前の
+    # このIngressClassのパラメーターは「external-config-1」という名前の
     # ClusterIngressParameter(APIグループk8s.example.net)で指定されています。この定義は、Kubernetesに
     # クラスタースコープのパラメータリソースを探すように指示しています。
     scope: Cluster
