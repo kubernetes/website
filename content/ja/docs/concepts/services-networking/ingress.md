@@ -208,7 +208,7 @@ spec:
   parameters:
     # このIngressClassのパラメーターは「external-config-1」という名前の
     # ClusterIngressParameter(APIグループk8s.example.net)で指定されています。この定義は、Kubernetesに
-    # クラスタースコープのパラメータリソースを探すように指示しています。
+    # クラスタースコープのパラメーターリソースを探すように指示しています。
     scope: Cluster
     apiGroup: k8s.example.net
     kind: ClusterIngressParameter
