@@ -195,7 +195,7 @@ Ingressコントローラーによっては、クラスター全体で設定し�
 IngressClassパラメータのデフォルトのスコープは、クラスター全体です。
 
 `.spec.parameters`フィールドを設定して`.spec.parameters.scope`フィールドを設定しなかった場合、または`.spec.parameters.scope`を`Cluster`に設定した場合、IngressClassはクラスタースコープのリソースを参照します。
-パラメータの`kind`(および`apiGroup`)はクラスタースコープのAPI(カスタムリソースの場合もあり)を指し、パラメータの`name`はそのAPIの特定のクラスタスーコープのリソースを特定します。
+パラメータの`kind`(および`apiGroup`)はクラスタースコープのAPI(カスタムリソースの場合もあり)を指し、パラメータの`name`はそのAPIの特定のクラスタースコープのリソースを特定します。
 
 例えば:
 ```yaml
