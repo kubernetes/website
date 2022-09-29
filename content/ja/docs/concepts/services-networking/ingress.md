@@ -87,7 +87,7 @@ Ingressコントローラーでは、`defaultBackend`が設定されているこ
 
 ### デフォルトのバックエンド {#default-backend}
 
-ルールが設定されていないIngressは、全てのトラフィックをデフォルトのバックエンドに転送します。`.spec.defaultBackend`はその場合にリクエストを処理するバックエンドになります。`defaultBackend`は、[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)のオプション設定であり、Ingressリソースでは指定されていません。`.spec.rules`を設定しない場合、`.spec.defaultBackend`の設定は必須です。`defaultBackend`が設定されていない場合、どのルールにもマッチしないリクエストの処理は、Ingressコントローラに任されます(このケースをどう処理するかは、お使いのIngressコントローラのドキュメントを参照してください)。
+ルールが設定されていないIngressは、全てのトラフィックをデフォルトのバックエンドに転送します。`.spec.defaultBackend`はその場合にリクエストを処理するバックエンドになります。`defaultBackend`は、[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)のオプション設定であり、Ingressリソースでは指定されていません。`.spec.rules`を設定しない場合、`.spec.defaultBackend`の設定は必須です。`defaultBackend`が設定されていない場合、どのルールにもマッチしないリクエストの処理は、Ingressコントローラーに任されます(このケースをどう処理するかは、お使いのIngressコントローラーのドキュメントを参照してください)。
 
 HTTPリクエストがIngressオブジェクトのホスト名とパスの条件に1つも一致しない時、そのトラフィックはデフォルトのバックエンドに転送されます。
 
