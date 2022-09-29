@@ -143,7 +143,7 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         – matchExpressions:
-          – key: beta.amd.com/gpu.family.RV # Raven GPU family
+          – key: beta.amd.com/gpu.family.AI # Arctic Islands GPU family
             operator: Exist
 ```
 
