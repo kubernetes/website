@@ -38,9 +38,12 @@ tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
 ```
+The jsonpath is interpreted as follows:
 
-The above command will recursively return all fields named `image`
-for all items returned.
+- `.items[*]`: for each returned value
+- `.spec`: get the spec
+- `.containers[*]`: for each container
+- `.image`: get the image
 
 {{< note >}}
 When fetching a single Pod by name, for example `kubectl get pod nginx`,
