@@ -216,7 +216,7 @@ spec:
     name: external-config-1
 ```
 {{% /tab %}}
-{{% tab name="名前空間スコープ" %}}
+{{% tab name="Namespaceスコープ" %}}
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 `.spec.parameters`フィールドを設定して`.spec.parameters.scope`フィールドを`Namespace`に設定した場合、IngressClassは名前空間スコープのリソースを参照します。また`.spec.parameters`内の`namespace`フィールドには、使用するパラメータが含まれている名前空間を設定する必要があります。
