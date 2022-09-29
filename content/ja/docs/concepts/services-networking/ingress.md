@@ -188,7 +188,7 @@ IngressClassの`.spec.parameters`フィールドを使って、そのIngressClas
 
 ### IngressClassスコープ
 
-ingressコントローラーによっては、クラスター全体で設定したパラメータを使用できる場合もあれば、1つの名前空間に対してのみ設定したパラメータを使用できる場合もあります。
+Ingressコントローラーによっては、クラスター全体で設定したパラメータを使用できる場合もあれば、1つの名前空間に対してのみ設定したパラメータを使用できる場合もあります。
 
 {{< tabs name="tabs_ingressclass_parameter_scope" >}}
 {{% tab name="クラスタースコープ" %}}
