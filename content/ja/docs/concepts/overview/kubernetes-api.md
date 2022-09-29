@@ -118,7 +118,7 @@ Kubernetes APIサーバーは、`/openapi/v3/apis/<group>/<version>?hash=<hash>`
      <tr>
         <td rowspan="3"><code>Accept</code></td>
         <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
-        <td><em>主にクラスター内部での使用のため</em></td>
+        <td><em>主にクラスター内での使用</em></td>
      </tr>
      <tr>
         <td><code>application/json</code></td>
