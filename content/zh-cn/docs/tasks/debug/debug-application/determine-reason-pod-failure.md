@@ -1,18 +1,18 @@
 ---
 title: 确定 Pod 失败的原因
 content_type: task
+weight: 30
 ---
-
 <!--
 title: Determine the Reason for Pod Failure
 content_type: task
+weight: 30
 -->
 
 <!-- overview -->
 
 <!--
-This page shows how to write and read a Container
-termination message.
+This page shows how to write and read a Container termination message.
 -->
 本文介绍如何编写和读取容器的终止消息。
 
@@ -32,7 +32,7 @@ the general
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 <!-- steps -->
 
@@ -40,10 +40,9 @@ the general
 ## Writing and reading a termination message
 
 In this exercise, you create a Pod that runs one container.
-The configuration file specifies a command that runs when
-the container starts.
+The manifest for that Pod specifies a command that runs when the container starts:
 -->
-## 读写终止消息
+## 读写终止消息   {#writing-and-reading-a-termination-message}
 
 在本练习中，你将创建运行一个容器的 Pod。
 配置文件指定在容器启动时要运行的命令。
@@ -97,7 +96,7 @@ the container starts.
    -->
    输出结果包含 "Sleep expired" 消息：
 
-   ```
+   ```yaml
    apiVersion: v1
    kind: Pod
    ...
@@ -112,8 +111,7 @@ the container starts.
    ```
 
 <!-- 
-1. Use a Go template to filter the output so that it includes
-only the termination message:
+1. Use a Go template to filter the output so that it includes only the termination message:
 -->
 4. 使用 Go 模板过滤输出结果，使其只含有终止消息：
 
@@ -122,7 +120,8 @@ only the termination message:
    ```
 
    <!--
-   If you are running a multi-container pod, you can use a Go template to include the container's name. By doing so, you can discover which of the containers is failing:
+   If you are running a multi-container Pod, you can use a Go template to include the container's name.
+   By doing so, you can discover which of the containers is failing:
    -->
    如果你正在运行多容器 Pod，则可以使用 Go 模板来包含容器的名称。这样，你可以发现哪些容器出现故障：
 
@@ -139,7 +138,7 @@ value of `/dev/termination-log`. By customizing this field, you can tell Kuberne
 to use a different file. Kubernetes use the contents from the specified file to
 populate the Container's status message on both success and failure.
 -->
-## 定制终止消息
+## 定制终止消息   {#customizing-the-termination-message}
 
 Kubernetes 从容器的 `terminationMessagePath` 字段中指定的终止消息文件中检索终止消息，
 默认值为 `/dev/termination-log`。
@@ -154,13 +153,13 @@ The total message length across all containers is limited to 12KiB, divided equa
 For example, if there are 12 containers (`initContainers` or `containers`), each has 1024 bytes of available termination message space.
 
 The default termination message path is `/dev/termination-log`.
-You cannot set the termination message path after a Pod is launched
+You cannot set the termination message path after a Pod is launched.
 -->
-终止消息旨在简要说明最终状态，例如断言失败消息。 
+终止消息旨在简要说明最终状态，例如断言失败消息。
 kubelet 会截断长度超过 4096 字节的消息。
 
-所有容器的总消息长度限制为 12KiB，将会在每个容器之间平均分配。 
-例如，如果有 12 个容器（`initContainers` 或 `containers`）， 
+所有容器的总消息长度限制为 12KiB，将会在每个容器之间平均分配。
+例如，如果有 12 个容器（`initContainers` 或 `containers`），
 每个容器都有 1024 字节的可用终止消息空间。
 
 默认的终止消息路径是 `/dev/termination-log`。
@@ -170,7 +169,7 @@ Pod 启动后不能设置终止消息路径。
 In the following example, the container writes termination messages to
 `/tmp/my-log` for Kubernetes to retrieve:
 -->
-在下例中，容器将终止消息写入 `/tmp/my-log` 给 Kubernetes 来接收：
+在下例中，容器将终止消息写入 `/tmp/my-log` 给 Kubernetes 来检索：
 
 ```yaml
 apiVersion: v1
@@ -209,6 +208,6 @@ is empty and the container exited with an error. The log output is limited to
 
 * 参考 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
   资源的 `terminationMessagePath` 字段。
-* 了解[接收日志](/zh-cn/docs/concepts/cluster-administration/logging/)。
-* 了解 [Go 模版](https://golang.org/pkg/text/template/)。
+* 了解[检索日志](/zh-cn/docs/concepts/cluster-administration/logging/)。
+* 了解 [Go 模板](https://golang.org/pkg/text/template/)。
 
