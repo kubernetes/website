@@ -55,11 +55,11 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 <!--
 As the features are in Alpha, prepare the Kubernetes cluster with the two
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled: `JobPodFailurePolicy` and `PodDisruptionsCondition`.
+enabled: `JobPodFailurePolicy` and `PodDisruptionConditions`.
 -->
 因为这些特性还处于 Alpha 阶段，所以在准备 Kubernetes
 集群时要启用两个[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)：
-`JobPodFailurePolicy` 和 `PodDisruptionsCondition`。
+`JobPodFailurePolicy` 和 `PodDisruptionConditions`。
 {{< /note >}}
 
 <!--
@@ -237,7 +237,7 @@ The cluster automatically cleans up the Pods.
 You could rely solely on the
 [Pod backoff failure policy](/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy),
 by specifying the Job's `.spec.backoffLimit` field. However, in many situations
-it is problematic to find a balance between setting the a low value for `.spec.backoffLimit`
+it is problematic to find a balance between setting a low value for `.spec.backoffLimit`
  to avoid unnecessary Pod retries, yet high enough to make sure the Job would
 not be terminated by Pod disruptions.
 -->
