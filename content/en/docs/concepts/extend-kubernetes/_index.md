@@ -128,7 +128,7 @@ clients that access it.
 
 1. The Kubernetes scheduler [decides](/docs/concepts/scheduling-eviction/assign-pod-node/)
    which nodes to place pods on. There are several ways to extend scheduling, which are
-   described in the [scheduler extensions](#scheduler-extensions) section.
+   described in the [Scheduling extensions](#scheduling-extensions) section.
 
 1. Much of the behavior of Kubernetes is implemented by programs called
    {{< glossary_tooltip term_id="controller" text="controllers" >}}, that are
