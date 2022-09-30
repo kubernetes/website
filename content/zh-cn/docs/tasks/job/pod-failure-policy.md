@@ -237,7 +237,11 @@ The cluster automatically cleans up the Pods.
 You could rely solely on the
 [Pod backoff failure policy](/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy),
 by specifying the Job's `.spec.backoffLimit` field. However, in many situations
+<<<<<<< HEAD
 iit is problematic to find a balance between setting a low value for `.spec.backoffLimit`
+=======
+it is problematic to find a balance between setting a low value for `.spec.backoffLimit`
+>>>>>>> 14d51fef39 ([zh] Sync job/pod-failure-policy.md)
  to avoid unnecessary Pod retries, yet high enough to make sure the Job would
 not be terminated by Pod disruptions.
 -->
