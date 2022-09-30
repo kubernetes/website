@@ -217,14 +217,21 @@ then kubectl assumes it is running in your cluster. The kubectl tool looks up th
 namespace of that ServiceAccount (this is the same as the namespace of the Pod)
 and acts against that namespace. This is different from what happens outside of a
 cluster; when kubectl runs outside a cluster and you don't specify a namespace,
-the kubectl command acts against the `default` namespace.
+the kubectl command acts against the namespace set for the current context in your
+client configuration. To change the default namespace for your kubectl you can use the
+following command:
 -->
 然后 kubectl 假定它正在你的集群中运行。
 kubectl 工具查找该 ServiceAccount 的命名空间
 （该命名空间与 Pod 的命名空间相同）并针对该命名空间进行操作。
 这与集群外运行的情况不同；
 当 kubectl 在集群外运行并且你没有指定命名空间时，
-kubectl 命令会针对 `default` 命名空间进行操作。
+kubectl 命令会针对你在客户端配置中为当前上下文设置的命名空间进行操作。
+要为你的 kubectl 更改默认的命名空间，你可以使用以下命令：
+
+```shell
+kubectl config set-context --current --namespace=<namespace-name>
+```
 
 <!--
 ## Operations
