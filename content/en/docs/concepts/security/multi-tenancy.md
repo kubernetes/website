@@ -218,6 +218,8 @@ In a multi-tenant environment where strict network isolation between tenants is 
 with a default policy that denies communication between pods is recommended with another rule that
 allows all pods to query the DNS server for name resolution. With such a default policy in place,
 you can begin adding more permissive rules that allow for communication within a namespace.
+It is also recommended not to use empty label selector '{}' for namespaceSelector field in network policy definition,
+in case traffic need to be allowed between namespaces.
 This scheme can be further refined as required. Note that this only applies to pods within a single
 control plane; pods that belong to different virtual control planes cannot talk to each other via
 Kubernetes networking.
