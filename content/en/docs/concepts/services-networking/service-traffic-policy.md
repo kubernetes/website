@@ -3,7 +3,12 @@ reviewers:
 - maplain
 title: Service Internal Traffic Policy
 content_type: concept
-weight: 45
+weight: 75
+description: >-
+  If two Pods in your cluster want to communicate, and both Pods are actually running on
+  the same node, _Service Internal Traffic Policy_ to keep network traffic within that node.
+  Avoiding a round trip via the cluster network can help with reliability, performance
+  (network latency and throughput), or cost.
 ---
 
 
@@ -23,7 +28,7 @@ cluster. This can help to reduce costs and improve performance.
 The `ServiceInternalTrafficPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is a Beta feature and enabled by default.
 When the feature is enabled, you can enable the internal-only traffic policy for a
-{{< glossary_tooltip text="Services" term_id="service" >}}, by setting its
+{{< glossary_tooltip text="Service" term_id="service" >}}, by setting its
 `.spec.internalTrafficPolicy` to `Local`.
 This tells kube-proxy to only use node local endpoints for cluster internal traffic.
 

@@ -3,7 +3,11 @@ reviewers:
 - robscott
 title: Topology Aware Hints
 content_type: concept
-weight: 45
+weight: 70
+description: >-
+  _Topology Aware Hints_ provides a mechanism to help keep network traffic within the zone
+  where it originated. Preferring same-zone traffic between Pods in your cluster can help
+  with reliability, performance (network latency and throughput), or cost.
 ---
 
 

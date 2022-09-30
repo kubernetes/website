@@ -401,7 +401,7 @@ at a node without an endpoint, the system proxies it to a node *with* an
 endpoint, replacing the source IP on the packet with the IP of the node (as
 described in the previous section).
 -->
-## `Type=LoadBalancer` 类型 Service 的 Source IP  {#source-ip-for-services-with-type-loadbalancer}
+## `Type=LoadBalancer` 类型 Service 的源 IP  {#source-ip-for-services-with-type-loadbalancer}
 
 默认情况下，发送到 [`Type=LoadBalancer`](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
 的 Service 的数据包经过源 NAT处理，因为所有处于 `Ready` 状态的可调度 Kubernetes

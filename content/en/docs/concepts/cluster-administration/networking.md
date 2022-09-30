@@ -14,8 +14,8 @@ problems to address:
 1. Highly-coupled container-to-container communications: this is solved by
    {{< glossary_tooltip text="Pods" term_id="pod" >}} and `localhost` communications.
 2. Pod-to-Pod communications: this is the primary focus of this document.
-3. Pod-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
-4. External-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
+3. Pod-to-Service communications: this is covered by [Services](/docs/concepts/services-networking/service/).
+4. External-to-Service communications: this is also covered by Services.
 
 <!-- body -->
 
