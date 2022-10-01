@@ -97,7 +97,7 @@ GitHub 组和 OWNERS 文件。
 There are two categories of SIG Docs [teams](https://github.com/orgs/kubernetes/teams?query=sig-docs) on GitHub:
 
 - `@sig-docs-{language}-owners` are approvers and leads
-- `@sig-docs-{language}-reviewers` are reviewers
+- `@sig-docs-{language}-reviews` are reviewers
 
 Each can be referenced with their `@name` in GitHub comments to communicate with
 everyone in that group.
@@ -110,7 +110,7 @@ the automation uses information from `OWNERS` files.
 GitHub 上有两类 SIG Docs 团队：
 
 - `@sig-docs-{language}-owners` 包含批准人和牵头人
-- `@sig-docs-{language}-reviewers` 包含评阅人
+- `@sig-docs-{language}-reviews` 包含评阅人
 
 可以在 GitHub 的评论中使用团队的名称 `@name` 来与团队成员沟通。
 
