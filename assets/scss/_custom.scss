@@ -860,6 +860,6 @@ div.alert > em.javascript-required {
 }
 
 // Consistent spacing for yaml code
-code > span[style^="display:flex;"] {
+.language-yaml > span[style*="display:flex;"] {
   display: inline !important;
 }
