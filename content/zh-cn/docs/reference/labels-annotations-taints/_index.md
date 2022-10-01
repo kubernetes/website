@@ -364,6 +364,30 @@ The value for this annotation must be **true** to take effect. This annotation i
 只能引用在服务帐户的 `secrets` 字段中指定的 Secret API 对象。
 
 <!--
+### node.kubernetes.io/exclude-from-external-load-balancer
+
+Example: `node.kubernetes.io/exclude-from-external-load-balancer`
+
+Used on: Node
+
+Kubernetes automatically enables the `ServiceNodeExclusion` feature gate on the clusters it creates. With this feature gate enabled on a cluster,
+you can add labels to particular worker nodes to exclude them from the list of backend servers.
+The following command can be used to exclude a worker node from the list of backend servers in a backend set-
+`kubectl label nodes <node-name> node.kubernetes.io/exclude-from-external-load-balancers=true`
+-->
+### node.kubernetes.io/exclude-from-external-load-balancer   {#exclude-from-external-load-balancer}
+
+例子：`node.kubernetes.io/exclude-from-external-load-balancer`
+
+用于：Node
+
+Kubernetes 自动在其创建的集群上启用 `ServiceNodeExclusion` 特性门控。
+在一个集群上启用此特性门控后，你可以添加标签到特定的 Worker 节点，将这些节点从后端服务器列表排除在外。
+以下命令可用于从后端集的后端服务器列表中排除一个 Worker 节点：
+
+`kubectl label nodes <node-name> node.kubernetes.io/exclude-from-external-load-balancers=true`
+
+<!--
 ### controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
 Example: `controller.kubernetes.io/pod-deletion-cost: "10"`
@@ -418,11 +442,21 @@ This annotation only impacts DaemonSet pods.
 
 <!-- 
 ### kubernetes.io/ingress-bandwidth
+-->
+### kubernetes.io/ingress-bandwidth {#ingerss-bandwidth}
 
+{{< note >}}
+<!--
 Ingress traffic shaping annotation is an experimental feature.
 If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
 ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+-->
+入站流量控制注解是一项实验性功能。
+如果要启用流量控制支持，必须将 `bandwidth` 插件添加到 CNI 配置文件（默认为 `/etc/cni/net.d`）
+并确保二进制文件包含在你的 CNI bin 目录中（默认为 `/opt/cni/bin`）。
+{{< /note >}}
 
+<!--
 Example: `kubernetes.io/ingress-bandwidth: 10M`
 
 Used on: Pod
@@ -432,17 +466,8 @@ Ingress traffic (to the pod) is handled by shaping queued packets to effectively
 To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
 speed using `kubernetes.io/ingress-bandwidth` annotation. The unit used for specifying ingress
 rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
-For example, `10M` means 10 megabits per second. 
+For example, `10M` means 10 megabits per second.
 -->
-
-### kubernetes.io/ingress-bandwidth {#ingerss-bandwidth}
-
-{{< note >}}
-入站流量控制注解是一项实验性功能。
-如果要启用流量控制支持，必须将 `bandwidth` 插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
-并确保二进制文件包含在你的 CNI bin 目录中（默认为`/opt/cni/bin`）。
-{{< /note >}}
-
 示例：`kubernetes.io/ingress-bandwidth: 10M`
 
 用于：Pod
@@ -456,11 +481,21 @@ For example, `10M` means 10 megabits per second.
 
 <!-- 
 ### kubernetes.io/egress-bandwidth
+-->
+### kubernetes.io/egress-bandwidth {#egress-bandwidth}
 
+{{< note >}}
+<!--
 Egress traffic shaping annotation is an experimental feature.
 If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
 ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
+-->
+出站流量控制注解是一项实验性功能。
+如果要启用流量控制支持，必须将 `bandwidth` 插件添加到 CNI 配置文件（默认为 `/etc/cni/net.d`）
+并确保二进制文件包含在你的 CNI bin 目录中（默认为 `/opt/cni/bin`）。
+{{< /note >}}
 
+<!--
 Example: `kubernetes.io/egress-bandwidth: 10M`
 
 Used on: Pod
@@ -470,17 +505,8 @@ The limits you place on a pod do not affect the bandwidth of other pods.
 To limit the bandwidth on a pod, write an object definition JSON file and specify the data traffic
 speed using `kubernetes.io/egress-bandwidth` annotation. The unit used for specifying egress
 rate is bits per second, as a [Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
-For example, `10M` means 10 megabits per second. 
+For example, `10M` means 10 megabits per second.
 -->
-
-### kubernetes.io/egress-bandwidth {#egress-bandwidth}
-
-{{< note >}}
-出站流量控制注解是一项实验性功能。
-如果要启用流量控制支持，必须将 `bandwidth` 插件添加到 CNI 配置文件（默认为`/etc/cni/net.d`）
-并确保二进制文件包含在你的 CNI bin 目录中（默认为`/opt/cni/bin`）。
-{{< /note >}}
-
 示例：`kubernetes.io/egress-bandwidth: 10M`
 
 用于：Pod
