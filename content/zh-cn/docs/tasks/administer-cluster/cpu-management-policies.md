@@ -43,7 +43,7 @@ whether the pod is throttled and which CPU cores are available at
 scheduling time.  Many workloads are not sensitive to this migration and thus
 work fine without any intervention.
 -->
-## CPU 管理策略
+## CPU 管理策略   {#cpu-management-policies}
 
 默认情况下，kubelet 使用 [CFS 配额](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
 来执行 Pod 的 CPU 约束。
@@ -66,7 +66,7 @@ The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
 flag or the `cpuManagerPolicy` field in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
 There are two supported policies:
 -->
-### 配置
+### 配置   {#configuration}
 
 CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy`
 或 [KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
@@ -119,7 +119,7 @@ Since the CPU manger policy can only be applied when kubelet spawns new pods, si
 "none" to "static" won't apply to existing pods. So in order to properly change the CPU manager
 policy on a node, perform the following steps:
 -->
-### 更改 CPU 管理器策略
+### 更改 CPU 管理器策略   {#changing-the-cpu-manager-policy}
 
 由于 CPU 管理器策略只能在 kubelet 生成新 Pod 时应用，所以简单地从 "none" 更改为 "static"
 将不会对现有的 Pod 起作用。
@@ -166,7 +166,7 @@ automatically.  Limits on CPU usage for
 [Burstable pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 are enforced using CFS quota.
 -->
-### none 策略
+### none 策略   {#none-policy}
 
 `none` 策略显式地启用现有的默认 CPU 亲和方案，不提供操作系统调度器默认行为之外的亲和性策略。
 通过 CFS 配额来实现 [Guaranteed Pods](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
@@ -180,7 +180,7 @@ The `static` policy allows containers in `Guaranteed` pods with integer CPU
 `requests` access to exclusive CPUs on the node. This exclusivity is enforced
 using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt).
 -->
-### static 策略
+### static 策略   {#static-policy}
 
 `static` 策略针对具有整数型 CPU `requests` 的 `Guaranteed` Pod，
 它允许该类 Pod 中的容器访问节点上的独占 CPU 资源。这种独占性是使用
@@ -395,9 +395,9 @@ using the following feature gates:
 You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
 
 The following policy options exist for the static `CPUManager` policy:
-* `full-pcpus-only` (beta, visible by default)
-* `distribute-cpus-across-numa` (alpha, hidden by default)
-* `align-by-socket` (alpha, hidden by default)
+* `full-pcpus-only` (beta, visible by default) (1.22 or higher)
+* `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
+* `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 -->
 #### Static 策略选项
 
@@ -407,9 +407,9 @@ The following policy options exist for the static `CPUManager` policy:
 你仍然必须使用 `CPUManagerPolicyOptions` kubelet 选项启用每个选项。
 
 静态 `CPUManager` 策略存在以下策略选项：
-* `full-pcpus-only`（beta，默认可见）
-* `distribute-cpus-across-numa`（alpha，默认隐藏）
-* `align-by-socket`（alpha，默认隐藏）
+* `full-pcpus-only`（beta，默认可见）（1.22 或更高版本）
+* `distribute-cpus-across-numa`（alpha，默认隐藏）（1.23 或更高版本）
+* `align-by-socket`（alpha，默认隐藏）（1.25 或更高版本）
 
 <!--
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
@@ -421,8 +421,8 @@ to the [noisy neighbours problem](https://en.wikipedia.org/wiki/Cloud_computing_
 如果使用 `full-pcpus-only` 策略选项，static 策略总是会分配完整的物理核心。
 默认情况下，如果不使用该选项，static 策略会使用拓扑感知最适合的分配方法来分配 CPU。
 在启用了 SMT 的系统上，此策略所分配是与硬件线程对应的、独立的虚拟核。
-这会导致不同的容器共享相同的物理核心，该行为进而会导致
-[吵闹的邻居问题](https://en.wikipedia.org/wiki/Cloud_computing_issues#Performance_interference_and_noisy_neighbors)。
+这会导致不同的容器共享相同的物理核心，
+该行为进而会导致[吵闹的邻居问题](https://en.wikipedia.org/wiki/Cloud_computing_issues#Performance_interference_and_noisy_neighbors)。
 <!--
 With the option enabled, the pod will be admitted by the kubelet only if the CPU request of all its containers
 can be fulfilled by allocating full physical cores.
