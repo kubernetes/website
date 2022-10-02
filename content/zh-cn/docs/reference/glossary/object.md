@@ -4,13 +4,12 @@ id: object
 date: 2020-10-12
 full_link: /zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects
 short_description: >
-   Kubernetes 系统中的实体, 代表了集群的部分状态。
+   Kubernetes 系统中的实体，代表了集群的部分状态。
 aka: 
 tags:
 - fundamental
 ---
 <!-- 
----
 title: Object
 id: object
 date: 2020-10-12
@@ -20,8 +19,8 @@ short_description: >
 aka: 
 tags:
 - fundamental
----
 -->
+
 <!-- 
 An entity in the Kubernetes system. The Kubernetes API uses these entities to represent the state
 of your cluster.
