@@ -151,7 +151,7 @@ would provision a network resource like a Google Compute Engine persistent disk,
 an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also
 use [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io)
 to set up
-[dynamic provisioning](/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
+[dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/).
 
 Here is the configuration file for the hostPath PersistentVolume:
 -->
@@ -159,7 +159,7 @@ Here is the configuration file for the hostPath PersistentVolume:
 集群管理员会提供网络存储资源，比如 Google Compute Engine 持久盘卷、NFS 共享卷或 Amazon Elastic Block Store 卷。
 集群管理员还可以使用
 [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io)
-来设置[动态提供存储](/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes)。
+来设置[动态制备存储](/zh-cn/docs/concepts/storage/dynamic-provisioning/)。
 
 下面是 hostPath PersistentVolume 的配置文件：
 
