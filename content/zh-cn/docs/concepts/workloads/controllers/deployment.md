@@ -253,11 +253,11 @@ Follow the steps given below to create the above Deployment:
    * `AGE` 显示应用已经运行的时间长度。
 
    <!--
-   Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. The random string is
-   randomly generated and uses the `pod-template-hash` as a seed.
+   Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[HASH]`.
+   The `HASH` string is the same as the `pod-template-hash` label on the ReplicaSet.
    -->
-   注意 ReplicaSet 的名称始终被格式化为`[Deployment名称]-[随机字符串]`。
-   其中的随机字符串是使用 `pod-template-hash` 作为种子随机生成的。
+   注意 ReplicaSet 的名称始终被格式化为`[Deployment名称]-[哈希]`。
+   其中的`哈希`字符串与 ReplicaSet 上的 `pod-template-hash` 标签一致。
 
 <!--
 6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`.
@@ -2176,7 +2176,7 @@ Deployment 的修订历史记录存储在它所控制的 ReplicaSets 中。
 `.spec.revisionHistoryLimit` is an optional field that specifies the number of old ReplicaSets to retain
 to allow rollback. These old ReplicaSets consume resources in `etcd` and crowd the output of `kubectl get rs`. The configuration of each Deployment revision is stored in its ReplicaSets; therefore, once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment. By default, 10 old ReplicaSets will be kept, however its ideal value depends on the frequency and stability of new Deployments.
 -->
-`.spec.revisionHistoryLimit` 是一个可选字段，用来设定出于会滚目的所要保留的旧 ReplicaSet 数量。
+`.spec.revisionHistoryLimit` 是一个可选字段，用来设定出于回滚目的所要保留的旧 ReplicaSet 数量。
 这些旧 ReplicaSet 会消耗 etcd 中的资源，并占用 `kubectl get rs` 的输出。
 每个 Deployment 修订版本的配置都存储在其 ReplicaSets 中；因此，一旦删除了旧的 ReplicaSet，
 将失去回滚到 Deployment 的对应修订版本的能力。

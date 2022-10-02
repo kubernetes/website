@@ -62,17 +62,17 @@ spec:
 First of all, the scheduler ensures that the sum of the resource requests of the scheduled containers is less than the capacity of the node. In this case, the pod can be assigned to a node only if its available ephemeral storage (allocatable resource) has more than 10GiB.
 
 Secondly, at container level, since one of the container sets resource limit, kubelet eviction manager will measure the disk usage of this container and evict the pod if the storage usage of the first container exceeds its limit (12GiB). At pod level,  kubelet works out an overall Pod storage limit by
-adding up the limits of all the containers in that Pod. In this case, the total storage usage at pod level is the sum of the disk usage from all containers plus the Pod's `emptyDir`volumes. If this total usage exceeds the overall Pod storage limit (12GiB), then the kubelet also marks the Pod for eviction. 
+adding up the limits of all the containers in that Pod. In this case, the total storage usage at pod level is the sum of the disk usage from all containers plus the Pod's `emptyDir` volumes. If this total usage exceeds the overall Pod storage limit (12GiB), then the kubelet also marks the Pod for eviction. 
 
 Last, in this example, emptyDir volume sets its sizeLimit to 5Gi. It means that if this pod's emptyDir used up more local storage than 5GiB, the pod will be evicted from the node.
 
 #### Setting resource quota and limitRange for local ephemeral storage
 
 This feature adds two more resource quotas for storage. The request and limit set constraints on the total requests/limits of all containers’ in a namespace.
-* requests.ephemeral-storage
-* limits.ephemeral-storage
+* `requests.ephemeral-storage`
+* `limits.ephemeral-storage`
 
-```
+```yaml
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -85,6 +85,7 @@ spec:
 
 Similar to CPU and memory, admin could use LimitRange to set default container’s local storage request/limit, and/or minimum/maximum resource constraints for a namespace. 
 
+```yaml
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -96,9 +97,9 @@ spec:
     defaultRequest:
       ephemeral-storage: 5Gi
     type: Container
+```
 
-
-Also, ephemeral-storage may be specified to reserve for kubelet or system. example, --system-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=10Gi][,][pid=1000] --kube-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=5Gi][,][pid=1000]. If your cluster node root disk capacity is 100Gi, after setting system-reserved and kube-reserved value, the available allocatable ephemeral storage would become 85Gi. The schedule will use this information to assign pods based on request and allocatable resources from each node. The eviction manager will also use allocatable resource to determine pod eviction. See more details from [Reserve Compute Resources for System Daemons](/docs/tasks/administer-cluster/reserve-compute-resources/)
+Also, ephemeral-storage may be specified to reserve for kubelet or system. example, `--system-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=10Gi][,][pid=1000] --kube-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=5Gi][,][pid=1000]`. If your cluster node root disk capacity is 100Gi, after setting system-reserved and kube-reserved value, the available allocatable ephemeral storage would become 85Gi. The schedule will use this information to assign pods based on request and allocatable resources from each node. The eviction manager will also use allocatable resource to determine pod eviction. See more details from [Reserve Compute Resources for System Daemons](/docs/tasks/administer-cluster/reserve-compute-resources/).
 
 ### How do I get involved? 
 

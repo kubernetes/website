@@ -84,7 +84,7 @@ go get -u github.com/kubernetes/kompose
 
 <!--
 Kompose is in [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS repository.
-If you don't have [EPEL](https://fedoraproject.org/wiki/EPEL) repository already installed and enabled you can do it by running  `sudo yum install epel-release`
+If you don't have [EPEL](https://fedoraproject.org/wiki/EPEL) repository already installed and enabled you can do it by running `sudo yum install epel-release`.
 -->
 Kompose 位于 [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS 代码仓库。
 如果你还没有安装并启用 [EPEL](https://fedoraproject.org/wiki/EPEL) 代码仓库，
@@ -96,7 +96,7 @@ If you have [EPEL](https://fedoraproject.org/wiki/EPEL) enabled in your system, 
 如果你的系统中已经启用了 [EPEL](https://fedoraproject.org/wiki/EPEL)，
 你就可以像安装其他软件包一样安装 Kompose。
 
-```shell
+```bash
 sudo yum -y install kompose
 ```
 
@@ -108,7 +108,7 @@ Kompose is in Fedora 24, 25 and 26 repositories. You can install it like any oth
 -->
 Kompose 位于 Fedora 24、25 和 26 的代码仓库。你可以像安装其他软件包一样安装 Kompose。
 
-```shell
+```bash
 sudo dnf -y install kompose
 ```
 
@@ -116,11 +116,11 @@ sudo dnf -y install kompose
 {{% tab name="Homebrew (macOS)" %}}
 
 <!--
-On macOS you can install latest release via [Homebrew](https://brew.sh):
+On macOS you can install the latest release via [Homebrew](https://brew.sh):
 -->
 在 macOS 上你可以通过 [Homebrew](https://brew.sh) 安装 Kompose 的最新版本：
 
-```shell
+```bash
 brew install kompose
 ```
 
@@ -178,7 +178,7 @@ you need is an existing `docker-compose.yml` file.
 2. 要将 `docker-compose.yml` 转换为 `kubectl` 可用的文件，请运行 `kompose convert`
    命令进行转换，然后运行 `kubectl apply -f <output file>` 进行创建。
 
-   ```shell
+   ```bash
    kompose convert                           
    ```
 
@@ -242,7 +242,7 @@ you need is an existing `docker-compose.yml` file.
 
    如果你在开发过程中使用 `minikube`，请执行：
 
-   ```shell
+   ```bash
    minikube service frontend
    ```
 
@@ -251,7 +251,7 @@ you need is an existing `docker-compose.yml` file.
    -->
    否则，我们要查看一下你的服务使用了什么 IP！
 
-   ```shell
+   ```sh
    kubectl describe svc frontend
    ```
 
@@ -275,7 +275,7 @@ you need is an existing `docker-compose.yml` file.
    -->
    如果你使用的是云驱动，你的 IP 将在 `LoadBalancer Ingress` 字段给出。
 
-   ```shell
+   ```sh
    curl http://192.0.2.89
    ```
 
@@ -387,7 +387,7 @@ redis-master-deployment.yaml
 ```
 
 <!--
-When multiple docker-compose files are provided the configuration is merged. Any configuration that is common will be over ridden by subsequent file.
+When multiple docker-compose files are provided the configuration is merged. Any configuration that is common will be overridden by subsequent file.
 -->
 当提供多个 docker-compose 文件时，配置将会合并。任何通用的配置都将被后续文件覆盖。
 
@@ -396,7 +396,7 @@ When multiple docker-compose files are provided the configuration is merged. Any
 -->
 ### OpenShift `kompose convert` 示例    {#openshift-kompose-convert-example}
 
-```shell
+```sh
 kompose --provider openshift --file docker-voting.yml convert
 ```
 
@@ -425,7 +425,7 @@ kompose 还支持为服务中的构建指令创建 buildconfig。
 默认情况下，它使用当前 git 分支的 remote 仓库作为源仓库，使用当前分支作为构建的源分支。
 你可以分别使用 ``--build-repo`` 和 ``--build-branch`` 选项指定不同的源仓库和分支。
 
-```shell
+```sh
 kompose --provider openshift --file buildconfig/docker-compose.yml convert
 ```
 
@@ -460,7 +460,7 @@ The default `kompose` transformation will generate Kubernetes [Deployments](/doc
 [DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/) 或
 [Helm](https://github.com/helm/helm) Chart。
 
-```shell
+```sh
 kompose convert -j
 ```
 
@@ -476,7 +476,7 @@ The `*-deployment.json` files contain the Deployment objects.
 -->
 `*-deployment.json` 文件中包含 Deployment 对象。
 
-```shell
+```sh
 kompose convert --replication-controller
 ```
 
@@ -488,7 +488,7 @@ INFO Kubernetes file "web-replicationcontroller.yaml" created
 ```
 
 <!--
-The `*-replicationcontroller.yaml` files contain the Replication Controller objects. If you want to specify replicas (default is 1), use `--replicas` flag: `kompose convert --replication-controller --replicas 3`
+The `*-replicationcontroller.yaml` files contain the Replication Controller objects. If you want to specify replicas (default is 1), use `--replicas` flag: `kompose convert --replication-controller --replicas 3`.
 -->
 `*-replicationcontroller.yaml` 文件包含 Replication Controller 对象。
 如果你想指定副本数（默认为 1），可以使用 `--replicas` 参数：
@@ -506,7 +506,8 @@ INFO Kubernetes file "web-daemonset.yaml" created
 ```
 
 <!--
-The `*-daemonset.yaml` files contain the DaemonSet objects
+The `*-daemonset.yaml` files contain the DaemonSet objects.
+
 If you want to generate a Chart to be used with [Helm](https://github.com/kubernetes/helm) run:
 -->
 `*-daemonset.yaml` 文件包含 DaemonSet 对象。
@@ -550,6 +551,7 @@ The chart structure is aimed at providing a skeleton for building your Helm char
 ## Labels
 
 `kompose` supports Kompose-specific labels within the `docker-compose.yml` file in order to explicitly define a service's behavior upon conversion.
+
 - `kompose.service.type` defines the type of service to be created.
 
 For example:
@@ -579,6 +581,7 @@ For example:
 - `kompose.service.expose` defines if the service needs to be made accessible from outside the cluster or not. If the value is set to "true", the provider sets the endpoint automatically, and for any other value, the value is set as the hostname. If multiple ports are defined in a service, the first one is chosen to be the exposed.
   - For the Kubernetes provider, an ingress resource is created and it is assumed that an ingress controller has already been configured.
   - For the OpenShift provider, a route is created.
+
 For example:
 -->
 - `kompose.service.expose` 定义是否允许从集群外部访问 Service。
@@ -610,6 +613,7 @@ For example:
 
 <!--
 The currently supported options are:
+
 | Key                  | Value                               |
 |----------------------|-------------------------------------|
 | kompose.service.type | nodeport / clusterip / loadbalancer |
@@ -656,10 +660,10 @@ If you want to create normal pods without controllers you can use `restart` cons
 | `no`                       | Pod               | `Never`             |
 
 <!--
-The controller object could be `deployment` or `replicationcontroller`, etc.
+The controller object could be `deployment` or `replicationcontroller`.
 -->
 {{< note >}}
-控制器对象可以是 `deployment` 或 `replicationcontroller` 等。
+控制器对象可以是 `deployment` 或 `replicationcontroller`。
 {{< /note >}}
 
 <!--
@@ -689,7 +693,8 @@ DeploymentConfig（OpenShift）策略会从 “RollingUpdate”（默认）变�
 这样做的目的是为了避免服务的多个实例同时访问卷。
 
 <!--
-If the Docker Compose file has service name with `_` in it (eg.`web_service`), then it will be replaced by `-` and the service name will be renamed accordingly (eg.`web-service`). Kompose does this because "Kubernetes" doesn't allow `_` in object name.
+If the Docker Compose file has service name with `_` in it (for example, `web_service`), then it will be replaced by `-` and the service name will be renamed accordingly (for example, `web-service`). Kompose does this because "Kubernetes" doesn't allow `_` in object name.
+
 Please note that changing service name might break some `docker-compose` files.
 -->
 如果 Docker Compose 文件中的服务名包含 `_`（例如 `web_service`），

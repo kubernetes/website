@@ -227,7 +227,7 @@ patch 策略：
     "x-kubernetes-patch-strategy": "merge"
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 <!--
 And you can see the patch strategy in the
@@ -574,7 +574,7 @@ You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.git
     ....
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 <!--
 And you can see the `retainKeys` strategy in the

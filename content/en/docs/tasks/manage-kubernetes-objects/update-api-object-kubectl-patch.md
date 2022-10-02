@@ -161,7 +161,7 @@ You can also see the patch strategy in the
     "x-kubernetes-patch-strategy": "merge"
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 And you can see the patch strategy in the
 [Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
@@ -387,7 +387,7 @@ You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.git
     ....
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 And you can see the `retainKeys` strategy in the
 [Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).

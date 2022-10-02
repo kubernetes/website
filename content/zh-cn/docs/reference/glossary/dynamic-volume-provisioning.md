@@ -29,7 +29,7 @@ tags:
 <!--
  Allows users to request automatic creation of storage  {{< glossary_tooltip text="Volumes" term_id="volume" >}}.
 -->
- 允许用户请求自动创建存储 {{< glossary_tooltip text="卷" term_id="volume" >}}。
+允许用户请求自动创建存储 {{< glossary_tooltip text="卷" term_id="volume" >}}。
 
 <!--more--> 
 

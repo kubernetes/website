@@ -108,7 +108,7 @@ are provided in the following format:
     }
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 The relative URLs are pointing to immutable OpenAPI descriptions, in
 order to improve client-side caching. The proper HTTP caching headers
@@ -181,8 +181,9 @@ through multiple API versions.
 
 For example, suppose there are two API versions, `v1` and `v1beta1`, for the same
 resource. If you originally created an object using the `v1beta1` version of its
-API, you can later read, update, or delete that object
-using either the `v1beta1` or the `v1` API version.
+API, you can later read, update, or delete that object using either the `v1beta1`
+or the `v1` API version, until the `v1beta1` version is deprecated and removed.
+At that point you can continue accessing and modifying the object using the `v1` API.
 
 ### API changes
 
@@ -197,14 +198,19 @@ Elimination of resources or fields requires following the
 
 Kubernetes makes a strong commitment to maintain compatibility for official Kubernetes APIs
 once they reach general availability (GA), typically at API version `v1`. Additionally,
-Kubernetes keeps compatibility even for _beta_ API versions wherever feasible:
-if you adopt a beta API you can continue to interact with your cluster using that API,
-even after the feature goes stable.
+Kubernetes maintains compatibility with data persisted via _beta_ API versions of official Kubernetes APIs,
+and ensures that data can be converted and accessed via GA API versions when the feature goes stable.
+
+If you adopt a beta API version, you will need to transition to a subsequent beta or stable API version
+once the API graduates. The best time to do this is while the beta API is in its deprecation period,
+since objects are simultaneously accessible via both API versions. Once the beta API completes its
+deprecation period and is no longer served, the replacement API version must be used.
 
 {{< note >}}
 Although Kubernetes also aims to maintain compatibility for _alpha_ APIs versions, in some
 circumstances this is not possible. If you use any alpha API versions, check the release notes
-for Kubernetes when upgrading your cluster, in case the API did change.
+for Kubernetes when upgrading your cluster, in case the API did change in incompatible
+ways that require deleting all existing alpha objects prior to upgrade.
 {{< /note >}}
 
 Refer to [API versions reference](/docs/reference/using-api/#api-versioning)
