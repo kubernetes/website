@@ -42,10 +42,12 @@ and evict Pods when available memory drops below 200Mi.
 All other Kubelet configuration values are left at their built-in defaults, unless overridden
 by flags. Command line flags which target the same value as a config file will override that value.
 
-Note: In the example, by changing the default value of only one parameter for
+{{< note >}}
+In the example, by changing the default value of only one parameter for
 evictionHard, the default values of other parameters will not be inherited and
 will be set to zero. In order to provide custom values, you should provide all
 the threshold values respectively.
+{{< /note >}}
 
 ## Start a Kubelet process configured via the config file
 
