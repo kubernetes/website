@@ -246,6 +246,7 @@ GitHub Mentions: @kubernetes/release-engineering
 GitHub 提及：@kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
+- Cici Huang ([@cici37](https://github.com/cici37))
 - Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
 - Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
@@ -254,6 +255,7 @@ GitHub 提及：@kubernetes/release-engineering
 - Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
 - Taylor Dolezal ([@onlydole](https://github.com/onlydole))
 - Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
+- Xander Grzywinski([@salaxander](https://github.com/salaxander))
 
 <!-- 
 ### Becoming a Release Manager Associate
