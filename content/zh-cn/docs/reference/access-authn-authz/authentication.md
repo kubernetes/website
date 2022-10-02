@@ -66,8 +66,7 @@ Kubernetes 仍然认为能够提供由集群的证书机构签名的合法证书
 基于这样的配置，Kubernetes 使用证书中的 'subject' 的通用名称（Common Name）字段
 （例如，"/CN=bob"）来确定用户名。
 接下来，基于角色访问控制（RBAC）子系统会确定用户是否有权针对某资源执行特定的操作。
-进一步的细节可参阅
-[证书请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
+进一步的细节可参阅[证书请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
 下普通用户主题。
 
 <!--
@@ -214,7 +213,7 @@ followed by optional group names.
 <!--
 If you have more than one group the column must be double quoted e.g.
 -->
-如果要设置的组名不止一个，则对应的列必须用双引号括起来，例如
+如果要设置的组名不止一个，则对应的列必须用双引号括起来，例如：
 
 ```conf
 token,user,uid,"group1,group2,group3"
@@ -305,7 +304,7 @@ Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-token
 documentation on the Bootstrap Token authenticator and controllers along with
 how to manage these tokens with `kubeadm`.
 -->
-请参阅[启动引导令牌](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
+请参阅[启动引导令牌](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)，
 以了解关于启动引导令牌身份认证组件与控制器的更深入的信息，以及如何使用
 `kubeadm` 来管理这些令牌。
 
@@ -340,8 +339,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 `serviceAccountName` field of a `PodSpec`.
 -->
 服务账号通常由 API 服务器自动创建并通过 `ServiceAccount`
-[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
-关联到集群中运行的 Pod 上。
+[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)关联到集群中运行的 Pod 上。
 持有者令牌会挂载到 Pod 中可预知的位置，允许集群内进程与 API 服务器通信。
 服务账号也可以使用 Pod 规约的 `serviceAccountName` 字段显式地关联到 Pod 上。
 
@@ -471,7 +469,7 @@ is included in a request.
 {{< mermaid >}}
 sequenceDiagram
     participant user as 用户
-    participant idp as 身份提供者 
+    participant idp as 身份提供者
     participant kube as Kubectl
     participant api as API 服务器
 
@@ -558,6 +556,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
 | `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
+| `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
 -->
 
 | 参数 | 描述 | 示例 | 必需？ |
@@ -570,6 +569,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | 添加到组申领的前缀，用来避免与现有用户组名（如：`system:` 组）发生冲突。例如，此标志值为 `oidc:` 时，所得到的用户组名形如 `oidc:engineering` 和 `oidc:infra`。 | `oidc:` | 否 |
 | `--oidc-required-claim` | 取值为一个 key=value 偶对，意为 ID 令牌中必须存在的申领。如果设置了此标志，则 ID 令牌会被检查以确定是否包含取值匹配的申领。此标志可多次重复，以指定多个申领。 | `claim=value` | 否 |
 | `--oidc-ca-file` | 指向一个 CA 证书的路径，该 CA 负责对你的身份服务的 Web 证书提供签名。默认值为宿主系统的根 CA。 | `/etc/kubernetes/ssl/kc-ca.pem` | 否 |
+| `--oidc-signing-algs` | 采纳的签名算法。默认为 "RS256"。 | `RS512` | 否 |
 
 <!--
 Importantly, the API server is not an OAuth2 client, rather it can only be
@@ -831,7 +831,6 @@ and **must** respond with a `TokenReview` object of the same version as the requ
 实现者应检查请求的 `apiVersion` 字段以确保正确的反序列化，
 并且 **必须** 以与请求相同版本的 `TokenReview` 对象进行响应。
 
-
 {{< tabs name="TokenReview_request" >}}
 {{% tab name="authentication.k8s.io/v1" %}}
 {{< note >}}
@@ -1032,12 +1031,14 @@ API 服务器可以配置成从请求的头部字段值（如 `X-Remote-User`）
 {{< note >}}
 <!--
 Prior to 1.11.3 (and 1.10.7, 1.9.11), the extra key could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
-For example, with this configuration:
 -->
 在 1.13.3 版本之前（包括 1.10.7、1.9.11），附加字段的键名只能包含
 [HTTP 头部标签的合法字符](https://tools.ietf.org/html/rfc7230#section-3.2.6)。
 {{< /note >}}
 
+<!--
+For example, with this configuration:
+-->
 例如，使用下面的配置：
 
 ```
@@ -1782,12 +1783,11 @@ and required in `client.authentication.k8s.io/v1`.
 插件应该使用来自 `KUBERNETES_EXEC_INFO` 环境变量的 `ExecCredential`
 输入对象中的 `spec.interactive` 字段来确定是否提供了 `stdin`。
 插件的 `stdin` 需求（即，为了能够让插件成功运行，是否 `stdin` 是可选的、
-必须提供的或者从不会被使用的）是通过 
+必须提供的或者从不会被使用的）是通过
 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 中的 `user.exec.interactiveMode` 来声明的（参见下面的表格了解合法值）。
 字段 `user.exec.interactiveMode` 在 `client.authentication.k8s.io/v1beta1`
 中是可选的，在 `client.authentication.k8s.io/v1` 中是必需的。
-
 
 <!--
 | `interactiveMode` Value | Meaning |
