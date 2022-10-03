@@ -177,7 +177,7 @@ Ingressのそれぞれのパスは対応するパスのタイプを持ちます�
 ## Ingress Class
 
 Ingressは異なったコントローラーで実装されうるため、しばしば異なった設定を必要とします。
-各Ingressはクラス、つまりIngressClassリソースへの参照を指定する必要があります。IngressClassリソースには、このクラスを実装するコントローラの名前などの追加設定が含まれています。
+各Ingressはクラス、つまりIngressClassリソースへの参照を指定する必要があります。IngressClassリソースには、このクラスを実装するコントローラーの名前などの追加設定が含まれています。
 
 {{< codenew file="service/networking/external-lb.yaml" >}}
 
