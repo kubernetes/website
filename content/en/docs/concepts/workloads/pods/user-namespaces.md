@@ -90,7 +90,7 @@ This means containers can run as root and be mapped to a non-root user on the
 host. Inside the container the process will think it is running as root (and
 therefore tools like `apt`, `yum`, etc. work fine), while in reality the process
 doesn't have privileges on the host. You can verify this, for example, if you check
-the user the container process is running `ps` from the host. The user in the output
+the user container the process is running `ps` from the host. The user output
 of the `ps` command is not the same as you execute the command `id` inside the container.
 
 This abstraction limits what can happen, for example, if the container manages
