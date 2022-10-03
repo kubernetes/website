@@ -110,7 +110,7 @@ kubeconfigファイル内のファイルとパスのリファレンスは、kube
 
 ## プロキシー
 
-kubeconfigファイルで`proxy-url`を使用すると、以下のようにクラスタごとにプロキシを使用するように`kubectl`を設定することができます。
+kubeconfigファイルで`proxy-url`を使用すると、以下のようにクラスターごとにプロキシーを使用するように`kubectl`を設定することができます。
 
 ```yaml
 apiVersion: v1
