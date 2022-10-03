@@ -772,7 +772,7 @@ The <tt>system:node</tt> role only exists for compatibility with Kubernetes clus
 </tr>
 <tr>
 <td><b>system:node-proxier</b></td>
-<td><b>system:kube-proxy</b> user</td>
+<td><b>system:node-proxier</b> user</td>
 <td>Allows access to the resources required by the {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}} component.</td>
 </tr>
 </tbody>
