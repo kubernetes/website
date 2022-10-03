@@ -293,7 +293,7 @@ policy option is not compatible with `TopologyManager` `single-numa-node`
 policy and does not apply to hardware where the number of sockets is greater
 than number of NUMA nodes.
 
-The `full-pcpus-only` option can be enabled by adding `full-pcups-only=true` to
+The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
 the CPUManager policy options.
 Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
 `distribute-cpus-across-numa=true` to the CPUManager policy options.
