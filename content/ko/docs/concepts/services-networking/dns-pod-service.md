@@ -308,7 +308,7 @@ kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
 출력은 다음과 같은 형식일 것이다.
 ```
-nameserver fd00:79:30::a
+nameserver 2001:db8:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
@@ -343,7 +343,6 @@ kube-apiserver와 kubelet에 `ExpandedDNSConfig` 기능 게이트가 활성화�
   `kubernetes.default.svc`)은 해석할 수 없다.
   
 ## {{% heading "whatsnext" %}}
-
 
 DNS 구성 관리에 대한 지침은
 [DNS 서비스 구성](/ko/docs/tasks/administer-cluster/dns-custom-nameservers/)에서 확인할 수 있다.
