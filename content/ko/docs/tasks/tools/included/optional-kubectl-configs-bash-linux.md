@@ -43,7 +43,7 @@ kubectl에 대한 앨리어스(alias)가 있는 경우, 해당 앨리어스로 �
 
 ```bash
 echo 'alias k=kubectl' >>~/.bashrc
-echo 'complete -F __start_kubectl k' >>~/.bashrc
+echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 ```
 
 {{< note >}}

@@ -115,7 +115,7 @@ _Handler_ yang valid dapat dikonfigurasi pada bagian _runtime_:
 ```
 
 Lihat dokumentasi konfigurasi containerd untuk lebih detail:
-https://github.com/containerd/cri/blob/master/docs/config.md
+https://github.com/containerd/containerd/blob/main/docs/cri/config.md
 
 #### [cri-o](https://cri-o.io/)
 

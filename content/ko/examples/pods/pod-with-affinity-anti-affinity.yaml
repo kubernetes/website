@@ -8,11 +8,10 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: topology.kubernetes.io/zone
+          - key: kubernetes.io/os
             operator: In
             values:
-            - antarctica-east1
-            - antarctica-west1
+            - linux
       preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 1
         preference:

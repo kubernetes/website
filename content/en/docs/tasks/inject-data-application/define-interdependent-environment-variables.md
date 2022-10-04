@@ -30,39 +30,43 @@ Pod:
 
 1. Create a Pod based on that manifest:
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/inject/dependent-envars.yaml
-    ```
-    ```
-    pod/dependent-envars-demo created
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/inject/dependent-envars.yaml
+   ```
+   ```
+   pod/dependent-envars-demo created
+   ```
 
 2. List the running Pods:
 
-    ```shell
-    kubectl get pods dependent-envars-demo
-    ```
-    ```
-    NAME                      READY     STATUS    RESTARTS   AGE
-    dependent-envars-demo     1/1       Running   0          9s
-    ```
+   ```shell
+   kubectl get pods dependent-envars-demo
+   ```
+   ```
+   NAME                      READY     STATUS    RESTARTS   AGE
+   dependent-envars-demo     1/1       Running   0          9s
+   ```
 
 3. Check the logs for the container running in your Pod:
 
-    ```shell
-    kubectl logs pod/dependent-envars-demo
-    ```
-    ```
+   ```shell
+   kubectl logs pod/dependent-envars-demo
+   ```
+   ```
 
-    UNCHANGED_REFERENCE=$(PROTOCOL)://172.17.0.1:80
-    SERVICE_ADDRESS=https://172.17.0.1:80
-    ESCAPED_REFERENCE=$(PROTOCOL)://172.17.0.1:80
-    ```
+   UNCHANGED_REFERENCE=$(PROTOCOL)://172.17.0.1:80
+   SERVICE_ADDRESS=https://172.17.0.1:80
+   ESCAPED_REFERENCE=$(PROTOCOL)://172.17.0.1:80
+   ```
 
 As shown above, you have defined the correct dependency reference of `SERVICE_ADDRESS`, bad dependency reference of `UNCHANGED_REFERENCE` and skip dependent references of `ESCAPED_REFERENCE`.
 
 When an environment variable is already defined when being referenced,
 the reference can be correctly resolved, such as in the `SERVICE_ADDRESS` case.
+
+Note that order matters in the `env` list. An environment variable is not considered
+"defined" if it is specified further down the list. That is why `UNCHANGED_REFERENCE`
+fails to resolve `$(PROTOCOL)` in the example above.
 
 When the environment variable is undefined or only includes some variables, the undefined environment variable is treated as a normal string, such as `UNCHANGED_REFERENCE`. Note that incorrectly parsed environment variables, in general, will not block the container from starting.
 

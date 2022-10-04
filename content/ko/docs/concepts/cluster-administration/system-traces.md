@@ -1,8 +1,8 @@
 ---
 title: 쿠버네티스 시스템 컴포넌트에 대한 추적(trace)
-
-
-
+# reviewers:
+# - logicalhan
+# - lilic
 content_type: concept
 weight: 60
 ---

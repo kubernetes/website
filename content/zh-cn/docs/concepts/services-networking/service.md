@@ -54,7 +54,6 @@ to, so that the frontend can use the backend part of the workload?
 
 Enter _Services_.
 -->
-
 ## 动机
 
 创建和销毁 Kubernetes {{< glossary_tooltip term_id="pod" text="Pod" >}} 以匹配集群的期望状态。
@@ -132,7 +131,6 @@ The name of a Service object must be a valid
 For example, suppose you have a set of Pods where each listens on TCP port 9376
 and contains a label `app=MyApp`:
 -->
-
 ## 定义 Service
 
 Service 在 Kubernetes 中是一个 REST 对象，和 Pod 类似。
@@ -149,7 +147,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -157,8 +155,8 @@ spec:
 ```
  
 <!--
-This specification creates a new Service object named “my-service”, which
-targets TCP port 9376 on any Pod with the `app=MyApp` label.
+This specification creates a new Service object named "my-service", which
+targets TCP port 9376 on any Pod with the `app.kubernetes.io/name=MyApp` label.
 
 Kubernetes assigns this Service an IP address (sometimes called the "cluster IP"),
 which is used by the Service proxies
@@ -169,7 +167,7 @@ match its selector, and then POSTs any updates to an Endpoint object
 also named "my-service".
 -->
 上述配置创建一个名称为 "my-service" 的 Service 对象，它会将请求代理到使用
-TCP 端口 9376，并且具有标签 `"app=MyApp"` 的 Pod 上。
+TCP 端口 9376，并且具有标签 `app.kubernetes.io/name=MyApp` 的 Pod 上。
 
 Kubernetes 为该服务分配一个 IP 地址（有时称为 “集群 IP”），该 IP 地址由服务代理使用。
 (请参见下面的 [VIP 和 Service 代理](#virtual-ips-and-service-proxies)).
@@ -209,7 +207,7 @@ spec:
     ports:
       - containerPort: 80
         name: http-web-svc
-        
+
 ---
 apiVersion: v1
 kind: Service
@@ -337,8 +335,8 @@ Endpoint IP addresses cannot be the cluster IPs of other Kubernetes Services,
 because {{< glossary_tooltip term_id="kube-proxy" >}} doesn't support virtual IPs
 as a destination.
 -->
-端点 IPs _必须不可以_ 是：本地回路（IPv4 的 127.0.0.0/8, IPv6 的 ::1/128）或
-本地链接（IPv4 的 169.254.0.0/16 和 224.0.0.0/24，IPv6 的 fe80::/64)。
+端点 IPs **必须不可以** 是：本地回路（IPv4 的 127.0.0.0/8, IPv6 的 ::1/128）
+或本地链接（IPv4 的 169.254.0.0/16 和 224.0.0.0/24，IPv6 的 fe80::/64)。
 
 端点 IP 地址不能是其他 Kubernetes 服务的集群 IP，因为
 {{< glossary_tooltip term_id ="kube-proxy">}} 不支持将虚拟 IP 作为目标。
@@ -455,7 +453,7 @@ There are a few reasons for using proxying for Services:
    on the DNS records could impose a high load on DNS that then becomes
    difficult to manage.
 -->
-### 为什么不使用 DNS 轮询？
+### 为什么不使用 DNS 轮询？  {#why-not-use-round-robin-dns}
 
 时不时会有人问到为什么 Kubernetes 依赖代理将入站流量转发到后端。那其他方法呢？
 例如，是否可以配置具有多个 A 值（或 IPv6 为 AAAA）的 DNS 记录，并依靠轮询名称解析？
@@ -466,6 +464,45 @@ There are a few reasons for using proxying for Services:
 * 有些应用程序仅执行一次 DNS 查找，并无限期地缓存结果。
 * 即使应用和库进行了适当的重新解析，DNS 记录上的 TTL 值低或为零也可能会给
   DNS 带来高负载，从而使管理变得困难。
+
+<!--
+Later in this page you can read about how various kube-proxy implementations work. Overall,
+you should note that, when running `kube-proxy`, kernel level rules may be
+modified (for example, iptables rules might get created), which won't get cleaned up,
+in some cases until you reboot.  Thus, running kube-proxy is something that should
+only be done by an administrator which understands the consequences of having a
+low level, privileged network proxying service on a computer.  Although the `kube-proxy`
+executable supports a `cleanup` function, this function is not an official feature and
+thus is only available to use as-is.
+-->
+在本页下文中，你可以了解各种 kube-proxy 实现是如何工作的。
+总的来说，你应该注意当运行 `kube-proxy` 时，内核级别的规则可能会被修改（例如，可能会创建 iptables 规则），
+在某些情况下直到你重新引导才会清理这些内核级别的规则。
+因此，运行 kube-proxy 只能由了解在计算机上使用低级别、特权网络代理服务后果的管理员来完成。
+尽管 `kube-proxy` 可执行文件支持 `cleanup` 功能，但此功能不是官方特性，因此只能按原样使用。
+
+<!--
+### Configuration
+
+Note that the kube-proxy starts up in different modes, which are determined by its configuration.
+- The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for kube-proxy
+  effectively deprecates the behaviour for almost all of the flags for the kube-proxy.
+- The ConfigMap for the kube-proxy does not support live reloading of configuration.
+- The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.
+  For example, if your operating system doesn't allow you to run iptables commands,
+  the standard kernel kube-proxy implementation will not work.
+  Likewise, if you have an operating system which doesn't support `netsh`,
+  it will not run in Windows userspace mode.
+-->
+### 配置  {#configuration}
+
+请注意，kube-proxy 可以以不同的模式启动，具体取决于其配置。
+
+- kube-proxy 的配置是通过 ConfigMap 完成的，并且 kube-proxy 的 ConfigMap 有效地弃用了 kube-proxy 几乎所有标志的行为。
+- kube-proxy 的 ConfigMap 不支持实时重新加载配置。
+- kube-proxy 的 ConfigMap 参数不能在启动时被全部校验和验证。
+  例如，如果你的操作系统不允许你运行 iptables 命令，则标准内核 kube-proxy 实现将无法工作。
+  同样，如果你的操作系统不支持 `netsh`，它将无法在 Windows 用户空间模式下运行。
 
 <!--
 ### User space proxy mode {#proxy-mode-userspace}
@@ -666,7 +703,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - name: http
       protocol: TCP
@@ -806,7 +843,7 @@ Kubernetes 支持两种基本的服务发现模式 —— 环境变量和 DNS。
 When a Pod is run on a Node, the kubelet adds a set of environment variables
 for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables, where the Service name is upper-cased and dashes are converted to underscores. It also supports variables (see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) that are compatible with Docker Engine's "_[legacy container links](https://docs.docker.com/network/links/)_" feature.
 
-For example, the Service `redis-master` which exposes TCP port 6379 and has been
+For example, the Service `redis-primary` which exposes TCP port 6379 and has been
 allocated cluster IP address 10.0.0.11, produces the following environment
 variables:
 -->
@@ -818,17 +855,17 @@ kubelet 为 Pod 添加环境变量 `{SVCNAME}_SERVICE_HOST` 和 `{SVCNAME}_SERVI
 它还支持与 Docker Engine 的 "**[legacy container links](https://docs.docker.com/network/links/)**" 特性兼容的变量
 （参阅 [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) 。
 
-举个例子，一个名称为 `redis-master` 的 Service 暴露了 TCP 端口 6379，
+举个例子，一个名称为 `redis-primary` 的 Service 暴露了 TCP 端口 6379，
 同时给它分配了 Cluster IP 地址 10.0.0.11，这个 Service 生成了如下环境变量：
 
 ```shell
-REDIS_MASTER_SERVICE_HOST=10.0.0.11
-REDIS_MASTER_SERVICE_PORT=6379
-REDIS_MASTER_PORT=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP_PROTO=tcp
-REDIS_MASTER_PORT_6379_TCP_PORT=6379
-REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
+REDIS_PRIMARY_SERVICE_HOST=10.0.0.11
+REDIS_PRIMARY_SERVICE_PORT=6379
+REDIS_PRIMARY_PORT=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP_PROTO=tcp
+REDIS_PRIMARY_PORT_6379_TCP_PORT=6379
+REDIS_PRIMARY_PORT_6379_TCP_ADDR=10.0.0.11
 ```
 
 <!--
@@ -1100,7 +1137,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
       # 默认情况下，为了方便起见，`targetPort` 被设置为与 `port` 字段相同的值。
     - port: 80
@@ -1136,7 +1173,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -1146,7 +1183,7 @@ spec:
 status:
   loadBalancer:
     ingress:
-      - ip: 192.0.2.127
+    - ip: 192.0.2.127
 ```
 
 <!--
@@ -2061,7 +2098,7 @@ Kubernetes 通过在为 API 服务器配置的 `service-cluster-ip-range` CIDR
 <!--
 #### IP address ranges for `type: ClusterIP` Services {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 However, there is a problem with this `ClusterIP` allocation strategy, because a user
 can also [choose their own address for the service](#choosing-your-own-ip-address).
 This could result in a conflict if the internal allocator selects the same IP address
@@ -2069,14 +2106,14 @@ for another Service.
 -->
 #### `type: ClusterIP` 服务的 IP 地址范围  {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 但是，这种 `ClusterIP` 分配策略存在一个问题，因为用户还可以[为服务选择自己的地址](#choosing-your-own-ip-address)。
 如果内部分配器为另一个服务选择相同的 IP 地址，这可能会导致冲突。
 
 <!--
-If you enable the `ServiceIPStaticSubrange`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-the allocation strategy divides the `ClusterIP` range into two bands, based on
+The `ServiceIPStaticSubrange`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default in v1.25
+and later, using an allocation strategy that divides the `ClusterIP` range into two bands, based on
 the size of the configured `service-cluster-ip-range` by using the following formula
 `min(max(16, cidrSize / 16), 256)`, described as _never less than 16 or more than 256,
 with a graduated step function between them_. Dynamic IP allocations will be preferentially
@@ -2085,8 +2122,8 @@ assigned from the lower band.
 This allows users to use the lower band of the `service-cluster-ip-range` for their
 Services with static IPs assigned with a very low risk of running into conflicts.
 -->
-如果启用 `ServiceIPStaticSubrange`[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-分配策略根据配置的 `service-cluster-ip-range` 的大小，使用以下公式
+`ServiceIPStaticSubrange` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)在
+v1.25 及后续版本中默认启用，其分配策略根据配置的 `service-cluster-ip-range` 的大小，使用以下公式
 `min(max(16, cidrSize / 16), 256)` 进行划分，该公式可描述为
 “在不小于 16 且不大于 256 之间有一个步进量（Graduated Step）”，将
 `ClusterIP` 范围分成两段。动态 IP 分配将优先从上半段地址中选择，
@@ -2225,10 +2262,7 @@ depends on the cloud provider offering this facility.
 你可以将 UDP 用于大多数服务。 对于 type=LoadBalancer 服务，对 UDP 的支持取决于提供此功能的云提供商。
 
 <!-- 
-
 ### SCTP
-
-{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 When using a network plugin that supports SCTP traffic, you can use SCTP for
 most Services. For type=LoadBalancer Services, SCTP support depends on the cloud
@@ -2250,14 +2284,12 @@ provider offering this facility. (Most do not).
 
 ##### 支持多宿主 SCTP 关联 {#caveat-sctp-multihomed}
 
-<!--
 {{< warning >}}
+<!--
 The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a Pod.
 
 NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
-{{< /warning >}}
 -->
-{{< warning >}}
 支持多宿主SCTP关联要求 CNI 插件能够支持为一个 Pod 分配多个接口和 IP 地址。
 
 用于多宿主 SCTP 关联的 NAT 在相应的内核模块中需要特殊的逻辑。
@@ -2265,27 +2297,25 @@ NAT for multihomed SCTP associations requires special logic in the corresponding
 
 <!--
 ##### Windows {#caveat-sctp-windows-os}
-
-{{< note >}}
-SCTP is not supported on Windows based nodes.
-{{< /note >}}
 -->
 ##### Windows {#caveat-sctp-windows-os}
 
 {{< note >}}
+<!--
+SCTP is not supported on Windows based nodes.
+-->
 基于 Windows 的节点不支持 SCTP。
 {{< /note >}}
 
 <!--
 ##### Userspace kube-proxy {#caveat-sctp-kube-proxy-userspace}
-
-{{< warning >}}
-The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
-{{< /warning >}}
 -->
 ##### 用户空间 kube-proxy {#caveat-sctp-kube-proxy-userspace}
 
 {{< warning >}}
+<!--
+The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
+-->
 当 kube-proxy 处于用户空间模式时，它不支持 SCTP 关联的管理。
 {{< /warning >}}
 
@@ -2343,7 +2373,7 @@ followed by the data from the client.
 <!--
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read about [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
+* Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 -->
 * 阅读[使用服务访问应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
 * 阅读了解 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)

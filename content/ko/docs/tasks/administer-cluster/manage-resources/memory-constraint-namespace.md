@@ -10,8 +10,9 @@ description: >-
 
 <!-- overview -->
 
-이 페이지는 네임스페이스에서 실행되는 컨테이너가 사용하는 메모리의 최솟값과 최댓값을
-설정하는 방법을 보여준다. [리밋레인지(LimitRange)](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
+이 페이지는 {{< glossary_tooltip text="네임스페이스" term_id="namespace" >}}에서 
+실행되는 컨테이너가 사용하는 메모리의 최솟값과 최댓값을 설정하는 방법을 보여준다.
+[리밋레인지(LimitRange)](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
 오브젝트에 최소 및 최대 메모리 값을
 지정한다. 파드가 리밋레인지에 의해 부과된 제약 조건을 충족하지 않으면,
 네임스페이스에서 생성될 수 없다.
@@ -77,7 +78,7 @@ kubectl get limitrange mem-min-max-demo-lr --namespace=constraints-mem-example -
 쿠버네티스는 다음 단계를 수행한다.
 
 * 해당 파드의 어떤 컨테이너도 자체 메모리 요청량(request)과 상한(limit)을 명시하지 않으면, 
-  해당 컨테이너에 메모리 요청량과 상한의 기본값(default)을 지정한다.
+컨트롤 플레인이 해당 컨테이너에 메모리 요청량과 상한의 기본값(default)을 지정한다.
 
 * 해당 파드의 모든 컨테이너의 메모리 요청량이 최소 500 MiB 이상인지 확인한다.
 

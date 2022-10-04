@@ -1,11 +1,11 @@
 ---
 title: 쿠버네티스 보안과 공개 정보
 aliases: [/ko/security/]
-
-
-
-
-
+# reviewers:
+# - eparis
+# - erictune
+# - philips
+# - jessfraz
 content_type: concept
 weight: 20
 ---

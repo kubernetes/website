@@ -154,7 +154,7 @@ To generate CronJob schedule expressions, you can also use web tools like [cront
 ## Time zones
 For CronJobs with no time zone specified, the kube-controller-manager interprets schedules relative to its local time zone.
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
 If you enable the  `CronJobTimeZone` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 you can specify a time zone for a CronJob (if you don't enable that feature gate, or if you are using a version of
@@ -170,7 +170,7 @@ A time zone database from the Go standard library is included in the binaries an
 ## 时区    {#time-zones}
 对于没有指定时区的 CronJob，kube-controller-manager 基于本地时区解释排期表（Schedule）。
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
 如果启用了 `CronJobTimeZone` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 你可以为 CronJob 指定一个时区（如果你没有启用该特性门控，或者你使用的是不支持试验性时区功能的
