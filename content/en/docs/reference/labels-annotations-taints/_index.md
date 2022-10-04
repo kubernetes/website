@@ -393,6 +393,17 @@ Used on: PersistentVolumeClaim
 
 This annotation will be added to dynamic provisioning required PVC.
 
+### volumes.kubernetes.io/controller-managed-attach-detach
+
+Used on: Node
+
+If a node has set the annotation `volumes.kubernetes.io/controller-managed-attach-detach`
+on itself, then its storage attach and detach operations are being managed
+by the attach/detach controller running in kube-controller-manager.
+
+The value of the annotation isn't important; if this annotation exists on a node,
+then attach and detached are controller managed.
+
 ### node.kubernetes.io/windows-build {#nodekubernetesiowindows-build}
 
 Example: `node.kubernetes.io/windows-build: "10.0.17763"`
