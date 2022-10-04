@@ -30,6 +30,7 @@ hardware vendor on the nodes and run the corresponding device plugin from the
 GPU vendor. Here are some links to vendors' instructions:
 
 * [AMD](https://github.com/RadeonOpenCompute/k8s-device-plugin#deployment)
+* [Intel](https://intel.github.io/intel-device-plugins-for-kubernetes/cmd/gpu_plugin/README.html)
 * [NVIDIA](https://github.com/NVIDIA/k8s-device-plugin#quick-start)
 
 Once you have installed the plugin, your cluster exposes a custom schedulable resource such as `amd.com/gpu` or `nvidia.com/gpu`.
