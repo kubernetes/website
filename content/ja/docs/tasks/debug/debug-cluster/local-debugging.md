@@ -1,5 +1,5 @@
 ---
-title: ローカルでのサービス開発・デバッグ
+title: テレプレゼンスを使用したローカルでのサービス開発・デバッグ
 content_type: task
 ---
 
@@ -57,4 +57,3 @@ telepresenceを「--swap-deployment」で実行するには、次のように入
 telepresenceには、状況に応じて[numerous proxying options](https://www.telepresence.io/reference/methods)があります。
 
 さらに詳しい情報は、[telepresence website](https://www.telepresence.io)をご覧ください。
-

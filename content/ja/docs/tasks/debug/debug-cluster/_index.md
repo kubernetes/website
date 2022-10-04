@@ -1,6 +1,8 @@
 ---
 title: クラスターのトラブルシューティング
-content_type: concept
+description: 一般的なクラスターの問題をデバッグします。
+weight: 20
+no_list: true
 ---
 
 <!-- overview -->
@@ -111,4 +113,3 @@ kubectl cluster-info dump
 - 対処法: 予期せぬ再起動に耐えられるように設計されたアプリケーション(コンテナ)
   - 異常: ノードのシャットダウン
   - 異常: Kubeletソフトウェア障害
-
