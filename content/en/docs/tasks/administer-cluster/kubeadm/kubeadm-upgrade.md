@@ -1,6 +1,6 @@
 ---
 reviewers:
-- sig-cluster-lifecycle
+  - sig-cluster-lifecycle
 title: Upgrading kubeadm clusters
 content_type: task
 weight: 20
@@ -14,12 +14,9 @@ This page explains how to upgrade a Kubernetes cluster created with kubeadm from
 when upgrading is unsupported.
 
 To see information about upgrading clusters created using older versions of kubeadm,
-please refer to following pages instead:
+please refer to following page instead:
 
 - [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -2 >}} to {{< skew currentVersionAddMinor -1 >}}](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -3 >}} to {{< skew currentVersionAddMinor -2 >}}](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -4 >}} to {{< skew currentVersionAddMinor -3 >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -5 >}} to {{< skew currentVersionAddMinor -4 >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 
 The upgrade workflow at high level is the following:
 
@@ -49,15 +46,11 @@ Find the latest patch release for Kubernetes {{< skew currentVersion >}} using t
 
 {{< tabs name="k8s_install_versions" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    apt update
-    apt-cache madison kubeadm
-    # find the latest {{< skew currentVersion >}} version in the list
-    # it should look like {{< skew currentVersion >}}.x-00, where x is the latest patch
+apt update
+apt-cache madison kubeadm # find the latest {{< skew currentVersion >}} version in the list # it should look like {{< skew currentVersion >}}.x-00, where x is the latest patch
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
-    yum list --showduplicates kubeadm --disableexcludes=kubernetes
-    # find the latest {{< skew currentVersion >}} version in the list
-    # it should look like {{< skew currentVersion >}}.x-0, where x is the latest patch
+yum list --showduplicates kubeadm --disableexcludes=kubernetes # find the latest {{< skew currentVersion >}} version in the list # it should look like {{< skew currentVersion >}}.x-0, where x is the latest patch
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -70,36 +63,34 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 
 **For the first control plane node**
 
--  Upgrade kubeadm:
+- Upgrade kubeadm:
 
 {{< tabs name="k8s_install_kubeadm_first_cp" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
-    apt-mark unhold kubeadm && \
-    apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
-    apt-mark hold kubeadm
+{{% tab name="Ubuntu, Debian or HypriotOS" %}} # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
+apt-mark unhold kubeadm && \
+ apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
+ apt-mark hold kubeadm
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
-    yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+{{% tab name="CentOS, RHEL or Fedora" %}} # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
+yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
 <br />
 
--  Verify that the download works and has the expected version:
+- Verify that the download works and has the expected version:
 
-    ```shell
-    kubeadm version
-    ```
+  ```shell
+  kubeadm version
+  ```
 
--   Verify the upgrade plan:
+- Verify the upgrade plan:
 
-    ```shell
-    kubeadm upgrade plan
-    ```
+  ```shell
+  kubeadm upgrade plan
+  ```
 
-    This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
-    It also shows a table with the component config version states.
+  This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
+  It also shows a table with the component config version states.
 
 {{< note >}}
 `kubeadm upgrade` also automatically renews the certificates that it manages on this node.
@@ -113,28 +104,28 @@ a config file with replacement configs to `kubeadm upgrade apply` via the `--con
 Failing to do so will cause `kubeadm upgrade apply` to exit with an error and not perform an upgrade.
 {{</ note >}}
 
--  Choose a version to upgrade to, and run the appropriate command. For example:
+- Choose a version to upgrade to, and run the appropriate command. For example:
 
-    ```shell
-    # replace x with the patch version you picked for this upgrade
-    sudo kubeadm upgrade apply v{{< skew currentVersion >}}.x
-    ```
+  ```shell
+  # replace x with the patch version you picked for this upgrade
+  sudo kubeadm upgrade apply v{{< skew currentVersion >}}.x
+  ```
 
-    Once the command finishes you should see:
+  Once the command finishes you should see:
 
-    ```
-    [upgrade/successful] SUCCESS! Your cluster was upgraded to "v{{< skew currentVersion >}}.x". Enjoy!
+  ```
+  [upgrade/successful] SUCCESS! Your cluster was upgraded to "v{{< skew currentVersion >}}.x". Enjoy!
 
-    [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
-    ```
+  [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
+  ```
 
--  Manually upgrade your CNI provider plugin.
+- Manually upgrade your CNI provider plugin.
 
-    Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
-    Check the [addons](/docs/concepts/cluster-administration/addons/) page to
-    find your CNI provider and see whether additional upgrade steps are required.
+  Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
+  Check the [addons](/docs/concepts/cluster-administration/addons/) page to
+  find your CNI provider and see whether additional upgrade steps are required.
 
-    This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
+  This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
 
 **For the other control plane nodes**
 
@@ -154,46 +145,44 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 
 ### Drain the node
 
--  Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+- Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 
-    ```shell
-    # replace <node-to-drain> with the name of your node you are draining
-    kubectl drain <node-to-drain> --ignore-daemonsets
-    ```
+  ```shell
+  # replace <node-to-drain> with the name of your node you are draining
+  kubectl drain <node-to-drain> --ignore-daemonsets
+  ```
 
 ### Upgrade kubelet and kubectl
 
--  Upgrade the kubelet and kubectl:
+- Upgrade the kubelet and kubectl:
 
 {{< tabs name="k8s_install_kubelet" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
-    apt-mark unhold kubelet kubectl && \
-    apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
-    apt-mark hold kubelet kubectl
+{{% tab name="Ubuntu, Debian or HypriotOS" %}} # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
+apt-mark unhold kubelet kubectl && \
+ apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
+ apt-mark hold kubelet kubectl
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
-    yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+{{% tab name="CentOS, RHEL or Fedora" %}} # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
+yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
 <br />
 
--  Restart the kubelet:
+- Restart the kubelet:
 
-    ```shell
-    sudo systemctl daemon-reload
-    sudo systemctl restart kubelet
-    ```
+  ```shell
+  sudo systemctl daemon-reload
+  sudo systemctl restart kubelet
+  ```
 
 ### Uncordon the node
 
--   Bring the node back online by marking it schedulable:
+- Bring the node back online by marking it schedulable:
 
-    ```shell
-    # replace <node-to-drain> with the name of your node
-    kubectl uncordon <node-to-drain>
-    ```
+  ```shell
+  # replace <node-to-drain> with the name of your node
+  kubectl uncordon <node-to-drain>
+  ```
 
 ## Upgrade worker nodes
 
@@ -202,71 +191,67 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Upgrade kubeadm
 
--  Upgrade kubeadm:
+- Upgrade kubeadm:
 
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
-    apt-mark unhold kubeadm && \
-    apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
-    apt-mark hold kubeadm
+{{% tab name="Ubuntu, Debian or HypriotOS" %}} # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
+apt-mark unhold kubeadm && \
+ apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
+ apt-mark hold kubeadm
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
-    yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+{{% tab name="CentOS, RHEL or Fedora" %}} # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
+yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
 
 ### Call "kubeadm upgrade"
 
--  For worker nodes this upgrades the local kubelet configuration:
+- For worker nodes this upgrades the local kubelet configuration:
 
-    ```shell
-    sudo kubeadm upgrade node
-    ```
+  ```shell
+  sudo kubeadm upgrade node
+  ```
 
 ### Drain the node
 
--  Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+- Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 
-    ```shell
-    # replace <node-to-drain> with the name of your node you are draining
-    kubectl drain <node-to-drain> --ignore-daemonsets
-    ```
+  ```shell
+  # replace <node-to-drain> with the name of your node you are draining
+  kubectl drain <node-to-drain> --ignore-daemonsets
+  ```
 
 ### Upgrade kubelet and kubectl
 
--  Upgrade the kubelet and kubectl:
+- Upgrade the kubelet and kubectl:
 
 {{< tabs name="k8s_kubelet_and_kubectl" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
-    apt-mark unhold kubelet kubectl && \
-    apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
-    apt-mark hold kubelet kubectl
+{{% tab name="Ubuntu, Debian or HypriotOS" %}} # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
+apt-mark unhold kubelet kubectl && \
+ apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
+ apt-mark hold kubelet kubectl
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
-    yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+{{% tab name="CentOS, RHEL or Fedora" %}} # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
+yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
 <br />
 
--  Restart the kubelet:
+- Restart the kubelet:
 
-    ```shell
-    sudo systemctl daemon-reload
-    sudo systemctl restart kubelet
-    ```
+  ```shell
+  sudo systemctl daemon-reload
+  sudo systemctl restart kubelet
+  ```
 
 ### Uncordon the node
 
--   Bring the node back online by marking it schedulable:
+- Bring the node back online by marking it schedulable:
 
-    ```shell
-    # replace <node-to-drain> with the name of your node
-    kubectl uncordon <node-to-drain>
-    ```
+  ```shell
+  # replace <node-to-drain> with the name of your node
+  kubectl uncordon <node-to-drain>
+  ```
 
 ## Verify the status of the cluster
 
@@ -287,6 +272,7 @@ This command is idempotent and eventually makes sure that the actual state is th
 To recover from a bad state, you can also run `kubeadm upgrade apply --force` without changing the version that your cluster is running.
 
 During upgrade kubeadm writes the following backup folders under `/etc/kubernetes/tmp`:
+
 - `kubeadm-backup-etcd-<date>-<time>`
 - `kubeadm-backup-manifests-<date>-<time>`
 
