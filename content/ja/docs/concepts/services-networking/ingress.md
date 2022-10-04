@@ -27,22 +27,7 @@ weight: 40
 
 全てのトラフィックを単一のServiceに送る単純なIngressの例を示します。
 
-{{< mermaid >}}
-graph LR;
-  client([クライアント])-. Ingress管理下の <br> ロードバランサー .->ingress[Ingress];
-  ingress-->|ルーティングルール|service[Service];
-  subgraph cluster[クラスター]
-  ingress;
-  service-->pod1[Pod];
-  service-->pod2[Pod];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service,pod1,pod2 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
+{{< figure src="/ja/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="図. Ingress" link="https://mermaid.live/edit#pako:eNqNkstKAzEUhl8lpBuFGan1gqTSlS4EF6LLTheZScaGzo0k4wV14QyI4qav4GUjYhVEUBB8mAh9DTNNalvcuEnCn_P95-TknMAgJRQi6CX7HGddsL3b9BIAgojRRM61VfGsygdV3KviVpWvqrzszLsLYEtHUyGGg5th_-L7_VqdD8C6z1tAlU-q_FTllSr7FaiR4k0rYMFtMQO1LdwZJbKi67ZOVfk4Yi9UcTcCX8bK46mg_IAFtL1ndsOK3DdFB1EuJOW_1X6o4kuDnakEBjC0TpalZLG9k5LOX70x0WlCTDOwEBs0BFmEWQJCFkWoRghxhORpj6JaGIb27B4yIrtoOTtygjRKOarV6_XmjElvTViLpcZqQFf-5aLvZl3sk63TBEU13_dnbRoTG5Nx4jTujmM74FR9qZZGVeZUnJkH04AZ2VRhd33jJdCBMeUxZkSP1UkV60HZpTH1INJHQkOcR9LTE3emQ3Eu073jJIBI8pw6MM8IlnSDYf2zMUQhjsSvukmYTLkVz34Au18T9A" >}}
 
 IngressはServiceに対して、外部疎通できるURL、負荷分散トラフィック、SSL/TLS終端の機能や、名前ベースの仮想ホスティングを提供するように設定できます。[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)は通常はロードバランサーを使用してIngressの機能を実現しますが、エッジルーターや、追加のフロントエンドを構成してトラフィックの処理を支援することもできます。
 
@@ -303,25 +288,7 @@ IngressコントローラーとロードバランサーがIPアドレス割り�
 
 ファンアウト設定では単一のIPアドレスのトラフィックを、リクエストされたHTTP URIに基づいて1つ以上のServiceに転送します。Ingressによってロードバランサーの数を少なくすることができます。例えば、以下のように設定します。
 
-{{< mermaid >}}
-graph LR;
-  client([クライアント])-. Ingress管理下の <br> ロードバランサー .->ingress[Ingress, 178.91.123.132];
-  ingress-->|/foo|service1[Service service1:4200];
-  ingress-->|/bar|service2[Service service2:8080];
-  subgraph cluster[クラスター]
-  ingress;
-  service1-->pod1[Pod];
-  service1-->pod2[Pod];
-  service2-->pod3[Pod];
-  service2-->pod4[Pod];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
+{{< figure src="/ja/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="図. Ingressファンアウト" link="https://mermaid.live/edit#pako:eNqNUk1v1DAQ_SuW9wJSEhJngcWL9lQOSBwQPW724MRO12o2jmyHD7U9kEgIxKV_AcSFA-WAkEBC4scYqX8Dp3a6XQoSF3s0b96bmac5goWgDGJ4IEmzBo-ezLMagKLirNY3lqb7bPqPpvtguvem_2L616ubYQQe1geSKXV-9u789NWvb2_NyzNwP5cLYPpPpv9h-jemPx2IltJ9tRkQhQvuSEtPDkBydxbdS6IEpVGSotVFY18UhovjW6UQx4rJp7xgyXLfBWBM4CmK4-ucnMiRg_7kIDyLZ56j2twtXFSt0kxebvrddD_twKsrwo7g-9oujaDJ8rGgq78A6BqAHJD-C5huAVZTZz5Rao-VoKkIr0HJqwpPKKWB0lIcMjwpy9LH4TNO9RpPm-dBISoh8SSO4_mOyOFMeYkU3SnY7f9SsdiuirfJK22peJLn-a4M2sq4jlul0dFgNG0MUDCYOjwXUTo802H0K1x3k86UnbSbzP9zGMANkxvCqT3qo6Eug3rNNiyD2IaUlaStdAaz-sSWklaL_Rd1AbGWLQtg21Ci2R4n9jo2EJekUpfZB5RrIX3y5DdQxjHm" >}}
 
 Ingressを以下のように設定します。
 
@@ -361,25 +328,7 @@ IngressコントローラーはService(`service1`、`service2`)が存在する�
 
 名前ベースのバーチャルホストは、HTTPトラフィックを同一のIPアドレスの複数のホスト名に転送することをサポートしています。
 
-{{< mermaid >}}
-graph LR;
-  client([クライアント])-. Ingress管理下の <br> ロードバランサー .->ingress[Ingress, 178.91.123.132];
-  ingress-->|Host: foo.bar.com|service1[Service service1:80];
-  ingress-->|Host: bar.foo.com|service2[Service service2:80];
-  subgraph cluster[クラスター]
-  ingress;
-  service1-->pod1[Pod];
-  service1-->pod2[Pod];
-  service2-->pod3[Pod];
-  service2-->pod4[Pod];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
+{{< figure src="/ja/docs/images/ingressNameBased.svg" alt="ingress-namebase-diagram" class="diagram-large" caption="図. Ingress名前ベースのバーチャルホスティング" link="https://mermaid.live/edit#pako:eNqNks1u1DAQx1_F8l5ASqKNs8Dioj0VCSQOiB43e3Bip2s1iSPb4UNtDyQSAnHpK4B66YFyQEggIfEwRupr4NTeL6ASF2c0__n9ZzzxMcwFZRDDQ0maJXjybC-tAchLzmp9a266z6a_MN256T6a_ovp3y5uhxF4XB9KptTV5Yersze_vr03ry_Bg0zOgOk_mf6H6d-Z_mwALdJ9tRkQhTPuoLmHAxDfm0b34yhGSRQnaHHd2BeF4ezkkVAag0KIKCMyykV1oph8znMWzw9cAFYJPB3fgA_oYLGFoz9xtMZVm7k15GWrNJPr-3833U97jcVWDwf4AWzDRtB4_lTQxT8E9JeAnJDcJEw2Aqup-yVEqX1WgKYkvAYFL0s8opQGSktxxPCoKAofhy841Us8aV4GuSiFxKPxeLy3Y3I0Vd4iQXdzdue_XKy26-LX5J02KB5lWbZrgzY2ruPGabXRYLW0VYCCYanDcR0lwzEZRt9i3Ut1S9lJu8n81yowgBWTFeHUPvbjoTKFeskqlkJsQ8oK0pY6hWl9aktJq8XBqzqHWMuWBbBtKNFsnxP7PiqIC1KqdfYh5VpInzz9DRXUOys" >}}
 
 以下のIngress設定は、ロードバランサーに対して、[Hostヘッダー](https://tools.ietf.org/html/rfc7230#section-5.4)に基づいてリクエストを転送するように指示するものです。
 
