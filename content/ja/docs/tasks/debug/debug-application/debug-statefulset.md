@@ -1,6 +1,7 @@
 ---
 title: StatefulSetのデバッグ
 content_type: task
+weight: 30
 ---
 
 <!-- overview -->
@@ -36,6 +37,3 @@ Podが長期間`Unknown`または`Terminating`の状態になっていること�
 
 
 [Initコンテナのデバッグ](/ja/docs/tasks/debug/debug-application/debug-init-containers/)の詳細
-
-
-
