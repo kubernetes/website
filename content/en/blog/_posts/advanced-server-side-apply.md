@@ -5,13 +5,13 @@ date: 2022-10-00
 slug: advanced-server-side-apply
 ---
 
-**Author:** Daniel Smith, Google
+**Author:** Daniel Smith (Google)
 
 Server-side apply (SSA) has now been [GA for a few releases](https://kubernetes.io/blog/2021/08/06/server-side-apply-ga/), 
 and I have found myself in a number of conversations, recommending that people / teams in various situations use it. 
 So I’d like to write down some of those reasons.
 
-## Obvious (and not-so-obvious) benefits of SSA
+## Obvious (and not-so-obvious) benefits of SSA {#benefits}
 
 A list of improvements / nicities you get from switching from various things to Server-side apply!
 
@@ -42,7 +42,7 @@ Use `kubectl apply --server-side`! Soon we hope to make this the default and rem
 
 There’s two main categories here, but for both of them, **you should probably “force conflicts” when using SSA**. This is because your controller probably doesn’t know what to do when some other entity in the system has a different desire than your controller about a particular field. (See the CI/CD section, though!)
 
-#### GET-modify-PUT/PATCH controllers
+#### Controllers that use either a GET-modify-PUT sequence or a PATCH {#get-modify-put-patch-controllers}
 
 This kind of controller GETs an object (possibly from a watch), modifies it, and then PUTs it back to write its changes. Sometimes it constructs a custom PATCH, but the semantics are the same. Most existing controllers (especially those in-tree) work like this.
 
@@ -63,11 +63,11 @@ To get around this downside, why not GET the object and only send your APPLY if 
 #### CI/CD systems
 Continuous integration and/or deployment systems are a special kind of controller which is doing something like reading source .yaml files from a git repo and automatically pushing them into the cluster, perhaps after running them through some testing, or waiting for test results, etc. Generally users are the entities pushing changes into the git repo, although that’s not necessarily always the case.
 
-Some systems like this continuously reconcile with the cluster, others may only operate when a change is pushed to the git repo. The following considerations are important for both, but more so for the continuously reconciling kind.
+Some systems like this continuously reconcile with the cluster, others may only operate when a change is pushed to the source control system. The following considerations are important for both, but more so for the continuously reconciling kind.
 
 CI/CD systems are literally controllers, but for the purpose of APPLY, they are more like users, and unlike other controllers, they need to pay attention to conflicts. Reasoning:
 * Abstractly, CI/CD systems can change anything, which means they could conflict with any controller out there. The recommendation that controllers force conflicts is assuming that controllers change a limited number of things and you can be reasonably sure that they won’t fight with other controllers about those things; that’s clearly not the case for CI/CD controllers.
-* Concrete example: imagine the CI/CD system wants spec.replicas to be 3, because that is checked into source code; but HPA is also enabled for this Deployment, and it thinks there should be 10 replicas. Who should win? We just said that most controllers–including the HPA–should ignore conflicts. The HPA has no idea if it has been enabled incorrectly, and the HPA has no convenient way of informing users of errors.
+* Concrete example: imagine the CI/CD system wants `.spec.replicas` for some Deployment to be 3, because that is the value that is checked into source code; however there is also a HorizontalPodAutoscaler (HPA) that targets the same deployment. The HPA computes a target scale and decides that there should be 10 replicas. Which should win? I just said that most controllers–including the HPA–should ignore conflicts. The HPA has no idea if it has been enabled incorrectly, and the HPA has no convenient way of informing users of errors.
 * The other common cause of a CI/CD system getting a conflict is probably when it is trying to overwrite a hot-fix (hand-rolled patch) placed there by a system admin / SRE / dev-on-call. You almost certainly don’t want to override that automatically.
 * Of course, sometimes SRE makes an accidental change, or a dev makes an unauthorized change – those you do want to notice and overwrite; however, the CI/CD system can’t tell the difference between these last two cases.
 
