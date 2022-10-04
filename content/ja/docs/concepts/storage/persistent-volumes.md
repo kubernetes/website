@@ -746,7 +746,7 @@ spec:
 
 * [Creating a Persistent Volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)について学ぶ
 * [Creating a Persistent Volume Claim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)について学ぶ
-* [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md)を読む
+* [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md)を読む
 
 ### リファレンス
 

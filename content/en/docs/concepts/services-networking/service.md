@@ -6,7 +6,9 @@ feature:
   title: Service discovery and load balancing
   description: >
     No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods, and can load-balance across them.
-
+description: >-
+  Expose an application running in your cluster behind a single outward-facing
+  endpoint, even when the workload is split across multiple backends.
 content_type: concept
 weight: 10
 ---
@@ -287,7 +289,7 @@ There are a few reasons for using proxying for Services:
   on the DNS records could impose a high load on DNS that then becomes
   difficult to manage.
 
-Later in this page you can read about various kube-proxy implementations work. Overall,
+Later in this page you can read about how various kube-proxy implementations work. Overall,
 you should note that, when running `kube-proxy`, kernel level rules may be
 modified (for example, iptables rules might get created), which won't get cleaned up,
 in some cases until you reboot.  Thus, running kube-proxy is something that should
@@ -503,18 +505,18 @@ It also supports variables (see [makeLinkVariables](https://github.com/kubernete
 that are compatible with Docker Engine's
 "_[legacy container links](https://docs.docker.com/network/links/)_" feature.
 
-For example, the Service `redis-master` which exposes TCP port 6379 and has been
+For example, the Service `redis-primary` which exposes TCP port 6379 and has been
 allocated cluster IP address 10.0.0.11, produces the following environment
 variables:
 
 ```shell
-REDIS_MASTER_SERVICE_HOST=10.0.0.11
-REDIS_MASTER_SERVICE_PORT=6379
-REDIS_MASTER_PORT=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP_PROTO=tcp
-REDIS_MASTER_PORT_6379_TCP_PORT=6379
-REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
+REDIS_PRIMARY_SERVICE_HOST=10.0.0.11
+REDIS_PRIMARY_SERVICE_PORT=6379
+REDIS_PRIMARY_PORT=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP_PROTO=tcp
+REDIS_PRIMARY_PORT_6379_TCP_PORT=6379
+REDIS_PRIMARY_PORT_6379_TCP_ADDR=10.0.0.11
 ```
 
 {{< note >}}
@@ -637,7 +639,7 @@ to specify IP address ranges that kube-proxy should consider as local to this no
 For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag,
 kube-proxy only selects the loopback interface for NodePort Services.
 The default for `--nodeport-addresses` is an empty list.
-his means that kube-proxy should consider all available network interfaces for NodePort.
+This means that kube-proxy should consider all available network interfaces for NodePort.
 (That's also compatible with earlier Kubernetes releases).
 
 If you want a specific port number, you can specify a value in the `nodePort`
@@ -1325,15 +1327,15 @@ IP addresses that are no longer used by any Services.
 
 #### IP address ranges for `type: ClusterIP` Services {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 However, there is a problem with this `ClusterIP` allocation strategy, because a user
 can also [choose their own address for the service](#choosing-your-own-ip-address).
 This could result in a conflict if the internal allocator selects the same IP address
 for another Service.
 
-If you enable the `ServiceIPStaticSubrange`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-the allocation strategy divides the `ClusterIP` range into two bands, based on
+The `ServiceIPStaticSubrange`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default in v1.25
+and later, using an allocation strategy that divides the `ClusterIP` range into two bands, based on
 the size of the configured `service-cluster-ip-range` by using the following formula
 `min(max(16, cidrSize / 16), 256)`, described as _never less than 16 or more than 256,
 with a graduated step function between them_. Dynamic IP allocations will be preferentially

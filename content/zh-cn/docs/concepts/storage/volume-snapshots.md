@@ -292,6 +292,13 @@ source volume's mode is unknown.
 `Filesystem` 或 `Block`。如果没有指定源卷模式，Kubernetes 会将快照视为未知的源卷模式。
 
 <!--
+`volumeSnapshotRef` is the reference of the corresponding `VolumeSnapshot`. Note that when the `VolumeSnapshotContent` is being created as a pre-provisioned snapshot, the `VolumeSnapshot` referenced in `volumeSnapshotRef` might not exist yet.
+-->
+`volumeSnapshotRef` 字段是对相应的 `VolumeSnapshot` 的引用。
+请注意，当 `VolumeSnapshotContent` 被创建为预配置快照时。
+`volumeSnapshotRef` 中引用的 `VolumeSnapshot` 可能还不存在。
+
+<!--
 ## Converting the volume mode of a Snapshot {#convert-volume-mode}
 
 If the `VolumeSnapshots` API installed on your cluster supports the `sourceVolumeMode`

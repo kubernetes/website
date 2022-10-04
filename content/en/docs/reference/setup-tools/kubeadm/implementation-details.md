@@ -362,7 +362,7 @@ The static Pod manifest for the scheduler is not affected by parameters provided
 
 ### Generate static Pod manifest for local etcd
 
-If the user specified an external etcd this step will be skipped, otherwise kubeadm generates a
+If you specified an external etcd this step will be skipped, otherwise kubeadm generates a
 static Pod manifest file for creating a local etcd instance running in a Pod with following attributes:
 
 - listen on `localhost:2379` and use `HostNetwork=true`
@@ -371,12 +371,12 @@ static Pod manifest file for creating a local etcd instance running in a Pod wit
 
 Please note that:
 
-1. The etcd image will be pulled from `k8s.gcr.io` by default. See
+1. The etcd container image will be pulled from `registry.gcr.io` by default. See
    [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)
-   for customizing the image repository
-2. In case of kubeadm is executed in the `--dry-run` mode, the etcd static Pod manifest is written
-   in a temporary folder.
-3. Static Pod manifest generation for local etcd can be invoked individually with the
+   for customizing the image repository.
+2. If you run kubeadm in `--dry-run` mode, the etcd static Pod manifest is written
+   into a temporary folder.
+3. You can directly invoke static Pod manifest generation for local etcd, using the
    [`kubeadm init phase etcd local`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd)
    command.
 
@@ -409,6 +409,11 @@ Please note that:
 As soon as the control plane is available, kubeadm executes following actions:
 
 - Labels the node as control-plane with `node-role.kubernetes.io/control-plane=""`
+- Taints the node with `node-role.kubernetes.io/control-plane:NoSchedule`
+
+Please note that the phase to mark the control-plane phase can be invoked
+individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command.
+
 - Taints the node with `node-role.kubernetes.io/master:NoSchedule` and
   `node-role.kubernetes.io/control-plane:NoSchedule`
 
@@ -417,6 +422,7 @@ Please note that:
 1. The `node-role.kubernetes.io/master` taint is deprecated and will be removed in kubeadm version 1.25
 1. Mark control-plane phase phase can be invoked individually with the command
    [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane)
+
 
 ### Configure TLS-Bootstrapping for node joining
 
@@ -439,8 +445,9 @@ Please note that:
 
 `kubeadm init` create a first bootstrap token, either generated automatically or provided by the
 user with the `--token` flag; as documented in bootstrap token specification, token should be
-saved as secrets with name `bootstrap-token-<token-id>` under `kube-system` namespace.  Please
-note that:
+saved as secrets with name `bootstrap-token-<token-id>` under `kube-system` namespace.
+
+Please note that:
 
 1. The default token created by `kubeadm init` will be used to validate temporary user during TLS
    bootstrap process; those users will be member of
@@ -457,7 +464,7 @@ access the certificate signing API.
 This is implemented by creating a ClusterRoleBinding named `kubeadm:kubelet-bootstrap` between the
 group above and the default RBAC role `system:node-bootstrapper`.
 
-#### Setup auto approval for new bootstrap tokens
+#### Set up auto approval for new bootstrap tokens
 
 Kubeadm ensures that the Bootstrap Token will get its CSR request automatically approved by the
 csrapprover controller.
@@ -470,7 +477,7 @@ The role `system:certificates.k8s.io:certificatesigningrequests:nodeclient` shou
 well, granting POST permission to
 `/apis/certificates.k8s.io/certificatesigningrequests/nodeclient`.
 
-#### Setup nodes certificate rotation with auto approval
+#### Set up nodes certificate rotation with auto approval
 
 Kubeadm ensures that certificate rotation is enabled for nodes, and that new certificate request
 for nodes will get its CSR request automatically approved by the csrapprover controller.
@@ -496,6 +503,7 @@ Please note that:
 ### Install addons
 
 Kubeadm installs the internal DNS server and the kube-proxy addon components via the API server.
+
 Please note that:
 
 1. This phase can be invoked individually with the command

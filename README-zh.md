@@ -9,8 +9,8 @@
 <!--
 This repository contains the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
 -->
-本仓库包含了所有用于构建 [Kubernetes 网站和文档](https://kubernetes.io/) 的软件资产。
-我们非常高兴您想要参与贡献！
+本仓库包含了所有用于构建 [Kubernetes 网站和文档](https://kubernetes.io/)的软件资产。
+我们非常高兴你想要参与贡献！
 
 <!--
 - [Contributing to the docs](#contributing-to-the-docs)
@@ -37,7 +37,6 @@ To use this repository, you need the following installed locally:
 - [Go](https://golang.org/)
 - [Hugo (Extended version)](https://gohugo.io/)
 - A container runtime, like [Docker](https://www.docker.com/).
-
 -->
 ## 前提条件
 
@@ -45,8 +44,8 @@ To use this repository, you need the following installed locally:
 
 - [npm](https://www.npmjs.com/)
 - [Go](https://golang.org/)
-- [Hugo (Extended version)](https://gohugo.io/)
-- 容器运行时，比如 [Docker](https://www.docker.com/).
+- [Hugo（Extended 版本）](https://gohugo.io/)
+- 容器运行时，比如 [Docker](https://www.docker.com/)。
 
 <!--
 Before you start, install the dependencies. Clone the repository and navigate to the directory:
@@ -62,7 +61,8 @@ cd website
 The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme). Even if you plan to run the website in a container, we strongly recommend pulling in the submodule and other development dependencies by running the following:
 -->
 
-Kubernetes 网站使用的是 [Docsy Hugo 主题](https://github.com/google/docsy#readme)。 即使你打算在容器中运行网站，我们也强烈建议你通过运行以下命令来引入子模块和其他开发依赖项：
+Kubernetes 网站使用的是 [Docsy Hugo 主题](https://github.com/google/docsy#readme)。
+即使你打算在容器中运行网站，我们也强烈建议你通过运行以下命令来引入子模块和其他开发依赖项：
 
 ```bash
 # 引入 Docsy 子模块
@@ -72,12 +72,11 @@ git submodule update --init --recursive --depth 1
 <!--
 ## Running the website using a container
 
-To build the site in a container, run the following to build the container image and run it:
-
+To build the site in a container, run the following:
 -->
 ## 在容器中运行网站
 
-要在容器中构建网站，请通过以下命令来构建容器镜像并运行：
+要在容器中构建网站，请运行以下命令：
 
 ```bash
 # 你可以将 $CONTAINER_ENGINE 设置为任何 Docker 类容器工具的名称
@@ -87,7 +86,7 @@ make container-serve
 <!--
 If you see errors, it probably means that the hugo container did not have enough computing resources available. To solve it, increase the amount of allowed CPU and memory usage for Docker on your machine ([MacOSX](https://docs.docker.com/docker-for-mac/#resources) and [Windows](https://docs.docker.com/docker-for-windows/#resources)).
 -->
-如果您看到错误，这可能意味着 hugo 容器没有足够的可用计算资源。
+如果你看到错误，这可能意味着 Hugo 容器没有足够的可用计算资源。
 要解决这个问题，请增加机器（[MacOSX](https://docs.docker.com/docker-for-mac/#resources)
 和 [Windows](https://docs.docker.com/docker-for-windows/#resources)）上
 Docker 允许的 CPU 和内存使用量。
@@ -108,7 +107,7 @@ To build and test the site locally, run:
 ## 在本地使用 Hugo 来运行网站
 
 请确保安装的是 [`netlify.toml`](netlify.toml#L10) 文件中环境变量 `HUGO_VERSION` 所指定的
-Hugo 扩展版本。
+Hugo Extended 版本。
 
 若要在本地构造和测试网站，请运行：
 
@@ -137,7 +136,7 @@ To update the reference pages for a new Kubernetes release follow these steps:
 -->
 位于 `content/en/docs/reference/kubernetes-api` 的 API 参考页面是根据 Swagger 规范构建的，使用 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>。
 
-要更新新 Kubernetes 版本的参考页面，请执行以下步骤：
+要更新 Kubernetes 新版本的参考页面，请执行以下步骤：
 
 <!--
 1. Pull in the `api-ref-generator` submodule:
@@ -171,19 +170,19 @@ To update the reference pages for a new Kubernetes release follow these steps:
    make api-reference
    ```
 
-<!--
+   <!--
    You can test the results locally by making and serving the site from a container image:
--->
-   您可以通过从容器映像创建和提供站点来在本地测试结果：
+   -->
+   你可以通过从容器映像创建和提供站点来在本地测试结果：
 
    ```bash
    make container-image
    make container-serve
    ```
 
-<!--
+   <!--
    In a web browser, go to <http://localhost:1313/docs/reference/kubernetes-api/> to view the API reference.
--->
+   -->
    在 Web 浏览器中，打开 <http://localhost:1313/docs/reference/kubernetes-api/> 查看 API 参考。
 
 <!--
@@ -200,17 +199,17 @@ Hugo is shipped in two set of binaries for technical reasons. The current websit
 -->
 ## 故障排除
 
-###  error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
+### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
 
 由于技术原因，Hugo 会发布两套二进制文件。
 当前网站仅基于 **Hugo Extended** 版本运行。
-在 [发布页面](https://github.com/gohugoio/hugo/releases) 中查找名称为 `extended` 的归档。可以运行 `hugo version` 查看是否有单词 `extended` 来确认。
+在[发布页面](https://github.com/gohugoio/hugo/releases)中查找名称为 `extended` 的归档。
+可以运行 `hugo version` 查看是否有单词 `extended` 来确认。
 
 <!--
 ### Troubleshooting macOS for too many open files
 
 If you run `make serve` on macOS and receive the following error:
-
 -->
 ### 对 macOS 上打开太多文件的故障排除
 
@@ -236,7 +235,7 @@ Then run the following commands (adapted from <https://gist.github.com/tombigel/
 ```shell
 #!/bin/sh
 
-# These are the original gist links, linking to my gists now.
+# 这些是原始的 gist 链接，立即链接到我的 gist。
 # curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxfiles.plist
 # curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxproc.plist
 
@@ -313,10 +312,10 @@ You can also reach the maintainers of this project at:
   - [Get an invite for this Slack](https://slack.k8s.io/)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 -->
-# 参与 SIG Docs 工作
+## 参与 SIG Docs 工作
 
-通过 [社区页面](https://github.com/kubernetes/community/tree/master/sig-docs#meetings)
-进一步了解 SIG Docs Kubernetes 社区和会议信息。
+通过[社区页面](https://github.com/kubernetes/community/tree/master/sig-docs#meetings)进一步了解
+SIG Docs Kubernetes 社区和会议信息。
 
 你也可以通过以下渠道联系本项目的维护人员：
 
@@ -331,16 +330,15 @@ You can click the **Fork** button in the upper-right area of the screen to creat
 
 Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback. As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**
 -->
-# 为文档做贡献
+## 为文档做贡献
 
 你也可以点击屏幕右上方区域的 **Fork** 按钮，在你自己的 GitHub
-账号下创建本仓库的拷贝。此拷贝被称作 _fork_。
+账号下创建本仓库的拷贝。此拷贝被称作 **fork**。
 你可以在自己的拷贝中任意地修改文档，并在你已准备好将所作修改提交给我们时，
 在你自己的拷贝下创建一个拉取请求（Pull Request），以便让我们知道。
 
 一旦你创建了拉取请求，某个 Kubernetes 评审人会负责提供明确的、可执行的反馈意见。
-作为拉取请求的拥有者，*修改拉取请求以解决 Kubernetes
-评审人所提出的反馈是你的责任*。
+作为拉取请求的拥有者，**修改拉取请求以解决 Kubernetes 评审人所提出的反馈是你的责任**。
 
 <!--
 Also, note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one initially assigned to provide you feedback.
@@ -350,9 +348,8 @@ Furthermore, in some cases, one of your reviewers might ask for a technical revi
 还要提醒的一点，有时可能会有不止一个 Kubernetes 评审人为你提供反馈意见。
 有时候，某个评审人的意见和另一个最初被指派的评审人的意见不同。
 
-更进一步，在某些时候，评审人之一可能会在需要的时候请求 Kubernetes
-技术评审人来执行技术评审。
-评审人会尽力及时地提供反馈意见，不过具体的响应时间可能会因时而异。
+另外在某些时候，某个评审人可能会在需要的时候请求一名 Kubernetes 技术评审人来执行技术评审。
+这些评审人会尽力及时地提供反馈意见，不过具体的响应时间可能会因时而异。
 
 <!--
 For more information about contributing to the Kubernetes documentation, see:
@@ -364,10 +361,10 @@ For more information about contributing to the Kubernetes documentation, see:
 -->
 有关为 Kubernetes 文档做出贡献的更多信息，请参阅：
 
-- [贡献 Kubernetes 文档](https://kubernetes.io/docs/contribute/)
-- [页面内容类型](https://kubernetes.io/docs/contribute/style/page-content-types/)
-- [文档风格指南](https://kubernetes.io/docs/contribute/style/style-guide/)
-- [本地化 Kubernetes 文档](https://kubernetes.io/docs/contribute/localization/)
+- [贡献 Kubernetes 文档](https://kubernetes.io/zh-cn/docs/contribute/)
+- [页面内容类型](https://kubernetes.io/zh-cn/docs/contribute/style/page-content-types/)
+- [文档风格指南](https://kubernetes.io/zh-cn/docs/contribute/style/style-guide/)
+- [本地化 Kubernetes 文档](https://kubernetes.io/zh-cn/docs/contribute/localization/)
 
 <!--
 ### New contributor ambassadors
@@ -377,7 +374,7 @@ For more information about contributing to the Kubernetes documentation, see:
 <!--
 If you need help at any point when contributing, the [New Contributor Ambassadors](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador) are a good point of contact. These are SIG Docs approvers whose responsibilities include mentoring new contributors and helping them through their first few pull requests. The best place to contact the New Contributors Ambassadors would be on the [Kubernetes Slack](https://slack.k8s.io/). Current New Contributors Ambassadors for SIG Docs:
 -->
-如果您在贡献时需要帮助，[新贡献者大使](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador)是一个很好的联系人。
+如果你在贡献时需要帮助，[新贡献者大使](https://kubernetes.io/zh-cn/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador)是一个很好的联系人。
 这些是 SIG Docs 批准者，其职责包括指导新贡献者并帮助他们完成最初的几个拉取请求。
 联系新贡献者大使的最佳地点是 [Kubernetes Slack](https://slack.k8s.io/)。
 SIG Docs 的当前新贡献者大使：
@@ -423,16 +420,16 @@ SIG Docs 的当前新贡献者大使：
 
 * Rui Chen ([GitHub - @chenrui333](https://github.com/chenrui333))
 * He Xiaolong ([GitHub - @markthink](https://github.com/markthink))
-* [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-zh)
+* [Slack 频道](https://kubernetes.slack.com/messages/kubernetes-docs-zh)
 
 <!--
 ## Code of conduct
 
-Participation in the Kubernetes community is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md).
+Participation in the Kubernetes community is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
 -->
 ## 行为准则
 
-参与 Kubernetes 社区受 [CNCF 行为准则](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) 约束。
+参与 Kubernetes 社区受 [CNCF 行为准则](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)约束。
 
 <!--
 ## Thank you
@@ -441,4 +438,4 @@ Kubernetes thrives on community participation, and we appreciate your contributi
 -->
 ## 感谢你
 
-Kubernetes 因为社区的参与而蓬勃发展，感谢您对我们网站和文档的贡献！
+Kubernetes 因为社区的参与而蓬勃发展，感谢你对我们网站和文档的贡献！

@@ -1,5 +1,8 @@
 ---
 title: IPv4/IPv6 双协议栈
+description: >-
+  Kubernetes 允许你配置单协议栈 IPv4 网络、单协议栈 IPv6
+  网络或同时激活这两种网络的双协议栈网络。本页说明具体配置方法。
 feature:
   title: IPv4/IPv6 双协议栈
   description: >
@@ -10,16 +13,20 @@ weight: 70
 
 <!--
 title: IPv4/IPv6 dual-stack
+description: >-
+  Kubernetes lets you configure single-stack IPv4 networking,
+  single-stack IPv6 networking, or dual stack networking with
+  both network families active. This page explains how.
 feature:
   title: IPv4/IPv6 dual-stack
   description: >
     Allocation of IPv4 and IPv6 addresses to Pods and Services
 content_type: concept
 reviewers:
-- lachie83
-- khenidak
-- aramase
-- bridgetkromhout
+  - lachie83
+  - khenidak
+  - aramase
+  - bridgetkromhout
 weight: 70
 -->
 

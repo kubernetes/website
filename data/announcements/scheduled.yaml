@@ -116,3 +116,17 @@ announcements:
   message: |
     5 days of incredible opportunites to collaborate, learn + share with the entire community!<br />
     May 16 - 20, 2022.
+
+- name: Kubecon 2022 NA
+  startTime: 2022-09-23T00:00:00 # Added in https://github.com/kubernetes/website/pull/36107
+                                 # Date amended in https://github.com/kubernetes/website/pull/36927
+  endTime: 2022-10-29T00:00:00
+  style: >-
+    background: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(114,114,255) 100%);
+    color: #fff;
+  title: |
+    <img src="/images/announcements/kccnc-na-2022-white.svg" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/">KubeCon + CloudNativeCon NA 2022</a> <em>Detroit, Michigan + Virtual</em>.
+  message: |
+    5 days of incredible opportunites to collaborate, learn + share with the entire community!<br />
+    October 24 - 28, 2022.

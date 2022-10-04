@@ -36,6 +36,7 @@ VolumeAttachment 对象未划分命名空间。
 <hr>
 
 - **apiVersion**: storage.k8s.io/v1
+
 - **kind**: VolumeAttachment
 
 <!--
@@ -46,10 +47,12 @@ VolumeAttachment 对象未划分命名空间。
   Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
   标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachmentSpec" >}}">VolumeAttachmentSpec</a>)，必需
+
   期望的挂接/解除挂接卷行为的规约。由 Kubernetes 系统填充。
 
 <!--
@@ -57,6 +60,7 @@ VolumeAttachment 对象未划分命名空间。
   Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
 -->
 - **status** (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachmentStatus" >}}">VolumeAttachmentStatus</a>)
+
   VolumeAttachment 请求的状态。由完成挂接或解除挂接操作的实体（即外部挂接器）进行填充。
 
 ## VolumeAttachmentSpec {#VolumeAttachmentSpec}
@@ -75,9 +79,11 @@ VolumeAttachmentSpec 是 VolumeAttachment 请求的规约。
   The node that the volume should be attached to.
 -->
 - **attacher** (string)，必需
+
   attacher 表示必须处理此请求的卷驱动的名称。这是由 GetPluginName() 返回的名称。
 
 - **nodeName** (string)，必需
+
   卷应挂接到的节点。
 
 <!--
@@ -94,6 +100,7 @@ VolumeAttachmentSpec 是 VolumeAttachment 请求的规约。
     Name of the persistent volume to attach.
 -->
 - **source** (VolumeAttachmentSource)，必需
+
   source 表示应挂接的卷。
   
   <a name="VolumeAttachmentSource"></a>
@@ -105,9 +112,10 @@ VolumeAttachmentSpec 是 VolumeAttachment 请求的规约。
     inlineVolumeSpec 包含挂接由 Pod 的内联 VolumeSource 定义的持久卷时所有必需的信息。
     仅为 CSIMigation 功能填充此字段。
     它包含从 Pod 的内联 VolumeSource 转换为 PersistentVolumeSpec 的字段。
-    此字段处于 beta 阶段，且只有启用 CSIMigration 功能的服务器才能使用此字段。
+    此字段处于 Beta 阶段，且只有启用 CSIMigration 功能的服务器才能使用此字段。
   
   - **source.persistentVolumeName** (string)
+
     要挂接的持久卷的名称。
 
 ## VolumeAttachmentStatus {#VolumeAttachmentStatus}
@@ -121,6 +129,7 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
 <hr>
 
 - **attached** (boolean)，必需
+
   表示卷被成功挂接。此字段只能由完成挂接操作的实体（例如外部挂接器）进行设置。
 
 <!--
@@ -140,20 +149,23 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 -->
 - **attachError** (VolumeError)
+
   挂接操作期间遇到的最后一个错误，如果有。
   此字段只能由完成挂接操作的实体（例如外部挂接器）进行设置。
   
-  <a name="VolumeError"></a> 
+  <a name="VolumeError"></a>
   **VolumeError 抓取卷操作期间遇到的一个错误。**
   
   - **attachError.message** (string)
+
     此字符串详细说明挂接或解除挂接操作期间遇到的错误。
     此字符串可以放入日志，因此它不应包含敏感信息。
   
   - **attachError.time** (Time)
+
     遇到错误的时间。
     
-    <a name="Time"></a> 
+    <a name="Time"></a>
     **time 是 time.Time 的包装类，支持正确地序列化为 YAML 和 JSON。
     为 time 包提供的许多工厂方法提供了包装类。**
 
@@ -162,6 +174,7 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
   Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 -->
 - **attachmentMetadata** (map[string]string)
+
   成功挂接时，此字段将由挂接操作返回的任何信息进行填充，
   这些信息必须传递到后续的 WaitForAttach 或 Mount 调用中。
   此字段只能由完成挂接操作的实体（例如外部挂接器）进行设置。
@@ -183,20 +196,23 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 -->
 - **detachError** (VolumeError)
+
   解除挂接操作期间遇到的最后一个错误，如果有。
   此字段只能由完成解除挂接操作的实体（例如外部挂接器）进行设置。
   
-  <a name="VolumeError"></a> 
+  <a name="VolumeError"></a>
   **VolumeError 抓取卷操作期间遇到的一个错误。**
   
   - **detachError.message** (string)
+
     此字符串详细说明挂接或解除挂接操作期间遇到的错误。
     此字符串可以放入日志，因此它不应包含敏感信息。
   
   - **detachError.time** (Time)
+
     遇到错误的时间。
     
-    <a name="Time"></a> 
+    <a name="Time"></a>
     **time 是 time.Time 的包装类，支持正确地序列化为 YAML 和 JSON。
     为 time 包提供的许多工厂方法提供了包装类。**
 
@@ -209,6 +225,7 @@ VolumeAttachmentList 是 VolumeAttachment 对象的集合。
 <hr>
 
 - **apiVersion**: storage.k8s.io/v1
+
 - **kind**: VolumeAttachmentList
 
 <!--
@@ -219,10 +236,12 @@ VolumeAttachmentList 是 VolumeAttachment 对象的集合。
   Items is the list of VolumeAttachments
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+
   标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>)，必需
+
   items 是 VolumeAttachment 的列表。
 
 <!--
@@ -231,9 +250,11 @@ VolumeAttachmentList 是 VolumeAttachment 对象的集合。
 #### HTTP Request
 -->
 ## 操作 {#Operations}
+
 <hr>
 
 ### `get` 读取指定的 VolumeAttachment
+
 #### HTTP 请求
 
 GET /apis/storage.k8s.io/v1/volumeattachments/{name}
@@ -245,16 +266,20 @@ GET /apis/storage.k8s.io/v1/volumeattachments/{name}
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
+
   VolumeAttachment 的名称
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 401: Unauthorized
@@ -264,7 +289,9 @@ GET /apis/storage.k8s.io/v1/volumeattachments/{name}
 #### HTTP Request
 -->
 ### `get` 读取指定的 VolumeAttachment 的状态
+
 #### HTTP 请求
+
 GET /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 
 <!--
@@ -274,16 +301,20 @@ GET /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
+
   VolumeAttachment 的名称
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 401: Unauthorized
@@ -293,7 +324,9 @@ GET /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 #### HTTP Request
 -->
 ### `list` 列出或观测类别为 VolumeAttachment 的对象
+
 #### HTTP 请求
+
 GET /apis/storage.k8s.io/v1/volumeattachments
 
 <!--
@@ -310,40 +343,52 @@ GET /apis/storage.k8s.io/v1/volumeattachments
 - **watch** (*in query*): boolean
 -->
 #### 参数
+
 - **allowWatchBookmarks** (**查询参数**): boolean
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 - **continue** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **fieldSelector** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **resourceVersion** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **timeoutSeconds** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 - **watch** (**查询参数**): boolean
+
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachmentList" >}}">VolumeAttachmentList</a>): OK
 
 401: Unauthorized
@@ -353,7 +398,9 @@ GET /apis/storage.k8s.io/v1/volumeattachments
 #### HTTP Request
 -->
 ### `create` 创建 VolumeAttachment
+
 #### HTTP 请求
+
 POST /apis/storage.k8s.io/v1/volumeattachments
 
 <!--
@@ -365,23 +412,30 @@ POST /apis/storage.k8s.io/v1/volumeattachments
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **body**: <a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>，必需
+
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Created
@@ -395,7 +449,9 @@ POST /apis/storage.k8s.io/v1/volumeattachments
 #### HTTP Request
 -->
 ### `update` 替换指定的 VolumeAttachment
+
 #### HTTP 请求
+
 PUT /apis/storage.k8s.io/v1/volumeattachments/{name}
 
 <!--
@@ -409,26 +465,34 @@ PUT /apis/storage.k8s.io/v1/volumeattachments/{name}
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
+
   VolumeAttachment 的名称
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>，必需
+
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Created
@@ -440,7 +504,9 @@ PUT /apis/storage.k8s.io/v1/volumeattachments/{name}
 #### HTTP Request
 -->
 ### `update` 替换指定的 VolumeAttachment 的状态
+
 #### HTTP 请求
+
 PUT /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 
 <!--
@@ -454,26 +520,34 @@ PUT /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
+
   VolumeAttachment 的名称
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>，必需
+
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Created
@@ -485,7 +559,9 @@ PUT /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 #### HTTP Request
 -->
 ### `patch` 部分更新指定的 VolumeAttachment
+
 #### HTTP 请求
+
 PATCH /apis/storage.k8s.io/v1/volumeattachments/{name}
 
 <!--
@@ -500,29 +576,38 @@ PATCH /apis/storage.k8s.io/v1/volumeattachments/{name}
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
+
   VolumeAttachment 的名称
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
+
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **force** (**查询参数**): boolean
+
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Created
@@ -534,7 +619,9 @@ PATCH /apis/storage.k8s.io/v1/volumeattachments/{name}
 #### HTTP Request
 -->
 ### `patch` 部分更新指定的 VolumeAttachment 的状态
+
 #### HTTP 请求
+
 PATCH /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 
 <!--
@@ -549,29 +636,38 @@ PATCH /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
+
   VolumeAttachment 的名称
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
+
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **force** (**查询参数**): boolean
+
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Created
@@ -583,7 +679,9 @@ PATCH /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 #### HTTP Request
 -->
 ### `delete` 删除 VolumeAttachment
+
 #### HTTP 请求
+
 DELETE /apis/storage.k8s.io/v1/volumeattachments/{name}
 
 <!--
@@ -597,26 +695,34 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments/{name}
 - **propagationPolicy** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
+
   VolumeAttachment 的名称
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **gracePeriodSeconds** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **propagationPolicy** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 <!--
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): OK
 
 202 (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>): Accepted
@@ -628,7 +734,9 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments/{name}
 #### HTTP Request
 -->
 ### `deletecollection` 删除 VolumeAttachment 的集合
+
 #### HTTP 请求
+
 DELETE /apis/storage.k8s.io/v1/volumeattachments
 
 <!--
@@ -647,44 +755,58 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
+
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
 - **continue** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **dryRun** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldSelector** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **gracePeriodSeconds** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 - **labelSelector** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **propagationPolicy** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 - **resourceVersion** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **timeoutSeconds** (**查询参数**): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 <!--
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized

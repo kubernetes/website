@@ -1,12 +1,12 @@
 ---
-
-
-
-
-
-
-
-
+# reviewers:
+# - bprashanth
+# - enisoc
+# - erictune
+# - foxish
+# - janetkuo
+# - kow3ns
+# - smarterclayton
 title: 스테이트풀셋 디버깅하기
 content_type: task
 weight: 30
@@ -24,11 +24,11 @@ weight: 30
 
 ## 스테이트풀셋 디버깅하기
 
-레이블이 `app=myapp`으로 지정된 스테이트풀셋 파드를 전부 나열하기 위해서는
+레이블이 `app.kubernetes.io/name=MyApp`으로 지정된 스테이트풀셋 파드를 전부 나열하기 위해서는
 다음의 명령을 사용할 수 있다.
 
 ```shell
-kubectl get pods -l app=myapp
+kubectl get pods -l app.kubernetes.io/name=MyApp
 ```
 
 만약 오랜 시간동안 `Unknown`이나 `Terminating` 상태에 있는

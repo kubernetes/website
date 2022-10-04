@@ -4,6 +4,10 @@ reviewers:
 title: EndpointSlices
 content_type: concept
 weight: 45
+description: >-
+  The EndpointSlice API is the mechanism that Kubernetes uses to let your Service
+  scale to handle large numbers of backends, and allows the cluster to update its
+  list of healthy backends efficiently.
 ---
 
 
@@ -108,7 +112,7 @@ Services will always have the `ready` condition set to `true`.
 
 #### Serving
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `serving` is identical to the `ready` condition, except it does not account for terminating states.
 Consumers of the EndpointSlice API should check this condition if they care about pod readiness while
@@ -127,7 +131,7 @@ for terminating pods independent of the existing semantics for `ready`.
 
 #### Terminating
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `Terminating` is a condition that indicates whether an endpoint is terminating.
 For pods, this is any pod that has a deletion timestamp set.

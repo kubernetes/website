@@ -12,7 +12,7 @@ card:
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 This page shows how to install the `kubeadm` toolbox.
-For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
+For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
 
 ## {{% heading "prerequisites" %}}
@@ -89,7 +89,7 @@ The tables below include the known endpoints for supported operating systems:
 {{< tabs name="container_runtime" >}}
 {{% tab name="Linux" %}}
 
-{{< table >}}
+{{< table caption="Linux container runtimes" >}}
 | Runtime                            | Path to Unix domain socket                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `unix:///var/run/containerd/containerd.sock` |
@@ -101,7 +101,7 @@ The tables below include the known endpoints for supported operating systems:
 
 {{% tab name="Windows" %}}
 
-{{< table >}}
+{{< table caption="Windows container runtimes" >}}
 | Runtime                            | Path to Windows named pipe                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `npipe:////./pipe/containerd-containerd`     |
@@ -182,7 +182,7 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 exclude=kubelet kubeadm kubectl
 EOF
 
@@ -212,28 +212,29 @@ sudo systemctl enable --now kubelet
 Install CNI plugins (required for most pod network):
 
 ```bash
-CNI_VERSION="v0.8.2"
+CNI_PLUGINS_VERSION="v1.1.1"
 ARCH="amd64"
-sudo mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+DEST="/opt/cni/bin"
+sudo mkdir -p "$DEST"
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
 ```
 
 Define the directory to download command files
 
 {{< note >}}
 The `DOWNLOAD_DIR` variable must be set to a writable directory.
-If you are running Flatcar Container Linux, set `DOWNLOAD_DIR=/opt/bin`.
+If you are running Flatcar Container Linux, set `DOWNLOAD_DIR="/opt/bin"`.
 {{< /note >}}
 
 ```bash
-DOWNLOAD_DIR=/usr/local/bin
-sudo mkdir -p $DOWNLOAD_DIR
+DOWNLOAD_DIR="/usr/local/bin"
+sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
 Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
 
 ```bash
-CRICTL_VERSION="v1.22.0"
+CRICTL_VERSION="v1.25.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
@@ -244,14 +245,16 @@ Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
-sudo chmod +x {kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
+sudo chmod +x {kubeadm,kubelet}
 
 RELEASE_VERSION="v0.4.0"
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
+
+Install `kubectl` by following the instructions on [Install Tools page](/docs/tasks/tools/#kubectl).
 
 Enable and start `kubelet`:
 

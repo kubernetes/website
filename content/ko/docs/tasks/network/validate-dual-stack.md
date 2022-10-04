@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - lachie83
+# - khenidak
+# - bridgetkromhout
 min-kubernetes-server-version: v1.23
 title: IPv4/IPv6 이중 스택 검증
 content_type: task
@@ -134,7 +134,7 @@ spec:
     protocol: TCP
     targetPort: 9376
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   sessionAffinity: None
   type: ClusterIP
 status:
@@ -158,7 +158,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   name: my-service
 spec:
   clusterIP: fd00::5118
@@ -172,7 +172,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   sessionAffinity: None
   type: ClusterIP
 status:
@@ -187,7 +187,7 @@ status:
 `kubectl get svc` 명령어는 오직 `CLUSTER-IP` 필드에 주요 IP만 표시한다.
 
 ```shell
- kubectl get svc -l app=MyApp
+ kubectl get svc -l app.kubernetes.io/name: MyApp
 
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 my-service   ClusterIP   10.0.216.242   <none>        80/TCP    5s
@@ -197,15 +197,15 @@ my-service   ClusterIP   10.0.216.242   <none>        80/TCP    5s
 서비스가 `kubectl describe` 를 사용하여 IPv4 및 IPv6 주소 블록에서 클러스터 IP를 가져오는지 확인한다. 그런 다음 IP 및 포트를 통해 서비스에 대한 접속을 확인할 수 있다.
 
 ```shell
-kubectl describe svc -l app=MyApp
+kubectl describe svc -l app.kubernetes.io/name: MyApp
 ```
 
 ```
 Name:              my-service
 Namespace:         default
-Labels:            app=MyApp
+Labels:            app.kubernetes.io/name: MyApp
 Annotations:       <none>
-Selector:          app=MyApp
+Selector:          app.kubernetes.io/name: MyApp
 Type:              ClusterIP
 IP Family Policy:  PreferDualStack
 IP Families:       IPv4,IPv6
@@ -227,7 +227,7 @@ Events:            <none>
 Check the Service:
 
 ```shell
-kubectl get svc -l app=MyApp
+kubectl get svc -l app.kubernetes.io/name: MyApp
 ```
 
 서비스가 IPv6 주소 블록에서 `CLUSTER-IP` 주소 및 `EXTERNAL-IP` 주소를 할당받는지 검증한다. 그리고 나서 IP 및 포트로 서비스 접근이 가능한지 검증할 수 있다.

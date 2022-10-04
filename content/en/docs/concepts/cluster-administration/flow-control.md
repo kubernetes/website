@@ -31,10 +31,13 @@ use informers and react to failures of API requests with exponential
 back-off, and other clients that also work this way.
 
 {{< caution >}}
-Requests classified as "long-running" — primarily watches — are not
-subject to the API Priority and Fairness filter. This is also true for
-the `--max-requests-inflight` flag without the API Priority and
-Fairness feature enabled.
+Some requests classified as "long-running"&mdash;such as remote
+command execution or log tailing&mdash;are not subject to the API
+Priority and Fairness filter. This is also true for the
+`--max-requests-inflight` flag without the API Priority and Fairness
+feature enabled. API Priority and Fairness _does_ apply to **watch**
+requests. When API Priority and Fairness is disabled, **watch** requests
+are not subject to the `--max-requests-inflight` limit.
 {{< /caution >}}
 
 <!-- body -->
@@ -93,6 +96,44 @@ Pods. This means that an ill-behaved Pod that floods the API server with
 requests cannot prevent leader election or actions by the built-in controllers
 from succeeding.
 
+### Seats Occupied by a Request
+
+The above description of concurrency management is the baseline story.
+In it, requests have different durations but are counted equally at
+any given moment when comparing against a priority level's concurrency
+limit. In the baseline story, each request occupies one unit of
+concurrency. The word "seat" is used to mean one unit of concurrency,
+inspired by the way each passenger on a train or aircraft takes up one
+of the fixed supply of seats.
+
+But some requests take up more than one seat.  Some of these are **list**
+requests that the server estimates will return a large number of
+objects.  These have been found to put an exceptionally heavy burden
+on the server, among requests that take a similar amount of time to
+run.  For this reason, the server estimates the number of objects that
+will be returned and considers the request to take a number of seats
+that is proportional to that estimated number.
+
+### Execution time tweaks for watch requests
+
+API Priority and Fairness manages **watch** requests, but this involves a
+couple more excursions from the baseline behavior.  The first concerns
+how long a **watch**  request is considered to occupy its seat.  Depending
+on request parameters, the response to a **watch**  request may or may not
+begin with **create**  notifications for all the relevant pre-existing
+objects.  API Priority and Fairness considers a **watch**  request to be
+done with its seat once that initial burst of notifications, if any,
+is over.
+
+The normal notifications are sent in a concurrent burst to all
+relevant **watch**  response streams whenever the server is notified of an
+object create/update/delete.  To account for this work, API Priority
+and Fairness considers every write request to spend some additional
+time occupying seats after the actual writing is done.  The server
+estimates the number of notifications to be sent and adjusts the write
+request's number of seats and seat occupancy time to include this
+extra work.
+
 ### Queuing
 
 Even within a priority level there may be a large number of distinct sources of
@@ -131,7 +172,7 @@ server.
 
 The flow control API involves two kinds of resources.
 [PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
-define the available isolation classes, the share of the available concurrency
+define the available priority levels, the share of the available concurrency
 budget that each can handle, and allow for fine-tuning queuing behavior.
 [FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta2-flowcontrol-apiserver-k8s-io)
 are used to classify individual inbound requests, matching each to a
@@ -141,7 +182,7 @@ semantics.
 
 ### PriorityLevelConfiguration
 
-A PriorityLevelConfiguration represents a single isolation class. Each
+A PriorityLevelConfiguration represents a single priority level. Each
 PriorityLevelConfiguration has an independent limit on the number of outstanding
 requests, and limitations on the number of queued requests.
 

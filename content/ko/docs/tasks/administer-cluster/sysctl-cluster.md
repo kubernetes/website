@@ -1,7 +1,7 @@
 ---
 title: 쿠버네티스 클러스터에서 sysctl 사용하기
-
-
+# reviewers:
+# - sttts
 content_type: task
 ---
 

@@ -148,7 +148,7 @@ Events:
 Here you can see configuration information about the container(s) and Pod (labels, resource requirements, etc.), as well as status information about the container(s) and Pod (state, readiness, restart count, events, etc.).
 -->
 在这里，你可以看到有关容器和 Pod 的配置信息（标签、资源需求等），
-以及有关容器和 Pod 的状态信息（状态、就绪、重启计数、事件等） 。
+以及有关容器和 Pod 的状态信息（状态、就绪、重启计数、事件等）。
 
 <!--
 The container state is one of Waiting, Running, or Terminated. Depending on the state, additional information will be provided -- here you can see that for a container in Running state, the system tells you when the container started.
@@ -202,7 +202,7 @@ A common scenario that you can detect using events is when you've created a Pod 
 kubectl get pods
 ```
 
-```
+```none
 NAME                                READY     STATUS    RESTARTS   AGE
 nginx-deployment-1006230814-6winp   1/1       Running   0          7m
 nginx-deployment-1006230814-fmgu3   1/1       Running   0          7m
@@ -468,9 +468,7 @@ base images, you can run commands inside a specific container with
 kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
 ```
 
-{{< note >}}
 `-c ${CONTAINER_NAME}` is optional. You can omit it for Pods that only contain a single container.
-{{< /note >}}
 
 As an example, to look at the logs from a running Cassandra pod, you might run
 
@@ -497,11 +495,12 @@ For more details, see [Get a Shell to a Running Container](
 ```shell
 kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
 ```
+
 {{< note >}}
-`-c ${CONTAINER_NAME}` 是可选择的。如果Pod中仅包含一个容器，就可以忽略它。
+`-c ${CONTAINER_NAME}` 是可选择的。如果 Pod 中仅包含一个容器，就可以忽略它。
 {{< /note >}}
 
-例如，要查看正在运行的 Cassandra pod中的日志，可以运行：
+例如，要查看正在运行的 Cassandra Pod 中的日志，可以运行：
 
 ```shell
 kubectl exec cassandra -- cat /var/log/cassandra/system.log
@@ -518,8 +517,6 @@ kubectl exec -it cassandra -- sh
 <!--
 ## Debugging with an ephemeral debug container {#ephemeral-container}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
-
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
 are useful for interactive troubleshooting when `kubectl exec` is insufficient
 because a container has crashed or a container image doesn't include debugging
@@ -528,7 +525,7 @@ https://github.com/GoogleContainerTools/distroless).
 -->
 ## 使用临时调试容器来进行调试 {#ephemeral-container}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 当由于容器崩溃或容器镜像不包含调试程序（例如[无发行版镜像](https://github.com/GoogleContainerTools/distroless)等）
 而导致 `kubectl exec` 无法运行时，{{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}对于排除交互式故障很有用。
@@ -540,7 +537,7 @@ You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
 
 ```shell
-kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
+kubectl run ephemeral-demo --image=registry.k8s.io/pause:3.1 --restart=Never
 ```
 
 The examples in this section use the `pause` container image because it does not
@@ -600,19 +597,17 @@ here because `kubectl run` does not enable [process namespace sharing](
 /docs/tasks/configure-pod-container/share-process-namespace/) in the pod it
 creates.
 
-{{< note >}}
 The `--target` parameter must be supported by the {{< glossary_tooltip
 text="Container Runtime" term_id="container-runtime" >}}. When not supported,
 the Ephemeral Container may not be started, or it may be started with an
 isolated process namespace so that `ps` does not reveal processes in other
 containers.
-{{< /note >}}
 
 You can view the state of the newly created ephemeral container using `kubectl describe`:
 -->
 此命令添加一个新的 busybox 容器并将其挂接到该容器。`--target` 参数指定另一个容器的进程命名空间。
-这是必需的，因为 `kubectl run` 不能在它创建的pod中启用
-[共享进程命名空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)。
+这个指定进程命名空间的操作是必需的，因为 `kubectl run` 不能在它创建的 Pod
+中启用[共享进程命名空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)。
 
 {{< note >}}
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}必须支持 `--target` 参数。
@@ -656,7 +651,7 @@ kubectl delete pod ephemeral-demo
 <!--
 ## Debugging using a copy of the Pod
 -->
-## 通过 Pod 副本调试
+## 通过 Pod 副本调试 {#debugging-using-a-copy-of-the-pod}
 
 <!--
 Sometimes Pod configuration options make it difficult to troubleshoot in certain
@@ -695,6 +690,7 @@ this scenario using `kubectl run`:
 ```shell
 kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 ```
+
 <!--
 Run this command to create a copy of `myapp` named `myapp-debug` that adds a
 new Ubuntu container for debugging:
@@ -711,6 +707,7 @@ Defaulting debug container name to debugger-w7xmf.
 If you don't see a command prompt, try pressing enter.
 root@myapp-debug:/#
 ```
+
 <!--
 * `kubectl debug` automatically generates a container name if you don't choose
   one using the `--container` flag.
@@ -827,6 +824,7 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 ```shell
 kubectl delete pod myapp myapp-debug
 ```
+
 <!--
 ### Copying a Pod while changing container images
 
@@ -836,22 +834,21 @@ additional utilities.
 
 As an example, create a Pod using `kubectl run`:
 -->
-### 在更改容器镜像时创建 Pod 副本
+### 在更改容器镜像时拷贝 Pod
 
-在某些情况下，你可能想从正常生产容器镜像中
-把行为异常的 Pod 改变为包含调试版本或者附加应用的镜像。
+在某些情况下，你可能想要改动一个行为异常的 Pod，即从其正常的生产容器镜像更改为包含调试构建程序或其他实用程序的镜像。
 
-下面的例子，用 `kubectl run`创建一个 Pod：
+下面的例子，用 `kubectl run` 创建一个 Pod：
 
 ```
 kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 ```
+
 <!--
 Now use `kubectl debug` to make a copy and change its container image
 to `ubuntu`:
 -->
-现在可以使用 `kubectl debug`  创建一个副本
-并改变容器镜像为 `ubuntu`：
+现在可以使用 `kubectl debug` 创建一个拷贝并将其容器镜像更改为 `ubuntu`：
 
 ```
 kubectl debug myapp --copy-to=myapp-debug --set-image=*=ubuntu
@@ -875,14 +872,13 @@ kubectl delete pod myapp myapp-debug
 ## Debugging via a shell on the node {#node-shell-session}
 
 If none of these approaches work, you can find the Node on which the Pod is
-running and create a privileged Pod running in the host namespaces. To create
-an interactive shell on a node using `kubectl debug`, run:
+running and create a Pod running on the Node. To create
+an interactive shell on a Node using `kubectl debug`, run:
 -->
 ## 在节点上通过 shell 来进行调试 {#node-shell-session}
 
-如果这些方法都不起作用，你可以找到运行 Pod 的节点，然后在节点上部署一个运行在宿主名字空间的特权 Pod。
-
-你可以通过`kubectl debug` 在节点上创建一个交互式 shell：
+如果这些方法都不起作用，你可以找到运行 Pod 的节点，然后创建一个 Pod 运行在该节点上。
+你可以通过 `kubectl debug` 在节点上创建一个交互式 Shell：
 
 ```shell
 kubectl debug node/mynode -it --image=ubuntu
@@ -899,15 +895,20 @@ When creating a debugging session on a node, keep in mind that:
 
 * `kubectl debug` automatically generates the name of the new Pod based on
   the name of the Node.
-* The container runs in the host IPC, Network, and PID namespaces.
 * The root filesystem of the Node will be mounted at `/host`.
+* The container runs in the host IPC, Network, and PID namespaces, although
+  the pod isn't privileged, so reading some process information may fail,
+  and `chroot /host` will fail.
+* If you need a privileged pod, create it manually.
 
 Don't forget to clean up the debugging Pod when you're finished with it:
 -->
 当在节点上创建调试会话，注意以下要点：
 * `kubectl debug` 基于节点的名字自动生成新的 Pod 的名字。
-* 新的调试容器运行在宿主命名空间里（IPC, 网络 还有PID命名空间）。
 * 节点的根文件系统会被挂载在 `/host`。
+* 新的调试容器运行在主机 IPC 名字空间、主机网络名字空间以及主机 PID 名字空间内，
+  Pod 没有特权，因此读取某些进程信息可能会失败，并且 `chroot /host` 也会失败。
+* 如果你需要一个特权 Pod，需要手动创建。
 
 当你完成节点调试时，不要忘记清理调试 Pod：
 

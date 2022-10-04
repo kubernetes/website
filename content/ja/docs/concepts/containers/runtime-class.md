@@ -104,7 +104,7 @@ Kubernetesのビルトインのdockershim CRIは、ランタイムハンドラ�
 ```
 
 containerdの設定に関する詳細なドキュメントは下記を参照してください。  
-https://github.com/containerd/cri/blob/master/docs/config.md
+https://github.com/containerd/containerd/blob/main/docs/cri/config.md
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
@@ -152,4 +152,4 @@ PodのオーバーヘッドはRuntimeClass内の`overhead`フィールドによ�
 - [RuntimeClassデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClassスケジューリングデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - [Podオーバーヘッド](/docs/concepts/scheduling-eviction/pod-overhead/)のコンセプトを読む
-- [PodOverhead機能デザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+- [PodOverhead機能デザイン](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

@@ -314,8 +314,7 @@ kubectl delete namespaces <insert-some-namespace-name>
    为了演示这一点，让我们在 `development` 名字空间中启动一个简单的 Deployment 和 Pod。
 
    ```shell
-   kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname -n=development
-   kubectl scale deployment snowflake --replicas=2 -n=development
+   kubectl create deployment snowflake --image=registry.k8s.io/serve_hostname  -n=development --replicas=2
    ```
 
    <!--
@@ -367,7 +366,7 @@ kubectl delete namespaces <insert-some-namespace-name>
    生产环境下一般以养牛的方式运行负载，所以让我们创建一些 Cattle（牛）Pod。
 
    ```shell
-   kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname -n=production
+   kubectl create deployment cattle --image=registry.k8s.io/serve_hostname -n=production
    kubectl scale deployment cattle --replicas=5 -n=production
 
    kubectl get deployment -n=production
