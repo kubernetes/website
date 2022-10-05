@@ -859,6 +859,12 @@ div.alert > em.javascript-required {
   margin: calc(max(4em, ( 8vh + 4em ) / 2)) 0 0.25em 0;
 }
 
+// Consistent spacing for yaml code
+.language-yaml > span {
+  height: 1.6em;
+  overflow: hidden;
+}
+
 .content__box
 {
     margin: 0 0 20px;
