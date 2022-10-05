@@ -57,8 +57,9 @@ Kubernetes cung cấp cho bạn:
 
 * **Service discovery và cân bằng tải**  
 Kubernetes có thể expose một container sử dụng DNS hoặc địa chỉ IP của riêng nó. Nếu lượng traffic truy cập đến một container cao, Kubernetes có thể cân bằng tải và phân phối lưu lượng mạng (network traffic) để việc triển khai được ổn định.
-* **Điều phối bộ nhớ**  
-Kubernetes cho phép bạn tự động mount một hệ thống lưu trữ mà bạn chọn, như local storages, public cloud providers, v.v.  
+* **Điều phối lưu trữ**  
+Kubernetes cho phép tự động tích hợp hệ thống lưu trữ *(do người dùng cấu hình)*, bất kể từ các lưu trữ cục bộ *(local storage)* cũng như dịch vụ lưu trữ từ các nhà cung cấp đám mây công cộng (public cloud) như **AWS, GCP** hay một hệ thống lưu trữ qua mạng *(network storage)* như **NFS, iCSI, Ceph, Cinder**.
+
 * **Tự động rollouts và rollbacks**  
 Bạn có thể mô tả trạng thái mong muốn cho các container được triển khai dùng Kubernetes và nó có thể thay đổi trạng thái thực tế sang trạng thái mong muốn với tần suất được kiểm soát. Ví dụ, bạn có thể tự động hoá Kubernetes để tạo mới các container cho việc triển khai của bạn, xoá các container hiện có và áp dụng tất cả các resource của chúng vào container mới. 
 * **Đóng gói tự động**  
