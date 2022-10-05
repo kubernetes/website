@@ -499,6 +499,10 @@ removes the Pod in the API immediately so a new Pod can be created with the same
 name. On the node, Pods that are set to terminate immediately will still be given
 a small grace period before being force killed.
 
+{{< caution >}}
+Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+{{< /caution >}}
+
 If you need to force-delete Pods that are part of a StatefulSet, refer to the task
 documentation for
 [deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
