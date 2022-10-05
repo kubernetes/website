@@ -109,12 +109,12 @@ The following methods exist for installing kubectl on macOS:
 1. Test to ensure the version you installed is up-to-date:
 
    ```bash
-   kubectl version --client
+   kubectl version
    ```
    Or use this for detailed view of version:
 
    ```cmd
-   kubectl version --client --output=yaml
+   kubectl version --output=yaml
    ```
 
 ### Install with Homebrew on macOS
@@ -136,7 +136,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 1. Test to ensure the version you installed is up-to-date:
 
    ```bash
-   kubectl version --client
+   kubectl version
    ```
 
 ### Install with Macports on macOS
@@ -153,7 +153,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 1. Test to ensure the version you installed is up-to-date:
 
    ```bash
-   kubectl version --client
+   kubectl version
    ```
 
 ## Verify kubectl configuration
