@@ -71,6 +71,9 @@ The manifest for that Pod specifies a command that runs when the container start
             ...
     ```
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d1db7140f60d3848b0db30237eb35de48d560536
 
 1. Use a Go template to filter the output so that it includes only the termination message:
 
@@ -119,6 +122,7 @@ By doing so, you can discover which of the containers is failing:
            ...
    ```
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 1ca77d26b9 (Update Determine the Reason for Pod Failure)
 
@@ -126,16 +130,22 @@ By doing so, you can discover which of the containers is failing:
 
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> d1db7140f60d3848b0db30237eb35de48d560536
 
 1. Use a Go template to filter the output so that it includes
 only the termination message:
 
+<<<<<<< HEAD
 >>>>>>> d1db7140f6 (Update custom-resource-definition-versioning.md)
+=======
+>>>>>>> d1db7140f60d3848b0db30237eb35de48d560536
    ```shell
    kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
    ```
 
    If you are running a multi-container pod, you can use a Go template to include the container's name. By doing so, you can discover which of the containers is failing:
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     ```shell
@@ -149,6 +159,10 @@ By doing so, you can discover which of the containers is failing:
 >>>>>>> e422808a74 (Update custom-resource-definition-versioning.md)
 >>>>>>> d1db7140f6 (Update custom-resource-definition-versioning.md)
 
+=======
+>>>>>>> e422808a74 (Update custom-resource-definition-versioning.md)
+
+>>>>>>> d1db7140f60d3848b0db30237eb35de48d560536
    ```shell
    kubectl get pod multi-container-pod -o go-template='{{range .status.containerStatuses}}{{printf "%s:\n%s\n\n" .name .lastState.terminated.message}}{{end}}'
    ```

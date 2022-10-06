@@ -241,7 +241,11 @@ by specifying the Job's `.spec.backoffLimit` field. However, in many situations
 iit is problematic to find a balance between setting a low value for `.spec.backoffLimit`
 =======
 it is problematic to find a balance between setting a low value for `.spec.backoffLimit`
+<<<<<<< HEAD
 >>>>>>> 14d51fef39 ([zh] Sync job/pod-failure-policy.md)
+=======
+>>>>>>> 0585f1e3b75ea541a8cd43c685c91cdacc2f3fbe
+>>>>>>> d1db7140f60d3848b0db30237eb35de48d560536
  to avoid unnecessary Pod retries, yet high enough to make sure the Job would
 not be terminated by Pod disruptions.
 -->
