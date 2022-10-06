@@ -369,7 +369,7 @@ spec:
 
 #### リージョンPD PersistentVolumeを手動でプロビジョニングする
 
-[GCE PDのStorageClass](/docs/concepts/storage/storage-classes/#gce)を使用して動的プロビジョニングが可能です。
+[GCE PDのStorageClass](/docs/concepts/storage/storage-classes/#gce-pd)を使用して動的プロビジョニングが可能です。
 SPDPersistentVolumeを作成する前に、永続ディスクを作成する必要があります。
 
 ```shell

@@ -856,7 +856,7 @@ object, but maintains complete control over what Pods are created and how work i
 * Read about different ways of running Jobs:
    * [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
    * [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
-   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/) (beta)
+   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/)
    * Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
 * Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
   to learn more about how your cluster can clean up completed and / or failed tasks.

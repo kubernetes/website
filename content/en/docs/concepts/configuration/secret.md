@@ -36,11 +36,12 @@ Additionally, anyone who is authorized to create a Pod in a namespace can use th
 In order to safely use Secrets, take at least the following steps:
 
 1. [Enable Encryption at Rest](/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
-1. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) that
-   restrict reading and writing the Secret. Be aware that secrets can be obtained
-   implicitly by anyone with the permission to create a Pod.
-1. Where appropriate, also use mechanisms such as RBAC to limit which principals are allowed
-   to create new Secrets or replace existing ones.
+1. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) with least-privilege access to Secrets.
+1. Restrict Secret access to specific containers.
+1. [Consider using external Secret store providers](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver).
+
+For more guidelines to manage and improve the security of your Secrets, refer to
+[Good practices for Kubernetes Secrets](/docs/concepts/security/secrets-good-practices).
 
 {{< /caution >}}
 
@@ -174,7 +175,7 @@ systems on your behalf.
 
 Secret volume sources are validated to ensure that the specified object
 reference actually points to an object of type Secret. Therefore, a Secret
-needs to be created before any Pods that depend on it.  
+needs to be created before any Pods that depend on it.
 
 If the Secret cannot be fetched (perhaps because it does not exist, or
 due to a temporary lack of connection to the API server) the kubelet
@@ -324,7 +325,7 @@ secret volume mount have permission `0400`.
 {{< note >}}
 If you're defining a Pod or a Pod template using JSON, beware that the JSON
 specification doesn't support octal notation. You can use the decimal value
-for the `defaultMode` (for example, 0400 in octal is 256 in decimal) instead.  
+for the `defaultMode` (for example, 0400 in octal is 256 in decimal) instead.
 If you're writing YAML, you can write the `defaultMode` in octal.
 {{< /note >}}
 
@@ -931,7 +932,7 @@ data:
 After creating the Secret, wait for Kubernetes to populate the `token` key in the `data` field.
 
 See the [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)
-documentation for more information on how service accounts work.  
+documentation for more information on how service accounts work.
 You can also check the `automountServiceAccountToken` field and the
 `serviceAccountName` field of the
 [`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
@@ -1280,61 +1281,15 @@ Secrets that a Pod requests are potentially visible within its containers.
 Therefore, one Pod does not have access to the Secrets of another Pod.
 
 {{< warning >}}
-Any privileged containers on a node are liable to have access to all Secrets used
-on that node.
+Any containers that run with `privileged: true` on a node can access all
+Secrets used on that node.
 {{< /warning >}}
 
 
-### Security recommendations for developers
-
-- Applications still need to protect the value of confidential information after reading it
-  from an environment variable or volume. For example, your application must avoid logging
-  the secret data in the clear or transmitting it to an untrusted party.
-- If you are defining multiple containers in a Pod, and only one of those
-  containers needs access to a Secret, define the volume mount or environment
-  variable configuration so that the other containers do not have access to that
-  Secret.
-- If you configure a Secret through a {{< glossary_tooltip text="manifest" term_id="manifest" >}},
-  with the secret data encoded as base64, sharing this file or checking it in to a
-  source repository means the secret is available to everyone who can read the manifest.
-  Base64 encoding is _not_ an encryption method, it provides no additional confidentiality
-  over plain text.
-- When deploying applications that interact with the Secret API, you should
-  limit access using
-  [authorization policies](/docs/reference/access-authn-authz/authorization/) such as
-  [RBAC](/docs/reference/access-authn-authz/rbac/).
-- In the Kubernetes API, `watch` and `list` requests for Secrets within a namespace
-  are extremely powerful capabilities. Avoid granting this access where feasible, since
-  listing Secrets allows the clients to inspect the values of every Secret in that
-  namespace.
-
-### Security recommendations for cluster administrators
-
-{{< caution >}}
-A user who can create a Pod that uses a Secret can also see the value of that Secret. Even
-if cluster policies do not allow a user to read the Secret directly, the same user could
-have access to run a Pod that then exposes the Secret.
-{{< /caution >}}
-
-- Reserve the ability to `watch` or `list` all secrets in a cluster (using the Kubernetes
-  API), so that only the most privileged, system-level components can perform this action.
-- When deploying applications that interact with the Secret API, you should
-  limit access using
-  [authorization policies](/docs/reference/access-authn-authz/authorization/) such as
-  [RBAC](/docs/reference/access-authn-authz/rbac/).
-- In the API server, objects (including Secrets) are persisted into
-  {{< glossary_tooltip term_id="etcd" >}}; therefore:
-  - only allow cluster administrators to access etcd (this includes read-only access);
-  - enable [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
-    for Secret objects, so that the data of these Secrets are not stored in the clear
-    into {{< glossary_tooltip term_id="etcd" >}};
-  - consider wiping / shredding the durable storage used by etcd once it is
-    no longer in use;
-  - if there are multiple etcd instances, make sure that etcd is
-    using SSL/TLS for communication between etcd peers.
-
 ## {{% heading "whatsnext" %}}
 
+- For guidelines to manage and improve the security of your Secrets, refer to
+  [Good practices for Kubernetes Secrets](/docs/concepts/security/secrets-good-practices).
 - Learn how to [manage Secrets using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)

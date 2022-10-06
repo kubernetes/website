@@ -19,7 +19,7 @@ This document serves both as a reference to the values and as a coordination poi
 
 Example: `app.kubernetes.io/component: "database"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The component within the architecture.
 
@@ -29,7 +29,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/created-by: "controller-manager"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The controller/user who created this resource.
 
@@ -41,9 +41,9 @@ Starting from v1.9, this label is deprecated.
 
 Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
-A unique name identifying the instance of an application.
+A unique name identifying the instance of an application. To assign a non-unique name, use [app.kubernetes.io/name](#app-kubernetes-io-name).
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
@@ -51,7 +51,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/managed-by: "helm"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The tool being used to manage the operation of an application.
 
@@ -61,7 +61,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/name: "mysql"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The name of the application.
 
@@ -71,9 +71,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/part-of: "wordpress"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
-The name of a higher level application this one is part of.
+The name of a higher-level application this one is part of.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
@@ -81,9 +81,14 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/version: "5.7.21"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
-The current version of the application (e.g., a semantic version, revision hash, etc.).
+The current version of the application.
+
+Common forms of values include:
+
+- [semantic version](https://semver.org/spec/v1.0.0.html)
+- the Git [revision hash](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection#_single_revisions) for the source code.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
@@ -172,6 +177,17 @@ Example: `kubernetes.io/enforce-mountable-secrets: "true"`
 Used on: ServiceAccount
 
 The value for this annotation must be **true** to take effect. This annotation indicates that pods running as this service account may only reference Secret API objects specified in the service account's `secrets` field.
+
+### node.kubernetes.io/exclude-from-external-load-balancer
+
+Example: `node.kubernetes.io/exclude-from-external-load-balancer`
+
+Used on: Node
+
+Kubernetes automatically enables the `ServiceNodeExclusion` feature gate on the clusters it creates. With this feature gate enabled on a cluster,
+you can add labels to particular worker nodes to exclude them from the list of backend servers.
+The following command can be used to exclude a worker node from the list of backend servers in a backend set-
+`kubectl label nodes <node-name> node.kubernetes.io/exclude-from-external-load-balancers=true`
 
 ### controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
@@ -485,6 +501,14 @@ Used on: Jobs
 The presence of this annotation on a Job indicates that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
 You should **not** manually add or remove this annotation.
+
+### scheduler.alpha.kubernetes.io/defaultTolerations {#scheduleralphakubernetesio-defaulttolerations}
+
+Example: `scheduler.alpha.kubernetes.io/defaultTolerations: '[{"operator": "Equal", "value": "value1", "effect": "NoSchedule", "key": "dedicated-node"}]'`
+
+Used on: Namespace
+
+This annotation requires the [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction) admission controller to be enabled. This annotation key allows assigning tolerations to a namespace and any new pods created in this namespace would get these tolerations added.
 
 ### scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
 

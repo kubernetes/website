@@ -1,6 +1,7 @@
 ---
 title: crictlによるKubernetesノードのデバッグ
 content_type: task
+weight: 30
 ---
 
 

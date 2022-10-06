@@ -387,7 +387,7 @@ work between Windows and Linux:
 * `securityContext.capabilities` -
    POSIX capabilities are not implemented on Windows
 * `securityContext.privileged` -
-   Windows doesn't support privileged containers
+   Windows doesn't support privileged containers, use [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) instead
 * `securityContext.procMount` -
    Windows doesn't have a `/proc` filesystem
 * `securityContext.readOnlyRootFilesystem` -
@@ -399,7 +399,8 @@ work between Windows and Linux:
 * `securityContext.allowPrivilegeEscalation` -
   不能在 Windows 上使用；所有权能字都无法生效。
 * `securityContext.capabilities` - POSIX 权能未在 Windows 上实现。
-* `securityContext.privileged` - Windows 不支持特权容器。
+* `securityContext.privileged` - Windows 不支持特权容器，
+  可使用 [HostProcess 容器](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)代替。
 * `securityContext.procMount` - Windows 没有 `/proc` 文件系统。
 * `securityContext.readOnlyRootFilesystem` -
   不能在 Windows 上使用；对于容器内运行的注册表和系统进程，写入权限是必需的。
