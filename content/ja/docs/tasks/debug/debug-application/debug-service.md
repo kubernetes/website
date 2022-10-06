@@ -599,4 +599,4 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 ## {{% heading "whatsnext" %}}
 
 
-詳細については、[トラブルシューティングドキュメント](/docs/tasks/debug/)をご覧ください。
+詳細については、[トラブルシューティングドキュメント](/ja/docs/tasks/debug/)をご覧ください。
