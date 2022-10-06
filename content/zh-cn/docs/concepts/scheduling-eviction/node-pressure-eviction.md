@@ -293,6 +293,17 @@ kubelet 具有以下默认硬驱逐条件：
 * `imagefs.available<15%`
 * `nodefs.inodesFree<5%`（Linux 节点）
 
+<!--
+These default values of hard eviction thresholds will only be set if none 
+of the parameters is changed. If you changed the value of any parameter, 
+then the values of other parameters will not be inherited as the default 
+values and will be set to zero. In order to provide custom values, you 
+should provide all the thresholds respectively.
+-->
+只有在没有更改任何参数的情况下，硬驱逐阈值才会被设置成这些默认值。
+如果你更改了任何参数的值，则其他参数的取值不会继承其默认值设置，而将被设置为零。
+为了提供自定义值，你应该分别设置所有阈值。
+
 <!--  
 ### Eviction monitoring interval
 
