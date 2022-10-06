@@ -1,6 +1,7 @@
 ---
 title: リソースメトリクスパイプライン
 content_type: concept
+weight: 15
 ---
 
 <!-- overview -->

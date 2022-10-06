@@ -1,6 +1,7 @@
 ---
 content_type: concept
 title: リソース監視のためのツール
+weight: 15
 ---
 
 <!-- overview -->
@@ -38,4 +39,13 @@ Kubernetesは、Horizontal Pod Autoscalerなどのメカニズムを使用して
 CNCFプロジェクトの[Prometheus](https://prometheus.io)は、Kubernetes、ノード、Prometheus自身をネイティブに監視することができます。
 CNCFに属さない完全なメトリクスパイプラインのプロジェクトは、Kubernetesのドキュメントの範囲外です。
 
+## {{% heading "whatsnext" %}}
 
+以下のような追加のデバッグツールについて学びます:
+
+* [ロギング](/ja/docs/concepts/cluster-administration/logging/)
+* [モニタリング](/ja/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+* [`exec`でコンテナに入る](/ja/docs/tasks/debug-application-cluster/get-shell-running-container/)
+* [Connecting to containers via proxies](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
+* [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* [crictlでKubernetesのノードを検査する](/ja/docs/tasks/debug-application-cluster/crictl/)
