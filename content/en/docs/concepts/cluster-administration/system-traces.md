@@ -61,7 +61,7 @@ as the kube-apiserver is often a public endpoint.
 
 To enable tracing, enable the `APIServerTracing`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the kube-apiserver. Also, provide the kube-apiserver with a tracing configration file
+on the kube-apiserver. Also, provide the kube-apiserver with a tracing configuration file
 with `--tracing-config-file=<path-to-config>`. This is an example config that records
 spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 
@@ -75,6 +75,35 @@ samplingRatePerMillion: 100
 
 For more information about the `TracingConfiguration` struct, see
 [API server config API (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration).
+
+### kubelet traces
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+The kubelet CRI interface and authenticated http servers are instrumented to generate
+trace spans. As with the apiserver, the endpoint and sampling rate are configurable.
+Trace context propagation is also configured. A parent span's sampling decision is always respected.
+A provided tracing configuration sampling rate will apply to spans without a parent.
+Enabled without a configured endpoint, the default OpenTelemetry Collector reciever address of "localhost:4317" is set.
+
+#### Enabling tracing in the kubelet
+
+To enable tracing, enable the `KubeletTracing`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the kubelet. Also, provide the kubelet with a
+[tracing configuration](https://github.com/kubernetes/component-base/blob/release-1.25/tracing/api/v1/types.go).
+This is an example snippet of a kubelet config that records spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+featureGates:
+  KubeletTracing: true
+tracing:
+  # default value
+  #endpoint: localhost:4317
+  samplingRatePerMillion: 100
+```
 
 ## Stability
 

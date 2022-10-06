@@ -20,7 +20,6 @@ aliases:
   sig-docs-en-owners: # Admins for English content
     - annajung
     - bradtopol
-    - celestehorgan
     - divya-mohan0209
     - jimangel
     - jlbutler
@@ -35,7 +34,6 @@ aliases:
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
-    - celestehorgan
     - daminisatya
     - divya-mohan0209
     - jimangel
@@ -84,11 +82,10 @@ aliases:
   sig-docs-hi-owners: # Admins for Hindi content
     - anubha-v-ardhan
     - divya-mohan0209
-    - mittalyashu
   sig-docs-hi-reviews: # PR reviews for Hindi content
     - anubha-v-ardhan
     - divya-mohan0209
-    - mittalyashu
+    - Garima-Negi
     - verma-kunal
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
@@ -128,6 +125,7 @@ aliases:
     - nasa9084
     # oke-py
     - ptux
+    - t-inu
   sig-docs-ko-owners: # Admins for Korean content
     - ClaudiaJKang
     - gochist

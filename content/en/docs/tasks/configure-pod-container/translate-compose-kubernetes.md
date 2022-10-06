@@ -98,7 +98,7 @@ you need is an existing `docker-compose.yml` file.
    services:
 
      redis-master:
-       image: k8s.gcr.io/redis:e2e
+       image: registry.k8s.io/redis:e2e
        ports:
          - "6379"
 

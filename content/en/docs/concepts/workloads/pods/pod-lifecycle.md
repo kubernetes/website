@@ -154,9 +154,12 @@ without any problems, the kubelet resets the restart backoff timer for that cont
 
 A Pod has a PodStatus, which has an array of
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
-through which the Pod has or has not passed:
+through which the Pod has or has not passed. Kubelet manages the following
+PodConditions:
 
 * `PodScheduled`: the Pod has been scheduled to a node.
+* `PodHasNetwork`: (alpha feature; must be [enabled explicitly](#pod-has-network)) the
+  Pod sandbox has been successfully created and networking configured.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
   have completed successfully.
@@ -230,6 +233,40 @@ when both the following statements apply:
 
 When a Pod's containers are Ready but at least one custom condition is missing or
 `False`, the kubelet sets the Pod's [condition](#pod-conditions) to `ContainersReady`.
+
+### Pod network readiness {#pod-has-network}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+After a Pod gets scheduled on a node, it needs to be admitted by the Kubelet and
+have any volumes mounted. Once these phases are complete, the Kubelet works with
+a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
+runtime sandbox and configure networking for the Pod. If the
+`PodHasNetworkCondition` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+Kubelet reports whether a pod has reached this initialization milestone through
+the `PodHasNetwork` condition in the `status.conditions` field of a Pod.
+
+The `PodHasNetwork` condition is set to `False` by the Kubelet when it detects a
+Pod does not have a runtime sandbox with networking configured. This occurs in
+the following scenarios:
+* Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for the Pod using the container runtime.
+* Later in the lifecycle of the Pod, when the Pod sandbox has been destroyed due
+  to either:
+  * the node rebooting, without the Pod getting evicted
+  * for container runtimes that use virtual machines for isolation, the Pod
+    sandbox virtual machine rebooting, which then requires creating a new sandbox and fresh container network configuration.
+
+The `PodHasNetwork` condition is set to `True` by the kubelet after the
+successful completion of sandbox creation and network configuration for the Pod
+by the runtime plugin. The kubelet can start pulling container images and create
+containers after `PodHasNetwork` condition has been set to `True`.
+
+For a Pod with init containers, the kubelet sets the `Initialized` condition to
+`True` after the init containers have successfully completed (which happens
+after successful sandbox creation and network configuration by the runtime
+plugin). For a Pod without init containers, the kubelet sets the `Initialized`
+condition to `True` before sandbox creation and network configuration starts.
+
 
 ## Container probes
 

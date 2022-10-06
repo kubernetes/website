@@ -56,7 +56,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - implementation varies by cloud provider.
 
 Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
-will typically ensure that the latter types are setup correctly.
+will typically ensure that the latter types are set up correctly.
 
 ## Requesting redirects
 

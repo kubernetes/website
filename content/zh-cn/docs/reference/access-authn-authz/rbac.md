@@ -22,8 +22,7 @@ weight: 70
 Role-based access control (RBAC) is a method of regulating access to computer or
 network resources based on the roles of individual users within your organization.
 -->
-基于角色（Role）的访问控制（RBAC）是一种基于组织中用户的角色来调节控制对
-计算机或网络资源的访问的方法。
+基于角色（Role）的访问控制（RBAC）是一种基于组织中用户的角色来调节控制对计算机或网络资源的访问的方法。
 
 <!-- body -->
 
@@ -60,7 +59,6 @@ The RBAC API declares four kinds of Kubernetes object: _Role_, _ClusterRole_,
 _RoleBinding_ and _ClusterRoleBinding_. You can
 [describe objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects),
 or amend them, using tools such as `kubectl`, just like any other Kubernetes object.
-
 -->
 ## API 对象  {#api-overview}
 
@@ -76,9 +74,9 @@ to a cluster as you learn, see
 [privilege escalation prevention and bootstrapping](#privilege-escalation-prevention-and-bootstrapping)
 to understand how those restrictions can prevent you making some changes.
 -->
-这些对象在设计时即实施了一些访问限制。如果你在学习过程中对集群做了更改，请参考
-[避免特权提升和引导](#privilege-escalation-prevention-and-bootstrapping)
-一节，以了解这些限制会以怎样的方式阻止你做出修改。
+这些对象在设计时即实施了一些访问限制。如果你在学习过程中对集群做了更改，
+请参考[避免特权提升和引导](#privilege-escalation-prevention-and-bootstrapping)一节，
+以了解这些限制会以怎样的方式阻止你做出修改。
 {{< /caution >}}
 
 <!--
@@ -439,8 +437,8 @@ the role that is granted to those subjects.
 -->
 1. 将 `roleRef` 设置为不可以改变，这使得可以为用户授予对现有绑定对象的 `update` 权限，
    这样可以让他们管理主体列表，同时不能更改被授予这些主体的角色。
-<!--
 
+<!--
 1. A binding to a different role is a fundamentally different binding.
 Requiring a binding to be deleted/recreated in order to change the `roleRef`
 ensures the full list of subjects in the binding is intended to be granted
@@ -448,7 +446,7 @@ the new role (as opposed to enabling or accidentally modifying only the roleRef
 without verifying all of the existing subjects should be given the new role's
 permissions).
 -->
-1. 针对不同角色的绑定是完全不一样的绑定。要求通过删除/重建绑定来更改 `roleRef`,
+2. 针对不同角色的绑定是完全不一样的绑定。要求通过删除/重建绑定来更改 `roleRef`,
    这样可以确保要赋予绑定的所有主体会被授予新的角色（而不是在允许或者不小心修改了
    `roleRef` 的情况下导致所有现有主体未经验证即被授予新角色对应的权限）。
 
@@ -459,7 +457,7 @@ See [command usage and examples](#kubectl-auth-reconcile) for more information.
 -->
 命令 `kubectl auth reconcile` 可以创建或者更新包含 RBAC 对象的清单文件，
 并且在必要的情况下删除和重新创建绑定对象，以改变所引用的角色。
-更多相关信息请参照[命令用法和示例](#kubectl-auth-reconcile)
+更多相关信息请参照[命令用法和示例](#kubectl-auth-reconcile)。
 
 <!--
 ### Referring to resources
@@ -576,10 +574,9 @@ Here is an example aggregated ClusterRole:
 ### 聚合的 ClusterRole    {#aggregated-clusterroles}
 
 你可以将若干 ClusterRole **聚合（Aggregate）** 起来，形成一个复合的 ClusterRole。
-作为集群控制面的一部分，控制器会监视带有 `aggregationRule` 的 ClusterRole
-对象集合。`aggregationRule` 为控制器定义一个标签
-{{< glossary_tooltip text="选择算符" term_id="selector" >}}供后者匹配
-应该组合到当前 ClusterRole 的 `roles` 字段中的 ClusterRole 对象。
+作为集群控制面的一部分，控制器会监视带有 `aggregationRule` 的 ClusterRole 对象集合。`aggregationRule`
+为控制器定义一个标签{{< glossary_tooltip text="选择算符" term_id="selector" >}}供后者匹配应该组合到当前
+ClusterRole 的 `roles` 字段中的 ClusterRole 对象。
 
 下面是一个聚合 ClusterRole 的示例：
 
@@ -916,9 +913,8 @@ RoleBinding 或者 ClusterRoleBinding 可绑定角色到某 **主体（Subject�
 Kubernetes 用字符串来表示用户名。
 用户名可以是普通的用户名，像 "alice"；或者是邮件风格的名称，如 "bob@example.com"，
 或者是以字符串形式表达的数字 ID。你作为 Kubernetes
-管理员负责配置[身份认证模块](/zh-cn/docs/reference/access-authn-authz/authentication/)
+管理员负责配置[身份认证模块](/zh-cn/docs/reference/access-authn-authz/authentication/)，
 以便后者能够生成你所期望的格式的用户名。
-
 
 {{< caution >}}
 <!--
@@ -1411,8 +1407,7 @@ Allows access to the volume resources required by the kube-scheduler component.
 Allows access to the resources required by the {{< glossary_tooltip term_id="kube-controller-manager" text="controller manager" >}} component.
 The permissions required by individual controllers are detailed in the <a href="#controller-roles">controller roles</a>.
 -->
-允许访问{{< glossary_tooltip term_id="kube-controller-manager" text="控制器管理器" >}}
-组件所需要的资源。
+允许访问{{< glossary_tooltip term_id="kube-controller-manager" text="控制器管理器" >}}组件所需要的资源。
 各个控制回路所需要的权限在<a href="#controller-roles">控制器角色</a>详述。
 </td>
 </tr>
@@ -1616,7 +1611,7 @@ These roles include:
 -->
 ### 内置控制器的角色   {#controller-roles}
 
-Kubernetes {{< glossary_tooltip term_id="kube-controller-manager" text="控制器管理器" >}}运行内建于 
+Kubernetes {{< glossary_tooltip term_id="kube-controller-manager" text="控制器管理器" >}}运行内建于
 Kubernetes 控制面的{{< glossary_tooltip term_id="controller" text="控制器" >}}。
 当使用 `--use-service-account-credentials` 参数启动时，kube-controller-manager
 使用单独的服务账户来启动每个控制器。
@@ -1799,15 +1794,12 @@ When bootstrapping the first roles and role bindings, it is necessary for the in
 To bootstrap initial roles and role bindings:
 
 * Use a credential with the "system:masters" group, which is bound to the "cluster-admin" super-user role by the default bindings.
-* If your API server runs with the insecure port enabled (`--insecure-port`), you can also make API calls via that port, which does not enforce authentication or authorization.
 -->
 当启动引导第一个角色和角色绑定时，需要为初始用户授予他们尚未拥有的权限。
 对初始角色和角色绑定进行初始化时需要：
 
 * 使用用户组为 `system:masters` 的凭据，该用户组由默认绑定关联到 `cluster-admin`
   这个超级用户角色。
-* 如果你的 API 服务器启动时启用了不安全端口（使用 `--insecure-port`），
-  你也可以通过该端口调用 API，这样的操作会绕过身份验证或鉴权。
 
 <!--
 ## Command-line utilities

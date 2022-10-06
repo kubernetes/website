@@ -6,12 +6,14 @@ content_type: task
 reviewers:
 - mml
 - wojtek-t
+- jpbetz
 title: Operating etcd clusters for Kubernetes
 content_type: task
 -->
 
 <!-- overview -->
-{{< glossary_definition term_id="etcd" length="all" >}}
+
+{{< glossary_definition term_id="etcd" length="all" prepend="etcd 是 ">}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -52,11 +54,11 @@ content_type: task
 
   集群的性能和稳定性对网络和磁盘 I/O 非常敏感。任何资源匮乏都会导致心跳超时，
   从而导致集群的不稳定。不稳定的情况表明没有选出任何主节点。
-  在这种情况下，集群不能对其当前状态进行任何更改，这意味着不能调度新的 pod。
+  在这种情况下，集群不能对其当前状态进行任何更改，这意味着不能调度新的 Pod。
 
 * 保持 etcd 集群的稳定对 Kubernetes 集群的稳定性至关重要。
-  因此，请在专用机器或隔离环境上运行 etcd 集群，以满足
-  [所需资源需求](https://etcd.io/docs/current/op-guide/hardware/)。
+  因此，请在专用机器或隔离环境上运行 etcd 集群，
+  以满足[所需资源需求](https://etcd.io/docs/current/op-guide/hardware/)。
 
 * 在生产中运行的 etcd 的最低推荐版本是 `3.2.10+`。
 
@@ -112,7 +114,7 @@ Use a single-node etcd cluster only for testing purpose.
 
 2. 使用参数 `--etcd-servers=$PRIVATE_IP:2379` 启动 Kubernetes API 服务器。
 
-   确保将 `PRIVATE_IP` 设置为etcd客户端 IP。
+   确保将 `PRIVATE_IP` 设置为 etcd 客户端 IP。
 
 <!--
 ### Multi-node etcd cluster
@@ -180,7 +182,7 @@ To run a load balancing etcd cluster:
    For example, let the address of the load balancer be `$LB`.
 3. Start Kubernetes API Servers with the flag `--etcd-servers=$LB:2379`.
 -->
-### 使用负载均衡的多节点 etcd 集群    {#multi-node-etcd-cluster-with-load-balancer}
+### 使用负载均衡器的多节点 etcd 集群    {#multi-node-etcd-cluster-with-load-balancer}
 
 要运行负载均衡的 etcd 集群：
 
@@ -284,17 +286,14 @@ flags `--etcd-certfile=k8sclient.cert`, `--etcd-keyfile=k8sclient.key` and
 一旦正确配置了 etcd，只有具有有效证书的客户端才能访问它。要让 Kubernetes API 服务器访问，
 可以使用参数 `--etcd-certfile=k8sclient.cert`、`--etcd-keyfile=k8sclient.key` 和 `--etcd-cafile=ca.cert` 配置。
 
-<!--
 {{< note >}}
+<!--
 etcd authentication is not currently supported by Kubernetes. For more
 information, see the related issue
 [Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
-{{< /note >}}
 -->
-{{< note >}}
 Kubernetes 目前不支持 etcd 身份验证。
-想要了解更多信息，请参阅相关的问题
-[支持 etcd v2 的基本认证](https://github.com/kubernetes/kubernetes/issues/23398)。
+想要了解更多信息，请参阅相关的问题[支持 etcd v2 的基本认证](https://github.com/kubernetes/kubernetes/issues/23398)。
 {{< /note >}}
 
 <!--
@@ -343,11 +342,36 @@ replace it with `member4=http://10.0.0.4`.
    91bc3c398fb3c146, started, member2, http://10.0.0.2:2380, http://10.0.0.2:2379
    fd422379fda50e48, started, member3, http://10.0.0.3:2380, http://10.0.0.3:2379
    ```
+<!--
+2. Do either of the following:
+
+   1. If each Kubernetes API server is configured to communicate with all etcd
+      members, remove the failed member from the `--etcd-servers` flag, then
+      restart each Kubernetes API server.
+   1. If each Kubernetes API server communicates with a single etcd member,
+      then stop the Kubernetes API server that communicates with the failed
+      etcd.
+-->
+2. 执行以下操作之一：
+
+   1. 如果每个 Kubernetes API 服务器都配置为与所有 etcd 成员通信，
+      请从 `--etcd-servers` 标志中移除删除失败的成员，然后重新启动每个 Kubernetes API 服务器。
+   2. 如果每个 Kubernetes API 服务器都与单个 etcd 成员通信，
+      则停止与失败的 etcd 通信的 Kubernetes API 服务器。
+
+<!-- 
+3. Stop the etcd server on the broken node. It is possible that other 
+   clients besides the Kubernetes API server is causing traffic to etcd 
+   and it is desirable to stop all traffic to prevent writes to the data
+   dir.
+-->
+3. 停止故障节点上的 etcd 服务器。除了 Kubernetes API 服务器之外的其他客户端可能会造成流向 etcd 的流量，
+   可以停止所有流量以防止写入数据目录。
 
 <!--
-2. Remove the failed member:
+4. Remove the failed member:
 -->
-2. 移除失败的成员
+4. 移除失败的成员：
 
    ```shell
    etcdctl member remove 8211f1d0f64f3269
@@ -363,9 +387,9 @@ replace it with `member4=http://10.0.0.4`.
    ```
 
 <!--
-3. Add the new member:
+5. Add the new member:
 -->
-3. 增加新成员：
+5. 增加新成员：
 
    ```shell
    etcdctl member add member4 --peer-urls=http://10.0.0.4:2380
@@ -381,9 +405,9 @@ replace it with `member4=http://10.0.0.4`.
    ```
 
 <!--
-4. Start the newly added member on a machine with the IP `10.0.0.4`:
+6. Start the newly added member on a machine with the IP `10.0.0.4`:
 -->
-4. 在 IP 为 `10.0.0.4` 的机器上启动新增加的成员：
+6. 在 IP 为 `10.0.0.4` 的机器上启动新增加的成员：
 
    ```shell
    export ETCD_NAME="member4"
@@ -393,19 +417,24 @@ replace it with `member4=http://10.0.0.4`.
    ```
 
 <!--
-5. Do either of the following:
+7. Do either of the following:
 
-   1. Update the `--etcd-servers` flag for the Kubernetes API servers to make
-      Kubernetes aware of the configuration changes, then restart the
-      Kubernetes API servers.
-   2. Update the load balancer configuration if a load balancer is used in the
-      deployment.
+   1. If each Kubernetes API server is configured to communicate with all etcd
+      members, add the newly added member to the `--etcd-servers` flag, then
+      restart each Kubernetes API server.
+   1. If each Kubernetes API server communicates with a single etcd member,
+      start the Kubernetes API server that was stopped in step 2. Then
+      configure Kubernetes API server clients to again route requests to the
+      Kubernetes API server that was stopped. This can often be done by
+      configuring a load balancer.
 -->
-5. 执行以下操作之一：
+7. 执行以下操作之一：
 
-   1. 更新 Kubernetes API 服务器的 `--etcd-servers` 参数，使 Kubernetes
-      知道配置已更改，然后重新启动 Kubernetes API 服务器。
-   2. 如果在 deployment 中使用了负载均衡，更新负载均衡配置。
+   1. 如果每个 Kubernetes API 服务器都配置为与所有 etcd 成员通信，
+      则将新增的成员添加到 `--etcd-servers` 标志，然后重新启动每个 Kubernetes API 服务器。
+   2. 如果每个 Kubernetes API 服务器都与单个 etcd 成员通信，请启动在第 2 步中停止的 Kubernetes API 服务器。
+      然后配置 Kubernetes API 服务器客户端以再次将请求路由到已停止的 Kubernetes API 服务器。
+      这通常可以通过配置负载均衡器来完成。
 
 <!--
 For more information on cluster reconfiguration, see
@@ -428,7 +457,8 @@ snapshot and volume snapshot.
 -->
 ## 备份 etcd 集群    {#backing-up-an-etcd-cluster}
 
-所有 Kubernetes 对象都存储在 etcd 上。定期备份 etcd 集群数据对于在灾难场景（例如丢失所有控制平面节点）下恢复 Kubernetes 集群非常重要。
+所有 Kubernetes 对象都存储在 etcd 上。
+定期备份 etcd 集群数据对于在灾难场景（例如丢失所有控制平面节点）下恢复 Kubernetes 集群非常重要。
 快照文件包含所有 Kubernetes 状态和关键信息。为了保证敏感的 Kubernetes 数据的安全，可以对快照文件进行加密。
 
 备份 etcd 集群可以通过两种方式完成：etcd 内置快照和卷快照。
@@ -459,6 +489,7 @@ Below is an example for taking a snapshot of the keyspace served by
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshotdb
 ```
+
 <!--
 Verify the snapshot:
 -->
@@ -544,7 +575,7 @@ one, when more reliability is desired. See
 for information on how to add members into an existing cluster.
 -->
 合理的扩展是在需要更高可靠性的情况下，将三成员集群升级为五成员集群。
-请参阅 [etcd 重新配置文档](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)
+请参阅 [etcd 重构文档](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)
 以了解如何将成员添加到现有集群中的信息。
 
 <!--
@@ -602,8 +633,9 @@ used in front of an etcd cluster, you might need to update the load balancer
 instead.
 -->
 如果还原的集群的访问 URL 与前一个集群不同，则必须相应地重新配置 Kubernetes API 服务器。
-在本例中，使用参数 `--etcd-servers=$NEW_ETCD_CLUSTER` 而不是参数 `--etcd-servers=$OLD_ETCD_CLUSTER` 重新启动 Kubernetes API 服务器。
-用相应的 IP 地址替换 `$NEW_ETCD_CLUSTER` 和 `$OLD_ETCD_CLUSTER`。如果在 etcd 集群前面使用负载平衡，则可能需要更新负载均衡器。
+在本例中，使用参数 `--etcd-servers=$NEW_ETCD_CLUSTER` 而不是参数 `--etcd-servers=$OLD_ETCD_CLUSTER`
+重新启动 Kubernetes API 服务器。用相应的 IP 地址替换 `$NEW_ETCD_CLUSTER` 和 `$OLD_ETCD_CLUSTER`。
+如果在 etcd 集群前面使用负载均衡，则可能需要更新负载均衡器。
 
 <!--
 If the majority of etcd members have permanently failed, the etcd cluster is
@@ -613,10 +645,11 @@ can be scheduled. In such cases, recover the etcd cluster and potentially
 reconfigure Kubernetes API servers to fix the issue.
 -->
 如果大多数 etcd 成员永久失败，则认为 etcd 集群失败。在这种情况下，Kubernetes 不能对其当前状态进行任何更改。
-虽然已调度的 pod 可能继续运行，但新的 pod 无法调度。在这种情况下，恢复 etcd 集群并可能需要重新配置 Kubernetes API 服务器以修复问题。
+虽然已调度的 Pod 可能继续运行，但新的 Pod 无法调度。在这种情况下，
+恢复 etcd 集群并可能需要重新配置 Kubernetes API 服务器以修复问题。
 
-<!--
 {{< note >}}
+<!--
 If any API servers are running in your cluster, you should not attempt to
 restore instances of etcd. Instead, follow these steps to restore etcd:
 
@@ -628,17 +661,15 @@ We also recommend restarting any components (e.g. `kube-scheduler`,
 `kube-controller-manager`, `kubelet`) to ensure that they don't rely on some
 stale data. Note that in practice, the restore takes a bit of time.  During the
 restoration, critical components will lose leader lock and restart themselves.
-{{< /note >}}
 -->
-{{< note >}}
 如果集群中正在运行任何 API 服务器，则不应尝试还原 etcd 的实例。相反，请按照以下步骤还原 etcd：
 
 - 停止**所有** API 服务实例
 - 在所有 etcd 实例中恢复状态
 - 重启所有 API 服务实例
 
-我们还建议重启所有组件（例如 `kube-scheduler`、`kube-controller-manager`、`kubelet`），以确保它们不会
-依赖一些过时的数据。请注意，实际中还原会花费一些时间。
+我们还建议重启所有组件（例如 `kube-scheduler`、`kube-controller-manager`、`kubelet`），
+以确保它们不会依赖一些过时的数据。请注意，实际中还原会花费一些时间。
 在还原过程中，关键组件将丢失领导锁并自行重启。
 {{< /note >}}
 
@@ -652,12 +683,10 @@ For more details on etcd upgrade, please refer to the [etcd upgrades](https://et
 -->
 有关 etcd 升级的更多详细信息，请参阅 [etcd 升级](https://etcd.io/docs/latest/upgrades/)文档。
 
+{{< note >}}
 <!--
-{{< note >}}
 Before you start an upgrade, please back up your etcd cluster first.
-{{< /note >}}
 -->
-{{< note >}}
 在开始升级之前，请先备份你的 etcd 集群。
 {{< /note >}}
 

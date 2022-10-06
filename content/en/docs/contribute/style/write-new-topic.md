@@ -105,8 +105,8 @@ following cases (not an exhaustive list):
   [FlexVolume](/docs/concepts/storage/volumes#flexvolume) implementation.
 - The code is an incomplete example because its purpose is to highlight a
   portion of a larger file. For example, when describing ways to
-  customize the [PodSecurityPolicy](/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)
-  for some reasons, you can provide a short snippet directly in your topic file.
+  customize a [RoleBinding](/docs/reference/access-authn-authz/rbac/#role-binding-examples),
+  you can provide a short snippet directly in your topic file.
 - The code is not meant for users to try out due to other reasons. For example,
   when describing how a new attribute should be added to a resource using the
   `kubectl edit` command, you can provide a short example that includes only

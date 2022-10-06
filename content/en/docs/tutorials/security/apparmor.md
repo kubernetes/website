@@ -351,7 +351,7 @@ kubectl delete pod default-pod --wait --now
 ### Setting up nodes with profiles
 
 Kubernetes does not currently provide any native mechanisms for loading AppArmor profiles onto
-nodes. There are lots of ways to setup the profiles though, such as:
+nodes. There are lots of ways to set up the profiles though, such as:
 
 * Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
   ensure the correct profiles are loaded. An example implementation can be found
@@ -367,7 +367,24 @@ class of profiles) on the node, and use a
 [node selector](/docs/concepts/scheduling-eviction/assign-pod-node/) to ensure the Pod is run on a
 node with the required profile.
 
-### Authoring Profiles
+### Disabling AppArmor
+
+If you do not want AppArmor to be available on your cluster, it can be disabled by a command-line flag:
+
+```
+--feature-gates=AppArmor=false
+```
+
+When disabled, any Pod that includes an AppArmor profile will fail validation with a "Forbidden"
+error.
+
+{{<note>}}
+Even if the Kubernetes feature is disabled, runtimes may still enforce the default profile. The
+option to disable the AppArmor feature will be removed when AppArmor graduates to general
+availability (GA).
+{{</note>}}
+
+## Authoring Profiles
 
 Getting AppArmor profiles specified correctly can be a tricky business. Fortunately there are some
 tools to help with that:
@@ -382,6 +399,31 @@ To debug problems with AppArmor, you can check the system logs to see what, spec
 denied. AppArmor logs verbose messages to `dmesg`, and errors can usually be found in the system
 logs or through `journalctl`. More information is provided in
 [AppArmor failures](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures).
+
+## API Reference
+
+### Pod Annotation
+
+Specifying the profile a container will run with:
+
+- **key**: `container.apparmor.security.beta.kubernetes.io/<container_name>`
+  Where `<container_name>` matches the name of a container in the Pod.
+  A separate profile can be specified for each container in the Pod.
+- **value**: a profile reference, described below
+
+### Profile Reference
+
+- `RuntimeDefault`: Refers to the default runtime profile.
+  - Equivalent to not specifying a profile, except it still
+    requires AppArmor to be enabled.
+  - In practice, many container runtimes use the same OCI default profile, defined here:
+    https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
+- `Localhost`: Refers to a profile loaded on the node (localhost) by name.
+  - The possible profile names are detailed in the
+    [core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications).
+- `Unconfined`: This effectively disables AppArmor on the container.
+
+Any other profile reference format is invalid.
 
 ## {{% heading "whatsnext" %}}
 
