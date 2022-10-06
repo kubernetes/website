@@ -31,14 +31,14 @@ weight: 20
 
 {{< note >}}
 쿠버네티스 v1.24 이전 릴리스는
-_dockershim_ 이라는 구성 요소를 사용하여 도커 엔진과의 직접 통합을 지원했다.
+_도커심_ 이라는 구성 요소를 사용하여 도커 엔진과의 직접 통합을 지원했다.
 이 특별한 직접 통합은
 더 이상 쿠버네티스에 포함되지 않는다(이 제거는
 v1.20 릴리스의 일부로 [공지](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)되었다).
 이 제거가 어떻게 영향을 미치는지 알아보려면
-[dockershim 제거가 영향을 미치는지 확인하기](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) 문서를 확인한다.
-dockershim을 사용하던 환경에서 이전(migrating)하는 방법을 보려면,
-[dockershim에서 이전하기](/docs/tasks/administer-cluster/migrating-from-dockershim/)를 확인한다.
+[도커심 제거가 영향을 미치는지 확인하기](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) 문서를 확인한다.
+도커심을 사용하던 환경에서 이전(migrating)하는 방법을 보려면,
+[도커심에서 이전하기](/docs/tasks/administer-cluster/migrating-from-dockershim/)를 확인한다.
 
 v{{< skew currentVersion >}} 이외의 쿠버네티스 버전을 사용하고 있다면,
 해당 버전의 문서를 참고한다.
