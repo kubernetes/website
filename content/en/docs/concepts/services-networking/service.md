@@ -731,14 +731,9 @@ or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://
 
 #### Load balancers with mixed protocol types
 
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-By default, for LoadBalancer type of Services, when there is more than one port defined, all
-ports must have the same protocol, and the protocol must be one which is supported
-by the cloud provider.
-
-The feature gate `MixedProtocolLBService` (enabled by default for the kube-apiserver as of v1.24) allows the use of
-different protocols for LoadBalancer type of Services, when there is more than one port defined.
+You can use different protocols for LoadBalancer type of Services, when there is more than one port defined.
 
 {{< note >}}
 
