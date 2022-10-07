@@ -7,6 +7,10 @@ description: Creating Secret objects using kubectl command line.
 
 <!-- overview -->
 
+This page shows you how to create, edit, manage, and delete Kubernetes
+{{<glossary_tooltip text="Secrets" term_id="secret">}} using the `kubectl`
+command-line tool.
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
@@ -15,64 +19,64 @@ description: Creating Secret objects using kubectl command line.
 
 ## Create a Secret
 
-A `Secret` can contain user credentials required by pods to access a database.
-For example, a database connection string consists of a username and password.
-You can store the username in a file `./username.txt` and the password in a
-file `./password.txt` on your local machine.
+A `Secret` object stores sensitive data such as credentials
+used by Pods to access services. For example, you might need a Secret to store
+the username and password needed to access a database.
 
-```shell
-echo -n 'admin' > ./username.txt
-echo -n '1f2d1e2e67df' > ./password.txt
-```
-In these commands, the `-n` flag ensures that the generated files do not have
-an extra newline character at the end of the text. This is important because
-when `kubectl` reads a file and encodes the content into a base64 string, the
-extra newline character gets encoded too.
+You can create the Secret by passing the raw data in the command, or by storing
+the credentials in files that you pass in the command. The following commands
+create a Secret that stores the username `admin` and the password `S!B\*d$zDsb=`.
 
-The `kubectl create secret` command packages these files into a Secret and creates
-the object on the API server.
+### Use raw data
+
+Run the following command:
 
 ```shell
 kubectl create secret generic db-user-pass \
-  --from-file=./username.txt \
-  --from-file=./password.txt
+    --from-literal=username=devuser \
+    --from-literal=password='S!B\*d$zDsb='
 ```
+You must use single quotes `''` to escape special characters such as `$`, `\`,
+`*`, `=`, and `!` in your strings. If you don't, your shell will interpret these
+characters.
 
-The output is similar to:
+### Use source files
+
+1.  Store the credentials in files with the values encoded in base64:
+
+    ```shell
+    echo -n 'admin' | base64 > ./username.txt
+    echo -n 'S!B\*d$zDsb=' | base64 > ./password.txt
+    ```
+    The `-n` flag ensures that the generated files do not have an extra newline
+    character at the end of the text. This is important because when `kubectl`
+    reads a file and encodes the content into a base64 string, the extra
+    newline character gets encoded too. You do not need to escape special
+    characters in strings that you include in a file.
+
+1.  Pass the file paths in the `kubectl` command:
+
+    ```shell
+    kubectl create secret generic db-user-pass \
+        --from-file=./username.txt \
+        --from-file=./password.txt
+    ```
+    The default key name is the file name. You can optionally set the key name
+    using `--from-file=[key=]source`. For example:
+
+    ```shell
+    kubectl create secret generic db-user-pass \
+        --from-file=username=./username.txt \
+        --from-file=password=./password.txt
+    ```
+
+With either method, the output is similar to:
 
 ```
 secret/db-user-pass created
 ```
 
-The default key name is the filename. You can optionally set the key name using
-`--from-file=[key=]source`. For example:
-
-```shell
-kubectl create secret generic db-user-pass \
-  --from-file=username=./username.txt \
-  --from-file=password=./password.txt
-```
-
-You do not need to escape special characters in password strings that you 
-include in a file.
-
-You can also provide Secret data using the `--from-literal=<key>=<value>` tag.
-This tag can be specified more than once to provide multiple key-value pairs.
-Note that special characters such as `$`, `\`, `*`, `=`, and `!` will be
-interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing))
-and require escaping.
-
-In most shells, the easiest way to escape the password is to surround it with
-single quotes (`'`). For example, if your password is `S!B\*d$zDsb=`,
-run the following command:
-
-```shell
-kubectl create secret generic db-user-pass \
-  --from-literal=username=devuser \
-  --from-literal=password='S!B\*d$zDsb='
-```
-
-## Verify the Secret
+### Verify the Secret {#verify-the-secret}
 
 Check that the Secret was created:
 
