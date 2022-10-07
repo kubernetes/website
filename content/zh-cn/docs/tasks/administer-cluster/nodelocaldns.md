@@ -43,7 +43,7 @@ hostnames ("`cluster.local`" suffix by default).
 NodeLocal DNSCache 通过在集群节点上作为 DaemonSet 运行 DNS 缓存代理来提高集群 DNS 性能。
 在当今的体系结构中，运行在 'ClusterFirst' DNS 模式下的 Pod 可以连接到 kube-dns `serviceIP` 进行 DNS 查询。
 通过 kube-proxy 添加的 iptables 规则将其转换为 kube-dns/CoreDNS 端点。
-借助这种新架构，Pods 将可以访问在同一节点上运行的 DNS 缓存代理，从而避免 iptables DNAT 规则和连接跟踪。
+借助这种新架构，Pod 将可以访问在同一节点上运行的 DNS 缓存代理，从而避免 iptables DNAT 规则和连接跟踪。
 本地缓存代理将查询 kube-dns 服务以获取集群主机名的缓存缺失（默认为 "`cluster.local`" 后缀）。
 
 <!--
@@ -185,7 +185,7 @@ This feature can be enabled using the following steps:
   * If kube-proxy is running in IPTABLES mode:
 
     ``` bash
-    sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__/$kubedns/g" nodelocaldns.yaml
+    sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/,__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
     ```
 
     `__PILLAR__CLUSTER__DNS__` and `__PILLAR__UPSTREAM__SERVERS__` will be populated by
@@ -199,9 +199,9 @@ This feature can be enabled using the following steps:
     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__/$kubedns/g" nodelocaldns.yaml
     ```
 
-    node-local-dns Pods 会设置 `__PILLAR__CLUSTER__DNS__` 和 `__PILLAR__UPSTREAM__SERVERS__`。
-    在此模式下, node-local-dns Pods 会同时侦听 kube-dns 服务的 IP 地址和
-    `<node-local-address>` 的地址，以便 Pods 可以使用其中任何一个 IP 地址来查询 DNS 记录。
+    node-local-dns Pod 会设置 `__PILLAR__CLUSTER__DNS__` 和 `__PILLAR__UPSTREAM__SERVERS__`。
+    在此模式下, node-local-dns Pod 会同时侦听 kube-dns 服务的 IP 地址和
+    `<node-local-address>` 的地址，以便 Pod 可以使用其中任何一个 IP 地址来查询 DNS 记录。
 
 <!--
   * If kube-proxy is running in IPVS mode:
@@ -221,7 +221,7 @@ This feature can be enabled using the following steps:
     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/,__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
     ```
 
-    在此模式下，node-local-dns Pods 只会侦听 `<node-local-address>` 的地址。
+    在此模式下，node-local-dns Pod 只会侦听 `<node-local-address>` 的地址。
     node-local-dns 接口不能绑定 kube-dns 的集群 IP 地址，因为 IPVS 负载均衡使用的接口已经占用了该地址。
     node-local-dns Pod 会设置 `__PILLAR__UPSTREAM__SERVERS__`。
 
@@ -250,7 +250,7 @@ be available on a per-node basis.
 You can disable this feature by removing the DaemonSet, using `kubectl delete -f <manifest>`.
 You should also revert any changes you made to the kubelet configuration.
 -->
-启用后，`node-local-dns` Pods 将在每个集群节点上的 `kube-system` 名字空间中运行。
+启用后，`node-local-dns` Pod 将在每个集群节点上的 `kube-system` 名字空间中运行。
 此 Pod 在缓存模式下运行 [CoreDNS](https://github.com/coredns/coredns)，
 因此每个节点都可以使用不同插件公开的所有 CoreDNS 指标。
 
