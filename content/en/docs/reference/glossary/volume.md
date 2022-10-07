@@ -11,11 +11,12 @@ tags:
 - core-object
 - fundamental
 ---
+
  A directory containing data, accessible to the {{< glossary_tooltip text="containers" term_id="container" >}} in a {{< glossary_tooltip text="pod" term_id="pod" >}}.
 
 <!--more-->
 
-Kubernetes supports two fundamental types of volumes - Ephemeral and Persistent. 
-Ephemeral volumes exist for the lifetime of their associated pods, while Persistent volumes are designed to exist beyond the lifetime of pods associated with it. However, irrespective of the volume type, data is always preserved across container restarts.
+Kubernetes supports two fundamental types of volumes - ephemeral and persistent. 
+Ephemeral volumes exist for the lifetime of their associated pods, while persistent volumes are designed to exist beyond the lifetime of pods associated with them. However, irrespective of the volume type, data is always preserved across container restarts.
 
 See [storage](/docs/concepts/storage/) for more information.
