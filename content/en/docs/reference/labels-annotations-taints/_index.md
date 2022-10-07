@@ -776,10 +776,20 @@ Used on: Node
 
 Label that kubeadm applies on the control plane nodes that it manages.
 
-### node-role.kubernetes.io/control-plane
+### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
 Used on: Node
 
 Example: `node-role.kubernetes.io/control-plane:NoSchedule`
 
 Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+
+### node-role.kubernetes.io/master (deprecated) {#node-role-kubernetes-io-master-taint}
+
+Used on: Node
+
+Example: `node-role.kubernetes.io/master:NoSchedule`
+
+Taint that kubeadm previously applied on control plane nodes to allow only critical workloads to schedule on them.
+Replaced by [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint); kubeadm
+no longer sets or uses this deprecated taint.
