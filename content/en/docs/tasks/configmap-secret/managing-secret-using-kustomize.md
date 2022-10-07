@@ -89,7 +89,9 @@ When a Secret is generated, the Secret name is created by hashing
 the Secret data and appending the hash value to the name. This ensures that
 a new Secret is generated each time the data is modified.
 
-## Check the Secret created
+To verify that the Secret was created and to decode the Secret data, refer to
+[Managing Secrets using
+kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
 
 ## Edit a Secret {#edit-secret}
 
