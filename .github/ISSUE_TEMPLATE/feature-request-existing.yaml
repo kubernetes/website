@@ -1,0 +1,37 @@
+name: Improvement Request
+description: Suggest an improvement to an existing page on the Kubernetes website
+labels: kind/feature
+body:
+  - type: textarea
+    id: feature
+    attributes:
+      label: What would you like to be added?
+      description: |
+        Describe as precisely as possible how this feature/enhancement should work from the user perspective.
+        What should be changed, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: urls
+    attributes:
+      label: URL of the page to improve
+      description: |
+        What page (or pages) are you asking for changes to?
+        Please provide the URL of each page.
+      placeholder:
+        https://kubernetes.io/docs/example/
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why is this needed?
+    validations:
+      required: true
+
+  - type: textarea
+    id: comments
+    attributes:
+      label: Additional comments

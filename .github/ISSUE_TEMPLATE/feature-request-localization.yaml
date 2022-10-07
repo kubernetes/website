@@ -1,0 +1,29 @@
+name: Localization Request
+description: Suggest localizing a page into a different language
+labels:
+  - area/localization
+body:
+  - type: input
+    id: url
+    attributes:
+      label: What page would you like to be localized?
+      description: |
+        Please provide the URL of the (English) page to localize.
+      placeholder:
+        https://kubernetes.io/docs/home/
+    validations:
+      required: true
+
+  - type: input
+    id: language
+    attributes:
+      label: Language to localize into
+      description: |
+        What language should the page be localized into?
+    validations:
+      required: true
+
+  - type: textarea
+    id: comments
+    attributes:
+      label: Additional comments

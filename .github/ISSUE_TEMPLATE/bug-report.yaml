@@ -1,0 +1,55 @@
+name: Bug Report
+description: Report a bug encountered with the Kubernetes website
+labels: kind/bug
+body:
+  - type: textarea
+    id: urls
+    attributes:
+      label: URLs
+      value: |
+        URL(s) of the web pages that you were looking at, or were trying to look at.
+      placeholder:
+        https://web-page-url.example/
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: |
+        Please provide as much info as possible. The more you can tell us about the bug, the better.
+
+        If the page is not in English, you should either report an issue with the original (English) page
+        instead, or submit a request to get the localized page updated to match the English original.
+
+        If this report is security related, please disclose it privately via https://kubernetes.io/security
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+
+   - type: checkboxes
+     id: elements
+     attributes:
+       label: Which of these details apply?
+       description: You may select more than one.
+       options:
+         - label: The page doesn't render properly
+         - label: The existing text is factually incorrect
+         - label: The existing text is no longer up to date
+         - label: The text on that page is confusing
+         - label: The page explains something that is no longer relevant
+         - label: There is a broken hyperlink
+         - label: There is a missing diagram
+         - label: The page is hard to find from elsewhere on the site
+         - label: The page previously existing but is now gone
+         - label: The page does not load
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Anything else we need to know?
