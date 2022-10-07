@@ -194,13 +194,25 @@ field of a pod to the name of the service account you wish to use.
 The service account has to exist at the time the pod is created, or it will be rejected.
 
 You cannot update the service account of an already created pod.
-
-You can clean up the service account from this example like this:
 -->
 Pod 被创建时服务账号必须存在，否则会被拒绝。
 
 你不能更新已经创建好的 Pod 的服务账号。
 
+{{< note >}}
+<!--
+The `spec.serviceAccount` field is a deprecated alias for `spec.serviceAccountName`.
+If you want to remove the fields from a workload resource, set both fields to empty explicitly
+on the [pod template](/docs/concepts/workloads/pods#pod-templates).
+-->
+`spec.serviceAccount` 字段是 `spec.serviceAccountName` 的已弃用别名。
+如果要从工作负载资源中删除这些字段，请在
+[Pod 模板](/zh-cn/docs/concepts/workloads/pods#pod-templates)上将这两个字段显式设置为空。
+{{< /note >}}
+
+<!--
+You can clean up the service account from this example like this:
+-->
 你可以清除服务账号，如下所示：
 
 ```shell
