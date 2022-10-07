@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Server Side Apply Is Great And You Should Be Using It"
-date: 2022-10-00
+date: 2022-10-20
 slug: advanced-server-side-apply
 ---
 
@@ -44,7 +44,7 @@ There’s two main categories here, but for both of them, **you should probably 
 
 #### Controllers that use either a GET-modify-PUT sequence or a PATCH {#get-modify-put-patch-controllers}
 
-This kind of controller GETs an object (possibly from a watch), modifies it, and then PUTs it back to write its changes. Sometimes it constructs a custom PATCH, but the semantics are the same. Most existing controllers (especially those in-tree) work like this.
+This kind of controller GETs an object (possibly from a [**watch**](https://kubernetes.io/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)), modifies it, and then PUTs it back to write its changes. Sometimes it constructs a custom PATCH, but the semantics are the same. Most existing controllers (especially those in-tree) work like this.
 
 If your controller is perfect, great! You don’t need to change it. But if you do want to change it, you can take advantage of the new client library’s “extract” workflow– that is, get the existing object, extract your existing desires, make modifications, and re-apply. For many controllers that were computing the smallest changes possible, this will be a small change.
 
@@ -75,6 +75,7 @@ Hopefully this convinces you that CI/CD systems need error paths–a way to back
 * Reject the hotfix: the system admin observes the error, and manually force-applies the manifest in question. Then the CI/CD system will be able to apply the manifest successfully and become a co-owner. (Optional: then the system admin applies a blank manifest to relinquish any fields they became a manager for.)
 * Accept the hotfix: the author of the change in question sees the conflict, and edits their change to accept the value running in production.
 * We can also imagine the CI/CD system permitting you to mark a manifest as “force conflicts” somehow– if there’s demand for this we could consider making a more standardized way to do this. A rigorous version of this which lets you declare exactly which conflicts you intend to force would require support from apiserver, but in lieu of that, you can make a second manifest with only that subset of fields.
+* Future work: we could imagine the especially advanced CI/CD system could parse `metadata.managedFields` data to see who or what they are conflicting with, over what fields, and decide whether or not to ignore the conflict. In fact, this information is also presented in any conflict errors, though perhaps not in an easily machine-parseable format. We (SIG API Machinery) mostly didn't expect that people would want to take this approach -- so we would love to know if in fact people want/need the features implied by this approach, such as the ability, when **apply**ing to request to override certain conflicts but not others. So come talk to SIG API Machinery if this sounds like an approach you'd want to take for some controller!
 
-Happy applying!
+Happy **apply**ing!
 
