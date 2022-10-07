@@ -167,6 +167,14 @@ resources:
     memory: 128Mi
 ```
 
+{{< note >}}
+
+A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be scheduleable.
+See [Constraints on resource limits and requests](/docs/concepts/policy/limit-range/#constraints-on-resource-limits-and-requests) for more details.
+
+{{< /note >}}
+
+
 ## Motivation for default memory limits and requests
 
 If your namespace has a memory {{< glossary_tooltip text="resource quota" term_id="resource-quota" >}}
