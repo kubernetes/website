@@ -153,16 +153,37 @@ accidentally, or from being stored in a terminal log.
     kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
     ```
 
+## Edit a Secret {#edit-secret}
 
-
-In order to avoid storing a secret encoded value in your shell history, you can
-run the following command:
+You can edit an existing `Secret` object unless it is
+[immutable](/docs/concepts/configuration/secret/#secret-immutable). To edit a
+Secret, run the following command:
 
 ```shell
-kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
+kubectl edit secrets <secret-name>
 ```
 
-The output shall be similar as above.
+This opens your default editor and allows you to update the base64 encoded
+Secret values in the `data` field, such as in the following example:
+
+```yaml
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file, it will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+  password: UyFCXCpkJHpEc2I9
+  username: YWRtaW4=
+kind: Secret
+metadata:
+  creationTimestamp: "2022-06-28T17:44:13Z"
+  name: db-user-pass
+  namespace: default
+  resourceVersion: "12708504"
+  uid: 91becd59-78fa-4c85-823f-6d44436242ac
+type: Opaque
+```
 
 ## Clean Up
 
