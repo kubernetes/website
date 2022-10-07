@@ -91,10 +91,10 @@ NAME                  TYPE                                  DATA      AGE
 db-user-pass          Opaque                                2         51s
 ```
 
-You can view a description of the `Secret`:
+View the details of the Secret:
 
 ```shell
-kubectl describe secrets/db-user-pass
+kubectl describe secret db-user-pass
 ```
 
 The output is similar to:
@@ -117,39 +117,43 @@ The commands `kubectl get` and `kubectl describe` avoid showing the contents
 of a `Secret` by default. This is to protect the `Secret` from being exposed
 accidentally, or from being stored in a terminal log.
 
-To check the actual content of the encoded data, refer to [Decoding the Secret](#decoding-secret).
+### Decode the Secret  {#decoding-secret}
 
-## Decoding the Secret  {#decoding-secret}
+1.  View the contents of the Secret you created:
 
-To view the contents of the Secret you created, run the following command:
+    ```shell
+    kubectl get secret db-user-pass -o jsonpath='{.data}'
+    ```
 
-```shell
-kubectl get secret db-user-pass -o jsonpath='{.data}'
-```
+    The output is similar to:
 
-The output is similar to:
+    ```json
+    {"password":"UyFCXCpkJHpEc2I9","username":"YWRtaW4="}
+    ```
 
-```json
-{"password":"MWYyZDFlMmU2N2Rm","username":"YWRtaW4="}
-```
+1.  Decode the `password` data:
 
-Now you can decode the `password` data:
+    ```shell
+    echo 'UyFCXCpkJHpEc2I9' | base64 --decode
+    ```
 
-```shell
-# This is an example for documentation purposes.
-# If you did things this way, the data 'MWYyZDFlMmU2N2Rm' could be stored in
-# your shell history.
-# Someone with access to you computer could find that remembered command
-# and base-64 decode the secret, perhaps without your knowledge.
-# It's usually better to combine the steps, as shown later in the page.
-echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
-```
+    The output is similar to:
 
-The output is similar to:
+    ```
+    S!B\*d$zDsb=
+    ```
 
-```
-1f2d1e2e67df
-```
+    {{<caution>}}This is an example for documentation purposes. In practice,
+    this method could cause the command with the encoded data to be stored in
+    your shell history. Anyone with access to your computer could find the
+    command and decode the secret. A better approach is to combine the view and
+    decode commands.{{</caution>}}
+
+    ```shell
+    kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
+    ```
+
+
 
 In order to avoid storing a secret encoded value in your shell history, you can
 run the following command:
