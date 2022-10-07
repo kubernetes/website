@@ -185,9 +185,9 @@ metadata:
 type: Opaque
 ```
 
-## Clean Up
+## Clean up
 
-Delete the Secret you created:
+To delete a Secret, run the following command:
 
 ```shell
 kubectl delete secret db-user-pass
