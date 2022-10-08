@@ -158,7 +158,7 @@ kubectl get events | grep Created
 You can also verify directly that the container's root process is running with the correct profile by checking its proc attr:
 
 ```shell
-kubectl exec <pod_name> cat /proc/1/attr/current
+kubectl exec <pod_name> -- cat /proc/1/attr/current
 ```
 ```
 k8s-apparmor-example-deny-write (enforce)
