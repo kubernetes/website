@@ -15,8 +15,7 @@ software dependencies. Container images are executable software bundles that can
 standalone and that make very well defined assumptions about their runtime environment.
 
 You typically create a container image of your application and push it to a registry
-before referring to it in a
-{{< glossary_tooltip text="Pod" term_id="pod" >}}
+before referring to it in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 
 This page provides an outline of the container image concept.
 
@@ -36,8 +35,8 @@ and possibly a port number as well; for example: `fictional.registry.example:104
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
 
-After the image name part you can add a _tag_ (in the same way you would when using with commands like `docker` or `podman`).
-Tags let you identify different versions of the same series of images.
+After the image name part you can add a _tag_ (in the same way you would when using with commands
+like `docker` or `podman`).  Tags let you identify different versions of the same series of images.
 
 Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
 periods (`.`), and dashes (`-`).  
@@ -69,10 +68,10 @@ these values have:
 `Always`
 : every time the kubelet launches a container, the kubelet queries the container
   image registry to resolve the name to an image
-  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier). If the kubelet has a
-  container image with that exact digest cached locally, the kubelet uses its cached
-  image; otherwise, the kubelet pulls the image with the resolved digest,
-  and uses that image to launch the container.
+  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier).
+  If the kubelet has a container image with that exact digest cached locally, the kubelet uses its
+  cached image; otherwise, the kubelet pulls the image with the resolved digest, and uses that image
+  to launch the container.
 
 `Never`
 : the kubelet does not try fetching the image. If the image is somehow already present
@@ -97,7 +96,11 @@ the image's digest;
 replace `<image-name>:<tag>` with `<image-name>@<digest>`
 (for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
 
-When using image tags, if the image registry were to change the code that the tag on that image represents, you might end up with a mix of Pods running the old and new code. An image digest uniquely identifies a specific version of the image, so Kubernetes runs the same code every time it starts a container with that image name and digest specified. Specifying an image by digest fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
+When using image tags, if the image registry were to change the code that the tag on that image
+represents, you might end up with a mix of Pods running the old and new code. An image digest
+uniquely identifies a specific version of the image, so Kubernetes runs the same code every time
+it starts a container with that image name and digest specified. Specifying an image by digest
+fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
 
 There are third-party [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
 that mutate Pods (and pod templates) when they are created, so that the
@@ -137,8 +140,8 @@ If you would like to always force a pull, you can do one of the following:
   Kubernetes will set the policy to `Always` when you submit the Pod.
 - Omit the `imagePullPolicy` and the tag for the image to use;
   Kubernetes will set the policy to `Always` when you submit the Pod.
-- Enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
-
+- Enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
+  admission controller.
 
 ### ImagePullBackOff
 
@@ -156,35 +159,46 @@ which is 300 seconds (5 minutes).
 
 ## Multi-architecture images with image indexes
 
-As well as providing binary images, a container registry can also serve a [container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md). An image index can point to multiple [image manifests](https://github.com/opencontainers/image-spec/blob/master/manifest.md) for architecture-specific versions of a container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
+As well as providing binary images, a container registry can also serve a
+[container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md).
+An image index can point to multiple [image manifests](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+for architecture-specific versions of a container. The idea is that you can have a name for an image
+(for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to
+fetch the right binary image for the machine architecture they are using.
 
-Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
+Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward
+compatibility, please generate the older images with suffixes. The idea is to generate say `pause`
+image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards
+compatible for older configurations or YAML files which may have hard coded the images with
+suffixes.
 
 ## Using a private registry
 
 Private registries may require keys to read images from them.  
 Credentials can be provided in several ways:
-  - Configuring Nodes to Authenticate to a Private Registry
-    - all pods can read any configured private registries
-    - requires node configuration by cluster administrator
-  - Kubelet Credential Provider to dynamically fetch credentials for private registries
-    - kubelet can be configured to use credential provider exec plugin 
-      for the respective private registry.
-  - Pre-pulled Images
-    - all pods can use any images cached on a node
-    - requires root access to all nodes to set up
-  - Specifying ImagePullSecrets on a Pod
-    - only pods which provide own keys can access the private registry
-  - Vendor-specific or local extensions
-    - if you're using a custom node configuration, you (or your cloud
-      provider) can implement your mechanism for authenticating the node
-      to the container registry.
+
+- Configuring Nodes to Authenticate to a Private Registry
+  - all pods can read any configured private registries
+  - requires node configuration by cluster administrator
+- Kubelet Credential Provider to dynamically fetch credentials for private registries
+  - kubelet can be configured to use credential provider exec plugin 
+    for the respective private registry.
+- Pre-pulled Images
+  - all pods can use any images cached on a node
+  - requires root access to all nodes to set up
+- Specifying ImagePullSecrets on a Pod
+  - only pods which provide own keys can access the private registry
+- Vendor-specific or local extensions
+  - if you're using a custom node configuration, you (or your cloud
+    provider) can implement your mechanism for authenticating the node
+    to the container registry.
 
 These options are explained in more detail below.
 
 ### Configuring nodes to authenticate to a private registry
 
-Specific instructions for setting credentials depends on the container runtime and registry you chose to use. You should refer to your solution's documentation for the most accurate information.
+Specific instructions for setting credentials depends on the container runtime and registry you
+chose to use. You should refer to your solution's documentation for the most accurate information.
 
 For an example of configuring a private container image registry, see the
 [Pull an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry)
@@ -269,7 +283,6 @@ If now a container specifies an image `my-registry.io/images/subpath/my-image`
 to be pulled, then the kubelet will try to download them from both
 authentication sources if one of them fails.
 
-
 ### Pre-pulled images
 
 {{< note >}}
@@ -285,7 +298,8 @@ then a local image is used (preferentially or exclusively, respectively).
 If you want to rely on pre-pulled images as a substitute for registry authentication,
 you must ensure all nodes in the cluster have the same pre-pulled images.
 
-This can be used to preload certain images for speed or as an alternative to authenticating to a private registry.
+This can be used to preload certain images for speed or as an alternative to authenticating to a
+private registry.
 
 All pods will have read access to any pre-pulled images.
 
@@ -307,13 +321,18 @@ to the registry, as well as its hostname.
 Run the following command, substituting the appropriate uppercase values:
 
 ```shell
-kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
+kubectl create secret docker-registry <name> \
+  --docker-server=DOCKER_REGISTRY_SERVER \
+  --docker-username=DOCKER_USER \
+  --docker-password=DOCKER_PASSWORD \
+  --docker-email=DOCKER_EMAIL
 ```
 
 If you already have a Docker credentials file then, rather than using the above
 command, you can import the credentials file as a Kubernetes
 {{< glossary_tooltip text="Secrets" term_id="secret" >}}.  
-[Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) explains how to set this up.
+[Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
+explains how to set this up.
 
 This is particularly useful if you are using multiple private container
 registries, as `kubectl create secret docker-registry` creates a Secret that
@@ -358,7 +377,8 @@ This needs to be done for each pod that is using a private registry.
 However, setting of this field can be automated by setting the imagePullSecrets
 in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) resource.
 
-Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) for detailed instructions.
+Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
+for detailed instructions.
 
 You can use this in conjunction with a per-node `.docker/config.json`.  The credentials
 will be merged.
@@ -371,7 +391,8 @@ common use cases and suggested solutions.
 1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
    - Use public images from a public registry
      - No configuration required.
-     - Some cloud providers automatically cache or mirror public images, which improves availability and reduces the time to pull images.
+     - Some cloud providers automatically cache or mirror public images, which improves
+       availability and reduces the time to pull images.
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
    visible to all cluster users.
    - Use a hosted private registry
@@ -382,14 +403,16 @@ common use cases and suggested solutions.
      - It will work better with cluster autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 1. Cluster with proprietary images, a few of which require stricter access control.
-   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
+   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
+     is active. Otherwise, all Pods potentially have access to all images.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 1. A multi-tenant cluster where each tenant needs own private registry.
-   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods of all tenants potentially have access to all images.
+   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
+     is active. Otherwise, all Pods of all tenants potentially have access to all images.
    - Run a private registry with authorization required.
-   - Generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
+   - Generate registry credential for each tenant, put into secret, and populate secret to each
+     tenant namespace.
    - The tenant adds that secret to imagePullSecrets of each namespace.
-
 
 If you need access to multiple registries, you can create one secret for each registry.
 
@@ -398,3 +421,4 @@ If you need access to multiple registries, you can create one secret for each re
 * Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
 * Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
 * Learn more about [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry).
+
