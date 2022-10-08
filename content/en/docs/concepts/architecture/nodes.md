@@ -444,7 +444,7 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 
 {{< note >}}
 When pods were evicted during the graceful node shutdown, they are marked as shutdown.
-Running `kubectl get pods` shows the status of the the evicted pods as `Terminated`.
+Running `kubectl get pods` shows the status of the evicted pods as `Terminated`.
 And `kubectl describe pod` indicates that the pod was evicted because of node shutdown:
 
 ```
