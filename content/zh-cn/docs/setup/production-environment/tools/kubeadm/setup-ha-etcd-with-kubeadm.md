@@ -109,7 +109,6 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    ```sh
    cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
    [Service]
-   ExecStart=
    # 将下面的 "systemd" 替换为你的容器运行时所使用的 cgroup 驱动。
    # kubelet 的默认值为 "cgroupfs"。
    # 如果需要的话，将 "--container-runtime-endpoint " 的值替换为一个不同的容器运行时。
