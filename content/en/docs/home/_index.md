@@ -57,8 +57,8 @@ cards:
   button: Contribute to the docs
   button_path: /docs/contribute
 - name: Download
-  title: Downloads
-  description: If you are installing Kubernetes or upgrading to the newest version, refer to the Downloads section.
+  title: Download Kubernetes
+  description: Install Kubernetes or upgrade to the newest version.
   button: "Download Kubernetes"
   button_path: "/releases/download"
 - name: about
