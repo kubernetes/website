@@ -246,6 +246,7 @@ GitHub Mentions: @kubernetes/release-engineering
 GitHub 提及：@kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
+- Cici Huang ([@cici37](https://github.com/cici37))
 - Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
 - Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
@@ -254,6 +255,7 @@ GitHub 提及：@kubernetes/release-engineering
 - Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
 - Taylor Dolezal ([@onlydole](https://github.com/onlydole))
 - Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
+- Xander Grzywinski([@salaxander](https://github.com/salaxander))
 
 <!-- 
 ### Becoming a Release Manager Associate
@@ -305,9 +307,9 @@ GitHub team: [@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams
 GitHub 团队：[@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams/build-admins)
 
 - Aaron Crickenberger ([@spiffxp](https://github.com/spiffxp))
-- Benjamin Elder ([@BenTheElder](https://github.com/BenTheElder))
+- Ben Kazemi ([@BenjaminKazemi](https://github.com/BenjaminKazemi))
 - Grant McCloskey ([@MushuEE](https://github.com/MushuEE))
-- Juan Escobar ([@juanfescobar](https://github.com/juanfescobar))
+
 
 <!-- 
 ## SIG Release Leads

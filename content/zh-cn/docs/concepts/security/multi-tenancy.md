@@ -319,8 +319,8 @@ though these are less useful for multi-tenant clusters.
 -->
 基于角色的访问控制 (RBAC) 通常用于在 Kubernetes 控制平面中对用户和工作负载（服务帐户）强制执行鉴权。
 [角色](/zh-cn/docs/reference/access-authn-authz/rbac/#role-and-clusterrole)
-和[角色绑定](/zh-cn/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)是
-两种 Kubernetes 对象，用来在命名空间级别对应用实施访问控制；
+和[角色绑定](/zh-cn/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)是两种
+Kubernetes 对象，用来在命名空间级别对应用实施访问控制；
 对集群级别的对象访问鉴权也有类似的对象，不过这些对象对于多租户集群不太有用。
 
 <!--
@@ -432,23 +432,26 @@ or is intercepted by a workload on a compromised node.
 或被受感染节点上的工作负载拦截。
 
 <!--
-Pod-to-pod communication can be controlled  using [Network Policies](/docs/concepts/services-networking/network-policies/), 
-which restrict communication between pods using namespace labels or IP address ranges. 
-In a multi-tenant environment where strict network isolation between tenants is required,   
-starting with a default policy that denies communication between pods is recommended 
-with another rule that allows all pods to query the DNS server for name resolution. 
-With such a default policy in place, 
-you can begin adding more permissive rules that allow for communication within a namespace. 
-This scheme can be further refined as required. 
-Note that this only applies to pods within a single control plane; 
-pods that belong to different virtual control planes cannot talk to each other via Kubernetes networking.
+Pod-to-pod communication can be controlled using [Network Policies](/docs/concepts/services-networking/network-policies/),
+which restrict communication between pods using namespace labels or IP address ranges.
+In a multi-tenant environment where strict network isolation between tenants is required, starting
+with a default policy that denies communication between pods is recommended with another rule that
+allows all pods to query the DNS server for name resolution. With such a default policy in place,
+you can begin adding more permissive rules that allow for communication within a namespace.
+It is also recommended not to use empty label selector '{}' for namespaceSelector field in network policy definition,
+in case traffic need to be allowed between namespaces.
+This scheme can be further refined as required. Note that this only applies to pods within a single
+control plane; pods that belong to different virtual control planes cannot talk to each other via
+Kubernetes networking.
 -->
-Pod 之间的通信可以使用[网络策略](/zh-cn/docs/concepts/services-networking/network-policies/) 来控制，
+Pod 之间的通信可以使用[网络策略](/zh-cn/docs/concepts/services-networking/network-policies/)来控制，
 它使用命名空间标签或 IP 地址范围来限制 Pod 之间的通信。
 在需要租户之间严格网络隔离的多租户环境中，
 建议从拒绝 Pod 之间通信的默认策略入手，
 然后添加一条允许所有 Pod 查询 DNS 服务器以进行名称解析的规则。
 有了这样的默认策略之后，你就可以开始添加允许在命名空间内进行通信的更多规则。
+另外建议不要在网络策略定义中对 namespaceSelector 字段使用空标签选择算符 “{}”，
+以防需要允许在命名空间之间传输流量。
 该方案可根据需要进一步细化。
 请注意，这仅适用于单个控制平面内的 Pod；
 属于不同虚拟控制平面的 Pod 不能通过 Kubernetes 网络相互通信。
@@ -469,7 +472,7 @@ Network policies require a
 that supports the implementation of network policies. 
 Otherwise, NetworkPolicy resources will be ignored.
 -->
-网络策略需要一个支持网络策略实现的 
+网络策略需要一个支持网络策略实现的
 [CNI 插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni)。
 否则，NetworkPolicy 资源将被忽略。
 {{< /warning >}}
@@ -565,7 +568,7 @@ In either case, mechanisms to further isolate and protect workloads using strong
 -->
 在共享环境中，攻击者可以利用应用和系统层中未修补的漏洞实现容器逃逸和远程代码执行，
 从而允许访问主机资源。
-在某些应用中，例如内容管理系统 (CMS)，
+在某些应用中，例如内容管理系统（CMS），
 客户可能被授权上传和执行非受信的脚本或代码。
 无论哪种情况，都需要使用强隔离进一步隔离和保护工作负载的机制。
 
@@ -596,15 +599,18 @@ and all the processes/files running on that host.
 在容器逃逸场景中，攻击者会利用漏洞来访问主机系统以及在该主机上运行的所有进程/文件。
 
 <!--
-Virtual machines and userspace kernels are 2 popular approaches to sandboxing. 
-The following sandboxing implementations are available:
-* [gVisor](https://gvisor.dev/) intercepts syscalls from containers 
-and runs them through a userspace kernel, written in Go, with limited access to the underlying host.
-* [Kata Containers](https://katacontainers.io/) is an OCI compliant runtime that allows you to run containers in a VM. 
-The hardware virtualization available in Kata offers an added layer of security for containers running untrusted code.
+Virtual machines and userspace kernels are 2 popular approaches to sandboxing. The following
+sandboxing implementations are available:
+
+* [gVisor](https://gvisor.dev/) intercepts syscalls from containers and runs them through a
+  userspace kernel, written in Go, with limited access to the underlying host.
+* [Kata Containers](https://katacontainers.io/) is an OCI compliant runtime that allows you to run
+  containers in a VM. The hardware virtualization available in Kata offers an added layer of
+  security for containers running untrusted code.
 -->
 虚拟机和用户空间内核是两种流行的沙箱方法。
 可以使用以下沙箱实现：
+
 * [gVisor](https://gvisor.dev/) 拦截来自容器的系统调用，并通过用户空间内核运行它们，
   用户空间内核采用 Go 编写，对底层主机的访问是受限的
 * [Kata Containers](https://katacontainers.io/) 是符合 OCI 的运行时，允许你在 VM 中运行容器。
@@ -660,7 +666,7 @@ and node affinities to pods deployed into tenant namespaces
 so that they run on a specific set of nodes designated for that tenant.
 -->
 从计费的角度来看，节点隔离比沙箱容器更容易理解，
-因为你可以按节点而不是按 Pod 收费。 
+因为你可以按节点而不是按 Pod 收费。
 它的兼容性和性能问题也较少，而且可能比沙箱容器更容易实现。
 例如，可以为每个租户的节点配置污点，
 以便只有具有相应容忍度的 Pod 才能在其上运行。
@@ -672,9 +678,8 @@ Node isolation can be implemented using an
 [pod node selectors](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) 
 or a [Virtual Kubelet](https://github.com/virtual-kubelet).
 -->
-节点隔离可以使用
-[将 Pod 指派给节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)
-或 [Virtual Kubelet](https://github.com/virtual-kubelet) 来实现。
+节点隔离可以使用[将 Pod 指派给节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)或
+[Virtual Kubelet](https://github.com/virtual-kubelet) 来实现。
 
 <!--
 ## Additional Considerations
@@ -689,7 +694,7 @@ This section discusses other Kubernetes constructs and patterns that are relevan
 <!--
 ### API Priority and Fairness
 -->
-### API优先级和公平性 {#api-priority-and-fairness}
+### API 优先级和公平性 {#api-priority-and-fairness}
 
 <!--
 [API priority and fairness](/docs/concepts/cluster-administration/flow-control/) is a Kubernetes feature 
@@ -791,7 +796,7 @@ Kubernetes clusters include a Domain Name System (DNS) service
 to provide translations from names to IP addresses, for all Services and Pods. 
 By default, the Kubernetes DNS service allows lookups across all namespaces in the cluster.
 -->
-Kubernetes 集群包括一个域名系统 (DNS) 服务，
+Kubernetes 集群包括一个域名系统（DNS）服务，
 可为所有服务和 Pod 提供从名称到 IP 地址的转换。
 默认情况下，Kubernetes DNS 服务允许在集群中的所有命名空间中进行查找。
 
@@ -822,9 +827,8 @@ Here is an example of a [customized version of CoreDNS]
 that supports multiple tenants.
 -->
 当使用[各租户独立虚拟控制面](#virtual-control-plane-per-tenant)模型时，
-必须为每个租户配置 DNS 服务或必须使用多租户 DNS 服务。
-参见一个 [CoreDNS 的定制版本](https://github.com/kubernetes-sigs/cluster-api-provider-nested/blob/main/virtualcluster/doc/tenant-dns.md)
-支持多租户的示例。
+必须为每个租户配置 DNS 服务或必须使用多租户 DNS 服务。参见一个
+[CoreDNS 的定制版本](https://github.com/kubernetes-sigs/cluster-api-provider-nested/blob/main/virtualcluster/doc/tenant-dns.md)支持多租户的示例。
 
 <!--
 ### Operators
@@ -837,17 +841,21 @@ Operators can simplify the management of multiple instances of an application, l
 which makes them a common building block in the multi-consumer (SaaS) multi-tenancy use case.
 -->
 [Operator 模式](/zh-cn/docs/concepts/extend-kubernetes/operator/)是管理应用的 Kubernetes 控制器。
-Operators 可以简化应用的多个实例的管理，例如数据库服务，
+Operator 可以简化应用的多个实例的管理，例如数据库服务，
 这使它们成为多消费者 (SaaS) 多租户用例中的通用构建块。
 
 <!--
-Operators used in a multi-tenant environment should follow a stricter set of guidelines. 
+Operators used in a multi-tenant environment should follow a stricter set of guidelines.
 Specifically, the Operator should:
-* Support creating resources within different tenant namespaces, rather than just in the namespace in which the Operator is deployed.
+
+* Support creating resources within different tenant namespaces, rather than just in the namespace
+  in which the Operator is deployed.
 * Ensure that the Pods are configured with resource requests and limits, to ensure scheduling and fairness.
-* Support configuration of Pods for data-plane isolation techniques such as node isolation and sandboxed containers.
+* Support configuration of Pods for data-plane isolation techniques such as node isolation and
+  sandboxed containers.
 -->
 在多租户环境中使用 Operators 应遵循一套更严格的准则。具体而言，Operator 应：
+
 * 支持在不同的租户命名空间内创建资源，而不仅仅是在部署 Operator 的命名空间内。
 * 确保 Pod 配置了资源请求和限制，以确保调度和公平。
 * 支持节点隔离、沙箱容器等数据平面隔离技术的 Pod 配置。
