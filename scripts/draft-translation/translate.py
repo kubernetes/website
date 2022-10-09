@@ -1,71 +1,93 @@
 #!/bin/bash python3
 
+import click
+
 from googletrans import Translator  # https://github.com/ssut/py-googletrans
 
-BASE_PATH = "../.."
-SOURCE_LANG="en"
-TARGET_LANG="ko"
-SOURCE_DOC=f"{BASE_PATH}/content/en/docs/tasks/debug/debug-cluster/crictl.md"
-TARGET_DOG=f"{BASE_PATH}/content/ko/docs/tasks/debug/debug-cluster/crictl.draft.md"
-BASE_DIR="../../"
-
 SKIP_PREFIXES = [
-    "---",
     "<!--",
-    "id:",
-    "title:",
-    "date:",
-    "full_link:",
-    "short_description:",
-    "aka:",
-    "tags:",
-    "reviewers:",
-    "approvers:",
-    "content_type:",
-    "#",
-    "{{",
+    "## {{% heading",
+    "{{< feature-state",
+    "{{< comment",
+    "{{< /comment",
+    "{{< glossary_definition",
+    "{{< note",
+    "{{< /note",
+    "{{< caution",
+    "{{< /caution",
+    "{{< table",
+    "{{< /table",
+    "{{% thirdparty",
+    "{{< codenew",
 ]
 
-if __name__ == '__main__':
+@click.command()
+@click.option('--lang', '-t', required=True, help='Short code (ex:ko) for Target language for draft localization')
+@click.option('--file', '-f', required=True, help='File path of the Source document')
+@click.option("--src-lang", '-s', required=False, help='Short code (ex:en) for Source language', default="en")
+def main(lang, file, src_lang):
+    """Simple program that create a draft file for localization using machine tranlation."""
+
+    target_lang = lang
+    src_file = file
+    num = 0
+
+    # define target file path and name
+    target_file = src_file.replace("/"+src_lang+"/","/"+target_lang+"/",1)
+
     translator = Translator()
     is_code_block = False
-    with open(SOURCE_DOC, "r", encoding="UTF-8") as source:
-        with open(TARGET_DOG, "w", encoding="UTF-8") as target:
+    with open(src_file, "r", encoding="UTF-8") as source:
+        with open(target_file, "w", encoding="UTF-8") as target:
             for line in source:
+                num += 1
                 # condition as stripped_line
                 stripped_line = line.strip()
 
-                # check code block start/end
-                if stripped_line.startswith("```"):
+                # check code block or header block start/end
+                if stripped_line.startswith("```") or stripped_line.startswith("---"):
+                    print("## Code or header block start/end (do not translate)")
+                    print("["+str(num)+":"+src_lang+"="+target_lang+"] " + line.strip())
                     is_code_block = not is_code_block
                     target.write(line)
                     continue
 
-                # if it's in code block, do not translate
+                # if it's in code or header block, do not translate
                 if is_code_block:
-                    print("It's code block, do not translate")
+                    print("["+str(num)+":"+src_lang+"="+target_lang+"] " + line.strip())
                     target.write(line)
                     continue
 
                 # if empty string, do not translate
                 if not stripped_line:
-                    print("It's empty string, do not translate")
+                    print("["+str(num)+":"+src_lang+"="+target_lang+"] " + line.strip())
                     target.write(line)
                     continue
 
-                # if starts with certain string, do not translate
+                # if starts with a certain string, do not translate
                 if stripped_line.startswith(tuple(SKIP_PREFIXES)):
-                    print("do not translate!")
-                    print("stripped_line=", stripped_line)
+                    print("\n## Line start with a skip-prefix (do not translate)")
+                    print("["+str(num)+":"+src_lang+"="+target_lang+"] " + stripped_line + "\n")
                     target.write(line)
                     continue
 
-                # try translate
-                print("Try translation")
+                # translate
                 try:
-                    translated = translator.translate(line, src=SOURCE_LANG, dest=TARGET_LANG).text
+                    translated = translator.translate(line, src=src_lang, dest=target_lang).text
+                    print("["+str(num)+":"+src_lang+"] "+ line.strip())
+                    print("["+str(num)+":"+target_lang+"] " + translated + "\n")
                     target.write(translated + "\n")
-                    print("Translated Success")
                 except Exception as e:
                     print("Translated with error=", e)
                     target.write(line)
+            target.close()
+
+            print("\n\n[Complete: update the draft] " + target_file + "\n\n")
+            result = open(target_file, "r")
+            output = result.read()
+            print(output)
+            result.close()
+
+
+if __name__ == "__main__":
+    main()
