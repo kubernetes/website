@@ -172,10 +172,8 @@ the controllers managing those resources. The following pages show you how to
 configure garbage collection:
 
   * [Configuring cascading deletion of Kubernetes objects](/docs/tasks/administer-cluster/use-cascading-deletion/)
-  * [Configuring cleanup of finished Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)
+  * [Configuring cleanup of finished Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)  
   
-<!-- * [Configuring unused container and image garbage collection](/docs/tasks/administer-cluster/reconfigure-kubelet/) -->
-
 ## {{% heading "whatsnext" %}}
 
 * Learn more about [ownership of Kubernetes objects](/docs/concepts/overview/working-with-objects/owners-dependents/).

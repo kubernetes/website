@@ -496,9 +496,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information).
 - `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
   so that validation, merging, and mutation can be tested without committing.
-- `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. The
-  feature is no longer supported outside of supported skew policy. The feature
-  gate was removed from kubelet in 1.24. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 - `EndpointSliceTerminatingCondition`: Enables EndpointSlice `terminating` and `serving`
    condition fields.
 - `EfficientWatchResumption`: Allows for storage-originated bookmark (progress
