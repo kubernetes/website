@@ -39,7 +39,7 @@ Kubernetes command-line tool, `kubectl`.
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it. Typically, this is automatically set-up when you work through
 a [Getting started guide](/docs/setup/),
-or someone else setup the cluster and provided you with credentials and a location.
+or someone else set up the cluster and provided you with credentials and a location.
 -->
 要访问集群，你需要知道集群位置并拥有访问它的凭证。
 通常，当你完成[入门指南](/zh-cn/docs/setup/)时，这会自动设置完成，或者由其他人设置好集群并将凭证和位置提供给你。
@@ -302,7 +302,7 @@ Pod，请参阅[从 Pod 内访问 API](/zh-cn/docs/tasks/access-application-clus
 #### Python 客户端 {#python-client}
 
 <!--
-To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
+To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
 -->
 要使用 [Python 客户端](https://github.com/kubernetes-client/python)，运行下列命令：
 `pip install kubernetes`。

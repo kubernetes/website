@@ -3,6 +3,12 @@
 
 # For "and", see [conjunction_1]
 
+[auto_generated_edit_notice]
+other = "(auto-generated page)"
+
+[auto_generated_pageinfo]
+other = """<p>This page is automatically generated.</p><p>If you plan to report an issue with this page, mention that the page is auto-generated in your issue description. The fix may need to happen elsewhere in the Kubernetes project.</p>"""
+
 [caution]
 other = "Caution:"
 
@@ -291,6 +297,9 @@ other = "End Of Life Date"
 # Replace [release_complete] with [release_full_details_initial_text]
 [release_full_details_initial_text]
 other = "Complete"
+
+[release_information_navbar]
+other = "Release Information"
 
 [release_minor_version]
 other = "Minor Version"

@@ -1,13 +1,15 @@
 ---
 title: クラスターのトラブルシューティング
-content_type: concept
+description: 一般的なクラスターの問題をデバッグします。
+weight: 20
+no_list: true
 ---
 
 <!-- overview -->
 
 このドキュメントはクラスターのトラブルシューティングに関するもので、あなたが経験している問題の根本原因として、アプリケーションをすでに除外していることを前提としています。
-アプリケーションのデバッグのコツは、[application troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application)をご覧ください。
-また、[troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/)にも詳しい情報があります。
+アプリケーションのデバッグのコツは、[アプリケーションのトラブルシューティングガイド](/ja/docs/tasks/debug/debug-application/)をご覧ください。
+また、[トラブルシューティングドキュメント](/ja/docs/tasks/debug/debug)にも詳しい情報があります。
 
 <!-- body -->
 
@@ -111,4 +113,3 @@ kubectl cluster-info dump
 - 対処法: 予期せぬ再起動に耐えられるように設計されたアプリケーション(コンテナ)
   - 異常: ノードのシャットダウン
   - 異常: Kubeletソフトウェア障害
-

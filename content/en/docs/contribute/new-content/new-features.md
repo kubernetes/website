@@ -127,7 +127,9 @@ If your feature is an Alpha or Beta feature and is behind a feature gate,
 make sure you add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
 table as part of your pull request. With new feature gates, a description of
 the feature gate is also required. If your feature is GA'ed or deprecated,
-make sure to move it from that table to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+make sure to move it from the
+[Feature gates for Alpha/Feature](docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
+to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
 table with Alpha and Beta history intact.
 
 If your feature needs documentation and the first draft

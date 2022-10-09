@@ -35,7 +35,6 @@ aliases:
     - jimangel
     - jlbutler
     - kbhawkey
-    - kcmartin
     - krol3
     - natalisucks
     - onlydole
@@ -50,6 +49,7 @@ aliases:
     - kbhawkey
     - mehabhalodiya
     - natalisucks
+    - nate-double-u
     - onlydole
     - rajeshdeshpande02
     - reylejano
@@ -241,10 +241,10 @@ aliases:
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - cblecker
-    - dims
+    - bentheelder
     - justaugustus
-    - liggitt
     - mrbobbytables
+    - palnabarun
     - parispittman
     - tpepper
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
