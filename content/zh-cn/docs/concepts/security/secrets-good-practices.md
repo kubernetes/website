@@ -77,7 +77,7 @@ also follow the other guidelines in
   privileged, system-level components. Only grant `get` access for Secrets if
   the component's normal behavior requires it.
 - **Humans**: Restrict `get`, `watch`, or `list` access to Secrets. Only allow
-  cluster admistrators to access `etcd`. This includes read-only access. For
+  cluster administrators to access `etcd`. This includes read-only access. For
   more complex access control, such as restricting access to Secrets with
   specific annotations, consider using third-party authorization mechanisms.
 -->
