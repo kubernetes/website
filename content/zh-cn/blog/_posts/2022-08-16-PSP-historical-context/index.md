@@ -3,6 +3,7 @@ layout: blog
 title: "PodSecurityPolicy：历史背景"
 date: 2022-08-23T15:00:00-0800
 slug: podsecuritypolicy-the-historical-context
+evergreen: true
 ---
 
 <!--
