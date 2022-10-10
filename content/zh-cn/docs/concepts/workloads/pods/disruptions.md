@@ -174,14 +174,6 @@ in your pod spec can also cause voluntary (and involuntary) disruptions.
 也会产生自愿（和非自愿）的干扰。
 
 <!--
-Kubernetes offers features to help run highly available applications at the same
-time as frequent voluntary disruptions.  We call this set of features
-*Disruption Budgets*.
--->
-Kubernetes 提供特性来满足在出现频繁自愿干扰的同时运行高可用的应用。我们称这些特性为
-**干扰预算（Disruption Budget）**。
-
-<!--
 ## Pod disruption budgets
 
 Kubernetes offers features to help you run highly available applications even when you
@@ -275,8 +267,7 @@ during application updates is configured in the spec for the specific workload r
 
 <!--
 When a pod is evicted using the eviction API, it is gracefully
-[terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination),
-hornoring the
+[terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), honoring the
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 当使用驱逐 API 驱逐 Pod 时，Pod 会被体面地
@@ -286,6 +277,7 @@ hornoring the
 
 <!--
 ## PodDisruptionBudget example {#pdb-example}
+
 Consider a cluster with 3 nodes, `node-1` through `node-3`.
 The cluster is running several applications.  One of them has 3 replicas initially called
 `pod-a`, `pod-b`, and `pod-c`.  Another, unrelated pod without a PDB, called `pod-x`, is also shown.
@@ -435,7 +427,7 @@ can happen, according to:
 - 集群的资源能力
 
 <!-- 
-## Pod disruption conditions {#pod-disruption-conditions} 
+## Pod disruption conditions {#pod-disruption-conditions}
 -->
 ## Pod 干扰状况 {#pod-disruption-conditions}
 
@@ -443,11 +435,11 @@ can happen, according to:
 
 {{< note >}}
 <!-- 
-In order to use this behavior, you must enable the `PodDisruptionsCondition`
+In order to use this behavior, you must enable the `PodDisruptionCondition`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-in your cluster. 
+in your cluster.
 -->
-要使用此行为，你必须在集群中启用 `PodDisruptionsCondition`
+要使用此行为，你必须在集群中启用 `PodDisruptionCondition`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 {{< /note >}}
 
@@ -455,7 +447,7 @@ in your cluster.
 When enabled, a dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is added to indicate
 that the Pod is about to be deleted due to a {{<glossary_tooltip term_id="disruption" text="disruption">}}.
 The `reason` field of the condition additionally
-indicates one of the following reasons for the Pod termination: 
+indicates one of the following reasons for the Pod termination:
 -->
 启用后，会给 Pod 添加一个 `DisruptionTarget`
 [状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)，
@@ -586,11 +578,16 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 
 <!--
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
+
 * Learn more about [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/)
+
 * Learn about [updating a deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   including steps to maintain its availability during the rollout.
 -->
 * 参考[配置 Pod 干扰预算](/zh-cn/docs/tasks/run-application/configure-pdb/)中的方法来保护你的应用。
+
 * 进一步了解[排空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+
 * 了解[更新 Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性
+
