@@ -865,7 +865,7 @@ The `imagePullSecrets` field for a Pod is a list of references to Secrets in the
 as the Pod.
 You can use an `imagePullSecrets` to pass image registry access credentials to
 the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
-See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
+See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 
 for more information about the `imagePullSecrets` field.
 -->
 Pod 的 `imagePullSecrets` 字段是一个对 Pod 所在的名字空间中的 Secret
