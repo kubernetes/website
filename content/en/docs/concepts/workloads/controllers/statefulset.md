@@ -214,7 +214,7 @@ This must be done manually.
 
 ### Pod Name Label
 
-When the StatefulSet {{< glossary_tooltip term_id="controller" >}} creates a Pod,
+When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
 it adds a label, `statefulset.kubernetes.io/pod-name`, that is set to the name of
 the Pod. This label allows you to attach a Service to a specific Pod in
 the StatefulSet.
