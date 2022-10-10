@@ -52,19 +52,22 @@ The name of a LimitRange object must be a valid
 
 A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be scheduleable.
 
-For example, if "LimitRange` is defined as following:
+For example, you define a `LimitRange` with this manifest:
 
 {{< codenew file="concepts/policy/limit-range/problematic-limit-range.yaml" >}}
 
 
-The following Pod that declares the Request of `700m`, but not the limit:
+along with a Pod that declares a CPU resource request of `700m`, but not a limit:
 
 {{< codenew file="concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml" >}}
 
 
-This Pod will not be scheduled with the error `Pod "ConflictingCpuSettings" is invalid: spec.containers[0].resources.requests: Invalid value: "700m": must be less than or equal to cpu limit`
+then that Pod will not be scheduled, failing with an error similar to:
+```
+Pod "example-conflict-with-limitrange-cpu" is invalid: spec.containers[0].resources.requests: Invalid value: "700m": must be less than or equal to cpu limit
+```
 
-If both, request and limit are set, the Pod will be scheduled successfully with the same `LimitRange` object:
+If you set both `request` and `limit`, then that new Pod will be scheduled successfully even with the same `LimitRange` in place:
 
 {{< codenew file="concepts/policy/limit-range/example-no-conflict-with-limitrange-cpu.yaml" >}}
 
