@@ -80,7 +80,7 @@ indicate that your room is now at the temperature you set).
 
 ### Direct control
 
-By contrast with Job, some controllers need to make changes to
+In contrast with Job, some controllers need to make changes to
 things outside of your cluster.
 
 For example, if you use a control loop to make sure there
