@@ -45,7 +45,7 @@ sao verificados os cabeçalhos e/ou o certificado de cliente.
 Módulos de autenticação incluem certificados de cliente, senhas, tokens simples,
 tokens de auto-inicialização e JSON Web Tokens (utilizados para contas de serviço).
 
-Vários módulos de autenticação podem ser especificados, em que cada um é tentado em sequência,
+Vários módulos de autenticação podem ser especificados, em que cada um será verificado em sequência,
 até que um deles tenha sucesso.
 
 Se a requisição não pode ser autenticada, será rejeitada com o código de status HTTP 401 (não autorizado).
@@ -60,12 +60,12 @@ usuários em sua API.
 
 ## Autorização
 
-Apos a requisição ser autenticada é originada de um usuário especifico, a requisição deve ser autorizada. Isso é mostrado no passo **2** no diagrama.
+Após a requisição ser autenticada como originada de um usuário específico, a requisição deve ser autorizada. Isso é mostrado no passo **2** no diagrama.
 
 Uma requisição deve incluir o nome do usuário requerente, a ação requisitada e o objeto afetado pela ação. A requisição é autorizada se uma
-politica existente declarar que o usuário tem as devidas permissões para concluir a ação requisitada.
+política existente declarar que o usuário tem as devidas permissões para concluir a ação requisitada.
 
-Por exemplo, se Bob possui a politica abaixo, então ele somente poderá ler pods no namespace `projectCaribou`:
+Por exemplo, se Bob possui a política abaixo, então ele somente poderá ler pods no namespace `projectCaribou`:
 
 ```json
 {
@@ -100,7 +100,7 @@ A autorização do Kubernetes requer que você use atributos comuns a REST para 
 
 O Kubernetes oferece suporte a vários módulos de autorização, como o modo de controle de acesso baseado em atributos (ABAC), o modo de controle de acesso baseado em função (RBAC) e o modo Webhook. Quando um administrador cria um cluster, ele configura os módulos de autorização que devem ser utilizados no servidor de API. Se mais de um módulo de autorização for configurado, o Kubernetes verificará cada módulo e, se algum módulo autorizar a requisição, a requisição poderá prosseguir. Se todos os módulos negarem a requisição, a requisição será negada (com código de status HTTP 403 - Acesso Proibido).
 
-Para saber mais sobre a autorização do Kubernetes, incluindo detalhes sobre como criar políticas usando os módulos de autorização compatíveis, consulte [Autorização](/pt-br/docs/reference/access-authn-authz/authorization/).
+Para saber mais sobre a autorização do Kubernetes, incluindo detalhes sobre como criar políticas usando os módulos de autorização compatíveis, consulte [Visão Geral de Autorização](/pt-br/docs/reference/access-authn-authz/authorization/).
 
 ## Controle de admissão
 
@@ -108,7 +108,7 @@ Os módulos de controle de admissão são módulos de software que podem modific
 Além dos atributos disponíveis para os módulos de Autorização, os módulos do controlador de admissão
 podem acessar o conteúdo do objeto que está sendo criado ou modificado.
 
-Os controladores de admissão atuam em requisições que criam, modificam, excluem ou se conectam a um objeto (proxy).
+Os controladores de admissão atuam em requisições que criam, modificam, excluem ou age como um proxy para outro objeto.
 Os controladores de admissão não agem em requisições que apenas leem objetos.
 Quando vários controladores de admissão são configurados, eles são chamados em ordem.
 
@@ -117,7 +117,7 @@ Isso é mostrado como etapa **3** no diagrama.
 Ao contrário dos módulos de autenticação e autorização, se algum módulo controlador de admissão
 rejeita, a solicitação é imediatamente rejeitada.
 
-Além de rejeitar objetos, os controladores de admissão também podem definir padrões complexos para
+Além de rejeitar objetos, os controladores de admissão também podem definir valores padrão complexos para
 campos.
 
 Os módulos de Controle de Admissão disponíveis são descritos em [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
