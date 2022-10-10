@@ -20,7 +20,7 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 The following methods exist for installing kubectl on Windows:
 
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
-- [Install on Windows using Chocolatey Scoop or Winget](#install-on-windows-using-chocolatey-scoop-or-winget)
+- [Install on Windows using Chocolatey, Scoop or Winget](#install-nonstandard-package-tools)
 
 ### Install kubectl binary with curl on Windows
 
