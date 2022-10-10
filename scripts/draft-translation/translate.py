@@ -19,6 +19,8 @@ SKIP_PREFIXES = [
     "{{< /table",
     "{{% thirdparty",
     "{{< codenew",
+    "<table>",
+    "</table>",
 ]
 
 @click.command()
@@ -33,7 +35,7 @@ def main(lang, file, src_lang):
     num = 0
 
     # define target file path and name
-    target_file = src_file.replace("/"+src_lang+"/","/"+target_lang+"/",1)
+    target_file = src_file.replace(f"/{src_lang}/", f"/{target_lang}/", 1)
 
     translator = Translator()
     is_code_block = False
