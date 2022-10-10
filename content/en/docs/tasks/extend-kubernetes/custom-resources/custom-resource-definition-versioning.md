@@ -356,7 +356,7 @@ spec:
 
 ### Version removal
 
-An older API version cannot be dropped from a CustomResourceDefinition manifest until existing persisted data has been migrated to the newer API version for all clusters that served the older version of the custom resource, and the old version is removed from the `status.storedVersions` of the CustomResourceDefinition.
+An older API version cannot be dropped from a CustomResourceDefinition manifest until existing stored data has been migrated to the newer API version for all clusters that served the older version of the custom resource, and the old version is removed from the `status.storedVersions` of the CustomResourceDefinition.
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -1021,16 +1021,16 @@ Example of a response from a webhook indicating a conversion request failed, wit
 
 ## Writing, reading, and updating versioned CustomResourceDefinition objects
 
-When an object is written, it is persisted at the version designated as the
+When an object is written, it is stored at the version designated as the
 storage version at the time of the write. If the storage version changes,
 existing objects are never converted automatically. However, newly-created
 or updated objects are written at the new storage version. It is possible for an
 object to have been written at a version that is no longer served.
 
 When you read an object, you specify the version as part of the path. If you
-specify a version that is different from the object's persisted version,
+specify a version that is different from the object's stored version,
 Kubernetes returns the object to you at the version you requested, but the
-persisted object is neither changed on disk, nor converted in any way
+stored object is neither changed on disk, nor converted in any way
 (other than changing the `apiVersion` string) while serving the request.
 You can request an object at any version that is currently served.
 
@@ -1040,23 +1040,22 @@ one version to another.
 
 To illustrate this, consider the following hypothetical series of events:
 
-1.  The storage version is `v1beta1`. You create an object. It is persisted in
-    storage at version `v1beta1`
+1.  The storage version is `v1beta1`. You create an object. It is stored at version `v1beta1`
 2.  You add version `v1` to your CustomResourceDefinition and designate it as
     the storage version.
 3.  You read your object at version `v1beta1`, then you read the object again at
     version `v1`. Both returned objects are identical except for the apiVersion
     field.
-4.  You create a new object. It is persisted in storage at version `v1`. You now
+4.  You create a new object. It is stored at version `v1`. You now
     have two objects, one of which is at `v1beta1`, and the other of which is at
     `v1`.
-5.  You update the first object. It is now persisted at version `v1` since that
+5.  You update the first object. It is now stored at version `v1` since that
     is the current storage version.
 
 ### Previous storage versions
 
 The API server records each version which has ever been marked as the storage
-version in the status field `storedVersions`. Objects may have been persisted
+version in the status field `storedVersions`. Objects may have been stored
 at any version that has ever been designated as a storage version. No objects
 can exist in storage at a version that has never been a storage version.
 
