@@ -367,7 +367,7 @@ and the Container have a `securityContext` field:
 字段。`securityContext` 字段的取值是一个
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 对象。你为 Container 设置的安全性配置仅适用于该容器本身，并且所指定的设置在与
-Pod 层面设置的内容发生重叠时，会重写Pod层面的设置。Container 层面的设置不会影响到 Pod 的卷。
+Pod 层面设置的内容发生重叠时，会重写 Pod 层面的设置。Container 层面的设置不会影响到 Pod 的卷。
 
 下面是一个 Pod 的配置文件，其中包含一个 Container。Pod 和 Container 都有
 `securityContext` 字段：
