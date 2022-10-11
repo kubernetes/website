@@ -133,7 +133,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y kubectl
+   sudo apt-get install -y kubernetes-client
    ```
 
 {{% /tab %}}
