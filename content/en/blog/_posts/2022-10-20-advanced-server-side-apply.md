@@ -168,13 +168,21 @@ back-propagate these conflict errors to humans; in fact, they should have this
 already, certainly continuous integration systems need some way to report that
 tests are failing. But maybe I can also say something about how _humans_ can
 deal with errors:
-* Reject the hotfix: the system admin observes the error, and manually
-  force-applies the manifest in question. Then the CI/CD system will be able to
-  apply the manifest successfully and become a co-owner. (Optional: then the
-  system admin applies a blank manifest to relinquish any fields they became a
-  manager for.)
+* Reject the hotfix: the (human) administrator of the CI/CD system observes the
+  error, and manually force-applies the manifest in question. Then the CI/CD
+  system will be able to apply the manifest successfully and become a co-owner.
+    Optional: then the administrator applies a blank manifest (just the object
+  type / namespace / name) to relinquish any fields they became a manager for.
+  if this step is omitted, there's some chance the administrator will end up
+  owning fields and causing an unwanted future conflict.
+    Note: why an administrator? We're assuming that developers which ordinarily
+  push to the CI/CD system and/or its source control system may not have
+  permissions to push directly to the cluster.
 * Accept the hotfix: the author of the change in question sees the conflict, and
   edits their change to accept the value running in production.
+* Accept then reject: as in the accept option, but after that manifest is
+  applied, and the CI/CD queue owns everything again (so no conflicts), re-apply
+  the original manifest.
 * I can also imagine the CI/CD system permitting you to mark a manifest as
   “force conflicts” somehow– if there’s demand for this we could consider making
   a more standardized way to do this. A rigorous version of this which lets you
@@ -189,8 +197,9 @@ deal with errors:
   mostly didn't expect that people would want to take this approach — so we
   would love to know if in fact people want/need the features implied by this
   approach, such as the ability, when **apply**ing to request to override
-  certain conflicts but not others.  If this sounds like an approach you'd want
-  to take for your own controller, come talk to SIG API Machinery!
+  certain conflicts but not others.
+    If this sounds like an approach you'd want to take for your own controller,
+  come talk to SIG API Machinery!
 
 Happy **apply**ing!
 
