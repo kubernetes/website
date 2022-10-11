@@ -1027,12 +1027,21 @@ existing objects are never converted automatically. However, newly-created
 or updated objects are written at the new storage version. It is possible for an
 object to have been written at a version that is no longer served.
 
-When you read an object, you specify the version as part of the path. If you
-specify a version that is different from the object's stored version,
-Kubernetes returns the object to you at the version you requested, but the
-stored object is neither changed on disk, nor converted in any way
-(other than changing the `apiVersion` string) while serving the request.
+When you read an object, you specify the version as part of the path.
 You can request an object at any version that is currently served.
+If you specify a version that is different from the object's stored version,
+Kubernetes returns the object to you at the version you requested, but the
+stored object is not changed on disk.
+
+What happens to the object that is being returned while serving the read
+request depends on what is specified in the CRD's `spec.conversion`:
+- if the default `strategy` value `None` is specified, the only modifications
+  to the object are changing the `apiVersion` string and perhaps [pruning
+  unknown fields](/docs/concepts/extend-kubernetes/api-extension/custom-resources/custom-resource-definitions/#field-pruning)
+  (depending on the configuration). Note that this is unlikely to lead to good
+  results if the schemas differ between the storage and requested version.
+- if [webhook conversion](#webhook-conversion) is specified, then this
+  mechanism controls the conversion.
 
 If you update an existing object, it is rewritten at the version that is
 currently the storage version. This is the only way that objects can change from
@@ -1042,7 +1051,9 @@ To illustrate this, consider the following hypothetical series of events:
 
 1.  The storage version is `v1beta1`. You create an object. It is stored at version `v1beta1`
 2.  You add version `v1` to your CustomResourceDefinition and designate it as
-    the storage version.
+    the storage version. Here the schemas for `v1` and `v1beta1` are identical,
+    which is typically the case when promoting an API to stable in the
+    Kubernetes ecosystem.
 3.  You read your object at version `v1beta1`, then you read the object again at
     version `v1`. Both returned objects are identical except for the apiVersion
     field.
