@@ -171,10 +171,12 @@ deal with errors:
 * Reject the hotfix: the (human) administrator of the CI/CD system observes the
   error, and manually force-applies the manifest in question. Then the CI/CD
   system will be able to apply the manifest successfully and become a co-owner.
+  
     Optional: then the administrator applies a blank manifest (just the object
   type / namespace / name) to relinquish any fields they became a manager for.
   if this step is omitted, there's some chance the administrator will end up
   owning fields and causing an unwanted future conflict.
+  
     Note: why an administrator? We're assuming that developers which ordinarily
   push to the CI/CD system and/or its source control system may not have
   permissions to push directly to the cluster.
@@ -198,6 +200,7 @@ deal with errors:
   would love to know if in fact people want/need the features implied by this
   approach, such as the ability, when **apply**ing to request to override
   certain conflicts but not others.
+  
     If this sounds like an approach you'd want to take for your own controller,
   come talk to SIG API Machinery!
 
