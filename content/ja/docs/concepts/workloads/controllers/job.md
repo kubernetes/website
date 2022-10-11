@@ -482,7 +482,7 @@ Events:
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
-この機能を使うためには、[APIサーバー](/ja/docs/reference/command-line-tools-reference/kube-apiserver/)上で`JobMutableNodeSchedulingDirectives`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
+この機能を使うためには、[APIサーバー](/docs/reference/command-line-tools-reference/kube-apiserver/)上で`JobMutableNodeSchedulingDirectives`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
 デフォルトで有効になっています。
 {{< /note >}}
 
@@ -549,7 +549,7 @@ spec:
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
-この機能を使うためには、[APIサーバー](/ja/docs/reference/command-line-tools-reference/kube-apiserver/)と[コントローラーマネージャー](/docs/reference/command-line-tools-reference/kube-controller-manager/)で`JobTrackingWithFinalizers`
+この機能を使うためには、[APIサーバー](/docs/reference/command-line-tools-reference/kube-apiserver/)と[コントローラーマネージャー](/docs/reference/command-line-tools-reference/kube-controller-manager/)で`JobTrackingWithFinalizers`
 [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
 
 有効にした場合、コントロールプレーンは下記に示す機能で新しいJobを追跡します。この機能が有効になる前に作成されたJobは影響を受けません。ユーザーとして実感できる唯一の違いは、コントロールプレーンのJob完了ステータス追跡がより正確になるということだけです。
