@@ -24,10 +24,6 @@ In this release, [IPVS-based in-cluster service load balancing](https://github.c
 
 [CoreDNS](https://coredns.io) is now available as a [cluster DNS add-on option](https://github.com/kubernetes/features/issues/427), and is the default when using kubeadm. CoreDNS is a flexible, extensible authoritative DNS server and directly integrates with the Kubernetes API. CoreDNS has fewer moving parts than the previous DNS server, since it’s a single executable and a single process, and supports flexible use cases by creating custom DNS entries. It’s also written in Go making it memory-safe. You can learn more about CoreDNS [here](https://youtu.be/dz9S7R8r5gw).
 
-## Dynamic Kubelet Configuration Moves to Beta
-
-This feature makes it possible for new Kubelet configurations to be rolled out in a live cluster.  Currently, Kubelets are configured via command-line flags, which makes it difficult to update Kubelet configurations in a running cluster. With this beta feature, [users can configure Kubelets in a live cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/) via the API server.
-
 ## Custom Resource Definitions Can Now Define Multiple Versions
 
 Custom Resource Definitions are no longer restricted to defining a single version of the custom resource, a restriction that was difficult to work around. Now, with this beta [feature](https://github.com/kubernetes/features/issues/544), multiple versions of the resource can be defined. In the future, this will be expanded to support some automatic conversions; for now, this feature allows custom resource authors to “promote with safe changes, e.g. v1beta1 to v1,” and to create a migration path for resources which do have changes.
