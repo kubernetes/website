@@ -44,7 +44,7 @@ as an example registry.
 <!-- steps -->
 
 <!--
-## Log in to Docker
+## Log in to Docker Hub
 
 On your laptop, you must authenticate with a registry in order to pull a private image.
 -->
@@ -326,7 +326,7 @@ Download the above file onto your computer:
 将上述文件下载到你的计算机中：
 
 ```shell
-curl -L -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
+curl -L -o my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
 ```
 
 <!--
