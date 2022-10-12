@@ -14,7 +14,7 @@ in various situations use it.  So I’d like to write down some of those reasons
 
 ## Obvious (and not-so-obvious) benefits of SSA {#benefits}
 
-A list of improvements / nicities you get from switching from various things to
+A list of improvements / niceties you get from switching from various things to
 Server-side apply!
 
 * Versus client-side-apply (that is, plain `kubectl apply`):
