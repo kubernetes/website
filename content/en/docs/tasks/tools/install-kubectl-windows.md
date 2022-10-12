@@ -26,7 +26,7 @@ The following methods exist for installing kubectl on Windows:
 
 1. Download the [latest release {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 
-   use this command:
+   Or if you have `curl` installed, use this command:
 
    ```powershell
    Invoke-WebRequest -Uri "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe" -OutFile "kubectl.exe"
