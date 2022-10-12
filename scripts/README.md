@@ -184,7 +184,7 @@ The output is following format.
 
 This script creates a draft translation file for a given file and language.
 The output draft translation file is created respect to the given file path and the given language.
-(ex. ../content/en/docs/concepts/storage/storage-limits.md => ../content/ko/docs/concepts/storage/storage-limits.md)
+(For example: ../content/en/docs/concepts/storage/storage-limits.md => ../content/ko/docs/concepts/storage/storage-limits.md)
 
 ```
 $ ./draft-translate.py --help
