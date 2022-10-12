@@ -65,8 +65,6 @@ different Kubernetes components.
 | `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
 | `CheckpointContainer` | `false` | Alpha | 1.25 | |
-| `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
-| `CPUManager` | `true` | Beta | 1.10 | |
 | `CPUManagerPolicyAlphaOptions` | `false` | Alpha | 1.23 | |
 | `CPUManagerPolicyBetaOptions` | `true` | Beta | 1.23 | |
 | `CPUManagerPolicyOptions` | `false` | Alpha | 1.22 | 1.22 |
@@ -231,6 +229,9 @@ different Kubernetes components.
 | `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
 | `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | 1.23 |
 | `ControllerManagerLeaderMigration` | `true` | GA | 1.24 | - |
+| `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
+| `CPUManager` | `true` | Beta | 1.10 | 1.25 |
+| `CPUManager` | `true` | GA | 1.26 | - |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | Beta | 1.11 | 1.20 |
 | `CRIContainerLogRotation` | `true` | GA | 1.21 | - |
@@ -673,8 +674,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   which allows a cluster operator to live migrate
   controllers from the kube-controller-manager into an external controller-manager
   (e.g. the cloud-controller-manager) in an HA cluster without downtime.
-- `CPUManager`: Enable container level CPU affinity support, see
-  [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CPUManagerPolicyAlphaOptions`: This allows fine-tuning of CPUManager policies,
   experimental, Alpha-quality options
   This feature gate guards *a group* of CPUManager options whose quality level is alpha.
