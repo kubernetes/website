@@ -14,4 +14,4 @@ tags:
  Les plugins de l'interface réseau de conteneurs (CNI, de l'anglais Container Network Interface), sont un type de plugin réseau conforme à la spécification appc/CNI.
 <!--more-->
 
-* Pour plus d'informations sur Kubernetes et le CNI, se référer aux ["Plugins réseau"](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni).
+* Pour plus d'informations sur Kubernetes et le CNI, se référer aux ["Plugins réseau"](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
