@@ -7,8 +7,8 @@ slug: advanced-server-side-apply
 
 **Author:** Daniel Smith (Google)
 
-Server-side apply (SSA) has now been [GA for a few
-releases](https://kubernetes.io/blog/2021/08/06/server-side-apply-ga/), and I
+[Server-side apply](/docs/reference/using-api/server-side-apply/) (SSA) has now
+been [GA for a few releases](/blog/2021/08/06/server-side-apply-ga/), and I
 have found myself in a number of conversations, recommending that people / teams
 in various situations use it.  So I’d like to write down some of those reasons.
 
