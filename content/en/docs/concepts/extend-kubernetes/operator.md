@@ -59,7 +59,7 @@ What might an operator look like in more detail? Here's an example:
 3. A container image of the operator code.
 4. Controller code that queries the control plane to find out what SampleDB
    resources are configured.
-5. The core of the operator is code to tell the API server how to make
+5. The core of the operator code is to tell the API server how to make
    reality match the configured resources.
    * If you add a new SampleDB, the operator sets up PersistentVolumeClaims
      to provide durable database storage, a StatefulSet to run SampleDB and
