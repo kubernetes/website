@@ -20,7 +20,7 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 The following methods exist for installing kubectl on Windows:
 
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
-- [Install on Windows using Chocolatey, Scoop or Winget](#install-nonstandard-package-tools)
+- [Install on Windows using Chocolatey, Scoop, or Winget](#install-nonstandard-package-tools)
 
 ### Install kubectl binary with curl on Windows
 
@@ -77,9 +77,9 @@ The following methods exist for installing kubectl on Windows:
 If you have installed Docker Desktop before, you may need to place your `PATH` entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
 {{< /note >}}
 
-### Install on Windows using Chocolatey, Scoop or Winget {#install-nonstandard-package-tools}
+### Install on Windows using Chocolatey, Scoop, or Winget {#install-nonstandard-package-tools}
 
-1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager, [Scoop](https://scoop.sh) command-line installer or [Winget](https://winget.run/) package manager.
+1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager, [Scoop](https://scoop.sh) command-line installer, or [Winget](https://winget.run/) package manager.
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
