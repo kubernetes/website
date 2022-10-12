@@ -150,7 +150,7 @@ Below are the procedures to set up autocompletion for PowerShell.
 1. Download the latest release with the command:
 
    ```powershell
-   Invoke-WebRequest -Uri "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe" -OutFile "kubectl-convert.exe"
+   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
 1. Validate the binary (optional)
