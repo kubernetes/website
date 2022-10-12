@@ -20,7 +20,7 @@ Server-side apply!
 * Versus client-side-apply (that is, plain `kubectl apply`):
   * The system gives you conflicts when you accidentally fight with another
     actor over the value of a field!
-  * When combined with --dry-run, there’s no chance of accidentally running a
+  * When combined with `--dry-run`, there’s no chance of accidentally running a
     client-side dry run instead of a server side dry run.
 * Versus hand-rolling patches:
   * The SSA patch format is extremely natural to write, with no weird syntax.
@@ -34,14 +34,14 @@ Server-side apply!
     for building apply calls programmatically!
   * You can use SSA to explicitly delete fields you don’t “own” by setting them
     to `null`, which makes it a feature-complete replacement for all of the old
-    patch formats. 
+    patch formats.
 * Versus shelling out to kubectl:
-  * You can use the apply api call from any language without shelling out to
+  * You can use the **apply** API call from any language without shelling out to
     kubectl!
-  * As stated above, the [go library has dedicated mechanisms](https://kubernetes.io/blog/2021/08/06/server-side-apply-ga/#server-side-apply-support-in-client-go)
+  * As stated above, the [Go library has dedicated mechanisms](/blog/2021/08/06/server-side-apply-ga/#server-side-apply-support-in-client-go)
     to make this easy now.
 * Versus GET-modify-PUT:
-  * (This one is more complicated and you can skip it if you’ve never written a
+  * (This one is more complicated and you can skip it if you've never written a
     controller!)
   * To use GET-modify-PUT correctly, you have to handle and retry a write
     failure in the case that someone else has modified the object in any way
@@ -96,7 +96,7 @@ your change!)
 
 #### Reconstructive controllers
 
-This kind of controller wasn’t really possible prior to SSA. The idea here is to
+This kind of controller wasn't really possible prior to SSA. The idea here is to
 (whenever something changes etc) reconstruct from scratch the fields of the
 object as the controller wishes them to be, and then **apply** the change to the
 server, letting it figure out the result. I now recommend that new controllers
@@ -107,7 +107,7 @@ The client library supports this method of operation by default.
 
 The only downside is that you may end up sending unneeded **apply** requests to
 the API server, even if actually the object already matches your controller’s
-desires. This doesn’t matter if it happens once in a while, but for extremely
+desires. This doesn't matter if it happens once in a while, but for extremely
 high-throughput controllers, it might cause a performance problem for the
 cluster–specifically, the API server. No-op writes are not written to storage
 (etcd) or broadcast to any watchers, so it’s not really that big of a deal. If
@@ -116,11 +116,11 @@ the previous section, or you could still do it this way for now, and wait for an
 additional client-side mechanism to suppress zero-change applies.
 
 To get around this downside, why not GET the object and only send your **apply**
-if the object needs it? Surprisingly, it doesn’t help much– a no-op **apply** is
+if the object needs it? Surprisingly, it doesn't help much – a no-op **apply** is
 not very much more work for the API server than an extra GET; and an **apply**
 that changes things is cheaper than that same **apply** with a preceding GET.
 Worse, since it is a distributed system, something could change between your GET
-and **apply**, invalidating your computation. Instead, we can use this
+and **apply**, invalidating your computation. Instead, you can use this
 optimization on an object retrieved from a cache–then it legitimately will
 reduce load on the system (at the cost of a delay when a change is needed and
 the cache is a bit behind).
@@ -168,17 +168,18 @@ back-propagate these conflict errors to humans; in fact, they should have this
 already, certainly continuous integration systems need some way to report that
 tests are failing. But maybe I can also say something about how _humans_ can
 deal with errors:
+
 * Reject the hotfix: the (human) administrator of the CI/CD system observes the
   error, and manually force-applies the manifest in question. Then the CI/CD
   system will be able to apply the manifest successfully and become a co-owner.
-  
-    Optional: then the administrator applies a blank manifest (just the object
+
+  Optional: then the administrator applies a blank manifest (just the object
   type / namespace / name) to relinquish any fields they became a manager for.
   if this step is omitted, there's some chance the administrator will end up
   owning fields and causing an unwanted future conflict.
-  
-    Note: why an administrator? We're assuming that developers which ordinarily
-  push to the CI/CD system and/or its source control system may not have
+
+  **Note**: why an administrator? I'm assuming that developers which ordinarily
+  push to the CI/CD system and / or its source control system may not have
   permissions to push directly to the cluster.
 * Accept the hotfix: the author of the change in question sees the conflict, and
   edits their change to accept the value running in production.
@@ -200,8 +201,8 @@ deal with errors:
   would love to know if in fact people want/need the features implied by this
   approach, such as the ability, when **apply**ing to request to override
   certain conflicts but not others.
-  
-    If this sounds like an approach you'd want to take for your own controller,
+
+  If this sounds like an approach you'd want to take for your own controller,
   come talk to SIG API Machinery!
 
 Happy **apply**ing!
