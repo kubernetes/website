@@ -40,7 +40,7 @@ The following methods exist for installing kubectl on Windows:
    Download the `kubectl` checksum file:
 
    ```powershell
-   Invoke-WebRequest -Uri "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256" -OutFile "kubectl.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    Validate the `kubectl` binary against the checksum file:
