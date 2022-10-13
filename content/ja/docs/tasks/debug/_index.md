@@ -1,6 +1,9 @@
 ---
+title: "監視、ログ、デバッグ"
+description: クラスターのトラブルシューティングや、コンテナ化したアプリケーションのデバッグのために、監視とログをセットアップします。
+weight: 20
 content_type: concept
-title: トラブルシューティング
+no_list: true
 ---
 
 <!-- overview -->
@@ -9,8 +12,8 @@ title: トラブルシューティング
 
  2つのセクションから構成されています:
 
-* [Troubleshooting your application](/docs/tasks/debug-application-cluster/debug-application/) - Kubernetesにコードをデプロイしていて、なぜ動かないのか不思議に思っているユーザーに便利です。
-* [Troubleshooting your cluster](/docs/tasks/debug-application-cluster/debug-cluster/) - クラスター管理者やKubernetesクラスターに不満がある人に有用です。
+* [アプリケーションのデバッグ](/ja/docs/tasks/debug/debug-application/) - Kubernetesにコードをデプロイしていて、なぜ動かないのか不思議に思っているユーザーに便利です。
+* [クラスターのデバッグ](/ja/docs/tasks/debug/debug-cluster/) - クラスター管理者やKubernetesクラスターに不満がある人に有用です。
 
 また、使用している[リリース](https://github.com/kubernetes/kubernetes/releases)の既知の問題を確認する必要があります。
 
@@ -24,9 +27,9 @@ title: トラブルシューティング
 
 本サイトのドキュメントは、様々な疑問に対する答えを提供するために構成されています。
 
-[Concepts](/docs/concepts/)では、Kubernetesのアーキテクチャーと各コンポーネントの動作について説明し、[Setup](/docs/setup/)では、使い始めるための実用的な手順を提供しています。
-[Tasks](/docs/tasks/) は、よく使われるタスクの実行方法を示し、 [Tutorials](/docs/tutorials/)は、実世界の業界特有、またはエンドツーエンドの開発シナリオ、より包括的なウォークスルーとなります。
-[Reference](/docs/reference/)セクションでは、[Kubernetes API(/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)と`kubectl`](/docs/reference/kubectl/overview/)などのコマンドラインインターフェース(CLI)に関する詳しいドキュメントが提供されています。
+[コンセプト](/ja/docs/concepts/)では、Kubernetesのアーキテクチャと各コンポーネントの動作について説明し、[セットアップ](/ja/docs/setup/)では、使い始めるための実用的な手順を提供しています。
+[タスク](/ja/docs/tasks/) は、よく使われるタスクの実行方法を示し、 [チュートリアル](/ja/docs/tutorials/)は、実世界の業界特有、またはエンドツーエンドの開発シナリオ、より包括的なウォークスルーとなります。
+[リファレンス](/ja/docs/reference/)セクションでは、[Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)や[`kubectl`](/docs/reference/kubectl/overview/)などのコマンドラインインターフェース(CLI)に関する詳しいドキュメントが提供されています。
 
 ## ヘルプ!私の質問はカバーされていません!今すぐ助けてください!
 

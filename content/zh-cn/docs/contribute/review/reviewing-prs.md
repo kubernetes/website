@@ -214,6 +214,18 @@ When reviewing, use the following as a starting point.
 ### Language and grammar
 
 - Are there any obvious errors in language or grammar? Is there a better way to phrase something?
+  - Focus on the language and grammar of the parts of the page that the author is changing.
+     Unless the author is clearly aiming to update the entire page, they have no obligation to
+     fix every issue on the page.
+  - When a PR updates an existing page, you should focus on reviewing the parts of
+    the page that are being updated. That changed content should be reviewed for technical
+    and editorial correctness.
+    If you find errors on the page that don't directly relate to what the PR author
+    is attempting to address, then it should be treated as a separate issue (check
+    that there isn't an existing issue about this first).
+  - Watch out for pull requests that _move_ content. If an author renames a page
+    or combines two pages, we (Kubernetes SIG Docs) usually avoid asking that author to fix every grammar or spelling nit
+    that we could spot within that moved content.
 - Are there any complicated or archaic words which could be replaced with a simpler word?
 - Are there any words, terms or phrases in use which could be replaced with a non-discriminatory alternative?
 - Does the word choice and its capitalization follow the [style guide](/docs/contribute/style/style-guide/)?
@@ -223,6 +235,12 @@ When reviewing, use the following as a starting point.
 ### 语言和语法 {#language-and-grammar}
 
 - 是否存在明显的语言或语法错误？对某事的描述有更好的方式？
+  - 关注作者正在更改的页面部分的语言和语法。除非作者明确打算更新整个页面，否则他们没有义务修复页面上的所有问题。
+  - 当一个 PR 更新现有页面时，你应专注于评审正在更新的页面部分。你应评审所更改内容的技术和编辑的正确性。
+    如果你发现页面上的一些错误与 PR 作者尝试解决的问题没有直接关系，
+    则应将其视为一个单独的 Issue（首先检查是否存在与此相关的 Issue）。
+  - 要特别注意那些 **移动** 内容的 PR。如果作者重命名一个页面或合并两个页面，
+    我们（Kubernetes SIG Docs）通常应避免要求该作者修复可能在所移动的内容中发现的所有语法或拼写错误。
 - 是否存在一些过于复杂晦涩的用词，本可以用简单词汇来代替？
 - 是否有些用词、术语或短语可以用不带歧视性的表达方式代替？
 - 用词和大小写方面是否遵从了[样式指南](/zh-cn/docs/contribute/style/style-guide/)？
@@ -243,33 +261,72 @@ When reviewing, use the following as a starting point.
 <!--
 ### Website
 
-- Did this PR change or remove a page title, slug/alias or anchor link? If so, are there broken links as a result of this PR? Is there another option, like changing the page title without changing the slug?
+- Did this PR change or remove a page title, slug/alias or anchor link? If so, are there broken
+  links as a result of this PR? Is there another option, like changing the page title without
+  changing the slug?
+
 - Does the PR introduce a new page? If so:
-  - Is the page using the right [page content type](/docs/contribute/style/page-content-types/) and associated Hugo shortcodes?
+
+  - Is the page using the right [page content type](/docs/contribute/style/page-content-types/)
+    and associated Hugo shortcodes?
   - Does the page appear correctly in the section's side navigation (or at all)?
   - Should the page appear on the [Docs Home](/docs/home/) listing?
-- Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code blocks, tables, notes and images.
+
+- Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code
+  blocks, tables, notes and images.
 -->
 ### 网站 {#Website}
 
 - PR 是否改变或者删除了某页面的标题、slug/别名或者链接锚点？
   如果是这样，PR 是否会导致出现新的失效链接？
   是否有其他的办法，比如改变页面标题但不改变其 slug？
+
 - PR 是否引入新的页面？如果是：
+
   - 该页面是否使用了正确的[页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)
     及相关联的 Hugo 短代码（shortcodes）？
   - 该页面能否在对应章节的侧面导航中显示？显示得正确么？
   - 该页面是否应出现在[网站主页面](/zh-cn/docs/home/)的列表中？
+
 - 变更是否正确出现在 Netlify 预览中了？
   要对列表、代码段、表格、注释和图像等元素格外留心。
 
 <!--
 ### Other
 
-For small issues with a PR, like typos or whitespace, prefix your comments with `nit:`.  This lets the author know the issue is non-critical.
+- Watch out for [trivial edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits);
+  if you see a change that you think is a trivial edit, please point out that policy
+  (it's still OK to accept the change if it is genuinely an improvement).
+- Encourage authors who are making whitespace fixes to do
+  so in the first commit of their PR, and then add other changes on top of that. This
+  makes both merges and reviews easier. Watch out especially for a trivial change that
+  happens in a single commit along with a large amount of whitespace cleanup
+  (and if you see that, encourage the author to fix it).
 -->
 ### 其他 {#other}
 
-对于 PR 中的小问题，例如拼写错误或者空格问题，
-可以在你的评论前面加上 `nit:`。
-这样做可以让作者知道该问题不是一个不得了的大问题。
+- 查阅 [Trivial Edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits)；
+  如果你看到某个变更在你看来是一个 Trivial Edit，请向作者指明这项政策（如果该变更确实会有所改进，那仍然可以接受）。
+- 鼓励作者们在第一次发 PR 时修复一些空格相关的问题，在随后的 PR 中增加其他更改。
+  这样更便于合并和评审。尤其要注意在单个 commit 中大量空格清理附带的微小变更（如果你看到，请鼓励作者进行修复）。
+
+<!--
+As a reviewer, if you identify small issues with a PR that aren't essential to the meaning,
+such as typos or incorrect whitespace, prefix your comments with `nit:`.
+This lets the author know that this part of your feedback is non-critical.
+
+If you are considering a pull request for approval and all the remaining feedback is
+marked as a nit, you can merge the PR anyway. In that case, it's often useful to open
+an issue about the remaining nits. Consider whether you're able to meet the requirements
+for marking that new issue as a [Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue);
+if you can, these are a good source.
+-->
+作为一名 Reviewer，如果你发现 PR 有一些无关紧要的小问题，例如拼写错误或不正确的空格，
+可以在你的评论前面加上 `nit:`。这样做可以让作者知道该问题不是一个不得了的大问题。
+
+如果你正在考虑批准一个 PR，并且所有剩余的反馈都被标记为 nit，那么你确实可以合并该 PR。
+在这种情况下，你需要针对剩余的 nit 发帖登记一个 Issue。
+考虑一下是否能把这些新 Issue 标记为
+[Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue)。
+如果可以，这就是这类 Issue 的良好来源。
+

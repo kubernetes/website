@@ -1,6 +1,7 @@
 ---
 content_type: concept
 title: Serviceのデバッグ
+weight: 20
 ---
 
 <!-- overview -->
@@ -374,7 +375,7 @@ hostnames-632524106-tlaok   1/1       Running   0          1h
 
 "AGE"列は、これらのPodが約1時間前のものであることを示しており、それらが正常に実行され、クラッシュしていないことを意味します。
 
-"RESTARTS"列は、これらのポッドが頻繁にクラッシュしたり、再起動されていないことを示しています。頻繁に再起動すると、断続的な接続性の問題が発生する可能性があります。再起動回数が多い場合は、[ポッドをデバッグする](/ja/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#podのデバッグ)を参照してください。
+"RESTARTS"列は、これらのポッドが頻繁にクラッシュしたり、再起動されていないことを示しています。頻繁に再起動すると、断続的な接続性の問題が発生する可能性があります。再起動回数が多い場合は、[ポッドをデバッグする](/ja/docs/tasks/debug-application-cluster/debug-pods)を参照してください。
 
 Kubernetesシステム内には、すべてのServiceのセレクターを評価し、結果をEndpointsオブジェクトに保存するコントロールループがあります。
 
@@ -591,11 +592,11 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 
 ここまでたどり着いたということは、とてもおかしなことが起こっています。Serviceは実行中で、Endpointsがあり、Podは実際にサービスを提供しています。DNSは動作していて、`kube-proxy`も誤動作していないようです。それでも、あなたのServiceは機能していません。おそらく私たちにお知らせ頂いた方がよいでしょう。調査をお手伝いします！
 
-[Slack](/docs/tasks/debug-application-cluster/troubleshooting/#slack)、[Forum](https://discuss.kubernetes.io)または[GitHub](https://github.com/kubernetes/kubernetes)でお問い合わせください。
+[Slack](https://slack.k8s.io/)、[Forum](https://discuss.kubernetes.io)または[GitHub](https://github.com/kubernetes/kubernetes)でお問い合わせください。
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-詳細については、[トラブルシューティングドキュメント](/docs/tasks/debug-application-cluster/troubleshooting/)をご覧ください。
+詳細については、[トラブルシューティングドキュメント](/ja/docs/tasks/debug/)をご覧ください。

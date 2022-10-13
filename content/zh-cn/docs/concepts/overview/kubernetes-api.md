@@ -194,7 +194,7 @@ are provided in the following format:
     }
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 <!-- 
 The relative URLs are pointing to immutable OpenAPI descriptions, in
@@ -294,8 +294,9 @@ through multiple API versions.
 
 For example, suppose there are two API versions, `v1` and `v1beta1`, for the same
 resource. If you originally created an object using the `v1beta1` version of its
-API, you can later read, update, or delete that object
-using either the `v1beta1` or the `v1` API version.
+API, you can later read, update, or delete that object using either the `v1beta1`
+or the `v1` API version, until the `v1beta1` version is deprecated and removed.
+At that point you can continue accessing and modifying the object using the `v1` API.
 -->
 为了更容易演进和扩展其 API，Kubernetes 实现了 [API 组](/zh-cn/docs/reference/using-api/#api-groups)，
 这些 API 组可以被[启用或禁用](/zh-cn/docs/reference/using-api/#enabling-or-disabling)。
@@ -306,7 +307,8 @@ API 服务器可以通过多个 API 版本提供相同的底层数据。
 
 例如，假设针对相同的资源有两个 API 版本：`v1` 和 `v1beta1`。
 如果你最初使用其 API 的 `v1beta1` 版本创建了一个对象，
-你稍后可以使用 `v1beta1` 或 `v1` API 版本来读取、更新或删除该对象。
+你稍后可以使用 `v1beta1` 或 `v1` API 版本来读取、更新或删除该对象，
+直到 `v1beta1` 版本被废弃和移除为止。此后，你可以使用 `v1` API 继续访问和修改该对象。
 
 <!--
 ## API changes
@@ -335,24 +337,33 @@ Elimination of resources or fields requires following the
 <!--
 Kubernetes makes a strong commitment to maintain compatibility for official Kubernetes APIs
 once they reach general availability (GA), typically at API version `v1`. Additionally,
-Kubernetes keeps compatibility even for _beta_ API versions wherever feasible:
-if you adopt a beta API you can continue to interact with your cluster using that API,
-even after the feature goes stable.
+Kubernetes maintains compatibility with data persisted via _beta_ API versions of official Kubernetes APIs,
+and ensures that data can be converted and accessed via GA API versions when the feature goes stable.
 -->
-Kubernetes 对维护达到正式发布（GA）阶段的官方 API 的兼容性有着很强的承诺，
-通常这一 API 版本为 `v1`。此外，Kubernetes 在可能的时候还会保持 Beta API
-版本的兼容性：如果你采用了 Beta API，你可以继续在集群上使用该 API，
-即使该功能特性已进入稳定期也是如此。
+Kubernetes 对维护达到正式发布（GA）阶段的官方 API 的兼容性有着很强的承诺，通常这一 API 版本为 `v1`。
+此外，Kubernetes 保持与 Kubernetes 官方 API 的 **Beta** API 版本持久化数据的兼容性，
+并确保在该功能特性已进入稳定期时数据可以通过 GA API 版本进行转换和访问。
+
+<!--
+If you adopt a beta API version, you will need to transition to a subsequent beta or stable API version
+once the API graduates. The best time to do this is while the beta API is in its deprecation period,
+since objects are simultaneously accessible via both API versions. Once the beta API completes its
+deprecation period and is no longer served, the replacement API version must be used.
+-->
+如果你采用一个 Beta API 版本，一旦该 API 进阶，你将需要转换到后续的 Beta 或稳定的 API 版本。
+执行此操作的最佳时间是 Beta API 处于弃用期，因为此时可以通过两个 API 版本同时访问那些对象。
+一旦 Beta API 结束其弃用期并且不再提供服务，则必须使用替换的 API 版本。
 
 {{< note >}}
 <!--
 Although Kubernetes also aims to maintain compatibility for _alpha_ APIs versions, in some
 circumstances this is not possible. If you use any alpha API versions, check the release notes
-for Kubernetes when upgrading your cluster, in case the API did change.
+for Kubernetes when upgrading your cluster, in case the API did change in incompatible
+ways that require deleting all existing alpha objects prior to upgrade.
 -->
 尽管 Kubernetes 也努力为 **Alpha** API 版本维护兼容性，在有些场合兼容性是无法做到的。
 如果你使用了任何 Alpha API 版本，需要在升级集群时查看 Kubernetes 发布说明，
-以防 API 的确发生变更。
+如果 API 确实以不兼容的方式发生变更，则需要在升级之前删除所有现有的 Alpha 对象。
 {{< /note >}}
 
 <!--

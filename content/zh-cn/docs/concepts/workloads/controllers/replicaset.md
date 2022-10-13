@@ -523,7 +523,7 @@ assuming that the number of replicas is not also changed).
 A ReplicaSet can be easily scaled up or down by simply updating the `.spec.replicas` field. The ReplicaSet controller
 ensures that a desired number of Pods with a matching label selector are available and operational.
 -->
-### 扩缩 RepliaSet    {#scaling-a-replicaset}
+### 扩缩 ReplicaSet    {#scaling-a-replicaset}
 
 通过更新 `.spec.replicas` 字段，ReplicaSet 可以被轻松地进行扩缩。ReplicaSet
 控制器能确保匹配标签选择器的数量的 Pod 是可用的和可操作的。

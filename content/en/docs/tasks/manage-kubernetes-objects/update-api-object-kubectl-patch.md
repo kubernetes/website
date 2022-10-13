@@ -161,7 +161,7 @@ You can also see the patch strategy in the
     "x-kubernetes-patch-strategy": "merge"
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 And you can see the patch strategy in the
 [Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
@@ -309,7 +309,7 @@ spec:
 Patch your Deployment:
 
 ```shell
-kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-no-retainkeys.yaml
+kubectl patch deployment retainkeys-demo --type strategic --patch-file patch-file-no-retainkeys.yaml
 ```
 
 In the output, you can see that it is not possible to set `type` as `Recreate` when a value is defined for `spec.strategy.rollingUpdate`:
@@ -387,7 +387,7 @@ You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.git
     ....
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 And you can see the `retainKeys` strategy in the
 [Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).

@@ -38,7 +38,7 @@ kops 是一个命令行工具，可以帮助你创建、销毁、升级和维护
 kops has general availability support only for AWS.
 Support for using kops with GCE and VMware vSphere are in alpha.
 -->	
-注意：官方仅支持 AWS。对 GCE 和 VMware vSphere 的支持还处于 Alpha 阶段。
+官方仅支持 AWS。对 GCE 和 VMware vSphere 的支持还处于 Alpha 阶段。
 {{< /note >}}
 
 <!--

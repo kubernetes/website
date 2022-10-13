@@ -2012,7 +2012,7 @@ When this flag is specified multiple times, the first is used to generate tokens
 and all are used to determine which issuers are accepted.
 -->
 服务帐号令牌颁发者的标识符。
-颁发者将在已办法令牌的 "iss" 声明中检查此标识符。
+颁发者将在已颁发令牌的 "iss" 声明中检查此标识符。
 此值为字符串或 URI。
 如果根据 OpenID Discovery 1.0 规范检查此选项不是有效的 URI，则即使特性门控设置为 true，
 ServiceAccountIssuerDiscovery 功能也将保持禁用状态。

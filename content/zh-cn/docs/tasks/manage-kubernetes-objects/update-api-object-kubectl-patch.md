@@ -227,7 +227,7 @@ patch 策略：
     "x-kubernetes-patch-strategy": "merge"
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 <!--
 And you can see the patch strategy in the
@@ -450,7 +450,7 @@ Patch your Deployment:
 修补你的 Deployment:
 
 ```shell
-kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-no-retainkeys.yaml
+kubectl patch deployment retainkeys-demo --type strategic --patch-file patch-file-no-retainkeys.yaml
 ```
 
 <!--
@@ -574,7 +574,7 @@ You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.git
     ....
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 <!--
 And you can see the `retainKeys` strategy in the
