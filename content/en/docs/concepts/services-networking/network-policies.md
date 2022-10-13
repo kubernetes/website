@@ -101,7 +101,7 @@ __namespaceSelector__ *and* __podSelector__: A single `to`/`from` entry that spe
     - namespaceSelector:
         matchLabels:
           user: alice
-      podSelector:
+    - podSelector:
         matchLabels:
           role: client
   ...
