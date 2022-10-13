@@ -85,7 +85,7 @@ When developing an application on Kubernetes, you typically program or debug a s
 一种选择是使用连续部署流水线，但即使最快的部署流水线也会在程序或调试周期中引入延迟。
 
 <!--
-Use the `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:REMOTE_PORT` command to create an "intercept" for rerouting remote service traffic.
+Use the `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:$REMOTE_PORT` command to create an "intercept" for rerouting remote service traffic.
 
 Where:
 
@@ -94,7 +94,7 @@ Where:
 -   And `$REMOTE_PORT` is the port your service listens to in the cluster
 -->
 
-使用 `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:REMOTE_PORT` 命令创建一个 "拦截器" 用于重新路由远程服务流量。
+使用 `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:$REMOTE_PORT` 命令创建一个 "拦截器" 用于重新路由远程服务流量。
 
 环境变量：
 
