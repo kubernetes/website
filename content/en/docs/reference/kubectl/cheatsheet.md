@@ -338,6 +338,8 @@ kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # Run pod as interactiv
 kubectl run nginx --image=nginx -n mynamespace      # Start a single instance of nginx pod in the namespace of mynamespace
 kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
 --dry-run=client -o yaml > pod.yaml
+kubectl run busybox --image=busybox --command       # Run pod busybox, execute command env in it, show output and destroy pod again
+--restart=Never -it --rm -- env
 
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
