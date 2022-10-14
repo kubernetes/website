@@ -106,7 +106,7 @@ PodSpec is a description of a pod.
 
   - **os.name** (string), required
 
-    Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
+    Name is the name of the operating system. The currently supported values are linux and windows. Additional values may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
 
 ### Volumes
 
@@ -126,7 +126,7 @@ PodSpec is a description of a pod.
 
 - **nodeName** (string)
 
-  NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements.
+  NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler schedules this pod onto that node, assuming that it fits resource requirements.
 
 - **affinity** (Affinity)
 
@@ -152,7 +152,7 @@ PodSpec is a description of a pod.
   If specified, the pod's tolerations.
 
   <a name="Toleration"></a>
-  *The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.*
+  *The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator `<operator>.*`
 
   - **tolerations.key** (string)
 
@@ -166,7 +166,7 @@ PodSpec is a description of a pod.
 
   - **tolerations.value** (string)
 
-    Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.
+    Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise a regular string.
 
   - **tolerations.effect** (string)
 
@@ -1419,7 +1419,7 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
 
   - **exec.command** ([]string)
 
-    Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
+    Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
 
 - **httpGet** (HTTPGetAction)
 
@@ -1693,7 +1693,7 @@ Probe describes a health check to be performed against a container to determine 
 
   - **exec.command** ([]string)
 
-    Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
+    Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
 
 - **httpGet** (HTTPGetAction)
 
@@ -1824,7 +1824,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
 - **phase** (string)
 
-  The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
+  The phase of a Pod is a high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
   
   Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
   

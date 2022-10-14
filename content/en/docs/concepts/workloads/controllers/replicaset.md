@@ -311,19 +311,18 @@ assuming that the number of replicas is not also changed).
 
 ### Scaling a ReplicaSet
 
-A ReplicaSet can be easily scaled up or down by simply updating the `.spec.replicas` field. The ReplicaSet controller
+You can scale a ReplicaSet up or down by updating the `.spec.replicas` field. The ReplicaSet controller
 ensures that a desired number of Pods with a matching label selector are available and operational.
 
-When scaling down, the ReplicaSet controller chooses which pods to delete by sorting the available pods to
-prioritize scaling down pods based on the following general algorithm:
+When scaling down, the ReplicaSet controller chooses which pods to delete based on the following general algorithm:
 
-1. Pending (and unschedulable) pods are scaled down first
+1. Pending and unschedulable pods are scaled down first.
 1. If `controller.kubernetes.io/pod-deletion-cost` annotation is set, then
-   the pod with the lower value will come first.
-1. Pods on nodes with more replicas come before pods on nodes with fewer replicas.
+   the pod with the lower value is deleted first.
+1. Pods on nodes with more replicas are deleted before pods on nodes with fewer replicas.
 1. If the pods' creation times differ, the pod that was created more recently
-   comes before the older pod (the creation times are bucketed on an integer log scale
-   when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+   is deleted before the older pod. The creation times are bucketed on an integer log scale
+   when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
     
 If all of the above match, then selection is random.
 
