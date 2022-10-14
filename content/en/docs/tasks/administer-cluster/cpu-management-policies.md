@@ -71,15 +71,15 @@ gate for each individual option.
 
 ### Changing the CPU Manager Policy
 
-Since the CPU manger policy can only be applied when kubelet spawns new pods, simply changing from
-"none" to "static" won't apply to existing pods. So in order to properly change the CPU manager
+Since the CPU manger policy can only be applied when kubelet spawns new pods, changing from
+"none" to "static" won't apply to existing pods. To properly change the CPU manager
 policy on a node, perform the following steps:
 
 1. [Drain](/docs/tasks/administer-cluster/safely-drain-node) the node.
 2. Stop kubelet.
 3. Remove the old CPU manager state file. The path to this file is
-`/var/lib/kubelet/cpu_manager_state` by default. This clears the state maintained by the
-CPUManager so that the cpu-sets set up by the new policy won’t conflict with it.
+`/var/lib/kubelet/cpu_manager_state` by default. Removing this file clears the state maintained
+by the CPU manager, so this prevents conflicts when you apply the cpu-set using the new policy.
 4. Edit the kubelet configuration to change the CPU manager policy to the desired value.
 5. Start kubelet.
 
