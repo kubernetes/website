@@ -11,16 +11,9 @@ date: 2019-10-10
 slug: contributor-summit-san-diego-schedule
 -->
 <!--
-Authors: Josh Berkus (Red Hat), Paris Pittman (Google), Jonas Rosland (VMware)
+**Authors:** Josh Berkus (Red Hat), Paris Pittman (Google), Jonas Rosland (VMware)
 -->
-作者：Josh Berkus (Red Hat), Paris Pittman (Google), Jonas Rosland (VMware)
-<!--
-tl;dr A week ago we announced that [registration is open][reg] for the contributor
-summit , and we're now live with [the full Contributor Summit schedule!][schedule]
-Grab your spot while tickets are still available. There is currently a waitlist
-for new contributor workshop.  ([Register here!][reg])
--->
-一周前，我们宣布贡献者峰会[开放注册][reg]，现在我们已经完成了整个[贡献者峰会的日程安排][schedule]！趁现在还有票，马上抢占你的位置。这里有一个新贡献者研讨会的等待名单。  ([点击这里注册!][reg])
+**作者：** Josh Berkus (Red Hat), Paris Pittman (Google), Jonas Rosland (VMware)
 <!--
 There are many great sessions planned for the Contributor Summit, spread across
 five rooms of current contributor content in addition to the new contributor
@@ -49,7 +42,7 @@ the summit:
 -->
 尽管在每个时间间隙日程安排都包含困难的决定，但我们选择了以下几点，让您体验一下您将在峰会上听到、看到和参与的内容：
 <!--
-* **[Vision]**: SIG-Architecture will be sharing their vision of where we're going
+* **[Vision]**: SIG Architecture will be sharing their vision of where we're going
   with Kubernetes development for the next year and beyond.
 * **[Security]**: Tim Allclair and CJ Cullen will present on the current state of
   Kubernetes security. In another security talk, Vallery Lancey will lead a
@@ -64,7 +57,7 @@ the summit:
   one, or at least pass one.
 * **[End Users]**: Several end users from the CNCF partner ecosystem, invited by
   Cheryl Hung, will hold a Q&A with contributors to strengthen our feedback loop.
-* **[Docs]**: As always, SIG-Docs will run a three-hour contributing-to-documentation
+* **[Docs]**: As always, SIG Docs will run a three-hour contributing-to-documentation
   workshop.
 -->
 * **[预见]**: SIG组织将分享他们对于明年和以后Kubernetes开发发展方向的认识。
@@ -73,7 +66,7 @@ the summit:
 * **[Git]**: GitHub的员工将与Christoph Blecker合作，为Kubernetes贡献者分享实用的Git技巧。
 * **[审阅]**: 蒂姆·霍金（Tim Hockin）将分享成为一名出色的代码审阅者的秘密，而乔丹·利吉特（Jordan Liggitt）将进行实时API审阅，以便您可以进行一次或至少了解一次审阅。
 * **[终端用户]**: 应Cheryl Hung邀请，来自CNCF合作伙伴生态的数个终端用户，将回答贡献者的问题，以加强我们的反馈循环。
-* **[文档]**: 与往常一样，SIG-Docs将举办一个为时三个小时的文档撰写研讨会。
+* **[文档]**: 与往常一样，SIG Docs将举办一个为时三个小时的文档撰写研讨会。
 <!--
 We're also giving out awards to contributors who distinguished themselves in 2019,
 and there will be a huge Meet & Greet for new contributors to find their SIG
