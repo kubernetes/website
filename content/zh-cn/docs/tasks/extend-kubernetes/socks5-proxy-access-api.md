@@ -149,7 +149,7 @@ For command-line tools, set the `https_proxy` environment variable and pass it t
 对于命令行工具，设置 `https_proxy` 环境变量并将其传递给你运行的命令。
 
 ```shell
-export https_proxy=socks5h://localhost:1080
+export https_proxy=socks5://localhost:1080
 ```
 
 <!--
