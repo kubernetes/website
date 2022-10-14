@@ -253,7 +253,7 @@ For a reference to old feature gates that are removed, please refer to
 | `DefaultPodTopologySpread` | `true` | GA | 1.24 | - |
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | 1.24 |
-| `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.25 |- |
+| `DisableAcceleratorUsageMetrics` | `true` | GA | 1.25 |- |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | 1.18 |
 | `DryRun` | `true` | GA | 1.19 | - |
