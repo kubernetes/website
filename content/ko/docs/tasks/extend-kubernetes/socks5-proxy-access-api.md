@@ -80,7 +80,7 @@ ssh -D 1080 -q -N username@kubernetes-remote-server.example
 `https_proxy` 환경 변수를 설정하고 실행하는 커맨드를 커맨드라인 툴에 전달한다.
 
 ```shell
-export https_proxy=socks5h://localhost:1080
+export https_proxy=socks5://localhost:1080
 ```
 
 `https_proxy` 변수를 설정하면 `curl`과 같은 툴은 구성한 프록시를 통해 HTTPS 트래픽을 라우팅한다.
