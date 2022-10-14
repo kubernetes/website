@@ -80,7 +80,7 @@ the SOCKS5 proxy we created earlier.
 For command-line tools, set the `https_proxy` environment variable and pass it to commands that you run.
 
 ```shell
-export https_proxy=socks5h://localhost:1080
+export https_proxy=socks5://localhost:1080
 ```
 
 When you set the `https_proxy` variable, tools such as `curl` route HTTPS traffic through the proxy
