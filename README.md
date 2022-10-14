@@ -16,7 +16,7 @@ You can run the website locally using Hugo (Extended version), or you can run it
 To use this repository, you need the following installed locally:
 
 - [npm](https://www.npmjs.com/)
-- [Go](https://golang.org/)
+- [Go](https://go.dev/)
 - [Hugo (Extended version)](https://gohugo.io/)
 - A container runtime, like [Docker](https://www.docker.com/).
 
