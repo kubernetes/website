@@ -158,7 +158,7 @@ Below are the procedures to set up autocompletion for PowerShell.
    Download the `kubectl-convert` checksum file:
 
    ```powershell
-   curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    Validate the `kubectl-convert` binary against the checksum file:
