@@ -34,7 +34,7 @@ You can run the website locally using Hugo (Extended version), or you can run it
 To use this repository, you need the following installed locally:
 
 - [npm](https://www.npmjs.com/)
-- [Go](https://golang.org/)
+- [Go](https://go.dev/)
 - [Hugo (Extended version)](https://gohugo.io/)
 - A container runtime, like [Docker](https://www.docker.com/).
 -->
@@ -43,7 +43,7 @@ To use this repository, you need the following installed locally:
 使用这个仓库，需要在本地安装以下软件：
 
 - [npm](https://www.npmjs.com/)
-- [Go](https://golang.org/)
+- [Go](https://golang.google.cn/)
 - [Hugo（Extended 版本）](https://gohugo.io/)
 - 容器运行时，比如 [Docker](https://www.docker.com/)。
 
