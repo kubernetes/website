@@ -97,9 +97,30 @@ TODO: Topics that could definitely be handled here are the choices & tradeoffs f
 TODO: There’s a number of topics we might want to cover here. Whilst the technical details of things like Security Context and PSPs/PSS are well covered in existing documents, what could be good is to talk about use cases and tradeoffs and how different options can be applied.
 
 ## Network Policy Configuration
-TODO: For this section we could go into common good designs for Network policies in clusters. For example how to set up a default deny ingress/egress policy per namespace and then add individual requirements for applications to communicate inside and outside the cluster. 
-It could also be worth flagging up specific risks that can be addressed by network policies, like container access to cloud metadata services.
-Another topic that we could touch on would be the risks that pods using host networking will bypass network policy controls
+By default all ingress and egress traffic is allowed within a Kubernetes cluster. This can give attackers unnecessary opportunities to pivot, download tools, or egress sensitive data from pods.
+
+[Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) can be used to prevent these types of attack paths. To use network policies, a Container Network Interface (CNI) plugin that supports network policies is required.
+
+You can default deny all ingress and/or egress traffic with a network policy. The policy below will deny all ingress and egress traffic for any pod in the `default` namespace, unless there is another network policy that explicitly allows traffic.
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+    name: default-deny-all
+    namespace: default
+spec:
+    podSelector: {}
+    policyType:
+    - Ingress
+    - Egress
+```
+
+You can then explicitly allow ingress and egress traffic your applications require using additional network policies.
+
+It's best to have default deny policies for all namespaces, but this must be carefully implemented to avoid breaking running services.
+
+If you are running a cluster on a cloud provider, you should also deploy a network policy to prevent pods from accessing cloud metadata APIs by default, e.g.: `169.254.169.254`. This can prevent attackers pivoting from a pod to gain access to cloud credentials a worker node may have.
 
 ## Resource Limits
 TODO: For this section we can look at some of the options for resource limit settings, some tradeoffs/pitfalls to setting limits too low, and perhaps talk about less risky limits that could be set more widely (I’m thinking pid limit here which *I think* is relatively low risk)
