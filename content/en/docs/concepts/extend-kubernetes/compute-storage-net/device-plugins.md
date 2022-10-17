@@ -143,8 +143,8 @@ to the container runtime.
 ### Handling kubelet restarts
 
 A device plugin is expected to detect kubelet restarts and re-register itself with the new
-kubelet instance. In the current implementation, a new kubelet instance deletes all the existing Unix sockets
-under `/var/lib/kubelet/device-plugins` when it starts. A device plugin can monitor the deletion
+kubelet instance. A new kubelet instance deletes all the existing Unix sockets under
+`/var/lib/kubelet/device-plugins` when it starts. A device plugin can monitor the deletion
 of its Unix socket and re-register itself upon such an event.
 
 ## Device plugin deployment
@@ -164,15 +164,18 @@ Pod onto Nodes, to restart the daemon Pod after failure, and to help automate up
 
 ## API compatibility
 
-Prior to v1.10, the versioning scheme required the Device Plugin's API version to
-match exactly the Kubelet's version. On graduation of this feature to Beta in v1.12
+Previously, the versioning scheme required the Device Plugin's API version to match
+exactly the Kubelet's version. Since the graduation of this feature to Beta in v1.12
 this is no longer a hard requirement. The API is versioned and has been stable since
 Beta graduation of this feature. Because of this, Kubelet upgrades should be seamless
 but there still may be changes in the API before stabilization making upgrades not
 guaranteed to be non-breaking.
 
-NOTE: Graduation of Device Manager to a stable feature in v1.26 does not imply
-graduation of device plugin API to a stable API.
+{{< caution >}}
+Although the Device Manager component of Kubernetes is a generally available feature,
+the _device plugin API_ is not stable. For information on the device plugin API and
+version compatibility, read [Device Plugin API versions](/docs/reference/node/device-plugin-api-versions/).
+{{< caution >}}
 
 As a project, Kubernetes recommends that device plugin developers:
 

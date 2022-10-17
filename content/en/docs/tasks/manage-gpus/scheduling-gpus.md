@@ -8,9 +8,9 @@ description: Configure and schedule GPUs for use as a resource by nodes in a clu
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.10" >}}
+{{< feature-state state="stable" for_k8s_version="v1.26" >}}
 
-Kubernetes includes **experimental** support for managing GPUs
+Kubernetes includes **stable** support for managing AMD and NVIDIA GPUs
 (graphical processing units) across several nodes.
 
 This page describes how users can consume GPUs, and outlines
