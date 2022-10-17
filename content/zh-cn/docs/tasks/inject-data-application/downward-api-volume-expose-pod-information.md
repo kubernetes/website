@@ -3,6 +3,11 @@ title: 通过文件将 Pod 信息呈现给容器
 content_type: task
 weight: 40
 ---
+<!--
+title: Expose Pod Information to Containers Through Files
+content_type: task
+weight: 40
+-->
 
 <!-- overview -->
 
@@ -15,7 +20,7 @@ A `downwardAPI` volume can expose Pod fields and container fields.
 此页面描述 Pod 如何使用
 [`downwardAPI` 卷](/zh-cn/docs/concepts/storage/volumes/#downwardapi)
 把自己的信息呈现给 Pod 中运行的容器。
-`downwardAPI` 可以呈现 Pod 和容器的字段。
+`downwardAPI` 卷可以呈现 Pod 和容器的字段。
 
 <!--
 In Kubernetes, there are two ways to expose Pod and container fields to a running container:
@@ -37,7 +42,6 @@ _downward API_.
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-
 <!-- steps -->
 
 <!--
@@ -49,7 +53,7 @@ Here is the manifest for the Pod:
 -->
 ## 存储 Pod 字段   {#store-pod-fields}
 
-在这部分的练习中，你将创建一个包含一个容器的 Pod，并将 Pod 级别的字段作为文件映射到正在运行的容器中。
+在这部分的练习中，你将创建一个包含一个容器的 Pod，并将 Pod 级别的字段作为文件投射到正在运行的容器中。
 Pod 的清单如下：
 
 {{< codenew file="pods/inject/dapi-volume.yaml" >}}
@@ -73,11 +77,11 @@ field should be stored in a file named `annotations`.
 第一个元素指示 Pod 的 `metadata.labels` 字段的值保存在名为 `labels` 的文件中。
 第二个元素指示 Pod 的 `annotations` 字段的值保存在名为 `annotations` 的文件中。
 
+{{< note >}}
 <!--
 The fields in this example are Pod fields. They are not
 fields of the container in the Pod.
 -->
-{{< note >}}
 本示例中的字段是 Pod 字段，不是 Pod 中容器的字段。
 {{< /note >}}
 
@@ -93,7 +97,7 @@ kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume.yaml
 <!--
 Verify that the container in the Pod is running:
 -->
-验证Pod中的容器运行正常：
+验证 Pod 中的容器运行正常：
 
 ```shell
 kubectl get pods
@@ -111,7 +115,7 @@ kubectl logs kubernetes-downwardapi-volume-example
 <!--
 The output shows the contents of the `labels` file and the `annotations` file:
 -->
-输出显示 `labels` 和 `annotations` 文件的内容：
+输出显示 `labels` 文件和 `annotations` 文件的内容：
 
 ```
 cluster="test-cluster1"
@@ -178,9 +182,9 @@ a symbolic link to the temporary subdirectory. Also in the `/etc/podinfo` direct
 `labels` and `annotations` are symbolic links.
 -->
 在输出中可以看到，`labels` 和 `annotations` 文件都在一个临时子目录中。
-在这个例子，`..2982_06_02_21_47_53.299460680`。
-在 `/etc/podinfo` 目录中，`..data` 是一个指向临时子目录
-的符号链接。`/etc/podinfo` 目录中，`labels` 和 `annotations` 也是符号链接。
+在这个例子中，这个临时子目录为 `..2982_06_02_21_47_53.299460680`。
+在 `/etc/podinfo` 目录中，`..data` 是指向该临时子目录的符号链接。
+另外在 `/etc/podinfo` 目录中，`labels` 和 `annotations` 也是符号链接。
 
 ```
 drwxr-xr-x  ... Feb 6 21:47 ..2982_06_02_21_47_53.299460680
@@ -203,14 +207,14 @@ atomically using [rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html)
 然后通过使用 [rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html)
 完成 `..data` 符号链接的原子性更新。
 
+{{< note >}}
 <!--
 A container using Downward API as a
 [subPath](/docs/concepts/storage/volumes/#using-subpath) volume mount will not
 receive Downward API updates.
 -->
-{{< note >}}
 如果容器以
-[subPath](/zh-cn/docs/concepts/storage/volumes/#using-subpath)卷挂载方式来使用
+[subPath](/zh-cn/docs/concepts/storage/volumes/#using-subpath) 卷挂载方式来使用
 Downward API，则该容器无法收到更新事件。
 {{< /note >}}
 
@@ -237,7 +241,8 @@ just one container:
 ## 存储容器字段   {#store-container-fields}
 
 前面的练习中，你使用 downward API 使 Pod 级别的字段可以被 Pod 内正在运行的容器访问。
-接下来这个练习，你将只传递由 Pod 定义的部分的字段到 Pod 内正在运行的容器中，但这些字段取自特定[容器](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)而不是整个 Pod。
+接下来这个练习，你将只传递由 Pod 定义的部分的字段到 Pod 内正在运行的容器中，
+但这些字段取自特定[容器](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)而不是整个 Pod。
 下面是一个同样只有一个容器的 Pod 的清单：
 
 {{< codenew file="pods/inject/dapi-volume-resources.yaml" >}}
@@ -260,16 +265,16 @@ Create the Pod:
 -->
 在这个清单中，你可以看到 Pod 有一个
 [`downwardAPI` 卷](/zh-cn/docs/concepts/storage/volumes/#downwardapi)，
-并且这个会挂载到 Pod 内的单个容器的 `/etc/podinfo` 目录。
+并且这个卷会挂载到 Pod 内的单个容器的 `/etc/podinfo` 目录。
 
 查看 `downwardAPI` 下面的 `items` 数组。
 数组的每个元素定义一个 `downwardAPI` 卷。
 
 第一个元素指定在名为 `client-container` 的容器中，
 以 `1m` 所指定格式的 `limits.cpu` 字段的值应推送到名为 `cpu_limit` 的文件中。
-`divisor` 字段是可选的，默认值为 `1`，1 的除数表示 CPU 资源的核心或内存资源的字节。
+`divisor` 字段是可选的，默认值为 `1`。1 的除数表示 CPU 资源的核数或内存资源的字节数。
 
-创建Pod：
+创建 Pod：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume-resources.yaml
@@ -298,7 +303,7 @@ cat /etc/podinfo/cpu_limit
 You can use similar commands to view the `cpu_request`, `mem_limit` and
 `mem_request` files.
 -->
-你可以使用同样的命令查看 `cpu_request`、`mem_limit` 和 `mem_request` 文件.
+你可以使用同样的命令查看 `cpu_request`、`mem_limit` 和 `mem_request` 文件。
 
 <!-- discussion -->
 
