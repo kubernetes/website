@@ -174,7 +174,7 @@ later release):
 你还可以通过检查节点就绪状况消息来验证节点上的 AppArmor 支持（尽管这可能会在以后的版本中删除）：
 
 ```shell
-kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
+kubectl get nodes -o=jsonpath='{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}{"\n"}{end}'
 ```
 
 ```
