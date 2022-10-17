@@ -1,6 +1,7 @@
 ---
 reviewers:
 - stclair
+- tallclair
 title: Restrict a Container's Access to Resources with AppArmor
 content_type: tutorial
 weight: 10
@@ -132,7 +133,7 @@ To verify that the profile was applied, you can look for the AppArmor security o
 kubectl get events | grep Created
 ```
 ```
-22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-deny-write]
+22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-deny-write]
 ```
 
 You can also verify directly that the container's root process is running with the correct profile by checking its proc attr:
@@ -307,8 +308,8 @@ Tolerations:    <none>
 Events:
   FirstSeen    LastSeen    Count    From                        SubobjectPath    Type        Reason        Message
   ---------    --------    -----    ----                        -------------    --------    ------        -------
-  23s          23s         1        {default-scheduler }                         Normal      Scheduled     Successfully assigned hello-apparmor-2 to e2e-test-stclair-node-pool-t1f5
-  23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-allow-write" is not loaded
+  23s          23s         1        {default-scheduler }                         Normal      Scheduled     Successfully assigned hello-apparmor-2 to e2e-test-node-pool-t1f5
+  23s          23s         1        {kubelet e2e-test-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-allow-write" is not loaded
 ```
 
 Note the pod status is Pending, with a helpful error message: `Pod Cannot enforce AppArmor: profile
