@@ -44,3 +44,7 @@ Note that the default last-known-good configuration is the combination of Kubele
 See the following diagram for a high-level overview of a configuration update for a single Node:
 
 ![kubelet-diagram](/images/blog/2018-07-11-dynamic-kubelet-configuration/kubelet-diagram.png)
+
+## How can I learn more?
+
+Please see the official tutorial at /docs/tasks/administer-cluster/reconfigure-kubelet/, which contains more in-depth details on user workflow, how a configuration becomes "last-known-good," how the Kubelet "checkpoints" config, and possible failure modes.
