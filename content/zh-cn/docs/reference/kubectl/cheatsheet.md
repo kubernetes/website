@@ -888,8 +888,9 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 # All images running in namespace: default, grouped by Pod
 kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
- # All images excluding "k8s.gcr.io/coredns:1.6.2"
-kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+# All images excluding "registry.k8s.io/coredns:1.6.2"
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry.k8s.io/coredns:1.6.2")].image'
+
 
 # All fields under metadata regardless of name
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
@@ -906,8 +907,8 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 # 列举 default 名字空间中运行的所有镜像，按 Pod 分组
 kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
-# 除 "k8s.gcr.io/coredns:1.6.2" 之外的所有镜像
-kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+# 除 "registry.k8s.io/coredns:1.6.2" 之外的所有镜像
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry.k8s.io/coredns:1.6.2")].image'
 
 # 输出 metadata 下面的所有字段，无论 Pod 名字为何
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
