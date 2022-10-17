@@ -212,6 +212,8 @@ different Kubernetes components.
 | `AffinityInAnnotations` | - | Deprecated | 1.8 | - |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
 | `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | - |
+| `AppArmor` | `true` | Beta | 1.4 | 1.25 |
+| `AppArmor` | `true` | GA | 1.26 | - |
 | `AttachVolumeLimit` | `false` | Alpha | 1.11 | 1.11 |
 | `AttachVolumeLimit` | `true` | Beta | 1.12 | 1.16 |
 | `AttachVolumeLimit` | `true` | GA | 1.17 | - |
@@ -644,6 +646,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   kubelets on Pod log requests.
 - `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
+- `AppArmor`: Enable use of AppArmor mandatory access control for Pods running on Linux nodes.
+  See [AppArmor Tutorial](/docs/tutorials/security/apparmor/) for more details.
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
   that can be attached to a node.
   See [dynamic volume limits](/docs/concepts/storage/storage-limits/#dynamic-volume-limits)
