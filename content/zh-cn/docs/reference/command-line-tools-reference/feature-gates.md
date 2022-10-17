@@ -1164,7 +1164,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `SELinuxMountReadWriteOncePod`：允许 kubelet 直接用合适的 SELinux 标签为 Pod 挂载卷，
   而不是将 SELinux 标签以递归方式应用到卷上的每个文件。
 <!--
-- `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
+- `ServerSideApply`: Enables the [Server Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
   feature on the API Server.
 - `ServerSideFieldValidation`: Enables server-side field validation. This means the validation
   of resource schema is performed at the API server side rather than the client side

@@ -694,7 +694,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `SELinuxMountReadWriteOncePod`: Allows kubelet to mount volumes for a Pod directly with the
   right SELinux label instead of applying the SELinux label recursively on every file on the
   volume.
-- `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
+- `ServerSideApply`: Enables the [Server Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
   feature on the API Server.
 - `ServerSideFieldValidation`: Enables server-side field validation. This means the validation
   of resource schema is performed at the API server side rather than the client side

@@ -1104,7 +1104,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면,
   seccomp 프로파일은 파드 및 컨테이너 `securityContext`에 지정되어 있다.
 - `SelectorIndex`: API 서버 감시(watch) 캐시의 레이블 및 필드 기반 인덱스를 사용하여
   목록 작업을 가속화할 수 있다.
-- `ServerSideApply`: API 서버에서 [SSA(Sever Side Apply)](/docs/reference/using-api/server-side-apply/)
+- `ServerSideApply`: API 서버에서 [SSA(Server Side Apply)](/docs/reference/using-api/server-side-apply/)
   경로를 활성화한다.
 - `ServerSideFieldValidation`: 서버-사이드(server-side) 필드 검증을 활성화한다.
   이는 리소스 스키마의 검증이 클라이언트 사이드(예: `kubectl create` 또는 `kubectl apply` 명령줄)가 아니라
