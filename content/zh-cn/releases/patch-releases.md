@@ -40,8 +40,11 @@ See the [Release Managers page][release-managers] for full contact details on th
 
 Please give us a business day to respond - we may be in a different timezone!
 
-In between releases the team is looking at incoming cherry pick requests on a weekly basis. The team will get in touch with submitters via GitHub PR, SIG channels in Slack, and direct messages
-in Slack and [email](mailto:release-managers-private@kubernetes.io) if there are questions on the PR.
+In between releases the team is looking at incoming cherry pick
+requests on a weekly basis. The team will get in touch with
+submitters via GitHub PR, SIG channels in Slack, and direct messages
+in Slack and [email](mailto:release-managers-private@kubernetes.io)
+if there are questions on the PR.
 -->
 ## 联系方式  {#contact}
 
@@ -147,17 +150,17 @@ releases may also occur in between these.
 <!-- 
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| September 2022        | 2022-09-09           | 2022-09-14  |
-| October 2022          | 2022-10-07           | 2022-10-12  |
-| November 2022         | 2022-11-11           | 2022-11-16  |
+| November 2022         | 2022-11-04           | 2022-11-09  |
 | December 2022         | 2022-12-09           | 2022-12-14  |
+| January 2023          | 2023-01-13           | 2023-01-18  |
+| February 2023         | 2023-02-10           | 2023-02-15  |
 -->
 | 月度补丁发布    | Cherry Pick 截止日期 |   目标日期  |
 | -------------- | -------------------- | ----------- |
-| 2022 年 9 月   | 2022-09-09           | 2022-09-14  |
-| 2022 年 10 月  | 2022-10-07           | 2022-10-12  |
-| 2022 年 11 月  | 2022-11-11           | 2022-11-16  |
+| 2022 年 11 月  | 2022-11-04           | 2022-11-09  |
 | 2022 年 12 月  | 2022-12-09           | 2022-12-14  |
+| 2023 年 1 月   | 2023-01-13           | 2023-01-18  |
+| 2023 年 2 月   | 2023-02-10           | 2023-02-15  |
 
 <!-- 
 ## Detailed Release History for Active Branches
