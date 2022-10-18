@@ -123,6 +123,7 @@ operator.
   you implement yourself
 * [Operator Framework](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
+* [Mast](https://docs.ansi.services/mast/user_guide/operator/) (Dynamic Declarative Operator for Ansible)
 
 ## {{% heading "whatsnext" %}}
 
