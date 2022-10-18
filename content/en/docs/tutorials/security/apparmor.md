@@ -5,6 +5,7 @@ reviewers:
 title: Restrict a Container's Access to Resources with AppArmor
 content_type: tutorial
 weight: 10
+min-kubernetes-server-version: v1.26
 ---
 
 <!-- overview -->
@@ -42,21 +43,10 @@ applications and cluster from other angles as well.
 ## {{% heading "prerequisites" %}}
 
 
-Make sure:
-
-1. Kubernetes version is at least v1.4 -- Kubernetes support for AppArmor was added in
-   v1.4. Kubernetes components older than v1.4 do not support the AppArmor API, and
-   will **reject** any worloads with AppArmor settings provided. To ensure that your Pods are
-   receiving the expected protections, it is important to verify the Kubelet version of your nodes:
-
-   ```shell
-   kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.kubeletVersion}\n{end}'
-   ```
-   ```
-   gke-test-default-pool-239f5d02-gyn2: v1.26.0
-   gke-test-default-pool-239f5d02-x1kf: v1.26.0
-   gke-test-default-pool-239f5d02-xwux: v1.26.0
-   ```
+1. {{< version-check >}} 
+   If your Kubernetes version is older than 1.26, see 
+   [Upgrade A Cluster](https://kubernetes.io/docs/tasks/administer-cluster/cluster-upgrade/) for steps 
+   on how to upgrade your cluster to a stable version.
 
 2. AppArmor kernel module is enabled -- For the Linux kernel to enforce an AppArmor profile, the
    AppArmor kernel module must be installed and enabled. Several distributions enable the module by
@@ -89,7 +79,7 @@ Make sure:
    node by checking the `/sys/kernel/security/apparmor/profiles` file. For example:
 
    ```shell
-   ssh gke-test-default-pool-239f5d02-gyn2 "sudo cat /sys/kernel/security/apparmor/profiles | sort"
+   ssh k8s-test-default-pool-239f5d02-gyn2 "sudo cat /sys/kernel/security/apparmor/profiles | sort"
    ```
    ```
    apparmor-deny-write (enforce)
@@ -110,9 +100,9 @@ later release):
 kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
 ```
 ```
-gke-test-default-pool-239f5d02-gyn2: kubelet is posting ready status. AppArmor enabled
-gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor enabled
-gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
+k8s-test-default-pool-239f5d02-gyn2: kubelet is posting ready status. AppArmor enabled
+k8s-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor enabled
+k8s-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
 ```
 
 
@@ -121,7 +111,7 @@ gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor e
 
 ## Loading AppArmor profiles onto nodes
 
-*This example assumes you have already set up a cluster with AppArmor support.*
+*This example assumes you have already [set up a cluster with AppArmor support](#before-you-begin)*
 
 Kubernetes AppArmor enforcement works by first checking that all the prerequisites have been
 met, and then forwarding the profile selection to the container runtime for enforcement. If the
@@ -167,9 +157,9 @@ discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
 ```shell
 NODES=(
     # The SSH-accessible domain names of your nodes
-    gke-test-default-pool-239f5d02-gyn2.us-central1-a.my-k8s
-    gke-test-default-pool-239f5d02-x1kf.us-central1-a.my-k8s
-    gke-test-default-pool-239f5d02-xwux.us-central1-a.my-k8s)
+    k8s-test-default-pool-239f5d02-gyn2.us-central1-a.my-k8s
+    k8s-test-default-pool-239f5d02-x1kf.us-central1-a.my-k8s
+    k8s-test-default-pool-239f5d02-xwux.us-central1-a.my-k8s)
 for NODE in ${NODES[*]}; do ssh $NODE 'sudo apparmor_parser -q <<EOF
 #include <tunables/global>
 
@@ -195,7 +185,7 @@ specifying it in the pod or container's `securityContext`:
 {{< note >}}
 The functional support for the deprecated AppArmor annotation
 `container.apparmor.security.beta.kubernetes.io/[container_name]`
-is going to be removed with the release of Kubernetes v1.30. Please always use
+will be removed in a future release of Kubernetes. Please always use
 the native API fields in favor of the annotations.
 {{< /note >}}
 
@@ -208,14 +198,14 @@ If we look at the pod events, we can see that the Pod container was created with
 profile "k8s-apparmor-deny-write":
 
 ```shell
-kubectl get events | grep hello-apparmor
+kubectl get events --field-selector involvedObject.name=hello-apparmor
 ```
 ```
-14s        14s         1         hello-apparmor   Pod                                Normal    Scheduled   {default-scheduler }                           Successfully assigned hello-apparmor to gke-test-default-pool-239f5d02-gyn2
-14s        14s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Pulling     {kubelet gke-test-default-pool-239f5d02-gyn2}   pulling image "busybox"
-13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Pulled      {kubelet gke-test-default-pool-239f5d02-gyn2}   Successfully pulled image "busybox"
-13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Created     {kubelet gke-test-default-pool-239f5d02-gyn2}   Created container with docker id 06b6cd1c0989; Security:[seccomp=unconfined apparmor=k8s-apparmor-deny-write]
-13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Started     {kubelet gke-test-default-pool-239f5d02-gyn2}   Started container with docker id 06b6cd1c0989
+14s        14s         1         hello-apparmor   Pod                                Normal    Scheduled   {default-scheduler }                           Successfully assigned hello-apparmor to k8s-test-default-pool-239f5d02-gyn2
+14s        14s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Pulling     {kubelet k8s-test-default-pool-239f5d02-gyn2}   pulling image "busybox"
+13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Pulled      {kubelet k8s-test-default-pool-239f5d02-gyn2}   Successfully pulled image "busybox"
+13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Created     {kubelet k8s-test-default-pool-239f5d02-gyn2}   Created container with docker id 06b6cd1c0989; Security:[seccomp=unconfined apparmor=k8s-apparmor-deny-write]
+13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Started     {kubelet k8s-test-default-pool-239f5d02-gyn2}   Started container with docker id 06b6cd1c0989
 ```
 
 We can verify that the container is actually running with that profile by checking its proc attr:
@@ -249,9 +239,9 @@ metadata:
   name: hello-apparmor-2
 spec:
   securityContext:
-    apparmorProfile:
+    appArmorProfile:
       type: Localhost
-      localHost: profiles/k8s-apparmor-allow-write
+      localhostProfile: profiles/k8s-apparmor-allow-write
   containers:
   - name: hello
     image: busybox:1.28
@@ -266,8 +256,8 @@ kubectl describe pod hello-apparmor-2
 ```
 Name:          hello-apparmor-2
 Namespace:     default
-Node:          gke-test-default-pool-239f5d02-x1kf/
-Start Time:    Tue, 30 Aug 2016 17:58:56 -0700
+Node:          k8s-test-default-pool-239f5d02-x1kf/
+Start Time:    Tue, 30 Aug 2022 17:58:56 -0700
 Labels:        <none>
 Annotations:   
 Status:        Pending
