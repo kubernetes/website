@@ -17,7 +17,7 @@ weight: 10
 This feature, specifically the alpha `topologyKeys` API, is deprecated since
 Kubernetes v1.21.
 [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/),
-introduced in Kubernetes v1.21, provide similar functionality.
+introduced in Kubernetes v1.21, currently can allow for some topology management but only on a zone level. There is currently no support for node level topology management. 
 
 {{</ note >}}
 
