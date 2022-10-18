@@ -569,7 +569,7 @@ Pods, the kubelet directly supervises each static Pod (and restarts it if it fai
 -->
 ## 静态 Pod    {#static-pods}
 
-**静态 Pod（Static Pod）**直接由特定节点上的 `kubelet` 守护进程管理，
+**静态 Pod（Static Pod）** 直接由特定节点上的 `kubelet` 守护进程管理，
 不需要 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}看到它们。
 尽管大多数 Pod 都是通过控制面（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 来管理的，对于静态 Pod 而言，`kubelet` 直接监控每个 Pod，并在其失效时重启之。
