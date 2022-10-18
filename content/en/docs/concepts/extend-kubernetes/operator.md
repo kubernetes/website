@@ -119,11 +119,11 @@ operator.
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
+* [Mast](https://docs.ansi.services/mast/user_guide/operator/) (Dynamic Declarative Operator for Ansible)
 * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that
   you implement yourself
 * [Operator Framework](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
-* [Mast](https://docs.ansi.services/mast/user_guide/operator/) (Dynamic Declarative Operator for Ansible)
 
 ## {{% heading "whatsnext" %}}
 
