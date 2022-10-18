@@ -86,7 +86,7 @@
 	<polygon class="st4" points="-86.6,-20.2 -86.6,-50 0,-100 25.8,-85.1 	"/>
 	<polygon class="st5" points="-40.8,-70.7 -32.9,-57 15.7,-85.1 0,-94.3 	"/>
 	
-		<text transform="matrix(0.866 -0.5 -0.5 -0.866 -33.9256 -70.7388)" class="st6" style="font-family:'RobotoSlab-Regular'; font-size:11.3632px;">Docker</text>
+		<text transform="matrix(0.866 -0.5 -0.5 -0.866 -33.9256 -70.7388)" class="st6" style="font-family:'RobotoSlab-Regular'; font-size:11.3632px;">CRI</text>
 	
 		<text transform="matrix(0.866 -0.5 -0.5 -0.866 -76.0668 -46.4087)" class="st6" style="font-family:'RobotoSlab-Regular'; font-size:11.3632px;">Kubelt</text>
 </symbol>
