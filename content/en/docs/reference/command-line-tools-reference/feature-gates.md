@@ -99,7 +99,8 @@ different Kubernetes components.
 | `DownwardAPIHugePages` | `true` | Beta | 1.22 | |
 | `EndpointSliceTerminatingCondition` | `false` | Alpha | 1.20 | 1.21 |
 | `EndpointSliceTerminatingCondition` | `true` | Beta | 1.22 | |
-| `ExpandedDNSConfig` | `false` | Alpha | 1.22 | |
+| `ExpandedDNSConfig` | `false` | Alpha | 1.22 | 1.25 |
+| `ExpandedDNSConfig` | `true` | Beta | 1.26 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
@@ -895,9 +896,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes).
 - `ExpandCSIVolumes`: Enable the expanding of CSI volumes.
 - `ExpandedDNSConfig`: Enable kubelet and kube-apiserver to allow more DNS
-  search paths and longer list of DNS search paths. This feature requires container
-  runtime support(Containerd: v1.5.6 or higher, CRI-O: v1.22 or higher). See
-  [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration).
+  search paths and longer list of DNS search paths. See
+  [DNS search domain list limits](/docs/concepts/services-networking/dns-pod-service/#dns-search-domain-list-limits).
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See
   [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
 - `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See
