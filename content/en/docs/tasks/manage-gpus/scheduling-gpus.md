@@ -11,7 +11,8 @@ description: Configure and schedule GPUs for use as a resource by nodes in a clu
 {{< feature-state state="stable" for_k8s_version="v1.26" >}}
 
 Kubernetes includes **stable** support for managing AMD and NVIDIA GPUs
-(graphical processing units) across several nodes.
+(graphical processing units) across different nodes in your cluster, using
+{{< glossary_tooltip text="device plugins" term_id="device-plugin" >}}.
 
 This page describes how users can consume GPUs, and outlines
 some of the limitations in the implementation.
@@ -20,8 +21,7 @@ some of the limitations in the implementation.
 
 ## Using device plugins
 
-Kubernetes implements {{< glossary_tooltip text="device plugins" term_id="device-plugin" >}}
-to let Pods access specialized hardware features such as GPUs.
+Kubernetes implements device plugins to let Pods access specialized hardware features such as GPUs.
 
 {{% thirdparty-content %}}
 

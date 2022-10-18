@@ -167,7 +167,7 @@ Pod onto Nodes, to restart the daemon Pod after failure, and to help automate up
 Previously, the versioning scheme required the Device Plugin's API version to match
 exactly the Kubelet's version. Since the graduation of this feature to Beta in v1.12
 this is no longer a hard requirement. The API is versioned and has been stable since
-Beta graduation of this feature. Because of this, Kubelet upgrades should be seamless
+Beta graduation of this feature. Because of this, kubelet upgrades should be seamless
 but there still may be changes in the API before stabilization making upgrades not
 guaranteed to be non-breaking.
 

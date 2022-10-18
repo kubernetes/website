@@ -91,3 +91,12 @@ kubectl convert -f pod.yaml --output-version v1
 
 The `kubectl` tool replaces the contents of `pod.yaml` with a manifest that sets `kind` to
 Pod (unchanged), but with a revised `apiVersion`.
+
+### Device Plugins
+
+If your cluster is running device plugins and the node needs to been upgraded to a Kubernetes
+release with a newer device plugin API version, device plugins must be upgraded to support
+both version before node is upgraded for continuous functioning of the device allocations
+during the upgrade.
+
+Refer to [API compatiblity](docs/concepts/extend-kubernetes/compute-storage-net/device-plugins.md/#api-compatibility) and [Kubelet Device Manager API Versions](docs/reference/node/device-plugin-api-versions.md) for more details.
