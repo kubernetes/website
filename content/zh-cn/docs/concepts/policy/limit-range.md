@@ -93,7 +93,7 @@ LimitRange 的名称必须是合法的
 
 A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be scheduleable.
 
-For example, if "LimitRange` is defined as following:
+For example, you define a `LimitRange` with this manifest:
 -->
 ## Pod 的 LimitRange 和准入检查     {#limitrange-and-admission-checks-for-pod}
 
@@ -101,26 +101,30 @@ For example, if "LimitRange` is defined as following:
 这意味着 `LimitRange` 设置的 **limit** 的默认值可能小于客户端提交给 API 服务器的规约中为容器指定的 **request** 值。
 如果发生这种情况，最终 Pod 将无法调度。
 
-例如若按如下方式定义 `LimitRange`：
+例如，你使用如下清单定义一个 `LimitRange`：
 
 {{< codenew file="concepts/policy/limit-range/problematic-limit-range.yaml" >}}
 
 <!--
-The following Pod that declares the Request of `700m`, but not the limit:
+along with a Pod that declares a CPU resource request of `700m`, but not a limit:
 -->
-以下 Pod 声明请求值为 `700m` 但未声明限制值：
+以及一个声明 CPU 资源请求为 `700m` 但未声明限制值的 Pod：
 
 {{< codenew file="concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml" >}}
 
 <!--
-This Pod will not be scheduled with the error `Pod "ConflictingCpuSettings" is invalid: spec.containers[0].resources.requests: Invalid value: "700m": must be less than or equal to cpu limit`
-
-If both, request and limit are set, the Pod will be scheduled successfully with the same `LimitRange` object:
+then that Pod will not be scheduled, failing with an error similar to:
 -->
-此 Pod 将不会被调度并报错：
-`Pod "ConflictingCpuSettings" is invalid: spec.containers[0].resources.requests: Invalid value: "700m": must be less than or equal to cpu limit`
+那么该 Pod 将不会被调度，失败并出现类似以下的错误：
 
-如果同时设置了请求和限制，Pod 将随相同的 `LimitRange` 对象被成功调度：
+```
+Pod "example-conflict-with-limitrange-cpu" is invalid: spec.containers[0].resources.requests: Invalid value: "700m": must be less than or equal to cpu limit
+```
+
+<!--
+If you set both `request` and `limit`, then that new Pod will be scheduled successfully even with the same `LimitRange` in place:
+-->
+如果你同时设置了 `request` 和 `limit`，那么即使使用相同的 `LimitRange`，新 Pod 也会被成功调度：
 
 {{< codenew file="concepts/policy/limit-range/example-no-conflict-with-limitrange-cpu.yaml" >}}
 
@@ -156,11 +160,6 @@ Neither contention nor changes to a LimitRange will affect already created resou
 ## {{% heading "whatsnext" %}}
 
 <!--
-Refer to the [LimitRanger design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md) for more information.
--->
-参阅 [LimitRanger 设计文档](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)获取更多信息。
-
-<!--
 For examples on using limits, see:
 
 - [how to configure minimum and maximum CPU constraints per namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/).
@@ -169,6 +168,8 @@ For examples on using limits, see:
 - [how to configure default Memory Requests and Limits per namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/).
 - [how to configure minimum and maximum Storage consumption per namespace](/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage).
 - a [detailed example on configuring quota per namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/).
+
+Refer to the [LimitRanger design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md) for context and historical information.
 -->
 关于使用限值的例子，可参阅：
 
@@ -179,3 +180,4 @@ For examples on using limits, see:
 - [如何配置每个命名空间最小和最大存储使用量](/zh-cn/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage)。
 - [配置每个命名空间的配额的详细例子](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)。
 
+有关上下文和历史信息，请参阅 [LimitRanger 设计文档](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)。
