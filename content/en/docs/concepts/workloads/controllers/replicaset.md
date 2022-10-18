@@ -319,7 +319,8 @@ When scaling down, the ReplicaSet controller chooses which pods to delete based 
 1. Pending and unschedulable pods are scaled down first.
 1. If `controller.kubernetes.io/pod-deletion-cost` annotation is set, then
    the pod with the lower value is selected for deletion first.
-1. Pods on nodes with more replicas are deleted before pods on nodes with fewer replicas.
+1. Pods on nodes with more replicas are selected for deletion ahead of pods on nodes that hold
+   fewer replicas.
 1. If the pods' creation times differ, the pod that was created more recently
    is deleted before the older pod. The creation times are bucketed on an integer log scale
    when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
