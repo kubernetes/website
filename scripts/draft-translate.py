@@ -49,7 +49,7 @@ def main(lang, file, src_lang):
                 # check code block or header block start/end
                 if stripped_line.startswith("```") or stripped_line.startswith("---"):
                     print("## Code or header block start/end (do not translate)")
-                    print("["+str(num)+":"+src_lang+"="+target_lang+"] " + line.strip())
+                    print(f"[{num}:{src_lang}={target_lang}] {line.strip()}")
                     is_code_block = not is_code_block
                     target.write(line)
                     continue
