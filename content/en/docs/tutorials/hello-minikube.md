@@ -96,6 +96,11 @@ Pod runs a Container based on the provided Docker image.
     ```shell
     kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
     ```
+    
+For M1 laptops you could run:
+    ```shell
+     kubectl create deployment hello-node --image=registry.k8s.io/echoserver-arm:1.8
+    ```
 
 2. View the Deployment:
 
