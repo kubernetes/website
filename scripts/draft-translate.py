@@ -28,7 +28,7 @@ SKIP_PREFIXES = [
 @click.option('--file', '-f', required=True, help='File path of the Source document')
 @click.option("--src-lang", '-s', required=False, help='Short code (ex:en) for Source language', default="en")
 def main(lang, file, src_lang):
-    """Simple program that create a draft file for localization using machine tranlation."""
+    """Create a draft file for localization using Google Translation."""
 
     target_lang = lang
     src_file = file
