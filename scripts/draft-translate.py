@@ -24,9 +24,9 @@ SKIP_PREFIXES = [
 ]
 
 @click.command()
-@click.option('--lang', '-t', required=True, help='Short code (ex:ko) for Target language for draft localization')
-@click.option('--file', '-f', required=True, help='File path of the Source document')
-@click.option("--src-lang", '-s', required=False, help='Short code (ex:en) for Source language', default="en")
+@click.option('--lang', '-t', required=True, help='Target language code, such as `ko`.')
+@click.option('--file', '-f', required=True, help='Source file path')
+@click.option("--src-lang", '-s', required=False, help='Source language, default to `en`.', default="en")
 def main(lang, file, src_lang):
     """Create a draft file for localization using Google Translation."""
 
