@@ -286,15 +286,9 @@ other = "2006-01-02"
 [release_cherry_pick_deadline]
 other = "Cherry Pick Deadline"
 
-# Deprecated. Planned for removal in a future release.
-# Use [release_full_details_initial_text] instead.
-[release_complete]
-other = "Complete"
-
 [release_end_of_life_date]
 other = "End Of Life Date"
 
-# Replace [release_complete] with [release_full_details_initial_text]
 [release_full_details_initial_text]
 other = "Complete"
 
