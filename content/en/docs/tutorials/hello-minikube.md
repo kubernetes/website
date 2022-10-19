@@ -94,7 +94,7 @@ recommended way to manage the creation and scaling of Pods.
 Pod runs a Container based on the provided Docker image.
 
     ```shell
-    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
     ```
 
 2. View the Deployment:
