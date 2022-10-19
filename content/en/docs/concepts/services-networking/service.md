@@ -63,7 +63,8 @@ The Service abstraction enables this decoupling.
 
 If you're able to use Kubernetes APIs for service discovery in your application,
 you can query the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
-for Endpoints, that get updated whenever the set of Pods in a Service changes.
+for matching EndpointSlices. Kubernetes updates the EndpointSlices for a Service
+whenever the set of Pods in a Service changes.
 
 For non-native applications, Kubernetes offers ways to place a network port or load
 balancer in between your application and the backend Pods.
@@ -161,8 +162,12 @@ Each port definition can have the same `protocol`, or a different one.
 ### Services without selectors
 
 Services most commonly abstract access to Kubernetes Pods thanks to the selector,
-but when used with a corresponding Endpoints object and without a selector, the Service can abstract other kinds of backends,
-including ones that run outside the cluster. For example:
+but when used with a corresponding set of
+{{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlices">}}
+objects and without a selector, the Service can abstract other kinds of backends,
+including ones that run outside the cluster.
+
+For example:
 
 * You want to have an external database cluster in production, but in your
   test environment you use your own databases.
@@ -186,73 +191,119 @@ spec:
       targetPort: 9376
 ```
 
-Because this Service has no selector, the corresponding Endpoints object is not
-created automatically. You can manually map the Service to the network address and port
-where it's running, by adding an Endpoints object manually:
+Because this Service has no selector, the corresponding EndpointSlice (and
+legacy Endpoints) objects are not created automatically. You can manually map the Service
+to the network address and port where it's running, by adding an EndpointSlice
+object manually. For example:
 
 ```yaml
-apiVersion: v1
-kind: Endpoints
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
 metadata:
-  # the name here should match the name of the Service
-  name: my-service
-subsets:
+  name: my-service-1 # by convention, use the name of the Service
+                     # as a prefix for the name of the EndpointSlice
+  labels:
+    # You should set the "kubernetes.io/service-name" label.
+    # Set its value to match the name of the Service
+    kubernetes.io/service-name: my-service
+addressType: IPv4
+ports:
+  - name: '' # empty because port 9376 is not assigned as a well-known
+             # port (by IANA)
+    appProtocol: http
+    protocol: TCP
+    port: 9376
+endpoints:
   - addresses:
-      - ip: 192.0.2.42
-    ports:
-      - port: 9376
+      - "10.4.5.6" # the IP addresses in this list can appear in any order
+      - "10.1.2.3"
 ```
 
-The name of the Endpoints object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+#### Custom EndpointSlices
 
-When you create an [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
-object for a Service, you set the name of the new object to be the same as that
-of the Service.
+When you create an [EndpointSlice](#endpointslices) object for a Service, you can
+use any name for the EndpointSlice. Each EndpointSlice in a namespace must have a
+unique name. You link an EndpointSlice to a Service by setting the
+`kubernetes.io/service-name` {{< glossary_tooltip text="label" term_id="label" >}}
+on that EndpointSlice.
 
 {{< note >}}
 The endpoint IPs _must not_ be: loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), or
 link-local (169.254.0.0/16 and 224.0.0.0/24 for IPv4, fe80::/64 for IPv6).
 
-Endpoint IP addresses cannot be the cluster IPs of other Kubernetes Services,
+The endpoint IP addresses cannot be the cluster IPs of other Kubernetes Services,
 because {{< glossary_tooltip term_id="kube-proxy" >}} doesn't support virtual IPs
 as a destination.
 {{< /note >}}
 
-Accessing a Service without a selector works the same as if it had a selector.
-In the example above, traffic is routed to the single endpoint defined in
-the YAML: `192.0.2.42:9376` (TCP).
+For an EndpointSlice that you create yourself, or in your own code,
+you should also pick a value to use for the [`endpointslice.kubernetes.io/managed-by`](/docs/reference/labels-annotations-taints/#endpointslicekubernetesiomanaged-by) label.
+If you create your own controller code to manage EndpointSlices, consider using a
+value similar to `"my-domain.example/name-of-controller"`. If you are using a third
+party tool, use the name of the tool in all-lowercase and change spaces and other
+punctuation to dashes (`-`).
+If people are directly using a tool such as `kubectl` to manage EndpointSlices,
+use a name that describes this manual management, such as `"staff"` or
+`"cluster-admins"`. You should
+avoid using the reserved value `"controller"`, which identifies EndpointSlices
+managed by Kubernetes' own control plane.
 
-{{< note >}}
-The Kubernetes API server does not allow proxying to endpoints that are not mapped to
-pods. Actions such as `kubectl proxy <service-name>` where the service has no
-selector will fail due to this constraint. This prevents the Kubernetes API server
-from being used as a proxy to endpoints the caller may not be authorized to access.
-{{< /note >}}
+#### Accessing a Service without a selector {#service-no-selector-access}
+
+Accessing a Service without a selector works the same as if it had a selector.
+In the [example](#services-without-selectors) for a Service without a selector, traffic is routed to one of the two endpoints defined in
+the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 9376.
 
 An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
-### Over Capacity Endpoints
-If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.22 (or later)
-cluster annotates that Endpoints with `endpoints.kubernetes.io/over-capacity: truncated`.
-This annotation indicates that the affected Endpoints object is over capacity and that
-the endpoints controller has truncated the number of endpoints to 1000.
-
 ### EndpointSlices
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-EndpointSlices are an API resource that can provide a more scalable alternative
-to Endpoints. Although conceptually quite similar to Endpoints, EndpointSlices
-allow for distributing network endpoints across multiple resources. By default,
-an EndpointSlice is considered "full" once it reaches 100 endpoints, at which
-point additional EndpointSlices will be created to store any additional
-endpoints.
+[EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) are objects that
+represent a subset (a _slice_) of the backing network endpoints for a Service.
 
-EndpointSlices provide additional attributes and functionality which is
-described in detail in [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/).
+Your Kubernetes cluster tracks how many endpoints each EndpointSlice represents.
+If there are so many endpoints for a Service that a threshold is reached, then
+Kubernetes adds another empty EndpointSlice and stores new endpoint information
+there.
+By default, Kubernetes makes a new EndpointSlice once the existing EndpointSlices
+all contain at least 100 endpoints. Kubernetes does not make the new EndpointSlice
+until an extra endpoint needs to be added.
+
+See [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) for more
+information about this API.
+
+### Endpoints
+
+In the Kubernetes API, an
+[Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+(the resource kind is plural) defines a list of network endpoints, typically
+referenced by a Service to define which Pods the traffic can be sent to.
+
+The EndpointSlice API is the recommended replacement for Endpoints.
+
+#### Over-capacity endpoints
+
+Kubernetes limits the number of endpoints that can fit in a single Endpoints
+object. When there are over 1000 backing endpoints for a Service, Kubernetes
+truncates the data in the Endpoints object. Because a Service can be linked
+with more than one EndpointSlice, the 1000 backing endpoint limit only
+affects the legacy Endpoints API.
+
+In that case, Kubernetes selects at most 1000 possible backend endpoints to store
+into the Endpoints object, and sets an
+{{< glossary_tooltip text="annotation" term_id="annotation" >}} on the
+Endpoints:
+[`endpoints.kubernetes.io/over-capacity: truncated`](/docs/reference/labels-annotations-taints/#endpoints-kubernetes-io-over-capacity).
+The control plane also removes that annotation if the number of backend Pods drops below 1000.
+
+Traffic is still sent to backends, but any load balancing mechanism that relies on the
+legacy Endpoints API only sends traffic to at most 1000 of the available backing endpoints.
+
+The same API limit means that you cannot manually update an Endpoints to have more than 1000 endpoints.
 
 ### Application protocol
 
@@ -573,19 +624,22 @@ selectors defined:
 
 ### With selectors
 
-For headless Services that define selectors, the endpoints controller creates
-`Endpoints` records in the API, and modifies the DNS configuration to return
-A records (IP addresses) that point directly to the `Pods` backing the `Service`.
+For headless Services that define selectors, the Kubernetes control plane creates
+EndpointSlice objects in the Kubernetes API, and modifies the DNS configuration to return
+A or AAAA records (IPv4 or IPv6 addresses) that point directly to the Pods backing
+the Service.
 
 ### Without selectors
 
-For headless Services that do not define selectors, the endpoints controller does
-not create `Endpoints` records. However, the DNS system looks for and configures
+For headless Services that do not define selectors, the control plane does
+not create EndpointSlice objects. However, the DNS system looks for and configures
 either:
 
-* CNAME records for [`ExternalName`](#externalname)-type Services.
-* A records for any `Endpoints` that share a name with the Service, for all
-  other types.
+* DNS CNAME records for [`type: ExternalName`](#externalname) Services.
+* DNS A / AAAA records for all IP addresses of the Service's ready endpoints,
+  for all Service types other than `ExternalName`.
+  * For IPv4 endpoints, the DNS system creates A records.
+  * For IPv6 endpoints, the DNS system creates AAAA records.
 
 ## Publishing Services (ServiceTypes) {#publishing-services-service-types}
 

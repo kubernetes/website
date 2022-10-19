@@ -461,7 +461,7 @@ An example flow:
       order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
       {{< /note >}}
 1. At the same time as the kubelet is starting graceful shutdown, the control plane removes that
-   shutting-down Pod from Endpoints (and, if enabled, EndpointSlice) objects where these represent
+   shutting-down Pod from EndpointSlice (and Endpoints) objects where these represent
    a {{< glossary_tooltip term_id="service" text="Service" >}} with a configured
    {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources

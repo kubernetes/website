@@ -375,11 +375,16 @@ The control plane adds this label to an Endpoints object when the owning Service
 
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
-Example: `kubernetes.io/service-name: "nginx"`
+Example: `kubernetes.io/service-name: "my-website"`
 
-Used on: Service
+Used on: EndpointSlice
 
-Kubernetes uses this label to differentiate multiple Services. Used currently for `ELB`(Elastic Load Balancer) only.
+Kubernetes associates [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) with
+[Services](/docs/concepts/services-networking/service/) using this label.
+
+This label records the {{< glossary_tooltip term_id="name" text="name">}} of the
+Service that the EndpointSlice is backing. All EndpointSlices should have this label set to
+the name of their associated Service.
 
 ### kubernetes.io/service-account.name
 
@@ -490,7 +495,9 @@ Example: `endpoints.kubernetes.io/over-capacity:truncated`
 
 Used on: Endpoints
 
-In Kubernetes clusters v1.22 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity and the number of endpoints has been truncated to 1000.
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} adds this annotation to an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object if the associated {{< glossary_tooltip term_id="service" >}} has more than 1000 backing endpoints. The annotation indicates that the Endpoints object is over capacity and the number of endpoints has been truncated to 1000.
+
+If the number of backend endpoints falls below 1000, the control plane removes this annotation.
 
 ### batch.kubernetes.io/job-tracking
 
