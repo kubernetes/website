@@ -53,7 +53,7 @@ GitHub 팀과 OWNERS 파일이다.
 GitHub의 SIG Docs [팀]에는 두 분류가 있다.
 
 - 승인자와 리더를 위한 `@sig-docs-{language}-owners`
-- 리뷰어를 위한 `@sig-docs-{language}-reviewers`
+- 리뷰어를 위한 `@sig-docs-{language}-reviews`
 
 그룹의 전원과 의사소통하기 위해서
 각각 GitHub 코멘트에서 그룹의 `@name`으로 참조할 수 있다.
