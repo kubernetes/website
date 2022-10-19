@@ -45,7 +45,6 @@ and you'd like the cluster to self-heal in the case that there is a problem.
 
 Pod topology spread constraints offer you a declarative way to configure that.
 
-
 ## `topologySpreadConstraints` field
 
 The Pod API includes a field, `spec.topologySpreadConstraints`. The usage of this field looks like
@@ -201,7 +200,6 @@ those registered label keys are nonetheless recommended rather than the private
 You can't make a reliable assumption about the meaning of a private label key
 between different contexts.
 {{< /note >}}
-
 
 Suppose you have a 4-node cluster with the following labels:
 
@@ -580,7 +578,8 @@ or more scattered.
 
 `podAffinity`
 : attracts Pods; you can try to pack any number of Pods into qualifying
-  topology domain(s)
+  topology domain(s).
+
 `podAntiAffinity`
 : repels Pods. If you set this to `requiredDuringSchedulingIgnoredDuringExecution` mode then
   only a single Pod can be scheduled into a single topology domain; if you choose
@@ -615,7 +614,6 @@ section of the enhancement proposal about Pod topology spread constraints.
   You can work around this by using an cluster autoscaling tool that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
-
 
 ## {{% heading "whatsnext" %}}
 
