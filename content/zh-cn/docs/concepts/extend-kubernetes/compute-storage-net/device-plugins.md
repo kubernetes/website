@@ -346,8 +346,7 @@ service PodResourcesLister {
 <!--
 The `List` endpoint provides information on resources of running pods, with details such as the
 id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
-the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains
-the information about memory and hugepages reserved for a container.
+the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the information about memory and hugepages reserved for a container.
 -->
 这一 `List` 端点提供运行中 Pod 的资源信息，包括类似独占式分配的
 CPU ID、设备插件所报告的设备 ID 以及这些设备分配所处的 NUMA 节点 ID。
@@ -577,7 +576,7 @@ Here are some examples of device plugin implementations:
 * The [SocketCAN device plugin](https://github.com/collabora/k8s-socketcan)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
-* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin) for Xilinx FPGA devices
+* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-device-plugin) for Xilinx FPGA devices
 -->
 ## 设备插件示例 {#examples}
 
@@ -591,7 +590,7 @@ Here are some examples of device plugin implementations:
 * [SocketCAN 设备插件](https://github.com/collabora/k8s-socketcan)
 * [Solarflare 设备插件](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * [SR-IOV 网络设备插件](https://github.com/intel/sriov-network-device-plugin)
-* [Xilinx FPGA 设备插件](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin)
+* [Xilinx FPGA 设备插件](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-device-plugin)
 
 ## {{% heading "whatsnext" %}}
 
