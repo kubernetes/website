@@ -275,7 +275,7 @@ You can find out more on the [CoreDNS Blog](https://coredns.io/blog).
 --->
 ## 下一步工作
 
-CoreDNS 是一个独立的项目，许多与 Kubernetes 不直接相关的功能正在开发中。但是，其中许多功能将在 Kubernetes 中具有对应的应用。例如，与策略引擎完成集成后，当请求无头服务时，CoreDNS 能够智能地选择返回哪个端点。这可用于将流量分流到到本地 Pod 或响应更快的 Pod。更多的其他功能正在开发中，当然作为一个开源项目，我们欢迎您提出建议并贡献自己的功能特性！
+CoreDNS 是一个独立的项目，许多与 Kubernetes 不直接相关的功能正在开发中。但是，其中许多功能将在 Kubernetes 中具有对应的应用。例如，与策略引擎完成集成后，当请求无头服务时，CoreDNS 能够智能地选择返回哪个端点。这可用于将流量分流到本地 Pod 或响应更快的 Pod。更多的其他功能正在开发中，当然作为一个开源项目，我们欢迎您提出建议并贡献自己的功能特性！
 
 上述特征和差异是几个示例。CoreDNS 还可以做更多的事情。您可以在 [CoreDNS 博客](https://coredns.io/blog) 上找到更多信息。
 
