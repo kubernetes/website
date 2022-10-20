@@ -143,7 +143,7 @@ Here is the configuration file for the application Deployment:
 <!--
 1. List the pods that are running the Hello World application:
 -->
-7. 列出运行 Hello World 应用的 Pod：
+6. 列出运行 Hello World 应用的 Pod：
 
    ```shell
    kubectl get pods --selector="run=load-balancer-example" --output=wide
@@ -175,15 +175,15 @@ Here is the configuration file for the application Deployment:
 
 1. Use the node address and node port to access the Hello World application:
 -->
-8. 获取运行 Hello World 的 pod 的其中一个节点的公共 IP 地址。如何获得此地址取决于你设置集群的方式。
+7. 获取运行 Hello World 的 pod 的其中一个节点的公共 IP 地址。如何获得此地址取决于你设置集群的方式。
    例如，如果你使用的是 Minikube，则可以通过运行 `kubectl cluster-info` 来查看节点地址。
    如果你使用的是 Google Compute Engine 实例，则可以使用 `gcloud compute instances list` 命令查看节点的公共地址。
 
-9. 在你选择的节点上，创建一个防火墙规则以开放节点端口上的 TCP 流量。
+8. 在你选择的节点上，创建一个防火墙规则以开放节点端口上的 TCP 流量。
    例如，如果你的服务的 NodePort 值为 31568，请创建一个防火墙规则以允许 31568 端口上的 TCP 流量。
    不同的云提供商提供了不同方法来配置防火墙规则。
 
-10. 使用节点地址和 node port 来访问 Hello World 应用：
+9. 使用节点地址和 node port 来访问 Hello World 应用：
 
    ```shell
    curl http://<public-node-ip>:<node-port>
