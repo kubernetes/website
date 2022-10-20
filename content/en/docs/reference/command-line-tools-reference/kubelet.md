@@ -16,7 +16,7 @@ through various mechanisms (primarily through the apiserver) and ensures that
 the containers described in those PodSpecs are running and healthy. The
 kubelet doesn't manage containers which were not created by Kubernetes.
 
-Other than from a PodSpec from the apiserver, there are three ways that a
+Other than from a PodSpec from the apiserver, there are two ways that a
 container manifest can be provided to the Kubelet.
 
 - File: Path passed as a flag on the command line. Files under this path will be
@@ -24,8 +24,6 @@ container manifest can be provided to the Kubelet.
   and is configurable via a flag.
 - HTTP endpoint: HTTP endpoint passed as a parameter on the command line. This
   endpoint is checked every 20 seconds (also configurable with a flag).
-- HTTP server: The kubelet can also listen for HTTP and respond to a simple API
-  (underspec'd currently) to submit a new manifest.
 
 ```
 kubelet [flags]
