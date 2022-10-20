@@ -16,5 +16,5 @@ tags:
 
 <!--more--> 
 
-प्रत्येक प्रतिकृति को एक {{<glossary_tooltip term_id="pod" >}} द्वारा दर्शाया जाता है, और पॉड्स को बीच में वितरित किया जाता है {{< glossary_tooltip text="nodes" term_id="node" >}} एक क्लस्टर का।
-ऐसे कार्यभार के लिए जिन्हें स्थानीय स्थिति की आवश्यकता होती है, {{< glossary_tooltip term_id="StatefulSet" >}} का उपयोग करने पर विचार करें।
+प्रत्येक प्रतिकृति को एक {{<glossary_tooltip term_id="pod" >}} द्वारा दर्शाया जाता है, और पॉड्स को एक क्लस्टर के {{< glossary_tooltip text="नोड्स" term_id="node" >}} के बीच वितरित किया जाता है।
+ऐसे वर्कलोड के लिए जिन्हें स्थानीय स्थिति की आवश्यकता होती है, {{< glossary_tooltip term_id="StatefulSet" >}} का उपयोग करने पर विचार करें।
