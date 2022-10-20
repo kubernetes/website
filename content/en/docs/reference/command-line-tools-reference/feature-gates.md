@@ -726,9 +726,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile
   for all workloads.
   The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
-- `SELinuxMountReadWriteOncePod`: Allows kubelet to mount volumes for a Pod directly with the
-  right SELinux label instead of applying the SELinux label recursively on every file on the
-  volume.
 - `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
   feature on the API Server.
 - `ServerSideFieldValidation`: Enables server-side field validation. This means the validation
