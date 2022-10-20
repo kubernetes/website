@@ -30,7 +30,7 @@ Kubernetes CLI, `kubectl`.
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it.  Typically, this is automatically set-up when you work through
 a [Getting started guide](/docs/setup/),
-or someone else setup the cluster and provided you with credentials and a location.
+or someone else set up the cluster and provided you with credentials and a location.
 
 Check the location and credentials that kubectl knows about with this command:
 -->
@@ -336,23 +336,6 @@ Python 客户端可以像 kubectl CLI 一样使用相同的
 参阅其它库的相关文档以获取他们是如何验证的。
 
 <!--
-## Accessing the API from a Pod
-
-When accessing the API from a pod, locating and authenticating
-to the API server are somewhat different.
--->
-### 从 Pod 中访问 API   {#accessing-the-api-from-a-pod}
-
-当你从 Pod 中访问 API 时，定位和验证 API 服务器会有些许不同。
-
-<!--
-Please check [Accessing the API from within a Pod](/docs/tasks/run-application/access-api-from-pod/)
-for more details.
--->
-请参阅[从 Pod 中访问 API](/zh-cn/docs/tasks/run-application/access-api-from-pod/)
-了解更多详情。
-
-<!--
 ## Accessing services running on the cluster
 
 The previous section describes how to connect to the Kubernetes API server.
@@ -463,7 +446,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - implementation varies by cloud provider.
 
 Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
-will typically ensure that the latter types are setup correctly.
+will typically ensure that the latter types are set up correctly.
 -->
 5. 外部服务上的云负载均衡器：
 
