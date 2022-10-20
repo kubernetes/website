@@ -16,18 +16,18 @@ weight: 30
 `crictl`은 CRI-호환 컨테이너 런타임에 사용할 수 있는 커맨드라인 인터페이스이다.
 쿠버네티스 노드에서 컨테이너 런타임과 애플리케이션을 검사하고
 디버그하는 데 사용할 수 있다.
-`critl`과 그 소스는 [critl-tools](https://github.com/kubernetes-sigs/cri-tools) 저장소에서 호스팅한다.
+`crictl`과 그 소스는 [cri-tools](https://github.com/kubernetes-sigs/cri-tools) 저장소에서 호스팅한다.
 
 ## {{% heading "prerequisites" %}}
 
-`crictl`은 리눅스 운영체제에서의 CRI 런타임을 필요로 한다.
+`crictl`은 CRI 런타임이 있는 리눅스 운영체제를  필요로 한다.
 
 <!-- steps -->
 
 ## crictl 설치하기
 
-cri-tools [배포 문서](https://github.com/kubernetes-sigs/cri-tools/releases)에서
-다양한 아키텍처에 대한 압축된 아카이브 `crictl`를 다운로드할 수 있다.
+cri-tools [릴리스 페이지](https://github.com/kubernetes-sigs/cri-tools/releases)에서
+다양한 아키텍처 별로 압축된 `crictl` 아카이브(archive)를 다운로드할 수 있다.
 설치된 쿠버네티스 버전에 해당하는 버전을 다운로드한다.
 `/usr/local/bin/`와 같은 시스템 경로의 위치에
 압축을 푼다.
@@ -35,7 +35,7 @@ cri-tools [배포 문서](https://github.com/kubernetes-sigs/cri-tools/releases)
 ## 일반적인 사용법
 
 `crictl` 커맨드에는 여러 하위 커맨드와 런타임 플래그가 있다.
-자세한 내용은 `critl help` 또는 `critl <subcommand> help`를 참조한다.
+자세한 내용은 `crictl help` 또는 `crictl <subcommand> help`를 참조한다.
 
 아래 내용 중 하나를 통해 `crictl`의 엔드포인트를 설정할 수 있다.
 
@@ -47,14 +47,14 @@ cri-tools [배포 문서](https://github.com/kubernetes-sigs/cri-tools/releases)
 
 {{<note>}}
 엔드포인트를 설정하지 않으면,
-`critl`이 알려진 엔드포인트 목록에 연결을 시도하여 성능에 영향을 줄 수 있다.
+`crictl`이 알려진 엔드포인트 목록에 연결을 시도하므로 성능에 영향을 줄 수 있다.
 {{</note>}}
 
 서버에 연결할 때 구성 파일에서 `timeout` 또는 `debug` 값을 명시하거나,
 `--timeout` 그리고 `--debug` 커맨드라인 플래그를 사용하여
 타임아웃 값을 지정하고 디버깅을 활성화하거나 비활성화할 수 있다.
 
-현재 구성을 보거나 편집하려면 `/etc/critl.yaml`의 내용을 보거나 편집한다.
+현재 구성을 보거나 편집하려면 `/etc/crictl.yaml`의 내용을 보거나 편집한다.
 예를 들어,
 `containerd` 컨테이너 런타임 사용 시 구성은 아래와 유사하다.
 
@@ -74,11 +74,11 @@ debug: true
 
 {{< warning >}}
 구동 중인 쿠버네티스 클러스터에서 `crictl`을 사용하여 파드 샌드박스(sandbox)나 컨테이너를 만들게 되면,
-결국에는 kubelet가 그것들을 삭제하게 된다.
+결국에는 kubelet이 그것들을 삭제하게 된다.
 `crictl`은 일반적인 워크플로우 툴이 아니라 디버깅에 유용한 툴임을 명심해야 한다.
 {{< /warning >}}
 
-### 파드 목록
+### 파드 목록 조회
 
 모든 파드의 목록 조회
 
@@ -122,7 +122,7 @@ POD ID              CREATED             STATE               NAME                
 4dccb216c4adb       2 minutes ago       Ready               nginx-65899c769f-wv2gp   default             0
 ```
 
-### 이미지 목록
+### 이미지 목록 조회
 
 모든 이미지의 목록 조회
 
@@ -168,7 +168,7 @@ sha256:da86e6ba6ca197bf6bc5e9d900febd906b133eaa4750e6bed647b0fbe50ed43e
 sha256:cd5239a0906a6ccf0562354852fae04bc5b52d72a2aff9a871ddb6bd57553569
 ```
 
-### 컨테이너 목록
+### 컨테이너 목록 조회
 
 모든 컨테이너 목록 조회
 
@@ -213,7 +213,7 @@ crictl exec -i -t 1f73f2d81bf98 ls
 bin   dev   etc   home  proc  root  sys   tmp   usr   var
 ```
 
-### 컨테이너의 로그 가져오기
+### 컨테이너의 로그 조회
 
 모든 컨테이너의 로그 조회
 
@@ -269,7 +269,7 @@ crictl logs --tail=1 87d3992f84f74
    crictl runp pod-config.json
    ```
 
-   샌드박스의 ID를 반환한다.
+   결과로 샌드박스의 ID가 반환될 것이다.
 
 ### 컨테이너 생성
 
@@ -286,7 +286,7 @@ crictl logs --tail=1 87d3992f84f74
    Image is up to date for busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47
    ```
 
-2. 파드와 컨테이너 구성 생성
+2. 파드와 컨테이너 구성(config) 생성
 
    **파드 구성**:
 
@@ -325,7 +325,7 @@ crictl logs --tail=1 87d3992f84f74
 
 3. 이전에 생성한 파드의 ID 및 컨테이너 구성 파일과 파드 구성 파일을 커맨드 인자로 전달하여,
 컨테이너를 생성한다.
-컨테이너의 ID를 반환한다.
+결과로 컨테이너의 ID가 반환될 것이다.
 
    ```shell
    crictl create f84dd361f8dc51518ed291fbadd6db537b0496536c1d2d6c05ff943ce8c9a54f container-config.json pod-config.json
