@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-pod-failure-policy-example
+spec:
+  completions: 12
+  parallelism: 3
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: main
+        image: docker.io/library/bash:5
+        command: ["bash"]        # 模拟一个触发 FailJob 动作的错误的示例命令
+        args:
+        - -c
+        - echo "Hello world!" && sleep 5 && exit 42
+  backoffLimit: 6
+  podFailurePolicy:
+    rules:
+    - action: FailJob
+      onExitCodes:
+        containerName: main      # 可选
+        operator: In             # In 和 NotIn 二选一
+        values: [42]
+    - action: Ignore             # Ignore、FailJob、Count 其中之一
+      onPodConditions:
+      - type: DisruptionTarget   # 表示 Pod 失效

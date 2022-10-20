@@ -25,7 +25,7 @@ it cannot be created in the namespace.
 -->
 本页介绍如何设置在{{< glossary_tooltip text="名字空间" term_id="namespace" >}}
 中运行的容器所使用的内存的最小值和最大值。你可以在
-[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+[LimitRange](/zh-cn/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
 对象中指定最小和最大内存值。如果 Pod 不满足 LimitRange 施加的约束，
 则无法在名字空间中创建它。
 
@@ -91,7 +91,8 @@ The output shows the minimum and maximum memory constraints as expected. But
 notice that even though you didn't specify default values in the configuration
 file for the LimitRange, they were created automatically.
 -->
-输出显示预期的最小和最大内存约束。 但请注意，即使你没有在 LimitRange 的配置文件中指定默认值，也会自动创建它们。
+输出显示预期的最小和最大内存约束。
+但请注意，即使你没有在 LimitRange 的配置文件中指定默认值，默认值也会自动生成。
 
 ```
   limits:
@@ -301,7 +302,7 @@ from the LimitRange.
 -->
 因为你的 Pod 没有为容器声明任何内存请求和限制，集群会从 LimitRange
 获取[默认的内存请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
- 应用于容器。
+应用于容器。
 
 <!--
 This means that the definition of that Pod shows those values. You can check it using

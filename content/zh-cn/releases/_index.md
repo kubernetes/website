@@ -32,13 +32,17 @@ Kubernetes 版本表示为 **x.y.z**，
 
 <!-- body -->
 
-<!-- ## Release History -->
-## 发行版本历史
+<!--
+## Release History
+-->
+## 发行版本历史 {#release-history}
 
 {{< release-data >}}
 
-<!-- ## Upcoming Release -->
-## 未来的发行版本
+<!--
+## Upcoming Release
+-->
+## 未来的发行版本 {#upcoming-release}
 
 <!-- 
 Check out the [schedule](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}}) for the upcoming **{{< skew nextMinorVersion >}}** Kubernetes release!
@@ -46,5 +50,7 @@ Check out the [schedule](https://github.com/kubernetes/sig-release/tree/master/r
 查看[时间表](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})，
 Kubernetes **{{< skew nextMinorVersion >}}** 版本即将发行！
 
-<!-- ## Helpful Resources -->
-## 有用的资源
+<!--
+## Helpful Resources
+-->
+## 有用的资源 {#helpful-resources}

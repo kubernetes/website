@@ -9,7 +9,7 @@ weight: 20
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 <!--
-Kubernetes provides a [device plugin framework](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
+Kubernetes provides a [device plugin framework](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)
 that you can use to advertise system hardware resources to the
 {{< glossary_tooltip term_id="kubelet" >}}.
 
@@ -20,7 +20,7 @@ and other similar computing resources that may require vendor specific initializ
 and setup.
 -->
 Kubernetes 提供了一个
-[设备插件框架](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)，你可以用它来将系统硬件资源发布到 {{< glossary_tooltip term_id="kubelet" >}}。
+[设备插件框架](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)，你可以用它来将系统硬件资源发布到 {{< glossary_tooltip term_id="kubelet" >}}。
 
 供应商可以实现设备插件，由你手动部署或作为 {{< glossary_tooltip term_id="daemonset" >}}
 来部署，而不必定制 Kubernetes 本身的代码。目标设备包括 GPU、高性能 NIC、FPGA、
@@ -539,7 +539,9 @@ message NUMANode {
 <!--
 Device Plugins that wish to leverage the Topology Manager can send back a populated TopologyInfo struct as part of the device registration, along with the device IDs and the health of the device. The device manager will then use this information to consult with the Topology Manager and make resource assignment decisions.
 
-`TopologyInfo` supports a `nodes` field that is either `nil` (the default) or a list of NUMA nodes. This lets the Device Plugin publish that can span NUMA nodes.
+`TopologyInfo` supports setting a `nodes` field to either `nil` or a list of NUMA nodes. This allows the Device Plugin to advertise a device that spans multiple NUMA nodes.
+
+Setting `TopologyInfo` to `nil`  or providing an empty list of NUMA nodes for a given device indicates that the Device Plugin does not have a NUMA affinity preference for that device.
 
 An example `TopologyInfo` struct populated for a device by a Device Plugin:
 
@@ -550,8 +552,11 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 设备插件希望拓扑管理器可以将填充的 TopologyInfo 结构体作为设备注册的一部分以及设备 ID
 和设备的运行状况发送回去。然后设备管理器将使用此信息来咨询拓扑管理器并做出资源分配决策。
 
-`TopologyInfo` 支持定义 `nodes` 字段，允许为 `nil`（默认）或者是一个 NUMA 节点的列表。
-这样就可以使设备插件可以跨越 NUMA 节点去发布。
+`TopologyInfo` 支持将 `nodes` 字段设置为 `nil` 或一个 NUMA 节点的列表。
+这样就可以使设备插件通告跨越多个 NUMA 节点的设备。
+
+将 `TopologyInfo` 设置为 `nil` 或为给定设备提供一个空的
+NUMA 节点列表表示设备插件没有该设备的 NUMA 亲和偏好。
 
 下面是一个由设备插件为设备填充 `TopologyInfo` 结构体的示例：
 

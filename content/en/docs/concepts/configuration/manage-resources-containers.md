@@ -309,19 +309,16 @@ The kubelet can measure how much local storage it is using. It does this provide
 that you have set up the node using one of the supported configurations for local
 ephemeral storage.
 
-- the `LocalStorageCapacityIsolation`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled (the feature is on by default), and you have set up the node using one
-  of the supported configurations for local ephemeral storage.
-- Quotas are faster and more accurate than directory scanning. The
-  `LocalStorageCapacityIsolationFSQuotaMonitoring` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (the feature is on by default), 
-
 If you have a different configuration, then the kubelet does not apply resource
 limits for ephemeral local storage.
 
 {{< note >}}
 The kubelet tracks `tmpfs` emptyDir volumes as container memory use, rather
 than as local ephemeral storage.
+{{< /note >}}
+
+{{< note >}}
+The kubelet will only track the root filesystem for ephemeral storage. OS layouts that mount a separate disk to `/var/lib/kubelet` or `/var/lib/containers` will not report ephemeral storage correctly.
 {{< /note >}}
 
 ### Setting requests and limits for local ephemeral storage
@@ -448,7 +445,7 @@ that file but the kubelet does not categorize the space as in use.
 {{% /tab %}}
 {{% tab name="Filesystem project quota" %}}
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
 Project quotas are an operating-system level feature for managing
 storage use on filesystems. With Kubernetes, you can enable project

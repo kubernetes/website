@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - brendandburns
+# - erictune
+# - mikedanese
 title: 시작하기
 main_menu: true
 weight: 20

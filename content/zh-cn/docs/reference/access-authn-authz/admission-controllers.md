@@ -163,7 +163,7 @@ In the current version, the default ones are:
 -->
 在目前版本中，默认启用的插件有：
 
-```
+```shell
 CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook
 ```
 
@@ -354,9 +354,11 @@ and users may remove values from `externalIPs` on existing `Service` objects.
 Most users do not need this feature at all, and cluster admins should consider disabling it.
 Clusters that do need to use this feature should consider using some custom policy to manage usage
 of it.
+This admission controller is disabled by default.
 -->
 大多数用户根本不需要此特性，集群管理员应考虑将其禁用。
 确实需要使用此特性的集群应考虑使用一些自定义策略来管理 `externalIPs` 的使用。
+此准入控制器默认被禁用。
 
 ### EventRateLimit {#eventratelimit}
 
@@ -442,7 +444,7 @@ name as the key. This admission controller, if enabled, automatically
 adds tolerations for such taints to pods requesting extended resources, so users don't have to manually
 add these tolerations.
 
-This admission controller is diabled by default.
+This admission controller is disabled by default.
 -->
 此插件有助于创建带有扩展资源的专用节点。
 如果运维人员想要创建带有扩展资源（如 GPU、FPGA 等）的专用节点，他们应该以扩展资源名称作为键名，
@@ -593,7 +595,7 @@ any pod annotations that match `*.image-policy.k8s.io/*`.
 `imagepolicy.k8s.io/v1alpha1` `ImageReview` 对象。
 该对象包含描述被准入容器的字段，以及与 `*.image-policy.k8s.io/*` 匹配的所有 Pod 注解。
 
-{{ note }}
+{{< note >}}
 <!--
 The webhook API objects are subject to the same versioning compatibility rules
 as other Kubernetes API objects. Implementers should be aware of looser compatibility
@@ -607,7 +609,7 @@ group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 以确保正确的反序列化。
 此外，API 服务器必须启用 `imagepolicy.k8s.io/v1alpha1` API 扩展组
 （`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`）。
-{{ /note }}
+{{< /note >}}
 
 <!--
 An example request body:
@@ -1089,7 +1091,7 @@ PodNodeSelector 允许 Pod 强制在特定标签的节点上运行。
 
 ### PodSecurity {#podsecurity}
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 <!--
 This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller

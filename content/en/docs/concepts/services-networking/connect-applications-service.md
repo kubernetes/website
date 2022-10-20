@@ -13,13 +13,11 @@ weight: 30
 
 ## The Kubernetes model for connecting containers
 
-Now that you have a continuously running, replicated application you can expose it on a network. 
+Now that you have a continuously running, replicated application you can expose it on a network.
 
 Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. Kubernetes gives every pod its own cluster-private IP address, so you do not need to explicitly create links between pods or map container ports to host ports. This means that containers within a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other without NAT. The rest of this document elaborates on how you can run reliable services on such a networking model.
 
 This guide uses a simple nginx server to demonstrate proof of concept.
-
-
 
 <!-- body -->
 
@@ -52,6 +50,7 @@ kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
 ```
 
 You should be able to ssh into any node in your cluster and use a tool such as `curl` to make queries against both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same `containerPort`, and access them from any other pod or node in your cluster using the assigned IP address for the Service. If you want to arrange for a specific port on the host Node to be forwarded to backing Pods, you can - but the networking model should mean that you do not need to do so.
+
 
 You can read more about the [Kubernetes Networking Model](/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model) if you're curious.
 
@@ -92,10 +91,14 @@ my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 ```
 
 As mentioned previously, a Service is backed by a group of Pods. These Pods are
-exposed through `endpoints`. The Service's selector will be evaluated continuously
-and the results will be POSTed to an Endpoints object also named `my-nginx`.
-When a Pod dies, it is automatically removed from the endpoints, and new Pods
-matching the Service's selector will automatically get added to the endpoints.
+exposed through
+{{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlices">}}.
+The Service's selector will be evaluated continuously and the results will be POSTed
+to an EndpointSlice that is connected to the Service using a
+{{< glossary_tooltip text="labels" term_id="label" >}}.
+When a Pod dies, it is automatically removed from the EndpointSlices that contain it 
+as an endpoint. New Pods that match the Service's selector will automatically get added
+to an EndpointSlice for that Service.
 Check the endpoints, and note that the IPs are the same as the Pods created in
 the first step:
 
@@ -116,11 +119,11 @@ Session Affinity:    None
 Events:              <none>
 ```
 ```shell
-kubectl get ep my-nginx
+kubectl get endpointslices -l kubernetes.io/service-name=my-nginx
 ```
 ```
-NAME       ENDPOINTS                     AGE
-my-nginx   10.244.2.5:80,10.244.3.4:80   1m
+NAME             ADDRESSTYPE   PORTS   ENDPOINTS               AGE
+my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 ```
 
 You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from
@@ -244,7 +247,6 @@ kubectl get secrets
 ```
 ```
 NAME                  TYPE                                  DATA      AGE
-default-token-il9rc   kubernetes.io/service-account-token   1         1d
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
 And also the configmap:
@@ -291,7 +293,6 @@ kubectl get secrets
 ```
 ```
 NAME                  TYPE                                  DATA      AGE
-default-token-il9rc   kubernetes.io/service-account-token   1         1d
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
 

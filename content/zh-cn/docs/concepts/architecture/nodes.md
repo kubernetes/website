@@ -816,14 +816,14 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 在关闭期间，将保留前 20（30 - 10）秒用于体面终止常规 Pod，
 而保留最后 10 秒用于终止[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 
+{{< note >}}
 <!--
-When pods were evicted during the graceful node shutdown, they are marked as failed.
-Running `kubectl get pods` shows the status of the the evicted pods as `Shutdown`.
+When pods were evicted during the graceful node shutdown, they are marked as shutdown.
+Running `kubectl get pods` shows the status of the evicted pods as `Terminated`.
 And `kubectl describe pod` indicates that the pod was evicted because of node shutdown:
 -->
-{{< note >}}
-当 Pod 在正常节点关闭期间被驱逐时，它们会被标记为已经失败（Failed）。
-运行 `kubectl get pods` 时，被驱逐的 Pod 的状态显示为 `Shutdown`。
+当 Pod 在正常节点关闭期间被驱逐时，它们会被标记为关闭。
+运行 `kubectl get pods` 时，被驱逐的 Pod 的状态显示为 `Terminated`。
 并且 `kubectl describe pod` 表示 Pod 因节点关闭而被驱逐：
 
 ```
@@ -875,9 +875,8 @@ these pods will be stuck in terminating status on the shutdown node forever.
 如果原来的已关闭节点没有被恢复，那些在已关闭节点上的 Pod 将永远滞留在终止状态。
 
 <!--
-To mitigate the above situation, a  user can manually add the taint `node 
-kubernetes.io/out-of-service` with either `NoExecute` or `NoSchedule` effect to 
-a Node marking it out-of-service. 
+To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute` 
+or `NoSchedule` effect to a Node marking it out-of-service. 
 If the `NodeOutOfServiceVolumeDetach`  [feature gate](/docs/reference/
 command-line-tools-reference/feature-gates/) is enabled on
 `kube-controller-manager`, and a Node is marked out-of-service with this taint, the 
@@ -887,7 +886,7 @@ immediately. This allows the Pods on the out-of-service node to recover quickly 
 different node. 
 -->
 为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
-`node kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
+`node.kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
 如果在 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 并且节点被通过污点标记为无法提供服务，如果节点 Pod 上没有设置对应的容忍度，

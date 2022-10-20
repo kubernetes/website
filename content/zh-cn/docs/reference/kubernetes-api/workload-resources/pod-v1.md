@@ -54,7 +54,7 @@ Pod 是可以在主机上运行的容器的集合。此资源由客户端创建�
 -->
 - **spec** (<a href="{{< ref "../workload-resources/pod-v1#PodSpec" >}}">PodSpec</a>)
 
-  对 Pod 预期行为的规约。更多信息： 
+  对 Pod 预期行为的规约。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
@@ -111,8 +111,23 @@ PodSpec 是对 Pod 的描述。
   Init 容器不可以有生命周期操作、就绪态探针、存活态探针或启动探针。
   在调度过程中会考虑 Init 容器的资源需求，方法是查找每种资源类型的最高请求/限制，
   然后使用该值的最大值或正常容器的资源请求的总和。
-  对资源限制以类似的方式应用于 Init 容器。当前无法添加或删除 Init 容器。无法更新。更多信息： 
+  对资源限制以类似的方式应用于 Init 容器。当前无法添加或删除 Init 容器。无法更新。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/init-containers/
+
+<!--
+- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
+
+  *Patch strategy: merge on key `name`*
+  
+  List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
+-->
+- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
+
+  **补丁策略：基于 `name` 键合并**
+  
+  在此 Pod 中运行的临时容器列表。临时容器可以在现有的 Pod 中运行，以执行用户发起的操作，例如调试。
+  此列表在创建 Pod 时不能指定，也不能通过更新 Pod 规约来修改。
+  要将临时容器添加到现有 Pod，请使用 Pod 的 `ephemeralcontainers` 子资源。
 
 <!--
 - **imagePullSecrets** ([]<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
@@ -126,7 +141,7 @@ PodSpec 是对 Pod 的描述。
   **补丁策略：基于 `name` 键合并**
 
   imagePullSecrets 是对同一名字空间中 Secret 的引用的列表，用于拉取此 Pod 规约中使用的任何镜像，此字段可选。
-  如果指定，这些 Secret 将被传递给各个镜像拉取组件（Puller）实现供其使用。更多信息： 
+  如果指定，这些 Secret 将被传递给各个镜像拉取组件（Puller）实现供其使用。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 
 <!--
@@ -155,13 +170,14 @@ PodSpec 是对 Pod 的描述。
   - `securityContext.windowsOptions`
 
   <!--
-  If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
-
+  If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
   -->
+
   如果 os 字段设置为 `windows`，则必须不能设置以下字段：
 
   - `spec.hostPID`
   - `spec.hostIPC`
+  - `spec.hostUsers`
   - `spec.securityContext.seLinuxOptions`
   - `spec.securityContext.seccompProfile`
   - `spec.securityContext.fsGroup`
@@ -180,8 +196,6 @@ PodSpec 是对 Pod 的描述。
   - `spec.containers[*].securityContext.procMount`
   - `spec.containers[*].securityContext.runAsUser`
   - `spec.containers[*].securityContext.runAsGroup`
-  
-  此字段为 Beta 字段，需要启用 `IdentifyPodOS` 特性门控。
   
   <a name="PodOS"></a>
   <!--
@@ -218,7 +232,7 @@ PodSpec 是对 Pod 的描述。
 
   **补丁策略：retainKeys，基于键 `name` 合并**
   
-  可以由属于 Pod 的容器挂载的卷列表。更多信息： 
+  可以由属于 Pod 的容器挂载的卷列表。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes
 
 <!--
@@ -234,7 +248,7 @@ PodSpec 是对 Pod 的描述。
 - **nodeSelector** (map[string]string)
 
   nodeSelector 是一个选择算符，这些算符必须取值为 true 才能认为 Pod 适合在节点上运行。
-  选择算符必须与节点的标签匹配，以便在该节点上调度 Pod。更多信息： 
+  选择算符必须与节点的标签匹配，以便在该节点上调度 Pod。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/configuration/assign-pod-node/
 
 <!--
@@ -405,6 +419,16 @@ PodSpec 是对 Pod 的描述。
   字段值越高，优先级越高。
 
 <!--
+- **preemptionPolicy** (string)
+
+  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+-->
+- **preemptionPolicy** (string)
+
+  preemptionPolicy 是用来抢占优先级较低的 Pod 的策略。取值为 `"Never"`、`"PreemptLowerPriority"` 之一。
+  如果未设置，则默认为 `"PreemptLowerPriority"`。
+
+<!--
 - **topologySpreadConstraints** ([]TopologySpreadConstraint)
 
   *Patch strategy: merge on key `topologyKey`*
@@ -448,7 +472,7 @@ PodSpec 是对 Pod 的描述。
 
     - 如果 maxSkew 为 1，传入的 Pod 只能调度到 "zone3"，变成 2/2/2；
       将其调度到 "zone1"（"zone2"）将使"zone1"（"zone2"）上的实际偏差（Actual Skew）为 3-1，进而违反
-      maxSkew 限制（1）。 
+      maxSkew 限制（1）。
     - 如果 maxSkew 为 2，则可以将传入的 Pod 调度到任何区域。
 
     当 `whenUnsatisfiable=ScheduleAnyway` 时，此字段被用来给满足此约束的拓扑域更高的优先级。
@@ -458,14 +482,15 @@ PodSpec 是对 Pod 的描述。
   <!--
   - **topologySpreadConstraints.topologyKey** (string), required
 
-    TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each \<key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
+    TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each \<key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
   -->
 
   - **topologySpreadConstraints.topologyKey** (string)，必需
 
     topologyKey 是节点标签的键名。如果节点的标签中包含此键名且键值亦相同，则被认为在相同的拓扑域中。
     我们将每个 `<键, 值>` 视为一个 "桶（Bucket）"，并尝试将数量均衡的 Pod 放入每个桶中。
-    我们定义域（Domain）为拓扑域的特定实例。此外，我们定义候选域（Eligible Domain）为其节点与节点选择算符匹配的域。
+    我们定义域（Domain）为拓扑域的特定实例。
+    此外，我们定义一个候选域（Eligible Domain）为其节点与 nodeAffinityPolicy 和 nodeTaintsPolicy 的要求匹配的域。
     例如，如果 topologyKey 是 `"kubernetes.io/hostname"`，则每个 Node 都是该拓扑的域。
     而如果 topologyKey 是 `"topology.kubernetes.io/zone"`，则每个区域都是该拓扑的一个域。
     这是一个必填字段。
@@ -481,9 +506,9 @@ PodSpec 是对 Pod 的描述。
 
   - **topologySpreadConstraints.whenUnsatisfiable** (string)，必需
 
-    whenUnsatisfiable 表示如果 Pod 不满足分布约束，如何处理它。 
+    whenUnsatisfiable 表示如果 Pod 不满足分布约束，如何处理它。
 
-    - `DoNotSchedule`（默认）：告诉调度器不要调度它。 
+    - `DoNotSchedule`（默认）：告诉调度器不要调度它。
     - `ScheduleAnyway`：告诉调度器将 Pod 调度到任何位置，但给予能够降低偏差的拓扑更高的优先级。
 
     当且仅当该 Pod 的每个可能的节点分配都会违反某些拓扑对应的 "maxSkew" 时，
@@ -515,13 +540,28 @@ PodSpec 是对 Pod 的描述。
     以确定其相应拓扑域中的 Pod 数量。
 
   <!--
+  - **topologySpreadConstraints.matchLabelKeys** ([]string)
+
+    *Atomic: will be replaced during a merge*
+    
+    MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+  -->
+  - **topologySpreadConstraints.matchLabelKeys** ([]string)
+
+    **原子性：将在合并期间被替换**
+    
+    matchLabelKeys 是一组 Pod 标签键，用于通过计算 Pod 分布方式来选择 Pod。
+    新 Pod 标签中不存在的键将被忽略。这些键用于从新来的 Pod 标签中查找值，这些键值标签与 labelSelector 进行逻辑与运算，
+    通过计算 Pod 的分布方式来选择现有 Pod 的组。新来的 Pod 标签中不存在的键将被忽略。
+    null 或空的列表意味着仅与 labelSelector 匹配。
+  <!--
   - **topologySpreadConstraints.minDomains** (int32)
 
     MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
     
     For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
     
-    This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+    This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
   -->
 
   - **topologySpreadConstraints.minDomains** (int32)
@@ -545,7 +585,56 @@ PodSpec 是对 Pod 的描述。
     在这种情况下，无法调度具有相同 labelSelector 的新 Pod，因为如果基于新 Pod 计算的偏差值将为
     3（3-0）。将这个 Pod 调度到三个区域中的任何一个，都会违反 maxSkew 约束。
     
-    此字段是一个 Alpha 字段，需要启用 MinDomainsInPodTopologySpread 特性门控。
+    此字段是一个 Beta 字段，需要启用 MinDomainsInPodTopologySpread 特性门控（默认被启用）。
+
+  <!--
+  - **topologySpreadConstraints.nodeAffinityPolicy** (string)
+
+    NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+    
+    If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+  -->
+
+  - **topologySpreadConstraints.nodeAffinityPolicy** (string)
+
+    nodeAffinityPolicy 表示我们在计算 Pod 拓扑分布偏差时将如何处理 Pod 的 nodeAffinity/nodeSelector。
+    选项为：
+    - Honor：只有与 nodeAffinity/nodeSelector 匹配的节点才会包括到计算中。
+    - Ignore：nodeAffinity/nodeSelector 被忽略。所有节点均包括到计算中。
+
+    如果此值为 nil，此行为等同于 Honor 策略。
+    这是通过 NodeInclusionPolicyInPodTopologySpread 特性标志启用的 Alpha 级别特性。
+
+  <!--
+  - **topologySpreadConstraints.nodeTaintsPolicy** (string)
+
+    NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+    
+    If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+  -->
+  - **topologySpreadConstraints.nodeTaintsPolicy** (string)
+
+    nodeTaintsPolicy 表示我们在计算 Pod 拓扑分布偏差时将如何处理节点污点。选项为：
+    - Honor：包括不带污点的节点以及新来 Pod 具有容忍度且带有污点的节点。
+    - Ignore：节点污点被忽略。包括所有节点。
+    
+    如果此值为 nil，此行为等同于 Ignore 策略。
+    这是通过 NodeInclusionPolicyInPodTopologySpread 特性标志启用的 Alpha 级别特性。
+
+<!--
+- **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+  Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
+-->
+- **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+  overhead 表示与用指定 RuntimeClass 运行 Pod 相关的资源开销。
+  该字段将由 RuntimeClass 准入控制器在准入时自动填充。
+  如果启用了 RuntimeClass 准入控制器，则不得在 Pod 创建请求中设置 overhead 字段。
+  RuntimeClass 准入控制器将拒绝已设置 overhead 字段的 Pod 创建请求。
+  如果在 Pod 规约中配置并选择了 RuntimeClass，overhead 字段将被设置为对应 RuntimeClass 中定义的值，
+  否则将保持不设置并视为零。更多信息：
+  https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 
 <!--
 ### Lifecycle
@@ -560,7 +649,7 @@ PodSpec 是对 Pod 的描述。
 -->
 - **restartPolicy** (string)
 
-  Pod 内所有容器的重启策略。`Always`、`OnFailure`、`Never` 之一。默认为 `Always`。更多信息： 
+  Pod 内所有容器的重启策略。`Always`、`OnFailure`、`Never` 之一。默认为 `Always`。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 
 <!--
@@ -765,7 +854,7 @@ PodSpec 是对 Pod 的描述。
 - **dnsPolicy** (string)
 
   为 Pod 设置 DNS 策略。默认为 `"ClusterFirst"`。
-  有效值为 `"ClusterFirstWithHostNet"`、`"ClusterFirst"`、`"Default"` 或 `"None"`。 
+  有效值为 `"ClusterFirstWithHostNet"`、`"ClusterFirst"`、`"Default"` 或 `"None"`。
   dnsConfig 字段中给出的 DNS 参数将与使用 dnsPolicy 字段所选择的策略合并。
   要针对 hostNetwork 的 Pod 设置 DNS 选项，你必须将 DNS 策略显式设置为 `"ClusterFirstWithHostNet"`。
 
@@ -827,7 +916,7 @@ PodSpec 是对 Pod 的描述。
 -->
 - **serviceAccountName** (string)
 
-  serviceAccountName 是用于运行此 Pod 的服务账号的名称。更多信息： 
+  serviceAccountName 是用于运行此 Pod 的服务账号的名称。更多信息：
   https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-service-account/
 
 - **automountServiceAccountToken** (boolean)
@@ -1146,53 +1235,22 @@ PodSpec 是对 Pod 的描述。
       如果同时在 SecurityContext 和 PodSecurityContext 中设置，则在 SecurityContext 中指定的值优先。
 
 <!--
-### Beta level
+### Alpha level
 -->
-
-### Beta 级别
+### Alpha 级别
 
 <!--
-- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
+- **hostUsers** (boolean)
 
-  *Patch strategy: merge on key `name`*
-  
-  List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+  Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
 -->
+- **hostUsers** (boolean)
 
-- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
-
-  **补丁策略：基于 `name` 键合并**
-  
-  在此 Pod 中运行的临时容器列表。临时容器可以在现有的 Pod 中运行，以执行用户发起的操作，例如调试。
-  此列表在创建 Pod 时不能指定，也不能通过更新 Pod 规约来修改。
-  要将临时容器添加到现有 Pod，请使用 Pod 的 `ephemeralcontainers` 子资源。
-  此字段是 Beta 级别的，可在尚未禁用 EphemeralContainers 特性门控的集群上使用。
-
-<!--
-- **preemptionPolicy** (string)
-
-  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
--->
-
-- **preemptionPolicy** (string)
-
-  PreemptionPolicy 是用来抢占优先级较低的 Pod 的策略。取值为 `"Never"`、`"PreemptLowerPriority"` 之一。
-  如果未设置，则默认为 `"PreemptLowerPriority"`。
-
-<!--
-- **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-  Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
--->
-
-- **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-  overhead 表示与用指定 RuntimeClass 运行 Pod 相关的资源开销。该字段将由 RuntimeClass 准入控制器在准入时自动填充。
-  如果启用了 RuntimeClass 准入控制器，则不得在 Pod 创建请求中设置 overhead 字段。
-  RuntimeClass 准入控制器将拒绝已设置 overhead 字段的 Pod 创建请求。
-  如果在 Pod 规约中配置并选择了 RuntimeClass，overhead 字段将被设置为对应 RuntimeClass
-  中定义的值，否则将保持未设置并视为零。更多信息：
-  https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
+  使用主机的用户名字空间。可选：默认为 true。如果设置为 true 或不存在，则 Pod 将运行在主机的用户名字空间中，
+  当 Pod 需要仅对主机用户名字空间可用的一个特性时这会很有用，例如使用 CAP_SYS_MODULE 加载内核模块。
+  当设置为 false 时，会为该 Pod 创建一个新的用户名字空间。
+  设置为 false 对于缓解容器逃逸漏洞非常有用，可防止允许实际在主机上没有 root 特权的用户以 root 运行他们的容器。
+  此字段是 Alpha 级别的字段，只有启用 UserNamespacesSupport 特性的服务器才能使用此字段。
 
 <!--
 ### Deprecated
@@ -1202,7 +1260,7 @@ PodSpec 是对 Pod 的描述。
   DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
 -->
 
-### 已弃用的
+### 已弃用
 
 - **serviceAccount** (string)
 
@@ -1217,8 +1275,7 @@ A single application container that you want to run within a pod.
 
   Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
 -->
-
-## Container
+## 容器 {#Container}
 
 要在 Pod 中运行的单个应用容器。
 
@@ -1312,7 +1369,7 @@ A single application container that you want to run within a pod.
   
   *Map: unique values on keys `containerPort, protocol` will be kept during a merge*
   
-  List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
+  List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
 
   *ContainerPort represents a network port in a single container.*
 -->
@@ -1323,9 +1380,10 @@ A single application container that you want to run within a pod.
   
   **映射：键 `containerPort, protocol` 组合的唯一值将在合并期间保留**
   
-  要从容器公开的端口列表。在此处公开端口可为系统提供有关容器使用的网络连接的附加信息，但主要是信息性的。
-  此处不指定端口不会阻止该端口被暴露。
-  任何侦听容器内默认 `"0.0.0.0"` 地址的端口都可以从网络访问。无法更新。
+  要从容器暴露的端口列表。此处不指定端口不会阻止该端口被暴露。
+  任何侦听容器内默认 `"0.0.0.0"` 地址的端口都可以从网络访问。使用策略合并补丁来修改此数组可能会破坏数据。
+  更多细节请参阅 https://github.com/kubernetes/kubernetes/issues/108255。
+  无法更新。
 
   <a name="ContainerPort"></a>
   **ContainerPort 表示单个容器中的网络端口。**
@@ -1473,7 +1531,7 @@ A single application container that you want to run within a pod.
 
       - **env.valueFrom.configMapKeyRef.name** (string)
 
-        被引用者的名称。更多信息： 
+        被引用者的名称。更多信息：
         https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
       - **env.valueFrom.configMapKeyRef.optional** (boolean)
@@ -1540,7 +1598,7 @@ A single application container that you want to run within a pod.
 
       - **env.valueFrom.secretKeyRef.name** (string)
 
-        被引用 Secret 的名称。更多信息： 
+        被引用 Secret 的名称。更多信息：
         https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
       - **env.valueFrom.secretKeyRef.optional** (boolean)
@@ -1642,7 +1700,7 @@ A single application container that you want to run within a pod.
 
     - **envFrom.secretRef.name** (string)
 
-      被引用 Secret 的名称。更多信息： 
+      被引用 Secret 的名称。更多信息：
       https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
     - **envFrom.secretRef.optional** (boolean)
@@ -1783,7 +1841,7 @@ A single application container that you want to run within a pod.
 
 - **resources**（ResourceRequirements）
 
-  此容器所需的计算资源。无法更新。更多信息： 
+  此容器所需的计算资源。无法更新。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/
 
   ResourceRequirements 描述计算资源需求。
@@ -2138,19 +2196,19 @@ A single application container that you want to run within a pod.
 
     - **securityContext.seLinuxOptions.level** （string）
 
-      level 是应用于容器的 SELinux 级别标签。 
+      level 是应用于容器的 SELinux 级别标签。
 
     - **securityContext.seLinuxOptions.role** （string）
 
-      role 是应用于容器的 SELinux 角色标签。 
+      role 是应用于容器的 SELinux 角色标签。
 
     - **securityContext.seLinuxOptions.type** （string）
 
-      type 是适用于容器的 SELinux 类型标签。 
+      type 是适用于容器的 SELinux 类型标签。
 
     - **securityContext.seLinuxOptions.user** （string）
 
-      user 是应用于容器的 SELinux 用户标签。 
+      user 是应用于容器的 SELinux 用户标签。
 
   <!--
   - **securityContext.windowsOptions** （WindowsSecurityContextOptions）
@@ -2163,9 +2221,9 @@ A single application container that you want to run within a pod.
 
   - **securityContext.windowsOptions** （WindowsSecurityContextOptions）
 
-    要应用于所有容器上的特定于 Windows 的设置。如果未指定，将使用 PodSecurityContext 中的选项。 
-    如果同时在 SecurityContext 和 PodSecurityContext 中设置，则在 SecurityContext 中指定的值优先。 
-    注意，`spec.os.name` 为 "linux" 时不能设置此字段。 
+    要应用于所有容器上的特定于 Windows 的设置。如果未指定，将使用 PodSecurityContext 中的选项。
+    如果同时在 SecurityContext 和 PodSecurityContext 中设置，则在 SecurityContext 中指定的值优先。
+    注意，`spec.os.name` 为 "linux" 时不能设置此字段。
 
     <a name="WindowsSecurityContextOptions"></a>
     **WindowsSecurityContextOptions 包含特定于 Windows 的选项和凭据。**
@@ -2183,7 +2241,7 @@ A single application container that you want to run within a pod.
     - **securityContext.windowsOptions.gmsaCredentialSpec** （string）
 
       gmsaCredentialSpec 是 [GMSA 准入 Webhook](https://github.com/kubernetes-sigs/windows-gmsa)
-      内嵌由 gmsaCredentialSpecName 字段所指定的 GMSA 凭证规约的内容的地方。 
+      内嵌由 gmsaCredentialSpecName 字段所指定的 GMSA 凭证规约的内容的地方。
 
     <!--
     - **securityContext.windowsOptions.hostProcess** （boolean）
@@ -2194,10 +2252,10 @@ A single application container that you want to run within a pod.
     - **securityContext.windowsOptions.hostProcess** （boolean）
 
       hostProcess 确定容器是否应作为 "主机进程" 容器运行。
-      此字段是 Alpha 级别的，只有启用 WindowsHostProcessContainers 特性门控的组件才会处理。 
-      设置此字段而不启用特性门控是，在验证 Pod 时将发生错误。 
-      一个 Pod 的所有容器必须具有相同的有效 hostProcess 值（不允许混合设置了 hostProcess 容器和未设置 hostProcess 的容器）。 
-      此外，如果 hostProcess 为 true，则 hostNetwork 也必须设置为 true。 
+      此字段是 Alpha 级别的，只有启用 WindowsHostProcessContainers 特性门控的组件才会处理。
+      设置此字段而不启用特性门控是，在验证 Pod 时将发生错误。
+      一个 Pod 的所有容器必须具有相同的有效 hostProcess 值（不允许混合设置了 hostProcess 容器和未设置 hostProcess 的容器）。
+      此外，如果 hostProcess 为 true，则 hostNetwork 也必须设置为 true。
 
     <!--
     - **securityContext.windowsOptions.runAsUserName** （string）
@@ -2207,9 +2265,9 @@ A single application container that you want to run within a pod.
 
     - **securityContext.windowsOptions.runAsUserName** （string）
 
-      Windows 中运行容器进程入口点的用户名。如果未指定，则默认为镜像元数据中指定的用户。 
-      也可以在 PodSecurityContext 中设置。 
-      如果同时在 SecurityContext 和 PodSecurityContext 中设置，则在 SecurityContext 中指定的值优先。 
+      Windows 中运行容器进程入口点的用户名。如果未指定，则默认为镜像元数据中指定的用户。
+      也可以在 PodSecurityContext 中设置。
+      如果同时在 SecurityContext 和 PodSecurityContext 中设置，则在 SecurityContext 中指定的值优先。
 
 <!--
 ### Debugging
@@ -2223,8 +2281,8 @@ A single application container that you want to run within a pod.
 -->
 - **stdin** （boolean）
 
-  此容器是否应在容器运行时为 stdin 分配缓冲区。如果未设置，从容器中的 stdin 读取将始终导致 EOF。 
-  默认为 false。 
+  此容器是否应在容器运行时为 stdin 分配缓冲区。如果未设置，从容器中的 stdin 读取将始终导致 EOF。
+  默认为 false。
 
 <!--
 - **stdinOnce** (boolean)
@@ -2233,10 +2291,10 @@ A single application container that you want to run within a pod.
 -->
 - **stdinOnce** （boolean）
 
-  容器运行时是否应在某个 attach 打开 stdin 通道后关闭它。当 stdin 为 true 时，stdin 流将在多个 attach 会话中保持打开状态。 
+  容器运行时是否应在某个 attach 打开 stdin 通道后关闭它。当 stdin 为 true 时，stdin 流将在多个 attach 会话中保持打开状态。
   如果 stdinOnce 设置为 true，则 stdin 在容器启动时打开，在第一个客户端连接到 stdin 之前为空，
-  然后保持打开并接受数据，直到客户端断开连接，此时 stdin 关闭并保持关闭直到容器重新启动。 
-  如果此标志为 false，则从 stdin 读取的容器进程将永远不会收到 EOF。 默认为 false。 
+  然后保持打开并接受数据，直到客户端断开连接，此时 stdin 关闭并保持关闭直到容器重新启动。
+  如果此标志为 false，则从 stdin 读取的容器进程将永远不会收到 EOF。默认为 false。
 
 ## EphemeralContainer {#EphemeralContainer}
 
@@ -2244,16 +2302,12 @@ A single application container that you want to run within a pod.
 An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
 
 To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
-
-This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
 -->
-EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod 以用于用户发起的活动，例如调试。 
-临时容器没有资源或调度保证，它们在退出或 Pod 被移除或重新启动时不会重新启动。 
-如果临时容器导致 Pod 超出其资源分配，kubelet 可能会驱逐 Pod。 
+EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod 以用于用户发起的活动，例如调试。
+临时容器没有资源或调度保证，它们在退出或 Pod 被移除或重新启动时不会重新启动。
+如果临时容器导致 Pod 超出其资源分配，kubelet 可能会驱逐 Pod。
 
-要添加临时容器，请使用现有 Pod 的 `ephemeralcontainers` 子资源。临时容器不能被删除或重新启动。 
-
-这是未禁用 EphemeralContainers 特性门控的集群上可用的 Beta 功能。 
+要添加临时容器，请使用现有 Pod 的 `ephemeralcontainers` 子资源。临时容器不能被删除或重新启动。
 
 <hr>
 
@@ -2264,7 +2318,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 -->
 - **name** (string)，必需
 
-  以 DNS_LABEL 形式设置的临时容器的名称。此名称在所有容器、Init 容器和临时容器中必须是唯一的。 
+  以 DNS_LABEL 形式设置的临时容器的名称。此名称在所有容器、Init 容器和临时容器中必须是唯一的。
 
 <!--
 - **targetContainerName** (string)
@@ -2275,10 +2329,10 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 -->
 - **targetContainerName** (string)
 
-  如果设置，则为 Pod 规约中此临时容器所针对的容器的名称。临时容器将在该容器的名字空间（IPC、PID 等）中运行。 
-  如果未设置，则临时容器使用 Pod 规约中配置的名字空间。 
+  如果设置，则为 Pod 规约中此临时容器所针对的容器的名称。临时容器将在该容器的名字空间（IPC、PID 等）中运行。
+  如果未设置，则临时容器使用 Pod 规约中配置的名字空间。
   
-  容器运行时必须实现对此功能的支持。如果运行时不支持名字空间定位，则设置此字段的结果是未定义的。 
+  容器运行时必须实现对此功能的支持。如果运行时不支持名字空间定位，则设置此字段的结果是未定义的。
 
 <!--
 ### Image
@@ -2303,7 +2357,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 - **imagePullPolicy** (string)
 
   镜像拉取策略。取值为 `Always`、`Never`、`IfNotPresent` 之一。
-  如果指定了 `:latest` 标签，则默认为 `Always`，否则默认为 `IfNotPresent`。 
+  如果指定了 `:latest` 标签，则默认为 `Always`，否则默认为 `IfNotPresent`。
   无法更新。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/containers/images#updating-images
 
@@ -2319,8 +2373,8 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 -->
 - **command** ([]string)
 
-  入口点数组。不在 Shell 中执行。如果未提供，则使用镜像的 `ENTRYPOINT`。 
-  变量引用 `$(VAR_NAME)` 使用容器的环境进行扩展。如果无法解析变量，则输入字符串中的引用将保持不变。 
+  入口点数组。不在 Shell 中执行。如果未提供，则使用镜像的 `ENTRYPOINT`。
+  变量引用 `$(VAR_NAME)` 使用容器的环境进行扩展。如果无法解析变量，则输入字符串中的引用将保持不变。
   `$$` 被简化为 `$`，这允许转义 `$(VAR_NAME)` 语法：即 `"$$(VAR_NAME)"` 将产生字符串字面值 `"$(VAR_NAME)"`。
   无论变量是否存在，转义引用都不会被扩展。无法更新。更多信息：
   https://kubernetes.io/zh-cn/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
@@ -2333,7 +2387,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 - **args** （[]string）
 
   entrypoint 的参数。如果未提供，则使用镜像的 `CMD`。
-  变量引用 `$(VAR_NAME)` 使用容器的环境进行扩展。如果无法解析变量，则输入字符串中的引用将保持不变。 
+  变量引用 `$(VAR_NAME)` 使用容器的环境进行扩展。如果无法解析变量，则输入字符串中的引用将保持不变。
   `$$` 被简化为 `$`，这允许转义 `$(VAR_NAME)` 语法：即 `"$$(VAR_NAME)"` 将产生字符串字面值 `"$(VAR_NAME)"`。
   无论变量是否存在，转义引用都不会被扩展。无法更新。更多信息：
   https://kubernetes.io/zh-cn/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
@@ -2345,7 +2399,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 -->
 - **workingDir** (string)
 
-  容器的工作目录。如果未指定，将使用容器运行时的默认值，默认值可能在容器镜像中配置。无法更新。 
+  容器的工作目录。如果未指定，将使用容器运行时的默认值，默认值可能在容器镜像中配置。无法更新。
 
 <!--
 ### Environment variables
@@ -2366,7 +2420,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   **补丁策略：基于 `name` 键合并**
   
-  要在容器中设置的环境变量列表。无法更新。 
+  要在容器中设置的环境变量列表。无法更新。
 
   <a name="EnvVar"></a>
   **EnvVar 表示容器中存在的环境变量。**
@@ -2383,14 +2437,14 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   - **env.name** (string)，必需
 
-    环境变量的名称。必须是 C_IDENTIFIER。 
+    环境变量的名称。必须是 C_IDENTIFIER。
 
   - **env.value** (string)
 
-    变量引用 `$(VAR_NAME)` 使用容器中先前定义的环境变量和任何服务环境变量进行扩展。 
-    如果无法解析变量，则输入字符串中的引用将保持不变。 
+    变量引用 `$(VAR_NAME)` 使用容器中先前定义的环境变量和任何服务环境变量进行扩展。
+    如果无法解析变量，则输入字符串中的引用将保持不变。
     `$$` 被简化为 `$`，这允许转义 `$(VAR_NAME)` 语法：即 `"$$(VAR_NAME)"` 将产生字符串字面值 `"$(VAR_NAME)"`。
-    无论变量是否存在，转义引用都不会被扩展。默认为 ""。 
+    无论变量是否存在，转义引用都不会被扩展。默认为 ""。
 
   <!--
   - **env.valueFrom** (EnvVarSource)
@@ -2529,8 +2583,8 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 - **envFrom** （[]EnvFromSource）
 
   在容器中填充环境变量的来源列表。在来源中定义的键名必须是 C_IDENTIFIER。
-  容器启动时，所有无效键都将作为事件报告。当一个键存在于多个来源中时，与最后一个来源关联的值将优先。 
-  如果有重复主键，env 中定义的值将优先。无法更新。 
+  容器启动时，所有无效键都将作为事件报告。当一个键存在于多个来源中时，与最后一个来源关联的值将优先。
+  如果有重复主键，env 中定义的值将优先。无法更新。
 
   <a name="EnvFromSource"></a>
   **EnvFromSource 表示一组 ConfigMap 来源**
@@ -2639,7 +2693,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   **补丁策略：基于 `mountPath` 键合并**
   
-  要挂载到容器文件系统中的 Pod 卷。临时容器不允许子路径挂载。无法更新。 
+  要挂载到容器文件系统中的 Pod 卷。临时容器不允许子路径挂载。无法更新。
 
   **VolumeMount 描述在容器中卷的挂载。**
 
@@ -2655,11 +2709,11 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   - **volumeMounts.mountPath** (string)，必需
 
-    容器内应安装卷的路径。不得包含 ':'。 
+    容器内应安装卷的路径。不得包含 ':'。
 
   - **volumeMounts.name** (string)，必需
 
-    此字段必须与卷的名称匹配。 
+    此字段必须与卷的名称匹配。
 
   <!--
   - **volumeMounts.mountPropagation** (string)
@@ -2692,12 +2746,12 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   - **volumeMounts.subPath** （string）
 
-    卷中的路径名，应该从该路径挂在容器的卷。默认为 "" （卷的根）。 
+    卷中的路径名，应该从该路径挂在容器的卷。默认为 "" （卷的根）。
 
   - **volumeMounts.subPathExpr** （string）
 
     应安装容器卷的卷内的扩展路径。行为类似于 `subPath`，但环境变量引用 `$(VAR_NAME)`
-    使用容器的环境进行扩展。默认为 ""（卷的根）。`subPathExpr` 和 `SubPath` 是互斥的。 
+    使用容器的环境进行扩展。默认为 ""（卷的根）。`subPathExpr` 和 `SubPath` 是互斥的。
 
 <!--
 - **volumeDevices** ([]VolumeDevice)
@@ -2713,7 +2767,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   **补丁策略：基于 `devicePath` 键合并**
   
-  volumeDevices 是容器要使用的块设备列表。 
+  volumeDevices 是容器要使用的块设备列表。
 
   <a name="VolumeDevice"></a>
   **volumeDevice 描述容器内原始块设备的映射。**
@@ -2730,7 +2784,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   - **volumeDevices.devicePath** (string)，必需
 
-    devicePath 是设备将被映射到的容器内的路径。 
+    devicePath 是设备将被映射到的容器内的路径。
 
   - **volumeDevices.name** (string)，必需
 
@@ -2750,7 +2804,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   可选字段。挂载到容器文件系统的路径，用于写入容器终止消息的文件。
   写入的消息旨在成为简短的最终状态，例如断言失败消息。如果超出 4096 字节，将被节点截断。
-  所有容器的总消息长度将限制为 12 KB。 默认为 `/dev/termination-log`。无法更新。 
+  所有容器的总消息长度将限制为 12 KB。默认为 `/dev/termination-log`。无法更新。
 
 <!--
 - **terminationMessagePolicy** (string)
@@ -2835,8 +2889,8 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
     运行容器进程入口点的 UID。如果未指定，则默认为镜像元数据中指定的用户。
     也可以在 PodSecurityContext 中设置。如果同时在 SecurityContext 和 PodSecurityContext
-    中设置，则在 SecurityContext 中指定的值优先。 
-    注意，`spec.os.name` 为 "windows" 时不能设置该字段。 
+    中设置，则在 SecurityContext 中指定的值优先。
+    注意，`spec.os.name` 为 "windows" 时不能设置该字段。
 
   <!--
   - **securityContext.runAsNonRoot** (boolean)
@@ -2847,10 +2901,10 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
   - **securityContext.runAsNonRoot** （boolean）
 
     指示容器必须以非 root 用户身份运行。如果为 true，Kubelet 将在运行时验证镜像，
-    以确保它不会以 UID 0（root）身份运行，如果是，则无法启动容器。 
+    以确保它不会以 UID 0（root）身份运行，如果是，则无法启动容器。
     如果未设置或为 false，则不会执行此类验证。也可以在 PodSecurityContext 中设置。
     如果同时在 SecurityContext 和 PodSecurityContext 中设置，则在 SecurityContext
-    中指定的值优先。 
+    中指定的值优先。
 
   <!--
   - **securityContext.runAsGroup** (int64)
@@ -2860,9 +2914,9 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   - **securityContext.runAsGroup** （int64）
 
-    运行容器进程入口点的 GID。如果未设置，则使用运行时默认值。也可以在 PodSecurityContext 中设置。 
+    运行容器进程入口点的 GID。如果未设置，则使用运行时默认值。也可以在 PodSecurityContext 中设置。
     如果同时在 SecurityContext 和 PodSecurityContext 中设置，则在 SecurityContext
-    中指定的值优先。注意，`spec.os.name` 为 "windows" 时不能设置该字段。 
+    中指定的值优先。注意，`spec.os.name` 为 "windows" 时不能设置该字段。
 
   <!--
   - **securityContext.readOnlyRootFilesystem** (boolean)
@@ -2873,7 +2927,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
   - **securityContext.readOnlyRootFilesystem** （boolean）
 
     此容器是否具有只读根文件系统。
-    默认为 false。 注意，`spec.os.name` 为 "windows" 时不能设置该字段。 
+    默认为 false。注意，`spec.os.name` 为 "windows" 时不能设置该字段。
 
   <!--
   - **securityContext.procMount** (string)
@@ -2885,7 +2939,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
     procMount 表示用于容器的 proc 挂载类型。默认值为 DefaultProcMount，
     它将容器运行时默认值用于只读路径和掩码路径。这需要启用 ProcMountType 特性门控。
-    注意，`spec.os.name` 为 "windows" 时不能设置该字段。 
+    注意，`spec.os.name` 为 "windows" 时不能设置该字段。
 
   <!--
   - **securityContext.privileged** (boolean)
@@ -2895,7 +2949,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   - **securityContext.privileged** （boolean）
 
-    以特权模式运行容器。特权容器中的进程本质上等同于主机上的 root。 默认为 false。
+    以特权模式运行容器。特权容器中的进程本质上等同于主机上的 root。默认为 false。
     注意，`spec.os.name` 为 "windows" 时不能设置该字段。
 
   <!--
@@ -2906,14 +2960,14 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   - **securityContext.allowPrivilegeEscalation** （boolean）
 
-    allowPrivilegeEscalation 控制进程是否可以获得比其父进程更多的权限。 
-    此布尔值直接控制是否在容器进程上设置 `no_new_privs` 标志。 allowPrivilegeEscalation
+    allowPrivilegeEscalation 控制进程是否可以获得比其父进程更多的权限。
+    此布尔值直接控制是否在容器进程上设置 `no_new_privs` 标志。allowPrivilegeEscalation
     在容器处于以下状态时始终为 true：
 
     1. 以特权身份运行
     2. 具有 `CAP_SYS_ADMIN` 权能
 
-    请注意，当 `spec.os.name` 为 "windows" 时，无法设置此字段。 
+    请注意，当 `spec.os.name` 为 "windows" 时，无法设置此字段。
 
   <!--
   - **securityContext.capabilities** (Capabilities)
@@ -2927,7 +2981,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
   - **securityContext.capabilities** (Capabilities)
 
     运行容器时添加/放弃的权能。默认为容器运行时授予的默认权能集。
-    注意，`spec.os.name` 为 "windows" 时不能设置此字段。 
+    注意，`spec.os.name` 为 "windows" 时不能设置此字段。
 
     **在运行中的容器中添加和放弃 POSIX 权能。**
 
@@ -2961,7 +3015,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
   - **securityContext.seccompProfile** （SeccompProfile）
 
     此容器使用的 seccomp 选项。如果在 Pod 和容器级别都提供了 seccomp 选项，
-    则容器选项会覆盖 Pod 选项。注意，`spec.os.name` 为 "windows" 时不能设置该字段。 
+    则容器选项会覆盖 Pod 选项。注意，`spec.os.name` 为 "windows" 时不能设置该字段。
 
     **SeccompProfile 定义 Pod 或容器的 seccomp 配置文件设置。只能设置一个配置文件源。**
 
@@ -2978,8 +3032,8 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
       type 指示将应用哪种 seccomp 配置文件。有效的选项是：
       
       - `Localhost` - 应使用在节点上的文件中定义的配置文件。
-      - `RuntimeDefault` - 应使用容器运行时默认配置文件。 
-      - `Unconfined` - 不应应用任何配置文件。 
+      - `RuntimeDefault` - 应使用容器运行时默认配置文件。
+      - `Unconfined` - 不应应用任何配置文件。
 
     <!--
     - **securityContext.seccompProfile.localhostProfile** (string)
@@ -2990,9 +3044,9 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
     - **securityContext.seccompProfile.localhostProfile** （string）
 
       localhostProfile 指示应使用在节点上的文件中定义的配置文件。
-      该配置文件必须在节点上预先配置才能工作。 
-      必须是相对于 kubelet 配置的 seccomp 配置文件位置下的子路径。 
-      仅当 type 为 "Localhost" 时才必须设置。 
+      该配置文件必须在节点上预先配置才能工作。
+      必须是相对于 kubelet 配置的 seccomp 配置文件位置下的子路径。
+      仅当 type 为 "Localhost" 时才必须设置。
 
   <!--
   - **securityContext.seLinuxOptions** (SELinuxOptions)
@@ -3033,19 +3087,19 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
     - **securityContext.seLinuxOptions.level** （string）
 
-      level 是应用于容器的 SELinux 级别标签。 
+      level 是应用于容器的 SELinux 级别标签。
 
     - **securityContext.seLinuxOptions.role** （string）
 
-      role 是应用于容器的 SELinux 角色标签。 
+      role 是应用于容器的 SELinux 角色标签。
 
     - **securityContext.seLinuxOptions.type** （string）
 
-      type 是适用于容器的 SELinux 类型标签。 
+      type 是适用于容器的 SELinux 类型标签。
 
     - **securityContext.seLinuxOptions.user** （string）
 
-      user 是应用于容器的 SELinux 用户标签。 
+      user 是应用于容器的 SELinux 用户标签。
 
   <!--
   - **securityContext.windowsOptions** (WindowsSecurityContextOptions)
@@ -3078,11 +3132,11 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
     - **securityContext.windowsOptions.gmsaCredentialSpec** （string）
 
       gmsaCredentialSpec 是 [GMSA 准入 Webhook](https://github.com/kubernetes-sigs/windows-gmsa)
-      内嵌由 gmsaCredentialSpecName 字段所指定的 GMSA 凭证规约内容的地方。 
+      内嵌由 gmsaCredentialSpecName 字段所指定的 GMSA 凭证规约内容的地方。
 
     - **securityContext.windowsOptions.gmsaCredentialSpecName** （string）
 
-      gmsaCredentialSpecName 是要使用的 GMSA 凭证规约的名称。 
+      gmsaCredentialSpecName 是要使用的 GMSA 凭证规约的名称。
 
     <!--
     - **securityContext.windowsOptions.hostProcess** (boolean)
@@ -3093,11 +3147,11 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
     - **securityContext.windowsOptions.hostProcess** （boolean）
 
       hostProcess 确定容器是否应作为 "主机进程" 容器运行。此字段是 Alpha 级别的，只有启用了
-      WindowsHostProcessContainers 特性门控的组件才会处理此字段。 
-      设置此字段而未启用特性门控的话，在验证 Pod 时将引发错误。 
+      WindowsHostProcessContainers 特性门控的组件才会处理此字段。
+      设置此字段而未启用特性门控的话，在验证 Pod 时将引发错误。
       一个 Pod 的所有容器必须具有相同的有效 hostProcess 值
-      （不允许混合设置了 hostProcess 的容器和未设置 hostProcess 的容器）。 
-      此外，如果 hostProcess 为 true，则 hostNetwork 也必须设置为 true。 
+      （不允许混合设置了 hostProcess 的容器和未设置 hostProcess 的容器）。
+      此外，如果 hostProcess 为 true，则 hostNetwork 也必须设置为 true。
 
     <!--
     - **securityContext.windowsOptions.runAsUserName** (string)
@@ -3107,9 +3161,9 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
     - **securityContext.windowsOptions.runAsUserName** （string）
 
-      Windows 中运行容器进程入口点的用户名。如果未指定，则默认为镜像元数据中指定的用户。 
+      Windows 中运行容器进程入口点的用户名。如果未指定，则默认为镜像元数据中指定的用户。
       也可以在 PodSecurityContext 中设置。如果同时在 SecurityContext 和 PodSecurityContext
-      中设置，则在 SecurityContext 中指定的值优先。 
+      中设置，则在 SecurityContext 中指定的值优先。
 
 <!--
 ### 不允许
@@ -3135,7 +3189,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
   
   **映射：键 `containerPort, protocol` 组合的唯一值将在合并期间保留**
   
-  临时容器不允许使用端口。 
+  临时容器不允许使用端口。
 
   <a name="ContainerPort"></a>
   **ContainerPort 表示单个容器中的网络端口。**
@@ -3166,8 +3220,8 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   - **ports.hostPort** （int32）
 
-    要在主机上公开的端口号。如果设置了，则作为必须是一个有效的端口号，0 \< x \< 65536。 
-    如果指定了 hostNetwork，此值必须与 containerPort 匹配。大多数容器不需要这个配置。 
+    要在主机上公开的端口号。如果设置了，则作为必须是一个有效的端口号，0 \< x \< 65536。
+    如果指定了 hostNetwork，此值必须与 containerPort 匹配。大多数容器不需要这个配置。
 
   <!--
   - **ports.name** (string)
@@ -3186,7 +3240,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
   - **ports.protocol** （string）
 
-    端口协议。必须是 `UDP`、`TCP` 或 `SCTP` 之一。 默认为 `TCP`。 
+    端口协议。必须是 `UDP`、`TCP` 或 `SCTP` 之一。默认为 `TCP`。
 
 <!--
 - **resources** (ResourceRequirements)
@@ -3198,7 +3252,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 -->
 - **resources** (ResourceRequirements)
 
-  临时容器不允许使用资源。临时容器使用已分配给 Pod 的空闲资源。 
+  临时容器不允许使用资源。临时容器使用已分配给 Pod 的空闲资源。
 
   **ResourceRequirements 描述计算资源的需求。**
 
@@ -3235,7 +3289,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 -->
 - **lifecycle** (Lifecycle)
 
-  临时容器不允许使用生命周期。 
+  临时容器不允许使用生命周期。
 
   生命周期描述了管理系统为响应容器生命周期事件应采取的行动。
   对于 postStart 和 preStop 生命周期处理程序，容器的管理会阻塞，直到操作完成，
@@ -3263,7 +3317,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
     preStop 在容器因 API 请求或管理事件（例如：存活态探针/启动探针失败、抢占、资源争用等）
     而终止之前立即调用。如果容器崩溃或退出，则不会调用处理程序。
-    Pod 的终止宽限期倒计时在 preStop 钩子执行之前开始。 
+    Pod 的终止宽限期倒计时在 preStop 钩子执行之前开始。
     无论处理程序的结果如何，容器最终都会在 Pod 的终止宽限期内终止（除非被终结器延迟）。
     容器的其他管理会阻塞，直到钩子完成或达到终止宽限期。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
@@ -3284,15 +3338,15 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
 - **livenessProbe** （<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>）
 
-  临时容器不允许使用探针。 
+  临时容器不允许使用探针。
 
 - **readyProbe** （<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>）
 
-  临时容器不允许使用探针。 
+  临时容器不允许使用探针。
 
 - **startupProbe** （<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>）
 
-  临时容器不允许使用探针。 
+  临时容器不允许使用探针。
 
 
 ## LifecycleHandler {#LifecycleHandler}
@@ -3301,7 +3355,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
 -->
 LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
-必须指定一个且只能指定一个字段，tcpSocket 除外。 
+必须指定一个且只能指定一个字段，tcpSocket 除外。
 
 <hr>
 
@@ -3315,7 +3369,7 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
 -->
 - **exec** （execAction）
 
-  Exec 指定要执行的操作。 
+  Exec 指定要执行的操作。
 
   <a name="ExecAction"></a>
   **ExecAction 描述了 "在容器中运行" 操作。**
@@ -3328,10 +3382,10 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
 
   - **exec.command** （[]string）
 
-    command 是要在容器内执行的命令行，命令的工作目录是容器文件系统中的根目录（'/'）。 
+    command 是要在容器内执行的命令行，命令的工作目录是容器文件系统中的根目录（'/'）。
     该命令只是被通过 `exec` 执行，而不会单独启动一个 Shell 来运行，因此传统的
-    Shell 指令（'|' 等）将不起作用。要使用某 Shell，你需要显式调用该 Shell。 
-    退出状态 0 被视为活动/健康，非零表示不健康。 
+    Shell 指令（'|' 等）将不起作用。要使用某 Shell，你需要显式调用该 Shell。
+    退出状态 0 被视为活动/健康，非零表示不健康。
 
 <!--
 - **httpGet** (HTTPGetAction)
@@ -3381,11 +3435,11 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
 
   - **httpGet.host** （string）
 
-    要连接的主机名，默认为 Pod IP。你可能想在 `httpHeaders` 中设置 "Host"。 
+    要连接的主机名，默认为 Pod IP。你可能想在 `httpHeaders` 中设置 "Host"。
 
   - **httpGet.httpHeaders** （[]HTTPHeader）
 
-    要在请求中设置的自定义标头。HTTP 允许重复的标头。 
+    要在请求中设置的自定义标头。HTTP 允许重复的标头。
 
     <a name="HTTPHeader"></a>
     **HTTPHeader 描述了在 HTTP 探针中使用的自定义标头**
@@ -3420,11 +3474,11 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
  
   - **httpGet.path** （string）
 
-    HTTP 服务器上的访问路径。 
+    HTTP 服务器上的访问路径。
 
   - **httpGet.scheme** （string）
 
-    用于连接到主机的方案。默认为 `HTTP`。 
+    用于连接到主机的方案。默认为 `HTTP`。
 
 <!--
 - **tcpSocket** （TCPSocketAction）
@@ -3451,7 +3505,7 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
   - **tcpSocket.port** (IntOrString)，必需
 
     容器上要访问的端口的编号或名称。端口号必须在 1 到 65535 的范围内。
-    名称必须是 IANA_SVC_NAME。 
+    名称必须是 IANA_SVC_NAME。
 
     <a name="IntOrString"></a>
     **IntOrString 是一种可以保存 int32 或字符串值的类型。在 JSON 或 YAML 编组和解组中使用时，
@@ -3465,14 +3519,14 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
 
   - **tcpSocket.host** （string）
 
-    可选字段。要连接的主机名，默认为 Pod IP。 
+    可选字段。要连接的主机名，默认为 Pod IP。
 
 ## NodeAffinity {#NodeAffinity}
 
 <!--
 Node affinity is a group of node affinity scheduling rules.
 -->
-节点亲和性是一组节点亲和性调度规则。 
+节点亲和性是一组节点亲和性调度规则。
 
 <hr>
 
@@ -3492,7 +3546,7 @@ Node affinity is a group of node affinity scheduling rules.
   但它可能会选择违反一个或多个表达式的节点。最优选的节点是权重总和最大的节点，
   即对于满足所有调度要求（资源请求、requiredDuringScheduling 亲和表达式等）的每个节点，
   通过迭代该字段的元素来计算总和如果节点匹配相应的 matchExpressions，则将 "权重" 添加到总和中； 
-  具有最高总和的节点是最优选的。 
+  具有最高总和的节点是最优选的。
 
   空的首选调度条件匹配所有具有隐式权重 0 的对象（即它是一个 no-op 操作）。
   null 值的首选调度条件不匹配任何对象（即也是一个 no-op 操作）。
@@ -3508,7 +3562,7 @@ Node affinity is a group of node affinity scheduling rules.
 
   - **preferredDuringSchedulingIgnoredDuringExecution.preference** (NodeSelectorTerm)，必需
 
-    与相应权重相关联的节点选择条件。 
+    与相应权重相关联的节点选择条件。
 
     null 值或空值的节点选择条件不会匹配任何对象。这些条件的请求按逻辑与操作组合。
     TopologySelectorTerm 类型实现了 NodeSelectorTerm 的一个子集。
@@ -3525,11 +3579,11 @@ Node affinity is a group of node affinity scheduling rules.
 
     - **preferredDuringSchedulingIgnoredDuringExecution.preference.matchExpressions** （[]<a href="{{< ref "../common-definitions/node-selector-requirement" >}}">NodeSelectorRequirement</a>）
 
-      按节点标签列出的节点选择条件列表。 
+      按节点标签列出的节点选择条件列表。
 
     - **preferredDuringSchedulingIgnoredDuringExecution.preference.matchFields** （[]<a href="{{< ref "../common-definitions/node-selector-requirement" >}}">NodeSelectorRequirement</a>）
 
-      按节点字段列出的节点选择要求列表。 
+      按节点字段列出的节点选择要求列表。
 
   <!--
   - **preferredDuringSchedulingIgnoredDuringExecution.weight** (int32), required
@@ -3539,7 +3593,7 @@ Node affinity is a group of node affinity scheduling rules.
 
   - **preferredDuringSchedulingIgnoredDuringExecution.weight** (int32)，必需
 
-    与匹配相应的 nodeSelectorTerm 相关的权重，范围为 1-100。 
+    与匹配相应的 nodeSelectorTerm 相关的权重，范围为 1-100。
 
 <!--
 - **requiredDuringSchedulingIgnoredDuringExecution** (NodeSelector)
@@ -3552,9 +3606,9 @@ Node affinity is a group of node affinity scheduling rules.
 
 - **requiredDuringSchedulingIgnoredDuringExecution** （NodeSelector）
 
-  如果在调度时不满足该字段指定的亲和性要求，则不会将 Pod 调度到该节点上。 
+  如果在调度时不满足该字段指定的亲和性要求，则不会将 Pod 调度到该节点上。
   如果在 Pod 执行期间的某个时间点不再满足此字段指定的亲和性要求（例如：由于更新），
-  系统可能会或可能不会尝试最终将 Pod 从其节点中逐出。 
+  系统可能会或可能不会尝试最终将 Pod 从其节点中逐出。
 
   <a name="NodeSelector"></a>
   **一个节点选择器代表一个或多个标签查询结果在一组节点上的联合；换言之，
@@ -3588,18 +3642,197 @@ Node affinity is a group of node affinity scheduling rules.
 
     - **requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms.matchExpressions** （[]<a href="{{< ref "../common-definitions/node-selector-requirement" >}}">NodeSelectorRequirement</a>）
 
-      按节点标签列出的节点选择器需求列表。 
+      按节点标签列出的节点选择器需求列表。
 
     - **requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms.matchFields** （[]<a href="{{< ref "../common-definitions/node-selector-requirement" >}}">NodeSelectorRequirement</a>）
 
-      按节点字段列出的节点选择器要求列表。 
+      按节点字段列出的节点选择器要求列表。
+
+## PodAffinity {#PodAffinity}
+
+<!--
+Pod affinity is a group of inter pod affinity scheduling rules.
+-->
+Pod 亲和性是一组 Pod 间亲和性调度规则。
+
+<hr>
+
+<!--
+- **preferredDuringSchedulingIgnoredDuringExecution** ([]WeightedPodAffinityTerm)
+
+  The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+
+  <a name="WeightedPodAffinityTerm"></a>
+  *The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)*
+-->
+
+- **preferredDuringSchedulingIgnoredDuringExecution** ([]WeightedPodAffinityTerm)
+
+  调度器会更倾向于将 Pod 调度到满足该字段指定的亲和性表达式的节点，
+  但它可能会选择违反一个或多个表达式的节点。最优选择是权重总和最大的节点，
+  即对于满足所有调度要求（资源请求、`requiredDuringScheduling` 亲和表达式等）的每个节点，
+  通过迭代该字段的元素来计算总和，如果节点具有与相应 `podAffinityTerm`
+  匹配的 Pod，则将“权重”添加到总和中； 
+  具有最高总和的节点是最优选的。
+
+  <a name="WeightedPodAffinityTerm"></a>
+  **所有匹配的 WeightedPodAffinityTerm 字段的权重都是按节点累计的，以找到最优选的节点。**
+
+  <!--
+  - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm** (PodAffinityTerm), required
+
+    Required. A pod affinity term, associated with the corresponding weight.
+
+    <a name="PodAffinityTerm"></a>
+    *Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running*
+  -->
+
+  - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm** (PodAffinityTerm)，必需
+
+    必需的字段。一个 Pod 亲和性条件，对应一个与相应的权重值。
+
+    <a name="PodAffinityTerm"></a>
+    定义一组 Pod（即那些与给定名字空间相关的标签选择算符匹配的 Pod 集合），
+    当前 Pod 应该与所选 Pod 集合位于同一位置（亲和性）或位于不同位置（反亲和性），
+    其中“在同一位置”意味着运行在一个节点上，其键 `topologyKey` 的标签值与运行所选 Pod
+    集合中的某 Pod 的任何节点上的标签值匹配。
+
+    <!--
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.topologyKey** (string), required
+
+      This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
+    -->
+
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.topologyKey** (string)，必需
+
+      此 Pod 应与指定名字空间中与标签选择算符匹配的 Pod 集合位于同一位置（亲和性）
+      或位于不同位置（反亲和性），这里的“在同一位置”意味着运行在一个节点上，其键名为
+      `topologyKey` 的标签值与运行所选 Pod 集合中的某 Pod 的任何节点上的标签值匹配。
+      不允许使用空的 `topologyKey`。
+
+    <!--
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+      A label query over a set of resources, in this case pods.
+    -->
+
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.labelSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
+
+      对一组资源的标签查询，在这里资源为 Pod。
+
+    <!--
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+      A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
+    -->
+
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaceSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
+
+      对条件所适用的名字空间集合的标签查询。
+      此条件会被应用到此字段所选择的名字空间和 namespaces 字段中列出的名字空间的组合之上。
+      选择算符为 null 和 namespaces 列表为 null 值或空表示“此 Pod 的名字空间”。
+      空的选择算符 ({}) 可用来匹配所有名字空间。
+
+    <!--
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** ([]string)
+
+      namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
+    -->
+
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** （[]string）
+
+      namespaces 指定此条件所适用的名字空间，是一个静态列表。
+      此条件会被应用到 namespaces 字段中列出的名字空间和由 namespaceSelector 选中的名字空间上。
+      namespaces 列表为 null 或空，以及 namespaceSelector 值为 null 均表示“此 Pod 的名字空间”。
+
+  <!--
+  - **preferredDuringSchedulingIgnoredDuringExecution.weight** (int32), required
+
+    weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
+  -->
+
+  - **preferredDuringSchedulingIgnoredDuringExecution.weight** (int32)，必需
+
+    weight 是匹配相应 `podAffinityTerm` 条件的权重，范围为 1-100。
+
+<!--
+- **requiredDuringSchedulingIgnoredDuringExecution** ([]PodAffinityTerm)
+
+  If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
+
+  <a name="PodAffinityTerm"></a>
+  *Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running*
+-->
+
+- **requiredDuringSchedulingIgnoredDuringExecution** （[]PodAffinityTerm）
+
+  如果在调度时不满足该字段指定的亲和性要求，则该 Pod 不会被调度到该节点上。
+  如果在 Pod 执行期间的某个时间点不再满足此字段指定的亲和性要求（例如：由于 Pod 标签更新），
+  系统可能会也可能不会尝试最终将 Pod 从其节点中逐出。
+  当此列表中有多个元素时，每个 `podAffinityTerm` 对应的节点列表是取其交集的，即必须满足所有条件。
+
+  <a name="PodAffinityTerm"></a>
+  定义一组 Pod（即那些与给定名字空间相关的标签选择算符匹配的 Pod 集合），当前 Pod 应该与该
+  Pod 集合位于同一位置（亲和性）或不位于同一位置（反亲和性）。
+  这里的“位于同一位置”含义是运行在一个节点上。基于 `topologyKey` 字段所给的标签键名，
+  检查所选 Pod 集合中各个 Pod 所在的节点上的标签值，标签值相同则认作“位于同一位置”。
+
+  <!--
+  - **requiredDuringSchedulingIgnoredDuringExecution.topologyKey** (string), required
+
+    This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
+  -->
+
+  - **requiredDuringSchedulingIgnoredDuringExecution.topologyKey** (string)，必需
+
+    此 Pod 应与指定名字空间中与标签选择算符匹配的 Pod 集合位于同一位置（亲和性）
+    或不位于同一位置（反亲和性），
+    这里的“位于同一位置”含义是运行在一个节点上。基于 `topologyKey` 字段所给的标签键名，
+    检查所选 Pod 集合中各个 Pod 所在的节点上的标签值，标签值相同则认作“位于同一位置”。
+    不允许使用空的 `topologyKey`。
+
+  <!--
+  - **requiredDuringSchedulingIgnoredDuringExecution.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+    A label query over a set of resources, in this case pods.
+  -->
+
+  - **requiredDuringSchedulingIgnoredDuringExecution.labelSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
+
+    对一组资源的标签查询，在这里资源为 Pod。
+
+  <!--
+  - **requiredDuringSchedulingIgnoredDuringExecution.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+    A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
+  -->
+
+  - **requiredDuringSchedulingIgnoredDuringExecution.namespaceSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
+
+    对条件所适用的名字空间集合的标签查询。
+    当前条件将应用于此字段选择的名字空间和 namespaces 字段中列出的名字空间。
+    选择算符为 null 和 namespaces 列表为 null 或空值表示“此 Pod 的名字空间”。
+    空选择算符 ({}) 能够匹配所有名字空间。
+
+
+  <!--
+  - **requiredDuringSchedulingIgnoredDuringExecution.namespaces** ([]string)
+
+    namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
+  -->
+
+  - **requiredDuringSchedulingIgnoredDuringExecution.namespaces** （[]string）
+
+    namespaces 指定当前条件所适用的名字空间名称的静态列表。
+    当前条件适用于此字段中列出的名字空间和由 namespaceSelector 选中的名字空间。
+    namespaces 列表为 null 或空，以及 namespaceSelector 为 null 表示“此 Pod 的名字空间”。
 
 ## PodAntiAffinity {#PodAntiAffinity}
 
 <!--
 Pod affinity is a group of inter pod affinity scheduling rules.
 -->
-Pod 反亲和性是一组 Pod 间反亲和性调度规则。 
+Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 
 <hr>
 
@@ -3614,10 +3847,10 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 - **preferredDuringSchedulingIgnoredDuringExecution** ([]WeightedPodAffinityTerm)
 
   调度器更倾向于将 Pod 调度到满足该字段指定的反亲和性表达式的节点，
-  但它可能会选择违反一个或多个表达式的节点。 
+  但它可能会选择违反一个或多个表达式的节点。
   最优选的节点是权重总和最大的节点，即对于满足所有调度要求（资源请求、`requiredDuringScheduling`
   反亲和性表达式等）的每个节点，通过遍历元素来计算总和如果节点具有与相应 `podAffinityTerm`
-  匹配的 Pod，则此字段并在总和中添加"权重"；具有最高加和的节点是最优选的。 
+  匹配的 Pod，则此字段并在总和中添加"权重"；具有最高加和的节点是最优选的。
 
   <a name="WeightedPodAffinityTerm"></a>
   **所有匹配的 WeightedPodAffinityTerm 字段的权重都是按节点添加的，以找到最优选的节点。**
@@ -3633,7 +3866,7 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 
   - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm** (PodAffinityTerm)，必需
 
-    必需的字段。 一个 Pod 亲和性条件，与相应的权重相关联。 
+    必需的字段。一个 Pod 亲和性条件，与相应的权重相关联。
 
     <a name="PodAffinityTerm"></a>
     定义一组 Pod（即那些与给定名字空间相关的标签选择算符匹配的 Pod 集合），
@@ -3652,7 +3885,7 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
       此 Pod 应与指定名字空间中与标签选择算符匹配的 Pod 集合位于同一位置（亲和性）
       或不位于同一位置（反亲和性），这里的 "在同一位置" 意味着运行在一个节点上，其键名为
       `topologyKey` 的标签值与运行所选 Pod 集合中的某 Pod 的任何节点上的标签值匹配。
-      不允许使用空的 `topologyKey`。 
+      不允许使用空的 `topologyKey`。
 
     <!--
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -3662,7 +3895,7 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.labelSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
 
-      对一组资源的标签查询，在这里资源为 Pod。 
+      对一组资源的标签查询，在这里资源为 Pod。
 
     <!--
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -3673,9 +3906,9 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaceSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
 
       对条件所适用的名字空间集合的标签查询。
-      此条件会被应用到此字段所选择的名字空间和 namespaces 字段中列出的名字空间的组合之上。 
-      选择算符为 null 和 namespaces 列表为 null 值或空表示 "此 Pod 的名字空间"。 
-      空的选择算符 ({}) 可用来匹配所有名字空间。 
+      此条件会被应用到此字段所选择的名字空间和 namespaces 字段中列出的名字空间的组合之上。
+      选择算符为 null 和 namespaces 列表为 null 值或空表示 "此 Pod 的名字空间"。
+      空的选择算符 ({}) 可用来匹配所有名字空间。
 
     <!--
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** ([]string)
@@ -3685,9 +3918,9 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** （[]string）
 
-      namespaces 指定此条件所适用的名字空间，是一个静态列表。 
-      此条件会被应用到 namespaces 字段中列出的名字空间和由 namespaceSelector 选中的名字空间上。 
-      namespaces 列表为 null 或空，以及 namespaceSelector 值为 null 均表示 "此 Pod 的名字空间"。 
+      namespaces 指定此条件所适用的名字空间，是一个静态列表。
+      此条件会被应用到 namespaces 字段中列出的名字空间和由 namespaceSelector 选中的名字空间上。
+      namespaces 列表为 null 或空，以及 namespaceSelector 值为 null 均表示 "此 Pod 的名字空间"。
 
   <!--
   - **preferredDuringSchedulingIgnoredDuringExecution.weight** (int32), required
@@ -3697,7 +3930,7 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 
   - **preferredDuringSchedulingIgnoredDuringExecution.weight** (int32)，必需
 
-    weight 是匹配相应 `podAffinityTerm` 条件的权重，范围为 1-100。 
+    weight 是匹配相应 `podAffinityTerm` 条件的权重，范围为 1-100。
 
 <!--
 - **requiredDuringSchedulingIgnoredDuringExecution** ([]PodAffinityTerm)
@@ -3710,10 +3943,10 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 
 - **requiredDuringSchedulingIgnoredDuringExecution** （[]PodAffinityTerm）
 
-  如果在调度时不满足该字段指定的反亲和性要求，则该 Pod 不会被调度到该节点上。 
+  如果在调度时不满足该字段指定的反亲和性要求，则该 Pod 不会被调度到该节点上。
   如果在 Pod 执行期间的某个时间点不再满足此字段指定的反亲和性要求（例如：由于 Pod 标签更新），
-  系统可能会或可能不会尝试最终将 Pod 从其节点中逐出。 
-  当有多个元素时，每个 `podAffinityTerm` 对应的节点列表是取其交集的，即必须满足所有条件。 
+  系统可能会或可能不会尝试最终将 Pod 从其节点中逐出。
+  当有多个元素时，每个 `podAffinityTerm` 对应的节点列表是取其交集的，即必须满足所有条件。
 
   <a name="PodAffinityTerm"></a>
   定义一组 Pod（即那些与给定名字空间相关的标签选择算符匹配的 Pod 集合），当前 Pod 应该与该
@@ -3733,7 +3966,7 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
     或不位于同一位置（反亲和性），
     这里的 "位于同一位置" 含义是运行在一个节点上。基于 `topologyKey` 字段所给的标签键名，
     检查所选 Pod 集合中各个 Pod 所在的节点上的标签值，标签值相同则认作 "位于同一位置"。
-    不允许使用空的 `topologyKey`。 
+    不允许使用空的 `topologyKey`。
 
   <!--
   - **requiredDuringSchedulingIgnoredDuringExecution.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -3743,7 +3976,7 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 
   - **requiredDuringSchedulingIgnoredDuringExecution.labelSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
 
-    对一组资源的标签查询，在这里资源为 Pod。 
+    对一组资源的标签查询，在这里资源为 Pod。
 
   <!--
   - **requiredDuringSchedulingIgnoredDuringExecution.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -3753,10 +3986,10 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 
   - **requiredDuringSchedulingIgnoredDuringExecution.namespaceSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
 
-    对条件所适用的名字空间集合的标签查询。 
-    当前条件将应用于此字段选择的名字空间和 namespaces 字段中列出的名字空间。 
+    对条件所适用的名字空间集合的标签查询。
+    当前条件将应用于此字段选择的名字空间和 namespaces 字段中列出的名字空间。
     选择算符为 null 和 namespaces 列表为 null 或空值表示 “此 Pod 的名字空间”。
-    空选择算符 ({}) 能够匹配所有名字空间。 
+    空选择算符 ({}) 能够匹配所有名字空间。
 
 
   <!--
@@ -3780,7 +4013,7 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 <!--
 Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
 -->
-探针描述了要对容器执行的健康检查，以确定它是否处于活动状态或准备好接收流量。 
+探针描述了要对容器执行的健康检查，以确定它是否处于活动状态或准备好接收流量。
 
 <hr>
 
@@ -3794,7 +4027,7 @@ Probe describes a health check to be performed against a container to determine 
 -->
 - **exec** （execAction）
 
-  exec 指定要执行的操作。 
+  exec 指定要执行的操作。
 
   <a name="ExecAction"></a>
   **ExecAction 描述了 "在容器中运行" 操作。**
@@ -3822,7 +4055,7 @@ Probe describes a health check to be performed against a container to determine 
 -->
 - **httpGet** （HTTPGetAction）
 
-  httpGet 指定要执行的 HTTP 请求。 
+  httpGet 指定要执行的 HTTP 请求。
 
   <a name="HTTPGetAction"></a>
   **HTTPGetAction 描述基于 HTTP Get 请求的操作。**
@@ -3838,10 +4071,10 @@ Probe describes a health check to be performed against a container to determine 
 
   - **httpGet.port** (IntOrString)，必需
 
-    容器上要访问的端口的名称或端口号。端口号必须在 1 到 65535 内。名称必须是 IANA_SVC_NAME。 
+    容器上要访问的端口的名称或端口号。端口号必须在 1 到 65535 内。名称必须是 IANA_SVC_NAME。
 
     <a name="IntOrString"></a>
-    `IntOrString` 是一种可以保存 int32 或字符串值的类型。 在 JSON 或 YAML 编组和解组时，
+    `IntOrString` 是一种可以保存 int32 或字符串值的类型。在 JSON 或 YAML 编组和解组时，
     它会生成或使用内部类型。例如，这允许你拥有一个可以接受名称或数字的 JSON 字段。
 
   <!--
@@ -3852,7 +4085,7 @@ Probe describes a health check to be performed against a container to determine 
 
   - **httpGet.host** （string）
 
-    要连接的主机名，默认为 Pod IP。 你可能想在 `httpHeaders` 中设置 "Host"。 
+    要连接的主机名，默认为 Pod IP。你可能想在 `httpHeaders` 中设置 "Host"。
 
   <!--
   - **httpGet.httpHeaders** ([]HTTPHeader)
@@ -3865,7 +4098,7 @@ Probe describes a health check to be performed against a container to determine 
 
   - **httpGet.httpHeaders** （[]HTTPHeader）
 
-    要在请求中设置的自定义 HTTP 标头。HTTP 允许重复的标头。 
+    要在请求中设置的自定义 HTTP 标头。HTTP 允许重复的标头。
 
     <a name="HTTPHeader"></a>
     **HTTPHeader 描述了在 HTTP 探针中使用的自定义标头。**
@@ -3900,11 +4133,11 @@ Probe describes a health check to be performed against a container to determine 
  
   - **httpGet.path** （string）
 
-    HTTP 服务器上的访问路径。 
+    HTTP 服务器上的访问路径。
 
   - **httpGet.scheme** （string）
 
-    用于连接到主机的方案。默认为 HTTP。 
+    用于连接到主机的方案。默认为 HTTP。
 
 <!--
 - **tcpSocket** (TCPSocketAction)
@@ -3917,7 +4150,7 @@ Probe describes a health check to be performed against a container to determine 
 
 - **tcpSocket** （TCPSocketAction）
 
-  tcpSocket 指定涉及 TCP 端口的操作。 
+  tcpSocket 指定涉及 TCP 端口的操作。
 
   <a name="TCPSocketAction"></a>
   **`TCPSocketAction` 描述基于打开套接字的动作。**
@@ -3947,7 +4180,7 @@ Probe describes a health check to be performed against a container to determine 
 
   - **tcpSocket.host** （string）
 
-    可选字段。要连接的主机名，默认为 Pod IP。 
+    可选字段。要连接的主机名，默认为 Pod IP。
 
 <!--
 - **initialDelaySeconds** (int32)
@@ -3967,14 +4200,14 @@ Probe describes a health check to be performed against a container to determine 
 
 - **terminationGracePeriodSeconds** （int64）
 
-  Pod 需要在探针失败时体面终止所需的时间长度（以秒为单位），为可选字段。 
-  宽限期是 Pod 中运行的进程收到终止信号后，到进程被终止信号强制停止之前的时间长度（以秒为单位）。 
-  你应该将此值设置为比你的进程的预期清理时间更长。 
-  如果此值为 nil，则将使用 Pod 的 `terminateGracePeriodSeconds`。 
-  否则，此值将覆盖 Pod 规约中设置的值。字段值值必须是非负整数。 
-  零值表示收到终止信号立即停止（没有机会关闭）。 
-  这是一个 Beta 字段，需要启用 ProbeTerminationGracePeriod 特性门控。最小值为 1。 
-  如果未设置，则使用 `spec.terminationGracePeriodSeconds`。 
+  Pod 需要在探针失败时体面终止所需的时间长度（以秒为单位），为可选字段。
+  宽限期是 Pod 中运行的进程收到终止信号后，到进程被终止信号强制停止之前的时间长度（以秒为单位）。
+  你应该将此值设置为比你的进程的预期清理时间更长。
+  如果此值为 nil，则将使用 Pod 的 `terminateGracePeriodSeconds`。
+  否则，此值将覆盖 Pod 规约中设置的值。字段值值必须是非负整数。
+  零值表示收到终止信号立即停止（没有机会关闭）。
+  这是一个 Beta 字段，需要启用 ProbeTerminationGracePeriod 特性门控。最小值为 1。
+  如果未设置，则使用 `spec.terminationGracePeriodSeconds`。
 
 <!--
 - **periodSeconds** (int32)
@@ -3983,7 +4216,7 @@ Probe describes a health check to be performed against a container to determine 
 -->
 - **periodSeconds** (int32)
 
-  探针的执行周期（以秒为单位）。默认为 10 秒。最小值为 1。 
+  探针的执行周期（以秒为单位）。默认为 10 秒。最小值为 1。
 
 <!--
 - **timeoutSeconds** (int32)
@@ -4002,7 +4235,7 @@ Probe describes a health check to be performed against a container to determine 
 -->
 - **failureThreshold** (int32)
 
-  探针成功后的最小连续失败次数，超出此阈值则认为探针失败。默认为 3。最小值为 1。 
+  探针成功后的最小连续失败次数，超出此阈值则认为探针失败。默认为 3。最小值为 1。
 
 <!--
 - **successThreshold** (int32)
@@ -4012,7 +4245,7 @@ Probe describes a health check to be performed against a container to determine 
 - **successThreshold** (int32)
 
   探针失败后最小连续成功次数，超过此阈值才会被视为探针成功。默认为 1。
-  存活性探针和启动探针必须为 1。最小值为 1。 
+  存活性探针和启动探针必须为 1。最小值为 1。
 
 <!--
 - **grpc** (GRPCAction)
@@ -4048,14 +4281,13 @@ Probe describes a health check to be performed against a container to determine 
     
     如果未指定，则默认行为由 gRPC 定义。
 
-
 ## PodStatus {#PodStatus}
 
 <!--
 PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
 -->
 PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系统的实际状态，
-尤其是在托管 Pod 的节点无法联系控制平面的情况下。 
+尤其是在托管 Pod 的节点无法联系控制平面的情况下。
 
 <hr>
 
@@ -4067,11 +4299,11 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 - **nominatedNodeName** (string)
 
   仅当此 Pod 抢占节点上的其他 Pod 时才设置 `nominatedNodeName`，
-  但抢占操作的受害者会有体面终止期限，因此此 Pod 无法立即被调度。 
-  此字段不保证 Pod 会在该节点上调度。 
+  但抢占操作的受害者会有体面终止期限，因此此 Pod 无法立即被调度。
+  此字段不保证 Pod 会在该节点上调度。
   如果其他节点更早进入可用状态，调度器可能会决定将 Pod 放置在其他地方。
-  调度器也可能决定将此节点上的资源分配给优先级更高的、在抢占操作之后创建的 Pod。 
-  因此，当 Pod 被调度时，该字段可能与 Pod 规约中的 nodeName 不同。 
+  调度器也可能决定将此节点上的资源分配给优先级更高的、在抢占操作之后创建的 Pod。
+  因此，当 Pod 被调度时，该字段可能与 Pod 规约中的 nodeName 不同。
 
 <!--
 - **hostIP** (string)
@@ -4080,7 +4312,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 -->
 - **hostIP** (string)
 
-  Pod 被调度到的主机的 IP 地址。如果尚未被调度，则为字段为空。 
+  Pod 被调度到的主机的 IP 地址。如果尚未被调度，则为字段为空。
 
 <!--
 - **startTime** (Time)
@@ -4093,7 +4325,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 - **startTime** (Time)
 
   kubelet 确认 Pod 对象的日期和时间，格式遵从 RFC 3339。
-  此时间点处于 kubelet 为 Pod 拉取容器镜像之前。 
+  此时间点处于 kubelet 为 Pod 拉取容器镜像之前。
 
   Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
   time 包所提供的许多工厂方法都有包装器。
@@ -4116,8 +4348,8 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
   - `Running`：Pod 已经被绑定到某个节点，并且所有的容器都已经创建完毕。至少有一个容器仍在运行，或者正在启动或重新启动过程中。
   - `Succeeded`：Pod 中的所有容器都已成功终止，不会重新启动。
   - `Failed`：Pod 中的所有容器都已终止，并且至少有一个容器因故障而终止。
-    容器要么以非零状态退出，要么被系统终止。 
-  - `Unknown`：由于某种原因无法获取 Pod 的状态，通常是由于与 Pod 的主机通信时出错。 
+    容器要么以非零状态退出，要么被系统终止。
+  - `Unknown`：由于某种原因无法获取 Pod 的状态，通常是由于与 Pod 的主机通信时出错。
   
   更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
@@ -4137,7 +4369,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 -->
 - **message** (string)
 
-   一条人类可读的消息，标示有关 Pod 为何处于这种情况的详细信息。 
+   一条人类可读的消息，标示有关 Pod 为何处于这种情况的详细信息。
 
 - **reason** (string)
 
@@ -4146,7 +4378,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
 - **podIP** （string）
 
-   分配给 Pod 的 IP 地址。至少在集群内可路由。如果尚未分配则为空。 
+   分配给 Pod 的 IP 地址。至少在集群内可路由。如果尚未分配则为空。
 
 <!--
 - **podIPs** ([]PodIP)
@@ -4157,18 +4389,20 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
   <a name="PodIP"></a>
   *IP address information for entries in the (plural) PodIPs field. Each entry includes:
-     IP: An IP address allocated to the pod. Routable at least within the cluster.*
+  
+  	IP: An IP address allocated to the pod. Routable at least within the cluster.*
 -->
 - **podIPs** （[]PodIP）
 
   **补丁策略：基于 `ip` 键合并**
   
-  podIPs 保存分配给 Pod 的 IP 地址。如果指定了该字段，则第 0 个条目必须与 podIP 字段值匹配。 
-  Pod 最多可以为 IPv4 和 IPv6 各分配 1 个值。如果尚未分配 IP，则此列表为空。 
+  podIPs 保存分配给 Pod 的 IP 地址。如果指定了该字段，则第 0 个条目必须与 podIP 字段值匹配。
+  Pod 最多可以为 IPv4 和 IPv6 各分配 1 个值。如果尚未分配 IP，则此列表为空。
 
   <a name="PodIP"></a>
-  podIPs 字段中每个条目的 IP 地址信息。每个条目都包含 `ip` 字段，给出分配给 Pod 的 IP 地址。
-  该 IP 地址至少在集群内可路由。
+  podIPs 字段中每个条目的 IP 地址信息。每个条目都包含：
+
+    `ip` 字段：给出分配给 Pod 的 IP 地址。该 IP 地址至少在集群内可路由。
 
   <!--
   - **podIPs.ip** (string)
@@ -4263,21 +4497,21 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
   - **conditions.message** (string)
 
-    标示有关上次状况变化的详细信息的、人类可读的消息。 
+    标示有关上次状况变化的详细信息的、人类可读的消息。
 
   - **conditions.reason** (string)
 
-    condition 最近一次变化的唯一、一个单词、驼峰式命名原因。 
+    condition 最近一次变化的唯一、一个单词、驼峰式命名原因。
 
 <!--
 - **qosClass** (string)
 
-  The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/design-proposals-archive/node/resource-qos.md
+  The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
 -->
 - **qosClass** （string）
 
-   根据资源要求分配给 Pod 的服务质量 (QOS) 分类。有关可用的 QOS 类，请参阅 PodQOSClass 类型。 
-   更多信息： https://git.k8s.io/design-proposals-archive/node/resource-qos.md
+   根据资源要求分配给 Pod 的服务质量 (QOS) 分类。有关可用的 QOS 类，请参阅 PodQOSClass 类型。
+   更多信息： https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
 
 <!--
 - **initContainerStatuses** ([]ContainerStatus)
@@ -4308,7 +4542,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
   - **initContainerStatuses.name** (string)，必需
 
-    此字段值必须是 DNS_LABEL。Pod 中的每个容器都必须具有唯一的名称。无法更新。 
+    此字段值必须是 DNS_LABEL。Pod 中的每个容器都必须具有唯一的名称。无法更新。
 
   - **initContainerStatuses.image** (string)，必需
 
@@ -4327,11 +4561,11 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
   - **initContainerStatuses.imageID** (string)，必需
 
-    容器镜像的镜像 ID。 
+    容器镜像的镜像 ID。
 
   - **initContainerStatuses.containerID** （string）
 
-    格式为 `<type>://<container_id>` 的容器 ID。 
+    格式为 `<type>://<container_id>` 的容器 ID。
 
   <!--
   - **initContainerStatuses.state** (ContainerState)
@@ -4669,11 +4903,11 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
       - **initContainerStatuses.lastState.waiting.message** （string）
 
-        关于容器尚未运行的原因的消息。 
+        关于容器尚未运行的原因的消息。
 
       - **initContainerStatuses.lastState.waiting.reason** （string）
 
-        容器尚未运行的（简要）原因。 
+        容器尚未运行的（简要）原因。
 
   <!--
   - **initContainerStatuses.ready** (boolean), required
@@ -4914,11 +5148,11 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
       - **containerStatuses.state.waiting.message** （string）
 
-        关于容器尚未运行的原因的消息。 
+        关于容器尚未运行的原因的消息。
 
       - **containerStatuses.state.waiting.reason** （string）
 
-        容器尚未运行的（简要）原因。 
+        容器尚未运行的（简要）原因。
 
   <!--
   - **containerStatuses.lastState** (ContainerState)
@@ -5085,7 +5319,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
       - **containerStatuses.lastState.waiting.message** （string）
 
-        关于容器尚未运行的原因的消息。 
+        关于容器尚未运行的原因的消息。
 
       - **containerStatuses.lastState.waiting.reason** （string）
 
@@ -5103,11 +5337,11 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
   - **containerStatuses.ready** (boolean)，必需
 
-    指定容器是否已通过其就绪态探针。 
+    指定容器是否已通过其就绪态探针。
 
   - **containerStatuses.restartCount** (int32)，必需
 
-    容器重启的次数。 
+    容器重启的次数。
 
   <!--
   - **containerStatuses.started** (boolean)
@@ -5117,23 +5351,23 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
   - **containerStatuses.started** （boolean）
 
-    指定容器是否已通过其启动探针探测。初始化为 false，startupProbe 被认为成功后变为 true。 
-    当容器重新启动或 kubelet 暂时丢失状态时重置为 false。 
-    未定义启动探针时始终为 true。 
+    指定容器是否已通过其启动探针探测。初始化为 false，startupProbe 被认为成功后变为 true。
+    当容器重新启动或 kubelet 暂时丢失状态时重置为 false。
+    未定义启动探针时始终为 true。
 
 <!--
 - **ephemeralContainerStatuses** ([]ContainerStatus)
 
-  Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+  Status for any ephemeral containers that have run in this pod.
 
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
 -->
 - **ephemeralContainerStatuses** （[]ContainerStatus）
 
-  已在此 Pod 中运行的任何临时容器的状态。 
-  此字段是 Beta 级别的，可在尚未禁用 `EphemeralContainers` 特性门控的集群上使用。 
+  已在此 Pod 中运行的任何临时容器的状态。
 
+  <a name="ContainerStatus"></a>
   **ContainerStatus 包含此容器当前状态的详细信息。**
 
   <!--
@@ -5148,7 +5382,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
   - **ephemeralContainerStatuses.name** (string)，必需
 
-    字段值必须是 DNS_LABEL。Pod 中的每个容器都必须具有唯一的名称。无法更新。 
+    字段值必须是 DNS_LABEL。Pod 中的每个容器都必须具有唯一的名称。无法更新。
 
   - **ephemeralContainerStatuses.image** (string)，必需
 
@@ -5167,11 +5401,11 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
   - **ephemeralContainerStatuses.imageID** (string)，必需
 
-    容器镜像的镜像 ID。 
+    容器镜像的镜像 ID。
 
   - **ephemeralContainerStatuses.containerID** （string）
 
-    格式为 `<type>://<container_id>` 的容器 ID。 
+    格式为 `<type>://<container_id>` 的容器 ID。
 
   <!--
   - **ephemeralContainerStatuses.state** (ContainerState)
@@ -5183,7 +5417,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 -->
   - **ephemeralContainerStatuses.state** （ContainerState）
 
-    有关容器当前状况的详细信息。 
+    有关容器当前状况的详细信息。
 
     ContainerState 保存容器的可能状态。只能设置其中一个成员。如果所有成员都未设置，
     则默认为 ContainerStateWaiting。
@@ -5337,11 +5571,11 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
       - **ephemeralContainerStatuses.state.waiting.message** （string）
 
-        关于容器尚未运行的原因的消息。 
+        关于容器尚未运行的原因的消息。
 
       - **ephemeralContainerStatuses.state.waiting.reason** （string）
 
-        容器尚未运行的（简要）原因。 
+        容器尚未运行的（简要）原因。
 
   <!--
   - **ephemeralContainerStatuses.lastState** (ContainerState)
@@ -5353,7 +5587,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 -->
   - **ephemeralContainerStatuses.lastState** （ContainerState）
 
-    有关容器的上次终止状况的详细信息。 
+    有关容器的上次终止状况的详细信息。
 
     ContainerState 保存容器的可能状态。只能设置其中一个成员。如果所有成员都未设置，
     则默认为 `ContainerStateWaiting`。
@@ -5507,11 +5741,11 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
       - **ephemeralContainerStatuses.lastState.waiting.message** （string）
 
-        关于容器尚未运行的原因的消息。 
+        关于容器尚未运行的原因的消息。
 
       - **ephemeralContainerStatuses.lastState.waiting.reason** （string）
 
-        容器尚未运行的（简要）原因。 
+        容器尚未运行的（简要）原因。
 
   <!--
   - **ephemeralContainerStatuses.ready** (boolean), required
@@ -5548,7 +5782,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 <!--
 PodList 是 Pod 的列表。
 -->
-PodList 是 Pod 的列表。 
+PodList 是 Pod 的列表。
 
 <hr>
 
@@ -5580,7 +5814,7 @@ PodList 是 Pod 的列表。
 -->
 - **kind**（string）
 
-  kind 是一个字符串值，表示此对象表示的 REST 资源。服务器可以从客户端提交请求的端点推断出资源类别。 
+  kind 是一个字符串值，表示此对象表示的 REST 资源。服务器可以从客户端提交请求的端点推断出资源类别。
   无法更新。采用驼峰式命名。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 

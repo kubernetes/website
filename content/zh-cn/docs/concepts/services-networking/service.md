@@ -453,7 +453,7 @@ There are a few reasons for using proxying for Services:
    on the DNS records could impose a high load on DNS that then becomes
    difficult to manage.
 -->
-### 为什么不使用 DNS 轮询？
+### 为什么不使用 DNS 轮询？  {#why-not-use-round-robin-dns}
 
 时不时会有人问到为什么 Kubernetes 依赖代理将入站流量转发到后端。那其他方法呢？
 例如，是否可以配置具有多个 A 值（或 IPv6 为 AAAA）的 DNS 记录，并依靠轮询名称解析？
@@ -464,6 +464,45 @@ There are a few reasons for using proxying for Services:
 * 有些应用程序仅执行一次 DNS 查找，并无限期地缓存结果。
 * 即使应用和库进行了适当的重新解析，DNS 记录上的 TTL 值低或为零也可能会给
   DNS 带来高负载，从而使管理变得困难。
+
+<!--
+Later in this page you can read about how various kube-proxy implementations work. Overall,
+you should note that, when running `kube-proxy`, kernel level rules may be
+modified (for example, iptables rules might get created), which won't get cleaned up,
+in some cases until you reboot.  Thus, running kube-proxy is something that should
+only be done by an administrator which understands the consequences of having a
+low level, privileged network proxying service on a computer.  Although the `kube-proxy`
+executable supports a `cleanup` function, this function is not an official feature and
+thus is only available to use as-is.
+-->
+在本页下文中，你可以了解各种 kube-proxy 实现是如何工作的。
+总的来说，你应该注意当运行 `kube-proxy` 时，内核级别的规则可能会被修改（例如，可能会创建 iptables 规则），
+在某些情况下直到你重新引导才会清理这些内核级别的规则。
+因此，运行 kube-proxy 只能由了解在计算机上使用低级别、特权网络代理服务后果的管理员来完成。
+尽管 `kube-proxy` 可执行文件支持 `cleanup` 功能，但此功能不是官方特性，因此只能按原样使用。
+
+<!--
+### Configuration
+
+Note that the kube-proxy starts up in different modes, which are determined by its configuration.
+- The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for kube-proxy
+  effectively deprecates the behaviour for almost all of the flags for the kube-proxy.
+- The ConfigMap for the kube-proxy does not support live reloading of configuration.
+- The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.
+  For example, if your operating system doesn't allow you to run iptables commands,
+  the standard kernel kube-proxy implementation will not work.
+  Likewise, if you have an operating system which doesn't support `netsh`,
+  it will not run in Windows userspace mode.
+-->
+### 配置  {#configuration}
+
+请注意，kube-proxy 可以以不同的模式启动，具体取决于其配置。
+
+- kube-proxy 的配置是通过 ConfigMap 完成的，并且 kube-proxy 的 ConfigMap 有效地弃用了 kube-proxy 几乎所有标志的行为。
+- kube-proxy 的 ConfigMap 不支持实时重新加载配置。
+- kube-proxy 的 ConfigMap 参数不能在启动时被全部校验和验证。
+  例如，如果你的操作系统不允许你运行 iptables 命令，则标准内核 kube-proxy 实现将无法工作。
+  同样，如果你的操作系统不支持 `netsh`，它将无法在 Windows 用户空间模式下运行。
 
 <!--
 ### User space proxy mode {#proxy-mode-userspace}
@@ -804,7 +843,7 @@ Kubernetes 支持两种基本的服务发现模式 —— 环境变量和 DNS。
 When a Pod is run on a Node, the kubelet adds a set of environment variables
 for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables, where the Service name is upper-cased and dashes are converted to underscores. It also supports variables (see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) that are compatible with Docker Engine's "_[legacy container links](https://docs.docker.com/network/links/)_" feature.
 
-For example, the Service `redis-master` which exposes TCP port 6379 and has been
+For example, the Service `redis-primary` which exposes TCP port 6379 and has been
 allocated cluster IP address 10.0.0.11, produces the following environment
 variables:
 -->
@@ -816,17 +855,17 @@ kubelet 为 Pod 添加环境变量 `{SVCNAME}_SERVICE_HOST` 和 `{SVCNAME}_SERVI
 它还支持与 Docker Engine 的 "**[legacy container links](https://docs.docker.com/network/links/)**" 特性兼容的变量
 （参阅 [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) 。
 
-举个例子，一个名称为 `redis-master` 的 Service 暴露了 TCP 端口 6379，
+举个例子，一个名称为 `redis-primary` 的 Service 暴露了 TCP 端口 6379，
 同时给它分配了 Cluster IP 地址 10.0.0.11，这个 Service 生成了如下环境变量：
 
 ```shell
-REDIS_MASTER_SERVICE_HOST=10.0.0.11
-REDIS_MASTER_SERVICE_PORT=6379
-REDIS_MASTER_PORT=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP_PROTO=tcp
-REDIS_MASTER_PORT_6379_TCP_PORT=6379
-REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
+REDIS_PRIMARY_SERVICE_HOST=10.0.0.11
+REDIS_PRIMARY_SERVICE_PORT=6379
+REDIS_PRIMARY_PORT=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP_PROTO=tcp
+REDIS_PRIMARY_PORT_6379_TCP_PORT=6379
+REDIS_PRIMARY_PORT_6379_TCP_ADDR=10.0.0.11
 ```
 
 <!--

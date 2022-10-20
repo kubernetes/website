@@ -359,7 +359,7 @@ More details about the API object can be found at
 创建 HorizontalPodAutoscaler 对象时，需要确保所给的名称是一个合法的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 有关 API 对象的更多信息，请查阅
-[HorizontalPodAutoscaler 对象设计文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling)。
+[HorizontalPodAutoscaler 对象文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling)。
 
 <!--
 ## Stability of workload scale {#flapping}
@@ -981,6 +981,7 @@ guidelines, which cover this exact use case.
 
 {{% /tab %}}
 {{< /tabs >}}
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -1005,4 +1006,5 @@ For more information on HorizontalPodAutoscaler:
 * 阅读 [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 的文档。
 * 如果你想编写自己的自定义指标适配器，
   请查看 [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) 以开始使用。
-* 阅读 [API 参考](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)。
+* 阅读 [API 参考](/zh-cn/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)。
+

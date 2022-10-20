@@ -16,8 +16,8 @@ no_list: true
 
 <!--
 Whether your workload is a single component or several that work together, on Kubernetes you run
-it inside a set of [Pods](/docs/concepts/workloads/pods).
-In Kubernetes, a Pod represents a set of running
+it inside a set of [_pods_](/docs/concepts/workloads/pods).
+In Kubernetes, a `Pod` represents a set of running
 {{< glossary_tooltip text="containers" term_id="container" >}} on your cluster.
 
 A Pod has a defined lifecycle. For example, once a Pod is running in your cluster then
@@ -26,8 +26,8 @@ Pod is running means that all the Pods on that node fail. Kubernetes treats that
 of failure as final: you would need to create a new Pod even if the node later recovers.
 -->
 在 Kubernetes 中，无论你的负载是由单个组件还是由多个一同工作的组件构成，
-你都可以在一组 [Pod](/zh-cn/docs/concepts/workloads/pods) 中运行它。
-在 Kubernetes 中，Pod 代表的是集群上处于运行状态的一组
+你都可以在一组 [**Pod**](/zh-cn/docs/concepts/workloads/pods) 中运行它。
+在 Kubernetes 中，`Pod` 代表的是集群上处于运行状态的一组
 {{< glossary_tooltip text="容器" term_id="container" >}} 的集合。
 
 <!--
@@ -37,22 +37,22 @@ For example, once a pod is running in your cluster then a critical fault on the
 all the pods on that node fail. Kubernetes treats that level of failure as final: you
 would need to create a new `Pod` to recover, even if the node later becomes healthy.
 -->
-Kubernetes Pods 遵循[预定义的生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
+Kubernetes Pod 遵循[预定义的生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
 例如，当在你的集群中运行了某个 Pod，但是 Pod 所在的
 {{< glossary_tooltip text="节点" term_id="node" >}} 出现致命错误时，
-所有该节点上的 Pods 的状态都会变成失败。Kubernetes 将这类失败视为最终状态：
-即使该节点后来恢复正常运行，你也需要创建新的 Pod 以恢复应用。
+所有该节点上的 Pod 的状态都会变成失败。Kubernetes 将这类失败视为最终状态：
+即使该节点后来恢复正常运行，你也需要创建新的 `Pod` 以恢复应用。
 
 <!--
-However, to make life considerably easier, you don't need to manage each Pod directly.
-Instead, you can use _workload resources_ that manage a set of Pods on your behalf.
+However, to make life considerably easier, you don't need to manage each `Pod` directly.
+Instead, you can use _workload resources_ that manage a set of pods on your behalf.
 These resources configure {{< glossary_tooltip term_id="controller" text="controllers" >}}
-that make sure the right number of the right kind of Pod are running, to match the state
+that make sure the right number of the right kind of pod are running, to match the state
 you specified.
 
 Kubernetes provides several built-in workload resources:
 -->
-不过，为了减轻用户的使用负担，通常不需要用户直接管理每个 Pod。
+不过，为了减轻用户的使用负担，通常不需要用户直接管理每个 `Pod`。
 而是使用**负载资源**来替用户管理一组 Pod。
 这些负载资源通过配置 {{< glossary_tooltip term_id="controller" text="控制器" >}}
 来确保正确类型的、处于运行状态的 Pod 个数是正确的，与用户所指定的状态相一致。
@@ -60,7 +60,7 @@ Kubernetes provides several built-in workload resources:
 Kubernetes 提供若干种内置的工作负载资源：
 
 <!--
-* [Deployment](/docs/concepts/workloads/controllers/deployment/) and [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+* [`Deployment`](/docs/concepts/workloads/controllers/deployment/) and [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/)
   (replacing the legacy resource
   {{< glossary_tooltip text="ReplicationController" term_id="replication-controller" >}}).
   `Deployment` is a good fit for managing a stateless application workload on your cluster,
@@ -72,13 +72,13 @@ Kubernetes 提供若干种内置的工作负载资源：
   `Pods` for that `StatefulSet`, can replicate data to other `Pods` in the same `StatefulSet`
   to improve overall resilience.
 -->
-* [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 和
-  [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
+* [`Deployment`](/zh-cn/docs/concepts/workloads/controllers/deployment/) 和
+  [`ReplicaSet`](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
   （替换原来的资源 {{< glossary_tooltip text="ReplicationController" term_id="replication-controller" >}}）。
   `Deployment` 很适合用来管理你的集群上的无状态应用，`Deployment` 中的所有
   `Pod` 都是相互等价的，并且在需要的时候被替换。
 * [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
-  让你能够运行一个或者多个以某种方式跟踪应用状态的 Pods。
+  让你能够运行一个或者多个以某种方式跟踪应用状态的 Pod。
   例如，如果你的负载会将数据作持久存储，你可以运行一个 `StatefulSet`，将每个
   `Pod` 与某个 [`PersistentVolume`](/zh-cn/docs/concepts/storage/persistent-volumes/)
   对应起来。你在 `StatefulSet` 中各个 `Pod` 内运行的代码可以将数据复制到同一
@@ -96,15 +96,15 @@ Kubernetes 提供若干种内置的工作负载资源：
   `CronJobs` recur according to a schedule.
 -->
 * [DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/)
-  定义提供节点本地支撑设施的 `Pods`。这些 Pods 可能对于你的集群的运维是
+  定义提供节点本地支撑设施的 `Pod`。这些 Pod 可能对于你的集群的运维是
   非常重要的，例如作为网络链接的辅助工具或者作为网络
   {{< glossary_tooltip text="插件" term_id="addons" >}}
   的一部分等等。每次你向集群中添加一个新节点时，如果该节点与某 `DaemonSet`
-  的规约匹配，则控制面会为该 `DaemonSet` 调度一个 `Pod` 到该新节点上运行。
+  的规约匹配，则控制平面会为该 `DaemonSet` 调度一个 `Pod` 到该新节点上运行。
 * [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 和
   [CronJob](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)。
-  定义一些一直运行到结束并停止的任务。`Job` 用来表达的是一次性的任务，而
-  `CronJob` 会根据其时间规划反复运行。
+  定义一些一直运行到结束并停止的任务。`Job` 用来执行一次性任务，而
+  `CronJob` 用来执行的根据时间规划反复运行的任务。
 
 <!--
 In the wider Kubernetes ecosystem, you can find third-party workload resources that provide
@@ -118,7 +118,7 @@ then you can implement or install an extension that does provide that feature.
 在庞大的 Kubernetes 生态系统中，你还可以找到一些提供额外操作的第三方工作负载相关的资源。
 通过使用[定制资源定义（CRD）](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)，
 你可以添加第三方工作负载资源，以完成原本不是 Kubernetes 核心功能的工作。
-例如，如果你希望运行一组 `Pods`，但要求所有 Pods 都可用时才执行操作
+例如，如果你希望运行一组 `Pod`，但要求**所有** Pod 都可用时才执行操作
 （比如针对某种高吞吐量的分布式任务），你可以基于定制资源实现一个能够满足这一需求的扩展，
 并将其安装到集群中运行。
 
@@ -127,14 +127,14 @@ then you can implement or install an extension that does provide that feature.
 <!--
 As well as reading about each resource, you can learn about specific tasks that relate to them:
 
-* [Run a stateless application using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/)
+* [Run a stateless application using a `Deployment`](/docs/tasks/run-application/run-stateless-application-deployment/)
 * Run a stateful application either as a [single instance](/docs/tasks/run-application/run-single-instance-stateful-application/)
   or as a [replicated set](/docs/tasks/run-application/run-replicated-stateful-application/)
-* [Run Automated Tasks with a `CronJob`](/docs/tasks/job/automated-tasks-with-cron-jobs/)
+* [Run automated tasks with a `CronJob`](/docs/tasks/job/automated-tasks-with-cron-jobs/)
 -->
 除了阅读了解每类资源外，你还可以了解与这些资源相关的任务：
 
-* [使用 Deployment 运行一个无状态的应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
+* [使用 `Deployment` 运行一个无状态的应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
 * 以[单实例](/zh-cn/docs/tasks/run-application/run-single-instance-stateful-application/)或者[多副本集合](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)
   的形式运行有状态的应用；
 * [使用 `CronJob` 运行自动化的任务](/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/)
@@ -153,10 +153,10 @@ for applications:
 * The [_time-to-live after finished_ controller](/docs/concepts/workloads/controllers/ttlafterfinished/)
   removes Jobs once a defined time has passed since they completed.
 -->
-关于 Kubernetes 如何为应用管理 Pods，还有两个支撑概念能够提供相关背景信息：
+关于 Kubernetes 如何为应用管理 Pod，还有两个支撑概念能够提供相关背景信息：
 
 * [垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection/)机制负责在
-  对象的 _属主资源_ 被删除时在集群中清理这些对象。
+  对象的**属主资源**被删除时在集群中清理这些对象。
 * [**Time-to-Live** 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)会在 Job
   结束之后的指定时间间隔之后删除它们。
 

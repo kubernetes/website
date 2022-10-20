@@ -461,7 +461,7 @@ An example flow:
       order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
       {{< /note >}}
 1. At the same time as the kubelet is starting graceful shutdown, the control plane removes that
-   shutting-down Pod from Endpoints (and, if enabled, EndpointSlice) objects where these represent
+   shutting-down Pod from EndpointSlice (and Endpoints) objects where these represent
    a {{< glossary_tooltip term_id="service" text="Service" >}} with a configured
    {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
@@ -498,6 +498,10 @@ from the kubelet that the Pod has been terminated on the node it was running on.
 removes the Pod in the API immediately so a new Pod can be created with the same
 name. On the node, Pods that are set to terminate immediately will still be given
 a small grace period before being force killed.
+
+{{< caution >}}
+Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+{{< /caution >}}
 
 If you need to force-delete Pods that are part of a StatefulSet, refer to the task
 documentation for

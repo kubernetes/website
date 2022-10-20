@@ -9,11 +9,11 @@ content_type: concept
 
 アドオンはKubernetesの機能を拡張するものです。
 
-このページでは、利用可能なアドオンの一部の一覧と、それぞれのアドオンのインストール方法へのリンクを提供します。
+このページでは、利用可能なアドオンの一部の一覧と、それぞれのアドオンのインストール方法へのリンクを提供します。この一覧は、すべてを網羅するものではありません。
 
 <!-- body -->
 
-## ネットワークとネットワークポリシー
+## ネットワークとネットワークポリシー {#networking-and-network-policy}
 
 * [ACI](https://www.github.com/noironetworks/aci-containers)は、統合されたコンテナネットワークとネットワークセキュリティをCisco ACIを使用して提供します。
 * [Antrea](https://antrea.io/)は、L3またはL4で動作して、Open vSwitchをネットワークデータプレーンとして活用する、Kubernetes向けのネットワークとセキュリティサービスを提供します。
@@ -27,27 +27,27 @@ content_type: concept
 * [Knitter](https://github.com/ZTE/Knitter/)は、1つのKubernetes Podで複数のネットワークインターフェイスをサポートするためのプラグインです。
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni)は、すべてのCNIプラグイン(たとえば、Calico、Cilium、Contiv、Flannel)に加えて、SRIOV、DPDK、OVS-DPDK、VPPをベースとするKubernetes上のワークロードをサポートする、複数のネットワークサポートのためのマルチプラグインです。
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/)は、Open vSwitch(OVS)プロジェクトから生まれた仮想ネットワーク実装である[OVN(Open Virtual Network)](https://github.com/ovn-org/ovn/)をベースとする、Kubernetesのためのネットワークプロバイダーです。OVN-Kubernetesは、OVSベースのロードバランサーおよびネットワークポリシーの実装を含む、Kubernetes向けのオーバーレイベースのネットワーク実装を提供します。
-* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin)は、クラウドネイティブベースのService function chaining(SFC)、Multiple OVNオーバーレイネットワーク、動的なサブネットの作成、動的な仮想ネットワークの作成、VLANプロバイダーネットワーク、Directプロバイダーネットワークを提供し、他のMulti-networkプラグインと付け替え可能なOVNベースのCNIコントローラープラグインです。
+* [Nodus](https://github.com/akraino-edge-stack/icn-nodus)は、OVNベースのCNIコントローラープラグインで、クラウドネイティブベースのService function chaining(SFC)を提供します。
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) Container Plug-in(NCP)は、VMware NSX-TとKubernetesなどのコンテナオーケストレーター間のインテグレーションを提供します。また、NSX-Tと、Pivotal Container Service(PKS)とOpenShiftなどのコンテナベースのCaaS/PaaSプラットフォームとのインテグレーションも提供します。
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)は、Kubernetes Podと非Kubernetes環境間で可視化とセキュリティモニタリングを使用してポリシーベースのネットワークを提供するSDNプラットフォームです。
 * [Romana](https://github.com/romana)は、[NetworkPolicy](/ja/docs/concepts/services-networking/network-policies/) APIもサポートするPodネットワーク向けのL3のネットワークソリューションです。
 * [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)は、ネットワークパーティションの両面で機能し、外部データベースを必要とせずに、ネットワークとネットワークポリシーを提供します。
 
-## サービスディスカバリ
+## サービスディスカバリー {#service-discovery}
 
 * [CoreDNS](https://coredns.io)は、フレキシブルで拡張可能なDNSサーバーです。Pod向けのクラスター内DNSとして[インストール](https://github.com/coredns/deployment/tree/master/kubernetes)できます。
 
-## 可視化と制御
+## 可視化と制御 {#visualization-amp-control}
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)はKubernetes向けのダッシュボードを提供するウェブインターフェイスです。
 * [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)は、コンテナ、Pod、Serviceなどをグラフィカルに可視化するツールです。[Weave Cloud account](https://cloud.weave.works/)と組み合わせて使うか、UIを自分でホストして使います。
 
-## インフラストラクチャ
+## インフラストラクチャ {#infrastructure}
 
 * [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation)は仮想マシンをKubernetes上で実行するためのアドオンです。通常、ベアメタルのクラスタで実行します。
 * [node problem detector](https://github.com/kubernetes/node-problem-detector)はLinuxノード上で動作し、システムの問題を[Event](/docs/reference/kubernetes-api/cluster-resources/event-v1/)または[ノードのCondition](/ja/docs/concepts/architecture/nodes/#condition)として報告します。
 
-## レガシーなアドオン
+## レガシーなアドオン {#legacy-add-ons}
 
 いくつかのアドオンは、廃止された[cluster/addons](https://git.k8s.io/kubernetes/cluster/addons)ディレクトリに掲載されています。
 

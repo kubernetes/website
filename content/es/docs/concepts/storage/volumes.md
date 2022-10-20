@@ -370,7 +370,7 @@ Para usar esta función, el volumen debe ser provisto como un PersistentVolumen;
 
 #### Aprovisionamiento manual de un PD PersistentVolume Regional
 
-El aprovisionamiento dinámico es posible usando un [StorageClass para el DP GCE](/docs/concepts/storage/storage-classes/#gce).
+El aprovisionamiento dinámico es posible usando un [StorageClass para el DP GCE](/docs/concepts/storage/storage-classes/#gce-pd).
 Antes de crear un PersistentVolume, debes crear el disco persistente:
 
 ```shell

@@ -24,16 +24,17 @@ card:
 
 <!--
 When you deploy Kubernetes, you get a cluster.
-{{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
+-{{ < glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
 This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
-{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
+{{ < figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
 -->
 <!-- overview -->
 当你部署完 Kubernetes，便拥有了一个完整的集群。
-{{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes">}}
+
+{{< glossary_definition term_id="cluster" length="all" >}}
 
 本文档概述了一个正常运行的 Kubernetes 集群所需的各种组件。
 

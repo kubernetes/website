@@ -20,17 +20,17 @@ problems to address:
 1. Highly-coupled container-to-container communications: this is solved by
    {{< glossary_tooltip text="Pods" term_id="pod" >}} and `localhost` communications.
 2. Pod-to-Pod communications: this is the primary focus of this document.
-3. Pod-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
-4. External-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
+3. Pod-to-Service communications: this is covered by [Services](/docs/concepts/services-networking/service/).
+4. External-to-Service communications: this is also covered by Services.
 -->
 集群网络系统是 Kubernetes 的核心部分，但是想要准确了解它的工作原理可是个不小的挑战。
 下面列出的是网络系统的的四个主要问题：
 
-1. 高度耦合的容器间通信：这个已经被 {{< glossary_tooltip text="Pods" term_id="pod" >}}
+1. 高度耦合的容器间通信：这个已经被 {{< glossary_tooltip text="Pod" term_id="pod" >}}
    和 `localhost` 通信解决了。
-2. Pod 间通信：本文档讲述重点。
-3. Pod 和服务间通信：由[服务](/zh-cn/docs/concepts/services-networking/service/)负责。
-4. 外部和服务间通信：也由[服务](/zh-cn/docs/concepts/services-networking/service/)负责。
+2. Pod 间通信：这是本文档讲述的重点。
+3. Pod 与 Service 间通信：涵盖在 [Service](/zh-cn/docs/concepts/services-networking/service/) 中。
+4. 外部与 Service 间通信：也涵盖在 Service 中。
 
 <!-- body -->
 
