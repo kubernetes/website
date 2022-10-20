@@ -17,7 +17,7 @@ spec:
     spec:
       initContainers:
       - name: init-mysql
-        image: mysql:5.7
+        image: mysql:5.7-debian
         command:
         - bash
         - "-c"
