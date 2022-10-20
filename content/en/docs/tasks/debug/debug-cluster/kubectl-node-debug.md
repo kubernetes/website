@@ -22,7 +22,7 @@ You also need to be authorized to create Pods that access filesystems from the h
 
 Use the `kubectl debug node` command to deploy a Pod to a Node that you want to troubleshoot.
 This command is helpful in scenarios where you can't access your Node by using an SSH connection.
-When the Pod is created, the Pod opens a interactive shell on the Node.
+When the Pod is created, the Pod opens an interactive shell on the Node.
 To create an interactive shell on a Node named “mynode”, run:
 
 ```shell
@@ -65,7 +65,7 @@ When creating a debugging session on a Node, keep in mind that:
 * The root filesystem of the Node will be mounted at `/host`.
 * Although the container runs in the host IPC, Network, and PID namespaces,
   the pod isn't privileged. This means that reading some process information might fail
-  because access to that information is restricted to superusers. `chroot /host` will fail.
+  because access to that information is restricted to superusers. For example, `chroot /host` will fail.
   If you need a privileged pod, create it manually.
 
 ## {{% heading "cleanup" %}}
