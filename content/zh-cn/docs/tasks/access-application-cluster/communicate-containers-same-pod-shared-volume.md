@@ -136,6 +136,8 @@ In your shell, verify that nginx is running:
 在 shell 中，确认 nginx 还在运行。
 
 ```
+root@two-containers:/# apt-get update
+root@two-containers:/# apt-get install curl procps
 root@two-containers:/# ps aux
 ```
 
@@ -196,14 +198,14 @@ the shared Volume is lost.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about [patterns for composite containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
+* Learn more about [patterns for composite containers](/blog/2015/06/the-distributed-system-toolkit-patterns/).
 * Learn about [composite containers for modular architecture](https://www.slideshare.net/Docker/slideshare-burns).
 * See [Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
 * See [Configure a Pod to share process namespace between containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/)
 * See [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
 * See [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
 -->
-* 进一步了解[复合容器的模式](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns.html)
+* 进一步了解[复合容器的模式](/blog/2015/06/the-distributed-system-toolkit-patterns/)
 * 学习[模块化架构中的复合容器](https://www.slideshare.net/Docker/slideshare-burns)
 * 参见[配置 Pod 使用卷来存储数据](/zh-cn/docs/tasks/configure-pod-container/configure-volume-storage/)
 * 参考[在 Pod 中的容器之间共享进程命名空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)
