@@ -1,7 +1,5 @@
 ---
-title: রেফারেন্স
-approvers:
-  - চেনোপিস
+title: Reference (রেফারেন্স)
 linkTitle: "রেফারেন্স"
 main_menu: true
 weight: 70
@@ -15,12 +13,14 @@ no_list: true
 
 <!--ডকুমেন্টেশন বডি-->
 
+## এপিআই রেফারেন্স
+
 - [শব্দকোষ](/docs/reference/glossary/) - কুবারনেটিস পরিভাষার একটি ব্যাপক, প্রমিত তালিকা
 
 - [কুবারনেটিস এপিআই রেফারেন্স](/docs/reference/kubernetes-api/)
 - [কুবারনেটিস জন্য এক-পৃষ্ঠা এপিআই রেফারেন্স {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 - [কুবারনেটিস এপিআই-এর ব্যবহার](/docs/reference/using-api/) - কুবারনেটিস এপিআই-এর পরিদর্শন
-- [এপিআই প্রবেশাধিকার নিয়ন্ত্রণ](/docs/reference/access-authn-authz/) - কুবারনেটিস কীভাবে এপিআই অ্যাক্সেস নিয়ন্ত্রণ করে তার বিশদ বিবরণ
+- [এপিআই প্রবেশাধিকার নিয়ন্ত্রণ](/docs/reference/access-authn-authz/) কুবারনেটিস কীভাবে এপিআই অ্যাক্সেস নিয়ন্ত্রণ করে তার বিশদ বিবরণ
 - [সুপরিচিত লেবেল, টীকা এবং কলঙ্ক](/docs/reference/labels-annotations-taints/)
 
 ## অধিকারীরূপে সমর্থিত ক্লায়েন্ট লাইব্রেরি
@@ -37,9 +37,9 @@ no_list: true
 
 ## সিএলআই
 
-- [kubectl](/docs/reference/kubectl/) - কমান্ড চালানো এবং কুবারনেটিস ক্লাস্টার পরিচালনার জন্য প্রধান CLI টুল
-  - [JSONPath](/docs/reference/kubectl/jsonpath/) - ব্যবহারের জন্য সিনট্যাক্স গাইড [JSONPath expressions](https://goessner.net/articles/JsonPath/) kubectl চালানোর জন্য.
-- [কিউবএডিএম](/docs/reference/setup-tools/kubeadm/) - CLI টুল সহজে একটি নিরাপদ কুবারনেটিস ক্লাস্টার সরবরাহ করতে।
+- [kubectl](/docs/reference/kubectl/) - কমান্ড চালানো এবং কুবারনেটিস ক্লাস্টার পরিচালনার জন্য প্রধান CLI টুল।
+  - [JSONPath](/docs/reference/kubectl/jsonpath/) - সিনট্যাক্স গাইড [JSONPath expressions](https://goessner.net/articles/JsonPath/) kubectl এর সাথে ব্যবহারের জন্য ।
+- [কিউবএডিএম](/docs/reference/setup-tools/kubeadm/) - CLI টুল যা সহজে একটি নিরাপদ কুবারনেটিস ক্লাস্টার সরবরাহ করতে পারে।
 
 ## উপাদান
 
@@ -52,7 +52,8 @@ no_list: true
   - [শিডিউলার নীতি](/docs/reference/scheduling/policies)
   - [শিডিউলার প্রোফাইল](/docs/reference/scheduling/config#profiles)
 
-- [পোর্ট এবং প্রোটোকলের](/docs/reference/ports-and-protocols/) তালিকা যা কন্ট্রোল প্লেন এবং কর্মী নোড খোলা উচিত
+- [পোর্ট এবং প্রোটোকলের](/docs/reference/ports-and-protocols/) তালিকা যা
+  কন্ট্রোল প্লেন এবং কর্মী নোডগুলিতে খুলে রাখা উচিত
 
 ## কনফিগ এপিআইগুলি
 
@@ -80,5 +81,5 @@ no_list: true
 ## ডিজাইন ডক্স
 
 কুবারনেটিস কার্যকারিতার জন্য ডিজাইন ডক্সের একটি সংরক্ষণাগার। ভাল শুরু পয়েন্ট হয়
-[কুবারনেটিস স্থাপত্য](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
+[কুবারনেটিস স্থাপত্য](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) এবং
 [কুবারনেটিস ডিজাইন পরিদর্শন](https://git.k8s.io/community/contributors/design-proposals).
