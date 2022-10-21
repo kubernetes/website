@@ -6,6 +6,10 @@ weight: 20
 
 <!-- overview -->
 
+This page helps you set up Kubernetes to learn more about it. If you wanted to run real workloads on Kubernetes, read the [Production Environment](/docs/setup/production-environment/) setup guide.
+
+<!-- body -->
+
 ## kind
 
 [`kind`](https://kind.sigs.k8s.io/docs/) lets you run Kubernetes on
@@ -38,7 +42,7 @@ Once you have `minikube` working, you can use it to
 
 - Make sure to [install `kubectl`](/docs/tasks/tools/#kubectl) as well.
 
-- If you still can't decide, pick `minikube` and start with [Hello Minikube](/docs/tutorials/hello-minikube/). `kubeadm` installs are a lot to cover for a beginner.
+- If you still can't decide, pick `minikube` and start with [Hello Minikube](/docs/tutorials/hello-minikube/).
 
 - Already familiar with Kubernetes? Learn how to deploy a cluster for a
 [production environment](https://k8s.io/docs/setup/production-environment/).
