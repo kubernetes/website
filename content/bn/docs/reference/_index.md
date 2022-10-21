@@ -80,6 +80,6 @@ no_list: true
 
 ## ডিজাইন ডক্স
 
-কুবারনেটিস কার্যকারিতার জন্য ডিজাইন ডক্সের একটি সংরক্ষণাগার। ভাল শুরু পয়েন্ট হয়
+কুবারনেটিস কার্যকারিতার জন্য ডিজাইন ডক্সের একটি সংরক্ষণাগার বলা যায়। ভাল শুরু পয়েন্ট হয়
 [কুবারনেটিস স্থাপত্য](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) এবং
 [কুবারনেটিস ডিজাইন পরিদর্শন](https://git.k8s.io/community/contributors/design-proposals).
