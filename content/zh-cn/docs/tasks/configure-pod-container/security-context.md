@@ -367,7 +367,7 @@ and the Container have a `securityContext` field:
 字段。`securityContext` 字段的取值是一个
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 对象。你为 Container 设置的安全性配置仅适用于该容器本身，并且所指定的设置在与
-Pod 层面设置的内容发生重叠时，会重载后者。Container 层面的设置不会影响到 Pod 的卷。
+Pod 层面设置的内容发生重叠时，会重写 Pod 层面的设置。Container 层面的设置不会影响到 Pod 的卷。
 
 下面是一个 Pod 的配置文件，其中包含一个 Container。Pod 和 Container 都有
 `securityContext` 字段：
@@ -416,7 +416,7 @@ of `runAsUser` specified for the Container. It overrides the value 1000 that is
 specified for the Pod.
 -->
 输出显示进程以用户 2000 运行。该值是在 Container 的 `runAsUser` 中设置的。
-该设置值重载了 Pod 层面所设置的值 1000。
+该设置值重写了 Pod 层面所设置的值 1000。
 
 ```
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
