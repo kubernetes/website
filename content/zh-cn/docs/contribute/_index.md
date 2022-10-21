@@ -50,6 +50,7 @@ about contributing to Kubernetes.
 你还可以阅读
 {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
 关于为 Kubernetes 做贡献的[页面](https://contribute.cncf.io/contributors/projects/#kubernetes)。
+{{< /note >}}
 
 <!--
 This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
