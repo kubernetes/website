@@ -64,10 +64,12 @@ UDP support depends on the cloud provider offering this facility.
 
 ### HTTP {#protocol-http-special}
 
-If your cloud provider supports it, you can use a Service set to `type: LoadBalancer` as a way
-to set up external HTTP / HTTPS reverse proxying, forwarded to the EndpointSlices / Endpoints of that Service.
+If your cloud provider supports it, you can use a Service in LoadBalancer mode to
+configure a load balancer outside of your Kubernetes cluster, in a special mode
+where your cloud provider's load balancer implements HTTP / HTTPS reverse proxying,
+with traffic forwarded to the backend endpoints for that Service.
 
-Typically, you set the protocol to `TCP` and add an
+Typically, you set the protocol for the Service to `TCP` and add an
 {{< glossary_tooltip text="annotation" term_id="annotation" >}}
 (usually specific to your cloud provider) that configures the load balancer
 to handle traffic at the HTTP level.
