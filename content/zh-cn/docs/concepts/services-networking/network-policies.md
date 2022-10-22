@@ -2,12 +2,21 @@
 title: 网络策略
 content_type: concept
 weight: 50
+description: >-
+  如果您想在 IP 地址或端口级别（OSI 第 3 层或第 4 层）控制流量，
+  NetworkPolicy 允许您为集群内以及 Pod 和外部世界之间的流量指定规则。 
+  您的集群必须使用支持 NetworkPolicy 实施的网络插件。
 ---
 
 <!--
 title: Network Policies
 content_type: concept
 weight: 50
+description: >-
+  If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4),
+  NetworkPolicies allow you to specify rules for traffic flow within your cluster, and
+  also between Pods and the outside world.
+  Your cluster must use a network plugin that supports NetworkPolicy enforcement.
 -->
 
 <!-- overview -->
@@ -21,7 +30,7 @@ NetworkPolicy 是一种以应用为中心的结构，允许你设置如何允许
 {{< glossary_tooltip text="Pod" term_id="pod">}} 与网络上的各类网络“实体”
 （我们这里使用实体以避免过度使用诸如“端点”和“服务”这类常用术语，
 这些术语在 Kubernetes 中有特定含义）通信。
-NetworkPolicies 适用于一端或两端与 Pod 的连接，与其他连接无关。
+NetworkPolicy 适用于一端或两端与 Pod 的连接，与其他连接无关。
 
 <!--
 The entities that a Pod can communicate with are identified through a combination of the following 3 identifiers:
@@ -30,7 +39,7 @@ The entities that a Pod can communicate with are identified through a combinatio
 2. Namespaces that are allowed
 3. IP blocks (exception: traffic to and from the node where a Pod is running is always allowed, regardless of the IP address of the Pod or the node)
 -->
-Pod 可以通信的 Pod 是通过如下三个标识符的组合来辩识的：
+Pod 可以与之进行通信的实体是通过如下三个标识符的组合来辩识的：
 
 1. 其他被允许的 Pods（例外：Pod 无法阻塞对自身的访问）
 2. 被允许的名字空间
@@ -98,8 +107,8 @@ Network policies do not conflict; they are additive. If any policy or policies a
 For a connection from a source pod to a destination pod to be allowed, both the egress policy on the source pod and the ingress policy on the destination pod need to allow the connection. If either side does not allow the connection, it will not happen.
 -->
 
-网络策略是相加的，所以不会产生冲突。如果策略适用于 Pod 某一特定方向的流量，
-Pod 在对应方向所允许的连接是适用的网络策略所允许的集合。
+网络策略是相加的，所以不会产生冲突。如果一个或多个策略适用于 Pod 某一特定方向的流量，
+Pod 在对应方向所允许的连接是这些适用的网络策略所允许的集合。
 因此，评估的顺序不影响策略的结果。
 
 要允许从源 Pod 到目的 Pod 的连接，源 Pod 的出口策略和目的 Pod 的入口策略都需要允许连接。
@@ -287,10 +296,10 @@ cluster-external IPs may or may not be subject to `ipBlock`-based policies.
 如有疑问，请使用 `kubectl describe` 查看 Kubernetes 如何解释该策略。
 
 **ipBlock**：此选择器将选择特定的 IP CIDR 范围以用作入站流量来源或出站流量目的地。
-这些应该是集群外部 IP，因为 Pod IP 存在时间短暂的且随机产生。
+这些应该是集群外部 IP，因为 Pod IP 的存在时间是短暂且不可预测的。
 
 集群的入站和出站机制通常需要重写数据包的源 IP 或目标 IP。
-在发生这种情况时，不确定在 NetworkPolicy 处理之前还是之后发生，
+这种情况可能在 NetworkPolicy 处理之前或者之后发生，
 并且对于网络插件、云提供商、`Service` 实现等的不同组合，其行为可能会有所不同。
 
 对入站流量而言，这意味着在某些情况下，你可以根据实际的原始源 IP 过滤传入的数据包，
