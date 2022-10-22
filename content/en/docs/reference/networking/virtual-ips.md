@@ -70,10 +70,10 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 This (legacy) mode uses iptables to install interception rules, and then performs
 traffic forwarding with the assistance of the kube-proxy tool.
 The kube-procy watches the Kubernetes control plane for the addition, modification
-and removal of Service and Endpoints objects. For each Service, the kube-proxy
+and removal of Service and EndpointSlice objects. For each Service, the kube-proxy
 opens a port (randomly chosen) on the local node. Any connections to this _proxy port_
 are proxied to one of the Service's backend Pods (as reported via
-Endpoints). The kube-proxy takes the `sessionAffinity` setting of the Service into
+EndpointSlices). The kube-proxy takes the `sessionAffinity` setting of the Service into
 account when deciding which backend Pod to use.
 
 The user-space proxy installs iptables rules which capture traffic to the
@@ -121,7 +121,7 @@ a load balancer or node-port.
 ### `iptables` proxy mode {#proxy-mode-iptables}
 
 In this mode, kube-proxy watches the Kubernetes control plane for the addition and
-removal of Service and Endpoints objects. For each Service, it installs
+removal of Service and EndpointSlice objects. For each Service, it installs
 iptables rules, which capture traffic to the Service's `clusterIP` and `port`,
 and redirect that traffic to one of the Service's
 backend sets. For each endpoint, it installs iptables rules which
@@ -171,9 +171,9 @@ through a load-balancer, though in those cases the client IP address does get al
 
 ### IPVS proxy mode {#proxy-mode-ipvs}
 
-In `ipvs` mode, kube-proxy watches Kubernetes Services and Endpoints,
+In `ipvs` mode, kube-proxy watches Kubernetes Services and EndpointSlices,
 calls `netlink` interface to create IPVS rules accordingly and synchronizes
-IPVS rules with Kubernetes Services and Endpoints periodically.
+IPVS rules with Kubernetes Services and EndpointSlices periodically.
 This control loop ensures that IPVS status matches the desired
 state.
 When accessing a Service, IPVS directs traffic to one of the backend Pods.
