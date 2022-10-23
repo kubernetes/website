@@ -95,8 +95,8 @@ the current state closer in line.
 (There actually is a [controller](https://github.com/kubernetes/autoscaler/)
 that horizontally scales the nodes in your cluster.)
 
-The important point here is that the controller makes some change to bring about
-your desired state, and then reports current state back to your cluster's API server.
+The important point here is that the controller makes some changes to bring about
+your desired state, and then reports the current state back to your cluster's API server.
 Other control loops can observe that reported data and take their own actions.
 
 In the thermostat example, if the room is very cold then a different controller
