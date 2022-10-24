@@ -1,6 +1,6 @@
 ---
 title: "Cluster Resources"
-weight: 8
+weight: 30
 auto_generated: true
 ---
 

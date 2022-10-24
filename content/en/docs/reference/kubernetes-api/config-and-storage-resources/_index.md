@@ -1,6 +1,6 @@
 ---
 title: "Config and Storage Resources"
-weight: 3
+weight: 60
 auto_generated: true
 ---
 

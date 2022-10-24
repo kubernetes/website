@@ -1,6 +1,6 @@
 ---
 title: "Policy Resources"
-weight: 6
+weight: 80
 auto_generated: true
 ---
 

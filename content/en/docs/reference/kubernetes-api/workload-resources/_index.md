@@ -1,6 +1,6 @@
 ---
 title: "Workload Resources"
-weight: 1
+weight: 100
 auto_generated: true
 ---
 

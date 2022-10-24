@@ -1,6 +1,6 @@
 ---
 title: "Service Resources"
-weight: 2
+weight: 90
 auto_generated: true
 ---
 

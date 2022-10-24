@@ -1,6 +1,6 @@
 ---
 title: "Authentication Resources"
-weight: 4
+weight: 10
 auto_generated: true
 ---
 

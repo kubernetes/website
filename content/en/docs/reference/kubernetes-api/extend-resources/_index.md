@@ -1,6 +1,6 @@
 ---
 title: "Extend Resources"
-weight: 7
+weight: 70
 auto_generated: true
 ---
 
