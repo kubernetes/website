@@ -15,10 +15,9 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}}
 
-You should have a initial understanding of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+You should have an initial understanding of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 {{< version-check >}}
 
@@ -42,10 +41,9 @@ Later it might be necessary to add new version such as `v1`.
 
 Adding a new version:
 
-1. Pick a conversion strategy. Since custom resource objects need to be able to
-   be served at both versions, that means they will sometimes be served at a
-   different version than their storage version. In order for this to be
-   possible, the custom resource objects must sometimes be converted between the
+1. Pick a conversion strategy. Since custom resource objects need the ability to
+   be served at both versions, that means they will sometimes be served in a
+   different version than the one stored. To make this possible, the custom resource objects must sometimes be converted between the
    version they are stored at and the version they are served at. If the
    conversion involves schema changes and requires custom logic, a conversion
    webhook should be used. If there are no schema changes, the default `None`
