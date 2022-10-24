@@ -6,6 +6,7 @@ reviewers:
 - awly
 title: TLS bootstrapping
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->

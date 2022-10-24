@@ -6,7 +6,7 @@ reviewers:
 - enj
 title: Certificate Signing Requests
 content_type: concept
-weight: 20
+weight: 25
 ---
 
 <!-- overview -->
