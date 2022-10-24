@@ -2,6 +2,7 @@
 title: API Priority and Fairness
 content_type: concept
 min-kubernetes-server-version: v1.18
+weight: 110
 ---
 
 <!-- overview -->
