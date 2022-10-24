@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Node is a worker node in Kubernetes."
 title: "Node"
-weight: 1
+weight: 10
 auto_generated: true
 ---
 

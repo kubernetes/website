@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "FlowSchema defines the schema of a group of flows."
 title: "FlowSchema v1beta2"
-weight: 7
+weight: 70
 auto_generated: true
 ---
 

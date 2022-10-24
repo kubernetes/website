@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Event is a report of an event somewhere in the cluster."
 title: "Event"
-weight: 3
+weight: 30
 auto_generated: true
 ---
 

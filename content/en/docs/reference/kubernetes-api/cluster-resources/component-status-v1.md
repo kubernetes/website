@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ComponentStatus (and ComponentStatusList) holds the cluster validation info."
 title: "ComponentStatus"
-weight: 10
+weight: 100
 auto_generated: true
 ---
 

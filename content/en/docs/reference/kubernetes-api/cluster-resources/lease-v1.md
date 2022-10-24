@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Lease defines a lease concept."
 title: "Lease"
-weight: 5
+weight: 50
 auto_generated: true
 ---
 

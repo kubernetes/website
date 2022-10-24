@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityLevelConfiguration represents the configuration of a priority level."
 title: "PriorityLevelConfiguration v1beta2"
-weight: 8
+weight: 80
 auto_generated: true
 ---
 

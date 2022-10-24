@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the MultiCIDRRangeAllocator is enabled (see the config for kube-controller-manager)."
 title: "ClusterCIDR v1alpha1"
-weight: 11
+weight: 110
 auto_generated: true
 ---
 

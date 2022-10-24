@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Namespace provides a scope for Names."
 title: "Namespace"
-weight: 2
+weight: 20
 auto_generated: true
 ---
 

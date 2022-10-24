@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Binding ties one object to another; for example, a pod is bound to a node by a scheduler."
 title: "Binding"
-weight: 9
+weight: 90
 auto_generated: true
 ---
 
