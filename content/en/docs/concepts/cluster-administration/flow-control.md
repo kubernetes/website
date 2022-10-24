@@ -522,6 +522,8 @@ poorly-behaved workloads that may be harming system health.
     queue excess requests, or
   * `time-out`, indicating that the request was still in the queue
     when its queuing time limit expired.
+  * `cancelled`, indicating that the request it is not purge locked
+    and has been ejected from the queue.
 
 * `apiserver_flowcontrol_dispatched_requests_total` is a counter
   vector (cumulative since server start) of requests that began
