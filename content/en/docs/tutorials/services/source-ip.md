@@ -2,6 +2,7 @@
 title: Using Source IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 10
 ---
 
 <!-- overview -->
