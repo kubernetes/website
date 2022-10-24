@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "TokenReview attempts to authenticate a token to a known user."
 title: "TokenReview"
-weight: 3
+weight: 30
 auto_generated: true
 ---
 

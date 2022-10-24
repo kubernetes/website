@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued."
 title: "CertificateSigningRequest"
-weight: 4
+weight: 40
 auto_generated: true
 ---
 

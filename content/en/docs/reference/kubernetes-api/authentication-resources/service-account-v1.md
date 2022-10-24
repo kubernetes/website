@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets."
 title: "ServiceAccount"
-weight: 1
+weight: 10
 auto_generated: true
 ---
 
