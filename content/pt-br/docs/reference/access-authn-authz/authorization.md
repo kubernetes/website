@@ -6,7 +6,7 @@ weight: 60
 
 <!-- overview -->
 Aprenda mais sobre autorização no Kubernetes, incluindo detalhes sobre
-criação de politicas utilizando módulos de autorização suportados.
+criação de políticas utilizando módulos de autorização suportados.
 
 <!-- body -->
 
@@ -209,7 +209,7 @@ As seguintes flags podem ser utilizadas:
   * `--authorization-mode=Webhook` WebHook é um modo de retorno de chamada HTTP que permite gerenciar a autorização usando endpoint REST.
   * `--authorization-mode=Node` A autorização de nó é um modo de autorização de propósito especial que autoriza especificamente requisições de API feitas por kubelets.
   * `--authorization-mode=AlwaysDeny` Esta flag bloqueia todas as requisições. Utilize esta flag somente para testes.
-  * `--authorization-mode=AlwaysAllow` Esta flag permite todas as requisições. Utilize esta flag somente se nao existam requisitos de autorização para as requisições de API.
+  * `--authorization-mode=AlwaysAllow` Esta flag permite todas as requisições. Utilize esta flag somente se não existam requisitos de autorização para as requisições de API.
 
 Você pode escolher mais de um modulo de autorização. Módulos são verificados
 em ordem, então, um modulo anterior tem maior prioridade para permitir ou negar uma requisição.
