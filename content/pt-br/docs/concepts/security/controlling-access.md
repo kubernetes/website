@@ -20,7 +20,7 @@ ilustrados no seguinte diagrama:
 
 Em um cluster Kubernetes típico, a API fica disponível na porta 443, protegida por segurança na camada de transporte (TLS).
 O servidor de API apresenta um certificado. Este certificado pode ser assinado utilizando
-uma autoridade privada de certificados (CA), ou baseado em uma infraestrutura de chave publica ligada
+uma autoridade privada de certificados (CA), ou baseado em uma infraestrutura de chave pública ligada
 a uma autoridade de certificados reconhecida publicamente.
 
 Se o seu cluster utiliza uma autoridade privada de certificados, voce precisa de uma cópia do certificado
@@ -36,11 +36,11 @@ Isto é demonstrado no passo **1** no diagrama acima.
 O script de criação do cluster ou configurações de administração configuram o servidor de API para executar
 um ou mais módulos autenticadores.
 
-Autenticadores sao descritos em maiores detalhes em
+Autenticadores são descritos em maiores detalhes em
 [Autenticação](/pt-br/docs/reference/access-authn-authz/authentication/).
 
 A entrada para o passo de autenticação é a requisição HTTP completa; no entanto, tipicamente
-sao verificados os cabeçalhos e/ou o certificado de cliente.
+são verificados os cabeçalhos e/ou o certificado de cliente.
 
 Módulos de autenticação incluem certificados de cliente, senhas, tokens simples,
 tokens de auto-inicialização e JSON Web Tokens (utilizados para contas de serviço).
