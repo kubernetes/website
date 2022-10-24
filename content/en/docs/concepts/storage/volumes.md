@@ -60,7 +60,7 @@ Volumes cannot mount within other volumes (but see [Using subPath](#using-subpat
 for a related mechanism). Also, a volume cannot contain a hard link to anything in
 a different volume.
 
-## Types of Volumes {#volume-types}
+## Types of volumes {#volume-types}
 
 Kubernetes supports several types of volumes.
 
