@@ -1,5 +1,6 @@
 ---
 title: Field Selectors
+content_type: concept
 weight: 70
 ---
 
