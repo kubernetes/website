@@ -112,19 +112,6 @@ kube-proxy 基于 `spec.internalTrafficPolicy` 的设置来过滤路由的目标
 `ServiceInternalTrafficPolicy` 后，
 `spec.internalTrafficPolicy` 的值默认设为 `Cluster`。
 
-<!-- 
-## Constraints
--->
-## 限制 {#constraints}
-
-<!-- 
-* Service Internal Traffic Policy is not used when `externalTrafficPolicy` is set
-  to `Local` on a Service. It is possible to use both features in the same cluster
-  on different Services, just not on the same Service.
--->
-* 在一个 Service 上，当 `externalTrafficPolicy` 已设置为 `Local`时，服务内部流量策略无法使用。
-  换句话说，在一个集群的不同 Service 上可以同时使用这两个特性，但在一个 Service 上不行。
-
 ## {{% heading "whatsnext" %}}
 
 <!-- 
