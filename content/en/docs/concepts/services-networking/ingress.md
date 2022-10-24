@@ -8,7 +8,7 @@ description: >-
   mechanism, that understands web concepts like URIs, hostnames, paths, and more.
   The Ingress concept lets you map traffic to different backends based on rules you define
   via the Kubernetes API.
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->
