@@ -8,7 +8,7 @@ reviewers:
 - yuxiangqian
 title: Volume Snapshots
 content_type: concept
-weight: 40
+weight: 60
 ---
 
 <!-- overview -->
