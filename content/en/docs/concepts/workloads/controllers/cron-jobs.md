@@ -91,7 +91,7 @@ For example, the line below states that the task must be started every Friday at
 
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 
-In rear cases, when it is necessary to create a job, that should be triggered _only_ manually, and never - automatically, use 31st of February:
+In rare cases, when it is necessary to create a job, that should be triggered _only_ manually, and never - automatically, use 31st of February:
 
 `0 0 31 2 0`
 
