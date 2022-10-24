@@ -109,4 +109,9 @@ Kubernetes 网络解决四方面的问题：
 - 你也可以使用 Service
   来[发布仅供集群内部使用的服务](/zh-cn/docs/concepts/services-networking/service-traffic-policy/)。
 
-
+<!--
+[Cluster Networking](/docs/concepts/cluster-administration/networking/) explains how to set
+up networking for your cluster, and also provides an overview of the technologies involved.
+-->
+[集群网络](/zh-cn/docs/concepts/cluster-administration/networking/)解释了如何为集群设置网络，
+还概述了所涉及的技术。
