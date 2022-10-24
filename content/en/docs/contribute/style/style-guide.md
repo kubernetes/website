@@ -2,7 +2,7 @@
 title: Documentation Style Guide
 linktitle: Style guide
 content_type: concept
-weight: 10
+weight: 40
 ---
 
 <!-- overview -->
