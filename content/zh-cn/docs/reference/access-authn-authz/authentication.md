@@ -187,7 +187,7 @@ This would create a CSR for the username "jbeda", belonging to two groups, "app1
 
 See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for how to generate a client cert.
 -->
-此命令将使用用户名 `jbeda` 生成一个证书签名请求（CSR），且该用户属于 "app" 和
+此命令将使用用户名 `jbeda` 生成一个证书签名请求（CSR），且该用户属于 "app1" 和
 "app2" 两个用户组。
 
 参阅[管理证书](/zh-cn/docs/tasks/administer-cluster/certificates/)了解如何生成客户端证书。
