@@ -297,11 +297,13 @@ spec:
   versions:
   - name: v1alpha1
     served: true
+    storage: false
     # This indicates the v1alpha1 version of the custom resource is deprecated.
     # API requests to this version receive a warning header in the server response.
     deprecated: true
     # This overrides the default warning returned to API clients making v1alpha1 API requests.
     deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
+    
     schema: ...
   - name: v1beta1
     served: true
@@ -334,6 +336,7 @@ spec:
   versions:
   - name: v1alpha1
     served: true
+    storage: false
     # This indicates the v1alpha1 version of the custom resource is deprecated.
     # API requests to this version receive a warning header in the server response.
     deprecated: true
