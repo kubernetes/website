@@ -1,6 +1,6 @@
 ---
 title: "Migrating from dockershim"
-weight: 10
+weight: 230
 content_type: task
 no_list: true
 ---

@@ -3,7 +3,7 @@ reviewers:
 - davidopp
 title: "Troubleshooting Clusters"
 description: Debugging common cluster issues.
-weight: 20
+weight: 220
 no_list: true
 ---
 
