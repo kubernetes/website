@@ -38,12 +38,13 @@ The following methods exist for installing kubectl on Windows:
 ## 在 Windows 上安装 kubectl {#install-kubectl-on-windows}
 
 在 Windows 系统中安装 kubectl 有如下几种方法：
+
 <!-- 
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
-- [Install on Windows using Chocolatey or Scoop](#install-on-windows-using-chocolatey-or-scoop)
+- [Install on Windows using Chocolatey, Scoop, or Winget](#install-nonstandard-package-tools)
  -->
 - [用 curl 在 Windows 上安装 kubectl](#install-kubectl-binary-with-curl-on-windows)
-- [在 Windows 上用 Chocolatey 或 Scoop 安装](#install-on-windows-using-chocolatey-or-scoop)
+- [在 Windows 上用 Chocolatey、Scoop 或 Winget 安装](#install-nonstandard-package-tools)
 
 <!--
 ### Install kubectl binary with curl on Windows
@@ -140,15 +141,15 @@ If you have installed Docker Desktop before, you may need to place your `PATH` e
 {{< /note >}}
 
 <!--
-### Install on Windows using Chocolatey or Scoop
+### Install on Windows using Chocolatey, Scoop, or Winget {#install-nonstandard-package-tools}
 -->
-### 在 Windows 上用 Chocolatey 或 Scoop 安装 {#install-on-windows-using-chocolatey-or-scoop}
+### 在 Windows 上用 Chocolatey、Scoop 或 Winget 安装 {#install-nonstandard-package-tools}
 
 <!--
-1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [Scoop](https://scoop.sh) command-line installer.
+1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager, [Scoop](https://scoop.sh) command-line installer, or [Winget](https://winget.run/) package manager.
 -->
-1. 要在 Windows 上安装 kubectl，你可以使用包管理器 [Chocolatey](https://chocolatey.org)
-   或是命令行安装器 [Scoop](https://scoop.sh)。
+1. 要在 Windows 上安装 kubectl，你可以使用包管理器 [Chocolatey](https://chocolatey.org)、
+   命令行安装器 [Scoop](https://scoop.sh) 或包管理器 [Winget](https://winget.run/)。
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
@@ -159,6 +160,11 @@ If you have installed Docker Desktop before, you may need to place your `PATH` e
    {{% tab name="scoop" %}}
    ```powershell
    scoop install kubectl
+   ```
+   {{% /tab %}}
+   {{% tab name="winget" %}}
+   ```powershell
+   winget install -e --id Kubernetes.kubectl
    ```
    {{% /tab %}}
    {{< /tabs >}}
@@ -265,7 +271,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 2. 验证该可执行文件（可选步骤）
 
    <!--
-    Download the `kubectl-convert` checksum file:
+   Download the `kubectl-convert` checksum file:
    -->
    下载 `kubectl-convert` 校验和文件：
 
