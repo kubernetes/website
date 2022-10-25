@@ -1,6 +1,7 @@
 ---
 title: Installing Addons
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->
