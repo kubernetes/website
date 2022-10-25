@@ -11,7 +11,7 @@ Usuários podem acessar a [API do Kubernetes](/docs/concepts/overview/kubernetes
 bibliotecas, ou executando requisições REST.  Ambos, usuários humanos e
 [Contas de serviço do Kubernetes](/docs/tasks/configure-pod-container/configure-service-account/) podem ser autorizados
 a acessar à API.
-Quando uma requisição chega a API, ela passa por diversos estágios,
+Quando uma requisição chega à API, ela passa por diversos estágios,
 ilustrados no seguinte diagrama:
 
 ![Diagrama de etapas de tratamento de requisições enviadas a API do Kubernetes](/images/docs/admin/access-control-overview.svg)
