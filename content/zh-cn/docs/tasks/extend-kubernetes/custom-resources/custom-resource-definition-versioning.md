@@ -31,7 +31,7 @@ API 升级时需要在不同 API 表示形式之间进行转换。
 {{< include "task-tutorial-prereqs.md" >}}
 
 <!--
-You should have a initial understanding of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+You should have an initial understanding of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 -->
 你应该对[定制资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)有一些初步了解。
 
@@ -71,10 +71,10 @@ CustomResourceDefinition API 提供了引入和升级 CustomResourceDefinition �
 <!--
 Adding a new version:
 
-1. Pick a conversion strategy. Since custom resource objects need to be able to
-   be served at both versions, that means they will sometimes be served at a
-   different version than their storage version. In order for this to be
-   possible, the custom resource objects must sometimes be converted between the
+1. Pick a conversion strategy. Since custom resource objects need the ability to
+   be served at both versions, that means they will sometimes be served in a
+   different version than the one stored. To make this possible, the custom
+   resource objects must sometimes be converted between the
    version they are stored at and the version they are served at. If the
    conversion involves schema changes and requires custom logic, a conversion
    webhook should be used. If there are no schema changes, the default `None`
@@ -95,7 +95,7 @@ Adding a new version:
    并且需要自定义逻辑，则应该使用 Webhook 来完成。如果没有模式变更，
    则可使用默认的 `None` 转换策略，为不同版本提供服务时只有 `apiVersion` 字段会被改变。
 2. 如果使用转换 Webhook，请创建并部署转换 Webhook。更多详细信息请参见
-   [Webhook conversion](#webhook-conversion)。
+   [Webhook 转换](#webhook-conversion)。
 3. 更新 CustomResourceDefinition，将新版本设置为 `served：true`，加入到
    `spec.versions` 列表。另外，还要设置 `spec.conversion` 字段为所选的转换策略。
    如果使用转换 Webhook，请配置 `spec.conversion.webhookClientConfig` 来调用 Webhook。
@@ -172,12 +172,12 @@ CustomResourceDefinition API 的 `versions` 字段可用于支持你所开发的
 [API 变更文档](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
 以获取一些有用的问题和建议。
 
+{{< note >}}
 <!--
 In `apiextensions.k8s.io/v1beta1`, there was a `version` field instead of `versions`. The
 `version` field is deprecated and optional, but if it is not empty, it must
 match the first item in the `versions` field.
 -->
-{{< note >}}
 在 `apiextensions.k8s.io/v1beta1` 版本中曾经有一个 `version` 字段，
 名字不叫做 `versions`。该 `version` 字段已经被废弃，成为可选项。
 不过如果该字段不是空，则必须与 `versions` 字段中的第一个条目匹配。
@@ -412,7 +412,7 @@ When API requests to a deprecated version of that resource are made, a warning m
 The warning message for each deprecated version of the resource can be customized if desired.
 -->
 从 v1.19 开始，CustomResourceDefinition 可以指示其定义的资源的特定版本已废弃。
-当 CustomResourceDefinition 该资源的已废弃版本发出 API 请求时，会在 API 响应中以报头的形式返回警告消息。
+当该资源的已废弃版本发出 API 请求时，会在 API 响应中以报头的形式返回警告消息。
 如果需要，可以自定义每个不推荐使用的资源版本的警告消息。
 
 <!--
@@ -439,6 +439,7 @@ spec:
   versions:
   - name: v1alpha1
     served: true
+    storage: false
     # 此属性标明此定制资源的 v1alpha1 版本已被弃用。
     # 发给此版本的 API 请求会在服务器响应中收到警告消息头。
     deprecated: true
@@ -476,6 +477,7 @@ spec:
   versions:
   - name: v1alpha1
     served: true
+    storage: false
     # 此属性标明此定制资源的 v1alpha1 版本已被弃用。
     # 发给此版本的 API 请求会在服务器响应中收到警告消息头。
     deprecated: true
@@ -538,11 +540,11 @@ Webhook conversion is available as beta since 1.15, and as alpha since Kubernete
 
 {{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
+{{< note >}}
 <!--
 Webhook conversion is available as beta since 1.15, and as alpha since Kubernetes 1.13. The
 `CustomResourceWebhookConversion` feature must be enabled, which is the case automatically for many clusters for beta features. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 -->
-{{< note >}}
 Webhook 转换在 Kubernetes 1.13 版本作为 Alpha 功能引入，在 Kubernetes 1.15 版本中成为 Beta 功能。
 要使用此功能，应启用 `CustomResourceWebhookConversion` 特性。
 在大多数集群上，这类 Beta 特性应该是自动启用的。
@@ -602,6 +604,7 @@ Webhook 处理由 API 服务器发送的 `ConversionReview` 请求，并在
 [framework 文件](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/converter/framework.go)中，
 只留下[一个函数](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80)用于实现不同的转换。
 
+{{< note >}}
 <!--
 The example conversion webhook server leaves the `ClientAuth` field
 [empty](https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/config.go#L47-L48),
@@ -610,7 +613,6 @@ authenticate the identity of the clients, supposedly API servers. If you need
 mutual TLS or other ways to authenticate the clients, see
 how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticate-apiservers).
 -->
-{{< note >}}
 转换 Webhook 服务器示例中将 `ClientAuth`
 字段设置为[空](https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/config.go#L47-L48)，
 默认为 `NoClientCert`。
@@ -642,12 +644,13 @@ The assumption for next sections is that the conversion webhook server is deploy
 -->
 ### 部署转换 Webhook 服务   {#deploy-the-conversion-webhook-service}
 
-用于部署转换 webhook
+用于部署转换 Webhook
 的文档与[准入 Webhook 服务示例](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service)相同。
 这里的假设是转换 Webhook 服务器被部署为 `default` 名字空间中名为
 `example-conversion-webhook-server` 的服务，并在路径 `/crdconvert`
 上处理请求。
 
+{{< note >}}
 <!--
 When the webhook server is deployed into the Kubernetes cluster as a
 service, it has to be exposed via a service on port 443 (The server
@@ -655,7 +658,6 @@ itself can have an arbitrary port but the service object should map it to port 4
 The communication between the API server and the webhook service may fail
 if a different port is used for the service.
 -->
-{{< note >}}
 当 Webhook 服务器作为一个服务被部署到 Kubernetes 集群中时，它必须通过端口 443
 公开其服务（服务器本身可以使用任意端口，但是服务对象应该将它映射到端口 443）。
 如果为服务器使用不同的端口，则 API 服务器和 Webhook 服务器之间的通信可能会失败。
@@ -853,7 +855,7 @@ risky unless you take great care to run this webhook on all hosts
 which run an apiserver which might need to make calls to this
 webhook. Such installations are likely to be non-portable or not readily run in a new cluster.
 -->
-url 以标准 URL 形式给出 Webhook 的位置（`scheme://host:port/path`）。
+`url` 以标准 URL 形式给出 Webhook 的位置（`scheme://host:port/path`）。
 `host` 不应引用集群中运行的服务，而应通过指定 `service` 字段来提供服务引用。
 在某些 API 服务器中，`host` 可以通过外部 DNS 进行解析（即
 `kube-apiserver` 无法解析集群内 DNS，那样会违反分层规则）。
@@ -1176,7 +1178,7 @@ Example of a minimal successful response from a webhook:
 
 Webhook 响应包含 200 HTTP 状态代码、`Content-Type: application/json`，
 在主体中包含 JSON 序列化形式的数据，在 `response` 节中给出
- ConversionReview 对象（与发送的版本相同）。
+`ConversionReview` 对象（与发送的版本相同）。
 
 如果转换成功，则 Webhook 应该返回包含以下字段的 `response` 节：
 
@@ -1427,7 +1429,7 @@ API 服务器在状态字段 `storedVersions` 中记录曾被标记为存储版�
 <!--
 ## Upgrade existing objects to a new stored version
 -->
-## 将现有对象升级到新的存储版本     {#upgrade-existing-objects-to-a-new-stored-version} 
+## 将现有对象升级到新的存储版本     {#upgrade-existing-objects-to-a-new-stored-version}
 
 <!--
 When deprecating versions and dropping support, select a storage upgrade
