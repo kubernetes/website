@@ -194,9 +194,9 @@ kubectl describe node <insert-node-name-here>
 {{< /table >}}
 
 {{< note >}}
-커맨드 라인 도구를 사용해서 코드화된 노드의 세부 정보를 출력하는 경우 조건에는
+커맨드 라인 도구를 사용해서 통제된(cordoned) 노드의 세부 정보를 출력하는 경우 조건에는
 `SchedulingDisabled` 이 포함된다. `SchedulingDisabled` 은 쿠버네티스 API의 조건이 아니며,
-대신 코드화된 노드는 사양에 스케줄 불가로 표시된다.
+대신 통제된(cordoned) 노드는 사양에 스케줄 불가로 표시된다.
 {{< /note >}}
 
 쿠버네티스 API에서, 노드의 컨디션은 노드 리소스의 `.status` 부분에
