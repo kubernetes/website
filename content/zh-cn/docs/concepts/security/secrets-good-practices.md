@@ -15,10 +15,6 @@ weight: 70
 
 <!-- overview -->
 
-<!--
-{{<glossary_definition prepend="In Kubernetes, a Secret is an object that"
-term_id="secret" length="all">}}
--->
 {{<glossary_definition prepend="在 Kubernetes 中，Secret 是这样一个对象："
 term_id="secret" length="all">}}
 
