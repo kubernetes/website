@@ -887,7 +887,8 @@ or more scattered.
 
 `podAffinity`
 : attracts Pods; you can try to pack any number of Pods into qualifying
-  topology domain(s)
+  topology domain(s).
+
 `podAntiAffinity`
 : repels Pods. If you set this to `requiredDuringSchedulingIgnoredDuringExecution` mode then
   only a single Pod can be scheduled into a single topology domain; if you choose
@@ -896,13 +897,17 @@ or more scattered.
 -->
 ## 比较 podAffinity 和 podAntiAffinity {#comparison-with-podaffinity-podantiaffinity}
 
-在 Kubernetes 中，Pod 间亲和性和反亲和性控制 Pod 彼此的调度方式（更密集或更分散）。
+在 Kubernetes 中，
+[Pod 间亲和性和反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)控制
+Pod 彼此的调度方式（更密集或更分散）。
 
-对于 `podAffinity`：吸引 Pod；你可以尝试将任意数量的 Pod 集中到符合条件的拓扑域中。
+`podAffinity`
+: 吸引 Pod；你可以尝试将任意数量的 Pod 集中到符合条件的拓扑域中。
 
-对于 `podAntiAffinity`：驱逐 Pod。如果将此设为 `requiredDuringSchedulingIgnoredDuringExecution` 模式，
-则只有单个 Pod 可以调度到单个拓扑域；如果你选择 `preferredDuringSchedulingIgnoredDuringExecution`，
-则你将丢失强制执行此约束的能力。
+`podAntiAffinity`
+: 驱逐 Pod。如果将此设为 `requiredDuringSchedulingIgnoredDuringExecution` 模式，
+  则只有单个 Pod 可以调度到单个拓扑域；如果你选择 `preferredDuringSchedulingIgnoredDuringExecution`，
+  则你将丢失强制执行此约束的能力。
 
 <!--
 For finer control, you can specify topology spread constraints to distribute
