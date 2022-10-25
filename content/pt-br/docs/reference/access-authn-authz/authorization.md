@@ -48,7 +48,7 @@ O Kubernetes revisa somente os seguintes atributos de uma requisição de API:
  * **Recurso** - O identificador ou nome do recurso que está sendo acessado (somente para requisições de recursos) - para requisições de recursos usando os verbos `get`, `update`, `patch` e `delete`, deve-se fornecer o nome do recurso.
  * **Subrecurso** - O sub-recurso que está sendo acessado (somente para solicitações de recursos).
  * **Namespace** - O namespace do objeto que está sendo acessado (somente para solicitações de recursos com namespace).
- * **Grupo de API** - O {{< glossary_tooltip text="API Group" term_id="api-group" >}} sendo acessado (somente para requisições de recursos). Uma string vazia designa o _core_ [Grupo de API](/docs/reference/using-api/#api-groups).
+ * **Grupo de API** - O {{< glossary_tooltip text="API Group" term_id="api-group" >}} sendo acessado (somente para requisições de recursos). Uma string vazia designa o [Grupo de API](/docs/reference/using-api/#api-groups) _core_.
 
 ## Determine o verbo da requisição {#determine-the-request-verb}
 
