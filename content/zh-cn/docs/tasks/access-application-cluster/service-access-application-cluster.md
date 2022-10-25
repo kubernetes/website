@@ -22,7 +22,7 @@ provides load balancing for an application that has two running instances.
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 ## {{% heading "objectives" %}}
 
@@ -42,7 +42,7 @@ provides load balancing for an application that has two running instances.
 
 Here is the configuration file for the application Deployment:
 -->
-## 为运行在两个 pod 中的应用创建一个服务
+## 为运行在两个 Pod 中的应用创建一个服务   {#creating-a-service-for-an-app-running-in-two-pods}
 
 这是应用程序部署的配置文件：
 
@@ -55,14 +55,13 @@ Here is the configuration file for the application Deployment:
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
    The preceding command creates a
-   [Deployment](/docs/concepts/workloads/controllers/deployment/)
-   object and an associated
-   [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
-   object. The ReplicaSet has two
-   [Pods](/docs/concepts/workloads/pods/pod/),
+   {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
+   and an associated
+   {{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}}.
+   The ReplicaSet has two
+   {{< glossary_tooltip text="Pods" term_id="pod" >}}
    each of which runs the Hello World application.
 -->
-
 1. 在你的集群中运行一个 Hello World 应用：
    使用上面的文件创建应用程序 Deployment：
 
@@ -70,9 +69,10 @@ Here is the configuration file for the application Deployment:
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
 
-   上面的命令创建一个 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 对象
-   和一个关联的 [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/) 对象。
-   这个 ReplicaSet 有两个 [Pod](/zh-cn/docs/concepts/workloads/pods/)，
+   上面的命令创建一个
+   {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 对象
+   和一个关联的 {{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}} 对象。
+   这个 ReplicaSet 有两个 {{< glossary_tooltip text="Pod" term_id="pod" >}}，
    每个 Pod 都运行着 Hello World 应用。
   
 <!--
@@ -143,7 +143,7 @@ Here is the configuration file for the application Deployment:
 <!--
 1. List the pods that are running the Hello World application:
 -->
-7. 列出运行 Hello World 应用的 Pod：
+6. 列出运行 Hello World 应用的 Pod：
 
    ```shell
    kubectl get pods --selector="run=load-balancer-example" --output=wide
@@ -175,15 +175,16 @@ Here is the configuration file for the application Deployment:
 
 1. Use the node address and node port to access the Hello World application:
 -->
-8. 获取运行 Hello World 的 pod 的其中一个节点的公共 IP 地址。如何获得此地址取决于你设置集群的方式。
+7. 获取运行 Hello World 的 pod 的其中一个节点的公共 IP 地址。如何获得此地址取决于你设置集群的方式。
    例如，如果你使用的是 Minikube，则可以通过运行 `kubectl cluster-info` 来查看节点地址。
-   如果你使用的是 Google Compute Engine 实例，则可以使用 `gcloud compute instances list` 命令查看节点的公共地址。
+   如果你使用的是 Google Compute Engine 实例，
+   则可以使用 `gcloud compute instances list` 命令查看节点的公共地址。
 
-9. 在你选择的节点上，创建一个防火墙规则以开放节点端口上的 TCP 流量。
+8. 在你选择的节点上，创建一个防火墙规则以开放节点端口上的 TCP 流量。
    例如，如果你的服务的 NodePort 值为 31568，请创建一个防火墙规则以允许 31568 端口上的 TCP 流量。
    不同的云提供商提供了不同方法来配置防火墙规则。
 
-10. 使用节点地址和 node port 来访问 Hello World 应用：
+9. 使用节点地址和 node port 来访问 Hello World 应用：
 
    ```shell
    curl http://<public-node-ip>:<node-port>
@@ -208,10 +209,10 @@ As an alternative to using `kubectl expose`, you can use a
 [service configuration file](/docs/concepts/services-networking/service/)
 to create a Service.
 -->
-## 使用服务配置文件
+## 使用服务配置文件   {#using-a-service-configuration-file}
 
-作为 `kubectl expose` 的替代方法，你可以使用
-[服务配置文件](/zh-cn/docs/concepts/services-networking/service/) 来创建服务。
+作为 `kubectl expose` 的替代方法，
+你可以使用[服务配置文件](/zh-cn/docs/concepts/services-networking/service/)来创建服务。
 
 ## {{% heading "cleanup" %}}
 
@@ -240,5 +241,5 @@ kubectl delete deployment hello-world
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 -->
-- 进一步了解[通过服务连接应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)。
+进一步了解[通过服务连接应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)。
 
