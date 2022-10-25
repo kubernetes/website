@@ -406,7 +406,7 @@ The webhook should perform these conversions independently.
 ### Write a conversion webhook server
 
 Please refer to the implementation of the [custom resource conversion webhook
-server](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/main.go)
+server](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
 `ConversionReview` requests sent by the API servers, and sends back conversion
 results wrapped in `ConversionResponse`. Note that the request
@@ -414,14 +414,14 @@ contains a list of custom resources that need to be converted independently with
 changing the order of objects.
 The example server is organized in a way to be reused for other conversions.
 Most of the common code are located in the
-[framework file](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/converter/framework.go)
+[framework file](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/framework.go)
 that leaves only
-[one function](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80)
+[one function](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/example_converter.go#L29-L80)
 to be implemented for different conversions.
 
 {{< note >}}
 The example conversion webhook server leaves the `ClientAuth` field
-[empty](https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/config.go#L47-L48),
+[empty](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/config.go#L47-L48),
 which defaults to `NoClientCert`. This means that the webhook server does not
 authenticate the identity of the clients, supposedly API servers. If you need
 mutual TLS or other ways to authenticate the clients, see
