@@ -65,7 +65,7 @@ coleção de recursos:
 Verbo HTTP | Verbo de Requisição
 ---------- |---------------
 POST       | create
-GET, HEAD  | get (para recursos individuais), list (para coleções, includindo o conteúdo do objeto inteiro), watch (para assistir um recurso individual ou coleção de recursos)
+GET, HEAD  | get (para recursos individuais), list (para coleções, includindo o conteúdo do objeto inteiro), watch (para observar um recurso individual ou coleção de recursos)
 PUT        | update
 PATCH      | patch
 DELETE     | delete (para recursos individuais), deletecollection (para coleções)
