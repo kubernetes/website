@@ -154,6 +154,18 @@ body.td-404 main .error-details {
   }
 }
 
+//Arabic language
+body:lang(ar) {
+  .navbar-brand {
+    left: 16px;
+  }
+  .announcement-main {
+
+    direction: ltr;
+    text-align: left;
+
+  }
+}
 .td-navbar-nav-scroll {
   overflow: visible !important;
   display: none;

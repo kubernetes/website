@@ -206,6 +206,12 @@ aliases:
     - idvoretskyi
     - MaxymVlasov
     - Potapy4
+  sig-docs-ar-owners: # Admins for Arabic content
+    - mboukhalfa
+    - oxPraGa
+  sig-docs-ar-reviews: # PR reviews for Arabic content
+    - mboukhalfa
+    - oxPraGa
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - cblecker

@@ -1,0 +1,374 @@
+# i18n strings for the Arabic (main) site.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+# For "and", see [conjunction_1]
+
+[auto_generated_edit_notice]
+other = "(صفحة ذاتية الإنشاء)"
+
+[auto_generated_pageinfo]
+other = """<p>يتم إنشاء هذه الصفحة تلقائيًا.</p><p>إذا كنت تخطط للإبلاغ عن مشكلة بهذه الصفحة، أشر إلى أن هذه الصفحة تم إنشاؤها تلقائيًا عند وصف مشكلتك. قد يلزم إجراء الإصلاح في مكان آخر في مشروع كوبرناتيز.</p>"""
+
+[caution]
+other = "تحذير:"
+
+[cleanup_heading]
+other = "تنظيف"
+
+[community_events_calendar]
+other = "تقويم الأحداث"
+
+[community_forum_name]
+other = "المنتدى"
+
+[community_github_name]
+other = "جيت هاب"
+
+[community_slack_name]
+other = "صلاك"
+
+[community_stack_overflow_name]
+other = "ستاك أوفرفلو"
+
+[community_twitter_name]
+other = "تويتر"
+
+[community_youtube_name]
+other = "يوتيوب"
+
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "و"
+
+[cve_id]
+other = "رمز سفإ"
+
+[cve_issue_url]
+other = "عنوان سفإ جيت هاب"
+
+[cve_json_external_url]
+other = "عنوان خارجي"
+
+[cve_json_id]
+other = "رمز"
+
+[cve_json_summary]
+other = "ملخص"
+
+[cve_json_url]
+other = "عنوان"
+
+[cve_summary]
+other = "ملخص القضية"
+
+[cve_table]
+other = "Official Kubernetes CVE List"
+
+[cve_url]
+other = "CVE URL"
+
+[deprecation_title]
+other = "You are viewing documentation for Kubernetes version:"
+
+[deprecation_warning]
+other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
+
+[deprecation_file_warning]
+other = "Deprecated"
+
+[dockershim_message]
+other = """Dockershim has been removed from the Kubernetes project as of release 1.24. Read the <a href="/dockershim">Dockershim Removal FAQ</a> for further details."""
+
+[docs_label_browse]
+other = "Browse Docs"
+
+[docs_label_contributors]
+other = "Contributors"
+
+[docs_label_i_am]
+other = "I AM..."
+
+[docs_label_users]
+other = "Users"
+
+[docs_version_current]
+other = "(this documentation)"
+
+[docs_version_latest_heading]
+other = "Latest version"
+
+[docs_version_other_heading]
+other = "Older versions"
+
+[end_of_life]
+other = "End of Life:"
+
+[envvars_heading]
+other = "Environment variables"
+
+[error_404_were_you_looking_for]
+other = "Were you looking for:"
+
+[examples_heading]
+other = "Examples"
+
+[feature_state]
+other = "FEATURE STATE:"
+
+[feedback_heading]
+other = "التقييم"
+
+[feedback_no]
+other = "لا"
+
+[feedback_question]
+other = "هل كانت هذه الصفحة مفيدة؟"
+
+[feedback_yes]
+other = "نعم"
+
+[final_patch_release]
+other = "Final Patch Release"
+
+[inline_list_separator]
+other = ","
+
+[input_placeholder_email_address]
+other = "عنوان البريد الالكترونى"
+
+[javascript_required]
+other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
+
+[latest_release]
+other = "Latest Release:"
+
+[latest_version]
+other = "latest version."
+
+[layouts_blog_pager_prev]
+other = "<< Prev"
+
+[layouts_blog_pager_next]
+other = "Next >>"
+
+[layouts_case_studies_list_tell]
+other = "أخبرنا بقصتك"
+
+[layouts_docs_glossary_aka]
+other = "Also known as"
+
+[layouts_docs_glossary_description]
+other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
+
+[layouts_docs_glossary_deselect_all]
+other = "Deselect all"
+
+[layouts_docs_glossary_click_details_after]
+other = "indicators below to get a longer explanation for any particular term."
+
+[layouts_docs_glossary_click_details_before]
+other = "Click on the"
+
+[layouts_docs_glossary_filter]
+other = "Filter terms according to their tags"
+
+[layouts_docs_glossary_select_all]
+other = "Select all"
+
+[layouts_docs_partials_feedback_improvement]
+other = "suggest an improvement"
+
+[layouts_docs_partials_feedback_issue]
+other = "Open an issue in the GitHub repo if you want to "
+
+[layouts_docs_partials_feedback_or]
+other = "or"
+
+[layouts_docs_partials_feedback_problem]
+other = "report a problem"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
+
+[layouts_docs_search_fetching]
+other = "Fetching results..."
+
+[main_by]
+other = "by"
+
+[main_cncf_project]
+other = """نحن <a href="https://cncf.io/">CNCF</a> مشروع متخرج</p>"""
+
+[main_community_explore]
+other = "Explore the community"
+
+[main_contribute]
+other = "Contribute"
+
+[main_copyright_notice]
+other = """مؤسسة لينكس &reg;. جميع الحقوق محفوظة. مؤسسة لينكس لديها علامات تجارية مسجلة وتستخدم العلامات التجارية.للحصول على قائمة العلامات التجارية لمؤسسة لينكس يرجى الاطلاع على <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">صفحة استخدام العلامات التجارية</a>"""
+
+[main_documentation_license]
+other = """مطورو كوبرناتيز | تم توزيع الوثائق تحت <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC ب 4.0</a>"""
+
+[main_github_invite]
+other = "Interested in hacking on the core Kubernetes code base?"
+
+[main_github_view_on]
+other = "View On GitHub"
+
+[main_kubernetes_features]
+other = "ميزات كوبرناتيز"
+
+[main_kubeweekly_baseline]
+other = "هل أنت مهتم بتلقي آخر أخبار كوبرناتيز؟ اشترك في الكيوب الاسبوعي."
+
+[main_kubernetes_past_link]
+other = "View past newsletters"
+
+[main_kubeweekly_signup]
+other = "الإشتراك"
+
+[main_page_history]
+other ="Page History"
+
+[main_page_last_modified_on]
+other = "Page last modified on"
+
+[main_read_about]
+other = "Read about"
+
+[main_read_more]
+other = "Read more"
+
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "n/a"
+
+[note]
+other = "Note:"
+
+[objectives_heading]
+other = "Objectives"
+
+[options_heading]
+other = "Options"
+
+[outdated_blog__message]
+other = "This article is more than one year old. Older articles may contain outdated content. Check that the information in the page has not become incorrect since its publication."
+
+[patch_release]
+other = "Patch Release"
+
+[post_create_issue]
+other = "الإبلاغ عن مشكلة"
+
+[prerequisites_heading]
+other = "قبل أن تبدأ"
+
+[previous_patches]
+other = "Patch Releases:"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(released: "
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "2006-01-02"
+
+[release_cherry_pick_deadline]
+other = "Cherry Pick Deadline"
+
+# Deprecated. Planned for removal in a future release.
+# Use [release_full_details_initial_text] instead.
+[release_complete]
+other = "Complete"
+
+[release_end_of_life_date]
+other = "أنهاء دعم إصدار"
+
+# Replace [release_complete] with [release_full_details_initial_text]
+[release_full_details_initial_text]
+other = "Complete"
+
+[release_information_navbar]
+other = "معلومات الإصدار"
+
+[release_minor_version]
+other = "أصدار ثانوي"
+
+[release_info_next_patch]
+other = "Next patch release is **%s**."
+
+# Localization note: You can use Markdown here.
+# The three placeholders (in order) are:
+#   Kubernetes minor version
+#   maintenance mode date
+#   end of life date
+#
+# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+# tense of the text so long as the meaning is clear.
+[release_info_eol]
+other = "**%s** enters maintenance mode on **%s** and End of Life is on **%s**."
+
+[release_note]
+other = "Note"
+
+[release_schedule]
+other = "Schedule"
+
+[release_target_date]
+other = "Target Date"
+
+[release_changelog]
+other = "Changelog"
+
+[seealso_heading]
+other = "See Also"
+
+[subscribe_button]
+other = "إشتراك"
+
+[synopsis_heading]
+other = "Synopsis"
+
+[thirdparty_message]
+other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""
+
+[thirdparty_message_edit_disclaimer]
+other="""Third party content advice"""
+
+
+[thirdparty_message_single_item]
+other = """&#128711; This item links to a third party project or product that is not part of Kubernetes itself. <a class="alert-more-info" href="#third-party-content-disclaimer">More information</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>Items on this page refer to third party products or projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. See the <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> for more details.</p><p>You should read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before proposing a change that adds an extra third-party link.</p>"""
+
+[ui_search_placeholder]
+other = "بحث"
+
+[version_check_mustbe]
+other = "Your Kubernetes server must be version "
+
+[version_check_mustbeorlater]
+other = "يجب أن يكون خادم كوبرناتيز في أو أحدث من الإصدار "
+
+[version_check_tocheck]
+other = "للتحقق من الإصدار ، أدخل "
+
+[version_menu]
+other = "إصدارات"
+
+[warning]
+other = "تحذير:"
+
+[whatsnext_heading]
+other = "ماذا بعد"

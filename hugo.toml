@@ -513,3 +513,17 @@ languagedirection = "ltr"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+
+[languages.ar]
+title = "Kubernetes"
+description = ""
+languageName = "العربية (Arabic)"
+languageNameLatinScript = "Arabic"
+weight = 17
+contentDir = "content/ar"
+languagedirection = "rtl"
+
+[languages.dz.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
