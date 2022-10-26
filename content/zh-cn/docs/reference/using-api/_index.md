@@ -126,7 +126,7 @@ Here's a summary of each level:
 -->
 - Beta：
   - 版本名称包含 `beta`（例如：`v2beta3`）。
-  - 内置的 Alpha API 版本默认被禁用且必须在 `kube-apiserver` 配置中显式启用才能使用
+  - 内置的 Beta API 版本默认被禁用且必须在 `kube-apiserver` 配置中显式启用才能使用
     （例外情况是 Kubernetes 1.22 之前引入的 Beta 版本的 API，这些 API 默认被启用）。
   - 内置 Beta API 版本从引入到弃用的最长生命周期为 9 个月或 3 个次要版本（以较长者为准），
     从弃用到移除的最长生命周期为 9 个月或 3 个次要版本（以较长者为准）。
