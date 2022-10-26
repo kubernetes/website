@@ -2,11 +2,13 @@
 title: 使用源 IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 10
 ---
 <!--  
 title: Using Source IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 10
 -->
 
 <!-- overview -->
@@ -236,7 +238,7 @@ command=GET
 <!-- 
 The `client_address` is always the client pod's IP address, whether the client pod and server pod are in the same node or in different nodes.
 -->
-`client_address` 始终是客户端 Pod 的 IP 地址，不管客户端 Pod 和服务器 Pod 位于同一节点还是不同节点。
+不管客户端 Pod 和服务器 Pod 位于同一节点还是不同节点，`client_address` 始终是客户端 Pod 的 IP 地址。
 
 <!-- 
 ## Source IP for Services with `Type=NodePort`
@@ -384,7 +386,7 @@ Visually:
 
 * 客户端将数据包发送到没有任何端点的 `node2:nodePort`
 * 数据包被丢弃
-* 客户端发送数据包到 `node1:nodePort`，它**确实**有端点
+* 客户端发送数据包到**必有**端点的 `node1:nodePort`
 * node1 使用正确的源 IP 地址将数据包路由到端点
 
 用图表示：
@@ -443,7 +445,7 @@ loadbalancer   LoadBalancer   10.0.65.118   203.0.113.140     80/TCP    5m
 <!-- 
 Next, send a request to this Service's external-ip:
 -->
-接下来，发送请求到 Service 的 的外部IP（External-IP）：
+接下来，发送请求到 Service 的 的外部 IP（External-IP）：
 ```shell
 curl 203.0.113.140
 ```
