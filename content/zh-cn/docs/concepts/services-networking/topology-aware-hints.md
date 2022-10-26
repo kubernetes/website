@@ -3,7 +3,7 @@ title: 拓扑感知提示
 content_type: concept
 weight: 70
 description: >-
-  **拓扑感知提示（Topology Aware Hints）**提供了一种机制来帮助将网络流量保持在其请求方所在的区域内。
+  **拓扑感知提示（Topology Aware Hints）** 提供了一种机制来帮助将网络流量保持在其请求方所在的区域内。
   在集群中的 Pod 之间优先选用相同区域的流量有助于提高可靠性、增强性能（网络延迟和吞吐量）或降低成本。
 ---
 <!--
@@ -25,14 +25,14 @@ description: >-
 <!-- 
 _Topology Aware Hints_ enable topology aware routing by including suggestions
 for how clients should consume endpoints. This approach adds metadata to enable
-consumers of EndpointSlice and / or Endpoints objects, so that traffic to
+consumers of EndpointSlice (or Endpoints) objects, so that traffic to
 those network endpoints can be routed closer to where it originated.
 
 For example, you can route traffic within a locality to reduce
 costs, or to improve network performance.
 -->
 **拓扑感知提示**包含客户怎么使用服务端点的建议，从而实现了拓扑感知的路由功能。
-这种方法添加了元数据，以启用 EndpointSlice 和/或 Endpoints 对象的调用者，
+这种方法添加了元数据，以启用 EndpointSlice（或 Endpoints）对象的调用者，
 这样，访问这些网络端点的请求流量就可以在它的发起点附近就近路由。
 
 例如，你可以在一个地域内路由流量，以降低通信成本，或提高网络性能。
@@ -284,5 +284,4 @@ Kubernetes 控制平面和每个节点上的 kube-proxy，在使用拓扑感知�
 <!-- 
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
-
 * 参阅[通过服务连通应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)

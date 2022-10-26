@@ -192,7 +192,7 @@ and [CNI network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/n
 and by kubectl (see [Extend kubectl with plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)).
 -->
 在 Webhook 模型中，Kubernetes 向远程服务发起网络请求。
-在另一种称作**可执行文件插件（Binary Plugin）**模型中，Kubernetes 执行某个可执行文件（程序）。
+在另一种称作**可执行文件插件（Binary Plugin）** 模型中，Kubernetes 执行某个可执行文件（程序）。
 这些可执行文件插件由 kubelet（例如，[CSI 存储插件](https://kubernetes-csi.github.io/docs/)和
 [CNI 网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)）
 和 kubectl 使用。
@@ -239,7 +239,7 @@ clients that access it.
    基于其内容阻止请求、编辑请求内容、处理删除操作等等。
    这些扩展点在 [API 访问扩展](#api-access-extensions)节详述。
 
-3. API 服务器能提供各种类型的**资源（Resources）**服务。
+3. API 服务器能提供各种类型的**资源（Resources）** 服务。
    诸如 `pods` 的**内置资源类型**是由 Kubernetes 项目所定义的，无法改变。
    请查阅 [API 扩展](#api-extensions)了解如何扩展 Kubernetes API。
 
@@ -297,7 +297,7 @@ several types of extensions.
 
 <!-- image source for flowchart: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
 {{< figure src="/zh-cn/docs/concepts/extend-kubernetes/flowchart.png"
-    alt="附带使用场景问题和实现指南的流程图。 绿圈表示是； 红圈表示否。"
+    alt="附带使用场景问题和实现指南的流程图。绿圈表示是；红圈表示否。"
     class="diagram-large" caption="选择一个扩展方式的流程图指导" >}}
 
 ---
