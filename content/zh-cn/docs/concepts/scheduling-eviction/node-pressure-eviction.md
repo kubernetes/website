@@ -1,12 +1,12 @@
 ---
 title: 节点压力驱逐
 content_type: concept
-weight: 60
+weight: 100
 ---
 <!-- 
 title: Node-pressure Eviction
 content_type: concept
-weight: 60 
+weight: 100
 -->
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
