@@ -124,7 +124,7 @@ the user can properly react (or ignore it forever...).
 That's basically it. That is all that is required to leverage server-side apply.
 Big thanks and thumbs-up to the Kubernetes developers who made this possible!
 
-## Deciding which conflicts to ignore and which to force-apply
+## Conflict Resolution
 
 Kluctl has a few simple rules to figure out if a conflict should be ignored
 or force-applied.
@@ -146,16 +146,9 @@ known to erroneously claim fields (the ECK operator does this to the nodeSets
 field for example), you can ensure that Kluctl always overwrites these fields
 to the original or a new value.
 
-## Future work in regard to conflict resolution
-
-I plan to add more ways to control the behaviour of conflict resolution. For
-example:
-
-1. It will be possible to force-apply on field level via the CLI.
-2. It will be possible to force-apply on field level but only for specific field managers.
-3. It will be possible to modify the list of known actors for which fields are always force-applied.
-4. Exclude fields from force-apply even if the field manager is in the list of well known tools.
-5. If more is needed, you can [open an issue](https://github.com/kluctl/kluctl/issues).
+In the future, Kluctl will allow even more control about conflict resolution.
+For example, the CLI will allow to force-apply on field level or specify which
+field manager to always ignore or always force-apply.
 
 ## DevOps vs Controllers
 
