@@ -270,7 +270,7 @@ patch the live objects. You can first `diff` to see what changes are going to be
 made, and then apply:
 -->
 处理 `configs` 目录中的所有对象配置文件，创建并更新活跃对象。
-可以首先使用 `diff` 子命令查看将要进行的更改，然后在进行应用：
+可以首先使用 `diff` 子命令查看将要进行的更改，然后再进行应用：
 
 ```sh
 kubectl diff -f configs/
