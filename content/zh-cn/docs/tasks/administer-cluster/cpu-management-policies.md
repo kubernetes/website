@@ -479,7 +479,7 @@ than number of NUMA nodes.
 注意，此策略选项不兼容 `TopologyManager` 与 `single-numa-node` 策略，并且不适用于 CPU 的插槽数量大于 NUMA 节点数量的硬件。
 
 <!--
-The `full-pcpus-only` option can be enabled by adding `full-pcups-only=true` to
+The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
 the CPUManager policy options.
 Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
 `distribute-cpus-across-numa=true` to the CPUManager policy options.
@@ -490,7 +490,7 @@ The `align-by-socket` policy option can be enabled by adding `align-by-socket=tr
 to the `CPUManager` policy options. It is also additive to the `full-pcpus-only`
 and `distribute-cpus-across-numa` policy options.
 -->
-可以通过将 `full-pcups-only=true` 添加到 CPUManager 策略选项来启用 `full-pcpus-only` 选项。
+可以通过将 `full-pcpus-only=true` 添加到 CPUManager 策略选项来启用 `full-pcpus-only` 选项。
 同样地，可以通过将 `distribute-cpus-across-numa=true` 添加到 CPUManager 策略选项来启用 `distribute-cpus-across-numa` 选项。
 当两者都设置时，它们是“累加的”，因为 CPU 将分布在 NUMA 节点的 full-pcpus 块中，而不是单个核心。
 可以通过将 `align-by-socket=true` 添加到 `CPUManager` 策略选项来启用 `align-by-socket` 策略选项。
