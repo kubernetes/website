@@ -1,11 +1,10 @@
 ---
-title: (कार्यभार)Workload
-id: कार्यभार(workloads)
+title: कार्यभार(Workload)
+id: कार्यभार(Workloads)
 date: 2019-02-13
-full_link: /डॉक्स/कॉन्सेप्ट्स/वर्कलोड्स/पॉड्स/पॉड-लाइफसाइकल/
+full_link: /docs/concepts/workloads/pods/pod-lifecycle/
 short_description: >
    वर्कलोड कुबेरनेट्स पर चलने वाला एक एप्लिकेशन है।
-   (A workload is an application running on Kubernetes.)
 
 aka: 
 tags:
