@@ -51,7 +51,7 @@ thing at that time.
 
 The way client-side apply worked had some serious drawbacks. The most obvious one
 (it was guaranteed that you'd stumble on this by yourself if enough time passed)
-is that it relied on an annotation (kubectl.kubernetes.io/last-applied-configuration)
+is that it relied on an annotation (`kubectl.kubernetes.io/last-applied-configuration`)
 being added to the object, bringing in all the limitations and issues with huge
 annotation values. A good example of such issues are
 [CRDs being so large](https://github.com/prometheus-operator/prometheus-operator/issues/4439),
@@ -157,20 +157,20 @@ example:
 4. Exclude fields from force-apply even if the field manager is in the list of well known tools.
 5. If more is needed, you can [open an issue](https://github.com/kluctl/kluctl/issues).
 
-## DevOps vs. PipelineOps vs. GitOps vs. Controllers
+## DevOps vs Controllers
 
 So how does server-side apply in Kluctl lead to "live and let live"?
 
-It allows the co-existence of classical DevOps, PipelineOps, GitOps and
-controllers. You can use a GitOps style deployment pipeline (check 
-[flux-kluctl-controller](https://github.com/kluctl/flux-kluctl-controller))
-while having the proper tools (e.g. conflict resolution via annotations) to
-act on expected or unexpected modifications to your objects from other
-actors. The same applies to classical pipeline based deployments
-(e.g. Github Actions or Gitlab CI).
+It allows the co-existence of classical pipelines (e.g. Github Actions or
+Gitlab CI), controllers (e.g. the HPA controller or GitOps style controllers)
+and even admins running deployments from their local machines.
 
-You can intervene with your admin permissions if required and run a `kubectl`
-command that will modify a field and prevent Kluctl from overwriting it. You'd
-just have to switch to a field-manager (e.g. "admin-override") that is not
-overwritten by Kluctl.
+Wherever you are on your infrastructure automation journey, Kluctl has a place
+for you. From running deployments using a script on your PC, all the way to
+fully automated CI/CD with the pipelines themselves defined in code, Kluctl
+aims to complement the workflow that's right for you.
 
+And even after fully automating everything, you can intervene with your admin
+permissions if required and run a `kubectl` command that will modify a field
+and prevent Kluctl from overwriting it. You'd just have to switch to a
+field-manager (e.g. "admin-override") that is not overwritten by Kluctl.
