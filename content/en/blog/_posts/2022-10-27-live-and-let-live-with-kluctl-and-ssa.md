@@ -167,3 +167,36 @@ And even after fully automating everything, you can intervene with your admin
 permissions if required and run a `kubectl` command that will modify a field
 and prevent Kluctl from overwriting it. You'd just have to switch to a
 field-manager (e.g. "admin-override") that is not overwritten by Kluctl.
+
+## A few takeaways
+
+Server-side apply is a great feature and essential for the future of
+controllers and tools in Kubernetes. The amount of controllers involved
+will only get more and proper modes of working together are a must.
+
+I believe that CI/CD related controllers and tools should leverage
+server-side apply to perform proper conflict resolution. I also believe that
+other controllers (e.g. Flux and ArgoCD) would benefit from the same kind
+of conflict resolution control on field-level.
+
+It might even be a good idea to come together and work on a standardized
+set of annotations to control conflict resolution for CI/CD related tooling.
+
+On the other side, non CI/CD related controllers should ensure that they don't
+cause unnecessary conflicts when modifying objects. As of
+[the server-side apply documentation](https://kubernetes.io/docs/reference/using-api/server-side-apply/#using-server-side-apply-in-a-controller),
+it is strongly recommended for controllers to always use force-apply. When
+following this recommendation, controllers should really make sure that only
+fields related to the controller are included in the applied object.
+Otherwise, unnecessary conflicts are guaranteed.
+
+In many cases, controllers are meant to only modify the status subresource
+of the objects they manage. In this case, controllers should only patch the
+status subresource and not touch the actual object. If this is followed,
+conflicts become impossible to occur.
+
+If you are a developer of such a controller and unsure about your controller
+adhering to the above, simply try to retrieve an object managed by your
+controller and look at the `managedFields` (you'll need to pass
+`--show-managed-fields -oyaml` to `kubectl get`) to see if some field got
+claimed unexpectedly.
