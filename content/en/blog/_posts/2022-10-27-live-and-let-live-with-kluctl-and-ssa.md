@@ -11,7 +11,7 @@ This blog post was inspired by a previous Kubernetes blog post about
 [Advanced Server Side Apply](https://kubernetes.io/blog/2022/10/20/advanced-server-side-apply/).
 The author of this blog post listed multiple benefits for applications and
 controllers when switching to Server-side apply. Especially the chapter about
-[CI/CD systems {#ci-cd-systems}](https://kubernetes.io/blog/2022/10/20/advanced-server-side-apply/#cicd-systems-ci-cd-systems)
+[CI/CD systems](https://kubernetes.io/blog/2022/10/20/advanced-server-side-apply/#ci-cd-systems)
 motivated me to respond and write down my thoughts and experiences.
 
 These thoughts and experiences are the results of me working on [Kluctl](https://kluctl.io)
