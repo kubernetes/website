@@ -44,7 +44,7 @@ decisions.
 
 ## The days before Server-side apply
 
-The first versions of Kluctl were based on shelling out to kubectl and thus
+The first versions of Kluctl were based on shelling out to `kubectl` and thus
 implicitly relied on client-side apply. At that time, Server-side apply was
 still alpha and quite buggy. And to be honest, I didn't even know it was a
 thing at that time.
@@ -59,10 +59,10 @@ that they don't fit into the annotation's value anymore.
 
 Another drawback can be seen just by looking at the name (**client**-side apply).
 Being **client** side means that each client has to provide the apply-logic on
-its own, which at that time was only properly implemented inside kubectl,
+its own, which at that time was only properly implemented inside `kubectl`,
 making it hard to be replicated inside controllers.
 
-This added kubectl as a dependency (either as an executable or in the form of
+This added `kubectl` as a dependency (either as an executable or in the form of
 Go packages) to all controllers that wanted to leverage the apply-logic.
 
 However, even if one managed to get client-side apply running from inside a
@@ -78,19 +78,19 @@ which was still in beta at that time. Experimenting with it via
 `kubectl apply --server-side` revealed immediately that the true power of
 server-side apply can not be easily leveraged by shelling out to `kubectl`.
 
-The way Server-side apply is implemented in kubectl does not allow enough
+The way server-side apply is implemented in `kubectl` does not allow enough
 control about conflict resolution as it can only switch between 
 "not force-applying anything and erroring out" and "force-apply everything
 without showing any mercy!".
 
-The API documentation however made it clear that Server-side apply is able to
+The API documentation however made it clear that server-side apply is able to
 control conflict resolution on field level, simply by choosing which fields
 to include and which fields to omit from the supplied object.
 
 ## Moving away from kubectl
 
-This meant that Kluctl had to move away from shelling out to kubectl first. Only
-after that was done, I would have been able to properly implement Server-side
+This meant that Kluctl had to move away from shelling out to `kubectl` first. Only
+after that was done, I would have been able to properly implement server-side
 apply with powerful conflict resolution.
 
 To achieve this, I first implemented access to the target clusters via a
@@ -99,9 +99,9 @@ speeding up Kluctl as well. It also improved the security and usability of
 Kluctl by ensuring that a running Kluctl command could not be messed around
 with by externally modifying the kubeconfig while it was running.
 
-## Implementing Server-side apply
+## Implementing server-side apply
 
-After switching to a Kubernetes client library, leveraging Server-side apply
+After switching to a Kubernetes client library, leveraging server-side apply
 felt easy. Kluctl now has to send each manifest to the API server as part of a
 `PATCH` request, which signals
 that Kluctl wants to perform a server-side apply operation. The API server then
@@ -121,7 +121,7 @@ flag being set on the API call.
 In case a conflict is ignored, Kluctl will issue a warning to the user so that
 the user can properly react (or ignore it forever...).
 
-That's basically it. That is all that is required to leverage Server-side apply.
+That's basically it. That is all that is required to leverage server-side apply.
 Big thanks and thumbs-up to the Kubernetes developers who made this possible!
 
 ## Deciding which conflicts to ignore and which to force-apply
@@ -131,7 +131,7 @@ or force-applied.
 
 It first checks the field's actor (the field manager) against a list of known
 tools that are well known to be used to perform manual modifications. These
-are for example kubectl and k9s. Any modifications performed with these tools
+are for example `kubectl` and `k9s`. Any modifications performed with these tools
 are considered "temporary" and will be overwritten by Kluctl.
 
 If the field manager is not known by Kluctl, it will check if a force-apply is
@@ -154,7 +154,7 @@ example:
 
 ## DevOps vs. PipelineOps vs. GitOps vs. Controllers
 
-So how does Server-side apply in Kluctl lead to "live and let live"?
+So how does server-side apply in Kluctl lead to "live and let live"?
 
 It allows the co-existence of classical DevOps, PipelineOps, GitOps and
 controllers. You can use a GitOps style deployment pipeline (check 
@@ -164,7 +164,7 @@ act on expected or unexpected modifications to your objects from other
 actors. The same applies to classical pipeline based deployments
 (e.g. Github Actions or Gitlab CI).
 
-You can intervene with your admin permissions if required and run a kubectl
+You can intervene with your admin permissions if required and run a `kubectl`
 command that will modify a field and prevent Kluctl from overwriting it. You'd
 just have to switch to a field-manager (e.g. "admin-override") that is not
 overwritten by Kluctl.
