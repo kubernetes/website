@@ -141,6 +141,11 @@ requested for that field. A force-apply can be requested in different ways:
 2. By adding the [`kluctl.io/force-apply=true`](https://kluctl.io/docs/reference/deployments/annotations/all-resources/#kluctlioforce-apply) annotation to the object in question. This will cause all fields of that object to be force-applied on conflicts.
 3. By adding the [`kluctl.io/force-apply-field=my.json.path`](https://kluctl.io/docs/reference/deployments/annotations/all-resources/#kluctlioforce-apply-field) annotation to the object in question. This cause only fields matching the JSON path to be force-applied on conflicts.
 
+Marking a field to be force-applied is required whenever some other actor is
+known to erroneously claim fields (the ECK operator does this to the nodeSets
+field for example), you can ensure that Kluctl always overwrites these fields
+to the original or a new value.
+
 ## Future work in regard to conflict resolution
 
 I plan to add more ways to control the behaviour of conflict resolution. For
@@ -169,6 +174,3 @@ command that will modify a field and prevent Kluctl from overwriting it. You'd
 just have to switch to a field-manager (e.g. "admin-override") that is not
 overwritten by Kluctl.
 
-If a controller is known to erroneously claim fields (the ECK operator does this
-to the nodeSets field for example), you can ensure that Kluctl always overwrites
-these fields to the original or a new value.
