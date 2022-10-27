@@ -178,7 +178,8 @@ The name of a StatefulSet object must be a valid
 * `volumeClaimTemplates` 将通过 PersistentVolume 制备程序所准备的
   [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
 
-StatefulSet 的命名需要遵循 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)规范。
+StatefulSet 的命名需要遵循
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)规范。
 
 <!--
 ### Pod Selector
@@ -229,7 +230,7 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 <!--
 ## Pod Identity
 
-StatefulSet Pods have a unique identity that is comprised of an ordinal, a
+StatefulSet Pods have a unique identity that consists of an ordinal, a
 stable network identity, and stable storage. The identity sticks to the Pod,
 regardless of which node it's (re)scheduled on.
 -->
@@ -324,11 +325,11 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  cluster.local | foo/nginx         | foo/web           | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
+{{< note >}}
 <!--
 Cluster Domain will be set to `cluster.local` unless
 [otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 -->
-{{< note >}}
 集群域会被设置为 `cluster.local`，除非有[其他配置](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 {{< /note >}}
 
@@ -358,14 +359,14 @@ PersistentVolume 并不会被删除。要删除它必须通过手动方式来完
 <!--
 ### Pod Name Label
 
-When the StatefulSet {{< glossary_tooltip term_id="controller" >}} creates a Pod,
+When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
 it adds a label, `statefulset.kubernetes.io/pod-name`, that is set to the name of
 the Pod. This label allows you to attach a Service to a specific Pod in
 the StatefulSet.
 -->
 ### Pod 名称标签   {#pod-name-label}
 
-当 StatefulSet {{< glossary_tooltip term_id="controller" >}} 创建 Pod 时，
+当 StatefulSet {{<glossary_tooltip text="控制器" term_id="controller">}}创建 Pod 时，
 它会添加一个标签 `statefulset.kubernetes.io/pod-name`，该标签值设置为 Pod 名称。
 这个标签允许你给 StatefulSet 中的特定 Pod 绑定一个 Service。
 
@@ -454,7 +455,7 @@ Pod. This option only affects the behavior for scaling operations. Updates are n
 #### 并行 Pod 管理   {#parallel-pod-management}
 
 `Parallel` Pod 管理让 StatefulSet 控制器并行的启动或终止所有的 Pod，
-启动或者终止其他 Pod 前，无需等待 Pod 进入 Running 和 ready 或者完全停止状态。
+启动或者终止其他 Pod 前，无需等待 Pod 进入 Running 和 Ready 或者完全停止状态。
 这个选项只会影响扩缩操作的行为，更新则不会被影响。
 
 <!--
@@ -477,7 +478,7 @@ StatefulSet 的 `.spec.updateStrategy` 字段让你可以配置和禁用掉自�
   create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
 
 `RollingUpdate`
-: The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a
+: The `RollingUpdate` update strategy implements automated, rolling updates for the Pods in a
   StatefulSet. This is the default update strategy.
 -->
 `OnDelete`
@@ -738,7 +739,7 @@ owner reference has been updated appropriate to the policy. If a condemned Pod i
 force-deleted while the controller is down, the owner reference may or may not have been
 set up, depending on when the controller crashed. It may take several reconcile loops to
 update the owner references, so some condemned Pods may have set up owner references and
-other may not. For this reason we recommend waiting for the controller to come back up,
+others may not. For this reason we recommend waiting for the controller to come back up,
 which will verify owner references before terminating Pods. If that is not possible, the
 operator should verify the owner references on PVCs to ensure the expected objects are
 deleted when Pods are force-deleted.
@@ -810,3 +811,4 @@ the `.spec.replicas` field automatically.
 * `StatefulSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/stateful-set-v1" >}}
    对象定义理解关于该资源的 API。
 * 阅读 [Pod 干扰预算（Disruption Budget）](/zh-cn/docs/concepts/workloads/pods/disruptions/)，了解如何在干扰下运行高度可用的应用。
+
