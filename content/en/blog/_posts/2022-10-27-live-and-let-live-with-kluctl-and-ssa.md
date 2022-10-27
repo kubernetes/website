@@ -22,7 +22,7 @@ large Kubernetes deployments, composed of multiple smaller parts
 To get a basic understanding of Kluctl, I suggest to visit the [kluctl.io](https://kluctlio)
 website and read through the documentation and tutorials, for example the 
 [microservices demo tutorial](https://kluctl.io/docs/guides/tutorials/microservices-demo/).
-As an alternative, you can watch [this video](https://www.youtube.com/watch?v=9LoYLjDjOdg)
+As an alternative, you can watch [Hands-on Introduction to kluctl](https://www.youtube.com/watch?v=9LoYLjDjOdg)
 from the Rawkode Academy YouTube channel which shows a hands-on demo session.
 
 There is also a [Kluctl delivery scenario](https://github.com/podtato-head/podtato-head/tree/main/delivery/kluctl)
@@ -73,10 +73,10 @@ fields to overwrite in case of external changes and which ones to let go.
 ## Discovering Server-side apply
 
 I was never happy with the solution described above and then somehow stumbled
-across [Server-side apply](https://kubernetes.io/docs/reference/using-api/server-side-apply/),
+across [server-side apply](/docs/reference/using-api/server-side-apply/),
 which was still in beta at that time. Experimenting with it via
 `kubectl apply --server-side` revealed immediately that the true power of
-Server-side apply can not be easily leveraged by shelling out to kubectl.
+server-side apply can not be easily leveraged by shelling out to `kubectl`.
 
 The way Server-side apply is implemented in kubectl does not allow enough
 control about conflict resolution as it can only switch between 
@@ -102,11 +102,13 @@ with by externally modifying the kubeconfig while it was running.
 ## Implementing Server-side apply
 
 After switching to a Kubernetes client library, leveraging Server-side apply
-was easy. Kluctl just has to send each manifest to the apiserver and indicate
-that it wants to perform a Server-side apply operation. The apiserver will then
-either respond with an OK response or with a CONFLICT response.
+felt easy. Kluctl now has to send each manifest to the API server as part of a
+`PATCH` request, which signals
+that Kluctl wants to perform a server-side apply operation. The API server then
+responds with an OK response (HTTP status code 200), or with a Conflict response
+(HTTP status 409).
 
-In case of a CONFLICT response, the apiserver also sends a status object with
+In case of a Conflict response, the body of that response includes machine readable
 details about the conflicts. Kluctl can then use these details to figure out
 which fields are in conflict and which actors (field managers) have taken
 ownership of the conflicted fields.
