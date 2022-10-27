@@ -9,7 +9,7 @@ slug: live-and-let-live-with-kluctl-and-ssa
 
 This blog post was inspired by a previous Kubernetes blog post about
 [Advanced Server Side Apply](https://kubernetes.io/blog/2022/10/20/advanced-server-side-apply/).
-The author of this blog post listed multiple benefits for applications and
+The author of said blog post listed multiple benefits for applications and
 controllers when switching to Server-side apply. Especially the chapter about
 [CI/CD systems](https://kubernetes.io/blog/2022/10/20/advanced-server-side-apply/#ci-cd-systems)
 motivated me to respond and write down my thoughts and experiences.
@@ -35,11 +35,11 @@ meaning that it will try its best to work in conjunction with any other tool or
 controller running outside or inside your clusters. Kluctl will not overwrite
 any fields that it lost ownership of, unless you explicitly tell it to do so.
 
-Achieving this would not have been possible (or at least be several magnitudes
+Achieving this would not have been possible (or at least several magnitudes
 harder) without the use of Server-side apply. Server-side apply allows Kluctl
 to detect when ownership for a field got lost, for example when another controller
 or operator updates that field to another value. Kluctl can then decide on a 
-field-by-field basis if a force-apply is required and then retry based on these
+field-by-field basis if force-applying is required before retrying based on these
 decisions.
 
 ## The days before Server-side apply
@@ -66,7 +66,7 @@ This added `kubectl` as a dependency (either as an executable or in the form of
 Go packages) to all controllers that wanted to leverage the apply-logic.
 
 However, even if one managed to get client-side apply running from inside a
-controller, you ended up with a solution that gave no control about how it
+controller, you ended up with a solution that gave no control over how it
 worked internally. As an example, there was no way to individually decide which
 fields to overwrite in case of external changes and which ones to let go. 
 
@@ -80,7 +80,7 @@ server-side apply can not be easily leveraged by shelling out to `kubectl`.
 
 The way server-side apply is implemented in `kubectl` does not allow enough
 control about conflict resolution as it can only switch between 
-"not force-applying anything and erroring out" and "force-apply everything
+"not force-applying anything and erroring out" and "force-applying everything
 without showing any mercy!".
 
 The API documentation however made it clear that server-side apply is able to
@@ -91,7 +91,7 @@ to include and which fields to omit from the supplied object.
 
 This meant that Kluctl had to move away from shelling out to `kubectl` first. Only
 after that was done, I would have been able to properly implement server-side
-apply with powerful conflict resolution.
+apply with its powerful conflict resolution.
 
 To achieve this, I first implemented access to the target clusters via a
 Kubernetes client library. This had the nice side effect of dramatically
@@ -119,7 +119,7 @@ will retry the apply operation with the ignored fields omitted and the `force`
 flag being set on the API call.
 
 In case a conflict is ignored, Kluctl will issue a warning to the user so that
-the user can properly react (or ignore it forever...).
+the user can react properly (or ignore it forever...).
 
 That's basically it. That is all that is required to leverage server-side apply.
 Big thanks and thumbs-up to the Kubernetes developers who made this possible!
@@ -130,16 +130,16 @@ Kluctl has a few simple rules to figure out if a conflict should be ignored
 or force-applied.
 
 It first checks the field's actor (the field manager) against a list of known
-tools that are well known to be used to perform manual modifications. These
+tools that are frequently used to perform manual modifications. These
 are for example `kubectl` and `k9s`. Any modifications performed with these tools
 are considered "temporary" and will be overwritten by Kluctl.
 
-If the field manager is not known by Kluctl, it will check if a force-apply is
-requested for that field. A force-apply can be requested in different ways:
+If the field manager is not known by Kluctl, it will check if force-applying is
+requested for that field. Force-applying can be requested in different ways:
 
 1. By passing `--force-apply` to Kluctl. This will cause ALL fields to be force-applied on conflicts.
 2. By adding the [`kluctl.io/force-apply=true`](https://kluctl.io/docs/reference/deployments/annotations/all-resources/#kluctlioforce-apply) annotation to the object in question. This will cause all fields of that object to be force-applied on conflicts.
-3. By adding the [`kluctl.io/force-apply-field=my.json.path`](https://kluctl.io/docs/reference/deployments/annotations/all-resources/#kluctlioforce-apply-field) annotation to the object in question. This cause only fields matching the JSON path to be force-applied on conflicts.
+3. By adding the [`kluctl.io/force-apply-field=my.json.path`](https://kluctl.io/docs/reference/deployments/annotations/all-resources/#kluctlioforce-apply-field) annotation to the object in question. This causes only fields matching the JSON path to be force-applied on conflicts.
 
 Marking a field to be force-applied is required whenever some other actor is
 known to erroneously claim fields (the ECK operator does this to the nodeSets
@@ -147,8 +147,7 @@ field for example), you can ensure that Kluctl always overwrites these fields
 to the original or a new value.
 
 In the future, Kluctl will allow even more control about conflict resolution.
-For example, the CLI will allow to force-apply on field level or specify which
-field manager to always ignore or always force-apply.
+For example, the CLI will allow to control force-applying on field level.
 
 ## DevOps vs Controllers
 
@@ -185,7 +184,7 @@ set of annotations to control conflict resolution for CI/CD related tooling.
 On the other side, non CI/CD related controllers should ensure that they don't
 cause unnecessary conflicts when modifying objects. As of
 [the server-side apply documentation](https://kubernetes.io/docs/reference/using-api/server-side-apply/#using-server-side-apply-in-a-controller),
-it is strongly recommended for controllers to always use force-apply. When
+it is strongly recommended for controllers to always perform force-applying. When
 following this recommendation, controllers should really make sure that only
 fields related to the controller are included in the applied object.
 Otherwise, unnecessary conflicts are guaranteed.
