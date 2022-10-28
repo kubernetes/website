@@ -846,10 +846,10 @@ You can have multiple paragraphs and block-level elements inside an admonition.
 
 你可以在提醒框内包含多个段落和块级元素。
 
+| 或者 | | 甚至 |
+| :---------------- | ----------------: | --------------: |
+|   一个    | |   桌子    |
 
-| 或者 | 甚至 | 
-| ----- | ------ |
-| 一个 | 桌子 | 
 {{< /note >}}
 
 <!--
