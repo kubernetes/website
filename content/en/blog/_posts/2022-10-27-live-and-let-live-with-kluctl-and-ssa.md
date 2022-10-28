@@ -10,7 +10,8 @@ slug: live-and-let-live-with-kluctl-and-ssa
 This blog post was inspired by a previous Kubernetes blog post about
 [Advanced Server Side Apply](https://kubernetes.io/blog/2022/10/20/advanced-server-side-apply/).
 The author of said blog post listed multiple benefits for applications and
-controllers when switching to Server-side apply. Especially the chapter about
+controllers when switching to server-side apply (from now on abbreviated with
+SSA). Especially the chapter about
 [CI/CD systems](https://kubernetes.io/blog/2022/10/20/advanced-server-side-apply/#ci-cd-systems)
 motivated me to respond and write down my thoughts and experiences.
 
@@ -36,16 +37,16 @@ controller running outside or inside your clusters. Kluctl will not overwrite
 any fields that it lost ownership of, unless you explicitly tell it to do so.
 
 Achieving this would not have been possible (or at least several magnitudes
-harder) without the use of Server-side apply. Server-side apply allows Kluctl
+harder) without the use of SSA. Server-side apply allows Kluctl
 to detect when ownership for a field got lost, for example when another controller
 or operator updates that field to another value. Kluctl can then decide on a 
 field-by-field basis if force-applying is required before retrying based on these
 decisions.
 
-## The days before Server-side apply
+## The days before SSA
 
 The first versions of Kluctl were based on shelling out to `kubectl` and thus
-implicitly relied on client-side apply. At that time, Server-side apply was
+implicitly relied on client-side apply. At that time, SSA was
 still alpha and quite buggy. And to be honest, I didn't even know it was a
 thing at that time.
 
@@ -70,28 +71,28 @@ controller, you ended up with a solution that gave no control over how it
 worked internally. As an example, there was no way to individually decide which
 fields to overwrite in case of external changes and which ones to let go. 
 
-## Discovering Server-side apply
+## Discovering SSA apply
 
 I was never happy with the solution described above and then somehow stumbled
 across [server-side apply](/docs/reference/using-api/server-side-apply/),
 which was still in beta at that time. Experimenting with it via
 `kubectl apply --server-side` revealed immediately that the true power of
-server-side apply can not be easily leveraged by shelling out to `kubectl`.
+SSA can not be easily leveraged by shelling out to `kubectl`.
 
-The way server-side apply is implemented in `kubectl` does not allow enough
+The way SSA is implemented in `kubectl` does not allow enough
 control about conflict resolution as it can only switch between 
 "not force-applying anything and erroring out" and "force-applying everything
 without showing any mercy!".
 
-The API documentation however made it clear that server-side apply is able to
+The API documentation however made it clear that SSA is able to
 control conflict resolution on field level, simply by choosing which fields
 to include and which fields to omit from the supplied object.
 
 ## Moving away from kubectl
 
 This meant that Kluctl had to move away from shelling out to `kubectl` first. Only
-after that was done, I would have been able to properly implement server-side
-apply with its powerful conflict resolution.
+after that was done, I would have been able to properly implement SSA
+with its powerful conflict resolution.
 
 To achieve this, I first implemented access to the target clusters via a
 Kubernetes client library. This had the nice side effect of dramatically
@@ -99,12 +100,12 @@ speeding up Kluctl as well. It also improved the security and usability of
 Kluctl by ensuring that a running Kluctl command could not be messed around
 with by externally modifying the kubeconfig while it was running.
 
-## Implementing server-side apply
+## Implementing SSA
 
-After switching to a Kubernetes client library, leveraging server-side apply
+After switching to a Kubernetes client library, leveraging SSA
 felt easy. Kluctl now has to send each manifest to the API server as part of a
 `PATCH` request, which signals
-that Kluctl wants to perform a server-side apply operation. The API server then
+that Kluctl wants to perform a SSA operation. The API server then
 responds with an OK response (HTTP status code 200), or with a Conflict response
 (HTTP status 409).
 
@@ -121,7 +122,7 @@ flag being set on the API call.
 In case a conflict is ignored, Kluctl will issue a warning to the user so that
 the user can react properly (or ignore it forever...).
 
-That's basically it. That is all that is required to leverage server-side apply.
+That's basically it. That is all that is required to leverage SSA.
 Big thanks and thumbs-up to the Kubernetes developers who made this possible!
 
 ## Conflict Resolution
@@ -151,7 +152,7 @@ For example, the CLI will allow to control force-applying on field level.
 
 ## DevOps vs Controllers
 
-So how does server-side apply in Kluctl lead to "live and let live"?
+So how does SSA in Kluctl lead to "live and let live"?
 
 It allows the co-existence of classical pipelines (e.g. Github Actions or
 Gitlab CI), controllers (e.g. the HPA controller or GitOps style controllers)
@@ -174,7 +175,7 @@ controllers and tools in Kubernetes. The amount of controllers involved
 will only get more and proper modes of working together are a must.
 
 I believe that CI/CD related controllers and tools should leverage
-server-side apply to perform proper conflict resolution. I also believe that
+SSA to perform proper conflict resolution. I also believe that
 other controllers (e.g. Flux and ArgoCD) would benefit from the same kind
 of conflict resolution control on field-level.
 
