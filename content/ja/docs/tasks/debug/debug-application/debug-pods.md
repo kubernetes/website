@@ -83,7 +83,7 @@ pods/mypod
 通常、"apiserver" バージョンには、元のバージョンにはない行がいくつかあります。これは予想されることです。
 しかし、もし元のバージョンにある行がapiserverバージョンにない場合、これはあなたのPod specに問題があることを示している可能性があります。
 
-<h3 id="debugging-replication-controllers">レプリケーションコントローラーのデバッグ</h3>
+### レプリケーションコントローラーのデバッグ {#debugging-replication-controllers}
 
 レプリケーションコントローラーはかなり単純なものです。
 彼らはPodを作ることができるか、できないか、どちらかです。
