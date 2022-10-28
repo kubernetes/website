@@ -16,11 +16,12 @@ weight: 10
 
 トラブルシューティングの最初のステップは切り分けです。何が問題なのでしょうか？
 Podなのか、レプリケーションコントローラーなのか、それともサービスなのか？
-<ul>
-   <li><a href="#debugging-pods">[Podのデバッグ](#debugging-pods)</a></li>
-   <li><a href="#debugging-replication-controllers">[レプリケーションコントローラーのデバッグ](#debugging-replication-controllers)</a></li>
-   <li><a href="#debugging-services">[Serviceのデバッグ](#debugging-services)</a></li>
-<h3 id="debugging-pods">Podのデバッグ</h3>
+
+   * [Podのデバッグ](#debugging-pods)
+   * [レプリケーションコントローラーのデバッグ](#debugging-replication-controllers)
+   * [Serviceのデバッグ](#debugging-services)
+
+### Podのデバッグ {#debugging-pods}
 
 デバッグの第一歩は、Podを見てみることです。
 以下のコマンドで、Podの現在の状態や最近のイベントを確認します。
