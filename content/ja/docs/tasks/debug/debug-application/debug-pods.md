@@ -90,7 +90,7 @@ pods/mypod
 もしPodを作成できないのであれば、[上記の説明](#debugging-pods)を参照して、Podをデバッグしてください。
 また、`kubectl describe rc ${CONTROLLER_NAME}`を使用すると、レプリケーションコントローラーに関連するイベントを確認することができます。
 
-<h3 id="debugging-services">Serviceのデバッグ</h3>
+### Serviceのデバッグ {#debugging-services}
 
 Serviceは、Podの集合全体でロードバランシングを提供します。
 Serviceが正しく動作しない原因には、いくつかの一般的な問題があります。
