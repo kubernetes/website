@@ -80,7 +80,7 @@ which was still in beta at that time. Experimenting with it via
 SSA can not be easily leveraged by shelling out to `kubectl`.
 
 The way SSA is implemented in `kubectl` does not allow enough
-control about conflict resolution as it can only switch between 
+control over conflict resolution as it can only switch between
 "not force-applying anything and erroring out" and "force-applying everything
 without showing any mercy!".
 
@@ -109,7 +109,7 @@ that Kluctl wants to perform a SSA operation. The API server then
 responds with an OK response (HTTP status code 200), or with a Conflict response
 (HTTP status 409).
 
-In case of a Conflict response, the body of that response includes machine readable
+In case of a Conflict response, the body of that response includes machine-readable
 details about the conflicts. Kluctl can then use these details to figure out
 which fields are in conflict and which actors (field managers) have taken
 ownership of the conflicted fields.
@@ -131,9 +131,14 @@ Kluctl has a few simple rules to figure out if a conflict should be ignored
 or force-applied.
 
 It first checks the field's actor (the field manager) against a list of known
-tools that are frequently used to perform manual modifications. These
+field manager strings from tools that are frequently used to perform manual modifications. These
 are for example `kubectl` and `k9s`. Any modifications performed with these tools
 are considered "temporary" and will be overwritten by Kluctl.
+
+If you're using Kluctl along with `kubectl` where you don't want the changes from
+`kubectl` to be overwritten (for example, using in a script) then you can specify
+`--field-manager=<manager-name>` on the command line to `kubectl`, and Kluctl
+doesn't apply its special heuristic.
 
 If the field manager is not known by Kluctl, it will check if force-applying is
 requested for that field. Force-applying can be requested in different ways:
@@ -174,15 +179,15 @@ Server-side apply is a great feature and essential for the future of
 controllers and tools in Kubernetes. The amount of controllers involved
 will only get more and proper modes of working together are a must.
 
-I believe that CI/CD related controllers and tools should leverage
+I believe that CI/CD-related controllers and tools should leverage
 SSA to perform proper conflict resolution. I also believe that
 other controllers (e.g. Flux and ArgoCD) would benefit from the same kind
 of conflict resolution control on field-level.
 
 It might even be a good idea to come together and work on a standardized
-set of annotations to control conflict resolution for CI/CD related tooling.
+set of annotations to control conflict resolution for CI/CD-related tooling.
 
-On the other side, non CI/CD related controllers should ensure that they don't
+On the other side, non CI/CD-related controllers should ensure that they don't
 cause unnecessary conflicts when modifying objects. As of
 [the server-side apply documentation](https://kubernetes.io/docs/reference/using-api/server-side-apply/#using-server-side-apply-in-a-controller),
 it is strongly recommended for controllers to always perform force-applying. When
