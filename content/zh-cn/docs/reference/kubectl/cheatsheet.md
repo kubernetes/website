@@ -36,7 +36,7 @@ This page contains a list of commonly used `kubectl` commands and flags.
 ### BASH
 -->
 
-## Kubectl 自动补全
+## Kubectl 自动补全   {#kubectl-autocomplete}
 
 ### BASH
 
@@ -76,7 +76,7 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 <!--
 ### A Note on --all-namespaces
 -->
-### 关于 --all-namespaces 的一点说明
+### 关于 --all-namespaces 的一点说明    {#a-note-on-all-namespaces}
 
 <!--
 Appending `--all-namespaces` happens frequently enough where you should be aware of the  shorthand for `--all-namespaces`:
@@ -92,7 +92,7 @@ Set which Kubernetes cluster `kubectl` communicates with and modifies configurat
 information. See [Authenticating Across Clusters with kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation for
 detailed config file information.
 -->
-## Kubectl 上下文和配置
+## Kubectl 上下文和配置   {#kubectl-context-and-configuration}
 
 设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。
 查看[使用 kubeconfig 跨集群授权访问](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
@@ -314,7 +314,7 @@ EOF
 <!--
 ## Viewing, finding resources
 -->
-## 查看和查找资源
+## 查看和查找资源    {#viewing-finding-resources}
 
 <!--
 ```bash
@@ -491,7 +491,7 @@ kubectl get deployment nginx-deployment --subresource=status
 <!--
 ## Updating resources
 -->
-## 更新资源
+## 更新资源   {#updating-resources}
 
 <!--
 ```bash
@@ -542,8 +542,10 @@ kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # 添加注解
 kubectl autoscale deployment foo --min=2 --max=10                # 对 "foo" Deployment 自动伸缩容
 ```
 
-<!-- ## Patching resources -->
-## 部分更新资源
+<!--
+## Patching resources
+-->
+## 部分更新资源   {#patching-resources}
 
 <!--
 ```bash
@@ -591,7 +593,7 @@ kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -
 
 Edit any API resource in your preferred editor.
 -->
-## 编辑资源
+## 编辑资源   {#editing-resources}
 
 使用你偏爱的编辑器编辑 API 资源。
 
@@ -609,9 +611,10 @@ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # 使用其他编辑器
 <!--
 ## Scaling resources
 -->
-## 对资源进行伸缩
+## 对资源进行伸缩   {#scaling-resources}
 
-<!-- ```bash
+<!--
+```bash
 kubectl scale --replicas=3 rs/foo                                 # Scale a replicaset named 'foo' to 3
 kubectl scale --replicas=3 -f foo.yaml                            # Scale a resource specified in "foo.yaml" to 3
 kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # If the deployment named mysql's current size is 2, scale mysql to 3
@@ -628,9 +631,10 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 伸缩多个
 <!--
 ## Deleting resources
 -->
-## 删除资源
+## 删除资源   {#deleting-resources}
 
-<!-- ```bash
+<!--
+```bash
 kubectl delete -f ./pod.json                                      # Delete a pod using the type and name specified in pod.json
 kubectl delete pod,service baz foo                                # Delete pods and services with same names "baz" and "foo"
 kubectl delete pods,services -l name=myLabel                      # Delete pods and services with label name=myLabel
@@ -651,7 +655,7 @@ kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{pr
 <!--
 ## Interacting with running Pods
 -->
-## 与运行中的 Pod 进行交互
+## 与运行中的 Pod 进行交互   {#interacting-with-running-pods}
 
 <!--
 ```bash
@@ -705,7 +709,7 @@ kubectl top pod POD_NAME --sort-by=cpu              # 显示给定 Pod 的指标
 <!--
 ## Copy files and directories to and from containers
 -->
-## 从容器中复制文件和目录
+## 从容器中复制文件和目录   {#copy-files-and-directories-to-and-from-containers}
 
 <!--
 ```bash
@@ -722,11 +726,11 @@ kubectl cp /tmp/foo my-namespace/my-pod:/tmp/bar       # 将 /tmp/foo 本地文�
 kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # 将 /tmp/foo 从远程 Pod 复制到本地 /tmp/bar
 ```
 
+{{< note >}}
 <!--
 `kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present,`kubectl cp` will fail.
 For advanced use cases, such as symlinks, wildcard expansion or file mode preservation consider using `kubectl exec`.
 -->
-{{< note >}}
 `kubectl cp` 要求容器镜像中存在 “tar” 二进制文件。如果 “tar” 不存在，`kubectl cp` 将失败。
 对于进阶用例，例如符号链接、通配符扩展或保留文件权限，请考虑使用 `kubectl exec`。
 {{< /note >}}
@@ -745,7 +749,7 @@ kubectl exec -n my-namespace my-pod -- tar cf - /tmp/foo | tar xf - -C /tmp/bar 
 <!--
 ## Interacting with Deployments and Services
 -->
-## 与 Deployments 和 Services 进行交互
+## 与 Deployments 和 Services 进行交互   {#interacting-with-deployments-and-services}
 
 <!--
 ```bash
@@ -773,7 +777,7 @@ kubectl exec deploy/my-deployment -- ls                   # 在 Deployment 里�
 <!--
 ## Interacting with Nodes and cluster
 -->
-## 与节点和集群进行交互
+## 与节点和集群进行交互   {#interacting-with-nodes-and-cluster}
 
 <!--
 ```bash
@@ -786,7 +790,7 @@ kubectl cluster-info dump                                             # Dump cur
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump current cluster state to /path/to/cluster-state
 
 # View existing taints on which exist on current nodes.
-kubectl get nodes -o=custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect
+kubectl get nodes -o='custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect'
 
 # If a taint with that key and effect already exists, its value is replaced as specified.
 kubectl taint nodes foo dedicated=special-user:NoSchedule
@@ -802,7 +806,7 @@ kubectl cluster-info dump                                             # 将当�
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # 将当前集群状态输出到 /path/to/cluster-state
 
 # 查看当前节点上存在的现有污点。
-kubectl get nodes -o=custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect
+kubectl get nodes -o='custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect'
 
 # 如果已存在具有指定键和效果的污点，则替换其值为指定值。
 kubectl taint nodes foo dedicated=special-user:NoSchedule
@@ -811,7 +815,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 <!--
 ### Resource types
 -->
-### 资源类型
+### 资源类型   {#resource-types}
 
 <!--
 List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
@@ -851,7 +855,7 @@ kubectl api-resources --api-group=extensions # "extensions" API 组中的所有�
 
 To output details to your terminal window in a specific format, add the `-o` (or `--output`) flag to a supported `kubectl` command.
 -->
-### 格式化输出
+### 格式化输出   {#formatting-output}
 
 要以特定格式将详细信息输出到终端窗口，将 `-o`（或者 `--output`）参数添加到支持的 `kubectl` 命令中。
 
@@ -891,7 +895,6 @@ kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.nam
 # All images excluding "registry.k8s.io/coredns:1.6.2"
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry.k8s.io/coredns:1.6.2")].image'
 
-
 # All fields under metadata regardless of name
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 
@@ -924,11 +927,11 @@ More examples in the kubectl [reference documentation](/docs/reference/kubectl/#
 
 Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 -->
-### Kubectl 日志输出详细程度和调试
+### Kubectl 日志输出详细程度和调试   {#kubectl-output-verbosity-and-debugging}
 
 Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参数后跟一个数字表示日志的级别。
 Kubernetes 通用的日志习惯和相关的日志级别在
-[这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) 有相应的描述。
+[这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)有相应的描述。
 
 <!--
 Verbosity | Description
