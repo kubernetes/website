@@ -26,8 +26,8 @@ website and read through the documentation and tutorials, for example the
 As an alternative, you can watch [Hands-on Introduction to kluctl](https://www.youtube.com/watch?v=9LoYLjDjOdg)
 from the Rawkode Academy YouTube channel which shows a hands-on demo session.
 
-There is also a [Kluctl delivery scenario](https://github.com/podtato-head/podtato-head/tree/main/delivery/kluctl)
-available in the [podtato-head](https://github.com/podtato-head/podtato-head) demo project.
+There is also a [Kluctl delivery scenario](https://github.com/codablock/podtato-head/tree/kluctl/delivery/kluctl)
+available in the [podtato-head](https://github.com/codablock/podtato-head) demo project.
 
 ## Live and let live
 
