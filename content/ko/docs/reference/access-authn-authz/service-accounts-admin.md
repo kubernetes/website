@@ -1,4 +1,9 @@
 ---
+# reviewers:
+#   - bprashanth
+#   - davidopp
+#   - lavalamp
+#   - liggitt
 title: 서비스 어카운트 관리하기
 content_type: concept
 weight: 50

@@ -433,7 +433,7 @@ parameters:
 * `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS
   volume plugin multiplies this with size of requested volume to compute IOPS
   of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see
-  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
+  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)).
   A string is expected here, i.e. `"10"`, not `10`.
 * `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
 * `encrypted`: denotes whether the EBS volume should be encrypted or not.
@@ -454,7 +454,7 @@ parameters:
 * `iopsPerGB`：只适用于 `io1` 卷。每 GiB 每秒 I/O 操作。
   AWS 卷插件将其与请求卷的大小相乘以计算 IOPS 的容量，
   并将其限制在 20000 IOPS（AWS 支持的最高值，请参阅
-  [AWS 文档](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)。
+  [AWS 文档](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)）。
   这里需要输入一个字符串，即 `"10"`，而不是 `10`。
 * `fsType`：受 Kubernetes 支持的文件类型。默认值：`"ext4"`。
 * `encrypted`：指定 EBS 卷是否应该被加密。合法值为 `"true"` 或者 `"false"`。
@@ -648,7 +648,7 @@ parameters:
     * Distribute volume: `volumetype: none`
 
     For available volume types and administration options, refer to the
-    [Administration Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
+    [Administration Guide](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/).
 
     For further reference information, see
     [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
@@ -666,7 +666,7 @@ parameters:
   * 'Distribute volume': `volumetype: none`
 
   有关可用的卷类型和管理选项，
-  请参阅[管理指南](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html)。
+  请参阅[管理指南](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/)。
 
   更多相关的参考信息，
   请参阅[如何配置 Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology)。

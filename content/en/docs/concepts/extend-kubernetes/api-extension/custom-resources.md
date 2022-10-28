@@ -126,6 +126,17 @@ CRDs allow users to create new types of resources without adding another API ser
 
 Regardless of how they are installed, the new resources are referred to as Custom Resources to distinguish them from built-in Kubernetes resources (like pods).
 
+{{< note >}}
+Avoid using a Custom Resource as data storage for application, end user, or monitoring data:
+architecture designs that store application data within the Kubernetes API typically represent
+a design that is too closely coupled.
+
+Architecturally, [cloud native](https://www.cncf.io/about/faq/#what-is-cloud-native) application architectures
+favor loose coupling between components. If part of your workload requires a backing service for
+its routine operation, run that backing service as a component or consume it as an external service.
+This way, your workload does not rely on the Kubernetes API for its normal operation.
+{{< /note >}}
+
 ## CustomResourceDefinitions
 
 The [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)

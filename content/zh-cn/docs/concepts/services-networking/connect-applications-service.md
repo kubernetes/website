@@ -16,7 +16,7 @@ Kubernetes assumes that pods can communicate with other pods, regardless of whic
 This guide uses a simple nginx server to demonstrate proof of concept.
 -->
 
-## Kubernetes 连接容器的模型
+## Kubernetes 连接容器的模型  {#the-kubernetes-model-for-connecting-containers}
 
 既然有了一个持续运行、可复制的应用，我们就能够将它暴露到网络上。
 
@@ -37,7 +37,7 @@ Pod 与 Pod 之间创建连接或将容器的端口映射到主机端口。
 We did this in a previous example, but let's do it once again and focus on the networking perspective.
 Create an nginx Pod, and note that it has a container port specification:
 -->
-## 在集群中暴露 Pod
+## 在集群中暴露 Pod  {#exposing-pods-to-the-cluster}
 
 我们在之前的示例中已经做过，然而让我们以网络连接的视角再重做一遍。
 创建一个 Nginx Pod，注意其中包含一个容器端口的规约：
@@ -66,9 +66,10 @@ Check your pods' IPs:
 检查 Pod 的 IP 地址：
 
 ```shell
-kubectl get pods -l run=my-nginx -o yaml | grep podIP
-    podIP: 10.244.3.4
-    podIP: 10.244.2.5
+kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
+    POD_IP
+    [map[ip:10.244.3.4]]
+    [map[ip:10.244.2.5]]
 ```
 
 <!--
@@ -77,7 +78,7 @@ You should be able to ssh into any node in your cluster and use a tool such as `
 You can read more about the [Kubernetes Networking Model](/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model) if you're curious.
 -->
 你应该能够通过 ssh 登录到集群中的任何一个节点上，并使用诸如 `curl` 之类的工具向这两个 IP 地址发出查询请求。
-需要注意的是，容器不会使用该节点上的 80 端口，也不会使用任何特定的 NAT 规则去路由流量到 Pod 上。
+需要注意的是，容器 **不会** 使用该节点上的 80 端口，也不会使用任何特定的 NAT 规则去路由流量到 Pod 上。
 这意味着可以在同一个节点上运行多个 Nginx Pod，使用相同的 `containerPort`，并且可以从集群中任何其他的
 Pod 或节点上使用 IP 的方式访问到它们。
 如果你想的话，你依然可以将宿主节点的某个端口的流量转发到 Pod 中，但是出于网络模型的原因，你不必这么做。
@@ -93,7 +94,7 @@ A Kubernetes Service is an abstraction which defines a logical set of Pods runni
 
 You can create a Service for your 2 nginx replicas with `kubectl expose`:
 -->
-## 创建 Service
+## 创建 Service   {#creating-a-service}
 
 我们有一组在一个扁平的、集群范围的地址空间中运行 Nginx 服务的 Pod。
 理论上，你可以直接连接到这些 Pod，但如果某个节点死掉了会发生什么呢？
@@ -203,7 +204,7 @@ Kubernetes supports 2 primary modes of finding a Service - environment variables
 and DNS. The former works out of the box while the latter requires the
 [CoreDNS cluster addon](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns).
 -->
-## 访问 Service
+## 访问 Service   {#accessing-the-service}
 
 Kubernetes支持两种查找服务的主要模式: 环境变量和 DNS。前者开箱即用，而后者则需要
 [CoreDNS 集群插件](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns).
@@ -255,7 +256,7 @@ variables:
 能看到环境变量中并没有你创建的 Service 相关的值。这是因为副本的创建先于 Service。
 这样做的另一个缺点是，调度器可能会将所有 Pod 部署到同一台机器上，如果该机器宕机则整个 Service 都会离线。
 要改正的话，我们可以先终止这 2 个 Pod，然后等待 Deployment 去重新创建它们。
-这次 Service 会*先于*副本存在。这将实现调度器级别的 Pod 按 Service
+这次 Service 会 **先于** 副本存在。这将实现调度器级别的 Pod 按 Service
 分布（假定所有的节点都具有同样的容量），并提供正确的环境变量：
 
 ```shell
@@ -375,7 +376,6 @@ kubectl get secrets
 ```
 ```
 NAME                  TYPE                                  DATA      AGE
-default-token-il9rc   kubernetes.io/service-account-token   1         1d
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
 
@@ -438,7 +438,6 @@ kubectl get secrets
 ```
 ```
 NAME                  TYPE                                  DATA      AGE
-default-token-il9rc   kubernetes.io/service-account-token   1         1d
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
 
@@ -457,14 +456,14 @@ Noteworthy points about the nginx-secure-app manifest:
   serves HTTP traffic on port 80 and HTTPS traffic on 443, and nginx Service
   exposes both ports.
 - Each container has access to the keys through a volume mounted at `/etc/nginx/ssl`.
-  This is setup *before* the nginx server is started.
+  This is set up *before* the nginx server is started.
 -->
 关于 nginx-secure-app 清单，值得注意的几点如下：
 
 - 它将 Deployment 和 Service 的规约放在了同一个文件中。
 - [Nginx 服务器](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)通过
   80 端口处理 HTTP 流量，通过 443 端口处理 HTTPS 流量，而 Nginx Service 则暴露了这两个端口。
-- 每个容器能通过挂载在 `/etc/nginx/ssl` 的卷访问秘钥。卷和密钥需要在 Nginx 服务器启动*之前*配置好。
+- 每个容器能通过挂载在 `/etc/nginx/ssl` 的卷访问秘钥。卷和密钥需要在 Nginx 服务器启动 **之前** 配置好。
 
 ```shell
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml
@@ -476,8 +475,12 @@ At this point you can reach the nginx server from any node.
 这时，你可以从任何节点访问到 Nginx 服务器。
 
 ```shell
-kubectl get pods -o yaml | grep -i podip
-    podIP: 10.244.3.5
+kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
+    POD_IP
+    [map[ip:10.244.3.5]]
+```
+
+```shell
 node $ curl -k https://10.244.3.5
 ...
 <h1>Welcome to nginx!</h1>
@@ -519,7 +522,7 @@ LoadBalancers. The Service created in the last section already used `NodePort`,
 so your nginx HTTPS replica is ready to serve traffic on the internet if your
 node has a public IP.
 -->
-## 暴露 Service
+## 暴露 Service  {#exposing-the-service}
 
 对应用的某些部分，你可能希望将 Service 暴露在一个外部 IP 地址上。
 Kubernetes 支持两种实现方式：NodePort 和 LoadBalancer。

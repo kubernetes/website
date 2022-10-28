@@ -16,10 +16,6 @@ weight: 10
 <!-- overview -->
 
 <!--
-CronJobs was promoted to general availability in Kubernetes v1.21. If you are using an older version of
-Kubernetes, please refer to the documentation for the version of Kubernetes that you are using,
-so that you see accurate information. Older Kubernetes versions do not support the `batch/v1` CronJob API.
-
 You can use a {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} to run {{< glossary_tooltip text="Jobs" term_id="job" >}}
 on a time-based schedule.
 These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks on a Linux or UNIX system.
@@ -27,11 +23,6 @@ These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks o
 Cron jobs are useful for creating periodic and recurring tasks, like running backups or sending emails.
 Cron jobs can also schedule individual tasks for a specific time, such as if you want to schedule a job for a low activity period.
 -->
-
-在 Kubernetes v1.21 版本中，CronJob 被提升为通用版本。如果你使用的是旧版本的 Kubernetes，
-请参考你正在使用的 Kubernetes 版本的文档，这样你就能看到准确的信息。
-旧的 Kubernetes 版本不支持 `batch/v1` CronJob API。
-
 你可以利用 {{< glossary_tooltip text="CronJob" term_id="cronjob" >}}
 执行基于时间调度的 {{< glossary_tooltip text="Job" term_id="job" >}}。
 这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://zh.wikipedia.org/wiki/Cron) 任务类似。
@@ -208,7 +199,8 @@ kubectl delete cronjob hello
 Deleting the cron job removes all the jobs and pods it created and stops it from creating additional jobs.
 You can read more about removing jobs in [garbage collection](/docs/concepts/architecture/garbage-collection/).
 -->
-删除 CronJob 会清除它创建的所有任务和 Pod，并阻止它创建额外的任务。你可以查阅[垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection/)。
+删除 CronJob 会清除它创建的所有任务和 Pod，并阻止它创建额外的任务。
+你可以查阅[垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection/)。
 
 <!--
 ## Writing a CronJob Spec
@@ -248,7 +240,6 @@ That is, the CronJob does _not_ update existing jobs, even if those remain runni
 The `.spec.schedule` is a required field of the `.spec`.
 It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`,
 as schedule time of its jobs to be created and executed.
-
 -->
 ### 排期表 {#schedule}
 
@@ -294,11 +285,11 @@ For information about writing a job `.spec`, see
 -->
 ### 任务模板 {#job-template}
 
-`.spec.jobTemplate`是任务的模板，它是必需的。它和
+`.spec.jobTemplate` 是任务的模板，它是必需的。它和
 [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 的语法完全一样，
 只不过它是嵌套的，没有 `apiVersion` 和 `kind`。
-有关如何编写一个任务的 `.spec`，请参考
-[编写 Job 规约](/zh-cn/docs/concepts/workloads/controllers/job/#writing-a-job-spec)。
+有关如何编写一个任务的 `.spec`，
+请参考[编写 Job 规约](/zh-cn/docs/concepts/workloads/controllers/job/#writing-a-job-spec)。
 
 <!--
 ### Starting Deadline
@@ -349,7 +340,7 @@ If there are multiple cron jobs, their respective jobs are always allowed to run
 `.spec.concurrencyPolicy` 也是可选的。它声明了 CronJob 创建的任务执行时发生重叠如何处理。
 spec 仅能声明下列规则中的一种：
 
-* `Allow` (默认)：CronJob 允许并发任务执行。
+* `Allow`（默认）：CronJob 允许并发任务执行。
 * `Forbid`： CronJob 不允许并发任务执行；如果新任务的执行时间到了而老任务没有执行完，CronJob 会忽略新任务的执行。
 * `Replace`：如果新任务的执行时间到了而老任务没有执行完，CronJob 会用新任务替换当前正在运行的任务。
 
@@ -386,6 +377,6 @@ By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corres
 -->
 ### 任务历史限制 {#jobs-history-limits}
 
-`.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit`是可选的。
+`.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit` 是可选的。
 这两个字段指定应保留多少已完成和失败的任务。
 默认设置分别为 3 和 1。设置为 `0` 代表相应类型的任务完成后不会保留。

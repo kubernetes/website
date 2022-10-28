@@ -222,7 +222,7 @@ on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
 with the default gateway to set the advertise address for this particular control-plane node's API server.
 To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
-must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
+must specify an IPv6 address, for example `--apiserver-advertise-address=2001:db8::101`
 -->
 1. （可选）`kubeadm` 试图通过使用已知的端点列表来检测容器运行时。
    使用不同的容器运行时或在预配置的节点上安装了多个容器运行时，请为 `kubeadm init` 指定 `--cri-socket` 参数。
@@ -230,7 +230,7 @@ must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::1
 1. （可选）除非另有说明，否则 `kubeadm` 使用与默认网关关联的网络接口来设置此控制平面节点 API server 的广播地址。
    要使用其他网络接口，请为 `kubeadm init` 设置 `--apiserver-advertise-address=<ip-address>` 参数。
    要部署使用 IPv6 地址的 Kubernetes 集群，
-   必须指定一个 IPv6 地址，例如 `--apiserver-advertise-address=fd00::101`
+   必须指定一个 IPv6 地址，例如 `--apiserver-advertise-address=2001:db8::101`
 
 <!--
 To initialize the control-plane node run:
@@ -676,10 +676,10 @@ The output is similar to:
 ```
 
 <!--
-To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[2001:db8::101]:2073`.
 -->
 {{< note >}}
-要为 `<control-plane-host>:<control-plane-port>` 指定 IPv6 元组，必须将 IPv6 地址括在方括号中，例如：`[fd00::101]:2073`
+要为 `<control-plane-host>:<control-plane-port>` 指定 IPv6 元组，必须将 IPv6 地址括在方括号中，例如：`[2001:db8::101]:2073`
 {{< /note >}}
 
 <!--

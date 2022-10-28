@@ -285,7 +285,7 @@ to `Retain`, including cases where you are reusing an existing PV.
 
 ### Expanding Persistent Volumes Claims
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You can expand
 the following types of volumes:
@@ -333,7 +333,7 @@ increased and that no resize is necessary.
 
 #### CSI Volume expansion
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Support for expanding CSI volumes is enabled by default but it also requires a specific CSI driver to support volume expansion. Refer to documentation of the specific CSI driver for more information.
 

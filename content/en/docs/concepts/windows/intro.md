@@ -212,7 +212,7 @@ work between Windows and Linux:
 * `securityContext.capabilities` -
    POSIX capabilities are not implemented on Windows
 * `securityContext.privileged` -
-   Windows doesn't support privileged containers
+   Windows doesn't support privileged containers, use [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) instead
 * `securityContext.procMount` -
    Windows doesn't have a `/proc` filesystem
 * `securityContext.readOnlyRootFilesystem` -

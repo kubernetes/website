@@ -6,6 +6,11 @@ reviewers:
 title: Network Policies
 content_type: concept
 weight: 50
+description: >-
+  If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4),
+  NetworkPolicies allow you to specify rules for traffic flow within your cluster, and
+  also between Pods and the outside world.
+  Your cluster must use a network plugin that supports NetworkPolicy enforcement.
 ---
 
 <!-- overview -->

@@ -1,7 +1,7 @@
 ---
 title: Pod 优先级和抢占
 content_type: concept
-weight: 50
+weight: 90
 ---
 
 <!-- 
@@ -10,7 +10,7 @@ reviewers:
 - wojtek-t
 title: Pod Priority and Preemption
 content_type: concept
-weight: 50
+weight: 90
 -->
 
 <!-- overview -->

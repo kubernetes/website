@@ -236,12 +236,6 @@ Right after `kubeadm init` there should not be any pods in these states.
   RBAC 特权或使用较新的版本。请在 Pod Network 提供商的问题跟踪器中提交问题，
   然后在此处分类问题。
 
-- 如果你安装的 Docker 版本早于 1.12.1，请在使用 `systemd` 来启动 `dockerd` 和重启 `docker` 时，
-  删除 `MountFlags=slave` 选项。
-  你可以在 `/usr/lib/systemd/system/docker.service` 中看到 MountFlags。
-  MountFlags 可能会干扰 Kubernetes 挂载的卷，并使 Pod 处于 `CrashLoopBackOff` 状态。
-  当 Kubernetes 不能找到 `var/run/secrets/kubernetes.io/serviceaccount` 文件时会发生错误。
-
 <!--
 ## `coredns` is stuck in the `Pending` state
 

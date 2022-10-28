@@ -15,4 +15,4 @@ kubelet이 {{< glossary_tooltip text="도커 엔진" term_id="docker" >}}과 통
 
 <!--more-->
 
-1.24버전 부터 도커심(Dockershim)은 쿠버네티스에서 제거되었다. 자세한 사항은 [Dockershim FAQ](/dockershim)를 참고한다.
+1.24버전 부터 도커심(Dockershim)은 쿠버네티스에서 제거되었다. 자세한 사항은 [Dockershim FAQ](/dockershim/)를 참고한다.

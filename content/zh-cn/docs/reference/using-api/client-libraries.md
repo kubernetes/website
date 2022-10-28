@@ -125,7 +125,9 @@ their authors, not the Kubernetes team.
 | Rust                 | [github.com/clux/kube-rs](https://github.com/clux/kube-rs) |
 | Rust                 | [github.com/ynqa/kubernetes-rust](https://github.com/ynqa/kubernetes-rust) |
 | Scala                | [github.com/hagay3/skuber](https://github.com/hagay3/skuber) |
+| Scala                | [github.com/hnaderi/scala-k8s](https://github.com/hnaderi/scala-k8s) |
 | Scala                | [github.com/joan38/kubernetes-client](https://github.com/joan38/kubernetes-client) |
+| Swift                | [github.com/swiftkube/client](https://github.com/swiftkube/client) |
 -->
 | 语言                   | 客户端库                                  |
 |----------------------| ---------------------------------------- |
@@ -160,6 +162,7 @@ their authors, not the Kubernetes team.
 | Rust                 | [github.com/clux/kube-rs](https://github.com/clux/kube-rs) |
 | Rust                 | [github.com/ynqa/kubernetes-rust](https://github.com/ynqa/kubernetes-rust) |
 | Scala                | [github.com/hagay3/skuber](https://github.com/hagay3/skuber) |
+| Scala                | [github.com/hnaderi/scala-k8s](https://github.com/hnaderi/scala-k8s) |
 | Scala                | [github.com/joan38/kubernetes-client](https://github.com/joan38/kubernetes-client) |
 | Swift                | [github.com/swiftkube/client](https://github.com/swiftkube/client) |
 

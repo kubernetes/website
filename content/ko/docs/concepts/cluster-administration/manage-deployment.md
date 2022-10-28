@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - janetkuo
 title: 리소스 관리
 content_type: concept
 weight: 40

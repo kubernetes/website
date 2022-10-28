@@ -834,13 +834,13 @@ A deployment-specific approval process for kubelet serving certificates should t
 
 All of TLS bootstrapping described in this document relates to the kubelet. However,
 other components may need to communicate directly with kube-apiserver. Notable is kube-proxy, which
-is part of the Kubernetes control plane and runs on every node, but may also include other components such as monitoring or networking.
+is part of the Kubernetes node components and runs on every node, but may also include other components such as monitoring or networking.
 -->
 ## 其它身份认证组件   {#other-authenticating-components}
 
 本文所描述的所有 TLS 启动引导内容都与 kubelet 相关。不过，其它组件也可能需要直接与
 kube-apiserver 直接通信。容易想到的是 kube-proxy，同样隶属于
-Kubernetes 的控制面并且运行在所有节点之上，不过也可能包含一些其它负责监控或者联网的组件。
+Kubernetes 的节点组件并且运行在所有节点之上，不过也可能包含一些其它负责监控或者联网的组件。
 
 <!--
 Like the kubelet, these other components also require a method of authenticating to kube-apiserver.

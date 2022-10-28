@@ -5,7 +5,7 @@ reviewers:
 - thockin
 title: Namespaces
 content_type: concept
-weight: 30
+weight: 45
 ---
 
 <!-- overview -->

@@ -345,14 +345,14 @@ When faced with an admission decision, the API Server POSTs a JSON serialized
 This object contains fields describing the containers being admitted, as well as
 any pod annotations that match `*.image-policy.k8s.io/*`.
 
-{{ note }}
+{{< note >}}
 The webhook API objects are subject to the same versioning compatibility rules
 as other Kubernetes API objects. Implementers should be aware of looser compatibility
 promises for alpha objects and check the `apiVersion` field of the request to
 ensure correct deserialization.
 Additionally, the API Server must enable the `imagepolicy.k8s.io/v1alpha1` API extensions
 group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
-{{ /note }}
+{{< /note >}}
 
 An example request body:
 
@@ -646,7 +646,7 @@ admission plugin, which allows preventing pods from running on specifically tain
 
 ### PodSecurity {#podsecurity}
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller
 defined in the next section. This admission controller acts on creation and modification of the pod and

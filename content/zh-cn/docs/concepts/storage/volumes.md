@@ -132,7 +132,7 @@ EBS volume can be pre-populated with data, and that data can be shared between p
 {{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
 
 `awsElasticBlockStore` 卷将 Amazon Web 服务（AWS）[EBS 卷](https://aws.amazon.com/ebs/)挂载到你的
-Pod 中。与 `emptyDir` 在 Pod 被删除时也被删除不同，EBS 卷的内容在删除
+Pod 中。`emptyDir` 在 Pod 被删除时也会一起被删除，但 EBS 卷的内容在删除
 Pod 时会被保留，卷只是被卸载掉了。
 这意味着 EBS 卷可以预先填充数据，并且该数据可以在 Pod 之间共享。
 
@@ -218,9 +218,8 @@ Storage Interface (CSI) driver. In order to use this feature, the [AWS EBS CSI
 driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
 must be installed on the cluster.
 -->
-如果启用了对 `awsElasticBlockStore` 的 `CSIMigration`
-特性支持，所有插件操作都不再指向树内插件（In-Tree Plugin），转而指向
-`ebs.csi.aws.com` 容器存储接口（Container Storage Interface，CSI）驱动。
+启用 `awsElasticBlockStore` 的 `CSIMigration` 特性后，所有插件操作将从现有的树内插件重定向到
+`ebs.csi.aws.com` 容器存储接口（CSI）驱动程序。
 为了使用此特性，必须在集群中安装
 [AWS EBS CSI 驱动](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)。
 
@@ -463,7 +462,7 @@ volume. You can customize the path to use for a specific
 entry in the ConfigMap. The following configuration shows how to mount
 the `log-config` ConfigMap onto a Pod called `configmap-pod`:
 -->
-引用 configMap 对象时，你可以在 volume 中通过它的名称来引用。
+引用 configMap 对象时，你可以在卷中通过它的名称来引用。
 你可以自定义 ConfigMap 中特定条目所要使用的路径。
 下面的配置显示了如何将名为 `log-config` 的 ConfigMap 挂载到名为 `configmap-pod`
 的 Pod 中：
@@ -549,7 +548,7 @@ files in the `emptyDir` volume, though that volume can be mounted at the same
 or different paths in each container. When a Pod is removed from a node for
 any reason, the data in the `emptyDir` is deleted permanently.
 -->
-当 Pod 分派到某个 Node 上时，`emptyDir` 卷会被创建，并且在 Pod 在该节点上运行期间，卷一直存在。
+当 Pod 分派到某个节点上时，`emptyDir` 卷会被创建，并且在 Pod 在该节点上运行期间，卷一直存在。
 就像其名称表示的那样，卷最初是空的。
 尽管 Pod 中的容器挂载 `emptyDir` 卷的路径可能相同也可能不同，这些容器都可以读写
 `emptyDir` 卷中相同的文件。
@@ -699,7 +698,7 @@ writers are not allowed.
 -->
 GCE PD 的一个特点是它们可以同时被多个消费者以只读方式挂载。
 这意味着你可以用数据集预先填充 PD，然后根据需要并行地在尽可能多的 Pod 中提供该数据集。
-不幸的是，PD 只能由单个使用者以读写模式挂载 —— 即不允许同时写入。
+不幸的是，PD 只能由单个使用者以读写模式挂载，即不允许同时写入。
 
 <!--
 Using a GCE persistent disk with a Pod controlled by a ReplicaSet will fail unless
@@ -902,7 +901,7 @@ means that a glusterfs volume can be pre-populated with data, and that data can
 be shared between pods. GlusterFS can be mounted by multiple writers
 simultaneously.
 -->
-`glusterfs` 卷能将 [Glusterfs](https://www.gluster.org) (一个开源的网络文件系统) 
+`glusterfs` 卷能将 [Glusterfs](https://www.gluster.org) (一个开源的网络文件系统)
 挂载到你的 Pod 中。不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`glusterfs`
 卷的内容在删除 Pod 时会被保存，卷只是被卸载。
 这意味着 `glusterfs` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
@@ -1216,7 +1215,7 @@ such as node resource requirements, node selectors, Pod affinity, and Pod anti-a
 `WaitForFirstConsumer`。要了解更多详细信息，请参考
 [local StorageClass 示例](/zh-cn/docs/concepts/storage/storage-classes/#local)。
 延迟卷绑定的操作可以确保 Kubernetes 在为 PersistentVolumeClaim 作出绑定决策时，会评估
-Pod 可能具有的其他节点约束，例如：如节点资源需求、节点选择器、Pod亲和性和 Pod 反亲和性。
+Pod 可能具有的其他节点约束，例如：如节点资源需求、节点选择器、Pod 亲和性和 Pod 反亲和性。
 
 <!--
 An external static provisioner can be run separately for improved management of
@@ -1254,17 +1253,44 @@ writers simultaneously.
 时会被保存，卷只是被卸载。
 这意味着 `nfs` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
 
-<!--
-You must have your own NFS server running with the share exported before you can use it.
--->
-{{< caution >}}
-在使用 NFS 卷之前，你必须运行自己的 NFS 服务器并将目标 share 导出备用。
-{{< /caution >}}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: registry.k8s.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /my-nfs-data
+      name: test-volume
+  volumes:
+  - name: test-volume
+    nfs:
+      server: my-nfs-server.example.com
+      path: /my-nfs-volume
+      readonly: true
+```
 
 <!--
-See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) for more details.
+You must have your own NFS server running with the share exported before you can use it.
+
+Also note that you can't specify NFS mount options in a Pod spec. You can either set mount options server-side or use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html). You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
 -->
-要了解更多详情请参考 [NFS 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)。
+{{< note >}}
+在使用 NFS 卷之前，你必须运行自己的 NFS 服务器并将目标 share 导出备用。
+
+还需要注意，不能在 Pod spec 中指定 NFS 挂载可选项。
+可以选择设置服务端的挂载可选项，或者使用
+[/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html)。
+此外，还可以通过允许设置挂载可选项的持久卷挂载 NFS 卷。
+{{< /note >}}
+
+<!--
+See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) for an example of mounting NFS volumes with PersistentVolumes.
+-->
+如需了解用持久卷挂载 NFS 卷的示例，请参考 [NFS 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)。
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -1308,7 +1334,7 @@ be pre-provisioned and referenced inside a Pod.
 Here is an example Pod referencing a pre-provisioned Portworx volume:
 -->
 `portworxVolume` 类型的卷可以通过 Kubernetes 动态创建，也可以预先配备并在 Pod 内引用。
-下面是一个引用预先配备的 Portworx Volume 的示例 Pod：
+下面是一个引用预先配备的 Portworx 卷的示例 Pod：
 
 ```yaml
 apiVersion: v1
@@ -1768,7 +1794,7 @@ CSI 和 FlexVolume 都允许独立于 Kubernetes 代码库开发卷插件，并�
 对于希望创建树外（Out-Of-Tree）卷插件的存储供应商，请参考
 [卷插件常见问题](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)。
 
-### csi
+### CSI
 
 <!--
 [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md)

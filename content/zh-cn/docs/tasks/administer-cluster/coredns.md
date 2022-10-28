@@ -44,7 +44,7 @@ kube-dns in an existing deployment, or by using tools like kubeadm
 that will deploy and upgrade the cluster for you.
 -->
 通过替换现有集群部署中的 kube-dns，或者使用 kubeadm 等工具来为你部署和升级集群，
-可以在你的集群中使用 CoreDNS 而非 kube-dns，
+可以在你的集群中使用 CoreDNS 而非 kube-dns。
 
 <!--
 ## Installing CoreDNS

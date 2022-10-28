@@ -11,13 +11,14 @@ weight: 10
 파드 시큐리티 어드미션(PSA, Pod Security Admission)은 
 [베타로 변경](/blog/2021/12/09/pod-security-admission-beta/)되어 v1.23 이상에서 기본적으로 활성화되어 있다. 
 파드 시큐리티 어드미션은 파드가 생성될 때 
-[파드 시큐리티 스탠다드(Pod Security Standards)](/docs/concepts/security/pod-security-standards/)를 
+[파드 시큐리티 스탠다드(Pod Security Standards)](/ko/docs/concepts/security/pod-security-standards/)를 
 적용하는 어드미션 컨트롤러이다. 
 이 튜토리얼은 
 `baseline` 파드 시큐리티 스탠다드를 클러스터 수준(level)에 적용하여 
 표준 구성을 클러스터의 모든 네임스페이스에 적용하는 방법을 보여 준다.
 
-파드 시큐리티 스탠다드를 특정 네임스페이스에 적용하려면, [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss/)를 참고한다.
+파드 시큐리티 스탠다드를 특정 네임스페이스에 적용하려면, 
+[파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss/)를 참고한다.
 
 만약 쿠버네티스 버전이 v{{< skew currentVersion >}}이 아니라면,
 해당 버전의 문서를 확인하자.
@@ -33,7 +34,7 @@ weight: 10
 
 [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)을 이용하여 
 `enforce`, `audit`, 또는 `warn` 모드 중 하나로 
-내장 [파드 시큐리티 스탠다드](/docs/concepts/security/pod-security-standards/)를 적용할 수 있다.
+내장 [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)를 적용할 수 있다.
 
 현재 구성에 가장 적합한 파드 시큐리티 스탠다드를 고르는 데 
 도움이 되는 정보를 수집하려면, 다음을 수행한다.
@@ -323,5 +324,5 @@ weight: 10
   5. 최소한의 파드 구성을 위한 yaml 파일을 생성
   6. 해당 파일을 적용하여 새 클러스터에 파드를 생성
 - [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)
-- [파드 시큐리티 스탠다드](/docs/concepts/security/pod-security-standards/)
+- [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)
 - [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss/)

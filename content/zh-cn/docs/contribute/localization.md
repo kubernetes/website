@@ -341,7 +341,6 @@ Open a PR against the [`cncf/foundation`](https://github.com/cncf/foundation/tre
 在 [`cncf/foundation`](https://github.com/cncf/foundation/tree/master/code-of-conduct-languages)
 仓库提交 PR，添加你所用语言版本的行为准则。
 
--->
 <!--
 ### Setting up the OWNERS files
 
@@ -571,7 +570,7 @@ The `main` branch holds content for the current release `{{< latest-version >}}`
 ### 源文件 {#source-files}
 
 本地化必须基于本地化团队所针对的特定发行版本中的英文文件。
-每个本地化团队可以决定要针对哪个发行版本，在下文中称作目标版本（target version）。）
+每个本地化团队可以决定要针对哪个发行版本，在下文中称作目标版本（target version）。
 
 要查找你的目标版本的源文件：
 
