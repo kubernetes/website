@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Live and let live with Kluctl and Server Side Apply"
-date: 2022-10-27
+date: 2022-11-04
 slug: live-and-let-live-with-kluctl-and-ssa
 ---
 
