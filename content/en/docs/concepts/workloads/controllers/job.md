@@ -54,21 +54,21 @@ Check on the status of the Job with `kubectl`:
 
 {{< tabs name="Check status of Job" >}}
 {{< tab name="kubectl describe job pi" codelang="bash" >}}
-Name:           pi
-Namespace:      default
-Selector:       controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-Labels:         controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-                job-name=pi
-Annotations:    kubectl.kubernetes.io/last-applied-configuration:
-                  {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":...
-Parallelism:    1
-Completions:    1
-Start Time:     Mon, 02 Dec 2019 15:20:11 +0200
-Completed At:   Mon, 02 Dec 2019 15:21:16 +0200
-Duration:       65s
-Pods Statuses:  0 Running / 1 Succeeded / 0 Failed
+Name:             pi
+Namespace:        default
+Selector:         controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
+Labels:           controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
+                  job-name=pi
+Annotations:      batch.kubernetes.io/job-tracking: 
+Parallelism:      1
+Completions:      1
+Completion Mode:  NonIndexed
+Start Time:       Fri, 28 Oct 2022 13:05:18 +0530
+Completed At:     Fri, 28 Oct 2022 13:05:21 +0530
+Duration:         3s
+Pods Statuses:    0 Active / 1 Succeeded / 0 Failed
 Pod Template:
-  Labels:  controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+  Labels:  controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
            job-name=pi
   Containers:
    pi:
@@ -86,7 +86,8 @@ Pod Template:
 Events:
   Type    Reason            Age   From            Message
   ----    ------            ----  ----            -------
-  Normal  SuccessfulCreate  14m   job-controller  Created pod: pi-5rwd7
+  Normal  SuccessfulCreate  21s   job-controller  Created pod: pi-xf9p4
+  Normal  Completed         18s   job-controller  Job completed
 {{< /tab >}}
 {{< tab name="kubectl get job pi -o yaml" codelang="bash" >}}
 apiVersion: batch/v1
