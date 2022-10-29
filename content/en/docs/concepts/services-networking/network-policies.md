@@ -34,7 +34,7 @@ Network policies are implemented by the [network plugin](/docs/concepts/extend-k
 
 ## The Two Sorts of Pod Isolation
 
-There are two sorts of isolation for a pod: isolation for egress, and isolation for ingress.  They concern what connections may be established.  "Isolation" here is not absolute, rather it means "some restrictions apply".  The alternative, "non-isolated for $direction", means that no restrictions apply in the stated direction.  The two sorts of isolation (or not) are declared independently, and are both relevant for a connection from one pod to another.
+There are two sorts of isolation for a pod: isolation for egress, and isolation for ingress.  They concern what connections may be established.  "Isolation" here is not absolute, rather it means "some restrictions apply".  The alternative, "non-isolated for direction", means that no restrictions apply in the stated direction.  The two sorts of isolation (or not) are declared independently, and are both relevant for a connection from one pod to another.
 
 By default, a pod is non-isolated for egress; all outbound connections are allowed.  A pod is isolated for egress if there is any NetworkPolicy that both selects the pod and has "Egress" in its `policyTypes`; we say that such a policy applies to the pod for egress.  When a pod is isolated for egress, the only allowed connections from the pod are those allowed by the `egress` list of some NetworkPolicy that applies to the pod for egress.  The effects of those `egress` lists combine additively.
 
