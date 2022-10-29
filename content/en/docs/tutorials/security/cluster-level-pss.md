@@ -42,22 +42,22 @@ that are most appropriate for your configuration, do the following:
 1. Create a cluster with no Pod Security Standards applied:
 
    ```shell
-   kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.24.0
+   kind create cluster --name psa-wo-cluster-pss
    ```
-   The output is similar to this:
+   The output is similar to:
    ```
    Creating cluster "psa-wo-cluster-pss" ...
-   ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
-   ✓ Preparing nodes 📦  
+   ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼
+   ✓ Preparing nodes 📦
    ✓ Writing configuration 📜
    ✓ Starting control-plane 🕹️
    ✓ Installing CNI 🔌
    ✓ Installing StorageClass 💾
    Set kubectl context to "kind-psa-wo-cluster-pss"
    You can now use your cluster with:
-   
+
    kubectl cluster-info --context kind-psa-wo-cluster-pss
-   
+
    Thanks for using kind! 😊
    ```
 
@@ -72,7 +72,7 @@ that are most appropriate for your configuration, do the following:
    Kubernetes control plane is running at https://127.0.0.1:61350
 
    CoreDNS is running at https://127.0.0.1:61350/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-   
+
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
 
@@ -255,22 +255,22 @@ following:
    these Pod Security Standards:
 
    ```shell
-   kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.24.0 --config /tmp/pss/cluster-config.yaml
+   kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
    ```
    The output is similar to this:
    ```
    Creating cluster "psa-with-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v1.24.0) 🖼 
-    ✓ Preparing nodes 📦  
-    ✓ Writing configuration 📜 
-    ✓ Starting control-plane 🕹️ 
-    ✓ Installing CNI 🔌 
-    ✓ Installing StorageClass 💾 
+    ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼
+    ✓ Preparing nodes 📦
+    ✓ Writing configuration 📜
+    ✓ Starting control-plane 🕹️
+    ✓ Installing CNI 🔌
+    ✓ Installing StorageClass 💾
    Set kubectl context to "kind-psa-with-cluster-pss"
    You can now use your cluster with:
-    
+
    kubectl cluster-info --context kind-psa-with-cluster-pss
-    
+
    Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
    ```
 
