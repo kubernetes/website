@@ -1,7 +1,5 @@
 #!/bin/sh
-# Until v1.23 is released, kind node image needs to be built from k/k master branch
-# Ref: https://kind.sigs.k8s.io/docs/user/quick-start/#building-images
-kind create cluster --name psa-ns-level --image kindest/node:v1.23.0
+kind create cluster --name psa-ns-level
 kubectl cluster-info --context kind-psa-ns-level
 # Wait for 15 seconds (arbitrary) ServiceAccount Admission Controller to be available
 sleep 15
