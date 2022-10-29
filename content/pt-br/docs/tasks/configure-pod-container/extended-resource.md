@@ -18,7 +18,7 @@ Esta página mostra como atribuir recursos estendidos a um Contêiner.
 
 Antes de fazer este exercício, faça o exercício em
 [Anunciar recursos estendidos para um Nó](/docs/tasks/administer-cluster/extended-resource-node/).
-Isso configurará um de seus nós para anunciar um recurso de `dongle`.
+Isso configurará um de seus nós para anunciar um recurso de *dongle*.
 
 <!-- steps -->
 
@@ -34,7 +34,7 @@ Aqui está o arquivo de configuração para um pod que possui um contêiner:
 
 {{< codenew file="pods/resource/extended-resource-pod.yaml" >}}
 
-No arquivo de configuração, você pode ver que o contêiner solicita 3 `dongles`.
+No arquivo de configuração, você pode ver que o contêiner solicita 3 *dongles*.
 
 Crie um Pod:
 
@@ -54,7 +54,7 @@ Descreva o pod:
 kubectl describe pod extended-resource-demo
 ```
 
-A saída mostra as solicitações de `dongle`:
+A saída mostra as solicitações de *dongle*:
 
 ```yaml
 Limits:
@@ -66,7 +66,7 @@ Requests:
 ## Tente criar um segundo Pod
 
 Aqui está o arquivo de configuração para um pod que possui um contêiner. 
-O contêiner solicita dois `dongles`.
+O contêiner solicita dois *dongles*.
 
 {{< codenew file="pods/resource/extended-resource-pod-2.yaml" >}}
 
@@ -79,14 +79,14 @@ Tente criar um pod:
 kubectl apply -f https://k8s.io/examples/pods/resource/extended-resource-pod-2.yaml
 ```
 
-Descreva o pod
+Descreva o pod:
 
 ```shell
 kubectl describe pod extended-resource-demo-2
 ```
 
 A saída mostra que o pod não pode ser agendado, porque não há nó que tenha
-2 `dongles` disponíveis:
+2 *dongles* disponíveis:
 
 ```
 Conditions:
