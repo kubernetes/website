@@ -30,6 +30,11 @@ Install the following on your workstation:
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
 
+This tutorial demonstrates what you can configure for a Kubernetes cluster that you fully
+control. If you are learning how to configure Pod Security Admission for a managed cluster
+where you are not able to configure the control plane, read
+[Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
+
 ## Choose the right Pod Security Standard to apply
 
 [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
