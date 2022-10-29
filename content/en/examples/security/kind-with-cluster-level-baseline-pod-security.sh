@@ -53,6 +53,7 @@ nodes:
 EOF
 kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
 kubectl cluster-info --context kind-psa-with-cluster-pss
+
 # Wait for 15 seconds (arbitrary) ServiceAccount Admission Controller to be available
 sleep 15
 cat <<EOF |
@@ -68,3 +69,14 @@ spec:
         - containerPort: 80
 EOF
 kubectl apply -f -
+
+# Wait
+sleep 3
+
+# Clean up
+printf "\n\nCleaning up:\n" 1>&2
+set -e
+kubectl delete pod --all -n example --now
+kubectl delete ns example
+kind delete cluster --name psa-with-cluster-pss
+rm -f /tmp/pss/cluster-config.yaml
