@@ -31,14 +31,14 @@ Install the following on your workstation:
 1. Create a `KinD` cluster as follows:
 
    ```shell
-   kind create cluster --name psa-ns-level --image kindest/node:v1.23.0
+   kind create cluster --name psa-ns-level
    ```
 
    The output is similar to this:
 
    ```
    Creating cluster "psa-ns-level" ...
-    ✓ Ensuring node image (kindest/node:v1.23.0) 🖼 
+    ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼 
     ✓ Preparing nodes 📦  
     ✓ Writing configuration 📜 
     ✓ Starting control-plane 🕹️ 
