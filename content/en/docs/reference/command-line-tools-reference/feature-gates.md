@@ -378,7 +378,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIServerIdentity`: Assign each API server an ID in a cluster.
 - `APIServerTracing`: Add support for distributed tracing in the API server.
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
-- `APISelfSubjectAttributesReview`: Enable the authentication API to see the requesting subject's authentication information. Required to use the `kubectl alpha auth whoami` command.
+- `APISelfSubjectAttributesReview`: Activate the `SelfSubjectReview` API which allows users
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug/debug-cluster/audit/#advanced-audit)
 - `AllowInsecureBackendProxy`: Enable the users to skip TLS verification of
   kubelets on Pod log requests.

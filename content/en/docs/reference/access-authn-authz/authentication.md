@@ -1337,11 +1337,11 @@ status:
 {{< /tabs >}}
 
 This feature is extremely useful when a complicated authentication flow is used in a Kubernetes cluster, 
-for example, if you use [webhook token authentication](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) or [authenticating proxy](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
+for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) or [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
 
 {{< note >}}
 The Kubernetes API server fills the `userInfo` after all authentication mechanisms are applied,
-including [impersonation](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#user-impersonation).
+including [impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation).
 If you, or an authentication proxy, make a SelfSubjectReview using impersonation,
 you see the user details and properties for the user that was impersonated.
 {{< /note >}}
@@ -1353,7 +1353,7 @@ You can only make `SelfSubjectReview` requests if:
 * the `APISelfSubjectReview`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   is enabled for your cluster
-* the API server for your cluster has `authentication.k8s.io/v1alpha1`
+* the API server for your cluster has the `authentication.k8s.io/v1alpha1`
   {{< glossary_tooltip term_id="api-group" text="API group" >}}
   enabled.
 {{< /note >}}
