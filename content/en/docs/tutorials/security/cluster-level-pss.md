@@ -82,7 +82,7 @@ that are most appropriate for your configuration, do the following:
    kubectl get ns
    ```
    The output is similar to this:
-   ```     
+   ```
    NAME                 STATUS   AGE
    default              Active   9m30s
    kube-node-lease      Active   9m32s
@@ -99,8 +99,9 @@ that are most appropriate for your configuration, do the following:
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=privileged
       ```
-      The output is similar to this:
-      ```      
+
+      The output is similar to:
+      ```
       namespace/default labeled
       namespace/kube-node-lease labeled
       namespace/kube-public labeled
@@ -108,12 +109,13 @@ that are most appropriate for your configuration, do the following:
       namespace/local-path-storage labeled
       ```
    2. Baseline
-      ```shell    
+      ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=baseline
       ```
-      The output is similar to this:
-      ```   
+
+      The output is similar to:
+      ```
       namespace/default labeled
       namespace/kube-node-lease labeled
       namespace/kube-public labeled
@@ -123,15 +125,16 @@ that are most appropriate for your configuration, do the following:
       Warning: kube-proxy-m6hwf: host namespaces, hostPath volumes, privileged
       namespace/kube-system labeled
       namespace/local-path-storage labeled
-      ```   
+      ```
 
    3. Restricted
       ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=restricted
       ```
-      The output is similar to this:
-      ```   
+
+      The output is similar to:
+      ```
       namespace/default labeled
       namespace/kube-node-lease labeled
       namespace/kube-public labeled
@@ -180,7 +183,7 @@ following:
 
    ```
    mkdir -p /tmp/pss
-   cat <<EOF > /tmp/pss/cluster-level-pss.yaml 
+   cat <<EOF > /tmp/pss/cluster-level-pss.yaml
    apiVersion: apiserver.config.k8s.io/v1
    kind: AdmissionConfiguration
    plugins:
@@ -212,7 +215,7 @@ following:
 1. Configure the API server to consume this file during cluster creation:
 
    ```
-   cat <<EOF > /tmp/pss/cluster-config.yaml 
+   cat <<EOF > /tmp/pss/cluster-config.yaml
    kind: Cluster
    apiVersion: kind.x-k8s.io/v1alpha4
    nodes:
@@ -281,11 +284,11 @@ following:
    The output is similar to this:
    ```
    Kubernetes control plane is running at https://127.0.0.1:63855
-
    CoreDNS is running at https://127.0.0.1:63855/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-  
+
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
+
 1. Create a Pod in the default namespace:
 
    ```shell

@@ -80,11 +80,12 @@ The output is similar to this:
 namespace/example created
 ```
 
-## Apply Pod Security Standards
+## Enable Pod Security Standards checking for that namespace
 
 1. Enable Pod Security Standards on this namespace using labels supported by
-   built-in Pod Security Admission. In this step we will warn on baseline pod
-   security standard as per the latest version (default value)
+   built-in Pod Security Admission. In this step you will configure a check to
+   warn on Pods that don't meet the latest version of the _baseline_ pod
+   security standard.
 
    ```shell
    kubectl label --overwrite ns example \
@@ -92,8 +93,8 @@ namespace/example created
       pod-security.kubernetes.io/warn-version=latest
    ```
 
-2. Multiple pod security standards can be enabled on any namespace, using labels.
-   Following command will `enforce` the `baseline` Pod Security Standard, but
+2. You can configure multiple pod security standard checks on any namespace, using labels.
+   The following command will `enforce` the `baseline` Pod Security Standard, but
    `warn` and `audit` for `restricted` Pod Security Standards as per the latest
    version (default value)
 
@@ -107,7 +108,7 @@ namespace/example created
      pod-security.kubernetes.io/audit-version=latest
    ```
 
-## Verify the Pod Security Standards
+## Verify the Pod Security Standard enforcement
 
 1. Create a baseline Pod in the `example` namespace:
 
@@ -132,9 +133,9 @@ namespace/example created
    pod/nginx created
    ```
 
-The Pod Security Standards were applied only to the `example`
-namespace. You could create the same Pod in the `default` namespace
-with no warnings.
+The Pod Security Standards enforcement and warning settings were applied only
+to the `example` namespace. You could create the same Pod in the `default`
+namespace with no warnings.
 
 ## Clean up
 
