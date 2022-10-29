@@ -6,7 +6,6 @@ reviewers:
 - erictune
 - thockin
 content_type: concept
-no_list: true
 ---
 
 <!-- overview -->
@@ -18,7 +17,10 @@ run it.
 Containers decouple applications from underlying host infrastructure.
 This makes deployment easier in different cloud or OS environments.
 
-
+Each {{< glossary_tooltip text="node" term_id="node" >}} in a Kubernetes
+cluster runs the containers that form the
+[Pods](/docs/concepts/workloads/pods/) assigned to that node.
+Containers in a Pod are co-located and co-scheduled to run on the same node.
 
 
 <!-- body -->
@@ -38,8 +40,11 @@ the change, then recreate the container to start from the updated image.
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
-## {{% heading "whatsnext" %}}
+Usually, you can allow your cluster to pick the default container runtime
+for a Pod. If you need to use more than one container runtime in your cluster,
+you can specify the [RuntimeClass](/docs/concepts/containers/runtime-class/)
+for a Pod to make sure that Kubernetes runs those containers using a
+particular container runtime.
 
-* Read about [container images](/docs/concepts/containers/images/)
-* Read about [Pods](/docs/concepts/workloads/pods/)
-
+You can also use RuntimeClass to run different Pods with the same container
+runtime but with different settings.
