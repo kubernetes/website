@@ -109,27 +109,10 @@ namespace/example created
 
 ## Verify the Pod Security Standards
 
-1. Create a minimal pod in `example` namespace:
+1. Create a baseline Pod in the `example` namespace:
 
    ```shell
-   cat <<EOF > /tmp/pss/nginx-pod.yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: nginx
-   spec:
-     containers:
-       - image: nginx
-         name: nginx
-         ports:
-           - containerPort: 80
-   EOF
-   ```
-
-1. Apply the pod spec to the cluster in `example` namespace:
-
-   ```shell
-   kubectl apply -n example -f /tmp/pss/nginx-pod.yaml
+   kubectl apply -n example -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
    The output is similar to this:
 
@@ -138,10 +121,10 @@ namespace/example created
    pod/nginx created
    ```
 
-1. Apply the pod spec to the cluster in `default` namespace:
+1. Create a baseline Pod in the `default` namespace:
 
    ```shell
-   kubectl apply -n default -f /tmp/pss/nginx-pod.yaml
+   kubectl apply -n default -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
    Output is similar to this:
 

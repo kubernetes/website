@@ -286,31 +286,16 @@ following:
   
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
-1. Create the following Pod specification for a minimal configuration in the default namespace:
-
-   ```
-   cat <<EOF > /tmp/pss/nginx-pod.yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: nginx
-   spec:
-     containers:
-       - image: nginx
-         name: nginx
-         ports:
-           - containerPort: 80
-   EOF
-   ```
-1. Create the Pod in the cluster:
+1. Create a Pod in the default namespace:
 
    ```shell
-   kubectl apply -f /tmp/pss/nginx-pod.yaml
+   kubectl apply -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
+
    The output is similar to this:
    ```
-    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
-    pod/nginx created
+   Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
+   pod/nginx created
    ```
 
 ## Clean up

@@ -55,7 +55,7 @@ kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.23.0 --c
 kubectl cluster-info --context kind-psa-with-cluster-pss
 # Wait for 15 seconds (arbitrary) ServiceAccount Admission Controller to be available
 sleep 15
-cat <<EOF > /tmp/pss/nginx-pod.yaml
+cat <<EOF |
 apiVersion: v1
 kind: Pod
 metadata:
@@ -67,4 +67,4 @@ spec:
       ports:
         - containerPort: 80
 EOF
-kubectl apply -f /tmp/pss/nginx-pod.yaml
+kubectl apply -f -
