@@ -375,7 +375,6 @@ You can have multiple paragraphs and block-level elements inside an admonition.
 
 {{< /note >}}
 
-
 {{< caution >}}
 The reader should proceed with caution.
 {{< /caution >}}
