@@ -115,7 +115,7 @@ namespace/example created
    ```shell
    kubectl apply -n example -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
-   The output is similar to this:
+   The Pod does start OK; the output includes a warning. For example:
 
    ```
    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
