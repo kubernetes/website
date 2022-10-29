@@ -14,4 +14,4 @@ tags:
 
 <!--more--> 
 
-Um arquiteto garante que a implementação de uma aplicação permita que ela interaja com seus componentes de maneira escalável e sustentável. São componentes em torno da aplicação: bancos de dados, infraestrutura de log e outros microsserviços
+Um arquiteto garante que a implementação de uma aplicação permita que ela interaja com seus componentes de maneira escalável e sustentável. São componentes em torno da aplicação: bancos de dados, infraestrutura de log e outros microsserviços.
