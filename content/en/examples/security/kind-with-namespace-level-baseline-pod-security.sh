@@ -13,7 +13,9 @@ kubectl label --overwrite ns example \
   pod-security.kubernetes.io/warn-version=latest \
   pod-security.kubernetes.io/audit=restricted \
   pod-security.kubernetes.io/audit-version=latest
-cat <<EOF > /tmp/pss/nginx-pod.yaml
+
+# Try running a Pod
+cat <<EOF |
 apiVersion: v1
 kind: Pod
 metadata:
@@ -25,4 +27,4 @@ spec:
       ports:
         - containerPort: 80
 EOF
-kubectl apply -n example -f /tmp/pss/nginx-pod.yaml
+kubectl apply -n example -f -
