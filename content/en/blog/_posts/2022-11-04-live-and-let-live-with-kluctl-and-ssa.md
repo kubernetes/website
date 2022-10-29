@@ -27,7 +27,7 @@ As an alternative, you can watch [Hands-on Introduction to kluctl](https://www.y
 from the Rawkode Academy YouTube channel which shows a hands-on demo session.
 
 There is also a [Kluctl delivery scenario](https://github.com/codablock/podtato-head/tree/kluctl/delivery/kluctl)
-available in the [podtato-head](https://github.com/codablock/podtato-head) demo project.
+available in my fork of the [podtato-head](https://github.com/codablock/podtato-head) demo project.
 
 ## Live and let live
 
