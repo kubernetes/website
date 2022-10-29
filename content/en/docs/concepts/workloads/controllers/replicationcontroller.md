@@ -5,6 +5,9 @@ reviewers:
 title: ReplicationController
 content_type: concept
 weight: 90
+description: >-
+  Legacy API for managing workloads that can scale horizontally.
+  Superseded by the Deployment and ReplicaSet APIs.
 ---
 
 <!-- overview -->
@@ -19,7 +22,7 @@ always up and available.
 
 <!-- body -->
 
-## How a ReplicationController Works
+## How a ReplicationController works
 
 If there are too many pods, the ReplicationController terminates the extra pods. If there are too few, the
 ReplicationController starts more pods. Unlike manually created pods, the pods maintained by a
