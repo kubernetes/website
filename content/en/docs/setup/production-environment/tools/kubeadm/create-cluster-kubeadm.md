@@ -88,7 +88,7 @@ After you initialize your control-plane, the kubelet runs normally.
 ### Preparing the required container images
 
 This step is optional and only applies in case you wish `kubeadm init` and `kubeadm join`
-to not download the default container images which are hosted at `k8s.gcr.io`.
+to not download the default container images which are hosted at `registry.k8s.io`.
 
 Kubeadm has commands that can help you pre-pull the required images
 when creating a cluster without an internet connection on its nodes.
@@ -122,7 +122,7 @@ on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
 with the default gateway to set the advertise address for this particular control-plane node's API server.
 To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
-must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
+must specify an IPv6 address, for example `--apiserver-advertise-address=2001:db8::101`
 
 To initialize the control-plane node run:
 
@@ -305,7 +305,7 @@ reasons. If you want to be able to schedule Pods on the control plane nodes,
 for example for a single machine Kubernetes cluster, run:
 
 ```bash
-kubectl taint nodes --all node-role.kubernetes.io/control-plane- node-role.kubernetes.io/master-
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 ```
 
 The output will look something like:
@@ -315,14 +315,9 @@ node "test-01" untainted
 ...
 ```
 
-This will remove the `node-role.kubernetes.io/control-plane` and
-`node-role.kubernetes.io/master` taints from any nodes that have them,
-including the control plane nodes, meaning that the scheduler will then be able
-to schedule Pods everywhere.
-
-{{< note >}}
-The `node-role.kubernetes.io/master` taint is deprecated and kubeadm will stop using it in version 1.25.
-{{< /note >}}
+This will remove the `node-role.kubernetes.io/control-plane:NoSchedule` taint
+from any nodes that have it, including the control plane nodes, meaning that the
+scheduler will then be able to schedule Pods everywhere.
 
 ### Joining your nodes {#join-nodes}
 
@@ -382,7 +377,7 @@ The output is similar to:
 ```
 
 {{< note >}}
-To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[2001:db8::101]:2073`.
 {{< /note >}}
 
 The output should look something like:

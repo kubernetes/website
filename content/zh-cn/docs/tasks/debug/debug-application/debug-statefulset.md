@@ -37,16 +37,16 @@ This task shows you how to debug a StatefulSet.
 <!--
 ## Debugging a StatefulSet
 
-In order to list all the pods which belong to a StatefulSet, which have a label `app=myapp` set on them,
+In order to list all the pods which belong to a StatefulSet, which have a label `app.kubernetes.io/name=MyApp` set on them,
 you can use the following:
 -->
-## 调试 StatefulSet   {#debuggin-a-statefulset}
+## 调试 StatefulSet   {#debugging-a-statefulset}
 
-StatefulSet 在创建 Pod 时为其设置了 `app=myapp` 标签，列出仅属于某 StatefulSet
+StatefulSet 在创建 Pod 时为其设置了 `app.kubernetes.io/name=MyApp` 标签，列出仅属于某 StatefulSet
 的所有 Pod 时，可以使用以下命令：
 
 ```shell
-kubectl get pods -l app=myapp
+kubectl get pods -l app.kubernetes.io/name=MyApp
 ```
 
 <!--
@@ -67,5 +67,5 @@ You can debug individual Pods in a StatefulSet using the
 <!--
 Learn more about [debugging an init-container](/docs/tasks/debug/debug-application/debug-init-containers/).
 -->
-* 进一步了解如何[调试 Init 容器](/zh-cn/docs/tasks/debug/debug-application/debug-init-containers/)。
+进一步了解如何[调试 Init 容器](/zh-cn/docs/tasks/debug/debug-application/debug-init-containers/)。
 

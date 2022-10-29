@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - mikedanese
+# - thockin
 title: 컨테이너 라이프사이클 훅(Hook)
 content_type: concept
 weight: 30

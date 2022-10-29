@@ -1,5 +1,13 @@
 # i18n strings for the Korean translation.
 # NOTE: Please keep the entries in alphabetical order when editing
+
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "및"
+
 [caution]
 other = "주의:"
 
@@ -26,6 +34,34 @@ other = "Twitter"
 
 [community_youtube_name]
 other = "YouTube"
+
+
+[cve_id]
+other = "CVE ID"
+
+[cve_issue_url]
+other = "CVE 깃헙 이슈 URL"
+
+[cve_json_external_url]
+other = "외부 URL"
+
+[cve_json_id]
+other = "id"
+
+[cve_json_summary]
+other = "요약"
+
+[cve_json_url]
+other = "url"
+
+[cve_summary]
+other = "이슈 요약"
+
+[cve_table]
+other = "공식 쿠버네티스 CVE 목록"
+
+[cve_url]
+other = "CVE URL"
 
 [deprecation_title]
 other = "해당 문서의 쿠버네티스 버전:"
@@ -233,6 +269,21 @@ other = "("
 # Use a suitable format for your locale
 [release_date_format]
 other = "2006-01-02"
+
+# Deprecated. Planned for removal in a future release.
+# Use [release_full_details_initial_text] instead.
+[release_complete]
+other = "완료"
+
+# Replace [release_complete] with [release_full_details_initial_text]
+[release_full_details_initial_text]
+other = "전체"
+
+[release_schedule]
+other = "일정"
+
+[release_changelog]
+other = "변경 이력"
 
 [seealso_heading]
 other = "더 보기"

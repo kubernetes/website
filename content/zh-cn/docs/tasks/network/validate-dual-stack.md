@@ -24,11 +24,9 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 * A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking.
 * [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
 -->
-* 提供程序对双协议栈网络的支持 (云供应商或其他方式必须能够为 Kubernetes 节点
-  提供可路由的 IPv4/IPv6 网络接口)
-* 一个能够支持[双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/)的
+* 驱动程序对双协议栈网络的支持 (云驱动或其他方式必须能够为 Kubernetes 节点提供可路由的 IPv4/IPv6 网络接口)
+* 一个能够支持[双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/)网络的
   [网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
-  
 * [启用双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/) 集群
 
 {{< version-check >}}
@@ -64,7 +62,7 @@ kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .
 
 ```
 10.244.1.0/24
-a00:100::/24
+2001:db8::/64
 ```
 
 <!--
@@ -79,12 +77,13 @@ Validate that the node has an IPv4 and IPv6 interface detected. Replace node nam
 在此示例中，节点名称为 `k8s-linuxpool1-34450317-0`：
 
 ```shell
-kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s \n" .type .address}}{{end}}'
+kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s\n" .type .address}}{{end}}'
 ```
+
 ```
 Hostname: k8s-linuxpool1-34450317-0
-InternalIP: 10.240.0.5
-InternalIP: 2001:1234:5678:9abc::5
+InternalIP: 10.0.0.5
+InternalIP: 2001:db8:10::5
 ```
 
 <!--
@@ -98,12 +97,12 @@ Validate that a Pod has an IPv4 and IPv6 address assigned. Replace the Pod name 
 在此示例中，Pod 名称为 `pod01`：
 
 ```shell
-kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s \n" .ip}}{{end}}'
+kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s\n" .ip}}{{end}}'
 ```
 
 ```
 10.244.1.4
-a00:100::4
+2001:db8::4
 ```
 
 <!--
@@ -131,7 +130,7 @@ kubectl exec -it pod01 -- set | grep MY_POD_IPS
 ```
 
 ```
-MY_POD_IPS=10.244.1.4,a00:100::4
+MY_POD_IPS=10.244.1.4,2001:db8::4
 ```
 
 <!--
@@ -154,7 +153,7 @@ fe00::0    ip6-mcastprefix
 fe00::1    ip6-allnodes
 fe00::2    ip6-allrouters
 10.244.1.4    pod01
-a00:100::4    pod01
+2001:db8::4    pod01
 ```
 
 <!--
@@ -204,7 +203,7 @@ spec:
     protocol: TCP
     targetPort: 9376
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   sessionAffinity: None
   type: ClusterIP
 status:
@@ -214,7 +213,7 @@ status:
 <!--
 Create the following Service that explicitly defines `IPv6` as the first array element in `.spec.ipFamilies`. Kubernetes will assign a cluster IP for the Service from the IPv6 range configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 -->
-创建以下显示定义 `.spec.ipFamilies` 数组中的第一个元素为 IPv6 的 Service。
+创建以下显式定义 `.spec.ipFamilies` 数组中的第一个元素为 IPv6 的 Service。
 Kubernetes 将 `service-cluster-ip-range` 配置的 IPv6 地址范围给 Service 分配集群 IP，
 并将 `.spec.ipFamilyPolicy` 设置为 `SingleStack`。
 
@@ -241,12 +240,12 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   name: my-service
 spec:
-  clusterIP: fd00::5118
+  clusterIP: 2001:db8:fd00::5118
   clusterIPs:
-  - fd00::5118
+  - 2001:db8:fd00::5118
   ipFamilies:
   - IPv6
   ipFamilyPolicy: SingleStack
@@ -255,7 +254,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   sessionAffinity: None
   type: ClusterIP
 status:
@@ -279,10 +278,10 @@ The `kubectl get svc` command will only show the primary IP in the `CLUSTER-IP` 
 `kubectl get svc` 命令将仅在 `CLUSTER-IP` 字段中显示主 IP。
 
 ```shell
-kubectl get svc -l app=MyApp
+kubectl get svc -l app.kubernetes.io/name=MyApp
 
-NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
-my-service   ClusterIP   fe80:20d::d06b   <none>        80/TCP    9s
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+my-service   ClusterIP   10.0.216.242   <none>        80/TCP    5s
 ```
 {{< /note >}}
 
@@ -293,20 +292,20 @@ Validate that the Service gets cluster IPs from the IPv4 and IPv6 address blocks
 然后你就可以通过 IP 和端口，验证对服务的访问。
 
 ```shell
-kubectl describe svc -l app=MyApp
+kubectl describe svc -l app.kubernetes.io/name=MyApp
 ```
 
 ```
 Name:              my-service
 Namespace:         default
-Labels:            app=MyApp
+Labels:            app.kubernetes.io/name=MyApp
 Annotations:       <none>
-Selector:          app=MyApp
+Selector:          app.kubernetes.io/name=MyApp
 Type:              ClusterIP
 IP Family Policy:  PreferDualStack
 IP Families:       IPv4,IPv6
 IP:                10.0.216.242
-IPs:               10.0.216.242,fd00::af55
+IPs:               10.0.216.242,2001:db8:fd00::af55
 Port:              <unset>  80/TCP
 TargetPort:        9376/TCP
 Endpoints:         <none>
@@ -333,7 +332,7 @@ Check the Service:
 检查服务：
 
 ```shell
-kubectl get svc -l app=MyApp
+kubectl get svc -l app.kubernetes.io/name=MyApp
 ```
 
 <!--
@@ -342,8 +341,7 @@ Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address 
 验证服务是否从 IPv6 地址块中接收到 `CLUSTER-IP` 地址以及 `EXTERNAL-IP`。
 然后，你可以通过 IP 和端口验证对服务的访问。
 
+```shell
+NAME         TYPE           CLUSTER-IP            EXTERNAL-IP        PORT(S)        AGE
+my-service   LoadBalancer   2001:db8:fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
 ```
-NAME         TYPE           CLUSTER-IP   EXTERNAL-IP        PORT(S)        AGE
-my-service   LoadBalancer   fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
-```
-

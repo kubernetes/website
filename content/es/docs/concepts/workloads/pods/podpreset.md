@@ -92,4 +92,4 @@ modificación del Pod Preset. En estos casos, se puede añadir una observación 
 
 Ver [Inyectando datos en un Pod usando PodPreset](/docs/tasks/inject-data-application/podpreset/)
 
-Para más información sobre los detalles de los trasfondos, consulte la [propuesta de diseño de PodPreset](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md). 
+Para más información sobre los detalles de los trasfondos, consulte la [propuesta de diseño de PodPreset](https://git.k8s.io/design-proposals-archive/service-catalog/pod-preset.md). 

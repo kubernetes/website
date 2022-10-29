@@ -29,11 +29,11 @@ Kubernetes 提供 `certificates.k8s.io` API，可让你配置由你控制的证�
 {{< note >}}
 <!--
 Certificates created using the `certificates.k8s.io` API are signed by a
-[dedicated CA](#a-note-to-cluster-administrators). It is possible to configure your cluster to use the cluster root
+[dedicated CA](#configuring-your-cluster-to-provide-signing). It is possible to configure your cluster to use the cluster root
 CA for this purpose, but you should never rely on this. Do not assume that
 these certificates will validate against the cluster root CA.
 -->
-使用 `certificates.k8s.io` API 创建的证书由指定 [CA](#a-note-to-cluster-administrators) 颁发。
+使用 `certificates.k8s.io` API 创建的证书由指定 [CA](#configuring-your-cluster-to-provide-signing) 颁发。
 将集群配置为使用集群根目录 CA 可以达到这个目的，但是你永远不要依赖这一假定。
 不要以为这些证书将针对群根目录 CA 进行验证。
 {{< /note >}}
@@ -62,7 +62,7 @@ install it via your operating system's software sources, or fetch it from
 <!--
 ## Trusting TLS in a cluster
 
-Trusting the [custom CA](#a-note-to-cluster-administrators) from an application running as a pod usually requires
+Trusting the [custom CA](#configuring-your-cluster-to-provide-signing) from an application running as a pod usually requires
 some extra application configuration. You will need to add the CA certificate
 bundle to the list of CA certificates that the TLS client or server trusts. For
 example, you would do this with a golang TLS config by parsing the certificate
@@ -71,7 +71,7 @@ chain and adding the parsed certificates to the `RootCAs` field in the
 -->
 ## 集群中的 TLS 信任
 
-信任 Pod 中运行的应用程序所提供的[自定义 CA](#a-note-to-cluster-administrators) 通常需要一些额外的应用程序配置。
+信任 Pod 中运行的应用程序所提供的[自定义 CA](#configuring-your-cluster-to-provide-signing) 通常需要一些额外的应用程序配置。
 你需要将 CA 证书包添加到 TLS 客户端或服务器信任的 CA 证书列表中。
 例如，你可以使用 Golang TLS 配置通过解析证书链并将解析的证书添加到
 [`tls.Config`](https://pkg.go.dev/crypto/tls#Config) 结构中的 `RootCAs`

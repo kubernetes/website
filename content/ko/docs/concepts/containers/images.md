@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - erictune
+# - thockin
 title: 이미지
 content_type: concept
 weight: 10

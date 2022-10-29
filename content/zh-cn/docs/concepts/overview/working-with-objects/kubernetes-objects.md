@@ -27,10 +27,8 @@ This page explains how Kubernetes objects are represented in the Kubernetes API,
 <!--
 ## Understanding Kubernetes Objects
 
-*Kubernetes Objects* are persistent entities in the Kubernetes system. 
-Kubernetes uses these entities to represent the state of your cluster. 
-
-Specifically, they can describe:
+*Kubernetes objects* are persistent entities in the Kubernetes system. Kubernetes uses these
+entities to represent the state of your cluster. Specifically, they can describe:
 
 * What containerized applications are running (and on which nodes)
 * The resources available to those applications
@@ -38,13 +36,13 @@ Specifically, they can describe:
 -->
 ## 理解 Kubernetes 对象    {#kubernetes-objects}
 
-在 Kubernetes 系统中，*Kubernetes 对象* 是持久化的实体。
+在 Kubernetes 系统中，**Kubernetes 对象** 是持久化的实体。
 Kubernetes 使用这些实体去表示整个集群的状态。
-比較特别地是，它们描述了如下信息：
+比较特别地是，它们描述了如下信息：
 
 * 哪些容器化应用正在运行（以及在哪些节点上运行）
 * 可以被应用使用的资源
-* 关于应用运行时表现的策略，比如重启策略、升级策略，以及容错策略
+* 关于应用运行时表现的策略，比如重启策略、升级策略以及容错策略
 
 <!--
 A Kubernetes object is a "record of intent" - once you create the object, 
@@ -59,11 +57,11 @@ the CLI makes the necessary Kubernetes API calls for you.
 You can also use the Kubernetes API directly in your own programs using 
 one of the [Client Libraries](/docs/reference/using-api/client-libraries/).
 -->
-Kubernetes 对象是“目标性记录”——一旦创建对象，Kubernetes 系统将不断工作以确保对象存在。
+Kubernetes 对象是“目标性记录” —— 一旦创建该对象，Kubernetes 系统将不断工作以确保该对象存在。
 通过创建对象，你就是在告知 Kubernetes 系统，你想要的集群工作负载状态看起来应是什么样子的，
 这就是 Kubernetes 集群所谓的 **期望状态（Desired State）**。
 
-操作 Kubernetes 对象 —— 无论是创建、修改，或者删除 —— 需要使用
+操作 Kubernetes 对象 —— 无论是创建、修改或者删除 —— 需要使用
 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api)。
 比如，当使用 `kubectl` 命令行接口（CLI）时，CLI 会调用必要的 Kubernetes API；
 也可以在程序中使用[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)，
@@ -83,7 +81,7 @@ its _desired state_.
 几乎每个 Kubernetes 对象包含两个嵌套的对象字段，它们负责管理对象的配置：
 对象 **`spec`（规约）** 和 对象 **`status`（状态）**。
 对于具有 `spec` 的对象，你必须在创建对象时设置其内容，描述你希望对象所具有的特征：
-*期望状态（Desired State）*。
+**期望状态（Desired State）**。
 
 <!--
 The `status` describes the _current state_ of the object, supplied and updated
@@ -111,8 +109,8 @@ a replacement instance.
 当创建 Deployment 时，可能会去设置 Deployment 的 `spec`，以指定该应用要有 3 个副本运行。
 Kubernetes 系统读取 Deployment 的 `spec`，
 并启动我们所期望的应用的 3 个实例 —— 更新状态以与规约相匹配。
-如果这些实例中有的失败了（一种状态变更），Kubernetes 系统会通过执行修正操作
-来响应 `spec` 和状态间的不一致 —— 意味着它会启动一个新的实例来替换。
+如果这些实例中有的失败了（一种状态变更），Kubernetes 系统会通过执行修正操作来响应
+`spec` 和状态间的不一致 —— 意味着它会启动一个新的实例来替换。
 
 <!--
 For more information on the object spec, status, and metadata, see the 
@@ -124,11 +122,13 @@ For more information on the object spec, status, and metadata, see the
 <!--
 ### Describing a Kubernetes Object
 
-When you create an object in Kubernetes, you must provide the object spec that describes its desired state, 
-as well as some basic information about the object (such as a name). 
-When you use the Kubernetes API to create the object (either directly or via `kubectl`), 
-that API request must include that information as JSON in the request body. 
-**Most often, you provide the information to `kubectl` in a .yaml file.** `kubectl` converts the information to JSON when making the API request.
+When you create an object in Kubernetes, you must provide the object spec that describes its
+desired state, as well as some basic information about the object (such as a name). When you use
+the Kubernetes API to create the object (either directly or via `kubectl`), that API request must
+include that information as JSON in the request body. **Most often, you provide the information to
+`kubectl` in a .yaml file.** `kubectl` converts the information to JSON when making the API
+request.
+
 
 Here's an example `.yaml` file that shows the required fields and object spec for a Kubernetes Deployment:
 -->
@@ -183,13 +183,12 @@ In the `.yaml` file for the Kubernetes object you want to create, you'll need to
 
 * `apiVersion` - 创建该对象所使用的 Kubernetes API 的版本
 * `kind` - 想要创建的对象的类别
-* `metadata` - 帮助唯一性标识对象的一些数据，包括一个 `name` 字符串、`UID` 和可选的 `namespace`
+* `metadata` - 帮助唯一标识对象的一些数据，包括一个 `name` 字符串、`UID` 和可选的 `namespace`
 * `spec` - 你所期望的该对象的状态
 
 <!--
-The precise format of the object `spec` is different for every Kubernetes object, 
-and contains nested fields specific to that object. 
-The [Kubernetes API Reference](https://kubernetes.io/docs/reference/kubernetes-api/) 
+The precise format of the object `spec` is different for every Kubernetes object, and contains
+nested fields specific to that object. The [Kubernetes API Reference](/docs/reference/kubernetes-api/)
 can help you find the spec format for all of the objects you can create using Kubernetes.
 -->
 对每个 Kubernetes 对象而言，其 `spec` 之精确格式都是不同的，包含了特定于该对象的嵌套字段。
@@ -212,12 +211,13 @@ Different kinds of object can also have different `.status`; again, the API refe
 detail the structure of that `.status` field, and its content for each different type of object.
 -->
 例如，参阅 Pod API 参考文档中
-[`spec` 字段](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)。
+[`spec` 字段](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)。
 对于每个 Pod，其 `.spec` 字段设置了 Pod 及其期望状态（例如 Pod 中每个容器的容器镜像名称）。
 另一个对象规约的例子是 StatefulSet API 中的
-[`spec` 字段](/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/#StatefulSetSpec)。
+[`spec` 字段](/zh-cn/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/#StatefulSetSpec)。
 对于 StatefulSet 而言，其 `.spec` 字段设置了 StatefulSet 及其期望状态。
-在 StatefulSet 的 `.spec` 内，有一个为 Pod 对象提供的[模板](/zh-cn/docs/concepts/workloads/pods/#pod-templates)。该模板描述了 StatefulSet 控制器为了满足 StatefulSet 规约而要创建的 Pod。
+在 StatefulSet 的 `.spec` 内，有一个为 Pod 对象提供的[模板](/zh-cn/docs/concepts/workloads/pods/#pod-templates)。
+该模板描述了 StatefulSet 控制器为了满足 StatefulSet 规约而要创建的 Pod。
 不同类型的对象可以由不同的 `.status` 信息。API 参考页面给出了 `.status` 字段的详细结构，
 以及针对不同类型 API 对象的具体内容。
 

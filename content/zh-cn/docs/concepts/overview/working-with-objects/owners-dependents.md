@@ -11,7 +11,6 @@ weight: 60
 
 <!-- overview -->
 
-
 <!-- 
 In Kubernetes, some objects are *owners* of other objects. For example, a
 {{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} is the owner of a set of Pods. These owned objects are *dependents*
@@ -79,6 +78,9 @@ prevents unauthorized users from delaying owner object deletion.
 `blockOwnerDeletion` 的值为 `true`。
 你也可以手动设置 `blockOwnerDeletion` 字段的值，以控制哪些附属对象会阻止垃圾收集。
 
+Kubernetes 准入控制器根据属主的删除权限控制用户访问，以便为附属资源更改此字段。
+这种控制机制可防止未经授权的用户延迟属主对象的删除。
+
 {{< note >}}
 <!--
 Cross-namespace owner references are disallowed by design.
@@ -111,7 +113,7 @@ You can check for that kind of Event by running
 或者一个集群范围的附属指定了一个名字空间范围类型的属主，
 那么它就会报告一个警告事件。该事件的原因是 `OwnerRefInvalidNamespace`，
 `involvedObject` 属性中包含无效的附属。
-你可以运行 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace` 
+你可以运行 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`
 来获取该类型的事件。
 {{< /note >}}
 
@@ -131,9 +133,9 @@ bound to a Pod.
 -->
 ## 属主关系与 Finalizer   {#ownership-and-finalizers}
 
-当你告诉 Kubernetes 删除一个资源，API 服务器允许管理控制器处理该资源的任何 
+当你告诉 Kubernetes 删除一个资源，API 服务器允许管理控制器处理该资源的任何
 [Finalizer 规则](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)。
-{{<glossary_tooltip text="Finalizer" term_id="finalizer">}} 
+{{<glossary_tooltip text="Finalizer" term_id="finalizer">}}
 防止意外删除你的集群所依赖的、用于正常运作的资源。
 例如，如果你试图删除一个仍被 Pod 使用的 `PersistentVolume`，该资源不会被立即删除，
 因为 `PersistentVolume` 有 `kubernetes.io/pv-protection` Finalizer。
@@ -152,7 +154,7 @@ object.
 -->
 当你使用[前台或孤立级联删除](/zh-cn/docs/concepts/architecture/garbage-collection/#cascading-deletion)时，
 Kubernetes 也会向属主资源添加 Finalizer。
-在前台删除中，会添加 `foreground` Finalizer，这样控制器必须在删除了拥有 
+在前台删除中，会添加 `foreground` Finalizer，这样控制器必须在删除了拥有
 `ownerReferences.blockOwnerDeletion=true` 的附属资源后，才能删除属主对象。
 如果你指定了孤立删除策略，Kubernetes 会添加 `orphan` Finalizer，
 这样控制器在删除属主对象后，会忽略附属资源。
@@ -166,4 +168,4 @@ Kubernetes 也会向属主资源添加 Finalizer。
 -->
 * 了解更多关于 [Kubernetes Finalizer](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)。
 * 了解关于[垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection)。
-* 阅读[对象元数据](/docs/reference/kubernetes-api/common-definitions/object-meta/#System)的 API 参考文档。
+* 阅读[对象元数据](/zh-cn/docs/reference/kubernetes-api/common-definitions/object-meta/#System)的 API 参考文档。

@@ -43,7 +43,7 @@ probably debugging your own Service you can substitute your own details, or you
 can follow along and get a second data point.
 
 ```shell
-kubectl create deployment hostnames --image=k8s.gcr.io/serve_hostname
+kubectl create deployment hostnames --image=registry.k8s.io/serve_hostname
 ```
 ```none
 deployment.apps/hostnames created
@@ -81,7 +81,7 @@ spec:
     spec:
       containers:
       - name: hostnames
-        image: k8s.gcr.io/serve_hostname
+        image: registry.k8s.io/serve_hostname
 ```
 
 The label "app" is automatically set by `kubectl create deployment` to the name of the

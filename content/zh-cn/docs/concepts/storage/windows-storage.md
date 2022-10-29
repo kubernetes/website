@@ -101,11 +101,11 @@ The following broad classes of Kubernetes volume plugins are supported on Window
 Windows 支持以下类型的 Kubernetes 卷插件：
 
 <!--
-* [`FlexVolume plugins`](/docs/concepts/storage/volumes/#flexVolume)
+* [`FlexVolume plugins`](/docs/concepts/storage/volumes/#flexvolume-deprecated)
   * Please note that FlexVolumes have been deprecated as of 1.23
 * [`CSI Plugins`](/docs/concepts/storage/volumes/#csi)
 -->
-* [`FlexVolume plugins`](/zh-cn/docs/concepts/storage/volumes/#flexVolume)
+* [`FlexVolume plugins`](/zh-cn/docs/concepts/storage/volumes/#flexvolume-deprecated)
   * 请注意自 1.23 版本起，FlexVolume 已被弃用
 * [`CSI Plugins`](/zh-cn/docs/concepts/storage/volumes/#csi)
 

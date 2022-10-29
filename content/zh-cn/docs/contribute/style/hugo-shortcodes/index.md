@@ -27,7 +27,7 @@ Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content
 In a Markdown page (`.md` file) on this site, you can add a shortcode to
 display version and state of the documented feature.
 -->
-## 功能状态
+## 功能状态 {#feature-state}
 
 在本站的 Markdown 页面（`.md` 文件）中，你可以加入短代码来展示所描述的功能特性的版本和状态。
 
@@ -37,7 +37,7 @@ display version and state of the documented feature.
 Below is a demo of the feature state snippet, which displays the feature as
 stable in the latest Kubernetes version.
 -->
-### 功能状态示例
+### 功能状态示例 {#feature-state-demo}
 
 下面是一个功能状态代码段的演示，表明这个功能已经在最新版 Kubernetes 中稳定了。
 
@@ -68,10 +68,10 @@ The valid values for `state` are:
 The displayed Kubernetes version defaults to that of the page or the site. You can change the
 feature state version by passing the `for_k8s_version` shortcode parameter. For example:
 -->
-### 功能状态代码
+### 功能状态代码 {#feature-state-code}
 
 所显示的 Kubernetes 默认为该页或站点版本。
-修改 <code>for_k8s_version</code> 短代码参数可以调整要显示的版本。例如
+修改 <code>for_k8s_version</code> 短代码参数可以调整要显示的版本。例如：
 
 ```
 {{</* feature-state for_k8s_version="v1.10" state="beta" */>}}
@@ -96,7 +96,7 @@ The glossary term also displays as a link.
 As well as inclusions with tooltips, you can reuse the definitions from the glossary in
 page content.
 -->
-## 词汇
+## 词汇 {#glossary}
 
 有两种词汇表提示：`glossary_tooltip` 和 `glossary_definition`。
 
@@ -105,12 +105,12 @@ page content.
 在浏览在线文档时，术语会显示为超链接的样式，当鼠标移到术语上时，其解释就会显示在提示框中。
 
 除了包含工具提示外，你还可以重用页面内容中词汇表中的定义。
+
 <!--
 The raw data for glossary terms is stored at
 [the glossary directory](https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary),
 with a content file for each glossary term.
 -->
-
 词汇术语的原始数据保存在[词汇目录](https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary)，
 每个内容文件对应相应的术语解释。
 
@@ -120,7 +120,7 @@ with a content file for each glossary term.
 For example, the following include within the Markdown renders to
 {{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
 -->
-### 词汇演示
+### 词汇演示 {#glossary-demo}
 
 例如下面的代码在 Markdown 中将会转换为
 {{< glossary_tooltip text="cluster" term_id="cluster" >}}，然后在提示框中显示。
@@ -169,7 +169,7 @@ You can link to a page of the Kubernetes API reference using the
 `api-reference` shortcode, for example to the
 {{< api-reference page="workload-resources/pod-v1" >}} reference:
 -->
-你可以使用 `api-reference` 短代码链接到 Kubernetes API 参考页面，例如
+你可以使用 `api-reference` 短代码链接到 Kubernetes API 参考页面，例如：
 Pod
 {{< api-reference page="workload-resources/pod-v1" >}} 参考文件：
 
@@ -192,7 +192,7 @@ section of the page:
 你可以通过指定 `anchor` 参数链接到页面中的特定位置，例如到
 {{< api-reference page="workload-resources/pod-v1" anchor="PodSpec" >}} 参考，或页面的
 {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" >}}
-部分。
+部分：
 
 ```
 {{</* api-reference page="workload-resources/pod-v1" anchor="PodSpec" */>}}
@@ -298,7 +298,7 @@ multiple flavors of a given solution.
 
 The `tabs` shortcode takes these parameters:
 -->
-## 标签页
+## 标签页 {#tabs}
 
 在本站的 Markdown 页面（`.md` 文件）中，你可以加入一个标签页集来显示
 某解决方案的不同形式。
@@ -329,6 +329,7 @@ The `tabs` shortcode takes these parameters:
   例如 `{{</* tab name="Content File #1" include="example1" /*/>}}`。
   如果没有在 `codelang` 进行声明的话，Hugo 会根据文件名推测所用的语言。
   默认情况下，非内容文件将会被代码高亮。
+
 <!--
 * If your inner content is markdown, you must use the `%`-delimiter to surround the tab.
   For example, `{{%/* tab name="Tab 1" %}}This is **markdown**{{% /tab */%}}`
@@ -356,12 +357,12 @@ The tab **name** in a `tabs` definition must be unique within a content page.
 
 ```go-text-template
 {{</* tabs name="tab_with_code" >}}
-{{{< tab name="Tab 1" codelang="bash" >}}
+{{< tab name="Tab 1" codelang="bash" >}}
 echo "This is tab 1."
 {{< /tab >}}
 {{< tab name="Tab 2" codelang="go" >}}
 println "This is tab 2."
-{{< /tab >}}}
+{{< /tab >}}
 {{< /tabs */>}}
 ```
 
@@ -486,6 +487,7 @@ For a list of several third-party items, add:
 ```
 {{%/* thirdparty-content */%}}
 ```
+
 <!--
 just below the heading for the section that includes all items.
 -->
@@ -516,7 +518,6 @@ before the item, or just below the heading for the specific item.
 {{%/* thirdparty-content single="true" */%}}
 ```
 
-
 <!--
 ## Version strings
 
@@ -525,7 +526,7 @@ several version shortcodes. Each version shortcode displays a version string der
 the value of a version parameter found in the site configuration file, `config.toml`.
 The two most commonly used version parameters are `latest` and `version`.
 -->
-## 版本号信息
+## 版本号信息 {#version-strings}
 
 要在文档中生成版本号信息，可以从以下几种短代码中选择。每个短代码可以基于站点配置文件
 `config.toml` 中的版本参数生成一个版本号取值。最常用的参数为 `latest` 和 `version`。

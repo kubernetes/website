@@ -29,7 +29,7 @@ When they do, they are authenticated as a particular Service Account (for exampl
 
 <!-- steps -->
 
-## Use the Default Service Account to access the API server.
+## Use the Default Service Account to access the API server
 
 When you create a pod, if you do not specify a service account, it is
 automatically assigned the `default` service account in the same namespace.
@@ -68,7 +68,7 @@ spec:
 
 The pod spec takes precedence over the service account if both specify a `automountServiceAccountToken` value.
 
-## Use Multiple Service Accounts.
+## Use Multiple Service Accounts
 
 Every namespace has a default service account resource called `default`.
 You can list this and any other serviceAccount resources in the namespace with this command:
@@ -115,11 +115,7 @@ metadata:
   namespace: default
   resourceVersion: "272500"
   uid: 721ab723-13bc-11e5-aec2-42010af0021e
-secrets:
-- name: build-robot-token-bvbk5
 ```
-
-then you will see that a token has automatically been created and is referenced by the service account.
 
 You may use authorization plugins to [set permissions on service accounts](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
@@ -130,13 +126,19 @@ The service account has to exist at the time the pod is created, or it will be r
 
 You cannot update the service account of an already created pod.
 
+{{< note >}}
+The `spec.serviceAccount` field is a deprecated alias for `spec.serviceAccountName`.
+If you want to remove the fields from a workload resource, set both fields to empty explicitly
+on the [pod template](/docs/concepts/workloads/pods#pod-templates).
+{{< /note >}}
+
 You can clean up the service account from this example like this:
 
 ```shell
 kubectl delete serviceaccount/build-robot
 ```
 
-## Manually create a service account API token.
+## Manually create a service account API token
 
 Suppose we have an existing service account named "build-robot" as mentioned above, and we create
 a new secret manually.
@@ -233,8 +235,6 @@ metadata:
   namespace: default
   resourceVersion: "243024"
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
-secrets:
-- name: default-token-uudge
 ```
 
 Using your editor of choice (for example `vi`), open the `sa.yaml` file, delete line with key `resourceVersion`, add lines with `imagePullSecrets:` and save.
@@ -249,8 +249,6 @@ metadata:
   name: default
   namespace: default
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
-secrets:
-- name: default-token-uudge
 imagePullSecrets:
 - name: myregistrykey
 ```

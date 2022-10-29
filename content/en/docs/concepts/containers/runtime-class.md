@@ -4,7 +4,7 @@ reviewers:
   - dchen1107
 title: Runtime Class
 content_type: concept
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->
@@ -116,7 +116,7 @@ Runtime handlers are configured through containerd's configuration at
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
-See containerd's [config documentation](https://github.com/containerd/cri/blob/master/docs/config.md)
+See containerd's [config documentation](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 for more details:
 
 #### {{< glossary_tooltip term_id="cri-o" >}}

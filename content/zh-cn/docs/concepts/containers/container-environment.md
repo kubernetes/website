@@ -44,7 +44,7 @@ Kubernetes 的容器环境给容器提供了几个重要的资源：
 
 The *hostname* of a Container is the name of the Pod in which the Container is running.
 It is available through the `hostname` command or the
-[`gethostname`](http://man7.org/linux/man-pages/man2/gethostname.2.html)
+[`gethostname`](https://man7.org/linux/man-pages/man2/gethostname.2.html)
 function call in libc.
 
 The Pod name and namespace are available as environment variables through the
@@ -55,8 +55,8 @@ as are any environment variables specified statically in the container image.
 -->
 ### 容器信息
 
-容器的 *hostname* 是它所运行在的 pod 的名称。它可以通过 `hostname` 命令或者调用 libc 中的
-[`gethostname`](https://man7.org/linux/man-pages/man2/gethostname.2.html) 函数来获取。
+一个容器的 **hostname** 是该容器运行所在的 Pod 的名称。通过 `hostname` 命令或者调用 libc 中的
+[`gethostname`](https://man7.org/linux/man-pages/man2/gethostname.2.html) 函数可以获取该名称。
 
 Pod 名称和命名空间可以通过
 [下行 API](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
@@ -78,11 +78,11 @@ the following variables are defined:
 创建容器时正在运行的所有服务都可用作该容器的环境变量。
 这里的服务仅限于新容器的 Pod 所在的名字空间中的服务，以及 Kubernetes 控制面的服务。
 
-对于名为 *foo* 的服务，当映射到名为 *bar* 的容器时，以下变量是被定义了的：
+对于名为 **foo** 的服务，当映射到名为 **bar** 的容器时，定义了以下变量：
 
 ```shell
-FOO_SERVICE_HOST=<the host the service is running on>
-FOO_SERVICE_PORT=<the port the service is running on>
+FOO_SERVICE_HOST=<其上服务正运行的主机>
+FOO_SERVICE_PORT=<其上服务正运行的端口>
 ```
 
 <!--
@@ -100,7 +100,7 @@ if [DNS addon](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addon
 * Get hands-on experience
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 -->
-* 学习更多有关[容器生命周期回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks/)的知识
-* 动手[为容器生命周期事件添加处理程序](/zh-cn/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
+* 学习更多有关[容器生命周期回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks/)的知识。
+* 动手[为容器的生命周期事件设置处理函数](/zh-cn/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)。
 
 

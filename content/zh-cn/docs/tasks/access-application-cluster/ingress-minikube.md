@@ -152,7 +152,7 @@ storage-provisioner                         1/1       Running   0          2m
 <!--
 1. Verify the Service is created and is available on a node port:
 -->
-3. 验证 Service 已经创建，并且可能从节点端口访问：
+3. 验证 Service 已经创建，并且可以从节点端口访问：
 
    ```shell
    kubectl get service web

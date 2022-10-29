@@ -32,7 +32,7 @@ Most of the blog's content is about things happening in the core project, but we
 
 Anyone can write a blog post and submit it for review.
 -->
-## Kubernetes 博客
+## Kubernetes 博客   {#the-kubernetes-blog}
 
 Kubernetes 博客用于项目发布新功能特性、
 社区报告以及其他一些可能对整个社区很重要的新闻。
@@ -56,7 +56,7 @@ Appropriate blog content includes:
 - Kubernetes Partner OSS integration
 - **Original content only**
 -->
-### 提交博文
+### 提交博文   {#submit-a-post}
 
 博文不应该是商业性质的，应该包含广泛适用于 Kubernetes 社区的原创内容。
 合适的博客内容包括：
@@ -133,7 +133,9 @@ To submit a blog post, follow these steps:
     - Articles are reviewed by community volunteers. We'll try our best to accommodate specific timing, but we make no guarantees.
   - Many core parts of the Kubernetes projects submit blog posts during release windows, delaying publication times. Consider submitting during a quieter period of the release cycle.
   - If you are looking for greater coordination on post release dates, coordinating with [CNCF marketing](https://www.cncf.io/about/contact/) is a more appropriate choice than submitting a blog post.
-  - Sometimes reviews can get backed up. If you feel your review isn't getting the attention it needs, you can reach out to the blog team via [this slack channel](https://kubernetes.slack.com/messages/sig-docs-blog/) to ask in real time. 
+  - Sometimes reviews can get backed up. If you feel your review isn't getting the attention it needs,
+    you can reach out to the blog team on the [`#sig-docs-blog` Slack channel](https://kubernetes.slack.com/messages/sig-docs-blog/)
+    to ask in real time.
 -->
 - 博客内容并非在某特定日期发表。
     - 文章会交由社区自愿者评阅。我们会尽力满足特定的时限要求，只是无法就此作出承诺。
@@ -142,20 +144,23 @@ To submit a blog post, follow these steps:
   - 如果你希望就博文发表日期上进行较大范围的协调，请联系
     [CNCF 推广团队](https://www.cncf.io/about/contact/)。
     这也许是比提交博客文章更合适的一种选择。
-  - 有时，博客的评审可能会堆积起来。如果你觉得你的文章没有引起该有的重视，
-    你可以通过[此 Slack 频道](https://kubernetes.slack.com/messages/sig-docs-blog/)
-    联系博客团队，以获得实时反馈。
+  - 有时，博客的评审可能会堆积起来。如果你觉得你的文章没有引起该有的重视，你可以通过
+    [`#sig-docs-blog` Slack 频道](https://kubernetes.slack.com/messages/sig-docs-blog/)联系博客团队，
+    以获得实时反馈。
+
 <!--
 - Blog posts should be relevant to Kubernetes users.
-  - Topics related to participation in or results of Kubernetes SIGs activities are always on topic (see the work in the [Upstream Marketing Team](https://github.com/kubernetes/community/blob/master/communication/marketing-team/blog-guidelines.md#upstream-marketing-blog-guidelines) for support on these posts). 
+  - Topics related to participation in or results of Kubernetes SIGs activities are always on
+    topic (see the work in the [Upstream Marketing Team](https://github.com/kubernetes/community/blob/master/communication/marketing-team/storytelling-resources/blog-guidelines.md#upstream-marketing-blog-guidelines)
+    for support on these posts). 
   - The components of Kubernetes are purposely modular, so tools that use existing integration points like CNI and CSI are on topic. 
   - Posts about other CNCF projects may or may not be on topic. We recommend asking the blog team before submitting a draft.
     - Many CNCF projects have their own blog. These are often a better choice for posts. There are times of major feature or milestone for a CNCF project that users would be interested in reading on the Kubernetes blog.
   - Blog posts about contributing to the Kubernetes project should be in the [Kubernetes Contributors site](https://kubernetes.dev)
 -->
 - 博客内容应该对 Kubernetes 用户有用。
-  - 与参与 Kubernetes SIGs 活动相关，或者与这类活动的结果相关的主题通常是切题的。
-    请参考[上游推广团队](https://github.com/kubernetes/community/blob/master/communication/marketing-team/blog-guidelines.md#upstream-marketing-blog-guidelines)的工作以获得对此类博文的支持。
+  - 与参与 Kubernetes SIG 活动相关，或者与这类活动的结果相关的主题通常是切题的。
+    请参考[上游推广团队](https://github.com/kubernetes/community/blob/master/communication/marketing-team/storytelling-resources/blog-guidelines.md#upstream-marketing-blog-guidelines)的工作以获得对此类博文的支持。
   - Kubernetes 的组件都有意设计得模块化，因此使用类似 CNI、CSI 等集成点的工具
     通常都是切题的。
   - 关于其他 CNCF 项目的博客可能切题也可能不切题。
@@ -170,15 +175,17 @@ To submit a blog post, follow these steps:
   - The [license](https://github.com/kubernetes/website/blob/main/LICENSE) for the blog allows commercial use of the content for commercial purposes, just not the other way around. 
 - Blog posts should aim to be future proof
   - Given the development velocity of the project, we want evergreen content that won't require updates to stay accurate for the reader. 
-  - It can be a better choice to add a tutorial or update official documentation than to write a high level overview as a blog post.
-    - Consider concentrating the long technical content as a call to action of the blog post, and focus on the problem space or why readers should care.
+  - It can be a better choice to add a tutorial or update official documentation than to write a
+    high level overview as a blog post.
+    - Consider concentrating the long technical content as a call to action of the blog post, and
+      focus on the problem space or why readers should care.
 -->
 - 博客文章应该是原创内容。
   - 官方博客的目的不是将某第三方已发表的内容重新作为新内容发表。
   - 博客的[授权协议](https://github.com/kubernetes/website/blob/main/LICENSE)
     的确允许出于商业目的来使用博客内容；但并不是所有可以商用的内容都适合在这里发表。
 - 博客文章的内容应该在一段时间内不过期。
-  - 考虑到项目的开发速度，我们希望读者看到的是不必更新就能保持长期准确的内容。 
+  - 考虑到项目的开发速度，我们希望读者看到的是不必更新就能保持长期准确的内容。
   - 有时候，在官方文档中添加一个教程或者进行内容更新都是比博客更好的选择。
     - 可以考虑在博客文章中将较长技术内容的重点放在鼓励读者自行尝试上，或者
       放在问题域本身或者为什么读者应该关注某个话题上。
@@ -190,7 +197,7 @@ Submissions need to be in Markdown format to be used by the [Hugo](https://gohug
 
 We recognize that this requirement makes the process more difficult for less-familiar folks to submit, and we're constantly looking at solutions to lower this bar. If you have ideas on how to lower the barrier, please volunteer to help out. 
 -->
-### 提交博客的技术考虑
+### 提交博客的技术考虑   {#technical-consideration-for-submitting-a-blog-post}
 
 所提交的内容应该是 Markdown 格式的，以便能够被 [Hugo](https://gohugo.io/) 生成器来处理。
 关于如何使用相关技术，有[很多可用的资源](https://gohugo.io/documentation/)。
@@ -208,6 +215,7 @@ SIG Docs [博客子项目](https://github.com/kubernetes/community/tree/master/s
 更多信息可参考[提交博文](https://github.com/kubernetes/community/tree/master/sig-docs/blog-subproject#submit-a-post)。
 
 要提交博文，你可以遵从以下指南：
+
 <!--
 - [Open a pull request](/docs/contribute/new-content/open-a-pr/#fork-the-repo) with a new blog post. New blog posts go under the [`content/en/blog/_posts`](https://github.com/kubernetes/website/tree/main/content/en/blog/_posts) directory.
 
@@ -283,6 +291,7 @@ SIG Docs [博客子项目](https://github.com/kubernetes/community/tree/master/s
       ```yaml
       evergreen: true
       ```
+
     - 不应标记为长期有效的内容示例：
       - 仅适用于特定发行版或版本而不是所有未来版本的**教程**
       - 对非正式发行（Pre-GA）API 或功能特性的引用
@@ -298,13 +307,13 @@ Have a look at the source for the
 
 Refer to the [case study guidelines](https://github.com/cncf/foundation/blob/master/case-study-guidelines.md) and submit your request as outlined in the guidelines. 
 -->
-## 提交案例分析
+## 提交案例分析   {#submit-a-case-study}
 
 案例分析用来概述组织如何使用 Kubernetes 解决现实世界的问题。
 Kubernetes 市场化团队和 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} 成员会与你一起工作，
 撰写所有的案例分析。
 
-请查看[现有案例分析](https://github.com/kubernetes/website/tree/main/content/en/case-studies)的源码。
+请查看[现有案例分析](https://github.com/kubernetes/website/tree/main/content/zh-cn/case-studies)的源码。
 
 参考[案例分析指南](https://github.com/cncf/foundation/blob/master/case-study-guidelines.md)，
 根据指南中的注意事项提交你的 PR 请求。

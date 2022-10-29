@@ -1,8 +1,8 @@
 ---
 title: 커스텀 리소스
-
-
-
+# reviewers:
+# - enisoc
+# - deads2k
 content_type: concept
 weight: 10
 ---

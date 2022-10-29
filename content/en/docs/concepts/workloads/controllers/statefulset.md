@@ -94,7 +94,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: nginx
-        image: k8s.gcr.io/nginx-slim:0.8
+        image: registry.k8s.io/nginx-slim:0.8
         ports:
         - containerPort: 80
           name: web
@@ -138,19 +138,17 @@ Provisioner.
 
 ### Minimum ready seconds
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 `.spec.minReadySeconds` is an optional field that specifies the minimum number of seconds for which a newly
-created Pod should be ready without any of its containers crashing, for it to be considered available.
-Please note that this feature is beta and enabled by default. Please opt out by unsetting the
-StatefulSetMinReadySeconds flag, if you don't
-want this feature to be enabled. This field defaults to 0 (the Pod will be considered 
-available as soon as it is ready). To learn more about when a Pod is considered ready, see
-[Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+created Pod should be running and ready without any of its containers crashing, for it to be considered available.
+This is used to check progression of a rollout when using a [Rolling Update](#rolling-updates) strategy.
+This field defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
+a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 ## Pod Identity
 
-StatefulSet Pods have a unique identity that is comprised of an ordinal, a
+StatefulSet Pods have a unique identity that consists of an ordinal, a
 stable network identity, and stable storage. The identity sticks to the Pod,
 regardless of which node it's (re)scheduled on.
 
@@ -216,7 +214,7 @@ This must be done manually.
 
 ### Pod Name Label
 
-When the StatefulSet {{< glossary_tooltip term_id="controller" >}} creates a Pod,
+When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
 it adds a label, `statefulset.kubernetes.io/pod-name`, that is set to the name of
 the Pod. This label allows you to attach a Service to a specific Pod in
 the StatefulSet.
@@ -276,7 +274,7 @@ annotations for the Pods in a StatefulSet. There are two possible values:
   create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
 
 `RollingUpdate`
-: The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a
+: The `RollingUpdate` update strategy implements automated, rolling updates for the Pods in a
   StatefulSet. This is the default update strategy.
 
 ## Rolling Updates
@@ -418,7 +416,7 @@ owner reference has been updated appropriate to the policy. If a condemned Pod i
 force-deleted while the controller is down, the owner reference may or may not have been
 set up, depending on when the controller crashed. It may take several reconcile loops to
 update the owner references, so some condemned Pods may have set up owner references and
-other may not. For this reason we recommend waiting for the controller to come back up,
+others may not. For this reason we recommend waiting for the controller to come back up,
 which will verify owner references before terminating Pods. If that is not possible, the
 operator should verify the owner references on PVCs to ensure the expected objects are
 deleted when Pods are force-deleted.

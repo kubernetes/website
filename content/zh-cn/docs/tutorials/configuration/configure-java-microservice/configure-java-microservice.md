@@ -14,7 +14,9 @@ weight: 10
 <!-- overview -->
 
 <!-- 
-In this tutorial you will learn how and why to externalize your microservice’s configuration.  Specifically, you will learn how to use Kubernetes ConfigMaps and Secrets to set environment variables and then consume them using MicroProfile Config.
+In this tutorial you will learn how and why to externalize your microservice’s configuration.
+Specifically, you will learn how to use Kubernetes ConfigMaps and Secrets to set environment
+variables and then consume them using MicroProfile Config.
 -->
 在本教程中，你会学到如何以及为什么要实现外部化微服务应用配置。
 具体来说，你将学习如何使用 Kubernetes ConfigMaps 和 Secrets 设置环境变量，
@@ -24,7 +26,12 @@ In this tutorial you will learn how and why to externalize your microservice’s
 
 <!-- 
 ### Creating Kubernetes ConfigMaps & Secrets
-There are several ways to set environment variables for a Docker container in Kubernetes, including: Dockerfile, kubernetes.yml, Kubernetes ConfigMaps, and Kubernetes Secrets.  In the tutorial, you will learn how to use the latter two for setting your environment variables whose values will be injected into your microservices.  One of the benefits for using ConfigMaps and Secrets is that they can be re-used across multiple containers, including being assigned to different environment variables for the different containers.
+There are several ways to set environment variables for a Docker container in Kubernetes,
+including: Dockerfile, kubernetes.yml, Kubernetes ConfigMaps, and Kubernetes Secrets.  In the
+tutorial, you will learn how to use the latter two for setting your environment variables whose
+values will be injected into your microservices.  One of the benefits for using ConfigMaps and
+Secrets is that they can be re-used across multiple containers, including being assigned to
+different environment variables for the different containers.
 -->
 ### 创建 Kubernetes ConfigMaps 和 Secrets  {#creating-kubernetes-configmaps-secrets}
 在 Kubernetes 中，为 docker 容器设置环境变量有几种不同的方式，比如：
@@ -34,9 +41,16 @@ Dockerfile、kubernetes.yml、Kubernetes ConfigMaps、和 Kubernetes Secrets。
 比如赋值给不同的容器中的不同环境变量。
 
 <!-- 
-ConfigMaps are API Objects that store non-confidential key-value pairs.  In the Interactive Tutorial you will learn how to use a ConfigMap to store the application's name.  For more information regarding ConfigMaps, you can find the documentation [here](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+ConfigMaps are API Objects that store non-confidential key-value pairs.  In the Interactive
+Tutorial you will learn how to use a ConfigMap to store the application's name.  For more
+information regarding ConfigMaps, you can find the documentation
+[here](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
-Although Secrets are also used to store key-value pairs, they differ from ConfigMaps in that they're intended for confidential/sensitive information and are stored using Base64 encoding.  This makes secrets the appropriate choice for storing such things as credentials, keys, and tokens, the former of which you'll do in the Interactive Tutorial.  For more information on Secrets, you can find the documentation [here](/docs/concepts/configuration/secret/).
+Although Secrets are also used to store key-value pairs, they differ from ConfigMaps in that
+they're intended for confidential/sensitive information and are stored using Base64 encoding.
+This makes secrets the appropriate choice for storing such things as credentials, keys, and
+tokens, the former of which you'll do in the Interactive Tutorial.  For more information on
+Secrets, you can find the documentation [here](/docs/concepts/configuration/secret/).
 -->
 ConfigMaps 是存储非机密键值对的 API 对象。
 在互动教程中，你会学到如何用 ConfigMap 来保存应用名字。
@@ -49,7 +63,10 @@ Secrets 的更多信息，你可以在[这里](/zh-cn/docs/concepts/configuratio
 
 <!-- 
 ### Externalizing Config from Code
-Externalized application configuration is useful because configuration usually changes depending on your environment.  In order to accomplish this, we'll use Java's Contexts and Dependency Injection (CDI) and MicroProfile Config. MicroProfile Config is a feature of MicroProfile, a set of open Java technologies for developing and deploying cloud-native microservices.
+Externalized application configuration is useful because configuration usually changes depending
+on your environment.  In order to accomplish this, we'll use Java's Contexts and Dependency
+Injection (CDI) and MicroProfile Config. MicroProfile Config is a feature of MicroProfile, a set
+of open Java technologies for developing and deploying cloud-native microservices.
 -->
 ### 从代码外部化配置
 外部化应用配置之所以有用处，是因为配置常常根据环境的不同而变化。
@@ -58,9 +75,18 @@ MicroProfile config 是 MicroProfile 的功能特性，
 是一组开放 Java 技术，用于开发、部署云原生微服务。
 
 <!-- 
-CDI provides a standard dependency injection capability enabling an application to be assembled from collaborating, loosely-coupled beans.  MicroProfile Config provides apps and microservices a standard way to obtain config properties from various sources, including the application, runtime, and environment.  Based on the source's defined priority, the properties are automatically combined into a single set of properties that the application can access via an API.  Together, CDI & MicroProfile will be used in the Interactive Tutorial to retrieve the externally provided properties from the Kubernetes ConfigMaps and Secrets and get injected into your application code.
+CDI provides a standard dependency injection capability enabling an application to be assembled
+from collaborating, loosely-coupled beans.  MicroProfile Config provides apps and microservices a
+standard way to obtain config properties from various sources, including the application, runtime,
+and environment.  Based on the source's defined priority, the properties are automatically
+combined into a single set of properties that the application can access via an API.  Together,
+CDI & MicroProfile will be used in the Interactive Tutorial to retrieve the externally provided
+properties from the Kubernetes ConfigMaps and Secrets and get injected into your application code.
 
-Many open source frameworks and runtimes implement and support MicroProfile Config.  Throughout the interactive tutorial, you'll be using Open Liberty, a flexible open-source Java runtime for building and running cloud-native apps and microservices.  However, any MicroProfile compatible runtime could be used instead. 
+Many open source frameworks and runtimes implement and support MicroProfile Config.  Throughout
+the interactive tutorial, you'll be using Open Liberty, a flexible open-source Java runtime for
+building and running cloud-native apps and microservices.  However, any MicroProfile compatible
+runtime could be used instead. 
 -->
 CDI 提供一套标准的依赖注入能力，使得应用程序可以由相互协作的、松耦合的 beans 组装而成。
 MicroProfile Config 为 app 和微服务提供从各种来源，比如应用、运行时、环境，获取配置参数的标准方法。
@@ -87,7 +113,9 @@ CDI & MicroProfile 都会被用在互动教程中，
 
 <!-- 
 ## Example: Externalizing config using MicroProfile, ConfigMaps and Secrets
-### [Start Interactive Tutorial](/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
+
+[Start Interactive Tutorial](/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
 -->
 ## 示例：使用 MicroProfile、ConfigMaps、Secrets 实现外部化应用配置
-### [启动互动教程](/zh-cn/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
+
+[启动互动教程](/zh-cn/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 

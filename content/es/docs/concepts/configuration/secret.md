@@ -14,7 +14,7 @@ weight: 50
 
 Los objetos de tipo {{< glossary_tooltip text="Secret" term_id="secret" >}} en Kubernetes te permiten almacenar y administrar información confidencial, como
 contraseñas, tokens OAuth y llaves ssh.  Poniendo esta información en un Secret
-es más seguro y más flexible que ponerlo en la definición de un {{< glossary_tooltip term_id="pod" >}} o en un {{< glossary_tooltip text="container image" term_id="image" >}}. Ver [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) para más información.
+es más seguro y más flexible que ponerlo en la definición de un {{< glossary_tooltip term_id="pod" >}} o en un {{< glossary_tooltip text="container image" term_id="image" >}}. Ver [Secrets design document](https://git.k8s.io/design-proposals-archive/auth/secrets.md) para más información.
 
 <!-- body -->
 
@@ -239,7 +239,7 @@ Las llaves de data y stringData deben consistir en caracteres alfanuméricos,
 
 **Nota de codificación:** Los valores serializados JSON y YAML  de los datos secretos estan codificadas como cadenas base64.  Las nuevas lineas no son válidas dentro de esa cadena y debe ser omitido.  Al usar `base64` en Darwin/macOS, los usuarios deben evitar el uso de la opción `-b` para dividir líneas largas. Por lo contratio los usuarios de Linux *deben* añadir la opción `-w 0` a los comandos `base64` o al pipeline `base64 | tr -d '\n'` si la opción `-w` no esta disponible.
 
-#### Creaando un Secret a partir de Generador
+#### Creando un Secret a partir de Generador
 Kubectl soporta [managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
 desde 1.14. Con esta nueva característica,
 puedes tambien crear un Secret a partir de un generador y luego aplicarlo para crear el objeto en el Apiserver. Los generadores deben ser especificados en un   `kustomization.yaml` dentro de un directorio.
@@ -345,7 +345,7 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ## Usando Secrets
 
 Los Secrets se pueden montar como volúmenes de datos o ser expuestos como 
-{{< glossary_tooltip text="variables de ambiente" term_id="container-env-variables" >}}
+{{< glossary_tooltip text="variables de entorno" term_id="container-env-variables" >}}
 para ser usados por un contenedor en un pod.  También pueden ser utilizados por otras partes del sistema, 
 sin estar directamente expuesto en el pod.  Por ejemplo, pueden tener credenciales que otras partes del sistema usan para interactuar con sistemas externos en su nombre.
 

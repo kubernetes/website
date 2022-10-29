@@ -30,7 +30,7 @@ JSONとProtobufなどのシリアル化スキーマの変更については同�
 以下の説明は、両方のフォーマットをカバーしています。
 
 APIのバージョニングとソフトウェアのバージョニングは間接的に関係しています。
-[API and release versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)は、APIバージョニングとソフトウェアバージョニングの関係を説明しています。
+[API and release versioning proposal](https://git.k8s.io/sig-release/release-engineering/versioning.md)は、APIバージョニングとソフトウェアバージョニングの関係を説明しています。
 
 APIのバージョンが異なると、安定性やサポートのレベルも異なります。
 各レベルの基準については、[API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)で詳しく説明しています。

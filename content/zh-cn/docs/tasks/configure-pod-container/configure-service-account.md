@@ -1,5 +1,5 @@
 ---
-title: 为 Pod 配置服务账户
+title: 为 Pod 配置服务账号
 content_type: task
 weight: 90
 ---
@@ -23,25 +23,23 @@ as recommended by the Kubernetes project. Your cluster administrator may have
 customized the behavior in your cluster, in which case this documentation may
 not apply.
 -->
-服务账户为 Pod 中运行的进程提供了一个标识。
+服务账号为 Pod 中运行的进程提供了一个标识。
 
 {{< note >}}
-本文是服务账户的用户使用介绍，描述服务账号在集群中如何起作用。
+本文是服务账号的用户使用介绍，描述服务账号在集群中如何起作用。
 你的集群管理员可能已经对你的集群做了定制，因此导致本文中所讲述的内容并不适用。
 {{< /note >}}
 
 <!--
 When you (a human) access the cluster (for example, using `kubectl`), you are
 authenticated by the apiserver as a particular User Account (currently this is
-usually `admin`, unless your cluster administrator has customized your
-cluster).  Processes in containers inside pods can also contact the apiserver.
-When they do, they are authenticated as a particular Service Account (for example,
-`default`).
+usually `admin`, unless your cluster administrator has customized your cluster). Processes in containers inside pods can also contact the apiserver.
+When they do, they are authenticated as a particular Service Account (for example, `default`).
 -->
 当你（自然人）访问集群时（例如，使用 `kubectl`），API 服务器将你的身份验证为
-特定的用户帐户（当前这通常是 `admin`，除非你的集群管理员已经定制了你的集群配置）。
-Pod 内的容器中的进程也可以与 api 服务器接触。
-当它们进行身份验证时，它们被验证为特定的服务帐户（例如，`default`）。
+特定的用户账号（当前这通常是 `admin`，除非你的集群管理员已经定制了你的集群配置）。
+Pod 内的容器中的进程也可以与 API 服务器接触。
+当它们进行身份验证时，它们被验证为特定的服务账号（例如，`default`）。
 
 ## {{% heading "prerequisites" %}}
 
@@ -50,36 +48,36 @@ Pod 内的容器中的进程也可以与 api 服务器接触。
 <!-- steps -->
 
 <!--
-## Use the Default Service Account to access the API server.
+## Use the Default Service Account to access the API server
 
 When you create a pod, if you do not specify a service account, it is
 automatically assigned the `default` service account in the same namespace.
-If you get the raw json or yaml for a pod you have created (for example, `kubectl get pods/podname -o yaml`),
+If you get the raw json or yaml for a pod you have created (for example, `kubectl get pods/<podname> -o yaml`),
 you can see the `spec.serviceAccountName` field has been
-[automatically set](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
+[automatically set](/docs/concepts/overview/working-with-objects/object-management/).
 -->
-## 使用默认的服务账户访问 API 服务器
+## 使用默认的服务账号访问 API 服务器
 
-当你创建 Pod 时，如果没有指定服务账户，Pod 会被指定给命名空间中的 `default` 服务账户。
-如果你查看 Pod 的原始 JSON 或 YAML（例如：`kubectl get pods/podname -o yaml`），
-你可以看到 `spec.serviceAccountName` 字段已经被自动设置了。
+当你创建 Pod 时，如果没有指定服务账号，Pod 会被指定给命名空间中的 `default` 服务账号。
+如果你查看 Pod 的原始 JSON 或 YAML（例如：`kubectl get pods/<podname> -o yaml`），
+你可以看到 `spec.serviceAccountName` 字段已经被[自动设置](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)了。
 
 <!--
-You can access the API from inside a pod using automatically mounted service account credentials,
-as described in [Accessing the Cluster](/docs/tasks/accessing-application-cluster/access-cluster/).
-The API permissions of the service account depend on the [authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
+You can access the API from inside a pod using automatically mounted service account credentials, as described in
+[Accessing the Cluster](/docs/tasks/access-application-cluster/access-cluster).
+The API permissions of the service account depend on the
+[authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
 
-In version 1.6+, you can opt out of automounting API credentials for a service account by setting
-`automountServiceAccountToken: false` on the service account:
+You can opt out of automounting API credentials on `/var/run/secrets/kubernetes.io/serviceaccount/token` for a service account by setting `automountServiceAccountToken: false` on the ServiceAccount:
 -->
-你可以使用自动挂载给 Pod 的服务账户凭据访问 API，
-[访问集群](/zh-cn/docs/tasks/access-application-cluster/access-cluster/)页面中有相关描述。
-服务账户的 API 许可取决于你所使用的
-[鉴权插件和策略](/zh-cn/docs/reference/access-authn-authz/authorization/#authorization-modules)。
+你可以使用自动挂载给 Pod 的服务账号凭据访问 API，
+[访问集群](/zh-cn/docs/tasks/access-application-cluster/access-cluster)页面中有相关描述。
+服务账号的 API
+许可取决于你所使用的[鉴权插件和策略](/zh-cn/docs/reference/access-authn-authz/authorization/#authorization-modules)。
 
-在 1.6 以上版本中，你可以通过在服务账户上设置 `automountServiceAccountToken: false`
-来实现不给服务账号自动挂载 API 凭据：
-
+你可以通过在 ServiceAccount 上设置 `automountServiceAccountToken: false`
+来实现不给服务账号自动挂载 API 凭据到 `/var/run/secrets/kubernetes.io/serviceaccount/token`
+的目的：
 
 ```yaml
 apiVersion: v1
@@ -109,21 +107,21 @@ spec:
 <!--
 The pod spec takes precedence over the service account if both specify a `automountServiceAccountToken` value.
 -->
-如果 Pod 和服务账户都指定了 `automountServiceAccountToken` 值，则 Pod 的 spec 优先于服务帐户。
+如果 Pod 和服务账号都指定了 `automountServiceAccountToken` 值，则 Pod 的 spec 优先于服务账号。
 
 <!--
-## Use Multiple Service Accounts.
+## Use Multiple Service Accounts
 
 Every namespace has a default service account resource called `default`.
 You can list this and any other serviceAccount resources in the namespace with this command:
 -->
-## 使用多个服务账户   {#use-multiple-service-accounts}
+## 使用多个服务账号   {#use-multiple-service-accounts}
 
-每个命名空间都有一个名为 `default` 的服务账户资源。
-你可以用下面的命令查询这个服务账户以及命名空间中的其他 ServiceAccount 资源：
+每个命名空间都有一个名为 `default` 的服务账号资源。
+你可以用下面的命令查询这个服务账号以及命名空间中的其他 ServiceAccount 资源：
 
 ```shell
-kubectl get serviceAccounts
+kubectl get serviceaccounts
 ```
 
 <!--
@@ -142,7 +140,7 @@ You can create additional ServiceAccount objects like this:
 你可以像这样来创建额外的 ServiceAccount 对象：
 
 ```shell
-kubectl create -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -160,7 +158,7 @@ ServiceAccount 对象的名字必须是一个有效的
 <!--
 If you get a complete dump of the service account object, like this:
 -->
-如果你查询服务帐户对象的完整信息，如下所示：
+如果你查询服务账号对象的完整信息，如下所示：
 
 ```shell
 kubectl get serviceaccounts/build-robot -o yaml
@@ -171,7 +169,7 @@ The output is similar to this:
 -->
 输出类似于：
 
-```none
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -180,54 +178,59 @@ metadata:
   namespace: default
   resourceVersion: "272500"
   uid: 721ab723-13bc-11e5-aec2-42010af0021e
-secrets:
-- name: build-robot-token-bvbk5
 ```
 
 <!--
-then you will see that a token has automatically been created and is referenced by the service account.
-
 You may use authorization plugins to [set permissions on service accounts](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
 To use a non-default service account, set the `spec.serviceAccountName`
 field of a pod to the name of the service account you wish to use.
 -->
-那么你就能看到系统已经自动创建了一个令牌并且被服务账户所引用。
+你可以使用授权插件来[设置服务账号的访问许可](/zh-cn/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
 
-你可以使用授权插件来
-[设置服务账户的访问许可](/zh-cn/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
-
-要使用非默认的服务账户，将 Pod 的 `spec.serviceAccountName` 字段设置为你想用的服务账户名称。
+要使用非默认的服务账号，将 Pod 的 `spec.serviceAccountName` 字段设置为你想用的服务账号名称。
 
 <!--
 The service account has to exist at the time the pod is created, or it will be rejected.
 
 You cannot update the service account of an already created pod.
+-->
+Pod 被创建时服务账号必须存在，否则会被拒绝。
 
+你不能更新已经创建好的 Pod 的服务账号。
+
+{{< note >}}
+<!--
+The `spec.serviceAccount` field is a deprecated alias for `spec.serviceAccountName`.
+If you want to remove the fields from a workload resource, set both fields to empty explicitly
+on the [pod template](/docs/concepts/workloads/pods#pod-templates).
+-->
+`spec.serviceAccount` 字段是 `spec.serviceAccountName` 的已弃用别名。
+如果要从工作负载资源中删除这些字段，请在
+[Pod 模板](/zh-cn/docs/concepts/workloads/pods#pod-templates)上将这两个字段显式设置为空。
+{{< /note >}}
+
+<!--
 You can clean up the service account from this example like this:
 -->
-Pod 被创建时服务账户必须存在，否则会被拒绝。
-
-你不能更新已经创建好的 Pod 的服务账户。
-
-你可以清除服务账户，如下所示：
+你可以清除服务账号，如下所示：
 
 ```shell
 kubectl delete serviceaccount/build-robot
 ```
 
 <!--
-## Manually create a service account API token.
+## Manually create a service account API token
 
 Suppose we have an existing service account named "build-robot" as mentioned above, and we create
 a new secret manually.
 -->
-## 手动创建服务账户 API 令牌
+## 手动创建服务账号 API 令牌
 
-假设我们有一个上面提到的名为 "build-robot" 的服务账户，然后我们手动创建一个新的 Secret。
+假设我们有一个上面提到的名为 "build-robot" 的服务账号，现在我们手动创建一个新的 Secret。
 
 ```shell
-kubectl create -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
@@ -243,8 +246,8 @@ Now you can confirm that the newly built secret is populated with an API token f
 
 Any tokens for non-existent service accounts will be cleaned up by the token controller.
 -->
-现在，你可以确认新构建的 Secret 中填充了 "build-robot" 服务帐户的 API 令牌。
-令牌控制器将清理不存在的服务帐户的所有令牌。
+现在，你可以确认新构建的 Secret 中填充了 "build-robot" 服务账号的 API 令牌。
+令牌控制器将清理不存在的服务账号的所有令牌。
 
 ```shell
 kubectl describe secrets/build-robot-secret
@@ -271,10 +274,10 @@ namespace:      7 bytes
 token:          ...
 ```
 
+{{< note >}}
 <!--
 The content of `token` is elided here.
 -->
-{{< note >}}
 这里省略了 `token` 的内容。
 {{< /note >}}
 
@@ -283,13 +286,13 @@ The content of `token` is elided here.
 
 ### Create an imagePullSecret
 
-- Create an imagePullSecret, as described in [Specifying ImagePullSecret on a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
+- Create an imagePullSecret, as described in [Specifying ImagePullSecrets on a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 -->
-## 为服务账户添加 ImagePullSecrets  {#add-imagepullsecrets-to-a-service-account}
+## 为服务账号添加 ImagePullSecrets  {#add-imagepullsecrets-to-a-service-account}
 
 ### 创建 ImagePullSecret
 
-- 创建一个 ImagePullSecret，如同[为 Pod 设置 ImagePullSecret](/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)所述。
+- 创建一个 ImagePullSecret，如[为 Pod 设置 ImagePullSecret](/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) 所述。
 
   ```shell
   kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
@@ -306,7 +309,9 @@ The content of `token` is elided here.
   kubectl get secrets myregistrykey
   ```
   
-  <!-- The output is similar to this: -->
+  <!--
+  The output is similar to this:
+  -->
   输出类似于：
 
   ```
@@ -321,7 +326,7 @@ Next, modify the default service account for the namespace to use this secret as
 -->
 ### 将镜像拉取 Secret 添加到服务账号
 
-接着修改命名空间的 `default` 服务帐户，以将该 Secret 用作 `imagePullSecret`。
+接着修改命名空间的 `default` 服务账号，令其使用该 Secret 用作 `imagePullSecret`。
 
 ```shell
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
@@ -336,7 +341,11 @@ You can instead use `kubectl edit`, or manually edit the YAML manifests as shown
 kubectl get serviceaccounts default -o yaml > ./sa.yaml
 ```
 
-`sa.yaml` 文件的内容类似于：
+<!--
+The output of the `sa.yaml` file is similar to this:
+-->
+
+`sa.yaml` 文件的输出类似这样：
 
 ```yaml
 apiVersion: v1
@@ -347,8 +356,6 @@ metadata:
   namespace: default
   resourceVersion: "243024"
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
-secrets:
-- name: default-token-uudge
 ```
 
 <!--
@@ -369,8 +376,6 @@ metadata:
   name: default
   namespace: default
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
-secrets:
-- name: default-token-uudge
 imagePullSecrets:
 - name: myregistrykey
 ```
@@ -378,7 +383,7 @@ imagePullSecrets:
 <!--
 Finally replace the serviceaccount with the new updated `sa.yaml` file
 -->
-最后，用新的更新的 `sa.yaml` 文件替换服务账号。
+最后，使用新更新的 `sa.yaml` 文件替换服务账号。
 
 ```shell
 kubectl replace serviceaccount default -f ./sa.yaml
@@ -399,7 +404,9 @@ kubectl run nginx --image=nginx --restart=Never
 kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
 ```
 
-<!-- The output is: -->
+<!--
+The output is:
+-->
 输出为：
 
 ```
@@ -409,7 +416,7 @@ myregistrykey
 <!--
 ## Service Account Token Volume Projection
 -->
-## 服务帐户令牌卷投射   {#service-account-token-volume-projection}
+## 服务账号令牌卷投射   {#service-account-token-volume-projection}
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -421,26 +428,20 @@ command line arguments to `kube-apiserver`:
 
 <!--
 * `--service-account-issuer`
-  It can be used as the Identifier of the service account token issuer. You can specify the
-  `--service-account-issuer` argument multiple times, this can be useful to enable a non-disruptive
-  change of the issuer. When this flag is specified multiple times, the first is used to generate
-  tokens and all are used to determine which issuers are accepted. You must be running Kubernetes
-  v1.22 or later to be able to specify `--service-account-issuer` multiple times.
+
+     It can be used as the Identifier of the service account token issuer. You can specify the `--service-account-issuer` argument multiple times, this can be useful to enable a non-disruptive change of the issuer. When this flag is specified multiple times, the first is used to generate tokens and all are used to determine which issuers are accepted. You must be running Kubernetes v1.22 or later to be able to specify `--service-account-issuer` multiple times.
 -->
 * `--service-account-issuer`
 
-  此参数可作为服务账户令牌发放者的身份标识（Identifier）。你可以多次指定
+  此参数可作为服务账号令牌发放者的身份标识（Identifier）。你可以多次指定
   `--service-account-issuer` 参数，对于要变更发放者而又不想带来业务中断的场景，
   这样做是有用的。如果这个参数被多次指定，则第一个参数值会被用来生成令牌，
   而所有参数值都会被用来确定哪些发放者是可接受的。你所运行的 Kubernetes
   集群必须是 v1.22 或更高版本，才能多次指定 `--service-account-issuer`。
-
 <!--
 * `--service-account-key-file`
-  File containing PEM-encoded x509 RSA or ECDSA private or public keys, used to verify
-  ServiceAccount tokens. The specified file can contain multiple keys, and the flag can be specified
-  multiple times with different files. If specified multiple times, tokens signed by any of the
-  specified keys are considered valid by the Kubernetes API server.
+
+     File containing PEM-encoded x509 RSA or ECDSA private or public keys, used to verify ServiceAccount tokens. The specified file can contain multiple keys, and the flag can be specified multiple times with different files. If specified multiple times, tokens signed by any of the specified keys are considered valid by the Kubernetes API server.
 -->
 * `--service-account-key-file`
 
@@ -448,26 +449,21 @@ command line arguments to `kube-apiserver`:
   的令牌。所指定的文件中可以包含多个秘钥，并且你可以多次使用此参数，
   每次参数值为不同的文件。多次使用此参数时，由所给的秘钥之一签名的令牌会被
   Kubernetes API 服务器认为是合法令牌。
-
 <!--
 * `--service-account-signing-key-file`
-  Path to the file that contains the current private key of the service account token issuer. The
-  issuer signs issued ID tokens with this private key.
+
+     Path to the file that contains the current private key of the service account token issuer. The issuer signs issued ID tokens with this private key.
 -->
 * `--service-account-signing-key-file`
 
-  指向包含当前服务账户令牌发放者的私钥的文件路径。
+  指向包含当前服务账号令牌发放者的私钥的文件路径。
   此发放者使用此私钥来签署所发放的 ID 令牌。
-
 <!--
 * `--api-audiences` (can be omitted)
-  The service account token authenticator validates that tokens used against the API are bound to
-  at least one of these audiences. If `api-audiences` is specified multiple times, tokens for any of
-  the specified audiences are considered valid by the Kubernetes API server. If the
-  `--service-account-issuer` flag is configured and this flag is not, this field defaults to a
-  single element list containing the issuer URL.
+
+     The service account token authenticator validates that tokens used against the API are bound to at least one of these audiences. If `api-audiences` is specified multiple times, tokens for any of the specified audiences are considered valid by the Kubernetes API server. If the `--service-account-issuer` flag is configured and this flag is not, this field defaults to a single element list containing the issuer URL.
 -->
-* `--api-audiences` (can be omitted)
+* `--api-audiences` (可以省略)
 
   服务账号令牌身份检查组件会检查针对 API 访问所使用的令牌，
   确认令牌至少是被绑定到这里所给的受众（audiences）之一。
@@ -483,10 +479,10 @@ duration. These properties are not configurable on the default service account
 token. The service account token will also become invalid against the API when
 the Pod or the ServiceAccount is deleted.
 -->
-kubelet 还可以将服务帐户令牌投射到 Pod 中。
+kubelet 还可以将服务账号令牌投射到 Pod 中。
 你可以指定令牌的期望属性，例如受众和有效期限。
-这些属性在 default 服务帐户令牌上无法配置。
-当删除 Pod 或 ServiceAccount 时，服务帐户令牌也将对 API 无效。
+这些属性在 default 服务账号令牌上无法配置。
+当删除 Pod 或 ServiceAccount 时，服务账号令牌也将对 API 无效。
 
 <!--
 This behavior is configured on a PodSpec using a ProjectedVolume type called
@@ -549,6 +545,7 @@ provider configuration at `{service-account-issuer}/.well-known/openid-configura
 If the URL does not comply, the `ServiceAccountIssuerDiscovery` endpoints will
 not be registered, even if the feature is enabled.
 -->
+{{< note >}}
 分发者的 URL 必须遵从
 [OIDC 发现规范](https://openid.net/specs/openid-connect-discovery-1_0.html)。
 这意味着 URL 必须使用 `https` 模式，并且必须在
@@ -557,6 +554,7 @@ not be registered, even if the feature is enabled.
 
 如果 URL 没有遵从这一规范，`ServiceAccountIssuerDiscovery` 末端就不会被注册，
 即使该特性已经被启用。
+{{< /note >}}
 
 <!--
 The Service Account Issuer Discovery feature enables federation of Kubernetes
@@ -589,8 +587,8 @@ requirements and which external systems they intend to federate with.
 -->
 集群包括一个的默认 RBAC ClusterRole, 名为 `system:service-account-issuer-discovery`。 
 默认的 RBAC ClusterRoleBinding 将此角色分配给 `system:serviceaccounts` 组，
-所有服务帐户隐式属于该组。这使得集群上运行的 Pod
-能够通过它们所挂载的服务帐户令牌访问服务帐户发现文档。
+所有服务账号隐式属于该组。这使得集群上运行的 Pod
+能够通过它们所挂载的服务账号令牌访问服务账号发现文档。
 此外，管理员可以根据其安全性需要以及期望集成的外部系统选择是否将该角色绑定到
 `system:authenticated` 或 `system:unauthenticated`。
 
@@ -600,9 +598,11 @@ The responses served at `/.well-known/openid-configuration` and
 compliant. Those documents contain only the parameters necessary to perform
 validation of Kubernetes service account tokens.
 -->
-对 `/.well-known/openid-configuration` 和 `/openid/v1/jwks` 路径请求的响应
-被设计为与 OIDC 兼容，但不是完全与其一致。
+{{< note >}}
+对 `/.well-known/openid-configuration` 和 `/openid/v1/jwks` 路径请求的响应被设计为与
+OIDC 兼容，但不是与其完全一致。
 返回的文档仅包含对 Kubernetes 服务账号令牌进行验证所必须的参数。
+{{< /note >}}
 
 <!--
 The JWKS response contains public keys that a relying party can use to validate
@@ -628,6 +628,7 @@ JWKS URI is required to use the `https` scheme.
 `jwks_uri`，使之指向公网上可用的末端地址，而不是 API 服务器的地址。
 这时需要向 API 服务器传递 `--service-account-jwks-uri` 参数。
 与分发者 URL 类似，此 JWKS URI 也需要使用 `https` 模式。
+
 
 ## {{% heading "whatsnext" %}}
 

@@ -9,7 +9,7 @@ weight: 20
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 쿠버네티스는 시스템 하드웨어 리소스를 {{< glossary_tooltip term_id="kubelet" >}}에 알리는 데 사용할 수 있는
-[장치 플러그인 프레임워크](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)를
+[장치 플러그인 프레임워크](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)를
 제공한다.
 
 공급 업체는 쿠버네티스 자체의 코드를 커스터마이징하는 대신, 수동 또는

@@ -1,10 +1,10 @@
 ---
-
-
-
-
-
-
+# reviewers:
+# - jsafrane
+# - saad-ali
+# - thockin
+# - msau42
+# - xing-yang
 title: 퍼시스턴트 볼륨
 feature:
   title: 스토리지 오케스트레이션
@@ -540,6 +540,15 @@ CLI에서 접근 모드는 다음과 같이 약어로 표시된다.
 * RWX - ReadWriteMany
 * RWOP - ReadWriteOncePod
 
+{{< note >}}
+쿠버네티스는 볼륨 접근 모드를 이용해 퍼시스턴트볼륨클레임과 퍼시스턴트볼륨을 연결한다.
+경우에 따라 볼륨 접근 모드는 퍼시스턴트볼륨을 탑재할 수 있는 위치도 제한한다.
+볼륨 접근 모드는 스토리지를 마운트 한 후에는 쓰기 보호를 적용하지 않는다.
+접근 모드가 ReadWriteOnce, ReadOnlyMany 혹은 ReadWriteMany로 지정된 경우에도 접근 모드는 볼륨에 제약 조건을 설정하지 않는다.
+예를 들어 퍼시스턴트볼륨이 ReadOnlyMany로 생성되었다 하더라도, 해당 퍼시스턴트 볼륨이 읽기 전용이라는 것을 보장하지 않는다.
+만약 접근 모드가 ReadWriteOncePod로 지정된 경우, 볼륨에 제한이 설정되어 단일 파드에만 마운트 할 수 있게 된다.
+{{< /note >}}
+
 > __중요!__ 볼륨이 여러 접근 모드를 지원하더라도 한 번에 하나의 접근 모드를 사용하여 마운트할 수 있다. 예를 들어 GCEPersistentDisk는 하나의 노드가 ReadWriteOnce로 마운트하거나 여러 노드가 ReadOnlyMany로 마운트할 수 있지만 동시에는 불가능하다.
 
 
@@ -549,10 +558,10 @@ CLI에서 접근 모드는 다음과 같이 약어로 표시된다.
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | AzureDisk            | &#x2713;               | -                     | -             | -                      |
 | CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| Cinder               | &#x2713;               | -                     | -             | -                      |
-| CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
+| Cinder               | &#x2713;               | -                     | ([다중 부착(multi-attached)이 가능한 볼륨이라면](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/features.md#multi-attach-volumes))            | -                      |
+| CSI                  | 드라이버에 의존            | 드라이버에 의존           | 드라이버에 의존   | 드라이버에 의존            |
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
-| FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
+| FlexVolume           | &#x2713;               | &#x2713;              | 드라이버에 의존   | -                      |
 | Flocker              | &#x2713;               | -                     | -             | -                      |
 | GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
 | Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
@@ -561,7 +570,7 @@ CLI에서 접근 모드는 다음과 같이 약어로 표시된다.
 | Quobyte              | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | RBD                  | &#x2713;               | &#x2713;              | -             | -                      |
-| VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated) | - |
+| VsphereVolume        | &#x2713;               | -                     | - (파드를 배치할(collocated) 때 동작한다)      | - |
 | PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
 | StorageOS            | &#x2713;               | -                     | -             | -                      |
 
@@ -673,7 +682,7 @@ spec:
 
 ### 리소스
 
-파드처럼 클레임은 특정 수량의 리소스를 요청할 수 있다. 이 경우는 스토리지에 대한 요청이다. 동일한 [리소스 모델](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md)이 볼륨과 클레임 모두에 적용된다.
+파드처럼 클레임은 특정 수량의 리소스를 요청할 수 있다. 이 경우는 스토리지에 대한 요청이다. 동일한 [리소스 모델](https://git.k8s.io/design-proposals-archive/scheduling/resources.md)이 볼륨과 클레임 모두에 적용된다.
 
 ### 셀렉터
 
@@ -993,12 +1002,12 @@ PVC를 위한 적절한 파퓰레이터가 설치되어 있다면,
   퍼시스턴트볼륨 오브젝트를 구성에 포함하지 않는다.
 - 템플릿을 인스턴스화 할 때 스토리지 클래스 이름을 제공하는 옵션을
   사용자에게 제공한다.
-	- 사용자가 스토리지 클래스 이름을 제공하는 경우 해당 값을
-  	`permanentVolumeClaim.storageClassName` 필드에 입력한다.
+  - 사용자가 스토리지 클래스 이름을 제공하는 경우 해당 값을
+    `permanentVolumeClaim.storageClassName` 필드에 입력한다.
     클러스터에서 관리자가 스토리지클래스를 활성화한 경우
     PVC가 올바른 스토리지 클래스와 일치하게 된다.
-	- 사용자가 스토리지 클래스 이름을 제공하지 않으면
-  	`permanentVolumeClaim.storageClassName` 필드를 nil로 남겨둔다.
+  - 사용자가 스토리지 클래스 이름을 제공하지 않으면
+    `permanentVolumeClaim.storageClassName` 필드를 nil로 남겨둔다.
     그러면 클러스터에 기본 스토리지클래스가 있는 사용자에 대해 PV가 자동으로 프로비저닝된다.
     많은 클러스터 환경에 기본 스토리지클래스가 설치되어 있거나 관리자가
     고유한 기본 스토리지클래스를 생성할 수 있다.
@@ -1012,7 +1021,7 @@ PVC를 위한 적절한 파퓰레이터가 설치되어 있다면,
 
 * [퍼시스턴트볼륨 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)에 대해 자세히 알아보기
 * [퍼시스턴트볼륨클레임 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨클레임-생성하기)에 대해 자세히 알아보기
-* [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md) 읽어보기
+* [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md) 읽어보기
 
 ### API 레퍼런스 {#reference}
 

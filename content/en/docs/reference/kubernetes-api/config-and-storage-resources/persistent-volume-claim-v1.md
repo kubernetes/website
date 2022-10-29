@@ -97,7 +97,7 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 
 
 
-### Alpha level
+### Beta level
 
 
 - **dataSource** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)

@@ -4,7 +4,7 @@ reviewers:
 - 44past4
 title: System Logs
 content_type: concept
-weight: 60
+weight: 80
 ---
 
 <!-- overview -->

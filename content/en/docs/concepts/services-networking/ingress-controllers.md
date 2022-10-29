@@ -1,8 +1,12 @@
 ---
 title: Ingress Controllers
-reviewers:
+description: >-
+  In order for an [Ingress](/docs/concepts/services-networking/ingress/) to work in your cluster,
+  there must be an _ingress controller_ running.
+  You need to select at least one ingress controller and make sure it is set up in your cluster.  
+  This page lists common ingress controllers that you can deploy.
 content_type: concept
-weight: 40
+weight: 30
 ---
 
 <!-- overview -->

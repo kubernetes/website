@@ -39,7 +39,7 @@ content_type: concept
    If using containerd as your container runtime the pause image is specified in the
    `plugins.plugins.cri.sandbox_image` field of the of config.toml configration file.
    -->
-   如果你在使用 containerd 作为你的容器运行时，pause 镜像在 config.toml 配置文件的
+   如果你在使用 containerd 作为你的容器运行时，那么 pause 镜像在 config.toml 配置文件的
    `plugins.plugins.cri.sandbox_image` 中指定。
    {{< /note >}}
 
@@ -55,7 +55,7 @@ content_type: concept
 -->
 2. 我的 Pod 状态显示 'ErrImgPull' 或者 'ImagePullBackOff'
 
-   保证你的 Pod 被调度到[兼容的](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility)
+   保证你的 Pod 被调度到[兼容的](https://docs.microsoft.com/zh-cn/virtualization/windowscontainers/deploy-containers/version-compatibility)
    Windows 节点上。
 
    关于如何为你的 Pod 指定一个兼容节点，
@@ -86,7 +86,8 @@ content_type: concept
 -->
 2. 我的 Windows Pod 不能 ping 通外界资源
 
-   Windows Pod 没有为 ICMP 协议编写出站规则，但 TCP/UDP 是支持的。当试图演示与集群外部资源的连接时，可以把 `ping <IP>` 替换为 `curl <IP>` 命令。
+   Windows Pod 没有为 ICMP 协议编写出站规则，但 TCP/UDP 是支持的。当试图演示与集群外部资源的连接时，
+   可以把 `ping <IP>` 替换为 `curl <IP>` 命令。
 
    <!--
    If you are still facing problems, most likely your network configuration in
@@ -110,11 +111,11 @@ content_type: concept
    pods be SNAT'ed correctly to receive a response from the outside world. In this
    regard, your `ExceptionList` in `cni.conf` should look as follows:
    -->
-   Kubernetes 的网络需求之一 (查看 [Kubernetes 模型](/zh-cn/docs/concepts/cluster-administration/networking/)) 
+   Kubernetes 的网络需求之一（查看 [Kubernetes 模型](/zh-cn/docs/concepts/cluster-administration/networking/)）
    是集群通信不需要内部的 NAT。
    为了遵守这一要求，对于你不希望发生的出站 NAT 通信，这里有一个
-   [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) 。
-   然而，这也意味着你需要从 `ExceptionList` 中去掉你试图查询的外部IP。
+   [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20)。
+   然而，这也意味着你需要从 `ExceptionList` 中去掉你试图查询的外部 IP。
    只有这样，来自你的 Windows Pod 的流量才会被正确地 SNAT 转换，以接收来自外部环境的响应。
    就此而言，你的 `cni.conf` 中的 `ExceptionList` 应该如下所示：
 
@@ -183,7 +184,7 @@ content_type: concept
 
    Windows 网络栈需要一个虚拟适配器才能使 Kubernetes 网络工作。
    如果以下命令没有返回结果（在管理员模式的 shell 中），
-   则意味着创建虚拟网络失败，而虚拟网络的存在是 kubelet 正常工作前提：
+   则意味着创建虚拟网络失败，而虚拟网络的存在是 kubelet 正常工作的前提：
 
    ```powershell
    Get-HnsNetwork | ? Name -ieq "cbr0"
@@ -202,11 +203,11 @@ content_type: concept
 <!--    
 1. DNS resolution is not properly working
 
-   Check the DNS limitations for Windows in this [section](#dns-limitations).
+   Check the DNS limitations for Windows in this [section](/docs/concepts/services-networking/dns-pod-service/#dns-windows).
 -->
 7. DNS 解析工作异常
 
-   查阅[这一节](#dns-limitations)中讲述的 Windows 系统上的 DNS 限制。
+   查阅[这一节](/zh-cn/docs/concepts/services-networking/dns-pod-service/#dns-windows)了解 Windows 系统上的 DNS 限制。
 
 <!--
 1. `kubectl port-forward` fails with "unable to do port forwarding: wincat not found"
@@ -292,7 +293,7 @@ content_type: concept
 -->
 3. 我的 Windows Pod 无法启动，因为缺少 `/run/flannel/subnet.env`
 
-   这表明 Flannel 没有正确启动。你可以尝试重启`flanneld.exe` 或者你可以将 Kubernetes 控制节点的
+   这表明 Flannel 没有正确启动。你可以尝试重启 `flanneld.exe` 或者你可以将 Kubernetes 控制节点的
    `/run/flannel/subnet.env` 文件手动拷贝到 Windows 工作节点上，放在 `C:\run\flannel\subnet.env`；
    并且将 `FLANNEL_SUBNET` 行修改为不同取值。例如，如果期望节点子网为 10.244.4.1/24：
 

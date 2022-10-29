@@ -19,11 +19,11 @@ date: 2018-10-10
 Kubernetes originally launched with support for Docker containers running native applications on a Linux host. Starting with [rkt](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-kubernetes/) in Kubernetes 1.3 more runtimes were coming, which lead to the development of the [Container Runtime Interface](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/) (CRI). Since then, the set of alternative runtimes has only expanded: projects like [Kata Containers](https://katacontainers.io/) and [gVisor](https://github.com/google/gvisor) were announced for stronger workload isolation, and Kubernetes' Windows support has been [steadily progressing](https://kubernetes.io/blog/2018/01/kubernetes-v19-beta-windows-support/).
 -->
 Kubernetes 最初是为了支持在 Linux 主机上运行本机应用程序的 Docker 容器而创建的。
-从 Kubernetes 1.3中的 [rkt](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-kubernetes/) 开始，更多的运行时间开始涌现，
+从 Kubernetes 1.3 中的 [rkt](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-kubernetes/) 开始，更多的运行时间开始涌现，
 这导致了[容器运行时接口（Container Runtime Interface）](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)（CRI）的开发。
 从那时起，备用运行时集合越来越大：
 为了加强工作负载隔离，[Kata Containers](https://katacontainers.io/) 和 [gVisor](https://github.com/google/gvisor) 等项目被发起，
-并且 Kubernetes 对 Windows 的支持正在 [稳步发展](https://kubernetes.io/blog/2018/01/kubernetes-v19-beta-windows-support/) 。
+并且 Kubernetes 对 Windows 的支持正在[稳步发展](https://kubernetes.io/blog/2018/01/kubernetes-v19-beta-windows-support/)。
 
 <!--
 With runtimes targeting so many different use cases, a clear need for mixed runtimes in a cluster arose. But all these different ways of running containers have brought a new set of problems to deal with:
@@ -56,7 +56,7 @@ With runtimes targeting so many different use cases, a clear need for mixed runt
 RuntimeClass was recently introduced as an alpha feature in Kubernetes 1.12. The initial implementation focuses on providing a runtime selection API, and paves the way to address the other open problems.
 -->
 最近，RuntimeClass 在 Kubernetes 1.12 中作为 alpha 功能引入。
-最初的实现侧重于提供运行时选择 API ，并为解决其他未解决的问题铺平道路。
+最初的实现侧重于提供运行时选择 API，并为解决其他未解决的问题铺平道路。
 
 <!--
 The RuntimeClass resource represents a container runtime supported in a Kubernetes cluster. The cluster provisioner sets up, configures, and defines the concrete runtimes backing the RuntimeClass. In its current form, a RuntimeClassSpec holds a single field, the **RuntimeHandler**. The RuntimeHandler is interpreted by the CRI implementation running on a node, and mapped to the actual runtime configuration. Meanwhile the PodSpec has been expanded with a new field, **RuntimeClassName**, which names the RuntimeClass that should be used to run the pod.
@@ -81,14 +81,14 @@ Kubernetes 资源模型期望 Pod 中的容器之间可以共享某些资源。
 ## 下一步是什么？
 
 <!--
-The RuntimeClass resource is an important foundation for surfacing runtime properties to the control plane. For example, to implement scheduler support for clusters with heterogeneous nodes supporting different runtimes, we might add [NodeAffinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) terms to the RuntimeClass definition. Another area to address is managing the variable resource requirements to run pods of different runtimes. The [Pod Overhead proposal](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview) was an early take on this that aligns nicely with the RuntimeClass design, and may be pursued further.
+The RuntimeClass resource is an important foundation for surfacing runtime properties to the control plane. For example, to implement scheduler support for clusters with heterogeneous nodes supporting different runtimes, we might add [NodeAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) terms to the RuntimeClass definition. Another area to address is managing the variable resource requirements to run pods of different runtimes. The [Pod Overhead proposal](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview) was an early take on this that aligns nicely with the RuntimeClass design, and may be pursued further.
 -->
 RuntimeClass 资源是将运行时属性显示到控制平面的重要基础。
 例如，要对具有支持不同运行时间的异构节点的集群实施调度程序支持，我们可以在 RuntimeClass 定义中添加
-[NodeAffinity](/zh-cn/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)条件。
+[NodeAffinity](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) 条件。
 另一个需要解决的领域是管理可变资源需求以运行不同运行时的 Pod。
-[Pod Overhead 提案](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview)
-是一项较早的尝试，与 RuntimeClass 设计非常吻合，并且可能会进一步推广。
+[Pod Overhead 提案](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview)是一项较早的尝试，与
+RuntimeClass 设计非常吻合，并且可能会进一步推广。
 
 <!--
 Many other RuntimeClass extensions have also been proposed, and will be revisited as the feature continues to develop and mature. A few more extensions that are being considered include:
@@ -107,13 +107,13 @@ Many other RuntimeClass extensions have also been proposed, and will be revisite
 - 自动运行时或功能发现，支持无需手动配置的调度决策。
 - 标准化或一致的 RuntimeClass 名称，用于定义一组具有相同名称的 RuntimeClass 的集群应支持的属性。
 - 动态注册附加的运行时，因此用户可以在不停机的情况下在现有集群上安装新的运行时。
-- 根据 Pod 的要求“匹配”  RuntimeClass。
+- 根据 Pod 的要求“匹配” RuntimeClass。
   例如，指定运行时属性并使系统与适当的 RuntimeClass 匹配，而不是通过名称显式分配 RuntimeClass。
 
 <!--
 RuntimeClass will be under active development at least through 2019, and we’re excited to see the feature take shape, starting with the RuntimeClass alpha in Kubernetes 1.12.
 -->
-至少要到2019年，RuntimeClass 才会得到积极的开发，我们很高兴看到从 Kubernetes 1.12 中的 RuntimeClass alpha 开始，此功能得以形成。
+至少要到 2019 年，RuntimeClass 才会得到积极的开发，我们很高兴看到从 Kubernetes 1.12 中的 RuntimeClass alpha 开始，此功能得以形成。
 
 <!--
 ## Learn More
@@ -127,10 +127,9 @@ RuntimeClass will be under active development at least through 2019, and we’re
 - Join the discussions and help shape the future of RuntimeClass with the [SIG-Node community](https://github.com/kubernetes/community/tree/master/sig-node)
 -->
 
-- 试试吧！ 作为Alpha功能，还有一些其他设置步骤可以使用RuntimeClass。
-  有关如何使其运行，请参考 [RuntimeClass文档](/zh-cn/docs/concepts/containers/runtime-class/#runtime-class) 。
-- 查看 [RuntimeClass Kubernetes 增强建议](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md) 以获取更多细节设计细节。
-- [沙盒隔离级别决策](https://docs.google.com/document/d/1fe7lQUjYKR0cijRmSbH_y0_l3CYPkwtQa5ViywuNo8Q/preview) 
-  记录了最初使 RuntimeClass 成为 Pod 级别选项的思考过程。
-- 加入讨论，并通过 [SIG-Node社区](https://github.com/kubernetes/community/tree/master/sig-node) 帮助塑造 RuntimeClass 的未来。
-
+- 试试吧！作为 Alpha 功能，还有一些其他设置步骤可以使用 RuntimeClass。
+  有关如何使其运行，请参考 [RuntimeClass 文档](/zh-cn/docs/concepts/containers/runtime-class/#runtime-class)。
+- 查看 [RuntimeClass Kubernetes 增强建议](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)以获取更多细节设计细节。
+- [沙盒隔离级别决策](https://docs.google.com/document/d/1fe7lQUjYKR0cijRmSbH_y0_l3CYPkwtQa5ViywuNo8Q/preview)记录了最初使
+  RuntimeClass 成为 Pod 级别选项的思考过程。
+- 加入讨论，并通过 [SIG-Node 社区](https://github.com/kubernetes/community/tree/master/sig-node)帮助塑造 RuntimeClass 的未来。

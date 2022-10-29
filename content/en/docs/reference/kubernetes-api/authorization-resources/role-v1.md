@@ -51,7 +51,7 @@ Role is a namespaced, logical grouping of PolicyRules that can be referenced as 
 
   - **rules.apiGroups** ([]string)
 
-    APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+    APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 
   - **rules.resources** ([]string)
 

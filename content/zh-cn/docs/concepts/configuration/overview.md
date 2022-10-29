@@ -163,12 +163,12 @@ services) (which have a `ClusterIP` of `None`) for service discovery when you do
 ## 使用标签   {#using-labels}
 
 <!--
-- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app: myapp`. See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app for examples of this approach.
+- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app.kubernetes.io/name: MyApp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app.kubernetes.io/name: MyApp`. See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app for examples of this approach.
 -->
 - 定义并使用[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来识别应用程序
-  或 Deployment 的 __语义属性__，例如`{ app: myapp, tier: frontend, phase: test, deployment: v3 }`。
+  或 Deployment 的 **语义属性**，例如`{ app.kubernetes.io/name: MyApp, tier: frontend, phase: test, deployment: v3 }`。
   你可以使用这些标签为其他资源选择合适的 Pod；
-  例如，一个选择所有 `tier: frontend` Pod 的服务，或者 `app: myapp` 的所有 `phase: test` 组件。
+  例如，一个选择所有 `tier: frontend` Pod 的服务，或者 `app.kubernetes.io/name: MyApp` 的所有 `phase: test` 组件。
   有关此方法的示例，请参阅 [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) 。
 
 <!--

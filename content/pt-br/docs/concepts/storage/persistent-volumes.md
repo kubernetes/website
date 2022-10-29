@@ -723,7 +723,7 @@ Se você está criando templates ou exemplos que rodam numa grande quantidade de
 
 * Saiba mais sobre [Criando um PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * Saiba mais sobre [Criando um PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* Leia a [documentação sobre planejamento de Armazenamento Persistente](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+* Leia a [documentação sobre planejamento de Armazenamento Persistente](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 ### Referência
 

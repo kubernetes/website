@@ -224,6 +224,56 @@ or **Restricted** Pod Security Standard.
 类似地，希望阻止客户端应用程序从其容器中逃逸的管理员，应该应用 **Baseline**
 或 **Restricted** Pod 安全标准。
 
+
+<!--
+### Preventing containers from loading unwanted kernel modules
+-->
+### 防止容器加载不需要的内核模块   {#preventing-containers-from-loading-unwanted-kernel-modules}
+<!--
+The Linux kernel automatically loads kernel modules from disk if needed in certain
+circumstances, such as when a piece of hardware is attached or a filesystem is mounted. Of
+particular relevance to Kubernetes, even unprivileged processes can cause certain
+network-protocol-related kernel modules to be loaded, just by creating a socket of the
+appropriate type. This may allow an attacker to exploit a security hole in a kernel module
+that the administrator assumed was not in use.
+-->
+如果在某些情况下，Linux 内核会根据需要自动从磁盘加载内核模块，
+这类情况的例子有挂接了一个硬件或挂载了一个文件系统。
+与 Kubernetes 特别相关的是，即使是非特权的进程也可能导致某些网络协议相关的内核模块被加载，
+而这只需创建一个适当类型的套接字。
+这就可能允许攻击者利用管理员假定未使用的内核模块中的安全漏洞。
+
+<!--
+To prevent specific modules from being automatically loaded, you can uninstall them from
+the node, or add rules to block them. On most Linux distributions, you can do that by
+creating a file such as `/etc/modprobe.d/kubernetes-blacklist.conf` with contents like:
+-->
+为了防止特定模块被自动加载，你可以将它们从节点上卸载或者添加规则来阻止这些模块。
+在大多数 Linux 发行版上，你可以通过创建类似 `/etc/modprobe.d/kubernetes-blacklist.conf`
+这种文件来做到这一点，其中的内容如下所示：
+
+```
+# DCCP is unlikely to be needed, has had multiple serious
+# vulnerabilities, and is not well-maintained.
+blacklist dccp
+
+# SCTP is not used in most Kubernetes clusters, and has also had
+# vulnerabilities in the past.
+blacklist sctp
+```
+
+<!--
+To block module loading more generically, you can use a Linux Security Module (such as
+SELinux) to completely deny the `module_request` permission to containers, preventing the
+kernel from loading modules for containers under any circumstances. (Pods would still be
+able to use modules that had been loaded manually, or modules that were loaded by the
+kernel on behalf of some more-privileged process.)
+-->
+为了更大范围地阻止内核模块被加载，你可以使用 Linux 安全模块（如 SELinux）
+来彻底拒绝容器的 `module_request` 权限，从而防止在任何情况下系统为容器加载内核模块。
+（Pod 仍然可以使用手动加载的模块，或者使用由内核代表某些特权进程所加载的模块。）
+
+
 <!--
 ### Restricting network access
 
