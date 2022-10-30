@@ -670,9 +670,8 @@ kubectl logs -f my-pod -c my-container              # stream pod container logs 
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # Run pod as interactive shell
 kubectl run nginx --image=nginx -n mynamespace      # Start a single instance of nginx pod in the namespace of mynamespace
-kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
---dry-run=client -o yaml > pod.yaml
-
+kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
+                                                    # Generate spec for running pod nginx and write it into a file called pod.yaml
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
@@ -694,8 +693,8 @@ kubectl logs -f my-pod -c my-container              # 流式输出 Pod 容器的
 kubectl logs -f -l name=myLabel --all-containers    # 流式输出含 name=myLabel 标签的 Pod 的所有日志（标准输出）
 kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # 以交互式 Shell 运行 Pod
 kubectl run nginx --image=nginx -n mynamespace      # 在 “mynamespace” 命名空间中运行单个 nginx Pod
-kubectl run nginx --image=nginx                     # 运行 nginx Pod 并将其规约写入到名为 pod.yaml 的文件
-  --dry-run=client -o yaml > pod.yaml
+kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
+                                                    # 为运行 nginx Pod 生成规约并将其写入到名为 pod.yaml 的文件
 
 kubectl attach my-pod -i                            # 挂接到一个运行的容器中
 kubectl port-forward my-pod 5000:6000               # 在本地计算机上侦听端口 5000 并转发到 my-pod 上的端口 6000
