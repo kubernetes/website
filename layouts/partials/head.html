@@ -1,11 +1,12 @@
 {{- $isBlogPost := eq .Section "blog" }}
 {{- $ogType := cond (.IsHome) "website" "article" }}
-<!-- per-page robot indexing controls -->
-{{- if hugo.IsProduction -}}
-<meta name="ROBOTS" content="INDEX, FOLLOW">
-{{- else -}}
-<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
-{{- end -}}
+
+{{ $outputFormat := partial "outputformat.html" . -}}
+{{ if and hugo.IsProduction (ne $outputFormat "print") -}}
+<meta name="robots" content="index, follow">
+{{ else -}}
+<meta name="robots" content="noindex, nofollow">
+{{ end -}}
 
 <!-- alternative translations -->
 {{ range .Translations -}}
