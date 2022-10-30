@@ -296,7 +296,7 @@ StatefulSet topic for more details.
 
 Example: `scheduler.alpha.kubernetes.io/node-selector: "name-of-node-selector"`
 
-Used on: Pod
+Used on: Namespace
 
 The [PodNodeSelector](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector) uses this annotation key to assign node selectors to namespaces.
 
