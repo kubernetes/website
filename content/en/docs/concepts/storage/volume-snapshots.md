@@ -155,6 +155,8 @@ of the `sourceVolumeMode` field can be either `Filesystem` or `Block`. If the
 source volume mode is not specified, Kubernetes treats the snapshot as if the 
 source volume's mode is unknown.
 
+`volumeSnapshotRef` is the reference of the corresponding `VolumeSnapshot`. Note that when the `VolumeSnapshotContent` is being created as a pre-provisioned snapshot, the `VolumeSnapshot` referenced in `volumeSnapshotRef` might not exist yet.
+
 ## Converting the volume mode of a Snapshot {#convert-volume-mode}
 
 If the `VolumeSnapshots` API installed on your cluster supports the `sourceVolumeMode`

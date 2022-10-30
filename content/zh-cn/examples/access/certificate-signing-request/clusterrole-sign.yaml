@@ -22,6 +22,6 @@ rules:
   resources:
   - signers
   resourceNames:
-  - example.com/my-signer-name # example.com/* can be used to authorize for all signers in the 'example.com' domain
+  - example.com/my-signer-name # example.com/* 可用于为 “example.com” 域中的所有签名者授权
   verbs:
   - sign

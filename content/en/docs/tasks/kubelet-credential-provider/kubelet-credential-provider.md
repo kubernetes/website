@@ -7,7 +7,7 @@ description: Configure the kubelet's image credential provider plugin
 content_type: task
 ---
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 <!-- overview -->
 

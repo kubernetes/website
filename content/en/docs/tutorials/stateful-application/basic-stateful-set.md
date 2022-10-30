@@ -606,9 +606,9 @@ Get the Pods to view their container images:
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 
 ```
 
@@ -638,7 +638,7 @@ statefulset.apps/web patched
 Patch the StatefulSet again to change the container's image:
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.7"}]'
 ```
 ```
 statefulset.apps/web patched
@@ -672,7 +672,7 @@ Get the Pod's container image:
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 Notice that, even though the update strategy is `RollingUpdate` the StatefulSet
@@ -713,7 +713,7 @@ Get the Pod's container:
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
 
 ```
 
@@ -756,7 +756,7 @@ Get the `web-1` Pod's container image:
 kubectl get pod web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 `web-1` was restored to its original configuration because the Pod's ordinal
@@ -813,9 +813,9 @@ Get the container image details for the Pods in the StatefulSet:
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
 ```
 
 By moving the `partition` to `0`, you allowed the StatefulSet to

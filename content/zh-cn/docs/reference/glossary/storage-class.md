@@ -2,7 +2,7 @@
 title: StorageClass
 id: storageclass
 date: 2018-04-12
-full_link: /zh/docs/concepts/storage/storage-classes/
+full_link: /zh-cn/docs/concepts/storage/storage-classes/
 short_description: >
   StorageClass 是管理员用来描述可用的不同存储类型的一种方法。
 

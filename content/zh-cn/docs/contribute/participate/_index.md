@@ -83,13 +83,13 @@ for the current list of chairpersons.
 <!--
 ## SIG Docs teams and automation
 
-Automation in SIG Docs relies on two different mechanisms for automation:
-GitHub groups and OWNERS files.
+Automation in SIG Docs relies on two different mechanisms:
+GitHub teams and OWNERS files.
 -->
 ## SIG Docs 团队和自动化 {#sig-docs-teams-and-automation}
 
-SIG 文档中的自动化服务依赖于两种不同的自动化机制:
-GitHub 组和 OWNERS 文件。
+SIG 文档中的自动化服务依赖于两种不同的机制:
+GitHub 团队和 OWNERS 文件。
 
 <!--
 ### GitHub teams
@@ -97,7 +97,7 @@ GitHub 组和 OWNERS 文件。
 There are two categories of SIG Docs [teams](https://github.com/orgs/kubernetes/teams?query=sig-docs) on GitHub:
 
 - `@sig-docs-{language}-owners` are approvers and leads
-- `@sig-docs-{language}-reviewers` are reviewers
+- `@sig-docs-{language}-reviews` are reviewers
 
 Each can be referenced with their `@name` in GitHub comments to communicate with
 everyone in that group.
@@ -110,7 +110,7 @@ the automation uses information from `OWNERS` files.
 GitHub 上有两类 SIG Docs 团队：
 
 - `@sig-docs-{language}-owners` 包含批准人和牵头人
-- `@sig-docs-{language}-reviewers` 包含评阅人
+- `@sig-docs-{language}-reviews` 包含评阅人
 
 可以在 GitHub 的评论中使用团队的名称 `@name` 来与团队成员沟通。
 
@@ -123,13 +123,13 @@ GitHub 上有两类 SIG Docs 团队：
 The Kubernetes project uses an automation tool called prow for automation
 related to GitHub issues and pull requests. The
 [Kubernetes website repository](https://github.com/kubernetes/website) uses
-two [prow plugins](https://github.com/kubernetes/test-infra/blob/master/prow/plugins):
+two [prow plugins](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
 -->
 ### OWNERS 文件和扉页   {#owners-files-and-front-matter}
 
 Kubernetes 项目使用名为 prow 的自动化工具来自动处理 GitHub issue 和 PR。
 [Kubernetes website 仓库](https://github.com/kubernetes/website) 使用了两个
-[prow 插件](https://github.com/kubernetes/test-infra/blob/master/prow/plugins)：
+[prow 插件](https://github.com/kubernetes/test-infra/tree/master/prow/plugins)：
 
 - blunderbuss
 - approve
@@ -150,7 +150,7 @@ how prow works within the repository.
 An OWNERS file contains a list of people who are SIG Docs reviewers and
 approvers. OWNERS files can also exist in subdirectories, and can override who
 can act as a reviewer or approver of files in that subdirectory and its
-descendents. For more information about OWNERS files in general, see
+descendants. For more information about OWNERS files in general, see
 [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
 -->
 OWNERS 文件包含 SIG Docs 评阅人和批准人的列表。
@@ -190,7 +190,7 @@ SIG Docs approvers. Here's how it works.
 - Any Kubernetes member can add the `lgtm` label by adding a `/lgtm` comment.
 - Only SIG Docs approvers can merge a pull request
   by adding an `/approve` comment. Some approvers also perform additional
-  specific roles, such as [PR Wrangler](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) or
+  specific roles, such as [PR Wrangler](/docs/contribute/participate/pr-wranglers/) or
   [SIG Docs chairperson](#sig-docs-chairperson).
 -->
 ## PR 是怎样被合并的 {#how-merging-works}
@@ -214,7 +214,7 @@ SIG Docs 批准人。下面是合并的工作机制：
 <!--
 For more information about contributing to the Kubernetes documentation, see:
 
-- [Contributing new content](/docs/contribute/overview/)
+- [Contributing new content](/docs/contribute/new-content/)
 - [Reviewing content](/docs/contribute/review/reviewing-prs)
 - [Documentation style guide](/docs/contribute/style/)
 -->

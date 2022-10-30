@@ -20,7 +20,7 @@ allows the clean up of resources like the following:
 垃圾收集允许系统清理如下资源：
 
 <!--
-* [Failed pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+* [Terminated pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
 * [Completed Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)
 * [Objects without owner references](#owners-dependents)
 * [Unused containers and container images](#containers-images)
@@ -32,16 +32,16 @@ allows the clean up of resources like the following:
     manager
 * [Node Lease objects](/docs/concepts/architecture/nodes/#heartbeats)
 -->
-* [失败的 Pod](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
-* [已完成的 Job](/zh/docs/concepts/workloads/controllers/ttlafterfinished/)
+* [终止的 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+* [已完成的 Job](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)
 * [不再存在属主引用的对象](#owners-dependents)
 * [未使用的容器和容器镜像](#containers-images)
-* [动态制备的、StorageClass 回收策略为 Delete 的 PV 卷](/zh/docs/concepts/storage/persistent-volumes/#delete)
-* [阻滞或者过期的 CertificateSigningRequest (CSRs)](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
+* [动态制备的、StorageClass 回收策略为 Delete 的 PV 卷](/zh-cn/docs/concepts/storage/persistent-volumes/#delete)
+* [阻滞或者过期的 CertificateSigningRequest (CSRs)](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
 * 在以下情形中删除了的{{<glossary_tooltip text="节点" term_id="node">}}对象：
-  * 当集群使用[云控制器管理器](/zh/docs/concepts/architecture/cloud-controller/)运行于云端时；
+  * 当集群使用[云控制器管理器](/zh-cn/docs/concepts/architecture/cloud-controller/)运行于云端时；
   * 当集群使用类似于云控制器管理器的插件运行在本地环境中时。
-* [节点租约对象](/zh/docs/concepts/architecture/nodes/#heartbeats)
+* [节点租约对象](/zh-cn/docs/concepts/architecture/nodes/#heartbeats)
 
 <!--
 ## Owners and dependents {#owners-dependents}
@@ -54,7 +54,7 @@ object. In most cases, Kubernetes manages owner references automatically.
 -->
 ## 属主与依赖   {#owners-dependents}
 
-Kubernetes 中很多对象通过[*属主引用*](/zh/docs/concepts/overview/working-with-objects/owners-dependents/)
+Kubernetes 中很多对象通过[**属主引用**](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/)
 链接到彼此。属主引用（Owner Reference）可以告诉控制面哪些对象依赖于其他对象。
 Kubernetes 使用属主引用来为控制面以及其他 API 客户端在删除某对象时提供一个清理关联资源的机会。
 在大多数场合，Kubernetes 都是自动管理属主引用的。
@@ -69,10 +69,10 @@ to the labels, each `EndpointSlice` that is managed on behalf of a Service has
 an owner reference. Owner references help different parts of Kubernetes avoid
 interfering with objects they don’t control.
 -->
-属主关系与某些资源所使用的[标签和选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)不同。
-例如，考虑一个创建 `EndpointSlice` 对象的 {{<glossary_tooltip text="Service" term_id="service">}}
-对象。Service 对象使用*标签*来允许控制面确定哪些 `EndpointSlice` 对象被该
-Service 使用。除了标签，每个被 Service 托管的 `EndpointSlice` 对象还有一个属主引用属性。
+属主关系与某些资源所使用的[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)不同。
+例如，考虑一个创建 `EndpointSlice` 对象的 {{<glossary_tooltip text="Service" term_id="service">}}对象。
+Service 对象使用**标签**来允许控制面确定哪些 `EndpointSlice` 对象被该Service 使用。
+除了标签，每个被 Service 托管的 `EndpointSlice` 对象还有一个属主引用属性。
 属主引用可以帮助 Kubernetes 中的不同组件避免干预并非由它们控制的对象。
 
 {{< note >}}
@@ -149,7 +149,7 @@ owner object:
 -->
 ### 前台级联删除 {#foreground-deletion}
 
-在前台级联删除中，正在被你删除的属主对象首先进入 *deletion in progress* 状态。
+在前台级联删除中，正在被你删除的属主对象首先进入 **deletion in progress** 状态。
 在这种状态下，针对属主对象会发生以下事情：
 
 <!--
@@ -181,7 +181,7 @@ to learn more.
 
 在前台级联删除过程中，唯一可能阻止属主对象被删除的是那些带有
 `ownerReference.blockOwnerDeletion=true` 字段的依赖对象。
-参阅[使用前台级联删除](/zh/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
+参阅[使用前台级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
 以了解进一步的细节。
 
 <!--
@@ -201,7 +201,7 @@ to learn more.
 默认情况下，Kubernetes 使用后台级联删除方案，除非你手动设置了要使用前台删除，
 或者选择遗弃依赖对象。
 
-参阅[使用后台级联删除](/zh/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)
+参阅[使用后台级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)
 以了解进一步的细节。
 
 <!--
@@ -215,7 +215,7 @@ to override this behaviour, see [Delete owner objects and orphan dependents](/do
 
 当 Kubernetes 删除某个属主对象时，被留下来的依赖对象被称作被遗弃的（Orphaned）对象。
 默认情况下，Kubernetes 会删除依赖对象。要了解如何重载这种默认行为，可参阅
-[删除属主对象和遗弃依赖对象](/zh/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)。
+[删除属主对象和遗弃依赖对象](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)。
 
 <!--
 ## Garbage collection of unused containers and images {#containers-images}
@@ -240,9 +240,9 @@ and change the parameters related to garbage collection using the
 resource type.
 -->
 要配置对未使用容器和镜像的垃圾收集选项，可以使用一个
-[配置文件](/zh/docs/tasks/administer-cluster/kubelet-config-file/)，基于
-[`KubeletConfiguration`](/zh/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) 
-资源类型来调整与垃圾搜集相关的 kubelet 行为。
+[配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基于
+[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) 
+资源类型来调整与垃圾收集相关的 kubelet 行为。
 
 <!--
 ### Container image lifecycle
@@ -253,7 +253,7 @@ which is part of the kubelet, with the cooperation of
 considers the following disk usage limits when making garbage collection
 decisions:
 -->
-### 容器镜像生命期     {#container-image-lifecycle}
+### 容器镜像生命周期     {#container-image-lifecycle}
 
 Kubernetes 通过其镜像管理器（Image Manager）来管理所有镜像的生命周期，
 该管理器是 kubelet 的一部分，工作时与
@@ -270,7 +270,7 @@ starting with the oldest first. The kubelet deletes images
 until disk usage reaches the `LowThresholdPercent` value.
 -->
 磁盘用量超出所配置的 `HighThresholdPercent` 值时会触发垃圾收集，
-垃圾收集器会基于镜像上次被使用的时间来按顺序删除它们，首先删除的是最老的镜像。
+垃圾收集器会基于镜像上次被使用的时间来按顺序删除它们，首先删除的是最近未使用的镜像。
 kubelet 会持续删除镜像，直到磁盘用量到达 `LowThresholdPercent` 值为止。
 
 <!--
@@ -302,7 +302,7 @@ kubelet 会基于如下变量对所有未使用的容器执行垃圾收集操作
 In addition to these variables, the kubelet garbage collects unidentified and
 deleted containers, typically starting with the oldest first. 
 
-`MaxPerPodContainer` and `MaxContainer` may potentially conflict with each other
+`MaxPerPodContainer` and `MaxContainers` may potentially conflict with each other
 in situations where retaining the maximum number of containers per Pod
 (`MaxPerPodContainer`) would go outside the allowable total of global dead
 containers (`MaxContainers`). In this situation, the kubelet adjusts
@@ -311,12 +311,12 @@ downgrade `MaxPerPodContainer` to `1` and evict the oldest containers.
 Additionally, containers owned by pods that have been deleted are removed once
 they are older than `MinAge`.
 -->
-除以上变量之外，kubelet 还会垃圾收集除无标识的以及已删除的容器，通常从最老的容器开始。
+除以上变量之外，kubelet 还会垃圾收集除无标识的以及已删除的容器，通常从最近未使用的容器开始。
 
 当保持每个 Pod 的最大数量的容器（`MaxPerPodContainer`）会使得全局的已死亡容器个数超出上限
-（`MaxContainers`）时，`MaxPerPodContainer` 和 `MaxContainers` 之间可能会出现冲突。
+（`MaxContainers`）时，`MaxPerPodContainers` 和 `MaxContainers` 之间可能会出现冲突。
 在这种情况下，kubelet 会调整 `MaxPerPodContainer` 来解决这一冲突。
-最坏的情形是将 `MaxPerPodContainer` 降格为 `1`，并驱逐最老的容器。
+最坏的情形是将 `MaxPerPodContainer` 降格为 `1`，并驱逐最近未使用的容器。
 此外，当隶属于某已被删除的 Pod 的容器的年龄超过 `MinAge` 时，它们也会被删除。
 
 {{<note>}}
@@ -341,8 +341,8 @@ configure garbage collection:
 你可以通过配置特定于管理资源的控制器来调整资源的垃圾收集行为。
 下面的页面为你展示如何配置垃圾收集：
 
-* [配置 Kubernetes 对象的级联删除](/zh/docs/tasks/administer-cluster/use-cascading-deletion/)
-* [配置已完成 Job 的清理](/zh/docs/concepts/workloads/controllers/ttlafterfinished/)
+* [配置 Kubernetes 对象的级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/)
+* [配置已完成 Job 的清理](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)
 
 <!-- * [Configuring unused container and image garbage collection](/docs/tasks/administer-cluster/reconfigure-kubelet/) -->
 
@@ -353,8 +353,7 @@ configure garbage collection:
 * Learn more about Kubernetes [finalizers](/docs/concepts/overview/working-with-objects/finalizers/).
 * Learn about the [TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) (beta) that cleans up finished Jobs.
 -->
-* 进一步了解 [Kubernetes 对象的属主关系](/zh/docs/concepts/overview/working-with-objects/owners-dependents/)。
-* 进一步了解 Kubernetes [finalizers](/zh/docs/concepts/overview/working-with-objects/finalizers/)。
-* 进一步了解 [TTL 控制器](/zh/docs/concepts/workloads/controllers/ttlafterfinished/) (beta)，
+* 进一步了解 [Kubernetes 对象的属主关系](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/)。
+* 进一步了解 Kubernetes [finalizers](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)。
+* 进一步了解 [TTL 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/) (beta)，
   该控制器负责清理已完成的 Job。
-

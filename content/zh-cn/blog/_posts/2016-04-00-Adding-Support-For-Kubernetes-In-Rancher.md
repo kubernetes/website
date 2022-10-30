@@ -2,15 +2,12 @@
 title: " 在 Rancher 中添加对 Kuernetes 的支持 "
 date: 2016-04-08
 slug: adding-support-for-kubernetes-in-rancher
-url: /zh/blog/2016/04/Adding-Support-For-Kubernetes-In-Rancher
 ---
 <!--
----
 title: " Adding Support for Kubernetes in Rancher "
 date: 2016-04-08
 slug: adding-support-for-kubernetes-in-rancher
-url: /zh/blog/2016/04/Adding-Support-For-Kubernetes-In-Rancher
----
+url: /blog/2016/04/Adding-Support-For-Kubernetes-In-Rancher
 -->
 <!--
 _Today’s guest post is written by Darren Shepherd, Chief Architect at Rancher Labs, an open-source software platform for managing containers._ -->

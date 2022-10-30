@@ -3,13 +3,13 @@ kind: PodSecurityPolicy
 metadata:
   name: baseline
   annotations:
-    # Optional: Allow the default AppArmor profile, requires setting the default.
+    # 可选：允许 default AppArmor 配置，需要设置 default 配置
     apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
     apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
 spec:
   privileged: false
-  # The moby default capability set, minus NET_RAW
+  # 这是 moby 默认的权能集，去掉了 NET_RAW
   allowedCapabilities:
     - 'CHOWN'
     - 'DAC_OVERRIDE'
@@ -24,19 +24,19 @@ spec:
     - 'SYS_CHROOT'
     - 'KILL'
     - 'AUDIT_WRITE'
-  # Allow all volume types except hostpath
+  # 允许除 hostpath 外的所有卷类型
   volumes:
-    # 'core' volume types
+    # 'core' 卷类型
     - 'configMap'
     - 'emptyDir'
     - 'projected'
     - 'secret'
     - 'downwardAPI'
-    # Assume that ephemeral CSI drivers & persistentVolumes set up by the cluster admin are safe to use.
+    # 假定集群管理员设置的临时 CSI 驱动和 persistentVolume 可以安全使用。
     - 'csi'
     - 'persistentVolumeClaim'
     - 'ephemeral'
-    # Allow all other non-hostpath volume types.
+    # 允许所有其他非 hostpath 的卷类型。
     - 'awsElasticBlockStore'
     - 'azureDisk'
     - 'azureFile'
@@ -64,9 +64,9 @@ spec:
   runAsUser:
     rule: 'RunAsAny'
   seLinux:
-    # This policy assumes the nodes are using AppArmor rather than SELinux.
-    # The PSP SELinux API cannot express the SELinux Pod Security Standards,
-    # so if using SELinux, you must choose a more restrictive default.
+    # 此策略假定节点正在使用 AppArmor 而不是 SELinux。
+    # PSP SELinux API 无法体现 Pod SELinux 安全标准，
+    # 因此如果使用 SELinux，你必须选择一个限制更多的默认值。
     rule: 'RunAsAny'
   supplementalGroups:
     rule: 'RunAsAny'

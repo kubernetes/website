@@ -2,13 +2,12 @@
 layout: blog
 title:  '在 Kubernetes 上对 gRPC 服务器进行健康检查'
 date: 2018-10-01
+slug: health-checking-grpc-servers-on-kubernetes
 ---
 <!--
----
 layout: blog
 title:  'Health checking gRPC servers on Kubernetes'
 date: 2018-10-01
----
 --->
 
 <!--
@@ -22,7 +21,7 @@ To learn more, see [Configure Liveness, Readiness and Startup Probes](/docs/task
 This article was originally written about an external tool to achieve the same task._
 -->
 **更新（2021 年 12 月）：** “Kubernetes 从 v1.23 开始具有内置 gRPC 健康探测。
-了解更多信息，请参阅[配置存活探针、就绪探针和启动探针](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)。
+了解更多信息，请参阅[配置存活探针、就绪探针和启动探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)。
 本文最初是为有关实现相同任务的外部工具所写。”
 
 <!--

@@ -127,7 +127,7 @@ the shared Volume is lost.
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about [patterns for composite containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
+* Learn more about [patterns for composite containers](/blog/2015/06/the-distributed-system-toolkit-patterns/).
 
 * Learn about [composite containers for modular architecture](https://www.slideshare.net/Docker/slideshare-burns).
 

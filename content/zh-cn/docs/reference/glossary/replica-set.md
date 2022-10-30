@@ -2,7 +2,7 @@
 title: ReplicaSet
 id: replica-set
 date: 2018-04-12
-full_link: /zh/docs/concepts/workloads/controllers/replicaset/
+full_link: /zh-cn/docs/concepts/workloads/controllers/replicaset/
 short_description: >
   ReplicaSet 是下一代副本控制器。
 
@@ -18,7 +18,7 @@ tags:
 title: ReplicaSet
 id: replica-set
 date: 2018-04-12
-full_link: /zh/docs/concepts/workloads/controllers/replicaset/
+full_link: /zh-cn/docs/concepts/workloads/controllers/replicaset/
 short_description: >
   ReplicaSet is the next-generation Replication Controller.
 

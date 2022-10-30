@@ -104,7 +104,7 @@ Address: 10.0.147.152
 # Your address will vary.
 ```
 
-If Kube-DNS is not setup correctly, the previous step may not work for you.
+If Kube-DNS is not set up correctly, the previous step may not work for you.
 You can also find the service IP in an env var:
 
 ```

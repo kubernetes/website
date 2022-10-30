@@ -45,7 +45,7 @@ each {{< glossary_tooltip term_id="node" >}} to use it.
 <!--
 Please find documentation on this feature in [earlier versions of documentation](https://v1-23.docs.kubernetes.io/docs/tasks/administer-cluster/reconfigure-kubelet/).
 -->
-请在[早期版本的文档](https://v1-23.docs.kubernetes.io/zh/docs/tasks/administer-cluster/reconfigure-kubelet/)中寻找有关此功能的文档。
+请在[早期版本的文档](https://v1-23.docs.kubernetes.io/zh-cn/docs/tasks/administer-cluster/reconfigure-kubelet/)中寻找有关此功能的文档。
 
 <!--
 ## Migrating from using Dynamic Kubelet Configuration
@@ -62,7 +62,7 @@ practices for customizing your Kubernetes. If you are using `kubeadm`, refer to
 如果你使用托管 Kubernetes 版本，
 请咨询托管 Kubernetes 的供应商，以获得自定义 Kubernetes 的最佳实践。
 如果你使用的是 `kubeadm`，
-请参考[使用 kubeadm 配置集群中的各个 kubelet](/zh/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)。
+请参考[使用 kubeadm 配置集群中的各个 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)。
 
 <!--
 In order to migrate off the Dynamic Kubelet Configuration feature, the
@@ -74,7 +74,7 @@ for information.
 为了停止使用动态 Kubelet 配置功能，
 应该使用替代机制分发 kubelet 配置文件。
 为了使配置生效，必须更新配置文件并重新启动 kubelet。
-请参考[通过配置文件设置 Kubelet 参数](/zh/docs/tasks/administer-cluster/kubelet-config-file/)。
+请参考[通过配置文件设置 Kubelet 参数](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
 
 <!--
 Please note, the `DynamicKubeletConfig` feature gate cannot be set on a kubelet

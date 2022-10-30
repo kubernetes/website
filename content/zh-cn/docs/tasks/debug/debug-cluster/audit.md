@@ -21,7 +21,7 @@ by applications that use the Kubernetes API, and by the control plane itself.
 
 Auditing allows cluster administrators to answer the following questions:
 -->
-Kubernetes **审计（Auditing）**功能提供了与安全相关的、按时间顺序排列的记录集，
+Kubernetes **审计（Auditing）** 功能提供了与安全相关的、按时间顺序排列的记录集，
 记录每个用户、使用 Kubernetes API 的应用以及控制面自身引发的活动。
 
 审计功能使得集群管理员能够回答以下问题：
@@ -55,7 +55,7 @@ and the backends persist the records. The current backend implementations
 include logs files and webhooks.
 -->
 审计记录最初产生于
-[kube-apiserver](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
+[kube-apiserver](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
 内部。每个请求在不同执行阶段都会生成审计事件；这些审计事件会根据特定策略
 被预处理并写入后端。策略确定要记录的内容和用来存储记录的后端。
 当前的后端支持日志文件和 webhook。
@@ -90,7 +90,7 @@ is different from the
 API object.
 -->
 {{< note >}}
-[审计事件配置](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+[审计事件配置](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
 的配置与 [Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
 API 对象不同。
 {{< /note >}}
@@ -98,13 +98,13 @@ API 对象不同。
 <!--
 The audit logging feature increases the memory consumption of the API server
 because some context required for auditing is stored for each request.
-Additionally, memory consumption depends on the audit logging configuration.
+Memory consumption depends on the audit logging configuration.
 -->
 审计日志记录功能会增加 API server 的内存消耗，因为需要为每个请求存储审计所需的某些上下文。
-此外，内存消耗取决于审计日志记录的配置。
+内存消耗取决于审计日志记录的配置。
 
 <!--
-## Audit Policy
+## Audit policy
 
 Audit policy defines rules about what events should be recorded and what data
 they should include. The audit policy object structure is defined in the
@@ -115,9 +115,9 @@ _audit level_ of the event. The defined audit levels are:
 -->
 ## 审计策略  {#audit-policy}
 
-审计政策定义了关于应记录哪些事件以及应包含哪些数据的规则。
+审计策略定义了关于应记录哪些事件以及应包含哪些数据的规则。
 审计策略对象结构定义在
-[`audit.k8s.io` API 组](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+[`audit.k8s.io` API 组](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
 处理事件时，将按顺序与规则列表进行比较。第一个匹配规则设置事件的
 **审计级别（Audit Level）**。已定义的审计级别有：
 
@@ -169,7 +169,7 @@ rules:
 <!--
 If you're crafting your own audit profile, you can use the audit profile for Google Container-Optimized OS as a starting point. You can check the
 [configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)
-script, which generates the audit policy file. You can see most of the audit policy file by looking directly at the script.
+script, which generates an audit policy file. You can see most of the audit policy file by looking directly at the script.
 
 You can also refer to the [`Policy` configuration reference](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
 for details about the fields defined.
@@ -179,7 +179,7 @@ for details about the fields defined.
 [configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)
 脚本，该脚本能够生成审计策略文件。你可以直接在脚本中看到审计策略的绝大部份内容。
 
-你也可以参考 [`Policy` 配置参考](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+你也可以参考 [`Policy` 配置参考](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
 以获取有关已定义字段的详细信息。
 
 <!--
@@ -203,7 +203,7 @@ In all cases, audit events follow a structure defined by the Kubernetes API in t
 - Webhook 后端，将事件发送到外部 HTTP API
 
 在这所有情况下，审计事件均遵循 Kubernetes API 在
-[`audit.k8s.io` API 组](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+[`audit.k8s.io` API 组](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
 中定义的结构。
 
 <!--
@@ -266,13 +266,14 @@ to the location of the policy file and log file, so that audit records are persi
 卷来访问策略文件和日志文件所在的目录，这样审计记录才会持久保存下来。例如：
 
 ```shell
-  --audit-policy-file=/etc/kubernetes/audit-policy.yaml
-  --audit-log-path=/var/log/kubernetes/audit/audit.log
+--audit-policy-file=/etc/kubernetes/audit-policy.yaml \
+--audit-log-path=/var/log/kubernetes/audit/audit.log
 ```
 
 接下来挂载数据卷：
 
 ```yaml
+...
 volumeMounts:
   - mountPath: /etc/kubernetes/audit-policy.yaml
     name: audit
@@ -325,7 +326,7 @@ The webhook config file uses the kubeconfig format to specify the remote address
 the service and credentials used to connect to it.
 -->
 - `--audit-webhook-config-file` 设置 Webhook 配置文件的路径。Webhook 配置文件实际上是一个
-  [kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)。
+  [kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)。
 - `--audit-webhook-initial-backoff` 指定在第一次失败后重发请求等待的时间。随后的请求将以指数退避重试。
 
 Webhook 配置文件使用 kubeconfig 格式指定服务的远程地址和用于连接它的凭据。
@@ -359,7 +360,7 @@ throttling is enabled in `webhook` and disabled in `log`.
     失败时，整个 API 服务请求会失效。
 
 <!--
-The following flags are used only in the `batch` mode.
+The following flags are used only in the `batch` mode:
 
 - `--audit-webhook-batch-buffer-size` defines the number of events to buffer before batching.
   If the rate of incoming events overflows the buffer, events are dropped.
@@ -371,7 +372,7 @@ The following flags are used only in the `batch` mode.
 - `--audit-webhook-batch-throttle-burst` defines the maximum number of batches generated at the same
   moment if the allowed QPS was underutilized previously.
 -->
-以下参数仅用于 `batch` 模式。
+以下参数仅用于 `batch` 模式：
 
 - `--audit-webhook-batch-buffer-size` 定义 batch 之前要缓存的事件数。
   如果传入事件的速率溢出缓存区，则会丢弃事件。
@@ -444,9 +445,15 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 默认情况下，截断操作在 `webhook` 和 `log` 后端都是被禁用的，集群管理员需要设置
 `audit-log-truncate-enabled` 或 `audit-webhook-truncate-enabled` 标志来启用此操作。
 
-## {{% heading "whatsnext" %}}
+## {{% heading "接下来" %}}
 
 <!--
 * Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
+* Learn more about [`Event`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+  and the [`Policy`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+  resource types by reading the Audit configuration reference.
 -->
-* 了解 [Mutating webhook 审计注解](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations)。
+* 进一步了解 [Mutating webhook 审计注解](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations)。
+* 通过阅读审计配置参考，进一步了解
+  [`Event`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+  和 [`Policy`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy) 资源的信息。

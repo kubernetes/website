@@ -33,7 +33,7 @@ are allowed.
 Nodes should be provisioned with the public root certificate for the cluster such that they can
 connect securely to the API server along with valid client credentials. A good approach is that the
 client credentials provided to the kubelet are in the form of a client certificate. See
-[kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+[kubelet TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 for automated provisioning of kubelet client certificates.
 
 Pods that wish to connect to the API server can do so securely by leveraging a service account so

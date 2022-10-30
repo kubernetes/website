@@ -46,7 +46,7 @@ flags](/docs/reference/command-line-tools-reference/kubelet)
 -->
 当通过 gRPC 连接到容器运行时时，kubelet 充当客户端。
 运行时和镜像服务端点必须在容器运行时中可用，可以使用
-[命令行标志](/zh/docs/reference/command-line-tools-reference/kubelet)的
+[命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kubelet)的
 `--image-service-endpoint` 和 `--container-runtime-endpoint`
 在 kubelet 中单独配置。
 

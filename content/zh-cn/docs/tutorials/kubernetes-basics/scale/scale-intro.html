@@ -33,7 +33,7 @@ weight: 10
 						<!-- <p>In the previous modules we created a <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>,
 							and then exposed it publicly via a <a href="/docs/concepts/services-networking/service/">Service</a>.
 							The Deployment created only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with  user demand.</p> -->
-						<p>在之前的模块中，我们创建了一个 <a href="/zh/docs/concepts/workloads/controllers/deployment/"> Deployment</a>，然后通过 <a href="/zh/docs/concepts/services-networking/service/">Service</a>让其可以开放访问。Deployment 仅为跑这个应用程序创建了一个 Pod。 当流量增加时，我们需要扩容应用程序满足用户需求。</p>
+						<p>在之前的模块中，我们创建了一个 <a href="/zh-cn/docs/concepts/workloads/controllers/deployment/"> Deployment</a>，然后通过 <a href="/zh-cn/docs/concepts/services-networking/service/">Service</a>让其可以开放访问。Deployment 仅为跑这个应用程序创建了一个 Pod。 当流量增加时，我们需要扩容应用程序满足用户需求。</p>
 
 						<!-- <p><b>Scaling</b> is accomplished by changing the number of replicas in a Deployment</p> -->
 						<p><b>扩缩</b> 是通过改变 Deployment 中的副本数量来实现的。</p>
@@ -99,7 +99,7 @@ weight: 10
 
                 <!-- <p>Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes with available resources. Scaling in will reduce the number of Pods to the new desired state. Kubernetes also supports
 									<a href="/docs/user-guide/horizontal-pod-autoscaling/">autoscaling</a> of Pods, but it is outside of the scope of this tutorial. Scaling to zero is also possible, and it will terminate all Pods of the specified Deployment.</p> -->
-								<p>扩展 Deployment 将创建新的 Pods，并将资源调度请求分配到有可用资源的节点上，收缩 会将 Pods 数量减少至所需的状态。Kubernetes 还支持 Pods 的<a href="/zh/docs/tasks/run-application/horizontal-pod-autoscale/">自动缩放</a>，但这并不在本教程的讨论范围内。将 Pods 数量收缩到0也是可以的，但这会终止 Deployment 上所有已经部署的 Pods。</p>
+								<p>扩展 Deployment 将创建新的 Pods，并将资源调度请求分配到有可用资源的节点上，收缩 会将 Pods 数量减少至所需的状态。Kubernetes 还支持 Pods 的<a href="/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/">自动缩放</a>，但这并不在本教程的讨论范围内。将 Pods 数量收缩到0也是可以的，但这会终止 Deployment 上所有已经部署的 Pods。</p>
 
 								<!-- <p>Running multiple instances of an application will require a way to distribute the traffic to all of them. Services have an integrated load-balancer that will distribute network traffic to all Pods of an exposed Deployment.
 									Services will monitor continuously the running Pods using endpoints, to ensure the traffic is sent only to available Pods.</p> -->
@@ -127,7 +127,7 @@ weight: 10
         <div class="row">
             <div class="col-md-12">
 								<!-- <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a> -->
-								<a class="btn btn-lg btn-success" href="/zh/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">开始互动教程 <span class="btn__next">›</span></a>
+								<a class="btn btn-lg btn-success" href="/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">开始互动教程 <span class="btn__next">›</span></a>
             </div>
         </div>
 

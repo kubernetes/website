@@ -4,8 +4,8 @@ type: docs
 ---
 
 "Release Managers" is an umbrella term that encompasses the set of Kubernetes
-contributors responsible for maintaining release branches, tagging releases,
-and building/packaging Kubernetes.
+contributors responsible for maintaining release branches and creating releases
+by using the tools SIG Release provides.
 
 The responsibilities of each role are described below.
 
@@ -69,7 +69,7 @@ Release Managers are responsible for:
   - Reviewing cherry picks
   - Ensuring the release branch stays healthy and that no unintended patch
     gets merged
-- Mentoring the [Release Manager Associates](#associates) group
+- Mentoring the [Release Manager Associates](#release-manager-associates) group
 - Actively developing features and maintaining the code in k/release
 - Supporting Release Manager Associates and contributors through actively
   participating in the Buddy program
@@ -133,12 +133,16 @@ referred to as Release Manager shadows. They are responsible for:
 GitHub Mentions: @kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
+- Cici Huang ([@cici37](https://github.com/cici37))
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
+- Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
 - Joyce Kung ([@thejoycekung](https://github.com/thejoycekung))
 - Max Körbächer ([@mkorbi](https://github.com/mkorbi))
 - Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
 - Taylor Dolezal ([@onlydole](https://github.com/onlydole))
 - Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
+- Xander Grzywinski([@salaxander](https://github.com/salaxander))
 
 ### Becoming a Release Manager Associate
 
@@ -169,9 +173,8 @@ of each minor (1.Y) and patch (1.Y.Z) release
 GitHub team: [@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams/build-admins)
 
 - Aaron Crickenberger ([@spiffxp](https://github.com/spiffxp))
-- Benjamin Elder ([@BenTheElder](https://github.com/BenTheElder))
+- Ben Kazemi ([@BenjaminKazemi](https://github.com/BenjaminKazemi))
 - Grant McCloskey ([@MushuEE](https://github.com/MushuEE))
-- Juan Escobar ([@juanfescobar](https://github.com/juanfescobar))
 
 ## SIG Release Leads
 
@@ -209,10 +212,10 @@ Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.1
 
 [community-membership]: https://git.k8s.io/community/community-membership.md#member
 [handbook-branch-mgmt]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/branch-manager.md
-[handbook-packaging]: https://git.k8s.io/sig-release/release-engineering/packaging.md
+[handbook-packaging]: https://git.k8s.io/release/hack/rapture/README.md
 [handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [k-sig-release-releases]: https://git.k8s.io/sig-release/releases
-[patches]: /patch-releases.md
+[patches]: /releases/patch-releases/
 [src]: https://git.k8s.io/community/committee-security-response/README.md
 [release-team]: https://git.k8s.io/sig-release/release-team/README.md
 [security-release-process]: https://git.k8s.io/security/security-release-process.md

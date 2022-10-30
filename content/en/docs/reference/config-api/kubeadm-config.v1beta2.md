@@ -113,7 +113,7 @@ components by adding customized setting or overriding kubeadm default settings.<
 </span></pre><p>The KubeProxyConfiguration type should be used to change the configuration passed to kube-proxy instances deployed
 in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/ or
-https://godoc.org/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
+https://pkg.go.dev/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
 for kube proxy official documentation.</p>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubelet.config.k8s.io/v1beta1<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>KubeletConfiguration<span style="color:#bbb">
@@ -121,7 +121,7 @@ for kube proxy official documentation.</p>
 </span></pre><p>The KubeletConfiguration type should be used to change the configurations that will be passed to all kubelet instances
 deployed in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/ or
-https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration
+https://pkg.go.dev/k8s.io/kubelet/config/v1beta1#KubeletConfiguration
 for kubelet official documentation.</p>
 <p>Here is a fully populated example of a single YAML file containing multiple
 configuration types to be used during a <code>kubeadm init</code> run.</p>
@@ -159,7 +159,7 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">etcd</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic"># one of local or external</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">local</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;k8s.gcr.io&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;registry.k8s.io&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">imageTag</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;3.2.24&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">dataDir</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/var/lib/etcd&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
@@ -213,7 +213,7 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">certificatesDir</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/kubernetes/pki&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;k8s.gcr.io&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;registry.k8s.io&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">useHyperKubeImage</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">clusterName</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;example-cluster&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span>---<span style="color:#bbb">
@@ -349,10 +349,10 @@ could be used for assigning a stable DNS to the control plane.</li>
 </td>
 <td>
    <p><code>imageRepository</code> sets the container registry to pull images from.
-If empty, <code>k8s.gcr.io</code> will be used by default; in case of kubernetes version is
+If empty, <code>registry.k8s.io</code> will be used by default; in case of kubernetes version is
 a CI build (kubernetes version starts with <code>ci/</code>) <code>gcr.io/k8s-staging-ci-images</code>
 is used as a default for control plane components and for kube-proxy, while
-<code>k8s.gcr.io</code> will be used for all the other images.</p>
+<code>registry.k8s.io</code> will be used for all the other images.</p>
 </td>
 </tr>
 <tr><td><code>useHyperKubeImage</code> <B>[Required]</B><br/>

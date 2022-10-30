@@ -36,15 +36,15 @@ For more information on `init` and `join` navigate to
 [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
 or [Using kubeadm join with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file).
 -->
-更多有关 `init` 和 `join` 的信息请浏览[使用带配置文件的 kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
-或[使用带配置文件的 kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file)。
+更多有关 `init` 和 `join` 的信息请浏览[使用带配置文件的 kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
+或[使用带配置文件的 kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file)。
 
 <!--
 For more information on using the kubeadm configuration API navigate to
 [Customizing components with the kubeadm API](/docs/setup/production-environment/tools/kubeadm/control-plane-flags).
 -->
 有关使用 kubeadm 的配置 API 的更多信息，
-请浏览[使用 kubeadm API 来自定义组件](/zh/docs/setup/production-environment/tools/kubeadm/control-plane-flags)。
+请浏览[使用 kubeadm API 来自定义组件](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags)。
 
 <!-- 
 You can use `kubeadm config migrate` to convert your old configuration files that contain a deprecated
@@ -84,7 +84,7 @@ that kubeadm requires.
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 -->
 
-* [kubeadm upgrade](/zh/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)
+* [kubeadm upgrade](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)
   将 Kubernetes 集群升级到更新版本 [kubeadm upgrade]
 
 

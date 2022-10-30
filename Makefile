@@ -9,7 +9,7 @@ CONTAINER_ENGINE ?= docker
 IMAGE_REGISTRY ?= gcr.io/k8s-staging-sig-docs
 IMAGE_VERSION=$(shell scripts/hash-files.sh Dockerfile Makefile | cut -c 1-12)
 CONTAINER_IMAGE   = $(IMAGE_REGISTRY)/k8s-website-hugo:v$(HUGO_VERSION)-$(IMAGE_VERSION)
-CONTAINER_RUN     = $(CONTAINER_ENGINE) run --rm --interactive --tty --volume $(CURDIR):/src
+CONTAINER_RUN     = "$(CONTAINER_ENGINE)" run --rm --interactive --tty --volume "$(CURDIR):/src"
 
 CCRED=\033[0;31m
 CCEND=\033[0m
@@ -29,13 +29,13 @@ module-init: ## Initialize required submodules.
 all: build ## Build site with production settings and put deliverables in ./public
 
 build: module-check ## Build site with non-production settings and put deliverables in ./public
-	hugo --minify --environment development
+	hugo --cleanDestinationDir --minify --environment development
 
 build-preview: module-check ## Build site with drafts and future posts enabled
-	hugo --buildDrafts --buildFuture --environment preview
+	hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview
 
 deploy-preview: ## Deploy preview site via netlify
-	hugo --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
+	hugo --cleanDestinationDir --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
@@ -44,11 +44,11 @@ check-headers-file:
 	scripts/check-headers-file.sh
 
 production-build: module-check ## Build the production site and ensure that noindex headers aren't added
-	hugo --minify --environment production
+	hugo --cleanDestinationDir --minify --environment production
 	HUGO_ENV=production $(MAKE) check-headers-file
 
 non-production-build: module-check ## Build the non-production site, which adds noindex headers to prevent indexing
-	hugo --enableGitInfo --environment nonprod
+	hugo --cleanDestinationDir --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
 	hugo server --buildFuture --environment development
@@ -95,7 +95,7 @@ docker-internal-linkcheck:
 
 container-internal-linkcheck: link-checker-image-pull
 	$(CONTAINER_RUN) $(CONTAINER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture --environment test
-	$(CONTAINER_ENGINE) run --mount type=bind,source=$(CURDIR),target=/test --rm wjdp/htmltest htmltest
+	$(CONTAINER_ENGINE) run --mount "type=bind,source=$(CURDIR),target=/test" --rm wjdp/htmltest htmltest
 
 clean-api-reference: ## Clean all directories in API reference directory, preserve _index.md
 	rm -rf content/en/docs/reference/kubernetes-api/*/

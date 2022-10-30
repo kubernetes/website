@@ -2,7 +2,7 @@
 title: 名称（Name）
 id: name
 date: 2018-04-12
-full_link: /zh/docs/concepts/overview/working-with-objects/names/
+full_link: /zh-cn/docs/concepts/overview/working-with-objects/names/
 short_description: >
   客户端提供的字符串，用来指代资源 URL 中的对象，如 `/api/v1/pods/some-name`。
 
@@ -30,7 +30,7 @@ tags:
  A client-provided string that refers to an object in a resource URL, such as `/api/v1/pods/some-name`.
 -->
 
-客户端提供的字符串，引用资源 url 中的对象，如`/api/v1/pods/some name`。
+客户端提供的字符串，引用资源 URL 中的对象，如`/api/v1/pods/some name`。
 
 <!--more--> 
 

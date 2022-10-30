@@ -29,6 +29,6 @@ cd kubernetes
 make release
 ```
 
-Pour plus de détails sur le processus de release, voir le repertoire [`build`](http://releases.k8s.io/{{< param "githubbranch" >}}/build/) dans kubernetes/kubernetes.
+Pour plus de détails sur le processus de release, voir le repertoire [`build`](http://releases.k8s.io/master/build/) dans kubernetes/kubernetes.
 
 

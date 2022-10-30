@@ -41,14 +41,14 @@ At a high level, the steps you perform are:
 
 <!-- 
 You must have an existing cluster. This page is about upgrading from Kubernetes
-{{< skew prevMinorVersion >}} to Kubernetes {{< skew latestVersion >}}. If your cluster
-is not currently running Kubernetes {{< skew prevMinorVersion >}} then please check
+{{< skew currentVersionAddMinor -1 >}} to Kubernetes {{< skew currentVersion >}}. If your cluster
+is not currently running Kubernetes {{< skew currentVersionAddMinor -1 >}} then please check
 the documentation for the version of Kubernetes that you plan to upgrade to.
 -->
 你必须有一个集群。
-本页内容涉及从 Kubernetes {{< skew prevMinorVersion >}} 
-升级到 Kubernetes {{< skew latestVersion >}}。
-如果你的集群未运行 Kubernetes {{< skew prevMinorVersion >}}，
+本页内容涉及从 Kubernetes {{< skew currentVersionAddMinor -1 >}} 
+升级到 Kubernetes {{< skew currentVersion >}}。
+如果你的集群未运行 Kubernetes {{< skew currentVersionAddMinor -1 >}}，
 那请参考目标 Kubernetes 版本的文档。
 
 <!-- ## Upgrade approaches -->
@@ -66,10 +66,10 @@ Once you have upgraded the cluster, remember to
 -->
 如果你的集群是使用 `kubeadm` 安装工具部署而来，
 那么升级集群的详细信息，请参阅
-[升级 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+[升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 
 升级集群之后，要记得
-[安装最新版本的 `kubectl`](/zh/docs/tasks/tools/).
+[安装最新版本的 `kubectl`](/zh-cn/docs/tasks/tools/).
 
 <!-- ### Manual deployments -->
 ### 手动部署 {#manual-deployments}
@@ -97,23 +97,23 @@ You should manually update the control plane following this sequence:
 - kube-apiserver (所有控制平面的宿主机)
 - kube-controller-manager
 - kube-scheduler
-- cloud controller manager, 在你用到时
+- cloud controller manager (在你用到时)
 
 <!-- 
 At this point you should
 [install the latest version of `kubectl`](/docs/tasks/tools/).
 
 For each node in your cluster, [drain](/docs/tasks/administer-cluster/safely-drain-node/)
-that node and then either replace it with a new node that uses the {{< skew latestVersion >}}
-kubelet, or upgrade the {{< skew latestVersion >}}
+that node and then either replace it with a new node that uses the {{< skew currentVersion >}}
+kubelet, or upgrade the {{< skew currentVersion >}}
 kubelet on that node and bring the node back into service.
 -->
 现在，你应该
-[安装最新版本的 `kubectl`](/zh/docs/tasks/tools/).
+[安装最新版本的 `kubectl`](/zh-cn/docs/tasks/tools/).
 
 对于集群中的每个节点，
-[排空](/zh/docs/tasks/administer-cluster/safely-drain-node/)
-节点，然后，或者用一个运行了 {{< skew latestVersion >}} kubelet 的新节点替换它；
+首先需要[腾空](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)
+节点，然后使用一个运行了 kubelet {{< skew currentVersion >}} 版本的新节点替换它；
 或者升级此节点的 kubelet，并使节点恢复服务。
 
 <!-- 
@@ -152,7 +152,7 @@ write it back also using the latest supported API.
 当底层的 API 更改时，这些对象可能需要用新 API 重写。
 如果不能做到这一点，会导致再也不能用 Kubernetes API 服务器解码、使用该对象。
 
-对于每个受影响的对象，用最新支持的 API 获取它，然后再用最新支持的 API 写回来。
+对于每个受影响的对象，请使用最新支持的 API 读取它，然后使用所支持的最新 API 将其写回。
 
 <!-- 
 ### Update manifests
@@ -164,7 +164,7 @@ For example:
 -->
 ### 更新清单 {#update-manifests}
 
-升级到新版本 Kubernetes 就可以提供新的 API。
+升级到新版本 Kubernetes 就可以获取到新的 API。
 
 你可以使用 `kubectl convert` 命令在不同 API 版本之间转换清单。
 例如：

@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - mikedanese
 title: 리눅스에 kubectl 설치 및 설정
 content_type: task
 weight: 10
@@ -52,7 +52,7 @@ card:
    kubectl 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
+   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.
@@ -83,7 +83,7 @@ card:
 
    ```bash
    chmod +x kubectl
-   mkdir -p ~/.local/bin/kubectl
+   mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
    # 그리고 ~/.local/bin 을 $PATH의 앞부분 또는 뒷부분에 추가
    ```
@@ -94,6 +94,11 @@ card:
 
    ```bash
    kubectl version --client
+   ```
+   또는 다음을 실행하여 버전에 대한 더 자세한 정보를 본다.
+
+   ```cmd
+   kubectl version --client --output=yaml    
    ```
 
 ### 기본 패키지 관리 도구를 사용하여 설치 {#install-using-native-package-management}
@@ -106,6 +111,10 @@ card:
    ```shell
    sudo apt-get update
    sudo apt-get install -y apt-transport-https ca-certificates curl
+   ```
+   Debian 9(stretch) 또는 그 이전 버전을 사용하는 경우 `apt-transport-https`도 설치해야 한다.
+   ```shell
+   sudo apt-get install -y apt-transport-https
    ```
 
 2. 구글 클라우드 공개 사이닝 키를 다운로드한다.
@@ -129,18 +138,20 @@ card:
 
 {{% /tab %}}
 
-{{< tab name="레드햇 기반의 배포판" codelang="bash" >}}
+{{% tab name="레드햇 기반의 배포판" %}}
+```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
-{{< /tab >}}
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### 다른 패키지 관리 도구를 사용하여 설치 {#install-using-other-package-management}
@@ -207,7 +218,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
    kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.

@@ -1,12 +1,12 @@
 ---
-
-
-
-
-
-
-
-
+# reviewers:
+# - bprashanth
+# - enisoc
+# - erictune
+# - foxish
+# - janetkuo
+# - kow3ns
+# - smarterclayton
 title: 분산 시스템 코디네이터 ZooKeeper 실행하기
 content_type: tutorial
 weight: 40
@@ -122,7 +122,7 @@ zk-2      1/1       Running   0         40s
 ```
 
 스테이트풀셋 컨트롤러는 3개의 파드를 생성하고, 각 파드는
-[ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) 서버를 포함한 컨테이너를 가진다.
+[ZooKeeper](https://archive.apache.org/dist/zookeeper/stable/) 서버를 포함한 컨테이너를 가진다.
 
 
 ### 리더 선출 촉진
@@ -305,7 +305,7 @@ numChildren = 0
 
 ### 내구성있는 저장소 제공
 
-[ZooKeeper 기본](#zookeeper-basics) 섹션에서 언급했듯이
+[ZooKeeper 기본](#zookeeper) 섹션에서 언급했듯이
 ZooKeeper는 모든 항목을 내구성있는 WAL에 커밋하고 메모리 상태의 스냅샷을 저장 미디에에 주기적으로 저장한다.
 내구성을 제공하기 위해 WAL을 이용하는 것은
 복제된 상태 머신을 이루는 합의 프로토콜에서
@@ -442,7 +442,7 @@ datadir-zk-2   Bound     pvc-bee0817e-bcb1-11e6-994f-42010a800002   20Gi       R
 
 `스테이트풀셋`의 컨테이너 `template`의 `volumeMounts` 부분이 ZooKeeper 서버의 데이터 디렉터리에 퍼시스턴트볼륨 마운트하는 내용이다.
 
-```shell
+```yaml
 volumeMounts:
 - name: datadir
   mountPath: /var/lib/zookeeper
@@ -661,6 +661,8 @@ statefulset rolling update complete 3 pods at revision zk-5db4499664...
 kubectl rollout history sts/zk
 ```
 
+출력은 다음과 비슷할 것이다.
+
 ```
 statefulsets "zk"
 REVISION
@@ -673,6 +675,8 @@ REVISION
 ```shell
 kubectl rollout undo sts/zk
 ```
+
+출력은 다음과 비슷할 것이다.
 
 ```
 statefulset.apps/zk rolled back
@@ -742,14 +746,14 @@ zk-0      1/1       Running   1         29m
 `zk` `스테이트풀셋`에 파드 `template`에 활성도 검사를 명시한다.
 
 ```yaml
- livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - "zookeeper-ready 2181"
-          initialDelaySeconds: 15
-          timeoutSeconds: 5
+  livenessProbe:
+    exec:
+      command:
+      - sh
+      - -c
+      - "zookeeper-ready 2181"
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
 ```
 
 검사는 ZooKeeper의 `ruok` 4 글자 단어를 이용해서 서버의 건강을 테스트하는
@@ -773,7 +777,7 @@ kubectl get pod -w -l app=zk
 다른 창에서 `zk-0` 파드의 파일시스템에서 `zookeeper-ready` 스크립트를 삭제하기 위해 다음 명령어를 이용하자.
 
 ```shell
-kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
+kubectl exec zk-0 -- rm /opt/zookeeper/bin/zookeeper-ready
 ```
 
 ZooKeeper의 활성도 검사에 실패하면,
@@ -860,16 +864,16 @@ kubernetes-node-2g2d
 이는 `zk` `스테이트풀셋`의 파드에 `파드안티어피니티(PodAntiAffinity)`를 지정했기 때문이다.
 
 ```yaml
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: "app"
-                    operator: In
-                    values:
-                    - zk
-              topologyKey: "kubernetes.io/hostname"
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: "app"
+              operator: In
+              values:
+                - zk
+        topologyKey: "kubernetes.io/hostname"
 ```
 
 `requiredDuringSchedulingIgnoredDuringExecution` 필드는
@@ -926,6 +930,8 @@ kubectl get pods -w -l app=zk
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
 ```
 
+출력은 다음과 비슷할 것이다.
+
 ```
 kubernetes-node-pb41
 kubernetes-node-ixsl
@@ -938,6 +944,8 @@ kubernetes-node-i4c4
 ```shell
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
+
+출력은 다음과 비슷할 것이다.
 
 ```
 node "kubernetes-node-group-pb41" cordoned
@@ -971,14 +979,18 @@ zk-0      1/1       Running   0         1m
 `zk-1` 이 스케줄된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data "kubernetes-node-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
+출력은 다음과 비슷할 것이다.
+
 ```
+"kubernetes-node-ixsl" cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-ixsl, kube-proxy-kubernetes-node-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
 node "kubernetes-node-ixsl" drained
 ```
+
 
 `zk-1` 파드는 스케줄되지 않는데 이는 `zk` `StatefulSet`이 오직 2개 노드가 스케줄되도록 파드를 위치시키는 것을 금하는
 `PodAntiAffinity` 규칙을 포함하였기 때문이고 그 파드는 Pending 상태로 남을 것이다.
@@ -986,6 +998,8 @@ node "kubernetes-node-ixsl" drained
 ```shell
 kubectl get pods -w -l app=zk
 ```
+
+출력은 다음과 비슷할 것이다.
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1016,6 +1030,8 @@ zk-1      0/1       Pending   0         0s
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
+
+출력은 다음과 비슷할 것이다.
 
 ```
 node "kubernetes-node-i4c4" cordoned
@@ -1060,6 +1076,8 @@ numChildren = 0
 kubectl uncordon kubernetes-node-pb41
 ```
 
+출력은 다음과 비슷할 것이다.
+
 ```
 node "kubernetes-node-pb41" uncordoned
 ```
@@ -1069,6 +1087,8 @@ node "kubernetes-node-pb41" uncordoned
 ```shell
 kubectl get pods -w -l app=zk
 ```
+
+출력은 다음과 비슷할 것이다.
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1103,7 +1123,7 @@ zk-1      1/1       Running   0         13m
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
-출력은
+출력은 다음과 비슷할 것이다.
 
 ```
 node "kubernetes-node-i4c4" already cordoned
@@ -1120,6 +1140,8 @@ node "kubernetes-node-i4c4" drained
 ```shell
 kubectl uncordon kubernetes-node-ixsl
 ```
+
+출력은 다음과 비슷할 것이다.
 
 ```
 node "kubernetes-node-ixsl" uncordoned

@@ -1,6 +1,7 @@
 ---
 title: Kubernetes API 访问控制
 content_type: concept
+weight: 50
 ---
 <!--
 ---
@@ -9,6 +10,7 @@ reviewers:
 - lavalamp
 title: Controlling Access to the Kubernetes API
 content_type: concept
+weight: 50
 ---
 -->
 
@@ -28,8 +30,8 @@ authorized for API access.
 When a request reaches the API, it goes through several stages, illustrated in the
 following diagram:
 -->
-用户使用 `kubectl`、客户端库或构造 REST 请求来访问 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api/)。
-人类用户和 [Kubernetes 服务账户](/zh/docs/tasks/configure-pod-container/configure-service-account/)都可以被鉴权访问 API。
+用户使用 `kubectl`、客户端库或构造 REST 请求来访问 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)。
+人类用户和 [Kubernetes 服务账户](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)都可以被鉴权访问 API。
 当请求到达 API 时，它会经历多个阶段，如下图所示：
 
 ![Kubernetes API 请求处理步骤示意图](/images/docs/admin/access-control-overview.svg)
@@ -38,14 +40,18 @@ following diagram:
 ## 传输安全 {#transport-security}
 
 <!--
-In a typical Kubernetes cluster, the API serves on port 443, protected by TLS.
+By default, the Kubernetes API server listens on port 6443 on the first non-localhost network interface, protected by TLS. In a typical production Kubernetes cluster, the API serves on port 443. The port can be changed with the `--secure-port`, and the listening IP address with the `--bind-address` flag.
+
 The API server presents a certificate. This certificate may be signed using
 a private certificate authority (CA), or based on a public key infrastructure linked
-to a generally recognized CA.
+to a generally recognized CA. The certificate and corresponding private key can be set by using the `--tls-cert-file` and `--tls-private-key-file` flags.
 -->
-在典型的 Kubernetes 集群中，API 服务器在 443 端口上提供服务，受 TLS 保护。
-API 服务器出示证书。
-该证书可以使用私有证书颁发机构（CA）签名，也可以基于链接到公认的 CA 的公钥基础架构签名。
+默认情况下，Kubernetes API 服务器在第一个非 localhost 网络接口的 6443 端口上进行监听，
+受 TLS 保护。在一个典型的 Kubernetes 生产集群中，API 使用 443 端口。
+该端口可以通过 `--secure-port` 进行变更，监听 IP 地址可以通过 `--bind-address` 标志进行变更。
+
+API 服务器出示证书。该证书可以使用私有证书颁发机构（CA）签名，也可以基于链接到公认的 CA 的公钥基础架构签名。
+该证书和相应的私钥可以通过使用 `--tls-cert-file` 和 `--tls-private-key-file` 标志进行设置。
 
 <!--
 If your cluster uses a private certificate authority, you need a copy of that CA
@@ -72,7 +78,7 @@ Authenticators are described in more detail in
 -->
 如上图步骤 **1** 所示，建立 TLS 后， HTTP 请求将进入认证（Authentication）步骤。
 集群创建脚本或者集群管理员配置 API 服务器，使之运行一个或多个身份认证组件。
-身份认证组件在[认证](/zh/docs/reference/access-authn-authz/authentication/)节中有更详细的描述。
+身份认证组件在[认证](/zh-cn/docs/reference/access-authn-authz/authentication/)节中有更详细的描述。
 
 <!--
 The input to the authentication step is the entire HTTP request; however, it typically
@@ -182,7 +188,7 @@ Kubernetes 支持多种鉴权模块，例如 ABAC 模式、RBAC 模式和 Webhoo
 如果所有模块拒绝了该请求，请求将会被拒绝（HTTP 状态码 403）。
 
 要了解更多有关 Kubernetes 鉴权的更多信息，包括有关使用支持鉴权模块创建策略的详细信息，
-请参阅[鉴权](/zh/docs/reference/access-authn-authz/authorization/)。
+请参阅[鉴权](/zh-cn/docs/reference/access-authn-authz/authorization/)。
 
 <!-- ## Admission control -->
 ## 准入控制 {#admission-control}
@@ -223,7 +229,7 @@ for the corresponding API object, and then written to the object store (shown as
 
 除了拒绝对象之外，准入控制器还可以为字段设置复杂的默认值。
 
-可用的准入控制模块在[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)中进行了描述。
+可用的准入控制模块在[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)中进行了描述。
 
 请求通过所有准入控制器后，将使用检验例程检查对应的 API 对象，然后将其写入对象存储（如步骤 **4** 所示）。
 
@@ -241,63 +247,7 @@ For more information, see [Auditing](/docs/tasks/debug/debug-cluster/audit/).
 Kubernetes 审计提供了一套与安全相关的、按时间顺序排列的记录，其中记录了集群中的操作序列。
 集群对用户、使用 Kubernetes API 的应用程序以及控制平面本身产生的活动进行审计。
 
-更多信息请参考 [审计](/zh/docs/tasks/debug/debug-cluster/audit/).
-
-<!-- ## API server ports and IPs -->
-## API 服务器端口和 IP {#api-server-ports-and-ips}
-
-<!--
-The previous discussion applies to requests sent to the secure port of the API server
-(the typical case).  The API server can actually serve on 2 ports:
-
-By default, the Kubernetes API server serves HTTP on 2 ports:
--->
-前面的讨论适用于发送到 API 服务器的安全端口的请求（典型情况）。 API 服务器实际上可以在 2 个端口上提供服务：
-
-默认情况下，Kubernetes API 服务器在 2 个端口上提供 HTTP 服务：
-
-<!--
-  1. `localhost` port:
-
-      - is intended for testing and bootstrap, and for other components of the master node
-        (scheduler, controller-manager) to talk to the API
-      - no TLS
-      - default is port 8080
-      - default IP is localhost, change with `--insecure-bind-address` flag.
-      - request **bypasses** authentication and authorization modules.
-      - request handled by admission control module(s).
-      - protected by need to have host access
-
-  2. “Secure port”:
-
-      - use whenever possible
-      - uses TLS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
-      - default is port 6443, change with `--secure-port` flag.
-      - default IP is first non-localhost network interface, change with `--bind-address` flag.
-      - request handled by authentication and authorization modules.
-      - request handled by admission control module(s).
-      - authentication and authorization modules run.
- -->
-  1. `localhost` 端口:
-
-      - 用于测试和引导，以及主控节点上的其他组件（调度器，控制器管理器）与 API 通信
-      - 没有 TLS
-      - 默认为端口 8080
-      - 默认 IP 为 localhost，使用 `--insecure-bind-address` 进行更改
-      - 请求 **绕过** 身份认证和鉴权模块
-      - 由准入控制模块处理的请求
-      - 受需要访问主机的保护
-
-  2. “安全端口”：
-
-      - 尽可能使用
-      - 使用 TLS。 用 `--tls-cert-file` 设置证书，用 `--tls-private-key-file` 设置密钥
-      - 默认端口 6443，使用 `--secure-port` 更改
-      - 默认 IP 是第一个非本地网络接口，使用 `--bind-address` 更改
-      - 请求须经身份认证和鉴权组件处理
-      - 请求须经准入控制模块处理
-      - 身份认证和鉴权模块运行
-
+更多信息请参考[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -327,23 +277,23 @@ You can learn about:
 -->
 阅读更多有关身份认证、鉴权和 API 访问控制的文档：
 
-- [认证](/zh/docs/reference/access-authn-authz/authentication/)
-   - [使用 Bootstrap 令牌进行身份认证](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)
-- [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
-   - [动态准入控制](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
-- [鉴权](/zh/docs/reference/access-authn-authz/authorization/)
-   - [基于角色的访问控制](/zh/docs/reference/access-authn-authz/rbac/)
-   - [基于属性的访问控制](/zh/docs/reference/access-authn-authz/abac/)
-   - [节点鉴权](/zh/docs/reference/access-authn-authz/node/)
-   - [Webhook 鉴权](/zh/docs/reference/access-authn-authz/webhook/)
-- [证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)
-   - 包括 [CSR 认证](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
-     和[证书签名](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
+- [认证](/zh-cn/docs/reference/access-authn-authz/authentication/)
+   - [使用 Bootstrap 令牌进行身份认证](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
+- [准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
+   - [动态准入控制](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- [鉴权](/zh-cn/docs/reference/access-authn-authz/authorization/)
+   - [基于角色的访问控制](/zh-cn/docs/reference/access-authn-authz/rbac/)
+   - [基于属性的访问控制](/zh-cn/docs/reference/access-authn-authz/abac/)
+   - [节点鉴权](/zh-cn/docs/reference/access-authn-authz/node/)
+   - [Webhook 鉴权](/zh-cn/docs/reference/access-authn-authz/webhook/)
+- [证书签名请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)
+   - 包括 [CSR 认证](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
+     和[证书签名](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
 - 服务账户
-  - [开发者指导](/zh/docs/tasks/configure-pod-container/configure-service-account/)
-  - [管理](/zh/docs/reference/access-authn-authz/service-accounts-admin/)
+  - [开发者指导](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
+  - [管理](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)
 
 你可以了解
 - Pod 如何使用
-  [Secrets](/zh/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
-  获取 API 凭证.
+  [Secrets](/zh-cn/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
+  获取 API 凭证。

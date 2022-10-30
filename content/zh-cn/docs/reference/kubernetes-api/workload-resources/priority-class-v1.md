@@ -87,7 +87,7 @@ PriorityClass 定义了从优先级类名到优先级数值的映射。
 -->
 - **globalDefault** (boolean)
 
-  globalDefault 指定是否应将此 PriorityClass 视为没有任何优先级类的 pod 的默认优先级。
+  globalDefault 指定是否应将此 PriorityClass 视为没有任何优先级类的 Pod 的默认优先级。
   只有一个 PriorityClass 可以标记为 `globalDefault`。
   但是，如果存在多个 PriorityClasses 且其 `globalDefault` 字段设置为 true，
   则将使用此类全局默认 PriorityClasses 的最小值作为默认优先级。
@@ -430,7 +430,7 @@ PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
   name of the PriorityClass
 -->
-- **name** （*路径参数*）: string，必需
+- **name** （**路径参数**）: string，必需
 
   PriorityClass 名称
 
@@ -518,7 +518,7 @@ PATCH /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
   name of the PriorityClass
 -->
-- **name** （*路径参数*）: string，必须
+- **name** （**路径参数**）: string，必需
 
   PriorityClass 名称
 
@@ -613,7 +613,7 @@ Parameters
 
   name of the PriorityClass
 -->
-- **name** （*路径参数*）: string，必需
+- **name** （**路径参数**）: string，必需
 
   PriorityClass 名称。
 

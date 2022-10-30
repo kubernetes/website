@@ -31,7 +31,7 @@ Kubernetes API 参考文档是从
 构建的，
 且使用[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) 生成代码。
 
-如果你在生成的文档中发现错误，则需要[在上游修复](/zh/docs/contribute/generate-ref-docs/contribute-upstream/)。
+如果你在生成的文档中发现错误，则需要[在上游修复](/zh-cn/docs/contribute/generate-ref-docs/contribute-upstream/)。
 
 如果你只需要从 [OpenAPI](https://github.com/OAI/OpenAPI-Specification) 规范中重新生成参考文档，请继续阅读此页。
 
@@ -305,7 +305,7 @@ Submit your changes as a
 Monitor your pull request, and respond to reviewer comments as needed. Continue
 to monitor your pull request until it has been merged.
 -->
-基于你所生成的更改[创建 PR](/zh/docs/contribute/new-content/open-a-pr/)，
+基于你所生成的更改[创建 PR](/zh-cn/docs/contribute/new-content/open-a-pr/)，
 提交到 [kubernetes/website](https://github.com/kubernetes/website) 仓库。
 监视你提交的 PR，并根据需要回复 reviewer 的评论。继续监视你的 PR，直到合并为止。
 
@@ -316,7 +316,7 @@ to monitor your pull request until it has been merged.
 * [Generating Reference Docs for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
 -->
-* [生成参考文档快速入门](/zh/docs/contribute/generate-ref-docs/quickstart/)
-* [为 Kubernetes 组件和工具生成参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-components/)
-* [为 kubectl 命令集生成参考文档](/zh/docs/contribute/generate-ref-docs/kubectl/)
+* [生成参考文档快速入门](/zh-cn/docs/contribute/generate-ref-docs/quickstart/)
+* [为 Kubernetes 组件和工具生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/kubernetes-components/)
+* [为 kubectl 命令集生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/kubectl/)
 

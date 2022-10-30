@@ -13,7 +13,7 @@ Kubernetes v1.21.
 introduced in Kubernetes v1.21, provide similar functionality.
 -->
 这项功能，特别是 Alpha 状态的 `topologyKeys` 字段，在 kubernetes v1.21 中已经弃用。
-在 kubernetes v1.21 加入的[拓扑感知提示](/zh/docs/concepts/services-networking/topology-aware-hints/)
+在 kubernetes v1.21 加入的[拓扑感知提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints/)
 提供了类似的功能。
 
 ## {{% heading "prerequisites" %}}
@@ -61,7 +61,7 @@ To enable service topology, enable the `ServiceTopology`
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 要启用服务拓扑功能，需要为所有 Kubernetes 组件启用 `ServiceTopology` 
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)：
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)：
 
 ```
 --feature-gates="ServiceTopology=true`
@@ -77,7 +77,7 @@ To enable service topology, enable the `ServiceTopology`
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
 
-* 阅读[拓扑感知提示](/zh/docs/concepts/services-networking/topology-aware-hints/)，该技术是用来替换 `topologyKeys` 字段的。
-* 阅读[端点切片](/zh/docs/concepts/services-networking/endpoint-slices)
-* 阅读[服务拓扑](/zh/docs/concepts/services-networking/service-topology)概念
-* 阅读[通过服务来连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)
+* 阅读[拓扑感知提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints/)，该技术是用来替换 `topologyKeys` 字段的。
+* 阅读[端点切片](/zh-cn/docs/concepts/services-networking/endpoint-slices)
+* 阅读[服务拓扑](/zh-cn/docs/concepts/services-networking/service-topology)概念
+* 阅读[通过服务来连接应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)

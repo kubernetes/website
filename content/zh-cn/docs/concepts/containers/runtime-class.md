@@ -16,7 +16,7 @@ weight: 20
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-<!-- 
+<!--
 This page describes the RuntimeClass resource and runtime selection mechanism.
 
 RuntimeClass is a feature for selecting the container runtime configuration. The container runtime
@@ -28,7 +28,7 @@ RuntimeClass 是一个用于选择容器运行时配置的特性，容器运行�
 
 <!-- body -->
 
-<!-- 
+<!--
 ## Motivation
 
 You can set a different RuntimeClass between different Pods to provide a balance of
@@ -51,7 +51,7 @@ but with different settings.
 -->
 你还可以使用 RuntimeClass 运行具有相同容器运行时但具有不同设置的 Pod。
 
-<!-- 
+<!--
 ## Setup
 -->
 
@@ -77,12 +77,12 @@ CRI implementation for how to configure.
 RuntimeClass 的配置依赖于 运行时接口（CRI）的实现。
 根据你使用的 CRI 实现，查阅相关的文档（[下方](#cri-configuration)）来了解如何配置。
 
+{{< note >}}
 <!--
 RuntimeClass assumes a homogeneous node configuration across the cluster by default (which means
 that all nodes are configured the same way with respect to container runtimes). To support
-heterogenous node configurations, see [Scheduling](#scheduling) below.
+heterogeneous node configurations, see [Scheduling](#scheduling) below.
 -->
-{{< note >}}
 RuntimeClass 假设集群中的节点配置是同构的（换言之，所有的节点在容器运行时方面的配置是相同的）。
 如果需要支持异构节点，配置方法请参阅下面的 [调度](#scheduling)。
 {{< /note >}}
@@ -92,7 +92,7 @@ The configurations have a corresponding `handler` name, referenced by the Runtim
 handler must be a valid [DNS label name](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
 -->
 所有这些配置都具有相应的 `handler` 名，并被 RuntimeClass 引用。
-handler 必须是有效的 [DNS 标签名](/zh/docs/concepts/overview/working-with-objects/names/#dns-label-names)。
+handler 必须是有效的 [DNS 标签名](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-label-names)。
 
 <!--
 ### 2. Create the corresponding RuntimeClass resources
@@ -102,7 +102,7 @@ the configuration. For each handler, create a corresponding RuntimeClass object.
 -->
 ### 2. 创建相应的 RuntimeClass 资源
 
-在上面步骤 1 中，每个配置都需要有一个用于标识配置的 `handler`。 
+在上面步骤 1 中，每个配置都需要有一个用于标识配置的 `handler`。
 针对每个 handler 需要创建一个 RuntimeClass 对象。
 
 <!--
@@ -119,19 +119,26 @@ kind: RuntimeClass
 metadata:
   # 用来引用 RuntimeClass 的名字
   # RuntimeClass 是一个集群层面的资源
-  name: myclass  
+  name: myclass
 # 对应的 CRI 配置的名称
 handler: myconfiguration
 ```
 
 <!--
+The name of a RuntimeClass object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+-->
+RuntimeClass 对象的名称必须是有效的
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+
+{{< note >}}
+<!--
 It is recommended that RuntimeClass write operations (create/update/patch/delete) be
-restricted to the cluster administrator. This is typically the default. See 
+restricted to the cluster administrator. This is typically the default. See
 [Authorization Overview](/docs/reference/access-authn-authz/authorization/) for more details.
 -->
-{{< note >}}
 建议将 RuntimeClass 写操作（create、update、patch 和 delete）限定于集群管理员使用。
-通常这是默认配置。参阅[授权概述](/zh/docs/reference/access-authn-authz/authorization/)了解更多信息。
+通常这是默认配置。参阅[授权概述](/zh-cn/docs/reference/access-authn-authz/authorization/)了解更多信息。
 {{< /note >}}
 
 <!--
@@ -164,17 +171,17 @@ error message.
 -->
 这一设置会告诉 kubelet 使用所指的 RuntimeClass 来运行该 pod。
 如果所指的 RuntimeClass 不存在或者 CRI 无法运行相应的 handler，
-那么 pod 将会进入 `Failed` 终止[阶段](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
-你可以查看相应的[事件](/zh/docs/tasks/debug/debug-application/debug-running-pod/)，
+那么 pod 将会进入 `Failed` 终止[阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
+你可以查看相应的[事件](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)，
 获取执行过程中的错误信息。
 
 <!--
 If no `runtimeClassName` is specified, the default RuntimeHandler will be used, which is equivalent
 to the behavior when the RuntimeClass feature is disabled.
 -->
-如果未指定 `runtimeClassName` ，则将使用默认的 RuntimeHandler，相当于禁用 RuntimeClass 功能特性。
+如果未指定 `runtimeClassName`，则将使用默认的 RuntimeHandler，相当于禁用 RuntimeClass 功能特性。
 
-<!-- 
+<!--
 ### CRI Configuration
 
 For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/production-environment/container-runtimes/).
@@ -182,7 +189,7 @@ For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/
 ### CRI 配置   {#cri-configuration}
 
 关于如何安装 CRI 运行时，请查阅
-[CRI 安装](/zh/docs/setup/production-environment/container-runtimes/)。
+[CRI 安装](/zh-cn/docs/setup/production-environment/container-runtimes/)。
 
 #### {{< glossary_tooltip term_id="containerd" >}}
 
@@ -191,29 +198,28 @@ Runtime handlers are configured through containerd's configuration at
 `/etc/containerd/config.toml`. Valid handlers are configured under the runtimes section:
 -->
 通过 containerd 的 `/etc/containerd/config.toml` 配置文件来配置运行时 handler。
-handler 需要配置在 runtimes 块中： 
+handler 需要配置在 runtimes 块中：
 
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
 <!--
-See containerd's [config documentation](https://github.com/containerd/cri/blob/master/docs/config.md)
+See containerd's [config documentation](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 for more details:
 -->
-更详细信息，请查阅 containerd 的[配置指南](https://github.com/containerd/cri/blob/master/docs/config.md)
+更详细信息，请查阅 containerd 的[配置指南](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 
-#### [cri-o](https://cri-o.io/)
+#### {{< glossary_tooltip term_id="cri-o" >}}
 
 <!--
-Runtime handlers are configured through cri-o's configuration at `/etc/crio/crio.conf`. Valid
-handlers are configured under the [crio.runtime
-table](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table):
+Runtime handlers are configured through CRI-O's configuration at `/etc/crio/crio.conf`. Valid
+handlers are configured under the
+[crio.runtime table](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table):
 -->
-通过 cri-o 的 `/etc/crio/crio.conf` 配置文件来配置运行时 handler。
+通过 CRI-O 的 `/etc/crio/crio.conf` 配置文件来配置运行时 handler。
 handler 需要配置在
-[crio.runtime 表](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table)
-下面：
+[crio.runtime 表](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table)之下：
 
 ```
 [crio.runtime.runtimes.${HANDLER_NAME}]
@@ -225,9 +231,9 @@ See CRI-O's [config documentation](https://github.com/cri-o/cri-o/blob/master/do
 -->
 更详细信息，请查阅 CRI-O [配置文档](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md)。
 
-<!-- 
+<!--
 ## Scheduling
- -->
+-->
 ## 调度  {#scheduling}
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
@@ -240,7 +246,7 @@ If `scheduling` is not set, this RuntimeClass is assumed to be supported by all 
 
 通过为 RuntimeClass 指定 `scheduling` 字段，
 你可以通过设置约束，确保运行该 RuntimeClass 的 Pod 被调度到支持该 RuntimeClass 的节点上。
-如果未设置 `scheduling`，则假定所有节点均支持此 RuntimeClass 。
+如果未设置 `scheduling`，则假定所有节点均支持此 RuntimeClass。
 
 <!--
 To ensure pods land on nodes supporting a specific RuntimeClass, that set of nodes should have a
@@ -249,7 +255,7 @@ RuntimeClass's nodeSelector is merged with the pod's nodeSelector in admission, 
 the intersection of the set of nodes selected by each. If there is a conflict, the pod will be
 rejected.
 -->
-为了确保 pod 会被调度到支持指定运行时的 node 上，每个 node 需要设置一个通用的 label 用于被 
+为了确保 pod 会被调度到支持指定运行时的 node 上，每个 node 需要设置一个通用的 label 用于被
 `runtimeclass.scheduling.nodeSelector` 挑选。在 admission 阶段，RuntimeClass 的 nodeSelector 将会与
 pod 的 nodeSelector 合并，取二者的交集。如果有冲突，pod 将会被拒绝。
 
@@ -263,22 +269,22 @@ by each.
 与 `nodeSelector` 一样，tolerations 也在 admission 阶段与 pod 的 tolerations 合并，取二者的并集。
 
 <!--
-To learn more about configuring the node selector and tolerations, see 
-[Assigning Pods to Nodes](/docs/concepts/configuration/assign-pod-node/).
+To learn more about configuring the node selector and tolerations, see
+[Assigning Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 -->
-更多有关 node selector 和 tolerations 的配置信息，请查阅 
-[将 Pod 分派到节点](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)。
+更多有关 node selector 和 tolerations 的配置信息，请查阅
+[将 Pod 分派到节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)。
 
-<!-- 
+<!--
 ### Pod Overhead
- -->
+-->
 ### Pod 开销   {#pod-overhead}
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
-the cluster (including the scheduler) to account for it when making decisions about Pods and resources.  
+the cluster (including the scheduler) to account for it when making decisions about Pods and resources.
 -->
 你可以指定与运行 Pod 相关的 _开销_ 资源。声明开销即允许集群（包括调度器）在决策 Pod 和资源时将其考虑在内。
 
@@ -300,5 +306,5 @@ Pod 开销通过 RuntimeClass 的 `overhead` 字段定义。
 -->
 - [RuntimeClass 设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass 调度设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
-- 阅读关于 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/) 的概念
+- 阅读关于 [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/) 的概念
 - [PodOverhead 特性设计](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

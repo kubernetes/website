@@ -111,7 +111,7 @@ CSI 驱动必须在控制器或节点服务（如果合适，二者兼备）
 请参阅 CSI 驱动的文档，了解其是否支持卷扩充。
 
 有关支持卷扩充的树内（intree）卷类型，
-请参阅卷扩充文档：[扩充 PVC 申领](/zh/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)。
+请参阅卷扩充文档：[扩充 PVC 申领](/zh-cn/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)。
 
 <!-- 
 In general to provide some degree of control over volumes that can be expanded, only dynamically provisioned PVCs whose storage class has `allowVolumeExpansion` parameter set to `true` are expandable.
@@ -194,7 +194,7 @@ See [Recovering from volume expansion failure](/docs/concepts/storage/persistent
 但 SIG Storage 团队仍然在努力让 Kubernetes 用户扩充其持久性存储变得更简单。
 Kubernetes 1.23 引入了卷扩充失败后触发恢复机制的功能特性，
 允许用户在大小调整失败后尝试自助修复。
-更多详细信息，请参阅[处理扩充卷过程中的失败](/zh/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes)。
+更多详细信息，请参阅[处理扩充卷过程中的失败](/zh-cn/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes)。
 <!--
 The Kubernetes contributor community is also discussing the potential for StatefulSet-driven storage expansion. This proposed
 feature would let you trigger expansion for all underlying PVs that are providing storage to a StatefulSet,

@@ -2,13 +2,12 @@
 layout: blog
 title: "用于 Kubernetes 集群 DNS 的 CoreDNS GA 正式发布"
 date: 2018-07-10
+slug: coredns-ga-for-kubernetes-cluster-dns
 ---
 <!--
----
 layout: blog
 title: "CoreDNS GA for Kubernetes Cluster DNS"
 date: 2018-07-10
----
 --->
 
 <!--
@@ -88,7 +87,7 @@ customized Corefile for you, including all of the configuration for stub domains
 在 CoreDNS 中，您可以类似地修改 CoreDNS [Corefile](https://coredns.io/2017/07/23/corefile-explained/) 的 ConfigMap，以更改服务发现的工作方式。这种 Corefile 配置提供了比 kube-dns 中更多的选项，因为它是 CoreDNS 用于配置所有功能的主要配置文件，即使与 Kubernetes 不相关的功能也可以操作。
 
 使用 `kubeadm` 将 kube-dns 升级到 CoreDNS 时，现有的 ConfigMap 将被用来为您生成自定义的 Corefile，包括存根域、联盟和上游名称服务器的所有配置。更多详细信息，请参见
-[使用 CoreDNS 进行服务发现](/zh/docs/tasks/administer-cluster/coredns/)。
+[使用 CoreDNS 进行服务发现](/zh-cn/docs/tasks/administer-cluster/coredns/)。
 
 <!--
 ## Bug fixes and enhancements
@@ -276,7 +275,7 @@ You can find out more on the [CoreDNS Blog](https://coredns.io/blog).
 --->
 ## 下一步工作
 
-CoreDNS 是一个独立的项目，许多与 Kubernetes 不直接相关的功能正在开发中。但是，其中许多功能将在 Kubernetes 中具有对应的应用。例如，与策略引擎完成集成后，当请求无头服务时，CoreDNS 能够智能地选择返回哪个端点。这可用于将流量分流到到本地 Pod 或响应更快的 Pod。更多的其他功能正在开发中，当然作为一个开源项目，我们欢迎您提出建议并贡献自己的功能特性！
+CoreDNS 是一个独立的项目，许多与 Kubernetes 不直接相关的功能正在开发中。但是，其中许多功能将在 Kubernetes 中具有对应的应用。例如，与策略引擎完成集成后，当请求无头服务时，CoreDNS 能够智能地选择返回哪个端点。这可用于将流量分流到本地 Pod 或响应更快的 Pod。更多的其他功能正在开发中，当然作为一个开源项目，我们欢迎您提出建议并贡献自己的功能特性！
 
 上述特征和差异是几个示例。CoreDNS 还可以做更多的事情。您可以在 [CoreDNS 博客](https://coredns.io/blog) 上找到更多信息。
 

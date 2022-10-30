@@ -22,7 +22,7 @@ applications, such as key-value stores (such as Redis) and databases.
 此页面展示了如何配置 Pod 以使用卷进行存储。
 
 只要容器存在，容器的文件系统就会存在，因此当一个容器终止并重新启动，对该容器的文件系统改动将丢失。
-对于独立于容器的持久化存储，你可以使用[卷](/zh/docs/concepts/storage/volumes/)。
+对于独立于容器的持久化存储，你可以使用[卷](/zh-cn/docs/concepts/storage/volumes/)。
 这对于有状态应用程序尤为重要，例如键值存储（如 Redis）和数据库。
 
 ## {{% heading "prerequisites" %}}
@@ -44,7 +44,7 @@ restarts. Here is the configuration file for the Pod:
 ## 为 Pod 配置卷   {#configure-a-volume-for-a-pod}
 
 在本练习中，你将创建一个运行 Pod，该 Pod 仅运行一个容器并拥有一个类型为
-[emptyDir](/zh/docs/concepts/storage/volumes/#emptydir) 的卷，
+[emptyDir](/zh-cn/docs/concepts/storage/volumes/#emptydir) 的卷，
 在整个 Pod 生命周期中一直存在，即使 Pod 中的容器被终止和重启。以下是 Pod 的配置：
 
 {{< codenew file="pods/storage/redis.yaml" >}}
@@ -193,5 +193,5 @@ details such as mounting and unmounting the devices on the nodes. See
 * 参阅 [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)。
 * 除了 `emptyDir` 提供的本地磁盘存储外，Kubernetes 还支持许多不同的网络附加存储解决方案，
   包括 GCE 上的 PD 和 EC2 上的 EBS，它们是关键数据的首选，并将处理节点上的一些细节，
-  例如安装和卸载设备。了解更多详情请参阅[卷](/zh/docs/concepts/storage/volumes/)。
+  例如安装和卸载设备。了解更多详情请参阅[卷](/zh-cn/docs/concepts/storage/volumes/)。
 

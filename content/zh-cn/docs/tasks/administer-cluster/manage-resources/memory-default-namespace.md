@@ -34,7 +34,7 @@ Kubernetes assigns a default memory request under certain conditions that are ex
 本章介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}配置默认的内存请求和限制。
 
 一个 Kubernetes 集群可被划分为多个命名空间。
-如果你在具有默认内存[限制](/zh/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
+如果你在具有默认内存[限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
 的命名空间内尝试创建一个 Pod，并且这个 Pod 中的容器没有声明自己的内存资源限制，
 那么{{< glossary_tooltip text="控制面" term_id="control-plane" >}}会为该容器设定默认的内存限制。
 
@@ -247,6 +247,18 @@ resources:
     memory: 128Mi
 ```
 
+{{< note >}}
+<!--
+A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be scheduleable.
+See [Constraints on resource limits and requests](/docs/concepts/policy/limit-range/#constraints-on-resource-limits-and-requests) for more details.
+-->
+`LimitRange` **不会**去检查它所应用的默认值的一致性。这意味着由 `LimitRange`
+设置的 limit 的默认值可能小于客户端提交给 API 服务器的规约中为容器指定的请求值。
+如果发生这种情况，最终的 Pod 将无法被调度。
+更多的相关信息细节，请参考[对资源限制和请求的约束](/zh-cn/docs/concepts/policy/limit-range/)。
+{{< /note >}}
+
+
 <!--
 ## Motivation for default memory limits and requests
 
@@ -322,12 +334,12 @@ kubectl delete namespace default-mem-example
 -->
 ### 集群管理员参考
 
-* [为命名空间配置默认的 CPU 请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-* [为命名空间配置最小和最大内存限制](/zh/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [为命名空间配置最小和最大 CPU 限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [为命名空间配置内存和 CPU 配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-* [为命名空间配置 Pod 配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
-* [为 API 对象配置配额](/zh/docs/tasks/administer-cluster/quota-api-object/)
+* [为命名空间配置默认的 CPU 请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [为命名空间配置最小和最大内存限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [为命名空间配置最小和最大 CPU 限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [为命名空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [为命名空间配置 Pod 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [为 API 对象配置配额](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 
 <!--
 ### For app developers
@@ -340,7 +352,7 @@ kubectl delete namespace default-mem-example
 -->
 ### 应用开发者参考
 
-* [为容器和 Pod 分配内存资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)
-* [为容器和 Pod 分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
-* [为 Pod 配置服务质量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
+* [为容器和 Pod 分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [为容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [为 Pod 配置服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
 

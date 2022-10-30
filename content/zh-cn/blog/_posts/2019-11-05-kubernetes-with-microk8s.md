@@ -1,14 +1,14 @@
 ---
+layout: blog
 title: '使用 Microk8s 在 Linux 上本地运行 Kubernetes'
-
 date: 2019-11-26
+slug: running-kubernetes-locally-on-linux-with-microk8s
 ---
 <!--
----                                           
 title: 'Running Kubernetes locally on Linux with Microk8s'                                                           
 date: 2019-11-26
----
 -->
+
 <!--
 **Authors**: [Ihor Dvoretskyi](https://twitter.com/idvoretskyi), Developer Advocate, Cloud Native Computing Foundation; [Carmine Rimi](https://twitter.com/carminerimi)
 -->

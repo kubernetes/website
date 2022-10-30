@@ -23,7 +23,7 @@ scheduler and instruct Kubernetes what scheduler to use for each of your pods. L
 learn how to run multiple schedulers in Kubernetes with an example.
 -->
 Kubernetes 自带了一个默认调度器，其详细描述请查阅
-[这里](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)。
+[这里](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)。
 如果默认调度器不适合你的需求，你可以实现自己的调度器。
 而且，你甚至可以和默认调度器一起同时运行多个调度器，并告诉 Kubernetes 为每个
 Pod 使用哪个调度器。
@@ -108,8 +108,8 @@ config. Save it as `my-scheduler.yaml`:
 
 现在将调度器放在容器镜像中，为它创建一个 Pod 配置，并在 Kubernetes 集群中
 运行它。但是与其在集群中直接创建一个 Pod，不如使用
-[Deployment](/zh/docs/concepts/workloads/controllers/deployment/)。
-Deployment 管理一个 [ReplicaSet](/zh/docs/concepts/workloads/controllers/replicaset/)，
+[Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
+Deployment 管理一个 [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)，
 ReplicaSet 再管理 Pod，从而使调度器能够免受一些故障的影响。
 以下是 Deployment 配置，将其保存为 `my-scheduler.yaml`：
 
@@ -120,7 +120,7 @@ In the above manifest, you use a [KubeSchedulerConfiguration](/docs/reference/sc
 to customize the behavior of your scheduler implementation. This configuration has been passed to
 the `kube-scheduler` during initialization with the `--config` option. The `my-scheduler-config` ConfigMap stores the configuration file. The Pod of the`my-scheduler` Deployment mounts the `my-scheduler-config` ConfigMap as a volume.
 -->
-在以上的清单中，你使用 [KubeSchedulerConfiguration](/zh/docs/reference/scheduling/config/) 
+在以上的清单中，你使用 [KubeSchedulerConfiguration](/zh-cn/docs/reference/scheduling/config/) 
 来自定义调度器实现的行为。当使用 `--config` 选项进行初始化时，该配置被传递到 `kube-scheduler`。
 `my-scheduler-config` ConfigMap 存储配置数据。
 `my-scheduler` Deployment 的 Pod 将 `my-scheduler-config` ConfigMap 挂载为一个卷。
@@ -369,6 +369,6 @@ You can also use a [custom scheduler configuration](/docs/reference/scheduling/c
 or a custom container image for the cluster's main scheduler by modifying its static pod manifest
 on the relevant control plane nodes.
 -->
-你也可以使用[自定义调度器配置](/zh/docs/reference/scheduling/config/#multiple-profiles)
+你也可以使用[自定义调度器配置](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)
 或自定义容器镜像，用于集群的主调度器，方法是在相关控制平面节点上修改其静态 pod 清单。
 

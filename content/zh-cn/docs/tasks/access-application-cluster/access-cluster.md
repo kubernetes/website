@@ -39,7 +39,7 @@ Check the location and credentials that kubectl knows about with this command:
 当你第一次访问 Kubernetes API 的时候，我们建议你使用 Kubernetes CLI 工具 `kubectl`。
 
 访问集群时，你需要知道集群的地址并且拥有访问的凭证。通常，这些在你通过
-[启动安装](/zh/docs/setup/)安装集群时都是自动安装好的，或者其他人安装时
+[启动安装](/zh-cn/docs/setup/)安装集群时都是自动安装好的，或者其他人安装时
 也应该提供了凭证和集群地址。
 
 通过以下命令检查 kubectl 是否知道集群地址及凭证：
@@ -53,8 +53,8 @@ Many of the [examples](/docs/reference/kubectl/cheatsheet/) provide an introduct
 `kubectl`, and complete documentation is found in the
 [kubectl reference](/docs/reference/kubectl/).
 -->
-有许多[例子](/zh/docs/reference/kubectl/cheatsheet/)介绍了如何使用 kubectl，
-可以在 [kubectl 参考](/zh/docs/reference/kubectl/)中找到更完整的文档。
+有许多[例子](/zh-cn/docs/reference/kubectl/cheatsheet/)介绍了如何使用 kubectl，
+可以在 [kubectl 参考](/zh-cn/docs/reference/kubectl/)中找到更完整的文档。
 
 <!--
 ## Directly accessing the REST API
@@ -264,7 +264,7 @@ describes how a cluster admin can configure this.
 
 在一些集群中，apiserver 不需要身份验证；它可能只服务于 localhost，或者被防火墙保护，
 这个没有一定的标准。
-[配置对 API 的访问](/zh/docs/concepts/security/controlling-access/)
+[配置对 API 的访问](/zh-cn/docs/concepts/security/controlling-access/)
 描述了集群管理员如何进行配置。此类方法可能与未来的高可用性支持相冲突。
 
 <!--
@@ -297,7 +297,7 @@ Kubernetes 官方提供对 [Go](#go-client) 和 [Python](#python-client) 的客�
   导入 API 定义，例如，`import "k8s.io/client-go/kubernetes"` 才是对的。
 
 Go 客户端可以像 kubectl CLI 一样使用相同的
-[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 来定位和验证 apiserver。可参阅
 [示例](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)。
 
@@ -325,13 +325,13 @@ See documentation for other libraries for how they authenticate.
 以获得更详细的安装参数。
 
 Python 客户端可以像 kubectl CLI 一样使用相同的
-[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 来定位和验证 apiserver，可参阅
 [示例](https://github.com/kubernetes-client/python/tree/master/examples)。
 
 ### 其它语言 {#other-languages}
 
-目前有多个[客户端库](/zh/docs/reference/using-api/client-libraries/)
+目前有多个[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)
 为其它语言提供访问 API 的方法。
 参阅其它库的相关文档以获取他们是如何验证的。
 
@@ -349,7 +349,7 @@ to the API server are somewhat different.
 Please check [Accessing the API from within a Pod](/docs/tasks/run-application/access-api-from-pod/)
 for more details.
 -->
-请参阅[从 Pod 中访问 API](/zh/docs/tasks/run-application/access-api-from-pod/)
+请参阅[从 Pod 中访问 API](/zh-cn/docs/tasks/run-application/access-api-from-pod/)
 了解更多详情。
 
 <!--
@@ -364,7 +364,7 @@ For information about connecting to other services running on a Kubernetes clust
 
 上一节介绍了如何连接到 Kubernetes API 服务器。
 有关连接到 Kubernetes 集群上运行的其他服务的信息，请参阅
-[访问集群服务](/zh/docs/tasks/access-application-cluster/access-cluster-services/)。
+[访问集群服务](/zh-cn/docs/tasks/access-application-cluster/access-cluster-services/)。
 
 <!--
 ## Requesting redirects
@@ -414,7 +414,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
 -->
-2. [apiserver 代理](/zh/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services)：
+2. [apiserver 代理](/zh-cn/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services)：
 
    - 内置于 apiserver 中
    - 将集群外部的用户连接到集群 IP，否则这些 IP 可能无法访问
@@ -433,7 +433,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - provides load balancing
     - is only used to reach services
 -->
-3. [kube proxy](/zh/docs/concepts/services-networking/service/#ips-and-vips)：
+3. [kube proxy](/zh-cn/docs/concepts/services-networking/service/#ips-and-vips)：
 
    - 运行在每个节点上
    - 代理 UDP 和 TCP

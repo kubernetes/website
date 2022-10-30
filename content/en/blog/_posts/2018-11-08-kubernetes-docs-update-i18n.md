@@ -41,7 +41,7 @@ These repo labels let reviewers filter for PRs and issues by language. For examp
 
 ### Team review 
 
-L10n teams can now review and approve their own PRs. For example, review and approval permissions for English are [assigned in an OWNERS file](https://github.com/kubernetes/website/blob/master/content/en/OWNERS) in the top subfolder for English content. 
+L10n teams can now review and approve their own PRs. For example, review and approval permissions for English are [assigned in an OWNERS file](https://github.com/kubernetes/website/blob/main/content/en/OWNERS) in the top subfolder for English content.
 
 Adding `OWNERS` files to subdirectories lets localization teams review and approve changes without requiring a rubber stamp approval from reviewers who may lack fluency.
 

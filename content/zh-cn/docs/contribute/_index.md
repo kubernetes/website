@@ -50,6 +50,7 @@ about contributing to Kubernetes.
 你还可以阅读
 {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
 关于为 Kubernetes 做贡献的[页面](https://contribute.cncf.io/contributors/projects/#kubernetes)。
+{{< /note >}}
 
 <!--
 This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
@@ -216,7 +217,7 @@ Figure 2. Preparation for your first contribution.
 图 2. 第一次贡献的准备工作。
 
 <!--
-- Read the [Contribution overview](/docs/contribute/new-content/overview/) to
+- Read the [Contribution overview](/docs/contribute/new-content/) to
   learn about the different ways you can contribute.
 - Check [`kubernetes/website` issues list](https://github.com/kubernetes/website/issues/)
   for issues that make good entry points.

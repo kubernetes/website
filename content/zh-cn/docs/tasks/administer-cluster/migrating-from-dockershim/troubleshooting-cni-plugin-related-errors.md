@@ -24,18 +24,6 @@ Kubernetes.
 该容器运行时能够在你的 Kubernetes 版本上正常工作。
 
 <!--
-For example, the following container runtimes are being prepared, or have already been prepared, for Kubernetes v1.24:
-
-* containerd v1.6.4 and later, v1.5.11 and later
-* The CRI-O v1.24.0 and later
--->
-
-例如，针对 Kubernetes v1.24 而言，以下容器运行时正在准备或已经就绪：
-
-* containerd v1.6.4 及更新版本、v1.5.11 及更新版本
-* CRI-O v1.24.0 及更新版本
-
-<!--
 ## About the "Incompatible CNI versions" and "Failed to destroy network for sandbox" errors
 -->
 

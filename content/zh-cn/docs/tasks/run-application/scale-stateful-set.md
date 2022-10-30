@@ -24,8 +24,8 @@ This task shows how to scale a StatefulSet. Scaling a StatefulSet refers to incr
 * StatefulSets 仅适用于 Kubernetes 1.5 及以上版本。
 * 不是所有 Stateful 应用都能很好地执行扩缩操作。 
   如果你不是很确定是否要扩缩你的 StatefulSet，可先参阅
-  [StatefulSet 概念](/zh/docs/concepts/workloads/controllers/statefulset/)
-  或者 [StatefulSet 教程](/zh/docs/tutorials/stateful-application/basic-stateful-set/)。
+  [StatefulSet 概念](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
+  或者 [StatefulSet 教程](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/)。
 
 * 仅当你确定你的有状态应用的集群是完全健康的，才可执行扩缩操作.
 
@@ -75,7 +75,7 @@ update `.spec.replicas` of the StatefulSet manifests, and then do a `kubectl app
 -->
 ### 对 StatefulSet 执行就地更新
 
-另外, 你可以[就地更新](/zh/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) StatefulSet。
+另外, 你可以[就地更新](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) StatefulSet。
 
 如果你的 StatefulSet 最初通过 `kubectl apply` 或 `kubectl create --save-config` 创建,
 你可以更新 StatefulSet 清单中的 `.spec.replicas`, 然后执行命令 `kubectl apply`:
@@ -163,5 +163,5 @@ Stateful 应用的集群是完全健康时才执行扩缩操作。
 <!--
 * Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
 -->
-* 进一步了解[删除 StatefulSet](/zh/docs/tasks/run-application/delete-stateful-set/)
+* 进一步了解[删除 StatefulSet](/zh-cn/docs/tasks/run-application/delete-stateful-set/)
 

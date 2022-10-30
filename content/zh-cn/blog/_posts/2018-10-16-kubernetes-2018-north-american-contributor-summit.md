@@ -2,14 +2,14 @@
 layout: "Blog"
 title: "Kubernetes 2018 年北美贡献者峰会"
 date: 2018-10-16    
+slug: kubernetes-2018-north-american-contributor-summit
 ---
 <!--
----
 layout: "Blog"
 title: "Kubernetes 2018 North American Contributor Summit"
 date: 2018-10-16    
----
 -->
+
 <!--
 **Authors:**
 -->

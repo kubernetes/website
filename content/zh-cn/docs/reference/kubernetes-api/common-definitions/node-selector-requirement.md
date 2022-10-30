@@ -4,12 +4,12 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "NodeSelectorRequirement"
 content_type: "api_reference"
-description: "节点选择器是要求包含键、值和关联键和值的运算符的选择器"
+description: 节点选择算符需求是一个选择算符，其中包含值集、主键以及一个将键和值集关联起来的操作符。
 title: "NodeSelectorRequirement"
 weight: 5
-auto_generated: true
 ---
-<!--
+
+<!---
 api_metadata:
   apiVersion: ""
   import: "k8s.io/api/core/v1"
@@ -21,26 +21,12 @@ weight: 5
 auto_generated: true
 -->
 
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-
 `import "k8s.io/api/core/v1"`
-
 
 <!--
 A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
 -->
-   节点选择器是要求包含键、值和关联键和值的运算符的选择器。
+节点选择算符需求是一个选择算符，其中包含值集、主键以及一个将键和值集关联起来的操作符。
 
 <hr>
 
@@ -48,20 +34,19 @@ A node selector requirement is a selector that contains values, a key, and an op
 - **key** (string), required
 
   The label key that the selector applies to.
--->
-- **key** (string), 必选
 
-   选择器适用的标签键。
-
-<!--
 - **operator** (string), required
 
   Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
 -->
-- **operator** (string), 必选
+- **key** (string)，必需
 
-  表示键与一组值的关系的运算符。有效的运算符包括：In、NotIn、Exists、DoesNotExist、Gt 和 Lt。
+  选择算符所适用的标签主键。
 
+- **operator** (string)，必需
+
+  代表主键与值集之间的关系。合法的 operator 值包括 `In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt` 和 `Lt`。
+ 
 <!--
 - **values** ([]string)
 
@@ -69,9 +54,8 @@ A node selector requirement is a selector that contains values, a key, and an op
 -->
 - **values** ([]string)
 
-   字符串数组。如果运算符为 In 或 NotIn，则数组必须为非空。
-   如果运算符为 Exists 或 DoesNotExist，则数组必须为空。
-   如果运算符为 Gt 或 Lt，则数组必须有一个元素，该元素将被译为整数。
-   该数组在合并计划补丁时将被替换。
-
+  一个由字符串值组成的数组。如果 operator 是 `In` 或 `NotIn`，则 values 数组不能为空。
+  如果 operator 为 `Exists` 或 `DoesNotExist`，则 values 数组只能为空。
+  如果 operator 为 `Gt` 或 `Lt`，则 values 数组只能包含一个元素，并且该元素会被解释为整数。
+  在执行策略性合并补丁操作时，此数组会被整体替换。
 

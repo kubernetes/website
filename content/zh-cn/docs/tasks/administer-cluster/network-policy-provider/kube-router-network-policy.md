@@ -37,6 +37,6 @@ NetworkPolicy 和 Pod 的变化，根据策略指示配置 iptables 规则和 ip
 Once you have installed the Kube-router addon, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
 -->
 在你安装了 kube-router 插件后，可以参考
-[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
+[声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
 去尝试使用 Kubernetes NetworkPolicy。
 

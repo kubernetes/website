@@ -40,8 +40,8 @@ time according to the overhead associated with the Pod's
 [RuntimeClass](/docs/concepts/containers/runtime-class/).
 -->
 
-在 Kubernetes 中，Pod 的开销是根据与 Pod 的 [RuntimeClass](/zh/docs/concepts/containers/runtime-class/)
-相关联的开销在[准入](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)时设置的。
+在 Kubernetes 中，Pod 的开销是根据与 Pod 的 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)
+相关联的开销在[准入](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)时设置的。
 
 <!--
 When Pod Overhead is enabled, the overhead is considered in addition to the sum of container
@@ -129,7 +129,7 @@ updates the workload's PodSpec to include the `overhead` as described in the Run
 the Pod will be rejected. In the given example, since only the RuntimeClass name is specified, the admission controller mutates the Pod
 to include an `overhead`.
 -->
-在准入阶段 RuntimeClass [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
+在准入阶段 RuntimeClass [准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
 更新工作负载的 PodSpec 以包含
 RuntimeClass 中定义的 `overhead`。如果 PodSpec 中已定义该字段，该 Pod 将会被拒绝。
 在这个例子中，由于只指定了 RuntimeClass 名称，所以准入控制器更新了 Pod，使之包含 `overhead`。
@@ -154,7 +154,7 @@ map[cpu:250m memory:120Mi]
 If a [ResourceQuota](/docs/concepts/policy/resource-quotas/) is defined, the sum of container requests as well as the
 `overhead` field are counted.
  -->
-如果定义了 [ResourceQuata](/zh/docs/concepts/policy/resource-quotas/), 
+如果定义了 [ResourceQuata](/zh-cn/docs/concepts/policy/resource-quotas/), 
 则容器请求的总量以及 `overhead` 字段都将计算在内。
 
 <!--
@@ -332,5 +332,5 @@ running with a defined overhead.
 * Read the [PodOverhead Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
   enhancement proposal for extra context
 -->
-* 学习更多关于 [RuntimeClass](/zh/docs/concepts/containers/runtime-class/) 的信息
+* 学习更多关于 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/) 的信息
 * 阅读 [PodOverhead 设计](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)增强建议以获取更多上下文

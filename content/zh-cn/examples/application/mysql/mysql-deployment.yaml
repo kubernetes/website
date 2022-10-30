@@ -28,7 +28,7 @@ spec:
       - image: mysql:5.6
         name: mysql
         env:
-          # Use secret in real usage
+          # 在实际中使用 secret
         - name: MYSQL_ROOT_PASSWORD
           value: password
         ports:

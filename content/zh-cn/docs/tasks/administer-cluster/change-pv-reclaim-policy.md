@@ -136,8 +136,8 @@ PersistentVolumes 可以有多种回收策略，包括 "Retain"、"Recycle" 和 
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Learn more about [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 -->
-* 进一步了解 [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
-* 进一步了解 [PersistentVolumeClaims](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
+* 进一步了解 [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
+* 进一步了解 [PersistentVolumeClaims](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 
 ### 参考 {#reference}
 
@@ -150,6 +150,6 @@ PersistentVolumes 可以有多种回收策略，包括 "Retain"、"Recycle" 和 
 -->
 * {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
   * 注意 PersistentVolume 的 `.spec.persistentVolumeReclaimPolicy`
-    [字段](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)。
+    [字段](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)。
 * {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}
 

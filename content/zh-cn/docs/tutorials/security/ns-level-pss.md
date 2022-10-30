@@ -25,16 +25,16 @@ one namespace at a time.
 
 You can also apply Pod Security Standards to multiple namespaces at once at the cluster
 level. For instructions, refer to 
-[Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss).
+[Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss/).
 -->
 Pod 安全准入（PSA）在 v1.23 及更高版本默认启用，
 因为它[升级到测试版（beta）](/blog/2021/12/09/pod-security-admission-beta/)。
 Pod 安全准入是在创建 Pod 时应用
-[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)的准入控制器。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)的准入控制器。
 在本教程中，你将应用 `baseline` Pod 安全标准，每次一个名字空间。
 
 你还可以在集群级别一次将 Pod 安全标准应用于多个名称空间。
-有关说明，请参阅[在集群级别应用 Pod 安全标准](/zh/docs/tutorials/security/cluster-level-pss)。
+有关说明，请参阅[在集群级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/cluster-level-pss/)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -47,7 +47,7 @@ Install the following on your workstation:
 在你的工作站中安装以下内容：
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](/zh/docs/tasks/tools/)
+- [kubectl](/zh-cn/docs/tasks/tools/)
 
 <!--
 ## Create cluster
@@ -61,8 +61,10 @@ Install the following on your workstation:
    ```shell
    kind create cluster --name psa-ns-level --image kindest/node:v1.23.0
    ```
+
    <!-- The output is similar to this: -->
    输出类似于：
+
    ```
    Creating cluster "psa-ns-level" ...
     ✓ Ensuring node image (kindest/node:v1.23.0) 🖼 
@@ -81,11 +83,14 @@ Install the following on your workstation:
 
 <!-- 1. Set the kubectl context to the new cluster: -->
 1. 将 kubectl 上下文设置为新集群：
+
    ```shell
    kubectl cluster-info --context kind-psa-ns-level
    ```
-    <!-- The output is similar to this: -->
+
+   <!-- The output is similar to this: -->
    输出类似于：
+
    ```
    Kubernetes control plane is running at https://127.0.0.1:50996
    CoreDNS is running at https://127.0.0.1:50996/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
@@ -158,7 +163,7 @@ namespace/example created
 -->
 ## 验证 Pod 安全标准  {#verify-the-pod-security-standards}
 
-1. 在 `example` 名字空间中创建一个最小的 pod：
+1. 在 `example` 名字空间中创建一个最小的 Pod：
 
    ```shell
    cat <<EOF > /tmp/pss/nginx-pod.yaml
@@ -179,11 +184,14 @@ namespace/example created
 2. Apply the pod spec to the cluster in `example` namespace: 
 -->
 1. 将 Pod 规约应用到集群中的 `example` 名字空间中：
+
    ```shell
    kubectl apply -n example -f /tmp/pss/nginx-pod.yaml
    ```
+
    <!-- The output is similar to this: -->
    输出类似于：
+
    ```
    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext seccompProfile.type to "RuntimeDefault" or "Localhost")
    pod/nginx created
@@ -216,11 +224,11 @@ with no warnings.
 <!-- 
 ## Clean up
 
-Run `kind delete cluster -name psa-ns-level` to delete the cluster created.
+Run `kind delete cluster --name psa-ns-level` to delete the cluster created.
 -->
 ## 清理  {#clean-up}
 
-运行 `kind delete cluster -name psa-ns-level` 删除创建的集群。
+运行 `kind delete cluster --name psa-ns-level` 删除创建的集群。
 
 ## {{% heading "whatsnext" %}}
 
@@ -247,6 +255,6 @@ Run `kind delete cluster -name psa-ns-level` to delete the cluster created.
       同时在 `warn` 和 `audit` 模式下应用 `restricted` Pod 安全标准。
    4. 创建一个应用以下 Pod 安全标准的新 Pod
 
-- [Pod 安全准入](/zh/docs/concepts/security/pod-security-admission/)
-- [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
-- [在集群级别应用 Pod 安全标准](/zh/docs/tutorials/security/cluster-level-pss/)
+- [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)
+- [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)
+- [在集群级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/cluster-level-pss/)

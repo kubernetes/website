@@ -36,7 +36,7 @@ reference page, see
 生成参考文档，如 [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply) 和
 [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)。
 本主题没有讨论如何生成 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 组件选项的参考页面。
-相关说明请参见[为 Kubernetes 组件和工具生成参考页面](/zh/docs/contribute/generate-ref-docs/kubernetes-components/)。
+相关说明请参见[为 Kubernetes 组件和工具生成参考页面](/zh-cn/docs/contribute/generate-ref-docs/kubernetes-components/)。
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
@@ -416,7 +416,7 @@ topics will be visible in the
 对 `kubernetes/website` 仓库创建 PR。跟踪你的 PR，并根据需要回应评审人的评论。
 继续跟踪你的 PR，直到它被合入。
 
-在 PR 合入的几分钟后，你更新的参考主题将出现在[已发布文档](/zh/docs/home/)中。
+在 PR 合入的几分钟后，你更新的参考主题将出现在[已发布文档](/zh-cn/docs/home/)中。
 
 ## {{% heading "whatsnext" %}}
 
@@ -425,7 +425,7 @@ topics will be visible in the
 * [Generating Reference Documentation for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
 -->
-* [生成参考文档快速入门](/zh/docs/contribute/generate-ref-docs/quickstart/)
-* [为 Kubernetes 组件和工具生成参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-components/)
-* [为 Kubernetes API 生成参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-api/)
+* [生成参考文档快速入门](/zh-cn/docs/contribute/generate-ref-docs/quickstart/)
+* [为 Kubernetes 组件和工具生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/kubernetes-components/)
+* [为 Kubernetes API 生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/kubernetes-api/)
 

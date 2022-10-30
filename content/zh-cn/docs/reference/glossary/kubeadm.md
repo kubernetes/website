@@ -2,7 +2,7 @@
 title: Kubeadm
 id: kubeadm
 date: 2018-04-12
-full_link: /zh/docs/setup/production-environment/tools/kubeadm/
+full_link: /zh-cn/docs/setup/production-environment/tools/kubeadm/
 short_description: >
   用来快速安装 Kubernetes 并搭建安全稳定的集群的工具。
 

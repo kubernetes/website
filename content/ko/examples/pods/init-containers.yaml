@@ -14,7 +14,7 @@ spec:
   # 이 컨테이너들은 파드 초기화 중에 실행된다.
   initContainers:
   - name: install
-    image: busybox
+    image: busybox:1.28
     command:
     - wget
     - "-O"

@@ -25,7 +25,7 @@ introduced in Kubernetes v1.21, provide similar functionality.
 -->
 此功能特性，尤其是 Alpha 阶段的 `topologyKeys` API，在 Kubernetes v1.21
 版本中已被废弃。Kubernetes v1.21 版本中引入的
-[拓扑感知的提示](/zh/docs/concepts/services-networking/topology-aware-hints/),
+[拓扑感知的提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints/),
 提供类似的功能。
 {{</ note >}}
 
@@ -104,7 +104,7 @@ as the last value in the list.
 ## 使用服务拓扑 {#using-service-topology}
 
 如果集群启用了 `ServiceTopology`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 你就可以在 Service 规约中设定 `topologyKeys` 字段，从而控制其流量路由。
 此字段是 `Node` 标签的优先顺序字段，将用于在访问这个 `Service` 时对端点进行排序。
 流量会被定向到第一个标签值和源 `Node` 标签值相匹配的 `Node`。
@@ -300,6 +300,6 @@ spec:
 * Read about [enabling Service Topology](/docs/tasks/administer-cluster/enabling-service-topology)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
-* 阅读关于[启用服务拓扑](/zh/docs/tasks/administer-cluster/enabling-service-topology/)
-* 阅读[用服务连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
+* 阅读关于[启用服务拓扑](/zh-cn/docs/tasks/administer-cluster/enabling-service-topology/)
+* 阅读[用服务连接应用程序](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
 

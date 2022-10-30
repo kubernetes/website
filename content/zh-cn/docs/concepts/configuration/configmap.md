@@ -73,7 +73,7 @@ The name of a ConfigMap must be a valid
 -->
 ## ConfigMap 对象
 
-ConfigMap 是一个 API [对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)，
+ConfigMap 是一个 API [对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)，
 让你可以存储其他对象所需要使用的配置。
 和其他 Kubernetes 对象都有一个 `spec` 不同的是，ConfigMap 使用 `data` 和
 `binaryData` 字段。这些字段能够接收键-值对作为其取值。`data` 和 `binaryData`
@@ -81,7 +81,7 @@ ConfigMap 是一个 API [对象](/zh/docs/concepts/overview/working-with-objects
 则被设计用来保存二进制数据作为 base64 编码的字串。
 
 ConfigMap 的名字必须是一个合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 Each key under the `data` or the `binaryData` field must consist of
@@ -367,7 +367,7 @@ the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1be
 kubelet 组件会在每次周期性同步时检查所挂载的 ConfigMap 是否为最新。
 不过，kubelet 使用的是其本地的高速缓存来获得 ConfigMap 的当前值。
 高速缓存的类型可以通过
-[KubeletConfiguration 结构](/zh/docs/reference/config-api/kubelet-config.v1beta1/).
+[KubeletConfiguration 结构](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/).
 的 `ConfigMapAndSecretChangeDetectionStrategy` 字段来配置。
 
 <!--
@@ -395,7 +395,7 @@ ConfigMaps consumed as environment variables are not updated automatically and r
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive ConfigMap updates.
 -->
 {{< note >}}
-使用 ConfigMap 作为 [subPath](/zh/docs/concepts/storage/volumes#using-subpath) 卷挂载的容器将不会收到 ConfigMap 的更新。
+使用 ConfigMap 作为 [subPath](/zh-cn/docs/concepts/storage/volumes#using-subpath) 卷挂载的容器将不会收到 ConfigMap 的更新。
 {{< /note >}}
 
 <!--
@@ -432,7 +432,7 @@ You can create an immutable ConfigMap by setting the `immutable` field to `true`
 For example:
 -->
 此功能特性由 `ImmutableEphemeralVolumes`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)来控制。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来控制。
 你可以通过将 `immutable` 字段设置为 `true` 创建不可变更的 ConfigMap。
 例如：
 
@@ -465,7 +465,7 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
 -->
-* 阅读 [Secret](/zh/docs/concepts/configuration/secret/)。
-* 阅读[配置 Pod 使用 ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
-* 阅读[修改 ConfigMap（或任何其他 Kubernetes 对象）](/zh/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)。
+* 阅读 [Secret](/zh-cn/docs/concepts/configuration/secret/)。
+* 阅读[配置 Pod 使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 阅读[修改 ConfigMap（或任何其他 Kubernetes 对象）](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)。
 * 阅读 [Twelve-Factor 应用](https://12factor.net/zh_cn/)来了解将代码和配置分开的动机。

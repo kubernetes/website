@@ -92,4 +92,4 @@ Finally, structured logs can help reduce storage costs for logs because most sto
 <!--
 While we have updated over 99% of the log entries by log volume in a typical deployment, there are still thousands of logs to be updated. Pick a file or directory that you would like to improve and [migrate existing log calls to use structured logs](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/migration-to-structured-logging.md). It's a great and easy way to make your first contribution to Kubernetes!
 -->
-虽然在典型部署中，我们已按日志量更新了99％以上的日志条目，但仍有数千个日志需要更新。 选择一个您要改进的文件或目录，然后[迁移现有的日志调用以使用结构化日志]（https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/migration-to-structured-logging.md）。这是对Kubernetes做出第一笔贡献的好方法!
+虽然在典型部署中，我们已按日志量更新了99％以上的日志条目，但仍有数千个日志需要更新。 选择一个您要改进的文件或目录，然后[迁移现有的日志调用以使用结构化日志](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/migration-to-structured-logging.md)。这是对Kubernetes做出第一笔贡献的好方法!

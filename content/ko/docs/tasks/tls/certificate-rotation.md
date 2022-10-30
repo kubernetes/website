@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - jcbsmpsn
+# - mikedanese
 title: Kubelet의 인증서 갱신 구성
 content_type: task
 ---
@@ -28,7 +28,7 @@ kubelet은 쿠버네티스 API 인증을 위해 인증서를 사용한다.
 너무 자주 갱신할 필요는 없다.
 
 쿠버네티스는 [kubelet 인증서
-갱신](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)을 포함하며,
+갱신](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)을 포함하며,
 이 기능은 현재 인증서의 만료 시한이 임박한 경우,
 새로운 키를 자동으로 생성하고 쿠버네티스 API에서 새로운 인증서를 요청하는 기능이다.
 새로운 인증서를 사용할 수 있게 되면

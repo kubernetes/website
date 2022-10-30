@@ -30,7 +30,7 @@ cd kubernetes
 make release
 ```
 
-Para más detalles sobre el proceso de compilación de una release, visita la carpeta kubernetes/kubernetes [`build`](http://releases.k8s.io/{{< param "githubbranch" >}}/build/)
+Para más detalles sobre el proceso de compilación de una release, visita la carpeta kubernetes/kubernetes [`build`](http://releases.k8s.io/master/build/)
 
 
 

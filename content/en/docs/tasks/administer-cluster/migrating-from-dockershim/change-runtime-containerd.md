@@ -5,8 +5,8 @@ content_type: task
 ---
 
 This task outlines the steps needed to update your container runtime to containerd from Docker. It
-is applicable for cluster operators running Kubernetes 1.23 or earlier. Also  this covers an
-example scenario for migrating from dockershim to containerd and alternative container runtimes
+is applicable for cluster operators running Kubernetes 1.23 or earlier. This also covers an
+example scenario for migrating from dockershim to containerd. Alternative container runtimes
 can be picked from this [page](/docs/setup/production-environment/container-runtimes/).
 
 ## {{% heading "prerequisites" %}}
@@ -100,7 +100,7 @@ then run the following commands:
 
 Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags.
 `--container-runtime=remote` and
-`--container-runtime-endpoint=unix:///run/containerd/containerd.sock"`.
+`--container-runtime-endpoint=unix:///run/containerd/containerd.sock`.
 
 Users using kubeadm should be aware that the `kubeadm` tool stores the CRI socket for each host as
 an annotation in the Node object for that host. To change it you can execute the following command

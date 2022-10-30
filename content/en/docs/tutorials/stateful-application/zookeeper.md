@@ -123,7 +123,7 @@ zk-2      1/1       Running   0         40s
 ```
 
 The StatefulSet controller creates three Pods, and each Pod has a container with
-a [ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) server.
+a [ZooKeeper](https://archive.apache.org/dist/zookeeper/stable/) server.
 
 ### Facilitating leader election
 
@@ -305,7 +305,7 @@ numChildren = 0
 
 ### Providing durable storage
 
-As mentioned in the [ZooKeeper Basics](#zookeeper-basics) section,
+As mentioned in the [ZooKeeper Basics](#zookeeper) section,
 ZooKeeper commits all entries to a durable WAL, and periodically writes snapshots
 in memory state, to storage media. Using WALs to provide durability is a common
 technique for applications that use consensus protocols to achieve a replicated

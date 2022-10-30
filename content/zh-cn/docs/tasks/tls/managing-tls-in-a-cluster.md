@@ -29,11 +29,11 @@ Kubernetes 提供 `certificates.k8s.io` API，可让你配置由你控制的证�
 {{< note >}}
 <!--
 Certificates created using the `certificates.k8s.io` API are signed by a
-[dedicated CA](#a-note-to-cluster-administrators). It is possible to configure your cluster to use the cluster root
+[dedicated CA](#configuring-your-cluster-to-provide-signing). It is possible to configure your cluster to use the cluster root
 CA for this purpose, but you should never rely on this. Do not assume that
 these certificates will validate against the cluster root CA.
 -->
-使用 `certificates.k8s.io` API 创建的证书由指定 [CA](#a-note-to-cluster-administrators) 颁发。
+使用 `certificates.k8s.io` API 创建的证书由指定 [CA](#configuring-your-cluster-to-provide-signing) 颁发。
 将集群配置为使用集群根目录 CA 可以达到这个目的，但是你永远不要依赖这一假定。
 不要以为这些证书将针对群根目录 CA 进行验证。
 {{< /note >}}
@@ -62,7 +62,7 @@ install it via your operating system's software sources, or fetch it from
 <!--
 ## Trusting TLS in a cluster
 
-Trusting the [custom CA](#a-note-to-cluster-administrators) from an application running as a pod usually requires
+Trusting the [custom CA](#configuring-your-cluster-to-provide-signing) from an application running as a pod usually requires
 some extra application configuration. You will need to add the CA certificate
 bundle to the list of CA certificates that the TLS client or server trusts. For
 example, you would do this with a golang TLS config by parsing the certificate
@@ -71,7 +71,7 @@ chain and adding the parsed certificates to the `RootCAs` field in the
 -->
 ## 集群中的 TLS 信任
 
-信任 Pod 中运行的应用程序所提供的[自定义 CA](#a-note-to-cluster-administrators) 通常需要一些额外的应用程序配置。
+信任 Pod 中运行的应用程序所提供的[自定义 CA](#configuring-your-cluster-to-provide-signing) 通常需要一些额外的应用程序配置。
 你需要将 CA 证书包添加到 TLS 客户端或服务器信任的 CA 证书列表中。
 例如，你可以使用 Golang TLS 配置通过解析证书链并将解析的证书添加到
 [`tls.Config`](https://pkg.go.dev/crypto/tls#Config) 结构中的 `RootCAs`
@@ -95,7 +95,7 @@ have access to read.
 内部 Kubernetes 端点的一个示例是默认命名空间中名为 `kubernetes` 的服务。
 
 如果你想为你的工作负载使用自定义证书颁发机构，你应该单独生成该 CA，
-并使用你的 Pod 有读权限的 [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap)
+并使用你的 Pod 有读权限的 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap)
 分发该 CA 证书。
 {{< /note >}}
 
@@ -217,7 +217,7 @@ it by running:
 “密钥加密（key encipherment）” 和 “服务器身份验证（server auth）” 密钥用途，
 由 `example.com/serving` 示例签名程序签名的证书。
 你也可以要求使用特定的 `signerName`。更多信息可参阅
-[支持的签署者名称](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#signers)。
+[支持的签署者名称](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#signers)。
 
 在 API server 中可以看到这些 CSR 处于 Pending 状态。执行下面的命令你将可以看到：
 
@@ -254,7 +254,7 @@ manually using `kubectl`; for example:
 -->
 ## 批准证书签名请求（CSR）  {#get-the-certificate-signing-request-approved}
 
-[证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)
+[证书签名请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)
 的批准或者是通过自动批准过程完成的，或由集群管理员一次性完成。
 如果你被授权批准证书请求，你可以使用 `kubectl` 来手动完成此操作；例如：
 
@@ -530,7 +530,7 @@ reference page.
 当且仅当满足这两个要求时，审批者应该批准 CSR，否则拒绝 CSR。
 
 有关证书批准和访问控制的更多信息，
-请阅读[证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)参考页。
+请阅读[证书签名请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)参考页。
 
 <!--
 ## Configuring your cluster to provide signing

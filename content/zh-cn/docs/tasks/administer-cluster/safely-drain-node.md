@@ -39,8 +39,8 @@ This task assumes that you have met the following prerequisites:
 * 使用的 Kubernetes 版本 >= 1.5。
 * 以下两项，具备其一：
   1. 在节点清空期间，不要求应用程序具有高可用性
-  2. 你已经了解了 [PodDisruptionBudget 的概念](/zh/docs/concepts/workloads/pods/disruptions/)，
-     并为需要它的应用程序[配置了 PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/)。
+  2. 你已经了解了 [PodDisruptionBudget 的概念](/zh-cn/docs/concepts/workloads/pods/disruptions/)，
+     并为需要它的应用程序[配置了 PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/)。
 
 <!-- steps -->
 
@@ -56,9 +56,9 @@ first and then continue following this guide.
 -->
 ## （可选） 配置干扰预算 {#configure-poddisruptionbudget}
 
-为了确保你的负载在维护期间仍然可用，你可以配置一个 [PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/)。
+为了确保你的负载在维护期间仍然可用，你可以配置一个 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)。
 如果可用性对于正在清空的该节点上运行或可能在该节点上运行的任何应用程序很重要，
-首先 [配置一个 PodDisruptionBudgets](/zh/docs/tasks/run-application/configure-pdb/) 并继续遵循本指南。
+首先 [配置一个 PodDisruptionBudgets](/zh-cn/docs/tasks/run-application/configure-pdb/) 并继续遵循本指南。
 
 <!-- 
 ## Use `kubectl drain` to remove a node from service
@@ -74,7 +74,7 @@ and will respect the `PodDisruptionBudgets` you have specified.
 在对节点执行维护（例如内核升级、硬件维护等）之前，
 可以使用 `kubectl drain` 从节点安全地逐出所有 Pods。
 安全的驱逐过程允许 Pod 的容器
-[体面地终止](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，
+[体面地终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，
 并确保满足指定的 PodDisruptionBudgets。
 
 <!-- 
@@ -183,12 +183,12 @@ For more information, see [API-initiated eviction](/docs/concepts/scheduling-evi
 [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain)
 （比如避免调用外部命令，或者更细化地控制 pod 驱逐过程），
 你也可以用驱逐 API 通过编程的方式达到驱逐的效果。
-更多信息，请参阅 [API 发起的驱逐](/zh/docs/concepts/scheduling-eviction/api-eviction/)。
+更多信息，请参阅 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。
 
 ## {{% heading "whatsnext" %}}
 
 <!-- 
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
 -->
-* 执行[配置 PDB](/zh/docs/tasks/run-application/configure-pdb/)中的各个步骤，
+* 执行[配置 PDB](/zh-cn/docs/tasks/run-application/configure-pdb/)中的各个步骤，
   保护你的应用

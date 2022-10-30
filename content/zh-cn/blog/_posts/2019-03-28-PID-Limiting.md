@@ -1,12 +1,12 @@
 ---
+layout: blog
 title: 'Kubernetes 1.14 稳定性改进中的进程ID限制'
 date: 2019-04-15
+slug: process-id-limiting-for-stability-improvements-in-kubernetes-1.14
 ---
 <!--
----
 title: 'Process ID Limiting for Stability Improvements in Kubernetes 1.14'
 date: 2019-04-15
----
 -->
 
 <!--

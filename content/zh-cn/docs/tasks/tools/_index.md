@@ -23,11 +23,11 @@ and view logs. For more information including a complete list of kubectl operati
 -->
 ## kubectl
 
-Kubernetes 命令行工具，[kubectl](/docs/reference/kubectl/kubectl/)，使得你可以对 Kubernetes 集群运行命令。
+Kubernetes 命令行工具，[kubectl](/zh-cn/docs/reference/kubectl/kubectl/)，
+让你可以对 Kubernetes 集群运行命令。
 你可以使用 kubectl 来部署应用、监测和管理集群资源以及查看日志。
 
-有关更多信息，包括 kubectl 操作的完整列表，请参见[`kubectl` 
-参考文件](/zh/docs/reference/kubectl/)。
+有关更多信息，包括 kubectl 操作的完整列表，请参见 [`kubectl` 参考文件](/zh-cn/docs/reference/kubectl/)。
 
 <!--
 kubectl is installable on a variety of Linux platforms, macOS and Windows. 
@@ -40,9 +40,9 @@ Find your preferred operating system below.
 kubectl 可安装在各种 Linux 平台、 macOS 和 Windows 上。
 在下面找到你喜欢的操作系统。
 
-- [在 Linux 上安装 kubectl](/zh/docs/tasks/tools/install-kubectl-linux)
-- [在 macOS 上安装 kubectl](/zh/docs/tasks/tools/install-kubectl-macos)
-- [在 Windows 上安装 kubectl](/zh/docs/tasks/tools/install-kubectl-windows)
+- [在 Linux 上安装 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-linux)
+- [在 macOS 上安装 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-macos)
+- [在 Windows 上安装 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-windows)
 
 <!--
 ## kind
@@ -62,8 +62,8 @@ shows you what you need to do to get up and running with `kind`.
 [`kind`](https://kind.sigs.k8s.io/docs/) 让你能够在本地计算机上运行 Kubernetes。
 `kind` 要求你安装并配置好 [Docker](https://docs.docker.com/get-docker/)。
 
-kind [快速入门](https://kind.sigs.k8s.io/docs/user/quick-start/)页面展示了
-开始使用 `kind` 所需要完成的操作。
+kind [快速入门](https://kind.sigs.k8s.io/docs/user/quick-start/)页面展示了开始使用
+`kind` 所需要完成的操作。
 
 <a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/"
   role="button" aria-label="查看 kind 的快速入门指南">
@@ -103,8 +103,8 @@ Once you have `minikube` working, you can use it to
 查看 minikube 快速入门指南
 </a>
 
-当你拥有了可工作的 `minikube` 时，就可以用它来
-[运行示例应用](/zh/docs/tutorials/hello-minikube/)了。
+当你拥有了可工作的 `minikube` 时，
+就可以用它来[运行示例应用](/zh-cn/docs/tutorials/hello-minikube/)了。
 
 ## kubeadm
 
@@ -120,13 +120,13 @@ It performs the actions necessary to get a minimum viable, secure cluster up and
 [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) shows you how to install kubeadm.
 Once installed, you can use it to [create a cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 -->
-[安装 kubeadm](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+[安装 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 展示了如何安装 kubeadm 的过程。
-一旦安装了 kubeadm，你就可以使用它来
-[创建一个集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)。
+一旦安装了 kubeadm，
+你就可以使用它来[创建一个集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)。
 
 <!-- a class="btn btn-primary" href="/docs/setup/production-environment/tools/kubeadm/install-kubeadm/" role="button" aria-label="View kubeadm Install Guide">View kubeadm Install Guide</a-->
 
-<a class="btn btn-primary" href="/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/"
+<a class="btn btn-primary" href="/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/"
   role="button" aria-label="查看 kubeadm 安装指南">查看 kubeadm 安装指南</a>
 

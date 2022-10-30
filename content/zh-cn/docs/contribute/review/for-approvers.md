@@ -15,7 +15,7 @@ weight: 20
 
 <!-- overview -->
 <!--
-SIG Docs [Reviewers](/docs/contribute/participate/roles-and-responsibilities/#reviewers) and [Approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers) do a few extra things when reviewing a change.
+SIG Docs [Reviewers](/docs/contribute/participate/#reviewers) and [Approvers](/docs/contribute/participate/#approvers) do a few extra things when reviewing a change.
 
 Every week a specific docs approver volunteers to triage
 and review pull requests. This
@@ -27,8 +27,8 @@ In addition to the rotation, a bot assigns reviewers and approvers
 for the PR based on the owners for the affected files.
 -->
 SIG Docs
-[评阅人（Reviewers）](/zh/docs/contribute/participate/roles-and-responsibilities/#reviewers)
-和[批准人（Approvers）](/zh/docs/contribute/participate/roles-and-responsibilities/#approvers)
+[评阅人（Reviewers）](/zh-cn/docs/contribute/participate/#reviewers)
+和[批准人（Approvers）](/zh-cn/docs/contribute/participate/#approvers)
 在对变更进行评审时需要做一些额外的事情。
 
 每周都有一个特定的文档批准人自愿负责对 PR 进行分类和评阅。
@@ -51,7 +51,7 @@ Everything described in [Reviewing a pull request](/docs/contribute/review/revie
 
 Kubernetes 文档遵循 [Kubernetes 代码评阅流程](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process)。
 
-[评阅 PR](/zh/docs/contribute/review/reviewing-prs/) 文档中所描述的所有规程都适用，
+[评阅 PR](/zh-cn/docs/contribute/review/reviewing-prs/) 文档中所描述的所有规程都适用，
 不过评阅人和批准人还要做以下工作：
 
 <!--
@@ -74,7 +74,7 @@ when it comes to requesting technical review from code contributors.
   你可以查看 Markdown 文件的文件头，其中的 `reviewers` 字段给出了哪些人可以为文档提供技术审核。
   {{< /note >}}
 
-- 确保 PR 遵从[内容指南](/zh/docs/contribute/style/content-guide/)和[样式指南](/zh/docs/contribute/style/style-guide/)；
+- 确保 PR 遵从[内容指南](/zh-cn/docs/contribute/style/content-guide/)和[样式指南](/zh-cn/docs/contribute/style/style-guide/)；
   如果 PR 没有达到要求，指引作者阅读指南中的相关部分。
 - 适当的时候使用 GitHub **Request Changes** 选项，建议 PR 作者实施所建议的修改。
 - 当你所提供的建议被采纳后，在 GitHub 中使用 `/approve` 或 `/lgtm` Prow 命令，改变评审状态。
@@ -155,29 +155,28 @@ Prow Command | Role Restrictions | Description
 :------------|:------------------|:-----------
 `/lgtm` | Organization members | Signals that you've finished reviewing a PR and are satisfied with the changes.
 `/approve` | Approvers | Approves a PR for merging.
-`/assign` | Reviewers or Approvers | Assigns a person to review or approve a PR
-`/close` | Reviewers or Approvers | Closes an issue or PR.
+`/assign` | Anyone | Assigns a person to review or approve a PR
+`/close` | Organization members | Closes an issue or PR.
 `/hold` | Anyone | Adds the `do-not-merge/hold` label, indicating the PR cannot be automatically merged.
 `/hold cancel` | Anyone | Removes the `do-not-merge/hold` label.
 {{< /table >}}
 
-See [the Prow command reference](https://prow.k8s.io/command-help) to see the full list
-of commands you can use in a PR.
+To view the commands that you can use in a PR, see the
+[Prow Command Reference](https://prow.k8s.io/command-help?repo=kubernetes%2Fwebsite).
 -->
 {{< table caption="评阅用 Prow 命令" >}}
 Prow 命令 | 角色限制 | 描述
 :------------|:------------------|:-----------
 `/lgtm` | 组织成员 | 用来表明你已经完成 PR 的评阅并对其所作变更表示满意
 `/approve` | 批准人 | 批准某 PR 可以合并
-`/assign` |评阅人或批准人 | 指派某人来评阅或批准某 PR
-`/close` | 评阅人或批准人 | 关闭 Issue 或 PR
+`/assign` |任何人 | 指派某人来评阅或批准某 PR
+`/close` | 组织成员 | 关闭 Issue 或 PR
 `/hold` | 任何人 | 添加 `do-not-merge/hold` 标签，用来表明 PR 不应被自动合并
 `/hold cancel` | 任何人 | 去掉 `do-not-merge/hold` 标签
 {{< /table >}}
 
-请参考 [Prow 命令指南](https://prow.k8s.io/command-help)，了解你可以在 PR
-中使用的命令的完整列表。
-
+要查看可以在 PR 中使用的命令，请参阅
+[Prow 命令指南](https://prow.k8s.io/command-help?repo=kubernetes%2Fwebsite)。
 <!--
 ## Triage and categorize issues
 
@@ -273,7 +272,7 @@ To add a label, leave a comment in one of the following formats:
 To remove a label, leave a comment in one of the following formats:
 
 - `/remove-<label-to-remove>` (for example, `/remove-help`)
-- `/remove-<label-category> <label-to-remove>` (for example, `/remove-triage needs-information`)`
+- `/remove-<label-category> <label-to-remove>` (for example, `/remove-triage needs-information`)
 -->
 ## 添加和删除 Issue 标签 {#adding-and-removing-issue-labels}
 
@@ -361,7 +360,7 @@ If the dead link issue is in the API or `kubectl` documentation, assign them `/p
 
 ### Blog issues
 
-We expect [Kubernetes Blog](https://kubernetes.io/blog/) entries to become
+We expect [Kubernetes Blog](/blog/) entries to become
 outdated over time. Therefore, we only maintain blog entries less than a year old.
 If an issue is related to a blog entry that is more than one year old,
 close the issue without fixing.
@@ -375,7 +374,7 @@ close the issue without fixing.
 
 ### 博客问题  {#blog-issues}
 
-我们预期 [Kubernetes 博客](https://kubernetes.io/blog/)条目随着时间推移都会过期。
+我们预期 [Kubernetes 博客](/zh-cn/blog/)条目随着时间推移都会过期。
 因此，我们只维护一年内的博客条目。
 如果某个 Issue 是与某个超过一年的博客条目有关的，可以直接关闭
 Issue，不必修复。

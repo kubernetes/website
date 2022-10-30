@@ -36,7 +36,7 @@ Kubernetes {{< glossary_tooltip term_id="service" >}} object.
 * 使用一个 Service 对象将请求流量发送到后端微服务的多个副本
 * 同样使用一个 Deployment 对象创建并运行一个 `nginx` 前端微服务
 * 配置前端微服务将请求流量发送到后端微服务
-* 使用 `type=LoadBalancer` 的 Service 对象将全段微服务暴露到集群外部
+* 使用 `type=LoadBalancer` 的 Service 对象将前端微服务暴露到集群外部
 
 ## {{% heading "prerequisites" %}}
 
@@ -48,9 +48,9 @@ This task uses
 require a supported environment. If your environment does not support this, you can use a Service of type
 [NodePort](/docs/concepts/services-networking/service/#type-nodeport) instead.
 -->
-本任务使用[外部负载均衡服务](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)，
+本任务使用[外部负载均衡服务](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)，
 所以需要对应的可支持此功能的环境。如果你的环境不能支持，你可以使用
-[NodePort](/zh/docs/concepts/services-networking/service/#type-nodeport)
+[NodePort](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)
 类型的服务代替。
 
 <!-- lessoncontent -->
@@ -138,7 +138,7 @@ First, explore the Service configuration file:
 -->
 ### 创建 `hello` Service 对象
 
-将请求从前端发送到到后端的关键是后端 Service。Service 创建一个固定 IP 和 DNS 解析名入口，
+将请求从前端发送到后端的关键是后端 Service。Service 创建一个固定 IP 和 DNS 解析名入口，
 使得后端微服务总是可达。Service 使用
 {{< glossary_tooltip text="选择算符" term_id="selector" >}} 
 来寻找目标 Pod。
@@ -246,7 +246,7 @@ so that you can change the configuration more easily.
 这个 nginx 配置文件是被打包在
 [容器镜像](/examples/service/access/Dockerfile) 里的。
 更好的方法是使用
-[ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)，
+[ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)，
 这样的话你可以更轻易地更改配置。
 {{< /note >}}
 
@@ -343,7 +343,7 @@ kubectl delete deployment frontend backend
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 * Learn more about [DNS for Service and Pods](/docs/concepts/services-networking/dns-pod-service/)
 -->
-* 进一步了解 [Service](/zh/docs/concepts/services-networking/service/)
-* 进一步了解 [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
-* 进一步了解 [Service 和 Pods 的 DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
+* 进一步了解 [Service](/zh-cn/docs/concepts/services-networking/service/)
+* 进一步了解 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
+* 进一步了解 [Service 和 Pods 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
 

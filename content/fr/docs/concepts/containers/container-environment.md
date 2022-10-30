@@ -49,7 +49,7 @@ FOO_SERVICE_PORT=<le port sur lequel le service fonctionne>
 ```
 
 Les services ont des adresses IP dédiées et sont disponibles pour le conteneur avec le DNS,
-si le [module DNS](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/) est activé. 
+si le [module DNS](http://releases.k8s.io/master/cluster/addons/dns/) est activé. 
 
 
 

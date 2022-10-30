@@ -21,7 +21,7 @@ application configuration, and migration.
 独一无二的 IP 地址，
 这就意味着你不需要显式地在 `Pod` 之间创建链接，你几乎不需要处理容器端口到主机端口之间的映射。
 这将形成一个干净的、向后兼容的模型；在这个模型里，从端口分配、命名、服务发现、
-[负载均衡](/zh/docs/concepts/services-networking/ingress/#load-balancing)、
+[负载均衡](/zh-cn/docs/concepts/services-networking/ingress/#load-balancing)、
 应用配置和迁移的角度来看，`Pod` 可以被视作虚拟机或者物理主机。
 
 <!--
@@ -89,15 +89,29 @@ blind to the existence or non-existence of host ports.
 Kubernetes networking addresses four concerns:
 - Containers within a Pod [use networking to communicate](/docs/concepts/services-networking/dns-pod-service/) via loopback.
 - Cluster networking provides communication between different Pods.
-- The [Service resource](/docs/concepts/services-networking/service/) lets you [expose an application running in Pods](/docs/concepts/services-networking/connect-applications-service/) to be reachable from outside your cluster.
-- You can also use Services to [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
+- The [Service](/docs/concepts/services-networking/service/) resource lets you
+  [expose an application running in Pods](/docs/concepts/services-networking/connect-applications-service/)
+  to be reachable from outside your cluster.
+  - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
+    specifically for exposing HTTP applications, websites and APIs.
+- You can also use Services to
+  [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
 -->
-
 Kubernetes 网络解决四方面的问题：
 
 - 一个 Pod 中的容器之间[通过本地回路（loopback）通信](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
-- 集群网络在不同 pod 之间提供通信。
+- 集群网络在不同 Pod 之间提供通信。
 - [Service 资源](/zh-cn/docs/concepts/services-networking/service/)允许你
-  [向外暴露 Pods 中运行的应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)，
+  [向外暴露 Pod 中运行的应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)，
   以支持来自于集群外部的访问。
-- 可以使用 Services 来[发布仅供集群内部使用的服务](/zh-cn/docs/concepts/services-networking/service-traffic-policy/)。
+  - [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
+    提供专门用于暴露 HTTP 应用程序、网站和 API 的额外功能。
+- 你也可以使用 Service
+  来[发布仅供集群内部使用的服务](/zh-cn/docs/concepts/services-networking/service-traffic-policy/)。
+
+<!--
+[Cluster Networking](/docs/concepts/cluster-administration/networking/) explains how to set
+up networking for your cluster, and also provides an overview of the technologies involved.
+-->
+[集群网络](/zh-cn/docs/concepts/cluster-administration/networking/)解释了如何为集群设置网络，
+还概述了所涉及的技术。

@@ -42,7 +42,7 @@ samplingRatePerMillion: 10000
 
 ### Enabling Etcd Tracing
 
-Add `--experimental-enable-distributed-tracing`,  `--experimental-distributed-tracing-address=0.0.0.0:4317`, `--experimental-distributed-tracing-service-name=etcd` flags to etcd to enable tracing.  Note that this traces every request, so it will probably generate a lot of traces if you enable it.
+Add `--experimental-enable-distributed-tracing`,  `--experimental-distributed-tracing-address=0.0.0.0:4317`, `--experimental-distributed-tracing-service-name=etcd` flags to etcd to enable tracing.  Note that this traces every request, so it will probably generate a lot of traces if you enable it. Required etcd version is [v3.5+](https://etcd.io/docs/v3.5/op-guide/monitoring/#distributed-tracing).
 
 ### Example Trace: List Nodes
 

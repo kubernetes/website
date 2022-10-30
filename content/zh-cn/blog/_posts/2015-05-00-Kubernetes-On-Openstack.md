@@ -3,14 +3,11 @@ title: " OpenStack 上的 Kubernetes "
 date: 2015-05-19
 slug: kubernetes-on-openstack
 ---
-
 <!--
----
 title: " Kubernetes on OpenStack "
 date: 2015-05-19
 slug: kubernetes-on-openstack
-url: /zh/blog/2015/05/Kubernetes-On-Openstack
----
+url: /blog/2015/05/Kubernetes-On-Openstack
 -->
 
 [![](https://3.bp.blogspot.com/-EOrCHChZJZE/VVZzq43g6CI/AAAAAAAAF-E/JUilRHk369E/s400/Untitled%2Bdrawing.jpg)](https://3.bp.blogspot.com/-EOrCHChZJZE/VVZzq43g6CI/AAAAAAAAF-E/JUilRHk369E/s1600/Untitled%2Bdrawing.jpg)

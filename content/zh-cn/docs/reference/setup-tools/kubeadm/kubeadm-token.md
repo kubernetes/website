@@ -22,7 +22,7 @@ Bootstrap tokens are used for establishing bidirectional trust between a node jo
 the cluster and a master node, as described in [authenticating with bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).
 -->
 
-如[使用引导令牌进行身份验证](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)所描述的，引导令牌用于在即将加入集群的节点和主节点间建立双向认证。
+如[使用引导令牌进行身份验证](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)所描述的，引导令牌用于在即将加入集群的节点和主节点间建立双向认证。
 
 <!--
 `kubeadm init` creates an initial token with a 24-hour TTL. The following commands allow you to manage
@@ -52,4 +52,4 @@ such a token and also to create and manage new ones.
 <!--
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 -->
-* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/) 引导 Kubernetes 工作节点并将其加入集群
+* [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/) 引导 Kubernetes 工作节点并将其加入集群

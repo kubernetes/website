@@ -3,14 +3,11 @@ title: " Kubernetes 社区每周聚会笔记- 2015年5月1日 "
 date: 2015-05-11
 slug: weekly-kubernetes-community-hangout
 ---
-
 <!--
----
 title: " Weekly Kubernetes Community Hangout Notes - May 1 2015 "
 date: 2015-05-11
 slug: weekly-kubernetes-community-hangout
-url: /zh/blog/2015/05/Weekly-Kubernetes-Community-Hangout
----
+url: /blog/2015/05/Weekly-Kubernetes-Community-Hangout
 -->
 
 <!--

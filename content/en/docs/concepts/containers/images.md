@@ -162,7 +162,7 @@ Credentials can be provided in several ways:
     - requires node configuration by cluster administrator
   - Pre-pulled Images
     - all pods can use any images cached on a node
-    - requires root access to all nodes to setup
+    - requires root access to all nodes to set up
   - Specifying ImagePullSecrets on a Pod
     - only pods which provide own keys can access the private registry
   - Vendor-specific or local extensions
@@ -275,6 +275,8 @@ in private registries.
 {{< /note >}}
 
 Kubernetes supports specifying container image registry keys on a Pod.
+`imagePullSecrets` must all be in the same namespace as the Pod. The referenced
+Secrets must be of type `kubernetes.io/dockercfg` or `kubernetes.io/dockerconfigjson`.
 
 #### Creating a Secret with a Docker config
 
@@ -303,7 +305,8 @@ so this process needs to be done one time per namespace.
 #### Referring to an imagePullSecrets on a Pod
 
 Now, you can create pods which reference that secret by adding an `imagePullSecrets`
-section to a Pod definition.
+section to a Pod definition. Each item in the `imagePullSecrets` array can only
+reference a Secret in the same namespace.
 
 For example:
 

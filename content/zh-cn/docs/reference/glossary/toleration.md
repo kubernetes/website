@@ -2,7 +2,7 @@
 title: 容忍度（Toleration）
 id: toleration
 date: 2019-01-11
-full_link: /zh/docs/concepts/scheduling-eviction/taint-and-toleration/
+full_link: /zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   一个核心对象，由三个必需的属性组成：key、value 和 effect。
   容忍度允许将 Pod 调度到具有对应污点的节点或节点组上。

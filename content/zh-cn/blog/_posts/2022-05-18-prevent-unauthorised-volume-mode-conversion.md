@@ -23,8 +23,8 @@ from modifying the volume mode of a [`PersistentVolumeClaim`](/docs/concepts/sto
 existing [`VolumeSnapshot`](/docs/concepts/storage/volume-snapshots/) in the Kubernetes cluster.  
 -->
 Kubernetes v1.24 引入了一个新的 alpha 级特性，可以防止未经授权的用户修改基于 Kubernetes
-集群中已有的 [`VolumeSnapshot`](/zh/docs/concepts/storage/volume-snapshots/)
-创建的 [`PersistentVolumeClaim`](/zh/docs/concepts/storage/persistent-volumes/) 的卷模式。
+集群中已有的 [`VolumeSnapshot`](/zh-cn/docs/concepts/storage/volume-snapshots/)
+创建的 [`PersistentVolumeClaim`](/zh-cn/docs/concepts/storage/persistent-volumes/) 的卷模式。
 
 <!--
 ### The problem
@@ -35,7 +35,7 @@ Kubernetes v1.24 引入了一个新的 alpha 级特性，可以防止未经授�
 The [Volume Mode](/docs/concepts/storage/persistent-volumes/#volume-mode) determines whether a volume 
 is formatted into a filesystem or presented as a raw block device.   
 -->
-[卷模式](/zh/docs/concepts/storage/persistent-volumes/#volume-mode)确定卷是格式化为文件系统还是显示为原始块设备。
+[卷模式](/zh-cn/docs/concepts/storage/persistent-volumes/#volume-mode)确定卷是格式化为文件系统还是显示为原始块设备。
 
 <!--
 Users can leverage the `VolumeSnapshot` feature, which has been stable since Kubernetes v1.20, 
@@ -47,7 +47,7 @@ Visit [Create a PersistentVolumeClaim from a Volume Snapshot](/docs/concepts/sto
 用户可以使用自 Kubernetes v1.20 以来就稳定的 `VolumeSnapshot` 功能，
 基于 Kubernetes 集群中的已有的 `VolumeSnapshot` 创建一个 `PersistentVolumeClaim` (简称 PVC )。
 PVC 规约包括一个 `dataSource` 字段，它可以指向一个已有的 `VolumeSnapshot` 实例。
-查阅[基于卷快照创建 PVC](/zh/docs/concepts/storage/persistent-volumes/#create-persistent-volume-claim-from-volume-snapshot)
+查阅[基于卷快照创建 PVC](/zh-cn/docs/concepts/storage/persistent-volumes/#create-persistent-volume-claim-from-volume-snapshot)
 获取更多详细信息。
 
 <!--
@@ -116,7 +116,7 @@ created PVC in the given namespace.
 to the `VolumeSnapshotContent`. 
 -->
 3. 给 `VolumeSnapshotContent` 添加
-   [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/zh/docs/reference/labels-annotations-taints/#snapshot-storage-kubernetes-io-allowvolumemodechange)
+   [`snapshot.storage.kubernetes.io/allowVolumeModeChange`](/zh-cn/docs/reference/labels-annotations-taints/#snapshot-storage-kubernetes-io-allowvolumemodechange)
    注解。
 
 <!--

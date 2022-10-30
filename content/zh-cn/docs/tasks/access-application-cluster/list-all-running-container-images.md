@@ -50,7 +50,7 @@ of Containers for each.
 - 使用 `kubectl get pods --all-namespaces` 获取所有命名空间下的所有 Pod
 - 使用 `-o jsonpath={.items[*].spec.containers[*].image}` 来格式化输出，以仅包含容器镜像名称。
   这将以递归方式从返回的 json 中解析出 `image` 字段。
-  - 参阅 [jsonpath 说明](/zh/docs/reference/kubectl/jsonpath/)
+  - 参阅 [jsonpath 说明](/zh-cn/docs/reference/kubectl/jsonpath/)
     获取更多关于如何使用 jsonpath 的信息。
 - 使用标准化工具来格式化输出：`tr`, `sort`, `uniq`
   - 使用 `tr` 以用换行符替换空格
@@ -62,23 +62,6 @@ kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].ima
 tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
-```
-
-<!--
-The above command will recursively return all fields named `image`
-for all items returned.
-
-As an alternative, it is possible to use the absolute path to the image
-field within the Pod.  This ensures the correct field is retrieved
-even when the field name is repeated,
-e.g. many fields are called `name` within a given item:
--->
-上面的命令将递归获取所有返回项目的名为 `image` 的字段。
-
-作为替代方案，可以使用 Pod 的镜像字段的绝对路径。这确保即使字段名称重复的情况下也能检索到正确的字段，例如，特定项目中的许多字段都称为 `name`：
-
-```shell
-kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}"
 ```
 
 <!--
@@ -173,6 +156,6 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 -->
 ### 参考
 
-* [Jsonpath](/zh/docs/reference/kubectl/jsonpath/) 参考指南
+* [Jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 参考指南
 * [Go template](https://golang.org/pkg/text/template/) 参考指南
 

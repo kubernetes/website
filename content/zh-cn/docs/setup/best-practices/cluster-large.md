@@ -138,8 +138,8 @@ See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/conf
 for details on configuring and managing etcd for a large cluster.
 -->
 有关为大型集群配置和管理 etcd 的详细信息，请参阅
-[为 Kubernetes 运行 etcd 集群](/zh/docs/tasks/administer-cluster/configure-upgrade-etcd/)
-和使用 [kubeadm 创建一个高可用 etcd 集群](/zh/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
+[为 Kubernetes 运行 etcd 集群](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)
+和使用 [kubeadm 创建一个高可用 etcd 集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
 
 <!--
 ### Addon Resources
@@ -154,7 +154,7 @@ impact on other components. These resource limits apply to
 
   For example, you can set CPU and memory limits for a logging component:
 -->
-Kubernetes [资源限制](/zh/docs/concepts/configuration/manage-resources-containers/)
+Kubernetes [资源限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
 有助于最大程度地减少内存泄漏的影响以及 Pod 和容器可能对其他组件的其他方式的影响。
 这些资源限制适用于{{< glossary_tooltip text="插件" term_id="addons" >}}资源，
 就像它们适用于应用程序工作负载一样。

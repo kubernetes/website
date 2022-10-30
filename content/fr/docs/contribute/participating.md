@@ -102,7 +102,7 @@ Pour en savoir plus sur comment devenir un relecteur SIG Docs et sur les respons
 Lorsque vous remplissez les [conditions requises](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer), vous pouvez devenir un relecteur SIG Docs.
 Les relecteurs d'autres SIG doivent demander séparément le statut de relecteur dans le SIG Docs.
 
-Pour postuler, ouvrez une pull request et ajoutez vous à la section `reviewers` du fichier [top-level OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) dans le dépôt `kubernetes/website`.
+Pour postuler, ouvrez une pull request et ajoutez vous à la section `reviewers` du fichier [top-level OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) dans le dépôt `kubernetes/website`.
 Affectez la PR à un ou plusieurs approbateurs SIG Docs.
 
 Si votre pull request est approuvée, vous êtes maintenant un relecteur SIG Docs.
@@ -130,7 +130,7 @@ Pour en savoir plus sur comment devenir un approbateur SIG Docs et sur les respo
 Lorsque vous remplissez les [conditions requises](https://github.com/kubernetes/community/blob/master/community-membership.md#approver), vous pouvez devenir un approbateur SIG Docs.
 Les approbateurs appartenant à d'autres SIG doivent demander séparément le statut d'approbateur dans SIG Docs.
 
-Pour postuler, ouvrez une pull request pour vous ajouter à la section `approvers` du fichier [top-level OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) dans le dépot `kubernetes/website`.
+Pour postuler, ouvrez une pull request pour vous ajouter à la section `approvers` du fichier [top-level OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) dans le dépot `kubernetes/website`.
 Affectez la PR à un ou plusieurs approbateurs SIG Docs.
 
 Si votre Pull Request est approuvée, vous êtes à présent approbateur SIG Docs.
@@ -184,9 +184,9 @@ Le [dépôt du site web Kubernetes](https://github.com/kubernetes/website) utili
 - blunderbuss
 - approve
 
-Ces deux plugins utilisent les fichiers [OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) et [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS_ALIASES) à la racine du dépôt Github `kubernetes/website` pour contrôler comment prow fonctionne.
+Ces deux plugins utilisent les fichiers [OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) et [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES) à la racine du dépôt Github `kubernetes/website` pour contrôler comment prow fonctionne.
 
-Un fichier [OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) contient une liste de personnes qui sont des relecteurs et des approbateurs SIG Docs.
+Un fichier [OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) contient une liste de personnes qui sont des relecteurs et des approbateurs SIG Docs.
 Les fichiers OWNERS existent aussi dans les sous-dossiers, et peuvent ignorer qui peut agir en tant que relecteur ou approbateur des fichiers de ce sous-répertoire et de ses descendants.
 Pour plus d'informations sur les fichiers OWNERS en général, voir [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
 
@@ -203,5 +203,3 @@ Pour plus d'informations sur la contribution à la documentation Kubernetes, voi
 
 - [Commencez à contribuer](/docs/contribute/start/)
 - [Documentation style](/docs/contribute/style/)
-
-

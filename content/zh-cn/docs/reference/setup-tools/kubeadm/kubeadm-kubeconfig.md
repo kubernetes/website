@@ -13,7 +13,7 @@ For examples on how to use `kubeadm kubeconfig user` see
 `kubeadm kubeconfig` 提供用来管理 kubeconfig 文件的工具。
 
 如果希望查看如何使用 `kubeadm kubeconfig user` 的示例，请参阅
-[为其他用户生成 kubeconfig 文件](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
+[为其他用户生成 kubeconfig 文件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 
 ## kubeadm kubeconfig {#cmd-kubeconfig}
 

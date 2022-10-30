@@ -31,12 +31,12 @@ Currently there are no experimental commands under `kubeadm alpha`.
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 -->
 * 用来启动引导 Kubernetes 控制平面节点的
-  [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+  [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
   命令
 * 用来将节点连接到集群的
-  [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/) 
+  [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/) 
   命令
 * 用来还原 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改的
-  [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
+  [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
   命令
 

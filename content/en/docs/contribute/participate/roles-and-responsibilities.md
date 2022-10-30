@@ -32,7 +32,7 @@ Anyone can:
 - Suggest improvements on [Slack](https://slack.k8s.io/) or the
   [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 
-After [signing the CLA](/docs/contribute/new-content/overview/#sign-the-cla), anyone can also:
+After [signing the CLA](https://github.com/kubernetes/community/blob/master/CLA.md), anyone can also:
 
 - Open a pull request to improve existing content, add new content, or write a blog post or case study
 - Create diagrams, graphics assets, and embeddable screencasts and videos

@@ -1,7 +1,7 @@
 ---
 title: 도구
-
-
+# reviewers:
+# - janetkuo
 content_type: concept
 weight: 80
 no_list: true
@@ -29,9 +29,6 @@ no_list: true
 
 [Helm](https://helm.sh/)은 사전 구성된 쿠버네티스 리소스 패키지를 관리하기 위한 도구이다.
 이 패키지는 _Helm charts_ 라고 알려져 있다.
-
-Helm은 미리 구성된 쿠버네티스 리소스 패키지를 관리하기 위한 제 3자가
-관리하는 도구로, 쿠버네티스 차트(charts)라고도 알려져 있다.
 
 Helm의 용도
 

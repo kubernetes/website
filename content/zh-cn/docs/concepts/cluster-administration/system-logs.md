@@ -38,7 +38,7 @@ klog 是 Kubernetes 的日志库。
 [klog](https://github.com/kubernetes/klog) 
 为 Kubernetes 系统组件生成日志消息。
 
-有关 klog 配置的更多信息，请参见[命令行工具参考](/zh/docs/reference/command-line-tools-reference/)。
+有关 klog 配置的更多信息，请参见[命令行工具参考](/zh-cn/docs/reference/command-line-tools-reference/)。
 
 <!--
 Kubernetes is in the process of simplifying logging in its components. The
@@ -284,7 +284,7 @@ Not all logs are guaranteed to be written in JSON format (for example, during pr
 Field names and JSON serialization are subject to change.
 -->
 JSON 输出并不支持太多标准 klog 参数。对于不受支持的 klog 参数的列表，
-请参见[命令行工具参考](/zh/docs/reference/command-line-tools-reference/)。
+请参见[命令行工具参考](/zh-cn/docs/reference/command-line-tools-reference/)。
 
 并不是所有日志都保证写成 JSON 格式（例如，在进程启动期间）。
 如果你打算解析日志，请确保可以处理非 JSON 格式的日志行。
@@ -388,7 +388,7 @@ The `logrotate` tool rotates logs daily, or once the log size is greater than 10
 * Read about [deprecation of klog flags](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 * Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
 -->
-* 阅读 [Kubernetes 日志架构](/zh/docs/concepts/cluster-administration/logging/)
+* 阅读 [Kubernetes 日志架构](/zh-cn/docs/concepts/cluster-administration/logging/)
 * 阅读[结构化日志提案（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
 * 阅读[上下文日志提案（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 * 阅读 [klog 参数的废弃（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)

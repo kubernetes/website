@@ -18,7 +18,7 @@ weight: 10
 <!--
 Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs.
 -->
-配置[聚合层](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+配置[聚合层](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 可以允许 Kubernetes apiserver 使用其它 API 扩展，这些 API 不是核心
 Kubernetes API 的一部分。
 
@@ -119,8 +119,8 @@ note:
 kube-apiserver / aggregator -> aggregated apiserver:
 
 note:
-4.The aggregator opens a connection to the aggregated API server using `--proxy-client-cert-file`/`--proxy-client-key-file` client certificate/key to secure the channel
-5.The aggregator sends the user info from step 1 to the aggregated API server as http headers, as defined by the following flags:
+4. The aggregator opens a connection to the aggregated API server using `--proxy-client-cert-file`/`--proxy-client-key-file` client certificate/key to secure the channel
+5. The aggregator sends the user info from step 1 to the aggregated API server as http headers, as defined by the following flags:
   * `--requestheader-username-headers`
   * `--requestheader-group-headers`
   * `--requestheader-extra-headers-prefix`
@@ -232,9 +232,9 @@ Kubernetes apiserver 中注册。
 Kubernetes apiserver 使用它的标准认证和授权配置来对用户认证，以及对特定路径的鉴权。
 
 有关对 Kubernetes 集群认证的概述，请参见
-[对集群认证](/zh/docs/reference/access-authn-authz/authentication/)。
+[对集群认证](/zh-cn/docs/reference/access-authn-authz/authentication/)。
 有关对Kubernetes集群资源的访问鉴权的概述，请参见
-[鉴权概述](/zh/docs/reference/access-authn-authz/authorization/)。
+[鉴权概述](/zh-cn/docs/reference/access-authn-authz/authorization/)。
 
 到目前为止，所有内容都是标准的 Kubernetes API 请求，认证与鉴权。
 
@@ -271,7 +271,7 @@ The Kubernetes apiserver connects to the extension apiserver over TLS, authentic
 * private key file via `--proxy-client-key-file`
 * signed client certificate file via `--proxy-client-cert-file`
 * certificate of the CA that signed the client certificate file via `--requestheader-client-ca-file`
-* valid Common Names (CN) in the signed client certificate via `--requestheader-allowed-names`
+* valid Common Name values (CNs) in the signed client certificate via `--requestheader-allowed-names`
 -->
 #### Kubernetes Apiserver 客户端认证
 
@@ -281,23 +281,26 @@ Kubernetes apiserver 通过 TLS 连接到扩展 apiserver，并使用客户端�
 * 通过 `--proxy-client-key-file` 指定私钥文件
 * 通过 `--proxy-client-cert-file` 签名的客户端证书文件
 * 通过 `--requestheader-client-ca-file` 签署客户端证书文件的 CA 证书
-* 通过 `--requestheader-allowed-names` 在签署的客户证书中有效的公用名（CN）
+* 通过 `--requestheader-allowed-names` 在签署的客户端证书中有效的公用名（CN）
 
 <!--
 The Kubernetes apiserver will use the files indicated by `--proxy-client-*-file` to authenticate to the extension apiserver. In order for the request to be considered valid by a compliant extension apiserver, the following conditions must be met:
 
 1. The connection must be made using a client certificate that is signed by the CA whose certificate is in `--requestheader-client-ca-file`.
-2. The connection must be made using a client certificate whose CN is one of those listed in `--requestheader-allowed-names`. **Note:** You can set this option to blank as `--requestheader-allowed-names=""`. This will indicate to an extension apiserver that _any_ CN is acceptable.
+2. The connection must be made using a client certificate whose CN is one of those listed in `--requestheader-allowed-names`.
 -->
-Kubernetes apiserver 将使用由 `--proxy-client-*-file` 指示的文件来验证扩展 apiserver。
+Kubernetes apiserver 将使用由 `--proxy-client-*-file` 指示的文件来向扩展 apiserver认证。
 为了使合规的扩展 apiserver 能够将该请求视为有效，必须满足以下条件：
 
 1. 连接必须使用由 CA 签署的客户端证书，该证书的证书位于 `--requestheader-client-ca-file` 中。
 2. 连接必须使用客户端证书，该客户端证书的 CN 是 `--requestheader-allowed-names` 中列出的证书之一。
 
+<!--
+You can set this option to blank as `--requestheader-allowed-names=""`. This will indicate to an extension apiserver that _any_ CN is acceptable.
+-->
 {{< note >}}
-你可以将此选项设置为空白，即为`--requestheader-allowed-names`。
-这将向扩展 apiserver 指示任何 CN 是可接受的。
+你可以将此选项设置为空白，即为`--requestheader-allowed-names=""`。
+这将向扩展 apiserver 指示**任何** CN 是可接受的。
 {{< /note >}}
 
 <!--
@@ -325,9 +328,9 @@ Kubernetes apiserver 认证。所有扩展 apiserver 请求都重复使用相同
 
 When the Kubernetes apiserver proxies the request to the extension apiserver, it informs the extension apiserver of the username and group with which the original request successfully authenticated. It provides these in http headers of its proxied request. You must inform the Kubernetes apiserver of the names of the headers to be used.
 
-* the header in which to store the username via `-requestheader-username-headers`
-* the header in which to store the group via `-requestheader-group-headers`
-* the prefix to append to all extra headers via `-requestheader-extra-headers-prefix`
+* the header in which to store the username via `--requestheader-username-headers`
+* the header in which to store the group via `--requestheader-group-headers`
+* the prefix to append to all extra headers via `--requestheader-extra-headers-prefix`
 
 These header names are also placed in the `extension-apiserver-authentication` configmap, so they can be retrieved and used by extension apiservers.
 -->
@@ -407,7 +410,7 @@ In order for the extension apiserver to be authorized itself to submit the `Subj
 
 扩展 apiserver 现在可以验证从标头检索的`user/group`是否有权执行给定请求。
 通过向 Kubernetes apiserver 发送标准
-[SubjectAccessReview](/zh/docs/reference/access-authn-authz/authorization/) 请求来实现。
+[SubjectAccessReview](/zh-cn/docs/reference/access-authn-authz/authorization/) 请求来实现。
 
 为了使扩展 apiserver 本身被鉴权可以向 Kubernetes apiserver 提交 SubjectAccessReview 请求，
 它需要正确的权限。
@@ -421,7 +424,7 @@ If the `SubjectAccessReview` passes, the extension apiserver executes the reques
 
 ## Enable Kubernetes Apiserver flags
 
-Enable the aggregation layer via the following kube-apiserver flags. They may have already been taken care of by your provider.
+Enable the aggregation layer via the following `kube-apiserver` flags. They may have already been taken care of by your provider.
 -->
 ### 扩展 Apiserver 执行
 
@@ -429,7 +432,7 @@ Enable the aggregation layer via the following kube-apiserver flags. They may ha
 
 ## 启用 Kubernetes Apiserver 标志
 
-通过以下 kube-apiserver 标志启用聚合层。
+通过以下 `kube-apiserver` 标志启用聚合层。
 你的服务提供商可能已经为你完成了这些工作：
 
 ```
@@ -457,7 +460,7 @@ Kubernetes apiserver 有两个客户端 CA 选项：
 <!--
 Each of these functions independently and can conflict with each other, if not used correctly.
 
-* `--client-ca-file`: When a request arrives to the Kubernetes apiserver, if this option is enabled, the Kubernetes apiserver checks the certificate of the request. If it is signed by one of the CA certificates in the file referenced by `--client-ca-file`, then the request is treated as a legitimate request, and the user is the value of the common name `CN=`, while the group is the organization `O=`. See the [documentaton on TLS authentication](/docs/reference/access-authn-authz/authentication/#x509-client-certs).
+* `--client-ca-file`: When a request arrives to the Kubernetes apiserver, if this option is enabled, the Kubernetes apiserver checks the certificate of the request. If it is signed by one of the CA certificates in the file referenced by `--client-ca-file`, then the request is treated as a legitimate request, and the user is the value of the common name `CN=`, while the group is the organization `O=`. See the [documentation on TLS authentication](/docs/reference/access-authn-authz/authentication/#x509-client-certs).
 * `--requestheader-client-ca-file`: When a request arrives to the Kubernetes apiserver, if this option is enabled, the Kubernetes apiserver checks the certificate of the request. If it is signed by one of the CA certificates in the file reference by `--requestheader-client-ca-file`, then the request is treated as a potentially legitimate request. The Kubernetes apiserver then checks if the common name `CN=` is one of the names in the list provided by `--requestheader-allowed-names`. If the name is allowed, the request is approved; if it is not, the request is not.
 -->
 这些功能中的每个功能都是独立的；如果使用不正确，可能彼此冲突。
@@ -466,7 +469,7 @@ Each of these functions independently and can conflict with each other, if not u
   则 Kubernetes apiserver 会检查请求的证书。
   如果它是由 `--client-ca-file` 引用的文件中的 CA 证书之一签名的，
   并且用户是公用名`CN=`的值，而组是组织`O=` 的取值，则该请求被视为合法请求。
-  请参阅[关于 TLS 身份验证的文档](/zh/docs/reference/access-authn-authz/authentication/#x509-client-certs)。
+  请参阅[关于 TLS 身份验证的文档](/zh-cn/docs/reference/access-authn-authz/authentication/#x509-client-certs)。
 
 * `--requestheader-client-ca-file`：当请求到达 Kubernetes apiserver 时，
   如果启用此选项，则 Kubernetes apiserver 会检查请求的证书。
@@ -545,7 +548,7 @@ The name of an APIService object must be a valid
 [path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
 -->
 APIService 对象的名称必须是合法的
-[路径片段名称](/zh/docs/concepts/overview/working-with-objects/names#path-segment-names)。
+[路径片段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
 
 <!--
 #### Contacting the extension apiserver
@@ -555,10 +558,9 @@ it needs to know how to contact it.
 
 The `service` stanza is a reference to the service for an extension apiserver.
 The service namespace and name are required. The port is optional and defaults to 443.
-The path is optional and defaults to "/".
 
-Here is an example of an extension apiserver that is configured to be called on port "1234"
-at the subpath "/my-path", and to verify the TLS connection against the ServerName
+Here is an example of an extension apiserver that is configured to be called on port "1234",
+and to verify the TLS connection against the ServerName
 `my-service-name.my-service-namespace.svc` using a custom CA bundle.
 -->
 #### 调用扩展 apiserver
@@ -568,13 +570,12 @@ at the subpath "/my-path", and to verify the TLS connection against the ServerNa
 
 `service` 部分是对扩展 apiserver 的服务的引用。
 服务的名字空间和名字是必需的。端口是可选的，默认为 443。
-路径配置是可选的，默认为 `/`。
 
-下面是为可在端口 `1234` 上调用的扩展 apiserver 的配置示例
-服务位于子路径 `/my-path` 下，并针对 ServerName
+下面是一个扩展 apiserver 的配置示例，它被配置为在端口 `1234` 上调用。
+并针对 ServerName
 `my-service-name.my-service-namespace.svc`
 使用自定义的 CA 包来验证 TLS 连接
-使用自定义 CA 捆绑包的`my-service-name.my-service-namespace.svc`。
+使用自定义 CA 捆绑包的 `my-service-name.my-service-namespace.svc`。
 
 ```yaml
 apiVersion: apiregistration.k8s.io/v1
@@ -590,14 +591,14 @@ spec:
 ...
 ```
 
-## {{% heading "whatsnext" %}}
+## {{% heading "接下来" %}}
 
 <!--
-* [Setup an extension api-server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) to work with the aggregation layer.
-* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/).
-* Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
+* [Set up an extension api-server](/docs/tasks/extend-kubernetes/setup-extension-api-server/) to work with the aggregation layer.
+* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
+* Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
 -->
 
-* 使用聚合层[安装扩展 API 服务器](/zh/docs/tasks/extend-kubernetes/setup-extension-api-server/)。
-* 有关高级概述，请参阅[使用聚合层扩展 Kubernetes API](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)。
-* 了解如何[使用自定义资源扩展 Kubernetes API](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。
+* 使用聚合层[安装扩展 API 服务器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)。
+* 有关高级概述，请参阅[使用聚合层扩展 Kubernetes API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)。
+* 了解如何[使用自定义资源扩展 Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。

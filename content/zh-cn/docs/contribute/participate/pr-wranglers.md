@@ -15,11 +15,11 @@ SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilities/#ap
 
 This section covers the duties of a PR wrangler. For more information on giving good reviews, see [Reviewing changes](/docs/contribute/review/).
 -->
-SIG Docs 的[批准人（Approvers）](/zh/docs/contribute/participate/roles-and-responsibilities/#approvers)们每周轮流负责
+SIG Docs 的[批准人（Approvers）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)们每周轮流负责
 [管理仓库的 PR](https://github.com/kubernetes/website/wiki/PR-Wranglers)。
 
 本节介绍 PR 管理者的职责。关于如何提供较好的评审意见，
-可参阅[评审变更](/zh/docs/contribute/review/)。
+可参阅[评审变更](/zh-cn/docs/contribute/review/)。
 
 
 <!-- body -->
@@ -36,11 +36,11 @@ Each day in a week-long shift as PR Wrangler:
 在为期一周的轮值期内，PR 管理者要：
 
 - 每天对新增的 Issues 判定和打标签。参见
-  [对 Issues 进行判定和分类](/zh/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
+  [对 Issues 进行判定和分类](/zh-cn/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
   以了解 SIG Docs 如何使用元数据的详细信息。
 - 检查[悬决的 PR](https://github.com/kubernetes/website/pulls) 的质量并确保它们符合
-  [样式指南](/zh/docs/contribute/style/style-guide/)和
-  [内容指南](/zh/docs/contribute/style/content-guide/)要求。
+  [样式指南](/zh-cn/docs/contribute/style/style-guide/)和
+  [内容指南](/zh-cn/docs/contribute/style/content-guide/)要求。
 
   - 首先查看最小的 PR（`size/XS`），然后逐渐扩展到最大的
     PR（`size/XXL`），尽可能多地评审 PR。
@@ -77,7 +77,7 @@ Each day in a week-long shift as PR Wrangler:
 - 使用 `/approve` 评论来批准可以合并的 PR，在 PR 就绪时将其合并。
   - PR 在被合并之前，应该有来自其他成员的 `/lgtm` 评论。
   - 可以考虑接受那些技术上准确，但文风上不满足
-    [风格指南](/zh/docs/contribute/style/style-guide/)要求的 PR。
+    [风格指南](/zh-cn/docs/contribute/style/style-guide/)要求的 PR。
     批准变更时，可以登记一个新的 Issue 来解决文档风格问题。
     你通常可以将这些风格修复问题标记为 `good first issue`。
   - 将风格修复事项标记为 `good first issue` 可以很好地确保向新加入的贡献者分派一些比较简单的任务，

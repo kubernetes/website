@@ -26,7 +26,7 @@ It does this by providing the following:
 -->
 名字空间通过以下方式实现这点：
 
-1. 为[名字](/zh/docs/concepts/overview/working-with-objects/names/)设置作用域.
+1. 为[名字](/zh-cn/docs/concepts/overview/working-with-objects/names/)设置作用域.
 2. 为集群中的部分资源关联鉴权和策略的机制。
 
 <!--
@@ -56,10 +56,10 @@ This example assumes the following:
 
 此示例作如下假设：
 
-1. 你已拥有一个[配置好的 Kubernetes 集群](/zh/docs/setup/)。
-2. 你已对 Kubernetes 的 _[Pods](/zh/docs/concepts/workloads/pods/)_、
-   _[Services](/zh/docs/concepts/services-networking/service/)_ 和
-   _[Deployments](/zh/docs/concepts/workloads/controllers/deployment/)_
+1. 你已拥有一个[配置好的 Kubernetes 集群](/zh-cn/docs/setup/)。
+2. 你已对 Kubernetes 的 _[Pods](/zh-cn/docs/concepts/workloads/pods/)_、
+   _[Services](/zh-cn/docs/concepts/services-networking/service/)_ 和
+   _[Deployments](/zh-cn/docs/concepts/workloads/controllers/deployment/)_
    有基本理解。
 
 <!--

@@ -78,7 +78,7 @@ ServiceAccount 将以下内容绑定在一起：
   -->
   imagePullSecrets 是对同一命名空间中 Secret 的引用列表，用于拉取引用此 ServiceAccount 的 Pod 中的任何镜像。
   imagePullSecrets 与 Secrets 不同，因为 Secrets 可以挂载在 Pod 中，但 imagePullSecrets 只能由 kubelet 访问。
-  更多信息： https://kubernetes.io/zh/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
+  更多信息： https://kubernetes.io/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
 
 - **secrets** ([]<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
@@ -130,7 +130,7 @@ ServiceAccountList 是 ServiceAccount 对象的列表
   <!--
   List of ServiceAccounts. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
   -->
-  ServiceAccount 列表，更多信息： https://kubernetes.io/zh/docs/tasks/configure-pod-container/configure-service-account/
+  ServiceAccount 列表，更多信息： https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-service-account/
 
 <!--
 ## Operations {#Operations}

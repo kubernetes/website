@@ -18,7 +18,7 @@ content_type: task
 This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) to declare network policies that govern how pods communicate with each other.
 -->
 本文可以帮助你开始使用 Kubernetes 的
-[NetworkPolicy API](/zh/docs/concepts/services-networking/network-policies/)
+[NetworkPolicy API](/zh-cn/docs/concepts/services-networking/network-policies/)
 声明网络策略去管理 Pod 之间的通信
 
 {{% thirdparty-content %}}
@@ -39,12 +39,12 @@ Make sure you've configured a network provider with network policy support. Ther
 -->
 你首先需要有一个支持网络策略的 Kubernetes 集群。已经有许多支持 NetworkPolicy 的网络提供商，包括：
 
-* [Antrea](/zh/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/)
-* [Calico](/zh/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
-* [Cilium](/zh/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
-* [Kube-router](/zh/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
-* [Romana](/zh/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
-* [Weave 网络](/zh/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
+* [Antrea](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/)
+* [Calico](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
+* [Cilium](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
+* [Kube-router](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
+* [Romana](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
+* [Weave 网络](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
 
 <!-- steps -->
 
@@ -105,7 +105,7 @@ You should be able to access the new `nginx` service from other Pods. To access 
 ## 通过从 Pod 访问服务对其进行测试
 
 你应该可以从其它的 Pod 访问这个新的 `nginx` 服务。
-要从 default 命名空间中的其它s Pod 来访问该服务。可以启动一个 busybox 容器：
+要从 default 命名空间中的其它 Pod 来访问该服务。可以启动一个 busybox 容器：
 
 ```shell
 kubectl run busybox --rm -ti --image=busybox:1.28 /bin/sh
@@ -142,7 +142,7 @@ The name of a NetworkPolicy object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 NetworkPolicy 对象的名称必须是一个合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 <!--
 NetworkPolicy includes a `podSelector` which selects the grouping of Pods to which the policy applies. You can see this policy selects Pods with the label `app=nginx`. The label was automatically added to the Pod in the `nginx` Deployment. An empty `podSelector` selects all pods in the namespace.

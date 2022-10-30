@@ -122,7 +122,7 @@ components by adding customized setting or overriding kubeadm default settings.<
 </span></pre><p>The KubeProxyConfiguration type should be used to change the configuration passed to kube-proxy instances
 deployed in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/ or
-https://godoc.org/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
+https://pkg.go.dev/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
 for kube-proxy official documentation.</p>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubelet.config.k8s.io/v1beta1<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>KubeletConfiguration<span style="color:#bbb">
@@ -130,7 +130,7 @@ for kube-proxy official documentation.</p>
 </span></pre><p>The KubeletConfiguration type should be used to change the configurations that will be passed to all kubelet instances
 deployed in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/ or
-https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration
+https://pkg.go.dev/k8s.io/kubelet/config/v1beta1#KubeletConfiguration
 for kubelet official documentation.</p>
 <p>Here is a fully populated example of a single YAML file containing multiple
 configuration types to be used during a <code>kubeadm init</code> run.</p>
@@ -171,7 +171,7 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">etcd</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic"># one of local or external</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">local</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;k8s.gcr.io&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;registry.k8s.io&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">imageTag</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;3.2.24&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">dataDir</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/var/lib/etcd&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
@@ -225,7 +225,7 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">certificatesDir</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/kubernetes/pki&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;k8s.gcr.io&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;registry.k8s.io&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">clusterName</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;example-cluster&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span>---<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubelet.config.k8s.io/v1beta1<span style="color:#bbb">
@@ -359,10 +359,10 @@ be used for assigning a stable DNS to the control plane.</li>
 </td>
 <td>
    <p><code>imageRepository</code> sets the container registry to pull images from.
-If empty, <code>k8s.gcr.io</code> will be used by default.
+If empty, <code>registry.k8s.io</code> will be used by default.
 In case of kubernetes version is a CI build (kubernetes version starts with <code>ci/</code>)
 <code>gcr.io/k8s-staging-ci-images</code> will be used as a default for control plane components
-and for kube-proxy, while <code>k8s.gcr.io</code> will be used for all the other images.</p>
+and for kube-proxy, while <code>registry.k8s.io</code> will be used for all the other images.</p>
 </td>
 </tr>
 <tr><td><code>featureGates</code><br/>
@@ -555,7 +555,7 @@ by kubeadm during <code>kubeadm join</code>.</p>
 <code>int32</code>
 </td>
 <td>
-   <p><code>bindPorti</code> sets the secure port for the API Server to bind to.
+   <p><code>bindPort</code> sets the secure port for the API Server to bind to.
 Defaults to 6443.</p>
 </td>
 </tr>
@@ -1159,7 +1159,7 @@ This information will be annotated to the Node API object, for later re-use</p>
 <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
-   <p><code>tains</code> specifies the taints the Node API object should be registered with.
+   <p><code>taints</code> specifies the taints the Node API object should be registered with.
 If this field is unset, i.e. nil, in the <code>kubeadm init</code> process it will be defaulted
 with a control-plane taint for control-plane nodes.
 If you don't want to taint your control-plane node, set this field to an empty list,

@@ -100,7 +100,7 @@ latest version of containerd (v1.6+) to run HostProcess containers.
 在 Kubernetes v{{< skew currentVersion >}} 中，HostProcess 容器功能特性默认是启用的。
 kubelet 会直接与 containerd 通信，通过 CRI 将主机进程标志传递过去。
 你可以使用 containerd 的最新版本（v1.6+）来运行 HostProcess 容器。
-参阅[如何安装 containerd](/zh/docs/setup/production-environment/container-runtimes/#containerd)。
+参阅[如何安装 containerd](/zh-cn/docs/setup/production-environment/container-runtimes/#containerd)。
 
 <!--
 To *disable* HostProcess containers you need to pass the following feature gate flag to the
@@ -117,7 +117,7 @@ To *disable* HostProcess containers you need to pass the following feature gate 
 See [Features Gates](/docs/reference/command-line-tools-reference/feature-gates/#overview)
 documentation for more details.
 -->
-进一步的细节可参阅[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/#overview)文档。
+进一步的细节可参阅[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#overview)文档。
 
 <!--
 ## Limitations
@@ -177,7 +177,7 @@ the configurations which need to be set to enable the creation of a HostProcess 
 -->
 启用 Windows HostProcess Pod 需要在 Pod 安全配置中设置合适的选项。
 在 [Pod
-安全标准](/zh/docs/concepts/security/pod-security-standards)中所定义的策略中，
+安全标准](/zh-cn/docs/concepts/security/pod-security-standards)中所定义的策略中，
 HostProcess Pod 默认是不被 basline 和 restricted 策略支持的。因此建议
 HostProcess 运行在与 privileged 模式相看齐的策略下。
 
@@ -193,11 +193,11 @@ HostProcess 运行在与 privileged 模式相看齐的策略下。
   </thead>
   <tbody>
     <tr>
-      <td style="white-space: nowrap"><a href="/zh/docs/concepts/security/pod-security-standards"><tt>securityContext.windowsOptions.hostProcess</tt></a></td>
+      <td style="white-space: nowrap"><a href="/zh-cn/docs/concepts/security/pod-security-standards"><tt>securityContext.windowsOptions.hostProcess</tt></a></td>
       <td>
         <p><!--Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">
         HostProcess containers</a> which enables privileged access to the Windows node.-->
-        Windows Pods 提供运行<a href="/zh/docs/tasks/configure-pod-container/create-hostprocess-pod">
+        Windows Pods 提供运行<a href="/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod">
         HostProcess 容器</a>的能力，这类容器能够具有对 Windows 节点的特权访问权限。</p>
         <p><strong><!--Allowed Values-->可选值</strong></p>
         <ul>
@@ -206,7 +206,7 @@ HostProcess 运行在与 privileged 模式相看齐的策略下。
       </td>
     </tr>
     <tr>
-      <td style="white-space: nowrap"><a href="/zh/docs/concepts/security/pod-security-standards"><tt>hostNetwork</tt></a></td>
+      <td style="white-space: nowrap"><a href="/zh-cn/docs/concepts/security/pod-security-standards"><tt>hostNetwork</tt></a></td>
       <td>
         <p><!--Will be in host network by default initially. Support
         to set network to a different compartment may be desirable in
@@ -220,7 +220,7 @@ HostProcess 运行在与 privileged 模式相看齐的策略下。
       </td>
     </tr>
     <tr>
-      <td style="white-space: nowrap"><a href="/zh/docs/tasks/configure-pod-container/configure-runasusername/"><tt>securityContext.windowsOptions.runAsUsername</tt></a></td>
+      <td style="white-space: nowrap"><a href="/zh-cn/docs/tasks/configure-pod-container/configure-runasusername/"><tt>securityContext.windowsOptions.runAsUsername</tt></a></td>
       <td>
         <p><!--Specification of which user the HostProcess container should run as is required for the pod spec.-->
         关于 HostProcess 容器所要使用的用户的规约，需要设置在 Pod 的规约中。
@@ -234,7 +234,7 @@ HostProcess 运行在与 privileged 模式相看齐的策略下。
       </td>
     </tr>
     <tr>
-      <td style="white-space: nowrap"><a href="/zh/docs/concepts/security/pod-security-standards"><tt>runAsNonRoot</tt></a></td>
+      <td style="white-space: nowrap"><a href="/zh-cn/docs/concepts/security/pod-security-standards"><tt>runAsNonRoot</tt></a></td>
       <td>
         <p><!--Because HostProcess containers have privileged access to the host, the <tt>runAsNonRoot</tt> field cannot be set to true.-->
         因为 HostProcess 容器有访问主机的特权，<tt>runAsNonRoot</tt> 字段不可以设置为 true。

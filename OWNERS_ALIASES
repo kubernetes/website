@@ -9,6 +9,17 @@ aliases:
     - onlydole
     - sftim
     - nate-double-u
+  sig-docs-localization-owners: # Admins for localization content
+    - a-mccarthy
+    - bradtopol
+    - divya-mohan0209
+    - jimangel
+    - kbhawkey
+    - natalisucks
+    - onlydole
+    - reylejano
+    - sftim
+    - tengqm
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -20,35 +31,32 @@ aliases:
   sig-docs-en-owners: # Admins for English content
     - annajung
     - bradtopol
-    - celestehorgan
     - divya-mohan0209
     - jimangel
     - jlbutler
     - kbhawkey
-    - kcmartin
+    - krol3
     - natalisucks
+    - nate-double-u
     - onlydole
-    - pi-victor
     - reylejano
-    - savitharaghunathan
     - sftim
     - tengqm
-    - zacharysarah
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
-    - celestehorgan
     - daminisatya
     - divya-mohan0209
     - jimangel
     - kbhawkey
     - mehabhalodiya
     - natalisucks
+    - nate-double-u
     - onlydole
     - rajeshdeshpande02
+    - reylejano
     - sftim
     - shannonxtreme
     - tengqm
-    - zacharysarah
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - electrocucaracha
@@ -86,11 +94,10 @@ aliases:
   sig-docs-hi-owners: # Admins for Hindi content
     - anubha-v-ardhan
     - divya-mohan0209
-    - mittalyashu
   sig-docs-hi-reviews: # PR reviews for Hindi content
     - anubha-v-ardhan
     - divya-mohan0209
-    - mittalyashu
+    - Garima-Negi
     - verma-kunal
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
@@ -117,25 +124,22 @@ aliases:
     - mattiaperi
     - micheleberardi
   sig-docs-ja-owners: # Admins for Japanese content
-    # cstoku
     - inductor
     - nasa9084
   sig-docs-ja-reviews: # PR reviews for Japanese content
+    - atoato88
     - bells17
-    # cstoku
-    - inductor
     - kakts
     - makocchi-git
-    # MasayaAoyama
-    - nasa9084
-    # oke-py
     - ptux
+    - t-inu
   sig-docs-ko-owners: # Admins for Korean content
     - ClaudiaJKang
     - gochist
     - ianychoi
     - jihoon-seo
     - seokho-son
+    - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
     - ClaudiaJKang
@@ -157,32 +161,28 @@ aliases:
     - sftim
     - tengqm
   sig-docs-zh-owners: # Admins for Chinese content
-    # chenopis
     - chenrui333
-    # dchen1107
-    # haibinxie
-    # hanjiayao
     - howieyuen
-    # lichuqiang
     - mengjiao-liu
     - SataQiu
+    - Sea-n
     - tanjunchen
     - tengqm
     - xichengliudui
-    # zhangxiaoyu-zidif
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - chenrui333
     - chenxuc
     - howieyuen
-    - idealhack
+    # idealhack
     - mengjiao-liu
-    - pigletfly
+    # pigletfly
     - SataQiu
+    - Sea-n
     - tanjunchen
     - tengqm
+    - windsonsea
     - xichengliudui
     - ydFu
-    # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
     - edsoncelio
     - femrtnz
@@ -191,6 +191,7 @@ aliases:
     - devlware
     - jhonmike
     - rikatz
+    - stormqueen1990
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - edsoncelio
@@ -200,6 +201,7 @@ aliases:
     - devlware
     - jhonmike
     - rikatz
+    - stormqueen1990
     - yagonobre
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
@@ -241,10 +243,10 @@ aliases:
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - cblecker
-    - dims
+    - bentheelder
     - justaugustus
-    - liggitt
     - mrbobbytables
+    - palnabarun
     - parispittman
     - tpepper
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES

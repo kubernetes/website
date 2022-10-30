@@ -66,7 +66,7 @@ IngressSpec describes the Ingress the user wishes to exist.
 
 - **ingressClassName** (string)
 
-  IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
+  IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
 
 - **rules** ([]IngressRule)
 
@@ -109,13 +109,18 @@ IngressSpec describes the Ingress the user wishes to exist.
 
       - **rules.http.paths.pathType** (string), required
 
-        PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+        PathType determines the interpretation of the Path matching. PathType can be one of the following values: 
+
+        * Exact: Matches the URL path exactly.
+ 
+        * Prefix: Matches based on a URL path prefix split by '/'. Matching is
           done on a path element by element basis. A path element refers is the
           list of labels in the path split by the '/' separator. A request is a
           match for path p if every p is an element-wise prefix of p of the
           request path. Note that if the last element of the path is a substring
           of the last element in request path, it is not a match (e.g. /foo/bar
           matches /foo/bar/baz, but does not match /foo/barbaz).
+
         * ImplementationSpecific: Interpretation of the Path matching is up to
           the IngressClass. Implementations can treat this as a separate PathType
           or treat it identically to Prefix or Exact path types.

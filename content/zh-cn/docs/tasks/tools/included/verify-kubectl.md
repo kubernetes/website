@@ -22,7 +22,7 @@ By default, kubectl configuration is located at `~/.kube/config`.
 Check that kubectl is properly configured by getting the cluster state:
  -->
 为了让 kubectl 能发现并访问 Kubernetes 集群，你需要一个
-[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)，
+[kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)，
 该文件在
 [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
 创建集群时，或成功部署一个 Miniube 集群时，均会自动生成。

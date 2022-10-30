@@ -2,6 +2,7 @@
 layout: blog
 title: 'Kubernetes 中的拓扑感知数据卷供应'
 date: 2018-10-11
+slug: topology-aware-volume-provisioning-in-kubernetes
 ---
 <!--
 layout: blog

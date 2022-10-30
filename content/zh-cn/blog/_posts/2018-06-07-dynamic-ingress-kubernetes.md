@@ -1,15 +1,15 @@
 ---
-title: 'Kubernetes 内的动态 Ingress'
+title: 'Kubernetes 的动态 Ingress'
+date: 2018-06-07
 layout: blog
+Author: Richard Li (Datawire)
+slug: dynamic-ingress-in-kubernetes
 ---
-
 <!--
 title: Dynamic Ingress in Kubernetes
 date:  2018-06-07
 Author: Richard Li (Datawire)
 -->
-
-作者: Richard Li (Datawire)
 
 <!--
 Kubernetes makes it easy to deploy applications that consist of many microservices, but one of the key challenges with this type of architecture is dynamically routing ingress traffic to each of these services.  One approach is Ambassador, a Kubernetes-native open source API Gateway built on the Envoy Proxy. Ambassador is designed for dynamic environment where services may come and go frequently.

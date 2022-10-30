@@ -115,7 +115,7 @@ command, `kubeadm join phase` allows you to skip a list of phases using the `--s
 
 For example:
 -->
-类似于 [kubeadm init phase](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases) 命令，
+类似于 [kubeadm init phase](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases) 命令，
 `kubeadm join phase` 允许你使用 `--skip-phases` 标志跳过阶段列表。
 
 例如：
@@ -310,7 +310,7 @@ In case the discovery file does not contain credentials, the TLS discovery token
 这种方案提供了一种带外方式在控制平面节点和引导节点之间建立信任根。
 如果使用 kubeadm 构建自动配置，请考虑使用此模式。
 发现文件的格式为常规的 Kubernetes
-[kubeconfig](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 文件。
+[kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 文件。
 
 如果发现文件不包含凭据，则将使用 TLS 发现令牌。
 
@@ -389,46 +389,63 @@ After that, `kubeadm join` will block until the admin has manually approved the 
 -->
 关闭后，`kubeadm join` 操作将会被阻塞，直到管理员已经手动批准了在途中的 CSR 才会继续：
 
-```shell
-kubectl get csr
-```
+<!--
+1. Using `kubectl get csr`, you can see that the original CSR is in the Pending state.
+-->
+1. 使用 `kubectl get csr`，你可以看到原来的 CSR 处于 Pending 状态。
+
+   ```shell
+   kubectl get csr
+   ```
+
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
+   
+   ```
+   NAME                                                   AGE       REQUESTOR                 CONDITION
+   node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
+   ```
 
 <!--
-The output is similar to this:
+2. `kubectl certificate approve` allows the admin to approve CSR. This action tells a certificate signing
+  controller to issue a certificate to the requestor with the attributes requested in the CSR.
 -->
-输出类似于：
+2. `kubectl certificate approve` 允许管理员批准 CSR。
+   此操作告知证书签名控制器向请求者颁发一个证书，该证书具有 CSR 中所请求的那些属性。
 
-```
-NAME                                                   AGE       REQUESTOR                 CONDITION
-node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
-```
+   ```shell
+   kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
+   ```
 
-```shell
-kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
-```
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
+
+   ```
+   certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
+   ```
 
 <!--
-The output is similar to this:
+3. This would change the CRS resource to Active state.
 -->
-输出类似于：
+3. 这会将 CRS 资源更改为 Active 状态。
 
-```
-certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
-```
+   ```shell
+   kubectl get csr
+   ```
 
-```shell
-kubectl get csr
-```
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
 
-<!--
-The output is similar to this:
--->
-输出类似于：
-
-```
-NAME                                                   AGE       REQUESTOR                 CONDITION
-node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
-```
+   ```
+   NAME                                                   AGE       REQUESTOR                 CONDITION
+   node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
+   ```
 
 <!--
 This forces the workflow that `kubeadm join` will only succeed if `kubectl certificate approve` has been run.
@@ -436,9 +453,9 @@ This forces the workflow that `kubeadm join` will only succeed if `kubectl certi
 这迫使工作流只有在运行了 `kubectl certificate approve` 后，`kubeadm join` 才能成功。
 
 <!--
-#### Turning off public access to the cluster-info ConfigMap
+#### Turning off public access to the `cluster-info` ConfigMap
 -->
-#### 关闭对集群信息 ConfigMap 的公开访问 {#turning-off-public-access-to-the-cluster-info-configmap}
+#### 关闭对 `cluster-info` ConfigMap 的公开访问 {#turning-off-public-access-to-the-cluster-info-configmap}
 
 <!--
 In order to achieve the joining flow using the token as the only piece of validation information, a
@@ -466,7 +483,7 @@ The output is similar to this:
 -->
 输出类似于：
 
-```
+```yaml
 apiVersion: v1
 kind: Config
 clusters:
@@ -524,16 +541,16 @@ allowed in some cases.
 
 <!--
 The default configuration can be printed out using the
-[kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+[kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-print) command.
 
 If your configuration is not using the latest version it is **recommended** that you migrate using
-the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate) command.
 -->
-使用 [kubeadm config print](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
+使用 [kubeadm config print](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-print)
 命令可以打印默认配置。
 
 如果你的配置没有使用最新版本，
-**推荐**使用 [kubeadm config migrate](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
+**推荐**使用 [kubeadm config migrate](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate)
 命令转换。
 
 <!--
@@ -541,20 +558,19 @@ For more information on the fields and usage of the configuration you can naviga
 [API reference](/docs/reference/config-api/kubeadm-config.v1beta3/).
 -->
 有关配置的字段和用法的更多信息，你可以导航到我们的
-[API 参考页](/zh/docs/reference/config-api/kubeadm-config.v1beta3/)。
-
+[API 参考页](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
-* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node.
+* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`.
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`.
 -->
-* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/)
-  初始化 Kubernetes 控制平面节点
-* [kubeadm token](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token/)
-  管理 `kubeadm join` 的令牌
-* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
-  将 `kubeadm init` 或 `kubeadm join` 对主机的更改恢复到之前状态
+* [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+  初始化 Kubernetes 控制平面节点。
+* [kubeadm token](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-token/)
+  管理 `kubeadm join` 的令牌。
+* [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
+  将 `kubeadm init` 或 `kubeadm join` 对主机的更改恢复到之前状态。
 

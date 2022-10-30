@@ -37,7 +37,7 @@ up finished Jobs (either `Complete` or `Failed`) automatically by specifying the
 
 TTL-after-finished 控制器只支持 Job。集群操作员可以通过指定 Job 的 `.spec.ttlSecondsAfterFinished`
 字段来自动清理已结束的作业（`Complete` 或 `Failed`），如
-[示例](/zh/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
+[示例](/zh-cn/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 所示。
 
 <!--
@@ -72,9 +72,9 @@ The TTL seconds can be set at any time. Here are some examples for setting the
 -->
 * 在作业清单（manifest）中指定此字段，以便 Job 在完成后的某个时间被自动清除。
 * 将此字段设置为现有的、已完成的作业，以采用此新功能。
-* 在创建作业时使用 [mutating admission webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+* 在创建作业时使用 [mutating admission webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
   动态设置该字段。集群管理员可以使用它对完成的作业强制执行 TTL 策略。
-* 使用 [mutating admission webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+* 使用 [mutating admission webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
   在作业完成后动态设置该字段，并根据作业状态、标签等选择不同的 TTL 值。
 
 <!--
@@ -123,6 +123,6 @@ very small. Please be aware of this risk when setting a non-zero TTL.
 * [Clean up Jobs automatically](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
 * [Design doc](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/592-ttl-after-finish/README.md)
 -->
-* [自动清理 Job](/zh/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
+* [自动清理 Job](/zh-cn/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 * [设计文档](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/592-ttl-after-finish/README.md)
 

@@ -94,7 +94,7 @@ To generate CronJob schedule expressions, you can also use web tools like [cront
 ## Time zones
 For CronJobs with no time zone specified, the kube-controller-manager interprets schedules relative to its local time zone.
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
 If you enable the  `CronJobTimeZone` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 you can specify a time zone for a CronJob (if you don't enable that feature gate, or if you are using a version of

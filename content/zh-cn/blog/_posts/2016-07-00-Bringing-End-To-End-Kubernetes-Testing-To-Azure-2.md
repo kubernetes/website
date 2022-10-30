@@ -1,16 +1,13 @@
 ---
-题目: " 将端到端的 Kubernetes 测试引入 Azure （第二部分） "
-日期: 2016-07-18
+title: " 将端到端的 Kubernetes 测试引入 Azure （第二部分） "
+date: 2016-07-18
 slug: bringing-end-to-end-kubernetes-testing-to-azure-2
-url: /zh/blog/2016/07/Bringing-End-To-End-Kubernetes-Testing-To-Azure-2
 ---
 <!--
----
 title: " Bringing End-to-End Kubernetes Testing to Azure (Part 2) "
 date: 2016-07-18
 slug: bringing-end-to-end-kubernetes-testing-to-azure-2
-url: /zh/blog/2016/07/Bringing-End-To-End-Kubernetes-Testing-To-Azure-2
----
+url: /blog/2016/07/Bringing-End-To-End-Kubernetes-Testing-To-Azure-2
 -->
 
 <!--

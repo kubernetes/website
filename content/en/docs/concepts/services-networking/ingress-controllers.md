@@ -1,8 +1,12 @@
 ---
 title: Ingress Controllers
-reviewers:
+description: >-
+  In order for an [Ingress](/docs/concepts/services-networking/ingress/) to work in your cluster,
+  there must be an _ingress controller_ running.
+  You need to select at least one ingress controller and make sure it is set up in your cluster.  
+  This page lists common ingress controllers that you can deploy.
 content_type: concept
-weight: 40
+weight: 30
 ---
 
 <!-- overview -->
@@ -46,6 +50,7 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
   is an [Istio](https://istio.io/) based ingress controller.
 * The [Kong Ingress Controller for Kubernetes](https://github.com/Kong/kubernetes-ingress-controller#readme)
   is an ingress controller driving [Kong Gateway](https://konghq.com/kong/).
+* [Kusk Gateway](https://kusk.kubeshop.io/) is an OpenAPI-driven ingress controller based on [Envoy](https://www.envoyproxy.io).
 * The [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx-ingress-controller/)
   works with the [NGINX](https://www.nginx.com/resources/glossary/nginx/) webserver (as a proxy).
 * The [Pomerium Ingress Controller](https://www.pomerium.com/docs/k8s/ingress.html) is based on [Pomerium](https://pomerium.com/), which offers context-aware access policy.

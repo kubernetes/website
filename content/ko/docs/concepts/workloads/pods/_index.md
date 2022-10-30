@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - erictune
 title: 파드
 content_type: concept
 weight: 10
@@ -180,7 +180,7 @@ spec:
     spec:
       containers:
       - name: hello
-        image: busybox
+        image: busybox:1.28
         command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
       restartPolicy: OnFailure
     # 여기까지 파드 템플릿이다
@@ -251,20 +251,19 @@ spec:
 
 ### 파드 네트워킹
 
-각 파드에는 각 주소 패밀리에 대해 고유한 IP 주소가 할당된다. 파드의
-모든 컨테이너는 IP 주소와 네트워크 포트를 포함하여 네트워크 네임스페이스를
-공유한다. 파드 내부(그때 **만** 해당)에서, 파드에 속한
-컨테이너는 `localhost` 를 사용하여 서로 통신할 수 있다. 파드의 컨테이너가
-*파드 외부의* 엔티티와 통신할 때,
-공유 네트워크 리소스(포트와 같은)를 사용하는 방법을 조정해야 한다.
-파드 내에서 컨테이너는 IP 주소와 포트 공간을 공유하며,
-`localhost` 를 통해 서로를 찾을 수 있다. 파드의 컨테이너는 SystemV 세마포어 또는
-POSIX 공유 메모리와 같은 표준 프로세스 간 통신을 사용하여 서로
-통신할 수도 있다. 다른 파드의 컨테이너는
-고유한 IP 주소를 가지며
-[특별한 구성](/ko/docs/concepts/policy/pod-security-policy/) 없이 IPC로 통신할 수 없다.
-다른 파드에서 실행되는 컨테이너와 상호 작용하려는 컨테이너는 IP 네트워킹을
-사용하여 통신할 수 있다.
+각 파드에는 각 주소 패밀리에 대해 고유한 IP 주소가 할당된다. 
+파드의 모든 컨테이너는 네트워크 네임스페이스를 공유하며, 
+여기에는 IP 주소와 네트워크 포트가 포함된다. 
+파드 내부(이 경우에 **만** 해당)에서, 파드에 속한 컨테이너는 
+`localhost` 를 사용하여 서로 통신할 수 있다. 
+파드의 컨테이너가 *파드 외부의* 엔티티와 통신할 때, 
+공유 네트워크 리소스(포트와 같은)를 사용하는 방법을 조정해야 한다. 
+파드 내에서 컨테이너는 IP 주소와 포트 공간을 공유하며, 
+`localhost` 를 통해 서로를 찾을 수 있다. 
+파드의 컨테이너는 SystemV 세마포어 또는 POSIX 공유 메모리와 같은 
+표준 프로세스 간 통신을 사용하여 서로 통신할 수도 있다. 
+다른 파드의 컨테이너는 고유한 IP 주소를 가지며 특별한 구성 없이 OS 수준의 IPC로 통신할 수 없다. 
+다른 파드에서 실행되는 컨테이너와 상호 작용하려는 컨테이너는 IP 네트워킹을 사용하여 통신할 수 있다.
 
 파드 내의 컨테이너는 시스템 호스트명이 파드에 대해 구성된
 `name` 과 동일한 것으로 간주한다. [네트워킹](/ko/docs/concepts/cluster-administration/networking/) 섹션에 이에 대한
@@ -321,12 +320,12 @@ _프로브_는 컨테이너의 kubelet에 의해 주기적으로 실행되는 �
 * [파드의 라이프사이클](/ko/docs/concepts/workloads/pods/pod-lifecycle/)에 대해 알아본다.
 * [런타임클래스(RuntimeClass)](/ko/docs/concepts/containers/runtime-class/)와 이를 사용하여
   다양한 컨테이너 런타임 구성으로 다양한 파드를 설정하는 방법에 대해 알아본다.
-* [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)에 대해 읽어본다.
 * [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과 이를 사용하여 서비스 중단 중에 애플리케이션 가용성을 관리하는 방법에 대해 읽어본다.
 * 파드는 쿠버네티스 REST API의 최상위 리소스이다.
   {{< api-reference page="workload-resources/pod-v1" >}}
   오브젝트 정의는 오브젝트를 상세히 설명한다.
 * [분산 시스템 툴킷: 컴포지트 컨테이너에 대한 패턴](/blog/2015/06/the-distributed-system-toolkit-patterns/)은 둘 이상의 컨테이너가 있는 파드의 일반적인 레이아웃을 설명한다.
+* [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)에 대해 읽어본다.
 
 쿠버네티스가 다른 리소스({{< glossary_tooltip text="스테이트풀셋" term_id="statefulset" >}}이나 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}}와 같은)에서 공통 파드 API를 래핑하는 이유에 대한 콘텍스트를 이해하기 위해서, 다음과 같은 선행 기술에 대해 읽어볼 수 있다.
 

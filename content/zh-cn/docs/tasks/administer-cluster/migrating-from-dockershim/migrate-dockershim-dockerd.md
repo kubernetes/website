@@ -31,7 +31,7 @@ To learn more about the removal of dockershim, read the [FAQ page](/dockershim).
 * 你希望升级到 Kubernetes v{{< skew currentVersion >}} 且你的现有集群依赖于 dockershim，
   因此你必须放弃 dockershim，而 `cri-dockerd` 是你的一种选项。
 
-要进一步了解 dockershim 的移除，请阅读 [FAQ 页面](/zh/dockershim)。
+要进一步了解 dockershim 的移除，请阅读 [FAQ 页面](/zh-cn/dockershim)。
 
 <!--
 ## What is cri-dockerd? {#what-is-cri-dockerd}
@@ -57,7 +57,7 @@ If you already use `cri-dockerd`, you aren't affected by the dockershim removal.
 Before you begin, [Check whether your nodes use the dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/).
 -->
 如果你已经在使用 `cri-dockerd`，那么你不会被 dockershim 的移除影响到。
-在开始之前，[检查你的节点是否在使用 dockershim](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)。
+在开始之前，[检查你的节点是否在使用 dockershim](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)。
 {{</note>}}
 
 <!--
@@ -99,7 +99,7 @@ to `cri-dockerd`.
 -->
 * 安装了 [`cri-dockerd`](https://github.com/mirantis/cri-dockerd#build-and-install)
   并且该服务已经在各节点上启动；
-* 一个[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
+* 一个[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
 
 <!--
 ## Cordon and drain the node
@@ -122,7 +122,7 @@ to `cri-dockerd`.
    将 `<NODE_NAME>` 替换为节点名称。
 
 <!--
-1.  Drain the node to safely evict running Pods: 
+1.  Drain the node to safely evict running Pods:
 -->
 2. 腾空节点以安全地逐出所有运行中的 Pod：
 
@@ -186,8 +186,7 @@ kubeadm 工具将节点上的套接字存储为控制面上 `Node` 对象的注�
 
 1. 将 `kubeadm.alpha.kubernetes.io/cri-socket` 标志从
    `/var/run/dockershim.sock` 更改为 `unix:///var/run/cri-dockerd.sock`；
-1. 保存所作更改。保存时，`Node` 对象被更新
-
+1. 保存所作更改。保存时，`Node` 对象被更新。
 
 <!--
 ## Restart the kubelet
@@ -208,7 +207,7 @@ The `--container-runtime-endpoint` flag for the kubelet should be `unix:///var/r
 ## 验证节点处于健康状态   {#verify-that-the-node-is-healthy}
 
 要检查节点是否在使用 `cri-dockerd` 端点，
-按照[找出你所使用的运行时](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)页面所给的指令操作。
+按照[找出你所使用的运行时](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)页面所给的指令操作。
 kubelet 的 `--container-runtime-endpoint` 标志取值应该是 `unix:///var/run/cri-dockerd.sock`。
 
 <!--
@@ -228,6 +227,6 @@ kubectl uncordon <NODE_NAME>
 *   Read the [dockershim removal FAQ](/dockershim/).
 *   [Learn how to migrate from Docker Engine with dockershim to containerd](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/).
 -->
-* 阅读 [dockershim 移除常见问题](/zh/dockershim)。
-* [了解如何从基于 dockershim 的 Docker Engine 迁移到 containerd](/zh/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)。
+* 阅读 [移除 Dockershim 的常见问题](/zh-cn/dockershim)。
+* [了解如何从基于 dockershim 的 Docker Engine 迁移到 containerd](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)。
 
