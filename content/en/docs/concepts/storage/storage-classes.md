@@ -6,7 +6,7 @@ reviewers:
 - msau42
 title: Storage Classes
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->

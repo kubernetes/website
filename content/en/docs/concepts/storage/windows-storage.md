@@ -8,6 +8,7 @@ reviewers:
 - aravindhp
 title: Windows Storage
 content_type: concept
+weight: 110
 ---
 
 <!-- overview -->
