@@ -5,22 +5,22 @@ import click
 from googletrans import Translator  # https://github.com/ssut/py-googletrans
 
 SKIP_PREFIXES = [
-    "<!--",
     "## {{% heading",
-    "{{< feature-state",
-    "{{< comment",
+    "<!--",
+    "</table>",
+    "<table>",
+    "{{% thirdparty",
+    "{{< /caution",
     "{{< /comment",
+    "{{< /note",
+    "{{< /table",
+    "{{< caution",
+    "{{< codenew",
+    "{{< comment",
+    "{{< feature-state",
     "{{< glossary_definition",
     "{{< note",
-    "{{< /note",
-    "{{< caution",
-    "{{< /caution",
     "{{< table",
-    "{{< /table",
-    "{{% thirdparty",
-    "{{< codenew",
-    "<table>",
-    "</table>",
 ]
 
 @click.command()
