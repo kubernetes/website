@@ -22,12 +22,13 @@ and different versions of Kubernetes itself.
 Key:
 
 * `✓` Exactly the same features / API objects in both device plugin API and
-   the Kubernetes version.
-* `+` device plugin API has features or API objects that may not be present in the
-  Kubernetes cluster, either due to that device plugin API has additional new API, or
-  that the server has removed old API. However, everything they have in
+   the Kubernetes
+  version.
+* `+` The device plugin API has features or API objects that may not be present in the
+  Kubernetes cluster, either because the device plugin API has added additional new API
+  calls, or that the server has removed an old API call. However, everything they have in
   common (most other APIs) will work. Note that alpha APIs may vanish or
   change significantly between one minor release and the next.
 * `-` The Kubernetes cluster has features the device plugin API can't use,
-  either due to the server has additional new API, or that device plugin API has
-  removed old API. However, everything they share in common (most APIs) will work.
+  either because server has added additional API calls, or that device plugin API has
+  removed an old API call. However, everything they share in common (most APIs) will work.
