@@ -94,9 +94,9 @@ Pod (unchanged), but with a revised `apiVersion`.
 
 ### Device Plugins
 
-If your cluster is running device plugins and the node needs to been upgraded to a Kubernetes
+If your cluster is running device plugins and the node needs to be upgraded to a Kubernetes
 release with a newer device plugin API version, device plugins must be upgraded to support
-both version before node is upgraded for continuous functioning of the device allocations
-during the upgrade.
+both version before the node is upgraded in order to guarantee that device allocations
+continue to complete successfully during the upgrade.
 
 Refer to [API compatiblity](docs/concepts/extend-kubernetes/compute-storage-net/device-plugins.md/#api-compatibility) and [Kubelet Device Manager API Versions](docs/reference/node/device-plugin-api-versions.md) for more details.

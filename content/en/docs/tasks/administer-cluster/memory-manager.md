@@ -459,7 +459,7 @@ by using `--reserved-memory` flag.
 
 ### Device plugin resource API
 
-Kubelet provides a `PodResourceLister` gRPC service to enable discovery of resources and associated metadata.
+The kubelet provides a `PodResourceLister` gRPC service to enable discovery of resources and associated metadata.
 By using its [List gRPC endpoint](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#grpc-endpoint-list),
 information about reserved memory for each container can be retrieved, which is contained
 in protobuf `ContainerMemory` message.
