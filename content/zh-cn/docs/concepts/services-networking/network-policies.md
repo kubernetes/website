@@ -558,7 +558,7 @@ As of Kubernetes {{< skew currentVersion >}}, the following functionality does n
 - The ability to explicitly deny policies (currently the model for NetworkPolicies are deny by default, with only the ability to add allow rules).
 - The ability to prevent loopback or incoming host traffic (Pods cannot currently block localhost access, nor do they have the ability to block access from their resident node).
 -->
-- 实现适用于所有名字空间或 Pods 的默认策略（某些第三方 Kubernetes 发行版本或项目可以做到这点）；
+- 实现适用于所有命名空间或 Pods 的默认策略（某些第三方 Kubernetes 发行版本或项目可以做到这点）；
 - 高级的策略查询或者可达性相关工具；
 - 生成网络安全事件日志的能力（例如，被阻塞或接收的连接请求）；
 - 显式地拒绝策略的能力（目前，NetworkPolicy 的模型默认采用拒绝操作，
