@@ -37,14 +37,6 @@ The resources will be created in the order they appear in the file. Therefore, i
 kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 ```
 
-And a directory can be specified rather than or in addition to individual files:
-
-```shell
-kubectl apply -f https://k8s.io/examples/application/nginx/
-```
-
-`kubectl` will read any files with suffixes `.yaml`, `.yml`, or `.json`.
-
 It is a recommended practice to put resources related to the same microservice or application tier into the same file, and to group all of the files associated with your application in the same directory. If the tiers of your application bind to each other using DNS, you can deploy all of the components of your stack together.
 
 A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into GitHub:
