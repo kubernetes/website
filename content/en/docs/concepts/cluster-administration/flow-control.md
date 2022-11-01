@@ -542,28 +542,6 @@ poorly-behaved workloads that may be harming system health.
   holding the instantaneous number of occupied seats, broken down by
   the labels `priority_level` and `flow_schema`.
 
-* `apiserver_flowcontrol_priority_level_request_count_samples` is a
-  histogram vector of observations of the then-current number of
-  requests broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `priority_level`.  Each
-  histogram gets observations taken periodically, up through the last
-  activity of the relevant sort.  The observations are made at a high
-  rate.  Each observed value is a ratio, between 0 and 1, of a number
-  of requests divided by the corresponding limit on the number of
-  requests (queue length limit for waiting and concurrency limit for
-  executing).
-
-* `apiserver_flowcontrol_priority_level_request_count_watermarks` is a
-  histogram vector of high or low water marks of the number of
-  requests (divided by the corresponding limit to get a ratio in the
-  range 0 to 1) broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `priority_level`; the label
-  `mark` takes on values `high` and `low`.  The water marks are
-  accumulated over windows bounded by the times when an observation
-  was added to
-  `apiserver_flowcontrol_priority_level_request_count_samples`.  These
-  water marks show the range of values that occurred between samples.
-
 * `apiserver_flowcontrol_priority_level_seat_count_samples` is a
   histogram vector of observations of the utilization of a priority
   level's concurrency limit, broken down by `priority_level`.  This
