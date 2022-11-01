@@ -1242,7 +1242,7 @@ The following in-tree plugins support persistent storage on Windows nodes:
 * [`gcePersistentDisk`](#gcepersistentdisk)
 * [`vsphereVolume`](#vspherevolume)
 
-### flexVolume (deprecated)
+### flexVolume (deprecated)   {#flexvolume}
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
