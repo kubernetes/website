@@ -6,14 +6,14 @@ description: >-
 ---
 
 
-## Metrics (auto-generated 2022 Oct 27)
+## Metrics (auto-generated 2022 Nov 01)
 
 This page details the metrics that different Kubernetes components export. You can query the metrics endpoint for these 
-components using an HTTP scrape, and fetch the metrics in Prometheus format.
+components using an HTTP scrape, and fetch the current metrics data in Prometheus format.
 
 ### List of Stable Kubernetes Metrics
 
-<table class="table" caption="This is the list of STABLE metrics emitted from core Kubernetes components">
+<table class="table metrics" caption="This is the list of STABLE metrics emitted from core Kubernetes components">
 <thead>
 	<tr>
 		<th class="metric_name">Name</th>
@@ -151,7 +151,7 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 
 ### List of Alpha Kubernetes Metrics
 
-<table class="table" caption="This is the list of STABLE metrics emitted from core Kubernetes components">
+<table class="table metrics" caption="This is the list of ALPHA metrics emitted from core Kubernetes components">
 <thead>
 	<tr>
 		<th class="metric_name">Name</th>
@@ -175,6 +175,12 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_type" data-type="gauge">Gauge</td>
 <td class="metric_description">Gauge of OpenAPI v2 spec regeneration duration in seconds.</td>
 <td class="metric_labels_varying"><div class="metric_label">reason</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">aggregator_unavailable_apiservice</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Gauge of APIServices which are marked as unavailable broken down by APIService name.</td>
+<td class="metric_labels_varying"><div class="metric_label">name</div></td>
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">aggregator_unavailable_apiservice_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
@@ -406,19 +412,19 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">apiserver_flowcontrol_priority_level_request_utilization</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type=""></td>
+<td class="metric_type" data-type="timingratiohistogram">TimingRatioHistogram</td>
 <td class="metric_description">Observations, at the end of every nanosecond, of number of requests (as a fraction of the relevant limit) waiting or in any stage of execution (but only initial stage for WATCHes)</td>
 <td class="metric_labels_varying"><div class="metric_label">phase</div><div class="metric_label">priority_level</div></td>
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">apiserver_flowcontrol_priority_level_seat_utilization</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type=""></td>
+<td class="metric_type" data-type="timingratiohistogram">TimingRatioHistogram</td>
 <td class="metric_description">Observations, at the end of every nanosecond, of utilization of seats for any stage of execution (but only initial stage for WATCHes)</td>
 <td class="metric_labels_varying"><div class="metric_label">priority_level</div></td>
 <td class="metric_labels_constant">map[phase:executing]</td></tr>
 <tr class="metric"><td class="metric_name">apiserver_flowcontrol_read_vs_write_current_requests</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type=""></td>
+<td class="metric_type" data-type="timingratiohistogram">TimingRatioHistogram</td>
 <td class="metric_description">Observations, at the end of every nanosecond, of the number of requests (as a fraction of the relevant limit) waiting or in regular stage of execution</td>
 <td class="metric_labels_varying"><div class="metric_label">phase</div><div class="metric_label">request_kind</div></td>
 <td class="metric_labels_constant">None</td></tr>
@@ -554,6 +560,12 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_description">Total number of failed data encryption key(DEK) generation operations.</td>
 <td class="metric_labels_varying">None</td>
 <td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">apiserver_storage_db_total_size_in_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="gauge">Gauge</td>
+<td class="metric_description">Total size of the storage database file physically allocated in bytes.</td>
+<td class="metric_labels_varying"><div class="metric_label">endpoint</div></td>
+<td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">apiserver_storage_envelope_transformation_cache_misses_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
@@ -608,6 +620,24 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_description">Number of requests dropped with 'TLS handshake error from' error</td>
 <td class="metric_labels_varying">None</td>
 <td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">apiserver_validating_admission_policy_check_duration_seconds</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="histogram">Histogram</td>
+<td class="metric_description">Validation admission latency for individual validation expressions in seconds, labeled by policy and param resource, further including binding, state and enforcement action taken.</td>
+<td class="metric_labels_varying"><div class="metric_label">enforcement_action</div><div class="metric_label">params</div><div class="metric_label">policy</div><div class="metric_label">policy_binding</div><div class="metric_label">state</div><div class="metric_label">validation_expression</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">apiserver_validating_admission_policy_check_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Validation admission policy check total, labeled by policy and param resource, and further identified by binding, validation expression, enforcement action taken, and state.</td>
+<td class="metric_labels_varying"><div class="metric_label">enforcement_action</div><div class="metric_label">params</div><div class="metric_label">policy</div><div class="metric_label">policy_binding</div><div class="metric_label">state</div><div class="metric_label">validation_expression</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">apiserver_validating_admission_policy_definition_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Validation admission policy count total, labeled by state and enforcement action.</td>
+<td class="metric_labels_varying"><div class="metric_label">enforcement_action</div><div class="metric_label">state</div></td>
+<td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">apiserver_watch_cache_events_dispatched_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
@@ -649,6 +679,12 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_type" data-type="counter">Counter</td>
 <td class="metric_description">Number of times the A/D Controller performed a forced detach</td>
 <td class="metric_labels_varying">None</td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">attachdetach_controller_total_volumes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Number of volumes in A/D Controller</td>
+<td class="metric_labels_varying"><div class="metric_label">plugin_name</div><div class="metric_label">state</div></td>
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">authenticated_user_requests</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
@@ -782,6 +818,30 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_description">vsphere operation errors</td>
 <td class="metric_labels_varying"><div class="metric_label">operation</div></td>
 <td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">cloudprovider_vsphere_vcenter_versions</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Versions for connected vSphere vCenters</td>
+<td class="metric_labels_varying"><div class="metric_label">hostname</div><div class="metric_label">version</div><div class="metric_label">build</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">container_cpu_usage_seconds_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Cumulative cpu time consumed by the container in core-seconds</td>
+<td class="metric_labels_varying"><div class="metric_label">container</div><div class="metric_label">pod</div><div class="metric_label">namespace</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">container_memory_working_set_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Current working set of the container in bytes</td>
+<td class="metric_labels_varying"><div class="metric_label">container</div><div class="metric_label">pod</div><div class="metric_label">namespace</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">container_start_time_seconds</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Start time of the container since unix epoch in seconds</td>
+<td class="metric_labels_varying"><div class="metric_label">container</div><div class="metric_label">pod</div><div class="metric_label">namespace</div></td>
+<td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">cronjob_controller_cronjob_job_creation_skew_duration_seconds</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="histogram">Histogram</td>
@@ -914,12 +974,6 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_description">Number of etcd bookmarks (progress notify events) split by kind.</td>
 <td class="metric_labels_varying"><div class="metric_label">resource</div></td>
 <td class="metric_labels_constant">None</td></tr>
-<tr class="metric"><td class="metric_name">etcd_db_total_size_in_bytes</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="gauge">Gauge</td>
-<td class="metric_description">Total size of the etcd database file physically allocated in bytes.</td>
-<td class="metric_labels_varying"><div class="metric_label">endpoint</div></td>
-<td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">etcd_lease_object_counts</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="histogram">Histogram</td>
@@ -966,7 +1020,7 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
 <td class="metric_description">The number of finished job</td>
-<td class="metric_labels_varying"><div class="metric_label">completion_mode</div><div class="metric_label">result</div></td>
+<td class="metric_labels_varying"><div class="metric_label">completion_mode</div><div class="metric_label">reason</div><div class="metric_label">result</div></td>
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">job_controller_job_pods_finished_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
@@ -985,6 +1039,12 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_type" data-type="counter">Counter</td>
 <td class="metric_description">The number of job syncs</td>
 <td class="metric_labels_varying"><div class="metric_label">action</div><div class="metric_label">completion_mode</div><div class="metric_label">result</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">job_controller_pod_failures_handled_by_failure_policy_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">`The number of failed Pods handled by failure policy with, 			respect to the failure policy action applied based on the matched, 			rule. Possible values of the action label correspond to the, 			possible values for the failure policy rule action, which are:, 			"FailJob", "Ignore" and "Count".`</td>
+<td class="metric_labels_varying"><div class="metric_label">action</div></td>
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">job_controller_terminated_pods_tracking_finalizer_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
@@ -1028,6 +1088,18 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_description">Total number of requests for pods/logs sliced by usage type: enforce_tls, skip_tls_allowed, skip_tls_denied</td>
 <td class="metric_labels_varying"><div class="metric_label">usage</div></td>
 <td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kube_pod_resource_limit</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Resources limit for workloads on the cluster, broken down by pod. This shows the resource usage the scheduler and kubelet expect per pod for resources along with the unit for the resource if any.</td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div><div class="metric_label">pod</div><div class="metric_label">node</div><div class="metric_label">scheduler</div><div class="metric_label">priority</div><div class="metric_label">resource</div><div class="metric_label">unit</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kube_pod_resource_request</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Resources requested by workloads on the cluster, broken down by pod. This shows the resource usage the scheduler and kubelet expect per pod for resources along with the unit for the resource if any.</td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div><div class="metric_label">pod</div><div class="metric_label">node</div><div class="metric_label">scheduler</div><div class="metric_label">priority</div><div class="metric_label">resource</div><div class="metric_label">unit</div></td>
+<td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">kubelet_certificate_manager_client_expiration_renew_errors</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
@@ -1058,10 +1130,28 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_description">Duration in seconds for cgroup manager operations. Broken down by method.</td>
 <td class="metric_labels_varying"><div class="metric_label">operation_type</div></td>
 <td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kubelet_container_log_filesystem_used_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Bytes used by the container's logs on the filesystem.</td>
+<td class="metric_labels_varying"><div class="metric_label">uid</div><div class="metric_label">namespace</div><div class="metric_label">pod</div><div class="metric_label">container</div></td>
+<td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">kubelet_containers_per_pod_count</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="histogram">Histogram</td>
 <td class="metric_description">The number of containers per pod.</td>
+<td class="metric_labels_varying">None</td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kubelet_cpu_manager_pinning_errors_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">The number of cpu core allocations which required pinning failed.</td>
+<td class="metric_labels_varying">None</td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kubelet_cpu_manager_pinning_requests_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">The number of cpu core allocations which required pinning.</td>
 <td class="metric_labels_varying">None</td>
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">kubelet_device_plugin_alloc_duration_seconds</td>
@@ -1322,6 +1412,48 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_description">Duration in seconds to calculate volume stats</td>
 <td class="metric_labels_varying"><div class="metric_label">metric_source</div></td>
 <td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kubelet_volume_stats_available_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Number of available bytes in the volume</td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div><div class="metric_label">persistentvolumeclaim</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kubelet_volume_stats_capacity_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Capacity in bytes of the volume</td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div><div class="metric_label">persistentvolumeclaim</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kubelet_volume_stats_health_status_abnormal</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Abnormal volume health status. The count is either 1 or 0. 1 indicates the volume is unhealthy, 0 indicates volume is healthy</td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div><div class="metric_label">persistentvolumeclaim</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kubelet_volume_stats_inodes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Maximum number of inodes in the volume</td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div><div class="metric_label">persistentvolumeclaim</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kubelet_volume_stats_inodes_free</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Number of free inodes in the volume</td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div><div class="metric_label">persistentvolumeclaim</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kubelet_volume_stats_inodes_used</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Number of used inodes in the volume</td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div><div class="metric_label">persistentvolumeclaim</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">kubelet_volume_stats_used_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Number of used bytes in the volume</td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div><div class="metric_label">persistentvolumeclaim</div></td>
+<td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">kubeproxy_network_programming_duration_seconds</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="histogram">Histogram</td>
@@ -1448,6 +1580,12 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_description">Gauge measuring number of registered Nodes per zones.</td>
 <td class="metric_labels_varying"><div class="metric_label">zone</div></td>
 <td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">node_cpu_usage_seconds_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Cumulative cpu time consumed by the node in core-seconds</td>
+<td class="metric_labels_varying">None</td>
+<td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">node_ipam_controller_cidrset_allocation_tries_per_request</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="histogram">Histogram</td>
@@ -1496,11 +1634,35 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_description">Gauge measuring percentage of allocated CIDRs.</td>
 <td class="metric_labels_varying"><div class="metric_label">clusterCIDR</div></td>
 <td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">node_memory_working_set_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Current working set of the node in bytes</td>
+<td class="metric_labels_varying">None</td>
+<td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">number_of_l4_ilbs</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="gauge">Gauge</td>
 <td class="metric_description">Number of L4 ILBs</td>
 <td class="metric_labels_varying"><div class="metric_label">feature</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">plugin_manager_total_plugins</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Number of plugins in Plugin Manager</td>
+<td class="metric_labels_varying"><div class="metric_label">socket_path</div><div class="metric_label">state</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">pod_cpu_usage_seconds_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Cumulative cpu time consumed by the pod in core-seconds</td>
+<td class="metric_labels_varying"><div class="metric_label">pod</div><div class="metric_label">namespace</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">pod_memory_working_set_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Current working set of the pod in bytes</td>
+<td class="metric_labels_varying"><div class="metric_label">pod</div><div class="metric_label">namespace</div></td>
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">pod_security_errors_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
@@ -1531,6 +1693,36 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_type" data-type="counter">Counter</td>
 <td class="metric_description">Cumulative number of a liveness, readiness or startup probe for a container by result.</td>
 <td class="metric_labels_varying"><div class="metric_label">container</div><div class="metric_label">namespace</div><div class="metric_label">pod</div><div class="metric_label">pod_uid</div><div class="metric_label">probe_type</div><div class="metric_label">result</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">pv_collector_bound_pv_count</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Gauge measuring number of persistent volume currently bound</td>
+<td class="metric_labels_varying"><div class="metric_label">storage_class</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">pv_collector_bound_pvc_count</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Gauge measuring number of persistent volume claim currently bound</td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">pv_collector_total_pv_count</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Gauge measuring total number of persistent volumes</td>
+<td class="metric_labels_varying"><div class="metric_label">plugin_name</div><div class="metric_label">volume_mode</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">pv_collector_unbound_pv_count</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Gauge measuring number of persistent volume currently unbound</td>
+<td class="metric_labels_varying"><div class="metric_label">storage_class</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">pv_collector_unbound_pvc_count</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Gauge measuring number of persistent volume claim currently unbound</td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div></td>
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">replicaset_controller_sorting_deletion_age_ratio</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
@@ -1585,6 +1777,18 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_type" data-type="histogram">Histogram</td>
 <td class="metric_description">Response size in bytes. Broken down by verb and host.</td>
 <td class="metric_labels_varying"><div class="metric_label">host</div><div class="metric_label">verb</div></td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">retroactive_storageclass_errors_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Total number of failed retroactive StorageClass assignments to persistent volume claim</td>
+<td class="metric_labels_varying">None</td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">retroactive_storageclass_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Total number of retroactive StorageClass assignments to persistent volume claim</td>
+<td class="metric_labels_varying">None</td>
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">root_ca_cert_publisher_sync_duration_seconds</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
@@ -1664,6 +1868,12 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_description">Volume scheduling stage error count</td>
 <td class="metric_labels_varying"><div class="metric_label">operation</div></td>
 <td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">scrape_error</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">1 if there was an error while getting container metrics, 0 otherwise</td>
+<td class="metric_labels_varying">None</td>
+<td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">service_controller_nodesync_latency_seconds</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="histogram">Histogram</td>
@@ -1693,6 +1903,12 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_type" data-type="counter">Counter</td>
 <td class="metric_description">Cumulative valid projected service account tokens used</td>
 <td class="metric_labels_varying">None</td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">storage_count_attachable_volumes_in_use</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Measure number of volumes in use</td>
+<td class="metric_labels_varying"><div class="metric_label">node</div><div class="metric_label">volume_plugin</div></td>
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">storage_operation_duration_seconds</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
@@ -1747,6 +1963,12 @@ components using an HTTP scrape, and fetch the metrics in Prometheus format.
 <td class="metric_type" data-type="gauge">Gauge</td>
 <td class="metric_description">Number of volumes whose SELinux context was fine and will be mounted with mount -o context option.</td>
 <td class="metric_labels_varying">None</td>
+<td class="metric_labels_constant">None</td></tr>
+<tr class="metric"><td class="metric_name">volume_manager_total_volumes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Number of volumes in Volume Manager</td>
+<td class="metric_labels_varying"><div class="metric_label">plugin_name</div><div class="metric_label">state</div></td>
 <td class="metric_labels_constant">None</td></tr>
 <tr class="metric"><td class="metric_name">volume_operation_total_errors</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
