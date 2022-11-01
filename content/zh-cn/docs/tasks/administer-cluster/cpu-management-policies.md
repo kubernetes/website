@@ -115,7 +115,7 @@ gate for each individual option.
 <!--
 ### Changing the CPU Manager Policy
 
-Since the CPU manger policy can only be applied when kubelet spawns new pods, simply changing from
+Since the CPU manager policy can only be applied when kubelet spawns new pods, simply changing from
 "none" to "static" won't apply to existing pods. So in order to properly change the CPU manager
 policy on a node, perform the following steps:
 -->
