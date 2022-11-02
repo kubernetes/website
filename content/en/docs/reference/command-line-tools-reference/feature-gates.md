@@ -228,9 +228,6 @@ different Kubernetes components.
 | `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | 1.19 |
 | `ConfigurableFSGroupPolicy` | `true` | Beta | 1.20 | 1.22 |
 | `ConfigurableFSGroupPolicy` | `true` | GA | 1.23 | - |
-| `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
-| `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | 1.23 |
-| `ControllerManagerLeaderMigration` | `true` | GA | 1.24 | - |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | Beta | 1.11 | 1.20 |
 | `CRIContainerLogRotation` | `true` | GA | 1.21 | - |
@@ -667,12 +664,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for more details.
 - `CheckpointContainer`: Enables the kubelet `checkpoint` API.
   See [Kubelet Checkpoint API](/docs/reference/node/kubelet-checkpoint-api/) for more details.
-- `ControllerManagerLeaderMigration`: Enables Leader Migration for
-  [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and
-  [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager)
-  which allows a cluster operator to live migrate
-  controllers from the kube-controller-manager into an external controller-manager
-  (e.g. the cloud-controller-manager) in an HA cluster without downtime.
 - `CPUManager`: Enable container level CPU affinity support, see
   [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CPUManagerPolicyAlphaOptions`: This allows fine-tuning of CPUManager policies,
@@ -817,8 +808,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for more details.
 - `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
    contextual logging add extra detail to log output.
-- `ControllerManagerLeaderMigration`: Enables leader migration for
-  `kube-controller-manager` and `cloud-controller-manager`.
 - `CronJobControllerV2`: Use an alternative implementation of the
   {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} controller. Otherwise,
   version 1 of the same controller is selected.
