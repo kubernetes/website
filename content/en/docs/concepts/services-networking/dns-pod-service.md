@@ -4,7 +4,7 @@ reviewers:
 - thockin
 title: DNS for Services and Pods
 content_type: concept
-weight: 60
+weight: 80
 description: >-
   Your workload can discover Services within your cluster using DNS;
   this page explains how that works.
