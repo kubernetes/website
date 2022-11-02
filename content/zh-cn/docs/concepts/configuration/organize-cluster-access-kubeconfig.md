@@ -47,7 +47,7 @@ If you must use an untrusted kubeconfig file, inspect it carefully first, much a
 By default, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
 You can specify other kubeconfig files by setting the `KUBECONFIG` environment
 variable or by setting the
-[`-kubeconfig`](/docs/reference/generated/kubectl/kubectl/) flag.
+[`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/) flag.
 -->
 默认情况下，`kubectl` 在 `$HOME/.kube` 目录下查找名为 `config` 的文件。
 你可以通过设置 `KUBECONFIG` 环境变量或者设置
@@ -163,7 +163,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 以下是 `kubectl` 在合并 kubeconfig 文件时使用的规则。
 
 <!--
-1. If the `-kubeconfig` flag is set, use only the specified file. Do not merge.
+1. If the `--kubeconfig` flag is set, use only the specified file. Do not merge.
    Only one instance of this flag is allowed.
 
    Otherwise, if the `KUBECONFIG` environment variable is set, use it as a
@@ -203,7 +203,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 <!--
 1. Determine the context to use based on the first hit in this chain:
 
-    1. Use the `-context` command-line flag if it exists.
+    1. Use the `--context` command-line flag if it exists.
     2. Use the `current-context` from the merged kubeconfig files.
 -->
 1. 根据此链中的第一个匹配确定要使用的上下文。
@@ -288,20 +288,20 @@ kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位
 <!--
 ## Proxy
 
-You can configure `kubectl` to use proxy by setting `proxy-url` in the kubeconfig file, like:
+You can configure `kubectl` to use a proxy per cluster using `proxy-url` in your kubeconfig file, like this:
 -->
 ## 代理
 
-你可以在 `kubeconfig` 文件中设置 `proxy-url` 来为 `kubectl` 使用代理，例如:
+你可以在 `kubeconfig` 文件中，为每个集群配置 `proxy-url` 来让 `kubectl` 使用代理，例如：
 
 ```yaml
 apiVersion: v1
 kind: Config
 
-proxy-url: https://proxy.host:3128
-
 clusters:
 - cluster:
+    proxy-url: http://proxy.example.org:3128
+    server: https://k8s.example.org/k8s/clusters/c-xxyyzz
   name: development
 
 users:
@@ -310,7 +310,6 @@ users:
 contexts:
 - context:
   name: development
-
 ```
 
 ## {{% heading "whatsnext" %}}
@@ -318,6 +317,6 @@ contexts:
 <!--
 * [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
---->
+-->
 * [配置对多集群的访问](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
