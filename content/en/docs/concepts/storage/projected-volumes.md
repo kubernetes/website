@@ -86,8 +86,8 @@ When all containers in a pod have the same `runAsUser` set in their
 [`PodSecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
 or container
 [`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1),
-then the kubelet  ensures that the contents of the `serviceAccountToken` volume are owned by that user,
-and that every file has its permission mode set to `0600`.
+then the kubelet ensures that the contents of the `serviceAccountToken` volume are owned by that user,
+and the token file has its permission mode set to `0600`.
 
 {{< note >}}
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
