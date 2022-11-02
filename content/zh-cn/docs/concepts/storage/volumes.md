@@ -110,9 +110,9 @@ Pod 配置中的每个容器必须独立指定各个卷的挂载位置。
 卷不能挂载到其他卷之上（不过存在一种[使用 subPath](#using-subpath) 的相关机制），也不能与其他卷有硬链接。
 
 <!--
-## Types of Volumes
+## Types of volumes
 
-Kubernetes supports several types of Volumes:
+Kubernetes supports several types of volumes:
 -->
 ## 卷类型  {#volume-types}
 
@@ -2095,9 +2095,9 @@ The following in-tree plugins support persistent storage on Windows nodes:
 * [`vsphereVolume`](#vspherevolume)
 
 <!--
-### flexVolume (deprecated)
+### flexVolume (deprecated)   {#flexvolume}
 -->
-### flexVolume（已弃用）
+### flexVolume（已弃用）  {#flexvolume}
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
