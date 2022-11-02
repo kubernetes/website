@@ -270,6 +270,34 @@ Kubernetes API 服务器（{{<glossary_tooltip text="控制平面" term_id="cont
 如果你想使用标签{{<glossary_tooltip text="选择算符" term_id="selector" >}}定位特定 Namespace，这很有用。
 
 <!--
+### kubernetes.io/limit-ranger
+
+Example: `kubernetes.io/limit-ranger: "LimitRanger plugin set: cpu, memory request for container nginx; cpu, memory limit for container nginx"`
+
+Used on: Pod
+-->
+### kubernetes.io/limit-ranger   {#kubernetes-io-limit-ranger}
+
+例子：`kubernetes.io/limit-ranger: "LimitRanger plugin set: cpu, memory request for container nginx; cpu, memory limit for container nginx"`
+
+用于：Pod
+
+<!--
+Kubernetes by default doesn't provide any resource limit, that means unless you explicitly define limits,
+your container can consume unlimited CPU and memory.
+You can define a default request or default limit for pods. You do this by creating a LimitRange in the relevant namespace.
+Pods deployed after you define a LimitRange will have these limits applied to them.
+The annotation `kubernetes.io/limit-ranger` records that resource defaults were specified for the Pod,
+and they were applied successfully.
+For more details, read about [LimitRanges](/docs/concepts/policy/limit-range).
+-->
+Kubernetes 默认不提供任何资源限制，这意味着除非你明确定义限制，否则你的容器将可以无限消耗 CPU 和内存。
+你可以为 Pod 定义默认请求或默认限制。为此，你可以在相关命名空间中创建一个 LimitRange。
+在你定义 LimitRange 后部署的 Pod 将受到这些限制。
+注解 `kubernetes.io/limit-ranger` 记录了为 Pod 指定的资源默认值，以及成功应用这些默认值。
+有关更多详细信息，请阅读 [LimitRanges](/zh-cn/docs/concepts/policy/limit-range)。
+
+<!--
 ### beta.kubernetes.io/arch (deprecated)
 
 This label has been deprecated. Please use `kubernetes.io/arch` instead.
@@ -793,21 +821,31 @@ The control plane adds this label to an Endpoints object when the owning Service
 <!--
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
-Example: `kubernetes.io/service-name: "nginx"`
+Example: `kubernetes.io/service-name: "my-website"`
 
-Used on: Service
+Used on: EndpointSlice
 
-Kubernetes uses this label to differentiate multiple Services. Used currently for `ELB`(Elastic Load Balancer) only.
+Kubernetes associates [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) with
+[Services](/docs/concepts/services-networking/service/) using this label.
+
+This label records the {{< glossary_tooltip term_id="name" text="name">}} of the
+Service that the EndpointSlice is backing. All EndpointSlices should have this label set to
+the name of their associated Service.
 -->
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
-例子：`kubernetes.io/service-name: "nginx"`
+例子：`kubernetes.io/service-name: "my-website"`
 
-用于：Service
+用于：EndpointSlice
 
-Kubernetes 使用这个标签来区分多个服务。目前仅用于 `ELB` （弹性负载均衡器）。
+Kubernetes 使用这个标签将
+[EndpointSlices](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
+与[服务](/zh-cn/docs/concepts/services-networking/service/)关联。
 
-<!-- 
+这个标签记录了 EndpointSlice 后备服务的{{< glossary_tooltip term_id="name" text="名称">}}。
+所有 EndpointSlice 都应将此标签设置为其关联服务的名称。
+
+<!--
 ### kubernetes.io/service-account.name
 
 Example: `kubernetes.io/service-account.name: "sa-name"`
@@ -1036,7 +1074,9 @@ Example: `endpoints.kubernetes.io/over-capacity:truncated`
 
 Used on: Endpoints
 
-In Kubernetes clusters v1.22 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity and the number of endpoints has been truncated to 1000.
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} adds this annotation to an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object if the associated {{< glossary_tooltip term_id="service" >}} has more than 1000 backing endpoints. The annotation indicates that the Endpoints object is over capacity and the number of endpoints has been truncated to 1000.
+
+If the number of backend endpoints falls below 1000, the control plane removes this annotation.
 -->
 ### endpoints.kubernetes.io/over-capacity {#endpoints-kubernetes-io-over-capacity}
 
@@ -1044,9 +1084,12 @@ In Kubernetes clusters v1.22 (or later), the Endpoints controller adds this anno
 
 用于：Endpoints
 
-在 Kubernetes 集群 v1.22（或更高版本）中，如果 Endpoints 资源超过 1000 个，Endpoints
-控制器会将此注解添加到 Endpoints 资源。
-注解表示 Endpoints 资源已超出容量，并且已将 Endpoints 数截断为 1000。
+如果关联的 {{< glossary_tooltip term_id="service" >}} 有超过 1000 个后备端点，
+则{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}将此注解添加到
+[Endpoints](/zh-cn/docs/concepts/services-networking/service/#endpoints) 对象。
+此注解表示 Endpoints 对象已超出容量，并且已将 Endpoints 数截断为 1000。
+
+如果后端端点的数量低于 1000，则控制平面将移除此注解。
 
 <!--
 ### batch.kubernetes.io/job-tracking
