@@ -425,7 +425,7 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
   * 用来指代被测量的数据源时，译为指标
   * 用来指代测量观测结果时，译为度量值
 - mount，挂载
-- namespace，名字空间，命名空间
+- namespace，命名空间，名字空间
 - orphans，孤立或孤立的
 - override，覆写
 - owner，所有者，属主
