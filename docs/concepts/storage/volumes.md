@@ -75,7 +75,6 @@ Kubernetes supports several types of Volumes:
    * `nfs`
    * `iscsi`
    * `flocker`
-   * `glusterfs`
    * `rbd`
    * `cephfs`
    * `gitRepo`
@@ -333,21 +332,6 @@ can be "handed off" between pods as required.
 __Important: You must have your own Flocker installation running before you can use it__
 
 See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/flocker) for more details.
-
-### glusterfs
-
-A `glusterfs` volume allows a [Glusterfs](http://www.gluster.org) (an open
-source networked filesystem) volume to be mounted into your pod.  Unlike
-`emptyDir`, which is erased when a Pod is removed, the contents of a
-`glusterfs` volume are preserved and the volume is merely unmounted.  This
-means that a glusterfs volume can be pre-populated with data, and that data can
-be "handed off" between pods.  GlusterFS can be mounted by multiple writers
-simultaneously.
-
-__Important: You must have your own GlusterFS installation running before you
-can use it__
-
-See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/glusterfs) for more details.
 
 ### rbd
 
