@@ -105,7 +105,6 @@ to the volume sources that are defined when creating a volume:
 1. secret
 1. nfs
 1. iscsi
-1. glusterfs
 1. persistentVolumeClaim
 1. rbd
 1. cinder
