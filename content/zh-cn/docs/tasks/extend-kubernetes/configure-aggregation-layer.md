@@ -591,7 +591,7 @@ spec:
 ...
 ```
 
-## {{% heading "接下来" %}}
+## {{% heading "whatsnext" %}}
 
 <!--
 * [Set up an extension api-server](/docs/tasks/extend-kubernetes/setup-extension-api-server/) to work with the aggregation layer.
