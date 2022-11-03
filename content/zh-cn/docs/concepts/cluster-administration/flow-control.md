@@ -62,7 +62,7 @@ are not subject to the `--max-requests-inflight` limit.
 -->
 属于 “长时间运行” 类型的某些请求（例如远程命令执行或日志拖尾）不受 API 优先级和公平性过滤器的约束。
 如果未启用 APF 特性，即便设置 `--max-requests-inflight` 标志，该类请求也不受约束。
-APF **不** 适用于 **watch** 请求。当 APF 被禁用时，**watch** 请求不受 `--max-requests-inflight` 限制。
+APF 适用于 **watch** 请求。当 APF 被禁用时，**watch** 请求不受 `--max-requests-inflight` 限制。
 {{< /caution >}}
 
 <!-- body -->
@@ -456,7 +456,7 @@ working onward.  The first match wins.
 
 FlowSchema 匹配一些入站请求，并将它们分配给优先级。
 每个入站请求都会对所有 FlowSchema 测试是否匹配，
-首先从 `matchingPrecedence` 数值最低的匹配开始（我们认为这是逻辑上匹配度最高），
+首先从 `matchingPrecedence` 数值最低的匹配开始（我们认为这是逻辑上的最高优先级），
 然后依次进行，直到首个匹配出现。
 
 {{< caution >}}
@@ -469,7 +469,7 @@ smaller `name` will win, but it's better not to rely on this, and instead to
 ensure that no two FlowSchemas have the same `matchingPrecedence`.
 -->
 对一个请求来说，只有首个匹配的 FlowSchema  才有意义。
-如果一个入站请求与多个 FlowSchema 匹配，则将基于 `matchingPrecedence` 值最高的请求进行筛选。
+如果一个入站请求与多个 FlowSchema 匹配，则将基于逻辑上最高优先级 `matchingPrecedence` 的请求进行筛选。
 如果一个请求匹配多个 FlowSchema 且 `matchingPrecedence` 的值相同，则按 `name` 的字典序选择最小，
 但是最好不要依赖它，而是确保不存在两个 FlowSchema 具有相同的 `matchingPrecedence` 值。
 {{< /caution >}}
