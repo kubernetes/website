@@ -350,8 +350,8 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
 and how PVCs are deleted during the lifecycle of a StatefulSet. You must enable the
 `StatefulSetAutoDeletePVC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to use this field. Once enabled, there are two policies you can configure for each
-StatefulSet:
+on the API server and the controller manager to use this field. 
+Once enabled, there are two policies you can configure for each StatefulSet:
 
 `whenDeleted`
 : configures the volume retention behavior that applies when the StatefulSet is deleted
