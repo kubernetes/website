@@ -235,6 +235,23 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
 | `CSIMigrationOpenStack` | `true` | Beta | 1.18 | 1.23 |
 | `CSIMigrationOpenStack` | `true` | GA | 1.24 | |
+| `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationOpenStackComplete` | - | Deprecated | 1.21 | - |
+| `CSIMigrationvSphere` | `false` | Alpha | 1.18 | 1.18 |
+| `CSIMigrationvSphere` | `false` | Beta | 1.19 | 1.24 |
+| `CSIMigrationvSphere` | `true` | Beta | 1.25 | 1.25 |
+| `CSIMigrationvSphere` | `true` | GA | 1.26 | - |
+| `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | 1.21 |
+| `CSIMigrationvSphereComplete` | - | Deprecated | 1.22 | - |
+| `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
+| `CSINodeInfo` | `true` | Beta | 1.14 | 1.16 |
+| `CSINodeInfo` | `true` | GA | 1.17 | - |
+| `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
+| `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
+| `CSIPersistentVolume` | `true` | GA | 1.13 | - |
+| `CSIServiceAccountToken` | `false` | Alpha | 1.20 | 1.20 |
+| `CSIServiceAccountToken` | `true` | Beta | 1.21 | 1.21 |
+| `CSIServiceAccountToken` | `true` | GA | 1.22 | - |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | 1.23 |
 | `CSIStorageCapacity` | `true` | GA | 1.24 | - |
