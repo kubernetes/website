@@ -542,24 +542,15 @@ spec:
       repository: "git@somewhere:me/my-git-repository.git"
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
 ```
+### glusterfs (removed) {#glusterfs}
 
-### glusterfs (deprecated) {#glusterfs}
+<!-- maintenance note: OK to remove all mention of glusterfs once the v1.25 release of
+Kubernetes has gone out of support -->
+-
+Kubernetes {{< skew currentVersion >}} does not include a `glusterfs` volume type.
 
-{{< feature-state for_k8s_version="v1.25" state="deprecated" >}}
-
-A `glusterfs` volume allows a [Glusterfs](https://www.gluster.org) (an open
-source networked filesystem) volume to be mounted into your Pod. Unlike
-`emptyDir`, which is erased when a Pod is removed, the contents of a
-`glusterfs` volume are preserved and the volume is merely unmounted. This
-means that a `glusterfs` volume can be pre-populated with data, and that data can
-be shared between pods. GlusterFS can be mounted by multiple writers
-simultaneously.
-
-{{< note >}}
-You must have your own GlusterFS installation running before you can use it.
-{{< /note >}}
-
-See the [GlusterFS example](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs) for more details.
+The GlusterFS in-tree storage driver was deprecated in the Kubernetes v1.25 release
+and then removed entirely in the v1.26 release.
 
 ### hostPath {#hostpath}
 
