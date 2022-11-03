@@ -5,7 +5,7 @@ reviewers:
 - thockin
 title: Connecting Applications with Services
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 

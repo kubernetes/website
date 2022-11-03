@@ -74,7 +74,7 @@ LimitRange 的名称必须是合法的
   continue unchanged.
 - If two or more `LimitRange` objects exist in the namespace, it is not deterministic which default value will be applied.
 -->
-### 资源限制和请求的约束   {#constraints-on-resource-limits-and-requests}
+## 资源限制和请求的约束   {#constraints-on-resource-limits-and-requests}
 
 - 管理员在一个命名空间内创建一个 `LimitRange` 对象。
 - 用户在此命名空间内创建（或尝试创建） Pod 和 PersistentVolumeClaim 等对象。

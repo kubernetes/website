@@ -3,7 +3,7 @@ reviewers:
 - maplain
 title: Service Internal Traffic Policy
 content_type: concept
-weight: 75
+weight: 120
 description: >-
   If two Pods in your cluster want to communicate, and both Pods are actually running on
   the same node, use _Service Internal Traffic Policy_ to keep network traffic within that node.

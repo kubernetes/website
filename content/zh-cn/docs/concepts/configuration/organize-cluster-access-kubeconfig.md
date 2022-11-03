@@ -206,7 +206,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
     1. Use the `-context` command-line flag if it exists.
     2. Use the `current-context` from the merged kubeconfig files.
 -->
-1. 根据此链中的第一个匹配确定要使用的上下文。
+2. 根据此链中的第一个匹配确定要使用的上下文。
 
     1. 如果存在，使用 `--context` 命令行参数。
     2. 使用合并的 kubeconfig 文件中的 `current-context`。
@@ -224,7 +224,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    1. Use a command-line flag if it exists: `--user` or `--cluster`.
    2. If the context is non-empty, take the user or cluster from the context.
 -->
-1. 确定集群和用户。此时，可能有也可能没有上下文。根据此链中的第一个匹配确定集群和用户，这将运行两次：一次用于用户，一次用于集群。
+3. 确定集群和用户。此时，可能有也可能没有上下文。根据此链中的第一个匹配确定集群和用户，这将运行两次：一次用于用户，一次用于集群。
 
    1. 如果存在，使用命令行参数：`--user` 或者 `--cluster`。
    2. 如果上下文非空，从上下文中获取用户或集群。
@@ -243,7 +243,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    2. If any cluster information attributes exist from the merged kubeconfig files, use them.
    3. If there is no server location, fail.
 -->
-1. 确定要使用的实际集群信息。此时，可能有也可能没有集群信息。基于此链构建每个集群信息；第一个匹配项会被采用：
+4. 确定要使用的实际集群信息。此时，可能有也可能没有集群信息。基于此链构建每个集群信息；第一个匹配项会被采用：
 
    1. 如果存在：`--server`、`--certificate-authority` 和 `--insecure-skip-tls-verify`，使用命令行参数。
    2. 如果合并的 kubeconfig 文件中存在集群信息属性，则使用它们。
@@ -258,7 +258,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    2. Use the `user` fields from the merged kubeconfig files.
    3. If there are two conflicting techniques, fail.
 -->
-2. 确定要使用的实际用户信息。使用与集群信息相同的规则构建用户信息，但每个用户只允许一种身份认证技术：
+5. 确定要使用的实际用户信息。使用与集群信息相同的规则构建用户信息，但每个用户只允许一种身份认证技术：
 
    1. 如果存在：`--client-certificate`、`--client-key`、`--username`、`--password` 和 `--token`，使用命令行参数。
    2. 使用合并的 kubeconfig 文件中的 `user` 字段。
@@ -268,7 +268,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 3. For any information still missing, use default values and potentially
    prompt for authentication information.
 -->
-3. 对于仍然缺失的任何信息，使用其对应的默认值，并可能提示输入身份认证信息。
+6. 对于仍然缺失的任何信息，使用其对应的默认值，并可能提示输入身份认证信息。
 
 <!--
 ## File references

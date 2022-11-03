@@ -89,7 +89,7 @@ when it performs a subsequent filesystem access.
 -->
 使用卷时, 在 `.spec.volumes` 字段中设置为 Pod 提供的卷，并在
 `.spec.containers[*].volumeMounts` 字段中声明卷在容器中的挂载位置。
-容器中的进程看到的文件系统视图是由它们的 {{< glossary_tooltip text="容器镜像" term_id="image" >}}
+容器中的进程看到的文件系统视图是由它们的{{< glossary_tooltip text="容器镜像" term_id="image" >}}
 的初始内容以及挂载在容器中的卷（如果定义了的话）所组成的。
 其中根文件系统同容器镜像的内容相吻合。
 任何在该文件系统下的写入操作，如果被允许的话，都会影响接下来容器中进程访问文件系统时所看到的内容。
@@ -110,9 +110,9 @@ Pod 配置中的每个容器必须独立指定各个卷的挂载位置。
 卷不能挂载到其他卷之上（不过存在一种[使用 subPath](#using-subpath) 的相关机制），也不能与其他卷有硬链接。
 
 <!--
-## Types of Volumes
+## Types of volumes {#volume-types}
 
-Kubernetes supports several types of Volumes:
+Kubernetes supports several types of volumes.
 -->
 ## 卷类型  {#volume-types}
 
@@ -136,10 +136,10 @@ Pod 中。`emptyDir` 在 Pod 被删除时也会一起被删除，但 EBS 卷的�
 Pod 时会被保留，卷只是被卸载掉了。
 这意味着 EBS 卷可以预先填充数据，并且该数据可以在 Pod 之间共享。
 
+{{< note >}}
 <!--
 You must create an EBS volume by using `aws ec2 create-volume` or the AWS API before you can use it.
 -->
-{{< note >}}
 你在使用 EBS 卷之前必须使用 `aws ec2 create-volume` 命令或者 AWS API 创建该卷。
 {{< /note >}}
 
@@ -357,10 +357,10 @@ writers simultaneously.
 这意味着 `cephfs` 卷可以被预先填充数据，且这些数据可以在
 Pod 之间共享。同一 `cephfs` 卷可同时被多个写者挂载。
 
+{{< note >}}
 <!--
 You must have your own Ceph server running with the share exported before you can use it.
 -->
-{{< note >}}
 在使用 Ceph 卷之前，你的 Ceph 服务器必须已经运行并将要使用的 share 导出（exported）。
 {{< /note >}}
 
@@ -554,11 +554,11 @@ any reason, the data in the `emptyDir` is deleted permanently.
 `emptyDir` 卷中相同的文件。
 当 Pod 因为某些原因被从节点上删除时，`emptyDir` 卷中的数据也会被永久删除。
 
+{{< note >}}
 <!--
 A container crashing does *not* remove a Pod from a node. The data in an `emptyDir` volume
 is safe across container crashes.
 -->
-{{< note >}}
 容器崩溃并**不**会导致 Pod 被从节点上移除，因此容器崩溃期间 `emptyDir` 卷中的数据是安全的。
 {{< /note >}}
 
@@ -637,11 +637,11 @@ targetWWNs expect that those WWNs are from multi-path connections.
 可以使用卷配置中的参数 `targetWWNs` 来指定单个或多个目标 WWN（World Wide Names）。
 如果指定了多个 WWN，targetWWNs 期望这些 WWN 来自多路径连接。
 
+{{< note >}}
 <!--
 You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to the target WWNs
 beforehand so that Kubernetes hosts can access them.
 -->
-{{< note >}}
 你必须配置 FC SAN Zoning，以便预先向目标 WWN 分配和屏蔽这些 LUN（卷），这样
 Kubernetes 主机才可以访问它们。
 {{< /note >}}
@@ -670,10 +670,10 @@ pre-populated with data, and that data can be shared between pods.
 时会被保留，卷只是被卸载了。
 这意味着持久盘卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
 
+{{< note >}}
 <!--
 You must create a PD using `gcloud` or the GCE API or UI before you can use it.
 -->
-{{< note >}}
 在使用 PD 前，你必须使用 `gcloud` 或者 GCE API 或 UI 创建它。
 {{< /note >}}
 
@@ -845,10 +845,10 @@ and the kubelet, set the `InTreePluginGCEUnregister` flag to `true`.
 
 ### gitRepo (已弃用)    {#gitrepo}
 
+{{< warning >}}
 <!--
 The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
 -->
-{{< warning >}}
 `gitRepo` 卷类型已经被废弃。如果需要在容器中提供 git 仓库，请将一个
 [EmptyDir](#emptydir) 卷挂载到 InitContainer 中，使用 git
 命令完成仓库的克隆操作，然后将 [EmptyDir](#emptydir) 卷挂载到 Pod 的容器中。
@@ -888,7 +888,7 @@ spec:
 <!--
 ### glusterfs (deprecated)
 -->
-### glusterfs（已弃用）
+### glusterfs（已弃用）   {#glusterfs}
 
 {{< feature-state for_k8s_version="v1.25" state="deprecated" >}}
 
@@ -907,10 +907,10 @@ simultaneously.
 这意味着 `glusterfs` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
 GlusterFS 可以被多个写者同时挂载。
 
+{{< note >}}
 <!--
 You must have your own GlusterFS installation running before you can use it.
 -->
-{{< note >}}
 在使用前你必须先安装运行自己的 GlusterFS。
 {{< /note >}}
 
@@ -1041,13 +1041,13 @@ spec:
       type: Directory
 ```
 
+{{< caution >}}
 <!--
 The `FileOrCreate` mode does not create the parent directory of the file. If the parent directory
 of the mounted file does not exist, the pod fails to start. To ensure that this mode works,
 you can try to mount directories and files separately, as shown in the
 [`FileOrCreate`configuration](#hostpath-fileorcreate-example).
 -->
-{{< caution >}}
 `FileOrCreate` 模式不会负责创建文件的父目录。
 如果欲挂载的文件的父目录不存在，Pod 启动会失败。
 为了确保这种模式能够工作，可以尝试把文件和它对应的目录分开挂载，如
@@ -1099,10 +1099,10 @@ that data can be shared between pods.
 卷的内容在删除 Pod 时会被保留，卷只是被卸载。
 这意味着 `iscsi` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
 
+{{< note >}}
 <!--
 You must have your own iSCSI server running with the volume created before you can use it.
 -->
-{{< note >}}
 在使用 iSCSI 卷之前，你必须拥有自己的 iSCSI 服务器，并在上面创建卷。
 {{< /note >}}
 
@@ -1229,12 +1229,12 @@ guide](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner).
 有关如何运行外部 `local` 卷驱动，请参考
 [local 卷驱动用户指南](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)。
 
+{{< note >}}
 <!--
 The local PersistentVolume requires manual cleanup and deletion by the
 user if the external static provisioner is not used to manage the volume
 lifecycle.
 -->
-{{< note >}}
 如果不使用外部静态驱动来管理卷的生命周期，用户需要手动清理和删除 local 类型的持久卷。
 {{< /note >}}
 
@@ -1273,12 +1273,12 @@ spec:
       readonly: true
 ```
 
+{{< note >}}
 <!--
 You must have your own NFS server running with the share exported before you can use it.
 
 Also note that you can't specify NFS mount options in a Pod spec. You can either set mount options server-side or use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html). You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
 -->
-{{< note >}}
 在使用 NFS 卷之前，你必须运行自己的 NFS 服务器并将目标 share 导出备用。
 
 还需要注意，不能在 Pod spec 中指定 NFS 挂载可选项。
@@ -1398,7 +1398,7 @@ To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manage
 A projected volume maps several existing volume sources into the same
 directory. For more details, see [projected volumes](/docs/concepts/storage/projected-volumes/).
 -->
-### projected （投射）
+### projected （投射）   {#projected}
 
 投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)。
 
@@ -1416,10 +1416,10 @@ shared between pods.
 不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`rbd` 卷的内容在删除 Pod 时会被保存，卷只是被卸载。
 这意味着 `rbd` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
 
+{{< note >}}
 <!--
 You must have a Ceph installation running before you can use RBD.
 -->
-{{< note >}}
 在使用 RBD 之前，你必须安装运行 Ceph。
 {{< /note >}}
 
@@ -1465,6 +1465,7 @@ replaced with `CSIMigrationRBD` in release v1.24)
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 （请注意，`csiMigrationRBD` 标志已在 v1.24 版本中移除且替换为 `CSIMigrationRBD`。）
 
+{{< note >}}
 <!--
 As a Kubernetes cluster operator that administers storage, here are the
 prerequisites that you must complete before you attempt migration to the
@@ -1483,7 +1484,6 @@ RBD CSI driver:
   patched with the base64 value of the `adminId` parameter value, otherwise this
   step can be skipped.
 -->
-{{< note >}}
 作为一位管理存储的 Kubernetes 集群操作者，在尝试迁移到 RBD CSI 驱动前，你必须完成下列先决事项：
 
 * 你必须在集群中安装 v3.5.0 或更高版本的 Ceph CSI 驱动（`rbd.csi.ceph.com`）。
@@ -1508,18 +1508,18 @@ non-volatile storage.
 API 服务器上，然后以文件的形式挂载到 Pod 中，无需直接与 Kubernetes 耦合。
 `secret` 卷由 tmpfs（基于 RAM 的文件系统）提供存储，因此它们永远不会被写入非易失性（持久化的）存储器。
 
+{{< note >}}
 <!--
 You must create a Secret in the Kubernetes API before you can use it.
 -->
-{{< note >}}
 使用前你必须在 Kubernetes API 中创建 Secret。
 {{< /note >}}
 
+{{< note >}}
 <!--
 A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
 receive Secret updates.
 -->
-{{< note >}}
 容器以 [`subPath`](#using-subpath) 卷挂载方式挂载 Secret 时，将感知不到 Secret 的更新。
 {{< /note >}}
 
@@ -1533,10 +1533,10 @@ For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/
 -->
 ### vsphereVolume（已弃用） {#vspherevolume}
 
+{{< note >}}
 <!--
 We recommend to use vSphere CSI out-of-tree driver instead.
 -->
-{{< note >}}
 建议你改用 vSphere CSI 树外驱动程序。
 {{< /note >}}
 
@@ -1754,9 +1754,8 @@ Kubernetes 对 `emptyDir` 卷或者 `hostPath` 卷可以消耗的空间没有限
 To learn about requesting space using a resource specification, see
 [how to manage resources](/docs/concepts/configuration/manage-resources-containers/).
 -->
-要了解如何使用资源规约来请求空间，可参考
-[如何管理资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
-
+要了解如何使用资源规约来请求空间，
+可参考[如何管理资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
 
 <!--
 ## Out-of-tree volume plugins
@@ -1767,10 +1766,9 @@ without adding their plugin source code to the Kubernetes repository.
 -->
 ## 树外（Out-of-Tree）卷插件    {#out-of-tree-volume-plugins}
 
-Out-of-Tree 卷插件包括
-{{< glossary_tooltip text="容器存储接口（CSI）" term_id="csi" >}}
-和 FlexVolume（已弃用）。
-它们使存储供应商能够创建自定义存储插件，而无需将插件源码添加到 Kubernetes 代码仓库。
+Out-of-Tree 卷插件包括{{< glossary_tooltip text="容器存储接口（CSI）" term_id="csi" >}}和
+FlexVolume（已弃用）。它们使存储供应商能够创建自定义存储插件，而无需将插件源码添加到
+Kubernetes 代码仓库。
 
 <!--
 Previously, all volume plugins were "in-tree". The "in-tree" plugins were built, linked, compiled,
@@ -1812,20 +1810,20 @@ Kubernetes v1.10, and is GA in Kubernetes v1.13.
 -->
 更多详情请阅读 [CSI 设计方案](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)。
 
+{{< note >}}
 <!--
 Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes
 v1.13 and will be removed in a future release.
 -->
-{{< note >}}
 Kubernetes v1.13 废弃了对 CSI 规范版本 0.2 和 0.3 的支持，并将在以后的版本中删除。
 {{< /note >}}
 
+{{< note >}}
 <!--
 CSI drivers may not be compatible across all Kubernetes releases.
 Please check the specific CSI driver's documentation for supported
 deployments steps for each Kubernetes release and a compatibility matrix.
 -->
-{{< note >}}
 CSI 驱动可能并非兼容所有的 Kubernetes 版本。
 请查看特定 CSI 驱动的文档，以了解各个 Kubernetes 版本所支持的部署步骤以及兼容性列表。
 {{< /note >}}
@@ -2097,7 +2095,7 @@ The following in-tree plugins support persistent storage on Windows nodes:
 <!--
 ### flexVolume (deprecated)
 -->
-### flexVolume（已弃用）
+### flexVolume（已弃用）   {#flexvolume}
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
@@ -2212,6 +2210,7 @@ in `Container.volumeMounts`. Its values are:
   该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)中描述的
   `rshared` 挂载传播选项。
 
+  {{< warning >}}
   <!--
   `Bidirectional` mount propagation can be dangerous. It can damage
   the host operating system and therefore it is allowed only in privileged
@@ -2219,7 +2218,6 @@ in `Container.volumeMounts`. Its values are:
   In addition, any volume mounts created by containers in pods must be destroyed
   (unmounted) by the containers on termination.
   -->
-  {{< warning >}}
   `Bidirectional` 形式的挂载传播可能比较危险。
   它可以破坏主机操作系统，因此它只被允许在特权容器中使用。
   强烈建议你熟悉 Linux 内核行为。
