@@ -425,7 +425,7 @@ scopes in the same quota, and you cannot specify both the `BestEffort` and
 The `scopeSelector` supports the following values in the `operator` field:
 -->
 需要注意的是，你不可以在同一个配额对象中同时设置 `Terminating` 和 `NotTerminating`
-作用域，你也不可以在同一个配额中同时设置 `BestEffort` 和 `NotBestEffort`
+作用域，也不可以在同一个配额中同时设置 `BestEffort` 和 `NotBestEffort`
 作用域。
 
 `scopeSelector` 支持在 `operator` 字段中使用以下值：
