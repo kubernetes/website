@@ -1,6 +1,7 @@
 ---
 title: Articles on dockershim Removal and on Using CRI-compatible Runtimes
 content_type: reference
+weight: 20
 ---
 <!-- overview -->
 This is a list of articles and other pages that are either

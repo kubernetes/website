@@ -1,7 +1,7 @@
 ---
 title: Ports and Protocols
 content_type: reference
-weight: 50
+weight: 90
 ---
 
 When running Kubernetes in an environment with strict network boundaries, such 
