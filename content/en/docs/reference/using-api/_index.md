@@ -5,7 +5,7 @@ reviewers:
 - lavalamp
 - jbeda
 content_type: concept
-weight: 10
+weight: 20
 no_list: true
 card:
   name: reference
