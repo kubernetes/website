@@ -20,7 +20,7 @@ for the past 2 years. I describe Kluctl as "The missing glue to put together
 large Kubernetes deployments, composed of multiple smaller parts
 (Helm/Kustomize/...) in a manageable and unified way."
 
-To get a basic understanding of Kluctl, I suggest to visit the [kluctl.io](https://kluctlio)
+To get a basic understanding of Kluctl, I suggest to visit the [kluctl.io](https://kluctl.io)
 website and read through the documentation and tutorials, for example the 
 [microservices demo tutorial](https://kluctl.io/docs/guides/tutorials/microservices-demo/).
 As an alternative, you can watch [Hands-on Introduction to kluctl](https://www.youtube.com/watch?v=9LoYLjDjOdg)
