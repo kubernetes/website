@@ -1,7 +1,7 @@
 ---
 title: kubelet
 content_type: tool-reference
-weight: 28
+weight: 20
 ---
 
 ## {{% heading "synopsis" %}}
