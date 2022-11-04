@@ -57,5 +57,7 @@ Kubernetes networking addresses four concerns:
 - You can also use Services to
   [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
 
+The [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial lets you learn about Services and Kubernetes networking with a hands-on example.
+
 [Cluster Networking](/docs/concepts/cluster-administration/networking/) explains how to set
 up networking for your cluster, and also provides an overview of the technologies involved.
