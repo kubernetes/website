@@ -13,9 +13,9 @@ Este início rápido mostra como instalar facilmente um cluster Kubernetes na AW
 * Instalação totalmente automatizada
 * Usa DNS para identificar clusters
 * Auto-recuperação: tudo é executado em grupos de Auto-Scaling
-* Suporte de vários sistemas operacionais (Amazon Linux, Debian, Flatcar, RHEL, Rocky e Ubuntu) - veja as [imagens.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
-* Suporte de alta disponibilidade - consulte o [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
-* Pode provisionar diretamente ou gerar manifestos do terraform - veja o [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
+* Suporte de vários sistemas operacionais (Amazon Linux, Debian, Flatcar, RHEL, Rocky e Ubuntu) - veja em [imagens](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
+* Suporte a alta disponibilidade - consulte a [documentação sobre alta disponibilidade](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
+* Pode provisionar diretamente ou gerar manifestos do terraform - veja o [veja a documentação sobre como fazer isso com Terraform](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 
 ## {{% heading "prerequisites" %}}
 
@@ -23,7 +23,7 @@ Este início rápido mostra como instalar facilmente um cluster Kubernetes na AW
 
 * Você deve [instalar](https://github.com/kubernetes/kops#installing) `kops` em uma arquitetura de dispositivo de 64 bits (AMD64 e Intel 64).
 
-* Você deve ter uma [conta da AWS](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), gerar [chaves do IAM](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) e [configurá-las](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration). O usuário do IAM precisará de [permissoões adequadas](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
+* Você deve ter uma [conta da AWS](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), gerar [chaves do IAM](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) e [configurá-las](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration). O usuário do IAM precisará de [permissões adequadas](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
 
 <!-- steps -->
 
@@ -33,12 +33,12 @@ Este início rápido mostra como instalar facilmente um cluster Kubernetes na AW
 
 #### Instalação
 
-Faça o download do kops na [página de lançamentos](https://github.com/kubernetes/kops/releases) (também é conveniente compilar a partir da fonte):
+Faça o download do kops na [página de downloads](https://github.com/kubernetes/kops/releases) (também é conveniente compilar a partir da fonte):
 
 {{< tabs name="instalação_kops" >}}
 {{% tab name="macOS" %}}
 
-aixe a versão mais recente com o comando:
+Baixe a versão mais recente com o comando:
 
 ```shell
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
@@ -56,13 +56,13 @@ Por exemplo, para baixar kops versão v1.20.0 digite:
 curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-darwin-amd64
 ```
 
-Torne o kops executável binário.
+Dê a permissão de execução ao binário do kops.
 
 ```shell
 chmod +x kops-darwin-amd64
 ```
 
-Mova o kops binário para o seu PATH.
+Mova o binário do kops para o seu PATH.
 
 ```shell
 sudo mv kops-darwin-amd64 /usr/local/bin/kops
@@ -94,13 +94,13 @@ Por exemplo, para baixar kops versão v1.20.0 digite:
 curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-linux-amd64
 ```
 
-Torne o kops executável binário
+Dê a permissão de execução ao binário do kops
 
 ```shell
 chmod +x kops-linux-amd64
 ```
 
-Mova o kops binário para o seu PATH.
+Mova o binário do kops para o seu PATH.
 
 ```shell
 sudo mv kops-linux-amd64 /usr/local/bin/kops
@@ -163,12 +163,12 @@ Execute `kops create cluster` para criar sua configuração de cluster:
 
 kops criará a configuração para seu cluster. Observe que ele _apenas_ cria a configuração, na verdade não cria os recursos de nuvem - você fará isso na próxima etapa com um arquivo `kops update cluster`.  Isso lhe dá a oportunidade de revisar a configuração ou alterá-la.
 
-Ele imprime comandos que você pode usar para explorar mais:
+Ele exibe comandos que você pode usar para explorar mais:
 
 * Liste seus clusters com: `kops get cluster`
 * Edite este cluster com: `kops edit cluster useast1.dev.example.com`
 * Edite seu grupo de instâncias de nós: `kops edit ig --name=useast1.dev.example.com nodes`
-* Edite seu grupo de instâncias mestre: `kops edit ig --name=useast1.dev.example.com master-us-east-1c`
+* Edite seu grupo de instâncias principal: `kops edit ig --name=useast1.dev.example.com master-us-east-1c`
 
 Se esta é sua primeira vez usando kops, gaste alguns minutos para experimentá-los! Um grupo de instâncias é um conjunto de instâncias que serão registradas como nós do kubernetes. Na AWS, isso é implementado por meio de grupos de auto-scaling.
 Você pode ter vários grupos de instâncias, por exemplo, se quiser nós que sejam uma combinação de instâncias spot e sob demanda ou instâncias de GPU e não GPU.
