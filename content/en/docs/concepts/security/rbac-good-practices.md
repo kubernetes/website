@@ -121,8 +121,7 @@ considered weak.
 
 ### Persistent volume creation
 
-As noted in the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/#volumes-and-file-systems)
-documentation, access to create PersistentVolumes can allow for escalation of access to the underlying host.
+Access to create PersistentVolumes can allow for escalation of access to the underlying host.
 Where access to persistent storage is required trusted administrators should create 
 PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
 

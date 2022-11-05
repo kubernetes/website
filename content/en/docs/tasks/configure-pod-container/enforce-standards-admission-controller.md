@@ -4,10 +4,10 @@ reviewers:
 - tallclair
 - liggitt
 content_type: task
-min-kubernetes-server-version: v1.22
+min-kubernetes-server-version: v1.25
 ---
 
-As of v1.22, Kubernetes provides a built-in [admission controller](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
+Kubernetes provides a built-in [admission controller](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
 to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards).
 You can configure this admission controller to set cluster-wide defaults and [exemptions](/docs/concepts/security/pod-security-admission/#exemptions).
 
@@ -15,7 +15,15 @@ You can configure this admission controller to set cluster-wide defaults and [ex
 
 {{% version-check %}}
 
-- Ensure the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) is enabled.
+{{< note >}}
+`pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
+For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+{{< /note >}}
+
+If you are not running Kubernetes {{< skew currentVersion >}}, you can switch
+to viewing this page in the documentation for the Kubernetes version that you
+are running.
 
 ## Configure the Admission Controller
 
@@ -53,8 +61,3 @@ plugins:
       namespaces: []
 ```
 
-{{< note >}}
-`pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
-For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
-For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
-{{< /note >}}
