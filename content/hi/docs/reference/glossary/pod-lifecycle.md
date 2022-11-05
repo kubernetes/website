@@ -1,6 +1,6 @@
 ---
-title: पॉड जीवनचक्र (Pod Lifecycle)
-id: पॉड जीवनचक्र (pod-lifecycle)
+title: Pod Lifecycle
+id: pod-lifecycle
 date: 2019-02-17
 full-link: /docs/concepts/workloads/pods/pod-lifecycle/
 related:
@@ -16,4 +16,4 @@ short_description: >
 
 <!--अधिक-->
 
-[पॉड जीवनचक्र](/docs/concepts/workloads/pods/pod-lifecycle/) को पॉड की अवस्थाओं या चरणों द्वारा परिभाषित किया जाता है। पांच संभावित पॉड चरण हैं: लंबित, दौड़ना, सफल, विफल और अज्ञात। पॉड स्थिति का एक उच्च-स्तरीय विवरण [पॉडस्टैटस] (/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core) `चरण` फ़ील्ड में सारांशित किया गया है। .
+[पॉड जीवनचक्र](/docs/concepts/workloads/pods/pod-lifecycle/) को पॉड की अवस्थाओं या चरणों द्वारा परिभाषित किया जाता है। पाँच संभावित पॉड चरण हैं: Pending, Running, Succeeded, Failed और Unknown। पॉड स्थिति का एक उच्च-स्तरीय विवरण [पॉडस्टैटस](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core) `phase` फ़ील्ड में सारांशित किया गया है। .
