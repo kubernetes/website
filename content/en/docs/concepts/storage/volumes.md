@@ -534,7 +534,7 @@ spec:
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
 ```
 
-### glusterfs (deprecated)
+### glusterfs (deprecated) {#glusterfs}
 
 {{< feature-state for_k8s_version="v1.25" state="deprecated" >}}
 
@@ -542,7 +542,7 @@ A `glusterfs` volume allows a [Glusterfs](https://www.gluster.org) (an open
 source networked filesystem) volume to be mounted into your Pod. Unlike
 `emptyDir`, which is erased when a Pod is removed, the contents of a
 `glusterfs` volume are preserved and the volume is merely unmounted. This
-means that a glusterfs volume can be pre-populated with data, and that data can
+means that a `glusterfs` volume can be pre-populated with data, and that data can
 be shared between pods. GlusterFS can be mounted by multiple writers
 simultaneously.
 
