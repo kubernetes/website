@@ -369,9 +369,9 @@ Notes catch the reader's attention without a sense of urgency.
 
 You can have multiple paragraphs and block-level elements inside an admonition.
 
-| Or | | Even |
-|:---|:---:|-----:|
-|   A    | |   Table    |
+| Or | Even |
+|---|-----|
+| A | Table |
 {{< /note >}}
 
 {{< caution >}}
