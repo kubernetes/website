@@ -15,8 +15,8 @@ This page shows how a Pod can use environment variables to expose information
 about itself to containers running in the Pod, using the _downward API_.
 You can use environment variables to expose Pod fields, container fields, or both.
 -->
-此页面展示 Pod 如何使用环境变量把自身的信息呈现给 Pod 中运行的容器。
-使用 **downward API** 你可以使用环境变量来呈现 Pod 的字段、容器字段或两者。
+此页面展示 Pod 如何使用 **downward API** 通过环境变量把自身的信息呈现给 Pod 中运行的容器。
+你可以使用环境变量来呈现 Pod 的字段、容器字段或两者。
 
 <!--
 In Kubernetes, there are two ways to expose Pod and container fields to a running container:
@@ -27,13 +27,12 @@ In Kubernetes, there are two ways to expose Pod and container fields to a runnin
 Together, these two ways of exposing Pod and container fields are called the
 downward API.
 -->
-在 Kubernetes 中有两种方式可以将 Pod 和 容器字段呈现给运行中的容器：
+在 Kubernetes 中有两种方式可以将 Pod 和容器字段呈现给运行中的容器：
 
-* 如本任务所述的**环境变量**。
+* 如本任务所述的**环境变量**
 * [卷文件](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
-这两种呈现 Pod 和 容器字段的方式统称为 downward API。
-
+这两种呈现 Pod 和容器字段的方式统称为 downward API。
 
 ## {{% heading "prerequisites" %}}
 
@@ -47,9 +46,9 @@ downward API.
 In this part of exercise, you create a Pod that has one container, and you
 project Pod-level fields into the running container as environment variables.
 -->
-## 用 Pod 字段作为环境变量的值
+## 用 Pod 字段作为环境变量的值   {#use-pod-fields-as-values-for-env-var}
 
-在这部分练习中，你将创建一个包含一个容器的 Pod。并将 Pod 级别的字段作为环境变量映射到正在运行的容器中。
+在这部分练习中，你将创建一个包含一个容器的 Pod。并将 Pod 级别的字段作为环境变量投射到正在运行的容器中。
 
 {{< codenew file="pods/inject/dapi-envars-pod.yaml" >}}
 
@@ -62,22 +61,21 @@ variable gets its value from the Pod's `spec.nodeName` field. Similarly, the
 other environment variables get their names from Pod fields.
 -->
 这个清单中，你可以看到五个环境变量。`env` 字段定义了一组环境变量。
-
 数组中第一个元素指定 `MY_NODE_NAME` 这个环境变量从 Pod 的 `spec.nodeName` 字段获取变量值。
 同样，其它环境变量也是从 Pod 的字段获取它们的变量值。
 
+{{< note >}}
 <!--
 The fields in this example are Pod fields. They are not fields of the
 container in the Pod.
 -->
-{{< note >}}
 本示例中的字段是 Pod 字段，不是 Pod 中 Container 的字段。
 {{< /note >}}
 
 <!--
 Create the Pod:
 -->
-创建Pod：
+创建 Pod：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/inject/dapi-envars-pod.yaml
@@ -125,7 +123,7 @@ Next, get a shell into the container that is running in your Pod:
 要了解为什么这些值出现在日志中，请查看配置文件中的 `command` 和 `args` 字段。
 当容器启动时，它将五个环境变量的值写入标准输出。每十秒重复执行一次。
 
-接下来，通过打开一个 Shell 进入 Pod 中运行的容器：
+接下来，进入 Pod 中运行的容器，打开一个 Shell：
 
 ```shell
 kubectl exec -it dapi-envars-fieldref -- sh
@@ -169,9 +167,8 @@ definition, but taken from the specific
 rather than from the Pod overall.
 
 Here is a manifest for another Pod that again has just one container:
-
 -->
-## 使用容器字段作为环境变量的值
+## 使用容器字段作为环境变量的值    {#use-container-fields-as-value-for-env-var}
 
 前面的练习中，你将 Pod 级别的字段作为环境变量的值。
 接下来这个练习中，你将传递属于 Pod 定义的字段，但这些字段取自特定容器而不是整个 Pod。
@@ -195,7 +192,7 @@ Create the Pod:
 数组中第一个元素指定 `MY_CPU_REQUEST` 这个环境变量从容器的 `requests.cpu`
 字段获取变量值。同样，其它的环境变量也是从特定于这个容器的字段中获取它们的变量值。
 
-创建Pod：
+创建 Pod：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/inject/dapi-envars-container.yaml
@@ -244,7 +241,7 @@ The output shows the values of selected environment variables:
 * 阅读[给容器定义环境变量](/zh-cn/docs/tasks/inject-data-application/define-environment-variable-container/)
 * 阅读 Pod 的 [`spec`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
   API 包括容器（Pod 的一部分）的定义。
-* 阅读可以使用 downward API 公开的[可用字段](/zh-cn/docs/concepts/workloads/pods/downward-api/#available-fields)列表。
+* 阅读可以使用 downward API 呈现的[可用字段](/zh-cn/docs/concepts/workloads/pods/downward-api/#available-fields)列表。
 
 <!--
 Read about Pods, containers and environment variables in the legacy API reference:
