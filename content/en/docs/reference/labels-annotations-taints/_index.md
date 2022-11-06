@@ -312,7 +312,7 @@ Example: `scheduler.alpha.kubernetes.io/node-selector: "name-of-node-selector"`
 
 Used on: Namespace
 
-The [PodNodeSelector](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector) uses this annotation key to assign node selectors to namespaces.
+The [PodNodeSelector](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector) uses this annotation key to assign node selectors to pods in namespaces.
 
 ### topology.kubernetes.io/region {#topologykubernetesioregion}
 
