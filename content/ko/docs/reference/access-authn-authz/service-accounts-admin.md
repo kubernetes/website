@@ -101,7 +101,7 @@ weight: 50
 1. kube-apiserver에 대한 연결을 확인하는 데 사용되는 CA 번들을 포함하는 `컨피그맵(ConfigMap)`.
 1. 파드의 네임스페이스를 참조하는 `DownwardAPI`.
 
-상세 사항은 [프로젝티드 볼륨](/docs/tasks/configure-pod-container/configure-projected-volume-storage/)을 참고한다.
+상세 사항은 [프로젝티드 볼륨](/ko/docs/tasks/configure-pod-container/configure-projected-volume-storage/)을 참고한다.
 
 ### 토큰 컨트롤러
 
