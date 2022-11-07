@@ -407,7 +407,7 @@ weight: 10
 			<td>
 				<p>
 					컨테이너는 <code>ALL</code> 능력을 내려놓아야 하며, 
-					<code>NET_BIND_SERVICE</code> 능력을 다시 추가하기 위한 목적일 때만 허용되어야 한다. <em>v1.25+에서는 <a href="#policies-specific-to-linux">리눅스 전용 정책이다.</a><code>(spec.os.name != windows)</code></em></p>
+					<code>NET_BIND_SERVICE</code> 능력을 다시 추가하기 위한 목적일 때만 허용되어야 한다. <em>v1.25+에서는 <a href="#policies-specific-to-linux">리눅스 전용 정책이다.</a><code>(spec.os.name != windows)</code></em>
 				</p>
 				<p><strong>제한된 필드</strong></p>
 				<ul>
@@ -521,3 +521,4 @@ v1.24 이전 Kubelet은 파드 OS 필드를 필수로 요구하지 않으며, �
 
 추가적으로, 샌드박스 방식에 따라 샌드박스 워크로드에 대한 보호가 달라진다.
 이와 같은 경우에는, 하나의 프로필만을 모든 샌드박스 워크로드에 대해 권장할 수 없다.
+
