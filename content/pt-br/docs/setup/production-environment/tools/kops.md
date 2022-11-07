@@ -15,7 +15,7 @@ Este início rápido mostra como instalar facilmente um cluster Kubernetes na AW
 * Auto-recuperação: tudo é executado em grupos de Auto-Scaling
 * Suporte de vários sistemas operacionais (Amazon Linux, Debian, Flatcar, RHEL, Rocky e Ubuntu) - veja em [imagens](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
 * Suporte a alta disponibilidade - consulte a [documentação sobre alta disponibilidade](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
-* Pode provisionar diretamente ou gerar manifestos do terraform - veja o [veja a documentação sobre como fazer isso com Terraform](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
+* Pode provisionar diretamente ou gerar manifestos do terraform - veja a [documentação sobre como fazer isso com Terraform](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 
 ## {{% heading "prerequisites" %}}
 
@@ -23,7 +23,7 @@ Este início rápido mostra como instalar facilmente um cluster Kubernetes na AW
 
 * Você deve [instalar](https://github.com/kubernetes/kops#installing) `kops` em uma arquitetura de dispositivo de 64 bits (AMD64 e Intel 64).
 
-* Você deve ter uma [conta da AWS](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), gerar [chaves do IAM](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) e [configurá-las](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration). O usuário do IAM precisará de [permissões adequadas](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
+* Você deve ter uma [conta da AWS](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), gerar as [chaves do IAM](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) e [configurá-las](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration). O usuário do IAM precisará de [permissões adequadas](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
 
 <!-- steps -->
 
@@ -35,7 +35,7 @@ Este início rápido mostra como instalar facilmente um cluster Kubernetes na AW
 
 Faça o download do kops na [página de downloads](https://github.com/kubernetes/kops/releases) (também é conveniente compilar a partir da fonte):
 
-{{< tabs name="instalação_kops" >}}
+{{< tabs name="kops_installation" >}}
 {{% tab name="macOS" %}}
 
 Baixe a versão mais recente com o comando:
@@ -133,7 +133,7 @@ com um comando como `aws route53 create-hosted-zone --name dev.example.com --cal
 
 Você deve então configurar seus registros NS no domínio principal, para que os registros no domínio sejam resolvidos. Aqui, você criaria registros NS no `example.com` para `dev`.  Se for um nome de domínio raiz, você configuraria os registros NS em seu registrador de domínio (por exemplo `example.com`,  precisaria ser configurado onde você comprou `example.com`).
 
-Verifique a configuração do seu domínio route53 (é a causa número 1 de problemas!). Você pode verificar novamente se seu cluster está configurado corretamente se tiver a ferramenta de escavação executando:
+Verifique a configuração do seu domínio route53 (é a causa número 1 de problemas!). Você pode verificar novamente se seu cluster está configurado corretamente se tiver a ferramenta dig executando:
 
 `dig NS dev.example.com`
 
@@ -141,7 +141,7 @@ Você deve ver os 4 registros NS que o Route53 atribuiu à sua zona hospedada.
 
 ### (3/5) Crie um bucket do S3 para armazenar o estado dos clusters
 
-kops permite que você gerencie seus clusters mesmo após a instalação. Para fazer isso, ele deve acompanhar os clusters que você criou, juntamente com suas configurações, as chaves que estão usando etc. Essas informações são armazenadas em um bucket do S3. As permissões do S3 são usadas para controlar o acesso ao bucket.
+O kops permite que você gerencie seus clusters mesmo após a instalação. Para fazer isso, ele deve acompanhar os clusters que você criou, juntamente com suas configurações, as chaves que estão usando etc. Essas informações são armazenadas em um bucket do S3. As permissões do S3 são usadas para controlar o acesso ao bucket.
 
 Vários clusters podem usar o mesmo bucket do S3 e você pode compartilhar um bucket do S3 entre seus colegas que administram os mesmos clusters - isso é muito mais fácil do que transmitir arquivos kubecfg. Mas qualquer pessoa com acesso ao bucket do S3 terá acesso administrativo a todos os seus clusters, portanto, você não deseja compartilhá-lo além da equipe de operações.
 
@@ -182,7 +182,7 @@ Execute `kops update cluster` para criar seu cluster na AWS:
 Isso leva alguns segundos para ser executado, mas seu cluster provavelmente levará alguns minutos para estar realmente pronto.
 `kops update cluster` será a ferramenta que você usará sempre que alterar a configuração do seu cluster; ele aplica as alterações que você fez na configuração ao seu cluster - reconfigurando AWS ou kubernetes conforme necessário.
 
-Por exemplo, depois de você `kops edit ig nodes`, em seguida `kops update cluster --yes` para aplicar sua configuração e, às vezes, você também precisará `kops rolling-update cluster` para implementar a configuração imediatamente.
+Por exemplo, depois de você executar `kops edit ig nodes`, em seguida execute `kops update cluster --yes` para aplicar sua configuração e, às vezes, você também precisará `kops rolling-update cluster` para implementar a configuração imediatamente.
 
 Sem `--yes`, `kops update cluster` mostrará uma prévia do que ele fará. Isso é útil para clusters de produção!
 
