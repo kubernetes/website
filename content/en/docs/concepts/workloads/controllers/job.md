@@ -818,6 +818,81 @@ controller is tracking a Job using Pod finalizers by checking if the Job has the
 annotation `batch.kubernetes.io/job-tracking`. You should **not** manually add
 or remove this annotation from Jobs.
 
+### Inter-job Communication Using Pod Hostnames
+Some jobs may benefit from using pod hostnames for pod networking rather than pod IPs. 
+For example, IndexedJobs automatically set the pod hostname to be in the format of 
+`${jobName}-${completionIndex}`, which can be used to deterministically determine
+pod hostnames and enable pod networking *without* needing to create a client connection to
+the Kubernetes control plane to obtain pod hostnames/IPs via API requests. This can be useful
+for use cases where pod networking is required but we don't want to depend on a network 
+connection with the Kubernetes API server.
+
+
+To enable inter-job communication using pod hostnames, you must do the following:
+1. Set up a [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
+with a `job-name` selector matching your job name. This will trigger `kube-dns` to
+cache the hostnames of the pods running your job.
+2. Update your Job spec with the following: `subdomain: <headless-svc-name>`
+   where `<headless-svc-name>` must match the name of your headless service
+   exactly. 
+
+Example:
+
+```yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: headless-svc
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None # clusterIP must be None to create a headless service
+  selector:
+    app: nginx # must match Job spec label
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: web
+  labels:
+    app: nginx # must match Headless Service selector
+spec:
+  completions: 3
+  parallelism: 3
+  completionMode: Indexed
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      subdomain: headless-svc # has to match Headless Service name
+      restartPolicy: Never
+      containers:
+      - name: nginx
+        command:
+        - 'bash'
+        - '-c'
+        - 'sleep 1000; echo "My partition: ${JOB_COMPLETION_INDEX}"'
+        image: registry.k8s.io/nginx-slim:0.8
+        ports:
+        - containerPort: 80
+          name: web
+```
+
+After applying the example above, other pods can reach eachother over
+the network using: `<pod-hostname>.<headless-service-name>`. 
+
+Example: pinging pod `web-1` from pod `web-0` using pod hostname:
+
+```
+root@web-0:/# ping web-1.headless-svc
+PING web-1.headless-svc.default.svc.cluster.local (10.88.3.25) 56(84) bytes of data.
+64 bytes from web-1.headless-svc.default.svc.cluster.local (10.88.3.25): icmp_seq=1 ttl=62 time=1.01 ms
+64 bytes from web-1.headless-svc.default.svc.cluster.local (10.88.3.25): icmp_seq=2 ttl=62 time=0.248 ms
+```
+
 ## Alternatives
 
 ### Bare Pods
