@@ -118,4 +118,6 @@ detail the structure of that `.status` field, and its content for each different
 * Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/).
 * Learn about [controllers](/docs/concepts/architecture/controller/) in Kubernetes.
 * [Using the Kubernetes API](/docs/reference/using-api/) explains some more API concepts.
+* Learn more about [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
+* Learn about [kubectl](https://kubernetes.io/docs/reference/kubectl/) and [kubectl commands](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands).
 
