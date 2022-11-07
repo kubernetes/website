@@ -38,7 +38,7 @@ v1.20 릴리스의 일부로 [공지](/blog/2020/12/08/kubernetes-1-20-release-a
 이 제거가 어떻게 영향을 미치는지 알아보려면
 [도커심 제거가 영향을 미치는지 확인하기](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) 문서를 확인한다.
 도커심을 사용하던 환경에서 이전(migrating)하는 방법을 보려면,
-[도커심에서 이전하기](/docs/tasks/administer-cluster/migrating-from-dockershim/)를 확인한다.
+[도커심에서 이전하기](/ko/docs/tasks/administer-cluster/migrating-from-dockershim/)를 확인한다.
 
 v{{< skew currentVersion >}} 이외의 쿠버네티스 버전을 사용하고 있다면,
 해당 버전의 문서를 참고한다.
@@ -89,7 +89,7 @@ sudo sysctl --system
 
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}과
 그에 연계된 컨테이너 런타임 모두 컨트롤 그룹(control group)들과 상호작용 해야 하는데, 이는
-[파드 및 컨테이너 자원 관리](/docs/concepts/configuration/manage-resources-containers/)가 수정될 수 있도록 하고
+[파드 및 컨테이너 자원 관리](/ko/docs/concepts/configuration/manage-resources-containers/)가 수정될 수 있도록 하고
 cpu 혹은 메모리와 같은 자원의 요청(request)과 상한(limit)을 설정하기 위함이다. 컨트롤
 그룹과 상호작용하기 위해서는, kubelet과 컨테이너 런타임이 *cgroup 드라이버*를 사용해야 한다.
 매우 중요한 점은, kubelet과 컨테이너 런타임이 같은 cgroup 
