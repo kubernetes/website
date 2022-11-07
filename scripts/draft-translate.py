@@ -2,7 +2,7 @@
 
 import click
 
-from googletrans import Translator  # https://github.com/ssut/py-googletrans
+from googletrans import Translator
 
 SKIP_PREFIXES = [
     "## {{% heading",
