@@ -818,7 +818,7 @@ controller is tracking a Job using Pod finalizers by checking if the Job has the
 annotation `batch.kubernetes.io/job-tracking`. You should **not** manually add
 or remove this annotation from Jobs.
 
-### Inter-job Communication Using Pod Hostnames
+### Pod Communication Within a Job Using Pod Hostnames
 Some jobs may benefit from using pod hostnames for pod networking rather than pod IPs. 
 For example, IndexedJobs automatically set the pod hostname to be in the format of 
 `${jobName}-${completionIndex}`, which can be used to deterministically determine
