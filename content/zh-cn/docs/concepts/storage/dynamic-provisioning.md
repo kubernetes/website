@@ -184,15 +184,15 @@ can enable this behavior by:
 
 <!--
 An administrator can mark a specific `StorageClass` as default by adding the
-`storageclass.kubernetes.io/is-default-class` [annotation](/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class) to it.
+[`storageclass.kubernetes.io/is-default-class` annotation](/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class) to it.
 When a default `StorageClass` exists in a cluster and a user creates a
 `PersistentVolumeClaim` with `storageClassName` unspecified, the
 `DefaultStorageClass` admission controller automatically adds the
 `storageClassName` field pointing to the default storage class.
 -->
 管理员可以通过向其添加
-[`storageclass.kubernetes.io/is-default-class`](/zh-cn/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class)
-注解来将特定的 `StorageClass` 标记为默认。
+[`storageclass.kubernetes.io/is-default-class` 注解](/zh-cn/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class)
+来将特定的 `StorageClass` 标记为默认。
 当集群中存在默认的 `StorageClass` 并且用户创建了一个未指定 `storageClassName` 的 `PersistentVolumeClaim` 时，
 `DefaultStorageClass` 准入控制器会自动向其中添加指向默认存储类的 `storageClassName` 字段。
 
@@ -210,12 +210,13 @@ be created.
 ## 拓扑感知 {#topology-awareness}
 
 <!--
-In [Multi-Zone](/docs/setup/multiple-zones) clusters, Pods can be spread across
+In [Multi-Zone](/docs/setup/best-practices/multiple-zones/) clusters, Pods can be spread across
 Zones in a Region. Single-Zone storage backends should be provisioned in the Zones where
-Pods are scheduled. This can be accomplished by setting the [Volume Binding
-Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
+Pods are scheduled. This can be accomplished by setting the
+[Volume Binding Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 -->
 在[多可用区](/zh-cn/docs/setup/best-practices/multiple-zones/)集群中，Pod 可以被分散到某个区域的多个可用区。
 单可用区存储后端应该被制备到 Pod 被调度到的可用区。
 这可以通过设置[卷绑定模式](/zh-cn/docs/concepts/storage/storage-classes/#volume-binding-mode)来实现。
+
 
