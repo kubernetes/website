@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 中的代理
 content_type: concept
-weight: 90
+weight: 100
 ---
 <!--
 title: Proxies in Kubernetes
