@@ -13,7 +13,7 @@ weight: 20
 
 As an alpha feature, Kubernetes lets you configure Service Level Indicator (SLI) metrics 
 for each Kubernetes component binary. This metric endpoint is exposed on the serving 
-HTTPS port of each component, at the path `/metrics/slis`. You must enable to the 
+HTTPS port of each component, at the path `/metrics/slis`. You must enable the 
 `ComponentSLIs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 for every component from which you want to scrape SLI metrics.
 
