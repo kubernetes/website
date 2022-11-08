@@ -8,7 +8,7 @@
 | `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
 | `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
 | `hash-files.sh`         | This script emits as hash for the files listed in $@                                                                                  |
-| `linkchecker.py`        | This a link checker for Kubernetes documentation website.                                                                             |
+| `linkchecker.py`        | This script is a link checker for Kubernetes documentation website.                                                                   |
 | `lsync.sh`              | This script checks if the English version of a page has changed since a localized page has been committed.                            |
 | `replace-capture.sh`    | This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically               |
 | `check-ctrlcode.py`     | This script finds control-code(0x00-0x1f) in text files.                                                                              |
@@ -194,14 +194,12 @@ The output draft translation file is created respect to the given file path and 
 $ ./draft-translate.py --help
 Usage: draft-translate.py [OPTIONS]
 
-  Simple program that create a draft file for localization using machine
-  tranlation.
+  Create a draft file for localization using Google Translation.
 
 Options:
-  -t, --lang TEXT      Short code (ex:ko) for Target language for draft
-                       localization  [required]
-  -f, --file TEXT      File path of the Source document  [required]
-  -s, --src-lang TEXT  Short code (ex:en) for Source language
+  -t, --lang TEXT      Target language code, such as `ko`.  [required]
+  -f, --file TEXT      Source file path  [required]
+  -s, --src-lang TEXT  Source language, default to `en`.
   --help               Show this message and exit.
   
 # example

@@ -23,6 +23,7 @@ SKIP_PREFIXES = [
     "{{< table",
 ]
 
+
 @click.command()
 @click.option('--lang', '-t', required=True, help='Target language code, such as `ko`.')
 @click.option('--file', '-f', required=True, help='Source file path')
@@ -56,35 +57,35 @@ def main(lang, file, src_lang):
 
                 # if it's in code or header block, do not translate
                 if is_code_block:
-                    print("["+str(num)+":"+src_lang+"="+target_lang+"] " + line.strip())
+                    print(f"[{str(num)}:{src_lang}={target_lang}] {line.strip()}")
                     target.write(line)
                     continue
 
                 # if empty string, do not translate
                 if not stripped_line:
-                    print("["+str(num)+":"+src_lang+"="+target_lang+"] " + line.strip())
+                    print(f"{str(num)}:{src_lang}={target_lang}] {line.strip()}")
                     target.write(line)
                     continue
 
                 # if starts with a certain string, do not translate
                 if stripped_line.startswith(tuple(SKIP_PREFIXES)):
                     print("\n## Line start with a skip-prefix (do not translate)")
-                    print("["+str(num)+":"+src_lang+"="+target_lang+"] " + stripped_line + "\n")
+                    print(f"[{str(num)}:{src_lang}={target_lang}] {stripped_line}\n")
                     target.write(line)
                     continue
 
                 # translate
                 try:
                     translated = translator.translate(line, src=src_lang, dest=target_lang).text
-                    print("["+str(num)+":"+src_lang+"] "+ line.strip())
-                    print("["+str(num)+":"+target_lang+"] " + translated + "\n")
+                    print(f"[{str(num)}:{src_lang}] {line.strip()}")
+                    print(f"[{str(num)}:{target_lang}] {translated}\n")
                     target.write(translated + "\n")
                 except Exception as e:
                     print("Translated with error=", e)
                     target.write(line)
             target.close()
 
-            print("\n\n[Complete: update the draft] " + target_file + "\n\n")
+            print(f"\n\n[Complete: update the draft] {target_file}\n\n")
             result = open(target_file, "r")
             output = result.read()
             print(output)
