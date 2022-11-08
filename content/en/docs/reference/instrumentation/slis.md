@@ -23,8 +23,11 @@ for every component from which you want to scrape SLI metrics.
 
 ## SLI Metrics
 
-We expose two metrics; a gauge (which represents the current state of the healthcheck) and a
-counter (which records the cumulative counts that we've observed for each healthcheck state).
+With SLI metrics enabled, each Kubernetes component exposes two metrics,
+labelled per healthcheck:
+
+- a gauge (which represents the current state of the healthcheck)
+- a counter (which records the cumulative counts observed for each healthcheck state)
 
 ```golang
 var (
