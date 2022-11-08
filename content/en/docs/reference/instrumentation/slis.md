@@ -10,7 +10,8 @@ weight: 20
 
 {{< feature-state for_k8s_version="v1.26" state="alpha" >}}
 
-The Component SLIs feature allows enabling of a new metrics endpoint for each Kubernetes
+As an alpha feature, Kubernetes lets you configure Service Level Indicator (SLI) metrics for each
+Kubernetes component
 binary. This metric endpoint is exposed on the serving HTTPS port of each component,
 at the path
 `metrics/slis`. 
