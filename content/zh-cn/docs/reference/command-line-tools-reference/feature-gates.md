@@ -307,7 +307,7 @@ For a reference to old feature gates that are removed, please refer to
 | `DefaultPodTopologySpread` | `true` | GA | 1.24 | - |
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | 1.24 |
-| `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.25 |- |
+| `DisableAcceleratorUsageMetrics` | `true` | GA | 1.25 |- |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | 1.18 |
 | `DryRun` | `true` | GA | 1.19 | - |
@@ -478,8 +478,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
 - `APIServerIdentity`: Assign each API server an ID in a cluster.
 - `APIServerTracing`: Add support for distributed tracing in the API server.
-  See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces)
-  for more details.
+  See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 -->
 - `APIListChunking`：启用 API 客户端以块的形式从 API 服务器检索（“LIST” 或 “GET”）资源。
 - `APIPriorityAndFairness`：在每个服务器上启用优先级和公平性来管理请求并发（由 `RequestManagement` 重命名而来）。
@@ -947,8 +946,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `KubeletTracing`: Add support for distributed tracing in the kubelet.
   When enabled, kubelet CRI interface and authenticated http servers are instrumented to generate
   OpenTelemetry trace spans.
-  See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces)
-  for more details.
+  See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 - `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
   [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 -->

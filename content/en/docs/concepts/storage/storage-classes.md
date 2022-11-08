@@ -338,7 +338,7 @@ using `allowedTopologies`.
 [allowedTopologies](#allowed-topologies)
 {{< /note >}}
 
-### Glusterfs
+### Glusterfs (deprecated) {#glusterfs}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
