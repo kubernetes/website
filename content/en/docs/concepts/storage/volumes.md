@@ -335,12 +335,20 @@ Some uses for an `emptyDir` are:
 * holding files that a content-manager container fetches while a webserver
   container serves the data
 
-Depending on your environment, `emptyDir` volumes are stored on whatever medium that backs the
-node such as disk or SSD, or network storage. However, if you set the `emptyDir.medium` field
-to `"Memory"`, Kubernetes mounts a tmpfs (RAM-backed filesystem) for you instead.
-While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on
-node reboot and any files you write count against your container's
-memory limit.
+The `emptyDir.medium` field controls where `emptyDir` volumes are stored. By
+default `emptyDir` volumes are stored on whatever medium that backs the node
+such as disk, SSD, or network storage, depending on your environment. If you set
+the `emptyDir.medium` field to `"Memory"`, Kubernetes mounts a tmpfs (RAM-backed
+filesystem) for you instead.  While tmpfs is very fast, be aware that unlike
+disks, tmpfs is cleared on node reboot and any files you write count against
+your container's memory limit.
+
+
+A size limit can be specified for the default medium, which limits the capacity
+of the `emptyDir` volume. The storage is allocated from [node ephemeral
+storage](docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage).
+If that is filled up from another source (for example, log files or image
+overlays), the `emptyDir` may run out of capacity before this limit.
 
 {{< note >}}
 If the `SizeMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
@@ -364,7 +372,8 @@ spec:
       name: cache-volume
   volumes:
   - name: cache-volume
-    emptyDir: {}
+    emptyDir:
+      sizeLimit: 500Mi
 ```
 
 ### fc (fibre channel) {#fc}
@@ -534,7 +543,7 @@ spec:
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
 ```
 
-### glusterfs (deprecated)
+### glusterfs (deprecated) {#glusterfs}
 
 {{< feature-state for_k8s_version="v1.25" state="deprecated" >}}
 
@@ -542,7 +551,7 @@ A `glusterfs` volume allows a [Glusterfs](https://www.gluster.org) (an open
 source networked filesystem) volume to be mounted into your Pod. Unlike
 `emptyDir`, which is erased when a Pod is removed, the contents of a
 `glusterfs` volume are preserved and the volume is merely unmounted. This
-means that a glusterfs volume can be pre-populated with data, and that data can
+means that a `glusterfs` volume can be pre-populated with data, and that data can
 be shared between pods. GlusterFS can be mounted by multiple writers
 simultaneously.
 

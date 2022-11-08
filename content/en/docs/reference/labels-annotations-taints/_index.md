@@ -1,7 +1,7 @@
 ---
 title: Well-Known Labels, Annotations and Taints
 content_type: concept
-weight: 20
+weight: 40
 no_list: true
 ---
 

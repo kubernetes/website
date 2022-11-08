@@ -107,13 +107,13 @@ When you use a policy APIs that is [stable](/docs/reference/using-api/#api-versi
 [defined support policy](/docs/reference/using-api/deprecation-policy/) like other Kubernetes APIs.
 For these reasons, policy APIs are recommended over *configuration files* and *command arguments* where suitable.
 -->
-**内置的策略 API**，例如 [ResourceQuota](/zh-cn/docs/concepts/policy/resource-quotas/)、
+诸如 [ResourceQuota](/zh-cn/docs/concepts/policy/resource-quotas/)、
 [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/)
 和基于角色的访问控制（[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)）
-等等都是以声明方式配置策略选项的内置 Kubernetes API。
+等**内置策略 API** 都是以声明方式配置策略选项的内置 Kubernetes API。
 即使在托管的 Kubernetes 服务和受控的 Kubernetes 安装环境中，API 通常也是可用的。
 内置策略 API 遵循与 Pod 这类其他 Kubernetes 资源相同的约定。
-当你使用[稳定版本的](/zh-cn/docs/reference/using-api/#api-versioning)的策略 API，
+当你使用[稳定版本](/zh-cn/docs/reference/using-api/#api-versioning)的策略 API，
 它们与其他 Kubernetes API 一样，采纳的是一种[预定义的支持策略](/zh-cn/docs/reference/using-api/deprecation-policy/)。
 出于以上原因，在条件允许的情况下，基于策略 API 的方案应该优先于**配置文件**和**命令参数**。
 
@@ -164,7 +164,7 @@ A controller is a client of the Kubernetes API. When Kubernetes is the client an
 out to a remote service, Kubernetes calls this a *webhook*. The remote service is called
 a *webhook backend*. As with custom controllers, webhooks do add a point of failure.
 -->
-编写客户端程序有一种特殊的 {{< glossary_tooltip term_id="controller" text="控制器（Controller）" >}}模式，
+编写客户端程序有一种特殊的{{< glossary_tooltip term_id="controller" text="控制器（Controller）" >}}模式，
 能够与 Kubernetes 很好地协同工作。控制器通常会读取某个对象的 `.spec`，或许还会执行一些操作，
 之后更新对象的 `.status`。
 
@@ -203,7 +203,7 @@ and by kubectl (see [Extend kubectl with plugins](/docs/tasks/extend-kubectl/kub
 This diagram shows the extension points in a Kubernetes cluster and the
 clients that access it.
 -->
-### 扩展点
+### 扩展点   {#extension-points}
 
 下图展示了 Kubernetes 集群中的这些扩展点及其访问集群的客户端。
 
@@ -375,7 +375,7 @@ Operator 模式用于管理特定的应用；通常，这些应用需要维护�
 你还可以创建自己的定制 API 和控制回路来管理其他资源（例如存储）或定义策略（例如访问控制限制）。
 
 <!--
-### Changing Built-in Resources
+### Changing built-in resources
 
 When you extend the Kubernetes API by adding custom resources, the added resources always fall
 into a new API Groups. You cannot replace or change existing API groups.

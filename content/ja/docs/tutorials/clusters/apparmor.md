@@ -111,7 +111,7 @@ kubectl get events | grep Created
 proc attrを調べることで、コンテナのルートプロセスが正しいプロファイルで実行されているかどうかを直接確認することもできます。
 
 ```shell
-kubectl exec <pod_name> cat /proc/1/attr/current
+kubectl exec <pod_name> -- cat /proc/1/attr/current
 ```
 ```
 k8s-apparmor-example-deny-write (enforce)

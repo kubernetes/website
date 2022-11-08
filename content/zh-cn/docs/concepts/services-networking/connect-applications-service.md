@@ -3,6 +3,15 @@ title: 使用 Service 连接到应用
 content_type: concept
 weight: 30
 ---
+<!--
+reviewers:
+- caesarxuchao
+- lavalamp
+- thockin
+title: Connecting Applications with Services
+content_type: concept
+weight: 30
+-->
 
 <!-- overview -->
 
@@ -117,7 +126,6 @@ service/my-nginx exposed
 <!--
 This is equivalent to `kubectl apply -f` the following yaml:
 -->
-
 这等价于使用 `kubectl create -f` 命令及如下的 yaml 文件创建：
 
 {{< codenew file="service/networking/nginx-svc.yaml" >}}
@@ -149,17 +157,24 @@ my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 
 <!--
 As mentioned previously, a Service is backed by a group of Pods. These Pods are
-exposed through `endpoints`. The Service's selector will be evaluated continuously
-and the results will be POSTed to an Endpoints object also named `my-nginx`.
-When a Pod dies, it is automatically removed from the endpoints, and new Pods
-matching the Service's selector will automatically get added to the endpoints.
+exposed through
+{{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlices">}}.
+The Service's selector will be evaluated continuously and the results will be POSTed
+to an EndpointSlice that is connected to the Service using a
+{{< glossary_tooltip text="labels" term_id="label" >}}.
+When a Pod dies, it is automatically removed from the EndpointSlices that contain it 
+as an endpoint. New Pods that match the Service's selector will automatically get added
+to an EndpointSlice for that Service.
 Check the endpoints, and note that the IPs are the same as the Pods created in
 the first step:
 -->
-正如前面所提到的，一个 Service 由一组 Pod 提供支撑。这些 Pod 通过 `endpoints` 暴露出来。
-Service Selector 将持续评估，结果被 POST 到一个名称为 `my-nginx` 的 Endpoint 对象上。
-当 Pod 终止后，它会自动从 Endpoint 中移除，新的能够匹配上 Service Selector 的 Pod 将自动地被添加到 Endpoint 中。
-检查该 Endpoint，注意到 IP 地址与在第一步创建的 Pod 是相同的。
+正如前面所提到的，一个 Service 由一组 Pod 提供支撑。这些 Pod 通过
+{{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlices">}} 暴露出来。
+Service Selector 将持续评估，结果被 POST
+到使用{{< glossary_tooltip text="标签" term_id="label" >}}与该 Service 连接的一个 EndpointSlice。
+当 Pod 终止后，它会自动从包含该 Pod 的 EndpointSlices 中移除。
+新的能够匹配上 Service Selector 的 Pod 将自动地被为该 Service 添加到 EndpointSlice 中。
+检查 Endpoint，注意到 IP 地址与在第一步创建的 Pod 是相同的。
 
 ```shell
 kubectl describe svc my-nginx
@@ -178,11 +193,11 @@ Session Affinity:    None
 Events:              <none>
 ```
 ```shell
-kubectl get ep my-nginx
+kubectl get endpointslices -l kubernetes.io/service-name=my-nginx
 ```
 ```
-NAME       ENDPOINTS                     AGE
-my-nginx   10.244.2.5:80,10.244.3.4:80   1m
+NAME             ADDRESSTYPE   PORTS   ENDPOINTS               AGE
+my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 ```
 
 <!--
@@ -191,11 +206,9 @@ any node in your cluster. Note that the Service IP is completely virtual, it
 never hits the wire. If you're curious about how this works you can read more
 about the [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
 -->
-
 现在，你应该能够从集群中任意节点上使用 curl 命令向 `<CLUSTER-IP>:<PORT>` 发送请求以访问 Nginx Service。
 注意 Service IP 完全是虚拟的，它从来没有走过网络，如果对它如何工作的原理感到好奇，
-可以进一步阅读[服务代理](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
-的内容。
+可以进一步阅读[服务代理](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)的内容。
 
 <!--
 ## Accessing the Service
@@ -207,14 +220,14 @@ and DNS. The former works out of the box while the latter requires the
 ## 访问 Service   {#accessing-the-service}
 
 Kubernetes支持两种查找服务的主要模式: 环境变量和 DNS。前者开箱即用，而后者则需要
-[CoreDNS 集群插件](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns).
+[CoreDNS 集群插件](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)。
 
+{{< note >}}
 <!--
 If the service environment variables are not desired (because possible clashing with expected program ones,
 too many variables to process, only using DNS, etc) you can disable this mode by setting the `enableServiceLinks`
 flag to `false` on the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
 -->
-{{< note >}}
 如果不需要服务环境变量（因为可能与预期的程序冲突，可能要处理的变量太多，或者仅使用DNS等），则可以通过在
 [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 上将 `enableServiceLinks` 标志设置为 `false` 来禁用此模式。
@@ -227,7 +240,7 @@ When a Pod runs on a Node, the kubelet adds a set of environment variables for
 each active Service. This introduces an ordering problem. To see why, inspect
 the environment of your running nginx Pods (your Pod name will be different):
 -->
-### 环境变量
+### 环境变量   {#environment-variables}
 
 当 Pod 在节点上运行时，kubelet 会针对每个活跃的 Service 为 Pod 添加一组环境变量。
 这就引入了一个顺序的问题。为解释这个问题，让我们先检查正在运行的 Nginx Pod
@@ -252,7 +265,6 @@ replicas. This will give you scheduler-level Service spreading of your Pods
 (provided all your nodes have equal capacity), as well as the right environment
 variables:
 -->
-
 能看到环境变量中并没有你创建的 Service 相关的值。这是因为副本的创建先于 Service。
 这样做的另一个缺点是，调度器可能会将所有 Pod 部署到同一台机器上，如果该机器宕机则整个 Service 都会离线。
 要改正的话，我们可以先终止这 2 个 Pod，然后等待 Deployment 去重新创建它们。
@@ -273,7 +285,6 @@ my-nginx-3800858182-j4rm4   1/1       Running   0          5s      10.244.3.8   
 <!--
 You may notice that the pods have different names, since they are killed and recreated.
 -->
-
 你可能注意到，Pod 具有不同的名称，这是因为它们是被重新创建的。
 
 ```shell
@@ -292,7 +303,6 @@ KUBERNETES_SERVICE_PORT_HTTPS=443
 <!--
 Kubernetes offers a DNS cluster addon Service that automatically assigns dns names to other Services. You can check if it's running on your cluster:
 -->
-
 Kubernetes 提供了一个自动为其它 Service 分配 DNS 名字的 DNS 插件 Service。
 你可以通过如下命令检查它是否在工作：
 
@@ -327,7 +337,6 @@ Hit enter for command prompt
 <!--
 Then, hit enter and run `nslookup my-nginx`:
 -->
-
 然后，按回车并执行命令 `nslookup my-nginx`：
 
 ```shell
@@ -350,7 +359,6 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 
 You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
 -->
-
 ## 保护 Service {#securing-the-service}
 
 到现在为止，我们只在集群内部访问了 Nginx 服务器。在将 Service 暴露到因特网之前，我们希望确保通信信道是安全的。
@@ -574,7 +582,6 @@ $ curl https://<EXTERNAL-IP>:<NODE-PORT> -k
 <!--
 Let's now recreate the Service to use a cloud load balancer. Change the `Type` of `my-nginx` Service from `NodePort` to `LoadBalancer`:
 -->
-
 让我们重新创建一个 Service 以使用云负载均衡器。
 将 `my-nginx` Service 的 `Type` 由 `NodePort` 改成 `LoadBalancer`：
 
@@ -601,7 +608,6 @@ hostname, not an IP.  It's too long to fit in the standard `kubectl get svc`
 output, in fact, so you'll need to do `kubectl describe service my-nginx` to
 see it.  You'll see something like this:
 -->
-
 在 `EXTERNAL-IP` 列中的 IP 地址能在公网上被访问到。`CLUSTER-IP` 只能从集群/私有云网络中访问。
 
 注意，在 AWS 上，类型 `LoadBalancer` 的服务会创建一个 ELB，且 ELB 使用主机名（比较长），而不是 IP。

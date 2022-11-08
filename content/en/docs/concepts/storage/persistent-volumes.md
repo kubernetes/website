@@ -297,18 +297,18 @@ the following types of volumes:
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume (deprecated)
 * gcePersistentDisk
-* glusterfs
+* glusterfs (deprecated)
 * rbd
 * portworxVolume
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
-``` yaml
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: gluster-vol-default
-provisioner: kubernetes.io/glusterfs
+  name: example-vol-default
+provisioner: vendor-name.example/magicstorage
 parameters:
   resturl: "http://192.168.10.100:8080"
   restuser: ""
@@ -616,7 +616,7 @@ The following volume types support mount options:
 * `cephfs`
 * `cinder` (**deprecated** in v1.18)
 * `gcePersistentDisk`
-* `glusterfs`
+* `glusterfs` (**deprecated** in v1.25)
 * `iscsi`
 * `nfs`
 * `rbd`
