@@ -46,8 +46,7 @@ parameters are nearly the same with two exceptions:
   for each individual projection.
 
 ## serviceAccountToken projected volumes {#serviceaccounttoken}
-When the `TokenRequestProjection` feature is enabled, you can inject the token
-for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
+You can inject the token for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 into a Pod at a specified path. For example:
 
 {{< codenew file="pods/storage/projected-service-account-token.yaml" >}}
