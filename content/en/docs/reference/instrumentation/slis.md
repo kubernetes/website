@@ -72,5 +72,5 @@ kubernetes_healthchecks_total{name="ping",status="success",type="readyz"} 15
 
 The component SLIs metrics endpoint is intended to be scraped at a high frequency. Scraping
 at a high frequency means that you end up with greater granularity of the gauge's signal, which
-can be then used to calculate SLOs. The `metrics/slis` endpoint provides the raw data necessary
+can be then used to calculate SLOs. The `/metrics/slis` endpoint provides the raw data necessary
 to calculate an availability SLO for the respective Kubernetes component. 
