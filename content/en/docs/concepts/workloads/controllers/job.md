@@ -850,14 +850,12 @@ spec:
     name: web
   clusterIP: None # clusterIP must be None to create a headless service
   selector:
-    app: nginx # must match Job spec label
+    app: nginx # must match job template spec label
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: web
-  labels:
-    app: nginx # must match Headless Service selector
 spec:
   completions: 3
   parallelism: 3
@@ -867,7 +865,7 @@ spec:
       labels:
         app: nginx
     spec:
-      subdomain: headless-svc # has to match Headless Service name
+      subdomain: headless-svc # has to match headless service name
       restartPolicy: Never
       containers:
       - name: nginx
