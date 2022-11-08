@@ -828,7 +828,7 @@ for use cases where pod networking is required but we don't want to depend on a 
 connection with the Kubernetes API server.
 
 
-To enable inter-job communication using pod hostnames, you must do the following:
+To enable pod-to-pod communication using pod hostnames, you must do the following:
 1. Set up a [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
 with a `job-name` selector matching your job name. This will trigger `kube-dns` to
 cache the hostnames of the pods running your job.
