@@ -1,7 +1,7 @@
 ---
 title: 容器运行时类（Runtime Class）
 content_type: concept
-weight: 20
+weight: 30
 ---
 <!--
 reviewers:
@@ -9,7 +9,7 @@ reviewers:
 - dchen1107
 title: Runtime Class
 content_type: concept
-weight: 20
+weight: 30
 -->
 
 <!-- overview -->

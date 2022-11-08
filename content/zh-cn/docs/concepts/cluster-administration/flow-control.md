@@ -2,6 +2,7 @@
 title: API 优先级和公平性
 content_type: concept
 min-kubernetes-server-version: v1.18
+weight: 110
 ---
 
 <!-- overview -->
@@ -62,7 +63,7 @@ are not subject to the `--max-requests-inflight` limit.
 -->
 属于 “长时间运行” 类型的某些请求（例如远程命令执行或日志拖尾）不受 API 优先级和公平性过滤器的约束。
 如果未启用 APF 特性，即便设置 `--max-requests-inflight` 标志，该类请求也不受约束。
-APF **不** 适用于 **watch** 请求。当 APF 被禁用时，**watch** 请求不受 `--max-requests-inflight` 限制。
+APF 适用于 **watch** 请求。当 APF 被禁用时，**watch** 请求不受 `--max-requests-inflight` 限制。
 {{< /caution >}}
 
 <!-- body -->
@@ -262,8 +263,7 @@ text="shuffle sharding" >}}, which makes relatively efficient use of
 queues to insulate low-intensity flows from high-intensity flows.
 -->
 将请求划分到流中之后，APF 功能将请求分配到队列中。
-分配时使用一种称为{{< glossary_tooltip term_id="shuffle-sharding" text="混洗分片（Shuffle-Sharding）" >}}
-的技术。
+分配时使用一种称为{{< glossary_tooltip term_id="shuffle-sharding" text="混洗分片（Shuffle-Sharding）" >}}的技术。
 该技术可以相对有效地利用队列隔离低强度流与高强度流。
 
 <!--
@@ -294,11 +294,11 @@ server.
 
 The flow control API involves two kinds of resources.
 [PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
-define the available isolation classes, the share of the available concurrency
+define the available priority levels, the share of the available concurrency
 budget that each can handle, and allow for fine-tuning queuing behavior.
 [FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta2-flowcontrol-apiserver-k8s-io)
 are used to classify individual inbound requests, matching each to a
-single PriorityLevelConfiguration. There is also a `v1alpha1` version
+single PriorityLevelConfiguration.  There is also a `v1alpha1` version
 of the same API group, and it has the same Kinds with the same syntax and
 semantics.
 -->
@@ -306,20 +306,21 @@ semantics.
 
 流控 API 涉及两种资源。
 [PriorityLevelConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
-定义隔离类型和可处理的并发预算量，还可以微调排队行为。
+定义可用的优先级和可处理的并发预算量，还可以微调排队行为。
 [FlowSchema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta2-flowcontrol-apiserver-k8s-io)
 用于对每个入站请求进行分类，并与一个 PriorityLevelConfiguration 相匹配。
 此外同一 API 组还有一个 `v1alpha1` 版本，其中包含语法和语义都相同的资源类别。
 
 <!--
 ### PriorityLevelConfiguration
-A PriorityLevelConfiguration represents a single isolation class. Each
+
+A PriorityLevelConfiguration represents a single priority level. Each
 PriorityLevelConfiguration has an independent limit on the number of outstanding
 requests, and limitations on the number of queued requests.
 -->
 ### PriorityLevelConfiguration    {#PriorityLevelConfiguration}
 
-一个 PriorityLevelConfiguration 表示单个隔离类型。每个 PriorityLevelConfiguration
+一个 PriorityLevelConfiguration 表示单个优先级。每个 PriorityLevelConfiguration
 对未完成的请求数有各自的限制，对排队中的请求数也有限制。
 
 <!--
@@ -335,7 +336,7 @@ down) by the same fraction.
 -->
 PriorityLevelConfiguration 的并发限制不是指定请求绝对数量，而是在“并发份额”中指定。
 API 服务器的总并发量限制通过这些份额按例分配到现有 PriorityLevelConfiguration 中。
-集群管理员可以更改 `--max-requests-inflight` （或 `--max-mutating-requests-inflight` ）的值，
+集群管理员可以更改 `--max-requests-inflight` （或 `--max-mutating-requests-inflight`）的值，
 再重新启动 `kube-apiserver` 来增加或减小服务器的总流量，
 然后所有的 PriorityLevelConfiguration 将看到其最大并发增加（或减少）了相同的比例。
 
@@ -412,7 +413,7 @@ priority level. Details of the algorithm can be read in the
   较大的 `handSize` 使两个单独的流程发生碰撞的可能性较小（因此，一个流可以饿死另一个流），
   但是更有可能的是少数流可以控制 apiserver。
   较大的 `handSize` 还可能增加单个高并发流的延迟量。
-  单个流中可能排队的请求的最大数量为 `handSize * queueLengthLimit` 。
+  单个流中可能排队的请求的最大数量为 `handSize * queueLengthLimit`。
   {{< /note >}}
 
 <!--
@@ -456,7 +457,7 @@ working onward.  The first match wins.
 
 FlowSchema 匹配一些入站请求，并将它们分配给优先级。
 每个入站请求都会对所有 FlowSchema 测试是否匹配，
-首先从 `matchingPrecedence` 数值最低的匹配开始（我们认为这是逻辑上匹配度最高），
+首先从 `matchingPrecedence` 数值最低的匹配开始（我们认为这是逻辑上的最高优先级），
 然后依次进行，直到首个匹配出现。
 
 {{< caution >}}
@@ -469,7 +470,7 @@ smaller `name` will win, but it's better not to rely on this, and instead to
 ensure that no two FlowSchemas have the same `matchingPrecedence`.
 -->
 对一个请求来说，只有首个匹配的 FlowSchema  才有意义。
-如果一个入站请求与多个 FlowSchema 匹配，则将基于 `matchingPrecedence` 值最高的请求进行筛选。
+如果一个入站请求与多个 FlowSchema 匹配，则将基于逻辑上最高优先级 `matchingPrecedence` 的请求进行筛选。
 如果一个请求匹配多个 FlowSchema 且 `matchingPrecedence` 的值相同，则按 `name` 的字典序选择最小，
 但是最好不要依赖它，而是确保不存在两个 FlowSchema 具有相同的 `matchingPrecedence` 值。
 {{< /caution >}}
@@ -531,7 +532,7 @@ guardrail behavior.  This is behavior that the servers have before
 those objects exist, and when those objects exist their specs reflect
 this behavior.  The four mandatory objects are as follows.
 -->
-### 强制的配置对象
+### 强制的配置对象   {#mandatory-configuration-objects}
 
 有四种强制的配置对象对应内置的守护行为。这里的行为是服务器在还未创建对象之前就具备的行为，
 而当这些对象存在时，其规约反映了这类行为。四种强制的对象如下：
@@ -577,7 +578,7 @@ configuration will work best.
 
 The suggested configuration groups requests into six priority levels:
 -->
-### 建议的配置对象
+### 建议的配置对象   {#suggested-configuration-objects}
 
 建议的 FlowSchema 和 PriorityLevelConfiguration 包含合理的默认配置。
 你可以修改这些对象或者根据需要创建新的配置对象。如果你的集群可能承受较重负载，
@@ -644,7 +645,7 @@ Thus, in a situation with a mixture of servers of different versions
 there may be thrashing as long as different servers have different
 opinions of the proper content of these objects.
 -->
-### 强制的与建议的配置对象的维护
+### 强制的与建议的配置对象的维护   {#maintenance-of-the-mandatory-and-suggested-configuration-objects}
 
 每个 `kube-apiserver` 都独立地维护其强制的与建议的配置对象，
 这一维护操作既是服务器的初始行为，也是其周期性操作的一部分。
@@ -925,7 +926,7 @@ poorly-behaved workloads that may be harming system health.
 * `apiserver_flowcontrol_read_vs_write_request_count_watermarks` 是一个直方图向量，
   记录请求数量的高/低水位线，
   由标签 `phase`（取值为 `waiting` 和 `executing`）和 `request_kind`
-  （取值为 `mutating` 和 `readOnly`）拆分；标签 `mark` 取值为 `high` 和 `low` 。
+  （取值为 `mutating` 和 `readOnly`）拆分；标签 `mark` 取值为 `high` 和 `low`。
   `apiserver_flowcontrol_read_vs_write_request_count_samples` 向量观察到有值新增，
   则该向量累积。这些水位线显示了样本值的范围。
 

@@ -1,5 +1,9 @@
 ---
 title: IPv4/IPv6 dual-stack
+description: >-
+  Kubernetes lets you configure single-stack IPv4 networking,
+  single-stack IPv6 networking, or dual stack networking with
+  both network families active. This page explains how.
 feature:
   title: IPv4/IPv6 dual-stack
   description: >
@@ -10,7 +14,7 @@ reviewers:
   - khenidak
   - aramase
   - bridgetkromhout
-weight: 70
+weight: 90
 ---
 
 <!-- overview -->

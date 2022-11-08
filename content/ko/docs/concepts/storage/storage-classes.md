@@ -1,9 +1,9 @@
 ---
-## reviewers:
-## - jsafrane
-## - saad-ali
-## - thockin
-## - msau42
+# reviewers:
+# - jsafrane
+# - saad-ali
+# - thockin
+# - msau42
 title: 스토리지 클래스
 content_type: concept
 weight: 30

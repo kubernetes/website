@@ -1,13 +1,13 @@
 ---
 title: Node-pressure Eviction
 content_type: concept
-weight: 60
+weight: 100
 ---
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
 The {{<glossary_tooltip term_id="kubelet" text="kubelet">}} monitors resources 
-like CPU, memory, disk space, and filesystem inodes on your cluster's nodes. 
+like memory, disk space, and filesystem inodes on your cluster's nodes. 
 When one or more of these resources reach specific consumption levels, the 
 kubelet can proactively fail one or more pods on the node to reclaim resources
 and prevent starvation. 
@@ -153,6 +153,12 @@ The kubelet has the following default hard eviction thresholds:
 * `nodefs.available<10%`
 * `imagefs.available<15%`
 * `nodefs.inodesFree<5%` (Linux nodes)
+
+These default values of hard eviction thresholds will only be set if none 
+of the parameters is changed. If you changed the value of any parameter, 
+then the values of other parameters will not be inherited as the default 
+values and will be set to zero. In order to provide custom values, you 
+should provide all the thresholds respectively.
 
 ### Eviction monitoring interval
 

@@ -2,11 +2,13 @@
 title: 使用源 IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 10
 ---
 <!--  
 title: Using Source IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 10
 -->
 
 <!-- overview -->
@@ -85,7 +87,7 @@ IP of requests it receives through an HTTP header. You can create it as follows:
 你可以按如下方式创建它：
 
 ```shell
-kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
 ```
 <!-- 
 The output is:
@@ -236,7 +238,7 @@ command=GET
 <!-- 
 The `client_address` is always the client pod's IP address, whether the client pod and server pod are in the same node or in different nodes.
 -->
-`client_address` 始终是客户端 Pod 的 IP 地址，不管客户端 Pod 和服务器 Pod 位于同一节点还是不同节点。
+不管客户端 Pod 和服务器 Pod 位于同一节点还是不同节点，`client_address` 始终是客户端 Pod 的 IP 地址。
 
 <!-- 
 ## Source IP for Services with `Type=NodePort`
@@ -384,7 +386,7 @@ Visually:
 
 * 客户端将数据包发送到没有任何端点的 `node2:nodePort`
 * 数据包被丢弃
-* 客户端发送数据包到 `node1:nodePort`，它**确实**有端点
+* 客户端发送数据包到**必有**端点的 `node1:nodePort`
 * node1 使用正确的源 IP 地址将数据包路由到端点
 
 用图表示：
@@ -401,7 +403,7 @@ at a node without an endpoint, the system proxies it to a node *with* an
 endpoint, replacing the source IP on the packet with the IP of the node (as
 described in the previous section).
 -->
-## `Type=LoadBalancer` 类型 Service 的 Source IP  {#source-ip-for-services-with-type-loadbalancer}
+## `Type=LoadBalancer` 类型 Service 的源 IP  {#source-ip-for-services-with-type-loadbalancer}
 
 默认情况下，发送到 [`Type=LoadBalancer`](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
 的 Service 的数据包经过源 NAT处理，因为所有处于 `Ready` 状态的可调度 Kubernetes
@@ -443,7 +445,7 @@ loadbalancer   LoadBalancer   10.0.65.118   203.0.113.140     80/TCP    5m
 <!-- 
 Next, send a request to this Service's external-ip:
 -->
-接下来，发送请求到 Service 的 的外部IP（External-IP）：
+接下来，发送请求到 Service 的 的外部 IP（External-IP）：
 ```shell
 curl 203.0.113.140
 ```

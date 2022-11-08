@@ -74,7 +74,7 @@ Some information about releases is subject to embargo and we have defined policy
 <!-- 
 ## Handbooks
 
-**NOTE:** The Patch Release Team and Branch Manager handbooks will be de-duplicated at a later date.
+**NOTE: The Patch Release Team and Branch Manager handbooks will be de-duplicated at a later date.**
 
 - [Patch Release Team][handbook-patch-release]
 - [Branch Managers][handbook-branch-mgmt]
@@ -82,7 +82,7 @@ Some information about releases is subject to embargo and we have defined policy
 -->
 ## 手册  {#handbooks}
 
-**注意：**补丁发布团队和分支管理员手册以后将会删除重复数据。
+**注意：补丁发布团队和分支管理员手册以后将会删除重复数据。**
 
 - [补丁发布团队][handbook-patch-release]
 - [分支管理员][handbook-branch-mgmt]
@@ -246,6 +246,7 @@ GitHub Mentions: @kubernetes/release-engineering
 GitHub 提及：@kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
+- Cici Huang ([@cici37](https://github.com/cici37))
 - Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
 - Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
@@ -254,6 +255,7 @@ GitHub 提及：@kubernetes/release-engineering
 - Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
 - Taylor Dolezal ([@onlydole](https://github.com/onlydole))
 - Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
+- Xander Grzywinski([@salaxander](https://github.com/salaxander))
 
 <!-- 
 ### Becoming a Release Manager Associate
@@ -305,9 +307,9 @@ GitHub team: [@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams
 GitHub 团队：[@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams/build-admins)
 
 - Aaron Crickenberger ([@spiffxp](https://github.com/spiffxp))
-- Benjamin Elder ([@BenTheElder](https://github.com/BenTheElder))
+- Ben Kazemi ([@BenjaminKazemi](https://github.com/BenjaminKazemi))
 - Grant McCloskey ([@MushuEE](https://github.com/MushuEE))
-- Juan Escobar ([@juanfescobar](https://github.com/juanfescobar))
+
 
 <!-- 
 ## SIG Release Leads
@@ -374,6 +376,9 @@ Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.1
 [handbook-packaging]: https://git.k8s.io/release/hack/rapture/README.md
 [handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [k-sig-release-releases]: https://git.k8s.io/sig-release/releases
+<!--
+[patches]: /releases/patch-releases/
+-->
 [patches]: /zh-cn/releases/patch-releases/
 [src]: https://git.k8s.io/community/committee-security-response/README.md
 [release-team]: https://git.k8s.io/sig-release/release-team/README.md

@@ -4,7 +4,7 @@ reviewers:
 - wojtek-t
 title: Pod Priority and Preemption
 content_type: concept
-weight: 50
+weight: 90
 ---
 
 <!-- overview -->

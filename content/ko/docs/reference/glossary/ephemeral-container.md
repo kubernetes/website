@@ -17,4 +17,4 @@ tags:
 문제가 있는 실행 중 파드를 조사하고 싶다면, 파드에 임시 컨테이너를 추가하고 진단을 수행할 수 있다. 임시 컨테이너는 리소스 및 스케줄링에 대한 보장이 제공되지 않으며, 워크로드 자체를 실행하기 위해 임시 컨테이너를 사용해서는 안 된다.
 
 <!-- Even though the English doc doesn't mention this, the link below is to help Korean readers understand what 임시 컨테이너 equates to in the API. -->
-더 자세한 정보는 파드 API의 [EphemeralContainer](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#EphemeralContainer)를 참고한다.
+더 자세한 정보는 파드 API의 [EphemeralContainer](/docs/reference/kubernetes-api/workload-resources/pod-v1/#EphemeralContainer)를 참고한다.

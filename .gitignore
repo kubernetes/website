@@ -27,7 +27,7 @@ kubernetes.github.io.iml
 nohup.out
 
 # Hugo output
-/public/
+/public
 /resources/
 .hugo_build.lock
 
