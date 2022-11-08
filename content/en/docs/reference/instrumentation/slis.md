@@ -15,7 +15,7 @@ As an alpha feature, Kubernetes lets you configure Service Level Indicator (SLI)
 Kubernetes component
 binary. This metric endpoint is exposed on the serving HTTPS port of each component,
 at the path
-`metrics/slis`. 
+`/metrics/slis`. 
 You must enable to the `ComponentSLIs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 for every component from which you want to scrape SLI metrics.
 
