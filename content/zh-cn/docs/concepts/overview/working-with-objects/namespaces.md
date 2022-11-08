@@ -1,7 +1,7 @@
 ---
 title: 名字空间
 content_type: concept
-weight: 30
+weight: 45
 ---
 <!--
 reviewers:
@@ -10,7 +10,7 @@ reviewers:
 - thockin
 title: Namespaces
 content_type: concept
-weight: 30
+weight: 45
 -->
 
 <!-- overview -->
