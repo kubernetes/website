@@ -65,6 +65,7 @@ different Kubernetes components.
 | `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
 | `CheckpointContainer` | `false` | Alpha | 1.25 | |
+| `ComponentSLIs` | `false` | Alpha | 1.26 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CPUManagerPolicyAlphaOptions` | `false` | Alpha | 1.23 | |
@@ -669,6 +670,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for more details.
 - `CheckpointContainer`: Enables the kubelet `checkpoint` API.
   See [Kubelet Checkpoint API](/docs/reference/node/kubelet-checkpoint-api/) for more details.
+- `ComponentSLIs`: Enables the component's SLIs metrics endpoint.
+  See [Kubernetes Component SLIs](/docs/reference/instrumentation/slis/) for more details.
 - `ControllerManagerLeaderMigration`: Enables Leader Migration for
   [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and
   [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager)
