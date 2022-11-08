@@ -39,7 +39,6 @@ Contributeurs à la documentation Kubernetes:
 
 
 
-
 <!-- body -->
 
 ## Démarrage
@@ -147,7 +146,7 @@ Figure 2. Préparation pour votre première contribution.
 - [Soumettez un pull request dans GitHub](/docs/contribute/new-content/open-a-pr/#changes-using-github) sur la documentation existante et apprenez-en plus sur comment créer des tickets dans GitHub.
 - [Révisez des pull requests](/docs/contribute/review/reviewing-prs/) d'autres membres de la communauté Kubernetes pour en vérifier l'exactitude et la langue.
 - Lisez le [contenu](/docs/contribute/style/content-guide/) et les [guides de style](/docs/contribute/style/style-guide/)de Kubernetes afin de pouvoir laisser des commentaires éclairés.
-- tudiez sur les [types de contenu de page](/docs/contribute/style/page-content-types/)
+- Étudiez sur les [types de contenu de page](/docs/contribute/style/page-content-types/)
   et [shortcodes](/docs/contribute/style/hugo-shortcodes/)de Hugo.
 
 ## Prochaines étapes
@@ -159,7 +158,7 @@ Figure 2. Préparation pour votre première contribution.
                        
 - Demarrez ou aidez avec une [localisation](/docs/contribute/localization/).
 
-## S'engagez dans SIG Docs
+## Engagez-vous dans SIG Docs
 
 [SIG Docs](/docs/contribute/participate/) est le groupe de contributeurs qui publient et maintiennent la documentation Kubernetes et le site Web. S'impliquer dans SIG Docs est un excellent moyen pour les contributeurs Kubernetes (développement de fonctionnalités ou autre) d'avoir un impact important sur le projet Kubernetes.
 
