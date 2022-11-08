@@ -788,7 +788,7 @@ spec:
     nfs:
       server: my-nfs-server.example.com
       path: /my-nfs-volume
-      readonly: true
+      readOnly: true
 ```
 
 {{< note >}}
