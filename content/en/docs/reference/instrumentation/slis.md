@@ -11,7 +11,8 @@ weight: 20
 {{< feature-state for_k8s_version="v1.26" state="alpha" >}}
 
 The Component SLIs feature allows enabling of a new metrics endpoint for each Kubernetes
-binary. This metric endpoint is exposed on the standard port of each binary at the endpoint
+binary. This metric endpoint is exposed on the serving HTTPS port of each component,
+at the path
 `metrics/slis`. 
 You must enable to the `ComponentSLIs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 for every component from which you want to scrape SLI metrics.
