@@ -1,7 +1,7 @@
 ---
 title: 系统日志
 content_type: concept
-weight: 60
+weight: 80
 ---
 <!-- 
 reviewers:
@@ -9,7 +9,7 @@ reviewers:
 - 44past4
 title: System Logs
 content_type: concept
-weight: 60
+weight: 80
 -->
 
 <!-- overview -->
