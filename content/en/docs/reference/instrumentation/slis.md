@@ -29,6 +29,10 @@ labelled per healthcheck:
 - a gauge (which represents the current state of the healthcheck)
 - a counter (which records the cumulative counts observed for each healthcheck state)
 
+You can use the metric information to calculate per-component availability statistics.
+For example, the API server checks the health of etcd. You can work out and report how
+available or unavailable etcd has been - as reported by its client, the API server.
+
 ```golang
 var (
    // healthcheck is a Prometheus Gauge metrics used for recording the results of a k8s healthcheck.
