@@ -11,12 +11,10 @@ weight: 20
 
 {{< feature-state for_k8s_version="v1.26" state="alpha" >}}
 
-As an alpha feature, Kubernetes lets you configure Service Level Indicator (SLI) metrics for each
-Kubernetes component
-binary. This metric endpoint is exposed on the serving HTTPS port of each component,
-at the path
-`/metrics/slis`. 
-You must enable to the `ComponentSLIs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+As an alpha feature, Kubernetes lets you configure Service Level Indicator (SLI) metrics 
+for each Kubernetes component binary. This metric endpoint is exposed on the serving 
+HTTPS port of each component, at the path `/metrics/slis`. You must enable to the 
+`ComponentSLIs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 for every component from which you want to scrape SLI metrics.
 
 <!-- body -->
@@ -24,7 +22,7 @@ for every component from which you want to scrape SLI metrics.
 ## SLI Metrics
 
 With SLI metrics enabled, each Kubernetes component exposes two metrics,
-labelled per healthcheck:
+labeled per healthcheck:
 
 - a gauge (which represents the current state of the healthcheck)
 - a counter (which records the cumulative counts observed for each healthcheck state)
@@ -33,35 +31,10 @@ You can use the metric information to calculate per-component availability stati
 For example, the API server checks the health of etcd. You can work out and report how
 available or unavailable etcd has been - as reported by its client, the API server.
 
-```golang
-var (
-   // healthcheck is a Prometheus Gauge metrics used for recording the results of a k8s healthcheck.
-   healthcheck = k8smetrics.NewGaugeVec(
-      &k8smetrics.GaugeOpts{
-         Namespace:      "kubernetes",
-         Name:           "healthcheck",
-         Help:           "This metric records the result of a single healthcheck.",
-         StabilityLevel: k8smetrics.ALPHA,
-      },
-      []string{"name", "type"},
-   )
 
-   // healthchecksTotal is a Prometheus Counter metrics used for counting the results of a k8s healthcheck.
-   healthchecksTotal = k8smetrics.NewCounterVec(
-      &k8smetrics.CounterOpts{
-         Namespace:      "kubernetes",
-         Name:           "healthchecks_total",
-         Help:           "This metric records the results of all healthcheck.",
-         StabilityLevel: k8smetrics.ALPHA,
-      },
-      []string{"name", "type", "status"},
-   )
-)
+The prometheus gauge data looks like this:
+
 ```
-
-The gauge data looks like this:
-
-```shell
 # HELP kubernetes_healthcheck [ALPHA] This metric records the result of a single healthcheck.
 # TYPE kubernetes_healthcheck gauge
 kubernetes_healthcheck{name="autoregister-completion",type="healthz"} 1
@@ -78,7 +51,7 @@ kubernetes_healthcheck{name="ping",type="readyz"} 1
 
 While the counter data looks like this:
 
-```shell
+```
 # HELP kubernetes_healthchecks_total [ALPHA] This metric records the results of all healthcheck.
 # TYPE kubernetes_healthchecks_total counter
 kubernetes_healthchecks_total{name="autoregister-completion",status="error",type="readyz"} 1
