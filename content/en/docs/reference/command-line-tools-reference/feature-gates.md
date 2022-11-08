@@ -196,6 +196,9 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyAwareHints` | `true` | Beta | 1.24 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
 | `TopologyManager` | `true` | Beta | 1.18 | |
+| `TopologyManagerPolicyAlphaOptions` | `false` | Alpha | 1.26 | |
+| `TopologyManagerPolicyBetaOptions` | `false` | Beta | 1.26 | |
+| `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | |
 | `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | |
 | `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
 | `WinDSR` | `false` | Alpha | 1.14 | |
@@ -727,6 +730,15 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource
   assignments for different components in Kubernetes. See
   [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
+- `TopologyManagerPolicyAlphaOptions`: Allow fine-tuning of topology manager policies,
+  experimental, Alpha-quality options.
+  This feature gate guards *a group* of topology manager options whose quality level is alpha.
+  This feature gate will never graduate to beta or stable.
+- `TopologyManagerPolicyBetaOptions`: Allow fine-tuning of topology manager policies,
+  experimental, Beta-quality options.
+  This feature gate guards *a group* of topology manager options whose quality level is alpha.
+  This feature gate will never graduate to stable.
+- `TopologyManagerPolicyOptions`: Allow fine-tuning of topology manager policies,
 - `UserNamespacesStatelessPodsSupport`: Enable user namespace support for stateless Pods.
 - `VolumeCapacityPriority`: Enable support for prioritizing nodes in different
   topologies based on available PV capacity.
