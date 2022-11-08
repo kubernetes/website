@@ -1,7 +1,8 @@
 ---
 reviewers:
 - logicalhan
-title: Kubernetes Component SLIs
+title: Kubernetes Component SLI Metrics
+linkTitle: Service Level Indicator Metrics
 content_type: reference
 weight: 20
 ---
