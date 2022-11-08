@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - janetkuo
 title: 데몬셋(DaemonSet)에서 롤링 업데이트 수행
 content_type: task
 weight: 10

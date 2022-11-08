@@ -23,8 +23,8 @@ This is a Cluster Administrator guide to service accounts. You should be familia
 Support for authorization and user accounts is planned but incomplete. Sometimes
 incomplete features are referred to in order to better describe service accounts.
 -->
-这是一篇针对服务账号的集群管理员指南。你应该熟悉
-[配置 Kubernetes 服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)。
+这是一篇针对服务账号的集群管理员指南。
+你应该熟悉[配置 Kubernetes 服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)。
 
 对鉴权和用户账号的支持已在规划中，当前并不完备。
 为了更好地描述服务账号，有时这些不完善的特性也会被提及。
@@ -93,23 +93,22 @@ It acts synchronously to modify pods as they are created or updated. When this p
 -->
 ### ServiceAccount 准入控制器   {#serviceaccount-admission-controller}
 
-对 Pod 的改动通过一个被称为
-[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
-的插件来实现。它是 API 服务器的一部分。
-当 Pod 被创建或更新时，它会同步地修改 Pod。
+对 Pod 的改动通过一个被称为[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)的插件来实现。
+它是 API 服务器的一部分。当 Pod 被创建或更新时，它会同步地修改 Pod。
 如果该插件处于激活状态（在大多数发行版中都是默认激活的），
 当 Pod 被创建或更新时它会进行以下操作：
 
 <!--
 1. If the pod does not have a `ServiceAccount` set, it sets the `ServiceAccount` to `default`.
 1. It ensures that the `ServiceAccount` referenced by the pod exists, and otherwise rejects it.
-1. It adds a `volume` to the pod which contains a token for API access
-   if neither the ServiceAccount `automountServiceAccountToken` nor the Pod's
-   `automountServiceAccountToken` is set to `false`.
+1. It adds a `volume` to the pod which contains a token for API access if neither the
+   ServiceAccount `automountServiceAccountToken` nor the Pod's `automountServiceAccountToken`
+   is set to `false`.
 1. It adds a `volumeSource` to each container of the pod mounted at
-   `/var/run/secrets/kubernetes.io/serviceaccount`, if the previous step has
-   created a volume for ServiceAccount token.
-1. If the pod does not contain any `ImagePullSecrets`, then `ImagePullSecrets` of the `ServiceAccount` are added to the pod.
+   `/var/run/secrets/kubernetes.io/serviceaccount`, if the previous step has created a volume
+   for the ServiceAccount token.
+1. If the pod does not contain any `imagePullSecrets`, then `imagePullSecrets` of the
+   `ServiceAccount` are added to the pod.
 -->
 1. 如果该 Pod 没有设置 `ServiceAccount`，将其 `ServiceAccount` 设为 `default`。
 1. 保证 Pod 所引用的 `ServiceAccount` 确实存在，否则拒绝该 Pod。
@@ -130,7 +129,8 @@ It acts synchronously to modify pods as they are created or updated. When this p
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 <!--
-The ServiceAccount admission controller will add the following projected volume instead of a Secret-based volume for the non-expiring service account token created by Token Controller.
+The ServiceAccount admission controller will add the following projected volume instead of a
+Secret-based volume for the non-expiring service account token created by the Token controller.
 -->
 ServiceAccount 准入控制器将添加如下投射卷，
 而不是为令牌控制器所生成的不过期的服务账号令牌而创建的基于 Secret 的卷。
@@ -159,27 +159,24 @@ ServiceAccount 准入控制器将添加如下投射卷，
 <!--
 This projected volume consists of three sources:
 
-1. A ServiceAccountToken acquired from kube-apiserver via TokenRequest API. It will expire after 1 hour by default or when the pod is deleted. It is bound to the pod and has kube-apiserver as the audience.
-1. A ConfigMap containing a CA bundle used for verifying connections to the kube-apiserver. This feature depends on the `RootCAConfigMap` feature gate, which publishes a "kube-root-ca.crt" ConfigMap to every namespace. `RootCAConfigMap` feature gate is graduated to GA in 1.21 and default to true. (This flag will be removed from --feature-gate arg in 1.22)
-1. A DownwardAPI that references the namespace of the pod.
+1. A `serviceAccountToken` acquired from kube-apiserver via TokenRequest API. It will expire
+   after 1 hour by default or when the pod is deleted. It is bound to the pod and it has
+   its audience set to match the audience of the `kube-apiserver`.
+1. A `configMap` containing a CA bundle used for verifying connections to the kube-apiserver.
+1. A `downwardAPI` that references the namespace of the pod.
 -->
 此投射卷有三个数据源：
 
-1. 通过 TokenRequest API 从 kube-apiserver 处获得的 ServiceAccountToken。
+1. 通过 TokenRequest API 从 kube-apiserver 处获得的 `serviceAccountToken`。
    这一令牌默认会在一个小时之后或者 Pod 被删除时过期。
-   该令牌绑定到 Pod 实例上，并将 kube-apiserver 作为其受众（audience）。
-1. 包含用来验证与 kube-apiserver 连接的 CA 证书包的 ConfigMap 对象。
-   这一特性依赖于 `RootCAConfigMap` 特性门控。该特性被启用时，
-   控制面会公开一个名为 `kube-root-ca.crt` 的 ConfigMap 给所有名字空间。
-   `RootCAConfigMap` 在 1.21 版本中进入 GA 状态，默认被启用，
-   该特性门控会在 1.22 版本中从 `--feature-gate` 参数中删除。
-1. 引用 Pod 名字空间的一个 DownwardAPI。
+   该令牌绑定到 Pod 上，并将其 audience（受众）设置为与 `kube-apiserver` 的 audience 相匹配。
+1. 包含用来验证与 kube-apiserver 连接的 CA 证书包的 `configMap` 对象。
+1. 引用 Pod 名字空间的一个 `downwardAPI`。
 
 <!--
 See more details about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 -->
-参阅[投射卷](/zh-cn/docs/tasks/configure-pod-container/configure-projected-volume-storage/)
-了解进一步的细节。
+参阅[投射卷](/zh-cn/docs/tasks/configure-pod-container/configure-projected-volume-storage/)了解进一步的细节。
 
 <!--
 ### Token Controller

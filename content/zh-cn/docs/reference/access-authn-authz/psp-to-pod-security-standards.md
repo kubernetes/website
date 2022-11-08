@@ -17,11 +17,11 @@ weight: 95
 
 <!--
 The tables below enumerate the configuration parameters on
-[PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) objects, whether the field mutates
+`PodSecurityPolicy` objects,  whether the field mutates
 and/or validates pods, and how the configuration values map to the
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/).
 -->
-下面的表格列举了 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)
+下面的表格列举了 `PodSecurityPolicy`
 对象上的配置参数，这些字段是否会变更或检查 Pod 配置，以及这些配置值如何映射到
 [Pod 安全性标准（Pod Security Standards）](/zh-cn/docs/concepts/security/pod-security-standards/)
 之上。

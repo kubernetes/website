@@ -33,7 +33,7 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 {{< note >}}
 As the features are in Alpha, prepare the Kubernetes cluster with the two
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled: `JobPodFailurePolicy` and `PodDisruptionsCondition`.
+enabled: `JobPodFailurePolicy` and `PodDisruptionConditions`.
 {{< /note >}}
 
 ## Using Pod failure policy to avoid unnecessary Pod retries
@@ -53,6 +53,7 @@ kubectl create -f job-pod-failure-policy-failjob.yaml
 ```
 
 After around 30s the entire Job should be terminated. Inspect the status of the Job by running:
+
 ```sh
 kubectl get jobs -l job-name=job-pod-failure-policy-failjob -o yaml
 ```
@@ -68,9 +69,11 @@ of the Pod, taking at least 2 minutes.
 ### Clean up
 
 Delete the Job you created:
+
 ```sh
 kubectl delete jobs/job-pod-failure-policy-failjob
 ```
+
 The cluster automatically cleans up the Pods.
 
 ## Using Pod failure policy to ignore Pod disruptions
@@ -87,34 +90,37 @@ node while the Pod is running on it (within 90s since the Pod is scheduled).
 
 1. Create a Job based on the config:
 
-{{< codenew file="/controllers/job-pod-failure-policy-ignore.yaml" >}}
+   {{< codenew file="/controllers/job-pod-failure-policy-ignore.yaml" >}}
 
-by running:
+   by running:
 
-```sh
-kubectl create -f job-pod-failure-policy-ignore.yaml
-```
+   ```sh
+   kubectl create -f job-pod-failure-policy-ignore.yaml
+   ```
 
 2. Run this command to check the `nodeName` the Pod is scheduled to:
 
-```sh
-nodeName=$(kubectl get pods -l job-name=job-pod-failure-policy-ignore -o jsonpath='{.items[0].spec.nodeName}')
-```
+   ```sh
+   nodeName=$(kubectl get pods -l job-name=job-pod-failure-policy-ignore -o jsonpath='{.items[0].spec.nodeName}')
+   ```
 
 3. Drain the node to evict the Pod before it completes (within 90s):
-```sh
-kubectl drain nodes/$nodeName --ignore-daemonsets --grace-period=0
-```
+   
+   ```sh
+   kubectl drain nodes/$nodeName --ignore-daemonsets --grace-period=0
+   ```
 
 4. Inspect the `.status.failed` to check the counter for the Job is not incremented:
-```sh
-kubectl get jobs -l job-name=job-pod-failure-policy-ignore -o yaml
-```
+
+   ```sh
+   kubectl get jobs -l job-name=job-pod-failure-policy-ignore -o yaml
+   ```
 
 5. Uncordon the node:
-```sh
-kubectl uncordon nodes/$nodeName
-```
+
+   ```sh
+   kubectl uncordon nodes/$nodeName
+   ```
 
 The Job resumes and succeeds.
 
@@ -124,9 +130,11 @@ result in terminating the entire Job (as the `.spec.backoffLimit` is set to 0).
 ### Cleaning up
 
 Delete the Job you created:
+
 ```sh
 kubectl delete jobs/job-pod-failure-policy-ignore
 ```
+
 The cluster automatically cleans up the Pods.
 
 ## Alternatives
@@ -134,6 +142,6 @@ The cluster automatically cleans up the Pods.
 You could rely solely on the
 [Pod backoff failure policy](/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy),
 by specifying the Job's `.spec.backoffLimit` field. However, in many situations
-it is problematic to find a balance between setting the a low value for `.spec.backoffLimit`
+it is problematic to find a balance between setting a low value for `.spec.backoffLimit`
  to avoid unnecessary Pod retries, yet high enough to make sure the Job would
 not be terminated by Pod disruptions.

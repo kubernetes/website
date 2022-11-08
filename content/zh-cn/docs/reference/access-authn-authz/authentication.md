@@ -66,8 +66,7 @@ Kubernetes 仍然认为能够提供由集群的证书机构签名的合法证书
 基于这样的配置，Kubernetes 使用证书中的 'subject' 的通用名称（Common Name）字段
 （例如，"/CN=bob"）来确定用户名。
 接下来，基于角色访问控制（RBAC）子系统会确定用户是否有权针对某资源执行特定的操作。
-进一步的细节可参阅
-[证书请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
+进一步的细节可参阅[证书请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
 下普通用户主题。
 
 <!--
@@ -175,7 +174,7 @@ For example, using the `openssl` command line tool to generate a certificate sig
 如果提供了客户端证书并且证书被验证通过，则 subject 中的公共名称（Common Name）
 就被作为请求的用户名。
 自 Kubernetes 1.4 开始，客户端证书还可以通过证书的 organization 字段标明用户的组成员信息。
-要包含用户的多个组成员信息，可以在证书种包含多个 organization 字段。
+要包含用户的多个组成员信息，可以在证书中包含多个 organization 字段。
 
 例如，使用 `openssl` 命令行工具生成一个证书签名请求：
 
@@ -188,7 +187,7 @@ This would create a CSR for the username "jbeda", belonging to two groups, "app1
 
 See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for how to generate a client cert.
 -->
-此命令将使用用户名 `jbeda` 生成一个证书签名请求（CSR），且该用户属于 "app" 和
+此命令将使用用户名 `jbeda` 生成一个证书签名请求（CSR），且该用户属于 "app1" 和
 "app2" 两个用户组。
 
 参阅[管理证书](/zh-cn/docs/tasks/administer-cluster/certificates/)了解如何生成客户端证书。
@@ -214,7 +213,7 @@ followed by optional group names.
 <!--
 If you have more than one group the column must be double quoted e.g.
 -->
-如果要设置的组名不止一个，则对应的列必须用双引号括起来，例如
+如果要设置的组名不止一个，则对应的列必须用双引号括起来，例如：
 
 ```conf
 token,user,uid,"group1,group2,group3"
@@ -305,7 +304,7 @@ Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-token
 documentation on the Bootstrap Token authenticator and controllers along with
 how to manage these tokens with `kubeadm`.
 -->
-请参阅[启动引导令牌](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
+请参阅[启动引导令牌](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)，
 以了解关于启动引导令牌身份认证组件与控制器的更深入的信息，以及如何使用
 `kubeadm` 来管理这些令牌。
 
@@ -340,8 +339,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 `serviceAccountName` field of a `PodSpec`.
 -->
 服务账号通常由 API 服务器自动创建并通过 `ServiceAccount`
-[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
-关联到集群中运行的 Pod 上。
+[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)关联到集群中运行的 Pod 上。
 持有者令牌会挂载到 Pod 中可预知的位置，允许集群内进程与 API 服务器通信。
 服务账号也可以使用 Pod 规约的 `serviceAccountName` 字段显式地关联到 Pod 上。
 
@@ -353,7 +351,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 {{< /note >}}
 
 ```yaml
-apiVersion: apps/v1
+apiVersion: apps/v1 # 此 apiVersion 从 Kubernetes 1.9 开始可用
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -375,106 +373,68 @@ Service account bearer tokens are perfectly valid to use outside the cluster and
 can be used to create identities for long standing jobs that wish to talk to the
 Kubernetes API. To manually create a service account, use the `kubectl create
 serviceaccount (NAME)` command. This creates a service account in the current
-namespace and an associated secret.
+namespace.
 -->
 在集群外部使用服务账号持有者令牌也是完全合法的，且可用来为长时间运行的、需要与 Kubernetes
 API 服务器通信的任务创建标识。要手动创建服务账号，可以使用
 `kubectl create serviceaccount <名称>` 命令。
-此命令会在当前的名字空间中生成一个服务账号和一个与之关联的 Secret。
+此命令会在当前的名字空间中生成一个服务账号。
 
 ```bash
 kubectl create serviceaccount jenkins
 ```
 
-```
-serviceaccount "jenkins" created
+```none
+serviceaccount/jenkins created
 ```
 
 <!--
-Check an associated secret:
+Create an associated token:
 -->
-查验相关联的 Secret：
+创建相关联的令牌：
 
 ```bash
-kubectl get serviceaccounts jenkins -o yaml
+kubectl create token jenkins
 ```
 
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  # ...
-secrets:
-- name: jenkins-token-1yvwg
+```none
+eyJhbGciOiJSUzI1NiIsImtp...
 ```
 
 <!--
-The created secret holds the public CA of the API server and a signed JSON Web
-Token (JWT).
+The created token is a signed JSON Web Token (JWT).
 -->
-所创建的 Secret 中会保存 API 服务器的公开的 CA 证书和一个已签名的 JSON Web 令牌（JWT）。
-
-```bash
-kubectl get secret jenkins-token-1yvwg -o yaml
-```
-
-<!--
-```yaml
-apiVersion: v1
-data:
-  ca.crt: (APISERVER'S CA BASE64 ENCODED)
-  namespace: ZGVmYXVsdA==
-  token: (BEARER TOKEN BASE64 ENCODED)
-kind: Secret
-metadata:
-  # ...
-type: kubernetes.io/service-account-token
-```
--->
-```yaml
-apiVersion: v1
-data:
-  ca.crt: <Base64 编码的 API 服务器 CA>
-  namespace: ZGVmYXVsdA==
-  token: <Base64 编码的持有者令牌>
-kind: Secret
-metadata:
-  # ...
-type: kubernetes.io/service-account-token
-```
-
-{{< note >}}
-<!--
-Values are base64 encoded because secrets are always base64 encoded.
--->
-字段值是按 Base64 编码的，这是因为 Secret 数据总是采用 Base64 编码来存储。
-{{< /note >}}
+所创建的令牌是一个已签名的 JWT 令牌。
 
 <!--
 The signed JWT can be used as a bearer token to authenticate as the given service
 account. See [above](#putting-a-bearer-token-in-a-request) for how the token is included
-in a request.  Normally these secrets are mounted into pods for in-cluster access to
+in a request.  Normally these tokens are mounted into pods for in-cluster access to
 the API server, but can be used from outside the cluster as well.
 -->
 已签名的 JWT 可以用作持有者令牌，并将被认证为所给的服务账号。
 关于如何在请求中包含令牌，请参阅[前文](#putting-a-bearer-token-in-a-request)。
-通常，这些 Secret 数据会被挂载到 Pod 中以便集群内访问 API 服务器时使用，
+通常，这些令牌数据会被挂载到 Pod 中以便集群内访问 API 服务器时使用，
 不过也可以在集群外部使用。
 
 <!--
 Service accounts authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
 and are assigned to the groups `system:serviceaccounts` and `system:serviceaccounts:(NAMESPACE)`.
-
-WARNING: Because service account tokens are stored in secrets, any user with
-read access to those secrets can authenticate as the service account. Be cautious
-when granting permissions to service accounts and read capabilities for secrets.
 -->
 服务账号被身份认证后，所确定的用户名为 `system:serviceaccount:<名字空间>:<服务账号>`，
 并被分配到用户组 `system:serviceaccounts` 和 `system:serviceaccounts:<名字空间>`。
 
-警告：由于服务账号令牌保存在 Secret 对象中，任何能够读取这些 Secret
-的用户都可以被认证为对应的服务账号。在为用户授予访问服务账号的权限时，以及对 Secret
-的读权限时，要格外小心。
+{{< warning >}}
+<!--
+Because service account tokens can also be stored in Secret API objects, any user with
+write access to Secrets can request a token, and any user with read access to those 
+Secrets can authenticate as the service account. Be cautious when granting permissions
+to service accounts and read or write capabilities for Secrets.
+-->
+由于服务账号令牌也可以保存在 Secret API 对象中，任何能够写入这些 Secret
+的用户都可以请求一个令牌，且任何能够读取这些 Secret 的用户都可以被认证为对应的服务账号。
+在为用户授予访问服务账号的权限以及对 Secret 的读取或写入权能时，要格外小心。
+{{< /warning >}}
 
 <!--
 ### OpenID Connect Tokens
@@ -488,11 +448,11 @@ email, signed by the server.
 -->
 ### OpenID Connect（OIDC）令牌   {#openid-connect-tokens}
 
-[OpenID Connect](https://openid.net/connect/) 是一种 OAuth2  认证方式，
+[OpenID Connect](https://openid.net/connect/) 是一种 OAuth2 认证方式，
 被某些 OAuth2 提供者支持，例如 Azure 活动目录、Salesforce 和 Google。
 协议对 OAuth2 的主要扩充体现在有一个附加字段会和访问令牌一起返回，
 这一字段称作 [ID Token（ID 令牌）](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)。
-ID 令牌是一种由服务器签名的 JSON Web 令牌（JWT），其中包含一些可预知的字段，
+ID 令牌是一种由服务器签名的 JWT 令牌，其中包含一些可预知的字段，
 例如用户的邮箱地址，
 
 <!--
@@ -509,7 +469,7 @@ is included in a request.
 {{< mermaid >}}
 sequenceDiagram
     participant user as 用户
-    participant idp as 身份提供者 
+    participant idp as 身份提供者
     participant kube as Kubectl
     participant api as API 服务器
 
@@ -596,6 +556,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
 | `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
+| `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
 -->
 
 | 参数 | 描述 | 示例 | 必需？ |
@@ -608,6 +569,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | 添加到组申领的前缀，用来避免与现有用户组名（如：`system:` 组）发生冲突。例如，此标志值为 `oidc:` 时，所得到的用户组名形如 `oidc:engineering` 和 `oidc:infra`。 | `oidc:` | 否 |
 | `--oidc-required-claim` | 取值为一个 key=value 偶对，意为 ID 令牌中必须存在的申领。如果设置了此标志，则 ID 令牌会被检查以确定是否包含取值匹配的申领。此标志可多次重复，以指定多个申领。 | `claim=value` | 否 |
 | `--oidc-ca-file` | 指向一个 CA 证书的路径，该 CA 负责对你的身份服务的 Web 证书提供签名。默认值为宿主系统的根 CA。 | `/etc/kubernetes/ssl/kc-ca.pem` | 否 |
+| `--oidc-signing-algs` | 采纳的签名算法。默认为 "RS256"。 | `RS512` | 否 |
 
 <!--
 Importantly, the API server is not an OAuth2 client, rather it can only be
@@ -869,7 +831,6 @@ and **must** respond with a `TokenReview` object of the same version as the requ
 实现者应检查请求的 `apiVersion` 字段以确保正确的反序列化，
 并且 **必须** 以与请求相同版本的 `TokenReview` 对象进行响应。
 
-
 {{< tabs name="TokenReview_request" >}}
 {{% tab name="authentication.k8s.io/v1" %}}
 {{< note >}}
@@ -1070,12 +1031,14 @@ API 服务器可以配置成从请求的头部字段值（如 `X-Remote-User`）
 {{< note >}}
 <!--
 Prior to 1.11.3 (and 1.10.7, 1.9.11), the extra key could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
-For example, with this configuration:
 -->
 在 1.13.3 版本之前（包括 1.10.7、1.9.11），附加字段的键名只能包含
 [HTTP 头部标签的合法字符](https://tools.ietf.org/html/rfc7230#section-3.2.6)。
 {{< /note >}}
 
+<!--
+For example, with this configuration:
+-->
 例如，使用下面的配置：
 
 ```
@@ -1820,12 +1783,11 @@ and required in `client.authentication.k8s.io/v1`.
 插件应该使用来自 `KUBERNETES_EXEC_INFO` 环境变量的 `ExecCredential`
 输入对象中的 `spec.interactive` 字段来确定是否提供了 `stdin`。
 插件的 `stdin` 需求（即，为了能够让插件成功运行，是否 `stdin` 是可选的、
-必须提供的或者从不会被使用的）是通过 
+必须提供的或者从不会被使用的）是通过
 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 中的 `user.exec.interactiveMode` 来声明的（参见下面的表格了解合法值）。
 字段 `user.exec.interactiveMode` 在 `client.authentication.k8s.io/v1beta1`
 中是可选的，在 `client.authentication.k8s.io/v1` 中是必需的。
-
 
 <!--
 | `interactiveMode` Value | Meaning |
@@ -1935,7 +1897,7 @@ Presence or absence of an expiry has the following impact:
 时间戳格式给出的证书到期时间。
 证书到期时间的有无会有如下影响：
 
-- 如果响应中包含了到期时间，持有者令牌和 TLS 凭据会被缓存，直到到期期限到来、
+- 如果响应中包含了到期时间，持有者令牌和 TLS 凭据会被缓存，直到期限到来、
   或者服务器返回 401 HTTP 状态码，或者进程退出。
 - 如果未指定到期时间，则持有者令牌和 TLS 凭据会被缓存，直到服务器返回 401
   HTTP 状态码或者进程退出。

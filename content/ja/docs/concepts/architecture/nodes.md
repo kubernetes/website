@@ -23,7 +23,7 @@ Kubernetesはコンテナを _Node_ 上で実行されるPodに配置するこ�
 1. ノード上のkubeletが、コントロールプレーンに自己登録する。
 2. あなた、もしくは他のユーザーが手動でNodeオブジェクトを追加する。
 
-Nodeオブジェクトの作成、もしくはノード上のkubeketによる自己登録の後、コントロールプレーンはNodeオブジェクトが有効かチェックします。例えば、下記のjsonマニフェストでノードを作成してみましょう:
+Nodeオブジェクトの作成、もしくはノード上のkubeletによる自己登録の後、コントロールプレーンはNodeオブジェクトが有効かチェックします。例えば、下記のjsonマニフェストでノードを作成してみましょう:
 
 ```json
 {
@@ -334,5 +334,5 @@ Kubernetesのワークロードでは、メモリとスワップを組み合わ�
 
 * [ノードコンポーネント](/ja/docs/concepts/overview/components/#node-components)について学習する。
 * [Node APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)について読む。
-* アーキテクチャ設計文書の[Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)という章を読む。
+* アーキテクチャ設計文書の[Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)という章を読む。
 * [TaintとToleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)について読む。

@@ -173,7 +173,7 @@ for a volume.
   This field only applies to volume types that support `fsGroup` controlled ownership and permissions.
   This field has two possible values:
 
-* _OnRootMismatch_: Only change permissions and ownership if permission and ownership of
+* _OnRootMismatch_: Only change permissions and ownership if the permission and the ownership of
   root directory does not match with expected permissions of the volume.
   This could help shorten the time it takes to change ownership and permission of a volume.
 * _Always_: Always change permission and ownership of the volume when volume is mounted.

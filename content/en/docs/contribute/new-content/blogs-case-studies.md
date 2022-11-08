@@ -85,13 +85,13 @@ To submit a blog post, follow these steps:
   - If you are looking for greater coordination on post release dates, coordinating with
     [CNCF marketing](https://www.cncf.io/about/contact/) is a more appropriate choice than submitting a blog post.
   - Sometimes reviews can get backed up. If you feel your review isn't getting the attention it needs,
-    you can reach out to the blog team via [this slack channel](https://kubernetes.slack.com/messages/sig-docs-blog/)
-    to ask in real time. 
+    you can reach out to the blog team on the [`#sig-docs-blog` Slack channel](https://kubernetes.slack.com/messages/sig-docs-blog/)
+    to ask in real time.
 
 - Blog posts should be relevant to Kubernetes users.
 
   - Topics related to participation in or results of Kubernetes SIGs activities are always on
-    topic (see the work in the [Upstream Marketing Team](https://github.com/kubernetes/community/blob/master/communication/marketing-team/storytelling-resources/blog-guidelines.md#upstream-marketing-blog-guidelines)
+    topic (see the work in the [Contributor Comms Team](https://github.com/kubernetes/community/blob/master/communication/contributor-comms/storytelling-resources/blog-guidelines.md#upstream-marketing-blog-guidelines)
     for support on these posts). 
   - The components of Kubernetes are purposely modular, so tools that use existing integration
     points like CNI and CSI are on topic. 

@@ -91,6 +91,7 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
   * [Charmed Operator Framework](https://juju.is/)
   * [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
   * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
+  * [kube-rs](https://kube.rs/) (Rust)
   * [KUDO](https://kudo.dev/)（Kubernetes Universal Declarative Operator）を使います
   * [kubebuilder](https://book.kubebuilder.io/)を使います
   * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)

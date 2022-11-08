@@ -30,39 +30,39 @@ Pod:
 
 1. Create a Pod based on that manifest:
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/inject/envars.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/inject/envars.yaml
+   ```
 
 1. List the running Pods:
 
-    ```shell
-    kubectl get pods -l purpose=demonstrate-envars
-    ```
+   ```shell
+   kubectl get pods -l purpose=demonstrate-envars
+   ```
 
-    The output is similar to:
+   The output is similar to:
 
-    ```
-    NAME            READY     STATUS    RESTARTS   AGE
-    envar-demo      1/1       Running   0          9s
-    ```
+   ```
+   NAME            READY     STATUS    RESTARTS   AGE
+   envar-demo      1/1       Running   0          9s
+   ```
 
 1. List the Pod's container environment variables:
 
-    ```shell
-    kubectl exec envar-demo -- printenv
-    ```
+   ```shell
+   kubectl exec envar-demo -- printenv
+   ```
 
-    The output is similar to this:
+   The output is similar to this:
 
-    ```
-    NODE_VERSION=4.4.2
-    EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
-    HOSTNAME=envar-demo
-    ...
-    DEMO_GREETING=Hello from the environment
-    DEMO_FAREWELL=Such a sweet sorrow
-    ```
+   ```
+   NODE_VERSION=4.4.2
+   EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
+   HOSTNAME=envar-demo
+   ...
+   DEMO_GREETING=Hello from the environment
+   DEMO_FAREWELL=Such a sweet sorrow
+   ```
 
 {{< note >}}
 The environment variables set using the `env` or `envFrom` field

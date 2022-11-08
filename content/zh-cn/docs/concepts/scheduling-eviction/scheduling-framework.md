@@ -1,7 +1,7 @@
 ---
 title: 调度框架
 content_type: concept
-weight: 90
+weight: 60
 ---
 
 <!--
@@ -10,7 +10,7 @@ reviewers:
 - ahg-g
 title: Scheduling Framework
 content_type: concept
-weight: 90
+weight: 60
 ---
 -->
 

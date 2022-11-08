@@ -223,7 +223,7 @@ In the preceding types, `IgnoredDuringExecution` means that if the node labels
 change after Kubernetes schedules the Pod, the Pod continues to run.
 -->
 在上述类型中，`IgnoredDuringExecution` 意味着如果节点标签在 Kubernetes
-调度 Pod 时发生了变更，Pod 仍将继续运行。
+调度 Pod 后发生了变更，Pod 仍将继续运行。
 {{</note>}}
 
 <!--

@@ -159,7 +159,7 @@ After you initialize your control-plane, the kubelet runs normally.
 
 <!--
 This step is optional and only applies in case you wish `kubeadm init` and `kubeadm join`
-to not download the default container images which are hosted at `k8s.gcr.io`.
+to not download the default container images which are hosted at `registry.k8s.io`.
 
 Kubeadm has commands that can help you pre-pull the required images
 when creating a cluster without an internet connection on its nodes.
@@ -170,7 +170,7 @@ Kubeadm allows you to use a custom image repository for the required images.
 See [Using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
 for more details.
 -->
-这个步骤是可选的，只适用于你希望 `kubeadm init` 和 `kubeadm join` 不去下载存放在 `k8s.gcr.io` 上的默认的容器镜像的情况。
+这个步骤是可选的，只适用于你希望 `kubeadm init` 和 `kubeadm join` 不去下载存放在 `registry.k8s.io` 上的默认的容器镜像的情况。
 
 当你在离线的节点上创建一个集群的时候，Kubeadm 有一些命令可以帮助你预拉取所需的镜像。
 阅读[离线运行 kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection)
@@ -222,7 +222,7 @@ on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
 with the default gateway to set the advertise address for this particular control-plane node's API server.
 To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
-must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
+must specify an IPv6 address, for example `--apiserver-advertise-address=2001:db8::101`
 -->
 1. （可选）`kubeadm` 试图通过使用已知的端点列表来检测容器运行时。
    使用不同的容器运行时或在预配置的节点上安装了多个容器运行时，请为 `kubeadm init` 指定 `--cri-socket` 参数。
@@ -230,7 +230,7 @@ must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::1
 1. （可选）除非另有说明，否则 `kubeadm` 使用与默认网关关联的网络接口来设置此控制平面节点 API server 的广播地址。
    要使用其他网络接口，请为 `kubeadm init` 设置 `--apiserver-advertise-address=<ip-address>` 参数。
    要部署使用 IPv6 地址的 Kubernetes 集群，
-   必须指定一个 IPv6 地址，例如 `--apiserver-advertise-address=fd00::101`
+   必须指定一个 IPv6 地址，例如 `--apiserver-advertise-address=2001:db8::101`
 
 <!--
 To initialize the control-plane node run:
@@ -580,25 +580,13 @@ node "test-01" untainted
 ```
 
 <!--
-This will remove the `node-role.kubernetes.io/control-plane` and
-`node-role.kubernetes.io/master` taints from any nodes that have them,
-including the control plane nodes, meaning that the scheduler will then be able
-to schedule Pods everywhere.
+This will remove the `node-role.kubernetes.io/control-plane:NoSchedule` taint
+from any nodes that have it, including the control plane nodes, meaning that the
+scheduler will then be able to schedule Pods everywhere.
 -->
-这将从任何拥有 `node-role.kubernetes.io/control-plane` 和
-`node-role.kubernetes.io/master` 污点的节点上移除该污点。
-
-包括控制平面节点，这意味着调度程序将能够在任何地方调度 Pods。
-
-<!--
-{{< note >}}
-The `node-role.kubernetes.io/master` taint is deprecated and kubeadm will stop using it in version 1.25.
-{{< /note >}}
--->
-
-{{< note >}}
-`node-role.kubernetes.io/master` 污点已被废弃，kubeadm 将在 1.25 版本中停止使用它。
-{{< /note >}}
+这将从任何拥有 `node-role.kubernetes.io/control-plane:NoSchedule`
+污点的节点（包括控制平面节点）上移除该污点。
+这意味着调度程序将能够在任何地方调度 Pod。
 
 <!--
 ### Joining your nodes {#join-nodes}
@@ -688,10 +676,10 @@ The output is similar to:
 ```
 
 <!--
-To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[2001:db8::101]:2073`.
 -->
 {{< note >}}
-要为 `<control-plane-host>:<control-plane-port>` 指定 IPv6 元组，必须将 IPv6 地址括在方括号中，例如：`[fd00::101]:2073`
+要为 `<control-plane-host>:<control-plane-port>` 指定 IPv6 元组，必须将 IPv6 地址括在方括号中，例如：`[2001:db8::101]:2073`
 {{< /note >}}
 
 <!--

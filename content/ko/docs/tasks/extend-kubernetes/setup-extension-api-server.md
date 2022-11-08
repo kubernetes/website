@@ -1,5 +1,9 @@
 ---
 title: 확장 API 서버 설정
+# reviewers:
+# - lavalamp
+# - cheftako
+# - chenopis
 content_type: task
 weight: 15
 ---

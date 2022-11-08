@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - davidopp
+# - wojtek-t
 title: 파드 우선순위(priority)와 선점(preemption)
 content_type: concept
 weight: 70
