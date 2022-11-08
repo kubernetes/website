@@ -590,7 +590,7 @@ The example server is organized in a way to be reused for other conversions.
 Most of the common code are located in the
 [framework file](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/framework.go)
 that leaves only
-[one function](https://github.com/kubernetes/kubernetes/blob/v1.25.3/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80)
+[one function](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/example_converter.go#L29-L80)
 to be implemented for different conversions.
 -->
 ### 编写一个转换 Webhook 服务器   {#write-a-conversion-webhook-server}

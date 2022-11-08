@@ -1,7 +1,7 @@
 ---
 title: Command line tool (kubectl)
 content_type: reference
-weight: 60
+weight: 110
 no_list: true
 card:
   name: reference
