@@ -1,5 +1,5 @@
 ---
-title: Kubernetes Metrics Reference
+title: Metrics Reference
 content_type: reference
 description: >-
   Details of the metric data that Kubernetes components export.
