@@ -115,7 +115,7 @@ detail the structure of that `.status` field, and its content for each different
 
 ## {{% heading "whatsnext" %}}
 
-Learn more about the following.
+Learn more about the following:
 * [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) which are the most important basic Kubernetes objects.
 * [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) objects. 
 * [Controllers](https://kubernetes.io/docs/concepts/architecture/controller/) in Kubernetes.
