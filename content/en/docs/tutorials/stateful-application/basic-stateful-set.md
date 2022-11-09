@@ -131,6 +131,11 @@ Notice that the `web-1` Pod is not launched until the `web-0` Pod is
 _Running_ (see [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))
 and _Ready_ (see `type` in [Pod Conditions](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)).
 
+#### Custom replica numbering
+
+Note: To customize the replica numbering of pods in a StatefulSet, see
+[Ordinals](docs/tutorials/stateful-application/basic-stateful-set/#ordinals).
+
 ## Pods in a StatefulSet
 
 Pods in a StatefulSet have a unique ordinal index and a stable network identity.
