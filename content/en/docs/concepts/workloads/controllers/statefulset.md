@@ -437,6 +437,20 @@ Statefulset, don't set `.spec.replicas`. Instead, allow the Kubernetes
 {{<glossary_tooltip text="control plane" term_id="control-plane" >}} to manage
 the `.spec.replicas` field automatically.
 
+### Ordinals
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+`.spec.ordinals` is an optional field that allows for configuration of the replica numbers assigned
+to pods. It defaults to nil. You must enable the `StatefulSetSlice`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to use this field. Once
+enabled, you can configure the following options:
+
+ * `.spec.ordinals.start`: By default, the StatefulSet controller creates replica pods ordered from
+`0` to `.spec.replicas-1`. If the `.spec.ordinals.start` field is set, the StatefulSet controller
+will create replica pods ordered from `.spec.ordinals.start` to
+`.spec.ordinals.start + .spec.replicas - 1`.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about [Pods](/docs/concepts/workloads/pods).
