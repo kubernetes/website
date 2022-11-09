@@ -227,7 +227,7 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationAzureDisk` | `true` | GA | 1.24 | |
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.20 |
 | `CSIMigrationAzureFile` | `false` | Beta | 1.21 | 1.23 |
-| `CSIMigrationAzureFile` | `true` | Beta | 1.24 | |
+| `CSIMigrationAzureFile` | `true` | Beta | 1.24 | 1.25 |
 | `CSIMigrationAzureFile` | `true` | GA | 1.26 | |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
 | `CSIMigrationGCE` | `false` | Beta | 1.17 | 1.22 |
