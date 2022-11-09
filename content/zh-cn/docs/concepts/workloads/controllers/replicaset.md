@@ -239,6 +239,8 @@ Take the previous frontend ReplicaSet example, and the Pods specified in the fol
 ReplicaSet 的选择算符相匹配的标签。原因在于 ReplicaSet 并不仅限于拥有在其模板中设置的
 Pod，它还可以像前面小节中所描述的那样获得其他 Pod。
 
+以前面的 frontend ReplicaSet 为例，并在以下清单中指定这些 Pod：
+
 {{< codenew file="pods/pod-rs.yaml" >}}
 
 <!--
