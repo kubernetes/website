@@ -2,13 +2,13 @@
 title: 文档样式指南
 linktitle: 样式指南
 content_type: concept
-weight: 10
+weight: 40
 ---
 <!--
 title: Documentation Style Guide
 linktitle: Style guide
 content_type: concept
-weight: 10
+weight: 40
 -->
 
 <!-- overview -->
