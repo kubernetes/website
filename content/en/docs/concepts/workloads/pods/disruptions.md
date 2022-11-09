@@ -232,7 +232,7 @@ can happen, according to:
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
 {{< note >}}
-In order to use this behavior, you must enable the `PodDisruptionsCondition`
+In order to use this behavior, you must enable the `PodDisruptionConditions`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 in your cluster.
 {{< /note >}}

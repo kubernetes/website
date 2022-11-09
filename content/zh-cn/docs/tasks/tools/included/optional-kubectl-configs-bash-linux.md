@@ -96,11 +96,11 @@ bash-completion 负责导入 `/etc/bash_completion.d` 目录中的所有补全�
 
 <!-- 
 Both approaches are equivalent. After reloading your shell, kubectl autocompletion should be working.
-To enable bash autocompletion in current session of shell, source the ~/.bashrc file:
+To enable bash autocompletion in current session of shell, run `exec bash`:
 -->
 两种方式的效果相同。重新加载 Shell 后，kubectl 自动补全功能即可生效。
-若要在当前 Shell 会话中启用 Bash 补全功能，请导入 ~/.bashrc 文件：
+若要在当前 Shell 会话中启用 Bash 补全功能，需要运行 `exec bash` 命令：
 
 ```bash
-source ~/.bashrc
+exec bash
 ```

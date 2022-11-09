@@ -942,9 +942,9 @@ Get the Pods to view their container images:
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 <!--
@@ -994,7 +994,7 @@ Patch the StatefulSet again to change the container's image:
 再次 Patch StatefulSet 来改变容器镜像：
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.7"}]'
 ```
 ```
 statefulset.apps/web patched
@@ -1037,7 +1037,7 @@ Get the Pod's container image:
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 <!--
@@ -1098,7 +1098,8 @@ Get the Pod's container:
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+
 ```
 
 <!--
@@ -1158,7 +1159,7 @@ Get the `web-1` Pod's container image:
 kubectl get pod web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 <!--
@@ -1242,9 +1243,9 @@ Get the container image details for the Pods in the StatefulSet:
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
 ```
 
 <!--
@@ -1797,6 +1798,55 @@ Service:
 ```shell
 kubectl delete svc nginx
 ```
+<!--
++Delete the persistent storage media for the PersistentVolumes used in this tutorial.
+-->
+
+删除本教程中用到的 PersistentVolume 卷的持久化存储介质。
+
++```shell
++kubectl get pvc
++```
++```
++NAME        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
++www-web-0   Bound    pvc-2bf00408-d366-4a12-bad0-1869c65d0bee   1Gi        RWO            standard       25m
++www-web-1   Bound    pvc-ba3bfe9c-413e-4b95-a2c0-3ea8a54dbab4   1Gi        RWO            standard       24m
++www-web-2   Bound    pvc-cba6cfa6-3a47-486b-a138-db5930207eaf   1Gi        RWO            standard       15m
++www-web-3   Bound    pvc-0c04d7f0-787a-4977-8da3-d9d3a6d8d752   1Gi        RWO            standard       15m
++www-web-4   Bound    pvc-b2c73489-e70b-4a4e-9ec1-9eab439aa43e   1Gi        RWO            standard       14m
++```
++
++```shell
++kubectl get pv
++```
++```
++NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM               STORAGECLASS   REASON   AGE
++pvc-0c04d7f0-787a-4977-8da3-d9d3a6d8d752   1Gi        RWO            Delete           Bound    default/www-web-3   standard                15m
++pvc-2bf00408-d366-4a12-bad0-1869c65d0bee   1Gi        RWO            Delete           Bound    default/www-web-0   standard                25m
++pvc-b2c73489-e70b-4a4e-9ec1-9eab439aa43e   1Gi        RWO            Delete           Bound    default/www-web-4   standard                14m
++pvc-ba3bfe9c-413e-4b95-a2c0-3ea8a54dbab4   1Gi        RWO            Delete           Bound    default/www-web-1   standard                24m
++pvc-cba6cfa6-3a47-486b-a138-db5930207eaf   1Gi        RWO            Delete           Bound    default/www-web-2   standard                15m
++```
++
++```shell
++kubectl delete pvc www-web-0 www-web-1 www-web-2 www-web-3 www-web-4
++```
++
++```
++persistentvolumeclaim "www-web-0" deleted
++persistentvolumeclaim "www-web-1" deleted
++persistentvolumeclaim "www-web-2" deleted
++persistentvolumeclaim "www-web-3" deleted
++persistentvolumeclaim "www-web-4" deleted
++```
++
++```shell
++kubectl get pvc
++```
++
++```
++No resources found in default namespace.
++```
 
 {{< note >}}
 <!--

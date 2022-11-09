@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - erictune
+# - foxish
+# - davidopp
 title: 중단(disruption)
 content_type: concept
 weight: 60

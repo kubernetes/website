@@ -252,7 +252,7 @@ Static Pod manifest share a set of common properties:
 
 Please note that:
 
-1. All images will be pulled from k8s.gcr.io by default.
+1. All images will be pulled from registry.k8s.io by default.
    See [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)
    for customizing the image repository
 1. In case of kubeadm is executed in the `--dry-run` mode, static Pods files are written in a
@@ -409,12 +409,11 @@ Please note that:
 As soon as the control plane is available, kubeadm executes following actions:
 
 - Labels the node as control-plane with `node-role.kubernetes.io/control-plane=""`
-<<<<<<< HEAD
 - Taints the node with `node-role.kubernetes.io/control-plane:NoSchedule`
 
-Please note that the phase to mark the control-plane phase phase can be invoked
+Please note that the phase to mark the control-plane phase can be invoked
 individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command.
-=======
+
 - Taints the node with `node-role.kubernetes.io/master:NoSchedule` and
   `node-role.kubernetes.io/control-plane:NoSchedule`
 
@@ -423,7 +422,7 @@ Please note that:
 1. The `node-role.kubernetes.io/master` taint is deprecated and will be removed in kubeadm version 1.25
 1. Mark control-plane phase phase can be invoked individually with the command
    [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane)
->>>>>>> upstream/main
+
 
 ### Configure TLS-Bootstrapping for node joining
 
@@ -446,8 +445,9 @@ Please note that:
 
 `kubeadm init` create a first bootstrap token, either generated automatically or provided by the
 user with the `--token` flag; as documented in bootstrap token specification, token should be
-saved as secrets with name `bootstrap-token-<token-id>` under `kube-system` namespace.  Please
-note that:
+saved as secrets with name `bootstrap-token-<token-id>` under `kube-system` namespace.
+
+Please note that:
 
 1. The default token created by `kubeadm init` will be used to validate temporary user during TLS
    bootstrap process; those users will be member of
@@ -503,6 +503,7 @@ Please note that:
 ### Install addons
 
 Kubeadm installs the internal DNS server and the kube-proxy addon components via the API server.
+
 Please note that:
 
 1. This phase can be invoked individually with the command

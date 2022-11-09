@@ -336,9 +336,8 @@ kubectl logs -f my-pod -c my-container              # stream pod container logs 
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # Run pod as interactive shell
 kubectl run nginx --image=nginx -n mynamespace      # Start a single instance of nginx pod in the namespace of mynamespace
-kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
---dry-run=client -o yaml > pod.yaml
-
+kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
+                                                    # Generate spec for running pod nginx and write it into a file called pod.yaml
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
@@ -390,7 +389,7 @@ kubectl cluster-info dump                                             # Dump cur
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump current cluster state to /path/to/cluster-state
 
 # View existing taints on which exist on current nodes.
-kubectl get nodes -o=custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect
+kubectl get nodes -o='custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect'
 
 # If a taint with that key and effect already exists, its value is replaced as specified.
 kubectl taint nodes foo dedicated=special-user:NoSchedule

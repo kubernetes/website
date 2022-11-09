@@ -9,6 +9,17 @@ aliases:
     - onlydole
     - sftim
     - nate-double-u
+  sig-docs-localization-owners: # Admins for localization content
+    - a-mccarthy
+    - bradtopol
+    - divya-mohan0209
+    - jimangel
+    - kbhawkey
+    - natalisucks
+    - onlydole
+    - reylejano
+    - sftim
+    - tengqm
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -24,12 +35,11 @@ aliases:
     - jimangel
     - jlbutler
     - kbhawkey
-    - kcmartin
+    - krol3
     - natalisucks
+    - nate-double-u
     - onlydole
-    - pi-victor
     - reylejano
-    - savitharaghunathan
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
@@ -40,8 +50,10 @@ aliases:
     - kbhawkey
     - mehabhalodiya
     - natalisucks
+    - nate-double-u
     - onlydole
     - rajeshdeshpande02
+    - reylejano
     - sftim
     - shannonxtreme
     - tengqm
@@ -112,18 +124,13 @@ aliases:
     - mattiaperi
     - micheleberardi
   sig-docs-ja-owners: # Admins for Japanese content
-    # cstoku
     - inductor
     - nasa9084
   sig-docs-ja-reviews: # PR reviews for Japanese content
+    - atoato88
     - bells17
-    # cstoku
-    - inductor
     - kakts
     - makocchi-git
-    # MasayaAoyama
-    - nasa9084
-    # oke-py
     - ptux
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
@@ -184,6 +191,7 @@ aliases:
     - devlware
     - jhonmike
     - rikatz
+    - stormqueen1990
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - edsoncelio
@@ -208,12 +216,14 @@ aliases:
     - aisonaku
     - potapy4
     - dianaabv
+    - shurup
   sig-docs-ru-reviews: # PR reviews for Russian content
     - Arhell
     - msheldyakov
     - aisonaku
     - potapy4
     - dianaabv
+    - shurup
   sig-docs-pl-owners: # Admins for Polish content
     - mfilocha
     - nvtkaszpir
@@ -235,10 +245,10 @@ aliases:
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - cblecker
-    - dims
+    - bentheelder
     - justaugustus
-    - liggitt
     - mrbobbytables
+    - palnabarun
     - parispittman
     - tpepper
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES

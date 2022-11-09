@@ -47,20 +47,20 @@ CustomResourceDefinition 表示应在 API 服务器上公开的资源。其名�
   <!--
   spec describes how the user wants the resources to appear
   -->
-  spec 描述了用户希望资源的呈现方式
+  spec 描述了用户希望资源的呈现方式。
 
 - **status** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionStatus" >}}">CustomResourceDefinitionStatus</a>)
   <!--
   status indicates the actual state of the CustomResourceDefinition
   -->
-  status 表示 CustomResourceDefinition 的实际状态
+  status 表示 CustomResourceDefinition 的实际状态。
 
 ## CustomResourceDefinitionSpec {#CustomResourceDefinitionSpec}
 
 <!--
 CustomResourceDefinitionSpec describes how a user wants their resource to appear
 -->
-CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式
+CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
 <hr>
 
@@ -92,7 +92,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式
 
     kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
   -->
-  **CustomResourceDefinitionNames 表示提供此 CustomResourceDefinition 资源的名称**
+  **CustomResourceDefinitionNames 表示提供此 CustomResourceDefinition 资源的名称。**
 
   - **names.kind** (string)，必需
 
@@ -175,7 +175,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式
 
     name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/\<group>/\<version>/...` if `served` is true.
   -->
-  **CustomResourceDefinitionVersion 描述 CRD 的一个版本**
+  **CustomResourceDefinitionVersion 描述 CRD 的一个版本。**
 
   - **versions.name** (string)，必需
 
@@ -190,7 +190,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式
 
   - **versions.served** (boolean)，必需
 
-    served 是用于启用/禁用该版本通过 REST API 提供服务的标志
+    served 是用于启用/禁用该版本通过 REST API 提供服务的标志。
 
   <!--
   - **versions.storage** (boolean), required
@@ -235,7 +235,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式
 
     - **versions.additionalPrinterColumns.name** (string)，必需
 
-      name 是便于阅读的列名称
+      name 是便于阅读的列名称。
 
     <!--
     - **versions.additionalPrinterColumns.type** (string), required
@@ -254,7 +254,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式
       description is a human readable description of this column.
       -->
 
-      description 是该列的可读性描述 
+      description 是该列的可读性描述。
 
     - **versions.additionalPrinterColumns.format** (string)
 
@@ -272,7 +272,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式
       -->
 
       priority 是一个定义此列相对于其他列的相对重要性的整数。数字越低，优先级越高。
-      在空间有限的情况下，可以省略的列的优先级应大于 0。 
+      在空间有限的情况下，可以省略的列的优先级应大于 0。
 
   - **versions.deprecated** (boolean)
 
@@ -313,7 +313,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式
       openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
       -->
 
-      openAPIV3Schema 是用于验证和精简的 OpenAPI v3 模式。    
+      openAPIV3Schema 是用于验证和精简的 OpenAPI v3 模式。
 
   - **versions.subresources** (CustomResourceSubresources)
 
@@ -575,20 +575,20 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式
 - **preserveUnknownFields** (boolean)
 
   <!--
-  preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
+  preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
   -->
 
   preserveUnknownFields 表示将对象写入持久性存储时应保留 OpenAPI 模式中未规定的对象字段。
   apiVersion、kind、元数据（metadata）和元数据中的已知字段始终保留。不推荐使用此字段，而建议在
   `spec.versions[*].schema.openAPIV3Schema` 中设置 `x-preserve-unknown-fields` 为 true。
-  更多详细信息参见： https://kubernetes.io/zh-cn/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields
+  更多详细信息参见： https://kubernetes.io/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning
 
 ## JSONSchemaProps {#JSONSchemaProps}
 
 <!--
 JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
 -->
-JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版 （http://json-schema.org/）。
+JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版（http://json-schema.org/）。
 
 <hr>
 
@@ -628,7 +628,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
   -->
-  **JSON 表示任何有效的 JSON 值。支持以下类型：bool、int64、float64、string、[]interface{}、map[string]interface{} 和 nil。** 
+  **JSON 表示任何有效的 JSON 值。支持以下类型：bool、int64、float64、string、[]interface{}、map[string]interface{} 和 nil。**
 
 - **definitions** (map[string]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
@@ -638,7 +638,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   *JSONSchemaPropsOrStringArray represents a JSONSchemaProps or a string array.*
   -->
-  **JSONSchemaPropsOrStringArray 表示 JSONSchemaProps 或字符串数组。** 
+  **JSONSchemaPropsOrStringArray 表示 JSONSchemaProps 或字符串数组。**
 
 - **description** (string)
 
@@ -997,7 +997,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 <!--
 CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
 -->
-CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态
+CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
 <hr>
 
@@ -1018,7 +1018,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态
     kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
   -->
 
-  **CustomResourceDefinitionNames 表示提供此 CustomResourceDefinition 资源的名称**
+  **CustomResourceDefinitionNames 表示提供此 CustomResourceDefinition 资源的名称。**
 
   - **acceptedNames.kind** (string)，必需
 

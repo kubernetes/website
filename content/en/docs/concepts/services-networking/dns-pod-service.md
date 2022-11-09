@@ -4,7 +4,10 @@ reviewers:
 - thockin
 title: DNS for Services and Pods
 content_type: concept
-weight: 20
+weight: 80
+description: >-
+  Your workload can discover Services within your cluster using DNS;
+  this page explains how that works.
 ---
 <!-- overview -->
 
@@ -12,8 +15,6 @@ Kubernetes creates DNS records for Services and Pods. You can contact
 Services with consistent DNS names instead of IP addresses. 
 
 <!-- body -->
-
-## Introduction
 
 Kubernetes DNS schedules a DNS Pod and Service on the cluster, and configures
 the kubelets to tell individual containers to use the DNS Service's IP to
@@ -183,8 +184,8 @@ the same namespace, the Pod will see its own FQDN as
 A or AAAA record at that name, pointing to the Pod's IP. Both Pods "`busybox1`" and
 "`busybox2`" can have their distinct A or AAAA records.
 
-The Endpoints object can specify the `hostname` for any endpoint addresses,
-along with its IP.
+An {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}} can specify
+the DNS hostname for any endpoint addresses, along with its IP.
 
 {{< note >}}
 Because A or AAAA records are not created for Pod names, `hostname` is required for the Pod's A or AAAA
@@ -308,7 +309,7 @@ kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
 The output is similar to this:
 ```
-nameserver fd00:79:30::a
+nameserver 2001:db8:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```

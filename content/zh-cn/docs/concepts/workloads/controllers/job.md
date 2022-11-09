@@ -384,7 +384,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
     Job 中的 Pod 可以通过 DNS 使用确切的主机名互相寻址。
   - 对于容器化的任务，在环境变量 `JOB_COMPLETION_INDEX` 中。
 
-  当每个索引都对应一个完成完成的 Pod 时，Job 被认为是已完成的。
+  当每个索引都对应一个成功完成的 Pod 时，Job 被认为是已完成的。
   关于如何使用这种模式的更多信息，可参阅
   [用带索引的 Job 执行基于静态任务分配的并行处理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)。
   需要注意的是，对同一索引值可能被启动的 Pod 不止一个，尽管这种情况很少发生。
@@ -1081,6 +1081,165 @@ mismatch.
 设置 `manualSelector: true`
 是在告诉系统你知道自己在干什么并要求系统允许这种不匹配的存在。
 
+<!-- 
+### Pod failure policy {#pod-failure-policy} 
+-->
+### Pod 失效策略 {#pod-failure-policy}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+{{< note >}}
+<!-- 
+You can only configure a Pod failure policy for a Job if you have the
+`JobPodFailurePolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled in your cluster. Additionally, it is recommended
+to enable the `PodDisruptionConditions` feature gate in order to be able to detect and handle
+Pod disruption conditions in the Pod failure policy (see also:
+[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)). Both feature gates are
+available in Kubernetes v1.25. 
+-->
+只有你在集群中启用了
+`JobPodFailurePolicy` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+你才能为某个 Job 配置 Pod 失效策略。
+此外，建议启用 `PodDisruptionConditions` 特性门控以便在 Pod 失效策略中检测和处理 Pod 干扰状况
+（参考：[Pod 干扰状况](/zh-cn/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)）。
+这两个特性门控都是在 Kubernetes v1.25 中提供的。
+{{< /note >}}
+
+<!-- 
+A Pod failure policy, defined with the `.spec.podFailurePolicy` field, enables
+your cluster to handle Pod failures based on the container exit codes and the
+Pod conditions. 
+-->
+Pod 失效策略使用 `.spec.podFailurePolicy` 字段来定义，
+它能让你的集群根据容器的退出码和 Pod 状况来处理 Pod 失效事件。
+
+<!-- 
+In some situations, you  may want to have a better control when handling Pod
+failures than the control provided by the [Pod backoff failure policy](#pod-backoff-failure-policy),
+which is based on the Job's `.spec.backoffLimit`. These are some examples of use cases: 
+-->
+在某些情况下，你可能希望更好地控制 Pod 失效的处理方式，
+而不是仅限于 [Pod 回退失效策略](#pod-backoff-failure-policy)所提供的控制能力，
+后者是基于 Job 的 `.spec.backoffLimit` 实现的。以下是一些使用场景：
+<!-- 
+* To optimize costs of running workloads by avoiding unnecessary Pod restarts,
+  you can terminate a Job as soon as one of its Pods fails with an exit code
+  indicating a software bug.
+* To guarantee that your Job finishes even if there are disruptions, you can
+  ignore Pod failures caused by disruptions  (such {{< glossary_tooltip text="preemption" term_id="preemption" >}},
+  {{< glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
+  or {{< glossary_tooltip text="taint" term_id="taint" >}}-based eviction) so
+  that they don't count towards the `.spec.backoffLimit` limit of retries. 
+  -->
+* 通过避免不必要的 Pod 重启来优化工作负载的运行成本，
+  你可以在某 Job 中一个 Pod 失效且其退出码表明存在软件错误时立即终止该 Job。
+* 为了保证即使有干扰也能完成 Job，你可以忽略由干扰导致的 Pod 失效
+  （例如{{< glossary_tooltip text="抢占" term_id="preemption" >}}、
+  {{< glossary_tooltip text="通过 API 发起的驱逐" term_id="api-eviction" >}}
+  或基于{{< glossary_tooltip text="污点" term_id="taint" >}}的驱逐），
+  这样这些失效就不会被计入 `.spec.backoffLimit` 的重试限制中。
+
+<!-- 
+You can configure a Pod failure policy, in the `.spec.podFailurePolicy` field,
+to meet the above use cases. This policy can handle Pod failures based on the
+container exit codes and the Pod conditions. 
+-->
+你可以在 `.spec.podFailurePolicy` 字段中配置 Pod 失效策略，以满足上述使用场景。
+该策略可以根据容器退出码和 Pod 状况来处理 Pod 失效。
+
+<!-- 
+Here is a manifest for a Job that defines a `podFailurePolicy`: 
+-->
+下面是一个定义了 `podFailurePolicy` 的 Job 的清单：
+
+{{< codenew file="controllers/job-pod-failure-policy-example.yaml" >}}
+
+<!-- 
+In the example above, the first rule of the Pod failure policy specifies that
+the Job should be marked failed if the `main` container fails with the 42 exit
+code. The following are the rules for the `main` container specifically: 
+-->
+在上面的示例中，Pod 失效策略的第一条规则规定如果 `main` 容器失败并且退出码为 42，
+Job 将被标记为失败。以下是 `main` 容器的具体规则：
+
+<!-- 
+- an exit code of 0 means that the container succeeded
+- an exit code of 42 means that the **entire Job** failed
+- any other exit code represents that the container failed, and hence the entire
+  Pod. The Pod will be re-created if the total number of restarts is
+  below `backoffLimit`. If the `backoffLimit` is reached the **entire Job** failed. 
+-->
+- 退出码 0 代表容器成功
+- 退出码 42 代表 **整个 Job** 失败
+- 所有其他退出码都代表容器失败，同时也代表着整个 Pod 失效。
+  如果重启总次数低于 `backoffLimit` 定义的次数，则会重新启动 Pod，
+  如果等于 `backoffLimit` 所设置的次数，则代表 **整个 Job** 失效。
+
+{{< note >}}
+<!-- 
+Because the Pod template specifies a `restartPolicy: Never`,
+the kubelet does not restart the `main` container in that particular Pod. 
+-->
+因为 Pod 模板中指定了 `restartPolicy: Never`，
+所以 kubelet 将不会重启 Pod 中的 `main` 容器。
+{{< /note >}}
+
+<!-- 
+The second rule of the Pod failure policy, specifying the `Ignore` action for
+failed Pods with condition `DisruptionTarget` excludes Pod disruptions from
+being counted towards the `.spec.backoffLimit` limit of retries. 
+-->
+Pod 失效策略的第二条规则，
+指定对于状况为 `DisruptionTarget` 的失效 Pod 采取 `Ignore` 操作，
+统计 `.spec.backoffLimit` 重试次数限制时不考虑 Pod 因干扰而发生的异常。
+{{< note >}}
+<!-- 
+If the Job failed, either by the Pod failure policy or Pod backoff
+failure policy, and the Job is running multiple Pods, Kubernetes terminates all
+the Pods in that Job that are still Pending or Running. 
+-->
+如果根据 Pod 失效策略或 Pod 回退失效策略判定 Pod 已经失效，
+并且 Job 正在运行多个 Pod，Kubernetes 将终止该 Job 中仍处于 Pending 或 Running 的所有 Pod。
+{{< /note >}}
+
+<!-- 
+These are some requirements and semantics of the API:
+- if you want to use a `.spec.podFailurePolicy` field for a Job, you must
+  also define that Job's pod template with `.spec.restartPolicy` set to `Never`.
+- the Pod failure policy rules you specify under `spec.podFailurePolicy.rules`
+  are evaluated in order. Once a rule matches a Pod failure, the remaining rules
+  are ignored. When no rule matches the Pod failure, the default
+  handling applies.
+- you may want to restrict a rule to a specific container by specifing its name
+  in`spec.podFailurePolicy.rules[*].containerName`. When not specified the rule
+  applies to all containers. When specified, it should match one the container
+  or `initContainer` names in the Pod template.
+- you may specify the action taken when a Pod failure policy is matched by
+  `spec.podFailurePolicy.rules[*].action`. Possible values are:
+  - `FailJob`: use to indicate that the Pod's job should be marked as Failed and
+     all running Pods should be terminated.
+  - `Ignore`: use to indicate that the counter towards the `.spec.backoffLimit`
+     should not be incremented and a replacement Pod should be created.
+  - `Count`: use to indicate that the Pod should be handled in the default way.
+     The counter towards the `.spec.backoffLimit` should be incremented. 
+-->
+下面是此 API 的一些要求和语义：
+- 如果你想在 Job 中使用 `.spec.podFailurePolicy` 字段，
+  你必须将 Job 的 Pod 模板中的 `.spec.restartPolicy` 设置为 `Never`。
+- 在 `spec.podFailurePolicy.rules` 中设定的 Pod 失效策略规则将按序评估。
+  一旦某个规则与 Pod 失效策略匹配，其余规则将被忽略。
+  当没有规则匹配 Pod 失效策略时，将会采用默认的处理方式。
+- 你可能希望在 `spec.podFailurePolicy.rules[*].containerName`
+  中通过指定的名称将规则限制到特定容器。
+  如果不设置，规则将适用于所有容器。
+  如果指定了容器名称，它应该匹配 Pod 模板中的一个普通容器或一个初始容器（Init Container）。
+- 你可以在 `spec.podFailurePolicy.rules[*].action` 指定当 Pod 失效策略发生匹配时要采取的操作。
+  可能的值为：
+  - `FailJob`：表示 Pod 的任务应标记为 Failed，并且所有正在运行的 Pod 应被终止。
+  - `Ignore`：表示 `.spec.backoffLimit` 的计数器不应该增加，应该创建一个替换的 Pod。
+  - `Count`：表示 Pod 应该以默认方式处理。`.spec.backoffLimit` 的计数器应该增加。
+
 <!--
 ### Job tracking with finalizers
 -->
@@ -1232,7 +1391,7 @@ object, but maintains complete control over what Pods are created and how work i
 * Read about different ways of running Jobs:
    * [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
    * [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
-   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/) (beta)
+   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/)
    * Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
 * Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
   to learn more about how your cluster can clean up completed and / or failed tasks.
@@ -1247,7 +1406,7 @@ object, but maintains complete control over what Pods are created and how work i
 * 了解运行 Job 的不同的方式：
   * [使用工作队列进行粗粒度并行处理](/zh-cn/docs/tasks/job/coarse-parallel-processing-work-queue/)
   * [使用工作队列进行精细的并行处理](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/)
-  * [使用索引作业完成静态工作分配下的并行处理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)（Beta 阶段）
+  * [使用索引作业完成静态工作分配下的并行处理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)
   * 基于一个模板运行多个 Job：[使用展开的方式进行并行处理](/zh-cn/docs/tasks/job/parallel-processing-expansion/)
 * 跟随[自动清理完成的 Job](#clean-up-finished-jobs-automatically) 文中的链接，了解你的集群如何清理完成和失败的任务。
 * `Job` 是 Kubernetes REST API 的一部分。阅读 {{< api-reference page="workload-resources/job-v1" >}}

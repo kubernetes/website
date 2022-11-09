@@ -43,7 +43,7 @@ ObjectFieldSelector 选择对象的 APIVersioned 字段。
 <hr>
 
 
-- **fieldPath** (string), 必需的
+- **fieldPath** (string)，必需的
 
   在指定 API 版本中要选择的字段的路径。
 

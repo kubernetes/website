@@ -95,6 +95,6 @@ output from running the command in the pod to the output of running in the host:
 ```none
 readlink /proc/$pid/ns/user
 user:[4026534732]
-
+```
 
 replacing `$pid` with the kubelet PID.

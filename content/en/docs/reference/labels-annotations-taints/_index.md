@@ -1,13 +1,13 @@
 ---
 title: Well-Known Labels, Annotations and Taints
 content_type: concept
-weight: 20
+weight: 40
 no_list: true
 ---
 
 <!-- overview -->
 
-Kubernetes reserves all labels and annotations in the kubernetes.io namespace.
+Kubernetes reserves all labels and annotations in the kubernetes.io and k8s.io namespaces.
 
 This document serves both as a reference to the values and as a coordination point for assigning values.
 
@@ -19,29 +19,31 @@ This document serves both as a reference to the values and as a coordination poi
 
 Example: `app.kubernetes.io/component: "database"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The component within the architecture.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
-### app.kubernetes.io/created-by
+### app.kubernetes.io/created-by (deprecated)
 
 Example: `app.kubernetes.io/created-by: "controller-manager"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The controller/user who created this resource.
 
-One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+{{< note >}}
+Starting from v1.9, this label is deprecated.
+{{< /note >}}
 
 ### app.kubernetes.io/instance
 
 Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
-A unique name identifying the instance of an application.
+A unique name identifying the instance of an application. To assign a non-unique name, use [app.kubernetes.io/name](#app-kubernetes-io-name).
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
@@ -49,7 +51,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/managed-by: "helm"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The tool being used to manage the operation of an application.
 
@@ -59,7 +61,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/name: "mysql"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The name of the application.
 
@@ -69,9 +71,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/part-of: "wordpress"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
-The name of a higher level application this one is part of.
+The name of a higher-level application this one is part of.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
@@ -79,11 +81,28 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `app.kubernetes.io/version: "5.7.21"`
 
-Used on: All Objects
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
-The current version of the application (e.g., a semantic version, revision hash, etc.).
+The current version of the application.
+
+Common forms of values include:
+
+- [semantic version](https://semver.org/spec/v1.0.0.html)
+- the Git [revision hash](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection#_single_revisions) for the source code.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+
+### cluster-autoscaler.kubernetes.io/safe-to-evict
+
+Example: `cluster-autoscaler.kubernetes.io/safe-to-evict: "true"`
+
+Used on: Pod
+
+When this annotation is set to `"true"`, the cluster autoscaler is allowed to evict a Pod
+even if other rules would normally prevent that.
+The cluster autoscaler never evicts Pods that have this annotation explicitly set to
+`"false"`; you could set that on an important Pod that you want to keep running.
+If this annotation is not set then the cluster autoscaler follows its Pod-level behavior.
 
 ### kubernetes.io/arch
 
@@ -113,6 +132,20 @@ to the name of the namespace. You can't change this label's value.
 
 This is useful if you want to target a specific namespace with a label
 {{< glossary_tooltip text="selector" term_id="selector" >}}.
+
+### kubernetes.io/limit-ranger
+
+Example: `kubernetes.io/limit-ranger: "LimitRanger plugin set: cpu, memory request for container nginx; cpu, memory limit for container nginx"`
+
+Used on: Pod
+
+Kubernetes by default doesn't provide any resource limit, that means unless you explicitly define limits,
+your container can consume unlimited CPU and memory.
+You can define a default request or default limit for pods. You do this by creating a LimitRange in the relevant namespace.
+Pods deployed after you define a LimitRange will have these limits applied to them.
+The annotation `kubernetes.io/limit-ranger` records that resource defaults were specified for the Pod,
+and they were applied successfully.
+For more details, read about [LimitRanges](/docs/concepts/policy/limit-range).
 
 ### beta.kubernetes.io/arch (deprecated)
 
@@ -158,6 +191,17 @@ Example: `kubernetes.io/enforce-mountable-secrets: "true"`
 Used on: ServiceAccount
 
 The value for this annotation must be **true** to take effect. This annotation indicates that pods running as this service account may only reference Secret API objects specified in the service account's `secrets` field.
+
+### node.kubernetes.io/exclude-from-external-load-balancer
+
+Example: `node.kubernetes.io/exclude-from-external-load-balancer`
+
+Used on: Node
+
+Kubernetes automatically enables the `ServiceNodeExclusion` feature gate on the clusters it creates. With this feature gate enabled on a cluster,
+you can add labels to particular worker nodes to exclude them from the list of backend servers.
+The following command can be used to exclude a worker node from the list of backend servers in a backend set-
+`kubectl label nodes <node-name> node.kubernetes.io/exclude-from-external-load-balancers=true`
 
 ### controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
@@ -345,11 +389,16 @@ The control plane adds this label to an Endpoints object when the owning Service
 
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
-Example: `kubernetes.io/service-name: "nginx"`
+Example: `kubernetes.io/service-name: "my-website"`
 
-Used on: Service
+Used on: EndpointSlice
 
-Kubernetes uses this label to differentiate multiple Services. Used currently for `ELB`(Elastic Load Balancer) only.
+Kubernetes associates [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) with
+[Services](/docs/concepts/services-networking/service/) using this label.
+
+This label records the {{< glossary_tooltip term_id="name" text="name">}} of the
+Service that the EndpointSlice is backing. All EndpointSlices should have this label set to
+the name of their associated Service.
 
 ### kubernetes.io/service-account.name
 
@@ -460,7 +509,9 @@ Example: `endpoints.kubernetes.io/over-capacity:truncated`
 
 Used on: Endpoints
 
-In Kubernetes clusters v1.22 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity and the number of endpoints has been truncated to 1000.
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} adds this annotation to an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object if the associated {{< glossary_tooltip term_id="service" >}} has more than 1000 backing endpoints. The annotation indicates that the Endpoints object is over capacity and the number of endpoints has been truncated to 1000.
+
+If the number of backend endpoints falls below 1000, the control plane removes this annotation.
 
 ### batch.kubernetes.io/job-tracking
 
@@ -471,6 +522,14 @@ Used on: Jobs
 The presence of this annotation on a Job indicates that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
 You should **not** manually add or remove this annotation.
+
+### scheduler.alpha.kubernetes.io/defaultTolerations {#scheduleralphakubernetesio-defaulttolerations}
+
+Example: `scheduler.alpha.kubernetes.io/defaultTolerations: '[{"operator": "Equal", "value": "value1", "effect": "NoSchedule", "key": "dedicated-node"}]'`
+
+Used on: Namespace
+
+This annotation requires the [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction) admission controller to be enabled. This annotation key allows assigning tolerations to a namespace and any new pods created in this namespace would get these tolerations added.
 
 ### scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
 
@@ -738,10 +797,20 @@ Used on: Node
 
 Label that kubeadm applies on the control plane nodes that it manages.
 
-### node-role.kubernetes.io/control-plane
+### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
 Used on: Node
 
 Example: `node-role.kubernetes.io/control-plane:NoSchedule`
 
 Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+
+### node-role.kubernetes.io/master (deprecated) {#node-role-kubernetes-io-master-taint}
+
+Used on: Node
+
+Example: `node-role.kubernetes.io/master:NoSchedule`
+
+Taint that kubeadm previously applied on control plane nodes to allow only critical workloads to schedule on them.
+Replaced by [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint); kubeadm
+no longer sets or uses this deprecated taint.

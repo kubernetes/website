@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - sig-cluster-lifecycle
 title: kubeadm API로 컴포넌트 사용자 정의하기
 content_type: concept
 weight: 40

@@ -491,7 +491,8 @@ request:
     # 向 API 服务器发出请求的经过身份验证的用户的 UID
     uid: 014fbff9a07c
 
-    # Group memberships of the authenticated user making the request to the API server向 API 服务器发出请求的经过身份验证的用户的组成员身份oups:
+    # 向 API 服务器发出请求的经过身份验证的用户的组成员身份
+    groups:
       - system:authenticated
       - my-admin-group
     # 向 API 服务器发出请求的用户相关的任意附加信息

@@ -5,7 +5,7 @@ reviewers:
 - bsalamat
 title: Taints and Tolerations
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 

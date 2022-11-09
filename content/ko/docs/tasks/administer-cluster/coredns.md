@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - johnbelamaric
 title: 서비스 디스커버리를 위해 CoreDNS 사용하기
 min-kubernetes-server-version: v1.9
 content_type: task

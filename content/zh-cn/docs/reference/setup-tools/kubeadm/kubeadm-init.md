@@ -115,8 +115,8 @@ following steps:
 
    See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional info.
 -->
-7. 为了使得节点能够遵照[启动引导令牌](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
-   和 [TLS 启动引导](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+7. 为了使得节点能够遵照[启动引导令牌](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)和
+   [TLS 启动引导](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
    这两份文档中描述的机制加入到集群中，kubeadm 会执行所有的必要配置：
 
    - 创建一个 ConfigMap 提供添加集群节点所需的信息，并为该 ConfigMap 设置相关的 RBAC 访问规则。
@@ -282,8 +282,8 @@ a [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/#kubead
 using `--config`.
 -->
 你可以使用 `--feature-gates` 标志来为 `kubeadm init` 设置特性门控，
-或者你可以在用 `--config` 传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
-时添加条目到 `featureGates` 字段中。
+或者你可以在用 `--config`
+传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)时添加条目到 `featureGates` 字段中。
 
 <!-- 
 Passing [feature gates for core Kubernetes components](/docs/reference/command-line-tools-reference/feature-gates)
@@ -299,18 +299,18 @@ List of feature gates:
 特性门控的列表：
 
 {{< table caption="kubeadm 特性门控" >}}
-特性 | 默认值 | Alpha | Beta
-:-------|:--------|:------|:-----
-`PublicKeysECDSA` | `false` | 1.19 | -
-`RootlessControlPlane` | `false` | 1.22 | -
-`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23
+特性 | 默认值 | Alpha | Beta | GA
+:-------|:--------|:------|:-----|:----
+`PublicKeysECDSA` | `false` | 1.19 | - | -
+`RootlessControlPlane` | `false` | 1.22 | - | -
+`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23 | 1.25
 {{< /table >}}
 
 {{< note >}}
-<!-- 
-Once a feature gate goes GA it is removed from this list as its value becomes locked to `true` by default. 
+<!--
+Once a feature gate goes GA its value becomes locked to `true` by default.
 -->
-一旦特性门控变成了 GA，那它将会从这个列表中移除，因为它的值会被默认锁定为 `true`。
+一旦特性门控变成了 GA，它的值会被默认锁定为 `true`。
 {{< /note >}}
 
 <!-- 
@@ -363,13 +363,6 @@ kubeadm 根据 `UnversionedKubeletConfigMap` 的设置值来执行操作。
 当读取此 ConfigMap 时（在 `kubeadm join`、`kubeadm reset`、`kubeadm upgrade ...` 期间），
 kubeadm 尝试首先使用无版本（后缀）的 ConfigMap 名称；
 如果不成功，kubeadm 将回退到使用该 ConfigMap 的旧（带版本号的）名称。
-
-{{< note >}}
-<!-- 
-Setting `UnversionedKubeletConfigMap` to `false` is supported but **deprecated**. 
--->
-设置 `UnversionedKubeletConfigMap` 为 `false` 是被支持的特性，但该特性**已被弃用**。
-{{< /note >}}
 
 <!--
 ### Adding kube-proxy parameters {#kube-proxy}
@@ -428,20 +421,20 @@ to control the `kubernetesVersion` and `imageRepository` fields.
 `kubernetesVersion` 和 `imageRepository` 字段。
 
 <!-- 
-All default `k8s.gcr.io` images that kubeadm requires support multiple architectures. 
+All default `registry.k8s.io` images that kubeadm requires support multiple architectures. 
 -->
-kubeadm 需要的所有默认 `k8s.gcr.io` 镜像都支持多种硬件体系结构。
+kubeadm 需要的所有默认 `registry.k8s.io` 镜像都支持多种硬件体系结构。
 
 <!--
 ### Using custom images {#custom-images}
 
-By default, kubeadm pulls images from `k8s.gcr.io`. If the
+By default, kubeadm pulls images from `registry.k8s.io`. If the
 requested Kubernetes version is a CI label (such as `ci/latest`)
 `gcr.io/k8s-staging-ci-images` is used.
 -->
 ### 使用自定义的镜像 {#custom-images}
 
-默认情况下，kubeadm 会从 `k8s.gcr.io` 仓库拉取镜像。如果请求的 Kubernetes 版本是 CI 标签
+默认情况下，kubeadm 会从 `registry.k8s.io` 仓库拉取镜像。如果请求的 Kubernetes 版本是 CI 标签
 （例如 `ci/latest`），则使用 `gcr.io/k8s-staging-ci-images`。
 
 <!--
@@ -450,24 +443,24 @@ Allowed customization are:
 
 * To provide `kubernetesVersion` which affects the version of the images.
 * To provide an alternative `imageRepository` to be used instead of
-  `k8s.gcr.io`.
+  `registry.k8s.io`.
 * To provide a specific `imageRepository` and `imageTag` for etcd or CoreDNS.
 -->
 你可以通过使用[带有配置文件的 kubeadm](#config-file) 来重写此操作。
 允许的自定义功能有：
 
 * 提供影响镜像版本的 `kubernetesVersion`。
-* 使用其他的 `imageRepository` 来代替 `k8s.gcr.io`。
+* 使用其他的 `imageRepository` 来代替 `registry.k8s.io`。
 * 为 etcd 或 CoreDNS 提供特定的 `imageRepository` 和 `imageTag`。
 
 <!-- 
-Image paths between the default `k8s.gcr.io` and a custom repository specified using
+Image paths between the default `registry.k8s.io` and a custom repository specified using
 `imageRepository` may differ for backwards compatibility reasons. For example,
-one image might have a subpath at `k8s.gcr.io/subpath/image`, but be defaulted
+one image might have a subpath at `registry.k8s.io/subpath/image`, but be defaulted
 to `my.customrepository.io/image` when using a custom repository.
 -->
 由于向后兼容的原因，使用 `imageRepository` 所指定的定制镜像库可能与默认的
-`k8s.gcr.io` 镜像路径不同。例如，某镜像的子路径可能是 `k8s.gcr.io/subpath/image`，
+`registry.k8s.io` 镜像路径不同。例如，某镜像的子路径可能是 `registry.k8s.io/subpath/image`，
 但使用自定义仓库时默认为 `my.customrepository.io/image`。
 
 <!-- 
@@ -477,13 +470,13 @@ can consume, you must:
 确保将镜像推送到 kubeadm 可以使用的自定义仓库的路径中，你必须：
 
 <!-- 
-* Pull images from the defaults paths at `k8s.gcr.io` using `kubeadm config images {list|pull}`.
+* Pull images from the defaults paths at `registry.k8s.io` using `kubeadm config images {list|pull}`.
 * Push images to the paths from `kubeadm config images list --config=config.yaml`,
 where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
 for etcd and CoreDNS.
 * Pass the same `config.yaml` to `kubeadm init`.
 -->
-* 使用 `kubeadm config images {list|pull}` 从 `k8s.gcr.io` 的默认路径中拉取镜像。
+* 使用 `kubeadm config images {list|pull}` 从 `registry.k8s.io` 的默认路径中拉取镜像。
 * 将镜像推送到 `kubeadm config images list --config=config.yaml` 的路径，
   其中 `config.yaml` 包含自定义的 `imageRepository` 和/或用于 etcd 和 CoreDNS 的 `imageTag`。
 * 将相同的 `config.yaml` 传递给 `kubeadm init`。
@@ -500,8 +493,9 @@ for selected container runtimes, you can also find advice within the
 -->
 #### 定制沙箱（pause）镜像  {#custom-pause-image}
 
-如果需要为这些组件设置定制的镜像，你需要在你的{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
-中完成一些配置。参阅你的容器运行时的文档以了解如何改变此设置。
+如果需要为这些组件设置定制的镜像，
+你需要在你的{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}中完成一些配置。
+参阅你的容器运行时的文档以了解如何改变此设置。
 对于某些容器运行时而言，
 你可以在[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)主题下找到一些建议。
 

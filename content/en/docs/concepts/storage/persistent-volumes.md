@@ -285,7 +285,7 @@ to `Retain`, including cases where you are reusing an existing PV.
 
 ### Expanding Persistent Volumes Claims
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You can expand
 the following types of volumes:
@@ -297,18 +297,18 @@ the following types of volumes:
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume (deprecated)
 * gcePersistentDisk
-* glusterfs
+* glusterfs (deprecated)
 * rbd
 * portworxVolume
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
-``` yaml
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: gluster-vol-default
-provisioner: kubernetes.io/glusterfs
+  name: example-vol-default
+provisioner: vendor-name.example/magicstorage
 parameters:
   resturl: "http://192.168.10.100:8080"
   restuser: ""
@@ -333,7 +333,7 @@ increased and that no resize is necessary.
 
 #### CSI Volume expansion
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Support for expanding CSI volumes is enabled by default but it also requires a specific CSI driver to support volume expansion. Refer to documentation of the specific CSI driver for more information.
 
@@ -616,7 +616,7 @@ The following volume types support mount options:
 * `cephfs`
 * `cinder` (**deprecated** in v1.18)
 * `gcePersistentDisk`
-* `glusterfs`
+* `glusterfs` (**deprecated** in v1.25)
 * `iscsi`
 * `nfs`
 * `rbd`

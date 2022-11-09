@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - Random-Liu
 title: 노드 구성 검증하기
 weight: 30
 ---

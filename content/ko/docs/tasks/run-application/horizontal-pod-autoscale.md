@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - fgrzadkowski
+# - jszczepkowski
+# - directxman12
 title: Horizontal Pod Autoscaling
 feature:
   title: Horizontal 스케일링

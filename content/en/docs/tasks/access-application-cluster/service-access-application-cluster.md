@@ -16,7 +16,7 @@ provides load balancing for an application that has two running instances.
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 
 

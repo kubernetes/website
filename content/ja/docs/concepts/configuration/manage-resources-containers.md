@@ -557,7 +557,7 @@ Allocated resources:
 
 システムデーモンが利用可能なリソースの一部を使用しているため、Podに利用可能なリソースの量はNodeの容量よりも少なくなっています。
 `allocatable`フィールド[NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)は、Podに利用可能なリソースの量を与えます。
-詳細については、[ノード割り当て可能なリソース](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md)を参照してください。
+詳細については、[ノード割り当て可能なリソース](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md)を参照してください。
 
 [リソースクォータ](/docs/concepts/policy/resource-quotas/)機能は、消費できるリソースの総量を制限するように設定することができます。
 名前空間と組み合わせて使用すると、1つのチームがすべてのリソースを占有するのを防ぐことができます。
@@ -628,7 +628,7 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 
 * [コンテナとPodへのCPUリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)ハンズオンを行う
 
-* 要求と制限の違いの詳細については、[リソースQoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md)を参照する
+* 要求と制限の違いの詳細については、[リソースQoS](https://git.k8s.io/design-proposals-archive/node/resource-qos.md)を参照する
 
 * [コンテナ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)APIリファレンスを読む
 

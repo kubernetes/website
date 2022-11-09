@@ -390,7 +390,7 @@ Afin d'utiliser cette fonctionnalité, le volume doit être provisionné en tant
 
 #### Provisionnement manuel d'un disque persistant régional en tant que PersistentVolume
 
-Le provisionnement dynamique est possible en utilisant une [StorageClass pour un disque persistant GCE](/docs/concepts/storage/storage-classes/#gce).
+Le provisionnement dynamique est possible en utilisant une [StorageClass pour un disque persistant GCE](/docs/concepts/storage/storage-classes/#gce-pd).
 Avant de créer un PersistentVolume, vous devez créer le disque persistant :
 ```shell
 gcloud beta compute disks create --size=500GB my-data-disk

@@ -18,6 +18,6 @@ tags:
 
 <!--more-->
 
-CNCF는 [리눅스 재단]((https://www.linuxfoundation.org/))의 산하 기구이다.
+CNCF는 [리눅스 재단](https://www.linuxfoundation.org/)의 산하 기구이다.
 CNCF의 목표는 어디서나 클라우드 네이티브 컴퓨팅을 활용할 수 있도록 만드는 것이다.
 

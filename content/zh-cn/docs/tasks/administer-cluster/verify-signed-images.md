@@ -25,13 +25,13 @@ You will need to have the following tools installed:
 - `cosign` ([install guide](https://docs.sigstore.dev/cosign/installation/))
 - `curl` (often provided by your operating system)
 -->
-这些说明适用于 Kubernetes {{< skew currentVersion >}}。如果你想要检查其他版本的 Kubernetes 组件的完整性，
-请查看对应 Kubernetes 版本的文档。
+这些说明适用于 Kubernetes {{< skew currentVersion >}}。
+如果你想要检查其他版本的 Kubernetes 组件的完整性，请查看对应 Kubernetes 版本的文档。
 
-你需要安装以下工具:
+你需要安装以下工具：
 
-- `cosign` ([安装指南](https://docs.sigstore.dev/cosign/installation/))
-- `curl` (通常由你的操作系统提供)
+- `cosign`（[安装指南](https://docs.sigstore.dev/cosign/installation/)）
+- `curl`（通常由你的操作系统提供）
 
 <!--
 ## Verifying image signatures
@@ -44,19 +44,19 @@ the `cosign verify` command:
 -->
 ## 验证镜像签名 {#verifying-image-signatures}
 
-完整的镜像签名列表请参见[发行版本](/releases/download/)。
+完整的镜像签名列表请参见[发行版本](/zh-cn/releases/download/)。
 
-我们从这个列表中选择一个镜像，并使用 `cosign verify` 命令来验证它的签名：
+从这个列表中选择一个镜像，并使用 `cosign verify` 命令来验证它的签名：
 
 ```shell
-COSIGN_EXPERIMENTAL=1 cosign verify k8s.gcr.io/kube-apiserver-amd64:v1.24.0
+COSIGN_EXPERIMENTAL=1 cosign verify registry.k8s.io/kube-apiserver-amd64:v1.24.0
 ```
 
 {{< note >}}
 <!--
 `COSIGN_EXPERIMENTAL=1` is used to allow verification of images signed
 in `KEYLESS` mode. To learn more about keyless signing, please refer to
-[Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)
+[Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures).
 -->
 `COSIGN_EXPERIMENTAL=1` 用于对以 `KEYLESS` 模式签名的镜像进行验证。想要进一步了解 `KEYLESS`，请参考
 [Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)。
@@ -72,7 +72,7 @@ To verify all signed control plane images, please run this command:
 验证所有已签名的控制平面组件镜像，请运行以下命令：
 
 ```shell
-curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: k8s.gcr.io/' | awk '{print $2}' > images.txt
+curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: registry.k8s.io/' | awk '{print $2}' > images.txt
 input=images.txt
 while IFS= read -r image
 do
