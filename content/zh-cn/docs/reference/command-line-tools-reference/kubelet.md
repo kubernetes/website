@@ -1,7 +1,7 @@
 ---
 title: kubelet
 content_type: tool-reference
-weight: 28
+weight: 20
 ---
 
 ## {{% heading "synopsis" %}}
@@ -28,10 +28,10 @@ PodSpec 中描述的容器处于运行状态且运行状况良好。
 kubelet 不管理不是由 Kubernetes 创建的容器。
 
 <!--
-Other than from a PodSpec from the apiserver, there are three ways that a
+Other than from a PodSpec from the apiserver, there are two ways that a
 container manifest can be provided to the Kubelet.
 -->
-除了来自 apiserver 的 PodSpec 之外，还可以通过以下三种方式将容器清单（manifest）提供给 kubelet。
+除了来自 apiserver 的 PodSpec 之外，还可以通过以下两种方式将容器清单（manifest）提供给 kubelet。
 
 <!--
 - File: Path passed as a flag on the command line. Files under this path will be
@@ -47,13 +47,6 @@ container manifest can be provided to the Kubelet.
 -->
 - HTTP 端点（HTTP endpoint）：利用命令行参数指定 HTTP 端点。
   此端点的监视周期默认为 20 秒，也可以使用参数进行配置。
-
-<!--
-- HTTP server: The kubelet can also listen for HTTP and respond to a simple API
-  (underspec'd currently) to submit a new manifest.
--->
-- HTTP 服务器（HTTP server）：kubelet 还可以侦听 HTTP 并响应简单的 API
-  （目前没有完整规范）来提交新的清单。
 
 ```
 kubelet [flags]
@@ -98,7 +91,7 @@ kubelet 用来提供服务的 IP 地址（设置为<code>0.0.0.0</code> 表示�
 
 <tr>
 <td colspan="2">--allowed-unsafe-sysctls strings</td>
-</tr>  
+</tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
@@ -399,7 +392,7 @@ Set the maximum number of container log files that can be present for a containe
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
-</tr>    
+</tr>
 
 <tr>
 <td colspan="2">--container-log-max-size string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: <code>10Mi</code>-->默认值：<code>10Mi</code></td>
@@ -511,8 +504,8 @@ CPU Manager policy to use. Possible values: 'none', 'static'. Default: 'none' (d
 <!--
 A set of key=value CPU Manager policy options to use, to fine tune their behaviour. If not supplied, keep the default behaviour. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
-一组用于微调其行为的 key=value CPU 管理器策略选项。如果未提供，请保留默认行为。 
-（已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。 
+一组用于微调其行为的 key=value CPU 管理器策略选项。如果未提供，请保留默认行为。
+（已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
 </tr>
@@ -1302,7 +1295,7 @@ Absolute name of the top level cgroup that is used to manage kubernetes componen
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to a kubeconfig file, specifying how to connect to the API server. Providing <code>--kubeconfig</code> enables API server mode, omitting <code>--kubeconfig</code> enables standalone mode. 
+Path to a kubeconfig file, specifying how to connect to the API server. Providing <code>--kubeconfig</code> enables API server mode, omitting <code>--kubeconfig</code> enables standalone mode.
 -->
 kubeconfig 配置文件的路径，指定如何连接到 API 服务器。
 提供 <code>--kubeconfig</code> 将启用 API 服务器模式，而省略 <code>--kubeconfig</code> 将启用独立模式。
@@ -1364,7 +1357,7 @@ If non-empty, write log files in this directory. (DEPRECATED: will be removed in
 </tr>
 
 <tr>
-<td colspan="2">--log-file string</td>  
+<td colspan="2">--log-file string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1731,7 +1724,12 @@ The CIDR to use for pod IP addresses, only used in standalone mode. In cluster m
 </tr>
 
 <tr>
-<td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>k8s.gcr.io/pause:3.2</code>-->默认值：<code>k8s.gcr.io/pause:3.2</code></td>
+<td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!--
+Default: <code>registry.k8s.io/pause:3.6
+-->
+默认值: <code>registry.k8s.io/pause:3.6
+</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1783,7 +1781,7 @@ Set the maximum number of processes per pod. If <code>-1</code>, the kubelet def
 Number of Pods per core that can run on this kubelet. The total number of pods on this kubelet cannot exceed <code>--max-pods</code>, so <code>--max-pods</code> will be used if this calculation results in a larger number of pods allowed on the kubelet. A value of <code>0</code> disables this limit. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 kubelet 在每个处理器核上可运行的 Pod 数量。此 kubelet 上的 Pod 总数不能超过
-<code>--max-pods</code> 标志值。因此，如果此计算结果导致在 kubelet 
+<code>--max-pods</code> 标志值。因此，如果此计算结果导致在 kubelet
 上允许更多数量的 Pod，则使用 <code>--max-pods</code> 值。值为 0 表示不作限制。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
@@ -2072,7 +2070,7 @@ Timeout of all runtime requests except long running request - <code>pull</code>,
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- 
+<!--
 &lt;Warning: Alpha feature&gt; Enable the use of <code>RuntimeDefault</code> as the default seccomp profile for all workloads. The <code>SeccompDefault</code> feature gate must be enabled to allow this flag, which is disabled by default.
 -->
 &lt;警告：alpha 特性&gt; 启用 <code>RuntimeDefault</code> 作为所有工作负载的默认 seccomp 配置文件。<code>SeccompDefault</code> 特性门控必须启用以允许此标志，默认情况下禁用。

@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - janetkuo
 title: 디플로이먼트
 feature:
   title: 자동화된 롤아웃과 롤백

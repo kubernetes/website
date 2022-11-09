@@ -71,7 +71,7 @@ gate for each individual option.
 
 ### Changing the CPU Manager Policy
 
-Since the CPU manger policy can only be applied when kubelet spawns new pods, simply changing from
+Since the CPU manager policy can only be applied when kubelet spawns new pods, simply changing from
 "none" to "static" won't apply to existing pods. So in order to properly change the CPU manager
 policy on a node, perform the following steps:
 
@@ -254,9 +254,9 @@ using the following feature gates:
 You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
 
 The following policy options exist for the static `CPUManager` policy:
-* `full-pcpus-only` (beta, visible by default)
-* `distribute-cpus-across-numa` (alpha, hidden by default)
-* `align-by-socket` (alpha, hidden by default)
+* `full-pcpus-only` (beta, visible by default) (1.22 or higher)
+* `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
+* `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
 By default, without this option, the static policy allocates CPUs using a topology-aware best-fit allocation.
@@ -293,7 +293,7 @@ policy option is not compatible with `TopologyManager` `single-numa-node`
 policy and does not apply to hardware where the number of sockets is greater
 than number of NUMA nodes.
 
-The `full-pcpus-only` option can be enabled by adding `full-pcups-only=true` to
+The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
 the CPUManager policy options.
 Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
 `distribute-cpus-across-numa=true` to the CPUManager policy options.

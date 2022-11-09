@@ -40,7 +40,7 @@ You can curl services using the Kubernetes syntax e.g. `curl -ik https://kuberne
 
 When developing an application on Kubernetes, you typically program or debug a single service. The service might require access to other services for testing and debugging. One option is to use the continuous deployment pipeline, but even the fastest deployment pipeline introduces a delay in the program or debug cycle.
  
-Use the `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:REMOTE_PORT` command to create an "intercept" for rerouting remote service traffic.
+Use the `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:$REMOTE_PORT` command to create an "intercept" for rerouting remote service traffic.
  
 Where:
 

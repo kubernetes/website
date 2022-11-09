@@ -6,7 +6,7 @@ reviewers:
 - msau42
 title: Storage Classes
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->
@@ -280,7 +280,7 @@ parameters:
 * `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS
   volume plugin multiplies this with size of requested volume to compute IOPS
   of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see
-  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
+  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)).
   A string is expected here, i.e. `"10"`, not `10`.
 * `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
 * `encrypted`: denotes whether the EBS volume should be encrypted or not.
@@ -338,7 +338,7 @@ using `allowedTopologies`.
 [allowedTopologies](#allowed-topologies)
 {{< /note >}}
 
-### Glusterfs
+### Glusterfs (deprecated) {#glusterfs}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -409,7 +409,7 @@ parameters:
     * Distribute volume: `volumetype: none`
 
     For available volume types and administration options, refer to the
-    [Administration Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
+    [Administration Guide](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/).
 
     For further reference information, see
     [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
@@ -469,7 +469,7 @@ There are two types of provisioners for vSphere storage classes:
 - [CSI provisioner](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
-In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#csi-migration-5).
+In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
 
 #### CSI Provisioner {#vsphere-provisioner-csi}
 

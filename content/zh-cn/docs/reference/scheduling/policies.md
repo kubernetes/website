@@ -33,9 +33,9 @@ This scheduling policy is not supported since Kubernetes v1.23. Associated flags
 <!--
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Learn about [kube-scheduler Configuration](/docs/reference/scheduling/config/)
-* Read the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* Read the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 -->
 
 * 了解[调度](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)
 * 了解 [kube-scheduler 配置](/zh-cn/docs/reference/scheduling/config/)
-* 阅读 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* 阅读 [kube-scheduler 配置参考 (v1)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)

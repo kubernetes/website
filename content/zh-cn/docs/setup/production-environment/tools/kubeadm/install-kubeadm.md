@@ -47,7 +47,7 @@ For information on how to create a cluster with kubeadm once you have performed 
 * 集群中的所有机器的网络彼此均能相互连接（公网和内网都可以）。
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
-* 禁用交换分区。为了保证 kubelet 正常工作，你 **必须** 禁用交换分区。
+* 禁用交换分区。为了保证 kubelet 正常工作，你**必须**禁用交换分区。
 
 <!-- steps -->
 
@@ -88,7 +88,6 @@ These
 [required ports](/docs/reference/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other. You can use tools like netcat to check if a port is open. For example:
 -->
-
 ## 检查所需端口{#check-required-ports}
 
 启用这些[必要的端口](/zh-cn/docs/reference/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。
@@ -174,11 +173,11 @@ The tables below include the known endpoints for supported operating systems:
 | CRI-O                              | `unix:///var/run/crio/crio.sock`             |
 | Docker Engine (using cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
 -->
-| 运行时                              | Unix 域套接字                                     |
+| 运行时                              | Unix 域套接字                                 |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `unix:///var/run/containerd/containerd.sock` |
 | CRI-O                              | `unix:///var/run/crio/crio.sock`             |
-| Docker Engine (使用 cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
+| Docker Engine（使用 cri-dockerd）    | `unix:///var/run/cri-dockerd.sock`           |
 {{< /table >}}
 
 {{% /tab %}}
@@ -192,10 +191,10 @@ The tables below include the known endpoints for supported operating systems:
 | containerd                         | `npipe:////./pipe/containerd-containerd`     |
 | Docker Engine (using cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
 -->
-| 运行时                              |  Windows 命名管道路径                         |
+| 运行时                              |  Windows 命名管道路径                          |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `npipe:////./pipe/containerd-containerd`     |
-| Docker Engine (使用 cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
+| Docker Engine（使用 cri-dockerd）    | `npipe:////./pipe/cri-dockerd`               |
 {{< /table >}}
 
 {{% /tab %}}
@@ -262,7 +261,7 @@ For more information on version skews, see:
 关于版本偏差的更多信息，请参阅以下文档：
 
 * Kubernetes [版本与版本间的偏差策略](/zh-cn/releases/version-skew-policy/)
-* Kubeadm 特定的[版本偏差策略](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
+* kubeadm 特定的[版本偏差策略](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="基于 Debian 的发行版" %}}
@@ -317,7 +316,7 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 exclude=kubelet kubeadm kubectl
 EOF
 
@@ -345,8 +344,7 @@ sudo systemctl enable --now kubelet
 -->
 **请注意：**
 
-- 通过运行命令 `setenforce 0` 和 `sed ...` 将 SELinux 设置为 permissive 模式
-  可以有效地将其禁用。
+- 通过运行命令 `setenforce 0` 和 `sed ...` 将 SELinux 设置为 permissive 模式可以有效地将其禁用。
   这是允许容器访问主机文件系统所必需的，而这些操作是为了例如 Pod 网络工作正常。
 
   你必须这么做，直到 kubelet 做出对 SELinux 的支持进行升级为止。
@@ -365,10 +363,11 @@ Install CNI plugins (required for most pod network):
 安装 CNI 插件（大多数 Pod 网络都需要）：
 
 ```bash
-CNI_VERSION="v0.8.2"
+CNI_PLUGINS_VERSION="v1.1.1"
 ARCH="amd64"
-sudo mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+DEST="/opt/cni/bin"
+sudo mkdir -p "$DEST"
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
 ```
 
 <!--
@@ -379,15 +378,15 @@ Define the directory to download command files
 {{< note >}}
 <!--
 The `DOWNLOAD_DIR` variable must be set to a writable directory.
-If you are running Flatcar Container Linux, set `DOWNLOAD_DIR=/opt/bin`.
+If you are running Flatcar Container Linux, set `DOWNLOAD_DIR="/opt/bin"`.
 -->
 `DOWNLOAD_DIR` 变量必须被设置为一个可写入的目录。
-如果你在运行 Flatcar Container Linux，可将 `DOWNLOAD_DIR` 设置为 `/opt/bin`。
+如果你在运行 Flatcar Container Linux，可设置 `DOWNLOAD_DIR="/opt/bin"`。
 {{< /note >}}
 
 ```bash
-DOWNLOAD_DIR=/usr/local/bin
-sudo mkdir -p $DOWNLOAD_DIR
+DOWNLOAD_DIR="/usr/local/bin"
+sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
 <!--
@@ -396,7 +395,7 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）
 
 ```bash
-CRICTL_VERSION="v1.22.0"
+CRICTL_VERSION="v1.25.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
@@ -410,8 +409,8 @@ Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
-sudo chmod +x {kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
+sudo chmod +x {kubeadm,kubelet}
 
 RELEASE_VERSION="v0.4.0"
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
@@ -420,8 +419,10 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSIO
 ```
 
 <!--
+Install `kubectl` by following the instructions on [Install Tools page](/docs/tasks/tools/#kubectl).
 Enable and start `kubelet`:
 -->
+请参照[安装工具页面](/zh-cn/docs/tasks/tools/#kubectl)的说明安装 `kubelet`。
 激活并启动 `kubelet`：
 
 ```bash

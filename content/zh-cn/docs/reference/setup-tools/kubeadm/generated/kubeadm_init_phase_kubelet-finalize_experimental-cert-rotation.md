@@ -1,20 +1,11 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Enable kubelet client certificate rotation 
 -->
 启用 kubelet 客户端证书轮换
 
-<!-- ### Synopsis -->
+<!--
+### Synopsis
+-->
 ### 概要
 
 <!-- Enable kubelet client certificate rotation -->
@@ -24,10 +15,12 @@ Enable kubelet client certificate rotation
 kubeadm init phase kubelet-finalize experimental-cert-rotation [flags]
 ```
 
-<!-- ### Options -->
+<!--
+### Options
+-->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -61,12 +54,12 @@ kubeadm init phase kubelet-finalize experimental-cert-rotation [flags]
 </tbody>
 </table>
 
-
-
-<!-- ### Options inherited from parent commands -->
+<!--
+### Options inherited from parent commands
+-->
 ### 继承于父命令的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -83,6 +76,4 @@ kubeadm init phase kubelet-finalize experimental-cert-rotation [flags]
 
 </tbody>
 </table>
-
-
 

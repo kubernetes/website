@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 系统组件指标
 content_type: concept
-weight: 60
+weight: 70
 ---
 
 <!--
@@ -11,7 +11,7 @@ reviewers:
 - logicalhan
 - RainbowMango
 content_type: concept
-weight: 60
+weight: 70
 -->
 
 <!-- overview -->

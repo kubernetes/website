@@ -236,12 +236,6 @@ Right after `kubeadm init` there should not be any pods in these states.
   RBAC 特权或使用较新的版本。请在 Pod Network 提供商的问题跟踪器中提交问题，
   然后在此处分类问题。
 
-- 如果你安装的 Docker 版本早于 1.12.1，请在使用 `systemd` 来启动 `dockerd` 和重启 `docker` 时，
-  删除 `MountFlags=slave` 选项。
-  你可以在 `/usr/lib/systemd/system/docker.service` 中看到 MountFlags。
-  MountFlags 可能会干扰 Kubernetes 挂载的卷，并使 Pod 处于 `CrashLoopBackOff` 状态。
-  当 Kubernetes 不能找到 `var/run/secrets/kubernetes.io/serviceaccount` 文件时会发生错误。
-
 <!--
 ## `coredns` is stuck in the `Pending` state
 
@@ -682,7 +676,7 @@ A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on 
 nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
 conditions abate:
 ```
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
@@ -703,7 +697,7 @@ proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 而不管它们的条件如何，将其与其他节点保持隔离，直到它们的初始保护条件消除：
 
 ```shell
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 此问题的跟踪[在这里](https://github.com/kubernetes/kubeadm/issues/1027)。

@@ -1,8 +1,8 @@
 ---
 title: 크론잡(CronJob)으로 자동화된 작업 실행
 min-kubernetes-server-version: v1.21
-
-
+# reviewers:
+# - chenopis
 content_type: task
 weight: 10
 ---
@@ -141,7 +141,7 @@ kubectl delete cronjob hello
 크론잡(CronJob)의 각 매니페스트에는 [`.spec`](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#오브젝트-명세-spec-와-상태-status) 섹션도 필요하다.
 
 {{< note >}}
-크론잡(CrontJob)을 수정한 경우, 수정 후 새로 실행하는 작업부터 적용된다. 이미 시작된 작업(및 해당 파드)은 변경 없이 계속 실행된다. 즉, 크론잡(CrontJob)은 기존 작업이 계속 실행 중이라면, 작업을 변경하지 _않는다._
+크론잡(CronJob)을 수정한 경우, 수정 후 새로 실행하는 작업부터 적용된다. 이미 시작된 작업(및 해당 파드)은 변경 없이 계속 실행된다. 즉, 크론잡(CronJob)은 기존 작업이 계속 실행 중이라면, 작업을 변경하지 _않는다._
 {{< /note >}}
 
 ### 스케줄

@@ -149,14 +149,18 @@ For self-registration, the kubelet is started with the following options:
 
 <!--
 - `--kubeconfig` - Path to credentials to authenticate itself to the API server.
-- `--cloud-provider` - How to talk to a {{< glossary_tooltip text="cloud provider" term_id="cloud-provider" >}} to read metadata about itself.
+- `--cloud-provider` - How to talk to a {{< glossary_tooltip text="cloud provider" term_id="cloud-provider" >}}
+  to read metadata about itself.
 - `--register-node` - Automatically register with the API server.
-- `--register-with-taints` - Register the node with the given list of {{< glossary_tooltip text="taints" term_id="taint" >}} (comma separated `<key>=<value>:<effect>`).
+- `--register-with-taints` - Register the node with the given list of
+  {{< glossary_tooltip text="taints" term_id="taint" >}} (comma separated `<key>=<value>:<effect>`).
 
-    No-op if `register-node` is false.
+  No-op if `register-node` is false.
 - `--node-ip` - IP address of the node.
-- `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
-- `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
+- `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node
+  in the cluster (see label restrictions enforced by the
+  [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
+- `--node-status-update-frequency` - Specifies how often kubelet posts its node status to the API server.
 -->
 - `--kubeconfig` - 用于向 API 服务器执行身份认证所用的凭据的路径。
 - `--cloud-provider` - 与某{{< glossary_tooltip text="云驱动" term_id="cloud-provider" >}}
@@ -167,16 +171,16 @@ For self-registration, the kubelet is started with the following options:
 - `--node-ip` - 节点 IP 地址。
 - `--node-labels` - 在集群中注册节点时要添加的{{< glossary_tooltip text="标签" term_id="label" >}}。
   （参见 [NodeRestriction 准入控制插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)所实施的标签限制）。
-- `--node-status-update-frequency` - 指定 kubelet 向控制面发送状态的频率。
+- `--node-status-update-frequency` - 指定 kubelet 向 API 服务器发送其节点状态的频率。
 
 <!--
 When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
-[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
-kubelets are only authorized to create/modify their own Node resource.
+[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
+are enabled, kubelets are only authorized to create/modify their own Node resource.
 -->
-启用 [Node 鉴权模式](/zh-cn/docs/reference/access-authn-authz/node/)和
-[NodeRestriction 准入插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)时，
-仅授权 `kubelet` 创建或修改其自己的节点资源。
+当 [Node 鉴权模式](/zh-cn/docs/reference/access-authn-authz/node/)和
+[NodeRestriction 准入插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)被启用后，
+仅授权 kubelet 创建/修改自己的 Node 资源。
 
 {{< note >}}
 <!--
@@ -202,7 +206,7 @@ re-scheduled.
 如果在 kubelet 重启期间 Node 配置发生了变化，已经被调度到某 Node 上的 Pod
 可能会出现行为不正常或者出现其他问题，例如，已经运行的 Pod
 可能通过污点机制设置了与 Node 上新设置的标签相排斥的规则，也有一些其他 Pod，
-本来与此 Pod 之间存在不兼容的问题，也会因为新的标签设置而被调到到同一节点。
+本来与此 Pod 之间存在不兼容的问题，也会因为新的标签设置而被调到同一节点。
 节点重新注册操作可以确保节点上所有 Pod 都被排空并被正确地重新调度。
 {{< /note >}}
 
@@ -297,8 +301,10 @@ You can use `kubectl` to view a Node's status and other details:
 kubectl describe node <节点名称>
 ```
 
-<!-- Each section is described in detail below. -->
-下面对每个部分进行详细描述。
+<!-- 
+Each section of the output is described below.
+-->
+下面对输出的每个部分进行详细描述。
 
 <!--
 ### Addresses
@@ -310,9 +316,11 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 这些字段的用法取决于你的云服务商或者物理机配置。
 
 <!--
-* HostName: The hostname as reported by the node's kernel. Can be overridden via the kubelet `-hostname-override` parameter.
-* ExternalIP: Typically the IP address of the node that is externally routable (available from outside the cluster).
-* InternalIP: Typichostnameally the IP address of the node that is routable only within the cluster.
+* HostName: The hostname as reported by the node's kernel. Can be overridden via the kubelet
+  `--hostname-override` parameter.
+* ExternalIP: Typically the IP address of the node that is externally routable (available from
+  outside the cluster).
+* InternalIP: Typically the IP address of the node that is routable only within the cluster.
 -->
 * HostName：由节点的内核报告。可以通过 kubelet 的 `--hostname-override` 参数覆盖。
 * ExternalIP：通常是节点的可外部路由（从集群外可访问）的 IP 地址。
@@ -443,7 +451,7 @@ for more details.
 <!--
 ### Capacity and Allocatable {#capacity}
 
-Describes the resources available on the node: CPU, memory and the maximum
+Describes the resources available on the node: CPU, memory, and the maximum
 number of pods that can be scheduled onto the node.
 -->
 ### 容量（Capacity）与可分配（Allocatable）     {#capacity}
@@ -632,7 +640,7 @@ the same time:
 
 <!--
 The reason these policies are implemented per availability zone is because one
-availability zone might become partitioned from the master while the others remain
+availability zone might become partitioned from the control plane while the others remain
 connected. If your cluster does not span multiple cloud provider availability zones,
 then the eviction mechanism does not take per-zone unavailability into account.
 -->
@@ -675,8 +683,8 @@ that the scheduler won't place Pods onto unhealthy nodes.
 <!--
 ## Resource capacity tracking {#node-capacity}
 
-Node objects track information about the Node's resource capacity (for example: the amount
-of memory available, and the number of CPUs).
+Node objects track information about the Node's resource capacity: for example, the amount
+of memory available and the number of CPUs.
 Nodes that [self register](#self-registration-of-nodes) report their capacity during
 registration. If you [manually](#manual-node-administration) add a Node, then
 you need to set the node's capacity information when you add it.
@@ -690,11 +698,11 @@ Node 对象会跟踪节点上资源的容量（例如可用内存和 CPU 数量�
 
 <!--
 The Kubernetes {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} ensures that
-there are enough resources for all the pods on a node.  The scheduler checks that the sum
-of the requests of containers on the node is no greater than the node capacity.
-The sum of requests includes all containers started by the kubelet, but excludes any
+there are enough resources for all the Pods on a Node. The scheduler checks that the sum
+of the requests of containers on the node is no greater than the node's capacity.
+That sum of requests includes all containers managed by the kubelet, but excludes any
 containers started directly by the container runtime, and also excludes any
-process running outside of the kubelet's control.
+processes running outside of the kubelet's control.
 -->
 Kubernetes {{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}
 保证节点上有足够的资源供其上的所有 Pod 使用。
@@ -704,7 +712,7 @@ Kubernetes {{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}
 
 {{< note >}}
 <!--
-If you want to explicitly reserve resources for non-Pod processes, follow this tutorial to
+If you want to explicitly reserve resources for non-Pod processes, see
 [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
 -->
 如果要为非 Pod 进程显式保留资源。
@@ -749,7 +757,7 @@ kubelet 会尝试检测节点系统关闭事件并终止在节点上运行的所
 [Pod 终止流程](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!-- 
-The graceful node shutdown feature depends on systemd since it takes advantage of
+The Graceful node shutdown feature depends on systemd since it takes advantage of
 [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to
 delay the node shutdown with a given duration.
 -->
@@ -768,9 +776,10 @@ enabled by default in 1.21.
 
 <!--
 Note that by default, both configuration options described below,
-`ShutdownGracePeriod` and `ShutdownGracePeriodCriticalPods` are set to zero,
+`shutdownGracePeriod` and `shutdownGracePeriodCriticalPods` are set to zero,
 thus not activating the graceful node shutdown functionality.
-To activate the feature, the two kubelet config settings should be configured appropriately and set to non-zero values.
+To activate the feature, the two kubelet config settings should be configured appropriately and
+set to non-zero values.
 -->
 注意，默认情况下，下面描述的两个配置选项，`shutdownGracePeriod` 和
 `shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活节点体面关闭功能。
@@ -780,7 +789,8 @@ To activate the feature, the two kubelet config settings should be configured ap
 During a graceful shutdown, kubelet terminates pods in two phases:
 
 1. Terminate regular pods running on the node.
-2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) running on the node.
+2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+   running on the node.
 -->
 在体面关闭节点过程中，kubelet 分两个阶段来终止 Pod：
 
@@ -788,11 +798,16 @@ During a graceful shutdown, kubelet terminates pods in two phases:
 2. 终止在节点上运行的[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 
 <!-- 
-Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
-* `ShutdownGracePeriod`:
-  * Specifies the total duration that the node should delay the shutdown by. This is the total grace period for pod termination for both regular and [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
-* `ShutdownGracePeriodCriticalPods`:
-  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This value should be less than `ShutdownGracePeriod`.
+Graceful node shutdown feature is configured with two
+[`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
+* `shutdownGracePeriod`:
+  * Specifies the total duration that the node should delay the shutdown by. This is the total
+    grace period for pod termination for both regular and
+    [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+* `shutdownGracePeriodCriticalPods`:
+  * Specifies the duration used to terminate
+    [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+    during a node shutdown. This value should be less than `shutdownGracePeriod`.
 -->
 节点体面关闭的特性对应两个
 [`KubeletConfiguration`](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/) 选项：
@@ -805,8 +820,8 @@ Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/
     的持续时间。该值应小于 `shutdownGracePeriod`。
 
 <!--  
-For example, if `ShutdownGracePeriod=30s`, and
-`ShutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by
+For example, if `shutdownGracePeriod=30s`, and
+`shutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by
 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved
 for gracefully terminating normal pods, and the last 10 seconds would be
 reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
@@ -816,14 +831,14 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 在关闭期间，将保留前 20（30 - 10）秒用于体面终止常规 Pod，
 而保留最后 10 秒用于终止[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 
+{{< note >}}
 <!--
-When pods were evicted during the graceful node shutdown, they are marked as failed.
-Running `kubectl get pods` shows the status of the the evicted pods as `Shutdown`.
+When pods were evicted during the graceful node shutdown, they are marked as shutdown.
+Running `kubectl get pods` shows the status of the evicted pods as `Terminated`.
 And `kubectl describe pod` indicates that the pod was evicted because of node shutdown:
 -->
-{{< note >}}
-当 Pod 在正常节点关闭期间被驱逐时，它们会被标记为已经失败（Failed）。
-运行 `kubectl get pods` 时，被驱逐的 Pod 的状态显示为 `Shutdown`。
+当 Pod 在正常节点关闭期间被驱逐时，它们会被标记为关闭。
+运行 `kubectl get pods` 时，被驱逐的 Pod 的状态显示为 `Terminated`。
 并且 `kubectl describe pod` 表示 Pod 因节点关闭而被驱逐：
 
 ```
@@ -875,19 +890,16 @@ these pods will be stuck in terminating status on the shutdown node forever.
 如果原来的已关闭节点没有被恢复，那些在已关闭节点上的 Pod 将永远滞留在终止状态。
 
 <!--
-To mitigate the above situation, a  user can manually add the taint `node 
-kubernetes.io/out-of-service` with either `NoExecute` or `NoSchedule` effect to 
-a Node marking it out-of-service. 
-If the `NodeOutOfServiceVolumeDetach`  [feature gate](/docs/reference/
-command-line-tools-reference/feature-gates/) is enabled on
-`kube-controller-manager`, and a Node is marked out-of-service with this taint, the 
-pods on the node will be forcefully deleted if there are no matching tolerations on
-it and volume detach operations for the pods terminating on the node will happen
-immediately. This allows the Pods on the out-of-service node to recover quickly on a
-different node. 
+To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute` 
+or `NoSchedule` effect to a Node marking it out-of-service. 
+If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled on `kube-controller-manager`, and a Node is marked out-of-service with this taint, the
+pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
+detach operations for the pods terminating on the node will happen immediately. This allows the
+Pods on the out-of-service node to recover quickly on a different node.
 -->
 为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
-`node kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
+`node.kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
 如果在 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 并且节点被通过污点标记为无法提供服务，如果节点 Pod 上没有设置对应的容忍度，
@@ -907,11 +919,11 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 <!--
 {{< note >}}
 - Before adding the taint `node.kubernetes.io/out-of-service` , it should be verified
-that the node is already in shutdown or power off state (not in the middle of
-restarting).
+  that the node is already in shutdown or power off state (not in the middle of
+  restarting).
 - The user is required to manually remove the out-of-service taint after the pods are
-moved to a new node and the user has checked that the shutdown node has been
-recovered since the user was the one who originally added the taint.
+  moved to a new node and the user has checked that the shutdown node has been
+  recovered since the user was the one who originally added the taint.
 {{< /note >}}
 -->
 {{< note >}}
@@ -1108,6 +1120,14 @@ must be set to false.
 要在节点上启用交换内存，必须启用kubelet 的 `NodeSwap` 特性门控，
 同时使用 `--fail-swap-on` 命令行参数或者将 `failSwapOn`
 [配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)设置为 false。
+
+{{< warning >}}
+<!--
+When the memory swap feature is turned on, Kubernetes data such as the content
+of Secret objects that were written to tmpfs now could be swapped to disk.
+-->
+当内存交换功能被启用后，Kubernetes 数据（如写入 tmpfs 的 Secret 对象的内容）可以被交换到磁盘。
+{{< /warning >}}
 
 <!--
 A user can also optionally configure `memorySwap.swapBehavior` in order to

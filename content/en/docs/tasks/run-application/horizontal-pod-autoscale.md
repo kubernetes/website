@@ -140,7 +140,7 @@ Due to technical constraints, the HorizontalPodAutoscaler controller
 cannot exactly determine the first time a pod becomes ready when
 determining whether to set aside certain CPU metrics. Instead, it
 considers a Pod "not yet ready" if it's unready and transitioned to
-unready within a short, configurable window of time since it started.
+ready within a short, configurable window of time since it started.
 This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay` flag, and its default is 30
 seconds.  Once a pod has become ready, it considers any transition to
 ready to be the first if it occurred within a longer, configurable time

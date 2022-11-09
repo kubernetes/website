@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - lavalamp
 title: 쿠버네티스 컴포넌트
 content_type: concept
 description: >

@@ -43,44 +43,44 @@ username and password:
 
 1. Create the Secret
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/inject/secret.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/inject/secret.yaml
+   ```
 
 1. View information about the Secret:
 
-    ```shell
-    kubectl get secret test-secret
-    ```
+   ```shell
+   kubectl get secret test-secret
+   ```
 
-    Output:
+   Output:
 
-    ```
-    NAME          TYPE      DATA      AGE
-    test-secret   Opaque    2         1m
-    ```
+   ```
+   NAME          TYPE      DATA      AGE
+   test-secret   Opaque    2         1m
+   ```
 
 1. View more detailed information about the Secret:
 
-    ```shell
-    kubectl describe secret test-secret
-    ```
+   ```shell
+   kubectl describe secret test-secret
+   ```
 
-    Output:
+   Output:
 
-    ```
-    Name:       test-secret
-    Namespace:  default
-    Labels:     <none>
-    Annotations:    <none>
+   ```
+   Name:       test-secret
+   Namespace:  default
+   Labels:     <none>
+   Annotations:    <none>
 
-    Type:   Opaque
+   Type:   Opaque
 
-    Data
-    ====
-    password:   13 bytes
-    username:   7 bytes
-    ```
+   Data
+   ====
+   password:   13 bytes
+   username:   7 bytes
+   ```
 
 ### Create a Secret directly with kubectl
 

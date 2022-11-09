@@ -43,7 +43,7 @@ ResourceFieldSelector 表示容器资源（CPU，内存）及其输出格式。
 
 <hr>
 
-- **resource** (string), 必选
+- **resource** (string)，必选
 
   <!-- Required: resource to select -->
   必选：选择的资源
