@@ -10,7 +10,7 @@ card:
   title: 为发行版本撰写功能特性文档 
 ---
 <!--
-title:  Documenting a feature for a release
+title: Documenting a feature for a release
 linktitle: Documenting for a release
 content_type: concept
 main_menu: true
@@ -18,7 +18,7 @@ weight: 20
 card:
   name: contribute
   weight: 45
-  title:  Documenting a feature for a release
+  title: Documenting a feature for a release
 -->
 
 <!-- overview -->
@@ -248,7 +248,7 @@ make sure you add it to [Alpha/Beta Feature gates](/docs/reference/command-line-
 table as part of your pull request. With new feature gates, a description of
 the feature gate is also required. If your feature is GA'ed or deprecated,
 make sure to move it from the
-[Feature gates for Alpha/Feature](docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
+[Feature gates for Alpha/Feature](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
 to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
 table with Alpha and Beta history intact.
 -->
