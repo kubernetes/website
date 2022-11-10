@@ -525,7 +525,7 @@ Please note that:
 请注意：
 
 <!--  
-1. All images will be pulled from k8s.gcr.io by default.
+1. All images will be pulled from registry.k8s.io by default.
    See [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)
    for customizing the image repository
 1. In case of kubeadm is executed in the `--dry-run` mode, static Pods files are written in a
@@ -533,7 +533,7 @@ Please note that:
 1. Static Pod manifest generation for control plane components can be invoked individually with
    the [`kubeadm init phase control-plane all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-control-plane) command
 -->
-1. 所有镜像默认从 k8s.gcr.io 拉取。关于自定义镜像仓库，
+1. 所有镜像默认从 registry.k8s.io 拉取。关于自定义镜像仓库，
    请参阅[使用自定义镜像](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)。
 2. 如果在 `--dry-run` 模式下执行 kubeadm，则静态 Pod 文件写入一个临时文件夹中。
 3. 可以使用 [`kubeadm init phase control-plane all`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-control-plane)

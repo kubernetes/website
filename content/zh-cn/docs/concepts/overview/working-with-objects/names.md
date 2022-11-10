@@ -1,7 +1,7 @@
 ---
-title: 对象名称和 IDs
+title: 对象名称和 ID
 content_type: concept
-weight: 20
+weight: 30
 ---
 <!--
 reviewers:
@@ -9,7 +9,7 @@ reviewers:
 - thockin
 title: Object Names and IDs
 content_type: concept
-weight: 20
+weight: 30
 -->
 
 <!-- overview -->
@@ -164,7 +164,7 @@ Some resource types have additional restrictions on their names.
 某些资源类型可能具有额外的命名约束。
 {{< /note >}}
 
-## UIDs
+## UID
 
 {{< glossary_definition term_id="uid" length="all" >}}
 
