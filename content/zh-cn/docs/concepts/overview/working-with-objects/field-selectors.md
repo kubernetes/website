@@ -1,10 +1,12 @@
 ---
 title: 字段选择器
-weight: 60
+content_type: concept
+weight: 70
 ---
 <!--
 title: Field Selectors
-weight: 60
+content_type: concept
+weight: 70
 -->
 
 <!--
