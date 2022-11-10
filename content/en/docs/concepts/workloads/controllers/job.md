@@ -94,17 +94,18 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   annotations:
+    batch.kubernetes.io/job-tracking: ""
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl","name":"pi"}],"restartPolicy":"Never"}}}}
-  creationTimestamp: "2022-06-15T08:40:15Z"
+      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl:5.34.0","name":"pi"}],"restartPolicy":"Never"}}}}
+  creationTimestamp: "2022-11-10T17:53:53Z"
   generation: 1
   labels:
-    controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+    controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
     job-name: pi
   name: pi
   namespace: default
-  resourceVersion: "987"
-  uid: 863452e6-270d-420e-9b94-53a54146c223
+  resourceVersion: "4751"
+  uid: 204fb678-040b-497f-9266-35ffa8716d14
 spec:
   backoffLimit: 4
   completionMode: NonIndexed
@@ -112,13 +113,13 @@ spec:
   parallelism: 1
   selector:
     matchLabels:
-      controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+      controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
   suspend: false
   template:
     metadata:
       creationTimestamp: null
       labels:
-        controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+        controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
         job-name: pi
     spec:
       containers:
@@ -128,7 +129,7 @@ spec:
         - -wle
         - print bpi(2000)
         image: perl:5.34.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: pi
         resources: {}
         terminationMessagePath: /dev/termination-log
@@ -140,8 +141,9 @@ spec:
       terminationGracePeriodSeconds: 30
 status:
   active: 1
-  ready: 1
-  startTime: "2022-06-15T08:40:15Z"
+  ready: 0
+  startTime: "2022-11-10T17:53:57Z"
+  uncountedTerminatedPods: {}
 {{< /tab >}}
 {{< /tabs >}}
 
