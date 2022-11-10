@@ -100,7 +100,7 @@ class first,second,third white
 {{</ mermaid >}}
 Figure 1. Premiers pas pour un nouveau contributeur.
 
-La figure 1 présente une feuille de route pour les nouveaux contributeurs.  Vous pouvez suivre certaines ou toutes les étapes pour `Inscription` et `Révision`. Vous êtes maintenant prêt à soumettre des PRs qui atteignent vos objectifs de contribution, dont certains listés sous `Soumettre PR`. Encore une fois, les questions sont toujours les bienvenues!
+La figure 1 présente une feuille de route pour les nouveaux contributeurs.  Vous pouvez suivre certaines ou toutes les étapes pour `Inscription` et `Révision`. Vous êtes maintenant prêt à soumettre des PRs qui atteignent vos objectifs de contribution, dont certains listés sous `Soumettre PR`. Encore une fois, les questions sont toujours les bienvenues !
 
 Certaines tâches nécessitent plus de confiance et plus d'accès dans l'organisation Kubernetes. 
 Visitez [Participer à SIG Docs](/docs/contribute/participate/) pour plus de détails sur les rôles et les autorisations.
