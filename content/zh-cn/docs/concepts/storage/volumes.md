@@ -577,18 +577,33 @@ Some uses for an `emptyDir` are:
 * 在 Web 服务器容器服务数据时，保存内容管理器容器获取的文件。
 
 <!--
-Depending on your environment, `emptyDir` volumes are stored on whatever medium that backs the
-node such as disk or SSD, or network storage. However, if you set the `emptyDir.medium` field
-to `"Memory"`, Kubernetes mounts a tmpfs (RAM-backed filesystem) for you instead.
-While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on
-node reboot and any files you write count against your container's
-memory limit.
+The `emptyDir.medium` field controls where `emptyDir` volumes are stored. By
+default `emptyDir` volumes are stored on whatever medium that backs the node
+such as disk, SSD, or network storage, depending on your environment. If you set
+the `emptyDir.medium` field to `"Memory"`, Kubernetes mounts a tmpfs (RAM-backed
+filesystem) for you instead.  While tmpfs is very fast, be aware that unlike
+disks, tmpfs is cleared on node reboot and any files you write count against
+your container's memory limit.
 -->
-取决于你的环境，`emptyDir` 卷存储在该节点所使用的介质上；这里的介质可以是磁盘或 SSD
-或网络存储。但是，你可以将 `emptyDir.medium` 字段设置为 `"Memory"`，以告诉 Kubernetes
-为你挂载 tmpfs（基于 RAM 的文件系统）。
-虽然 tmpfs 速度非常快，但是要注意它与磁盘不同。
-tmpfs 在节点重启时会被清除，并且你所写入的所有文件都会计入容器的内存消耗，受容器内存限制约束。
+`emptyDir.medium` 字段用来控制 `emptyDir` 卷的存储位置。
+默认情况下，`emptyDir` 卷存储在该节点所使用的介质上；
+此处的介质可以是磁盘、SSD 或网络存储，这取决于你的环境。
+你可以将 `emptyDir.medium` 字段设置为 `"Memory"`，
+以告诉 Kubernetes 为你挂载 tmpfs（基于 RAM 的文件系统）。
+虽然 tmpfs 速度非常快，但是要注意它与磁盘不同：tmpfs 在节点重启时会被清除，
+并且你所写入的所有文件都会计入容器的内存消耗，受容器内存限制约束。
+
+<!--
+A size limit can be specified for the default medium, which limits the capacity
+of the `emptyDir` volume. The storage is allocated from [node ephemeral
+storage](docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage).
+If that is filled up from another source (for example, log files or image
+overlays), the `emptyDir` may run out of capacity before this limit.
+-->
+你可以通过为默认介质指定大小限制，来限制 `emptyDir` 卷的存储容量。
+此存储是从[节点临时存储](/zh-cn/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage)中分配的。
+如果来自其他来源（如日志文件或镜像分层数据）的数据占满了存储，`emptyDir`
+可能会在达到此限制之前发生存储容量不足的问题。
 
 {{< note >}}
 <!--
@@ -620,7 +635,8 @@ spec:
       name: cache-volume
   volumes:
   - name: cache-volume
-    emptyDir: {}
+    emptyDir:
+      sizeLimit: 500Mi
 ```
 
 <!--
@@ -886,7 +902,7 @@ spec:
 ```
 
 <!--
-### glusterfs (deprecated)
+### glusterfs (deprecated) {#glusterfs}
 -->
 ### glusterfs（已弃用）   {#glusterfs}
 
@@ -897,7 +913,7 @@ A `glusterfs` volume allows a [Glusterfs](https://www.gluster.org) (an open
 source networked filesystem) volume to be mounted into your Pod. Unlike
 `emptyDir`, which is erased when a Pod is removed, the contents of a
 `glusterfs` volume are preserved and the volume is merely unmounted. This
-means that a glusterfs volume can be pre-populated with data, and that data can
+means that a `glusterfs` volume can be pre-populated with data, and that data can
 be shared between pods. GlusterFS can be mounted by multiple writers
 simultaneously.
 -->
@@ -1270,7 +1286,7 @@ spec:
     nfs:
       server: my-nfs-server.example.com
       path: /my-nfs-volume
-      readonly: true
+      readOnly: true
 ```
 
 {{< note >}}
@@ -2093,7 +2109,7 @@ The following in-tree plugins support persistent storage on Windows nodes:
 * [`vsphereVolume`](#vspherevolume)
 
 <!--
-### flexVolume (deprecated)
+### flexVolume (deprecated)   {#flexvolume}
 -->
 ### flexVolume（已弃用）   {#flexvolume}
 
