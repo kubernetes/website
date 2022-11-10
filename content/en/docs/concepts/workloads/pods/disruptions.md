@@ -229,12 +229,17 @@ can happen, according to:
 
 ## Pod disruption conditions {#pod-disruption-conditions}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
-In order to use this behavior, you must enable the `PodDisruptionConditions`
+If you are using an older version of Kubernetes than {{< skew currentVersion >}}
+please refer to the corresponding version of the documentation.
+{{< /note >}}
+
+{{< note >}}
+In order to use this behavior, you must have the `PodDisruptionConditions`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-in your cluster.
+enabled in your cluster.
 {{< /note >}}
 
 When enabled, a dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is added to indicate
@@ -253,6 +258,9 @@ indicates one of the following reasons for the Pod termination:
 
 `DeletionByPodGC`
 : Pod, that is bound to a no longer existing Node, is due to be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+
+`TerminationByKubelet`
+: Kubelet terminates the Pod, because of the {{<glossary_tooltip term_id="node-pressure-eviction" text="Node Pressure Eviction">}} or the [Graceful Node Shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown). Pod is due to be deleted by the controller owning the Pod.
 
 {{< note >}}
 A Pod disruption might be interrupted. The control plane might re-attempt to
