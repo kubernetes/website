@@ -74,9 +74,6 @@ For a reference to old feature gates that are removed, please refer to
 | `CPUManagerPolicyBetaOptions` | `true` | Beta | 1.23 | |
 | `CPUManagerPolicyOptions` | `false` | Alpha | 1.22 | 1.22 |
 | `CPUManagerPolicyOptions` | `true` | Beta | 1.23 | |
-| `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.20 |
-| `CSIMigrationAzureFile` | `false` | Beta | 1.21 | 1.23 |
-| `CSIMigrationAzureFile` | `true` | Beta | 1.24 | |
 | `CSIMigrationPortworx` | `false` | Alpha | 1.23 | 1.24 |
 | `CSIMigrationPortworx` | `false` | Beta | 1.25 | |
 | `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
@@ -228,6 +225,10 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationAzureDisk` | `false` | Beta | 1.19 | 1.22 |
 | `CSIMigrationAzureDisk` | `true` | Beta | 1.23 | 1.23 |
 | `CSIMigrationAzureDisk` | `true` | GA | 1.24 | |
+| `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.20 |
+| `CSIMigrationAzureFile` | `false` | Beta | 1.21 | 1.23 |
+| `CSIMigrationAzureFile` | `true` | Beta | 1.24 | 1.25 |
+| `CSIMigrationAzureFile` | `true` | GA | 1.26 | |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
 | `CSIMigrationGCE` | `false` | Beta | 1.17 | 1.22 |
 | `CSIMigrationGCE` | `true` | Beta | 1.23 | 1.24 |
