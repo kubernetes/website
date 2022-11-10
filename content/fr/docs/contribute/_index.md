@@ -49,7 +49,7 @@ Vous devez être à l'aise avec [git](https://git-scm.com/) et [GitHub](https://
 
 Pour participer à la documentation:
 
-1. Signez le [Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md) de CNCF.
+1. Signez le [Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md) du CNCF.
 2. Familiarisez-vous avec le [répertoire de documentation](https://github.com/kubernetes/website) et le 
    [générateur de site statique](https://gohugo.io) du site Web.
 3. Assurez-vous de comprendre les processus de base pour
