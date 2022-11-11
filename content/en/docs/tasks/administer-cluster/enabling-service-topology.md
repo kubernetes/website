@@ -50,6 +50,5 @@ To enable service topology, enable the `ServiceTopology`
 * Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/), the replacement for the `topologyKeys` field.
 * Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 * Read about the [Service Topology](/docs/concepts/services-networking/service-topology/) concept
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
-
+* Read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
 
