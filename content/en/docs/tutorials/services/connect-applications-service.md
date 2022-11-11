@@ -4,8 +4,8 @@ reviewers:
 - lavalamp
 - thockin
 title: Connecting Applications with Services
-content_type: concept
-weight: 40
+content_type: tutorial
+weight: 20
 ---
 
 
@@ -17,7 +17,7 @@ Now that you have a continuously running, replicated application you can expose 
 
 Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. Kubernetes gives every pod its own cluster-private IP address, so you do not need to explicitly create links between pods or map container ports to host ports. This means that containers within a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other without NAT. The rest of this document elaborates on how you can run reliable services on such a networking model.
 
-This guide uses a simple nginx server to demonstrate proof of concept.
+This tutorial uses a simple nginx web server to demonstrate the concept.
 
 <!-- body -->
 
