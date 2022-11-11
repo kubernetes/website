@@ -37,6 +37,7 @@ and build the source.
 ```shell
 git clone https://github.com/kubernetes/kubernetes.git
 cd kubernetes
+git reset --hard $(kubectl version --short=true | grep "Server Version" | awk '{print $3}')
 make
 ```
 
