@@ -237,3 +237,12 @@ selector:
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
 See the documentation on [node selection](/docs/concepts/scheduling-eviction/assign-pod-node/) for more information.
+
+## {{% heading "whatsnext" %}}
+
+- Learn how to [add a label to a node](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)
+- Find [Well-known labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
+- See [Recommended labels](/docs/concepts/overview/working-with-objects/common-labels/)
+- [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
+- [Use Labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively) to manage deployments.
+- Read a blog on [Writing a Controller for Pod Labels](/blog/2021/06/21/writing-a-controller-for-pod-labels/)
