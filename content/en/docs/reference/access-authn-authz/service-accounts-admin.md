@@ -96,7 +96,7 @@ Here's an example of how that looks for a launched Pod:
 That manifest snippet defines a projected volume that consists of three sources. In this case,
 each source also represents a single path within that volume. The three sources are:
 
-1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver
+1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver.
    The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
@@ -105,7 +105,7 @@ each source also represents a single path within that volume. The three sources 
 1. A `configMap` source. The ConfigMap contains a bundle of certificate authority data. Pods can use these
    certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to middlebox
    or an accidentally misconfigured peer).
-1. A `downwardAPI` source that looks up the name of thhe namespace containing the Pod, and makes
+1. A `downwardAPI` source that looks up the name of the namespace containing the Pod, and makes
    that name information available to application code running inside the Pod.
 
 Any container within the Pod that mounts this particular volume can access the above information.
@@ -232,14 +232,14 @@ Here's an example of how that looks for a launched Pod:
 
 That manifest snippet defines a projected volume that combines information from three sources:
 
-1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver
+1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver.
    The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
 1. A `configMap` source. The ConfigMap contains a bundle of certificate authority data. Pods can use these
    certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to middlebox
    or an accidentally misconfigured peer).
-1. A `downwardAPI` source. This `downwardAPI` volume makes the name of the namespace container the Pod available
+1. A `downwardAPI` source. This `downwardAPI` volume makes the name of the namespace containing the Pod available
    to application code running inside the Pod.
 
 Any container within the Pod that mounts this volume can access the above information.
@@ -262,6 +262,7 @@ Here is a sample manifest for such a Secret:
 {{< codenew file="secret/serviceaccount/mysecretname.yaml" >}}
 
 To create a Secret based on this example, run:
+
 ```shell
 kubectl -n examplens create -f https://k8s.io/examples/secret/serviceaccount/mysecretname.yaml
 ```
@@ -273,6 +274,7 @@ kubectl -n examplens describe secret mysecretname
 ```
 
 The output is similar to:
+
 ```
 Name:           mysecretname
 Namespace:      examplens
@@ -306,7 +308,9 @@ Otherwise, first find the Secret for the ServiceAccount.
 # This assumes that you already have a namespace named 'examplens'
 kubectl -n examplens get serviceaccount/example-automated-thing -o yaml
 ```
+
 The output is similar to:
+
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
@@ -321,9 +325,11 @@ metadata:
   selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
   uid: f23fd170-66f2-4697-b049-e1e266b7f835
 secrets:
-- name: example-automated-thing-token-zyxwv
+  - name: example-automated-thing-token-zyxwv
 ```
+
 Then, delete the Secret you now know the name of:
+
 ```shell
 kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
 ```
@@ -334,6 +340,7 @@ and creates a replacement:
 ```shell
 kubectl -n examplens get serviceaccount/example-automated-thing -o yaml
 ```
+
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
@@ -348,12 +355,13 @@ metadata:
   selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
   uid: f23fd170-66f2-4697-b049-e1e266b7f835
 secrets:
-- name: example-automated-thing-token-4rdrh
+  - name: example-automated-thing-token-4rdrh
 ```
 
 ## Clean up
 
 If you created a namespace `examplens` to experiment with, you can remove it:
+
 ```shell
 kubectl delete namespace examplens
 ```
