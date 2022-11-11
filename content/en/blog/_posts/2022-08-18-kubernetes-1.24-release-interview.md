@@ -203,7 +203,7 @@ JAMES LAVERACK: This is really about encouraging the use of stable APIs. There w
 
 JAMES LAVERACK: That's correct. There's no breaking changes in beta APIs other than the ones we've documented this release. It's only new things.
 
-**CRAIG BOX: Now in this release, [the artifacts are signed](https://github.com/kubernetes/enhancements/issues/3031) using Cosign signatures, and there is [experimental support for verification of those signatures](https://kubernetes.io/docs/tasks/administer-cluster/verify-signed-images/). What needed to happen to make that process possible?**
+**CRAIG BOX: Now in this release, [the artifacts are signed](https://github.com/kubernetes/enhancements/issues/3031) using Cosign signatures, and there is [experimental support for verification of those signatures](https://kubernetes.io/docs/tasks/administer-cluster/verify-signed-artifacts/). What needed to happen to make that process possible?**
 
 JAMES LAVERACK: This was a huge process from the other half of SIG Release. SIG Release has the release team, but it also has the release engineering team that handles the mechanics of actually pushing releases out. They have spent, and one of my friends over there, Adolfo, has spent a lot of time trying to bring us in line with [SLSA](https://slsa.dev/) compliance. I believe we're [looking now at Level 3 compliance](https://github.com/kubernetes/enhancements/issues/3027).
 
