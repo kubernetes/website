@@ -145,7 +145,6 @@ spec:
     targetPort: http-web-svc
 ```
 
-
 This works even if there is a mixture of Pods in the Service using a single
 configured name, with the same network protocol available via different
 port numbers. This offers a lot of flexibility for deploying and evolving
@@ -353,7 +352,7 @@ thus is only available to use as-is.
 
 Note that the kube-proxy starts up in different modes, which are determined by its configuration.
 - The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for kube-proxy
-  effectively deprecates the behaviour for almost all of the flags for the kube-proxy.
+  effectively deprecates the behavior for almost all of the flags for the kube-proxy.
 - The ConfigMap for the kube-proxy does not support live reloading of configuration.
 - The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.
   For example, if your operating system doesn't allow you to run iptables commands,
@@ -420,7 +419,7 @@ The IPVS proxy mode is based on netfilter hook function that is similar to
 iptables mode, but uses a hash table as the underlying data structure and works
 in the kernel space.
 That means kube-proxy in IPVS mode redirects traffic with lower latency than
-kube-proxy in iptables mode, with much better performance when synchronising
+kube-proxy in iptables mode, with much better performance when synchronizing
 proxy rules. Compared to the other proxy modes, IPVS mode also supports a
 higher throughput of network traffic.
 
@@ -662,7 +661,8 @@ Kubernetes `ServiceTypes` allow you to specify what kind of Service you want.
 * [`ExternalName`](#externalname): Maps the Service to the contents of the
   `externalName` field (e.g. `foo.bar.example.com`), by returning a `CNAME` record
   with its value. No proxying of any kind is set up.
-  {{< note >}}You need either `kube-dns` version 1.7 or CoreDNS version 0.0.8 or higher
+  {{< note >}}
+  You need either `kube-dns` version 1.7 or CoreDNS version 0.0.8 or higher
   to use the `ExternalName` type.
   {{< /note >}}
 
@@ -740,11 +740,11 @@ kube-proxy only selects the loopback interface for NodePort Services.
 The default for `--nodeport-addresses` is an empty list.
 This means that kube-proxy should consider all available network interfaces for NodePort.
 (That's also compatible with earlier Kubernetes releases.)
-Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
-and `.spec.clusterIP:spec.ports[*].port`.
+{{< note >}}
+This Service is visible as `<NodeIP>:spec.ports[*].nodePort` and `.spec.clusterIP:spec.ports[*].port`.
 If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
 in the kube-proxy configuration file is set, `<NodeIP>` would be a filtered node IP address (or possibly IP addresses).
-
+{{< /note >}}
 
 ### Type LoadBalancer {#loadbalancer}
 
@@ -792,7 +792,6 @@ forward traffic to that assigned node port.
 _As an alpha feature_, you can configure a load balanced Service to
 [omit](#load-balancer-nodeport-allocation) assigning a node port, provided that the
 cloud provider implementation supports this.
-
 
 {{< note >}}
 
@@ -1395,7 +1394,7 @@ fail with a message indicating an IP address could not be allocated.
 In the control plane, a background controller is responsible for creating that
 map (needed to support migrating from older versions of Kubernetes that used
 in-memory locking). Kubernetes also uses controllers to check for invalid
-assignments (eg due to administrator intervention) and for cleaning up allocated
+assignments (e.g. due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
 
 #### IP address ranges for `type: ClusterIP` Services {#service-ip-static-sub-range}
@@ -1471,7 +1470,7 @@ through a load-balancer, though in those cases the client IP does get altered.
 
 #### IPVS
 
-iptables operations slow down dramatically in large scale cluster e.g 10,000 Services.
+iptables operations slow down dramatically in large scale cluster e.g. 10,000 Services.
 IPVS is designed for load balancing and based on in-kernel hash tables.
 So you can achieve performance consistency in large number of Services from IPVS-based kube-proxy.
 Meanwhile, IPVS-based kube-proxy has more sophisticated load balancing algorithms
@@ -1553,6 +1552,6 @@ followed by the data from the client.
 
 ## {{% heading "whatsnext" %}}
 
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
 * Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
