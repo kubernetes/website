@@ -2,13 +2,13 @@
 title: 图表指南
 linktitle: 图表指南
 content_type: concept
-weight: 15
+weight: 60
 ---
 <!--
 title: Diagram Guide
 linktitle: Diagram guide
 content_type: concept
-weight: 15
+weight: 60
 -->
 
 <!--Overview-->
