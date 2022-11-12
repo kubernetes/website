@@ -80,7 +80,7 @@ for a secure solution.
           Labels:       app=mysql
           Containers:
            mysql:
-            Image:      mysql:5.8
+            Image:      mysql:8.0
             Port:       3306/TCP
             Environment:
               MYSQL_ROOT_PASSWORD:      password
