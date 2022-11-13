@@ -658,7 +658,7 @@ the .editorconfig used here is
    [Makefile]
    indent_style = tab
 ```
-for dowloading .editorconfig plugin click [here](https://editorconfig.org/#download)
+for more details on .editorconfig plugin click [here](https://editorconfig.org/#download)
 ## {{% heading "whatsnext" %}}
 
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
