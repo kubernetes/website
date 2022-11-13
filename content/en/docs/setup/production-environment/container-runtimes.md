@@ -56,11 +56,21 @@ For more information, see [Network Plugin Requirements](/docs/concepts/extend-ku
 
 ### Forwarding IPv4 and letting iptables see bridged traffic
 
-Verify that the `br_netfilter` module is loaded by running `lsmod | grep br_netfilter`. 
+Verify that the below modules are loaded:   
+Verify `br_netfilter` module is loaded by running `lsmod | grep br_netfilter`.   
+Verify `overlay` module is loaded by running `lsmod | grep overlay`. 
 
-To load it explicitly, run `sudo modprobe br_netfilter`.
+To load the modules explicitly, run:   
+`sudo modprobe br_netfilter`   
+`sudo modprobe overlay`
 
-In order for a Linux node's iptables to correctly view bridged traffic, verify that `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config. For example:
+In order for a Linux node's iptables to correctly view bridged traffic, verify that following system variables are set to 1 in your `sysctl` config: `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, `net.ipv4.ip_forward`.
+
+To verify, run the below command to get the values of system variables:   
+`sysctl -n net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward`
+
+
+Follow the below mentioned steps if any of the above verification fails:
 
 ```bash
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
