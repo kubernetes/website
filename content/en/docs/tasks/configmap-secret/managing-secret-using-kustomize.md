@@ -90,8 +90,7 @@ the Secret data and appending the hash value to the name. This ensures that
 a new Secret is generated each time the data is modified.
 
 To verify that the Secret was created and to decode the Secret data, refer to
-[Managing Secrets using
-kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
+[Managing Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
 
 ## Edit a Secret {#edit-secret}
 
@@ -117,12 +116,11 @@ your Pods.
 To delete a Secret, use `kubectl`:
 
 ```shell
-kubectl delete secret <secret-name>
+kubectl delete secret db-user-pass
 ```
 
-<!-- Optional section; add links to information related to this topic. -->
 ## {{% heading "whatsnext" %}}
 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secrets with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
