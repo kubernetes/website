@@ -24,13 +24,13 @@ description: >-
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
-Kubernetes' _EndpointSlices_ provide a simple way to track network endpoints
-within a Kubernetes cluster. EndpointSlices offers a more scalable and extensible
-alternative to Endpoints(/docs/concepts/services-networking/service/#endpoints).
+Kubernetes' _EndpointSlice_ API provides a way to track network endpoints
+within a Kubernetes cluster. EndpointSlices offer a more scalable and extensible
+alternative to [Endpoints](/docs/concepts/services-networking/service/#endpoints).
 -->
-Kubernetes 的**端点切片（EndpointSlices）** 提供了一种简单的方法来跟踪
+Kubernetes 的 _EndpointSlice_ API 提供了一种简单的方法来跟踪
 Kubernetes 集群中的网络端点（network endpoints）。EndpointSlices 为
-Endpoints(/zh-cn/docs/concepts/services-networking/service/#endpoints)
+[Endpoints](/zh-cn/docs/concepts/services-networking/service/#endpoints)
 提供了一种可扩缩和可拓展的替代方案。
 
 <!-- body -->
@@ -500,11 +500,12 @@ EndpointSlices 还支持围绕双栈网络和拓扑感知路由等新功能的�
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
 * Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
 * Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) for the Endpoints API
 -->
-* 遵循[使用 Service 连接到应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)教程
+* 遵循[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程
 * 阅读 EndpointSlice API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)
 * 阅读 Endpoints API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+
 
