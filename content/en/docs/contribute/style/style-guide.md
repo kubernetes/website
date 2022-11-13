@@ -631,6 +631,34 @@ You can remove ... | You can easily remove ...
 These steps ... | These simple steps ...
 {{< /table >}}
 
+### EditorConfig
+For maintaing a constant coding style we would need you to maintain a  .editorconfig file 
+so that the developers using different editors (like vim , emacs , atom , vscode etc) for the same project can contribute with the same style.
+
+the .editorconfig used here is 
+```
+   [*]
+   end_of_line = lf
+   insert_final_newline = false
+   charset = utf-8
+   max_line_length = 80
+   trim_trailing_whitespace = true
+
+   [*.md]
+   trim_trailing_whitespace = false
+
+   [*.{css,html,js,json,sass,md,mmark,toml,yaml}]
+   indent_style = space
+   indent_size = 2
+
+   [*.{sh}]
+   indent_style = space
+   indent_size = 4
+
+   [Makefile]
+   indent_style = tab
+```
+for dowloading .editorconfig plugin click [here](https://editorconfig.org/#download)
 ## {{% heading "whatsnext" %}}
 
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
