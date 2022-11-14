@@ -45,7 +45,7 @@ restarts. Here is the configuration file for the Pod:
 
    The output looks like this:
 
-   ```shell
+   ```console
    NAME      READY     STATUS    RESTARTS   AGE
    redis     1/1       Running   0          13s
    ```
@@ -73,7 +73,7 @@ restarts. Here is the configuration file for the Pod:
 
    The output is similar to this:
 
-   ```shell
+   ```console
    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
    redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
    root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
@@ -91,7 +91,7 @@ restarts. Here is the configuration file for the Pod:
 1. In your original terminal, watch for changes to the Redis Pod. Eventually,
    you will see something like this:
 
-   ```shell
+   ```console
    NAME      READY     STATUS     RESTARTS   AGE
    redis     1/1       Running    0          13s
    redis     0/1       Completed  0         6m
