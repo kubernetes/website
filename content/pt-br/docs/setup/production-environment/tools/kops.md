@@ -33,7 +33,7 @@ Este início rápido mostra como instalar facilmente um cluster Kubernetes na AW
 
 #### Instalação
 
-Faça o download do kops na [página de downloads](https://github.com/kubernetes/kops/releases) (também é conveniente compilar a partir da fonte):
+Faça o download do kops na [página de downloads](https://github.com/kubernetes/kops/releases) (também é conveniente gerar um binário a partir do código-fonte):
 
 {{< tabs name="kops_installation" >}}
 {{% tab name="macOS" %}}
@@ -149,11 +149,11 @@ Portanto, normalmente você tem um bucket do S3 para cada equipe de operações 
 
 Em nosso exemplo, escolhemos `dev.example.com` como nossa zona hospedada, então vamos escolher `clusters.dev.example.com` como o nome do bucket do S3.
 
-* Exportar `AWS_PROFILE` (se precisar selecionar um perfil para que a AWS CLI funcione)
+* Exporte `AWS_PROFILE` (se precisar selecione um perfil para que a AWS CLI funcione)
 
 * Crie o bucket do S3 usando `aws s3 mb s3://clusters.dev.example.com`
 
-* Você pode `export KOPS_STATE_STORE=s3://clusters.dev.example.com` e, em seguida, o kops usará esse local por padrão. Sugerimos colocar isso em seu perfil bash ou similar.
+* Você pode rodar `export KOPS_STATE_STORE=s3://clusters.dev.example.com` e, em seguida, o kops usará esse local por padrão. Sugerimos colocar isso em seu perfil bash ou similar.
 
 ### (4/5) Crie sua configuração de cluster
 
@@ -188,7 +188,7 @@ Sem `--yes`, `kops update cluster` mostrará uma prévia do que ele fará. Isso 
 
 ### Explore outros complementos
 
-Consulte a [lista de complementos](/docs/concepts/cluster-administration/addons/) para explorar outros complementos, incluindo ferramentas para registro, monitoramento, política de rede, visualização e controle de seu cluster Kubernetes.
+Consulte a [lista de complementos](/pt-br/docs/concepts/cluster-administration/addons/) para explorar outros complementos, incluindo ferramentas para registro, monitoramento, política de rede, visualização e controle de seu cluster Kubernetes.
 
 ## Limpeza
 
@@ -196,7 +196,7 @@ Consulte a [lista de complementos](/docs/concepts/cluster-administration/addons/
 
 ## {{% heading "whatsnext" %}}
 
-* Saiba mais sobre os [conceitos do Kubernetes](/docs/concepts/) e o [`kubectl`](/docs/reference/kubectl/).
+* Saiba mais sobre os [conceitos do Kubernetes](/pt-br/docs/concepts/) e o [`kubectl`](/docs/reference/kubectl/).
 * Saiba mais sobre o [uso avançado](https://kops.sigs.k8s.io/) do `kOps` para tutoriais, práticas recomendadas e opções de configuração avançada.
 * Siga as discussões da comunidade do `kOps` no Slack: [discussões da comunidade](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors).
 * Contribua para o `kOps` endereçando ou levantando um problema [GitHub Issues](https://github.com/kubernetes/kops/issues).
