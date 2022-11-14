@@ -98,7 +98,7 @@ your cluster. Those fields are:
 
   {{< note >}}
   The `minDomains` field is a beta field and enabled by default in 1.25. You can disable it by disabling the
-  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
   - The value of `minDomains` must be greater than 0, when specified.
