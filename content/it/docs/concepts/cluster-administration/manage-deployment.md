@@ -298,7 +298,7 @@ repliche nginx da 3 a 1, fare:
 
 ```shell
 $ kubectl scale deployment/my-nginx --replicas=1
-deployment.extensions/my-nginx scaled
+deployment.apps/my-nginx scaled
 ```
 
 Ora hai solo un pod gestito dalla distribuzione
@@ -442,7 +442,7 @@ informazioni su di esso, visitare [Pagina di distribuzione](/docs/concepts/workl
 ## {{% heading "whatsnext" %}}
 
 
-- [[Scopri come usare `kubectl` per l'introspezione e il debug delle applicazioni.](/Docs/tasks/debug-application-cluster/debug-application-introspection/)
+- [[Scopri come usare `kubectl` per l'introspezione e il debug delle applicazioni.](/docs/tasks/debug/debug-application/debug-running-pod/)
 - [Best practice e suggerimenti sulla configurazione](/docs/concepts/configuration/overview/)
 
 
