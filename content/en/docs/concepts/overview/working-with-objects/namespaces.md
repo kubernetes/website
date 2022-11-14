@@ -133,7 +133,7 @@ Most Kubernetes resources (e.g. pods, services, replication controllers, and oth
 in some namespaces.  However namespace resources are not themselves in a namespace.
 And low-level resources, such as
 [nodes](/docs/concepts/architecture/nodes/) and
-persistentVolumes, are not in any namespace.
+[persistentVolumes](/docs/concepts/storage/persistent-volumes/), are not in any namespace.
 
 To see which Kubernetes resources are and aren't in a namespace:
 
