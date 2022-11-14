@@ -86,14 +86,12 @@ parameters are nearly the same with two exceptions:
 
 <!--
 ## serviceAccountToken projected volumes {#serviceaccounttoken}
-When the `TokenRequestProjection` feature is enabled, you can inject the token
-for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
+You can inject the token for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 into a Pod at a specified path. For example:
 -->
 ## serviceAccountToken 投射卷 {#serviceaccounttoken}
 
-当 `TokenRequestProjection` 特性被启用时，你可以将当前
-[服务账号](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)
+你可以将当前[服务账号](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 的令牌注入到 Pod 中特定路径下。例如：
 
 {{< codenew file="pods/storage/projected-service-account-token.yaml" >}}
