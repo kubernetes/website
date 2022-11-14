@@ -426,6 +426,20 @@ Used on: Secret
 This annotation records the {{< glossary_tooltip term_id="uid" text="unique ID" >}} of the
 ServiceAccount that the token (stored in the Secret of type `kubernetes.io/service-account-token`) represents.
 
+### kubernetes.io/legacy-token-last-used
+
+Example: `kubernetes.io/legacy-token-last-used: 2022-10-24`
+
+Used on: Secret
+
+The control plane only adds this label for Secrets that have the type `kubernetes.io/service-account-token`.
+The value of this label records the date (ISO 8601 format, UTC time zone) when the control plane last saw
+a request where the client authenticated using the service account token.
+
+If a legacy token was last used before the cluster gained the feature (added in Kubernetes v1.26), then
+the label isn't set.
+
+
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Example: `endpointslice.kubernetes.io/managed-by: "controller"`
