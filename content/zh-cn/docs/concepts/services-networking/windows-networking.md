@@ -1,7 +1,7 @@
 ---
 title: Windows 网络
 content_type: concept
-weight: 75
+weight: 110
 ---
 <!--
 reviewers:
@@ -11,7 +11,7 @@ reviewers:
 - marosset
 title: Networking on Windows
 content_type: concept
-weight: 75
+weight: 110
 -->
 <!-- overview -->
 <!--

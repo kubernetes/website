@@ -5,7 +5,7 @@ description: >-
   必须有一个 Ingress 控制器正在运行。你需要选择至少一个 Ingress 控制器并确保其已被部署到你的集群中。
   本页列出了你可以部署的常见 Ingress 控制器。
 content_type: concept
-weight: 30
+weight: 50
 ---
 
 <!--
@@ -16,7 +16,7 @@ description: >-
   You need to select at least one ingress controller and make sure it is set up in your cluster.  
   This page lists common ingress controllers that you can deploy.
 content_type: concept
-weight: 30
+weight: 50
 -->
 
 <!-- overview -->

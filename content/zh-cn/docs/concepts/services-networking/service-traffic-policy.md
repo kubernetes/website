@@ -1,7 +1,7 @@
 ---
 title: 服务内部流量策略
 content_type: concept
-weight: 75
+weight: 120
 description: >-
    如果集群中的两个 Pod 想要通信，并且两个 Pod 实际上都在同一节点运行，
    **服务内部流量策略** 可以将网络流量限制在该节点内。
@@ -13,7 +13,7 @@ reviewers:
 - maplain
 title: Service Internal Traffic Policy
 content_type: concept
-weight: 75
+weight: 120
 description: >-
   If two Pods in your cluster want to communicate, and both Pods are actually running on
   the same node, _Service Internal Traffic Policy_ to keep network traffic within that node.
@@ -117,8 +117,8 @@ kube-proxy 基于 `spec.internalTrafficPolicy` 的设置来过滤路由的目标
 <!-- 
 * Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints)
 * Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
 -->
 * 请阅读[拓扑感知提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints)
 * 请阅读 [Service 的外部流量策略](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* 请阅读[用 Service 连接应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 请阅读[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)

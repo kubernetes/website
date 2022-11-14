@@ -1363,6 +1363,7 @@ cloud-controller-manager 组件然后配置外部负载均衡器以将流量转�
 前提是云提供商实现支持这点。
 
 {{< note >}}
+
 <!--
 On **Azure**, if you want to use a user-specified public type `loadBalancerIP`, you first need
 to create a static type public IP address resource. This public IP address resource should

@@ -4,7 +4,7 @@ content_type: concept
 description: >-
   使用一种能感知协议配置的机制来理解 URI、主机名称、路径和更多 Web 概念，使得 HTTP（或 HTTPS）网络服务可用。
   Ingress 概念允许你通过 Kubernetes API 定义的规则将流量映射到不同的后端。
-weight: 20
+weight: 30
 ---
 <!--
 reviewers:
@@ -16,7 +16,7 @@ description: >-
   mechanism, that understands web concepts like URIs, hostnames, paths, and more.
   The Ingress concept lets you map traffic to different backends based on rules you define
   via the Kubernetes API.
-weight: 20
+weight: 30
 -->
 
 <!-- overview -->

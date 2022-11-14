@@ -1,7 +1,7 @@
 ---
 title: 使用 Service 连接到应用
-content_type: concept
-weight: 30
+content_type: tutorial
+weight: 20
 ---
 <!--
 reviewers:
@@ -9,8 +9,8 @@ reviewers:
 - lavalamp
 - thockin
 title: Connecting Applications with Services
-content_type: concept
-weight: 30
+content_type: tutorial
+weight: 20
 -->
 
 <!-- overview -->

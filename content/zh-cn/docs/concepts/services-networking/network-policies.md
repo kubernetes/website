@@ -1,13 +1,13 @@
 ---
 title: 网络策略
 content_type: concept
-weight: 50
+weight: 70
 ---
 
 <!--
 title: Network Policies
 content_type: concept
-weight: 50
+weight: 70
 -->
 
 <!-- overview -->

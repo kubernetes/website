@@ -1,7 +1,7 @@
 ---
 title: EndpointSlice
 content_type: concept
-weight: 45
+weight: 60
 description: >-
   EndpointSlice API 是 Kubernetes 用于扩缩 Service
   以处理大量后端的机制，还允许集群高效更新其健康后端的列表。
@@ -12,7 +12,7 @@ reviewers:
 - freehan
 title: EndpointSlices
 content_type: concept
-weight: 45
+weight: 60
 description: >-
   The EndpointSlice API is the mechanism that Kubernetes uses to let your Service
   scale to handle large numbers of backends, and allows the cluster to update its
@@ -497,7 +497,7 @@ EndpointSlices 还支持围绕双栈网络和拓扑感知路由等新功能的�
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
 -->
-* 阅读[使用 Service 连接到应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 阅读[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)
 
