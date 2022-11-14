@@ -86,6 +86,8 @@ In the following table:
 | `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
 | `CronJobControllerV2` | `true` | Beta | 1.21 | 1.21 |
 | `CronJobControllerV2` | `true` | GA | 1.22 | 1.23 |
+| `CSRDuration` | `true` | Beta | 1.22 | 1.23 |
+| `CSRDuration` | `true` | GA | 1.24 | 1.25 |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | 1.16 |
@@ -407,6 +409,9 @@ In the following table:
 - `CSIVolumeFSGroupPolicy`: Allows CSIDrivers to use the `fsGroupPolicy` field.
   This field controls whether volumes created by a CSIDriver support volume ownership
   and permission modifications when these volumes are mounted.
+
+- `CSRDuration`: Allows clients to request a duration for certificates issued
+  via the Kubernetes CSR API.
 
 - `ConfigurableFSGroupPolicy`: Allows user to configure volume permission change policy
   for fsGroups when mounting a volume in a Pod. See
