@@ -19,6 +19,12 @@ before referring to it in a
 
 This page provides an outline of the container image concept.
 
+{{< note >}}
+If you are looking for the container images for a Kubernetes
+release (such as v{{< skew latestVersion >}}, the latest minor release),
+visit [Download Kubernetes](https://kubernetes.io/releases/download/).
+{{< /note >}}
+
 <!-- body -->
 
 ## Image names
