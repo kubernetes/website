@@ -8,12 +8,12 @@ short_description: >
 
 aka: 
 tags:
-- arquitetura
-- extensão
-- operação
+- architecture
+- extension
+- operation
 ---
  A camada de agregação permite que você instale APIs adicionais no estilo Kubernetes em seu cluster.
 
 <!--more-->
 
-Depois de configurar o {{< glossary_tooltip text="Servidor de API do Kubernetes" term_id="kube-apiserver" >}} para [suportar APIs adicionais](/docs/tasks/extend-kubernetes/configure-aggregation-layer/), você pode adicionar objetos `APIService` para obter a URL da API adicional.
+Depois de configurar o {{< glossary_tooltip text="Servidor da API do Kubernetes" term_id="kube-apiserver" >}} para [suportar APIs adicionais](/docs/tasks/extend-kubernetes/configure-aggregation-layer/), você pode adicionar objetos `APIService` para obter a URL da API adicional.
