@@ -199,7 +199,8 @@ following:
 
 You can set the POSIX file access permission bits for a single Secret key.
 If you don't specify any permissions, `0644` is used by default.
-You can also set a default mode for the entire Secret volume and override per key if needed.
+You can also set a default POSIX file mode for the entire Secret volume, and
+you can override per key if needed.
 
 For example, you can specify a default mode like this:
 
@@ -222,17 +223,26 @@ spec:
       defaultMode: 0400
 ```
 
-The secret is mounted on `/etc/foo`; all the files created by the
+The Secret is mounted on `/etc/foo`; all the files created by the
 secret volume mount have permission `0400`.
 
 {{< note >}}
 If you're defining a Pod or a Pod template using JSON, beware that the JSON
-specification doesn't support octal notation. You can use the decimal value
-for the `defaultMode` (for example, 0400 in octal is 256 in decimal) instead.
-If you're writing YAML, you can write the `defaultMode` in octal.
+specification doesn't support octal literals for numbers because JSON considers
+`0400` to be the _decimal_ value `400`. In JSON, use decimal values for the
+`defaultMode` instead. If you're writing YAML, you can write the `defaultMode`
+in octal.
 {{< /note >}}
 
 ## Define container environment variables using Secret data
+
+You can consume the data in Secrets as environment variables in your
+containers.
+
+If a container already consumes a Secret in an environment variable,
+a Secret update will not be seen by the container unless it is
+restarted. There are third party solutions for triggering restarts when
+secrets change.
 
 ### Define a container environment variable with data from a single Secret
 
