@@ -117,8 +117,6 @@ For a reference to old feature gates that are removed, please refer to
 | `JobPodFailurePolicy` | `true` | Beta | 1.26 | |
 | `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
 | `JobReadyPods` | `true` | Beta | 1.24 | |
-| `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
-| `KubeletCredentialProviders` | `true` | Beta | 1.24 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
@@ -296,6 +294,9 @@ For a reference to old feature gates that are removed, please refer to
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
 | `JobTrackingWithFinalizers` | `true` | GA | 1.26 | - |
+| `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
+| `KubeletCredentialProviders` | `true` | Beta | 1.24 | 1.25 |
+| `KubeletCredentialProviders` | `true` | GA | 1.26 | - |
 | `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | 1.25 |
 | `LegacyServiceAccountTokenNoAutoGeneration` | `true` | GA | 1.26 | - |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
