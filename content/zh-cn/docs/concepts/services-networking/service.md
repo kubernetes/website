@@ -134,7 +134,7 @@ The name of a Service object must be a valid
 [RFC 1035 label name](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
 
 For example, suppose you have a set of Pods where each listens on TCP port 9376
-and contains a label `app=MyApp`:
+and contains a label `app.kubernetes.io/name=MyApp`:
 -->
 ## 定义 Service   {#defining-a-service}
 
@@ -143,7 +143,7 @@ Service 在 Kubernetes 中是一个 REST 对象，和 Pod 类似。
 Service 对象的名称必须是合法的
 [RFC 1035 标签名称](/zh-cn/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names)。
 
-例如，假定有一组 Pod，它们对外暴露了 9376 端口，同时还被打上 `app=MyApp` 标签：
+例如，假定有一组 Pod，它们对外暴露了 9376 端口，同时还被打上 `app.kubernetes.io/name=MyApp` 标签：
 
 ```yaml
 apiVersion: v1
@@ -582,7 +582,7 @@ thus is only available to use as-is.
 
 Note that the kube-proxy starts up in different modes, which are determined by its configuration.
 - The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for kube-proxy
-  effectively deprecates the behaviour for almost all of the flags for the kube-proxy.
+  effectively deprecates the behavior for almost all of the flags for the kube-proxy.
 - The ConfigMap for the kube-proxy does not support live reloading of configuration.
 - The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.
   For example, if your operating system doesn't allow you to run iptables commands,
@@ -603,7 +603,7 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 <!--
 ### User space proxy mode {#proxy-mode-userspace}
 
-In this mode, kube-proxy watches the Kubernetes control plane for the addition and
+In this (legacy) mode, kube-proxy watches the Kubernetes control plane for the addition and
 removal of Service and Endpoint objects. For each Service it opens a
 port (randomly chosen) on the local node.  Any connections to this "proxy port"
 are proxied to one of the Service's backend Pods (as reported via
@@ -620,7 +620,7 @@ By default, kube-proxy in userspace mode chooses a backend via a round-robin alg
 -->
 ### userspace 代理模式 {#proxy-mode-userspace}
 
-这种模式，kube-proxy 会监视 Kubernetes 控制平面对 Service 对象和 Endpoints 对象的添加和移除操作。
+在这种（遗留）模式下，kube-proxy 会监视 Kubernetes 控制平面对 Service 对象和 Endpoints 对象的添加和移除操作。
 对每个 Service，它会在本地 Node 上打开一个端口（随机选择）。
 任何连接到“代理端口”的请求，都会被代理到 Service 的后端 `Pods` 中的某个上面（如 `Endpoints` 所报告的一样）。
 使用哪个后端 Pod，是 kube-proxy 基于 `SessionAffinity` 来确定的。
@@ -639,7 +639,7 @@ In this mode, kube-proxy watches the Kubernetes control plane for the addition a
 removal of Service and Endpoint objects. For each Service, it installs
 iptables rules, which capture traffic to the Service's `clusterIP` and `port`,
 and redirect that traffic to one of the Service's
-backend sets.  For each Endpoint object, it installs iptables rules which
+backend sets. For each Endpoint object, it installs iptables rules which
 select a backend Pod.
 
 By default, kube-proxy in iptables mode chooses a backend at random.
@@ -701,7 +701,7 @@ The IPVS proxy mode is based on netfilter hook function that is similar to
 iptables mode, but uses a hash table as the underlying data structure and works
 in the kernel space.
 That means kube-proxy in IPVS mode redirects traffic with lower latency than
-kube-proxy in iptables mode, with much better performance when synchronising
+kube-proxy in iptables mode, with much better performance when synchronizing
 proxy rules. Compared to the other proxy modes, IPVS mode also supports a
 higher throughput of network traffic.
 
@@ -874,7 +874,7 @@ endpoints, the kube-proxy does not forward any traffic for the relevant Service.
 <!--
 If you enable the `ProxyTerminatingEndpoints`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`ProxyTerminatingEndpoints` for the kube-proxy, the kube-proxy checks if the node
+for the kube-proxy, the kube-proxy checks if the node
 has local endpoints and whether or not all the local endpoints are marked as terminating.
 -->
 如果你启用了 kube-proxy 的 `ProxyTerminatingEndpoints`
@@ -934,7 +934,11 @@ Kubernetes 支持两种基本的服务发现模式 —— 环境变量和 DNS。
 ### Environment variables
 
 When a Pod is run on a Node, the kubelet adds a set of environment variables
-for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables, where the Service name is upper-cased and dashes are converted to underscores. It also supports variables (see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) that are compatible with Docker Engine's "_[legacy container links](https://docs.docker.com/network/links/)_" feature.
+for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
+where the Service name is upper-cased and dashes are converted to underscores.
+It also supports variables (see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72))
+that are compatible with Docker Engine's
+"_[legacy container links](https://docs.docker.com/network/links/)_" feature.
 
 For example, the Service `redis-primary` which exposes TCP port 6379 and has been
 allocated cluster IP address 10.0.0.11, produces the following environment
@@ -1002,7 +1006,7 @@ create a DNS record for `my-service.my-ns`. Pods in the `my-ns` namespace
 should be able to find the service by doing a name lookup for `my-service`
 (`my-service.my-ns` would also work).
 
-Pods in other Namespaces must qualify the name as `my-service.my-ns`. These names
+Pods in other namespaces must qualify the name as `my-service.my-ns`. These names
 will resolve to the cluster IP assigned for the Service.
 -->
 例如，如果你在 Kubernetes 命名空间 `my-ns` 中有一个名为 `my-service` 的服务，
@@ -1145,7 +1149,10 @@ Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型。
   {{< /note >}}
 
 <!--
-You can also use [Ingress](/docs/concepts/services-networking/ingress/) to expose your Service. Ingress is not a Service type, but it acts as the entry point for your cluster. It lets you consolidate your routing rules into a single resource as it can expose multiple services under the same IP address.
+You can also use [Ingress](/docs/concepts/services-networking/ingress/) to expose your Service.
+Ingress is not a Service type, but it acts as the entry point for your cluster.
+It lets you consolidate your routing rules into a single resource as it can expose multiple
+services under the same IP address.
 -->
 你也可以使用 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 来暴露自己的服务。
 Ingress 不是一种服务类型，但它充当集群的入口点。
@@ -1260,10 +1267,6 @@ kube-proxy only selects the loopback interface for NodePort Services.
 The default for `--nodeport-addresses` is an empty list.
 This means that kube-proxy should consider all available network interfaces for NodePort.
 (That's also compatible with earlier Kubernetes releases.)
-Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
-and `.spec.clusterIP:spec.ports[*].port`.
-If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
-in the kube-proxy configuration file is set, `<NodeIP>` would be a filtered node IP address (or possibly IP addresses).
 -->
 此标志采用逗号分隔的 IP 段列表（例如 `10.0.0.0/8`、`192.0.2.0/25`）来指定 kube-proxy 应视为该节点本地的
 IP 地址范围。
@@ -1273,9 +1276,17 @@ IP 地址范围。
 `--nodeport-addresses` 的默认值是一个空列表。
 这意味着 kube-proxy 应考虑 NodePort 的所有可用网络接口。
 （这也与早期的 Kubernetes 版本兼容。）
-请注意，此服务显示为 `<NodeIP>:spec.ports[*].nodePort` 和 `.spec.clusterIP:spec.ports[*].port`。
+
+{{< note >}}
+<!-- 
+This Service is visible as `<NodeIP>:spec.ports[*].nodePort` and `.spec.clusterIP:spec.ports[*].port`.
+If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
+in the kube-proxy configuration file is set, `<NodeIP>` would be a filtered node IP address (or possibly IP addresses).
+-->
+此服务呈现为 `<NodeIP>:spec.ports[*].nodePort` 和 `.spec.clusterIP:spec.ports[*].port`。
 如果设置了 kube-proxy 的 `--nodeport-addresses` 标志或 kube-proxy 配置文件中的等效字段，
 则 `<NodeIP>` 将是过滤的节点 IP 地址（或可能的 IP 地址）。
+{{< /note >}}
 
 <!--
 ### Type LoadBalancer {#loadbalancer}
@@ -1317,7 +1328,8 @@ status:
 ```
 
 <!--
-Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
+Traffic from the external load balancer is directed at the backend Pods.
+The cloud provider decides how it is load balanced.
 -->
 来自外部负载均衡器的流量将直接重定向到后端 Pod 上，不过实际它们是如何工作的，这要依赖于云提供商。
 
@@ -1439,13 +1451,13 @@ LoadBalancer 类型的服务继续分配节点端口。
 `spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default.
 By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
 the cloud provider's default load balancer implementation if the cluster is configured with
-a cloud provider using the `--cloud-provider` component flag. 
+a cloud provider using the `--cloud-provider` component flag.
 If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
 implementation that matches the specified class is watching for Services.
 Any default load balancer implementation (for example, the one provided by
 the cloud provider) will ignore Services that have this field set.
 `spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
-Once set, it cannot be changed. 
+Once set, it cannot be changed.
 -->
 `spec.loadBalancerClass` 允许你不使用云提供商的默认负载均衡器实现，转而使用指定的负载均衡器实现。
 默认情况下，`.spec.loadBalancerClass` 的取值是 `nil`，如果集群使用 `--cloud-provider` 配置了云提供商，
@@ -1469,7 +1481,8 @@ Unprefixed names are reserved for end-users.
 In a mixed environment it is sometimes necessary to route traffic from Services inside the same
 (virtual) network address block.
 
-In a split-horizon DNS environment you would need two Services to be able to route both external and internal traffic to your endpoints.
+In a split-horizon DNS environment you would need two Services to be able to route both external
+and internal traffic to your endpoints.
 
 To set an internal load balancer, add one of the following annotations to your Service
 depending on the cloud Service provider you're using.
@@ -1667,7 +1680,9 @@ TCP 和 SSL 选择第4层代理：ELB 转发流量而不修改报头。
 In the above example, if the Service contained three ports, `80`, `443`, and
 `8443`, then `443` and `8443` would use the SSL certificate, but `80` would be proxied HTTP.
 
-From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
+From Kubernetes v1.9 onwards you can use
+[predefined AWS SSL policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)
+with HTTPS or SSL listeners for your Services.
 To see which policies are available for use, you can use the `aws` command line tool:
 -->
 在上例中，如果服务包含 `80`、`443` 和 `8443` 三个端口， 那么 `443` 和 `8443` 将使用 SSL 证书，
@@ -1777,7 +1792,8 @@ Connection draining for Classic ELBs can be managed with the annotation
 `service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled` set
 to the value of `"true"`. The annotation
 `service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout` can
-also be used to set maximum time, in seconds, to keep the existing connections open before deregistering the instances.
+also be used to set maximum time, in seconds, to keep the existing connections open before
+deregistering the instances.
 -->
 #### AWS 上的连接排空
 
@@ -1879,7 +1895,8 @@ To use a Network Load Balancer on AWS, use the annotation `service.beta.kubernet
 
 {{< note >}}
 <!--
-NLB only works with certain instance classes; see the [AWS documentation](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
+NLB only works with certain instance classes; see the
+[AWS documentation](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
 on Elastic Load Balancing for a list of supported instance types.
 -->
 NLB 仅适用于某些实例类。有关受支持的实例类型的列表，
@@ -2066,7 +2083,8 @@ spec:
 
 {{< note >}}
 <!--
-ExternalName accepts an IPv4 address string, but as a DNS name comprised of digits, not as an IP address. ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
+ExternalName accepts an IPv4 address string, but as a DNS name comprised of digits, not as an IP address.
+ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
 is intended to specify a canonical DNS name. To hardcode an IP address, consider using
 [headless Services](#headless-services).
 -->
@@ -2091,9 +2109,13 @@ Service's `type`.
 
 {{< warning >}}
 <!--
-You may have trouble using ExternalName for some common protocols, including HTTP and HTTPS. If you use ExternalName then the hostname used by clients inside your cluster is different from the name that the ExternalName references.
+You may have trouble using ExternalName for some common protocols, including HTTP and HTTPS.
+If you use ExternalName then the hostname used by clients inside your cluster is different from
+the name that the ExternalName references.
 
-For protocols that use hostnames this difference may lead to errors or unexpected responses. HTTP requests will have a `Host:` header that the origin server does not recognize; TLS servers will not be able to provide a certificate matching the hostname that the client connected to.
+For protocols that use hostnames this difference may lead to errors or unexpected responses.
+HTTP requests will have a `Host:` header that the origin server does not recognize;
+TLS servers will not be able to provide a certificate matching the hostname that the client connected to.
 -->
 对于一些常见的协议，包括 HTTP 和 HTTPS，你使用 ExternalName 可能会遇到问题。
 如果你使用 ExternalName，那么集群内客户端使用的主机名与 ExternalName 引用的名称不同。
@@ -2219,7 +2241,7 @@ fail with a message indicating an IP address could not be allocated.
 In the control plane, a background controller is responsible for creating that
 map (needed to support migrating from older versions of Kubernetes that used
 in-memory locking). Kubernetes also uses controllers to check for invalid
-assignments (eg due to administrator intervention) and for cleaning up allocated
+assignments (e.g. due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
 -->
 ### 避免冲突   {#avoiding-collisions}
@@ -2374,8 +2396,11 @@ through a load-balancer, though in those cases the client IP does get altered.
 #### IPVS
 
 <!--
-iptables operations slow down dramatically in large scale cluster e.g 10,000 Services.
-IPVS is designed for load balancing and based on in-kernel hash tables. So you can achieve performance consistency in large number of Services from IPVS-based kube-proxy. Meanwhile, IPVS-based kube-proxy has more sophisticated load balancing algorithms (least conns, locality, weighted, persistence).
+iptables operations slow down dramatically in large scale cluster e.g. 10,000 Services.
+IPVS is designed for load balancing and based on in-kernel hash tables.
+So you can achieve performance consistency in large number of Services from IPVS-based kube-proxy.
+Meanwhile, IPVS-based kube-proxy has more sophisticated load balancing algorithms
+(least conns, locality, weighted, persistence).
 -->
 在大规模集群（例如 10000 个服务）中，iptables 操作会显着降低速度。
 IPVS 专为负载均衡而设计，并基于内核内哈希表。
@@ -2386,14 +2411,15 @@ IPVS 专为负载均衡而设计，并基于内核内哈希表。
 ## API Object
 
 Service is a top-level resource in the Kubernetes REST API. You can find more details
-about the API object at: [Service API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core).
+about the [Service API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core).
 
 ## Supported protocols {#protocol-support}
 -->
 ## API 对象   {#api-object}
 
-Service 是 Kubernetes REST API 中的顶级资源。你可以在以下位置找到有关 API 对象的更多详细信息：
-[Service 对象 API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core).
+Service 是 Kubernetes REST API 中的顶级资源。你可以找到有关
+[Service 对象 API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
+的更多详细信息。
 
 ## 受支持的协议 {#protocol-support}
 
@@ -2437,7 +2463,8 @@ provider offering this facility. (Most do not).
 
 {{< warning >}}
 <!--
-The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a Pod.
+The support of multihomed SCTP associations requires that the CNI plugin can support the
+assignment of multiple interfaces and IP addresses to a Pod.
 
 NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
 -->
@@ -2483,7 +2510,7 @@ HTTP/HTTPS 反向代理，并将其转发到该服务的 Endpoints。
 {{< note >}}
 <!--
 You can also use {{< glossary_tooltip term_id="ingress" >}} in place of Service
-to expose HTTP / HTTPS Services.
+to expose HTTP/HTTPS Services.
 -->
 你还可以使用 {{< glossary_tooltip text="Ingress" term_id="ingress" >}} 代替
 Service 来公开 HTTP/HTTPS 服务。
@@ -2522,11 +2549,10 @@ followed by the data from the client.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
 * Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 -->
-* 阅读[使用服务访问应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 遵循[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程
 * 阅读了解 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
 * 阅读了解[端点切片（Endpoint Slices）](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
-
