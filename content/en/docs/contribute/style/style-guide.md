@@ -632,7 +632,7 @@ These steps ... | These simple steps ...
 {{< /table >}}
 
 ### EditorConfig
-EditorConfig is useful for maintaining consistant coding style across all the editors , this helps the developers using different editors (like vim , emacs , atom , vscode etc) would be able to contribute to the project with the same style.usually for doing this an .editorconfig file is used. 
+EditorConfig is useful for maintaining a consistent coding style across all the editors , this helps the developers using different editors (like vim , emacs , atom , vscode etc) would be able to contribute to the project with the same style.usually for doing this an .editorconfig file is used. 
 
 to check out the .editorconfig click [here](https://github.com/kubernetes/website/blob/main/.editorconfig) 
 ## {{% heading "whatsnext" %}}
