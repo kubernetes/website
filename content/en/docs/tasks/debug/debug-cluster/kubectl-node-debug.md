@@ -39,6 +39,12 @@ Run debug commands to help you gather information and troubleshoot issues. Comma
 that you might use to debug, such as `ip`, `ifconfig`, `nc`, `ping`, and `ps`. You can also
 install other tools, such as `mtr`, `tcpdump`, and `curl`, from the respective package manager.
 
+{{< note >}}
+
+The debug commands may differ based on the image the debugging pod is using and these commands might need to be installed
+
+{{< /note >}}
+
 The debugging Pod can access the root filesystem of the Node, mounted at `/host`. If you run your kubelet in a filesystem namespace,
 the debugging Pod sees the root for that namespace, not for the entire node. For a typical Linux node,
 you can look at the following paths to find relevant logs:
@@ -73,8 +79,21 @@ When creating a debugging session on a Node, keep in mind that:
 When you finish using the debugging Pod, delete it:
 
 ```shell
-# Change <pod-name> to the name of the Pod that kubectl created in the previous step.
-kubectl delete pod <pod-name> --now
+kubectl get pods
+```
+
+```none
+NAME                          READY   STATUS       RESTARTS   AGE
+node-debugger-mynode-pdx84    0/1     Completed    0          8m1s
+```	
+
+```shell
+# Change the pod name accordingly
+kubectl delete pod node-debugger-mynode-pdx84 --now
+```	
+
+```none
+pod "node-debugger-mynode-pdx84" deleted
 ```
 
 {{< note >}}
