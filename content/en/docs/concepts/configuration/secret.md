@@ -165,15 +165,35 @@ for that Pod, including details of the problem fetching the Secret.
 
 #### Optional Secrets {#restriction-secret-must-exist}
 
-When you define a container environment variable based on a Secret,
-you can mark it as _optional_. The default is for the Secret to be
-required.
+When you reference a Secret in a Pod, you can mark the Secret as _optional_,
+such as in the following example. If an optional Secret doesn't exist,
+Kubernetes ignores it.
 
-None of a Pod's containers will start until all non-optional Secrets are
-available.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      optional: true
+```
 
-If a Pod references a specific key in a Secret and that Secret does exist, but
-is missing the named key, the Pod fails during startup.
+By default, Secrets are required. None of a Pod's containers will start until
+all non-optional Secrets are available.
+
+If a Pod references a specific key in a non-optional Secret and that Secret
+does exist, but is missing the named key, the Pod fails during startup.
 
 ### Using Secrets as files from a Pod {#using-secrets-as-files-from-a-pod}
 
@@ -232,53 +252,23 @@ watch propagation delay, the configured cache TTL, or zero for direct polling).
 To use a Secret in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
 in a Pod:
 
-1. Create a Secret (or use an existing one).  Multiple Pods can reference the same Secret.
-1. Modify your Pod definition in each container that you wish to consume the value of a secret
-   key to add an environment variable for each secret key you wish to consume. The environment
-   variable that consumes the secret key should populate the secret's name and key in `env[].valueFrom.secretKeyRef`.
-1. Modify your image and/or command line so that the program looks for values in the specified
-   environment variables.
+1. For each container in your Pod specification, add an environment variable
+   for each Secret key that you want to use to the
+   `env[].valueFrom.secretKeyRef` field.
+1. Modify your image and/or command line so that the program looks for values
+   in the specified environment variables.
 
-This is an example of a Pod that uses a Secret via environment variables:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: secret-env-pod
-spec:
-  containers:
-  - name: mycontainer
-    image: redis
-    env:
-      - name: SECRET_USERNAME
-        valueFrom:
-          secretKeyRef:
-            name: mysecret
-            key: username
-            optional: false # same as default; "mysecret" must exist
-                            # and include a key named "username"
-      - name: SECRET_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: mysecret
-            key: password
-            optional: false # same as default; "mysecret" must exist
-                            # and include a key named "password"
-  restartPolicy: Never
-```
-
+For instructions, refer to
+[Define container environment variables using Secret data](/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data).
 
 #### Invalid environment variables {#restriction-env-from-invalid}
 
-Secrets used to populate environment variables by the `envFrom` field that have keys
-that are considered invalid environment variable names will have those keys
-skipped. The Pod is allowed to start.
+If your environment variable definitions in your Pod specification are
+considered to be invalid environment variable names, those keys aren't made
+available to your container. The Pod is allowed to start.
 
-If you define a Pod with an invalid variable name, the failed Pod startup includes
-an event with the reason set to `InvalidVariableNames` and a message that lists the
-skipped invalid keys. The following example shows a Pod that refers to a Secret
-named `mysecret`, where `mysecret` contains 2 invalid keys: `1badkey` and `2alsobad`.
+Kubernetes adds an Event with the reason set to `InvalidVariableNames` and a
+message that lists the skipped invalid keys. The following example shows a Pod that refers to a Secret named `mysecret`, where `mysecret` contains 2 invalid keys: `1badkey` and `2alsobad`.
 
 ```shell
 kubectl get events
@@ -290,42 +280,6 @@ The output is similar to:
 LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
 0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
 ```
-
-
-#### Consuming Secret values from environment variables
-
-Inside a container that consumes a Secret using environment variables, the secret keys appear
-as normal environment variables. The values of those variables are the base64 decoded values
-of the secret data.
-
-This is the result of commands executed inside the container from the example above:
-
-```shell
-echo "$SECRET_USERNAME"
-```
-
-The output is similar to:
-
-```
-admin
-```
-
-```shell
-echo "$SECRET_PASSWORD"
-```
-
-The output is similar to:
-
-```
-1f2d1e2e67df
-```
-
-{{< note >}}
-If a container already consumes a Secret in an environment variable,
-a Secret update will not be seen by the container unless it is
-restarted. There are third party solutions for triggering restarts when
-secrets change.
-{{< /note >}}
 
 ### Container image pull secrets {#using-imagepullsecrets}
 
@@ -362,43 +316,10 @@ You cannot use ConfigMaps or Secrets with {{< glossary_tooltip text="static Pods
 
 ## Use cases
 
-### Use case: As container environment variables
+### Use case: As container environment variables {#use-case-as-container-environment-variables}
 
-Create a secret
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysecret
-type: Opaque
-data:
-  USER_NAME: YWRtaW4=
-  PASSWORD: MWYyZDFlMmU2N2Rm
-```
-
-Create the Secret:
-```shell
-kubectl apply -f mysecret.yaml
-```
-
-Use `envFrom` to define all of the Secret's data as container environment variables. The key from
-the Secret becomes the environment variable name in the Pod.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: secret-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: registry.k8s.io/busybox
-      command: [ "/bin/sh", "-c", "env" ]
-      envFrom:
-      - secretRef:
-          name: mysecret
-  restartPolicy: Never
-```
+You can create a Secret and use it to
+[set environment variables for a container](/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data).
 
 ### Use case: Pod with SSH keys
 
