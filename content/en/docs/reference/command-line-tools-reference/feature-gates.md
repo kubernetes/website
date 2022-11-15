@@ -322,18 +322,9 @@ For a reference to old feature gates that are removed, please refer to
 | `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
 | `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
 | `WatchBookmark` | `true` | GA | 1.17 | - |
-| `WindowsEndpointSliceProxying` | `false` | Alpha | 1.19 | 1.20 |
-| `WindowsEndpointSliceProxying` | `true` | Beta | 1.21 | 1.21 |
-| `WindowsEndpointSliceProxying` | `true` | GA | 1.22| - |
-| `WindowsGMSA` | `false` | Alpha | 1.14 | 1.15 |
-| `WindowsGMSA` | `true` | Beta | 1.16 | 1.17 |
-| `WindowsGMSA` | `true` | GA | 1.18 | - |
 | `WindowsHostProcessContainers` | `false` | Alpha | 1.22 | 1.22 |
 | `WindowsHostProcessContainers` | `true` | Beta | 1.23 | 1.25 |
 | `WindowsHostProcessContainers` | `true` | GA | 1.26 | - |
-| `WindowsRunAsUserName` | `false` | Alpha | 1.16 | 1.16 |
-| `WindowsRunAsUserName` | `true` | Beta | 1.17 | 1.17 |
-| `WindowsRunAsUserName` | `true` | GA | 1.18 | - |
 {{< /table >}}
 
 ## Using a feature
