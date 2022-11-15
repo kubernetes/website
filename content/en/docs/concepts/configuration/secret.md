@@ -1195,7 +1195,7 @@ A bootstrap type Secret has the following keys specified under `data`:
 - `token-secret`: A random 16 character string as the actual token secret. Required.
 - `description`: A human-readable string that describes what the token is
   used for. Optional.
-- `expiration`: An absolute UTC time using RFC3339 specifying when the token
+- `expiration`: An absolute UTC time using [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) specifying when the token
   should be expired. Optional.
 - `usage-bootstrap-<usage>`: A boolean flag indicating additional usage for
   the bootstrap token.
