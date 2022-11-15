@@ -77,17 +77,17 @@ Os verbos `get`, `list` e `watch` podem retornar todos os detalhes de um recurso
 Às vezes, o Kubernetes verifica a autorização para permissões adicionais utilizando verbos especializados. Por exemplo:
 
 * [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/)
-  * `use` verbo em recursos `podsecuritypolicies` no grupo `policy` de API.
+  * Verbo `use` em recursos `podsecuritypolicies` no grupo `policy` de API.
 * [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
-  * `bind` e `escalate` verbos em `roles` e recursos `clusterroles` no grupo `rbac.authorization.k8s.io` de API.
+  * Verbos `bind` e `escalate` em `roles` e recursos `clusterroles` no grupo `rbac.authorization.k8s.io` de API.
 * [Authentication](/pt-br/docs/reference/access-authn-authz/authentication/)
-  * `impersonate` verbo em `users`, `groups`, e `serviceaccounts` no grupo de API `core`, e o `userextras` no grupo `authentication.k8s.io` de API.
+  * Verbo `impersonate` em `users`, `groups`, e `serviceaccounts` no grupo de API `core`, e o `userextras` no grupo `authentication.k8s.io` de API.
 
 ## Modos de Autorização {#authorization-modules}
 
 O servidor da API Kubernetes pode autorizar uma solicitação usando um dos vários modos de autorização:
 
- * **Node** - Um modo de autorização de finalidade especial que concede permissões a `kubelets` com base nos `Pods` que estão programados para execução. Para saber mais sobre como utilizar o modo de autorização do nó, consulte [Node Authorization](/docs/reference/access-authn-authz/node/).
+ * **Node** - Um modo de autorização de finalidade especial que concede permissões a ```kubelets``` com base nos ```Pods``` que estão programados para execução. Para saber mais sobre como utilizar o modo de autorização do nó, consulte [Node Authorization](/docs/reference/access-authn-authz/node/).
  * **ABAC** - Attribute-based access control (ABAC), ou Controle de acesso baseado em atributos, define um paradigma de controle de acesso pelo qual os direitos de acesso são concedidos aos usuários por meio do uso de políticas que combinam atributos. As políticas podem usar qualquer tipo de atributo (atributos de usuário, atributos de recurso, objeto, atributos de ambiente, etc.). Para saber mais sobre como usar o modo ABAC, consulte [ABAC Mode](/docs/reference/access-authn-authz/abac/).
  * **RBAC** - Role-based access control (RBAC), ou controle de acesso baseado em função, é um método de regular o acesso a recursos computacionais ou de rede com base nas funções de usuários individuais dentro de uma empresa. Nesse contexto, acesso é a capacidade de um usuário individual realizar uma tarefa específica, como visualizar, criar ou modificar um arquivo. Para saber mais sobre como usar o modo RBAC, consulte [RBAC Mode](/docs/reference/access-authn-authz/rbac/)
    * Quando especificado RBAC (Role-Based Access Control) usa o grupo de API `rbac.authorization.k8s.io` para orientar as decisões de autorização, permitindo que os administradores configurem dinamicamente as políticas de permissão por meio da API do Kubernetes.
@@ -164,8 +164,8 @@ neste grupo inclui:
 
 * `SelfSubjectRulesReview` - Uma revisão que retorna o conjunto de ações que um usuário pode executar em um namespace. Útil para usuários resumirem rapidamente seu próprio acesso ou para interfaces de usuário mostrarem ações.
 
-Essas APIs podem ser consultadas criando recursos normais do Kubernetes, onde a resposta `status`
-campo do objeto retornado é o resultado da consulta.
+Essas APIs podem ser consultadas criando recursos normais do Kubernetes, onde a resposta no campo `status`
+do objeto retornado é o resultado da consulta.
 
 ```bash
 kubectl create -f - -o yaml << EOF
@@ -204,8 +204,8 @@ suas políticas incluem:
 
 As seguintes flags podem ser utilizadas:
 
-  * `--authorization-mode=ABAC` O modo de controle de acesso baseado em atributos [Attribute-Based Access Control (ABAC)] permite configurar políticas usando arquivos locais.
-  * `--authorization-mode=RBAC` O modo de controle de acesso baseado em função [Role-based access control (RBAC)] permite que você crie e armazene políticas usando a API do Kubernetes.
+  * `--authorization-mode=ABAC` O modo de controle de acesso baseado em atributos (ABAC) permite configurar políticas usando arquivos locais.
+  * `--authorization-mode=RBAC` O modo de controle de acesso baseado em função (RBAC) permite que você crie e armazene políticas usando a API do Kubernetes.
   * `--authorization-mode=Webhook` WebHook é um modo de retorno de chamada HTTP que permite gerenciar a autorização usando endpoint REST.
   * `--authorization-mode=Node` A autorização de nó é um modo de autorização de propósito especial que autoriza especificamente requisições de API feitas por kubelets.
   * `--authorization-mode=AlwaysDeny` Esta flag bloqueia todas as requisições. Utilize esta flag somente para testes.
@@ -217,7 +217,7 @@ em ordem, então, um modulo anterior tem maior prioridade para permitir ou negar
 ## Escalonamento de privilégios através da criação ou edição da cargas de trabalho {#privilege-escalation-via-pod-creation}
 
 Usuários que podem criar ou editar pods em um namespace diretamente ou através de um [controlador](/pt-br/docs/concepts/architecture/controller/)
-como, por exemplo, um operador, e conseguiriam escalar seus próprios privilégios naquele namespace.
+como, por exemplo, um operador, conseguiriam escalar seus próprios privilégios naquele namespace.
 
 {{< caution >}}
 Administradores de sistemas, tenham cuidado ao permitir acesso para criar ou editar cargas de trabalho.
@@ -227,15 +227,15 @@ Detalhes de como estas permissões podem ser usadas de forma maliciosa podem ser
 
 ### Caminhos para escalonamento {#escalation-paths}
 
-- Montar Secret arbitrários nesse namespace
+- Montagem de Secret arbitrários nesse namespace
    - Pode ser utilizado para acessar Secret destinados a outras cargas de trabalho
    - Pode ser utilizado para obter um token da conta de serviço com maior privilégio
-- Usando contas de serviço arbitrárias nesse namespace
+- Uso de contas de serviço arbitrárias nesse namespace
    - Pode executar ações da API do Kubernetes como outra carga de trabalho (personificação)
    - Pode executar quaisquer ações privilegiadas que a conta de serviço tenha acesso
 - Montagem de configmaps destinados a outras cargas de trabalho nesse namespace
    - Pode ser utilizado para obter informações destinadas a outras cargas de trabalho, como nomes de host de banco de dados.
-- Montar volumes destinados a outras cargas de trabalho nesse namespace
+- Montagem de volumes destinados a outras cargas de trabalho nesse namespace
    - Pode ser utilizado para obter informações destinadas a outras cargas de trabalho e alterá-las.
 
 {{< caution >}}
