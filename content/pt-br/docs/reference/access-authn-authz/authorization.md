@@ -139,7 +139,7 @@ no
 ```
 
 Da mesma forma, para verificar se uma ServiceAccount chamada `dev-sa` no Namespace `dev`
-pode listar Pods no namespace `target`:
+pode listar ```Pods``` no namespace `target`:
 
 ```bash
 # "can-i list" = "posso listar"
@@ -158,7 +158,7 @@ yes
 expõe a autorização do servidor de API para serviços externos. Outros recursos
 neste grupo inclui:
 
-* `SubjectAccessReview` - Revisão de acesso para qualquer usuário, não apenas o atual. Útil para delegar decisões de autorização para o servidor de API. Por exemplo, o kubelet e extensões de servidores de API utilizam disso para determinar o acesso do usuário às suas próprias APIs.
+* `SubjectAccessReview` - Revisão de acesso para qualquer usuário, não apenas o atual. Útil para delegar decisões de autorização para o servidor de API. Por exemplo, o ```kubelet``` e extensões de servidores de API utilizam disso para determinar o acesso do usuário às suas próprias APIs.
 
 * `LocalSubjectAccessReview` - Similar a `SubjectAccessReview`, mas restrito a um namespace específico.
 
@@ -207,7 +207,7 @@ As seguintes flags podem ser utilizadas:
   * `--authorization-mode=ABAC` O modo de controle de acesso baseado em atributos (ABAC) permite configurar políticas usando arquivos locais.
   * `--authorization-mode=RBAC` O modo de controle de acesso baseado em função (RBAC) permite que você crie e armazene políticas usando a API do Kubernetes.
   * `--authorization-mode=Webhook` WebHook é um modo de retorno de chamada HTTP que permite gerenciar a autorização usando endpoint REST.
-  * `--authorization-mode=Node` A autorização de nó é um modo de autorização de propósito especial que autoriza especificamente requisições de API feitas por kubelets.
+  * `--authorization-mode=Node` A autorização de nó é um modo de autorização de propósito especial que autoriza especificamente requisições de API feitas por ```kubelets```.
   * `--authorization-mode=AlwaysDeny` Esta flag bloqueia todas as requisições. Utilize esta flag somente para testes.
   * `--authorization-mode=AlwaysAllow` Esta flag permite todas as requisições. Utilize esta flag somente se não existam requisitos de autorização para as requisições de API.
 
@@ -216,7 +216,7 @@ em ordem, então, um modulo anterior tem maior prioridade para permitir ou negar
 
 ## Escalonamento de privilégios através da criação ou edição da cargas de trabalho {#privilege-escalation-via-pod-creation}
 
-Usuários que podem criar ou editar pods em um namespace diretamente ou através de um [controlador](/pt-br/docs/concepts/architecture/controller/)
+Usuários que podem criar ou editar ```pods``` em um namespace diretamente ou através de um [controlador](/pt-br/docs/concepts/architecture/controller/)
 como, por exemplo, um operador, conseguiriam escalar seus próprios privilégios naquele namespace.
 
 {{< caution >}}
