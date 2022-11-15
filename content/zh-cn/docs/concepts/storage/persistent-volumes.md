@@ -75,7 +75,7 @@ See the [detailed walkthrough with working examples](/docs/tasks/configure-pod-c
 常见的情况是针对不同的问题用户需要的是具有不同属性（如，性能）的 PersistentVolume 卷。
 集群管理员需要能够提供不同性质的 PersistentVolume，
 并且这些 PV 卷之间的差别不仅限于卷大小和访问模式，同时又不能将卷是如何实现的这些细节暴露给用户。
-为了满足这类需求，就有了**存储类（StorageClass）**资源。
+为了满足这类需求，就有了**存储类（StorageClass）** 资源。
 
 参见[基于运行示例的详细演练](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
 

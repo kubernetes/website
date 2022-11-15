@@ -3,10 +3,10 @@ reviewers:
 - maplain
 title: Service Internal Traffic Policy
 content_type: concept
-weight: 75
+weight: 120
 description: >-
   If two Pods in your cluster want to communicate, and both Pods are actually running on
-  the same node, _Service Internal Traffic Policy_ to keep network traffic within that node.
+  the same node, use _Service Internal Traffic Policy_ to keep network traffic within that node.
   Avoiding a round trip via the cluster network can help with reliability, performance
   (network latency and throughput), or cost.
 ---
@@ -69,4 +69,4 @@ When the [feature gate](/docs/reference/command-line-tools-reference/feature-gat
 
 * Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints)
 * Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial

@@ -1,7 +1,7 @@
 ---
 title: Node-pressure Eviction
 content_type: concept
-weight: 60
+weight: 100
 ---
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>

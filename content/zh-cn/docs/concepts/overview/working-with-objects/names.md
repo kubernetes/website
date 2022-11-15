@@ -1,7 +1,7 @@
 ---
-title: 对象名称和 IDs
+title: 对象名称和 ID
 content_type: concept
-weight: 20
+weight: 30
 ---
 <!--
 reviewers:
@@ -9,7 +9,7 @@ reviewers:
 - thockin
 title: Object Names and IDs
 content_type: concept
-weight: 20
+weight: 30
 -->
 
 <!-- overview -->
@@ -164,7 +164,7 @@ Some resource types have additional restrictions on their names.
 某些资源类型可能具有额外的命名约束。
 {{< /note >}}
 
-## UIDs
+## UID
 
 {{< glossary_definition term_id="uid" length="all" >}}
 
@@ -178,8 +178,8 @@ UUID 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667。
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read about [labels](/docs/concepts/overview/working-with-objects/labels/) in Kubernetes.
+* Read about [labels](/docs/concepts/overview/working-with-objects/labels/) and [annotations](/docs/concepts/overview/working-with-objects/annotations/) in Kubernetes.
 * See the [Identifiers and Names in Kubernetes](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md) design document.
 -->
-* 进一步了解 Kubernetes [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
+* 进一步了解 Kubernetes [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)。
 * 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md)的设计文档

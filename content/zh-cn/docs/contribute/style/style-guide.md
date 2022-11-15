@@ -2,13 +2,13 @@
 title: 文档样式指南
 linktitle: 样式指南
 content_type: concept
-weight: 10
+weight: 40
 ---
 <!--
 title: Documentation Style Guide
 linktitle: Style guide
 content_type: concept
-weight: 10
+weight: 40
 -->
 
 <!-- overview -->
@@ -394,7 +394,7 @@ This section talks about how we reference API resources in the documentation.
 
 Kubernetes uses the word "resource" to refer to API resources, such as `pod`, `deployment`, and so on. We also use "resource" to talk about CPU and memory requests and limits. Always refer to API resources as "API resources" to avoid confusion with CPU and memory resources.
 -->
-## 引用 Kubernetes API 资源
+## 引用 Kubernetes API 资源   {#referring-to-kubernetes-api-resources}
 
 本节讨论我们如何在文档中引用 API 资源。
 
@@ -469,9 +469,9 @@ Do | Don't
 kubectl get pods | $ kubectl get pods
 {{< /table >}}
 -->
-## 代码段格式
+## 代码段格式   {#code-snippet-formatting}
 
-### 不要包含命令行提示符
+### 不要包含命令行提示符   {#do-not-include-the-command-promot}
 
 {{< table caption = "命令行提示符约定" >}}
 可以 | 不可以
@@ -495,7 +495,7 @@ NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
 nginx    1/1       Running   0          13s    10.200.0.4   worker0
 ```
 -->
-### 将命令和输出分开
+### 将命令和输出分开   {#separate-commands-from-output}
 
 例如：
 
@@ -521,7 +521,7 @@ If the information is version specific, the Kubernetes version needs to be defin
 
 To specify the Kubernetes version for a task or tutorial page, include `min-kubernetes-server-version` in the front matter of the page.
 -->
-### 为 Kubernetes 示例给出版本
+### 为 Kubernetes 示例给出版本   {#versioning-kubernetes-examples}
 
 代码示例或者配置示例如果包含版本信息，应该与对应的文字描述一致。
 
@@ -592,7 +592,7 @@ SIG Docs | SIG Docs rather than SIG-DOCS or other variations.
 On-premises | On-premises or On-prem rather than On-premise or other variations.
 {{< /table >}}
 -->
-## Kubernetes.io 术语列表
+## Kubernetes.io 术语列表   {#kubernetes-io-word-list}
 
 以下特定于 Kubernetes 的术语和词汇在使用时要保持一致性。
 
@@ -846,7 +846,7 @@ The output is:
 
 {{< kat-button >}}
 -->
-### Katacoda 嵌套现场环境
+### Katacoda 嵌套现场环境   {#katacoda-embedded-live-environment}
 
 此按钮允许用户使用 [Katacoda 终端](https://www.katacoda.com/embed/panel)
 在其浏览器中运行 Minikube。该环境降低了用户对 Minikube 的入门难度，
@@ -895,7 +895,7 @@ The output is:
 -->
 ## 常见的短代码问题  {#common-shortcode-issues}
 
-### 编号列表
+### 编号列表   {#ordered-lists}
 
 短代码会打乱编号列表的编号，除非你在信息和标志之前都缩进四个空格。
 
@@ -926,7 +926,7 @@ Shortcodes inside include statements will break the build. You must insert them 
 {{</* /note */>}}
 ```
 -->
-### Include 语句
+### Include 语句   {#include-statements}
 
 如果短代码出现在 include 语境中，会导致网站无法构建。
 你必须将他们插入到上级文档中，分别将开始标记和结束标记插入到 include 语句之前和之后。
@@ -955,19 +955,11 @@ Use a single newline to separate block-level content like headings, lists, image
 两行的留白有助于在代码编辑器中查看整个内容的结构组织。
 
 <!--
-### Headings
-People accessing this documentation may use a screen reader or other assistive technology (AT). [Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices, they output items on a page one at a time. If there is a lot of content on a page, you can use headings to give the page an internal structure. A good page structure helps all readers to easily navigate the page or filter topics of interest.
+### Headings and titles {#headings}
 
-{{< table caption = "Do and Don't - Headings" >}}
-Do | Don't
-:--| :-----
-Update the title in the front matter of the page or blog post. | Use first level heading, as Hugo automatically converts the title in the front matter of the page into a first-level heading.
-Use ordered headings to provide a meaningful high-level outline of your content. | Use headings level 4 through 6, unless it is absolutely necessary. If your content is that detailed, it may need to be broken into separate articles.
-Use pound or hash signs (`#`) for non-blog post content. | Use underlines (`---` or `===`) to designate first-level headings.
-Use sentence case for headings. For example, **Extend kubectl with plugins** | Use title case for headings. For example, **Extend Kubectl With Plugins**
-{{< /table >}}
+People accessing this documentation may use a screen reader or other assistive technology (AT). [Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices, they output items on a page one at a time. If there is a lot of content on a page, you can use headings to give the page an internal structure. A good page structure helps all readers to easily navigate the page or filter topics of interest.
 -->
-### 标题  {#headings}
+### 大标题和小标题  {#headings}
 
 访问文档的读者可能会使用屏幕抓取程序或者其他辅助技术。
 [屏幕抓取器](https://en.wikipedia.org/wiki/Screen_reader)是一种线性输出设备,
@@ -975,13 +967,29 @@ Use sentence case for headings. For example, **Extend kubectl with plugins** | U
 如果页面上内容过多，你可以使用标题来为页面组织结构。
 页面的良好结构对所有读者都有帮助，使得他们更容易浏览或者过滤感兴趣的内容。
 
+<!--
+{{< table caption = "Do and Don't - Headings" >}}
+Do | Don't
+:--| :-----
+Update the title in the front matter of the page or blog post. | Use first level heading, as Hugo automatically converts the title in the front matter of the page into a first-level heading.
+Use ordered headings to provide a meaningful high-level outline of your content. | Use headings level 4 through 6, unless it is absolutely necessary. If your content is that detailed, it may need to be broken into separate articles.
+Use pound or hash signs (`#`) for non-blog post content. | Use underlines (`---` or `===`) to designate first-level headings.
+Use sentence case for headings in the page body. For example,
+**Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
+Use title case for the page title in the front matter. For example,
+`title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles
+in the front matter. For example, don't use
+`title: Kubernetes API server bypass risks`
+{{< /table >}}
+-->
 {{< table caption = "标题约定" >}}
 可以 | 不可以
 :--| :-----
 更新页面或博客在前言部分中的标题。 | 使用一级标题。因为 Hugo 会自动将页面前言部分的标题转化为一级标题。
 使用编号的标题以便内容组织有一个更有意义的结构。| 使用四级到六级标题，除非非常有必要这样。如果你要编写的内容有非常多细节，可以尝试拆分成多个不同页面。
 在非博客内容页面中使用井号（`#`）| 使用下划线 `---` 或 `===` 来标记一级标题。
-使用正常大小写来标示标题。例如：**Extend kubectl with plugins** | 使用首字母大写来标示标题。例如：**Extend Kubectl With Plugins**
+页面正文中的小标题采用正常语句的大小写。例如：**Extend kubectl with plugins** | 页面正文中的小标题采用首字母大写的大标题式样。例如：**Extend Kubectl With Plugins**
+头部的页面标题采用大标题的式样。例如：`title: Kubernetes API Server Bypass Risks` | 头部的页面标题采用正常语句的大小写。例如不要使用 `title: Kubernetes API server bypass risks`
 {{< /table >}}
 
 <!--
@@ -1218,7 +1226,7 @@ Kubernetes provides a new feature for ... | We provide a new feature ...
 This page teaches you how to use pods. | In this page, we are going to learn about pods.
 {{< /table >}}   
 -->
-## 应避免的模式
+## 应避免的模式   {#patterns-to-avoid}
 
 ### 避免使用“我们”
 

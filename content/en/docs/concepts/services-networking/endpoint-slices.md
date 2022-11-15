@@ -3,7 +3,7 @@ reviewers:
 - freehan
 title: EndpointSlices
 content_type: concept
-weight: 45
+weight: 60
 description: >-
   The EndpointSlice API is the mechanism that Kubernetes uses to let your Service
   scale to handle large numbers of backends, and allows the cluster to update its
@@ -273,4 +273,4 @@ networking and topology-aware routing.
 
 ## {{% heading "whatsnext" %}}
 
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial

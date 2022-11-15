@@ -1,25 +1,20 @@
 ---
 title: kubectl
 content_type: tool-reference
-weight: 28
+weight: 30
 ---
 <!--
----
 title: kubectl
 content_type: tool-reference
-weight: 28
----
+weight: 30
 -->
 
 ## {{% heading "synopsis" %}}
-
-
 
 <!--
 kubectl controls the Kubernetes cluster manager.
 -->
 kubectl 管理控制 Kubernetes 集群。
-
 
 <!--
 Find more information at: https://kubernetes.io/docs/reference/kubectl/
@@ -517,7 +512,7 @@ kubectl 的配置 ("kubeconfig") 文件的路径。默认值: "$HOME/.kube/confi
 <!--
 When set to false, turns off extra HTTP headers detailing invoked kubectl command (Kubernetes version v1.22 or later)
 -->
-设置为 false 时，关闭用于详细说明被调用的 kubectl 命令的额外 HTTP 标头 (Kubernetes 版本为 v1.22 或者更高)
+设置为 false 时，将关闭额外的 HTTP 标头，不再详细说明被调用的 kubectl 命令 (此变量适用于 Kubernetes v1.22 或更高版本)
 </td>
 </tr>
 
@@ -565,7 +560,7 @@ When set to false, turns off extra HTTP headers detailing invoked kubectl comman
 * [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	 - 将文件和目录拷入/拷出容器
 * [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	 - 通过文件或标准输入来创建资源
 * [kubectl debug](/docs/reference/generated/kubectl/kubectl-commands#debug)	 - 创建用于排查工作负载和节点故障的调试会话
-* [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - 通过文件名、标准输入、资源和名字删除资源，或者通过资源和标签选择器来删除资源
+* [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - 通过文件名、标准输入、资源和名字删除资源，或者通过资源和标签选择算符来删除资源
 <!--
 * [kubectl describe](/docs/reference/generated/kubectl/kubectl-commands#describe)	 - Show details of a specific resource or group of resources
 * [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - Diff live version against would-be applied version
@@ -593,7 +588,7 @@ When set to false, turns off extra HTTP headers detailing invoked kubectl comman
 * [kubectl get](/docs/reference/generated/kubectl/kubectl-commands#get)	 - 显示一个或者多个资源信息
 * [kubectl kustomize](/docs/reference/generated/kubectl/kubectl-commands#kustomize)	 - 从目录或远程 URL 中构建 kustomization
 * [kubectl label](/docs/reference/generated/kubectl/kubectl-commands#label)	 - 更新资源的标签
-* [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands#logs)	 - 输出 pod 中某容器的日志
+* [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands#logs)	 - 输出 Pod 中某容器的日志
 * [kubectl options](/docs/reference/generated/kubectl/kubectl-commands#options)	 - 打印所有命令都支持的共有参数列表
 * [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - 基于策略性合并修补（Stategic Merge Patch）规则更新某资源中的字段
 <!--
@@ -605,7 +600,7 @@ When set to false, turns off extra HTTP headers detailing invoked kubectl comman
 * [kubectl run](/docs/reference/generated/kubectl/kubectl-commands#run)	 - Run a particular image on the cluster
 -->
 * [kubectl plugin](/docs/reference/generated/kubectl/kubectl-commands#plugin)	 - 运行命令行插件
-* [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands#port-forward)	 - 将一个或者多个本地端口转发到 pod
+* [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands#port-forward)	 - 将一个或者多个本地端口转发到 Pod
 * [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy)	 - 运行一个 kubernetes API 服务器代理
 * [kubectl replace](/docs/reference/generated/kubectl/kubectl-commands#replace)	 - 基于文件名或标准输入替换资源
 * [kubectl rollout](/docs/reference/generated/kubectl/kubectl-commands#rollout)	 - 管理资源的上线
@@ -619,7 +614,7 @@ When set to false, turns off extra HTTP headers detailing invoked kubectl comman
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Print the client and server version information
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Experimental: Wait for a specific condition on one or many resources.
 -->
-* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - 为一个 Deployment、ReplicaSet 或 ReplicationController 设置一个新的规模尺寸值
+* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - 为一个 Deployment、ReplicaSet 或 ReplicationController 设置一个新的规模值
 * [kubectl set](/docs/reference/generated/kubectl/kubectl-commands#set)	 - 为对象设置功能特性
 * [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)	 - 在一个或者多个节点上更新污点配置
 * [kubectl top](/docs/reference/generated/kubectl/kubectl-commands#top)	 - 显示资源（CPU /内存/存储）使用率

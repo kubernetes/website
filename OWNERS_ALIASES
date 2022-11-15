@@ -37,6 +37,7 @@ aliases:
     - kbhawkey
     - krol3
     - natalisucks
+    - nate-double-u
     - onlydole
     - reylejano
     - sftim
@@ -190,6 +191,7 @@ aliases:
     - devlware
     - jhonmike
     - rikatz
+    - stormqueen1990
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - edsoncelio
@@ -214,12 +216,14 @@ aliases:
     - aisonaku
     - potapy4
     - dianaabv
+    - shurup
   sig-docs-ru-reviews: # PR reviews for Russian content
     - Arhell
     - msheldyakov
     - aisonaku
     - potapy4
     - dianaabv
+    - shurup
   sig-docs-pl-owners: # Admins for Polish content
     - mfilocha
     - nvtkaszpir

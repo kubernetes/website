@@ -3,6 +3,7 @@ title: Security Checklist
 description: >
   Baseline checklist for ensuring security in Kubernetes clusters.
 content_type: concept
+weight: 100
 ---
 
 <!-- overview -->
@@ -12,6 +13,7 @@ comprehensive documentation on each topic. It does not claim to be exhaustive
 and is meant to evolve.
 
 On how to read and use this document:
+
 - The order of topics does not reflect an order of priority.
 - Some checklist items are detailed in the paragraph below the list of each section.
 

@@ -20,7 +20,7 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 The following methods exist for installing kubectl on Windows:
 
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
-- [Install on Windows using Chocolatey or Scoop](#install-on-windows-using-chocolatey-or-scoop)
+- [Install on Windows using Chocolatey, Scoop, or Winget](#install-nonstandard-package-tools)
 
 ### Install kubectl binary with curl on Windows
 
@@ -30,6 +30,7 @@ The following methods exist for installing kubectl on Windows:
 
    ```powershell
    curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
+   ```
 
    {{< note >}}
    To find out the latest stable version (for example, for scripting), take a look at [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
@@ -76,9 +77,9 @@ The following methods exist for installing kubectl on Windows:
 If you have installed Docker Desktop before, you may need to place your `PATH` entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
 {{< /note >}}
 
-### Install on Windows using Chocolatey or Scoop
+### Install on Windows using Chocolatey, Scoop, or Winget {#install-nonstandard-package-tools}
 
-1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [Scoop](https://scoop.sh) command-line installer.
+1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager, [Scoop](https://scoop.sh) command-line installer, or [Winget](https://winget.run/) package manager.
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
@@ -91,8 +92,12 @@ If you have installed Docker Desktop before, you may need to place your `PATH` e
    scoop install kubectl
    ```
    {{% /tab %}}
+   {{% tab name="winget" %}}
+   ```powershell
+   winget install -e --id Kubernetes.kubectl
+   ```
+   {{% /tab %}}
    {{< /tabs >}}
-
 
 1. Test to ensure the version you installed is up-to-date:
 
@@ -153,7 +158,7 @@ Below are the procedures to set up autocompletion for PowerShell.
    curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
-1. Validate the binary (optional)
+1. Validate the binary (optional).
 
    Download the `kubectl-convert` checksum file:
 
@@ -178,7 +183,7 @@ Below are the procedures to set up autocompletion for PowerShell.
 
 1. Append or prepend the `kubectl-convert` binary folder to your `PATH` environment variable.
 
-1. Verify plugin is successfully installed
+1. Verify the plugin is successfully installed.
 
    ```shell
    kubectl convert --help

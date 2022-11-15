@@ -31,7 +31,7 @@ plane hosts. If you do not already have a cluster, you can create one by using
 
 The following steps require an egress configuration, for example:
 -->
-## 配置 Konnectivity 服务
+## 配置 Konnectivity 服务   {#configure-the-konnectivity-service}
 
 接下来的步骤需要出口配置，比如：
 
@@ -48,29 +48,16 @@ feature enabled in your cluster. It is enabled by default since Kubernetes v1.20
 1. Set the `--egress-selector-config-file` flag of the API Server to the path of
 your API Server egress configuration file.
 1. If you use UDS connection, add volumes config to the kube-apiserver:
-   ```yaml
-   spec:
-     containers:
-       volumeMounts:
-       - name: konnectivity-uds
-         mountPath: /etc/kubernetes/konnectivity-server
-         readOnly: false
-     volumes:
-     - name: konnectivity-uds
-       hostPath:
-         path: /etc/kubernetes/konnectivity-server
-         type: DirectoryOrCreate
-   ```
 -->
 你需要配置 API 服务器来使用 Konnectivity 服务，并将网络流量定向到集群节点：
 
-确保[服务账号令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
-特性被启用。该特性自 Kubernetes v1.20 起默认已被启用。
-
+1. 确保[服务账号令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)特性被启用。
+   该特性自 Kubernetes v1.20 起默认已被启用。
 1. 创建一个出站流量配置文件，比如 `admin/konnectivity/egress-selector-configuration.yaml`。
-1. 将 API 服务器的 `--egress-selector-config-file` 参数设置为你的 API 服务器的
-   离站流量配置文件路径。
+1. 将 API 服务器的 `--egress-selector-config-file` 参数设置为你的 API
+   服务器的离站流量配置文件路径。
 1. 如果你在使用 UDS 连接，须将卷配置添加到 kube-apiserver：
+
    ```yaml
    spec:
      containers:
@@ -92,11 +79,10 @@ using the cluster CA certificate `/etc/kubernetes/pki/ca.crt` from a control-pla
 -->
 为 konnectivity-server 生成或者取得证书和 kubeconfig 文件。
 例如，你可以使用 OpenSSL 命令行工具，基于存放在某控制面主机上
-`/etc/kubernetes/pki/ca.crt` 文件中的集群 CA 证书来
-发放一个 X.509 证书，
+`/etc/kubernetes/pki/ca.crt` 文件中的集群 CA 证书来发放一个 X.509 证书。
 
 ```bash
-openssl req -subj "/CN=system:konnectivity-server" -new -newkey rsa:2048 -nodes -out konnectivity.csr -keyout konnectivity.key -out konnectivity.csr
+openssl req -subj "/CN=system:konnectivity-server" -new -newkey rsa:2048 -nodes -out konnectivity.csr -keyout konnectivity.key
 openssl x509 -req -in konnectivity.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out konnectivity.crt -days 375 -sha256
 SERVER=$(kubectl config view -o jsonpath='{.clusters..server}')
 kubectl --kubeconfig /etc/kubernetes/konnectivity-server.conf config set-credentials system:konnectivity-server --client-certificate konnectivity.crt --client-key konnectivity.key --embed-certs=true

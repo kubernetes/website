@@ -187,7 +187,7 @@ This would create a CSR for the username "jbeda", belonging to two groups, "app1
 
 See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for how to generate a client cert.
 -->
-此命令将使用用户名 `jbeda` 生成一个证书签名请求（CSR），且该用户属于 "app" 和
+此命令将使用用户名 `jbeda` 生成一个证书签名请求（CSR），且该用户属于 "app1" 和
 "app2" 两个用户组。
 
 参阅[管理证书](/zh-cn/docs/tasks/administer-cluster/certificates/)了解如何生成客户端证书。
@@ -1897,7 +1897,7 @@ Presence or absence of an expiry has the following impact:
 时间戳格式给出的证书到期时间。
 证书到期时间的有无会有如下影响：
 
-- 如果响应中包含了到期时间，持有者令牌和 TLS 凭据会被缓存，直到到期期限到来、
+- 如果响应中包含了到期时间，持有者令牌和 TLS 凭据会被缓存，直到期限到来、
   或者服务器返回 401 HTTP 状态码，或者进程退出。
 - 如果未指定到期时间，则持有者令牌和 TLS 凭据会被缓存，直到服务器返回 401
   HTTP 状态码或者进程退出。
