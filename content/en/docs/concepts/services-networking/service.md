@@ -516,22 +516,6 @@ Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route exte
 and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are no node-local
 endpoints, the kube-proxy does not forward any traffic for the relevant Service.
 
-{{< note >}}
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
-If you enable the `ProxyTerminatingEndpoints`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-for the kube-proxy, the kube-proxy checks if the node
-has local endpoints and whether or not all the local endpoints are marked as terminating.
-If there are local endpoints and **all** of those are terminating, then the kube-proxy ignores
-any external traffic policy of `Local`. Instead, whilst the node-local endpoints remain as all
-terminating, the kube-proxy forwards traffic for that Service to healthy endpoints elsewhere,
-as if the external traffic policy were set to `Cluster`.
-This forwarding behavior for terminating endpoints exists to allow external load balancers to
-gracefully drain connections that are backed by `NodePort` Services, even when the health check
-node port starts to fail. Otherwise, traffic can be lost between the time a node is still in the node pool of a load
-balancer and traffic is being dropped during the termination period of a pod.
-{{< /note >}}
-
 ### Internal traffic policy
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
@@ -540,6 +524,28 @@ You can set the `spec.internalTrafficPolicy` field to control how traffic from i
 Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route internal traffic to all ready endpoints
 and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are no node-local
 endpoints, traffic is dropped by kube-proxy.
+
+### Traffic to Terminating Endpoints
+
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+
+If the `ProxyTerminatingEndpoints`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in kube-proxy and the traffic policy is `Local`, that node's
+kube-proxy uses a more complicated algorithm to select endpoints for a Service.
+With the feature enabled, kube-proxy checks if the node
+has local endpoints and whether or not all the local endpoints are marked as terminating.
+If there are local endpoints and **all** of them are terminating, then kube-proxy
+will forward traffic to those terminating endpoints. Otherwise, kube-proxy will always
+prefer forwarding traffic to endpoints that are not terminating.
+
+This forwarding behavior for terminating endpoints exist to allow `NodePort` and `LoadBalancer` Services to
+gracefully drain connections when using `externalTrafficPolicy=Local`. As a deployment goes through
+a rolling update, nodes backing a loadbalancer may transition from N to 0 replicas of that deployment.
+In some cases, external load balancers can send traffic to a node with 0 replicas in between health check probes.
+Routing traffic to terminating endpoints ensures that Node's that are scaling down Pods can gracefully receive
+and drain traffic to those terminating Pods. By the time the Pod completes termination, the external load balancer
+should have seen the node's health check failing and fully removed the node from the backend pool.
 
 ## Discovering services
 
