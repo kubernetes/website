@@ -101,9 +101,9 @@ the exact mechanisms for issuing and refreshing those session tokens.
 
 There are several options to create a Secret:
 
-- [create Secret using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [create Secret from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [create Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- [Use `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [Use a configuration file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [Use the Kustomize tool](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 #### Constraints on Secret names and data {#restriction-names-data}
 
@@ -132,41 +132,18 @@ number of Secrets (or other resources) in a namespace.
 
 ### Editing a Secret
 
-You can edit an existing Secret using kubectl:
+You can edit an existing Secret unless it is [immutable](#secret-immutable). To
+edit a Secret, use one of the following methods:
 
-```shell
-kubectl edit secrets mysecret
-```
+*  [Use `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#edit-secret)
+*  [Use a configuration file](/docs/tasks/configmap-secret/managing-secret-using-config-file/#edit-secret)
 
-This opens your default editor and allows you to update the base64 encoded Secret
-values in the `data` field; for example:
+You can also edit the data in a Secret using the [Kustomize tool](/docs/tasks/configmap-secret/managing-secret-using-kustomize/#edit-secret). However, this
+method creates a new `Secret` object with the edited data.
 
-```yaml
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file, it will be
-# reopened with the relevant failures.
-#
-apiVersion: v1
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
-kind: Secret
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: { ... }
-  creationTimestamp: 2020-01-22T18:41:56Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "164619"
-  uid: cfee02d6-c137-11e5-8d73-42010af00002
-type: Opaque
-```
-
-That example manifest defines a Secret with two keys in the `data` field: `username` and `password`.
-The values are Base64 strings in the manifest; however, when you use the Secret with a Pod
-then the kubelet provides the _decoded_ data to the Pod and its containers.
-
-You can package many keys and values into one Secret, or use many Secrets, whichever is convenient.
+Depending on how you created the Secret, as well as how the Secret is used in
+your Pods, updates to existing `Secret` objects are propagated automatically to
+Pods that use the data. For more information, refer to [Mounted Secrets are updated automatically](#mounted-secrets-are-updated-automatically).
 
 ### Using a Secret
 
