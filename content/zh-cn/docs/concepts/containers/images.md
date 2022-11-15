@@ -2,6 +2,7 @@
 title: 镜像
 content_type: concept
 weight: 10
+hide_summary: true # 在章节索引中单独列出
 ---
 <!--
 reviewers:
@@ -10,6 +11,7 @@ reviewers:
 title: Images
 content_type: concept
 weight: 10
+hide_summary: true # Listed separately in section index
 -->
 
 <!-- overview -->
@@ -32,6 +34,16 @@ This page provides an outline of the container image concept.
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中引用它。
 
 本页概要介绍容器镜像的概念。
+
+{{< note >}}
+<!-- 
+If you are looking for the container images for a Kubernetes
+release (such as v{{< skew latestVersion >}}, the latest minor release),
+visit [Download Kubernetes](https://kubernetes.io/releases/download/). 
+-->
+如果你正在寻找 Kubernetes 某个发行版本（如最新次要版本 v{{< skew latestVersion >}}）
+的容器镜像，请访问[下载 Kubernetes](/zh-cn/releases/download/)。
+{{< /note >}}
 
 <!-- body -->
 
