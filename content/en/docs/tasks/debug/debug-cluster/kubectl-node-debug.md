@@ -1,5 +1,5 @@
 ---
-title: Debugging Kubernetes nodes with kubectl
+title: Debugging Kubernetes Nodes With Kubectl
 content_type: task
 min-kubernetes-server-version: 1.20
 ---
@@ -32,7 +32,7 @@ kubectl debug node/mynode -it --image=ubuntu
 ```console
 Creating debugging pod node-debugger-mynode-pdx84 with container debugger on node mynode.
 If you don't see a command prompt, try pressing enter.
-root@ek8s:/#
+root@mynode:/#
 ```
 
 Run debug commands to help you gather information and troubleshoot issues. Commands 
