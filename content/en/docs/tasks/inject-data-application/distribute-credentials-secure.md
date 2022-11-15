@@ -153,10 +153,10 @@ Modify your image or command line so that the program looks for files in the
 `mountPath` directory. Each key in the Secret `data` map becomes a file name
 in this directory.
 
-#### Projection of Secret keys to specific paths
+### Project Secret keys to specific file paths
 
-You can also control the paths within the volume where Secret keys are projected.
-You can use the `.spec.volumes[].secret.items` field to change the target path of each key:
+You can also control the paths within the volume where Secret keys are projected. Use the `.spec.volumes[].secret.items` field to change the target
+path of each key:
 
 ```yaml
 apiVersion: v1
@@ -180,19 +180,22 @@ spec:
         path: my-group/my-username
 ```
 
-What will happen:
+When you deploy this Pod, the following happens:
 
-* the `username` key from `mysecret` is available to the container at the path
+* The `username` key from `mysecret` is available to the container at the path
   `/etc/foo/my-group/my-username` instead of at `/etc/foo/username`.
-* the `password` key from that Secret object is not projected.
+* The `password` key from that Secret object is not projected.
 
-If `.spec.volumes[].secret.items` is used, only keys specified in `items` are projected.
-To consume all keys from the Secret, all of them must be listed in the `items` field.
+If you list keys explicitly using `.spec.volumes[].secret.items`, consider the
+following:
 
-If you list keys explicitly, then all listed keys must exist in the corresponding Secret.
-Otherwise, the volume is not created.
+* Only keys specified in `items` are projected.
+* To consume all keys from the Secret, all of them must be listed in the
+  `items` field.
+* All listed keys must exist in the corresponding Secret. Otherwise, the volume
+  is not created.
 
-#### Secret files permissions
+### Set POSIX permissions for Secret keys
 
 You can set the POSIX file access permission bits for a single Secret key.
 If you don't specify any permissions, `0644` is used by default.
@@ -228,47 +231,6 @@ specification doesn't support octal notation. You can use the decimal value
 for the `defaultMode` (for example, 0400 in octal is 256 in decimal) instead.
 If you're writing YAML, you can write the `defaultMode` in octal.
 {{< /note >}}
-
-#### Consuming Secret values from volumes
-
-Inside the container that mounts a secret volume, the secret keys appear as
-files. The secret values are base64 decoded and stored inside these files.
-
-This is the result of commands executed inside the container from the example above:
-
-```shell
-ls /etc/foo/
-```
-
-The output is similar to:
-
-```
-username
-password
-```
-
-```shell
-cat /etc/foo/username
-```
-
-The output is similar to:
-
-```
-admin
-```
-
-```shell
-cat /etc/foo/password
-```
-
-The output is similar to:
-
-```
-1f2d1e2e67df
-```
-
-The program in a container is responsible for reading the secret data from these
-files, as needed.
 
 ## Define container environment variables using Secret data
 
