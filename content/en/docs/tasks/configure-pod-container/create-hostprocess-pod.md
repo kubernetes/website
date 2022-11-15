@@ -188,7 +188,7 @@ specified `mountPath` (just like Linux and non-HostProcess Windows containers).
 For backwards compatibility volumes can also be accessed via using the same relative paths configured
 by containerd v1.6.
 
-To access service account tokens (for example) use the following paths within the container:
+As an example, to access service account tokens within the container you would use one of the following paths:
 
 - `c:\var\run\secrets\kubernetes.io\serviceaccount`
 - `/var/run/secrets/kubernetes.io/serviceaccount/`
@@ -207,7 +207,7 @@ used for resource tracking due to the difference in how HostProcess containers a
 
 ### System accounts
 
-HostProcess containers support the ability to run as one of three supported Windows service accounts:
+By default, HostProcess containers support the ability to run as one of three supported Windows service accounts:
 
 - **[LocalSystem](https://docs.microsoft.com/windows/win32/services/localsystem-account)**
 - **[LocalService](https://docs.microsoft.com/windows/win32/services/localservice-account)**
@@ -221,14 +221,15 @@ use the LocalService service account as it is the least privileged of the three 
 
 ### Local accounts {#local-accounts}
 
-HostProcess containers can also run as local user accounts which allows for node operators to give
+If configured, HostProcess containers can also run as local user accounts which allows for node operators to give
 fine-grained access to workloads.
 
 To run HostProcess containers as a local user; A local usergroup must first be created on the node
 and the name of that local usergroup must be specified in the `runAsUserName` field in the deployment.
-This will cause an new ephemeral local user account to be created, joined to the specified usergroup,
-and used by the container. This provides a number a benefits including eliminating the need to manage
-passwords for local user accounts.
+Prior to initializing the HostProcess container, a new **ephemeral** local user account to be created and joined to the specified usergroup, from which the container is run.
+This provides a number a benefits including eliminating the need to manage passwords for local user accounts.
+passwords for local user accounts. An initial HostProcess container running as a service account can be used to
+prepare the user groups for later HostProcess containers.
 
 {{< note >}}
 Running HostProcess containers as local user accounts requires containerd v1.7+
@@ -243,9 +244,9 @@ Example:
     ```
 
 1. Grant access to desired resources on the node to the local usergroup.
-    This can be done with tools like [icacls](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls).
+   This can be done with tools like [icacls](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls).
 
-1. Set `runSsUserName` to the name of the local usergroup for the pod or individual containers.
+1. Set `runAsUserName` to the name of the local usergroup for the pod or individual containers.
 
     ```yaml
     securityContext:
