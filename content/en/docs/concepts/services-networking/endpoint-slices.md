@@ -96,7 +96,7 @@ Services will always have the `ready` condition set to `true`.
 
 #### Serving
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 `serving` is identical to the `ready` condition, except it does not account for terminating states.
 Consumers of the EndpointSlice API should check this condition if they care about pod readiness while
@@ -115,7 +115,7 @@ for terminating pods independent of the existing semantics for `ready`.
 
 #### Terminating
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 `Terminating` is a condition that indicates whether an endpoint is terminating.
 For pods, this is any pod that has a deletion timestamp set.
