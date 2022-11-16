@@ -310,6 +310,50 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 {{< note >}} Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/zone](#topologykubernetesiozone). {{< /note >}}
 
+### pv.kubernetes.io/bind-completed {#pv-kubernetesiobind-completed}
+
+Example: `pv.kubernetes.io/bind-completed: "yes"`
+
+Used on: PersistentVolumeClaim
+
+When this annotation is set on a PersistentVolumeClaim (PVC), that indicates that the lifecycle
+of the PVC has passed through initial binding setup. When present, that information changes
+how the control plane interprets the state of PVC objects.
+The value of this annotation does not matter to Kubernetes.
+
+### pv.kubernetes.io/bound-by-controller {#pv-kubernetesioboundby-controller}
+
+Example: `pv.kubernetes.io/bound-by-controller: "yes"`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+If this annotation is set on a PersistentVolume or PersistentVolumeClaim, it indicates that a storage binding
+(PersistentVolume → PersistentVolumeClaim, or PersistentVolumeClaim → PersistentVolume) was installed
+by the {{< glossary_tooltip text="controller" term_id="controller" >}}.
+If the annotation isn't set, and there is a storage binding in place, the absence of that annotation means that
+the binding was done manually. The value of this annotation does not matter.
+
+### pv.kubernetes.io/provisioned-by {#pv-kubernetesiodynamically-provisioned}
+
+Example: `pv.kubernetes.io/provisioned-by: "kubernetes.io/rbd"`
+
+Used on: PersistentVolume
+
+This annotation is added to a PersistentVolume(PV) that has been dynamically provisioned by Kubernetes.
+Its value is the name of volume plugin that created the volume. It serves both user (to show where a PV
+comes from) and Kubernetes (to recognize dynamically provisioned PVs in its decisions).
+
+### pv.kubernetes.io/migrated-to {#pv-kubernetesio-migratedto}
+
+Example: `pv.kubernetes.io/migrated-to: pd.csi.storage.gke.io`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+It is added to a PersistentVolume(PV) and PersistentVolumeClaim(PVC) that is supposed to be
+dynamically provisioned/deleted by its corresponding CSI driver through the `CSIMigration` feature gate.
+When this annotation is set, the Kubernetes components will "stand-down" and the `external-provisioner`
+will act on the objects.
+
 ### statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
 
 Example:
