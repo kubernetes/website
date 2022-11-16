@@ -29,10 +29,6 @@ This version will [remove CRI `v1alpha2` support](https://github.com/kubernetes/
 
 In addition to the above, Kubernetes v1.26 is targeted to include several additional removals and deprecations.
 
-### Removal of kube-proxy userspace modes
-
-After two releases of deprecation, [kube-proxy userspace mode will be removed](https://github.com/kubernetes/kubernetes/pull/112133) in this version; users that have not yet done so are strongly advised to adopt supported approaches, namely the use of `iptables` or `ipvs`on Linux, or `kernelspace` on Windows. 
-
 ### Removal of the `v1beta1` flow control resources API
 
 The `flowcontrol.apiserver.k8s.io/v1beta1` API version of FlowSchema and PriorityLevelConfiguration [will no longer be served in v1.26](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#flowcontrol-resources-v126). Users should migrate manifests and API clients to use the `flowcontrol.apiserver.k8s.io/v1beta2` API version, available since v1.23.
