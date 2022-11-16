@@ -125,8 +125,6 @@ For a reference to old feature gates that are removed, please refer to
 | `JobReadyPods` | `true` | Beta | 1.24 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.23 | |
-| `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
-| `KubeletCredentialProviders` | `true` | Beta | 1.24 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
@@ -281,6 +279,9 @@ For a reference to old feature gates that are removed, please refer to
 | `IndexedJob` | `false` | Alpha | 1.21 | 1.21 |
 | `IndexedJob` | `true` | Beta | 1.22 | 1.23 |
 | `IndexedJob` | `true` | GA | 1.24 | - |
+| `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
+| `KubeletCredentialProviders` | `true` | Beta | 1.24 | 1.26 |
+| `KubeletCredentialProviders` | `true` | GA | 1.26 | - |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | 1.24 |
 | `LocalStorageCapacityIsolation` | `true` | GA | 1.25 | - |
@@ -606,7 +607,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   filesystem walk for better performance and accuracy.
 - `LogarithmicScaleDown`: Enable semi-random selection of pods to evict on controller scaledown
   based on logarithmic bucketing of pod timestamps.
-- `MatchLabelKeysInPodTopologySpread`: Enable the `matchLabelKeys` field for 
+- `MatchLabelKeysInPodTopologySpread`: Enable the `matchLabelKeys` field for
   [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `MaxUnavailableStatefulSet`: Enables setting the `maxUnavailable` field for the
   [rolling update strategy](/docs/concepts/workloads/controllers/statefulset/#rolling-updates)
