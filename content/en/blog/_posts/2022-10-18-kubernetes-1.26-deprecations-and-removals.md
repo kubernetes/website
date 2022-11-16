@@ -88,7 +88,7 @@ On top of the described removals, this release will also include some additional
 
 ### Support for Windows privileged containers
 
-Privileged container support allows containers to run with similar access to the host as processes that run on the host directly. Support for this feature in Windows nodes [will now graduate to stable](https://github.com/kubernetes/enhancements/issues/1981) and will be enabled by default.
+Privileged container support allows containers to run with similar access to the host as processes that run on the host directly. Support for this feature in Windows nodes [will now graduate to stable](https://github.com/kubernetes/enhancements/issues/1981).
 
 ### CSI drivers migration
 
