@@ -831,7 +831,7 @@ connection with the Kubernetes API server.
 To enable pod-to-pod communication using pod hostnames, you must do the following:
 1. Set up a [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
 with a valid label selector for the pods created by your job. This will trigger `kube-dns` to cache the hostnames of the pods running your job. One easy way to do this is to use the `job-name: <your-job-name>` selector.
-2. Update your Job spec with the following: `subdomain: <headless-svc-name>`
+2. Update the template spec in your job with the following: `subdomain: <headless-svc-name>`
    where `<headless-svc-name>` must match the name of your headless service
    exactly. 
 
