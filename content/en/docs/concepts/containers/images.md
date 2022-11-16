@@ -67,12 +67,8 @@ these values have:
 : the image is pulled only if it is not already present locally.
 
 `Always`
-: every time the kubelet launches a container, the kubelet queries the container
-  image registry to resolve the name to an image
-  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier). If the kubelet has a
-  container image with that exact digest cached locally, the kubelet uses its cached
-  image; otherwise, the kubelet pulls the image with the resolved digest,
-  and uses that image to launch the container.
+: every time the kubelet launches a container, the kubelet queries the container image registry to resolve the name to an image
+  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier). The kubelet then pulls the image with the resolved digest, and uses that image to launch the container.
 
 `Never`
 : the kubelet does not try fetching the image. If the image is somehow already present
