@@ -19,12 +19,11 @@ The Kubernetes project has a [well-documented deprecation policy](https://kubern
 
 Whether an API is removed as a result of a feature graduating from beta to stable or because that API simply did not succeed, all removals comply with this deprecation policy. Whenever an API is removed, migration options are communicated in the documentation.
 
+## A note about the removal of the CRI `v1alpha2` API and containerd 1.5 support
 
-## A note about Dynamic Kubelet configuration {#dynamic-kubelet-removal}
+Following the adoption of the [Container Runtime Interface](https://kubernetes.io/docs/concepts/architecture/cri/) (CRI) and the [removal of dockershim] in v1.24 , the CRI API is the way through which Kubernetes interacts with the different container runtimes, with the kubelet communicating with them through a specific CRI API version. Currently, that version is `v1`, but the kubelet can also negotiate the use of CRI `v1alpha2`, even though it's considered deprecated.
 
-Dynamic Kubelet Configuration allowed [new Kubelet configurations to be rolled out in a live cluster](https://github.com/kubernetes/enhancements/tree/2cd758cc6ab617a93f578b40e97728261ab886ed/keps/sig-node/281-dynamic-kubelet-configuration), by enabling specifying the source of the node's configuration for the `DynamicKubeletConfig` feature.
-
-As mentioned above, the Kubernetes release cycle is live, dynamic, and based on a set of principles, including the [avoidance of permanent beta features](https://kubernetes.io/blog/2020/08/21/moving-forward-from-beta/#avoiding-permanent-beta). With that principle in mind, Dynamic Kubelet Configuration was removed from kubelet in v1.24, [and will be removed from the API server in this release](https://github.com/kubernetes/kubernetes/pull/112643).
+This version will [remove CRI `v1alpha2` support](https://github.com/kubernetes/kubernetes/pull/110618) entirely, which will result in the kubelet not registering the node if the container runtime doesn't support `v1`. This means that [containerd 1.5](https://github.com/containerd/containerd/blob/main/RELEASES.md), which only supports `v1alpha2`, will not be supported in Kubernetes 1.26, and as such upgrading to containerd 1.6 must be done before upgrading to Kubernetes v1.26. Other container runtimes that only support the `v1alpha2` are equally affected: users should contact their container runtime vendor for additional instructions in how to move forward.
 
 ## Deprecations and removals in Kubernetes v1.26
 
@@ -40,7 +39,7 @@ The `flowcontrol.apiserver.k8s.io/v1beta1` API version of FlowSchema and Priorit
 
 ### Removal of the `v2beta2` HorizontalPodAutoscaler API
 
-The `autoscaling/v2beta2` API version of HorizontalPodAutoscaler [will no longer be served in v1.26](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#horizontalpodautoscaler-v126). Users should migrate manifests and API clients to use the `autoscaling/v2` API version, available since v1.23. 
+The `autoscaling/v2beta2` API version of HorizontalPodAutoscaler [will no longer be served in v1.26](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#horizontalpodautoscaler-v126). Users should migrate manifests and API clients to use the `autoscaling/v2` API version, available since v1.23.
 
 ### Removal of in-tree credential management code
 
@@ -57,6 +56,10 @@ The in-tree cloud provider for OpenStack (and the Cinder volume provider) [will 
 ### Deprecation of non-inclusive `kubectl` flag
 
 A part of the implementation effort of the [Inclusive Naming Initiative](https://www.cncf.io/announcements/2021/10/13/inclusive-naming-initiative-announces-new-community-resources-for-a-more-inclusive-future/), the `--prune-whitelist` flag [will be deprecated](https://github.com/kubernetes/kubernetes/pull/113116), and replaced with `--prune-allowlist`. Users that use this flag are strongly advised to make the necessary changes prior to the final removal of the flag, in a future release.
+
+## A note about Dynamic Kubelet configuration {#dynamic-kubelet-removal}
+
+Dynamic Kubelet Configuration allowed [new Kubelet configurations to be rolled out in a live cluster](https://github.com/kubernetes/enhancements/tree/2cd758cc6ab617a93f578b40e97728261ab886ed/keps/sig-node/281-dynamic-kubelet-configuration), by enabling specifying the source of the node's configuration for the `DynamicKubeletConfig` feature. Dynamic Kubelet Configuration was removed from kubelet in v1.24, [and will be removed from the API server in this release](https://github.com/kubernetes/kubernetes/pull/112643).
 
 ### Deprecations of `kube-apiserver` flag
 
