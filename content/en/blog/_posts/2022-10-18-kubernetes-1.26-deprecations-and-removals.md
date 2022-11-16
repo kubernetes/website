@@ -84,7 +84,7 @@ This change completes the [deprecations of `klogs` flags](https://github.com/kub
 
 ## Additional changes for Kubernetes v1.26 {#additional-changes}
 
-On top of the described removals, this release will also include some additional changes to take into consideration: while not deprecations or removals, they introduce new features (or a new default behavior) through the graduation to Stable in this release; some of those changes are highlighted here.
+On top of the described removals, this release will also include some additional changes to take into consideration: while not deprecations or removals, they introduce new features (or a new default behavior) through the graduating in this release; some of those changes are highlighted here.
 
 ### Support for Windows privileged containers
 
