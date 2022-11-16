@@ -19,13 +19,13 @@ The Kubernetes project has a [well-documented deprecation policy](https://kubern
 
 Whether an API is removed as a result of a feature graduating from beta to stable or because that API simply did not succeed, all removals comply with this deprecation policy. Whenever an API is removed, migration options are communicated in the documentation.
 
-## A note about the removal of the CRI `v1alpha2` API and containerd 1.5 support
+## A note about the removal of the CRI `v1alpha2` API and containerd 1.5 support {#cri-api-removal}
 
 Following the adoption of the [Container Runtime Interface](https://kubernetes.io/docs/concepts/architecture/cri/) (CRI) and the [removal of dockershim] in v1.24 , the CRI API is the way through which Kubernetes interacts with the different container runtimes, with the kubelet communicating with them through a specific CRI API version. Currently, that version is `v1`, but the kubelet can also negotiate the use of CRI `v1alpha2`, even though it's considered deprecated.
 
 This version will [remove CRI `v1alpha2` support](https://github.com/kubernetes/kubernetes/pull/110618) entirely, which will result in the kubelet not registering the node if the container runtime doesn't support `v1`. This means that [containerd 1.5](https://github.com/containerd/containerd/blob/main/RELEASES.md), which only supports `v1alpha2`, will not be supported in Kubernetes 1.26, and as such upgrading to containerd version 1.6 or higher must be done before upgrading to Kubernetes v1.26. Other container runtimes that only support the `v1alpha2` are equally affected: users should contact their container runtime vendor for additional instructions in how to move forward. Note, that there are tools like [stargz-snapshotter](https://github.com/containerd/stargz-snapshotter) that act as a proxy between kubelet and container runtime and those also might be affected.
 
-## Deprecations and removals in Kubernetes v1.26
+## Deprecations and removals in Kubernetes v1.26 {#deprecations-removals}
 
 In addition to the above, Kubernetes v1.26 is targeted to include several additional removals and deprecations.
 
@@ -53,7 +53,7 @@ The in-tree cloud provider for OpenStack (and the Cinder volume provider) [will 
 
 A part of the implementation effort of the [Inclusive Naming Initiative](https://www.cncf.io/announcements/2021/10/13/inclusive-naming-initiative-announces-new-community-resources-for-a-more-inclusive-future/), the `--prune-whitelist` flag [will be deprecated](https://github.com/kubernetes/kubernetes/pull/113116), and replaced with `--prune-allowlist`. Users that use this flag are strongly advised to make the necessary changes prior to the final removal of the flag, in a future release.
 
-## A note about Dynamic Kubelet configuration {#dynamic-kubelet-removal}
+### Removal of Dynamic Kubelet configuration
 
 Dynamic Kubelet Configuration allowed [new Kubelet configurations to be rolled out in a live cluster](https://github.com/kubernetes/enhancements/tree/2cd758cc6ab617a93f578b40e97728261ab886ed/keps/sig-node/281-dynamic-kubelet-configuration), by enabling specifying the source of the node's configuration for the `DynamicKubeletConfig` feature. Dynamic Kubelet Configuration was removed from kubelet in v1.24, [and will be removed from the API server in this release](https://github.com/kubernetes/kubernetes/pull/112643).
 
@@ -79,7 +79,6 @@ These flags are already ignored so no impact is expected: the explicit deprecati
 ### Removal of deprecated klog flags
 
 This change completes the [deprecations of `klogs` flags](https://github.com/kubernetes/kubernetes/pull/112120) which are no longer supported, and have been removed from Kubernetes components.
-
 
 ## Additional changes for Kubernetes v1.26 {#additional-changes}
 
