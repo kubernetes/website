@@ -293,9 +293,6 @@ For a reference to old feature gates that are removed, please refer to
 | `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | 1.21 |
 | `PodAffinityNamespaceSelector` | `true` | Beta | 1.22 | 1.23 |
 | `PodAffinityNamespaceSelector` | `true` | GA | 1.24 | - |
-| `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
-| `PodOverhead` | `true` | Beta | 1.18 | 1.23 |
-| `PodOverhead` | `true` | GA | 1.24 | - |
 | `PodSecurity` | `false` | Alpha | 1.22 | 1.22 |
 | `PodSecurity` | `true` | Beta | 1.23 | 1.24 |
 | `PodSecurity` | `true` | GA | 1.25 | |
@@ -648,8 +645,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   pod stats from the CRI container runtime rather than gathering them from cAdvisor.
 - `PodDisruptionConditions`: Enables support for appending a dedicated pod condition indicating that the pod is being deleted due to a disruption.
 - `PodHasNetworkCondition`: Enable the kubelet to mark the [PodHasNetwork](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network) condition on pods.
-- `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)
-  feature to account for pod overheads.
 - `PodSecurity`: Enables the `PodSecurity` admission plugin.
 - `PreferNominatedNode`: This flag tells the scheduler whether the nominated
   nodes will be checked first before looping through all the other nodes in
