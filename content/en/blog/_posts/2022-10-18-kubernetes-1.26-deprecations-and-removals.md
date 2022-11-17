@@ -113,22 +113,6 @@ command line arguments relating to logging. These command line arguments were
 already deprecated.
 For more information, see [Deprecate klog specific flags in Kubernetes Components] (https://github.com/kubernetes/enhancements/tree/3cb66bd0a1ef973ebcc974f935f0ac5cba9db4b2/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components).
 
-## Additional changes for Kubernetes v1.26 {#additional-changes}
-
-On top of the described removals, this release will also include some additional changes to take into consideration: while not deprecations or removals, they introduce new features (or a new default behavior) through the graduating in this release; some of those changes are highlighted here.
-
-### Support for Windows privileged containers
-
-Privileged container support allows containers to run with similar access to the host as processes that run on the host directly. Support for this feature in Windows nodes [will now graduate to stable](https://github.com/kubernetes/enhancements/issues/1981).
-
-### CSI drivers migration
-
-Following the GA of the [core CSI Migration](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/625-csi-migration) feature in the previous release, the effort continues and both the [vSphere](https://github.com/kubernetes/enhancements/issues/1491) and [Azure](https://github.com/kubernetes/enhancements/issues/1885) in-tree driver migration to CSI will be graduating to Stable.
-
-### Support of mixed protocols in Services
-
-Currently, the API validation in Kubernetes that currently rejects Service definitions with different protocols if their type is LoadBalancer. In this release [support will be added that relaxes this validation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1435-mixed-protocol-lb). This feature depends on a strong interaction with the different cloud providers and for anyone planning to use it, a closer reading of the implications and risks is advised.
-
 ## Looking ahead {#looking-ahead}
 
 The official list of [API removals](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#v1-27)) planned for Kubernetes 1.27 includes:
