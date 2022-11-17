@@ -819,7 +819,7 @@ also start and end with an alphanumeric character.
 
 For example, the names `123-abc` and `web` are valid, but `123_abc` and `-web` are not.
 -->
-与一般的Kubernetes名称一样，端口名称只能包含小写字母数字字符 和 `-`。
+与一般的 Kubernetes 名称一样，端口名称只能包含小写字母数字字符 和 `-`。
 端口名称还必须以字母数字字符开头和结尾。
 
 例如，名称 `123-abc` 和 `web` 有效，但是 `123_abc` 和 `-web` 无效。
@@ -1918,9 +1918,9 @@ the NLB Target Group's health check on the auto-assigned
 `.spec.healthCheckNodePort` and not receive any traffic.
 -->
 与经典弹性负载均衡器不同，网络负载均衡器（NLB）将客户端的 IP 地址转发到该节点。
-如果服务的 `.spec.externalTrafficPolicy` 设置为 `Cluster` ，则客户端的IP地址不会传达到最终的 Pod。
+如果服务的 `.spec.externalTrafficPolicy` 设置为 `Cluster` ，则客户端的 IP 地址不会传达到最终的 Pod。
 
-通过将 `.spec.externalTrafficPolicy` 设置为 `Local`，客户端IP地址将传播到最终的 Pod，
+通过将 `.spec.externalTrafficPolicy` 设置为 `Local`，客户端 IP 地址将传播到最终的 Pod，
 但这可能导致流量分配不均。
 没有针对特定 LoadBalancer 服务的任何 Pod 的节点将无法通过自动分配的
 `.spec.healthCheckNodePort` 进行 NLB 目标组的运行状况检查，并且不会收到任何流量。
@@ -2213,7 +2213,7 @@ The previous information should be sufficient for many people who want to
 use Services.  However, there is a lot going on behind the scenes that may be
 worth understanding.
 -->
-## 虚拟IP实施 {#the-gory-details-of-virtual-ips}
+## 虚拟 IP 实施 {#the-gory-details-of-virtual-ips}
 
 对很多想使用 Service 的人来说，前面的信息应该足够了。
 然而，有很多内部原理性的内容，还是值去理解的。
@@ -2468,7 +2468,7 @@ assignment of multiple interfaces and IP addresses to a Pod.
 
 NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
 -->
-支持多宿主SCTP关联要求 CNI 插件能够支持为一个 Pod 分配多个接口和 IP 地址。
+支持多宿主 SCTP 关联要求 CNI 插件能够支持为一个 Pod 分配多个接口和 IP 地址。
 
 用于多宿主 SCTP 关联的 NAT 在相应的内核模块中需要特殊的逻辑。
 {{< /warning >}}
