@@ -33,7 +33,7 @@ Run the following command:
 
 ```shell
 kubectl create secret generic db-user-pass \
-    --from-literal=username=devuser \
+    --from-literal=username=admin \
     --from-literal=password='S!B\*d$zDsb='
 ```
 You must use single quotes `''` to escape special characters such as `$`, `\`,
