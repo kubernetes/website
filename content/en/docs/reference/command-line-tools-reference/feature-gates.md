@@ -75,9 +75,6 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationPortworx` | `false` | Alpha | 1.23 | 1.24 |
 | `CSIMigrationPortworx` | `false` | Beta | 1.25 | |
 | `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
-| `CSIMigrationvSphere` | `false` | Alpha | 1.18 | 1.18 |
-| `CSIMigrationvSphere` | `false` | Beta | 1.19 | 1.24 |
-| `CSIMigrationvSphere` | `true` | Beta | 1.25 | |
 | `CSINodeExpandSecret` | `false` | Alpha | 1.25 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
@@ -231,6 +228,10 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationGCE` | `false` | Beta | 1.17 | 1.22 |
 | `CSIMigrationGCE` | `true` | Beta | 1.23 | 1.24 |
 | `CSIMigrationGCE` | `true` | GA | 1.25 | - |
+| `CSIMigrationvSphere` | `false` | Alpha | 1.18 | 1.18 |
+| `CSIMigrationvSphere` | `false` | Beta | 1.19 | 1.24 |
+| `CSIMigrationvSphere` | `true` | Beta | 1.25 | 1.25 |
+| `CSIMigrationvSphere` | `true` | GA | 1.26 | - |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
 | `CSIMigrationOpenStack` | `true` | Beta | 1.18 | 1.23 |
 | `CSIMigrationOpenStack` | `true` | GA | 1.24 | |
