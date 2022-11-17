@@ -104,7 +104,7 @@ Several unused option arguments for the `kubectl run` subcommand will be [marked
 * `--timeout`
 * `--wait`
 
-These flags are already ignored so no impact is expected: the explicit deprecation sets a warning message and prepares the removal of the flags in a future release.
+These arguments are already ignored so no impact is expected: the explicit deprecation sets a warning message and prepares the removal of the argumentsin a future release.
 
 ### Removal of deprecated klog flags
 
