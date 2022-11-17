@@ -108,7 +108,10 @@ These arguments are already ignored so no impact is expected: the explicit depre
 
 ### Removal of legacy command line arguments relating to logging
 
-This change completes the [deprecations of `klogs` flags](https://github.com/kubernetes/kubernetes/pull/112120) which are no longer supported, and have been removed from Kubernetes components.
+Kubernetes v1.26 will [remove](https://github.com/kubernetes/kubernetes/pull/112120) some
+command line arguments relating to logging. These command line arguments were
+already deprecated.
+For more information, see [Deprecate klog specific flags in Kubernetes Components] (https://github.com/kubernetes/enhancements/tree/3cb66bd0a1ef973ebcc974f935f0ac5cba9db4b2/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components).
 
 ## Additional changes for Kubernetes v1.26 {#additional-changes}
 
