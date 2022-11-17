@@ -110,7 +110,7 @@ Você pode atualizar seu cluster executando o playbook de atualização do clust
 
 Você pode redefinir seus nós e eliminar todos os componentes instalados com o Kubespray por meio do playbook de [redefinição](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml).
 
-{{< Cuidado >}}
+{{< caution >}}
 Ao executar o playbook de redefinição, certifique-se de não atingir acidentalmente seu cluster de produção!
 {{< /caution >}}
 
