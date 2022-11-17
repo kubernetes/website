@@ -90,8 +90,6 @@ For a reference to old feature gates that are removed, please refer to
 | `CustomResourceValidationExpressions` | `true` | Beta | 1.25 | |
 | `DelegateFSGroupToCSIDriver` | `false` | Alpha | 1.22 | 1.22 |
 | `DelegateFSGroupToCSIDriver` | `true` | Beta | 1.23 | |
-| `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
-| `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DisableCloudProviders` | `false` | Alpha | 1.22 | |
 | `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | |
 | `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
@@ -253,6 +251,9 @@ For a reference to old feature gates that are removed, please refer to
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | 1.24 |
 | `DisableAcceleratorUsageMetrics` | `true` | GA | 1.25 |- |
+| `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
+| `DevicePlugins` | `true` | Beta | 1.10 | 1.25 |
+| `DevicePlugins` | `true` | GA | 1.26 | - |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | 1.18 |
 | `DryRun` | `true` | GA | 1.19 | - |
