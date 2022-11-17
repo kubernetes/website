@@ -35,7 +35,7 @@ As well as container runtimes themselves, that there are tools like [stargz-snap
 
 In addition to the above, Kubernetes v1.26 is targeted to include several additional removals and deprecations.
 
-### Removal of the `v1beta1` flow control resources API
+### Removal of the `v1beta1` flow control API group
 
 The `flowcontrol.apiserver.k8s.io/v1beta1` API version of FlowSchema and PriorityLevelConfiguration [will no longer be served in v1.26](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#flowcontrol-resources-v126). Users should migrate manifests and API clients to use the `flowcontrol.apiserver.k8s.io/v1beta2` API version, available since v1.23.
 
