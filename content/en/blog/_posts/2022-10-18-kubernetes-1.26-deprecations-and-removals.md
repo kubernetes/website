@@ -25,7 +25,11 @@ Following the adoption of the [Container Runtime Interface](https://kubernetes.i
 
 The Kubernetes project recommends using CRI version `v1`; in Kubernetes v1.25 the kubelet can also negotiate the use of CRI `v1alpha2` (which was deprecated along at the same time as adding support for the stable `v1` interface).
 
-This version will [remove CRI `v1alpha2` support](https://github.com/kubernetes/kubernetes/pull/110618) entirely, which will result in the kubelet not registering the node if the container runtime doesn't support `v1`. This means that [containerd 1.5](https://github.com/containerd/containerd/blob/main/RELEASES.md), which only supports `v1alpha2`, will not be supported in Kubernetes 1.26, and as such upgrading to containerd version 1.6 or higher must be done before upgrading to Kubernetes v1.26. Other container runtimes that only support the `v1alpha2` are equally affected: users should contact their container runtime vendor for additional instructions in how to move forward. Note, that there are tools like [stargz-snapshotter](https://github.com/containerd/stargz-snapshotter) that act as a proxy between kubelet and container runtime and those also might be affected.
+Kubernetes v1.26 will not support CRI `v1alpha2`. That [removal](https://github.com/kubernetes/kubernetes/pull/110618) will result in the kubelet not registering the node if the container runtime doesn't support CRI `v1`. This means that containerd minor version 1.5 and older will not be supported in Kubernetes 1.26; if you use containerd, you will need to upgrade to containerd version 1.6.0 or later **before** you upgrade that node to Kubernetes v1.26. Other container runtimes that only support the `v1alpha2` are equally affected: if that affects you, you should contact the container runtime vendor for advice or check their website for additional instructions in how to move forward.
+
+If you want to benefit from v1.26 features and still use an older container runtime, you can run an older kubelet. The [supported skew](/releases/version-skew-policy/#kubelet) for the kubelet allows you to run a v1.25 kubelet, which still is still compatible with `v1alpha2` CRI support, even if you upgrade the control plane to the 1.26 minor release of Kubernetes.
+
+As well as container runtimes themselves, that there are tools like [stargz-snapshotter](https://github.com/containerd/stargz-snapshotter) that act as a proxy between kubelet and container runtime and those also might be affected.
 
 ## Deprecations and removals in Kubernetes v1.26 {#deprecations-removals}
 
