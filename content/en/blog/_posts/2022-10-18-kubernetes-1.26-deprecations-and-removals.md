@@ -83,7 +83,7 @@ that contained the configuration data that the kubelet should use.
 Dynamic kubelet configuration was removed from the kubelet in v1.24, and will be
 [removed from the API server](https://github.com/kubernetes/kubernetes/pull/112643) in the v1.26 release.
 
-### Deprecations of `kube-apiserver` flag
+### Deprecations for `kube-apiserver` command line arguments
 
 The `--master-service-namespace` command line argument to the kube-apiserver doesn't have
 any effect, and was already informally [deprecated](https://github.com/kubernetes/kubernetes/pull/38186).
