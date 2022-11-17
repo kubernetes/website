@@ -148,7 +148,8 @@ For a reference to old feature gates that are removed, please refer to
 | `MultiCIDRRangeAllocator` | `false` | Alpha | 1.25 | |
 | `NetworkPolicyStatus` | `false` | Alpha | 1.24 |  |
 | `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | |
-| `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | |
+| `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | 1.25 |
+| `NodeOutOfServiceVolumeDetach` | `true` | Beta | 1.26 | |
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIEnums` | `true` | Beta | 1.24 | |
