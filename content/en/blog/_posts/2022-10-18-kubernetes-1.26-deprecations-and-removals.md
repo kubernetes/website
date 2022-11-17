@@ -93,7 +93,7 @@ The Kubernetes project does not expect any impact from this deprecation and remo
 
 ### Deprecations for `kubectl run` command line arguments
 
-Several unused flags will be [marked as deprecated](https://github.com/kubernetes/kubernetes/pull/112261), including:
+Several unused option arguments for the `kubectl run` subcommand will be [marked as deprecated](https://github.com/kubernetes/kubernetes/pull/112261), including:
 
 * `--cascade`
 * `--filename`
