@@ -77,7 +77,11 @@ Users that use this flag are strongly advised to make the necessary changes prio
 
 ### Removal of dynamic kubelet configuration
 
-Dynamic Kubelet Configuration allowed [new Kubelet configurations to be rolled out in a live cluster](https://github.com/kubernetes/enhancements/tree/2cd758cc6ab617a93f578b40e97728261ab886ed/keps/sig-node/281-dynamic-kubelet-configuration), by enabling specifying the source of the node's configuration for the `DynamicKubeletConfig` feature. Dynamic Kubelet Configuration was removed from kubelet in v1.24, [and will be removed from the API server in this release](https://github.com/kubernetes/kubernetes/pull/112643).
+_Dynamic kubelet configuration_ allowed [new kubelet configurations to be rolled out via the Kubernetes API](https://github.com/kubernetes/enhancements/tree/2cd758cc6ab617a93f578b40e97728261ab886ed/keps/sig-node/281-dynamic-kubelet-configuration), even in a live cluster.
+A cluster operator could reconfigure the kubelet on a Node by specifying a ConfigMap
+that contained the configuration data that the kubelet should use.
+Dynamic kubelet configuration was removed from the kubelet in v1.24, and will be
+[removed from the API server](https://github.com/kubernetes/kubernetes/pull/112643) in the v1.26 release.
 
 ### Deprecations of `kube-apiserver` flag
 
