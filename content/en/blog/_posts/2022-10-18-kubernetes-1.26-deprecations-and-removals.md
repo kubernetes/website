@@ -69,6 +69,10 @@ As part of this, Kubernetes v1.26 will remove the the deprecated in-tree storage
 https://github.com/kubernetes/cloud-provider-openstack instead.
 For more information, visit [Cinder in-tree to CSI driver migration](https://github.com/kubernetes/enhancements/issues/1489).
 
+### Removal of the GlusterFS in-tree driver
+
+The in-tree GlusterFS driver was [deprecated in v1.25](https://kubernetes.io/blog/2022/08/23/kubernetes-v1-25-release/#deprecations-and-removals), and will be removed from Kubernetes v1.26.
+
 ### Deprecation of non-inclusive `kubectl` flag
 
 As part of the implementation effort of the [Inclusive Naming Initiative](https://www.cncf.io/announcements/2021/10/13/inclusive-naming-initiative-announces-new-community-resources-for-a-more-inclusive-future/),
