@@ -177,8 +177,6 @@ For a reference to old feature gates that are removed, please refer to
 | `ServerSideFieldValidation` | `true` | Beta | 1.25 | |
 | `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | 1.24 |
 | `ServiceIPStaticSubrange` | `true` | Beta | 1.25 | |
-| `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
-| `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
 | `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | |
@@ -308,6 +306,9 @@ For a reference to old feature gates that are removed, please refer to
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | 1.21 |
 | `ServerSideApply` | `true` | GA | 1.22 | - |
+| `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
+| `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | 1.25 |
+| `ServiceInternalTrafficPolicy` | `true` | GA | 1.26 | - |
 | `ServiceLBNodePortControl` | `false` | Alpha | 1.20 | 1.21 |
 | `ServiceLBNodePortControl` | `true` | Beta | 1.22 | 1.23 |
 | `ServiceLBNodePortControl` | `true` | GA | 1.24 | - |
