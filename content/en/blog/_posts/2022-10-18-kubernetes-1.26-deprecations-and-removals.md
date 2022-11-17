@@ -45,7 +45,17 @@ The `autoscaling/v2beta2` API version of HorizontalPodAutoscaler [will no longer
 
 ### Removal of in-tree credential management code
 
-In this release, vendor-specific authentication code (i.e. used for authentication against GKE or AKS) [will be removed](https://github.com/kubernetes/kubernetes/pull/112341) from both `client-go` and `kubectl`,  being replaced by a plugin architecture. Additional guidance on how to proceed is available for [Azure](https://github.com/Azure/kubelogin) and [Google Cloud](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke).
+In this upcoming release, legacy vendor-specific authentication code that is part of Kubernetes
+will be [removed](https://github.com/kubernetes/kubernetes/pull/112341) from both
+`client-go` and `kubectl`.
+The existing mechanism supports authentication for two specific cloud providers:
+Azure and Google Cloud.
+In its place, Kubernetes already offers a vendor-neutral
+[authentication plugin mechanism](/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins) -
+you can switch over right now, before the v1.26 release happens.
+If you're affected, you can find additional guidance on how to proceed for
+[Azure](https://github.com/Azure/kubelogin#readme) and for
+[Google Cloud](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke).
 
 ### Removal of `kube-proxy` userspace modes
 
