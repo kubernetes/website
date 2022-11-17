@@ -63,7 +63,11 @@ The `userspace` proxy mode, deprecated for over a year, is [no longer supported 
 
 ### Removal of in-tree OpenStack cloud provider
 
-The in-tree cloud provider for OpenStack (and the Cinder volume provider) [will be removed](https://github.com/kubernetes/kubernetes/pull/67782). Users are advised to use the external cloud provider and CSI driver from https://github.com/kubernetes/cloud-provider-openstack instead.
+Kubernetes is switching from in-tree code for storage integrations, in favor of the Container Storage Interface (CSI).
+As part of this, Kubernetes v1.26 will remove the the deprecated in-tree storage integration for OpenStack
+(the `cinder` volume type). You should migrate to external cloud provider and CSI driver from
+https://github.com/kubernetes/cloud-provider-openstack instead.
+For more information, visit [Cinder in-tree to CSI driver migration](https://github.com/kubernetes/enhancements/issues/1489).
 
 ### Deprecation of non-inclusive `kubectl` flag
 
