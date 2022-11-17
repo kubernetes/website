@@ -91,7 +91,7 @@ That command line argument wil be formally marked as deprecated in v1.26, prepar
 removal in a future release.
 The Kubernetes project does not expect any impact from this deprecation and removal.
 
-### Deprecation of several unused `kubectl run` flags
+### Deprecations for `kubectl run` command line arguments
 
 Several unused flags will be [marked as deprecated](https://github.com/kubernetes/kubernetes/pull/112261), including:
 
