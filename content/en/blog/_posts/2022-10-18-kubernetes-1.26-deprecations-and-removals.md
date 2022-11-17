@@ -106,7 +106,7 @@ Several unused option arguments for the `kubectl run` subcommand will be [marked
 
 These arguments are already ignored so no impact is expected: the explicit deprecation sets a warning message and prepares the removal of the argumentsin a future release.
 
-### Removal of deprecated klog flags
+### Removal of legacy command line arguments relating to logging
 
 This change completes the [deprecations of `klogs` flags](https://github.com/kubernetes/kubernetes/pull/112120) which are no longer supported, and have been removed from Kubernetes components.
 
