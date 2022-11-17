@@ -120,7 +120,7 @@ Currently, the API validation in Kubernetes that currently rejects Service defin
 
 ## Looking ahead {#looking-ahead}
 
-The official list of API removals planned for [Kubernetes 1.27](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#v1-27) currently includes:
+The official list of [API removals](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#v1-27)) planned for Kubernetes 1.27 includes:
 
 * The beta CSIStorageCapacity (`storage.k8s.io/v1beta1`)
 
