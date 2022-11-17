@@ -20,7 +20,7 @@ content_type: reference
 
 * 쿠버네티스 블로그: [도커심 제거가 다가오고 있다. 준비됐는가?](/blog/2021/11/12/are-you-ready-for-dockershim-removal/) (published 2021/11/12)
 
-* 쿠버네티스 문서: [도커심에서 마이그레이션하기](/docs/tasks/administer-cluster/migrating-from-dockershim/)
+* 쿠버네티스 문서: [도커심에서 마이그레이션하기](/ko/docs/tasks/administer-cluster/migrating-from-dockershim/)
 
 * 쿠버네티스 문서: [컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/)
 

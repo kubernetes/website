@@ -185,7 +185,7 @@ volumes:
 
 - `--audit-webhook-config-file` 은 웹훅 구성이 있는 파일의 경로를 지정한다. 
   웹훅 구성은 효과적으로 전문화된
-  [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-cluster)이다.
+  [kubeconfig](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)이다.
 - `--audit-webhook-initial-backoff` 는 첫 번째 실패한 요청 후 다시 시도하기 전에 대기할 시간을 지정한다.
   이후 요청은 지수의 백오프로 재시도 된다.
 
