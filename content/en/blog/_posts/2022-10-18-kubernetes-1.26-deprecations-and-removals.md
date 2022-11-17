@@ -21,7 +21,9 @@ Whether an API is removed as a result of a feature graduating from beta to stabl
 
 ## A note about the removal of the CRI `v1alpha2` API and containerd 1.5 support {#cri-api-removal}
 
-Following the adoption of the [Container Runtime Interface](https://kubernetes.io/docs/concepts/architecture/cri/) (CRI) and the [removal of dockershim] in v1.24 , the CRI API is the way through which Kubernetes interacts with the different container runtimes, with the kubelet communicating with them through a specific CRI API version. Currently, that version is `v1`, but the kubelet can also negotiate the use of CRI `v1alpha2`, even though it's considered deprecated.
+Following the adoption of the [Container Runtime Interface](https://kubernetes.io/docs/concepts/architecture/cri/) (CRI) and the [removal of dockershim] in v1.24 , the CRI is the supported and documented way through which Kubernetes interacts withdifferent container runtimes. Each kubelet negotiates which version of CRI to use with the container runtime on that node.
+
+The Kubernetes project recommends using CRI version `v1`; in Kubernetes v1.25 the kubelet can also negotiate the use of CRI `v1alpha2` (which was deprecated along at the same time as adding support for the stable `v1` interface).
 
 This version will [remove CRI `v1alpha2` support](https://github.com/kubernetes/kubernetes/pull/110618) entirely, which will result in the kubelet not registering the node if the container runtime doesn't support `v1`. This means that [containerd 1.5](https://github.com/containerd/containerd/blob/main/RELEASES.md), which only supports `v1alpha2`, will not be supported in Kubernetes 1.26, and as such upgrading to containerd version 1.6 or higher must be done before upgrading to Kubernetes v1.26. Other container runtimes that only support the `v1alpha2` are equally affected: users should contact their container runtime vendor for additional instructions in how to move forward. Note, that there are tools like [stargz-snapshotter](https://github.com/containerd/stargz-snapshotter) that act as a proxy between kubelet and container runtime and those also might be affected.
 
