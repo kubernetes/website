@@ -85,7 +85,11 @@ Dynamic kubelet configuration was removed from the kubelet in v1.24, and will be
 
 ### Deprecations of `kube-apiserver` flag
 
-The `master-service-namespace` flag was [already deprecated](https://github.com/kubernetes/kubernetes/pull/112797) and doesn't have any effect, so we do not expect any impact from this deprecation. It will nonetheless be explicitly marked as deprecated in v1.26, preparing the removal in a future release.
+The `--master-service-namespace` command line argument to the kube-apiserver doesn't have
+any effect, and was already informally [deprecated](https://github.com/kubernetes/kubernetes/pull/38186).
+That command line argument wil be formally marked as deprecated in v1.26, preparing for its
+removal in a future release.
+The Kubernetes project does not expect any impact from this deprecation and removal.
 
 ### Deprecation of several unused `kubectl run` flags
 
