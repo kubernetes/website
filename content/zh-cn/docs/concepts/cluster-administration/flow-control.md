@@ -484,7 +484,7 @@ incoming request is for a resource or non-resource URL) matches the request.
 当给定的请求与某个 FlowSchema 的 `rules` 的其中一条匹配，那么就认为该请求与该 FlowSchema 匹配。
 判断规则与该请求是否匹配，**不仅**要求该条规则的 `subjects` 字段至少存在一个与该请求相匹配，
 **而且**要求该条规则的 `resourceRules` 或 `nonResourceRules`
-（取决于传入请求是针对资源URL还是非资源URL）字段至少存在一个与该请求相匹配。
+（取决于传入请求是针对资源 URL 还是非资源 URL）字段至少存在一个与该请求相匹配。
 
 <!--
 For the `name` field in subjects, and the `verbs`, `apiGroups`, `resources`,
