@@ -67,7 +67,9 @@ The in-tree cloud provider for OpenStack (and the Cinder volume provider) [will 
 
 ### Deprecation of non-inclusive `kubectl` flag
 
-A part of the implementation effort of the [Inclusive Naming Initiative](https://www.cncf.io/announcements/2021/10/13/inclusive-naming-initiative-announces-new-community-resources-for-a-more-inclusive-future/), the `--prune-whitelist` flag [will be deprecated](https://github.com/kubernetes/kubernetes/pull/113116), and replaced with `--prune-allowlist`. Users that use this flag are strongly advised to make the necessary changes prior to the final removal of the flag, in a future release.
+As part of the implementation effort of the [Inclusive Naming Initiative](https://www.cncf.io/announcements/2021/10/13/inclusive-naming-initiative-announces-new-community-resources-for-a-more-inclusive-future/),
+the `--prune-whitelist` flag will be [deprecated](https://github.com/kubernetes/kubernetes/pull/113116), and replaced with `--prune-allowlist`.
+Users that use this flag are strongly advised to make the necessary changes prior to the final removal of the flag, in a future release.
 
 ### Removal of Dynamic Kubelet configuration
 
