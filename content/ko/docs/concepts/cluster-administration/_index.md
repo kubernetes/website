@@ -74,7 +74,7 @@ no_list: true
   관리자가 `sysctl` 커맨드라인 도구를 사용하여 커널 파라미터를 설정하는 방법에 대해 설명한다
 .
 
-* [감사(audit)](/docs/tasks/debug/debug-cluster/audit/)는 
+* [감사(audit)](/ko/docs/tasks/debug/debug-cluster/audit/)는 
   쿠버네티스의 감사 로그를 다루는 방법에 대해 설명한다.
 
 ### kubelet 보안

@@ -631,12 +631,12 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면,
 - `APIResponseCompression`: `LIST` 또는 `GET` 요청에 대한 API 응답을 압축한다.
 - `APIServerIdentity`: 클러스터의 각 API 서버에 ID를 할당한다.
 - `APIServerTracing`: API 서버에서 분산 추적(tracing)에 대한 지원을 추가한다.
-  자세한 내용은 [쿠버네티스 시스템 컴포넌트에 대한 추적](/ko/docs/concepts/cluster-administration/system-traces)페이지를 살펴본다.
+  자세한 내용은 [쿠버네티스 시스템 컴포넌트에 대한 추적](/ko/docs/concepts/cluster-administration/system-traces/)페이지를 살펴본다.
 - `Accelerators`: 도커 엔진 사용 시 Nvidia GPU 지원을 활성화하는
   플러그인의 초기 형태를 제공하였으며, 사용 중단되었다.
   대안을 위해서는 [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)을
   확인한다.
-- `AdvancedAuditing`: [고급 감사](/docs/tasks/debug/debug-cluster/audit/#advanced-audit) 기능을 활성화한다.
+- `AdvancedAuditing`: [고급 감사](/ko/docs/tasks/debug/debug-cluster/audit/#advanced-audit) 기능을 활성화한다.
 - `AffinityInAnnotations`: [파드 어피니티 또는 안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
   설정을 활성화한다.
 - `AllowExtTrafficLocalEndpoints`: 서비스가 외부 요청을 노드의 로컬 엔드포인트로 라우팅할 수 있도록 한다.
@@ -1008,7 +1008,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면,
 - `KubeletTracing`: kubelet에 분산 추적에 대한 지원을 추가한다.
   활성화된 경우, kubelet CRI 인터페이스와 인증된 http 서버들은
   OpenTelemetry 추적 범위를 형성하는 데 도움을 준다.
-  자세한 내용은 [쿠버네티스 시스템 컴포넌트에 대한 추적](/docs/concepts/cluster-administration/system-traces) 페이지를 확인한다.
+  자세한 내용은 [쿠버네티스 시스템 컴포넌트에 대한 추적](/ko/docs/concepts/cluster-administration/system-traces/) 페이지를 확인한다.
 - `LegacyServiceAccountTokenNoAutoGeneration`: 시크릿 기반
   [서비스 어카운트 토큰](/docs/reference/access-authn-authz/authentication/#service-account-tokens)의 자동 생성을 중단한다.
 - `LocalStorageCapacityIsolation`:
