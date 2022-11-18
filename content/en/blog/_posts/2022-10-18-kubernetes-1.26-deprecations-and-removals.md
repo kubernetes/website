@@ -115,11 +115,11 @@ These arguments are already ignored so no impact is expected: the explicit depre
 Kubernetes v1.26 will [remove](https://github.com/kubernetes/kubernetes/pull/112120) some
 command line arguments relating to logging. These command line arguments were
 already deprecated.
-For more information, see [Deprecate klog specific flags in Kubernetes Components] (https://github.com/kubernetes/enhancements/tree/3cb66bd0a1ef973ebcc974f935f0ac5cba9db4b2/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components).
+For more information, see [Deprecate klog specific flags in Kubernetes Components](https://github.com/kubernetes/enhancements/tree/3cb66bd0a1ef973ebcc974f935f0ac5cba9db4b2/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components).
 
 ## Looking ahead {#looking-ahead}
 
-The official list of [API removals](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#v1-27)) planned for Kubernetes 1.27 includes:
+The official list of [API removals](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#v1-27) planned for Kubernetes 1.27 includes:
 
 * All beta versions of the CSIStorageCapacity API; specifically: `storage.k8s.io/v1beta1`
 
