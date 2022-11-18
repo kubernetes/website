@@ -57,7 +57,7 @@ kubectl get pod test-pod
 
 The output reveals it's in `SchedulingGated` state:
 
-```bash
+```none
 NAME       READY   STATUS            RESTARTS   AGE
 test-pod   0/1     SchedulingGated   0          7s
 ```
@@ -70,7 +70,7 @@ kubectl get pod test-pod -o jsonpath='{.spec.schedulingGates}'
 
 The output is:
 
-```bash
+```none
 [{"name":"foo"},{"name":"bar"}]
 ```
 
@@ -94,7 +94,7 @@ kubectl get pod test-pod -o wide
 Given the test-pod doesn't request any CPU/memory resources, it's expected that this Pod's state get
 transited from previous `SchedulingGated` to `Running`:
 
-```bash
+```none
 NAME       READY   STATUS    RESTARTS   AGE   IP         NODE  
 test-pod   1/1     Running   0          15s   10.0.0.4   node-2
 ```
