@@ -112,7 +112,8 @@ For a reference to old feature gates that are removed, please refer to
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
 | `IPTablesOwnershipCleanup` | `false` | Alpha | 1.25 | |
 | `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
-| `JobPodFailurePolicy` | `false` | Alpha | 1.25 | - |
+| `JobPodFailurePolicy` | `false` | Alpha | 1.25 | 1.25 |
+| `JobPodFailurePolicy` | `true` | Beta | 1.26 | |
 | `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
 | `JobReadyPods` | `true` | Beta | 1.24 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
@@ -150,7 +151,8 @@ For a reference to old feature gates that are removed, please refer to
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
-| `PodDisruptionConditions` | `false` | Alpha | 1.25 | - |
+| `PodDisruptionConditions` | `false` | Alpha | 1.25 | 1.25 |
+| `PodDisruptionConditions` | `true` | Beta | 1.26 | |
 | `PodHasNetworkCondition` | `false` | Alpha | 1.25 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
 | `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | 1.24 |
