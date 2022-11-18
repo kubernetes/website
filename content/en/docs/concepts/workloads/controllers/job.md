@@ -290,6 +290,10 @@ starts a new Pod.  This means that your application needs to handle the case whe
 pod.  In particular, it needs to handle temporary files, locks, incomplete output and the like
 caused by previous runs.
 
+By default, each pod failure is counted towards the `.spec.backoffLimit` limit,
+see [pod backoff failure policy](#pod-backoff-failure-policy). However, you can
+customize handling of pod failures by setting the Job's [pod failure policy](#pod-failure-policy).
+
 Note that even if you specify `.spec.parallelism = 1` and `.spec.completions = 1` and
 `.spec.template.spec.restartPolicy = "Never"`, the same program may
 sometimes be started twice.
@@ -694,7 +698,7 @@ mismatch.
 
 ### Pod failure policy {#pod-failure-policy}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
 You can only configure a Pod failure policy for a Job if you have the
@@ -703,7 +707,7 @@ enabled in your cluster. Additionally, it is recommended
 to enable the `PodDisruptionConditions` feature gate in order to be able to detect and handle
 Pod disruption conditions in the Pod failure policy (see also:
 [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)). Both feature gates are
-available in Kubernetes v1.25.
+available in Kubernetes {{< skew currentVersion >}}.
 {{< /note >}}
 
 A Pod failure policy, defined with the `.spec.podFailurePolicy` field, enables
