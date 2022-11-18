@@ -26,7 +26,7 @@ For example, you can only have one Pod named `myapp-1234` within the same [names
 每个 Kubernetes 对象也有一个 [**UID**](#uids) 来标识在整个集群中的唯一性。
 
 比如，在同一个[名字空间](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/)
-中有一个名为 `myapp-1234` 的 Pod，但是可以命名一个 Pod 和一个 Deployment 同为 `myapp-1234`。
+中只能有一个名为 `myapp-1234` 的 Pod，但是可以命名一个 Pod 和一个 Deployment 同为 `myapp-1234`。
 
 <!--
 For non-unique user-provided attributes, Kubernetes provides [labels](/docs/concepts/overview/working-with-objects/labels/) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
