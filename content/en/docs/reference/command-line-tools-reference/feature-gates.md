@@ -248,7 +248,7 @@ For a reference to old feature gates that are removed, please refer to
 | `DefaultPodTopologySpread` | `true` | Beta | 1.20 | 1.23 |
 | `DefaultPodTopologySpread` | `true` | GA | 1.24 | - |
 | `DelegateFSGroupToCSIDriver` | `false` | Alpha | 1.22 | 1.22 |
-| `DelegateFSGroupToCSIDriver` | `true` | Beta | 1.23 | |
+| `DelegateFSGroupToCSIDriver` | `true` | Beta | 1.23 | 1.25 |
 | `DelegateFSGroupToCSIDriver` | `true` | GA | 1.26 |-|
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | 1.24 |
