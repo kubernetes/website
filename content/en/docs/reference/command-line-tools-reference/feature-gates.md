@@ -648,8 +648,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Pod Affinity Namespace Selector](/docs/concepts/scheduling-eviction/assign-pod-node/#namespace-selector)
   and [CrossNamespacePodAffinity](/docs/concepts/policy/resource-quotas/#cross-namespace-pod-affinity-quota)
   quota scope features.
-- `PodAndContainerStatsFromCRI`: Configure the kubelet to gather container and
-  pod stats from the CRI container runtime rather than gathering them from cAdvisor.
+- `PodAndContainerStatsFromCRI`: Configure the kubelet to gather container and pod stats from the CRI container runtime rather than gathering them from cAdvisor.
+  As of 1.26, this also includes gathering metrics from CRI and emitting them over `/metrics/cadvisor` (rather than having cAdvisor emit them directly).
 - `PodDisruptionConditions`: Enables support for appending a dedicated pod condition indicating that the pod is being deleted due to a disruption.
 - `PodHasNetworkCondition`: Enable the kubelet to mark the [PodHasNetwork](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network) condition on pods.
 - `PodSecurity`: Enables the `PodSecurity` admission plugin.
