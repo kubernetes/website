@@ -186,6 +186,7 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
 | `TopologyManager` | `true` | Beta | 1.18 | |
 | `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | |
+| `ValidatingAdmissionPolicy`          | `false` | Alpha | 1.26 | |
 | `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
@@ -729,6 +730,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   assignments for different components in Kubernetes. See
   [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
 - `UserNamespacesStatelessPodsSupport`: Enable user namespace support for stateless Pods.
+- `ValidatingAdmissionPolicy`: Enable support for CEL validations be used in Admission Control.
 - `VolumeCapacityPriority`: Enable support for prioritizing nodes in different
   topologies based on available PV capacity.
 - `WatchBookmark`: Enable support for watch bookmark events.
