@@ -1,3 +1,5 @@
 id: user-type
 name: User Type
 description: Represents a common type of Kubernetes user.
+nameKey: canonical_tag_user_type_name
+descriptionKey: canonical_tag_user_type_description
