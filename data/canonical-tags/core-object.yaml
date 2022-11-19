@@ -1,5 +1,1 @@
 id: core-object
-name: Core Object
-description: A resource type that Kubernetes supports by default.
-nameKey: canonical_tag_core_object_name
-descriptionKey: canonical_tag_core_object_description
