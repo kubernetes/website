@@ -4,6 +4,10 @@ title: "PodSecurityPolicy Deprecation: Past, Present, and Future"
 date: 2021-04-06
 slug: podsecuritypolicy-deprecation-past-present-and-future
 ---
+***Update 2022/08/23:***
+*With the release of Kubernetes v1.25, PodSecurityPolicy has been removed. This now-historical blog post documents the beginning of the removal process.*
+
+*The release blog has more information about the removal of PSP [here](https://kubernetes.io/blog/2022/08/23/kubernetes-v1-25-release/#pod-security-changes).*
 
 **Author:** Tabitha Sable (Kubernetes SIG Security)
 
