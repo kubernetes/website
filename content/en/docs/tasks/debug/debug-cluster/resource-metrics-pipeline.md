@@ -243,14 +243,17 @@ You can also check out the following:
 * [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
 * [Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/)
 
-### Summary API source
+## Node metrics data
 
-The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) gathers stats at the node,
-volume, pod and container level, and emits this information in
-the [Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
-for consumers to read.
+The [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+gathers metric statistics at the node, volume, pod and container level,
+and emits this information in the
+[Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go).
 
-Here is an example of a Summary API request for a `minikube` node:
+You can send a proxied request to the stats summary API via the
+Kubernetes API server.
+
+Here is an example of a Summary API request for a node named `minikube`:
 
 ```shell
 kubectl get --raw "/api/v1/nodes/minikube/proxy/stats/summary"
@@ -263,6 +266,10 @@ curl http://localhost:8080/api/v1/nodes/minikube/proxy/stats/summary
 ```
 
 {{< note >}}
-The summary API `/stats/summary` endpoint will be replaced by the `/metrics/resource` endpoint
-beginning with metrics-server 0.6.x.
+Beginning with `metrics-server` 0.6.x, `metrics-server` queries the `/metrics/resource`
+kubelet endpoint, and not `/stats/summary`.
 {{< /note >}}
+
+
+By default, Kubernetes fetches node summary metrics data using an embedded
+[cAdvisor](https://github.com/google/cadvisor) that runs with in the kubelet.
