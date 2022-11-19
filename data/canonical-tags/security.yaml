@@ -1,3 +1,5 @@
 id: security
 name: Security
 description: Keeping Kubernetes applications safe and secure.
+nameKey: canonical_tag_security_name
+descriptionKey: canonical_tag_security_description
