@@ -286,7 +286,7 @@ The `Retain` reclaim policy allows for manual reclamation of the resource. When 
 
 回收策略 `Retain` 使得用户可以手动回收资源。当 PersistentVolumeClaim
 对象被删除时，PersistentVolume 卷仍然存在，对应的数据卷被视为"已释放（released）"。
-由于卷上仍然存在这前一申领人的数据，该卷还不能用于其他申领。
+由于卷上仍然存在着前一申领人的数据，该卷还不能用于其他申领。
 管理员可以通过下面的步骤来手动回收该卷：
 
 <!--
