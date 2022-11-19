@@ -1,3 +1,5 @@
 id: fundamental
 name: Fundamental
 description: Relevant for a first-time user of Kubernetes.
+nameKey: canonical_tag_fundamental_name
+descriptionKey: canonical_tag_fundamental_description
