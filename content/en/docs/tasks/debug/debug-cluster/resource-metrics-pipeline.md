@@ -232,6 +232,8 @@ to collect metrics from each node. Depending on the metrics-server version it us
 * Metrics resource endpoint `/metrics/resource` in version v0.6.0+ or
 * Summary API endpoint `/stats/summary` in older versions
 
+## {{% heading "whatsnext" %}}
+
 To learn more about the metrics-server, see the
 [metrics-server repository](https://github.com/kubernetes-sigs/metrics-server).
 
@@ -243,44 +245,5 @@ You can also check out the following:
 * [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
 * [Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/)
 
-## Node metrics data
-
-The [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
-gathers metric statistics at the node, volume, pod and container level,
-and emits this information in the
-[Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go).
-
-You can send a proxied request to the stats summary API via the
-Kubernetes API server.
-
-Here is an example of a Summary API request for a node named `minikube`:
-
-```shell
-kubectl get --raw "/api/v1/nodes/minikube/proxy/stats/summary"
-```
-
-Here is the same API call using `curl`:
-
-```shell
-curl http://localhost:8080/api/v1/nodes/minikube/proxy/stats/summary
-```
-
-{{< note >}}
-Beginning with `metrics-server` 0.6.x, `metrics-server` queries the `/metrics/resource`
-kubelet endpoint, and not `/stats/summary`.
-{{< /note >}}
-
-### Summary metrics API source {#summary-api-source}
-
-By default, Kubernetes fetches node summary metrics data using an embedded
-[cAdvisor](https://github.com/google/cadvisor) that runs with in the kubelet.
-
-### Summary API data via CRI {#pod-and-container-stats-from-cri}
-
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
-
-If you enable the `PodAndContainerStatsFromCRI`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in your
-cluster, and you use a container runtime that supports statistics access via
-{{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI), then
-the kubelet fetches Pod- and container-level metric data using CRI, and not via cadvisor.
+To learn about how the kubelet serves node metrics, and how you can access those via
+the Kubernetes API, read [Node Metrics Data](/docs/reference/instrumentation/node-metrics).
