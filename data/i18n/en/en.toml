@@ -373,74 +373,74 @@ other = "Warning:"
 [whatsnext_heading]
 other = "What's next"
 
-[canonical_tag_architecture_name]
+[layout_docs_glossary_architecture_name]
 other = "Architecture"
 
-[canonical_tag_architecture_description]
+[layout_docs_glossary_architecture_description]
 other = "The inner components of Kubernetes."
 
-[canonical_tag_community_name]
+[layout_docs_glossary_community_name]
 other = "Community"
 
-[canonical_tag_community_description]
+[layout_docs_glossary_community_description]
 other = "Related to Kubernetes open-source development."
 
-[canonical_tag_core_object_name]
+[layout_docs_glossary_core-object_name]
 other = "Core Object"
 
-[canonical_tag_core_object_description]
+[layout_docs_glossary_core-object_description]
 other = "A resource type that Kubernetes supports by default."
 
-[canonical_tag_extension_name]
+[layout_docs_glossary_extension_name]
 other = "Extension"
 
-[canonical_tag_extension_description]
+[layout_docs_glossary_extension_description]
 other = "Supported customizations of Kubernetes."
 
-[canonical_tag_fundamental_name]
+[layout_docs_glossary_fundamental_name]
 other = "Fundamental"
 
-[canonical_tag_fundamental_description]
+[layout_docs_glossary_fundamental_description]
 other = "Relevant for a first-time user of Kubernetes."
 
-[canonical_tag_networking_name]
+[layout_docs_glossary_networking_name]
 other = "Networking"
 
-[canonical_tag_networking_description]
+[layout_docs_glossary_networking_description]
 other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
 
-[canonical_tag_operation_name]
+[layout_docs_glossary_operation_name]
 other = "Operation"
 
-[canonical_tag_operation_description]
+[layout_docs_glossary_operation_description]
 other = "Starting and maintaining Kubernetes."
 
-[canonical_tag_security_name]
+[layout_docs_glossary_security_name]
 other = "Security"
 
-[canonical_tag_security_description]
+[layout_docs_glossary_security_description]
 other = "Keeping Kubernetes applications safe and secure."
 
-[canonical_tag_storage_name]
+[layout_docs_glossary_storage_name]
 other = "Storage"
 
-[canonical_tag_storage_description]
+[layout_docs_glossary_storage_description]
 other = "How Kubernetes applications handle persistent data."
 
-[canonical_tag_tool_name]
+[layout_docs_glossary_tool_name]
 other = "Tool"
 
-[canonical_tag_tool_description]
+[layout_docs_glossary_tool_description]
 other = "Software that makes Kubernetes easier or better to use."
 
-[canonical_tag_user_type_name]
+[layout_docs_glossary_user-type_name]
 other = "User Type"
 
-[canonical_tag_user_type_description]
+[layout_docs_glossary_user-type_description]
 other = "Represents a common type of Kubernetes user."
 
-[canonical_tag_workload_name]
+[layout_docs_glossary_workload_name]
 other = "Workload"
 
-[canonical_tag_workload_description]
+[layout_docs_glossary_workload_description]
 other = "Applications running on Kubernetes."

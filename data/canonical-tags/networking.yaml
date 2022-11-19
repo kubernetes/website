@@ -1,5 +1,1 @@
 id: networking
-name: Networking
-description: How Kubernetes components talk to each other (and to programs outside the cluster).
-nameKey: canonical_tag_networking_name
-descriptionKey: canonical_tag_networking_description

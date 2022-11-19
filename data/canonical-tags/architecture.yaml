@@ -1,5 +1,1 @@
 id: architecture
-name: Architecture
-description: The inner components of Kubernetes.
-nameKey: canonical_tag_architecture_name
-descriptionKey: canonical_tag_architecture_description
