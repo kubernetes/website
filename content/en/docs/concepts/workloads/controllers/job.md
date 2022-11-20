@@ -819,8 +819,9 @@ annotation `batch.kubernetes.io/job-tracking`. You should **not** manually add
 or remove this annotation from Jobs.
 
 ### Pod Communication Within a Job Using Pod Hostnames
-Some jobs may benefit from using pod hostnames for pod networking rather than pod IPs. 
-For example, IndexedJobs automatically set the pod hostname to be in the format of 
+Pods within a Job might need to communicate among themselves. They could query the Kubernetes API
+to learn the IPs of the other Pods, but it's much simpler to rely on Kubernetes' built-in DNS resolution.
+Jobs in Indexed completion mode automatically set the pod hostname to be in the format of
 `${jobName}-${completionIndex}`, which can be used to deterministically determine
 pod hostnames and enable pod networking *without* needing to create a client connection to
 the Kubernetes control plane to obtain pod hostnames/IPs via API requests. This can be useful
@@ -829,13 +830,21 @@ connection with the Kubernetes API server.
 
 
 To enable pod-to-pod communication using pod hostnames, you must do the following:
+
 1. Set up a [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
-with a valid label selector for the pods created by your job. This will trigger `kube-dns` to cache the hostnames of the pods running your job. One easy way to do this is to use the `job-name: <your-job-name>` selector.
+with a valid label selector for the pods created by your job. This will trigger the 
+Kubernetes' service discovery mechanism to cache the hostnames of 
+the pods running your job (note that the service discovery mechanism does not need to be 
+in the same namepsace as the job pods). One easy way to do this is to use the `job-name: <your-job-name>`
+selector, since the job-name label will be automatically added by Kubernetes. 
+
+**Note**: if you are using MiniKube or a similar tool, you may need to take [extra steps](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/) to ensure you have DNS.
+
 2. Update the template spec in your job with the following: `subdomain: <headless-svc-name>`
    where `<headless-svc-name>` must match the name of your headless service
    exactly. 
 
-Example:
+Example job which completes only after all pods successfully ping eachother using hostnames:
 
 ```yaml
 
@@ -844,47 +853,47 @@ kind: Service
 metadata:
   name: headless-svc
 spec:
-  ports:
-  - port: 80
-    name: web
   clusterIP: None # clusterIP must be None to create a headless service
   selector:
-    app: nginx # must match job template spec label
+    job-name: example-job # must match job template spec label
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: web
+  name: example-job
 spec:
   completions: 3
   parallelism: 3
   completionMode: Indexed
   template:
-    metadata:
-      labels:
-        app: nginx
     spec:
       subdomain: headless-svc # has to match headless service name
       restartPolicy: Never
       containers:
-      - name: nginx
-        image: registry.k8s.io/nginx-slim:0.8
-        ports:
-        - containerPort: 80
-          name: web
+      - name: example-workload
+        image: devel:latest
+        command:
+        - bash
+        - -c
+        - |
+          for i in 0 1 2
+          do
+            gotStatus="-1"
+            wantStatus="0"             
+            while [ $gotStatus -ne $wantStatus ]
+            do                                       
+              ping -c 1 example-job-${i}.headless-svc > /dev/null 2>&1
+              gotStatus=$?                
+              if [ $gotStatus -ne $wantStatus ]; then
+                echo "Failed to ping pod example-job-${i}.headless-svc, retrying in 1 second..."
+                sleep 1
+              fi
+            done                                                         
+            echo "Successfully pinged pod: example-job-${i}.headless-svc"
+          done
 ```
 
-After applying the example above, other pods can reach eachother over
-the network using: `<pod-hostname>.<headless-service-name>`. 
 
-Example: pinging pod `web-1` from pod `web-0` using pod hostname:
-
-```
-root@web-0:/# ping web-1.headless-svc
-PING web-1.headless-svc.default.svc.cluster.local (10.88.3.25) 56(84) bytes of data.
-64 bytes from web-1.headless-svc.default.svc.cluster.local (10.88.3.25): icmp_seq=1 ttl=62 time=1.01 ms
-64 bytes from web-1.headless-svc.default.svc.cluster.local (10.88.3.25): icmp_seq=2 ttl=62 time=0.248 ms
-```
 
 ## Alternatives
 
