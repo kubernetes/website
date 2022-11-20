@@ -461,12 +461,13 @@ The tradeoffs are:
 The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
 The pattern names are also links to examples and more detailed description.
 
-|                  Pattern                  | Single Job object | Fewer pods than work items? | Use app unmodified? |
-| ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
-| [Queue with Pod Per Work Item]            |         ✓         |                             |      sometimes      |
-| [Queue with Variable Pod Count]           |         ✓         |             ✓               |                     |
-| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          |
-| [Job Template Expansion]                  |                   |                             |          ✓          |
+|                  Pattern                        | Single Job object | Fewer pods than work items? | Use app unmodified? |
+| ----------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
+| [Queue with Pod Per Work Item]                  |         ✓         |                             |      sometimes      |
+| [Queue with Variable Pod Count]                 |         ✓         |             ✓               |                     |
+| [Indexed Job with Static Work Assignment]       |         ✓         |                             |          ✓          |
+| [Job Template Expansion]                        |                   |                             |          ✓          |
+| [Intra-job Pod Networking Using Pod Hostnames]  |         ✓         |         sometimes           |      sometimes      | 
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
 has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
@@ -477,18 +478,19 @@ are different ways to arrange for pods to work on different things.
 This table shows the required settings for `.spec.parallelism` and `.spec.completions` for each of the patterns.
 Here, `W` is the number of work items.
 
-|             Pattern                       | `.spec.completions` |  `.spec.parallelism` |
-| ----------------------------------------- |:-------------------:|:--------------------:|
-| [Queue with Pod Per Work Item]            |          W          |        any           |
-| [Queue with Variable Pod Count]           |         null        |        any           |
-| [Indexed Job with Static Work Assignment] |          W          |        any           |
-| [Job Template Expansion]                  |          1          |     should be 1      |
+|             Pattern                             | `.spec.completions` |  `.spec.parallelism` |
+| ----------------------------------------------- |:-------------------:|:--------------------:|
+| [Queue with Pod Per Work Item]                  |          W          |        any           |
+| [Queue with Variable Pod Count]                 |         null        |        any           |
+| [Indexed Job with Static Work Assignment]       |          W          |        any           |
+| [Job Template Expansion]                        |          1          |     should be 1      |
+| [Intra-job Pod Networking Using Pod Hostnames]  |         any         |        any           |
 
 [Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
 [Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
 [Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
 [Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
-[Pod Networking using Hostnames]: /docs/tasks/job/pod-networking-using-hostnames/
+[Intra-job Pod Networking Using Pod Hostnames]: /docs/tasks/job/intra-job-pod-networking-using-pod-hostnames/
 
 ## Advanced usage
 

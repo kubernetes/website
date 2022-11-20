@@ -1,16 +1,14 @@
 ---
-title: Pod Communication Within a Job Using Pod Hostnames
+title: Intra-Job Pod Networking Using Pod Hostnames
 content_type: task
-min-kubernetes-server-version: v1.24
+min-kubernetes-server-version: v1.21
 weight: 30
 ---
 
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
-
 <!-- overview -->
 
-In this example, we will run a job in indexed completion mode configured such that
-the pods created by the job can communicate with eachother using hostnames rather than IPs.
+In this example, we will run a job in [indexed completion mode](https://kubernetes.io/blog/2021/04/19/introducing-indexed-jobs/) configured such that
+the pods created by the job can communicate with each other using pod hostnames rather than pod IPs.
 
 Pods within a Job might need to communicate among themselves. They could query the Kubernetes API
 to learn the IPs of the other Pods, but it's much simpler to rely on Kubernetes' built-in DNS resolution.
@@ -30,7 +28,7 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 
 <!-- steps -->
 
-## Starting a job with pod networking using hostnames
+## Starting a job with pod networking using pod hostnames
 
 To enable pod-to-pod communication using pod hostnames, you must do the following:
 
@@ -47,7 +45,7 @@ selector, since the job-name label will be automatically added by Kubernetes.
    where `<headless-svc-name>` must match the name of your headless service
    exactly. 
 
-Example job which completes only after all pods successfully ping eachother using hostnames:
+Example job which completes only after all pods successfully ping each other using hostnames:
 
 ```yaml
 
@@ -96,7 +94,7 @@ spec:
           done
 ```
 
-After applying the example above, pods will be able to reach eachother over the network
+After applying the example above, pods will be able to reach each other over the network
 using: `<pod-hostname>.<headless-service-name>`. You should see output similar to the following:
 ```
 $ kubectl logs example-job-0-qws42
