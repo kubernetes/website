@@ -48,6 +48,7 @@ of terminating one or more Pods on Nodes.
 * [Scheduling Framework](/docs/concepts/scheduling-eviction/scheduling-framework)
 * [Scheduler Performance Tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [Resource Bin Packing for Extended Resources](/docs/concepts/scheduling-eviction/resource-bin-packing/)
+* [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
 -->
 
 ## 调度
@@ -60,6 +61,7 @@ of terminating one or more Pods on Nodes.
 * [调度框架](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework)
 * [调度器性能调试](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [扩展资源的资源装箱](/zh-cn/docs/concepts/scheduling-eviction/resource-bin-packing/)
+* [Pod 调度就绪状态](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
 
 <!--
 ## Pod Disruption

@@ -211,6 +211,7 @@ For a reference to old feature gates that are removed, please refer to
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
 | `PodDisruptionConditions` | `false` | Alpha | 1.25 | - |
 | `PodHasNetworkCondition` | `false` | Alpha | 1.25 | |
+| `PodSchedulingReadiness` | `false` | Alpha | 1.26 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
 | `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | 1.24 |
 | `ProbeTerminationGracePeriod` | `true` | Beta | 1.25 | |
