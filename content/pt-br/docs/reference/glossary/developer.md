@@ -11,7 +11,7 @@ tags:
 - community
 - user-type
 ---
- Pode se referir a&#58; {{< glossary_tooltip text="Desenvolvedor de Aplicativos" term_id="application-developer" >}}, {{< glossary_tooltip text="Colaborador de Código" term_id="code-contributor" >}}, or {{< glossary_tooltip text="Desenvolvedor de Plataforma" term_id="platform-developer" >}}.
+ Pode se referir a&#58; {{< glossary_tooltip text="Desenvolvedor de Aplicativos" term_id="application-developer" >}}, {{< glossary_tooltip text="Colaborador de Código" term_id="code-contributor" >}}, ou {{< glossary_tooltip text="Desenvolvedor de Plataforma" term_id="platform-developer" >}}.
 
 <!--more--> 
 
