@@ -893,7 +893,18 @@ spec:
           done
 ```
 
-
+After applying the example above, pods will be able to reach eachother over the network
+using: `<pod-hostname>.<headless-service-name>`. You should see output similar to the following:
+```
+$ kubectl logs example-job-0-qws42
+Failed to ping pod example-job-0.headless-svc, retrying in 1 second...
+Successfully pinged pod: example-job-0.headless-svc
+Successfully pinged pod: example-job-1.headless-svc
+Successfully pinged pod: example-job-2.headless-svc
+```
+**NOTE**: It is important note that the `<pod-hostname>.<headless-service-name>` name format used
+in this example would not work with DNS policy set to `None` or `Default`. You can learn more about pod
+DNS policies [here](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy).
 
 ## Alternatives
 
