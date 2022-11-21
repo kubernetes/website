@@ -23,6 +23,8 @@ connection with the Kubernetes API server.
 
 You should already be familiar with the basic use of [Job](/docs/concepts/workloads/controllers/job/).
 
+{{<note>}} If you are using MiniKube or a similar tool, you may need to take [extra steps](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/) to ensure you have DNS. {{</note>}}
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 
@@ -38,8 +40,6 @@ Kubernetes' service discovery mechanism to cache the hostnames of
 the pods running your job (note that the DNS server does not need to be 
 in the same namepsace as the job pods). One easy way to do this is to use the `job-name: <your-job-name>`
 selector, since the job-name label will be automatically added by Kubernetes. 
-
-**Note**: if you are using MiniKube or a similar tool, you may need to take [extra steps](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/) to ensure you have DNS.
 
 2. Update the template spec in your job with the following: `subdomain: <headless-svc-name>`
    where `<headless-svc-name>` must match the name of your headless service
