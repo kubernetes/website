@@ -68,7 +68,7 @@ spec:
   completionMode: Indexed
   template:
     spec:
-      subdomain: headless-svc # has to match headless service name
+      subdomain: headless-svc # has to match Service name
       restartPolicy: Never
       containers:
       - name: example-workload
