@@ -31,7 +31,9 @@ software package, containing everything needed to run an application:
 the code and any runtime it requires, application and system libraries,
 and default values for any essential settings.
 
-Containers are designed to be stateless and immutable: you should not change
+Containers are intended to be stateless and
+[immutable](https://glossary.cncf.io/immutable-infrastructure/):
+you should not change
 the code of a container that is already running. If you have a containerized
 application and want to make changes, the correct process is to build a new
 image that includes the change, then recreate the container to start from the
