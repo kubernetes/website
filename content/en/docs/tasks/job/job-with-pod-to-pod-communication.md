@@ -7,7 +7,7 @@ weight: 30
 
 <!-- overview -->
 
-In this example, we will run a Job in [indexed completion mode](https://kubernetes.io/blog/2021/04/19/introducing-indexed-jobs/) configured such that
+In this example, we will run a Job in [Indexed completion mode](https://kubernetes.io/blog/2021/04/19/introducing-indexed-jobs/) configured such that
 the pods created by the Job can communicate with each other using pod hostnames rather than pod IPs.
 
 Pods within a Job might need to communicate among themselves. They could query the Kubernetes API
@@ -23,20 +23,19 @@ connection with the Kubernetes API server.
 
 You should already be familiar with the basic use of [Job](/docs/concepts/workloads/controllers/job/).
 
-{{<note>}} If you are using MiniKube or a similar tool, you may need to take [extra steps](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/) to ensure you have DNS. {{</note>}}
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+{{<note>}} If you are using MiniKube or a similar tool, you may need to take [extra steps](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/) to ensure you have DNS. {{</note>}}
 
 <!-- steps -->
 
 ## Starting a Job with Pod-to-Pod Communication
 
-To enable pod-to-pod communication using pod hostnames, you must do the following:
+To enable pod-to-pod communication using pod hostnames in a Job, you must do the following:
 
 1. Set up a [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
 with a valid label selector for the pods created by your Job. This will trigger the 
-Kubernetes' DNS server to cache the hostnames of 
+Kubernetes DNS server to cache the hostnames of 
 the pods running your Job (note that the service must be in the same namespace as 
 the Job, however, the DNS server does not need to be). One easy way to do this is to use the `job-name: <your-job-name>` selector, since the `job-name` label will be automatically added by Kubernetes. 
 
