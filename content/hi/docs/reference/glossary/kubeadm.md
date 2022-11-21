@@ -1,5 +1,5 @@
 ---
-title: क्यूबएडीएम  (Kubeadm)
+title: क्यूबएडीएम (Kubeadm)
 id: kubeadm
 date: 2018-04-12
 full_link: /docs/admin/kubeadm/
