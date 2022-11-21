@@ -149,8 +149,11 @@ types, then the Pod can be scheduled onto a node if one of the specified `nodeSe
 satisfied.
 
 If you specify multiple `matchExpressions` associated with a single `nodeSelectorTerms`,
-then the Pod can be scheduled onto a node only if all the `matchExpressions` are
+then the Pod can be scheduled onto a node if one of the specified `matchExpressions` can be
 satisfied. 
+
+If you specify multiple requirements associated with a single `matchExpressions`,
+then the Pod can be scheduled onto a node only if all the requirements are satisfied. 
 {{</note>}}
 
 See [Assign Pods to Nodes using Node Affinity](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)
