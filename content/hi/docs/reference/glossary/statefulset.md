@@ -1,5 +1,5 @@
 ---
-title: StatefulSet(स्टेटफुलसेट)
+title: स्टेटफुलसेट (StatefulSet)
 id: StatefulSet
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/statefulset/
