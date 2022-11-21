@@ -164,7 +164,7 @@ For a reference to old feature gates that are removed, please refer to
 | `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.23 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
 | `RemainingItemCount` | `true` | Beta | 1.16 | |
-| `RetroactiveDefaultStorageClass` | `false` | Alpha | 1.25 | |
+| `RetroactiveDefaultStorageClass` | `false` | Alpha | 1.25 | 1.25 |
 | `RetroactiveDefaultStorageClass` | `true` | Beta | 1.26 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
