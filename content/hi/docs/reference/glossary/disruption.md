@@ -1,6 +1,6 @@
 ---
 title: व्यवधान(Disruption)
-id: व्यवधान(disruption)
+id: disruption
 date: 2019-09-10
 full_link: /docs/concepts/workloads/pods/disruptions/
 short_description: >
@@ -15,7 +15,7 @@ tags:
 {{< glossary_tooltip term_id="तैनाती" >}}, जो प्रभावितों पर निर्भर करता है
 फली।
 
-<!--more-->
+<!--अधिक-->
 
 यदि आप, क्लस्टर ऑपरेटर के रूप में, किसी एप्लिकेशन से संबंधित पॉड को नष्ट करते हैं,
 कुबेरनेट्स का कहना है कि एक _स्वैच्छिक व्यवधान_। यदि कोई पॉड ऑफ़लाइन हो जाता है
