@@ -467,7 +467,7 @@ The pattern names are also links to examples and more detailed description.
 | [Queue with Variable Pod Count]                 |         ✓         |             ✓               |                     |
 | [Indexed Job with Static Work Assignment]       |         ✓         |                             |          ✓          |
 | [Job Template Expansion]                        |                   |                             |          ✓          |
-| [Job with pod-to-pod communication]  |         ✓         |         sometimes           |      sometimes      | 
+| [Job with Pod-to-Pod Communication]             |         ✓         |         sometimes           |      sometimes      | 
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
 has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
@@ -484,13 +484,13 @@ Here, `W` is the number of work items.
 | [Queue with Variable Pod Count]                 |         null        |        any           |
 | [Indexed Job with Static Work Assignment]       |          W          |        any           |
 | [Job Template Expansion]                        |          1          |     should be 1      |
-| [Intra-job Pod Networking Using Pod Hostnames]  |         any         |        any           |
+| [Job with Pod-to-Pod Communication]             |          W          |         W            |
 
 [Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
 [Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
 [Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
 [Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
-[Intra-job Pod Networking Using Pod Hostnames]: /docs/tasks/job/intra-job-pod-networking-using-pod-hostnames/
+[Job with Pod-to-Pod Communication]: /docs/tasks/job/job-with-pod-to-pod-communication/
 
 ## Advanced usage
 
