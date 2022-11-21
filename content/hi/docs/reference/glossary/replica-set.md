@@ -4,7 +4,7 @@ id: replica-set
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/replicaset/
 short_description: >
-  रेप्लिकासेट सुनिश्चित करता है कि पॉड प्रतिकृतियों की एक निर्दिष्ट संख्या एक समय में चल रही हैं।
+  रेप्लिकासेट यह सुनिश्चित करता है कि किसी एक अवसर पर निर्दिष्ट संख्या में पॉड प्रतिकृतियां चल रही हैं।
 
 aka: 
 tags:
