@@ -43,7 +43,8 @@ the Job, however, the DNS server does not need to be). One easy way to do this i
    where `<headless-svc-name>` must match the name of your headless service
    exactly. 
 
-Example Job which completes only after all pods successfully ping each other using hostnames:
+Example Job which completes only after all pods successfully ping each other using hostnames (note that in the bash script executed on each pod, the pod hostnames can be prefixed by the namespace as well 
+if the pod needs to be reached from outside the namespace):
 
 ```yaml
 
@@ -101,6 +102,6 @@ Successfully pinged pod: example-job-0.headless-svc
 Successfully pinged pod: example-job-1.headless-svc
 Successfully pinged pod: example-job-2.headless-svc
 ```
-**NOTE**: It is important note that the `<pod-hostname>.<headless-service-name>` name format used
+{{<note>}} It is important note that the `<pod-hostname>.<headless-service-name>` name format used
 in this example would not work with DNS policy set to `None` or `Default`. You can learn more about pod
-DNS policies [here](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy).
+DNS policies [here](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy). {{</note>}}
