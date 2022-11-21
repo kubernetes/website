@@ -150,6 +150,8 @@ To encrypt the data:
 
 1. Set the `--encryption-provider-config` flag on the kube-apiserver to point to the location of the configuration file.
 
+1. `--encryption-provider-config-automatic-reload` boolean argument determines if the file set by `--encryption-provider-config` should be automatically reloaded if the disk contents change.
+
 1. Restart your API server.
 
 ### KMS v1 {#encrypting-your-data-with-the-kms-provider-kms-v1}
@@ -194,6 +196,8 @@ To encrypt the data:
              cachesize: 100
              timeout: 3s
    ```
+
+Setting `--encryption-provider-config-automatic-reload` to `true` collapses all health checks to a single health check endpoint. Individual health checks are only available when KMS v1 providers are in used and encryption config is not auto-reloaded.
 
 Until the steps defined in [Ensuring all secrets are encrypted](#ensuring-all-secrets-are-encrypted) are performed, the `providers` list should end with the `identity: {}` provider to allow unencrypted data to be read.  Once all resources are encrypted, the `identity` provider should be removed to prevent the API server from honoring unencrypted data.
 
