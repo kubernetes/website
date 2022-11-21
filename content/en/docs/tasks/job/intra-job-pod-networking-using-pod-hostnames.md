@@ -56,7 +56,7 @@ metadata:
 spec:
   clusterIP: None # clusterIP must be None to create a headless service
   selector:
-    job-name: example-job # must match job template spec label
+    job-name: example-job # must match Job name
 ---
 apiVersion: batch/v1
 kind: Job
