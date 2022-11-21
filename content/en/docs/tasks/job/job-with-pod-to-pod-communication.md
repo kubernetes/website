@@ -35,17 +35,16 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 To enable pod-to-pod communication using pod hostnames, you must do the following:
 
 1. Set up a [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
-with a valid label selector for the pods created by your job. This will trigger the 
-Kubernetes' service discovery mechanism to cache the hostnames of 
-the pods running your job (note that the DNS server does not need to be 
-in the same namepsace as the job pods). One easy way to do this is to use the `job-name: <your-job-name>`
-selector, since the job-name label will be automatically added by Kubernetes. 
+with a valid label selector for the pods created by your Job. This will trigger the 
+Kubernetes' DNS server to cache the hostnames of 
+the pods running your Job (note that the service must be in the same namespace as 
+the Job, however, the DNS server does not need to be). One easy way to do this is to use the `job-name: <your-job-name>` selector, since the `job-name` label will be automatically added by Kubernetes. 
 
-2. Include the following your job template spec: `subdomain: <headless-svc-name>`
+2. Include the following your Job template spec: `subdomain: <headless-svc-name>`
    where `<headless-svc-name>` must match the name of your headless service
    exactly. 
 
-Example job which completes only after all pods successfully ping each other using hostnames:
+Example Job which completes only after all pods successfully ping each other using hostnames:
 
 ```yaml
 
