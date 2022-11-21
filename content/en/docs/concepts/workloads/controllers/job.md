@@ -467,7 +467,7 @@ The pattern names are also links to examples and more detailed description.
 | [Queue with Variable Pod Count]                 |         ✓         |             ✓               |                     |
 | [Indexed Job with Static Work Assignment]       |         ✓         |                             |          ✓          |
 | [Job Template Expansion]                        |                   |                             |          ✓          |
-| [Intra-job Pod Networking Using Pod Hostnames]  |         ✓         |         sometimes           |      sometimes      | 
+| [Job with pod-to-pod communication]  |         ✓         |         sometimes           |      sometimes      | 
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
 has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
