@@ -31,10 +31,13 @@ software package, containing everything needed to run an application:
 the code and any runtime it requires, application and system libraries,
 and default values for any essential settings.
 
-By design, a container is immutable: you cannot change the code of a
-container that is already running. If you have a containerized application
-and want to make changes, you need to build a new image that includes
-the change, then recreate the container to start from the updated image.
+Containers are intended to be stateless and
+[immutable](https://glossary.cncf.io/immutable-infrastructure/):
+you should not change
+the code of a container that is already running. If you have a containerized
+application and want to make changes, the correct process is to build a new
+image that includes the change, then recreate the container to start from the
+updated image.
 
 ## Container runtimes
 
