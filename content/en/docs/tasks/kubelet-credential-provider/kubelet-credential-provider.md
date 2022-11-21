@@ -54,7 +54,7 @@ should be invoked for which container images. Here's an example configuration fi
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1alpha1
 kind: CredentialProviderConfig
-# providers is a list of credential provider plugins that will be enabled by the kubelet.
+# providers is a list of credential provider helper plugins that will be enabled by the kubelet.
 # Multiple providers may match against a single image, in which case credentials
 # from all providers will be returned to the kubelet. If multiple providers are called
 # for a single image, the results are combined. If providers return overlapping
@@ -74,7 +74,7 @@ providers:
     # Globs can be used in the domain, but not in the port or the path. Globs are supported
     # as subdomains like '*.k8s.io' or 'k8s.*.io', and top-level-domains such as 'k8s.*'.
     # Matching partial subdomains like 'app*.k8s.io' is also supported. Each glob can only match
-    # a single subdomain segment, so *.io does not match *.k8s.io.
+    # a single subdomain segment, so `*.io` does **not** match `*.k8s.io`.
     #
     # A match exists between an image and a matchImage when all of the below are true:
     # - Both contain the same number of domain parts and each part matches.
