@@ -43,8 +43,12 @@ the Job, however, the DNS server does not need to be). One easy way to do this i
    where `<headless-svc-name>` must match the name of your headless service
    exactly. 
 
-Example Job which completes only after all pods successfully ping each other using hostnames (note that in the bash script executed on each pod, the pod hostnames can be prefixed by the namespace as well 
-if the pod needs to be reached from outside the namespace):
+### Example 
+Below is a working example of a Job with pod-to-pod communication via pod hostnames enabled.
+The Job completes only after all pods successfully ping each other using hostnames.
+
+{{<note>}} In the bash script executed on each pod in the example below, the pod hostnames can be prefixed by the namespace as well 
+if the pod needs to be reached from outside the namespace. {{</note>}}
 
 ```yaml
 
