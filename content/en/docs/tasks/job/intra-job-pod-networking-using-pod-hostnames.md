@@ -12,7 +12,7 @@ the pods created by the job can communicate with each other using pod hostnames 
 
 Pods within a Job might need to communicate among themselves. They could query the Kubernetes API
 to learn the IPs of the other Pods, but it's much simpler to rely on Kubernetes' built-in DNS resolution.
-Jobs in indexed completion mode automatically set the pod hostname to be in the format of
+Jobs in Indexed completion mode automatically set the pods' hostname to be in the format of
 `${jobName}-${completionIndex}`, which can be used to deterministically determine
 pod hostnames and enable pod networking *without* needing to create a client connection to
 the Kubernetes control plane to obtain pod hostnames/IPs via API requests. This can be useful
