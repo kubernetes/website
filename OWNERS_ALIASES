@@ -212,6 +212,7 @@ aliases:
     - ngtuna
     - truongnh1992
   sig-docs-ru-owners: # Admins for Russian content
+    - Arhell
     - msheldyakov
     - aisonaku
     - potapy4
