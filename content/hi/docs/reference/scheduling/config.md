@@ -20,7 +20,7 @@ weight: 20
 KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
 या [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)) संरचना
 का उपयोग करके आप `kube-scheduler --config <filename>`
-या [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/))
+चलाकर शेड्यूलिंग प्रोफाइल निर्दिष्ट कर सकते हैं। 
 संरचना।
 
 एक न्यूनतम कॉन्फ़िगरेशन इस प्रकार दिखता है:
