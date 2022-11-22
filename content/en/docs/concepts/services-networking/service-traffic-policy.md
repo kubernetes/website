@@ -65,4 +65,4 @@ Kubernetes considers all endpoints.
 
 * Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints)
 * Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial

@@ -1,11 +1,13 @@
 ---
 title: 推荐使用的标签
 content_type: concept
+weight: 100
 ---
 <!--
 ---
 title: Recommended Labels
 content_type: concept
+weight: 100
 ---
 -->
 

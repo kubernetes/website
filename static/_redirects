@@ -120,6 +120,7 @@
 /docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
 /id/docs/concepts/jobs/run-to-completion-finite-workloads/      /id/docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/nodes/node/     /docs/concepts/architecture/nodes/ 301
+/docs/concepts/services-networking/connect-applications-service/    /docs/tutorials/services/connect-applications-service/   301
 /docs/concepts/object-metadata/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
 /docs/concepts/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
 /docs/concepts/overview/extending/     /docs/concepts/extend-kubernetes/ 301
@@ -393,7 +394,7 @@
 /docs/user-guide/configmap/     /docs/tasks/configure-pod-container/configure-pod-configmap/ 301
 /docs/user-guide/configmap/README/     /docs/tasks/configure-pod-container/configure-pod-configmap/ 301
 /docs/user-guide/configuring-containers/     /docs/tasks/configure-pod-container/configure-pod-configmap/ 301
-/docs/user-guide/connecting-applications/     /docs/concepts/services-networking/connect-applications-service/ 301
+/docs/user-guide/connecting-applications/     /docs/tutorials/services/connect-applications-service/ 301
 /docs/user-guide/connecting-to-applications-port-forward/     /docs/tasks/access-application-cluster/port-forward-access-application-cluster/ 301
 /docs/user-guide/connecting-to-applications-proxy/     /docs/tasks/access-kubernetes-api/http-proxy-access-api/ 301
 /docs/user-guide/container-environment/     /docs/concepts/containers/container-lifecycle-hooks/ 301
