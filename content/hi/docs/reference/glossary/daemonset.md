@@ -12,8 +12,8 @@ tags:
 - core-object
 - workload
 ---
-सुनिश्चित करें कि {{<glossary_tooltip text="पॉड" term_id="pod" >}} की प्रतिकृति {{<glossary_tooltip text="क्लस्टर " term_id="cluster" >}} में नोड्स के एक सेट पर चल रही है।
+सुनिश्चित करता है {{<glossary_tooltip text="पॉड" term_id="pod" >}} की प्रतिकृति {{<glossary_tooltip text="क्लस्टर " term_id="cluster" >}} में नोड्स के एक सेट पर चल रही है।
 
 <!--more--> 
 
-आमतौर पर सिस्टम डेमॉन जैसे लॉग कलेक्टर(log collectors) और मॉनिटरिंग एजेंट(monitoring agents) को तैनात करने के लिए उपयोग किया जाता है जो प्रत्येक{{< glossary_tooltip text="नोड" term_id="node">}} पर चलना चाहिए।
+आमतौर पर सिस्टम डेमन जैसे लॉग कलेक्टर(log collectors) और मॉनिटरिंग एजेंट(monitoring agents) को तैनात करने के लिए उपयोग किया जाता है जो प्रत्येक{{< glossary_tooltip text="नोड" term_id="node">}} पर चलना चाहिए।
