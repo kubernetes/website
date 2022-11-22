@@ -87,6 +87,7 @@ For a reference to old feature gates that are removed, please refer to
 | `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
 | `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
 | `DownwardAPIHugePages` | `true` | Beta | 1.22 | |
+| `DynamicResourceAllocation` | `false` | Alpha | 1.26 | |
 | `EndpointSliceTerminatingCondition` | `false` | Alpha | 1.20 | 1.21 |
 | `EndpointSliceTerminatingCondition` | `true` | Beta | 1.22 | |
 | `ExpandedDNSConfig` | `false` | Alpha | 1.22 | |
