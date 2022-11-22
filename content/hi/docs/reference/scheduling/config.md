@@ -18,7 +18,7 @@ weight: 20
 इनमें से एक या अधिक विस्तार बिंदु को लागू करके।
 
 KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-का उपयोग
+या [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)) संरचना
 KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
 या [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/))
 संरचना।
