@@ -204,7 +204,7 @@ When you (or a controller) submit a new Pod to the API server, your cluster sets
 -->
 #### 默认镜像拉取策略    {#imagepullpolicy-defaulting}
 
-当你（或控制器）向 API 服务器提交一个新的 Pod 时，你的集群会在满足特定条件时设置 `imagePullPolicy `字段：
+当你（或控制器）向 API 服务器提交一个新的 Pod 时，你的集群会在满足特定条件时设置 `imagePullPolicy` 字段：
 
 <!--
 - if you omit the `imagePullPolicy` field, and the tag for the container image is
@@ -358,19 +358,10 @@ These options are explained in more detail below.
 
 Specific instructions for setting credentials depends on the container runtime and registry you chose to use. You should refer to your solution's documentation for the most accurate information.
 -->
-### 配置 Node 对私有仓库认证 {configuring-nodes-to-authenticate-to-a-private-registry}
+### 配置 Node 对私有仓库认证 {#configuring-nodes-to-authenticate-to-a-private-registry}
 
 设置凭据的具体说明取决于你选择使用的容器运行时和仓库。
 你应该参考解决方案的文档来获取最准确的信息。
-
-<!--
-Default Kubernetes only supports the `auths` and `HttpHeaders` section in Docker configuration.
-Docker credential helpers (`credHelpers` or `credsStore`) are not supported.
--->
-{{< note >}}
-Kubernetes 默认仅支持 Docker 配置中的 `auths` 和 `HttpHeaders` 部分，
-不支持 Docker 凭据辅助程序（`credHelpers` 或 `credsStore`）。
-{{< /note >}}
 
 <!--
 For an example of configuring a private container image registry, see the
@@ -604,7 +595,7 @@ reference a Secret in the same namespace.
 
 For example:
 -->
-#### 在 Pod 中引用 ImagePullSecrets {referring-to-an-imagepullsecrets-on-a-pod}
+#### 在 Pod 中引用 ImagePullSecrets {#referring-to-an-imagepullsecrets-on-a-pod}
 
 现在，在创建 Pod 时，可以在 Pod 定义中增加 `imagePullSecrets` 部分来引用该 Secret。
 `imagePullSecrets` 数组中的每一项只能引用同一名字空间中的 Secret。
@@ -717,10 +708,8 @@ common use cases and suggested solutions.
 
 <!--
 If you need access to multiple registries, you can create one secret for each registry.
-Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
 -->
 如果你需要访问多个仓库，可以为每个仓库创建一个 Secret。
-`kubelet` 将所有 `imagePullSecrets` 合并为一个虚拟的 `.docker/config.json` 文件。
 
 
 ## {{% heading "whatsnext" %}}
