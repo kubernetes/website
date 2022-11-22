@@ -268,7 +268,7 @@ The certificate value is in Base64-encoded format under `status.certificate`.
 
 Export the issued certificate from the CertificateSigningRequest.
 
-```
+```shell
 kubectl get csr myuser -o jsonpath='{.status.certificate}'| base64 -d > myuser.crt
 ```
 
