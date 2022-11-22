@@ -19,7 +19,7 @@ pod hostnames and enable pod communication *without* needing to create a client 
 the Kubernetes control plane to obtain pod hostnames/IPs via API requests. 
 
 This configuration is useful
-for use cases where pod networking is required but we don't want to depend on a network 
+for use cases where pod networking is required but you don't want to depend on a network 
 connection with the Kubernetes API server.
 
 ## {{% heading "prerequisites" %}}
@@ -41,7 +41,7 @@ with a valid label selector for the pods created by your Job. The headless servi
 the Job. One easy way to do this is to use the `job-name: <your-job-name>` selector, since the `job-name` label will be automatically added by Kubernetes. This configuration will trigger the DNS system to create records of the hostnames of 
 the pods running your Job. 
 
-2. Include the following value in your Job template spec: 
+2. Configure the headless service as subdomain service for the Job pods by including the following value in your Job template spec: 
 
   ```yaml
   subdomain: <headless-svc-name>
