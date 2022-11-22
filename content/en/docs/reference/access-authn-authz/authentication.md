@@ -45,7 +45,7 @@ manually through API calls. Service accounts are tied to a set of credentials
 stored as `Secrets`, which are mounted into pods allowing in-cluster processes
 to talk to the Kubernetes API.
 
-API requests are tied to either a normal user or a service account, or are treated
+API requests not tied to either a normal user or a service account are treated
 as [anonymous requests](#anonymous-requests). This means every process inside or outside the cluster, from
 a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members
 of the control plane, must authenticate when making requests to the API server,
