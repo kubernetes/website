@@ -7,15 +7,15 @@ weight: 30
 
 <!-- overview -->
 
-In this example, we will run a Job in [Indexed completion mode](https://kubernetes.io/blog/2021/04/19/introducing-indexed-jobs/) configured such that
-the pods created by the Job can communicate with each other using pod hostnames rather than pod IPs.
+In this example, you will run a Job in [Indexed completion mode](https://kubernetes.io/blog/2021/04/19/introducing-indexed-jobs/) configured such that
+the pods created by the Job can communicate with each other using pod hostnames rather than pod IP addresses.
 
-Pods within a Job might need to communicate among themselves. They could query the Kubernetes API
+Pods within a Job might need to communicate among themselves. The user workload running in each pod could query the Kubernetes API server
 to learn the IPs of the other Pods, but it's much simpler to rely on Kubernetes' built-in DNS resolution.
 Jobs in Indexed completion mode automatically set the pods' hostname to be in the format of
-`${jobName}-${completionIndex}`, which can be used to deterministically determine
+`${jobName}-${completionIndex}`. You can use this format to deterministically build
 pod hostnames and enable pod communication *without* needing to create a client connection to
-the Kubernetes control plane to obtain pod hostnames/IPs via API requests. This can be useful
+the Kubernetes control plane to obtain pod hostnames/IPs via API requests. This configuration is useful
 for use cases where pod networking is required but we don't want to depend on a network 
 connection with the Kubernetes API server.
 
@@ -34,14 +34,16 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 To enable pod-to-pod communication using pod hostnames in a Job, you must do the following:
 
 1. Set up a [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
-with a valid label selector for the pods created by your Job. This will trigger
+with a valid label selector for the pods created by your Job. The headless service must be in the same namespace as 
+the Job. One easy way to do this is to use the `job-name: <your-job-name>` selector, since the `job-name` label will be automatically added by Kubernetes. This configuration will trigger
 DNS to create records of the hostnames of 
-the pods running your Job (note that the headless service must be in the same namespace as 
-the Job). One easy way to do this is to use the `job-name: <your-job-name>` selector, since the `job-name` label will be automatically added by Kubernetes.
+the pods running your Job. 
 
-2. Include the following your Job template spec: `subdomain: <headless-svc-name>`
-   where `<headless-svc-name>` must match the name of your headless service
-   exactly. 
+2. Include the following value in your Job template spec: 
+
+  ```yaml
+  subdomain: <headless-svc-name>
+  ```
 
 ### Example 
 Below is a working example of a Job with pod-to-pod communication via pod hostnames enabled.
@@ -97,7 +99,7 @@ spec:
           done
 ```
 
-After applying the example above, pods will be able to reach each other over the network
+After applying the example above, reach each other over the network
 using: `<pod-hostname>.<headless-service-name>`. You should see output similar to the following:
 ```
 $ kubectl logs example-job-0-qws42
@@ -106,6 +108,6 @@ Successfully pinged pod: example-job-0.headless-svc
 Successfully pinged pod: example-job-1.headless-svc
 Successfully pinged pod: example-job-2.headless-svc
 ```
-{{<note>}} It is important note that the `<pod-hostname>.<headless-service-name>` name format used
+{{<note>}} Keep in mind that the `<pod-hostname>.<headless-service-name>` name format used
 in this example would not work with DNS policy set to `None` or `Default`. You can learn more about pod
 DNS policies [here](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy). {{</note>}}
