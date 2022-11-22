@@ -235,7 +235,7 @@ program to retrieve the contents of your Secret.
 1. Verify the stored Secret is prefixed with `k8s:enc:aescbc:v1:` which indicates
    the `aescbc` provider has encrypted the resulting data. Confirm that the key name shown in `etcd`
    matches the key name specified in the `EncryptionConfiguration` mentioned above. In this example,
-   we can see that the key named `key1` is used in `etcd` and in `EncryptionConfiguration`.
+   you can see that the encryption key named `key1` is used in `etcd` and in `EncryptionConfiguration`.
 
 1. Verify the Secret is correctly decrypted when retrieved via the API:
 
