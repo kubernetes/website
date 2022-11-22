@@ -10,7 +10,7 @@ slug: grpc-probes-now-in-beta
 
 With Kubernetes 1.24 the gRPC probes functionality entered beta and is available by default.
 Now you can configure startup, liveness, and readiness probes for your gRPC app
-without exposing any HTTP endpoint, nor do you need an executable. Kubernetes can natively connect to your your workload via gRPC and query its status.
+without exposing any HTTP endpoint, nor do you need an executable. Kubernetes can natively connect to your workload via gRPC and query its status.
 
 ## Some history
 
@@ -32,7 +32,7 @@ the first release at [Sep 19, 2018](https://github.com/grpc-ecosystem/grpc-healt
 
 This approach for gRPC apps health checking is very popular. There are [3,626 Dockerfiles](https://github.com/search?l=Dockerfile&q=grpc_health_probe&type=code)
 with the `grpc_health_probe` and [6,621 yaml](https://github.com/search?l=YAML&q=grpc_health_probe&type=Code) files that are discovered with the
-basic search on GitHub (at the moment of writing). This is good indication of the tool popularity
+basic search on GitHub (at the moment of writing). This is a good indication of the tool popularity
 and the need to support this natively.
 
 Kubernetes v1.23 introduced an alpha-quality implementation of native support for
@@ -106,7 +106,7 @@ another - http port to react on commands `make-serving` and `make-not-serving`.
 Here is an example pod definition. It starts the `grpc-health-checking` module,
 exposes ports `5000` and `8080`, and configures gRPC readiness probe:
 
-``` yaml
+```yaml
 ---
 apiVersion: v1
 kind: Pod
@@ -125,7 +125,7 @@ spec:
         port: 5000
 ```
 
-If the file called `test.yaml`, you can create the pod and check it's status.
+In the manifest file called `test.yaml`, you can create the pod and check its status.
 The pod will be in ready state as indicated by the snippet of the output.
 
 ```shell
@@ -180,7 +180,7 @@ Conditions:
 
 Once it is switched back, in about one second the Pod will get back to ready status:
 
-``` bsh
+```bash
 curl http://localhost:8080/make-serving
 kubectl describe test-grpc
 ```
