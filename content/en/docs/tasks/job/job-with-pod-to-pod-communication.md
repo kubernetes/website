@@ -38,8 +38,7 @@ To enable pod-to-pod communication using pod hostnames in a Job, you must do the
 
 1. Set up a [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
 with a valid label selector for the pods created by your Job. The headless service must be in the same namespace as 
-the Job. One easy way to do this is to use the `job-name: <your-job-name>` selector, since the `job-name` label will be automatically added by Kubernetes. This configuration will trigger
-DNS to create records of the hostnames of 
+the Job. One easy way to do this is to use the `job-name: <your-job-name>` selector, since the `job-name` label will be automatically added by Kubernetes. This configuration will trigger the DNS system to create records of the hostnames of 
 the pods running your Job. 
 
 2. Include the following value in your Job template spec: 
