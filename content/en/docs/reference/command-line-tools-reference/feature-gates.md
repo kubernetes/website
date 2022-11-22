@@ -146,6 +146,7 @@ For a reference to old feature gates that are removed, please refer to
 | `OpenAPIEnums` | `true` | Beta | 1.24 | |
 | `OpenAPIV3` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIV3` | `true` | Beta | 1.24 | |
+| `PDBUnhealthyPodEvictionPolicy` | `false` | Alpha | 1.26 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
@@ -646,6 +647,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `OpenAPIEnums`: Enables populating "enum" fields of OpenAPI schemas in the
   spec returned from the API server.
 - `OpenAPIV3`: Enables the API server to publish OpenAPI v3.
+- `PDBUnhealthyPodEvictionPolicy`: Enables the `unhealthyPodEvictionPolicy` field of a `PodDisruptionBudget`. This specifies
+  when unhealthy pods should be considered for eviction. Please see [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+  for more details.
 - `PodDeletionCost`: Enable the [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
    feature which allows users to influence ReplicaSet downscaling order.
 - `PodAffinityNamespaceSelector`: Enable the
