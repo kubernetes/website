@@ -4,7 +4,7 @@ content_type: अवधारणा
 weight: 20
 ---
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 आप `क्यूब-शेड्यूलर` के व्यवहार को एक कॉन्फ़िगरेशन फ़ाइल लिखकर और उसके पथ को कमांड लाइन आर्गुमेंट के रूप में पारित करके अनुकूलित कर सकते हैं।
 
