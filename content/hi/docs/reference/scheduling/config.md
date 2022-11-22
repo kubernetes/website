@@ -19,7 +19,7 @@ weight: 20
 
 KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
 या [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)) संरचना
-KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+का उपयोग करके आप `kube-scheduler --config <filename>`
 या [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/))
 संरचना।
 
