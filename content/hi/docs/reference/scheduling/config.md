@@ -17,7 +17,7 @@ weight: 20
 प्रत्येक चरण एक विस्तार बिंदु में उजागर होता है। प्लगइन्स शेड्यूलिंग व्यवहार प्रदान करते हैं
 इनमें से एक या अधिक विस्तार बिंदु को लागू करके।
 
-आप `kube-scheduler --config <filename>` चलाकर शेड्यूलिंग प्रोफाइल निर्दिष्ट कर सकते हैं,
+KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
 का उपयोग
 KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
 या [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/))
