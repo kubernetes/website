@@ -176,7 +176,8 @@ specific to stateful apps:
 Delete the deployed objects by name:
 
 ```
-kubectl delete deployment,svc mysql
+kubectl delete deployment mysql
+kubectl delete svc mysql
 kubectl delete pvc mysql-pv-claim
 kubectl delete pv mysql-pv-volume
 ```
