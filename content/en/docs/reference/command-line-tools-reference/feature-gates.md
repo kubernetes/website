@@ -72,6 +72,7 @@ For a reference to old feature gates that are removed, please refer to
 | `CPUManagerPolicyBetaOptions` | `true` | Beta | 1.23 | |
 | `CPUManagerPolicyOptions` | `false` | Alpha | 1.22 | 1.22 |
 | `CPUManagerPolicyOptions` | `true` | Beta | 1.23 | |
+| `CrossNamespaceVolumeDataSource` | `false` | Alpha| 1.26 | |
 | `CSIMigrationPortworx` | `false` | Alpha | 1.23 | 1.24 |
 | `CSIMigrationPortworx` | `false` | Beta | 1.25 | |
 | `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
@@ -410,6 +411,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This feature gate guards *a group* of CPUManager options whose quality level is beta.
   This feature gate will never graduate to stable.
 - `CPUManagerPolicyOptions`: Allow fine-tuning of CPUManager policies.
+- `CrossNamespaceVolumeDataSource`: Enable the usage of cross namespace volume data source
+   to allow you to specify a source namespace in the `dataSourceRef` field of a
+   PersistentVolumeClaim.
 - `CSIInlineVolume`: Enable CSI Inline volumes support for pods.
 - `CSIMigration`: Enables shims and translation logic to route volume
   operations from in-tree plugins to corresponding pre-installed CSI plugins
