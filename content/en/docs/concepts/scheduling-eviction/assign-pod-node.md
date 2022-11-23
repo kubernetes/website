@@ -2,7 +2,7 @@
 reviewers:
 - davidopp
 - kevin-wangzefeng
-- bsalamat
+- alculquicondor
 title: Assigning Pods to Nodes
 content_type: concept
 weight: 20
@@ -144,12 +144,12 @@ to repel Pods from specific nodes.
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied
 for the Pod to be scheduled onto a node.
 
-If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity`
-types, then the Pod can be scheduled onto a node if one of the specified `nodeSelectorTerms` can be
-satisfied.
+If you specify multiple items in `nodeSelectorTerms` associated with `nodeAffinity`
+types, then the Pod can be scheduled onto a node if one of the specified items in `nodeSelectorTerms`
+can be satisfied.
 
-If you specify multiple `matchExpressions` associated with a single `nodeSelectorTerms`,
-then the Pod can be scheduled onto a node only if all the `matchExpressions` are
+If you specify multiple items in `matchExpressions` associated with a single item in `nodeSelectorTerms`,
+then the Pod can be scheduled onto a node only if all the items in `matchExpressions` are
 satisfied. 
 {{</note>}}
 
