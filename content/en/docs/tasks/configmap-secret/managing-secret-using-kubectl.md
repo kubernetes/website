@@ -87,8 +87,8 @@ kubectl get secrets
 The output is similar to:
 
 ```
-NAME                  TYPE                                  DATA      AGE
-db-user-pass          Opaque                                2         51s
+NAME              TYPE       DATA      AGE
+db-user-pass      Opaque     2         51s
 ```
 
 View the details of the Secret:
@@ -143,11 +143,13 @@ accidentally, or from being stored in a terminal log.
     S!B\*d$zDsb=
     ```
 
-    {{<caution>}}This is an example for documentation purposes. In practice,
+    {{< caution >}}
+    This is an example for documentation purposes. In practice,
     this method could cause the command with the encoded data to be stored in
     your shell history. Anyone with access to your computer could find the
     command and decode the secret. A better approach is to combine the view and
-    decode commands.{{</caution>}}
+    decode commands.
+    {{< /caution >}}
 
     ```shell
     kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
@@ -193,10 +195,8 @@ To delete a Secret, run the following command:
 kubectl delete secret db-user-pass
 ```
 
-<!-- discussion -->
-
 ## {{% heading "whatsnext" %}}
 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secrets using config files](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
