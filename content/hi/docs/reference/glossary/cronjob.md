@@ -12,7 +12,7 @@ tags:
   - workload
 ---
 
-एक [Job (काम)](/docs/concepts/workloads/controllers/job/) का प्रबंधन करता है जो एक आवधिक अनुसूची पर चलता है।
+एक [काम (Job)](/docs/concepts/workloads/controllers/job/) का प्रबंधन करता है जो आवधिक अनुसूची पर चलता है।
 
 <!--more-->
 
