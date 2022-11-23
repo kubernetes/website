@@ -146,7 +146,6 @@ subjects:
 # You can specify more than one "subject"
 - kind: User
   name: jane # "name" is case sensitive
-  apiGroup: rbac.authorization.k8s.io
 roleRef:
   # "roleRef" specifies the binding to a Role / ClusterRole
   kind: Role #this must be Role or ClusterRole
@@ -177,7 +176,6 @@ metadata:
 subjects:
 - kind: User
   name: dave # Name is case sensitive
-  apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: secret-reader
@@ -199,7 +197,6 @@ metadata:
 subjects:
 - kind: Group
   name: manager # Name is case sensitive
-  apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: secret-reader
