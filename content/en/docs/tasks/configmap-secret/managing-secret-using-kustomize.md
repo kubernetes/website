@@ -26,6 +26,9 @@ file for the username `admin` and the password `1f2d1e2e67df`.
 
 ### Create the Kustomization file
 
+When defining a secret via a Kustomization file, you **don't** need to base64 encode its value.  
+The name of the YAML file **must** be `kustomization.yaml` or `kustomization.yml`.
+
 {{< tabs name="Secret data" >}}
 {{< tab name="Literals" codelang="yaml" >}}
 secretGenerator:
@@ -44,7 +47,7 @@ secretGenerator:
     The `-n` flag ensures that there's no newline character at the end of your
     files.
 
-1.  Create the `kustomization.yaml` file:
+2.  Create the `kustomization.yaml` file:
 
     ```yaml
     secretGenerator:
@@ -67,9 +70,6 @@ secretGenerator:
 ```
 {{% /tab %}}
 {{< /tabs >}}
-
-In all cases, you don't need to base64 encode the values. The name of the YAML
-file **must** be `kustomization.yaml` or `kustomization.yml`.
 
 ### Apply the kustomization file
 
