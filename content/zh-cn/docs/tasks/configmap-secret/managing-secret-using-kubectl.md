@@ -58,7 +58,7 @@ Run the following command:
 
 ```shell
 kubectl create secret generic db-user-pass \
-    --from-literal=username=devuser \
+    --from-literal=username=admin \
     --from-literal=password='S!B\*d$zDsb='
 ```
 
@@ -67,7 +67,7 @@ You must use single quotes `''` to escape special characters such as `$`, `\`,
 `*`, `=`, and `!` in your strings. If you don't, your shell will interpret these
 characters. 
 -->
-你必须使用单引号 `''` 转义字符串中的特殊字符，如 `$`、`\`、`*`、`=`和`!` 。否则，你的 shell 
+你必须使用单引号 `''` 转义字符串中的特殊字符，如 `$`、`\`、`*`、`=`和`!` 。否则，你的 shell
 将会解析这些字符。
 
 <!-- 
@@ -78,44 +78,46 @@ characters.
 <!-- 
 1.  Store the credentials in files with the values encoded in base64: 
 -->
-1.  对凭证的取值作 base64 编码后保存到文件中：
+1. 对凭证的取值作 base64 编码后保存到文件中：
 
-    ```shell
-    echo -n 'admin' | base64 > ./username.txt
-    echo -n 'S!B\*d$zDsb=' | base64 > ./password.txt
-    ```
-	<!-- 
-	The `-n` flag ensures that the generated files do not have an extra newline
-	character at the end of the text. This is important because when `kubectl`
-	reads a file and encodes the content into a base64 string, the extra
-	newline character gets encoded too. You do not need to escape special
-	characters in strings that you include in a file. 
-	-->
-	`-n` 标志用来确保生成文件的文末没有多余的换行符。这很重要，因为当 `kubectl`
-	读取文件并将内容编码为 base64 字符串时，额外的换行符也会被编码。
-	你不需要对文件中包含的字符串中的特殊字符进行转义。
+   ```shell
+   echo -n 'admin' | base64 > ./username.txt
+   echo -n 'S!B\*d$zDsb=' | base64 > ./password.txt
+   ```
+
+   <!-- 
+	 The `-n` flag ensures that the generated files do not have an extra newline
+	 character at the end of the text. This is important because when `kubectl`
+	 reads a file and encodes the content into a base64 string, the extra
+	 newline character gets encoded too. You do not need to escape special
+	 characters in strings that you include in a file. 
+	 -->
+	 `-n` 标志用来确保生成文件的文末没有多余的换行符。这很重要，因为当 `kubectl`
+ 	 读取文件并将内容编码为 base64 字符串时，额外的换行符也会被编码。
+	 你不需要对文件中包含的字符串中的特殊字符进行转义。
 
 <!-- 
 2.  Pass the file paths in the `kubectl` command: 
 -->
-2.  在 `kubectl` 命令中传递文件路径：
+2. 在 `kubectl` 命令中传递文件路径：
 
-    ```shell
-    kubectl create secret generic db-user-pass \
-        --from-file=./username.txt \
-        --from-file=./password.txt
-    ```
-	<!-- 
-	The default key name is the file name. You can optionally set the key name
-	using `--from-file=[key=]source`. For example: 
-	-->
-	默认键名为文件名。你也可以通过 `--from-file=[key=]source` 设置键名，例如：
+   ```shell
+   kubectl create secret generic db-user-pass \
+       --from-file=./username.txt \
+       --from-file=./password.txt
+   ```
 
-    ```shell
-    kubectl create secret generic db-user-pass \
-        --from-file=username=./username.txt \
-        --from-file=password=./password.txt
-    ```
+   <!-- 
+	 The default key name is the file name. You can optionally set the key name
+	 using `--from-file=[key=]source`. For example: 
+	 -->
+	 默认键名为文件名。你也可以通过 `--from-file=[key=]source` 设置键名，例如：
+
+   ```shell
+   kubectl create secret generic db-user-pass \
+       --from-file=username=./username.txt \
+       --from-file=password=./password.txt
+   ```
 
 <!-- 
 With either method, the output is similar to: 
@@ -140,11 +142,14 @@ Check that the Secret was created:
 kubectl get secrets
 ```
 
+<!--
+The output is similar to:
+-->
 输出类似于：
 
 ```
-NAME                  TYPE                                  DATA      AGE
-db-user-pass          Opaque                                2         51s
+NAME              TYPE       DATA      AGE
+db-user-pass      Opaque     2         51s
 ```
 
 <!-- 
@@ -191,48 +196,55 @@ accidentally, or from being stored in a terminal log.
 <!-- 
 1.  View the contents of the Secret you created: 
 -->
-1.  查看你所创建的 Secret 内容
+1. 查看你所创建的 Secret 内容
 
-    ```shell
-    kubectl get secret db-user-pass -o jsonpath='{.data}'
-    ```
+   ```shell
+   kubectl get secret db-user-pass -o jsonpath='{.data}'
+   ```
 
-<!-- The output is similar to: -->
-    输出类似于：
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
 
-    ```json
-    {"password":"UyFCXCpkJHpEc2I9","username":"YWRtaW4="}
-    ```
+   ```json
+   {"password":"UyFCXCpkJHpEc2I9","username":"YWRtaW4="}
+   ```
 
-<!-- 2.  Decode the `password` data: -->
-2.  解码 `password` 数据:
+<!--
+2.  Decode the `password` data:
+-->
+2. 解码 `password` 数据:
 
-    ```shell
-    echo 'UyFCXCpkJHpEc2I9' | base64 --decode
-    ```
+   ```shell
+   echo 'UyFCXCpkJHpEc2I9' | base64 --decode
+   ```
 
-<!-- The output is similar to: -->
-    输出类似于：
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
 
-    ```
-    S!B\*d$zDsb=
-    ```
+   ```
+   S!B\*d$zDsb=
+   ```
 
-    <!-- 
-    {{<caution>}}This is an example for documentation purposes. In practice,
-    this method could cause the command with the encoded data to be stored in
-    your shell history. Anyone with access to your computer could find the
-    command and decode the secret. A better approach is to combine the view and
-    decode commands.{{</caution>}} 
-    -->
-    {{<caution>}}
-    这是一个出于文档编制目的的示例。实际上，该方法可能会导致包含编码数据的命令存储在
-    Shell 的历史记录中。任何可以访问你的计算机的人都可以找到该命令并对 Secret 进行解码。
-    更好的办法是将查看和解码命令一同使用。{{</caution>}} 
+   {{< caution >}}
+   <!-- 
+   This is an example for documentation purposes. In practice,
+   this method could cause the command with the encoded data to be stored in
+   your shell history. Anyone with access to your computer could find the
+   command and decode the secret. A better approach is to combine the view and
+   decode commands.
+   -->
+   这是一个出于文档编制目的的示例。实际上，该方法可能会导致包含编码数据的命令存储在
+   Shell 的历史记录中。任何可以访问你的计算机的人都可以找到该命令并对 Secret 进行解码。
+   更好的办法是将查看和解码命令一同使用。
+   {{< /caution >}}
 
-    ```shell
-    kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
-    ```
+   ```shell
+   kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
+   ```
 
 <!-- 
 ## Edit a Secret {#edit-secret} 
@@ -256,6 +268,7 @@ This opens your default editor and allows you to update the base64 encoded
 Secret values in the `data` field, such as in the following example: 
 -->
 这将打开默认编辑器，并允许你更新 `data` 字段中的 base64 编码的 Secret 值，示例如下：
+
 <!--
 # Please edit the object below. Lines beginning with a '#' will be ignored,
 # and an empty file will abort the edit. If an error occurs while saving this file, it will be
@@ -264,11 +277,9 @@ Secret values in the `data` field, such as in the following example:
 -->
 
 ```yaml
-
 #请编辑下面的对象。以“#”开头的行将被忽略，
 #空文件将中止编辑。如果在保存此文件时发生错误，
 #则将重新打开该文件并显示相关的失败。
-#
 apiVersion: v1
 data:
   password: UyFCXCpkJHpEc2I9
@@ -297,17 +308,13 @@ To delete a Secret, run the following command:
 kubectl delete secret db-user-pass
 ```
 
-<!-- 
-discussion 
--->
-
 ## {{% heading "whatsnext" %}}
 
 <!--
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secrets using config files](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 -->
 - 进一步阅读 [Secret 概念](/zh-cn/docs/concepts/configuration/secret/)
 - 了解如何[使用配置文件管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- 了解如何[使用 kustomize 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- 了解如何[使用 Kustomize 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
