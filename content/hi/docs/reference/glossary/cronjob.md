@@ -1,5 +1,5 @@
 ---
-title: क्रोंजोब (CronJob)
+title: क्रॉन्जॉब (CronJob)
 id: cronjob
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/cron-jobs/
