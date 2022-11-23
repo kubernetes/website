@@ -148,8 +148,9 @@ If you specify multiple terms in `nodeSelectorTerms` associated with `nodeAffini
 types, then the Pod can be scheduled onto a node if one of the specified terms
 can be satisfied (terms are ORed).
 
-If you specify multiple expressions in `matchExpressions` associated with a single term in `nodeSelectorTerms`,
-then the Pod can be scheduled onto a node only if all the expressions are satisfied. 
+If you specify multiple expressions in a single `matchExpressions` field associated with a
+term in `nodeSelectorTerms`, then the Pod can be scheduled onto a node only
+if all the expressions are satisfied (expressions are ANDed).
 {{</note>}}
 
 See [Assign Pods to Nodes using Node Affinity](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)
