@@ -403,6 +403,8 @@ For example, to generate a ConfigMap from files `configure-pod-container/configm
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-4
+  labels:
+    game-config: config-4
   files:
   - configure-pod-container/configmap/game.properties
 EOF
@@ -435,7 +437,7 @@ kubectl describe configmaps/game-config-4-m9dm2f92bt
 ```
 Name:         game-config-4-m9dm2f92bt
 Namespace:    default
-Labels:       <none>
+Labels:       game-config=config-4
 Annotations:  kubectl.kubernetes.io/last-applied-configuration:
                 {"apiVersion":"v1","data":{"game.properties":"enemies=aliens\nlives=3\nenemies.cheat=true\nenemies.cheat.level=noGoodRotten\nsecret.code.p...
 
@@ -467,6 +469,8 @@ with the key `game-special-key`
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-5
+  labels:
+    game-config: config-5
   files:
   - game-special-key=configure-pod-container/configmap/game.properties
 EOF
@@ -505,6 +509,15 @@ kubectl apply -k .
 configmap/special-config-2-c92b5mmcf2 created
 ```
 
+## Interim cleanup
+
+Before proceeding, clean up some of the ConfigMaps you made:
+
+```bash
+kubectl delete configmap special-config
+kubectl delete configmap env-config
+kubectl delete configmap -l 'game-config in (config-4,config-5)’
+```
 
 Now that you have learned to define ConfigMaps, you can move on to the next
 section, and learn how to use these objects with Pods.
@@ -558,6 +571,11 @@ Here is the manifest you will use:
 
   Now, the Pod's output includes environment variables `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`.
 
+  Once you're happy to move on, delete that Pod:
+  ```shell
+  kubectl delete pod dapi-test-pod --now
+  ```
+
 ## Configure all key-value pairs in a ConfigMap as container environment variables
 
 * Create a ConfigMap containing multiple key-value pairs.
@@ -569,6 +587,7 @@ Here is the manifest you will use:
   ```shell
   kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
   ```
+
 
 * Use `envFrom` to define all of the ConfigMap's data as container environment variables. The
   key from the ConfigMap becomes the environment variable name in the Pod.
@@ -582,6 +601,11 @@ Here is the manifest you will use:
   ```
   Now, the Pod's output includes environment variables `SPECIAL_LEVEL=very` and
   `SPECIAL_TYPE=charm`.
+
+  Once you're happy to move on, delete that Pod:
+  ```shell
+  kubectl delete pod dapi-test-pod --now
+  ```
 
 ## Use ConfigMap-defined environment variables in Pod commands
 
@@ -603,6 +627,11 @@ That pod produces the following output from the `test-container` container:
 
 ```
 very charm
+```
+
+Once you're happy to move on, delete that Pod:
+```shell
+kubectl delete pod dapi-test-pod --now
 ```
 
 ## Add ConfigMap data to a Volume
@@ -651,6 +680,11 @@ If there are any files in the `/etc/config` directory of that container image, t
 mount will make those files from the image inaccessible.
 {{< /note >}}
 
+Once you're happy to move on, delete that Pod:
+```shell
+kubectl delete pod dapi-test-pod --now
+```
+
 ### Add ConfigMap data to a specific path in the Volume
 
 Use the `path` field to specify the desired file path for specific ConfigMap items.
@@ -673,6 +707,12 @@ very
 {{< caution >}}
 Like before, all previous files in the `/etc/config/` directory will be deleted.
 {{< /caution >}}
+
+Delete that Pod:
+```shell
+kubectl delete pod dapi-test-pod --now
+```
+
 
 ### Project keys to specific paths and file permissions
 
@@ -859,6 +899,23 @@ A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#usi
 - You can't use ConfigMaps for
   {{< glossary_tooltip text="static pods" term_id="static-pod" >}}, because the
   kubelet does not support this.
+
+## {{% heading "cleanup" %}}
+
+Delete the ConfigMaps and Pods that you made:
+
+```bash
+kubectl delete configmaps/game-config configmaps/game-config-2 configmaps/game-config-3 \
+               configmaps/game-config-env-file
+kubectl delete pod dapi-test-pod --now
+
+# You might already have removed the next set
+kubectl delete configmaps/special-config configmaps/env-config
+kubectl delete configmap -l 'game-config in (config-4,config-5)’
+```
+
+If you created a directory `configure-pod-container` and no longer need it, you should remove that too,
+or move it into the trash can / deleted files location.
 
 
 ## {{% heading "whatsnext" %}}
