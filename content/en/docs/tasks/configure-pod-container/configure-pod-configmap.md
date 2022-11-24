@@ -724,7 +724,7 @@ guide explains the syntax.
 ### Optional references
 
 A ConfigMap reference may be marked _optional_.  If the ConfigMap is non-existent, the mounted
-volume will be empty. If the ConfigMap exists, but the referenced key is non-existent the path
+volume will be empty. If the ConfigMap exists, but the referenced key is non-existent, the path
 will be absent beneath the mount point. See [Optional ConfigMaps](#optional-configmaps) for more
 details.
 
@@ -763,8 +763,8 @@ data item in the ConfigMap is represented by an individual file in the volume.
 {{< /note >}}
 
 The ConfigMap's `data` field contains the configuration data. As shown in the example below,
-this can be simple -- like individual properties defined using `--from-literal` -- or complex --
-like configuration files or JSON blobs defined using `--from-file`.
+this can be simple (like individual properties defined using `--from-literal`) or complex
+(like configuration files or JSON blobs defined using `--from-file`).
 
 ```yaml
 apiVersion: v1
@@ -797,7 +797,7 @@ Pods can load data from a ConfigMap that uses either `data` or `binaryData`.
 
 You can mark a reference to a ConfigMap as _optional_ in a Pod specification.
 If the ConfigMap doesn't exist, the configuration for which it provides data in the Pod
-(e.g. environment variable, mounted volume) will be empty.
+(for example: environment variable, mounted volume) will be empty.
 If the ConfigMap exists, but the referenced key is non-existent the data is also empty.
 
 For example, the following Pod specification marks an environment variable from a ConfigMap
