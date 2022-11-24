@@ -16,7 +16,7 @@ weight: 10
 
 <!-- overview -->
 
-{{< glossary_definition term_id="service" length="short" >}}
+{{< glossary_definition term_id="service" length="short" prepend="In Kubernetes, a Service is" >}}
 
 A key aim of Services in Kubernetes is that you don't need to modify your existing
 application to use an unfamiliar service discovery mechanism.
