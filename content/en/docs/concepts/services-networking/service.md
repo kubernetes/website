@@ -1195,6 +1195,14 @@ to learn more.
 Service is a top-level resource in the Kubernetes REST API. You can find more details
 about the [Service API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core).
 
+<!-- preserve existing hyperlinks -->
+<a id="shortcomings" /><a id="#the-gory-details-of-virtual-ips" />
+
+## Virtual IP addressing mechanism
+
+Read [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/) to learn about the
+mechanism Kubernetes provides to expose a Service with a virtual IP address.
+
 ## {{% heading "whatsnext" %}}
 
 * Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
