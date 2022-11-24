@@ -270,6 +270,10 @@ deleted. In such a situation, after some time, the
 Pod disruption condition will be cleared.
 {{< /note >}}
 
+When the `PodDisruptionConditions` feature gate is enabled,
+along with cleaning up the pods, the Pod garbage collector (PodGC) will also mark them as failed if they are in a non-terminal
+phase (see also [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)).
+
 When using a Job (or CronJob), you may want to use these Pod disruption conditions as part of your Job's
 [Pod failure policy](/docs/concepts/workloads/controllers/job#pod-failure-policy).
 
