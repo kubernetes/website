@@ -238,4 +238,3 @@ kubectl delete secret mysecret
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
 - Learn how to [manage Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
-

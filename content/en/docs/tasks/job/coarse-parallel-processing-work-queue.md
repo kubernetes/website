@@ -244,7 +244,13 @@ So, now run the Job:
 kubectl apply -f ./job.yaml
 ```
 
-Now wait a bit, then check on the job.
+You can wait for the Job to succeed, with a timeout:
+```shell
+# The check for condition name is case insensitive
+kubectl wait --for=condition=complete --timeout=300s job/job-wq-1
+```
+
+Next, check on the Job:
 
 ```shell
 kubectl describe jobs/job-wq-1
@@ -285,7 +291,9 @@ Events:
   14s        14s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-p17e0
 ```
 
-All our pods succeeded.  Yay.
+
+
+All the pods for that Job succeeded. Yay.
 
 
 
