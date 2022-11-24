@@ -263,10 +263,10 @@ aliases:
   release-engineering-approvers:
     - cpanato # subproject owner / Release Manager
     - jeremyrickard # subproject owner / Release Manager
+    - justaugustus # subproject owner / Release Manager
     - palnabarun # Release Manager
     - puerco # subproject owner / Release Manager
     - saschagrunert # subproject owner / Release Manager
-    - justaugustus # subproject owner / Release Manager
     - Verolop # subproject owner / Release Manager
     - xmudrii # Release Manager
   release-engineering-reviewers:
