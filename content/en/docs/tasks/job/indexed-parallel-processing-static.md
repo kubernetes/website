@@ -107,7 +107,14 @@ When you create this Job, the control plane creates a series of Pods, one for ea
 
 Because `.spec.parallelism` is less than `.spec.completions`, the control plane waits for some of the first Pods to complete before starting more of them.
 
-Once you have created the Job, wait a moment then check on progress:
+You can wait for the Job to succeed, with a timeout:
+```shell
+# The check for condition name is case insensitive
+kubectl wait --for=condition=complete --timeout=300s job/indexed-job
+```
+
+Now, describe the Job and check that it was successful.
+
 
 ```shell
 kubectl describe jobs/indexed-job

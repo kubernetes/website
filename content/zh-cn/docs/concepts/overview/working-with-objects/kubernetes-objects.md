@@ -192,8 +192,8 @@ nested fields specific to that object. The [Kubernetes API Reference](/docs/refe
 can help you find the spec format for all of the objects you can create using Kubernetes.
 -->
 对每个 Kubernetes 对象而言，其 `spec` 之精确格式都是不同的，包含了特定于该对象的嵌套字段。
-我们能在 [Kubernetes API 参考](/zh-cn/docs/reference/kubernetes-api/)
-找到我们想要在 Kubernetes 上创建的任何对象的规约格式。
+[Kubernetes API 参考](/zh-cn/docs/reference/kubernetes-api/)可以帮助你找到想要使用
+Kubernetes 创建的所有对象的规约格式。
 
 <!--
 For example, see the [`spec` field](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
@@ -224,11 +224,17 @@ detail the structure of that `.status` field, and its content for each different
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/).
-* Learn about [controllers](/docs/concepts/architecture/controller/) in Kubernetes.
-* [Using the Kubernetes API](/docs/reference/using-api/) explains some more API concepts.
+Learn more about the following:
+* [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) which are the most important basic Kubernetes objects.
+* [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) objects. 
+* [Controllers](https://kubernetes.io/docs/concepts/architecture/controller/) in Kubernetes.
+* [Kubernetes API overview](https://kubernetes.io/docs/reference/using-api/) which explains some more API concepts.
+* [kubectl](https://kubernetes.io/docs/reference/kubectl/) and [kubectl commands](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands).
 -->
-* 了解最重要的 Kubernetes 基本对象，例如 [Pod](/zh-cn/docs/concepts/workloads/pods/)。
-* 了解 Kubernetes 中的[控制器](/zh-cn/docs/concepts/architecture/controller/)。
-* [使用 Kubernetes API](/zh-cn/docs/reference/using-api/) 一节解释了一些 API 概念。
+进一步了解以下信息：
+* 最重要的 Kubernetes 基本对象 [Pod](/zh-cn/docs/concepts/workloads/pods/)。
+* [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 对象。
+* Kubernetes 中的[控制器](/zh-cn/docs/concepts/architecture/controller/)。
+* 解释了一些 API 概念的 [Kubernetes API 概述](/zh-cn/docs/reference/using-api/)。
+* [kubectl](/zh-cn/docs/reference/kubectl/) 和 [kubectl 命令](/docs/reference/generated/kubectl/kubectl-commands)。
 

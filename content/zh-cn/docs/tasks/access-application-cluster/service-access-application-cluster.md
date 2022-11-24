@@ -3,7 +3,6 @@ title: 使用服务来访问集群中的应用
 content_type: tutorial
 weight: 60
 ---
-
 <!--
 title: Use a Service to Access an Application in a Cluster
 content_type: tutorial
@@ -32,7 +31,7 @@ provides load balancing for an application that has two running instances.
 * Use the Service object to access the running application.
 -->
 * 运行 Hello World 应用的两个实例。
-* 创建一个服务对象来暴露 node port。
+* 创建一个服务对象来暴露 NodePort。
 * 使用服务对象来访问正在运行的应用。
 
 <!-- lessoncontent -->
@@ -51,9 +50,15 @@ Here is the configuration file for the application Deployment:
 <!--
 1. Run a Hello World application in your cluster:
    Create the application Deployment using the file above:
+-->
+1. 在你的集群中运行一个 Hello World 应用。
+   使用上面的文件创建应用程序 Deployment：
+
    ```shell
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
+
+   <!--
    The preceding command creates a
    {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
    and an associated
@@ -61,13 +66,7 @@ Here is the configuration file for the application Deployment:
    The ReplicaSet has two
    {{< glossary_tooltip text="Pods" term_id="pod" >}}
    each of which runs the Hello World application.
--->
-1. 在你的集群中运行一个 Hello World 应用：
-   使用上面的文件创建应用程序 Deployment：
-
-   ```shell
-   kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
-   ```
+   -->
 
    上面的命令创建一个
    {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 对象
@@ -118,7 +117,7 @@ Here is the configuration file for the application Deployment:
    -->
    输出类似于：
 
-   ```shell
+   ```
    Name:                   example-service
    Namespace:              default
    Labels:                 run=load-balancer-example
@@ -138,7 +137,7 @@ Here is the configuration file for the application Deployment:
    Make a note of the NodePort value for the service. For example,
    in the preceding output, the NodePort value is 31496.
    -->
-   注意服务中的 NodePort 值。例如在上面的输出中，NodePort 是 31496。
+   注意服务中的 NodePort 值。例如在上面的输出中，NodePort 值是 31496。
 
 <!--
 1. List the pods that are running the Hello World application:
@@ -152,9 +151,10 @@ Here is the configuration file for the application Deployment:
    <!--
    The output is similar to this:
    -->
+
    输出类似于：
 
-   ```shell
+   ```
    NAME                           READY   STATUS    ...  IP           NODE
    hello-world-2895499144-bsbk5   1/1     Running   ...  10.200.1.4   worker1
    hello-world-2895499144-m1pwt   1/1     Running   ...  10.200.2.5   worker2
@@ -238,8 +238,9 @@ kubectl delete deployment hello-world
 ## {{% heading "whatsnext" %}}
 
 <!--
-Learn more about
-[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
+Follow the
+[Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
+tutorial.
 -->
-进一步了解[通过服务连接应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)。
+跟随教程[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)。
 
