@@ -301,6 +301,19 @@ sometimes be started twice.
 If you do specify `.spec.parallelism` and `.spec.completions` both greater than 1, then there may be
 multiple pods running at once.  Therefore, your pods must also be tolerant of concurrency.
 
+When the [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDisruptionConditions` and `JobPodFailurePolicy` are both enabled,
+and the `.spec.podFailurePolicy` field is set, the Job controller does not consider a terminating
+Pod (a pod that has a `.metadata.deletionTimestamp` field set) as a failure until that Pod is
+terminal (its `.status.phase` is `Failed` or `Succeeded`). However, the Job controller
+creates a replacement Pod as soon as the termination becomes apparent. Once the
+pod terminates, the Job controller evaluates `.backoffLimit` and `.podFailurePolicy`
+for the relevant Job, taking this now-terminated Pod into consideration.
+
+If either of these requirements is not satisfied, the Job controller counts
+a terminating Pod as an immediate failure, even if that Pod later terminates
+with `phase: "Succeeded"`.
+
 ### Pod backoff failure policy
 
 There are situations where you want to fail a Job after some amount of retries
