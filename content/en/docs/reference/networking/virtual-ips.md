@@ -1,6 +1,7 @@
 ---
 title: Virtual IPs and Service Proxies
 content_type: reference
+weight: 50
 ---
 
 <!-- overview -->
