@@ -255,17 +255,19 @@ aliases:
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
     - cpanato # SIG Technical Lead
-    - jeremyrickard # SIG Technical Lead
+    - jeremyrickard # SIG Chair
     - justaugustus # SIG Chair
     - puerco # SIG Technical Lead
     - saschagrunert # SIG Chair
+    - Verolop # SIG Technical Lead
   release-engineering-approvers:
-    - cpanato # Release Manager
-    - palnabarun # Release Manager
-    - puerco # Release Manager
-    - saschagrunert # subproject owner / Release Manager
+    - cpanato # subproject owner / Release Manager
+    - jeremyrickard # subproject owner / Release Manager
     - justaugustus # subproject owner / Release Manager
-    - Verolop # Release Manager
+    - palnabarun # Release Manager
+    - puerco # subproject owner / Release Manager
+    - saschagrunert # subproject owner / Release Manager
+    - Verolop # subproject owner / Release Manager
     - xmudrii # Release Manager
   release-engineering-reviewers:
     - ameukam # Release Manager Associate
