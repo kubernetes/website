@@ -157,7 +157,7 @@ volumeMounts:
   - mountPath: /etc/kubernetes/audit-policy.yaml
     name: audit
     readOnly: true
-  - mountPath: /var/log/kubernetes/audit/
+  - mountPath: /var/log/kubernetes/audit
     name: audit-log
     readOnly: false
 ```
@@ -173,7 +173,7 @@ volumes:
 
 - name: audit-log
   hostPath:
-    path: /var/log/kubernetes/audit/
+    path: /var/log/kubernetes/audit
     type: DirectoryOrCreate
 ```
 
