@@ -13,7 +13,7 @@ Starting with Kubernetes 1.25, our container image registry has changed from k8s
 
 * Container images for Kubernetes releases from 1.25 onward are no longer published to k8s.gcr.io, only to registry.k8s.io.
 * In the upcoming December patch releases, the new registry domain default will be backported to all branches still in support (1.22, 1.23, 1.24).
-* If you run in a restricted environment and apply strict domain/IP address access policies that are limited to k8s.gcr.io, they __image pulls will not function__ after the migration to this new registry. For these users, the recommended method is to mirror the release images to a private registry.
+* If you run in a restricted environment and apply strict domain/IP address access policies limited to k8s.gcr.io, the __image pulls will not function__ after the migration to this new registry. For these users, the recommended method is to mirror the release images to a private registry.
 
 If you’d like to know more about why we made this change, or some potential issues you might run into, keep reading.
 
@@ -23,11 +23,11 @@ k8s.gcr.io is hosted on a custom [Google Container Registry](https://cloud.googl
 
 ## Why isn’t there a stable list of domains/IPs? Why can’t I restrict image pulls?
 
-registry.k8s.io is a [secure blob redirector](https://github.com/kubernetes/registry.k8s.io/blob/main/cmd/archeio/docs/request-handling.md) that connects clients to the closest cloud provider. The nature of this change means that a client which is pulling an image could be redirected to any one of a large number of backends. We expect the set of backends to keep changing and will only increase as more and more cloud providers and vendors come on board to help mirror the release images. 
+registry.k8s.io is a [secure blob redirector](https://github.com/kubernetes/registry.k8s.io/blob/main/cmd/archeio/docs/request-handling.md) that connects clients to the closest cloud provider. The nature of this change means that a client pulling an image could be redirected to any one of a large number of backends. We expect the set of backends to keep changing and will only increase as more and more cloud providers and vendors come on board to help mirror the release images. 
 
 Restrictive control mechanisms like man-in-the-middle proxies or network policies that restrict access to a specific list of IPs/domains will break with this change. For these scenarios, we encourage you to mirror the release images to a local registry that you have strict control over.
 
-For more information on this policy, please see the [registry.k8s.io stability guarantees documentation](https://github.com/kubernetes/registry.k8s.io#stability).
+For more information on this policy, please see the [stability section of the registry.k8s.io documentation](https://github.com/kubernetes/registry.k8s.io#stability).
 
 ## What kind of errors will I see? How will I know if I’m still using the old address?
 
@@ -41,7 +41,7 @@ FailedCreatePodSandBox: Failed to create pod sandbox: rpc error: code = Unknown 
 
 ## I’m impacted by this change, how do I revert to the old registry address?
 
-If using the new registry domain name is not an option for you, you can revert to the old domain name for cluster versions less than 1.25. Keep in mind that eventually, you will have to switch to the new registry, as new image tags will no longer be pushed to GCR.
+If using the new registry domain name is not an option, you can revert to the old domain name for cluster versions less than 1.25. Keep in mind that, eventually, you will have to switch to the new registry, as new image tags will no longer be pushed to GCR.
 
 ### Reverting the registry name in kubeadm
 The registry used by kubeadm to pull its images can be controlled by two methods:
@@ -70,6 +70,6 @@ kubelet --pod-infra-container-image=k8s.gcr.io/pause:3.5
 
 ## Acknowledgments
 
-__Change is hard__, and evolving our image serving platform is needed to ensure a sustainable future for the project. We strive to make things better for everyone using Kubernetes. Many contributors from all corners of our community have been working long and hard to ensure we are making the best decisions possible, that plans are executed, and that we do our best to communicate those plans. 
+__Change is hard__, and evolving our image-serving platform is needed to ensure a sustainable future for the project. We strive to make things better for everyone using Kubernetes. Many contributors from all corners of our community have been working long and hard to ensure we are making the best decisions possible, executing plans, and doing our best to communicate those plans. 
 
 Thanks to Aaron Crickenberger, Arnaud Meukam, Benjamin Elder, Caleb Woodbine, Davanum Srinivas, Mahamed Ali, and Tim Hockin from SIG K8s Infra, Brian McQueen, and Sergey Kanzhelev from SIG Node, Lubomir Ivanov from SIG Cluster Lifecycle, Adolfo García Veytia, Jeremy Rickard, Sascha Grunert, and Stephen Augustus from SIG Release, Bob Killen and Kaslin Fields from SIG Contribex, Tim Allclair from the Security Response Committee. Also a big thank you to our friends acting as liaisons with our cloud provider partners: Jay Pipes from Amazon and Jon Johnson Jr. from Google.
