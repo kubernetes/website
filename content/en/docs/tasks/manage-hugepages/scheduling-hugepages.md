@@ -31,7 +31,7 @@ schedulable resources.
 Huge pages can be consumed via container level resource requirements using the
 resource name `hugepages-<size>`, where `<size>` is the most compact binary
 notation using integer values supported on a particular node. For example, if a
-node supports 2048KiB and 1048576KiB page sizes, it will expose a schedulable
+node supports `2048KiB` and `1048576KiB` page sizes, it will expose a schedulable
 resources `hugepages-2Mi` and `hugepages-1Gi`. Unlike CPU or memory, huge pages
 do not support overcommit. Note that when requesting hugepage resources, either
 memory or CPU resources must be requested as well.
