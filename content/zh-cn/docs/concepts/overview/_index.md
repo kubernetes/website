@@ -153,7 +153,7 @@ That's how Kubernetes comes to the rescue! Kubernetes provides you with a framew
 这就是 Kubernetes 要来做的事情！
 Kubernetes 为你提供了一个可弹性运行分布式系统的框架。
 Kubernetes 会满足你的扩展要求、故障转移你的应用、提供部署模式等。
-例如，Kubernetes 可以轻松管理系统的 Canary 部署。
+例如，Kubernetes 可以轻松管理系统的 Canary (金丝雀) 部署。
 
 <!--
 Kubernetes provides you with:
