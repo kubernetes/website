@@ -295,20 +295,20 @@ The last step is to add this user into the kubeconfig file.
 
 First, you need to add new credentials:
 
-```
+```shell
 kubectl config set-credentials myuser --client-key=myuser.key --client-certificate=myuser.crt --embed-certs=true
 
 ```
 
 Then, you need to add the context:
 
-```
+```shell
 kubectl config set-context myuser --cluster=kubernetes --user=myuser
 ```
 
 To test it, change the context to `myuser`:
 
-```
+```shell
 kubectl config use-context myuser
 ```
 
