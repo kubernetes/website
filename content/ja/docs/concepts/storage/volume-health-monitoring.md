@@ -8,7 +8,7 @@ weight: 100
 
 {{< feature-state for_k8s_version="v1.21" state="alpha" >}}
 
-{{< glossary_tooltip text="CSI" term_id="csi" >}} ボリュームヘルスモニタリングにより、CSIドライバーは、基盤となるストレージシステムから異常なボリューム状態を検出し、それらを{{< glossary_tooltip text="PVC" term_id= "persistent-volume-claim" >}} または {{< glossary_tooltip text="Pod" term_id="pod" >}}のイベントとして報告できます。
+{{< glossary_tooltip text="CSI" term_id="csi" >}}ボリュームヘルスモニタリングにより、CSIドライバーは、基盤となるストレージシステムから異常なボリューム状態を検出し、それらを{{< glossary_tooltip text="PVC" term_id= "persistent-volume-claim" >}}または{{< glossary_tooltip text="Pod" term_id="pod" >}}のイベントとして報告できます。
 <!-- body -->
 
 ## ボリュームヘルスモニタリング
