@@ -15,4 +15,4 @@ tags:
 
 <!--more--> 
 
-Você pode usar o kubeadm para instalar a camada de gerenciamento e os componentes {{< glossary_tooltip text="nós de processamento" term_id="node" >}}.
+Você pode usar o kubeadm para instalar a {{< glossary_tooltip text="camada de gerenciamento" term_id="control-plane" >}} e os componentes {{< glossary_tooltip text="nós de processamento" term_id="node" >}}.
