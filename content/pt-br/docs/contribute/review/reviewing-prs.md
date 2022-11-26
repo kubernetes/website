@@ -15,8 +15,8 @@ Isso ajuda você a aprender a base de código e construir a confiança com outro
 
 Antes de revisar, é uma boa ideia:
 
-- Leia o [guia de conteúdo](/docs/contribute/style/content-guide/) e o [guia de estilo](/docs/contribute/style/style-guide/) para que você possa deixar comentários esclarecedores.
-- Entenda as diferentes [funções e responsabilidades](/docs/contribute/participate/roles-and-responsibilities/) na comunidade da documentação do Kubernetes.
+- Ler o [guia de conteúdo](/docs/contribute/style/content-guide/) e o [guia de estilo](/docs/contribute/style/style-guide/) para que você possa deixar comentários esclarecedores.
+- Entender as diferentes [funções e responsabilidades](/docs/contribute/participate/roles-and-responsibilities/) na comunidade da documentação do Kubernetes.
 
 <!-- body -->
 
@@ -29,7 +29,7 @@ Antes de começar uma revisão:
 - Comente os aspectos positivos dos PRs, bem como mudanças.
 - Seja empático e cuidadoso, observe como sua avaliação pode ser recebida.
 - Assuma boas intenções e faça perguntas esclarecedoras.
-- Colaboradores experientes, considere emparelhar com os novos colaboradores cujo trabalho requer grandes mudanças.
+- Colaboradores experientes, considere trabalhar em par com os novos colaboradores cujo trabalho requer grandes mudanças.
 
 ## Processo de revisão
 
@@ -51,7 +51,7 @@ flowchart LR
     subgraph third[Selecionar PR]
     direction TB
     T[ ] -.-
-    J[leia a descrição<br>e comentários]--> K[visualize as mudanças em<br>Netlify preview build]
+    J[leia a descrição<br>e comentários]--> K[visualize as mudanças no ambiente<br>de pré-visualização do Netlify]
     end
  
   A[Revise a lista de PR abertos]--> B[Filtre os PRs abertos<br>pela label]
@@ -69,7 +69,7 @@ class third,fourth white
 Figura 1. Etapas do processo de revisão.
 
 1. Acesse [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls). 
-   Você verá uma lista de todas as solicitações de _pull requests_ abertas no site e na documentação do Kubernetes.
+   Você verá uma lista de todas as solicitações de _pull requests_ abertos no site e na documentação do Kubernetes.
 
 2. Filtre os PRs abertos usando um ou todos os _labels_ seguintes:
 
@@ -79,15 +79,15 @@ Figura 1. Etapas do processo de revisão.
 
    Além disso, certifique-se que o PR não esteja marcado como `work in progress`. Os PRs que usam o _label_ `work in progress` ainda não estão prontos para revisão.
 
-3. Depois de selecionar um PR para revisar, entenda a mudança por:
+3. Depois de selecionar um PR para revisar, entenda a mudança:
 
    - Lendo a descrição do PR para entender as alterações feitas e ler quaisquer `issues` vinculadas
    - Lendo quaisquer comentários de outros revisores
    - Clicando na aba **Files changed** para ver os arquivos e linhas alteradas
-   - Pré-visualizar as alterações em _Netlify preview build_, rolando até a seção _PR's build check_ na parte inferior da aba **Conversation**. 
+   - Pré-visualizar as alterações ambiente de pré-visualização do _Netlify_, rolando até a seção _PR's build check_ na parte inferior da aba **Conversation**. 
    Aqui está uma captura da tela (isso mostra a área de trabalho do site GitHub; se você estiver revisando em um tablet ou smartphone, a interface web do usuário GitHub será um pouco diferente):
    {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="Detalhes do PR no GitHub, incluindo o link para a visualização do Netlify" >}}
-   Para abrir a visualização, selecione **Details** na lista de verificações e o link **deploy/netlify**.
+   Para abrir a visualização, selecione o link **Details** da linha **deploy/netlify** na lista de verificações.
 
 4. Vá para a aba **Files changed** para iniciar sua revisão.
 
@@ -129,7 +129,7 @@ Ao revisar, use como ponto de partida o seguinte.
 
 ### Conteúdo
 
-- Existe o conteúdo semelhante em outro lugar no site Kubernetes?
+- Existe conteúdo semelhante em outro lugar no site Kubernetes?
 - O conteúdo está excessivamente vinculado a uma documentação externa, de um fornecedor individual ou de um código não aberto?
 
 ### Website
