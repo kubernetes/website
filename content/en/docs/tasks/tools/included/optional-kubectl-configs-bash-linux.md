@@ -32,7 +32,7 @@ You now need to ensure that the kubectl completion script gets sourced in all yo
 
 {{< tabs name="kubectl_bash_autocompletion" >}}
 {{< tab name="User" codelang="bash" >}}
-echo 'source <(kubectl completion bash)' >>~/.bashrc
+echo "source $(kubectl completion bash)" >>~/.bashrc
 {{< /tab >}}
 {{< tab name="System" codelang="bash" >}}
 kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
