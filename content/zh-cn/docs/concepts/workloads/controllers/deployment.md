@@ -97,19 +97,19 @@ In this example:
 
 <!--
  * A Deployment named `nginx-deployment` is created, indicated by the `.metadata.name` field.
-* The Deployment creates three replicated Pods, indicated by the `.spec.replicas` field.
+* The Deployment creates a ReplicaSet that creates three replicated Pods, indicated by the `.spec.replicas` field.
  
 -->
 * 创建名为 `nginx-deployment`（由 `.metadata.name` 字段标明）的 Deployment。
-* 该 Deployment 创建三个（由 `.spec.replicas` 字段标明）Pod 副本。
+* 该 Deployment 创建一个 ReplicaSet 创建三个（由 `.spec.replicas` 字段标明）Pod 副本。
 
 <!--
-* The `selector` field defines how the Deployment finds which Pods to manage.
+* The `.spec.selector` field defines how the created ReplicaSet finds which Pods to manage.
   In this case, you select a label that is defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
 -->
-* `selector` 字段定义 Deployment 如何查找要管理的 Pod。
+* `selector` 字段定义创建了的 ReplicaSet 如何查找要管理的 Pod。
   在这里，你选择在 Pod 模板中定义的标签（`app: nginx`）。
   不过，更复杂的选择规则是也可能的，只要 Pod 模板本身满足所给规则即可。
 
