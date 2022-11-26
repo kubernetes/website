@@ -15,4 +15,4 @@ tags:
 
 <!--more--> 
 
-Eles também são ativos {{< glossary_tooltip text="membros da comunidade" term_id="member" >}} que participam de um ou mais {{< glossary_tooltip text="Grupos de Interesse Especial (SIGs)" term_id="sig" >}}.
+Eles também são {{< glossary_tooltip text="membros da comunidade" term_id="member" >}} ativos que participam de um ou mais {{< glossary_tooltip text="Grupos de Interesse Especial (SIGs)" term_id="sig" >}}.
