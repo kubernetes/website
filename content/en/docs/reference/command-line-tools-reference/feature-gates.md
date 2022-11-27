@@ -379,6 +379,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIServerTracing`: Add support for distributed tracing in the API server.
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 - `APISelfSubjectAttributesReview`: Activate the `SelfSubjectReview` API which allows users
+  to see the requesting subject's authentication information.
+  See [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
+  for more details.
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug/debug-cluster/audit/#advanced-audit)
 - `AllowInsecureBackendProxy`: Enable the users to skip TLS verification of
   kubelets on Pod log requests.
