@@ -1255,7 +1255,7 @@ Response example:
         "system:authenticated"
       ],
       "extra": {
-        "provider_id": ["token.company.dev"]
+        "provider_id": ["token.company.example"]
       }
     }
   }
