@@ -17,7 +17,7 @@ scheduler decisions).
 
 <!-- body -->
 
-## Klog
+## Klog  {#klog}
 
 klog is the Kubernetes logging library. [klog](https://github.com/kubernetes/klog)
 generates log messages for the Kubernetes system components.
@@ -62,7 +62,7 @@ This table shows how `kube-log-runner` invocations correspond to shell redirecti
 | Copy into log file and to stdout         | `2>&1 \| tee -a /tmp/log`  | `kube-log-runner -log-file=/tmp/log -also-stdout`           |
 | Redirect only stdout into log file       | `>/tmp/log`                | `kube-log-runner -log-file=/tmp/log -redirect-stderr=false` |
 
-### Klog output
+### Klog output  {#klog-output}
 
 An example of the traditional klog native format:
 
@@ -77,7 +77,7 @@ I1025 00:15:15.525108       1 example.go:79] This is a message
 which has a line break.
 ```
 
-### Structured Logging
+### Structured Logging  {#structured-logging}
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
@@ -115,7 +115,7 @@ I1025 00:15:15.525108       1 example.go:116] "Example" data="This is text with 
 second line.}
 ```
 
-### Contextual Logging
+### Contextual Logging  {#contextual-logging}
 
 {{< feature-state for_k8s_version="v1.24" state="alpha" >}}
 
@@ -164,7 +164,7 @@ I0404 18:03:31.171945  452150 logger.go:94] "runtime" duration="1m0s"
 I0404 18:03:31.171962  452150 logger.go:95] "another runtime" duration="1m0s"
 ```
 
-### JSON log format
+### JSON log format  {#json-log-format}
 
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 
@@ -208,13 +208,13 @@ List of components currently supporting JSON format:
 * {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
 * {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
-### Log verbosity level
+### Log verbosity level  {#log-verbosity-level}
 
 The `-v` flag controls log verbosity. Increasing the value increases the number of logged events.
 Decreasing the value decreases the number of logged events.  Increasing verbosity settings logs
 increasingly less severe events. A verbosity setting of 0 logs only critical events.
 
-### Log location
+### Log location  {#log-location}
 
 There are two types of system components: those that run in a container and those
 that do not run in a container. For example:
