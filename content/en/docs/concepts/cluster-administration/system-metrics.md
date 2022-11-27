@@ -18,7 +18,7 @@ This format is structured plain text, designed so that people and machines can b
 
 <!-- body -->
 
-## Metrics in Kubernetes
+## Metrics in Kubernetes  {#metrics-in-kubernetes}
 
 In most cases metrics are available on `/metrics` endpoint of the HTTP server. For components that
 doesn't expose endpoint by default it can be enabled using `--bind-address` flag.
@@ -55,7 +55,7 @@ rules:
       - get
 ```
 
-## Metric lifecycle
+## Metric lifecycle  {#metric-lifecycle}
 
 Alpha metric →  Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
 
@@ -92,7 +92,7 @@ hidden metric, please refer to the [Show hidden metrics](#show-hidden-metrics) s
 
 Deleted metrics are no longer published and cannot be used.
 
-## Show hidden metrics
+## Show hidden metrics  {#show-hidden-metrics}
 
 As described above, admins can enable hidden metrics through a command-line flag on a specific
 binary. This intends to be used as an escape hatch for admins if they missed the migration of the
@@ -119,7 +119,7 @@ If you're upgrading from release `1.12` to `1.13`, but still depend on a metric 
 `1.12`, you should set hidden metrics via command line: `--show-hidden-metrics=1.12` and remember
 to remove this metric dependency before upgrading to `1.14`
 
-## Disable accelerator metrics
+## Disable accelerator metrics  {#disable-accelerator-metrics}
 
 The kubelet collects accelerator metrics through cAdvisor. To collect these metrics, for
 accelerators like NVIDIA GPUs, kubelet held an open handle on the driver. This meant that in order
@@ -134,9 +134,9 @@ The [`DisableAcceleratorUsageMetrics` feature gate](/docs/reference/command-line
 disables metrics collected by the kubelet, with a
 [timeline for enabling this feature by default](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria).
 
-## Component metrics
+## Component metrics  {#component-metrics}
 
-### kube-controller-manager metrics
+### kube-controller-manager metrics  {#kube-controller-manager-metrics}
 
 Controller manager metrics provide important insight into the performance and health of the
 controller manager. These metrics include common Go language runtime metrics such as go_routine
@@ -159,7 +159,7 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
 
 
-### kube-scheduler metrics
+### kube-scheduler metrics  {#kube-scheduler-metrics}
 
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
@@ -195,7 +195,7 @@ You can explicitly turn off metrics via command line flag `--disabled-metrics`. 
 desired if, for example, a metric is causing a performance problem. The input is a list of
 disabled metrics (i.e. `--disabled-metrics=metric1,metric2`).
 
-## Metric cardinality enforcement
+## Metric cardinality enforcement  {#metric-cardinality-enforcement}
 
 Metrics with unbounded dimensions could cause memory issues in the components they instrument. To
 limit resource use, you can use the `--allow-label-value` command line option to dynamically
