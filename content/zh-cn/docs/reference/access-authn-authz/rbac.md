@@ -610,6 +610,12 @@ objects with an `aggregationRule` set. The `aggregationRule` defines a label
 {{< glossary_tooltip text="selector" term_id="selector" >}} that the controller
 uses to match other ClusterRole objects that should be combined into the `rules`
 field of this one.
+ 
+{{< caution >}}
+The control plane overwrites any values that you manually specify in the `rules` field of an
+aggregate ClusterRole. If you want to change or add rules, do so in the `ClusterRole` objects
+that are selected by the `aggregationRule`.
+{{< /caution >}}
 
 Here is an example aggregated ClusterRole:
 -->
@@ -619,6 +625,12 @@ Here is an example aggregated ClusterRole:
 作为集群控制面的一部分，控制器会监视带有 `aggregationRule` 的 ClusterRole 对象集合。`aggregationRule`
 为控制器定义一个标签{{< glossary_tooltip text="选择算符" term_id="selector" >}}供后者匹配应该组合到当前
 ClusterRole 的 `roles` 字段中的 ClusterRole 对象。
+
+{{< caution >}}
+控制平面会覆盖您在“规则”字段中手动指定的任何值
+聚合 ClusterRole。 如果您想更改或添加规则，请在“ClusterRole”对象中进行
+由 `aggregationRule` 选择。
+{{< /caution >}}
 
 下面是一个聚合 ClusterRole 的示例：
 
