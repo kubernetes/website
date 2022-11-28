@@ -22,7 +22,7 @@ This page contains a list of commonly used `kubectl` commands and flags.
 ### BASH
 
 ```bash
-source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+source <(kubectl completion bash) # set up autocomplete in bash into the current shell, bash-completion package should be installed first.
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 ```
 
@@ -36,12 +36,12 @@ complete -o default -F __start_kubectl k
 ### ZSH
 
 ```bash
-source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+source <(kubectl completion zsh)  # set up autocomplete in zsh into the current shell
 echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
-### A Note on --all-namespaces
+### A note on `--all-namespaces`
 
-Appending `--all-namespaces` happens frequently enough where you should be aware of the  shorthand for `--all-namespaces`:
+Appending `--all-namespaces` happens frequently enough where you should be aware of the shorthand for `--all-namespaces`:
 
 ```kubectl -A```
 
@@ -155,7 +155,7 @@ EOF
 
 ```
 
-## Viewing, finding resources
+## Viewing and finding resources
 
 ```bash
 # Get commands with basic output
@@ -346,7 +346,7 @@ kubectl exec my-pod -c my-container -- ls /         # Run command in existing po
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
 ```
-## Copy files and directories to and from containers
+## Copying files and directories to and from containers
 
 ```bash
 kubectl cp /tmp/foo_dir my-pod:/tmp/bar_dir            # Copy /tmp/foo_dir local directory to /tmp/bar_dir in a remote pod in the current namespace
@@ -355,7 +355,7 @@ kubectl cp /tmp/foo my-namespace/my-pod:/tmp/bar       # Copy /tmp/foo local fil
 kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # Copy /tmp/foo from a remote pod to /tmp/bar locally
 ```
 {{< note >}}
-`kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present,`kubectl cp` will fail.
+`kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present, `kubectl cp` will fail.
 For advanced use cases, such as symlinks, wildcard expansion or file mode preservation consider using `kubectl exec`.
 {{< /note >}}
 
