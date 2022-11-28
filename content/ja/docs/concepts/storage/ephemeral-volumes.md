@@ -20,7 +20,7 @@ weight: 30
 
 エフェメラルボリュームはPod仕様で*インライン*で指定されているため、アプリケーションの展開と管理が簡素化されます。
 
-### エフェメラルボリュームのタイプ {#Types of ephemeral volumes}
+### エフェメラルボリュームのタイプ {#yypes-of-ephemeral-volumes}
 
 Kubernetesは、さまざまな目的のためにいくつかの異なる種類のエフェメラルボリュームをサポートしています。
 - [emptyDir](/ja/docs/concepts/storage/volumes/#emptydir):Podの起動時には空で、ストレージはkubeletベースディレクトリ(通常はルートディスク)またはRAMからローカルに取得されます。
@@ -37,7 +37,7 @@ CSIエフェメラルボリュームは、サードパーティのCSIストレ�
 
 サードパーティ製ドライバーを使用する利点は、Kubernetes自体がサポートしていない機能を提供できることです。たとえば、kubeletによって管理されるディスクとは異なるパフォーマンス特性を持つストレージや、異なるデータの挿入などです。
 
-### CSIエフェメラルボリューム {#CSI ephemeral volumes}
+### CSIエフェメラルボリューム {#csi-ephemeral-volumes}
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
@@ -77,7 +77,7 @@ spec:
 
 `volumeAttributes`は、ドライバーによって準備されるボリュームを決定します。これらの属性は各ドライバーに固有のものであり、標準化されていません。詳細な手順については、各CSIドライバーのドキュメントを参照してください。
 
-### CSIドライバーの制限事項 {#CSI driver restrictions}
+### CSIドライバーの制限事項 {#csi-driver-restrictions}
 
 CSIエフェメラルボリュームを使用すると、ユーザーはPod仕様の一部として`volumeAttributes`をCSIドライバーに直接提供できます。
 通常は管理者に制限されている`volumeAttributes`を許可するCSIドライバーは、インラインエフェメラルボリュームでの使用には適していません。
@@ -88,7 +88,7 @@ CSIエフェメラルボリュームを使用すると、ユーザーはPod仕�
 - CSIドライバー仕様の`volumeLifecycleModes`から`Ephemeral`を削除します。これにより、ドライバーをインラインエフェメラルボリュームとして使用できなくなります。
 - [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使用して、このドライバーの使用方法を制限します。
 
-### 汎用エフェメラルボリューム {#Generic ephemeral volumes}
+### 汎用エフェメラルボリューム {#generic-ephemeral-volumes}
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
@@ -129,7 +129,7 @@ spec:
                 storage: 1Gi
 ```
 
-### LifecycleとPersistentVolumeClaim {#Lifecycle and PersistentVolumeClaim}
+### LifecycleとPersistentVolumeClaim {#lifecycle-and-persistentVolumeClaim}
 
 設計上の重要なアイデアは、[ボリュームクレームのパラメータ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)がPodのボリュームソース内で許可されることです。
 PersistentVolumeClaimのラベル、アノテーション、および一連のフィールド全体がサポートされています。
@@ -143,7 +143,7 @@ PersistentVolumeClaimのラベル、アノテーション、および一連の�
 
 これらのPVCは存在しますが、他のPVCと同様に使用できます。特に、ボリュームのクローン作成またはスナップショットでデータソースとして参照できます。PVCオブジェクトは、ボリュームの現在のステータスも保持します。
 
-### PersistentVolumeClaimの命名 {#PersistentVolumeClaim naming}
+### PersistentVolumeClaimの命名 {#persistentpolumeplaim-naming}
 
 自動的に作成されたPVCの命名は決定論的です。名前はPod名とボリューム名を組み合わせたもので、途中にハイフン(`-`)があります。上記の例では、PVC名は`my-app-scratch-volume`になります。この決定論的な命名により、Pod名とボリューム名が分かればPVCを検索する必要がないため、PVCとの対話が容易になります。
 
@@ -155,7 +155,7 @@ PersistentVolumeClaimのラベル、アノテーション、および一連の�
 これらの競合が発生しないように、同じ名前空間内でポッドとボリュームに名前を付けるときは注意してください。
 {{< /caution >}}
 
-### セキュリティ {#Security}
+### セキュリティ {#security}
 
 GenericEphemeralVolume機能を有効にすると、ユーザーは、PVCを直接作成する権限がなくても、Podを作成できる場合、間接的にPVCを作成できます。クラスタ管理者はこれを認識している必要があります。これがセキュリティモデルに適合しない場合は、一般的なエフェメラルボリュームを持つPodなどのオブジェクトを拒否する[admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使用する必要があります。
 
@@ -163,16 +163,16 @@ GenericEphemeralVolume機能を有効にすると、ユーザーは、PVCを直�
 
 ## {{% heading "whatsnext" %}}
 
-### kubeletによって管理されるエフェメラルボリューム {#Ephemeral volumes managed by kubelet}
+### kubeletによって管理されるエフェメラルボリューム {#ephemeral-volumes-managed-by-kubelet}
 
 [ローカルエフェメラルボリューム](/ja/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)を参照してください。
 
-### CSIエフェメラルボリューム {#CSI ephemeral volumes}
+### CSIエフェメラルボリューム {#csi-ephemeral-volumes}
 
 - 設計の詳細については[エフェメラルインラインCSIボリュームKEP](https://github.com/kubernetes/enhancements/blob/ad6021b3d61a49040a3f835e12c8bb5424db2bbb/keps/sig-storage/20190122-csi-inline-volumes.md)を参照してください。
 - この機能のさらなる開発の詳細については、[KEPのトラッキングイシュー](https://github.com/kubernetes/enhancements/issues/596)を参照してください。
 
-### 汎用エフェメラルボリューム {#Generic ephemeral volumes}
+### 汎用エフェメラルボリューム {#generic-ephemeral-volumes}
 
 - 設計の詳細については、[汎用インラインエフェメラルボリュームKEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md)を参照してください。
 
