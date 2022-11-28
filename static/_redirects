@@ -588,3 +588,4 @@
 /zh/*         /zh-cn/:splat  302!
 
 /docs/concepts/overview/what-is-kubernetes/      /docs/concepts/overview/ 301
+/docs/tasks/administer-cluster/verify-signed-images/     /docs/tasks/administer-cluster/verify-signed-artifacts/   301
