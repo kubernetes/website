@@ -268,6 +268,7 @@ For a reference to old feature gates that are removed, please refer to
 | `EphemeralContainers` | `false` | Alpha | 1.16 | 1.22 |
 | `EphemeralContainers` | `true` | Beta | 1.23 | 1.24 |
 | `EphemeralContainers` | `true` | GA | 1.25 | - |
+| `EventedPLEG` | `false` | Alpha | 1.26 | - |
 | `ExecProbeTimeout` | `true` | GA | 1.20 | - |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
 | `ExpandCSIVolumes` | `true` | Beta | 1.16 | 1.23 |
@@ -513,6 +514,14 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `EphemeralContainers`: Enable the ability to add
   {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
   to running pods.
+- `EventedPLEG`: Enable support for the kubelet to receive container life cycle events from the
+  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} via
+  an extension to {{<glossary_tooltip term_id="cri" text="CRI">}}.
+  (PLEG is an abbreviation for “Pod lifecycle event generator”).
+  For this feature to be useful, you also need to enable support for container lifecycle events
+  in each container runtime running in your cluster. If the container runtime does not announce
+  support for container lifecycle events then the kubelet automatically switches to the legacy
+  generic PLEG mechanism, even if you have this feature gate enabled.
 - `ExecProbeTimeout`: Ensure kubelet respects exec probe timeouts.
   This feature gate exists in case any of your existing workloads depend on a
   now-corrected fault where Kubernetes ignored exec probe timeouts. See
