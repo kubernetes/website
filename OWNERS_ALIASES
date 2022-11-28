@@ -11,6 +11,7 @@ aliases:
     - sftim
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
+    - bradtopol
     - divya-mohan0209
     - jimangel
     - kbhawkey
@@ -32,6 +33,7 @@ aliases:
     - bradtopol
     - divya-mohan0209
     - jimangel
+    - jlbutler
     - kbhawkey
     - krol3
     - natalisucks
@@ -43,6 +45,7 @@ aliases:
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
     - divya-mohan0209
+    - daminisatya
     - jimangel
     - kbhawkey
     - mehabhalodiya
@@ -50,6 +53,7 @@ aliases:
     - nate-double-u
     - onlydole
     - reylejano
+    - rajeshdeshpande02
     - sftim
     - shannonxtreme
     - tengqm
