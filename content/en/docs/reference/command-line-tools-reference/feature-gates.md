@@ -125,7 +125,7 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
 | `KubeletTracing` | `false` | Alpha | 1.25 | |
-| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | |
+| `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.26 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | 1.24 |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `true` | Beta | 1.25 | |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
@@ -296,6 +296,8 @@ For a reference to old feature gates that are removed, please refer to
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
 | `JobTrackingWithFinalizers` | `true` | GA | 1.26 | - |
+| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | 1.25 |
+| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | GA | 1.26 | - |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | 1.24 |
 | `LocalStorageCapacityIsolation` | `true` | GA | 1.25 | - |
@@ -625,6 +627,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   OpenTelemetry trace spans.
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 - `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
+  [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
+- `LegacyServiceAccountTokenTracking`: Track usage of Secret-based
   [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 - `LocalStorageCapacityIsolation`: Enable the consumption of
   [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/)
