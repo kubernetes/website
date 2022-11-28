@@ -23,7 +23,7 @@ Admit that your services are vulnerable
 
 In other words, consciously accept that you will lose any battle aimed to create non-vulnerable services. If your opponents find a single weakness as an entry-point, you lose. Admitting that although your best efforts, all your services are most likely vulnerable is an important first step. Next, we need to discuss what can you do about it...
 
-_This post focuses on microservices deployed with Kubernetes and points to [Guard](http://knative.dev/security-guard), an open source project designed to help monitor and control your Kubernetes deployed microservices, given that they are vulnerable._  
+_This post discuss the cyber challenges that Kubernetes users face when deploying microservices with Kubernetes and how to overcome them by observing the security-behavior of clients and services. It also points to [Guard](http://knative.dev/security-guard), an open source project offering security-behavior monitoring and control of your Kubernetes deployed microservices, given that they are vulnerable._
 
 ## Lose the battle - win the war!
 Being vulnerable does not necessarily mean you lost the war. Though your services are vulnerable in some ways unknown to you, offenders still need to identify these vulnerabilities and then exploit them to win the war. If offenders fail to exploit your service vulnerabilities, you win! In other words, having a vulnerability that can’t be exploited, represents a risk that can’t be realized.
@@ -67,14 +67,14 @@ The diagram above clarifies how dividing a monolithic service to a set of micros
 In a microservice environment, each microservice is expected by design to offer a more well-defined service and serve better defined type of requests. This makes it easier for an observer to identify irregular client behavior and irregular service behavior. Further, a microservice design exposes the internal requests and internal services which offer more security-behavior data to identify irregularities by an observer. Overall, this makes the microservice design pattern better suited for security-behavior monitoring and control.
 
 ## Security-Behavior Under Kubernetes
-Kubernetes deployments seeking to add Security-Behavior may use [Guard](http://knative.dev/security-guard), developed under the CNCF project Knative. **Guard can be installed to protect any HTTP-based Kubernetes service** and is <u>also</u> well integrated into the Knative automation suite that runs on top of Kubernetes.
+Kubernetes deployments seeking to add Security-Behavior may use [Guard](http://knative.dev/security-guard), developed under the CNCF project Knative. **Guard can be installed as a standalone tool to protect any HTTP-based Kubernetes service**. Alternatively, Guard is integrated into the full Knative automation suite that runs on top of Kubernetes.
 
 See:
-- [Guard on Github](https://github.com/knative-sandbox/security-guard)
+- [Guard on Github](https://github.com/knative-sandbox/security-guard) for using Guard as a standalone.
 - The Knative automation suite - Read about Knative, as an [Opinionated Kubernetes](https://davidhadas.wordpress.com/2022/08/29/knative-an-opinionated-kubernetes) implementation that simplifies and unifies the way web services are deployed on Kubernetes.
 - You can also find more information on how to [secure microservices by monitoring behavior](https://developer.ibm.com/articles/secure-microservices-by-monitoring-behavior/)
 
-The goal of this post is to recruit the Kubernetes community to action and introduce Security-Behavior monitoring and control to help secure Kubernetes based deployments.
+The goal of this post is to recruit the Kubernetes community to action and introduce Security-Behavior monitoring and control to help secure Kubernetes based deployments. Hopefully, the community as a follow up will:
 
 1. Analyze the cyber challenges presented for different Kubernetes use cases
 1. Add appropriate security documentation for users on how to introduce Security-Behavior monitoring and control.
