@@ -133,7 +133,7 @@ and _Ready_ (see `type` in [Pod Conditions](/docs/concepts/workloads/pods/pod-li
 
 {{< note >}}
 To configure the integer ordinal assigned to each Pod in a StatefulSet, see
-[Ordinal index](/docs/concepts/workloads/controllers/statefulset/#ordinal-index).
+[Start ordinal](/docs/concepts/workloads/controllers/statefulset/#start-ordinal).
 {{< /note >}}
 
 ## Pods in a StatefulSet
