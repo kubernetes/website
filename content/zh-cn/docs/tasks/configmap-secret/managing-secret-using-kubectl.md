@@ -43,7 +43,7 @@ You can create the Secret by passing the raw data in the command, or by storing
 the credentials in files that you pass in the command. The following commands
 create a Secret that stores the username `admin` and the password `S!B\*d$zDsb=`.
 -->
-你可以通过在命令中传递原始数据，或将凭据存储文件中，然后再在命令行中创建 Secret。以下命令
+你可以通过在命令中传递原始数据，或将凭据在存储文件中，然后再在命令行中创建 Secret。以下命令
 将创建一个存储用户名 `admin` 和密码 `S!B\*d$zDsb=` 的 Secret。
 
 <!-- 
