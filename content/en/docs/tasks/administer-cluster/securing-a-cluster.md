@@ -255,11 +255,7 @@ and may grant an attacker significant visibility into the state of your cluster.
 your backups using a well reviewed backup and encryption solution, and consider using full disk
 encryption where possible.
 
-Kubernetes supports [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/), a feature 
-introduced in 1.7, v1 beta since 1.13, and v2 alpha since 1.25. This will encrypt resources like `Secret` and `ConfigMap` (Custom Resources starting v1.26) in etcd, preventing
-parties that gain access to your etcd backups from viewing the content of those secret data. While
-this feature is currently beta, it offers an additional level of defense when backups
-are not encrypted or an attacker gains read access to etcd.
+As a beta feature, Kubernetes supports [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/). This lets you ensure that when Kubernetes stores data for objects (for example, `Secret` or `ConfigMap`) objects, the API server writes an encrypted representation of the object. That encryption means that even someone who has access to etcd backup data is unable to view the content of those objects. In Kubernetes {{< skew currentVersion >}}, you can also encrypt custom resources; encryption-at-rest for extension APIs defined in CustomResourceDefinitions was added to Kubernetes v1.26.
 
 ### Receiving alerts for security updates and reporting vulnerabilities
 

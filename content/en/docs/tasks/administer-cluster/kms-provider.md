@@ -146,7 +146,7 @@ Ensure that the KMS plugin runs on the same host(s) as the Kubernetes master(s).
 
 To encrypt the data:
 
-1. Create a new `EncryptionConfiguration` file using the appropriate properties for the `kms` provider to encrypt resources like Secrets and ConfigMaps. Custom Resources can be encrypted starting v1.26.
+1. Create a new `EncryptionConfiguration` file using the appropriate properties for the `kms` provider to encrypt resources like Secrets and ConfigMaps. If you want to encrypt an extension API that is defined in a CustomResourceDefinition, your cluster must be running Kubernetes v1.26 or newer.
 
 1. Set the `--encryption-provider-config` flag on the kube-apiserver to point to the location of the configuration file.
 
@@ -161,7 +161,7 @@ To encrypt the data:
      - resources:
          - secrets
          - configmaps
-         - pandas.awesome.bears.com
+         - pandas.awesome.bears.example
        providers:
          - kms:
              name: myKmsPluginFoo
@@ -184,7 +184,7 @@ To encrypt the data:
      - resources:
          - secrets
          - configmaps
-         - pandas.awesome.bears.com
+         - pandas.awesome.bears.example
        providers:
          - kms:
              apiVersion: v2

@@ -40,7 +40,7 @@ resources:
   - resources:
       - secrets
       - configmaps
-      - pandas.awesome.bears.com
+      - pandas.awesome.bears.example
     providers:
       - identity: {}
       - aesgcm:
@@ -63,8 +63,7 @@ resources:
 
 Each `resources` array item is a separate config and contains a complete configuration. The
 `resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
-that should be encrypted like Secrets and ConfigMaps. Custom Resources can be encrypted starting v1.26. The `providers` array is an ordered list of the possible encryption
-providers.
+that should be encrypted like Secrets and ConfigMaps. You can encrypt custom resources if you are running Kubernetes v1.26 or newer. The `providers` array is an ordered list of the possible encryption providers to use for the APIs that you listed.
 
 Only one provider type may be specified per entry (`identity` or `aescbc` may be provided,
 but not both in the same item).
@@ -126,7 +125,7 @@ resources:
   - resources:
       - secrets
       - configmaps
-      - pandas.awesome.bears.com
+      - pandas.awesome.bears.example
     providers:
       - aescbc:
           keys:
