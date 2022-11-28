@@ -2,7 +2,7 @@
 layout: blog
 title: "All Microservices Are Vulnerable"
 date: 2022-11-27
-slug: vulnerable-microservices
+slug: security-behavior
 ---
 
 
