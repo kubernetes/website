@@ -1,17 +1,16 @@
 aliases:
   sig-docs-blog-owners: # Approvers for blog content
-    - onlydole
     - mrbobbytables
-    - sftim
     - nate-double-u
+    - onlydole
+    - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
     - mrbobbytables
+    - nate-double-u
     - onlydole
     - sftim
-    - nate-double-u
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
-    - bradtopol
     - divya-mohan0209
     - jimangel
     - kbhawkey
@@ -33,7 +32,6 @@ aliases:
     - bradtopol
     - divya-mohan0209
     - jimangel
-    - jlbutler
     - kbhawkey
     - krol3
     - natalisucks
@@ -44,7 +42,6 @@ aliases:
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
-    - daminisatya
     - divya-mohan0209
     - jimangel
     - kbhawkey
@@ -52,7 +49,6 @@ aliases:
     - natalisucks
     - nate-double-u
     - onlydole
-    - rajeshdeshpande02
     - reylejano
     - sftim
     - shannonxtreme

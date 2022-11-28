@@ -11,14 +11,9 @@ David Hadas (IBM Research Labs)
 
 As cyber war games continue to intensify in sophistication, organizations deploying cloud services, continue to grow their cyber investments aiming to produce safe and non-vulnerable services. However, the year-by-year growth in cyber investments, does not result in parallel reduction in cyber incidents. Instead, the number of cyber incidents continue to grow annually. Evidently organizations are fighting a battle they are doomed to fail at. No matter how much effort is made to detect and remove cyber weaknesses from deployed services, it seems offenders have the upper hand.
 
-Considering the current spread of offensive tools, sophistication of offensive players, and ever-growing cyber financial gains to offenders, any cyber strategy relying on constructing a non-vulnerable, weakness-free service in 202x is clearly too naïve. It seems the only viable strategy is to:
+Considering the current spread of offensive tools, sophistication of offensive players, and ever-growing cyber financial gains to offenders, any cyber strategy that relies on constructing a non-vulnerable, weakness-free service in 2022 is clearly too naïve. It seems the only viable strategy is to:
 
-***
-<h3 align="center">
-Admit your services are vulnerable
-</h3>
-
-***
+_Admit that your services may be vulnerable._
 
 In other words, consciously accept that you will lose any battle aimed to create non-vulnerable services. If your opponents find a single weakness as an entry-point, you lose. Admitting that although your best efforts, all your services are most likely vulnerable is an important first step. Next, we need to discuss what can you do about it...
 
