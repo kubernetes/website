@@ -717,7 +717,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   the StatefulSet controller.
 - `StatefulSetStartOrdinal`: Allow configuration of the start ordinal in a
   StatefulSet. See
-  [Ordinal Index](/docs/concepts/workloads/controllers/statefulset/#ordinal-index)
+  [Start ordinal](/docs/concepts/workloads/controllers/statefulset/#start-ordinal)
   for more details.
 - `StorageVersionAPI`: Enable the
   [storage version API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageversion-v1alpha1-internal-apiserver-k8s-io).

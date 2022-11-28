@@ -158,7 +158,7 @@ For a StatefulSet with N [replicas](#replicas), each Pod in the StatefulSet
 will be assigned an integer ordinal, that is unique over the Set. By default,
 pods will be assigned ordinals from 0 up through N-1.
 
-<b>Start Ordinal</b>
+### Start ordinal
 
 {{< feature-state for_k8s_version="v1.26" state="alpha" >}}
 
