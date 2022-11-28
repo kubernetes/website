@@ -39,6 +39,8 @@ kind: EncryptionConfiguration
 resources:
   - resources:
       - secrets
+      - configmaps
+      - pandas.awesome.bears.com
     providers:
       - identity: {}
       - aesgcm:
@@ -61,7 +63,7 @@ resources:
 
 Each `resources` array item is a separate config and contains a complete configuration. The
 `resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
-that should be encrypted. The `providers` array is an ordered list of the possible encryption
+that should be encrypted like Secrets and ConfigMaps. Custom Resources can be encrypted starting v1.26. The `providers` array is an ordered list of the possible encryption
 providers.
 
 Only one provider type may be specified per entry (`identity` or `aescbc` may be provided,
@@ -100,11 +102,11 @@ Storing the raw encryption key in the EncryptionConfig only moderately improves 
 posture, compared to no encryption.  Please use `kms` provider for additional security.
 {{< /caution >}}
 
-By default, the `identity` provider is used to protect Secrets in etcd, which provides no
-encryption. `EncryptionConfiguration` was introduced to encrypt Secrets locally, with a locally
+By default, the `identity` provider is used to protect secret data in etcd, which provides no
+encryption. `EncryptionConfiguration` was introduced to encrypt secret data locally, with a locally
 managed key.
 
-Encrypting Secrets with a locally managed key protects against an etcd compromise, but it fails to
+Encrypting secret data with a locally managed key protects against an etcd compromise, but it fails to
 protect against a host compromise. Since the encryption keys are stored on the host in the
 EncryptionConfiguration YAML file, a skilled attacker can access that file and extract the encryption
 keys.
@@ -123,6 +125,8 @@ kind: EncryptionConfiguration
 resources:
   - resources:
       - secrets
+      - configmaps
+      - pandas.awesome.bears.com
     providers:
       - aescbc:
           keys:
@@ -191,8 +195,8 @@ permissions on your control-plane nodes so only the user who runs the `kube-apis
 ## Verifying that data is encrypted
 
 Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly created or
-updated Secret should be encrypted when stored. To check this, you can use the `etcdctl` command line
-program to retrieve the contents of your Secret.
+updated Secret or other resource types configured in `EncryptionConfiguration` should be encrypted when stored. To check this, you can use the `etcdctl` command line
+program to retrieve the contents of your secret data.
 
 1. Create a new Secret called `secret1` in the `default` namespace:
 

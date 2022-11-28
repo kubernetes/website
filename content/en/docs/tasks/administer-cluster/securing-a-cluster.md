@@ -256,8 +256,8 @@ your backups using a well reviewed backup and encryption solution, and consider 
 encryption where possible.
 
 Kubernetes supports [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/), a feature 
-introduced in 1.7, v1 beta since 1.13, and v2 alpha since 1.25. This will encrypt resources like `Secret` and `ConfigMap` in etcd, preventing
-parties that gain access to your etcd backups from viewing the content of those secrets. While
+introduced in 1.7, v1 beta since 1.13, and v2 alpha since 1.25. This will encrypt resources like `Secret` and `ConfigMap` (Custom Resources starting v1.26) in etcd, preventing
+parties that gain access to your etcd backups from viewing the content of those secret data. While
 this feature is currently beta, it offers an additional level of defense when backups
 are not encrypted or an attacker gains read access to etcd.
 

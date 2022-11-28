@@ -146,7 +146,7 @@ Ensure that the KMS plugin runs on the same host(s) as the Kubernetes master(s).
 
 To encrypt the data:
 
-1. Create a new `EncryptionConfiguration` file using the appropriate properties for the `kms` provider to encrypt resources like Secrets and ConfigMaps.
+1. Create a new `EncryptionConfiguration` file using the appropriate properties for the `kms` provider to encrypt resources like Secrets and ConfigMaps. Custom Resources can be encrypted starting v1.26.
 
 1. Set the `--encryption-provider-config` flag on the kube-apiserver to point to the location of the configuration file.
 
@@ -160,6 +160,8 @@ To encrypt the data:
    resources:
      - resources:
          - secrets
+         - configmaps
+         - pandas.awesome.bears.com
        providers:
          - kms:
              name: myKmsPluginFoo
@@ -181,6 +183,8 @@ To encrypt the data:
    resources:
      - resources:
          - secrets
+         - configmaps
+         - pandas.awesome.bears.com
        providers:
          - kms:
              apiVersion: v2
@@ -203,8 +207,8 @@ For details about the `EncryptionConfiguration` format, please check the
 ## Verifying that the data is encrypted
 
 Data is encrypted when written to etcd. After restarting your `kube-apiserver`, 
-any newly created or updated secret should be encrypted when stored. To verify,
-you can use the `etcdctl` command line program to retrieve the contents of your secret.
+any newly created or updated Secret or other resource types configured in `EncryptionConfiguration` should be encrypted when stored. To verify,
+you can use the `etcdctl` command line program to retrieve the contents of your secret data.
 
 1. Create a new secret called `secret1` in the `default` namespace:
 
