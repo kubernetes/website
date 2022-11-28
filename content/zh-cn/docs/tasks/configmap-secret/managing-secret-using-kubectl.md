@@ -92,7 +92,7 @@ characters.
 	 newline character gets encoded too. You do not need to escape special
 	 characters in strings that you include in a file. 
 	 -->
-	 `-n` 标志用来确保生成文件的文末没有多余的换行符。这很重要，因为当 `kubectl`
+	 `-n` 标志用来确保生成文件的文末没有多余的换行符。这很重要，因为当 \`kubectl\`
  	 读取文件并将内容编码为 base64 字符串时，额外的换行符也会被编码。
 	 你不需要对文件中包含的字符串中的特殊字符进行转义。
 
