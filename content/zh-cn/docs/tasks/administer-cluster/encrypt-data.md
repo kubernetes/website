@@ -350,11 +350,15 @@ program to retrieve the contents of your Secret.
 
 <!--
 1. Verify the stored Secret is prefixed with `k8s:enc:aescbc:v1:` which indicates
-   the `aescbc` provider has encrypted the resulting data.
+   the `aescbc` provider has encrypted the resulting data. Confirm that the key name shown in `etcd`
+   matches the key name specified in the `EncryptionConfiguration` mentioned above. In this example,
+   you can see that the encryption key named `key1` is used in `etcd` and in `EncryptionConfiguration`.
 
 1. Verify the Secret is correctly decrypted when retrieved via the API:
 -->
 3. 验证存储的密钥前缀是否为 `k8s:enc:aescbc:v1:`，这表明 `aescbc` provider 已加密结果数据。
+   确认 `etcd` 中显示的密钥名称和上述 `EncryptionConfiguration` 中指定的密钥名称一致。
+   在此例中，你可以看到在 `etcd` 和 `EncryptionConfiguration` 中使用了名为 `key1` 的加密密钥。
 
 4. 通过 API 检索，验证 Secret 是否被正确解密：
 
