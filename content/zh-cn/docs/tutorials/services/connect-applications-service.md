@@ -1,8 +1,17 @@
 ---
 title: 使用 Service 连接到应用
-content_type: concept
-weight: 30
+content_type: tutorial
+weight: 20
 ---
+<!--
+reviewers:
+- caesarxuchao
+- lavalamp
+- thockin
+title: Connecting Applications with Services
+content_type: tutorial
+weight: 20
+-->
 
 <!-- overview -->
 
@@ -13,9 +22,8 @@ Now that you have a continuously running, replicated application you can expose 
 
 Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. Kubernetes gives every pod its own cluster-private IP address, so you do not need to explicitly create links between pods or map container ports to host ports. This means that containers within a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other without NAT. The rest of this document elaborates on how you can run reliable services on such a networking model.
 
-This guide uses a simple nginx server to demonstrate proof of concept.
+This tutorial uses a simple nginx web server to demonstrate the concept.
 -->
-
 ## Kubernetes 连接容器的模型  {#the-kubernetes-model-for-connecting-containers}
 
 既然有了一个持续运行、可复制的应用，我们就能够将它暴露到网络上。
@@ -27,7 +35,7 @@ Pod 与 Pod 之间创建连接或将容器的端口映射到主机端口。
 也不需要通过 NAT 转换就能够互相看到。
 本文档的剩余部分详述如何在上述网络模型之上运行可靠的服务。
 
-本指南使用一个简单的 Nginx 服务器来演示概念验证原型。
+本教程使用一个简单的 Nginx 服务器来演示概念验证原型。
 
 <!-- body -->
 
@@ -47,7 +55,6 @@ Create an nginx Pod, and note that it has a container port specification:
 <!--
 This makes it accessible from any node in your cluster. Check the nodes the Pod is running on:
 -->
-
 这使得可以从集群中任何一个节点来访问它。检查节点，该 Pod 正在运行：
 
 ```shell
@@ -65,7 +72,7 @@ Check your pods' IPs:
 -->
 检查 Pod 的 IP 地址：
 
-```shell
+```
 kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
     POD_IP
     [map[ip:10.244.3.4]]
@@ -103,7 +110,8 @@ Pod 会终止，Deployment 将创建新的 Pod，且使用不同的 IP。这正�
 Kubernetes Service 是集群中提供相同功能的一组 Pod 的抽象表达。
 当每个 Service 创建时，会被分配一个唯一的 IP 地址（也称为 clusterIP）。
 这个 IP 地址与 Service 的生命周期绑定在一起，只要 Service 存在，它就不会改变。
-可以配置 Pod 使它与 Service 进行通信，Pod 知道与 Service 通信将被自动地负载均衡到该 Service 中的某些 Pod 上。
+可以配置 Pod 使它与 Service 进行通信，Pod 知道与 Service 通信将被自动地负载均衡到该
+Service 中的某些 Pod 上。
 
 可以使用 `kubectl expose` 命令为 2个 Nginx 副本创建一个 Service：
 
@@ -117,7 +125,6 @@ service/my-nginx exposed
 <!--
 This is equivalent to `kubectl apply -f` the following yaml:
 -->
-
 这等价于使用 `kubectl create -f` 命令及如下的 yaml 文件创建：
 
 {{< codenew file="service/networking/nginx-svc.yaml" >}}
@@ -133,8 +140,8 @@ API object to see the list of supported fields in service definition.
 Check your Service:
 -->
 上述规约将创建一个 Service，该 Service 会将所有具有标签 `run: my-nginx` 的 Pod 的 TCP
-80 端口暴露到一个抽象的 Service 端口上（`targetPort`：容器接收流量的端口；`port`：可任意取值的抽象的 Service
-端口，其他 Pod 通过该端口访问 Service）。
+80 端口暴露到一个抽象的 Service 端口上（`targetPort`：容器接收流量的端口；`port`：
+可任意取值的抽象的 Service 端口，其他 Pod 通过该端口访问 Service）。
 查看 [Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
 API 对象以了解 Service 所能接受的字段列表。
 查看你的 Service 资源:
@@ -149,17 +156,24 @@ my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 
 <!--
 As mentioned previously, a Service is backed by a group of Pods. These Pods are
-exposed through `endpoints`. The Service's selector will be evaluated continuously
-and the results will be POSTed to an Endpoints object also named `my-nginx`.
-When a Pod dies, it is automatically removed from the endpoints, and new Pods
-matching the Service's selector will automatically get added to the endpoints.
+exposed through
+{{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlices">}}.
+The Service's selector will be evaluated continuously and the results will be POSTed
+to an EndpointSlice that is connected to the Service using a
+{{< glossary_tooltip text="labels" term_id="label" >}}.
+When a Pod dies, it is automatically removed from the EndpointSlices that contain it 
+as an endpoint. New Pods that match the Service's selector will automatically get added
+to an EndpointSlice for that Service.
 Check the endpoints, and note that the IPs are the same as the Pods created in
 the first step:
 -->
-正如前面所提到的，一个 Service 由一组 Pod 提供支撑。这些 Pod 通过 `endpoints` 暴露出来。
-Service Selector 将持续评估，结果被 POST 到一个名称为 `my-nginx` 的 Endpoint 对象上。
-当 Pod 终止后，它会自动从 Endpoint 中移除，新的能够匹配上 Service Selector 的 Pod 将自动地被添加到 Endpoint 中。
-检查该 Endpoint，注意到 IP 地址与在第一步创建的 Pod 是相同的。
+正如前面所提到的，一个 Service 由一组 Pod 提供支撑。这些 Pod 通过
+{{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlices">}} 暴露出来。
+Service Selector 将持续评估，结果被 POST
+到使用{{< glossary_tooltip text="标签" term_id="label" >}}与该 Service 连接的一个 EndpointSlice。
+当 Pod 终止后，它会自动从包含该 Pod 的 EndpointSlices 中移除。
+新的能够匹配上 Service Selector 的 Pod 将自动地被为该 Service 添加到 EndpointSlice 中。
+检查 Endpoint，注意到 IP 地址与在第一步创建的 Pod 是相同的。
 
 ```shell
 kubectl describe svc my-nginx
@@ -178,11 +192,11 @@ Session Affinity:    None
 Events:              <none>
 ```
 ```shell
-kubectl get ep my-nginx
+kubectl get endpointslices -l kubernetes.io/service-name=my-nginx
 ```
 ```
-NAME       ENDPOINTS                     AGE
-my-nginx   10.244.2.5:80,10.244.3.4:80   1m
+NAME             ADDRESSTYPE   PORTS   ENDPOINTS               AGE
+my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 ```
 
 <!--
@@ -191,11 +205,9 @@ any node in your cluster. Note that the Service IP is completely virtual, it
 never hits the wire. If you're curious about how this works you can read more
 about the [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
 -->
-
 现在，你应该能够从集群中任意节点上使用 curl 命令向 `<CLUSTER-IP>:<PORT>` 发送请求以访问 Nginx Service。
 注意 Service IP 完全是虚拟的，它从来没有走过网络，如果对它如何工作的原理感到好奇，
-可以进一步阅读[服务代理](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
-的内容。
+可以进一步阅读[服务代理](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)的内容。
 
 <!--
 ## Accessing the Service
@@ -206,15 +218,15 @@ and DNS. The former works out of the box while the latter requires the
 -->
 ## 访问 Service   {#accessing-the-service}
 
-Kubernetes支持两种查找服务的主要模式: 环境变量和 DNS。前者开箱即用，而后者则需要
-[CoreDNS 集群插件](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns).
+Kubernetes 支持两种查找服务的主要模式：环境变量和 DNS。前者开箱即用，而后者则需要
+[CoreDNS 集群插件](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)。
 
+{{< note >}}
 <!--
 If the service environment variables are not desired (because possible clashing with expected program ones,
 too many variables to process, only using DNS, etc) you can disable this mode by setting the `enableServiceLinks`
 flag to `false` on the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
 -->
-{{< note >}}
 如果不需要服务环境变量（因为可能与预期的程序冲突，可能要处理的变量太多，或者仅使用DNS等），则可以通过在
 [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 上将 `enableServiceLinks` 标志设置为 `false` 来禁用此模式。
@@ -227,7 +239,7 @@ When a Pod runs on a Node, the kubelet adds a set of environment variables for
 each active Service. This introduces an ordering problem. To see why, inspect
 the environment of your running nginx Pods (your Pod name will be different):
 -->
-### 环境变量
+### 环境变量   {#environment-variables}
 
 当 Pod 在节点上运行时，kubelet 会针对每个活跃的 Service 为 Pod 添加一组环境变量。
 这就引入了一个顺序的问题。为解释这个问题，让我们先检查正在运行的 Nginx Pod
@@ -252,7 +264,6 @@ replicas. This will give you scheduler-level Service spreading of your Pods
 (provided all your nodes have equal capacity), as well as the right environment
 variables:
 -->
-
 能看到环境变量中并没有你创建的 Service 相关的值。这是因为副本的创建先于 Service。
 这样做的另一个缺点是，调度器可能会将所有 Pod 部署到同一台机器上，如果该机器宕机则整个 Service 都会离线。
 要改正的话，我们可以先终止这 2 个 Pod，然后等待 Deployment 去重新创建它们。
@@ -273,7 +284,6 @@ my-nginx-3800858182-j4rm4   1/1       Running   0          5s      10.244.3.8   
 <!--
 You may notice that the pods have different names, since they are killed and recreated.
 -->
-
 你可能注意到，Pod 具有不同的名称，这是因为它们是被重新创建的。
 
 ```shell
@@ -292,7 +302,6 @@ KUBERNETES_SERVICE_PORT_HTTPS=443
 <!--
 Kubernetes offers a DNS cluster addon Service that automatically assigns dns names to other Services. You can check if it's running on your cluster:
 -->
-
 Kubernetes 提供了一个自动为其它 Service 分配 DNS 名字的 DNS 插件 Service。
 你可以通过如下命令检查它是否在工作：
 
@@ -327,7 +336,6 @@ Hit enter for command prompt
 <!--
 Then, hit enter and run `nslookup my-nginx`:
 -->
-
 然后，按回车并执行命令 `nslookup my-nginx`：
 
 ```shell
@@ -350,7 +358,6 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 
 You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
 -->
-
 ## 保护 Service {#securing-the-service}
 
 到现在为止，我们只在集群内部访问了 Nginx 服务器。在将 Service 暴露到因特网之前，我们希望确保通信信道是安全的。
@@ -383,6 +390,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 And also the configmap:
 -->
 以下是 configmap：
+
 ```shell
 kubectl create configmap nginxconfigmap --from-file=default.conf
 ```
@@ -421,7 +429,7 @@ kind: "Secret"
 metadata:
   name: "nginxsecret"
   namespace: "default"
-type: kubernetes.io/tls  
+type: kubernetes.io/tls
 data:
   tls.crt: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURIekNDQWdlZ0F3SUJBZ0lKQUp5M3lQK0pzMlpJTUEwR0NTcUdTSWIzRFFFQkJRVUFNQ1l4RVRBUEJnTlYKQkFNVENHNW5hVzU0YzNaak1SRXdEd1lEVlFRS0V3aHVaMmx1ZUhOMll6QWVGdzB4TnpFd01qWXdOekEzTVRKYQpGdzB4T0RFd01qWXdOekEzTVRKYU1DWXhFVEFQQmdOVkJBTVRDRzVuYVc1NGMzWmpNUkV3RHdZRFZRUUtFd2h1CloybHVlSE4yWXpDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSjFxSU1SOVdWM0IKMlZIQlRMRmtobDRONXljMEJxYUhIQktMSnJMcy8vdzZhU3hRS29GbHlJSU94NGUrMlN5ajBFcndCLzlYTnBwbQppeW1CL3JkRldkOXg5UWhBQUxCZkVaTmNiV3NsTVFVcnhBZW50VWt1dk1vLzgvMHRpbGhjc3paenJEYVJ4NEo5Ci82UVRtVVI3a0ZTWUpOWTVQZkR3cGc3dlVvaDZmZ1Voam92VG42eHNVR0M2QURVODBpNXFlZWhNeVI1N2lmU2YKNHZpaXdIY3hnL3lZR1JBRS9mRTRqakxCdmdONjc2SU90S01rZXV3R0ljNDFhd05tNnNTSzRqYUNGeGpYSnZaZQp2by9kTlEybHhHWCtKT2l3SEhXbXNhdGp4WTRaNVk3R1ZoK0QrWnYvcW1mMFgvbVY0Rmo1NzV3ajFMWVBocWtsCmdhSXZYRyt4U1FVQ0F3RUFBYU5RTUU0d0hRWURWUjBPQkJZRUZPNG9OWkI3YXc1OUlsYkROMzhIYkduYnhFVjcKTUI4R0ExVWRJd1FZTUJhQUZPNG9OWkI3YXc1OUlsYkROMzhIYkduYnhFVjdNQXdHQTFVZEV3UUZNQU1CQWY4dwpEUVlKS29aSWh2Y05BUUVGQlFBRGdnRUJBRVhTMW9FU0lFaXdyMDhWcVA0K2NwTHI3TW5FMTducDBvMm14alFvCjRGb0RvRjdRZnZqeE04Tzd2TjB0clcxb2pGSW0vWDE4ZnZaL3k4ZzVaWG40Vm8zc3hKVmRBcStNZC9jTStzUGEKNmJjTkNUekZqeFpUV0UrKzE5NS9zb2dmOUZ3VDVDK3U2Q3B5N0M3MTZvUXRUakViV05VdEt4cXI0Nk1OZWNCMApwRFhWZmdWQTRadkR4NFo3S2RiZDY5eXM3OVFHYmg5ZW1PZ05NZFlsSUswSGt0ejF5WU4vbVpmK3FqTkJqbWZjCkNnMnlwbGQ0Wi8rUUNQZjl3SkoybFIrY2FnT0R4elBWcGxNSEcybzgvTHFDdnh6elZPUDUxeXdLZEtxaUMwSVEKQ0I5T2wwWW5scE9UNEh1b2hSUzBPOStlMm9KdFZsNUIyczRpbDlhZ3RTVXFxUlU9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
   tls.key: "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQ2RhaURFZlZsZHdkbFIKd1V5eFpJWmVEZWNuTkFhbWh4d1NpeWF5N1AvOE9ta3NVQ3FCWmNpQ0RzZUh2dGtzbzlCSzhBZi9WemFhWm9zcApnZjYzUlZuZmNmVUlRQUN3WHhHVFhHMXJKVEVGSzhRSHA3VkpMcnpLUC9QOUxZcFlYTE0yYzZ3MmtjZUNmZitrCkU1bEVlNUJVbUNUV09UM3c4S1lPNzFLSWVuNEZJWTZMMDUrc2JGQmd1Z0ExUE5JdWFubm9UTWtlZTRuMG4rTDQKb3NCM01ZUDhtQmtRQlAzeE9JNHl3YjREZXUraURyU2pKSHJzQmlIT05Xc0RadXJFaXVJMmdoY1kxeWIyWHI2UAozVFVOcGNSbC9pVG9zQngxcHJHclk4V09HZVdPeGxZZmcvbWIvNnBuOUYvNWxlQlkrZStjSTlTMkQ0YXBKWUdpCkwxeHZzVWtGQWdNQkFBRUNnZ0VBZFhCK0xkbk8ySElOTGo5bWRsb25IUGlHWWVzZ294RGQwci9hQ1Zkank4dlEKTjIwL3FQWkUxek1yall6Ry9kVGhTMmMwc0QxaTBXSjdwR1lGb0xtdXlWTjltY0FXUTM5SjM0VHZaU2FFSWZWNgo5TE1jUHhNTmFsNjRLMFRVbUFQZytGam9QSFlhUUxLOERLOUtnNXNrSE5pOWNzMlY5ckd6VWlVZWtBL0RBUlBTClI3L2ZjUFBacDRuRWVBZmI3WTk1R1llb1p5V21SU3VKdlNyblBESGtUdW1vVlVWdkxMRHRzaG9reUxiTWVtN3oKMmJzVmpwSW1GTHJqbGtmQXlpNHg0WjJrV3YyMFRrdWtsZU1jaVlMbjk4QWxiRi9DSmRLM3QraTRoMTVlR2ZQegpoTnh3bk9QdlVTaDR2Q0o3c2Q5TmtEUGJvS2JneVVHOXBYamZhRGR2UVFLQmdRRFFLM01nUkhkQ1pKNVFqZWFKClFGdXF4cHdnNzhZTjQyL1NwenlUYmtGcVFoQWtyczJxWGx1MDZBRzhrZzIzQkswaHkzaE9zSGgxcXRVK3NHZVAKOWRERHBsUWV0ODZsY2FlR3hoc0V0L1R6cEdtNGFKSm5oNzVVaTVGZk9QTDhPTm1FZ3MxMVRhUldhNzZxelRyMgphRlpjQ2pWV1g0YnRSTHVwSkgrMjZnY0FhUUtCZ1FEQmxVSUUzTnNVOFBBZEYvL25sQVB5VWs1T3lDdWc3dmVyClUycXlrdXFzYnBkSi9hODViT1JhM05IVmpVM25uRGpHVHBWaE9JeXg5TEFrc2RwZEFjVmxvcG9HODhXYk9lMTAKMUdqbnkySmdDK3JVWUZiRGtpUGx1K09IYnRnOXFYcGJMSHBzUVpsMGhucDBYSFNYVm9CMUliQndnMGEyOFVadApCbFBtWmc2d1BRS0JnRHVIUVV2SDZHYTNDVUsxNFdmOFhIcFFnMU16M2VvWTBPQm5iSDRvZUZKZmcraEppSXlnCm9RN3hqWldVR3BIc3AyblRtcHErQWlSNzdyRVhsdlhtOElVU2FsbkNiRGlKY01Pc29RdFBZNS9NczJMRm5LQTQKaENmL0pWb2FtZm1nZEN0ZGtFMXNINE9MR2lJVHdEbTRpb0dWZGIwMllnbzFyb2htNUpLMUI3MkpBb0dBUW01UQpHNDhXOTVhL0w1eSt5dCsyZ3YvUHM2VnBvMjZlTzRNQ3lJazJVem9ZWE9IYnNkODJkaC8xT2sybGdHZlI2K3VuCnc1YytZUXRSTHlhQmd3MUtpbGhFZDBKTWU3cGpUSVpnQWJ0LzVPbnlDak9OVXN2aDJjS2lrQ1Z2dTZsZlBjNkQKckliT2ZIaHhxV0RZK2Q1TGN1YSt2NzJ0RkxhenJsSlBsRzlOZHhrQ2dZRUF5elIzT3UyMDNRVVV6bUlCRkwzZAp4Wm5XZ0JLSEo3TnNxcGFWb2RjL0d5aGVycjFDZzE2MmJaSjJDV2RsZkI0VEdtUjZZdmxTZEFOOFRwUWhFbUtKCnFBLzVzdHdxNWd0WGVLOVJmMWxXK29xNThRNTBxMmk1NVdUTThoSDZhTjlaMTltZ0FGdE5VdGNqQUx2dFYxdEYKWSs4WFJkSHJaRnBIWll2NWkwVW1VbGc9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K"
@@ -444,7 +452,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 <!--
 Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
 -->
-现在修改 nginx 副本以启动一个使用 Secret 中的证书的 HTTPS 服务器以及相应的用于暴露其端口（80 和 443）的 Service：
+现在修改 Nginx 副本以启动一个使用 Secret 中的证书的 HTTPS 服务器以及相应的用于暴露其端口（80 和 443）的 Service：
 
 {{< codenew file="service/networking/nginx-secure-app.yaml" >}}
 
@@ -474,13 +482,13 @@ At this point you can reach the nginx server from any node.
 -->
 这时，你可以从任何节点访问到 Nginx 服务器。
 
-```shell
+```
 kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
     POD_IP
     [map[ip:10.244.3.5]]
 ```
 
-```shell
+```
 node $ curl -k https://10.244.3.5
 ...
 <h1>Welcome to nginx!</h1>
@@ -574,7 +582,6 @@ $ curl https://<EXTERNAL-IP>:<NODE-PORT> -k
 <!--
 Let's now recreate the Service to use a cloud load balancer. Change the `Type` of `my-nginx` Service from `NodePort` to `LoadBalancer`:
 -->
-
 让我们重新创建一个 Service 以使用云负载均衡器。
 将 `my-nginx` Service 的 `Type` 由 `NodePort` 改成 `LoadBalancer`：
 
@@ -601,7 +608,6 @@ hostname, not an IP.  It's too long to fit in the standard `kubectl get svc`
 output, in fact, so you'll need to do `kubectl describe service my-nginx` to
 see it.  You'll see something like this:
 -->
-
 在 `EXTERNAL-IP` 列中的 IP 地址能在公网上被访问到。`CLUSTER-IP` 只能从集群/私有云网络中访问。
 
 注意，在 AWS 上，类型 `LoadBalancer` 的服务会创建一个 ELB，且 ELB 使用主机名（比较长），而不是 IP。

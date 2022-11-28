@@ -1,14 +1,14 @@
 ---
 title: 众所周知的标签、注解和污点
 content_type: concept
-weight: 20
+weight: 40
 no_list: true
 ---
 
 <!--
 title: Well-Known Labels, Annotations and Taints
 content_type: concept
-weight: 20
+weight: 40
 no_list: true
 -->
 
@@ -625,6 +625,24 @@ StatefulSet topic for more details.
 当 StatefulSet 控制器为 StatefulSet 创建 Pod 时，控制平面会在该 Pod 上设置此标签。标签的值是正在创建的 Pod 的名称。
 
 有关详细信息，请参阅 StatefulSet 主题中的 [Pod 名称标签](/zh-cn/docs/concepts/workloads/controllers/statefulset/#pod-name-label)。
+
+<!--
+### scheduler.alpha.kubernetes.io/node-selector {#schedulerkubernetesnode-selector}
+
+Example: `scheduler.alpha.kubernetes.io/node-selector: "name-of-node-selector"`
+
+Used on: Namespace
+
+The [PodNodeSelector](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector) uses this annotation key to assign node selectors to pods in namespaces.
+-->
+### scheduler.alpha.kubernetes.io/node-selector {#schedulerkubernetesnode-selector}
+
+例子：`scheduler.alpha.kubernetes.io/node-selector: "name-of-node-selector"`
+
+用于：Namespace
+
+[PodNodeSelector](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podnodeselector) 
+使用此注解键为名字空间中的 Pod 设置节点选择算符。
 
 <!--
 ### topology.kubernetes.io/region {#topologykubernetesioregion}

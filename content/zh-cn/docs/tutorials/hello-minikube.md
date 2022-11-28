@@ -62,7 +62,7 @@ See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation 
 <!--
 This tutorial provides a container image that uses NGINX to echo back all the requests.
 -->
-本教程提供了容器镜像，使用 NGINX 来对所有请求做出回应：
+本教程提供了容器镜像，使用 NGINX 来对所有请求做出回应。
 
 <!-- lessoncontent -->
 
@@ -157,7 +157,6 @@ tutorial has only one Container. A Kubernetes
 Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 -->
-
 ## 创建 Deployment  {#create-a-deployment}
 
 Kubernetes [**Pod**](/zh-cn/docs/concepts/workloads/pods/)
@@ -171,16 +170,15 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
 Pod runs a Container based on the provided Docker image.
 -->
 1. 使用 `kubectl create` 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker
-   镜像运行 Container。
+   镜像运行容器。
 
    ```shell
-   kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
+   kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
    ```
 
 <!--
 2. View the Deployment:
 -->
-
 2. 查看 Deployment：
 
    ```shell
@@ -268,11 +266,11 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    ```
 
    <!--
-    The `--type=LoadBalancer` flag indicates that you want to expose your Service
-    outside of the cluster.
+   The `--type=LoadBalancer` flag indicates that you want to expose your Service
+   outside of the cluster.
 
-    The application code inside the image `registry.k8s.io/echoserver` only listens on TCP port 8080. If you used
-    `kubectl expose` to expose a different port, clients could not connect to that other port.
+   The application code inside the image `registry.k8s.io/echoserver` only listens on TCP port 8080. If you used
+   `kubectl expose` to expose a different port, clients could not connect to that other port.
    -->
 
    这里的 `--type=LoadBalancer` 参数表明你希望将你的 Service 暴露到集群外部。
@@ -344,9 +342,9 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
 
 1. List the currently supported addons:
 -->
-## 启用插件
+## 启用插件   {#enable-addons}
 
-Minikube 有一组内置的 {{< glossary_tooltip text="插件" term_id="addons" >}}，
+Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >}}，
 可以在本地 Kubernetes 环境中启用、禁用和打开。
 
 1. 列出当前支持的插件：

@@ -1,7 +1,7 @@
 ---
 title: 容器生命周期回调
 content_type: concept
-weight: 30
+weight: 40
 ---
 <!--
 reviewers:
@@ -9,7 +9,7 @@ reviewers:
 - thockin
 title: Container Lifecycle Hooks
 content_type: concept
-weight: 30
+weight: 40
 -->
 
 <!-- overview -->
