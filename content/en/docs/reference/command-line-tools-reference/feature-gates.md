@@ -715,8 +715,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   memory-backed volumes (mainly `emptyDir` volumes).
 - `StatefulSetMinReadySeconds`: Allows `minReadySeconds` to be respected by
   the StatefulSet controller.
-- `StatefulSetStartOrdinal`: Allow StatefulSet to control start replica ordinal
-   numbering.
+- `StatefulSetStartOrdinal`: Allow configuration of the start ordinal in a
+  StatefulSet. See
+  [Ordinal Index](/docs/concepts/workloads/controllers/statefulset/#ordinal-index)
+  for more details.
 - `StorageVersionAPI`: Enable the
   [storage version API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageversion-v1alpha1-internal-apiserver-k8s-io).
 - `StorageVersionHash`: Allow API servers to expose the storage version hash in the

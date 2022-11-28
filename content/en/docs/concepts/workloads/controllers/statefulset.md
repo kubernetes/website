@@ -154,8 +154,23 @@ regardless of which node it's (re)scheduled on.
 
 ### Ordinal Index
 
-For a StatefulSet with N replicas, each Pod in the StatefulSet will be
-assigned an integer ordinal, from 0 up through N-1, that is unique over the Set.
+For a StatefulSet with N [replicas](#replicas), each Pod in the StatefulSet
+will be assigned an integer ordinal, that is unique over the Set. By default,
+pods will be assigned ordinals from 0 up through N-1.
+
+<b>Start Ordinal</b>
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+`.spec.ordinals` is an optional field that allows you to configure the integer
+ordinals assigned to each Pod. It defaults to nil. You must enable the
+`StatefulSetStartOrdinal`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this field. Once enabled, you can configure the following options:
+
+* `.spec.ordinals.start`: If the `.spec.ordinals.start` field is set, Pods will
+  be assigned ordinals from `.spec.ordinals.start` up through
+  `.spec.ordinals.start + .spec.replicas - 1`.
 
 ### Stable Network ID
 
@@ -436,20 +451,6 @@ If a [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autosc
 Statefulset, don't set `.spec.replicas`. Instead, allow the Kubernetes
 {{<glossary_tooltip text="control plane" term_id="control-plane" >}} to manage
 the `.spec.replicas` field automatically.
-
-### Ordinals
-
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-`.spec.ordinals` is an optional field that allows for configuration of the replica numbers assigned
-to pods. It defaults to nil. You must enable the `StatefulSetSlice`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to use this field. Once
-enabled, you can configure the following options:
-
- * `.spec.ordinals.start`: By default, the StatefulSet controller creates replica pods ordered from
-`0` to `.spec.replicas-1`. If the `.spec.ordinals.start` field is set, the StatefulSet controller
-will create replica pods ordered from `.spec.ordinals.start` to
-`.spec.ordinals.start + .spec.replicas - 1`.
 
 ## {{% heading "whatsnext" %}}
 
