@@ -20,7 +20,7 @@ weight: 30
 
 エフェメラルボリュームはPod仕様で*インライン*で指定されているため、アプリケーションの展開と管理が簡素化されます。
 
-### エフェメラルボリュームのタイプ {#yypes-of-ephemeral-volumes}
+### エフェメラルボリュームのタイプ {#types-of-ephemeral-volumes}
 
 Kubernetesは、さまざまな目的のためにいくつかの異なる種類のエフェメラルボリュームをサポートしています。
 - [emptyDir](/ja/docs/concepts/storage/volumes/#emptydir):Podの起動時には空で、ストレージはkubeletベースディレクトリ(通常はルートディスク)またはRAMからローカルに取得されます。
@@ -129,7 +129,7 @@ spec:
                 storage: 1Gi
 ```
 
-### LifecycleとPersistentVolumeClaim {#lifecycle-and-persistentVolumeClaim}
+### LifecycleとPersistentVolumeClaim {#lifecycle-and-persistentvolumeclaim}
 
 設計上の重要なアイデアは、[ボリュームクレームのパラメータ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)がPodのボリュームソース内で許可されることです。
 PersistentVolumeClaimのラベル、アノテーション、および一連のフィールド全体がサポートされています。
