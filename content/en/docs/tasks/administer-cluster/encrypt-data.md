@@ -2,6 +2,7 @@
 title: Encrypting Secret Data at Rest
 reviewers:
 - smarterclayton
+- enj
 content_type: task
 min-kubernetes-server-version: 1.13
 ---
