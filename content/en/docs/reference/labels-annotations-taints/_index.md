@@ -399,7 +399,9 @@ Used on: Node
 
 If a node has set the annotation `volumes.kubernetes.io/controller-managed-attach-detach`
 on itself, then its storage attach and detach operations are being managed
-by the attach/detach controller running in kube-controller-manager.
+by the _volume attach/detach_
+{{< glossary_tooltip text="controller" term_id="controller" >}} running within the
+{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
 
 The value of the annotation isn't important; if this annotation exists on a node,
 then storage attaches and detaches are controller managed.
