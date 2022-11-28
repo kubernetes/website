@@ -22,8 +22,7 @@ This page shows how to enable and configure encryption of secret data at rest.
 The `kube-apiserver` process accepts an argument `--encryption-provider-config`
 that controls how API data is encrypted in etcd.
 The configuration is provided as an API named
-[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/).
-An example configuration is provided below.
+[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/). `--encryption-provider-config-automatic-reload` boolean argument determines if the file set by `--encryption-provider-config` should be automatically reloaded if the disk contents change. This enables key rotation without API server restarts. An example configuration is provided below.
 
 {{< caution >}}
 **IMPORTANT:** For high-availability configurations (with two or more control plane nodes), the
@@ -305,4 +304,3 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ## {{% heading "whatsnext" %}}
 
 * Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
-
