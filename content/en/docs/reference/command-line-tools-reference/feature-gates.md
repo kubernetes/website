@@ -62,6 +62,7 @@ For a reference to old feature gates that are removed, please refer to
 | `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | 1.15 |
 | `APIResponseCompression` | `true` | Beta | 1.16 | |
+| `APISelfSubjectAttributesReview` | `false` | Alpha | 1.26 | |
 | `APIServerIdentity` | `false` | Alpha | 1.20 | |
 | `APIServerTracing` | `false` | Alpha | 1.22 | |
 | `AllowInsecureBackendProxy` | `true` | Beta | 1.17 | |
@@ -387,6 +388,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIServerIdentity`: Assign each API server an ID in a cluster.
 - `APIServerTracing`: Add support for distributed tracing in the API server.
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
+- `APISelfSubjectAttributesReview`: Activate the `SelfSubjectReview` API which allows users
+  to see the requesting subject's authentication information.
+  See [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
+  for more details.
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug/debug-cluster/audit/#advanced-audit)
 - `AllowInsecureBackendProxy`: Enable the users to skip TLS verification of
   kubelets on Pod log requests.
