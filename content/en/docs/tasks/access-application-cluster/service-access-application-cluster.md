@@ -153,7 +153,6 @@ the Hello World application, enter this command:
 
 ## {{% heading "whatsnext" %}}
 
-
-Learn more about
-[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
-
+Follow the
+[Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
+tutorial.

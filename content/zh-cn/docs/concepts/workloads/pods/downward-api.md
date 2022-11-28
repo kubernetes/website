@@ -1,6 +1,7 @@
 ---
 title: Downward API
 content_type: concept
+weight: 170
 description: >
   有两种方法可以将 Pod 和容器字段暴露给运行中的容器：环境变量和由特殊卷类型承载的文件。
   这两种暴露 Pod 和容器字段的方法统称为 Downward API。
@@ -8,6 +9,7 @@ description: >
 <!--
 title: Downward API
 content_type: concept
+weight: 170
 description: >
   There are two ways to expose Pod and container fields to a running container:
   environment variables, and as files that are populated by a special volume type.

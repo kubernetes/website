@@ -1,7 +1,7 @@
 ---
 title: 证书签名请求
 content_type: concept
-weight: 20
+weight: 25
 ---
 <!--
 reviewers:
@@ -11,7 +11,7 @@ reviewers:
 - enj
 title: Certificate Signing Requests
 content_type: concept
-weight: 20
+weight: 25
 -->
 
 <!-- overview -->
@@ -814,13 +814,13 @@ M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
 
 <!--
 Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
-to allow for explanatory text as described in section 5.2 of RFC7468.
+to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
 
 When encoded in JSON or YAML, this field is base-64 encoded.
 A CertificateSigningRequest containing the example certificate above would look like this:
 -->
 非 PEM 内容可能会出现在证书 PEM 块前后的位置，且未经验证，
-以允许使用 RFC7468 第5.2节 中描述的解释性文本。
+以允许使用 [RFC7468 第 5.2 节](https://www.rfc-editor.org/rfc/rfc7468#section-5.2)中描述的解释性文本。
 
 当使用 JSON 或 YAML 格式时，此字段是 base-64 编码。
 包含上述示例证书的 CertificateSigningRequest 如下所示：

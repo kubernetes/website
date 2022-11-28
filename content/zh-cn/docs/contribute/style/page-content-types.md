@@ -1,7 +1,7 @@
 ---
 title: 页面内容类型
 content_type: concept
-weight: 30
+weight: 80
 card:
   name: contribute
   weight: 30
@@ -9,7 +9,7 @@ card:
 <!--
 title: Page content types
 content_type: concept
-weight: 30
+weight: 80
 card:
   name: contribute
   weight: 30
