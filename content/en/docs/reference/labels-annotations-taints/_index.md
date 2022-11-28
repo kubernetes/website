@@ -402,7 +402,7 @@ on itself, then its storage attach and detach operations are being managed
 by the attach/detach controller running in kube-controller-manager.
 
 The value of the annotation isn't important; if this annotation exists on a node,
-then attach and detached are controller managed.
+then storage attaches and detaches are controller managed.
 
 ### node.kubernetes.io/windows-build {#nodekubernetesiowindows-build}
 
