@@ -33,7 +33,6 @@ stateDiagram-v2
     s3: pod scheduling ready
     s4: pod running
     if: empty scheduling gates?
-    state if <<choice>>
     [*] --> s1
     s1 --> if
     s2 --> if: scheduling gate removed
