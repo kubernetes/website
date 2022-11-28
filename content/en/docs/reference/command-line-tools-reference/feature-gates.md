@@ -189,8 +189,6 @@ For a reference to old feature gates that are removed, please refer to
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
-| `WindowsHostProcessContainers` | `false` | Alpha | 1.22 | 1.22 |
-| `WindowsHostProcessContainers` | `true` | Beta | 1.23 | |
 {{< /table >}}
 
 ### Feature gates for graduated or deprecated features
@@ -331,6 +329,9 @@ For a reference to old feature gates that are removed, please refer to
 | `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
 | `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
 | `WatchBookmark` | `true` | GA | 1.17 | - |
+| `WindowsHostProcessContainers` | `false` | Alpha | 1.22 | 1.22 |
+| `WindowsHostProcessContainers` | `true` | Beta | 1.23 | 1.25 |
+| `WindowsHostProcessContainers` | `true` | GA | 1.26 | - |
 {{< /table >}}
 
 ## Using a feature
