@@ -16,6 +16,9 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 * etcd v3.0 or later is required
 
+* To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
+
+
 <!-- steps -->
 
 ## Configuration and determining whether encryption at rest is already enabled
