@@ -64,7 +64,7 @@ and doesn't register as a node.
 <!-- 
 ## Upgrading
 
-When upgrading Kubernetes, then the kubelet tries to automatically select the
+When upgrading Kubernetes, the kubelet tries to automatically select the
 latest CRI version on restart of the component. If that fails, then the fallback
 will take place as mentioned above. If a gRPC re-dial was required because the
 container runtime has been upgraded, then the container runtime must also
