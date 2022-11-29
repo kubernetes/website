@@ -155,6 +155,22 @@ This label has been deprecated. Please use `kubernetes.io/arch` instead.
 
 This label has been deprecated. Please use `kubernetes.io/os` instead.
 
+### kube-aggregator.kubernetes.io/automanaged {#kube-aggregator-kubernetesio-automanaged}
+
+Example: `kube-aggregator.kubernetes.io/automanaged: "onstart"`
+
+Used on: APIService
+
+The `kube-apiserver` sets this label on any APIService object that the API server has created automatically. The label marks how the control plane should manage that APIService. You should not add, modify, or remove this label by yourself.
+
+{{< note >}}
+Automanaged APIService objects are deleted by kube-apiserver when it has no built-in or custom resource API corresponding to the API group/version of the APIService.
+{{< /note >}}
+
+There are two possible values:
+- `onstart`: The APIService should be reconciled when an API server starts up, but not otherwise.
+- `true`: The API server should reconcile this APIService continuously.
+
 ### kubernetes.io/hostname {#kubernetesiohostname}
 
 Example: `kubernetes.io/hostname: "ip-172-20-114-199.ec2.internal"`
