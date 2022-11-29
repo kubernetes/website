@@ -11,90 +11,69 @@ weight: 65
 
 <!-- overview -->
 
-Windows applications constitute a large portion of the services and applications that
-run in many organizations. [Windows containers](https://aka.ms/windowscontainers)
-provide a way to encapsulate processes and package dependencies, making it easier
-to use DevOps practices and follow cloud native patterns for Windows applications.
+Os aplicativos do Windows constituem uma grande parte dos serviços e aplicativos executados em muitas organizações. [Windows containers](https://aka.ms/windowscontainers)
+fornecem uma maneira de encapsular processos e dependências de pacotes, facilitando o uso de práticas de DevOps e seguindo padrões nativos de nuvem para aplicativos do Windows.
 
-Organizations with investments in Windows-based applications and Linux-based
-applications don't have to look for separate orchestrators to manage their workloads,
-leading to increased operational efficiencies across their deployments, regardless
-of operating system.
+As organizações com investimentos em aplicativos baseados em Windows e aplicativos baseados em Linux não precisam procurar orquestradores separados para gerenciar suas cargas de trabalho, levando a um aumento eficiências operacionais em suas implantações, independentemente do sistema operacional.
 
 <!-- body -->
 
 ## Windows nodes in Kubernetes
 
-To enable the orchestration of Windows containers in Kubernetes, include Windows nodes
-in your existing Linux cluster. Scheduling Windows containers in
-{{< glossary_tooltip text="Pods" term_id="pod" >}} on Kubernetes is similar to
-scheduling Linux-based containers.
+Para habilitar a orquestração de contêineres do Windows no Kubernetes, inclua nós do Windows em seu cluster Linux existente. Agendamento de contêineres do Windows em {{< glossary_tooltip text="Pods" term_id="pod" >}} em O Kubernetes é semelhante ao agendamento de contêineres baseados em Linux.
 
-In order to run Windows containers, your Kubernetes cluster must include
-multiple operating systems.
-While you can only run the {{< glossary_tooltip text="control plane" term_id="control-plane" >}} on Linux,
-you can deploy worker nodes running either Windows or Linux.
+Para executar contêineres do Windows, seu cluster Kubernetes deve incluir vários sistemas operacionais. Embora você só possa executar o {{< glossary_tooltip text="control plane" term_id="control-plane" >}} no Linux,
+você pode implementar nós do trabalhador executando Windows ou Linux.
 
-Windows {{< glossary_tooltip text="nodes" term_id="node" >}} are
-[supported](#windows-os-version-support) provided that the operating system is
-Windows Server 2019.
+Janelas {{< glossary_tooltip text="nodes" term_id="node" >}} são
+[supported](#windows-os-version-support) desde que o sistema operacional seja o Windows Server 2019.
 
-This document uses the term *Windows containers* to mean Windows containers with
-process isolation. Kubernetes does not support running Windows containers with
+Este documento usa o termo *contêineres do Windows* para significar contêineres do Windows com isolamento de processo. O Kubernetes não oferece suporte à execução de contêineres do Windows com
 [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container).
 
-## Compatibility and limitations {#limitations}
+## Compatibilidade e limitações {# limitations}
 
-Some node features are only available if you use a specific
-[container runtime](#container-runtime); others are not available on Windows nodes,
-including:
+Alguns recursos de nó estão disponíveis apenas se você usar um específico
+[container runtime](#container-runtime); outros não estão disponíveis em nós do Windows, incluindo:
 
-* HugePages: not supported for Windows containers
-* Privileged containers: not supported for Windows containers.
-  [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) offer similar functionality.
+* HugePages: não suportado para contêineres do Windows
+* Privileged containers: não há suporte para contêineres do Windows.
+  [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) oferecem funcionalidade semelhante.
 * TerminationGracePeriod: requires containerD
 
-Not all features of shared namespaces are supported. See [API compatibility](#api)
-for more details.
+Nem todos os recursos de namespaces compartilhados são suportados. Veja [API compatibility](#api)
+para mais detalhes.
 
-See [Windows OS version compatibility](#windows-os-version-support) for details on
-the Windows versions that Kubernetes is tested against.
+Veja [Windows OS version compatibility](#windows-os-version-support) para obter detalhes sobre as versões do Windows nas quais o Kubernetes é testado.
 
-From an API and kubectl perspective, Windows containers behave in much the same
-way as Linux-based containers. However, there are some notable differences in key
-functionality which are outlined in this section.
+Do ponto de vista da API e do kubectl, os contêineres do Windows se comportam da mesma maneira que os contêineres baseados em Linux. No entanto, existem algumas diferenças notáveis na funcionalidade principal que são descritas nesta seção.
 
-### Comparison with Linux {#compatibility-linux-similarities}
+### Comparação com Linux {#compatibility-linux-similarities}
 
-Key Kubernetes elements work the same way in Windows as they do in Linux. This
-section refers to several key workload abstractions and how they map to Windows.
+Os principais elementos do Kubernetes funcionam da mesma maneira no Windows e no Linux. Esta seção
+refere-se a várias cargas de trabalho importantes abstrações e como elas são mapeadas para o Windows.
 
 * [Pods](/docs/concepts/workloads/pods/)
 
-  A Pod is the basic building block of Kubernetes–the smallest and simplest unit in
-  the Kubernetes object model that you create or deploy. You may not deploy Windows and
-  Linux containers in the same Pod. All containers in a Pod are scheduled onto a single
-  Node where each Node represents a specific platform and architecture. The following
-  Pod capabilities, properties and events are supported with Windows containers:
+  Um pod é o bloco de construção básico do Kubernetes, a menor e mais simples unidade no modelo de objeto do Kubernetes que você cria ou implanta. Você não pode implantar contêineres Windows e Linux no mesmo pod. Todos os contêineres em um pod são programados em um único nó, onde cada nó representa uma plataforma e arquitetura específicas. Os seguintes recursos, propriedades e eventos do pod são compatíveis com os contêineres do Windows:
 
-  * Single or multiple containers per Pod with process isolation and volume sharing
-  * Pod `status` fields
-  * Readiness, liveness, and startup probes
-  * postStart & preStop container lifecycle hooks
-  * ConfigMap, Secrets: as environment variables or volumes
-  * `emptyDir` volumes
-  * Named pipe host mounts
-  * Resource limits
-  * OS field: 
+  * Um ou vários contêineres por pod com isolamento de processo e compartilhamento de volume
+   * Campos de `status` do pod
+   * Prontidão, vivacidade e testes de inicialização
+   * ganchos de ciclo de vida do contêiner postStart e preStop
+   * ConfigMap, Secrets: como variáveis de ambiente ou volumes
+   * volumes `emptyDir`
+   * Montagens de host de pipe nomeado
+   * Limites de recursos
+   * Campo SO:
 
-    The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
+   O campo `.spec.os.name` deve ser definido como `windows` para indicar que o Pod atual usa contêineres do Windows.
 
     {{< note >}}
-    Starting from 1.25, the `IdentifyPodOS` feature gate is in GA stage and defaults to be enabled.
+    A partir de 1.25, o portão de recurso `IdentifyPodOS` está no estágio GA e os padrões são ativados.
     {{< /note >}}
 
-    If you set the `.spec.os.name` field to `windows`,
-    you must not set the following fields in the `.spec` of that Pod:
+    Se você definir o campo `.spec.os.name` como `windows`, não deverá definir os seguintes campos no `.spec` desse Pod:
 
     * `spec.hostPID`
     * `spec.hostIPC`
@@ -117,12 +96,9 @@ section refers to several key workload abstractions and how they map to Windows.
     * `spec.containers[*].securityContext.runAsUser`
     * `spec.containers[*].securityContext.runAsGroup`
 
-    In the above list, wildcards (`*`) indicate all elements in a list.
-    For example, `spec.containers[*].securityContext` refers to the SecurityContext object
-    for all containers. If any of these fields is specified, the Pod will
-    not be admitted by the API server.
+    Na lista acima, curingas (`*`) indicam todos os elementos em uma lista. Por exemplo, `spec.containers[*].securityContext` refere-se ao objeto SecurityContext para todos os contêineres. Se algum desses campos for especificado, o pod não será admitido pelo servidor da API.
 
-* [Workload resources](/docs/concepts/workloads/controllers/) including:
+* [Workload resources](/docs/concepts/workloads/controllers/) Incluindo:
   * ReplicaSet
   * Deployment
   * StatefulSet
@@ -131,177 +107,121 @@ section refers to several key workload abstractions and how they map to Windows.
   * CronJob
   * ReplicationController
 * {{< glossary_tooltip text="Services" term_id="service" >}}
-  See [Load balancing and Services](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) for more details.
+  See [Load balancing and Services](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) para mais detalhes.
 
-Pods, workload resources, and Services are critical elements to managing Windows
-workloads on Kubernetes. However, on their own they are not enough to enable
-the proper lifecycle management of Windows workloads in a dynamic cloud native
-environment.
+Pods, rworkload resources, e Services são elementos críticos para gerenciar cargas de trabalho do Windows no Kubernetes. No entanto, por si só, eles não são suficientes para permitir o gerenciamento adequado do ciclo de vida das cargas de trabalho do Windows em uma nuvem dinâmica nativa meio Ambiente.
 
 * `kubectl exec`
-* Pod and container metrics
+* Métricas de pods e contêineres
 * {{< glossary_tooltip text="Horizontal pod autoscaling" term_id="horizontal-pod-autoscaler" >}}
-* {{< glossary_tooltip text="Resource quotas" term_id="resource-quota" >}}
-* Scheduler preemption
+* {{< glossary_tooltip text="Cotas de recursos" term_id="cotas de recursos" >}}
+* Preempção do agendador
 
-### Command line options for the kubelet {#kubelet-compatibility}
+### Opções de linha de comando para o kubelet {#kubelet-compatibility}
 
-Some kubelet command line options behave differently on Windows, as described below:
+Algumas opções de linha de comando kubelet se comportam de maneira diferente no Windows, conforme descrito abaixo:
 
-* The `--windows-priorityclass` lets you set the scheduling priority of the kubelet process
-  (see [CPU resource management](/docs/concepts/configuration/windows-resource-management/#resource-management-cpu))
-* The `--kube-reserved`, `--system-reserved` , and `--eviction-hard` flags update
+* O `--windows-priorityclass` permite definir a prioridade de agendamento do processo kubelet
+  (veja [CPU resource management](/docs/concepts/configuration/windows-resource-management/#resource-management-cpu))
+* O `--kube-reserved`, `--system-reserved` , e `--eviction-hard` flags update
   [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-* Eviction by using `--enforce-node-allocable` is not implemented
-* Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
-* When running on a Windows node the kubelet does not have memory or CPU
-  restrictions. `--kube-reserved` and `--system-reserved` only subtract from `NodeAllocatable`
-  and do not guarantee resource provided for workloads.
-  See [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/#resource-reservation)
-  for more information.
-* The `MemoryPressure` Condition is not implemented
-* The kubelet does not take OOM eviction actions
+* Despejo usando `--enforce-node-allocable` não é implementado
+* Despejo usando `--eviction-hard` and `--eviction-soft` não são implementados
+* Ao executar em um nó do Windows, o kubelet não possui restrições de memória ou CPU `--kube-reserved` e `--system-reserved` apenas subtrair de `NodeAllocatable`
+  e não garantem recursos fornecidos para cargas de trabalho.
+  veja [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/#resource-reservation)
+  Para maiores informações.
+* A condição do `MemoryPressure` não foi implementada
+* O kubelet não executa ações de despejo OOM
 
-### API compatibility {#api}
+### Compatibilidade API {#api}
 
-There are subtle differences in the way the Kubernetes APIs work for Windows due to the OS
-and container runtime. Some workload properties were designed for Linux, and fail to run on Windows.
+Existem diferenças sutis na forma como as APIs do Kubernetes funcionam para Windows devido ao sistema operacional e ao tempo de execução do contêiner. Algumas propriedades de carga de trabalho foram projetadas para Linux e não são executadas no Windows.
 
-At a high level, these OS concepts are different:
+Em um alto nível, esses conceitos de sistema operacional são diferentes:
 
-* Identity - Linux uses userID (UID) and groupID (GID) which
-  are represented as integer types. User and group names
-  are not canonical - they are just an alias in `/etc/groups`
-  or `/etc/passwd` back to UID+GID. Windows uses a larger binary
-  [security identifier](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers) (SID)
-  which is stored in the Windows Security Access Manager (SAM) database. This
-  database is not shared between the host and containers, or between containers.
-* File permissions - Windows uses an access control list based on (SIDs), whereas
-  POSIX systems such as Linux use a bitmask based on object permissions and UID+GID,
-  plus _optional_ access control lists.
-* File paths - the convention on Windows is to use `\` instead of `/`. The Go IO
-  libraries typically accept both and just make it work, but when you're setting a
-  path or command line that's interpreted inside a container, `\` may be needed.
-* Signals - Windows interactive apps handle termination differently, and can
-  implement one or more of these:
-  * A UI thread handles well-defined messages including `WM_CLOSE`.
-  * Console apps handle Ctrl-C or Ctrl-break using a Control Handler.
-  * Services register a Service Control Handler function that can accept
-    `SERVICE_CONTROL_STOP` control codes.
+* Identidade - Linux usa userID (UID) e groupID (GID) que
+  são representados como tipos inteiros. Nomes de usuários e grupos
+  não são canônicos - eles são apenas um alias em `/etc/groups`
+  ou `/etc/passwd` de volta para UID+GID. O Windows usa um [identificador de segurança] binário maior (https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers) (SID) que é armazenado no Windows Security Banco de dados do Access Manager (SAM). Esse banco de dados não é compartilhado entre o host e os contêineres ou entre os contêineres.
+* Permissões de arquivo - o Windows usa uma lista de controle de acesso baseada em (SIDs), enquanto os sistemas POSIX, como o Linux, usam uma máscara de bits baseada em permissões de objeto e UID+GID, além de listas de controle de acesso _opcional_.
+* Caminhos de arquivo - a convenção no Windows é usar `\` em vez de `/`. As bibliotecas Go IO normalmente aceitam ambos e apenas fazem funcionar, mas quando você está definindo um caminho ou linha de comando que é interpretado dentro de um contêiner, `\` pode ser necessário.
+* Sinais - os aplicativos interativos do Windows lidam com o encerramento de maneira diferente e podem implementar um ou mais destes:
+  * Um thread de interface do usuário lida com mensagens bem definidas, incluindo `WM_CLOSE`.
+  * Os aplicativos de console lidam com Ctrl-C ou Ctrl-break usando um manipulador de controle.
+  * Os serviços registram uma função Service Control Handler que pode aceitar códigos de controle `SERVICE_CONTROL_STOP`.
 
-Container exit codes follow the same convention where 0 is success, and nonzero is failure.
-The specific error codes may differ across Windows and Linux. However, exit codes
-passed from the Kubernetes components (kubelet, kube-proxy) are unchanged.
+Os códigos de saída do contêiner seguem a mesma convenção em que 0 é sucesso e diferente de zero é falha. Os códigos de erro específicos podem diferir entre Windows e Linux. No entanto, os códigos de saída passados dos componentes do Kubernetes (kubelet, kube-proxy) permanecem inalterados.
 
-#### Field compatibility for container specifications {#compatibility-v1-pod-spec-containers}
+#### Compatibilidade de campo para especificações de contêine {#compatibility-v1-pod-spec-containers}
 
-The following list documents differences between how Pod container specifications
-work between Windows and Linux:
+A lista a seguir documenta as diferenças entre como as especificações do contêiner de pod funcionam entre o Windows e o Linux:
 
-* Huge pages are not implemented in the Windows container
-  runtime, and are not available. They require [asserting a user
-  privilege](https://docs.microsoft.com/en-us/windows/desktop/Memory/large-page-support)
-  that's not configurable for containers.
-* `requests.cpu` and `requests.memory` - requests are subtracted
-  from node available resources, so they can be used to avoid overprovisioning a
-  node. However, they cannot be used to guarantee resources in an overprovisioned
-  node. They should be applied to all containers as a best practice if the operator
-  wants to avoid overprovisioning entirely.
+* Páginas enormes não são implementadas no tempo de execução do contêiner do Windows e não estão disponíveis. Eles exigem [afirmação de privilégio de usuário](https://docs.microsoft.com/en-us/windows/desktop/Memory/large-page-support) que não é configurável para contêineres.
+* `requests.cpu` e `requests.memory` - as solicitações são subtraídas dos recursos disponíveis do nó, para que possam ser usadas para evitar o superprovisionamento de um nó. No entanto, eles não podem ser usados ​​para garantir recursos em um nó superprovisionado. Eles devem ser aplicados a todos os contêineres como uma prática recomendada se o operador quiser evitar totalmente o superprovisionamento.
 * `securityContext.allowPrivilegeEscalation` -
-   not possible on Windows; none of the capabilities are hooked up
+não é possível no Windows; nenhum dos recursos está conectado
 * `securityContext.capabilities` -
-   POSIX capabilities are not implemented on Windows
+   Os recursos POSIX não são implementados no Windows
 * `securityContext.privileged` -
-   Windows doesn't support privileged containers, use [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) instead
+   O Windows não oferece suporte a contêineres privilegiados, use [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) em vez disso
 * `securityContext.procMount` -
-   Windows doesn't have a `/proc` filesystem
+   O Windows não possui um sistema de arquivos `/proc`
 * `securityContext.readOnlyRootFilesystem` -
-   not possible on Windows; write access is required for registry & system
-   processes to run inside the container
+   não é possível no Windows; o acesso de gravação é necessário para que os processos de registro e sistema sejam executados dentro do contêiner
 * `securityContext.runAsGroup` -
-   not possible on Windows as there is no GID support
+   não é possível no Windows, pois não há suporte para GID
 * `securityContext.runAsNonRoot` -
-   this setting will prevent containers from running as `ContainerAdministrator`
-   which is the closest equivalent to a root user on Windows.
+   esta configuração impedirá que os contêineres sejam executados como `ContainerAdministrator`, que é o equivalente mais próximo de um usuário root no Windows.
 * `securityContext.runAsUser` -
-   use [`runAsUserName`](/docs/tasks/configure-pod-container/configure-runasusername)
-   instead
+   use [`runAsUserName`](/docs/tasks/configure-pod-container/configure-runasusername) em vez disso
 * `securityContext.seLinuxOptions` -
-   not possible on Windows as SELinux is Linux-specific
+   não é possível no Windows, pois o SELinux é específico do Linux
 * `terminationMessagePath` -
-   this has some limitations in that Windows doesn't support mapping single files. The
-   default value is `/dev/termination-log`, which does work because it does not
-   exist on Windows by default.
+   isso tem algumas limitações, pois o Windows não oferece suporte ao mapeamento de arquivos únicos. O valor padrão é `/dev/termination-log`, que funciona porque não existe no Windows por padrão.
 
-#### Field compatibility for Pod specifications {#compatibility-v1-pod}
+#### Compatibilidade de campo para especificações de pod {#compatibility-v1-pod}
 
-The following list documents differences between how Pod specifications work between Windows and Linux:
+A lista a seguir documenta as diferenças entre como as especificações do pod funcionam entre o Windows e o Linux:
 
-* `hostIPC` and `hostpid` - host namespace sharing is not possible on Windows
-* `hostNetwork` - There is no Windows OS support to share the host network
-* `dnsPolicy` - setting the Pod `dnsPolicy` to `ClusterFirstWithHostNet` is
-   not supported on Windows because host networking is not provided. Pods always
-   run with a container network.
-* `podSecurityContext` (see below)
-* `shareProcessNamespace` - this is a beta feature, and depends on Linux namespaces
-  which are not implemented on Windows. Windows cannot share process namespaces or
-  the container's root filesystem. Only the network can be shared.
-* `terminationGracePeriodSeconds` - this is not fully implemented in Docker on Windows,
-  see the [GitHub issue](https://github.com/moby/moby/issues/25982).
-  The behavior today is that the ENTRYPOINT process is sent CTRL_SHUTDOWN_EVENT,
-  then Windows waits 5 seconds by default, and finally shuts down
-  all processes using the normal Windows shutdown behavior. The 5
-  second default is actually in the Windows registry
-  [inside the container](https://github.com/moby/moby/issues/25982#issuecomment-426441183),
-  so it can be overridden when the container is built.
-* `volumeDevices` - this is a beta feature, and is not implemented on Windows.
-  Windows cannot attach raw block devices to pods.
+* `hostIPC` e `hostpid` - compartilhamento de namespace de host não é possível no Windows
+* `hostNetwork` - Não há suporte do sistema operacional Windows para compartilhar a rede do host
+* `dnsPolicy` - a configuração do pod `dnsPolicy` como `ClusterFirstWithHostNet` não é suportada no Windows porque a rede do host não é fornecida. Os pods sempre são executados com uma rede de contêineres.
+* `podSecurityContext` (veja abaixo)
+* `shareProcessNamespace` - este é um recurso beta e depende de namespaces do Linux que não são implementados no Windows. O Windows não pode compartilhar namespaces de processos ou o sistema de arquivos raiz do contêiner. Somente a rede pode ser compartilhada.
+* `terminationGracePeriodSeconds` - isso não está totalmente implementado no Docker no Windows, consulte o [problema do GitHub](https://github.com/moby/moby/issues/25982).
+  O comportamento hoje é que o processo ENTRYPOINT é enviado CTRL_SHUTDOWN_EVENT, então o Windows espera 5 segundos por padrão e finalmente desliga todos os processos usando o comportamento normal de desligamento do Windows. O padrão de 5 segundos está, na verdade, no registro do Windows [dentro do contêiner](https://github.com/moby/moby/issues/25982#issuecomment-426441183), portanto, pode ser substituído quando o contêiner é criado.
+* `volumeDevices` - este é um recurso beta e não está implementado no Windows. O Windows não pode anexar dispositivos de blocos brutos a pods.
 * `volumes`
-  * If you define an `emptyDir` volume, you cannot set its volume source to `memory`.
-* You cannot enable `mountPropagation` for volume mounts as this is not
-  supported on Windows.
+  * Se você definir um volume `emptyDir`, não poderá definir sua fonte de volume para `memory`.
+* Você não pode ativar `mountPropagation` para montagens de volume, pois isso não é suportado no Windows.
 
-#### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
+#### Compatibilidade de campo para contexto de segurança do pod{#compatibility-v1-pod-spec-containers-securitycontext}
 
-None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
+Nenhum dos campos do pod [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) funcionam no Windows.
 
-## Node problem detector
+## Detector de problemas do Node
 
-The node problem detector (see
-[Monitor Node Health](/docs/tasks/debug/debug-cluster/monitor-node-health/))
-has preliminary support for Windows.
-For more information, visit the project's [GitHub page](https://github.com/kubernetes/node-problem-detector#windows).
+O detector de problemas de nó (consulte
+[Monitor Node Health](/docs/tasks/debug/debug-cluster/monitor-node-health/)) tem suporte preliminar para Windows. Para obter mais informações, visite a [página GitHub] do projeto (https://github.com/kubernetes/node-problem-detector#windows).
 
-## Pause container
+## Pausar contêiner
 
-In a Kubernetes Pod, an infrastructure or “pause” container is first created
-to host the container. In Linux, the cgroups and namespaces that make up a pod
-need a process to maintain their continued existence; the pause process provides
-this. Containers that belong to the same pod, including infrastructure and worker
-containers, share a common network endpoint (same IPv4 and / or IPv6 address, same
-network port spaces). Kubernetes uses pause containers to allow for worker containers
-crashing or restarting without losing any of the networking configuration.
+Em um Kubernetes Pod, uma infraestrutura ou contêiner de “pausa” é criado primeiro para hospedar o contêiner. No Linux, os cgroups e namespaces que compõem um pod precisam de um processo para manter sua existência contínua; o processo de pausa fornece isto. Contêineres que pertencem ao mesmo pod, incluindo infraestrutura e contêineres de trabalho, compartilham um endpoint de rede comum (mesmo endereço IPv4 e/ou IPv6, mesmos espaços de porta de rede). O Kubernetes usa contêineres de pausa para permitir que os contêineres de trabalho travem ou reiniciem sem perder nenhuma configuração de rede.
 
-Kubernetes maintains a multi-architecture image that includes support for Windows.
-For Kubernetes v{{< skew currentVersion >}} the recommended pause image is `registry.k8s.io/pause:3.6`.
-The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
-is available on GitHub.
+O Kubernetes mantém uma imagem multiarquitetura que inclui suporte para Windows. Para Kubernetes v{{< skew currentVersion >}}, a imagem de pausa recomendada é `registry.k8s.io/pause:3.6`. 
+O [código-fonte](https://github.com/kubernetes/kubernetes/tree/master/build/pause) está disponível no GitHub.
 
-Microsoft maintains a different multi-architecture image, with Linux and Windows
-amd64 support, that you can find as `mcr.microsoft.com/oss/kubernetes/pause:3.6`.
-This image is built from the same source as the Kubernetes maintained image but
-all of the Windows binaries are [authenticode signed](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode) by Microsoft.
-The Kubernetes project recommends using the Microsoft maintained image if you are
-deploying to a production or production-like environment that requires signed
-binaries.
+A Microsoft mantém uma imagem multi-arquitetura diferente, com suporte para Linux e Windows amd64, que você pode encontrar como `mcr.microsoft.com/oss/kubernetes/pause:3.6`.
+Esta imagem é construída a partir da mesma fonte que a imagem mantida pelo Kubernetes, mas todos os binários do Windows são [authenticode assinados](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode) por Microsoft. O projeto Kubernetes recomenda usar a imagem mantida pela Microsoft se você estiver implantando em um ambiente de produção ou semelhante a produção que exija binários assinados.
 
-## Container runtimes {#container-runtime}
+## Tempo de execução de contêiner{#container-runtime}
 
-You need to install a
+Você precisa instalar o
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
-into each node in the cluster so that Pods can run there.
+em cada nó no cluster para que os pods possam ser executados lá.
 
-The following container runtimes work with Windows:
+Os seguintes tempos de execução de contêiner funcionam com o Windows:
 
 {{% thirdparty-content %}}
 
@@ -309,78 +229,63 @@ The following container runtimes work with Windows:
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-You can use {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+
-as the container runtime for Kubernetes nodes that run Windows.
+Você pode usar {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+ como o tempo de execução do contêiner para nós do Kubernetes que executam o Windows.
 
-Learn how to [install ContainerD on a Windows node](/docs/setup/production-environment/container-runtimes/#install-containerd).
+Aprender como [instalar o ContainerD em um nó do Windows](/docs/setup/production-environment/container-runtimes/#install-containerd).
 
 {{< note >}}
-There is a [known limitation](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)
-when using GMSA with containerd to access Windows network shares, which requires a
-kernel patch.
+Há uma [limitação conhecida](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)
+ao usar GMSA com containerd para acessar compartilhamentos de rede do Windows, o que requer um correção do kernel.
 {{< /note >}}
 
-### Mirantis Container Runtime {#mcr}
+### Tempo de execução do contêiner Mirantis {#mcr}
 
 [Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
-is available as a container runtime for all Windows Server 2019 and later versions.
+está disponível como um tempo de execução de contêiner para todos os Windows Server 2019 e versões posteriores.
 
-See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
+Consulte [Instalar MCR em servidores Windows](https://docs.mirantis.com/mcr/20.10/install mcr-windows.html) para obter mais informações.
 
-## Windows OS version compatibility {#windows-os-version-support}
+## Compatibilidade da versão do sistema operacional Windows {#windows-os-version-support}
 
-On Windows nodes, strict compatibility rules apply where the host OS version must
-match the container base image OS version. Only Windows containers with a container
-operating system of Windows Server 2019 are fully supported.
+Nos nós do Windows, regras rígidas de compatibilidade se aplicam onde a versão do sistema operacional do host deve corresponder à versão do sistema operacional da imagem base do contêiner. Somente contêineres do Windows com um sistema operacional de contêiner do Windows Server 2019 são totalmente suportados.
 
-For Kubernetes v{{< skew currentVersion >}}, operating system compatibility for Windows nodes (and Pods)
-is as follows:
+Para Kubernetes v{{< skew currentVersion >}}, compatibilidade do sistema operacional para node do Windows (e pods)
+é o seguinte:
 
-Windows Server LTSC release
-: Windows Server 2019
-: Windows Server 2022
+Versão LTSC do Windows Server
+: Servidor Windows 2019
+: WindowsServer 2022
 
-Windows Server SAC release
-:  Windows Server version 20H2
+Versão SAC do Windows Server
+: Windows Server versão 20H2
 
-The Kubernetes [version-skew policy](/docs/setup/release/version-skew-policy/) also applies.
+A [política de distorção de versão](/docs/setup/release/version-skew-policy/) do Kubernetes também se aplica.
 
-## Getting help and troubleshooting {#troubleshooting}
+## Obtendo ajuda e solução de problemas {#troubleshooting}
 
-Your main source of help for troubleshooting your Kubernetes cluster should start
-with the [Troubleshooting](/docs/tasks/debug/)
-page.
+Sua principal fonte de ajuda para solucionar problemas do cluster Kubernetes deve começar
+com a [Solução de problemas](/docs/tasks/debug/) página.
 
-Some additional, Windows-specific troubleshooting help is included
-in this section. Logs are an important element of troubleshooting
-issues in Kubernetes. Make sure to include them any time you seek
-troubleshooting assistance from other contributors. Follow the
-instructions in the
-SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
+Alguma ajuda adicional para solução de problemas específica do Windows está incluída nesta secção. Os logs são um elemento importante da solução de problemas problemas no Kubernetes. Certifique-se de incluí-los sempre que procurar assistência para solução de problemas de outros colaboradores. Segue o instruções no SIG Windows [guia de contribuição sobre coleta de logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
 
-### Reporting issues and feature requests
+### Relatando problemas e solicitações de recursos
 
-If you have what looks like a bug, or you would like to
-make a feature request, please follow the [SIG Windows contributing guide](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) to create a new issue.
-You should first search the list of issues in case it was
-reported previously and comment with your experience on the issue and add additional
-logs. SIG Windows channel on the Kubernetes Slack is also a great avenue to get some initial support and
-troubleshooting ideas prior to creating a ticket.
+Se você tem o que parece ser um bug, ou você gostaria de fazer uma solicitação de recurso, siga o [guia de contribuição do SIG Windows](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) para criar um novo problema.
+Você deve primeiro pesquisar a lista de problemas, caso tenha sido relatado anteriormente e comente com sua experiência sobre o problema e adicione Histórico. O canal SIG Windows no Kubernetes Slack também é um ótimo caminho para obter algum suporte inicial e idéias de solução de problemas antes de criar um ticket.
 
-## Deployment tools
+## Ferramentas de implantação
 
-The kubeadm tool helps you to deploy a Kubernetes cluster, providing the control
-plane to manage the cluster it, and nodes to run your workloads.
-[Adding Windows nodes](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
-explains how to deploy Windows nodes to your cluster using kubeadm.
+A ferramenta kubeadm ajuda você a implantar um cluster Kubernetes, fornecendo o controle
+plano para gerenciar o cluster e nós para executar suas cargas de trabalho.
+[Adicionando nós do Windows](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
+explica como implantar nós do Windows em seu cluster usando kubeadm.
 
-The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also provides means to automate deployment of Windows nodes.
+O projeto Kubernetes [API de cluster](https://cluster-api.sigs.k8s.io/) também fornece meios para automatizar a implantação de nós do Windows.
 
-## Windows distribution channels
+## Canais de distribuição do Windows
 
-For a detailed explanation of Windows distribution channels see the
-[Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
+Para obter uma explicação detalhada dos canais de distribuição do Windows, consulte o 
+[Documentação da Microsoft](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
 
-Information on the different Windows Server servicing channels
-including their support models can be found at
-[Windows Server servicing channels](https://docs.microsoft.com/en-us/windows-server/get-started/servicing-channels-comparison).
+Informações sobre os diferentes canais de atendimento do Windows Server
+incluindo seus modelos de suporte podem ser encontrados em [Canais de serviço do Windows Server](https://docs.microsoft.com/en-us/windows-server/get-started/servicing-channels-comparison).
