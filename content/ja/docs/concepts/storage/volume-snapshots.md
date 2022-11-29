@@ -1,5 +1,5 @@
 ---
-title: Volumeのスナップショット
+title: ボリュームのスナップショット
 content_type: concept
 weight: 60
 ---
