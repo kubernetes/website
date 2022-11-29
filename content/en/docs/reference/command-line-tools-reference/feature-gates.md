@@ -128,6 +128,7 @@ For a reference to old feature gates that are removed, please refer to
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | |
+| `KMSv2` | `false` | Alpha | 1.25 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
 | `KubeletCredentialProviders` | `true` | Beta | 1.24 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
@@ -578,6 +579,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   completions without relying on Pods remaining in the cluster indefinitely.
   The Job controller uses Pod finalizers and a field in the Job status to keep
   track of the finished Pods to count towards completion.
+- `KMSv2`: Enables KMS v2 API for encryption at rest.
 - `KubeletCredentialProviders`: Enable kubelet exec credential providers for
   image pull credentials.
 - `KubeletInUserNamespace`: Enables support for running kubelet in a
