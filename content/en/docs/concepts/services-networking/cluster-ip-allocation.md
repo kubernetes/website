@@ -20,7 +20,8 @@ Service across the different backing Pods.
 
 ## How Service ClusterIPs are allocated?
 
-A Service `ClusterIP` can be assigned:
+When Kubernetes needs to assign a virtual IP address for a Service,
+that assignment happens one of two ways:
 
 _dynamically_
 : the cluster's control plane automatically picks a free IP address from within the configured IP range for `type: ClusterIP` Services.
@@ -37,7 +38,7 @@ been allocated will return an error.
 Sometimes you may want to have Services running in well-known IP addresses, so other components and
 users in the cluster can use them.
 
-The best example is the DNS Service for the cluster. Some Kubernetes installers assign the 10th address from
+The best example is the DNS Service for the cluster. As a soft convention, some Kubernetes installers assign the 10th IP address from
 the Service IP range to the DNS service. Assuming you configured your cluster with Service IP range
 10.96.0.0/16 and you want your DNS Service IP to be 10.96.0.10, you'd have to create a Service like
 this:
@@ -84,9 +85,12 @@ Dynamic IP assignment uses the upper band by default, once this has been exhaust
 use the lower range. This will allow users to use static allocations on the lower band with a low
 risk of collision.
 
-Examples:
+## Examples {#allocation-examples}
 
-#### Service IP CIDR block: 10.96.0.0/24
+### Example 1 {#allocation-example-1}
+
+This example uses the IP address range: 10.96.0.0/24 (CIDR notation) for the IP addresses
+of Services.
 
 Range Size: 2<sup>8</sup> - 2 = 254  
 Band Offset: `min(max(16, 256/16), 256)` = `min(16, 256)` = 16  
@@ -101,7 +105,10 @@ pie showData
     "Dynamic" : 238
 {{< /mermaid >}}
 
-#### Service IP CIDR block: 10.96.0.0/20
+### Example 2 {#allocation-example-2}
+
+This example uses the IP address range: 10.96.0.0/20 (CIDR notation) for the IP addresses
+of Services.
 
 Range Size: 2<sup>12</sup> - 2 = 4094  
 Band Offset: `min(max(16, 4096/16), 256)` = `min(256, 256)` = 256  
@@ -116,7 +123,10 @@ pie showData
     "Dynamic" : 3838
 {{< /mermaid >}}
 
-#### Service IP CIDR block: 10.96.0.0/16
+### Example 3 {#allocation-example-3}
+
+This example uses the IP address range: 10.96.0.0/16 (CIDR notation) for the IP addresses
+of Services.
 
 Range Size: 2<sup>16</sup> - 2 = 65534  
 Band Offset: `min(max(16, 65536/16), 256)` = `min(4096, 256)` = 256  
