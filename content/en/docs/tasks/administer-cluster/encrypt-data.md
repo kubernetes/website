@@ -69,11 +69,11 @@ Each `resources` array item is a separate config and contains a complete configu
 `resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`
 that should be encrypted like Secrets, ConfigMaps, or other resources. 
 
-You can encrypt custom resources if you are running Kubernetes v1.26 or newer. 
-If custom resources are added to `EncryptionConfiguration` before v1.26, then after an upgrade
-to 1.26 and the CRD gets created, then it will be encrypted. If it already existed before that point, 
-a storage migration would be required to get all the CRs into an encrypted state just
-like any other built-in resource.
+If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer, 
+any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted. 
+Any custom resources that existed in etcd prior to that version and configuration will be unencrypted
+until they are next written to storage. This is the same behavior as built-in resources.
+See the [Ensure all secrets are encrypted](#ensure-all-secrets-are-encrypted) section.
 
 The `providers` array is an ordered list of the possible encryption providers to use for the APIs that you listed.
 
