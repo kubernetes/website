@@ -201,5 +201,5 @@ spec:
 
 
 * Read about [enabling Service Topology](/docs/tasks/administer-cluster/enabling-service-topology)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
 

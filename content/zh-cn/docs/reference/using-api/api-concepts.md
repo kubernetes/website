@@ -1722,7 +1722,7 @@ Start at Exact
   the resource version.
 -->
 从指定版本开始
-: 以确切的资源版本开始 **watcH**。监视事件适用于提供的资源版本之后的所有更改。
+: 以确切的资源版本开始 **watch**。监视事件适用于提供的资源版本之后的所有更改。
   与 “Get State and Start at Most Recent” 和 “Get State and Start at Any” 不同，
   **watch** 不会以所提供资源版本的合成 “添加” 事件启动。
   由于客户端提供了资源版本，因此假定客户端已经具有起始资源版本的初始状态。
