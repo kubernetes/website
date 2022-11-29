@@ -176,4 +176,4 @@ spec:
 
 `PersistentVolumeClaim`オブジェクトの*dataSource*フィールドを使用して、スナップショットからのデータが事前に取り込まれた新しいボリュームをプロビジョニングできます。
 
-詳細については、[ボリュームのスナップショットとスナップショットからのボリュームの復元](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)を参照してください。
+詳細については、[ボリュームのスナップショットとスナップショットからのボリュームの復元](/ja/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)を参照してください。
