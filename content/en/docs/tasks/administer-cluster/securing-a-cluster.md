@@ -258,10 +258,10 @@ encryption where possible.
 
 As a beta feature, Kubernetes supports [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/).
 This lets you ensure that when Kubernetes stores data for objects (for example, `Secret` or
-`ConfigMap`) objects, the API server writes an encrypted representation of the object.
+`ConfigMap` objects), the API server writes an encrypted representation of the object.
 That encryption means that even someone who has access to etcd backup data is unable
 to view the content of those objects.
-In Kubernetes {{< skew currentVersion >}} you can also can encrypt custom resources;
+In Kubernetes {{< skew currentVersion >}} you can also encrypt custom resources;
 encryption-at-rest for extension APIs defined in CustomResourceDefinitions was added to
 Kubernetes as part of the v1.26 release.
 
