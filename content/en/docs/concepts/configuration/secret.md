@@ -525,59 +525,7 @@ You cannot use ConfigMaps or Secrets with {{< glossary_tooltip text="static Pods
 
 ## Use cases
 
-### Use case: As container environment variables
-
-Create a secret
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysecret
-type: Opaque
-data:
-  USER_NAME: YWRtaW4=
-  PASSWORD: MWYyZDFlMmU2N2Rm
-```
-
-Create the Secret:
-```shell
-kubectl apply -f mysecret.yaml
-```
-
-Use `envFrom` to define all of the Secret's data as container environment variables. The key from
-the Secret becomes the environment variable name in the Pod.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: secret-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: registry.k8s.io/busybox
-      command: [ "/bin/sh", "-c", "env" ]
-      envFrom:
-      - secretRef:
-          name: mysecret
-  restartPolicy: Never
-```
-
-### Use case: Pod with SSH keys
-
-Create a Secret containing some SSH keys:
-
-```shell
-kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
-```
-
-The output is similar to:
-
-```
-secret "ssh-key-secret" created
-```
-
-You can also create a `kustomization.yaml` with a `secretGenerator` field containing ssh keys.
+* [Pod with SSH keys](/docs/tasks/inject-data-application/distribute-credentials-secure/#create-a-pod-that-has-access-to-the-secret-data-through-a-volume)
 
 {{< caution >}}
 Think carefully before sending your own SSH keys: other users of the cluster may have access
@@ -588,177 +536,11 @@ accessible to all the users with whom you share the Kubernetes cluster, and that
 if the credentials are compromised.
 {{< /caution >}}
 
-Now you can create a Pod which references the secret with the SSH key and
-consumes it in a volume:
+* [Pods with prod / test credentials](/docs/tasks/inject-data-application/distribute-credentials-secure/#pods-consuming-secrets-with-prod-test-credentials)
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: secret-test-pod
-  labels:
-    name: secret-test
-spec:
-  volumes:
-  - name: secret-volume
-    secret:
-      secretName: ssh-key-secret
-  containers:
-  - name: ssh-test-container
-    image: mySshImage
-    volumeMounts:
-    - name: secret-volume
-      readOnly: true
-      mountPath: "/etc/secret-volume"
-```
+* [Secret visible to one container in a Pod](/docs/tasks/inject-data-application/distribute-credentials-secure/#secret-visible-to-one-container-in-a-pod)
 
-When the container's command runs, the pieces of the key will be available in:
-
-```
-/etc/secret-volume/ssh-publickey
-/etc/secret-volume/ssh-privatekey
-```
-
-The container is then free to use the secret data to establish an SSH connection.
-
-### Use case: Pods with prod / test credentials
-
-This example illustrates a Pod which consumes a secret containing production credentials and
-another Pod which consumes a secret with test environment credentials.
-
-You can create a `kustomization.yaml` with a `secretGenerator` field or run
-`kubectl create secret`.
-
-```shell
-kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
-```
-
-The output is similar to:
-
-```
-secret "prod-db-secret" created
-```
-
-You can also create a secret for test environment credentials.
-
-```shell
-kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
-```
-
-The output is similar to:
-
-```
-secret "test-db-secret" created
-```
-
-{{< note >}}
-Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your
-[shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
-
-In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
-For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command this way:
-
-```shell
-kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
-```
-
-You do not need to escape special characters in passwords from files (`--from-file`).
-{{< /note >}}
-
-Now make the Pods:
-
-```shell
-cat <<EOF > pod.yaml
-apiVersion: v1
-kind: List
-items:
-- kind: Pod
-  apiVersion: v1
-  metadata:
-    name: prod-db-client-pod
-    labels:
-      name: prod-db-client
-  spec:
-    volumes:
-    - name: secret-volume
-      secret:
-        secretName: prod-db-secret
-    containers:
-    - name: db-client-container
-      image: myClientImage
-      volumeMounts:
-      - name: secret-volume
-        readOnly: true
-        mountPath: "/etc/secret-volume"
-- kind: Pod
-  apiVersion: v1
-  metadata:
-    name: test-db-client-pod
-    labels:
-      name: test-db-client
-  spec:
-    volumes:
-    - name: secret-volume
-      secret:
-        secretName: test-db-secret
-    containers:
-    - name: db-client-container
-      image: myClientImage
-      volumeMounts:
-      - name: secret-volume
-        readOnly: true
-        mountPath: "/etc/secret-volume"
-EOF
-```
-
-Add the pods to the same `kustomization.yaml`:
-
-```shell
-cat <<EOF >> kustomization.yaml
-resources:
-- pod.yaml
-EOF
-```
-
-Apply all those objects on the API server by running:
-
-```shell
-kubectl apply -k .
-```
-
-Both containers will have the following files present on their filesystems with the values
-for each container's environment:
-
-```
-/etc/secret-volume/username
-/etc/secret-volume/password
-```
-
-Note how the specs for the two Pods differ only in one field; this facilitates
-creating Pods with different capabilities from a common Pod template.
-
-You could further simplify the base Pod specification by using two service accounts:
-
-1. `prod-user` with the `prod-db-secret`
-1. `test-user` with the `test-db-secret`
-
-The Pod specification is shortened to:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: prod-db-client-pod
-  labels:
-    name: prod-db-client
-spec:
-  serviceAccount: prod-db-client
-  containers:
-  - name: db-client-container
-    image: myClientImage
-```
-
-### Use case: dotfiles in a secret volume
+#### Use Case: Dotfiles in a secret volume
 
 You can make your data "hidden" by defining a key that begins with a dot.
 This key represents a dotfile or "hidden" file. For example, when the following secret
@@ -802,22 +584,6 @@ the `dotfile-test-container` will have this file present at the path
 Files beginning with dot characters are hidden from the output of  `ls -l`;
 you must use `ls -la` to see them when listing directory contents.
 {{< /note >}}
-
-### Use case: Secret visible to one container in a Pod
-
-Consider a program that needs to handle HTTP requests, do some complex business
-logic, and then sign some messages with an HMAC. Because it has complex
-application logic, there might be an unnoticed remote file reading exploit in
-the server, which could expose the private key to an attacker.
-
-This could be divided into two processes in two containers: a frontend container
-which handles user interaction and business logic, but which cannot see the
-private key; and a signer container that can see the private key, and responds
-to simple signing requests from the frontend (for example, over localhost networking).
-
-With this partitioned approach, an attacker now has to trick the application
-server into doing something rather arbitrary, which may be harder than getting
-it to read a file.
 
 ## Types of Secret {#secret-types}
 
