@@ -47,7 +47,6 @@ Combining both approaches may add a protection layer to the deployed vulnerable 
 ## Use cases
 One can identify the following four different stages in the life of a any service from a security standpoint. In each stage, security-behavior monitoring is required to meet different challenges:
 
-
 Service State | Use case | What do you need in order to cope with this use case?
 ------------- | ------------- | -----------------------------------------
 **Normal**   | <u>No known vulnerabilities</u> <br /> The service owner is normally not aware of any known vulnerabilities in the service image or configuration. Yet, it is reasonable to assume that the service has weaknesses. | **Provide generic protection against any unknown, zero-day, service vulnerabilities.** <br /> <br />Detect/block irregular patterns sent as part of incoming client requests that may be used as exploits.
@@ -62,7 +61,7 @@ Kubernetes is often used to support workloads designed with microservices archit
 
 {{< figure src="Microservices.svg" alt="Image showing why microservices are well suited for security-behavior monitoring" class="diagram-large" caption="Figure 2. Microservices are well suited for security-behavior monitoring" >}}
 
-The diagram above clarifies how dividing a monolithic service to a set of microservices improves our ability to perform security-behavior monitoring and control. In a monolithic service approach, different client requests intertwined, resulting in diminished ability to identify irregular client behaviors. Without prior knowledge, an observer of the intertwined client requests will find it hard to distinguish between types of requests and their related characteristics. Further, internal client requests are not exposed to the observer. Lastly, the aggregated behavior of the monolithic service is a compound of the many different internal behaviors of its components, making it hard to identify irregular service behavior. 
+The diagram above clarifies how dividing a monolithic service to a set of microservices improves our ability to perform security-behavior monitoring and control. In a monolithic service approach, different client requests intertwined, resulting in diminished ability to identity irregular client behaviors. Without prior knowledge, an observer of the intertwined client requests will find it hard to distinguish between types of requests and their related characteristics. Further, internal client requests are not exposed to the observer. Lastly, the aggregated behavior of the monolithic service is a compound of the many different internal behaviors of its components, making it hard to identify irregular service behavior.
 
 In a microservice environment, each microservice is expected by design to offer a more well-defined service and serve better defined type of requests. This makes it easier for an observer to identify irregular client behavior and irregular service behavior. Further, a microservice design exposes the internal requests and internal services which offer more security-behavior data to identify irregularities by an observer. Overall, this makes the microservice design pattern better suited for security-behavior monitoring and control.
 
