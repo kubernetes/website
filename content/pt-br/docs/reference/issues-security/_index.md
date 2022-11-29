@@ -1,5 +1,4 @@
 ---
-title: Problemas e Segurança do Kubernetes
-weight: 40
-toc-hide: true
+title: Problemas e Alertas de Segurança do Kubernetes
+weight: 70
 ---
