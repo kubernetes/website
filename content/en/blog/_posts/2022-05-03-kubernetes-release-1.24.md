@@ -84,8 +84,7 @@ that enables the caller of a function to control all aspects of logging (output 
 ### Avoiding Collisions in IP allocation to Services
 
 Kubernetes 1.24 introduces a new opt-in feature that allows you to
-[soft-reserve a range for static IP address assignments](/docs/concepts/services-networking/service/#service-ip-static-sub-range)
-to Services.
+soft-reserve a range for static IP address assignments to Services.
 With the manual enablement of this feature, the cluster will prefer automatic assignment from 
 the pool of Service IP addresses, thereby reducing the risk of collision. 
 
