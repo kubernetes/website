@@ -495,7 +495,7 @@ kubectl scale deployment/my-nginx --replicas=1
 ```
 
 ```
-deployment.extensions/my-nginx scaled
+deployment.apps/my-nginx scaled
 ```
 
 <!--

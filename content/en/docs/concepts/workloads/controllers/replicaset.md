@@ -4,6 +4,13 @@ reviewers:
 - bprashanth
 - madhusudancs
 title: ReplicaSet
+feature:
+  title: Self-healing
+  anchor: How a ReplicaSet works
+  description: >
+    Restarts containers that fail, replaces and reschedules containers when nodes die,
+    kills containers that don't respond to your user-defined health check,
+    and doesn't advertise them to clients until they are ready to serve.
 content_type: concept
 weight: 20
 ---

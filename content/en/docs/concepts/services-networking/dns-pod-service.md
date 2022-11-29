@@ -220,13 +220,15 @@ following Pod-specific DNS policies. These policies are specified in the
   See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for more details.
 - "`ClusterFirst`": Any DNS query that does not match the configured cluster
-  domain suffix, such as "`www.kubernetes.io`", is forwarded to the upstream
-  nameserver inherited from the node. Cluster administrators may have extra
+  domain suffix, such as "`www.kubernetes.io`", is forwarded to an upstream
+  nameserver by the DNS server. Cluster administrators may have extra
   stub-domain and upstream DNS servers configured.
   See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for details on how DNS queries are handled in those cases.
 - "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
-  explicitly set its DNS policy "`ClusterFirstWithHostNet`".
+  explicitly set its DNS policy to "`ClusterFirstWithHostNet`". Otherwise, Pods
+  running with hostNetwork and `"ClusterFirst"` will fallback to the behavior
+  of the `"Default"` policy.
   - Note: This is not supported on Windows. See [below](#dns-windows) for details
 - "`None`": It allows a Pod to ignore DNS settings from the Kubernetes
   environment. All DNS settings are supposed to be provided using the
