@@ -18,7 +18,7 @@ As organizações com investimentos em aplicativos baseados em Windows e aplicat
 
 <!-- body -->
 
-## Windows nodes in Kubernetes
+## Windows nodes em Kubernetes
 
 Para habilitar a orquestração de contêineres do Windows no Kubernetes, inclua nós do Windows em seu cluster Linux existente. Agendamento de contêineres do Windows em {{< glossary_tooltip text="Pods" term_id="pod" >}} em O Kubernetes é semelhante ao agendamento de contêineres baseados em Linux.
 
@@ -44,7 +44,7 @@ Alguns recursos de nó estão disponíveis apenas se você usar um específico
 Nem todos os recursos de namespaces compartilhados são suportados. Veja [API compatibility](#api)
 para mais detalhes.
 
-Veja [Windows OS version compatibility](#windows-os-version-support) para obter detalhes sobre as versões do Windows nas quais o Kubernetes é testado.
+Veja [Compatibilidade da versão do sistema operacional Windows](#windows-os-version-support) para obter detalhes sobre as versões do Windows nas quais o Kubernetes é testado.
 
 Do ponto de vista da API e do kubectl, os contêineres do Windows se comportam da mesma maneira que os contêineres baseados em Linux. No entanto, existem algumas diferenças notáveis na funcionalidade principal que são descritas nesta seção.
 
@@ -107,7 +107,7 @@ refere-se a várias cargas de trabalho importantes abstrações e como elas são
   * CronJob
   * ReplicationController
 * {{< glossary_tooltip text="Services" term_id="service" >}}
-  See [Load balancing and Services](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) para mais detalhes.
+  Veja [Balanceamento de carga e serviços](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) para mais detalhes.
 
 Pods, rworkload resources, e Services são elementos críticos para gerenciar cargas de trabalho do Windows no Kubernetes. No entanto, por si só, eles não são suficientes para permitir o gerenciamento adequado do ciclo de vida das cargas de trabalho do Windows em uma nuvem dinâmica nativa meio Ambiente.
 
