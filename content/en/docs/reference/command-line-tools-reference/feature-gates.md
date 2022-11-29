@@ -579,7 +579,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   completions without relying on Pods remaining in the cluster indefinitely.
   The Job controller uses Pod finalizers and a field in the Job status to keep
   track of the finished Pods to count towards completion.
-- `KMSv2`: Enables KMS v2 API for encryption at rest.
+- `KMSv2`: Enables KMS v2 API for encryption at rest. See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.
 - `KubeletCredentialProviders`: Enable kubelet exec credential providers for
   image pull credentials.
 - `KubeletInUserNamespace`: Enables support for running kubelet in a
