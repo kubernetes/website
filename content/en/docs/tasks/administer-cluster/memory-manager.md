@@ -92,7 +92,7 @@ illustrates how the management of groups occurs.
 
 ## Memory Manager configuration
 
-Other Managers should be first pre-configured. Next, the Memory Manger feature should be enabled
+Other Managers should be first pre-configured. Next, the Memory Manager feature should be enabled
 and be run with `Static` policy (section [Static policy](#policy-static)).
 Optionally, some amount of memory can be reserved for system or kubelet processes to increase
 node stability (section [Reserved memory flag](#reserved-memory-flag)).
