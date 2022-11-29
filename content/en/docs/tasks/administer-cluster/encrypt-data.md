@@ -66,8 +66,16 @@ resources:
 ```
 
 Each `resources` array item is a separate config and contains a complete configuration. The
-`resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
-that should be encrypted like Secrets, ConfigMaps, or other resources. You can encrypt custom resources if you are running Kubernetes v1.26 or newer. The `providers` array is an ordered list of the possible encryption providers to use for the APIs that you listed.
+`resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`
+that should be encrypted like Secrets, ConfigMaps, or other resources. 
+
+You can encrypt custom resources if you are running Kubernetes v1.26 or newer. 
+If custom resources are added to `EncryptionConfiguration` before v1.26, then after an upgrade
+to 1.26 and the CRD gets created, then it will be encrypted. If it already existed before that point, 
+a storage migration would be required to get all the CRs into an encrypted state just
+like any other built-in resource.
+
+The `providers` array is an ordered list of the possible encryption providers to use for the APIs that you listed.
 
 Only one provider type may be specified per entry (`identity` or `aescbc` may be provided,
 but not both in the same item).
@@ -198,7 +206,8 @@ permissions on your control-plane nodes so only the user who runs the `kube-apis
 ## Verifying that data is encrypted
 
 Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly created or
-updated Secret or other resource types configured in `EncryptionConfiguration` should be encrypted when stored. To check this, you can use the `etcdctl` command line
+updated Secret or other resource types configured in `EncryptionConfiguration` should be encrypted
+when stored. To check this, you can use the `etcdctl` command line
 program to retrieve the contents of your secret data.
 
 1. Create a new Secret called `secret1` in the `default` namespace:

@@ -2,8 +2,6 @@
 reviewers:
 - smarterclayton
 - liggitt
-- ericchiang
-- destijl
 - enj
 title: Securing a Cluster
 content_type: task
@@ -256,7 +254,7 @@ and may grant an attacker significant visibility into the state of your cluster.
 your backups using a well reviewed backup and encryption solution, and consider using full disk
 encryption where possible.
 
-As a beta feature, Kubernetes supports [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/).
+Kubernetes supports optional [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/) for information in the Kubernetes API. 
 This lets you ensure that when Kubernetes stores data for objects (for example, `Secret` or
 `ConfigMap` objects), the API server writes an encrypted representation of the object.
 That encryption means that even someone who has access to etcd backup data is unable
