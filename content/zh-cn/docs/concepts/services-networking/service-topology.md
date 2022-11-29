@@ -1,7 +1,7 @@
 ---
 title: 使用拓扑键实现拓扑感知的流量路由
 content_type: concept
-weight: 10
+weight: 150
 ---
 <!--
 reviewers:
@@ -9,7 +9,7 @@ reviewers:
 - imroc
 title: Topology-aware traffic routing with topology keys
 content_type: concept
-weight: 10
+weight: 150
 -->
 
 <!-- overview -->
@@ -294,12 +294,11 @@ spec:
     - "*"
 ```
 
-
 ## {{% heading "whatsnext" %}}
 <!--
-* Read about [enabling Service Topology](/docs/tasks/administer-cluster/enabling-service-topology)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/)
+* Read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
 -->
-* 阅读关于[启用服务拓扑](/zh-cn/docs/tasks/administer-cluster/enabling-service-topology/)
-* 阅读[用服务连接应用程序](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 阅读关于[拓扑感知提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints/)
+* 阅读[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)
 
