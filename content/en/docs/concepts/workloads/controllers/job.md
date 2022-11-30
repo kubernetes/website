@@ -264,7 +264,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
     When you use an Indexed Job in combination with a
     {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
     the deterministic hostnames to address each other via DNS. For more information about
-    how to configure this, see [Job with Pod-to-Pod Communication].
+    how to configure this, see [Job with Pod-to-Pod Communication](/docs/tasks/job/job-with-pod-to-pod-communication/).
   - From the containerized task, in the environment variable `JOB_COMPLETION_INDEX`.
   
   The Job is considered complete when there is one successfully completed Pod
