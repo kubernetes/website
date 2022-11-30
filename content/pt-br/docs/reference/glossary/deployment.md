@@ -12,7 +12,7 @@ tags:
 - core-object
 - workload
 ---
- Um objeto API que gerencia uma aplicação replicada, geralmente executando Pods sem estado armazenado.
+ Um objeto da API que gerencia uma aplicação replicada, geralmente executando Pods sem estado armazenado.
 
 <!--more--> 
 
