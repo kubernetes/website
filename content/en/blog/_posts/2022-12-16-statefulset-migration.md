@@ -39,7 +39,7 @@ enables you to retain *at most one* semantics and
 [Rolling Update](/docs/tutorials/stateful-application/basic-stateful-set/#rolling-update)
 behavior when orchestrating a migration across clusters.
 
-### Why would I want to use this feature?
+## Why would I want to use this feature?
 
 Say you're running your StatefulSet in one cluster, and need to migrate it out
 to a different cluster. There are many reasons why you would need to do this:
@@ -55,12 +55,12 @@ to a different cluster. There are many reasons why you would need to do this:
    running an upgraded control plane, and can't handle the risk or downtime of
    in-place control plane upgrades.
 
-### How do I use it?
+## How do I use it?
 
 Enable the `StatefulSetStartOrdinal` feature gate on a cluster, and create a
 StatefulSet with a customized `.spec.ordinals.start`.
 
-### Try it for yourself
+## Try it for yourself
 
 In this demo, you'll use the `StatefulSetStartOrdinal` feature to migrate a
 StatefulSet from one cluster to another. For this demo, the
@@ -139,6 +139,17 @@ kubectl patch sts redis-redis-cluster -p '{"spec": {"replicas": 5}}'
 
 7. Migrate dependencies from `source` to `destination`.
 
+The following commands copy resources from `source` to `destionation`. Details
+that are not relevant in `destination` cluster are removed (eg: `uid`,
+`resourceVersion`, `status`).
+
+Note: For the PV/PVC, this procedure only works if the underlying storage system
+      that your `StorageClass` uses can support copying existing PVs into a
+      new cluster. Storage that is associated with a specific node or topology
+      may not be supported. Additionally, some storage systems may store
+      addtional metadata about volumes outside of a PV object, and may require
+      a more specialized sequence to import a volume.
+
 Source Cluster
 
 ```
@@ -178,3 +189,18 @@ You should see that the new replica's address has joined the Redis cluster.
 a8765caed08f3e185cef22bd09edf409dc2bcc61 10.104.0.19:6379@16379 master - 0 1669766685000 1 connected 0-5460
 7743661f60b6b17b5c71d083260419588b4f2451 10.104.0.16:6379@16379 slave 2ce30362c188aabc06f3eee5d92892d95b1da5c3 0 1669766686613 3 connected
 ```
+
+## What's Next?
+
+This feature provides a building block for a StatefulSet to be split up across
+clusters, but does not prescribe the mechanism as to how the StatefulSet should
+be migrated. Migration requires coordination of StatefulSet replicas, along with
+orchestration of the storage and network layer. This is dependent on the storage
+and connectivity requirements of the application installed by the StatefulSet.
+Additionally, many StatefulSets are controlled by Operators, which adds another
+layer of complexity to migration.
+
+If you're interested in building blocks to make these processes easier, get
+involved with
+[SIG Multicluster](https://github.com/kubernetes/community/blob/master/sig-multicluster)
+to contribute!
