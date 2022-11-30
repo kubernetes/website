@@ -38,13 +38,14 @@ At least a `ValidatingAdmissionPolicy` and a corresponding  `ValidatingAdmission
 
 If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, simply leave `spec.paramKind` in  `ValidatingAdmissionPolicy` unset.
 
+## {{% heading "prerequisites" %}}
+
+- Ensure the `ValidatingAdmissionPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+- Ensure that the `admissionregistration.k8s.io/v1alpha1` API is enabled.
+
 ## Getting Started with Validating Admission Policy
 
 Validating Admission Policy is part of the cluster control-plane. You should write and deploy them with great caution. The following describes how to quickly experiment with Validating Admission Policy.
-
-Prerequisites
-- Ensure the `ValidatingAdmissionPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
-- Ensure that the `admissionregistration.k8s.io/v1alpha1` API is enabled.
 
 ### Creating a ValidatingAdmissionPolicy
 
@@ -261,7 +262,11 @@ Accessible property names are escaped according to the following rules when acce
 | `__slash__`             | `/`                   |
 | `__{keyword}__`         | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
 
-Note: CEL RESERVED keyword needs to match the exact property name to be escaped (e.g. int in the word sprint would not be escaped).
+{{< note >}}
+A **CEL reserved** keyword only needs to be escaped if the token is an exact match
+for the reserved keyword.
+For example, `int` in the word “sprint” would not be escaped.
+{{< /note >}}
 
 Examples on escaping:
 
@@ -280,7 +285,7 @@ Concatenation on arrays with x-kubernetes-list-type use the semantics of the lis
       are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
       non-intersecting keys are appended, retaining their partial order.
 
-Validation Expression examples
+#### Validation expression examples
 
 | Expression                                                                                   | Purpose                                                                           |
 |----------------------------------------------------------------------------------------------| ------------                                                                      |
@@ -298,9 +303,9 @@ Validation Expression examples
 | `size(object.names) == size(object.details) && object.names.all(n, n in object.details)`     | Validate the 'details' map is keyed by the items in the 'names' listSet           |
 | `size(object.clusters.filter(c, c.name == object.primary)) == 1`                             | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
 
-Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
+Read [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation) for more information about CEL rules.
 
-`spec.validaion[i].reason` represents a machine-readable description of why this validation failed.
+`spec.validation[i].reason` represents a machine-readable description of why this validation failed.
 If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the
 HTTP response to the client.
 The currently supported reasons are: `Unauthorized`, `Forbidden`, `Invalid`, `RequestEntityTooLarge`.

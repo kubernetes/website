@@ -105,6 +105,13 @@ In Kubernetes {{< skew currentVersion >}}, the default ones are:
 CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook
 ```
 
+{{< note >}}
+The [`ValidatingAdmissionPolicy`](#validatingadmissionpolicy) admission plugin is enabled
+by default, but is only active if you enable the the `ValidatingAdmissionPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) **and**
+the `admissionregistration.k8s.io/v1alpha1` API.
+{{< note >}}
+
 ## What does each admission controller do?
 
 ### AlwaysAdmit {#alwaysadmit}
@@ -776,7 +783,7 @@ conditions.
 
 ### ValidatingAdmissionPolicy {#validatingadmissionpolicy}
 
-This admission controller implements the CEL validation for incoming matched requests. 
+[This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests. 
 It is enabled when both feature gate `validatingadmissionpolicy` and `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
 If any of the ValidatingAdmissionPolicy fails, the request fails.
 
