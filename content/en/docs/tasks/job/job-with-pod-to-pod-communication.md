@@ -55,8 +55,10 @@ the pods running your Job.
 Below is a working example of a Job with pod-to-pod communication via pod hostnames enabled.
 The Job is completed only after all pods successfully ping each other using hostnames.
 
-{{<note>}} In the Bash script executed on each pod in the example below, the pod hostnames can be prefixed by the namespace as well 
-if the pod needs to be reached from outside the namespace. {{</note>}}
+{{<note>}}
+In the Bash script executed on each pod in the example below, the pod hostnames can be prefixed
+by the namespace as well  if the pod needs to be reached from outside the namespace.
+{{</note>}}
 
 ```yaml
 
