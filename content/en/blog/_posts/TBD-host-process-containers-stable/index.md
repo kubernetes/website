@@ -24,12 +24,15 @@ containerized packaging and deployment methods combined with a reduction in both
 and development cost.
 
 HostProcess containers differ quite significantly from regular Windows Server containers.
-They are run directly as processes on the host and can run under the access policies of
-a user you specify. HostProcess containers can be run using built-in system accounts or
-as ephemeral users within a user group defined by you. HostProcess containers also share
+They are run directly as processes on the host under the access policies of
+a user you specify. HostProcess containers run as either the built-in system accounts or
+ephemeral users within a user group defined by you. HostProcess containers also share
 the host's network namespace and access/configure storage mounts visible to the host.
 On the other hand, Windows Server containers are highly isolated and exist in a separate
-silo'd namespace.
+silo'd namespace. Direct access to the host from a Windows Server container is explicitly disallowed
+by default. Mounting a host volume into the Windows Server container is highly discouraged to minimize
+potential attack surfaces. HostProcess containers enable you to configure the host such that communication
+with your Windows container workloads remains within the bounds of a secure pipeline.
 
 Until now, scenarios common to Linux privileged containers, such as kube-proxy (via kubeadm),
 storage, and networking, all required proxy solutions to enable functionality on Windows.
