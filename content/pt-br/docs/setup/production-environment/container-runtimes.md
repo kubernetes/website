@@ -102,15 +102,15 @@ Existem dois cgroup drivers disponíveis:
 
 ### cgroupfs driver {#cgroupfs-cgroup-driver}
 
-The `cgroupfs` driver is the default cgroup driver in the kubelet. When the `cgroupfs`
-driver is used, the kubelet and the container runtime directly interface with
-the cgroup filesystem to configure cgroups.
+O `cgroupfs` driver é o cgroup driver padrão no kubelet. Quando o  `cgroupfs`
+driver é utilizado, o kubelet e o container runtime interagem diretamente com o
+cgroup do sistema de arquivos para configurar cgroups.
 
-The `cgroupfs` driver is **not** recommended when
-[systemd](https://www.freedesktop.org/wiki/Software/systemd/) is the
-init system because systemd expects a single cgroup manager on
-the system. Additionally, if you use [cgroup v2](/docs/concepts/architecture/cgroups)
-, use the `systemd` cgroup driver instead of
+O `cgroupfs` driver **não** é recomendado quando
+[systemd](https://www.freedesktop.org/wiki/Software/systemd/) é o 
+init system porque o systemd espera um único gerenciado cgroup no 
+sistema. Além disso, se você utilizar [cgroup v2](/docs/concepts/architecture/cgroups)
+, utilize o  `systemd` cgroup driver ao invés do
 `cgroupfs`.
 
 ### systemd cgroup driver {#systemd-cgroup-driver}
