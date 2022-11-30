@@ -109,6 +109,7 @@ spec:
 
 After applying the example above, reach each other over the network
 using: `<pod-hostname>.<headless-service-name>`. You should see output similar to the following:
+
 ```shell
 kubectl logs example-job-0-qws42
 ```
@@ -119,7 +120,7 @@ Successfully pinged pod: example-job-0.headless-svc
 Successfully pinged pod: example-job-1.headless-svc
 Successfully pinged pod: example-job-2.headless-svc
 ```
-```
+
 {{<note>}}
 Keep in mind that the `<pod-hostname>.<headless-service-name>` name format used
 in this example would not work with DNS policy set to `None` or `Default`.
