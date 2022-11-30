@@ -28,7 +28,11 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{<note>}} If you are using MiniKube or a similar tool, you may need to take [extra steps](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/) to ensure you have DNS. {{</note>}}
+{{<note>}}
+If you are using MiniKube or a similar tool, you may need to take
+[extra steps](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/)
+to ensure you have DNS.
+{{</note>}}
 
 <!-- steps -->
 
