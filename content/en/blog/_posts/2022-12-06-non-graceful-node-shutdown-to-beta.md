@@ -36,7 +36,7 @@ New metrics `force_delete_pods_total` and `force_delete_pod_errors_total` are al
 
 ## How does it work
 
-In the case of a node shutdown, if graceful shutdown is not working or node is in non-recoverable state due to hardware failure or broken OS, the user can manually add a `out-of-service’ taint on the Node. For example, this can be `node.kubernetes.io/out-of-service=nodeshutdown:NoExecute` or `node.kubernetes.io/out-of-service=nodeshutdown:NoSchedule`. This will trigger pods on the node to be forcefully deleted if there are no matching tolerations on the pods.  Persistent volumes attached to the shutdown node will be detached, and new pods will be created successfully on a different running node.
+In the case of a node shutdown, if graceful shutdown is not working or node is in non-recoverable state due to hardware failure or broken OS, the user can manually add a `out-of-service` taint on the Node. For example, this can be `node.kubernetes.io/out-of-service=nodeshutdown:NoExecute` or `node.kubernetes.io/out-of-service=nodeshutdown:NoSchedule`. This will trigger pods on the node to be forcefully deleted if there are no matching tolerations on the pods.  Persistent volumes attached to the shutdown node will be detached, and new pods will be created successfully on a different running node.
 
 ```
 kubectl taint nodes <node-name> node.kubernetes.io/out-of-service=nodeshutdown:NoExecute
