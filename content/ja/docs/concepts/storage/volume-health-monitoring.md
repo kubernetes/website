@@ -17,7 +17,7 @@ Kubernetes _volume health monitoring_ は、KubernetesがContainerStorageInterfa
 
 CSIドライバーがコントローラー側からのボリュームヘルスモニタリング機能をサポートしている場合、CSIボリュームで異常なボリューム状態が検出されると、関連する{{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}(PVC)でイベントが報告されます。
 
-外部ヘルスモニター{{< glossary_tooltip text="コントローラー" term_id="controller" >}}も、ノード障害イベントを監視します。`enable-node-watcher`フラグをtrueに設定することで、ノード障害の監視を有効にできます。外部ヘルスモニターがノード障害イベントを検出すると、コントローラは、このPVCを使用するポッドが障害ノード上にあることを示すために、PVCでイベントが報告されることを報告します。
+外部ヘルスモニター{{< glossary_tooltip text="コントローラー" term_id="controller" >}}も、ノード障害イベントを監視します。`enable-node-watcher`フラグをtrueに設定することで、ノード障害の監視を有効にできます。外部ヘルスモニターがノード障害イベントを検出すると、コントローラーは、このPVCを使用するポッドが障害ノード上にあることを示すために、PVCでイベントが報告されることを報告します。
 
 CSIドライバーがノード側からのボリュームヘルスモニタリング機能をサポートしている場合、CSIボリュームで異常なボリューム状態が検出されると、PVCを使用するすべてのPodでイベントが報告されます。さらに、ボリュームヘルス情報はKubelet VolumeStatsメトリックとして公開されます。新しいメトリクスkubelet_volume_stats_health_status_abnormalが追加されました。このメトリックには`namespace`と`persistentvolumeclaim`の2つのラベルが含まれます。カウントは1または0です。1はボリュームが異常であることを示し、0はボリュームが正常であることを示します。詳細については、[KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1432-volume-health-monitor#kubelet-metrics-changes)を確認してください。
 
