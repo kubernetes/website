@@ -426,6 +426,20 @@ Used on: Secret
 This annotation records the {{< glossary_tooltip term_id="uid" text="unique ID" >}} of the
 ServiceAccount that the token (stored in the Secret of type `kubernetes.io/service-account-token`) represents.
 
+### kubernetes.io/legacy-token-last-used
+
+Example: `kubernetes.io/legacy-token-last-used: 2022-10-24`
+
+Used on: Secret
+
+The control plane only adds this label for Secrets that have the type `kubernetes.io/service-account-token`.
+The value of this label records the date (ISO 8601 format, UTC time zone) when the control plane last saw
+a request where the client authenticated using the service account token.
+
+If a legacy token was last used before the cluster gained the feature (added in Kubernetes v1.26), then
+the label isn't set.
+
+
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Example: `endpointslice.kubernetes.io/managed-by: "controller"`
@@ -521,7 +535,7 @@ The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} adds t
 
 If the number of backend endpoints falls below 1000, the control plane removes this annotation.
 
-### batch.kubernetes.io/job-tracking
+### batch.kubernetes.io/job-tracking (deprecated) {#batch-kubernetes-io-job-tracking}
 
 Example: `batch.kubernetes.io/job-tracking: ""`
 
@@ -529,7 +543,15 @@ Used on: Jobs
 
 The presence of this annotation on a Job indicates that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
-You should **not** manually add or remove this annotation.
+The control plane uses this annotation to safely transition to tracking Jobs
+using finalizers, while the feature is in development.
+You should **not** manually add or remove this annotation. 
+
+{{< note >}}
+Starting from Kubernetes 1.26, this annotation is deprecated.
+Kubernetes 1.27 and newer will ignore this annotation and always track Jobs
+using finalizers.
+{{< /note >}}
 
 ### scheduler.alpha.kubernetes.io/defaultTolerations {#scheduleralphakubernetesio-defaulttolerations}
 

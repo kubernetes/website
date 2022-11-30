@@ -1,5 +1,6 @@
 ---
 reviewers:
+- alculquicondor
 - erictune
 - soltysh
 title: Jobs
@@ -290,12 +291,29 @@ starts a new Pod.  This means that your application needs to handle the case whe
 pod.  In particular, it needs to handle temporary files, locks, incomplete output and the like
 caused by previous runs.
 
+By default, each pod failure is counted towards the `.spec.backoffLimit` limit,
+see [pod backoff failure policy](#pod-backoff-failure-policy). However, you can
+customize handling of pod failures by setting the Job's [pod failure policy](#pod-failure-policy).
+
 Note that even if you specify `.spec.parallelism = 1` and `.spec.completions = 1` and
 `.spec.template.spec.restartPolicy = "Never"`, the same program may
 sometimes be started twice.
 
 If you do specify `.spec.parallelism` and `.spec.completions` both greater than 1, then there may be
 multiple pods running at once.  Therefore, your pods must also be tolerant of concurrency.
+
+When the [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDisruptionConditions` and `JobPodFailurePolicy` are both enabled,
+and the `.spec.podFailurePolicy` field is set, the Job controller does not consider a terminating
+Pod (a pod that has a `.metadata.deletionTimestamp` field set) as a failure until that Pod is
+terminal (its `.status.phase` is `Failed` or `Succeeded`). However, the Job controller
+creates a replacement Pod as soon as the termination becomes apparent. Once the
+pod terminates, the Job controller evaluates `.backoffLimit` and `.podFailurePolicy`
+for the relevant Job, taking this now-terminated Pod into consideration.
+
+If either of these requirements is not satisfied, the Job controller counts
+a terminating Pod as an immediate failure, even if that Pod later terminates
+with `phase: "Succeeded"`.
 
 ### Pod backoff failure policy
 
@@ -313,10 +331,6 @@ The number of retries is calculated in two ways:
 
 If either of the calculations reaches the `.spec.backoffLimit`, the Job is
 considered failed.
-
-When the [`JobTrackingWithFinalizers`](#job-tracking-with-finalizers) feature is
-disabled, the number of failed Pods is only based on Pods that are still present
-in the API.
 
 {{< note >}}
 If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
@@ -701,7 +715,7 @@ mismatch.
 
 ### Pod failure policy {#pod-failure-policy}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
 You can only configure a Pod failure policy for a Job if you have the
@@ -710,7 +724,7 @@ enabled in your cluster. Additionally, it is recommended
 to enable the `PodDisruptionConditions` feature gate in order to be able to detect and handle
 Pod disruption conditions in the Pod failure policy (see also:
 [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)). Both feature gates are
-available in Kubernetes v1.25.
+available in Kubernetes {{< skew currentVersion >}}.
 {{< /note >}}
 
 A Pod failure policy, defined with the `.spec.podFailurePolicy` field, enables
@@ -784,43 +798,33 @@ These are some requirements and semantics of the API:
 
 ### Job tracking with finalizers
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 {{< note >}}
-In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
-and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-
-When enabled, the control plane tracks new Jobs using the behavior described
-below. Jobs created before the feature was enabled are unaffected. As a user,
-the only difference you would see is that the control plane tracking of Job
-completion is more accurate.
+The control plane doesn't track Jobs using finalizers, if the Jobs were created
+when the feature gate `JobTrackingWithFinalizers` was disabled, even after you
+upgrade the control plane to 1.26.
 {{< /note >}}
 
-When this feature isn't enabled, the Job {{< glossary_tooltip term_id="controller" >}}
-relies on counting the Pods that exist in the cluster to track the Job status,
-that is, to keep the counters for `succeeded` and `failed` Pods.
-However, Pods can be removed for a number of reasons, including:
-- The garbage collector that removes orphan Pods when a Node goes down.
-- The garbage collector that removes finished Pods (in `Succeeded` or `Failed`
-  phase) after a threshold.
-- Human intervention to delete Pods belonging to a Job.
-- An external controller (not provided as part of Kubernetes) that removes or
-  replaces Pods.
+The control plane keeps track of the Pods that belong to any Job and notices if
+any such Pod is removed from the API server. To do that, the Job controller
+creates Pods with the finalizer `batch.kubernetes.io/job-tracking`. The
+controller removes the finalizer only after the Pod has been accounted for in
+the Job status, allowing the Pod to be removed by other controllers or users.
 
-If you enable the `JobTrackingWithFinalizers` feature for your cluster, the
-control plane keeps track of the Pods that belong to any Job and notices if any
-such Pod is removed from the API server. To do that, the Job controller creates Pods with
-the finalizer `batch.kubernetes.io/job-tracking`. The controller removes the
-finalizer only after the Pod has been accounted for in the Job status, allowing
-the Pod to be removed by other controllers or users.
+Jobs created before upgrading to Kubernetes 1.26 or before the feature gate
+`JobTrackingWithFinalizers` is enabled are tracked without the use of Pod
+finalizers.
+The Job {{< glossary_tooltip term_id="controller" text="controller" >}} updates
+the status counters for `succeeded` and `failed` Pods based only on the Pods
+that exist in the cluster. The contol plane can lose track of the progress of
+the Job if Pods are deleted from the cluster.
 
-The Job controller uses the new algorithm for new Jobs only. Jobs created
-before the feature is enabled are unaffected. You can determine if the Job
-controller is tracking a Job using Pod finalizers by checking if the Job has the
-annotation `batch.kubernetes.io/job-tracking`. You should **not** manually add
-or remove this annotation from Jobs.
+You can determine if the control plane is tracking a Job using Pod finalizers by
+checking if the Job has the annotation
+`batch.kubernetes.io/job-tracking`. You should **not** manually add or remove
+this annotation from Jobs. Instead, you can recreate the Jobs to ensure they
+are tracked using Pod finalizers.
 
 ## Alternatives
 

@@ -32,7 +32,7 @@ Existing beta APIs and new versions of existing beta APIs will continue to be en
 
 Release artifacts are [signed](https://github.com/kubernetes/enhancements/issues/3031) using [cosign](https://github.com/sigstore/cosign) 
 signatures,
-and there is experimental support for [verifying image signatures](/docs/tasks/administer-cluster/verify-signed-images/). 
+and there is experimental support for [verifying image signatures](/docs/tasks/administer-cluster/verify-signed-artifacts/). 
 Signing and verification of release artifacts is part of [increasing software supply chain security for the Kubernetes release process](https://github.com/kubernetes/enhancements/issues/3027). 
 
 ### OpenAPI v3
@@ -84,8 +84,7 @@ that enables the caller of a function to control all aspects of logging (output 
 ### Avoiding Collisions in IP allocation to Services
 
 Kubernetes 1.24 introduces a new opt-in feature that allows you to
-[soft-reserve a range for static IP address assignments](/docs/concepts/services-networking/service/#service-ip-static-sub-range)
-to Services.
+soft-reserve a range for static IP address assignments to Services.
 With the manual enablement of this feature, the cluster will prefer automatic assignment from 
 the pool of Service IP addresses, thereby reducing the risk of collision. 
 

@@ -641,14 +641,9 @@ or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://
 
 #### Load balancers with mixed protocol types
 
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-By default, for LoadBalancer type of Services, when there is more than one port defined, all
-ports must have the same protocol, and the protocol must be one which is supported
-by the cloud provider.
-
-The feature gate `MixedProtocolLBService` (enabled by default for the kube-apiserver as of v1.24) allows the use of
-different protocols for LoadBalancer type of Services, when there is more than one port defined.
+You can use different protocols for LoadBalancer type of Services, when there is more than one port defined.
 
 {{< note >}}
 
@@ -1189,6 +1184,118 @@ If you want to make sure that connections from a particular client are passed to
 the same Pod each time, you can configure session affinity based on the client's
 IP address. Read [session affinity](/docs/reference/networking/virtual-ips/#session-affinity)
 to learn more.
+
+Using the userspace proxy obscures the source IP address of a packet accessing
+a Service.
+This makes some kinds of network filtering (firewalling) impossible.  The iptables
+proxy mode does not
+obscure in-cluster source IPs, but it does still impact clients coming through
+a load balancer or node-port.
+
+The `Type` field is designed as nested functionality - each level adds to the
+previous.  This is not strictly required on all cloud providers (e.g. Google Compute Engine does
+not need to allocate a `NodePort` to make `LoadBalancer` work, but AWS does)
+but the Kubernetes API design for Service requires it anyway.
+
+## Virtual IP implementation {#the-gory-details-of-virtual-ips}
+
+The previous information should be sufficient for many people who want to
+use Services.  However, there is a lot going on behind the scenes that may be
+worth understanding.
+
+### Avoiding collisions
+
+One of the primary philosophies of Kubernetes is that you should not be
+exposed to situations that could cause your actions to fail through no fault
+of your own. For the design of the Service resource, this means not making
+you choose your own port number if that choice might collide with
+someone else's choice.  That is an isolation failure.
+
+In order to allow you to choose a port number for your Services, we must
+ensure that no two Services can collide. Kubernetes does that by allocating each
+Service its own IP address from within the `service-cluster-ip-range`
+CIDR range that is configured for the API server.
+
+To ensure each Service receives a unique IP, an internal allocator atomically
+updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
+prior to creating each Service. The map object must exist in the registry for
+Services to get IP address assignments, otherwise creations will
+fail with a message indicating an IP address could not be allocated.
+
+In the control plane, a background controller is responsible for creating that
+map (needed to support migrating from older versions of Kubernetes that used
+in-memory locking). Kubernetes also uses controllers to check for invalid
+assignments (e.g. due to administrator intervention) and for cleaning up allocated
+IP addresses that are no longer used by any Services.
+
+Services are using an [allocation strategy](/docs/concepts/services-networking/cluster-ip-allocation/) that divides the `ClusterIP` range into two bands, based on
+the size of the configured `service-cluster-ip-range` by using the following formula
+`min(max(16, cidrSize / 16), 256)`, described as _never less than 16 or more than 256,
+with a graduated step function between them_. Dynamic IP allocations will be preferentially
+chosen from the upper band, reducing risks of conflicts with the IPs
+assigned from the lower band.
+This allows users to use the lower band of the `service-cluster-ip-range` for their
+Services with static IPs assigned with a very low risk of running into conflicts.
+
+### Service IP addresses {#ips-and-vips}
+
+Unlike Pod IP addresses, which actually route to a fixed destination,
+Service IPs are not actually answered by a single host.  Instead, kube-proxy
+uses iptables (packet processing logic in Linux) to define _virtual_ IP addresses
+which are transparently redirected as needed.  When clients connect to the
+VIP, their traffic is automatically transported to an appropriate endpoint.
+The environment variables and DNS for Services are actually populated in
+terms of the Service's virtual IP address (and port).
+
+kube-proxy supports three proxy modes&mdash;userspace, iptables and IPVS&mdash;which
+each operate slightly differently.
+
+#### Userspace
+
+As an example, consider the image processing application described above.
+When the backend Service is created, the Kubernetes master assigns a virtual
+IP address, for example 10.0.0.1.  Assuming the Service port is 1234, the
+Service is observed by all of the kube-proxy instances in the cluster.
+When a proxy sees a new Service, it opens a new random port, establishes an
+iptables redirect from the virtual IP address to this new port, and starts accepting
+connections on it.
+
+When a client connects to the Service's virtual IP address, the iptables
+rule kicks in, and redirects the packets to the proxy's own port.
+The "Service proxy" chooses a backend, and starts proxying traffic from the client to the backend.
+
+This means that Service owners can choose any port they want without risk of
+collision.  Clients can connect to an IP and port, without being aware
+of which Pods they are actually accessing.
+
+#### iptables
+
+Again, consider the image processing application described above.
+When the backend Service is created, the Kubernetes control plane assigns a virtual
+IP address, for example 10.0.0.1.  Assuming the Service port is 1234, the
+Service is observed by all of the kube-proxy instances in the cluster.
+When a proxy sees a new Service, it installs a series of iptables rules which
+redirect from the virtual IP address  to per-Service rules.  The per-Service
+rules link to per-Endpoint rules which redirect traffic (using destination NAT)
+to the backends.
+
+When a client connects to the Service's virtual IP address the iptables rule kicks in.
+A backend is chosen (either based on session affinity or randomly) and packets are
+redirected to the backend.  Unlike the userspace proxy, packets are never
+copied to userspace, the kube-proxy does not have to be running for the virtual
+IP address to work, and Nodes see traffic arriving from the unaltered client IP
+address.
+
+This same basic flow executes when traffic comes in through a node-port or
+through a load-balancer, though in those cases the client IP does get altered.
+
+#### IPVS
+
+iptables operations slow down dramatically in large scale cluster e.g. 10,000 Services.
+IPVS is designed for load balancing and based on in-kernel hash tables.
+So you can achieve performance consistency in large number of Services from IPVS-based kube-proxy.
+Meanwhile, IPVS-based kube-proxy has more sophisticated load balancing algorithms
+(least conns, locality, weighted, persistence).
 
 ## API Object
 
