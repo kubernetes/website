@@ -7,7 +7,7 @@ weight: 30
 
 <!-- overview -->
 
-In this example, you will run a Job in [Indexed completion mode](https://kubernetes.io/blog/2021/04/19/introducing-indexed-jobs/) configured such that
+In this example, you will run a Job in [Indexed completion mode](/blog/2021/04/19/introducing-indexed-jobs/) configured such that
 the pods created by the Job can communicate with each other using pod hostnames rather than pod IP addresses.
 
 Pods within a Job might need to communicate among themselves. The user workload running in each pod could query the Kubernetes API server
