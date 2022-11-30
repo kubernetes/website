@@ -47,9 +47,9 @@ the pods running your Job.
 
 2. Configure the headless service as subdomain service for the Job pods by including the following value in your Job template spec: 
 
-  ```yaml
-  subdomain: <headless-svc-name>
-  ```
+   ```yaml
+   subdomain: <headless-svc-name>
+   ```
 
 ### Example 
 Below is a working example of a Job with pod-to-pod communication via pod hostnames enabled.
