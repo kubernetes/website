@@ -176,6 +176,7 @@ For a reference to old feature gates that are removed, please refer to
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | |
+| `KMSv2` | `false` | Alpha | 1.25 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
 | `KubeletCredentialProviders` | `true` | Beta | 1.24 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
@@ -926,12 +927,16 @@ Each feature gate is designed for enabling/disabling a specific feature:
   完成情况，而不是永远从集群剩余 Pod 来获取信息判断完成情况。Job 控制器使用
   Pod finalizers 和 Job 状态中的一个字段来跟踪已完成的 Pod 以计算完成。
 <!--
+- `KMSv2`: Enables KMS v2 API for encryption at rest.
+  See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.
 - `KubeletCredentialProviders`: Enable kubelet exec credential providers for
   image pull credentials.
 - `KubeletInUserNamespace`: Enables support for running kubelet in a
   {{<glossary_tooltip text="user namespace" term_id="userns">}}.
    See [Running Kubernetes Node Components as a Non-root User](/docs/tasks/administer-cluster/kubelet-in-userns/).
 -->
+- `KMSv2`：启用 KMS v2 API 以实现静态加密。
+  详情参见[使用 KMS 驱动进行数据加密](/zh-cn/docs/tasks/administer-cluster/kms-provider)。
 - `KubeletCredentialProviders`：允许使用 kubelet exec 凭据提供程序来设置镜像拉取凭据。
 - `KubeletInUserNamespace`：支持在{{<glossary_tooltip text="用户名字空间" term_id="userns">}}里运行 kubelet。
   请参见[使用非 Root 用户来运行 Kubernetes 节点组件](/zh-cn/docs/tasks/administer-cluster/kubelet-in-userns/)。
