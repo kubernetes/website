@@ -35,121 +35,154 @@ content_type: concept
 
 | 機能名 | デフォルト値 | ステージ | 導入開始バージョン | 最終利用可能バージョン |
 |---------|---------|-------|-------|-------|
-| `AnyVolumeDataSource` | `false` | Alpha | 1.18 | |
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
-| `APIPriorityAndFairness` | `false` | Alpha | 1.17 | |
-| `APIResponseCompression` | `false` | Alpha | 1.7 | |
+| `APIPriorityAndFairness` | `false` | Alpha | 1.18 | 1.19 |
+| `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
+| `APIResponseCompression` | `false` | Alpha | 1.7 | 1.15 |
+| `APIResponseCompression` | `true` | Beta | 1.16 | |
+| `APIServerIdentity` | `false` | Alpha | 1.20 | |
+| `APIServerTracing` | `false` | Alpha | 1.22 | |
+| `AllowInsecureBackendProxy` | `true` | Beta | 1.17 | |
+| `AnyVolumeDataSource` | `false` | Alpha | 1.18 | 1.23 |
+| `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
-| `BalanceAttachedNodeVolumes` | `false` | Alpha | 1.11 | |
-| `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
-| `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
-| `CRIContainerLogRotation` | `true` | Beta| 1.11 | |
-| `CSIInlineVolume` | `false` | Alpha | 1.15 | 1.15 |
-| `CSIInlineVolume` | `true` | Beta | 1.16 | - |
-| `CSIMigration` | `false` | Alpha | 1.14 | 1.16 |
-| `CSIMigration` | `true` | Beta | 1.17 | |
-| `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
-| `CSIMigrationAWS` | `false` | Beta | 1.17 | |
-| `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | |
-| `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | |
-| `CSIMigrationAzureDiskComplete` | `false` | Alpha | 1.17 | |
-| `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | |
-| `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | |
-| `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
-| `CSIMigrationGCE` | `false` | Beta | 1.17 | |
-| `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | |
-| `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | |
-| `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | |
-| `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | |
+| `CPUManagerPolicyAlphaOptions` | `false` | Alpha | 1.23 | |
+| `CPUManagerPolicyBetaOptions` | `true` | Beta | 1.23 | |
+| `CPUManagerPolicyOptions` | `false` | Alpha | 1.22 | 1.22 |
+| `CPUManagerPolicyOptions` | `true` | Beta | 1.23 | |
+| `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.20 |
+| `CSIMigrationAzureFile` | `false` | Beta | 1.21 | 1.23 |
+| `CSIMigrationAzureFile` | `true` | Beta | 1.24 | |
+| `CSIMigrationPortworx` | `false` | Alpha | 1.23 | 1.24 |
+| `CSIMigrationPortworx` | `false` | Beta | 1.25 | |
+| `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
+| `CSIMigrationvSphere` | `false` | Alpha | 1.18 | 1.18 |
+| `CSIMigrationvSphere` | `false` | Beta | 1.19 | 1.24 |
+| `CSIMigrationvSphere` | `true` | Beta | 1.25 | |
+| `CSINodeExpandSecret` | `false` | Alpha | 1.25 | |
+| `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
+| `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
+| `ContextualLogging` | `false` | Alpha | 1.24 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
-| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
-| `CustomResourceDefaulting` | `true` | Beta | 1.16 | |
+| `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | 1.24 |
+| `CustomResourceValidationExpressions` | `true` | Beta | 1.25 | |
+| `DelegateFSGroupToCSIDriver` | `false` | Alpha | 1.22 | 1.22 |
+| `DelegateFSGroupToCSIDriver` | `true` | Beta | 1.23 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
-| `DryRun` | `false` | Alpha | 1.12 | 1.12 |
-| `DryRun` | `true` | Beta | 1.13 | |
-| `DynamicAuditing` | `false` | Alpha | 1.13 | |
-| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
-| `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
-| `EndpointSlice` | `false` | Alpha | 1.16 | 1.16 |
-| `EndpointSlice` | `false` | Beta | 1.17 | |
-| `EndpointSlice` | `true` | Beta | 1.18 | |
-| `EndpointSliceProxying` | `false` | Alpha | 1.18 | |
-| `EphemeralContainers` | `false` | Alpha | 1.16 | |
-| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
-| `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
-| `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
-| `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | |
-| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
-| `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
+| `DisableCloudProviders` | `false` | Alpha | 1.22 | |
+| `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | |
+| `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
+| `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
+| `DownwardAPIHugePages` | `true` | Beta | 1.22 | |
+| `EndpointSliceTerminatingCondition` | `false` | Alpha | 1.20 | 1.21 |
+| `EndpointSliceTerminatingCondition` | `true` | Beta | 1.22 | |
+| `ExpandedDNSConfig` | `false` | Alpha | 1.22 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `EvenPodsSpread` | `false` | Alpha | 1.16 | 1.17 |
-| `EvenPodsSpread` | `true` | Beta | 1.18 | |
+| `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
+| `GRPCContainerProbe` | `true` | Beta | 1.24 | |
+| `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
+| `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
+| `GracefulNodeShutdownBasedOnPodPriority` | `false` | Alpha | 1.23 | 1.23 |
+| `GracefulNodeShutdownBasedOnPodPriority` | `true` | Beta | 1.24 | |
+| `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
-| `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | |
-| `HyperVContainer` | `false` | Alpha | 1.10 | |
-| `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | |
+| `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 |  |
+| `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
+| `InTreePluginAzureDiskUnregister` | `false` | Alpha | 1.21 | |
+| `InTreePluginAzureFileUnregister` | `false` | Alpha | 1.21 | |
+| `InTreePluginGCEUnregister` | `false` | Alpha | 1.21 | |
+| `InTreePluginOpenStackUnregister` | `false` | Alpha | 1.21 | |
+| `InTreePluginPortworxUnregister` | `false` | Alpha | 1.23 | |
+| `InTreePluginRBDUnregister` | `false` | Alpha | 1.23 | |
+| `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
+| `IPTablesOwnershipCleanup` | `false` | Alpha | 1.25 | |
+| `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
+| `JobPodFailurePolicy` | `false` | Alpha | 1.25 | - |
+| `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
+| `JobReadyPods` | `true` | Beta | 1.24 | |
+| `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
+| `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
+| `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | |
+| `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
+| `KubeletCredentialProviders` | `true` | Beta | 1.24 | |
+| `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
-| `LegacyNodeRoleBehavior` | `true` | Alpha | 1.16 | |
-| `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
-| `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
-| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
-| `MountContainers` | `false` | Alpha | 1.9 | |
-| `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | |
-| `NonPreemptingPriority` | `false` | Alpha | 1.15 | |
-| `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
-| `PodDisruptionBudget` | `true` | Beta | 1.5 | |
-| `PodOverhead` | `false` | Alpha | 1.16 | - |
+| `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
+| `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
+| `KubeletTracing` | `false` | Alpha | 1.25 | |
+| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | |
+| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | 1.24 |
+| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `true` | Beta | 1.25 | |
+| `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
+| `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
+| `MatchLabelKeysInPodTopologySpread` | `false` | Alpha | 1.25 | |
+| `MaxUnavailableStatefulSet` | `false` | Alpha | 1.24 | |
+| `MemoryManager` | `false` | Alpha | 1.21 | 1.21 |
+| `MemoryManager` | `true` | Beta | 1.22 | |
+| `MemoryQoS` | `false` | Alpha | 1.22 | |
+| `MinDomainsInPodTopologySpread` | `false` | Alpha | 1.24 | 1.24 |
+| `MinDomainsInPodTopologySpread` | `false` | Beta | 1.25 | |
+| `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
+| `MixedProtocolLBService` | `true` | Beta | 1.24 | |
+| `MultiCIDRRangeAllocator` | `false` | Alpha | 1.25 | |
+| `NetworkPolicyStatus` | `false` | Alpha | 1.24 |  |
+| `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | |
+| `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | |
+| `NodeSwap` | `false` | Alpha | 1.22 | |
+| `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
+| `OpenAPIEnums` | `true` | Beta | 1.24 | |
+| `OpenAPIV3` | `false` | Alpha | 1.23 | 1.23 |
+| `OpenAPIV3` | `true` | Beta | 1.24 | |
+| `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
+| `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
+| `PodDeletionCost` | `true` | Beta | 1.22 | |
+| `PodDisruptionConditions` | `false` | Alpha | 1.25 | - |
+| `PodHasNetworkCondition` | `false` | Alpha | 1.25 | |
+| `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
+| `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | 1.24 |
+| `ProbeTerminationGracePeriod` | `true` | Beta | 1.25 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
+| `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
-| `RemainingItemCount` | `false` | Alpha | 1.15 | |
-| `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
-| `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | |
+| `ReadWriteOncePod` | `false` | Alpha | 1.22 | |
+| `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.23 | |
+| `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
+| `RemainingItemCount` | `true` | Beta | 1.16 | |
+| `RetroactiveDefaultStorageClass` | `false` | Alpha | 1.25 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
-| `RunAsGroup` | `true` | Beta | 1.14 | |
-| `RuntimeClass` | `false` | Alpha | 1.12 | 1.13 |
-| `RuntimeClass` | `true` | Beta | 1.14 | |
-| `SCTPSupport` | `false` | Alpha | 1.12 | |
-| `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
-| `ServerSideApply` | `true` | Beta | 1.16 | |
-| `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | |
-| `ServiceAppProtocol` | `false` | Alpha | 1.18 | |
-| `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
-| `ServiceTopology` | `false` | Alpha | 1.17 | |
-| `StartupProbe` | `false` | Alpha | 1.16 | 1.17 |
-| `StartupProbe` | `true` | Beta | 1.18 | |
+| `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | |
+| `SeccompDefault` | `false` | Alpha | 1.22 | 1.24 |
+| `SeccompDefault` | `true` | Beta | 1.25 | |
+| `ServerSideFieldValidation` | `false` | Alpha | 1.23 | 1.24 |
+| `ServerSideFieldValidation` | `true` | Beta | 1.25 | |
+| `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | 1.24 |
+| `ServiceIPStaticSubrange` | `true` | Beta | 1.25 | |
+| `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
+| `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | |
+| `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
+| `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
+| `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | |
+| `StorageVersionAPI` | `false` | Alpha | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
-| `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
-| `StreamingProxyRedirects` | `true` | Beta | 1.6 | |
-| `SupportNodePidsLimit` | `false` | Alpha | 1.14 | 1.14 |
-| `SupportNodePidsLimit` | `true` | Beta | 1.15 | |
-| `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
-| `SupportPodPidsLimit` | `true` | Beta | 1.14 | |
-| `Sysctls` | `true` | Beta | 1.11 | |
-| `TokenRequest` | `false` | Alpha | 1.10 | 1.11 |
-| `TokenRequest` | `true` | Beta | 1.12 | |
-| `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
-| `TokenRequestProjection` | `true` | Beta | 1.12 | |
-| `TTLAfterFinished` | `false` | Alpha | 1.12 | 1.20 |
-| `TTLAfterFinished` | `true` | Beta | 1.21 | |
+| `TopologyAwareHints` | `false` | Alpha | 1.21 | 1.22 |
+| `TopologyAwareHints` | `false` | Beta | 1.23 | 1.23 |
+| `TopologyAwareHints` | `true` | Beta | 1.24 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
 | `TopologyManager` | `true` | Beta | 1.18 | |
-| `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
-| `ValidateProxyRedirects` | `true` | Beta | 1.14 | |
-| `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
-| `VolumePVCDataSource` | `true` | Beta | 1.16 | |
-| `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | 1.16 |
-| `VolumeSnapshotDataSource` | `true` | Beta | 1.17 | - |
-| `WindowsGMSA` | `false` | Alpha | 1.14 | |
-| `WindowsGMSA` | `true` | Beta | 1.16 | |
+| `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | |
+| `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
 | `WinDSR` | `false` | Alpha | 1.14 | |
-| `WinOverlay` | `false` | Alpha | 1.14 | |
+| `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
+| `WinOverlay` | `true` | Beta | 1.20 | |
+| `WindowsHostProcessContainers` | `false` | Alpha | 1.22 | 1.22 |
+| `WindowsHostProcessContainers` | `true` | Beta | 1.23 | |
 {{< /table >}}
 
 ### GraduatedまたはDeprecatedのフィーチャーゲート {#feature-gates-for-graduated-or-deprecated-features}

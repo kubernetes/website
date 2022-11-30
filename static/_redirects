@@ -235,6 +235,8 @@
 
 /docs/reference/kubernetes-api/labels-annotations-taints/ /docs/reference/labels-annotations-taints/ 301
 
+/docs/reference/ports-and-protocols/ /docs/reference/networking/ports-and-protocols/ 301
+
 /docs/reporting-security-issues/     /docs/reference/issues-security/security/ 301
 /security/ /docs/reference/issues-security/security/ 302
 

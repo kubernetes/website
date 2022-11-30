@@ -120,13 +120,13 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 2. Download the Google Cloud public signing key:
 
    ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
 3. Add the Kubernetes `apt` repository:
 
    ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. Update `apt` package index with the new repository and install kubectl:
@@ -135,6 +135,10 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
+{{< note >}}
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
+You can create this directory if you need to, making it world-readable but writeable only by admins.
+{{< /note >}}
 
 {{% /tab %}}
 

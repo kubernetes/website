@@ -194,6 +194,7 @@ GitHub team: [@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/
 
 ### Chairs
 
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
 - Stephen Augustus ([@justaugustus](https://github.com/justaugustus))
 
@@ -201,7 +202,7 @@ GitHub team: [@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
-- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
+- Verónica López ([@verolop](https://github.com/verolop))
 
 ---
 
