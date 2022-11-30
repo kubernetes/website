@@ -16,4 +16,6 @@ tags:
 
 <!--more--> 
 
-Adicionar o Istio não requer alterar o código da aplicação. É uma camada de infraestrutura entre um serviço e a rede, quando combinada com os serviços de implantações, é comumente referida como uma malha de serviço. A camada de gerenciamento do Istio abstrai a plataforma de gerenciamento do cluster principal, que pode ser Kubernetes, Mesosphere, etc.
+Adicionar o Istio não requer alterar o código da aplicação. 
+É uma camada de infraestrutura entre um serviço e a rede, quando combinada com as instalações de serviços, é comumente referida como uma malha de serviço. 
+A camada de gerenciamento do Istio abstrai a plataforma de gerenciamento do cluster principal, que pode ser Kubernetes, Mesosphere, etc.
