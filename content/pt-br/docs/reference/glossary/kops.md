@@ -19,7 +19,7 @@ tags:
 O kops tem suporte de disponibilidade geral apenas para AWS. O suporte para o uso do kops com GCE e VMware vSphere está em fase alfa.
 {{< /note >}}
 
-`kops` forcene seu cluster com&#58;
+`kops` fornece seu cluster com&#58;
 
   * Instalação totalmente automatizada
   * Identificação de cluster baseada em DNS
