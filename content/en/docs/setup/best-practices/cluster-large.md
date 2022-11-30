@@ -115,15 +115,15 @@ many nodes, consider the following:
 
 ## {{% heading "whatsnext" %}}
 
-`VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster
+* `VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster
 to help you manage resource requests and limits for pods.  
 Visit [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
 to learn more about `VerticalPodAutoscaler` and how you can use it to scale cluster
 components, including cluster-critical addons.
 
-The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
+* The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
 integrates with a number of cloud providers to help you run the right number of
 nodes for the level of resource demand in your cluster.
 
-The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
+* The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
 helps you in resizing the addons automatically as your cluster's scale changes.
