@@ -162,7 +162,8 @@ For a reference to old feature gates that are removed, please refer to
 | `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | 1.24 |
 | `ProbeTerminationGracePeriod` | `true` | Beta | 1.25 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
-| `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | |
+| `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | 1.25 |
+| `ProxyTerminatingEndpoints` | `true` | Beta | 1.26 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `ReadWriteOncePod` | `false` | Alpha | 1.22 | |
 | `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.23 | |
