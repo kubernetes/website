@@ -64,31 +64,37 @@ overall architecture of Windows HostProcess containers:
 
 {{< figure src="hpc-architecture.png" alt="HostProcess Architecture" >}}
 
-### User Accounts
-
-**TODO**
-
-### File Management
-
-**TODO**
-
-### HostProcess Base Image
-
-**TODO**
+Two major features were added prior to moving to stable: the ability to run as local user accounts, and
+a simplified method of accessing volume mounts. For more info visit our [updated documentation page](/docs/tasks/configure-pod-container/create-hostprocess-pod)
 
 ## Use Cases
 
-**TODO**
+The SIG-Windows community has been busy putting HostProcess containers to use - even before GA! CThey've
+been very excited to use HostProcess containers for a number of important activities that were a pain to
+perform in the past. Now using HostProcess containers you can install the windows-exporter on your nodes
+and collect extremely detailed monitoring information with Prometheus. You can now run csi-proxy, flannel,
+calico, event loggers, and more as HPCs.
+
+To see more HPC examples head over to [HostProcess Examples](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/hostprocess)
 
 ## How do I use it?
 
-**TODO** Building an HPC
+A HostProcess container can be built using any base image of your choosing, however, for convenience we have
+created [a HostProcess container base image](https://github.com/microsoft/windows-host-process-containers-base-image).
+This image is only a few KB in size and does not inherit any of the same compatibility requirements as regular Windows
+server containers.
+
+All you need in your Dockerfile is the following URI:
+
+```dockerfile
+FROM mcr.microsoft.com/oss/kubernetes/windows-host-process-containers-base-image:v1.0.0
+```
 
 HostProcess containers can be run from within a
 [HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod).
 With the feature enabled on Kubernetes version 1.22, a containerd container runtime of
 1.7 or higher, and the latest version of hcsshim, deploying a pod spec with the
-[correct HostProcess configuration](/docs/tasks/configure-pod-container/create-hostprocess-pod/#before-you-begin) 
+[correct HostProcess configuration](/docs/tasks/configure-pod-container/create-hostprocess-pod/#before-you-begin)
 will enable you to run HostProcess containers. To get started with running
 Windows containers see the general guidance for [Windows in Kubernetes](/docs/setup/production-environment/windows/)
 
