@@ -109,6 +109,7 @@ spec:
 
 After applying the example above, reach each other over the network
 using: `<pod-hostname>.<headless-service-name>`. You should see output similar to the following:
+
 ```shell
 kubectl logs example-job-0-qws42
 ```
