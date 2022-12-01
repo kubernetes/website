@@ -94,7 +94,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: nginx
-        image: k8s.gcr.io/nginx-slim:0.8
+        image: registry.k8s.io/nginx-slim:0.8
         ports:
         - containerPort: 80
           name: web
@@ -138,13 +138,12 @@ spec:
 
 ### 최소 준비 시간 초 {#minimum-ready-seconds}
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 `.spec.minReadySeconds` 는 파드가 '사용 가능(available)'이라고 간주될 수 있도록 파드의 모든 컨테이너가 
-문제 없이 실행되어야 하는 최소 시간(초)을 나타내는 선택적인 필드이다. 이 기능은 베타이며 기본적으로 활성화되어 
-있음에 유의한다. 이 기능을 사용하지 않으려면
-StatefulSetMinReadySeconds 플래그를 설정 해제한다. 
-이 필드의 기본값은 0이다(이 경우, 파드가 Ready 상태가 되면 바로 사용 가능하다고 간주된다.) 
+문제 없이 실행되고 준비되는 최소 시간(초)을 나타내는 선택적인 필드이다.
+[롤링 업데이트](#롤링-업데이트) 전략을 사용할 때 롤아웃 진행 상황을 확인하는 데 사용된다.
+이 필드의 기본값은 0이다(이 경우, 파드가 Ready 상태가 되면 바로 사용 가능하다고 간주된다.)
 파드가 언제 사용 가능하다고 간주되는지에 대한 자세한 정보는
 [컨테이너 프로브(probe)](/ko/docs/concepts/workloads/pods/pod-lifecycle/#컨테이너-프로브-probe)를 참고한다.
 
