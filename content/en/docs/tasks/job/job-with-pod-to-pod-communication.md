@@ -119,7 +119,7 @@ Successfully pinged pod: example-job-0.headless-svc
 Successfully pinged pod: example-job-1.headless-svc
 Successfully pinged pod: example-job-2.headless-svc
 ```
-```
+
 {{<note>}}
 Keep in mind that the `<pod-hostname>.<headless-service-name>` name format used
 in this example would not work with DNS policy set to `None` or `Default`.
