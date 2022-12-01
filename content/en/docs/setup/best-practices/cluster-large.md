@@ -117,8 +117,8 @@ many nodes, consider the following:
 
 * `VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster
 to help you manage resource requests and limits for pods.  
-Visit [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
-to learn more about `VerticalPodAutoscaler` and how you can use it to scale cluster
+Learn more about [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) 
+and how you can use it to scale cluster
 components, including cluster-critical addons.
 
 * The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
