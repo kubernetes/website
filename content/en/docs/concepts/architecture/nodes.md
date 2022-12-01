@@ -9,7 +9,7 @@ weight: 10
 
 <!-- overview -->
 
-Kubernetes runs your workload by placing containers into Pods to run on _Nodes_.
+Kubernetes runs your {{< glossary_tooltip text="workload" term_id="Workload" >}} by placing containers into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
@@ -563,7 +563,7 @@ ShutdownGracePeriodCriticalPods are not configured properly. Please refer to abo
 section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 
 When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods 
-that are part of a StatefulSet will be stuck in terminating status on 
+that are part of a {{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}} will be stuck in terminating status on 
 the shutdown node and cannot move to a new running node. This is because kubelet on 
 the shutdown node is not available to delete the pods so the StatefulSet cannot 
 create a new pod with the same name. If there are volumes used by the pods, the 
@@ -577,7 +577,7 @@ these pods will be stuck in terminating status on the shutdown node forever.
 To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
 or `NoSchedule` effect to a Node marking it out-of-service. 
 If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled on `kube-controller-manager`, and a Node is marked out-of-service with this taint, the
+is enabled on {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}, and a Node is marked out-of-service with this taint, the
 pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
 detach operations for the pods terminating on the node will happen immediately. This allows the
 Pods on the out-of-service node to recover quickly on a different node. 
@@ -646,9 +646,11 @@ see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about the [components](/docs/concepts/overview/components/#node-components) that make up a node.
-* Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
-* Read the [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
-  section of the architecture design document.
-* Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+Learn more about the following:
+   * [components](/docs/concepts/overview/components/#node-components) that make up a node.
+   * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+   * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
+   * [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+   * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
+   * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
 
