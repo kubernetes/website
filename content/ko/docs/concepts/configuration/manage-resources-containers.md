@@ -236,7 +236,7 @@ kubelet은 파드의 리소스 사용량을 파드
 ## 로컬 임시(ephemeral) 스토리지
 
 <!-- feature gate LocalStorageCapacityIsolation -->
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 노드에는 로컬에 연결된 쓰기 가능 장치 또는, 때로는 RAM에 의해
 지원되는 로컬 임시 스토리지가 있다.
@@ -305,14 +305,9 @@ kubelet에 지시하는 디렉터리는 이 두 번째 파일시스템에 있다
 {{% /tab %}}
 {{< /tabs >}}
 
-kubelet은 사용 중인 로컬 스토리지 양을 측정할 수 있다. 이것은 다음을
-제공한다.
-
-- `LocalStorageCapacityIsolation`
-  [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)(이
-  기능이 기본적으로 설정되어 있음)를 활성화하고,
-- 로컬 임시 스토리지에 대한 지원되는 구성 중 하나를
-  사용하여 노드를 설정한다.
+kubelet은 사용 중인 로컬 스토리지 양을 측정할 수 있다.
+임시 볼륨(ephemeral storage)을 설정하기 위해 지원되는 구성 중 하나를 사용하여
+노드를 설정한 경우 제공된다.
 
 다른 구성을 사용하는 경우, kubelet은 임시 로컬 스토리지에 대한 리소스
 제한을 적용하지 않는다.

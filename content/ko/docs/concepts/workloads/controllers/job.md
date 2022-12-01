@@ -695,6 +695,89 @@ spec:
 `manualSelector: true` 를 설정하면 시스템에게 사용자가 무엇을 하는지 알고 있으며 
 이런 불일치를 허용한다고 알릴 수 있다.
 
+### 파드 실패 정책{#pod-failure-policy}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+{{< note >}}
+잡(Job)에 대한 파드 실패 정책은
+`JobPodFailurePolicy` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
+클러스터에서 활성화됐을 경우에만 구성할 수 있다. 추가적으로, 
+파드 장애 정책의 파드 중단 조건 (참조:
+[파드 중단 조건](/ko/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions))을 
+감지하고 처리할 수 있도록 `PodDisruptionConditions` 기능 게이트를 활성화하는 것을 권장한다. 두 기능 게이트 모두
+쿠버네티스 v1.25에서 사용할 수 있다.
+{{< /note >}}
+
+`.spec.podFailurePolicy` 필드로 정의되는 파드 실패 정책은, 클러스터가
+컨테이너 종료 코드와 파드 상태를 기반으로 파드의 실패를 
+처리하도록 활성화한다.
+
+어떤 상황에서는, 파드의 실패를 처리할 때 잡(Job)의 `.spec.backoffLimit`을 기반으로 하는 
+[파드 백오프(backoff) 실패 정책](#pod-backoff-failure-policy)에서 
+제공하는 제어보다 더 나은 제어를 원할 수 있다. 다음은 사용 사례의 몇 가지 예시다.
+* 불필요한 파드 재시작을 방지하여 워크로드 실행 비용을 최적화하려면, 
+  파드 중 하나가 소프트웨어 버그를 나타내는 종료 코드와 함께 실패하는 즉시 
+  잡을 종료할 수 있다.
+* 중단이 있더라도 잡이 완료되도록 하려면, 
+  중단(예: {{< glossary_tooltip text="선점(preemption)" term_id="preemption" >}},
+  {{< glossary_tooltip text="API를 이용한 축출(API-initiated Eviction)" term_id="api-eviction" >}}
+  또는 축출 기반 {{< glossary_tooltip text="테인트(Taints)" term_id="taint" >}})으로 인한 
+  파드 실패를 무시하여 `.spec.backoffLimit` 재시도 한도에 포함되지 않도록 할 수 있다.
+
+위의 사용 사례를 충족하기 위해 
+`.spec.podFailurePolicy` 필드에 파드 실패 정책을 구성할 수 있다.
+이 정책은 컨테이너 종료 코드 및 파드 상태를 기반으로 파드 실패를 처리할 수 있다.
+
+다음은 `podFailurePolicy`를 정의하는 잡의 매니페스트이다.
+
+{{< codenew file="/controllers/job-pod-failure-policy-example.yaml" >}}
+
+위 예시에서, 파드 실패 정책의 첫 번째 규칙은 `main` 컨테이너가 42 종료코드와 
+함께 실패하면 잡도 실패로 표시되는 것으로 
+지정한다. 다음은 구체적으로 `main` 컨테이너에 대한 규칙이다.
+
+- 종료 코드 0은 컨테이너가 성공했음을 의미한다.
+- 종료 코드 42는 **전체 잡**이 실패했음을 의미한다.
+- 다른 모든 종료 코드는 컨테이너 및 전체 파드가 실패했음을 
+  나타낸다. 재시작 횟수인 `backoffLimit`까지 파드가 
+  다시 생성된다. 만약 `backoffLimit`에 도달하면 **전체 잡**이 실패한다.
+
+{{< note >}}
+파드 템플릿이 `restartPolicy: Never`로 지정되었기 때문에,
+kubelet은 특정 파드에서 `main` 컨테이너를 재시작하지 않는다.
+{{< /note >}}
+
+`DisruptionTarget` 컨디션을 갖는 실패한 파드에 대해 
+`Ignore` 동작을 하도록 명시하고 있는 파드 실패 정책의 두 번째 규칙으로 인해, 
+`.spec.backoffLimit` 재시도 한도 계산 시 파드 중단(disruption)은 횟수에서 제외된다.
+
+{{< note >}}
+파드 실패 정책 또는 파드 백오프 실패 정책에 의해 잡이 실패하고,
+잡이 여러 파드를 실행중이면, 쿠버네티스는 아직 보류(Pending) 또는 
+실행(Running) 중인 해당 잡의 모든 파드를 종료한다.
+{{< /note >}}
+
+다음은 API의 몇 가지 요구 사항 및 의미이다.
+- 잡에 `.spec.podFailurePolicy` 필드를 사용하려면,
+  `.spec.restartPolicy`가 `Never`로 설정된 잡의 파드 템플릿 또한 정의해야 한다.
+- `spec.podFailurePolicy.rules`에 기재한 파드 실패 정책 규칙은 기재한 순서대로 평가된다. 
+  파드 실패 정책 규칙이 파드 실패와 매치되면 나머지 규칙은 무시된다. 
+  파드 실패와 매치되는 파드 실패 정책 규칙이 없으면 
+  기본 처리 방식이 적용된다.
+- `spec.podFailurePolicy.rules[*].containerName`에 컨테이너 이름을 지정하여 파드 실패 규칙을 특정 컨테이너에게만 제한할 수 있다. 
+  컨테이너 이름을 지정하지 않으면 파드 실패 규칙은 모든 컨테이너에 적용된다. 
+  컨테이너 이름을 지정한 경우, 
+  이는 파드 템플릿의 컨테이너 또는 `initContainer` 이름 중 하나와 일치해야 한다.
+- 파드 실패 정책이 `spec.podFailurePolicy.rules[*].action`과 일치할 때 취할 동작을 지정할 수 있다.
+  사용 가능한 값은 다음과 같다.
+  - `FailJob`: 파드의 잡을 `Failed`로 표시하고 
+    실행 중인 모든 파드를 종료해야 함을 나타낸다.
+  - `Ignore`: `.spec.backoffLimit`에 대한 카운터가 증가하지 않아야 하고 
+    대체 파드가 생성되어야 함을 나타낸다.
+  - `Count`: 파드가 기본 방식으로 처리되어야 함을 나타낸다.
+      `.spec.backoffLimit`에 대한 카운터가 증가해야 한다.
+
 ### 종료자(finalizers)를 이용한 잡 추적
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
@@ -740,7 +823,7 @@ API 서버에서 파드가 제거되면 이를 알아챈다.
 ### 베어(Bare) 파드
 
 파드가 실행 중인 노드가 재부팅되거나 실패하면 파드가 종료되고
-다시 시작되지 않는다.  그러나 잡은 종료된 항목을 대체하기 위해 새 파드를 생성한다.
+재시작되지 않는다.  그러나 잡은 종료된 항목을 대체하기 위해 새 파드를 생성한다.
 따라서, 애플리케이션에 단일 파드만 필요한 경우에도 베어 파드 대신
 잡을 사용하는 것을 권장한다.
 
@@ -780,6 +863,7 @@ API 서버에서 파드가 제거되면 이를 알아챈다.
 * `Job`은 쿠버네티스 REST API의 일부이다.
   잡 API에 대해 이해하기 위해
   {{< api-reference page="workload-resources/job-v1" >}}
-  오브젝트 정의를 읽은다.
+  오브젝트 정의를 읽는다.
 * 스케줄을 기반으로 실행되는 일련의 잡을 정의하는데 사용할 수 있고, 유닉스 툴 `cron`과 유사한
   [`CronJob`](/ko/docs/concepts/workloads/controllers/cron-jobs/)에 대해 읽는다.
+* 단계별로 구성된 [예제](/docs/tasks/job/pod-failure-policy/)를 통해, `podFailurePolicy`를 사용하여 재시도 가능 및 재시도 불가능 파드의 실패 처리를 하기위한 구성 방법을 연습한다.

@@ -378,7 +378,7 @@ kubectl exec -it cassandra -- sh
 
 ## 임시(ephemeral) 디버그 컨테이너를 사용해서 디버깅하기 {#ephemeral-container}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 컨테이너가 크래시 됐거나 
 [distroless 이미지](https://github.com/GoogleContainerTools/distroless)처럼
@@ -392,7 +392,7 @@ kubectl exec -it cassandra -- sh
 먼저, 다음과 같이 파드를 추가한다.
 
 ```shell
-kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
+kubectl run ephemeral-demo --image=registry.k8s.io/pause:3.1 --restart=Never
 ```
 
 이 섹션의 예시에서는 디버깅 도구가 포함되지 않은 이미지의 사례를 보여드리기 위해
@@ -611,7 +611,7 @@ kubectl delete pod myapp myapp-debug
 ## 노드의 쉘을 사용해서 디버깅하기 {#node-shell-session}
 
 만약 위의 어떠한 방법도 사용할 수 없다면, 파드가 현재 동작 중인 노드를 찾아
-호스트의 네임스페이스로 동작하는 특권 파드를 생성할 수 있다.
+해당 노드에서 실행되는 파드를 생성할 수 있다.
 다음 `kubectl debug` 명령을 통해 해당 노드에서 인터랙티브한 쉘을 생성할 수 있다.
 
 ```shell
@@ -628,8 +628,9 @@ root@ek8s:/#
 
 * `kubectl debug`는 노드의 이름에 기반해 새로운 파드의 이름을
   자동으로 생성한다.
-* 컨테이너는 호스트 네임스페이스(IPC, 네트워크, PID 네임스페이스)에서 동작한다.
 * 노드의 루트 파일시스템은 `/host`에 마운트된다.
+* 파드가 특권을 가지고 있지 않더라도, 컨테이너는 호스트 네임스페이스(IPC, 네트워크, PID 네임스페이스)에서 동작한다. 따라서 몇몇 프로세스 정보를 읽어오거나, `chroot /host` 등의 작업은 수행될 수 없다.
+* 특권을 가진 파드가 필요한 경우에는 직접 생성한다.
 
 사용이 모두 끝나면, 디버깅에 사용된 파드를 잊지 말고 정리한다.
 
