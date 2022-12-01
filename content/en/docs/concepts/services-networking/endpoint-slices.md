@@ -87,8 +87,8 @@ The three conditions are `ready`, `serving`, and `terminating`.
 
 #### Ready
 
-`ready` is a condition that maps to a Pod's `Ready` condition. A running Pod with the `Ready`
-condition set to `True` should have this EndpointSlice condition also set to `true`. For
+`ready` is a condition that maps to a Pod's `ready` condition. A running Pod with the `ready`
+condition set to `true` should have this EndpointSlice condition also set to `true`. For
 compatibility reasons, `ready` is NEVER `true` when a Pod is terminating. Consumers should refer
 to the `serving` condition to inspect the readiness of terminating Pods. The only exception to
 this rule is for Services with `spec.publishNotReadyAddresses` set to `true`. Endpoints for these
@@ -117,7 +117,7 @@ for terminating pods independent of the existing semantics for `ready`.
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-`Terminating` is a condition that indicates whether an endpoint is terminating.
+`terminating` is a condition that indicates whether an endpoint is terminating.
 For pods, this is any pod that has a deletion timestamp set.
 
 ### Topology information {#topology}
