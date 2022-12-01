@@ -12,7 +12,7 @@ Kubespray é uma composição de playbooks [Ansible](https://docs.ansible.com/),
 
 Kubespray fornece:
 * Cluster altamente disponível.
-* Composable (Escolha do plugin de rede, por exemplo).
+* Combinável (Escolha do plugin de rede, por exemplo).
 * Suporta as distribuições Linux mais populares:
   - Flatcar Container Linux da Kinvolk
   - Debian Bullseye, Buster, Jessie, Stretch
@@ -44,8 +44,8 @@ Provisione servidores com os seguintes [requisitos](https://github.com/kubernete
 * Os servidores de destino devem ter acesso à Internet para extrair imagens do docker. Caso contrário, é necessária configuração adicional. Consulte ([Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
 * Os servidores de destino são configurados para permitir o **encaminhamento IPv4**.
 * Se estiver usando IPv6 para pods e serviços, os servidores de destino serão configurados para permitir o **encaminhamento de IPv6**.
-* Os **firewalls não são gerenciados**, você precisará implementar suas próprias regras da maneira que costumava fazer. Para evitar qualquer problema durante o deployment, você deve desabilitar seu firewall.
-* Se o kubespray for executado a partir de uma conta de usuário não raiz, o método correto de escalonamento de privilégios deve ser configurado nos servidores de destino. Em seguida, o `ansible_become` flag ou os parâmetros de comando `--become` ou `-b` devem ser especificados.
+* Os **firewalls não são gerenciados**, você precisará implementar suas próprias regras da maneira que costumava fazer. Para evitar qualquer problema durante a instalação, você deve desabilitar seu firewall.
+* Se o kubespray for executado a partir de uma conta de usuário não raiz, o método correto de escalonamento de privilégios deve ser configurado nos servidores de destino. Neste caso, o `ansible_become` flag ou os parâmetros de comando `--become` ou `-b` devem ser especificados.
 
 Kubespray fornece as seguintes utilidades para ajudar a provisionar seu ambiente:
 
@@ -62,34 +62,34 @@ Depois de provisionar seus servidores, crie um [arquivo de inventário para o An
 
 O Kubespray oferece a habilidade de customizar vários aspectos do deployment:
 
-* Escolha do modo de deployment: kubeadm ou non-kubeadm
+* Escolha do modo de criação: kubeadm ou non-kubeadm
 * Plugins CNI (rede)
 * Configuração de DNS
 * Escolha da camada de gerenciamento: nativo/binário ou conteinerizado
 * Versões de componentes
-* Reflexões de rota Calico
+* Refletores de rota Calico
 * Opções de agente de execução do componente
   * {{< glossary_tooltip term_id="docker" >}}
   * {{< glossary_tooltip term_id="containerd" >}}
   * {{< glossary_tooltip term_id="cri-o" >}}
 * Métodos de geração de certificados
 
-As customizações do Kubespray podem ser feitas em um [arquivo variável](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html). Se você estiver começando com o Kubespray, considere usar os padrões do Kubespray para implantar seu cluster e explorar o Kubernetes.
+As customizações do Kubespray podem ser feitas em um [arquivo de variáveis](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html). Se você estiver começando com o Kubespray, considere usar os padrões do Kubespray para implantar seu cluster e explorar o Kubernetes.
 
 ### (4/5) Deploy um Cluster
 
-Em seguida, deploy seu cluster:
+Em seguida, instale seu cluster:
 
-Deployment do cluster usando [ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
+Instalação do cluster usando [ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
 
 ```shell
 ansible-playbook -i your/inventory/inventory.ini cluster.yml -b -v \
   --private-key=~/.ssh/private_key
 ```
 
-Grandes deployments (mais de 100 nós) podem exigir [adjustes específicos](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md) para obter melhores resultados.
+Grandes instalações (mais de 100 nós) podem exigir [ajustes específicos](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md) para obter melhores resultados.
 
-### (5/5) Verifique o deployment
+### (5/5) Verifique a instalação
 
 O Kubespray fornece uma maneira de verificar a conectividade entre pods e a resolução de DNS com o [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md). O Netchecker garante que os pods de agentes do netchecker possam resolver solicitações de DNS e pingar cada um dentro do namespace padrão. Esses pods imitam um comportamento semelhante ao restante das cargas de trabalho e servem como indicadores de integridade do cluster.
 
@@ -99,8 +99,8 @@ O Kubespray fornece playbooks adicionais para gerenciar seu cluster: _dimensiona
 
 ### Dimensione seu cluster
 
-Você pode adicionar nós de processamento de seu cluster executando o playbook de escala. Para obter mais informações, consulte "[Adicionando nós](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)".
-Você pode remover nós de processamento de seu cluster executando o playbook remove-nó. Para obter mais informações, consulte "[Remover nós](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)".
+Você pode adicionar nós de processamento de seu cluster executando o playbook de escalonamento. Para obter mais informações, consulte "[Adicionando nós](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)".
+Você pode remover nós de processamento de seu cluster executando o playbook remove-nó. Para obter mais informações, consulte "[Remove nodes](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)".
 
 ### Atualize seu cluster
 
