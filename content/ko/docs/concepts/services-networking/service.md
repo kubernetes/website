@@ -287,7 +287,7 @@ DNS 레코드를 구성하고, 라운드-로빈 이름 확인 방식을
   낮거나 0이면 DNS에 부하가 높아 관리하기가
   어려워 질 수 있다.
 
-본 페이지의 뒷 부분에서 다양한 kube-proxy 구현의 동작에 대해 읽을 수 있다.
+본 페이지의 뒷 부분에서 다양한 kube-proxy 구현이 동작하는 방식에 대해 읽을 수 있다.
 우선 알아두어야 할 것은, `kube-proxy`를 구동할 때, 커널 수준의 규칙이
 수정(예를 들어, iptables 규칙이 생성될 수 있음)될 수 있고,
 이는 때로는 리부트 전까지 정리되지 않을 수도 있다.
@@ -504,17 +504,17 @@ kube-proxy는 마치 외부 트래픽 정책이 `Cluster`로 설정되어 있는
 지원한다.
 
 예를 들어, TCP 포트 6379를 개방하고
-클러스터 IP 주소 10.0.0.11이 할당된 서비스 `redis-master`는,
+클러스터 IP 주소 10.0.0.11이 할당된 서비스 `redis-primary`는,
 다음 환경 변수를 생성한다.
 
 ```shell
-REDIS_MASTER_SERVICE_HOST=10.0.0.11
-REDIS_MASTER_SERVICE_PORT=6379
-REDIS_MASTER_PORT=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP_PROTO=tcp
-REDIS_MASTER_PORT_6379_TCP_PORT=6379
-REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
+REDIS_PRIMARY_SERVICE_HOST=10.0.0.11
+REDIS_PRIMARY_SERVICE_PORT=6379
+REDIS_PRIMARY_PORT=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP_PROTO=tcp
+REDIS_PRIMARY_PORT_6379_TCP_PORT=6379
+REDIS_PRIMARY_PORT_6379_TCP_ADDR=10.0.0.11
 ```
 
 {{< note >}}
@@ -1325,15 +1325,15 @@ IP 주소를 정리한다.
 
 #### `type: ClusterIP` 서비스의 IP 주소 범위 {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 그러나, 이러한 `ClusterIP` 할당 전략에는 한 가지 문제가 있는데, 
 그것은 사용자 또한 [서비스의 IP 주소를 직접 고를 수 있기 때문이다](#choosing-your-own-ip-address).
 이로 인해 만약 내부 할당기(allocator)가 다른 서비스에 대해 동일한 IP 주소를 선택하면 
 충돌이 발생할 수 있다.
 
 `ServiceIPStaticSubrange` 
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화하면, 
-할당 전략은 `min(max(16, cidrSize / 16), 256)` 공식을 사용하여 얻어진 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)는 v1.25 이상에서 기본적으로 활성화되며, 
+이 때 사용하는 할당 전략은 `min(max(16, cidrSize / 16), 256)` 공식을 사용하여 얻어진 
 `service-cluster-ip-range`의 크기에 기반하여 `ClusterIP` 범위를 두 대역으로 나누며, 
 여기서 이 공식은 _16 이상 256 이하이며, 그 사이에 계단 함수가 있음_ 으로 설명할 수 있다. 
 동적 IP 할당은 상위 대역에서 우선적으로 선택하며, 

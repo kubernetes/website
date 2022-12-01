@@ -45,8 +45,8 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 In this example:
 
 * A Deployment named `nginx-deployment` is created, indicated by the `.metadata.name` field.
-* The Deployment creates three replicated Pods, indicated by the `.spec.replicas` field.
-* The `.spec.selector` field defines how the Deployment finds which Pods to manage.
+* The Deployment creates a ReplicaSet that creates three replicated Pods, indicated by the `.spec.replicas` field.
+* The `.spec.selector` field defines how the created ReplicaSet finds which Pods to manage.
   In this case, you select a label that is defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.

@@ -192,12 +192,12 @@ kubectl delete namespaces <insert-some-namespace-name>
 
     하나의 네임스페이스와 상호 작용하는 사용자는 다른 네임스페이스의 내용을 볼 수 없다.
 
-    이를 보여주기 위해 `development` 네임스페이스에서 간단히 디플로이먼트와 파드를 생성하자.
+    이를 보여주기 위해 `development` 네임스페이스에 간단한 디플로이먼트와 파드를 생성하자.
 
     ```shell
-    kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname  -n=development --replicas=2
+    kubectl create deployment snowflake --image=registry.k8s.io/serve_hostname  -n=development --replicas=2
     ```
-    호스트 이름을 제공하는 기본 컨테이너로 `snowflake`라는 이름의 파드를 실행하는 레플리카 사이즈 2의 디플로이먼트를 생성했다.
+    단순히 호스트명을 제공해주는 `snowflake`라는 파드의 개수를 2개로 유지하는 디플로이먼트를 생성하였다.
 
     ```shell
     kubectl get deployment -n=development
@@ -226,10 +226,10 @@ kubectl delete namespaces <insert-some-namespace-name>
     kubectl get pods -n=production
     ```
 
-    프로덕션은 마치 가축을 키우는 것과 같다. 그래서 우리도 cattle(가축)이라는 이름의 파드들을 생성하도록 하겠다.
+    프로덕션이 가축 키우는 것을 좋아하듯이, 우리도 `production` 네임스페이스에 cattle(가축)이라는 이름의 파드를 생성한다.
 
     ```shell
-    kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname -n=production
+    kubectl create deployment cattle --image=registry.k8s.io/serve_hostname -n=production
     kubectl scale deployment cattle --replicas=5 -n=production
 
     kubectl get deployment -n=production

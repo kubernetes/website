@@ -590,7 +590,7 @@ data and may need to be recreated from scratch.
 
 Workarounds:
 
-* Regularly [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The
+* Regularly [back up etcd](https://etcd.io/docs/v3.5/op-guide/recovery/). The
   etcd data directory configured by kubeadm is at `/var/lib/etcd` on the control-plane node.
 
 * Use multiple control-plane nodes. You can read

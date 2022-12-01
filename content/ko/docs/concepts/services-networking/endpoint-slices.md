@@ -108,7 +108,7 @@ endpoints:
 
 #### 제공(Serving)
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `serving`은 종료 상태를 고려하지 않는다는 점을 제외하면 `ready` 조건과 동일하다.
 엔드포인트슬라이스 API 컨슈머는 파드가 종료되는 동안 파드 준비 상태에 관심이 있다면
@@ -127,7 +127,7 @@ endpoints:
 
 #### 종료(Terminating)
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `종료(Terminating)`는 엔드포인트가 종료되는지 여부를 나타내는 조건이다.
 파드의 경우 삭제 타임 스탬프가 설정된 모든 파드이다.
