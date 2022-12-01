@@ -88,7 +88,7 @@ in order to enable the Memory Manager feature.
 <!--
 ## How Memory Manager Operates?
 -->
-## 内存管理器如何运作？
+## 内存管理器如何运作？  {#how-memory-manager-operates}
 
 <!--
 The Memory Manager currently offers the guaranteed memory (and hugepages) allocation
@@ -188,7 +188,7 @@ NUMA 节点的分组，从而扩展内存容量。解决这个问题的详细描
 ## 内存管理器配置   {#memory-manager-configuration}
 
 <!--
-Other Managers should be first pre-configured. Next, the Memory Manger feature should be enabled
+Other Managers should be first pre-configured. Next, the Memory Manager feature should be enabled
 and be run with `Static` policy (section [Static policy](#policy-static)).
 Optionally, some amount of memory can be reserved for system or kubelet processes to increase
 node stability (section [Reserved memory flag](#reserved-memory-flag)).
@@ -614,7 +614,7 @@ e.g. to find out information about `cgroups` and `cpuset.mems` updates.
 
 Let us first deploy a sample `Guaranteed` pod whose specification is as follows:
 -->
-### 检查节点上内存管理器状态
+### 检查节点上内存管理器状态  {#examine-the-memory-manager-state-on-a-node}
 
 我们首先部署一个 `Guaranteed` Pod 示例，其规约如下所示：
 
