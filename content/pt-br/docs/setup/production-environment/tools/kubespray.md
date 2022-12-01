@@ -68,7 +68,7 @@ O Kubespray oferece a habilidade de customizar vários aspectos do deployment:
 * Escolha da camada de gerenciamento: nativo/binário ou conteinerizado
 * Versões de componentes
 * Refletores de rota Calico
-* Opções de agente de execução do componente
+* Opções de agente de execução do contêiner
   * {{< glossary_tooltip term_id="docker" >}}
   * {{< glossary_tooltip term_id="containerd" >}}
   * {{< glossary_tooltip term_id="cri-o" >}}
