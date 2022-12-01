@@ -143,14 +143,13 @@ The following commands copy resources from `source` to `destionation`. Details
 that are not relevant in `destination` cluster are removed (eg: `uid`,
 `resourceVersion`, `status`).
 
-Note: For the PV/PVC, this procedure only works if the underlying storage system
-      that your `StorageClass` uses can support copying existing PVs into a
-      new cluster. Storage that is associated with a specific node or topology
-      may not be supported. Additionally, some storage systems may store
-      addtional metadata about volumes outside of a PV object, and may require
-      a more specialized sequence to import a volume.
-
 Source Cluster
+
+Note: If using a `StorageClass` with `reclaimPolicy: Delete` configured, you
+      should patch the PVs in `source` with `reclaimPolicy: Retain` prior to
+      deletion to retain the underlying storage used in `destination`. See
+      [Change the Reclaim Policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
+      for more details.
 
 ```
 kubectl get pvc redis-data-redis-redis-cluster-5 -o yaml | yq 'del(.metadata.uid, .metadata.resourceVersion, .metadata.annotations, .metadata.finalizers, .status)' > /tmp/pvc-redis-data-redis-redis-cluster-5.yaml
@@ -159,6 +158,13 @@ kubectl get secret redis-redis-cluster -o yaml | yq 'del(.metadata.uid, .metadat
 ```
 
 Destination Cluster
+
+Note: For the PV/PVC, this procedure only works if the underlying storage system
+      that your PVs use can support being copied into `destination`. Storage
+      that is associated with a specific node or topology may not be supported.
+      Additionally, some storage systems may store addtional metadata about
+      volumes outside of a PV object, and may require a more specialized
+      sequence to import a volume.
 
 ```
 kubectl create -f /tmp/pv-redis-data-redis-redis-cluster-5.yaml
