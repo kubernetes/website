@@ -23,7 +23,7 @@ Admit that your services are vulnerable
 
 In other words, consciously accept that you will lose any battle aimed to create non-vulnerable services. If your opponents find a single weakness as an entry-point, you lose. Admitting that although your best efforts, all your services are most likely vulnerable is an important first step. Next, we need to discuss what can you do about it...
 
-_This post discuss the cyber challenges that Kubernetes users face when deploying microservices with Kubernetes and how to overcome them by observing the security-behavior of clients and services. It also points to [Guard](http://knative.dev/security-guard), an open source project offering security-behavior monitoring and control of your Kubernetes deployed microservices, given that they are vulnerable._
+This post discuss the cyber challenges that Kubernetes users face when deploying microservices with Kubernetes and how to overcome them by observing the security-behavior of clients and services. It also points to [Guard](http://knative.dev/security-guard), an open source project offering security-behavior monitoring and control of your microservices deployed on a Kubernetes platform, given that they are presumed vulnerable.
 
 ## Lose the battle - win the war!
 Being vulnerable does not necessarily mean you lost the war. Though your services are vulnerable in some ways unknown to you, offenders still need to identify these vulnerabilities and then exploit them to win the war. If offenders fail to exploit your service vulnerabilities, you win! In other words, having a vulnerability that can’t be exploited, represents a risk that can’t be realized.
