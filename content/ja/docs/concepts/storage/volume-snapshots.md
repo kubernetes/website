@@ -50,6 +50,7 @@ APIリソース`PersistentVolume`と`PersistentVolumeClaim`を使用してユー
 ### バインディング
 
 スナップショットコントローラーは、事前プロビジョニングされたシナリオと動的にプロビジョニングされたシナリオの両方で、適切な`VolumeSnapshotContent`オブジェクトを使用した`VolumeSnapshot`オブジェクトのバインディングを処理します。バインディングは1対1のマッピングです。
+
 事前プロビジョニングされたバインディングの場合、要求されたVolumeSnapshotContentオブジェクトが作成されるまで、VolumeSnapshotはバインドされないままになります。
 
 ### スナップショットソース保護としてのPersistentVolumeClaim
