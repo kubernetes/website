@@ -297,7 +297,6 @@ the following types of volumes:
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume (deprecated)
 * gcePersistentDisk
-* glusterfs (deprecated)
 * rbd
 * portworxVolume
 
@@ -438,8 +437,6 @@ The following types of PersistentVolume are deprecated. This means that support 
   (**deprecated** in v1.23)
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
   (**deprecated** in v1.17)
-* [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
-  (**deprecated** in v1.25)
 * [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
   (**deprecated** in v1.25)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
@@ -616,7 +613,6 @@ The following volume types support mount options:
 * `cephfs`
 * `cinder` (**deprecated** in v1.18)
 * `gcePersistentDisk`
-* `glusterfs` (**deprecated** in v1.25)
 * `iscsi`
 * `nfs`
 * `rbd`
