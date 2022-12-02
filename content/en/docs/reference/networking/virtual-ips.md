@@ -237,8 +237,7 @@ uses packet processing logic (such as Linux iptables) to define _virtual_ IP
 addresses which are transparently redirected as needed.
 
 When clients connect to the VIP, their traffic is automatically transported to an
-appropriate endpoint. The environment variables and DNS for Services are actually
-populated in terms of the Service's virtual IP address (and port).
+appropriate endpoint. Actually, the service's virtual IP address is used to populate the environment variables and DNS records (and port).
 
 ### Avoiding collisions
 
