@@ -9,7 +9,7 @@ weight: 10
 
 <!-- overview -->
 
-Kubernetes runs your {{< glossary_tooltip text="workload" term_id=""workloads >}} by placing containers into Pods to run on _Nodes_.
+Kubernetes runs your {{< glossary_tooltip text="workload" term_id="workloads" >}} by placing containers into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
