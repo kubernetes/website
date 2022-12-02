@@ -9,7 +9,7 @@ weight: 10
 
 <!-- overview -->
 
-Kubernetes runs your {{< glossary_tooltip text="workload" term_id="Workload" >}} by placing containers into Pods to run on _Nodes_.
+Kubernetes runs your {{< glossary_tooltip text="workload" term_id=""workloads >}} by placing containers into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
@@ -563,7 +563,7 @@ ShutdownGracePeriodCriticalPods are not configured properly. Please refer to abo
 section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 
 When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods 
-that are part of a {{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}} will be stuck in terminating status on 
+that are part of a {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} will be stuck in terminating status on 
 the shutdown node and cannot move to a new running node. This is because kubelet on 
 the shutdown node is not available to delete the pods so the StatefulSet cannot 
 create a new pod with the same name. If there are volumes used by the pods, the 
