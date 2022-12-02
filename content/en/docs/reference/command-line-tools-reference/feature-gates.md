@@ -194,6 +194,7 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyManagerPolicyBetaOptions` | `false` | Beta | 1.26 | |
 | `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | |
 | `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | |
+| `ValidatingAdmissionPolicy`          | `false` | Alpha | 1.26 | |
 | `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
@@ -782,6 +783,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This feature gate will never graduate to stable.
 - `TopologyManagerPolicyOptions`: Allow fine-tuning of topology manager policies,
 - `UserNamespacesStatelessPodsSupport`: Enable user namespace support for stateless Pods.
+- `ValidatingAdmissionPolicy`: Enable [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) support for CEL validations be used in Admission Control.
 - `VolumeCapacityPriority`: Enable support for prioritizing nodes in different
   topologies based on available PV capacity.
 - `WatchBookmark`: Enable support for watch bookmark events.
