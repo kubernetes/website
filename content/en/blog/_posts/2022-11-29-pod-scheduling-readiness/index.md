@@ -18,9 +18,32 @@ infinite loop continues until the scheduler either finds a node for the Pod, or 
 Pods that remain unschedulable for long periods of time (e.g., one that is blocked on some external event) 
 waste scheduling cycles. A scheduling cycle may take ~20ms or more depending on the complexity of
 the Pod's scheduling constraints. Therefore, at scale, those wasted cycles significantly impact the
-scheduler's performance. See the cycle in red arrows below.
+scheduler's performance. See the arrows in the "scheduler" box below.
 
-![](./scheduler-workflow-1.png)
+{{< mermaid >}}
+graph LR;
+  pod((New Pod))-->queue
+  subgraph Scheduler
+    queue(scheduler queue)
+    sched_cycle[/scheduling cycle/]
+    schedulable{schedulable?}
+    
+    queue==>|Pop out|sched_cycle
+    sched_cycle==>schedulable
+    schedulable==>|No|queue
+    subgraph note [Cycles wasted on keep rescheduling 'unready' Pods]
+    end
+  end
+  
+ classDef plain fill:#ddd,stroke:#fff,stroke-width:1px,color:#000;
+ classDef k8s fill:#326ce5,stroke:#fff,stroke-width:1px,color:#fff;
+ classDef Scheduler fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+ classDef note fill:#edf2ae,stroke:#fff,stroke-width:1px;
+ class queue,sched_cycle,schedulable k8s;
+ class pod plain;
+ class note note;
+ class Scheduler Scheduler;
+{{< /mermaid >}}
 
 Scheduling gates helps address this problem. It allows declaring that newly created Pods are not
 ready for scheduling. When scheduling gates are present on a Pod, the scheduler ignores the Pod
@@ -28,7 +51,35 @@ and therefore saves unnecessary scheduling attempts. Clearing the gates is the r
 external controllers with knowledge of when the Pod should be considered for scheduling (e.g., 
 a resource provisioner).
 
-![](scheduler-workflow-2.png)
+{{< mermaid >}}
+graph LR;
+  pod((New Pod))-->queue
+  subgraph Scheduler
+    queue(scheduler queue)
+    sched_cycle[/scheduling cycle/]
+    schedulable{schedulable?}
+    popout{Pop out?}
+    
+    queue==>|PreEnqueue check|popout
+    popout-->|Yes|sched_cycle
+    popout==>|No|queue
+    sched_cycle-->schedulable
+    schedulable-->|No|queue
+    subgraph note [A knob to gate Pod's scheduling]
+    end
+  end
+  
+ classDef plain fill:#ddd,stroke:#fff,stroke-width:1px,color:#000;
+ classDef k8s fill:#326ce5,stroke:#fff,stroke-width:1px,color:#fff;
+ classDef Scheduler fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+ classDef note fill:#edf2ae,stroke:#fff,stroke-width:1px;
+ classDef popout fill:#f96,stroke:#fff,stroke-width:1px;
+ class queue,sched_cycle,schedulable k8s;
+ class pod plain;
+ class note note;
+ class popout popout;
+ class Scheduler Scheduler;
+{{< /mermaid >}}
 
 ## How does it work?
 
