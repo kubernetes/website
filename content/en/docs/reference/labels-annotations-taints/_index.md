@@ -583,8 +583,7 @@ Example: `preemption-toleration.scheduling.sigs.k8s.io/toleration-seconds: "3600
 
 Used on: PriorityClass
 
-This annotation specifies how long the [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) can tolerate preemption by priorities lower than `MinimumPreemptablePriority`. It defaults to value 0, means the pod will be preempted immediately that is, no toleration. If
-set to a positive value, the duration will be honored. If set to a negative value, the pod can be tolerated forever that is, pods with a priority lower than `MinimumPreemptablePriority` won't be able to preempt. This affects scheduled pods only (no effect on nominated pods).
+This annotation specifies how long the [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) can tolerate preemption by priorities lower than `preemption-toleration.scheduling.sigs.k8s.io/minimum-preemptable-priority`. It defaults to value 0, means the pod will be preempted immediately that is, no toleration.If set to a positive value, the duration will be honored. If set to a negative value, the pod can be tolerated forever that is, pods with a priority lower than minimum-preemptable-priority won't be able to preempt. This affects scheduled pods only (no effect on nominated pods).
 
 **The taints listed below are always used on Nodes**
 
