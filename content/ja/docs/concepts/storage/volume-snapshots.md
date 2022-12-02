@@ -79,6 +79,7 @@ spec:
 ```
 
 `persistentVolumeClaimName`は、スナップショットのPersistentVolumeClaimデータソースの名前です。このフィールドは、スナップショットを動的にプロビジョニングするために必要です。
+
 ボリュームスナップショットは、属性`volumeSnapshotClassName`を使用して[VolumeSnapshotClass](/ja/docs/concepts/storage/volume-snapshot-classes/)の名前を指定することにより、特定のクラスを要求できます。何も設定されていない場合、利用可能な場合はデフォルトのクラスが使用されます。
 事前プロビジョニングされたスナップショットの場合、次の例に示すように、スナップショットのソースとして`volumeSnapshotContentName`を指定する必要があります。事前プロビジョニングされたスナップショットには、`volumeSnapshotContentName`ソースフィールドが必要です。
 
