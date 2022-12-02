@@ -13,13 +13,8 @@ As cyber war games continue to intensify in sophistication, organizations deploy
 
 Considering the current spread of offensive tools, sophistication of offensive players, and ever-growing cyber financial gains to offenders, any cyber strategy that relies on constructing a non-vulnerable, weakness-free service in 2022 is clearly too naïve. It seems the only viable strategy is to:
 
-***
-
-<h3 align="center">
-Admit that your services are vulnerable
-</h3>
-
-***
+|         |Admit that your services are vulnerable |
+|  ---    | ---  |
 
 In other words, consciously accept that you will lose any battle aimed to create non-vulnerable services. If your opponents find a single weakness as an entry-point, you lose. Admitting that although your best efforts, all your services are most likely vulnerable is an important first step. Next, we need to discuss what can you do about it...
 
@@ -49,10 +44,10 @@ One can identify the following four different stages in the life of a any servic
 
 Service State | Use case | What do you need in order to cope with this use case?
 ------------- | ------------- | -----------------------------------------
-**Normal**   | <u>No known vulnerabilities</u> <br /> The service owner is normally not aware of any known vulnerabilities in the service image or configuration. Yet, it is reasonable to assume that the service has weaknesses. | **Provide generic protection against any unknown, zero-day, service vulnerabilities.** <br /> <br />Detect/block irregular patterns sent as part of incoming client requests that may be used as exploits.
-**Vulnerable** | <u>An applicable CVE is published</u> <br /> The service owner is required to release a new non-vulnerable revision of the service. <br /> <br /> Research shows that in practice this process of removing a known vulnerability may take many weeks to accomplish (2 months on average).   |  **Add protection based on the CVE analysis.** <br /> <br />Detect/block incoming requests that include specific patterns that may be used to exploit the discovered vulnerability. Continue to offer services, although the service has a known vulnerability. 
-**Exploitable**  | <u>A known exploit is published</u> <br /> The service owner needs a way to filter incoming requests that contain the known exploit.   |  **Add protection based on a known exploit signature.** <br /> <br />Detect/block incoming client requests that carry signatures identifying the exploit. Continue to offer services, although the presence of an exploit.  
-**Misused**  | <u>An offender misuses service pods</u> <br /> The offender can follow an attack pattern enabling him/her to misuse pods. The service owner needs to restart any compromised pods while using non compromised pods to continue offering the service. Note that once a pod is restarted, the offender needs to repeat the attack pattern before he/she may again misuse it.  |  **Identify and restart service instances that are being misused.** <br /> <br />At any given time, some service pods may be compromised and misused while others behave as designed. Detect/remove the misused pods while allowing other pods to continue offering  the service.
+**Normal**   | **No known vulnerabilities:** The service owner is normally not aware of any known vulnerabilities in the service image or configuration. Yet, it is reasonable to assume that the service has weaknesses. | **Provide generic protection against any unknown, zero-day, service vulnerabilities** - Detect/block irregular patterns sent as part of incoming client requests that may be used as exploits.
+**Vulnerable** | **An applicable CVE is published:** The service owner is required to release a new non-vulnerable revision of the service. Research shows that in practice this process of removing a known vulnerability may take many weeks to accomplish (2 months on average).   |  **Add protection based on the CVE analysis** - Detect/block incoming requests that include specific patterns that may be used to exploit the discovered vulnerability. Continue to offer services, although the service has a known vulnerability. 
+**Exploitable**  | **A known exploit is published:** The service owner needs a way to filter incoming requests that contain the known exploit.   |  **Add protection based on a known exploit signature** - Detect/block incoming client requests that carry signatures identifying the exploit. Continue to offer services, although the presence of an exploit.  
+**Misused**  | **An offender misuses service pods:** The offender can follow an attack pattern enabling him/her to misuse pods. The service owner needs to restart any compromised pods while using non compromised pods to continue offering the service. Note that once a pod is restarted, the offender needs to repeat the attack pattern before he/she may again misuse it.  |  **Identify and restart service instances that are being misused** - At any given time, some service pods may be compromised and misused while others behave as designed. Detect/remove the misused pods while allowing other pods to continue offering  the service.
 
 Next,let's discuss why microservice architecture is well suited to security-behavior monitoring.
 
