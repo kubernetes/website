@@ -77,7 +77,7 @@ the `kube-scheduler` during initialization with the `--config` option. The `my-s
 
 Grants a Role  within a specific namespace. Example:
  ```shell
-    kubectl create rolebinding -n kube-system my-scheduler-extension-apiserver-authentication-reader --role=extension-apiserver-authentication-reader --serviceaccount=kube-system:my-scheduler
+kubectl create rolebinding -n kube-system my-scheduler-extension-apiserver-authentication-reader --role=extension-apiserver-authentication-reader --serviceaccount=kube-system:my-scheduler
  ```
 
 In the aforementioned Scheduler Configuration, your scheduler implementation is represented via
