@@ -899,7 +899,7 @@ Un Secret solo se envía a un nodo si un pod en ese nodo lo requiere. Kubelet al
 
 Puede haber Secrets para varios Pods en el mismo nodo. Sin embargo, solo los Secrets que solicita un Pod son potencialmente visibles dentro de sus contenedores. Por lo tanto, un Pod no tiene acceso a los Secrets de otro Pod.
 
-Puede haver varios contenedores en un Pod. Sin embargo, cada contenedor en un pod tiene que solicitar el volumen del Secret en su 
+Puede haber varios contenedores en un Pod. Sin embargo, cada contenedor en un pod tiene que solicitar el volumen del Secret en su 
 `volumeMounts` para que sea visible dentro del contenedor. Esto se puede usar para construir particiones de seguridad útiles en el Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 
 En la mayoría de las distribuciones Kubernetes-project-maintained, la comunicación entre usuario a el apiserver, y del apiserver a kubelets, ista protegido por SSL/TLS.

@@ -89,8 +89,8 @@ blind to the existence or non-existence of host ports.
 Kubernetes networking addresses four concerns:
 - Containers within a Pod [use networking to communicate](/docs/concepts/services-networking/dns-pod-service/) via loopback.
 - Cluster networking provides communication between different Pods.
-- The [Service](/docs/concepts/services-networking/service/) resource lets you
-  [expose an application running in Pods](/docs/concepts/services-networking/connect-applications-service/)
+- The [Service](/docs/concepts/services-networking/service/) API lets you
+  [expose an application running in Pods](/docs/tutorials/services/connect-applications-service/)
   to be reachable from outside your cluster.
   - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
     specifically for exposing HTTP applications, websites and APIs.
@@ -101,8 +101,8 @@ Kubernetes 网络解决四方面的问题：
 
 - 一个 Pod 中的容器之间[通过本地回路（loopback）通信](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 - 集群网络在不同 Pod 之间提供通信。
-- [Service 资源](/zh-cn/docs/concepts/services-networking/service/)允许你
-  [向外暴露 Pod 中运行的应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)，
+- [Service](/zh-cn/docs/concepts/services-networking/service/) API
+  允许你[向外暴露 Pod 中运行的应用](/zh-cn/docs/tutorials/services/connect-applications-service/)，
   以支持来自于集群外部的访问。
   - [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
     提供专门用于暴露 HTTP 应用程序、网站和 API 的额外功能。
@@ -110,8 +110,14 @@ Kubernetes 网络解决四方面的问题：
   来[发布仅供集群内部使用的服务](/zh-cn/docs/concepts/services-networking/service-traffic-policy/)。
 
 <!--
+The [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
+tutorial lets you learn about Services and Kubernetes networking with a hands-on example.
+
 [Cluster Networking](/docs/concepts/cluster-administration/networking/) explains how to set
 up networking for your cluster, and also provides an overview of the technologies involved.
 -->
+[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程通过一个实际的示例让你了解
+Service 和 Kubernetes 如何联网。
+
 [集群网络](/zh-cn/docs/concepts/cluster-administration/networking/)解释了如何为集群设置网络，
 还概述了所涉及的技术。
