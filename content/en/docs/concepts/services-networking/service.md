@@ -99,7 +99,7 @@ targets TCP port 9376 on any Pod with the `app.kubernetes.io/name=MyApp` label.
 
 Kubernetes assigns this Service an IP address (sometimes called the "cluster IP"),
 which is used by the Service proxies
-(see [Virtual IPs and service proxies](#virtual-ip-addressing-mechanism) below).
+(see [Virtual IP addressing mechanism](#virtual-ip-addressing-mechanism) below).
 
 The controller for the Service selector continuously scans for Pods that
 match its selector, and then POSTs any updates to an Endpoint object
