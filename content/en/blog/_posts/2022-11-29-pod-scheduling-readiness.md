@@ -7,7 +7,7 @@ slug: pod-scheduling-readiness-alpha-1-26
 
 **Author:** Wei Huang (Apple), Abdullah Gharaibeh (Google)
 
-Kubernetes 1.26 introduced a new Pod feature: _scheduling gates. In Kubernetes, scheduling gates
+Kubernetes 1.26 introduced a new Pod feature: _scheduling gates_. In Kubernetes, scheduling gates
 are keys that tell the scheduler when a Pod is ready to be considered for scheduling.
 
 ## What problem does it solve?
