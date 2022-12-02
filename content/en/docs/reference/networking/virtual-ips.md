@@ -237,7 +237,13 @@ uses packet processing logic (such as Linux iptables) to define _virtual_ IP
 addresses which are transparently redirected as needed.
 
 When clients connect to the VIP, their traffic is automatically transported to an
-appropriate endpoint. Actually, the service's virtual IP address is used to populate the environment variables and DNS records (and port).
+appropriate endpoint. Actually, the kubelet on each node populates environment variables
+for containers based on the port number for the Service and on the virtual IP address
+(_cluster IP_), if any, that has been assigned.
+The cluster DNS component also looks up the port and the virtual IP address for each
+Service and make that information available within the cluster, through DNS.
+For `type: ExternalName` Services, the DNS server maps the Service to that external
+name, without resolving anything to a virtual IP address.
 
 ### Avoiding collisions
 
