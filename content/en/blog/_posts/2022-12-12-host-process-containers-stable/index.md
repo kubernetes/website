@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: "Kubernetes 1.26: Windows HostProcess stables stable"
-date: TBD
+title: "Kubernetes 1.26: Windows HostProcess Containers Are Going Stable"
+date: 2022-12-13
 slug: host-process-containers-stable
 ---
 
