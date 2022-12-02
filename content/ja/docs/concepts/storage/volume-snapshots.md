@@ -27,7 +27,7 @@ APIリソース`PersistentVolume`と`PersistentVolumeClaim`を使用してユー
 - APIオブジェクト`VolumeSnapshot`、`VolumeSnapshotContent`、および`VolumeSnapshotClass`は{{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}であり、コアAPIの一部ではありません。
 - `VolumeSnapshot`のサポートは、CSIドライバーでのみ利用できます。
 - `VolumeSnapshot`の展開プロセスの一環として、Kubernetesチームは、コントロールプレーンに展開されるスナップショットコントローラーと、CSIドライバーと共に展開されるcsi-snapshotterと呼ばれるサイドカーヘルパーコンテナを提供します。スナップショットコントローラーは、`VolumeSnapshot`および`VolumeSnapshotContent`オブジェクトを管理し、`VolumeSnapshotContent`オブジェクトの作成と削除を担当します。サイドカーcsi-snapshotterは、`VolumeSnapshotContent`オブジェクトを監視し、CSIエンドポイントに対して`CreateSnapshot`および`DeleteSnapshot`操作をトリガーします。
--スナップショットオブジェクトの厳密な検証を提供するvalidation Webhookサーバーもあります。これは、CSIドライバーではなく、スナップショットコントローラーおよびCRDと共にKubernetesディストリビューションによってインストールする必要があります。スナップショット機能が有効になっているすべてのKubernetesクラスターにインストールする必要があります。
+- スナップショットオブジェクトの厳密な検証を提供するvalidation Webhookサーバーもあります。これは、CSIドライバーではなく、スナップショットコントローラーおよびCRDと共にKubernetesディストリビューションによってインストールする必要があります。スナップショット機能が有効になっているすべてのKubernetesクラスターにインストールする必要があります。
 - CSIドライバーは、ボリュームスナップショット機能を実装している場合と実装していない場合があります。ボリュームスナップショットのサポートを提供するCSIドライバーは、csi-snapshotterを使用する可能性があります。詳細については、[CSIドライバーのドキュメント](https://kubernetes-csi.github.io/docs/)を参照してください。
 - CRDとスナップショットコントローラーのインストールは、Kubernetesディストリビューションの責任です。
 
