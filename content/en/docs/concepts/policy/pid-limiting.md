@@ -75,9 +75,7 @@ respectively.
 
 {{< note >}}
 Before Kubernetes version 1.20, PID resource limiting with Node-level
-reservations required enabling the [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`SupportNodePidsLimit` to work.
+reservations required enabling the feature gate `SupportNodePidsLimit` to work.
 {{< /note >}}
 
 ## Pod PID limits
@@ -91,8 +89,7 @@ to the kubelet, or set `PodPidsLimit` in the kubelet
 
 {{< note >}}
 Before Kubernetes version 1.20, PID resource limiting for Pods required enabling
-the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`SupportPodPidsLimit` to work.
+the feature gate `SupportPodPidsLimit` to work.
 {{< /note >}}
 
 ## PID based eviction
