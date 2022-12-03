@@ -11,7 +11,7 @@ PodSecurityPolicy foi [descontinuada](/blog/2021/04/08/kubernetes-1-21-release-a
 no Kubernetes v1.21, e removido do Kubernetes v1.25.
 {{% /alert %}}
 
-Em vez de usar PodSecurityPolicy, você pode aplicar restrições semelhantes em pods usando
+Em vez de usar PodSecurityPolicy, você pode aplicar restrições semelhantes em Pods usando
 um ou ambos:
 
 - [Admissão de segurança do pod](/docs/concepts/security/pod-security-admission/)
