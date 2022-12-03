@@ -8,21 +8,21 @@ slug: registry-k8s-io-faster-cheaper-ga
 **Autores**: Adolfo García Veytia (Chainguard), Bob Killen (Google)
 
 A partir do Kubernetes 1.25, o nosso repositório de imagens de contêiner mudou de k8s.gcr.io para [registry.k8s.io](https://registry.k8s.io). 
-Este novo registro distribui a carga por várias regiões e Provedores de Nuvem, funcionando como uma espécie de rede de entrega de conteúdo (CDN) para imagens de contêiner do Kubernetes. 
+Este novo repositório distribui a carga por várias regiões e Provedores de Nuvem, funcionando como uma espécie de rede de entrega de conteúdo (CDN) para imagens de contêiner do Kubernetes. 
 Essa mudança reduz a dependência do projeto de uma única entidade e fornece uma experiência mais rápida de download para um grande número de usuários.
 
 ## TL;DR: O que você precisa saber sobre essa mudança
 
 * As imagens de contêiner para versões do Kubernetes a partir de 1.25 não serão mais publicadas no k8s.gcr.io, apenas no registry.k8s.io
-* Em dezembro, nas próximas versões de patch, o novo padrão de domínio do registro será backported para todas as branches com suporte ainda (1.22, 1.23, 1.24).
-* Se você executar em um ambiente restrito e aplicar as políticas de acesso aos endereços de domínio/IP limitados ao k8s.gcr.io, os _pulls de imagem não funcionarão_ após a migração para este novo repositório. Para esses usuários, o método recomendado é espelhar o lançamento das imagens em um repositório privado.
+* Em dezembro, nas próximas versões de patch, o novo padrão de domínio do registro será backported para todas as branches ainda com suporte (1.22, 1.23, 1.24).
+* Em um ambiente restrito, se você executar e aplicar as políticas de acesso aos endereços de domínio/IP limitados ao k8s.gcr.io, os _pulls de imagem não funcionarão_ após a migração para este novo repositório. Para esses usuários, o método recomendado é espelhar o lançamento das imagens em um repositório privado.
 
 Se você quiser saber mais sobre o motivo que fizemos essa mudança, ou alguns dos possíveis problemas que você pode encontrar, continue lendo.
 
 ## Por que o Kubernetes mudou para um registro de imagens diferente?
 
 O K8s.gcr.io está hospedado em um domínio personalizado do [Google Container Registry](https://cloud.google.com/container-registry) (GCR) que foi configurado exclusivamente para o projeto Kubernetes. 
-Isso funcionou bem desde o início do projeto, e agradecemos ao Google por fornecer esses recursos, mas hoje existem outros provedores de nuvem e fornecedores que gostariam de hospedar as imagens para fornecer uma melhor experiência para as pessoas em suas plataformas. 
+Isso funcionou bem desde o início do projeto, e agradecemos ao Google por fornecer esses recursos, mas hoje existem outros fornecedores e provedores de nuvem que gostariam de hospedar as imagens para fornecer uma melhor experiência para as pessoas em suas plataformas. 
 Além do compromisso renovado do Google de [doar US$ 3 milhões para apoiar](https://www.cncf.io/google-cloud-recommits-3m-to-kubernetes/) a infraestrutura do projeto, a Amazon anunciou uma doação correspondente durante sua palestra na Kubecon NA 2022 em Detroit. 
 Isso fornecerá uma melhor experiência para os usuários (servidores mais próximos = downloads mais rápidos) e reduzirá a largura de banda de saída e os custos do GCR ao mesmo tempo. O registry.k8s.io espalhará a carga entre o Google e a Amazon, e com outros provedores no futuro.
 
@@ -33,13 +33,13 @@ A natureza dessa mudança significa que o pull de uma imagem cliente pode ser re
 Esperamos que o conjunto de backends continue mudando e aumente à medida que mais e mais provedores de nuvem e fornecedores se juntem para ajudar a espelhar as atualizações das imagens.
 
 O restrito mecanismos de controle, tais como man-in-the-middle proxies ou as políticas de rede que restringem o acesso a uma lista específica de domínios/IPs, quebrarão com essa mudança. 
-Para esses cenários, encorajamos você a espelhar as atualizações das imagens em um repositório local sobre o qual você tem um rigoroso controle.
+Para esses cenários, encorajamos você a espelhar as atualizações das imagens em um repositório local sobre o qual você tem um controle rigoroso.
 
 Para mais informações sobre esta política, consulte a seção [estabilidade registry.k8s.io](https://github.com/kubernetes/registry.k8s.io#stability) na documentação.
 
 ## Que tipo de erros eu verei? Como saberei se ainda estou usando o endereço antigo?
 
-Os erros dependem do tipo de tempo de execução do contêiner que você está usando e para qual o endpoint você está roteado, mas ele deve se apresentar como um contêiner que não pode ser criado com o aviso `FailedCreatePodSandBox`.
+Os erros dependem do tipo de tempo da execução do contêiner que você está usando e para qual o endpoint você está roteado, mas ele deve se apresentar como um contêiner que não pode ser criado com o aviso `FailedCreatePodSandBox`.
 
 Abaixo temos um exemplo da mensagem de erro mostrando uma falha na implantação do proxy que não pode ser feito o pull devido a um certificado desconhecido:
 
