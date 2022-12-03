@@ -50,7 +50,16 @@ nor should they need to keep track of the set of backends themselves.
 
 <!-- body -->
 
+
+<!-- handle legacy fragment -->
+<a id="proxy-mode-userspace" />
+
 ## Proxy modes
+
+Kubernetes releases before v1.26 also included a user space mode for kube-proxy,
+where part of the packet forwarding relied on the kube-proxy process. In Kubernetes
+{{< skew currentVersion >}}, kube-proxy acts as the control plane for forwarding
+logic but does not take any active part in forwarding individual packets.
 
 Note that the kube-proxy starts up in different modes, which are determined by its configuration.
 
@@ -63,61 +72,6 @@ Note that the kube-proxy starts up in different modes, which are determined by i
   the standard kernel kube-proxy implementation will not work.
   Likewise, if you have an operating system which doesn't support `netsh`,
   it will not run in Windows userspace mode.
-
-### User space proxy mode {#proxy-mode-userspace}
-
-{{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
-
-This (legacy) mode uses iptables to install interception rules, and then performs
-traffic forwarding with the assistance of the kube-proxy tool.
-The kube-procy watches the Kubernetes control plane for the addition, modification
-and removal of Service and EndpointSlice objects. For each Service, the kube-proxy
-opens a port (randomly chosen) on the local node. Any connections to this _proxy port_
-are proxied to one of the Service's backend Pods (as reported via
-EndpointSlices). The kube-proxy takes the `sessionAffinity` setting of the Service into
-account when deciding which backend Pod to use.
-
-The user-space proxy installs iptables rules which capture traffic to the
-Service's `clusterIP` (which is virtual) and `port`. Those rules redirect that traffic
-to the proxy port which proxies the backend Pod.
-
-By default, kube-proxy in userspace mode chooses a backend via a round-robin algorithm.
-
-{{< figure src="/images/docs/services-userspace-overview.svg" title="Services overview diagram for userspace proxy" class="diagram-medium" >}}
-
-
-#### Example {#packet-processing-userspace}
-
-As an example, consider the image processing application described [earlier](#example)
-in the page.
-When the backend Service is created, the Kubernetes control plane assigns a virtual
-IP address, for example 10.0.0.1.  Assuming the Service port is 1234, the
-Service is observed by all of the kube-proxy instances in the cluster.
-When a proxy sees a new Service, it opens a new random port, establishes an
-iptables redirect from the virtual IP address to this new port, and starts accepting
-connections on it.
-
-When a client connects to the Service's virtual IP address, the iptables
-rule kicks in, and redirects the packets to the proxy's own port.
-The "Service proxy" chooses a backend, and starts proxying traffic from the client to the backend.
-
-This means that Service owners can choose any port they want without risk of
-collision.  Clients can connect to an IP and port, without being aware
-of which Pods they are actually accessing.
-
-#### Scaling challenges {#scaling-challenges-userspace}
-
-Using the userspace proxy for VIPs works at small to medium scale, but will
-not scale to very large clusters with thousands of Services.  The
-[original design proposal for portals](https://github.com/kubernetes/kubernetes/issues/1107)
-has more details on this.
-
-Using the userspace proxy obscures the source IP address of a packet accessing
-a Service.
-This makes some kinds of network filtering (firewalling) impossible.  The iptables
-proxy mode does not
-obscure in-cluster source IPs, but it does still impact clients coming through
-a load balancer or node-port.
 
 ### `iptables` proxy mode {#proxy-mode-iptables}
 
