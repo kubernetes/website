@@ -17,6 +17,6 @@ Geralmente denota alguma mudança de estado no sistema.
 <!--more-->
 
 Os eventos tem um tempo restrito de retenção, e os gatilhos e as mensagens podem estar envolvidos com tempo. 
-Os consumidores de evento não devem confiar no tempo de um evento com um determinado motivo que reflita em um gatilhos subjacente consistente, ou em eventos contínuos que existam pelo mesmo motivo. 
+Os consumidores de um evento não devem confiar que a temporalidade de um evento com um determinado motivo reflita um gatilho com uma causa consistente, ou na existência de eventos continuados com aquele motivo.
 
 No Kubernetes, a [auditoria](/docs/tasks/debug/debug-cluster/audit/) gera um tipo diferente de registro de evento (grupo de API `audit.k8s.io`).
