@@ -384,13 +384,15 @@ following Pod-specific DNS policies. These policies are specified in the
   See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for more details.
 - "`ClusterFirst`": Any DNS query that does not match the configured cluster
-  domain suffix, such as "`www.kubernetes.io`", is forwarded to the upstream
-  nameserver inherited from the node. Cluster administrators may have extra
+  domain suffix, such as "`www.kubernetes.io`", is forwarded to an upstream
+  nameserver by the DNS server. Cluster administrators may have extra
   stub-domain and upstream DNS servers configured.
   See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for details on how DNS queries are handled in those cases.
 - "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
-  explicitly set its DNS policy "`ClusterFirstWithHostNet`".
+  explicitly set its DNS policy to "`ClusterFirstWithHostNet`". Otherwise, Pods
+  running with hostNetwork and `"ClusterFirst"` will fallback to the behavior
+  of the `"Default"` policy.
   - Note: This is not supported on Windows. See [below](#dns-windows) for details
 - "`None`": It allows a Pod to ignore DNS settings from the Kubernetes
   environment. All DNS settings are supposed to be provided using the
@@ -405,11 +407,12 @@ DNS 策略可以逐个 Pod 来设定。目前 Kubernetes 支持以下特定 Pod 
 - "`Default`": Pod 从运行所在的节点继承名称解析配置。
   参考[相关讨论](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)获取更多信息。
 - "`ClusterFirst`": 与配置的集群域后缀不匹配的任何 DNS 查询（例如 "www.kubernetes.io"）
-  都将转发到从节点继承的上游名称服务器。集群管理员可能配置了额外的存根域和上游 DNS 服务器。
+  都会由 DNS 服务器转发到上游名称服务器。集群管理员可能配置了额外的存根域和上游 DNS 服务器。
   参阅[相关讨论](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)
   了解在这些场景中如何处理 DNS 查询的信息。
-- "`ClusterFirstWithHostNet`"：对于以 hostNetwork 方式运行的 Pod，应显式设置其 DNS 策略
-  "`ClusterFirstWithHostNet`"。
+- "`ClusterFirstWithHostNet`": 对于以 hostNetwork 方式运行的 Pod，应将其 DNS 策略显式设置为
+  "`ClusterFirstWithHostNet`"。否则，以 hostNetwork 方式和 `"ClusterFirst"` 策略运行的
+  Pod 将会做出回退至 `"Default"` 策略的行为。
   - 注意：这在 Windows 上不支持。 有关详细信息，请参见[下文](#dns-windows)。
 - "`None`": 此设置允许 Pod 忽略 Kubernetes 环境中的 DNS 设置。Pod 会使用其 `dnsConfig`
   字段所提供的 DNS 设置。

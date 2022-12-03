@@ -90,8 +90,7 @@ secretGenerator:
 {{% tab name=".env 文件" %}}
 <!-- 
 You can also define the secretGenerator in the `kustomization.yaml` file by
-providing `.env` files.
-For example, the following `kustomization.yaml` file
+providing `.env` files. For example, the following `kustomization.yaml` file
 pulls in data from an `.env.secret` file:
 -->
 你也可以使用 `.env` 文件在 `kustomization.yaml` 中定义 `secretGenerator`。
@@ -141,8 +140,7 @@ the Secret data and appending the hash value to the name. This ensures that
 a new Secret is generated each time the data is modified.
 
 To verify that the Secret was created and to decode the Secret data, refer to
-[Managing Secrets using
-kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
+[Managing Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
 -->
 生成 Secret 时，Secret 的名称最终是由 `name` 字段和数据的哈希值拼接而成。
 这将保证每次修改数据时生成一个新的 Secret。
@@ -158,11 +156,11 @@ kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-
 -->
 ## 编辑 Secret {#edit-secret}
 
-1.  在 `kustomization.yaml` 文件中，修改诸如 `password` 等数据。
-1.  应用包含 kustomization 文件的目录：
+1. 在 `kustomization.yaml` 文件中，修改诸如 `password` 等数据。
+1. 应用包含 kustomization 文件的目录：
 
    ```shell
-   kubectl apply -k <directory-path>
+   kubectl apply -k <目录路径>
    ```
 
    <!--
@@ -193,17 +191,16 @@ To delete a Secret, use `kubectl`:
 要删除 Secret，请使用 `kubectl`：
 
 ```shell
-kubectl delete secret db-user-pass-96mffmfh4k
+kubectl delete secret db-user-pass
 ```
 
-<!-- Optional section; add links to information related to this topic. -->
 ## {{% heading "whatsnext" %}}
 
 <!-- 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secrets with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 -->
 - 进一步阅读 [Secret 概念](/zh-cn/docs/concepts/configuration/secret/)
-- 了解如何[使用 `kubectl` 命令管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- 了解如何[使用 kubectl 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - 了解如何[使用配置文件管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-config-file/)

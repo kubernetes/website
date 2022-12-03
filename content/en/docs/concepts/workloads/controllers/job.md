@@ -264,7 +264,8 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   - As part of the Pod hostname, following the pattern `$(job-name)-$(index)`.
     When you use an Indexed Job in combination with a
     {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
-    the deterministic hostnames to address each other via DNS.
+    the deterministic hostnames to address each other via DNS. For more information about
+    how to configure this, see [Job with Pod-to-Pod Communication](/docs/tasks/job/job-with-pod-to-pod-communication/).
   - From the containerized task, in the environment variable `JOB_COMPLETION_INDEX`.
   
   The Job is considered complete when there is one successfully completed Pod
@@ -475,12 +476,13 @@ The tradeoffs are:
 The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
 The pattern names are also links to examples and more detailed description.
 
-|                  Pattern                  | Single Job object | Fewer pods than work items? | Use app unmodified? |
-| ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
-| [Queue with Pod Per Work Item]            |         ✓         |                             |      sometimes      |
-| [Queue with Variable Pod Count]           |         ✓         |             ✓               |                     |
-| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          |
-| [Job Template Expansion]                  |                   |                             |          ✓          |
+|                  Pattern                        | Single Job object | Fewer pods than work items? | Use app unmodified? |
+| ----------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
+| [Queue with Pod Per Work Item]                  |         ✓         |                             |      sometimes      |
+| [Queue with Variable Pod Count]                 |         ✓         |             ✓               |                     |
+| [Indexed Job with Static Work Assignment]       |         ✓         |                             |          ✓          |
+| [Job Template Expansion]                        |                   |                             |          ✓          |
+| [Job with Pod-to-Pod Communication]             |         ✓         |         sometimes           |      sometimes      | 
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
 has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
@@ -491,17 +493,19 @@ are different ways to arrange for pods to work on different things.
 This table shows the required settings for `.spec.parallelism` and `.spec.completions` for each of the patterns.
 Here, `W` is the number of work items.
 
-|             Pattern                       | `.spec.completions` |  `.spec.parallelism` |
-| ----------------------------------------- |:-------------------:|:--------------------:|
-| [Queue with Pod Per Work Item]            |          W          |        any           |
-| [Queue with Variable Pod Count]           |         null        |        any           |
-| [Indexed Job with Static Work Assignment] |          W          |        any           |
-| [Job Template Expansion]                  |          1          |     should be 1      |
+|             Pattern                             | `.spec.completions` |  `.spec.parallelism` |
+| ----------------------------------------------- |:-------------------:|:--------------------:|
+| [Queue with Pod Per Work Item]                  |          W          |        any           |
+| [Queue with Variable Pod Count]                 |         null        |        any           |
+| [Indexed Job with Static Work Assignment]       |          W          |        any           |
+| [Job Template Expansion]                        |          1          |     should be 1      |
+| [Job with Pod-to-Pod Communication]             |          W          |         W            |
 
 [Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
 [Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
 [Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
 [Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
+[Job with Pod-to-Pod Communication]: /docs/tasks/job/job-with-pod-to-pod-communication/
 
 ## Advanced usage
 

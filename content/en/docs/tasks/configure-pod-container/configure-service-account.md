@@ -423,7 +423,7 @@ often good enough for the application to load the token on a schedule
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-If you have enabled [token projection](#service-account-token-volume-projection)
+If you have enabled [token projection](#serviceaccount-token-volume-projection)
 for ServiceAccounts in your cluster, then you can also make use of the discovery
 feature. Kubernetes provides a way for clients to federate as an _identity provider_,
 so that one or more external systems can act as a _relying party_.
