@@ -15,7 +15,7 @@ are keys that tell the scheduler when a Pod is ready to be considered for schedu
 When a Pod is created, the scheduler will continuously attempt to find a node that fits it. This
 infinite loop continues until the scheduler either finds a node for the Pod, or the Pod gets deleted.
 
-Pods that remain unschedulable for long periods of time (e.g., one that is blocked on some external event) 
+Pods that remain unschedulable for long periods of time (e.g., ones that are blocked on some external event) 
 waste scheduling cycles. A scheduling cycle may take ~20ms or more depending on the complexity of
 the Pod's scheduling constraints. Therefore, at scale, those wasted cycles significantly impact the
 scheduler's performance. See the arrows in the "scheduler" box below.
@@ -47,9 +47,11 @@ graph LR;
 
 Scheduling gates helps address this problem. It allows declaring that newly created Pods are not
 ready for scheduling. When scheduling gates are present on a Pod, the scheduler ignores the Pod
-and therefore saves unnecessary scheduling attempts. Clearing the gates is the responsibility of
-external controllers with knowledge of when the Pod should be considered for scheduling (e.g., 
-a resource provisioner).
+and therefore saves unnecessary scheduling attempts. Those Pods will also be ignored by Cluster
+Autoscaler if you have it installed in the cluster.
+
+Clearing the gates is the responsibility of external controllers with knowledge of when the Pod
+should be considered for scheduling (e.g., a quota manager).
 
 {{< mermaid >}}
 graph LR;
@@ -86,7 +88,7 @@ graph LR;
 Scheduling gates in general works very similar to Finalizers. Pods with non-empty 
 `spec.schedulingGates` field will show as status `SchedulingGated` and be blocked from
 scheduling. Note that more than one gate can be added, but they all should be added upon Pod
-creation (e.g., you can add them as part of the spec of via a mutating webhook).
+creation (e.g., you can add them as part of the spec or via a mutating webhook).
 
 ```
 NAME       READY   STATUS            RESTARTS   AGE
