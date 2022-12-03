@@ -9,6 +9,7 @@ min-kubernetes-server-version: v1.6
 본 페이지는 암호 및 암호화 키와 같은 민감한 데이터를 파드에 안전하게 
 주입하는 방법을 설명한다.
 
+
 ## {{% heading "prerequisites" %}}
 
 
@@ -42,44 +43,44 @@ echo -n '39528$vdg7Jb' | base64
 
 1. 시크릿을 생성한다.
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/inject/secret.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/inject/secret.yaml
+   ```
 
 2. 시크릿에 대한 정보를 확인한다.
 
-    ```shell
-    kubectl get secret test-secret
-    ```
+   ```shell
+   kubectl get secret test-secret
+   ```
 
-    Output:
+   결과는 다음과 같다.
 
-    ```
-    NAME          TYPE      DATA      AGE
-    test-secret   Opaque    2         1m
-    ```
+   ```
+   NAME          TYPE      DATA      AGE
+   test-secret   Opaque    2         1m
+   ```
 
 3. 시크릿에 대한 자세한 정보를 확인한다.
 
-    ```shell
-    kubectl describe secret test-secret
-    ```
+   ```shell
+   kubectl describe secret test-secret
+   ```
 
-    Output:
+   결과는 다음과 같다.
 
-    ```
-    Name:       test-secret
-    Namespace:  default
-    Labels:     <none>
-    Annotations:    <none>
+   ```
+   Name:       test-secret
+   Namespace:  default
+   Labels:     <none>
+   Annotations:    <none>
 
-    Type:   Opaque
+   Type:   Opaque
 
-    Data
-    ====
-    password:   13 bytes
-    username:   7 bytes
-    ```
+   Data
+   ====
+   password:   13 bytes
+   username:   7 bytes
+   ```
 
 ### kubectl로 직접 시크릿 생성하기
 

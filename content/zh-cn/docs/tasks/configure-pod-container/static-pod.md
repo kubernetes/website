@@ -67,6 +67,13 @@ The `spec` of a static Pod cannot refer to other API objects
 {{< glossary_tooltip text="Secret" term_id="secret" >}} 等）。
 {{< /note >}}
 
+{{< note >}}
+<!--
+Static pods do not support [ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/).
+-->
+静态 Pod 不支持[临时容器](/zh-cn/docs/concepts/workloads/pods/ephemeral-containers/)。
+{{< /note >}}
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
