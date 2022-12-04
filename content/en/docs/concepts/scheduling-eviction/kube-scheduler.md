@@ -32,11 +32,7 @@ is the default scheduler for Kubernetes and runs as part of the
 kube-scheduler is designed so that, if you want and need to, you can
 write your own scheduling component and use that instead.
 
-For every newly created pod or other unscheduled pods, kube-scheduler
-selects an optimal node for them to run on. However, every container in
-pods has different requirements for resources and every pod also has
-different requirements. Therefore, existing nodes need to be filtered
-according to the specific scheduling requirements.
+Kube-scheduler selects an optimal node to run newly created or not yet scheduled (unscheduled) pods. Since containers in pods, and pods themselves have different requirements, existing nodes need to be filtered according to the specific scheduling requirements.
 
 In a cluster, Nodes that meet the scheduling requirements for a Pod
 are called _feasible_ nodes. If none of the nodes are suitable, the pod
