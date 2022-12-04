@@ -276,8 +276,6 @@ A predefined `certificateKey` can be provided in `InitConfiguration` when passin
 If a predefined certificate key is not passed to `kubeadm init` and
 `kubeadm init phase upload-certs` a new key will be generated automatically.
 
-
-
 The following command can be used to generate a new key on demand:
 
 ```shell
