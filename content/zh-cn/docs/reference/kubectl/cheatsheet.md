@@ -42,7 +42,7 @@ This page contains a list of commonly used `kubectl` commands and flags.
 
 <!--
 ```bash
-source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+source <(kubectl completion bash) # set up autocomplete in bash into the current shell, bash-completion package should be installed first.
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 ```
 
@@ -64,7 +64,7 @@ complete -o default -F __start_kubectl k
 
 <!--
 ```bash
-source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+source <(kubectl completion zsh)  # set up autocomplete in zsh into the current shell
 echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
 -->
@@ -74,9 +74,9 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 ```
 
 <!--
-### A Note on --all-namespaces
+### A Note on `--all-namespaces`
 -->
-### 关于 --all-namespaces 的一点说明    {#a-note-on-all-namespaces}
+### 关于 `--all-namespaces` 的一点说明    {#a-note-on-all-namespaces}
 
 <!--
 Appending `--all-namespaces` happens frequently enough where you should be aware of the  shorthand for `--all-namespaces`:
@@ -312,7 +312,7 @@ EOF
 ```
 
 <!--
-## Viewing, finding resources
+## Viewing and finding resources
 -->
 ## 查看和查找资源    {#viewing-finding-resources}
 
@@ -514,6 +514,7 @@ kubectl expose rc nginx --port=80 --target-port=8000
 kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
 
 kubectl label pods my-pod new-label=awesome                      # Add a Label
+kubectl label pods my-pod new-label-                             # Remove a label
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 ```
@@ -538,6 +539,7 @@ kubectl expose rc nginx --port=80 --target-port=8000
 kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
 
 kubectl label pods my-pod new-label=awesome                      # 添加标签
+kubectl label pods my-pod new-label-                             # 移除标签
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # 添加注解
 kubectl autoscale deployment foo --min=2 --max=10                # 对 "foo" Deployment 自动伸缩容
 ```
@@ -706,7 +708,7 @@ kubectl top pod POD_NAME --sort-by=cpu              # 显示给定 Pod 的指标
 ```
 
 <!--
-## Copy files and directories to and from containers
+## Copying files and directories to and from containers
 -->
 ## 从容器中复制文件和目录   {#copy-files-and-directories-to-and-from-containers}
 
@@ -727,7 +729,7 @@ kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # 将 /tmp/foo 从远程 
 
 {{< note >}}
 <!--
-`kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present,`kubectl cp` will fail.
+`kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present, `kubectl cp` will fail.
 For advanced use cases, such as symlinks, wildcard expansion or file mode preservation consider using `kubectl exec`.
 -->
 `kubectl cp` 要求容器镜像中存在 “tar” 二进制文件。如果 “tar” 不存在，`kubectl cp` 将失败。
