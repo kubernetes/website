@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "registry.k8s.io: rápido, barato e sempre disponível (GA)"
+title: "registry.k8s.io: rápido, barato e disponibilidade geral (GA)"
 date: 2022-11-28
 slug: registry-k8s-io-faster-cheaper-ga
 ---
@@ -32,7 +32,7 @@ O registry.k8s.io é um [redirecionador seguro de blob](https://github.com/kuber
 A natureza dessa mudança significa que o pull de uma imagem cliente pode ser redirecionado para qualquer um dos vários backends. 
 Esperamos que o conjunto de backends continue mudando e aumente à medida que mais e mais provedores de nuvem e fornecedores se juntem para ajudar a espelhar as atualizações das imagens.
 
-O restrito mecanismos de controle, tais como man-in-the-middle proxies ou as políticas de rede que restringem o acesso a uma lista específica de domínios/IPs, quebrarão com essa mudança. 
+Os mecanismos de controle mais restritos como proxies de main-in-the-middle ou as políticas de rede que restringem o acesso a uma lista específica de domínios/IPs, quebrarão com essa mudança. 
 Para esses cenários, encorajamos você a espelhar as atualizações das imagens em um repositório local sobre o qual você tem um controle rigoroso.
 
 Para mais informações sobre esta política, consulte a seção [estabilidade registry.k8s.io](https://github.com/kubernetes/registry.k8s.io#stability) na documentação.
