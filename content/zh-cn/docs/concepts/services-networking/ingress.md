@@ -4,7 +4,7 @@ content_type: concept
 description: >-
   使用一种能感知协议配置的机制来理解 URI、主机名称、路径和更多 Web 概念，使得 HTTP（或 HTTPS）网络服务可用。
   Ingress 概念允许你通过 Kubernetes API 定义的规则将流量映射到不同的后端。
-weight: 20
+weight: 30
 ---
 <!--
 reviewers:
@@ -16,7 +16,7 @@ description: >-
   mechanism, that understands web concepts like URIs, hostnames, paths, and more.
   The Ingress concept lets you map traffic to different backends based on rules you define
   via the Kubernetes API.
-weight: 20
+weight: 30
 -->
 
 <!-- overview -->
@@ -199,7 +199,7 @@ Each HTTP rule contains the following information:
   load balancer directs traffic to the referenced Service.
 * A backend is a combination of Service and port names as described in the
   [Service doc](/docs/concepts/services-networking/service/). HTTP (and HTTPS) requests to the
-  Ingress that matches the host and path of the rule are sent to the listed backend.
+  Ingress that match the host and path of the rule are sent to the listed backend.
 -->
 * 可选的 `host`。在此示例中，未指定 `host`，因此该规则适用于通过指定 IP 地址的所有入站 HTTP 通信。
   如果提供了 `host`（例如 foo.bar.com），则 `rules` 适用于该 `host`。
@@ -234,8 +234,8 @@ routed to your default backend.
 没有设置规则的 Ingress 将所有流量发送到同一个默认后端，而
 `.spec.defaultBackend` 则是在这种情况下处理请求的那个默认后端。
 `defaultBackend` 通常是
-[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)的配置选项，而非在
-Ingress 资源中指定。
+[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)的配置选项，
+而非在 Ingress 资源中指定。
 如果未设置任何的 `.spec.rules`，那么必须指定 `.spec.defaultBackend`。
 如果未设置 `defaultBackend`，那么如何处理所有与规则不匹配的流量将交由
 Ingress 控制器决定（请参考你的 Ingress 控制器的文档以了解它是如何处理那些流量的）。
@@ -318,7 +318,7 @@ Ingress 中的每个路径都需要有对应的路径类型（Path Type）。未
 
 * `Prefix`：基于以 `/` 分隔的 URL 路径前缀匹配。匹配区分大小写，并且对路径中的元素逐个完成。
   路径元素指的是由 `/` 分隔符分隔的路径中的标签列表。
-  如果每个 _p_ 都是请求路径 _p_ 的元素前缀，则请求与路径 _p_ 匹配。
+  如果每个 **p** 都是请求路径 **p** 的元素前缀，则请求与路径 **p** 匹配。
 
   {{< note >}}
   如果路径的最后一个元素是请求路径中最后一个元素的子字符串，则不会匹配
@@ -396,8 +396,8 @@ equal to the suffix of the wildcard rule.
 -->
 ## 主机名通配符   {#hostname-wildcards}
 
-主机名可以是精确匹配（例如“`foo.bar.com`”）或者使用通配符来匹配
-（例如“`*.foo.com`”）。
+主机名可以是精确匹配（例如 “`foo.bar.com`”）或者使用通配符来匹配
+（例如 “`*.foo.com`”）。
 精确匹配要求 HTTP `host` 头部字段与 `host` 字段值完全匹配。
 通配符匹配则要求 HTTP `host` 头部字段与通配符规则中的后缀部分相同。
 
@@ -471,8 +471,8 @@ For example:
 IngressClass 的参数默认是集群范围的。
 
 如果你设置了 `.spec.parameters` 字段且未设置 `.spec.parameters.scope`
-字段，或是将 `.spec.parameters.scope` 字段设为了 `Cluster`，那么该
-IngressClass 所指代的即是一个集群作用域的资源。
+字段，或是将 `.spec.parameters.scope` 字段设为了 `Cluster`，
+那么该 IngressClass 所指代的即是一个集群作用域的资源。
 参数的 `kind`（和 `apiGroup` 一起）指向一个集群作用域的
 API（可能是一个定制资源（Custom Resource）），而它的
 `name` 则为此 API 确定了一个具体的集群作用域的资源。
@@ -578,8 +578,8 @@ never formally defined, but was widely supported by Ingress controllers.
 -->
 ### 废弃的注解  {#deprecated-annotation}
 
-在 Kubernetes 1.18 版本引入 IngressClass 资源和 `ingressClassName` 字段之前，Ingress
-类是通过 Ingress 中的一个 `kubernetes.io/ingress.class` 注解来指定的。
+在 Kubernetes 1.18 版本引入 IngressClass 资源和 `ingressClassName` 字段之前，
+Ingress 类是通过 Ingress 中的一个 `kubernetes.io/ingress.class` 注解来指定的。
 这个注解从未被正式定义过，但是得到了 Ingress 控制器的广泛支持。
 
 <!-- 
@@ -649,7 +649,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 ### 由单个 Service 来完成的 Ingress   {#single-service-ingress}
 
 现有的 Kubernetes 概念允许你暴露单个 Service (参见[替代方案](#alternatives))。
-你也可以通过指定无规则的 *默认后端* 来对 Ingress 进行此操作。
+你也可以通过指定无规则的**默认后端**来对 Ingress 进行此操作。
 
 {{< codenew file="service/networking/test-ingress.yaml" >}}
 
@@ -767,7 +767,7 @@ Name-based virtual hosts support routing HTTP traffic to multiple host names at 
 The following Ingress tells the backing load balancer to route requests based on
 the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 -->
-以下 Ingress 让后台负载均衡器基于[host 头部字段](https://tools.ietf.org/html/rfc7230#section-5.4)
+以下 Ingress 让后台负载均衡器基于 [host 头部字段](https://tools.ietf.org/html/rfc7230#section-5.4)
 来路由请求。
 
 {{< codenew file="service/networking/name-virtual-host-ingress.yaml" >}}
@@ -1034,7 +1034,7 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * Learn about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)
 -->
-* 进一步了解 [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
+* 进一步了解 [Ingress](/zh-cn/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
 * 进一步了解 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers/)
 * [使用 NGINX 控制器在 Minikube 上安装 Ingress](/zh-cn/docs/tasks/access-application-cluster/ingress-minikube/)
 
