@@ -267,7 +267,7 @@ to download the certificates when additional control-plane nodes are joining, by
 The following phase command can be used to re-upload the certificates after expiration:
 
 ```shell
-kubeadm init phase upload-certs --upload-certs --certificate-key=SOME_VALUE --config=SOME_YAML_FILE
+kubeadm init phase upload-certs --upload-certs  --config=SOME_YAML_FILE
 ```
 
 If the flag `--certificate-key` is not passed to `kubeadm init` and
