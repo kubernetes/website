@@ -270,7 +270,7 @@ The following phase command can be used to re-upload the certificates after expi
 kubeadm init phase upload-certs --upload-certs --config=SOME_YAML_FILE
 ```
 {{< note >}}
-The certificateKey can be passed in [InitConfiguration with `--config`] (https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/).
+A predefined `certificateKey` can be provided in `InitConfiguration` when passing the [configuration file](https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/) with `--config`.
 {{< /note >}}
 
 If the flag `--certificate-key` is not passed to `kubeadm init` and
