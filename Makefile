@@ -74,6 +74,21 @@ container-image: ## Build a container image for the preview of the website
 container-push: container-image ## Push container image for the preview of the website
 	$(CONTAINER_ENGINE) push $(CONTAINER_IMAGE)
 
+PLATFORMS ?= linux/arm64,linux/amd64
+docker-push: ## Build a multi-architecture image and push that into the registry
+	docker run --rm --privileged tonistiigi/binfmt:qemu-v6.2.0-26@sha256:5bf63a53ad6222538112b5ced0f1afb8509132773ea6dd3991a197464962854e --install all
+	docker buildx create --use --name=image-builder 2>/dev/null || docker buildx use --default image-builder
+	# copy existing Dockerfile and insert --platform=${BUILDPLATFORM} into Dockerfile.cross, and preserve the original Dockerfile
+	sed -e '1 s/\(^FROM\)/FROM --platform=\$$\{BUILDPLATFORM\}/; t' -e ' 1,// s//FROM --platform=\$$\{BUILDPLATFORM\}/' Dockerfile > Dockerfile.cross
+	docker buildx build \
+		--push \
+		--platform=$(PLATFORMS) \
+		--build-arg HUGO_VERSION=$(HUGO_VERSION) \
+		--tag $(CONTAINER_IMAGE) \
+		-f Dockerfile.cross .
+	docker buildx stop image-builder
+	rm Dockerfile.cross
+
 container-build: module-check
 	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development"
 

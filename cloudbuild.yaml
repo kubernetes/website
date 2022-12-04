@@ -18,7 +18,7 @@ steps:
       - -c
       - |
         gcloud auth configure-docker \
-        && make container-push
+        && make docker-push
 substitutions:
   # _GIT_TAG will be filled with a git-based tag for the image, of the form vYYYYMMDD-hash, and
   # can be used as a substitution
