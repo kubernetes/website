@@ -1,8 +1,8 @@
 ---
 layout: blog
-title: "Kubernetes 1.26: Pod Scheduling Readiness to Alpha"
-date: 2022-11-29
-slug: pod-scheduling-readiness-alpha-1-26
+title: "Kubernetes 1.26: Pod Scheduling Readiness"
+date: 2022-12-26
+slug: pod-scheduling-readiness-alpha
 ---
 
 **Author:** Wei Huang (Apple), Abdullah Gharaibeh (Google)
@@ -16,7 +16,7 @@ When a Pod is created, the scheduler will continuously attempt to find a node th
 infinite loop continues until the scheduler either finds a node for the Pod, or the Pod gets deleted.
 
 Pods that remain unschedulable for long periods of time (e.g., ones that are blocked on some external event) 
-waste scheduling cycles. A scheduling cycle may take ~20ms or more depending on the complexity of
+waste scheduling cycles. A scheduling cycle may take ≅20ms or more depending on the complexity of
 the Pod's scheduling constraints. Therefore, at scale, those wasted cycles significantly impact the
 scheduler's performance. See the arrows in the "scheduler" box below.
 
@@ -85,7 +85,7 @@ graph LR;
 
 ## How does it work?
 
-Scheduling gates in general works very similar to Finalizers. Pods with non-empty 
+Scheduling gates in general works very similar to Finalizers. Pods with a non-empty 
 `spec.schedulingGates` field will show as status `SchedulingGated` and be blocked from
 scheduling. Note that more than one gate can be added, but they all should be added upon Pod
 creation (e.g., you can add them as part of the spec or via a mutating webhook).
@@ -112,17 +112,17 @@ to recreate it again. This either means a delay between resources becoming avail
 actually running, or it means load on the API server and Scheduler due to constant attempts.
 
 Scheduling gates allows an external quota manager to address the above limitation of ResourceQuota.
-Specifically, the manager could add a `example-com/quota-check` scheduling gate to all Pods created in the
+Specifically, the manager could add a `example.com/quota-check` scheduling gate to all Pods created in the
 cluster (using a mutating webhook). The manager would then remove the gate when there is quota to
 start the Pod.
 
 ## Whats next?
 
 To use this feature, the `PodSchedulingReadiness` feature gate must be enabled in the API Server
-and Scheduler. You're more than welcome to test it out and tell us (sig-scheduling) what you think!
+and scheduler. You're more than welcome to test it out and tell us (SIG Scheduling) what you think!
 
 ## Additional resources
 
 - [Pod Scheduling Readiness](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
-in the Kubernetes documentation
+ in the Kubernetes documentation
 - [Kubernetes Enhancement Proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/3521-pod-scheduling-readiness/README.md)
