@@ -204,7 +204,7 @@ In the following table:
 | `ResourceQuotaScopeSelectors` | `true` | GA | 1.17 | 1.18 |
 | `RootCAConfigMap` | `false` | Alpha | 1.13 | 1.19 |
 | `RootCAConfigMap` | `true` | Beta | 1.20 | 1.20 |
-| `RootCAConfigMap` | `true` | GA | 1.21 | 1.12 |
+| `RootCAConfigMap` | `true` | GA | 1.21 | 1.22 |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | 1.18 |
 | `RotateKubeletClientCertificate` | `true` | GA | 1.19 | 1.21 |
 | `RunAsGroup` | `true` | Beta | 1.14 | 1.20 |

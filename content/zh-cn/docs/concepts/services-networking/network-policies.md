@@ -1,13 +1,22 @@
 ---
 title: 网络策略
 content_type: concept
-weight: 50
+weight: 70
+description: >-
+  如果你希望在 IP 地址或端口层面（OSI 第 3 层或第 4 层）控制网络流量，
+  NetworkPolicy 可以让你为集群内以及 Pod 与外界之间的网络流量指定规则。
+  你的集群必须使用支持 NetworkPolicy 实施的网络插件。
 ---
 
 <!--
 title: Network Policies
 content_type: concept
-weight: 50
+weight: 70
+description: >-
+  If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4),
+  NetworkPolicies allow you to specify rules for traffic flow within your cluster, and
+  also between Pods and the outside world.
+  Your cluster must use a network plugin that supports NetworkPolicy enforcement.
 -->
 
 <!-- overview -->
