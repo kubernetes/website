@@ -6,7 +6,7 @@ weight: 50
 
 <!-- overview -->
 
-Para dar suporte a latência crítica e a cargas de trabalho de alta taxa de transferência, o Kubernets oferece um conjunto de gerenciadores de recursos. Os gerenciadores visam coordenar e otimizar o alinhamento de recursos do nó(s) para Pods configurados com um requisito específico para CPUs, dispositivos e recursos de memória (*hugepages*).
+Para dar suporte a cargas de trabalho com latência crítica e altas taxa de transferência, o Kubernets oferece um conjunto de gerenciadores de recursos. Os gerenciadores visam coordenar e otimizar o alinhamento de recursos do nó(s) para Pods configurados com um requisito específico para CPUs, dispositivos e recursos de memória (*hugepages*).
 
 <!-- body -->
 
