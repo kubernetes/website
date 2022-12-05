@@ -18,7 +18,7 @@ or even deploying monitoring tools such as a Prometheus exporter, HostProcess co
 enable you to do it all with minimal effort.
 
 You can create your own ultra-thin HostProcess container image to be run directly as
-a process on the host directly after spinning up a new node. All you need to do is define
+a process on the host directly after creating up a new windows node. You can now package your powershell scripts
 it into a container, and have Kubernetes
 deploy the workload automatically. It removes the need to exec into the node or configure
 your cloud provider's virtual machine management tooling to perform these administrative actions.
@@ -42,7 +42,7 @@ the host, along with privileged helper Pods, so that communication with your Win
 in containers happens within the bounds of a secure pipeline.
 
 Until now, scenarios common to Linux privileged containers, such as kube-proxy (via kubeadm),
-storage, and networking, all required proxy solutions to enable functionality on Windows.
+storage, and networking, all required alternative solutions to enable functionality on Windows.
 With HostProcess containers, users have direct access to the node without the need for
 any workarounds. Gone are the days where cluster operators would need to manually log onto
 Windows nodes to perform administrative duties.
@@ -51,7 +51,7 @@ Windows nodes to perform administrative duties.
 
 Windows HostProcess containers are implemented with Windows _Job Objects_, a break from the
 previous container model using server silos. Job objects are components of the Windows OS which offer the ability to
-manage a group of processes as a group (a.k.a. _jobs_) and assign resource constraints to the
+manage a group of processes as a group (also known as a _job_) and assign resource constraints to the
 group as a whole. Job objects are specific to the Windows OS and are not associated with
 the Kubernetes [Job API](/docs/concepts/workloads/controllers/job/). They have no process
 or file system isolation,
