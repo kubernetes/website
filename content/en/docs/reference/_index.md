@@ -41,7 +41,7 @@ client libraries:
 ## CLI
 
 * [kubectl](/docs/reference/kubectl/) - Main CLI tool for running commands and managing Kubernetes clusters.
-    * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
+  * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster.
 
 ## Components
@@ -52,16 +52,18 @@ client libraries:
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) -
   REST API that validates and configures data for API objects such as  pods,
   services, replication controllers.
-* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
+* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) -
+  Daemon that embeds the core control loops shipped with Kubernetes.
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Can
   do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across
   a set of back-ends.
-* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) -
+  Scheduler that manages availability, performance, and capacity.
   
   * [Scheduler Policies](/docs/reference/scheduling/policies)
   * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
-* List of [ports and protocols](/docs/reference/ports-and-protocols/) that
+* List of [ports and protocols](/docs/reference/networking/ports-and-protocols/) that
   should be open on control plane and worker nodes
 
 ## Config APIs

@@ -9,10 +9,7 @@ weight: 40
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-This page explains how to upgrade a Windows node [created with kubeadm](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes).
-
-
-
+This page explains how to upgrade a Windows node created with kubeadm.
 
 ## {{% heading "prerequisites" %}}
  
@@ -20,9 +17,6 @@ This page explains how to upgrade a Windows node [created with kubeadm](/docs/ta
 * Familiarize yourself with [the process for upgrading the rest of your kubeadm
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
 upgrade the control plane nodes before upgrading your Windows nodes.
-
-
-
 
 <!-- steps -->
 
@@ -81,7 +75,8 @@ upgrade the control plane nodes before upgrading your Windows nodes.
     ```
 
 {{< note >}}
-If you are running kube-proxy in a HostProcess container within a Pod, and not as a Windows Service, you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
+If you are running kube-proxy in a HostProcess container within a Pod, and not as a Windows Service,
+you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
 {{< /note >}}
 
 ### Uncordon the node
@@ -93,7 +88,4 @@ bring the node back online by marking it schedulable:
     # replace <node-to-drain> with the name of your node
     kubectl uncordon <node-to-drain>
     ```
-
-
-
 

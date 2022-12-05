@@ -388,7 +388,8 @@ You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to th
 beforehand so that Kubernetes hosts can access them.
 {{< /note >}}
 
-See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) for more details.
+See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)
+for more details.
 
 ### gcePersistentDisk (deprecated) {#gcepersistentdisk}
 
@@ -515,7 +516,9 @@ and the kubelet, set the `InTreePluginGCEUnregister` flag to `true`.
 ### gitRepo (deprecated) {#gitrepo}
 
 {{< warning >}}
-The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
+The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an
+[EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the
+[EmptyDir](#emptydir) into the Pod's container.
 {{< /warning >}}
 
 A `gitRepo` volume is an example of a volume plugin. This plugin
@@ -785,10 +788,13 @@ spec:
 {{< note >}}
 You must have your own NFS server running with the share exported before you can use it.
 
-Also note that you can't specify NFS mount options in a Pod spec. You can either set mount options server-side or use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html). You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
+Also note that you can't specify NFS mount options in a Pod spec. You can either set mount options server-side or
+use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html).
+You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
 {{< /note >}}
 
-See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) for an example of mounting NFS volumes with PersistentVolumes.
+See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
+for an example of mounting NFS volumes with PersistentVolumes.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -1163,7 +1169,7 @@ persistent volume:
   volume expansion, the kubelet passes that data via the `NodeExpandVolume()`
   call to the CSI driver. In order to use the `nodeExpandSecretRef` field, your
   cluster should be running Kubernetes version 1.25 or later and you must enable
-  the [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)
+  the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   named `CSINodeExpandSecret` for each kube-apiserver and for the kubelet on every
   node. You must also be using a CSI driver that supports or requires secret data during
   node-initiated storage resize operations.
