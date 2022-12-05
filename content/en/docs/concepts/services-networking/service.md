@@ -436,7 +436,7 @@ the port number for `http`, as well as the IP address.
 
 The Kubernetes DNS server is the only way to access `ExternalName` Services.
 You can find more information about `ExternalName` resolution in
-[DNS Pods and Services](/docs/concepts/services-networking/dns-pod-service/).
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/).
 
 ## Headless Services
 
@@ -1178,12 +1178,13 @@ mechanism Kubernetes provides to expose a Service with a virtual IP address.
 
 ## {{% heading "whatsnext" %}}
 
+Learn more about the following:
 * Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
-* Read about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
+* [Ingress](/docs/concepts/services-networking/ingress/) exposes HTTP and HTTPS routes from outside the cluster to services within the cluster.
+* [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 
 For more context:
-* Read [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/)
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/service-v1/) for the Service API
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) for the Endpoints API
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
+* [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/)
+* [API reference](/docs/reference/kubernetes-api/service-resources/service-v1/) for the Service API
+* [API reference](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) for the Endpoints API
+* [API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
