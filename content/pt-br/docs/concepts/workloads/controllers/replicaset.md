@@ -13,7 +13,7 @@ O propósito de um ReplicaSet é gerenciar um conjunto de réplicas de Pods em e
 
 ## Como um ReplicaSet funciona
 
-Um ReplicaSet é definido por campos, incluindo um seletor que identifica quais Pods podem ser adquiridos, um número de réplicas indicando quantos Pods devem ser mantidos, e um pod template especificando as definições para novos Pods que devem ser criados para atender ao número de réplicas estipuladas. Um ReplicaSet cumpre seu propósito criando e deletando Pods conforme for preciso para atingir o número desejado. Quando um ReplicaSet precisa criar novos Pods, ele usa o seu Pod template.
+Um ReplicaSet é definido por campos, incluindo um seletor que identifica quais Pods podem ser adquiridos, um número de réplicas indicando quantos Pods devem ser mantidos, e um pod template especificando as definições para novos Pods que devem ser criados para atender ao número de réplicas estipuladas. Um ReplicaSet cumpre seu propósito criando e deletando Pods conforme for preciso para atingir o número desejado. Quando um ReplicaSet precisa criar novos Pods, ele usa o seu podTemplate.
 
 Um ReplicaSet é conectado ao seus Pods pelo campo do Pod [metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents), que especifíca qual recurso é dono do objeto atual. Todos os Pods adquiridos por um ReplicaSet possuem as informações de identificação do ReplicaSet vinculado no campo ownerReferences. É por esse elo que o ReplicaSet tem conhecimento do estado dos Pods que está mantendo e assim faz seu planejamento.
 
@@ -30,13 +30,13 @@ prefira usar um Deployment, e defina sua aplicação na seção spec.
 
 {{< codenew file="controllers/frontend.yaml" >}}
 
-Salvando esse manifesto como `frontend.yaml` e submetendo no cluster Kubernetes irá criar o ReplicaSet definida e os Pods mantidos pela mesma.
+Salvando esse manifesto como `frontend.yaml` e submetendo no cluster Kubernetes irá criar o ReplicaSet definido e os Pods mantidos pelo mesmo.
 
 ```shell
 kubectl apply -f https://kubernetes.io/pt-br/examples/controllers/frontend.yaml
 ```
 
-Você pode então retornar os ReplicaSets implementados atualmente no cluster:
+Você pode então retornar os ReplicaSets atualmente existentes atualmente no cluster:
 
 ```shell
 kubectl get rs
@@ -139,13 +139,13 @@ Observe o exemplo anterior do ReplicaSet frontend, e seus Pods especificados no 
 
 Como esses Pods não possuem um Controller (ou qualquer objeto) referenciados como seu dono e possuem labels que combinam com o seletor do ReplicaSet frontend, eles serão imediatamente adquiridos pelo ReplicaSet.
 
-Imagine que você crie os Pods depois que o ReplicaSet frontend foi implementado e criou as réplicas de Pod inicial definida para cumprir o número de réplicas requiridas:
+Imagine que você crie os Pods depois que o ReplicaSet frontend foi instalado e criou as réplicas de Pod inicial definida para cumprir o número de réplicas requiridas:
 
 ```shell
 kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 ```
 
-Os novos Pods serão adquiridos pelo ReplicaSet, e logo depois terminados já que a ReplicaSet estará acima do número desejado.
+Os novos Pods serão adquiridos pelo ReplicaSet, e logo depois terminados já que o ReplicaSet estará acima do número desejado.
 
 Buscando os Pods:
 
@@ -278,7 +278,7 @@ Se o Pod obedecer todos os items acima simultaneamente, a seleção é aleatóri
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 Utilizando a anotação [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost),
-usuários podem definir uma preferência em relação à quais pods serão removidos primeiro caso o ReplicaSet precise escalar para baixo.
+usuários podem definir uma preferência em relação à quais pods serão removidos primeiro caso o ReplicaSet precise escalonar para baixo.
 
 A anotação deve ser definida no pod, com uma variação de [-2147483647, 2147483647]. Isso representa o custo de deletar um pod comparado com outros pods que pertencem à esse mesmo ReplicaSet. Pods com um custo de deleção menor são eleitos para deleção antes de pods com um custo maior.
 
@@ -295,18 +295,18 @@ Esse recurso está em beta e é habilitado por padrão. Você consegue desabilit
 {{< /note >}}
 
 #### Exemplo de caso de uso
-Os diferentes pods de uma aplicação podem ter níves de utilização divergentes. Ao escalar para baixo, a aplicação pode preferir remover os pods com a menor utilização. Para evitar atualizações frequentes nos pods, a aplicação deve atualizar `controller.kubernetes.io/pod-deletion-cost` uma vez antes de expedir o decaimento das réplicas (configurando a anotação para um valor proporcional ao nível de utilização do pod). Isso funciona se a própria aplicação controlar a escala para baixo; por exemplo, o pod condutor de um deployment de Spark.
+Os diferentes Pods de uma aplicação podem ter níveis de utilização divergentes. Ao escalonar para baixo, a aplicação pode preferir remover os pods com a menor utilização. Para evitar atualizações frequentes nos pods, a aplicação deve atualizar `controller.kubernetes.io/pod-deletion-cost` uma vez antes de expedir o escalonamento para baixo das réplicas (configurando a anotação para um valor proporcional ao nível de utilização do Pod). Isso funciona se a própria aplicação controlar o escalonamento; por exemplo, o pod condutor de um Deployment de Spark.
 
 ### ReplicaSet como um Horizontal Pod Autoscaler Target
 
 Um ReplicaSet pode também ser controlado por um
 [Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/). Isto é,
-um ReplicaSet pode ser automaticamente escalado por um HPA. Aqui está um exemplo de um HPA controlando o ReplicaSet que nós criamos no exemplo anterior.
+um ReplicaSet pode ser automaticamente escalonado por um HPA. Aqui está um exemplo de um HPA controlando o ReplicaSet que nós criamos no exemplo anterior.
 
 {{< codenew file="controllers/hpa-rs.yaml" >}}
 
 Salvando esse manifesto como `hpa-rs.yaml` e enviando para o cluster Kubernetes deve 
-criar um HPA definido que autoescala o ReplicaSet controlado dependendo do uso de CPU 
+criar um HPA definido que autoescalona o ReplicaSet controlado dependendo do uso de CPU 
 dos Pods replicados.
 
 ```shell
@@ -325,13 +325,13 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 
 ### Deployment (recomendado)
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) é um objeto o qual pode possuir ReplicaSets, atualiza-los e por consequência seus Pods via atualizações declarativas, gradativas do lado do servidor.
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/) é um objeto o qual pode possuir ReplicaSets, atualizá-los e por consequência seus Pods via atualizações declarativas, gradativas do lado do servidor.
 Enquanto ReplicaSets conseguem ser usados independentemente, hoje eles são principalmente usados por Deployments como um mecanismo para orquestrar a criação, deleção e atualização de um Pod. Quando você usa Deployments você não precisa se preocupar com o gerenciamento de ReplicaSets que são criados por ele. Deployments controlam e gerenciam seus ReplicaSets.
 Por isso, é recomendado o uso de Deployments quando você deseja ReplicaSets.
 
 ### Bare Pods
 
-Diferente do caso onde um usuário cria Pods diretamente, um ReplicaSet substitui Pods que forem deletados ou terminados por qualquer motivo, como em caso de falha de nó ou manutenção disruptivo de nó, como uma atualização de kernel. Por esse motivo, nós recomendamos que você use um ReplicaSet mesmo que sua aplicação necessite apenas de um único Pod. Pense na semelhança com um supervisor de processos, apenas que ele supervisione vários Pods em múltiplos nós ao invés de apenas um Pod. Um ReplicaSet delega reinicializações de um container local para algum agente do nó (Kubelet ou Docker, por exemplo).
+Diferente do caso onde um usuário cria Pods diretamente, um ReplicaSet substitui Pods que forem deletados ou terminados por qualquer motivo, como em caso de falha de nó ou manutenção disruptiva de nó, como uma atualização de kernel. Por esse motivo, nós recomendamos que você use um ReplicaSet mesmo que sua aplicação necessite apenas de um único Pod. Pense na semelhança com um supervisor de processos, apenas que ele supervisione vários Pods em múltiplos nós ao invés de apenas um Pod. Um ReplicaSet delega reinicializações de um container local para algum agente do nó (Kubelet ou Docker, por exemplo).
 
 ### Job
 
