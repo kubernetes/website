@@ -8,10 +8,12 @@ options:
   substitution_option: ALLOW_LOOSE
 steps:
     # It's fine to bump the tag to a recent version, as needed
-  - name: "gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20210917-12df099d55"
+  - name: "gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20220830-45cbff55bc"
     entrypoint: 'bash'
     env:
       - DOCKER_CLI_EXPERIMENTAL=enabled
+      - DOCKER_BUILDKIT=1
+      - DOCKER_BUILDX=/root/.docker/cli-plugins/docker-buildx
       - TAG=$_GIT_TAG
       - BASE_REF=$_PULL_BASE_REF
     args:
