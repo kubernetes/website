@@ -29,7 +29,7 @@ This is used by control plane components like `kube-controller-manager` and `kub
 HA configurations, where only one instance of the component should be actively running while the other
 instances are on stand-by.
 
-## kube-apiserver identity
+## API Server Identity
 
 {{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
@@ -38,3 +38,43 @@ rest of the system. While not particularly useful on its own, this provides a me
 discover how many instances of `kube-apiserver` are operating the Kubernetes control plane.
 Existence of kube-apiserver leases enables future capabilities that may require coordination between
 each kube-apiserver.
+
+You can inspect Leases owned by each kube-apiserver by checking for lease objects in the `kube-system` namespace
+with the name `kube-apiserver-<sha256-hash>`. Alternatively you can use the label selector `k8s.io/component=kube-apiserver`:
+
+```shell
+$ kubectl -n kube-system get lease -l k8s.io/component=kube-apiserver
+NAME                                        HOLDER                                                                           AGE
+kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a   kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a_9cbf54e5-1136-44bd-8f9a-1dcd15c346b4   5m33s
+kube-apiserver-dz2dqprdpsgnm756t5rnov7yka   kube-apiserver-dz2dqprdpsgnm756t5rnov7yka_84f2a85d-37c1-4b14-b6b9-603e62e4896f   4m23s
+kube-apiserver-fyloo45sdenffw2ugwaz3likua   kube-apiserver-fyloo45sdenffw2ugwaz3likua_c5ffa286-8a9a-45d4-91e7-61118ed58d2e   4m43s
+```
+
+The SHA256 hash used in the lease name is based on the OS hostname as seen by kube-apiserver. Each kube-apiserver should be
+configured to use a hostname that is unique within the cluster. New instances of kube-apiserver that use the same hostname
+will take over existing Leases using a new holder identity, as opposed to instantiating new lease objects. You can check the
+hostname used by kube-apisever by checking the value of the `kubernetes.io/hostname` label:
+
+```shell
+$ kubectl -n kube-system get lease kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a -o yaml
+```
+
+```yaml
+apiVersion: coordination.k8s.io/v1
+kind: Lease
+metadata:
+  creationTimestamp: "2022-11-30T15:37:15Z"
+  labels:
+    k8s.io/component: kube-apiserver
+    kubernetes.io/hostname: kind-control-plane
+  name: kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a
+  namespace: kube-system
+  resourceVersion: "18171"
+  uid: d6c68901-4ec5-4385-b1ef-2d783738da6c
+spec:
+  holderIdentity: kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a_9cbf54e5-1136-44bd-8f9a-1dcd15c346b4
+  leaseDurationSeconds: 3600
+  renewTime: "2022-11-30T18:04:27.912073Z"
+```
+
+Expired leases from kube-apiservers that no longer exist are garbage collected by new kube-apiservers after 1 hour.
