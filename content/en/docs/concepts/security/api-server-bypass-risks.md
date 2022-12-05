@@ -12,7 +12,8 @@ The Kubernetes API server is the main point of entry to a cluster for external p
 (users and services) interacting with it. 
 
 As part of this role, the API server has several key built-in security controls, such as
-audit logging and {{< glossary_tooltip text="admission controllers" term_id="admission-controller" >}}. However, there are ways to modify the configuration
+audit logging and {{< glossary_tooltip text="admission controllers" term_id="admission-controller" >}}.
+However, there are ways to modify the configuration
 or content of the cluster that bypass these controls.
 
 This page describes the ways in which the security controls built into the
@@ -65,7 +66,8 @@ every container running on the node.
 
 When Kubernetes cluster users have RBAC access to `Node` object sub-resources, that access
 serves as authorization to interact with the kubelet API. The exact access depends on
-which sub-resource access has been granted, as detailed in [kubelet authorization](https://kubernetes.io/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authorization).
+which sub-resource access has been granted, as detailed in
+[kubelet authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authorization).
 
 Direct access to the kubelet API is not subject to admission control and is not logged
 by Kubernetes audit logging. An attacker with direct access to this API may be able to
@@ -80,11 +82,12 @@ The default anonymous access doesn't make this assertion with the control plane.
 ### Mitigations
 
 - Restrict access to sub-resources of the `nodes` API object using mechanisms such as
-   [RBAC](/docs/reference/access-authn-authz/rbac/). Only grant this access when required,
-   such as by monitoring services.
+  [RBAC](/docs/reference/access-authn-authz/rbac/). Only grant this access when required,
+  such as by monitoring services.
 - Restrict access to the kubelet port. Only allow specified and trusted IP address
-   ranges to access the port.
-- [Ensure that kubelet authentication is set to webhook or certificate mode](/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authentication). 
+  ranges to access the port.
+- Ensure that [kubelet authentication](/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authentication). 
+  is set to webhook or certificate mode.
 - Ensure that the unauthenticated "read-only" Kubelet port is not enabled on the cluster.
 
 ## The etcd API

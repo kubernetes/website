@@ -13,8 +13,8 @@ However, a GA'ed or a deprecated feature gate is still recognized by the corresp
 components although they are unable to cause any behavior differences in a cluster.
 
 For feature gates that are still recognized by the Kubernetes components, please refer to
-the [Alpha/Beta feature gate table](/docs/reference/command-line-tools/reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
-or the [Graduated/Deprecated feature gate table](/docs/reference/command-line-tools/reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+the [Alpha/Beta feature gate table](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
+or the [Graduated/Deprecated feature gate table](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
 
 ### Feature gates that are removed
 
