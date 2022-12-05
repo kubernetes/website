@@ -101,7 +101,7 @@ Each HTTP rule contains the following information:
   Service.
 * A backend is a combination of Service and port names as described in the
   [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend](#resource-backend) by way of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}. HTTP (and HTTPS) requests to the
-  Ingress that matches the host and path of the rule are sent to the listed backend.
+  Ingress that match the host and path of the rule are sent to the listed backend.
 
 A `defaultBackend` is often configured in an Ingress controller to service any requests that do not
 match a path in the spec.

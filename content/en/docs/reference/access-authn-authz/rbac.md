@@ -317,6 +317,12 @@ objects with an `aggregationRule` set. The `aggregationRule` defines a label
 uses to match other ClusterRole objects that should be combined into the `rules`
 field of this one.
 
+{{< caution >}}
+The control plane overwrites any values that you manually specify in the `rules` field of an
+aggregate ClusterRole. If you want to change or add rules, do so in the `ClusterRole` objects
+that are selected by the `aggregationRule`.
+{{< /caution >}}
+
 Here is an example aggregated ClusterRole:
 
 ```yaml
