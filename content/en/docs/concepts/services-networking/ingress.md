@@ -170,7 +170,7 @@ supported path types:
 
   {{< note >}} If the last element of the path is a substring of the last
   element in request path, it is not a match (for example: `/foo/bar`
-  matches`/foo/bar/baz`, but does not match `/foo/barbaz`). {{< /note >}}
+  matches `/foo/bar/baz`, but does not match `/foo/barbaz`). {{< /note >}}
 
 ### Examples
 
