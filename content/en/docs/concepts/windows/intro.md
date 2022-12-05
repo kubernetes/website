@@ -382,8 +382,6 @@ troubleshooting ideas prior to creating a ticket.
 
 The kubeadm tool helps you to deploy a Kubernetes cluster, providing the control
 plane to manage the cluster it, and nodes to run your workloads.
-[Adding Windows nodes](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
-explains how to deploy Windows nodes to your cluster using kubeadm.
 
 The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also provides means to automate deployment of Windows nodes.
 
