@@ -170,6 +170,24 @@ address.
 This same basic flow executes when traffic comes in through a node-port or
 through a load-balancer, though in those cases the client IP address does get altered.
 
+#### Performance improvements in the iptables proxy mode
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+In large clusters (with tens of thousands of Pods and Services), the
+iptables mode of kube-proxy may take a long time to update the rules
+in the kernel when Services change.
+
+The latest version of kube-proxy has some performance improvements in
+this code, but they are not enabled by default (and should probably
+not be enabled in production clusters yet). To try them out, enable
+the `MinimizeIPTablesRestore` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) for
+kube-proxy with `--feature-gates=MinimizeIPTablesRestore=true,…`. If
+you were previously overriding the `--iptables-min-sync-period`
+option, you should also try removing that override and letting it use
+the default value ("`1s`").
+
 ### IPVS proxy mode {#proxy-mode-ipvs}
 
 In `ipvs` mode, kube-proxy watches Kubernetes Services and EndpointSlices,
