@@ -2,7 +2,7 @@
 layout: blog
 title: "All Microservices Are Vulnerable"
 date: 2023-01-15
-slug: security-behavior
+slug: security-behavior-analysis
 ---
 
 **Author:**
@@ -16,7 +16,7 @@ Considering the current spread of offensive tools, sophistication of offensive p
 
 In other words, consciously accept that you will lose any battle aimed to create non-vulnerable services. If your opponents find a single weakness as an entry-point, you lose. Admitting that although your best efforts, all your services are most likely vulnerable is an important first step. Next, we need to discuss what can you do about it...
 
-This post discuss the cyber challenges that Kubernetes users face when deploying microservices with Kubernetes and how to overcome them by observing the security-behavior of clients and services. It also points to [Guard](http://knative.dev/security-guard), an open source project offering security-behavior monitoring and control of your microservices deployed on a Kubernetes platform, given that they are presumed vulnerable.
+This post discuss the cyber challenges that Kubernetes users face when deploying microservices with Kubernetes and how to overcome them by performing *"Security-Behavior Analysis"* - that is, by analyzing the behavior of clients and services from a security standpoint. It also points to [Guard](http://knative.dev/security-guard), an open source project offering security-behavior monitoring and control of your microservices deployed on a Kubernetes platform, given that they are presumed vulnerable.
 
 ## Lose the battle - win the war!
 Being vulnerable does not necessarily mean you lost the war. Though your services are vulnerable in some ways unknown to you, offenders still need to identify these vulnerabilities and then exploit them to win the war. If offenders fail to exploit your service vulnerabilities, you win! In other words, having a vulnerability that can’t be exploited, represents a risk that can’t be realized.
@@ -27,7 +27,7 @@ The above diagram shows an example in which the offender does not yet have a foo
 
 More specifically, let’s assume the service is vulnerable to an SQL injection, the developer failed to do proper sanitization of user input, allowing clients to send values that will change the intended behavior. In our example, if a client sends a query string with key “username” and value of _“tom or 1=1”_, the client will receive the data of all users. Exploiting this vulnerability requires the client to send an irregular string as the value. Note that naive users will not be sending a string with spaces or with the equal sign character as a username, instead they will normally send legal usernames which for example may be defined as a short sequence of characters a-z. No legal username may trigger service unplanned behavior.
 
-In this simple example we can already identify several opportunities to detect and block an attempt to exploit the vulnerability (un)intentionally left behind by the developer, making the vulnerability unexploitable. First, the malicious client behavior differs from the behavior of naive clients, as it sends irregular requests. If such change in behavior is detected and blocked, the exploit will never reach the service. Second, the service behavior in response to the exploit, differs from the service behavior in response to a regular request. The service irregular behavior may include making subsequent irregular calls to other services such as a data store, taking irregular time to respond, and/or responding to the malicious client with an irregular response (e.g., containing much more data then normally sent in case of naive clients making regular requests). Service behavioral changes, if detected, will also allow blocking the exploit in different stages of the exploitation attempt.
+In this simple example we can already identify several opportunities to detect and block an attempt to exploit the vulnerability (un)intentionally left behind by the developer, making the vulnerability unexploitable. First, the malicious client behavior differs from the behavior of naive clients, as it sends irregular requests. If such change in behavior is detected and blocked, the exploit will never reach the service. Second, the service behavior in response to the exploit, differs from the service behavior in response to a regular request. The service irregular behavior may include making subsequent irregular calls to other services such as a data store, taking irregular time to respond, and/or responding to the malicious client with an irregular response (for example, containing much more data then normally sent in case of naive clients making regular requests). Service behavioral changes, if detected, will also allow blocking the exploit in different stages of the exploitation attempt.
 
 More generally:
 
