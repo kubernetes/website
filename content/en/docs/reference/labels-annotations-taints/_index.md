@@ -783,7 +783,7 @@ should connect to. This is used mainly for etcd cluster health check purposes.
 
 ### kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint
 
-Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https://172.17.0.18:6443`
 
 Used on: Pod
 
