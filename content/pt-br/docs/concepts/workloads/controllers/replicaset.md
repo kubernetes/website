@@ -55,7 +55,7 @@ Você também pode checar o estado do ReplicaSet:
 kubectl describe rs/frontend
 ```
 
-E você deve ver um saída similar a este:
+E você deve ver uma saída similar a esta:
 
 ```shell
 Name:         frontend
