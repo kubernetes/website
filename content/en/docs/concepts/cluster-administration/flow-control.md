@@ -510,7 +510,7 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_read_vs_write_current_requests` is a
   histogram vector of observations, made at the end of every
-  nanosecond, of the number of requests, broken down by the labels
+  nanosecond, of the number of requests broken down by the labels
   `phase` (which takes on the values `waiting` and `executing`) and
   `request_kind` (which takes on the values `mutating` and
   `readOnly`).  Each observed value is a ratio, between 0 and 1, of a
