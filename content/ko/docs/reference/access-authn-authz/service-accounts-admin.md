@@ -56,15 +56,21 @@ weight: 50
 
 1. 파드에 `ServiceAccount` 가 없다면, `ServiceAccount` 를 `default` 로 설정한다.
 1. 이전 단계는 파드에 참조되는 `ServiceAccount` 가 있도록 하고, 그렇지 않으면 이를 거부한다.
-1. 서비스어카운트 `automountServiceAccountToken` 와 파드의 `automountServiceAccountToken` 중 어느 것도 `false` 로 설정되어 있지 않다면, API 접근을 위한 토큰이 포함된 `volume` 을 파드에 추가한다.
-1. 이전 단계에서 서비스어카운트 토큰을 위한 볼륨이 만들어졌다면, `/var/run/secrets/kubernetes.io/serviceaccount` 에 마운트된 파드의 각 컨테이너에 `volumeSource` 를 추가한다.
-1. 파드에 `imagePullSecrets` 이 없는 경우, `ServiceAccount` 의 `imagePullSecrets` 이 파드에 추가된다.
+1. 서비스어카운트 `automountServiceAccountToken` 와 파드의 `automountServiceAccountToken` 중
+   어느 것도 `false` 로 설정되어 있지 않다면,
+   API 접근을 위한 토큰이 포함된 `volume` 을 파드에 추가한다.
+1. 이전 단계에서 서비스어카운트 토큰을 위한 볼륨이 만들어졌다면,
+   `/var/run/secrets/kubernetes.io/serviceaccount` 에 마운트된 파드의 각 컨테이너에 
+   `volumeSource` 를 추가한다.
+1. 파드에 `imagePullSecrets` 이 없는 경우,
+   `ServiceAccount` 의 `imagePullSecrets` 이 파드에 추가된다.
 
 #### 바인딩된 서비스 어카운트 토큰 볼륨
 
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
-서비스 어카운트 어드미션 컨트롤러는 토큰 컨트롤러에서 생성한 만료되지 않은 서비스 계정 토큰에 시크릿 기반 볼륨 대신 다음과 같은 프로젝티드 볼륨을 추가한다.
+서비스 어카운트 어드미션 컨트롤러는 토큰 컨트롤러에서 생성한 만료되지 않은 서비스 계정 토큰에
+시크릿 기반 볼륨 대신 다음과 같은 프로젝티드 볼륨을 추가한다.
 
 ```yaml
 - name: kube-api-access-<random-suffix>
@@ -89,11 +95,13 @@ weight: 50
 
 프로젝티드 볼륨은 세 가지로 구성된다.
 
-1. kube-apiserver로부터 TokenRequest API를 통해 얻은 서비스어카운트토큰(ServiceAccountToken). 서비스어카운트토큰은 기본적으로 1시간 뒤에, 또는 파드가 삭제될 때 만료된다. 서비스어카운트토큰은 파드에 연결되며 kube-apiserver를 위해 존재한다.
-1. kube-apiserver에 대한 연결을 확인하는 데 사용되는 CA 번들을 포함하는 컨피그맵(ConfigMap). 이 기능은 모든 네임스페이스에 "kube-root-ca.crt" 컨피그맵을 게시하는 기능 게이트인 `RootCAConfigMap`에 의해 동작한다. `RootCAConfigMap` 기능 게이트는 1.21에서 GA로 전환되었으며 기본적으로 활성화되어 있다. (이 플래그는 1.22에서 `--feature-gate` 인자에서 제외될 예정이다.)
-1. 파드의 네임스페이스를 참조하는 DownwardAPI.
+1. `kube-apiserver`로부터 TokenRequest API를 통해 얻은 `서비스어카운트토큰(ServiceAccountToken)`. 
+   서비스어카운트토큰은 기본적으로 1시간 뒤에, 또는 파드가 삭제될 때 만료된다.
+   서비스어카운트토큰은 파드에 연결되며 kube-apiserver를 위해 존재한다.
+1. kube-apiserver에 대한 연결을 확인하는 데 사용되는 CA 번들을 포함하는 `컨피그맵(ConfigMap)`.
+1. 파드의 네임스페이스를 참조하는 `DownwardAPI`.
 
-상세 사항은 [프로젝티드 볼륨](/docs/tasks/configure-pod-container/configure-projected-volume-storage/)을 참고한다.
+상세 사항은 [프로젝티드 볼륨](/ko/docs/tasks/configure-pod-container/configure-projected-volume-storage/)을 참고한다.
 
 ### 토큰 컨트롤러
 
@@ -119,7 +127,8 @@ weight: 50
 
 컨트롤러 루프는 API 토큰이 포함된 시크릿이 각 서비스어카운트에 존재하도록 보장한다.
 서비스어카운트에 대한 추가적인 API 토큰을 생성하기 위해
-서비스어카운트를 참조하는 어노테이션과 함께 `kubernetes.io/service-account-token` 유형의 시크릿을 생성하면
+서비스어카운트를 참조하는 어노테이션과 함께
+`kubernetes.io/service-account-token` 유형의 시크릿을 생성하면
 컨트롤러가 새로 생성된 토큰으로 갱신한다.
 
 다음은 시크릿에 대한 샘플 구성이다.
@@ -149,3 +158,4 @@ kubectl delete secret mysecretname
 
 서비스어카운트 컨트롤러는 네임스페이스에 있는 서비스어카운트를 관리하고
 "default"라는 이름의 서비스어카운트가 모든 활성 네임스페이스에 존재하는지 확인한다.
+

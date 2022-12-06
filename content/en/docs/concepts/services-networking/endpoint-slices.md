@@ -233,11 +233,12 @@ different EndpointSlice objects can arrive at the Kubernetes client watch / cach
 at different times.
 
 {{< note >}}
-Clients of the EndpointSlice API must be able to handle the situation where
-a particular endpoint address appears in more than one slice.
+Clients of the EndpointSlice API must iterate through all the existing EndpointSlices
+associated to a Service and build a complete list of unique network endpoints. It is
+important to mention that endpoints may be duplicated in different EndointSlices.
 
-You can find a reference implementation for how to perform this endpoint deduplication
-as part of the `EndpointSliceCache` code within `kube-proxy`.
+You can find a reference implementation for how to perform this endpoint aggregation
+and deduplication as part of the `EndpointSliceCache` code within `kube-proxy`.
 {{< /note >}}
 
 ## Comparison with Endpoints {#motivation}

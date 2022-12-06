@@ -2,14 +2,16 @@
 title: 容器运行时类（Runtime Class）
 content_type: concept
 weight: 30
+hide_summary: true # 单独在章节索引中列出
 ---
 <!--
 reviewers:
-- tallclair
-- dchen1107
+  - tallclair
+  - dchen1107
 title: Runtime Class
 content_type: concept
 weight: 30
+hide_summary: true # Listed separately in section index
 -->
 
 <!-- overview -->
@@ -74,7 +76,7 @@ The configurations available through RuntimeClass are Container Runtime Interfac
 implementation dependent. See the corresponding documentation ([below](#cri-configuration)) for your
 CRI implementation for how to configure.
 -->
-RuntimeClass 的配置依赖于 运行时接口（CRI）的实现。
+RuntimeClass 的配置依赖于运行时接口（CRI）的实现。
 根据你使用的 CRI 实现，查阅相关的文档（[下方](#cri-configuration)）来了解如何配置。
 
 {{< note >}}
@@ -84,7 +86,7 @@ that all nodes are configured the same way with respect to container runtimes). 
 heterogeneous node configurations, see [Scheduling](#scheduling) below.
 -->
 RuntimeClass 假设集群中的节点配置是同构的（换言之，所有的节点在容器运行时方面的配置是相同的）。
-如果需要支持异构节点，配置方法请参阅下面的 [调度](#scheduling)。
+如果需要支持异构节点，配置方法请参阅下面的[调度](#scheduling)。
 {{< /note >}}
 
 <!--
@@ -169,9 +171,9 @@ RuntimeClass does not exist, or the CRI cannot run the corresponding handler, th
 corresponding [event](/docs/tasks/debug/debug-application/debug-running-pod/) for an
 error message.
 -->
-这一设置会告诉 kubelet 使用所指的 RuntimeClass 来运行该 pod。
+这一设置会告诉 kubelet 使用所指的 RuntimeClass 来运行该 Pod。
 如果所指的 RuntimeClass 不存在或者 CRI 无法运行相应的 handler，
-那么 pod 将会进入 `Failed` 终止[阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
+那么 Pod 将会进入 `Failed` 终止[阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
 你可以查看相应的[事件](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)，
 获取执行过程中的错误信息。
 
@@ -243,7 +245,6 @@ By specifying the `scheduling` field for a RuntimeClass, you can set constraints
 ensure that Pods running with this RuntimeClass are scheduled to nodes that support it.
 If `scheduling` is not set, this RuntimeClass is assumed to be supported by all nodes.
 -->
-
 通过为 RuntimeClass 指定 `scheduling` 字段，
 你可以通过设置约束，确保运行该 RuntimeClass 的 Pod 被调度到支持该 RuntimeClass 的节点上。
 如果未设置 `scheduling`，则假定所有节点均支持此 RuntimeClass。
@@ -257,7 +258,7 @@ rejected.
 -->
 为了确保 pod 会被调度到支持指定运行时的 node 上，每个 node 需要设置一个通用的 label 用于被
 `runtimeclass.scheduling.nodeSelector` 挑选。在 admission 阶段，RuntimeClass 的 nodeSelector 将会与
-pod 的 nodeSelector 合并，取二者的交集。如果有冲突，pod 将会被拒绝。
+Pod 的 nodeSelector 合并，取二者的交集。如果有冲突，Pod 将会被拒绝。
 
 <!--
 If the supported nodes are tainted to prevent other RuntimeClass pods from running on the node, you
@@ -265,8 +266,8 @@ can add `tolerations` to the RuntimeClass. As with the `nodeSelector`, the toler
 with the pod's tolerations in admission, effectively taking the union of the set of nodes tolerated
 by each.
 -->
-如果 node 需要阻止某些需要特定 RuntimeClass 的 pod，可以在 `tolerations` 中指定。
-与 `nodeSelector` 一样，tolerations 也在 admission 阶段与 pod 的 tolerations 合并，取二者的并集。
+如果 node 需要阻止某些需要特定 RuntimeClass 的 Pod，可以在 `tolerations` 中指定。
+与 `nodeSelector` 一样，tolerations 也在 admission 阶段与 Pod 的 tolerations 合并，取二者的并集。
 
 <!--
 To learn more about configuring the node selector and tolerations, see
@@ -286,7 +287,7 @@ To learn more about configuring the node selector and tolerations, see
 You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
 the cluster (including the scheduler) to account for it when making decisions about Pods and resources.
 -->
-你可以指定与运行 Pod 相关的 _开销_ 资源。声明开销即允许集群（包括调度器）在决策 Pod 和资源时将其考虑在内。
+你可以指定与运行 Pod 相关的**开销**资源。声明开销即允许集群（包括调度器）在决策 Pod 和资源时将其考虑在内。
 
 <!--
 Pod overhead is defined in RuntimeClass through the `overhead` field. Through the use of this field,
@@ -306,5 +307,5 @@ Pod 开销通过 RuntimeClass 的 `overhead` 字段定义。
 -->
 - [RuntimeClass 设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass 调度设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
-- 阅读关于 [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/) 的概念
+- 阅读关于 [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)的概念
 - [PodOverhead 特性设计](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

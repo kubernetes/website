@@ -104,7 +104,7 @@ metadata:
   name: test-ebs
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-ebs
@@ -121,14 +121,13 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 
 #### AWS EBS CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 `awsElasticBlockStore` 의 `CSIMigration` 기능이 활성화된 경우, 기존 인-트리 플러그인의
 모든 플러그인 작업을 `ebs.csi.aws.com` 컨테이너 스토리지 인터페이스(CSI)
 드라이버로 리디렉션한다. 이 기능을 사용하려면, 클러스터에 [AWS EBS CSI
 드라이버](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)를
-설치하고 `CSIMigration` 과 `CSIMigrationAWS`
-베타 기능을 활성화해야 한다.
+설치해야 한다.
 
 #### AWS EBS CSI 마이그레이션 완료
 
@@ -152,8 +151,8 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 `azureDisk` 의 `CSIMigration` 기능이 활성화된 경우, 
 기존 인-트리 플러그인의 모든 플러그인 작업을 
 `disk.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI) 드라이버로 리다이렉트한다. 
-이 기능을 사용하려면, 클러스터에 [Azure 디스크 CSI 드라이버](https://github.com/kubernetes-sigs/azuredisk-csi-driver) 를 설치하고 
-`CSIMigration` 기능을 활성화해야 한다.
+이 기능을 사용하려면, 클러스터에 [Azure 디스크 CSI 드라이버](https://github.com/kubernetes-sigs/azuredisk-csi-driver) 를
+설치해야 한다.
 
 #### azureDisk CSI 마이그레이션 완료
 
@@ -179,7 +178,7 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 `file.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI)
 드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [Azure 파일 CSI
 드라이버](https://github.com/kubernetes-sigs/azurefile-csi-driver)
-를 설치하고 `CSIMigration` 과 `CSIMigrationAzureFile`
+를 설치하고 `CSIMigrationAzureFile`
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
 
 Azure File CSI 드라이버는 동일한 볼륨을 다른 fsgroup에서 사용하는 것을 지원하지 않는다. 
@@ -226,7 +225,7 @@ metadata:
   name: test-cinder
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-cinder-container
     volumeMounts:
     - mountPath: /test-cinder
@@ -358,7 +357,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /cache
@@ -381,24 +380,6 @@ targetWWN은 해당 WWN이 다중 경로 연결에서 온 것으로 예상한다
 {{< /note >}}
 
 더 자세한 내용은 [파이버 채널 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)를 참고한다.
-
-### flocker (사용 중단됨(deprecated)){#flocker}
-
-[Flocker](https://github.com/ClusterHQ/flocker)는 오픈소스이고, 클러스터
-컨테이너 데이터 볼륨 매니저이다. Flocker는 다양한
-스토리지 백엔드가 지원하는 데이터 볼륨 관리와 오케스트레이션을 제공한다.
-
-`flocker` 볼륨은 Flocker 데이터셋을 파드에 마운트할 수 있게 한다. 만약
-Flocker내에 데이터셋이 없는 경우, 먼저 Flocker
-CLI 또는 Flocker API를 사용해서 생성해야 한다. 만약 데이터셋이 이미 있다면
-Flocker는 파드가 스케줄 되어 있는 노드에 다시 연결한다. 이는 필요에
-따라 파드 간에 데이터를 공유할 수 있다는 의미이다.
-
-{{< note >}}
-`flocker` 볼륨을 사용하기 위해서는 먼저 Flocker를 설치하고 실행한다.
-{{< /note >}}
-
-더 자세한 내용은 [Flocker 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker)를 참조한다.
 
 ### gcePersistentDisk (사용 중단됨) {#gcepersistentdisk}
 
@@ -446,7 +427,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -507,14 +488,13 @@ spec:
 
 #### GCE CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 GCE PD의 `CSIMigration` 기능이 활성화된 경우 기존 인-트리 플러그인에서
 `pd.csi.storage.gke.io` 컨테이너 스토리지 인터페이스(CSI)
 드라이버로 모든 플러그인 작업을 리디렉션한다. 이 기능을 사용하려면, 클러스터에 [GCE PD CSI
 드라이버](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
-를 설치하고 `CSIMigration` 과 `CSIMigrationGCE`
-베타 기능을 활성화해야 한다.
+를 설치해야 한다.
 
 #### GCE CSI 마이그레이션 완료
 
@@ -554,7 +534,9 @@ spec:
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
 ```
 
-### glusterfs
+### glusterfs (사용 중단됨)
+
+{{< feature-state for_k8s_version="v1.25" state="deprecated" >}}
 
 `glusterfs`  볼륨을 사용하면 [Glusterfs](https://www.gluster.org) (오픈
 소스 네트워크 파일시스템) 볼륨을 파드에 마운트할 수 있다. 파드를
@@ -629,7 +611,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -660,7 +642,7 @@ metadata:
 spec:
   containers:
   - name: test-webserver
-    image: k8s.gcr.io/test-webserver:latest
+    image: registry.k8s.io/test-webserver:latest
     volumeMounts:
     - mountPath: /var/local/aaa
       name: mydir
@@ -796,7 +778,9 @@ iSCSI 볼륨와 같은)를 "클레임" 할 수 있는 방법이다.
 더 자세한 내용은 [퍼시스턴트볼륨 예시](/ko/docs/concepts/storage/persistent-volumes)를
 본다.
 
-### portworxVolume {#portworxvolume}
+### portworxVolume (사용 중단됨) {#portworxvolume}
+
+{{< feature-state for_k8s_version="v1.25" state="deprecated" >}}
 
 `portworxVolume` 은 쿠버네티스와 하이퍼컨버지드(hyperconverged)를 실행하는 탄력적인 블록 스토리지
 계층이다. [Portworx](https://portworx.com/use-case/kubernetes-storage/)는 서버의
@@ -814,7 +798,7 @@ metadata:
   name: test-portworx-volume-pod
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /mnt
@@ -834,24 +818,21 @@ spec:
 
 자세한 내용은 [Portworx 볼륨](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) 예제를 참고한다.
 
+#### Portworx CSI 마이그레이션
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+
+Portworx를 위한 `CSIMigration` 기능이 쿠버네티스 1.23에 추가되었지만 알파 상태이기 때문에 기본적으로는 비활성화되어 있었다.
+v1.25 이후 이 기능은 베타 상태가 되었지만 여전히 기본적으로는 비활성화되어 있다.
+이 기능은 사용 중인 트리 내(in-tree) 플러그인의 모든 동작을
+`pxd.portworx.com` CSI 드라이버로 리다이렉트한다.
+이 기능을 사용하려면, 클러스터에 [Portworx CSI 드라이버](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)가
+설치되어 있어야 한다.
+이 기능을 활성화시키기 위해서는 kube-controller-manager와 kubelet에 `CSIMigrationPortworx=true`를 설정해야 한다.
+
 ### projected
 
 `Projected` 볼륨은 여러 기존 볼륨 소스를 동일한 디렉터리에 매핑한다.
 더 자세한 사항은 [projected volumes](/ko/docs/concepts/storage/projected-volumes/)를 참고한다.
-
-### quobyte (사용 중단됨) {#quobyte}
-
-`quobyte` 볼륨을 사용하면 기존 [Quobyte](https://www.quobyte.com) 볼륨을
-파드에 마운트할 수 있다.
-
-{{< note >}}
-사용하기 위해선 먼저 Quobyte를 설정하고 생성한 볼륨과
-함께 실행해야 한다.
-{{< /note >}}
-
-Quobyte는 {{< glossary_tooltip text="컨테이너 스토리지 인터페이스" term_id="csi" >}}를 지원한다.
-CSI 는 쿠버네티스 내에서 Quobyte 볼륨을 사용하기 위해 권장하는 플러그인이다. Quobyte의
-깃헙 프로젝트에는 예시와 함께 CSI를 사용해서 Quobyte를 배포하기 위한 [사용 설명서](https://github.com/quobyte/quobyte-csi#quobyte-csi)가 있다.
 
 ### rbd
 
@@ -885,8 +866,9 @@ RBD는 읽기-쓰기 모드에서 단일 고객만 마운트할 수 있다.
 드라이버로 리다이렉트한다. 
 이 기능을 사용하려면, 클러스터에 
 [Ceph CSI 드라이버](https://github.com/ceph/ceph-csi)가 설치되어 있고 
-`CSIMigration`, `csiMigrationRBD` 
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
+`csiMigrationRBD` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
+활성화되어 있어야 한다. (v1.24 릴리즈에서 `csiMigrationRBD` 플래그는 삭제되었으며
+`CSIMigrationRBD`로 대체되었음에 주의한다.)
 
 {{< note >}}
 
@@ -926,61 +908,6 @@ tmpfs(RAM 기반 파일시스템)로 지원되기 때문에 비 휘발성 스토
 
 더 자세한 내용은 [시크릿 구성하기](/ko/docs/concepts/configuration/secret/)를 참고한다.
 
-### storageOS (사용 중단됨) {#storageos}
-
-`storageos` 볼륨을 사용하면 기존 [StorageOS](https://www.storageos.com)
-볼륨을 파드에 마운트할 수 있다.
-
-StorageOS 는 쿠버네티스 환경에서 컨테이너로 실행되므로
-쿠버네티스 클러스터의 모든 노드의 로컬 또는 연결된 스토리지에 접근할 수 있다.
-노드 장애로부터 보호하기 위해 데이터를 복제할 수 있다. 씬(Thin) 프로비저닝과
-압축은 활용률을 높이고 비용을 절감할 수 있게 한다.
-
-StorageOS의 핵심은 컨테이너에 파일시스템을 통해 접근할 수 있는 블록 스토리지를 제공하는 것이다.
-
-StorageOS 컨테이너는 64 비트 리눅스가 필요하고 추가적인 종속성이 없다.
-무료 개발자 라이선스를 사용할 수 있다.
-
-{{< caution >}}
-StorageOS 볼륨에 접근하거나 스토리지 용량을
-풀에 제공할 StorageOS 컨테이너를 실행해야 한다.
-설치 설명서는
-[StorageOS 문서](https://docs.storageos.com)를 찾아본다.
-{{< /caution >}}
-
-다음의 예시는 StorageOS를 사용한 파드 구성이다.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    name: redis
-    role: master
-  name: test-storageos-redis
-spec:
-  containers:
-    - name: master
-      image: kubernetes/redis:v1
-      env:
-        - name: MASTER
-          value: "true"
-      ports:
-        - containerPort: 6379
-      volumeMounts:
-        - mountPath: /redis-master-data
-          name: redis-data
-  volumes:
-    - name: redis-data
-      storageos:
-        # `redis-vol01` 볼륨은 StorageOS에 `default` 네임스페이스로 있어야 한다.
-        volumeName: redis-vol01
-        fsType: ext4
-```
-
-StorageOS, 동적 프로비저닝과 퍼시스턴트 볼륨 클래임에 대한 더 자세한 정보는
-[StorageOS 예제](https://github.com/kubernetes/examples/blob/master/volumes/storageos)를 참고한다.
-
 ### vsphereVolume (사용 중단됨) {#vspherevolume}
 
 {{< note >}}
@@ -996,20 +923,22 @@ StorageOS, 동적 프로비저닝과 퍼시스턴트 볼륨 클래임에 대한 
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-`vsphereVolume` 용 `CSIMigration` 기능이 활성화되면, 기존 인-트리 플러그인에서
-`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버로 모든 플러그인 작업을 리디렉션한다. 이 기능을 사용하려면,
+`vsphereVolume` 용 `CSIMigrationvSphere` 기능은 쿠버네티스 v1.25부터 기본적으로 활성화되어 있다.
+인-트리 `vspherevolume`의 모든 플러그인 작업은 `CSIMigrationvSphere` 기능 게이트가 비활성화된 경우를 제외하고 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}}로 리다이렉트된다.
+
+
 [vSphere CSI 드라이버](https://github.com/kubernetes-sigs/vsphere-csi-driver)가
-클러스터에 설치되어야 하며 `CSIMigration` 및 `CSIMigrationvSphere`
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
-마이그레이션에 대한 추가 조언은 VMware의 문서 페이지 
+클러스터에 설치되어 있어야 한다. 인-트리 `vsphereVolume` 마이그레이션에 대한 추가 조언은 VMware의 문서 페이지 
 [인-트리 vSphere 볼륨을 vSphere 컨테이너 스토리지 플러그인으로 마이그레이션하기](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html)를 참고한다.
 
-쿠버네티스 v{{< skew currentVersion >}} 버전에서 외부(out-of-tree) CSI 드라이버로 마이그레이션하려면 
-vSphere 7.0u2 이상을 사용하고 있어야 한다. 
+쿠버네티스 v1.25 현재, 7.0u2 이하의 vSphere는
+(사용 중단된) 인-트리 vSphere 스토리지 드라이버가 지원되지 않는다.
+사용 중단된 드라이버를 계속 사용하거나, 교체된 CSI 드라이버로
+마이그레이션하기 위해서는 vSphere 7.0u2 이상을 사용해야 한다.
+
 v{{< skew currentVersion >}} 외의 쿠버네티스 버전을 사용 중인 경우, 
 해당 쿠버네티스 버전의 문서를 참고한다. 
-쿠버네티스 v{{< skew currentVersion >}} 버전과 vSphere 이전 버전을 사용 중이라면, 
-vSphere 버전을 7.0u2 이상으로 업그레이드하는 것을 추천한다.
+
 
 {{< note >}}
 빌트인 `vsphereVolume` 플러그인의 다음 스토리지클래스 파라미터는 vSphere CSI 드라이버에서 지원되지 않는다.
@@ -1031,16 +960,6 @@ vSphere CSI 드라이버에서 생성된 새 볼륨은 이러한 파라미터를
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 `vsphereVolume` 플러그인이 컨트롤러 관리자와 kubelet에 의해 로드되지 않도록 기능을 비활성화하려면, `InTreePluginvSphereUnregister` 기능 플래그를 `true` 로 설정해야 한다. 이를 위해서는 모든 워커 노드에 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버를 설치해야 한다.
-
-#### Portworx CSI 마이그레이션
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
-
-Portworx를 위한 `CSIMigration` 기능이 쿠버네티스 1.23에 추가되었지만 
-알파 상태이기 때문에 기본적으로는 비활성화되어 있다. 
-이 기능은 사용 중이 트리 내(in-tree) 플러그인의 모든 플러그인 동작을 
-`pxd.portworx.com` CSI 드라이버로 리다이렉트한다. 
-이 기능을 사용하려면, 클러스터에 [Portworx CSI 드라이버](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)가 
-설치되어 있고, kube-controller-manager와 kubelet에 `CSIMigrationPortworx=true`로 설정해야 한다.
 
 ## subPath 사용하기 {#using-subpath}
 
@@ -1179,8 +1098,7 @@ CSI 호환 볼륨 드라이버가 쿠버네티스 클러스터에 배포되면
 
 * [퍼시스턴트볼륨클레임](#persistentvolumeclaim)에 대한 참조를 통해서
 * [일반 임시 볼륨](/ko/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)과 함께
-* 드라이버가 지원하는 경우
-  [CSI 임시 볼륨](/ko/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)과 함께 (베타 기능)
+* 드라이버가 지원하는 경우 [CSI 임시 볼륨](/ko/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)과 함께
 
 스토리지 관리자가 다음 필드를 사용해서 CSI 퍼시스턴트 볼륨을
 구성할 수 있다.
@@ -1218,15 +1136,27 @@ CSI 호환 볼륨 드라이버가 쿠버네티스 클러스터에 배포되면
   민감한 정보가 포함된 시크릿 오브젝트에 대한 참조이다. 이 필드는
   선택 사항이며, 시크릿이 필요하지 않은 경우 비어있을 수 있다. 만약 시크릿에
   둘 이상의 시크릿이 포함된 경우에도 모든 시크릿이 전달된다.
+`nodeExpandSecretRef`: CSI `NodeExpandVolume` 호출을 완료하기 위해
+  CSI 드라이버에 전달하려는 민감한 정보를 포함하고 있는 시크릿에 대한
+  참조이다. 이 필드는 선택 사항이며, 시크릿이 필요하지 않은 경우
+  비어있을 수 있다. 오브젝트에 둘 이상의 시크릿이 포함된 경우에도, 모든
+  시크릿이 전달된다. 노드에 의해 시작된 볼륨 확장을 위한
+  시크릿 정보를 설정하면, kubelet은 `NodeExpandVolume()` 호출을 통해 CSI 드라이버에
+  해당 데이터를 전달한다. `nodeExpandSecretRef` 필드를 사용하기 위해,
+  클러스터는 쿠버네티스 버전 1.25 이상을 실행 중이어야 하며
+  모든 노드의 모든 kube-apiserver와 kubelet을 대상으로 `CSINodeExpandSecret`
+  [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+  활성화해야 한다. 또한 노드에 의해 시작된 스토리지 크기 조정 작업 시 시크릿 정보를 지원하거나 필요로 하는
+  CSI 드라이버를 사용해야 한다.
+* `nodePublishSecretRef`: CSI의 `NodePublishVolume` 호출을 완료하기 위해
+  CSI 드라이버에 전달하려는 민감한 정보가 포함 된 시크릿
+  오브젝트에 대한 참조이다. 이 필드는 선택 사항이며, 시크릿이 필요하지 않은
+  경우 비어있을 수 있다. 만약 시크릿 오브젝트에 둘 이상의 시크릿이 포함된 경우에도
+  모든 시크릿이 전달된다.
 * `nodeStageSecretRef`: CSI의 `NodeStageVolume` 호출을 완료하기위해
   CSI 드라이버에 전달하려는 민감한 정보가 포함 된 시크릿
   오브젝트에 대한 참조이다. 이 필드는 선택 사항이며, 시크릿이 필요하지 않은
   경우 비어있을 수 있다. 만약 시크릿에 둘 이상의 시크릿이 포함된 경우에도
-  모든 시크릿이 전달된다.
-* `nodePublishSecretRef`: CSI의 `NodePublishVolume` 호출을 완료하기위해
-  CSI 드라이버에 전달하려는 민감한 정보가 포함 된 시크릿
-  오브젝트에 대한 참조이다. 이 필드는 선택 사항이며, 시크릿이 필요하지 않은
-  경우 비어있을 수 있다. 만약 시크릿 오브젝트에 둘 이상의 시크릿이 포함된 경우에도
   모든 시크릿이 전달된다.
 
 #### CSI 원시(raw) 블록 볼륨 지원
@@ -1241,7 +1171,7 @@ CSI 설정 변경 없이 평소와 같이
 
 #### CSI 임시(ephemeral) 볼륨
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 파드 명세 내에서 CSI 볼륨을 직접 구성할 수 있다. 
 이 방식으로 지정된 볼륨은 임시 볼륨이며 
@@ -1268,9 +1198,9 @@ CSI 노드 플러그인은 권한 있는 컨테이너로 배포된다. 윈도우
 
 #### 인-트리 플러그인으로부터 CSI 드라이버로 마이그레이션하기
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-`CSIMigration` 기능이 활성화 되면 기존의 인-트리 플러그인에
+`CSIMigration` 기능은 기존의 인-트리 플러그인에
 대한 작업을 해당 CSI 플러그인(설치와 구성이 될 것으로 예상한)으로 유도한다.
 결과적으로, 운영자는 인-트리 플러그인을 대체하는
 CSI 드라이버로 전환할 때 기존 스토리지 클래스, 퍼시스턴트볼륨 또는 퍼시스턴트볼륨클레임(인-트리 플러그인 참조)에
@@ -1290,7 +1220,7 @@ CSI 드라이버로 전환할 때 기존 스토리지 클래스, 퍼시스턴트
 * [`gcePersistentDisk`](#gcepersistentdisk)
 * [`vsphereVolume`](#vspherevolume)
 
-### flexVolume
+### flexVolume (사용 중단됨) {#flexvolume-deprecated}
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 

@@ -6,7 +6,7 @@ weight: 100
 
 <!-- overview -->
 
-Horizontal Pod Autoscalerは、Deployment、ReplicaSetまたはStatefulSetといったレプリケーションコントローラ内のPodの数を、観測されたCPU使用率（もしくはベータサポートの、アプリケーションによって提供されるその他のメトリクス）に基づいて自動的にスケールさせます。
+Horizontal Pod Autoscalerは、Deployment、ReplicaSetまたはStatefulSetといったレプリケーションコントローラー内のPodの数を、観測されたCPU使用率（もしくはベータサポートの、アプリケーションによって提供されるその他のメトリクス）に基づいて自動的にスケールさせます。
 
 このドキュメントはphp-apacheサーバーに対しHorizontal Pod Autoscalerを有効化するという例に沿ってウォークスルーで説明していきます。Horizontal Pod Autoscalerの動作についてのより詳細な情報を知りたい場合は、[Horizontal Pod Autoscalerユーザーガイド](/docs/tasks/run-application/horizontal-pod-autoscale/)をご覧ください。
 
