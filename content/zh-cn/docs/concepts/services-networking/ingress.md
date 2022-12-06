@@ -309,7 +309,7 @@ Ingress 中的每个路径都需要有对应的路径类型（Path Type）。未
 
   If the last element of the path is a substring of the last
   element in request path, it is not a match (for example: `/foo/bar`
-  matches`/foo/bar/baz`, but does not match `/foo/barbaz`).
+  matches `/foo/bar/baz`, but does not match `/foo/barbaz`).
  -->
 * `ImplementationSpecific`：对于这种路径类型，匹配方法取决于 IngressClass。
   具体实现可以将其作为单独的 `pathType` 处理或者与 `Prefix` 或 `Exact` 类型作相同处理。
@@ -767,8 +767,8 @@ Name-based virtual hosts support routing HTTP traffic to multiple host names at 
 The following Ingress tells the backing load balancer to route requests based on
 the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 -->
-以下 Ingress 让后台负载均衡器基于 [host 头部字段](https://tools.ietf.org/html/rfc7230#section-5.4)
-来路由请求。
+以下 Ingress 让后台负载均衡器基于
+[host 头部字段](https://tools.ietf.org/html/rfc7230#section-5.4)来路由请求。
 
 {{< codenew file="service/networking/name-virtual-host-ingress.yaml" >}}
 
