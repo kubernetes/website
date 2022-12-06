@@ -68,7 +68,7 @@ fundamentally different process than with Linux so the configuration and
 capabilities of each differ significantly. Below is a diagram detailing the
 overall architecture of Windows HostProcess containers:
 
-{{< figure src="hpc-architecture.png" alt="HostProcess Architecture" >}}
+{{< figure src="hpc_architecture.svg" alt="HostProcess Architecture" >}}
 
 Two major features were added prior to moving to stable: the ability to run as local user accounts, and
 a simplified method of accessing volume mounts. To learn more, read
