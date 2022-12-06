@@ -62,7 +62,7 @@ closed and the storage will be unmounted.
 
 HostProcess and Linux privileged containers enable similar scenarios but differ
 greatly in their implementation (hence the naming difference). HostProcess containers
-have their own pod security policies. Those used to configure Linux privileged
+have their own pod security context fields. Those used to configure Linux privileged
 containers **do not** apply. Enabling privileged access to a Windows host is a
 fundamentally different process than with Linux so the configuration and
 capabilities of each differ significantly. Below is a diagram detailing the
@@ -103,11 +103,15 @@ FROM mcr.microsoft.com/oss/kubernetes/windows-host-process-containers-base-image
 
 You can run HostProcess containers can be run from within a
 [HostProcess Pod](/docs/concepts/workloads/pods/#privileged-mode-for-containers).
-With the feature enabled on Kubernetes version 1.22, a containerd container runtime of
-1.7 or higher, and the latest version of hcsshim, deploying a pod spec with the
-[correct HostProcess configuration](/docs/tasks/configure-pod-container/create-hostprocess-pod/#before-you-begin)
-will enable you to run HostProcess containers. To get started with running
-Windows containers see the general guidance for [Windows in Kubernetes](/docs/setup/production-environment/windows/)
+To get started with running Windows containers,
+see the general guidance for [deploying Windows nodes](/docs/setup/production-environment/windows/). 
+If you have a compatible node (for example: Windows as the operating system
+containerd 1.7 or later, and hcsshim v0.9.5), you can deploy a Pod with one
+or more HostProcess containers.
+See the [prerequisites](/docs/tasks/configure-pod-container/create-hostprocess-pod/#before-you-begin)
+in [Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod)
+for more information.
+Within a Pod, you can't mix HostProcess containers with normal Windows containers.
 
 ## How can I learn more?
 
