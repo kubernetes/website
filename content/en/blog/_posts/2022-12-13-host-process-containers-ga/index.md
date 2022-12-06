@@ -66,7 +66,7 @@ Two major features were added prior to moving to stable: the ability to run as l
 a simplified method of accessing volume mounts. To learn more, read
 [Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/).
 
-## Use Cases
+## HostProcess containers in action
 
 Kubernetes SIG Windows has been busy putting HostProcess containers to use - even before GA!
 They've been very excited to use HostProcess containers for a number of important activities
