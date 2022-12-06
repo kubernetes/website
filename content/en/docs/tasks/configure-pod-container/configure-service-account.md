@@ -174,7 +174,7 @@ Suppose you have an existing service account named "build-robot" as mentioned ea
 You can get a time-limited API token for that ServiceAccount using `kubectl`:
 
 ```shell
-kubectl create token admin-user
+kubectl create token build-robot
 ```
 
 The output from that command is a token that you can use to authenticate as that
