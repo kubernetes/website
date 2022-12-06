@@ -5,7 +5,7 @@ date: 2022-12-13
 slug: host-process-containers-stable
 ---
 
-**Authors**: Mark Rossetti (Microsoft) and Brandon Smith (Microsoft)
+**Authors**: Brandon Smith (Microsoft) and Mark Rossetti (Microsoft)
 
 The long-awaited day has arrived: HostProcess containers, the Windows equivalent to Linux privileged
 containers, has finally made it to **GA in Kubernetes 1.26**!
@@ -13,20 +13,23 @@ containers, has finally made it to **GA in Kubernetes 1.26**!
 What are HostProcess containers and why are they useful? Cluster operators
 are often faced with the need to configure their nodes upon provisioning. Whether it's
 installing services, certificates, network configs, device plugins, or even monitoring solutions like
-installing Windows services, configuring keys and certificates for TLS, managing network configurations, providing a [device plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/),
-or even deploying monitoring tools such as a Prometheus exporter, HostProcess containers
-enable you to do it all with minimal effort.
+installing Windows services, configuring registry keys and certificates for TLS, managing network configurations,
+providing a [device plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/),
+or even deploying monitoring tools such as a Prometheus's node-exporter.
+Until now, scenarios common to Linux privileged containers (such as running CNI solutions on the node)
+all required alternative solutions on Windows.
 
-You can create your own ultra-thin HostProcess container image to be run directly as
-a process on the host directly after creating up a new windows node. You can now package your powershell scripts
-it into a container, and have Kubernetes
-deploy the workload automatically. It removes the need to exec into the node or configure
+HostProcess containers enable you to do all of this and more with minimal effort.
+With HostProcess containers you can now package any payload (such as powershell scripts)
+into the container image, map volumes into container at runtime, and manage them like any other Kubernetes workload.
+These features combined remove the need to exec into the node or configure
 your cloud provider's virtual machine management tooling to perform these administrative actions.
-You get all the benefits of
-containerized packaging and deployment methods combined with a reduction in both administrative
-and development cost.
+You get all the benefits of containerized packaging and deployment methods combined with a reduction in
+both administrative and development cost.
+Gone are the days where cluster operators would need to manually log onto
+Windows nodes to perform administrative duties.
 
-[HostProcess containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) differ 
+[HostProcess containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) differ
 quite significantly from regular Windows Server containers.
 They are run directly as processes on the host under the access policies of
 a user you specify. HostProcess containers run as either the built-in Windows system accounts or
@@ -34,23 +37,18 @@ ephemeral users within a user group defined by you. HostProcess containers also 
 the host's network namespace and access/configure storage mounts visible to the host.
 On the other hand, Windows Server containers are highly isolated and exist in a separate
 execution namespace. Direct access to the host from a Windows Server container is explicitly disallowed
-by default. 
+by default.
 
 The Kubernetes project strongly recommends against mounting a host volume into a Windows Server
-container in order to minimize potential attack surfaces. HostProcess containers enable you to configure 
+container in order to minimize potential attack surfaces. HostProcess containers enable you to configure
 the host, along with privileged helper Pods, so that communication with your Windows workloads
 in containers happens within the bounds of a secure pipeline.
 
-Until now, scenarios common to Linux privileged containers, such as kube-proxy (via kubeadm),
-storage, and networking, all required alternative solutions to enable functionality on Windows.
-With HostProcess containers, users have direct access to the node without the need for
-any workarounds. Gone are the days where cluster operators would need to manually log onto
-Windows nodes to perform administrative duties.
-
 ## How does it work?
 
-Windows HostProcess containers are implemented with Windows _Job Objects_, a break from the
-previous container model using server silos. Job objects are components of the Windows OS which offer the ability to
+Windows HostProcess containers are implemented with Windows [_Job Objects_](https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects),
+a break from the previous container model using server silos.
+Job objects are components of the Windows OS which offer the ability to
 manage a group of processes as a group (also known as a _job_) and assign resource constraints to the
 group as a whole. Job objects are specific to the Windows OS and are not associated with
 the Kubernetes [Job API](/docs/concepts/workloads/controllers/job/). They have no process
@@ -76,19 +74,19 @@ Two major features were added prior to moving to stable: the ability to run as l
 a simplified method of accessing volume mounts. To learn more, read
 [Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/).
 
-## Use cases
+## Use Cases
 
 Kubernetes SIG Windows has been busy putting HostProcess containers to use - even before GA!
-They've
-been very excited to use HostProcess containers for a number of important activities that were a pain to
-perform in the past. Now using HostProcess containers you can install the windows-exporter on your nodes
-and collect extremely detailed metrics using an OpenMetrics monitoring component, such as Prometheus.
-You can now run csi-proxy, flannel,
-Calico, event loggers, and more as HostProcess pods.
+They've been very excited to use HostProcess containers for a number of important activities
+that were a pain to perform in the past.
 
-To see more examples, look at the
-[HostProcess examples](https://github.com/kubernetes-sigs/sig-windows-tools/tree/f366740c551b4217887a9eb339fd7ec3d6caacce/hostprocess)
-that the Kubernetes project publishes on GitHub.
+Here are just a few of the many use use cases with example deployments:
+
+- [CNI solutions and kube-proxy](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/hostprocess/calico#calico-example)
+- [windows-exporter](https://github.com/prometheus-community/windows_exporter/blob/master/kubernetes/windows-exporter-daemonset.yaml)
+- [csi-proxy](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/hostprocess/csi-proxy)
+- [Windows-debug container](https://github.com/jsturtevant/windows-debug)
+- [ETW event streaming](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/hostprocess/eventflow-logger)
 
 ## How do I use it?
 
@@ -118,6 +116,8 @@ Windows containers see the general guidance for [Windows in Kubernetes](/docs/se
 - Read about Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 
 - Read the enhancement proposal [Windows Privileged Containers and Host Networking Mode](https://github.com/kubernetes/enhancements/tree/master/keps/sig-windows/1981-windows-privileged-container-support) (KEP-1981)
+
+- Watch the [Windows HostProcess for Configuration and Beyond](https://www.youtube.com/watch?v=LcXT9pVkwvo) KubeCon NA 2022 talk
 
 ## How do I get involved?
 
