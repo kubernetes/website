@@ -53,7 +53,7 @@ An example NetworkPolicy might look like this:
 {{< codenew file="service/networking/networkpolicy.yaml" >}}
 
 {{< note >}}
-POSTing this to the API server for your cluster will have no effect unless your chosen networking solution supports network policy.
+Posting this to the API server for your cluster will have no effect unless your chosen networking solution supports network policy.
 {{< /note >}}
 
 __Mandatory Fields__: As with all other Kubernetes config, a NetworkPolicy
