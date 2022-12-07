@@ -954,41 +954,21 @@ poorly-behaved workloads that may be harming system health.
   （该量保存了最后一个窗口中，正在处理的请求数量的高水位线）。
 
 <!--
-* `apiserver_flowcontrol_read_vs_write_request_count_samples` is a
-  histogram vector of observations of the then-current number of
-  requests, broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `request_kind` (which takes on
-  the values `mutating` and `readOnly`).  The observations are made
-  periodically at a high rate.  Each observed value is a ratio,
-  between 0 and 1, of a number of requests divided by the
-  corresponding limit on the number of requests (queue length limit
-  for waiting and concurrency limit for executing).
+* `apiserver_flowcontrol_read_vs_write_current_requests` is a
+  histogram vector of observations, made at the end of every
+  nanosecond, of the number of requests broken down by the labels
+  `phase` (which takes on the values `waiting` and `executing`) and
+  `request_kind` (which takes on the values `mutating` and
+  `readOnly`).  Each observed value is a ratio, between 0 and 1, of a
+  number of requests divided by the corresponding limit on the number
+  of requests (queue volume limit for waiting and concurrency limit
+  for executing).
 -->
-* `apiserver_flowcontrol_read_vs_write_request_count_samples` 是一个直方图向量，
-  记录当前请求数量的观察值，
-  由标签 `phase`（取值为 `waiting` 及 `executing`）和 `request_kind`
-  （取值 `mutating` 及 `readOnly`）区分。定期以高速率观察该值。
+* `apiserver_flowcontrol_read_vs_write_current_requests` 是一个直方图向量，
+  在每个纳秒结束时记录请求数量的观察值，由标签 `phase`（取值为 `waiting` 及 `executing`）
+  和 `request_kind`（取值为 `mutating` 及 `readOnly`）区分。
   每个观察到的值是一个介于 0 和 1 之间的比值，计算方式为请求数除以该请求数的对应限制
   （等待的队列长度限制和执行所用的并发限制）。
-
-<!--
-* `apiserver_flowcontrol_read_vs_write_request_count_watermarks` is a
-  histogram vector of high or low water marks of the number of
-  requests (divided by the corresponding limit to get a ratio in the
-  range 0 to 1) broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `request_kind` (which takes on
-  the values `mutating` and `readOnly`); the label `mark` takes on
-  values `high` and `low`.  The water marks are accumulated over
-  windows bounded by the times when an observation was added to
-  `apiserver_flowcontrol_read_vs_write_request_count_samples`.  These
-  water marks show the range of values that occurred between samples.
--->
-* `apiserver_flowcontrol_read_vs_write_request_count_watermarks`
-  是请求数量的高或低水位线的直方图向量（除以相应的限制，得到介于 0 至 1 的比率），
-  由标签 `phase`（取值为 `waiting` 及 `executing`）和 `request_kind`
-  （取值为 `mutating` 及 `readOnly`）区分；标签 `mark` 取值为 `high` 和 `low`。
-  `apiserver_flowcontrol_read_vs_write_request_count_samples` 向量观察到有值新增，
-  则该向量累积。这些水位线显示了样本值的范围。
 
 <!--
 * `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
@@ -1018,84 +998,41 @@ poorly-behaved workloads that may be harming system health.
   包含占用座位的瞬时数量，由标签 `priority_level` 和 `flow_schema` 进一步区分。
 
 <!--
-* `apiserver_flowcontrol_priority_level_request_count_samples` is a
-  histogram vector of observations of the then-current number of
-  requests broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `priority_level`.  Each
-  histogram gets observations taken periodically, up through the last
-  activity of the relevant sort.  The observations are made at a high
-  rate.  Each observed value is a ratio, between 0 and 1, of a number
-  of requests divided by the corresponding limit on the number of
-  requests (queue length limit for waiting and concurrency limit for
-  executing).
+* `apiserver_flowcontrol_priority_level_request_utilization` is a
+  histogram vector of observations, made at the end of each
+  nanosecond, of the number of requests broken down by the labels
+  `phase` (which takes on the values `waiting` and `executing`) and
+  `priority_level`.  Each observed value is a ratio, between 0 and 1,
+  of a number of requests divided by the corresponding limit on the
+  number of requests (queue volume limit for waiting and concurrency
+  limit for executing).
 -->
-* `apiserver_flowcontrol_priority_level_request_count_samples` 是一个直方图向量，
-  记录当前请求的观测值，由标签 `phase`（取值为`waiting` 及 `executing`）和
-  `priority_level` 进一步区分。
-  每个直方图都会定期进行观察，直到相关类别的最后活动为止。观察频率高。
-  所观察到的值都是请求数除以相应的请求数限制（等待的队列长度限制和执行的并发限制）的比率，
-  介于 0 和 1 之间。
+* `apiserver_flowcontrol_priority_level_request_utilization` 是一个直方图向量，
+  在每个纳秒结束时记录请求数量的观察值，
+  由标签 `phase`（取值为 `waiting` 及 `executing`）和 `priority_level` 区分。
+  每个观察到的值是一个介于 0 和 1 之间的比值，计算方式为请求数除以该请求数的对应限制
+  （等待的队列长度限制和执行所用的并发限制）。
 
 <!--
-* `apiserver_flowcontrol_priority_level_request_count_watermarks` is a
-  histogram vector of high or low water marks of the number of
-  requests (divided by the corresponding limit to get a ratio in the
-  range 0 to 1) broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `priority_level`; the label
-  `mark` takes on values `high` and `low`.  The water marks are
-  accumulated over windows bounded by the times when an observation
-  was added to
-  `apiserver_flowcontrol_priority_level_request_count_samples`.  These
-  water marks show the range of values that occurred between samples.
+* `apiserver_flowcontrol_priority_level_seat_utilization` is a
+  histogram vector of observations, made at the end of each
+  nanosecond, of the utilization of a priority level's concurrency
+  limit, broken down by `priority_level`.  This utilization is the
+  fraction (number of seats occupied) / (concurrency limit).  This
+  metric considers all stages of execution (both normal and the extra
+  delay at the end of a write to cover for the corresponding
+  notification work) of all requests except WATCHes; for those it
+  considers only the initial stage that delivers notifications of
+  pre-existing objects.  Each histogram in the vector is also labeled
+  with `phase: executing` (there is no seat limit for the waiting
+  phase).
 -->
-* `apiserver_flowcontrol_priority_level_request_count_watermarks`
-  是请求数量的高或低水位线的直方图向量（除以相应的限制，得到 0 到 1 的范围内的比率），
-  由标签 `phase`（取值为 `waiting` 及 `executing`）和 `priority_level` 区分；
-  标签 `mark` 取值为 `high` 和 `low`。
-  `apiserver_flowcontrol_priority_level_request_count_samples` 向量观察到有值新增，
-  则该向量累积。这些水位线显示了样本值的范围。
-
-<!--
-* `apiserver_flowcontrol_priority_level_seat_count_samples` is a
-  histogram vector of observations of the utilization of a priority
-  level's concurrency limit, broken down by `priority_level`.  This
-  utilization is the fraction (number of seats occupied) /
-  (concurrency limit).  This metric considers all stages of execution
-  (both normal and the extra delay at the end of a write to cover for
-  the corresponding notification work) of all requests except WATCHes;
-  for those it considers only the initial stage that delivers
-  notifications of pre-existing objects.  Each histogram in the vector
-  is also labeled with `phase: executing` (there is no seat limit for
-  the waiting phase).  Each histogram gets observations taken
-  periodically, up through the last activity of the relevant sort.
-  The observations
-  are made at a high rate.
--->
-* `apiserver_flowcontrol_priority_level_seat_count_samples`
-  是观察某优先级并发限制利用率的直方图向量，由 `priority_level` 区分。
+* `apiserver_flowcontrol_priority_level_seat_utilization` 是一个直方图向量，
+  在每个纳秒结束时记录某个优先级并发度限制利用率的观察值，由标签 `priority_level` 区分。
   此利用率是一个分数：（占用的席位数）/（并发限制）。
   此指标考虑了除 WATCH 之外的所有请求的所有执行阶段（包括写入结束时的正常延迟和额外延迟，
   以覆盖相应的通知操作）；对于 WATCH 请求，只考虑传递预先存在对象通知的初始阶段。
   该向量中的每个直方图也带有 `phase: executing`（等待阶段没有席位限制）的标签。
-  每个直方图都会定期获取观察值，遍历至相关类别的最后一个活动。观测值的生成速率很高。
-
-<!--
-* `apiserver_flowcontrol_priority_level_seat_count_watermarks` is a
-  histogram vector of high or low water marks of the utilization of a
-  priority level's concurrency limit, broken down by `priority_level`
-  and `mark` (which takes on values `high` and `low`).  Each histogram
-  in the vector is also labeled with `phase: executing` (there is no
-  seat limit for the waiting phase).  The water marks are accumulated
-  over windows bounded by the times when an observation was added to
-  `apiserver_flowcontrol_priority_level_seat_count_samples`.  These
-  water marks show the range of values that occurred between samples.
--->
-* `apiserver_flowcontrol_priority_level_seat_count_watermarks`
-  是优先级并发限制利用率的高或低水位线的直方图向量，由 `priority_level` 和 `mark`
-  （取值为 `high` 和 `low`）区分。向量中的每个直方图也带有 `phase: executing`
-  （等待阶段没有席位限制）的标签。当观察值被添加到
-  `apiserver_flowcontrol_priority_level_seat_count_samples` 时，
-  水位线在以时间为界的窗口上累加。这些水位线表明了样本之间出现的值的范围。
 
 <!--
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` is a
