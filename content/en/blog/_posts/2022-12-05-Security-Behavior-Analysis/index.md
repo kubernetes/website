@@ -35,7 +35,7 @@ More generally:
 
 - Monitoring the behavior of services can help detect services as they are being exploited regardless of the attack vector used. Efficient service behavior monitoring limits what an attacker may be able to achieve as the offender need to ensure the service behavior is undetectable from regular service behavior.
 
-Combining both approaches may add a protection layer to the deployed vulnerable services, drastically decreasing the probability for anyone to successfully exploit any of the deployed vulnerable services. Next, lets identify four use cases where you need to use security-behavior monitoring.
+Combining both approaches may add a protection layer to the deployed vulnerable services, drastically decreasing the probability for anyone to successfully exploit any of the deployed vulnerable services. Next, let us identify four use cases where you need to use security-behavior monitoring.
 
 ## Use cases
 One can identify the following four different stages in the life of a any service from a security standpoint. In each stage, security-behavior monitoring is required to meet different challenges:
