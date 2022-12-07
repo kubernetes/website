@@ -265,7 +265,7 @@ message ContainerDevices {
 ```
 {{< note >}}
 cpu_ids in the `ContainerResources` in the `List` endpoint correspond to exclusive CPUs allocated
-to a partilar container. If the goal is to evaluate CPUs that belong to the shared pool, the `List`
+to a particular container. If the goal is to evaluate CPUs that belong to the shared pool, the `List`
 endpoint needs to be used in conjunction with the `GetAllocatableResources` endpoint as explained
 below:
 1. Call `GetAllocatableResources` to get a list of all the allocatable CPUs
