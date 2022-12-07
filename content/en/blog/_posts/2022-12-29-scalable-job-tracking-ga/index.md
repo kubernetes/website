@@ -1,13 +1,13 @@
 ---
 layout: blog
-title: "Scalable Job tracking goes GA to support massively parallel batch workloads"
+title: "Kubernetes 1.26: Job Tracking, to Support Massively Parallel Batch Workloads, Is Generally Available"
 date: 2022-12-29
 slug: "scalable-job-tracking-ga"
 ---
 
 **Authors:** Aldo Culquicondor (Google)
 
-The Kubernetes 1.26 release includes a stable implementation of the Job
+The Kubernetes 1.26 release includes a stable implementation of the [Job](/docs/concepts/workloads/controllers/job/)
 controller that can reliably track a large amount of Jobs with high levels of
 parallelism. [SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps)
 and [WG Batch](https://github.com/kubernetes/community/tree/master/wg-batch)
@@ -25,15 +25,20 @@ which is in beta in the 1.26 release.
 ## How do I use this feature?
 
 To use Job tracking with finalizers, upgrade to Kubernetes 1.25 or newer and
-create new Jobs. You can also use this feature in 1.23 and 1.24, if you have the
+create new Jobs. You can also use this feature in v1.23 and v1.24, if you have the
 ability to enable the `JobTrackingWithFinalizers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)).
+
+If your cluster runs Kubernetes 1.26, Job tracking with finalizers is a stable
+feature. For v1.25, it's behind that feature gate, and your cluster administrators may have
+explicitly disabled it - for example, if you have a policy of not using
+beta features.
 
 Jobs created before the upgrade will still be tracked using the legacy behavior.
 This is to avoid retroactively adding finalizers to running Pods, which might
 introduce race conditions.
 
-For the maximum performance on large Jobs, we recommend using the
-[Indexed completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
+For the maximum performance on large Jobs, the Kubernetes project recommends
+using the [Indexed completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
 In this mode, the control plane is able to track Job progress with less API
 calls.
 
@@ -41,8 +46,8 @@ If you are a developer of operator(s) for batch, [HPC](https://en.wikipedia.org/
 (AI)[https://en.wikipedia.org/wiki/Artificial_intelligence], [ML](https://en.wikipedia.org/wiki/Machine_learning)
 or related workloads, we encourage you to use the Job API to delegate accurate
 progress tracking to Kubernetes. If there is something missing in the Job API
-that forces you to manage plain Pods, we would welcome your feedback and
-contributions in the [Working Group Batch](https://github.com/kubernetes/community/tree/master/wg-batch).
+that forces you to manage plain Pods, the [Working Group Batch](https://github.com/kubernetes/community/tree/master/wg-batch)
+would welcome your feedback and contributions.
 
 ### Deprecation notices
 
