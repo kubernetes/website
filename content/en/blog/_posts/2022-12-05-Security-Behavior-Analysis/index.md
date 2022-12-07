@@ -21,7 +21,7 @@ This post discusses the cyber challenges that Kubernetes users face when deployi
 ## Lose the battle - win the war!
 Being vulnerable does not necessarily mean you lost the war. Though your services are vulnerable in some ways unknown to you, offenders still need to identify these vulnerabilities and then exploit them to win the war. If offenders fail to exploit your service vulnerabilities, you win! In other words, having a vulnerability that can’t be exploited, represents a risk that can’t be realized.
 
-{{< figure src="Example.svg" alt="Image of an example of offender gaining foothold in a service" class="diagram-large" caption="Figure 1. A Offender gaining foothold in a vulnerable service" >}}
+{{< figure src="Example.svg" alt="Image of an example of offender gaining foothold in a service" class="diagram-large" caption="Figure 1. An Offender gaining foothold in a vulnerable service" >}}
 
 The above diagram shows an example in which the offender does not yet have a foothold in the service. I.e., It is assumed that your service does not run code controlled by the offender on day 1. In our example the service has vulnerabilities in the API exposed to clients. To gain an initial foothold the offender uses a malicious client to try and exploit one of the service API vulnerabilities. The malicious client sends an exploit that triggers some unplanned behavior of the service.
 
