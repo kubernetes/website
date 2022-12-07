@@ -351,6 +351,16 @@ kubectl [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;">When set to false, turns off extra HTTP headers detailing invoked kubectl command (Kubernetes version v1.22 or later)</td>
 </tr>
 
+
+
+<tr>
+<td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Toggles whether calls to `kubectl explain` use the new OpenAPIv3 data source available. OpenAPIV3 is enabled by default since Kubernetes 1.24.
+</td>
+</tr>
+
 </tbody>
 </table>
 
