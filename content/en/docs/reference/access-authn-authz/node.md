@@ -20,8 +20,6 @@ The Node authorizer allows a kubelet to perform API operations. This includes:
 
 Read operations:
 
-* services
-* endpoints
 * nodes
 * pods
 * secrets, configmaps, persistent volume claims and persistent volumes related to pods bound to the kubelet's node
