@@ -66,7 +66,7 @@ Kubernetesの主要な要素は、WindowsでもLinuxと同じように機能し�
   * リソース制限
 * [Controllers](/ja/docs/concepts/workloads/controllers/)
 
-    Kubernetesコントローラは、Podの望ましい状態を処理します。次のワークロードコントローラーは、Windowsコンテナでサポートされています。:
+    Kubernetesコントローラーは、Podの望ましい状態を処理します。次のワークロードコントローラーは、Windowsコンテナでサポートされています。:
 
   * ReplicaSet
   * ReplicationController

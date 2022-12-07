@@ -364,7 +364,8 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   - As part of the Pod hostname, following the pattern `$(job-name)-$(index)`.
     When you use an Indexed Job in combination with a
     {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
-    the deterministic hostnames to address each other via DNS.
+    the deterministic hostnames to address each other via DNS. For more information about
+    how to configure this, see [Job with Pod-to-Pod Communication](/docs/tasks/job/job-with-pod-to-pod-communication/).
   - From the containerized task, in the environment variable `JOB_COMPLETION_INDEX`.
 
   The Job is considered complete when there is one successfully completed Pod
@@ -382,6 +383,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   - 作为 Pod 主机名的一部分，遵循模式 `$(job-name)-$(index)`。
     当你同时使用带索引的 Job（Indexed Job）与 {{< glossary_tooltip term_id="Service" >}}，
     Job 中的 Pod 可以通过 DNS 使用确切的主机名互相寻址。
+    有关如何配置的更多信息，请参阅[带 Pod 间通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/)。
   - 对于容器化的任务，在环境变量 `JOB_COMPLETION_INDEX` 中。
 
   当每个索引都对应一个成功完成的 Pod 时，Job 被认为是已完成的。
@@ -719,6 +721,7 @@ The pattern names are also links to examples and more detailed description.
 | [Pod 数量可变的队列](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/) | ✓ | ✓ |  |
 | [静态任务分派的带索引的 Job](/zh-cn/docs/tasks/job/indexed-parallel-processing-static) | ✓ |  | ✓ |
 | [Job 模板扩展](/zh-cn/docs/tasks/job/parallel-processing-expansion/)  |  |  | ✓ |
+| [带 Pod 间通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/)  | ✓ | 有时 | 有时 |
 
 <!--
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
@@ -745,6 +748,7 @@ Here, `W` is the number of work items.
 | [Pod 个数可变的队列](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/) | 1 | 任意值 |
 | [静态任务分派的带索引的 Job](/zh-cn/docs/tasks/job/indexed-parallel-processing-static) | W |  | 任意值 |
 | [Job 模板扩展](/zh-cn/docs/tasks/job/parallel-processing-expansion/) | 1 | 应该为 1 |
+| [带 Pod 间通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/) | W | W |
 
 <!--
 ## Advanced usage
@@ -943,7 +947,7 @@ The [suspend](#suspending-a-job) field is the first step towards achieving those
 custom queue controller to decide when a job should start; However, once a job is unsuspended,
 a custom queue controller has no influence on where the pods of a job will actually land.
 -->
-[suspend](#suspend-a-job) 字段是实现这些语义的第一步。
+[suspend](#suspending-a-job) 字段是实现这些语义的第一步。
 suspend 允许自定义队列控制器，以决定工作何时开始；然而，一旦工作被取消暂停，
 自定义队列控制器对 Job 中 Pod 的实际放置位置没有影响。
 
@@ -1099,7 +1103,7 @@ Pod disruption conditions in the Pod failure policy (see also:
 available in Kubernetes v1.25. 
 -->
 只有你在集群中启用了
-`JobPodFailurePolicy` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+`JobPodFailurePolicy` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 你才能为某个 Job 配置 Pod 失效策略。
 此外，建议启用 `PodDisruptionConditions` 特性门控以便在 Pod 失效策略中检测和处理 Pod 干扰状况
 （参考：[Pod 干扰状况](/zh-cn/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)）。
@@ -1193,6 +1197,7 @@ being counted towards the `.spec.backoffLimit` limit of retries.
 Pod 失效策略的第二条规则，
 指定对于状况为 `DisruptionTarget` 的失效 Pod 采取 `Ignore` 操作，
 统计 `.spec.backoffLimit` 重试次数限制时不考虑 Pod 因干扰而发生的异常。
+
 {{< note >}}
 <!-- 
 If the Job failed, either by the Pod failure policy or Pod backoff
@@ -1256,10 +1261,10 @@ and the [controller manager](/docs/reference/command-line-tools-reference/kube-c
 It is enabled by default.
 -->
 要使用该行为，你必须为 [API 服务器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
-和[控制器管理器](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
-启用 `JobTrackingWithFinalizers`
+和[控制器管理器](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)启用
+`JobTrackingWithFinalizers`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-默认是启用的。
+该特性默认是启用的。
 
 <!--
 When enabled, the control plane tracks new Jobs using the behavior described
@@ -1410,5 +1415,6 @@ object, but maintains complete control over what Pods are created and how work i
   * 基于一个模板运行多个 Job：[使用展开的方式进行并行处理](/zh-cn/docs/tasks/job/parallel-processing-expansion/)
 * 跟随[自动清理完成的 Job](#clean-up-finished-jobs-automatically) 文中的链接，了解你的集群如何清理完成和失败的任务。
 * `Job` 是 Kubernetes REST API 的一部分。阅读 {{< api-reference page="workload-resources/job-v1" >}}
-   对象定义理解关于该资源的 API。
-* 阅读 [`CronJob`](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)，它允许你定义一系列定期运行的 Job，类似于 UNIX 工具 `cron`。
+  对象定义理解关于该资源的 API。
+* 阅读 [`CronJob`](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)，
+  它允许你定义一系列定期运行的 Job，类似于 UNIX 工具 `cron`。

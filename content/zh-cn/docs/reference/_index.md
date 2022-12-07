@@ -104,7 +104,7 @@ client libraries:
   
   * [Scheduler Policies](/docs/reference/scheduling/policies)
   * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
-  * List of [ports and protocols](/docs/reference/ports-and-protocols/) that
+  * List of [ports and protocols](/docs/reference/networking/ports-and-protocols/) that
     should be open on control plane and worker nodes
 -->
 ## 组件  {#components}
@@ -122,7 +122,7 @@ client libraries:
   
   * [调度策略](/zh-cn/docs/reference/scheduling/policies)
   * [调度配置](/zh-cn/docs/reference/scheduling/config#profiles)
-  * 应该在控制平面和工作节点上打开的[端口和协议](/zh-cn/docs/reference/ports-and-protocols/)列表
+  * 应该在控制平面和工作节点上打开的[端口和协议](/zh-cn/docs/reference/networking/ports-and-protocols/)列表
 
 <!--
 ## Config APIs
