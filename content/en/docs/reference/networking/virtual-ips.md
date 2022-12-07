@@ -70,7 +70,7 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 
 This (legacy) mode uses iptables to install interception rules, and then performs
 traffic forwarding with the assistance of the kube-proxy tool.
-The kube-procy watches the Kubernetes control plane for the addition, modification
+The kube-proxy watches the Kubernetes control plane for the addition, modification
 and removal of Service and EndpointSlice objects. For each Service, the kube-proxy
 opens a port (randomly chosen) on the local node. Any connections to this _proxy port_
 are proxied to one of the Service's backend Pods (as reported via
