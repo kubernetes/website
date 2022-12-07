@@ -230,7 +230,7 @@ If you want to allow users to create a `PersistentVolumeClaim` from an existing
 `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`needs to be added to
 the `VolumeSnapshotContent` that corresponds to the `VolumeSnapshot`.
 
-For pre-provisioned snapshots, `Spec.SourceVolumeMode` needs to be populated
+For pre-provisioned snapshots, `spec.sourceVolumeMode` needs to be populated
 by the cluster administrator.
 
 An example `VolumeSnapshotContent` resource with this feature enabled would look like:
