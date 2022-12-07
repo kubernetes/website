@@ -97,22 +97,7 @@ Other than the standard syntax, some macros like `@monthly` can also be used:
 | @hourly 									| Run once an hour at the beginning of the hour								| 0 * * * * 		|
 
 {{< caution >}}
-All **CronJob** `schedule:` times are based on the timezone of the
-{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
-
-If your control plane runs the kube-controller-manager in Pods or bare
-containers, the timezone set for the kube-controller-manager container determines the timezone
-that the CronJob controller uses.
-{{< /caution >}}
-
-{{< caution >}}
-The [v1 CronJob API](/docs/reference/kubernetes-api/workload-resources/cron-job-v1/)
-does not officially support setting timezone as explained above.
-
-Setting variables such as `CRON_TZ` or `TZ` is not officially supported by the Kubernetes project.
-`CRON_TZ` or `TZ` is an implementation detail of the internal library being used
-for parsing and calculating the next Job creation time. Any usage of it is not
-recommended in a production cluster.
+Historically you may find the `.spec.schedule` field can be set with a timezone like `CRON_TZ=UTC * * * * *`. This way is not recommended any more and you should consider use the `.spec.timeZone` field as described below.
 {{< /caution >}}
 
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
