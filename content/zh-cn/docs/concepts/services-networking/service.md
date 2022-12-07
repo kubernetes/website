@@ -165,7 +165,7 @@ targets TCP port 9376 on any Pod with the `app.kubernetes.io/name=MyApp` label.
 
 Kubernetes assigns this Service an IP address (sometimes called the "cluster IP"),
 which is used by the Service proxies
-(see [Virtual IPs and service proxies](#virtual-ips-and-service-proxies) below).
+(see [Virtual IP addressing mechanism](#virtual-ip-addressing-mechanism) below).
 
 The controller for the Service selector continuously scans for Pods that
 match its selector, and then POSTs any updates to an Endpoint object
@@ -175,7 +175,7 @@ also named "my-service".
 TCP 端口 9376，并且具有标签 `app.kubernetes.io/name=MyApp` 的 Pod 上。
 
 Kubernetes 为该服务分配一个 IP 地址（有时称为 “集群 IP”），该 IP 地址由服务代理使用。
-(请参见下面的 [VIP 和 Service 代理](#virtual-ips-and-service-proxies)).
+(请参见下面的[虚拟 IP 寻址机制](#virtual-ip-addressing-mechanism)).
 
 服务选择算符的控制器不断扫描与其选择算符匹配的 Pod，然后将所有更新发布到也称为
 “my-service” 的 Endpoint 对象。
