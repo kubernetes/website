@@ -14,9 +14,9 @@ weight: 80
 
 A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repeating schedule.
 
-One CronJob object is like one line of a _crontab_ (cron table) file on a Unix system. It runs a job periodically on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
+CronJob is meant for performing regular scheduled actions such as backups, report generation, and so on. One CronJob object is like one line of a _crontab_ (cron table) file on a Unix system. It runs a job periodically on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
-Cron jobs have limitations and idiosyncrasies.
+CronJobs have limitations and idiosyncrasies.
 For example, in certain circumstances, a single cron job can create multiple jobs. See the [limitations](#cron-job-limitations) below.
 
 When the control plane creates new Jobs and (indirectly) Pods for a CronJob, the `.metadata.name`
@@ -31,21 +31,7 @@ characters.  This is because the CronJob controller will automatically append
 length of a Job name is no more than 63 characters.
 
 <!-- body -->
-
-## CronJob
-
-CronJobs are meant for performing regular scheduled actions such as backups,
-report generation, and so on. Each of those tasks should be configured to recur
-indefinitely (for example: once a day / week / month); you can define the point
-in time within that interval when the job should start.
-
-{{< note >}}
-If you modify a CronJob, the changes you make will apply to new jobs that start to run after your modification
-is complete. Jobs (and their Pods) that have already started continue to run without changes.
-That is, the CronJob does _not_ update existing jobs, even if those remain running.
-{{< /note >}}
-
-### Example
+## Example
 
 This example CronJob manifest prints the current time and a hello message every minute:
 
@@ -54,6 +40,7 @@ This example CronJob manifest prints the current time and a hello message every 
 ([Running Automated Tasks with a CronJob](/docs/tasks/job/automated-tasks-with-cron-jobs/)
 takes you through this example in more detail).
 
+## Writing a CronJob spec
 ### Schedule
 The `.spec.schedule` is a required field and follows the [Cron](https://en.wikipedia.org/wiki/Cron) syntax below:
 
@@ -95,10 +82,6 @@ Other than the standard syntax, some macros like `@monthly` can also be used:
 | @weekly 									| Run once a week at midnight on Sunday morning								| 0 0 * * 0 		|
 | @daily (or @midnight)			| Run once a day at midnight																	| 0 0 * * * 		|
 | @hourly 									| Run once an hour at the beginning of the hour								| 0 * * * * 		|
-
-{{< caution >}}
-Historically you may find the `.spec.schedule` field can be set with a timezone like `CRON_TZ=UTC * * * * *`. This way is not recommended any more and you should consider use the `.spec.timeZone` field as described below.
-{{< /caution >}}
 
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 
@@ -161,7 +144,7 @@ none of the corresponding kind of jobs after they finish.
 
 For another way to clean up jobs automatically, see [Clean up finished jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
 
-## Time zones
+### Time zones
 
 For CronJobs with no time zone specified, the kube-controller-manager interprets schedules relative to its local time zone.
 
@@ -175,9 +158,23 @@ timezone).
 When you have the feature enabled, you can set `.spec.timeZone` to the name of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For example, setting
 `.spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
 
+{{< caution >}}
+Historically you may find the `.spec.schedule` field can be set with a timezone like `CRON_TZ=UTC * * * * *` or `TZ=UTC * * * * *`. This way is not recommended any more and you should consider use the `.spec.timeZone` field as described above.
+{{< /caution >}}
+
 A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
 
 ## CronJob limitations {#cron-job-limitations}
+
+### Name limitations
+When creating the manifest for a CronJob resource, make sure the name you provide is a valid DNS subdomain name. The name must be no longer than 52 characters. This is because the CronJob controller will automatically append 11 characters to the job name provided and there is a constraint that the maximum length of a Job name is no more than 63 characters.
+
+### Modifying a CronJob
+If you modify a CronJob, the changes you make will apply to new jobs that start to run after your modification
+is complete. Jobs (and their Pods) that have already started continue to run without changes.
+That is, the CronJob does _not_ update existing jobs, even if those remain running.
+
+### How a CronJob schedules
 
 A CronJob creates a job object _about_ once per execution time of its schedule. We say "about" because there
 are certain circumstances where two jobs might be created, or no job might be created. We attempt to make these rare,
