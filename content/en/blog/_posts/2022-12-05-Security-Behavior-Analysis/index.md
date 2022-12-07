@@ -66,7 +66,7 @@ See:
 - The Knative automation suite - Read about Knative, as an [Opinionated Kubernetes](https://davidhadas.wordpress.com/2022/08/29/knative-an-opinionated-kubernetes) implementation that simplifies and unifies the way web services are deployed on Kubernetes.
 - You can also find more information on how to [secure microservices by monitoring behavior](https://developer.ibm.com/articles/secure-microservices-by-monitoring-behavior/)
 
-The goal of this post is to recruit the Kubernetes community to action and introduce Security-Behavior monitoring and control to help secure Kubernetes based deployments. Hopefully, the community as a follow up will:
+The goal of this post is to invite the Kubernetes community to action and introduce Security-Behavior monitoring and control to help secure Kubernetes based deployments. Hopefully, the community as a follow up will:
 
 1. Analyze the cyber challenges presented for different Kubernetes use cases
 1. Add appropriate security documentation for users on how to introduce Security-Behavior monitoring and control.
