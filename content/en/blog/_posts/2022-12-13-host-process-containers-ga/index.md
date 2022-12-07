@@ -20,7 +20,7 @@ over SSH or WinRM sessions and/or working with your cloud provider's virtual mac
 HostProcess containers now enable you to do all of this and more with minimal effort.
 
 With HostProcess containers you can now package any payload
-into the container image, map volumes into container at runtime, and manage them like any other Kubernetes workload.
+into the container image, map volumes into containers at runtime, and manage them like any other Kubernetes workload.
 You get all the benefits of containerized packaging and deployment methods combined with a reduction in
 both administrative and development cost.
 Gone are the days where cluster operators would need to manually log onto
@@ -110,7 +110,7 @@ Please note that within a Pod, you can't mix HostProcess containers with normal 
 
 - Work through [Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/)
 
-- Read about Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+- Read about Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-standards/) and [Pod Security Admission](docs/concepts/security/pod-security-admission/)
 
 - Read the enhancement proposal [Windows Privileged Containers and Host Networking Mode](https://github.com/kubernetes/enhancements/tree/master/keps/sig-windows/1981-windows-privileged-container-support) (KEP-1981)
 
