@@ -8,7 +8,7 @@ slug: security-behavior-analysis
 **Author:**
 David Hadas (IBM Research Labs)
 
-## Avoid a False Sense of Security
+## Avoiding a False Sense of Security
 
 _This post warns Devops from a false sense of security. Following security best practices when developing and configuring microservices do not result in non-vulnerable microservices. The post shows that although all deployed microservices are vulnerable, there is much to be done to ensure microservics are not exploited. It explains how analyzing the behavior of clients and services from a security standpoint, named here **"Security-Behavior Analysis"**, can protect the deployed vulnerable microservices. It points to [Guard](http://knative.dev/security-guard), an open source project offering security-behavior monitoring and control of Kubernetes microservices presumed vulnerable._
 
