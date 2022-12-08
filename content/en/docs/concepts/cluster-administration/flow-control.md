@@ -2,6 +2,7 @@
 title: API Priority and Fairness
 content_type: concept
 min-kubernetes-server-version: v1.18
+weight: 110
 ---
 
 <!-- overview -->
@@ -51,20 +52,20 @@ for a general explanation of feature gates and how to enable and
 disable them.  The name of the feature gate for APF is
 "APIPriorityAndFairness".  This feature also involves an {{<
 glossary_tooltip term_id="api-group" text="API Group" >}} with: (a) a
-`v1alpha1` version, disabled by default, and (b) `v1beta1` and
-`v1beta2` versions, enabled by default.  You can disable the feature
-gate and API group beta versions by adding the following
-command-line flags to your `kube-apiserver` invocation:
+`v1alpha1` version and a `v1beta1` version, disabled by default, and
+(b) `v1beta2` and `v1beta3` versions, enabled by default.  You can
+disable the feature gate and API group beta versions by adding the
+following command-line flags to your `kube-apiserver` invocation:
 
 ```shell
 kube-apiserver \
 --feature-gates=APIPriorityAndFairness=false \
---runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=false,flowcontrol.apiserver.k8s.io/v1beta2=false \
+--runtime-config=flowcontrol.apiserver.k8s.io/v1beta2=false,flowcontrol.apiserver.k8s.io/v1beta3=false \
  # …and other flags as usual
 ```
 
-Alternatively, you can enable the v1alpha1 version of the API group
-with `--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true`.
+Alternatively, you can enable the v1alpha1 and v1beta1 versions of the API group
+with `--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true,flowcontrol.apiserver.k8s.io/v1beta1=true`.
 
 The command-line flag `--enable-priority-and-fairness=false` will disable the
 API Priority and Fairness feature, even if other flags have enabled it.
@@ -88,13 +89,20 @@ Without APF enabled, overall concurrency in the API server is limited by the
 defined by these flags are summed and then the sum is divided up among a
 configurable set of _priority levels_. Each incoming request is assigned to a
 single priority level, and each priority level will only dispatch as many
-concurrent requests as its configuration allows.
+concurrent requests as its particular limit allows.
 
 The default configuration, for example, includes separate priority levels for
 leader-election requests, requests from built-in controllers, and requests from
 Pods. This means that an ill-behaved Pod that floods the API server with
 requests cannot prevent leader election or actions by the built-in controllers
 from succeeding.
+
+The concurrency limits of the priority levels are periodically
+adjusted, allowing under-utilized priority levels to temporarily lend
+concurrency to heavily-utilized levels.  These limits are based on
+nominal limits and bounds on how much concurrency a priority level may
+lend and how much it may borrow, all derived from the configuration
+objects mentioned below.
 
 ### Seats Occupied by a Request
 
@@ -186,15 +194,38 @@ A PriorityLevelConfiguration represents a single priority level. Each
 PriorityLevelConfiguration has an independent limit on the number of outstanding
 requests, and limitations on the number of queued requests.
 
-Concurrency limits for PriorityLevelConfigurations are not specified in absolute
-number of requests, but rather in "concurrency shares." The total concurrency
-limit for the API Server is distributed among the existing
-PriorityLevelConfigurations in proportion with these shares. This allows a
-cluster administrator to scale up or down the total amount of traffic to a
-server by restarting `kube-apiserver` with a different value for
-`--max-requests-inflight` (or `--max-mutating-requests-inflight`), and all
-PriorityLevelConfigurations will see their maximum allowed concurrency go up (or
-down) by the same fraction.
+The nominal oncurrency limit for a PriorityLevelConfiguration is not
+specified in an absolute number of seats, but rather in "nominal
+concurrency shares." The total concurrency limit for the API Server is
+distributed among the existing PriorityLevelConfigurations in
+proportion to these shares, to give each level its nominal limit in
+terms of seats. This allows a cluster administrator to scale up or
+down the total amount of traffic to a server by restarting
+`kube-apiserver` with a different value for `--max-requests-inflight`
+(or `--max-mutating-requests-inflight`), and all
+PriorityLevelConfigurations will see their maximum allowed concurrency
+go up (or down) by the same fraction.
+
+{{< caution >}}
+In the versions before `v1beta3` the relevant
+PriorityLevelConfiguration field is named "assured concurrency shares"
+rather than "nominal concurrency shares".  Also, in Kubernetes release
+1.25 and earlier there were no periodic adjustments: the
+nominal/assured limits were always applied without adjustment.
+{{< /caution >}}
+
+The bounds on how much concurrency a priority level may lend and how
+much it may borrow are expressed in the PriorityLevelConfiguration as
+percentages of the level's nominal limit.  These are resolved to
+absolute numbers of seats by multiplying with the nominal limit /
+100.0 and rounding.  The dynamically adjusted concurrency limit of a
+priority level is constrained to lie between (a) a lower bound of its
+nominal limit minus its lendable seats and (b) an upper bound of its
+nominal limit plus the seats it may borrow.  At each adjustment the
+dynamic limits are derived by each priority level reclaiming any lent
+seats for which demand recently appeared and then jointly fairly
+responding to the recent seat demand on the priority levels, within
+the bounds just described.
 
 {{< caution >}}
 With the Priority and Fairness feature enabled, the total concurrency limit for
@@ -507,26 +538,15 @@ poorly-behaved workloads that may be harming system health.
   last window's high water mark of number of requests actively being
   served.
 
-* `apiserver_flowcontrol_read_vs_write_request_count_samples` is a
-  histogram vector of observations of the then-current number of
-  requests, broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `request_kind` (which takes on
-  the values `mutating` and `readOnly`).  The observations are made
-  periodically at a high rate.  Each observed value is a ratio,
-  between 0 and 1, of a number of requests divided by the
-  corresponding limit on the number of requests (queue length limit
-  for waiting and concurrency limit for executing).
-
-* `apiserver_flowcontrol_read_vs_write_request_count_watermarks` is a
-  histogram vector of high or low water marks of the number of
-  requests (divided by the corresponding limit to get a ratio in the
-  range 0 to 1) broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `request_kind` (which takes on
-  the values `mutating` and `readOnly`); the label `mark` takes on
-  values `high` and `low`.  The water marks are accumulated over
-  windows bounded by the times when an observation was added to
-  `apiserver_flowcontrol_read_vs_write_request_count_samples`.  These
-  water marks show the range of values that occurred between samples.
+* `apiserver_flowcontrol_read_vs_write_current_requests` is a
+  histogram vector of observations, made at the end of every
+  nanosecond, of the number of requests broken down by the labels
+  `phase` (which takes on the values `waiting` and `executing`) and
+  `request_kind` (which takes on the values `mutating` and
+  `readOnly`).  Each observed value is a ratio, between 0 and 1, of a
+  number of requests divided by the corresponding limit on the number
+  of requests (queue volume limit for waiting and concurrency limit
+  for executing).
 
 * `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
   holding the instantaneous number of queued (not executing) requests,
@@ -541,52 +561,27 @@ poorly-behaved workloads that may be harming system health.
   holding the instantaneous number of occupied seats, broken down by
   the labels `priority_level` and `flow_schema`.
 
-* `apiserver_flowcontrol_priority_level_request_count_samples` is a
-  histogram vector of observations of the then-current number of
-  requests broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `priority_level`.  Each
-  histogram gets observations taken periodically, up through the last
-  activity of the relevant sort.  The observations are made at a high
-  rate.  Each observed value is a ratio, between 0 and 1, of a number
-  of requests divided by the corresponding limit on the number of
-  requests (queue length limit for waiting and concurrency limit for
-  executing).
+* `apiserver_flowcontrol_priority_level_request_utilization` is a
+  histogram vector of observations, made at the end of each
+  nanosecond, of the number of requests broken down by the labels
+  `phase` (which takes on the values `waiting` and `executing`) and
+  `priority_level`.  Each observed value is a ratio, between 0 and 1,
+  of a number of requests divided by the corresponding limit on the
+  number of requests (queue volume limit for waiting and concurrency
+  limit for executing).
 
-* `apiserver_flowcontrol_priority_level_request_count_watermarks` is a
-  histogram vector of high or low water marks of the number of
-  requests (divided by the corresponding limit to get a ratio in the
-  range 0 to 1) broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `priority_level`; the label
-  `mark` takes on values `high` and `low`.  The water marks are
-  accumulated over windows bounded by the times when an observation
-  was added to
-  `apiserver_flowcontrol_priority_level_request_count_samples`.  These
-  water marks show the range of values that occurred between samples.
-
-* `apiserver_flowcontrol_priority_level_seat_count_samples` is a
-  histogram vector of observations of the utilization of a priority
-  level's concurrency limit, broken down by `priority_level`.  This
-  utilization is the fraction (number of seats occupied) /
-  (concurrency limit).  This metric considers all stages of execution
-  (both normal and the extra delay at the end of a write to cover for
-  the corresponding notification work) of all requests except WATCHes;
-  for those it considers only the initial stage that delivers
-  notifications of pre-existing objects.  Each histogram in the vector
-  is also labeled with `phase: executing` (there is no seat limit for
-  the waiting phase).  Each histogram gets observations taken
-  periodically, up through the last activity of the relevant sort.
-  The observations
-  are made at a high rate.  
-
-* `apiserver_flowcontrol_priority_level_seat_count_watermarks` is a
-  histogram vector of high or low water marks of the utilization of a
-  priority level's concurrency limit, broken down by `priority_level`
-  and `mark` (which takes on values `high` and `low`).  Each histogram
-  in the vector is also labeled with `phase: executing` (there is no
-  seat limit for the waiting phase).  The water marks are accumulated
-  over windows bounded by the times when an observation was added to
-  `apiserver_flowcontrol_priority_level_seat_count_samples`.  These
-  water marks show the range of values that occurred between samples.
+* `apiserver_flowcontrol_priority_level_seat_utilization` is a
+  histogram vector of observations, made at the end of each
+  nanosecond, of the utilization of a priority level's concurrency
+  limit, broken down by `priority_level`.  This utilization is the
+  fraction (number of seats occupied) / (concurrency limit).  This
+  metric considers all stages of execution (both normal and the extra
+  delay at the end of a write to cover for the corresponding
+  notification work) of all requests except WATCHes; for those it
+  considers only the initial stage that delivers notifications of
+  pre-existing objects.  Each histogram in the vector is also labeled
+  with `phase: executing` (there is no seat limit for the waiting
+  phase).
 
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` is a
   histogram vector of queue lengths for the queues, broken down by
@@ -605,10 +600,55 @@ poorly-behaved workloads that may be harming system health.
   to increase that PriorityLevelConfiguration's concurrency shares.
   {{< /note >}}
 
-* `apiserver_flowcontrol_request_concurrency_limit` is a gauge vector
-  holding the computed concurrency limit (based on the API server's
-  total concurrency limit and PriorityLevelConfigurations' concurrency
-  shares), broken down by the label `priority_level`.
+* `apiserver_flowcontrol_request_concurrency_limit` is the same as
+  `apiserver_flowcontrol_nominal_limit_seats`.  Before the
+  introduction of concurrency borrowing between priority levels, this
+  was always equal to `apiserver_flowcontrol_current_limit_seats`
+  (which did not exist as a distinct metric).
+
+* `apiserver_flowcontrol_nominal_limit_seats` is a gauge vector
+  holding each priority level's nominal concurrency limit, computed
+  from the API server's total concurrency limit and the priority
+  level's configured nominal concurrency shares.
+
+* `apiserver_flowcontrol_lower_limit_seats` is a gauge vector holding
+  the lower bound on each priority level's dynamic concurrency limit.
+
+* `apiserver_flowcontrol_upper_limit_seats` is a gauge vector holding
+  the upper bound on each priority level's dynamic concurrency limit.
+
+* `apiserver_flowcontrol_demand_seats` is a histogram vector counting
+  observations, at the end of every nanosecond, of each priority
+  level's ratio of (seat demand) / (nominal concurrency limit).  A
+  priority level's seat demand is the sum, over both queued requests
+  and those in the initial phase of execution, of the maximum of the
+  number of seats occupied in the request's initial and final
+  execution phases.
+
+* `apiserver_flowcontrol_demand_seats_high_watermark` is a gauge vector
+  holding, for each priority level, the maximum seat demand seen
+  during the last concurrency borrowing adjustment period.
+
+* `apiserver_flowcontrol_demand_seats_average` is a gauge vector
+  holding, for each priority level, the time-weighted average seat
+  demand seen during the last concurrency borrowing adjustment period.
+
+* `apiserver_flowcontrol_demand_seats_stdev` is a gauge vector
+  holding, for each priority level, the time-weighted population
+  standard deviation of seat demand seen during the last concurrency
+  borrowing adjustment period.
+
+* `apiserver_flowcontrol_target_seats` is a gauge vector holding, for
+  each priority level, the concurrency target going into the borrowing
+  allocation problem.
+
+* `apiserver_flowcontrol_seat_fair_frac` is a gauge holding the fair
+  allocation fraction determined in the last borrowing adjustment.
+
+* `apiserver_flowcontrol_current_limit_seats` is a gauge vector
+  holding, for each priority level, the dynamic concurrency limit
+  derived in the last adjustment.
+
 
 * `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
   vector of how long requests spent queued, broken down by the labels

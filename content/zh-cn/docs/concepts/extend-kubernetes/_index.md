@@ -107,13 +107,13 @@ When you use a policy APIs that is [stable](/docs/reference/using-api/#api-versi
 [defined support policy](/docs/reference/using-api/deprecation-policy/) like other Kubernetes APIs.
 For these reasons, policy APIs are recommended over *configuration files* and *command arguments* where suitable.
 -->
-**内置的策略 API**，例如 [ResourceQuota](/zh-cn/docs/concepts/policy/resource-quotas/)、
+诸如 [ResourceQuota](/zh-cn/docs/concepts/policy/resource-quotas/)、
 [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/)
 和基于角色的访问控制（[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)）
-等等都是以声明方式配置策略选项的内置 Kubernetes API。
+等**内置策略 API** 都是以声明方式配置策略选项的内置 Kubernetes API。
 即使在托管的 Kubernetes 服务和受控的 Kubernetes 安装环境中，API 通常也是可用的。
 内置策略 API 遵循与 Pod 这类其他 Kubernetes 资源相同的约定。
-当你使用[稳定版本的](/zh-cn/docs/reference/using-api/#api-versioning)的策略 API，
+当你使用[稳定版本](/zh-cn/docs/reference/using-api/#api-versioning)的策略 API，
 它们与其他 Kubernetes API 一样，采纳的是一种[预定义的支持策略](/zh-cn/docs/reference/using-api/deprecation-policy/)。
 出于以上原因，在条件允许的情况下，基于策略 API 的方案应该优先于**配置文件**和**命令参数**。
 
@@ -164,7 +164,7 @@ A controller is a client of the Kubernetes API. When Kubernetes is the client an
 out to a remote service, Kubernetes calls this a *webhook*. The remote service is called
 a *webhook backend*. As with custom controllers, webhooks do add a point of failure.
 -->
-编写客户端程序有一种特殊的 {{< glossary_tooltip term_id="controller" text="控制器（Controller）" >}}模式，
+编写客户端程序有一种特殊的{{< glossary_tooltip term_id="controller" text="控制器（Controller）" >}}模式，
 能够与 Kubernetes 很好地协同工作。控制器通常会读取某个对象的 `.spec`，或许还会执行一些操作，
 之后更新对象的 `.status`。
 
@@ -192,7 +192,7 @@ and [CNI network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/n
 and by kubectl (see [Extend kubectl with plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)).
 -->
 在 Webhook 模型中，Kubernetes 向远程服务发起网络请求。
-在另一种称作**可执行文件插件（Binary Plugin）**模型中，Kubernetes 执行某个可执行文件（程序）。
+在另一种称作**可执行文件插件（Binary Plugin）** 模型中，Kubernetes 执行某个可执行文件（程序）。
 这些可执行文件插件由 kubelet（例如，[CSI 存储插件](https://kubernetes-csi.github.io/docs/)和
 [CNI 网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)）
 和 kubectl 使用。
@@ -203,7 +203,7 @@ and by kubectl (see [Extend kubectl with plugins](/docs/tasks/extend-kubectl/kub
 This diagram shows the extension points in a Kubernetes cluster and the
 clients that access it.
 -->
-### 扩展点
+### 扩展点   {#extension-points}
 
 下图展示了 Kubernetes 集群中的这些扩展点及其访问集群的客户端。
 
@@ -239,7 +239,7 @@ clients that access it.
    基于其内容阻止请求、编辑请求内容、处理删除操作等等。
    这些扩展点在 [API 访问扩展](#api-access-extensions)节详述。
 
-3. API 服务器能提供各种类型的**资源（Resources）**服务。
+3. API 服务器能提供各种类型的**资源（Resources）** 服务。
    诸如 `pods` 的**内置资源类型**是由 Kubernetes 项目所定义的，无法改变。
    请查阅 [API 扩展](#api-extensions)了解如何扩展 Kubernetes API。
 
@@ -297,7 +297,7 @@ several types of extensions.
 
 <!-- image source for flowchart: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
 {{< figure src="/zh-cn/docs/concepts/extend-kubernetes/flowchart.png"
-    alt="附带使用场景问题和实现指南的流程图。 绿圈表示是； 红圈表示否。"
+    alt="附带使用场景问题和实现指南的流程图。绿圈表示是；红圈表示否。"
     class="diagram-large" caption="选择一个扩展方式的流程图指导" >}}
 
 ---
@@ -375,7 +375,7 @@ Operator 模式用于管理特定的应用；通常，这些应用需要维护�
 你还可以创建自己的定制 API 和控制回路来管理其他资源（例如存储）或定义策略（例如访问控制限制）。
 
 <!--
-### Changing Built-in Resources
+### Changing built-in resources
 
 When you extend the Kubernetes API by adding custom resources, the added resources always fall
 into a new API Groups. You cannot replace or change existing API groups.
@@ -499,7 +499,7 @@ a way to extend Kubernetes with supports for new kinds of volumes. The volumes c
 durable external storage, or provide ephemeral storage, or they might offer a read-only interface
 to information using a filesystem paradigm.
 
-Kubernetes also includes support for [FlexVolume](/docs/concepts/storage/volumes/#flexvolume) plugins,
+Kubernetes also includes support for [FlexVolume](/docs/concepts/storage/volumes/#flexvolume-deprecated) plugins,
 which are deprecated since Kubernetes v1.23 (in favour of CSI).
 -->
 ### 存储插件  {#storage-plugins}
@@ -508,7 +508,7 @@ which are deprecated since Kubernetes v1.23 (in favour of CSI).
 Kubernetes 的方式使其支持新类别的卷。
 这些卷可以由持久的外部存储提供支持，可以提供临时存储，还可以使用文件系统范型为信息提供只读接口。
 
-Kubernetes 还包括对 [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume)
+Kubernetes 还包括对 [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume-deprecated)
 插件的支持，该插件自 Kubernetes v1.23 起被弃用（被 CSI 替代）。
 
 <!--

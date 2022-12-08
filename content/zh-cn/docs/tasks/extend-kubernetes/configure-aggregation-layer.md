@@ -18,27 +18,26 @@ weight: 10
 <!--
 Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs.
 -->
-配置[聚合层](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-可以允许 Kubernetes apiserver 使用其它 API 扩展，这些 API 不是核心
-Kubernetes API 的一部分。
+配置[聚合层](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)可以允许
+Kubernetes apiserver 使用其它 API 扩展，这些 API 不是核心 Kubernetes API 的一部分。
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+{{< note >}}
 <!--
 There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the Kubernetes general CA.
 -->
-{{< note >}}
 要使聚合层在你的环境中正常工作以支持代理服务器和扩展 apiserver 之间的相互 TLS 身份验证，
 需要满足一些设置要求。Kubernetes 和 kube-apiserver 具有多个 CA，
 因此请确保代理是由聚合层 CA 签名的，而不是由 Kubernetes 通用 CA 签名的。
 {{< /note >}}
 
+{{< caution >}}
 <!--
 Reusing the same CA for different client types can negatively impact the cluster's ability to function. For more information, see [CA Reusage and Conflicts](#ca-reusage-and-conflicts).
 -->
-{{< caution >}}
 对不同的客户端类型重复使用相同的 CA 会对集群的功能产生负面影响。
 有关更多信息，请参见 [CA 重用和冲突](#ca-reusage-and-conflicts)。
 {{< /caution >}}
@@ -52,11 +51,11 @@ Unlike Custom Resource Definitions (CRDs), the Aggregation API involves another 
 
 This section describes how the authentication and authorization flows work, and how to configure them.
 -->
-## 身份认证流程
+## 身份认证流程   {#authentication-flow}
 
 与自定义资源定义（CRD）不同，除标准的 Kubernetes apiserver 外，Aggregation API
 还涉及另一个服务器：扩展 apiserver。
-Kubernetes apiserver 将需要与你的扩展 apiserver 通信，并且你的扩展 apiserver 
+Kubernetes apiserver 将需要与你的扩展 apiserver 通信，并且你的扩展 apiserver
 也需要与 Kubernetes apiserver 通信。
 为了确保此通信的安全，Kubernetes apiserver 使用 x509 证书向扩展 apiserver 认证。
 
@@ -84,13 +83,15 @@ The rest of this section describes these steps in detail.
 
 The flow can be seen in the following diagram.
 
+![aggregation auth flows](/images/docs/aggregation-api-auth-flow.png).
+
 The source for the above swimlanes can be found in the source of this document.
 -->
 本节的其余部分详细描述了这些步骤。
 
 该流程可以在下图中看到。
 
-![聚合层认证流程](/images/docs/aggregation-api-auth-flow.png).
+![聚合层认证流程](/images/docs/aggregation-api-auth-flow.png)
 
 以上泳道的来源可以在本文档的源码中找到。
 
@@ -222,7 +223,7 @@ Everything to this point has been standard Kubernetes API requests, authenticati
 
 The Kubernetes apiserver now is prepared to send the request to the extension apiserver.
 -->
-### Kubernetes Apiserver 认证和授权
+### Kubernetes Apiserver 认证和授权   {#kubernetes-apiserver-authentication-and-authorization}
 
 由扩展 apiserver 服务的对 API 路径的请求以与所有 API 请求相同的方式开始：
 与 Kubernetes apiserver 的通信。该路径已通过扩展 apiserver 在
@@ -231,10 +232,10 @@ Kubernetes apiserver 中注册。
 用户与 Kubernetes apiserver 通信，请求访问路径。
 Kubernetes apiserver 使用它的标准认证和授权配置来对用户认证，以及对特定路径的鉴权。
 
-有关对 Kubernetes 集群认证的概述，请参见
-[对集群认证](/zh-cn/docs/reference/access-authn-authz/authentication/)。
-有关对Kubernetes集群资源的访问鉴权的概述，请参见
-[鉴权概述](/zh-cn/docs/reference/access-authn-authz/authorization/)。
+有关对 Kubernetes 集群认证的概述，
+请参见[对集群认证](/zh-cn/docs/reference/access-authn-authz/authentication/)。
+有关对 Kubernetes 集群资源的访问鉴权的概述，
+请参见[鉴权概述](/zh-cn/docs/reference/access-authn-authz/authorization/)。
 
 到目前为止，所有内容都是标准的 Kubernetes API 请求，认证与鉴权。
 
@@ -250,7 +251,7 @@ The Kubernetes apiserver now will send, or proxy, the request to the extension a
 
 In order to provide for these two, you must configure the Kubernetes apiserver using several flags.
 -->
-### Kubernetes Apiserver 代理请求
+### Kubernetes Apiserver 代理请求   {#kubernetes-apiserver-proxies-the-request}
 
 Kubernetes apiserver 现在将请求发送或代理到注册以处理该请求的扩展 apiserver。
 为此，它需要了解几件事：
@@ -258,8 +259,8 @@ Kubernetes apiserver 现在将请求发送或代理到注册以处理该请求�
 1. Kubernetes apiserver 应该如何向扩展 apiserver 认证，以通知扩展
    apiserver 通过网络发出的请求来自有效的 Kubernetes apiserver？
 
-2. Kubernetes apiserver 应该如何通知扩展 apiserver 原始请求
-   已通过认证的用户名和组？
+2. Kubernetes apiserver 应该如何通知扩展 apiserver
+   原始请求已通过认证的用户名和组？
 
 为提供这两条信息，你必须使用若干标志来配置 Kubernetes apiserver。
 
@@ -295,12 +296,12 @@ Kubernetes apiserver 将使用由 `--proxy-client-*-file` 指示的文件来向�
 1. 连接必须使用由 CA 签署的客户端证书，该证书的证书位于 `--requestheader-client-ca-file` 中。
 2. 连接必须使用客户端证书，该客户端证书的 CN 是 `--requestheader-allowed-names` 中列出的证书之一。
 
+{{< note >}}
 <!--
 You can set this option to blank as `--requestheader-allowed-names=""`. This will indicate to an extension apiserver that _any_ CN is acceptable.
 -->
-{{< note >}}
 你可以将此选项设置为空白，即为`--requestheader-allowed-names=""`。
-这将向扩展 apiserver 指示**任何** CN 是可接受的。
+这将向扩展 apiserver 指示**任何** CN 都是可接受的。
 {{< /note >}}
 
 <!--
@@ -314,8 +315,8 @@ Note that the same client certificate is used by the Kubernetes apiserver to aut
 使用这些选项启动时，Kubernetes apiserver 将：
 
 1. 使用它们向扩展 apiserver 认证。
-2. 在 `kube-system` 命名空间中
-   创建一个名为 `extension-apiserver-authentication` 的 ConfigMap，
+2. 在 `kube-system` 命名空间中创建一个名为
+   `extension-apiserver-authentication` 的 ConfigMap，
    它将在其中放置 CA 证书和允许的 CN。
    反过来，扩展 apiserver 可以检索这些内容以验证请求。
 
@@ -341,9 +342,9 @@ These header names are also placed in the `extension-apiserver-authentication` c
 它在其代理请求的 HTTP 头部中提供这些。你必须将要使用的标头名称告知
 Kubernetes apiserver。
 
-* 通过`--requestheader-username-headers` 标明用来保存用户名的头部
-* 通过`--requestheader-group-headers` 标明用来保存 group 的头部
-* 通过`--requestheader-extra-headers-prefix` 标明用来保存拓展信息前缀的头部
+* 通过 `--requestheader-username-headers` 标明用来保存用户名的头部
+* 通过 `--requestheader-group-headers` 标明用来保存 group 的头部
+* 通过 `--requestheader-extra-headers-prefix` 标明用来保存拓展信息前缀的头部
 
 这些头部名称也放置在 `extension-apiserver-authentication` ConfigMap 中，
 因此扩展 apiserver 可以检索和使用它们。
@@ -363,13 +364,13 @@ The extension apiserver, upon receiving a proxied request from the Kubernetes ap
     * Has a CN in the list of allowed CNs, unless the list is blank, in which case all CNs are allowed.
     * Extract the username and group from the appropriate headers
 -->
-### 扩展 Apiserver 认证
+### 扩展 Apiserver 认证请求    {#extension-apiserver-authenticates-the-request}
 
 扩展 apiserver 在收到来自 Kubernetes apiserver 的代理请求后，
 必须验证该请求确实确实来自有效的身份验证代理，
 该认证代理由 Kubernetes apiserver 履行。扩展 apiserver 通过以下方式对其认证：
 
-1. 如上所述，从`kube-system`中的 configmap 中检索以下内容：
+1. 如上所述，从 `kube-system` 中的 ConfigMap 中检索以下内容：
 
    * 客户端 CA 证书
    * 允许名称（CN）列表
@@ -379,7 +380,7 @@ The extension apiserver, upon receiving a proxied request from the Kubernetes ap
 
    * 由其证书与检索到的 CA 证书匹配的 CA 签名。
    * 在允许的 CN 列表中有一个 CN，除非列表为空，在这种情况下允许所有 CN。
-   * 从适当的头部中提取用户名和组
+   * 从适当的头部中提取用户名和组。
 
 <!--
 If the above passes, then the request is a valid proxied request from a legitimate authenticating proxy, in this case the Kubernetes apiserver.
@@ -406,7 +407,7 @@ The extension apiserver now can validate that the user/group retrieved from the 
 
 In order for the extension apiserver to be authorized itself to submit the `SubjectAccessReview` request to the Kubernetes apiserver, it needs the correct permissions. Kubernetes includes a default `ClusterRole` named `system:auth-delegator` that has the appropriate permissions. It can be granted to the extension apiserver's service account.
 -->
-### 扩展 Apiserver 对请求鉴权
+### 扩展 Apiserver 对请求鉴权   {#extensions-apiserver-authorizes-the-request}
 
 扩展 apiserver 现在可以验证从标头检索的`user/group`是否有权执行给定请求。
 通过向 Kubernetes apiserver 发送标准
@@ -426,7 +427,7 @@ If the `SubjectAccessReview` passes, the extension apiserver executes the reques
 
 Enable the aggregation layer via the following `kube-apiserver` flags. They may have already been taken care of by your provider.
 -->
-### 扩展 Apiserver 执行
+### 扩展 Apiserver 执行   {#enable-kubernetes-apiserver-flags}
 
 如果 `SubjectAccessReview` 通过，则扩展 apiserver 执行请求。
 
@@ -450,7 +451,7 @@ Enable the aggregation layer via the following `kube-apiserver` flags. They may 
 
 The Kubernetes apiserver has two client CA options:
 -->
-### CA-重用和冲突  {#ca-reusage-and-conflicts}
+### CA 重用和冲突  {#ca-reusage-and-conflicts}
 
 Kubernetes apiserver 有两个客户端 CA 选项：
 
@@ -468,7 +469,7 @@ Each of these functions independently and can conflict with each other, if not u
 * `--client-ca-file`：当请求到达 Kubernetes apiserver 时，如果启用了此选项，
   则 Kubernetes apiserver 会检查请求的证书。
   如果它是由 `--client-ca-file` 引用的文件中的 CA 证书之一签名的，
-  并且用户是公用名`CN=`的值，而组是组织`O=` 的取值，则该请求被视为合法请求。
+  并且用户是公用名 `CN=` 的值，而组是组织 `O=` 的取值，则该请求被视为合法请求。
   请参阅[关于 TLS 身份验证的文档](/zh-cn/docs/reference/access-authn-authz/authentication/#x509-client-certs)。
 
 * `--requestheader-client-ca-file`：当请求到达 Kubernetes apiserver 时，
@@ -485,7 +486,7 @@ If _both_ `--client-ca-file` and `--requestheader-client-ca-file` are provided, 
 For this reason, use different CA certs for the `--client-ca-file` option - to authorize control plane components and end-users - and the `--requestheader-client-ca-file` option - to authorize aggregation apiserver requests.
 -->
 如果同时提供了 `--client-ca-file` 和 `--requestheader-client-ca-file`，
-则首先检查 `--requestheader-client-ca-file` CA，然后再检查`--client-ca-file`。
+则首先检查 `--requestheader-client-ca-file` CA，然后再检查 `--client-ca-file`。
 通常，这些选项中的每一个都使用不同的 CA（根 CA 或中间 CA）。
 常规客户端请求与 `--client-ca-file` 相匹配，而聚合请求要与
 `--requestheader-client-ca-file` 相匹配。
@@ -500,11 +501,11 @@ apiserver 认证。
 用于聚合 apiserver 鉴权的 `--requestheader-client-ca-file` 选项使用
 不同的 CA 证书。
 
+{{< warning >}}
 <!--
 Do **not** reuse a CA that is used in a different context unless you understand the risks and the mechanisms to protect the CA's usage.
 -->
-{{< warning >}}
-除非你了解风险和保护 CA 用法的机制，否则 *不要* 重用在不同上下文中使用的 CA。
+除非你了解风险和保护 CA 用法的机制，否则 **不要** 重用在不同上下文中使用的 CA。
 {{< /warning >}}
 
 <!--
@@ -523,7 +524,7 @@ If you are not running kube-proxy on a host running the API server, then you mus
 You can dynamically configure what client requests are proxied to extension
 apiserver. The following is an example registration:
 -->
-### 注册 APIService 对象
+### 注册 APIService 对象   {#register-apiservice-objects}
 
 你可以动态配置将哪些客户端请求代理到扩展 apiserver。以下是注册示例：
 
@@ -547,8 +548,8 @@ spec:
 The name of an APIService object must be a valid
 [path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
 -->
-APIService 对象的名称必须是合法的
-[路径片段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
+APIService
+对象的名称必须是合法的[路径片段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
 
 <!--
 #### Contacting the extension apiserver
@@ -572,10 +573,9 @@ and to verify the TLS connection against the ServerName
 服务的名字空间和名字是必需的。端口是可选的，默认为 443。
 
 下面是一个扩展 apiserver 的配置示例，它被配置为在端口 `1234` 上调用。
-并针对 ServerName
-`my-service-name.my-service-namespace.svc`
-使用自定义的 CA 包来验证 TLS 连接
-使用自定义 CA 捆绑包的 `my-service-name.my-service-namespace.svc`。
+并针对 ServerName `my-service-name.my-service-namespace.svc`
+使用自定义的 CA 包来验证 TLS 连接使用自定义 CA 捆绑包的
+`my-service-name.my-service-namespace.svc`。
 
 ```yaml
 apiVersion: apiregistration.k8s.io/v1
@@ -591,7 +591,7 @@ spec:
 ...
 ```
 
-## {{% heading "接下来" %}}
+## {{% heading "whatsnext" %}}
 
 <!--
 * [Set up an extension api-server](/docs/tasks/extend-kubernetes/setup-extension-api-server/) to work with the aggregation layer.

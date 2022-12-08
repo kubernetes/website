@@ -3,12 +3,11 @@ title: 端口和协议
 content_type: reference
 weight: 50
 ---
+
 <!--
----
 title: Ports and Protocols
 content_type: reference
 weight: 50
----
 -->
 
 <!--
@@ -17,7 +16,8 @@ as on-premises datacenter with physical network firewalls or Virtual
 Networks in Public Cloud, it is useful to be aware of the ports and protocols 
 used by Kubernetes components
 -->
-当你在一个有严格网络边界的环境里运行 Kubernetes，例如拥有物理网络防火墙或者拥有公有云中虚拟网络的自有数据中心，了解 Kubernetes 组件使用了哪些端口和协议是非常有用的。
+当你在一个有严格网络边界的环境里运行 Kubernetes，例如拥有物理网络防火墙或者拥有公有云中虚拟网络的自有数据中心，
+了解 Kubernetes 组件使用了哪些端口和协议是非常有用的。
 
 <!--
 ## Control plane
@@ -74,4 +74,5 @@ on the default port.
 
 所有默认端口都可以重新配置。当使用自定义的端口时，你需要打开这些端口来代替这里提到的默认端口。
 
-一个常见的例子是 API 服务器的端口有时会配置为443。或者你也可以使用默认端口，把 API 服务器放到一个监听443 端口的负载均衡器后面，并且路由所有请求到 API 服务器的默认端口。
+一个常见的例子是 API 服务器的端口有时会配置为 443。或者你也可以使用默认端口，
+把 API 服务器放到一个监听 443 端口的负载均衡器后面，并且路由所有请求到 API 服务器的默认端口。

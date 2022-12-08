@@ -2,13 +2,13 @@
 title: 进阶贡献
 slug: advanced
 content_type: concept
-weight: 98
+weight: 100
 ---
 <!--
 title: Advanced contributing
 slug: advanced
 content_type: concept
-weight: 98
+weight: 100
 -->
 
 <!-- overview -->

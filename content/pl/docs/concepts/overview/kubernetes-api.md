@@ -104,7 +104,7 @@ opisane są następującym schematem:
     }
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 Względne adresy URL wskazują na niezmieniające się opisy OpenAPI,
 aby umożliwić trzymanie cache po stronie klienta. Serwer API zwraca

@@ -4,14 +4,16 @@ reviewers:
 - 44past4
 title: System Logs
 content_type: concept
-weight: 60
+weight: 80
 ---
 
 <!-- overview -->
 
 System component logs record events happening in cluster, which can be very useful for debugging.
 You can configure log verbosity to see more or less detail.
-Logs can be as coarse-grained as showing errors within a component, or as fine-grained as showing step-by-step traces of events (like HTTP access logs, pod state changes, controller actions, or scheduler decisions).
+Logs can be as coarse-grained as showing errors within a component, or as fine-grained as showing
+step-by-step traces of events (like HTTP access logs, pod state changes, controller actions, or
+scheduler decisions).
 
 <!-- body -->
 
@@ -22,9 +24,9 @@ generates log messages for the Kubernetes system components.
 
 For more information about klog configuration, see the [Command line tool reference](/docs/reference/command-line-tools-reference/).
 
-Kubernetes is in the process of simplifying logging in its components. The
-following klog command line flags [are
-deprecated](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
+Kubernetes is in the process of simplifying logging in its components.
+The following klog command line flags
+[are deprecated](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 starting with Kubernetes 1.23 and will be removed in a future release:
 
 - `--add-dir-header`
@@ -39,13 +41,12 @@ starting with Kubernetes 1.23 and will be removed in a future release:
 - `--skip-log-headers`
 - `--stderrthreshold`
 
-Output will always be written to stderr, regardless of the output
-format. Output redirection is expected to be handled by the component which
-invokes a Kubernetes component. This can be a POSIX shell or a tool like
-systemd.
+Output will always be written to stderr, regardless of the output format. Output redirection is
+expected to be handled by the component which invokes a Kubernetes component. This can be a POSIX
+shell or a tool like systemd.
 
-In some cases, for example a distroless container or a Windows system service,
-those options are not available. Then the
+In some cases, for example a distroless container or a Windows system service, those options are
+not available. Then the
 [`kube-log-runner`](https://github.com/kubernetes/kubernetes/blob/d2a8a81639fcff8d1221b900f66d28361a170654/staging/src/k8s.io/component-base/logs/kube-log-runner/README.md)
 binary can be used as wrapper around a Kubernetes component to redirect
 output. A prebuilt binary is included in several Kubernetes base images under
@@ -64,33 +65,36 @@ This table shows how `kube-log-runner` invocations correspond to shell redirecti
 ### Klog output
 
 An example of the traditional klog native format:
+
 ```
 I1025 00:15:15.525108       1 httplog.go:79] GET /api/v1/namespaces/kube-system/pods/metrics-server-v0.3.1-57c75779f-9p8wg: (1.512ms) 200 [pod_nanny/v0.0.0 (linux/amd64) kubernetes/$Format 10.56.1.19:51756]
 ```
 
 The message string may contain line breaks:
+
 ```
 I1025 00:15:15.525108       1 example.go:79] This is a message
 which has a line break.
 ```
-
 
 ### Structured Logging
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< warning >}}
-Migration to structured log messages is an ongoing process. Not all log messages are structured in this version. When parsing log files, you must also handle unstructured log messages.
+Migration to structured log messages is an ongoing process. Not all log messages are structured in
+this version. When parsing log files, you must also handle unstructured log messages.
 
 Log formatting and value serialization are subject to change.
 {{< /warning>}}
 
-Structured logging introduces a uniform structure in log messages allowing for programmatic extraction of information. You can store and process structured logs with less effort and cost.
-The code which generates a log message determines whether it uses the traditional unstructured klog output
-or structured logging.
+Structured logging introduces a uniform structure in log messages allowing for programmatic
+extraction of information. You can store and process structured logs with less effort and cost.
+The code which generates a log message determines whether it uses the traditional unstructured
+klog output or structured logging.
 
-The default formatting of structured log messages is as text, with a format that
-is backward compatible with traditional klog:
+The default formatting of structured log messages is as text, with a format that is backward
+compatible with traditional klog:
 
 ```ini
 <klog header> "<message>" <key1>="<value1>" <key2>="<value2>" ...
@@ -105,6 +109,7 @@ I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod=
 Strings are quoted. Other values are formatted with
 [`%+v`](https://pkg.go.dev/fmt#hdr-Printing), which may cause log messages to
 continue on the next line [depending on the data](https://github.com/kubernetes/kubernetes/issues/106428).
+
 ```
 I1025 00:15:15.525108       1 example.go:116] "Example" data="This is text with a line break\nand \"quotation marks\"." someInt=1 someFloat=0.1 someStruct={StringField: First line,
 second line.}
@@ -164,15 +169,18 @@ I0404 18:03:31.171962  452150 logger.go:95] "another runtime" duration="1m0s"
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 
 {{<warning >}}
-JSON output does not support many standard klog flags. For list of unsupported klog flags, see the [Command line tool reference](/docs/reference/command-line-tools-reference/).
+JSON output does not support many standard klog flags. For list of unsupported klog flags, see the
+[Command line tool reference](/docs/reference/command-line-tools-reference/).
 
-Not all logs are guaranteed to be written in JSON format (for example, during process start). If you intend to parse logs, make sure you can handle log lines that are not JSON as well.
+Not all logs are guaranteed to be written in JSON format (for example, during process start).
+If you intend to parse logs, make sure you can handle log lines that are not JSON as well.
 
 Field names and JSON serialization are subject to change.
 {{< /warning >}}
 
 The `--logging-format=json` flag changes the format of logs from klog native format to JSON format.
 Example of JSON log format (pretty printed):
+
 ```json
 {
    "ts": 1580306777.04728,
@@ -187,13 +195,14 @@ Example of JSON log format (pretty printed):
 ```
 
 Keys with special meaning:
+
 * `ts` - timestamp as Unix time (required, float)
 * `v` - verbosity (only for info and not for error messages, int)
 * `err` - error string (optional, string)
 * `msg` - message (required, string)
 
-
 List of components currently supporting JSON format:
+
 * {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
 * {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
 * {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
@@ -201,8 +210,9 @@ List of components currently supporting JSON format:
 
 ### Log verbosity level
 
-The `-v` flag controls log verbosity. Increasing the value increases the number of logged events. Decreasing the value decreases the number of logged events.
-Increasing verbosity settings logs increasingly less severe events. A verbosity setting of 0 logs only critical events.
+The `-v` flag controls log verbosity. Increasing the value increases the number of logged events.
+Decreasing the value decreases the number of logged events.  Increasing verbosity settings logs
+increasingly less severe events. A verbosity setting of 0 logs only critical events.
 
 ### Log location
 
@@ -228,3 +238,4 @@ The `logrotate` tool rotates logs daily, or once the log size is greater than 10
 * Read about [Contextual Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 * Read about [deprecation of klog flags](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 * Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
+
