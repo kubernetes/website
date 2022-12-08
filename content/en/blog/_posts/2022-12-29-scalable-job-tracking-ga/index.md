@@ -37,7 +37,7 @@ Jobs created before the upgrade will still be tracked using the legacy behavior.
 This is to avoid retroactively adding finalizers to running Pods, which might
 introduce race conditions.
 
-For the maximum performance on large Jobs, the Kubernetes project recommends
+For maximum performance on large Jobs, the Kubernetes project recommends
 using the [Indexed completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
 In this mode, the control plane is able to track Job progress with less API
 calls.
@@ -47,24 +47,27 @@ If you are a developer of operator(s) for batch, [HPC](https://en.wikipedia.org/
 or related workloads, we encourage you to use the Job API to delegate accurate
 progress tracking to Kubernetes. If there is something missing in the Job API
 that forces you to manage plain Pods, the [Working Group Batch](https://github.com/kubernetes/community/tree/master/wg-batch)
-would welcome your feedback and contributions.
+welcomes your feedback and contributions.
 
 ### Deprecation notices
 
 During the development of the feature, the control plane added the annotation
-`batch.kubernetes.io/job-tracking` to Jobs created when the feature is enabled.
+[`batch.kubernetes.io/job-tracking`](/docs/reference/labels-annotations-taints/#batch-kubernetes-io-job-tracking)
+to the Jobs that were created when the feature was enabled.
 This allowed a safe transition for older Jobs, but it was never meant to stay.
 
 In the 1.26 release, we deprecated the annotation `batch.kubernetes.io/job-tracking`
 and the control plane will stop adding it in Kubernetes 1.27.
 Along with that change, we will remove the legacy Job tracking implementation.
-As a result, the job controller will track all Jobs using finalizers and it will
-ignore Pods that don't have a the aforementioned finalizer.
+As a result, the Job controller will track all Jobs using finalizers and it will
+ignore Pods that don't have the aforementioned finalizer.
 
 Before you upgrade your cluster to 1.27, we recommend that you verify that there
-are no running Jobs that don't have the annotation. Otherwise, you might observe
-the control plane recreating some Pods. We expect that this shouldn't affect
-any users, as the feature is enabled by default since Kubernetes 1.25.
+are no running Jobs that don't have the annotation, or you wait for those jobs
+to complete.
+Otherwise, you might observe the control plane recreating some Pods.
+We expect that this shouldn't affect any users, as the feature is enabled by
+default since Kubernetes 1.25, giving enough buffer for old jobs to complete.
 
 ## What problem does the new implementation solve?
 
@@ -98,19 +101,19 @@ When a controller needs to take an action on objects before they are removed, it
 should add a [finalizer](/docs/concepts/overview/working-with-objects/finalizers/)
 to the objects that it manages.
 A finalizer prevents the objects from being deleted from the API until the
-finalizers are removed. Once the controller is done doing cleanup and accounting
-for the deleted object, it can remove the finalizer from the object and the
+finalizers are removed. Once the controller is done with the cleanup and
+accounting for the deleted object, it can remove the finalizer from the object and the
 control plane removes the object from the API.
 
 This is what the new Job controller is doing: adding a finalizer during Pod
-creation, and removing it after the Pod terminates and is accounted for in the
-Job status. However, it wasn't that simple.
+creation, and removing the finalizer after the Pod has terminated and has been
+accounted for in the Job status. However, it wasn't that simple.
 
 The main challenge is that there are at least two objects involved: the Pod
 and the Job. While the finalizer lives in the Pod object, the accounting lives
 in the Job object. There is no mechanism to atomically remove the finalizer in
-the Pod and update the counters in the Job status. And there could be more than
-one terminated Pod at a given time.
+the Pod and update the counters in the Job status. Additionally, there could be
+more than one terminated Pod at a given time.
 
 To solve this problem, we implemented a three staged approach, each translating
 to an API call.
@@ -126,7 +129,7 @@ this by adding an in-memory cache for removed finalizers.
 
 Still, we faced some issues during the beta stage, leaving some pods stuck
 with finalizers in some conditions ([#108645](https://github.com/kubernetes/kubernetes/issues/108645),
-[#109485](https://github.com/kubernetes/kubernetes/issues/109485)), and
+[#109485](https://github.com/kubernetes/kubernetes/issues/109485), and
 [#111646](https://github.com/kubernetes/kubernetes/pull/111646)). As a result,
 we decided to disable the feature in the 1.23 and 1.24 releases.
 
