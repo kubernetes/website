@@ -26,7 +26,7 @@ which is in beta in the 1.26 release.
 
 To use Job tracking with finalizers, upgrade to Kubernetes 1.25 or newer and
 create new Jobs. You can also use this feature in v1.23 and v1.24, if you have the
-ability to enable the `JobTrackingWithFinalizers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)).
+ability to enable the `JobTrackingWithFinalizers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 If your cluster runs Kubernetes 1.26, Job tracking with finalizers is a stable
 feature. For v1.25, it's behind that feature gate, and your cluster administrators may have
@@ -43,7 +43,7 @@ In this mode, the control plane is able to track Job progress with less API
 calls.
 
 If you are a developer of operator(s) for batch, [HPC](https://en.wikipedia.org/wiki/High-performance_computing),
-(AI)[https://en.wikipedia.org/wiki/Artificial_intelligence], [ML](https://en.wikipedia.org/wiki/Machine_learning)
+[AI](https://en.wikipedia.org/wiki/Artificial_intelligence), [ML](https://en.wikipedia.org/wiki/Machine_learning)
 or related workloads, we encourage you to use the Job API to delegate accurate
 progress tracking to Kubernetes. If there is something missing in the Job API
 that forces you to manage plain Pods, the [Working Group Batch](https://github.com/kubernetes/community/tree/master/wg-batch)
@@ -117,11 +117,14 @@ more than one terminated Pod at a given time.
 
 To solve this problem, we implemented a three staged approach, each translating
 to an API call.
-1. Add the terminated Pod(s) UID into temporary lists in the Job status
+1. For each terminated Pod, add the unique ID (UID) of the Pod into short-lived
+   lists stored in the `.status` of the owning Job
    ([.status.uncountedTerminatedPods](/docs/reference/kubernetes-api/workload-resources/job-v1/#JobStatus)).
 2. Remove the finalizer from the Pods(s).
-3. Atomically remove UIDs from the temporary lists and increment the `succeeded`
-   and `failed` counters in the Job status.
+3. Atomically do the following operations:
+   - remove UIDs from the short-lived lists
+   - increment the overall `succeeded` and `failed` counters in the `status` of
+     the Job.
 
 Additional complications come from the fact that the Job controller might
 receive the results of the API changes in steps 1 and 2 out of order. We solved
@@ -131,11 +134,12 @@ Still, we faced some issues during the beta stage, leaving some pods stuck
 with finalizers in some conditions ([#108645](https://github.com/kubernetes/kubernetes/issues/108645),
 [#109485](https://github.com/kubernetes/kubernetes/issues/109485), and
 [#111646](https://github.com/kubernetes/kubernetes/pull/111646)). As a result,
-we decided to disable the feature in the 1.23 and 1.24 releases.
+we decided to switch that feature gate to be disabled by default for the 1.23
+and 1.24 releases.
 
 Once resolved, we re-enabled the feature for the 1.25 release. Since then, we
 have received reports from our customers running tens of thousands of Pods at a
-time in their clusters through the Job API. With this success, we decided to
+time in their clusters through the Job API. Seeing this success, we decided to
 graduate the feature to stable in 1.26, as part of our long term commitment to
 make the Job API the best way to run large batch Jobs in a Kubernetes cluster.
 
