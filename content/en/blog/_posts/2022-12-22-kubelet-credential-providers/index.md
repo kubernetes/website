@@ -7,8 +7,9 @@ slug: kubelet-credential-providers
 
 **Authors:** Andrew Sy Kim (Google), Dixita Narang (Google)
 
-Kubernetes v1.26 introduced generally available (GA) support for _kubelet credential
-provider plugins_, offering an extensible plugin framework to dynamically fetch credentials
+Kubernetes v1.26 introduced generally available (GA) support for [_kubelet credential
+provider plugins_]( /docs/tasks/kubelet-credential-provider/kubelet-credential-provider/),
+offering an extensible plugin framework to dynamically fetch credentials
 for any container image registry.
 
 ## Background
@@ -20,7 +21,7 @@ Amazon Elastic Container Registry, Azure Container Registry, and Google Cloud Co
 {{< figure src="kubelet-credential-providers-in-tree.png" caption="Figure 1: Kubelet built-in credential provider support for Amazon Elastic Container Registry, Azure Container Registry, and Google Cloud Container Registry." >}}
 
 Kubernetes v1.20 introduced alpha support for kubelet credential providers plugins,
-which provide a mechanism for the kubelet to dynamically authenticate and pull images
+which provides a mechanism for the kubelet to dynamically authenticate and pull images
 for arbitrary container registries - whether these are public registries, managed services,
 or even a self-hosted registry.
 In Kubernetes v1.26, this feature is now GA
@@ -35,18 +36,18 @@ other than ACR (Azure Container Registry), ECR (Elastic Container Registry), or 
 The new plugin mechanism can be used in any cluster, and lets you authenticate to new registries without
 any changes to Kubernetes itself. Any cloud provider or vendor can publish a plugin that lets you authenticate with their image registry.
 
-## How it Works
+## How it works
 
-The kubelet and the credential provider plugin binary communicate through stdio (stdin, stdout, and stderr) by sending and receiving
+The kubelet and the exec plugin binary communicate through stdio (stdin, stdout, and stderr) by sending and receiving
 json-serialized api-versioned types. If the exec plugin is enabled and the kubelet requires authentication information for an image
-that matches against a plugin, the kubelet will exec the plugin binary, passing the `CredentialProviderRequest` API via stdin. Then
+that matches against a plugin, the kubelet will execute the plugin binary, passing the `CredentialProviderRequest` API via stdin. Then
 the exec plugin communicates with the container registry to dynamically fetch the credentials and returns the credentials in an
 encoded response of the `CredentialProviderResponse` API to the kubelet via stdout.
 
 {{< figure src="kubelet-credential-providers-how-it-works.png" caption="Figure 3: Kubelet credential provider plugin flow" >}}
 
-On receiving credentials from the Kubelet, the plugin can also indicate how long credentials can be cached for, to prevent unecessary
-execution of the plugin by the Kubelet for subsequent image pull requests to the same registry. In cases where the cache duration
+On receiving credentials from the kubelet, the plugin can also indicate how long credentials can be cached for, to prevent unnecessary
+execution of the plugin by the kubelet for subsequent image pull requests to the same registry. In cases where the cache duration
 is not specified by the plugin, a default cache duration can be specified by the kubelet (more details below).
 
 ```json
@@ -56,8 +57,8 @@ is not specified by the plugin, a default cache duration can be specified by the
   "auth": {
     "cacheDuration": "6h",
     "private-registry.io/my-app": {
-      "username": "“user”",
-      "password": "“token12345”"
+      "username": "exampleuser",
+      "password": "token12345"
     }
   }
 }
@@ -66,9 +67,9 @@ is not specified by the plugin, a default cache duration can be specified by the
 In addition, the plugin can specify the scope in which cached credentials are valid for. This is specified through the `cacheKeyType` field
 in `CredentialProviderResponse`. When the value is `Image`, the kubelet will only use cached credentials for future image pulls that exactly
 match the image of the first request. When the value is `Registry`, the kubelet will use cached credentials for any subsequent image pulls
-that originate from the same registry host, but using different paths (e.g. `gcr.io/foo/bar` and `gcr.io/bar/foo` refer to different images
-from the same registry). And lastly, when the value is `Global`, the kubelet will use returned credentials for all images that match against
-the plugin, including images that can map to different registry hosts (e.g. gcr.io vs k8s.gcr.io). The `cacheKeyType` field is required by plugin
+destined for the same registry host but using different paths (for example, `gcr.io/foo/bar` and `gcr.io/bar/foo` refer to different images
+from the same registry). Lastly, when the value is `Global`, the kubelet will use returned credentials for all images that match against
+the plugin, including images that can map to different registry hosts (for example, gcr.io vs k8s.gcr.io). The `cacheKeyType` field is required by plugin
 implementations.
 
 ```json
@@ -78,8 +79,8 @@ implementations.
   "auth": {
     "cacheKeyType": "Registry",
     "private-registry.io/my-app": {
-      "username": "“user”",
-      "password": "“token12345”"
+      "username": "exampleuser",
+      "password": "token12345"
     }
   }
 }
@@ -93,7 +94,7 @@ a local directory accessible by the kubelet on every node. Then you set two comm
 * `--image-credential-provider-bin-dir`: the path to the directory where credential provider plugin binaries are located.
 
 The configuration file passed into `--image-credential-provider-config` is read by the kubelet to determine which exec plugins should be invoked for a container image used by a Pod.
-Note that the name of each "provider" must match the name of the binary located in the local directry specified in `--image-credential-provider-bin-dir`, otherwise the Kubelet
+Note that the name of each _provider_ must match the name of the binary located in the local directory specified in `--image-credential-provider-bin-dir`, otherwise the kubelet
 cannot locate the path of the plugin to invoke.
 
 ```yaml
