@@ -672,7 +672,7 @@ To learn more about Services,
 read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/).
  -->
 要了解有关 Service 的更多信息，
-请阅读 [使用 Service 连接应用程序](/zh-cn/docs/concepts/services-networking/connect-applications-service/)。
+请阅读 [使用 Service 连接应用](/zh-cn/docs/tutorials/services/connect-applications-service/)。
 
 <!-- 
 You can also:
