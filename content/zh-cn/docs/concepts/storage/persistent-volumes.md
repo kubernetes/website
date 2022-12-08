@@ -544,11 +544,11 @@ the following types of volumes:
 * azureDisk
 * azureFile
 * awsElasticBlockStore
-* cinder (deprecated)
+* cinder （已弃用）
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
-* flexVolume (deprecated)
+* flexVolume （已弃用）
 * gcePersistentDisk
-* glusterfs
+* glusterfs （已弃用）
 * rbd
 * portworxVolume
 
@@ -557,12 +557,12 @@ You can only expand a PVC if its storage class's `allowVolumeExpansion` field is
 -->
 只有当 PVC 的存储类中将 `allowVolumeExpansion` 设置为 true 时，你才可以扩充该 PVC 申领。
 
-``` yaml
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: gluster-vol-default
-provisioner: kubernetes.io/glusterfs
+  name: example-vol-default
+provisioner: vendor-name.example/magicstorage
 parameters:
   resturl: "http://192.168.10.100:8080"
   restuser: ""
@@ -1145,14 +1145,14 @@ The following volume types support mount options:
 * `cephfs`
 * `cinder`（于 v1.18 **弃用**）
 * `gcePersistentDisk`
-* `glusterfs`
+* `glusterfs`（于 v1.25 **弃用**）
 * `iscsi`
 * `nfs`
 * `rbd`
 * `vsphereVolume`
 
 <!--
-Mount options are not validated, If a mount option is invalid, the mount fails.
+Mount options are not validated. If a mount option is invalid, the mount fails.
 -->
 Kubernetes 不对挂载选项执行合法性检查。如果挂载选项是非法的，挂载就会失败。
 
