@@ -5,6 +5,7 @@ reviewers:
 title: Images
 content_type: concept
 weight: 10
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -18,6 +19,12 @@ before referring to it in a
 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 
 This page provides an outline of the container image concept.
+
+{{< note >}}
+If you are looking for the container images for a Kubernetes
+release (such as v{{< skew latestVersion >}}, the latest minor release),
+visit [Download Kubernetes](https://kubernetes.io/releases/download/).
+{{< /note >}}
 
 <!-- body -->
 

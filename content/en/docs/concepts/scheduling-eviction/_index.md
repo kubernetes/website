@@ -1,6 +1,6 @@
 ---
 title: "Scheduling, Preemption and Eviction"
-weight: 90
+weight: 95
 content_type: concept
 description: >
   In Kubernetes, scheduling refers to making sure that Pods are matched to Nodes

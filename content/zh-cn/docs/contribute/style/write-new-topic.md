@@ -1,12 +1,12 @@
 ---
 title: 撰写新主题
 content_type: task
-weight: 20
+weight: 70
 ---
 <!--
 title: Writing a new topic
 content_type: task
-weight: 20
+weight: 70
 -->
 
 <!-- overview -->

@@ -7,12 +7,9 @@ description: Creating Secret objects using kustomization.yaml file.
 
 <!-- overview -->
 
-Since Kubernetes v1.14, `kubectl` supports
-[managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/).
-Kustomize provides resource Generators to create Secrets and ConfigMaps. The
-Kustomize generators should be specified in a `kustomization.yaml` file inside
-a directory. After generating the Secret, you can create the Secret on the API
-server with `kubectl apply`.
+`kubectl` supports using the [Kustomize object management tool](/docs/tasks/manage-kubernetes-objects/kustomization/) to manage Secrets
+and ConfigMaps. You create a *resource generator* using Kustomize, which
+generates a Secret that you can apply to the API server using `kubectl`.
 
 ## {{% heading "prerequisites" %}}
 
@@ -20,38 +17,47 @@ server with `kubectl apply`.
 
 <!-- steps -->
 
-## Create the Kustomization file
+## Create a Secret
 
 You can generate a Secret by defining a `secretGenerator` in a
-`kustomization.yaml` file that references other existing files.
-For example, the following kustomization file references the
-`./username.txt` and the `./password.txt` files:
+`kustomization.yaml` file that references other existing files, `.env` files, or
+literal values. For example, the following instructions create a Kustomization
+file for the username `admin` and the password `1f2d1e2e67df`.
 
-```yaml
+### Create the Kustomization file
+
+{{< tabs name="Secret data" >}}
+{{< tab name="Literals" codelang="yaml" >}}
 secretGenerator:
-- name: db-user-pass
-  files:
-  - username.txt
-  - password.txt
-```
-
-You can also define the `secretGenerator` in the `kustomization.yaml`
-file by providing some literals.
-For example, the following `kustomization.yaml` file contains two literals
-for `username` and `password` respectively:
-
-```yaml
-secretGenerator:
-- name: db-user-pass
+- name: database-creds
   literals:
   - username=admin
   - password=1f2d1e2e67df
-```
+{{< /tab >}}
+{{% tab name="Files" %}}
+1.  Store the credentials in files with the values encoded in base64:
 
-You can also define the `secretGenerator` in the `kustomization.yaml`
-file by providing `.env` files.
-For example, the following `kustomization.yaml` file pulls in data from
-`.env.secret` file:
+    ```shell
+    echo -n 'admin' > ./username.txt
+    echo -n '1f2d1e2e67df' > ./password.txt
+    ```
+    The `-n` flag ensures that there's no newline character at the end of your
+    files.
+
+1.  Create the `kustomization.yaml` file:
+
+    ```yaml
+    secretGenerator:
+    - name: database-creds
+      files:
+      - username.txt
+      - password.txt
+    ```
+{{% /tab %}}}
+{{% tab name=".env files" %}}
+You can also define the secretGenerator in the `kustomization.yaml` file by
+providing `.env` files. For example, the following `kustomization.yaml` file
+pulls in data from an `.env.secret` file:
 
 ```yaml
 secretGenerator:
@@ -59,82 +65,62 @@ secretGenerator:
   envs:
   - .env.secret
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
-Note that in all cases, you don't need to base64 encode the values.
+In all cases, you don't need to base64 encode the values. The name of the YAML
+file **must** be `kustomization.yaml` or `kustomization.yml`.
 
-## Create the Secret
+### Apply the kustomization file
 
-Apply the directory containing the `kustomization.yaml` to create the Secret.
+To create the Secret, apply the directory that contains the kustomization file:
 
 ```shell
-kubectl apply -k .
+kubectl apply -k <directory-path>
 ```
 
 The output is similar to:
 
 ```
-secret/db-user-pass-96mffmfh4k created
+secret/database-creds-5hdh7hhgfk created
 ```
 
-Note that when a Secret is generated, the Secret name is created by hashing
+When a Secret is generated, the Secret name is created by hashing
 the Secret data and appending the hash value to the name. This ensures that
 a new Secret is generated each time the data is modified.
 
-## Check the Secret created
+To verify that the Secret was created and to decode the Secret data, refer to
+[Managing Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
 
-You can check that the secret was created:
+## Edit a Secret {#edit-secret}
 
-```shell
-kubectl get secrets
-```
+1.  In your `kustomization.yaml` file, modify the data, such as the `password`.
+1.  Apply the directory that contains the kustomization file:
 
-The output is similar to:
+    ```shell
+    kubectl apply -k <directory-path>
+    ```
 
-```
-NAME                             TYPE                                  DATA      AGE
-db-user-pass-96mffmfh4k          Opaque                                2         51s
-```
+    The output is similar to:
 
-You can view a description of the secret:
+    ```
+    secret/db-user-pass-6f24b56cc8 created
+    ```
 
-```shell
-kubectl describe secrets/db-user-pass-96mffmfh4k
-```
+The edited Secret is created as a new `Secret` object, instead of updating the
+existing `Secret` object. You might need to update references to the Secret in
+your Pods.
 
-The output is similar to:
+## Clean up
 
-```
-Name:            db-user-pass-96mffmfh4k
-Namespace:       default
-Labels:          <none>
-Annotations:     <none>
-
-Type:            Opaque
-
-Data
-====
-password.txt:    12 bytes
-username.txt:    5 bytes
-```
-
-The commands `kubectl get` and `kubectl describe` avoid showing the contents of a `Secret` by
-default. This is to protect the `Secret` from being exposed accidentally to an onlooker,
-or from being stored in a terminal log.
-To check the actual content of the encoded data, please refer to
-[decoding secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
-
-## Clean Up
-
-To delete the Secret you have created:
+To delete a Secret, use `kubectl`:
 
 ```shell
-kubectl delete secret db-user-pass-96mffmfh4k
+kubectl delete secret db-user-pass
 ```
 
-<!-- Optional section; add links to information related to this topic. -->
 ## {{% heading "whatsnext" %}}
 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secrets with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-

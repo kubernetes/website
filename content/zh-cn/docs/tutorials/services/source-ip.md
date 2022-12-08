@@ -2,11 +2,13 @@
 title: 使用源 IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 10
 ---
 <!--  
 title: Using Source IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 40
 -->
 
 <!-- overview -->
@@ -132,7 +134,7 @@ The output is similar to this:
 -->
 输出类似于：
 ```
-NAME                   STATUS     ROLES    AGE     VERSION
+NAME                           STATUS     ROLES    AGE     VERSION
 kubernetes-node-6jst   Ready      <none>   2h      v1.13.0
 kubernetes-node-cx31   Ready      <none>   2h      v1.13.0
 kubernetes-node-jj1t   Ready      <none>   2h      v1.13.0
@@ -172,7 +174,7 @@ service/clusterip exposed
 kubectl get svc clusterip
 ```
 <!--
-The output is similar to this:
+The output is similar to:
 -->
 输出类似于：
 ```
@@ -236,7 +238,7 @@ command=GET
 <!-- 
 The `client_address` is always the client pod's IP address, whether the client pod and server pod are in the same node or in different nodes.
 -->
-`client_address` 始终是客户端 Pod 的 IP 地址，不管客户端 Pod 和服务器 Pod 位于同一节点还是不同节点。
+不管客户端 Pod 和服务器 Pod 位于同一节点还是不同节点，`client_address` 始终是客户端 Pod 的 IP 地址。
 
 <!-- 
 ## Source IP for Services with `Type=NodePort`
@@ -252,7 +254,6 @@ are source NAT'd by default. You can test this by creating a `NodePort` Service:
 ```shell
 kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
 ```
-
 <!-- 
 The output is: 
 -->
@@ -384,7 +385,7 @@ Visually:
 
 * 客户端将数据包发送到没有任何端点的 `node2:nodePort`
 * 数据包被丢弃
-* 客户端发送数据包到 `node1:nodePort`，它**确实**有端点
+* 客户端发送数据包到**必有**端点的 `node1:nodePort`
 * node1 使用正确的源 IP 地址将数据包路由到端点
 
 用图表示：
@@ -428,7 +429,7 @@ service/loadbalancer exposed
 Print out the IP addresses of the Service:
 -->
 打印 Service 的 IP 地址：
-```shell
+```console
 kubectl get svc loadbalancer
 ```
 <!--
@@ -443,7 +444,7 @@ loadbalancer   LoadBalancer   10.0.65.118   203.0.113.140     80/TCP    5m
 <!-- 
 Next, send a request to this Service's external-ip:
 -->
-接下来，发送请求到 Service 的 的外部IP（External-IP）：
+接下来，发送请求到 Service 的 的外部 IP（External-IP）：
 ```shell
 curl 203.0.113.140
 ```
@@ -638,8 +639,8 @@ kubectl delete deployment source-ip-app
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-* Learn more about [connecting applications via services](/docs/concepts/services-networking/connect-applications-service/)
+* Learn more about [connecting applications via services](/docs/tutorials/services/connect-applications-service/)
 * Read how to [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 -->
-* 详细了解[通过 Service 连接应用程序](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 详细了解[通过 Service 连接应用程序](/zh-cn/docs/tutorials/services/connect-applications-service/)
 * 阅读如何[创建外部负载均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)

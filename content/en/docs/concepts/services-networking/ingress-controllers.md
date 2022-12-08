@@ -6,7 +6,7 @@ description: >-
   You need to select at least one ingress controller and make sure it is set up in your cluster.  
   This page lists common ingress controllers that you can deploy.
 content_type: concept
-weight: 30
+weight: 50
 ---
 
 <!-- overview -->

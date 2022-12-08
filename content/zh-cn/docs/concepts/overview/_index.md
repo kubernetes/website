@@ -148,12 +148,12 @@ Containers are a good way to bundle and run your applications. In a production e
 如果此行为交由给系统处理，是不是会更容易一些？
 
 <!--
-That's how Kubernetes comes to the rescue! Kubernetes provides you with a framework to run distributed systems resiliently. It takes care of scaling and failover for your application, provides deployment patterns, and more. For example, Kubernetes can easily manage a canary deployment for your system.
+That's how Kubernetes comes to the rescue! Kubernetes provides you with a framework to run distributed systems resiliently. It takes care of scaling and failover for your application, provides deployment patterns, and more. For example: Kubernetes can easily manage a canary deployment for your system.
 -->
 这就是 Kubernetes 要来做的事情！
 Kubernetes 为你提供了一个可弹性运行分布式系统的框架。
 Kubernetes 会满足你的扩展要求、故障转移你的应用、提供部署模式等。
-例如，Kubernetes 可以轻松管理系统的 Canary 部署。
+例如，Kubernetes 可以轻松管理系统的 Canary (金丝雀) 部署。
 
 <!--
 Kubernetes provides you with:
@@ -166,7 +166,7 @@ Kubernetes can expose a container using the DNS name or using their own IP addre
 -->
 * **服务发现和负载均衡**
 
-  Kubernetes 可以使用 DNS 名称或自己的 IP 地址来曝露容器。
+  Kubernetes 可以使用 DNS 名称或自己的 IP 地址来暴露容器。
   如果进入容器的流量很大，
   Kubernetes 可以负载均衡并分配网络流量，从而使部署稳定。
 
@@ -249,8 +249,7 @@ Kubernetes：
 * 不提供应用程序级别的服务作为内置服务，例如中间件（例如消息中间件）、
   数据处理框架（例如 Spark）、数据库（例如 MySQL）、缓存、集群存储系统
   （例如 Ceph）。这样的组件可以在 Kubernetes 上运行，并且/或者可以由运行在
-  Kubernetes 上的应用程序通过可移植机制
-  （例如[开放服务代理](https://openservicebrokerapi.org/)）来访问。
+  Kubernetes 上的应用程序通过可移植机制（例如[开放服务代理](https://openservicebrokerapi.org/)）来访问。
 <!--
 * Does not dictate logging, monitoring, or alerting solutions. It provides some integrations as proof of concept, and mechanisms to collect and export metrics.
 * Does not provide nor mandate a configuration language/system (for example, Jsonnet). It provides a declarative API that may be targeted by arbitrary forms of declarative specifications.
@@ -265,8 +264,8 @@ Kubernetes：
 * 此外，Kubernetes 不仅仅是一个编排系统，实际上它消除了编排的需要。
   编排的技术定义是执行已定义的工作流程：首先执行 A，然后执行 B，再执行 C。
   而 Kubernetes 包含了一组独立可组合的控制过程，可以连续地将当前状态驱动到所提供的预期状态。
-  你不需要在乎如何从 A 移动到 C，也不需要集中控制，这使得系统更易于使用
-  且功能更强大、系统更健壮，更为弹性和可扩展。
+  你不需要在乎如何从 A 移动到 C，也不需要集中控制，这使得系统更易于使用且功能更强大、
+  系统更健壮，更为弹性和可扩展。
 
 ## {{% heading "whatsnext" %}}
 

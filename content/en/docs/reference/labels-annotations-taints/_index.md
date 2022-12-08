@@ -1,7 +1,7 @@
 ---
 title: Well-Known Labels, Annotations and Taints
 content_type: concept
-weight: 20
+weight: 40
 no_list: true
 ---
 
@@ -132,6 +132,20 @@ to the name of the namespace. You can't change this label's value.
 
 This is useful if you want to target a specific namespace with a label
 {{< glossary_tooltip text="selector" term_id="selector" >}}.
+
+### kubernetes.io/limit-ranger
+
+Example: `kubernetes.io/limit-ranger: "LimitRanger plugin set: cpu, memory request for container nginx; cpu, memory limit for container nginx"`
+
+Used on: Pod
+
+Kubernetes by default doesn't provide any resource limit, that means unless you explicitly define limits,
+your container can consume unlimited CPU and memory.
+You can define a default request or default limit for pods. You do this by creating a LimitRange in the relevant namespace.
+Pods deployed after you define a LimitRange will have these limits applied to them.
+The annotation `kubernetes.io/limit-ranger` records that resource defaults were specified for the Pod,
+and they were applied successfully.
+For more details, read about [LimitRanges](/docs/concepts/policy/limit-range).
 
 ### beta.kubernetes.io/arch (deprecated)
 
@@ -291,6 +305,14 @@ sets this label on that Pod. The value of the label is the name of the Pod being
 
 See [Pod Name Label](/docs/concepts/workloads/controllers/statefulset/#pod-name-label) in the
 StatefulSet topic for more details.
+
+### scheduler.alpha.kubernetes.io/node-selector {#schedulerkubernetesnode-selector}
+
+Example: `scheduler.alpha.kubernetes.io/node-selector: "name-of-node-selector"`
+
+Used on: Namespace
+
+The [PodNodeSelector](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector) uses this annotation key to assign node selectors to pods in namespaces.
 
 ### topology.kubernetes.io/region {#topologykubernetesioregion}
 
@@ -761,7 +783,7 @@ should connect to. This is used mainly for etcd cluster health check purposes.
 
 ### kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint
 
-Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https://172.17.0.18:6443`
 
 Used on: Pod
 

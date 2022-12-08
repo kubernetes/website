@@ -1,6 +1,7 @@
 ---
 title: TLS 启动引导
 content_type: concept
+weight: 120
 ---
 <!--
 reviewers:
@@ -10,6 +11,7 @@ reviewers:
 - awly
 title: TLS bootstrapping
 content_type: concept
+weight: 120
 -->
 
 <!-- overview -->

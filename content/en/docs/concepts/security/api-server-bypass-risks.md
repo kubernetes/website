@@ -3,6 +3,7 @@ title: Kubernetes API Server Bypass Risks
 description: >
   Security architecture information relating to the API server and other components
 content_type: concept
+weight: 90
 ---
 
 <!-- overview -->

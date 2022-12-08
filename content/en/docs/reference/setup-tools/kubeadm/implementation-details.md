@@ -252,7 +252,7 @@ Static Pod manifest share a set of common properties:
 
 Please note that:
 
-1. All images will be pulled from k8s.gcr.io by default.
+1. All images will be pulled from registry.k8s.io by default.
    See [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)
    for customizing the image repository
 1. In case of kubeadm is executed in the `--dry-run` mode, static Pods files are written in a

@@ -5,7 +5,7 @@ reviewers:
 - danwinship
 title: Network Policies
 content_type: concept
-weight: 50
+weight: 70
 description: >-
   If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4),
   NetworkPolicies allow you to specify rules for traffic flow within your cluster, and

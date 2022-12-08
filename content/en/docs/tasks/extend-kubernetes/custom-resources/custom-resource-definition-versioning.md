@@ -15,10 +15,9 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}}
 
-You should have a initial understanding of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+You should have an initial understanding of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 {{< version-check >}}
 
@@ -42,10 +41,9 @@ Later it might be necessary to add new version such as `v1`.
 
 Adding a new version:
 
-1. Pick a conversion strategy. Since custom resource objects need to be able to
-   be served at both versions, that means they will sometimes be served at a
-   different version than their storage version. In order for this to be
-   possible, the custom resource objects must sometimes be converted between the
+1. Pick a conversion strategy. Since custom resource objects need the ability to
+   be served at both versions, that means they will sometimes be served in a
+   different version than the one stored. To make this possible, the custom resource objects must sometimes be converted between the
    version they are stored at and the version they are served at. If the
    conversion involves schema changes and requires custom logic, a conversion
    webhook should be used. If there are no schema changes, the default `None`
@@ -297,11 +295,13 @@ spec:
   versions:
   - name: v1alpha1
     served: true
+    storage: false
     # This indicates the v1alpha1 version of the custom resource is deprecated.
     # API requests to this version receive a warning header in the server response.
     deprecated: true
     # This overrides the default warning returned to API clients making v1alpha1 API requests.
     deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
+    
     schema: ...
   - name: v1beta1
     served: true
@@ -334,6 +334,7 @@ spec:
   versions:
   - name: v1alpha1
     served: true
+    storage: false
     # This indicates the v1alpha1 version of the custom resource is deprecated.
     # API requests to this version receive a warning header in the server response.
     deprecated: true
@@ -405,7 +406,7 @@ The webhook should perform these conversions independently.
 ### Write a conversion webhook server
 
 Please refer to the implementation of the [custom resource conversion webhook
-server](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/main.go)
+server](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
 `ConversionReview` requests sent by the API servers, and sends back conversion
 results wrapped in `ConversionResponse`. Note that the request
@@ -413,14 +414,14 @@ contains a list of custom resources that need to be converted independently with
 changing the order of objects.
 The example server is organized in a way to be reused for other conversions.
 Most of the common code are located in the
-[framework file](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/converter/framework.go)
+[framework file](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/framework.go)
 that leaves only
-[one function](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80)
+[one function](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/example_converter.go#L29-L80)
 to be implemented for different conversions.
 
 {{< note >}}
 The example conversion webhook server leaves the `ClientAuth` field
-[empty](https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/config.go#L47-L48),
+[empty](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/config.go#L47-L48),
 which defaults to `NoClientCert`. This means that the webhook server does not
 authenticate the identity of the clients, supposedly API servers. If you need
 mutual TLS or other ways to authenticate the clients, see

@@ -49,6 +49,7 @@ Before walking through each tutorial, you may want to bookmark the
 
 ## Services
 
+* [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 
 ## Security
