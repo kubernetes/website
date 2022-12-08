@@ -14,7 +14,10 @@ weight: 80
 
 A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repeating schedule.
 
-CronJob is meant for performing regular scheduled actions such as backups, report generation, and so on. One CronJob object is like one line of a _crontab_ (cron table) file on a Unix system. It runs a job periodically on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
+CronJob is meant for performing regular scheduled actions such as backups, report generation, 
+and so on. One CronJob object is like one line of a _crontab_ (cron table) file on a 
+Unix system. It runs a job periodically on a given schedule, written in 
+[Cron](https://en.wikipedia.org/wiki/Cron) format.
 
 CronJobs have limitations and idiosyncrasies.
 For example, in certain circumstances, a single cron job can create multiple jobs. See the [limitations](#cron-job-limitations) below.
@@ -146,7 +149,7 @@ For another way to clean up jobs automatically, see [Clean up finished jobs auto
 
 ### Time zones
 
-For CronJobs with no time zone specified, the kube-controller-manager interprets schedules relative to its local time zone.
+For CronJobs with no time zone specified, the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}} interprets schedules relative to its local time zone.
 
 {{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
@@ -159,22 +162,21 @@ When you have the feature enabled, you can set `.spec.timeZone` to the name of a
 `.spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
 
 {{< caution >}}
-Historically you may find the `.spec.schedule` field can be set with a timezone like `CRON_TZ=UTC * * * * *` or `TZ=UTC * * * * *`. This way is not recommended any more and you should consider use the `.spec.timeZone` field as described above.
+Historically you may set the `.spec.schedule` field to a timezone like `CRON_TZ=UTC * * * * *` or
+`TZ=UTC * * * * *`. This way is not recommended any more and you should consider use the
+`.spec.timeZone` field as described above.
 {{< /caution >}}
 
 A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
 
 ## CronJob limitations {#cron-job-limitations}
 
-### Name limitations
-When creating the manifest for a CronJob resource, make sure the name you provide is a valid DNS subdomain name. The name must be no longer than 52 characters. This is because the CronJob controller will automatically append 11 characters to the job name provided and there is a constraint that the maximum length of a Job name is no more than 63 characters.
-
 ### Modifying a CronJob
 If you modify a CronJob, the changes you make will apply to new jobs that start to run after your modification
 is complete. Jobs (and their Pods) that have already started continue to run without changes.
 That is, the CronJob does _not_ update existing jobs, even if those remain running.
 
-### How a CronJob schedules
+### Job creation
 
 A CronJob creates a job object _about_ once per execution time of its schedule. We say "about" because there
 are certain circumstances where two jobs might be created, or no job might be created. We attempt to make these rare,
