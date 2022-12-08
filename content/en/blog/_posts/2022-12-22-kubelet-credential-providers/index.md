@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes v1.26: GA Support for Kubelet Credential Providers'
-date: 2022-11-28
+date: 2022-12-22
 slug: kubelet-credential-providers
 ---
 
