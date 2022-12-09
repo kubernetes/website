@@ -18,7 +18,7 @@ cluster runs a [kube-proxy](/docs/reference/command-line-tools-reference/kube-pr
  -->
 
 Kubernetes 集群中的每个{{< glossary_tooltip term_id="node" text="节点" >}}会运行一个
-会运行一个 [kube-proxy](/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/)
+[kube-proxy](/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/)
 （除非你已经部署了自己的替换组件来替代 `kube-proxy`）。
 
 
