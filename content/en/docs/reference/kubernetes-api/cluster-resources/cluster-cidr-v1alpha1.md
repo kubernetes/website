@@ -66,7 +66,7 @@ ClusterCIDRSpec defines the desired state of ClusterCIDR.
 
 - **ipv6** (string)
 
-  IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+  IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 
 - **nodeSelector** (NodeSelector)
 
