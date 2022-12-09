@@ -189,8 +189,8 @@ url = "https://kubernetes.io"
 fullversion = "v1.25.4"
 version = "v1.25"
 githubbranch = "v1.25.4"
-docsbranch = "main"
-url = "https://kubernetes.io"
+docsbranch = "release-1.25"
+url = "https://v1-25.kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.24.8"
@@ -207,9 +207,9 @@ docsbranch = "release-1.23"
 url = "https://v1-23.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.22.13"
+fullversion = "v1.22.16"
 version = "v1.22"
-githubbranch = "v1.22.13"
+githubbranch = "v1.22.16"
 docsbranch = "release-1.22"
 url = "https://v1-22.docs.kubernetes.io"
 
