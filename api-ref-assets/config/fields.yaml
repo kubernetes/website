@@ -596,7 +596,7 @@
     - volumeName
     - storageClassName
     - volumeMode
-  - name: Alpha level
+  - name: Beta level
     fields:
     - dataSource
     - dataSourceRef
