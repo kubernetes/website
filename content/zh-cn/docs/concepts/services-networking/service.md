@@ -33,7 +33,7 @@ With Kubernetes you don't need to modify your application to use an unfamiliar s
 Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods,
 and can load-balance across them.
 -->
-使用 Kubernetes，你无需修改应用程序即可使用不熟悉的服务发现机制。
+使用 Kubernetes，你无需修改应用程序去使用不熟悉的服务发现机制。
 Kubernetes 为 Pod 提供自己的 IP 地址，并为一组 Pod 提供相同的 DNS 名，
 并且可以在它们之间进行负载均衡。
 
