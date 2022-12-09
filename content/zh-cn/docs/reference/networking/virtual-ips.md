@@ -17,9 +17,9 @@ cluster runs a [kube-proxy](/docs/reference/command-line-tools-reference/kube-pr
 (unless you have deployed your own alternative component in place of `kube-proxy`).
  -->
 
-Kubernetes 集群中的每个{{< glossary_tooltip term_id="node" text="节点" >}}
+Kubernetes 集群中的每个{{< glossary_tooltip term_id="node" text="节点" >}}会运行一个
 会运行一个 [kube-proxy](/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/)
-（除非你已经部署了自己替换组件来替代 `kube-proxy`）。
+（除非你已经部署了自己的替换组件来替代 `kube-proxy`）。
 
 
 <!-- 
@@ -28,9 +28,9 @@ mechanism for {{< glossary_tooltip term_id="service" text="Services">}}
 of `type` other than
 [`ExternalName`](/docs/concepts/services-networking/service/#externalname).
  -->
-`kube-proxy` 组件负责为 `type` 为除
+`kube-proxy` 组件负责除 `type` 为
 [`ExternalName`](/zh-cn/docs/concepts/services-networking/service/#externalname)
-以外的{{< glossary_tooltip term_id="service" text="服务">}}实现**虚拟 IP** 机制。
+以外的{{< glossary_tooltip term_id="service" text="服务">}}，实现**虚拟 IP** 机制。
 
 <!-- 
 A question that pops up every now and then is why Kubernetes relies on
@@ -40,7 +40,7 @@ have multiple A values (or AAAA for IPv6), and rely on round-robin name
 resolution?
  -->
 
-一个不时出现的问题是，为什么 Kubernetes 依赖代理将入站流量转发到后端。
+一个时不时出现的问题是，为什么 Kubernetes 依赖代理将入站流量转发到后端。
 其他方案呢？例如，是否可以配置具有多个 A 值（或 IPv6 的 AAAA）的 DNS 记录，
 使用轮询域名解析？
 
@@ -57,9 +57,9 @@ There are a few reasons for using proxying for Services:
 
 使用代理转发 Service 的原因有以下几个：
 
-* 很长一段时间内，DNS 的实现不遵循记录 TTL，可能在记录过期后仍有结果缓存。
-* 有些应用只做一次 DNS 查询，然后无限期地缓存结果。
-* 即使应用和库做了适当的重解析，低 TTL 或零 TTL 的 DNS 记录可能会对造成 DNS 高负载，
+* DNS 的实现不遵守记录 TTL 的历史由来已久，可能在记录过期后仍有结果缓存。
+* 有些应用只做一次 DNS 查询，然后永久缓存结果。
+* 即使应用程序和库进行了适当的重新解析，低 TTL 或零 TTL 的 DNS 记录可能会给 DNS 带来高负载，从而变得难以管理。
 这可能会变得难以管理。
 
 <!-- 
@@ -73,8 +73,9 @@ network proxying service on a computer.  Although the `kube-proxy` executable su
 to use as-is.
  -->
 在下文中，你可以了解到 kube-proxy 各种实现方式的工作原理。
-总的来说，你应该注意到，在运行 `kube-proxy` 时，可能会修改内核级别的规则
-（例如，可能会创建 iptables 规则），在某些情况下，这些规则直到重启才会被清理。
+总的来说，你应该注意到，在运行 `kube-proxy` 时，
+可能会修改内核级别的规则（例如，可能会创建 iptables 规则），
+在某些情况下，这些规则直到重启才会被清理。
 因此，运行 kube-proxy 这件事应该只由了解在计算机上使用低级别、特权网络代理服务会带来的后果的管理员执行。
 尽管 `kube-proxy` 可执行文件支持 `cleanup` 功能，但这个功能并不是官方特性，因此只能当做没有使用。
 
