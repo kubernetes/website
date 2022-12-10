@@ -5,9 +5,10 @@ reviewers:
 - cheftako
 description: Configure the kubelet's image credential provider plugin
 content_type: task
+min-kubernetes-server-version: v1.26
 ---
 
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!-- overview -->
 
@@ -27,9 +28,12 @@ This guide demonstrates how to configure the kubelet's image credential provider
 
 ## {{% heading "prerequisites" %}}
 
-* The kubelet image credential provider is introduced in v1.20 as an alpha feature. As with other alpha features,
-  a feature gate `KubeletCredentialProviders` must be enabled on only the kubelet for the feature to work.
+* You need a Kubernetes cluster with nodes that support kubelet credential
+  provider plugins. This support is available in Kubernetes {{< skew currentVersion >}};
+  Kubernetes v1.24 and v1.25 included this as a beta feature, enabled by default.
 * A working implementation of a credential provider exec plugin. You can build your own plugin or use one provided by cloud providers.
+
+{{< version-check >}}
 
 <!-- steps -->
 
@@ -52,9 +56,9 @@ should be invoked for which container images. Here's an example configuration fi
 [ECR](https://aws.amazon.com/ecr/)-based plugin:
 
 ```yaml
-apiVersion: kubelet.config.k8s.io/v1alpha1
+apiVersion: kubelet.config.k8s.io/v1
 kind: CredentialProviderConfig
-# providers is a list of credential provider plugins that will be enabled by the kubelet.
+# providers is a list of credential provider helper plugins that will be enabled by the kubelet.
 # Multiple providers may match against a single image, in which case credentials
 # from all providers will be returned to the kubelet. If multiple providers are called
 # for a single image, the results are combined. If providers return overlapping
@@ -74,7 +78,7 @@ providers:
     # Globs can be used in the domain, but not in the port or the path. Globs are supported
     # as subdomains like '*.k8s.io' or 'k8s.*.io', and top-level-domains such as 'k8s.*'.
     # Matching partial subdomains like 'app*.k8s.io' is also supported. Each glob can only match
-    # a single subdomain segment, so *.io does not match *.k8s.io.
+    # a single subdomain segment, so `*.io` does **not** match `*.k8s.io`.
     #
     # A match exists between an image and a matchImage when all of the below are true:
     # - Both contain the same number of domain parts and each part matches.
@@ -98,8 +102,8 @@ providers:
     defaultCacheDuration: "12h"
     # Required input version of the exec CredentialProviderRequest. The returned CredentialProviderResponse
     # MUST use the same encoding version as the input. Current supported values are:
-    # - credentialprovider.kubelet.k8s.io/v1alpha1
-    apiVersion: credentialprovider.kubelet.k8s.io/v1alpha1
+    # - credentialprovider.kubelet.k8s.io/v1
+    apiVersion: credentialprovider.kubelet.k8s.io/v1
     # Arguments to pass to the command when executing it.
     # +optional
     args:
@@ -151,6 +155,6 @@ Some example values of `matchImages` patterns are:
 ## {{% heading "whatsnext" %}}
 
 * Read the details about `CredentialProviderConfig` in the
-  [kubelet configuration API (v1alpha1) reference](/docs/reference/config-api/kubelet-config.v1alpha1/).
-* Read the [kubelet credential provider API reference (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/).
+  [kubelet configuration API (v1) reference](/docs/reference/config-api/kubelet-config.v1/).
+* Read the [kubelet credential provider API reference (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/).
 
