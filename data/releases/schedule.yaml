@@ -1,6 +1,6 @@
 schedules:
 - release: 1.26
-  releaseDate: 2022-12-08
+  releaseDate: 2022-12-09
   maintenanceModeStartDate: 2023-12-28
   endOfLifeDate: 2024-02-24
   next:
