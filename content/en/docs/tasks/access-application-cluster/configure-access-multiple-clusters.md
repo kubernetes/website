@@ -398,6 +398,18 @@ export KUBECONFIG="$KUBECONFIG_SAVED"
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
 
+## Check the subject represented by the kubeconfig
+
+It is not always obvious what attributes (username, groups) you will get after authenticating to the cluster. 
+It can be even more challenging if you are managing more than one cluster at the same time.
+
+There is a `kubectl` alpha subcommand command to check subject attributes, such as username,
+for your selected Kubernetes client context: `kubectl alpha auth whoami`.
+
+Read [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
+to learn about this in more detail.
+
+
 ## {{% heading "whatsnext" %}}
 
 * [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)

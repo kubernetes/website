@@ -61,63 +61,6 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 - The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.
   For example, if your operating system doesn't allow you to run iptables commands,
   the standard kernel kube-proxy implementation will not work.
-  Likewise, if you have an operating system which doesn't support `netsh`,
-  it will not run in Windows userspace mode.
-
-### User space proxy mode {#proxy-mode-userspace}
-
-{{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
-
-This (legacy) mode uses iptables to install interception rules, and then performs
-traffic forwarding with the assistance of the kube-proxy tool.
-The kube-procy watches the Kubernetes control plane for the addition, modification
-and removal of Service and EndpointSlice objects. For each Service, the kube-proxy
-opens a port (randomly chosen) on the local node. Any connections to this _proxy port_
-are proxied to one of the Service's backend Pods (as reported via
-EndpointSlices). The kube-proxy takes the `sessionAffinity` setting of the Service into
-account when deciding which backend Pod to use.
-
-The user-space proxy installs iptables rules which capture traffic to the
-Service's `clusterIP` (which is virtual) and `port`. Those rules redirect that traffic
-to the proxy port which proxies the backend Pod.
-
-By default, kube-proxy in userspace mode chooses a backend via a round-robin algorithm.
-
-{{< figure src="/images/docs/services-userspace-overview.svg" title="Services overview diagram for userspace proxy" class="diagram-medium" >}}
-
-
-#### Example {#packet-processing-userspace}
-
-As an example, consider the image processing application described [earlier](#example)
-in the page.
-When the backend Service is created, the Kubernetes control plane assigns a virtual
-IP address, for example 10.0.0.1.  Assuming the Service port is 1234, the
-Service is observed by all of the kube-proxy instances in the cluster.
-When a proxy sees a new Service, it opens a new random port, establishes an
-iptables redirect from the virtual IP address to this new port, and starts accepting
-connections on it.
-
-When a client connects to the Service's virtual IP address, the iptables
-rule kicks in, and redirects the packets to the proxy's own port.
-The "Service proxy" chooses a backend, and starts proxying traffic from the client to the backend.
-
-This means that Service owners can choose any port they want without risk of
-collision.  Clients can connect to an IP and port, without being aware
-of which Pods they are actually accessing.
-
-#### Scaling challenges {#scaling-challenges-userspace}
-
-Using the userspace proxy for VIPs works at small to medium scale, but will
-not scale to very large clusters with thousands of Services.  The
-[original design proposal for portals](https://github.com/kubernetes/kubernetes/issues/1107)
-has more details on this.
-
-Using the userspace proxy obscures the source IP address of a packet accessing
-a Service.
-This makes some kinds of network filtering (firewalling) impossible.  The iptables
-proxy mode does not
-obscure in-cluster source IPs, but it does still impact clients coming through
-a load balancer or node-port.
 
 ### `iptables` proxy mode {#proxy-mode-iptables}
 
@@ -135,7 +78,7 @@ is handled by Linux netfilter without the need to switch between userspace and t
 kernel space. This approach is also likely to be more reliable.
 
 If kube-proxy is running in iptables mode and the first Pod that's selected
-does not respond, the connection fails. This is different from userspace
+does not respond, the connection fails. This is different from the old `userspace`
 mode: in that scenario, kube-proxy would detect that the connection to the first
 Pod had failed and would automatically retry with a different backend Pod.
 
@@ -148,7 +91,8 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 
 #### Example {#packet-processing-iptables}
 
-Again, consider the image processing application described [earlier](#example).
+As an example, consider the image processing application described [earlier](#example)
+in the page.
 When the backend Service is created, the Kubernetes control plane assigns a virtual
 IP address, for example 10.0.0.1.  For this example, assume that the
 Service port is 1234.
@@ -162,10 +106,7 @@ endpoint rules redirect traffic (using destination NAT) to the backends.
 
 When a client connects to the Service's virtual IP address the iptables rule kicks in.
 A backend is chosen (either based on session affinity or randomly) and packets are
-redirected to the backend.  Unlike the userspace proxy, packets are never
-copied to userspace, the kube-proxy does not have to be running for the virtual
-IP address to work, and Nodes see traffic arriving from the unaltered client IP
-address.
+redirected to the backend without rewriting the client IP address.
 
 This same basic flow executes when traffic comes in through a node-port or
 through a load-balancer, though in those cases the client IP address does get altered.
@@ -289,34 +230,6 @@ that are used for `type: ClusterIP` Services.
 You can set the `.spec.internalTrafficPolicy` and `.spec.externalTrafficPolicy` fields
 to control how Kubernetes routes traffic to healthy (“ready”) backends.
 
-### External traffic policy
-
-You can set the `.spec.externalTrafficPolicy` field to control how traffic from
-external sources is routed. Valid values are `Cluster` and `Local`. Set the field
-to `Cluster` to route external traffic to all ready endpoints and `Local` to only
-route to ready node-local endpoints. If the traffic policy is `Local` and there are
-are no node-local endpoints, the kube-proxy does not forward any traffic for the
-relevant Service.
-
-{{< note >}}
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
-
-If you enable the `ProxyTerminatingEndpoints`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-for the kube-proxy, the kube-proxy checks if the node
-has local endpoints and whether or not all the local endpoints are marked as terminating.
-If there are local endpoints and **all** of those are terminating, then the kube-proxy ignores
-any external traffic policy of `Local`. Instead, whilst the node-local endpoints remain as all
-terminating, the kube-proxy forwards traffic for that Service to healthy endpoints elsewhere,
-as if the external traffic policy were set to `Cluster`.
-
-This forwarding behavior for terminating endpoints exists to allow external load balancers to
-gracefully drain connections that are backed by `NodePort` Services, even when the health check
-node port starts to fail. Otherwise, traffic can be lost between the time a node is
-still in the node pool of a load balancer and traffic is being dropped during the
-termination period of a pod.
-{{< /note >}}
-
 ### Internal traffic policy
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
@@ -326,6 +239,39 @@ internal sources is routed. Valid values are `Cluster` and `Local`. Set the fiel
 `Cluster` to route internal traffic to all ready endpoints and `Local` to only route
 to ready node-local endpoints. If the traffic policy is `Local` and there are no
 node-local endpoints, traffic is dropped by kube-proxy.
+
+### External traffic policy
+
+You can set the `.spec.externalTrafficPolicy` field to control how traffic from
+external sources is routed. Valid values are `Cluster` and `Local`. Set the field
+to `Cluster` to route external traffic to all ready endpoints and `Local` to only
+route to ready node-local endpoints. If the traffic policy is `Local` and there are
+are no node-local endpoints, the kube-proxy does not forward any traffic for the
+relevant Service.
+
+### Traffic to terminating endpoints
+
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+
+If the `ProxyTerminatingEndpoints`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in kube-proxy and the traffic policy is `Local`, that node's
+kube-proxy uses a more complicated algorithm to select endpoints for a Service.
+With the feature enabled, kube-proxy checks if the node
+has local endpoints and whether or not all the local endpoints are marked as terminating.
+If there are local endpoints and **all** of them are terminating, then kube-proxy
+will forward traffic to those terminating endpoints. Otherwise, kube-proxy will always
+prefer forwarding traffic to endpoints that are not terminating.
+
+This forwarding behavior for terminating endpoints exist to allow `NodePort` and `LoadBalancer`
+Services to gracefully drain connections when using `externalTrafficPolicy: Local`.
+
+As a deployment goes through a rolling update, nodes backing a load balancer may transition from
+N to 0 replicas of that deployment. In some cases, external load balancers can send traffic to
+a node with 0 replicas in between health check probes. Routing traffic to terminating endpoints
+ensures that Node's that are scaling down Pods can gracefully receive and drain traffic to
+those terminating Pods. By the time the Pod completes termination, the external load balancer
+should have seen the node's health check failing and fully removed the node from the backend pool.
 
 ## {{% heading "whatsnext" %}}
 
