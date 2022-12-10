@@ -1,6 +1,6 @@
 ---
 title: Políticas de Segurança do Pod
-content_type: conceito
+content_type: concept
 weight: 30
 ---
 
