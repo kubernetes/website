@@ -13,16 +13,18 @@ description: Configure and schedule GPUs for use as a resource by nodes in a clu
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.10" >}}
+{{< feature-state state="stable" for_k8s_version="v1.26" >}}
 
 <!--
-Kubernetes includes **experimental** support for managing GPUs
-(graphical processing units) across several nodes.
+Kubernetes includes **stable** support for managing AMD and NVIDIA GPUs
+(graphical processing units) across different nodes in your cluster, using
+{{< glossary_tooltip text="device plugins" term_id="device-plugin" >}}.
 
 This page describes how users can consume GPUs, and outlines
 some of the limitations in the implementation.
 -->
-Kubernetes 支持对若干节点上的 GPU（图形处理单元）进行管理，目前处于**实验**状态。
+Kubernetes 支持使用{{< glossary_tooltip text="设备插件" term_id="device-plugin" >}}来跨集群中的不同节点管理
+AMD 和 NVIDIA GPU（图形处理单元），目前处于**稳定**状态。
 
 本页介绍用户如何使用 GPU 以及当前存在的一些限制。
 
@@ -31,23 +33,21 @@ Kubernetes 支持对若干节点上的 GPU（图形处理单元）进行管理�
 <!--
 ## Using device plugins
 
-Kubernetes implements {{< glossary_tooltip text="device plugins" term_id="device-plugin" >}}
-to let Pods access specialized hardware features such as GPUs.
+Kubernetes implements device-plugin to let Pods access specialized hardware features such as GPUs.
 -->
 ## 使用设备插件  {#using-device-plugins}
 
-Kubernetes 实现了{{< glossary_tooltip text="设备插件（Device Plugin）" term_id="device-plugin" >}}
-以允许 Pod 访问类似 GPU 这类特殊的硬件功能特性。
+Kubernetes 实现了设备插件（Device Plugin），让 Pod 可以访问类似 GPU 这类特殊的硬件功能特性。
 
 {{% thirdparty-content %}}
 
 <!--
 As an administrator, you have to install GPU drivers from the corresponding
 hardware vendor on the nodes and run the corresponding device plugin from the
-GPU vendor:
+GPU vendor. Here are some links to vendors' instructions:
 -->
 作为集群管理员，你要在节点上安装来自对应硬件厂商的 GPU 驱动程序，并运行来自
-GPU 厂商的对应设备插件。
+GPU 厂商的对应设备插件。以下是一些厂商说明的链接：
 
 * [AMD](https://github.com/RadeonOpenCompute/k8s-device-plugin#deployment)
 * [Intel](https://intel.github.io/intel-device-plugins-for-kubernetes/cmd/gpu_plugin/README.html)
