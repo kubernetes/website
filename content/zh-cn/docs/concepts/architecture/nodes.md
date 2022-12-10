@@ -33,7 +33,7 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行你的工作负载。
 节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。
 每个节点包含运行 {{< glossary_tooltip text="Pod" term_id="pod" >}} 所需的服务；
-这些节点由 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 负责管理。
+这些节点由{{< glossary_tooltip text="控制面" term_id="control-plane" >}}负责管理。
 
 通常集群中会有若干个节点；而在一个学习所用或者资源受限的环境中，你的集群中也可能只有一个节点。
 
@@ -100,6 +100,7 @@ You, or a {{< glossary_tooltip term_id="controller" text="controller">}}, must e
 delete the Node object to stop that health checking.
 -->
 Kubernetes 会一直保存着非法节点对应的对象，并持续检查该节点是否已经变得健康。
+
 你，或者某个{{< glossary_tooltip term_id="controller" text="控制器">}}必须显式地删除该
 Node 对象以停止健康检查操作。
 {{< /note >}}
@@ -483,7 +484,6 @@ operating system the node uses.
 The kubelet gathers this information from the node and publishes it into
 the Kubernetes API.
 -->
-
 ### 信息（Info） {#info}
 
 Info 指的是节点的一般信息，如内核版本、Kubernetes 版本（`kubelet` 和 `kube-proxy` 版本）、
@@ -852,7 +852,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 -->
 ## 节点非体面关闭 {#non-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.24" >}}
+{{< feature-state state="beta" for_k8s_version="v1.26" >}}
 
 <!--
 A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
@@ -916,17 +916,15 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 1. 强制删除没有匹配的 `out-of-service` 容忍度的 Pod。
 2. 立即对此类 Pod 执行分离卷操作。
 
-<!--
 {{< note >}}
+<!--
 - Before adding the taint `node.kubernetes.io/out-of-service` , it should be verified
   that the node is already in shutdown or power off state (not in the middle of
   restarting).
 - The user is required to manually remove the out-of-service taint after the pods are
   moved to a new node and the user has checked that the shutdown node has been
   recovered since the user was the one who originally added the taint.
-{{< /note >}}
 -->
-{{< note >}}
 - 在添加 `node.kubernetes.io/out-of-service` 污点之前，应该验证节点已经处于关闭或断电状态（而不是在重新启动中）。
 - 将 Pod 移动到新节点后，用户需要手动移除停止服务的污点，并且用户要检查关闭节点是否已恢复，因为该用户是最初添加污点的用户。
 {{< /note >}}
@@ -1076,14 +1074,12 @@ their respective shutdown periods.
 中的 `shutdownGracePeriodByPodPriority` 设置为期望的配置，
 其中包含 Pod 的优先级类数值以及对应的关闭期限。
 
-<!-- 
 {{< note >}}
+<!-- 
 The ability to take Pod priority into account during graceful node shutdown was introduced
 as an Alpha feature in Kubernetes v1.23. In Kubernetes {{< skew currentVersion >}}
 the feature is Beta and is enabled by default.
-{{< /note >}} 
 -->
-{{< note >}}
 在节点体面关闭期间考虑 Pod 优先级的能力是作为 Kubernetes v1.23 中的 Alpha 功能引入的。
 在 Kubernetes {{< skew currentVersion >}} 中该功能是 Beta 版，默认启用。
 {{< /note >}}
