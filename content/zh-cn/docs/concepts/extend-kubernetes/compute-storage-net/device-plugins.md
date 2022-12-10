@@ -1,18 +1,21 @@
 ---
 title: 设备插件
-description: 设备插件可以让你配置集群以支持需要特定于供应商设置的设备或资源，例如 GPU、NIC、FPGA 或非易失性主存储器。
+description: > 
+  设备插件可以让你配置集群以支持需要特定于供应商设置的设备或资源，例如 GPU、NIC、FPGA 或非易失性主存储器。
 content_type: concept
 weight: 20
 ---
 <!--
 title: Device Plugins
-description: Device plugins let you configure your cluster with support for devices or resources that require vendor-specific setup, such as GPUs, NICs, FPGAs, or non-volatile main memory.
+description: >
+  Device plugins let you configure your cluster with support for devices or resources that require
+  vendor-specific setup, such as GPUs, NICs, FPGAs, or non-volatile main memory.
 content_type: concept
 weight: 20
 -->
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 Kubernetes provides a [device plugin framework](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)
@@ -55,12 +58,12 @@ service Registration {
 A device plugin can register itself with the kubelet through this gRPC service.
 During the registration, the device plugin needs to send:
 
-  * The name of its Unix socket.
-  * The Device Plugin API version against which it was built.
-  * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
-    [extended resource naming scheme](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
-    as `vendor-domain/resourcetype`.
-    (For example, an NVIDIA GPU is advertised as `nvidia.com/gpu`.)
+* The name of its Unix socket.
+* The Device Plugin API version against which it was built.
+* The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
+  [extended resource naming scheme](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
+  as `vendor-domain/resourcetype`.
+  (For example, an NVIDIA GPU is advertised as `nvidia.com/gpu`.)
 
 Following a successful registration, the device plugin sends the kubelet the
 list of devices it manages, and the kubelet is then in charge of advertising those
@@ -100,6 +103,9 @@ other resources, with the following differences:
 * 扩展资源仅可作为整数资源使用，并且不能被过量使用
 * 设备不能在容器之间共享
 
+<!--
+### Example {#example-pod}
+-->
 ### 示例 {#example-pod}
 
 <!--
@@ -225,12 +231,12 @@ The general workflow of a device plugin includes the following steps:
   path `/var/lib/kubelet/device-plugins/kubelet.sock`.
 
 * After successfully registering itself, the device plugin runs in serving mode, during which it keeps
-monitoring device health and reports back to the kubelet upon any device state changes.
-It is also responsible for serving `Allocate` gRPC requests. During `Allocate`, the device plugin may
-do device-specific preparation; for example, GPU cleanup or QRNG initialization.
-If the operations succeed, the device plugin returns an `AllocateResponse` that contains container
-runtime configurations for accessing the allocated devices. The kubelet passes this information
-to the container runtime.
+  monitoring device health and reports back to the kubelet upon any device state changes.
+  It is also responsible for serving `Allocate` gRPC requests. During `Allocate`, the device plugin may
+  do device-specific preparation; for example, GPU cleanup or QRNG initialization.
+  If the operations succeed, the device plugin returns an `AllocateResponse` that contains container
+  runtime configurations for accessing the allocated devices. The kubelet passes this information
+  to the container runtime.
 -->
 * 插件通过 Unix socket 在主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock`
   处向 kubelet 注册自身。
@@ -244,15 +250,14 @@ to the container runtime.
 ### Handling kubelet restarts
 
 A device plugin is expected to detect kubelet restarts and re-register itself with the new
-kubelet instance. In the current implementation, a new kubelet instance deletes all the existing Unix sockets
-under `/var/lib/kubelet/device-plugins` when it starts. A device plugin can monitor the deletion
+kubelet instance. A new kubelet instance deletes all the existing Unix sockets under
+`/var/lib/kubelet/device-plugins` when it starts. A device plugin can monitor the deletion
 of its Unix socket and re-register itself upon such an event.
 -->
 ### 处理 kubelet 重启   {#handling-kubelet-restarts}
 
 设备插件应能监测到 kubelet 重启，并且向新的 kubelet 实例来重新注册自己。
-在当前实现中，当 kubelet 重启的时候，新的 kubelet 实例会删除 `/var/lib/kubelet/device-plugins`
-下所有已经存在的 Unix 套接字。
+新的 kubelet 实例启动时会删除 `/var/lib/kubelet/device-plugins` 下所有已经存在的 Unix 套接字。
 设备插件需要能够监控到它的 Unix 套接字被删除，并且当发生此类事件时重新注册自己。
 
 <!--
@@ -265,8 +270,7 @@ The canonical directory `/var/lib/kubelet/device-plugins` requires privileged ac
 so a device plugin must run in a privileged security context.
 If you're deploying a device plugin as a DaemonSet, `/var/lib/kubelet/device-plugins`
 must be mounted as a {{< glossary_tooltip term_id="volume" >}}
-in the plugin's
-[PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
+in the plugin's [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
 If you choose the DaemonSet approach you can rely on Kubernetes to: place the device plugin's
 Pod onto Nodes, to restart the daemon Pod after failure, and to help automate upgrades.
@@ -287,27 +291,50 @@ Pod onto Nodes, to restart the daemon Pod after failure, and to help automate up
 <!--
 ## API compatibility
 
-Kubernetes device plugin support is in beta. The API may change before stabilization,
-in incompatible ways. As a project, Kubernetes recommends that device plugin developers:
-
-* Watch for changes in future releases.
-* Support multiple versions of the device plugin API for backward/forward compatibility.
-
-If you enable the DevicePlugins feature and run device plugins on nodes that need to be upgraded to
-a Kubernetes release with a newer device plugin API version, upgrade your device plugins
-to support both versions before upgrading these nodes. Taking that approach will
-ensure the continuous functioning of the device allocations during the upgrade.
+Previously, the versioning scheme required the Device Plugin's API version to match
+exactly the Kubelet's version. Since the graduation of this feature to Beta in v1.12
+this is no longer a hard requirement. The API is versioned and has been stable since
+Beta graduation of this feature. Because of this, kubelet upgrades should be seamless
+but there still may be changes in the API before stabilization making upgrades not
+guaranteed to be non-breaking.
 -->
 ## API 兼容性   {#api-compatibility}
 
-Kubernetes 设备插件支持还处于 beta 版本。所以在稳定版本出来之前 API 会以不兼容的方式进行更改。
+之前版本控制方案要求设备插件的 API 版本与 Kubelet 的版本完全匹配。
+自从此特性在 v1.12 中进阶为 Beta 后，这不再是硬性要求。
+API 是版本化的，并且自此特性进阶 Beta 后一直表现稳定。
+因此，kubelet 升级应该是无缝的，但在稳定之前 API 仍然可能会有变更，还不能保证升级不会中断。
+
+{{< caution >}}
+<!--
+Although the Device Manager component of Kubernetes is a generally available feature,
+the _device plugin API_ is not stable. For information on the device plugin API and
+version compatibility, read [Device Plugin API versions](/docs/reference/node/device-plugin-api-versions/).
+-->
+尽管 Kubernetes 的设备管理器（Device Manager）组件是正式发布的特性，
+但**设备插件 API** 还不稳定。有关设备插件 API 和版本兼容性的信息，
+请参阅[设备插件 API 版本](/zh-cn/docs/reference/node/device-plugin-api-versions/)。
+{{< caution >}}
+
+<!--
+As a project, Kubernetes recommends that device plugin developers:
+
+* Watch for Device Plugin API changes in the future releases.
+* Support multiple versions of the device plugin API for backward/forward compatibility.
+-->
 作为一个项目，Kubernetes 建议设备插件开发者：
 
-* 注意未来版本的更改
+* 注意未来版本中设备插件 API 的变更。
 * 支持多个版本的设备插件 API，以实现向后/向前兼容性。
 
-如果你启用 DevicePlugins 功能，并在需要升级到 Kubernetes 版本来获得较新的设备插件 API
-版本的节点上运行设备插件，请在升级这些节点之前先升级设备插件以支持这两个版本。
+<!--
+To run device plugins on nodes that need to be upgraded to a Kubernetes release with
+a newer device plugin API version, upgrade your device plugins to support both versions
+before upgrading these nodes. Taking that approach will ensure the continuous functioning
+of the device allocations during the upgrade.
+-->
+若在需要升级到具有较新设备插件 API 版本的某个 Kubernetes 版本的节点上运行这些设备插件，
+请在升级这些节点之前先升级设备插件以支持这两个版本。
 采用该方法将确保升级期间设备分配的连续运行。
 
 <!--
@@ -351,7 +378,8 @@ service PodResourcesLister {
 <!--
 The `List` endpoint provides information on resources of running pods, with details such as the
 id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
-the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the information about memory and hugepages reserved for a container.
+the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the
+information about memory and hugepages reserved for a container.
 -->
 这一 `List` 端点提供运行中 Pod 的资源信息，包括类似独占式分配的
 CPU ID、设备插件所报告的设备 ID 以及这些设备分配所处的 NUMA 节点 ID。
@@ -406,7 +434,7 @@ message ContainerDevices {
 {{< note >}}
 <!--
 cpu_ids in the `ContainerResources` in the `List` endpoint correspond to exclusive CPUs allocated
-to a partilar container. If the goal is to evaluate CPUs that belong to the shared pool, the `List`
+to a particular container. If the goal is to evaluate CPUs that belong to the shared pool, the `List`
 endpoint needs to be used in conjunction with the `GetAllocatableResources` endpoint as explained
 below:
 1. Call `GetAllocatableResources` to get a list of all the allocatable CPUs
@@ -443,6 +471,7 @@ conjunction with the List() endpoint. The result obtained by `GetAllocatableReso
 the same unless the underlying resources exposed to kubelet change. This happens rarely but when
 it does (for example: hotplug/hotunplug, device health changes), client is expected to call
 `GetAlloctableResources` endpoint.
+
 However, calling `GetAllocatableResources` endpoint is not sufficient in case of cpu and/or memory
 update and Kubelet needs to be restarted to reflect the correct resource capacity and allocatable.
 -->
@@ -450,6 +479,7 @@ update and Kubelet needs to be restarted to reflect the correct resource capacit
 如果目标是评估空闲/未分配的资源，此调用应该与 List() 端点一起使用。
 除非暴露给 kubelet 的底层资源发生变化，否则 `GetAllocatableResources` 得到的结果将保持不变。
 这种情况很少发生，但当发生时（例如：热插拔，设备健康状况改变），客户端应该调用 `GetAlloctableResources` 端点。
+
 然而，调用 `GetAllocatableResources` 端点在 cpu、内存被更新的情况下是不够的，
 Kubelet 需要重新启动以获取正确的资源容量和可分配的资源。
 {{< /note >}}
@@ -466,12 +496,10 @@ message AllocatableResourcesResponse {
 
 <!--
 Starting from Kubernetes v1.23, the `GetAllocatableResources` is enabled by default.
-You can disable it by turning off the
-`KubeletPodResourcesGetAllocatable` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+You can disable it by turning off the `KubeletPodResourcesGetAllocatable`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started with the following flag:
-
-`--feature-gates=KubeletPodResourcesGetAllocatable=true`
 -->
 从 Kubernetes v1.23 开始，`GetAllocatableResources` 被默认启用。
 你可以通过关闭 `KubeletPodResourcesGetAllocatable`
@@ -479,12 +507,15 @@ Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started wit
 
 在 Kubernetes v1.23 之前，要启用这一功能，`kubelet` 必须用以下标志启动：
 
-`--feature-gates=KubeletPodResourcesGetAllocatable=true`
+```
+--feature-gates=KubeletPodResourcesGetAllocatable=true
+```
 
 <!--
-`ContainerDevices` do expose the topology information declaring to which NUMA cells the device is affine.
-The NUMA cells are identified using a opaque integer ID, which value is consistent to what device
-plugins report [when they register themselves to the kubelet](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
+`ContainerDevices` do expose the topology information declaring to which NUMA cells the device is
+affine.  The NUMA cells are identified using a opaque integer ID, which value is consistent to
+what device plugins report
+[when they register themselves to the kubelet](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
 -->
 `ContainerDevices` 会向外提供各个设备所隶属的 NUMA 单元这类拓扑信息。
 NUMA 单元通过一个整数 ID 来标识，其取值与设备插件所报告的一致。
@@ -500,7 +531,8 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-Support for the `PodResourcesLister service` requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+Support for the `PodResourcesLister service` requires `KubeletPodResources`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 -->
 gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接字来提供服务。
@@ -524,7 +556,9 @@ gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接�
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 <!--
-The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
+The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology
+aligned manner. In order to do this, the Device Plugin API was extended to include a
+`TopologyInfo` struct.
 -->
 拓扑管理器是 Kubelet 的一个组件，它允许以拓扑对齐方式来调度资源。
 为了做到这一点，设备插件 API 进行了扩展来包括一个 `TopologyInfo` 结构体。
@@ -540,17 +574,18 @@ message NUMANode {
 ```
 
 <!--
-Device Plugins that wish to leverage the Topology Manager can send back a populated TopologyInfo struct as part of the device registration, along with the device IDs and the health of the device. The device manager will then use this information to consult with the Topology Manager and make resource assignment decisions.
+Device Plugins that wish to leverage the Topology Manager can send back a populated TopologyInfo
+struct as part of the device registration, along with the device IDs and the health of the device.
+The device manager will then use this information to consult with the Topology Manager and make
+resource assignment decisions.
 
-`TopologyInfo` supports setting a `nodes` field to either `nil` or a list of NUMA nodes. This allows the Device Plugin to advertise a device that spans multiple NUMA nodes.
+`TopologyInfo` supports setting a `nodes` field to either `nil` or a list of NUMA nodes. This
+allows the Device Plugin to advertise a device that spans multiple NUMA nodes.
 
-Setting `TopologyInfo` to `nil`  or providing an empty list of NUMA nodes for a given device indicates that the Device Plugin does not have a NUMA affinity preference for that device.
+Setting `TopologyInfo` to `nil`  or providing an empty list of NUMA nodes for a given device
+indicates that the Device Plugin does not have a NUMA affinity preference for that device.
 
 An example `TopologyInfo` struct populated for a device by a Device Plugin:
-
-```
-pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.TopologyInfo{Nodes: []*pluginapi.NUMANode{&pluginapi.NUMANode{ID: 0,},}}}
-```
 -->
 设备插件希望拓扑管理器可以将填充的 TopologyInfo 结构体作为设备注册的一部分以及设备 ID
 和设备的运行状况发送回去。然后设备管理器将使用此信息来咨询拓扑管理器并做出资源分配决策。
@@ -577,8 +612,10 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 Here are some examples of device plugin implementations:
 
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
-* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
-* The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for hardware-assisted virtualization
+* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
+  Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
+* The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for
+  hardware-assisted virtualization
 * The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [SocketCAN device plugin](https://github.com/collabora/k8s-socketcan)
