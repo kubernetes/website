@@ -106,8 +106,8 @@ spec:
       whenUnsatisfiable: <string>
       labelSelector: <object>
       matchLabelKeys: <list> # 可选；自从 v1.25 开始成为 Alpha
-      nodeAffinityPolicy: [Honor|Ignore] # 可选；自从 v1.25 开始成为 Alpha
-      nodeTaintsPolicy: [Honor|Ignore] # 可选；自从 v1.25 开始成为 Alpha
+      nodeAffinityPolicy: [Honor|Ignore] # 可选；自从 v1.26 开始成为 Beta
+      nodeTaintsPolicy: [Honor|Ignore] # 可选；自从 v1.26 开始成为 Beta
   ### 其他 Pod 字段置于此处
 ```
 
@@ -164,12 +164,12 @@ your cluster. Those fields are:
   
   {{< note >}}
   <!--
-  The `minDomains` field is a beta field and enabled by default in 1.25. You can disable it by disabling the
-  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  The `minDomains` field is a beta field and disabled by default in 1.25. You can enable it by enabling the
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `minDomains` 字段是一个 Alpha 字段，在 1.25 中默认被启用。
-  你可以通过禁用 `MinDomainsInPodToplogySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用该字段。
+  `minDomains` 字段是一个 Beta 字段，在 1.25 中默认被禁用。
+  你可以通过启用 `MinDomainsInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来启用该字段。
   {{< /note >}}
   
   <!--
@@ -276,13 +276,12 @@ your cluster. Those fields are:
 
   {{< note >}}
   <!--
-  The `nodeAffinityPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeAffinityPolicy` is an alpha-level field added in 1.25. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
   `nodeAffinityPolicy` 是 1.25 中新增的一个 Alpha 级别字段。
-  你必须启用 `NodeInclusionPolicyInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
+  你可以通过禁用 `NodeInclusionPolicyInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
   {{< /note >}}
 
 <!--
@@ -302,13 +301,12 @@ your cluster. Those fields are:
 
   {{< note >}}
   <!--
-  The `nodeTaintsPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeTaintsPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `nodeTaintsPolicy` 是 1.25 中新增的一个 Alpha 级别字段。
-  你必须启用 `NodeInclusionPolicyInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
+  `nodeTaintsPolicy` 是一个 Beta 级别字段，在 1.26 版本默认启用。
+  你可以通过禁用 `NodeInclusionPolicyInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
   {{< /note >}}
 
 <!--
