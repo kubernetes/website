@@ -10,22 +10,15 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Run pre-flight checks
+Show the join command for control-plane and worker node
 
 ### Synopsis
 
 
-Run pre-flight checks for kubeadm init.
+Show the join command for control-plane and worker node
 
 ```
-kubeadm init phase preflight [flags]
-```
-
-### Examples
-
-```
-  # Run pre-flight checks for kubeadm init using a config file.
-  kubeadm init phase preflight --config kubeadm-config.yaml
+kubeadm init phase show-join-command [flags]
 ```
 
 ### Options
@@ -38,31 +31,10 @@ kubeadm init phase preflight [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--config string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--dry-run</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for preflight</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--ignore-preflight-errors strings</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for show-join-command</p></td>
 </tr>
 
 </tbody>
