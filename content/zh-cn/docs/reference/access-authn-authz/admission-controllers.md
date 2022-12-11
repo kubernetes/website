@@ -180,8 +180,21 @@ In Kubernetes {{< skew currentVersion >}}, the default ones are:
 在 Kubernetes {{< skew currentVersion >}} 中，默认启用的插件有：
 
 ```shell
-CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook
+CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook
 ```
+
+{{< note >}}
+<!--
+The [`ValidatingAdmissionPolicy`](#validatingadmissionpolicy) admission plugin is enabled
+by default, but is only active if you enable the the `ValidatingAdmissionPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) **and**
+the `admissionregistration.k8s.io/v1alpha1` API.
+-->
+[`ValidatingAdmissionPolicy`](#validatingadmissionpolicy) 准入插件默认被启用，
+但只有启用 `ValidatingAdmissionPolicy`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) **和**
+`admissionregistration.k8s.io/v1alpha1` API 时才会激活。
+{{< note >}}
 
 <!--
 ## What does each admission controller do?
@@ -897,8 +910,8 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
   * `kubernetes.io/os`
   * `beta.kubernetes.io/instance-type`
   * `node.kubernetes.io/instance-type`
-  * `failure-domain.beta.kubernetes.io/region` （已弃用）
-  * `failure-domain.beta.kubernetes.io/zone` （已弃用）
+  * `failure-domain.beta.kubernetes.io/region`（已弃用）
+  * `failure-domain.beta.kubernetes.io/zone`（已弃用）
   * `topology.kubernetes.io/region`
   * `topology.kubernetes.io/zone`
   * `kubelet.kubernetes.io/` 为前缀的标签
@@ -974,7 +987,7 @@ For more information about persistent volume claims, see [PersistentVolumeClaims
 关于持久化卷申领的更多信息，请参见
 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
-### PersistentVolumeLabel {#persistentvolumelabel} 
+### PersistentVolumeLabel {#persistentvolumelabel}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
@@ -1120,8 +1133,7 @@ for more information.
 -->
 这是下节所讨论的已被废弃的 [PodSecurityPolicy](#podsecuritypolicy) 准入控制器的替代品。
 此准入控制器负责在创建和修改 Pod 时，根据请求的安全上下文和
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)
-来确定是否可以执行请求。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)来确定是否可以执行请求。
 
 更多信息请参阅 [Pod 安全性准入控制器](/zh-cn/docs/concepts/security/pod-security-admission/)。
 
@@ -1319,6 +1331,17 @@ conditions.
 {{< glossary_tooltip text="污点" term_id="taint" >}}。
 这些污点能够避免一些竞态条件的发生，而这类竞态条件可能导致 Pod
 在更新节点污点以准确反映其所报告状况之前，就被调度到新节点上。
+
+### ValidatingAdmissionPolicy {#validatingadmissionpolicy}
+
+<!--
+[This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests. 
+It is enabled when both feature gate `validatingadmissionpolicy` and `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
+If any of the ValidatingAdmissionPolicy fails, the request fails.
+-->
+[此准入控制器](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)针对传入的匹配请求实现
+CEL 校验。当 `validatingadmissionpolicy` 和 `admissionregistration.k8s.io/v1alpha1` 特性门控组/版本被启用时，
+此特性被启用。如果任意 ValidatingAdmissionPolicy 失败，则请求失败。
 
 ### ValidatingAdmissionWebhook {#validatingadmissionwebhook}
 
