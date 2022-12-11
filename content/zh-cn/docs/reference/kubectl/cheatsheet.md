@@ -6,7 +6,7 @@ card:
   name: reference
   weight: 30
 ---
-<!-- ---
+<!--
 title: kubectl Cheat Sheet
 reviewers:
 - erictune
@@ -17,7 +17,6 @@ weight: 10 # highlight it
 card:
   name: reference
   weight: 30
----
 -->
 
 <!-- overview -->
@@ -35,7 +34,6 @@ This page contains a list of commonly used `kubectl` commands and flags.
 
 ### BASH
 -->
-
 ## Kubectl 自动补全   {#kubectl-autocomplete}
 
 ### BASH
@@ -79,7 +77,7 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 ### 关于 `--all-namespaces` 的一点说明    {#a-note-on-all-namespaces}
 
 <!--
-Appending `--all-namespaces` happens frequently enough where you should be aware of the  shorthand for `--all-namespaces`:
+Appending `--all-namespaces` happens frequently enough where you should be aware of the shorthand for `--all-namespaces`:
 -->
 我们经常用到 `--all-namespaces` 参数，你应该要知道它的简写：
 
@@ -385,6 +383,9 @@ kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initConta
 # List Events sorted by timestamp
 kubectl get events --sort-by=.metadata.creationTimestamp
 
+# List all warning events
+kubectl events --types=Warning
+
 # Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
 kubectl diff -f ./my-manifest.yaml
 
@@ -469,6 +470,9 @@ kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initConta
 
 # 列出事件（Events），按时间戳排序
 kubectl get events --sort-by=.metadata.creationTimestamp
+
+# 列出所有警告事件
+kubectl events --types=Warning
 
 # 比较当前的集群状态和假定某清单被应用之后的集群状态
 kubectl diff -f ./my-manifest.yaml
@@ -566,7 +570,7 @@ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "
 # Add a new element to a positional array
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 
-# Update a deployment's replica count by patching it's scale subresource
+# Update a deployment's replica count by patching its scale subresource
 kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":2}}'
 ```
 -->
@@ -638,6 +642,7 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 伸缩多个
 <!--
 ```bash
 kubectl delete -f ./pod.json                                      # Delete a pod using the type and name specified in pod.json
+kubectl delete pod unwanted --now                                 # Delete a pod with no grace period
 kubectl delete pod,service baz foo                                # Delete pods and services with same names "baz" and "foo"
 kubectl delete pods,services -l name=myLabel                      # Delete pods and services with label name=myLabel
 kubectl -n my-ns delete pod,svc --all                             # Delete all pods and services in namespace my-ns,
@@ -647,6 +652,7 @@ kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{pr
 -->
 ```bash
 kubectl delete -f ./pod.json                                              # 删除在 pod.json 中指定的类型和名称的 Pod
+kubectl delete pod unwanted --now                                         # 删除 Pod 且无宽限期限（无优雅时段）
 kubectl delete pod,service baz foo                                        # 删除名称为 "baz" 和 "foo" 的 Pod 和服务
 kubectl delete pods,services -l name=myLabel                              # 删除包含 name=myLabel 标签的 pods 和服务
 kubectl -n my-ns delete pod,svc --all                                     # 删除在 my-ns 名字空间中全部的 Pods 和服务
@@ -860,7 +866,7 @@ To output details to your terminal window in a specific format, add the `-o` (or
 
 要以特定格式将详细信息输出到终端窗口，将 `-o`（或者 `--output`）参数添加到支持的 `kubectl` 命令中。
 
-<!--O
+<!--
 Output format | Description
 --------------| -----------
 `-o=custom-columns=<spec>` | Print a table using a comma separated list of custom columns
@@ -898,8 +904,6 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry
 
 # All fields under metadata regardless of name
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
-
-More examples in the kubectl [reference documentation](/docs/reference/kubectl/#custom-columns).
 ```
 -->
 使用 `-o=custom-columns` 的示例：
