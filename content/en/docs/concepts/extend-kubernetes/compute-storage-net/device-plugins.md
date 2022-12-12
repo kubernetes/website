@@ -176,7 +176,7 @@ guaranteed to be non-breaking.
 Although the Device Manager component of Kubernetes is a generally available feature,
 the _device plugin API_ is not stable. For information on the device plugin API and
 version compatibility, read [Device Plugin API versions](/docs/reference/node/device-plugin-api-versions/).
-{{< caution >}}
+{{< /caution >}}
 
 As a project, Kubernetes recommends that device plugin developers:
 
