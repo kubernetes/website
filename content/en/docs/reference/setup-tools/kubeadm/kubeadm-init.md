@@ -224,6 +224,10 @@ All default `registry.k8s.io` images that kubeadm requires support multiple arch
 
 ### Using custom images {#custom-images}
 
+{{< note >}}
+For Kubernetes v1.24.0 through to v1.24.8, kubeadm used images from `k8s.gcr.io` by default. See [registry.k8s.io: faster, cheaper and Generally Available](/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/).
+{{< /note >}}
+
 By default, kubeadm pulls images from `registry.k8s.io`. If the
 requested Kubernetes version is a CI label (such as `ci/latest`)
 `gcr.io/k8s-staging-ci-images` is used.
