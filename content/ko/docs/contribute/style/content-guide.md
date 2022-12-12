@@ -67,4 +67,3 @@ https://slack.k8s.io/ 에서 쿠버네티스 Slack에 등록할 수 있다.
 ## {{% heading "whatsnext" %}}
 
 * [스타일 가이드](/docs/contribute/style/style-guide)에 대해 읽어보기.
-
