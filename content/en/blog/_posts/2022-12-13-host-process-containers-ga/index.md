@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.26: Windows HostProcess Containers Are Going Generally Available"
+title: "Kubernetes 1.26: Windows HostProcess Containers Are Generally Available"
 date: 2022-12-13
 slug: windows-host-process-containers-ga
 ---
@@ -12,12 +12,12 @@ containers, has finally made it to **GA in Kubernetes 1.26**!
 
 What are HostProcess containers and why are they useful?
 
-Cluster operators are often faced with the need to configure their nodes upon provisioning. Whether it's
+Cluster operators are often faced with the need to configure their nodes upon provisioning such as
 installing Windows services, configuring registry keys, managing TLS certificates,
 making network configuration changes, or even deploying monitoring tools such as a Prometheus's node-exporter.
 Previously, performing these actions on Windows nodes was usually done by running PowerShell scripts
 over SSH or WinRM sessions and/or working with your cloud provider's virtual machine management tooling.
-HostProcess containers now enable you to do all of this and more with minimal effort.
+HostProcess containers now enable you to do all of this and more with minimal effort using Kubernetes native APIs.
 
 With HostProcess containers you can now package any payload
 into the container image, map volumes into containers at runtime, and manage them like any other Kubernetes workload.
@@ -28,7 +28,7 @@ Windows nodes to perform administrative duties.
 
 [HostProcess containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) differ
 quite significantly from regular Windows Server containers.
-They are run directly as processes on the host under the access policies of
+They are run directly as processes on the host with the access policies of
 a user you specify. HostProcess containers run as either the built-in Windows system accounts or
 ephemeral users within a user group defined by you. HostProcess containers also share
 the host's network namespace and access/configure storage mounts visible to the host.
@@ -99,7 +99,7 @@ You can run HostProcess containers from within a
 To get started with running Windows containers,
 see the general guidance for [deploying Windows nodes](/docs/setup/production-environment/windows/).
 If you have a compatible node (for example: Windows as the operating system
-containerd v1.7 or later), you can deploy a Pod with one
+with containerd v1.7 or later as the container runtime), you can deploy a Pod with one
 or more HostProcess containers.
 See the [Create a Windows HostProcess Pod - Prerequisites](/docs/tasks/configure-pod-container/create-hostprocess-pod/#before-you-begin)
 for more information.
