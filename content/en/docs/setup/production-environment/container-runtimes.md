@@ -226,7 +226,12 @@ You need CRI support enabled to use containerd with Kubernetes. Make sure that `
 is not included in the`disabled_plugins` list within `/etc/containerd/config.toml`;
 if you made changes to that file, also restart `containerd`.
 
-If you experience container crash loops after the initial cluster installation or after installing a CNI, the containerd configuration provided with the package might contain incompatible configuration parameters. Consider resetting the containerd configuration with <code>containerd config default > /etc/containerd/config.toml</code> as specified in [getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics) and then set the configuration parameters specified above accordingly.
+If you experience container crash loops after the initial cluster installation or after
+installing a CNI, the containerd configuration provided with the package might contain
+incompatible configuration parameters. Consider resetting the containerd configuration
+with `containerd config default > /etc/containerd/config.toml` as specified in
+[getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)
+and then set the configuration parameters specified above accordingly.
 {{< /note >}}
 
 If you apply this change, make sure to restart containerd:
