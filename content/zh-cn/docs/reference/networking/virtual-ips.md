@@ -551,7 +551,7 @@ more than 256, with a graduated step function between them_.
  -->
 Kubernetes 根据配置的 `service-cluster-ip-range` 的大小使用公式
  `min(max(16, cidrSize / 16), 256)` 将 `ClusterIP` 范围分为两段。
-该公式意思是**中间是一个渐进的阶梯函数，但不小于 16 且不大于 256**。
+该公式是一个**不小于 16 且不大于 256 的渐进阶梯函数**。
 
 <!-- 
 Kubernetes prefers to allocate dynamic IP addresses to Services by choosing from the upper band,
