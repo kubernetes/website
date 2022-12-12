@@ -56,7 +56,7 @@ The following methods exist for installing kubectl on Windows:
    - Using PowerShell to automate the verification using the `-eq` operator to get a `True` or `False` result:
 
      ```powershell
-     $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
+      $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256)
      ```
 
 1. Append or prepend the `kubectl` binary folder to your `PATH` environment variable.
