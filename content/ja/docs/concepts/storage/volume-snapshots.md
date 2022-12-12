@@ -153,7 +153,7 @@ $ kubectl get crd volumesnapshotcontent -o yaml
 
 ユーザーが既存の`VolumeSnapshot`から`PersistentVolumeClaim`を作成できるようにしたいが、ソースとは異なるボリュームモードを使用する場合は、`VolumeSnapshot`に対応する`VolumeSnapshotContent`にアノテーション`snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`を追加する必要があります。
 
-事前プロビジョニングされたスナップショットの場合、クラスター管理者が`Spec.SourceVolumeMode`を入力する必要があります。
+事前プロビジョニングされたスナップショットの場合、クラスター管理者が`spec.sourceVolumeMode`を入力する必要があります。
 
 この機能を有効にした`VolumeSnapshotContent`リソースの例は次のようになります。
 
