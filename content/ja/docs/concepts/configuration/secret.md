@@ -838,7 +838,7 @@ spec:
 /etc/secret-volume/ssh-privatekey
 ```
 
-コンテナーはSecretのデータをSSH接続を確立するために使用することができます。
+コンテナはSecretのデータをSSH接続を確立するために使用することができます。
 
 ### ユースケース: 本番、テスト用の認証情報を持つPod
 
