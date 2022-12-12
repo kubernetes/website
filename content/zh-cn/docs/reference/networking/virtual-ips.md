@@ -89,9 +89,9 @@ nor should they need to keep track of the set of backends themselves.
  -->
 
 <a id="example"></a>
-本文档中的一些详细内容参考了这样一个例子：
+本文中的一些细节参考这个例子：
 运行了 3 个 Pod 副本的无状态图像处理后端工作负载。
-这些副本是可互换的 —— 前端不需要关心它们调用了哪个后端副本。
+这些副本是可互换的；前端不需要关心它们调用了哪个后端副本。
 然而组成这一组后端程序的 Pod 实际上可能会发生变化，
 前端客户端不应该也没必要知道，而且也不需要跟踪这一组后端的状态。
 
@@ -119,7 +119,7 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 
 注意，kube-proxy 会根据不同配置以不同的模式启动。
 
-- kube-proxy 的配置是通过 ConfigMap 完成的，kube-proxy 的 ConfigMap 有效地弃用了 大部分 kube-proxy 标志的行为。
+- kube-proxy 的配置是通过 ConfigMap 完成的，kube-proxy 的 ConfigMap 有效地弃用了大部分 kube-proxy 标志的行为。
 - kube-proxy 的 ConfigMap 不支持配置的实时重新加载。
 - kube-proxy 不能在启动时验证所有 ConfigMap 参数的真实性和有效性。
   例如，如果你的操作系统不允许你运行 iptables 命令，标准内核 kube-proxy 实现将无法工作。
@@ -146,7 +146,7 @@ account when deciding which backend Pod to use.
 这种（遗留）模式使用 iptables 添加拦截规则，然后使用 kube-proxy 工具执行流量转发。
 kube-proxy 监视 Kubernetes 控制平面对 Service 和 EndpointSlice 对象的增加、修改和删除。
 对于每个 Service，kube-proxy 在本地节点上打开一个端口（随机选择）。
-任何对这个 **代理端口** 的连接都将代理到 Service 的一个后端 Pod（通过 EndpointSlices 报告）。
+任何对这个**代理端口**的连接都将代理到 Service 的一个后端 Pod（通过 EndpointSlices 报告）。
 kube-proxy 在决定使用哪个后端 Pod 时会考虑 Service 的 `sessionAffinity` 设置。
 
 <!-- 
@@ -154,7 +154,7 @@ The user-space proxy installs iptables rules which capture traffic to the
 Service's `clusterIP` (which is virtual) and `port`. Those rules redirect that traffic
 to the proxy port which proxies the backend Pod.
  -->
-用户空间代理添加 iptables 规则，这些规则捕获流向 Service 的 `clusterIP`（虚拟的）和 `port` 的流量。
+用户空间代理添加 iptables 规则，这些规则捕获流向 Service 的 `clusterIP`（虚拟 IP）和 `port` 的流量。
 这些规则将这些流量重定向到代理后端 Pod 的代理端口。
 
 <!-- 
@@ -181,10 +181,11 @@ When a proxy sees a new Service, it opens a new random port, establishes an
 iptables redirect from the virtual IP address to this new port, and starts accepting
 connections on it.
  -->
-考虑[前面](#example)描述的图像处理应用的例子。
+例如，考虑本文[前面](#example)描述的图像处理应用的例子。
 当创建后端 Service 时，Kubernetes 控制平面分配一个虚拟 IP 地址，例如 10.0.0.1。
 假设 Service 端口是 1234，那么集群中的所有 kube-proxy 实例都会观察到该 Service。
-当一个 kube-proxy 观察到新 Service 时，它会随机打开一个新端口，建立从虚拟 IP 地址到这个新端口的 iptables 重定向，并开始在其上接受连接。
+当一个 kube-proxy 观察到新 Service 时，它会随机打开一个新端口，
+建立从虚拟 IP 地址到这个新端口的 iptables 重定向，并开始在其上接受连接。
 
 <!-- 
 When a client connects to the Service's virtual IP address, the iptables
@@ -227,7 +228,7 @@ obscure in-cluster source IPs, but it does still impact clients coming through
 a load balancer or node-port.
  -->
 使用用户空间代理会隐藏访问 Service 的数据包的源 IP 地址。
-这使得某些类型的网络过滤（防火墙）变得不可能。
+这使得某些类型的网络过滤（防火墙）失效。
 iptables 代理模式不会隐藏集群内的源 IP 地址，
 但仍会隐藏通过负载均衡器或节点端口进入的客户端数据包源 IP 地址。
 
@@ -246,7 +247,7 @@ select a backend Pod.
  -->
 在这种模式下，kube-proxy 监视 Kubernetes 控制平面对 Service 和 EndpointSlice 对象的添加和删除。
 对于每个 Service，kube-proxy 会添加 iptables 规则，这些规则捕获流向 Service 的 `clusterIP` 和 `port` 的流量，
-并将这些流量重定向到 Service 后端集合中的一个后端。
+并将这些流量重定向到 Service 后端集合中的其中之一。
 对于每个端点，它会添加指向一个特定后端 Pod 的 iptables 规则。
 
 <!-- 
@@ -313,8 +314,8 @@ The per-Service rules link to further rules for each backend endpoint, and the p
 endpoint rules redirect traffic (using destination NAT) to the backends.
  -->
 当节点上的 kube-proxy 观察到新 Service 时，它会添加一系列 iptables 规则，
-这些规则从虚拟 IP 地址重定向到更多 iptables 规则，每个服务都定义了这些规则。
-每个服务规则链接到每个后端端点的更多规则，
+这些规则从虚拟 IP 地址重定向到更多 iptables 规则，每个 Service 都定义了这些规则。
+每个 Service 规则链接到每个后端端点的更多规则，
 并且每个端点规则将流量重定向（使用目标 NAT）到后端。
 
 <!-- 
@@ -325,7 +326,7 @@ copied to userspace, the kube-proxy does not have to be running for the virtual
 IP address to work, and Nodes see traffic arriving from the unaltered client IP
 address.
  -->
- 当客户端连接到 Service 的虚拟 IP 地址时，iptables 规则会生效。
+当客户端连接到 Service 的虚拟 IP 地址时，iptables 规则会生效。
 会选择一个后端（基于会话亲和性或随机选择），并将数据包重定向到后端。
 与用户空间代理不同，数据包不会被复制到用户空间，
 不需要 kube-proxy 参与，虚拟 IP 地址就可以正常工作，
@@ -389,7 +390,7 @@ these are:
 
 IPVS 为将流量均衡到后端 Pod 提供了更多选择：
 
-* `rr` ：轮询
+* `rr`：轮询
 * `lc`：最少连接（打开连接数最少）
 * `dh`：目标地址哈希
 * `sh`：源地址哈希
@@ -407,7 +408,7 @@ When kube-proxy starts in IPVS proxy mode, it verifies whether IPVS
 kernel modules are available. If the IPVS kernel modules are not detected, then kube-proxy
 falls back to running in iptables proxy mode.
  -->
-要在 IPVS 模式下运行 kube-proxy，必须在启动 kube-proxy 之前在节点上启用 IPVS。
+要在 IPVS 模式下运行 kube-proxy，必须在启动 kube-proxy 之前确保节点上的 IPVS 可用。
 
 当 kube-proxy 以 IPVS 代理模式启动时，它会验证 IPVS 内核模块是否可用。
 如果未检测到 IPVS 内核模块，则 kube-proxy 会退回到 iptables 代理模式运行。
@@ -465,7 +466,7 @@ On Windows, setting the maximum session sticky time for Services is not supporte
 <!-- 
 ## IP address assignment to Services
  -->
-## 将 IP 地址分配给 Service
+## 将 IP 地址分配给 Service  {#ip-address-assignment-to-services}
 
 <!-- 
 Unlike Pod IP addresses, which actually route to a fixed destination,
@@ -475,7 +476,7 @@ addresses which are transparently redirected as needed.
  -->
 与实际路由到固定目标的 Pod IP 地址不同，Service IP 实际上不是由单个主机回答的。
 相反，kube-proxy 使用数据包处理逻辑（例如 Linux 的 iptables）
-来定义 **虚拟** IP 地址，这些地址会按需被透明重定向。
+来定义**虚拟** IP 地址，这些地址会按需被透明重定向。
 
 <!-- 
 When clients connect to the VIP, their traffic is automatically transported to an
@@ -498,7 +499,7 @@ you choose your own port number if that choice might collide with
 someone else's choice.  That is an isolation failure.
  -->
 Kubernetes 的主要哲学之一是，
-你不应被暴露在可能导致你操作失败但完全不是你的问题的情况下。
+你不应在可能导致你操作失败但完全不是你的问题的情况下暴露。
 对于 Service 资源的设计，也就是如果你选择的端口号可能与其他人的选择冲突，
 就不应该让你自己选择端口号。这是一种失败隔离。
 
@@ -508,7 +509,6 @@ ensure that no two Services can collide. Kubernetes does that by allocating each
 Service its own IP address from within the `service-cluster-ip-range`
 CIDR range that is configured for the API server.
  -->
-
 为了允许你为 Service 选择端口号，我们必须确保两个 Service 不会发生冲突。
 Kubernetes 通过从为 API 服务器配置的 `service-cluster-ip-range`
 CIDR 范围内为每个 Service 分配自己的 IP 地址来实现这一点。
@@ -520,7 +520,6 @@ prior to creating each Service. The map object must exist in the registry for
 Services to get IP address assignments, otherwise creations will
 fail with a message indicating an IP address could not be allocated.
  -->
-
 为了确保每个 Service 都获得唯一的 IP，内部分配器在创建每个 Service
 之前更新 {{< glossary_tooltip term_id="etcd" >}} 中的全局分配映射，这种更新操作具有原子性。
 映射对象必须存在于用于  Service 获得 IP 地址分配的注册表中，
@@ -552,7 +551,7 @@ more than 256, with a graduated step function between them_.
  -->
 Kubernetes 根据配置的 `service-cluster-ip-range` 的大小使用公式
  `min(max(16, cidrSize / 16), 256)` 将 `ClusterIP` 范围分为两段。
- 该公式意思是 **中间是一个渐进的阶梯函数，但不小于 16 且不大于 256**。
+该公式意思是**中间是一个渐进的阶梯函数，但不小于 16 且不大于 256**。
 
 <!-- 
 Kubernetes prefers to allocate dynamic IP addresses to Services by choosing from the upper band,
@@ -562,7 +561,7 @@ reduces the risk of a conflict over allocation.
  -->
 Kubernetes 优先通过从高段中选择来为 Service 分配动态 IP 地址，
 这意味着如果要将特定 IP 地址分配给 `type: ClusterIP` Service，
-则应手动从 **低**段中分配 IP 地址。
+则应手动从**低**段中分配 IP 地址。
 该方法降低了分配导致冲突的风险。
 
 <!-- 
@@ -623,7 +622,7 @@ as if the external traffic policy were set to `Cluster`.
 如果为 kube-proxy 启用了 `ProxyTerminatingEndpoints`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 kube-proxy 会检查节点是否具有本地端点以及是否所有本地端点都标记为终止。
-如果有本地端点并且 **所有** 本地端点都被标记为终止，则 kube-proxy 忽略 `Local` 的任何外部流量策略。
+如果有本地端点并且**所有**本地端点都被标记为终止，则 kube-proxy 忽略 `Local` 的任何外部流量策略。
 相反，当余下的所有本地节点端点处于终止中时，
 kube-proxy 将该 Service 的流量转发到其他健康端点，
 就好像外部流量策略设置为 `Cluster` 一样。
@@ -636,7 +635,6 @@ node port starts to fail. Otherwise, traffic can be lost between the time a node
 still in the node pool of a load balancer and traffic is being dropped during the
 termination period of a pod.
  -->
-
 这种对处于终止中的端点的转发行为使得外部负载均衡器能优雅地排空由
 `NodePort` 服务支持的连接，即使在健康检查节点端口开始出现故障时也是如此。
 否则，在节点仍然在负载均衡器的节点池情况下，在 Pod 终止期间，流量可能会丢失。
