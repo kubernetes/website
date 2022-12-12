@@ -14,17 +14,19 @@ para que os Pods com maior prioridade possam ser escalonados nos nós. Remoção
 
 ## Escalonamento
 
-* [Escalonador do Kubernetes](/pt-br/docs/concepts/scheduling-eviction/kube-scheduler/)
-* [Atribuindo Pods à Nós](/docs/concepts/scheduling-eviction/assign-pod-node/)
-* [Sobrecarga de Pod](/pt-br/docs/concepts/scheduling-eviction/pod-overhead/)
-* [Restrições de Propagação da Topologia do Pod](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
-* [Taints e Tolerâncias](/pt-br/docs/concepts/scheduling-eviction/taint-and-toleration/)
-* [Framework do Escalonador](/docs/concepts/scheduling-eviction/scheduling-framework)
-* [Refinando a Performance do Escalonador](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
-* [Empacotamento de Recursos para Recursos Estendidos](/docs/concepts/scheduling-eviction/resource-bin-packing/)
+- [Escalonador do Kubernetes](/pt-br/docs/concepts/scheduling-eviction/kube-scheduler/)
+- [Atribuindo Pods à Nós](/docs/concepts/scheduling-eviction/assign-pod-node/)
+- [Sobrecarga de Pod](/pt-br/docs/concepts/scheduling-eviction/pod-overhead/)
+- [Restrições de Propagação da Topologia do Pod](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+- [Taints e Tolerâncias](/pt-br/docs/concepts/scheduling-eviction/taint-and-toleration/)
+- [Framework do Escalonador](/docs/concepts/scheduling-eviction/scheduling-framework)
+- [Refinando a Performance do Escalonador](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
+- [Empacotamento de Recursos para Recursos Estendidos](/docs/concepts/scheduling-eviction/resource-bin-packing/)
 
 ## Interrupção do Pod
 
-* [Prioridade e Preempção do Pod](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-* [Remoção por Pressão do Nó](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
-* [Remoção Iniciada por API](/docs/concepts/scheduling-eviction/api-eviction/)
+{{<glossary_definition term_id="pod-disruption" length="all">}}
+
+- [Prioridade e Preempção do Pod](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+- [Remoção por Pressão do Nó](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+- [Remoção Iniciada por API](/docs/concepts/scheduling-eviction/api-eviction/)
