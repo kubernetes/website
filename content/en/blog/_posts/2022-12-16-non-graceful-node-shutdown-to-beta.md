@@ -11,7 +11,7 @@ Kubernetes v1.24 [introduced](https://kubernetes.io/blog/2022/05/20/kubernetes-1
 for handling a [non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown).
 In Kubernetes v1.26, this feature moves to beta. This feature allows stateful workloads to failover to a different node after the original node is shut down or in a non-recoverable state, such as the hardware failure or broken OS.
 
-## What is a Node Shutdown in Kubernetes
+## What is a node shutdown in Kubernetes?
 
 In a Kubernetes cluster, it is possible for a node to shut down. This could happen either in a planned way or it could happen unexpectedly. You may plan for a security patch, or a kernel upgrade and need to reboot the node, or it may shut down due to preemption of VM instances. A node may also shut down due to a hardware failure or a software problem.
 
@@ -22,7 +22,7 @@ A node shutdown could lead to workload failure if the node is not drained before
 
 In the following, we will describe what is a graceful node shutdown and what is a non-graceful node shutdown.
 
-## What is a Graceful Node Shutdown
+## What is a _graceful_ node shutdown?
 
 The kubelet's handling for a [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown)
 allows the kubelet to detect a node shutdown event, properly terminate the pods on that node,
@@ -31,7 +31,7 @@ and release resources before the actual shutdown.
 are terminated after all the regular pods are terminated, to ensure that the
 essential functions of an application can continue to work as long as possible.
 
-## What is a Non-Graceful Node Shutdown
+## What is a _non-graceful_ node shutdown?
 
 A Node shutdown can be graceful only if the kubelet's _node shutdown manager_ can
 detect the upcoming node shutdown action. However, there are cases where a kubelet
@@ -54,7 +54,7 @@ so your workload may struggle to self-heal if it was already at maximum scale.
 (By the way: if the node that had done a non-graceful shutdown comes back up, the kubelet does delete
 the old Pod, and the control plane can make a replacement.)
 
-## What’s new in Beta
+## What's new for the beta?
 
 For Kubernetes v1.26, the non-graceful node shutdown feature is beta and enabled by default.
 The `NodeOutOfServiceVolumeDetach`
@@ -70,7 +70,7 @@ On the instrumentation side, the kube-controller-manager reports two new metrics
 `force_delete_pod_errors_total`
 : number of errors encountered when attempting forcible Pod deletion (also resets on Pod garbage collection controller restart)
 
-## How does it work
+## How does it work?
 
 In the case of a node shutdown, if a graceful shutdown is not working or the node is in a
 non-recoverable state due to hardware failure or broken OS, you can manually add an `out-of-service`
@@ -92,7 +92,14 @@ Once all the workload pods that are linked to the out-of-service node are moved 
 
 Depending on feedback and adoption, the Kubernetes team plans to push the Non-Graceful Node Shutdown implementation to GA in either 1.27 or 1.28.
 
-This feature requires a user to manually add a taint to the node to trigger the failover of workloads and remove the taint after the node is recovered. In the future, we plan to find ways to automatically detect and fence nodes that are shut down or in a non-recoverable state and fail their workloads over to another node.
+This feature requires a user to manually add a taint to the node to trigger the failover of workloads and remove the taint after the node is recovered.
+
+The cluster operator can automate this process by automatically applying the `out-of-service` taint
+if there is a programmatic way to determine that the node is really shut down and there isn’t IO between
+the node and storage. The cluster operator can then automatically remove the taint after the workload
+fails over successfully to another running node and that the shutdown node has been recovered.
+
+In the future, we plan to find ways to automatically detect and fence nodes that are shut down or in a non-recoverable state and fail their workloads over to another node.
 
 ## How can I learn more?
 
