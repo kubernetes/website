@@ -977,26 +977,50 @@ documentation for
 请参阅[从 StatefulSet 中删除 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/) 的任务文档。
 
 <!--
-### Garbage collection of terminated Pods {#pod-garbage-collection}
+### Garbage collection of Pods {#pod-garbage-collection}
 
 For failed Pods, the API objects remain in the cluster's API until a human or
 {{< glossary_tooltip term_id="controller" text="controller" >}} process
 explicitly removes them.
 
-The control plane cleans up terminated Pods (with a phase of `Succeeded` or
+The Pod garbage collector (PodGC), which is a controller in the control plane, cleans up terminated Pods (with a phase of `Succeeded` or
 `Failed`), when the number of Pods exceeds the configured threshold
 (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
 This avoids a resource leak as Pods are created and terminated over time.
 -->
-### 已终止 Pod 的垃圾收集    {#pod-garbage-collection}
+### Pod 的垃圾收集    {#pod-garbage-collection}
 
 对于已失败的 Pod 而言，对应的 API 对象仍然会保留在集群的 API 服务器上，
 直到用户或者{{< glossary_tooltip term_id="controller" text="控制器" >}}进程显式地将其删除。
 
-控制面组件会在 Pod 个数超出所配置的阈值
+Pod 的垃圾收集器（PodGC）是控制平面的控制器，它会在 Pod 个数超出所配置的阈值
 （根据 `kube-controller-manager` 的 `terminated-pod-gc-threshold` 设置）时删除已终止的
 Pod（阶段值为 `Succeeded` 或 `Failed`）。
 这一行为会避免随着时间演进不断创建和终止 Pod 而引起的资源泄露问题。
+
+<!--
+Additionally, PodGC cleans up any Pods which satisfy any of the following conditions:
+1. are orphan pods - bound to a node which no longer exists,
+2. are unscheduled terminating pods,
+3. are terminating pods, bound to a non-ready node tainted with [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service), when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
+
+When the `PodDisruptionConditions` feature gate is enabled, along with
+cleaning up the pods, PodGC will also mark them as failed if they are in a non-terminal
+phase. Also, PodGC adds a pod disruption condition when cleaning up an orphan
+pod (see also:
+[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)).
+-->
+此外，PodGC 会清理满足以下任一条件的所有 Pod：
+1. 孤儿 Pod - 绑定到不再存在的节点，
+2. 计划外终止的 Pod
+3. 终止过程中的 Pod，当启用 `NodeOutOfServiceVolumeDetach` 特性门控时，
+   绑定到有 [`node.kubernetes.io/out-of-service`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service)
+   污点的未就绪节点。
+
+若启用 `PodDisruptionConditions` 特性门控，在清理 Pod 的同时，
+如果它们处于非终止状态阶段，PodGC 也会将它们标记为失败。
+此外，PodGC 在清理孤儿 Pod 时会添加 Pod 干扰状况（另请参阅：
+[Pod 干扰状况](/zh-cn/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)）。
 
 ## {{% heading "whatsnext" %}}
 
