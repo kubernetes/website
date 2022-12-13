@@ -63,7 +63,7 @@ the `cosign verify` command:
 
 ```shell
 COSIGN_EXPERIMENTAL=1 cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentVersion >}}.0 \
-  --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-identity krel-trust@k8s-releng-prod.iam.gserviceaccount.com \
   --certificate-oidc-issuer https://accounts.google.com
 ```
 
@@ -83,7 +83,7 @@ input=images.txt
 while IFS= read -r image
 do
   COSIGN_EXPERIMENTAL=1 cosign verify "$image" \
-  --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-identity krel-trust@k8s-releng-prod.iam.gserviceaccount.com \
   --certificate-oidc-issuer https://accounts.google.com
 done < "$input"
 ```
