@@ -89,7 +89,7 @@ apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicy
 metadata:
   name: "demo-policy.example.com"
-Spec:
+spec:
   paramKind:
     apiVersion: rules.example.com/v1 # You also need a CustomResourceDefinition for this API
     kind: ReplicaLimit
