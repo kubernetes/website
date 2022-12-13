@@ -3,7 +3,7 @@ title: 服务（Service）
 feature:
   title: 服务发现与负载均衡
   description: >
-    无需修改你的应用程序即可使用陌生的服务发现机制。Kubernetes 为容器提供了自己的 IP 地址和一个 DNS 名称，并且可以在它们之间实现负载均衡。
+    无需修改你的应用程序去使用陌生的服务发现机制。Kubernetes 为容器提供了自己的 IP 地址和一个 DNS 名称，并且可以在它们之间实现负载均衡。
 description: >-
   将在集群中运行的应用程序暴露在单个外向端点后面，即使工作负载分散到多个后端也是如此。
 content_type: concept
@@ -33,7 +33,7 @@ With Kubernetes you don't need to modify your application to use an unfamiliar s
 Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods,
 and can load-balance across them.
 -->
-使用 Kubernetes，你无需修改应用程序即可使用不熟悉的服务发现机制。
+使用 Kubernetes，你无需修改应用程序去使用不熟悉的服务发现机制。
 Kubernetes 为 Pod 提供自己的 IP 地址，并为一组 Pod 提供相同的 DNS 名，
 并且可以在它们之间进行负载均衡。
 
