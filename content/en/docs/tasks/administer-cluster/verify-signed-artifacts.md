@@ -43,7 +43,9 @@ done
 Then verify the blob by using `cosign`:
 
 ```shell
-cosign verify-blob "$BINARY" --signature "$BINARY".sig --certificate "$BINARY".cert
+cosign verify-blob "$BINARY" --signature "$BINARY".sig --certificate "$BINARY".cert \
+  --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-oidc-issuer https://accounts.google.com
 ```
 
 {{< note >}}
@@ -60,7 +62,9 @@ Let's pick one image from this list and verify its signature using
 the `cosign verify` command:
 
 ```shell
-COSIGN_EXPERIMENTAL=1 cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentVersion >}}.0
+COSIGN_EXPERIMENTAL=1 cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentVersion >}}.0 \
+  --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-oidc-issuer https://accounts.google.com
 ```
 
 {{< note >}}
@@ -78,7 +82,9 @@ curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/re
 input=images.txt
 while IFS= read -r image
 do
-  COSIGN_EXPERIMENTAL=1 cosign verify "$image"
+  COSIGN_EXPERIMENTAL=1 cosign verify "$image" \
+  --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-oidc-issuer https://accounts.google.com
 done < "$input"
 ```
 
