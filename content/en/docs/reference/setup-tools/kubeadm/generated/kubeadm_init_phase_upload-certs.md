@@ -15,7 +15,7 @@ Upload certificates to kubeadm-certs
 ### Synopsis
 
 
-This command is not meant to be run on its own. See list of available subcommands.
+Upload control plane certificates to the kubeadm-certs Secret
 
 ```
 kubeadm init phase upload-certs [flags]
@@ -42,6 +42,13 @@ kubeadm init phase upload-certs [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
 </tr>
 
 <tr>
