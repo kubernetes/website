@@ -5,6 +5,7 @@ package: kubeadm.k8s.io/v1beta2
 auto_generated: true
 ---
 <h2>Overview</h2>
+<p>Package v1beta2 has been DEPRECATED by v1beta3.</p>
 <p>Package v1beta2 defines the v1beta2 version of the kubeadm configuration file format.
 This version improves on the v1beta1 format by fixing some minor issues and adding a few new fields.</p>
 <p>A list of changes since v1beta1:</p>
@@ -15,7 +16,7 @@ This version improves on the v1beta1 format by fixing some minor issues and addi
 <li>The JSON &quot;omitempty&quot; tag of the &quot;taints&quot; field (inside NodeRegistrationOptions) is removed.</li>
 </ul>
 <p>See the Kubernetes 1.15 changelog for further details.</p>
-<p>Migration from old kubeadm config versions</p>
+<h1>Migration from old kubeadm config versions</h1>
 <p>Please convert your v1beta1 configuration files to v1beta2 using the &quot;kubeadm config migrate&quot; command of kubeadm v1.15.x
 (conversion from older releases of kubeadm config files requires older release of kubeadm as well e.g.</p>
 <ul>
@@ -75,16 +76,16 @@ use it to customize the node name, the CRI socket to use or any other settings t
 node only (e.g. the node ip).</p>
 </li>
 <li>
-<p><code>apiServer</code>, that represents the endpoint of the instance of the API server to be deployed on this node;
+<p><code>localAPIEndpoint</code>, that represents the endpoint of the instance of the API server to be deployed on this node;
 use it e.g. to customize the API server advertise address.</p>
 </li>
 </ul>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta2<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ClusterConfiguration<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">networking</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">etcd</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiServer</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span>...<span style="color:#bbb">
@@ -109,7 +110,7 @@ components by adding customized setting or overriding kubeadm default settings.<
 </ul>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeproxy.config.k8s.io/v1alpha1<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>KubeProxyConfiguration<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
+</span><span style="color:#bbb"> </span>...<span style="color:#bbb">
 </span></pre><p>The KubeProxyConfiguration type should be used to change the configuration passed to kube-proxy instances deployed
 in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/ or
@@ -117,7 +118,7 @@ https://pkg.go.dev/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
 for kube proxy official documentation.</p>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubelet.config.k8s.io/v1beta1<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>KubeletConfiguration<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
+</span><span style="color:#bbb"> </span>...<span style="color:#bbb">
 </span></pre><p>The KubeletConfiguration type should be used to change the configurations that will be passed to all kubelet instances
 deployed in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/ or
@@ -228,18 +229,18 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 <p>When executing kubeadm join with the <code>--config</code> option, the JoinConfiguration type should be provided.</p>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta2<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>JoinConfiguration<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
+</span><span style="color:#bbb"> </span>...<span style="color:#bbb">
 </span></pre><p>The JoinConfiguration type should be used to configure runtime settings, that in case of <code>kubeadm join</code>
 are the discovery method used for accessing the cluster info and all the setting which are specific
 to the node where kubeadm is executed, including:</p>
 <ul>
 <li>
-<p><code>NodeRegistration</code>, that holds fields that relate to registering the new node to the cluster;
+<p><code>nodeRegistration</code>, that holds fields that relate to registering the new node to the cluster;
 use it to customize the node name, the CRI socket to use or any other settings that should apply to this
 node only (e.g. the node IP).</p>
 </li>
 <li>
-<p><code>APIEndpoint</code>, that represents the endpoint of the instance of the API server to be eventually deployed on this node.</p>
+<p><code>apiEndpoint</code>, that represents the endpoint of the instance of the API server to be eventually deployed on this node.</p>
 </li>
 </ul>
 
@@ -637,7 +638,7 @@ for, so other administrators can know its purpose.</p>
 </td>
 </tr>
 <tr><td><code>expires</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
@@ -948,7 +949,7 @@ Kubeadm has no knowledge of where certificate files live and they must be suppli
 <code>[]string</code>
 </td>
 <td>
-   <p><code>endpoints</code> of etcd members.</p>
+   <p><code>endpoints</code> of etcd members. Required for external etcd.</p>
 </td>
 </tr>
 <tr><td><code>caFile</code> <B>[Required]</B><br/>
@@ -1050,7 +1051,7 @@ from which to load cluster information.</p>
 </td>
 </tr>
 <tr><td><code>pathType</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <p><code>pathType</code> is the type of the HostPath.</p>
@@ -1274,7 +1275,7 @@ be annotated to the Node API object, for later re-use.</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p><code>taints</code> specifies the taints the Node API object should be registered with.
