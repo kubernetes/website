@@ -159,9 +159,9 @@ spec:
 
 ### 許可されたトポロジー
 
-クラスタオペレータが`WaitForFirstConsumer`ボリュームバインディングモードを指定すると、ほとんどの状況でプロビジョニングを特定のトポロジに制限する必要がなくなります。ただし、それでも必要な場合は、`allowedTopologies`を指定できます。
+クラスタオペレーターが`WaitForFirstConsumer`ボリュームバインディングモードを指定すると、ほとんどの状況でプロビジョニングを特定のトポロジに制限する必要がなくなります。ただし、それでも必要な場合は、`allowedTopologies`を指定できます。
 
-この例は、プロビジョニングされたボリュームのトポロジを特定のゾーンに制限する方法を示しており、サポートされているプラグインの`zone`および`zones`パラメータの代わりとして使用する必要があります。
+この例は、プロビジョニングされたボリュームのトポロジを特定のゾーンに制限する方法を示しており、サポートされているプラグインの`zone`および`zones`パラメーターの代わりとして使用する必要があります。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -182,9 +182,9 @@ allowedTopologies:
 
 ## パラメーター
 
-ストレージクラスには、ストレージクラスに属するボリュームを記述するパラメーターがあります。`プロビジョナー`に応じて、異なるパラメーターが受け入れられる場合があります。たとえば、パラメータ`type`の値`io1`とパラメータ`iopsPerGB`はEBSに固有です。パラメータを省略すると、デフォルトが使用されます。
+ストレージクラスには、ストレージクラスに属するボリュームを記述するパラメーターがあります。`プロビジョナー`に応じて、異なるパラメーターが受け入れられる場合があります。たとえば、パラメーター`type`の値`io1`とパラメーター`iopsPerGB`はEBSに固有です。パラメーターを省略すると、デフォルトが使用されます。
 
-StorageClassに定義できるパラメータは最大512個です。
+StorageClassに定義できるパラメーターは最大512個です。
 キーと値を含むパラメーターオブジェクトの合計の長さは、256KiBを超えることはできません。
 
 ### AWS EBS
@@ -202,15 +202,15 @@ parameters:
 ```
 
 * `type`:`io1`、`gp2`、`sc1`、`st1`。詳細については、[AWSドキュメント](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)を参照してください。デフォルト:`gp2`。
-* `zone`(非推奨):AWS zone。`zone`も`zones`も指定されていない場合、ボリュームは通常、Kubernetesクラスターにノードがあるすべてのアクティブなゾーンにわたってラウンドロビン方式で処理されます。`zone`パラメータと`zones`パラメータを同時に使用することはできません。
-* `zones`(非推奨):AWS zoneのコンマ区切りリスト。`zone`も`zones`も指定されていない場合、ボリュームは通常、Kubernetesクラスターにノードがあるすべてのアクティブなゾーンにわたってラウンドロビン方式で処理されます。`zone`パラメータと`zones`パラメータを同時に使用することはできません。
+* `zone`(非推奨):AWS zone。`zone`も`zones`も指定されていない場合、ボリュームは通常、Kubernetesクラスターにノードがあるすべてのアクティブなゾーンにわたってラウンドロビン方式で処理されます。`zone`パラメーターと`zones`パラメーターを同時に使用することはできません。
+* `zones`(非推奨):AWS zoneのコンマ区切りリスト。`zone`も`zones`も指定されていない場合、ボリュームは通常、Kubernetesクラスターにノードがあるすべてのアクティブなゾーンにわたってラウンドロビン方式で処理されます。`zone`パラメーターと`zones`パラメーターを同時に使用することはできません。
 * `iopsPerGB`:`io1`ボリュームのみ。GiBごとの1秒あたりのI/O操作。AWSボリュームプラグインは、これを要求されたボリュームのサイズで乗算して、ボリュームのIOPSを計算し、上限を20,000IOPSに設定します(AWSでサポートされる最大値については、[AWSドキュメント](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)を参照してください)。ここでは文字列が必要です。つまり、`10`ではなく`"10"`です。
 * `fsType`:kubernetesでサポートされているfsType。デフォルト:`"ext4"`。
 * `encrypted`:EBSボリュームを暗号化するかどうかを示します。有効な値は`"true"`または`"false"`です。ここでは文字列が必要です。つまり、`true`ではなく`"true"`です。
 * `kmsKeyId`:オプション。ボリュームを暗号化するときに使用するキーの完全なAmazonリソースネーム。何も指定されていなくても`encrypted`がtrueの場合、AWSによってキーが生成されます。有効なARN値については、AWSドキュメントを参照してください。
 
 {{< note >}}
-`zone`および`zones`パラメータは廃止され、[allowedTopologies](#allowed-topologies)に置き換えられました。
+`zone`および`zones`パラメーターは廃止され、[allowedTopologies](#allowed-topologies)に置き換えられました。
 {{< /note >}}
 
 ### GCE PD
@@ -228,8 +228,8 @@ parameters:
 ```
 
 * `type`:`pd-standard`または`pd-ssd`。デフォルト:`pd-standard`
-* `zone`(非推奨):GCE zone。`zone`も`zones`も指定されていない場合、ボリュームは通常、Kubernetesクラスターにノードがあるすべてのアクティブなゾーンにわたってラウンドロビン方式で処理されます。`zone`パラメータと`zones`パラメータを同時に使用することはできません。
-* `zones`(非推奨):GCE zoneのコンマ区切りリスト。`zone`も`zones`も指定されていない場合、ボリュームは通常、Kubernetesクラスターにノードがあるすべてのアクティブなゾーンにわたってラウンドロビン方式で処理されます。`zone`パラメータと`zones`パラメータを同時に使用することはできません。
+* `zone`(非推奨):GCE zone。`zone`も`zones`も指定されていない場合、ボリュームは通常、Kubernetesクラスターにノードがあるすべてのアクティブなゾーンにわたってラウンドロビン方式で処理されます。`zone`パラメーターと`zones`パラメーターを同時に使用することはできません。
+* `zones`(非推奨):GCE zoneのコンマ区切りリスト。`zone`も`zones`も指定されていない場合、ボリュームは通常、Kubernetesクラスターにノードがあるすべてのアクティブなゾーンにわたってラウンドロビン方式で処理されます。`zone`パラメーターと`zones`パラメーターを同時に使用することはできません。
 * `fstype`:`ext4`または`xfs`。デフォルト:`ext4`。定義されたファイルシステムタイプは、ホストオペレーティングシステムでサポートされている必要があります。
 * `replication-type`:`none`または`regional-pd`。デフォルト:`none`。
 
@@ -238,7 +238,7 @@ parameters:
 `replication-type`が`regional-pd`に設定されている場合、[Regional Persistent Disk](https://cloud.google.com/compute/docs/disks/#repds)がプロビジョニングされます。`volumeBindingMode: WaitForFirstConsumer`を設定することを強くお勧めします。この場合、このStorageClassを使用するPersistentVolumeClaimを使用するPodを作成すると、Regional Persistent Diskが2つのゾーンでプロビジョニングされます。1つのゾーンは、Podがスケジュールされているゾーンと同じです。もう1つのゾーンは、クラスターで使用可能なゾーンからランダムに選択されます。ディスクゾーンは、`allowedTopologies`を使用してさらに制限できます。
 
 {{< note >}}
-`zone`および`zones`パラメータは廃止され、[allowedTopologies](#allowed-topologies)に置き換えられました。
+`zone`および`zones`パラメーターは廃止され、[allowedTopologies](#allowed-topologies)に置き換えられました。
 {{< /note >}}
 
 ### Glusterfs(非推奨) {#glusterfs}
@@ -264,8 +264,8 @@ parameters:
 * `resturl`:glusterボリュームをオンデマンドでプロビジョニングするGluster RESTサービス/HeketiサービスのURL。一般的な形式は`IPaddress:Port`である必要があり、これはGlusterFS動的プロビジョナーの必須パラメーターです。Heketiサービスがopenshift/kubernetesセットアップでルーティング可能なサービスとして公開されている場合、これは`http://heketi-storage-project.cloudapps.mystorage.com`のような形式になる可能性があります。ここで、fqdnは解決可能なHeketiサービスURLです。
 * `restauthenabled`:RESTサーバーへの認証を有効にするGluster RESTサービス認証ブール値。この値が`"true"`の場合、`restuser`と`restuserkey`または`secretNamespace`+`secretName`を入力する必要があります。このオプションは非推奨です。`restuser`、`restuserkey`、`secretName`、または`secretNamespace`のいずれかが指定されている場合、認証が有効になります。
 * `restuser`:Gluster Trusted Poolでボリュームを作成するためのアクセス権を持つGluster RESTサービス/Heketiユーザー。
-* `restuserkey`:RESTサーバーへの認証に使用されるGluster RESTサービス/Heketiユーザーのパスワード。このパラメータは、`secretNamespace`+`secretName`を優先されて廃止されました。
-* `secretNamespace`、`secretName`:Gluster RESTサービスと通信するときに使用するユーザーパスワードを含むSecretインスタンスの識別。これらのパラメータはオプションです。`secretNamespace`と`secretName`の両方が省略された場合、空のパスワードが使用されます。提供されたシークレットには、タイプ`kubernetes.io/glusterfs`が必要です。たとえば、次のように作成されます。
+* `restuserkey`:RESTサーバーへの認証に使用されるGluster RESTサービス/Heketiユーザーのパスワード。このパラメーターは、`secretNamespace`+`secretName`を優先されて廃止されました。
+* `secretNamespace`、`secretName`:Gluster RESTサービスと通信するときに使用するユーザーパスワードを含むSecretインスタンスの識別。これらのパラメーターはオプションです。`secretNamespace`と`secretName`の両方が省略された場合、空のパスワードが使用されます。提供されたシークレットには、タイプ`kubernetes.io/glusterfs`が必要です。たとえば、次のように作成されます。
     ```
     kubectl create secret generic heketi-secret \
       --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
@@ -274,7 +274,7 @@ parameters:
 
     シークレットの例は[glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml)にあります。
 
-* `clusterid`:`630372ccdc720a92c681fb928f27b53f`は、ボリュームのプロビジョニング時にHeketiによって使用されるクラスターのIDです。また、クラスタIDのリストにすることもできます。これはオプションのパラメータです。
+* `clusterid`:`630372ccdc720a92c681fb928f27b53f`は、ボリュームのプロビジョニング時にHeketiによって使用されるクラスターのIDです。また、クラスタIDのリストにすることもできます。これはオプションのパラメーターです。
 * `gidMin`、`gidMax`:StorageClassのGID範囲の最小値と最大値。この範囲内の一意の値(GID)(gidMin-gidMax)が、動的にプロビジョニングされたボリュームに使用されます。これらはオプションの値です。指定しない場合、ボリュームは、それぞれgidMinとgidMaxのデフォルトである2000から2147483647の間の値でプロビジョニングされます。
 * `volumetype`:ボリュームタイプとそのパラメーターは、このオプションの値で構成できます。ボリュームタイプが記載されていない場合、プロビジョニング担当者がボリュームタイプを決定します。
     例えば、
@@ -413,7 +413,7 @@ parameters:
   imageFeatures: "layering"
 ```
 
-* `monitors`:Cephモニター、カンマ区切り。このパラメーターは必須です。
+* `monitors`:カンマ区切りのCephモニター。このパラメーターは必須です。
 * `adminId`:プールにイメージを作成できるCephクライアントID。デフォルトは"admin"です。
 * `adminSecretName`:`adminId`のシークレット名。このパラメーターは必須です。指定されたシークレットのタイプは"kubernetes.io/rbd"である必要があります。
 * `adminSecretNamespace`:`adminSecretName`の名前空間。デフォルトは"default"です。
@@ -514,7 +514,7 @@ parameters:
 
 * `fs`:配置するファイルシステム:`none/xfs/ext4`(デフォルト:`ext4`)。
 * `block_size`:キロバイト単位のブロックサイズ(デフォルト:`32`)。
-* `repl`:レプリケーション係数`1..3`の形式で提供される同期レプリカの数(デフォルト:`1`)ここでは文字列が期待されます。つまり、`1`ではなく`"1"`です。
+* `repl`:レプリケーション係数`1..3`の形式で提供される同期レプリカの数(デフォルト:`1`)。ここでは文字列が期待されます。つまり、`1`ではなく`"1"`です。
 * `priority_io`:ボリュームがパフォーマンスの高いストレージから作成されるか、優先度の低いストレージ`high/medium/low`(デフォルト:`low`)から作成されるかを決定します。
 * `snap_interval`:スナップショットをトリガーするクロック/時間間隔(分単位)。スナップショットは、前のスナップショットとの差分に基づいて増分されます。0はスナップを無効にします(デフォルト:`0`)。ここでは文字列が必要です。つまり、`70`ではなく`"70"`です。
 * `aggregation_level`:ボリュームが分散されるチャンクの数を指定します。0は非集約ボリュームを示します(デフォルト:`0`)。ここには文字列が必要です。つまり、`0`ではなく`"0"`です。
