@@ -1,7 +1,7 @@
 ---
 title: 服务内部流量策略
 content_type: concept
-weight: 75
+weight: 120
 description: >-
    如果集群中的两个 Pod 想要通信，并且两个 Pod 实际上都在同一节点运行，
    **服务内部流量策略** 可以将网络流量限制在该节点内。
@@ -13,7 +13,7 @@ reviewers:
 - maplain
 title: Service Internal Traffic Policy
 content_type: concept
-weight: 75
+weight: 120
 description: >-
   If two Pods in your cluster want to communicate, and both Pods are actually running on
   the same node, _Service Internal Traffic Policy_ to keep network traffic within that node.
@@ -24,7 +24,7 @@ description: >-
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!-- 
 _Service Internal Traffic Policy_ enables internal traffic restrictions to only route
@@ -43,20 +43,16 @@ cluster. This can help to reduce costs and improve performance.
 -->
 ## 使用服务内部流量策略 {#using-service-internal-traffic-policy}
 
-<!-- 
-The `ServiceInternalTrafficPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is a Beta feature and enabled by default.
-When the feature is enabled, you can enable the internal-only traffic policy for a
+<!--
+You can enable the internal-only traffic policy for a
 {{< glossary_tooltip text="Service" term_id="service" >}}, by setting its
-`.spec.internalTrafficPolicy` to `Local`.
-This tells kube-proxy to only use node local endpoints for cluster internal traffic.
+`.spec.internalTrafficPolicy` to `Local`. This tells kube-proxy to only use node local
+endpoints for cluster internal traffic.
 -->
-`ServiceInternalTrafficPolicy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 是 Beta 功能，默认启用。
-启用该功能后，你就可以通过将 {{< glossary_tooltip text="Service" term_id="service" >}} 的
+你可以通过将 {{< glossary_tooltip text="Service" term_id="service" >}} 的
 `.spec.internalTrafficPolicy` 项设置为 `Local`，
 来为它指定一个内部专用的流量策略。
-此设置就相当于告诉 kube-proxy 对于集群内部流量只能使用本地的服务端口。
+此设置就相当于告诉 kube-proxy 对于集群内部流量只能使用节点本地的服务端口。
 
 <!-- 
 For pods on nodes with no endpoints for a given Service, the Service
@@ -97,28 +93,23 @@ spec:
 -->
 ## 工作原理 {#how-it-works}
 
-<!-- 
+<!--
 The kube-proxy filters the endpoints it routes to based on the
 `spec.internalTrafficPolicy` setting. When it's set to `Local`, only node local
-endpoints are considered. When it's `Cluster` or missing, all endpoints are
-considered.
-When the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`ServiceInternalTrafficPolicy` is enabled, `spec.internalTrafficPolicy` defaults to "Cluster".
+endpoints are considered. When it's `Cluster` (the default), or is not set,
+Kubernetes considers all endpoints.
 -->
 kube-proxy 基于 `spec.internalTrafficPolicy` 的设置来过滤路由的目标服务端点。
-当它的值设为 `Local` 时，只选择节点本地的服务端点。
-当它的值设为 `Cluster` 或缺省时，则选择所有的服务端点。
-启用[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-`ServiceInternalTrafficPolicy` 后，
-`spec.internalTrafficPolicy` 的值默认设为 `Cluster`。
+当它的值设为 `Local` 时，只会选择节点本地的服务端点。
+当它的值设为 `Cluster` 或缺省时，Kubernetes 会选择所有的服务端点。
 
 ## {{% heading "whatsnext" %}}
 
 <!-- 
 * Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints)
 * Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
 -->
 * 请阅读[拓扑感知提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints)
 * 请阅读 [Service 的外部流量策略](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* 请阅读[用 Service 连接应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 遵循[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程
