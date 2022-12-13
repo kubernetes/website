@@ -1,7 +1,7 @@
 ---
 title: 命令行工具 (kubectl)
 content_type: reference
-weight: 60
+weight: 110
 no_list: true
 card:
   name: reference
@@ -10,16 +10,14 @@ card:
 <!--
 title: Command line tool (kubectl)
 content_type: reference
-weight: 60
+weight: 110
 no_list: true
 card:
   name: reference
   weight: 20
 -->
 <!-- overview -->
-<!--
-{{< glossary_definition prepend="Kubernetes provides a" term_id="kubectl" length="short" >}}
--->
+
 {{< glossary_definition prepend="Kubernetes 提供" term_id="kubectl" length="short" >}}
 
 <!--
@@ -143,10 +141,10 @@ for example `create`, `get`, `describe`, `delete`.
 * `flags`： 指定可选的参数。例如，可以使用 `-s` 或 `--server` 参数指定
   Kubernetes API 服务器的地址和端口。
 
+{{< caution >}}
 <!--
 Flags that you specify from the command line override default values and any corresponding environment variables.
 -->
-{{< caution >}}
 从命令行指定的参数会覆盖默认值和任何相应的环境变量。
 {{< /caution >}}
 
@@ -267,6 +265,7 @@ Operation       | Syntax    |       Description
 `diff`        | `kubectl diff -f FILENAME [flags]`| Diff file or stdin against live configuration.
 `drain`    | `kubectl drain NODE [options]` | Drain node in preparation for maintenance.
 `edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | Edit and update the definition of one or more resources on the server by using the default editor.
+`events`      | `kubectl events` | List events
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod.
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
 `expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | Expose a replication controller, service, or pod as a new Kubernetes service.
@@ -313,6 +312,7 @@ Operation       | Syntax    |       Description
 `diff`        | `kubectl diff -f FILENAME [flags]`| 在当前起作用的配置和文件或标准输之间作对比 (**BETA**)
 `drain`    | `kubectl drain NODE [options]` | 腾空节点以准备维护。
 `edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | 使用默认编辑器编辑和更新服务器上一个或多个资源的定义。
+`events`      | `kubectl events` | 列举事件。
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | 对 Pod 中的容器执行命令。
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | 获取多种资源的文档。例如 Pod、Node、Service 等。
 `expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | 将副本控制器、服务或 Pod 作为新的 Kubernetes 服务暴露。
@@ -549,7 +549,7 @@ The result of running either command is similar to:
 -->
 运行这两个命令之一的结果类似于：
 
-```shell
+```
 NAME           RSRC
 submit-queue   610995
 ```
@@ -593,7 +593,7 @@ The output is similar to:
 -->
 输出类似于：
 
-```shell
+```
 NAME       AGE
 pod-name   1m
 ```
@@ -788,7 +788,6 @@ kubectl delete pods,services -l <label-key>=<label-value>
 # Delete all pods, including uninitialized ones.
 kubectl delete pods --all
 ```
-
 -->
 
 ```shell
@@ -874,7 +873,6 @@ cat service.yaml | kubectl diff -f -
 <!--
 ## Examples: Creating and using plugins
 -->
-
 ## 示例：创建和使用插件
 
 <!--
@@ -925,10 +923,8 @@ sudo chown root:root /usr/local/bin
 kubectl hello
 ```
 -->
-
 这个插件写好了，把它变成可执行的：
 ```bash
-
 sudo chmod a+x ./kubectl-hello
 
 # 并将其移动到路径中的某个位置

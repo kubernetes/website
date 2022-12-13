@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta2"
-  import: "k8s.io/api/flowcontrol/v1beta2"
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta3"
+  import: "k8s.io/api/flowcontrol/v1beta3"
   kind: "FlowSchema"
 content_type: "api_reference"
 description: "FlowSchema defines the schema of a group of flows."
-title: "FlowSchema v1beta2"
+title: "FlowSchema v1beta3"
 weight: 7
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: flowcontrol.apiserver.k8s.io/v1beta2`
+`apiVersion: flowcontrol.apiserver.k8s.io/v1beta3`
 
-`import "k8s.io/api/flowcontrol/v1beta2"`
+`import "k8s.io/api/flowcontrol/v1beta3"`
 
 
 ## FlowSchema {#FlowSchema}
@@ -32,7 +32,7 @@ FlowSchema defines the schema of a group of flows. Note that a flow is made up o
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta2
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
 
 
 - **kind**: FlowSchema
@@ -42,11 +42,11 @@ FlowSchema defines the schema of a group of flows. Note that a flow is made up o
 
   `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchemaSpec" >}}">FlowSchemaSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaSpec" >}}">FlowSchemaSpec</a>)
 
   `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchemaStatus" >}}">FlowSchemaStatus</a>)
+- **status** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaStatus" >}}">FlowSchemaStatus</a>)
 
   `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -221,6 +221,8 @@ FlowSchemaStatus represents the current state of a FlowSchema.
 
 - **conditions** ([]FlowSchemaCondition)
 
+  *Patch strategy: merge on key `type`*
+  
   *Map: unique values on key type will be kept during a merge*
   
   `conditions` is a list of the current states of FlowSchema.
@@ -261,7 +263,7 @@ FlowSchemaList is a list of FlowSchema objects.
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta2
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
 
 
 - **kind**: FlowSchemaList
@@ -271,7 +273,7 @@ FlowSchemaList is a list of FlowSchema objects.
 
   `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>), required
+- **items** ([]<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>), required
 
   `items` is a list of FlowSchemas.
 
@@ -294,7 +296,7 @@ FlowSchemaList is a list of FlowSchema objects.
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### Parameters
 
@@ -313,7 +315,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
 401: Unauthorized
 
@@ -322,7 +324,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 #### Parameters
 
@@ -341,7 +343,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
 401: Unauthorized
 
@@ -350,7 +352,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 #### Parameters
 
@@ -409,7 +411,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchemaList" >}}">FlowSchemaList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaList" >}}">FlowSchemaList</a>): OK
 
 401: Unauthorized
 
@@ -418,12 +420,12 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 
 #### HTTP Request
 
-POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
+POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
 
   
 
@@ -452,11 +454,11 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Accepted
 
 401: Unauthorized
 
@@ -465,7 +467,7 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 
 #### HTTP Request
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
+PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### Parameters
 
@@ -475,7 +477,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
   name of the FlowSchema
 
 
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
 
   
 
@@ -504,9 +506,9 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -515,7 +517,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 
 #### HTTP Request
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
+PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 #### Parameters
 
@@ -525,7 +527,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
   name of the FlowSchema
 
 
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
 
   
 
@@ -554,9 +556,9 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -565,7 +567,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 
 #### HTTP Request
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### Parameters
 
@@ -609,9 +611,9 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -620,7 +622,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 
 #### HTTP Request
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 #### Parameters
 
@@ -664,9 +666,9 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -675,7 +677,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 
 #### HTTP Request
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### Parameters
 
@@ -725,7 +727,7 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 
 #### HTTP Request
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 #### Parameters
 

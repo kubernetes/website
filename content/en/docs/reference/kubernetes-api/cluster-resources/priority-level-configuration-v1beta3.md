@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta2"
-  import: "k8s.io/api/flowcontrol/v1beta2"
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta3"
+  import: "k8s.io/api/flowcontrol/v1beta3"
   kind: "PriorityLevelConfiguration"
 content_type: "api_reference"
 description: "PriorityLevelConfiguration represents the configuration of a priority level."
-title: "PriorityLevelConfiguration v1beta2"
+title: "PriorityLevelConfiguration v1beta3"
 weight: 8
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: flowcontrol.apiserver.k8s.io/v1beta2`
+`apiVersion: flowcontrol.apiserver.k8s.io/v1beta3`
 
-`import "k8s.io/api/flowcontrol/v1beta2"`
+`import "k8s.io/api/flowcontrol/v1beta3"`
 
 
 ## PriorityLevelConfiguration {#PriorityLevelConfiguration}
@@ -32,7 +32,7 @@ PriorityLevelConfiguration represents the configuration of a priority level.
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta2
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
 
 
 - **kind**: PriorityLevelConfiguration
@@ -42,11 +42,11 @@ PriorityLevelConfiguration represents the configuration of a priority level.
 
   `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
 
   `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
+- **status** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
 
   `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -73,13 +73,19 @@ PriorityLevelConfigurationSpec specifies the configuration of a priority level.
     - How are requests for this priority level limited?
     - What should be done with requests that exceed the limit?*
 
-  - **limited.assuredConcurrencyShares** (int32)
+  - **limited.borrowingLimitPercent** (int32)
 
-    `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
+    `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
     
-                ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
+    BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
     
-    bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
+    The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+
+  - **limited.lendablePercent** (int32)
+
+    `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+    
+    LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
 
   - **limited.limitResponse** (LimitResponse)
 
@@ -111,6 +117,14 @@ PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 
         `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
 
+  - **limited.nominalConcurrencyShares** (int32)
+
+    `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
+    
+    NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
+    
+    Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
+
 
 
 
@@ -123,6 +137,8 @@ PriorityLevelConfigurationStatus represents the current state of a "request-prio
 
 - **conditions** ([]PriorityLevelConfigurationCondition)
 
+  *Patch strategy: merge on key `type`*
+  
   *Map: unique values on key type will be kept during a merge*
   
   `conditions` is the current state of "request-priority".
@@ -163,7 +179,7 @@ PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta2
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
 
 
 - **kind**: PriorityLevelConfigurationList
@@ -173,7 +189,7 @@ PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 
   `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>), required
+- **items** ([]<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>), required
 
   `items` is a list of request-priorities.
 
@@ -196,7 +212,7 @@ PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
 
 #### Parameters
 
@@ -215,7 +231,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
 401: Unauthorized
 
@@ -224,7 +240,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}/status
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
 
 #### Parameters
 
@@ -243,7 +259,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
 401: Unauthorized
 
@@ -252,7 +268,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 #### Parameters
 
@@ -311,7 +327,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationList" >}}">PriorityLevelConfigurationList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationList" >}}">PriorityLevelConfigurationList</a>): OK
 
 401: Unauthorized
 
@@ -320,12 +336,12 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
 
 #### HTTP Request
 
-POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
+POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 
   
 
@@ -354,11 +370,11 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Accepted
 
 401: Unauthorized
 
@@ -367,7 +383,7 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
 
 #### HTTP Request
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
 
 #### Parameters
 
@@ -377,7 +393,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
   name of the PriorityLevelConfiguration
 
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 
   
 
@@ -406,9 +422,9 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -417,7 +433,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 
 #### HTTP Request
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}/status
+PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
 
 #### Parameters
 
@@ -427,7 +443,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
   name of the PriorityLevelConfiguration
 
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 
   
 
@@ -456,9 +472,9 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -467,7 +483,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 
 #### HTTP Request
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
 
 #### Parameters
 
@@ -511,9 +527,9 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{na
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -522,7 +538,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{na
 
 #### HTTP Request
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}/status
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
 
 #### Parameters
 
@@ -566,9 +582,9 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{na
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -577,7 +593,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{na
 
 #### HTTP Request
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
 
 #### Parameters
 
@@ -627,7 +643,7 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{n
 
 #### HTTP Request
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 #### Parameters
 

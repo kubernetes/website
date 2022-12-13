@@ -295,7 +295,7 @@ Liveness ProbeおよびReadiness Probeのチェック動作をより正確に制
 * `periodSeconds`: Probeが実行される頻度(秒数)。デフォルトは10秒。最小値は1。
 * `timeoutSeconds`: Probeがタイムアウトになるまでの秒数。デフォルトは1秒。最小値は1。
 * `successThreshold`: 一度Probeが失敗した後、次のProbeが成功したとみなされるための最小連続成功数。
-デフォルトは1。Liveness Probeには1を設定する必要があります。最小値は1。
+デフォルトは1。Liveness ProbeおよびStartup Probeには1を設定する必要があります。最小値は1。
 * `failureThreshold`: Probeが失敗した場合、Kubernetesは`failureThreshold`に設定した回数までProbeを試行します。
 Liveness Probeにおいて、試行回数に到達することはコンテナを再起動することを意味します。
 Readiness Probeの場合は、Podが準備できていない状態として通知されます。デフォルトは3。最小値は1。
