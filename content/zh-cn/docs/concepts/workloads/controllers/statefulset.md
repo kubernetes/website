@@ -242,13 +242,41 @@ StatefulSet Pod 具有唯一的标识，该标识包括顺序标识、稳定的�
 <!--
 ### Ordinal Index
 
-For a StatefulSet with N replicas, each Pod in the StatefulSet will be
-assigned an integer ordinal, from 0 up through N-1, that is unique over the Set.
+For a StatefulSet with N [replicas](#replicas), each Pod in the StatefulSet
+will be assigned an integer ordinal, that is unique over the Set. By default,
+pods will be assigned ordinals from 0 up through N-1.
 -->
 ### 有序索引   {#ordinal-index}
 
-对于具有 N 个副本的 StatefulSet，该 StatefulSet 中的每个 Pod 将被分配一个从 0 到 N-1
-的整数序号，该序号在此 StatefulSet 上是唯一的。
+对于具有 N 个[副本](#replicas)的 StatefulSet，该 StatefulSet 中的每个 Pod 将被分配一个整数序号，
+该序号在此 StatefulSet 上是唯一的。默认情况下，这些 Pod 将被从 0 到 N-1 的序号。
+
+<!--
+### Start ordinal
+-->
+### 起始序号   {#start-ordinal}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+<!--
+`.spec.ordinals` is an optional field that allows you to configure the integer
+ordinals assigned to each Pod. It defaults to nil. You must enable the
+`StatefulSetStartOrdinal`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this field. Once enabled, you can configure the following options:
+-->
+`.spec.ordinals` 是一个可选的字段，允许你配置分配给每个 Pod 的整数序号。
+该字段默认为 nil 值。你必须启用 `StatefulSetStartOrdinal`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
+一旦启用，你就可以配置以下选项：
+
+<!--
+* `.spec.ordinals.start`: If the `.spec.ordinals.start` field is set, Pods will
+  be assigned ordinals from `.spec.ordinals.start` up through
+  `.spec.ordinals.start + .spec.replicas - 1`.
+-->
+* `.spec.ordinals.start`：如果 `.spec.ordinals.start` 字段被设置，则 Pod 将被分配从
+  `.spec.ordinals.start` 到 `.spec.ordinals.start + .spec.replicas - 1` 的序号。
 
 <!--
 ### Stable Network ID
