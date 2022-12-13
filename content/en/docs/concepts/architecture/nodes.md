@@ -456,7 +456,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 ## Non Graceful node shutdown {#non-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.24" >}}
+{{< feature-state state="beta" for_k8s_version="v1.26" >}}
 
 A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
 either because the command does not trigger the inhibitor locks mechanism used by 

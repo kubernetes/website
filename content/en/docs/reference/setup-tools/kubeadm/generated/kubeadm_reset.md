@@ -46,6 +46,13 @@ kubeadm reset [flags]
 </tr>
 
 <tr>
+<td colspan="2">--cleanup-tmp-dir</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Cleanup the &quot;/etc/kubernetes/tmp&quot; directory</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--cri-socket string</td>
 </tr>
 <tr>
