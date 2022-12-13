@@ -68,8 +68,9 @@ w korzystaniu i zarządzaniu klastrem.
 * [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) i
   [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) i
-  [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+  [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) i
+  [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
 * [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) i
