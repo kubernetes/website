@@ -25,17 +25,17 @@ weight: 30
 Kubernetesは、さまざまな目的のためにいくつかの異なる種類のエフェメラルボリュームをサポートしています。
 - [emptyDir](/ja/docs/concepts/storage/volumes/#emptydir):Podの起動時には空で、ストレージはkubeletベースディレクトリ(通常はルートディスク)またはRAMからローカルに取得されます。
 - [configMap](/ja/docs/concepts/storage/volumes/#configmap)、[downwardAPI](/ja/docs/concepts/storage/volumes/#downwardapi)、[secret](/ja/docs/concepts/storage/volumes/#secret):Podにさまざまな種類のKubernetesデータを挿入します。
-- [CSI ephemeral volumes](#csi-ephemeral-volumes):上のボリュームの種類に似ていますが、特に[この機能をサポートする](https://kubernetes-csi.github.io/docs/drivers.html)特別な[CSIドライバー](https://github.com/container-storage-interface/spec/blob/master/spec.md)によって提供されます。
-- [generic ephemeral volumes](#generic-ephemeral-volumes):これは、永続ボリュームもサポートするすべてのストレージドライバーで提供できます。
+- [CSIエフェメラルボリューム](#csi-ephemeral-volumes):上のボリュームの種類に似ていますが、特に[この機能をサポートする](https://kubernetes-csi.github.io/docs/drivers.html)特別な[CSIドライバー](https://github.com/container-storage-interface/spec/blob/master/spec.md)によって提供されます。
+- [汎用エフェメラルボリューム](#generic-ephemeral-volumes):これは、永続ボリュームもサポートするすべてのストレージドライバーで提供できます。
 
 `emptyDir`、`configMap`、`downwardAPI`、`secret`は[ローカルエフェメラルストレージ](/ja/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)として提供されます。
 これらは、各ノードのkubeletによって管理されます。
 
-CSIエフェメラルボリュームは、サードパーティのCSIストレージドライバーによって提供される必要があります。
+CSIエフェメラルボリュームは、サードパーティーのCSIストレージドライバーによって提供される必要があります。
 
-汎用エフェメラルボリュームは、サードパーティのCSIストレージドライバーによって提供される可能性がありますが、動的プロビジョニングをサポートする他のストレージドライバーによって提供されることもあります。一部のCSIドライバーは、CSIエフェメラルボリューム用に特別に作成されており、動的プロビジョニングをサポートしていません。これらは汎用エフェメラルボリュームには使用できません。
+汎用エフェメラルボリュームは、サードパーティーのCSIストレージドライバーによって提供される可能性がありますが、動的プロビジョニングをサポートする他のストレージドライバーによって提供されることもあります。一部のCSIドライバーは、CSIエフェメラルボリューム用に特別に作成されており、動的プロビジョニングをサポートしていません。これらは汎用エフェメラルボリュームには使用できません。
 
-サードパーティ製ドライバーを使用する利点は、Kubernetes自体がサポートしていない機能を提供できることです。たとえば、kubeletによって管理されるディスクとは異なるパフォーマンス特性を持つストレージや、異なるデータの挿入などです。
+サードパーティー製ドライバーを使用する利点は、Kubernetes自体がサポートしていない機能を提供できることです。たとえば、kubeletによって管理されるディスクとは異なるパフォーマンス特性を持つストレージや、異なるデータの挿入などです。
 
 ### CSIエフェメラルボリューム {#csi-ephemeral-volumes}
 
@@ -83,7 +83,7 @@ CSIエフェメラルボリュームを使用すると、ユーザーはPod仕�
 通常は管理者に制限されている`volumeAttributes`を許可するCSIドライバーは、インラインエフェメラルボリュームでの使用には適していません。
 たとえば、通常StorageClassで定義されるパラメーターは、インラインエフェメラルボリュームを使用してユーザーに公開しないでください。
 
-ポッド仕様内でインラインボリュームとして使用できるCSIドライバーを制限する必要があるクラスタ管理者は、次の方法で行うことができます。
+Pod仕様内でインラインボリュームとして使用できるCSIドライバーを制限する必要があるクラスタ管理者は、次の方法で行うことができます。
 
 - CSIドライバー仕様の`volumeLifecycleModes`から`Ephemeral`を削除します。これにより、ドライバーをインラインエフェメラルボリュームとして使用できなくなります。
 - [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使用して、このドライバーの使用方法を制限します。
@@ -92,7 +92,7 @@ CSIエフェメラルボリュームを使用すると、ユーザーはPod仕�
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-汎用エフェメラルボリュームは、プロビジョニング後に通常は空であるスクラッチデータ用のポッドごとのディレクトリを提供するという意味で、`emptyDir`ボリュームに似ています。ただし、追加の機能がある場合もあります。
+汎用エフェメラルボリュームは、プロビジョニング後に通常は空であるスクラッチデータ用のPodごとのディレクトリを提供するという意味で、`emptyDir`ボリュームに似ています。ただし、追加の機能がある場合もあります。
 
 - ストレージは、ローカルまたはネットワークに接続できます。
 - ボリュームは、Podが超えることができない固定サイズを持つことができます。
@@ -131,13 +131,13 @@ spec:
 
 ### LifecycleとPersistentVolumeClaim {#lifecycle-and-persistentvolumeclaim}
 
-設計上の重要なアイデアは、[ボリュームクレームのパラメータ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)がPodのボリュームソース内で許可されることです。
+設計上の重要なアイデアは、[ボリュームクレームのパラメーター](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)がPodのボリュームソース内で許可されることです。
 PersistentVolumeClaimのラベル、アノテーション、および一連のフィールド全体がサポートされています。
 そのようなPodが作成されると、エフェメラルボリュームコントローラーは、Podと同じ名前空間に実際のPersistentVolumeClaimオブジェクトを作成し、Podが削除されたときにPersistentVolumeClaimが確実に削除されるようにします。
 
 これにより、ボリュームバインディングおよび/またはプロビジョニングがトリガーされます。
 これは、{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}が即時ボリュームバインディングを使用する場合、またはPodが一時的にノードにスケジュールされている場合(`WaitForFirstConsumer`ボリュームバインディングモード)のいずれかです。
-後者は、スケジューラがPodに適したノードを自由に選択できるため、一般的なエフェメラルボリュームに推奨されます。即時バインディングでは、ボリュームが利用可能になった時点で、ボリュームにアクセスできるノードをスケジューラが選択する必要があります。
+後者は、スケジューラーがPodに適したノードを自由に選択できるため、一般的なエフェメラルボリュームに推奨されます。即時バインディングでは、ボリュームが利用可能になった時点で、ボリュームにアクセスできるノードをスケジューラーが選択する必要があります。
 
 [リソースの所有権](/ja/docs/concepts/architecture/garbage-collection/#owners-dependents)に関して、一般的なエフェメラルストレージを持つPodは、そのエフェメラルストレージを提供するPersistentVolumeClaimの所有者です。Podが削除されると、KubernetesガベージコレクターがPVCを削除します。これにより、通常、ボリュームの削除がトリガーされます。これは、ストレージクラスのデフォルトの再利用ポリシーがボリュームを削除することであるためです。`retain`の再利用ポリシーを持つStorageClassを使用して、準エフェメラルなローカルストレージを作成できます。ストレージはPodよりも長く存続します。この場合、ボリュームのクリーンアップが個別に行われるようにする必要があります。
 
@@ -152,12 +152,12 @@ PersistentVolumeClaimのラベル、アノテーション、および一連の�
 次のような競合が検出されます。Pod用に作成された場合、PVCはエフェメラルボリュームにのみ使用されます。このチェックは、所有関係に基づいています。既存のPVCは上書きまたは変更されません。ただし、適切なPVCがないとPodを起動できないため、これでは競合が解決されません。
 
 {{< caution >}}
-これらの競合が発生しないように、同じ名前空間内でポッドとボリュームに名前を付けるときは注意してください。
+これらの競合が発生しないように、同じ名前空間内でPodとボリュームに名前を付けるときは注意してください。
 {{< /caution >}}
 
 ### セキュリティ {#security}
 
-GenericEphemeralVolume機能を有効にすると、ユーザーは、PVCを直接作成する権限がなくても、Podを作成できる場合、間接的にPVCを作成できます。クラスタ管理者はこれを認識している必要があります。これがセキュリティモデルに適合しない場合は、一般的なエフェメラルボリュームを持つPodなどのオブジェクトを拒否する[admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使用する必要があります。
+GenericEphemeralVolume機能を有効にすると、ユーザーは、PVCを直接作成する権限がなくても、Podを作成できる場合、間接的にPVCを作成できます。クラスター管理者はこれを認識している必要があります。これがセキュリティモデルに適合しない場合は、一般的なエフェメラルボリュームを持つPodなどのオブジェクトを拒否する[admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使用する必要があります。
 
 通常の[PVCの名前空間割り当て](/ja/docs/concepts/policy/resource-quotas/#storage-resource-quota)は引き続き適用されるため、ユーザーがこの新しいメカニズムの使用を許可されたとしても、他のポリシーを回避するために使用することはできません。
 
