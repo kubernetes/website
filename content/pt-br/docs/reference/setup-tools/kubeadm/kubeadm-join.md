@@ -16,7 +16,7 @@ O comando `kubeadm join` inicializa um nó de processamento ou um nó da camada
 de gerenciamento e o adiciona ao cluster. Esta ação consiste nos seguintes passos
 para nós de processamento:
 
-1. O kubeadm baixa as informações do cluster necessárias através servidor da API.
+1. O kubeadm baixa as informações necessárias do cluster através servidor da API.
    Por padrão, o token de autoinicialização e o _hash_ da chave da autoridade de
    certificação (CA) são utilizados para verificar a autenticidade dos dados
    baixados. O certificado raiz também pode ser descoberto diretamente através
@@ -118,9 +118,9 @@ Para nós da camada de gerenciamento:
 kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef --control-plane 1.2.3.4:6443
 ```
 
-Você pode também rodar o comando `join` para um nó da camada de gerenciamento com
-a opção `--certificate-key` para copiar certificados para este nó, caso o comando
-`kubeadm init` tenha sido executado com a opção `--upload-certs`.
+Você também pode executar o comando `join` para um nó da camada de gerenciamento
+com a opção `--certificate-key` para copiar certificados para este nó, caso o
+comando `kubeadm init` tenha sido executado com a opção `--upload-certs`.
 
 **Vantagens:**
 
@@ -311,8 +311,8 @@ users: []
 kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
 ```
 
-Estes comandos devem ser executados após a execução do comando `kubeadm init`,
-mas antes da execução de `kubeadm join`.
+Estes comandos devem ser executados após `kubeadm init`, mas antes de
+`kubeadm join`.
 
 ### Utilizando `kubeadm join` com um arquivo de configuração {#config-file}
 
