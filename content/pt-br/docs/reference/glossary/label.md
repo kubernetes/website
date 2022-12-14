@@ -14,4 +14,4 @@ tags:
 
 <!--more--> 
 
-*Labels* são pares `chave/valor` que são anexados aos objetos, tal como {{< glossary_tooltip text="Pods" term_id="pod" >}}. Eles são usados para organizar e selecionar um subconjuntos de objetos.
+*Labels* são pares `chave/valor` que são anexados aos objetos, tal como {{< glossary_tooltip text="Pods" term_id="pod" >}}. Eles são usados para organizar e selecionar subconjuntos de objetos.
