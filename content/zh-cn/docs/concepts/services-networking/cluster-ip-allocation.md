@@ -14,7 +14,7 @@ Service across the different backing Pods.
 -->
 
 在 Kubernetes 中，[Service](/zh-cn/docs/concepts/services-networking/service/) 是一种抽象的方式，用于公开在一组 Pod 上运行的应用程序。
-服务可以具有一个集群范围的虚拟 IP 地址（使用`type: ClusterIP `的服务）。
+服务可以具有一个集群作用域的虚拟 IP 地址（使用 `type: ClusterIP` 的服务）。
 客户端可以使用该虚拟 IP 地址进行连接，然后 Kubernetes 通过不同的后台 Pod 对该服务的流量进行负载均衡。
 <!-- body -->
 <!--
