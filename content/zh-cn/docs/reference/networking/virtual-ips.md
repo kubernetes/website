@@ -61,7 +61,6 @@ There are a few reasons for using proxying for Services:
 * 有些应用只做一次 DNS 查询，然后永久缓存结果。
 * 即使应用程序和库进行了适当的重新解析，TTL 取值较低或为零的 DNS 记录可能会给 DNS 带来很大的压力，
   从而变得难以管理。
-这可能会变得难以管理。
 
 <!-- 
 Later in this page you can read about how various kube-proxy implementations work.
