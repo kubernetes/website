@@ -267,10 +267,7 @@ aliases:
     - xmudrii # Release Manager
   release-engineering-reviewers:
     - ameukam # Release Manager Associate
+    - cici37 # Release Manager Associate
     - jimangel # Release Manager Associate
-    - markyjackson-taulia # Release Manager Associate
-    - mkorbi # Release Manager Associate
-    - onlydole # Release Manager Associate
-    - sethmccombs # Release Manager Associate
-    - thejoycekung # Release Manager Associate
-    - wilsonehusin # Release Manager Associate
+    - jrsapi # Release Manager Associate
+    - salaxander # Release Manager Associate
