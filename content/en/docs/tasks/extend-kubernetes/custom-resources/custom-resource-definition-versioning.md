@@ -1040,6 +1040,8 @@ request depends on what is specified in the CRD's `spec.conversion`:
   unknown fields](/docs/concepts/extend-kubernetes/api-extension/custom-resources/custom-resource-definitions/#field-pruning)
   (depending on the configuration). Note that this is unlikely to lead to good
   results if the schemas differ between the storage and requested version.
+  In particular, you should not use this strategy if the same data is
+  represented in different fields between versions.
 - if [webhook conversion](#webhook-conversion) is specified, then this
   mechanism controls the conversion.
 
