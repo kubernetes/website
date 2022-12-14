@@ -97,7 +97,7 @@ Pod仕様内でインラインボリュームとして使用できるCSIドラ�
 - ストレージは、ローカルまたはネットワークに接続できます。
 - ボリュームは、Podが超えることができない固定サイズを持つことができます。
 - ボリュームには、ドライバーとパラメーターによっては、いくつかの初期データがある場合があります。
-- [スナップショット](/docs/concepts/storage/volume-snapshots/),[クローン作成](/ja/docs/concepts/storage/volume-pvc-datasource/),[サイズ変更](/ja/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),[ストレージ容量の追跡](/ja/docs/concepts/storage/storage-capacity/)などボリュームに対する一般的な操作は、ドライバーがそれらをサポートしていることを前提としてサポートされています。
+- [スナップショット](/docs/concepts/storage/volume-snapshots/)、[クローン作成](/ja/docs/concepts/storage/volume-pvc-datasource/)、[サイズ変更](/ja/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)、[ストレージ容量の追跡](/ja/docs/concepts/storage/storage-capacity/)などボリュームに対する一般的な操作は、ドライバーがそれらをサポートしていることを前提としてサポートされています。
 
 例:
 
