@@ -49,7 +49,7 @@ Kubernetes CSI[ドライバーリスト](https://kubernetes-csi.github.io/docs/d
 概念的には、CSIエフェメラルボリュームは`configMap`、`downwardAPI`、および`secret`ボリュームタイプに似ています。
 ストレージは各ノードでローカルに管理され、Podがノードにスケジュールされた後に他のローカルリソースと一緒に作成されます。Kubernetesには、この段階でPodを再スケジュールするという概念はもうありません。
 ボリュームの作成は、失敗する可能性が低くなければなりません。さもないと、Podの起動が停止します。
-特に、[ストレージ容量を考慮したPodスケジューリング](/ja/docs/concepts/storage/storage-capacity/)は、これらのボリュームではサポートされていません。
+特に、[ストレージ容量を考慮したPodスケジューリング](/ja/docs/concepts/storage/storage-capacity/)は、これらのボリュームではサポートされて*いません*。
 これらは現在、Podのストレージリソースの使用制限の対象外です。これは、kubeletが管理するストレージに対してのみ強制できるものであるためです。
 
 CSIエフェメラルストレージを使用するPodのマニフェストの例を次に示します。
