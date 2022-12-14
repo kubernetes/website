@@ -55,11 +55,12 @@ There are a few reasons for using proxying for Services:
   difficult to manage.
  -->
 
-使用代理转发 Service 的原因有以下几个：
+使用代理转发方式实现 Service 的原因有以下几个：
 
-* DNS 的实现不遵守记录 TTL 的历史由来已久，可能在记录过期后仍有结果缓存。
+* DNS 的实现不遵守记录的 TTL 约定的历史由来已久，在记录过期后可能仍有结果缓存。
 * 有些应用只做一次 DNS 查询，然后永久缓存结果。
-* 即使应用程序和库进行了适当的重新解析，低 TTL 或零 TTL 的 DNS 记录可能会给 DNS 带来高负载，从而变得难以管理。
+* 即使应用程序和库进行了适当的重新解析，TTL 取值较低或为零的 DNS 记录可能会给 DNS 带来很大的压力，
+  从而变得难以管理。
 这可能会变得难以管理。
 
 <!-- 
@@ -77,7 +78,7 @@ to use as-is.
 可能会修改内核级别的规则（例如，可能会创建 iptables 规则），
 在某些情况下，这些规则直到重启才会被清理。
 因此，运行 kube-proxy 这件事应该只由了解在计算机上使用低级别、特权网络代理服务会带来的后果的管理员执行。
-尽管 `kube-proxy` 可执行文件支持 `cleanup` 功能，但这个功能并不是官方特性，因此只能当做没有使用。
+尽管 `kube-proxy` 可执行文件支持 `cleanup` 功能，但这个功能并不是官方特性，因此只能根据具体情况使用。
 
 <!-- 
 <a id="example"></a>
@@ -89,10 +90,10 @@ nor should they need to keep track of the set of backends themselves.
  -->
 
 <a id="example"></a>
-本文中的一些细节参考这个例子：
+本文中的一些细节会引用这样一个例子：
 运行了 3 个 Pod 副本的无状态图像处理后端工作负载。
 这些副本是可互换的；前端不需要关心它们调用了哪个后端副本。
-然而组成这一组后端程序的 Pod 实际上可能会发生变化，
+即使组成这一组后端程序的 Pod 实际上可能会发生变化，
 前端客户端不应该也没必要知道，而且也不需要跟踪这一组后端的状态。
 
 
@@ -119,10 +120,10 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 
 注意，kube-proxy 会根据不同配置以不同的模式启动。
 
-- kube-proxy 的配置是通过 ConfigMap 完成的，kube-proxy 的 ConfigMap 有效地弃用了大部分 kube-proxy 标志的行为。
+- kube-proxy 的配置是通过 ConfigMap 完成的，kube-proxy 的 ConfigMap 实际上弃用了 kube-proxy 大部分标志的行为。
 - kube-proxy 的 ConfigMap 不支持配置的实时重新加载。
-- kube-proxy 不能在启动时验证所有 ConfigMap 参数的真实性和有效性。
-  例如，如果你的操作系统不允许你运行 iptables 命令，标准内核 kube-proxy 实现将无法工作。
+- kube-proxy 不能在启动时验证和检查所有的 ConfigMap 参数。
+  例如，如果你的操作系统不允许你运行 iptables 命令，标准的 kube-proxy 内核实现将无法工作。
   同样，如果你的操作系统不支持 `netsh`，它也无法在 Windows 用户空间模式下运行。
 
 <!-- 
@@ -164,7 +165,7 @@ By default, kube-proxy in userspace mode chooses a backend via a round-robin alg
  -->
 默认情况下，用户空间模式下的 kube-proxy 通过轮询算法选择后端。
   
-  {{< figure src="/images/docs/services-userspace-overview.svg" title="用户空间代理的 Service 概述图" class="diagram-medium" >}}
+{{< figure src="/images/docs/services-userspace-overview.svg" title="用户空间代理的 Service 概览" class="diagram-medium" >}}
 
 <!-- 
 #### Example {#packet-processing-userspace}
@@ -215,8 +216,8 @@ not scale to very large clusters with thousands of Services.  The
 has more details on this.
  -->
 
-在中小型规模使用用户空间代理的 VIP 是有效的，但是不能拓展到具有数千个 Service 的大型集群。
-[original design proposal for portals](https://github.com/kubernetes/kubernetes/issues/1107)
+在中小型规模集群中使用用户空间代理的 VIP 是有效的，但是不能拓展到具有数千个 Service 的大型集群。
+[针对门户的初始设计提案](https://github.com/kubernetes/kubernetes/issues/1107)
 中有更多的细节。
 
 <!-- 
@@ -245,7 +246,7 @@ and redirect that traffic to one of the Service's
 backend sets. For each endpoint, it installs iptables rules which
 select a backend Pod.
  -->
-在这种模式下，kube-proxy 监视 Kubernetes 控制平面对 Service 和 EndpointSlice 对象的添加和删除。
+在这种模式下，kube-proxy 监视 Kubernetes 控制平面，获知对 Service 和 EndpointSlice 对象的添加和删除操作。
 对于每个 Service，kube-proxy 会添加 iptables 规则，这些规则捕获流向 Service 的 `clusterIP` 和 `port` 的流量，
 并将这些流量重定向到 Service 后端集合中的其中之一。
 对于每个端点，它会添加指向一个特定后端 Pod 的 iptables 规则。
@@ -271,7 +272,7 @@ Pod had failed and would automatically retry with a different backend Pod.
 
 如果 kube-proxy 以 iptables 模式运行，并且它选择的第一个 Pod 没有响应，
 那么连接会失败。这与用户空间模式不同：
-在这种情况下，kube-proxy 会检测到与第一个 Pod 的连接失败，
+在后者这种情况下，kube-proxy 会检测到与第一个 Pod 的连接失败，
 并会自动用不同的后端 Pod 重试。
 
 <!-- 
@@ -287,7 +288,7 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 <!-- 
 {{< figure src="/images/docs/services-iptables-overview.svg" title="Services overview diagram for iptables proxy" class="diagram-medium" >}}
  -->
-{{< figure src="/images/docs/services-iptables-overview.svg" title="iptables 代理的 Service 概述图" class="diagram-medium" >}}
+{{< figure src="/images/docs/services-iptables-overview.svg" title="iptables 代理的 Service 概览" class="diagram-medium" >}}
 
 <!-- 
 #### Example {#packet-processing-iptables}
@@ -302,9 +303,9 @@ Service port is 1234.
 All of the kube-proxy instances in the cluster observe the creation of the new
 Service.
  -->
-再看[前面](#example)描述的图像处理应用程序例子。
+仍以[前面](#example)描述的图像处理应用程序为例。
 当创建后端 Service 时，Kubernetes 控制平面会分配一个虚拟 IP 地址，例如 10.0.0.1。
-对于这个例子，假设 Service 端口是 1234。
+对于这个例子而言，假设 Service 端口是 1234。
 集群中的所有 kube-proxy 实例都会观察到新 Service 的创建。
 
 <!-- 
@@ -354,7 +355,7 @@ state.
 在 `ipvs` 模式下，kube-proxy 监视 Kubernetes Service 和 EndpointSlice，
 然后调用 `netlink` 接口创建 IPVS 规则，
 并定期与 Kubernetes Service 和 EndpointSlice 同步 IPVS 规则。
-该控制循环确保 IPVS 状态与所需状态保持一致。
+该控制回路确保 IPVS 状态与期望的状态保持一致。
 
 <!-- 
 When accessing a Service, IPVS directs traffic to one of the backend Pods.
@@ -418,12 +419,12 @@ falls back to running in iptables proxy mode.
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Services overview diagram for IPVS proxy" class="diagram-medium" >}}
  -->
 
-{{< figure src="/images/docs/services-ipvs-overview.svg" title="IPVS 代理的 Service 概述图" class="diagram-medium" >}}
+{{< figure src="/images/docs/services-ipvs-overview.svg" title="IPVS 代理的 Service 概览" class="diagram-medium" >}}
 
 <!-- 
 ## Session affinity
  -->
-## 会话亲和性
+## 会话亲和性    {#session-affinity}
 
 <!-- 
 In these proxy models, the traffic bound for the Service's IP:Port is
@@ -446,7 +447,7 @@ for a Service (the default is `None`).
 <!-- 
 ### Session stickiness timeout
  -->
-### 会话粘性超时
+### 会话粘性超时     {#session-stickiness-timeout}
 
 <!-- 
 You can also set the maximum session sticky time by setting
@@ -489,7 +490,7 @@ populated in terms of the Service's virtual IP address (and port).
 <!-- 
 ### Avoiding collisions
  -->
-### 碰撞避免
+### 避免冲突      {#avoiding-collisions}
 
 <!-- 
 One of the primary philosophies of Kubernetes is that you should not be
@@ -499,7 +500,7 @@ you choose your own port number if that choice might collide with
 someone else's choice.  That is an isolation failure.
  -->
 Kubernetes 的主要哲学之一是，
-你不应在可能导致你操作失败但完全不是你的问题的情况下暴露。
+你不应需要在完全不是你的问题的情况下面对可能导致你的操作失败的情形。
 对于 Service 资源的设计，也就是如果你选择的端口号可能与其他人的选择冲突，
 就不应该让你自己选择端口号。这是一种失败隔离。
 
@@ -509,7 +510,7 @@ ensure that no two Services can collide. Kubernetes does that by allocating each
 Service its own IP address from within the `service-cluster-ip-range`
 CIDR range that is configured for the API server.
  -->
-为了允许你为 Service 选择端口号，我们必须确保两个 Service 不会发生冲突。
+为了允许你为 Service 选择端口号，我们必须确保没有任何两个 Service 会发生冲突。
 Kubernetes 通过从为 API 服务器配置的 `service-cluster-ip-range`
 CIDR 范围内为每个 Service 分配自己的 IP 地址来实现这一点。
 
@@ -522,7 +523,7 @@ fail with a message indicating an IP address could not be allocated.
  -->
 为了确保每个 Service 都获得唯一的 IP，内部分配器在创建每个 Service
 之前更新 {{< glossary_tooltip term_id="etcd" >}} 中的全局分配映射，这种更新操作具有原子性。
-映射对象必须存在于用于  Service 获得 IP 地址分配的注册表中，
+映射对象必须存在于数据库中，这样 Service 才能获得 IP 地址分配，
 否则创建将失败，并显示无法分配 IP 地址。
 
 <!-- 
@@ -532,8 +533,8 @@ in-memory locking). Kubernetes also uses controllers to check for invalid
 assignments (e.g. due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
  -->
-在控制平面中，后台控制器负责创建该映射（需要支持从使用内存锁定的旧版本的 Kubernetes 迁移）。
-Kubernetes 还使用控制器来检查无效的分配（例如，由于管理员干预）
+在控制平面中，后台控制器负责创建该映射（从使用内存锁定的旧版本的 Kubernetes 迁移时需要这一映射）。
+Kubernetes 还使用控制器来检查无效的分配（例如，因管理员干预而导致无效分配）
 以及清理已分配但没有 Service 使用的 IP 地址。
 
 <!-- 
@@ -551,7 +552,7 @@ more than 256, with a graduated step function between them_.
  -->
 Kubernetes 根据配置的 `service-cluster-ip-range` 的大小使用公式
  `min(max(16, cidrSize / 16), 256)` 将 `ClusterIP` 范围分为两段。
-该公式是一个**不小于 16 且不大于 256 的渐进阶梯函数**。
+该公式可以解释为：介于 16 和 256 之间，并在上下界之间存在渐进阶梯函数的分配。
 
 <!-- 
 Kubernetes prefers to allocate dynamic IP addresses to Services by choosing from the upper band,
@@ -622,8 +623,8 @@ as if the external traffic policy were set to `Cluster`.
 如果为 kube-proxy 启用了 `ProxyTerminatingEndpoints`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 kube-proxy 会检查节点是否具有本地端点以及是否所有本地端点都标记为终止。
-如果有本地端点并且**所有**本地端点都被标记为终止，则 kube-proxy 忽略 `Local` 的任何外部流量策略。
-相反，当余下的所有本地节点端点处于终止中时，
+如果有本地端点并且**所有**本地端点都被标记为终止，则 kube-proxy 忽略所有取值为 `Local` 的外部流量策略。
+相反，当所有本地节点端点均处于终止中时，
 kube-proxy 将该 Service 的流量转发到其他健康端点，
 就好像外部流量策略设置为 `Cluster` 一样。
 
@@ -671,7 +672,7 @@ To learn more about Services,
 read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/).
  -->
 要了解有关 Service 的更多信息，
-请阅读 [使用 Service 连接应用](/zh-cn/docs/tutorials/services/connect-applications-service/)。
+请阅读[使用 Service 连接应用](/zh-cn/docs/tutorials/services/connect-applications-service/)。
 
 <!-- 
 You can also:
@@ -682,4 +683,4 @@ You can also:
 
 也可以：
 * 阅读 [Service](/zh-cn/docs/concepts/services-networking/service/)
-* 阅读 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/service-v1/) 了解更多 Service API
+* 阅读 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/service-v1/)进一步了解 Service API
