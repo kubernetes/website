@@ -264,4 +264,3 @@ kubectl delete namespace cpu-example
 * [Configurando Quota Para um Pod em um Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 * [Configurando Quotas Para Objetos de API](/docs/tasks/administer-cluster/quota-api-object/)
-
