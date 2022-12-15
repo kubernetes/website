@@ -4,7 +4,7 @@ content_type: concept
 weight: 20
 ---
 
-{{< feature-state for_k8s_version="v1.25" state="stable" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 구성 파일을 작성하고 해당 경로를 커맨드 라인 인수로 전달하여
 `kube-scheduler` 의 동작을 사용자 정의할 수 있다.
@@ -18,8 +18,8 @@ weight: 20
 각 단계는 익스텐션 포인트(extension point)를 통해 노출된다. 플러그인은 이러한
 익스텐션 포인트 중 하나 이상을 구현하여 스케줄링 동작을 제공한다.
 
-KubeSchedulerConfiguration ([v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-또는 [v1](/docs/reference/config-api/kube-scheduler-config.v1/))
+KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+또는 [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/))
 구조에 맞게 파일을 작성하고,
 `kube-scheduler --config <filename>`을 실행하여
 스케줄링 프로파일을 지정할 수 있다.
@@ -27,18 +27,12 @@ KubeSchedulerConfiguration ([v1beta3](/docs/reference/config-api/kube-scheduler-
 최소 구성은 다음과 같다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1
+apiVersion: kubescheduler.config.k8s.io/v1beta2
 kind: KubeSchedulerConfiguration
 clientConnection:
   kubeconfig: /etc/srv/kubernetes/kube-scheduler/kubeconfig
 ```
 
-  {{< note >}}
-  KubeSchedulerConfiguration [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)는
-  v1.25부터 사용 중단되었고 v1.26부터 제거된다. KubeSchedulerConfiguration을
-  [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/) 또는 [v1](/docs/reference/config-api/kube-scheduler-config.v1/)로 전환한 뒤에
-  쿠버네티스를 v1.25로 업그레이드하도록 한다.
-  {{< /note >}}
 ## 프로파일
 
 스케줄링 프로파일을 사용하면 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}에서
@@ -91,7 +85,7 @@ clientConnection:
 자체 플러그인을 활성화할 수 있다. 예를 들면, 다음과 같다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1
+apiVersion: kubescheduler.config.k8s.io/v1beta2
 kind: KubeSchedulerConfiguration
 profiles:
   - plugins:
@@ -178,6 +172,11 @@ profiles:
 기본으로 활성화되지 않는 다음의 플러그인을
 컴포넌트 구성 API를 통해 활성화할 수도 있다.
 
+- `SelectorSpread`: {{< glossary_tooltip text="Services" term_id="service" >}},
+  {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}와
+  {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}}에 속하는 파드의 경우,
+  노드간에 퍼지는 것을 선호한다.
+  익스텐션 포인트: `preScore`, `score`.
 - `CinderLimits`: 노드에 대해 [OpenStack Cinder](https://docs.openstack.org/cinder/)
   볼륨 제한이 충족될 수 있는지 확인한다.
   익스텐션 포인트: `filter`.
@@ -193,7 +192,7 @@ profiles:
 실행된다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1
+apiVersion: kubescheduler.config.k8s.io/v1beta2
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: default-scheduler
@@ -242,7 +241,7 @@ profiles:
 다음과 같은 프로파일 환경 설정을 사용한다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: multipoint-scheduler
@@ -256,7 +255,7 @@ profiles:
 동일한 효과를 갖는다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: non-multipoint-scheduler
@@ -285,7 +284,7 @@ profiles:
 다음은 `Score` 와 `PreScore` 에 대해 비활성화하는 예시이다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: non-multipoint-scheduler
@@ -301,15 +300,14 @@ profiles:
         - name: '*'
 ```
 
-`kubescheduler.config.k8s.io/v1beta3` 부터, `MultiPoint` 필드를 통해
-내부적으로 모든 [기본 플러그인](#scheduling-plugins)이 활성화된다.
+`v1beta3` 에서, `MultiPoint` 필드를 통해 내부적으로 모든 [기본 플러그인](#scheduling-plugins)이 활성화된다.
 그러나, 개별 익스텐션 포인트에 대해 기본값(예: 순서, Score 가중치)을 유연하게 재설정하는 것도 여전히 가능하다.
 예를 들어, 2개의 Score 플러그인 `DefaultScore1` 과 `DefaultScore2` 가 있고
 각각의 가중치가 `1` 이라고 하자.
 이 때, 다음과 같이 가중치를 다르게 설정하여 순서를 바꿀 수 있다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: multipoint-scheduler
@@ -344,7 +342,7 @@ profiles:
 이들 플러그인에 대한 유효한 예시 환경 설정은 다음과 같다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: multipoint-scheduler
@@ -453,11 +451,6 @@ profiles:
   * `NodeAffinity`: 1 에서 2 로
   * `TaintToleration`: 1 에서 3 으로
 {{% /tab %}}
-
-{{% tab name="v1beta3 → v1" %}}
-* 스케줄러 플러그인 `SelectorSpread`는 제거되었다. 대신, 비슷한 효과를 얻기 위해
-`PodTopologySpread` 플러그인(기본적으로 활성화되어 있음)을 사용한다.
-{{% /tab %}}
 {{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}
@@ -466,4 +459,3 @@ profiles:
 * [스케줄링](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 알아보기
 * [kube-scheduler 설정 (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) 레퍼런스 읽어보기
 * [kube-scheduler 설정 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) 레퍼런스 읽어보기
-* [kube-scheduler 설정 (v1)](/docs/reference/config-api/kube-scheduler-config.v1/) 레퍼런스 읽어보기

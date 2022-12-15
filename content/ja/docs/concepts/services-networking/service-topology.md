@@ -5,17 +5,13 @@ feature:
   description: >
     Serviceのトラフィックをクラスタートポロジーに基づいてルーティングします。
 content_type: concept
-weight: 150
+weight: 10
 ---
 
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
-
-{{< note >}}
-この機能、特にアルファ版の`topologyKeys`APIは、Kubernetes v1.21以降では非推奨です。Kubernetes v1.21で導入された、[トポロジーを意識したヒント](/ja/docs/concepts/services-networking/topology-aware-hints/)が同様の機能を提供します。
-{{</ note >}}
+{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
 *Serviceトポロジー*を利用すると、Serviceのトラフィックをクラスターのノードトポロジーに基づいてルーティングできるようになります。たとえば、あるServiceのトラフィックに対して、できるだけ同じノードや同じアベイラビリティゾーン上にあるエンドポイントを優先してルーティングするように指定できます。
 
@@ -143,6 +139,6 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* [トポロジーを意識したヒント](/ja/docs/concepts/services-networking/topology-aware-hints/)を読む。
-* [サービスとアプリケーションの接続](/ja/docs/tutorials/services/connect-applications-service/)を読む。
+* [Serviceトポトジーを有効にする](/ja/docs/tasks/administer-cluster/enabling-service-topology)を読む。
+* [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を読む。
 
