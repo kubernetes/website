@@ -9,8 +9,8 @@ weight: 40
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 O Kubernetes permite limitar o número de IDs de processo (PIDs) que um
-{{< glossary_tooltip term_id="Pod" texto="Pod" >}} pode usar.
-Você também pode reservar um número de PIDs alocáveis para cada {{< glossary_tooltip term_id="nó" texto="nó" >}}
+{{< glossary_tooltip term_id="Pod" text="Pod" >}} pode usar.
+Você também pode reservar um número de PIDs alocáveis para cada {{< glossary_tooltip term_id="nó" text="nó" >}}
 para uso pelo sistema operacional e daemons (em vez de Pods).
 
 <!-- body -->
@@ -51,7 +51,7 @@ recursos para uso pelo sistema operacional e outras instalações fora dos Pods
 e seus recipientes.
 
 A limitação de PID  é um importante irmão para [compute
-resource](/docs/concepts/configuration/manage-resources-containers/) requests
+resource](/pt-br/docs/concepts/configuration/manage-resources-containers/) requests
 e limites. No entanto, você o especifica de uma maneira diferente: em vez de definir um
 limite de recursos do pod no `.spec` para um pod, você configura o limite como uma
 configuração no kubelet. Os limites de PID definidos pelo pod não são suportados no momento.
@@ -119,5 +119,5 @@ quando um Pod está se comportando mal.
 - Consulte o [Documento de aprimoramento de limitação de PID](https://github.com/kubernetes/enhancements/blob/097b4d8276bc9564e56adf72505d43ce9bc5e9e8/keps/sig-node/20190129-pid-limiting.md) para obter mais informações.
 - Para uso de conxtexto histórico, leia:
   [Limitação de ID de processo para melhorias de estabilidade no Kubernetes 1.14](/blog/2019/04/15/process-id-limiting-for-stability-improvements-in-kubernetes-1.14/).
-- Leia [Gerenciando recursos para contêineres](/docs/concepts/configuration/manage-resources-containers/).
+- Leia [Gerenciando recursos para contêineres](/pt-br/docs/concepts/configuration/manage-resources-containers/).
 - Aprenda como [Configurar fora da manipulação de recursos](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
