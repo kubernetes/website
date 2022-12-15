@@ -9,8 +9,8 @@ weight: 40
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 O Kubernetes permite limitar o número de IDs de processo (PIDs) que um
-{{< glossary_tooltip term_id="Pod" text="Pod" >}} pode usar.
-Você também pode reservar um número de PIDs alocáveis para cada {{< glossary_tooltip term_id="nó" text="nó" >}}
+{{< glossary_tooltip term_id="pod" text="Pod" >}} pode usar.
+Você também pode reservar um número de PIDs alocáveis para cada {{< glossary_tooltip term_id="node" text="nó" >}}
 para uso pelo sistema operacional e daemons (em vez de Pods).
 
 <!-- body -->
