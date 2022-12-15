@@ -8,38 +8,37 @@ weight: 20
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-Esta página mostra como configurar [Contas de serviço gerenciadas em grupo]
-(https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview) (GMSA) 
+Esta página mostra como configurar [Contas de serviço gerenciadas em grupo](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview) (GMSA) 
 para Pods e contêineres que vão executar em nós Windows. Contas de serviço gerenciadas em grupo 
-são um tipo específico de conta do `Active Directory` que provê gerenciamento automático 
-de senhas, gerenciamento simplificado de `service principal name` (SPN), e a habilidade 
+são um tipo específico de conta do Active Directory que provê gerenciamento automático 
+de senhas, gerenciamento simplificado de *service principal name* (SPN), e a habilidade 
 de delegar o gerenciamento a outros administradores através de múltiplos servidores.
 
 No Kubernetes, especificações de credenciais GMSA são configuradas dentro do escopo 
 do cluster Kubernetes como recursos personalizados. Os Pods Windows, assim como contêineres 
 individuais dentro de um Pod, podem ser configurados para usar as funções GMSA 
-baseadas em domínio (ex. autenticação Kerberos) quando interagirem com outros 
+baseadas em domínio (exemplo: autenticação Kerberos) quando interagirem com outros 
 serviços Windows.
 
 ## {{% heading "prerequisites" %}}
 
 Você precisa ter um cluster Kubernetes, e a ferramenta de linha de comando `kubectl` 
 precisa estar configurada para comunicar-se com seu cluster.
-O cluster está esperando que haja nós trabalhadores Windows. 
+O cluster deve possuir nós trabalhadores Windows. 
 Esta seção cobre o conjunto inicial de passos requeridos para cada cluster:
 
 ### Instale o `GMSACredentialSpec CRD`
 
-Uma [CustomResourcedefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD) uma especificação de recursos de credencial GMSA precisa ser configurada no cluster, para definir o tipo de recurso do cliente `GMSACredentialSpec`. Faça o download da GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) 
+Uma [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD) uma especificação de recursos de credencial GMSA precisa ser configurada no cluster, para definir o tipo de recurso do cliente `GMSACredentialSpec`. Faça o download da GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) 
 e salve como gmsa-crd.yaml.
 A seguir, instale o CRD com `kubectl apply -f gmsa-crd.yaml`
 
-### Instale `webhooks` para validar usuários GMSA
+### Instale webhooks para validar usuários GMSA
 
-Dois `webhooks` precisam ser configurados no cluster Kubernetes para popular e validar 
+Dois webhooks precisam ser configurados no cluster Kubernetes para popular e validar 
 as referências de especificação de credenciais GMSA no nível do Pod ou contêiner:
 
-1. Um webhook mutante que expanda as referências para as GMSAs,
+1. Um webhook de mutação que expanda as referências para as GMSAs,
 (por nome de uma especificação de Pod) dentro de toda a especificação de credencial, 
 no formato JSON dentro da especificação do Pod.
 
@@ -51,11 +50,11 @@ A instalação dos webhooks acima e dos objetos associados requer as etapas abai
 1. Crie um par de chaves de certificado (que será usado para permitir que o 
 contêiner do webhook se comunique com o cluster)
 
-1. Instale a `secret` com o certificado acima.
+1. Instale a `Secret` com o certificado acima.
 
-1. Crie uma implantação para `core webhook logic`.
+1. Crie um Deployment para a lógica principal do webhook.
 
-1. Crie as configurações de validação e o webhook mutante, referentes à implantação.
+1. Crie as configurações de webhook de validação e de mutação, referentes ao Deployment.
 
 Um [script](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh) 
 pode ser usado para implantar e configurar os webhooks GMSA e objetos associados 
@@ -63,7 +62,7 @@ mencionados acima. O script pode ser executado com a opção ```--dry-run=server
 para possibilitar que você possa revisar as alterações antes que sejam aplicadas 
 no seu cluster.
 
-O [YAML template](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl) 
+O [template YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl) 
 usado pelo script também pode ser usado para implantar os webhooks e objetos 
 associados manualmente (com as substituições apropriadas para os parâmetros).
 
@@ -71,14 +70,11 @@ associados manualmente (com as substituições apropriadas para os parâmetros).
 
 ## Configurar GMSAs e nós Windows em Active Directory
 
-Antes que os Pods no Kubernetes possam ser configurados para usar GMSAs, as apropriadas 
-GMSAs precisam ser provisionadas no Active Directory como descrito na 
-[documentação do Windows GMSA]
-(https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1). 
+Antes que os Pods no Kubernetes possam ser configurados para usar GMSAs, as GMSAs apropriadas precisam ser provisionadas no Active Directory como descrito na 
+[documentação do Windows GMSA](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1). 
 Nós `worker` Windows (que são parte do cluster Kubernetes) precisam ser configurados no 
-Active Directory para acessar as credenciais secretas associadas com a apropriada GMSA, 
-como descrito na [documentação Windows GMSA]
-(https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet).
+Active Directory para acessar as credenciais secretas associadas com a GMSA apropriada, 
+como descrito na [documentação Windows GMSA](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet).
 
 ## Crie recursos de especificação de GMSA
 
@@ -87,14 +83,12 @@ recursos customizados contendo recursos de especificação de credenciais GMSA p
 ser configurados. A especificação de credencial GMSA não contém segredos nem dados 
 sensíveis. É informação que o contêiner runtime pode usar para descrever a apropriada 
 GMSA de um contêiner para o Windows. Especificações de credenciais GMSA podem 
-ser geradas em formato YAML com o utilitário [PowerShell script]
-(https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1).
+ser geradas em formato YAML com o utilitário [PowerShell script](https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1).
 
 A seguir são os passos para gerar a especificação de credencial GMSA YAML 
 manualmente, em formato JSON e então convertê-la:
 
-1. Importar a `CredentialSpec` [módulo]
-(https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/windows-server-container-tools/ServiceAccounts/CredentialSpec.psm1): 
+1. Importar a `CredentialSpec` [módulo](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/windows-server-container-tools/ServiceAccounts/CredentialSpec.psm1): 
 `ipmo CredentialSpec.psm1`
 
 1. Crie a especificação da credencial em formato JSON usando `New-CredentialSpec`. 
@@ -279,8 +273,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentN
 ```
 
 Os pods em execução precisarão ser recriados para pegar as mudanças de comportamento.
-Mais informações sobre como essa chave de registro é usada pode ser encontrada [aqui](
-https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)
+Mais informações sobre como essa chave de registro é usada pode ser encontrada [aqui](https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)
 
 ## Solução de problemas
 
