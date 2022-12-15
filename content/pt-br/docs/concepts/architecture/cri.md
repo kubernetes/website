@@ -1,6 +1,6 @@
 ---
-título: Container Runtime Interface (CRI)
-tipo de conteúdo: concept
+title: Container Runtime Interface (CRI)
+content_type: concept
 weight: 60
 ---
 
