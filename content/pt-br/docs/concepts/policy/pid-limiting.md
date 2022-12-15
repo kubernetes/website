@@ -9,23 +9,23 @@ weight: 40
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 O Kubernetes permite limitar o número de IDs de processo (PIDs) que um
-{{< glossary_tooltip term_id="Pod" text="Pod" >}} pode usar.
-Você também pode reservar um número de PIDs alocáveis para cada {{< glossary_tooltip term_id="node" text="node" >}}
-para uso pelo sistema operacional e daemons (em vez de pods).
+{{< glossary_tooltip term_id="Pod" texto="Pod" >}} pode usar.
+Você também pode reservar um número de PIDs alocáveis para cada {{< glossary_tooltip term_id="nó" texto="nó" >}}
+para uso pelo sistema operacional e daemons (em vez de Pods).
 
 <!-- body -->
 
-IDs de processo (PIDs) são um recurso fundamental em nodes. É trivial alcançar o
+IDs de processo (PIDs) são um recurso fundamental em nós. É trivial alcançar o
 limite de tarefa sem atingir  nenhum outro limite de recurso, o que pode causar
 instabilidade para uma máquina host.
 
 Os administradores de cluster exigem mecanismos para garantir que os pods em execução no
-cluster não podem induzir esgotamentso de PID que impedem host daemons (como o
+cluster não podem induzir esgostamentos de PID que impedem host daemons (como o
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} ou o 
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}},
 e potencialmente também o tempo de execução do contêiner) da execução.
 Além disso, é importante garantir que os PIDs sejam limitados entre os Pods para
-para garantir que tenham impacto limitado em outras workloads no mesmo node.
+para garantir que tenham impacto limitado em outras cargas de trabalho no mesmo nó.
 
 {{< note >}}
 Em certas instalações do Linux, o sistema operacional define o limite de PIDs para um padrão 
@@ -33,19 +33,19 @@ como por exemplo `32768`. Considere aumentar o valor de  `/proc/sys/kernel/pid_m
 {{< /note >}}
 
 Você pode configurar um kubelet para limitar o número de PIDs que um determinado pod pode consumir.
-Como por exemplo se o sistema operacional host do seu node estiver configurado para usar um máximo de `262144` PIDs e
-e estiver experado hospedar menos de `250` Pods, pode-se dar a cada Pod um orçamento de `1000`
-PIDs para evitar o uso do número geral de PIDs disponíveis desse node. Se o
+Como por exemplo se o sistema operacional host do seu nó estiver configurado para usar um máximo de `262144` PIDs e
+estiver experado hospedar menos de `250` Pods, pode-se dar a cada Pod um orçamento de `1000`
+PIDs para evitar o uso do número geral de PIDs disponíveis desse nó. Se o
 administrador deseja sobrecarregar PIDs semelhantes à CPU ou memória, eles também podem fazer isso
 com alguns riscos adicionais. De qualquer forma, um único Pod não será capaz de trazer
 toda a máquina para baixo. Este tipo de limitação de recursos ajuda a evitar simples
-fork bombs de afater uma operação de um cluster inteiro.
+fork bombs de afetar uma operação de um cluster inteiro.
 
 A limitação de PID por pod permite que os administradores protejam um pod de outro, mas
-não garante que todos os pods programados nesse host não possam afetar o node em geral.
-A limitação por pod também não protege os próprios agentes do node do esgotamento do PID.
+não garante que todos os pods programados nesse host não possam afetar o nó em geral.
+A limitação por pod também não protege os próprios agentes do nó do esgotamento do PID.
 
-Você também pode reservar uma quantidade de PIDs para sobrecarga do node, separada da
+Você também pode reservar uma quantidade de PIDs para sobrecarga do nó, separada da
 alocação para os pods. Isso é semelhante a como você pode reservar uma CPU, memória ou outros
 recursos para uso pelo sistema operacional e outras instalações fora dos Pods
 e seus recipientes.
@@ -53,38 +53,38 @@ e seus recipientes.
 A limitação de PID  é um importante irmão para [compute
 resource](/docs/concepts/configuration/manage-resources-containers/) requests
 e limites. No entanto, você o especifica de uma maneira diferente: em vez de definir um
-limite de recursos do pod no `.spec` para um pod, você configura o limite como um
+limite de recursos do pod no `.spec` para um pod, você configura o limite como uma
 configuração no kubelet. Os limites de PID definidos pelo pod não são suportados no momento.
 
 {{< caution >}}
 Isso significa que o limite aplicável a um pod pode ser diferente dependendo
-onde o pod está agendado. Para tornar as coisas simples, é mais fácil se todos os nodes usarem
+onde o pod está alocado. Para tornar as coisas simples, é mais fácil se todos os nós usarem
 os mesmos limites e reservas de recursos PID.
 {{< /caution >}}
 
-## Limites de PID de nodes
+## Limites de PID de nós
 
 O Kubernetes permite que você reserve vários IDs de processo para uso do sistema. Para
 configurar a reserva, use o parâmetro `pid=<número>` no
 opções de linha de comando `--system-reried` e `--kube-reried` para o kubelet.
 O valor especificado declara que o número especificado de IDs de processo será
-ser reservado para o sistema como um todo e para os daemons do sistema Kubernetes
+reservado para o sistema como um todo e para os daemons do sistema Kubernetes
 respectivamente.
 
 {{< note >}}
-Antes da versão 1.20 do Kubernetes, limitação de recursos PID com nível de node
-reservas necessárias habilitando o [recurso
-portão](/docs/reference/command-line-tools-reference/feature-gates/)
+Antes da versão 1.20 do Kubernetes, limitação de recursos PID com nível de nós
+reservas necessárias habilitando o [feature-gates
+](/docs/reference/command-line-tools-reference/feature-gates/)
 `SupportNodePidsLimit` para funcionar.
 {{< /note >}}
 
 ## Limites de PID do pod
 
 O Kubernetes permite limitar o número de processos em execução em um pod. Você
-especifique esse limite no nível do node, em vez de configurá-lo como um recurso
-limite para um pod específico. Cada node pode ter um limite de PID diferente.
+especifica esse limite no nível do nó, em vez de configurá-lo como um recurso
+limite para um pod específico. Cada nó pode ter um limite de PID diferente.
 Para configurar o limite, você pode especificar o parâmetro de linha de comando `--pod-max-pids`
-para o kubelet ou defina `PodPidsLimit` no kubelet
+para o kubelet ou definir `PodPidsLimit` no arquivo de configuração do kubelet
 [arquivo de configuração](/docs/tasks/administer-cluster/kubelet-config-file/).
 
 {{< note >}}
@@ -102,10 +102,10 @@ para vários sinais de despejo.
 Use o sinal de remoção `pid.available` para configurar o limite para o número de PIDs usados pelo pod.
 Você pode definir políticas de despejo flexíveis e rígidos.
 Porém, mesmo com a política de despejo rígido, se o número de PIDs crescer muito rápido,
-o node ainda pode entrar em estado instável ao atingir o limite de PIDs do node.
+o nó ainda pode entrar em estado instável ao atingir o limite de PIDs do nó.
 O valor do sinal de despejo é calculado periodicamente e NÃO impõe o limite.
 
-Limitação de PID - por pod e por node define o limite rígido.
+Limitação de PID - por pod e por nó define o limite rígido.
 Assim que o limite for atingido, a carga de trabalho começará a apresentar falhas ao tentar obter um novo PID.
 Pode ou não levar ao reagendamento de um Pod,
 dependendo de como a carga de trabalho reage a essas falhas e como vivacidade e prontidão
