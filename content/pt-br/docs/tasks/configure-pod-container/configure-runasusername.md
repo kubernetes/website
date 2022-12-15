@@ -1,5 +1,5 @@
 ---
-title: Configurando `RunAsUserName` Para Pods e Contêineres Windows
+title: Configurando RunAsUserName Para Pods e Contêineres Windows
 content_type: task
 weight: 20
 ---
@@ -17,7 +17,7 @@ executar aplicativos em um contêiner com um nome de usuário diferente do padr�
 
 Você precisa ter um cluster Kubernetes, e a ferramenta de linha de comando Kubectl
 deve ser configurada para se comunicar com o seu cluster. Espera-se que o cluster
-tenha nós `worker Windows`, onde os Pods com contêineres executando as cargas de trabalho do Windows,
+tenha nós de carga de trabalho Windows, onde os Pods com contêineres executando as cargas de trabalho do Windows,
 serão agendados.
 
 <!-- steps -->
@@ -25,14 +25,14 @@ serão agendados.
 ## Defina o nome de usuário para um Pod
 
 Para especificar o nome de usuário com o qual executar os processos de contêiner do Pod, 
-inclua o campo `securityContext` ([SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)) 
+inclua o campo `securityContext` ([PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)) 
 na especificação do Pod, e dentro dela, o campo `WindowsOptions` ([WindowsSecurityContextOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core)) 
 contendo o campo `runAsUserName`.
 
 As opções de contexto de segurança do Windows que você especificar para um Pod, 
 se aplicam a todos os contêineres do Pod, inclusive os de inicialização.
 
-Aqui está um arquivo de configuração para um Pod do Windows que possui o campo 
+Veja abaixo um arquivo de configuração para um Pod do Windows que possui o campo 
 `runAsUserName` definido:
 
 {{< codenew file="windows/run-as-username-pod.yaml" >}}
@@ -43,7 +43,7 @@ Crie o Pod:
 kubectl apply -f https://k8s.io/examples/windows/run-as-username-pod.yaml
 ```
 
-Verifique se o contêiner do pod está em execução:
+Verifique se o contêiner do Pod está em execução:
 
 ```shell
 kubectl get pod run-as-username-pod-demo
@@ -70,10 +70,9 @@ ContainerUser
 ## Defina o nome de usuário para o contêiner
 
 Para especificar o nome de usuário com o qual executar os processos de um contêiner, 
-inclua o campo `SecurityContext` ([SecurityContext] 
-(/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)) 
+inclua o campo `SecurityContext` ([SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)) 
 no manifesto do contêiner, e dentro dele, o campo `WindowsOptions` 
-([WindowsSecurityContextOptions] (/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core)) 
+([WindowsSecurityContextOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core)) 
 contendo o campo `runAsUserName`.
 
 As opções de contexto de segurança do Windows que você especificar para um contêiner, 
@@ -120,15 +119,15 @@ ContainerAdministrator
 Para usar esse recurso, o valor definido no campo `runAsUserName` deve ser um nome 
 de usuário válido. Deve ter o seguinte formato: `DOMAIN\USER`, onde ` DOMAIN\` 
 é opcional. Os nomes de usuário do Windows não diferenciam letras maiúsculas 
-e minúsculas. Além disso, existem algumas restrições em relação ao `DOMÍNIO` e `USUÁRIO`:
+e minúsculas. Além disso, existem algumas restrições em relação ao `DOMAIN` e `USER`:
 - O campo `runAsUserName`: não pode estar vazio, e não pode conter caracteres 
   de controle (Valores ASCII : `0x00-0x1F`, `0x7F`)
-- O nome de `DOMÍNIO` NetBios, ou um nome de DNS: cada um com suas próprias restrições:
+- O nome de `DOMAIN` NetBios, ou um nome de DNS, cada um com suas próprias restrições:
   - Nomes NetBios: máximo de 15 caracteres, não podem iniciar com `.` (ponto), 
   e não podem conter os seguintes caracteres: `\ / : * ? " < > |`
   - Nomes DNS: máximo de 255 caracteres, contendo apenas caracteres alfanuméricos, 
   pontos, e traços, e não podem iniciar ou terminar com um `.` (ponto) ou `-` (traço).
-- O `USUÁRIO`: deve ter no máximo 20 caracteres, não pode conter *somente* pontos ou espaços, 
+- O `USER`: deve ter no máximo 20 caracteres, não pode conter *somente* pontos ou espaços, 
   e não pode conter os seguintes caracteres: `" / \ [ ] : ; | = , + * ? < > @`.
 
 Exemplos de valores aceitáveis para o campo `runAsUserName`: `ContainerAdministrator`, 
