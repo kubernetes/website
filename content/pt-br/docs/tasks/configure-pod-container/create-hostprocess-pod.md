@@ -1,5 +1,5 @@
 ---
-title: Crie um Hostprocess do Windows
+title: Crie um Pod de Hostprocess do Windows
 content_type: task
 weight: 20
 min-kubernetes-server-version: 1.23
@@ -9,13 +9,13 @@ min-kubernetes-server-version: 1.23
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
-Os contêineres do Windows `HostProcess` permitem que você execute
+Os contêineres de HostProcess do Windows permitem que você execute
 cargas de trabalho em um host Windows contêinerizado. Esses contêineres operam como
 processos normais, mas tem acesso à rede host do namespace,
 armazenamento e dispositivos, quando recebem os privilégios de usuário apropriados.
-Os `HostProcess` contêineres podem ser usados para implantar plugins de rede,
-configurações de armazenamento, plugins de dispositivos, `kube-proxy`, e outros
-componentes para nós do Windows, sem a necessidade de `proxies` dedicados ou
+Os contêineres HostProcess podem ser usados para implantar plugins de rede,
+configurações de armazenamento, plugins de dispositivos, kube-proxy, e outros
+componentes para nós do Windows, sem a necessidade de *proxies* dedicados ou
 a instalação direta dos serviços de host.
 
 Tarefas administrativas, como a instalação de `patches` de segurança, 
@@ -29,8 +29,7 @@ ou isolamento de processos são suportados, um novo volume é criado no host
 ao iniciar o contêiner para fornecer um espaço de trabalho limpo e consolidado. 
 Contêineres `HostProcess` também podem ser construídos sobre as imagens base 
 do Windows existente, e não herdam os mesmos
-[requisitos de compatibilidade]
-(https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility)
+[requisitos de compatibilidade](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility)
 como contêineres do `Windows Server`, o que significa que a versão das 
 imagens base não precisa combinar com a do host. É, no entanto, 
 recomendado que você use a mesma versão da imagem base como seu
