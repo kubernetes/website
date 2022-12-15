@@ -116,8 +116,7 @@ anchor = "smart"
 
 [services]
 [services.googleAnalytics]
-# Fake ID in support of [params.ui.feedback]. The real GA ID is set in the Netlify config.
-id = "UA-00000000-0"
+id = "G-JPP6RFM2BP"
 
 [params]
 copyright_k8s = "The Kubernetes Authors"
