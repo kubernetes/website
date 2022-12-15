@@ -172,11 +172,11 @@ Beta graduation of this feature. Because of this, kubelet upgrades should be sea
 but there still may be changes in the API before stabilization making upgrades not
 guaranteed to be non-breaking.
 
-{{< caution >}}
+{{< note >}}
 Although the Device Manager component of Kubernetes is a generally available feature,
 the _device plugin API_ is not stable. For information on the device plugin API and
 version compatibility, read [Device Plugin API versions](/docs/reference/node/device-plugin-api-versions/).
-{{< caution >}}
+{{< /note >}}
 
 As a project, Kubernetes recommends that device plugin developers:
 
