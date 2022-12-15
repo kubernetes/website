@@ -47,7 +47,7 @@ Você pode criptografar seu e-mail para esta lista usando as chaves GPG dos [mem
 
 ## Resposta de Vulnerabilidade de Segurança
 
-Cada relato é reconhecido e analisado pelos membros do Comitê de Resposta de Segurança com 3 dias de úteis. Isso iniciará o [Processo de Liberação de Segurança](https://git.k8s.io/security/security-release-process.md#disclosures).
+Cada relato é reconhecido e analisado pelos membros do Comitê de Resposta de Segurança com 3 dias úteis. Isso iniciará o [Processo de Liberação de Segurança](https://git.k8s.io/security/security-release-process.md#disclosures).
 
 Qualquer informação de vulnerabilidade compartilhada com Comitê de Resposta de Segurança fica dentro do projeto Kubernetes e não vai ser disseminada para outro projeto, a menos que seja necessário corrigir um problema.
 
