@@ -190,7 +190,7 @@ fullversion = "v1.25.4"
 version = "v1.25"
 githubbranch = "v1.25.4"
 docsbranch = "release-1.25"
-url = "https://v1-25.kubernetes.io"
+url = "https://v1-25.docs.kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.24.8"
