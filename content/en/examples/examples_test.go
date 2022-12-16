@@ -513,6 +513,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"configmap": {
 			"configmaps":          {&api.ConfigMap{}, &api.ConfigMap{}},
 			"configmap-multikeys": {&api.ConfigMap{}},
+			"configure-pod":       {&api.Pod{}},
 		},
 		"controllers": {
 			"daemonset":                      {&apps.DaemonSet{}},
