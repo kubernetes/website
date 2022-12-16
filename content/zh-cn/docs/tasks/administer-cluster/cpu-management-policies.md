@@ -1,6 +1,7 @@
 ---
 title: 控制节点上的 CPU 管理策略
 content_type: task
+min-kubernetes-server-version: v1.26
 ---
 <!--
 title: Control CPU Management Policies on the Node
@@ -8,12 +9,14 @@ reviewers:
 - sjenning
 - ConnorDoyle
 - balajismaniam
+
 content_type: task
+min-kubernetes-server-version: v1.26
 -->
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 Kubernetes keeps many aspects of how pods execute on nodes abstracted
@@ -31,6 +34,11 @@ directives.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+<!--
+If you are running an older version of Kubernetes, please look at the documentation for the version you are actually running.
+-->
+如果你正在运行一个旧版本的 Kubernetes，请参阅与该版本对应的文档。
+
 <!-- steps -->
 
 <!--
@@ -40,7 +48,7 @@ By default, the kubelet uses [CFS quota](https://en.wikipedia.org/wiki/Completel
 to enforce pod CPU limits.  When the node runs many CPU-bound pods,
 the workload can move to different CPU cores depending on
 whether the pod is throttled and which CPU cores are available at
-scheduling time.  Many workloads are not sensitive to this migration and thus
+scheduling time. Many workloads are not sensitive to this migration and thus
 work fine without any intervention.
 -->
 ## CPU 管理策略   {#cpu-management-policies}
@@ -74,12 +82,12 @@ CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy`
 支持两种策略：
 
 <!--
-* `none`: the default, which represents the existing scheduling behavior.
-* `static`: allows pods with certain resource characteristics to be
+* [`none`](#none-policy): the default policy.
+* [`static`](#static-policy): allows pods with certain resource characteristics to be
   granted increased CPU affinity and exclusivity on the node.
 -->
-* `none`: 默认策略，表示现有的调度行为。
-* `static`: 允许为节点上具有某些资源特征的 Pod 赋予增强的 CPU 亲和性和独占性。
+* [`none`](#none-policy)：默认策略。
+* [`static`](#static-policy)：允许为节点上具有某些资源特征的 Pod 赋予增强的 CPU 亲和性和独占性。
 
 <!--
 The CPU manager periodically writes resource updates through the CRI in
@@ -95,20 +103,27 @@ CPU 管理器定期通过 CRI 写入资源更新，以保证内存中 CPU 分配
 <!--
 The behavior of the static policy can be fine-tuned using the `--cpu-manager-policy-options` flag.
 The flag takes a comma-separated list of `key=value` policy options.
-This feature can be disabled completely using the `CPUManagerPolicyOptions` feature gate.
+If you disable the `CPUManagerPolicyOptions`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+then you cannot fine-tune CPU manager policies. In that case, the CPU manager
+operates only using its default settings.
 -->
 Static 策略的行为可以使用 `--cpu-manager-policy-options` 参数来微调。
 该参数采用一个逗号分隔的 `key=value` 策略选项列表。
-此特性可以通过 `CPUManagerPolicyOptions` 特性门控来完全禁用。
+如果你禁用 `CPUManagerPolicyOptions`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+则你不能微调 CPU 管理器策略。这种情况下，CPU 管理器仅使用其默认设置运行。
 
 <!--
-The policy options are split into two groups: alpha quality (hidden by default) and beta quality
-(visible by default). The groups are guarded respectively by the `CPUManagerPolicyAlphaOptions`
+In addition to the top-level `CPUManagerPolicyOptions` feature gate, the policy options are split
+into two groups: alpha quality (hidden by default) and beta quality (visible by default).
+The groups are guarded respectively by the `CPUManagerPolicyAlphaOptions`
 and `CPUManagerPolicyBetaOptions` feature gates. Diverging from the Kubernetes standard, these
 feature gates guard groups of options, because it would have been too cumbersome to add a feature
 gate for each individual option.
 -->
-策略选项分为两组：alpha 质量（默认隐藏）和 beta 质量（默认可见）。
+除了顶级的 `CPUManagerPolicyOptions` 特性门控，
+策略选项分为两组：Alpha 质量（默认隐藏）和 Beta 质量（默认可见）。
 这些组分别由 `CPUManagerPolicyAlphaOptions` 和 `CPUManagerPolicyBetaOptions` 特性门控来管控。
 不同于 Kubernetes 标准，这里是由这些特性门控来管控选项组，因为为每个单独选项都添加一个特性门控过于繁琐。
 
@@ -144,10 +159,6 @@ CPUManager so that the cpu-sets set up by the new policy won’t conflict with i
 <!--
 Repeat this process for every node that needs its CPU manager policy changed. Skipping this
 process will result in kubelet crashlooping with the following error:
-
-```
-could not restore state from checkpoint: configured policy "static" differs from state checkpoint policy "none", please drain this node and delete the CPU manager checkpoint file "/var/lib/kubelet/cpu_manager_state" before restarting Kubelet
-```
 -->
 对需要更改其 CPU 管理器策略的每个节点重复此过程。
 跳过此过程将导致 kubelet crashlooping 并出现以下错误：
@@ -186,20 +197,20 @@ using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cg
 它允许该类 Pod 中的容器访问节点上的独占 CPU 资源。这种独占性是使用
 [cpuset cgroup 控制器](https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt)来实现的。
 
+{{< note >}}
 <!--
 System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
 -->
-{{< note >}}
 诸如容器运行时和 kubelet 本身的系统服务可以继续在这些独占 CPU 上运行。独占性仅针对其他 Pod。
 {{< /note >}}
 
+{{< note >}}
 <!--
 CPU Manager doesn't support offlining and onlining of
 CPUs at runtime. Also, if the set of online CPUs changes on the node,
 the node must be drained and CPU manager manually reset by deleting the
 state file `cpu_manager_state` in the kubelet root directory.
 -->
-{{< note >}}
 CPU 管理器不支持运行时下线和上线 CPU。此外，如果节点上的在线 CPU 集合发生变化，
 则必须驱逐节点上的 Pod，并通过删除 kubelet 根目录中的状态文件 `cpu_manager_state`
 来手动重置 CPU 管理器。
@@ -231,13 +242,13 @@ exclusive CPUs.
 `Guaranteed` Pod 中的容器，如果声明了非整数值的 CPU `requests`，也将运行在共享池的 CPU 上。
 只有 `Guaranteed` Pod 中，指定了整数型 CPU `requests` 的容器，才会被分配独占 CPU 资源。
 
+{{< note >}}
 <!--
 The kubelet requires a CPU reservation greater than zero be made
-using either `--kube-reserved` and/or `--system-reserved` or `--reserved-cpus` when the static
-policy is enabled. This is because zero CPU reservation would allow the shared
+using either `--kube-reserved` and/or `--system-reserved` or `--reserved-cpus` when
+the static policy is enabled. This is because zero CPU reservation would allow the shared
 pool to become empty.
 --->
-{{< note >}}
 当启用 static 策略时，要求使用 `--kube-reserved` 和/或 `--system-reserved` 或
 `--reserved-cpus` 来保证预留的 CPU 值大于零。
 这是因为零预留 CPU 值可能使得共享池变空。
@@ -407,9 +418,9 @@ The following policy options exist for the static `CPUManager` policy:
 你仍然必须使用 `CPUManagerPolicyOptions` kubelet 选项启用每个选项。
 
 静态 `CPUManager` 策略存在以下策略选项：
-* `full-pcpus-only`（beta，默认可见）（1.22 或更高版本）
+* `full-pcpus-only`（Beta，默认可见）（1.22 或更高版本）
 * `distribute-cpus-across-numa`（alpha，默认隐藏）（1.23 或更高版本）
-* `align-by-socket`（alpha，默认隐藏）（1.25 或更高版本）
+* `align-by-socket`（Alpha，默认隐藏）（1.25 或更高版本）
 
 <!--
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
