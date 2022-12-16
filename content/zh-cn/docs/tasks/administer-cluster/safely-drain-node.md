@@ -155,19 +155,21 @@ respect the `PodDisruptionBudget` you specify.
 For example, if you have a StatefulSet with three replicas and have
 set a PodDisruptionBudget for that set specifying `minAvailable: 2`,
 `kubectl drain` only evicts a pod from the StatefulSet if all three
-replicas pods are ready; if then you issue multiple drain commands in
-parallel, Kubernetes respects the PodDisruptionBudget and ensure
-that only 1 (calculated as `replicas - minAvailable`) Pod is unavailable
-at any given time. Any drains that would cause the number of ready
+replicas pods are [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod);
+if then you issue multiple drain commands in parallel,
+Kubernetes respects the PodDisruptionBudget and ensure that
+only 1 (calculated as `replicas - minAvailable`) Pod is unavailable
+at any given time. Any drains that would cause the number of [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
 replicas to fall below the specified budget are blocked.
 -->
 例如，如果你有一个三副本的 StatefulSet，
 并设置了一个 `PodDisruptionBudget`，指定 `minAvailable: 2`。
-如果所有的三个 Pod 均就绪，并且你并行地发出多个 drain 命令，
-那么 `kubectl drain` 只会从 StatefulSet 中逐出一个 Pod，
+如果所有的三个 Pod 处于[健康（healthy）](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)状态，
+并且你并行地发出多个 drain 命令，那么 `kubectl drain` 只会从 StatefulSet 中逐出一个 Pod，
 因为 Kubernetes 会遵守 PodDisruptionBudget 并确保在任何时候只有一个 Pod 不可用
 （最多不可用 Pod 个数的计算方法：`replicas - minAvailable`）。
-任何会导致就绪副本数量低于指定预算的清空操作都将被阻止。
+任何会导致处于[健康（healthy）](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
+状态的副本数量低于指定预算的清空操作都将被阻止。
 
 <!-- 
 ## The Eviction API
