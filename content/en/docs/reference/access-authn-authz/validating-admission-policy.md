@@ -242,9 +242,10 @@ validations:
 `spec.validations[i].expression` represents the expression which will be evaluated by CEL.
 To learn more, see the [CEL language specification](https://github.com/google/cel-spec)
 CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+
 - 'object' - The object from the incoming request. The value is null for DELETE requests.
 - 'oldObject' - The existing object. The value is null for CREATE requests.
-- 'request' - Attributes of the [admission request](/pkg/apis/admission/types.go#AdmissionRequest).
+- 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
 - 'params' - Parameter resource referred to by the policy binding being evaluated. The value is null if `ParamKind` is unset.
 	
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the
