@@ -9,12 +9,9 @@ content_type: concept
 no_list: true
 ---
 
-
 <!-- overview -->
 
 This section of the Kubernetes documentation contains references.
-
-
 
 <!-- body -->
 
@@ -76,6 +73,7 @@ operator to use or manage a cluster.
 
 
 * [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
+* [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
 * [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) and
   [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver encryption (v1)](/docs/reference/config-api/apiserver-encryption.v1/)
