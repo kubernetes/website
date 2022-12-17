@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: "Kubernetes 1.26: StatefulSet Migration"
-date: 2022-12-16
+title: "Kubernetes 1.26: StatefulSet Start Ordinal Simplifies Migration"
+date: 2023-01-03
 slug: statefulset-migration
 ---
 
@@ -16,13 +16,13 @@ used.
 ## Background
 
 StatefulSets ordinals provide sequential identities for pod replicas. When using
-[OrderedReady Pod Management](/docs/tutorials/stateful-application/basic-stateful-set/#orderedready-pod-management),
+[`OrderedReady` Pod management](/docs/tutorials/stateful-application/basic-stateful-set/#orderedready-pod-management),
 Pods are created from ordinal index `0` up to `N-1`.
 
 With Kubernetes today, orchestrating a StatefulSet migration across clusters is
 challenging. Backup and restore solutions exist, but these require the
 application to be scaled down to zero replicas prior to migration. In today's
-fully connected world, planned downtime and unavailability may not allow you to
+fully connected world, even planned application downtime may not allow you to
 meet your business goals. You could use
 [Cascading Delete](/docs/tutorials/stateful-application/basic-stateful-set/#cascading-delete)
 or
@@ -31,8 +31,9 @@ to migrate individual pods, however this is error prone and tedious to manage.
 You lose the self-healing benefit of the StatefulSet controller when your Pods
 fail or are evicted.
 
-This feature enables a StatefulSet to be responsible for a range of ordinals
-within a logical range of `[0, N)`. With it, you can scale down a range
+Kubernetes v1.26 enables a StatefulSet to be responsible for a range of ordinals
+within a half-open interval `[0, N)` (the ordinals 0, 1, ... N-1).
+With it, you can scale down a range
 (`[0, k)`) in a source cluster, and scale up the complementary range (`[k, N)`)
 in a destination cluster, while maintaining application availability. This
 enables you to retain *at most one* semantics and
@@ -63,7 +64,7 @@ StatefulSet with a customized `.spec.ordinals.start`.
 ## Try it for yourself
 
 In this demo, you'll use the `StatefulSetStartOrdinal` feature to migrate a
-StatefulSet from one cluster to another. For this demo, the
+StatefulSet from one Kubernetes cluster to another. For this demo, the
 [redis-cluster](https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster)
 Bitnami Helm chart is used to install Redis.
 
@@ -77,124 +78,125 @@ Pre-requisites: Two clusters named `source` and `destination`.
 support is enabled
  * The same default `StorageClass` is installed on both clusters. This
    `StorageClass` should provision underlying storage that is accessible from
-   both clusters
+   both clusters.
 
 1. Create a demo namespace on both clusters.
 
-```
-kubectl create ns kep-3335
-```
+   ```
+   kubectl create ns kep-3335
+   ```
 
 2. Deploy a `ServiceExport` on both clusters.
 
-```
-kind: ServiceExport
-apiVersion: multicluster.x-k8s.io/v1alpha1
-metadata:
- namespace: kep-3335
- name: redis-redis-cluster-headless
-```
+   ```
+   kind: ServiceExport
+   apiVersion: multicluster.x-k8s.io/v1alpha1
+   metadata:
+   namespace: kep-3335
+   name: redis-redis-cluster-headless
+   ```
 
 3. Deploy a Redis cluster on `source`.
 
-```
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install redis --namespace kep-3335 \
-  bitnami/redis-cluster \
-  --set persistence.size=1Gi
-```
+   ```
+   helm repo add bitnami https://charts.bitnami.com/bitnami
+   helm install redis --namespace kep-3335 \
+     bitnami/redis-cluster \
+     --set persistence.size=1Gi
+   ```
 
 4. On `source`, check the replication status.
 
-```
-kubectl exec -it redis-redis-cluster-0 -- /bin/bash -c \
-  "redis-cli -c -h redis-redis-cluster -a $(kubectl get secret redis-redis-cluster -o jsonpath="{.data.redis-password}" | base64 -d) CLUSTER NODES;"
-```
+   ```
+   kubectl exec -it redis-redis-cluster-0 -- /bin/bash -c \
+     "redis-cli -c -h redis-redis-cluster -a $(kubectl get secret redis-redis-cluster -o jsonpath="{.data.redis-password}" | base64 -d) CLUSTER NODES;"
+   ```
 
-```
-2ce30362c188aabc06f3eee5d92892d95b1da5c3 10.104.0.14:6379@16379 myself,master - 0 1669764411000 3 connected 10923-16383                                                                                                                                              
-7743661f60b6b17b5c71d083260419588b4f2451 10.104.0.16:6379@16379 slave 2ce30362c188aabc06f3eee5d92892d95b1da5c3 0 1669764410000 3 connected                                                                                             
-961f35e37c4eea507cfe12f96e3bfd694b9c21d4 10.104.0.18:6379@16379 slave a8765caed08f3e185cef22bd09edf409dc2bcc61 0 1669764411000 1 connected                                                                                                             
-7136e37d8864db983f334b85d2b094be47c830e5 10.104.0.15:6379@16379 slave 2cff613d763b22c180cd40668da8e452edef3fc8 0 1669764412595 2 connected                                                                                                                    
-a8765caed08f3e185cef22bd09edf409dc2bcc61 10.104.0.19:6379@16379 master - 0 1669764411592 1 connected 0-5460                                                                                                                                                   
-2cff613d763b22c180cd40668da8e452edef3fc8 10.104.0.17:6379@16379 master - 0 1669764410000 2 connected 5461-10922
-```
+   ```
+   2ce30362c188aabc06f3eee5d92892d95b1da5c3 10.104.0.14:6379@16379 myself,master - 0 1669764411000 3 connected 10923-16383                                                                                                                                              
+   7743661f60b6b17b5c71d083260419588b4f2451 10.104.0.16:6379@16379 slave 2ce30362c188aabc06f3eee5d92892d95b1da5c3 0 1669764410000 3 connected                                                                                             
+   961f35e37c4eea507cfe12f96e3bfd694b9c21d4 10.104.0.18:6379@16379 slave a8765caed08f3e185cef22bd09edf409dc2bcc61 0 1669764411000 1 connected                                                                                                             
+   7136e37d8864db983f334b85d2b094be47c830e5 10.104.0.15:6379@16379 slave 2cff613d763b22c180cd40668da8e452edef3fc8 0 1669764412595 2 connected                                                                                                                    
+   a8765caed08f3e185cef22bd09edf409dc2bcc61 10.104.0.19:6379@16379 master - 0 1669764411592 1 connected 0-5460                                                                                                                                                   
+   2cff613d763b22c180cd40668da8e452edef3fc8 10.104.0.17:6379@16379 master - 0 1669764410000 2 connected 5461-10922
+   ```
 
 5. On `destination`, deploy Redis with zero replicas.
 
-```
-helm install redis --namespace kep-3335 \
-  bitnami/redis-cluster \
-  --set persistence.size=1Gi \
-  --set cluster.nodes=0 \
-  --set redis.extraEnvVars\[0\].name=REDIS_NODES,redis.extraEnvVars\[0\].value="redis-redis-cluster-headless.kep-3335.svc.cluster.local" \
-  --set existingSecret=redis-redis-cluster
-```
+   ```
+   helm install redis --namespace kep-3335 \
+     bitnami/redis-cluster \
+     --set persistence.size=1Gi \
+     --set cluster.nodes=0 \
+     --set redis.extraEnvVars\[0\].name=REDIS_NODES,redis.extraEnvVars\[0\].value="redis-redis-cluster-headless.kep-3335.svc.cluster.local" \
+     --set existingSecret=redis-redis-cluster
+   ```
 
 6. Scale down replica `redis-redis-cluster-5` in the source cluster.
 
-```
-kubectl patch sts redis-redis-cluster -p '{"spec": {"replicas": 5}}'
-```
+   ```
+   kubectl patch sts redis-redis-cluster -p '{"spec": {"replicas": 5}}'
+   ```
 
 7. Migrate dependencies from `source` to `destination`.
 
-The following commands copy resources from `source` to `destionation`. Details
-that are not relevant in `destination` cluster are removed (eg: `uid`,
-`resourceVersion`, `status`).
+   The following commands copy resources from `source` to `destionation`. Details
+   that are not relevant in `destination` cluster are removed (eg: `uid`,
+   `resourceVersion`, `status`).
 
-Source Cluster
+   #### Source Cluster
 
-Note: If using a `StorageClass` with `reclaimPolicy: Delete` configured, you
-      should patch the PVs in `source` with `reclaimPolicy: Retain` prior to
-      deletion to retain the underlying storage used in `destination`. See
-      [Change the Reclaim Policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
-      for more details.
+   Note: If using a `StorageClass` with `reclaimPolicy: Delete` configured, you
+         should patch the PVs in `source` with `reclaimPolicy: Retain` prior to
+         deletion to retain the underlying storage used in `destination`. See
+         [Change the Reclaim Policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
+         for more details.
 
-```
-kubectl get pvc redis-data-redis-redis-cluster-5 -o yaml | yq 'del(.metadata.uid, .metadata.resourceVersion, .metadata.annotations, .metadata.finalizers, .status)' > /tmp/pvc-redis-data-redis-redis-cluster-5.yaml
-kubectl get pv $(yq '.spec.volumeName' /tmp/pvc-redis-data-redis-redis-cluster-5.yaml) -o yaml | yq 'del(.metadata.uid, .metadata.resourceVersion, .metadata.annotations, .metadata.finalizers, .spec.claimRef, .status)' > /tmp/pv-redis-data-redis-redis-cluster-5.yaml
-kubectl get secret redis-redis-cluster -o yaml | yq 'del(.metadata.uid, .metadata.resourceVersion)' > /tmp/secret-redis-redis-cluster.yaml
-```
+   ```
+   kubectl get pvc redis-data-redis-redis-cluster-5 -o yaml | yq 'del(.metadata.uid, .metadata.resourceVersion, .metadata.annotations, .metadata.finalizers, .status)' > /tmp/pvc-redis-data-redis-redis-cluster-5.yaml
+   kubectl get pv $(yq '.spec.volumeName' /tmp/pvc-redis-data-redis-redis-cluster-5.yaml) -o yaml | yq 'del(.metadata.uid, .metadata.resourceVersion, .metadata.annotations, .metadata.finalizers, .spec.claimRef, .status)' > /tmp/pv-redis-data-redis-redis-cluster-5.yaml
+   kubectl get secret redis-redis-cluster -o yaml | yq 'del(.metadata.uid, .metadata.resourceVersion)' > /tmp/secret-redis-redis-cluster.yaml
+   ```
 
-Destination Cluster
+   #### Destination Cluster
 
-Note: For the PV/PVC, this procedure only works if the underlying storage system
-      that your PVs use can support being copied into `destination`. Storage
-      that is associated with a specific node or topology may not be supported.
-      Additionally, some storage systems may store addtional metadata about
-      volumes outside of a PV object, and may require a more specialized
-      sequence to import a volume.
+   Note: For the PV/PVC, this procedure only works if the underlying storage system
+         that your PVs use can support being copied into `destination`. Storage
+         that is associated with a specific node or topology may not be supported.
+         Additionally, some storage systems may store addtional metadata about
+         volumes outside of a PV object, and may require a more specialized
+         sequence to import a volume.
 
-```
-kubectl create -f /tmp/pv-redis-data-redis-redis-cluster-5.yaml
-kubectl create -f /tmp/pvc-redis-data-redis-redis-cluster-5.yaml
-kubectl create -f /tmp/secret-redis-redis-cluster.yaml
-```
+   ```
+   kubectl create -f /tmp/pv-redis-data-redis-redis-cluster-5.yaml
+   kubectl create -f /tmp/pvc-redis-data-redis-redis-cluster-5.yaml
+   kubectl create -f /tmp/secret-redis-redis-cluster.yaml
+   ```
 
-8. Scale up replica `redis-redis-cluster-5` in the destination cluster.
+8. Scale up replica `redis-redis-cluster-5` in the destination cluster, with a
+   start ordinal of 5:
 
-```
-kubectl patch sts redis-redis-cluster -p '{"spec": {"ordinals": {"start": 5}, "replicas": 1}}'
-```
+   ```
+   kubectl patch sts redis-redis-cluster -p '{"spec": {"ordinals": {"start": 5}, "replicas": 1}}'
+   ```
 
 9. On the source cluster, check the replication status.
 
-```
-kubectl exec -it redis-redis-cluster-0 -- /bin/bash -c \
-  "redis-cli -c -h redis-redis-cluster -a $(kubectl get secret redis-redis-cluster -o jsonpath="{.data.redis-password}" | base64 -d) CLUSTER NODES;"
-```
+   ```
+   kubectl exec -it redis-redis-cluster-0 -- /bin/bash -c \
+     "redis-cli -c -h redis-redis-cluster -a $(kubectl get secret redis-redis-cluster -o jsonpath="{.data.redis-password}" | base64 -d) CLUSTER NODES;"
+   ```
 
-You should see that the new replica's address has joined the Redis cluster.
+   You should see that the new replica's address has joined the Redis cluster.
 
-```
-2cff613d763b22c180cd40668da8e452edef3fc8 10.104.0.17:6379@16379 myself,master - 0 1669766684000 2 connected 5461-10922
-7136e37d8864db983f334b85d2b094be47c830e5 10.108.0.22:6379@16379 slave 2cff613d763b22c180cd40668da8e452edef3fc8 0 1669766685609 2 connected
-2ce30362c188aabc06f3eee5d92892d95b1da5c3 10.104.0.14:6379@16379 master - 0 1669766684000 3 connected 10923-16383
-961f35e37c4eea507cfe12f96e3bfd694b9c21d4 10.104.0.18:6379@16379 slave a8765caed08f3e185cef22bd09edf409dc2bcc61 0 1669766683600 1 connected
-a8765caed08f3e185cef22bd09edf409dc2bcc61 10.104.0.19:6379@16379 master - 0 1669766685000 1 connected 0-5460
-7743661f60b6b17b5c71d083260419588b4f2451 10.104.0.16:6379@16379 slave 2ce30362c188aabc06f3eee5d92892d95b1da5c3 0 1669766686613 3 connected
-```
+   ```
+   2cff613d763b22c180cd40668da8e452edef3fc8 10.104.0.17:6379@16379 myself,master - 0 1669766684000 2 connected 5461-10922
+   7136e37d8864db983f334b85d2b094be47c830e5 10.108.0.22:6379@16379 slave 2cff613d763b22c180cd40668da8e452edef3fc8 0 1669766685609 2 connected
+   2ce30362c188aabc06f3eee5d92892d95b1da5c3 10.104.0.14:6379@16379 master - 0 1669766684000 3 connected 10923-16383
+   961f35e37c4eea507cfe12f96e3bfd694b9c21d4 10.104.0.18:6379@16379 slave a8765caed08f3e185cef22bd09edf409dc2bcc61 0 1669766683600 1 connected
+   a8765caed08f3e185cef22bd09edf409dc2bcc61 10.104.0.19:6379@16379 master - 0 1669766685000 1 connected 0-5460
+   7743661f60b6b17b5c71d083260419588b4f2451 10.104.0.16:6379@16379 slave 2ce30362c188aabc06f3eee5d92892d95b1da5c3 0 1669766686613 3 connected
+   ```
 
 ## What's Next?
 
