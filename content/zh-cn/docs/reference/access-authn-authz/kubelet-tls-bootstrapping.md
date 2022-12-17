@@ -128,8 +128,8 @@ In the bootstrap initialization process, the following occurs:
 6. kubelet now has limited credentials to create and retrieve a certificate signing request (CSR)
 7. kubelet creates a CSR for itself with the signerName set to `kubernetes.io/kube-apiserver-client-kubelet`
 8. CSR is approved in one of two ways:
-  * If configured, kube-controller-manager automatically approves the CSR
-  * If configured, an outside process, possibly a person, approves the CSR using the Kubernetes API or via `kubectl`
+   * If configured, kube-controller-manager automatically approves the CSR
+   * If configured, an outside process, possibly a person, approves the CSR using the Kubernetes API or via `kubectl`
 9. Certificate is created for the kubelet
 -->
 1. kubelet 启动
@@ -271,7 +271,7 @@ of provisioning.
 2. [令牌认证文件](#token-authentication-file)
 
 <!--
-Bootstrap tokens are a simpler and more easily managed method to authenticate kubelets, and do not require any additional flags when starting kube-apiserver.
+Using Bootstrap tokens are a simpler and more easily managed method to authenticate kubelets, and do not require any additional flags when starting kube-apiserver.
 -->
 启动引导令牌是一种对 kubelet 进行身份认证的方法，相对简单且容易管理，
 且不需要在启动 kube-apiserver 时设置额外的标志。
@@ -374,7 +374,7 @@ head -c 16 /dev/urandom | od -An -t x | tr -d ' '
 ```
 
 <!--
-will generate tokens that look like `02b50b05283e98dd0fd71db496ef01e8`.
+This will generate tokens that look like `02b50b05283e98dd0fd71db496ef01e8`.
 
 The token file should look like the following example, where the first three
 values can be anything and the quoted group name should be as depicted:
@@ -390,7 +390,7 @@ values can be anything and the quoted group name should be as depicted:
 
 <!--
 Add the `--token-auth-file=FILENAME` flag to the kube-apiserver command (in your
-systemd unit file perhaps) to enable the token file.  See docs
+systemd unit file perhaps) to enable the token file. See docs
 [here](/docs/reference/access-authn-authz/authentication/#static-token-file) for
 further details.
 -->
@@ -499,7 +499,7 @@ kubelet 身份认证，很重要的一点是为控制器管理器所提供的 CA
 ```
 
 <!--
-for example:
+For example:
 -->
 例如：
 
@@ -594,7 +594,7 @@ by default. The controller uses the
 [`SubjectAccessReview` API](/docs/reference/access-authn-authz/authorization/#checking-api-access) to
 determine if a given user is authorized to request a CSR, then approves based on
 the authorization outcome. To prevent conflicts with other approvers, the
-builtin approver doesn't explicitly deny CSRs. It only ignores unauthorized
+built-in approver doesn't explicitly deny CSRs. It only ignores unauthorized
 requests. The controller also prunes expired certificates as part of garbage
 collection.
 -->
@@ -760,37 +760,41 @@ TLS 启动引导所提供的客户端证书默认被签名为仅用于 `client a
 <!--
 ### Certificate Rotation
 
-Kubernetes v1.8 and higher kubelet implements __beta__ features for enabling
-rotation of its client and/or serving certificates.  These can be enabled through
-the respective `RotateKubeletClientCertificate` and
-`RotateKubeletServerCertificate` feature flags on the kubelet and are enabled by
-default.
+Kubernetes v1.8 and higher kubelet implements features for enabling
+rotation of its client and/or serving certificates. Note, rotation of serving
+certificate is a __beta__ feature and requires the `RotateKubeletServerCertificate`
+feature flag on the kubelet (enabled by default).
 -->
 ### 证书轮换    {#certificate-rotation}
 
-Kubernetes v1.8 和更高版本的 kubelet 实现了对客户端证书与/或服务证书进行轮换
-这一 Beta 特性。这一特性通过 kubelet 对应的 `RotateKubeletClientCertificate` 和
-`RotateKubeletServerCertificate` 特性门控标志来控制，并且是默认启用的。
+Kubernetes v1.8 和更高版本的 kubelet 实现了对客户端证书与/或服务证书进行轮换这一特性。
+请注意，服务证书轮换是一项 **Beta** 特性，需要 kubelet 上 `RotateKubeletServerCertificate` 特性的支持（默认启用）
 
 <!--
-`RotateKubeletClientCertificate` causes the kubelet to rotate its client
-certificates by creating new CSRs as its existing credentials expire. To enable
-this feature pass the following flag to the kubelet:
+You can configure the kubelet to rotate its client certificates by creating new CSRs
+as its existing credentials expire. To enable this feature, use the `rotateCertificates`
+field of [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/)
+or pass the following command line argument to the kubelet (deprecated):
 -->
-`RotateKubeletClientCertificate` 会导致 kubelet 在其现有凭据即将过期时通过创建新的
-CSR 来轮换其客户端证书。要启用此功能特性，可将下面的标志传递给 kubelet：
+你可以配置 kubelet 使其在现有凭据过期时通过创建新的 CSR 来轮换其客户端证书。
+要启用此功能，请使用 [kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)的
+`rotateCertificates` 字段或将以下命令行参数传递给 kubelet（已弃用）：
 
 ```
 --rotate-certificates
 ```
 
 <!--
-`RotateKubeletServerCertificate` causes the kubelet **both** to request a serving
+Enabling `RotateKubeletServerCertificate` causes the kubelet **both** to request a serving
 certificate after bootstrapping its client credentials **and** to rotate that
-certificate. To enable this feature pass the following flag to the kubelet:
+certificate. To enable this behavior, use the field `serverTLSBootstrap`  of 
+the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/)
+or pass the following command line argument to the kubelet (deprecated):
 -->
-`RotateKubeletServerCertificate` 会让 kubelet 在启动引导其客户端凭据之后请求一个服务证书
-**且** 对该服务证书执行轮换操作。要启用此功能特性，将下面的标志传递给 kubelet：
+启用 `RotateKubeletServerCertificate` 会让 kubelet
+在启动引导其客户端凭据之后请求一个服务证书**且**对该服务证书执行轮换操作。
+要启用此特性，请使用 [kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)的
+`serverTLSBootstrap` 字段将以下命令行参数传递给 kubelet（已弃用）：
 
 ```
 --rotate-server-certificates
@@ -812,12 +816,12 @@ CSR 批复控制器并不会自动批复节点的**服务**证书。
 <!--
 A deployment-specific approval process for kubelet serving certificates should typically only approve CSRs which:
 
-1. are requested by nodes (ensure the `spec.username` field is of the form 
-   `system:node:<nodeName>` and `spec.groups` contains `system:nodes`) 
-2. request usages for a serving certificate (ensure `spec.usages` contains `server auth`, 
+1. are requested by nodes (ensure the `spec.username` field is of the form
+   `system:node:<nodeName>` and `spec.groups` contains `system:nodes`)
+2. request usages for a serving certificate (ensure `spec.usages` contains `server auth`,
    optionally contains `digital signature` and `key encipherment`, and contains no other usages)
-3. only have IP and DNS subjectAltNames that belong to the requesting node, 
-   and have no URI and Email subjectAltNames (parse the x509 Certificate Signing Request 
+3. only have IP and DNS subjectAltNames that belong to the requesting node,
+   and have no URI and Email subjectAltNames (parse the x509 Certificate Signing Request
    in `spec.request` to verify `subjectAltNames`)
 -->
 对 kubelet 服务证书的批复过程因集群部署而异，通常应该仅批复如下 CSR：
@@ -865,7 +869,7 @@ You have several options for generating these credentials:
 <!--
 ## kubectl approval
 
-CSRs can be approved outside of the approval flows builtin to the controller
+CSRs can be approved outside of the approval flows builtin into the controller
 manager.
 -->
 ## kubectl 批复    {#kubectl-approval}
@@ -879,9 +883,9 @@ appropriately-privileged user. This flow is intended to allow for automated
 approval handled by an external approval controller or the approval controller
 implemented in the core controller-manager. However cluster administrators can
 also manually approve certificate requests using kubectl. An administrator can
-list CSRs with `kubectl get csr` and describe one in detail with `kubectl
-describe csr <name>`. An administrator can approve or deny a CSR with `kubectl
-certificate approve <name>` and `kubectl certificate deny <name>`.
+list CSRs with `kubectl get csr` and describe one in detail with
+`kubectl describe csr <name>`. An administrator can approve or deny a CSR with
+`kubectl certificate approve <name>` and `kubectl certificate deny <name>`.
 -->
 签名控制器并不会立即对所有证书请求执行签名操作。相反，
 它会等待这些请求被某具有适当特权的用户标记为 “Approved（已批准）”状态。
