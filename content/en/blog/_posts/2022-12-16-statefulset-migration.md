@@ -72,13 +72,14 @@ Tools Required:
  * [yq](https://github.com/mikefarah/yq)
  * [helm](https://helm.sh/docs/helm/helm_install/)
 
-Pre-requisites: Two clusters named `source` and `destination`.
+Pre-requisites: Two Kubernetes clusters named `source` and `destination`.
  * `StatefulSetStartOrdinal` feature gate is enabled on both clusters
- * [MultiClusterServices](https://github.com/kubernetes/enhancements/tree/master/keps/sig-multicluster/1645-multi-cluster-services-api)
-support is enabled
  * The same default `StorageClass` is installed on both clusters. This
    `StorageClass` should provision underlying storage that is accessible from
    both clusters.
+ * A flat network topology that allows for pods to be accessible across both
+   Kubernetes clusters. If creating clusters on a cloud provider, this
+   configuration may be called private cloud or private network.
 
 1. Create a demo namespace on both clusters.
 
@@ -86,17 +87,7 @@ support is enabled
    kubectl create ns kep-3335
    ```
 
-2. Deploy a `ServiceExport` on both clusters.
-
-   ```
-   kind: ServiceExport
-   apiVersion: multicluster.x-k8s.io/v1alpha1
-   metadata:
-   namespace: kep-3335
-   name: redis-redis-cluster-headless
-   ```
-
-3. Deploy a Redis cluster on `source`.
+2. Deploy a Redis cluster on `source`.
 
    ```
    helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -105,7 +96,7 @@ support is enabled
      --set persistence.size=1Gi
    ```
 
-4. On `source`, check the replication status.
+3. On `source`, check the replication status.
 
    ```
    kubectl exec -it redis-redis-cluster-0 -- /bin/bash -c \
@@ -121,7 +112,7 @@ support is enabled
    2cff613d763b22c180cd40668da8e452edef3fc8 10.104.0.17:6379@16379 master - 0 1669764410000 2 connected 5461-10922
    ```
 
-5. On `destination`, deploy Redis with zero replicas.
+4. On `destination`, deploy Redis with zero replicas.
 
    ```
    helm install redis --namespace kep-3335 \
@@ -132,13 +123,13 @@ support is enabled
      --set existingSecret=redis-redis-cluster
    ```
 
-6. Scale down replica `redis-redis-cluster-5` in the source cluster.
+5. Scale down replica `redis-redis-cluster-5` in the source cluster.
 
    ```
    kubectl patch sts redis-redis-cluster -p '{"spec": {"replicas": 5}}'
    ```
 
-7. Migrate dependencies from `source` to `destination`.
+6. Migrate dependencies from `source` to `destination`.
 
    The following commands copy resources from `source` to `destionation`. Details
    that are not relevant in `destination` cluster are removed (eg: `uid`,
@@ -173,14 +164,14 @@ support is enabled
    kubectl create -f /tmp/secret-redis-redis-cluster.yaml
    ```
 
-8. Scale up replica `redis-redis-cluster-5` in the destination cluster, with a
+7. Scale up replica `redis-redis-cluster-5` in the destination cluster, with a
    start ordinal of 5:
 
    ```
    kubectl patch sts redis-redis-cluster -p '{"spec": {"ordinals": {"start": 5}, "replicas": 1}}'
    ```
 
-9. On the source cluster, check the replication status.
+8. On the source cluster, check the replication status.
 
    ```
    kubectl exec -it redis-redis-cluster-0 -- /bin/bash -c \
