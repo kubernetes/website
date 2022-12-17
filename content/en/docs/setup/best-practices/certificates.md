@@ -91,7 +91,9 @@ Required certificates:
 the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
-where `kind` maps to one or more of the [x509 key usage](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage) types:
+where `kind` maps to one or more of the x509 key usage, which is also documented in the
+`.spec.usages` of a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1#CertificateSigningRequest)
+type:
 
 | kind   | Key usage                                                                       |
 |--------|---------------------------------------------------------------------------------|
