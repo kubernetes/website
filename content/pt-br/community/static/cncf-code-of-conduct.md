@@ -49,7 +49,7 @@ Exemplos de comportamento inaceitável incluem:
 Os mantenedores do projeto têm o direito e a responsabilidade de remover, editar ou rejeitar
 comentários, commits, códigos, edições do wiki, questões e outras contribuições que não são
 alinhado com este Código de Conduta. Ao adotar este Código de Conduta, os mantenedores do projeto
-comprometer-se a aplicar de maneira justa e consistente esses princípios em todos os aspectos
+comprometem-se a aplicar de maneira justa e consistente esses princípios em todos os aspectos
 de gerenciar este projeto. Os mantenedores do projeto que não seguem ou aplicam o Código de 
 Conduta podem ser removidos permanentemente da equipe do projeto.
 
