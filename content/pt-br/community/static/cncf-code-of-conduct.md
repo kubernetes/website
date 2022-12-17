@@ -21,7 +21,7 @@ quando um indivíduo está representando o projeto ou sua comunidade.
 
 ### Eventos CNCF
 
-Eventos CNCF, ou eventos organizados pelo Linux Foundation com equipe profissional de eventos, são regidos pelo Linux Foundation [Código de Conduta] (https://events.linuxfoundation.org/code-of-conduct/) disponível na página do evento. Isso foi projetado para ser utilizado em conjunto com o Código de Conduta do CNCF.
+Eventos da CNCF, ou eventos organizados pela Linux Foundation com equipe profissional de eventos, são regidos pelo [Código de Conduta da Linux Foundation](https://events.linuxfoundation.org/code-of-conduct/) disponível na página do evento. Isso foi projetado para ser utilizado em conjunto com o Código de Conduta do CNCF.
 
 ## Nossos Padrões
 
@@ -32,8 +32,8 @@ Exemplos de comportamento que contribuem para um ambiente positivo incluem:
 * Dar e aceitar educadamente feedback construtivo
 * Aceitar a responsabilidade e pedir desculpas aos afetados por nossos erros,
    e aprender com a experiência
-* Concentrar-se no que é melhor não apenas para nós como indivíduos, mas para o
-   comunidade geral
+* Concentrar-se no que é melhor não apenas para nós como indivíduos, mas para a
+   comunidade em geral
 
 Exemplos de comportamento inaceitável incluem:
 
@@ -70,6 +70,5 @@ Ambos os órgãos tentam resolver as ocorrências sem punições, mas podem reti
 
 ## Agradecimentos
 
-Este Código de Conduta é adaptado do Pacto do Colaborador
-(http://contributor-covenant.org), versão 2.0 disponível em
-http://contributor-covenant.org/version/2/0/code_of_conduct/
+Este Código de Conduta é adaptado do [Contributor Covenant](http://contributor-covenant.org),
+versão 2.0, disponível em http://contributor-covenant.org/version/2/0/code_of_conduct/
