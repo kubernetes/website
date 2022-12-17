@@ -20,23 +20,32 @@ This page provides an overview of Validating Admission Policy.
 
 Validating admission policies offer a declarative, in-process alternative to validating admission webhooks.
 
-Validating admission policies use the Common Expression Language (CEL) to declare the validation rules of a policy. 
-Validation admission policies are highly configurable, enabling policy authors to define policies that can be parameterized and scoped to resources as needed by cluster administrators.
+Validating admission policies use the Common Expression Language (CEL) to declare the validation
+rules of a policy. 
+Validation admission policies are highly configurable, enabling policy authors to define policies
+that can be parameterized and scoped to resources as needed by cluster administrators.
 
 ## What Resources Make a Policy
 
 A policy is generally made up of three resources:
 
-- The `ValidatingAdmissionPolicy` describes the abstract logic of a policy (think: "this policy makes sure a particular label is set to a particular value").
+- The `ValidatingAdmissionPolicy` describes the abstract logic of a policy
+  (think: "this policy makes sure a particular label is set to a particular value").
 
-- A `ValidatingAdmissionPolicyBinding` links the above resources together and provides scoping. If you only want to require an `owner` label to be set for `Pods`, the binding is where you would specify this restriction.
+- A `ValidatingAdmissionPolicyBinding` links the above resources together and provides scoping.
+  If you only want to require an `owner` label to be set for `Pods`, the binding is where you would
+  specify this restriction.
 
-- A parameter resource provides information to a ValidatingAdmissionPolicy to make it a concrete statement (think "the `owner` label must be set to something that ends in `.company.com`"). A native type such as ConfigMap or a CRD defines the schema of a parameter resource. `ValidatingAdmissionPolicy` objects specify what Kind they are expecting for their parameter resource.
+- A parameter resource provides information to a ValidatingAdmissionPolicy to make it a concrete
+  statement (think "the `owner` label must be set to something that ends in `.company.com`").
+  A native type such as ConfigMap or a CRD defines the schema of a parameter resource.
+  `ValidatingAdmissionPolicy` objects specify what Kind they are expecting for their parameter resource.
 
+At least a `ValidatingAdmissionPolicy` and a corresponding  `ValidatingAdmissionPolicyBinding`
+must be defined for a policy to have an effect.
 
-At least a `ValidatingAdmissionPolicy` and a corresponding  `ValidatingAdmissionPolicyBinding`  must be defined for a policy to have an effect.
-
-If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, simply leave `spec.paramKind` in  `ValidatingAdmissionPolicy` unset.
+If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, simply leave
+`spec.paramKind` in  `ValidatingAdmissionPolicy` unset.
 
 ## {{% heading "prerequisites" %}}
 
@@ -45,11 +54,13 @@ If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, 
 
 ## Getting Started with Validating Admission Policy
 
-Validating Admission Policy is part of the cluster control-plane. You should write and deploy them with great caution. The following describes how to quickly experiment with Validating Admission Policy.
+Validating Admission Policy is part of the cluster control-plane. You should write and deploy them
+with great caution. The following describes how to quickly experiment with Validating Admission Policy.
 
 ### Creating a ValidatingAdmissionPolicy
 
 The following is an example of a ValidatingAdmissionPolicy.
+
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicy
@@ -66,10 +77,14 @@ spec:
   validations:
     - expression: "object.spec.replicas <= 5"
 ```
-`spec.validations` contains CEL expressions which use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
-to validate the request. If an expression evaluates to false, the validation check is enforced according to the `spec.failurePolicy` field.
 
-To configure a validating admission policy for use in a cluster, a binding is required. The following is an example of a ValidatingAdmissionPolicyBinding.:
+`spec.validations` contains CEL expressions which use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
+to validate the request. If an expression evaluates to false, the validation check is enforced
+according to the `spec.failurePolicy` field.
+
+To configure a validating admission policy for use in a cluster, a binding is required.
+The following is an example of a ValidatingAdmissionPolicyBinding.:
+
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicyBinding
@@ -83,8 +98,10 @@ spec:
         environment: test
 ```
 
-When trying to create a deployment with replicas set not satisfying the validation expression, an error will return containing message:
-```
+When trying to create a deployment with replicas set not satisfying the validation expression, an
+error will return containing message:
+
+```none
 ValidatingAdmissionPolicy 'demo-policy.example.com' with binding 'demo-binding-test.example.com' denied request: failed expression: object.spec.replicas <= 5
 ```
 
@@ -96,7 +113,9 @@ Parameter resources allow a policy configuration to be separate from its definit
 A policy can define paramKind, which outlines GVK of the parameter resource, 
 and then a policy binding ties a policy by name (via policyName) to a particular parameter resource via paramRef.
 
-If parameter configuration is needed, the following is an example of a ValidatingAdmissionPolicy with parameter configuration.
+If parameter configuration is needed, the following is an example of a ValidatingAdmissionPolicy
+with parameter configuration.
+
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicy
@@ -117,16 +136,22 @@ spec:
     - expression: "object.spec.replicas <= params.maxReplicas"
       reason: Invalid
 ```
-The `spec.paramKind` field of the ValidatingAdmissionPolicy specifies the kind of resources used to parameterize this policy. For this example, it is configured by ReplicaLimit custom resources. 
-Note in this example how the CEL expression references the parameters via the CEL params variable, e.g. `params.maxReplicas`.
-spec.matchConstraints specifies what resources this policy is designed to validate.
-Note that the native types such like `ConfigMap` could also be used as parameter reference.
 
-The `spec.validations` fields contain CEL expressions. If an expression evaluates to false, the validation check is enforced according to the `spec.failurePolicy` field.
+The `spec.paramKind` field of the ValidatingAdmissionPolicy specifies the kind of resources used
+to parameterize this policy. For this example, it is configured by ReplicaLimit custom resources. 
+Note in this example how the CEL expression references the parameters via the CEL params variable,
+e.g. `params.maxReplicas`. `spec.matchConstraints` specifies what resources this policy is
+designed to validate. Note that the native types such like `ConfigMap` could also be used as
+parameter reference.
+
+The `spec.validations` fields contain CEL expressions. If an expression evaluates to false, the
+validation check is enforced according to the `spec.failurePolicy` field.
 
 The validating admission policy author is responsible for providing the ReplicaLimit parameter CRD.
 
-To configure an validating admission policy for use in a cluster, a binding and parameter resource are created. The following is an example of a ValidatingAdmissionPolicyBinding.
+To configure an validating admission policy for use in a cluster, a binding and parameter resource
+are created. The following is an example of a ValidatingAdmissionPolicyBinding.
+
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicyBinding
@@ -141,7 +166,9 @@ spec:
       matchLabels:
         environment: test
 ```
+
 The parameter resource could be as following:
+
 ```yaml
 apiVersion: rules.example.com/v1
 kind: ReplicaLimit
@@ -149,8 +176,11 @@ metadata:
   name: "replica-limit-test.example.com"
 maxReplicas: 3
 ```
-This policy parameter resource limits deployments to a max of 3 replicas in all namespaces in the test environment.
-An admission policy may have multiple bindings. To bind all other environments environment to have a maxReplicas limit of 100, create another ValidatingAdmissionPolicyBinding:
+
+This policy parameter resource limits deployments to a max of 3 replicas in all namespaces in the
+test environment. An admission policy may have multiple bindings. To bind all other environments
+environment to have a maxReplicas limit of 100, create another ValidatingAdmissionPolicyBinding:
+
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicyBinding
@@ -167,7 +197,9 @@ spec:
         operator: NotIn,
         values: ["test"]
 ```
+
 And have a parameter resource like:
+
 ```yaml
 apiVersion: rules.example.com/v1
 kind: ReplicaLimit
@@ -175,7 +207,10 @@ metadata:
   name: "replica-limit-clusterwide.example.com"
 maxReplicas: 100
 ```
-Bindings can have overlapping match criteria. The policy is evaluated for each matching binding. In the above example, the "nontest" policy binding could instead have been defined as a global policy:
+
+Bindings can have overlapping match criteria. The policy is evaluated for each matching binding.
+In the above example, the "nontest" policy binding could instead have been defined as a global policy:
+
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicyBinding
@@ -191,42 +226,56 @@ spec:
         operator: Exists
 ```
 
-The params object representing a parameter resource will not be set if a parameter resource has not been bound, 
-so for policies requiring a parameter resource, 
-it can be useful to add a check to ensure one has been bound.
+The params object representing a parameter resource will not be set if a parameter resource has
+not been bound, so for policies requiring a parameter resource, it can be useful to add a check to
+ensure one has been bound.
 
-For the use cases require parameter configuration, 
-we recommend to add a param check in `spec.validations[0].expression`:
+For the use cases require parameter configuration, we recommend to add a param check in
+`spec.validations[0].expression`:
+
 ```
 - expression: "params != null"
   message: "params missing but required to bind to this policy"
 ```
 
-It can be convenient to be able to have optional parameters as part of a parameter resource, and only validate them if present. 
-CEL provides has(), which checks if the key passed to it exists. CEL also implements Boolean short-circuiting: 
-If the first half of a logical OR evaluates to true, it won’t evaluate the other half (since the result of the entire OR will be true regardless). 
+It can be convenient to be able to have optional parameters as part of a parameter resource, and
+only validate them if present. CEL provides `has()`, which checks if the key passed to it exists.
+CEL also implements Boolean short-circuiting. If the first half of a logical OR evaluates to true,
+it won’t evaluate the other half (since the result of the entire OR will be true regardless). 
+
 Combining the two, we can provide a way to validate optional parameters:
+
 `!has(params.optionalNumber) || (params.optionalNumber >= 5 && params.optionalNumber <= 10)`
+
 Here, we first check that the optional parameter is present with `!has(params.optionalNumber)`. 
-If `optionalNumber` hasn’t been defined, then the expression short-circuits since `!has(params.optionalNumber)` will evaluate to true. 
-If `optionalNumber` has been defined, then the latter half of the CEL expression will be evaluated, and optionalNumber will be checked to ensure that it contains a value between 5 and 10 inclusive.
+
+- If `optionalNumber` hasn’t been defined, then the expression short-circuits since
+  `!has(params.optionalNumber)` will evaluate to true. 
+- If `optionalNumber` has been defined, then the latter half of the CEL expression will be
+  evaluated, and optionalNumber will be checked to ensure that it contains a value between 5 and
+  10 inclusive.
 
 #### Authorization Check
 
 We introduced the authorization check for parameter resources.
-User is expected to have `read` access to the resources referenced by `paramKind` in `ValidatingAdmissionPolicy` and `paramRef` in `ValidatingAdmissionPolicyBinding`.
+User is expected to have `read` access to the resources referenced by `paramKind` in
+`ValidatingAdmissionPolicy` and `paramRef` in `ValidatingAdmissionPolicyBinding`.
 
-Note that if a resource in `paramKind` fails resolving via the restmapper, `read` access to all resources of groups is required.
+Note that if a resource in `paramKind` fails resolving via the restmapper, `read` access to all
+resources of groups is required.
 
 ### Failure Policy
 
-`failurePolicy` defines how mis-configurations and CEL expressions evaluating to error from the admission policy are handled. 
-Allowed values are `Ignore` or `Fail`.
+`failurePolicy` defines how mis-configurations and CEL expressions evaluating to error from the
+admission policy are handled. Allowed values are `Ignore` or `Fail`.
 
-- `Ignore` means that an error calling the ValidatingAdmissionPolicy is ignored and the API request is allowed to continue.
-- `Fail` means that an error calling the ValidatingAdmissionPolicy causes the admission to fail and the API request to be rejected.
+- `Ignore` means that an error calling the ValidatingAdmissionPolicy is ignored and the API
+  request is allowed to continue.
+- `Fail` means that an error calling the ValidatingAdmissionPolicy causes the admission to fail
+  and the API request to be rejected.
 
 Note that the `failurePolicy` is defined inside `ValidatingAdmissionPolicy`:
+
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicy
@@ -241,19 +290,21 @@ validations:
 
 `spec.validations[i].expression` represents the expression which will be evaluated by CEL.
 To learn more, see the [CEL language specification](https://github.com/google/cel-spec)
-CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+CEL expressions have access to the contents of the Admission request/response, organized into CEL
+variables as well as some other useful variables:
 
 - 'object' - The object from the incoming request. The value is null for DELETE requests.
 - 'oldObject' - The existing object. The value is null for CREATE requests.
 - 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
-- 'params' - Parameter resource referred to by the policy binding being evaluated. The value is null if `ParamKind` is unset.
+- 'params' - Parameter resource referred to by the policy binding being evaluated. The value is
+  null if `ParamKind` is unset.
 	
-The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the
-object. No other metadata properties are accessible.
+The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
+the root of the object. No other metadata properties are accessible.
 	
 Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
-Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
-Accessible property names are escaped according to the following rules when accessed in the expression:
+Accessible property names are escaped according to the following rules when accessed in the
+expression:
 
 | escape sequence         | property name equivalent  |
 | ----------------------- | -----------------------|
@@ -304,10 +355,12 @@ Concatenation on arrays with x-kubernetes-list-type use the semantics of the lis
 | `size(object.names) == size(object.details) && object.names.all(n, n in object.details)`     | Validate the 'details' map is keyed by the items in the 'names' listSet           |
 | `size(object.clusters.filter(c, c.name == object.primary)) == 1`                             | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
 
-Read [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation) for more information about CEL rules.
+Read [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
+for more information about CEL rules.
 
 `spec.validation[i].reason` represents a machine-readable description of why this validation failed.
-If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the
-HTTP response to the client.
+If this is the first validation in the list to fail, this reason, as well as the corresponding
+HTTP response code, are used in the HTTP response to the client.
 The currently supported reasons are: `Unauthorized`, `Forbidden`, `Invalid`, `RequestEntityTooLarge`.
 If not set, `StatusReasonInvalid` is used in the response to the client.
+
