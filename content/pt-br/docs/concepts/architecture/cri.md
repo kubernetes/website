@@ -11,11 +11,11 @@ O CRI é uma interface de plug-in que permite ao kubelet usar uma ampla variedad
  os componentes do cluster.
 
 Você precisa de um
-{{<glossary_tooltip text="tempo de execução de contêiner" term_id="container-runtime">}} em funcionamento em cada nó em seu cluster,
+{{<glossary_tooltip text="agente de execução de contêiner" term_id="container-runtime">}} em cada nó em seu cluster, para que o
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} possa iniciar
 {{< glossary_tooltip text="Pods" term_id="pod" >}} e seus contêineres.
 
-{{< glossary_definition prepend="The Container Runtime Interface (CRI) is" term_id="container-runtime-interface" length="all" >}}
+{{< glossary_definition prepend="A Interface do agente de execução de contêiner (CRI) é" term_id="container-runtime-interface" length="all" >}}
 
 <!-- body -->
 
@@ -23,10 +23,7 @@ Você precisa de um
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-O kubelet atua como um cliente ao se conectar ao tempo de execução do contêiner 
-via GRPC. Os endpoints de serviço de imagem e tempo de execução devem estar 
-disponíveis no tempo de execução do contêiner, que pode ser configurado 
-paradamente no kubelet usando os sinalizadores de linha de comando 
+O kubelet atua como um cliente ao se conectar ao agente de execução de contêiner via gRPC. Os endpoints de serviço de imagem e tempo de execução devem estar disponíveis no tempo de execução do contêiner, que pode ser configurado separadamente no kubelet usando os sinalizadores de opções de linha de comando 
 `--image-service-endpoint` and `--container-runtime-endpoint` [command line
 flags](/docs/reference/command-line-tools-reference/kubelet)
 
@@ -47,4 +44,4 @@ Ao atualizar o Kubernetes, o kubelet tenta selecionar automaticamente a versão 
 
 ## {{% heading "whatsnext" %}}
 
-- Saiba mais sobre a definição do protocolo CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/c75ef5b/pkg/apis/runtime/v1/api.proto)
+- Leia mais [protocol definition](https://github.com/kubernetes/cri-api/blob/c75ef5b/pkg/apis/runtime/v1/api.proto)

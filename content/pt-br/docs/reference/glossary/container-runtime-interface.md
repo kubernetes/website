@@ -1,18 +1,19 @@
 ---
-title: Container runtime interface (CRI)
-id: cri
+title: Container runtime interface
+id: container-runtime-interface
 date: 2019-03-07
-full_link: /docs/concepts/overview/components/#container-runtime
+full_link: /docs/concepts/architecture/cri
 short_description: >
-    Uma API para agentes de execução de contêineres se integrarem com o kubelet
-
+    O principal protocolo para a comunicação entre o kubelet e os agentes de execução de contêineres.
 
 aka:
 tags:
-- fundamental
+- cri
 ---
-A interface de execução de contêiner (CRI) é uma API para agentes de execução de
-contêineres se integrarem com o kubelet em um nó.
+
+O principal protocolo para a comunicação entre o kubelet e os agentes de execução de contêineres.
+
 <!--more-->
 
-Para maiores informações, veja as APIs e especificações do [CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+A interface do agente de execução de contêiner do Kubernetes (CRI) define o principal protocolo [gRPC](https://grpc.io) para a comunicação entre os [componentes de cluster](/docs/concepts/overview/components/#node-components)
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} e o {{< glossary_tooltip text="agente de execução de contêiner" term_id="container-runtime" >}}.
