@@ -152,8 +152,16 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		AllowDownwardAPIHugePages:       true,
 		AllowInvalidPodDeletionCost:     false,
 		AllowIndivisibleHugePagesValues: true,
-		AllowWindowsHostProcessField:    true,
 		AllowExpandedDNSConfig:          true,
+	}
+	netValidationOptions := networking_validation.NetworkPolicyValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
+	}
+	pdbValidationOptions := policy_validation.PodDisruptionBudgetValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
+	}
+	clusterroleValidationOptions := rbac_validation.ClusterRoleValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
 	}
 
 	// Enable CustomPodDNS for testing
@@ -304,15 +312,15 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = networking_validation.ValidateNetworkPolicy(t)
+		errors = networking_validation.ValidateNetworkPolicy(t, netValidationOptions)
 	case *policy.PodDisruptionBudget:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = policy_validation.ValidatePodDisruptionBudget(t)
+		errors = policy_validation.ValidatePodDisruptionBudget(t, pdbValidationOptions)
 	case *rbac.ClusterRole:
 		// clusterole does not accept namespace
-		errors = rbac_validation.ValidateClusterRole(t)
+		errors = rbac_validation.ValidateClusterRole(t, clusterroleValidationOptions)
 	case *rbac.ClusterRoleBinding:
 		// clusterolebinding does not accept namespace
 		errors = rbac_validation.ValidateClusterRoleBinding(t)
@@ -559,7 +567,9 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod-with-affinity-anti-affinity":     {&api.Pod{}},
 			"pod-with-node-affinity":              {&api.Pod{}},
 			"pod-with-pod-affinity":               {&api.Pod{}},
+			"pod-with-scheduling-gates":           {&api.Pod{}},
 			"pod-with-toleration":                 {&api.Pod{}},
+			"pod-without-scheduling-gates":        {&api.Pod{}},
 			"private-reg-pod":                     {&api.Pod{}},
 			"share-process-namespace":             {&api.Pod{}},
 			"simple-pod":                          {&api.Pod{}},
