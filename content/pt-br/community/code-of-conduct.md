@@ -17,7 +17,7 @@ Se você perceber que isso está desatualizado, por favor
 
 
 <p>
-Se você notar uma violação do Código de Conduta em um evento ou reunião, no
+Se você notar uma violação do Código de Conduta em um evento ou encontro, no
 Slack, ou em outro meio de comunicação, entre em contato com
 the <a href="https://git.k8s.io/community/committee-code-of-conduct">Comitê de Código de Conduta da Comunidade Kubernetes</a>. 
 Você pode nos contatar por e-mail em <a href="mailto:conduct@kubernetes.io">conduct@kubernetes.io</a>.
