@@ -16,7 +16,7 @@ used.
 ## Background
 
 StatefulSets ordinals provide sequential identities for pod replicas. When using
-[`OrderedReady` Pod management](/docs/tutorials/stateful-application/basic-stateful-set/#orderedready-pod-management),
+[`OrderedReady` Pod management](/docs/tutorials/stateful-application/basic-stateful-set/#orderedready-pod-management)
 Pods are created from ordinal index `0` up to `N-1`.
 
 With Kubernetes today, orchestrating a StatefulSet migration across clusters is
@@ -135,7 +135,7 @@ Pre-requisites: Two Kubernetes clusters named `source` and `destination`.
    that are not relevant in `destination` cluster are removed (eg: `uid`,
    `resourceVersion`, `status`).
 
-   #### Source Cluster
+   #### Source cluster
 
    Note: If using a `StorageClass` with `reclaimPolicy: Delete` configured, you
          should patch the PVs in `source` with `reclaimPolicy: Retain` prior to
@@ -149,7 +149,7 @@ Pre-requisites: Two Kubernetes clusters named `source` and `destination`.
    kubectl get secret redis-redis-cluster -o yaml | yq 'del(.metadata.uid, .metadata.resourceVersion)' > /tmp/secret-redis-redis-cluster.yaml
    ```
 
-   #### Destination Cluster
+   #### Destination cluster
 
    Note: For the PV/PVC, this procedure only works if the underlying storage system
          that your PVs use can support being copied into `destination`. Storage
