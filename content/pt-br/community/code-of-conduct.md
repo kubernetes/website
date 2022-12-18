@@ -12,7 +12,7 @@ Kubernetes segue
 O texto do CNCF CoC é reproduzido abaixo, a partir de
 <a href="https://github.com/cncf/foundation/blob/fff715fb000ba4d7422684eca1d50d80676be254/code-of-conduct.md">commit fff715fb0</a>.
 Se você perceber que isso está desatualizado, por favor
-<a href="https://github.com/kubernetes/website/issues/new">abra um bug</a>.
+<a href="https://github.com/kubernetes/website/issues/new">crie uma issue</a>.
 </p>
 
 
