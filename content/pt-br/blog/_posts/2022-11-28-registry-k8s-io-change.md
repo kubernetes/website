@@ -15,7 +15,7 @@ Essa mudança reduz a dependência do projeto de uma única entidade e fornece u
 
 * As imagens de contêiner para versões do Kubernetes a partir de 1.25 não serão mais publicadas no k8s.gcr.io, apenas no registry.k8s.io
 * Em dezembro, nas próximas versões de patch, o novo padrão de domínio do registro será portado retroativamente para todas as branches ainda com suporte (1.22, 1.23, 1.24).
-* Em um ambiente restrito, se você aplicar rígidas políticas de acesso aos endereços de domínio/IP limitados ao k8s.gcr.io, os __as imagem não serão baixadas__ após a migração para este novo repositório. Para esses usuários, o método recomendado é espelhar o lançamento das imagens em um repositório privado.
+* Em um ambiente restrito, se você aplicar rígidas políticas de acesso aos endereços de domínio/IP limitados ao k8s.gcr.io, __as imagem não serão baixadas__ após a migração para este novo repositório. Para esses usuários, o método recomendado é espelhar o lançamento das imagens em um repositório privado.
 
 Se você quiser saber mais sobre o motivo que fizemos essa mudança, ou alguns dos possíveis problemas que você pode encontrar, continue lendo.
 
