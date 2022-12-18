@@ -2,6 +2,7 @@
 title: 配置 kubelet 镜像凭据提供程序
 description: 配置 kubelet 的镜像凭据提供程序插件
 content_type: task
+min-kubernetes-server-version: v1.26
 ---
 
 <!-- 
@@ -11,9 +12,10 @@ reviewers:
 - cheftako
 description: Configure the kubelet's image credential provider plugin
 content_type: task
+min-kubernetes-server-version: v1.26
 -->
 
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!-- overview -->
 
@@ -45,17 +47,22 @@ This guide demonstrates how to configure the kubelet's image credential provider
 * 凭据的到期时间很短，需要频繁请求新凭据。
 * 将镜像库凭据存储在磁盘或者 imagePullSecret 是不可接受的。
 
+本指南演示如何配置 kubelet 的镜像凭证提供程序插件机制。
+
 ## {{% heading "prerequisites" %}}
 
 <!-- 
-* The kubelet image credential provider is introduced in v1.20 as an alpha feature. As with other alpha features,
-  a feature gate `KubeletCredentialProviders` must be enabled on only the kubelet for the feature to work.
+* You need a Kubernetes cluster with nodes that support kubelet credential
+  provider plugins. This support is available in Kubernetes {{< skew currentVersion >}};
+  Kubernetes v1.24 and v1.25 included this as a beta feature, enabled by default.
 * A working implementation of a credential provider exec plugin. You can build your own plugin or use one provided by cloud providers.
 -->
-* kubelet 镜像凭证提供程序在 v1.20 版本作为 Alpha 特性引入。
-  与其他 Alpha 功能一样，当前仅当在 kubelet 启用 `KubeletCredentialProviders`
-  特性门控时，该功能才能正常工作。
+* 你需要一个 Kubernetes 集群，其节点支持 kubelet 凭证提供程序插件。
+  这种支持在 Kubernetes {{< skew currentVersion >}} 中可用；
+  Kubernetes v1.24 和 v1.25 将此作为 Beta 特性包含在内，默认启用。
 * 凭据提供程序 exec 插件的一种可用的实现。你可以构建自己的插件或使用云提供商提供的插件。
+
+{{< version-check >}}
 
 <!-- steps -->
 
@@ -101,9 +108,9 @@ kubelet 会读取通过 `--image-credential-provider-config` 设定的配置文�
 这里有个样例配置文件你可能最终会使用到：
 
 ```yaml
-apiVersion: kubelet.config.k8s.io/v1alpha1
+apiVersion: kubelet.config.k8s.io/v1
 kind: CredentialProviderConfig
-# providers 是将由 kubelet 启用的凭证提供程序插件列表。
+# providers 是将由 kubelet 启用的凭证提供程序帮助插件列表。
 # 多个提供程序可能与单个镜像匹配，在这种情况下，来自所有提供程序的凭据将返回到 kubelet。
 # 如果为单个镜像调用了多个提供程序，则返回结果会被合并。
 # 如果提供程序返回重叠的身份验证密钥，则使用提供程序列表中较早的值。
@@ -121,7 +128,7 @@ providers:
     # 可以在域中使用通配符，但不能在端口或路径中使用。
     # 支持通配符作为子域（例如 "*.k8s.io" 或 "k8s.*.io"）和顶级域（例如 "k8s.*"）。
     # 还支持匹配部分子域，如 "app*.k8s.io"。
-    # 每个通配符只能匹配一个子域段，因此 "*.io" 不匹配 "*.k8s.io"。
+    # 每个通配符只能匹配一个子域段，因此 "*.io" **不** 匹配 "*.k8s.io"。
     #
     # 当以下所有条件都为真时，镜像和 matchImage 之间存在匹配：
     #
@@ -147,8 +154,8 @@ providers:
     defaultCacheDuration: "12h"
     # exec CredentialProviderRequest 的必需输入版本。
     # 返回的 CredentialProviderResponse 必须使用与输入相同的编码版本。当前支持的值为：
-    # - credentialprovider.kubelet.k8s.io/v1alpha1
-    apiVersion: credentialprovider.kubelet.k8s.io/v1alpha1
+    # - credentialprovider.kubelet.k8s.io/v1
+    apiVersion: credentialprovider.kubelet.k8s.io/v1
     # 执行命令时传递给命令的参数。
     # 可选
     args:
@@ -233,10 +240,10 @@ Some example values of `matchImages` patterns are:
 
 <!--
 * Read the details about `CredentialProviderConfig` in the
-  [kubelet configuration API (v1alpha1) reference](/docs/reference/config-api/kubelet-config.v1alpha1/).
-* Read the [kubelet credential provider API reference (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/).
+  [kubelet configuration API (v1) reference](/docs/reference/config-api/kubelet-config.v1/).
+* Read the [kubelet credential provider API reference (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/).
 -->
-* 阅读 [kubelet 配置 API (v1alpha1) 参考](/zh-cn/docs/reference/config-api/kubelet-config.v1alpha1/)中有关
+* 阅读 [kubelet 配置 API (v1) 参考](/docs/reference/config-api/kubelet-config.v1/)中有关
   `CredentialProviderConfig` 的详细信息。
-* 阅读 [kubelet 凭据提供程序 API 参考 (v1alpha1)](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)。
+* 阅读 [kubelet 凭据提供程序 API 参考 (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)。
 
