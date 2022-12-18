@@ -1,13 +1,15 @@
 ---
 title: 静态加密 Secret 数据
 content_type: task
+min-kubernetes-server-version: 1.13
 ---
-
 <!--
 title: Encrypting Secret Data at Rest
 reviewers:
 - smarterclayton
+- enj
 content_type: task
+min-kubernetes-server-version: 1.13
 -->
 
 <!-- overview -->
@@ -22,8 +24,12 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 <!--
 * etcd v3.0 or later is required
+
+* To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
 -->
 * 需要 etcd v3.0 或者更高版本
+
+* 要加密自定义资源，你的集群必须运行 Kubernetes v1.26 或更高版本。
 
 <!-- steps -->
 
@@ -33,21 +39,23 @@ This page shows how to enable and configure encryption of secret data at rest.
 The `kube-apiserver` process accepts an argument `--encryption-provider-config`
 that controls how API data is encrypted in etcd.
 The configuration is provided as an API named
-[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/).
-An example configuration is provided below.
+[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/). `--encryption-provider-config-automatic-reload` boolean argument determines if the file set by `--encryption-provider-config` should be automatically reloaded if the disk contents change. This enables key rotation without API server restarts. An example configuration is provided below.
 -->
 ## 配置并确定是否已启用静态数据加密   {#configuration-and-determing-wheter-encryption-at-rest-is-already-enabled}
 
 `kube-apiserver` 的参数 `--encryption-provider-config` 控制 API 数据在 etcd 中的加密方式。
 该配置作为一个名为 [`EncryptionConfiguration`](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/) 的 API 提供。
+`--encryption-provider-config-automatic-reload` 布尔参数决定了磁盘内容发生变化时是否应自动重新加载
+`--encryption-provider-config` 设置的文件。这样可以在不重启 API 服务器的情况下进行密钥轮换。
+
 下面提供了一个示例配置。
 
+{{< caution >}}
 <!--
 **IMPORTANT:** For high-availability configurations (with two or more control plane nodes), the
 encryption configuration file must be the same! Otherwise, the `kube-apiserver` component cannot
 decrypt data stored in the etcd.
 -->
-{{< caution >}}
 **重要：** 对于高可用配置（有两个或多个控制平面节点），加密配置文件必须相同！
 否则，`kube-apiserver` 组件无法解密存储在 etcd 中的数据。
 {{< /caution >}}
@@ -63,6 +71,8 @@ kind: EncryptionConfiguration
 resources:
   - resources:
       - secrets
+      - configmaps
+      - pandas.awesome.bears.example
     providers:
       - identity: {}
       - aesgcm:
@@ -85,10 +95,29 @@ resources:
 
 <!--
 Each `resources` array item is a separate config and contains a complete configuration. The
-`resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
-that should be encrypted. The `providers` array is an ordered list of the possible encryption
-providers.
+`resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`
+that should be encrypted like Secrets, ConfigMaps, or other resources. 
 
+If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer, 
+any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted. 
+Any custom resources that existed in etcd prior to that version and configuration will be unencrypted
+until they are next written to storage. This is the same behavior as built-in resources.
+See the [Ensure all secrets are encrypted](#ensure-all-secrets-are-encrypted) section.
+
+The `providers` array is an ordered list of the possible encryption providers to use for the APIs that you listed.
+-->
+每个 `resources` 数组项目是一个单独的完整的配置。
+`resources.resources` 字段是应加密的 Kubernetes 资源（例如 Secret、ConfigMap 或其他资源）名称
+（`resource` 或 `resource.group`）的数组。
+
+如果自定义资源被添加到 `EncryptionConfiguration` 并且集群版本为 1.26 或更高版本，
+则 `EncryptionConfiguration` 中提到的任何新创建的自定义资源都将被加密。
+在该版本之前存在于 etcd 中的任何自定义资源和配置不会被加密，直到它们被下一次写入到存储为止。
+这与内置资源的行为相同。请参阅[确保所有 Secret 都已加密](#ensure-all-secrets-are-encrypted)一节。
+
+`providers` 数组是可能的加密 provider 的有序列表，用于你所列出的 API。
+
+<!--
 Only one provider type may be specified per entry (`identity` or `aescbc` may be provided,
 but not both in the same item).
 The first provider in the list is used to encrypt resources written into the storage. When reading
@@ -99,10 +128,6 @@ is returned which prevents clients from accessing that resource.
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
 [encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
 -->
-每个 `resources` 数组项目是一个单独的完整的配置。
-`resources.resources` 字段是要加密的 Kubernetes 资源名称（`resource` 或 `resource.group`）的数组。
-`providers` 数组是可能的加密 provider 的有序列表。
-
 每个条目只能指定一个 provider 类型（可以是 `identity` 或 `aescbc`，但不能在同一个项目中同时指定二者）。
 列表中的第一个 provider 用于加密写入存储的资源。
 当从存储器读取资源时，与存储的数据匹配的所有 provider 将按顺序尝试解密数据。
@@ -110,17 +135,17 @@ For more detailed information about the `EncryptionConfiguration` struct, please
 
 有关 `EncryptionConfiguration` 结构体的更多详细信息，请参阅[加密配置 API](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
 
+{{< caution >}}
 <!--
 If any resource is not readable via the encryption config (because keys were changed),
 the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to
 read that resource will fail until it is deleted or a valid decryption key is provided.
 -->
-{{< caution >}}
 如果通过加密配置无法读取资源（因为密钥已更改），唯一的方法是直接从底层 etcd 中删除该密钥。
 任何尝试读取资源的调用将会失败，直到它被删除或提供有效的解密密钥。
 {{< /caution >}}
 
-### Providers:
+### Providers
 
 <!--
 Name | Encryption | Strength | Speed | Key Length | Other Considerations
@@ -145,21 +170,21 @@ is the first provider, the first key is used for encryption.
 
 每个 provider 都支持多个密钥 - 在解密时会按顺序使用密钥，如果是第一个 provider，则第一个密钥用于加密。
 
+{{< caution >}}
 <!--
 Storing the raw encryption key in the EncryptionConfig only moderately improves your security
 posture, compared to no encryption.  Please use `kms` provider for additional security.
 -->
-{{< caution >}}
 在 EncryptionConfig 中保存原始的加密密钥与不加密相比只会略微地提升安全级别。
 请使用 `kms` 驱动以获得更强的安全性。
 {{< /caution >}}
 
 <!--
-By default, the `identity` provider is used to protect Secrets in etcd, which provides no
-encryption. `EncryptionConfiguration` was introduced to encrypt Secrets locally, with a locally
+By default, the `identity` provider is used to protect secret data in etcd, which provides no
+encryption. `EncryptionConfiguration` was introduced to encrypt secret data locally, with a locally
 managed key.
 
-Encrypting Secrets with a locally managed key protects against an etcd compromise, but it fails to
+Encrypting secret data with a locally managed key protects against an etcd compromise, but it fails to
 protect against a host compromise. Since the encryption keys are stored on the host in the
 EncryptionConfiguration YAML file, a skilled attacker can access that file and extract the encryption
 keys.
@@ -168,10 +193,10 @@ Envelope encryption creates dependence on a separate key, not stored in Kubernet
 an attacker would need to compromise etcd, the `kubeapi-server`, and the third-party KMS provider to
 retrieve the plaintext values, providing a higher level of security than locally stored encryption keys.
 -->
-默认情况下，`identity` 驱动被用来对 etcd 中的 Secret 提供保护，而这个驱动不提供加密能力。
+默认情况下，`identity` 驱动被用来对 etcd 中的 Secret 数据提供保护，而这个驱动不提供加密能力。
 `EncryptionConfiguration` 的引入是为了能够使用本地管理的密钥来在本地加密 Secret 数据。
 
-使用本地管理的密钥来加密 Secret 能够保护数据免受 etcd 破坏的影响，不过无法针对主机被侵入提供防护。
+使用本地管理的密钥来加密 Secret 数据能够保护数据免受 etcd 破坏的影响，不过无法针对主机被侵入提供防护。
 这是因为加密的密钥保存在主机上的 EncryptionConfig YAML 文件中，
 有经验的入侵者仍能访问该文件并从中提取出加密密钥。
 
@@ -194,6 +219,8 @@ kind: EncryptionConfiguration
 resources:
   - resources:
       - secrets
+      - configmaps
+      - pandas.awesome.bears.example
     providers:
       - aescbc:
           keys:
@@ -286,15 +313,17 @@ permissions on your control-plane nodes so only the user who runs the `kube-apis
 ## Verifying that data is encrypted
 
 Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly created or
-updated Secret should be encrypted when stored. To check this, you can use the `etcdctl` command line
-program to retrieve the contents of your Secret.
+updated Secret or other resource types configured in `EncryptionConfiguration` should be encrypted
+when stored. To check this, you can use the `etcdctl` command line
+program to retrieve the contents of your secret data.
 
 1. Create a new Secret called `secret1` in the `default` namespace:
 -->
 ## 验证数据已被加密   {#verifying-that-data-is-encryped}
 
-数据在写入 etcd 时会被加密。重新启动你的 `kube-apiserver` 后，任何新创建或更新的密码在存储时都应该被加密。
-如果想要检查，你可以使用 `etcdctl` 命令行程序来检索你的加密内容。
+数据在写入 etcd 时会被加密。重新启动你的 `kube-apiserver` 后，任何新创建或更新的 Secret
+或在 `EncryptionConfiguration` 中配置的其他资源类型都应在存储时被加密。
+如果想要检查，你可以使用 `etcdctl` 命令行程序来检索你的 Secret 数据内容。
 
 1. 创建一个新的 secret，名称为 `secret1`，命名空间为 `default`：
 
@@ -307,7 +336,7 @@ program to retrieve the contents of your Secret.
 -->
 2. 使用 etcdctl 命令行，从 etcd 中读取 Secret：
 
-   ```shell
+   ```
    ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
    ```
 
@@ -393,11 +422,11 @@ The command above reads all Secrets and then updates them to apply server side e
 -->
 上面的命令读取所有 Secret，然后使用服务端加密来更新其内容。
 
+{{< note >}}
 <!--
 If an error occurs due to a conflicting write, retry the command.
 For larger clusters, you may wish to subdivide the secrets by namespace or script an update.
 -->
-{{< note >}}
 如果由于冲突写入而发生错误，请重试该命令。
 对于较大的集群，你可能希望通过命名空间或更新脚本来对 Secret 进行划分。
 {{< /note >}}
