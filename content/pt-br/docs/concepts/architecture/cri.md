@@ -23,8 +23,8 @@ Você precisa de um
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-O kubelet atua como um cliente ao se conectar ao agente de execução de contêiner via gRPC. Os endpoints de serviço de imagem e tempo de execução devem estar disponíveis no tempo de execução do contêiner, que pode ser configurado separadamente no kubelet usando os sinalizadores de opções de linha de comando 
-`--image-service-endpoint` and `--container-runtime-endpoint` [command line
+O kubelet atua como um cliente ao se conectar ao agente de execução de contêiner via gRPC. Os endpoints de serviço de imagem e tempo de execução devem estar disponíveis no tempo de execução do contêiner, que pode ser configurado separadamente no kubelet usando os sinais de opções de linha de comando 
+`--image-service-endpoint` e `--container-runtime-endpoint` [command line
 flags](/docs/reference/command-line-tools-reference/kubelet)
 
 
