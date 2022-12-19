@@ -1,13 +1,13 @@
 ---
 title: API 发起的驱逐
 content_type: concept
-weight: 70
+weight: 110
 ---
 <!-- 
 ---
 title: API-initiated Eviction
 content_type: concept
-weight: 70
+weight: 110
 ---
 -->
 {{< glossary_definition term_id="api-eviction" length="short" >}} </br>

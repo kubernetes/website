@@ -444,7 +444,7 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 
 {{< note >}}
 When pods were evicted during the graceful node shutdown, they are marked as shutdown.
-Running `kubectl get pods` shows the status of the the evicted pods as `Terminated`.
+Running `kubectl get pods` shows the status of the evicted pods as `Terminated`.
 And `kubectl describe pod` indicates that the pod was evicted because of node shutdown:
 
 ```
@@ -456,7 +456,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 ## Non Graceful node shutdown {#non-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.24" >}}
+{{< feature-state state="beta" for_k8s_version="v1.26" >}}
 
 A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
 either because the command does not trigger the inhibitor locks mechanism used by 

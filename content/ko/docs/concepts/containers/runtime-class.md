@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers
+#   - tallclair
+#   - dchen1107
 title: 런타임클래스(RuntimeClass)
 content_type: concept
 weight: 20
@@ -81,7 +81,7 @@ handler: myconfiguration
 
 ## 사용
 
-클러스터에 런타임클래스를 설정하고 나면, 
+클러스터에 런타임클래스를 설정하고 나면,
 다음과 같이 파드 스펙에 `runtimeClassName`를 명시하여 해당 런타임클래스를 사용할 수 있다.
 
 ```yaml
@@ -116,7 +116,7 @@ CRI 런타임 설치에 대한 자세한 내용은 [CRI 설치](/ko/docs/setup/p
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
-더 자세한 내용은 containerd의 [구성 문서](https://github.com/containerd/cri/blob/master/docs/config.md)를 
+더 자세한 내용은 containerd의 [구성 문서](https://github.com/containerd/cri/blob/master/docs/config.md)를
 살펴본다.
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
@@ -136,7 +136,7 @@ CRI 런타임 설치에 대한 자세한 내용은 [CRI 설치](/ko/docs/setup/p
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-RuntimeClass에 `scheduling` 필드를 지정하면, 이 RuntimeClass로 실행되는 파드가 
+RuntimeClass에 `scheduling` 필드를 지정하면, 이 RuntimeClass로 실행되는 파드가
 이를 지원하는 노드로 예약되도록 제약 조건을 설정할 수 있다.
 `scheduling`이 설정되지 않은 경우 이 RuntimeClass는 모든 노드에서 지원되는 것으로 간주된다.
 

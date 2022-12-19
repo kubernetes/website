@@ -1,7 +1,7 @@
 ---
 title: 存储类
 content_type: concept
-weight: 30
+weight: 40
 ---
 <!--
 reviewers:
@@ -11,7 +11,7 @@ reviewers:
 - msau42
 title: Storage Classes
 content_type: concept
-weight: 30
+weight: 40
 -->
 
 <!-- overview -->
@@ -52,7 +52,7 @@ class needs to be dynamically provisioned.
 ## StorageClass 资源 {#the-storageclass-resource}
 
 每个 StorageClass 都包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
-这些字段会在 StorageClass 需要动态分配 PersistentVolume 时会使用到。
+这些字段会在 StorageClass 需要动态制备 PersistentVolume 时会使用到。
 
 <!--
 The name of a StorageClass object is significant, and is how users can
@@ -208,10 +208,10 @@ Volume type | Required Kubernetes version
 
 {{< /table >}}
 
+{{< note >}}
 <!--
 You can only use the volume expansion feature to grow a Volume, not to shrink it.
 -->
-{{< note >}}
 此功能仅可用于扩容卷，不能用于缩小卷。
 {{< /note >}}
 
@@ -433,7 +433,7 @@ parameters:
 * `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS
   volume plugin multiplies this with size of requested volume to compute IOPS
   of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see
-  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
+  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)).
   A string is expected here, i.e. `"10"`, not `10`.
 * `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
 * `encrypted`: denotes whether the EBS volume should be encrypted or not.
@@ -454,7 +454,7 @@ parameters:
 * `iopsPerGB`：只适用于 `io1` 卷。每 GiB 每秒 I/O 操作。
   AWS 卷插件将其与请求卷的大小相乘以计算 IOPS 的容量，
   并将其限制在 20000 IOPS（AWS 支持的最高值，请参阅
-  [AWS 文档](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)。
+  [AWS 文档](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)）。
   这里需要输入一个字符串，即 `"10"`，而不是 `10`。
 * `fsType`：受 Kubernetes 支持的文件类型。默认值：`"ext4"`。
 * `encrypted`：指定 EBS 卷是否应该被加密。合法值为 `"true"` 或者 `"false"`。
@@ -467,7 +467,7 @@ parameters:
 `zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
 -->
-`zone` 和 `zones` 已被弃用并被 [允许的拓扑结构](#allowed-topologies) 取代。
+`zone` 和 `zones` 已被弃用并被[允许的拓扑结构](#allowed-topologies)取代。
 {{< /note >}}
 
 ### GCE PD  {#gce-pd}
@@ -503,7 +503,7 @@ parameters:
 * `zones`(弃用)：逗号分隔的 GCE 区域列表。如果没有指定 `zone` 和 `zones`，
   通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。
   `zone` 和 `zones` 参数不能同时使用。
-* `fstype`: `ext4` 或 `xfs`。 默认: `ext4`。宿主机操作系统必须支持所定义的文件系统类型。
+* `fstype`：`ext4` 或 `xfs`。 默认：`ext4`。宿主机操作系统必须支持所定义的文件系统类型。
 * `replication-type`：`none` 或者 `regional-pd`。默认值：`none`。
 
 <!--
@@ -530,15 +530,18 @@ using `allowedTopologies`.
 区域性持久化磁盘会在两个区域里制备。 其中一个区域是 Pod 所在区域。
 另一个区域是会在集群管理的区域中任意选择。磁盘区域可以通过 `allowedTopologies` 加以限制。
 
+{{< note >}}
 <!--
 `zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
 -->
-{{< note >}}
 `zone` 和 `zones` 已被弃用并被 [allowedTopologies](#allowed-topologies) 取代。
 {{< /note >}}
 
-### Glusterfs
+<!--
+### Glusterfs (deprecated) {#glusterfs}
+-->
+### Glusterfs（已弃用）   {#glusterfs}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -648,7 +651,7 @@ parameters:
     * Distribute volume: `volumetype: none`
 
     For available volume types and administration options, refer to the
-    [Administration Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
+    [Administration Guide](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/).
 
     For further reference information, see
     [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
@@ -659,14 +662,14 @@ parameters:
     deleted when the persistent volume claim is deleted.
 -->
 * `volumetype`：卷的类型及其参数可以用这个可选值进行配置。如果未声明卷类型，则由制备器决定卷的类型。
-  例如：
 
-  * 'Replica volume': `volumetype: replicate:3` 其中 '3' 是 replica 数量。
-  * 'Disperse/EC volume': `volumetype: disperse:4:2` 其中 '4' 是数据，'2' 是冗余数量。
-  * 'Distribute volume': `volumetype: none`
+  例如：
+  * 'Replica volume'：`volumetype: replicate:3` 其中 '3' 是 replica 数量。
+  * 'Disperse/EC volume'：`volumetype: disperse:4:2` 其中 '4' 是数据，'2' 是冗余数量。
+  * 'Distribute volume'：`volumetype: none`
 
   有关可用的卷类型和管理选项，
-  请参阅[管理指南](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html)。
+  请参阅[管理指南](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/)。
 
   更多相关的参考信息，
   请参阅[如何配置 Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology)。
@@ -726,10 +729,10 @@ parameters:
 -->
 * `availability`：可用区域。如果没有指定，通常卷会在 Kubernetes 集群节点所在的活动区域中轮转调度。
 
+{{< note >}}
 <!--
 This internal provisioner of OpenStack is deprecated. Please use [the external cloud provider for OpenStack](https://github.com/kubernetes/cloud-provider-openstack).
 -->
-{{< note >}}
 {{< feature-state state="deprecated" for_k8s_version="1.11" >}}
 OpenStack 的内部驱动已经被弃用。请使用
 [OpenStack 的外部云驱动](https://github.com/kubernetes/cloud-provider-openstack)。
@@ -743,9 +746,9 @@ There are two types of provisioners for vSphere storage classes:
 - [CSI provisioner](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
-In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#csi-migration-5).
+In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
 -->
-vSphere 存储类有两种制备器
+vSphere 存储类有两种制备器：
 
 - [CSI 制备器](#vsphere-provisioner-csi)：`csi.vsphere.vmware.com`
 - [vCP 制备器](#vcp-provisioner)：`kubernetes.io/vsphere-volume`
@@ -754,7 +757,7 @@ vSphere 存储类有两种制备器
 [弃用](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)。
 更多关于 CSI 制备器的详情，请参阅
 [Kubernetes vSphere CSI 驱动](https://vsphere-csi-driver.sigs.k8s.io/)
-和 [vSphereVolume CSI 迁移](/zh-cn/docs/concepts/storage/volumes/#csi-migration-5)。
+和 [vSphereVolume CSI 迁移](/zh-cn/docs/concepts/storage/volumes/#vsphere-csi-migration)。
 
 <!--
 #### CSI Provisioner {#vsphere-provisioner-csi}
@@ -773,7 +776,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
 -->
 #### vCP 制备器 {#vcp-provisioner}
 
-以下示例使用 VMware Cloud Provider (vCP) StorageClass 调度器。
+以下示例使用 VMware Cloud Provider (vCP) StorageClass 制备器。
 
 <!--
 1. Create a StorageClass with a user specified disk format.
@@ -793,7 +796,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
    <!--
    `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
    -->
-   `diskformat`: `thin`, `zeroedthick` 和 `eagerzeroedthick`。默认值: `"thin"`。
+   `diskformat`：`thin`、`zeroedthick` 和 `eagerzeroedthick`。默认值：`"thin"`。
 
 <!--
 2. Create a StorageClass with a disk format on a user specified datastore.
@@ -927,7 +930,7 @@ parameters:
 * `adminSecret`：`adminId` 的 Secret 名称。该参数是必需的。
   提供的 secret 必须有值为 "kubernetes.io/rbd" 的 type 参数。
 * `adminSecretNamespace`：`adminSecret` 的命名空间。默认是 "default"。
-* `pool`: Ceph RBD 池. 默认是 "rbd"。
+* `pool`：Ceph RBD 池。默认是 "rbd"。
 * `userId`：Ceph 客户端 ID，用于映射 RBD 镜像。默认与 `adminId` 相同。
 
 <!--
@@ -1029,7 +1032,7 @@ parameters:
 * `kind`：可能的值是 `shared`、`dedicated` 和 `managed`（默认）。
   当 `kind` 的值是 `shared` 时，所有非托管磁盘都在集群的同一个资源组中的几个共享存储帐户中创建。
   当 `kind` 的值是 `dedicated` 时，将为在集群的同一个资源组中新的非托管磁盘创建新的专用存储帐户。
-* `resourceGroup`: 指定要创建 Azure 磁盘所属的资源组。必须是已存在的资源组名称。
+* `resourceGroup`：指定要创建 Azure 磁盘所属的资源组。必须是已存在的资源组名称。
   若未指定资源组，磁盘会默认放入与当前 Kubernetes 集群相同的资源组中。
 <!--
 - Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard

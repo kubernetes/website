@@ -106,10 +106,10 @@ When creating a new API, consider whether to
 [aggregate your API with the Kubernetes cluster APIs](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 or let your API stand alone.
 -->
-## 我是否应该向我的 Kubernetes 集群添加定制资源？
+## 我是否应该向我的 Kubernetes 集群添加定制资源？   {#should-i-add-a-cr-to-my-k8s-cluster}
 
-在创建新的 API 时，请考虑是
-[将你的 API 与 Kubernetes 集群 API 聚合起来](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+在创建新的 API 时，
+请考虑是[将你的 API 与 Kubernetes 集群 API 聚合起来](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)，
 还是让你的 API 独立运行。
 
 <!--
@@ -145,7 +145,7 @@ In a Declarative API, typically:
  - The main operations on the objects are CRUD-y (creating, reading, updating and deleting).
  - Transactions across objects are not required: the API represents a desired state, not an exact state.
 -->
-### 声明式 APIs {#declarative-apis}
+### 声明式 API   {#declarative-apis}
 
 典型地，在声明式 API 中：
 
@@ -176,7 +176,7 @@ Signs that your API might not be declarative include:
 - 客户端发出“做这个操作”的指令，之后在该操作结束时获得同步响应。
 - 客户端发出“做这个操作”的指令，并获得一个操作 ID，之后需要检查一个 Operation（操作）
   对象来判断请求是否成功完成。
-- 你会将你的 API 类比为远程过程调用（Remote Procedure Call，RPCs）。
+- 你会将你的 API 类比为远程过程调用（Remote Procedure Call，RPC）。
 - 直接存储大量数据；例如每个对象几 kB，或者存储上千个对象。
 - 需要较高的访问带宽（长期保持每秒数十个请求）。
 - 存储有应用来处理的最终用户数据（如图片、个人标识信息（PII）等）或者其他大规模数据。
@@ -195,7 +195,7 @@ Use a ConfigMap if any of the following apply:
 * Consumers of the file prefer to consume via file in a Pod or environment variable in a pod, rather than the Kubernetes API.
 * You want to perform rolling updates via Deployment, etc., when the file is updated.
 -->
-## 我应该使用一个 ConfigMap 还是一个定制资源？
+## 我应该使用一个 ConfigMap 还是一个定制资源？   {#should-i-use-a-configmap-or-a-cr}
 
 如果满足以下条件之一，应该使用 ConfigMap：
 
@@ -247,8 +247,8 @@ Kubernetes provides two ways to add custom resources to your cluster:
 Kubernetes 提供了两种方式供你向集群中添加定制资源：
 
 - CRD 相对简单，创建 CRD 可以不必编程。
-- [API 聚合](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-  需要编程，但支持对 API 行为进行更多的控制，例如数据如何存储以及在不同 API 版本间如何转换等。
+- [API 聚合](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)需要编程，
+  但支持对 API 行为进行更多的控制，例如数据如何存储以及在不同 API 版本间如何转换等。
 
 <!--
 Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility is compromised.
@@ -272,6 +272,24 @@ CRD 允许用户创建新的资源类别同时又不必添加新的 API 服务�
 无论以哪种方式安装定制资源，新的资源都会被当做定制资源，以便与内置的
 Kubernetes 资源（如 Pods）相区分。
 
+{{< note >}}
+<!--
+Avoid using a Custom Resource as data storage for application, end user, or monitoring data:
+architecture designs that store application data within the Kubernetes API typically represent
+a design that is too closely coupled.
+
+Architecturally, [cloud native](https://www.cncf.io/about/faq/#what-is-cloud-native) application architectures
+favor loose coupling between components. If part of your workload requires a backing service for
+its routine operation, run that backing service as a component or consume it as an external service.
+This way, your workload does not rely on the Kubernetes API for its normal operation.
+-->
+避免将定制资源用于存储应用、最终用户或监控数据：
+将应用数据存储在 Kubernetes API 内的架构设计通常代表一种过于紧密耦合的设计。
+
+在架构上，[云原生](https://www.cncf.io/about/faq/#what-is-cloud-native)应用架构倾向于各组件之间的松散耦合。
+如果部分工作负载需要支持服务来维持其日常运转，则这种支持服务应作为一个组件运行或作为一个外部服务来使用。
+这样，工作负载的正常运转就不会依赖 Kubernetes API 了。
+{{< /note >}}
 <!--
 ## CustomResourceDefinitions
 
@@ -315,7 +333,6 @@ The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver
 implementations for your custom resources by writing and deploying your own API server.
 The main API server delegates requests to your API server for the custom resources that you handle,
 making them available to all of its clients.
-
 -->
 ## API 服务器聚合  {#api-server-aggregation}
 
@@ -338,15 +355,14 @@ Typically, CRDs are a good fit if:
 * You have a handful of fields
 * You are using the resource within your company, or as part of a small open-source project (as opposed to a commercial product)
 -->
-## 选择添加定制资源的方法
+## 选择添加定制资源的方法   {#choosing-a-method-for-adding-cr}
 
 CRD 更为易用；聚合 API 则更为灵活。请选择最符合你的需要的方法。
 
 通常，如何存在以下情况，CRD 可能更合适：
 
 * 定制资源的字段不多；
-* 你在组织内部使用该资源或者在一个小规模的开源项目中使用该资源，而不是
-  在商业产品中使用。
+* 你在组织内部使用该资源或者在一个小规模的开源项目中使用该资源，而不是在商业产品中使用。
 
 <!--
 ### Comparing ease of use
@@ -355,7 +371,7 @@ CRDs are easier to create than Aggregated APIs.
 -->
 ### 比较易用性  {#compare-ease-of-use}
 
-CRD 比聚合 API 更容易创建
+CRD 比聚合 API 更容易创建。
 
 <!--
 | CRDs                        | Aggregated API |
@@ -460,7 +476,7 @@ When you create a custom resource, either via a CRD or an AA, you get many featu
 
 There are several points to be aware of before adding a custom resource to your cluster.
 -->
-## 准备安装定制资源
+## 准备安装定制资源   {#preparing-to-install-a-cr}
 
 在向你的集群添加定制资源之前，有些事情需要搞清楚。
 
@@ -471,12 +487,12 @@ While creating a CRD does not automatically add any new points of failure (for e
 
 Installing an Aggregated API server always involves running a new Deployment.
 -->
-### 第三方代码和新的失效点的问题
+### 第三方代码和新的失效点的问题   {#third-party-code-and-new-points-of-failure}
 
 尽管添加新的 CRD 不会自动带来新的失效点（Point of
 Failure），例如导致第三方代码被在 API 服务器上运行，
-类似 Helm Charts 这种软件包或者其他安装包通常在提供 CRD 的同时还包含带有第三方
-代码的 Deployment，负责实现新的定制资源的业务逻辑。
+类似 Helm Charts 这种软件包或者其他安装包通常在提供 CRD
+的同时还包含带有第三方代码的 Deployment，负责实现新的定制资源的业务逻辑。
 
 安装聚合 API 服务器时，也总会牵涉到运行一个新的 Deployment。
 
@@ -487,13 +503,12 @@ Custom resources consume storage space in the same way that ConfigMaps do. Creat
 
 Aggregated API servers may use the same storage as the main API server, in which case the same warning applies.
 -->
-### 存储
+### 存储    {#storage}
 
 定制资源和 ConfigMap 一样也会消耗存储空间。创建过多的定制资源可能会导致
 API 服务器上的存储空间超载。
 
-聚合 API 服务器可以使用主 API 服务器的同一存储。如果是这样，你也要注意
-此警告。
+聚合 API 服务器可以使用主 API 服务器相同的存储。如果是这样，你也要注意此警告。
 
 <!--
 ### Authentication, authorization, and auditing
@@ -504,18 +519,15 @@ If you use RBAC for authorization, most RBAC roles will not grant access to the 
 
 Aggregated API servers may or may not use the same authentication, authorization, and auditing as the primary API server.
 -->
-### 身份认证、鉴权授权以及审计
+### 身份认证、鉴权授权以及审计    {#authentication-authorization-and-auditing}
 
-CRD 通常与 API 服务器上的内置资源一样使用相同的身份认证、鉴权授权
-和审计日志机制。
+CRD 通常与 API 服务器上的内置资源一样使用相同的身份认证、鉴权授权和审计日志机制。
 
-如果你使用 RBAC 来执行鉴权授权，大多数 RBAC 角色都会授权对新资源的访问
+如果你使用 RBAC 来执行鉴权授权，大多数 RBAC 角色都不会授权对新资源的访问
 （除了 cluster-admin 角色以及使用通配符规则创建的其他角色）。
-你要显式地为新资源的访问授权。CRD 和聚合 API 通常在交付时会包含
-针对所添加的类别的新的角色定义。
+你要显式地为新资源的访问授权。CRD 和聚合 API 通常在交付时会包含针对所添加的类别的新的角色定义。
 
-聚合 API 服务器可能会使用主 API 服务器相同的身份认证、鉴权授权和审计
-机制，也可能不会。
+聚合 API 服务器可能会使用主 API 服务器相同的身份认证、鉴权授权和审计机制，也可能不会。
 
 <!--
 ## Accessing a custom resource
@@ -529,19 +541,18 @@ When you add a custom resource, you can access it using:
 - A REST client that you write.
 - A client generated using [Kubernetes client generation tools](https://github.com/kubernetes/code-generator) (generating one is an advanced undertaking, but some projects may provide a client along with the CRD or AA).
 -->
-## 访问定制资源
+## 访问定制资源   {#accessing-a-custom-resources}
 
 Kubernetes [客户端库](/zh-cn/docs/reference/using-api/client-libraries/)可用来访问定制资源。
-并非所有客户端库都支持定制资源。_Go_ 和 _Python_ 客户端库是支持的。
+并非所有客户端库都支持定制资源。**Go** 和 **Python** 客户端库是支持的。
 
 当你添加了新的定制资源后，可以用如下方式之一访问它们：
 
 - `kubectl`
 - Kubernetes 动态客户端
 - 你所编写的 REST 客户端
-- 使用 [Kubernetes 客户端生成工具](https://github.com/kubernetes/code-generator)
-  所生成的客户端。生成客户端的工作有些难度，不过某些项目可能会随着 CRD 或
-  聚合 API 一起提供一个客户端
+- 使用 [Kubernetes 客户端生成工具](https://github.com/kubernetes/code-generator)所生成的客户端。
+  生成客户端的工作有些难度，不过某些项目可能会随着 CRD 或聚合 API 一起提供一个客户端。
 
 ## {{% heading "whatsnext" %}}
 

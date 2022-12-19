@@ -1,6 +1,6 @@
 ---
 title: 인그레스 컨트롤러
-reviewers:
+# reviewers:
 content_type: concept
 weight: 40
 ---

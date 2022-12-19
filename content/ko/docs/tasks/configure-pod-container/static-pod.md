@@ -1,6 +1,6 @@
 ---
-## reviewers:
-## - jsafrane
+# reviewers:
+# - jsafrane
 title: 스태틱(static) 파드 생성하기
 weight: 170
 content_template: task
@@ -182,7 +182,7 @@ static-web   1/1     Running   0               2m
 ```
 
 {{< note >}}
-Kubelet에 API 서버에서 미러 파드를 생성할 수 있는 권한이 있는지 미리 확인해야 한다. 그렇지 않을 경우 API 서버에 의해서 생성 요청이 거부된다. [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/) 및 [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/security/pod-security-policy/)를 확인한다.
+API 서버에서 미러 파드를 생성할 수 있는 권한이 kubelet에게 있는지 미리 확인해야 한다. 그렇지 않을 경우 API 서버에 의해서 생성 요청이 거부된다.
 {{< /note >}}
 
 스태틱 파드에 있는 {{< glossary_tooltip term_id="label" text="레이블" >}} 은
@@ -230,11 +230,11 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 # 예제를 수행하는 사용자가 파일시스템이 호스팅하는 스태틱 파드 설정을 사용한다고 가정한다.
 # kubelet 이 동작하고 있는 노드에서 이 명령을 수행한다.
 #
-mv /etc/kubelet.d/static-web.yaml /tmp
+mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
 # 구동 중인 nginx 컨테이너가 없는 것을 확인한다.
-mv /tmp/static-web.yaml  /etc/kubelet.d/
+mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
 sleep 20
 crictl ps
 ```

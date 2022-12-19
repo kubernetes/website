@@ -4,7 +4,7 @@ reviewers:
 - imroc
 title: Topology-aware traffic routing with topology keys
 content_type: concept
-weight: 10
+weight: 150
 ---
 
 
@@ -18,7 +18,6 @@ This feature, specifically the alpha `topologyKeys` API, is deprecated since
 Kubernetes v1.21.
 [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/),
 introduced in Kubernetes v1.21, provide similar functionality.
-
 {{</ note >}}
 
 _Service Topology_ enables a service to route traffic based upon the Node
@@ -194,12 +193,7 @@ spec:
     - "*"
 ```
 
-
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* Read about [enabling Service Topology](/docs/tasks/administer-cluster/enabling-service-topology)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
-
+* Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/)
+* Read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)

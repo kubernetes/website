@@ -49,14 +49,20 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
 * Three hosts that can talk to each other over TCP ports 2379 and 2380. This document assumes these default ports. However, they are configurable through the kubeadm config file.
 -->
 * 三个可以通过 2379 和 2380 端口相互通信的主机。本文档使用这些作为默认端口。不过，它们可以通过 kubeadm 的配置文件进行自定义。
-
 <!--
 * Each host must have systemd and a bash compatible shell installed.
 * Each host must [have a container runtime, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 -->
 * 每个主机必须安装 systemd 和 bash 兼容的 shell。
 * 每台主机必须[安装有容器运行时、kubelet 和 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
-
+<!--
+* Each host should have access to the Kubernetes container image registry (`registry.k8s.io`) or list/pull the required etcd image using
+`kubeadm config images list/pull`. This guide will setup etcd instances as
+[static pods](/docs/tasks/configure-pod-container/static-pod/) managed by a kubelet.
+-->
+* 每个主机都应该能够访问 Kubernetes 容器镜像仓库 (registry.k8s.io)，
+  或者使用 `kubeadm config images list/pull` 列出/拉取所需的 etcd 镜像。
+  本指南将把 etcd 实例设置为由 kubelet 管理的[静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)。
 <!--
 * Some infrastructure to copy files between hosts. For example `ssh` and `scp` can satisfy this requirement.
 -->
@@ -368,7 +374,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    ```shell
    docker run --rm -it \
    --net host \
-   -v /etc/kubernetes:/etc/kubernetes k8s.gcr.io/etcd:${ETCD_TAG} etcdctl \
+   -v /etc/kubernetes:/etc/kubernetes registry.k8s.io/etcd:${ETCD_TAG} etcdctl \
    --cert /etc/kubernetes/pki/etcd/peer.crt \
    --key /etc/kubernetes/pki/etcd/peer.key \
    --cacert /etc/kubernetes/pki/etcd/ca.crt \

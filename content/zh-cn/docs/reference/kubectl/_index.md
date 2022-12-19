@@ -1,7 +1,7 @@
 ---
 title: 命令行工具 (kubectl)
 content_type: reference
-weight: 60
+weight: 110
 no_list: true
 card:
   name: reference
@@ -10,16 +10,14 @@ card:
 <!--
 title: Command line tool (kubectl)
 content_type: reference
-weight: 60
+weight: 110
 no_list: true
 card:
   name: reference
   weight: 20
 -->
 <!-- overview -->
-<!--
-{{< glossary_definition prepend="Kubernetes provides a" term_id="kubectl" length="short" >}}
--->
+
 {{< glossary_definition prepend="Kubernetes 提供" term_id="kubectl" length="short" >}}
 
 <!--
@@ -35,7 +33,7 @@ files by setting the `KUBECONFIG` environment variable or by setting the
 -->
 
 针对配置信息，`kubectl` 在 `$HOME/.kube` 目录中查找一个名为 `config` 的配置文件。
-你可以通过设置 `KUBECONFIG` 环境变量或设置 
+你可以通过设置 `KUBECONFIG` 环境变量或设置
 [`--kubeconfig`](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
 参数来指定其它 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
@@ -67,7 +65,7 @@ explains some equivalent commands for Kubernetes.
 
 Use the following syntax to run `kubectl` commands from your terminal window:
 -->
-## 语法
+## 语法   {#syntax}
 
 使用以下语法从终端窗口运行 `kubectl` 命令：
 
@@ -143,10 +141,10 @@ for example `create`, `get`, `describe`, `delete`.
 * `flags`： 指定可选的参数。例如，可以使用 `-s` 或 `--server` 参数指定
   Kubernetes API 服务器的地址和端口。
 
+{{< caution >}}
 <!--
 Flags that you specify from the command line override default values and any corresponding environment variables.
 -->
-{{< caution >}}
 从命令行指定的参数会覆盖默认值和任何相应的环境变量。
 {{< /caution >}}
 
@@ -158,7 +156,7 @@ If you need help, run `kubectl help` from the terminal window.
 <!--
 ## In-cluster authentication and namespace overrides
 -->
-## 集群内身份验证和命名空间覆盖
+## 集群内身份验证和命名空间覆盖   {#in-cluster-authentication-and-namespace-overrides}
 
 <!--
 By default `kubectl` will first determine if it is running within a pod, and thus in a cluster. It starts by checking for the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT` environment variables and the existence of a service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`. If all three are found in-cluster authentication is assumed.
@@ -217,19 +215,26 @@ then kubectl assumes it is running in your cluster. The kubectl tool looks up th
 namespace of that ServiceAccount (this is the same as the namespace of the Pod)
 and acts against that namespace. This is different from what happens outside of a
 cluster; when kubectl runs outside a cluster and you don't specify a namespace,
-the kubectl command acts against the `default` namespace.
+the kubectl command acts against the namespace set for the current context in your
+client configuration. To change the default namespace for your kubectl you can use the
+following command:
 -->
 然后 kubectl 假定它正在你的集群中运行。
 kubectl 工具查找该 ServiceAccount 的命名空间
 （该命名空间与 Pod 的命名空间相同）并针对该命名空间进行操作。
 这与集群外运行的情况不同；
 当 kubectl 在集群外运行并且你没有指定命名空间时，
-kubectl 命令会针对 `default` 命名空间进行操作。
+kubectl 命令会针对你在客户端配置中为当前上下文设置的命名空间进行操作。
+要为你的 kubectl 更改默认的命名空间，你可以使用以下命令：
+
+```shell
+kubectl config set-context --current --namespace=<namespace-name>
+```
 
 <!--
 ## Operations
 -->
-## 操作
+## 操作   {#operations}
 
 <!--
 The following table includes short descriptions and the general syntax for all of the `kubectl` operations:
@@ -260,6 +265,7 @@ Operation       | Syntax    |       Description
 `diff`        | `kubectl diff -f FILENAME [flags]`| Diff file or stdin against live configuration.
 `drain`    | `kubectl drain NODE [options]` | Drain node in preparation for maintenance.
 `edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | Edit and update the definition of one or more resources on the server by using the default editor.
+`events`      | `kubectl events` | List events
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod.
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
 `expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | Expose a replication controller, service, or pod as a new Kubernetes service.
@@ -306,6 +312,7 @@ Operation       | Syntax    |       Description
 `diff`        | `kubectl diff -f FILENAME [flags]`| 在当前起作用的配置和文件或标准输之间作对比 (**BETA**)
 `drain`    | `kubectl drain NODE [options]` | 腾空节点以准备维护。
 `edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | 使用默认编辑器编辑和更新服务器上一个或多个资源的定义。
+`events`      | `kubectl events` | 列举事件。
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | 对 Pod 中的容器执行命令。
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | 获取多种资源的文档。例如 Pod、Node、Service 等。
 `expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | 将副本控制器、服务或 Pod 作为新的 Kubernetes 服务暴露。
@@ -338,7 +345,7 @@ To learn more about command operations, see the [kubectl](/docs/reference/kubect
 <!--
 ## Resource types
 -->
-## 资源类型
+## 资源类型   {#resource-types}
 
 <!--
 The following table includes a list of all the supported resource types and their abbreviated aliases.
@@ -346,78 +353,77 @@ The following table includes a list of all the supported resource types and thei
 下表列出所有受支持的资源类型及其缩写别名。
 
 <!--
-(This output can be retrieved from `kubectl api-resources`, and was accurate as of Kubernetes 1.19.1.)
+(This output can be retrieved from `kubectl api-resources`, and was accurate as of Kubernetes 1.25.0)
 -->
-(以下输出可以通过 `kubectl api-resources` 获取，内容以 Kubernetes 1.19.1 版本为准。)
+(以下输出可以通过 `kubectl api-resources` 获取，内容以 Kubernetes 1.25.0 版本为准。)
 
 <!--
-| NAME | SHORTNAMES | APIGROUP | NAMESPACED | KIND |
+| NAME | SHORTNAMES | APIVERSION | NAMESPACED | KIND |
 |---|---|---|---|---|
 -->
-| 资源名 | 缩写名 | API 分组 | 按命名空间 | 资源类型 |
+| 资源名 | 缩写名 | API 版本 | 按命名空间 | 资源类型 |
 |---|---|---|---|---|
-| `bindings` | | | true | Binding |
-| `componentstatuses` | `cs` | | false | ComponentStatus |
-| `configmaps` | `cm` | | true | ConfigMap |
-| `endpoints` | `ep` | | true | Endpoints |
-| `events` | `ev` | | true | Event |
-| `limitranges` | `limits` | | true | LimitRange |
-| `namespaces` | `ns` | | false | Namespace |
-| `nodes` | `no` | | false | Node |
-| `persistentvolumeclaims` | `pvc` | | true | PersistentVolumeClaim |
-| `persistentvolumes` | `pv` | | false | PersistentVolume |
-| `pods` | `po` | | true | Pod |
-| `podtemplates` | | | true | PodTemplate |
-| `replicationcontrollers` | `rc` | | true | ReplicationController |
-| `resourcequotas` | `quota` | | true | ResourceQuota |
-| `secrets` | | | true | Secret |
-| `serviceaccounts` | `sa` | | true | ServiceAccount |
-| `services` | `svc` | | true | Service |
-| `mutatingwebhookconfigurations` | | admissionregistration.k8s.io | false | MutatingWebhookConfiguration |
-| `validatingwebhookconfigurations` | | admissionregistration.k8s.io | false | ValidatingWebhookConfiguration |
-| `customresourcedefinitions` | `crd,crds` | apiextensions.k8s.io | false | CustomResourceDefinition |
-| `apiservices` | | apiregistration.k8s.io | false | APIService |
-| `controllerrevisions` | | apps | true | ControllerRevision |
-| `daemonsets` | `ds` | apps | true | DaemonSet |
-| `deployments` | `deploy` | apps | true | Deployment |
-| `replicasets` | `rs` | apps | true | ReplicaSet |
-| `statefulsets` | `sts` | apps | true | StatefulSet |
-| `tokenreviews` | | authentication.k8s.io | false | TokenReview |
-| `localsubjectaccessreviews` | | authorization.k8s.io | true | LocalSubjectAccessReview |
-| `selfsubjectaccessreviews` | | authorization.k8s.io | false | SelfSubjectAccessReview |
-| `selfsubjectrulesreviews` | | authorization.k8s.io | false | SelfSubjectRulesReview |
-| `subjectaccessreviews` | | authorization.k8s.io | false | SubjectAccessReview |
-| `horizontalpodautoscalers` | `hpa` | autoscaling | true | HorizontalPodAutoscaler |
-| `cronjobs` | `cj` | batch | true | CronJob |
-| `jobs` | | batch | true | Job |
-| `certificatesigningrequests` | `csr` | certificates.k8s.io | false | CertificateSigningRequest |
-| `leases` | | coordination.k8s.io | true | Lease |
-| `endpointslices` |  | discovery.k8s.io | true | EndpointSlice |
-| `events` | `ev` | events.k8s.io | true | Event |
-| `ingresses` | `ing` | extensions | true | Ingress |
-| `flowschemas` |  | flowcontrol.apiserver.k8s.io | false | FlowSchema |
-| `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io | false | PriorityLevelConfiguration |
-| `ingressclasses` |  | networking.k8s.io | false | IngressClass |
-| `ingresses` | `ing` | networking.k8s.io | true | Ingress |
-| `networkpolicies` | `netpol` | networking.k8s.io | true | NetworkPolicy |
-| `runtimeclasses` |  | node.k8s.io | false | RuntimeClass |
-| `poddisruptionbudgets` | `pdb` | policy | true | PodDisruptionBudget |
-| `podsecuritypolicies` | `psp` | policy | false | PodSecurityPolicy |
-| `clusterrolebindings` | | rbac.authorization.k8s.io | false | ClusterRoleBinding |
-| `clusterroles` | | rbac.authorization.k8s.io | false | ClusterRole |
-| `rolebindings` | | rbac.authorization.k8s.io | true | RoleBinding |
-| `roles` | | rbac.authorization.k8s.io | true | Role |
-| `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
-| `csidrivers` | | storage.k8s.io | false | CSIDriver |
-| `csinodes` | | storage.k8s.io | false | CSINode |
-| `storageclasses` | `sc` | storage.k8s.io | false | StorageClass |
-| `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
+| `bindings` |  | v1 | true | Binding |
+| `componentstatuses` | `cs` | v1 | false | ComponentStatus |
+| `configmaps` | `cm` | v1 | true | ConfigMap |
+| `endpoints` | `ep` | v1 | true | Endpoints |
+| `events` | `ev` | v1 | true | Event |
+| `limitranges` | `limits` | v1 | true | LimitRange |
+| `namespaces` | `ns` | v1 | false | Namespace |
+| `nodes` | `no` | v1 | false | Node |
+| `persistentvolumeclaims` | `pvc` | v1 | true | PersistentVolumeClaim |
+| `persistentvolumes` | `pv` | v1 | false | PersistentVolume |
+| `pods` | `po` | v1 | true | Pod |
+| `podtemplates` |  | v1 | true | PodTemplate |
+| `replicationcontrollers` | `rc` | v1 | true | ReplicationController |
+| `resourcequotas` | `quota` | v1 | true | ResourceQuota |
+| `secrets` |  | v1 | true | Secret |
+| `serviceaccounts` | `sa` | v1 | true | ServiceAccount |
+| `services` | `svc` | v1 | true | Service |
+| `mutatingwebhookconfigurations` |  | admissionregistration.k8s.io/v1 | false | MutatingWebhookConfiguration |
+| `validatingwebhookconfigurations` |  | admissionregistration.k8s.io/v1 | false | ValidatingWebhookConfiguration |
+| `customresourcedefinitions` | `crd,crds` | apiextensions.k8s.io/v1 | false | CustomResourceDefinition |
+| `apiservices` |  | apiregistration.k8s.io/v1 | false | APIService |
+| `controllerrevisions` |  | apps/v1 | true | ControllerRevision |
+| `daemonsets` | `ds` | apps/v1 | true | DaemonSet |
+| `deployments` | `deploy` | apps/v1 | true | Deployment |
+| `replicasets` | `rs` | apps/v1 | true | ReplicaSet |
+| `statefulsets` | `sts` | apps/v1 | true | StatefulSet |
+| `tokenreviews` |  | authentication.k8s.io/v1 | false | TokenReview |
+| `localsubjectaccessreviews` |  | authorization.k8s.io/v1 | true | LocalSubjectAccessReview |
+| `selfsubjectaccessreviews` |  | authorization.k8s.io/v1 | false | SelfSubjectAccessReview |
+| `selfsubjectrulesreviews` |  | authorization.k8s.io/v1 | false | SelfSubjectRulesReview |
+| `subjectaccessreviews` |  | authorization.k8s.io/v1 | false | SubjectAccessReview |
+| `horizontalpodautoscalers` | `hpa` | autoscaling/v2 | true | HorizontalPodAutoscaler |
+| `cronjobs` | `cj` | batch/v1 | true | CronJob |
+| `jobs` |  | batch/v1 | true | Job |
+| `certificatesigningrequests` | `csr` | certificates.k8s.io/v1 | false | CertificateSigningRequest |
+| `leases` |  | coordination.k8s.io/v1 | true | Lease |
+| `endpointslices` |  | discovery.k8s.io/v1 | true | EndpointSlice |
+| `events` | `ev` | events.k8s.io/v1 | true | Event |
+| `flowschemas` |  | flowcontrol.apiserver.k8s.io/v1beta2 | false | FlowSchema |
+| `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io/v1beta2 | false | PriorityLevelConfiguration |
+| `ingressclasses` |  | networking.k8s.io/v1 | false | IngressClass |
+| `ingresses` | `ing` | networking.k8s.io/v1 | true | Ingress |
+| `networkpolicies` | `netpol` | networking.k8s.io/v1 | true | NetworkPolicy |
+| `runtimeclasses` |  | node.k8s.io/v1 | false | RuntimeClass |
+| `poddisruptionbudgets` | `pdb` | policy/v1 | true | PodDisruptionBudget |
+| `podsecuritypolicies` | `psp` | policy/v1beta1 | false | PodSecurityPolicy |
+| `clusterrolebindings` |  | rbac.authorization.k8s.io/v1 | false | ClusterRoleBinding |
+| `clusterroles` |  | rbac.authorization.k8s.io/v1 | false | ClusterRole |
+| `rolebindings` |  | rbac.authorization.k8s.io/v1 | true | RoleBinding |
+| `roles` |  | rbac.authorization.k8s.io/v1 | true | Role |
+| `priorityclasses` | `pc` | scheduling.k8s.io/v1 | false | PriorityClass |
+| `csidrivers` |  | storage.k8s.io/v1 | false | CSIDriver |
+| `csinodes` |  | storage.k8s.io/v1 | false | CSINode |
+| `csistoragecapacities` |  | storage.k8s.io/v1 | true | CSIStorageCapacity |
+| `storageclasses` | `sc` | storage.k8s.io/v1 | false | StorageClass |
+| `volumeattachments` |  | storage.k8s.io/v1 | false | VolumeAttachment |
 
 <!--
 ## Output options
 -->
-
-## 输出选项
+## 输出选项   {#output-options}
 
 <!--
 Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
@@ -428,7 +434,7 @@ Use the following sections for information about how you can format or sort the 
 <!--
 ### Formatting output
 -->
-### 格式化输出
+### 格式化输出   {#formatting-output}
 
 <!--
 The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
@@ -476,7 +482,6 @@ Output format | Description
 <!--
 ##### Example
 -->
-
 ##### 示例
 
 <!--
@@ -544,7 +549,7 @@ The result of running either command is similar to:
 -->
 运行这两个命令之一的结果类似于：
 
-```shell
+```
 NAME           RSRC
 submit-queue   610995
 ```
@@ -572,7 +577,7 @@ This feature is enabled by default. To disable it, add the
 <!--
 ##### Examples
 -->
-##### 例子：
+##### 例子
 
 <!--
 To print information about the status of a pod, use a command like the following:
@@ -588,7 +593,7 @@ The output is similar to:
 -->
 输出类似于：
 
-```shell
+```
 NAME       AGE
 pod-name   1m
 ```
@@ -783,7 +788,6 @@ kubectl delete pods,services -l <label-key>=<label-value>
 # Delete all pods, including uninitialized ones.
 kubectl delete pods --all
 ```
-
 -->
 
 ```shell
@@ -869,7 +873,6 @@ cat service.yaml | kubectl diff -f -
 <!--
 ## Examples: Creating and using plugins
 -->
-
 ## 示例：创建和使用插件
 
 <!--
@@ -920,10 +923,8 @@ sudo chown root:root /usr/local/bin
 kubectl hello
 ```
 -->
-
 这个插件写好了，把它变成可执行的：
 ```bash
-
 sudo chmod a+x ./kubectl-hello
 
 # 并将其移动到路径中的某个位置
@@ -955,6 +956,7 @@ In order to view all of the plugins that are available to `kubectl`, use
 the `kubectl plugin list` subcommand:
 -->
 为了查看可用的所有 `kubectl` 插件，你可以使用 `kubectl plugin list` 子命令：
+
 ```shell
 kubectl plugin list
 ```
@@ -962,6 +964,7 @@ kubectl plugin list
 The output is similar to:
 -->
 输出类似于：
+
 ```
 The following kubectl-compatible plugins are available:
 
@@ -978,6 +981,7 @@ kubectl plugin list
 ```
 -->
 `kubectl plugin list` 指令也可以向你告警哪些插件被运行，或是被其它插件覆盖了，例如：
+
 ```shell
 sudo chmod -x /usr/local/bin/kubectl-foo # 删除执行权限
 kubectl plugin list
@@ -1058,7 +1062,6 @@ Current user: plugins-user
 
 ## {{% heading "whatsnext" %}}
 
-
 <!--
 * Read the `kubectl` reference documentation:
   * the kubectl [command reference](/docs/reference/kubectl/kubectl/)
@@ -1074,4 +1077,4 @@ Current user: plugins-user
 * 学习关于 [`kubectl` 使用约定](/zh-cn/docs/reference/kubectl/conventions/)
 * 阅读 kubectl 中的 [JSONPath 支持](/zh-cn/docs/reference/kubectl/jsonpath/)
 * 了解如何[使用插件扩展 kubectl](/zh-cn/docs/tasks/extend-kubectl/kubectl-plugins)
-  * 查看更多[示例 cli 插件](https://github.com/kubernetes/sample-cli-plugin)。
+  * 查看更多[示例 CLI 插件](https://github.com/kubernetes/sample-cli-plugin)。

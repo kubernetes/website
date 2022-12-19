@@ -19,7 +19,7 @@ Labels are intended to be used to specify identifying attributes of objects that
 Labels can be used to organize and to select subsets of objects. Labels can be attached to objects at creation time and subsequently added and modified at any time.
 Each object can have a set of key/value labels defined. Each Key must be unique for a given object.
 -->
-**标签（Labels）**是附加到 Kubernetes 对象（比如 Pod）上的键值对。
+**标签（Labels）** 是附加到 Kubernetes 对象（比如 Pod）上的键值对。
 标签旨在用于指定对用户有意义且相关的对象的标识属性，但不直接对核心系统有语义含义。
 标签可以用于组织和选择对象的子集。标签可以在创建时附加到对象，随后可以随时添加和修改。
 每个对象都可以定义一组键/值标签。每个键对于给定对象必须是唯一的。

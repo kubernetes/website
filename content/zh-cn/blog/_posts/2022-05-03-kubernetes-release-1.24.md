@@ -154,7 +154,7 @@ using exec plugins rather than storing credentials on the node's filesystem.
 ### Kubelet 凭证提供者毕业至 Beta
 
 kubelet 最初在 Kubernetes 1.20 中作为 Alpha 发布，现在它对[镜像凭证提供者](/zh-cn/docs/tasks/kubelet-credential-provider/kubelet-credential-provider/)
-的支持已升级到 Beta。这允许 kubelet 使用 exec 插件动态检索容器映像注册表的凭据，而不是将凭据存储在节点的文件系统上。
+的支持已升级到 Beta。这允许 kubelet 使用 exec 插件动态检索容器镜像仓库的凭据，而不是将凭据存储在节点的文件系统上。
 
 <!--
 ### Contextual Logging in Alpha

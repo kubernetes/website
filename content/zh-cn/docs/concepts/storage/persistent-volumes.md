@@ -75,7 +75,7 @@ See the [detailed walkthrough with working examples](/docs/tasks/configure-pod-c
 常见的情况是针对不同的问题用户需要的是具有不同属性（如，性能）的 PersistentVolume 卷。
 集群管理员需要能够提供不同性质的 PersistentVolume，
 并且这些 PV 卷之间的差别不仅限于卷大小和访问模式，同时又不能将卷是如何实现的这些细节暴露给用户。
-为了满足这类需求，就有了**存储类（StorageClass）**资源。
+为了满足这类需求，就有了**存储类（StorageClass）** 资源。
 
 参见[基于运行示例的详细演练](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
 
@@ -468,6 +468,13 @@ cluster. However, if you want a PVC to bind to a specific PV, you need to pre-bi
 -->
 ### 预留 PersistentVolume  {#reserving-a-persistentvolume}
 
+控制平面可以在集群中[将 PersistentVolumeClaims 绑定到匹配的 PersistentVolumes](#binding)。
+但是，如果你希望 PVC 绑定到特定 PV，则需要预先绑定它们。
+
+<!--
+By specifying a PersistentVolume in a PersistentVolumeClaim, you declare a binding between that specific PV and PVC.
+If the PersistentVolume exists and has not reserved PersistentVolumeClaims through its `claimRef` field, then the PersistentVolume and PersistentVolumeClaim will be bound.
+-->
 通过在 PersistentVolumeClaim 中指定 PersistentVolume，你可以声明该特定
 PV 与 PVC 之间的绑定关系。如果该 PersistentVolume 存在且未被通过其
 `claimRef` 字段预留给 PersistentVolumeClaim，则该 PersistentVolume
@@ -526,7 +533,7 @@ to `Retain`, including cases where you are reusing an existing PV.
 -->
 ### 扩充 PVC 申领   {#expanding-persistent-volumes-claims}
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You can expand
@@ -537,11 +544,11 @@ the following types of volumes:
 * azureDisk
 * azureFile
 * awsElasticBlockStore
-* cinder (deprecated)
+* cinder （已弃用）
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
-* flexVolume (deprecated)
+* flexVolume （已弃用）
 * gcePersistentDisk
-* glusterfs
+* glusterfs （已弃用）
 * rbd
 * portworxVolume
 
@@ -550,12 +557,12 @@ You can only expand a PVC if its storage class's `allowVolumeExpansion` field is
 -->
 只有当 PVC 的存储类中将 `allowVolumeExpansion` 设置为 true 时，你才可以扩充该 PVC 申领。
 
-``` yaml
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: gluster-vol-default
-provisioner: kubernetes.io/glusterfs
+  name: example-vol-default
+provisioner: vendor-name.example/magicstorage
 parameters:
   resturl: "http://192.168.10.100:8080"
   restuser: ""
@@ -597,7 +604,7 @@ Kubernetes 控制平面将看到两个资源的所需状态匹配，
 -->
 #### CSI 卷的扩充     {#csi-volume-expansion}
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
 Support for expanding CSI volumes is enabled by default but it also requires a specific CSI driver to support volume expansion. Refer to documentation of the specific CSI driver for more information.
@@ -712,7 +719,7 @@ Recovery from failing PVC expansion by users is available as an alpha feature si
 -->
 {{< note >}}
 Kubernetes 从 1.23 版本开始将允许用户恢复失败的 PVC 扩展这一能力作为
-alpha 特性支持。 `RecoverVolumeExpansionFailure` 必须被启用以允许使用此特性。
+alpha 特性支持。`RecoverVolumeExpansionFailure` 必须被启用以允许使用此特性。
 可参考[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 文档了解更多信息。
 {{< /note >}}
@@ -829,9 +836,9 @@ The following types of PersistentVolume are deprecated. This means that support 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
 * `photonPersistentDisk` - Photon controller persistent disk.
-  (**not available** after v1.15)
+  (**not available** starting v1.15)
 * [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
-  (**not available** after v1.21)
+  (**not available** starting v1.21)
 * [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
   (**not available** starting v1.25)
 * [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
@@ -842,14 +849,14 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
 
 旧版本的 Kubernetes 仍支持这些“树内（In-Tree）”持久卷类型：
 
-* `photonPersistentDisk` - Photon 控制器持久化盘。（v1.15 之后 **不可用**）
-* [`scaleIO`](/zh-cn/docs/concepts/storage/volumes/#scaleio) - ScaleIO 卷（v1.21 之后 **不可用**）
+* `photonPersistentDisk` - Photon 控制器持久化盘。（从 v1.15 版本开始将**不可用**）
+* [`scaleIO`](/zh-cn/docs/concepts/storage/volumes/#scaleio) - ScaleIO 卷（v1.21 之后**不可用**）
 * [`flocker`](/zh-cn/docs/concepts/storage/volumes/#flocker) - Flocker 存储
-  （v1.25 之后 **不可用**）
+  （v1.25 之后**不可用**）
 * [`quobyte`](/zh-cn/docs/concepts/storage/volumes/#quobyte) - Quobyte 卷
-  （v1.25 之后 **不可用**）
+  （v1.25 之后**不可用**）
 * [`storageos`](/zh-cn/docs/concepts/storage/volumes/#storageos) - StorageOS 卷
-  （v1.25 之后 **不可用**）
+  （v1.25 之后**不可用**）
 
 <!--
 ## Persistent Volumes
@@ -1138,14 +1145,14 @@ The following volume types support mount options:
 * `cephfs`
 * `cinder`（于 v1.18 **弃用**）
 * `gcePersistentDisk`
-* `glusterfs`
+* `glusterfs`（于 v1.25 **弃用**）
 * `iscsi`
 * `nfs`
 * `rbd`
 * `vsphereVolume`
 
 <!--
-Mount options are not validated, If a mount option is invalid, the mount fails.
+Mount options are not validated. If a mount option is invalid, the mount fails.
 -->
 Kubernetes 不对挂载选项执行合法性检查。如果挂载选项是非法的，挂载就会失败。
 

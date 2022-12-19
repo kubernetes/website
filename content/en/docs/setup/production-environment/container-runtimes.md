@@ -295,12 +295,6 @@ Docker Engine with Kubernetes.
 
 For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 
-#### Overriding the sandbox (pause) image {#override-pause-image-cri-dockerd}
-
-The `cri-dockerd` adapter accepts a command line argument for
-specifying which container image to use as the Pod infrastructure container (“pause image”).
-The command line argument to use is `--pod-infra-container-image`.
-
 ### Mirantis Container Runtime {#mcr}
 
 [Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is a commercially

@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - eparis
+# - pmorie
 title: 컨피그맵을 사용해서 Redis 설정하기
 content_type: tutorial
 ---

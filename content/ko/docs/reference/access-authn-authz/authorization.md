@@ -1,9 +1,9 @@
 ---
-
-
-
-
-
+# reviewers:
+# - erictune
+# - lavalamp
+# - deads2k
+# - liggitt
 title: 인가 개요
 content_type: concept
 weight: 60
@@ -74,10 +74,12 @@ PUT       | update
 PATCH     | patch
 DELETE    | delete(개별 리소스), deletecollection(리소스 모음)
 
+{{< caution >}}
+`get`, `list`, `watch` 요청은 모두 리소스의 전체 세부 내용을 반환할 수 있다. 반환된 데이터의 관점으론 모두 동일하다. 예를 들어 `secrets`에 대해 `list` 요청은 반환된 리소스의 `data` 속성을 여전히 드러낼 것이다.
+{{< /caution >}}
+
 쿠버네티스는 종종 전문 동사를 사용하여 부가적인 권한 인가를 확인한다. 예를 들면,
 
-* [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/security/pod-security-policy/)
-  * `policy` API 그룹의 `podsecuritypolicies` 리소스에 대한 `use` 동사.
 * [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * `rbac.authorization.k8s.io` API 그룹의 `roles` 및 `clusterroles` 리소스에 대한 `bind` 동사.
 * [인증](/docs/reference/access-authn-authz/authentication/)
@@ -134,7 +136,7 @@ kubectl auth can-i list secrets --namespace dev --as dave
 no
 ```
 
-유사하게, `dev` 네임스페이스의 `dev-sa` 서비스어카운트가 
+유사하게, `dev` 네임스페이스의 `dev-sa` 서비스어카운트가
 `target` 네임스페이스의 파드 목록을 볼 수 있는지 확인하려면 다음을 실행한다.
 
 ```bash
@@ -209,7 +211,7 @@ status:
 
 ## 워크로드 생성 및 수정을 통한 권한 확대 {#privilege-escalation-via-pod-creation}
 
-네임스페이스에서 파드를 직접, 또는 오퍼레이터와 같은 [컨트롤러](/ko/docs/concepts/architecture/controller/)를 통해 생성/수정할 수 있는 사용자는 
+네임스페이스에서 파드를 직접, 또는 오퍼레이터와 같은 [컨트롤러](/ko/docs/concepts/architecture/controller/)를 통해 생성/수정할 수 있는 사용자는
 해당 네임스페이스 안에서 자신의 권한을 확대할 수 있다.
 
 {{< caution >}}
@@ -230,8 +232,8 @@ status:
   - 다른 워크로드를 위한 정보의 획득 및 수정에 사용될 수 있음
 
 {{< caution >}}
-시스템 관리자는 위와 같은 영역을 수정하는 CRD를 배포할 때 주의를 기울여야 한다. 
-이들은 의도하지 않은 권한 확대 경로를 노출할 수 있다. 
+시스템 관리자는 위와 같은 영역을 수정하는 CRD를 배포할 때 주의를 기울여야 한다.
+이들은 의도하지 않은 권한 확대 경로를 노출할 수 있다.
 RBAC 제어에 대해 결정할 때 이와 같은 사항을 고려해야 한다.
 {{< /caution >}}
 

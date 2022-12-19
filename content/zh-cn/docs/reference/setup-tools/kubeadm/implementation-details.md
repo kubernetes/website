@@ -525,7 +525,7 @@ Please note that:
 请注意：
 
 <!--  
-1. All images will be pulled from k8s.gcr.io by default.
+1. All images will be pulled from registry.k8s.io by default.
    See [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)
    for customizing the image repository
 1. In case of kubeadm is executed in the `--dry-run` mode, static Pods files are written in a
@@ -533,7 +533,7 @@ Please note that:
 1. Static Pod manifest generation for control plane components can be invoked individually with
    the [`kubeadm init phase control-plane all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-control-plane) command
 -->
-1. 所有镜像默认从 k8s.gcr.io 拉取。关于自定义镜像仓库，
+1. 所有镜像默认从 registry.k8s.io 拉取。关于自定义镜像仓库，
    请参阅[使用自定义镜像](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)。
 2. 如果在 `--dry-run` 模式下执行 kubeadm，则静态 Pod 文件写入一个临时文件夹中。
 3. 可以使用 [`kubeadm init phase control-plane all`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-control-plane)
@@ -794,8 +794,8 @@ Please note that:
 2. If you run kubeadm in `--dry-run` mode, the etcd static Pod manifest is written
    into a temporary folder.
 3. You can directly invoke static Pod manifest generation for local etcd, using the
-    [`kubeadm init phase etcd local`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd)
-    command.
+   [`kubeadm init phase etcd local`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd)
+   command.
 -->
 1. etcd 容器镜像默认从 `registry.gcr.io` 拉取。有关自定义镜像仓库，
    请参阅[使用自定义镜像](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)。
@@ -829,7 +829,7 @@ kubeadm 依靠 kubelet 拉取控制平面镜像并将其作为静态 Pod 正确�
 <!--
 ### Save the kubeadm ClusterConfiguration in a ConfigMap for later reference
 -->
-### 将 kubeadm ClusterConfiguration 保存在 ConfigMap 中以供以后参考  {#save-the-kubeadm-clusterConfiguration-in-a-configMap-for-later-reference}
+### 将 kubeadm ClusterConfiguration 保存在 ConfigMap 中以供以后参考  {#save-the-kubeadm-clusterconfiguration-in-a-configmap-for-later-reference}
 
 <!-- 
 kubeadm saves the configuration passed to `kubeadm init` in a ConfigMap named `kubeadm-config`
@@ -874,8 +874,7 @@ As soon as the control plane is available, kubeadm executes following actions:
 - Taints the node with `node-role.kubernetes.io/control-plane:NoSchedule`
 
 Please note that the phase to mark the control-plane phase can be invoked
-individually with the
-[`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command.
+individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command.
 
 - Taints the node with `node-role.kubernetes.io/master:NoSchedule` and
   `node-role.kubernetes.io/control-plane:NoSchedule`
@@ -950,7 +949,6 @@ Please note that:
 `kubeadm init` create a first bootstrap token, either generated automatically or provided by the
 user with the `--token` flag; as documented in bootstrap token specification, token should be
 saved as secrets with name `bootstrap-token-<token-id>` under `kube-system` namespace.
-Please note that:
 -->
 `kubeadm init` 创建第一个引导令牌，该令牌是自动生成的或由用户提供的 `--token`
 标志的值；如引导令牌规范文档中所述，令牌应保存在 `kube-system` 名字空间下名为
@@ -1035,7 +1033,7 @@ Kubeadm 确保节点启用了证书轮换，csrapprover 控制器将自动批准
 
 <!-- 
 This is implemented by creating ClusterRoleBinding named
-`kubeadm:node-autoapprove-certificate-rotation` between the  `system:nodes` group and the default
+`kubeadm:node-autoapprove-certificate-rotation` between the `system:nodes` group and the default
 role `system:certificates.k8s.io:certificatesigningrequests:selfnodeclient`.
 -->
 这是通过在 `system:nodes` 组和
@@ -1046,7 +1044,7 @@ ClusterRoleBinding 来实现的。
 <!--
 #### Create the public cluster-info ConfigMap
 -->
-#### 创建公共 cluster-info ConfigMap
+#### 创建公共 cluster-info ConfigMap   {#create-the-public-cluster-info-configmap}
 
 <!--
 This phase creates the `cluster-info` ConfigMap in the `kube-public` namespace.
@@ -1079,7 +1077,7 @@ Please note that:
 <!--
 ### Install addons
 -->
-### 安装插件  {##install-addons}
+### 安装插件  {#install-addons}
 
 <!--
 Kubeadm installs the internal DNS server and the kube-proxy addon components via the API server.
@@ -1194,7 +1192,7 @@ Please note that:
 1. In any case the user can skip specific preflight checks (or eventually all preflight checks)
    with the `--ignore-preflight-errors` option.
 -->
-1. `kubeadm join` 预检基本上是 `kubeadm init` 预检的一个子集
+1. `kubeadm join` 预检基本上是 `kubeadm init` 预检的一个子集。
 2. 从 1.24 开始，kubeadm 使用 crictl 与所有已知的 CRI 端点进行通信。
 3. 从 1.9 开始，kubeadm 支持加入在 Windows 上运行的节点；在这种情况下，
    将跳过 Linux 特定的控制参数。
