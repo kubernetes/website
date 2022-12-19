@@ -343,7 +343,7 @@ vSphereストレージクラスのプロビジョナーには2つのタイプが
 
 vSphere CSI StorageClassプロビジョナーは、Tanzu Kubernetesクラスターと連携します。例については、[vSphere CSIリポジトリ](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml)を参照してください。
 
-#### vCPプロビジョナー
+#### vCPプロビジョナー {#vcp-provisioner}
 
 次の例では、VMware Cloud Provider(vCP) StorageClassプロビジョナーを使用しています。
 
