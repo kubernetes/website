@@ -90,4 +90,4 @@ to service multiple plugin APIs at once. A per-API call with request/response ty
 would allow adding support for newer API versions without explicitly bumping the API.
 
 In addition to that, there are existing proposals in the community to introduce additional
-endpoints [KEP-3162: Add Deallocate and PostStopContainer to Device Manager API](https://github.com/kubernetes/kubernetes/pull/109016).
+endpoints [KEP-3162: Add Deallocate and PostStopContainer to Device Manager API](https://github.com/kubernetes/enhancements/issues/3162).
