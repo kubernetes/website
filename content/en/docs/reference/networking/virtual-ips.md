@@ -276,7 +276,7 @@ should have seen the node's health check failing and fully removed the node from
 ## {{% heading "whatsnext" %}}
 
 To learn more about Services,
-read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/).
+read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/).
 
 You can also:
 
