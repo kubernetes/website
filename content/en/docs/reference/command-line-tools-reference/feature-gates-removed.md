@@ -127,6 +127,15 @@ In the following table:
 | `EvenPodsSpread` | `false` | Alpha | 1.16 | 1.17 |
 | `EvenPodsSpread` | `true` | Beta | 1.18 | 1.18 |
 | `EvenPodsSpread` | `true` | GA | 1.19 | 1.21 |
+| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
+| `ExpandCSIVolumes` | `true` | Beta | 1.16 | 1.23 |
+| `ExpandCSIVolumes` | `true` | GA | 1.24 | 1.27 |
+| `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
+| `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | 1.23 |
+| `ExpandInUsePersistentVolumes` | `true` | GA | 1.24 | 1.27 |
+| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
+| `ExpandPersistentVolumes` | `true` | Beta | 1.11 | 1.23 |
+| `ExpandPersistentVolumes` | `true` | GA | 1.24 | 1.27 |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | 1.12 |
 | `ExperimentalCriticalPodAnnotation` | `false` | Deprecated | 1.13 | 1.16 |
 | `ExternalPolicyForExternalIP` | `true` | GA | 1.18 | 1.22 |
@@ -469,6 +478,14 @@ In the following table:
 
 - `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See
   [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
+
+- `ExpandCSIVolumes`: Enable the expanding of CSI volumes.
+
+- `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See
+  [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
+
+- `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See
+  [Expanding Persistent Volumes Claims](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
 
 - `ExperimentalCriticalPodAnnotation`: Enable annotating specific pods as *critical*
   so that their [scheduling is guaranteed](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
