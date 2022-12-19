@@ -36,11 +36,16 @@ for parsing and calculating the next Job creation time. Any usage of it is not
 recommended in a production cluster.
 {{< /caution >}}
 
-When creating the manifest for a CronJob resource, make sure the name you provide
-is a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-The name must be no longer than 52 characters. This is because the CronJob controller will automatically
-append 11 characters to the job name provided and there is a constraint that the
-maximum length of a Job name is no more than 63 characters.
+When the control plane creates new Jobs and (indirectly) Pods for a CronJob, the `.metadata.name`
+of the CronJob is part of the basis for naming those Pods.  The name of a CronJob must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
+Even when the name is a DNS subdomain, the name must be no longer than 52
+characters.  This is because the CronJob controller will automatically append
+11 characters to the name you provide and there is a constraint that the
+length of a Job name is no more than 63 characters.
 
 <!-- body -->
 
