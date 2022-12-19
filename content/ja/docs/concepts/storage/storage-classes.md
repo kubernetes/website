@@ -157,7 +157,7 @@ spec:
           name: task-pv-storage
 ```
 
-### 許可されたトポロジー
+### 許可されたトポロジー {#allowed-topologies}
 
 クラスタオペレーターが`WaitForFirstConsumer`ボリュームバインディングモードを指定すると、ほとんどの状況でプロビジョニングを特定のトポロジに制限する必要がなくなります。ただし、それでも必要な場合は、`allowedTopologies`を指定できます。
 
