@@ -103,52 +103,52 @@ other = "नवीनतम रिलीज़:"
 [latest_version]
 other = "नवीनतम संस्करण।"
 
-[layouts_blog_pager_prev]
+[layout_blog_pager_prev]
 other = "<< पिछला"
 
-[layouts_blog_pager_next]
+[layout_blog_pager_next]
 other = "अगला >>"
 
-[layouts_case_studies_list_tell]
+[layout_case_studies_list_tell]
 other = "अपनी कहानी बतायें"
 
-[layouts_docs_glossary_aka]
+[layout_docs_glossary_aka]
 other = "के रूप में भी जाना जाता है"
 
-[layouts_docs_glossary_description]
+[layout_docs_glossary_description]
 other = "इस शब्दावली का उद्देश्य कुबेरनेट्स शब्दावली की एक व्यापक, मानकीकृत सूची है। इसमें कुबेरनेट्स के लिए विशिष्ट तकनीकी शब्द और उपयोगी संदर्भ प्रदान करने वाले सामान्य शब्द शामिल हैं।"
 
-[layouts_docs_glossary_deselect_all]
+[layout_docs_glossary_deselect_all]
 other = "सभी को अचयनित करें"
 
-[layouts_docs_glossary_click_details_after]
+[layout_docs_glossary_click_details_after]
 other = "किसी विशेष शब्द के लिए लंबी व्याख्या प्राप्त करने के लिए नीचे दिए गए संकेतक।"
 
-[layouts_docs_glossary_click_details_before]
+[layout_docs_glossary_click_details_before]
 other = "पर क्लिक करें"
 
-[layouts_docs_glossary_filter]
+[layout_docs_glossary_filter]
 other = "शब्दों को उनके टैग के अनुसार फ़िल्टर करें"
 
-[layouts_docs_glossary_select_all]
+[layout_docs_glossary_select_all]
 other = "सभी का चयन करे"
 
-[layouts_docs_partials_feedback_improvement]
+[layout_docs_partials_feedback_improvement]
 other = "सुधार का सुझाव दें"
 
-[layouts_docs_partials_feedback_issue]
+[layout_docs_partials_feedback_issue]
 other = "यदि आप चाहते हैं तो GitHub रेपो में एक issue खोलें "
 
-[layouts_docs_partials_feedback_or]
+[layout_docs_partials_feedback_or]
 other = "या"
 
-[layouts_docs_partials_feedback_problem]
+[layout_docs_partials_feedback_problem]
 other = "समस्या के बारे में बताएं"
 
-[layouts_docs_partials_feedback_thanks]
+[layout_docs_partials_feedback_thanks]
 other = "प्रतिक्रिया के लिए धन्यवाद। यदि आपके पास कुबेरनेट्स का उपयोग करने के तरीके के बारे में कोई विशिष्ट, जवाबदेह प्रश्न है, तो इस पर पूछें"
 
-[layouts_docs_search_fetching]
+[layout_docs_search_fetching]
 other = "परिणाम लाए जा रहे हैं.."
 
 [main_by]

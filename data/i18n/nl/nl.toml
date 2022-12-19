@@ -120,60 +120,60 @@ other = "IK BEN..."
 
 # layouts > blog > pager
 
-[layouts_blog_pager_prev]
+[layout_blog_pager_prev]
 other = "<< Vorige"
 
-[layouts_blog_pager_next]
+[layout_blog_pager_next]
 other = "Volgende >>"
 
 # layouts > blog > list
 
-[layouts_case_studies_list_tell]
+[layout_case_studies_list_tell]
 other = "Vertel jouw verhaal"
 
 # layouts > docs > glossary
 
-[layouts_docs_glossary_description]
+[layout_docs_glossary_description]
 other = "Deze verklarende woordenlijst is bedoeld als een uitgebreide, gestandaardiseerde lijst van Kubernetes-terminologie. Het bevat technische termen die specifiek zijn voor K8s, evenals meer algemene termen die een bruikbare context bieden."
 
-[layouts_docs_glossary_filter]
+[layout_docs_glossary_filter]
 other = "Filter termen op basis van hun tags"
 
-[layouts_docs_glossary_select_all]
+[layout_docs_glossary_select_all]
 other = "Alles selecteren"
 
-[layouts_docs_glossary_deselect_all]
+[layout_docs_glossary_deselect_all]
 other = "Alles deselecteren"
 
-[layouts_docs_glossary_aka]
+[layout_docs_glossary_aka]
 other = "Ook bekend als"
 
-[layouts_docs_glossary_click_details_before]
+[layout_docs_glossary_click_details_before]
 other = "Klik op de"
 
-[layouts_docs_glossary_click_details_after]
+[layout_docs_glossary_click_details_after]
 other = "onderstaande indicatoren om een ​​langere verklaring voor een bepaalde term te krijgen."
 
 # layouts > docs > search
 
-[layouts_docs_search_fetching]
+[layout_docs_search_fetching]
 other = "Resultaten ophalen.."
 
 # layouts > partial > feedback
 
-[layouts_docs_partials_feedback_thanks]
+[layout_docs_partials_feedback_thanks]
 other = "Bedankt voor de feedback. Als je een specifieke vraag hebt, die beantwoord moet worden, over het gebruik van Kubernetes, vraag het dan op"
 
-[layouts_docs_partials_feedback_issue]
+[layout_docs_partials_feedback_issue]
 other = "Open een probleem in de GitHub-repo "
 
-[layouts_docs_partials_feedback_problem]
+[layout_docs_partials_feedback_problem]
 other = "meld een probleem"
 
-[layouts_docs_partials_feedback_or]
+[layout_docs_partials_feedback_or]
 other = "of"
 
-[layouts_docs_partials_feedback_improvement]
+[layout_docs_partials_feedback_improvement]
 other = "doe een suggestie voor een verbetering"
 
 # Community links

@@ -123,60 +123,60 @@ other = "Я ..."
 
 # layouts > blog > pager
 
-[layouts_blog_pager_prev]
+[layout_blog_pager_prev]
 other = "<< Назад"
 
-[layouts_blog_pager_next]
+[layout_blog_pager_next]
 other = "Вперёд >>"
 
 # layouts > blog > list
 
-[layouts_case_studies_list_tell]
+[layout_case_studies_list_tell]
 other = "Расскажите свою историю"
 
 # layouts > docs > glossary
 
-[layouts_docs_glossary_description]
+[layout_docs_glossary_description]
 other = "Данный глоссарий должен стать исчерпывающим стандартизированным списком терминологии в Kubernetes. Он включает технические термины, специфичные для K8s, а также более общие термины, которые полезно знать."
 
-[layouts_docs_glossary_filter]
+[layout_docs_glossary_filter]
 other = "Фильтрация терминов по тегам"
 
-[layouts_docs_glossary_select_all]
+[layout_docs_glossary_select_all]
 other = "Выделить всё"
 
-[layouts_docs_glossary_deselect_all]
+[layout_docs_glossary_deselect_all]
 other = "Отменить выбор всех тегов"
 
-[layouts_docs_glossary_aka]
+[layout_docs_glossary_aka]
 other = "Также известный как"
 
-[layouts_docs_glossary_click_details_before]
+[layout_docs_glossary_click_details_before]
 other = "Нажмите на значок"
 
-[layouts_docs_glossary_click_details_after]
+[layout_docs_glossary_click_details_after]
 other = "для получения более подробное объяснения по интересующему термину."
 
 # layouts > docs > search
 
-[layouts_docs_search_fetching]
+[layout_docs_search_fetching]
 other = "Получение результатов.."
 
 # layouts > partial > feedback
 
-[layouts_docs_partials_feedback_thanks]
+[layout_docs_partials_feedback_thanks]
 other = "Спасибо за отзыв! Если у вас есть конкретный вопрос об использовании Kubernetes, спрашивайте"
 
-[layouts_docs_partials_feedback_issue]
+[layout_docs_partials_feedback_issue]
 other = "Сообщите о проблеме в репозитории GitHub, если вы хотите "
 
-[layouts_docs_partials_feedback_problem]
+[layout_docs_partials_feedback_problem]
 other = "сообщить о проблеме"
 
-[layouts_docs_partials_feedback_or]
+[layout_docs_partials_feedback_or]
 other = "или"
 
-[layouts_docs_partials_feedback_improvement]
+[layout_docs_partials_feedback_improvement]
 other = "предложить улучшение"
 
 # Community links
