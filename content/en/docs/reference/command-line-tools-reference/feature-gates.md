@@ -282,15 +282,6 @@ For a reference to old feature gates that are removed, please refer to
 | `EphemeralContainers` | `true` | GA | 1.25 | - |
 | `EventedPLEG` | `false` | Alpha | 1.26 | - |
 | `ExecProbeTimeout` | `true` | GA | 1.20 | - |
-| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
-| `ExpandCSIVolumes` | `true` | Beta | 1.16 | 1.23 |
-| `ExpandCSIVolumes` | `true` | GA | 1.24 | - |
-| `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
-| `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | 1.23 |
-| `ExpandInUsePersistentVolumes` | `true` | GA | 1.24 | - |
-| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
-| `ExpandPersistentVolumes` | `true` | Beta | 1.11 | 1.23 |
-| `ExpandPersistentVolumes` | `true` | GA | 1.24 |- |
 | `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
 | `IdentifyPodOS` | `true` | Beta | 1.24 | 1.24 |
 | `IdentifyPodOS` | `true` | GA | 1.25 | - |
@@ -553,15 +544,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This feature gate exists in case any of your existing workloads depend on a
   now-corrected fault where Kubernetes ignored exec probe timeouts. See
   [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes).
-- `ExpandCSIVolumes`: Enable the expanding of CSI volumes.
 - `ExpandedDNSConfig`: Enable kubelet and kube-apiserver to allow more DNS
   search paths and longer list of DNS search paths. This feature requires container
   runtime support(Containerd: v1.5.6 or higher, CRI-O: v1.22 or higher). See
   [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration).
-- `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See
-  [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
-- `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See
-  [Expanding Persistent Volumes Claims](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
 - `ExperimentalHostUserNamespaceDefaulting`: Enabling the defaulting user
   namespace to host. This is for containers that are using other host namespaces,
   host mounts, or containers that are privileged or using specific non-namespaced
