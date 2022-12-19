@@ -3,11 +3,11 @@ title: "Escalonamento, preempção e remoção"
 weight: 95
 content_type: concept
 description: >
-  No Kubernetes, escalonamento refere-se a certeza de que os Pods correspondam aos nós para que o kubelet possa executá-los. Preempção é o processo de finalizar Pods com menor prioridade, para que os Pods com maior prioridade possam ser escalonados nos nós. Remoção é o processo de finalização proativa de um ou mais Pods em nós com poucos recursos.
+  No Kubernetes, escalonamento refere-se à certeza de que os Pods correspondam aos nós para que o kubelet possa executá-los. Preempção é o processo de finalizar Pods com menor prioridade, para que os Pods com maior prioridade possam ser escalonados nos nós. Remoção é o processo de finalização proativa de um ou mais Pods em nós com poucos recursos.
 no_list: true
 ---
 
-No Kubernetes, escalonamento refere-se a certeza de que {{<glossary_tooltip text="Pods" term_id="pod">}}
+No Kubernetes, escalonamento refere-se à certeza de que {{<glossary_tooltip text="Pods" term_id="pod">}}
 correspondam aos {{<glossary_tooltip text="nós" term_id="node">}} para que o
 {{<glossary_tooltip text="Kubelet" term_id="kubelet">}} possa executá-los. Preempção é o processo de finalizar Pods com menor {{<glossary_tooltip text="prioridade" term_id="pod-priority">}}
 para que os Pods com maior prioridade possam ser escalonados nos nós. Remoção é o processo de finalização proativa de um ou mais Pods em nós com poucos recursos.
@@ -23,7 +23,7 @@ para que os Pods com maior prioridade possam ser escalonados nos nós. Remoção
 - [Refinando a Performance do Escalonador](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 - [Empacotamento de Recursos para Recursos Estendidos](/docs/concepts/scheduling-eviction/resource-bin-packing/)
 
-## Interrupção do Pod
+## Disrupção do Pod
 
 {{<glossary_definition term_id="pod-disruption" length="all">}}
 
