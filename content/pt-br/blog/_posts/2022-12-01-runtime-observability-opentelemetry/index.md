@@ -20,17 +20,16 @@ pode fazer uso dessa stack de tecnologia?
 
 [otel]: https://opentelemetry.io
 
-Kubernetes consists of multiple components where some are independent and others
-are stacked together. Looking at the architecture from a container runtime
-perspective, then there are from the top to the bottom:
-
-- **kube-apiserver**: Validates and configures data for the API objects
-- **kubelet**: Agent running on each node
-- **CRI runtime**: Container Runtime Interface (CRI) compatible container runtime
-  like [CRI-O][crio] or [containerd][containerd]
-- **OCI runtime**: Lower level [Open Container Initiative (OCI)][oci] runtime
-  like [runc][runc] or [crun][crun]
-- **Linux kernel** or **Microsoft Windows**: Underlying operating system
+O Kubernetes consiste de múltiplos componentes, sendo que algums são independentes
+e outros não. Observando a sua arquitetura da perspectiva de container runtime,
+temos, de cima pra baixo:
+- **kube-apiserver**: Valida e configura os dados para os objetos da API
+- **kubelet**: Agente executando em cada nó
+- **CRI runtime**: Container runtime compatível com a Interface de Execução de Contêiner (do inglês Container Runtime Interface (CRI)) 
+  como [CRI-O][crio] ou [containerd][containerd]
+- **OCI runtime**: Runtime de baixo nível [Open Container Initiative (OCI)][oci]
+  como [runc][runc] ou [crun][crun]
+- **Linux kernel** or **Microsoft Windows**: Sistema operacional base
 
 [crio]: https://cri-o.io
 [containerd]: https://containerd.io
