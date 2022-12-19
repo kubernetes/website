@@ -139,7 +139,8 @@ For a reference to old feature gates that are removed, please refer to
 | `MemoryManager` | `true` | Beta | 1.22 | |
 | `MemoryQoS` | `false` | Alpha | 1.22 | |
 | `MinDomainsInPodTopologySpread` | `false` | Alpha | 1.24 | 1.24 |
-| `MinDomainsInPodTopologySpread` | `false` | Beta | 1.25 | |
+| `MinDomainsInPodTopologySpread` | `false` | Beta | 1.25 | 1.26 |
+| `MinDomainsInPodTopologySpread` | `true` | Beta | 1.27 | |
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
 | `MixedProtocolLBService` | `true` | Beta | 1.24 | |
 | `MultiCIDRRangeAllocator` | `false` | Alpha | 1.25 | |
