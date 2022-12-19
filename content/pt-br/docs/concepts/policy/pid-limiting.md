@@ -46,7 +46,7 @@ não garante que todos os pods alocados nesse host não possam afetar o nó em g
 A limitação por pod também não protege os próprios agentes do nó do esgotamento do PID.
 
 Você também pode reservar uma quantidade de PIDs para consumo adicional do nó, separada da
-alocação para os pods. Isso é semelhante a como você pode reservar uma memória ou outros
+alocação para os pods. Isso é semelhante a como você pode reservar uma CPU, memória ou outros
 recursos para uso pelo sistema operacional e outras instalações fora dos Pods
 e seus contêineres.
 
