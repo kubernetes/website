@@ -1,7 +1,7 @@
 ---
 title: kubelet
 content_type: tool-reference
-weight: 28
+weight: 20
 ---
 
 ## {{% heading "synopsis" %}}
@@ -16,7 +16,7 @@ through various mechanisms (primarily through the apiserver) and ensures that
 the containers described in those PodSpecs are running and healthy. The
 kubelet doesn't manage containers which were not created by Kubernetes.
 
-Other than from a PodSpec from the apiserver, there are three ways that a
+Other than from a PodSpec from the apiserver, there are two ways that a
 container manifest can be provided to the Kubelet.
 
 - File: Path passed as a flag on the command line. Files under this path will be
@@ -24,8 +24,6 @@ container manifest can be provided to the Kubelet.
   and is configurable via a flag.
 - HTTP endpoint: HTTP endpoint passed as a parameter on the command line. This
   endpoint is checked every 20 seconds (also configurable with a flag).
-- HTTP server: The kubelet can also listen for HTTP and respond to a simple API
-  (underspec'd currently) to submit a new manifest.
 
 ```
 kubelet [flags]
@@ -219,7 +217,7 @@ kubelet [flags]
 <td colspan="2">--container-runtime-endpoint string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The endpoint of remote runtime service. Unix Domain SOckets are supported on Linux, while npipe and tcp endpoints are supported on windows. Examples: <code>unix:///var/run/dockershim.sock</code>, <code>npipe:////./pipe/dockershim</code>.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">The endpoint of remote runtime service. Unix Domain Sockets are supported on Linux, while npipe and tcp endpoints are supported on windows. Examples: <code>unix:///path/to/runtime.sock</code>, <code>npipe:////./pipe/runtime</code>.</td>
 </tr>
 
 <tr>
@@ -849,7 +847,7 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>k8s.gcr.io/pause:3.6</code></td>
+<td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>registry.k8s.io/pause:3.6</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Specified image will not be pruned by the image garbage collector. When container-runtime is set to <code>docker</code>, all containers in each pod will use the network/IPC namespaces from this image. Other CRI implementations have their own configuration to set this image.</td>
@@ -1093,7 +1091,7 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be used.<br/>
 Preferred values:
 `TLS_AES_128_GCM_SHA256`, `TLS_AES_256_GCM_SHA384`, `TLS_CHACHA20_POLY1305_SHA256`, `TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA`, `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256`, `TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA`, `TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384`, `TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305`, `TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256`, `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA`, `TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`, `TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA`, `TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384`, `TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305`, `TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256`, `TLS_RSA_WITH_AES_128_CBC_SHA`, `TLS_RSA_WITH_AES_128_GCM_SHA256`, `TLS_RSA_WITH_AES_256_CBC_SHA`, `TLS_RSA_WITH_AES_256_GCM_SHA384`<br/>
-Insecure values:<br/>
+Insecure values:
 `TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256`, `TLS_ECDHE_ECDSA_WITH_RC4_128_SHA`, `TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA`, `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256`, `TLS_ECDHE_RSA_WITH_RC4_128_SHA`, `TLS_RSA_WITH_3DES_EDE_CBC_SHA`, `TLS_RSA_WITH_AES_128_CBC_SHA256`, `TLS_RSA_WITH_RC4_128_SHA`.<br/>
 (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 </tr>

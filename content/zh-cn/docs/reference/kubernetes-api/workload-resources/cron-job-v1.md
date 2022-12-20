@@ -36,9 +36,7 @@ CronJob 代表单个定时作业（Cron Job) 的配置。
 
 - **apiVersion**: batch/v1
 
-
 - **kind**: CronJob
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -117,18 +115,25 @@ CronJobSpec 描述了作业的执行方式和实际将运行的时间。
 
 - **schedule** (string), 必需
 
-  Cron 格式的排期表，请参阅 https://en.wikipedia.org/wiki/Cron.
+  Cron 格式的排期表，请参阅 https://zh.wikipedia.org/wiki/Cron。
   
 <!--
 - **timeZone** (string)
 
-  The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+  The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
 -->
 
 - **timeZone** (string)
 
-  给定时间表的时区，请参阅 https://en.wikipedia.org/wiki/List_of_tz_database_time_zones。 
-  如果未指定，这将取决于 kube-controller-manager 进程的时区。 ALPHA：此字段处于 alpha 状态，必须通过 "CronJobTimeZone" 功能门启用。
+  给定时间表的时区名称，请参阅 https://en.wikipedia.org/wiki/List_of_tz_database_time_zones。
+  如果未指定，这将默认为 kube-controller-manager 进程的时区。
+  有效时区名称和时区偏移量的设置由 API 服务器在 CronJob 验证期间从系统范围的时区数据库进行加载，
+  在执行期间由控制器管理器从系统范围的时区数据库进行加载。
+  如果找不到系统范围的时区数据库，则转而使用该数据库的捆绑版本。
+  如果时区名称在 CronJob 的生命周期内或由于主机配置更改而变得无效，该控制器将停止创建新的 Job，
+  并将创建一个原因为 UnknownTimeZone 的系统事件。更多信息，请请参阅
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/cron-jobs/#time-zones。
+  这是 Beta 字段，必须通过 `CronJobTimeZone` 特性门控启用。
 
 <!--
 - **concurrencyPolicy** (string)
@@ -138,11 +143,11 @@ CronJobSpec 描述了作业的执行方式和实际将运行的时间。
 
 - **concurrencyPolicy** (string)
 
-  指定如何处理作业的并发执行。 有效值为： 
+  指定如何处理作业的并发执行。 有效值为：
 
-  - "Allow" (默认)：允许 CronJobs 并发运行； 
-  - "Forbid"：禁止并发运行，如果上一次运行尚未完成则跳过下一次运行； 
-  - "Replace"：取消当前正在运行的作业并将其替换为新作业
+  - "Allow" (默认)：允许 CronJobs 并发运行；
+  - "Forbid"：禁止并发运行，如果上一次运行尚未完成则跳过下一次运行；
+  - "Replace"：取消当前正在运行的作业并将其替换为新作业。
 
 <!--
 - **startingDeadlineSeconds** (int64)
@@ -183,7 +188,6 @@ CronJobSpec 描述了作业的执行方式和实际将运行的时间。
 - **failedJobsHistoryLimit** (int32)
 
   要保留的以失败状态结束的作业个数。值必须是非负整数。默认值为 1。
-
 
 ## CronJobStatus {#CronJobStatus}
 
@@ -240,7 +244,6 @@ CronJobStatus 表示某个定时作业的当前状态。
   <a name="Time"></a>
   **Time 是对 time.Time 的封装，它支持对 YAML 和 JSON 的正确编排。为 time 包提供的许多工厂方法模式提供了包装器。**
 
-
 ## CronJobList {#CronJobList}
 
 <!--
@@ -253,7 +256,6 @@ CronJobList 是定时作业的集合。
 <hr>
 
 - **apiVersion**: batch/v1
-
 
 - **kind**: CronJobList
 
@@ -273,13 +275,12 @@ CronJobList 是定时作业的集合。
 -->
 - **items** ([]<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>), required
 
-  items 是 CronJobs 的列表。
-
+  items 是 CronJob 的列表。
 
 <!--
 ## Operations {#Operations}
 -->
-## 操作 {#操作}
+## 操作 {#Operations}
 
 <hr>
 
@@ -292,7 +293,6 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 #### Parameters
 -->
-
 ### `get` 查看指定的 CronJob
 
 #### HTTP 请求
@@ -306,11 +306,9 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   name of the CronJob
 
-
 - **namespace** (*in path*): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
 
 - **pretty** (*in query*): string
 
@@ -325,7 +323,6 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -333,7 +330,6 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 <!--
 #### Response
 -->
-
 #### 响应
 
 <!--
@@ -341,7 +337,6 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 401: Unauthorized
 -->
-
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
 401: Unauthorized
@@ -354,7 +349,6 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 #### Parameters
-
 -->
 
 ### `get` 查看指定 CronJob 的状态
@@ -370,11 +364,9 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   name of the CronJob
 
-
 - **namespace** (*in path*): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
 
 - **pretty** (*in query*): string
 
@@ -385,11 +377,9 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   CronJob 的名称
 
-
 - **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
 
 - **pretty** (**查询参数**): string
 
@@ -398,14 +388,12 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 <!--
 #### Response
 
-
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
 401: Unauthorized
 -->
 
 #### 响应
-
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
@@ -420,7 +408,6 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 #### Parameters
 -->
-
 ### `list` 查看或监视 CronJob 类别的对象
 
 #### HTTP 请求
@@ -549,7 +536,6 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 #### 响应
 
-
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobList" >}}">CronJobList</a>): OK
 
 401: Unauthorized
@@ -563,7 +549,6 @@ GET /apis/batch/v1/cronjobs
 
 #### Parameters
 -->
-
 ### `list` 查看或监视 CronJob 类型的对象
 
 #### HTTP 请求
@@ -675,14 +660,12 @@ GET /apis/batch/v1/cronjobs
 <!--
 #### Response
 
-
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobList" >}}">CronJobList</a>): OK
 
 401: Unauthorized
 -->
 
 #### 响应
-
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobList" >}}">CronJobList</a>): OK
 
@@ -705,7 +688,6 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 #### 参数
-
 
 <!--
 - **namespace** (*in path*): string, required
@@ -766,7 +748,6 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 <!--
 #### Response
 
-
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
@@ -777,7 +758,6 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 -->
 
 #### 响应
-
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
@@ -873,7 +853,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 <!--
 #### Response
 
-
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
@@ -882,7 +861,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 -->
 
 #### 响应
-
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
@@ -977,7 +955,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 <!--
 #### Response
 
-
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
@@ -986,7 +963,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 -->
 
 #### 响应
-
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
@@ -1016,7 +992,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 - **name** (*in path*): string, required
 
   name of the CronJob
-- 
 -->
 
 - **name** (**路径参数**): string, 必需
@@ -1092,7 +1067,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 <!--
 #### Response
 
-
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
@@ -1101,7 +1075,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 -->
 
 #### 响应
-
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
@@ -1206,7 +1179,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 <!--
 #### Response
 
-
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
 201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
@@ -1215,7 +1187,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 -->
 
 #### 响应
-
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
@@ -1310,7 +1281,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 <!--
 #### Response
 
-
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
@@ -1319,7 +1289,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 -->
 
 #### 响应
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
@@ -1474,14 +1443,12 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 <!--
 #### Response
 
-
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
 -->
 
 #### 响应
-
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 

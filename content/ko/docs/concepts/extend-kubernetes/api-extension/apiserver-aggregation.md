@@ -1,9 +1,9 @@
 ---
 title: 쿠버네티스 API 애그리게이션 레이어(aggregation layer)
-
-
-
-
+# reviewers:
+# - lavalamp
+# - cheftako
+# - chenopis
 content_type: concept
 weight: 10
 ---

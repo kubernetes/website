@@ -18,7 +18,14 @@ card:
 {{< note >}}
 일반적인 쿠버네티스에 기여하는 방법에 대한 자세한 내용은
 [기여자 문서](https://www.kubernetes.dev/docs/)를 참고한다.
+
+또한, 쿠버네티스 기여에 대한 내용은
+{{< glossary_tooltip text="CNCF" term_id="cncf" >}}
+[문서](https://contribute.cncf.io/contributors/projects/#kubernetes)
+를 참고한다.
 {{< /note >}}
+
+---
 
 이 웹사이트는 [쿠버네티스 SIG Docs](/ko/docs/contribute/#sig-docs에-참여)에 의해서 관리됩니다.
 
