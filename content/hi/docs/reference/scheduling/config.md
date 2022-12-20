@@ -15,7 +15,7 @@ weight: 20
 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} में
 शेड्यूलिंग प्रोफ़ाइल आपको शेड्यूलिंग के विभिन्न चरणों को कॉन्फ़िगर करने की अनुमति देता है। 
 प्रत्येक चरण एक विस्तार बिंदु में उजागर होता है। इनमें से एक या अधिक विस्तार बिंदु को लागू करके
-इनमें से एक या अधिक विस्तार बिंदु को लागू करके।
+प्लगइन्स शेड्यूलिंग व्यवहार प्रदान करते हैं।
 
 KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
 या [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)) संरचना
