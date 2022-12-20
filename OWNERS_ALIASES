@@ -210,17 +210,9 @@ aliases:
     - truongnh1992
   sig-docs-ru-owners: # Admins for Russian content
     - Arhell
-    - msheldyakov
-    - aisonaku
-    - potapy4
-    - dianaabv
     - shurup
   sig-docs-ru-reviews: # PR reviews for Russian content
     - Arhell
-    - msheldyakov
-    - aisonaku
-    - potapy4
-    - dianaabv
     - shurup
   sig-docs-pl-owners: # Admins for Polish content
     - mfilocha
