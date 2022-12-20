@@ -74,6 +74,7 @@ configure  kubernetes components or tools. Most of these APIs are not exposed
 by the API server in a RESTful way though they are essential for a user or an
 operator to use or manage a cluster.
 
+* [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
 * [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/)
 * [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver encryption (v1)](/docs/reference/config-api/apiserver-encryption.v1/)
