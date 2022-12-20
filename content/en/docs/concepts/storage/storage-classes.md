@@ -6,7 +6,7 @@ reviewers:
 - msau42
 title: Storage Classes
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->
@@ -71,17 +71,12 @@ for provisioning PVs. This field must be specified.
 | Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
 | FC                   | -                   | -                                    |
 | FlexVolume           | -                   | -                                    |
-| Flocker              | &#x2713;            | -                                    |
 | GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
-| Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
-| Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
 | NFS                  | -                   | [NFS](#nfs)       |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
 | VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
 | PortworxVolume       | &#x2713;            | [Portworx Volume](#portworx-volume)  |
-| ScaleIO              | &#x2713;            | [ScaleIO](#scaleio)                  |
-| StorageOS            | &#x2713;            | [StorageOS](#storageos)              |
 | Local                | -                   | [Local](#local)              |
 
 You are not restricted to specifying the "internal" provisioners
@@ -127,7 +122,6 @@ Volume type | Required Kubernetes version
 gcePersistentDisk | 1.11
 awsElasticBlockStore | 1.11
 Cinder | 1.11
-glusterfs | 1.11
 rbd | 1.11
 Azure File | 1.11
 Azure Disk | 1.11
@@ -284,7 +278,7 @@ parameters:
 * `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS
   volume plugin multiplies this with size of requested volume to compute IOPS
   of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see
-  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
+  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)).
   A string is expected here, i.e. `"10"`, not `10`.
 * `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
 * `encrypted`: denotes whether the EBS volume should be encrypted or not.
@@ -342,87 +336,6 @@ using `allowedTopologies`.
 [allowedTopologies](#allowed-topologies)
 {{< /note >}}
 
-### Glusterfs
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/glusterfs
-parameters:
-  resturl: "http://127.0.0.1:8081"
-  clusterid: "630372ccdc720a92c681fb928f27b53f"
-  restauthenabled: "true"
-  restuser: "admin"
-  secretNamespace: "default"
-  secretName: "heketi-secret"
-  gidMin: "40000"
-  gidMax: "50000"
-  volumetype: "replicate:3"
-```
-
-* `resturl`: Gluster REST service/Heketi service url which provision gluster
-  volumes on demand. The general format should be `IPaddress:Port` and this is
-  a mandatory parameter for GlusterFS dynamic provisioner. If Heketi service is
-  exposed as a routable service in openshift/kubernetes setup, this can have a
-  format similar to `http://heketi-storage-project.cloudapps.mystorage.com`
-  where the fqdn is a resolvable Heketi service url.
-* `restauthenabled` : Gluster REST service authentication boolean that enables
-  authentication to the REST server. If this value is `"true"`, `restuser` and
-  `restuserkey` or `secretNamespace` + `secretName` have to be filled. This
-  option is deprecated, authentication is enabled when any of `restuser`,
-  `restuserkey`, `secretName` or `secretNamespace` is specified.
-* `restuser` : Gluster REST service/Heketi user who has access to create volumes
-  in the Gluster Trusted Pool.
-* `restuserkey` : Gluster REST service/Heketi user's password which will be used
-  for authentication to the REST server. This parameter is deprecated in favor
-  of `secretNamespace` + `secretName`.
-* `secretNamespace`, `secretName` : Identification of Secret instance that
-  contains user password to use when talking to Gluster REST service. These
-  parameters are optional, empty password will be used when both
-  `secretNamespace` and `secretName` are omitted. The provided secret must have
-  type `"kubernetes.io/glusterfs"`, for example created in this way:
-
-    ```
-    kubectl create secret generic heketi-secret \
-      --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
-      --namespace=default
-    ```
-
-    Example of a secret can be found in
-    [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
-
-* `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster
-  which will be used by Heketi when provisioning the volume. It can also be a
-  list of clusterids, for example:
-  `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`. This
-  is an optional parameter.
-* `gidMin`, `gidMax` : The minimum and maximum value of GID range for the
-  StorageClass. A unique value (GID) in this range ( gidMin-gidMax ) will be
-  used for dynamically provisioned volumes. These are optional values. If not
-  specified, the volume will be provisioned with a value between 2000-2147483647
-  which are defaults for gidMin and gidMax respectively.
-* `volumetype` : The volume type and its parameters can be configured with this
-  optional value. If the volume type is not mentioned, it's up to the provisioner
-  to decide the volume type.
-
-    For example:
-    * Replica volume: `volumetype: replicate:3` where '3' is replica count.
-    * Disperse/EC volume: `volumetype: disperse:4:2` where '4' is data and '2' is the redundancy count.
-    * Distribute volume: `volumetype: none`
-
-    For available volume types and administration options, refer to the
-    [Administration Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
-
-    For further reference information, see
-    [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
-
-    When persistent volumes are dynamically provisioned, the Gluster plugin
-    automatically creates an endpoint and a headless service in the name
-    `gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically
-    deleted when the persistent volume claim is deleted.
-
 ### NFS
 
 ```yaml
@@ -473,7 +386,7 @@ There are two types of provisioners for vSphere storage classes:
 - [CSI provisioner](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
-In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#csi-migration-5).
+In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
 
 #### CSI Provisioner {#vsphere-provisioner-csi}
 
@@ -543,7 +456,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
         persistent volume (virtual disk) is being created. The virtual disk is
         distributed across the Virtual SAN datastore to meet the requirements.
 
-        You can see [Storage Policy Based Management for dynamic provisioning of volumes](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)
+        You can see [Storage Policy Based Management for dynamic provisioning of volumes](https://github.com/vmware-archive/vsphere-storage-for-kubernetes/blob/fa4c8b8ad46a85b6555d715dd9d27ff69839df53/documentation/policy-based-mgmt.md)
         for more details on how to use storage policies for persistent volumes
         management.
 
@@ -598,61 +511,6 @@ parameters:
 * `imageFeatures`: This parameter is optional and should only be used if you
   set `imageFormat` to "2". Currently supported features are `layering` only.
   Default is "", and no features are turned on.
-
-### Quobyte
-
-{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
-
-The Quobyte in-tree storage plugin is deprecated, an 
-[example](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml)
-`StorageClass` for the out-of-tree Quobyte plugin can be found at the Quobyte CSI repository.
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-   name: slow
-provisioner: kubernetes.io/quobyte
-parameters:
-    quobyteAPIServer: "http://138.68.74.142:7860"
-    registry: "138.68.74.142:7861"
-    adminSecretName: "quobyte-admin-secret"
-    adminSecretNamespace: "kube-system"
-    user: "root"
-    group: "root"
-    quobyteConfig: "BASE"
-    quobyteTenant: "DEFAULT"
-```
-
-* `quobyteAPIServer`: API Server of Quobyte in the format
-  `"http(s)://api-server:7860"`
-* `registry`: Quobyte registry to use to mount the volume. You can specify the
-  registry as ``<host>:<port>`` pair or if you want to specify multiple
-  registries, put a comma between them.
-  ``<host1>:<port>,<host2>:<port>,<host3>:<port>``.
-  The host can be an IP address or if you have a working DNS you can also
-  provide the DNS names.
-* `adminSecretNamespace`: The namespace for `adminSecretName`.
-  Default is "default".
-* `adminSecretName`: secret that holds information about the Quobyte user and
-  the password to authenticate against the API server. The provided secret
-  must have type "kubernetes.io/quobyte" and the keys `user` and `password`,
-  for example:
-
-    ```shell
-    kubectl create secret generic quobyte-admin-secret \
-      --type="kubernetes.io/quobyte" --from-literal=user='admin' --from-literal=password='opensesame' \
-      --namespace=kube-system
-    ```
-
-* `user`: maps all access to this user. Default is "root".
-* `group`: maps all access to this group. Default is "nfsnobody".
-* `quobyteConfig`: use the specified configuration to create the volume. You
-  can create a new configuration or modify an existing one with the Web
-  console or the quobyte CLI. Default is "BASE".
-* `quobyteTenant`: use the specified tenant ID to create/delete the volume.
-  This Quobyte tenant has to be already present in Quobyte.
-  Default is "DEFAULT".
 
 ### Azure Disk
 
@@ -781,96 +639,6 @@ parameters:
   `persistent volumes` use case such as for databases like Cassandra should set
   to false, `true/false` (default `false`). A string is expected here i.e.
   `"true"` and not `true`.
-
-### ScaleIO
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/scaleio
-parameters:
-  gateway: https://192.168.99.200:443/api
-  system: scaleio
-  protectionDomain: pd0
-  storagePool: sp1
-  storageMode: ThinProvisioned
-  secretRef: sio-secret
-  readOnly: "false"
-  fsType: xfs
-```
-
-* `provisioner`: attribute is set to `kubernetes.io/scaleio`
-* `gateway`: address to a ScaleIO API gateway (required)
-* `system`: the name of the ScaleIO system (required)
-* `protectionDomain`: the name of the ScaleIO protection domain (required)
-* `storagePool`: the name of the volume storage pool (required)
-* `storageMode`: the storage provision mode: `ThinProvisioned` (default) or
-  `ThickProvisioned`
-* `secretRef`: reference to a configured Secret object (required)
-* `readOnly`: specifies the access mode to the mounted volume (default false)
-* `fsType`: the file system to use for the volume (default ext4)
-
-The ScaleIO Kubernetes volume plugin requires a configured Secret object.
-The secret must be created with type `kubernetes.io/scaleio` and use the same
-namespace value as that of the PVC where it is referenced
-as shown in the following command:
-
-```shell
-kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" \
---from-literal=username=sioadmin --from-literal=password=d2NABDNjMA== \
---namespace=default
-```
-
-### StorageOS
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: fast
-provisioner: kubernetes.io/storageos
-parameters:
-  pool: default
-  description: Kubernetes volume
-  fsType: ext4
-  adminSecretNamespace: default
-  adminSecretName: storageos-secret
-```
-
-* `pool`: The name of the StorageOS distributed capacity pool to provision the
-  volume from.  Uses the `default` pool which is normally present if not specified.
-* `description`: The description to assign to volumes that were created dynamically.
-  All volume descriptions will be the same for the storage class, but different
-  storage classes can be used to allow descriptions for different use cases.
-  Defaults to `Kubernetes volume`.
-* `fsType`: The default filesystem type to request. Note that user-defined rules
-  within StorageOS may override this value.  Defaults to `ext4`.
-* `adminSecretNamespace`: The namespace where the API configuration secret is
-  located. Required if adminSecretName set.
-* `adminSecretName`: The name of the secret to use for obtaining the StorageOS
-  API credentials. If not specified, default values will be attempted.
-
-The StorageOS Kubernetes volume plugin can use a Secret object to specify an
-endpoint and credentials to access the StorageOS API. This is only required when
-the defaults have been changed.
-The secret must be created with type `kubernetes.io/storageos` as shown in the
-following command:
-
-```shell
-kubectl create secret generic storageos-secret \
---type="kubernetes.io/storageos" \
---from-literal=apiAddress=tcp://localhost:5705 \
---from-literal=apiUsername=storageos \
---from-literal=apiPassword=storageos \
---namespace=default
-```
-
-Secrets used for dynamically provisioned volumes may be created in any namespace
-and referenced with the `adminSecretNamespace` parameter. Secrets used by
-pre-provisioned volumes must be created in the same namespace as the PVC that
-references it.
 
 ### Local
 

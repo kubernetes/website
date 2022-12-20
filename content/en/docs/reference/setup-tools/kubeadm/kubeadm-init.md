@@ -155,15 +155,15 @@ directly to kubeadm is not supported. Instead, it is possible to pass them by
 List of feature gates:
 
 {{< table caption="kubeadm feature gates" >}}
-Feature | Default | Alpha | Beta
-:-------|:--------|:------|:-----
-`PublicKeysECDSA` | `false` | 1.19 | -
-`RootlessControlPlane` | `false` | 1.22 | -
-`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23
+Feature | Default | Alpha | Beta | GA
+:-------|:--------|:------|:-----|:----
+`PublicKeysECDSA` | `false` | 1.19 | - | -
+`RootlessControlPlane` | `false` | 1.22 | - | -
+`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23 | 1.25
 {{< /table >}}
 
 {{< note >}}
-Once a feature gate goes GA it is removed from this list as its value becomes locked to `true` by default.
+Once a feature gate goes GA its value becomes locked to `true` by default.
 {{< /note >}}
 
 Feature gate descriptions:
@@ -188,10 +188,6 @@ that ConfigMap are appropriate for the value you set. When kubeadm writes this C
 or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
 (during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade ...`), kubeadm attempts to use unversioned ConfigMap name first;
 if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
-
-{{< note >}}
-Setting `UnversionedKubeletConfigMap` to `false` is supported but **deprecated**.
-{{< /note >}}
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
@@ -220,11 +216,11 @@ kubeadm config images pull
 You can pass `--config` to the above commands with a [kubeadm configuration file](#config-file)
 to control the `kubernetesVersion` and `imageRepository` fields.
 
-All default `k8s.gcr.io` images that kubeadm requires support multiple architectures.
+All default `registry.k8s.io` images that kubeadm requires support multiple architectures.
 
 ### Using custom images {#custom-images}
 
-By default, kubeadm pulls images from `k8s.gcr.io`. If the
+By default, kubeadm pulls images from `registry.k8s.io`. If the
 requested Kubernetes version is a CI label (such as `ci/latest`)
 `gcr.io/k8s-staging-ci-images` is used.
 
@@ -233,18 +229,18 @@ Allowed customization are:
 
 * To provide `kubernetesVersion` which affects the version of the images.
 * To provide an alternative `imageRepository` to be used instead of
-  `k8s.gcr.io`.
+  `registry.k8s.io`.
 * To provide a specific `imageRepository` and `imageTag` for etcd or CoreDNS.
 
-Image paths between the default `k8s.gcr.io` and a custom repository specified using
+Image paths between the default `registry.k8s.io` and a custom repository specified using
 `imageRepository` may differ for backwards compatibility reasons. For example,
-one image might have a subpath at `k8s.gcr.io/subpath/image`, but be defaulted
+one image might have a subpath at `registry.k8s.io/subpath/image`, but be defaulted
 to `my.customrepository.io/image` when using a custom repository.
 
 To ensure you push the images to your custom repository in paths that kubeadm
 can consume, you must:
 
-* Pull images from the defaults paths at `k8s.gcr.io` using `kubeadm config images {list|pull}`.
+* Pull images from the defaults paths at `registry.k8s.io` using `kubeadm config images {list|pull}`.
 * Push images to the paths from `kubeadm config images list --config=config.yaml`,
 where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
 for etcd and CoreDNS.
@@ -271,10 +267,13 @@ to download the certificates when additional control-plane nodes are joining, by
 The following phase command can be used to re-upload the certificates after expiration:
 
 ```shell
-kubeadm init phase upload-certs --upload-certs --certificate-key=SOME_VALUE --config=SOME_YAML_FILE
+kubeadm init phase upload-certs --upload-certs --config=SOME_YAML_FILE
 ```
+{{< note >}}
+A predefined `certificateKey` can be provided in `InitConfiguration` when passing the [configuration file](https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/) with `--config`.
+{{< /note >}}
 
-If the flag `--certificate-key` is not passed to `kubeadm init` and
+If a predefined certificate key is not passed to `kubeadm init` and
 `kubeadm init phase upload-certs` a new key will be generated automatically.
 
 The following command can be used to generate a new key on demand:

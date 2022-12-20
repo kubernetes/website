@@ -39,12 +39,10 @@ runtime, and it helps to describe Pods using some terminology from Docker.
 {{< /note >}}
 
 The shared context of a Pod is a set of Linux namespaces, cgroups, and
-potentially other facets of isolation - the same things that isolate a Docker
-container.  Within a Pod's context, the individual applications may have
+potentially other facets of isolation - the same things that isolate a {{< glossary_tooltip text="container" term_id="container" >}}. Within a Pod's context, the individual applications may have
 further sub-isolations applied.
 
-In terms of Docker concepts, a Pod is similar to a group of Docker containers
-with shared namespaces and shared filesystem volumes.
+A Pod is similar to a set of containers with shared namespaces and shared filesystem volumes.
 
 ## Using Pods
 
@@ -135,8 +133,28 @@ is not a process, but an environment for running container(s). A Pod persists un
 it is deleted.
 {{< /note >}}
 
-When you create the manifest for a Pod object, make sure the name specified is a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+The name of a Pod must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostname.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
+
+### Pod OS
+
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
+
+You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the OS on
+which you want the pod to run. These two are the only operating systems supported for now by 
+Kubernetes. In future, this list may be expanded.
+
+In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
+effect on {{< glossary_tooltip text="scheduling" term_id="kube-scheduler" >}} of the pods.
+Setting the `.spec.os.name` helps to identify the pod OS
+authoratitively and is used for validation. The kubelet refuses to run a Pod where you have
+specified a Pod OS, if this isn't the same as the operating system for the node where
+that kubelet is running.
+The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
+field to avoid enforcing policies that aren't relevant to that operating system.
 
 ### Pods and controllers
 

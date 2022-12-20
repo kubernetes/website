@@ -1,6 +1,7 @@
 ---
 title: Downward API
 content_type: concept
+weight: 170
 description: >
   There are two ways to expose Pod and container fields to a running container:
   environment variables, and as files that are populated by a special volume type.
@@ -22,7 +23,7 @@ inject the Pod's name into the well-known environment variable.
 
 In Kubernetes, there are two ways to expose Pod and container fields to a running container:
 
-* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * as [files in a `downwardAPI` volume](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 Together, these two ways of exposing Pod and container fields are called the
@@ -127,5 +128,5 @@ calculation.
 You can read about [`downwardAPI` volumes](/docs/concepts/storage/volumes/#downwardapi).
 
 You can try using the downward API to expose container- or Pod-level information:
-* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * as [files in `downwardAPI` volume](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)

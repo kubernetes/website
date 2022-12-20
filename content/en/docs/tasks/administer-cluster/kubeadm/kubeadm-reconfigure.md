@@ -274,8 +274,9 @@ some of the flags are deprecated.
 A kubelet restart will be required after changing `/var/lib/kubelet/config.conf` or
 `/var/lib/kubelet/kubeadm-flags.env`.
 
-{{% heading "whatsnext" %}}
+## {{% heading "whatsnext" %}}
 
 - [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)
 - [Customizing components with the kubeadm API](/docs/setup/production-environment/tools/kubeadm/control-plane-flags)
 - [Certificate management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)
+- [Find more about kubeadm set-up](/docs/reference/setup-tools/kubeadm/)

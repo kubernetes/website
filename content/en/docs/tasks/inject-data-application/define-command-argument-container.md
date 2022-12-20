@@ -46,33 +46,33 @@ file for the Pod defines a command and two arguments:
 
 1. Create a Pod based on the YAML configuration file:
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/commands.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/commands.yaml
+   ```
 
 1. List the running Pods:
 
-    ```shell
-    kubectl get pods
-    ```
+   ```shell
+   kubectl get pods
+   ```
 
-    The output shows that the container that ran in the command-demo Pod has
-    completed.
+   The output shows that the container that ran in the command-demo Pod has
+   completed.
 
 1. To see the output of the command that ran in the container, view the logs
 from the Pod:
 
-    ```shell
-    kubectl logs command-demo
-    ```
+   ```shell
+   kubectl logs command-demo
+   ```
 
-    The output shows the values of the HOSTNAME and KUBERNETES_PORT environment
-    variables:
+   The output shows the values of the HOSTNAME and KUBERNETES_PORT environment
+   variables:
 
-    ```
-    command-demo
-    tcp://10.3.240.1:443
-    ```
+   ```
+   command-demo
+   tcp://10.3.240.1:443
+   ```
 
 ## Use environment variables to define arguments
 

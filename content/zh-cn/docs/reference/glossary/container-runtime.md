@@ -12,7 +12,6 @@ tags:
 - workload
 ---
 <!--
----
 title: Container Runtime
 id: container-runtime
 date: 2019-06-05
@@ -24,7 +23,6 @@ aka:
 tags:
 - fundamental
 - workload
----
 -->
 
 <!--
@@ -35,14 +33,12 @@ tags:
 <!--more-->
 
 <!--
-Kubernetes supports container runtimes such sa
-{{< glossary_tooltip term_id="docker">}},
+Kubernetes supports container runtimes such as
 {{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}},
 and any other implementation of the [Kubernetes CRI (Container Runtime
 Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
 -->
 Kubernetes 支持许多容器运行环境，例如
-{{< glossary_tooltip term_id="docker">}}、
 {{< glossary_tooltip term_id="containerd" >}}、
 {{< glossary_tooltip term_id="cri-o" >}}
 以及 [Kubernetes CRI (容器运行环境接口)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md)

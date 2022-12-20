@@ -3,7 +3,11 @@ reviewers:
 - robscott
 title: Topology Aware Hints
 content_type: concept
-weight: 45
+weight: 100
+description: >-
+  _Topology Aware Hints_ provides a mechanism to help keep network traffic within the zone
+  where it originated. Preferring same-zone traffic between Pods in your cluster can help
+  with reliability, performance (network latency and throughput), or cost.
 ---
 
 
@@ -13,17 +17,11 @@ weight: 45
 
 _Topology Aware Hints_ enable topology aware routing by including suggestions
 for how clients should consume endpoints. This approach adds metadata to enable
-consumers of EndpointSlice and / or Endpoints objects, so that traffic to
+consumers of EndpointSlice (or Endpoints) objects, so that traffic to
 those network endpoints can be routed closer to where it originated.
 
 For example, you can route traffic within a locality to reduce
 costs, or to improve network performance.
-
-{{< note >}}
-The "topology-aware hints" feature is at Beta stage and it is **NOT** enabled
-by default. To try out this feature, you have to enable the `TopologyAwareHints`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-{{< /note >}}
 
 <!-- body -->
 
@@ -59,7 +57,7 @@ when this feature is enabled. The controller allocates a proportional amount of
 endpoints to each zone. This proportion is based on the
 [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 CPU cores for nodes running in that zone. For example, if one zone had 2 CPU
-cores and another zone only had 1 CPU core, the controller would allocated twice
+cores and another zone only had 1 CPU core, the controller would allocate twice
 as many endpoints to the zone with 2 CPU cores.
 
 The following example shows what an EndpointSlice looks like when hints have
@@ -148,7 +146,7 @@ zone.
   portion of nodes are unready.
 
 * The EndpointSlice controller does not take into account {{< glossary_tooltip
-  text="tolerations" term_id="toleration" >}} when deploying calculating the
+  text="tolerations" term_id="toleration" >}} when deploying or calculating the
   proportions of each zone. If the Pods backing a Service are limited to a
   subset of Nodes in the cluster, this will not be taken into account.
 
@@ -161,4 +159,4 @@ zone.
 
 ## {{% heading "whatsnext" %}}
 
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
