@@ -67,8 +67,14 @@ other = "Issue Summary"
 [cve_table]
 other = "Official Kubernetes CVE List"
 
-[cve_url]
-other = "CVE URL"
+[cve_table_date_before]
+other = "(last updated: "
+
+[cve_table_date_format]
+other = "02 Jan 2006 15:04:05 MST"
+
+[cve_table_date_after]
+other = ")"
 
 [deprecation_title]
 other = "You are viewing documentation for Kubernetes version:"
