@@ -2,7 +2,7 @@
 title: Diagram Guide
 linktitle: Diagram guide
 content_type: concept
-weight: 15
+weight: 60
 ---
 
 <!--Overview-->

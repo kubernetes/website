@@ -236,7 +236,7 @@ kubelet은 파드의 리소스 사용량을 파드
 ## 로컬 임시(ephemeral) 스토리지
 
 <!-- feature gate LocalStorageCapacityIsolation -->
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 노드에는 로컬에 연결된 쓰기 가능 장치 또는, 때로는 RAM에 의해
 지원되는 로컬 임시 스토리지가 있다.
@@ -305,14 +305,9 @@ kubelet에 지시하는 디렉터리는 이 두 번째 파일시스템에 있다
 {{% /tab %}}
 {{< /tabs >}}
 
-kubelet은 사용 중인 로컬 스토리지 양을 측정할 수 있다. 이것은 다음을
-제공한다.
-
-- `LocalStorageCapacityIsolation`
-  [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)(이
-  기능이 기본적으로 설정되어 있음)를 활성화하고,
-- 로컬 임시 스토리지에 대한 지원되는 구성 중 하나를
-  사용하여 노드를 설정한다.
+kubelet은 사용 중인 로컬 스토리지 양을 측정할 수 있다.
+임시 볼륨(ephemeral storage)을 설정하기 위해 지원되는 구성 중 하나를 사용하여
+노드를 설정한 경우 제공된다.
 
 다른 구성을 사용하는 경우, kubelet은 임시 로컬 스토리지에 대한 리소스
 제한을 적용하지 않는다.
@@ -331,7 +326,7 @@ kubelet은 로컬 임시 스토리지가 아닌 컨테이너 메모리 사용으
 * `spec.containers[].resources.requests.ephemeral-storage`
 
 `ephemeral-storage` 에 대한 제한 및 요청은 바이트 단위로 측정된다. 
-E, P, T, G, M, K와 같은 접미사 중 하나를 사용하여 스토리지를 일반 정수 또는 고정 소수점 숫자로 표현할 수 있다.
+E, P, T, G, M, k와 같은 접미사 중 하나를 사용하여 스토리지를 일반 정수 또는 고정 소수점 숫자로 표현할 수 있다.
 Ei, Pi, Ti, Gi, Mi, Ki와 같은 2의 거듭제곱을 사용할 수도 있다.
 예를 들어, 다음은 거의 동일한 값을 나타낸다.
 
@@ -339,6 +334,10 @@ Ei, Pi, Ti, Gi, Mi, Ki와 같은 2의 거듭제곱을 사용할 수도 있다.
 - `129e6`
 - `129M`
 - `123Mi`
+
+접미사의 대소문자에 유의한다.
+`400m`의 메모리를 요청하면, 이는 0.4 바이트를 요청한 것이다.
+이 사람은 아마도 400 메비바이트(mebibytes) (`400Mi`) 또는 400 메가바이트 (`400M`) 를 요청하고 싶었을 것이다.
 
 다음 예에서, 파드에 두 개의 컨테이너가 있다. 
 각 컨테이너에는 2GiB의 로컬 임시 스토리지 요청이 있다. 
@@ -639,7 +638,7 @@ spec:
 
 프로세스 ID(PID) 제한은 kubelet의 구성에 대해 
 주어진 파드가 사용할 수 있는 PID 수를 제한할 수 있도록 허용한다. 
-자세한 내용은 [PID 제한](/docs/concepts/policy/pid-limiting/)을 참고한다.
+자세한 내용은 [PID 제한](/ko/docs/concepts/policy/pid-limiting/)을 참고한다.
 
 ## 문제 해결
 

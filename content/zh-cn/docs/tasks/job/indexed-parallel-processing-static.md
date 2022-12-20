@@ -31,7 +31,7 @@ Pod 具有控制平面自动设置的**索引编号（index number）**，
 The pod index is available in the {{< glossary_tooltip text="annotation" term_id="annotation" >}}
 `batch.kubernetes.io/job-completion-index` as a string representing its
 decimal value. In order for the containerized task process to obtain this index,
-you can publish the value of the annotation using the [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
+you can publish the value of the annotation using the [downward API](/docs/concepts/workloads/pods/downward-api/)
 mechanism.
 For convenience, the control plane automatically sets the downward API to
 expose the index in the `JOB_COMPLETION_INDEX` environment variable.
@@ -39,7 +39,7 @@ expose the index in the `JOB_COMPLETION_INDEX` environment variable.
 Pod 索引在{{<glossary_tooltip text="注解" term_id="annotation" >}}
 `batch.kubernetes.io/job-completion-index` 中呈现，具体表示为一个十进制值字符串。
 为了让容器化的任务进程获得此索引，你可以使用
-[downward API](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
+[downward API](/zh-cn/docs/concepts/workloads/pods/downward-api/)
 机制发布注解的值。为方便起见，
 控制平面自动设置 Downward API 以在 `JOB_COMPLETION_INDEX` 环境变量中公开索引。
 
@@ -91,8 +91,8 @@ To access the work item from the worker program, you have a few options:
 1. 读取 `JOB_COMPLETION_INDEX` 环境变量。Job
    {{< glossary_tooltip text="控制器" term_id="controller" >}}
    自动将此变量链接到包含完成索引的注解。
-1. 读取包含完整索引的文件。
-1. 假设你无法修改程序，你可以使用脚本包装它，
+2. 读取包含完整索引的文件。
+3. 假设你无法修改程序，你可以使用脚本包装它，
    该脚本使用上述任意方法读取索引并将其转换为程序可以用作输入的内容。
 
 <!-- 

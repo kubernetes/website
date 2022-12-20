@@ -3,7 +3,8 @@ title: 为命名空间配置 CPU 最小和最大约束
 content_type: task
 weight: 40
 description: >-
-  为命名空间定义一个有效的 CPU 资源限制范围，使得在该命名空间中所有新建 Pod 的 CPU 资源是在你所设置的范围内。
+  为命名空间定义一个有效的 CPU 资源限制范围，使得在该命名空间中所有新建
+  Pod 的 CPU 资源是在你所设置的范围内。
 ---
 
 <!--
@@ -26,9 +27,7 @@ object. If a Pod does not meet the constraints imposed by the LimitRange, it can
 in the namespace.
 -->
 本页介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}中的容器和 Pod
-设置其所使用的 CPU 资源的最小和最大值。
-你可以通过
-[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
+设置其所使用的 CPU 资源的最小和最大值。你可以通过 [LimitRange](/zh-cn/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
 对象声明 CPU 的最小和最大值.
 如果 Pod 不能满足 LimitRange 的限制，就无法在该命名空间中被创建。
 
@@ -128,7 +127,7 @@ of the Kubernetes API creates an equivalent Pod), Kubernetes performs these step
 * Verify that every container in that Pod specifies a CPU limit that is less than or equal to 800 millicpu.
 -->
 
-现在，每当你在 constraints-mem-example 命名空间中创建 Pod 时，或者某些其他的
+现在，每当你在 constraints-cpu-example 命名空间中创建 Pod 时，或者某些其他的
 Kubernetes API 客户端创建了等价的 Pod 时，Kubernetes 就会执行下面的步骤：
 
 * 如果 Pod 中的任何容器未声明自己的 CPU 请求和限制，控制面将为该容器设置默认的 CPU 请求和限制。
@@ -385,7 +384,8 @@ You want to allow production workloads to consume up to 3 CPU, but you want deve
 to 1 CPU. You create separate namespaces for production and development, and you apply CPU constraints to
 each namespace.
 -->
-* 集群中的每个节点有两个 CPU。你不想接受任何请求超过 2 个 CPU 的 Pod，因为集群中没有节点可以支持这种请求。
+* 集群中的每个节点有两个 CPU。你不想接受任何请求超过 2 个 CPU 的 Pod，
+  因为集群中没有节点可以支持这种请求。
 * 你的生产和开发部门共享一个集群。你想允许生产工作负载消耗 3 个 CPU，
   而开发部门工作负载的消耗限制为 1 个 CPU。
   你可以为生产和开发创建不同的命名空间，并且为每个命名空间都应用 CPU 限制。

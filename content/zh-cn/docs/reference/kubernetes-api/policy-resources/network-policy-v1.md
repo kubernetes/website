@@ -24,7 +24,6 @@ auto_generated: true
 
 `import "k8s.io/api/networking/v1"`
 
-
 ## NetworkPolicy {#NetworkPolicy}
 
 <!--
@@ -72,11 +71,11 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
   Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 -->
-- **podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)， 必需
+- **podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)，必需
   
   podSelector 选择此网络策略所适用的一组 Pod。一组 Ingress 入口策略将应用于此字段选择的所有 Pod。
   多个网络策略可以选择同一组 Pod。
-  在这种情况下，这些列表条目的 Ingress 规则效果会被叠加。 此字段不是可选的，并且遵循标准标签选择算符语义。 
+  在这种情况下，这些列表条目的 Ingress 规则效果会被叠加。此字段不是可选的，并且遵循标准标签选择算符语义。
   空值的 podSelector 匹配此命名空间中的所有 Pod。
 
 <!--
@@ -86,12 +85,12 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 -->
 - **policyTypes** ([]string)
 
-  NetworkPolicy 相关的规则类型列表。 有效选项为 `[“Ingress”]`，`[“Egress”]` 或 `[“Ingress”， “Egress”]`。 
+  NetworkPolicy 相关的规则类型列表。有效选项为 `[“Ingress”]`、`[“Egress”]` 或 `[“Ingress”， “Egress”]`。
   如果不指定此字段，则默认值取决是否存在 Ingress 或 Egress 规则；规则里包含 Egress 部分的策略将会影响出站流量，
   并且所有策略（无论它们是否包含 Ingress 部分）都将会影响 入站流量。
   如果要仅定义出站流量策略，则必须明确指定 `[ "Egress" ]`。
   同样，如果要定义一个指定拒绝所有出站流量的策略，则必须指定一个包含 “Egress” 的 policyTypes 值
-  （因为这样不包含 Egress 部分的策略，将会被默认为只有 [ "Ingress" ] )。 此字段在 1.8 中为 Beta。
+  （因为这样不包含 Egress 部分的策略，将会被默认为只有 [ "Ingress" ] )。此字段在 1.8 中为 Beta。
   
 <!--
 - **ingress** ([]NetworkPolicyIngressRule)
@@ -129,7 +128,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
     此规则才允许流量访问被选中的 Pod 集合。
 
     <a name="NetworkPolicyPeer"></a>
-    **NetworkPolicyPeer 描述了允许进出流量的对等点。 这个参数只允许某些字段组合** 
+    **NetworkPolicyPeer 描述了允许进出流量的对等点。这个参数只允许某些字段组合。**
   
     <!--
     - **ingress.from.ipBlock** (IPBlock)
@@ -146,7 +145,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
       <a name="IPBlock"></a>
       IPBlock 定义一个特定的 CIDR 范围（例如 `192.168.1.1/24`、`2001:db9::/64`），
-      来自这个 IP 范围的流量来源将会被允许访问与 NetworkPolicySpec 的 podSelector 匹配的 Pod 集合。 
+      来自这个 IP 范围的流量来源将会被允许访问与 NetworkPolicySpec 的 podSelector 匹配的 Pod 集合。
       except 字段则设置应排除在此规则之外的 CIDR 范围。
 
       <!--
@@ -159,9 +158,9 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
         Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
       -->
       
-      - **ingress.from.ipBlock.cidr** (string), 必需
+      - **ingress.from.ipBlock.cidr** (string)，必需
 
-        CIDR 是指定 IP 组块的字符串， 例如 `"192.168.1.1/24"` 或 `"2001:db9::/64"`。
+        CIDR 是指定 IP 组块的字符串，例如 `"192.168.1.1/24"` 或 `"2001:db9::/64"`。
 
       - **ingress.from.ipBlock.except** ([]string)
 
@@ -182,9 +181,9 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
       此选择器使用集群范围标签来选择特定的 Namespace。此字段遵循标准标签选择算符语义；
       如果此字段存在但为空值，则会选择所有名字空间。
       
-      如果 podSelector 也被定义了, 那么 NetworkPolicyPeer 将选择那些同时满足 namespaceSelector 所选名字空间下
-      和 podSelector 规则匹配的 Pod。
-      反之选择 namespaceSelector 所选名字空间下所有的 Pod。  
+      如果 podSelector 也被定义了, 那么 NetworkPolicyPeer 将选择那些同时满足 namespaceSelector
+      所选名字空间下和 podSelector 规则匹配的 Pod。
+      反之选择 namespaceSelector 所选名字空间下所有的 Pod。
 
     <!--
     - **ingress.from.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -198,8 +197,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
       这个标签选择算符负责选择 Pod。该字段遵循标准标签选择算符语义；如果字段存在但为空值，则选择所有 Pod。
 
-      如果 namespaceSelector 也被定义，那么 NetworkPolicyPeer 将选择那些同时满足 namespaceSelector 定义的名字空间下
-      和 podSelector 规则匹配的 Pod。
+      如果 namespaceSelector 也被定义，那么 NetworkPolicyPeer 将选择那些同时满足 namespaceSelector
+      定义的名字空间下和 podSelector 规则匹配的 Pod。
       反之会在策略所在的名字空间中选择与 podSelector 匹配的 Pod。
 
   <!--
@@ -231,17 +230,17 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **ingress.ports.port** (IntOrString)
 
-      给定协议上的端口。字段值可以是 Pod 上的数字或命名端口。如果未提供此字段，则匹配所有端口名和端口号。 
+      给定协议上的端口。字段值可以是 Pod 上的数字或命名端口。如果未提供此字段，则匹配所有端口名和端口号。
       如果定义了，则仅允许对给定的协议和端口的入口流量。
 
       <a name="IntOrString"></a>
-      IntOrString 是一种可以包含 int32 或字符串值的类型。在 JSON 或 YAML 编组和解组中使用时，它会生成或使用内部类型。 
+      IntOrString 是一种可以包含 int32 或字符串值的类型。在 JSON 或 YAML 编组和解组中使用时，它会生成或使用内部类型。
       例如，这允许你拥有一个可以接受名称或数字的 JSON 字段。
 
     <!--
     - **ingress.ports.endPort** (int32)
 
-      If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
+      If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
 
     - **ingress.ports.protocol** (string)
 
@@ -251,8 +250,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
     - **ingress.ports.endPort** (int32)
 
       如果设置了此字段，则表明策略应该允许 port 与 endPort 之间（包含二者）的所有端口。
-      如果未定义 port 或将 port 字段值为命名端口（字符串），则不可以使用 endPort 。 
-      endPort 必须等于或大于 port 值。此功能是 Beta 阶段，默认启用。可以使用 “NetworkPolicyEndPort” 特性门控来禁用 endPort 。
+      如果未定义 port 或将 port 字段值为命名端口（字符串），则不可以使用 endPort。
+      endPort 必须等于或大于 port 值。
 
     - **ingress.ports.protocol** (string)
 
@@ -272,7 +271,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   egress 定义所选 Pod 的出站规则的列表。如果没有 NetworkPolicy 选中指定 Pod（并且其他集群策略也允许出口流量），
   或者在所有通过 podSelector 选中了某 Pod 的 NetworkPolicy 中，至少有一条出站规则与出站流量匹配，
   则该 Pod 的出站流量是被允许的。
-  如果此字段为空，则此 NetworkPolicy 拒绝所有出站流量（这策略可以确保它所选中的 Pod 在默认情况下是被隔离的）。 
+  如果此字段为空，则此 NetworkPolicy 拒绝所有出站流量（这策略可以确保它所选中的 Pod 在默认情况下是被隔离的）。
   egress 字段在 1.8 中为 Beta 级别。
 
   <a name="NetworkPolicyEgressRule"></a>
@@ -290,12 +289,12 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
   - **egress.to** ([]NetworkPolicyPeer)
 
-    针对此规则所选择的 Pod 的出口流量的目的地列表。此列表中的目的地使用逻辑或操作进行组合。 如果此字段为空或缺失，
-    则此规则匹配所有目的地（流量不受目的地限制）。 如果此字段存在且至少包含一项目的地，则仅当流量与目标列表中的至少一个匹配时，
+    针对此规则所选择的 Pod 的出口流量的目的地列表。此列表中的目的地使用逻辑或操作进行组合。如果此字段为空或缺失，
+    则此规则匹配所有目的地（流量不受目的地限制）。如果此字段存在且至少包含一项目的地，则仅当流量与目标列表中的至少一个匹配时，
     此规则才允许出口流量。
 
     <a name="NetworkPolicyPeer"></a>
-    **NetworkPolicyPeer 描述允许进出流量的对等点。这个对象只允许某些字段组合。** 
+    **NetworkPolicyPeer 描述允许进出流量的对等点。这个对象只允许某些字段组合。**
 
     <!--
     - **egress.to.ipBlock** (IPBlock)
@@ -311,9 +310,9 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
       ipBlock 针对特定的 IP 区块定义策略。如果设置了此字段，则其他不可以设置其他字段。
 
       <a name="IPBlock"></a>
-      IPBlock 描述一个特定的 CIDR 范围（例如 `192.168.1.1/24`、`2001:db9::/64`），
-      与 NetworkPolicySpec 的 podSelector 匹配的 Pod 将被允许连接到这个 IP 范围，作为其出口流量目的地。 
-      except 字段则设置了不被此规则影响的 CIDR 范围。
+      **IPBlock 描述一个特定的 CIDR 范围（例如 `192.168.1.1/24`、`2001:db9::/64`），
+      与 NetworkPolicySpec 的 podSelector 匹配的 Pod 将被允许连接到这个 IP 范围，作为其出口流量目的地。
+      except 字段则设置了不被此规则影响的 CIDR 范围。**
 
       <!--
       - **egress.to.ipBlock.cidr** (string), required
@@ -325,7 +324,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
         Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
       -->
 
-      - **egress.to.ipBlock.cidr** (string), 必需
+      - **egress.to.ipBlock.cidr** (string)，必需
 
         CIDR 是用来表达 IP 组块的字符串，例如 `"192.168.1.1/24"` 或 `"2001:db9::/64"`。
 
@@ -344,10 +343,11 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **egress.to.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      此选择算符使用集群范围标签来选择特定的名字空间。该字段遵循标准标签选择算符语义；如果字段存在但为空值，那会选择所有名字空间。
+      此选择算符使用集群范围标签来选择特定的名字空间。该字段遵循标准标签选择算符语义；
+      如果字段存在但为空值，那会选择所有名字空间。
       
-      如果 egress.to.podSelector 也被定义了, 那么 NetworkPolicyPeer 将选择那些同时满足 namespaceSelector 指定的名字空间下
-      和 podSelector 规则匹配的 Pod。
+      如果 egress.to.podSelector 也被定义了, 那么 NetworkPolicyPeer 将选择那些同时满足 namespaceSelector
+      指定的名字空间下和 podSelector 规则匹配的 Pod。
       反之选择 namespaceSelector 指定的名字空间下所有的 Pod。
 
     <!--
@@ -360,10 +360,11 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **egress.to.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      这个标签选择器负责选择一组 Pod。该字段遵循标准标签选择算符语义； 如果字段存在但为空值，则选择所有 Pod。
+      这个标签选择器负责选择一组 Pod。该字段遵循标准标签选择算符语义；
+      如果字段存在但为空值，则选择所有 Pod。
 
-      如果 egress.to.namespaceSelector 也被定义，则 NetworkPolicyPeer 将选择 namespaceSelector 所指定的名字空间下
-      和 podSelector 规则匹配的 Pod。
+      如果 egress.to.namespaceSelector 也被定义，则 NetworkPolicyPeer 将选择 namespaceSelector
+      所指定的名字空间下和 podSelector 规则匹配的 Pod。
       反之会在策略所属的名字空间中选择与 podSelector 匹配的 Pod。
 
   <!--
@@ -378,11 +379,11 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   - **egress.ports** ([]NetworkPolicyPort)
 
     出站流量目的地的端口列表。此列表中的各个项目使用逻辑或操作进行组合。如果此字段为空或缺失，
-    则此规则匹配所有端口（可访问出口流量目的地的任何端口）。 如果此字段存在并且包含至少一个有效值，
+    则此规则匹配所有端口（可访问出口流量目的地的任何端口）。如果此字段存在并且包含至少一个有效值，
     则此规则仅在流量与列表中的至少一个端口匹配时才允许访问。
 
     <a name="NetworkPolicyPort"></a>
-    **NetworkPolicyPort 定义出口流量目的地的端口**
+    **NetworkPolicyPort 定义出口流量目的地的端口。**
 
     <!--
     - **egress.ports.port** (IntOrString)
@@ -394,7 +395,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **egress.ports.endPort** (int32)
 
-      If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
+      If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
 
     - **egress.ports.protocol** (string)
 
@@ -403,18 +404,18 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **egress.ports.port** (IntOrString)
 
-      给定协议上的端口。字段值可以是 Pod 上的数字或命名端口。如果未提供此字段，则匹配所有端口名和端口号。 
+      给定协议上的端口。字段值可以是 Pod 上的数字或命名端口。如果未提供此字段，则匹配所有端口名和端口号。
       如果定义此字段，则仅允许针对给定的协议和端口的出站流量。
 
       <a name="IntOrString"></a>
-      IntOrString 是一种可以包含 int32 或字符串值的类型。在 JSON 或 YAML 编组和解组中使用时，它会生成或使用内部类型。 
+      IntOrString 是一种可以包含 int32 或字符串值的类型。在 JSON 或 YAML 编组和解组中使用时，它会生成或使用内部类型。
       例如，这允许你拥有一个可以接受名称或数字的 JSON 字段。
 
     - **egress.ports.endPort** (int32)
 
       如果设置了 endPort，则用来指定策略所允许的从 port 到 endPort 的端口范围（包含边界值）。
-      如果未设置 port 或 port 字段值为端口名称（字符串），则不可以指定 endPort。 
-      endPort 必须等于或大于 port 值。此功能是 Beta 阶段，默认被启用。可以使用 “NetworkPolicyEndPort” 特性门控来禁用 endPort 。
+      如果未设置 port 或 port 字段值为端口名称（字符串），则不可以指定 endPort。
+      endPort 必须等于或大于 port 值。
 
     - **egress.ports.protocol** (string)
 
@@ -452,7 +453,7 @@ NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
   conditions 包含描述此 NetworkPolicy 状态的 metav1.Condition 数组，即当前服务状态。
 
   <a name="Condition"></a>
-  **Condition 包含此 API 资源当前状态的一个方面的详细信息。** 
+  **Condition 包含此 API 资源当前状态的一个方面的详细信息。**
 
   <!--
   - **conditions.lastTransitionTime** (Time), required
@@ -463,14 +464,14 @@ NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
   -->
 
-  - **conditions.lastTransitionTime** (Time), 必需
+  - **conditions.lastTransitionTime** (Time)，必需
 
     lastTransitionTime 是状况最近一次从一种状态转换到另一种状态的时间。
     这种变化通常出现在下层状况发生变化的时候。如果无法了解下层状况变化，使用 API 字段更改的时间也是可以接受的。
 
     <a name="Time"></a>
-    Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
-    time 包的许多工厂方法提供了包装器。
+    **Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
+    time 包的许多工厂方法提供了包装器。**
 
   <!-- 
   - **conditions.message** (string), required
@@ -478,7 +479,7 @@ NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
     message is a human readable message indicating details about the transition. This may be an empty string. 
   -->
 
-  - **conditions.message** (string), 必需
+  - **conditions.message** (string)，必需
 
     message 是一条人类可读的消息，指示有关转换的详细信息。它可能是一个空字符串。
 
@@ -488,7 +489,7 @@ NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
     reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty. 
   -->
 
-  - **conditions.reason** (string), 必需
+  - **conditions.reason** (string)，必需
 
     reason 包含一个程序标识符，指示状况最后一次转换的原因。
     特定状况类型的生产者可以定义该字段的预期值和含义，以及这些值是否可被视为有保证的 API。
@@ -500,7 +501,7 @@ NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
     status of the condition, one of True, False, Unknown. 
   -->
 
-  - **conditions.status** (string), 必需
+  - **conditions.status** (string)，必需
 
     状况的状态为 True、False、Unknown 之一。
 
@@ -510,7 +511,7 @@ NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
     type of condition in CamelCase or in foo.example.com/CamelCase. 
   -->
 
-  - **conditions.type** (string), 必需
+  - **conditions.type** (string)，必需
 
     CamelCase 或 foo.example.com/CamelCase 形式的状况类型。
 
@@ -526,7 +527,6 @@ NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
     例如，如果 `.metadata.generation` 当前为 12，但 `.status.conditions[x].observedGeneration` 为 9，
     则状况相对于实例的当前状态已过期。
 
-
 ## NetworkPolicyList {#NetworkPolicyList}
 
 <!--
@@ -539,9 +539,7 @@ NetworkPolicyList 是 NetworkPolicy 的集合。
 
 - **apiVersion**: networking.k8s.io/v1
 
-
 - **kind**: NetworkPolicyList
-
 
 <!-- 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
@@ -560,10 +558,9 @@ NetworkPolicyList 是 NetworkPolicy 的集合。
   Items is a list of schema objects.
 -->
 
-- **items** ([]<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>), 必需
+- **items** ([]<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>)，必需
 
   items 是 NetworkPolicy 的列表。
-
 
 ## 操作 {#Operations}
 
@@ -591,7 +588,7 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   name of the NetworkPolicy 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
@@ -600,7 +597,7 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -642,7 +639,7 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/sta
 
   name of the NetworkPolicy 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
@@ -651,7 +648,7 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/sta
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -695,7 +692,7 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -858,7 +855,6 @@ GET /apis/networking.k8s.io/v1/networkpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-
 <!-- 
 - **pretty** (*in query*): string
 
@@ -876,7 +872,6 @@ GET /apis/networking.k8s.io/v1/networkpolicies
 - **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
 
 <!-- 
 - **resourceVersionMatch** (*in query*): string
@@ -936,25 +931,22 @@ POST /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
-- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, 必需
+- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
 
 - **pretty** (*in query*): string
 
@@ -965,16 +957,13 @@ POST /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
 - **fieldManager** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
 - **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
 
 - **pretty** (**查询参数**): string
 
@@ -1015,7 +1004,7 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   name of the NetworkPolicy 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
@@ -1024,12 +1013,12 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
-- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, 必需
+- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>，必需
 
 - **dryRun** (*in query*): string
 
@@ -1047,7 +1036,7 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, 必需
+- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1097,7 +1086,7 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/sta
 
   name of the NetworkPolicy 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
@@ -1106,12 +1095,12 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/sta
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
-- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, 必需
+- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>，必需
 
 - **dryRun** (*in query*): string
 
@@ -1129,7 +1118,7 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/sta
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, 必需
+- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1179,7 +1168,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   name of the NetworkPolicy 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
@@ -1188,7 +1177,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1215,7 +1204,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1269,7 +1258,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/s
 
   name of the NetworkPolicy 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
@@ -1278,7 +1267,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/s
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1305,7 +1294,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/s
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1381,15 +1370,13 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
-  name of the NetworkPolicy
+  NetworkPolicy 的名称。
 
-
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
@@ -1397,11 +1384,9 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
 
 - **pretty** (**查询参数**): string
 
@@ -1481,7 +1466,6 @@ s
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
@@ -1490,7 +1474,7 @@ s
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 

@@ -43,12 +43,12 @@ kind: ClusterRole
 metadata:
   name: kubeadm:get-nodes
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - nodes
-  verbs:
-  - get
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -59,16 +59,16 @@ roleRef:
   kind: ClusterRole
   name: kubeadm:get-nodes
 subjects:
-- apiGroup: rbac.authorization.k8s.io
-  kind: Group
-  name: system:bootstrappers:kubeadm:default-node-token
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:bootstrappers:kubeadm:default-node-token
 ```
 
 ## `ebtables` or some similar executable not found during installation
 
 If you see the following warnings while running `kubeadm init`
 
-```sh
+```console
 [preflight] WARNING: ebtables not found in system path
 [preflight] WARNING: ethtool not found in system path
 ```
@@ -82,7 +82,7 @@ Then you may be missing `ebtables`, `ethtool` or a similar executable on your no
 
 If you notice that `kubeadm init` hangs after printing out the following line:
 
-```sh
+```console
 [apiclient] Created API client, waiting for the control plane to become ready
 ```
 
@@ -90,10 +90,10 @@ This may be caused by a number of problems. The most common are:
 
 - network connection problems. Check that your machine has full network connectivity before continuing.
 - the cgroup driver of the container runtime differs from that of the kubelet. To understand how to
-configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
+  configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 - control plane containers are crashlooping or hanging. You can check this by running `docker ps`
-and investigating each container by running `docker logs`. For other container runtime see
-[Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
+  and investigating each container by running `docker logs`. For other container runtime see
+  [Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 
 ## kubeadm blocks when removing managed containers
 
@@ -204,21 +204,21 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
 
 1. Backup and delete `/etc/kubernetes/kubelet.conf` and `/var/lib/kubelet/pki/kubelet-client*` from the failed node.
 1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key` execute
-`kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
-`$NODE` must be set to the name of the existing failed node in the cluster.
-Modify the resulted `kubelet.conf` manually to adjust the cluster name and server endpoint,
-or pass `kubeconfig user --config` (it accepts `InitConfiguration`). If your cluster does not have
-the `ca.key` you must sign the embedded certificates in the `kubelet.conf` externally.
+   `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
+   `$NODE` must be set to the name of the existing failed node in the cluster.
+   Modify the resulted `kubelet.conf` manually to adjust the cluster name and server endpoint,
+   or pass `kubeconfig user --config` (it accepts `InitConfiguration`). If your cluster does not have
+   the `ca.key` you must sign the embedded certificates in the `kubelet.conf` externally.
 1. Copy this resulted `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the failed node.
 1. Restart the kubelet (`systemctl restart kubelet`) on the failed node and wait for
-`/var/lib/kubelet/pki/kubelet-client-current.pem` to be recreated.
+   `/var/lib/kubelet/pki/kubelet-client-current.pem` to be recreated.
 1. Manually edit the `kubelet.conf` to point to the rotated kubelet client certificates, by replacing
-`client-certificate-data` and `client-key-data` with:
+   `client-certificate-data` and `client-key-data` with:
 
-    ```yaml
-    client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
-    client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
-    ```
+   ```yaml
+   client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
+   client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
+   ```
 
 1. Restart the kubelet.
 1. Make sure the node becomes `Ready`.
@@ -241,7 +241,7 @@ Error from server (NotFound): the server could not find the requested resource
 
 In some situations `kubectl logs` and `kubectl run` commands may return with the following errors in an otherwise functional cluster:
 
-```sh
+```console
 Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc65b868-glc5m/mysql: dial tcp 10.19.0.41:10250: getsockopt: no route to host
 ```
 
@@ -306,15 +306,17 @@ This version of Docker can prevent the kubelet from executing into the etcd cont
 To work around the issue, choose one of these options:
 
 - Roll back to an earlier version of Docker, such as 1.13.1-75
-```
-yum downgrade docker-1.13.1-75.git8633870.el7.centos.x86_64 docker-client-1.13.1-75.git8633870.el7.centos.x86_64 docker-common-1.13.1-75.git8633870.el7.centos.x86_64
-```
+
+  ```
+  yum downgrade docker-1.13.1-75.git8633870.el7.centos.x86_64 docker-client-1.13.1-75.git8633870.el7.centos.x86_64 docker-common-1.13.1-75.git8633870.el7.centos.x86_64
+  ```
 
 - Install one of the more recent recommended versions, such as 18.06:
-```bash
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker-ce-18.06.1.ce-3.el7.x86_64
-```
+
+  ```bash
+  sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  yum install docker-ce-18.06.1.ce-3.el7.x86_64
+  ```
 
 ## Not possible to pass a comma separated list of values to arguments inside a `--component-extra-args` flag
 
@@ -351,7 +353,7 @@ A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on 
 nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
 conditions abate:
 ```
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).

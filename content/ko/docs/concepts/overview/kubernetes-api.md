@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - chenopis
 title: 쿠버네티스 API
 content_type: concept
 weight: 30
@@ -76,7 +76,7 @@ card:
 
 쿠버네티스는 주로 클러스터 내부 통신을 위해 대안적인
 Protobuf에 기반한 직렬화 형식을 구현한다. 이 형식에 대한
-자세한 내용은 [쿠버네티스 Protobuf 직렬화](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) 디자인 제안과
+자세한 내용은 [쿠버네티스 Protobuf 직렬화](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md) 디자인 제안과
 API 오브젝트를 정의하는 Go 패키지에 들어있는 각각의 스키마에 대한
 IDL(인터페이스 정의 언어) 파일을 참고한다.
 
@@ -93,19 +93,22 @@ kube-apiserver 구성 요소에
 `/openapi/v3` 디스커버리 엔드포인트는 사용 가능한 모든 
 그룹/버전의 목록을 제공한다. 이 엔드포인트는 JSON 만을 반환한다.
 이러한 그룹/버전은 다음과 같은 형식으로 제공된다.
-```json
+
+```yaml
 {
     "paths": {
-        ...
+        ...,
         "api/v1": {
             "serverRelativeURL": "/openapi/v3/api/v1?hash=CC0E9BFD992D8C59AEC98A1E2336F899E8318D3CF4C68944C3DEC640AF5AB52D864AC50DAA8D145B3494F75FA3CFF939FCBDDA431DAD3CA79738B297795818CF"
         },
         "apis/admissionregistration.k8s.io/v1": {
             "serverRelativeURL": "/openapi/v3/apis/admissionregistration.k8s.io/v1?hash=E19CC93A116982CE5422FC42B590A8AFAD92CDE9AE4D59B5CAAD568F083AD07946E6CB5817531680BCE6E215C16973CD39003B0425F3477CFD854E89A9DB6597"
         },
-        ...
+        ....
+    }
 }
 ```
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 위의 상대 URL은 변경 불가능한(immutable) OpenAPI 상세를 가리키고 있으며, 
 이는 클라이언트에서의 캐싱을 향상시키기 위함이다. 

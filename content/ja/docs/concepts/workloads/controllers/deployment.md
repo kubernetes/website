@@ -145,7 +145,7 @@ Deploymentに対して適切なセレクターとPodテンプレートのラベ�
 ## Deploymentの更新 {#updating-a-deployment}
 
 {{< note >}}
-Deploymentのロールアウトは、DeploymentのPodテンプレート(この場合`.spec.template`)が変更された場合にのみトリガーされます。例えばテンプレートのラベルもしくはコンテナーイメージが更新された場合です。Deploymentのスケールのような更新では、ロールアウトはトリガーされません。
+Deploymentのロールアウトは、DeploymentのPodテンプレート(この場合`.spec.template`)が変更された場合にのみトリガーされます。例えばテンプレートのラベルもしくはコンテナイメージが更新された場合です。Deploymentのスケールのような更新では、ロールアウトはトリガーされません。
 {{< /note >}}
 
 Deploymentを更新するには以下のステップに従ってください。
@@ -938,7 +938,7 @@ Deploymentを使って一部のユーザーやサーバーに対してリリー�
 ## Deployment Specの記述
 
 他の全てのKubernetesの設定と同様に、Deploymentは`.apiVersion`、`.kind`や`.metadata`フィールドを必要とします。
-設定ファイルの利用に関する情報は[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。コンテナーの設定に関しては[リソースを管理するためのkubectlの使用](/ja/docs/concepts/overview/working-with-objects/object-management/)を参照してください。
+設定ファイルの利用に関する情報は[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。コンテナの設定に関しては[リソースを管理するためのkubectlの使用](/ja/docs/concepts/overview/working-with-objects/object-management/)を参照してください。
 Deploymentオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必要とします。
 
@@ -1008,7 +1008,7 @@ Deploymentのセレクターに一致するラベルを持つPodを直接作成�
 
 ### Min Ready Seconds {#min-ready-seconds}
 
-`.spec.minReadySeconds`はオプションのフィールドで、新しく作成されたPodが利用可能となるために、最低どれくらいの秒数コンテナーがクラッシュすることなく稼働し続ければよいかを指定するものです。デフォルトでは0です(Podは作成されるとすぐに利用可能と判断されます)。Podが利用可能と判断された場合についてさらに学ぶために[Container Probes](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照してください。
+`.spec.minReadySeconds`はオプションのフィールドで、新しく作成されたPodが利用可能となるために、最低どれくらいの秒数コンテナがクラッシュすることなく稼働し続ければよいかを指定するものです。デフォルトでは0です(Podは作成されるとすぐに利用可能と判断されます)。Podが利用可能と判断された場合についてさらに学ぶために[Container Probes](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照してください。
 
 ### リビジョン履歴の保持上限
 
