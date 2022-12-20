@@ -2,7 +2,7 @@
 reviewers:
 - bowei
 - zihongz
-title: Customizing DNS Service
+title: Personalizando o Serviço DNS
 content_type: task
 min-kubernetes-server-version: v1.12
 ---
@@ -50,13 +50,13 @@ cumprindo com as [especificações DNS](https://github.com/kubernetes/dns/blob/m
 
 ### CoreDNS ConfigMap options
 
-CoreDNS is a DNS server that is modular and pluggable, with plugins adding new functionalities.
-The CoreDNS server can be configured by maintaining a [Corefile](https://coredns.io/2017/07/23/corefile-explained/),
-which is the CoreDNS configuration file. As a cluster administrator, you can modify the
-{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} for the CoreDNS Corefile to
-change how DNS service discovery behaves for that cluster.
+CoreDNS é um servidor DNS que é modular e plugável, com plugins que adicionam novas funcionalidades.
+O servidor CoreDNS pode ser configurado por um [Corefile](https://coredns.io/2017/07/23/corefile-explained/),
+que é o arquivo de configuração do CoreDNS. Como administrador de cluster, você pode modificar o
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} para o arquivo Corefile do CoreDNS para
+mudar como o descobrimento de serviços DNS se comporta para esse cluster.
 
-In Kubernetes, CoreDNS is installed with the following default Corefile configuration:
+Em Kubernetes, o CoreDNS é instalado com a seguinte configuração padrão do Corefile:
 
 ```yaml
 apiVersion: v1
@@ -86,51 +86,42 @@ data:
     }
 ```
 
-The Corefile configuration includes the following [plugins](https://coredns.io/plugins/) of CoreDNS:
+A configuração do Corefile inclui os seguintes [plugins](https://coredns.io/plugins/) do CoreDNS:
 
-* [errors](https://coredns.io/plugins/errors/): Errors are logged to stdout.
-* [health](https://coredns.io/plugins/health/): Health of CoreDNS is reported to
-  `http://localhost:8080/health`. In this extended syntax `lameduck` will make theuprocess
-  unhealthy then wait for 5 seconds before the process is shut down.
-* [ready](https://coredns.io/plugins/ready/): An HTTP endpoint on port 8181 will return 200 OK,
-  when all plugins that are able to signal readiness have done so.
-* [kubernetes](https://coredns.io/plugins/kubernetes/): CoreDNS will reply to DNS queries
-  based on IP of the Services and Pods. You can find [more details](https://coredns.io/plugins/kubernetes/)
-  about this plugin on the CoreDNS website.
-  - `ttl` allows you to set a custom TTL for responses. The default is 5 seconds.
-    The minimum TTL allowed is 0 seconds, and the maximum is capped at 3600 seconds.
-    Setting TTL to 0 will prevent records from being cached.  
-  - The `pods insecure` option is provided for backward compatibility with `kube-dns`.
-  - You can use the `pods verified` option, which returns an A record only if there exists a pod
-    in the same namespace with a matching IP.
-  - The `pods disabled` option can be used if you don't use pod records.
-* [prometheus](https://coredns.io/plugins/metrics/): Metrics of CoreDNS are available at
-  `http://localhost:9153/metrics` in the [Prometheus](https://prometheus.io/) format
-  (also known as OpenMetrics).
-* [forward](https://coredns.io/plugins/forward/): Any queries that are not within the Kubernetes
-  cluster domain are forwarded to predefined resolvers (/etc/resolv.conf).
-* [cache](https://coredns.io/plugins/cache/): This enables a frontend cache.
-* [loop](https://coredns.io/plugins/loop/): Detects simple forwarding loops and
-  halts the CoreDNS process if a loop is found.
-* [reload](https://coredns.io/plugins/reload): Allows automatic reload of a changed Corefile.
-  After you edit the ConfigMap configuration, allow two minutes for your changes to take effect.
-* [loadbalance](https://coredns.io/plugins/loadbalance): This is a round-robin DNS loadbalancer
-  that randomizes the order of A, AAAA, and MX records in the answer.
+* [errors](https://coredns.io/plugins/errors/): Erros são registrados para stdout.
+* [health](https://coredns.io/plugins/health/): A saúde do CoreDNS é reportada para
+`http://localhost:8080/health`. Nesta sintaxe estendida, `lameduck` fará o processo
+insalubre, esperando por 5 segundos antes que o processo seja encerrado.
+* [ready](https://coredns.io/plugins/ready/): Um endpoint HTTP na porta 8181 retornará 200 OK, quando todos os plugins que são capazes de sinalizar prontidão tiverem feito isso.
+* [kubernetes](https://coredns.io/plugins/kubernetes/): O CoreDNS responderá a consultas DNS
+ baseado no IP dos Serviços e Pods. Você pode encontrar [mais detalhes em](https://coredns.io/plugins/kubernetes/).
+  sobre este plugin no site do CoreDNS.
+  * `ttl` permite que você defina um TTL personalizado para as respostas. O padrão é 5 segundos. O TTL mínimo permitido é de 0 segundos e o máximo é de 3600 segundos. Definir o TTL como 0 impedirá que os registros sejam armazenados em cache.
+  * A opção `pods insecure` é fornecida para retrocompatibilidade  com o `kube-dns`.
+  * Você pode usar a opção `pods verified`, que retorna um registro A somente se houver um pod no mesmo namespace com um IP correspondente.
+  * A opção `pods disabled` pode ser usada se você não usar registros de pod.
+* [prometheus](https://coredns.io/plugins/metrics/): As métricas do CoreDNS estão disponíveis em `http://localhost:9153/metrics` no formato [Prometheus](https://prometheus.io/)
+  (também conhecido como OpenMetrics).
+* [forward](https://coredns.io/plugins/forward/): Qualquer consulta que não esteja no domínio do cluster do Kubernetes é encaminhada para resolutores predefinidos (/etc/resolv.conf).
+* [cache](https://coredns.io/plugins/cache/): Habilita um cache de frontend.
+* [loop](https://coredns.io/plugins/loop/): Detecta loops de encaminhamento simples e interrompe o processo do CoreDNS se um loop for encontrado.
+* [reload](https://coredns.io/plugins/reload): Permite a recarga automática de um Corefile que foi alterado.
+  Depois de editar a configuração do ConfigMap, é necessario dois minutos para que as alterações entrem em vigor.
+* [loadbalance](https://coredns.io/plugins/loadbalance): Este é um balanceador de carga DNS round-robin que randomiza a ordem dos registros A, AAAA e MX na resposta.
 
-You can modify the default CoreDNS behavior by modifying the ConfigMap.
+Você pode modificar o comportamento padrão do CoreDNS modificando o ConfigMap.
 
-### Configuration of Stub-domain and upstream nameserver using CoreDNS
+### Configuração de domínio Stub e upstream nameserver usando o CoreDNS
 
-CoreDNS has the ability to configure stub-domains and upstream nameservers
-using the [forward plugin](https://coredns.io/plugins/forward/).
+O CoreDNS tem a capacidade de configurar domínios Stub e upstream nameservers usando o plugin [forward](https://coredns.io/plugins/forward/).
 
-#### Example
+#### Exemplo
 
-If a cluster operator has a [Consul](https://www.consul.io/) domain server located at "10.150.0.1",
-and all Consul names have the suffix ".consul.local". To configure it in CoreDNS,
-the cluster administrator creates the following stanza in the CoreDNS ConfigMap.
+Se um operador de cluster possui um servidor de domínio [Consul](https://www.consul.io/) localizado em "10.150.0.1"
+e todos os nomes Consul possuem o sufixo ".consul.local". Para configurá-lo no CoreDNS,
+o administrador do cluster cria a seguinte stanza no ConfigMap do CoreDNS.
 
-```
+```config
 consul.local:53 {
     errors
     cache 30
@@ -138,14 +129,13 @@ consul.local:53 {
 }
 ```
 
-To explicitly force all non-cluster DNS lookups to go through a specific nameserver at 172.16.0.1,
-point the `forward` to the nameserver instead of `/etc/resolv.conf`
+Para forçar explicitamente que todas as pesquisas de DNS fora do cluster passem por um nameserver específico em 172.16.0.1, aponte o `forward` para o nameserver em vez de `/etc/resolv.conf`.
 
-```
+```config
 forward .  172.16.0.1
 ```
 
-The final ConfigMap along with the default `Corefile` configuration looks like:
+O ConfigMap final, juntamente com a configuração padrão do `Corefile`, é:
 
 ```yaml
 apiVersion: v1
@@ -177,11 +167,10 @@ data:
 ```
 
 {{< note >}}
-CoreDNS does not support FQDNs for stub-domains and nameservers (eg: "ns.foo.com").
-During translation, all FQDN nameservers will be omitted from the CoreDNS config.
+O CoreDNS não suporta FQDNs para domínios Stub e nameservers (por exemplo, "ns.foo.com"). Durante a tradução, todos os nameservers FQDN serão omitidos da configuração do CoreDNS.
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
-- Read [Debugging DNS Resolution](/docs/tasks/administer-cluster/dns-debugging-resolution/)
+- Leia [Depurando a resolução DNS](/docs/tasks/administer-cluster/dns-debugging-resolution/)
 
