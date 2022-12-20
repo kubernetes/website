@@ -3,6 +3,7 @@ layout: blog
 title: "San Diego 贡献者峰会开放注册！"
 date: 2019-09-24
 slug: san-diego-contributor-summit
+evergreen: true
 ---
 <!--
 ---
@@ -14,30 +15,30 @@ slug: san-diego-contributor-summit
 --->
 
 <!--
-**Authors: Paris Pittman (Google), Jeffrey Sica (Red Hat), Jonas Rosland (VMware)**
+**Authors:** Paris Pittman (Google), Jeffrey Sica (Red Hat), Jonas Rosland (VMware)
 --->
-**作者：Paris Pittman (Google), Jeffrey Sica (Red Hat), Jonas Rosland (VMware)**
+**作者：** Paris Pittman (Google), Jeffrey Sica (Red Hat), Jonas Rosland (VMware)
 
 
 
 <!--
 [Contributor Summit San Diego 2019 Event Page]  
-Registration is now open and in record time, we’ve hit capacity for the
-*new contributor workshop* session of the event! Waitlist is now available.
+In record time, we’ve hit capacity for the *new contributor workshop* session of
+the event!
 --->
 [2019 San Diego 贡献者峰会活动页面](https://events.linuxfoundation.org/events/kubernetes-contributor-summit-north-america-2019/)
-注册已经开放，并且在创纪录的时间内，*新贡献者研讨会* 活动已满员！候补名单已经开放。
+在创纪录的时间内，*新贡献者研讨会* 活动已满员！
 
 <!--
 **Sunday, November 17**  
 Evening Contributor Celebration:  
-[QuartYard]*  
+[QuartYard]†  
 Address: 1301 Market Street, San Diego, CA 92101  
 Time: 6:00PM - 9:00PM  
 --->
 **11月17日，星期日**  
 晚间贡献者庆典：  
-[QuartYard]*  
+[QuartYard]†  
 地址: 1301 Market Street, San Diego, CA 92101  
 时间: 下午6:00 - 下午9:00
 
@@ -118,9 +119,9 @@ Check out past blogs on [persona building around our events] and the [Barcelona 
 ！[2018年集体照](/images/blog/2019-09-24-san-diego-contributor-summit/IMG_2588.JPG)
 
 <!--
-*=QuartYard has a huge stage! Want to perform something in front of your contributor peers? Reach out to us! community@kubernetes.io
+†=QuartYard has a huge stage! Want to perform something in front of your contributor peers? Reach out to us! community@kubernetes.io
 --->
-*=QuartYard 有一个巨大的舞台！想要在您的贡献者同行面前做点什么？加入我们吧！ community@kubernetes.io
+†=QuartYard 有一个巨大的舞台！想要在您的贡献者同行面前做点什么？加入我们吧！ community@kubernetes.io
 
 
 [Contributor Summit San Diego 2019 Event Page]: https://events.linuxfoundation.org/events/kubernetes-contributor-summit-north-america-2019/

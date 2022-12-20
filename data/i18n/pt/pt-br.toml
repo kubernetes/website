@@ -238,3 +238,75 @@ other = "Retornar à visualização normal"
 
 [print_entire_section]
 other = "Imprimir toda essa seção"
+
+[layout_docs_glossary_architecture_name]
+other = "Arquitetura"
+
+[layout_docs_glossary_architecture_description]
+other = "Componentes internos do Kubernetes."
+
+[layout_docs_glossary_community_name]
+other = "Comunidade"
+
+[layout_docs_glossary_community_description]
+other = "Relacionado ao desenvolvimento do código aberto do Kubernetes."
+
+[layout_docs_glossary_core-object_name]
+other = "Objetos Padrão"
+
+[layout_docs_glossary_core-object_description]
+other = "Tipos de recursos que o Kubernetes suporta por padrão."
+
+[layout_docs_glossary_extension_name]
+other = "Extensão"
+
+[layout_docs_glossary_extension_description]
+other = "Personalizações suportadas pelo Kubernetes."
+
+[layout_docs_glossary_fundamental_name]
+other = "Fundamental"
+
+[layout_docs_glossary_fundamental_description]
+other = "Conteúdo relevante para um usuário iniciante do Kubernetes."
+
+[layout_docs_glossary_networking_name]
+other = "Rede"
+
+[layout_docs_glossary_networking_description]
+other = "Como os componentes do Kubernetes comunicam-se uns com os outros (e com programas fora do cluster)."
+
+[layout_docs_glossary_operation_name]
+other = "Operação"
+
+[layout_docs_glossary_operation_description]
+other = "Inicialização e manutenção do Kubernetes."
+
+[layout_docs_glossary_security_name]
+other = "Segurança"
+
+[layout_docs_glossary_security_description]
+other = "Mantendo aplicações do Kubernetes seguras."
+
+[layout_docs_glossary_storage_name]
+other = "Armazenamento"
+
+[layout_docs_glossary_storage_description]
+other = "Como as aplicações que rodam no Kubernetes manipulam dados persistentes."
+
+[layout_docs_glossary_tool_name]
+other = "Ferramentas"
+
+[layout_docs_glossary_tool_description]
+other = "Software que torna o Kubernetes mais fácil ou melhor de ser utilizado."
+
+[layout_docs_glossary_user-type_name]
+other = "Tipos de Usuário"
+
+[layout_docs_glossary_user-type_description]
+other = "Representa um tipo comum de usuário do Kubernetes."
+
+[layout_docs_glossary_workload_name]
+other = "Carga de Trabalho"
+
+[layout_docs_glossary_workload_description]
+other = "Aplicações rodando no Kubernetes."

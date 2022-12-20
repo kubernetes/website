@@ -203,8 +203,7 @@ running such processes via a DaemonSet:
 - Ability to monitor and manage logs for daemons in the same way as applications.
 - Same config language and tools (e.g. Pod templates, `kubectl`) for daemons and applications.
 - Running daemons in containers with resource limits increases isolation between daemons from app
-  containers.  However, this can also be accomplished by running the daemons in a container but not in a Pod
-  (e.g. start directly via Docker).
+  containers.  However, this can also be accomplished by running the daemons in a container but not in a Pod.
 
 ### Bare Pods
 

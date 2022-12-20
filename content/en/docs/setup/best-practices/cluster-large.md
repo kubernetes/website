@@ -3,7 +3,7 @@ reviewers:
 - davidopp
 - lavalamp
 title: Considerations for large clusters
-weight: 20
+weight: 10
 ---
 
 A cluster is a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (physical

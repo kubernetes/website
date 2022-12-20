@@ -24,23 +24,24 @@ created. This tutorial shows you how to enforce the `baseline` Pod Security
 Standard at the cluster level which applies a standard configuration
 to all namespaces in a cluster.
 
-To apply Pod Security Standards to specific namespaces, refer to [Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
+To apply Pod Security Standards to specific namespaces, refer to
+[Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
 
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
 check the documentation for that version.
 -->
 Pod 安全准入（PSA）在 v1.23 及更高版本默认启用，
-因为它[升级到测试版（beta）](/blog/2021/12/09/pod-security-admission-beta/)。
+因为它已[进阶为 Beta](/blog/2021/12/09/pod-security-admission-beta/)。
 Pod 安全准入是在创建 Pod 时应用
 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)的准入控制器。
 本教程将向你展示如何在集群级别实施 `baseline` Pod 安全标准，
-该标准将标准配置应用于集群中的所有名称空间。
+该标准将标准配置应用于集群中的所有名字空间。
 
 要将 Pod 安全标准应用于特定名字空间，
 请参阅[在名字空间级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/ns-level-pss)。
 
 如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，
-检查该版本的文档。
+请查阅该版本的文档。
 
 ## {{% heading "prerequisites" %}}
 <!-- 
@@ -52,7 +53,7 @@ Install the following on your workstation:
 在你的工作站中安装以下内容：
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [kubectl](/zh-cn/docs/tasks/tools/)
 
 <!--
 ## Choose the right Pod Security Standard to apply
@@ -68,7 +69,7 @@ that are most appropriate for your configuration, do the following:
 
 [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)
 允许你使用以下模式应用内置的
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/):
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)：
 `enforce`、`audit` 和 `warn`。
 
 要收集信息以便选择最适合你的配置的 Pod 安全标准，请执行以下操作：
@@ -174,7 +175,7 @@ that are most appropriate for your configuration, do the following:
       Warning: kube-proxy-m6hwf: host namespaces, hostPath volumes, privileged
       namespace/kube-system labeled
       namespace/local-path-storage labeled
-      ```   
+      ```
 
    3. Restricted
       ```shell
@@ -264,7 +265,7 @@ following:
    plugins:
    - name: PodSecurity
      configuration:
-       apiVersion: pod-security.admission.config.k8s.io/v1beta1
+       apiVersion: pod-security.admission.config.k8s.io/v1
        kind: PodSecurityConfiguration
        defaults:
          enforce: "baseline"
@@ -279,6 +280,16 @@ following:
          namespaces: [kube-system]
    EOF
    ```
+    {{< note >}}
+    <!--
+    `pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
+    For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+    For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+    -->
+   `pod-security.admission.config.k8s.io/v1` 配置需要 v1.25+。
+    对于 v1.23 和 v1.24，使用 [v1beta1](https://v1-24.docs.kubernetes.io/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
+    对于 v1.22，使用 [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
+    {{< /note >}}
 
 <!-- 
 1. Configure the API server to consume this file during cluster creation:
