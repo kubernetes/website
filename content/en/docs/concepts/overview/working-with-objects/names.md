@@ -4,7 +4,7 @@ reviewers:
 - thockin
 title: Object Names and IDs
 content_type: concept
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->
@@ -99,5 +99,5 @@ UUIDs are standardized as ISO/IEC 9834-8 and as ITU-T X.667.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [labels](/docs/concepts/overview/working-with-objects/labels/) in Kubernetes.
+* Read about [labels](/docs/concepts/overview/working-with-objects/labels/) and [annotations](/docs/concepts/overview/working-with-objects/annotations/) in Kubernetes.
 * See the [Identifiers and Names in Kubernetes](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md) design document.

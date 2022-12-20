@@ -138,7 +138,7 @@ configuran en la sección de motores de ejecución:
 ```
 
 Véase la configuración de containerd para más detalles:
-https://github.com/containerd/cri/blob/master/docs/config.md
+https://github.com/containerd/containerd/blob/main/docs/cri/config.md
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 

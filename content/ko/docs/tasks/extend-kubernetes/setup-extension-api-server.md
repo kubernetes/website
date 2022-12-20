@@ -1,5 +1,9 @@
 ---
 title: 확장 API 서버 설정
+# reviewers:
+# - lavalamp
+# - cheftako
+# - chenopis
 content_type: task
 weight: 15
 ---
@@ -21,7 +25,7 @@ weight: 15
 
 <!-- steps -->
 
-## 애그리게이션 레이어와 작동하도록 확장 API 서버 설정
+## 애그리게이션 레이어와 작동하도록 확장 API 서버 설정하기
 
 다음 단계는 확장 API 서버를 *높은 수준* 으로 설정하는 방법을 설명한다. 이 단계는 YAML 구성을 사용하거나 API를 사용하는 것에 상관없이 적용된다. 둘 사이의 차이점을 구체적으로 식별하려고 시도한다. YAML 구성을 사용하여 구현하는 방법에 대한 구체적인 예를 보려면, 쿠버네티스 리포지터리에서 [sample-apiserver](https://github.com/kubernetes/sample-apiserver/blob/master/README.md)를 참고할 수 있다.
 

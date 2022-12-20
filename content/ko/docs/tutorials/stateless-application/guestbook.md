@@ -1,8 +1,8 @@
 ---
 title: "예시: Redis를 사용한 PHP 방명록 애플리케이션 배포하기"
-
-
-
+# reviewers:
+# - ahmetb
+# - jimangel
 content_type: tutorial
 weight: 20
 card:

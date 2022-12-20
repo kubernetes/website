@@ -23,7 +23,7 @@ Esistono diversi proxy che puoi incontrare quando usi Kubernetes:
     - individua l'apiserver
     - aggiunge gli header di autenticazione
 
-1.  L'[apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
+1.  L'[apiserver proxy](/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
 
     - è un proxy presente nell'apiserver
     - collega un utente al di fuori del cluster agli IP del cluster che altrimenti potrebbero non essere raggiungibili

@@ -2,7 +2,7 @@
 title: Advanced contributing
 slug: advanced
 content_type: concept
-weight: 98
+weight: 100
 ---
 
 <!-- overview -->

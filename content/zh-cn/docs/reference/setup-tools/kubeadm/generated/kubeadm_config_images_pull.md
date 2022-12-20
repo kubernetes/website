@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -83,12 +83,12 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (BETA - default=true)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (default=true)
 -->
 一系列键值对（key=value），用于描述各种特征。可选项是：
 <br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
 <br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
-<br/>UnversionedKubeletConfigMap=true|false (BETA - 默认值=true)
+<br/>UnversionedKubeletConfigMap=true|false (默认值=true)
 </td>
 </tr>
 
@@ -109,9 +109,9 @@ pull 操作的帮助命令
 <tr>
 <td colspan="2">
 <!--
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："registry.k8s.io"
 </td>
 </tr>
 <tr>

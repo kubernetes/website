@@ -1,4 +1,4 @@
 ---
 title: Component tools
-weight: 60
+weight: 120
 ---

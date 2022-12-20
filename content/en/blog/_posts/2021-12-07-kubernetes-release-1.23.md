@@ -32,7 +32,7 @@ Kubernetes releases now generate provenance attestation files describing the sta
 
 ### HorizontalPodAutoscaler v2 graduates to GA
 
-The HorizontalPodAutscaler `autoscaling/v2` stable API moved to GA in 1.23. The HorizontalPodAutoscaler `autoscaling/v2beta2` API has been deprecated.
+The HorizontalPodAutoscaler `autoscaling/v2` stable API moved to GA in 1.23. The HorizontalPodAutoscaler `autoscaling/v2beta2` API has been deprecated.
 
 ### Generic Ephemeral Volume feature graduates to GA
 
