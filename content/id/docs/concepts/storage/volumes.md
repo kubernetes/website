@@ -346,7 +346,7 @@ Fitur [Regional Persistent Disks](https://cloud.google.com/compute/docs/disks/#r
 
 #### Menyediakan sebuah Regional PD PersistentVolume Secara Manual
 
-Penyediaan secara dinamis mungkin dilakukan dengan sebuah [StorageClass untuk GCE PD](/id/docs/concepts/storage/storage-classes/#gce).
+Penyediaan secara dinamis mungkin dilakukan dengan sebuah [StorageClass untuk GCE PD](/id/docs/concepts/storage/storage-classes/#gce-pd).
 Sebelum membuat sebuah PersistentVolume, kamu harus membuat PD-nya:
 
 ```shell

@@ -3,7 +3,12 @@ reviewers:
 - bprashanth
 title: Ingress
 content_type: concept
-weight: 40
+description: >-
+  Make your HTTP (or HTTPS) network service available using a protocol-aware configuration
+  mechanism, that understands web concepts like URIs, hostnames, paths, and more.
+  The Ingress concept lets you map traffic to different backends based on rules you define
+  via the Kubernetes API.
+weight: 30
 ---
 
 <!-- overview -->
@@ -96,7 +101,7 @@ Each HTTP rule contains the following information:
   Service.
 * A backend is a combination of Service and port names as described in the
   [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend](#resource-backend) by way of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}. HTTP (and HTTPS) requests to the
-  Ingress that matches the host and path of the rule are sent to the listed backend.
+  Ingress that match the host and path of the rule are sent to the listed backend.
 
 A `defaultBackend` is often configured in an Ingress controller to service any requests that do not
 match a path in the spec.
@@ -165,7 +170,7 @@ supported path types:
 
   {{< note >}} If the last element of the path is a substring of the last
   element in request path, it is not a match (for example: `/foo/bar`
-  matches`/foo/bar/baz`, but does not match `/foo/barbaz`). {{< /note >}}
+  matches `/foo/bar/baz`, but does not match `/foo/barbaz`). {{< /note >}}
 
 ### Examples
 

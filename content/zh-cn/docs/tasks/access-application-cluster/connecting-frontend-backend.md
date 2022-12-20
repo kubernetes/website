@@ -36,7 +36,7 @@ Kubernetes {{< glossary_tooltip term_id="service" >}} object.
 * 使用一个 Service 对象将请求流量发送到后端微服务的多个副本
 * 同样使用一个 Deployment 对象创建并运行一个 `nginx` 前端微服务
 * 配置前端微服务将请求流量发送到后端微服务
-* 使用 `type=LoadBalancer` 的 Service 对象将全段微服务暴露到集群外部
+* 使用 `type=LoadBalancer` 的 Service 对象将前端微服务暴露到集群外部
 
 ## {{% heading "prerequisites" %}}
 
@@ -138,7 +138,7 @@ First, explore the Service configuration file:
 -->
 ### 创建 `hello` Service 对象
 
-将请求从前端发送到到后端的关键是后端 Service。Service 创建一个固定 IP 和 DNS 解析名入口，
+将请求从前端发送到后端的关键是后端 Service。Service 创建一个固定 IP 和 DNS 解析名入口，
 使得后端微服务总是可达。Service 使用
 {{< glossary_tooltip text="选择算符" term_id="selector" >}} 
 来寻找目标 Pod。

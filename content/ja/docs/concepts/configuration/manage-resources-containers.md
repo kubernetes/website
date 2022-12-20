@@ -24,9 +24,9 @@ Podが動作しているNodeに利用可能なリソースが十分にある場�
 
 たとえば、コンテナに256MiBの`メモリー`要求を設定し、そのコンテナが8GiBのメモリーを持つNodeにスケジュールされたPod内に存在し、他のPodが存在しない場合、コンテナはより多くのRAMを使用しようとする可能性があります。
 
-そのコンテナに4GiBの`メモリー`制限を設定すると、kubelet(および{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}) が制限を適用します。ランタイムは、コンテナーが設定済みのリソース制限を超えて使用するのを防ぎます。例えば、コンテナ内のプロセスが、許容量を超えるメモリを消費しようとすると、システムカーネルは、メモリ不足(OOM)エラーで、割り当てを試みたプロセスを終了します。
+そのコンテナに4GiBの`メモリー`制限を設定すると、kubelet(および{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}) が制限を適用します。ランタイムは、コンテナが設定済みのリソース制限を超えて使用するのを防ぎます。例えば、コンテナ内のプロセスが、許容量を超えるメモリを消費しようとすると、システムカーネルは、メモリ不足(OOM)エラーで、割り当てを試みたプロセスを終了します。
 
-制限は、違反が検出されるとシステムが介入するように事後的に、またはコンテナーが制限を超えないようにシステムが防ぐように強制的に、実装できます。
+制限は、違反が検出されるとシステムが介入するように事後的に、またはコンテナが制限を超えないようにシステムが防ぐように強制的に、実装できます。
 異なるランタイムは、同じ制限を実装するために異なる方法をとることができます。
 
 {{< note >}}
@@ -557,7 +557,7 @@ Allocated resources:
 
 システムデーモンが利用可能なリソースの一部を使用しているため、Podに利用可能なリソースの量はNodeの容量よりも少なくなっています。
 `allocatable`フィールド[NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)は、Podに利用可能なリソースの量を与えます。
-詳細については、[ノード割り当て可能なリソース](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md)を参照してください。
+詳細については、[ノード割り当て可能なリソース](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md)を参照してください。
 
 [リソースクォータ](/docs/concepts/policy/resource-quotas/)機能は、消費できるリソースの総量を制限するように設定することができます。
 名前空間と組み合わせて使用すると、1つのチームがすべてのリソースを占有するのを防ぐことができます。
@@ -628,7 +628,7 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 
 * [コンテナとPodへのCPUリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)ハンズオンを行う
 
-* 要求と制限の違いの詳細については、[リソースQoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md)を参照する
+* 要求と制限の違いの詳細については、[リソースQoS](https://git.k8s.io/design-proposals-archive/node/resource-qos.md)を参照する
 
 * [コンテナ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)APIリファレンスを読む
 

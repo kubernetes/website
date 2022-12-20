@@ -120,7 +120,7 @@ To workaround that you must use [patches](#patches).
 {{< /note >}}
 
 <!--
-## APIServer flags
+### APIServer flags
 -->
 ### APIServer 参数   {#apiserver-flags}
 
@@ -146,7 +146,7 @@ apiServer:
 ```
 
 <!--
-## ControllerManager flags
+### ControllerManager flags
 -->
 ### ControllerManager 参数   {#controllermanager-flags}
 
@@ -221,20 +221,20 @@ etcd:
       election-timeout: 1000
 ```
 <!--
-## Customizing the control plane with patches {#patches}
+## Customizing with patches {#patches}
 
 Kubeadm allows you to pass a directory with patch files to `InitConfiguration` and `JoinConfiguration`
-on individual nodes. These patches can be used as the last customization step before the control
-plane component manifests are written to disk.
+on individual nodes. These patches can be used as the last customization step before component configuration
+is written to disk.
 
 You can pass this file to `kubeadm init` with `--config <YOUR CONFIG YAML>`:
 -->
-## 使用补丁定制控制平面   {#patches}
+## 使用补丁定制   {#patches}
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 Kubeadm 允许将包含补丁文件的目录传递给各个节点上的 `InitConfiguration` 和 `JoinConfiguration`。
-这些补丁可被用作控制平面组件清单写入磁盘之前的最后一个自定义步骤。
+这些补丁可被用作组件配置写入磁盘之前的最后一个自定义步骤。
 
 可以使用 `--config <你的 YAML 格式控制文件>` 将配置文件传递给 `kubeadm init`：
 
@@ -273,7 +273,8 @@ For example, `kube-apiserver0+merge.yaml` or just `etcd.json`.
 例如，`kube-apiserver0+merge.yaml` 或只是 `etcd.json`。
 
 <!--
-- `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd`.
+- `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`
+and `kubeletconfiguration`.
 - `patchtype` can be one of `strategic`, `merge` or `json` and these must match the patching formats
 [supported by kubectl](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch).
 The default `patchtype` is `strategic`.
@@ -281,7 +282,7 @@ The default `patchtype` is `strategic`.
 - `suffix` is an optional string that can be used to determine which patches are applied first
 alpha-numerically.
 -->
-- `target` 可以是 `kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd` 之一。
+- `target` 可以是 `kube-apiserver`、`kube-controller-manager`、`kube-scheduler`、`etcd` 和 `kubeletconfiguration` 之一。
 - `patchtype` 可以是 `strategy`、`merge` 或 `json` 之一，并且这些必须匹配
   [kubectl 支持](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch) 的补丁格式。
   默认补丁类型是 `strategic` 的。
@@ -300,33 +301,39 @@ API structure that can be used for the same purpose.
 {{< /note >}}
 
 <!--
-## Customizing the kubelet
+## Customizing the kubelet {#kubelet}
 
-To customize the kubelet you can add a `KubeletConfiguration` next to the `ClusterConfiguration` or
-`InitConfiguration` separated by `---` within the same configuration file. This file can then be passed to `kubeadm init`.
+To customize the kubelet you can add a [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
+next to the `ClusterConfiguration` or `InitConfiguration` separated by `---` within the same configuration file.
+This file can then be passed to `kubeadm init` and kubeadm will apply the same base `KubeletConfiguration`
+to all nodes in the cluster.
 -->
-## 自定义 kubelet   {#customizing-the-kubelet}
+## 自定义 kubelet  {#kubelet}
 
 要自定义 kubelet，你可以在同一配置文件中的 `ClusterConfiguration` 或 `InitConfiguration`
-之外添加一个 `KubeletConfiguration`，用 `---` 分隔。
-然后可以将此文件传递给 `kubeadm init`。
+之外添加一个 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)，用 `---` 分隔。
+然后可以将此文件传递给 `kubeadm init`，kubeadm 会将相同的
+`KubeletConfiguration` 配置应用于集群中的所有节点。
 
-{{< note >}}
 <!--
-kubeadm applies the same `KubeletConfiguration` to all nodes in the cluster. To apply node
-specific settings you can use kubelet flags as overrides by passing them in the `nodeRegistration.kubeletExtraArgs`
-field supported by both `InitConfiguration` and `JoinConfiguration`. Some kubelet flags are deprecated,
-so check their status in the [kubelet reference documentation](/docs/reference/command-line-tools-reference/kubelet)
-before using them.
+For applying instance-specific configuration over the base `KubeletConfiguration` you can use the
+[`kubeletconfiguration` patch target](#patches).
+
+Alternatively, you can use kubelet flags as overrides by passing them in the
+`nodeRegistration.kubeletExtraArgs` field supported by both `InitConfiguration` and `JoinConfiguration`.
+Some kubelet flags are deprecated, so check their status in the
+[kubelet reference documentation](/docs/reference/command-line-tools-reference/kubelet) before using them.
 -->
-kubeadm 将相同的 `KubeletConfiguration` 配置应用于集群中的所有节点。
-要应用节点特定设置，你可以使用 `kubelet` 参数进行覆盖，方法是将它们传递到 `InitConfiguration` 和 `JoinConfiguration` 
+要在基础 `KubeletConfiguration` 上应用特定节点的配置，你可以使用
+[`kubeletconfiguration` 补丁定制](#patches)。
+
+或者你可以使用 `kubelet` 参数进行覆盖，方法是将它们传递到 `InitConfiguration` 和 `JoinConfiguration` 
 支持的 `nodeRegistration.kubeletExtraArgs` 字段中。一些 kubelet 参数已被弃用，
 因此在使用这些参数之前，请在 [kubelet 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kubelet) 中检查它们的状态。
-{{< /note >}}
+
 
 <!--
-For more details see [Configuring each kubelet in your cluster using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
+For additional details see [Configuring each kubelet in your cluster using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
 -->
 更多详情，请参阅[使用 kubeadm 配置集群中的每个 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
 

@@ -5,7 +5,7 @@ weight: 10
 ---
 <!-- overview -->
 
-Sie erstellen ihr Docker Image und laden es in eine Registry hoch, bevor es in einem Kubernetes Pod referenziert werden kann.
+Sie erstellen Ihr Docker Image und laden es in eine Registry hoch, bevor es in einem Kubernetes Pod referenziert werden kann.
 
 Die `image` Eigenschaft eines Containers unterstüzt die gleiche Syntax wie die des `docker` Kommandos, inklusive privater Registries und Tags.
 
@@ -75,7 +75,7 @@ Authentifizierungsdaten können auf verschiedene Weisen hinterlegt werden:
     - Alle Pods können jedes gecachte Image auf einem Node nutzen
     - Setzt root - Zugriff auf allen Nodes zum Einrichten voraus
   - Spezifizieren eines ImagePullSecrets auf einem Pod
-    - Nur Pods, die eigene Secret tragen, haben Zugriff auf eine private Registry
+    - Nur Pods, die eigene Secrets tragen, haben Zugriff auf eine private Registry
 
 Jede Option wird im Folgenden im Detail beschrieben
 
@@ -246,7 +246,7 @@ Falls jedoch die `imagePullPolicy` Eigenschaft der Containers auf `IfNotPresent`
 
 Wenn Sie sich auf im Voraus heruntergeladene Images als Ersatz für eine Registry - Authentifizierung verlassen möchten, müssen sie sicherstellen, dass alle Knoten die gleichen, im Voraus heruntergeladenen Images aufweisen.
 
-Diese Medthode kann dazu genutzt werden, bestimmte Images aus Geschwindigkeitsgründen im Voraus zu laden, oder als Alternative zur Authentifizierung an einer eigenen Registry zu nutzen.
+Diese Methode kann dazu genutzt werden, bestimmte Images aus Geschwindigkeitsgründen im Voraus zu laden, oder als Alternative zur Authentifizierung an einer eigenen Registry zu nutzen.
 
 Alle Pods haben Leserechte auf alle im Voraus geladenen Images.
 

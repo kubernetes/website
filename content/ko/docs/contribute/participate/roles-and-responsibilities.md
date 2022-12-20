@@ -32,7 +32,7 @@ GitHub 계정을 가진 누구나 쿠버네티스에 기여할 수 있다. SIG D
 - [슬랙](https://slack.k8s.io/) 또는
   [SIG docs 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에 개선을 제안한다.
 
-[CLA에 서명](/ko/docs/contribute/new-content/#sign-the-cla) 후에 누구나 다음을 할 수 있다.
+[CLA에 서명](https://github.com/kubernetes/community/blob/master/CLA.md) 후에 누구나 다음을 할 수 있다.
 
 - 기존 콘텐츠를 개선하거나, 새 콘텐츠를 추가하거나, 블로그 게시물 또는 사례연구 작성을 위해 풀 리퀘스트를 연다.
 - 다이어그램, 그래픽 자산 그리고 포함할 수 있는 스크린캐스트와 비디오를 제작한다.

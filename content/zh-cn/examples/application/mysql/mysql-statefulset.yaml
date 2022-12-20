@@ -24,7 +24,7 @@ spec:
         - |
           set -ex
           # 基于 Pod 序号生成 MySQL 服务器的 ID。
-          [[ `hostname` =~ -([0-9]+)$ ]] || exit 1
+          [[ $HOSTNAME =~ -([0-9]+)$ ]] || exit 1
           ordinal=${BASH_REMATCH[1]}
           echo [mysqld] > /mnt/conf.d/server-id.cnf
           # 添加偏移量以避免使用 server-id=0 这一保留值。

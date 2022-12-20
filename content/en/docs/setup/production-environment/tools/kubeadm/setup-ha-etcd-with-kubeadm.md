@@ -11,7 +11,7 @@ weight: 70
 {{< note >}}
 While kubeadm is being used as the management tool for external etcd nodes
 in this guide, please note that kubeadm does not plan to support certificate rotation
-or upgrades for such nodes. The long term plan is to empower the tool
+or upgrades for such nodes. The long-term plan is to empower the tool
 [etcdadm](https://github.com/kubernetes-sigs/etcdadm) to manage these
 aspects.
 {{< /note >}}
@@ -31,8 +31,8 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
   the kubeadm config file.
 * Each host must have systemd and a bash compatible shell installed.
 * Each host must [have a container runtime, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
-* Each host should have access to the Kubernetes container image registry (`k8s.gcr.io`) or list/pull the required etcd image using
-`kubeadm config images list/pull`. This guide will setup etcd instances as
+* Each host should have access to the Kubernetes container image registry (`registry.k8s.io`) or list/pull the required etcd image using
+`kubeadm config images list/pull`. This guide will set up etcd instances as
 [static pods](/docs/tasks/configure-pod-container/static-pod/) managed by a kubelet.
 * Some infrastructure to copy files between hosts. For example `ssh` and `scp`
   can satisfy this requirement.
@@ -98,7 +98,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
     export NAME1="infra1"
     export NAME2="infra2"
 
-    # Create temp directories to store files that will end up on other hosts.
+    # Create temp directories to store files that will end up on other hosts
     mkdir -p /tmp/${HOST0}/ /tmp/${HOST1}/ /tmp/${HOST2}/
 
     HOSTS=(${HOST0} ${HOST1} ${HOST2})
@@ -136,7 +136,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
     done
     ```
 
-1. Generate the certificate authority
+1. Generate the certificate authority.
 
     If you already have a CA then the only action that is copying the CA's `crt` and
     `key` file to `/etc/kubernetes/pki/etcd/ca.crt` and
@@ -150,12 +150,12 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
     kubeadm init phase certs etcd-ca
     ```
 
-    This creates two files
+    This creates two files:
 
     - `/etc/kubernetes/pki/etcd/ca.crt`
     - `/etc/kubernetes/pki/etcd/ca.key`
 
-1. Create certificates for each member
+1. Create certificates for each member.
 
     ```sh
     kubeadm init phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
@@ -184,7 +184,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
     find /tmp/${HOST1} -name ca.key -type f -delete
     ```
 
-1. Copy certificates and kubeadm configs
+1. Copy certificates and kubeadm configs.
 
     The certificates have been generated and now they must be moved to their
     respective hosts.
@@ -199,7 +199,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
      root@HOST $ mv pki /etc/kubernetes/
      ```
 
-1. Ensure all expected files exist
+1. Ensure all expected files exist.
 
     The complete list of required files on `$HOST0` is:
 
@@ -240,7 +240,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
         └── server.key
     ```
 
-    On `$HOST2`
+    On `$HOST2`:
 
     ```
     $HOME
@@ -259,7 +259,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
         └── server.key
     ```
 
-1. Create the static pod manifests
+1. Create the static pod manifests.
 
     Now that the certificates and configs are in place it's time to create the
     manifests. On each host run the `kubeadm` command to generate a static manifest
@@ -271,12 +271,12 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
     root@HOST2 $ kubeadm init phase etcd local --config=$HOME/kubeadmcfg.yaml
     ```
 
-1. Optional: Check the cluster health
+1. Optional: Check the cluster health.
 
     ```sh
     docker run --rm -it \
     --net host \
-    -v /etc/kubernetes:/etc/kubernetes k8s.gcr.io/etcd:${ETCD_TAG} etcdctl \
+    -v /etc/kubernetes:/etc/kubernetes registry.k8s.io/etcd:${ETCD_TAG} etcdctl \
     --cert /etc/kubernetes/pki/etcd/peer.crt \
     --key /etc/kubernetes/pki/etcd/peer.key \
     --cacert /etc/kubernetes/pki/etcd/ca.crt \
@@ -286,7 +286,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
     https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
     https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
     ```
-    - Set `${ETCD_TAG}` to the version tag of your etcd image. For example `3.4.3-0`. To see the etcd image and tag that kubeadm uses execute `kubeadm config images list --kubernetes-version ${K8S_VERSION}`, where `${K8S_VERSION}` is for example `v1.17.0`
+    - Set `${ETCD_TAG}` to the version tag of your etcd image. For example `3.4.3-0`. To see the etcd image and tag that kubeadm uses execute `kubeadm config images list --kubernetes-version ${K8S_VERSION}`, where `${K8S_VERSION}` is for example `v1.17.0`.
     - Set `${HOST0}`to the IP address of the host you are testing.
 
 
@@ -294,7 +294,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 ## {{% heading "whatsnext" %}}
 
 
-Once you have a working 3 member etcd cluster, you can continue setting up a
-highly available control plane using the [external etcd method with
-kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/).
+Once you have an etcd cluster with 3 working members, you can continue setting up a
+highly available control plane using the
+[external etcd method with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/).
 

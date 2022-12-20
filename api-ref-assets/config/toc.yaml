@@ -63,12 +63,21 @@ parts:
   - name: HorizontalPodAutoscaler
     group: autoscaling
     version: v2
-  - name: HorizontalPodAutoscaler
-    group: autoscaling
-    version: v2beta2
   - name: PriorityClass
     group: scheduling.k8s.io
     version: v1
+  - name: PodScheduling
+    group: resource.k8s.io
+    version: v1alpha1
+  - name: ResourceClaim
+    group: resource.k8s.io
+    version: v1alpha1
+  - name: ResourceClaimTemplate
+    group: resource.k8s.io
+    version: v1alpha1
+  - name: ResourceClass
+    group: resource.k8s.io
+    version: v1alpha1
 - name: Service Resources
   chapters:
   - name: Service
@@ -153,6 +162,9 @@ parts:
   - name: SubjectAccessReview
     group: authorization.k8s.io
     version: v1
+  - name: SelfSubjectReview
+    group: authentication.k8s.io
+    version: v1alpha1
   - name: ClusterRole
     group: rbac.authorization.k8s.io
     version: v1
@@ -179,9 +191,6 @@ parts:
   - name: PodDisruptionBudget
     group: policy
     version: v1
-  - name: PodSecurityPolicy
-    group: policy
-    version: v1beta1
 - name: Extend Resources
   chapters:
   - name: CustomResourceDefinition
@@ -198,6 +207,12 @@ parts:
   - name: ValidatingWebhookConfiguration
     group: admissionregistration.k8s.io
     version: v1
+  - name: ValidatingAdmissionPolicy
+    group: admissionregistration.k8s.io
+    version: v1alpha1
+    otherDefinitions:
+    - ValidatingAdmissionPolicyList
+    - ValidatingAdmissionPolicyBinding
 - name: Cluster Resources
   chapters:
   - name: Node
@@ -220,16 +235,19 @@ parts:
     version: v1
   - name: FlowSchema
     group: flowcontrol.apiserver.k8s.io
-    version: v1beta2
+    version: v1beta3
   - name: PriorityLevelConfiguration
     group: flowcontrol.apiserver.k8s.io
-    version: v1beta2
+    version: v1beta3
   - name: Binding
     group: ""
     version: v1
   - name: ComponentStatus
     group: ""
     version: v1
+  - name: ClusterCIDR
+    group: networking.k8s.io
+    version: v1alpha1
 - name: Common Definitions
   chapters:
   - name: DeleteOptions

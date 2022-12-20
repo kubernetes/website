@@ -1,9 +1,17 @@
 ---
 title: 污点和容忍度
 content_type: concept
-weight: 40
+weight: 50
 ---
-
+<!--
+reviewers:
+- davidopp
+- kevin-wangzefeng
+- bsalamat
+title: Taints and Tolerations
+content_type: concept
+weight: 50
+-->
 
 <!-- overview -->
 <!--
