@@ -5,6 +5,7 @@ reviewers:
 title: Images
 content_type: concept
 weight: 10
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -18,6 +19,12 @@ before referring to it in a
 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 
 This page provides an outline of the container image concept.
+
+{{< note >}}
+If you are looking for the container images for a Kubernetes
+release (such as v{{< skew latestVersion >}}, the latest minor release),
+visit [Download Kubernetes](https://kubernetes.io/releases/download/).
+{{< /note >}}
 
 <!-- body -->
 
@@ -160,9 +167,12 @@ Credentials can be provided in several ways:
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
+  - Kubelet Credential Provider to dynamically fetch credentials for private registries
+    - kubelet can be configured to use credential provider exec plugin 
+      for the respective private registry.
   - Pre-pulled Images
     - all pods can use any images cached on a node
-    - requires root access to all nodes to setup
+    - requires root access to all nodes to set up
   - Specifying ImagePullSecrets on a Pod
     - only pods which provide own keys can access the private registry
   - Vendor-specific or local extensions
@@ -179,6 +189,18 @@ Specific instructions for setting credentials depends on the container runtime a
 For an example of configuring a private container image registry, see the
 [Pull an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry)
 task. That example uses a private registry in Docker Hub.
+
+### Kubelet credential provider for authenticated image pulls {#kubelet-credential-provider}
+
+{{< note >}}
+This approach is especially suitable when kubelet needs to fetch registry credentials dynamically.
+Most commonly used for registries provided by cloud providers where auth tokens are short-lived. 
+{{< /note >}}
+
+You can configure the kubelet to invoke a plugin binary to dynamically fetch registry credentials for a container image.
+This is the most robust and versatile way to fetch credentials for private registries, but also requires kubelet-level configuration to enable.
+
+See [Configure a kubelet image credential provider](/docs/tasks/administer-cluster/kubelet-credential-provider/) for more details.
 
 ### Interpretation of config.json {#config-json}
 
@@ -275,6 +297,8 @@ in private registries.
 {{< /note >}}
 
 Kubernetes supports specifying container image registry keys on a Pod.
+`imagePullSecrets` must all be in the same namespace as the Pod. The referenced
+Secrets must be of type `kubernetes.io/dockercfg` or `kubernetes.io/dockerconfigjson`.
 
 #### Creating a Secret with a Docker config
 
@@ -303,7 +327,8 @@ so this process needs to be done one time per namespace.
 #### Referring to an imagePullSecrets on a Pod
 
 Now, you can create pods which reference that secret by adding an `imagePullSecrets`
-section to a Pod definition.
+section to a Pod definition. Each item in the `imagePullSecrets` array can only
+reference a Secret in the same namespace.
 
 For example:
 

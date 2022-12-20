@@ -112,7 +112,7 @@ Profiling handlers will be handled by metrics server.
 bridge traffic coming from outside of the cluster. If not provided,
 no off-cluster bridging will be performed.
    -->
-   <p><code>clusterCIDR</code> 字段是集群中 Pods 所使用的 CIDR 范围。
+   <p><code>clusterCIDR</code> 字段是集群中 Pod 所使用的 CIDR 范围。
    这一地址范围用于对来自集群外的请求流量进行桥接。
    如果未设置，则 kube-proxy 不会对非集群内部的流量做桥接。</p>
 </td>
@@ -755,9 +755,9 @@ this always falls back to the userspace proxy.
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -833,9 +833,9 @@ default value of 'application/json'. This field will control all connections to 
 -->
 **出现在：**
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -874,82 +874,6 @@ enableProfiling is true.
 </tbody>
 </table>
 
-## `FormatOptions`     {#FormatOptions}
-    
-<!--
-**Appears in:**
--->
-
-<!--
-FormatOptions contains options for the different logging formats.
--->
-FormatOptions 包含不同日志记录格式的配置选项。
-
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>json</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#JSONOptions"><code>JSONOptions</code></a>
-</td>
-<td>
-   <!--
-   [Experimental] JSON contains options for logging format "json".
-   -->
-   <p>[实验特性] <code>json</code> 字段包含 &quot;JSON&quot; 日志格式的配置选项。</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `JSONOptions`     {#JSONOptions}
-    
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [FormatOptions](#FormatOptions)
-
-<!--
-JSONOptions contains options for logging format "json".
--->
-JSONOptions 包含 &quot;json&quot; 日志格式的配置选项。
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>splitStream</code> <B><!--[Required]-->[必需]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <!--
-   [Experimental] SplitStream redirects error messages to stderr while
-info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering.
-   -->
-   <p>[实验特性] <code>splitStream</code> 字段将信息类型的信息输出到标准输出，错误信息重定向到标准
-   错误输出，并提供缓存。默认行为是将二者都输出到标准输出且不提供缓存。</p>
-</td>
-</tr>
-<tr><td><code>infoBufferSize</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
-</td>
-<td>
-   <!--
-   [Experimental] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.
-   -->
-   <p>[实验特性] <code>infoBufferSize</code> 字段设置在使用分离数据流时 info 数据流的缓冲区大小。
-   默认值为 0，意味着不提供缓存。</p>
-</td>
-</tr>
-</tbody>
-</table>
 
 ## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
 
@@ -1075,109 +999,3 @@ during leader election cycles.
 </tr>
 </tbody>
 </table>
-
-## `LoggingConfiguration`     {#LoggingConfiguration}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-<!--
-LoggingConfiguration contains logging options
-Refer <a href="https://git.k8s.io/component-base/logs/api/v1/options.go">Logs Options</a> for more information.
--->
-LoggingConfiguration 包含日志选项。
-参考 [Logs Options](https://git.k8s.io/component-base/logs/api/v1/options.go) 以了解更多信息。
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-
-<tr><td><code>format</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-<!--
-Format Flag specifies the structure of log messages.
-default value of format is <code>text</code>
--->
-   <p><code>format</code> 字段设置日志消息的结构。默认的格式取值为 <code>text</code>。</p>
-</td>
-</tr>
-<tr><td><code>flushFrequency</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
-</td>
-<td>
-<!--
-Maximum number of nanoseconds (i.e. 1s = 1000000000) between log
-flushes.  Ignored if the selected logging backend writes log
-messages without buffering.
--->
-   <p>对日志进行清洗的最大间隔纳秒数（例如，1s = 1000000000）。
-   如果所选的日志后端在写入日志消息时不提供缓存，则此配置会被忽略。</p>
-</td>
-</tr>
-<tr><td><code>verbosity</code> <B><!--[Required]-->[必需]</B><br/>
-<code>uint32</code>
-</td>
-<td>
-<!--
-Verbosity is the threshold that determines which log messages are
-logged. Default is zero which logs only the most important
-messages. Higher values enable additional messages. Error messages
-are always logged.
--->
-   <p><code>verbosity</code> 字段用来确定日志消息记录的详细程度阈值。
-   默认值为 0，意味着仅记录最重要的消息。
-   数值越大，额外的消息越多。错误消息总是被记录下来。</p>
-</td>
-</tr>
-<tr><td><code>vmodule</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
-</td>
-<td>
-<!--
-VModule overrides the verbosity threshold for individual files.
-Only supported for &quot;text&quot; log format.
--->
-   <p><code>vmodule</code> 字段会在单个文件层面重载 verbosity 阈值的设置。
-   这一选项仅支持 &quot;text&quot; 日志格式。</p>
-</td>
-</tr>
-<tr><td><code>options</code> <B>[Required]</B><br/>
-<a href="#FormatOptions"><code>FormatOptions</code></a>
-</td>
-<td>
-<!--
-[Experimental] Options holds additional parameters that are specific
-to the different logging formats. Only the options for the selected
-format get used, but all of them get validated.
--->
-   <p>[实验特性] <code>options</code> 字段中包含特定于不同日志格式的配置参数。
-   只有针对所选格式的选项会被使用，但是合法性检查时会查看所有选项配置。</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `VModuleConfiguration`     {#VModuleConfiguration}
-   
-<!-- 
-(Alias of `[]k8s.io/component-base/config/v1alpha1.VModuleItem`)
-
-**Appears in:**
--->
-（`[]k8s.io/component-base/config/v1alpha1.VModuleItem` 的别名）
-
-**出现在：**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-<!--
-VModuleConfiguration is a collection of individual file names or patterns
-and the corresponding verbosity threshold.
--->
-VModuleConfiguration 是一组文件名或文件名模式，及其对应的日志详尽程度阈值配置。

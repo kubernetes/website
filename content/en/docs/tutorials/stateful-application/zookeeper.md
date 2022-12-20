@@ -1042,7 +1042,7 @@ There are pending pods when an error occurred: Cannot evict pod as it would viol
 pod/zk-2
 ```
 
-Use `CTRL-C` to terminate to kubectl.
+Use `CTRL-C` to terminate kubectl.
 
 You cannot drain the third node because evicting `zk-2` would violate `zk-budget`. However, the node will remain cordoned.
 

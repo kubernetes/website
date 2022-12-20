@@ -134,13 +134,13 @@ etcd:
       election-timeout: 1000
 ```
 
-## Customizing the control plane with patches {#patches}
+## Customizing with patches {#patches}
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 Kubeadm allows you to pass a directory with patch files to `InitConfiguration` and `JoinConfiguration`
-on individual nodes. These patches can be used as the last customization step before the control
-plane component manifests are written to disk.
+on individual nodes. These patches can be used as the last customization step before component configuration
+is written to disk.
 
 You can pass this file to `kubeadm init` with `--config <YOUR CONFIG YAML>`:
 
@@ -168,7 +168,8 @@ patches:
 The directory must contain files named `target[suffix][+patchtype].extension`.
 For example, `kube-apiserver0+merge.yaml` or just `etcd.json`.
 
-- `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd`.
+- `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`
+and `kubeletconfiguration`.
 - `patchtype` can be one of `strategic`, `merge` or `json` and these must match the patching formats
 [supported by kubectl](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch).
 The default `patchtype` is `strategic`.
@@ -183,20 +184,22 @@ flag, which must point to the same directory. `kubeadm upgrade` currently does n
 API structure that can be used for the same purpose.
 {{< /note >}}
 
-## Customizing the kubelet
+## Customizing the kubelet {#kubelet}
 
-To customize the kubelet you can add a `KubeletConfiguration` next to the `ClusterConfiguration` or
-`InitConfiguration` separated by `---` within the same configuration file. This file can then be passed to `kubeadm init`.
+To customize the kubelet you can add a [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
+next to the `ClusterConfiguration` or `InitConfiguration` separated by `---` within the same configuration file.
+This file can then be passed to `kubeadm init` and kubeadm will apply the same base `KubeletConfiguration`
+to all nodes in the cluster.
 
-{{< note >}}
-kubeadm applies the same `KubeletConfiguration` to all nodes in the cluster. To apply node
-specific settings you can use kubelet flags as overrides by passing them in the `nodeRegistration.kubeletExtraArgs`
-field supported by both `InitConfiguration` and `JoinConfiguration`. Some kubelet flags are deprecated,
-so check their status in the [kubelet reference documentation](/docs/reference/command-line-tools-reference/kubelet)
-before using them.
-{{< /note >}}
+For applying instance-specific configuration over the base `KubeletConfiguration` you can use the
+[`kubeletconfiguration` patch target](#patches).
 
-For more details see [Configuring each kubelet in your cluster using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
+Alternatively, you can use kubelet flags as overrides by passing them in the
+`nodeRegistration.kubeletExtraArgs` field supported by both `InitConfiguration` and `JoinConfiguration`.
+Some kubelet flags are deprecated, so check their status in the
+[kubelet reference documentation](/docs/reference/command-line-tools-reference/kubelet) before using them.
+
+For additional details see [Configuring each kubelet in your cluster using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
 
 ## Customizing kube-proxy
 

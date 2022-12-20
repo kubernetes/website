@@ -4,20 +4,20 @@ content_type: task
 weight: 20
 ---
 <!-- 
----
 title: Generate Certificates Manually
 content_type: task
 weight: 20
----
 -->
 
 <!-- overview -->
 
 <!-- 
 When using client certificate authentication, you can generate certificates
-manually through `easyrsa`, `openssl` or `cfssl`.
+manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](https://github.com/openssl/openssl) or [`cfssl`](https://github.com/cloudflare/cfssl).
 -->
-在使用客户端证书认证的场景下，你可以通过 `easyrsa`、`openssl` 或 `cfssl` 等工具以手工方式生成证书。
+在使用客户端证书认证的场景下，你可以通过 [`easyrsa`](https://github.com/OpenVPN/easy-rsa)、
+[`openssl`](https://github.com/openssl/openssl) 或 [`cfssl`](https://github.com/cloudflare/cfssl)
+等工具以手工方式生成证书。
 
 <!-- body -->
 
@@ -200,7 +200,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
    ```shell
    openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
        -CAcreateserial -out server.crt -days 10000 \
-       -extensions v3_ext -extfile csr.conf
+       -extensions v3_ext -extfile csr.conf -sha256
    ```
 
 <!--

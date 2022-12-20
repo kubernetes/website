@@ -29,9 +29,13 @@ admission controller. This can be done effectively using a combination of dry-ru
 {{% version-check %}}
 
 <!--
-- Ensure the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) is enabled.
+If you are currently running a version of Kubernetes other than
+{{ skew currentVersion }}, you may want to switch to viewing this
+page in the documentation for the version of Kubernetes that you
+are actually running.
 -->
-- 确保 `PodSecurity` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用。
+如果你目前运行的 Kubernetes 版本不是 {{ skew currentVersion }}，
+你可能要切换本页面以查阅你实际所运行的 Kubernetes 版本文档。
 
 <!--
 This page assumes you are already familiar with the basic [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
@@ -141,7 +145,7 @@ to other policy enforcement mechanisms, and can provide a useful fallback runnin
 admission webhooks.
 -->
 即便 Pod 安全性准入无法满足你的所有需求，该机制也是设计用作其他策略实施机制的
-_补充_，因此可以和其他准入 Webhook 一起运行，进而提供一种有用的兜底机制。
+**补充**，因此可以和其他准入 Webhook 一起运行，进而提供一种有用的兜底机制。
 
 <!--
 ## 1. Review namespace permissions {#review-namespace-permissions}
@@ -164,8 +168,7 @@ Pod 安全性准入是通过[名字空间上的标签](/zh-cn/docs/concepts/secu
 名字空间的人都可以更改该名字空间的 Pod 安全性级别，而这可能会被利用来绕过约束性更强的策略。
 在继续执行迁移操作之前，请确保只有被信任的、有特权的用户具有这类名字空间访问权限。
 不建议将这类强大的访问权限授予不应获得权限提升的用户，不过如果你必须这样做，
-你需要使用一个
-[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
+你需要使用一个[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 来针对为 Namespace 对象设置 Pod 安全性级别设置额外的约束。
 
 <!--
@@ -185,8 +188,8 @@ policies](#psp-update-rollout) section below.
 针对要修改的、已存在的 PodSecurityPolicy，你应该将这里所建议的更改写入到其离线副本中。
 所克隆的 PSP 应该与原来的副本名字不同，并且按字母序要排到原副本之前
 （例如，可以向 PSP 名字前加一个 `0`）。
-先不要在 Kubernetes 中创建新的策略 - 这类操作会在后文的[推出更新的策略](#psp-update-rollout)
-部分讨论。
+先不要在 Kubernetes 中创建新的策略 -
+这类操作会在后文的[推出更新的策略](#psp-update-rollout)部分讨论。
 
 <!--
 ### 2.a. Eliminate purely mutating fields {#eliminate-mutating-fields}
@@ -504,7 +507,7 @@ kubectl label --dry-run=server --overwrite ns $NAMESPACE pod-security.kubernetes
 This command will return a warning for any _existing_ pods that are not valid under the proposed
 level.
 -->
-此命令会针对在所提议的级别下不再合法的所有 _现存_ Pod 返回警告信息。
+此命令会针对在所提议的级别下不再合法的所有 **现存** Pod 返回警告信息。
 
 <!--
 The second option is better for catching workloads that are not currently running: audit mode. When
@@ -612,9 +615,8 @@ audit, and/or warn level for unlabeled namespaces. See
 for more information.
 -->
 你也可以静态配置 Pod 安全性准入控制器，为尚未打标签的名字空间设置默认的
-enforce、audit 与/或 warn 级别。详细信息可参阅
-[配置准入控制器](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
-页面。
+enforce、audit 与/或 warn 级别。
+详细信息可参阅[配置准入控制器](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)页面。
 
 <!--
 ## 5. Disable PodSecurityPolicy {#disable-psp}

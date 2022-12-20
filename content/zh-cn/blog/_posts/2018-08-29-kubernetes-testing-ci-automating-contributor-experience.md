@@ -39,7 +39,7 @@ This strategy worked. It worked so well that the project quickly scaled past its
 ## The Work
 -->
 
-##　工作
+## 工作
 
 <!--
 Initially, we focused on the fact that we needed to support the sheer volume of tests mandated by a complex distributed system such as Kubernetes. Real world failure scenarios had to be exercised via end-to-end (e2e) tests to ensure proper functionality. Unfortunately, e2e tests were susceptible to flakes (random failures) and took anywhere from an hour to a day to complete.

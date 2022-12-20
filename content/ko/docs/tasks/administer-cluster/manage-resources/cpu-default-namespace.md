@@ -140,7 +140,8 @@ resources:
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml --namespace=default-cpu-example
 ```
 
-생성한 파드의 명세를 확인한다.
+생성한 파드의 
+[명세](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#오브젝트-명세-spec-와-상태-status)를 확인한다.
 
 ```
 kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example
