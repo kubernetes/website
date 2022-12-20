@@ -15,7 +15,7 @@ weight: 20
 
 <!-- overview -->
 <!--
-SIG Docs [Reviewers](/docs/contribute/participate/roles-and-responsibilities/#reviewers) and [Approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers) do a few extra things when reviewing a change.
+SIG Docs [Reviewers](/docs/contribute/participate/#reviewers) and [Approvers](/docs/contribute/participate/#approvers) do a few extra things when reviewing a change.
 
 Every week a specific docs approver volunteers to triage
 and review pull requests. This
@@ -27,8 +27,8 @@ In addition to the rotation, a bot assigns reviewers and approvers
 for the PR based on the owners for the affected files.
 -->
 SIG Docs
-[评阅人（Reviewers）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#reviewers)
-和[批准人（Approvers）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)
+[评阅人（Reviewers）](/zh-cn/docs/contribute/participate/#reviewers)
+和[批准人（Approvers）](/zh-cn/docs/contribute/participate/#approvers)
 在对变更进行评审时需要做一些额外的事情。
 
 每周都有一个特定的文档批准人自愿负责对 PR 进行分类和评阅。
@@ -155,29 +155,28 @@ Prow Command | Role Restrictions | Description
 :------------|:------------------|:-----------
 `/lgtm` | Organization members | Signals that you've finished reviewing a PR and are satisfied with the changes.
 `/approve` | Approvers | Approves a PR for merging.
-`/assign` | Reviewers or Approvers | Assigns a person to review or approve a PR
-`/close` | Reviewers or Approvers | Closes an issue or PR.
+`/assign` | Anyone | Assigns a person to review or approve a PR
+`/close` | Organization members | Closes an issue or PR.
 `/hold` | Anyone | Adds the `do-not-merge/hold` label, indicating the PR cannot be automatically merged.
 `/hold cancel` | Anyone | Removes the `do-not-merge/hold` label.
 {{< /table >}}
 
-See [the Prow command reference](https://prow.k8s.io/command-help) to see the full list
-of commands you can use in a PR.
+To view the commands that you can use in a PR, see the
+[Prow Command Reference](https://prow.k8s.io/command-help?repo=kubernetes%2Fwebsite).
 -->
 {{< table caption="评阅用 Prow 命令" >}}
 Prow 命令 | 角色限制 | 描述
 :------------|:------------------|:-----------
 `/lgtm` | 组织成员 | 用来表明你已经完成 PR 的评阅并对其所作变更表示满意
 `/approve` | 批准人 | 批准某 PR 可以合并
-`/assign` |评阅人或批准人 | 指派某人来评阅或批准某 PR
-`/close` | 评阅人或批准人 | 关闭 Issue 或 PR
+`/assign` |任何人 | 指派某人来评阅或批准某 PR
+`/close` | 组织成员 | 关闭 Issue 或 PR
 `/hold` | 任何人 | 添加 `do-not-merge/hold` 标签，用来表明 PR 不应被自动合并
 `/hold cancel` | 任何人 | 去掉 `do-not-merge/hold` 标签
 {{< /table >}}
 
-请参考 [Prow 命令指南](https://prow.k8s.io/command-help)，了解你可以在 PR
-中使用的命令的完整列表。
-
+要查看可以在 PR 中使用的命令，请参阅
+[Prow 命令指南](https://prow.k8s.io/command-help?repo=kubernetes%2Fwebsite)。
 <!--
 ## Triage and categorize issues
 

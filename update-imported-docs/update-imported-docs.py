@@ -40,7 +40,7 @@ error_msgs = []
 # pip should be installed when Python is installed, but just in case...
 if not (shutil.which('pip') or shutil.which('pip3')):
     error_msgs.append(
-        "Install pip so you can install PyYAML. https://pip.pypa.io/en/stable/installing")
+        "Install pip so you can install PyYAML. https://pip.pypa.io/en/stable/installation")
 
 reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
 installed_packages = [r.decode().split('==')[0] for r in reqs.split()]

@@ -357,7 +357,7 @@ reference page.
 
 ## Configuring your cluster to provide signing
 
-This page assumes that a signer is setup to serve the certificates API. The
+This page assumes that a signer is set up to serve the certificates API. The
 Kubernetes controller manager provides a default implementation of a signer. To
 enable it, pass the `--cluster-signing-cert-file` and
 `--cluster-signing-key-file` parameters to the controller manager with paths to

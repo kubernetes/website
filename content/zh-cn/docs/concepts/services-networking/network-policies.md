@@ -1,13 +1,22 @@
 ---
 title: 网络策略
 content_type: concept
-weight: 50
+weight: 70
+description: >-
+  如果你希望在 IP 地址或端口层面（OSI 第 3 层或第 4 层）控制网络流量，
+  NetworkPolicy 可以让你为集群内以及 Pod 与外界之间的网络流量指定规则。
+  你的集群必须使用支持 NetworkPolicy 实施的网络插件。
 ---
 
 <!--
 title: Network Policies
 content_type: concept
-weight: 50
+weight: 70
+description: >-
+  If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4),
+  NetworkPolicies allow you to specify rules for traffic flow within your cluster, and
+  also between Pods and the outside world.
+  Your cluster must use a network plugin that supports NetworkPolicy enforcement.
 -->
 
 <!-- overview -->
@@ -42,12 +51,9 @@ When defining a pod- or namespace- based NetworkPolicy, you use a {{< glossary_t
 
 Meanwhile, when IP based NetworkPolicies are created, we define policies based on IP blocks (CIDR ranges).
 -->
-在定义基于 Pod 或名字空间的 NetworkPolicy 时，你会使用
-{{< glossary_tooltip text="选择算符" term_id="selector">}} 来设定哪些流量
-可以进入或离开与该算符匹配的 Pod。
-
-同时，当基于 IP 的 NetworkPolicy 被创建时，我们基于 IP 组块（CIDR 范围）
-来定义策略。
+在定义基于 Pod 或名字空间的 NetworkPolicy 时，
+你会使用{{< glossary_tooltip text="选择算符" term_id="selector">}}来设定哪些流量可以进入或离开与该算符匹配的 Pod。
+另外，当创建基于 IP 的 NetworkPolicy 时，我们基于 IP 组块（CIDR 范围）来定义策略。
 
 <!-- body -->
 
@@ -58,8 +64,8 @@ Network policies are implemented by the [network plugin](/docs/concepts/extend-k
 -->
 ## 前置条件   {#prerequisites}
 
-网络策略通过[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-来实现。要使用网络策略，你必须使用支持 NetworkPolicy 的网络解决方案。
+网络策略通过[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)来实现。
+要使用网络策略，你必须使用支持 NetworkPolicy 的网络解决方案。
 创建一个 NetworkPolicy 资源对象而没有控制器来使它生效的话，是没有任何作用的。
 
 <!--
@@ -142,16 +148,16 @@ __spec__: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/mast
 
 __podSelector__: Each NetworkPolicy includes a `podSelector` which selects the grouping of pods to which the policy applies. The example policy selects pods with the label "role=db". An empty `podSelector` selects all pods in the namespace.
 -->
-__必需字段__：与所有其他的 Kubernetes 配置一样，NetworkPolicy 需要 `apiVersion`、
-`kind` 和 `metadata` 字段。关于配置文件操作的一般信息，请参考
-[配置 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/),
+**必需字段**：与所有其他的 Kubernetes 配置一样，NetworkPolicy 需要 `apiVersion`、
+`kind` 和 `metadata` 字段。关于配置文件操作的一般信息，
+请参考[配置 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 和[对象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management)。
 
-__spec__：NetworkPolicy [规约](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
+**spec**：NetworkPolicy [规约](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 中包含了在一个名字空间中定义特定网络策略所需的所有信息。
 
-__podSelector__：每个 NetworkPolicy 都包括一个 `podSelector`，它对该策略所
-适用的一组 Pod 进行选择。示例中的策略选择带有 "role=db" 标签的 Pod。
+**podSelector**：每个 NetworkPolicy 都包括一个 `podSelector`，
+它对该策略所适用的一组 Pod 进行选择。示例中的策略选择带有 "role=db" 标签的 Pod。
 空的 `podSelector` 选择名字空间下的所有 Pod。
 
 <!--
@@ -162,18 +168,18 @@ __ingress__: Each NetworkPolicy may include a list of allowed `ingress` rules.  
 __egress__: Each NetworkPolicy may include a list of allowed `egress` rules.  Each rule allows traffic which matches both the `to` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
 -->
 
-__policyTypes__: 每个 NetworkPolicy 都包含一个 `policyTypes` 列表，其中包含
-`Ingress` 或 `Egress` 或两者兼具。`policyTypes` 字段表示给定的策略是应用于
-进入所选 Pod 的入站流量还是来自所选 Pod 的出站流量，或两者兼有。
+**policyTypes**：每个 NetworkPolicy 都包含一个 `policyTypes` 列表，其中包含
+`Ingress` 或 `Egress` 或两者兼具。`policyTypes` 字段表示给定的策略是应用于进入所选
+Pod 的入站流量还是来自所选 Pod 的出站流量，或两者兼有。
 如果 NetworkPolicy 未指定 `policyTypes` 则默认情况下始终设置 `Ingress`；
 如果 NetworkPolicy 有任何出口规则的话则设置 `Egress`。
 
-__ingress__: 每个 NetworkPolicy 可包含一个 `ingress` 规则的白名单列表。
-每个规则都允许同时匹配 `from` 和 `ports` 部分的流量。示例策略中包含一条
-简单的规则：它匹配某个特定端口，来自三个来源中的一个，第一个通过 `ipBlock`
+**ingress**：每个 NetworkPolicy 可包含一个 `ingress` 规则的白名单列表。
+每个规则都允许同时匹配 `from` 和 `ports` 部分的流量。示例策略中包含一条简单的规则：
+它匹配某个特定端口，来自三个来源中的一个，第一个通过 `ipBlock`
 指定，第二个通过 `namespaceSelector` 指定，第三个通过 `podSelector` 指定。
 
-__egress__: 每个 NetworkPolicy 可包含一个 `egress` 规则的白名单列表。
+**egress**：每个 NetworkPolicy 可包含一个 `egress` 规则的白名单列表。
 每个规则都允许匹配 `to` 和 `port` 部分的流量。该示例策略包含一条规则，
 该规则将指定端口上的流量匹配到 `10.0.0.0/24` 中的任何目的地。
 
@@ -204,8 +210,7 @@ See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-
 3. （Egress 规则）允许 “default” 命名空间中任何带有标签 “role=db” 的 Pod 到 CIDR
    10.0.0.0/24 下 5978 TCP 端口的连接。
 
-参阅[声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)演练
-了解更多示例。
+参阅[声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)演练了解更多示例。
 
 <!--
 ## Behavior of `to` and `from` selectors
@@ -222,13 +227,13 @@ __namespaceSelector__ *and* __podSelector__: A single `to`/`from` entry that spe
 
 可以在 `ingress` 的 `from` 部分或 `egress` 的 `to` 部分中指定四种选择器：
 
-__podSelector__: 此选择器将在与 NetworkPolicy 相同的名字空间中选择特定的
+**podSelector**：此选择器将在与 NetworkPolicy 相同的名字空间中选择特定的
 Pod，应将其允许作为入站流量来源或出站流量目的地。
 
-__namespaceSelector__：此选择器将选择特定的名字空间，应将所有 Pod 用作其
-入站流量来源或出站流量目的地。
+**namespaceSelector**：此选择器将选择特定的名字空间，应将所有 Pod
+用作其入站流量来源或出站流量目的地。
 
-__namespaceSelector__ *和* __podSelector__：一个指定 `namespaceSelector`
+**namespaceSelector 和 podSelector**：一个指定 `namespaceSelector`
 和 `podSelector` 的 `to`/`from` 条目选择特定名字空间中的特定 Pod。
 注意使用正确的 YAML 语法；下面的策略：
 
@@ -248,8 +253,8 @@ __namespaceSelector__ *和* __podSelector__：一个指定 `namespaceSelector`
 <!--
 contains a single `from` element allowing connections from Pods with the label `role=client` in namespaces with the label `user=alice`. But *this* policy:
  -->
-在 `from` 数组中仅包含一个元素，只允许来自标有 `role=client` 的 Pod 且
-该 Pod 所在的名字空间中标有 `user=alice` 的连接。但是 *这项* 策略：
+在 `from` 数组中仅包含一个元素，只允许来自标有 `role=client` 的 Pod
+且该 Pod 所在的名字空间中标有 `user=alice` 的连接。但是 **这项** 策略：
 
 ```yaml
   ...
@@ -268,7 +273,7 @@ contains a single `from` element allowing connections from Pods with the label `
 contains two elements in the `from` array, and allows connections from Pods in the local Namespace with the label `role=client`, *or* from any Pod in any namespace with the label `user=alice`.
 -->
 在 `from` 数组中包含两个元素，允许来自本地名字空间中标有 `role=client` 的
-Pod 的连接，*或* 来自任何名字空间中标有 `user=alice` 的任何 Pod 的连接。
+Pod 的连接，**或** 来自任何名字空间中标有 `user=alice` 的任何 Pod 的连接。
 
 <!--
 When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
@@ -290,7 +295,7 @@ cluster-external IPs may or may not be subject to `ipBlock`-based policies.
 -->
 如有疑问，请使用 `kubectl describe` 查看 Kubernetes 如何解释该策略。
 
-__ipBlock__: 此选择器将选择特定的 IP CIDR 范围以用作入站流量来源或出站流量目的地。
+**ipBlock**：此选择器将选择特定的 IP CIDR 范围以用作入站流量来源或出站流量目的地。
 这些应该是集群外部 IP，因为 Pod IP 存在时间短暂的且随机产生。
 
 集群的入站和出站机制通常需要重写数据包的源 IP 或目标 IP。
@@ -405,8 +410,7 @@ You can create a "default" policy for a namespace which prevents all ingress AND
 <!--
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed ingress or egress traffic.
 -->
-此策略可以确保即使没有被其他任何 NetworkPolicy 选择的 Pod 也不会被
-允许入站或出站流量。
+此策略可以确保即使没有被其他任何 NetworkPolicy 选择的 Pod 也不会被允许入站或出站流量。
 
 <!--
 ## SCTP support
@@ -433,11 +437,11 @@ You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin tha
 {{< /note >}}
 
 <!--
-## Targeting a range of Ports
+## Targeting a range of ports
 -->
 ## 针对某个端口范围   {#targeting-a-range-of-ports}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 <!--
 When writing a NetworkPolicy, you can target a range of ports instead of a single port.
@@ -475,27 +479,19 @@ The above rule allows any Pod with label `role=db` on the namespace `default` to
 with any IP within the range `10.0.0.0/24` over TCP, provided that the target
 port is between the range 32000 and 32768.
 -->
-上面的规则允许名字空间 `default` 中所有带有标签 `role=db` 的 Pod 使用 TCP 协议
-与 `10.0.0.0/24` 范围内的 IP 通信，只要目标端口介于 32000 和 32768 之间就可以。
+上面的规则允许名字空间 `default` 中所有带有标签 `role=db` 的 Pod 使用 TCP 协议与
+`10.0.0.0/24` 范围内的 IP 通信，只要目标端口介于 32000 和 32768 之间就可以。
 
 <!--
 The following restrictions apply when using this field:
-* As a beta feature, this is enabled by default. To disable the `endPort` field
-  at a cluster level, you (or your cluster administrator) need to disable the
-  `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  for the API server with `--feature-gates=NetworkPolicyEndPort=false,…`.
 * The `endPort` field must be equal to or greater than the `port` field.
 * `endPort` can only be defined if `port` is also defined.
 * Both ports must be numeric.
 -->
 使用此字段时存在以下限制：
 
-* 作为一种 Beta 阶段的特性，端口范围设定默认是被启用的。要在整个集群
-  范围内禁止使用 `endPort` 字段，你（或者你的集群管理员）需要为 API
-  服务器设置 `--feature-gates=NetworkPolicyEndPort=false,...` 以禁用
-  `NetworkPolicyEndPort`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 * `endPort` 字段必须等于或者大于 `port` 字段的值。
+* 只有在定义了 `port` 时才能定义 `endPort`。
 * 两个字段的设置值都只能是数字。
 
 {{< note >}}
@@ -506,10 +502,10 @@ If your [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/ne
 does not support the `endPort` field and you specify a NetworkPolicy with that,
 the policy will be applied only for the single `port` field.
 -->
-你的集群所使用的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 插件
-必须支持在 NetworkPolicy 规约中使用 `endPort` 字段。
-如果你的[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-不支持 `endPort` 字段，而你指定了一个包含 `endPort` 字段的 NetworkPolicy，
+你的集群所使用的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 插件必须支持在
+NetworkPolicy 规约中使用 `endPort` 字段。
+如果你的[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)不支持
+`endPort` 字段，而你指定了一个包含 `endPort` 字段的 NetworkPolicy，
 策略只对单个 `port` 字段生效。
 {{< /note >}}
 
@@ -530,12 +526,12 @@ While NetworkPolicy cannot target a namespace by its name with some object field
 standardized label to target a specific namespace.
 -->
 只要 `NamespaceDefaultLabelName`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-被启用，Kubernetes 控制面会在所有名字空间上设置一个不可变更的标签
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用，
+Kubernetes 控制面会在所有名字空间上设置一个不可变更的标签
 `kubernetes.io/metadata.name`。该标签的值是名字空间的名称。
 
-如果 NetworkPolicy 无法在某些对象字段中指向某名字空间，你可以使用标准的
-标签方式来指向特定名字空间。
+如果 NetworkPolicy 无法在某些对象字段中指向某名字空间，
+你可以使用标准的标签方式来指向特定名字空间。
 
 <!--
 ## What you can't do with network policies (at least, not yet)
@@ -544,10 +540,9 @@ As of Kubernetes {{< skew currentVersion >}}, the following functionality does n
 -->
 ## 通过网络策略（至少目前还）无法完成的工作   {#what-you-can-t-do-with-network-policies-at-least-not-yet}
 
-到 Kubernetes {{< skew currentVersion >}} 为止，NetworkPolicy API 还不支持以下功能，不过
-你可能可以使用操作系统组件（如 SELinux、OpenVSwitch、IPTables 等等）
-或者第七层技术（Ingress 控制器、服务网格实现）或准入控制器来实现一些
-替代方案。
+到 Kubernetes {{< skew currentVersion >}} 为止，NetworkPolicy API 还不支持以下功能，
+不过你可能可以使用操作系统组件（如 SELinux、OpenVSwitch、IPTables 等等）
+或者第七层技术（Ingress 控制器、服务网格实现）或准入控制器来实现一些替代方案。
 如果你对 Kubernetes 中的网络安全性还不太了解，了解使用 NetworkPolicy API
 还无法实现下面的用户场景是很值得的。
 
@@ -572,8 +567,7 @@ As of Kubernetes {{< skew currentVersion >}}, the following functionality does n
 - The ability to explicitly deny policies (currently the model for NetworkPolicies are deny by default, with only the ability to add allow rules).
 - The ability to prevent loopback or incoming host traffic (Pods cannot currently block localhost access, nor do they have the ability to block access from their resident node).
 -->
-- 实现适用于所有名字空间或 Pods 的默认策略（某些第三方 Kubernetes 发行版本
-  或项目可以做到这点）；
+- 实现适用于所有名字空间或 Pods 的默认策略（某些第三方 Kubernetes 发行版本或项目可以做到这点）；
 - 高级的策略查询或者可达性相关工具；
 - 生成网络安全事件日志的能力（例如，被阻塞或接收的连接请求）；
 - 显式地拒绝策略的能力（目前，NetworkPolicy 的模型默认采用拒绝操作，
@@ -588,7 +582,6 @@ As of Kubernetes {{< skew currentVersion >}}, the following functionality does n
   walkthrough for further examples.
 - See more [recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common scenarios enabled by the NetworkPolicy resource.
 -->
-- 参阅[声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
-  演练了解更多示例；
-- 有关 NetworkPolicy 资源所支持的常见场景的更多信息，请参见
-  [此指南](https://github.com/ahmetb/kubernetes-network-policy-recipes)。
+- 参阅[声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)演练了解更多示例；
+- 有关 NetworkPolicy 资源所支持的常见场景的更多信息，
+  请参见[此指南](https://github.com/ahmetb/kubernetes-network-policy-recipes)。

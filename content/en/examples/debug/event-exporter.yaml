@@ -41,7 +41,7 @@ spec:
       serviceAccountName: event-exporter-sa
       containers:
       - name: event-exporter
-        image: k8s.gcr.io/event-exporter:v0.2.3
+        image: registry.k8s.io/event-exporter:v0.2.3
         command:
         - '/event-exporter'
       terminationGracePeriodSeconds: 30

@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 对象管理
 content_type: concept
-weight: 15
+weight: 20
 ---
 
 <!-- overview -->

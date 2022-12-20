@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -27,13 +27,16 @@ Kubernetes Control Plane trust the Node).
 -->
 
 当节点加入 kubeadm 初始化的集群时，我们需要建立双向信任。
-这个过程可以分解为发现（让待加入节点信任 Kubernetes 控制平面节点）和 TLS 引导（让Kubernetes 控制平面节点信任待加入节点）两个部分。
+这个过程可以分解为发现（让待加入节点信任 Kubernetes 控制平面节点）和
+TLS 引导（让 Kubernetes 控制平面节点信任待加入节点）两个部分。
 
 <!--
 There are 2 main schemes for discovery. The first is to use a shared
 token along with the IP address of the API server. The second is to
-provide a file - a subset of the standard kubeconfig file. This file
-can be a local file or downloaded via an HTTPS URL. The forms are
+provide a file - a subset of the standard kubeconfig file. The
+discovery/kubeconfig file supports token, client-go authentication
+plugins ("exec"), "tokenFile", and "authProvider". This file can be a
+local file or downloaded via an HTTPS URL. The forms are
 kubeadm join --discovery-token abcdef.1234567890abcdef 1.2.3.4:6443,
 kubeadm join --discovery-file path/to/file.conf, or kubeadm join
 --discovery-file https://url/file.conf. Only one form can be used. If
@@ -44,9 +47,12 @@ the connection.
 
 有两种主要的发现方案。
 第一种方法是使用共享令牌和 API 服务器的 IP 地址。
-第二种是提供一个文件 - 标准 kubeconfig 文件的一个子集。
-该文件可以是本地文件，也可以通过 HTTPS URL 下载。
-格式是 `kubeadm join --discovery-token abcdef.1234567890abcdef 1.2.3.4:6443`、`kubeadm join--discovery-file path/to/file.conf` 或者`kubeadm join --discovery-file https://url/file.conf`。
+第二种是以文件形式提供标准 kubeconfig 文件的一个子集。
+发现/kubeconfig 文件支持令牌、client-go 鉴权插件（“exec”）、“tokenFile" 和
+"authProvider"。该文件可以是本地文件，也可以通过 HTTPS URL 下载。
+格式是 `kubeadm join --discovery-token abcdef.1234567890abcdef 1.2.3.4:6443`、
+`kubeadm join --discovery-file path/to/file.conf` 或者
+`kubeadm join --discovery-file https://url/file.conf`。
 只能使用其中一种。
 如果发现信息是从 URL 加载的，必须使用 HTTPS。
 此外，在这种情况下，主机安装的 CA 包用于验证连接。
@@ -63,8 +69,10 @@ calculated using standard tools. The --discovery-token-ca-cert-hash flag
 may be repeated multiple times to allow more than one public key.
 -->
 
-如果使用共享令牌进行发现，还应该传递 --discovery-token-ca-cert-hash 参数来验证 Kubernetes 控制平面节点提供的根证书颁发机构（CA）的公钥。
-此参数的值指定为 "&lt;hash-type&gt;:&lt;hex-encoded-value&gt;"，其中支持的哈希类型为 "sha256"。哈希是通过 Subject Public Key Info（SPKI）对象的字节计算的（如 RFC7469）。
+如果使用共享令牌进行发现，还应该传递 --discovery-token-ca-cert-hash 参数来验证
+Kubernetes 控制平面节点提供的根证书颁发机构（CA）的公钥。
+此参数的值指定为 "&lt;hash-type&gt;:&lt;hex-encoded-value&gt;"，
+其中支持的哈希类型为 "sha256"。哈希是通过 Subject Public Key Info（SPKI）对象的字节计算的（如 RFC7469）。
 这个值可以从 "kubeadm init" 的输出中获得，或者可以使用标准工具进行计算。
 可以多次重复 --discovery-token-ca-cert-hash 参数以允许多个公钥。
 
@@ -75,7 +83,7 @@ verification. This weakens the kubeadm security model since other nodes
 can potentially impersonate the Kubernetes Control Plane.
 -->
 如果无法提前知道 CA 公钥哈希，则可以通过 --discovery-token-unsafe-skip-ca-verification 参数禁用此验证。
-这削弱了kubeadm 安全模型，因为其他节点可能会模仿 Kubernetes 控制平面节点。
+这削弱了 kubeadm 安全模型，因为其他节点可能会模仿 Kubernetes 控制平面节点。
 
 <!--
 The TLS bootstrap mechanism is also driven via a shared token. This is
@@ -138,7 +146,8 @@ kubeadm join [api-server-endpoint] [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-<p>If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p>
+If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on.
+If not set the default network interface will be used.
 -->
 <p>如果该节点托管一个新的控制平面实例，则 API 服务器将公布其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。</p>
 </td>
@@ -203,9 +212,11 @@ kubeadm join [api-server-endpoint] [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-<p>Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.</p>
+<p>Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; 
+use this option only if you have more than one CRI installed or if you have non-standard CRI socket.</p>
 -->
-<p>要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。</p>
+<p>要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；
+仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。</p>
 </td>
 </tr>
 
@@ -311,12 +322,13 @@ Don't apply any changes; just output what would be done.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--  
-<p>Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.</p>
+<p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p>
 -->
 <p>包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
 例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
+"target" 可以是 “kube-apiserver”、“kube-controller-manager”、“kube-scheduler”、“etcd”、“kubeletconfiguration” 之一，
 "patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
-默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
+默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。
 "suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。</p>
 </td>
 </tr>

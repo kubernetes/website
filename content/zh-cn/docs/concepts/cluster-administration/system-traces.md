@@ -1,17 +1,15 @@
 ---
 title: 追踪 Kubernetes 系统组件
 content_type: concept
-weight: 60
+weight: 90
 ---
 <!-- 
----
 title: Traces For Kubernetes System Components
 reviewers:
 - logicalhan
 - lilic
 content_type: concept
-weight: 60
----
+weight: 90
 -->
 
 <!-- overview -->
@@ -59,7 +57,7 @@ the following receiver configuration will collect spans and log them to standard
 -->
 默认情况下，Kubernetes 组件使用 gRPC 的 OTLP 导出器来导出追踪信息，将信息写到
 [IANA OpenTelemetry 端口](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=opentelemetry)。
-举例来说，如果收集器以 Kubernetes 组件的边车模式运行，以下接收器配置会收集 spans 信息，并将它们写入到标准输出。
+举例来说，如果收集器以 Kubernetes 组件的边车模式运行，以下接收器配置会收集 span 信息，并将它们写入到标准输出。
 
 <!-- 
 # Replace this exporter with the exporter for your backend
@@ -96,7 +94,7 @@ to webhooks, etcd, and re-entrant requests. It propagates the
 but does not make use of the trace context attached to incoming requests,
 as the kube-apiserver is often a public endpoint.
 -->
-kube-apiserver 为传入的 HTTP 请求、传出到 webhook 和 etcd 的请求以及重入的请求生成 spans。
+kube-apiserver 为传入的 HTTP 请求、传出到 webhook 和 etcd 的请求以及重入的请求生成 span。
 由于 kube-apiserver 通常是一个公开的端点，所以它通过出站的请求传播
 [W3C 追踪上下文](https://www.w3.org/TR/trace-context/)，
 但不使用入站请求的追踪上下文。
@@ -109,7 +107,7 @@ kube-apiserver 为传入的 HTTP 请求、传出到 webhook 和 etcd 的请求�
 <!-- 
 To enable tracing, enable the `APIServerTracing`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the kube-apiserver. Also, provide the kube-apiserver with a tracing configration file
+on the kube-apiserver. Also, provide the kube-apiserver with a tracing configuration file
 with `--tracing-config-file=<path-to-config>`. This is an example config that records
 spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 -->
@@ -130,9 +128,55 @@ samplingRatePerMillion: 100
 For more information about the `TracingConfiguration` struct, see
 [API server config API (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration).
 -->
-
-有关 TracingConfiguration 结构体的更多信息，请参阅 
+有关 TracingConfiguration 结构体的更多信息，请参阅
 [API 服务器配置 API (v1alpha1)](/zh-cn/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration)。
+
+<!--
+### kubelet traces
+-->
+### kubelet 追踪 {#kubelet-traces}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+<!--
+The kubelet CRI interface and authenticated http servers are instrumented to generate
+trace spans. As with the apiserver, the endpoint and sampling rate are configurable.
+Trace context propagation is also configured. A parent span's sampling decision is always respected.
+A provided tracing configuration sampling rate will apply to spans without a parent.
+Enabled without a configured endpoint, the default OpenTelemetry Collector reciever address of "localhost:4317" is set.
+-->
+kubelet CRI 接口和实施身份验证的 HTTP 服务器被插桩以生成追踪 span。
+与 API 服务器一样，端点和采样率是可配置的。
+追踪上下文传播也是可以配置的。始终优先采用父 span 的采样决策。
+用户所提供的追踪配置采样率将被应用到不带父级的 span。
+如果在没有配置端点的情况下启用，将使用默认的 OpenTelemetry Collector 接收器地址 “localhost:4317”。
+
+<!--
+#### Enabling tracing in the kubelet
+
+To enable tracing, enable the `KubeletTracing`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the kubelet. Also, provide the kubelet with a
+[tracing configuration](https://github.com/kubernetes/component-base/blob/release-1.25/tracing/api/v1/types.go).
+This is an example snippet of a kubelet config that records spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
+-->
+#### 在 kubelet 中启用追踪 {#enabling-tracing-in-the-kubelet}
+
+要启用 span，需在 kubelet 上启用 `KubeletTracing`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+另外，为 kubelet 提供[追踪配置](https://github.com/kubernetes/component-base/blob/release-1.25/tracing/api/v1/types.go)。
+以下是 kubelet 配置的示例代码片段，每 10000 个请求中记录一个请求的 span，并使用默认的 OpenTelemetry 端点：
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+featureGates:
+  KubeletTracing: true
+tracing:
+  # 默认值
+  #endpoint: localhost:4317
+  samplingRatePerMillion: 100
+```
 
 <!-- 
 ## Stability

@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - derekwaynecarr
 title: 리소스 쿼터
 content_type: concept
 weight: 20
@@ -22,8 +22,7 @@ weight: 20
 
 리소스 쿼터는 다음과 같이 작동한다.
 
-- 다른 팀은 다른 네임스페이스에서 작동한다. 현재 이것은 자발적이지만 ACL을 통해 이 필수 사항을
-  적용하기 위한 지원이 계획되어 있다.
+- 다른 팀은 다른 네임스페이스에서 작업한다. 이것은 [RBAC](/docs/reference/access-authn-authz/rbac/)으로 설정할 수 있다.
 
 - 관리자는 각 네임스페이스에 대해 하나의 리소스쿼터를 생성한다.
 
@@ -698,7 +697,7 @@ resourcequota/pods-cluster-services created
 
 ## {{% heading "whatsnext" %}}
 
-- 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고한다.
+- 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)를 참고한다.
 - [리소스 쿼터를 사용하는 방법에 대한 자세한 예](/docs/tasks/administer-cluster/quota-api-object/)를 참고한다.
-- [우선 순위 클래스에 대한 쿼터 지원 디자인 문서](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)를 읽는다.
+- [우선 순위 클래스에 대한 쿼터 지원 디자인 문서](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md)를 읽는다.
 - [제한된 자원](https://github.com/kubernetes/kubernetes/pull/36765)을 참고한다.

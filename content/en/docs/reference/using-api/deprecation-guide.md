@@ -20,6 +20,19 @@ deprecated API versions to newer and more stable API versions.
 
 ## Removed APIs by release
 
+### v1.29
+
+The **v1.29** release will stop serving the following deprecated API versions:
+
+#### Flow control resources {#flowcontrol-resources-v129}
+
+The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.29.
+
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
+* All existing persisted objects are accessible via the new API
+* Notable changes in **flowcontrol.apiserver.k8s.io/v1beta3**:
+  * The PriorityLevelConfiguration `spec.limited.assuredConcurrencyShares` field is renamed to `spec.limited.nominalConcurrencyShares`
+
 ### v1.27
 
 The **v1.27** release will stop serving the following deprecated API versions:
@@ -34,30 +47,30 @@ The **storage.k8s.io/v1beta1** API version of CSIStorageCapacity will no longer 
 
 ### v1.26
 
-The **v1.26** release will stop serving the following deprecated API versions:
+The **v1.26** release stopped serving the following deprecated API versions:
 
 #### Flow control resources {#flowcontrol-resources-v126}
 
-The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.26.
+The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and PriorityLevelConfiguration is no longer served as of v1.26.
 
-* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta2** API version, available since v1.23.
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
 * All existing persisted objects are accessible via the new API
 * No notable changes
 
 #### HorizontalPodAutoscaler {#horizontalpodautoscaler-v126}
 
-The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler will no longer be served in v1.26.
+The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler is no longer served as of v1.26.
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * All existing persisted objects are accessible via the new API
 
 ### v1.25
 
-The **v1.25** release will stop serving the following deprecated API versions:
+The **v1.25** release stopped serving the following deprecated API versions:
 
 #### CronJob {#cronjob-v125}
 
-The **batch/v1beta1** API version of CronJob will no longer be served in v1.25.
+The **batch/v1beta1** API version of CronJob is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **batch/v1** API version, available since v1.21.
 * All existing persisted objects are accessible via the new API
@@ -65,7 +78,7 @@ The **batch/v1beta1** API version of CronJob will no longer be served in v1.25.
 
 #### EndpointSlice {#endpointslice-v125}
 
-The **discovery.k8s.io/v1beta1** API version of EndpointSlice will no longer be served in v1.25.
+The **discovery.k8s.io/v1beta1** API version of EndpointSlice is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **discovery.k8s.io/v1** API version, available since v1.21.
 * All existing persisted objects are accessible via the new API
@@ -76,7 +89,7 @@ The **discovery.k8s.io/v1beta1** API version of EndpointSlice will no longer be 
 
 #### Event {#event-v125}
 
-The **events.k8s.io/v1beta1** API version of Event will no longer be served in v1.25.
+The **events.k8s.io/v1beta1** API version of Event is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **events.k8s.io/v1** API version, available since v1.19.
 * All existing persisted objects are accessible via the new API
@@ -92,14 +105,14 @@ The **events.k8s.io/v1beta1** API version of Event will no longer be served in v
 
 #### HorizontalPodAutoscaler {#horizontalpodautoscaler-v125}
 
-The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler will no longer be served in v1.25.
+The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * All existing persisted objects are accessible via the new API
 
 #### PodDisruptionBudget {#poddisruptionbudget-v125}
 
-The **policy/v1beta1** API version of PodDisruptionBudget will no longer be served in v1.25.
+The **policy/v1beta1** API version of PodDisruptionBudget is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **policy/v1** API version, available since v1.21.
 * All existing persisted objects are accessible via the new API
@@ -108,7 +121,7 @@ The **policy/v1beta1** API version of PodDisruptionBudget will no longer be serv
 
 #### PodSecurityPolicy {#psp-v125}
 
-PodSecurityPolicy in the **policy/v1beta1** API version will no longer be served in v1.25, and the PodSecurityPolicy admission controller will be removed.
+PodSecurityPolicy in the **policy/v1beta1** API version is no longer served as of v1.25, and the PodSecurityPolicy admission controller will be removed.
 
 Migrate to [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
 or a [3rd party admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/).
@@ -117,7 +130,7 @@ For more information on the deprecation, see [PodSecurityPolicy Deprecation: Pas
 
 #### RuntimeClass {#runtimeclass-v125}
 
-RuntimeClass in the **node.k8s.io/v1beta1** API version will no longer be served in v1.25.
+RuntimeClass in the **node.k8s.io/v1beta1** API version is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **node.k8s.io/v1** API version, available since v1.20.
 * All existing persisted objects are accessible via the new API

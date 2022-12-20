@@ -62,14 +62,27 @@ evictionHard:
 
 <!--
 In the example, the Kubelet is configured to serve on IP address 192.168.0.8 and port 20250, pull images in parallel,
-and evict Pods when available memory drops below 200Mi.
+and evict Pods when available memory drops below 200Mi. Since only one of the four evictionHard thresholds is configured,
+other evictionHard thresholds are reset to 0 from their built-in defaults.
 All other Kubelet configuration values are left at their built-in defaults, unless overridden
 by flags. Command line flags which target the same value as a config file will override that value.
 -->
 在这个示例中, Kubelet 被设置为在地址 192.168.0.8 端口 20250 上提供服务，以并行方式拉取镜像，
 当可用内存低于 200Mi 时, kubelet 将会开始驱逐 Pod。
+由于仅配置了四个 evictionHard 阈值之一，因此其他 evictionHard 阈值被重置为 0，而不是使用其内置默认值。
 没有声明的其余配置项都将使用默认值，除非使用命令行参数来重载。
 命令行中的参数将会覆盖配置文件中的对应值。
+
+{{< note >}}
+<!--
+In the example, by changing the default value of only one parameter for
+evictionHard, the default values of other parameters will not be inherited and
+will be set to zero. In order to provide custom values, you should provide all
+the threshold values respectively.
+-->
+在示例中，通过只更改 evictionHard 的一个参数的默认值，
+其他参数的默认值将不会被继承，他们会被设置为零。如果要提供自定义值，你应该分别设置所有阈值。
+{{< /note >}}
 
 <!--
 ## Start a Kubelet process configured via the config file
