@@ -18,30 +18,30 @@ This document describes how to configure and use kernel parameters within a
 Kubernetes cluster using the {{< glossary_tooltip term_id="sysctl" >}}
 interface.
 -->
+
 本文档介绍如何通过 {{< glossary_tooltip term_id="sysctl" >}}
 接口在 Kubernetes 集群中配置和使用内核参数。
 
 <!--
 Starting from Kubernetes version 1.23, the kubelet supports the use of either `/` or `.`
 as separators for sysctl names.
+Starting from Kubernetes version 1.25, setting Sysctls for a Pod supports setting sysctls with slashes.
 For example, you can represent the same sysctl name as `kernel.shm_rmid_forced` using a
 period as the separator, or as `kernel/shm_rmid_forced` using a slash as a separator.
 For more sysctl parameter conversion method details, please refer to
 the page [sysctl.d(5)](https://man7.org/linux/man-pages/man5/sysctl.d.5.html) from
 the Linux man-pages project.
-Setting Sysctls for a Pod and PodSecurityPolicy features do not yet support
-setting sysctls with slashes.
 -->
 {{< note >}}
 从 Kubernetes 1.23 版本开始，kubelet 支持使用 `/` 或 `.` 作为 sysctl 参数的分隔符。
+从 Kubernetes 1.25 版本开始，支持为 Pod 设置 sysctl 时使用设置名字带有斜线的 sysctl。
 例如，你可以使用点或者斜线作为分隔符表示相同的 sysctl 参数，以点作为分隔符表示为： `kernel.shm_rmid_forced`，
 或者以斜线作为分隔符表示为：`kernel/shm_rmid_forced`。
 更多 sysctl 参数转换方法详情请参考 Linux man-pages
-[sysctl.d(5)](https://man7.org/linux/man-pages/man5/sysctl.d.5.html) 。
-设置 Pod 的 Sysctl 参数 和 PodSecurityPolicy 功能尚不支持设置包含斜线的 Sysctl 参数。
+[sysctl.d(5)](https://man7.org/linux/man-pages/man5/sysctl.d.5.html)。
 {{< /note >}}
-## {{% heading "prerequisites" %}}
 
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -82,7 +82,7 @@ process file system. The parameters cover various subsystems such as:
 <!--
 To get a list of all parameters, you can run
 --->
-若要获取完整的参数列表，请执行以下命令
+若要获取完整的参数列表，请执行以下命令：
 
 ```shell
 sudo sysctl -a
@@ -95,7 +95,7 @@ Sysctls are grouped into _safe_  and _unsafe_ sysctls. In addition to proper
 namespacing a _safe_ sysctl must be properly _isolated_ between pods on the same
 node. This means that setting a _safe_ sysctl for one pod
 -->
-## 启用非安全的 Sysctl 参数
+## 启用非安全的 Sysctl 参数  {#enabling-usafe-sysctls}
 
 sysctl 参数分为 **安全** 和 **非安全的**。
 **安全** 的 sysctl 参数除了需要设置恰当的命名空间外，在同一节点上的不同 Pod 
@@ -121,8 +121,8 @@ The following sysctls are supported in the _safe_ set:
 - `kernel.shm_rmid_forced`
 - `net.ipv4.ip_local_port_range`
 - `net.ipv4.tcp_syncookies`
-- `net.ipv4.ping_group_range` （从 Kubernetes 1.18 开始）
-- `net.ipv4.ip_unprivileged_port_start` （从 Kubernetes 1.22 开始）。
+- `net.ipv4.ping_group_range`（从 Kubernetes 1.18 开始）
+- `net.ipv4.ip_unprivileged_port_start`（从 Kubernetes 1.22 开始）。
 
 <!--
 The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
@@ -135,8 +135,8 @@ The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 
 This list will be extended in future Kubernetes versions when the kubelet
 supports better isolation mechanisms.
 -->
-在未来的 Kubernetes 版本中，若 kubelet 支持更好的隔离机制，则上述列表中将会
-列出更多 **安全的** sysctl 参数。
+在未来的 Kubernetes 版本中，若 kubelet 支持更好的隔离机制，
+则上述列表中将会列出更多 **安全的** sysctl 参数。
 
 <!--
 All _safe_ sysctls are enabled by default.
@@ -188,7 +188,7 @@ are configurable via the pod securityContext within Kubernetes.
 -->
 ## 设置 Pod 的 Sysctl 参数
 
-目前，在 Linux 内核中，有许多的 sysctl 参数都是 _有命名空间的_ 。 
+目前，在 Linux 内核中，有许多的 sysctl 参数都是 **有命名空间的**。 
 这就意味着可以为节点上的每个 Pod 分别去设置它们的 sysctl 参数。 
 在 Kubernetes 中，只有那些有命名空间的 sysctl 参数可以通过 Pod 的 securityContext 对其进行配置。
 
@@ -258,17 +258,16 @@ spec:
   ...
 ```
 
-
 <!-- discussion -->
+
 <!--
 Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
 is at-your-own-risk and can lead to severe problems like wrong behavior of
 containers, resource shortage or complete breakage of a node.
 -->
 {{< warning >}}
-由于 **非安全的** sysctl 参数其本身具有不稳定性，在使用 **非安全的** sysctl 参数
-时可能会导致一些严重问题，如容器的错误行为、机器资源不足或节点被完全破坏，
-用户需自行承担风险。
+由于 **非安全的** sysctl 参数其本身具有不稳定性，在使用 **非安全的** sysctl 参数时可能会导致一些严重问题，
+如容器的错误行为、机器资源不足或节点被完全破坏，用户需自行承担风险。
 {{< /warning >}}
 
 <!--
@@ -277,10 +276,9 @@ _tainted_ within a cluster, and only schedule pods onto them which need those
 sysctl settings. It is suggested to use the Kubernetes [_taints and toleration_
 feature](/docs/reference/generated/kubectl/kubectl-commands/#taint) to implement this.
 -->
-最佳实践方案是将集群中具有特殊 sysctl 设置的节点视为 **有污点的**，并且只调度
-需要使用到特殊 sysctl 设置的 Pod 到这些节点上。
-建议使用 Kubernetes 的
-[污点和容忍度特性](/docs/reference/generated/kubectl/kubectl-commands/#taint) 来实现它。
+最佳实践方案是将集群中具有特殊 sysctl 设置的节点视为 **有污点的**，并且只调度需要使用到特殊
+sysctl 设置的 Pod 到这些节点上。建议使用 Kubernetes
+的[污点和容忍度特性](/docs/reference/generated/kubectl/kubectl-commands/#taint) 来实现它。
 
 <!--
 A pod with the _unsafe_ sysctls will fail to launch on any node which has not
@@ -290,99 +288,11 @@ is recommended to use
 [taints on nodes](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 to schedule those pods onto the right nodes.
 -->
-设置了 **非安全的** sysctl 参数的 Pod 在禁用了这两种 **非安全的** sysctl 参数配置
-的节点上启动都会失败。与 **节点级别的** sysctl 一样，建议开启
-[污点和容忍度特性](/docs/reference/generated/kubectl/kubectl-commands/#taint) 或
-[为节点配置污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)
-以便将 Pod 调度到正确的节点之上。
+设置了 **非安全的** sysctl 参数的 Pod 在禁用了这两种 **非安全的** sysctl 参数配置的节点上启动都会失败。
+与 **节点级别的** sysctl 一样，
+建议开启[污点和容忍度特性](/docs/reference/generated/kubectl/kubectl-commands/#taint)或
+[为节点配置污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)以便将
+Pod 调度到正确的节点之上。
 
-## PodSecurityPolicy
 
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
-
-<!--
-You can further control which sysctls can be set in pods by specifying lists of
-sysctls or sysctl patterns in the `forbiddenSysctls` and/or
-`allowedUnsafeSysctls` fields of the PodSecurityPolicy. A sysctl pattern ends
-with a `*` character, such as `kernel.*`. A `*` character on its own matches
-all sysctls.
--->
-你可以通过在 PodSecurityPolicy 的 `forbiddenSysctls` 和/或 `allowedUnsafeSysctls`
-字段中，指定 sysctl 或填写 sysctl 匹配模式来进一步为 Pod 设置 sysctl 参数。
-sysctl 参数匹配模式以 `*` 字符结尾，如 `kernel.*`。 
-单独的 `*`  字符匹配所有 sysctl 参数。
-
-<!--
-By default, all safe sysctls are allowed.
--->
-所有 **安全的** sysctl 参数都默认启用。
-
-<!--
-Both `forbiddenSysctls` and `allowedUnsafeSysctls` are lists of plain sysctl names
-or sysctl patterns (which end with `*`). The string `*` matches all sysctls.
--->
-`forbiddenSysctls` 和 `allowedUnsafeSysctls` 的值都是字符串列表类型，
-可以添加 sysctl 参数名称，也可以添加 sysctl 参数匹配模式（以`*`结尾）。 
-只填写 `*` 则匹配所有的 sysctl 参数。
-
-<!--
-The `forbiddenSysctls` field excludes specific sysctls. You can forbid a
-combination of safe and unsafe sysctls in the list. To forbid setting any
-sysctls, use `*` on its own.
--->
-`forbiddenSysctls` 字段用于禁用特定的 sysctl 参数。
-你可以在列表中禁用安全和非安全的 sysctl 参数的组合。 
-要禁用所有的 sysctl 参数，请设置为 `*`。
-
-<!--
-If you specify any unsafe sysctl in the `allowedUnsafeSysctls` field and it is
-not present in the `forbiddenSysctls` field, that sysctl can be used in Pods
-using this PodSecurityPolicy. To allow all unsafe sysctls in the
-PodSecurityPolicy to be set, use `*` on its own.
--->
-如果要在 `allowedUnsafeSysctls` 字段中指定一个非安全的 sysctl 参数，
-并且它在 `forbiddenSysctls` 字段中未被禁用，则可以在 Pod 中通过
-PodSecurityPolicy 启用该 sysctl 参数。
-若要在 PodSecurityPolicy 中开启所有非安全的 sysctl 参数，
-请设 `allowedUnsafeSysctls` 字段值为 `*`。
-
-<!--
-Do not configure these two fields such that there is overlap, meaning that a
-given sysctl is both allowed and forbidden.
--->
-`allowedUnsafeSysctls` 与 `forbiddenSysctls` 两字段的配置不能重叠，
-否则这就意味着存在某个 sysctl 参数既被启用又被禁用。
-
-<!--
-If you whitelist unsafe sysctls via the `allowedUnsafeSysctls` field
-in a PodSecurityPolicy, any pod using such a sysctl will fail to start
-if the sysctl is not whitelisted via the `--allowed-unsafe-sysctls` kubelet
-flag as well on that node.
---->
-{{< warning >}}
-如果你通过 PodSecurityPolicy 中的 `allowedUnsafeSysctls` 字段将非安全的 sysctl
-参数列入白名单，但该 sysctl 参数未通过 kubelet 命令行参数
-`--allowed-unsafe-sysctls` 在节点上将其列入白名单，则设置了这个 sysctl
-参数的 Pod 将会启动失败。
-{{< /warning >}}
-
-<!--
-This example allows unsafe sysctls prefixed with `kernel.msg` to be set and
-disallows setting of the `kernel.shm_rmid_forced` sysctl.
--->
-以下示例设置启用了以 `kernel.msg` 为前缀的非安全的 sysctl 参数，同时禁用了
-sysctl 参数 `kernel.shm_rmid_forced`。
-
-```yaml
-apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
-metadata:
-  name: sysctl-psp
-spec:
-  allowedUnsafeSysctls:
-  - kernel.msg*
-  forbiddenSysctls:
-  - kernel.shm_rmid_forced
- ...
-```
 

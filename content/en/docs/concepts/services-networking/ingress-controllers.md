@@ -1,8 +1,12 @@
 ---
 title: Ingress Controllers
-reviewers:
+description: >-
+  In order for an [Ingress](/docs/concepts/services-networking/ingress/) to work in your cluster,
+  there must be an _ingress controller_ running.
+  You need to select at least one ingress controller and make sure it is set up in your cluster.  
+  This page lists common ingress controllers that you can deploy.
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
@@ -60,7 +64,7 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 ## Using multiple Ingress controllers
 
 You may deploy any number of ingress controllers using [ingress class](/docs/concepts/services-networking/ingress/#ingress-class)
-within a cluster. Note the `.metadata.name` of your ingress class resource. When you create an ingress you would need that name to specify the `ingressClassName` field on your Ingress object (refer to [IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec). `ingressClassName` is a replacement of the older [annotation method](/docs/concepts/services-networking/ingress/#deprecated-annotation).
+within a cluster. Note the `.metadata.name` of your ingress class resource. When you create an ingress you would need that name to specify the `ingressClassName` field on your Ingress object (refer to [IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)). `ingressClassName` is a replacement of the older [annotation method](/docs/concepts/services-networking/ingress/#deprecated-annotation).
 
 If you do not specify an IngressClass for an Ingress, and your cluster has exactly one IngressClass marked as default, then Kubernetes [applies](/docs/concepts/services-networking/ingress/#default-ingress-class) the cluster's default IngressClass to the Ingress.
 You mark an IngressClass as default by setting the [`ingressclass.kubernetes.io/is-default-class` annotation](/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class) on that IngressClass, with the string value `"true"`.

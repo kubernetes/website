@@ -239,7 +239,7 @@ Las llaves de data y stringData deben consistir en caracteres alfanuméricos,
 
 **Nota de codificación:** Los valores serializados JSON y YAML  de los datos secretos estan codificadas como cadenas base64.  Las nuevas lineas no son válidas dentro de esa cadena y debe ser omitido.  Al usar `base64` en Darwin/macOS, los usuarios deben evitar el uso de la opción `-b` para dividir líneas largas. Por lo contratio los usuarios de Linux *deben* añadir la opción `-w 0` a los comandos `base64` o al pipeline `base64 | tr -d '\n'` si la opción `-w` no esta disponible.
 
-#### Creaando un Secret a partir de Generador
+#### Creando un Secret a partir de Generador
 Kubectl soporta [managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
 desde 1.14. Con esta nueva característica,
 puedes tambien crear un Secret a partir de un generador y luego aplicarlo para crear el objeto en el Apiserver. Los generadores deben ser especificados en un   `kustomization.yaml` dentro de un directorio.
@@ -899,7 +899,7 @@ Un Secret solo se envía a un nodo si un pod en ese nodo lo requiere. Kubelet al
 
 Puede haber Secrets para varios Pods en el mismo nodo. Sin embargo, solo los Secrets que solicita un Pod son potencialmente visibles dentro de sus contenedores. Por lo tanto, un Pod no tiene acceso a los Secrets de otro Pod.
 
-Puede haver varios contenedores en un Pod. Sin embargo, cada contenedor en un pod tiene que solicitar el volumen del Secret en su 
+Puede haber varios contenedores en un Pod. Sin embargo, cada contenedor en un pod tiene que solicitar el volumen del Secret en su 
 `volumeMounts` para que sea visible dentro del contenedor. Esto se puede usar para construir particiones de seguridad útiles en el Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 
 En la mayoría de las distribuciones Kubernetes-project-maintained, la comunicación entre usuario a el apiserver, y del apiserver a kubelets, ista protegido por SSL/TLS.

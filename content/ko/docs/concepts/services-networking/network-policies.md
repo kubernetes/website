@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - thockin
+# - caseydavenport
+# - danwinship
 title: 네트워크 정책
 content_type: concept
 weight: 50
@@ -54,7 +54,7 @@ pod- 또는 namespace- 기반의 네트워크폴리시를 정의할 때, {{< glo
 __필수 필드들__: 다른 모든 쿠버네티스 설정과 마찬가지로 네트워크폴리시 에는
 `apiVersion`, `kind`, 그리고 `metadata` 필드가 필요하다. 구성 파일
 작업에 대한 일반적인 정보는
-[컨피그 맵을 사용해서 컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+[컨피그맵을 사용하도록 파드 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 그리고 [오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management) 를 본다.
 
 __spec__: 네트워크폴리시 [사양](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)에는 지정된 네임스페이스에서 특정 네트워크 정책을 정의하는데 필요한 모든 정보가 있다.
@@ -70,7 +70,7 @@ __egress__: 각 네트워크폴리시에는 화이트리스트 `egress` 규칙�
 따라서 예시의 네트워크폴리시는 다음과 같이 동작한다.
 
 1. 인그레스 및 이그레스 트래픽에 대해 "default" 네임스페이스에서 "role=db"인 파드를 격리한다(아직 격리되지 않은 경우).
-2. (인그레스 규칙)은 "role=db" 레이블을 사용하는 "default" 네임스페이스의 모든 파드에 대해서 TCP 포트 6397로의 연결을 허용한다. 인그레스을 허용 할 대상은 다음과 같다.
+2. (인그레스 규칙)은 "role=db" 레이블을 사용하는 "default" 네임스페이스의 모든 파드에 대해서 TCP 포트 6379로의 연결을 허용한다. 인그레스을 허용 할 대상은 다음과 같다.
 
    * "role=frontend" 레이블이 있는 "default" 네임스페이스의 모든 파드
    * 네임스페이스와 "project=myproject" 를 레이블로 가지는 모든 파드
@@ -195,7 +195,7 @@ SCTP 프로토콜 네트워크폴리시를 지원하는 {{< glossary_tooltip tex
 
 ## 포트 범위 지정
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 네트워크폴리시를 작성할 때, 단일 포트 대신 포트 범위를 대상으로 지정할 수 있다.
 
@@ -228,10 +228,6 @@ spec:
 TCP를 통해 `10.0.0.0/24` 범위 내의 모든 IP와 통신하도록 허용한다.
 
 이 필드를 사용할 때 다음의 제한 사항이 적용된다.
-* 베타 기능으로, 기본적으로 활성화되어 있다. 
-클러스터 수준에서 `endPort` 필드를 비활성화하려면, 사용자(또는 클러스터 관리자)가 
-API 서버에 대해 `--feature-gates=NetworkPolicyEndPort=false,…` 명령을 이용하여 
-`NetworkPolicyEndPort` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화해야 한다.
 * `endPort` 필드는 `port` 필드보다 크거나 같아야 한다.
 * `endPort` 는 `port` 도 정의된 경우에만 정의할 수 있다.
 * 두 포트 모두 숫자여야 한다.
@@ -258,7 +254,7 @@ API 서버에 대해 `--feature-gates=NetworkPolicyEndPort=false,…` 명령을 
 
 ## 네트워크 정책으로 할 수 없는 것(적어도 아직은 할 수 없는)
 
-쿠버네티스 {{< skew latestVersion >}}부터 다음의 기능은 네트워크폴리시 API에 존재하지 않지만, 운영 체제 컴포넌트(예: SELinux, OpenVSwitch, IPTables 등) 또는 Layer 7 기술(인그레스 컨트롤러, 서비스 메시 구현) 또는 어드미션 컨트롤러를 사용하여 제2의 해결책을 구현할 수 있다. 쿠버네티스의 네트워크 보안을 처음 사용하는 경우, 네트워크폴리시 API를 사용하여 다음의 사용자 스토리를 (아직) 구현할 수 없다는 점에 유의할 필요가 있다.
+쿠버네티스 {{< skew currentVersion >}}부터 다음의 기능은 네트워크폴리시 API에 존재하지 않지만, 운영 체제 컴포넌트(예: SELinux, OpenVSwitch, IPTables 등) 또는 Layer 7 기술(인그레스 컨트롤러, 서비스 메시 구현) 또는 어드미션 컨트롤러를 사용하여 제2의 해결책을 구현할 수 있다. 쿠버네티스의 네트워크 보안을 처음 사용하는 경우, 네트워크폴리시 API를 사용하여 다음의 사용자 스토리를 (아직) 구현할 수 없다는 점에 유의할 필요가 있다.
 
 - 내부 클러스터 트래픽이 공통 게이트웨이를 통과하도록 강제한다(서비스 메시나 기타 프록시와 함께 제공하는 것이 가장 좋을 수 있음).
 - TLS와 관련된 모든 것(이를 위해 서비스 메시나 인그레스 컨트롤러 사용).

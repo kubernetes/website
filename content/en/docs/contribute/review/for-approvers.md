@@ -81,14 +81,14 @@ Prow Command | Role Restrictions | Description
 :------------|:------------------|:-----------
 `/lgtm` | Organization members | Signals that you've finished reviewing a PR and are satisfied with the changes.
 `/approve` | Approvers | Approves a PR for merging.
-`/assign` | Reviewers or Approvers | Assigns a person to review or approve a PR
-`/close` | Reviewers or Approvers | Closes an issue or PR.
+`/assign` | Anyone | Assigns a person to review or approve a PR
+`/close` | Organization members | Closes an issue or PR.
 `/hold` | Anyone | Adds the `do-not-merge/hold` label, indicating the PR cannot be automatically merged.
 `/hold cancel` | Anyone | Removes the `do-not-merge/hold` label.
 {{< /table >}}
 
-See [the Prow command reference](https://prow.k8s.io/command-help) to see the full list
-of commands you can use in a PR.
+To view the commands that you can use in a PR, see the
+[Prow Command Reference](https://prow.k8s.io/command-help?repo=kubernetes%2Fwebsite).
 
 ## Triage and categorize issues
 

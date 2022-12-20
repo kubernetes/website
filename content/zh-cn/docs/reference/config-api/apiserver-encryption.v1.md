@@ -107,6 +107,17 @@ KMSConfiguration 包含基于 KMS 的封套转换器的名称、缓存大小以�
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
+
+<tr><td><code>apiVersion</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>
+   <!--apiVersion of KeyManagementService-->
+   KeyManagementService 的 apiVersion
+   </p>
+</td>
+</tr>
 <tr><td><code>name</code> <B>[必需]</B><br/>
 <code>string</code>
 </td>

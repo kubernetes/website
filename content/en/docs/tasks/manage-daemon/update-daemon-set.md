@@ -40,7 +40,7 @@ You may want to set
 [`.spec.minReadySeconds`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 (default to 0) and
 [`.spec.updateStrategy.rollingUpdate.maxSurge`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
-(a beta feature and defaults to 0) as well.
+(defaults to 0) as well.
 
 ### Creating a DaemonSet with `RollingUpdate` update strategy
 
