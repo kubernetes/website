@@ -1,4 +1,4 @@
 ---
 title: Setup tools
-weight: 50
+weight: 100
 ---

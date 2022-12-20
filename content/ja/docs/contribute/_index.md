@@ -42,7 +42,7 @@ Kubernetesコミュニティで効果的に働くためには、[git](https://gi
 3. [プルリクエストのオープン](/docs/contribute/new-content/open-a-pr/)と[変更レビュー](/ja/docs/contribute/review/reviewing-prs/)の基本的なプロセスを理解していることを確認してください。
 
 一部のタスクでは、Kubernetes organizationで、より多くの信頼とアクセス権限が必要です。
-役割と権限についての詳細は、[SIG Docsへの参加](/docs/contribute/participating/)を参照してください。
+役割と権限についての詳細は、[SIG Docsへの参加](/ja/docs/contribute/participate/)を参照してください。
 
 ## はじめての貢献
 - 貢献のための複数の方法について学ぶために[貢献の概要](/ja/docs/contribute/new-content/overview/)を読んでください。
@@ -56,12 +56,12 @@ Kubernetesコミュニティで効果的に働くためには、[git](https://gi
 
 - リポジトリの[ローカルクローンでの作業](/docs/contribute/new-content/open-a-pr/#fork-the-repo)について学んでください。
 - [リリース機能](/docs/contribute/new-content/new-features/)について記載してください。
-- [SIG Docs](/docs/contribute/participate/)に参加し、[memberやreviewer](/docs/contribute/participate/roles-and-responsibilities/)になってください。
+- [SIG Docs](/ja/docs/contribute/participate/)に参加し、[memberやreviewer](/docs/contribute/participate/roles-and-responsibilities/)になってください。
 - [国際化](/ja/docs/contribute/localization/)を始めたり、支援したりしてください。
 
 ## SIG Docsに参加する
 
-[SIG Docs](/docs/contribute/participate/)はKubernetesのドキュメントとウェブサイトを公開・管理するコントリビューターのグループです。SIG Docsに参加することはKubernetesコントリビューター（機能開発でもそれ以外でも）にとってKubernetesプロジェクトに大きな影響を与える素晴らしい方法の一つです。
+[SIG Docs](/ja/docs/contribute/participate/)はKubernetesのドキュメントとウェブサイトを公開・管理するコントリビューターのグループです。SIG Docsに参加することはKubernetesコントリビューター（機能開発でもそれ以外でも）にとってKubernetesプロジェクトに大きな影響を与える素晴らしい方法の一つです。
 
 SIG Docsは複数の方法でコミュニケーションをとっています。
 

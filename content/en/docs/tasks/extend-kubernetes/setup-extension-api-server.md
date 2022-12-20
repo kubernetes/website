@@ -25,7 +25,7 @@ Setting up an extension API server to work with the aggregation layer allows the
 
 <!-- steps -->
 
-## Setup an extension api-server to work with the aggregation layer
+## Set up an extension api-server to work with the aggregation layer
 
 The following steps describe how to set up an extension-apiserver *at a high level*. These steps apply regardless if you're using YAML configs or using APIs. An attempt is made to specifically identify any differences between the two. For a concrete example of how they can be implemented using YAML configs, you can look at the [sample-apiserver](https://github.com/kubernetes/sample-apiserver/blob/master/README.md) in the Kubernetes repo.
 

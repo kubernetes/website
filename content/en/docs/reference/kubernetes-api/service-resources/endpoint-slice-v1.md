@@ -76,11 +76,11 @@ EndpointSlice represents a subset of the endpoints that implement a service. For
 
     - **endpoints.conditions.serving** (boolean)
 
-      serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+      serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
 
     - **endpoints.conditions.terminating** (boolean)
 
-      terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+      terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
 
   - **endpoints.deprecatedTopology** (map[string]string)
 
@@ -112,7 +112,7 @@ EndpointSlice represents a subset of the endpoints that implement a service. For
 
   - **endpoints.nodeName** (string)
 
-    nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+    nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
 
   - **endpoints.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 

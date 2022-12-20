@@ -73,7 +73,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
   - **scaleTargetRef.kind** (string), required
 
-    Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+    Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
   - **scaleTargetRef.name** (string), required
 
@@ -281,7 +281,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
       - **metrics.object.describedObject.kind** (string), required
 
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
       - **metrics.object.describedObject.name** (string), required
 
@@ -579,7 +579,7 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
       - **currentMetrics.object.describedObject.kind** (string), required
 
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
       - **currentMetrics.object.describedObject.name** (string), required
 
