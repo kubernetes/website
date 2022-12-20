@@ -16,21 +16,19 @@ guide. You can file document formatting bugs against the
 -->
 
 <!--
-
-<!--
 Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized
 -->
-打印 kubeadm 要使用的镜像列表。配置文件用于自定义镜像或镜像存储库
+打印 kubeadm 要使用的镜像列表。配置文件用于自定义镜像或镜像存储库。
 
+<!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized
 -->
-打印 kubeadm 要使用的镜像列表。配置文件用于自定义镜像或镜像存储库
+打印 kubeadm 要使用的镜像列表。配置文件用于自定义镜像或镜像存储库。
 
 ```
 kubeadm config images list [flags]
@@ -39,7 +37,6 @@ kubeadm config images list [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -97,20 +94,19 @@ Output format. One of: text|json|yaml|go-template|go-template-file|template|temp
 </td>
 </tr>
 
-
 <tr>
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (BETA - default=true)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (default=true)
 -->
 <p>
 一组键值对（key=value），用于描述各种特征。选项是：
 <br/>PublicKeysECDSA=true|false (ALPHA - 默认=false)
 <br/>RootlessControlPlane=true|false (ALPHA - 默认=false)
-<br/>UnversionedKubeletConfigMap=true|false (BETA - 默认=true)
+<br/>UnversionedKubeletConfigMap=true|false (默认=true)
 </p>
 </td>
 </tr>
@@ -131,8 +127,8 @@ list 操作的帮助命令
 
 <tr>
 <td colspan="2">
-<!-- --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io" -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
+<!-- --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io" -->
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："registry.k8s.io"
 </td>
 </tr>
 <tr>
@@ -185,7 +181,6 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 </tbody>
 </table>
 
-
 <!--
 ### Options inherited from parent commands
 -->
@@ -226,7 +221,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
 <p>
-[实验] 到 '真实' 主机根文件系统的路径。
+[实验] 到“真实”主机根文件系统的路径。
 </p>
 </td>
 </tr>

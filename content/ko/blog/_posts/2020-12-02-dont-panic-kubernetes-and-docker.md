@@ -6,7 +6,7 @@ slug: dont-panic-kubernetes-and-docker
 evergreen: true
 ---
 
-**업데이트:** _쿠버네티스의 `dockershim`을 통한 도커 지원이 제거되었습니다.
+**업데이트:** _쿠버네티스의 도커심을 통한 도커 지원이 제거되었습니다.
 더 자세한 정보는 [제거와 관련된 자주 묻는 질문](/dockershim/)을 참고하세요.
 또는 지원 중단에 대한 [GitHub 이슈](https://github.com/kubernetes/kubernetes/issues/106917)에서 논의를 할 수도 있습니다._
 
@@ -21,7 +21,7 @@ evergreen: true
 
 **당황할 필요는 없습니다. 말처럼 극적이진 않습니다.**
 
-요약하자면, 기본(underlying) 런타임 중 하나인 도커는 쿠버네티스의 [컨테이너 런타임 인터페이스(CRI)](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)를
+요약하자면, 기본(underlying) 런타임 중 하나인 도커는 쿠버네티스의 [컨테이너 런타임 인터페이스(CRI)](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)를
 사용하는 런타임으로써는 더 이상 사용되지 않습니다(deprecated).
 도커가 생성한 이미지는 늘 그래왔듯이 모든 런타임을 통해 클러스터에서
 계속 작동될 것입니다.
@@ -72,7 +72,7 @@ containerd가 정말 필요로 하는 것들을 확보하기 위해서 도커심
 스스로도 생각할 수 있을 것입니다. containerd가 도커 스택에 포함되어 있는 것이라면, 도커심이
 쿠버네티스에 왜 필요할까요?
 
-도커는 [컨테이너 런타임 인터페이스](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)인 CRI를 준수하지 않습니다.
+도커는 [컨테이너 런타임 인터페이스](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)인 CRI를 준수하지 않습니다.
 만약 이를 준수했다면, 심(shim)이 필요하지 않았을 것입니다. 그러나
 이건 세상의 종말이 아니며, 당황할 필요도 없습니다. 여러분은 단지
 컨테이너 런타임을 도커에서 지원되는 다른 컨테이너 런타임으로 변경하기만 하면 됩니다.

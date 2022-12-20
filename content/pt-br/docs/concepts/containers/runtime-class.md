@@ -116,7 +116,7 @@ Agentes de execução são configurados através da configuração do containerd
 ```
 
 Veja a documentação de configuração do containerd para maiores detalhes:
-https://github.com/containerd/cri/blob/master/docs/config.md
+https://github.com/containerd/containerd/blob/main/docs/cri/config.md
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
