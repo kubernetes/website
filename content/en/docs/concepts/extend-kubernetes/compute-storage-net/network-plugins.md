@@ -109,7 +109,8 @@ If you want to enable `hostPort` support, you must specify `portMappings capabil
     },
     {
       "type": "portmap",
-      "capabilities": {"portMappings": true}
+      "capabilities": {"portMappings": true},
+      "externalSetMarkChain": "KUBE-MARK-MASQ"
     }
   ]
 }
