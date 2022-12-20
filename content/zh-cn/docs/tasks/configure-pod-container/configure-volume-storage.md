@@ -31,7 +31,6 @@ applications, such as key-value stores (such as Redis) and databases.
 
 <!-- steps -->
 
-
 <!--
 ## Configure a volume for a Pod
 
@@ -59,7 +58,8 @@ restarts. Here is the configuration file for the Pod:
    ```
 
 <!--
-1.Verify that the Pod's Container is running, and then watch for changes to the Pod:
+1. Verify that the Pod's Container is running, and then watch for changes to
+   the Pod:
 -->
 2. 验证 Pod 中的容器是否正在运行，然后留意 Pod 的更改：
 
@@ -67,17 +67,21 @@ restarts. Here is the configuration file for the Pod:
    kubectl get pod redis --watch
    ```
 
+   <!--
+   The output looks like this:
+   -->
+
    输出如下：
 
-   ```shell
+   ```console
    NAME      READY     STATUS    RESTARTS   AGE
    redis     1/1       Running   0          13s
    ```
 
 <!--
-1.In another terminal, get a shell to the running Container:
+1. In another terminal, get a shell to the running Container:
 -->
-3. 在另一个终端，用 shell 连接正在运行的容器：
+3. 在另一个终端，用 Shell 连接正在运行的容器：
 
    ```shell
    kubectl exec -it redis -- /bin/bash
@@ -86,7 +90,7 @@ restarts. Here is the configuration file for the Pod:
 <!--
 1.In your shell, go to `/data/redis`, and then create a file:
 -->
-4. 在你的 Shell中，切换到 `/data/redis` 目录下，然后创建一个文件：
+4. 在你的 Shell 中，切换到 `/data/redis` 目录下，然后创建一个文件：
 
    ```shell
    root@redis:/data# cd /data/redis/
@@ -94,7 +98,7 @@ restarts. Here is the configuration file for the Pod:
    ```
 
 <!--
-1.In your shell, list the running processes:
+1. In your shell, list the running processes:
 -->
 5. 在你的 Shell 中，列出正在运行的进程：
 
@@ -104,9 +108,13 @@ restarts. Here is the configuration file for the Pod:
    root@redis:/data/redis# ps aux
    ```
 
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
 
-   ```shell
+   ```console
    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
    redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
    root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
@@ -114,7 +122,7 @@ restarts. Here is the configuration file for the Pod:
    ```
 
 <!--
-1.In your shell, kill the Redis process:
+1. In your shell, kill the Redis process:
 -->
 6. 在你的 Shell 中，结束 Redis 进程：
 
@@ -122,15 +130,19 @@ restarts. Here is the configuration file for the Pod:
    root@redis:/data/redis# kill <pid>
    ```
 
+   <!--
+   where `<pid>` is the Redis process ID (PID).
+   -->
+
    其中 `<pid>` 是 Redis 进程的 ID (PID)。
 
 <!--
 1. In your original terminal, watch for changes to the Redis Pod. Eventually,
-you will see something like this:
+   you will see something like this:
 -->
 7. 在你原先终端中，留意 Redis Pod 的更改。最终你将会看到和下面类似的输出：
 
-   ```shell
+   ```console
    NAME      READY     STATUS     RESTARTS   AGE
    redis     1/1       Running    0          13s
    redis     0/1       Completed  0         6m
@@ -148,7 +160,7 @@ of `Always`.
 为 `Always`。
 
 <!--
-1.Get a shell into the restarted Container:
+1. Get a shell into the restarted Container:
 -->
 1. 用 Shell 进入重新启动的容器中：
 
@@ -157,7 +169,7 @@ of `Always`.
    ```
 
 <!--
-1.In your shell, goto `/data/redis`, and verify that `test-file` is still there.
+1. In your shell, go to `/data/redis`, and verify that `test-file` is still there.
 -->
 2. 在你的 Shell 中，进入到 `/data/redis` 目录下，并确认 `test-file` 文件是否仍然存在。
 
@@ -168,7 +180,7 @@ of `Always`.
    ```
 
 <!--
-1.Delete the Pod that you created for this exercise:
+1. Delete the Pod that you created for this exercise:
 -->
 3. 删除为此练习所创建的 Pod：
 
@@ -179,19 +191,19 @@ of `Always`.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* See [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
+- See [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
 
-* See [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
+- See [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
 
-* In addition to the local disk storage provided by `emptyDir`, Kubernetes
-supports many different network-attached storage solutions, including PD on
-GCE and EBS on EC2, which are preferred for critical data and will handle
-details such as mounting and unmounting the devices on the nodes. See
-[Volumes](/docs/concepts/storage/volumes/) for more details.
+- In addition to the local disk storage provided by `emptyDir`, Kubernetes
+  supports many different network-attached storage solutions, including PD on
+  GCE and EBS on EC2, which are preferred for critical data and will handle
+  details such as mounting and unmounting the devices on the nodes. See
+  [Volumes](/docs/concepts/storage/volumes/) for more details.
 -->
-* 参阅 [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)。
-* 参阅 [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)。
-* 除了 `emptyDir` 提供的本地磁盘存储外，Kubernetes 还支持许多不同的网络附加存储解决方案，
+- 参阅 [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)。
+- 参阅 [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)。
+- 除了 `emptyDir` 提供的本地磁盘存储外，Kubernetes 还支持许多不同的网络附加存储解决方案，
   包括 GCE 上的 PD 和 EC2 上的 EBS，它们是关键数据的首选，并将处理节点上的一些细节，
   例如安装和卸载设备。了解更多详情请参阅[卷](/zh-cn/docs/concepts/storage/volumes/)。
 

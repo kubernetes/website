@@ -1,10 +1,10 @@
 ---
-
-
-
-
-
-
+# reviewers:
+# - enisoc
+# - erictune
+# - foxish
+# - janetkuo
+# - kow3ns
 title: 데몬셋
 content_type: concept
 weight: 40

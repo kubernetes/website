@@ -11,13 +11,13 @@ weight: 10
 파드 시큐리티 어드미션(PSA, Pod Security Admission)은 
 [베타로 변경](/blog/2021/12/09/pod-security-admission-beta/)되어 v1.23 이상에서 기본적으로 활성화되어 있다. 
 파드 시큐리티 어드미션은 파드가 생성될 때 
-[파드 시큐리티 스탠다드(Pod Security Standards)](/docs/concepts/security/pod-security-standards/)를 적용하는 어드미션 컨트롤러이다. 
+[파드 시큐리티 스탠다드(Pod Security Standards)](/ko/docs/concepts/security/pod-security-standards/)를 적용하는 어드미션 컨트롤러이다. 
 이 튜토리얼에서는, 
 각 네임스페이스별로 `baseline` 파드 시큐리티 스탠다드를 강제(enforce)할 것이다.
 
 파드 시큐리티 스탠다드를 클러스터 수준에서 여러 네임스페이스에 한 번에 적용할 수도 있다. 
 이에 대한 안내는 
-[파드 시큐리티 스탠다드를 클러스터 수준에 적용하기](/ko/docs/tutorials/security/cluster-level-pss/)를 참고한다.
+[파드 시큐리티 스탠다드를 클러스터 수준에 적용하기](/ko/docs/tutorials/security/cluster-level-pss/)를 참고한다. 
 
 ## {{% heading "prerequisites" %}}
 
@@ -170,5 +170,5 @@ namespace/example created
   4. 해당 파드 시큐리티 스탠다드가 적용된 상태에서 새로운 파드를 생성
 
 - [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)
-- [파드 시큐리티 스탠다드](/docs/concepts/security/pod-security-standards/)
+- [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)
 - [파드 시큐리티 스탠다드를 클러스터 수준에 적용하기](/ko/docs/tutorials/security/cluster-level-pss/)

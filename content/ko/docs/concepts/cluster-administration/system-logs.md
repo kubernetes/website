@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - dims
+# - 44past4
 title: 시스템 로그
 content_type: concept
 weight: 60

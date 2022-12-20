@@ -12,7 +12,7 @@ card:
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 이 페이지에서는 `kubeadm` 툴박스 설치 방법을 보여준다.
-이 설치 프로세스를 수행한 후 kubeadm으로 클러스터를 만드는 방법에 대한 자세한 내용은 [kubeadm을 사용하여 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 페이지를 참고한다.
+이 설치 프로세스를 수행한 후 kubeadm으로 클러스터를 만드는 방법에 대한 자세한 내용은 [kubeadm으로 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 페이지를 참고한다.
 
 
 ## {{% heading "prerequisites" %}}
@@ -45,26 +45,6 @@ card:
 네트워크 어댑터가 두 개 이상이고, 쿠버네티스 컴포넌트가 디폴트 라우트(default route)에서 도달할 수 없는
 경우, 쿠버네티스 클러스터 주소가 적절한 어댑터를 통해 이동하도록 IP 경로를 추가하는 것이 좋다.
 
-## iptables가 브리지된 트래픽을 보게 하기
-
-`br_netfilter` 모듈이 로드되었는지 확인한다. `lsmod | grep br_netfilter` 를 실행하면 된다. 명시적으로 로드하려면 `sudo modprobe br_netfilter` 를 실행한다.
-
-리눅스 노드의 iptables가 브리지된 트래픽을 올바르게 보기 위한 요구 사항으로, `sysctl` 구성에서 `net.bridge.bridge-nf-call-iptables` 가 1로 설정되어 있는지 확인해야 한다. 다음은 예시이다.
-
-```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-br_netfilter
-EOF
-
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-sudo sysctl --system
-```
-
-자세한 내용은 [네트워크 플러그인 요구 사항](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#네트워크-플러그인-요구-사항) 페이지를 참고한다.
-
 ## 필수 포트 확인 {#check-required-ports}
 [필수 포트들](/ko/docs/reference/ports-and-protocols/)은
 쿠버네티스 컴포넌트들이 서로 통신하기 위해서 열려 있어야
@@ -74,7 +54,7 @@ sudo sysctl --system
 nc 127.0.0.1 6443
 ```
 
-사용자가 사용하는 파드 네트워크 플러그인(아래 참조)은 특정 포트를 열어야 할 수도
+사용자가 사용하는 파드 네트워크 플러그인은 특정 포트를 열어야 할 수도
 있다. 이것은 각 파드 네트워크 플러그인마다 다르므로, 필요한 포트에 대한
 플러그인 문서를 참고한다.
 
@@ -109,7 +89,7 @@ cri-dockerd는 쿠버네티스 버전 1.24부터 kubelet에서 [제거](/dockers
 {{< tabs name="container_runtime" >}}
 {{% tab name="리눅스" %}}
 
-{{< table >}}
+{{< table caption="리눅스 컨테이너 런타임" >}}
 | 런타임                            | 유닉스 도메인 소켓 경로                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `unix:///var/run/containerd/containerd.sock` |
@@ -121,7 +101,7 @@ cri-dockerd는 쿠버네티스 버전 1.24부터 kubelet에서 [제거](/dockers
 
 {{% tab name="윈도우" %}}
 
-{{< table >}}
+{{< table caption="윈도우 컨테이너 런타임" >}}
 | 런타임                            | 윈도우 네임드 파이프(named pipe) 경로                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `npipe:////./pipe/containerd-containerd`     |
@@ -202,7 +182,6 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 exclude=kubelet kubeadm kubectl
 EOF
@@ -233,28 +212,29 @@ sudo systemctl enable --now kubelet
 CNI 플러그인 설치(대부분의 파드 네트워크에 필요)
 
 ```bash
-CNI_VERSION="v0.8.2"
+CNI_PLUGINS_VERSION="v1.1.1"
 ARCH="amd64"
-sudo mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+DEST="/opt/cni/bin"
+sudo mkdir -p "$DEST"
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
 ```
 
 명령어 파일을 다운로드할 디렉터리 정의
 
 {{< note >}}
 `DOWNLOAD_DIR` 변수는 쓰기 가능한 디렉터리로 설정되어야 한다.
-Flatcar Container Linux를 실행 중인 경우, `DOWNLOAD_DIR=/opt/bin` 을 설정한다.
+Flatcar Container Linux를 실행 중인 경우, `DOWNLOAD_DIR="/opt/bin"` 을 설정한다.
 {{< /note >}}
 
 ```bash
-DOWNLOAD_DIR=/usr/local/bin
-sudo mkdir -p $DOWNLOAD_DIR
+DOWNLOAD_DIR="/usr/local/bin"
+sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
 crictl 설치(kubeadm / Kubelet 컨테이너 런타임 인터페이스(CRI)에 필요)
 
 ```bash
-CRICTL_VERSION="v1.22.0"
+CRICTL_VERSION="v1.25.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```

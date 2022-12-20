@@ -61,6 +61,7 @@ The output contains a section similar to this:
 
 {{< note >}}
 If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
+In that case, you can create a secret directly. See [Create a Secret by providing credentials on the command line](#create-a-secret-by-providing-credentials-on-the-command-line).
 {{< /note >}}
 
 ## Create a Secret based on existing credentials {#registry-secret-existing-credentials}
@@ -190,7 +191,7 @@ Here is a manifest for an example Pod that needs access to your Docker credentia
 Download the above file onto your computer:
 
 ```shell
-curl -L -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
+curl -L -o my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
 ```
 
 In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the path to an image in a private registry such as:

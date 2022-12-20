@@ -44,15 +44,13 @@ The following methods exist for installing kubectl on macOS:
 - [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
 - [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
 - [Install with Macports on macOS](#install-with-macports-on-macos)
-- [Install on macOS as part of the Google Cloud SDK](#install-on-macos-as-part-of-the-google-cloud-sdk)
 -->
 - [用 curl 在 macOS 系统上安装 kubectl](#install-kubectl-binary-with-curl-on-macos)
 - [用 Homebrew 在 macOS 系统上安装](#install-with-homebrew-on-macos)
 - [用 Macports 在 macOS 上安装](#install-with-macports-on-macos)
-- [作为谷歌云 SDK 的一部分，在 macOS 上安装](#install-on-macos-as-part-of-the-google-cloud-sdk)
 
 <!-- 
-### Install kubectl binary with curl on macOS {#install-kubectl-binary-with-curl-on-macos}
+### Install kubectl binary with curl on macOS
 -->
 ### 用 curl 在 macOS 系统上安装 kubectl {#install-kubectl-binary-with-curl-on-macos}
 
@@ -75,11 +73,6 @@ The following methods exist for installing kubectl on macOS:
    To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
 
    For example, to download version {{< param "fullversion" >}} on Intel macOS, type:
-
-   ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
-   ```
-
    -->
    如果需要下载某个指定的版本，用该指定版本号替换掉命令的这个部分：`$(curl -L -s https://dl.k8s.io/release/stable.txt)`。
    例如：要为 Intel macOS 系统下载 {{< param "fullversion" >}} 版本，则输入：
@@ -178,20 +171,24 @@ The following methods exist for installing kubectl on macOS:
 
 <!-- 
 1. Test to ensure the version you installed is up-to-date:
-Or use this for detailed view of version:
 -->
 5. 测试一下，确保你安装的是最新的版本：
 
    ```bash
    kubectl version --client
    ```
+
+   <!--
+   Or use this for detailed view of version:
+   -->
    或者使用下面命令来查看版本的详细信息：
+
    ```cmd
    kubectl version --client --output=yaml
    ```
 
 <!-- 
-### Install with Homebrew on macOS {#install-with-homebrew-on-macos}
+### Install with Homebrew on macOS
 -->
 ### 用 Homebrew 在 macOS 系统上安装 {#install-with-homebrew-on-macos}
 
@@ -226,7 +223,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
    ```
 
 <!-- 
-### Install with Macports on macOS {#install-with-macports-on-macos}
+### Install with Macports on macOS
 -->
 ### 用 Macports 在 macOS 上安装 {#install-with-macports-on-macos}
 
@@ -255,16 +252,16 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
    ```
 
 <!-- 
-## Verify kubectl configuration {#verify-kubectl-configuration}
+## Verify kubectl configuration
 -->
 ## 验证 kubectl 配置 {#verify-kubectl-configuration}
 
 {{< include "included/verify-kubectl.md" >}}
 
 <!-- 
-## Optional kubectl configurations and plugins {#optional-kubectl-configurations}
+## Optional kubectl configurations and plugins
 
-### Enable shell autocompletion {#enable-shell-autocompletion}
+### Enable shell autocompletion
 -->
 ## 可选的 kubectl 配置和插件 {#optional-kubectl-configurations-and-plugins}
 
@@ -288,7 +285,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 <!--
 ### Install `kubectl convert` plugin
 -->
-### 安装 `kubectl convert` 插件
+### 安装 `kubectl convert` 插件   {#install-kubectl-convert-plugin}
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
@@ -311,7 +308,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 
    Download the kubectl-convert checksum file:
 -->
-1. 验证该可执行文件（可选步骤）
+2. 验证该可执行文件（可选步骤）
    
    下载 kubectl-convert 校验和文件：
 
@@ -362,7 +359,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 <!--
 1. Make kubectl-convert binary executable
 -->
-1. 使 kubectl-convert 二进制文件可执行
+3. 使 kubectl-convert 二进制文件可执行
 
    ```bash
    chmod +x ./kubectl-convert
@@ -371,7 +368,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 <!--
 1. Move the kubectl-convert binary to a file location on your system `PATH`.
 -->
-1. 将 kubectl-convert 可执行文件移动到系统 `PATH` 环境变量中的一个位置。
+4. 将 kubectl-convert 可执行文件移动到系统 `PATH` 环境变量中的一个位置。
 
    ```bash
    sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
@@ -388,7 +385,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 <!--
 1. Verify plugin is successfully installed
 -->
-1. 验证插件是否安装成功
+5. 验证插件是否安装成功
 
    ```shell
    kubectl convert --help
