@@ -1,6 +1,6 @@
 ---
-
-
+# approvers:
+# - chenopis
 title: 쿠버네티스 문서
 noedit: true
 cid: docsHome

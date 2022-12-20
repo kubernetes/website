@@ -270,7 +270,7 @@ Docker 和大多数 CRI（包括 containerd）的底层容器化代码是相同�
 - 直接访问 docker 命令或通过控制套接字调用 Docker 的节点供应脚本
 - 需要访问 docker 命令或控制套接字的 kubectl 插件
 - 需要直接访问 Docker 的 Kubernetes 工具（例如：kube-imagepuller）
-- 像 `registry-mirrors` 和不安全的注册表这类功能的配置
+- 配置像 `registry-mirrors` 和不安全的镜像仓库等功能
 - 需要 Docker 保持可用、且运行在 Kubernetes 之外的，其他支持脚本或守护进程（例如：监视或安全代理）
 - GPU 或特殊硬件，以及它们如何与你的运行时和 Kubernetes 集成
 

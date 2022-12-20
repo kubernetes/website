@@ -4,9 +4,9 @@ reviewers:
 title: Kubernetes Components
 content_type: concept
 description: >
-  A Kubernetes cluster consists of the components that represent the control plane
-  and a set of machines called nodes.
-weight: 20
+  A Kubernetes cluster consists of the components that are a part of the control
+  plane and a set of machines called nodes.
+weight: 30
 card: 
   name: concepts
   weight: 20
@@ -53,8 +53,8 @@ Some types of these controllers are:
   * Node controller: Responsible for noticing and responding when nodes go down.
   * Job controller: Watches for Job objects that represent one-off tasks, then creates
     Pods to run those tasks to completion.
-  * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
-  * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
+  * EndpointSlice controller: Populates EndpointSlice objects (to provide a link between Services and Pods).
+  * ServiceAccount controller: Create default ServiceAccounts for new namespaces.
 
 ### cloud-controller-manager
 

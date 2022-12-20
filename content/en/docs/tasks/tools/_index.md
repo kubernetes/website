@@ -35,7 +35,7 @@ shows you what you need to do to get up and running with kind.
 ## minikube
 
 Like `kind`, [`minikube`](https://minikube.sigs.k8s.io/) is a tool that lets you run Kubernetes
-locally. `minikube` runs a single-node Kubernetes cluster on your personal
+locally. `minikube` runs an all-in-one or a multi-node local Kubernetes cluster on your personal
 computer (including Windows, macOS and Linux PCs) so that you can try out
 Kubernetes, or for daily development work.
 

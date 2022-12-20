@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "RoleBinding references a role, but does not contain it."
 title: "RoleBinding"
-weight: 8
+weight: 9
 auto_generated: true
 ---
 

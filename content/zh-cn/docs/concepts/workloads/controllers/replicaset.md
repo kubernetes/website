@@ -1,5 +1,12 @@
 ---
 title: ReplicaSet
+feature:
+  title: 自我修复
+  anchor: ReplicationController 如何工作
+  description: >
+    重新启动失败的容器，在节点死亡时替换并重新调度容器，
+    杀死不响应用户定义的健康检查的容器，
+    并且在它们准备好服务之前不会将它们公布给客户端。
 content_type: concept
 weight: 20
 ---
@@ -9,6 +16,13 @@ reviewers:
 - bprashanth
 - madhusudancs
 title: ReplicaSet
+feature:
+  title: Self-healing
+  anchor: How a ReplicaSet works
+  description: >
+    Restarts containers that fail, replaces and reschedules containers when nodes die,
+    kills containers that don't respond to your user-defined health check,
+    and doesn't advertise them to clients until they are ready to serve.
 content_type: concept
 weight: 20
 -->
@@ -238,6 +252,8 @@ Take the previous frontend ReplicaSet example, and the Pods specified in the fol
 尽管你完全可以直接创建裸的 Pod，强烈建议你确保这些裸的 Pod 并不包含可能与你的某个
 ReplicaSet 的选择算符相匹配的标签。原因在于 ReplicaSet 并不仅限于拥有在其模板中设置的
 Pod，它还可以像前面小节中所描述的那样获得其他 Pod。
+
+以前面的 frontend ReplicaSet 为例，并在以下清单中指定这些 Pod：
 
 {{< codenew file="pods/pod-rs.yaml" >}}
 
@@ -523,7 +539,7 @@ assuming that the number of replicas is not also changed).
 A ReplicaSet can be easily scaled up or down by simply updating the `.spec.replicas` field. The ReplicaSet controller
 ensures that a desired number of Pods with a matching label selector are available and operational.
 -->
-### 扩缩 RepliaSet    {#scaling-a-replicaset}
+### 扩缩 ReplicaSet    {#scaling-a-replicaset}
 
 通过更新 `.spec.replicas` 字段，ReplicaSet 可以被轻松地进行扩缩。ReplicaSet
 控制器能确保匹配标签选择器的数量的 Pod 是可用的和可操作的。
@@ -588,9 +604,9 @@ This feature is beta and enabled by default. You can disable it using the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `PodDeletionCost` in both kube-apiserver and kube-controller-manager.
 -->
-此功能特性处于 Beta 阶段，默认被禁用。你可以通过为 kube-apiserver 和
+此功能特性处于 Beta 阶段，默认被启用。你可以通过为 kube-apiserver 和
 kube-controller-manager 设置[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-`PodDeletionCost` 来启用此功能。
+`PodDeletionCost` 来禁用此功能。
 
 {{< note >}}
 <!--

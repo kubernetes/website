@@ -47,16 +47,16 @@ process.
 ![Kubernetes 组件](/images/docs/components-of-kubernetes.svg)
 
 云控制器管理器以一组多副本的进程集合的形式运行在控制面中，通常表现为 Pod
-中的容器。每个 `cloud-controller-manager` 在同一进程中实现多个
-{{< glossary_tooltip text="控制器" term_id="controller" >}}。
+中的容器。每个 `cloud-controller-manager`
+在同一进程中实现多个{{< glossary_tooltip text="控制器" term_id="controller" >}}。
 
+{{< note >}}
 <!--
 You can also run the cloud controller manager as a Kubernetes
 {{< glossary_tooltip text="addon" term_id="addons" >}} rather than as part
 of the control plane.
 -->
-{{< note >}}
-你也可以用 Kubernetes {{< glossary_tooltip text="插件" term_id="addons" >}} 
+你也可以用 Kubernetes {{< glossary_tooltip text="插件" term_id="addons" >}}
 的形式而不是控制面中的一部分来运行云控制器管理器。
 {{< /note >}}
 
@@ -78,8 +78,7 @@ hosts running inside your tenancy with the cloud provider. The node controller p
 -->
 ### 节点控制器   {#node-controller}
 
-节点控制器负责在云基础设施中创建了新服务器时为之 更新
-{{< glossary_tooltip text="节点（Node）" term_id="node" >}}对象。
+节点控制器负责在云基础设施中创建了新服务器时为之更新{{< glossary_tooltip text="节点（Node）" term_id="node" >}}对象。
 节点控制器从云提供商获取当前租户中主机的信息。节点控制器执行以下功能：
 
 <!--
@@ -158,7 +157,7 @@ to read and modify Node objects.
 
 节点控制器只操作 Node 对象。它需要读取和修改 Node 对象的完全访问权限。
 
-`v1/Node`:
+`v1/Node`：
 
 - Get
 - List
@@ -179,14 +178,14 @@ routes appropriately. It requires Get access to Node objects.
 路由控制器会监听 Node 对象的创建事件，并据此配置路由设施。
 它需要读取 Node 对象的 Get 权限。
 
-`v1/Node`:
+`v1/Node`：
 
 - Get
 
 <!--
 ### Service controller {#authorization-service-controller}
 
-The service controller listens to Service object Create, Update and Delete events and then configures Endpoints for those Services appropriately.
+The service controller listens to Service object Create, Update and Delete events and then configures Endpoints for those Services appropriately (for EndpointSlices, the kube-controller-manager manages these on demand).
 
 To access Services, it requires List, and Watch access. To update Services, it requires Patch and Update access.
 
@@ -194,8 +193,8 @@ To set up Endpoints resources for the Services, it requires access to Create, Li
 -->
 ### 服务控制器 {#authorization-service-controller}
 
-服务控制器监测 Service 对象的 Create、Update 和 Delete 事件，
-并配置对应服务的 Endpoints 对象。
+服务控制器监测 Service 对象的 Create、Update 和 Delete 事件，并配置对应服务的 Endpoints 对象
+（对于 EndpointSlices，kube-controller-manager 按需对其进行管理）。
 
 为了访问 Service 对象，它需要 List 和 Watch 访问权限。
 为了更新 Service 对象，它需要 Patch 和 Update 访问权限。
@@ -203,7 +202,7 @@ To set up Endpoints resources for the Services, it requires access to Create, Li
 为了能够配置 Service 对应的 Endpoints 资源，
 它需要 Create、List、Get、Watch 和 Update 等访问权限。
 
-`v1/Service`:
+`v1/Service`：
 
 - List
 - Get
@@ -234,13 +233,13 @@ controller manager looks like:
 在云控制器管理器的实现中，其核心部分需要创建 Event 对象的访问权限，
 并创建 ServiceAccount 资源以保证操作安全性的权限。
 
-`v1/Event`:
+`v1/Event`：
 
 - Create
 - Patch
 - Update
 
-`v1/ServiceAccount`:
+`v1/ServiceAccount`：
 
 - Create
 
@@ -322,7 +321,8 @@ Want to know how to implement your own cloud controller manager, or extend an ex
 [云控制器管理器的管理](/zh-cn/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
 给出了运行和管理云控制器管理器的指南。
 
-要升级 HA 控制平面以使用云控制器管理器，请参见[将复制的控制平面迁移以使用云控制器管理器](/zh-cn/docs/tasks/administer-cluster/controller-manager-leader-migration/)。
+要升级 HA 控制平面以使用云控制器管理器，
+请参见[将复制的控制平面迁移以使用云控制器管理器](/zh-cn/docs/tasks/administer-cluster/controller-manager-leader-migration/)。
 
 想要了解如何实现自己的云控制器管理器，或者对现有项目进行扩展么？
 
@@ -343,7 +343,5 @@ For more information about developing plugins, see [Developing Cloud Controller 
 CloudProvider 接口的框架的代码，都是 Kubernetes 的核心代码。
 特定于云驱动的实现虽不是 Kubernetes 核心成分，仍要实现 `CloudProvider` 接口。
 
-关于如何开发插件的详细信息，可参考
-[开发云控制器管理器](/zh-cn/docs/tasks/administer-cluster/developing-cloud-controller-manager/)
-文档。
-
+关于如何开发插件的详细信息，
+可参考[开发云控制器管理器](/zh-cn/docs/tasks/administer-cluster/developing-cloud-controller-manager/)文档。

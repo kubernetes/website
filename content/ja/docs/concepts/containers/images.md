@@ -17,36 +17,90 @@ weight: 10
 ## イメージの名称
 
 コンテナイメージは、`pause`、`example/mycontainer`、または`kube-apiserver`のような名前が通常つけられます。
-イメージにはレジストリのホスト名も含めることができ（例：`fictional.registry.example/imagename`）、さらにポート番号も含めることが可能です（例：`fictional.registry.example:10443/imagename`）。
+イメージにはレジストリのホスト名も含めることができ(例：`fictional.registry.example/imagename`)、さらにポート番号も含めることが可能です(例：`fictional.registry.example:10443/imagename`)。
 
 レジストリのホスト名を指定しない場合は、KubernetesはDockerパブリックレジストリを意味していると見なします。
 
-イメージ名の後に、_タグ_ を追加することができます（`docker`や`podman`のようなコマンドを利用した場合と同様）。
+イメージ名の後に、_タグ_ を追加することができます(`docker`や`podman`のようなコマンドを利用した場合と同様)。
 タグによって同じイメージの異なるバージョンを識別できます。
 
 イメージタグは大文字と小文字、数値、アンダースコア(`_`)、ピリオド(`.`)とマイナス(`-`)で構成されます。
 イメージタグでは区切り記号(`_`、`-`、`.`)を指定できる追加ルールがあります。
 タグを指定しない場合は、Kubernetesは`latest`タグを指定したと見なします。
 
-{{< caution >}}
-本番環境でコンテナをデプロイする場合は、`latest`タグの使用を避けるべきです。
-実行中のイメージのバージョンを追跡するのが難しく、機能しているバージョンへのロールバックがより困難になるためです。
-
-かわりに、`v1.42.0`のような特定できるタグを指定してください。
-{{< /caution >}}
-
-
 ## イメージの更新
 
-デフォルトのpull policyでは、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}はイメージを既に取得済みの場合、イメージのPullをスキップさせる`IfNotPresent`が設定されています。
-常にPullを強制させたい場合は、次のいずれかの方法で実行できます。
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}}、{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}、Pod、またはPodテンプレートを含むその他のオブジェクトを最初に作成するとき、デフォルトでは、Pod内のすべてのコンテナのPullポリシーは、明示的に指定されていない場合、`IfNotPresent`に設定されます。
 
-- コンテナの`imagePullPolicy`に`Always`を設定する
-- `imagePullPolicy`を省略し、使用するイメージに`:latest`タグを使用する
-- `imagePullPolicy`と使用するイメージのタグを省略する
-- [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)アドミッションコントローラーを有効にする
+イメージがすでに存在する場合、このポリシーは{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}にイメージのPullをスキップさせます。
 
-`imagePullPolicy`が値なしで定義された場合、この場合も`Always`が設定されます。
+### イメージPullポリシー
+
+コンテナの`imagePullPolicy`とイメージのタグは、[kubelet](/docs/reference/command-line-tools-reference/kubelet/)が指定されたイメージをPull(ダウンロード)しようとする時に影響します。
+
+以下は、`imagePullPolicy`に設定できる値とその効果の一覧です。
+
+`IfNotPresent`
+: イメージがローカルにまだ存在しない場合のみ、イメージがPullされます。
+
+`Always`
+: kubeletがコンテナを起動するときは常にコンテナイメージレジストリに照会して、イメージ名をイメージ[ダイジェスト](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)に解決します。
+  ローカルにキャッシュされた同一ダイジェストのコンテナイメージがあった場合、kubeletはキャッシュされたイメージを使用します。
+  そうでない場合、kubeletは解決されたダイジェストのイメージをPullし、そのイメージを使ってコンテナを起動します。
+
+`Never`
+: kubeletは、イメージを取得しようとしません。ローカルにイメージがすでに存在する場合、kubeletはコンテナを起動しようとします。それ以外の場合、起動に失敗します。
+  詳細は、[事前にPullしたイメージ](#pre-pulled-images)を参照してください。
+
+レジストリに確実にアクセスできるのであれば、基盤となるイメージプロバイダーのキャッシュセマンティクスにより`imagePullPolicy: Always`でも効率的です。
+コンテナランタイムは、イメージレイヤーが既にノード上に存在することを認識できるので、再度ダウンロードする必要がありません。
+
+{{< note >}}
+本番環境でコンテナをデプロイする場合は、`:latest`タグの使用を避けるべきです。
+実行中のイメージのバージョンを追跡するのが難しく、正しくロールバックすることがより困難になるためです。
+
+かわりに、`v1.42.0`のような特定できるタグを指定してください。
+{{< /note >}}
+
+Podがいつも同じバージョンのコンテナイメージを使用するために、イメージのダイジェストを指定することができます。`<image-name>:<tag>`を`<image-name>@<digest>`に置き換えてください(例えば、`image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`)。
+
+イメージタグを使用する場合、イメージレジストリがそのイメージのタグが表すコードを変更すると、新旧のコードを実行するPodが混在することになるかもしれません。
+イメージダイジェストは特定のバージョンのイメージを一意に識別するため、Kubernetesは特定のイメージ名とダイジェストが指定されたコンテナを起動するたびに同じコードを実行します。
+イメージをダイジェストで指定することは、レジストリの変更でそのようなバージョンの混在を起こさないように、実行するコードを固定します。
+
+Pod(およびPodテンプレート)を作成する時に、実行中のワークロードがタグではなくイメージダイジェストに基づき定義されるように変化させるサードパーティーの[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/)があります。
+レジストリでどのようなタグの変更があっても、すべてのワークロードが必ず同じコードを実行するようにしたい場合に役立ちます。
+
+#### デフォルトのイメージPullポリシー {#imagepullpolicy-defaulting}
+
+新しいPodがAPIサーバに送信されると、クラスターは特定の条件が満たされたときに`imagePullPolicy`フィールドを設定します。
+
+- `imagePullPolicy`フィールドを省略し、コンテナイメージのタグに`:latest`を指定した場合、`imagePullPolicy`には自動的に`Always`が設定される
+- `imagePullPolicy`フィールドを省略し、コンテナイメージのタグを指定しなかった場合、`imagePullPolicy`には自動的に`Always`が設定される
+- `imagePullPolicy`フィールドを省略し、コンテナイメージのタグに`:latest`以外を指定した場合、`imagePullPolicy`には自動的に`IfNotPresent`が設定される
+
+{{< note >}}
+コンテナの`imagePullPolicy`の値は、そのオブジェクトが最初に _作成_ されたときに常に設定され、イメージのタグが後で変更された場合でも更新されません。
+
+例えば、タグが`:latest` _でない_ イメージを使ってDeploymentを生成した場合、後でDeploymentのイメージを`:latest`タグに変更しても、`imagePullPolicy`は`Always`に更新されません。オブジェクトのPullポリシーは、初期作成後に手動で変更する必要があります。
+{{< /note >}}
+
+#### 必要なイメージをPullする
+
+常に強制的にPullしたい場合は、以下のいずれかを行ってください。
+
+- コンテナの`imagePullPolicy`に`Always`を設定する。
+- `imagePullPolicy`を省略し、使用するイメージに`:latest`タグ使用する。Pod生成時に、Kubernetesがポリシーに`Always`を設定する。
+- `imagePullPolicy`と使用するイメージのタグを省略する。Pod生成時に、Kubernetesがポリシーに`Always`を設定する。
+- [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)アドミッションコントローラーを有効にする。
+
+### ImagePullBackOff
+
+kubeletがコンテナランタイムを使ってPodのコンテナの生成を開始するとき、`ImagePullBackOff`のためにコンテナが[Waiting](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)状態になる可能性があります。
+
+`ImagePullBackOff`ステータスは、KubernetesがコンテナイメージをPullできないために、コンテナを開始できないことを意味します(イメージ名が無効である、`imagePullSecret`なしでプライベートレジストリからPullしたなどの理由のため)。`BackOff`は、バックオフの遅延を増加させながらKubernetesがイメージをPullしようとし続けることを示します。
+
+Kubernetesは、組み込まれた制限である300秒(5分)に達するまで、試行するごとに遅延を増加させます。
 
 ## イメージインデックスを使ったマルチアーキテクチャイメージ
 
@@ -74,95 +128,73 @@ Kubernetes自身は、通常コンテナイメージに`-$(ARCH)`のサフィッ
 
 ### プライベートレジストリへの認証をNodeに設定する
 
-Node上でDockerを実行している場合、プライベートコンテナレジストリへの認証をDockerコンテナランタイムに設定できます。
+認証情報を設定するための具体的な手順は、使用するコンテナランタイムとレジストリに依存します。最も正確な情報として、ソリューションのドキュメントを参照する必要があります。
 
-Node構成を制御できる場合は、この方法が適しています。
-
-{{< note >}}
-KubernetesはDocker構成の`auths`と`HttpHeaders`セクションのみをサポートしています。
-Docker認証情報ヘルパー(`credHelpers`または`credsStore`)はサポートされていません。
-{{< /note >}}
+プライベートなコンテナイメージレジストリを設定する例として、[プライベートレジストリからイメージをPullする](/docs/tasks/configure-pod-container/pull-image-private-registry)タスクを参照してください。その例では、Docker Hubのプライベートレジストリを使用しています。
 
 
-Dockerは、`$HOME/.dockercfg`または`$HOME/.docker/config.json`ファイルの中に、プライベートレジストリのキーを保持します。
-下記リストの検索パスに同じファイルを配置した場合、kubeletはイメージをPullする時に認証情報プロバイダーとして利用します。
+### config.jsonの解釈 {#config-json}
 
+`config.json`の解釈は、Dockerのオリジナルの実装とKubernetesの解釈で異なります。
+Dockerでは、`auths`キーはルートURLしか指定できませんが、Kubernetesではプレフィックスのマッチしたパスだけでなく、グロブパターンのURLも指定できます。
+以下のような`config.json`が有効であるということです。
 
-* `{--root-dir:-/var/lib/kubelet}/config.json`
-* `{cwd of kubelet}/config.json`
-* `${HOME}/.docker/config.json`
-* `/.docker/config.json`
-* `{--root-dir:-/var/lib/kubelet}/.dockercfg`
-* `{cwd of kubelet}/.dockercfg`
-* `${HOME}/.dockercfg`
-* `/.dockercfg`
-
-{{< note >}}
-kubeletプロセスの環境では、明示的に`HOME=/root`を設定する必要がある場合があります。
-{{< /note >}}
-
-以下は、プライベートレジストリを使用する為にNodeを構成する推奨の手順です。この例では、デスクトップ/ノートPC上で実行します。
-
-   1. 使用したい認証情報のセット毎に `docker login [server]`を実行する。これであなたのPC上の`$HOME/.docker/config.json`が更新される
-   1. 使用したい認証情報が含まれているかを確認するため、エディターで`$HOME/.docker/config.json`を見る
-   1. Nodeの一覧を取得 例:
-      - 名称が必要な場合: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
-      - IPアドレスを取得したい場合: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
-   1. ローカルの`.docker/config.json`を上記の検索パスのいずれかにコピーする
-      - 例えば、これでテストを実施する: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
-
-{{< note >}}
-本番環境用クラスターでは、構成管理ツールを使用して必要なすべてのNodeに設定を反映してください。
-{{< /note >}}
-
-プライベートイメージを使用するPodを作成し確認します。
-例:
-
-```shell
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: private-image-test-1
-spec:
-  containers:
-    - name: uses-private-image
-      image: $PRIVATE_IMAGE_NAME
-      imagePullPolicy: Always
-      command: [ "echo", "SUCCESS" ]
-EOF
-```
-```
-pod/private-image-test-1 created
+```json
+{
+    "auths": {
+        "*my-registry.io/images": {
+            "auth": "…"
+        }
+    }
+}
 ```
 
-すべてが機能している場合は、しばらくしてから以下のコマンドを実行します。
+ルートURL(`*my-registry.io`)は、以下の構文でマッチングされます:
 
-```shell
-kubectl logs private-image-test-1
 ```
-コマンドの結果を確認してください。
-```
-SUCCESS
+pattern:
+    { term }
+
+term:
+    '*'         セパレーター以外の任意の文字列にマッチする
+    '?'         セパレーター以外の任意の一文字にマッチする
+    '[' [ '^' ] { character-range } ']'
+                文字クラス (空であってはならない)
+    c           文字 c とマッチする (c != '*', '?', '\\', '[')
+    '\\' c      文字 c とマッチする
+
+character-range:
+    c           文字 c とマッチする (c != '\\', '-', ']')
+    '\\' c      文字 c とマッチする
+    lo '-' hi   lo <= c <= hi の文字 c とマッチする
 ```
 
-コマンドが失敗したと思われる場合には、以下を実行します。
-```shell
-kubectl describe pods/private-image-test-1 | grep 'Failed'
+イメージのPull操作では、有効なパターンごとに認証情報をCRIコンテナランタイムに渡すようになりました。例えば、以下のようなコンテナイメージ名は正常にマッチングされます。
+
+- `my-registry.io/images`
+- `my-registry.io/images/my-image`
+- `my-registry.io/images/another-image`
+- `sub.my-registry.io/images/my-image`
+- `a.sub.my-registry.io/images/my-image`
+
+kubeletは、見つかったすべての認証情報に対してイメージのPullを順次実行します。これは、次のように`config.json`に複数のエントリーを書くことも可能であることを意味します。
+
+```json
+{
+    "auths": {
+        "my-registry.io/images": {
+            "auth": "…"
+        },
+        "my-registry.io/images/subpath": {
+            "auth": "…"
+        }
+    }
+}
 ```
-失敗している場合、結果が次のようになります。
-```
-  Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
-```
 
+コンテナが`my-registry.io/images/subpath/my-image`をPullするイメージとして指定した場合、kubeletが認証ソースの片方からダウンロードに失敗すると、両方の認証ソースからダウンロードを試みます。
 
-クラスターのすべてのNodeが同じ`.docker/config.json`になっているかを確認する必要があります。
-そうでない場合、Podは一部のNodeで実行できますが他のNodeでは実行に失敗します。
-例えば、Nodeのオートスケールを使用している場合、各インスタンスのテンプレートに`.docker/config.json`が含まれている、またはこのファイルが含まれているドライブをマウントする必要があります。
-
-プライベートレジストリキーを`.docker/config.json`に追加した時点で、すべてのPodがプライベートレジストリのイメージに読み取りアクセス権も持つようになります。
-
-### 事前にPullしたイメージ
+### 事前にPullしたイメージ {#pre-pulled-images}
 
 {{< note >}}
 Node構成を制御できる場合、この方法が適しています。
@@ -187,6 +219,8 @@ Node構成を制御できる場合、この方法が適しています。
 KubernetesはPodでのコンテナイメージレジストリキーの指定をサポートしています。
 
 #### Dockerの設定を利用してSecretを作成する。
+
+レジストリへの認証のためにユーザー名、レジストリのパスワード、クライアントのメールアドレス、およびそのホスト名を知っている必要があります。
 
 適切な大文字の値を置き換えて、次のコマンドを実行します。
 
@@ -243,13 +277,12 @@ EOF
 プライベートレジストリを設定するためのソリューションはいくつかあります。ここでは、いくつかの一般的なユースケースと推奨される解決方法を示します。
 
 1. クラスターに独自仕様でない(例えば、オープンソース)イメージだけを実行する。イメージを非公開にする必要がない
-   - Docker hubのパブリックイメージを利用する
+   - パブリックレジストリのパブリックイメージを利用する
      - 設定は必要ない
      - クラウドプロバイダーによっては、可用性の向上とイメージをPullする時間を短くする為に、自動的にキャッシュやミラーされたパプリックイメージが提供される
 1. 社外には非公開の必要があるが、すべてのクラスター利用者には見せてよい独自仕様のイメージをクラスターで実行している
-   - ホストされたプライペートな [Dockerレジストリ](https://docs.docker.com/registry/)を使用
-     - [Docker Hub](https://hub.docker.com/signup)または他の場所の上でホストされている場合がある
-     - 上記のように各Node上のdocker/config.jsonを手動で構成する
+   - ホストされたプライペートレジストリを使用
+     - プライベートレジストリにアクセスする必要があるノードには、手動設定が必要となる場合がある
    - または、オープンな読み取りアクセスを許可したファイヤーウォールの背後で内部向けプライベートレジストリを実行する
      - Kubernetesの設定は必要ない
    - イメージへのアクセスを制御できるホストされたコンテナイメージレジストリサービスを利用する
@@ -265,8 +298,9 @@ EOF
    - テナントは、Secretを各NamespaceのimagePullSecretsへ追加する
 
 複数のレジストリへのアクセスが必要な場合、それぞれのレジストリ毎にひとつのSecretを作成する事ができます。
-Kubeletは複数の`imagePullSecrets`を単一の仮想的な`.docker/config.json`にマージします。
 
 ## {{% heading "whatsnext" %}}
 
-* [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)を読みます。
+* [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)を読む
+* [コンテナのガベージコレクション](/ja/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)について学ぶ
+* [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry)について学ぶ
