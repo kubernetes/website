@@ -5,6 +5,9 @@ weight: 80
 ---
 
 <!--
+reviewers:
+- verb
+- yujuhong
 title: Ephemeral Containers
 content_type: concept
 weight: 80
@@ -12,7 +15,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 <!--
 This page provides an overview of ephemeral containers: a special type of container
@@ -74,7 +77,7 @@ are incompatible and disallowed for ephemeral containers.
 - For a complete list of allowed fields, see the [EphemeralContainer reference
   documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralcontainer-v1-core).
 -->
-- 临时容器没有端口配置，因此像 `ports`，`livenessProbe`，`readinessProbe`
+- 临时容器没有端口配置，因此像 `ports`、`livenessProbe`、`readinessProbe`
   这样的字段是不允许的。
 - Pod 资源分配是不可变的，因此 `resources` 配置是不允许的。
 - 有关允许字段的完整列表，请参见
@@ -93,6 +96,13 @@ Like regular containers, you may not change or remove an ephemeral container
 after you have added it to a Pod.
 -->
 与常规容器一样，将临时容器添加到 Pod 后，将不能更改或删除临时容器。
+
+{{< note >}}
+<!--
+Ephemeral containers are not supported by [static pods](/docs/tasks/configure-pod-container/static-pod/).
+-->
+临时容器不被[静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/) 支持。
+{{< /note >}}
 
 <!--
 ## Uses for ephemeral containers
@@ -123,11 +133,12 @@ When using ephemeral containers, it's helpful to enable [process namespace
 sharing](/docs/tasks/configure-pod-container/share-process-namespace/) so
 you can view processes in other containers.
 -->
-使用临时容器时，启用
-[进程名字空间共享](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)
-很有帮助，可以查看其他容器中的进程。
+使用临时容器时，
+启用[进程名字空间共享](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)很有帮助，
+可以查看其他容器中的进程。
 
 {{% heading "whatsnext" %}}
+
 <!--
 * Learn how to [debug pods using ephemeral containers](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).
 -->

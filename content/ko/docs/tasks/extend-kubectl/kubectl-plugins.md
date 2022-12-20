@@ -1,5 +1,8 @@
 ---
 title: 플러그인으로 kubectl 확장
+# reviewers:
+# - juanvallejo
+# - soltysh
 description: kubectl 플러그인을 작성하고 설치해서 kubectl을 확장한다.
 content_type: task
 ---

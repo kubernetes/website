@@ -153,6 +153,32 @@ CSIDriverSpec 是 CSIDriver 的规约。
   新的挂载点将不会被运行的容器察觉。
 
 <!--
+- **seLinuxMount** (boolean)
+
+  SELinuxMount specifies if the CSI driver supports "-o context" mount option.
+  
+  When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+-->
+- **seLinuxMount** (boolean)
+
+  seLinuxMount 指定 CSI 驱动是否支持 "-o context" 挂载选项。
+
+  当值为 “true” 时，CSI 驱动必须确保该 CSI 驱动提供的所有卷可以分别用不同的 `-o context` 选项进行挂载。
+  这对于将卷作为块设备上的文件系统或作为独立共享卷提供的存储后端来说是典型的方法。
+  当 Kubernetes 挂载在 Pod 中使用的已显式设置 SELinux 上下文的 ReadWriteOncePod 卷时，
+  将使用 "-o context=xyz" 挂载选项调用 NodeStage / NodePublish。
+  未来可能会扩展到其他的卷访问模式（AccessModes）。在任何情况下，Kubernetes 都会确保该卷仅使用同一 SELinux 上下文进行挂载。
+
+  <!--
+  When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+  
+  Default is "false".
+  -->
+  当值为 “false” 时，Kubernetes 不会将任何特殊的 SELinux 挂载选项传递给驱动。
+  这通常用于代表更大共享文件系统的子目录的卷。
+  
+  默认为 “false”。
+<!--
 - **storageCapacity** (boolean)
   If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
   
@@ -251,7 +277,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   有关实现此模式的更多信息，请参阅
   https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html。
   驱动可以支持其中一种或多种模式，将来可能会添加更多模式。
-  此字段处于 beta 阶段。
+  此字段处于 Beta 阶段。
   
   此字段不可变更。
 
@@ -279,8 +305,7 @@ CSIDriverList 是 CSIDriver 对象的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
   
-  标准的列表元数据。
-  更多信息：
+  标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriver" >}}">CSIDriver</a>)，必需

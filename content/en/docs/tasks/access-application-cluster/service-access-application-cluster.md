@@ -16,7 +16,7 @@ provides load balancing for an application that has two running instances.
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 
 
@@ -153,7 +153,6 @@ the Hello World application, enter this command:
 
 ## {{% heading "whatsnext" %}}
 
-
-Learn more about
-[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
-
+Follow the
+[Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
+tutorial.

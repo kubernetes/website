@@ -50,4 +50,4 @@ tags:
  * {{< glossary_tooltip text="控制器管理器" term_id="kube-controller-manager" >}}
  * {{< glossary_tooltip text="云控制器管理器" term_id="cloud-controller-manager" >}}
 
-这些组件可以以传统的系统服务运行也可以以容器的形式运行.运行这些组件的主机过去称为 master 节点。 
+这些组件可以作为传统的操作系统服务（守护程序）或容器运行。运行这些组件的主机在历史上被称为 {{<glossary_tooltip text="masters" term_id="master" >}}。

@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - davidopp
+# - kevin-wangzefeng
+# - bsalamat
 title: 노드에 파드 할당하기
 content_type: concept
 weight: 20
@@ -11,12 +11,14 @@ weight: 20
 
 <!-- overview -->
 
-특정한 {{< glossary_tooltip text="노드(들)" term_id="node" >}} 집합에서만 동작하도록
-{{< glossary_tooltip text="파드" term_id="pod" >}}를 제한할 수 있다.
+특정한 {{< glossary_tooltip text="노드(들)" term_id="node" >}} 집합에서만 
+동작하거나 특정한 노드 집합에서 동작하는 것을 선호하도록 {{< glossary_tooltip text="파드" term_id="pod" >}}를 
+제한할 수 있다.
 이를 수행하는 방법에는 여러 가지가 있으며 권장되는 접근 방식은 모두
 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)를 사용하여 선택을 용이하게 한다.
-보통은 스케줄러가 자동으로 합리적인 배치(예: 자원이 부족한 노드에 파드를 배치하지 않도록 
-노드 간에 파드를 분배)를 수행하기에 이러한 제약 조건은 필요하지 않다.
+보통은 {{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}가 
+자동으로 합리적인 배치(예: 자원이 부족한 노드에 파드를 배치하지 않도록 
+노드 간에 파드를 분배)를 수행하기에 이러한 제약 조건을 설정할 필요는 없다.
 그러나, 예를 들어 SSD가 장착된 머신에 파드가 배포되도록 하거나 또는 
 많은 통신을 하는 두 개의 서로 다른 서비스의 파드를 동일한 가용성 영역(availability zone)에 배치하는 경우와 같이, 
 파드가 어느 노드에 배포될지를 제어해야 하는 경우도 있다.
@@ -29,6 +31,7 @@ weight: 20
   * [노드 레이블](#built-in-node-labels)에 매칭되는 [nodeSelector](#nodeselector) 필드
   * [어피니티 / 안티 어피니티](#affinity-and-anti-affinity)
   * [nodeName](#nodename) 필드
+  * [파드 토폴로지 분배 제약 조건](#pod-topology-spread-constraints)
 
 ## 노드 레이블 {#built-in-node-labels}
 
@@ -124,8 +127,8 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 
 이 예시에서는 다음의 규칙이 적용된다.
 
-  * 노드는 키가 `kubernetes.io/os`이고 값이 `linux`인 레이블을 
-    갖고 *있어야 한다* .
+  * 노드는 키가 `topology.kubernetes.io/zone`인 레이블을 갖고 *있어야 하며*,
+    레이블의 값이 `antarctica-east1` 혹은 `antarctica-west1`*여야 한다*.
   * 키가 `another-node-label-key`이고 값이 `another-node-label-value`인 레이블을 
     갖고 있는 노드를 *선호한다* .
 
@@ -169,7 +172,7 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 
 {{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
 
-`requiredDuringSchedulingIgnoredDuringExecution` 규칙을 만족하는 노드가 2개 있고, 
+`preferredDuringSchedulingIgnoredDuringExecution` 규칙을 만족하는 노드가 2개 있고, 
 하나에는 `label-1:key-1` 레이블이 있고 다른 하나에는 `label-2:key-2` 레이블이 있으면, 
 스케줄러는 각 노드의 `weight`를 확인한 뒤 
 해당 노드에 대한 다른 점수에 가중치를 더하고, 
@@ -302,9 +305,8 @@ Y는 쿠버네티스가 충족할 규칙이다.
 다른 노드도 존재한다면, 
 스케줄러는 `topology.kubernetes.io/zone=R` 레이블이 있는 노드에는 가급적 해당 파드를 스케줄링하지 않야아 한다.
 
-[디자인 문서](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)에서 
-파드 어피니티와 안티-어피니티에 대한 
-많은 예시를 볼 수 있다.
+파드 어피니티와 안티-어피니티의 예시에 대해 익숙해지고 싶다면,
+[디자인 제안](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)을 참조한다.
 
 파드 어피니티와 안티-어피니티의 `operator` 필드에 
 `In`, `NotIn`, `Exists` 및 `DoesNotExist` 값을 사용할 수 있다.
@@ -337,16 +339,18 @@ null 또는 빈 `namespaces` 목록과 null `namespaceSelector` 는 규칙이 �
 
 파드간 어피니티와 안티-어피니티는 레플리카셋, 스테이트풀셋, 디플로이먼트 등과 같은 
 상위 레벨 모음과 함께 사용할 때 더욱 유용할 수 있다.
-이러한 규칙을 사용하여, 워크로드 집합이 예를 들면 '동일한 노드'와 같이 
-동일하게 정의된 토폴로지와 같은 위치에 배치되도록 쉽게 구성할 수 있다.
+이러한 규칙을 사용하면, 워크로드 집합이 예를 들면 
+서로 연관된 두 개의 파드를 동일한 노드에 배치하는 것과 같이 동일하게 정의된 토폴로지와 
+같은 위치에 배치되도록 쉽게 구성할 수 있다.
 
-redis와 같은 인-메모리 캐시를 사용하는 웹 애플리케이션을 실행하는 세 개의 노드로 구성된 클러스터를 가정한다.
+세 개의 노드로 구성된 클러스터를 상상해 보자. 이 클러스터에서 redis와 같은 인-메모리 캐시를 이용하는 웹 애플리케이션을 실행한다.
+또한 이 예에서 웹 애플리케이션과 메모리 캐시 사이의 대기 시간은 될 수 있는 대로 짧아야 한다고 가정하자.
 이 때 웹 서버를 가능한 한 캐시와 같은 위치에서 실행되도록 하기 위해 
 파드간 어피니티/안티-어피니티를 사용할 수 있다.
 
 다음의 redis 캐시 디플로이먼트 예시에서, 레플리카는 `app=store` 레이블을 갖는다.
 `podAntiAffinity` 규칙은 스케줄러로 하여금 
-`app=store` 레이블이 있는 레플리카를 한 노드에 여러 개 배치하지 못하도록 한다.
+`app=store` 레이블을 가진 복수 개의 레플리카를 단일 노드에 배치하지 않게 한다.
 이렇게 하여 캐시 파드를 각 노드에 분산하여 생성한다.
 
 ```yaml
@@ -431,6 +435,10 @@ spec:
 | *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
 |  *cache-1*           |     *cache-2*       |     *cache-3*      |
 
+전체적인 효과는 각 캐시 인스턴스를 동일한 노드에서 실행 중인 단일 클라이언트가 액세스하게 될 것 같다는 것이다.
+이 접근 방식은 차이(불균형 로드)와 대기 ​​시간을 모두 최소화하는 것을 목표로 한다.
+
+파드간 안티-어피니티를 사용해야 하는 다른 이유가 있을 수 있다.
 [ZooKeeper 튜토리얼](/ko/docs/tutorials/stateful-application/zookeeper/#노드-실패-방지)에서 
 위 예시와 동일한 기술을 사용해 
 고 가용성을 위한 안티-어피니티로 구성된 스테이트풀셋의 예시를 확인한다.
@@ -469,12 +477,21 @@ spec:
 
 위 파드는 `kube-01` 노드에서만 실행될 것이다.
 
+## 파드 토폴로지 분배 제약 조건
+
+_토폴로지 분배 제약 조건_을 사용하여 지역(regions), 영역(zones), 노드 또는 사용자가 정의한 다른 토폴로지 도메인과 같은 장애 도메인 사이에서 {{< glossary_tooltip text="파드" term_id="Pod" >}}가 클러스터 전체에 분산되는 방식을 제어할 수 있다. 성능, 예상 가용성 또는 전체 활용도를 개선하기 위해 이 작업을 수행할 수 있다.
+
+[파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)에서 
+작동 방식에 대해 더 자세히 알아볼 수 있다.
+
 ## {{% heading "whatsnext" %}}
 
 * [테인트 및 톨러레이션](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)에 대해 더 읽어본다.
-* [노드 어피니티](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)와
-  [파드간 어피니티/안티-어피니티](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)에 대한 디자인 문서를 읽어본다.
+* [노드 어피니티](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)와
+  [파드간 어피니티/안티-어피니티](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)에 대한 디자인 문서를 읽어본다.
 * [토폴로지 매니저](/docs/tasks/administer-cluster/topology-manager/)가 
   노드 수준 리소스 할당 결정에 어떻게 관여하는지 알아본다.
 * [노드셀렉터(nodeSelector)](/ko/docs/tasks/configure-pod-container/assign-pods-nodes/)를 어떻게 사용하는지 알아본다.
 * [어피니티/안티-어피니티](/ko/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)를 어떻게 사용하는지 알아본다.
+
+

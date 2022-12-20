@@ -4,8 +4,11 @@ title: "PodSecurityPolicy Deprecation: Past, Present, and Future"
 date: 2021-04-06
 slug: podsecuritypolicy-deprecation-past-present-and-future
 ---
-
 **Author:** Tabitha Sable (Kubernetes SIG Security)
+
+{{% pageinfo color="primary" %}}
+**Update:** *With the release of Kubernetes v1.25, PodSecurityPolicy has been removed.* *You can read more information about the removal of PodSecurityPolicy in the [Kubernetes 1.25 release notes](/blog/2022/08/23/kubernetes-v1-25-release/#pod-security-changes).*
+{{% /pageinfo %}}
 
 PodSecurityPolicy (PSP) is being deprecated in Kubernetes 1.21, to be released later this week. This starts the countdown to its removal, but doesn’t change anything else. PodSecurityPolicy will continue to be fully functional for several more releases before being removed completely. In the meantime, we are developing a replacement for PSP that covers key use cases more easily and sustainably.
 

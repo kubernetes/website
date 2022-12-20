@@ -19,7 +19,7 @@ to identify which part of the overall task to work on.
 The pod index is available in the {{< glossary_tooltip text="annotation" term_id="annotation" >}}
 `batch.kubernetes.io/job-completion-index` as a string representing its
 decimal value. In order for the containerized task process to obtain this index,
-you can publish the value of the annotation using the [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
+you can publish the value of the annotation using the [downward API](/docs/concepts/workloads/pods/downward-api/)
 mechanism.
 For convenience, the control plane automatically sets the downward API to
 expose the index in the `JOB_COMPLETION_INDEX` environment variable.
@@ -107,7 +107,14 @@ When you create this Job, the control plane creates a series of Pods, one for ea
 
 Because `.spec.parallelism` is less than `.spec.completions`, the control plane waits for some of the first Pods to complete before starting more of them.
 
-Once you have created the Job, wait a moment then check on progress:
+You can wait for the Job to succeed, with a timeout:
+```shell
+# The check for condition name is case insensitive
+kubectl wait --for=condition=complete --timeout=300s job/indexed-job
+```
+
+Now, describe the Job and check that it was successful.
+
 
 ```shell
 kubectl describe jobs/indexed-job

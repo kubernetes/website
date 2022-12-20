@@ -496,14 +496,16 @@ kubelet 标志会覆盖相关的 `KubeletConfiguration` 选项，但请注意，
 更改 `/var/lib/kubelet/config.conf` 或 `/var/lib/kubelet/kubeadm-flags.env` 
 后需要重启 kubelet。
 
-{{% heading "whatsnext" %}}
 
+## {{% heading "whatsnext" %}}
 <!--
 - [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)
 - [Customizing components with the kubeadm API](/docs/setup/production-environment/tools/kubeadm/control-plane-flags)
 - [Certificate management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)
+- [Find more about kubeadm set-up](/docs/reference/setup-tools/kubeadm/)
 -->
 
 - [升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)
 - [使用 kubeadm API 自定义组件](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags)
 - [使用 kubeadm 管理证书](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)
+- [进一步了解 kubeadm 设置](/zh-cn/docs/reference/setup-tools/kubeadm/)
