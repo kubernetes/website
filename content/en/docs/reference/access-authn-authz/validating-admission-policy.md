@@ -76,12 +76,11 @@ kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "demo-binding-test.example.com"
 spec:
-  policy: "replicalimit-policy.example.com"
+  policyName: "demo-policy.example.com"
   matchResources:
-    namespaceSelectors:
-    - key: environment,
-      operator: In,
-      values: ["test"]
+    namespaceSelector:
+      matchLabels:
+        environment: test
 ```
 
 When trying to create a deployment with replicas set not satisfying the validation expression, an error will return containing message:
@@ -134,14 +133,13 @@ kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "replicalimit-binding-test.example.com"
 spec:
-  policy: "replicalimit-policy.example.com"
+  policyName: "replicalimit-policy.example.com"
   paramsRef:
     name: "replica-limit-test.example.com"
   matchResources:
-    namespaceSelectors:
-    - key: environment,
-      operator: In,
-      values: ["test"]
+    namespaceSelector:
+      matchLabels:
+        environment: test
 ```
 The parameter resource could be as following:
 ```yaml
@@ -159,14 +157,15 @@ kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "replicalimit-binding-nontest"
 spec:
-  policy: "replicalimit-policy.example.com"
+  policyName: "replicalimit-policy.example.com"
   paramsRef:
     name: "replica-limit-clusterwide.example.com"
   matchResources:
-    namespaceSelectors:
-    - key: environment,
-      operator: NotIn,
-      values: ["test"]
+    namespaceSelector:
+      matchExpressions:
+      - key: environment,
+        operator: NotIn,
+        values: ["test"]
 ```
 And have a parameter resource like:
 ```yaml
@@ -183,12 +182,13 @@ kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "replicalimit-binding-global"
 spec:
-  policy: "replicalimit-policy.example.com"
+  policyName: "replicalimit-policy.example.com"
   params: "replica-limit-clusterwide.example.com"
   matchResources:
-    namespaceSelectors:
-    - key: environment,
-      operator: Exists
+    namespaceSelector:
+      matchExpressions:
+      - key: environment,
+        operator: Exists
 ```
 
 The params object representing a parameter resource will not be set if a parameter resource has not been bound, 
