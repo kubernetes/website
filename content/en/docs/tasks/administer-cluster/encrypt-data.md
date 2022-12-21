@@ -34,7 +34,7 @@ encryption configuration file must be the same! Otherwise, the `kube-apiserver` 
 decrypt data stored in the etcd.
 {{< /caution >}}
 
-## Understanding the encryption at rest configuration.
+## Understanding the encryption at rest configuration
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -92,7 +92,7 @@ the only recourse is to delete that key from the underlying etcd directly. Calls
 read that resource will fail until it is deleted or a valid decryption key is provided.
 {{< /caution >}}
 
-### Providers:
+### Providers
 
 {{< table caption="Providers for Kubernetes encryption at rest" >}}
 Name | Encryption | Strength | Speed | Key Length | Other Considerations
@@ -101,7 +101,7 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 `secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
 `aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
 `aescbc` | AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding | Weak | Fast | 32-byte | Not recommended due to CBC's vulnerability to padding oracle attacks.
-`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
+`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/).
 
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
@@ -217,7 +217,9 @@ program to retrieve the contents of your secret data.
 
 1. Using the `etcdctl` command line, read that Secret out of etcd:
 
-   `ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C`
+   ```
+   ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
+   ```
 
    where `[...]` must be the additional arguments for connecting to the etcd server.
 
@@ -312,8 +314,7 @@ resources:
               secret: <BASE 64 ENCODED SECRET>
 ```
 
-Then run the following command to force decrypt
-all Secrets:
+Then run the following command to force decrypt all Secrets:
 
 ```shell
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -

@@ -276,9 +276,10 @@ should have seen the node's health check failing and fully removed the node from
 ## {{% heading "whatsnext" %}}
 
 To learn more about Services,
-read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/).
+read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/).
 
 You can also:
 
-* Read about [Services](/docs/concepts/services-networking/service/)
+* Read about [Services](/docs/concepts/services-networking/service/) as a concept
+* Read about [Ingresses](/docs/concepts/services-networking/ingress/) as a concept
 * Read the [API reference](/docs/reference/kubernetes-api/service-resources/service-v1/) for the Service API
