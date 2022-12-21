@@ -46,7 +46,7 @@ Kubernetesをデプロイすると、クラスターが展開されます。
 
   * ノードコントローラー：ノードがダウンした場合の通知と対応を担当します。
   * Jobコントローラー：単発タスクを表すJobオブジェクトを監視し、そのタスクを実行して完了させるためのPodを作成します。
-  * エンドポイントスライスコントローラー：エンドポイントスライスオブジェクトを注入します(つまり、ServiceとPodを紐付けます)。
+  * EndpointSliceコントローラー：EndpointSliceオブジェクトを注入します(つまり、ServiceとPodを紐付けます)。
   * ServiceAccountコントローラー：新規の名前空間に対して、デフォルトのServiceAccountを作成します。
 
 ### cloud-controller-manager
