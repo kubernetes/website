@@ -113,6 +113,8 @@ In the following table:
 | `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
 | `CronJobControllerV2` | `true` | Beta | 1.21 | 1.21 |
 | `CronJobControllerV2` | `true` | GA | 1.22 | 1.23 |
+| `CSRDuration` | `true` | Beta | 1.22 | 1.23 |
+| `CSRDuration` | `true` | GA | 1.24 | 1.25 |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | 1.16 |
@@ -208,6 +210,9 @@ In the following table:
 | `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | Beta | 1.5 | 1.20 |
 | `PodDisruptionBudget` | `true` | GA | 1.21 | 1.25 |
+| `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
+| `PodOverhead` | `true` | Beta | 1.18 | 1.23 |
+| `PodOverhead` | `true` | GA | 1.24 | 1.25 |
 | `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
 | `PodPriority` | `true` | Beta | 1.11 | 1.13 |
 | `PodPriority` | `true` | GA | 1.14 | 1.18 |
@@ -226,7 +231,7 @@ In the following table:
 | `ResourceQuotaScopeSelectors` | `true` | GA | 1.17 | 1.18 |
 | `RootCAConfigMap` | `false` | Alpha | 1.13 | 1.19 |
 | `RootCAConfigMap` | `true` | Beta | 1.20 | 1.20 |
-| `RootCAConfigMap` | `true` | GA | 1.21 | 1.12 |
+| `RootCAConfigMap` | `true` | GA | 1.21 | 1.22 |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | 1.18 |
 | `RotateKubeletClientCertificate` | `true` | GA | 1.19 | 1.21 |
 | `RunAsGroup` | `true` | Beta | 1.14 | 1.20 |
@@ -528,6 +533,9 @@ In the following table:
   This field controls whether volumes created by a CSIDriver support volume ownership
   and permission modifications when these volumes are mounted.
 
+- `CSRDuration`: Allows clients to request a duration for certificates issued
+  via the Kubernetes CSR API.
+
 - `ConfigurableFSGroupPolicy`: Allows user to configure volume permission change policy
   for fsGroups when mounting a volume in a Pod. See
   [Configure volume permission and ownership change policy for Pods](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)
@@ -539,6 +547,8 @@ In the following table:
 -->
 - `CSIVolumeFSGroupPolicy`：允许 CSIDrivers 使用 `fsGroupPolicy` 字段。
   该字段能控制由 CSIDriver 创建的卷在挂载这些卷时是否支持卷所有权和权限修改。
+
+- `CSRDuration`：允许客户端为通过 Kubernetes CSR API 签署的证书申请有效期限。
 
 - `ConfigurableFSGroupPolicy`：在 Pod 中挂载卷时，允许用户为 fsGroup
   配置卷访问权限和属主变更策略。请参见
@@ -778,6 +788,9 @@ In the following table:
 
 - `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
 
+- `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)
+  feature to account for pod overheads.
+
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their
   [priorities](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 
@@ -789,6 +802,9 @@ In the following table:
   如果请求 `local` 卷，则必须指定 Pod 亲和性属性。
 
 - `PodDisruptionBudget`：启用 [PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/) 功能特性。
+
+- `PodOverhead`：启用 [PodOverhead](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)
+  特性以计算 Pod 开销。
 
 - `PodPriority`：启用根据[优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
   的 Pod 调度和抢占。
