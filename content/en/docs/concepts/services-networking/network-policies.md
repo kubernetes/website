@@ -206,27 +206,7 @@ When writing a NetworkPolicy, you can target a range of ports instead of a singl
 
 This is achievable with the usage of the `endPort` field, as the following example:
 
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: multi-port-egress
-  namespace: default
-spec:
-  podSelector:
-    matchLabels:
-      role: db
-  policyTypes:
-  - Egress
-  egress:
-  - to:
-    - ipBlock:
-        cidr: 10.0.0.0/24
-    ports:
-    - protocol: TCP
-      port: 32000
-      endPort: 32768
-```
+{{< codenew file="service/networking/networkpolicy-multiport-egress.yaml" >}}
 
 The above rule allows any Pod with label `role=db` on the namespace `default` to communicate 
 with any IP within the range `10.0.0.0/24` over TCP, provided that the target 
