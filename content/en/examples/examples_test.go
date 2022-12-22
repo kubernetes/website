@@ -675,6 +675,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"name-virtual-host-ingress-no-third-host": {&networking.Ingress{}},
 			"namespaced-params":                       {&networking.IngressClass{}},
 			"networkpolicy":                           {&networking.NetworkPolicy{}},
+			"networkpolicy-multiport-egress":          {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-egress":         {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-ingress":        {&networking.NetworkPolicy{}},
 			"network-policy-default-deny-egress":      {&networking.NetworkPolicy{}},
