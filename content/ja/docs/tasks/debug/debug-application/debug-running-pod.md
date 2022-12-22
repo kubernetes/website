@@ -11,7 +11,7 @@ content_type: task
 ## {{% heading "prerequisites" %}}
 
 
-* あなたの{{< glossary_tooltip text="Pod" term_id="pod" >}}は既にスケジュールされ、実行されているはずです。Podがまだ実行されていない場合は、[Troubleshoot Applications](/ja/docs/tasks/debug/debug-application/) から始めてください。
+* あなたの{{< glossary_tooltip text="Pod" term_id="pod" >}}は既にスケジュールされ、実行されているはずです。Podがまだ実行されていない場合は、[アプリケーションのトラブルシューティング](/ja/docs/tasks/debug/debug-application/)から始めてください。
 
 * いくつかの高度なデバッグ手順では、Podがどのノードで動作しているかを知り、そのノードでコマンドを実行するためのシェルアクセス権を持っていることが必要です。`kubectl`を使用する標準的なデバッグ手順の実行には、そのようなアクセスは必要ではありません。
 
@@ -432,7 +432,7 @@ kubectl exec -it cassandra -- sh
 
 ## エフェメラルコンテナによるデバッグ {#ephemeral-container}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 {{< glossary_tooltip text="エフェメラルコンテナ" term_id="ephemeral-container" >}}は、コンテナがクラッシュしたり、コンテナイメージにデバッグユーティリティが含まれていないなどの理由で`kubectl exec`が不十分な場合に、対話的にトラブルシューティングを行うのに便利です([ディストロレスイメージ](https://github.com/GoogleContainerTools/distroless)の場合など)。
 
@@ -442,7 +442,7 @@ kubectl exec -it cassandra -- sh
 まず、サンプル用のPodを作成します:
 
 ```shell
-kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
+kubectl run ephemeral-demo --image=registry.k8s.io/pause:3.1 --restart=Never
 ```
 
 このセクションの例では、デバッグユーティリティが含まれていない`pause`コンテナイメージを使用していますが、この方法はすべてのコンテナイメージで動作します。
