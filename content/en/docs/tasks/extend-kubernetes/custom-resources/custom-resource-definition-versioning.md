@@ -78,8 +78,8 @@ Removing an old version:
    If this occurs, switch back to using `served:true` on the old version, migrate the 
    remaining clients to the new version and repeat this step.
 1. Ensure the [upgrade of existing objects to the new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
-    1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
-    1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
+   1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
+   1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
 1. Remove the old version from the CustomResourceDefinition `spec.versions` list.
 1. Drop conversion support for the old version in conversion webhooks.
 
@@ -1037,7 +1037,7 @@ What happens to the object that is being returned while serving the read
 request depends on what is specified in the CRD's `spec.conversion`:
 - if the default `strategy` value `None` is specified, the only modifications
   to the object are changing the `apiVersion` string and perhaps [pruning
-  unknown fields](/docs/concepts/extend-kubernetes/api-extension/custom-resources/custom-resource-definitions/#field-pruning)
+  unknown fields](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning)
   (depending on the configuration). Note that this is unlikely to lead to good
   results if the schemas differ between the storage and requested version.
   In particular, you should not use this strategy if the same data is
@@ -1051,19 +1051,19 @@ one version to another.
 
 To illustrate this, consider the following hypothetical series of events:
 
-1.  The storage version is `v1beta1`. You create an object. It is stored at version `v1beta1`
-2.  You add version `v1` to your CustomResourceDefinition and designate it as
-    the storage version. Here the schemas for `v1` and `v1beta1` are identical,
-    which is typically the case when promoting an API to stable in the
-    Kubernetes ecosystem.
-3.  You read your object at version `v1beta1`, then you read the object again at
-    version `v1`. Both returned objects are identical except for the apiVersion
-    field.
-4.  You create a new object. It is stored at version `v1`. You now
-    have two objects, one of which is at `v1beta1`, and the other of which is at
-    `v1`.
-5.  You update the first object. It is now stored at version `v1` since that
-    is the current storage version.
+1. The storage version is `v1beta1`. You create an object. It is stored at version `v1beta1`
+2. You add version `v1` to your CustomResourceDefinition and designate it as
+   the storage version. Here the schemas for `v1` and `v1beta1` are identical,
+   which is typically the case when promoting an API to stable in the
+   Kubernetes ecosystem.
+3. You read your object at version `v1beta1`, then you read the object again at
+   version `v1`. Both returned objects are identical except for the apiVersion
+   field.
+4. You create a new object. It is stored at version `v1`. You now
+   have two objects, one of which is at `v1beta1`, and the other of which is at
+   `v1`.
+5. You update the first object. It is now stored at version `v1` since that
+   is the current storage version.
 
 ### Previous storage versions
 
@@ -1079,19 +1079,19 @@ procedure.
 
 *Option 1:* Use the Storage Version Migrator
 
-1.  Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
-2.  Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
+1. Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
+2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
 
 *Option 2:* Manually upgrade the existing objects to a new stored version
 
 The following is an example procedure to upgrade from `v1beta1` to `v1`.
 
-1.  Set `v1` as the storage in the CustomResourceDefinition file and apply it
-    using kubectl. The `storedVersions` is now `v1beta1, v1`.
-2.  Write an upgrade procedure to list all existing objects and write them with
-    the same content. This forces the backend to write objects in the current
-    storage version, which is `v1`.
-3.  Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
+1. Set `v1` as the storage in the CustomResourceDefinition file and apply it
+   using kubectl. The `storedVersions` is now `v1beta1, v1`.
+2. Write an upgrade procedure to list all existing objects and write them with
+   the same content. This forces the backend to write objects in the current
+   storage version, which is `v1`.
+3. Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 
 {{< note >}}
 The flag `--subresource` is used with the kubectl get, patch, edit, and replace commands to
