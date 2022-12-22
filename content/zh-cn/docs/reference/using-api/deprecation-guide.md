@@ -34,6 +34,36 @@ deprecated API versions to newer and more stable API versions.
 -->
 ## 各发行版本中移除的 API  {#removed-apis-by-release}
 
+### v1.29
+
+<!--
+The **v1.29** release will stop serving the following deprecated API versions:
+-->
+**v1.29** 发行版本将停止提供以下已弃用的 API 版本：
+
+<!--
+#### Flow control resources {#flowcontrol-resources-v129}
+-->
+#### 流控制资源 {#flowcontrol-resources-v129}
+
+<!--
+The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.29.
+
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
+* All existing persisted objects are accessible via the new API
+* Notable changes in **flowcontrol.apiserver.k8s.io/v1beta3**:
+  * The PriorityLevelConfiguration `spec.limited.assuredConcurrencyShares` field is renamed to `spec.limited.nominalConcurrencyShares`
+-->
+**flowcontrol.apiserver.k8s.io/v1beta2** API 版本的 FlowSchema
+和 PriorityLevelConfiguration 将不会在 v1.29 中提供。
+
+* 迁移清单和 API 客户端使用 **flowcontrol.apiserver.k8s.io/v1beta3** API 版本，
+  此 API 从 v1.26 版本开始可用；
+* 所有的已保存的对象都可以通过新的 API 来访问；
+* **flowcontrol.apiserver.k8s.io/v1beta3** 中需要额外注意的变更：
+  * PriorityLevelConfiguration 的 `spec.limited.assuredConcurrencyShares`
+  字段已被更名为 `spec.limited.nominalConcurrencyShares`
+
 ### v1.27
 
 <!--
@@ -50,7 +80,7 @@ The **storage.k8s.io/v1beta1** API version of CSIStorageCapacity will no longer 
 * All existing persisted objects are accessible via the new API
 * No notable changes
 -->
-**storage.k8s.io/v1beta1** API版本的 CSIStorageCapacity 将不再在 v1.27 提供。
+**storage.k8s.io/v1beta1** API 版本的 CSIStorageCapacity 将不会在 v1.27 提供。
 
 * 自 v1.24 版本起，迁移清单和 API 客户端使用 **storage.k8s.io/v1** API 版本
 * 所有现有的持久化对象都可以通过新的 API 访问
@@ -59,7 +89,7 @@ The **storage.k8s.io/v1beta1** API version of CSIStorageCapacity will no longer 
 ### v1.26
 
 <!--
-The **v1.26** release will stop serving the following deprecated API versions:
+The **v1.26** release stopped serving the following deprecated API versions:
 -->
 **v1.26** 发行版本中将去除以下已弃用的 API 版本：
 
@@ -69,30 +99,30 @@ The **v1.26** release will stop serving the following deprecated API versions:
 #### 流控制资源     {#flowcontrol-resources-v126}
 
 <!--
-The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.26.
+The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and PriorityLevelConfiguration is no longer served as of v1.26.
 
-* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta2** API version, available since v1.23.
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
 * All existing persisted objects are accessible via the new API
 * No notable changes
 -->
-**flowcontrol.apiserver.k8s.io/v1beta1** API 版本的 FlowSchema
-和 PriorityLevelConfiguration 将不会在 v1.26 中提供。
+从 v1.26 版本开始不再提供 **flowcontrol.apiserver.k8s.io/v1beta1** API 版本的 
+FlowSchema 和 PriorityLevelConfiguration。
 
-* 迁移清单和 API 客户端使用 **flowcontrol.apiserver.k8s.io/v1beta2** API 版本，
-  此 API 从 v1.23 版本开始可用；
+* 迁移清单和 API 客户端使用 **flowcontrol.apiserver.k8s.io/v1beta3** API 版本，
+  此 API 从 v1.26 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
 * 没有需要额外注意的变更
 
 #### HorizontalPodAutoscaler {#horizontalpodautoscaler-v126}
 
 <!--
-The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler will no longer be served in v1.26.
+The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler is no longer served as of v1.26.
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * All existing persisted objects are accessible via the new API
 -->
-**autoscaling/v2beta2** API 版本的 HorizontalPodAutoscaler 将不会在
-v1.26 版本中提供。
+从 v1.26 版本开始不再提供 **autoscaling/v2beta2** API 版本的
+HorizontalPodAutoscaler。
 
 * 迁移清单和 API 客户端使用 **autoscaling/v2** API 版本，
   此 API 从 v1.23 版本开始可用；
@@ -101,20 +131,20 @@ v1.26 版本中提供。
 ### v1.25
 
 <!--
-The **v1.25** release will stop serving the following deprecated API versions:
+The **v1.25** release stopped serving the following deprecated API versions:
 -->
 **v1.25** 发行版本将停止提供以下已废弃 API 版本：
 
 #### CronJob {#cronjob-v125}
 
 <!--
-The **batch/v1beta1** API version of CronJob will no longer be served in v1.25.
+The **batch/v1beta1** API version of CronJob is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **batch/v1** API version, available since v1.21.
 * All existing persisted objects are accessible via the new API
 * No notable changes
 -->
-**batch/v1beta1** API 版本的 CronJob 将不会在 v1.25 版本中继续提供。
+从 v1.25 版本开始不再提供 **batch/v1beta1** API 版本的 CronJob。
 
 * 迁移清单和 API 客户端使用 **batch/v1** API 版本，此 API 从 v1.21 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
@@ -123,7 +153,7 @@ The **batch/v1beta1** API version of CronJob will no longer be served in v1.25.
 #### EndpointSlice {#endpointslice-v125}
 
 <!--
-The **discovery.k8s.io/v1beta1** API version of EndpointSlice will no longer be served in v1.25.
+The **discovery.k8s.io/v1beta1** API version of EndpointSlice is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **discovery.k8s.io/v1** API version, available since v1.21.
 * All existing persisted objects are accessible via the new API
@@ -132,7 +162,7 @@ The **discovery.k8s.io/v1beta1** API version of EndpointSlice will no longer be 
     * use per Endpoint `zone` field instead of deprecated `topology["topology.kubernetes.io/zone"]` field
     * `topology` is replaced with the `deprecatedTopology` field which is not writable in v1
 -->
-**discovery.k8s.io/v1beta1** API 版本的 EndpointSlice 将不会在 v1.25 版本中继续提供。
+从 v1.25 版本开始不再提供 **discovery.k8s.io/v1beta1** API 版本的 EndpointSlice。
 
 * 迁移清单和 API 客户端使用 **discovery.k8s.io/v1** API 版本，此 API 从 v1.21 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
@@ -146,12 +176,12 @@ The **discovery.k8s.io/v1beta1** API version of EndpointSlice will no longer be 
 #### Event {#event-v125}
 
 <!--
-The **events.k8s.io/v1beta1** API version of Event will no longer be served in v1.25.
+The **events.k8s.io/v1beta1** API version of Event is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **events.k8s.io/v1** API version, available since v1.19.
 * All existing persisted objects are accessible via the new API
 -->
-**events.k8s.io/v1beta1** API 版本的 Event 将不会在 v1.25 版本中继续提供。
+从 v1.25 版本开始不再提供 **events.k8s.io/v1beta1** API 版本的 Event。
 
 * 迁移清单和 API 客户端使用 **events.k8s.io/v1** API 版本，此 API 从 v1.19 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
@@ -186,12 +216,14 @@ The **events.k8s.io/v1beta1** API version of Event will no longer be served in v
 #### HorizontalPodAutoscaler {#horizontalpodautoscaler-v125}
 
 <!--
-The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler will no longer be served in v1.25.
+The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler is no longer served as of v1.25.
+
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * All existing persisted objects are accessible via the new API
 -->
-**autoscaling/v2beta1** API 版本的 HorizontalPodAutoscaler 将不会在 v1.25 版本中继续提供。
+从 v1.25 版本开始不再提供 **autoscaling/v2beta1** API 版本的
+HorizontalPodAutoscaler。
 
 * 迁移清单和 API 客户端使用 **autoscaling/v2** API 版本，此 API 从 v1.23 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
@@ -199,14 +231,14 @@ The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler will no longe
 #### PodDisruptionBudget {#poddisruptionbudget-v125}
 
 <!--
-The **policy/v1beta1** API version of PodDisruptionBudget will no longer be served in v1.25.
+The **policy/v1beta1** API version of PodDisruptionBudget is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **policy/v1** API version, available since v1.21.
 * All existing persisted objects are accessible via the new API
 * Notable changes in **policy/v1**:
   * an empty `spec.selector` (`{}`) written to a `policy/v1` PodDisruptionBudget selects all pods in the namespace (in `policy/v1beta1` an empty `spec.selector` selected no pods). An unset `spec.selector` selects no pods in either API version.
 -->
-**policy/v1beta1** API 版本的 PodDisruptionBudget 将不会在 v1.25 版本中继续提供。
+从 v1.25 版本开始不再提供 **policy/v1beta1** API 版本的 PodDisruptionBudget。
 
 * 迁移清单和 API 客户端使用 **policy/v1** API 版本，此 API 从 v1.21 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
@@ -219,14 +251,14 @@ The **policy/v1beta1** API version of PodDisruptionBudget will no longer be serv
 #### PodSecurityPolicy {#psp-v125}
 
 <!--
-PodSecurityPolicy in the **policy/v1beta1** API version will no longer be served in v1.25, and the PodSecurityPolicy admission controller will be removed.
+PodSecurityPolicy in the **policy/v1beta1** API version is no longer served as of v1.25, and the PodSecurityPolicy admission controller will be removed.
 
 Migrate to [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
 or a [3rd party admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/).
 For a migration guide, see [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp/).
 For more information on the deprecation, see [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
 -->
-**policy/v1beta1** API 版本中的 PodSecurityPolicy 将不会在 v1.25 中提供，
+从 v1.25 版本开始不再提供 **policy/v1beta1** API 版本中的 PodSecurityPolicy，
 并且 PodSecurityPolicy 准入控制器也会被删除。
 
 迁移到 [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)或[第三方准入 webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)。
@@ -236,13 +268,13 @@ For more information on the deprecation, see [PodSecurityPolicy Deprecation: Pas
 #### RuntimeClass {#runtimeclass-v125}
 
 <!--
-RuntimeClass in the **node.k8s.io/v1beta1** API version will no longer be served in v1.25.
+RuntimeClass in the **node.k8s.io/v1beta1** API version is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **node.k8s.io/v1** API version, available since v1.20.
 * All existing persisted objects are accessible via the new API
 * No notable changes
 -->
-**node.k8s.io/v1beta1** API 版本中的 RuntimeClass 将不会在 v1.25 中提供。
+从 v1.25 版本开始不再提供 **node.k8s.io/v1beta1** API 版本中的 RuntimeClass。
 
 * 迁移清单和 API 客户端使用 **node.k8s.io/v1** API 版本，此 API 从 v1.20 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
