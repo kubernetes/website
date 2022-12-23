@@ -772,7 +772,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This feature gate will never graduate to beta or stable.
 - `TopologyManagerPolicyBetaOptions`: Allow fine-tuning of topology manager policies,
   experimental, Beta-quality options.
-  This feature gate guards *a group* of topology manager options whose quality level is alpha.
+  This feature gate guards *a group* of topology manager options whose quality level is beta.
   This feature gate will never graduate to stable.
 - `TopologyManagerPolicyOptions`: Allow fine-tuning of topology manager policies,
 - `UserNamespacesStatelessPodsSupport`: Enable user namespace support for stateless Pods.
