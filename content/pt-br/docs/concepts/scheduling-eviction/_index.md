@@ -10,7 +10,7 @@ no_list: true
 No Kubernetes, escalonamento refere-se à certeza de que {{<glossary_tooltip text="Pods" term_id="pod">}}
 correspondam aos {{<glossary_tooltip text="nós" term_id="node">}} para que o
 {{<glossary_tooltip text="Kubelet" term_id="kubelet">}} possa executá-los. Preempção é o processo de finalizar Pods com menor {{<glossary_tooltip text="prioridade" term_id="pod-priority">}}
-para que os Pods com maior prioridade possam ser escalonados nos nós. Remoção é o processo de finalização proativa de um ou mais Pods em nós com poucos recursos.
+para que os Pods com maior prioridade possam ser escalonados nos nós. Remoção é o processo de finalização de um ou mais Pods em nós.
 
 ## Escalonamento
 
