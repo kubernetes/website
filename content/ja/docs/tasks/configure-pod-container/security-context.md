@@ -7,12 +7,12 @@ weight: 80
 <!-- overview -->
 
 セキュリティコンテキストはPod・コンテナの特権やアクセスコントロールの設定を定義します。
-セキュリティコンテキストの設定には以下のものが含まれますが、以下のものには限定されません。
+セキュリティコンテキストの設定には以下のものが含まれますが、これらに限定はされません。
 
 * 任意アクセス制御: [user ID (UID) と group ID (GID)](https://wiki.archlinux.org/index.php/users_and_groups)に基づいて、ファイルなどのオブジェクトに対する許可を行います。
 
 * [Security Enhanced Linux (SELinux)](https://ja.wikipedia.org/wiki/Security-Enhanced_Linux):
-  オブジェクトにセキュリティラベルを付加します。
+  オブジェクトにセキュリティラベルを付与します。
 
 * 特権または非特権として実行します。
 
@@ -27,7 +27,9 @@ weight: 80
 * `allowPrivilegeEscalation`: あるプロセスが親プロセスよりも多くの特権を得ることができるかを制御します。 この真偽値は、コンテナプロセスに
   [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)
   フラグが設定されるかどうかを直接制御します。
-  コンテナが特権で動いているか、`CAP_SYS_ADMIN`を持っている場合、`allowPrivilegeEscalation`は常にtrueになります。
+  コンテナが以下の場合、`allowPrivilegeEscalation`は常にtrueになります。
+  - コンテナが特権で動いている
+  - `CAP_SYS_ADMIN`を持っている
 
 * `readOnlyRootFilesystem`: コンテナのルートファイルシステムが読み取り専用でマウントされます。
 
@@ -49,8 +51,8 @@ Podに設定したセキュリティ設定はPod内の全てのコンテナに�
 {{< codenew file="pods/security/security-context.yaml" >}}
 
 設定ファイルの中の`runAsUser`フィールドは、Pod内のコンテナに対して全てのプロセスをユーザーID 1000で実行するように指定します。
-`runAsGroup`フィールドはPod内のコンテナに対して全てのプロセスをプライマリーグループID 3000で実行するように指定します。このフィールドが省略されたときは、コンテナのプライマリーグループIDはroot(0)になります。`runAsGroup`が指定されている場合、作成されたファイルはユーザー1000とグループ3000の所有物にもなります。
-また`fsGroup`も指定されているため、全てのコンテナ内のプロセスは補助グループID 2000にも含まれます。`/data/demo`ボリュームとこのボリュームに作成されたファイルはGroup ID 2000になります。
+`runAsGroup`フィールドはPod内のコンテナに対して全てのプロセスをプライマリーグループID 3000で実行するように指定します。このフィールドが省略されたときは、コンテナのプライマリーグループIDはroot(0)になります。`runAsGroup`が指定されている場合、作成されたファイルもユーザー1000とグループ3000の所有物になります。
+また`fsGroup`も指定されているため、全てのコンテナ内のプロセスは補助グループID 2000にも含まれます。`/data/demo`ボリュームとこのボリュームに作成されたファイルはグループID 2000になります。
 
 Podを作成してみましょう。
 
@@ -163,8 +165,8 @@ securityContext:
 
 {{< note >}}
 このフィールドは
-[`secret`](/docs/concepts/storage/volumes/#secret),
-[`configMap`](/docs/concepts/storage/volumes/#configmap),
+[`secret`](/docs/concepts/storage/volumes/#secret)、
+[`configMap`](/docs/concepts/storage/volumes/#configmap)、
 [`emptydir`](/docs/concepts/storage/volumes/#emptydir)
 のようなエフェメラルボリュームタイプに対しては効果がありません。
 {{< /note >}}
@@ -174,7 +176,7 @@ securityContext:
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 `VOLUME_MOUNT_GROUP` `NodeServiceCapability`をサポートしている[Container Storage Interface (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)ドライバーをデプロイした場合、`securityContext`の`fsGroup`で指定された値に基づいてKubernetesの代わりにCSIドライバーがファイルの所有権とパーミッションの設定処理を行います。
-この場合Kubernetesは所有権とパーミッションの設定を行わないため`fsGroupChangePolicy`は無効となり、CSIで指定されている通りドライバーは`fsGroup`に従ってボリュームをマウントすると考えられるので、ボリュームは`fsGroup`に従って読み取り・書き込み可能になります。
+この場合Kubernetesは所有権とパーミッションの設定を行わないため`fsGroupChangePolicy`は無効となり、CSIで指定されている通りドライバーは`fsGroup`に従ってボリュームをマウントすると考えられるため、ボリュームは`fsGroup`に従って読み取り・書き込み可能になります。
 
 ## コンテナにセキュリティコンテキストを設定する
 
@@ -197,7 +199,7 @@ Podのコンテナが実行されていることを確認します。
 kubectl get pod security-context-demo-2
 ```
 
-実行中のコンテナのshellを取ります。
+実行中のコンテナでshellを取ります。
 
 ```shell
 kubectl exec -it security-context-demo-2 -- sh
@@ -382,7 +384,7 @@ securityContext:
 SELinuxラベルを適用するには、ホストOSにSELinuxセキュリティモジュールが含まれている必要があります。
 {{< /note >}}
 
-### 効率的なSELinuxのボリュームラベリング
+### 効率的なSELinuxのボリューム再ラベル付け
 
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
@@ -438,6 +440,5 @@ kubectl delete pod security-context-demo-4
 * [Security Contexts design document](https://git.k8s.io/design-proposals-archive/auth/security_context.md)
 * [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
 * [PodSecurity Admission](/docs/concepts/security/pod-security-admission/)
-* [AllowPrivilegeEscalation design
-  document](https://git.k8s.io/design-proposals-archive/auth/no-new-privs.md)
+* [AllowPrivilegeEscalation design document](https://git.k8s.io/design-proposals-archive/auth/no-new-privs.md)
 * Linuxのセキュリティについてさらに知りたい場合は、[Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)を確認してください(注: 一部の情報は古くなっています)。
