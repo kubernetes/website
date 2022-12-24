@@ -9,13 +9,13 @@ slug: registry-k8s-io-faster-cheaper-ga
 
 A partir do Kubernetes 1.25, o nosso repositório de imagens de contêiner mudou de k8s.gcr.io para [registry.k8s.io](https://registry.k8s.io). 
 Este novo repositório distribui a carga por várias regiões e Provedores de Nuvem, funcionando como uma espécie de rede de entrega de conteúdo (CDN) para imagens de contêiner do Kubernetes. 
-Essa mudança reduz a dependência do projeto de uma única entidade e fornece uma experiência mais rápida de download para um grande número de usuários.
+Essa mudança reduz a dependência do projeto em uma única entidade e fornece uma experiência mais rápida de download para um grande número de usuários.
 
 ## Sumário: O que você precisa saber sobre essa mudança
 
 * As imagens de contêiner para versões do Kubernetes a partir de 1.25 não serão mais publicadas no k8s.gcr.io, apenas no registry.k8s.io
 * Em dezembro, nas próximas versões de patch, o novo padrão de domínio do registro será portado retroativamente para todas as branches ainda com suporte (1.22, 1.23, 1.24).
-* Em um ambiente restrito, se você aplicar rígidas políticas de acesso aos endereços de domínio/IP limitados ao k8s.gcr.io, __as imagem não serão baixadas__ após a migração para este novo repositório. Para esses usuários, o método recomendado é espelhar o lançamento das imagens em um repositório privado.
+* Em um ambiente restrito, se você aplicar políticas rígidas de acesso aos endereços de domínio/IP limitados ao k8s.gcr.io, __as imagens não serão baixadas__ após a migração para este novo repositório. Para esses usuários, o método recomendado é espelhar o lançamento das imagens em um repositório privado.
 
 Se você quiser saber mais sobre o motivo que fizemos essa mudança, ou alguns dos possíveis problemas que você pode encontrar, continue lendo.
 
@@ -41,17 +41,17 @@ Para mais informações sobre esta política, consulte a [seção de estabilidad
 
 Os erros dependem do tipo do agente de execução de contêiner que você está usando e para qual o endpoint você está roteado, mas ele deve se apresentar como um contêiner que não pode ser criado com o aviso `FailedCreatePodSandBox`.
 
-Abaixo temos um exemplo de mensagem de erro mostrando uma implantação por proxy que não pode ser feito o pull devido a um certificado desconhecido:
+Abaixo temos um exemplo de mensagem de erro mostrando uma instalação por trás de um proxy em que não pode ser feito o pull devido a um certificado desconhecido:
 
 ```
 FailedCreatePodSandBox: Failed to create pod sandbox: rpc error: code = Unknown desc = Error response from daemon: Head “https://us-west1-docker.pkg.dev/v2/k8s-artifacts-prod/images/pause/manifests/3.8”: x509: certificate signed by unknown authority
 ```
 
-## Estou impressionado com essa mudança, como faço para reverter para o endereço de registro antigo?
+## Fui impactado por essa mudança, como faço para reverter para o endereço de registro antigo?
 
 Se usar o novo nome de domínio do registro não for uma opção, você pode reverter para o nome de domínio antigo para versões de cluster menores de 1.25. Tenha em mente que, eventualmente, você terá que mudar para o novo registro, pois as novas tags de imagem não serão mais enviadas para o GCR.
 
-### Revertendo o nome do registro em kubeadm
+### Revertendo o nome do registro no kubeadm
 
 O registro usado pelo kubeadm para realizar o pull das suas imagens pode ser controlado por dois métodos:
 
@@ -69,9 +69,9 @@ kind: ClusterConfiguration
 imageRepository: "k8s.gcr.io"
 ```
 
-### Revertendo o Nome do Registro em kubelet
+### Revertendo o Nome do Registro no kubelet
 
-A imagem usada pelo kubelet para o pod sandbox (`pausa`) pode ser substituída pela flag `--pod-infra-container-image`. 
+A imagem usada pelo kubelet para o pod sandbox (`pause`) pode ser substituída pela flag `--pod-infra-container-image`. 
 Por exemplo:
 
 ```
@@ -80,9 +80,9 @@ kubelet --pod-infra-container-image=k8s.gcr.io/pause:3.5
 
 ## Agradecimentos
 
-_A mudança é difícil_, e a evolução de nossa plataforma de serviço de imagem é necessária para garantir um futuro sustentável para o projeto. 
+__A mudança é difícil__, e a evolução de nossa plataforma de serviço de imagem é necessária para garantir um futuro sustentável para o projeto. 
 Nós nos esforçamos para melhorar as coisas para todos que utilizam o Kubernetes. 
 Muitos colaboradores de todos os cantos da nossa comunidade têm trabalhado muito e com dedicação para garantir que estamos tomando as melhores decisões possíveis, executando planos e fazendo o nosso melhor para comunicar esses planos.
 
-Obrigado a Aaron Crickenberger, Arnaud Meukam, Benjamin Elder, Caleb Woodbine, Davanum Srinivas, Mahamed Ali, and Tim Hockin from SIG K8s Infra, Brian McQueen, and Sergey Kanzhelev from SIG Node, Lubomir Ivanov from SIG Cluster Lifecycle, Adolfo García Veytia, Jeremy Rickard, Sascha Grunert, and Stephen Augustus from SIG Release, Bob Killen and Kaslin Fields from SIG Contribex, Tim Allclair from the Security Response Committee. 
-Um grande obrigado também aos nossos amigos que atuam como ligação com nossos provedores de nuvem parceiros: Jay Pipes da Amazon e Jon Johnson Jr. do Google.
+Obrigado a Aaron Crickenberger, Arnaud Meukam, Benjamin Elder, Caleb Woodbine, Davanum Srinivas, Mahamed Ali, e Tim Hockin do grupo de interesse especial (SIG) K8s Infra, Brian McQueen, e Sergey Kanzhelev do SIG Node, Lubomir Ivanov do SIG Cluster Lifecycle, Adolfo García Veytia, Jeremy Rickard, Sascha Grunert, e Stephen Augustus do SIG Release, Bob Killen and Kaslin Fields do SIG Contribex, Tim Allclair do Comitê de Resposta de Segurança. 
+Um grande obrigado também aos nossos amigos que atuam como pontos de contato com nossos provedores de nuvem parceiros: Jay Pipes da Amazon e Jon Johnson Jr. do Google.
