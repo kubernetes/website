@@ -102,7 +102,7 @@ apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicy
 metadata:
   name: "replicalimit-policy.example.com"
-Spec:
+spec:
   failurePolicy: Fail
   paramKind:
     apiVersion: rules.example.com/v1
@@ -134,7 +134,7 @@ metadata:
   name: "replicalimit-binding-test.example.com"
 spec:
   policyName: "replicalimit-policy.example.com"
-  paramsRef:
+  paramRef:
     name: "replica-limit-test.example.com"
   matchResources:
     namespaceSelector:
@@ -158,7 +158,7 @@ metadata:
   name: "replicalimit-binding-nontest"
 spec:
   policyName: "replicalimit-policy.example.com"
-  paramsRef:
+  paramRef:
     name: "replica-limit-clusterwide.example.com"
   matchResources:
     namespaceSelector:
