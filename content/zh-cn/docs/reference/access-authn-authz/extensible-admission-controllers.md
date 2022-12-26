@@ -211,7 +211,7 @@ which is a PEM-encoded CA bundle for validating the webhook's server certificate
 The `scope` field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
 resources ("Namespaced") will match this rule. "&lowast;" means that there are no scope restrictions.
 -->
-scope 字段指定是仅集群范围的资源（Cluster）还是名字空间范围的资源资源（Namespaced）将与此规则匹配。
+`scope` 字段指定是仅集群范围的资源（Cluster）还是名字空间范围的资源资源（Namespaced）将与此规则匹配。
 `*` 表示没有范围限制。
 
 <!--
