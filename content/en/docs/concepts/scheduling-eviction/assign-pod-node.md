@@ -87,7 +87,7 @@ define. Some of the benefits of affinity and anti-affinity include:
 * The affinity/anti-affinity language is more expressive. `nodeSelector` only
   selects nodes with all the specified labels. Affinity/anti-affinity gives you
   more control over the selection logic.
-* You can indicate that a rule is *soft* or *preferred*, so that the scheduler
+* You can indicate that a rule is *hard* or *preferred* (soft), so that the scheduler
   still schedules the Pod even if it can't find a matching node.
 * You can constrain a Pod using labels on other Pods running on the node (or other topological domain),
   instead of just node labels, which allows you to define rules for which Pods
