@@ -305,12 +305,12 @@ spec:
 
 <!--
 Because this Service has no selector, the corresponding EndpointSlice (and
-legacy Endpoints) objects are not created automatically. You can manually map the Service
+legacy Endpoints) objects are not created automatically. You can map the Service
 to the network address and port where it's running, by adding an EndpointSlice
 object manually. For example:
 -->
 由于此服务没有选择算符，因此不会自动创建相应的 EndpointSlice（和旧版 Endpoint）对象。
-你可以通过手动添加 EndpointSlice 对象，将服务手动映射到运行该服务的网络地址和端口：
+你可以通过手动添加 EndpointSlice 对象，将服务映射到运行该服务的网络地址和端口：
 
 ```yaml
 apiVersion: discovery.k8s.io/v1
@@ -401,6 +401,18 @@ the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 93
 在没有选择算符的 Service [示例](#services-without-selectors)中，
 流量被路由到 EndpointSlice 清单中定义的两个端点之一：
 通过 TCP 协议连接到 10.1.2.3 或 10.4.5.6 的端口 9376。
+
+{{< note >}}
+<!--
+The Kubernetes API server does not allow proxying to endpoints that are not mapped to
+pods. Actions such as `kubectl proxy <service-name>` where the service has no
+selector will fail due to this constraint. This prevents the Kubernetes API server
+from being used as a proxy to endpoints the caller may not be authorized to access.
+-->
+Kubernetes API 服务器不允许代理到未被映射至 Pod 上的端点。由于此约束，当 Service
+没有选择算符时，诸如 `kubectl proxy <service-name>` 之类的操作将会失败。这可以防止 
+Kubernetes API 服务器被用作调用者可能无权访问的端点的代理。
+{{< /note >}}
 
 <!--
 An ExternalName Service is a special case of Service that does not have
