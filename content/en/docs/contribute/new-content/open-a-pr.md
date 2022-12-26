@@ -65,8 +65,7 @@ class id1 k8s
 
 Figure 1. Steps for opening a PR using GitHub.
 
-1. On the page where you see the issue, select the pencil icon at the top right.
-   You can also scroll to the bottom of the page and select **Edit this page**.
+1. On the page where you see the issue, select the **Edit this page** option in the right-hand side navigation panel.
 
 1. Make your changes in the GitHub markdown editor.
 
