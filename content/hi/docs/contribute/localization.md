@@ -39,7 +39,7 @@ card:
 सबसे पहले, रिपोजिटरी का [अपना खुद का फ़ोर्क बनाएं](/docs/contribute/new-content/open-a-pr/#fork-the-repo) 
 [kubernetes/website](https://github.com/kubernetes/website) ।
 
-फिर, अपने फ़ोर्क को क्लोन करें और `cd`करें:
+फिर, अपने फ़ोर्क को क्लोन करें और `cd` करें:
 ```shell
 git clone https://github.com/<username>/website
 cd website
