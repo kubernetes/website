@@ -85,7 +85,7 @@ but Kubernetes policies such as RBAC, quotas, and network policies are essential
 <!--
 The other major form of multi-tenancy frequently involves a Software-as-a-Service (SaaS) vendor running multiple instances of a workload for customers. 
 This business model is so strongly associated with this deployment style that many people call it "SaaS tenancy." 
-However, a better term might be "multi-customer tenancy,” since SaaS vendors may also use other deployment models, 
+However, a better term might be "multi-customer tenancy," since SaaS vendors may also use other deployment models, 
 and this deployment model can also be used outside of SaaS.
 -->
 多租户的另一种主要形式通常涉及为客户运行多个工作负载实例的软件即服务 (SaaS) 供应商。
