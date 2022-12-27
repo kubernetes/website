@@ -18,6 +18,6 @@ tags:
 
 एपीआई द्वारा शुरू किया गया निष्कासन आपके कॉन्फ़िगर किए गए [`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/) और [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination) का सम्मान करते हैं।
 
-एपीआई द्वारा शुरू की गईी निष्कासन [node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/) के समान नहीं है।
+API द्वारा शुरू किया गया निष्कासन [नोड-प्रेशर एविक्शन](/docs/concepts/scheduling-eviction/node-pressure-eviction/) से अलग है।
 
 - अधिक जानकारी के लिए [API द्वारा शुरू किया गया निष्कासन](/docs/concepts/scheduling-eviction/api-eviction/) देखें।
