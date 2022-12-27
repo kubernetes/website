@@ -14,7 +14,7 @@ tags:
 
 <!--more-->
 
-आप सीधे निष्कासन एपीआई को कॉल करके निष्कासन का अनुरोध कर सकते हैं कुबे-एपीआईसर्वर के क्लाइंट का उपयोगा करके, जैसे `kubectl drain` कमांड। जब एक `निष्कासन` वस्तु बनाया जाता है, तो एपीआई सर्वर पॉड को समाप्त कर देता है।
+आप kube-apiserver के क्लाइंट जैसे कि `kubectl drain` कमांड का उपयोग करके सीधे एविक्शन API को कॉल करके निष्कासन का अनुरोध कर सकते हैं। जब एक `Eviction` ऑब्जेक्ट बनाया जाता है, तो API सर्वर पॉड को समाप्त कर देता है।
 
 API द्वारा शुरू किया गया निष्कासन आपके कॉन्फ़िगर किए गए [`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/) और [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination) का सम्मान करते हैं।
 
