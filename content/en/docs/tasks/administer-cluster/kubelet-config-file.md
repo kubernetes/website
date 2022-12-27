@@ -53,7 +53,7 @@ the threshold values respectively.
 ## Start a Kubelet process configured via the config file
 
 {{< note >}}
-If you use kubeadm to initialize your cluster, use the kubelet-config while creating your cluster with `kubeadmin init`.
+If you use kubeadm to initialize your cluster, use the kubelet-config while creating your cluster with `kubeadm init`.
 See [configuring kubelet using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/) for details.
 {{< /note >}}
 
