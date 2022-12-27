@@ -390,12 +390,12 @@ the `VolumeSnapshotContent` that corresponds to the `VolumeSnapshot`.
 到对应 `VolumeSnapshot` 的 `VolumeSnapshotContent` 中。
 
 <!--
-For pre-provisioned snapshots, `Spec.SourceVolumeMode` needs to be populated
+For pre-provisioned snapshots, `spec.SourceVolumeMode` needs to be populated
 by the cluster administrator.
 
 An example `VolumeSnapshotContent` resource with this feature enabled would look like:
 -->
-对于预制备的快照，`Spec.SourceVolumeMode` 需要由集群管理员填充。
+对于预制备的快照，`spec.SourceVolumeMode` 需要由集群管理员填充。
 
 启用此特性的 `VolumeSnapshotContent` 资源示例如下所示：
 
