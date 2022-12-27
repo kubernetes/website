@@ -1,5 +1,5 @@
 ---
-title: एपीआई द्वारा शुरू किया गया निष्कासन (API-initiated eviction)
+title: API द्वारा शुरू किया गया निष्कासन (API-initiated eviction)
 id: api-eviction
 date: 2021-04-27
 full_link: /docs/concepts/scheduling-eviction/api-eviction/
