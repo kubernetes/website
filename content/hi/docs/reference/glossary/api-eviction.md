@@ -10,7 +10,7 @@ tags:
   - operation
 ---
 
-एपीआई द्वारा शुरू किया गया निष्कासन वह प्रक्रिया है जिसके द्वारा [निष्कासन एपीआई](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core) का उपयोग एक `निष्कासन` वस्तु बनाने के लिए किया जाता हैं जो ग्रेसफुल पॉड समापन को ट्रिगर करता है।
+API द्वारा शुरू किया गया निष्कासन वह प्रक्रिया है जिसके द्वारा [एविक्शन API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core) का उपयोग एक `Eviction` ऑब्जेक्ट बनाने के लिए किया जाता हैं जो ग्रेसफुल पॉड समापन को ट्रिगर करता है।
 
 <!--more-->
 
