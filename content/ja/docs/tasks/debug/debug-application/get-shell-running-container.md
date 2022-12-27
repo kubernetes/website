@@ -14,7 +14,7 @@ content_type: task
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 
 
@@ -47,7 +47,7 @@ kubectl exec --stdin --tty shell-demo -- /bin/bash
 ```
 {{< note >}}
 
-ダブルダッシュの記号 `--` はコマンドに渡す引数とkubectlの引数を分離します。
+ダブルダッシュ(`--`)のセパレーターは、コマンドに渡す引数とkubectlの引数を分離します。
 
 {{< /note >}}
 
