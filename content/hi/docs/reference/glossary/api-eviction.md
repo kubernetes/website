@@ -20,4 +20,4 @@ tags:
 
 एपीआई द्वारा शुरू की गईी निष्कासन [node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/) के समान नहीं है।
 
-- अधिक जानकारी के लिए [एपीआई द्वारा शुरू किया गया निष्कासन](/docs/concepts/scheduling-eviction/api-eviction/) देखें।
+- अधिक जानकारी के लिए [API द्वारा शुरू किया गया निष्कासन](/docs/concepts/scheduling-eviction/api-eviction/) देखें।
