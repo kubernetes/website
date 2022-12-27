@@ -1,5 +1,5 @@
 ---
-title: kubesprayを使ったオンプレミス/クラウドプロバイダへのKubernetesのインストール
+title: kubesprayを使ったKubernetesのインストール
 content_type: concept
 weight: 30
 ---
@@ -8,21 +8,28 @@ weight: 30
 
 このクイックスタートは、[Kubespray](https://github.com/kubernetes-sigs/kubespray)を使用して、GCE、Azure、OpenStack、AWS、vSphere、Equinix Metal (以前のPacket)、Oracle Cloud Infrastructure(実験的)またはベアメタルにホストされたKubernetesクラスターをインストールするためのものです。
 
-Kubesprayは、汎用的なOSやKubernetesクラスタの構成管理タスクのための[Ansible](https://docs.ansible.com/)プレイブック、[インベントリー](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)、プロビジョニングツール、ドメインナレッジをまとめたものです。Kubesprayは次を提供します:
+Kubesprayは、汎用的なOSやKubernetesクラスタの構成管理タスクのための[Ansible](https://docs.ansible.com/)プレイブック、[インベントリー](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory)、プロビジョニングツール、ドメインナレッジをまとめたものです。
 
-* 高可用性クラスター
-* 構成可能な属性
-* 最もポピュラーなLinuxディストリビューションのサポート
-  * Ubuntu 16.04, 18.04, 20.04, 22.04
-  * CentOS/RHEL/Oracle Linux 7, 8
-  * Debian Buster, Jessie, Stretch, Wheezy
-  * Fedora 34, 35
-  * Fedora CoreOS
-  * openSUSE Leap 15
-  * Flatcar Container Linux by Kinvolk
-* 継続的インテグレーションテスト
+Kubesprayは次を提供します:
 
-あなたのユースケースに最適なツールの選択には、[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)や[kops](/ja/docs/setup/production-environment/tools/kops/)と[比較したドキュメント](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)を参照してください。
+* 高可用性クラスター。
+* 構成可能(例えばネットワークプラグインの選択)。
+* 最もポピュラーなLinuxディストリビューションのサポート:
+  - Flatcar Container Linux by Kinvolk
+  - Debian Bullseye, Buster, Jessie, Stretch
+  - Ubuntu 16.04, 18.04, 20.04, 22.04
+  - CentOS/RHEL 7, 8, 9
+  - Fedora 35, 36
+  - Fedora CoreOS
+  - openSUSE Leap 15.x/Tumbleweed
+  - Oracle Linux 7, 8, 9
+  - Alma Linux 8, 9
+  - Rocky Linux 8, 9
+  - Kylin Linux Advanced Server V10
+  - Amazon Linux 2
+* 継続的インテグレーションテスト。
+
+あなたのユースケースに最適なツールの選択には、[kubeadm](/docs/reference/setup-tools/kubeadm/)や[kops](/docs/setup/production-environment/tools/kops/)と[比較したドキュメント](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)を参照してください。
 
 
 
@@ -34,20 +41,21 @@ Kubesprayは、汎用的なOSやKubernetesクラスタの構成管理タスク�
 
 次の[要件](https://github.com/kubernetes-sigs/kubespray#requirements)に従ってサーバーをプロビジョンします:
 
-* **Ansibleのコマンドを実行するマシン上にAnsible v2.11とpython-netaddrがインストールされていること**
-* **Ansible Playbookの実行にはJinja 2.11 (またはそれ以降)が必要です**
-* ターゲットサーバーはdockerイメージをpullするためにインターネットにアクセスできる必要があります。そうでは無い場合は追加の構成が必要です([オフライン環境を参照](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
-* ターゲットのサーバーは**IPv4フォワーディング**ができるように構成されていること
-* インベントリーの全てのサーバーに**sshキーがコピーされていること**
-* **ファイアウォールはkubesprayによって管理されません**。必要に応じて、適切なルールを実装しなければなりません。デプロイ中の問題を避けるためには、ファイアウォールを無効にすべきです
-* root以外のユーザーアカウントでkubesprayを実行する場合は、ターゲットサーバー上で特権昇格の方法を正しく構成し、`ansible_become`フラグかコマンドパラメーター`--become`または`-b`を指定する必要があります
+* **Kubernetesの最低必要バージョンはv1.22**
+* **Ansibleのコマンドを実行するマシン上にAnsible v2.11+、Jinja 2.11+とpython-netaddrがインストールされていること**
+* ターゲットサーバーはdockerイメージをpullするために**インターネットにアクセスできる**必要があります。そうでは無い場合は追加の構成が必要です([オフライン環境を参照](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
+* ターゲットのサーバーは**IPv4フォワーディング**ができるように構成されていること。
+* PodとServiceにIPv6を使用している場合は、ターゲットサーバーは**IPv6フォワーディング**ができるように構成されていること。
+* **ファイアウォールは管理されません**。必要に応じて、適切なルールを実装しなければなりません。デプロイ中の問題を避けるためには、ファイアウォールを無効にすべきです
+* root以外のユーザーアカウントでkubesprayを実行する場合は、ターゲットサーバー上で特権昇格の方法を正しく構成されている必要があります。そして、`ansible_become`フラグ、またはコマンドパラメーター`--become`、`-b`を指定する必要があります
 
 Kubesprayは環境のプロビジョンを支援するために次のユーティリティを提供します:
 
 * 下記のクラウドプロバイダー用の[Terraform](https://www.terraform.io/)スクリプト:
   * [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
   * [OpenStack](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/openstack)
-  * [Packet](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/packet)
+  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/metal)
+
 
 ### (2/5) インベントリーファイルの用意
 
@@ -55,7 +63,7 @@ Kubesprayは環境のプロビジョンを支援するために次のユーテ�
 
 ### (3/5) クラスタ作成の計画
 
-Kubesprayは多くの観点でデプロイメントをカスタマイズする機能を提供します:
+Kubesprayは多くの点でデプロイメントをカスタマイズする機能を提供します:
 
 * デプロイメントモードの選択: kubeadmまたはnon-kubeadm
 * CNI (ネットワーキング) プラグイン
@@ -69,7 +77,7 @@ Kubesprayは多くの観点でデプロイメントをカスタマイズする�
   * {{< glossary_tooltip term_id="cri-o" >}}
 * 証明書の生成方法
 
-Kubesprayは[variableファイル](https://docs.ansible.com/ansible/playbooks_variables.html)によってカスタマイズできます。Kubesprayを始めて使う場合は、クラスターをデプロイし、Kubernetesを探索するためにKubesprayの既定の設定の使用を検討してください。
+Kubesprayは[variableファイル](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)によってカスタマイズできます。Kubesprayを始めて使う場合は、クラスターをデプロイし、Kubernetesを探索するためにKubesprayの既定の設定の使用を検討してください。
 
 ### (4/5) クラスターのデプロイ
 
@@ -112,13 +120,13 @@ resetプレイブックを実行する際は、誤ってプロダクションの
 
 ## フィードバック
 
-* Slackチャンネル: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) ([ここ](https://slack.k8s.io/)から招待をもらうことができます。)
-* [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues)
+* Slackチャンネル: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) ([ここ](https://slack.k8s.io/)から招待をもらうことができます)。
+* [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues)。
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-Kubesprayの[ロードマップ](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)にある作業計画を確認してください。
-
+* Kubesprayの[ロードマップ](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)にある作業計画を確認してください。
+* [Kubespray](https://github.com/kubernetes-sigs/kubespray)についてさらに学ぶ。
