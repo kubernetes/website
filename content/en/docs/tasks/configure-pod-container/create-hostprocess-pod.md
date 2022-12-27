@@ -228,7 +228,7 @@ To run HostProcess containers as a local user; A local usergroup must first be c
 and the name of that local usergroup must be specified in the `runAsUserName` field in the deployment.
 Prior to initializing the HostProcess container, a new **ephemeral** local user account to be created and joined to the specified usergroup, from which the container is run.
 This provides a number a benefits including eliminating the need to manage passwords for local user accounts.
-passwords for local user accounts. An initial HostProcess container running as a service account can be used to
+An initial HostProcess container running as a service account can be used to
 prepare the user groups for later HostProcess containers.
 
 {{< note >}}
