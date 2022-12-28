@@ -305,7 +305,7 @@ guaranteed to be non-breaking.
 API 是版本化的，并且自此特性进阶 Beta 后一直表现稳定。
 因此，kubelet 升级应该是无缝的，但在稳定之前 API 仍然可能会有变更，还不能保证升级不会中断。
 
-{{< caution >}}
+{{< note >}}
 <!--
 Although the Device Manager component of Kubernetes is a generally available feature,
 the _device plugin API_ is not stable. For information on the device plugin API and
@@ -314,7 +314,7 @@ version compatibility, read [Device Plugin API versions](/docs/reference/node/de
 尽管 Kubernetes 的设备管理器（Device Manager）组件是正式发布的特性，
 但**设备插件 API** 还不稳定。有关设备插件 API 和版本兼容性的信息，
 请参阅[设备插件 API 版本](/zh-cn/docs/reference/node/device-plugin-api-versions/)。
-{{< caution >}}
+{{< /note >}}
 
 <!--
 As a project, Kubernetes recommends that device plugin developers:
