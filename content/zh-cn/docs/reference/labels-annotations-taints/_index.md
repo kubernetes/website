@@ -1615,6 +1615,31 @@ and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.i
 [Kubernetes CSI 开发者文档](https://kubernetes-csi.github.io/docs/)。
 
 <!--
+### scheduler.alpha.kubernetes.io/critical-pod (deprecated)
+
+Example: `scheduler.alpha.kubernetes.io/critical-pod: ""`
+
+Used on: Pod
+
+This annotation lets Kubernetes control plane know about a pod being a critical pod so that the descheduler will not remove this pod.
+-->
+### scheduler.alpha.kubernetes.io/critical-pod（已弃用）{#scheduler-alpha-kubernetes-io-critical-pod}
+
+例子：`scheduler.alpha.kubernetes.io/critical-pod: ""`
+
+用于：Pod
+
+此注解让 Kubernetes 控制平面知晓某个 Pod 是一个关键的 Pod，这样 descheduler
+将不会移除该 Pod。
+
+{{< note >}}
+<!--
+Starting in v1.16, this annotation was removed in favor of [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
+-->
+从 v1.16 开始，此注解被移除，取而代之的是 [Pod 优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
+{{< /note >}}
+
+<!--
 ## Annotations used for audit
 
 - [`authorization.k8s.io/decision`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
