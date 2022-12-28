@@ -45,7 +45,6 @@ and you'd like the cluster to self-heal in the case that there is a problem.
 
 Pod topology spread constraints offer you a declarative way to configure that.
 
-
 ## `topologySpreadConstraints` field
 
 The Pod API includes a field, `spec.topologySpreadConstraints`. The usage of this field looks like
@@ -66,8 +65,8 @@ spec:
       whenUnsatisfiable: <string>
       labelSelector: <object>
       matchLabelKeys: <list> # optional; alpha since v1.25
-      nodeAffinityPolicy: [Honor|Ignore] # optional; alpha since v1.25
-      nodeTaintsPolicy: [Honor|Ignore] # optional; alpha since v1.25
+      nodeAffinityPolicy: [Honor|Ignore] # optional; beta since v1.26
+      nodeTaintsPolicy: [Honor|Ignore] # optional; beta since v1.26
   ### other Pod fields go here
 ```
 
@@ -98,8 +97,8 @@ your cluster. Those fields are:
   nodes match the node selector.
 
   {{< note >}}
-  The `minDomains` field is a beta field and enabled by default in 1.25. You can disable it by disabling the
-  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  The `minDomains` field is a beta field and disabled by default in 1.25. You can enable it by enabling the
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
   - The value of `minDomains` must be greater than 0, when specified.
@@ -158,9 +157,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Honor policy.
 
   {{< note >}}
-  The `nodeAffinityPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeAffinityPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
 - **nodeTaintsPolicy** indicates how we will treat node taints when calculating
@@ -172,9 +170,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Ignore policy.
 
   {{< note >}}
-  The `nodeTaintsPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeTaintsPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
 When a Pod defines more than one `topologySpreadConstraint`, those constraints are
@@ -201,7 +198,6 @@ those registered label keys are nonetheless recommended rather than the private
 You can't make a reliable assumption about the meaning of a private label key
 between different contexts.
 {{< /note >}}
-
 
 Suppose you have a 4-node cluster with the following labels:
 
@@ -496,7 +492,7 @@ topology spread constraints are applied to a Pod if, and only if:
 
 Default constraints can be set as part of the `PodTopologySpread` plugin
 arguments in a [scheduling profile](/docs/reference/scheduling/config/#profiles).
-The constraints are specified with the same [API above](#api), except that
+The constraints are specified with the same [API above](#topologyspreadconstraints-field), except that
 `labelSelector` must be empty. The selectors are calculated from the Services,
 ReplicaSets, StatefulSets or ReplicationControllers that the Pod belongs to.
 
@@ -580,7 +576,8 @@ or more scattered.
 
 `podAffinity`
 : attracts Pods; you can try to pack any number of Pods into qualifying
-  topology domain(s)
+  topology domain(s).
+
 `podAntiAffinity`
 : repels Pods. If you set this to `requiredDuringSchedulingIgnoredDuringExecution` mode then
   only a single Pod can be scheduled into a single topology domain; if you choose
@@ -615,7 +612,6 @@ section of the enhancement proposal about Pod topology spread constraints.
   You can work around this by using an cluster autoscaling tool that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
-
 
 ## {{% heading "whatsnext" %}}
 

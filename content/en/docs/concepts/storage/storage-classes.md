@@ -6,7 +6,7 @@ reviewers:
 - msau42
 title: Storage Classes
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->
@@ -72,7 +72,6 @@ for provisioning PVs. This field must be specified.
 | FC                   | -                   | -                                    |
 | FlexVolume           | -                   | -                                    |
 | GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
-| Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
 | NFS                  | -                   | [NFS](#nfs)       |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
@@ -123,7 +122,6 @@ Volume type | Required Kubernetes version
 gcePersistentDisk | 1.11
 awsElasticBlockStore | 1.11
 Cinder | 1.11
-glusterfs | 1.11
 rbd | 1.11
 Azure File | 1.11
 Azure Disk | 1.11
@@ -280,7 +278,7 @@ parameters:
 * `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS
   volume plugin multiplies this with size of requested volume to compute IOPS
   of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see
-  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
+  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)).
   A string is expected here, i.e. `"10"`, not `10`.
 * `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
 * `encrypted`: denotes whether the EBS volume should be encrypted or not.
@@ -337,87 +335,6 @@ using `allowedTopologies`.
 `zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
 {{< /note >}}
-
-### Glusterfs
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/glusterfs
-parameters:
-  resturl: "http://127.0.0.1:8081"
-  clusterid: "630372ccdc720a92c681fb928f27b53f"
-  restauthenabled: "true"
-  restuser: "admin"
-  secretNamespace: "default"
-  secretName: "heketi-secret"
-  gidMin: "40000"
-  gidMax: "50000"
-  volumetype: "replicate:3"
-```
-
-* `resturl`: Gluster REST service/Heketi service url which provision gluster
-  volumes on demand. The general format should be `IPaddress:Port` and this is
-  a mandatory parameter for GlusterFS dynamic provisioner. If Heketi service is
-  exposed as a routable service in openshift/kubernetes setup, this can have a
-  format similar to `http://heketi-storage-project.cloudapps.mystorage.com`
-  where the fqdn is a resolvable Heketi service url.
-* `restauthenabled` : Gluster REST service authentication boolean that enables
-  authentication to the REST server. If this value is `"true"`, `restuser` and
-  `restuserkey` or `secretNamespace` + `secretName` have to be filled. This
-  option is deprecated, authentication is enabled when any of `restuser`,
-  `restuserkey`, `secretName` or `secretNamespace` is specified.
-* `restuser` : Gluster REST service/Heketi user who has access to create volumes
-  in the Gluster Trusted Pool.
-* `restuserkey` : Gluster REST service/Heketi user's password which will be used
-  for authentication to the REST server. This parameter is deprecated in favor
-  of `secretNamespace` + `secretName`.
-* `secretNamespace`, `secretName` : Identification of Secret instance that
-  contains user password to use when talking to Gluster REST service. These
-  parameters are optional, empty password will be used when both
-  `secretNamespace` and `secretName` are omitted. The provided secret must have
-  type `"kubernetes.io/glusterfs"`, for example created in this way:
-
-    ```
-    kubectl create secret generic heketi-secret \
-      --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
-      --namespace=default
-    ```
-
-    Example of a secret can be found in
-    [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
-
-* `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster
-  which will be used by Heketi when provisioning the volume. It can also be a
-  list of clusterids, for example:
-  `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`. This
-  is an optional parameter.
-* `gidMin`, `gidMax` : The minimum and maximum value of GID range for the
-  StorageClass. A unique value (GID) in this range ( gidMin-gidMax ) will be
-  used for dynamically provisioned volumes. These are optional values. If not
-  specified, the volume will be provisioned with a value between 2000-2147483647
-  which are defaults for gidMin and gidMax respectively.
-* `volumetype` : The volume type and its parameters can be configured with this
-  optional value. If the volume type is not mentioned, it's up to the provisioner
-  to decide the volume type.
-
-    For example:
-    * Replica volume: `volumetype: replicate:3` where '3' is replica count.
-    * Disperse/EC volume: `volumetype: disperse:4:2` where '4' is data and '2' is the redundancy count.
-    * Distribute volume: `volumetype: none`
-
-    For available volume types and administration options, refer to the
-    [Administration Guide](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/).
-
-    For further reference information, see
-    [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
-
-    When persistent volumes are dynamically provisioned, the Gluster plugin
-    automatically creates an endpoint and a headless service in the name
-    `gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically
-    deleted when the persistent volume claim is deleted.
 
 ### NFS
 

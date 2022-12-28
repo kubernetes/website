@@ -1,7 +1,7 @@
 ---
 title: 系统日志
 content_type: concept
-weight: 60
+weight: 80
 ---
 <!-- 
 reviewers:
@@ -9,7 +9,7 @@ reviewers:
 - 44past4
 title: System Logs
 content_type: concept
-weight: 60
+weight: 80
 -->
 
 <!-- overview -->
@@ -17,7 +17,9 @@ weight: 60
 <!--
 System component logs record events happening in cluster, which can be very useful for debugging.
 You can configure log verbosity to see more or less detail.
-Logs can be as coarse-grained as showing errors within a component, or as fine-grained as showing step-by-step traces of events (like HTTP access logs, pod state changes, controller actions, or scheduler decisions).
+Logs can be as coarse-grained as showing errors within a component, or as fine-grained as showing
+step-by-step traces of events (like HTTP access logs, pod state changes, controller actions, or
+scheduler decisions).
 -->
 系统组件的日志记录集群中发生的事件，这对于调试非常有用。
 你可以配置日志的精细度，以展示更多或更少的细节。
@@ -34,16 +36,16 @@ generates log messages for the Kubernetes system components.
 
 For more information about klog configuration, see the [Command line tool reference](/docs/reference/command-line-tools-reference/).
 -->
-klog 是 Kubernetes 的日志库。 
-[klog](https://github.com/kubernetes/klog) 
+klog 是 Kubernetes 的日志库。
+[klog](https://github.com/kubernetes/klog)
 为 Kubernetes 系统组件生成日志消息。
 
 有关 klog 配置的更多信息，请参见[命令行工具参考](/zh-cn/docs/reference/command-line-tools-reference/)。
 
 <!--
-Kubernetes is in the process of simplifying logging in its components. The
-following klog command line flags [are
-deprecated](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
+Kubernetes is in the process of simplifying logging in its components.
+The following klog command line flags
+[are deprecated](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 starting with Kubernetes 1.23 and will be removed in a future release:
 -->
 Kubernetes 正在进行简化其组件日志的努力。下面的 klog 命令行参数从 Kubernetes 1.23
@@ -63,18 +65,17 @@ Kubernetes 正在进行简化其组件日志的努力。下面的 klog 命令行
 - `--stderrthreshold`
 
 <!--
-Output will always be written to stderr, regardless of the output
-format. Output redirection is expected to be handled by the component which
-invokes a Kubernetes component. This can be a POSIX shell or a tool like
-systemd.
+Output will always be written to stderr, regardless of the output format. Output redirection is
+expected to be handled by the component which invokes a Kubernetes component. This can be a POSIX
+shell or a tool like systemd.
 -->
 输出总会被写到标准错误输出（stderr）之上，无论输出格式如何。
 对输出的重定向将由调用 Kubernetes 组件的软件来处理。
 这一软件可以是 POSIX Shell 或者类似 systemd 这样的工具。
 
 <!--
-In some cases, for example a distroless container or a Windows system service,
-those options are not available. Then the
+In some cases, for example a distroless container or a Windows system service, those options are
+not available. Then the
 [`kube-log-runner`](https://github.com/kubernetes/kubernetes/blob/d2a8a81639fcff8d1221b900f66d28361a170654/staging/src/k8s.io/component-base/logs/kube-log-runner/README.md)
 binary can be used as wrapper around a Kubernetes component to redirect
 output. A prebuilt binary is included in several Kubernetes base images under
@@ -82,7 +83,7 @@ its traditional name as `/go-runner` and as `kube-log-runner` in server and
 node release archives.
 -->
 在某些场合下，例如对于无发行主体的（distroless）容器或者 Windows 系统服务，
-这些替代方案都是不存在的。那么你可以使用 
+这些替代方案都是不存在的。那么你可以使用
 [`kube-log-runner`](https://github.com/kubernetes/kubernetes/blob/d2a8a81639fcff8d1221b900f66d28361a170654/staging/src/k8s.io/component-base/logs/kube-log-runner/README.md)
 可执行文件来作为 Kubernetes 的封装层，完成对输出的重定向。
 在很多 Kubernetes 基础镜像中，都包含一个预先构建的可执行程序。
@@ -113,7 +114,7 @@ This table shows how `kube-log-runner` invocations correspond to shell redirecti
 
 An example of the traditional klog native format:
 -->
-### klog 输出
+### klog 输出   {#klog-output}
 
 传统的 klog 原生格式示例：
 
@@ -134,13 +135,14 @@ which has a line break.
 <!-- 
 ### Structured Logging 
 -->
-### 结构化日志
+### 结构化日志   {#structured-logging}
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< warning >}}
 <!--
-Migration to structured log messages is an ongoing process. Not all log messages are structured in this version. When parsing log files, you must also handle unstructured log messages.
+Migration to structured log messages is an ongoing process. Not all log messages are structured in
+this version. When parsing log files, you must also handle unstructured log messages.
 
 Log formatting and value serialization are subject to change.
 -->
@@ -151,17 +153,18 @@ Log formatting and value serialization are subject to change.
 {{< /warning>}}
 
 <!--
-Structured logging introduces a uniform structure in log messages allowing for programmatic extraction of information. You can store and process structured logs with less effort and cost.
-The code which generates a log message determines whether it uses the traditional unstructured klog output
-or structured logging.
+Structured logging introduces a uniform structure in log messages allowing for programmatic
+extraction of information. You can store and process structured logs with less effort and cost.
+The code which generates a log message determines whether it uses the traditional unstructured
+klog output or structured logging.
 -->
 结构化日志记录旨在日志消息中引入统一结构，以便以编程方式提取信息。
 你可以方便地用更小的开销来处理结构化日志。
 生成日志消息的代码决定其使用传统的非结构化的 klog 还是结构化的日志。
 
 <!--
-The default formatting of structured log messages is as text, with a format that
-is backward compatible with traditional klog:
+The default formatting of structured log messages is as text, with a format that is backward
+compatible with traditional klog:
 -->
 默认的结构化日志消息是以文本形式呈现的，其格式与传统的 klog 保持向后兼容：
 
@@ -195,7 +198,7 @@ second line.}
 <!-- 
 ### Contextual Logging 
 -->
-### 上下文日志
+### 上下文日志   {#contextual-logging}
 
 {{< feature-state for_k8s_version="v1.24" state="alpha" >}}
 
@@ -203,17 +206,17 @@ second line.}
 Contextual logging builds on top of structured logging. It is primarily about
 how developers use logging calls: code based on that concept is more flexible
 and supports additional use cases as described in the [Contextual Logging
-KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging). 
+KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging).
 -->
 上下文日志建立在结构化日志之上。
 它主要是关于开发人员如何使用日志记录调用：基于该概念的代码将更加灵活，
-并且支持在[结构化日志 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging) 
+并且支持在[结构化日志 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 中描述的额外用例。
 
 <!-- 
 If developers use additional functions like `WithValues` or `WithName` in
 their components, then log entries contain additional information that gets
-passed into functions by their caller. 
+passed into functions by their caller.
 -->
 如果开发人员在他们的组件中使用额外的函数，比如 `WithValues` 或 `WithName`，
 那么日志条目将会包含额外的信息，这些信息会被调用者传递给函数。
@@ -224,7 +227,7 @@ disabled by default. The infrastructure for this was added in 1.24 without
 modifying components. The
 [`component-base/logs/example`](https://github.com/kubernetes/kubernetes/blob/v1.24.0-beta.0/staging/src/k8s.io/component-base/logs/example/cmd/logger.go)
 command demonstrates how to use the new logging calls and how a component
-behaves that supports contextual logging. 
+behaves that supports contextual logging.
 -->
 目前这一特性是由 `StructuredLogging` 特性门控所控制的，默认关闭。
 这个基础设施是在 1.24 中被添加的，并不需要修改组件。
@@ -271,15 +274,17 @@ I0404 18:03:31.171962  452150 logger.go:95] "another runtime" duration="1m0s"
 <!--
 ### JSON log format
 -->
-### JSON 日志格式
+### JSON 日志格式   {#json-log-format}
 
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 
 {{< warning >}}
 <!--
-JSON output does not support many standard klog flags. For list of unsupported klog flags, see the [Command line tool reference](/docs/reference/command-line-tools-reference/).
+JSON output does not support many standard klog flags. For list of unsupported klog flags, see the
+[Command line tool reference](/docs/reference/command-line-tools-reference/).
 
-Not all logs are guaranteed to be written in JSON format (for example, during process start). If you intend to parse logs, make sure you can handle log lines that are not JSON as well.
+Not all logs are guaranteed to be written in JSON format (for example, during process start).
+If you intend to parse logs, make sure you can handle log lines that are not JSON as well.
 
 Field names and JSON serialization are subject to change.
 -->
@@ -298,6 +303,7 @@ Example of JSON log format (pretty printed):
 -->
 `--logging-format=json` 参数将日志格式从 klog 原生格式改为 JSON 格式。
 JSON 日志格式示例（美化输出）：
+
 ```json
 {
    "ts": 1580306777.04728,
@@ -322,12 +328,13 @@ Keys with special meaning:
 List of components currently supporting JSON format:
 -->
 具有特殊意义的 key：
+
 * `ts` - Unix 时间风格的时间戳（必选项，浮点值）
 * `v` - 精细度（仅用于 info 级别，不能用于错误信息，整数）
 * `err` - 错误字符串（可选项，字符串）
 * `msg` - 消息（必选项，字符串）
 
-当前支持JSON格式的组件列表：
+当前支持 JSON 格式的组件列表：
 
 * {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
 * {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
@@ -337,10 +344,11 @@ List of components currently supporting JSON format:
 <!--
 ### Log verbosity level
 
-The `-v` flag controls log verbosity. Increasing the value increases the number of logged events. Decreasing the value decreases the number of logged events.
-Increasing verbosity settings logs increasingly less severe events. A verbosity setting of 0 logs only critical events.
+The `-v` flag controls log verbosity. Increasing the value increases the number of logged events.
+Decreasing the value decreases the number of logged events.  Increasing verbosity settings logs
+increasingly less severe events. A verbosity setting of 0 logs only critical events.
 -->
-### 日志精细度级别
+### 日志精细度级别   {#log-verbosity-level}
 
 参数 `-v` 控制日志的精细度。增大该值会增大日志事件的数量。
 减小该值可以减小日志事件的数量。增大精细度会记录更多的不太严重的事件。
@@ -356,7 +364,7 @@ that do not run in a container. For example:
 * The kubelet and {{<glossary_tooltip term_id="container-runtime" text="container runtime">}}
   do not run in containers.
 -->
-### 日志位置
+### 日志位置   {#log-location}
 
 有两种类型的系统组件：运行在容器中的组件和不运行在容器中的组件。例如：
 
@@ -377,7 +385,7 @@ The `logrotate` tool rotates logs daily, or once the log size is greater than 10
 容器中的系统组件总是绕过默认的日志记录机制，写入 `/var/log` 目录下的 `.log` 文件。
 与容器日志类似，你应该轮转 `/var/log` 目录下系统组件日志。
 在 `kube-up.sh` 脚本创建的 Kubernetes 集群中，日志轮转由 `logrotate` 工具配置。
- `logrotate` 工具，每天或者当日志大于 100MB 时，轮转日志。
+`logrotate` 工具，每天或者当日志大于 100MB 时，轮转日志。
 
 ## {{% heading "whatsnext" %}}
 

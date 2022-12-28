@@ -373,7 +373,7 @@ parameters:
   * Distribusi volume: `volumetype: none`
 
   Untuk tipe volume apa saja yang tersedia dan berbagai opsi administrasi yang ada, kamu dapat membaca
-  [Petunjuk Administrasi](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
+  [Petunjuk Administrasi](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/).
 
   Untuk informasi lebih lanjut, kamu dapat membaca
   [Bagaimana Cara Mengatur Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).

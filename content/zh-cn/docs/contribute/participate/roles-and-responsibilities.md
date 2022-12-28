@@ -183,7 +183,10 @@ After submitting at least 5 substantial pull requests and meeting the other [req
 <!--
 ## Reviewers
 
-Reviewers are responsible for reviewing open pull requests. Unlike member feedback, you must address reviewer feedback. Reviewers are members of the [@kubernetes/sig-docs-{language}-reviews](https://github.com/orgs/kubernetes/teams?query=sig-docs) GitHub team.
+Reviewers are responsible for reviewing open pull requests. Unlike member 
+feedback, the PR author must address reviewer feedback. Reviewers are members of the 
+[@kubernetes/sig-docs-{language}-reviews](https://github.com/orgs/kubernetes/teams?query=sig-docs) 
+GitHub team.
 
 Reviewers can:
 
@@ -202,7 +205,7 @@ You can be a SIG Docs reviewer, or a reviewer for docs in a specific subject are
 ## 评审人（Reviewers）  {#reviewers}
 
 评审人负责评审悬决的 PR。
-与成员所给的反馈不同，你必须处理评审人的反馈。
+与成员所给的反馈不同，身为 PR 作者必须处理评审人的反馈。
 评审人是 [@kubernetes/sig-docs-{language}-reviews](https://github.com/orgs/kubernetes/teams?query=sig-docs) GitHub 团队的成员。
 
 评审人可以：
@@ -268,7 +271,7 @@ To apply:
 申请流程如下：
 
 <!--
-1. Open a pull request that adds your GitHub user name to a section of the
+1. Open a pull request that adds your GitHub username to a section of the
 [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES) file
 in the `kubernetes/website` repository.
 
@@ -276,7 +279,7 @@ in the `kubernetes/website` repository.
   If you aren't sure where to add yourself, add yourself to `sig-docs-en-reviews`.
   {{< /note >}}
 
-2. Assign the PR to one or more SIG-Docs approvers (user names listed under `sig-docs-{language}-owners`).
+2. Assign the PR to one or more SIG-Docs approvers (usernames listed under `sig-docs-{language}-owners`).
 
 If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added,
 [@k8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home) assigns and suggests you as a reviewer on new pull requests.
@@ -341,7 +344,8 @@ Approvers and SIG Docs leads are the only ones who can merge pull requests into 
     A careless merge can break the site, so be sure that when you merge something, you mean it.
     {{< /warning >}}
 
-- Make sure that proposed changes meet the [contribution guidelines](/docs/contribute/style/content-guide/#contributing-content).
+- Make sure that proposed changes meet the 
+[documentation content guide](/docs/contribute/style/content-guide/).
 
     If you ever have a question, or you're not sure about something, feel free to call for additional review.
 -->
@@ -356,7 +360,7 @@ Approvers and SIG Docs leads are the only ones who can merge pull requests into 
     不小心的合并可能会破坏整个站点。在执行合并操作时，务必小心。
     {{< /warning >}}
 
-- 确保所提议的变更满足[贡献指南](/zh-cn/docs/contribute/style/content-guide/#contributing-content)要求。
+- 确保所提议的变更满足[文档内容指南](/zh-cn/docs/contribute/style/content-guide/)要求。
 
     如果有问题或者疑惑，可以根据需要请他人帮助评审。
 

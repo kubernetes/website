@@ -376,11 +376,11 @@ Eventually, some of this section could be moved to a concept topic.
 {{< /comment >}}
 
 [Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) have a number of fields that
-you can use to more precisely control the behavior of liveness and readiness
+you can use to more precisely control the behavior of startup, liveness and readiness
 checks:
 
 * `initialDelaySeconds`: Number of seconds after the container has started
-before liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
+before startup, liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
 seconds. Minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out. Defaults

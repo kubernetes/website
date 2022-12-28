@@ -54,6 +54,8 @@
   - name: Alpha level
     fields:
     - hostUsers
+    - resourceClaims
+    - schedulingGates
   - name: Deprecated
     fields:
     - serviceAccount
@@ -317,6 +319,7 @@
     - volumeClaimTemplates
     - minReadySeconds
     - persistentVolumeClaimRetentionPolicy
+    - ordinals
 
 - definition: io.k8s.api.apps.v1.StatefulSetUpdateStrategy
   field_categories:

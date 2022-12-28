@@ -36,7 +36,7 @@ content_type: concept
 
 ## コンポーネントリファレンス
 
-* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - 各ノード上で動作する最も重要なノードエージェントです。kubeletは一通りのPodSpecを受け取り、コンテナーが実行中で正常であることを確認します。
+* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - 各ノード上で動作する最も重要なノードエージェントです。kubeletは一通りのPodSpecを受け取り、コンテナが実行中で正常であることを確認します。
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) - Pod、Service、Replication Controller等、APIオブジェクトのデータを検証・設定するREST APIサーバーです。
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Kubernetesに同梱された、コアのコントロールループを埋め込むデーモンです。
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - 単純なTCP/UDPストリームのフォワーディングや、一連のバックエンド間でTCP/UDPのラウンドロビンでのフォワーディングを実行できます。

@@ -152,12 +152,16 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		AllowDownwardAPIHugePages:       true,
 		AllowInvalidPodDeletionCost:     false,
 		AllowIndivisibleHugePagesValues: true,
-		AllowWindowsHostProcessField:    true,
 		AllowExpandedDNSConfig:          true,
 	}
-
-	quotaValidationOptions := validation.ResourceQuotaValidationOptions{
-		AllowPodAffinityNamespaceSelector: true,
+	netValidationOptions := networking_validation.NetworkPolicyValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
+	}
+	pdbValidationOptions := policy_validation.PodDisruptionBudgetValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
+	}
+	clusterroleValidationOptions := rbac_validation.ClusterRoleValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
 	}
 
 	// Enable CustomPodDNS for testing
@@ -220,7 +224,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidateResourceQuota(t, quotaValidationOptions)
+		errors = validation.ValidateResourceQuota(t)
 	case *api.Secret:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -303,20 +307,20 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = batch_validation.ValidateCronJob(t, podValidationOptions)
+		errors = batch_validation.ValidateCronJobCreate(t, podValidationOptions)
 	case *networking.NetworkPolicy:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = networking_validation.ValidateNetworkPolicy(t)
+		errors = networking_validation.ValidateNetworkPolicy(t, netValidationOptions)
 	case *policy.PodDisruptionBudget:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = policy_validation.ValidatePodDisruptionBudget(t)
+		errors = policy_validation.ValidatePodDisruptionBudget(t, pdbValidationOptions)
 	case *rbac.ClusterRole:
 		// clusterole does not accept namespace
-		errors = rbac_validation.ValidateClusterRole(t)
+		errors = rbac_validation.ValidateClusterRole(t, clusterroleValidationOptions)
 	case *rbac.ClusterRoleBinding:
 		// clusterolebinding does not accept namespace
 		errors = rbac_validation.ValidateClusterRoleBinding(t)
@@ -517,19 +521,23 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"configmap": {
 			"configmaps":          {&api.ConfigMap{}, &api.ConfigMap{}},
 			"configmap-multikeys": {&api.ConfigMap{}},
+			"configure-pod":       {&api.Pod{}},
 		},
 		"controllers": {
-			"daemonset":                {&apps.DaemonSet{}},
-			"fluentd-daemonset":        {&apps.DaemonSet{}},
-			"fluentd-daemonset-update": {&apps.DaemonSet{}},
-			"frontend":                 {&apps.ReplicaSet{}},
-			"hpa-rs":                   {&autoscaling.HorizontalPodAutoscaler{}},
-			"job":                      {&batch.Job{}},
-			"replicaset":               {&apps.ReplicaSet{}},
-			"replication":              {&api.ReplicationController{}},
-			"replication-nginx-1.14.2": {&api.ReplicationController{}},
-			"replication-nginx-1.16.1": {&api.ReplicationController{}},
-			"nginx-deployment":         {&apps.Deployment{}},
+			"daemonset":                      {&apps.DaemonSet{}},
+			"fluentd-daemonset":              {&apps.DaemonSet{}},
+			"fluentd-daemonset-update":       {&apps.DaemonSet{}},
+			"frontend":                       {&apps.ReplicaSet{}},
+			"hpa-rs":                         {&autoscaling.HorizontalPodAutoscaler{}},
+			"job":                            {&batch.Job{}},
+			"job-pod-failure-policy-example": {&batch.Job{}},
+			"job-pod-failure-policy-failjob": {&batch.Job{}},
+			"job-pod-failure-policy-ignore":  {&batch.Job{}},
+			"replicaset":                     {&apps.ReplicaSet{}},
+			"replication":                    {&api.ReplicationController{}},
+			"replication-nginx-1.14.2":       {&api.ReplicationController{}},
+			"replication-nginx-1.16.1":       {&api.ReplicationController{}},
+			"nginx-deployment":               {&apps.Deployment{}},
 		},
 		"debug": {
 			"counter-pod":                     {&api.Pod{}},
@@ -559,11 +567,14 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod-with-affinity-anti-affinity":     {&api.Pod{}},
 			"pod-with-node-affinity":              {&api.Pod{}},
 			"pod-with-pod-affinity":               {&api.Pod{}},
+			"pod-with-scheduling-gates":           {&api.Pod{}},
 			"pod-with-toleration":                 {&api.Pod{}},
+			"pod-without-scheduling-gates":        {&api.Pod{}},
 			"private-reg-pod":                     {&api.Pod{}},
 			"share-process-namespace":             {&api.Pod{}},
 			"simple-pod":                          {&api.Pod{}},
 			"two-container-pod":                   {&api.Pod{}},
+			"user-namespaces-stateless":           {&api.Pod{}},
 		},
 		"pods/config": {
 			"redis-pod":            {&api.Pod{}},
@@ -664,6 +675,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"name-virtual-host-ingress-no-third-host": {&networking.Ingress{}},
 			"namespaced-params":                       {&networking.IngressClass{}},
 			"networkpolicy":                           {&networking.NetworkPolicy{}},
+			"networkpolicy-multiport-egress":          {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-egress":         {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-ingress":        {&networking.NetworkPolicy{}},
 			"network-policy-default-deny-egress":      {&networking.NetworkPolicy{}},

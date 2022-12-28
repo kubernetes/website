@@ -6,12 +6,10 @@ weight: 20
 ---
 
 <!--
----
 title: Coarse Parallel Processing Using a Work Queue
 min-kubernetes-server-version: v1.8
 content_type: task
 weight: 20
----
 -->
 
 <!-- overview -->
@@ -26,11 +24,11 @@ from a task queue, completes it, deletes it from the queue, and exits.
 Here is an overview of the steps in this example:
 
 1. **Start a message queue service.**  In this example, we use RabbitMQ, but you could use another
-  one.  In practice you would set up a message queue service once and reuse it for many jobs.
+   one.  In practice you would set up a message queue service once and reuse it for many jobs.
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
    this example, a message is an integer that we will do a lengthy computation on.
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
-  one task from the message queue, processes it, and repeats until the end of the queue is reached.
+   one task from the message queue, processes it, and repeats until the end of the queue is reached.
 -->
 本例中，我们会运行包含多个并行工作进程的 Kubernetes Job。
 
@@ -38,12 +36,17 @@ Here is an overview of the steps in this example:
 
 下面是本次示例的主要步骤：
 
-1. **启动一个消息队列服务**  本例中，我们使用 RabbitMQ，你也可以用其他的消息队列服务。在实际工作环境中，你可以创建一次消息队列服务然后在多个任务中重复使用。
+1. **启动一个消息队列服务**。
+   本例中，我们使用 RabbitMQ，你也可以用其他的消息队列服务。
+   在实际工作环境中，你可以创建一次消息队列服务然后在多个任务中重复使用。
 
-1. **创建一个队列，放上消息数据**  每个消息表示一个要执行的任务。本例中，每个消息是一个整数值。我们将基于这个整数值执行很长的计算操作。
+1. **创建一个队列，放上消息数据**。
+   每个消息表示一个要执行的任务。本例中，每个消息是一个整数值。
+   我们将基于这个整数值执行很长的计算操作。
 
-1. **启动一个在队列中执行这些任务的 Job**。该 Job 启动多个 Pod。每个 Pod 从消息队列中取走一个任务，处理它，然后重复执行，直到队列的队尾。
-
+1. **启动一个在队列中执行这些任务的 Job**。
+   该 Job 启动多个 Pod。每个 Pod 从消息队列中取走一个任务，处理它，
+   然后重复执行，直到队列的队尾。
 
 ## {{% heading "prerequisites" %}}
 
@@ -96,8 +99,8 @@ replicationcontroller "rabbitmq-controller" created
 <!--
 We will only use the rabbitmq part from the [celery-rabbitmq example](https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/celery-rabbitmq).
 -->
-
-我们仅用到 [celery-rabbitmq 示例](https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/celery-rabbitmq) 中描述的部分功能。
+我们仅用到
+[celery-rabbitmq 示例](https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/celery-rabbitmq)中描述的部分功能。
 
 <!--
 ## Testing the message queue service
@@ -110,13 +113,14 @@ First create a temporary interactive Pod.
 -->
 ## 测试消息队列服务   {#testing-the-message-queue-service}
 
-现在，我们可以试着访问消息队列。我们将会创建一个临时的可交互的 Pod，在它上面安装一些工具，然后用队列做实验。
+现在，我们可以试着访问消息队列。我们将会创建一个临时的可交互的 Pod，
+在它上面安装一些工具，然后用队列做实验。
 
 首先创建一个临时的可交互的 Pod：
 
 ```shell
 # 创建一个临时的可交互的 Pod
-kubectl run -i --tty temp --image ubuntu:14.04
+kubectl run -i --tty temp --image ubuntu:18.04
 ```
 ```
 Waiting for pod default/temp-loe07 to be running, status is Pending, pod ready: false
@@ -130,7 +134,7 @@ Next install the `amqp-tools` so we can work with message queues.
 -->
 请注意你的 Pod 名称和命令提示符将会不同。
 
-接下来安装 `amqp-tools` ，这样我们就能用消息队列了。
+接下来安装 `amqp-tools`，这样我们就能用消息队列了。
 
 ```shell
 # 安装一些工具
@@ -145,10 +149,9 @@ Later, we will make a docker image that includes these packages.
 
 Next, we will check that we can discover the rabbitmq service:
 -->
-
 后续，我们将制作一个包含这些包的 Docker 镜像。
 
-接着，我们将要验证我们发现 RabbitMQ 服务：
+接着，我们将要验证可以发现 RabbitMQ 服务：
 
 <!--
 # Note the rabbitmq-service has a DNS name, provided by Kubernetes:
@@ -167,7 +170,7 @@ Address: 10.0.147.152
 ```
 
 <!--
-If Kube-DNS is not setup correctly, the previous step may not work for you.
+If Kube-DNS is not set up correctly, the previous step may not work for you.
 You can also find the service IP in an env var:
 -->
 如果 Kube-DNS 没有正确安装，上一步可能会出错。
@@ -227,7 +230,7 @@ from the queue, and passes that message to the standard input of an arbitrary co
 return so the example is readable.
 -->
 
-最后一个命令中， `amqp-consume` 工具从队列中取走了一个消息，并把该消息传递给了随机命令的标准输出。
+最后一个命令中，`amqp-consume` 工具从队列中取走了一个消息，并把该消息传递给了随机命令的标准输出。
 在这种情况下，`cat` 会打印它从标准输入中读取的字符，echo 会添加回车符以便示例可读。
 
 <!--
@@ -274,8 +277,7 @@ In practice, you might write a program to fill the queue using an amqp client li
 
 ```shell
 /usr/bin/amqp-declare-queue --url=$BROKER_URL -q job1  -d job1
-
-for f in apple banana cherry date fig grape lemon melon 
+for f in apple banana cherry date fig grape lemon melon
 do
   /usr/bin/amqp-publish --url=$BROKER_URL -r job1 -p -b $f
 done
@@ -292,13 +294,14 @@ We will use the `amqp-consume` utility to read the message
 from the queue and run our actual program.  Here is a very simple
 example program:
 -->
-这样，我们给队列中填充了8个消息。
+这样，我们给队列中填充了 8 个消息。
 
 ## 创建镜像   {#create-an-image}
 
 现在我们可以创建一个做为 Job 来运行的镜像。
 
-我们将用 `amqp-consume` 来从队列中读取消息并实际运行我们的程序。这里给出一个非常简单的示例程序：
+我们将用 `amqp-consume` 实用程序从队列中读取消息并运行实际的程序。
+这里给出一个非常简单的示例程序：
 
 {{< codenew language="python" file="application/job/rabbitmq/worker.py" >}}
 
@@ -323,9 +326,9 @@ build the image with this command:
 
 现在，编译镜像。如果你在用源代码树，那么切换到目录 `examples/job/work-queue-1`。
 否则的话，创建一个临时目录，切换到这个目录。下载
-[Dockerfile](/examples/application/job/rabbitmq/Dockerfile)，和
+[Dockerfile](/examples/application/job/rabbitmq/Dockerfile) 和
 [worker.py](/examples/application/job/rabbitmq/worker.py)。
-无论哪种情况，都可以用下面的命令编译镜像
+无论哪种情况，都可以用下面的命令编译镜像：
 
 ```shell
 docker build -t job-wq-1 .
@@ -367,7 +370,7 @@ image to match the name you used, and call it `./job.yaml`.
 -->
 ## 定义 Job   {#defining-a-job}
 
-这里给出一个 Job 定义 yaml文件。你需要拷贝一份并编辑镜像以匹配你使用的名称，保存为 `./job.yaml`。
+这里给出一个 Job 定义 YAML 文件。你将需要拷贝一份 Job 并编辑该镜像以匹配你使用的名称，保存为 `./job.yaml`。
 
 {{< codenew file="application/job/rabbitmq/job.yaml" >}}
 
@@ -380,7 +383,9 @@ done.  So we set, `.spec.completions: 8` for the example, since we put 8 items i
 
 So, now run the Job:
 -->
-本例中，每个 Pod 使用队列中的一个消息然后退出。这样，Job 的完成计数就代表了完成的工作项的数量。本例中我们设置 `.spec.completions: 8`，因为我们放了8项内容在队列中。
+本例中，每个 Pod 使用队列中的一个消息然后退出。
+这样，Job 的完成计数就代表了完成的工作项的数量。
+本例中我们设置 `.spec.completions: 8`，因为我们放了 8 项内容在队列中。
 
 ## 运行 Job   {#running-the-job}
 
@@ -391,14 +396,23 @@ kubectl apply -f ./job.yaml
 ```
 
 <!--
-Now wait a bit, then check on the job.
+You can wait for the Job to succeed, with a timeout:
 -->
-稍等片刻，然后检查 Job。
+你可以等待 Job 在某个超时时间后成功：
+
+```shell
+# 状况名称的检查不区分大小写
+kubectl wait --for=condition=complete --timeout=300s job/job-wq-1
+```
+
+<!--
+Next, check on the Job:
+-->
+接下来查看 Job：
 
 ```shell
 kubectl describe jobs/job-wq-1
 ```
-
 ```
 Name:             job-wq-1
 Namespace:        default
@@ -436,9 +450,9 @@ Events:
 ```
 
 <!--
-All our pods succeeded.  Yay.
+All the pods for that Job succeeded. Yay.
 -->
-我们所有的 Pod 都成功了。耶！
+该 Job 的所有 Pod 都已成功。耶！
 
 <!-- discussion -->
 
@@ -456,8 +470,8 @@ want to consider one of the other [job patterns](/docs/concepts/workloads/contro
 
 本文所讲述的处理方法的好处是你不需要修改你的 "worker" 程序使其知道工作队列的存在。
 
-本文所描述的方法需要你运行一个消息队列服务。如果不方便运行消息队列服务，你也许会考虑另外一种
-[任务模式](/zh-cn/docs/concepts/workloads/controllers/job/#job-patterns)。
+本文所描述的方法需要你运行一个消息队列服务。如果不方便运行消息队列服务，
+你也许会考虑另外一种[任务模式](/zh-cn/docs/concepts/workloads/controllers/job/#job-patterns)。
 
 <!--
 This approach creates a pod for every work item.  If your work items only take a few seconds,
@@ -470,16 +484,15 @@ do not need to modify your program to be aware of the queue.
 A [different example](/docs/tasks/job/fine-parallel-processing-work-queue/), shows how to
 communicate with the work queue using a client library.
 -->
-
 本文所述的方法为每个工作项创建了一个 Pod。
-如果你的工作项仅需数秒钟，为每个工作项创建 Pod会增加很多的常规消耗。
+如果你的工作项仅需数秒钟，为每个工作项创建 Pod 会增加很多的常规消耗。
 可以考虑另外的方案请参考[示例](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/)，
 这种方案可以实现每个 Pod 执行多个工作项。
 
 示例中，我们使用 `amqp-consume` 从消息队列读取消息并执行我们真正的程序。
 这样的好处是你不需要修改你的程序使其知道队列的存在。
-要了解怎样使用客户端库和工作队列通信，请参考
-[不同的示例](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/)。
+要了解怎样使用客户端库和工作队列通信，
+请参考[不同的示例](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/)。
 
 <!--
 ## Caveats

@@ -1,7 +1,7 @@
 ---
 title: 쿠버네티스 클러스터에서 sysctl 사용하기
-
-
+# reviewers:
+# - sttts
 content_type: task
 ---
 
@@ -15,14 +15,13 @@ content_type: task
 
 {{< note >}}
 쿠버네티스 버전 1.23부터, kubelet은 `/` 또는 `.`를 
-sysctl 이름의 구분자로 사용하는 것을 지원한다. 
+sysctl 이름의 구분자로 사용하는 것을 지원한다.
+쿠버네티스 1.25 버전부터, 파드에 대해서도 sysctl을 설정할 때 슬래시 구분자를 지원하기 시작하였다.
 예를 들어, 동일한 sysctl 이름을 `kernel.shm_rmid_forced`와 같이 마침표를 구분자로 사용하여 나타내거나 
 `kernel/shm_rmid_forced`와 같이 슬래시를 구분자로 사용하여 나타낼 수 있다. 
 sysctl 파라미터 변환에 대한 세부 사항은 
 리눅스 맨페이지 프로젝트의 
-[sysctl.d(5)](https://man7.org/linux/man-pages/man5/sysctl.d.5.html) 페이지를 참고한다. 
-파드와 파드시큐리티폴리시(PodSecurityPolicy)에 대해 sysctl을 설정하는 기능에서는 
-아직 슬래시 구분자를 지원하지 않는다.
+[sysctl.d(5)](https://man7.org/linux/man-pages/man5/sysctl.d.5.html) 페이지를 참고한다.
 {{< /note >}}
 ## {{% heading "prerequisites" %}}
 
@@ -176,55 +175,3 @@ sysctl 설정이 필요한 노드에만 파드를 예약하는 것이 좋다.
 [노드 테인트](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)를 
 사용하여 해당 파드를 오른쪽 노드에 
 스케줄하는 것을 추천한다.
-
-## 파드시큐리티폴리시(PodSecurityPolicy)
-
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
-
-또한 파드시큐리티폴리시의 `forbiddenSysctls` 및/또는 `allowedUnsafeSysctls` 필드에 
-sysctl 또는 sysctl 패턴 목록을 지정하여 파드에서 설정할 
-수 있는 sysctl를 제어할 수 있다. sysctl 패턴은 `kernel.*`과 같은 `*` 
-문자로 끝난다. `*` 문자 자체는 
-모든 sysctl와 일치한다.
-
-기본적으로 모든 safe sysctl은 허용된다.
-
-`forbiddenSysctls`와 `allowedUnsafeSysctls`는 모두 단순한 sysctl 이름 또는 
-sysctl 패턴 목록이다(`*`로 끝남). `*` 문자는 모든 sysctl과 일치한다.
-
-`forbiddenSysctls` 필드에는 특정 sysctl이 제외된다. 
-목록에서 safe sysctl과 unsafe sysctl의 조합을 금지할 수 있다.
-sysctl 설정을 금지하기 위해서는 `*`를 사용한다.
-
-`allowedUnsafeSysctls` 필드에 unsafe sysctl을 지정하고 `forbiddenSysctls` 필드가 
-존재하지 않는 경우, 파드시큐리티폴리시를 사용하여 
-sysctl을 파드에서 사용할 수 있다. 
-파드시큐리티폴리시의 모든 unsafe sysctl을 설정하려면 `*`를 사용한다.
-
-이 두 필드를 겹치도록 구성하지 않는다. 
-이는 지정된 sysctl이 허용 및 금지됨을 의미한다.
-
-{{< warning >}}
-파드시큐리티폴리시의 'allowedUnsafeSysctls' 필드를 통해 unsafe sysctl을 
-허용하는 경우, 해당 노드에서 sysctl이 
-'--allowed-unsafe-sysctls' kubelet 플래그를 통해 허용되지 않으면, 
-sysctl을 사용하는 모든 파드가 시작에 실패한다.
-{{< /warning >}}
-
-이 예에서는 `kernel.msg` 접두사가 붙은 unsafe sysctl을 설정할 수 있으며, 
-`kernel.shm_rmid_forced` sysctl의 설정을 허용하지 않는다.
-
-```yaml
-apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
-metadata:
-  name: sysctl-psp
-spec:
-  allowedUnsafeSysctls:
-  - kernel.msg*
-  forbiddenSysctls:
-  - kernel.shm_rmid_forced
- ...
-```
-
-

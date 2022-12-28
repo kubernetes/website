@@ -1,7 +1,9 @@
 ---
-title: Pod 与 Service 的 DNS
+title: Service 与 Pod 的 DNS
 content_type: concept
-weight: 20
+weight: 80
+description: >-
+  你的工作负载可以使用 DNS 发现集群内的 Service，本页说明具体工作原理。
 ---
 <!--
 reviewers:
@@ -9,7 +11,10 @@ reviewers:
 - thockin
 title: DNS for Services and Pods
 content_type: concept
-weight: 20
+weight: 80
+description: >-
+  Your workload can discover Services within your cluster using DNS;
+  this page explains how that works.
 -->
 
 <!-- overview -->
@@ -24,14 +29,10 @@ Kubernetes 为 Service 和 Pod 创建 DNS 记录。
 <!-- body -->
 
 <!--
-## Introduction
-
 Kubernetes DNS schedules a DNS Pod and Service on the cluster, and configures
 the kubelets to tell individual containers to use the DNS Service's IP to
 resolve DNS names.
 -->
-## 介绍 {#introduction}
-
 Kubernetes DNS 除了在集群上调度 DNS Pod 和 Service，
 还配置 kubelet 以告知各个容器使用 DNS Service 的 IP 来解析 DNS 名称。
 
@@ -50,7 +51,7 @@ A DNS query may return different results based on the namespace of the Pod makin
 it. DNS queries that don't specify a namespace are limited to the Pod's 
 namespace. Access Services in other namespaces by specifying it in the DNS query. 
 
-For example, consider a Pod in a `test` namespace. A `data` service is in 
+For example, consider a Pod in a `test` namespace. A `data` Service is in 
 the `prod` namespace. 
 
 A query for `data` returns no results, because it uses the Pod's `test` namespace. 
@@ -76,7 +77,7 @@ DNS queries may be expanded using the Pod's `/etc/resolv.conf`. Kubelet
 sets this file for each Pod. For example, a query for just `data` may be 
 expanded to `data.test.svc.cluster.local`. The values of the `search` option 
 are used to expand queries. To learn more about DNS queries, see 
-[the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html) 
+[the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)
 -->
 DNS 查询可以使用 Pod 中的 `/etc/resolv.conf` 展开。kubelet 会为每个 Pod
 生成此文件。例如，对 `data` 的查询可能被展开为 `data.test.svc.cluster.local`。
@@ -138,7 +139,7 @@ Services, this resolves to the set of IPs of the Pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
 selection from the set.
 -->
-### Services 
+### Service
 
 #### A/AAAA 记录 {#a-aaaa-records}
 
@@ -176,7 +177,7 @@ SRV 记录格式为 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.clu
 其中包含 Pod 端口号和格式为 `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`
 的域名。
 
-## Pods
+## Pod
 
 <!--
 ### A/AAAA records
@@ -203,11 +204,11 @@ Any Pods exposed by a Service have the following DNS resolution available:
 例如，对于一个位于 `default` 名字空间，IP 地址为 172.17.0.3 的 Pod，
 如果集群的域名为 `cluster.local`，则 Pod 会对应 DNS 名称：
 
-`172-17-0-3.default.pod.cluster.local`.
+`172-17-0-3.default.pod.cluster.local`
 
 通过 Service 暴露出来的所有 Pod 都会有如下 DNS 解析名称可用：
 
-`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
+`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`
 
 <!--
 ### Pod's hostname and subdomain fields
@@ -310,10 +311,11 @@ DNS 会为此名字提供一个 A 记录或 AAAA 记录，指向该 Pod 的 IP�
 “`busybox1`” 和 “`busybox2`” 这两个 Pod 分别具有它们自己的 A 或 AAAA 记录。
 
 <!--
-The Endpoints object can specify the `hostname` for any endpoint addresses,
-along with its IP.
+An {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}} can specify
+the DNS hostname for any endpoint addresses, along with its IP.
 -->
-Endpoints 对象可以为任何端点地址及其 IP 指定 `hostname`。
+{{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}
+对象可以为任何端点地址及其 IP 指定 `hostname`。
 
 <!--
 Because A or AAAA records are not created for Pod names, `hostname` is required for the Pod's A or AAAA
@@ -333,8 +335,6 @@ record unless `publishNotReadyAddresses=True` is set on the Service.
 
 <!--
 ### Pod's setHostnameAsFQDN field {#pod-sethostnameasfqdn-field}
-
-{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 -->
 ### Pod 的 setHostnameAsFQDN 字段  {#pod-sethostnameasfqdn-field}
 
@@ -346,8 +346,8 @@ When a Pod is configured to have fully qualified domain name (FQDN), its hostnam
 When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the Pod's FQDN into the hostname for that Pod's namespace. In this case, both `hostname` and `hostname --fqdn` return the Pod's FQDN.
 -->
 当 Pod 配置为具有全限定域名 (FQDN) 时，其主机名是短主机名。
- 例如，如果你有一个具有完全限定域名 `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example` 的 Pod，
- 则默认情况下，该 Pod 内的 `hostname` 命令返回 `busybox-1`，而 `hostname --fqdn` 命令返回 FQDN。
+例如，如果你有一个具有完全限定域名 `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example` 的 Pod，
+则默认情况下，该 Pod 内的 `hostname` 命令返回 `busybox-1`，而 `hostname --fqdn` 命令返回 FQDN。
 
 当你在 Pod 规约中设置了 `setHostnameAsFQDN: true` 时，kubelet 会将 Pod
 的全限定域名（FQDN）作为该 Pod 的主机名记录到 Pod 所在名字空间。
@@ -359,16 +359,14 @@ In Linux, the hostname field of the kernel (the `nodename` field of `struct utsn
 
 If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start. The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating error events, such as Failed to construct FQDN from Pod hostname and cluster domain, FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested). One way of improving user experience for this scenario is to create an [admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) to control FQDN size when users create top level objects, for example, Deployment.
 -->
-在 Linux 中，内核的主机名字段（`struct utsname` 的 `nodename` 字段）限定
-最多 64 个字符。
+在 Linux 中，内核的主机名字段（`struct utsname` 的 `nodename` 字段）限定最多 64 个字符。
 
 如果 Pod 启用这一特性，而其 FQDN 超出 64 字符，Pod 的启动会失败。
 Pod 会一直出于 `Pending` 状态（通过 `kubectl` 所看到的 `ContainerCreating`），
 并产生错误事件，例如
 "Failed to construct FQDN from Pod hostname and cluster domain, FQDN
 `long-FQDN` is too long (64 characters is the max, 70 characters requested)."
-（无法基于 Pod 主机名和集群域名构造 FQDN，FQDN `long-FQDN` 过长，至多 64
-字符，请求字符数为 70）。
+（无法基于 Pod 主机名和集群域名构造 FQDN，FQDN `long-FQDN` 过长，至多 64 个字符，请求字符数为 70）。
 对于这种场景而言，改善用户体验的一种方式是创建一个
 [准入 Webhook 控制器](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)，
 在用户创建顶层对象（如 Deployment）的时候控制 FQDN 的长度。
@@ -386,13 +384,15 @@ following Pod-specific DNS policies. These policies are specified in the
   See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for more details.
 - "`ClusterFirst`": Any DNS query that does not match the configured cluster
-  domain suffix, such as "`www.kubernetes.io`", is forwarded to the upstream
-  nameserver inherited from the node. Cluster administrators may have extra
+  domain suffix, such as "`www.kubernetes.io`", is forwarded to an upstream
+  nameserver by the DNS server. Cluster administrators may have extra
   stub-domain and upstream DNS servers configured.
   See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for details on how DNS queries are handled in those cases.
 - "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
-  explicitly set its DNS policy "`ClusterFirstWithHostNet`".
+  explicitly set its DNS policy to "`ClusterFirstWithHostNet`". Otherwise, Pods
+  running with hostNetwork and `"ClusterFirst"` will fallback to the behavior
+  of the `"Default"` policy.
   - Note: This is not supported on Windows. See [below](#dns-windows) for details
 - "`None`": It allows a Pod to ignore DNS settings from the Kubernetes
   environment. All DNS settings are supposed to be provided using the
@@ -404,25 +404,25 @@ following Pod-specific DNS policies. These policies are specified in the
 DNS 策略可以逐个 Pod 来设定。目前 Kubernetes 支持以下特定 Pod 的 DNS 策略。
 这些策略可以在 Pod 规约中的 `dnsPolicy` 字段设置：
 
-- "`Default`": Pod 从运行所在的节点继承名称解析配置。参考
-  [相关讨论](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)
-  获取更多信息。
+- "`Default`": Pod 从运行所在的节点继承名称解析配置。
+  参考[相关讨论](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)获取更多信息。
 - "`ClusterFirst`": 与配置的集群域后缀不匹配的任何 DNS 查询（例如 "www.kubernetes.io"）
-  都将转发到从节点继承的上游名称服务器。集群管理员可能配置了额外的存根域和上游 DNS 服务器。
+  都会由 DNS 服务器转发到上游名称服务器。集群管理员可能配置了额外的存根域和上游 DNS 服务器。
   参阅[相关讨论](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)
   了解在这些场景中如何处理 DNS 查询的信息。
-- "`ClusterFirstWithHostNet`"：对于以 hostNetwork 方式运行的 Pod，应显式设置其 DNS 策略
-  "`ClusterFirstWithHostNet`"。
+- "`ClusterFirstWithHostNet`": 对于以 hostNetwork 方式运行的 Pod，应将其 DNS 策略显式设置为
+  "`ClusterFirstWithHostNet`"。否则，以 hostNetwork 方式和 `"ClusterFirst"` 策略运行的
+  Pod 将会做出回退至 `"Default"` 策略的行为。
   - 注意：这在 Windows 上不支持。 有关详细信息，请参见[下文](#dns-windows)。
-- "`None`": 此设置允许 Pod 忽略 Kubernetes 环境中的 DNS 设置。Pod 会使用其 `dnsConfig` 字段
-  所提供的 DNS 设置。
+- "`None`": 此设置允许 Pod 忽略 Kubernetes 环境中的 DNS 设置。Pod 会使用其 `dnsConfig`
+  字段所提供的 DNS 设置。
   参见 [Pod 的 DNS 配置](#pod-dns-config)节。
 
+{{< note >}}
 <!--
 "Default" is not the default DNS policy. If `dnsPolicy` is not
 explicitly specified, then "ClusterFirst" is used.
 -->
-{{< note >}}
 "Default" 不是默认的 DNS 策略。如果未明确指定 `dnsPolicy`，则使用 "ClusterFirst"。
 {{< /note >}}
 
@@ -454,9 +454,12 @@ spec:
 
 <!--
 ### Pod's DNS Config {#pod-dns-config}
+-->
+### Pod 的 DNS 配置  {#pod-dns-config}
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
+<!--
 Pod's DNS Config allows users more control on the DNS settings for a Pod.
 
 The `dnsConfig` field is optional and it can work with any `dnsPolicy` settings.
@@ -465,10 +468,6 @@ to be specified.
 
 Below are the properties a user can specify in the `dnsConfig` field:
 -->
-### Pod 的 DNS 配置  {#pod-dns-config}
-
-{{< feature-state for_k8s_version="v1.14" state="stable" >}}
-
 Pod 的 DNS 配置可让用户对 Pod 的 DNS 设置进行更多控制。
 
 `dnsConfig` 字段是可选的，它可以与任何 `dnsPolicy` 设置一起使用。
@@ -539,33 +538,44 @@ kubectl exec -it dns-example -- cat /etc/resolv.conf
 The output is similar to this:
 -->
 输出类似于：
+
 ```
-nameserver fd00:79:30::a
+nameserver 2001:db8:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
 
 <!--
-#### Expanded DNS Configuration
-
-{{< feature-state for_k8s_version="1.22" state="alpha" >}}
-
-By default, for Pod's DNS Config, Kubernetes allows at most 6 search domains and
-a list of search domains of up to 256 characters.
-
-If the feature gate `ExpandedDNSConfig` is enabled for the kube-apiserver and
-the kubelet, it is allowed for Kubernetes to have at most 32 search domains and
-a list of search domains of up to 2048 characters.
+## DNS search domain list limits
 -->
-#### 扩展 DNS 配置  {#expanded-dns-configuration}
+## DNS 搜索域列表限制  {#dns-search-domain-list-limits}
 
-{{< feature-state for_k8s_version="1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="1.26" state="beta" >}}
 
-对于 Pod DNS 配置，Kubernetes 默认允许最多 6 个 搜索域（ Search Domain） 
-以及一个最多 256 个字符的搜索域列表。
+<!--
+Kubernetes itself does not limit the DNS Config until the length of the search
+domain list exceeds 32 or the total length of all search domains exceeds 2048.
+This limit applies to the node's resolver configuration file, the Pod's DNS
+Config, and the merged DNS Config respectively.
+-->
+Kubernetes 本身不限制 DNS 配置，最多可支持 32 个搜索域列表，所有搜索域的总长度不超过 2048。
+此限制分别适用于节点的解析器配置文件、Pod 的 DNS 配置和合并的 DNS 配置。
 
-如果启用 kube-apiserver 和 kubelet 的特性门控 `ExpandedDNSConfig`，Kubernetes 将可以有最多 32 个 
-搜索域以及一个最多 2048 个字符的搜索域列表。
+{{< note >}}
+<!--
+Some container runtimes of earlier versions may have their own restrictions on
+the number of DNS search domains. Depending on the container runtime
+environment, the pods with a large number of DNS search domains may get stuck in
+the pending state.
+
+It is known that containerd v1.5.5 or earlier and CRI-O v1.21 or earlier have
+this problem.
+-->
+早期版本的某些容器运行时可能对 DNS 搜索域的数量有自己的限制。
+根据容器运行环境，那些具有大量 DNS 搜索域的 Pod 可能会卡在 Pending 状态。
+
+众所周知 containerd v1.5.5 或更早版本和 CRI-O v1.21 或更早版本都有这个问题。
+{{< /note >}}
 
 <!--
 ## DNS resolution on Windows nodes {#dns-windows}
@@ -608,6 +618,6 @@ a list of search domains of up to 2048 characters.
 For guidance on administering DNS configurations, check
 [Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 -->
-有关管理 DNS 配置的指导，请查看
-[配置 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/)
+有关管理 DNS 配置的指导，
+请查看[配置 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/)
 

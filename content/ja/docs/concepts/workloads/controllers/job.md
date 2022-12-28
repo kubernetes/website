@@ -482,7 +482,7 @@ Events:
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
-この機能を使うためには、[APIサーバー](/ja/docs/reference/command-line-tools-reference/kube-apiserver/)上で`JobMutableNodeSchedulingDirectives`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
+この機能を使うためには、[APIサーバー](/docs/reference/command-line-tools-reference/kube-apiserver/)上で`JobMutableNodeSchedulingDirectives`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
 デフォルトで有効になっています。
 {{< /note >}}
 
@@ -549,7 +549,7 @@ spec:
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< note >}}
-この機能を使うためには、[APIサーバー](/ja/docs/reference/command-line-tools-reference/kube-apiserver/)と[コントローラーマネージャー](/docs/reference/command-line-tools-reference/kube-controller-manager/)で`JobTrackingWithFinalizers`
+この機能を使うためには、[APIサーバー](/docs/reference/command-line-tools-reference/kube-apiserver/)と[コントローラーマネージャー](/docs/reference/command-line-tools-reference/kube-controller-manager/)で`JobTrackingWithFinalizers`
 [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
 
 有効にした場合、コントロールプレーンは下記に示す機能で新しいJobを追跡します。この機能が有効になる前に作成されたJobは影響を受けません。ユーザーとして実感できる唯一の違いは、コントロールプレーンのJob完了ステータス追跡がより正確になるということだけです。
@@ -596,7 +596,7 @@ Replication Controllerは、終了することが想定されていないPod(Web
 * Jobのさまざまな実行方法について学ぶ:
    * [ワークキューを用いた粒度の粗い並列処理](/docs/tasks/job/coarse-parallel-processing-work-queue/)
    * [ワークキューを用いた粒度の細かい並列処理](/docs/tasks/job/fine-parallel-processing-work-queue/)
-   * [静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/ja/docs/tasks/job/indexed-parallel-processing-static/) を使う(beta段階)
+   * [静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/ja/docs/tasks/job/indexed-parallel-processing-static/) を使う
    * テンプレートを元に複数のJobを作成: [拡張機能を用いた並列処理](/docs/tasks/job/parallel-processing-expansion/)
 * [終了したJobの自動クリーンアップ](#clean-up-finished-jobs-automatically)のリンクから、クラスターが完了または失敗したJobをどのようにクリーンアップするかをご確認ください。
 * `Job`はKubernetes REST APIの一部です。JobのAPIを理解するために、{{< api-reference page="workload-resources/job-v1" >}}オブジェクトの定義をお読みください。

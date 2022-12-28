@@ -1,13 +1,13 @@
 ---
 title: 容器运行时接口（CRI）
 content_type: concept
-weight: 50
+weight: 60
 ---
 
 <!-- 
 title: Container Runtime Interface (CRI)
 content_type: concept
-weight: 50
+weight: 60
 -->
 
 <!-- overview -->
@@ -23,16 +23,16 @@ each Node in your cluster, so that the
 -->
 CRI 是一个插件接口，它使 kubelet 能够使用各种容器运行时，无需重新编译集群组件。
 
-你需要在集群中的每个节点上都有一个可以正常工作的
-{{<glossary_tooltip text="容器运行时" term_id="container-runtime">}}，
-这样
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 能启动
+你需要在集群中的每个节点上都有一个可以正常工作的{{<glossary_tooltip text="容器运行时" term_id="container-runtime">}}，
+这样 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 能启动
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 及其容器。
 
 {{< glossary_definition prepend="容器运行时接口（CRI）是" term_id="container-runtime-interface" length="all" >}}
 
 <!-- body -->
-<!-- ## The API {#api} -->
+<!--
+## The API {#api}
+-->
 ## API {#api}
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
@@ -44,11 +44,9 @@ runtime, which can be configured separately within the kubelet by using the
 `--image-service-endpoint` and `--container-runtime-endpoint` [command line
 flags](/docs/reference/command-line-tools-reference/kubelet)
 -->
-当通过 gRPC 连接到容器运行时时，kubelet 充当客户端。
-运行时和镜像服务端点必须在容器运行时中可用，可以使用
-[命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kubelet)的
-`--image-service-endpoint` 和 `--container-runtime-endpoint`
-在 kubelet 中单独配置。
+当通过 gRPC 连接到容器运行时，kubelet 将充当客户端。运行时和镜像服务端点必须在容器运行时中可用，
+可以使用 `--image-service-endpoint` 和 `--container-runtime-endpoint`
+[命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kubelet)在 kubelet 中单独配置。
 
 <!-- 
 For Kubernetes v{{< skew currentVersion >}}, the kubelet prefers to use CRI `v1`.
@@ -60,13 +58,14 @@ If the kubelet cannot negotiate a supported CRI version, the kubelet gives up
 and doesn't register as a node.
 -->
 对 Kubernetes v{{< skew currentVersion >}}，kubelet 偏向于使用 CRI `v1` 版本。
-如果容器运行时不支持 CRI 的 `v1` 版本，那么 kubelet 会尝试协商任何旧的其他支持版本。
-如果 kubelet 无法协商支持的 CRI 版本，则 kubelet 放弃并且不会注册为节点。
+如果容器运行时不支持 CRI 的 `v1` 版本，那么 kubelet 会尝试协商较老的、仍被支持的所有版本。
+v{{< skew currentVersion >}} 版本的 kubelet 也可协商 CRI `v1alpha2` 版本，但该版本被视为已弃用。
+如果 kubelet 无法协商出可支持的 CRI 版本，则 kubelet 放弃并且不会注册为节点。
 
 <!-- 
 ## Upgrading
 
-When upgrading Kubernetes, then the kubelet tries to automatically select the
+When upgrading Kubernetes, the kubelet tries to automatically select the
 latest CRI version on restart of the component. If that fails, then the fallback
 will take place as mentioned above. If a gRPC re-dial was required because the
 container runtime has been upgraded, then the container runtime must also
