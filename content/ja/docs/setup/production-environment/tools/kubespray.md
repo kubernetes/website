@@ -77,7 +77,7 @@ Kubesprayは多くの点でデプロイメントをカスタマイズする機�
   * {{< glossary_tooltip term_id="cri-o" >}}
 * 証明書の生成方法
 
-Kubesprayは[variableファイル](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)によってカスタマイズできます。Kubesprayを始めて使う場合は、クラスターをデプロイし、Kubernetesを探索するためにKubesprayの既定の設定の使用を検討してください。
+Kubesprayは[variableファイル](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)によってカスタマイズできます。Kubesprayを使い始めたばかりであれば、Kubesprayのデフォルト設定を使用してクラスターをデプロイし、Kubernetesを探索することを検討してください。
 
 ### (4/5) クラスターのデプロイ
 
