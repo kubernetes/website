@@ -61,7 +61,7 @@ Kubesprayは環境のプロビジョニングを支援するために次のユ�
 
 サーバーをプロビジョニングした後、[Ansibleのインベントリーファイル](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)を作成します。これは手動またはダイナミックインベントリースクリプトによって行うことができます。詳細については、"[独自のインベントリーを構築する](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)"を参照してください。
 
-### (3/5) クラスタ作成の計画
+### (3/5) クラスター作成の計画
 
 Kubesprayは多くの点でデプロイメントをカスタマイズする機能を提供します:
 
