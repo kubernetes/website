@@ -26,22 +26,7 @@ criteria that Pod should be satisfied before considered schedulable. This field 
 only when a Pod is created (either by the client, or mutated during admission). After creation,
 each schedulingGate can be removed in arbitrary order, but addition of a new scheduling gate is disallowed.
 
-{{<mermaid>}}
-stateDiagram-v2
-    s1: pod created
-    s2: pod scheduling gated
-    s3: pod scheduling ready
-    s4: pod running
-    if: empty scheduling gates?
-    [*] --> s1
-    s1 --> if
-    s2 --> if: scheduling gate removed
-    if --> s2: no
-    if --> s3: yes  
-    s3 --> s4
-    s4 --> [*]
-{{< /mermaid >}}
-
+{{< figure src="/docs/images/podSchedulingGates.svg" alt="pod-scheduling-gates-diagram" caption="Figure. Pod SchedulingGates" class="diagram-large" link="https://mermaid.live/edit#pako:eNplkktTwyAUhf8KgzuHWpukaYszutGlK3caFxQuCVMCGSDVTKf_XfKyPlhxz4HDB9wT5lYAptgHFuBRsdKxenFMClMYFIdfUdRYgbiD6ItJTEbR8wpEq5UpUfnDTf-5cbPoJjcbXdcaE61RVJIiqJvQ_Y30D-OCt-t3tFjcR5wZayiVnIGmkv4NiEfX9jijKTmmRH5jf0sRugOP0HyHUc1m6KGMFP27cM28fwSJDluPpNKaXqVJzmFNfHD2APRKSjnNFx9KhIpmzSfhVls3eHdTRrwG8QnxKfEZUUNeYTDBNbiaKRF_5dSfX-BQQQ0FpnEqQLJWhwIX5hyXsjbYl85wTINrgeC2EZd_xFQy7b_VJ6GCdd-itkxALE84dE3fAqXyIUZya6Qqe711OspVCI2ny2Vv35QqVO3-htt66ZWomAvVcZcv8yTfsiSFfJOydZoKvl_ttjLJVlJsblcJw-czwQ0zr9ZeqGDgeR77b2jD8xdtjtDn" >}}
 ## Usage example
 
 To mark a Pod not-ready for scheduling, you can create it with one or more scheduling gates like this:
