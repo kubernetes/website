@@ -180,7 +180,7 @@ securityContext:
 
 ## コンテナにセキュリティコンテキストを設定する
 
-コンテナに対してセキュリティ設定を行うには、コンテナマニフェストに`securityContext`フィールドを含んでください。`securityContext`フィールドには[SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)オブジェクトが入ります。
+コンテナに対してセキュリティ設定を行うには、コンテナマニフェストに`securityContext`フィールドを含めてください。`securityContext`フィールドには[SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)オブジェクトが入ります。
 コンテナに指定したセキュリティ設定は個々のコンテナに対してのみ反映され、Podレベルの設定を上書きします。コンテナの設定はPodのボリュームに対しては影響しません。
 
 こちらは一つのコンテナを持つPodの設定ファイルです。Podもコンテナも`securityContext`フィールドを含んでいます。
