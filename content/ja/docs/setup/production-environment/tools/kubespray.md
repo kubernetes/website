@@ -39,7 +39,7 @@ Kubesprayは次を提供します:
 
 ### (1/5) 下地の要件の確認
 
-次の[要件](https://github.com/kubernetes-sigs/kubespray#requirements)に従ってサーバーをプロビジョンします:
+次の[要件](https://github.com/kubernetes-sigs/kubespray#requirements)に従ってサーバーをプロビジョニングします:
 
 * **Kubernetesの最低必要バージョンはv1.22**
 * **Ansibleのコマンドを実行するマシン上にAnsible v2.11+、Jinja 2.11+とpython-netaddrがインストールされていること**
