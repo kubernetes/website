@@ -207,7 +207,7 @@ spec:
 
 ### 永続ボリュームクレームの拡大
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 PersistentVolumeClaim(PVC)の拡大はデフォルトで有効です。次のボリュームの種類で拡大できます。
 
