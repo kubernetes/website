@@ -118,7 +118,7 @@ _audit level_ of the event. The defined audit levels are:
 审计策略定义了关于应记录哪些事件以及应包含哪些数据的规则。
 审计策略对象结构定义在
 [`audit.k8s.io` API 组](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
-处理事件时，将按顺序与规则列表进行比较。第一个匹配规则设置事件的
+。处理事件时，将按顺序与规则列表进行比较。第一个匹配规则设置事件的
 **审计级别（Audit Level）**。已定义的审计级别有：
 
 <!--
