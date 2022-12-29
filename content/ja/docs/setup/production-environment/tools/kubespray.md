@@ -43,7 +43,7 @@ Kubesprayは次を提供します:
 
 * **Kubernetesの最低必要バージョンはv1.22**
 * **Ansibleのコマンドを実行するマシン上にAnsible v2.11+、Jinja 2.11+とpython-netaddrがインストールされていること**
-* ターゲットサーバーはdockerイメージをpullするために**インターネットにアクセスできる**必要があります。そうでは無い場合は追加の構成が必要です([オフライン環境を参照](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
+* ターゲットサーバーはdockerイメージをpullするために**インターネットにアクセスできる**必要があります。そうでは無い場合は追加の構成が必要です([オフライン環境](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md)を参照)
 * ターゲットのサーバーは**IPv4フォワーディング**ができるように構成されていること。
 * PodとServiceにIPv6を使用している場合は、ターゲットサーバーは**IPv6フォワーディング**ができるように構成されていること。
 * **ファイアウォールは管理されません**。必要に応じて、適切なルールを実装しなければなりません。デプロイ中の問題を避けるためには、ファイアウォールを無効にすべきです
