@@ -49,7 +49,7 @@ Kubesprayは次を提供します:
 * **ファイアウォールは管理されないため**、従来のように独自のルールを実装しなければなりません。デプロイ中の問題を避けるためには、ファイアウォールを無効にすべきです
 * root以外のユーザーアカウントでkubesprayを実行する場合は、ターゲットサーバー上で特権昇格の方法を正しく構成されている必要があります。そして、`ansible_become`フラグ、またはコマンドパラメーター`--become`、`-b`を指定する必要があります
 
-Kubesprayは環境のプロビジョンを支援するために次のユーティリティを提供します:
+Kubesprayは環境のプロビジョニングを支援するために次のユーティリティを提供します:
 
 * 下記のクラウドプロバイダー用の[Terraform](https://www.terraform.io/)スクリプト:
   * [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
