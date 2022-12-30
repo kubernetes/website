@@ -411,9 +411,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This feature gate guards *a group* of CPUManager options whose quality level is beta.
   This feature gate will never graduate to stable.
 - `CPUManagerPolicyOptions`: Allow fine-tuning of CPUManager policies.
-- `CrossNamespaceVolumeDataSource`: Enable the usage of cross namespace volume data source
-   to allow you to specify a source namespace in the `dataSourceRef` field of a
-   PersistentVolumeClaim.
 - `CSIInlineVolume`: Enable CSI Inline volumes support for pods.
 - `CSIMigration`: Enables shims and translation logic to route volume
   operations from in-tree plugins to corresponding pre-installed CSI plugins
@@ -444,7 +441,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Does not support falling back for provision operations, for those the CSI
   plugin must be installed and configured. Requires CSIMigration feature flag
   enabled.
-- `csiMigrationRBD`: Enables shims and translation logic to route volume
+- `CSIMigrationRBD`: Enables shims and translation logic to route volume
   operations from the RBD in-tree plugin to Ceph RBD CSI plugin. Requires
   CSIMigration and csiMigrationRBD feature flags enabled and Ceph CSI plugin
   installed and configured in the cluster. This flag has been deprecated in
@@ -467,11 +464,16 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Storage Capacity](/docs/concepts/storage/storage-capacity/).
   Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
 - `CSIVolumeHealth`: Enable support for CSI volume health monitoring on node.
+- `ConsistentHTTPGetHandlers`: Normalize HTTP get URL and Header passing for lifecycle
+  handlers with probers.
 - `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
    contextual logging add extra detail to log output.
 - `ControllerManagerLeaderMigration`: Enables leader migration for
   `kube-controller-manager` and `cloud-controller-manager`.
 - `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
+- `CrossNamespaceVolumeDataSource`: Enable the usage of cross namespace volume data source
+   to allow you to specify a source namespace in the `dataSourceRef` field of a
+   PersistentVolumeClaim.
 - `CustomCPUCFSQuotaPeriod`: Enable nodes to change `cpuCFSQuotaPeriod` in
   [kubelet config](/docs/tasks/administer-cluster/kubelet-config-file/).
 - `CustomResourceValidationExpressions`: Enable expression language validation in CRD
@@ -496,6 +498,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information).
 - `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
   so that validation, merging, and mutation can be tested without committing.
+- `DynamicResourceAllocation": Enables support for resources with custom parameters and a lifecycle
+  that is independent of a Pod.
 - `EndpointSliceTerminatingCondition`: Enables EndpointSlice `terminating` and `serving`
    condition fields.
 - `EfficientWatchResumption`: Allows for storage-originated bookmark (progress
@@ -745,6 +749,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WatchBookmark`: Enable support for watch bookmark events.
 - `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
 - `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
+- `WindowsHostNetwork`: Enables support for joining Windows containers to a hosts' network namespace.
 - `WindowsHostProcessContainers`: Enables support for Windows HostProcess containers.
 
 
