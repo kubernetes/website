@@ -316,15 +316,14 @@ and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
 ## Delegating volume permission and ownership change to CSI driver
 -->
 ## 将卷权限和所有权更改委派给 CSI 驱动程序
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 If you deploy a [Container Storage Interface (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)
 driver which supports the `VOLUME_MOUNT_GROUP` `NodeServiceCapability`, the
 process of setting file ownership and permissions based on the
 `fsGroup` specified in the `securityContext` will be performed by the CSI driver
-instead of Kubernetes, provided that the `DelegateFSGroupToCSIDriver` Kubernetes
-feature gate is enabled. In this case, since Kubernetes doesn't perform any
+instead of Kubernetes. In this case, since Kubernetes doesn't perform any
 ownership and permission change, `fsGroupChangePolicy` does not take effect, and
 as specified by CSI, the driver is expected to mount the volume with the
 provided `fsGroup`, resulting in a volume that is readable/writable by the
@@ -333,20 +332,9 @@ provided `fsGroup`, resulting in a volume that is readable/writable by the
 如果你部署了一个[容器存储接口 (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)
 驱动，而该驱动支持 `VOLUME_MOUNT_GROUP` `NodeServiceCapability`，
 在 `securityContext` 中指定 `fsGroup` 来设置文件所有权和权限的过程将由 CSI
-驱动而不是 Kubernetes 来执行，前提是 Kubernetes 的 `DelegateFSGroupToCSIDriver` 
-特性门控已启用。在这种情况下，由于 Kubernetes 不执行任何所有权和权限更改，
+驱动而不是 Kubernetes 来执行。在这种情况下，由于 Kubernetes 不执行任何所有权和权限更改，
 `fsGroupChangePolicy` 不会生效，并且按照 CSI 的规定，CSI 驱动应该使用所指定的
 `fsGroup` 来挂载卷，从而生成了一个对 `fsGroup` 可读/可写的卷.
-
-<!--
-Please refer to the [KEP](https://github.com/gnufied/enhancements/blob/master/keps/sig-storage/2317-fsgroup-on-mount/README.md)
-and the description of the `VolumeCapability.MountVolume.volume_mount_group`
-field in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume)
-for more information.
--->
-更多的信息请参考 [KEP](https://github.com/gnufied/enhancements/blob/master/keps/sig-storage/2317-fsgroup-on-mount/README.md)
-和 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume) 
-中的字段 `VolumeCapability.MountVolume.volume_mount_group` 的描述。
 
 <!--
 ## Set the security context for a Container
