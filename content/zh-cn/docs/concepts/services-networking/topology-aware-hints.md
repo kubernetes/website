@@ -284,4 +284,4 @@ Kubernetes 控制平面和每个节点上的 kube-proxy，在使用拓扑感知�
 <!-- 
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
-* 参阅[通过服务连通应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 参阅[ 使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)
