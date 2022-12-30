@@ -56,7 +56,7 @@ the Service IP range to the DNS service. Assuming you configured your cluster wi
 10.96.0.0/16 and you want your DNS Service IP to be 10.96.0.10, you'd have to create a Service like
 this:
 -->
-## 为什么需要预留服务集群 IP ？
+## 为什么需要预留 Service 的 ClusterIP ？
 
 有时你可能希望服务在众所周知的 IP 上面运行，以便集群中的其他组件和用户可以使用它们。
 
