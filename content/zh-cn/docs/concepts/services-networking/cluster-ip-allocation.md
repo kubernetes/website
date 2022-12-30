@@ -3,6 +3,16 @@ title: 服务 ClusterIP 分配
 content_type: concept
 weight: 120
 ---
+<!--
+---
+reviewers:
+- sftim
+- thockin
+title: Service ClusterIP allocation
+content_type: concept
+weight: 120
+---
+-->
 
 <!-- overview -->
 <!--
@@ -36,11 +46,13 @@ been allocated will return an error.
 ## 服务 ClusterIP 是如何分配的？
 当 Kubernetes 需要为服务分配虚拟 IP 地址时，该分配会通过以下两种方式之一进行：
 
-_动态地_
-: 集群的控制器自动从配置的 IP 范围内为 `type: ClusterIP` 选择一个空闲 IP 地址。
+**动态的：**
 
-_静态地_
-: 根据为服务配置的 IP 范围，选定并设置你的 IP 地址。
+集群的控制器自动从配置的 IP 范围内为 `type: ClusterIP` 选择一个空闲 IP 地址。
+
+**静态地：**
+
+根据为服务配置的 IP 范围，选定并设置你的 IP 地址。
 
 在整个集群中，每个服务的 `ClusterIP` 都必须是唯一的。
 尝试使用已分配的 `ClusterIP` 创建服务将返回错误。
