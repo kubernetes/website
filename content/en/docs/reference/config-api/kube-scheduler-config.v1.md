@@ -144,7 +144,7 @@ at least &quot;minFeasibleNodesToFind&quot; feasible nodes no matter what the va
 Example: if the cluster size is 500 nodes and the value of this flag is 30,
 then scheduler stops finding further feasible nodes once it finds 150 feasible ones.
 When the value is 0, default percentage (5%--50% based on the size of the cluster) of the
-nodes will be scored.</p>
+nodes will be scored. It is overridden by profile level PercentageofNodesToScore.</p>
 </td>
 </tr>
 <tr><td><code>podInitialBackoffSeconds</code> <B>[Required]</B><br/>
@@ -202,7 +202,7 @@ with the extender. These extenders are shared by all scheduler profiles.</p>
     
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -301,7 +301,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
     
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <p>DefaultConstraints defines topology spread constraints to be applied to
@@ -635,6 +635,21 @@ If SchedulerName matches with the pod's &quot;spec.schedulerName&quot;, then the
 is scheduled with this profile.</p>
 </td>
 </tr>
+<tr><td><code>percentageOfNodesToScore</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>PercentageOfNodesToScore is the percentage of all nodes that once found feasible
+for running a pod, the scheduler stops its search for more feasible nodes in
+the cluster. This helps improve scheduler's performance. Scheduler always tries to find
+at least &quot;minFeasibleNodesToFind&quot; feasible nodes no matter what the value of this flag is.
+Example: if the cluster size is 500 nodes and the value of this flag is 30,
+then scheduler stops finding further feasible nodes once it finds 150 feasible ones.
+When the value is 0, default percentage (5%--50% based on the size of the cluster) of the
+nodes will be scored. It will override global PercentageOfNodesToScore. If it is empty,
+global PercentageOfNodesToScore will be used.</p>
+</td>
+</tr>
 <tr><td><code>plugins</code> <B>[Required]</B><br/>
 <a href="#kubescheduler-config-k8s-io-v1-Plugins"><code>Plugins</code></a>
 </td>
@@ -787,6 +802,13 @@ be invoked before default plugins, default plugins must be disabled and re-enabl
 <tbody>
     
   
+<tr><td><code>preEnqueue</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
+</td>
+<td>
+   <p>PreEnqueue is a list of plugins that should be invoked before adding pods to the scheduling queue.</p>
+</td>
+</tr>
 <tr><td><code>queueSort</code> <B>[Required]</B><br/>
 <a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
 </td>
@@ -1166,11 +1188,11 @@ enableProfiling is true.</p>
 
 **Appears in:**
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 
 <p>LeaderElectionConfiguration defines the configuration of leader election
