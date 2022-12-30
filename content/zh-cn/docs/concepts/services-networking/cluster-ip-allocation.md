@@ -24,8 +24,8 @@ Service across the different backing Pods.
 -->
 
 在 Kubernetes 中，[Service](/zh-cn/docs/concepts/services-networking/service/) 是一种抽象的方式，用于公开在一组 Pod 上运行的应用程序。
-服务可以具有一个集群作用域的虚拟 IP 地址（使用 `type: ClusterIP` 的服务）。
-客户端可以使用该虚拟 IP 地址进行连接，Kubernetes 通过不同的后台 Pod 对该服务的流量进行负载均衡。
+Services 可以具有一个集群作用域的虚拟 IP 地址（使用 `type: ClusterIP` 的 Service）。
+客户端可以使用该虚拟 IP 地址进行连接，Kubernetes 通过不同的后台 Pod 对该 Service 的流量进行负载均衡。
 <!-- body -->
 <!--
 ## How Service ClusterIPs are allocated?
@@ -43,8 +43,8 @@ Across your whole cluster, every Service `ClusterIP` must be unique.
 Trying to create a Service with a specific `ClusterIP` that has already
 been allocated will return an error.
 -->
-## 服务 ClusterIP 是如何分配的？
-当 Kubernetes 需要为服务分配虚拟 IP 地址时，该分配会通过以下两种方式之一进行：
+## Service ClusterIP 是如何分配的？
+当 Kubernetes 需要为 Service 分配虚拟 IP 地址时，该分配会通过以下两种方式之一进行：
 
 **动态的：**
 
@@ -52,10 +52,10 @@ been allocated will return an error.
 
 **静态地：**
 
-根据为服务配置的 IP 范围，选定并设置你的 IP 地址。
+根据为 Service 配置的 IP 范围，选定并设置你的 IP 地址。
 
-在整个集群中，每个服务的 `ClusterIP` 都必须是唯一的。
-尝试使用已分配的 `ClusterIP` 创建服务将返回错误。
+在整个集群中，每个 Service 的 `ClusterIP` 都必须是唯一的。
+尝试使用已分配的 `ClusterIP` 创建 Service 将返回错误。
 
 <!--
 ## Why do you need to reserve Service Cluster IPs?
@@ -70,11 +70,11 @@ this:
 -->
 ## 为什么需要预留 Service 的 ClusterIP ？
 
-有时你可能希望服务在众所周知的 IP 上面运行，以便集群中的其他组件和用户可以使用它们。
+有时你可能希望 Services 在众所周知的 IP 上面运行，以便集群中的其他组件和用户可以使用它们。
 
-最好的例子是集群的 DNS 服务。 作为一种非强制性的约定，一些 Kubernetes 安装程序
-将服务 IP 范围中的第 10 个 IP 地址分配给 DNS 服务。 假设将集群的服务 IP 范围配置为 
-10.96.0.0/16，并且希望 DNS 服务 IP 为 10.96.0.10，则必须创建如下服务：
+最好的例子是集群的 DNS Service。 作为一种非强制性的约定，一些 Kubernetes 安装程序
+将 Service IP 范围中的第 10 个 IP 地址分配给 DNS 服务。 假设将集群的 Service IP 范围配置为 
+10.96.0.0/16，并且希望 DNS Service IP 为 10.96.0.10，则必须创建如下 Service：
 
 ```yaml
 apiVersion: v1
@@ -107,8 +107,8 @@ before or in parallel with dynamic allocation, there is a chance they can alloca
 you will not be able to create the DNS Service because it will fail with a conflict error.
 -->
 但如前所述，IP 地址 10.96.0.10 尚未被保留。如果在动态分配
-之前或同时创建其他服务，则它们有可能分配此 IP，因此，
-你将无法创建 DNS 服务，因为它会因冲突错误而失败。
+之前或同时创建其他 Service，则它们有可能分配此 IP，因此，
+你将无法创建 DNS Service，因为它会因冲突错误而失败。
 
 <!--
 ## How can you avoid Service ClusterIP conflicts? {#avoid-ClusterIP-conflict}
@@ -126,7 +126,7 @@ risk of collision.
 
 ## 如何避免 Service ClusterIP 冲突？{#avoid-ClusterIP-conflict}
 
-Kubernetes 中将 ClusterIP 分配给服务的分配策略降低了冲突的风险。
+Kubernetes 中将 ClusterIP 分配给 Service 的分配策略降低了冲突的风险。
 
 `ClusterIP` 范围根据公式 `min(max(16, cidrSize / 16), 256)` 进行划分，
 描述为不小于 16 且不大于 256，并在二者之间有一个渐进的步长。
@@ -147,7 +147,7 @@ of Services.
 -->
 
 ### 示例 1 {#allocation-example-1}
-此示例使用 IP 地址范围：10.96.0.0/24（CIDR 表示法）作为服务的 IP 地址。
+此示例使用 IP 地址范围：10.96.0.0/24（CIDR 表示法）作为 Services 的 IP 地址。
 
 Range Size: 2<sup>8</sup> - 2 = 254  
 Band Offset: `min(max(16, 256/16), 256)` = `min(16, 256)` = 16  
@@ -168,7 +168,7 @@ This example uses the IP address range: 10.96.0.0/20 (CIDR notation) for the IP 
 of Services.
 -->
 ### 示例 2 {#allocation-example-2}
-此示例使用IP地址范围：10.96.00/20（CIDR表示法）作为服务的IP地址。
+此示例使用IP地址范围：10.96.00/20（CIDR表示法）作为 Services 的IP地址。
 
 Range Size: 2<sup>12</sup> - 2 = 4094  
 Band Offset: `min(max(16, 4096/16), 256)` = `min(256, 256)` = 256  
@@ -189,7 +189,7 @@ This example uses the IP address range: 10.96.0.0/16 (CIDR notation) for the IP 
 of Services.
 -->
 ### 示例 3 {#allocation-example-3}
-此示例使用IP地址范围：10.96.0.0/16（CIDR表示法）作为服务的IP地址。
+此示例使用IP地址范围：10.96.0.0/16（CIDR表示法）作为 Services 的IP地址。
 
 Range Size: 2<sup>16</sup> - 2 = 65534  
 Band Offset: `min(max(16, 65536/16), 256)` = `min(4096, 256)` = 256  
@@ -212,6 +212,6 @@ pie showData
 -->
 ## {{% heading "接下来" %}}
 
-* 阅读 [服务外部流量策略](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* 阅读 [应用程序与服务连接](/docs/concepts/services-networking/connect-applications-service/)
-* 阅读 [服务](/docs/concepts/services-networking/service/)
+* 阅读 [服务外部流量策略](zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
+* 阅读 [应用程序与服务连接](zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 阅读 [服务](zh-cn/docs/concepts/services-networking/service/)
