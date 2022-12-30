@@ -235,7 +235,8 @@ cat << EOF | tee /etc/cni/net.d/10-containerd-net.conflist
    },
    {
      "type": "portmap",
-     "capabilities": {"portMappings": true}
+     "capabilities": {"portMappings": true},
+     "externalSetMarkChain": "KUBE-MARK-MASQ"
    }
  ]
 }

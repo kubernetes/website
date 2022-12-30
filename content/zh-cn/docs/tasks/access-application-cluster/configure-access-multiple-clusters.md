@@ -6,7 +6,6 @@ card:
   name: tasks
   weight: 40
 ---
-
 <!--
 title: Configure Access to Multiple Clusters
 content_type: task
@@ -17,6 +16,7 @@ card:
 -->
 
 <!-- overview -->
+
 <!--
 This page shows how to configure access to multiple clusters by using
 configuration files. After your clusters, users, and contexts are defined in
@@ -58,8 +58,7 @@ run `kubectl version --client`. The kubectl version should be
 cluster's API server.
 -->
 要检查 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 是否安装，
-执行 `kubectl version --client` 命令。
-kubectl 的版本应该与集群的 API
+执行 `kubectl version --client` 命令。kubectl 的版本应该与集群的 API
 服务器[使用同一次版本号](/zh-cn/releases/version-skew-policy/#kubectl)。
 
 <!-- steps -->
@@ -415,7 +414,7 @@ $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
 ```
 
 <!--
- The `KUBECONFIG` environment variable is a list of paths to configuration files. The list is
+The `KUBECONFIG` environment variable is a list of paths to configuration files. The list is
 colon-delimited for Linux and Mac, and semicolon-delimited for Windows. If you have
 a `KUBECONFIG` environment variable, familiarize yourself with the configuration files
 in the list.
@@ -519,8 +518,7 @@ For example:
 ## 将 $HOME/.kube/config 追加到 KUBECONFIG 环境变量中    {#append-home-kube-config-to-your-kubeconfig-environment-variable}
 
 如果有 `$HOME/.kube/config` 文件，并且还未列在 `KUBECONFIG` 环境变量中，
-那么现在将它追加到 `KUBECONFIG` 环境变量中。
-例如：
+那么现在将它追加到 `KUBECONFIG` 环境变量中。例如：
 
 ### Linux
 
@@ -564,6 +562,29 @@ export KUBECONFIG="$KUBECONFIG_SAVED"
 ```powershell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
+
+<!--
+## Check the subject represented by the kubeconfig
+
+It is not always obvious what attributes (username, groups) you will get after authenticating to the cluster. 
+It can be even more challenging if you are managing more than one cluster at the same time.
+-->
+## 检查 kubeconfig 所表示的主体   {#check-the-subject}
+
+你在通过集群的身份验证后将获得哪些属性（用户名、组），这一点并不总是很明显。
+如果你同时管理多个集群，这可能会更具挑战性。
+
+<!--
+There is a `kubectl` alpha subcommand command to check subject attributes, such as username,
+for your selected Kubernetes client context: `kubectl alpha auth whoami`.
+
+Read [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
+to learn about this in more detail.
+-->
+对于你所选择的 Kubernetes 客户端上下文，有一个 `kubectl` Alpha 子命令可以检查用户名等主体属性：
+`kubectl alpha auth whoami`。
+
+更多细节请参阅[通过 API 访问客户端的身份验证信息](/zh-cn/docs/reference/access-authn-authz/authentication/#self-subject-review)。
 
 ## {{% heading "whatsnext" %}}
 

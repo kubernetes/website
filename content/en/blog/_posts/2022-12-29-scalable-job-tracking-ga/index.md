@@ -152,4 +152,4 @@ done, from testing and filing bugs to reviewing code.
 
 On behalf of SIG Apps, I would like to especially thank Jordan Liggitt (Google)
 for helping me debug and brainstorm solutions for more than one race condition
-and Maciej Szulik (Red Hat) for his conscious reviews.
+and Maciej Szulik (Red Hat) for his thorough reviews.
