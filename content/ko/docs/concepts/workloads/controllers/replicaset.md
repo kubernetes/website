@@ -4,6 +4,13 @@
 #- bprashanth
 #- madhusudancs
 title: 레플리카셋
+feature:
+  title: 자가 치유
+  anchor: 레플리카셋 동작 방식
+  description: >
+    실패한 컨테이너를 재시작하고, 노드가 죽는 경우 컨테이너들을 교체하기 위해 다시 스케줄링을 하며,
+    사용자가 정의한 상태 체크에 응답하지 않는 컨테이너들을 종료시키며,
+    서비스를 제공할 준비가 완료될 때까지 해당 컨테이너를 클라이언트에 알리지 않는다.
 content_type: concept
 weight: 20
 ---
