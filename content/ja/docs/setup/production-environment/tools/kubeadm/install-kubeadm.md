@@ -64,32 +64,6 @@ sysctl --system
 
 詳細は[ネットワークプラグインの要件](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)を参照してください。
 
-## iptablesがnftablesバックエンドを使用しないようにする
-
-Linuxでは、カーネルのiptablesサブシステムの最新の代替品としてnftablesが利用できます。`iptables`ツールは互換性レイヤーとして機能し、iptablesのように動作しますが、実際にはnftablesを設定します。このnftablesバックエンドは現在のkubeadmパッケージと互換性がありません。(ファイアウォールルールが重複し、`kube-proxy`を破壊するためです。)
-
-もしあなたのシステムの`iptables`ツールがnftablesバックエンドを使用している場合、これらの問題を避けるために`iptables`ツールをレガシーモードに切り替える必要があります。これは、少なくともDebian 10(Buster)、Ubuntu 19.04、Fedora 29、およびこれらのディストリビューションの新しいリリースでのデフォルトです。RHEL 8はレガシーモードへの切り替えをサポートしていないため、現在のkubeadmパッケージと互換性がありません。
-
-{{< tabs name="iptables_legacy" >}}
-{{% tab name="DebianまたはUbuntu" %}}
-```bash
-# レガシーバイナリがインストールされていることを確認してください
-sudo apt-get install -y iptables arptables ebtables
-
-# レガシーバージョンに切り替えてください。
-sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
-sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
-sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
-sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy
-```
-{{% /tab %}}
-{{% tab name="Fedora" %}}
-```bash
-update-alternatives --set iptables /usr/sbin/iptables-legacy
-```
-{{% /tab %}}
-{{< /tabs >}}
-
 ## 必須ポートの確認
 
 ### コントロールプレーンノード
