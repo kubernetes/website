@@ -1042,7 +1042,11 @@ traffic. Nodes without any Pods for a particular LoadBalancer Service will fail
 the NLB Target Group's health check on the auto-assigned
 `.spec.healthCheckNodePort` and not receive any traffic.
 
-In order to achieve even traffic, either use a DaemonSet, or specify [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/) to not locate on the same node.
+In order to achieve evenly balanced traffic, specify [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+that minimize the chance of having multiple replicas of your app running on
+the same node. You could also use a DaemonSet if you prefer to have exactly
+one copy of the app on each of a set of nodes (for example: if you are
+implementing some kinds of service mesh).
 
 You can also use NLB Services with the [internal load balancer](/docs/concepts/services-networking/service/#internal-load-balancer)
 annotation.
