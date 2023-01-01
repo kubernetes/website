@@ -12,4 +12,3 @@ spec:
       cpu: "1"
     min:
       cpu: 100m
-    type: Container
