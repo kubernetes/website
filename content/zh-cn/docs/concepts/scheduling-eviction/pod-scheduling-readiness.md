@@ -41,29 +41,12 @@ criteria that Pod should be satisfied before considered schedulable. This field 
 only when a Pod is created (either by the client, or mutated during admission). After creation,
 each schedulingGate can be removed in arbitrary order, but addition of a new scheduling gate is disallowed.
 -->
-## 配置 Pod schedulingGates
+## 配置 Pod schedulingGates  {#configuring-pod-schedulinggates}
 
 `schedulingGates` 字段包含一个字符串列表，每个字符串文字都被视为 Pod 在被认为可调度之前应该满足的标准。
 该字段只能在创建 Pod 时初始化（由客户端创建，或在准入期间更改）。
 创建后，每个 schedulingGate 可以按任意顺序删除，但不允许添加新的调度门控。
 
-<!--
-{{<mermaid>}}
-stateDiagram-v2
-    s1: 创建 Pod
-    s2: pod scheduling gated
-    s3: pod scheduling ready
-    s4: pod running
-    if: empty scheduling gates?
-    [*] --> s1
-    s1 --> if
-    s2 --> if: scheduling gate removed
-    if --> s2: no
-    if --> s3: yes  
-    s3 --> s4
-    s4 --> [*]
-{{< /mermaid >}}
--->
 {{<mermaid>}}
 stateDiagram-v2
     s1: 创建 Pod
@@ -84,17 +67,16 @@ stateDiagram-v2
 ## Usage example
 
 To mark a Pod not-ready for scheduling, you can create it with one or more scheduling gates like this:
-
-{{< codenew file="pods/pod-with-scheduling-gates.yaml" >}}
-
-After the Pod's creation, you can check its state using:
 -->
-## 用法示例
+## 用法示例  {#usage-example}
 
 要将 Pod 标记为未准备好进行调度，你可以在创建 Pod 时附带一个或多个调度门控，如下所示：
 
 {{< codenew file="pods/pod-with-scheduling-gates.yaml" >}}
 
+<!--
+After the Pod's creation, you can check its state using:
+-->
 Pod 创建后，你可以使用以下方法检查其状态：
 
 ```bash
@@ -132,15 +114,14 @@ The output is:
 <!--
 To inform scheduler this Pod is ready for scheduling, you can remove its `schedulingGates` entirely
 by re-applying a modified manifest:
-
-{{< codenew file="pods/pod-without-scheduling-gates.yaml" >}}
-
-You can check if the `schedulingGates` is cleared by running:
 -->
 要通知调度程序此 Pod 已准备好进行调度，你可以通过重新应用修改后的清单来完全删除其 `schedulingGates`：
 
 {{< codenew file="pods/pod-without-scheduling-gates.yaml" >}}
 
+<!--
+You can check if the `schedulingGates` is cleared by running:
+-->
 你可以通过运行以下命令检查 `schedulingGates` 是否已被清空：
 
 ```bash
@@ -174,7 +155,7 @@ The metric `scheduler_pending_pods` comes with a new label `"gated"` to distingu
 has been tried scheduling but claimed as unschedulable, or explicitly marked as not ready for
 scheduling. You can use `scheduler_pending_pods{queue="gated"}` to check the metric result.
 -->
-## 可观测性
+## 可观测性  {#observability}
 
 指标 `scheduler_pending_pods` 带有一个新标签 `"gated"`，
 以区分 Pod 是否已尝试调度但被宣称不可调度，或明确标记为未准备好调度。
@@ -185,5 +166,4 @@ scheduling. You can use `scheduler_pending_pods{queue="gated"}` to check the met
 <!--
 * Read the [PodSchedulingReadiness KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/3521-pod-scheduling-readiness) for more details
 -->
-
 * 阅读 [PodSchedulingReadiness KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/3521-pod-scheduling-readiness) 了解更多详情
