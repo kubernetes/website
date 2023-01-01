@@ -344,3 +344,104 @@ use the LocalService service account as it is the least privileged of the three 
 在三者之中最高，只有在绝对需要的时候才应该使用。只要可能，应该使用
 LocalService 服务账号，因为该账号在三者中特权最低。
 
+<!--
+### Local accounts {#local-accounts}
+
+If configured, HostProcess containers can also run as local user accounts which allows for node operators to give
+fine-grained access to workloads.
+
+To run HostProcess containers as a local user; A local usergroup must first be created on the node
+and the name of that local usergroup must be specified in the `runAsUserName` field in the deployment.
+Prior to initializing the HostProcess container, a new **ephemeral** local user account to be created and joined to the specified usergroup, from which the container is run.
+This provides a number a benefits including eliminating the need to manage passwords for local user accounts.
+An initial HostProcess container running as a service account can be used to
+prepare the user groups for later HostProcess containers.
+
+{{< note >}}
+Running HostProcess containers as local user accounts requires containerd v1.7+
+{{< /note >}}
+-->
+
+### 本地账户 {#local-accounts}
+
+如果已配置，HostProcess 容器也可以作为本地用户帐户运行，这允许节点操作员对工作负载进行细粒度访问。
+
+以本地用户身份运行 HostProcess 容器，必须首先在节点上创建本地用户组，并且必须在 deployment 的 `runAsUserName` 字段中指定该本地用户组的名称。在初始化 HostProcess 容器之前，将创建一个新的**临时**本地用户帐户，并将其加入到运行容器的指定用户组。这提供了许多好处，包括无需管理本地用户帐户的密码。作为服务帐户运行的初始 HostProcess 容器可用于为以后的 HostProcess 容器准备用户组。
+
+{{< note >}}
+作为本地用户帐户运行 HostProcess 容器需要 containerd v1.7+。
+{{< /note >}}
+
+<!--
+Example:
+
+1. Create a local user group on the node (this can be done in another HostProcess container).
+
+    ```cmd
+    net localgroup hpc-localgroup /add
+    ```
+
+1. Grant access to desired resources on the node to the local usergroup.
+   This can be done with tools like [icacls](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls).
+
+1. Set `runAsUserName` to the name of the local usergroup for the pod or individual containers.
+
+    ```yaml
+    securityContext:
+      windowsOptions:
+        hostProcess: true
+        runAsUserName: hpc-localgroup
+    ```
+
+1. Schedule the pod!
+-->
+
+示例:
+
+1. 在节点上创建本地用户组（这可以在另一个 HostProcess 容器中完成）。
+
+    ```cmd
+    net localgroup hpc-localgroup /add
+    ```
+
+1. 向本地用户组授予对节点上所需资源的访问权限。这可以通过 [iccls](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls) 等工具完成。
+
+1. 将 `runAsUserName` 设置为 Pod 或单个容器的本地用户组的名称。
+
+    ```yaml
+    securityContext:
+      windowsOptions:
+        hostProcess: true
+        runAsUserName: hpc-localgroup
+    ```
+
+1. 调度 Pod！
+
+<!--
+## Base Image for HostProcess Containers
+
+HostProcess containers can be built from any of the existing [Windows Container base images](https://learn.microsoft.com/virtualization/windowscontainers/manage-containers/container-base-images).
+
+Additionally a new base mage has been created just for HostProcess containers!
+For more information please check out the [windows-host-process-containers-base-image github project](https://github.com/microsoft/windows-host-process-containers-base-image#overview).
+
+## Troubleshooting HostProcess containers
+
+- HostProcess containers fail to start with `failed to create user process token: failed to logon user: Access is denied.: unknown`
+
+  Ensure containerd is running as `LocalSystem` or `LocalService` service accounts. User accounts (even Administrator accounts) do not have permissions to create logon tokens for any of the supported [user accounts](#choosing-a-user-account).
+-->
+
+## HostProcess 容器的基本镜像
+
+HostProcess容器可以从任何现有的[Windows容器基本映像](https://learn.microsoft.com/virtualization/windowscontainers/manage-containers/container-base-images)构建。
+
+此外，还为 HostProcess 容器创建了一个新的基本镜像！
+详细相关信息，请查看[github项目：windows-host-process-containers-base-image](https://github.com/microsoft/windows-host-process-containers-base-image#overview)。
+
+## HostProcess 容器故障排除
+
+- HostProcess 容器无法启动并产生错误 `failed to create user process token: failed to logon user: Access is denied.: unknown`
+
+  确保containerd以 `LocalSystem` 或 `LocalService` 服务帐户运行。用户帐户（甚至管理员帐户）无权为任何受支持的[用户帐户](#choosing-a-user-account)创建登录令牌。
+  
