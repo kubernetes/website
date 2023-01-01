@@ -331,7 +331,7 @@ PodTemplates are specifications for creating Pods, and are included in workload 
 ### Pod 模板    {#pod-templates}
 
 {{< glossary_tooltip text="工作负载" term_id="workload" >}}资源的控制器通常使用
-**Pod 模板（Pod Template）**来替你创建 Pod 并管理它们。
+**Pod 模板（Pod Template）** 来替你创建 Pod 并管理它们。
 
 Pod 模板是包含在工作负载对象中的规范，用来创建 Pod。这类负载资源包括
 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)、
@@ -457,7 +457,7 @@ Kubernetes 并不禁止你直接管理 Pod。对运行中的 Pod 的某些字段
 - Pod 更新不可以改变除 `spec.containers[*].image`、`spec.initContainers[*].image`、
   `spec.activeDeadlineSeconds` 或 `spec.tolerations` 之外的字段。
   对于 `spec.tolerations`，你只被允许添加新的条目到其中。
-- 在更新`spec.activeDeadlineSeconds` 字段时，以下两种更新操作是被允许的：
+- 在更新 `spec.activeDeadlineSeconds` 字段时，以下两种更新操作是被允许的：
 
   1. 如果该字段尚未设置，可以将其设置为一个正数；
   1. 如果该字段已经设置为一个正数，可以将其设置为一个更小的、非负的整数。
@@ -569,7 +569,7 @@ Pods, the kubelet directly supervises each static Pod (and restarts it if it fai
 -->
 ## 静态 Pod    {#static-pods}
 
-**静态 Pod（Static Pod）**直接由特定节点上的 `kubelet` 守护进程管理，
+**静态 Pod（Static Pod）** 直接由特定节点上的 `kubelet` 守护进程管理，
 不需要 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}看到它们。
 尽管大多数 Pod 都是通过控制面（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 来管理的，对于静态 Pod 而言，`kubelet` 直接监控每个 Pod，并在其失效时重启之。

@@ -231,10 +231,10 @@ is the `scale` of the controller managing the pods being selected by the
 
 <!--
 Example 1: With a `minAvailable` of 5, evictions are allowed as long as they leave behind
-5 or more healthy pods among those selected by the PodDisruptionBudget's `selector`.
+5 or more [healthy](#healthiness-of-a-pod) pods among those selected by the PodDisruptionBudget's `selector`.
 -->
 示例 1：设置 `minAvailable` 值为 5 的情况下，驱逐时需保证 PodDisruptionBudget 的 `selector`
-选中的 Pod 中 5 个或 5 个以上处于健康状态。
+选中的 Pod 中 5 个或 5 个以上处于[健康](#healthiness-of-a-pod)状态。
 
 <!--
 Example 2: With a `minAvailable` of 30%, evictions are allowed as long as at least 30%
@@ -406,6 +406,97 @@ status:
   expectedPods: 3
   observedGeneration: 1
 ```
+
+<!--
+### Healthiness of a Pod
+
+The current implementation considers healthy pods, as pods that have `.status.conditions` item with `type="Ready"` and `status="True"`.
+These pods are tracked via `.status.currentHealthy` field in the PDB status.
+-->
+### Pod 的健康  {#healthiness-of-a-pod}
+
+如果 Pod 的 `.status.conditions` 中包含 `type="Ready"` 和 `status="True"` 的项，
+则当前实现将其视为健康的 Pod。这些 Pod 通过 PDB 状态中的 `.status.currentHealthy` 字段被跟踪。
+
+<!--
+## Unhealthy Pod Eviction Policy
+-->
+## 不健康的 Pod 驱逐策略   {#unhealthy-pod-eviction-policy}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+{{< note >}}
+<!--
+In order to use this behavior, you must enable the `PDBUnhealthyPodEvictionPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
+-->
+为了使用此行为，你必须在
+[API 服务器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)上启用
+`PDBUnhealthyPodEvictionPolicy`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+{{< /note >}}
+
+<!--
+PodDisruptionBudget guarding an application ensures that `.status.currentHealthy` number of pods
+does not fall below the number specified in `.status.desiredHealthy` by disallowing eviction of healthy pods.
+By using `.spec.unhealthyPodEvictionPolicy`, you can also define the criteria when unhealthy pods 
+should be considered for eviction. The default behavior when no policy is specified corresponds 
+to the `IfHealthyBudget` policy.
+-->
+守护应用程序的 PodDisruptionBudget 通过不允许驱逐健康的 Pod 来确保 `.status.currentHealthy` 的 Pod
+数量不低于 `.status.desiredHealthy` 中指定的数量。通过使用 `.spec.unhealthyPodEvictionPolicy`，
+你还可以定义条件来判定何时应考虑驱逐不健康的 Pod。未指定策略时的默认行为对应于 `IfHealthyBudget` 策略。
+
+<!--
+Policies:
+-->
+策略包含：
+
+<!--
+`IfHealthyBudget`
+: Running pods (`.status.phase="Running"`), but not yet healthy can be evicted only if the guarded application is not
+disrupted (`.status.currentHealthy` is at least equal to `.status.desiredHealthy`).
+
+: This policy ensures that running pods of an already disrupted application have the best chance to become healthy.
+This has negative implications for draining nodes, which can be blocked by misbehaving applications that are guarded by a PDB.
+More specifically applications with pods in `CrashLoopBackOff` state (due to a bug or misconfiguration),
+or pods that are just failing to report the `Ready` condition.
+-->
+`IfHealthyBudget`
+: 对于运行中但还不健康的 Pod（`.status.phase="Running"`），只有所守护的应用程序不受干扰
+  （`.status.currentHealthy` 至少等于 `.status.desiredHealthy`）时才能被驱逐。
+
+: 此策略确保已受干扰的应用程序所运行的 Pod 会尽可能成为健康。
+  这对排空节点有负面影响，可能会因 PDB 守护的应用程序行为错误而阻止排空。
+  更具体地说，这些应用程序的 Pod 处于 `CrashLoopBackOff` 状态
+  （由于漏洞或错误配置）或其 Pod 只是未能报告 `Ready` 状况。
+
+<!--
+`AlwaysAllow`
+: Running pods (`.status.phase="Running"`), but not yet healthy are considered disrupted and can be evicted
+regardless of whether the criteria in a PDB is met.
+
+: This means prospective running pods of a disrupted application might not get a chance to become healthy.
+By using this policy, cluster managers can easily evict misbehaving applications that are guarded by a PDB.
+More specifically applications with pods in `CrashLoopBackOff` state (due to a bug or misconfiguration),
+or pods that are just failing to report the `Ready` condition.
+-->
+`AlwaysAllow`
+: 运行中但还不健康的 Pod（`.status.phase="Running"`）将被视为已受干扰且可以被驱逐，
+  与是否满足 PDB 中的判决条件无关。
+
+: 这意味着受干扰的应用程序所运行的 Pod 可能没有机会恢复健康。
+  通过使用此策略，集群管理器可以轻松驱逐由 PDB 所守护的行为错误的应用程序。
+  更具体地说，这些应用程序的 Pod 处于 `CrashLoopBackOff` 状态
+  （由于漏洞或错误配置）或其 Pod 只是未能报告 `Ready` 状况。
+
+{{< note >}}
+<!--
+Pods in `Pending`, `Succeeded` or `Failed` phase are always considered for eviction.
+-->
+处于`Pending`、`Succeeded` 或 `Failed` 阶段的 Pod 总是被考虑驱逐。
+{{< /note >}}
 
 <!--
 ## Arbitrary Controllers and Selectors

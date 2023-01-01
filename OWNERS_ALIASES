@@ -1,17 +1,16 @@
 aliases:
   sig-docs-blog-owners: # Approvers for blog content
-    - onlydole
     - mrbobbytables
-    - sftim
     - nate-double-u
+    - onlydole
+    - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
     - mrbobbytables
+    - nate-double-u
     - onlydole
     - sftim
-    - nate-double-u
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
-    - bradtopol
     - divya-mohan0209
     - jimangel
     - kbhawkey
@@ -33,17 +32,16 @@ aliases:
     - bradtopol
     - divya-mohan0209
     - jimangel
-    - jlbutler
     - kbhawkey
     - krol3
     - natalisucks
+    - nate-double-u
     - onlydole
     - reylejano
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
-    - daminisatya
     - divya-mohan0209
     - jimangel
     - kbhawkey
@@ -51,7 +49,6 @@ aliases:
     - natalisucks
     - nate-double-u
     - onlydole
-    - rajeshdeshpande02
     - reylejano
     - sftim
     - shannonxtreme
@@ -95,6 +92,8 @@ aliases:
     - divya-mohan0209
   sig-docs-hi-reviews: # PR reviews for Hindi content
     - anubha-v-ardhan
+    - Babapool
+    - bishal7679
     - divya-mohan0209
     - Garima-Negi
     - verma-kunal
@@ -174,6 +173,7 @@ aliases:
     - howieyuen
     # idealhack
     - mengjiao-liu
+    - my-git9
     # pigletfly
     - SataQiu
     - Sea-n
@@ -190,6 +190,7 @@ aliases:
     - devlware
     - jhonmike
     - rikatz
+    - stormqueen1990
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - edsoncelio
@@ -210,16 +211,19 @@ aliases:
     - ngtuna
     - truongnh1992
   sig-docs-ru-owners: # Admins for Russian content
+    - Arhell
     - msheldyakov
     - aisonaku
     - potapy4
     - dianaabv
+    - shurup
   sig-docs-ru-reviews: # PR reviews for Russian content
     - Arhell
     - msheldyakov
     - aisonaku
     - potapy4
     - dianaabv
+    - shurup
   sig-docs-pl-owners: # Admins for Polish content
     - mfilocha
     - nvtkaszpir
@@ -241,33 +245,32 @@ aliases:
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - cblecker
+    - cpanato
     - bentheelder
     - justaugustus
     - mrbobbytables
     - palnabarun
-    - parispittman
     - tpepper
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
     - cpanato # SIG Technical Lead
-    - jeremyrickard # SIG Technical Lead
+    - jeremyrickard # SIG Chair
     - justaugustus # SIG Chair
     - puerco # SIG Technical Lead
     - saschagrunert # SIG Chair
+    - Verolop # SIG Technical Lead
   release-engineering-approvers:
-    - cpanato # Release Manager
-    - palnabarun # Release Manager
-    - puerco # Release Manager
-    - saschagrunert # subproject owner / Release Manager
+    - cpanato # subproject owner / Release Manager
+    - jeremyrickard # subproject owner / Release Manager
     - justaugustus # subproject owner / Release Manager
-    - Verolop # Release Manager
+    - palnabarun # Release Manager
+    - puerco # subproject owner / Release Manager
+    - saschagrunert # subproject owner / Release Manager
+    - Verolop # subproject owner / Release Manager
     - xmudrii # Release Manager
   release-engineering-reviewers:
     - ameukam # Release Manager Associate
+    - cici37 # Release Manager Associate
     - jimangel # Release Manager Associate
-    - markyjackson-taulia # Release Manager Associate
-    - mkorbi # Release Manager Associate
-    - onlydole # Release Manager Associate
-    - sethmccombs # Release Manager Associate
-    - thejoycekung # Release Manager Associate
-    - wilsonehusin # Release Manager Associate
+    - jrsapi # Release Manager Associate
+    - salaxander # Release Manager Associate

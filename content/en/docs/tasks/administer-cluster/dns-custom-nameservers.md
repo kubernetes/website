@@ -104,7 +104,7 @@ The Corefile configuration includes the following [plugins](https://coredns.io/p
 
 * [errors](https://coredns.io/plugins/errors/): Errors are logged to stdout.
 * [health](https://coredns.io/plugins/health/): Health of CoreDNS is reported to
-  `http://localhost:8080/health`. In this extended syntax `lameduck` will make theuprocess
+  `http://localhost:8080/health`. In this extended syntax `lameduck` will make the process
   unhealthy then wait for 5 seconds before the process is shut down.
 * [ready](https://coredns.io/plugins/ready/): An HTTP endpoint on port 8181 will return 200 OK,
   when all plugins that are able to signal readiness have done so.

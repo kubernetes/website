@@ -72,8 +72,8 @@ announcements:
     It conflicts with the [core values of the Kubernetes project](https://git.k8s.io/community/values.md) and our community does not tolerate it.
 
 - name: Kubecon 2021 EU
-  startTime: 2021-04-30T00:00:00 
-  endTime: 2021-05-07T00:00:00 
+  startTime: 2021-04-30T00:00:00
+  endTime: 2021-05-07T00:00:00
   style: "background-image: linear-gradient(90deg, rgb(249, 145, 6) 0%, rgb(252, 29, 68) 100%)"
   title: |
     <img src="/images/announcements/kubecon-eu-2021-white.svg" style="float: right; height: 80px;" />
@@ -90,7 +90,7 @@ announcements:
     <img src="/images/announcements/kubecon-NA-2021-white.svg" style="float: right; height: 80px;" />
     <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/"> KubeCon + CloudNativeCon North America 2021</a> <em>Los Angeles, California + Virtual</em>.
   message: |
-    5 days of incredible opportunites to collaborate, learn + share with the entire community!<br />
+    5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     October 11 - 15, 2021.
 
 - name: Kubecon 2021 China
@@ -114,7 +114,7 @@ announcements:
     <img src ="/images/announcements/kccnc-eu-2022-black.svg" style="float: right; height: 80px;" />
     <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/">KubeCon + CloudNativeCon EU 2022</a> <em> Valencia, Spain + Virtual</em>.
   message: |
-    5 days of incredible opportunites to collaborate, learn + share with the entire community!<br />
+    5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     May 16 - 20, 2022.
 
 - name: Kubecon 2022 NA
@@ -128,5 +128,5 @@ announcements:
     <img src="/images/announcements/kccnc-na-2022-white.svg" style="float: right; height: 80px;" />
     <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/">KubeCon + CloudNativeCon NA 2022</a> <em>Detroit, Michigan + Virtual</em>.
   message: |
-    5 days of incredible opportunites to collaborate, learn + share with the entire community!<br />
+    5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     October 24 - 28, 2022.

@@ -1,5 +1,12 @@
 ---
 title: ReplicaSet
+feature:
+  title: 自我修复
+  anchor: ReplicationController 如何工作
+  description: >
+    重新启动失败的容器，在节点死亡时替换并重新调度容器，
+    杀死不响应用户定义的健康检查的容器，
+    并且在它们准备好服务之前不会将它们公布给客户端。
 content_type: concept
 weight: 20
 ---
@@ -9,6 +16,13 @@ reviewers:
 - bprashanth
 - madhusudancs
 title: ReplicaSet
+feature:
+  title: Self-healing
+  anchor: How a ReplicaSet works
+  description: >
+    Restarts containers that fail, replaces and reschedules containers when nodes die,
+    kills containers that don't respond to your user-defined health check,
+    and doesn't advertise them to clients until they are ready to serve.
 content_type: concept
 weight: 20
 -->
@@ -238,6 +252,8 @@ Take the previous frontend ReplicaSet example, and the Pods specified in the fol
 尽管你完全可以直接创建裸的 Pod，强烈建议你确保这些裸的 Pod 并不包含可能与你的某个
 ReplicaSet 的选择算符相匹配的标签。原因在于 ReplicaSet 并不仅限于拥有在其模板中设置的
 Pod，它还可以像前面小节中所描述的那样获得其他 Pod。
+
+以前面的 frontend ReplicaSet 为例，并在以下清单中指定这些 Pod：
 
 {{< codenew file="pods/pod-rs.yaml" >}}
 

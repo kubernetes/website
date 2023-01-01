@@ -1,6 +1,7 @@
 ---
 title: 安装扩展（Addons）
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->

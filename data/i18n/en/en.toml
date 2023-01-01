@@ -286,15 +286,9 @@ other = "2006-01-02"
 [release_cherry_pick_deadline]
 other = "Cherry Pick Deadline"
 
-# Deprecated. Planned for removal in a future release.
-# Use [release_full_details_initial_text] instead.
-[release_complete]
-other = "Complete"
-
 [release_end_of_life_date]
 other = "End Of Life Date"
 
-# Replace [release_complete] with [release_full_details_initial_text]
 [release_full_details_initial_text]
 other = "Complete"
 
@@ -372,3 +366,75 @@ other = "Warning:"
 
 [whatsnext_heading]
 other = "What's next"
+
+[layout_docs_glossary_architecture_name]
+other = "Architecture"
+
+[layout_docs_glossary_architecture_description]
+other = "The inner components of Kubernetes."
+
+[layout_docs_glossary_community_name]
+other = "Community"
+
+[layout_docs_glossary_community_description]
+other = "Related to Kubernetes open-source development."
+
+[layout_docs_glossary_core-object_name]
+other = "Core Object"
+
+[layout_docs_glossary_core-object_description]
+other = "A resource type that Kubernetes supports by default."
+
+[layout_docs_glossary_extension_name]
+other = "Extension"
+
+[layout_docs_glossary_extension_description]
+other = "Supported customizations of Kubernetes."
+
+[layout_docs_glossary_fundamental_name]
+other = "Fundamental"
+
+[layout_docs_glossary_fundamental_description]
+other = "Relevant for a first-time user of Kubernetes."
+
+[layout_docs_glossary_networking_name]
+other = "Networking"
+
+[layout_docs_glossary_networking_description]
+other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
+
+[layout_docs_glossary_operation_name]
+other = "Operation"
+
+[layout_docs_glossary_operation_description]
+other = "Starting and maintaining Kubernetes."
+
+[layout_docs_glossary_security_name]
+other = "Security"
+
+[layout_docs_glossary_security_description]
+other = "Keeping Kubernetes applications safe and secure."
+
+[layout_docs_glossary_storage_name]
+other = "Storage"
+
+[layout_docs_glossary_storage_description]
+other = "How Kubernetes applications handle persistent data."
+
+[layout_docs_glossary_tool_name]
+other = "Tool"
+
+[layout_docs_glossary_tool_description]
+other = "Software that makes Kubernetes easier or better to use."
+
+[layout_docs_glossary_user-type_name]
+other = "User Type"
+
+[layout_docs_glossary_user-type_description]
+other = "Represents a common type of Kubernetes user."
+
+[layout_docs_glossary_workload_name]
+other = "Workload"
+
+[layout_docs_glossary_workload_description]
+other = "Applications running on Kubernetes."

@@ -17,11 +17,11 @@ weight: 10
 トラブルシューティングの最初のステップは切り分けです。何が問題なのでしょうか？
 Podなのか、レプリケーションコントローラーなのか、それともサービスなのか？
 
-   * [Debugging Pods](#debugging-pods)
-   * [Debugging Replication Controllers](#debugging-replication-controllers)
-   * [Debugging Services](#debugging-services)
+   * [Podのデバッグ](#debugging-pods)
+   * [レプリケーションコントローラーのデバッグ](#debugging-replication-controllers)
+   * [Serviceのデバッグ](#debugging-services)
 
-### Podのデバッグ
+### Podのデバッグ {#debugging-pods}
 
 デバッグの第一歩は、Podを見てみることです。
 以下のコマンドで、Podの現在の状態や最近のイベントを確認します。
@@ -45,7 +45,7 @@ Podが`Pending`で止まっている場合、それはノードにスケジュ�
 
 * **リソースが不足しています。** クラスターのCPUまたはメモリーを使い果たしている可能性があります。Podを削除するか、リソースの要求値を調整するか、クラスターに新しいノードを追加する必要があります。詳しくは[Compute Resources document](/ja/docs/concepts/configuration/manage-resources-containers/)を参照してください。
 
-* **あなたが使用しているのは`hostPort`**です。Podを`hostPort`にバインドすると、そのPodがスケジュールできる場所が限定されます。ほとんどの場合、`hostPort`は不要なので、Serviceオブジェクトを使ってPodを公開するようにしてください。もし`hostPort` が必要な場合は、Kubernetesクラスターのノード数だけPodをスケジュールすることができます。
+* **あなたが使用しているのは`hostPort`です。** Podを`hostPort`にバインドすると、そのPodがスケジュールできる場所が限定されます。ほとんどの場合、`hostPort`は不要なので、Serviceオブジェクトを使ってPodを公開するようにしてください。もし`hostPort` が必要な場合は、Kubernetesクラスターのノード数だけPodをスケジュールすることができます。
 
 
 #### Podがwaitingのまま
@@ -83,14 +83,14 @@ pods/mypod
 通常、"apiserver" バージョンには、元のバージョンにはない行がいくつかあります。これは予想されることです。
 しかし、もし元のバージョンにある行がapiserverバージョンにない場合、これはあなたのPod specに問題があることを示している可能性があります。
 
-### レプリケーションコントローラーのデバッグ
+### レプリケーションコントローラーのデバッグ {#debugging-replication-controllers}
 
 レプリケーションコントローラーはかなり単純なものです。
 彼らはPodを作ることができるか、できないか、どちらかです。
 もしPodを作成できないのであれば、[上記の説明](#debugging-pods)を参照して、Podをデバッグしてください。
 また、`kubectl describe rc ${CONTROLLER_NAME}`を使用すると、レプリケーションコントローラーに関連するイベントを確認することができます。
 
-### Serviceのデバッグ
+### Serviceのデバッグ {#debugging-services}
 
 Serviceは、Podの集合全体でロードバランシングを提供します。
 Serviceが正しく動作しない原因には、いくつかの一般的な問題があります。

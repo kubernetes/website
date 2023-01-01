@@ -318,7 +318,7 @@ common things to consider when migrating are:
 - 调用 docker 或通过其控制套接字使用 Docker Engine 的节点配置脚本
 - 需要 `docker` 命令或 Docker Engine 控制套接字的 `kubectl` 插件
 - 需要直接访问 Docker Engine 的 Kubernetes 工具（例如：已弃用的 'kube-imagepuller' 工具）
-- `registry-mirrors` 和不安全注册表等功能的配置
+- 配置 `registry-mirrors` 和不安全的镜像仓库等功能
 - 保障 Docker Engine 可用、且运行在 Kubernetes 之外的脚本或守护进程（例如：监视或安全代理）
 - GPU 或特殊硬件，以及它们如何与你的运行时和 Kubernetes 集成
 

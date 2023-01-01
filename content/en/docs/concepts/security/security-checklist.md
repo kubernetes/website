@@ -3,6 +3,7 @@ title: Security Checklist
 description: >
   Baseline checklist for ensuring security in Kubernetes clusters.
 content_type: concept
+weight: 100
 ---
 
 <!-- overview -->
@@ -12,6 +13,7 @@ comprehensive documentation on each topic. It does not claim to be exhaustive
 and is meant to evolve.
 
 On how to read and use this document:
+
 - The order of topics does not reflect an order of priority.
 - Some checklist items are detailed in the paragraph below the list of each section.
 
@@ -276,7 +278,7 @@ for time-bound service account credentials.
 - [ ] Container images are configured to be run as unprivileged user.
 - [ ] References to container images are made by sha256 digests (rather than
 tags) or the provenance of the image is validated by verifying the image's
-digital signature at deploy time [via admission control](/docs/tasks/administer-cluster/verify-signed-images/#verifying-image-signatures-with-admission-controller).
+digital signature at deploy time [via admission control](/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller).
 - [ ] Container images are regularly scanned during creation and in deployment, and
   known vulnerable software is patched.
 
@@ -299,7 +301,7 @@ Avoid using image tags to reference an image, especially the `latest` tag, the
 image behind a tag can be easily modified in a registry. Prefer using the
 complete `sha256` digest which is unique to the image manifest. This policy can be
 enforced via an [ImagePolicyWebhook](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook).
-Image signatures can also be automatically [verified with an admission controller](/docs/tasks/administer-cluster/verify-signed-images/#verifying-image-signatures-with-admission-controller)
+Image signatures can also be automatically [verified with an admission controller](/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)
 at deploy time to validate their authenticity and integrity.
 
 Scanning a container image can prevent critical vulnerabilities from being

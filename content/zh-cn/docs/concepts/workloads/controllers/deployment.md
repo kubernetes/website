@@ -67,14 +67,14 @@ The following are typical use cases for Deployments:
 <!--
 * [Rollback to an earlier Deployment revision](#rolling-back-a-deployment) if the current state of the Deployment is not stable. Each rollback updates the revision of the Deployment.
 * [Scale up the Deployment to facilitate more load](#scaling-a-deployment).
-* [Pause the Deployment](#pausing-and-resuming-a-deployment) to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
+* [Pause the rollout of a Deployment](#pausing-and-resuming-a-deployment) to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
 * [Use the status of the Deployment](#deployment-status) as an indicator that a rollout has stuck.
 * [Clean up older ReplicaSets](#clean-up-policy) that you don't need anymore.
 -->
 * 如果 Deployment 的当前状态不稳定，[回滚到较早的 Deployment 版本](#rolling-back-a-deployment)。
   每次回滚都会更新 Deployment 的修订版本。
 * [扩大 Deployment 规模以承担更多负载](#scaling-a-deployment)。
-* [暂停 Deployment ](#pausing-and-resuming-a-deployment) 以应用对 PodTemplateSpec 所作的多项修改，
+* [暂停 Deployment 的上线](#pausing-and-resuming-a-deployment) 以应用对 PodTemplateSpec 所作的多项修改，
   然后恢复其执行以启动新的上线版本。
 * [使用 Deployment 状态](#deployment-status)来判定上线过程是否出现停滞。
 * [清理较旧的不再需要的 ReplicaSet](#clean-up-policy) 。
@@ -96,21 +96,21 @@ In this example:
 在该例中：
 
 <!--
- * A Deployment named `nginx-deployment` is created, indicated by the `.metadata.name` field.
-* The Deployment creates three replicated Pods, indicated by the `.spec.replicas` field.
- * The `.spec.selector` field defines how the Deployment finds which Pods to manage.
--->
-* 创建名为 `nginx-deployment`（由 `.metadata.name` 字段标明）的 Deployment。
-* 该 Deployment 创建三个（由 `.spec.replicas` 字段标明）Pod 副本。
-* `.spec.selector` 字段定义了 Deployment 如何查找要管理的 Pod。
-
-<!--
-* The `selector` field defines how the Deployment finds which Pods to manage.
+* A Deployment named `nginx-deployment` is created, indicated by the
+  `.metadata.name` field.  This name will become the basis for the ReplicaSets
+  and Pods which are created later.  See [Writing a Deployment Spec](#writing-a-deployment-spec)
+  for more details.
+* The Deployment creates a ReplicaSet that creates three replicated Pods, indicated by the `.spec.replicas` field.
+* The `.spec.selector` field defines how the created ReplicaSet finds which Pods to manage.
   In this case, you select a label that is defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
 -->
-* `selector` 字段定义 Deployment 如何查找要管理的 Pod。
+* 创建名为 `nginx-deployment`（由 `.metadata.name` 字段标明）的 Deployment。
+  该名称将成为后续创建 ReplicaSet 和 Pod 的命名基础。
+  参阅[编写 Deployment 规约](#writing-a-deployment-spec)获取更多详细信息。
+* 该 Deployment 创建一个 ReplicaSet，它创建三个（由 `.spec.replicas` 字段标明）Pod 副本。
+* `.spec.selector` 字段定义所创建的 ReplicaSet 如何查找要管理的 Pod。
   在这里，你选择在 Pod 模板中定义的标签（`app: nginx`）。
   不过，更复杂的选择规则是也可能的，只要 Pod 模板本身满足所给规则即可。
 
@@ -208,7 +208,8 @@ Follow the steps given below to create the above Deployment:
    ```
 
 <!--
-4. Run the `kubectl get deployments` again a few seconds later. The output is similar to this:
+4. Run the `kubectl get deployments` again a few seconds later. 
+   The output is similar to this:
 -->
 4. 几秒钟后再次运行 `kubectl get deployments`。输出类似于：
 
@@ -253,10 +254,13 @@ Follow the steps given below to create the above Deployment:
    * `AGE` 显示应用已经运行的时间长度。
 
    <!--
-   Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[HASH]`.
+   Notice that the name of the ReplicaSet is always formatted as
+   `[DEPLOYMENT-NAME]-[HASH]`.  This name will become the basis for the Pods
+   which are created.
    The `HASH` string is the same as the `pod-template-hash` label on the ReplicaSet.
    -->
-   注意 ReplicaSet 的名称始终被格式化为`[Deployment名称]-[哈希]`。
+   注意 ReplicaSet 的名称格式始终为 `[Deployment 名称]-[哈希]`。
+   该名称将成为所创建的 Pod 的命名基础。
    其中的`哈希`字符串与 ReplicaSet 上的 `pod-template-hash` 标签一致。
 
 <!--
@@ -1626,10 +1630,10 @@ Deployment progress has stalled.
 
 <!--
 The following `kubectl` command sets the spec with `progressDeadlineSeconds` to make the controller report
-lack of progress for a Deployment after 10 minutes:
+lack of progress of a rollout for a Deployment after 10 minutes:
 -->
 以下 `kubectl` 命令设置规约中的 `progressDeadlineSeconds`，从而告知控制器
-在 10 分钟后报告 Deployment 没有进展：
+在 10 分钟后报告 Deployment 的上线没有进展：
 
 ```shell
 kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
@@ -1683,11 +1687,11 @@ Deployment 不执行任何操作。更高级别的编排器可以利用这一设
 
 {{< note >}}
 <!--
-If you pause a Deployment rollout, Kubernetes does not check progress against your specified deadline. You can
-safely pause a Deployment in the middle of a rollout and resume without triggering the condition for
-exceeding the deadline.
+If you pause a Deployment rollout, Kubernetes does not check progress against your specified deadline. 
+You can safely pause a Deployment rollout in the middle of a rollout and resume without triggering 
+the condition for exceeding the deadline.
 -->
-如果你暂停了某个 Deployment 上线，Kubernetes 不再根据指定的截止时间检查 Deployment 进展。
+如果你暂停了某个 Deployment 上线，Kubernetes 不再根据指定的截止时间检查 Deployment 上线的进展。
 你可以在上线过程中间安全地暂停 Deployment 再恢复其执行，这样做不会导致超出最后时限的问题。
 {{< /note >}}
 
@@ -1837,8 +1841,7 @@ $ echo $?
 ### Operating on a failed deployment
 
 All actions that apply to a complete Deployment also apply to a failed Deployment. You can scale it up/down, roll back
-to a previous revision, or even pause it if you need to apply multiple tweaks in the Deployment
-Pod template.
+to a previous revision, or even pause it if you need to apply multiple tweaks in the Deployment Pod template.
 -->
 ### 对失败 Deployment 的操作   {#operating-on-a-failed-deployment}
 
@@ -1895,14 +1898,23 @@ configuring containers, and [using kubectl to manage resources](/docs/concepts/o
 配置容器和[使用 kubectl 管理资源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)等相关文档。
 
 <!--
-The name of a Deployment object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+When the control plane creates new Pods for a Deployment, the `.metadata.name` of the
+Deployment is part of the basis for naming those Pods.  The name of a Deployment must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 -->
-Deployment 对象的名称必须是合法的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
-Deployment 还需要 [`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
+当控制面为 Deployment 创建新的 Pod 时，Deployment 的 `.metadata.name` 是命名这些 Pod 的部分基础。
+Deployment 的名称必须是一个合法的
+[DNS 子域](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)值，
+但这会对 Pod 的主机名产生意外的结果。为获得最佳兼容性，名称应遵循更严格的
+[DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
+
+Deployment 还需要
+[`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 <!--
 ### Pod Template

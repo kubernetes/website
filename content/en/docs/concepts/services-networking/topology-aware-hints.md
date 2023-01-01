@@ -3,7 +3,7 @@ reviewers:
 - robscott
 title: Topology Aware Hints
 content_type: concept
-weight: 70
+weight: 100
 description: >-
   _Topology Aware Hints_ provides a mechanism to help keep network traffic within the zone
   where it originated. Preferring same-zone traffic between Pods in your cluster can help
@@ -17,7 +17,7 @@ description: >-
 
 _Topology Aware Hints_ enable topology aware routing by including suggestions
 for how clients should consume endpoints. This approach adds metadata to enable
-consumers of EndpointSlice and / or Endpoints objects, so that traffic to
+consumers of EndpointSlice (or Endpoints) objects, so that traffic to
 those network endpoints can be routed closer to where it originated.
 
 For example, you can route traffic within a locality to reduce
@@ -159,4 +159,4 @@ zone.
 
 ## {{% heading "whatsnext" %}}
 
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial

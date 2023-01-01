@@ -87,7 +87,7 @@ PersistentVolume menggunakan berkas atau direktori di dalam Node untuk meniru pe
 Di dalam klaster _production_, kamu tidak dapat menggunakan hostPath. Sebagai gantinya sebuah administrator klaster
 akan menyediakan sumberdaya jaringan seperti Google Compute Engine _persistent disk_,
 _NFS share_, atau sebuah Amazon Elastic Block Store volume. Administrator klaster juga dapat 
-menggunakan [StorageClass](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage)
+menggunakan [StorageClass](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io)
 untuk mengatur
 [_provisioning_ secara dinamis](https://kubernetes.io/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
 

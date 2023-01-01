@@ -43,7 +43,7 @@ or is [terminated](#pod-termination).
 -->
 在 Kubernetes API 中，Pod 包含规约部分和实际状态部分。
 Pod 对象的状态包含了一组 [Pod 状况（Conditions）](#pod-conditions)。
-如果应用需要的话，你也可以向其中注入[自定义的就绪性信息](#pod-readiness-gate)。
+如果应用需要的话，你也可以向其中注入[自定义的就绪态信息](#pod-readiness-gate)。
 
 Pod 在其生命周期中只会被[调度](/zh-cn/docs/concepts/scheduling-eviction/)一次。
 一旦 Pod 被调度（分派）到某个节点，Pod 会一直在该节点运行，直到 Pod
@@ -58,7 +58,7 @@ Like individual application containers, Pods are considered to be relatively
 ephemeral (rather than durable) entities. Pods are created, assigned a unique
 ID ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), and scheduled
 to nodes where they remain until termination (according to restart policy) or
-deletion.  
+deletion.
 If a {{< glossary_tooltip term_id="node" >}} dies, the Pods scheduled to that node
 are [scheduled for deletion](#pod-garbage-collection) after a timeout period.
 -->
@@ -159,13 +159,13 @@ Value | Description
 `Failed`（失败） | Pod 中的所有容器都已终止，并且至少有一个容器是因为失败终止。也就是说，容器以非 0 状态退出或者被系统终止。
 `Unknown`（未知） | 因为某些原因无法取得 Pod 的状态。这种情况通常是因为与 Pod 所在主机通信失败。
 
+{{< note >}}
 <!--
 When a Pod is being deleted, it is shown as `Terminating` by some kubectl commands.
 This `Terminating` status is not one of the Pod phases.
 A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
 You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
 -->
-{{< note >}}
 当一个 Pod 被删除时，执行一些 kubectl 命令会展示这个 Pod 的状态为 `Terminating`（终止）。
 这个 `Terminating` 状态并不是 Pod 阶段之一。
 Pod 被赋予一个可以体面终止的期限，默认为 30 秒。
@@ -338,7 +338,7 @@ Field name           | Description
 字段名称             | 描述
 :--------------------|:-----------
 `type`               | Pod 状况的名称
-`status`             | 表明该状况是否适用，可能的取值有 "`True`", "`False`" 或 "`Unknown`"
+`status`             | 表明该状况是否适用，可能的取值有 "`True`"、"`False`" 或 "`Unknown`"
 `lastProbeTime`      | 上次探测 Pod 状况时的时间戳
 `lastTransitionTime` | Pod 上次从一种状态转换到另一种状态时的时间戳
 `reason`             | 机器可读的、驼峰编码（UpperCamelCase）的文字，表述上次状况变化的原因
@@ -845,33 +845,41 @@ An example flow:
       runs that hook inside of the container. If the `preStop` hook is still running after the
       grace period expires, the kubelet requests a small, one-off grace period extension of 2
       seconds.
-      If the `preStop` hook needs longer to complete than the default grace period allows,
-      you must modify `terminationGracePeriodSeconds` to suit this.
-   1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
-      container.
-      The containers in the Pod receive the TERM signal at different times and in an arbitrary
-      order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
    -->
+
    1. 如果 Pod 中的容器之一定义了 `preStop`
       [回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks)，
       `kubelet` 开始在容器内运行该回调逻辑。如果超出体面终止限期时，
       `preStop` 回调逻辑仍在运行，`kubelet` 会请求给予该 Pod 的宽限期一次性增加 2 秒钟。
 
       {{< note >}}
+      <!--
+      If the `preStop` hook needs longer to complete than the default grace period allows,
+      you must modify `terminationGracePeriodSeconds` to suit this.
+      -->
       如果 `preStop` 回调所需要的时间长于默认的体面终止限期，你必须修改
       `terminationGracePeriodSeconds` 属性值来使其正常工作。
       {{< /note >}}
+   
+   <!--
+   1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
+      container.
+   -->
 
-   1. `kubelet` 接下来触发容器运行时发送 TERM 信号给每个容器中的进程 1。
+   2. `kubelet` 接下来触发容器运行时发送 TERM 信号给每个容器中的进程 1。
 
       {{< note >}}
+      <!--
+      The containers in the Pod receive the TERM signal at different times and in an arbitrary
+      order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
+      -->
       Pod 中的容器会在不同时刻收到 TERM 信号，接收顺序也是不确定的。
       如果关闭的顺序很重要，可以考虑使用 `preStop` 回调逻辑来协调。
       {{< /note >}}
 
 <!--
 1. At the same time as the kubelet is starting graceful shutdown, the control plane removes that
-   shutting-down Pod from Endpoints (and, if enabled, EndpointSlice) objects where these represent
+   shutting-down Pod from EndpointSlice (and Endpoints) objects where these represent
    a {{< glossary_tooltip term_id="service" text="Service" >}} with a configured
    {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
@@ -879,11 +887,11 @@ An example flow:
    cannot continue to serve traffic as load balancers (like the service proxy) remove the Pod from
    the list of endpoints as soon as the termination grace period _begins_.
 -->
-3. 与此同时，`kubelet` 启动体面关闭逻辑，控制面会将 Pod 从对应的端点列表（以及端点切片列表，
-   如果启用了的话）中移除，过滤条件是 Pod 被对应的
-   {{< glossary_tooltip term_id="service" text="服务" >}}以某
+3. 在 `kubelet` 启动体面关闭逻辑的同时，控制面会将关闭的 Pod 从对应的
+   EndpointSlice（和 Endpoints）对象中移除，过滤条件是 Pod
+   被对应的{{< glossary_tooltip term_id="service" text="服务" >}}以某
    {{< glossary_tooltip text="选择算符" term_id="selector" >}}选定。
-   {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}
+   {{< glossary_tooltip text="ReplicaSet" term_id="replica-set" >}}
    和其他工作负载资源不再将关闭进程中的 Pod 视为合法的、能够提供服务的副本。
    关闭动作很慢的 Pod 也无法继续处理请求数据，
    因为负载均衡器（例如服务代理）已经在终止宽限期开始的时候将其从端点列表中移除。
@@ -907,19 +915,21 @@ An example flow:
 
 <!--
 ### Forced Pod termination {#pod-termination-forced}
-
-Forced deletions can be potentially disruptive for some workloads and their Pods.
-
-By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports
-the `--grace-period=<seconds>` option which allows you to override the default and specify your
-own value.
 -->
 ### 强制终止 Pod     {#pod-termination-forced}
 
 {{< caution >}}
+<!--
+Forced deletions can be potentially disruptive for some workloads and their Pods.
+-->
 对于某些工作负载及其 Pod 而言，强制删除很可能会带来某种破坏。
 {{< /caution >}}
 
+<!--
+By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports
+the `--grace-period=<seconds>` option which allows you to override the default and specify your
+own value.
+-->
 默认情况下，所有的删除操作都会附有 30 秒钟的宽限期限。
 `kubectl delete` 命令支持 `--grace-period=<seconds>` 选项，允许你重载默认值，
 设定自己希望的期限值。
@@ -932,12 +942,11 @@ begin immediate cleanup.
 将宽限期限强制设置为 `0` 意味着立即从 API 服务器删除 Pod。
 如果 Pod 仍然运行于某节点上，强制删除操作会触发 `kubelet` 立即执行清理操作。
 
+{{< note >}}
 <!--
 You must specify an additional flag `--force` along with `--grace-period=0` in order to perform force deletions.
 -->
-{{< note >}}
-你必须在设置 `--grace-period=0` 的同时额外设置 `--force`
-参数才能发起强制删除请求。
+你必须在设置 `--grace-period=0` 的同时额外设置 `--force` 参数才能发起强制删除请求。
 {{< /note >}}
 
 <!--
@@ -968,26 +977,50 @@ documentation for
 请参阅[从 StatefulSet 中删除 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/) 的任务文档。
 
 <!--
-### Garbage collection of terminated Pods {#pod-garbage-collection}
+### Garbage collection of Pods {#pod-garbage-collection}
 
 For failed Pods, the API objects remain in the cluster's API until a human or
 {{< glossary_tooltip term_id="controller" text="controller" >}} process
 explicitly removes them.
 
-The control plane cleans up terminated Pods (with a phase of `Succeeded` or
+The Pod garbage collector (PodGC), which is a controller in the control plane, cleans up terminated Pods (with a phase of `Succeeded` or
 `Failed`), when the number of Pods exceeds the configured threshold
 (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
 This avoids a resource leak as Pods are created and terminated over time.
 -->
-### 已终止 Pod 的垃圾收集    {#pod-garbage-collection}
+### Pod 的垃圾收集    {#pod-garbage-collection}
 
 对于已失败的 Pod 而言，对应的 API 对象仍然会保留在集群的 API 服务器上，
 直到用户或者{{< glossary_tooltip term_id="controller" text="控制器" >}}进程显式地将其删除。
 
-控制面组件会在 Pod 个数超出所配置的阈值
+Pod 的垃圾收集器（PodGC）是控制平面的控制器，它会在 Pod 个数超出所配置的阈值
 （根据 `kube-controller-manager` 的 `terminated-pod-gc-threshold` 设置）时删除已终止的
 Pod（阶段值为 `Succeeded` 或 `Failed`）。
 这一行为会避免随着时间演进不断创建和终止 Pod 而引起的资源泄露问题。
+
+<!--
+Additionally, PodGC cleans up any Pods which satisfy any of the following conditions:
+1. are orphan pods - bound to a node which no longer exists,
+2. are unscheduled terminating pods,
+3. are terminating pods, bound to a non-ready node tainted with [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service), when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
+
+When the `PodDisruptionConditions` feature gate is enabled, along with
+cleaning up the pods, PodGC will also mark them as failed if they are in a non-terminal
+phase. Also, PodGC adds a pod disruption condition when cleaning up an orphan
+pod (see also:
+[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)).
+-->
+此外，PodGC 会清理满足以下任一条件的所有 Pod：
+1. 孤儿 Pod - 绑定到不再存在的节点，
+2. 计划外终止的 Pod
+3. 终止过程中的 Pod，当启用 `NodeOutOfServiceVolumeDetach` 特性门控时，
+   绑定到有 [`node.kubernetes.io/out-of-service`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service)
+   污点的未就绪节点。
+
+若启用 `PodDisruptionConditions` 特性门控，在清理 Pod 的同时，
+如果它们处于非终止状态阶段，PodGC 也会将它们标记为失败。
+此外，PodGC 在清理孤儿 Pod 时会添加 Pod 干扰状况（另请参阅：
+[Pod 干扰状况](/zh-cn/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)）。
 
 ## {{% heading "whatsnext" %}}
 

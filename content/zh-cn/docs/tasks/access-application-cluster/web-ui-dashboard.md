@@ -162,7 +162,7 @@ The deploy wizard expects that you provide the following information:
 <!--
 - **App name** (mandatory): Name for your application. A [label](/docs/concepts/overview/working-with-objects/labels/) with the name will be added to the Deployment and Service, if any, that will be deployed.
 -->
-- **应用名称**（必填）：应用的名称。内容为`应用名称`的
+- **应用名称**（必填）：应用的名称。内容为 `应用名称` 的
   [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
   会被添加到任何将被部署的 Deployment 和 Service。
 
@@ -196,7 +196,7 @@ The deploy wizard expects that you provide the following information:
 - **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service).
  -->
 - **服务**（可选）：对于部分应用（比如前端），你可能想对外暴露一个
-  [Service](/zh-cn/docs/concepts/services-networking/service/) ，这个 Service
+  [Service](/zh-cn/docs/concepts/services-networking/service/)，这个 Service
   可能用的是集群之外的公网 IP 地址（外部 Service）。
 
   <!-- 
@@ -312,7 +312,7 @@ If needed, you can expand the **Advanced options** section where you can specify
 <!--
 - **CPU requirement (cores)** and **Memory requirement (MiB)**: You can specify the minimum [resource limits](/docs/tasks/configure-pod-container/limit-range/) for the container. By default, Pods run with unbounded CPU and memory limits.
  -->
-- **CPU 需求（核数）**和**内存需求（MiB）**：你可以为容器定义最小的
+- **CPU 需求（核数）** 和 **内存需求（MiB）**：你可以为容器定义最小的
   [资源限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
   默认情况下，Pod 没有 CPU 和内存限制。
 
@@ -393,7 +393,7 @@ allocated resources, events and pods running on the node.
 -->
 #### 管理概述
 
-集群和名字空间管理的视图, Dashboard 会列出节点、名字空间和持久卷，并且有它们的详细视图。
+集群和名字空间管理的视图，Dashboard 会列出节点、名字空间和持久卷，并且有它们的详细视图。
 节点列表视图包含从所有节点聚合的 CPU 和内存使用的度量值。
 详细信息视图显示了一个节点的度量值，它的规格、状态、分配的资源、事件和这个节点上运行的 Pod。
 

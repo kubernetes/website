@@ -1,11 +1,11 @@
 ---
 title: 配置对多集群的访问
 content_type: task
+weight: 30
 card:
   name: tasks
   weight: 40
 ---
-
 <!--
 title: Configure Access to Multiple Clusters
 content_type: task
@@ -16,6 +16,7 @@ card:
 -->
 
 <!-- overview -->
+
 <!--
 This page shows how to configure access to multiple clusters by using
 configuration files. After your clusters, users, and contexts are defined in
@@ -32,23 +33,19 @@ A file that is used to configure access to a cluster is sometimes called
 a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 -->
-用于配置集群访问的文件有时被称为 *kubeconfig 文件*。
+用于配置集群访问的文件有时被称为 **kubeconfig 文件**。
 这是一种引用配置文件的通用方式，并不意味着存在一个名为 `kubeconfig` 的文件。
 {{< /note >}}
 
-
-<!--
 {{< warning >}}
+<!--
 Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig
 file could result in malicious code execution or file exposure. 
 If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
-{{< /warning>}}
 -->
-{{< warning >}}
 只使用来源可靠的 kubeconfig 文件。使用特制的 kubeconfig 文件可能会导致恶意代码执行或文件暴露。
 如果必须使用不受信任的 kubeconfig 文件，请首先像检查 shell 脚本一样仔细检查它。
 {{< /warning>}}
-
 
 ## {{% heading "prerequisites" %}}
 
@@ -61,9 +58,8 @@ run `kubectl version --client`. The kubectl version should be
 cluster's API server.
 -->
 要检查 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 是否安装，
-执行 `kubectl version --client` 命令。
-kubectl 的版本应该与集群的 API 服务器
-[使用同一次版本号](/zh-cn/releases/version-skew-policy/#kubectl)。
+执行 `kubectl version --client` 命令。kubectl 的版本应该与集群的 API
+服务器[使用同一次版本号](/zh-cn/releases/version-skew-policy/#kubectl)。
 
 <!-- steps -->
 
@@ -137,6 +133,15 @@ kubectl config --kubeconfig=config-demo set-cluster scratch --server=https://5.6
 Add user details to your configuration file:
 -->
 将用户详细信息添加到配置文件中：
+
+{{< caution >}}
+<!--
+Storing passwords in Kubernetes client config is risky. A better alternative would be to use a credential plugin and store them separately. See: [client-go credential plugins](/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)
+-->
+将密码保存到 Kubernetes 客户端配置中有风险。
+一个较好的替代方式是使用凭据插件并单独保存这些凭据。
+参阅 [client-go 凭据插件](/zh-cn/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)
+{{< /caution >}}
 
 ```shell
 kubectl config --kubeconfig=config-demo set-credentials developer --client-certificate=fake-cert-file --client-key=fake-key-seefile
@@ -218,6 +223,10 @@ users:
     client-key: fake-key-file
 - name: experimenter
   user:
+    # 文档说明（本注释不属于命令输出）。
+    # 将密码保存到 Kubernetes 客户端配置有风险。
+    # 一个较好的替代方式是使用凭据插件并单独保存这些凭据。
+    # 参阅 https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
     password: some-password
     username: exp
 ```
@@ -320,7 +329,6 @@ listed in the `exp-scratch` context.
 
 View configuration associated with the new current context, `exp-scratch`.
 -->
-
 现在你发出的所有 `kubectl` 命令都将应用于 `scratch` 集群的默认名字空间。
 同时，命令会使用 `exp-scratch` 上下文中所列用户的凭证。
 
@@ -358,7 +366,6 @@ kubectl config --kubeconfig=config-demo view --minify
 
 In your `config-exercise` directory, create a file named `config-demo-2` with this content:
 -->
-
 ## 创建第二个配置文件    {#create-a-second-configuration-file}
 
 在 `config-exercise` 目录中，创建名为 `config-demo-2` 的文件，其中包含以下内容：
@@ -407,7 +414,7 @@ $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
 ```
 
 <!--
- The `KUBECONFIG` environment variable is a list of paths to configuration files. The list is
+The `KUBECONFIG` environment variable is a list of paths to configuration files. The list is
 colon-delimited for Linux and Mac, and semicolon-delimited for Windows. If you have
 a `KUBECONFIG` environment variable, familiarize yourself with the configuration files
 in the list.
@@ -479,8 +486,8 @@ contexts:
 For more information about how kubeconfig files are merged, see
 [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 -->
-关于 kubeconfig 文件如何合并的更多信息，请参考
-[使用 kubeconfig 文件组织集群访问](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+关于 kubeconfig 文件如何合并的更多信息，
+请参考[使用 kubeconfig 文件组织集群访问](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
 <!--
 ## Explore the $HOME/.kube directory
@@ -511,8 +518,7 @@ For example:
 ## 将 $HOME/.kube/config 追加到 KUBECONFIG 环境变量中    {#append-home-kube-config-to-your-kubeconfig-environment-variable}
 
 如果有 `$HOME/.kube/config` 文件，并且还未列在 `KUBECONFIG` 环境变量中，
-那么现在将它追加到 `KUBECONFIG` 环境变量中。
-例如：
+那么现在将它追加到 `KUBECONFIG` 环境变量中。例如：
 
 ### Linux
 
@@ -557,13 +563,35 @@ export KUBECONFIG="$KUBECONFIG_SAVED"
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
 
+<!--
+## Check the subject represented by the kubeconfig
+
+It is not always obvious what attributes (username, groups) you will get after authenticating to the cluster. 
+It can be even more challenging if you are managing more than one cluster at the same time.
+-->
+## 检查 kubeconfig 所表示的主体   {#check-the-subject}
+
+你在通过集群的身份验证后将获得哪些属性（用户名、组），这一点并不总是很明显。
+如果你同时管理多个集群，这可能会更具挑战性。
+
+<!--
+There is a `kubectl` alpha subcommand command to check subject attributes, such as username,
+for your selected Kubernetes client context: `kubectl alpha auth whoami`.
+
+Read [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
+to learn about this in more detail.
+-->
+对于你所选择的 Kubernetes 客户端上下文，有一个 `kubectl` Alpha 子命令可以检查用户名等主体属性：
+`kubectl alpha auth whoami`。
+
+更多细节请参阅[通过 API 访问客户端的身份验证信息](/zh-cn/docs/reference/access-authn-authz/authentication/#self-subject-review)。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
 * [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 -->
-
 * [使用 kubeconfig 文件组织集群访问](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 

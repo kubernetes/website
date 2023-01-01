@@ -2,6 +2,7 @@
 title: 镜像
 content_type: concept
 weight: 10
+hide_summary: true # 在章节索引中单独列出
 ---
 <!--
 reviewers:
@@ -10,6 +11,7 @@ reviewers:
 title: Images
 content_type: concept
 weight: 10
+hide_summary: true # Listed separately in section index
 -->
 
 <!-- overview -->
@@ -32,6 +34,16 @@ This page provides an outline of the container image concept.
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中引用它。
 
 本页概要介绍容器镜像的概念。
+
+{{< note >}}
+<!-- 
+If you are looking for the container images for a Kubernetes
+release (such as v{{< skew latestVersion >}}, the latest minor release),
+visit [Download Kubernetes](https://kubernetes.io/releases/download/). 
+-->
+如果你正在寻找 Kubernetes 某个发行版本（如最新次要版本 v{{< skew latestVersion >}}）
+的容器镜像，请访问[下载 Kubernetes](/zh-cn/releases/download/)。
+{{< /note >}}
 
 <!-- body -->
 
@@ -192,7 +204,7 @@ When you (or a controller) submit a new Pod to the API server, your cluster sets
 -->
 #### 默认镜像拉取策略    {#imagepullpolicy-defaulting}
 
-当你（或控制器）向 API 服务器提交一个新的 Pod 时，你的集群会在满足特定条件时设置 `imagePullPolicy `字段：
+当你（或控制器）向 API 服务器提交一个新的 Pod 时，你的集群会在满足特定条件时设置 `imagePullPolicy` 字段：
 
 <!--
 - if you omit the `imagePullPolicy` field, and the tag for the container image is
@@ -309,12 +321,15 @@ Credentials can be provided in several ways:
 ## 使用私有仓库   {#using-a-private-registry}
 
 从私有仓库读取镜像时可能需要密钥。
-凭证可以用以下方式提供:
+凭据可以用以下方式提供:
 
 <!--
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
+  - Kubelet Credential Provider to dynamically fetch credentials for private registries
+    - kubelet can be configured to use credential provider exec plugin 
+      for the respective private registry.
   - Pre-pulled Images
     - all pods can use any images cached on a node
     - requires root access to all nodes to set up
@@ -328,6 +343,8 @@ Credentials can be provided in several ways:
 - 配置节点向私有仓库进行身份验证
   - 所有 Pod 均可读取任何已配置的私有仓库
   - 需要集群管理员配置节点
+- kubelet 凭据提供程序，动态获取私有仓库的凭据
+ - kubelet 可以被配置为使用凭据提供程序 exec 插件来访问对应的私有镜像库
 - 预拉镜像
   - 所有 Pod 都可以使用节点上缓存的所有镜像
   - 需要所有节点的 root 访问权限才能进行设置
@@ -346,19 +363,10 @@ These options are explained in more detail below.
 
 Specific instructions for setting credentials depends on the container runtime and registry you chose to use. You should refer to your solution's documentation for the most accurate information.
 -->
-### 配置 Node 对私有仓库认证 {configuring-nodes-to-authenticate-to-a-private-registry}
+### 配置 Node 对私有仓库认证 {#configuring-nodes-to-authenticate-to-a-private-registry}
 
 设置凭据的具体说明取决于你选择使用的容器运行时和仓库。
 你应该参考解决方案的文档来获取最准确的信息。
-
-<!--
-Default Kubernetes only supports the `auths` and `HttpHeaders` section in Docker configuration.
-Docker credential helpers (`credHelpers` or `credsStore`) are not supported.
--->
-{{< note >}}
-Kubernetes 默认仅支持 Docker 配置中的 `auths` 和 `HttpHeaders` 部分，
-不支持 Docker 凭据辅助程序（`credHelpers` 或 `credsStore`）。
-{{< /note >}}
 
 <!--
 For an example of configuring a private container image registry, see the
@@ -367,7 +375,27 @@ task. That example uses a private registry in Docker Hub.
 -->
 有关配置私有容器镜像仓库的示例，
 请参阅任务[从私有镜像库中拉取镜像](/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry)。
-该示例使用 Docker Hub 中的私有注册表。
+该示例使用 Docker Hub 中的私有镜像仓库。
+
+{{< note >}}
+<!--
+This approach is especially suitable when kubelet needs to fetch registry credentials dynamically.
+Most commonly used for registries provided by cloud providers where auth tokens are short-lived.
+-->
+此方法尤其适合 kubelet 需要动态获取仓库凭据时。
+最常用于由云提供商提供的仓库，其中身份认证令牌的生命期是短暂的。
+{{< /note >}}
+
+<!--
+You can configure the kubelet to invoke a plugin binary to dynamically fetch registry credentials for a container image.
+This is the most robust and versatile way to fetch credentials for private registries, but also requires kubelet-level configuration to enable.
+
+See [Configure a kubelet image credential provider](/docs/tasks/administer-cluster/kubelet-credential-provider/) for more details.
+-->
+你可以配置 kubelet，以调用插件可执行文件的方式来动态获取容器镜像的仓库凭据。
+这是为私有仓库获取凭据最稳健和最通用的方法，但也需要 kubelet 级别的配置才能启用。
+
+有关更多细节请参见[配置 kubelet 镜像凭据提供程序](/docs/tasks/administer-cluster/kubelet-credential-provider/)。
 
 <!--
 ### Interpretation of config.json {#config-json}
@@ -456,7 +484,7 @@ would match successfully:
 The kubelet performs image pulls sequentially for every found credential. This
 means, that multiple entries in `config.json` are possible, too:
 -->
-kubelet 为每个找到的凭证的镜像按顺序拉取。这意味着在 `config.json` 中可能有多项：
+kubelet 为每个找到的凭据的镜像按顺序拉取。这意味着在 `config.json` 中可能有多项：
 
 ```json
 {
@@ -592,7 +620,7 @@ reference a Secret in the same namespace.
 
 For example:
 -->
-#### 在 Pod 中引用 ImagePullSecrets {referring-to-an-imagepullsecrets-on-a-pod}
+#### 在 Pod 中引用 ImagePullSecrets {#referring-to-an-imagepullsecrets-on-a-pod}
 
 现在，在创建 Pod 时，可以在 Pod 定义中增加 `imagePullSecrets` 部分来引用该 Secret。
 `imagePullSecrets` 数组中的每一项只能引用同一名字空间中的 Secret。
@@ -705,10 +733,8 @@ common use cases and suggested solutions.
 
 <!--
 If you need access to multiple registries, you can create one secret for each registry.
-Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
 -->
 如果你需要访问多个仓库，可以为每个仓库创建一个 Secret。
-`kubelet` 将所有 `imagePullSecrets` 合并为一个虚拟的 `.docker/config.json` 文件。
 
 
 ## {{% heading "whatsnext" %}}

@@ -1,14 +1,14 @@
 ---
 title: 众所周知的标签、注解和污点
 content_type: concept
-weight: 20
+weight: 40
 no_list: true
 ---
 
 <!--
 title: Well-Known Labels, Annotations and Taints
 content_type: concept
-weight: 20
+weight: 40
 no_list: true
 -->
 
@@ -268,6 +268,34 @@ Kubernetes API 服务器（{{<glossary_tooltip text="控制平面" term_id="cont
 标签值被设置 Namespace 的名称。你无法更改此标签的值。
 
 如果你想使用标签{{<glossary_tooltip text="选择算符" term_id="selector" >}}定位特定 Namespace，这很有用。
+
+<!--
+### kubernetes.io/limit-ranger
+
+Example: `kubernetes.io/limit-ranger: "LimitRanger plugin set: cpu, memory request for container nginx; cpu, memory limit for container nginx"`
+
+Used on: Pod
+-->
+### kubernetes.io/limit-ranger   {#kubernetes-io-limit-ranger}
+
+例子：`kubernetes.io/limit-ranger: "LimitRanger plugin set: cpu, memory request for container nginx; cpu, memory limit for container nginx"`
+
+用于：Pod
+
+<!--
+Kubernetes by default doesn't provide any resource limit, that means unless you explicitly define limits,
+your container can consume unlimited CPU and memory.
+You can define a default request or default limit for pods. You do this by creating a LimitRange in the relevant namespace.
+Pods deployed after you define a LimitRange will have these limits applied to them.
+The annotation `kubernetes.io/limit-ranger` records that resource defaults were specified for the Pod,
+and they were applied successfully.
+For more details, read about [LimitRanges](/docs/concepts/policy/limit-range).
+-->
+Kubernetes 默认不提供任何资源限制，这意味着除非你明确定义限制，否则你的容器将可以无限消耗 CPU 和内存。
+你可以为 Pod 定义默认请求或默认限制。为此，你可以在相关命名空间中创建一个 LimitRange。
+在你定义 LimitRange 后部署的 Pod 将受到这些限制。
+注解 `kubernetes.io/limit-ranger` 记录了为 Pod 指定的资源默认值，以及成功应用这些默认值。
+有关更多详细信息，请阅读 [LimitRanges](/zh-cn/docs/concepts/policy/limit-range)。
 
 <!--
 ### beta.kubernetes.io/arch (deprecated)
@@ -599,6 +627,24 @@ StatefulSet topic for more details.
 有关详细信息，请参阅 StatefulSet 主题中的 [Pod 名称标签](/zh-cn/docs/concepts/workloads/controllers/statefulset/#pod-name-label)。
 
 <!--
+### scheduler.alpha.kubernetes.io/node-selector {#schedulerkubernetesnode-selector}
+
+Example: `scheduler.alpha.kubernetes.io/node-selector: "name-of-node-selector"`
+
+Used on: Namespace
+
+The [PodNodeSelector](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector) uses this annotation key to assign node selectors to pods in namespaces.
+-->
+### scheduler.alpha.kubernetes.io/node-selector {#schedulerkubernetesnode-selector}
+
+例子：`scheduler.alpha.kubernetes.io/node-selector: "name-of-node-selector"`
+
+用于：Namespace
+
+[PodNodeSelector](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podnodeselector) 
+使用此注解键为名字空间中的 Pod 设置节点选择算符。
+
+<!--
 ### topology.kubernetes.io/region {#topologykubernetesioregion}
 
 Example:
@@ -793,21 +839,31 @@ The control plane adds this label to an Endpoints object when the owning Service
 <!--
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
-Example: `kubernetes.io/service-name: "nginx"`
+Example: `kubernetes.io/service-name: "my-website"`
 
-Used on: Service
+Used on: EndpointSlice
 
-Kubernetes uses this label to differentiate multiple Services. Used currently for `ELB`(Elastic Load Balancer) only.
+Kubernetes associates [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) with
+[Services](/docs/concepts/services-networking/service/) using this label.
+
+This label records the {{< glossary_tooltip term_id="name" text="name">}} of the
+Service that the EndpointSlice is backing. All EndpointSlices should have this label set to
+the name of their associated Service.
 -->
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
-例子：`kubernetes.io/service-name: "nginx"`
+例子：`kubernetes.io/service-name: "my-website"`
 
-用于：Service
+用于：EndpointSlice
 
-Kubernetes 使用这个标签来区分多个服务。目前仅用于 `ELB` （弹性负载均衡器）。
+Kubernetes 使用这个标签将
+[EndpointSlices](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
+与[服务](/zh-cn/docs/concepts/services-networking/service/)关联。
 
-<!-- 
+这个标签记录了 EndpointSlice 后备服务的{{< glossary_tooltip term_id="name" text="名称">}}。
+所有 EndpointSlice 都应将此标签设置为其关联服务的名称。
+
+<!--
 ### kubernetes.io/service-account.name
 
 Example: `kubernetes.io/service-account.name: "sa-name"`
@@ -844,6 +900,32 @@ ServiceAccount that the token (stored in the Secret of type `kubernetes.io/servi
 
 该注解记录了令牌（存储在 `kubernetes.io/service-account-token` 类型的 Secret 中）所代表的
 ServiceAccount 的{{<glossary_tooltip term_id="uid" text="唯一 ID" >}}。
+
+<!--
+### kubernetes.io/legacy-token-last-used
+
+Example: `kubernetes.io/legacy-token-last-used: 2022-10-24`
+
+Used on: Secret
+
+The control plane only adds this label for Secrets that have the type `kubernetes.io/service-account-token`.
+The value of this label records the date (ISO 8601 format, UTC time zone) when the control plane last saw
+a request where the client authenticated using the service account token.
+
+If a legacy token was last used before the cluster gained the feature (added in Kubernetes v1.26), then
+the label isn't set.
+-->
+### kubernetes.io/legacy-token-last-used
+
+例子：`kubernetes.io/legacy-token-last-used: 2022-10-24`
+
+用于：Secret
+
+控制面仅为 `kubernetes.io/service-account-token` 类型的 Secret 添加此标签。
+该标签的值记录着控制面最近一次接到客户端使用服务帐户令牌进行身份验证请求的日期（ISO 8601
+格式，UTC 时区）
+
+如果上一次使用老的令牌的时间在集群获得此特性（添加于 Kubernetes v1.26）之前，则不会设置此标签。
 
 <!--
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
@@ -1036,7 +1118,9 @@ Example: `endpoints.kubernetes.io/over-capacity:truncated`
 
 Used on: Endpoints
 
-In Kubernetes clusters v1.22 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity and the number of endpoints has been truncated to 1000.
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} adds this annotation to an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object if the associated {{< glossary_tooltip term_id="service" >}} has more than 1000 backing endpoints. The annotation indicates that the Endpoints object is over capacity and the number of endpoints has been truncated to 1000.
+
+If the number of backend endpoints falls below 1000, the control plane removes this annotation.
 -->
 ### endpoints.kubernetes.io/over-capacity {#endpoints-kubernetes-io-over-capacity}
 
@@ -1044,12 +1128,15 @@ In Kubernetes clusters v1.22 (or later), the Endpoints controller adds this anno
 
 用于：Endpoints
 
-在 Kubernetes 集群 v1.22（或更高版本）中，如果 Endpoints 资源超过 1000 个，Endpoints
-控制器会将此注解添加到 Endpoints 资源。
-注解表示 Endpoints 资源已超出容量，并且已将 Endpoints 数截断为 1000。
+如果关联的 {{< glossary_tooltip term_id="service" >}} 有超过 1000 个后备端点，
+则{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}将此注解添加到
+[Endpoints](/zh-cn/docs/concepts/services-networking/service/#endpoints) 对象。
+此注解表示 Endpoints 对象已超出容量，并且已将 Endpoints 数截断为 1000。
+
+如果后端端点的数量低于 1000，则控制平面将移除此注解。
 
 <!--
-### batch.kubernetes.io/job-tracking
+### batch.kubernetes.io/job-tracking (deprecated) {#batch-kubernetes-io-job-tracking}
 
 Example: `batch.kubernetes.io/job-tracking: ""`
 
@@ -1057,16 +1144,29 @@ Used on: Jobs
 
 The presence of this annotation on a Job indicates that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
+The control plane uses this annotation to safely transition to tracking Jobs
+using finalizers, while the feature is in development.
 You should **not** manually add or remove this annotation.
 -->
-### batch.kubernetes.io/job-tracking {#batch-kubernetes-io-job-tracking}
+### batch.kubernetes.io/job-tracking (已弃用) {#batch-kubernetes-io-job-tracking}
 
 例子：`batch.kubernetes.io/job-tracking: ""`
 
 用于：Job
 
 Job 上存在此注解表明控制平面正在[使用 Finalizer 追踪 Job](/zh-cn/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers)。
+控制平面使用此注解来安全地转换为使用 Finalizer 追踪 Job，而此特性正在开发中。
 你 **不** 可以手动添加或删除此注解。
+
+{{< note >}}
+<!--
+Starting from Kubernetes 1.26, this annotation is deprecated.
+Kubernetes 1.27 and newer will ignore this annotation and always track Jobs
+using finalizers.
+-->
+从 Kubernetes 1.26 开始，该注解被弃用。
+Kubernetes 1.27 及以上版本将忽略此注解，并始终使用 Finalizer 追踪 Job。
+{{< /note >}}
 
 <!--
 ### scheduler.alpha.kubernetes.io/defaultTolerations {#scheduleralphakubernetesio-defaulttolerations}
@@ -1515,6 +1615,31 @@ and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.i
 [Kubernetes CSI 开发者文档](https://kubernetes-csi.github.io/docs/)。
 
 <!--
+### scheduler.alpha.kubernetes.io/critical-pod (deprecated)
+
+Example: `scheduler.alpha.kubernetes.io/critical-pod: ""`
+
+Used on: Pod
+
+This annotation lets Kubernetes control plane know about a pod being a critical pod so that the descheduler will not remove this pod.
+-->
+### scheduler.alpha.kubernetes.io/critical-pod（已弃用）{#scheduler-alpha-kubernetes-io-critical-pod}
+
+例子：`scheduler.alpha.kubernetes.io/critical-pod: ""`
+
+用于：Pod
+
+此注解让 Kubernetes 控制平面知晓某个 Pod 是一个关键的 Pod，这样 descheduler
+将不会移除该 Pod。
+
+{{< note >}}
+<!--
+Starting in v1.16, this annotation was removed in favor of [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
+-->
+从 v1.16 开始，此注解被移除，取而代之的是 [Pod 优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
+{{< /note >}}
+
+<!--
 ## Annotations used for audit
 
 - [`authorization.k8s.io/decision`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
@@ -1583,11 +1708,11 @@ kubeadm 为本地管理的 etcd Pod 设置的注解，用来跟踪 etcd 客户�
 ### kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint {#kube-apiserver-advertise-address-endpoint}
 
 <!--
-Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https://172.17.0.18:6443`
 
 Used on: Pod
 -->
-例子：`kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+例子：`kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https://172.17.0.18:6443`
 
 用于：Pod
 

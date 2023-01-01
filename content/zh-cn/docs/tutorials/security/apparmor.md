@@ -174,7 +174,7 @@ later release):
 你还可以通过检查节点就绪状况消息来验证节点上的 AppArmor 支持（尽管这可能会在以后的版本中删除）：
 
 ```shell
-kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
+kubectl get nodes -o=jsonpath='{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}{"\n"}{end}'
 ```
 
 ```
@@ -261,7 +261,7 @@ You can also verify directly that the container's root process is running with t
 你还可以通过检查容器的 proc attr，直接验证容器的根进程是否以正确的配置文件运行：
 
 ```shell
-kubectl exec <pod_name> cat /proc/1/attr/current
+kubectl exec <pod_name> -- cat /proc/1/attr/current
 ```
 
 ```
@@ -599,10 +599,10 @@ Specifying the profile a container will run with:
   A separate profile can be specified for each container in the Pod.
 - **value**: a profile reference, described below
 -->
-- **键名**: `container.apparmor.security.beta.kubernetes.io/<container_name>`，
+- **键名**：`container.apparmor.security.beta.kubernetes.io/<container_name>`，
   其中 `<container_name>` 与 Pod 中某容器的名称匹配。
   可以为 Pod 中的每个容器指定单独的配置文件。
-- **键值**: 对配置文件的引用，如下所述
+- **键值**：对配置文件的引用，如下所述
 
 <!--
 ### Profile Reference
@@ -620,13 +620,13 @@ Specifying the profile a container will run with:
     [core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications).
 - `unconfined`: This effectively disables AppArmor on the container.
 -->
-- `runtime/default`: 指默认运行时配置文件。
+- `runtime/default`：指默认运行时配置文件。
   - 等同于不指定配置文件，只是它仍然需要启用 AppArmor。
   - 实际上，许多容器运行时使用相同的 OCI 默认配置文件，在此处定义：
     https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
-- `localhost/<profile_name>`: 按名称引用加载到节点（localhost）上的配置文件。
+- `localhost/<profile_name>`：按名称引用加载到节点（localhost）上的配置文件。
   - 可能的配置文件名在[核心策略参考](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications)。
-- `unconfined`: 这相当于为容器禁用 AppArmor。
+- `unconfined`：这相当于为容器禁用 AppArmor。
 
 <!--
 Any other profile reference format is invalid.

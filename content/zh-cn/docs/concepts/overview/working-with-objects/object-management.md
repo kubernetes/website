@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 对象管理
 content_type: concept
-weight: 15
+weight: 20
 ---
 
 <!-- overview -->
@@ -13,7 +13,7 @@ details of managing objects by Kubectl.
 -->
 `kubectl` 命令行工具支持多种不同的方式来创建和管理 Kubernetes 对象。
 本文档概述了不同的方法。
-阅读 [Kubectl book](https://kubectl.docs.kubernetes.io) 来了解 kubectl
+阅读 [Kubectl book](https://kubectl.docs.kubernetes.io/zh/) 来了解 kubectl
 管理对象的详细信息。
 
 <!-- body -->

@@ -1,6 +1,7 @@
 ---
 title: Recommended Labels
 content_type: concept
+weight: 100
 ---
 
 <!-- overview -->

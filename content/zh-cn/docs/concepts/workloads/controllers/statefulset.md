@@ -178,7 +178,8 @@ The name of a StatefulSet object must be a valid
 * `volumeClaimTemplates` 将通过 PersistentVolume 制备程序所准备的
   [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
 
-StatefulSet 的命名需要遵循 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)规范。
+StatefulSet 的命名需要遵循
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)规范。
 
 <!--
 ### Pod Selector
@@ -229,7 +230,7 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 <!--
 ## Pod Identity
 
-StatefulSet Pods have a unique identity that is comprised of an ordinal, a
+StatefulSet Pods have a unique identity that consists of an ordinal, a
 stable network identity, and stable storage. The identity sticks to the Pod,
 regardless of which node it's (re)scheduled on.
 -->
@@ -241,13 +242,41 @@ StatefulSet Pod 具有唯一的标识，该标识包括顺序标识、稳定的�
 <!--
 ### Ordinal Index
 
-For a StatefulSet with N replicas, each Pod in the StatefulSet will be
-assigned an integer ordinal, from 0 up through N-1, that is unique over the Set.
+For a StatefulSet with N [replicas](#replicas), each Pod in the StatefulSet
+will be assigned an integer ordinal, that is unique over the Set. By default,
+pods will be assigned ordinals from 0 up through N-1.
 -->
 ### 有序索引   {#ordinal-index}
 
-对于具有 N 个副本的 StatefulSet，该 StatefulSet 中的每个 Pod 将被分配一个从 0 到 N-1
-的整数序号，该序号在此 StatefulSet 上是唯一的。
+对于具有 N 个[副本](#replicas)的 StatefulSet，该 StatefulSet 中的每个 Pod 将被分配一个整数序号，
+该序号在此 StatefulSet 上是唯一的。默认情况下，这些 Pod 将被从 0 到 N-1 的序号。
+
+<!--
+### Start ordinal
+-->
+### 起始序号   {#start-ordinal}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+<!--
+`.spec.ordinals` is an optional field that allows you to configure the integer
+ordinals assigned to each Pod. It defaults to nil. You must enable the
+`StatefulSetStartOrdinal`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this field. Once enabled, you can configure the following options:
+-->
+`.spec.ordinals` 是一个可选的字段，允许你配置分配给每个 Pod 的整数序号。
+该字段默认为 nil 值。你必须启用 `StatefulSetStartOrdinal`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
+一旦启用，你就可以配置以下选项：
+
+<!--
+* `.spec.ordinals.start`: If the `.spec.ordinals.start` field is set, Pods will
+  be assigned ordinals from `.spec.ordinals.start` up through
+  `.spec.ordinals.start + .spec.replicas - 1`.
+-->
+* `.spec.ordinals.start`：如果 `.spec.ordinals.start` 字段被设置，则 Pod 将被分配从
+  `.spec.ordinals.start` 到 `.spec.ordinals.start + .spec.replicas - 1` 的序号。
 
 <!--
 ### Stable Network ID
@@ -324,11 +353,11 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  cluster.local | foo/nginx         | foo/web           | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
+{{< note >}}
 <!--
 Cluster Domain will be set to `cluster.local` unless
 [otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 -->
-{{< note >}}
 集群域会被设置为 `cluster.local`，除非有[其他配置](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 {{< /note >}}
 
@@ -358,14 +387,14 @@ PersistentVolume 并不会被删除。要删除它必须通过手动方式来完
 <!--
 ### Pod Name Label
 
-When the StatefulSet {{< glossary_tooltip term_id="controller" >}} creates a Pod,
+When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
 it adds a label, `statefulset.kubernetes.io/pod-name`, that is set to the name of
 the Pod. This label allows you to attach a Service to a specific Pod in
 the StatefulSet.
 -->
 ### Pod 名称标签   {#pod-name-label}
 
-当 StatefulSet {{< glossary_tooltip term_id="controller" >}} 创建 Pod 时，
+当 StatefulSet {{<glossary_tooltip text="控制器" term_id="controller">}}创建 Pod 时，
 它会添加一个标签 `statefulset.kubernetes.io/pod-name`，该标签值设置为 Pod 名称。
 这个标签允许你给 StatefulSet 中的特定 Pod 绑定一个 Service。
 
@@ -454,7 +483,7 @@ Pod. This option only affects the behavior for scaling operations. Updates are n
 #### 并行 Pod 管理   {#parallel-pod-management}
 
 `Parallel` Pod 管理让 StatefulSet 控制器并行的启动或终止所有的 Pod，
-启动或者终止其他 Pod 前，无需等待 Pod 进入 Running 和 ready 或者完全停止状态。
+启动或者终止其他 Pod 前，无需等待 Pod 进入 Running 和 Ready 或者完全停止状态。
 这个选项只会影响扩缩操作的行为，更新则不会被影响。
 
 <!--
@@ -477,7 +506,7 @@ StatefulSet 的 `.spec.updateStrategy` 字段让你可以配置和禁用掉自�
   create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
 
 `RollingUpdate`
-: The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a
+: The `RollingUpdate` update strategy implements automated, rolling updates for the Pods in a
   StatefulSet. This is the default update strategy.
 -->
 `OnDelete`
@@ -621,12 +650,12 @@ StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
 and how PVCs are deleted during the lifecycle of a StatefulSet. You must enable the
 `StatefulSetAutoDeletePVC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to use this field. Once enabled, there are two policies you can configure for each
-StatefulSet:
+on the API server and the controller manager to use this field.
+Once enabled, there are two policies you can configure for each StatefulSet:
 -->
 在 StatefulSet 的生命周期中，可选字段
 `.spec.persistentVolumeClaimRetentionPolicy` 控制是否删除以及如何删除 PVC。
-使用该字段，你必须启用 `StatefulSetAutoDeletePVC`
+使用该字段，你必须在 API 服务器和控制器管理器启用 `StatefulSetAutoDeletePVC`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 启用后，你可以为每个 StatefulSet 配置两个策略：
 
@@ -738,7 +767,7 @@ owner reference has been updated appropriate to the policy. If a condemned Pod i
 force-deleted while the controller is down, the owner reference may or may not have been
 set up, depending on when the controller crashed. It may take several reconcile loops to
 update the owner references, so some condemned Pods may have set up owner references and
-other may not. For this reason we recommend waiting for the controller to come back up,
+others may not. For this reason we recommend waiting for the controller to come back up,
 which will verify owner references before terminating Pods. If that is not possible, the
 operator should verify the owner references on PVCs to ensure the expected objects are
 deleted when Pods are force-deleted.
@@ -810,3 +839,4 @@ the `.spec.replicas` field automatically.
 * `StatefulSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/stateful-set-v1" >}}
    对象定义理解关于该资源的 API。
 * 阅读 [Pod 干扰预算（Disruption Budget）](/zh-cn/docs/concepts/workloads/pods/disruptions/)，了解如何在干扰下运行高度可用的应用。
+
