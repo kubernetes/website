@@ -317,7 +317,11 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 ### Things to note after dockershim migration
 
 ## {{< note >}} 
-*Note: If you get the following error after upgrading to Kubernetes 1.24, go through the [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) guide to get a better understanding of how to resolve this error.* 
+*Note: Due to change in CNI, the `kubelet` binary might not recognize `--network-plugin` flag even after passing to `kubelet` which leads to the following error:
+
+`Error: failed to parse kubelet flag: unknown flag: --network-plugin`
+
+If you get the following error, go through the [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) guide to get a better understanding of how to resolve this error.* 
 ## {{< note >}} 
 
 ## {{% heading "whatsnext" %}}
