@@ -33,6 +33,52 @@ You will need to have the following tools installed:
 - `cosign`（[安装指南](https://docs.sigstore.dev/cosign/installation/)）
 - `curl`（通常由你的操作系统提供）
 
+<!-- 
+## Verifying binary signatures
+
+The Kubernetes release process signs all binary artifacts (tarballs, SPDX files,
+standalone binaries) by using cosign's keyless signing. To verify a particular
+binary, retrieve it together with its signature and certificate: 
+-->
+
+## 验证二进制签名 {#verifying-binary-signatures}
+
+Kubernetes 发布过程使用 cosign 的无密钥签名对所有二进制工件（压缩包、SPDX 文件、 独立的二进制文件）签名。
+要验证一个特定的二进制文件，获取组件时要包含其签名和证书：
+
+```bash
+URL=https://dl.k8s.io/release/v{{< skew currentVersion >}}.0/bin/linux/amd64
+BINARY=kubectl
+
+FILES=(
+    "$BINARY"
+    "$BINARY.sig"
+    "$BINARY.cert"
+)
+
+for FILE in "${FILES[@]}"; do
+    curl -sSfL --retry 3 --retry-delay 3 "$URL/$FILE" -o "$FILE"
+done
+```
+
+<!--
+Then verify the blob by using `cosign`:
+-->
+然后使用 `cosign` 验证二进制文件：
+
+```shell
+cosign verify-blob "$BINARY" --signature "$BINARY".sig --certificate "$BINARY".cert
+```
+
+{{< note >}}
+<!-- 
+To learn more about keyless signing, please refer to [Keyless
+Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures).
+-->
+想要进一步了解无密钥签名，请参考
+[Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)。
+{{< /note >}}
+
 <!--
 ## Verifying image signatures
 
@@ -115,6 +161,5 @@ resources:
 [sigstore policy-controller](https://docs.sigstore.dev/policy-controller/overview)
 控制器验证其签名。如要使用 `policy-controller`，下面是一些有帮助的资源：
 
-* [安装](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
-* [配置选项](https://github.com/sigstore/policy-controller/tree/main/config)
-
+- [安装](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
+- [配置选项](https://github.com/sigstore/policy-controller/tree/main/config)

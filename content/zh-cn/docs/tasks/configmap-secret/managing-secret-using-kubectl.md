@@ -76,13 +76,13 @@ characters.
 ### 使用源文件
 
 <!-- 
-1.  Store the credentials in files with the values encoded in base64: 
+1.  Store the credentials in files: 
 -->
-1. 对凭证的取值作 base64 编码后保存到文件中：
+1. 将凭据保存到文件：
 
    ```shell
-   echo -n 'admin' | base64 > ./username.txt
-   echo -n 'S!B\*d$zDsb=' | base64 > ./password.txt
+   echo -n 'admin' > ./username.txt
+   echo -n 'S!B\*d$zDsb=' > ./password.txt
    ```
 
    <!-- 

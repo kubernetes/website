@@ -772,14 +772,17 @@ by using `--reserved-memory` flag.
 <!--
 ### Device plugin resource API
 
-By employing the [API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/),
-the information about reserved memory for each container can be retrieved, which is contained
+The kubelet provides a `PodResourceLister` gRPC service to enable discovery of resources and associated metadata.
+By using its [List gRPC endpoint](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#grpc-endpoint-list),
+information about reserved memory for each container can be retrieved, which is contained
 in protobuf `ContainerMemory` message.
-This information can be retrieved solely for pods in Guaranteed QoS class.   
+This information can be retrieved solely for pods in Guaranteed QoS class.
 -->
 ### 设备插件资源 API     {#device-plugin-resource-api}
 
-通过使用此 [API](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)，
+kubelet 提供了一个 `PodResourceLister` gRPC 服务来启用对资源和相关元数据的检测。
+通过使用它的
+[List gRPC 端点](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#grpc-endpoint-list)，
 可以获得每个容器的预留内存信息，该信息位于 protobuf 协议的 `ContainerMemory` 消息中。
 只能针对 Guaranteed QoS 类中的 Pod 来检索此信息。
 

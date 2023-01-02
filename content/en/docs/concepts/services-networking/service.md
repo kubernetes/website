@@ -193,7 +193,7 @@ spec:
 ```
 
 Because this Service has no selector, the corresponding EndpointSlice (and
-legacy Endpoints) objects are not created automatically. You can manually map the Service
+legacy Endpoints) objects are not created automatically. You can map the Service
 to the network address and port where it's running, by adding an EndpointSlice
 object manually. For example:
 
@@ -254,6 +254,13 @@ managed by Kubernetes' own control plane.
 Accessing a Service without a selector works the same as if it had a selector.
 In the [example](#services-without-selectors) for a Service without a selector, traffic is routed to one of the two endpoints defined in
 the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 9376.
+
+{{< note >}}
+The Kubernetes API server does not allow proxying to endpoints that are not mapped to
+pods. Actions such as `kubectl proxy <service-name>` where the service has no
+selector will fail due to this constraint. This prevents the Kubernetes API server
+from being used as a proxy to endpoints the caller may not be authorized to access.
+{{< /note >}}
 
 An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the

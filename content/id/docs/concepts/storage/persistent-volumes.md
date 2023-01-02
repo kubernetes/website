@@ -166,7 +166,7 @@ Namun, alamat yang dispesifikasikan pada templat _recycler pod_ kustom pada bagi
 
 ### Memperluas _Persistent Volumes Claim_
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Dukungan untuk memperluas PersistentVolumeClaim (PVC) sekarang sudah diaktifkan sejak awal. Kamu dapat memperluas
 tipe-tipe volume berikut:
