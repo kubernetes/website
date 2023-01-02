@@ -6,7 +6,7 @@ short_description: >
   एक संगठन जो क्लाउड कंप्यूटिंग प्लेटफॉर्म प्रदान करता है।
 
 aka:
-  - Cloud Service Provider
+  - क्लाउड सेवा प्रदाता (Cloud Service Provider)
 tags:
   - community
 ---
