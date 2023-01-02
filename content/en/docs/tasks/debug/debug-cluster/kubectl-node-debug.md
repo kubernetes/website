@@ -42,7 +42,8 @@ install other tools, such as `mtr`, `tcpdump`, and `curl`, from the respective p
 
 {{< note >}}
 
-The debug commands may differ based on the image the debugging pod is using and these commands might need to be installed.
+The debug commands may differ based on the image the debugging pod is using and
+these commands might need to be installed.
 
 {{< /note >}}
 
