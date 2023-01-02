@@ -267,7 +267,7 @@ With EndpointSlices, adding or removing a single Pod triggers the same _number_
 of updates to clients that are watching for changes, but the size of those
 update message is much smaller at large scale.
 
-EndpointSlices also enabled innovation around new features such dual-stack
+EndpointSlices also enabled innovation around new features such as dual-stack
 networking and topology-aware routing.
 
 ## {{% heading "whatsnext" %}}
