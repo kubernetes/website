@@ -22,12 +22,11 @@ This guide walks you through the steps to configure and deploy Windows container
 
 ## Before you begin
 
-* Create a Kubernetes cluster that includes a
-control plane and a [worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
+* Create a Kubernetes cluster that includes a control plane and a worker node running Windows Server
 * It is important to note that creating and deploying services and workloads on Kubernetes
-behaves in much the same way for Linux and Windows containers.
-[Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
-The example in the section below is provided to jumpstart your experience with Windows containers.
+  behaves in much the same way for Linux and Windows containers.
+  [Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
+  The example in the section below is provided to jumpstart your experience with Windows containers.
 
 ## Getting Started: Deploying a Windows container
 

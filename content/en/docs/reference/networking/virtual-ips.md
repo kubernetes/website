@@ -14,7 +14,6 @@ mechanism for {{< glossary_tooltip term_id="service" text="Services">}}
 of `type` other than
 [`ExternalName`](/docs/concepts/services-networking/service/#externalname).
 
-
 A question that pops up every now and then is why Kubernetes relies on
 proxying to forward inbound traffic to backends. What about other
 approaches? For example, would it be possible to configure DNS records that
@@ -39,14 +38,12 @@ network proxying service on a computer.  Although the `kube-proxy` executable su
 `cleanup` function, this function is not an official feature and thus is only available
 to use as-is.
 
-
 <a id="example"></a>
 Some of the details in this reference refer to an example: the back end Pods for a stateless
 image-processing workload, running with three replicas. Those replicas are
 fungible&mdash;frontends do not care which backend they use.  While the actual Pods that
 compose the backend set may change, the frontend clients should not need to be aware of that,
 nor should they need to keep track of the set of backends themselves.
-
 
 <!-- body -->
 
@@ -368,3 +365,4 @@ You can also:
 * Read about [Services](/docs/concepts/services-networking/service/) as a concept
 * Read about [Ingresses](/docs/concepts/services-networking/ingress/) as a concept
 * Read the [API reference](/docs/reference/kubernetes-api/service-resources/service-v1/) for the Service API
+
