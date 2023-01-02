@@ -114,9 +114,6 @@ In the following table:
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
 | `DefaultPodTopologySpread` | `true` | Beta | 1.20 | 1.23 |
 | `DefaultPodTopologySpread` | `true` | GA | 1.24 | 1.25 |
-| `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
-| `NonPreemptingPriority` | `true` | Beta | 1.19 | 1.23 |
-| `NonPreemptingPriority` | `true` | GA | 1.24 | - |
 | `DynamicAuditing` | `false` | Alpha | 1.13 | 1.18 |
 | `DynamicAuditing` | - | Deprecated | 1.19 | 1.19 |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
@@ -192,6 +189,9 @@ In the following table:
 | `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
 | `NodeLease` | `true` | Beta | 1.14 | 1.16 |
 | `NodeLease` | `true` | GA | 1.17 | 1.23 |
+| `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
+| `NonPreemptingPriority` | `true` | Beta | 1.19 | 1.23 |
+| `NonPreemptingPriority` | `true` | GA | 1.24 | 1.25 |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | 1.10 |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
