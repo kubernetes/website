@@ -70,7 +70,7 @@ on every resource object.
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | The name of the application | `mysql` | string |
 | `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `mysql-abcxzy` | string |
-| `app.kubernetes.io/version`         | The current version of the application (e.g., a semantic version, revision hash, etc.) | `5.7.21` | string |
+| `app.kubernetes.io/version`         | The current version of the application (e.g., a [SemVer 1.0](https://semver.org/spec/v1.0.0.html), revision hash, etc.) | `5.7.21` | string |
 | `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
 | `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
 | `app.kubernetes.io/managed-by`      | The tool being used to manage the operation of an application | `helm` | string |
@@ -79,7 +79,7 @@ on every resource object.
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | 应用程序的名称 | `mysql` | 字符串 |
 | `app.kubernetes.io/instance`        | 用于唯一确定应用实例的名称 | `mysql-abcxzy` | 字符串 |
-| `app.kubernetes.io/version`         | 应用程序的当前版本（例如语义版本、修订版哈希等） | `5.7.21` | 字符串 |
+| `app.kubernetes.io/version`         | 应用程序的当前版本（例如[语义版本 1.0](https://semver.org/spec/v1.0.0.html)、修订版哈希等） | `5.7.21` | 字符串 |
 | `app.kubernetes.io/component`       | 架构中的组件 | `database` | 字符串 |
 | `app.kubernetes.io/part-of`         | 此级别的更高级别应用程序的名称 | `wordpress` | 字符串 |
 | `app.kubernetes.io/managed-by`      | 用于管理应用程序的工具 | `helm` | 字符串 |
