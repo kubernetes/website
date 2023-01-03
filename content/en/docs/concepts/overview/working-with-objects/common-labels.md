@@ -65,7 +65,7 @@ in some cases, the same namespace. For example, WordPress can be installed more
 than once where different websites are different installations of WordPress.
 
 The name of an application and the instance name are recorded separately. For
-example, WordPress has a `app.kubernetes.io/name` of `wordpress` while it has
+example, WordPress has an `app.kubernetes.io/name` of `wordpress` while it has
 an instance name, represented as `app.kubernetes.io/instance` with a value of
 `wordpress-abcxzy`. This enables the application and instance of the application
 to be identifiable. Every instance of an application must have a unique name.
