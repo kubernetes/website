@@ -87,7 +87,7 @@ storage-provisioner                         1/1       Running   0          2m
 1. Create a Deployment using the following command:
 
    ```shell
-   kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
+   kubectl create deployment web --image=kicbase/echo-server:1.0
    ```
 
    The output should be:
@@ -138,9 +138,11 @@ storage-provisioner                         1/1       Running   0          2m
    The output is similar to:
 
    ```
-   Hello, world!
-   Version: 1.0.0
-   Hostname: web-55b8c6998d-8k564
+   Request served by web-6bc55d4d95-nk4cp
+
+   HTTP/1.1 GET /
+
+   Host: 172.17.0.15:31637
    ```
 
    You can now access the sample app via the Minikube IP address and NodePort. The next step lets you access
@@ -148,7 +150,7 @@ storage-provisioner                         1/1       Running   0          2m
 
 ## Create an Ingress
 
-The following manifest defines an Ingress that sends traffic to your Service via hello-world.info.
+The following manifest defines an Ingress that sends traffic to your Service via hello-minikube.info.
 
 1. Create `example-ingress.yaml` from the following file:
 
@@ -177,44 +179,47 @@ The following manifest defines an Ingress that sends traffic to your Service via
    You should see an IPv4 address in the ADDRESS column; for example:
 
    ```
-   NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
-   example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
+   NAME              CLASS   HOSTS                 ADDRESS        PORTS   AGE
+   example-ingress   nginx   hello-minikube.info   172.17.0.15    80      38s
    ```
 
 1. Add the following line to the bottom of the `/etc/hosts` file on
    your computer (you will need administrator access):
 
     ```
-    172.17.0.15 hello-world.info
+    172.17.0.15 hello-minikube.info
     ```
 
    {{< note >}}If you are running Minikube locally, use `minikube ip` to get the external IP. The IP address displayed within the ingress list will be the internal IP.{{< /note >}}
+   {{< note >}}If using Docker Desktop as the minikube driver, for the above IP use `127.0.0.1` and in a new terminal window run `minikube tunnel` to get ingress working.{{< /note >}}
 
     After you make this change, your web browser sends requests for
-    hello-world.info URLs to Minikube.
+    hello-minikube.info URLs to Minikube.
 
 1. Verify that the Ingress controller is directing traffic:
 
     ```shell
-    curl hello-world.info
+    curl hello-minikube.info
     ```
 
     You should see:
 
     ```
-    Hello, world!
-    Version: 1.0.0
-    Hostname: web-55b8c6998d-8k564
+    Request served by web-6bc55d4d95-nk4cp
+
+    HTTP/1.1 GET /
+
+    Host: hello-minikube.info
     ```
 
-    {{< note >}}If you are running Minikube locally, you can visit hello-world.info from your browser.{{< /note >}}
+    {{< note >}}If you are running Minikube locally, you can visit hello-minikube.info from your browser.{{< /note >}}
 
 ## Create a second Deployment
 
 1. Create another Deployment using the following command:
 
    ```shell
-   kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0
+   kubectl create deployment web2 --image=kicbase/echo-server:1.0
    ```
    The output should be:
 
@@ -266,32 +271,36 @@ The following manifest defines an Ingress that sends traffic to your Service via
 1. Access the 1st version of the Hello World app.
 
    ```shell
-   curl hello-world.info
+   curl hello-minikube.info
    ```
 
    The output is similar to:
 
    ```
-   Hello, world!
-   Version: 1.0.0
-   Hostname: web-55b8c6998d-8k564
+   Request served by web-6bc55d4d95-nk4cp
+
+   HTTP/1.1 GET /
+
+   Host: hello-minikube.info
    ```
 
 1. Access the 2nd version of the Hello World app.
 
    ```shell
-   curl hello-world.info/v2
+   curl hello-minikube.info/v2
    ```
 
    The output is similar to:
 
    ```
-   Hello, world!
-   Version: 2.0.0
-   Hostname: web2-75cd47646f-t8cjk
+   Request served by web2-68795ffb5-fz5xh
+
+   HTTP/1.1 GET /v2
+
+   Host: hello-minikube.info
    ```
 
-   {{< note >}}If you are running Minikube locally, you can visit hello-world.info and hello-world.info/v2 from your browser.{{< /note >}}
+   {{< note >}}If you are running Minikube locally, you can visit hello-minikube.info and hello-minikube.info/v2 from your browser.{{< /note >}}
 
 
 

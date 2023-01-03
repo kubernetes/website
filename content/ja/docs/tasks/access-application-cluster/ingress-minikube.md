@@ -68,7 +68,7 @@ weight: 100
 1. 次のコマンドを実行して、Deploymentを作成します。
 
     ```shell
-    kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
+    kubectl create deployment web --image=kicbase/echo-server:1.0
     ```
 
     出力は次のようになります。
@@ -121,16 +121,18 @@ weight: 100
     出力は次のようになります。
 
     ```shell
-    Hello, world!
-    Version: 1.0.0
-    Hostname: web-55b8c6998d-8k564
+    Request served by web-6bc55d4d95-nk4cp
+
+    HTTP/1.1 GET /
+
+    Host: 172.17.0.15:31637
     ```
 
     これで、MinikubeのIPアドレスとNodePort経由で、サンプルアプリにアクセスできるようになりました。次のステップでは、Ingressリソースを使用してアプリにアクセスできるように設定します。
 
 ## Ingressリソースを作成する
 
-以下に示すファイルは、hello-world.info経由で送られたトラフィックをServiceに送信するIngressリソースです。
+以下に示すファイルは、hello-minikube.info経由で送られたトラフィックをServiceに送信するIngressリソースです。
 
 1. 以下の内容で`example-ingress.yaml`を作成します。
 
@@ -159,8 +161,8 @@ weight: 100
     {{< /note >}}
 
     ```shell
-    NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
-    example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
+    NAME              CLASS   HOSTS                 ADDRESS        PORTS   AGE
+    example-ingress   nginx   hello-minikube.info   172.17.0.15    80      38s
     ```
 
 1. 次の行を`/etc/hosts`ファイルの最後に書きます。
@@ -168,29 +170,32 @@ weight: 100
     {{< note >}}
     Minikubeをローカル環境で実行している場合、`minikube ip`コマンドを使用すると外部のIPが取得できます。Ingressのリスト内に表示されるIPアドレスは、内部のIPになるはずです。
     {{< /note >}}
+    {{< note >}}If using Docker Desktop as the minikube driver, for the below IP use `127.0.0.1` and in a new terminal window run `minikube tunnel` to get ingress working.{{< /note >}}
 
     ```
-    172.17.0.15 hello-world.info
+    172.17.0.15 hello-minikube.info
     ```
 
-    この設定により、リクエストがhello-world.infoからMinikubeに送信されるようになります。
+    この設定により、リクエストがhello-minikube.infoからMinikubeに送信されるようになります。
 
 1. Ingressコントローラーがトラフィックを制御していることを確認します。
 
     ```shell
-    curl hello-world.info
+    curl hello-minikube.info
     ```
 
     出力は次のようになります。
 
     ```shell
-    Hello, world!
-    Version: 1.0.0
-    Hostname: web-55b8c6998d-8k564
+    Request served by web-6bc55d4d95-nk4cp
+
+    HTTP/1.1 GET /
+
+    Host: hello-minikube.info
     ```
 
     {{< note >}}
-    Minikubeをローカル環境で実行している場合、ブラウザからhello-world.infoにアクセスできます。
+    Minikubeをローカル環境で実行している場合、ブラウザからhello-minikube.infoにアクセスできます。
     {{< /note >}}
 
 ## 2番目のDeploymentを作成する
@@ -198,7 +203,7 @@ weight: 100
 1. 次のコマンドを実行して、v2のDeploymentを作成します。
 
     ```shell
-    kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0
+    kubectl create deployment web2 --image=kicbase/echo-server:1.0
     ```
 
     出力は次のようになります。
@@ -250,33 +255,37 @@ weight: 100
 1. Hello Worldアプリの1番目のバージョンにアクセスします。
 
     ```shell
-    curl hello-world.info
+    curl hello-minikube.info
     ```
 
     出力は次のようになります。
 
     ```shell
-    Hello, world!
-    Version: 1.0.0
-    Hostname: web-55b8c6998d-8k564
+    Request served by web-6bc55d4d95-nk4cp
+
+    HTTP/1.1 GET /
+
+    Host: hello-minikube.info
     ```
 
 1. Hello Worldアプリの2番目のバージョンにアクセスします。
 
     ```shell
-    curl hello-world.info/v2
+    curl hello-minikube.info/v2
     ```
 
     出力は次のようになります。
 
     ```shell
-    Hello, world!
-    Version: 2.0.0
-    Hostname: web2-75cd47646f-t8cjk
+    Request served by web2-68795ffb5-fz5xh
+
+    HTTP/1.1 GET /v2
+
+    Host: hello-minikube.info
     ```
 
     {{< note >}}
-    Minikubeをローカル環境で実行している場合、ブラウザからhello-world.infoおよびhello-world.info/v2にアクセスできます。
+    Minikubeをローカル環境で実行している場合、ブラウザからhello-minikube.infoおよびhello-minikube.info/v2にアクセスできます。
     {{< /note >}}
 
 

@@ -87,7 +87,7 @@ storage-provisioner                         1/1       Running   0          2m
 1. 다음 명령을 사용하여 디플로이먼트(Deployment)를 생성한다.
 
    ```shell
-   kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
+   kubectl create deployment web --image=kicbase/echo-server:1.0
    ```
 
    결과는 다음과 같다.
@@ -138,9 +138,11 @@ storage-provisioner                         1/1       Running   0          2m
    결과는 다음과 같다.
 
    ```
-   Hello, world!
-   Version: 1.0.0
-   Hostname: web-55b8c6998d-8k564
+   Request served by web-6bc55d4d95-nk4cp
+
+   HTTP/1.1 GET /
+
+   Host: 172.17.0.15:31637
    ```
 
    이제 Minikube IP 주소와 노드포트를 통해 샘플 앱에 액세스할 수 있다. 다음 단계에서는 
@@ -148,7 +150,7 @@ storage-provisioner                         1/1       Running   0          2m
 
 ## 인그레스 생성하기
 
-다음 매니페스트는 hello-world.info를 통해 서비스로 트래픽을 보내는 인그레스를 정의한다.
+다음 매니페스트는 hello-minikube.info를 통해 서비스로 트래픽을 보내는 인그레스를 정의한다.
 
 1. 다음 파일을 통해 `example-ingress.yaml`을 만든다.
 
@@ -177,44 +179,47 @@ storage-provisioner                         1/1       Running   0          2m
 다음 예시와 같이, ADDRESS 열에서 IPv4 주소를 확인할 수 있다.
 
    ```
-   NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
-   example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
+   NAME              CLASS   HOSTS                 ADDRESS        PORTS   AGE
+   example-ingress   nginx   hello-minikube.info   172.17.0.15    80      38s
    ```
 
 1. 호스트 컴퓨터의 `/etc/hosts` 파일 맨 아래에 
    다음 행을 추가한다 (관리자 권한 필요).
 
     ```
-    172.17.0.15 hello-world.info
+    172.17.0.15 hello-minikube.info
     ```
 
    {{< note >}}Minikube를 로컬에서 실행하는 경우 'minikube ip'를 사용하여 외부 IP를 가져온다. 인그레스 목록에 표시되는 IP 주소는 내부 IP가 된다.{{< /note >}}
+   {{< note >}}If using Docker Desktop as the minikube driver, for the above IP use `127.0.0.1` and in a new terminal window run `minikube tunnel` to get ingress working.{{< /note >}}
 
     이렇게 하면, 웹 브라우저가 
-    hello-world.info URL에 대한 요청을 Minikube로 전송한다.
+    hello-minikube.info URL에 대한 요청을 Minikube로 전송한다.
 
 1. 인그레스 컨트롤러가 트래픽을 전달하는지 확인한다.
 
     ```shell
-    curl hello-world.info
+    curl hello-minikube.info
     ```
 
     결과는 다음과 같다.
 
     ```
-    Hello, world!
-    Version: 1.0.0
-    Hostname: web-55b8c6998d-8k564
+    Request served by web-6bc55d4d95-nk4cp
+
+    HTTP/1.1 GET /
+
+    Host: hello-minikube.info
     ```
 
-    {{< note >}}Minikube를 로컬에서 실행하는 경우 브라우저에서 hello-world.info에 접속할 수 있다.{{< /note >}}
+    {{< note >}}Minikube를 로컬에서 실행하는 경우 브라우저에서 hello-minikube.info에 접속할 수 있다.{{< /note >}}
 
 ## 두 번째 디플로이먼트 생성하기
 
 1. 다음 명령을 사용하여 두 번째 디플로이먼트를 생성한다.
 
    ```shell
-   kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0
+   kubectl create deployment web2 --image=kicbase/echo-server:1.0
    ```
    결과는 다음과 같다.
 
@@ -266,32 +271,36 @@ storage-provisioner                         1/1       Running   0          2m
 1. Hello World 앱의 첫 번째 버전에 액세스한다.
 
    ```shell
-   curl hello-world.info
+   curl hello-minikube.info
    ```
 
    결과는 다음과 같다.
 
    ```
-   Hello, world!
-   Version: 1.0.0
-   Hostname: web-55b8c6998d-8k564
+   Request served by web-6bc55d4d95-nk4cp
+
+   HTTP/1.1 GET /
+
+   Host: hello-minikube.info
    ```
 
 1. Hello World 앱의 두 번째 버전에 액세스한다.
 
    ```shell
-   curl hello-world.info/v2
+   curl hello-minikube.info/v2
    ```
 
    결과는 다음과 같다.
 
    ```
-   Hello, world!
-   Version: 2.0.0
-   Hostname: web2-75cd47646f-t8cjk
+   Request served by web2-68795ffb5-fz5xh
+
+   HTTP/1.1 GET /v2
+
+   Host: hello-minikube.info
    ```
 
-   {{< note >}}Minikube를 로컬에서 실행하는 경우 브라우저에서 hello-world.info 및 hello-world.info/v2에 접속할 수 있다.{{< /note >}}
+   {{< note >}}Minikube를 로컬에서 실행하는 경우 브라우저에서 hello-minikube.info 및 hello-minikube.info/v2에 접속할 수 있다.{{< /note >}}
 
 
 

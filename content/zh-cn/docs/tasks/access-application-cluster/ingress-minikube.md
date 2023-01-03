@@ -123,7 +123,7 @@ storage-provisioner                         1/1       Running   0          2m
 1. 使用下面的命令创建一个 Deployment：
 
    ```shell
-   kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
+   kubectl create deployment web --image=kicbase/echo-server:1.0
    ```
 
    <!--The output should be:-->
@@ -195,9 +195,11 @@ storage-provisioner                         1/1       Running   0          2m
    输出类似于：
 
    ```shell
-   Hello, world!
-   Version: 1.0.0
-   Hostname: web-55b8c6998d-8k564
+   Request served by web-6bc55d4d95-nk4cp
+
+   HTTP/1.1 GET /
+
+   Host: 172.17.0.15:31637
    ```
 
    <!--
@@ -210,13 +212,13 @@ storage-provisioner                         1/1       Running   0          2m
 <!--
 ## Create an Ingress
 
-The following manifest defines an Ingress that sends traffic to your Service via hello-world.info.
+The following manifest defines an Ingress that sends traffic to your Service via hello-minikube.info.
 
 1. Create `example-ingress.yaml` from the following file:
 -->
 ## 创建一个 Ingress
 
-下面是一个定义 Ingress 的配置文件，负责通过 `hello-world.info` 将请求
+下面是一个定义 Ingress 的配置文件，负责通过 `hello-minikube.info` 将请求
 转发到你的服务。
 
 1. 根据下面的 YAML 创建文件 `example-ingress.yaml`：
@@ -257,8 +259,8 @@ The following manifest defines an Ingress that sends traffic to your Service via
    接下来你将会在ADDRESS列中看到IPv4地址，例如：
 
    ```
-   NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
-   example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
+   NAME              CLASS   HOSTS                 ADDRESS        PORTS   AGE
+   example-ingress   nginx   hello-minikube.info   172.17.0.15    80      38s
    ```
 
 <!--
@@ -274,15 +276,16 @@ The following manifest defines an Ingress that sends traffic to your Service via
    如果你在本地运行 Minikube 环境，需要使用 `minikube ip` 获得外部 IP 地址。
    Ingress 列表中显示的 IP 地址会是内部 IP 地址。
    {{< /note >}}
+   {{< note >}}If using Docker Desktop as the minikube driver, for the below IP use `127.0.0.1` and in a new terminal window run `minikube tunnel` to get ingress working.{{< /note >}}
    ```
-   172.17.0.15 hello-world.info
+   172.17.0.15 hello-minikube.info
    ```
 
    <!--     
    After you make this change, your web browser sends requests for
-   hello-world.info URLs to Minikube.
+   hello-minikube.info URLs to Minikube.
    -->
-   添加完成后，在浏览器中访问URL `hello-world.info`，请求将被发送到 Minikube。
+   添加完成后，在浏览器中访问URL `hello-minikube.info`，请求将被发送到 Minikube。
 
 <!--
 1. Verify that the Ingress controller is directing traffic:
@@ -290,23 +293,25 @@ The following manifest defines an Ingress that sends traffic to your Service via
 5. 验证 Ingress 控制器能够转发请求流量：
 
    ```shell
-   curl hello-world.info
+   curl hello-minikube.info
    ```
 
    <!-- You should see: -->
    你应该看到类似输出：
 
    ```
-   Hello, world!
-   Version: 1.0.0
-   Hostname: web-55b8c6998d-8k564
+   Request served by web-6bc55d4d95-nk4cp
+
+   HTTP/1.1 GET /
+
+   Host: hello-minikube.info
    ```
 
    <!--
-   If you are running Minikube locally, you can visit hello-world.info from your browser.
+   If you are running Minikube locally, you can visit hello-minikube.info from your browser.
    -->
    {{< note >}}
-   如果你在使用本地 Minikube 环境，你可以从浏览器中访问 hello-world.info。
+   如果你在使用本地 Minikube 环境，你可以从浏览器中访问 hello-minikube.info。
    {{< /note >}}
 
 <!--
@@ -319,7 +324,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
 1. 使用下面的命令创建第二个 Deployment：
 
    ```shell
-   kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0
+   kubectl create deployment web2 --image=kicbase/echo-server:1.0
    ```
 
    <!-- The output should be: -->
@@ -392,16 +397,18 @@ The following manifest defines an Ingress that sends traffic to your Service via
 1. 访问 HelloWorld 应用的第一个版本：
 
    ```shell
-   curl hello-world.info
+   curl hello-minikube.info
    ```
 
    <!-- The output is similar to: -->
    输出类似于：
 
    ```
-   Hello, world!
-   Version: 1.0.0
-   Hostname: web-55b8c6998d-8k564
+   Request served by web-6bc55d4d95-nk4cp
+
+   HTTP/1.1 GET /
+
+   Host: hello-minikube.info
    ```
 
 <!--
@@ -410,24 +417,26 @@ The following manifest defines an Ingress that sends traffic to your Service via
 2. 访问 HelloWorld 应用的第二个版本：
 
    ```shell
-   curl hello-world.info/v2
+   curl hello-minikube.info/v2
    ```
 
    <!-- The output is similar to: -->
    输出类似于：
 
    ```
-   Hello, world!
-   Version: 2.0.0
-   Hostname: web2-75cd47646f-t8cjk
+   Request served by web2-68795ffb5-fz5xh
+
+   HTTP/1.1 GET /v2
+
+   Host: hello-minikube.info
    ```
 
    <!--
-   If you are running Minikube locally, you can visit hello-world.info and hello-world.info/v2 from your browser.
+   If you are running Minikube locally, you can visit hello-minikube.info and hello-minikube.info/v2 from your browser.
    -->
    {{< note >}}
    如果你在本地运行 Minikube 环境，你可以使用浏览器来访问
-   hello-world.info 和 hello-world.info/v2。
+   hello-minikube.info 和 hello-minikube.info/v2。
    {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
