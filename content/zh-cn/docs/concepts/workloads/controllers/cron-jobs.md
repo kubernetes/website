@@ -64,17 +64,24 @@ Kubernetes 项目官方并不支持设置如 `CRON_TZ` 或者 `TZ` 等变量。
 {{< /caution>}}
 
 <!--
-When creating the manifest for a CronJob resource, make sure the name you provide
-is a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-The name must be no longer than 52 characters. This is because the CronJob controller will automatically
-append 11 characters to the job name provided and there is a constraint that the
-maximum length of a Job name is no more than 63 characters.
+When the control plane creates new Jobs and (indirectly) Pods for a CronJob, the `.metadata.name`
+of the CronJob is part of the basis for naming those Pods.  The name of a CronJob must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
+Even when the name is a DNS subdomain, the name must be no longer than 52
+characters.  This is because the CronJob controller will automatically append
+11 characters to the name you provide and there is a constraint that the
+length of a Job name is no more than 63 characters.
 -->
-为 CronJob 资源创建清单时，请确保所提供的名称是一个合法的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
-名称不能超过 52 个字符。
-这是因为 CronJob 控制器将自动在提供的 Job 名称后附加 11 个字符，并且存在一个限制，
-即 Job 名称的最大长度不能超过 63 个字符。
+当控制平面为 CronJob 创建新的 Job 和（间接）Pod 时，CronJob 的 `.metadata.name` 是命名这些 Pod 的部分基础。
+CronJob 的名称必须是一个合法的
+[DNS 子域](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)值，
+但这会对 Pod 的主机名产生意外的结果。为获得最佳兼容性，名称应遵循更严格的
+[DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
+即使名称是一个 DNS 子域，它也不能超过 52 个字符。这是因为 CronJob 控制器将自动在你所提供的 Job 名称后附加
+11 个字符，并且存在 Job 名称的最大长度不能超过 63 个字符的限制。
 
 <!-- body -->
 
