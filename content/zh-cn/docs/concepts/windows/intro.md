@@ -715,16 +715,12 @@ Kubernetes Slack 上的 SIG Windows 频道也是一个很好的途径，
 
 The kubeadm tool helps you to deploy a Kubernetes cluster, providing the control
 plane to manage the cluster it, and nodes to run your workloads.
-[Adding Windows nodes](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
-explains how to deploy Windows nodes to your cluster using kubeadm.
 
 The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also provides means to automate deployment of Windows nodes.
 -->
 ### 部署工具 {#deployment-tools}
 
 kubeadm 工具帮助你部署 Kubernetes 集群，提供管理集群的控制平面以及运行工作负载的节点。
-[添加 Windows 节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)阐述了如何使用
-kubeadm 将 Windows 节点部署到你的集群。
 
 Kubernetes [集群 API](https://cluster-api.sigs.k8s.io/) 项目也提供了自动部署 Windows 节点的方式。
 
