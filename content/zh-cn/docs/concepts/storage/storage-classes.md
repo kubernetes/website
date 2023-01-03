@@ -113,7 +113,6 @@ for provisioning PVs. This field must be specified.
 | FC                   |     -      |                   -                   |
 | FlexVolume           |     -      |                   -                   |
 | GCEPersistentDisk    |  &#x2713;  |           [GCE PD](#gce-pd)           |
-| Glusterfs            |  &#x2713;  |        [Glusterfs](#glusterfs)        |
 | iSCSI                |     -      |                   -                   |
 | NFS                  |     -      |              [NFS](#nfs)              |
 | RBD                  |  &#x2713;  |         [Ceph RBD](#ceph-rbd)         |
@@ -198,7 +197,6 @@ Volume type | Required Kubernetes version
 | gcePersistentDisk    | 1.11                      |
 | awsElasticBlockStore | 1.11                      |
 | Cinder               | 1.11                      |
-| glusterfs            | 1.11                      |
 | rbd                  | 1.11                      |
 | Azure File           | 1.11                      |
 | Azure Disk           | 1.11                      |
@@ -317,8 +315,8 @@ to see its supported topology keys and examples.
 -->
    如果你选择使用 `WaitForFirstConsumer`，请不要在 Pod 规约中使用 `nodeName` 来指定节点亲和性。
    如果在这种情况下使用 `nodeName`，Pod 将会绕过调度程序，PVC 将停留在 `pending` 状态。
-   
-   相反，在这种情况下，你可以使用节点选择器作为主机名，如下所示
+
+   相反，在这种情况下，你可以使用节点选择器作为主机名，如下所示。
 
 {{< /note >}}
 
@@ -537,145 +535,6 @@ using `allowedTopologies`.
 -->
 `zone` 和 `zones` 已被弃用并被 [allowedTopologies](#allowed-topologies) 取代。
 {{< /note >}}
-
-<!--
-### Glusterfs (deprecated) {#glusterfs}
--->
-### Glusterfs（已弃用）   {#glusterfs}
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/glusterfs
-parameters:
-  resturl: "http://127.0.0.1:8081"
-  clusterid: "630372ccdc720a92c681fb928f27b53f"
-  restauthenabled: "true"
-  restuser: "admin"
-  secretNamespace: "default"
-  secretName: "heketi-secret"
-  gidMin: "40000"
-  gidMax: "50000"
-  volumetype: "replicate:3"
-```
-
-<!--
-* `resturl`: Gluster REST service/Heketi service url which provision gluster
-  volumes on demand. The general format should be `IPaddress:Port` and this is
-  a mandatory parameter for GlusterFS dynamic provisioner. If Heketi service is
-  exposed as a routable service in openshift/kubernetes setup, this can have a
-  format similar to `http://heketi-storage-project.cloudapps.mystorage.com`
-  where the fqdn is a resolvable Heketi service url.
-* `restauthenabled` : Gluster REST service authentication boolean that enables
-  authentication to the REST server. If this value is `"true"`, `restuser` and
-  `restuserkey` or `secretNamespace` + `secretName` have to be filled. This
-  option is deprecated, authentication is enabled when any of `restuser`,
-  `restuserkey`, `secretName` or `secretNamespace` is specified.
-* `restuser` : Gluster REST service/Heketi user who has access to create volumes
-  in the Gluster Trusted Pool.
-* `restuserkey` : Gluster REST service/Heketi user's password which will be used
-  for authentication to the REST server. This parameter is deprecated in favor
-  of `secretNamespace` + `secretName`.
--->
-* `resturl`：制备 gluster 卷的需求的 Gluster REST 服务/Heketi 服务 url。
-  通用格式应该是 `IPaddress:Port`，这是 GlusterFS 动态制备器的必需参数。
-  如果 Heketi 服务在 OpenShift/kubernetes 中安装并暴露为可路由服务，则可以使用类似于
-  `http://heketi-storage-project.cloudapps.mystorage.com` 的格式，其中 fqdn 是可解析的 heketi 服务网址。
-* `restauthenabled`：Gluster REST 服务身份验证布尔值，用于启用对 REST 服务器的身份验证。
-  如果此值为 'true'，则必须填写 `restuser` 和 `restuserkey` 或 `secretNamespace` + `secretName`。
-  此选项已弃用，当在指定 `restuser`、`restuserkey`、`secretName` 或  `secretNamespace` 时，身份验证被启用。
-* `restuser`：在 Gluster 可信池中有权创建卷的 Gluster REST服务/Heketi 用户。
-* `restuserkey`：Gluster REST 服务/Heketi 用户的密码将被用于对 REST 服务器进行身份验证。
-  此参数已弃用，取而代之的是 `secretNamespace` + `secretName`。
-
-<!--
-* `secretNamespace`, `secretName` : Identification of Secret instance that
-  contains user password to use when talking to Gluster REST service. These
-  parameters are optional, empty password will be used when both
-  `secretNamespace` and `secretName` are omitted. The provided secret must have
-  type `"kubernetes.io/glusterfs"`, for example created in this way:
-
-    ```
-    kubectl create secret generic heketi-secret \
-      --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
-      --namespace=default
-    ```
-
-    Example of a secret can be found in
-    [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
--->
-* `secretNamespace`，`secretName`：Secret 实例的标识，包含与 Gluster
-  REST 服务交互时使用的用户密码。
-  这些参数是可选的，`secretNamespace` 和 `secretName` 都省略时使用空密码。
-  所提供的 Secret 必须将类型设置为 "kubernetes.io/glusterfs"，例如以这种方式创建：
-
-  ```
-  kubectl create secret generic heketi-secret \
-    --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
-    --namespace=default
-  ```
-
-  Secret 的例子可以在
-  [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml) 中找到。
-
-<!--
-* `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster
-  which will be used by Heketi when provisioning the volume. It can also be a
-  list of clusterids, for example:
-  `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`. This
-  is an optional parameter.
-* `gidMin`, `gidMax` : The minimum and maximum value of GID range for the
-  StorageClass. A unique value (GID) in this range ( gidMin-gidMax ) will be
-  used for dynamically provisioned volumes. These are optional values. If not
-  specified, the volume will be provisioned with a value between 2000-2147483647
-  which are defaults for gidMin and gidMax respectively.
--->
-* `clusterid`：`630372ccdc720a92c681fb928f27b53f` 是集群的 ID，当制备卷时，
-  Heketi 将会使用这个文件。它也可以是一个 clusterid 列表，例如：
-  `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`。这个是可选参数。
-* `gidMin`，`gidMax`：StorageClass GID 范围的最小值和最大值。
-  在此范围（gidMin-gidMax）内的唯一值（GID）将用于动态制备卷。这些是可选的值。
-  如果不指定，所制备的卷为一个 2000-2147483647 之间的值，这是 gidMin 和
-  gidMax 的默认值。
-
-<!--
-* `volumetype` : The volume type and its parameters can be configured with this
-  optional value. If the volume type is not mentioned, it's up to the provisioner
-  to decide the volume type.
-
-    For example:
-    * Replica volume: `volumetype: replicate:3` where '3' is replica count.
-    * Disperse/EC volume: `volumetype: disperse:4:2` where '4' is data and '2' is the redundancy count.
-    * Distribute volume: `volumetype: none`
-
-    For available volume types and administration options, refer to the
-    [Administration Guide](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/).
-
-    For further reference information, see
-    [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
-
-    When persistent volumes are dynamically provisioned, the Gluster plugin
-    automatically creates an endpoint and a headless service in the name
-    `gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically
-    deleted when the persistent volume claim is deleted.
--->
-* `volumetype`：卷的类型及其参数可以用这个可选值进行配置。如果未声明卷类型，则由制备器决定卷的类型。
-
-  例如：
-  * 'Replica volume'：`volumetype: replicate:3` 其中 '3' 是 replica 数量。
-  * 'Disperse/EC volume'：`volumetype: disperse:4:2` 其中 '4' 是数据，'2' 是冗余数量。
-  * 'Distribute volume'：`volumetype: none`
-
-  有关可用的卷类型和管理选项，
-  请参阅[管理指南](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/)。
-
-  更多相关的参考信息，
-  请参阅[如何配置 Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology)。
-
-  当动态制备持久卷时，Gluster 插件自动创建名为 `gluster-dynamic-<claimname>`
-  的端点和无头服务。在 PVC 被删除时动态端点和无头服务会自动被删除。
 
 ### NFS  {#nfs}
 

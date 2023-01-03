@@ -2,9 +2,7 @@
 title: kube-apiserver Audit 配置 (v1)
 content_type: tool-reference
 package: audit.k8s.io/v1
-auto_generated: true
 ---
-
 <!---
 title: kube-apiserver Audit Configuration (v1)
 content_type: tool-reference
@@ -103,7 +101,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </tr>
     
 <tr><td><code>user</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#userinfo-v1-authentication"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#userinfo-v1-authentication"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <!--Authenticated user information.-->
@@ -114,7 +112,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </tr>
 
 <tr><td><code>impersonatedUser</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#userinfo-v1-authentication"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#userinfo-v1-authentication"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <!--Impersonated user information.-->
@@ -189,7 +187,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>responseStatus</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
    <!--The response status, populated even when the ResponseObject is not a Status type.
@@ -216,12 +214,12 @@ Omitted for non-resource requests.  Only logged at Request Level and higher.-->
    （可能会采用 JSON 重新编码），之后会进入版本转换、默认值填充、准入控制以及
    配置信息合并等阶段。此对象为外部版本化的对象类型，甚至其自身可能并不是一个
    合法的对象。对于非资源请求，此字段被忽略。
-   只有当审计级别为 Request 或更高的时候才会记录。 
+   只有当审计级别为 Request 或更高的时候才会记录。
    </p>  
 </td>
 </tr>
-    
-  
+
+
 <tr><td><code>responseObject</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
 </td>
@@ -239,7 +237,7 @@ at Response Level.-->
 </tr>
 
 <tr><td><code>requestReceivedTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <!--Time the request reached the apiserver.-->
@@ -250,7 +248,7 @@ at Response Level.-->
 </tr>
 
 <tr><td><code>stageTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <!--Time the request reached current audit stage.-->
@@ -285,7 +283,7 @@ at Response Level.-->
 </tr>
 </tbody>
 </table>
-    
+
 ## `EventList`     {#audit-k8s-io-v1-EventList}
 
 <!--    
@@ -303,7 +301,7 @@ EventList 是审计事件（Event）的列表。
 <tr><td><code>kind</code><br/>string</td><td><code>EventList</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->列表结构元数据</span>
@@ -319,9 +317,9 @@ EventList 是审计事件（Event）的列表。
 </tr>
 </tbody>
 </table>
-    
+
 ## `Policy`     {#audit-k8s-io-v1-Policy}
-    
+
 <!--
 **Appears in:**
 -->
@@ -345,7 +343,7 @@ Policy 定义的是审计日志的配置以及不同类型请求的日志记录�
 <tr><td><code>kind</code><br/>string</td><td><code>Policy</code></td></tr>
   
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
    <!--ObjectMeta is included for interoperability with API infrastructure.Refer to the Kubernetes API documentation for the fields of the <code>metadata</code> field.-->
@@ -412,7 +410,7 @@ omitManagedFields 标明将请求和响应主体写入 API 审计日志时，是
 </tr>
 </tbody>
 </table>
-    
+
 ## `PolicyList`     {#audit-k8s-io-v1-PolicyList}
 
 <!--
@@ -430,7 +428,7 @@ PolicyList 是由审计策略（Policy）组成的列表。
 <tr><td><code>kind</code><br/>string</td><td><code>PolicyList</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->列表结构元数据。</span>
@@ -446,9 +444,9 @@ PolicyList 是由审计策略（Policy）组成的列表。
 </tr>
 </tbody>
 </table>
-    
+
 ## `GroupResources`     {#audit-k8s-io-v1-GroupResources}
-    
+
 <!--
 **Appears in:**
 -->
@@ -534,7 +532,7 @@ For example:
 </tr>
 </tbody>
 </table>
-    
+
 ## `Level`     {#audit-k8s-io-v1-Level}
 
 <!--    

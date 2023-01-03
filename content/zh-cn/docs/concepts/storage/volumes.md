@@ -304,7 +304,7 @@ For more details, see the [`azureFile` volume plugin](https://github.com/kuberne
 -->
 #### azureFile CSI 迁移  {#azurefile-csi-migration}
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 The `CSIMigration` feature for `azureFile`, when enabled, redirects all plugin operations
@@ -663,7 +663,8 @@ Kubernetes 主机才可以访问它们。
 {{< /note >}}
 
 <!--
-See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) for more details.
+See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)
+for more details.
 -->
 更多详情请参考 [FC 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)。
 
@@ -863,7 +864,9 @@ and the kubelet, set the `InTreePluginGCEUnregister` flag to `true`.
 
 {{< warning >}}
 <!--
-The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
+The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an
+[EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the
+[EmptyDir](#emptydir) into the Pod's container.
 -->
 `gitRepo` 卷类型已经被废弃。如果需要在容器中提供 git 仓库，请将一个
 [EmptyDir](#emptydir) 卷挂载到 InitContainer 中，使用 git
@@ -902,39 +905,23 @@ spec:
 ```
 
 <!--
-### glusterfs (deprecated) {#glusterfs}
+### glusterfs (removed) {#glusterfs}
 -->
-### glusterfs（已弃用）   {#glusterfs}
+### glusterfs（已移除）   {#glusterfs}
 
-{{< feature-state for_k8s_version="v1.25" state="deprecated" >}}
+<!-- maintenance note: OK to remove all mention of glusterfs once the v1.25 release of
+Kubernetes has gone out of support -->
 
-<!--
-A `glusterfs` volume allows a [Glusterfs](https://www.gluster.org) (an open
-source networked filesystem) volume to be mounted into your Pod. Unlike
-`emptyDir`, which is erased when a Pod is removed, the contents of a
-`glusterfs` volume are preserved and the volume is merely unmounted. This
-means that a `glusterfs` volume can be pre-populated with data, and that data can
-be shared between pods. GlusterFS can be mounted by multiple writers
-simultaneously.
+<!-- 
+Kubernetes {{< skew currentVersion >}} does not include a `glusterfs` volume type.
+
+The GlusterFS in-tree storage driver was deprecated in the Kubernetes v1.25 release
+and then removed entirely in the v1.26 release.
 -->
-`glusterfs` 卷能将 [Glusterfs](https://www.gluster.org) (一个开源的网络文件系统)
-挂载到你的 Pod 中。不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`glusterfs`
-卷的内容在删除 Pod 时会被保存，卷只是被卸载。
-这意味着 `glusterfs` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
-GlusterFS 可以被多个写者同时挂载。
+Kubernetes {{< skew currentVersion >}} 不包含 `glusterfs` 卷类型。
 
-{{< note >}}
-<!--
-You must have your own GlusterFS installation running before you can use it.
--->
-在使用前你必须先安装运行自己的 GlusterFS。
-{{< /note >}}
-
-<!--
-See the [GlusterFS example](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs) for more details.
--->
-更多详情请参考 [GlusterFS 示例](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs)。
-
+GlusterFS 树内存储驱动程序在 Kubernetes v1.25 版本中被弃用，然后在 v1.26 版本中被完全移除。
+ 
 ### hostPath {#hostpath}
 
 {{< warning >}}
@@ -1293,7 +1280,9 @@ spec:
 <!--
 You must have your own NFS server running with the share exported before you can use it.
 
-Also note that you can't specify NFS mount options in a Pod spec. You can either set mount options server-side or use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html). You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
+Also note that you can't specify NFS mount options in a Pod spec. You can either set mount options server-side or
+use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html).
+You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
 -->
 在使用 NFS 卷之前，你必须运行自己的 NFS 服务器并将目标 share 导出备用。
 
@@ -1304,7 +1293,8 @@ Also note that you can't specify NFS mount options in a Pod spec. You can either
 {{< /note >}}
 
 <!--
-See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) for an example of mounting NFS volumes with PersistentVolumes.
+See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
+for an example of mounting NFS volumes with PersistentVolumes.
 -->
 如需了解用持久卷挂载 NFS 卷的示例，请参考 [NFS 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)。
 
@@ -1575,37 +1565,34 @@ For more information, see the [vSphere volume](https://github.com/kubernetes/exa
 -->
 #### vSphere CSI 迁移  {#vsphere-csi-migration}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+
 
 <!--
-The `CSIMigrationvSphere` feature for `vsphereVolume` is enabled by default as of Kubernetes v1.25.
-All plugin operations from the in-tree `vspherevolume` will be redirected to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver unless `CSIMigrationvSphere` feature gate is disabled.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `vsphereVolume` type
+are redirected to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 -->
-从 Kubernetes v1.25 开始，针对 `vsphereVolume` 的 `CSIMigrationvSphere` 特性默认被启用。
-来自树内 `vspherevolume` 的所有插件操作将被重新指向到
-`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动，
-除非 `CSIMigrationvSphere` 特性门控被禁用。
+在 Kubernetes {{< skew currentVersion >}} 中，对树内 `vsphereVolume`
+类的所有操作都会被重定向至 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序。
 
 <!--
 [vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
 must be installed on the cluster. You can find additional advice on how to migrate in-tree `vsphereVolume` in VMware's documentation page 
 [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
+If vSphere CSI Driver is not installed volume operations can not be performed on the PV created with the in-tree `vsphereVolume` type.
 -->
 [vSphere CSI 驱动](https://github.com/kubernetes-sigs/vsphere-csi-driver)必须安装到集群上。
 你可以在 VMware 的文档页面[迁移树内 vSphere 卷插件到 vSphere 容器存储插件](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html)
 中找到有关如何迁移树内 `vsphereVolume` 的其他建议。
+如果未安装 vSphere CSI 驱动程序，则无法对由树内 `vsphereVolume` 类型创建的 PV 执行卷操作。
 
 <!--
-As of Kubernetes v1.25, vSphere releases less than 7.0u2 are not supported for the
-(deprecated) in-tree vSphere storage driver. You must run vSphere 7.0u2 or later
-in order to either continue using the deprecated driver, or to migrate to
-the replacement CSI driver.
+You must run vSphere 7.0u2 or later in order to migrate to the vSphere CSI driver.
 
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}}, consult
 the documentation for that version of Kubernetes.
 -->
-从 Kubernetes v1.25 开始，（已弃用）树内 vSphere 存储驱动不支持低于 7.0u2 的 vSphere 版本。
-你必须运行 vSphere 7.0u2 或更高版本才能继续使用这个已弃用的驱动，或迁移到替代的 CSI 驱动。
+你必须运行 vSphere 7.0u2 或更高版本才能迁移到 vSphere CSI 驱动程序。
 
 如果你正在运行 Kubernetes v{{< skew currentVersion >}}，请查阅该 Kubernetes 版本的文档。
 
@@ -1957,7 +1944,7 @@ persistent volume:
   volume expansion, the kubelet passes that data via the `NodeExpandVolume()`
   call to the CSI driver. In order to use the `nodeExpandSecretRef` field, your
   cluster should be running Kubernetes version 1.25 or later and you must enable
-  the [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)
+  the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   named `CSINodeExpandSecret` for each kube-apiserver and for the kubelet on every
   node. You must also be using a CSI driver that supports or requires secret data during
   node-initiated storage resize operations.

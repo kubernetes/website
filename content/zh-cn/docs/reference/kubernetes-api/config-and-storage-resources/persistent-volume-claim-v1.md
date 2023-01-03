@@ -86,16 +86,11 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 
 <!--
 - **resources** (ResourceRequirements)
+
   resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 
   <a name="ResourceRequirements"></a>
   *ResourceRequirements describes the compute resource requirements.*
-
-  - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-    Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-
-  - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 -->
 - **resources** (ResourceRequirements)
   
@@ -106,7 +101,48 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
   
   <a name="ResourceRequirements"></a> 
   **ResourceRequirements 描述计算资源要求。**
-  
+
+  - **resources.claims** ([]ResourceClaim)
+
+    <!--
+    *Set: unique values will be kept during a merge*
+    
+    Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+    
+    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    
+    This field is immutable.
+    -->
+    **集合：唯一值将在合并期间被保留**
+    
+    claims 列出了此容器使用的、在 spec.resourceClaims 中定义的资源的名称。
+    
+    这是一个 Alpha 字段，需要启用 DynamicResourceAllocation 特性门控。
+    
+    此字段是不可变的。
+
+    <!--
+    <a name="ResourceClaim"></a>
+    *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+    - **resources.claims.name** (string), required
+
+      Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+    -->
+    <a name="ResourceClaim"></a>
+    **ResourceClaim 引用 PodSpec.ResourceClaims 中的一个条目。**
+
+    - **resources.claims.name** (string)，必需
+
+      对于使用此字段的 Pod，name 必须与 pod.spec.resourceClaims 中的一个条目的名称匹配。
+
+  <!--
+  - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+    Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+  - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+  -->
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
     
     limits 描述允许的最大计算资源量。更多信息：
@@ -146,9 +182,10 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 
 - **dataSource** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
 
-  dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+  dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
 -->
 ### Beta 级别
+
 - **dataSource** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
   
   dataSource 字段可用于二选一：
@@ -158,33 +195,83 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
   * 现有的 PVC (PersistentVolumeClaim)
   
   如果制备器或外部控制器可以支持指定的数据源，则它将根据指定数据源的内容创建新的卷。
-  如果 AnyVolumeDataSource 特性门控被启用，此字段的内容将始终与 dataSourceRef 字段内容相同。
+  当 AnyVolumeDataSource 特性门控被启用时，dataSource 内容将被复制到 dataSourceRef，
+  当 dataSourceRef.namespace 未被指定时，dataSourceRef 内容将被复制到 dataSource。
+  如果名字空间被指定，则 dataSourceRef 不会被复制到 dataSource。
 
 <!--
-- **dataSourceRef** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
+- **dataSourceRef** (TypedObjectReference)
 
-  dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
-    allows any non-core object, as well as PersistentVolumeClaim objects.
-  * While DataSource ignores disallowed values (dropping them), DataSourceRef
-    preserves all values, and generates an error if a disallowed value is
-    specified.
-  (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+  dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: 
 -->
-- **dataSourceRef** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
+- **dataSourceRef** (TypedObjectReference)
   
   dataSourceRef 指定一个对象，当需要非空卷时，可以使用它来为卷填充数据。
-  此字段值可以是来自非空 API 组（非核心对象）的一个本地对象，或一个 PersistentVolumeClaim 对象。
+  此字段值可以是来自非空 API 组（非核心对象）的任意对象，或一个 PersistentVolumeClaim 对象。
   如果设置了此字段，则仅当所指定对象的类型与所安装的某些卷填充器或动态制备器匹配时，卷绑定才会成功。
   此字段将替换 dataSource 字段的功能，因此如果两个字段非空，其取值必须相同。
-  为了向后兼容，如果其中一个字段为空且另一个字段非空，
-  则两个字段（dataSource 和 dataSourceRef）将被自动设为相同的值。
-  dataSource 和 dataSourceRef 之间有两个重要的区别：
+  为了向后兼容，当未在 dataSourceRef 中指定名字空间时，
+  如果（dataSource 和 dataSourceRef）其中一个字段为空且另一个字段非空，则两个字段将被自动设为相同的值。
+  在 dataSourceRef 中指定名字空间时，dataSource 未被设置为相同的值且必须为空。
+  dataSource 和 dataSourceRef 之间有三个重要的区别：
 
-  * dataSource 仅允许两个特定类型的对象，而 dataSourceRef 允许设置任何非核心对象以及 PersistentVolumeClaim 对象。
-  
-  * dataSource 忽略不允许的值（这类值会被丢弃），dataSourceRef 保留所有值并在指定不允许的值时产生错误。
-  
-  （Beta）使用此字段需要启用 AnyVolumeDataSource 特性门控。
+  <!--
+  * While dataSource only allows two specific types of objects, dataSourceRef
+    allows any non-core object, as well as PersistentVolumeClaim objects.
+  * While dataSource ignores disallowed values (dropping them), dataSourceRef
+    preserves all values, and generates an error if a disallowed value is
+    specified.
+  * While dataSource only allows local objects, dataSourceRef allows objects
+    in any namespaces.
+  (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+  -->
+  * dataSource 仅允许两个特定类型的对象，而 dataSourceRef 允许任何非核心对象以及 PersistentVolumeClaim 对象。
+  * dataSource 忽略不允许的值（这类值会被丢弃），而 dataSourceRef 保留所有值并在指定不允许的值时产生错误。
+  * dataSource 仅允许本地对象，而 dataSourceRef 允许任意名字空间中的对象。
+
+  (Beta) 使用此字段需要启用 AnyVolumeDataSource 特性门控。
+  (Alpha) 使用 dataSourceRef 的名字空间字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
+
+  <a name="TypedObjectReference"></a>
+  **
+
+  <!--
+  - **dataSourceRef.kind** (string), required
+
+    Kind is the type of resource being referenced
+
+  - **dataSourceRef.name** (string), required
+
+    Name is the name of resource being referenced
+  -->
+  - **dataSourceRef.kind** (string)，必需
+
+    kind 是正被引用的资源的类型。
+
+  - **dataSourceRef.name** (string)，必需
+
+    name 是正被引用的资源的名称。
+
+  <!--
+  - **dataSourceRef.apiGroup** (string)
+
+    APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+
+  - **dataSourceRef.namespace** (string)
+
+    Namespace is the namespace of resource being referenced Note that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details. (Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+  -->
+  - **dataSourceRef.apiGroup** (string)
+
+    apiGroup 是正被引用的资源的组。如果 apiGroup 未被指定，则指定的 kind 必须在核心 API 组中。
+    对于任何第三方类型，apiGroup 是必需的。
+
+  - **dataSourceRef.namespace** (string)
+
+    namespace 是正被引用的资源的名字空间。请注意，当指定一个名字空间时，
+    在引用的名字空间中 gateway.networking.k8s.io/ReferenceGrant 对象是必需的，
+    以允许该名字空间的所有者接受引用。有关详细信息，请参阅 ReferenceGrant 文档。
+    (Alpha) 此字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
 
 ## PersistentVolumeClaimStatus {#PersistentVolumeClaimStatus}
 <!--

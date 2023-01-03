@@ -228,8 +228,12 @@ In this manner, a ReplicaSet can own a non-homogenous set of Pods
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.
 For ReplicaSets, the `kind` is always a ReplicaSet.
 
-The name of a ReplicaSet object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+When the control plane creates new Pods for a ReplicaSet, the `.metadata.name` of the
+ReplicaSet is part of the basis for naming those Pods.  The name of a ReplicaSet must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 

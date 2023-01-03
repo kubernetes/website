@@ -519,29 +519,6 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 
-- **glusterfs** (GlusterfsPersistentVolumeSource)
-
-  glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
-
-  <a name="GlusterfsPersistentVolumeSource"></a>
-  *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
-
-  - **glusterfs.endpoints** (string), required
-
-    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.path** (string), required
-
-    path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.endpointsNamespace** (string)
-
-    endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.readOnly** (boolean)
-
-    readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
 - **iscsi** (ISCSIPersistentVolumeSource)
 
   iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.

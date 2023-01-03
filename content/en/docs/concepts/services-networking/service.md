@@ -193,7 +193,7 @@ spec:
 ```
 
 Because this Service has no selector, the corresponding EndpointSlice (and
-legacy Endpoints) objects are not created automatically. You can manually map the Service
+legacy Endpoints) objects are not created automatically. You can map the Service
 to the network address and port where it's running, by adding an EndpointSlice
 object manually. For example:
 
@@ -254,6 +254,13 @@ managed by Kubernetes' own control plane.
 Accessing a Service without a selector works the same as if it had a selector.
 In the [example](#services-without-selectors) for a Service without a selector, traffic is routed to one of the two endpoints defined in
 the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 9376.
+
+{{< note >}}
+The Kubernetes API server does not allow proxying to endpoints that are not mapped to
+pods. Actions such as `kubectl proxy <service-name>` where the service has no
+selector will fail due to this constraint. This prevents the Kubernetes API server
+from being used as a proxy to endpoints the caller may not be authorized to access.
+{{< /note >}}
 
 An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
@@ -1070,42 +1077,6 @@ in those modified security groups.
 
 Further documentation on annotations for Elastic IPs and other common use-cases may be found
 in the [AWS Load Balancer Controller documentation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/).
-
-#### Other CLB annotations on Tencent Kubernetes Engine (TKE)
-
-There are other annotations for managing Cloud Load Balancers on TKE as shown below.
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        # Bind Loadbalancers with specified nodes
-        service.kubernetes.io/qcloud-loadbalancer-backends-label: key in (value1, value2)
-
-        # ID of an existing load balancer
-        service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
-
-        # Custom parameters for the load balancer (LB), does not support modification of LB type yet
-        service.kubernetes.io/service.extensiveParameters: ""
-
-        # Custom parameters for the LB listener
-        service.kubernetes.io/service.listenerParameters: ""
-
-        # Specifies the type of Load balancer;
-        # valid values: classic (Classic Cloud Load Balancer) or application (Application Cloud Load Balancer)
-        service.kubernetes.io/loadbalance-type: xxxxx
-
-        # Specifies the public network bandwidth billing method;
-        # valid values: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic) and BANDWIDTH_POSTPAID_BY_HOUR (bill-by-bandwidth).
-        service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
-
-        # Specifies the bandwidth value (value range: [1,2000] Mbps).
-        service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
-
-        # When this annotation is set，the loadbalancers will only register nodes
-        # with pod running on it, otherwise all nodes will be registered.
-        service.kubernetes.io/local-svc-only-bind-node-with-pod: true
-```
 
 ### Type ExternalName {#externalname}
 

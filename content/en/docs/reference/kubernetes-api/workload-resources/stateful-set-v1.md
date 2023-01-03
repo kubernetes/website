@@ -74,7 +74,7 @@ A StatefulSetSpec is the specification of a StatefulSet.
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
-  template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+  template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format \<statefulsetname>-\<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
 
 - **replicas** (int32)
 
@@ -143,6 +143,20 @@ A StatefulSetSpec is the specification of a StatefulSet.
   - **persistentVolumeClaimRetentionPolicy.whenScaled** (string)
 
     WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
+
+- **ordinals** (StatefulSetOrdinals)
+
+  ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+
+  <a name="StatefulSetOrdinals"></a>
+  *StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.*
+
+  - **ordinals.start** (int32)
+
+    start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+      [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+    If unset, defaults to 0. Replica indices will be in the range:
+      [0, .spec.replicas).
 
 
 

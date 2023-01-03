@@ -3,7 +3,7 @@ title: 服务（Service）
 feature:
   title: 服务发现与负载均衡
   description: >
-    无需修改你的应用程序即可使用陌生的服务发现机制。Kubernetes 为容器提供了自己的 IP 地址和一个 DNS 名称，并且可以在它们之间实现负载均衡。
+    无需修改你的应用程序去使用陌生的服务发现机制。Kubernetes 为容器提供了自己的 IP 地址和一个 DNS 名称，并且可以在它们之间实现负载均衡。
 description: >-
   将在集群中运行的应用程序暴露在单个外向端点后面，即使工作负载分散到多个后端也是如此。
 content_type: concept
@@ -33,7 +33,7 @@ With Kubernetes you don't need to modify your application to use an unfamiliar s
 Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods,
 and can load-balance across them.
 -->
-使用 Kubernetes，你无需修改应用程序即可使用不熟悉的服务发现机制。
+使用 Kubernetes，你无需修改应用程序去使用不熟悉的服务发现机制。
 Kubernetes 为 Pod 提供自己的 IP 地址，并为一组 Pod 提供相同的 DNS 名，
 并且可以在它们之间进行负载均衡。
 
@@ -165,7 +165,7 @@ targets TCP port 9376 on any Pod with the `app.kubernetes.io/name=MyApp` label.
 
 Kubernetes assigns this Service an IP address (sometimes called the "cluster IP"),
 which is used by the Service proxies
-(see [Virtual IPs and service proxies](#virtual-ips-and-service-proxies) below).
+(see [Virtual IP addressing mechanism](#virtual-ip-addressing-mechanism) below).
 
 The controller for the Service selector continuously scans for Pods that
 match its selector, and then POSTs any updates to an Endpoint object
@@ -175,7 +175,7 @@ also named "my-service".
 TCP 端口 9376，并且具有标签 `app.kubernetes.io/name=MyApp` 的 Pod 上。
 
 Kubernetes 为该服务分配一个 IP 地址（有时称为 “集群 IP”），该 IP 地址由服务代理使用。
-(请参见下面的 [VIP 和 Service 代理](#virtual-ips-and-service-proxies)).
+(请参见下面的[虚拟 IP 寻址机制](#virtual-ip-addressing-mechanism)).
 
 服务选择算符的控制器不断扫描与其选择算符匹配的 Pod，然后将所有更新发布到也称为
 “my-service” 的 Endpoint 对象。
@@ -248,7 +248,7 @@ As many Services need to expose more than one port, Kubernetes supports multiple
 port definitions on a Service object.
 Each port definition can have the same `protocol`, or a different one.
 -->
-服务的默认协议是 TCP(/zh-cn/docs/reference/networking/service-protocols/#protocol-tcp)；
+服务的默认协议是 [TCP](/zh-cn/docs/reference/networking/service-protocols/#protocol-tcp)；
 你还可以使用任何其他[受支持的协议](/zh-cn/docs/reference/networking/service-protocols/)。
 
 由于许多服务需要公开多个端口，因此 Kubernetes 在服务对象上支持多个端口定义。
@@ -305,12 +305,12 @@ spec:
 
 <!--
 Because this Service has no selector, the corresponding EndpointSlice (and
-legacy Endpoints) objects are not created automatically. You can manually map the Service
+legacy Endpoints) objects are not created automatically. You can map the Service
 to the network address and port where it's running, by adding an EndpointSlice
 object manually. For example:
 -->
 由于此服务没有选择算符，因此不会自动创建相应的 EndpointSlice（和旧版 Endpoint）对象。
-你可以通过手动添加 EndpointSlice 对象，将服务手动映射到运行该服务的网络地址和端口：
+你可以通过手动添加 EndpointSlice 对象，将服务映射到运行该服务的网络地址和端口：
 
 ```yaml
 apiVersion: discovery.k8s.io/v1
@@ -401,6 +401,18 @@ the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 93
 在没有选择算符的 Service [示例](#services-without-selectors)中，
 流量被路由到 EndpointSlice 清单中定义的两个端点之一：
 通过 TCP 协议连接到 10.1.2.3 或 10.4.5.6 的端口 9376。
+
+{{< note >}}
+<!--
+The Kubernetes API server does not allow proxying to endpoints that are not mapped to
+pods. Actions such as `kubectl proxy <service-name>` where the service has no
+selector will fail due to this constraint. This prevents the Kubernetes API server
+from being used as a proxy to endpoints the caller may not be authorized to access.
+-->
+Kubernetes API 服务器不允许代理到未被映射至 Pod 上的端点。由于此约束，当 Service
+没有选择算符时，诸如 `kubectl proxy <service-name>` 之类的操作将会失败。这可以防止 
+Kubernetes API 服务器被用作调用者可能无权访问的端点的代理。
+{{< /note >}}
 
 <!--
 An ExternalName Service is a special case of Service that does not have
@@ -1665,78 +1677,6 @@ in the [AWS Load Balancer Controller documentation](https://kubernetes-sigs.gith
 有关弹性 IP 注解和更多其他常见用例，
 请参阅[AWS 负载均衡控制器文档](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)。
 
-<!--
-#### Other CLB annotations on Tencent Kubernetes Engine (TKE)
-
-There are other annotations for managing Cloud Load Balancers on TKE as shown below.
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        # Bind Loadbalancers with specified nodes
-        service.kubernetes.io/qcloud-loadbalancer-backends-label: key in (value1, value2)
-
-        # ID of an existing load balancer
-        service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
-
-        # Custom parameters for the load balancer (LB), does not support modification of LB type yet
-        service.kubernetes.io/service.extensiveParameters: ""
-
-        # Custom parameters for the LB listener
-        service.kubernetes.io/service.listenerParameters: ""
-
-        # Specifies the type of Load balancer;
-        # valid values: classic (Classic Cloud Load Balancer) or application (Application Cloud Load Balancer)
-        service.kubernetes.io/loadbalance-type: xxxxx
-
-        # Specifies the public network bandwidth billing method;
-        # valid values: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic) and BANDWIDTH_POSTPAID_BY_HOUR (bill-by-bandwidth).
-        service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
-
-        # Specifies the bandwidth value (value range: [1,2000] Mbps).
-        service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
-
-        # When this annotation is set，the loadbalancers will only register nodes
-        # with pod running on it, otherwise all nodes will be registered.
-        service.kubernetes.io/local-svc-only-bind-node-with-pod: true
-```
--->
-#### 腾讯 Kubernetes 引擎（TKE）上的 CLB 注解
-
-以下是在 TKE 上管理云负载均衡器的注解。
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        # 绑定负载均衡器到指定的节点。
-        service.kubernetes.io/qcloud-loadbalancer-backends-label: key in (value1, value2)
-
-        # 为已有负载均衡器添加 ID。
-        service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
-
-        # 负载均衡器（LB）的自定义参数尚不支持修改 LB 类型。
-        service.kubernetes.io/service.extensiveParameters: ""
-
-        # 自定义负载均衡监听器。
-        service.kubernetes.io/service.listenerParameters: ""
-
-        # 指定负载均衡类型。
-        # 可用参数: classic (Classic Cloud Load Balancer) 或 application (Application Cloud Load Balancer)
-        service.kubernetes.io/loadbalance-type: xxxxx
-
-        # 指定公用网络带宽计费方法。
-        # 可用参数: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic) 和 BANDWIDTH_POSTPAID_BY_HOUR (bill-by-bandwidth).
-        service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
-
-        # 指定带宽参数 (取值范围： [1,2000] Mbps).
-        service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
-
-        # 当设置该注解时，负载均衡器将只注册正在运行 Pod 的节点，
-        # 否则所有节点将会被注册。
-        service.kubernetes.io/local-svc-only-bind-node-with-pod: true
-```
 <!--
 ### Type ExternalName {#externalname}
 
