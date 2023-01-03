@@ -79,6 +79,7 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
 | `CSINodeExpandSecret` | `false` | Alpha | 1.25 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
+| `ComponentSLIs` | `false` | Alpha | 1.26 | |
 | `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
 | `ContextualLogging` | `false` | Alpha | 1.24 | |
 | `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
@@ -464,6 +465,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Storage Capacity](/docs/concepts/storage/storage-capacity/).
   Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
 - `CSIVolumeHealth`: Enable support for CSI volume health monitoring on node.
+- `ComponentSLIs`: Enable the `/metrics/slis` endpoint on Kubernetes components like
+  kubelet, kube-scheduler, kube-proxy, kube-controller-manager, cloud-controller-manager
+  allowing you to scrape health check metrics.
 - `ConsistentHTTPGetHandlers`: Normalize HTTP get URL and Header passing for lifecycle
   handlers with probers.
 - `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
