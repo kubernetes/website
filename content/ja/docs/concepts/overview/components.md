@@ -58,7 +58,7 @@ Kubernetesをデプロイすると、クラスターが展開されます。
 {{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
 cloud-controller-managerは、クラウドプロバイダー固有のコントローラーのみを実行します。
-KubernetesをオンプレミスあるいはPC内での学習環境で動かす際には、クラスターにcloud container managerはありません。
+KubernetesをオンプレミスあるいはPC内での学習環境で動かす際には、クラスターにcloud controller managerはありません。
 
 kube-controller-managerを使用すると、cloud-controller-managerは複数の論理的に独立したコントロールループをシングルバイナリにまとめ、これが一つのプロセスとして動作します。パフォーマンスを向上させるあるいは障害に耐えるために水平方向にスケールする(一つ以上のコピーを動かす)ことができます。
 
