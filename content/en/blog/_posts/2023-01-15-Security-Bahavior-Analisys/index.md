@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "All Microservices Are Vulnerable"
-date: 2022-01-15
+date: 2023-01-15
 slug: security-behavior-analysis
 ---
 
@@ -16,7 +16,7 @@ As cyber war games continue to intensify in sophistication, organizations deploy
 
 Considering the current spread of offensive tools, sophistication of offensive players, and ever-growing cyber financial gains to offenders, any cyber strategy that relies on constructing a non-vulnerable, weakness-free service in 2023 is clearly too naïve. It seems the only viable strategy is to:
 
-------> **Admit that your services are vulnerable!**
+&#x27A5; **Admit that your services are vulnerable!**
 
 In other words, consciously accept that you will lose any battle aimed to create non-vulnerable services. If your opponents find a single weakness as an entry-point, you lose. Admitting that although your best efforts, all your services are most likely vulnerable is an important first step. Next, we need to discuss what can you do about it...
 
