@@ -140,7 +140,8 @@ JobSpec describes how the job execution will look like.
 
     - **podFailurePolicy.rules.action** (string), required
 
-      Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+      Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+      - FailJob: indicates that the pod's job is marked as Failed and all
         running pods are terminated.
       - Ignore: indicates that the counter towards the .backoffLimit is not
         incremented and a replacement pod is created.
@@ -176,7 +177,8 @@ JobSpec describes how the job execution will look like.
 
       - **podFailurePolicy.rules.onExitCodes.operator** (string), required
 
-        Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+        Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
+        - In: the requirement is satisfied if at least one container exit code
           (might be multiple if there are multiple containers not restricted
           by the 'containerName' field) is in the set of specified values.
         - NotIn: the requirement is satisfied if at least one container exit code
