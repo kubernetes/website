@@ -2,7 +2,7 @@ schedules:
 - release: 1.26
   releaseDate: 2022-12-09
   maintenanceModeStartDate: 2023-12-28
-  endOfLifeDate: 2024-02-24
+  endOfLifeDate: 2024-02-28
   next:
     release: 1.26.1
     cherryPickDeadline: 2022-01-06
@@ -10,7 +10,7 @@ schedules:
 - release: 1.25
   releaseDate: 2022-08-23
   maintenanceModeStartDate: 2023-08-28
-  endOfLifeDate: 2023-10-27
+  endOfLifeDate: 2023-10-28
   next:
     release: 1.25.6
     cherryPickDeadline: 2023-01-13
