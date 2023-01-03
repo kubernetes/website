@@ -76,11 +76,11 @@ Containers have become popular because they provide extra benefits, such as:
   applications from infrastructure.
 * Observability: not only surfaces OS-level information and metrics, but also
   application health and other signals.
-* Environmental consistency across development, testing, and production: Runs
+* Environmental consistency across development, testing, and production: runs
   the same on a laptop as it does in the cloud.
-* Cloud and OS distribution portability: Runs on Ubuntu, RHEL, CoreOS, on-premises,
+* Cloud and OS distribution portability: runs on Ubuntu, RHEL, CoreOS, on-premises,
   on major public clouds, and anywhere else.
-* Application-centric management: Raises the level of abstraction from running an
+* Application-centric management: raises the level of abstraction from running an
   OS on virtual hardware to running an application on an OS using logical resources.
 * Loosely coupled, distributed, elastic, liberated micro-services: applications are
   broken into smaller, independent pieces and can be deployed and managed dynamically –
