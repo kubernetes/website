@@ -538,7 +538,7 @@ kubectl delete -f <文件名>
 ```
 
 <!--
-### Alternative: `kubectl apply -f <directory/> -prune -l your=label`
+### Alternative: `kubectl apply -f <directory/> --prune -l your=label`
 
 Only use this if you know what you are doing.
 -->
@@ -547,7 +547,7 @@ Only use this if you know what you are doing.
 只有在充分理解此命令背后含义的情况下才建议这样操作。
 
 <!--
-`kubectl apply -prune` is in alpha, and backwards incompatible
+`kubectl apply --prune` is in alpha, and backwards incompatible
 changes might be introduced in subsequent releases.
 -->
 {{< warning >}}
@@ -556,12 +556,16 @@ changes might be introduced in subsequent releases.
 {{< /warning >}}
 
 {{< warning >}}
+<!--
+You must be careful when using this command, so that you
+do not delete objects unintentionally.
+-->
 在使用此命令时必须小心，这样才不会无意中删除不想删除的对象。
 {{< /warning >}}
 
 <!--
 As an alternative to `kubectl delete`, you can use `kubectl apply` to identify objects to be deleted after their
-configuration files have been removed from the directory. Apply with `-prune`
+configuration files have been removed from the directory. Apply with `--prune`
 queries the API server for all objects matching a set of labels, and attempts
 to match the returned live object configurations against the object
 configuration files. If an object matches the query, and it does not have a
@@ -574,6 +578,10 @@ it is deleted.
 的对象列表，之后将返回的现时对象配置与目录中的对象配置文件相比较。
 如果某对象在查询中被匹配到，但在目录中没有文件与其相对应，并且其中还包含
 `last-applied-configuration` 注解，则该对象会被删除。 
+
+{{< comment >}}
+TODO(pwittrock): We need to change the behavior to prevent the user from running apply on subdirectories unintentionally.
+{{< /comment >}}
 
 ```shell
 kubectl apply -f <directory/> --prune -l <labels>
@@ -679,6 +687,8 @@ kind: Deployment
 metadata:
   annotations:
     # ...
+    # 注意注解中并不包含 replicas
+    # 这是因为更新并不是通过 kubectl apply 来执行的
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
@@ -687,7 +697,7 @@ metadata:
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
-  replicas: 2
+  replicas: 2 # written by scale
   # ...
   minReadySeconds: 5
   selector:
@@ -753,7 +763,7 @@ kind: Deployment
 metadata:
   annotations:
     # ...
-    # 注解中包含更新后的 image，nginx 1.11.9,
+    # 注解中包含更新后的 image，nginx 1.16.1,
     # 但不包含更新后的 replicas
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment",
@@ -767,8 +777,8 @@ spec:
     matchLabels:
       # ...
       app: nginx
-  replicas: 2
-  # minReadySeconds  此字段被清除
+  replicas: 2 # 由 `kubectl scale` 设置，被 `kubectl apply` 命令忽略
+  # minReadySeconds  此字段被`kubectl apply`清除
   # ...
   template:
     metadata:
@@ -777,7 +787,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.16.1
+      - image: nginx:1.16.1 # 由 `kubectl apply` 设置
         # ...
         name: nginx
         ports:
@@ -1430,6 +1440,14 @@ It is OK to use imperative deletion with declarative management.
 在声明式管理方法中使用指令式命令来删除对象是可以的。
 {{< /note >}}
 
+{{< comment >}}
+TODO(pwittrock): We need to make using imperative commands with
+declarative object configuration work so that it doesn't write the
+fields to the annotation, and instead.  Then add this bullet point.
+
+- using imperative commands with declarative configuration to manage where each manages different fields.
+{{< /comment >}}
+
 <!--
 ### Migrating from imperative command management to declarative object configuration
 
@@ -1446,20 +1464,19 @@ configuration involves several manual steps:
      kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
      ```
 
-1. Manually remove the `status` field from the configuration file.
+2. Manually remove the `status` field from the configuration file.
 
     {{< note >}}
-    This step is optional, as `kubectl apply` does not update the status field
-    even if it is present in the configuration file.
+    This step is optional, as `kubectl apply` does not update the status field even if it is present in the configuration file.
     {{< /note >}}
 
-1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
+3. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
     ```shell
-    kubectl replace -save-config -f <kind>_<name>.yaml
+    kubectl replace --save-config -f <kind>_<name>.yaml
     ```
 
-1. Change processes to use `kubectl apply` for managing the object exclusively.
+4. Change processes to use `kubectl apply` for managing the object exclusively.
 -->
 1. 将现时对象导出到本地配置文件：
 
@@ -1467,23 +1484,23 @@ configuration involves several manual steps:
    kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
    ```
 
-1. 手动移除配置文件中的 `status` 字段。
+2. 手动移除配置文件中的 `status` 字段。
 
-   <!--
-   This step is optional, as `kubectl apply` does not update the status field
-   even if it is present in the configuration file.
-   -->
    {{< note >}}
    这一步骤是可选的，因为 `kubectl apply` 并不会更新 status 字段，即便
    配置文件中包含 status 字段。
    {{< /note >}}
 
-1. 设置对象上的 `kubectl.kubernetes.io/last-applied-configuration` 注解：
+3. 设置对象上的 `kubectl.kubernetes.io/last-applied-configuration` 注解：
 
    ```shell
    kubectl replace --save-config -f <kind>_<name>.yaml
    ```
-1. 更改过程，使用 `kubectl apply` 专门管理对象。  
+4. 更改过程，使用 `kubectl apply` 专门管理对象。  
+
+{{< comment >}}
+TODO(pwittrock): Why doesn't export remove the status field?  Seems like it should.
+{{< /comment >}}
 
 <!--
 ### Migrating from imperative object configuration to declarative object configuration
@@ -1491,7 +1508,7 @@ configuration involves several manual steps:
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
     ```shell
-    kubectl replace -save-config -f <kind>_<name>.yaml
+    kubectl replace --save-config -f <kind>_<name>.yaml
     ```
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
@@ -1501,7 +1518,7 @@ configuration involves several manual steps:
 1. 在对象上设置 `kubectl.kubernetes.io/last-applied-configuration` 注解： 
 
     ```shell
-    kubectl replace -save-config -f <kind>_<name>.yaml
+    kubectl replace --save-config -f <kind>_<name>.yaml
     ```
 
 1. 自此排他性地使用 `kubectl apply` 来管理对象。
