@@ -110,46 +110,40 @@ For a reference to old feature gates that are removed, please refer to
 | `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | 1.15 |
 | `APIResponseCompression` | `true` | Beta | 1.16 | |
-| `APIServerIdentity` | `false` | Alpha | 1.20 | |
+| `APISelfSubjectReview` | `false` | Alpha | 1.26 | |
+| `APIServerIdentity` | `false` | Alpha | 1.20 | 1.25 |
+| `APIServerIdentity` | `true` | Beta | 1.26 | |
 | `APIServerTracing` | `false` | Alpha | 1.22 | |
-| `AllowInsecureBackendProxy` | `true` | Beta | 1.17 | |
+| `AggregatedDiscoveryEndpoint` | `false` | Alpha | 1.26 | |
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | 1.23 |
 | `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
-| `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
-| `CPUManager` | `true` | Beta | 1.10 | |
 | `CPUManagerPolicyAlphaOptions` | `false` | Alpha | 1.23 | |
 | `CPUManagerPolicyBetaOptions` | `true` | Beta | 1.23 | |
 | `CPUManagerPolicyOptions` | `false` | Alpha | 1.22 | 1.22 |
 | `CPUManagerPolicyOptions` | `true` | Beta | 1.23 | |
-| `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.20 |
-| `CSIMigrationAzureFile` | `false` | Beta | 1.21 | 1.23 |
-| `CSIMigrationAzureFile` | `true` | Beta | 1.24 | |
 | `CSIMigrationPortworx` | `false` | Alpha | 1.23 | 1.24 |
 | `CSIMigrationPortworx` | `false` | Beta | 1.25 | |
 | `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
-| `CSIMigrationvSphere` | `false` | Alpha | 1.18 | 1.18 |
-| `CSIMigrationvSphere` | `false` | Beta | 1.19 | 1.24 |
-| `CSIMigrationvSphere` | `true` | Beta | 1.25 | |
 | `CSINodeExpandSecret` | `false` | Alpha | 1.25 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
 | `ContextualLogging` | `false` | Alpha | 1.24 | |
+| `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
+| `CronJobTimeZone` | `true` | Beta | 1.25 | |
+| `CrossNamespaceVolumeDataSource` | `false` | Alpha| 1.26 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | 1.24 |
 | `CustomResourceValidationExpressions` | `true` | Beta | 1.25 | |
-| `DelegateFSGroupToCSIDriver` | `false` | Alpha | 1.22 | 1.22 |
-| `DelegateFSGroupToCSIDriver` | `true` | Beta | 1.23 | |
-| `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
-| `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DisableCloudProviders` | `false` | Alpha | 1.22 | |
 | `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | |
 | `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
 | `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
 | `DownwardAPIHugePages` | `true` | Beta | 1.22 | |
-| `EndpointSliceTerminatingCondition` | `false` | Alpha | 1.20 | 1.21 |
-| `EndpointSliceTerminatingCondition` | `true` | Beta | 1.22 | |
-| `ExpandedDNSConfig` | `false` | Alpha | 1.22 | |
+| `DynamicResourceAllocation` | `false` | Alpha | 1.26 | |
+| `EventedPLEG` | `false` | Alpha | 1.26 | - |
+| `ExpandedDNSConfig` | `false` | Alpha | 1.22 | 1.25 |
+| `ExpandedDNSConfig` | `true` | Beta | 1.26 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
 | `GRPCContainerProbe` | `true` | Beta | 1.24 | |
@@ -160,6 +154,7 @@ For a reference to old feature gates that are removed, please refer to
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 |  |
+| `IPTablesOwnershipCleanup` | `false` | Alpha | 1.25 | |
 | `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureDiskUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureFileUnregister` | `false` | Alpha | 1.21 | |
@@ -168,28 +163,24 @@ For a reference to old feature gates that are removed, please refer to
 | `InTreePluginPortworxUnregister` | `false` | Alpha | 1.23 | |
 | `InTreePluginRBDUnregister` | `false` | Alpha | 1.23 | |
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
-| `IPTablesOwnershipCleanup` | `false` | Alpha | 1.25 | |
 | `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
-| `JobPodFailurePolicy` | `false` | Alpha | 1.25 | - |
+| `JobPodFailurePolicy` | `false` | Alpha | 1.25 | 1.25 |
+| `JobPodFailurePolicy` | `true` | Beta | 1.26 | |
 | `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
 | `JobReadyPods` | `true` | Beta | 1.24 | |
-| `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
-| `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
-| `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | |
 | `KMSv2` | `false` | Alpha | 1.25 | |
-| `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
-| `KubeletCredentialProviders` | `true` | Beta | 1.24 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
 | `KubeletTracing` | `false` | Alpha | 1.25 | |
-| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | |
-| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | 1.24 |
-| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `true` | Beta | 1.25 | |
+| `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.25 | |
+| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | - |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
+| `LoggingAlphaOptions` | `false` | Alpha | 1.24 | - |
+| `LoggingBetaOptions` | `true` | Beta | 1.24 | - |
 | `MatchLabelKeysInPodTopologySpread` | `false` | Alpha | 1.25 | |
 | `MaxUnavailableStatefulSet` | `false` | Alpha | 1.24 | |
 | `MemoryManager` | `false` | Alpha | 1.21 | 1.21 |
@@ -197,33 +188,39 @@ For a reference to old feature gates that are removed, please refer to
 | `MemoryQoS` | `false` | Alpha | 1.22 | |
 | `MinDomainsInPodTopologySpread` | `false` | Alpha | 1.24 | 1.24 |
 | `MinDomainsInPodTopologySpread` | `false` | Beta | 1.25 | |
-| `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
-| `MixedProtocolLBService` | `true` | Beta | 1.24 | |
+| `MinimizeIPTablesRestore` | `false` | Alpha | 1.26 | - |
 | `MultiCIDRRangeAllocator` | `false` | Alpha | 1.25 | |
 | `NetworkPolicyStatus` | `false` | Alpha | 1.24 |  |
-| `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | |
-| `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | |
+| `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | 1.25 |
+| `NodeInclusionPolicyInPodTopologySpread` | `true` | Beta | 1.26 | |
+| `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | 1.25 |
+| `NodeOutOfServiceVolumeDetach` | `true` | Beta | 1.26 | |
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIEnums` | `true` | Beta | 1.24 | |
 | `OpenAPIV3` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIV3` | `true` | Beta | 1.24 | |
+| `PDBUnhealthyPodEvictionPolicy` | `false` | Alpha | 1.26 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
-| `PodDisruptionConditions` | `false` | Alpha | 1.25 | - |
+| `PodDisruptionConditions` | `false` | Alpha | 1.25 | 1.25 |
+| `PodDisruptionConditions` | `true` | Beta | 1.26 | |
 | `PodHasNetworkCondition` | `false` | Alpha | 1.25 | |
+| `PodSchedulingReadiness` | `false` | Alpha | 1.26 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
 | `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | 1.24 |
 | `ProbeTerminationGracePeriod` | `true` | Beta | 1.25 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
-| `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | |
+| `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | 1.25 |
+| `ProxyTerminatingEndpoints` | `true` | Beta | 1.26 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `ReadWriteOncePod` | `false` | Alpha | 1.22 | |
 | `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.23 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
 | `RemainingItemCount` | `true` | Beta | 1.16 | |
-| `RetroactiveDefaultStorageClass` | `false` | Alpha | 1.25 | |
+| `RetroactiveDefaultStorageClass` | `false` | Alpha | 1.25 | 1.25 |
+| `RetroactiveDefaultStorageClass` | `true` | Beta | 1.26 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | |
@@ -231,13 +228,10 @@ For a reference to old feature gates that are removed, please refer to
 | `SeccompDefault` | `true` | Beta | 1.25 | |
 | `ServerSideFieldValidation` | `false` | Alpha | 1.23 | 1.24 |
 | `ServerSideFieldValidation` | `true` | Beta | 1.25 | |
-| `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | 1.24 |
-| `ServiceIPStaticSubrange` | `true` | Beta | 1.25 | |
-| `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
-| `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
 | `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | |
+| `StatefulSetStartOrdinal` | `false` | Alpha | 1.26 | |
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
@@ -246,13 +240,16 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyAwareHints` | `true` | Beta | 1.24 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
 | `TopologyManager` | `true` | Beta | 1.18 | |
+| `TopologyManagerPolicyAlphaOptions` | `false` | Alpha | 1.26 | |
+| `TopologyManagerPolicyBetaOptions` | `false` | Beta | 1.26 | |
+| `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | |
 | `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | |
+| `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | |
 | `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
-| `WindowsHostProcessContainers` | `false` | Alpha | 1.22 | 1.22 |
-| `WindowsHostProcessContainers` | `true` | Beta | 1.23 | |
+| `WindowsHostNetwork` | `false` | Alpha | 1.26| |
 {{< /table >}}
 
 <!--
@@ -270,6 +267,9 @@ For a reference to old feature gates that are removed, please refer to
 | `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
 | `AdvancedAuditing` | `true` | Beta | 1.8 | 1.11 |
 | `AdvancedAuditing` | `true` | GA | 1.12 | - |
+| `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
+| `CPUManager` | `true` | Beta | 1.10 | 1.25 |
+| `CPUManager` | `true` | GA | 1.26 | - |
 | `CSIInlineVolume` | `false` | Alpha | 1.15 | 1.15 |
 | `CSIInlineVolume` | `true` | Beta | 1.16 | 1.24 |
 | `CSIInlineVolume` | `true` | GA | 1.25 | - |
@@ -284,41 +284,46 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationAzureDisk` | `false` | Beta | 1.19 | 1.22 |
 | `CSIMigrationAzureDisk` | `true` | Beta | 1.23 | 1.23 |
 | `CSIMigrationAzureDisk` | `true` | GA | 1.24 | |
+| `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.20 |
+| `CSIMigrationAzureFile` | `false` | Beta | 1.21 | 1.23 |
+| `CSIMigrationAzureFile` | `true` | Beta | 1.24 | 1.25 |
+| `CSIMigrationAzureFile` | `true` | GA | 1.26 | |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
 | `CSIMigrationGCE` | `false` | Beta | 1.17 | 1.22 |
 | `CSIMigrationGCE` | `true` | Beta | 1.23 | 1.24 |
 | `CSIMigrationGCE` | `true` | GA | 1.25 | - |
-| `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
-| `CSIMigrationOpenStack` | `true` | Beta | 1.18 | 1.23 |
-| `CSIMigrationOpenStack` | `true` | GA | 1.24 | |
+| `CSIMigrationvSphere` | `false` | Alpha | 1.18 | 1.18 |
+| `CSIMigrationvSphere` | `false` | Beta | 1.19 | 1.24 |
+| `CSIMigrationvSphere` | `true` | Beta | 1.25 | 1.25 |
+| `CSIMigrationvSphere` | `true` | GA | 1.26 | - |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | 1.23 |
 | `CSIStorageCapacity` | `true` | GA | 1.24 | - |
-| `CSRDuration` | `true` | Beta | 1.22 | 1.23 |
-| `CSRDuration` | `true` | GA | 1.24 | - |
+| `ConsistentHTTPGetHandlers` | `true` | GA | 1.25 | - |
 | `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
 | `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | 1.23 |
 | `ControllerManagerLeaderMigration` | `true` | GA | 1.24 | - |
-| `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
-| `CronJobTimeZone` | `true` | Beta | 1.25 | |
 | `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
 | `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | 1.24 |
 | `DaemonSetUpdateSurge` | `true` | GA | 1.25 | - |
-| `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
-| `DefaultPodTopologySpread` | `true` | Beta | 1.20 | 1.23 |
-| `DefaultPodTopologySpread` | `true` | GA | 1.24 | - |
+| `DelegateFSGroupToCSIDriver` | `false` | Alpha | 1.22 | 1.22 |
+| `DelegateFSGroupToCSIDriver` | `true` | Beta | 1.23 | 1.25 |
+| `DelegateFSGroupToCSIDriver` | `true` | GA | 1.26 |-|
+| `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
+| `DevicePlugins` | `true` | Beta | 1.10 | 1.25 |
+| `DevicePlugins` | `true` | GA | 1.26 | - |
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | 1.24 |
 | `DisableAcceleratorUsageMetrics` | `true` | GA | 1.25 |- |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | 1.18 |
 | `DryRun` | `true` | GA | 1.19 | - |
-| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
-| `DynamicKubeletConfig` | `true` | Beta | 1.11 | 1.21 |
-| `DynamicKubeletConfig` | `false` | Deprecated | 1.22 | - |
 | `EfficientWatchResumption` | `false` | Alpha | 1.20 | 1.20 |
 | `EfficientWatchResumption` | `true` | Beta | 1.21 | 1.23 |
 | `EfficientWatchResumption` | `true` | GA | 1.24 | - |
+| `EndpointSliceTerminatingCondition` | `false` | Alpha | 1.20 | 1.21 |
+| `EndpointSliceTerminatingCondition` | `true` | Beta | 1.22 | 1.25 |
+| `EndpointSliceTerminatingCondition` | `true` | GA | 1.26 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | 1.22 |
 | `EphemeralContainers` | `true` | Beta | 1.23 | 1.24 |
 | `EphemeralContainers` | `true` | GA | 1.25 | - |
@@ -335,51 +340,48 @@ For a reference to old feature gates that are removed, please refer to
 | `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
 | `IdentifyPodOS` | `true` | Beta | 1.24 | 1.24 |
 | `IdentifyPodOS` | `true` | GA | 1.25 | - |
-| `IndexedJob` | `false` | Alpha | 1.21 | 1.21 |
-| `IndexedJob` | `true` | Beta | 1.22 | 1.23 |
-| `IndexedJob` | `true` | GA | 1.24 | - |
+| `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
+| `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
+| `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
+| `JobTrackingWithFinalizers` | `true` | GA | 1.26 | - |
+| `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
+| `KubeletCredentialProviders` | `true` | Beta | 1.24 | 1.25 |
+| `KubeletCredentialProviders` | `true` | GA | 1.26 | - |
+| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | 1.25 |
+| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | GA | 1.26 | - |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | 1.24 |
 | `LocalStorageCapacityIsolation` | `true` | GA | 1.25 | - |
+| `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
+| `MixedProtocolLBService` | `true` | Beta | 1.24 | 1.25 |
+| `MixedProtocolLBService` | `true` | GA | 1.26 | - |
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 | 1.21 |
 | `NetworkPolicyEndPort` | `true` | Beta | 1.22 | 1.24 |
 | `NetworkPolicyEndPort` | `true` | GA | 1.25 | - |
-| `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
-| `NonPreemptingPriority` | `true` | Beta | 1.19 | 1.23 |
-| `NonPreemptingPriority` | `true` | GA | 1.24 | - |
-| `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | 1.21 |
-| `PodAffinityNamespaceSelector` | `true` | Beta | 1.22 | 1.23 |
-| `PodAffinityNamespaceSelector` | `true` | GA | 1.24 | - |
-| `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
-| `PodOverhead` | `true` | Beta | 1.18 | 1.23 |
-| `PodOverhead` | `true` | GA | 1.24 | - |
 | `PodSecurity` | `false` | Alpha | 1.22 | 1.22 |
 | `PodSecurity` | `true` | Beta | 1.23 | 1.24 |
 | `PodSecurity` | `true` | GA | 1.25 | |
-| `PreferNominatedNode` | `false` | Alpha | 1.21 | 1.21 |
-| `PreferNominatedNode` | `true` | Beta | 1.22 | 1.23 |
-| `PreferNominatedNode` | `true` | GA | 1.24 | - |
 | `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
 | `RemoveSelfLink` | `true` | Beta | 1.20 | 1.23 |
 | `RemoveSelfLink` | `true` | GA | 1.24 | - |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | 1.21 |
 | `ServerSideApply` | `true` | GA | 1.22 | - |
-| `ServiceLBNodePortControl` | `false` | Alpha | 1.20 | 1.21 |
-| `ServiceLBNodePortControl` | `true` | Beta | 1.22 | 1.23 |
-| `ServiceLBNodePortControl` | `true` | GA | 1.24 | - |
-| `ServiceLoadBalancerClass` | `false` | Alpha | 1.21 | 1.21 |
-| `ServiceLoadBalancerClass` | `true` | Beta | 1.22 | 1.23 |
-| `ServiceLoadBalancerClass` | `true` | GA | 1.24 | - |
+| `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | 1.24 |
+| `ServiceIPStaticSubrange` | `true` | Beta | 1.25 | 1.25 |
+| `ServiceIPStaticSubrange` | `true` | GA | 1.26 | - |
+| `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
+| `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | 1.25 |
+| `ServiceInternalTrafficPolicy` | `true` | GA | 1.26 | - |
 | `StatefulSetMinReadySeconds` | `false` | Alpha | 1.22 | 1.22 |
 | `StatefulSetMinReadySeconds` | `true` | Beta | 1.23 | 1.24 |
 | `StatefulSetMinReadySeconds` | `true` | GA | 1.25 | - |
-| `SuspendJob` | `false` | Alpha | 1.21 | 1.21 |
-| `SuspendJob` | `true` | Beta | 1.22 | 1.23 |
-| `SuspendJob` | `true` | GA | 1.24 | - |
 | `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
 | `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
 | `WatchBookmark` | `true` | GA | 1.17 | - |
+| `WindowsHostProcessContainers` | `false` | Alpha | 1.22 | 1.22 |
+| `WindowsHostProcessContainers` | `true` | Beta | 1.23 | 1.25 |
+| `WindowsHostProcessContainers` | `true` | GA | 1.26 | - |
 {{< /table >}}
 
 <!--
@@ -478,6 +480,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIPriorityAndFairness`: Enable managing request concurrency with
   prioritization and fairness at each server. (Renamed from `RequestManagement`)
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
+- `APISelfSubjectReview`: Activate the `SelfSubjectReview` API which allows users
+  to see the requesting subject's authentication information.
+  See [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
+  for more details.
 - `APIServerIdentity`: Assign each API server an ID in a cluster.
 - `APIServerTracing`: Add support for distributed tracing in the API server.
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
@@ -485,21 +491,24 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIListChunking`：启用 API 客户端以块的形式从 API 服务器检索（“LIST” 或 “GET”）资源。
 - `APIPriorityAndFairness`：在每个服务器上启用优先级和公平性来管理请求并发（由 `RequestManagement` 重命名而来）。
 - `APIResponseCompression`：压缩 “LIST” 或 “GET” 请求的 API 响应。
+- `APISelfSubjectReview`：激活 `SelfSubjectReview` API，允许用户查看请求主体的身份验证信息。
+  更多细节请参阅 [API 访问客户端的身份验证信息](/zh-cn/docs/reference/access-authn-authz/authentication/#self-subject-review)。
 - `APIServerIdentity`：为集群中的每个 API 服务器赋予一个 ID。
 - `APIServerTracing`：为集群中的每个 API 服务器添加对分布式跟踪的支持。
   参阅[针对 Kubernetes 系统组件的追踪](/zh-cn/docs/concepts/cluster-administration/system-traces/)
   获取更多详细信息。
 <!--
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug/debug-cluster/audit/#advanced-audit)
-- `AllowInsecureBackendProxy`: Enable the users to skip TLS verification of
-  kubelets on Pod log requests.
+- `AggregatedDiscoveryEndpoint`: Enable a single HTTP endpoint `/discovery/<version>` which
+  supports native HTTP caching with ETags containing all APIResources known to the API server.
 - `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
 - `AppArmor`: Enable use of AppArmor mandatory access control for Pods running on Linux nodes.
   See [AppArmor Tutorial](/docs/tutorials/security/apparmor/) for more details.
 -->
 - `AdvancedAuditing`：启用[高级审计功能](/zh-cn/docs/tasks/debug/debug-cluster/audit/#advanced-audit)。
-- `AllowExtTrafficLocalEndpoints`：启用服务用于将外部请求路由到节点本地终端。
+- `AggregatedDiscoveryEndpoint`：启用单个 HTTP 端点 `/discovery/<version>`，
+  支持用 ETag 进行原生 HTTP 缓存，包含 API 服务器已知的所有 APIResource。
 - `AnyVolumeDataSource`：允许使用任何自定义的资源来做作为
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}} 中的 `DataSource`。
 - `AppArmor`：在 Linux 节点上为 Pod 启用 AppArmor 机制的强制访问控制。
@@ -604,28 +613,14 @@ Each feature gate is designed for enabling/disabling a specific feature:
   不支持回退到内嵌插件来执行制备操作，因为对应的 CSI 插件必须已安装且正确配置。
   此特性需要启用 CSIMigration 特性标志。
 <!--
-- `CSIMigrationOpenStack`: Enables shims and translation logic to route volume
-  operations from the Cinder in-tree plugin to Cinder CSI plugin. Supports
-  falling back to in-tree Cinder plugin for mount operations to nodes that have
-  the feature disabled or that do not have Cinder CSI plugin installed and
-  configured. Does not support falling back for provision operations, for those
-  the CSI plugin must be installed and configured. Requires CSIMigration
-  feature flag enabled.
--->
-- `CSIMigrationOpenStack`：确保填充和转换逻辑能够将卷操作从 Cinder 内嵌插件路由到
-  Cinder CSI 插件。对于禁用了此特性的节点或者没有安装并配置 Cinder CSI 插件的节点，
-  支持回退到内嵌（in-tree）Cinder 插件来执行挂载操作。
-  不支持回退到内嵌插件来执行制备操作，因为对应的 CSI 插件必须已安装且正确配置。
-  此磁特性需要启用 CSIMigration 特性标志。
-<!--
-- `csiMigrationRBD`: Enables shims and translation logic to route volume
+- `CSIMigrationRBD`: Enables shims and translation logic to route volume
   operations from the RBD in-tree plugin to Ceph RBD CSI plugin. Requires
   CSIMigration and csiMigrationRBD feature flags enabled and Ceph CSI plugin
   installed and configured in the cluster. This flag has been deprecated in
   favor of the `InTreePluginRBDUnregister` feature flag which prevents the registration of
   in-tree RBD plugin.
 -->
-- `csiMigrationRBD`：启用填充和转换逻辑，将卷操作从 RBD 的内嵌插件路由到 Ceph RBD
+- `CSIMigrationRBD`：启用填充和转换逻辑，将卷操作从 RBD 的内嵌插件路由到 Ceph RBD
   CSI 插件。此特性要求 CSIMigration 和 csiMigrationRBD 特性标志均被启用，
   且集群中安装并配置了 Ceph CSI 插件。此标志已被弃用，以鼓励使用
   `InTreePluginRBDUnregister` 特性标志。后者会禁止注册内嵌的 RBD 插件。
@@ -665,16 +660,16 @@ Each feature gate is designed for enabling/disabling a specific feature:
   详情请参见 [`csi` 卷类型](/zh-cn/docs/concepts/storage/volumes/#csi)。
 <!--
 - `CSIVolumeHealth`: Enable support for CSI volume health monitoring on node.
-- `CSRDuration`: Allows clients to request a duration for certificates issued
-  via the Kubernetes CSR API.
+- `ConsistentHTTPGetHandlers`: Normalize HTTP get URL and Header passing for lifecycle
+  handlers with probers.
 - `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
    contextual logging add extra detail to log output.
 - `ControllerManagerLeaderMigration`: Enables leader migration for
   `kube-controller-manager` and `cloud-controller-manager`.
 - `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
 -->
-- `CSIVolumeHealth`：启用对节点上的 CSI volume 运行状况监控的支持
-- `CSRDuration`：允许客户端来通过请求 Kubernetes CSR API 签署的证书的持续时间。
+- `CSIVolumeHealth`：启用对节点上的 CSI volume 运行状况监控的支持。
+- `ConsistentHTTPGetHandlers`：使用探测器为生命周期处理程序规范化 HTTP get URL 和标头传递。
 - `ContextualLogging`：当你启用这个特性门控，支持日志上下文记录的 Kubernetes
   组件会为日志输出添加额外的详细内容。
 - `ControllerManagerLeaderMigration`：为 `kube-controller-manager` 和 `cloud-controller-manager`
@@ -682,12 +677,17 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CronJobTimeZone`：允许在 [CronJobs](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)
   中使用 `timeZone` 可选字段。
 <!--
+- `CrossNamespaceVolumeDataSource`: Enable the usage of cross namespace volume data source
+   to allow you to specify a source namespace in the `dataSourceRef` field of a
+   PersistentVolumeClaim.
 - `CustomCPUCFSQuotaPeriod`: Enable nodes to change `cpuCFSQuotaPeriod` in
   [kubelet config](/docs/tasks/administer-cluster/kubelet-config-file/).
 - `CustomResourceValidationExpressions`: Enable expression language validation in CRD
   which will validate customer resource based on validation rules written in
   the `x-kubernetes-validations` extension.
 -->
+- `CrossNamespaceVolumeDataSource`：启用跨名字空间卷数据源，以允许你在 PersistentVolumeClaim
+  的 `dataSourceRef` 字段中指定一个源名字空间。
 - `CustomCPUCFSQuotaPeriod`：使节点能够更改
   [kubelet 配置](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中的 `cpuCFSQuotaPeriod`。
 - `CustomResourceValidationExpressions`：启用 CRD 中的表达式语言合法性检查，
@@ -700,8 +700,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DaemonSetUpdateSurge`：使 DaemonSet 工作负载在每个节点的更新期间保持可用性。
   参阅[对 DaemonSet 执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)。
 <!--
-- `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
-  [default spreading](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints).
 - `DelegateFSGroupToCSIDriver`: If supported by the CSI driver, delegates the
   role of applying `fsGroup` from a Pod's `securityContext` to the driver by
   passing `fsGroup` through the NodeStageVolume and NodePublishVolume CSI calls.
@@ -710,8 +708,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DisableAcceleratorUsageMetrics`:
   [Disable accelerator metrics collected by the kubelet](/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics).
 -->
-- `DefaultPodTopologySpread`：启用 `PodTopologySpread` 调度插件来完成
-  [默认的调度传播](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)。
 - `DelegateFSGroupToCSIDriver`：如果 CSI 驱动程序支持，则通过 NodeStageVolume 和
   NodePublishVolume CSI 调用传递 `fsGroup`，将应用 `fsGroup` 从 Pod 的
   `securityContext` 的角色委托给驱动。
@@ -739,19 +735,14 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DryRun`：启用在服务器端对请求进行[试运行（Dry Run）](/zh-cn/docs/reference/using-api/api-concepts/#dry-run)，
   以便测试验证、合并和修改，同时避免提交更改。
 <!--
-- `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. The
-  feature is no longer supported outside of supported skew policy. The feature
-  gate was removed from kubelet in 1.24. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
--->
-- `DynamicKubeletConfig`：启用 kubelet 的动态配置。
-  除偏差策略场景外，不再支持该功能。该特性门控在 kubelet 1.24 版本中已被移除。
-  请参阅[重新配置 kubelet](/zh-cn/docs/tasks/administer-cluster/reconfigure-kubelet/)。
-<!--
+- `DynamicResourceAllocation": Enables support for resources with custom parameters and a lifecycle
+  that is independent of a Pod.
 - `EndpointSliceTerminatingCondition`: Enables EndpointSlice `terminating` and `serving`
    condition fields.
 - `EfficientWatchResumption`: Allows for storage-originated bookmark (progress
   notify) events to be delivered to the users. This is only applied to watch operations.
 -->
+- `DynamicResourceAllocation`：启用对具有自定义参数和独立于 Pod 生命周期的资源的支持。
 - `EndpointSliceTerminatingCondition`：允许使用 EndpointSlice 的 `terminating` 和
   `serving` 状况字段。
 - `EfficientWatchResumption`：允许将存储发起的书签（进度通知）事件传递给用户。
@@ -760,6 +751,14 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `EphemeralContainers`: Enable the ability to add
   {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
   to running pods.
+- `EventedPLEG`: Enable support for the kubelet to receive container life cycle events from the
+  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} via
+  an extension to {{<glossary_tooltip term_id="cri" text="CRI">}}.
+  (PLEG is an abbreviation for “Pod lifecycle event generator”).
+  For this feature to be useful, you also need to enable support for container lifecycle events
+  in each container runtime running in your cluster. If the container runtime does not announce
+  support for container lifecycle events then the kubelet automatically switches to the legacy
+  generic PLEG mechanism, even if you have this feature gate enabled.
 - `ExecProbeTimeout`: Ensure kubelet respects exec probe timeouts.
   This feature gate exists in case any of your existing workloads depend on a
   now-corrected fault where Kubernetes ignored exec probe timeouts. See
@@ -768,6 +767,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `EphemeralContainers`：启用添加
   {{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}
   到正在运行的 Pod 的特性。
+- `EventedPLEG`：启用此特性后，kubelet 能够通过 {{<glossary_tooltip term_id="cri" text="CRI">}}
+  扩展从{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}接收容器生命周期事件。
+  （PLEG 是 “Pod lifecycle event generator” 的缩写，即 Pod 生命周期事件生成器）。
+  要使用此特性，你还需要在集群中运行的每个容器运行时中启用对容器生命周期事件的支持。
+  如果容器运行时未宣布支持容器生命周期事件，即使你已启用了此特性门控，kubelet 也会自动切换到原有的通用 PLEG 机制。
 - `ExecProbeTimeout`：确保 kubelet 会遵从 exec 探针的超时值设置。
   此特性门控的主要目的是方便你处理现有的、依赖于已被修复的缺陷的工作负载；
   该缺陷导致 Kubernetes 会忽略 exec 探针的超时值设置。
@@ -838,16 +842,14 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `HPAScaleToZero`：使用自定义指标或外部指标时，可将 `HorizontalPodAutoscaler`
   资源的 `minReplicas` 设置为 0。
 <!--
-- `IPTablesOwnershipCleanup`: This causes kubelet to no longer create legacy IPTables rules.
+- `IPTablesOwnershipCleanup`: This causes kubelet to no longer create legacy iptables rules.
 -->
-- `IPTablesOwnershipCleanup`：这使得 kubelet 不再创建传统的 IPTables 规则。
+- `IPTablesOwnershipCleanup`：这使得 kubelet 不再创建传统的 iptables 规则。
 <!--
 - `IdentifyPodOS`: Allows the Pod OS field to be specified. This helps in identifying
   the OS of the pod authoritatively during the API server admission time.
   In Kubernetes {{< skew currentVersion >}}, the allowed values for the `pod.spec.os.name`
   are `windows` and `linux`.
-- `IndexedJob`: Allows the [Job](/docs/concepts/workloads/controllers/job/)
-  controller to manage Pod completions per completion index.
 - `InTreePluginAWSUnregister`: Stops registering the aws-ebs in-tree plugin in kubelet
   and volume controllers.
 - `InTreePluginAzureDiskUnregister`: Stops registering the azuredisk in-tree plugin in kubelet
@@ -860,9 +862,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   `windows` 和 `linux`。
 - `ImmutableEphemeralVolumes`：允许将各个 Secret 和 ConfigMap 标记为不可变更的，
   以提高安全性和性能。
-- `IndexedJob`：允许 [Job](/zh-cn/docs/concepts/workloads/controllers/job/)
-   控制器来管理每个完成索引的 Pod 完成。
-- `IngressClassNamespacedParams`：允许在 `IngressClass` 资源中使用命名空间范围的参数引用。
+- `IngressClassNamespacedParams`：允许在 `IngressClass` 资源中使用名字空间范围的参数引用。
   此功能为 `IngressClass.spec.parameters` 添加了两个字段 - `scope` 和 `namespace`。
 - `Initializers`：允许使用 Intializers 准入插件来异步协调对象创建操作。
 - `InTreePluginAWSUnregister`：在 kubelet 和卷控制器上关闭注册 aws-ebs 内嵌插件。
@@ -896,7 +896,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `InTreePluginvSphereUnregister`：在 kubelet 和卷控制器上关闭注册 vSphere 内嵌插件。
 - `IndexedJob`：允许 [Job](/zh-cn/docs/concepts/workloads/controllers/job/)
   控制器根据完成索引来管理 Pod 完成。
-- `IngressClassNamespacedParams`：允许在 `IngressClass` 资源中引用命名空间范围的参数。
+- `IngressClassNamespacedParams`：允许在 `IngressClass` 资源中引用名字空间范围的参数。
   该特性增加了两个字段 —— `scope`、`namespace` 到 `IngressClass.spec.parameters`。
 - `Initializers`： 使用 Initializers 准入插件允许异步协调对象创建。
 <!--
@@ -955,6 +955,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 - `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
   [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
+- `LegacyServiceAccountTokenTracking`: Track usage of Secret-based
+  [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 -->
 - `KubeletPodResources`：启用 kubelet 上 Pod 资源 GRPC 端点。更多详细信息，
   请参见[支持设备监控](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/compute-device-assignment.md)。
@@ -967,6 +969,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   获取更多详细信息。
 - `LegacyServiceAccountTokenNoAutoGeneration`：停止基于 Secret
   自动生成[服务账号令牌](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)。
+- `LegacyServiceAccountTokenTracking`：跟踪使用基于 Secret
+  的[服务账号令牌](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)。
 <!--
 - `LocalStorageCapacityIsolation`: Enable the consumption of
   [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/)
@@ -993,7 +997,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 <!--
 - `LogarithmicScaleDown`: Enable semi-random selection of pods to evict on controller scaledown
   based on logarithmic bucketing of pod timestamps.
-- `MatchLabelKeysInPodTopologySpread`: Enable the `matchLabelKeys` field for 
+- `LoggingAlphaOptions`: Allow fine-tuing of experimental, alpha-quality logging options.
+- `LoggingBetaOptions`: Allow fine-tuing of experimental, beta-quality logging options.
+- `MatchLabelKeysInPodTopologySpread`: Enable the `matchLabelKeys` field for
   [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `MaxUnavailableStatefulSet`: Enables setting the `maxUnavailable` field for the
   [rolling update strategy](/docs/concepts/workloads/controllers/statefulset/#rolling-updates)
@@ -1005,13 +1011,18 @@ Each feature gate is designed for enabling/disabling a specific feature:
   cgroup v2 memory controller.
 - `MinDomainsInPodTopologySpread`: Enable `minDomains` in
   [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
+- `MinimizeIPTablesRestore`: Enables new performance improvement logics
+  in the kube-proxy iptables mode.
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
 -->
 - `LogarithmicScaleDown`：启用 Pod 的半随机（semi-random）选择，控制器将根据 Pod
   时间戳的对数桶按比例缩小去驱逐 Pod。
+- `LoggingAlphaOptions`：允许微调实验性的、Alpha 质量的日志选项。
+- `LoggingBetaOptions`：允许微调实验性的、Beta 质量的日志选项。
 - `MatchLabelKeysInPodTopologySpread`：为
-  [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)启用 `matchLabelKeys` 字段。
+  [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+  启用 `matchLabelKeys` 字段。
 - `MaxUnavailableStatefulSet`：启用为 StatefulSet
   的[滚动更新策略](/zh-cn/docs/concepts/workloads/controllers/statefulset/#rolling-updates)设置
   `maxUnavailable` 字段。该字段指定更新过程中不可用 Pod 个数的上限。
@@ -1019,6 +1030,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `MemoryQoS`：使用 cgroup v2 内存控制器在 Pod / 容器上启用内存保护和使用限制。
 - `MinDomainsInPodTopologySpread`：在
   [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)中启用 `minDomains`。
+- `MinimizeIPTablesRestore`：在 kube-proxy iptables 模式中启用新的性能改进逻辑。
 - `MixedProtocolLBService`：允许在同一 `LoadBalancer` 类型的 Service 实例中使用不同的协议。
 <!--
 - `MultiCIDRRangeAllocator`: Enables the MultiCIDR range allocator.
@@ -1043,10 +1055,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `NodeSwap`: Enable the kubelet to allocate swap memory for Kubernetes workloads on a node.
   Must be used with `KubeletConfiguration.failSwapOn` set to false.
   For more details, please see [swap memory](/docs/concepts/architecture/nodes/#swap-memory)
-- `NonPreemptingPriority`: Enable `preemptionPolicy` field for PriorityClass and Pod.
 - `OpenAPIEnums`: Enables populating "enum" fields of OpenAPI schemas in the
   spec returned from the API server.
 - `OpenAPIV3`: Enables the API server to publish OpenAPI v3.
+- `PDBUnhealthyPodEvictionPolicy`: Enables the `unhealthyPodEvictionPolicy` field of a `PodDisruptionBudget`. This specifies
+  when unhealthy pods should be considered for eviction. Please see [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+  for more details.
 -->
 - `NodeOutOfServiceVolumeDetach`：当使用 `node.kubernetes.io/out-of-service`
   污点将节点标记为停止服务时，节点上不能容忍这个污点的 Pod 将被强制删除，
@@ -1054,43 +1068,32 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `NodeSwap`：启用 kubelet 为节点上的 Kubernetes 工作负载分配交换内存的能力。
   必须将 `KubeletConfiguration.failSwapOn` 设置为 false 的情况下才能使用。
   更多详细信息，请参见[交换内存](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
-- `NonPreemptingPriority`：为 PriorityClass 和 Pod 启用 `preemptionPolicy` 选项。
 - `OpenAPIEnums`：允许在从 API 服务器返回的 spec 中填充 OpenAPI 模式的 "enum" 字段。
 - `OpenAPIV3`：允许 API 服务器发布 OpenAPI V3。
+- `PDBUnhealthyPodEvictionPolicy`：启用 `PodDisruptionBudget` 的 `unhealthyPodEvictionPolicy` 字段。
+  此字段指定何时应考虑驱逐不健康的 Pod。
+  更多细节请参阅[不健康 Pod 驱逐策略](/zh-cn/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)。
 <!--
 - `PodDeletionCost`: Enable the [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
    feature which allows users to influence ReplicaSet downscaling order.
-- `PodAffinityNamespaceSelector`: Enable the
-  [Pod Affinity Namespace Selector](/docs/concepts/scheduling-eviction/assign-pod-node/#namespace-selector)
-  and [CrossNamespacePodAffinity](/docs/concepts/policy/resource-quotas/#cross-namespace-pod-affinity-quota)
-  quota scope features.
-- `PodAndContainerStatsFromCRI`: Configure the kubelet to gather container and
-  pod stats from the CRI container runtime rather than gathering them from cAdvisor.
+- `PodAndContainerStatsFromCRI`: Configure the kubelet to gather container and pod stats from the CRI container runtime rather than gathering them from cAdvisor.
+  As of 1.26, this also includes gathering metrics from CRI and emitting them over `/metrics/cadvisor` (rather than having cAdvisor emit them directly).
 - `PodDisruptionConditions`: Enables support for appending a dedicated pod condition indicating that the pod is being deleted due to a disruption.
 - `PodHasNetworkCondition`: Enable the kubelet to mark the [PodHasNetwork](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network) condition on pods.
-- `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)
-  feature to account for pod overheads.
+- `PodSchedulingReadiness`: Enable setting `schedulingGates` field to control a Pod's [scheduling readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness).
 -->
 - `PodDeletionCost`：启用 [Pod 删除成本](/zh-cn/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)功能。
   该功能使用户可以影响 ReplicaSet 的降序顺序。
-- `PodAffinityNamespaceSelector`：启用 [Pod 亲和性名字空间选择算符](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#namespace-selector)和
-  [CrossNamespacePodAffinity](/zh-cn/docs/concepts/policy/resource-quotas/#cross-namespace-pod-affinity-quota)
-  资源配额功能。
 - `PodAndContainerStatsFromCRI`：配置 kubelet 从 CRI 容器运行时中而不是从 cAdvisor 中采集容器和 Pod 统计信息。
+  从 1.26 开始，这还包括从 CRI 收集指标并通过 `/metrics/cadvisor` 输出这些指标（而不是让 cAdvisor 直接输出）。
 - `PodDisruptionConditions`：启用支持追加一个专用的 Pod 状况，以表示 Pod 由于某个干扰正在被删除。
 - `PodHasNetworkCondition`：使得 kubelet 能够对 Pod 标记
   [PodHasNetwork](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network) 状况。
-- `PodOverhead`：启用 [PodOverhead](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)
-  特性以考虑 Pod 开销。
+- `PodSchedulingReadiness`：启用设置 `schedulingGates` 字段以控制 Pod 的[调度就绪](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness)。
 <!--
 - `PodSecurity`: Enables the `PodSecurity` admission plugin.
-- `PreferNominatedNode`: This flag tells the scheduler whether the nominated
-  nodes will be checked first before looping through all the other nodes in
-  the cluster.
 -->
 - `PodSecurity`: 开启 `PodSecurity` 准入控制插件。
-- `PreferNominatedNode`: 这个标志告诉调度器在循环遍历集群中的所有其他节点之前，
-  是否首先检查指定的节点。
 <!--
 - `ProbeTerminationGracePeriod`: Enable [setting probe-level
   `terminationGracePeriodSeconds`](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationgraceperiodseconds)
@@ -1174,18 +1177,13 @@ Each feature gate is designed for enabling/disabling a specific feature:
   of resource schema is performed at the API server side rather than the client side
   (for example, the `kubectl create` or `kubectl apply` command line).
 - `ServiceInternalTrafficPolicy`: Enables the `internalTrafficPolicy` field on Services
-- `ServiceLBNodePortControl`: Enables the `allocateLoadBalancerNodePorts` field on Services.
 -->
 - `ServerSideApply`：在 API 服务器上启用[服务器端应用（SSA）](/zh-cn/docs/reference/using-api/server-side-apply/)。
 - `ServerSideFieldValidation`：启用服务器端字段验证。
   这意味着验证资源模式在 API 服务器端而不是客户端执行
   （例如，`kubectl create` 或 `kubectl apply` 命令行）。
 - `ServiceInternalTrafficPolicy`：为服务启用 `internalTrafficPolicy` 字段。
-- `ServiceLBNodePortControl`：为服务启用 `allocateLoadBalancerNodePorts` 字段。
 <!--
-- `ServiceLoadBalancerClass`: Enables the `loadBalancerClass` field on Services. See
-  [Specifying class of load balancer implementation](/docs/concepts/services-networking/service/#load-balancer-class)
-  for more details.
 - `ServiceIPStaticSubrange`: Enables a strategy for Services ClusterIP allocations, whereby the
   ClusterIP range is subdivided. Dynamic allocated ClusterIP addresses will be allocated preferently
   from the upper range allowing users to assign static ClusterIPs from the lower range with a low
@@ -1193,8 +1191,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Avoiding collisions](/docs/concepts/services-networking/service/#avoiding-collisions)
   for more details.
 -->
-- `ServiceLoadBalancerClass`: 为服务启用 `loadBalancerClass` 字段。
-  有关更多信息，请参见[指定负载均衡器实现类](/zh-cn/docs/concepts/services-networking/service/#load-balancer-class)。
 - `ServiceIPStaticSubrange`：启用服务 ClusterIP 分配策略，从而细分 ClusterIP 范围。
   动态分配的 ClusterIP 地址将优先从较高范围分配，以低冲突风险允许用户从较低范围分配静态 ClusterIP。
   更多详细信息请参阅[避免冲突](/zh-cn/docs/concepts/services-networking/service/#avoiding-collisions)
@@ -1203,22 +1199,24 @@ Each feature gate is designed for enabling/disabling a specific feature:
   memory-backed volumes (mainly `emptyDir` volumes).
 - `StatefulSetMinReadySeconds`: Allows `minReadySeconds` to be respected by
   the StatefulSet controller.
+- `StatefulSetStartOrdinal`: Allow configuration of the start ordinal in a
+  StatefulSet. See
+  [Start ordinal](/docs/concepts/workloads/controllers/statefulset/#start-ordinal)
+  for more details.
 -->
 - `SizeMemoryBackedVolumes`：允许 kubelet 检查基于内存制备的卷的尺寸约束（目前主要针对 `emptyDir` 卷）。
 - `StatefulSetMinReadySeconds`: 允许 StatefulSet 控制器采纳 `minReadySeconds` 设置。
+- `StatefulSetStartOrdinal`：允许在 StatefulSet 中配置起始序号。
+  更多细节请参阅[起始序号](/zh-cn/docs/concepts/workloads/controllers/statefulset/#start-ordinal)。
 <!--
 - `StorageVersionAPI`: Enable the
   [storage version API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageversion-v1alpha1-internal-apiserver-k8s-io).
 - `StorageVersionHash`: Allow API servers to expose the storage version hash in the
   discovery.
-- `SuspendJob`: Enable support to suspend and resume Jobs. For more details, see
-   [the Jobs docs](/docs/concepts/workloads/controllers/job/).
 -->
 - `StorageVersionAPI`：
   启用[存储版本 API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageversion-v1alpha1-internal-apiserver-k8s-io)。
 - `StorageVersionHash`：允许 API 服务器在版本发现中公开存储版本的哈希值。
-- `SuspendJob`：启用对追加和恢复 Job 的支持。更多细节请参阅
-  [Job 文档](/docs/concepts/workloads/controllers/job/)。
 <!--
 - `TopologyAwareHints`: Enables topology aware routing based on topology hints
   in EndpointSlices. See [Topology Aware
@@ -1227,17 +1225,35 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource
   assignments for different components in Kubernetes. See
   [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
+- `TopologyManagerPolicyAlphaOptions`: Allow fine-tuning of topology manager policies,
+  experimental, Alpha-quality options.
+  This feature gate guards *a group* of topology manager options whose quality level is alpha.
+  This feature gate will never graduate to beta or stable.
+- `TopologyManagerPolicyBetaOptions`: Allow fine-tuning of topology manager policies,
+  experimental, Beta-quality options.
+  This feature gate guards *a group* of topology manager options whose quality level is beta.
+  This feature gate will never graduate to stable.
+- `TopologyManagerPolicyOptions`: Allow fine-tuning of topology manager policies,
 - `UserNamespacesStatelessPodsSupport`: Enable user namespace support for stateless Pods.
 -->
 - `TopologyAwareHints`： 在 EndpointSlices 中启用基于拓扑提示的拓扑感知路由。
   更多详细信息可参见[拓扑感知提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints/)。
 - `TopologyManager`：启用一种机制来协调 Kubernetes 不同组件的细粒度硬件资源分配。
   详见[控制节点上的拓扑管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)。
+- `TopologyManagerPolicyAlphaOptions`：允许微调拓扑管理器策略的实验性的、Alpha 质量的选项。
+  此特性门控守护 **一组** 质量级别为 Alpha 的拓扑管理器选项。
+  此特性门控绝对不会进阶至 Beta 或稳定版。
+- `TopologyManagerPolicyBetaOptions`：允许微调拓扑管理器策略的实验性的、Beta 质量的选项。
+  此特性门控守护 **一组** 质量级别为 Beta 的拓扑管理器选项。
+  此特性门控绝对不会进阶至稳定版。
+- `TopologyManagerPolicyOptions`: Allow fine-tuning of topology manager policies,
 - `UserNamespacesStatelessPodsSupport`：为无状态 Pod 启用用户名字空间的支持。
 <!--
+- `ValidatingAdmissionPolicy`: Enable [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) support for CEL validations be used in Admission Control.
 - `VolumeCapacityPriority`: Enable support for prioritizing nodes in different
   topologies based on available PV capacity.
 -->
+- `ValidatingAdmissionPolicy`：启用准入控制中所用的对 CEL 校验的 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/) 支持。
 - `VolumeCapacityPriority`: 基于可用 PV 容量的拓扑，启用对不同节点的优先级支持。
 <!--
 - `WatchBookmark`: Enable support for watch bookmark events.
@@ -1248,8 +1264,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WinDSR`：允许 kube-proxy 为 Windows 创建 DSR 负载均衡。
 - `WinOverlay`：允许在 Windows 的覆盖网络模式下运行 kube-proxy。
 <!--
+- `WindowsHostNetwork`: Enables support for joining Windows containers to a hosts' network namespace.
 - `WindowsHostProcessContainers`: Enables support for Windows HostProcess containers.
 -->
+- `WindowsHostNetwork`：启用对 Windows 容器接入主机网络名字空间的支持。
 - `WindowsHostProcessContainers`：启用对 Windows HostProcess 容器的支持。
 
 ## {{% heading "whatsnext" %}}
