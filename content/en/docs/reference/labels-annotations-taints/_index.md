@@ -155,6 +155,22 @@ This label has been deprecated. Please use `kubernetes.io/arch` instead.
 
 This label has been deprecated. Please use `kubernetes.io/os` instead.
 
+### kube-aggregator.kubernetes.io/automanaged {#kube-aggregator-kubernetesio-automanaged}
+
+Example: `kube-aggregator.kubernetes.io/automanaged: "onstart"`
+
+Used on: APIService
+
+The `kube-apiserver` sets this label on any APIService object that the API server has created automatically. The label marks how the control plane should manage that APIService. You should not add, modify, or remove this label by yourself.
+
+{{< note >}}
+Automanaged APIService objects are deleted by kube-apiserver when it has no built-in or custom resource API corresponding to the API group/version of the APIService.
+{{< /note >}}
+
+There are two possible values:
+- `onstart`: The APIService should be reconciled when an API server starts up, but not otherwise.
+- `true`: The API server should reconcile this APIService continuously.
+
 ### kubernetes.io/hostname {#kubernetesiohostname}
 
 Example: `kubernetes.io/hostname: "ip-172-20-114-199.ec2.internal"`
@@ -376,6 +392,19 @@ This annotation has been deprecated.
 Used on: PersistentVolumeClaim
 
 This annotation will be added to dynamic provisioning required PVC.
+
+### volumes.kubernetes.io/controller-managed-attach-detach
+
+Used on: Node
+
+If a node has set the annotation `volumes.kubernetes.io/controller-managed-attach-detach`
+on itself, then its storage attach and detach operations are being managed
+by the _volume attach/detach_
+{{< glossary_tooltip text="controller" term_id="controller" >}} running within the
+{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+
+The value of the annotation isn't important; if this annotation exists on a node,
+then storage attaches and detaches are controller managed.
 
 ### node.kubernetes.io/windows-build {#nodekubernetesiowindows-build}
 
@@ -768,6 +797,16 @@ created from a VolumeSnapshot.
 
 Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode)
 and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/) for more information.
+
+### scheduler.alpha.kubernetes.io/critical-pod (deprecated)
+
+Example: `scheduler.alpha.kubernetes.io/critical-pod: ""`
+
+Used on: Pod
+
+This annotation lets Kubernetes control plane know about a pod being a critical pod so that the descheduler will not remove this pod.
+
+{{< note >}} Starting in v1.16, this annotation was removed in favor of [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/). {{< /note >}}
 
 ## Annotations used for audit
 

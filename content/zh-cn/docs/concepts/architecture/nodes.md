@@ -848,89 +848,6 @@ Message:        Pod was terminated in response to imminent node shutdown.
 {{< /note >}}
 
 <!--
-## Non Graceful node shutdown {#non-graceful-node-shutdown}
--->
-## 节点非体面关闭 {#non-graceful-node-shutdown}
-
-{{< feature-state state="beta" for_k8s_version="v1.26" >}}
-
-<!--
-A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
-either because the command does not trigger the inhibitor locks mechanism used by 
-kubelet or because of a user error, i.e., the ShutdownGracePeriod and 
-ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above 
-section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
--->
-节点关闭的操作可能无法被 kubelet 的节点关闭管理器检测到，
-是因为该命令不会触发 kubelet 所使用的抑制锁定机制，或者是因为用户错误的原因，
-即 ShutdownGracePeriod 和 ShutdownGracePeriodCriticalPod 配置不正确。
-请参考以上[节点体面关闭](#graceful-node-shutdown)部分了解更多详细信息。
-
-<!--
-When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods 
-that are part of a StatefulSet will be stuck in terminating status on 
-the shutdown node and cannot move to a new running node. This is because kubelet on 
-the shutdown node is not available to delete the pods so the StatefulSet cannot 
-create a new pod with the same name. If there are volumes used by the pods, the 
-VolumeAttachments will not be deleted from the original shutdown node so the volumes 
-used by these pods cannot be attached to a new running node. As a result, the 
-application running on the StatefulSet cannot function properly. If the original 
-shutdown node comes up, the pods will be deleted by kubelet and new pods will be 
-created on a different running node. If the original shutdown node does not come up,  
-these pods will be stuck in terminating status on the shutdown node forever.
--->
-当某节点关闭但 kubelet 的节点关闭管理器未检测到这一事件时，
-在那个已关闭节点上、属于 StatefulSet 的 Pod 将停滞于终止状态，并且不能移动到新的运行节点上。
-这是因为已关闭节点上的 kubelet 已不存在，亦无法删除 Pod，
-因此 StatefulSet 无法创建同名的新 Pod。
-如果 Pod 使用了卷，则 VolumeAttachments 不会从原来的已关闭节点上删除，
-因此这些 Pod 所使用的卷也无法挂接到新的运行节点上。
-所以，那些以 StatefulSet 形式运行的应用无法正常工作。
-如果原来的已关闭节点被恢复，kubelet 将删除 Pod，新的 Pod 将被在不同的运行节点上创建。
-如果原来的已关闭节点没有被恢复，那些在已关闭节点上的 Pod 将永远滞留在终止状态。
-
-<!--
-To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute` 
-or `NoSchedule` effect to a Node marking it out-of-service. 
-If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled on `kube-controller-manager`, and a Node is marked out-of-service with this taint, the
-pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
-detach operations for the pods terminating on the node will happen immediately. This allows the
-Pods on the out-of-service node to recover quickly on a different node.
--->
-为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
-`node.kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
-如果在 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-并且节点被通过污点标记为无法提供服务，如果节点 Pod 上没有设置对应的容忍度，
-那么这样的 Pod 将被强制删除，并且该在节点上被终止的 Pod 将立即进行卷分离操作。
-这样就允许那些在无法提供服务节点上的 Pod 能在其他节点上快速恢复。
-
-<!--
-During a non-graceful shutdown, Pods are terminated in the two phases:
-
-1. Force delete the Pods that do not have matching `out-of-service` tolerations.
-2. Immediately perform detach volume operation for such pods. 
--->
-在非体面关闭期间，Pod 分两个阶段终止：
-1. 强制删除没有匹配的 `out-of-service` 容忍度的 Pod。
-2. 立即对此类 Pod 执行分离卷操作。
-
-{{< note >}}
-<!--
-- Before adding the taint `node.kubernetes.io/out-of-service` , it should be verified
-  that the node is already in shutdown or power off state (not in the middle of
-  restarting).
-- The user is required to manually remove the out-of-service taint after the pods are
-  moved to a new node and the user has checked that the shutdown node has been
-  recovered since the user was the one who originally added the taint.
--->
-- 在添加 `node.kubernetes.io/out-of-service` 污点之前，应该验证节点已经处于关闭或断电状态（而不是在重新启动中）。
-- 将 Pod 移动到新节点后，用户需要手动移除停止服务的污点，并且用户要检查关闭节点是否已恢复，因为该用户是最初添加污点的用户。
-{{< /note >}}
-
-
-<!--
 ### Pod Priority based graceful node shutdown {#pod-priority-graceful-node-shutdown}
 -->
 ### 基于 Pod 优先级的节点体面关闭    {#pod-priority-graceful-node-shutdown}
@@ -1090,6 +1007,91 @@ are emitted under the kubelet subsystem to monitor node shutdowns.
 -->
 kubelet 子系统中会生成 `graceful_shutdown_start_time_seconds` 和
 `graceful_shutdown_end_time_seconds` 度量指标以便监视节点关闭行为。
+
+<!--
+## Non Graceful node shutdown {#non-graceful-node-shutdown}
+-->
+## 节点非体面关闭 {#non-graceful-node-shutdown}
+
+{{< feature-state state="beta" for_k8s_version="v1.26" >}}
+
+<!--
+A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
+either because the command does not trigger the inhibitor locks mechanism used by 
+kubelet or because of a user error, i.e., the ShutdownGracePeriod and 
+ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above 
+section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
+-->
+节点关闭的操作可能无法被 kubelet 的节点关闭管理器检测到，
+是因为该命令不会触发 kubelet 所使用的抑制锁定机制，或者是因为用户错误的原因，
+即 ShutdownGracePeriod 和 ShutdownGracePeriodCriticalPod 配置不正确。
+请参考以上[节点体面关闭](#graceful-node-shutdown)部分了解更多详细信息。
+
+<!--
+When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods 
+that are part of a StatefulSet will be stuck in terminating status on 
+the shutdown node and cannot move to a new running node. This is because kubelet on 
+the shutdown node is not available to delete the pods so the StatefulSet cannot 
+create a new pod with the same name. If there are volumes used by the pods, the 
+VolumeAttachments will not be deleted from the original shutdown node so the volumes 
+used by these pods cannot be attached to a new running node. As a result, the 
+application running on the StatefulSet cannot function properly. If the original 
+shutdown node comes up, the pods will be deleted by kubelet and new pods will be 
+created on a different running node. If the original shutdown node does not come up,  
+these pods will be stuck in terminating status on the shutdown node forever.
+-->
+当某节点关闭但 kubelet 的节点关闭管理器未检测到这一事件时，
+在那个已关闭节点上、属于 StatefulSet 的 Pod 将停滞于终止状态，并且不能移动到新的运行节点上。
+这是因为已关闭节点上的 kubelet 已不存在，亦无法删除 Pod，
+因此 StatefulSet 无法创建同名的新 Pod。
+如果 Pod 使用了卷，则 VolumeAttachments 不会从原来的已关闭节点上删除，
+因此这些 Pod 所使用的卷也无法挂接到新的运行节点上。
+所以，那些以 StatefulSet 形式运行的应用无法正常工作。
+如果原来的已关闭节点被恢复，kubelet 将删除 Pod，新的 Pod 将被在不同的运行节点上创建。
+如果原来的已关闭节点没有被恢复，那些在已关闭节点上的 Pod 将永远滞留在终止状态。
+
+<!--
+To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
+or `NoSchedule` effect to a Node marking it out-of-service. 
+If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled on `kube-controller-manager`, and a Node is marked out-of-service with this taint, the
+pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
+detach operations for the pods terminating on the node will happen immediately. This allows the
+Pods on the out-of-service node to recover quickly on a different node. 
+-->
+为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
+`node.kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
+如果在 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+并且节点被通过污点标记为无法提供服务，如果节点 Pod 上没有设置对应的容忍度，
+那么这样的 Pod 将被强制删除，并且该在节点上被终止的 Pod 将立即进行卷分离操作。
+这样就允许那些在无法提供服务节点上的 Pod 能在其他节点上快速恢复。
+
+<!--
+During a non-graceful shutdown, Pods are terminated in the two phases:
+
+1. Force delete the Pods that do not have matching `out-of-service` tolerations.
+2. Immediately perform detach volume operation for such pods. 
+-->
+在非体面关闭期间，Pod 分两个阶段终止：
+
+1. 强制删除没有匹配的 `out-of-service` 容忍度的 Pod。
+2. 立即对此类 Pod 执行分离卷操作。
+
+{{< note >}}
+<!--
+- Before adding the taint `node.kubernetes.io/out-of-service` , it should be verified
+  that the node is already in shutdown or power off state (not in the middle of
+  restarting).
+- The user is required to manually remove the out-of-service taint after the pods are
+  moved to a new node and the user has checked that the shutdown node has been
+  recovered since the user was the one who originally added the taint.
+-->
+- 在添加 `node.kubernetes.io/out-of-service` 污点之前，
+  应该验证节点已经处于关闭或断电状态（而不是在重新启动中）。
+- 将 Pod 移动到新节点后，用户需要手动移除停止服务的污点，
+  并且用户要检查关闭节点是否已恢复，因为该用户是最初添加污点的用户。
+{{< /note >}}
 
 <!--
 ## Swap memory management {#swap-memory}

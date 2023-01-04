@@ -110,7 +110,7 @@ The [`ValidatingAdmissionPolicy`](#validatingadmissionpolicy) admission plugin i
 by default, but is only active if you enable the the `ValidatingAdmissionPolicy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) **and**
 the `admissionregistration.k8s.io/v1alpha1` API.
-{{< note >}}
+{{< /note >}}
 
 ## What does each admission controller do?
 
