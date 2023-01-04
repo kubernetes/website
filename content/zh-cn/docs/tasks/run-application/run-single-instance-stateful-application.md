@@ -31,7 +31,11 @@ application is MySQL.
 
 <!-- lessoncontent -->
 
-## 部署 MySQL   {#deploy-mysql}
+<!--
+## Deploy MySQL
+ -->
+
+## 部署 MySQL {#deploy-mysql}
 
 <!--
 You can run a stateful application by creating a Kubernetes Deployment
@@ -60,97 +64,109 @@ for a secure solution.
 {{< codenew file="application/mysql/mysql-deployment.yaml" >}}
 {{< codenew file="application/mysql/mysql-pv.yaml" >}}
 
-1. <!--Deploy the PV and PVC of the YAML file-->
-   部署 YAML 文件中定义的 PV 和 PVC：
+<!--
+1. Deploy the PV and PVC of the YAML file:
+-->
+
+1. 部署 YAML 文件中定义的 PV 和 PVC：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
    ```
-
-1. <!-- Deploy the contents of the YAML file -->
-   部署 YAML 文件中定义的 Deployment：
+<!-- 
+2. Deploy the contents of the YAML file:
+-->
+2. 部署 YAML 文件中定义的 Deployment：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
    ```
 
-1. <!-- Display information about the Deployment -->
-   展示 Deployment 相关信息:
+<!--
+3. Display information about the Deployment:
+-->
+3. 展示 Deployment 相关信息:
 
    ```shell
    kubectl describe deployment mysql
    ```
 
-   <!--
-   The output is similar to this:
-   -->
+<!--
+    The output is similar to this:
+-->
+
    输出类似于：
 
    ```
-   Name:                 mysql
-   Namespace:            default
-   CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
-   Labels:               app=mysql
-   Annotations:          deployment.kubernetes.io/revision=1
-   Selector:             app=mysql
-   Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
-   StrategyType:         Recreate
-   MinReadySeconds:      0
-   Pod Template:
-     Labels:       app=mysql
-     Containers:
-      mysql:
-       Image:      mysql:5.6
-       Port:       3306/TCP
-       Environment:
-         MYSQL_ROOT_PASSWORD:      password
-       Mounts:
-         /var/lib/mysql from mysql-persistent-storage (rw)
-     Volumes:
-      mysql-persistent-storage:
-       Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
-       ClaimName:  mysql-pv-claim
-       ReadOnly:   false
-       Conditions:
-         Type          Status  Reason
-         ----          ------  ------
-         Available     False   MinimumReplicasUnavailable
-         Progressing   True    ReplicaSetUpdated
-         OldReplicaSets:       <none>
-         NewReplicaSet:        mysql-63082529 (1/1 replicas created)
-         Events:
-           FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
-           ---------    --------    -----    ----                -------------    --------    ------            -------
-           33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
+    Name:                 mysql
+    Namespace:            default
+    CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
+    Labels:               app=mysql
+    Annotations:          deployment.kubernetes.io/revision=1
+    Selector:             app=mysql
+    Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+    StrategyType:         Recreate
+    MinReadySeconds:      0
+    Pod Template:
+      Labels:       app=mysql
+      Containers:
+        mysql:
+        Image:      mysql:5.6
+        Port:       3306/TCP
+        Environment:
+          MYSQL_ROOT_PASSWORD:      password
+        Mounts:
+          /var/lib/mysql from mysql-persistent-storage (rw)
+      Volumes:
+        mysql-persistent-storage:
+        Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+        ClaimName:  mysql-pv-claim
+        ReadOnly:   false
+    Conditions:
+      Type          Status  Reason
+      ----          ------  ------
+      Available     False   MinimumReplicasUnavailable
+      Progressing   True    ReplicaSetUpdated
+    OldReplicaSets:       <none>
+    NewReplicaSet:        mysql-63082529 (1/1 replicas created)
+    Events:
+      FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
+      ---------    --------    -----    ----                -------------    --------    ------            -------
+      33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
    ```
 
-1. <!-- List the pods created by the Deployment -->
-   列举出 Deployment 创建的 pods:
+<!--
+4. List the pods created by the Deployment:
+-->
+4. 列举出 Deployment 创建的 pods:
 
    ```shell
    kubectl get pods -l app=mysql
    ```
 
-   <!--
-   The output is similar to this:
-   -->
+<!--
+    The output is similar to this:
+-->
+
    输出类似于：
 
    ```
    NAME                   READY     STATUS    RESTARTS   AGE
    mysql-63082529-2z3ki   1/1       Running   0          3m
    ```
-
-1. <!-- Inspect the PersistentVolumeClaim -->
-   查看 PersistentVolumeClaim：
+<!--
+5. Inspect the PersistentVolumeClaim:
+-->
+5. 查看 PersistentVolumeClaim：
 
    ```shell
    kubectl describe pvc mysql-pv-claim
    ```
 
-   <!--
-   The output is similar to this:
-   -->
+<!--
+    The output is similar to this:
+-->
+
    输出类似于：
 
    ```
@@ -178,8 +194,8 @@ behind a Service and you don't intend to increase the number of Pods.
 
 Run a MySQL client to connect to the server:
 -->
-## 访问 MySQL 实例   {#accessing-the-mysql-instance}
 
+## 访问 MySQL 实例 {#accessing-the-mysql-instance}
 
 前面 YAML 文件中创建了一个允许集群内其他 Pod 访问的数据库服务。该服务中选项
 `clusterIP: None` 让服务 DNS 名称直接解析为 Pod 的 IP 地址。
@@ -196,6 +212,7 @@ This command creates a new Pod in the cluster running a MySQL client
 and connects it to the server through the Service. If it connects, you
 know your stateful MySQL database is up and running.
 -->
+
 此命令在集群内创建一个新的 Pod 并运行 MySQL 客户端，并通过 Service 连接到服务器。
 如果连接成功，你就知道有状态的 MySQL 数据库正处于运行状态。
 
@@ -213,7 +230,8 @@ The image or any other part of the Deployment can be updated as usual
 with the `kubectl apply` command. Here are some precautions that are
 specific to stateful apps:
 -->
-## 更新   {#updating}
+
+## 更新 {#updating}
 
 Deployment 中镜像或其他部分同往常一样可以通过 `kubectl apply` 命令更新。
 以下是特定于有状态应用的一些注意事项:
@@ -242,7 +260,8 @@ Deployment 中镜像或其他部分同往常一样可以通过 `kubectl apply` �
 
 Delete the deployed objects by name:
 -->
-## 删除 Deployment    {#deleting-a-deployment}
+
+## 删除 Deployment {#deleting-a-deployment}
 
 通过名称删除部署的对象:
 
