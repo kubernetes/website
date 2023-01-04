@@ -56,11 +56,7 @@ For more information, see [Network Plugin Requirements](/docs/concepts/extend-ku
 
 ### Forwarding IPv4 and letting iptables see bridged traffic
 
-Verify that the `br_netfilter` module is loaded by running `lsmod | grep br_netfilter`. 
-
-To load it explicitly, run `sudo modprobe br_netfilter`.
-
-In order for a Linux node's iptables to correctly view bridged traffic, verify that `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config. For example:
+Execute the below mentioned instructions:
 
 ```bash
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
@@ -80,6 +76,18 @@ EOF
 
 # Apply sysctl params without reboot
 sudo sysctl --system
+```
+
+Verify that the `br_netfilter`, `overlay` modules are loaded by running below instructions:   
+
+```bash
+lsmod | grep br_netfilter
+lsmod | grep overlay
+```
+
+Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, `net.ipv4.ip_forward` system variables are set to 1 in your `sysctl` config by running below instruction:   
+```bash
+sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
 ```
 
 ## Cgroup drivers
@@ -217,6 +225,13 @@ that the CRI integration plugin is disabled by default.
 You need CRI support enabled to use containerd with Kubernetes. Make sure that `cri`
 is not included in the`disabled_plugins` list within `/etc/containerd/config.toml`;
 if you made changes to that file, also restart `containerd`.
+
+If you experience container crash loops after the initial cluster installation or after
+installing a CNI, the containerd configuration provided with the package might contain
+incompatible configuration parameters. Consider resetting the containerd configuration
+with `containerd config default > /etc/containerd/config.toml` as specified in
+[getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)
+and then set the configuration parameters specified above accordingly.
 {{< /note >}}
 
 If you apply this change, make sure to restart containerd:

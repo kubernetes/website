@@ -208,7 +208,7 @@ Ketika `.spec.suspend` diubah dari `true` ke `false` pada CronJob yang memiliki 
 
 ### Batas Riwayat Pekerjaan
 
-_Field_ `.spec.successfulJobHistoryLimit` dan `.spec.failedJobHistoryLimit` juga opsional.
+_Field_ `.spec.successfulJobsHistoryLimit` dan `.spec.failedJobsHistoryLimit` juga opsional.
 _Field_ tersebut menentukan berapa banyak Job yang sudah selesai dan gagal yang harus disimpan.
 Secara bawaan, masing-masing _field_ tersebut disetel 3 dan 1. Mensetel batas ke `0` untuk menjaga tidak ada Job yang sesuai setelah Job tersebut selesai.
 

@@ -28,7 +28,7 @@ This guide walks you through the steps to configure and deploy Windows container
 ## Objectives
 
 * Configure an example deployment to run Windows containers on the Windows node
-* Highlight Windows specific funcationality in Kubernetes
+* Highlight Windows specific functionality in Kubernetes
 -->
 ## 目标  {#objectives}
 

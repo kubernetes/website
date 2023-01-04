@@ -490,13 +490,6 @@ the kubelet on each node to authenticate to that repository. You can configure
 _image pull secrets_ to make this possible. These secrets are configured at the Pod
 level.
 
-The `imagePullSecrets` field for a Pod is a list of references to Secrets in the same namespace
-as the Pod.
-You can use an `imagePullSecrets` to pass image registry access credentials to
-the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
-See `PodSpec` in the [Pod API reference](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
-for more information about the `imagePullSecrets` field.
-
 #### Using imagePullSecrets
 
 The `imagePullSecrets` field is a list of references to secrets in the same namespace.

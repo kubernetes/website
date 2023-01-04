@@ -92,6 +92,8 @@ aliases:
     - divya-mohan0209
   sig-docs-hi-reviews: # PR reviews for Hindi content
     - anubha-v-ardhan
+    - Babapool
+    - bishal7679
     - divya-mohan0209
     - Garima-Negi
     - verma-kunal
@@ -171,6 +173,7 @@ aliases:
     - howieyuen
     # idealhack
     - mengjiao-liu
+    - my-git9
     # pigletfly
     - SataQiu
     - Sea-n
@@ -230,6 +233,7 @@ aliases:
     - kpucynski
   sig-docs-uk-owners: # Admins for Ukrainian content
     - anastyakulyk
+    - Arhell
     - butuzov
     - MaxymVlasov
   sig-docs-uk-reviews: # PR reviews for Ukrainian content
@@ -267,10 +271,7 @@ aliases:
     - xmudrii # Release Manager
   release-engineering-reviewers:
     - ameukam # Release Manager Associate
+    - cici37 # Release Manager Associate
     - jimangel # Release Manager Associate
-    - markyjackson-taulia # Release Manager Associate
-    - mkorbi # Release Manager Associate
-    - onlydole # Release Manager Associate
-    - sethmccombs # Release Manager Associate
-    - thejoycekung # Release Manager Associate
-    - wilsonehusin # Release Manager Associate
+    - jrsapi # Release Manager Associate
+    - salaxander # Release Manager Associate

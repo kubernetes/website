@@ -32,7 +32,7 @@ kubectl kustomize <kustomization_directory>
 ```
 
 <!--
-To apply those Resources, run `kubectl apply` with `- -kustomize` or `-k` flag:
+To apply those Resources, run `kubectl apply` with `--kustomize` or `-k` flag:
 -->
 要应用这些资源，使用 `--kustomize` 或 `-k` 参数来执行 `kubectl apply`：
 
@@ -130,8 +130,7 @@ metadata:
 ```
 
 <!--
-To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`.
-Here is an example of generating a ConfigMap with a data item from a `.env` file:
+To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`. Here is an example of generating a ConfigMap with a data item from a `.env` file:
 -->
 要从 env 文件生成 ConfigMap，请在 `configMapGenerator` 中的 `envs` 列表中添加一个条目。
 下面是一个用来自 `.env` 文件的数据生成 ConfigMap 的例子：
@@ -1166,9 +1165,7 @@ Run the following command to apply the Deployment object `dev-my-nginx`:
 执行下面的命令来应用 Deployment 对象 `dev-my-nginx`：
 
 ```shell
-kubectl apply -k ./
-```
-```
+> kubectl apply -k ./
 deployment.apps/dev-my-nginx created
 ```
 
@@ -1200,9 +1197,7 @@ Run the following command to delete the Deployment object `dev-my-nginx`:
 执行下面的命令删除 Deployment 对象 `dev-my-nginx`：
 
 ```shell
-kubectl delete -k ./
-```
-```
+> kubectl delete -k ./
 deployment.apps "dev-my-nginx" deleted
 ```
 
