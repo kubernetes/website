@@ -120,13 +120,13 @@ specification of a horizontal pod autoscaler.
   <!--
   - **scaleTargetRef.kind** (string), required
 
-    Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+    Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
   
   - **scaleTargetRef.kind** (string)，必填
 
     被引用对象的类别；
-    更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+    更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
   <!--
   - **scaleTargetRef.name** (string), required

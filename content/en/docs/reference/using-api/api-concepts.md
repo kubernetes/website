@@ -83,6 +83,16 @@ namespace (`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`). A namespace-scoped res
 type will be deleted when its namespace is deleted and access to that resource type
 is controlled by authorization checks on the namespace scope.
 
+Note: core resources use `/api` instead of `/apis` and omit the GROUP path segment.
+
+Examples:
+* `/api/v1/namespaces`
+* `/api/v1/pods`
+* `/api/v1/namespaces/my-namespace/pods`
+* `/apis/apps/v1/deployments`
+* `/apis/apps/v1/namespaces/my-namespace/deployments`
+* `/apis/apps/v1/namespaces/my-namespace/deployments/my-deployment`
+
 You can also access collections of resources (for example: listing all Nodes).
 The following paths are used to retrieve collections and resources:
 
@@ -737,7 +747,7 @@ by default.
 The `kubectl` tool uses the `--validate` flag to set the level of field validation.
 Historically `--validate` was used to toggle client-side validation on or off as
 a boolean flag. Since Kubernetes 1.25, kubectl uses
-server-side field validation when sending requests to a serer with this feature
+server-side field validation when sending requests to a server with this feature
 enabled. Validation will fall back to client-side only when it cannot connect
 to an API server with field validation enabled.
 It accepts the values `ignore`, `warn`,

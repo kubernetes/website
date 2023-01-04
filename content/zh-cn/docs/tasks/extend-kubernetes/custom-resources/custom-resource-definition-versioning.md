@@ -135,8 +135,8 @@ Removing an old version:
    If this occurs, switch back to using `served:true` on the old version, migrate the 
    remaining clients to the new version and repeat this step.
 1. Ensure the [upgrade of existing objects to the new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
-    1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
-    1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
+   1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
+   1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
 1. Remove the old version from the CustomResourceDefinition `spec.versions` list.
 1. Drop conversion support for the old version in conversion webhooks.
 -->
@@ -499,11 +499,11 @@ spec:
 <!--
 ### Version removal
 
-An older API version cannot be dropped from a CustomResourceDefinition manifest until existing persisted data has been migrated to the newer API version for all clusters that served the older version of the custom resource, and the old version is removed from the `status.storedVersions` of the CustomResourceDefinition.
+An older API version cannot be dropped from a CustomResourceDefinition manifest until existing stored data has been migrated to the newer API version for all clusters that served the older version of the custom resource, and the old version is removed from the `status.storedVersions` of the CustomResourceDefinition.
 -->
 ### 版本删除   {#version-removal}
 
-在为所有提供旧版本自定义资源的集群将现有数据迁移到新 API 版本，并且从 CustomResourceDefinition 的
+在为所有提供旧版本自定义资源的集群将现有存储数据迁移到新 API 版本，并且从 CustomResourceDefinition 的
 `status.storedVersions` 中删除旧版本之前，无法从 CustomResourceDefinition 清单文件中删除旧 API 版本。
 
 ```yaml
@@ -1352,29 +1352,50 @@ Example of a response from a webhook indicating a conversion request failed, wit
 ## 编写、读取和更新版本化的 CustomResourceDefinition 对象   {#write-read-and-update-versioned-crd-objects}
 
 <!--
-When an object is written, it is persisted at the version designated as the
+When an object is written, it is stored at the version designated as the
 storage version at the time of the write. If the storage version changes,
 existing objects are never converted automatically. However, newly-created
 or updated objects are written at the new storage version. It is possible for an
 object to have been written at a version that is no longer served.
 -->
-写入对象时，将使用写入时指定的存储版本来存储。如果存储版本发生变化，
+写入对象时，将存储为写入时指定的存储版本。如果存储版本发生变化，
 现有对象永远不会被自动转换。然而，新创建或被更新的对象将以新的存储版本写入。
 对象写入的版本不再被支持是有可能的。
 
 <!--
-When you read an object, you specify the version as part of the path. If you
-specify a version that is different from the object's persisted version,
-Kubernetes returns the object to you at the version you requested, but the
-persisted object is neither changed on disk, nor converted in any way
-(other than changing the `apiVersion` string) while serving the request.
+When you read an object, you specify the version as part of the path.
 You can request an object at any version that is currently served.
+If you specify a version that is different from the object's stored version,
+Kubernetes returns the object to you at the version you requested, but the
+stored object is not changed on disk.
 -->
-当读取对象时，作为路径的一部分，你需要指定版本。
-如果所指定的版本与对象的持久版本不同，Kubernetes 会按所请求的版本将对象返回，
-但是在满足服务请求时，被持久化的对象既不会在磁盘上更改，
-也不会以任何方式进行转换（除了 `apiVersion` 字符串被更改之外）。
-你可以以当前提供的任何版本来请求对象。
+当读取对象时，你需要在路径中指定版本。
+你可以请求当前提供的任意版本的对象。
+如果所指定的版本与对象的存储版本不同，Kubernetes 会按所请求的版本将对象返回，
+但磁盘上存储的对象不会更改。
+
+<!--
+What happens to the object that is being returned while serving the read
+request depends on what is specified in the CRD's `spec.conversion`:
+-->
+在为读取请求提供服务时正返回的对象会发生什么取决于 CRD 的 `spec.conversion` 中指定的内容：
+
+<!--
+- if the default `strategy` value `None` is specified, the only modifications
+  to the object are changing the `apiVersion` string and perhaps [pruning
+  unknown fields](/docs/concepts/extend-kubernetes/api-extension/custom-resources/custom-resource-definitions/#field-pruning)
+  (depending on the configuration). Note that this is unlikely to lead to good
+  results if the schemas differ between the storage and requested version.
+  In particular, you should not use this strategy if the same data is
+  represented in different fields between versions.
+- if [webhook conversion](#webhook-conversion) is specified, then this
+  mechanism controls the conversion.
+-->
+- 如果所指定的 `strategy` 值是默认的 `None`，则针对对象的唯一修改是更改其 `apiVersion` 字符串，
+  并且可能[修剪未知字段](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning)（取决于配置）。
+  请注意，如果存储和请求版本之间的模式不同，这不太可能导致好的结果。
+  尤其是如果在相同的数据类不同版本中采用不同字段来表示时，不应使用此策略。
+- 如果指定了 [Webhook 转换](#webhook-conversion)，则此机制将控制转换。
 
 <!--
 If you update an existing object, it is rewritten at the version that is
@@ -1390,26 +1411,28 @@ To illustrate this, consider the following hypothetical series of events:
 为了说明这一点，请考虑以下假设的一系列事件：
 
 <!--
-1.  The storage version is `v1beta1`. You create an object. It is persisted in
-    storage at version `v1beta1`
-2.  You add version `v1` to your CustomResourceDefinition and designate it as
-    the storage version.
-3.  You read your object at version `v1beta1`, then you read the object again at
-    version `v1`. Both returned objects are identical except for the apiVersion
-    field.
-4.  You create a new object. It is persisted in storage at version `v1`. You now
-    have two objects, one of which is at `v1beta1`, and the other of which is at
-    `v1`.
-5.  You update the first object. It is now persisted at version `v1` since that
-    is the current storage version.
+1. The storage version is `v1beta1`. You create an object. It is stored at version `v1beta1`
+2. You add version `v1` to your CustomResourceDefinition and designate it as
+   the storage version. Here the schemas for `v1` and `v1beta1` are identical,
+   which is typically the case when promoting an API to stable in the
+   Kubernetes ecosystem.
+3. You read your object at version `v1beta1`, then you read the object again at
+   version `v1`. Both returned objects are identical except for the apiVersion
+   field.
+4. You create a new object. It is stored at version `v1`. You now
+   have two objects, one of which is at `v1beta1`, and the other of which is at
+   `v1`.
+5. You update the first object. It is now stored at version `v1` since that
+   is the current storage version.
 -->
-1.  存储版本是 `v1beta1`。你创建一个对象。该对象以版本 `v1beta1` 存储。
-2.  你将为 CustomResourceDefinition 添加版本 `v1`，并将其指定为存储版本。
-3.  你使用版本 `v1beta1` 来读取你的对象，然后你再次用版本 `v1` 读取对象。
-    除了 apiVersion 字段之外，返回的两个对象是完全相同的。
-4.  你创建一个新对象。对象以版本 `v1` 保存在存储中。
-    你现在有两个对象，其中一个是 `v1beta1`，另一个是 `v1`。
-5.  你更新第一个对象。该对象现在以版本 `v1` 保存，因为 `v1` 是当前的存储版本。
+1. 存储版本是 `v1beta1`。你创建一个对象。该对象以版本 `v1beta1` 存储。
+2. 你将为 CustomResourceDefinition 添加版本 `v1`，并将其指定为存储版本。
+   此处 `v1` 和 `v1beta1` 的模式是相同的，这通常是在 Kubernetes 生态系统中将 API 提升为稳定版时的情况。
+3. 你使用版本 `v1beta1` 来读取你的对象，然后你再次用版本 `v1` 读取对象。
+   除了 apiVersion 字段之外，返回的两个对象是完全相同的。
+4. 你创建一个新对象。该对象存储为版本 `v1`。
+   你现在有两个对象，其中一个是 `v1beta1`，另一个是 `v1`。
+5. 你更新第一个对象。该对象现在以版本 `v1` 保存，因为 `v1` 是当前的存储版本。
 
 <!--
 ### Previous storage versions
@@ -1418,7 +1441,7 @@ To illustrate this, consider the following hypothetical series of events:
 
 <!--
 The API server records each version which has ever been marked as the storage
-version in the status field `storedVersions`. Objects may have been persisted
+version in the status field `storedVersions`. Objects may have been stored
 at any version that has ever been designated as a storage version. No objects
 can exist in storage at a version that has never been a storage version.
 -->
@@ -1440,8 +1463,8 @@ procedure.
 <!--
 *Option 1:* Use the Storage Version Migrator
 
-1.  Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
-2.  Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
+1. Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
+2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
 -->
 
 **选项 1：** 使用存储版本迁移程序（Storage Version Migrator）
@@ -1459,18 +1482,18 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
 以下是从 `v1beta1` 升级到 `v1` 的示例过程。
 
 <!--
-1.  Set `v1` as the storage in the CustomResourceDefinition file and apply it
-    using kubectl. The `storedVersions` is now `v1beta1, v1`.
-2.  Write an upgrade procedure to list all existing objects and write them with
-    the same content. This forces the backend to write objects in the current
-    storage version, which is `v1`.
-3.  Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
+1. Set `v1` as the storage in the CustomResourceDefinition file and apply it
+   using kubectl. The `storedVersions` is now `v1beta1, v1`.
+2. Write an upgrade procedure to list all existing objects and write them with
+   the same content. This forces the backend to write objects in the current
+   storage version, which is `v1`.
+3. Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 -->
-1.  在 CustomResourceDefinition 文件中将 `v1` 设置为存储版本，并使用 kubectl 应用它。
-    `storedVersions`现在是`v1beta1, v1`。
-2.  编写升级过程以列出所有现有对象并使用相同内容将其写回存储。
-    这会强制后端使用当前存储版本（即 `v1`）写入对象。
-3.  从 CustomResourceDefinition  的 `status.storedVersions` 字段中删除 `v1beta1`。
+1. 在 CustomResourceDefinition 文件中将 `v1` 设置为存储版本，并使用 kubectl 应用它。
+   `storedVersions`现在是 `v1beta1, v1`。
+2. 编写升级过程以列出所有现有对象并使用相同内容将其写回存储。
+   这会强制后端使用当前存储版本（即 `v1`）写入对象。
+3. 从 CustomResourceDefinition  的 `status.storedVersions` 字段中删除 `v1beta1`。
 
 {{< note >}}
 <!--
