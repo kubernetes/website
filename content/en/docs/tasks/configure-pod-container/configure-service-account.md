@@ -47,11 +47,12 @@ kubectl get pods/<podname> -o yaml
 ```
 
 In the output, you see a field `spec.serviceAccountName`.
-Kubernetes [automatically](/docs/user-guide/working-with-resources/#resources-are-automatically-modified)
+Kubernetes [automatically](/docs/concepts/overview/working-with-objects/object-management/)
 sets that value if you don't specify it when you create a Pod.
 
 An application running inside a Pod can access the Kubernetes API using
-automatically mounted service account credentials. See [accessing the Cluster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod) to learn more.
+automatically mounted service account credentials.
+See [accessing the Cluster](/docs/tasks/access-application-cluster/access-cluster/) to learn more.
 
 When a Pod authenticates as a ServiceAccount, its level of access depends on the
 [authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules)
@@ -62,7 +63,8 @@ in use.
 If you don't want the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
 to automatically mount a ServiceAccount's API credentials, you can opt out of
 the default behavior.
-You can opt out of automounting API credentials on `/var/run/secrets/kubernetes.io/serviceaccount/token` for a service account by setting `automountServiceAccountToken: false` on the ServiceAccount:
+You can opt out of automounting API credentials on `/var/run/secrets/kubernetes.io/serviceaccount/token`
+for a service account by setting `automountServiceAccountToken: false` on the ServiceAccount:
 
 For example:
 

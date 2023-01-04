@@ -93,6 +93,7 @@ aliases:
   sig-docs-hi-reviews: # PR reviews for Hindi content
     - anubha-v-ardhan
     - Babapool
+    - bishal7679
     - divya-mohan0209
     - Garima-Negi
     - verma-kunal
@@ -172,6 +173,7 @@ aliases:
     - howieyuen
     # idealhack
     - mengjiao-liu
+    - my-git9
     # pigletfly
     - SataQiu
     - Sea-n
@@ -231,6 +233,7 @@ aliases:
     - kpucynski
   sig-docs-uk-owners: # Admins for Ukrainian content
     - anastyakulyk
+    - Arhell
     - butuzov
     - MaxymVlasov
   sig-docs-uk-reviews: # PR reviews for Ukrainian content

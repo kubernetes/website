@@ -42,11 +42,11 @@ characters.
 
 ### Use source files
 
-1.  Store the credentials in files with the values encoded in base64:
+1.  Store the credentials in files:
 
     ```shell
-    echo -n 'admin' | base64 > ./username.txt
-    echo -n 'S!B\*d$zDsb=' | base64 > ./password.txt
+    echo -n 'admin' > ./username.txt
+    echo -n 'S!B\*d$zDsb=' > ./password.txt
     ```
     The `-n` flag ensures that the generated files do not have an extra newline
     character at the end of the text. This is important because when `kubectl`

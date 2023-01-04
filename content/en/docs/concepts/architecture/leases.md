@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-Distrbuted systems often have a need for "leases", which provides a mechanism to lock shared resources and coordinate activity between nodes.
+Distributed systems often have a need for "leases", which provides a mechanism to lock shared resources and coordinate activity between nodes.
 In Kubernetes, the "lease" concept is represented by `Lease` objects in the `coordination.k8s.io` API group, which are used for system-critical
 capabilities like node heart beats and component-level leader election.
 
