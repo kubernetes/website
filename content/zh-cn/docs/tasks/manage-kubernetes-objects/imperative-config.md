@@ -108,7 +108,7 @@ configuration file.
 
 * `kubectl delete -f <filename|url>`
 
-<!-- note
+<!--
 If configuration file has specified the `generateName` field in the `metadata`
 section instead of the `name` field, you cannot delete the object using
 `kubectl delete -f <filename|url>`.
@@ -252,7 +252,9 @@ used only by the controller selector with no other semantic meaning.
 -->
 推荐的方法是定义单个不变的 PodTemplate 标签，该标签仅由控制器选择器使用，而没有其他语义。
 
-<!-- Example label: -->
+<!--
+Example label:
+-->
 标签示例：
 
 ```yaml
@@ -270,7 +272,7 @@ template:
 <!--
 * [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
+* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
 * [使用命令式命令管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
