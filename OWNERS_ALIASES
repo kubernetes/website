@@ -195,6 +195,9 @@ aliases:
     - kpucynski
     - nvtkaszpir
   sig-docs-uk-owners: # Admins for Ukrainian content
+    - anastyakulyk
+    - Arhell
+    - butuzov
     - MaxymVlasov
   sig-docs-uk-reviews: # PR reviews for Ukrainian content
     - Arhell
