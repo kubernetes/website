@@ -79,52 +79,52 @@ other = "endereço de e-mail"
 [latest_version]
 other = "última versão."
 
-[layouts_blog_pager_next]
+[layout_blog_pager_next]
 other = "Próximo >>"
 
-[layouts_blog_pager_prev]
+[layout_blog_pager_prev]
 other = "<< Anterior"
 
-[layouts_case_studies_list_tell]
+[layout_case_studies_list_tell]
 other = "Conte seu caso"
 
-[layouts_docs_glossary_aka]
+[layout_docs_glossary_aka]
 other = "Também conhecido como"
 
-[layouts_docs_glossary_click_details_after]
+[layout_docs_glossary_click_details_after]
 other = "indicadores abaixo para uma maior explicação sobre um termo em particular."
 
-[layouts_docs_glossary_click_details_before]
+[layout_docs_glossary_click_details_before]
 other = "Clique nos"
 
-[layouts_docs_glossary_description]
+[layout_docs_glossary_description]
 other = "Este glossário pretende ser uma lista padronizada e abrangente da terminologia do Kubernetes. Inclui termos técnicos específicos dos K8s, além de termos mais gerais que fornecem um contexto útil."
 
-[layouts_docs_glossary_deselect_all]
+[layout_docs_glossary_deselect_all]
 other = "Desmarcar tudo"
 
-[layouts_docs_glossary_filter]
+[layout_docs_glossary_filter]
 other = "Filtrar termos de acordo com suas tags"
 
-[layouts_docs_glossary_select_all]
+[layout_docs_glossary_select_all]
 other = "Selecionar tudo"
 
-[layouts_docs_partials_feedback_improvement]
+[layout_docs_partials_feedback_improvement]
 other = "sugerir uma melhoria"
 
-[layouts_docs_partials_feedback_issue]
+[layout_docs_partials_feedback_issue]
 other = "Abra um bug no repositório do GitHub se você deseja "
 
-[layouts_docs_partials_feedback_or]
+[layout_docs_partials_feedback_or]
 other = "ou"
 
-[layouts_docs_partials_feedback_problem]
+[layout_docs_partials_feedback_problem]
 other = "reportar um problema"
 
-[layouts_docs_partials_feedback_thanks]
+[layout_docs_partials_feedback_thanks]
 other = "Obrigado pelo feedback. Se você tiver uma pergunta específica sobre como utilizar o Kubernetes, faça em"
 
-[layouts_docs_search_fetching]
+[layout_docs_search_fetching]
 other = "Buscando resultados.."
 
 # Main page localization

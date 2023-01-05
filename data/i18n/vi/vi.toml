@@ -63,52 +63,52 @@ other = "địa chỉ email"
 [latest_version]
 other = "phiên bản mới nhất."
 
-[layouts_blog_pager_prev]
+[layout_blog_pager_prev]
 other = "<< Trước"
 
-[layouts_blog_pager_next]
+[layout_blog_pager_next]
 other = "Sau >>"
 
-[layouts_case_studies_list_tell]
+[layout_case_studies_list_tell]
 other = "Kể câu chuyện của bạn"
 
-[layouts_docs_glossary_aka]
+[layout_docs_glossary_aka]
 other = "Cũng được biết đến như là"
 
-[layouts_docs_glossary_description]
+[layout_docs_glossary_description]
 other = "Bảng chú giải này được kì vọng là một danh sách hoàn thiện, được chuẩn hóa về thuật ngữ Kubernetes. Nó bao gồm các thuật ngữ kỹ thuật dành riêng cho Kubernetes, cũng như các thuật ngữ chung hơn cung cấp ngữ cảnh hữu ích"
 
-[layouts_docs_glossary_deselect_all]
+[layout_docs_glossary_deselect_all]
 other = "Bỏ chọn tất cả"
 
-[layouts_docs_glossary_click_details_after]
+[layout_docs_glossary_click_details_after]
 other = "danh mục dưới đây để giải thích rõ hơn cho các thuật ngữ cụ thể"
 
-[layouts_docs_glossary_click_details_before]
+[layout_docs_glossary_click_details_before]
 other = "Click vào"
 
-[layouts_docs_glossary_filter]
+[layout_docs_glossary_filter]
 other = "Lọc các thuật ngữ theo tags"
 
-[layouts_docs_glossary_select_all]
+[layout_docs_glossary_select_all]
 other = "Chọn tất cả"
 
-[layouts_docs_partials_feedback_improvement]
+[layout_docs_partials_feedback_improvement]
 other = "đề xuất cải tiến"
 
-[layouts_docs_partials_feedback_issue]
+[layout_docs_partials_feedback_issue]
 other = "Tạo một issue trên Github repo nến bạn muốn "
 
-[layouts_docs_partials_feedback_or]
+[layout_docs_partials_feedback_or]
 other = "hoặc"
 
-[layouts_docs_partials_feedback_problem]
+[layout_docs_partials_feedback_problem]
 other = "báo cáo một vấn đề"
 
-[layouts_docs_partials_feedback_thanks]
+[layout_docs_partials_feedback_thanks]
 other = "Cảm ơn vì đã phản hồi. Nếu bạn có một câu hỏi cụ thể, có thể trả lời về cách sử dụng Kubernetes, hãy hỏi nó trên"
 
-[layouts_docs_search_fetching]
+[layout_docs_search_fetching]
 other = "Đang lấy kết quả..."
 
 [main_by]

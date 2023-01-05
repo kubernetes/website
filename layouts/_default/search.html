@@ -41,7 +41,7 @@
           {{ else if .Site.Params.k8s_search }}
           <script src="{{ "js/search.js" | relURL }}"></script>
           <gcse:searchresults-only linktarget="_parent">
-            <div id="bing-results-container">{{ T "layouts_docs_search_fetching" }}</div>
+            <div id="bing-results-container">{{ T "layout_docs_search_fetching" }}</div>
             <div id="bing-pagination-container"></div>
           </gcse:searchresults-only>
           {{ end }}

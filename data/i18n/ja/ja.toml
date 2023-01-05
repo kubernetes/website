@@ -67,52 +67,52 @@ other = "メールアドレス"
 [latest_version]
 other = "最新バージョン"
 
-[layouts_blog_pager_prev]
+[layout_blog_pager_prev]
 other = "<< 前"
 
-[layouts_blog_pager_next]
+[layout_blog_pager_next]
 other = "次 >>"
 
-[layouts_case_studies_list_tell]
+[layout_case_studies_list_tell]
 other = "あなたの話を聞かせてください"
 
-[layouts_docs_glossary_aka]
+[layout_docs_glossary_aka]
 other = "またの名を"
 
-[layouts_docs_glossary_description]
+[layout_docs_glossary_description]
 other = "この用語集は、Kubernetesの用語の包括的で標準化されたリストを対象としています。これには、Kubernetesに固有で有用なコンテキストを提供しつつも、より一般的な技術用語が含まれています。"
 
-[layouts_docs_glossary_deselect_all]
+[layout_docs_glossary_deselect_all]
 other = "すべての選択を解除"
 
-[layouts_docs_glossary_click_details_after]
+[layout_docs_glossary_click_details_after]
 other = "特定の用語の詳細な説明を取得するには、以下のインジケータを使用します。"
 
-[layouts_docs_glossary_click_details_before]
+[layout_docs_glossary_click_details_before]
 other = "Click on the" # TODO: Translate me
 
-[layouts_docs_glossary_filter]
+[layout_docs_glossary_filter]
 other = "タグに従って用語をフィルタ"
 
-[layouts_docs_glossary_select_all]
+[layout_docs_glossary_select_all]
 other = "すべてを選択"
 
-[layouts_docs_partials_feedback_improvement]
+[layout_docs_partials_feedback_improvement]
 other = "改善を提案"
 
-[layouts_docs_partials_feedback_issue]
+[layout_docs_partials_feedback_issue]
 other = "Open an issue in the GitHub repo if you want to " # TODO: Translate me
 
-[layouts_docs_partials_feedback_or]
+[layout_docs_partials_feedback_or]
 other = "or" # TODO: Translate me
 
-[layouts_docs_partials_feedback_problem]
+[layout_docs_partials_feedback_problem]
 other = "問題を報告する"
 
-[layouts_docs_partials_feedback_thanks]
+[layout_docs_partials_feedback_thanks]
 other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on" # TODO: Translate me
 
-[layouts_docs_search_fetching]
+[layout_docs_search_fetching]
 other = "結果を取得しています..."
 
 [main_by]

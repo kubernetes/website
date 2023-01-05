@@ -137,52 +137,52 @@ other = "最新发行版本："
 [latest_version]
 other = "最新版本。"
 
-[layouts_blog_pager_prev]
+[layout_blog_pager_prev]
 other = "<< 前一篇"
 
-[layouts_blog_pager_next]
+[layout_blog_pager_next]
 other = "后一篇 >>"
 
-[layouts_case_studies_list_tell]
+[layout_case_studies_list_tell]
 other = "分享你的故事"
 
-[layouts_docs_glossary_aka]
+[layout_docs_glossary_aka]
 other = "亦称作"
 
-[layouts_docs_glossary_description]
+[layout_docs_glossary_description]
 other = "此术语表旨在提供 Kubernetes 术语的完整、标准列表。其中包含特定于 Kubernetes 的技术术语以及能够构造有用的语境的一般性术语。"
 
-[layouts_docs_glossary_deselect_all]
+[layout_docs_glossary_deselect_all]
 other = "全不选"
 
-[layouts_docs_glossary_click_details_after]
+[layout_docs_glossary_click_details_after]
 other = "下面的指示符号获取特定术语的更为完整的描述。"
 
-[layouts_docs_glossary_click_details_before]
+[layout_docs_glossary_click_details_before]
 other = "点击"
 
-[layouts_docs_glossary_filter]
+[layout_docs_glossary_filter]
 other = "根据标签过滤术语"
 
-[layouts_docs_glossary_select_all]
+[layout_docs_glossary_select_all]
 other = "全选"
 
-[layouts_docs_partials_feedback_improvement]
+[layout_docs_partials_feedback_improvement]
 other = "提出改进建议"
 
-[layouts_docs_partials_feedback_issue]
+[layout_docs_partials_feedback_issue]
 other = "在 GitHub 仓库上登记新的问题"
 
-[layouts_docs_partials_feedback_or]
+[layout_docs_partials_feedback_or]
 other = "或者"
 
-[layouts_docs_partials_feedback_problem]
+[layout_docs_partials_feedback_problem]
 other = "报告问题"
 
-[layouts_docs_partials_feedback_thanks]
+[layout_docs_partials_feedback_thanks]
 other = "感谢反馈。如果你有一个关于如何使用 Kubernetes 的具体问题需要答案，可以访问"
 
-[layouts_docs_search_fetching]
+[layout_docs_search_fetching]
 other = "检索结果中.."
 
 [main_by]

@@ -79,67 +79,67 @@ other = "електронна адреса"
 # other = "latest version."
 other = "остання версія."
 
-[layouts_blog_pager_prev]
+[layout_blog_pager_prev]
 # other = "<< Prev"
 other = "<< Назад"
 
-[layouts_blog_pager_next]
+[layout_blog_pager_next]
 # other = "Next >>"
 other = "Далі >>"
 
-[layouts_case_studies_list_tell]
+[layout_case_studies_list_tell]
 # other = "Tell your story"
 other = "Розкажіть свою історію"
 
-[layouts_docs_glossary_aka]
+[layout_docs_glossary_aka]
 # other = "Also known as"
 other = "Також відомий як"
 
-[layouts_docs_glossary_description]
+[layout_docs_glossary_description]
 # other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
 other = "Даний словник створений як повний стандартизований список термінології Kubernetes. Він включає в себе технічні терміни, специфічні для Kubernetes, а також більш загальні терміни, необхідні для кращого розуміння контексту."
 
-[layouts_docs_glossary_deselect_all]
+[layout_docs_glossary_deselect_all]
 # other = "Deselect all"
 other = "Очистити вибір"
 
-[layouts_docs_glossary_click_details_after]
+[layout_docs_glossary_click_details_after]
 # other = "indicators below to get a longer explanation for any particular term."
 other = "для отримання розширеного пояснення конкретного терміна."
 
-[layouts_docs_glossary_click_details_before]
+[layout_docs_glossary_click_details_before]
 # other = "Click on the"
 other = "Натисність на"
 
-[layouts_docs_glossary_filter]
+[layout_docs_glossary_filter]
 # other = "Filter terms according to their tags"
 other = "Відфільтрувати терміни за тегами"
 
-[layouts_docs_glossary_select_all]
+[layout_docs_glossary_select_all]
 # other = "Select all"
 other = "Вибрати все"
 
-[layouts_docs_partials_feedback_improvement]
+[layout_docs_partials_feedback_improvement]
 # other = "suggest an improvement"
 other = "запропонувати покращення"
 
-[layouts_docs_partials_feedback_issue]
+[layout_docs_partials_feedback_issue]
 # other = "Open an issue in the GitHub repo if you want to "
 other = "Створіть issue в GitHub репозиторії, якщо ви хочете "
 
-[layouts_docs_partials_feedback_or]
+[layout_docs_partials_feedback_or]
 # other = "or"
 other = "або"
 
-[layouts_docs_partials_feedback_problem]
+[layout_docs_partials_feedback_problem]
 # other = "report a problem"
 other = "повідомити про проблему"
 
-[layouts_docs_partials_feedback_thanks]
+[layout_docs_partials_feedback_thanks]
 # other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
 other = "Дякуємо за ваш відгук. Якщо ви маєте конкретне запитання щодо використання Kubernetes, ви можете поставити його"
 
-[layouts_docs_search_fetching]
+[layout_docs_search_fetching]
 # other = "Fetching results..."
 other = "Отримання результатів..."
 

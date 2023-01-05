@@ -138,52 +138,52 @@ other = "최신 릴리스:"
 [latest_version]
 other = "최신 버전."
 
-[layouts_blog_pager_prev]
+[layout_blog_pager_prev]
 other = "<< 이전"
 
-[layouts_blog_pager_next]
+[layout_blog_pager_next]
 other = "다음 >>"
 
-[layouts_case_studies_list_tell]
+[layout_case_studies_list_tell]
 other = "당신의 이야기를 들려주세요."
 
-[layouts_docs_glossary_aka]
+[layout_docs_glossary_aka]
 other = "별칭"
 
-[layouts_docs_glossary_description]
+[layout_docs_glossary_description]
 other = "이 용어집은 쿠버네티스 용어의 종합적이고 표준화된 리스트를 제공한다. 용어집은 K8s 고유의 기술 용어 뿐만 아니라, 맥락을 이해하는데 유용한 더 일반적인 용어도 포함한다. "
 
-[layouts_docs_glossary_deselect_all]
+[layout_docs_glossary_deselect_all]
 other = "모두 선택 해제"
 
-[layouts_docs_glossary_click_details_after]
+[layout_docs_glossary_click_details_after]
 other = "표시를 클릭하면 각 용어에 대한 더 자세한 설명을 볼 수 있다."
 
-[layouts_docs_glossary_click_details_before]
+[layout_docs_glossary_click_details_before]
 other = "다음"
 
-[layouts_docs_glossary_filter]
+[layout_docs_glossary_filter]
 other = "태그에 따라 용어 필터링"
 
-[layouts_docs_glossary_select_all]
+[layout_docs_glossary_select_all]
 other = "모두 선택"
 
-[layouts_docs_partials_feedback_improvement]
+[layout_docs_partials_feedback_improvement]
 other = "개선 제안이 가능합니다."
 
-[layouts_docs_partials_feedback_issue]
+[layout_docs_partials_feedback_issue]
 other = "원한다면 GitHub 리포지터리에 이슈를 열어서"
 
-[layouts_docs_partials_feedback_or]
+[layout_docs_partials_feedback_or]
 other = "또는"
 
-[layouts_docs_partials_feedback_problem]
+[layout_docs_partials_feedback_problem]
 other = "문제 리포트"
 
-[layouts_docs_partials_feedback_thanks]
+[layout_docs_partials_feedback_thanks]
 other = "피드백 감사합니다. 쿠버네티스 사용 방법에 대해서 구체적이고 답변 가능한 질문이 있다면, 다음 링크에서 질문하십시오."
 
-[layouts_docs_search_fetching]
+[layout_docs_search_fetching]
 other = "결과를 가져오는 중.."
 
 [main_by]
