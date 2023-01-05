@@ -46,9 +46,7 @@ kubectl get pod shell-demo
 kubectl exec --stdin --tty shell-demo -- /bin/bash
 ```
 {{< note >}}
-
 ダブルダッシュ(`--`)のセパレーターは、コマンドに渡す引数とkubectlの引数を分離します。
-
 {{< /note >}}
 
 シェル内で、ルートディレクトリーのファイル一覧を表示します:
