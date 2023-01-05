@@ -50,7 +50,7 @@ Here's a summary of each level:
 
 - Alpha:
   - The version names contain `alpha` (for example, `v1alpha1`).
-  - Built-in alpha API versions are disabled by default and must be explicitly enabled in the `kube-apiserver` configuration to be used.
+  - Built-in alpha API versions are disabled by default and must be explicitly enabled in the {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} configuration to be used.
   - The software may contain bugs. Enabling a feature may expose bugs.
   - Support for an alpha API may be dropped at any time without notice.
   - The API may change in incompatible ways in a later software release without notice.
@@ -59,7 +59,7 @@ Here's a summary of each level:
 
 - Beta:
   - The version names contain `beta` (for example, `v2beta3`).
-  - Built-in beta API versions are disabled by default and must be explicitly enabled in the `kube-apiserver` configuration to be used
+  - Built-in beta API versions are disabled by default and must be explicitly enabled in the {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} configuration to be used
     (**except** for beta versions of APIs introduced prior to Kubernetes 1.22, which were enabled by default).
   - Built-in beta API versions have a maximum lifetime of 9 months or 3 minor releases (whichever is longer) from introduction
     to deprecation, and 9 months or 3 minor releases (whichever is longer) from deprecation to removal.
