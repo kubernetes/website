@@ -40,7 +40,7 @@ Pods that wish to connect to the API server can do so securely by leveraging a s
 that Kubernetes will automatically inject the public root certificate and a valid bearer token
 into the pod when it is instantiated.
 The `kubernetes` service (in `default` namespace) is configured with a virtual IP address that is
-redirected (via `kube-proxy`) to the HTTPS endpoint on the API server.
+redirected (via {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}) to the HTTPS endpoint on the API server.
 
 The control plane components also communicate with the API server over the secure port.
 
@@ -60,7 +60,7 @@ functionality.
 The connections from the API server to the kubelet are used for:
 
 * Fetching logs for pods.
-* Attaching (usually through `kubectl`) to running pods.
+* Attaching (usually through {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}) to running pods.
 * Providing the kubelet's port-forwarding functionality.
 
 These connections terminate at the kubelet's HTTPS endpoint. By default, the API server does not
