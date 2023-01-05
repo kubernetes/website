@@ -162,9 +162,15 @@ When you have the feature enabled, you can set `.spec.timeZone` to the name of a
 `.spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
 
 {{< caution >}}
-Historically you may set the `.spec.schedule` field to a timezone like `CRON_TZ=UTC * * * * *` or
-`TZ=UTC * * * * *`. This way is not recommended any more and you should consider use the
-`.spec.timeZone` field as described above.
+The implementation of the CronJob API in Kubernetes {{< skew currentVersion >}} lets you set
+the `.spec.schedule` field to include a timezone; for example: `CRON_TZ=UTC * * * * *`
+or `TZ=UTC * * * * *`.
+
+Specifying a timezone that way is **not officially supported** (and never has been).
+
+If you try to set a schedule that includes `TZ` or `CRON_TZ` timezone specification,
+Kubernetes reports a [warning](/blog/2020/09/03/warnings/) to the client.
+Future versions of Kubernetes might not implement that unofficial timezone mechanism at all.
 {{< /caution >}}
 
 A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
