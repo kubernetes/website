@@ -7,7 +7,7 @@ weight: 40
 
 <!-- overview -->
 This page gives writing style guidelines for the Kubernetes documentation.
-These are guidelines, not rules. Use your best judgment, and feel free to
+These are guidelines, not rules. Use your best judgement, and feel free to
 propose changes to this document in a pull request.
 
 For additional information on creating new content for the Kubernetes
