@@ -610,8 +610,6 @@ objects with an `aggregationRule` set. The `aggregationRule` defines a label
 {{< glossary_tooltip text="selector" term_id="selector" >}} that the controller
 uses to match other ClusterRole objects that should be combined into the `rules`
 field of this one.
-
-Here is an example aggregated ClusterRole:
 -->
 ### 聚合的 ClusterRole    {#aggregated-clusterroles}
 
@@ -620,9 +618,19 @@ Here is an example aggregated ClusterRole:
 为控制器定义一个标签{{< glossary_tooltip text="选择算符" term_id="selector" >}}供后者匹配应该组合到当前
 ClusterRole 的 `roles` 字段中的 ClusterRole 对象。
 
-下面是一个聚合 ClusterRole 的示例：
+{{< caution >}}
+<!--
+The control plane overwrites any values that you manually specify in the `rules` field of an
+aggregate ClusterRole. If you want to change or add rules, do so in the `ClusterRole` objects
+that are selected by the `aggregationRule`.
+-->
+控制平面会覆盖你在聚合 ClusterRole 的 `rules` 字段中手动指定的所有值。
+如果你想更改或添加规则，请在被 `aggregationRule` 所选中的 `ClusterRole` 对象上执行变更。
+{{< /caution >}}
 
 <!--
+Here is an example aggregated ClusterRole:
+
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -635,6 +643,8 @@ aggregationRule:
 rules: [] # The control plane automatically fills in the rules
 ```
 -->
+下面是一个聚合 ClusterRole 的示例：
+
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
