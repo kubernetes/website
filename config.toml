@@ -506,3 +506,17 @@ languagedirection = "ltr"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+
+[languages.gu]
+title = "Kubernetes"
+description = "ઉત્પાદન-ગ્રેડ કન્ટેનર ઓર્કેસ્ટ્રેશન"
+languageName = "ગુજરાતી (Gujarati)"
+languageNameLatinScript = "Gujarati"
+weight = 12
+contentDir = "content/gu"
+languagedirection = "ltr"
+
+[languages.gu.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
