@@ -42,7 +42,7 @@ When enabled, this field lets you support both of those requirements.
 
 API-initiated eviction is the process that triggers graceful pod termination.
 The process can be initiated either by calling the API directly,
-by using a kubectl drain command, or other actors in the cluster.
+by using a `kubectl drain` command, or other actors in the cluster.
 During this process every pod removal is consulted with appropriate PDBs,
 to ensure that a sufficient number of pods is always running in the cluster.
 
@@ -51,7 +51,8 @@ The following policies allow PDB authors to have a greater control how the proce
 There are two policies `IfHealthyBudget` and `AlwaysAllow` to choose from.
 
 The former, `IfHealthyBudget`, follows the existing behavior to achieve the best availability
-that you get by default.
+that you get by default. Unhealthy pods can be disrupted only if their application
+has a minimum available `.status.desiredHealthy` number of pods.
 
 By setting the `spec.unhealthyPodEvictionPolicy` field of your PDB to `AlwaysAllow`,
 you are choosing the best effort availability for your application.
