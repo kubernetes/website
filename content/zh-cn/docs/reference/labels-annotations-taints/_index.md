@@ -315,6 +315,41 @@ This label has been deprecated. Please use `kubernetes.io/os` instead.
 此标签已被弃用。请改用 `kubernetes.io/os`。
 
 <!--
+### kube-aggregator.kubernetes.io/automanaged {#kube-aggregator-kubernetesio-automanaged}
+
+Example: `kube-aggregator.kubernetes.io/automanaged: "onstart"`
+
+Used on: APIService
+
+The `kube-apiserver` sets this label on any APIService object that the API server has created automatically. The label marks how the control plane should manage that APIService. You should not add, modify, or remove this label by yourself.
+-->
+### kube-aggregator.kubernetes.io/automanaged {#kube-aggregator-kubernetesio-automanaged}
+
+例子：`kube-aggregator.kubernetes.io/automanaged: "onstart"`
+
+用于：APIService
+
+`kube-apiserver` 会在由 API 服务器自动创建的任何 APIService 对象上设置这个标签。
+该标签标记了控制平面应如何管理该 APIService。你不应自行添加、修改或删除此标签。
+
+{{< note >}}
+<!--
+Automanaged APIService objects are deleted by kube-apiserver when it has no built-in or custom resource API corresponding to the API group/version of the APIService.
+-->
+当 Automanaged APIService 对象没有与 APIService 的 API 组/版本对应的内置或自定义资源 API 时，
+它将被 kube-apiserver 删除。
+{{< /note >}}
+
+<!--
+There are two possible values:
+- `onstart`: The APIService should be reconciled when an API server starts up, but not otherwise.
+- `true`: The API server should reconcile this APIService continuously.
+-->
+有两个可选值：
+- `onstart`：API 服务器应在启动时协调 APIService，但在其他时间不会进行协调。
+- `true`：API 服务器应持续协调此 APIService。
+
+<!--
 ### kubernetes.io/hostname {#kubernetesiohostname}
 
 Example: `kubernetes.io/hostname: "ip-172-20-114-199.ec2.internal"`
@@ -797,6 +832,31 @@ This annotation will be added to dynamic provisioning required PVC.
 用于：PersistentVolumeClaim
 
 此注解将被添加到根据需要动态制备的 PVC 上。
+
+<!--
+### volumes.kubernetes.io/controller-managed-attach-detach
+
+Used on: Node
+
+If a node has set the annotation `volumes.kubernetes.io/controller-managed-attach-detach`
+on itself, then its storage attach and detach operations are being managed
+by the _volume attach/detach_
+{{< glossary_tooltip text="controller" term_id="controller" >}} running within the
+{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+
+The value of the annotation isn't important; if this annotation exists on a node,
+then storage attaches and detaches are controller managed.
+-->
+### volumes.kubernetes.io/controller-managed-attach-detach   {#volumes-kubernetes-io-controller-managed-attach-detach}
+
+用于：Node
+
+如果节点已在其自身上设置了注释 `volumes.kubernetes.io/controller-managed-attach-detach`，
+那么它的存储挂接和解除挂接的操作是交由运行在
+{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
+中的**卷挂接/解除挂接**{{< glossary_tooltip text="控制器" term_id="controller" >}}来管理的。
+
+注释的值并不重要；如果节点上存在该注释，则由控制器管理存储挂接和解除挂接的操作。
 
 <!--
 ### node.kubernetes.io/windows-build {#nodekubernetesiowindows-build}
