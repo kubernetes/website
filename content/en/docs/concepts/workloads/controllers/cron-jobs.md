@@ -20,7 +20,7 @@ Unix system. It runs a job periodically on a given schedule, written in
 [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
 CronJobs have limitations and idiosyncrasies.
-For example, in certain circumstances, a single cron job can create multiple jobs. See the [limitations](#cron-job-limitations) below.
+For example, in certain circumstances, a single CronJob can create multiple concurrent Jobs. See the [limitations](#cron-job-limitations) below.
 
 When the control plane creates new Jobs and (indirectly) Pods for a CronJob, the `.metadata.name`
 of the CronJob is part of the basis for naming those Pods.  The name of a CronJob must be a valid
@@ -44,8 +44,8 @@ This example CronJob manifest prints the current time and a hello message every 
 takes you through this example in more detail).
 
 ## Writing a CronJob spec
-### Schedule
-The `.spec.schedule` is a required field and follows the [Cron](https://en.wikipedia.org/wiki/Cron) syntax below:
+### Schedule syntax
+The `.spec.schedule` field is required. The value of that field follows the [Cron](https://en.wikipedia.org/wiki/Cron) syntax:
 
 ```
 # ┌───────────── minute (0 - 59)
@@ -88,20 +88,29 @@ Other than the standard syntax, some macros like `@monthly` can also be used:
 
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 
-### Job Template
+### Job template
 
-The `.spec.jobTemplate` is the template for the job, and it is required.
+The `.spec.jobTemplate` defines a template for the Jobs that the CronJob creates, and it is required.
 It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/job/), except that
 it is nested and does not have an `apiVersion` or `kind`.
-For information about writing a job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/job/#writing-a-job-spec).
+You can specify common metadata for the templated Jobs, such as
+{{< glossary_tooltip text="labels" term_id="label" >}} or
+{{< glossary_tooltip text="annotations" term_id="annotation" >}}.
+For information about writing a Job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/job/#writing-a-job-spec).
 
-### Starting Deadline
+### Deadline for delayed job start {#starting-deadline}
 
 The `.spec.startingDeadlineSeconds` field is optional.
-It stands for the deadline in seconds for starting the job if it misses its scheduled time for any reason.
-After the deadline, the CronJob does not start the job.
-Jobs that do not meet their deadline in this way count as failed jobs.
-If this field is not specified, the jobs have no deadline.
+This field defines a deadline (in whole seconds) for starting the Job, if that Job misses its scheduled time
+for any reason.
+
+After missing the deadline, the CronJob skips that instance of the Job (future occurrences are still scheduled).
+For example, if you have a backup job that runs twice a day, you might allow it to start up to 8 hours late,
+but no later, because a backup taken any later wouldn't be useful: you would instead prefer to wait for
+the next scheduled run.
+
+For Jobs that miss their configured deadline, Kubernetes treats them as failed Jobs.
+If you don't specify `startingDeadlineSeconds` for a CronJob, the Job occurrences have no deadline.
 
 If the `.spec.startingDeadlineSeconds` field is set (not null), the CronJob
 controller measures the time between when a job is expected to be created and
@@ -110,7 +119,7 @@ now. If the difference is higher than that limit, it will skip this execution.
 For example, if it is set to `200`, it allows a job to be created for up to 200
 seconds after the actual schedule.
 
-### Concurrency Policy
+### Concurrency policy
 
 The `.spec.concurrencyPolicy` field is also optional.
 It specifies how to treat concurrent executions of a job that is created by this CronJob.
@@ -125,12 +134,16 @@ The spec may specify only one of the following concurrency policies:
 Note that concurrency policy only applies to the jobs created by the same cron job.
 If there are multiple CronJobs, their respective jobs are always allowed to run concurrently.
 
-### Suspend
+### Schedule suspension
 
-The `.spec.suspend` field is also optional.
-If it is set to `true`, all subsequent executions are suspended.
-This setting does not apply to already started executions.
-Defaults to false.
+You can suspend execution of Jobs for a CronJob, by setting the optional `.spec.suspend` field
+to true. The field defaults to false.
+
+This setting does _not_ affect Jobs that the CronJob has already started.
+
+If you do set that field to true, all subsequent executions are suspended (they remain
+scheduled, but the CronJob controller does not start the Jobs to run the tasks) until
+you unsuspend the CronJob.
 
 {{< caution >}}
 Executions that are suspended during their scheduled time count as missed jobs.
@@ -138,7 +151,7 @@ When `.spec.suspend` changes from `true` to `false` on an existing CronJob witho
 [starting deadline](#starting-deadline), the missed jobs are scheduled immediately.
 {{< /caution >}}
 
-### Jobs History Limits
+### Jobs history limits
 
 The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
 These fields specify how many completed and failed jobs should be kept.
@@ -178,15 +191,19 @@ A time zone database from the Go standard library is included in the binaries an
 ## CronJob limitations {#cron-job-limitations}
 
 ### Modifying a CronJob
-If you modify a CronJob, the changes you make will apply to new jobs that start to run after your modification
-is complete. Jobs (and their Pods) that have already started continue to run without changes.
-That is, the CronJob does _not_ update existing jobs, even if those remain running.
+By design, a CronJob contains a template for _new_ Jobs.
+If you modify an existing CronJob, the changes you make will apply to new Jobs that
+start to run after your modification is complete. Jobs (and their Pods) that have already
+started continue to run without changes.
+That is, the CronJob does _not_ update existing Jobs, even if those remain running.
 
 ### Job creation
 
-A CronJob creates a job object _about_ once per execution time of its schedule. We say "about" because there
-are certain circumstances where two jobs might be created, or no job might be created. We attempt to make these rare,
-but do not completely prevent them. Therefore, jobs should be _idempotent_.
+A CronJob creates a Job object approximately once per execution time of its schedule.
+The scheduling is approximate because there
+are certain circumstances where two Jobs might be created, or no Job might be created.
+Kubernetes tries to avoid those situations, but do not completely prevent them. Therefore,
+the Jobs that you define should be _idempotent_.
 
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
@@ -230,4 +247,4 @@ the Job in turn is responsible for the management of the Pods it represents.
   see [Running automated tasks with CronJobs](/docs/tasks/job/automated-tasks-with-cron-jobs/).
 * `CronJob` is part of the Kubernetes REST API.
   Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
-  reference doc for more details.
+  API reference for more details.
