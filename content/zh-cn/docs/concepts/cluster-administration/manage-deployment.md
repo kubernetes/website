@@ -27,7 +27,7 @@ Kubernetes 提供了一些工具来帮助管理你的应用部署，包括扩缩
 <!--
 ## Organizing resource configurations
 
-Many applications require multiple resources to be created, such as a Deployment and a Service. Management of multiple resources can be simplified by grouping them together in the same file (separated by  in YAML). For example:
+Many applications require multiple resources to be created, such as a Deployment and a Service. Management of multiple resources can be simplified by grouping them together in the same file (separated by `---` in YAML). For example:
 -->
 ## 组织资源配置   {#organizing-resource-config}
 
@@ -68,15 +68,15 @@ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f htt
 ```
 
 <!--
-It is a recommended practice to put resources related to the same microservice or application tier into the same file, and to group all of the files associated with your application in the same directory. If the tiers of your application bind to each other using DNS, then you can deploy all of the components of your stack together.
+It is a recommended practice to put resources related to the same microservice or application tier into the same file, and to group all of the files associated with your application in the same directory. If the tiers of your application bind to each other using DNS, you can deploy all of the components of your stack together.
 
-A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into Github:
+A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into GitHub:
 -->
 建议的做法是，将同一个微服务或同一应用层相关的资源放到同一个文件中，
 将同一个应用相关的所有文件按组存放到同一个目录中。
-如果应用的各层使用 DNS 相互绑定，那么你可以将堆栈的所有组件一起部署。
+如果应用的各层使用 DNS 相互绑定，你可以将堆栈的所有组件一起部署。
 
-还可以使用 URL 作为配置源，便于直接使用已经提交到 Github 上的配置文件进行部署：
+还可以使用 URL 作为配置源，便于直接使用已经提交到 GitHub 上的配置文件进行部署：
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/zh-cn/examples/application/nginx/nginx-deployment.yaml
@@ -107,9 +107,9 @@ service "my-nginx-svc" deleted
 ```
 
 <!--
-In the case of two resources, it's also easy to specify both on the command line using the resource/name syntax:
+In the case of two resources, you can specify both resources on the command line using the resource/name syntax:
 -->
-在仅有两种资源的情况下，可以使用"资源类型/资源名"的语法在命令行中
+在仅有两种资源的情况下，你可以使用"资源类型/资源名"的语法在命令行中
 同时指定这两个资源：
 
 ```shell
@@ -162,10 +162,10 @@ If you happen to organize your resources across several subdirectories within a 
 执行操作，方法是在 `--filename,-f` 后面指定 `--recursive` 或者 `-R`。
 
 <!--
-For instance, assume there is a directory `project/k8s/development` that holds all of the manifests needed for the development environment, organized by resource type:
+For instance, assume there is a directory `project/k8s/development` that holds all of the {{< glossary_tooltip text="manifests" term_id="manifest" >}} needed for the development environment, organized by resource type:
 -->
 例如，假设有一个目录路径为 `project/k8s/development`，它保存开发环境所需的
-所有清单，并按资源类型组织：
+所有{{< glossary_tooltip text="清单" term_id="manifest" >}}，并按资源类型组织：
 
 ```
 project/k8s/development
@@ -208,7 +208,7 @@ persistentvolumeclaim/my-pvc created
 ```
 
 <!--
-The `--recursive` flag works with any operation that accepts the `--filename,-f` flag such as: `kubectl {create,get,delete,describe,rollout} etc.`
+The `--recursive` flag works with any operation that accepts the `--filename,-f` flag such as: `kubectl {create,get,delete,describe,rollout}` etc.
 
 The `--recursive` flag also works when multiple `-f` arguments are provided:
 -->
@@ -270,7 +270,9 @@ Redis 的主节点和从节点会有不同的 `tier` 标签，甚至还有一个
         role: master
 ```
 
-<!-- and -->
+<!--
+and
+-->
 以及
 
 ```yaml
@@ -457,7 +459,8 @@ Sometimes you would want to attach annotations to resources. Annotations are arb
 kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
 kubectl get pods my-nginx-v4-9gw19 -o yaml
 ```
-```shell
+
+```
 apiVersion: v1
 kind: pod
 metadata:
@@ -477,7 +480,7 @@ For more information, please see [annotations](/docs/concepts/overview/working-w
 <!--
 ## Scaling your application
 
-When load on your application grows or shrinks, use `kubectl` to scale you application. For instance, to decrease the number of nginx replicas from 3 to 1, do:
+When load on your application grows or shrinks, use `kubectl` to scale your application. For instance, to decrease the number of nginx replicas from 3 to 1, do:
 -->
 ## 扩缩你的应用  {#scaling-your-app}
 
@@ -543,7 +546,8 @@ Sometimes it's necessary to make narrow, non-disruptive updates to resources you
 ### kubectl apply
 
 <!--
-It is suggested to maintain a set of configuration files in source control (see [configuration as code](http://martinfowler.com/bliki/InfrastructureAsCode.html)),
+It is suggested to maintain a set of configuration files in source control
+(see [configuration as code](https://martinfowler.com/bliki/InfrastructureAsCode.html)),
 so that they can be maintained and versioned along with the code for the resources they configure.
 Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) to push your configuration changes to the cluster.
 -->
@@ -697,7 +701,21 @@ deployment.apps/my-nginx created
 ```
 
 <!--
-To update to version 1.16.1, change `.spec.template.spec.containers[0].image` from `nginx:1.14.2` to `nginx:1.16.1`, with the previous kubectl commands.
+with 3 replicas (so the old and new revisions can coexist):
+-->
+
+运行 3 个副本（这样新旧版本可以同时存在）
+
+```shell
+kubectl scale deployment my-nginx --current-replicas=1 --replicas=3
+```
+
+```
+deployment.apps/my-nginx scaled
+```
+
+<!--
+To update to version 1.16.1, change `.spec.template.spec.containers[0].image` from `nginx:1.14.2` to `nginx:1.16.1` using the previous kubectl commands.
 -->
 要更新到 1.16.1 版本，只需使用我们前面学到的 kubectl 命令将
 `.spec.template.spec.containers[0].image` 从 `nginx:1.14.2` 修改为 `nginx:1.16.1`。
@@ -716,8 +734,8 @@ That's it! The Deployment will declaratively update the deployed nginx applicati
 ## {{% heading "whatsnext" %}}
 
 <!--
-- [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug/debug-application/debug-running-pod/)
-- [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/)
+- Learn about [how to use `kubectl` for application introspection and debugging](/docs/tasks/debug/debug-application/debug-running-pod/).
+- See [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/).
 -->
 - 学习[如何使用 `kubectl` 观察和调试应用](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)
 - 阅读[配置最佳实践和技巧](/zh-cn/docs/concepts/configuration/overview/)
