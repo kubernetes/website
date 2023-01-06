@@ -333,8 +333,8 @@ using `allowedTopologies`.
 
 {{< note >}}
 `zone` and `zones` parameters are deprecated and replaced with
-[allowedTopologies](#allowed-topologies). When [GCE CSI Migration](
-https://kubernetes.io/docs/concepts/storage/volumes/#gce-csi-migration) is
+[allowedTopologies](#allowed-topologies). When
+[GCE CSI Migration](/docs/concepts/storage/volumes/#gce-csi-migration) is
 enabled, a GCE PD volume can be provisioned in a topology that does not match
 any nodes, but any pod trying to use that volume will fail to schedule. With
 legacy pre-migration GCE PD, in this case an error will be produced
