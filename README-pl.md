@@ -16,7 +16,7 @@ Możesz uruchomić serwis lokalnie poprzez Hugo (Extended version) lub ze środo
 Aby móc skorzystać z tego repozytorium, musisz lokalnie zainstalować:
 
 - [npm](https://www.npmjs.com/)
-- [Go](https://golang.org/)
+- [Go](https://go.dev/)
 - [Hugo (Extended version)](https://gohugo.io/)
 - Środowisko obsługi kontenerów, np. [Dockera](https://www.docker.com/).
 
