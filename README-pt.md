@@ -13,7 +13,7 @@ Você pode executar o website localmente utilizando o Hugo (versão Extended), o
 Para usar este repositório, você precisa instalar:
 
 - [npm](https://www.npmjs.com/)
-- [Go](https://golang.org/)
+- [Go](https://go.dev/)
 - [Hugo (versão Extended)](https://gohugo.io/)
 - Um container runtime, por exemplo [Docker](https://www.docker.com/).
 
