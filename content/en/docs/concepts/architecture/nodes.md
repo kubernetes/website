@@ -14,7 +14,12 @@ A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 and contains the services necessary to run
-{{< glossary_tooltip text="Pods" term_id="pod" >}}.
+{{< glossary_tooltip text="Pods" term_id="pod" >}}. A node object is an object in 
+the Kubernetes API that represents a node.
+
+It is important to note the difference between node and node-object. A node is a 
+physical or virtual machine that represents that runs applications or workloads, while
+a node-object is a representation of that node in the Kubernetes API.
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have only one node.
@@ -28,7 +33,7 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 
 ## Management
 
-There are two main ways to have Nodes added to the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}:
+There are two main ways to have Nodes objects added to the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}:
 
 1. The kubelet on a node self-registers to the control plane
 2. You (or another human user) manually add a Node object
