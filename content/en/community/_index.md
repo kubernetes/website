@@ -4,6 +4,7 @@ layout: basic
 cid: community
 community_styles_migrated: true
 ---
+
 <img
   id="banner"
   srcset="/images/community/kubernetes-community-final-02.jpg 1500w, /images/community/kubernetes-community-02-mobile.jpg 900w"
@@ -26,28 +27,28 @@ community_styles_migrated: true
 
 <div id="navigation-items">
   <div class="community-nav-item external-link">
-    <a href="https://www.kubernetes.dev/">Contributor community</a>
+   <a href="https://www.kubernetes.dev/">Contributor community</a>
   </div>
   <div class="community-nav-item">
-    <a href="#values">Community values</a>
+   <a href="#values">Community values</a>
   </div>
   <div class="community-nav-item">
-    <a href="#conduct">Code of conduct</a>
+   <a href="#conduct">Code of conduct</a>
   </div>
   <div class="community-nav-item">
-    <a href="#videos">Videos</a>
+   <a href="#videos">Videos</a>
   </div>
   <div class="community-nav-item">
-    <a href="#discuss">Discussions</a>
+   <a href="#discuss">Discussions</a>
   </div>
   <div class="community-nav-item">
-    <a href="#meetups">Meetups</a>
+   <a href="#meetups">Meetups</a>
   </div>
   <div class="community-nav-item">
-    <a href="#news">News</a>
+   <a href="#news">News</a>
   </div>
   <div class="community-nav-item">
-    <a href="/releases">Releases</a>
+   <a href="/releases">Releases</a>
   </div>
 </div>
 
@@ -63,7 +64,7 @@ community_styles_migrated: true
   <p>The Kubernetes Community values are the keystone to the ongoing success of the project.<br class="optional"/>
   These principles guide every aspect of the Kubernetes project.</p>
   <a href="https://www.kubernetes.dev/community/values/" class="community-cta-button">
-    <span class="community-cta">Read more</span>
+   <span class="community-cta">Read more</span>
   </a>
 </div>
 
@@ -72,7 +73,7 @@ community_styles_migrated: true
   <p>The Kubernetes community values respect and inclusiveness, and enforces a Code of Conduct in all interactions.</p>
   <p>If you notice a violation of the Code of Conduct at an event or meeting, in <a href="#slack">Slack</a>, or in another communication mechanism, reach out to the Kubernetes Code of Conduct Committee at <a href="mailto:conduct@kubernetes.io">conduct@kubernetes.io</a>. All reports are kept confidential. You can read <a href="https://github.com/kubernetes/community/tree/master/committee-code-of-conduct">about the committee</a> in the Kubernetes community repository on GitHub.</p>
   <a href="/community/code-of-conduct/" class="community-cta-button">
-    <span class="community-cta">Read more</span>
+   <span class="community-cta">Read more</span>
   </a>
 </div>
 
@@ -82,26 +83,26 @@ community_styles_migrated: true
   <p class="community-simple">Kubernetes is on YouTube, a lot. Subscribe for a wide range of&nbsp;topics.</p>
 
   <div class="container">
-    <div class="video youtube">
-      <iframe src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP3azFUvYJjGn45YbF6C-uIg" title="Monthly office hours" allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen https://www.youtube.com/" ></iframe>
-      <a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP3azFUvYJjGn45YbF6C-uIg">
-       <span class="videocta">Watch monthly office hours&nbsp;&#9654;</span>
-      </a>
-    </div>
+   <div class="video youtube">
+     <iframe src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP3azFUvYJjGn45YbF6C-uIg" title="Monthly office hours" allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen https://www.youtube.com/" ></iframe>
+     <a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP3azFUvYJjGn45YbF6C-uIg">
+      <span class="videocta">Watch monthly office hours&nbsp;&#9654;</span>
+     </a>
+   </div>
 
-    <div class="video youtube">
-      <iframe src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ" title="Weekly community meetings" allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen https://www.youtube.com/"></iframe>
-      <a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ">
-        <span class="videocta">Watch weekly community meetings&nbsp;&#9654;</span>
-      </a>
-    </div>
+   <div class="video youtube">
+     <iframe src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ" title="Weekly community meetings" allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen https://www.youtube.com/"></iframe>
+     <a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ">
+       <span class="videocta">Watch weekly community meetings&nbsp;&#9654;</span>
+     </a>
+   </div>
 
-    <div class="video youtube" id="discuss">
-      <iframe src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP3QpQrhZq_sLYo77BVKv09F" title="Talk from a community member" allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen https://www.youtube.com/"></iframe>
-      <a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP3QpQrhZq_sLYo77BVKv09F">
-        <span class="videocta">Watch a talk from a community member&nbsp;&#9654;</span>
-      </a>
-    </div>
+   <div class="video youtube" id="discuss">
+     <iframe src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP3QpQrhZq_sLYo77BVKv09F" title="Talk from a community member" allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen https://www.youtube.com/"></iframe>
+     <a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP3QpQrhZq_sLYo77BVKv09F">
+       <span class="videocta">Watch a talk from a community member&nbsp;&#9654;</span>
+     </a>
+   </div>
   </div>
 </div>
 
@@ -111,51 +112,51 @@ community_styles_migrated: true
   <p class="community-simple">We talk a lot. Find us and join the conversation on any of these&nbsp;platforms.</p>
 
   <div class="container">
-    <div class="community-resource">
-      <a href="https://discuss.kubernetes.io/">
-        <img src="/images/community/discuss.png" alt="Forum">
-      </a>
-      <a href="https://discuss.kubernetes.io/">Community forums&nbsp;&#9654;</a>
-      <p>Topic-based technical discussions that bridge docs,
-         troubleshooting, and so much&nbsp;more.</p>
-    </div>
+   <div class="community-resource">
+     <a href="https://discuss.kubernetes.io/">
+       <img src="/images/community/discuss.png" alt="Forum">
+     </a>
+     <a href="https://discuss.kubernetes.io/">Community forums&nbsp;&#9654;</a>
+     <p>Topic-based technical discussions that bridge docs,
+        troubleshooting, and so much&nbsp;more.</p>
+   </div>
 
-    <div id="twitter" class="community-resource">
-      <a href="https://twitter.com/kubernetesio">
-        <img src="/images/community/twitter.png" alt="Twitter">
-      </a>
-      <a href="https://twitter.com/kubernetesio">Twitter&nbsp;&#9654;</a>
-      <p><em>#kubernetesio</em></p>
-      <p>Real-time announcements of blog posts, events, news, ideas.</p>
-    </div>
+   <div id="twitter" class="community-resource">
+     <a href="https://twitter.com/kubernetesio">
+       <img src="/images/community/twitter.png" alt="Twitter">
+     </a>
+     <a href="https://twitter.com/kubernetesio">Twitter&nbsp;&#9654;</a>
+     <p><em>#kubernetesio</em></p>
+     <p>Real-time announcements of blog posts, events, news, ideas.</p>
+   </div>
 
-    <div id="github" class="community-resource">
-      <a href="https://github.com/kubernetes/kubernetes">
-        <img src="/images/community/github.png" alt="GitHub">
-      </a>
-      <a href="https://github.com/kubernetes/kubernetes">GitHub&nbsp;&#9654;</a>
-      <p>All the project and issue tracking, plus of course code.</p>
-    </div>
+   <div id="github" class="community-resource">
+     <a href="https://github.com/kubernetes/kubernetes">
+       <img src="/images/community/github.png" alt="GitHub">
+     </a>
+     <a href="https://github.com/kubernetes/kubernetes">GitHub&nbsp;&#9654;</a>
+     <p>All the project and issue tracking, plus of course code.</p>
+   </div>
 
-    <div id="server-fault" class="community-resource">
-      <a href="https://serverfault.com/questions/tagged/kubernetes">
-        <img src="/images/community/serverfault.png" alt="Server Fault">
-      </a>
-      <a href="https://serverfault.com/questions/tagged/kubernetes">Server Fault&nbsp;&#9654;</a>
-      <p>Kubernetes-related discussion on Server Fault. Ask a question, or answer one.</p>
-    </div>
+   <div id="server-fault" class="community-resource">
+     <a href="https://serverfault.com/questions/tagged/kubernetes">
+       <img src="/images/community/serverfault.png" alt="Server Fault">
+     </a>
+     <a href="https://serverfault.com/questions/tagged/kubernetes">Server Fault&nbsp;&#9654;</a>
+     <p>Kubernetes-related discussion on Server Fault. Ask a question, or answer one.</p>
+   </div>
 
-    <div id="slack" class="community-resource">
-      <a href="https://kubernetes.slack.com/">
-        <img src="/images/community/slack.png" alt="Slack">
-      </a>
-      <a href="https://kubernetes.slack.com/">Slack&nbsp;&#9654;</a>
-      <p>With 170+ channels, you'll find one that fits your needs.</p>
-      <details><summary><em>Need an invitation?</em></summary>
-        Visit <a href="https://slack.k8s.io/">https://slack.k8s.io/</a>
-        for an invitation.</details>
-    </div>
-  </div>
+   <div id="slack" class="community-resource">
+     <a href="https://kubernetes.slack.com/">
+       <img src="/images/community/slack.png" alt="Slack">
+     </a>
+     <a href="https://kubernetes.slack.com/">Slack&nbsp;&#9654;</a>
+     <p>With 170+ channels, you'll find one that fits your needs.</p>
+     <details><summary><em>Need an invitation?</em></summary>
+       Visit <a href="https://slack.k8s.io/">https://slack.k8s.io/</a>
+       for an invitation.</details>
+   </div>
+ </div>
 </div>
 
 <div class="community-section" id="events">
@@ -168,16 +169,17 @@ community_styles_migrated: true
 <div class="community-section" id="meetups">
   <h2>Global community</h2>
   <p>
-    With over 150 meetups in the world and growing, go find your local kube people. If one isn't near, take charge and create your own.
+   With over 150 meetups in the world and growing, go find your local kube people. If one isn't near, take charge and create your own.
   </p>
   <a href="https://www.meetup.com/topics/kubernetes/" class="community-cta-button">
-    <span class="community-cta">Find a meetup</span>
+   <span class="community-cta">Find a meetup</span>
   </a>
 </div>
 
 <div class="community-section community-frame" id="news">
   <h2>Recent News</h2>
   <div class="twittercol1">
-    <a class="twitter-timeline" data-tweet-limit="1" href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">Tweets by kubernetesio</a>
+   <a class="twitter-timeline" data-tweet-limit="1" href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">Tweets by kubernetesio</a>
   </div>
 </div>
+
