@@ -834,9 +834,9 @@ spec:
 Kustomize has the concepts of **bases** and **overlays**. A **base** is a directory with a `kustomization.yaml`, which contains a
 set of resources and associated customization. A base could be either a local directory or a directory from a remote repo,
 as long as a `kustomization.yaml` is present inside. An **overlay** is a directory with a `kustomization.yaml` that refers to other
-kustomization directories as its `bases`. A **base** has no knowledge of an overlay and can be used in multiple overlays.
-An overlay may have multiple bases and it composes all resources
-from bases and may also have customization on top of them.
+kustomization directories as its `resources`. A **base** has no knowledge of an overlay and can be used in multiple overlays.
+An overlay may have multiple resources and it composes all resources
+from `resources` and may also have customization on top of them.
 
 Here is an example of a base:
 
@@ -893,14 +893,14 @@ in different overlays. Here are two overlays using the same base.
 ```shell
 mkdir dev
 cat <<EOF > dev/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: dev-
 EOF
 
 mkdir prod
 cat <<EOF > prod/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: prod-
 EOF
@@ -990,11 +990,10 @@ deployment.apps "dev-my-nginx" deleted
 | nameSuffix            | string                                                                                                       | value of this field is appended to the names of all resources                      |
 | commonLabels          | map[string]string                                                                                            | labels to add to all resources and selectors                                       |
 | commonAnnotations     | map[string]string                                                                                            | annotations to add to all resources                                                |
-| resources             | []string                                                                                                     | each entry in this list must resolve to an existing resource configuration file    |
+| resources             | []string                                                                                                     | Each entry in this list must resolve to an existing resource configuration file or resolve to a directory containing a kustomization.yaml file    |
 | configMapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/configmapargs.go#L7)    | Each entry in this list generates a ConfigMap                                      |
 | secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/secretargs.go#L7)          | Each entry in this list generates a Secret                                         |
 | generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/generatoroptions.go#L7) | Modify behaviors of all ConfigMap and Secret generator                             |
-| bases                 | []string                                                                                                     | Each entry in this list should resolve to a directory containing a kustomization.yaml file |
 | patchesStrategicMerge | []string                                                                                                     | Each entry in this list should resolve a strategic merge patch of a Kubernetes object |
 | patchesJson6902       | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10)                   | Each entry in this list should resolve to a Kubernetes object and a Json Patch     |
 | vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L19)                       | Each entry is to capture text from one resource's field                            |
