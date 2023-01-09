@@ -647,10 +647,10 @@ see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
 ## {{% heading "whatsnext" %}}
 
 Learn more about the following:
-   * [components](/docs/concepts/overview/components/#node-components) that make up a node.
+   * [Components](/docs/concepts/overview/components/#node-components) that make up a node.
    * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
    * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
-   * [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+   * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
    * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
    * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
 
