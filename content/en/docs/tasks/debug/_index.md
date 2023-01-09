@@ -43,7 +43,7 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/
 
 ## Help! My question isn't covered!  I need help now!
 
-### Stack Overflow / Stack Exchange
+### Stack Exchange, Stack Overflow, or Server Fault {#stack-exchange}
 
 If you have questions related to *software development* for your containerized app,
 you can ask those on
