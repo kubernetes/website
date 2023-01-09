@@ -45,8 +45,8 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/
 
 ### Stack Overflow / Stack Exchange
 
-Kubernetes questions related to *software development* can be asked on 
-[Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes).  
+If you have questions related to *software development* for your containerized app,
+you can ask those on
 
 If you have Kubernetes questions related to *cluster management* or *configuration*,
 you can ask those on
