@@ -247,7 +247,7 @@ that the Pod is about to be deleted due to a {{<glossary_tooltip term_id="disrup
 The `reason` field of the condition additionally
 indicates one of the following reasons for the Pod termination:
 
-`PreemptionByKubeScheduler`
+`PreemptionByScheduler`
 : Pod is due to be {{<glossary_tooltip term_id="preemption" text="preempted">}} by a scheduler in order to accommodate a new Pod with a higher priority. For more information, see [Pod priority preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 
 `DeletionByTaintManager`
