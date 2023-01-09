@@ -1,7 +1,6 @@
 ---
 title: Informações de Segurança e Divulgação do Kubernetes
 aliases: [/security/]
-reviewers:  
 content_type: concept
 weight: 20
 ---
@@ -45,7 +44,7 @@ Você pode criptografar seu e-mail para esta lista usando as chaves GPG dos [mem
 
 Cada relato é confirmado e analisado pelos membros do Comitê de Resposta de Segurança com 3 dias úteis. Isso iniciará o [Processo de Release de Segurança](https://git.k8s.io/security/security-release-process.md#disclosures).
 
-Qualquer informação de vulnerabilidade compartilhada com o Comitê de Resposta de Segurança fica dentro do projeto Kubernetes e não vai ser disseminada para outro projeto, a menos que seja necessário corrigir o problema.
+Qualquer informação de vulnerabilidade compartilhada com o Comitê de Resposta de Segurança fica dentro do projeto Kubernetes e não vai ser disseminada para outro projeto, a menos que seja necessário para corrigir o problema.
 
 À medida que o problema de segurança passa da triagem, para correção identificada e para o planejamento da release, vamos manter o relator atualizado.
 
