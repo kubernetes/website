@@ -834,8 +834,7 @@ spec:
 Kustomize has the concepts of **bases** and **overlays**. A **base** is a directory with a `kustomization.yaml`, which contains a
 set of resources and associated customization. A base could be either a local directory or a directory from a remote repo,
 as long as a `kustomization.yaml` is present inside. An **overlay** is a directory with a `kustomization.yaml` that refers to other
-kustomization directories as its `resources`. A **base** has no knowledge of an overlay and can be used in multiple overlays.
-An overlay may have multiple resources and it composes all resources
+kustomization directories as its `resources`. An overlay may have multiple resources and it composes all resources
 from `resources` and may also have customization on top of them.
 
 Here is an example of a base:
