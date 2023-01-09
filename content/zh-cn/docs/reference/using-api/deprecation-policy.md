@@ -424,7 +424,7 @@ behavior get removed.
 考虑一个假想的名为 Widget 的 REST 资源，在上述时间线中位于 API v1，而现在打算将其弃用。
 我们会在文档和[公告](https://groups.google.com/forum/#!forum/kubernetes-announce)中与
 X+1 版本的发布同步记述此弃用决定。
-Wdiget 资源仍会在 API 版本 v1（已弃用）中存在，但不会出现在 v2alpha1 中。
+Widget 资源仍会在 API 版本 v1（已弃用）中存在，但不会出现在 v2alpha1 中。
 Widget 资源会 X+8 发布版本之前（含 X+8）一直存在并可用。
 只有在发布版本 X+9 中，API v1 寿终正寝时，Widget
 才彻底消失，相应的资源行为也被移除。

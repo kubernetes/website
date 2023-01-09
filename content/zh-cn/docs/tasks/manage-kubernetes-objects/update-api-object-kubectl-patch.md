@@ -492,7 +492,7 @@ Patch your Deployment again with this new patch:
 使用新的 patch 重新修补 Deployment：
 
 ```shell
-kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-retainkeys.yaml
+kubectl patch deployment retainkeys-demo --type strategic --patch-file patch-file-retainkeys.yaml
 ```
 
 <!--
