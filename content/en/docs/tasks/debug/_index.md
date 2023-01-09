@@ -48,7 +48,8 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/
 Kubernetes questions related to *software development* can be asked on 
 [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes).  
 
-Kubernetes questions related to *configuration* can be asked on 
+If you have Kubernetes questions related to *cluster management* or *configuration*,
+you can ask those on
 [Server Fault](https://serverfault.com/questions/tagged/kubernetes).
 
 There are also several more specific Stack Exchange network sites which might
