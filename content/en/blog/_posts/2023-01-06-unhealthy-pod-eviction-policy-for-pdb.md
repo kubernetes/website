@@ -98,7 +98,7 @@ spec:
 
 - Read the KEP: [Unhealthy Pod Eviction Policy for PDBs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-apps/3017-pod-healthy-policy-for-pdb)
 - Read the documentation: [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy) for PodDisruptionBudgets
-- Review the Kubernetes documentation for [PodDisruptionBudgets](docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets), [draining of Nodes](docs/tasks/administer-cluster/safely-drain-node/) and [evictions](docs/concepts/scheduling-eviction/api-eviction/)
+- Review the Kubernetes documentation for [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets), [draining of Nodes](/docs/tasks/administer-cluster/safely-drain-node/) and [evictions](/docs/concepts/scheduling-eviction/api-eviction/)
 
 
 ## How do I get involved?
