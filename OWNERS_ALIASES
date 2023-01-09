@@ -160,21 +160,21 @@ aliases:
     - xichengliudui
     - ydFu
   sig-docs-pt-owners: # Admins for Portuguese content
+    - devlware
     - edsoncelio
     - femrtnz
     - jailton
     - jcjesus
-    - devlware
     - jhonmike
     - rikatz
     - stormqueen1990
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
+    - devlware
     - edsoncelio
     - femrtnz
     - jailton
     - jcjesus
-    - devlware
     - jhonmike
     - rikatz
     - stormqueen1990
@@ -197,8 +197,8 @@ aliases:
     - mfilocha
     - nvtkaszpir
   sig-docs-pl-reviews: # PR reviews for Polish content
-    - mfilocha
     - kpucynski
+    - mfilocha
     - nvtkaszpir
   sig-docs-uk-owners: # Admins for Ukrainian content
     - anastyakulyk
