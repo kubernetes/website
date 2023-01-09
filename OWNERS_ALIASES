@@ -94,9 +94,11 @@ aliases:
   sig-docs-it-owners: # Admins for Italian content
     - fabriziopandini
     - Fale
+    - mattiaperi
   sig-docs-it-reviews: # PR reviews for Italian content
     - fabriziopandini
     - Fale
+    - mattiaperi
   sig-docs-ja-owners: # Admins for Japanese content
     - inductor
     - nasa9084
@@ -114,6 +116,7 @@ aliases:
     - jihoon-seo
     - seokho-son
     - yoonian
+    - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
     - ClaudiaJKang
     - gochist
@@ -122,6 +125,7 @@ aliases:
     - jmyung
     - seokho-son
     - yoonian
+    - ysyukr
   sig-docs-leads: # Website chairs and tech leads
     - divya-mohan0209
     - jimangel
@@ -157,6 +161,7 @@ aliases:
     - ydFu
   sig-docs-pt-owners: # Admins for Portuguese content
     - edsoncelio
+    - femrtnz
     - jailton
     - jcjesus
     - devlware
@@ -166,6 +171,7 @@ aliases:
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - edsoncelio
+    - femrtnz
     - jailton
     - jcjesus
     - devlware
