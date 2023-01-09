@@ -2,6 +2,10 @@
 title: "zsh auto-completion"
 description: "Some optional configuration for zsh auto-completion."
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 
 The kubectl completion script for Zsh can be generated with the command `kubectl completion zsh`. Sourcing the completion script in your shell enables kubectl autocompletion.
