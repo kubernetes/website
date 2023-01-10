@@ -1,7 +1,9 @@
 ---
-title: 퀵스타트 가이드
+title: 레퍼런스 문서 퀵스타트 가이드
+linkTitle: Quickstart
 content_type: task
-weight: 40
+weight: 10
+hide_summary: true
 ---
 
 <!-- overview -->
