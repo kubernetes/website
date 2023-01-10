@@ -1,0 +1,33 @@
+---
+name: Run Link Checker
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  build:
+    name: Run Link Checker
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive  # Fetch Hugo themes
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3.6.0
+    - name: Install build dependencies
+      run: npm install -G autoprefixer postcss-cli
+    - name: Get Hugo version
+      run: echo "HUGO_VERSION=$(grep 'HUGO_VERSION' netlify.toml | grep -Eo '([0-9.]+)')" >> $GITHUB_ENV
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: ${{ env.HUGO_VERSION }}
+        extended: true
+    - name: Build website
+      run: hugo --config config.toml,linkcheck-config.toml --buildFuture
+    - name: Check internal links
+      run: |
+        curl -L https://htmltest.wjdp.uk | bash
+        bin/htmltest
