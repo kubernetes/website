@@ -5,7 +5,7 @@ reviewers:
 - saschagrunert
 title: Restrict a Container's Syscalls with seccomp
 content_type: tutorial
-weight: 20
+weight: 40
 min-kubernetes-server-version: v1.22
 ---
 
