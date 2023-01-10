@@ -193,7 +193,7 @@ KUBERNETES_SERVICE_PORT_HTTPS=443
 
 ### DNS
 
-Kubernetes offers a DNS cluster addon Service that automatically assigns dns names to other Services. You can check if it's running on your cluster:
+Kubernetes offers a DNS cluster add-on Service that automatically assigns dns names to other Services. You can check if it's running on your cluster:
 
 ```shell
 kubectl get services kube-dns --namespace=kube-system
@@ -233,7 +233,7 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 * An nginx server configured to use the certificates
 * A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
 
-You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
+You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/). This requires having to go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
 
 ```shell
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
