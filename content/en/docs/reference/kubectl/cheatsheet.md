@@ -32,6 +32,13 @@ You can also use a shorthand alias for `kubectl` that also works with completion
 alias k=kubectl
 complete -o default -F __start_kubectl k
 ```
+Also you can setup the VIM editor. Add below lines in ~/.vimrc
+
+```bash
+set expandtab  ### use spaces for tab
+set tabstop=2  ### amount of spaces used for tab
+set shiftwidth=2 ### amount of spaces used during indentation
+```
 
 ### ZSH
 
