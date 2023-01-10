@@ -1,7 +1,7 @@
 ---
 title: Apply Pod Security Standards at the Namespace Level
 content_type: tutorial
-weight: 10
+weight: 20
 ---
 
 {{% alert title="Note" %}}
