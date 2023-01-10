@@ -58,16 +58,16 @@ aliases:
     - electrocucaracha
     - raelga
   sig-docs-fr-owners: # Admins for French content
-    - awkif
+    # awkif
     - feloy
-    - perriea
-    - rekcah78
+    # perriea
+    # rekcah78
     - remyleone
   sig-docs-fr-reviews: # PR reviews for French content
-    - awkif
+    # awkif
     - feloy
-    - perriea
-    - rekcah78
+    # perriea
+    # rekcah78
     - remyleone
   sig-docs-hi-owners: # Admins for Hindi content
     - anubha-v-ardhan
@@ -80,14 +80,14 @@ aliases:
     - Garima-Negi
     - verma-kunal
   sig-docs-id-owners: # Admins for Indonesian content
-    - ariscahyadi
-    - danninov
-    - girikuncoro
+    # ariscahyadi
+    # danninov
+    # girikuncoro
     - habibrosyad
   sig-docs-id-reviews: # PR reviews for Indonesian content
-    - ariscahyadi
-    - danninov
-    - girikuncoro
+    # ariscahyadi
+    # danninov
+    # girikuncoro
     - habibrosyad
   sig-docs-it-owners: # Admins for Italian content
     - fabriziopandini
@@ -104,11 +104,11 @@ aliases:
     - atoato88
     - bells17
     - kakts
-    - makocchi-git
+    # makocchi-git
     - ptux
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
-    - ClaudiaJKang
+    # ClaudiaJKang
     - gochist
     - ianychoi
     - jihoon-seo
@@ -116,7 +116,7 @@ aliases:
     - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
-    - ClaudiaJKang
+    # ClaudiaJKang
     - gochist
     - ianychoi
     - jihoon-seo
@@ -160,28 +160,28 @@ aliases:
     - devlware
     - edsoncelio
     - femrtnz
-    - jailton
+    # jailton
     - jcjesus
-    - jhonmike
+    # jhonmike
     - rikatz
     - stormqueen1990
-    - yagonobre
+    # yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - devlware
     - edsoncelio
     - femrtnz
-    - jailton
+    # jailton
     - jcjesus
-    - jhonmike
+    # jhonmike
     - rikatz
     - stormqueen1990
-    - yagonobre
+    # yagonobre
   sig-docs-vi-owners: # Admins for Vietnamese content
-    - huynguyennovem
-    - truongnh1992
+    # huynguyennovem
+    # truongnh1992
   sig-docs-vi-reviews: # PR reviews for Vietnamese content
-    - huynguyennovem
-    - truongnh1992
+    # huynguyennovem
+    # truongnh1992
   sig-docs-ru-owners: # Admins for Russian content
     - Arhell
     - shurup
@@ -190,20 +190,20 @@ aliases:
     - shurup
   sig-docs-pl-owners: # Admins for Polish content
     - mfilocha
-    - nvtkaszpir
+    # nvtkaszpir
   sig-docs-pl-reviews: # PR reviews for Polish content
-    - kpucynski
+    # kpucynski
     - mfilocha
-    - nvtkaszpir
+    # nvtkaszpir
   sig-docs-uk-owners: # Admins for Ukrainian content
     - anastyakulyk
     - Arhell
     - butuzov
-    - MaxymVlasov
+    # MaxymVlasov
   sig-docs-uk-reviews: # PR reviews for Ukrainian content
     - Arhell
     - idvoretskyi
-    - MaxymVlasov
+    # MaxymVlasov
     - Potapy4
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
