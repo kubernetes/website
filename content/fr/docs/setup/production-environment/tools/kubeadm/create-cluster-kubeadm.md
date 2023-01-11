@@ -676,7 +676,7 @@ si le master est irrécupérable, votre cluster peut perdre ses données et peut
 partir de zéro. L'ajout du support HA (plusieurs serveurs etcd, plusieurs API servers, etc.)
 à kubeadm est encore en cours de developpement.
 
-   Contournement: régulièrement [sauvegarder etcd](https://coreos.com/etcd/docs/latest/admin_guide.html).
+   Contournement: régulièrement [sauvegarder etcd](https://etcd.io/docs/v3.5/op-guide/recovery/).
 le répertoire des données etcd configuré par kubeadm se trouve dans `/var/lib/etcd` sur le master.
 
 ## Diagnostic {#troubleshooting}
