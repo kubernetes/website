@@ -44,8 +44,8 @@ CNCFに属さない完全なメトリクスパイプラインのプロジェク�
 以下のような追加のデバッグツールについて学びます:
 
 * [ロギング](/ja/docs/concepts/cluster-administration/logging/)
-* [モニタリング](/ja/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
-* [`exec`でコンテナに入る](/ja/docs/tasks/debug-application-cluster/get-shell-running-container/)
+* [モニタリング](/ja/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
+* [`exec`でコンテナに入る](/ja/docs/tasks/debug/debug-application/get-shell-running-container/)
 * [Connecting to containers via proxies](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 * [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* [crictlでKubernetesのノードを検査する](/ja/docs/tasks/debug-application-cluster/crictl/)
+* [crictlでKubernetesのノードを検査する](/ja/docs/tasks/debug/debug-cluster/crictl/)
