@@ -3,7 +3,7 @@ reviewers:
 - caseydavenport
 title: Use Calico for NetworkPolicy
 content_type: task
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->

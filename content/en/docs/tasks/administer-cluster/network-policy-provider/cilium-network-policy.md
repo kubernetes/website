@@ -4,7 +4,7 @@ reviewers:
 - aanm
 title: Use Cilium for NetworkPolicy
 content_type: task
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->

@@ -1,7 +1,7 @@
 ---
 title: Generate Certificates Manually
 content_type: task
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->

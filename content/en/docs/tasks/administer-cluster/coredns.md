@@ -4,6 +4,7 @@ reviewers:
 title: Using CoreDNS for Service Discovery
 min-kubernetes-server-version: v1.9
 content_type: task
+weight: 380
 ---
 
 <!-- overview -->

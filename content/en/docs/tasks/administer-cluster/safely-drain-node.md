@@ -7,6 +7,7 @@ reviewers:
 title: Safely Drain a Node
 content_type: task
 min-kubernetes-server-version: 1.5
+weight: 310
 ---
 
 <!-- overview -->

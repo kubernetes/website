@@ -3,7 +3,7 @@ title: Check whether dockershim removal affects you
 content_type: task
 reviewers:
 - SergeyKanzhelev
-weight: 20
+weight: 50
 ---
 
 <!-- overview -->

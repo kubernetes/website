@@ -6,6 +6,7 @@ reviewers:
 title: Reserve Compute Resources for System Daemons
 content_type: task
 min-kubernetes-server-version: 1.8
+weight: 290
 ---
 
 <!-- overview -->

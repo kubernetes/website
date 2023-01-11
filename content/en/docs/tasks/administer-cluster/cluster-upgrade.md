@@ -1,6 +1,7 @@
 ---
 title: Upgrade A Cluster
 content_type: task
+weight: 350
 ---
 
 <!-- overview -->

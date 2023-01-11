@@ -1,6 +1,7 @@
 ---
 title: Enable Or Disable A Kubernetes API
 content_type: task
+weight: 200
 ---
 
 <!-- overview -->
