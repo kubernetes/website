@@ -458,5 +458,5 @@ DeploymentとServiceを削除すると、実行中のすべてのPodも削除さ
 
 * [リソースを監視するためのツール](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)について学ぶ。
 * [ロギングのアーキテクチャ](/docs/concepts/cluster-administration/logging/)についてもっと読む。
-* [アプリケーションのイントロスペクションとデバッグ](/ja/docs/tasks/debug-application-cluster/)についてもっと読む。
+* [アプリケーションのイントロスペクションとデバッグ](/ja/docs/tasks/debug/debug-application/)についてもっと読む。
 * [アプリケーションのトラブルシューティング](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)についてもっと読む。
