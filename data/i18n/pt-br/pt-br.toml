@@ -297,7 +297,7 @@ other = "Como as aplicações que rodam no Kubernetes manipulam dados persistent
 other = "Ferramentas"
 
 [layout_docs_glossary_tool_description]
-other = "Software que torna o Kubernetes mais fácil ou melhor de ser utilizado."
+other = "Software que torna a utilização do Kubernetes mais fácil ou melhor."
 
 [layout_docs_glossary_user-type_name]
 other = "Tipos de Usuário"
