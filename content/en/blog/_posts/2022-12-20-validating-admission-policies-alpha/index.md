@@ -60,7 +60,7 @@ kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "demo-binding-test.example.com"
 spec:
-  policy: "demo-policy.example.com"
+  policyName: "demo-policy.example.com"
   matchResources:
     namespaceSelector:
     - key: environment,
@@ -115,8 +115,8 @@ kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "demo-binding-production.example.com"
 spec:
-  policy: "demo-policy.example.com"
-  paramsRef:
+  policyName: "demo-policy.example.com"
+  paramRef:
     name: "demo-params-production.example.com"
   matchResources:
     namespaceSelector:
