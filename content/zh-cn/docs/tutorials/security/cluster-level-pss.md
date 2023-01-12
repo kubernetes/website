@@ -10,7 +10,9 @@ weight: 10
 -->
 
 {{% alert title="Note" %}}
-<!-- This tutorial applies only for new clusters. -->
+<!--
+This tutorial applies only for new clusters.
+-->
 本教程仅适用于新集群。
 {{% /alert %}}
 
@@ -48,7 +50,7 @@ Pod 安全准入是在创建 Pod 时应用
 Install the following on your workstation:
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [kubectl](/docs/tasks/tools/)
 -->
 在你的工作站中安装以下内容：
 
@@ -76,7 +78,7 @@ that are most appropriate for your configuration, do the following:
 
 <!-- 
 1. Create a cluster with no Pod Security Standards applied:
- -->
+-->
 1. 创建一个没有应用 Pod 安全标准的集群：
 
    ```shell
@@ -98,7 +100,6 @@ that are most appropriate for your configuration, do the following:
    kubectl cluster-info --context kind-psa-wo-cluster-pss
    
    Thanks for using kind! 😊
-   
    ```
 
 <!-- 
@@ -111,11 +112,11 @@ that are most appropriate for your configuration, do the following:
    ```
    <!-- The output is similar to this: -->
    输出类似于：
-
    ```
-   Kubernetes control plane is running at https://127.0.0.1:61350 
+   Kubernetes control plane is running at https://127.0.0.1:61350
+
    CoreDNS is running at https://127.0.0.1:61350/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-   
+    
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
 
@@ -141,7 +142,7 @@ that are most appropriate for your configuration, do the following:
 <!-- 
 1. Use `--dry-run=server` to understand what happens when different Pod Security Standards
    are applied:
- -->
+-->
 4. 使用 `--dry-run=server` 来了解应用不同的 Pod 安全标准时会发生什么：
 
    1. Privileged
@@ -159,7 +160,7 @@ that are most appropriate for your configuration, do the following:
        namespace/local-path-storage labeled
        ```
    2. Baseline
-      ```shell    
+      ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=baseline
       ```
@@ -280,16 +281,17 @@ following:
          namespaces: [kube-system]
    EOF
    ```
-    {{< note >}}
-    <!--
-    `pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
-    For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
-    For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
-    -->
+
+   {{< note >}}
+   <!--
+   `pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
+   For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+   For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+   -->
    `pod-security.admission.config.k8s.io/v1` 配置需要 v1.25+。
-    对于 v1.23 和 v1.24，使用 [v1beta1](https://v1-24.docs.kubernetes.io/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
-    对于 v1.22，使用 [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
-    {{< /note >}}
+   对于 v1.23 和 v1.24，使用 [v1beta1](https://v1-24.docs.kubernetes.io/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
+   对于 v1.22，使用 [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
+   {{< /note >}}
 
 <!-- 
 1. Configure the API server to consume this file during cluster creation:
@@ -439,7 +441,7 @@ created.
   [shell script](/examples/security/kind-with-cluster-level-baseline-pod-security.sh)
   to perform all the preceding steps at once:
   1. Create a Pod Security Standards based cluster level Configuration
-  2. Create a file to let API server consumes this configuration
+  2. Create a file to let API server consume this configuration
   3. Create a cluster that creates an API server with this configuration
   4. Set kubectl context to this new cluster
   5. Create a minimal pod yaml file
