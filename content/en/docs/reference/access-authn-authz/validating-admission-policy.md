@@ -193,9 +193,10 @@ spec:
   matchResources:
     namespaceSelector:
       matchExpressions:
-      - key: environment,
-        operator: NotIn,
-        values: ["test"]
+      - key: environment
+        operator: NotIn
+        values:
+        - test
 ```
 
 And have a parameter resource like:
@@ -222,7 +223,7 @@ spec:
   matchResources:
     namespaceSelector:
       matchExpressions:
-      - key: environment,
+      - key: environment
         operator: Exists
 ```
 
