@@ -1,3 +1,4 @@
+git log -2
 ---
 layout: blog
 title: 'Kubernetes 1.14: Local Persistent Volumes GA'
@@ -129,7 +130,7 @@ spec:
     spec:
       containers:
       - name: test-container
-        image: k8s.gcr.io/busybox
+        image: registry.k8s.io/busybox
         command:
         - "/bin/sh"
         args:
