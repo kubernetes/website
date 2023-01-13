@@ -1,7 +1,7 @@
 ---
 title: Set up Ingress on Minikube with the NGINX Ingress Controller
 content_type: task
-weight: 100
+weight: 110
 min-kubernetes-server-version: 1.19
 ---
 

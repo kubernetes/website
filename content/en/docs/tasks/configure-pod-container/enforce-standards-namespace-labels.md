@@ -5,6 +5,7 @@ reviewers:
 - liggitt
 content_type: task
 min-kubernetes-server-version: v1.22
+weight: 250
 ---
 
 Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards). The three policies
