@@ -293,7 +293,7 @@ section.
 Your {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} must support the concept of a privileged container for this setting to be relevant.
 {{< /note >}}
 
-Any container in a pod can run in priveleged mode to use operating system administrative capabilities
+Any container in a pod can run in privileged mode to use operating system administrative capabilities
 that would otherwise be inaccessible. This is available for both Windows and Linux.
 
 ### Linux containers
