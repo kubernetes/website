@@ -69,10 +69,12 @@ Next, tell Kubernetes to drain the node:
 kubectl drain --ignore-daemonsets <node name>
 ```
 
-If there are daemon set managed pods, drain will not proceed without `--ignore-daemonsets`,
-and regardless it will not delete any daemon set managed pods, 
-because those pods would be immediately replaced by the daemon set controller,
-which ignores unschedulable markings.
+If there are DaemonSet managed pods, drain will usually not succeed unless you specify
+`--ignore-daemonsets`. The `kubectl drain` subcommand on its own does not actually drain
+a node of its DaemonSet pods:
+the DaemonSet controller (part of the control plane) immediately replaces missing Pods with
+new equivalent Pods. The DaemonSet controller also creates Pods that ignore unschedulable
+taints, which allows the new Pods to launch onto a node that you are draining.
 
 Once it returns (without giving an error), you can power down the node
 (or equivalently, if on a cloud platform, delete the virtual machine backing the node).
