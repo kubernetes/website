@@ -66,8 +66,13 @@ kubectl get nodes
 Next, tell Kubernetes to drain the node:
 
 ```shell
-kubectl drain <node name>
+kubectl drain --ignore-daemonsets <node name>
 ```
+
+If there are daemon set managed pods, drain will not proceed without `--ignore-daemonsets`,
+and regardless it will not delete any daemon set managed pods, 
+because those pods would be immediately replaced by the daemon set controller,
+which ignores unschedulable markings.
 
 Once it returns (without giving an error), you can power down the node
 (or equivalently, if on a cloud platform, delete the virtual machine backing the node).
