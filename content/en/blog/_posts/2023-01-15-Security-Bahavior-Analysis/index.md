@@ -77,7 +77,7 @@ The goal of this post is to invite the Kubernetes community to action and introd
 1. Add appropriate security documentation for users on how to introduce Security-Behavior monitoring and control.
 1. Consider how to integrate with tools that can help users monitor and control their vulnerable services.
 
-## Getting Involved
+## Getting involved
 
 You are welcome to get involved and join the effort to develop security behavior monitoring
 and control for Kubernetes; to share feedback and contribute to code or documentation;
