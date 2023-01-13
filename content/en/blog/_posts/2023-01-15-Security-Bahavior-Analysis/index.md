@@ -18,7 +18,7 @@ Considering the current spread of offensive tools, sophistication of offensive p
 
 In other words, consciously accept that you will never create non-vulnerable services. If your opponents find a single weakness as an entry-point, you lose. Admitting that in spite of your best efforts, all your services are most likely vulnerable is an important first step. Next, we need to discuss what can you do about it...
 
-## How to Protect Microservices From Being Exploited
+## How to protect microservices from being exploited
 
 Being vulnerable does not necessarily mean that your service will be exploited. Though your services are vulnerable in some ways unknown to you, offenders still need to identify these vulnerabilities and then exploit them. If offenders fail to exploit your service vulnerabilities, you win! In other words, having a vulnerability that can’t be exploited, represents a risk that can’t be realized.
 
