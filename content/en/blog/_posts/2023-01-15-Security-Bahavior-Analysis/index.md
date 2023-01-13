@@ -69,7 +69,7 @@ See:
 
 - [Guard on Github](https://github.com/knative-sandbox/security-guard) for using Guard as a standalone.
 - The Knative automation suite - Read about Knative, in the blog post [Opinionated Kubernetes](https://davidhadas.wordpress.com/2022/08/29/knative-an-opinionated-kubernetes) which describes how Knative simplifies and unifies the way web services are deployed on Kubernetes.
-- You may contact Guard maintainers on the [Sig-Security](https://kubernetes.slack.com/archives/C019LFTGNQ3) slack channel or on the Knative community [security](https://knative.slack.com/archives/CBYV1E0TG) slack channel. Note that the Knative community channel will move soon to the [CNCF slack](https://communityinviter.com/apps/cloud-native/cncf) under the name `knative-security`.
+- You may contact Guard maintainers on the [SIG Security](https://kubernetes.slack.com/archives/C019LFTGNQ3) Slack channel or on the Knative community [security](https://knative.slack.com/archives/CBYV1E0TG) Slack channel. The Knative community channel will move soon to the [CNCF Slack](https://communityinviter.com/apps/cloud-native/cncf) under the name `#knative-security`.
 
 The goal of this post is to invite the Kubernetes community to action and introduce Security-Behavior monitoring and control to help secure Kubernetes based deployments. Hopefully, the community as a follow up will:
 
