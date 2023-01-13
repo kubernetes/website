@@ -5,6 +5,7 @@ reviewers:
 - liggitt
 content_type: task
 min-kubernetes-server-version: v1.22
+weight: 240
 ---
 
 As of v1.22, Kubernetes provides a built-in [admission controller](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)

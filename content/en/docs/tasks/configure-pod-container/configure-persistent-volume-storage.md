@@ -1,7 +1,7 @@
 ---
 title: Configure a Pod to Use a PersistentVolume for Storage
 content_type: task
-weight: 60
+weight: 90
 ---
 
 <!-- overview -->
