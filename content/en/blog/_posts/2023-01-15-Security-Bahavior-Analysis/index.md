@@ -16,7 +16,7 @@ Considering the current spread of offensive tools, sophistication of offensive p
 
 &#x27A5; **Admit that your services are vulnerable!**
 
-In other words, consciously accept that you will never create non-vulnerable services. If your opponents find a single weakness as an entry-point, you lose. Admitting that in spite of your best efforts, all your services are most likely vulnerable is an important first step. Next, we need to discuss what can you do about it...
+In other words, consciously accept that you will never create completely invulnerable services. If your opponents find even a single weakness as an entry-point, you may lose. Admitting that in spite of your best efforts, all your services are most likely vulnerable is an important first step. Next, this post discusses what you can do about it...
 
 ## How to protect microservices from being exploited
 
@@ -28,7 +28,7 @@ The above diagram shows an example in which the offender does not yet have a foo
 
 More specifically, let’s assume the service is vulnerable to an SQL injection. The developer failed to sanitize the user input properly, thereby allowing clients to send values that would change the intended behavior. In our example, if a client sends a query string with key “username” and value of _“tom or 1=1”_, the client will receive the data of all users. Exploiting this vulnerability requires the client to send an irregular string as the value. Note that benign users will not be sending a string with spaces or with the equal sign character as a username, instead they will normally send legal usernames which for example may be defined as a short sequence of characters a-z. No legal username can trigger service unplanned behavior.
 
-In this simple example we can already identify several opportunities to detect and block an attempt to exploit the vulnerability (un)intentionally left behind by the developer, making the vulnerability unexploitable. First, the malicious client behavior differs from the behavior of benign clients, as it sends irregular requests. If such change in behavior is detected and blocked, the exploit will never reach the service. Second, the service behavior in response to the exploit, differs from the service behavior in response to a regular request. Such behavior may include making subsequent irregular calls to other services such as a data store, taking irregular time to respond, and/or responding to the malicious client with an irregular response (for example, containing much more data than normally sent in case of benign clients making regular requests). Service behavioral changes, if detected, will also allow blocking the exploit in different stages of the exploitation attempt.
+In this simple example one can already identify several opportunities to detect and block an attempt to exploit the vulnerability (un)intentionally left behind by the developer, making the vulnerability unexploitable. First, the malicious client behavior differs from the behavior of benign clients, as it sends irregular requests. If such change in behavior is detected and blocked, the exploit will never reach the service. Second, the service behavior in response to the exploit, differs from the service behavior in response to a regular request. Such behavior may include making subsequent irregular calls to other services such as a data store, taking irregular time to respond, and/or responding to the malicious client with an irregular response (for example, containing much more data than normally sent in case of benign clients making regular requests). Service behavioral changes, if detected, will also allow blocking the exploit in different stages of the exploitation attempt.
 
 More generally:
 
@@ -49,7 +49,7 @@ Service State | Use case | What do you need in order to cope with this use case?
 **Exploitable**  | **A known exploit is published:** The service owner needs a way to filter incoming requests that contain the known exploit.   |  **Add protection based on a known exploit signature** - Detect/block incoming client requests that carry signatures identifying the exploit. Continue to offer services, although the presence of an exploit.  
 **Misused**  | **An offender misuses pods backing the service:** The offender can follow an attack pattern enabling him/her to misuse pods. The service owner needs to restart any compromised pods while using non compromised pods to continue offering the service. Note that once a pod is restarted, the offender needs to repeat the attack pattern before he/she may again misuse it.  |  **Identify and restart instances of the component that is being misused** - At any given time, some backing pods may be compromised and misused, while others behave as designed. Detect/remove the misused pods while allowing other pods to continue servicing client requests.
 
-Next, let's discuss why microservice architecture is well suited to security-behavior monitoring.
+Fortunately, microservice architecture is well suited to security-behavior monitoring as discussed next.
 
 ## Security-Behavior of microservices versus monoliths {#microservices-vs-monoliths}
 
