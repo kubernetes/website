@@ -11,7 +11,7 @@ content_type: task
 ## {{% heading "prerequisites" %}}
 
 
-* あなたの{{< glossary_tooltip text="Pod" term_id="pod" >}}は既にスケジュールされ、実行されているはずです。Podがまだ実行されていない場合は、[アプリケーションのトラブルシューティング](/ja/docs/tasks/debug/debug-application/) から始めてください。
+* あなたの{{< glossary_tooltip text="Pod" term_id="pod" >}}は既にスケジュールされ、実行されているはずです。Podがまだ実行されていない場合は、[アプリケーションのトラブルシューティング](/ja/docs/tasks/debug/debug-application/)から始めてください。
 
 * いくつかの高度なデバッグ手順では、Podがどのノードで動作しているかを知り、そのノードでコマンドを実行するためのシェルアクセス権を持っていることが必要です。`kubectl`を使用する標準的なデバッグ手順の実行には、そのようなアクセスは必要ではありません。
 
