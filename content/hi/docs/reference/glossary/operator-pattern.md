@@ -1,5 +1,5 @@
 ---
-title: ऑपरेटर पैटर्न(Operator pattern)
+title: ऑपरेटर पैटर्न
 id: operator-pattern
 date: 2019-05-21
 full_link: /docs/concepts/extend-kubernetes/operator/
