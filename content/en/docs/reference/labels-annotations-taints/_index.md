@@ -575,7 +575,9 @@ Example: `preemption-toleration.scheduling.sigs.k8s.io/minimum-preemptable-prior
 
 Used on: PriorityClass
 
-This annotation specifies the minimum priority value that can preempt the [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass). It defaults to the PriorityClass's priority value +1, means pods that have a higher priority value can preempt it.
+This annotation specifies the minimum priority value that can preempt the
+[PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
+It defaults to the PriorityClass's priority value `+1`, meaning that Pods with a higher priority value can preempt it.
 
 ### preemption-toleration.scheduling.sigs.k8s.io/toleration-seconds
 
@@ -583,7 +585,12 @@ Example: `preemption-toleration.scheduling.sigs.k8s.io/toleration-seconds: "3600
 
 Used on: PriorityClass
 
-This annotation specifies how long the [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) can tolerate preemption by priorities lower than `preemption-toleration.scheduling.sigs.k8s.io/minimum-preemptable-priority`. It defaults to value 0, means the pod will be preempted immediately that is, no toleration.If set to a positive value, the duration will be honored. If set to a negative value, the pod can be tolerated forever that is, pods with a priority lower than minimum-preemptable-priority won't be able to preempt. This affects scheduled pods only (no effect on nominated pods).
+This annotation specifies how long the [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
+can tolerate preemption by priorities lower than `preemption-toleration.scheduling.sigs.k8s.io/minimum-preemptable-priority`.
+It defaults to value `0`, meaning that the pod will be preempted immediately. That is, no toleration.
+If set to a positive value, the duration will be honored. If set to a negative value, the Pod can be
+tolerated forever. That is, Pods with a priority lower than minimum-preemptable-priority won't be
+able to preempt. This affects scheduled pods only (no effect on nominated Pods).
 
 **The taints listed below are always used on Nodes**
 
