@@ -430,7 +430,7 @@ kubeletとコントロールプレーンの間や、他のKubernetesコンポー
 
 対処方法:
 
-* 定期的に[etcdをバックアップ](https://coreos.com/etcd/docs/latest/admin_guide.html)する。kubeadmが設定するetcdのデータディレクトリは、コントロールプレーンノードの`/var/lib/etcd`にあります。
+* 定期的に[etcdをバックアップ](https://etcd.io/docs/v3.5/op-guide/recovery/)する。kubeadmが設定するetcdのデータディレクトリは、コントロールプレーンノードの`/var/lib/etcd`にあります。
 
 * 複数のコントロールプレーンノードを使用する。[高可用性トポロジーのオプション](/ja/docs/setup/production-environment/tools/kubeadm/ha-topology/)では、[より高い可用性](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)を提供するクラスターのトポロジーの選択について説明してます。
 
