@@ -99,7 +99,7 @@ Services will always have the `ready` condition set to `true`.
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 The `serving` condition is almost identical to the `ready` condition. The difference is that
-Consumers of the EndpointSlice API should check `serving` if they care about pod readiness while
+Consumers of the EndpointSlice API should check the `serving` condition if they care about pod readiness while
 the pod is also terminating.
 
 {{< note >}}
