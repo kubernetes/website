@@ -34,7 +34,7 @@ kubeadm upgrade plan [versão] [flags]
 <td colspan="2">--allow-experimental-upgrades</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Exibe as versões instáveis do Kubernetes como uma alternativa de atualização e permite a atualização para versões alfa/beta/*release candidate* do Kubernetes.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Exibe as versões instáveis do Kubernetes como uma alternativa de atualização e permite a atualização para versões alfa/beta/release candidate do Kubernetes.</p></td>
 </tr>
 
 <tr>
