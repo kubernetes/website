@@ -34,7 +34,7 @@ kubeadm upgrade plan [versão] [flags]
 <td colspan="2">--allow-experimental-upgrades</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Exibe as versões instáveis do Kubernetes como uma alternativa de atualização e permite a atualização para versões candidatas alfa/beta/release do Kubernetes.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Exibe as versões instáveis do Kubernetes como uma alternativa de atualização e permite a atualização para versões alfa/beta/*release candidate* do Kubernetes.</p></td>
 </tr>
 
 <tr>
@@ -85,7 +85,7 @@ PublicKeysECDSA=true|false (ALPHA - padrão=false)<br/>RootlessControlPlane=true
 <td colspan="2">-o, --output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "text"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>EXPERIMENTAL: Formato de saída. Um dos: text|json|yaml.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>EXPERIMENTAL: Formato de saída. Opções válidas: text|json|yaml.</p></td>
 </tr>
 
 <tr>
@@ -99,7 +99,7 @@ PublicKeysECDSA=true|false (ALPHA - padrão=false)<br/>RootlessControlPlane=true
 <td colspan="2">--show-managed-fields</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Se verdadeiro, mentém os managedFields ao exibir os objetos no formato JSON ou YAML.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Se verdadeiro, mantém os managedFields ao exibir os objetos no formato JSON ou YAML.</p></td>
 </tr>
 
 </tbody>

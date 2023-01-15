@@ -32,7 +32,7 @@ kubeadm upgrade diff [versão] [flags]
 <td colspan="2">--api-server-manifest string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/manifests/kube-apiserver.yaml"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o manifesto do servidor API</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o manifesto do servidor da API</p></td>
 </tr>
 
 <tr>
@@ -53,14 +53,14 @@ kubeadm upgrade diff [versão] [flags]
 <td colspan="2">--controller-manager-manifest string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/manifests/kube-controller-manager.yaml"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o manifesto do gerenciador</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o manifesto do controlador de gerenciadores</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Ajuda para o diff</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Ajuda para diff</p></td>
 </tr>
 
 <tr>
@@ -74,7 +74,7 @@ kubeadm upgrade diff [versão] [flags]
 <td colspan="2">--scheduler-manifest string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "/etc/kubernetes/manifests/kube-scheduler.yaml"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o manifesto do scheduler</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para o manifesto do escalonador</p></td>
 </tr>
 
 </tbody>
