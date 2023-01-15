@@ -4,7 +4,7 @@ content_type: conceito
 weight: 40
 ---
 <!-- overview -->
-`kubeadm upgrade` é um comando de fácil uso que envolve uma lógica de atualização  complexa por trás de um comando, com suporte para planejar e executar de fato uma atualização.
+`kubeadm upgrade` é um comando amigável que envolve uma lógica de atualização  complexa por trás de um comando, com suporte para planejar e executar de fato uma atualização.
 
 <!-- body -->
 
@@ -13,7 +13,7 @@ weight: 40
 As etapas para realizar uma atualização usando kubeadm estão descritas [neste documento](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/). 
 Para versões mais antigas do kubeadm, consulte os conjuntos de documentação mais antigos do site Kubernetes.
 
-Você pode usar o `kubeadm upgrade diff` para ver as alterações que seriam aplicadas aos manifestos de Pod estático.
+Você pode usar `kubeadm upgrade diff` para ver as alterações que seriam aplicadas aos manifestos de Pod estático.
 
 No Kubernetes v1.15.0 e posteriores, o `kubeadm upgrade apply` e `kubeadm upgrade node` também renovarão automaticamente os certificados gerenciados pelo kubeadm neste nó, incluindo aqueles armazenados nos arquivos do kubeconfig. 
 É possível optar por não renovar usando a flag `--certificate-renewal=false`. 
@@ -21,7 +21,7 @@ Para mais detalhes sobre a renovação dos certificados, consulte a [documentaç
 
 {{< note >}}
 Os comandos `kubeadm upgrade apply` e `kubeadm upgrade plan` tem uma flag legada `--config` que possibilita reconfigurar o cluster enquanto realiza o planejamento ou a atualização do nó específico da camada de gerenciamento. 
-Esteja ciente de que o fluxo de trabalho da atualização não foi projetado para este cenário e existe relatos de resultados inesperados.
+Esteja ciente de que o fluxo de trabalho da atualização não foi projetado para este cenário e existem relatos de resultados inesperados.
 {{</ note >}}
 
 ## kubeadm upgrade plan {#cmd-upgrade-plan}
