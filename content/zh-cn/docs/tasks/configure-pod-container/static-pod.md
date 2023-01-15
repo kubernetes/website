@@ -130,26 +130,6 @@ For example, this is how to start a simple web server as a static Pod:
 
 <!--
 2. Choose a directory, say `/etc/kubernetes/manifests` and place a web server Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
-
-   ```shell
-    # Run this command on the node where kubelet is running
-    mkdir /etc/kubelet.d/
-    cat <<EOF >/etc/kubelet.d/static-web.yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: static-web
-      labels:
-        role: myrole
-    spec:
-      containers:
-        - name: web
-          image: nginx
-          ports:
-            - name: web
-              containerPort: 80
-              protocol: TCP
-    EOF
 -->
 2. 选择一个目录，比如在 `/etc/kubernetes/manifests` 目录来保存 Web 服务 Pod 的定义文件，例如
    `/etc/kubernetes/manifests/static-web.yaml`：
@@ -230,7 +210,7 @@ JSON/YAML 格式的 Pod 定义文件。
 <!--
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 -->
-1. 创建一个 YAML 文件，并保存在 web 服务上，为 kubelet 生成一个 URL。
+1. 创建一个 YAML 文件，并保存在 Web 服务器上，这样你就可以将该文件的 URL 传递给 kubelet。
 
    ```yaml
    apiVersion: v1
@@ -286,8 +266,6 @@ You can view running containers (including static Pods) by running (on the node)
 # Run this command on the node where the kubelet is running
 crictl ps
 ```
-
-The output might be something like:
 -->
 ## 观察静态 Pod 的行为 {#behavior-of-static-pods}
 
@@ -406,6 +384,28 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 ```
 
 <!--
+Once you identify the right container, you can get the logs for that container with `crictl`:
+-->
+一旦你找到合适的容器，你就可以使用 `crictl` 获取该容器的日志。
+
+```shell
+# 在容器运行所在的节点上执行以下命令
+crictl logs <container_id>
+```
+
+```console
+10.240.0.48 - - [16/Nov/2022:12:45:49 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
+10.240.0.48 - - [16/Nov/2022:12:45:50 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
+10.240.0.48 - - [16/Nove/2022:12:45:51 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
+```
+
+<!--
+To find more about how to debug using `crictl`, please visit [_Debugging Kubernetes nodes with crictl_](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/)
+-->
+若要找到如何使用 `crictl` 进行调试的更多信息，
+请访问[使用 crictl 对 Kubernetes 节点进行调试](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
+
+<!--
 ## Dynamic addition and removal of static pods
 
 The running kubelet periodically scans the configured directory (`/etc/kubernetes/manifests` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
@@ -418,7 +418,7 @@ The running kubelet periodically scans the configured directory (`/etc/kubernete
 <!--
 ```shell
 # This assumes you are using filesystem-hosted static Pod configuration
-# Run these commands on the node where the kubelet is running
+# Run these commands on the node where the container is running
 #
 mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
@@ -431,7 +431,7 @@ crictl ps
 -->
 ```shell
 # 这里假定你在用主机文件系统上的静态 Pod 配置文件
-# 在 kubelet 运行的节点上执行以下命令
+# 在容器运行所在的节点上执行以下命令
 mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
@@ -446,3 +446,19 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
 
+## {{% heading "whatsnext" %}}
+
+<!--
+* [Generate static Pod manifests for control plane components](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
+* [Generate static Pod manifest for local etcd](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
+* [Debugging Kubernetes nodes with `crictl`](/docs/tasks/debug/debug-cluster/crictl/)
+* [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
+* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
+* [Set up etcd instances as static pods managed by a kubelet](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+-->
+* [为控制面组件生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
+* [为本地 etcd 生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
+* [使用 `crictl` 对 Kubernetes 节点进行调试](/docs/tasks/debug/debug-cluster/crictl/)
+* 更多细节请参阅 [`crictl`](https://github.com/kubernetes-sigs/cri-tools)
+* [从 `docker` CLI 命令映射到 `crictl`](/zh-cn/docs/reference/tools/map-crictl-dockercli/)
+* [将 etcd 实例设置为由 kubelet 管理的静态 Pod](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
