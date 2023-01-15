@@ -520,7 +520,7 @@ Cuando se actualiza un Secret que ya se está consumiendo en un volumen, las cla
 Kubelet está verificando si el Secret montado esta actualizado en cada sincronización periódica.
 Sin embargo, está usando su caché local para obtener el valor actual del Secret.
 El tipo de caché es configurable usando el  (campo `ConfigMapAndSecretChangeDetectionStrategy`  en
-[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)).
+[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go)).
 Puede ser propagado por el reloj (default), ttl-based, o simplemente redirigiendo
 todas las solicitudes a kube-apiserver directamente.
 Como resultado, el retraso total desde el momento en que se actualiza el Secret hasta el momento en que se proyectan las nuevas claves en el Pod puede ser tan largo como el periodo de sincronización de kubelet + retraso de 
