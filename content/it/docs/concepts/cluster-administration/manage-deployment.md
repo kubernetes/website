@@ -298,7 +298,7 @@ repliche nginx da 3 a 1, fare:
 
 ```shell
 $ kubectl scale deployment/my-nginx --replicas=1
-deployment.extensions/my-nginx scaled
+deployment.apps/my-nginx scaled
 ```
 
 Ora hai solo un pod gestito dalla distribuzione
