@@ -370,7 +370,7 @@ Para usar esta función, el volumen debe ser provisto como un PersistentVolumen;
 
 #### Aprovisionamiento manual de un PD PersistentVolume Regional
 
-El aprovisionamiento dinámico es posible usando un [StorageClass para el DP GCE](/docs/concepts/storage/storage-classes/#gce).
+El aprovisionamiento dinámico es posible usando un [StorageClass para el DP GCE](/docs/concepts/storage/storage-classes/#gce-pd).
 Antes de crear un PersistentVolume, debes crear el disco persistente:
 
 ```shell
@@ -638,7 +638,7 @@ Mira el [ ejemplo NFS ](https://github.com/kubernetes/examples/tree/master/stagi
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
-Un volumen `persistenceVolumeClain` se utiliza para montar un [PersistentVolume](/docs/concepts/storage/persistent-volumes/) en tu Pod. PersistentVolumeClaims son una forma en que el usuario "reclama" almacenamiento duradero (como un PersistentDisk GCE o un volumen ISCSI) sin conocer los detalles del ambiente de la nube en particular.
+Un volumen `persistenceVolumeClain` se utiliza para montar un [PersistentVolume](/docs/concepts/storage/persistent-volumes/) en tu Pod. PersistentVolumeClaims son una forma en que el usuario "reclama" almacenamiento duradero (como un PersistentDisk GCE o un volumen ISCSI) sin conocer los detalles del entorno de la nube en particular.
 
 Mira la información spbre [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) para más detalles.
 
@@ -1139,9 +1139,9 @@ Una vez que se despliega un controlador de volumen CSI compatible, los usuarios 
 Un volumen `csi` puede ser usado en un Pod en tres maneras distintas:
 
 - a través de una referencia a [PersistentVolumeClaim](#persistentvolumeclaim)
-- con un [volumen general efímero](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
+- con un [volumen general efímero](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
   (característica alpha)
-- con un [volumen efímero CSI](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) si el controlador permite esta (característica beta)
+- con un [volumen efímero CSI](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes) si el controlador permite esta (característica beta)
 
 Los siguientes campos están disponibles para que los administradores de almacenamiento configuren el volumen persistente CSI
 
@@ -1168,7 +1168,7 @@ You can set up your [PersistentVolume/PersistentVolumeClaim with raw block volum
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 Puedes configurar directamente volúmenes CSI dentro de la especificación del Pod.
-Los volúmenes especificados de esta manera son efímeros y no se persisten entre reinicios del Pod. Mira [Volúmenes efímeros](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) para más información.
+Los volúmenes especificados de esta manera son efímeros y no se persisten entre reinicios del Pod. Mira [Volúmenes efímeros](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes) para más información.
 
 Para más información de cómo desarrollador un controlador CSI, mira la [documentación kubernetes-csi](https://kubernetes-csi.github.io/docs/)
 

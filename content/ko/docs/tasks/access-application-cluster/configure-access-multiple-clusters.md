@@ -271,7 +271,7 @@ contexts:
 ### 리눅스
 
 ```shell
-export KUBECONFIG_SAVED=$KUBECONFIG
+export KUBECONFIG_SAVED="$KUBECONFIG"
 ```
 
 ### 윈도우 PowerShell
@@ -290,7 +290,7 @@ $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
 ### 리눅스
 
 ```shell
-export KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
+export KUBECONFIG="${KUBECONFIG}:config-demo:config-demo-2"
 ```
 
 ### 윈도우 PowerShell
@@ -356,7 +356,7 @@ kubeconfig 파일들을 어떻게 병합하는지에 대한 상세정보는
 ### 리눅스
 
 ```shell
-export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
+export KUBECONFIG="${KUBECONFIG}:${HOME}/.kube/config"
 ```
 
 ### 윈도우 Powershell
@@ -379,7 +379,7 @@ kubectl config view
 ### 리눅스
 
 ```shell
-export KUBECONFIG=$KUBECONFIG_SAVED
+export KUBECONFIG="$KUBECONFIG_SAVED"
 ```
 
 ### 윈도우 PowerShell

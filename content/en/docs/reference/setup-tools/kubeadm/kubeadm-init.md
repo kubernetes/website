@@ -6,7 +6,9 @@ title: kubeadm init
 content_type: concept
 weight: 20
 ---
+
 <!-- overview -->
+
 This command initializes a Kubernetes control-plane node.
 
 <!-- body -->
@@ -26,12 +28,12 @@ following steps:
 1. Generates a self-signed CA to set up identities for each component in the cluster. The user can provide their
    own CA cert and/or key by dropping it in the cert directory configured via `--cert-dir`
    (`/etc/kubernetes/pki` by default).
-   The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans` arguments, lowercased if necessary.
+   The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans`
+   arguments, lowercased if necessary.
 
-1. Writes kubeconfig files in `/etc/kubernetes/`  for
-   the kubelet, the controller-manager and the scheduler to use to connect to the
-   API server, each with its own identity, as well as an additional
-   kubeconfig file for administration named `admin.conf`.
+1. Writes kubeconfig files in `/etc/kubernetes/` for the kubelet, the controller-manager and the
+   scheduler to use to connect to the API server, each with its own identity, as well as an
+   additional kubeconfig file for administration named `admin.conf`.
 
 1. Generates static Pod manifests for the API server,
    controller-manager and scheduler. In case an external etcd is not provided,
@@ -76,10 +78,12 @@ following steps:
 
 Kubeadm allows you to create a control-plane node in phases using the `kubeadm init phase` command.
 
-To view the ordered list of phases and sub-phases you can call `kubeadm init --help`. The list will be located at the top of the help screen and each phase will have a description next to it.
+To view the ordered list of phases and sub-phases you can call `kubeadm init --help`. The list
+will be located at the top of the help screen and each phase will have a description next to it.
 Note that by calling `kubeadm init` all of the phases and sub-phases will be executed in this exact order.
 
-Some phases have unique flags, so if you want to have a look at the list of available options add `--help`, for example:
+Some phases have unique flags, so if you want to have a look at the list of available options add
+`--help`, for example:
 
 ```shell
 sudo kubeadm init phase control-plane controller-manager --help
@@ -91,7 +95,8 @@ You can also use `--help` to see the list of sub-phases for a certain parent pha
 sudo kubeadm init phase control-plane --help
 ```
 
-`kubeadm init` also exposes a flag called `--skip-phases` that can be used to skip certain phases. The flag accepts a list of phase names and the names can be taken from the above ordered list.
+`kubeadm init` also exposes a flag called `--skip-phases` that can be used to skip certain phases.
+The flag accepts a list of phase names and the names can be taken from the above ordered list.
 
 An example:
 
@@ -102,7 +107,10 @@ sudo kubeadm init phase etcd local --config=configfile.yaml
 sudo kubeadm init --skip-phases=control-plane,etcd --config=configfile.yaml
 ```
 
-What this example would do is write the manifest files for the control plane and etcd in `/etc/kubernetes/manifests` based on the configuration in `configfile.yaml`. This allows you to modify the files and then skip these phases using `--skip-phases`. By calling the last command you will create a control plane node with the custom manifest files.
+What this example would do is write the manifest files for the control plane and etcd in
+`/etc/kubernetes/manifests` based on the configuration in `configfile.yaml`. This allows you to
+modify the files and then skip these phases using `--skip-phases`. By calling the last command you
+will create a control plane node with the custom manifest files.
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
@@ -147,15 +155,15 @@ directly to kubeadm is not supported. Instead, it is possible to pass them by
 List of feature gates:
 
 {{< table caption="kubeadm feature gates" >}}
-Feature | Default | Alpha | Beta
-:-------|:--------|:------|:-----
-`PublicKeysECDSA` | `false` | 1.19 | -
-`RootlessControlPlane` | `false` | 1.22 | -
-`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23
+Feature | Default | Alpha | Beta | GA
+:-------|:--------|:------|:-----|:----
+`PublicKeysECDSA` | `false` | 1.19 | - | -
+`RootlessControlPlane` | `false` | 1.22 | - | -
+`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23 | 1.25
 {{< /table >}}
 
 {{< note >}}
-Once a feature gate goes GA it is removed from this list as its value becomes locked to `true` by default.
+Once a feature gate goes GA its value becomes locked to `true` by default.
 {{< /note >}}
 
 Feature gate descriptions:
@@ -180,10 +188,6 @@ that ConfigMap are appropriate for the value you set. When kubeadm writes this C
 or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
 (during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade ...`), kubeadm attempts to use unversioned ConfigMap name first;
 if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
-
-{{< note >}}
-Setting `UnversionedKubeletConfigMap` to `false` is supported but **deprecated**.
-{{< /note >}}
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
@@ -212,11 +216,11 @@ kubeadm config images pull
 You can pass `--config` to the above commands with a [kubeadm configuration file](#config-file)
 to control the `kubernetesVersion` and `imageRepository` fields.
 
-All default `k8s.gcr.io` images that kubeadm requires support multiple architectures.
+All default `registry.k8s.io` images that kubeadm requires support multiple architectures.
 
 ### Using custom images {#custom-images}
 
-By default, kubeadm pulls images from `k8s.gcr.io`. If the
+By default, kubeadm pulls images from `registry.k8s.io`. If the
 requested Kubernetes version is a CI label (such as `ci/latest`)
 `gcr.io/k8s-staging-ci-images` is used.
 
@@ -225,18 +229,18 @@ Allowed customization are:
 
 * To provide `kubernetesVersion` which affects the version of the images.
 * To provide an alternative `imageRepository` to be used instead of
-  `k8s.gcr.io`.
+  `registry.k8s.io`.
 * To provide a specific `imageRepository` and `imageTag` for etcd or CoreDNS.
 
-Image paths between the default `k8s.gcr.io` and a custom repository specified using
+Image paths between the default `registry.k8s.io` and a custom repository specified using
 `imageRepository` may differ for backwards compatibility reasons. For example,
-one image might have a subpath at `k8s.gcr.io/subpath/image`, but be defaulted
+one image might have a subpath at `registry.k8s.io/subpath/image`, but be defaulted
 to `my.customrepository.io/image` when using a custom repository.
 
 To ensure you push the images to your custom repository in paths that kubeadm
 can consume, you must:
 
-* Pull images from the defaults paths at `k8s.gcr.io` using `kubeadm config images {list|pull}`.
+* Pull images from the defaults paths at `registry.k8s.io` using `kubeadm config images {list|pull}`.
 * Push images to the paths from `kubeadm config images list --config=config.yaml`,
 where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
 for etcd and CoreDNS.
@@ -249,7 +253,7 @@ To set a custom image for these you need to configure this in your
 to use the image.
 Consult the documentation for your container runtime to find out how to change this setting;
 for selected container runtimes, you can also find advice within the
-[Container Runtimes]((/docs/setup/production-environment/container-runtimes/) topic.
+[Container Runtimes](/docs/setup/production-environment/container-runtimes/) topic.
 
 ### Uploading control-plane certificates to the cluster
 
@@ -263,10 +267,13 @@ to download the certificates when additional control-plane nodes are joining, by
 The following phase command can be used to re-upload the certificates after expiration:
 
 ```shell
-kubeadm init phase upload-certs --upload-certs --certificate-key=SOME_VALUE --config=SOME_YAML_FILE
+kubeadm init phase upload-certs --upload-certs --config=SOME_YAML_FILE
 ```
+{{< note >}}
+A predefined `certificateKey` can be provided in `InitConfiguration` when passing the [configuration file](https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/) with `--config`.
+{{< /note >}}
 
-If the flag `--certificate-key` is not passed to `kubeadm init` and
+If a predefined certificate key is not passed to `kubeadm init` and
 `kubeadm init phase upload-certs` a new key will be generated automatically.
 
 The following command can be used to generate a new key on demand:
@@ -284,30 +291,35 @@ and certificate renewal.
 
 ### Managing the kubeadm drop-in file for the kubelet {#kubelet-drop-in}
 
-The `kubeadm` package ships with a configuration file for running the `kubelet` by `systemd`. Note that the kubeadm CLI never touches this drop-in file. This drop-in file is part of the kubeadm DEB/RPM package.
+The `kubeadm` package ships with a configuration file for running the `kubelet` by `systemd`.
+Note that the kubeadm CLI never touches this drop-in file. This drop-in file is part of the kubeadm
+DEB/RPM package.
 
-For further information, see [Managing the kubeadm drop-in file for systemd](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd).
+For further information, see
+[Managing the kubeadm drop-in file for systemd](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd).
 
 ### Use kubeadm with CRI runtimes
 
-By default kubeadm attempts to detect your container runtime. For more details on this detection, see
-the [kubeadm CRI installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
+By default kubeadm attempts to detect your container runtime. For more details on this detection,
+see the [kubeadm CRI installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 
 ### Setting the node name
 
-By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the `--node-name` flag.
+By default, `kubeadm` assigns a node name based on a machine's host address.
+You can override this setting with the `--node-name` flag.
 The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options)
 value to the kubelet.
 
-Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
+Be aware that overriding the hostname can
+[interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
 
 ### Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
-in the [basic kubeadm tutorial](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), you can parallelize the
-token distribution for easier automation. To implement this automation, you must
-know the IP address that the control-plane node will have after it is started,
-or use a DNS name or an address of a load balancer.
+in the [basic kubeadm tutorial](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/),
+you can parallelize the token distribution for easier automation. To implement this automation,
+you must know the IP address that the control-plane node will have after it is started, or use a
+DNS name or an address of a load balancer.
 
 1. Generate a token. This token must have the form  `<6 character string>.<16
    character string>`. More formally, it must match the regex:
@@ -341,7 +353,11 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 ## {{% heading "whatsnext" %}}
 
 * [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) to understand more about
-`kubeadm init` phases
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
-* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+  `kubeadm init` phases
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes
+  worker node and join it to the cluster
+* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes
+  cluster to a newer version
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made
+  to this host by `kubeadm init` or `kubeadm join`
+

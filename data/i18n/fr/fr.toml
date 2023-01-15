@@ -141,3 +141,15 @@ other = "Recherche"
 
 [input_placeholder_email_address]
 other = "adresse email"
+
+[latest_release]
+other = "Dernière version:"
+
+[end_of_life]
+other = "Fin du support:"
+
+[previous_patches]
+other = "Correctifs publiés:"
+
+[release_date_before]
+other = "(publiée: "

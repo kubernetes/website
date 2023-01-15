@@ -171,57 +171,76 @@ Or use this for detailed view of version:
 ### 用原生包管理工具安装 {#install-using-native-package-management}
 
 {{< tabs name="kubectl_install" >}}
-{{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+{{% tab name="基于 Debian 的发行版" %}}
 
-  <!--
-  1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
-  -->
-  1. 更新 `apt` 包索引，并安装使用 Kubernetes `apt` 仓库所需要的包：
+<!--
+1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+-->
+1. 更新 `apt` 包索引，并安装使用 Kubernetes `apt` 仓库所需要的包：
 
-     ```shell
-     sudo apt-get update
-     sudo apt-get install -y apt-transport-https ca-certificates curl
-     ```
-  <!--
-  2. Download the Google Cloud public signing key:
-  -->
-  2. 下载 Google Cloud 公开签名秘钥：
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y ca-certificates curl
+   ```
+   <!--
+   If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
+   -->
+   如果你使用 Debian 9（stretch）或更早版本，则你还需要安装 `apt-transport-https`：
+   ```shell
+   sudo apt-get install -y apt-transport-https
+   ```
 
-     ```shell
-     sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-     ```
+<!--
+2. Download the Google Cloud public signing key:
+-->
 
-  <!--
-  3. Add the Kubernetes `apt` repository:
-  -->
-  3. 添加 Kubernetes `apt` 仓库：
+2. 下载 Google Cloud 公开签名秘钥：
 
-     ```shell
-     echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-     ```
+   ```shell
+   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   ```
 
-  <!--
-  4. Update `apt` package index with the new repository and install kubectl:
-  -->
-  4. 更新 `apt` 包索引，使之包含新的仓库并安装 kubectl：
+<!--
+3. Add the Kubernetes `apt` repository:
+-->
 
-     ```shell
-     sudo apt-get update
-     sudo apt-get install -y kubectl
-     ```
+3. 添加 Kubernetes `apt` 仓库：
+
+   ```shell
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+<!--
+4. Update `apt` package index with the new repository and install kubectl:
+-->
+
+4. 更新 `apt` 包索引，使之包含新的仓库并安装 kubectl：
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubectl
+   ```
+{{< note >}}
+<!--
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
+You can create this directory if you need to, making it world-readable but writeable only by admins.
+-->
+在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
+如有需要，你可以创建此目录，并将其设置为对所有人可读，但仅对管理员可写。
+{{< /note >}}
+
 {{% /tab %}}
 
 {{% tab name="基于 Red Hat 的发行版" %}}
 
-```shell
+```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
 ```
@@ -353,6 +372,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    kubectl-convert: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
+
    {{< note >}}
    <!--
    Download the same version of the binary and checksum.
@@ -386,4 +406,3 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
-

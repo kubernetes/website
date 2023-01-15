@@ -5,6 +5,10 @@ weight: 80
 ---
 
 <!--
+reviewers:
+- erictune
+- soltysh
+- janetkuo
 title: CronJob
 content_type: concept
 weight: 80
@@ -20,12 +24,13 @@ A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repe
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 -->
-_CronJob_ 创建基于时隔重复调度的 {{< glossary_tooltip term_id="job" text="Jobs" >}}。
+**CronJob** 创建基于时隔重复调度的 {{< glossary_tooltip term_id="job" text="Job" >}}。
 
-一个 CronJob 对象就像 _crontab_ (cron table) 文件中的一行。
+一个 CronJob 对象就像 **crontab** (cron table) 文件中的一行。
 它用 [Cron](https://en.wikipedia.org/wiki/Cron) 格式进行编写，
 并周期性地在给定的调度时间执行 Job。
 
+{{< caution >}}
 <!--
 All **CronJob** `schedule:` times are based on the timezone of the
 
@@ -33,16 +38,15 @@ If your control plane runs the kube-controller-manager in Pods or bare
 containers, the timezone set for the kube-controller-manager container determines the timezone
 that the cron job controller uses.
 -->
-
-{{< caution >}}
 所有 **CronJob** 的 `schedule:` 时间都是基于
-{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
 的时区。
 
 如果你的控制平面在 Pod 或是裸容器中运行了 kube-controller-manager，
 那么为该容器所设置的时区将会决定 Cron Job 的控制器所使用的时区。
 {{< /caution >}}
 
+{{< caution >}}
 <!--
 The [v1 CronJob API](/docs/reference/kubernetes-api/workload-resources/cron-job-v1/)
 does not officially support setting timezone as explained above.
@@ -52,8 +56,6 @@ Setting variables such as `CRON_TZ` or `TZ` is not officially supported by the K
 for parsing and calculating the next Job creation time. Any usage of it is not
 recommended in a production cluster.
 -->
-
-{{< caution >}}
 如 [v1 CronJob API](/zh-cn/docs/reference/kubernetes-api/workload-resources/cron-job-v1/) 所述，官方并不支持设置时区。
 
 Kubernetes 项目官方并不支持设置如 `CRON_TZ` 或者 `TZ` 等变量。
@@ -62,17 +64,24 @@ Kubernetes 项目官方并不支持设置如 `CRON_TZ` 或者 `TZ` 等变量。
 {{< /caution>}}
 
 <!--
-When creating the manifest for a CronJob resource, make sure the name you provide
-is a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-The name must be no longer than 52 characters. This is because the CronJob controller will automatically
-append 11 characters to the job name provided and there is a constraint that the
-maximum length of a Job name is no more than 63 characters.
+When the control plane creates new Jobs and (indirectly) Pods for a CronJob, the `.metadata.name`
+of the CronJob is part of the basis for naming those Pods.  The name of a CronJob must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
+Even when the name is a DNS subdomain, the name must be no longer than 52
+characters.  This is because the CronJob controller will automatically append
+11 characters to the name you provide and there is a constraint that the
+length of a Job name is no more than 63 characters.
 -->
-为 CronJob 资源创建清单时，请确保所提供的名称是一个合法的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
-名称不能超过 52 个字符。
-这是因为 CronJob 控制器将自动在提供的 Job 名称后附加 11 个字符，并且存在一个限制，
-即 Job 名称的最大长度不能超过 63 个字符。
+当控制平面为 CronJob 创建新的 Job 和（间接）Pod 时，CronJob 的 `.metadata.name` 是命名这些 Pod 的部分基础。
+CronJob 的名称必须是一个合法的
+[DNS 子域](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)值，
+但这会对 Pod 的主机名产生意外的结果。为获得最佳兼容性，名称应遵循更严格的
+[DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
+即使名称是一个 DNS 子域，它也不能超过 52 个字符。这是因为 CronJob 控制器将自动在你所提供的 Job 名称后附加
+11 个字符，并且存在 Job 名称的最大长度不能超过 63 个字符的限制。
 
 <!-- body -->
 
@@ -101,8 +110,7 @@ This example CronJob manifest prints the current time and a hello message every 
 
 {{< codenew file="application/job/cronjob.yaml" >}}
 
-[使用 CronJob 运行自动化任务](/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/)
-一文会为你详细讲解此例。
+[使用 CronJob 运行自动化任务](/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/)一文会为你详细讲解此例。
 
 <!--
 ### Cron schedule syntax
@@ -132,10 +140,10 @@ This example CronJob manifest prints the current time and a hello message every 
 -->
 | 输入                      | 描述                          | 相当于         |
 | -------------             | -------------                 |-------------   |
-| @yearly (or @annually)    | 每年 1 月 1 日的午夜运行一次  | 0 0 1 1 *      |
+| @yearly (或 @annually)    | 每年 1 月 1 日的午夜运行一次  | 0 0 1 1 *      |
 | @monthly                  | 每月第一天的午夜运行一次      | 0 0 1 * *      |
 | @weekly                   | 每周的周日午夜运行一次        | 0 0 * * 0      |
-| @daily (or @midnight)     | 每天午夜运行一次              | 0 0 * * *      |
+| @daily (或 @midnight)     | 每天午夜运行一次              | 0 0 * * *      |
 | @hourly                   | 每小时的开始一次              | 0 * * * *      |
 
 <!--  
@@ -153,68 +161,36 @@ To generate CronJob schedule expressions, you can also use web tools like [cront
 <!-- 
 ## Time zones
 For CronJobs with no time zone specified, the kube-controller-manager interprets schedules relative to its local time zone.
+-->
+## 时区    {#time-zones}
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+对于没有指定时区的 CronJob，kube-controller-manager 基于本地时区解释排期表（Schedule）。
 
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+
+<!--
 If you enable the  `CronJobTimeZone` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 you can specify a time zone for a CronJob (if you don't enable that feature gate, or if you are using a version of
 Kubernetes that does not have experimental time zone support, all CronJobs in your cluster have an unspecified
 timezone).
 
-When you have the feature enabled, you can set `spec.timeZone` to the name of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) name. For example, setting
+When you have the feature enabled, you can set `spec.timeZone` to the name of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For example, setting
 `spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
 
 A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
 -->
-
-## 时区    {#time-zones}
-对于没有指定时区的 CronJob，kube-controller-manager 基于本地时区解释排期表（Schedule）。
-
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
-
 如果启用了 `CronJobTimeZone` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 你可以为 CronJob 指定一个时区（如果你没有启用该特性门控，或者你使用的是不支持试验性时区功能的
 Kubernetes 版本，集群中所有 CronJob 的时区都是未指定的）。
 
 启用该特性后，你可以将 `spec.timeZone`
-设置为有效[时区](https://zh.wikipedia.org/wiki/%E6%97%B6%E5%8C%BA%E4%BF%A1%E6%81%AF%E6%95%B0%E6%8D%AE%E5%BA%93)名称。 
+设置为有效[时区](https://zh.wikipedia.org/wiki/%E6%97%B6%E5%8C%BA%E4%BF%A1%E6%81%AF%E6%95%B0%E6%8D%AE%E5%BA%93)名称。
 例如，设置 `spec.timeZone: "Etc/UTC"` 指示 Kubernetes 采用 UTC 来解释排期表。
 
 Go 标准库中的时区数据库包含在二进制文件中，并用作备用数据库，以防系统上没有可用的外部数据库。
 
-
 <!--
-## Time zones
-For CronJobs with no time zone specified, the kube-controller-manager interprets schedules relative to its local time zone.
--->
-## 时区    {#time-zones}
-对于没有指定时区的 CronJob，kube-controller-manager 会根据其本地时区来解释其排期表（schedule）。
-
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
-
-<!--
-If you enable the  `CronJobTimeZone` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-you can specify a time zone for a CronJob (if you don't enable that feature gate, or if you are using a version of
-Kubernetes that does not have experimental time zone support, all CronJobs in your cluster have an unspecified
-timezone).
--->
-如果启用 `CronJobTimeZone` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-你可以为 CronJob 指定时区（如果你不启用该特性门控，或者如果你使用的 Kubernetes 版本不支持实验中的时区特性，
-则集群中的所有 CronJob 都属于未指定时区）。
-
-<!--
-When you have the feature enabled, you can set `spec.timeZone` to the name of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) name. For example, setting
-`spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
-
-A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
--->
-当你启用该特性时，你可以将 `spec.timeZone` 设置为有效的[时区](https://zh.wikipedia.org/wiki/%E6%97%B6%E5%8C%BA%E4%BF%A1%E6%81%AF%E6%95%B0%E6%8D%AE%E5%BA%93)名称。
-例如，设置 `spec.timeZone: "Etc/UTC"` 表示 Kubernetes
-使用协调世界时（Coordinated Universal Time）进行解释排期表。
-
-Go 标准库中的时区数据库包含在二进制文件中，并用作备用数据库，以防系统上没有外部数据库可用。
-<!--
-## CronJob Limitations
+## CronJob limitations {#cron-job-limitations}
 
 A cron job creates a job object _about_ once per execution time of its schedule. We say "about" because there
 are certain circumstances where two jobs might be created, or no job might be created. We attempt to make these rare,
@@ -224,7 +200,7 @@ but do not completely prevent them. Therefore, jobs should be _idempotent_.
 
 CronJob 根据其计划编排，在每次该执行任务的时候大约会创建一个 Job。
 我们之所以说 "大约"，是因为在某些情况下，可能会创建两个 Job，或者不会创建任何 Job。
-我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是 _幂等的_。
+我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是 **幂等的**。
 
 <!--
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)
@@ -243,15 +219,15 @@ If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob
 {{< /caution >}}
 
 <!--
-For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error
+For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error.
 -->
 对于每个 CronJob，CronJob {{< glossary_tooltip term_text="控制器" term_id="controller" >}}
 检查从上一次调度的时间点到现在所错过了调度次数。如果错过的调度次数超过 100 次，
 那么它就不会启动这个任务，并记录这个错误:
 
-````
+```
 Cannot determine if job needs to be started. Too many missed start time (> 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew.
-````
+```
 
 <!--
 It is important to note that if the `startingDeadlineSeconds` field is set (not `nil`), the controller counts how many missed jobs occurred from the value of `startingDeadlineSeconds` until now rather than from the last scheduled time until now. For example, if `startingDeadlineSeconds` is `200`, the controller counts how many missed jobs occurred in the last 200 seconds.
@@ -261,7 +237,7 @@ It is important to note that if the `startingDeadlineSeconds` field is set (not 
 例如，如果 `startingDeadlineSeconds` 是 `200`，则控制器会统计在过去 200 秒中错过了多少次 Job。
 
 <!--
-A CronJob is counted as missed if it has failed to be created at its scheduled time. For example, If `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted to be scheduled when there was a previous schedule still running, then it would count as missed.
+A CronJob is counted as missed if it has failed to be created at its scheduled time. For example, if `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted to be scheduled when there was a previous schedule still running, then it would count as missed.
 -->
 如果未能在调度时间内创建 CronJob，则计为错过。
 例如，如果 `concurrencyPolicy` 被设置为 `Forbid`，并且当前有一个调度仍在运行的情况下，
@@ -274,16 +250,16 @@ be down from `08:29:00` to `10:21:00`, the job will not start as the number of m
 -->
 例如，假设一个 CronJob 被设置为从 `08:30:00` 开始每隔一分钟创建一个新的 Job，
 并且它的 `startingDeadlineSeconds` 字段未被设置。如果 CronJob 控制器从
-`08:29:00` 到 `10:21:00` 终止运行，则该 Job 将不会启动，因为其错过的调度
-次数超过了 100。
+`08:29:00` 到 `10:21:00` 终止运行，则该 Job 将不会启动，
+因为其错过的调度次数超过了 100。
 
 <!--
 To illustrate this concept further, suppose a CronJob is set to schedule a new Job every one minute beginning at `08:30:00`, and its
 `startingDeadlineSeconds` is set to 200 seconds. If the CronJob controller happens to
-be down for the same period as the previous example (`08:29:00` to `10:21:00`,) the Job will still start at 10:22:00. This happens as the controller now checks how many missed schedules happened in the last 200 seconds (ie, 3 missed schedules), rather than from the last scheduled time until now.
+be down for the same period as the previous example (`08:29:00` to `10:21:00`,) the Job will still start at 10:22:00. This happens as the controller now checks how many missed schedules happened in the last 200 seconds (i.e., 3 missed schedules), rather than from the last scheduled time until now.
 -->
 为了进一步阐述这个概念，假设将 CronJob 设置为从 `08:30:00` 开始每隔一分钟创建一个新的 Job，
-并将其 `startingDeadlineSeconds` 字段设置为 200 秒。 
+并将其 `startingDeadlineSeconds` 字段设置为 200 秒。
 如果 CronJob 控制器恰好在与上一个示例相同的时间段（`08:29:00` 到 `10:21:00`）终止运行，
 则 Job 仍将从 `10:22:00` 开始。
 造成这种情况的原因是控制器现在检查在最近 200 秒（即 3 个错过的调度）中发生了多少次错过的
@@ -300,7 +276,7 @@ CronJob 仅负责创建与其调度时间相匹配的 Job，而 Job 又负责管
 
 Starting with Kubernetes v1.21 the second version of the CronJob controller
 is the default implementation. To disable the default CronJob controller
-and use the original CronJob controller instead, one pass the `CronJobControllerV2`
+and use the original CronJob controller instead, pass the `CronJobControllerV2`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}},
 and set this flag to `false`. For example:
@@ -318,6 +294,7 @@ and set this flag to `false`. For example:
 ```
 
 ## {{% heading "whatsnext" %}}
+
 <!--
 * Learn about [Pods](/docs/concepts/workloads/pods/) and
   [Jobs](/docs/concepts/workloads/controllers/job/), two concepts
@@ -333,11 +310,10 @@ and set this flag to `false`. For example:
   Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
   object definition to understand the API for Kubernetes cron jobs.
 -->
-
 * 了解 CronJob 所依赖的 [Pod](/zh-cn/docs/concepts/workloads/pods/) 与 [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 的概念。
 * 阅读 CronJob `.spec.schedule` 字段的[格式](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)。
-* 有关创建和使用 CronJob 的说明及示例规约文件，请参见
-  [使用 CronJob 运行自动化任务](/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/)。
+* 有关创建和使用 CronJob 的说明及示例规约文件，
+  请参见[使用 CronJob 运行自动化任务](/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/)。
 * 有关自动清理失败或完成作业的说明，请参阅[自动清理作业](/zh-cn/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 * `CronJob` 是 Kubernetes REST API 的一部分，
    阅读 {{< api-reference page="workload-resources/cron-job-v1" >}}

@@ -39,10 +39,18 @@ that provides a set of stateless replicas.
 
 ## Limitations
 
-* The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
-* Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
-* StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
-* StatefulSets do not provide any guarantees on the termination of pods when a StatefulSet is deleted. To achieve ordered and graceful termination of the pods in the StatefulSet, it is possible to scale the StatefulSet down to 0 prior to deletion.
+* The storage for a given Pod must either be provisioned by a
+  [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)
+  based on the requested `storage class`, or pre-provisioned by an admin.
+* Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the
+  StatefulSet. This is done to ensure data safety, which is generally more valuable than an
+  automatic purge of all related StatefulSet resources.
+* StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services)
+  to be responsible for the network identity of the Pods. You are responsible for creating this
+  Service.
+* StatefulSets do not provide any guarantees on the termination of pods when a StatefulSet is
+  deleted. To achieve ordered and graceful termination of the pods in the StatefulSet, it is
+  possible to scale the StatefulSet down to 0 prior to deletion.
 * When using [Rolling Updates](#rolling-updates) with the default
   [Pod Management Policy](#pod-management-policies) (`OrderedReady`),
   it's possible to get into a broken state that requires
@@ -86,7 +94,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: nginx
-        image: k8s.gcr.io/nginx-slim:0.8
+        image: registry.k8s.io/nginx-slim:0.8
         ports:
         - containerPort: 80
           name: web
@@ -108,40 +116,61 @@ In the above example:
 
 * A Headless Service, named `nginx`, is used to control the network domain.
 * The StatefulSet, named `web`, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
-* The `volumeClaimTemplates` will provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
+* The `volumeClaimTemplates` will provide stable storage using
+  [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a
+  PersistentVolume Provisioner.
 
 The name of a StatefulSet object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 ### Pod Selector
 
-You must set the `.spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. Failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
+You must set the `.spec.selector` field of a StatefulSet to match the labels of its
+`.spec.template.metadata.labels`. Failing to specify a matching Pod Selector will result in a
+validation error during StatefulSet creation.
 
 ### Volume Claim Templates
 
-You can set the  `.spec.volumeClaimTemplates` which can provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
+You can set the `.spec.volumeClaimTemplates` which can provide stable storage using
+[PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume
+Provisioner.
 
 
 ### Minimum ready seconds
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 `.spec.minReadySeconds` is an optional field that specifies the minimum number of seconds for which a newly
-created Pod should be ready without any of its containers crashing, for it to be considered available.
-Please note that this feature is beta and enabled by default. Please opt out by unsetting the StatefulSetMinReadySeconds flag, if you don't
-want this feature to be enabled. This field defaults to 0 (the Pod will be considered 
-available as soon as it is ready). To learn more about when a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+created Pod should be running and ready without any of its containers crashing, for it to be considered available.
+This is used to check progression of a rollout when using a [Rolling Update](#rolling-updates) strategy.
+This field defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
+a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 ## Pod Identity
 
-StatefulSet Pods have a unique identity that is comprised of an ordinal, a
+StatefulSet Pods have a unique identity that consists of an ordinal, a
 stable network identity, and stable storage. The identity sticks to the Pod,
 regardless of which node it's (re)scheduled on.
 
 ### Ordinal Index
 
-For a StatefulSet with N replicas, each Pod in the StatefulSet will be
-assigned an integer ordinal, from 0 up through N-1, that is unique over the Set.
+For a StatefulSet with N [replicas](#replicas), each Pod in the StatefulSet
+will be assigned an integer ordinal, that is unique over the Set. By default,
+pods will be assigned ordinals from 0 up through N-1.
+
+### Start ordinal
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+`.spec.ordinals` is an optional field that allows you to configure the integer
+ordinals assigned to each Pod. It defaults to nil. You must enable the
+`StatefulSetStartOrdinal`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this field. Once enabled, you can configure the following options:
+
+* `.spec.ordinals.start`: If the `.spec.ordinals.start` field is set, Pods will
+  be assigned ordinals from `.spec.ordinals.start` up through
+  `.spec.ordinals.start + .spec.replicas - 1`.
 
 ### Stable Network ID
 
@@ -166,8 +195,8 @@ remembered and reused, even after the Pod is running, for at least a few seconds
 If you need to discover Pods promptly after they are created, you have a few options:
 
 - Query the Kubernetes API directly (for example, using a watch) rather than relying on DNS lookups.
-- Decrease the time of caching in your Kubernetes DNS provider (typically this means editing the config map for CoreDNS, which currently caches for 30 seconds).
-
+- Decrease the time of caching in your Kubernetes DNS provider (typically this means editing the
+  config map for CoreDNS, which currently caches for 30 seconds).
 
 As mentioned in the [limitations](#limitations) section, you are responsible for
 creating the [Headless Service](/docs/concepts/services-networking/service/#headless-services)
@@ -189,7 +218,9 @@ Cluster Domain will be set to `cluster.local` unless
 
 ### Stable Storage
 
-For each VolumeClaimTemplate entry defined in a StatefulSet, each Pod receives one PersistentVolumeClaim. In the nginx example above, each Pod receives a single PersistentVolume with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
+For each VolumeClaimTemplate entry defined in a StatefulSet, each Pod receives one
+PersistentVolumeClaim. In the nginx example above, each Pod receives a single PersistentVolume
+with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
 is specified, then the default StorageClass will be used. When a Pod is (re)scheduled
 onto a node, its `volumeMounts` mount the PersistentVolumes associated with its
 PersistentVolume Claims. Note that, the PersistentVolumes associated with the
@@ -198,7 +229,7 @@ This must be done manually.
 
 ### Pod Name Label
 
-When the StatefulSet {{< glossary_tooltip term_id="controller" >}} creates a Pod,
+When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
 it adds a label, `statefulset.kubernetes.io/pod-name`, that is set to the name of
 the Pod. This label allows you to attach a Service to a specific Pod in
 the StatefulSet.
@@ -210,7 +241,9 @@ the StatefulSet.
 * Before a scaling operation is applied to a Pod, all of its predecessors must be Running and Ready.
 * Before a Pod is terminated, all of its successors must be completely shutdown.
 
-The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. This practice is unsafe and strongly discouraged. For further explanation, please refer to [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. This practice
+is unsafe and strongly discouraged. For further explanation, please refer to
+[force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
 When the nginx example above is created, three Pods will be deployed in the order
 web-0, web-1, web-2. web-1 will not be deployed before web-0 is
@@ -256,7 +289,8 @@ annotations for the Pods in a StatefulSet. There are two possible values:
   create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
 
 `RollingUpdate`
-: The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a StatefulSet. This is the default update strategy.
+: The `RollingUpdate` update strategy implements automated, rolling updates for the Pods in a
+  StatefulSet. This is the default update strategy.
 
 ## Rolling Updates
 
@@ -299,7 +333,7 @@ unavailable Pod in the range `0` to `replicas - 1`, it will be counted towards
 {{< note >}}
 The `maxUnavailable` field is in Alpha stage and it is honored only by API servers
 that are running with the `MaxUnavailableStatefulSet`
-[feature gate](/docs/reference/commmand-line-tools-reference/feature-gates/)
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled.
 {{< /note >}}
 
@@ -331,8 +365,8 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
 and how PVCs are deleted during the lifecycle of a StatefulSet. You must enable the
 `StatefulSetAutoDeletePVC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to use this field. Once enabled, there are two policies you can configure for each
-StatefulSet:
+on the API server and the controller manager to use this field. 
+Once enabled, there are two policies you can configure for each StatefulSet:
 
 `whenDeleted`
 : configures the volume retention behavior that applies when the StatefulSet is deleted
@@ -375,8 +409,8 @@ spec:
 ...
 ```
 
-The StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} adds [owner
-references](/docs/concepts/overview/working-with-objects/owners-dependents/#owner-references-in-object-specifications)
+The StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} adds
+[owner references](/docs/concepts/overview/working-with-objects/owners-dependents/#owner-references-in-object-specifications)
 to its PVCs, which are then deleted by the {{<glossary_tooltip text="garbage collector"
 term_id="garbage-collection">}} after the Pod is terminated. This enables the Pod to
 cleanly unmount all volumes before the PVCs are deleted (and before the backing PV and
@@ -397,7 +431,7 @@ owner reference has been updated appropriate to the policy. If a condemned Pod i
 force-deleted while the controller is down, the owner reference may or may not have been
 set up, depending on when the controller crashed. It may take several reconcile loops to
 update the owner references, so some condemned Pods may have set up owner references and
-other may not. For this reason we recommend waiting for the controller to come back up,
+others may not. For this reason we recommend waiting for the controller to come back up,
 which will verify owner references before terminating Pods. If that is not possible, the
 operator should verify the owner references on PVCs to ensure the expected objects are
 deleted when Pods are force-deleted.

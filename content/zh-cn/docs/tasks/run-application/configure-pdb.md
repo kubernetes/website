@@ -87,7 +87,7 @@ selector goes into the PDBs `.spec.selector`.
 From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
 -->
 从 1.15 版本开始，PDB 支持启用
-[scale 子资源](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)
+[Scale 子资源](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)
 的自定义控制器。
 
 <!--
@@ -158,20 +158,18 @@ Values for `minAvailable` or `maxUnavailable` can be expressed as integers or as
 - When you specify an integer, it represents a number of Pods. For instance, if you set `minAvailable` to 10, then 10
   Pods must always be available, even during a disruption.
 - When you specify a percentage by setting the value to a string representation of a percentage (eg. `"50%"`), it represents a percentage of
-  total Pods. For instance, if you set `minUnavailable` to `"50%"`, then only 50% of the Pods can be unavailable during a
+  total Pods. For instance, if you set `maxUnavailable` to `"50%"`, then only 50% of the Pods can be unavailable during a
   disruption.
 -->
 - 指定整数值时，它表示 Pod 个数。例如，如果将 minAvailable 设置为 10，
   那么即使在干扰期间，也必须始终有 10 个Pod可用。
 - 通过将值设置为百分比的字符串表示形式（例如 “50％”）来指定百分比时，它表示占总 Pod 数的百分比。
-  例如，如果将 "minUnavailable" 设置为 “50％”，则干扰期间只允许 50％ 的 Pod 不可用。
+  例如，如果将 "maxUnavailable" 设置为 “50％”，则干扰期间只允许 50％ 的 Pod 不可用。
 
 <!--
-When you specify the value as a percentage, it may not map to an exact number
-of Pods. For example, if you have 7 Pods and you set `minAvailable` to
-`"50%"`, it's not immediately obvious whether that means 3 Pods or 4 Pods must
-be available.  Kubernetes rounds up to the nearest integer, so in this case, 4
-Pods must be available. You can examine the
+When you specify the value as a percentage, it may not map to an exact number of Pods. For example, if you have 7 Pods and
+you set `minAvailable` to `"50%"`, it's not immediately obvious whether that means 3 Pods or 4 Pods must be available.
+Kubernetes rounds up to the nearest integer, so in this case, 4 Pods must be available. You can examine the
 [code](https://github.com/kubernetes/kubernetes/blob/23be9587a0f8677eb8091464098881df939c44a9/pkg/controller/disruption/disruption.go#L539)
 that controls this behavior.
 -->
@@ -233,10 +231,10 @@ is the `scale` of the controller managing the pods being selected by the
 
 <!--
 Example 1: With a `minAvailable` of 5, evictions are allowed as long as they leave behind
-5 or more healthy pods among those selected by the PodDisruptionBudget's `selector`.
+5 or more [healthy](#healthiness-of-a-pod) pods among those selected by the PodDisruptionBudget's `selector`.
 -->
 示例 1：设置 `minAvailable` 值为 5 的情况下，驱逐时需保证 PodDisruptionBudget 的 `selector`
-选中的 Pod 中 5 个或 5 个以上处于健康状态。
+选中的 Pod 中 5 个或 5 个以上处于[健康](#healthiness-of-a-pod)状态。
 
 <!--
 Example 2: With a `minAvailable` of 30%, evictions are allowed as long as at least 30%
@@ -278,12 +276,17 @@ voluntary evictions, not all causes of unavailability.
 {{< /note >}}
 
 <!--
-A `maxUnavailable` of 0% (or 0) or a `minAvailable` of 100% (or equal to the
-number of replicas) may block node drains entirely. This is permitted as per the
+If you set `maxUnavailable` to 0% or 0, or you set `minAvailable` to 100% or the number of replicas,
+you are requiring zero voluntary evictions. When you set zero voluntary evictions for a workload
+object such as ReplicaSet, then you cannot successfully drain a Node running one of those Pods.
+If you try to drain a Node where an unevictable Pod is running, the drain never completes. This is permitted as per the
 semantics of `PodDisruptionBudget`.
 -->
-设置 `maxUnavailable` 值为 0%（或 0）或设置 `minAvailable` 值为 100%（或等于副本数）
-可能会阻塞节点，导致资源耗尽。按照 `PodDisruptionBudget` 的语义，这是允许的。
+如果你将 `maxUnavailable` 的值设置为 0%（或 0）或设置 `minAvailable` 值为 100%（或等于副本数）
+则会阻止所有的自愿驱逐。
+当你为 ReplicaSet 等工作负载对象设置阻止自愿驱逐时，你将无法成功地腾空运行其中一个 Pod 的节点。
+如果你尝试腾空正在运行着被阻止驱逐的 Pod 的节点，则腾空永远不会完成。
+按照 `PodDisruptionBudget` 的语义，这是允许的。
 
 <!--
 You can find examples of pod disruption budgets defined below. They match pods with the label
@@ -372,12 +375,12 @@ zk-pdb   2               N/A               1                     7s
 ```
 
 <!--
-The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller has seen the pods,
+The non-zero value for `ALLOWED DISRUPTIONS` means that the disruption controller has seen the pods,
 counted the matching pods, and updated the status of the PDB.
 
 You can get more information about the status of a PDB with this command:
 -->
-`ALLOWED-DISRUPTIONS` 值非 0 意味着干扰控制器已经感知到相应的 Pod，对匹配的 Pod 进行统计，
+`ALLOWED DISRUPTIONS` 值非 0 意味着干扰控制器已经感知到相应的 Pod，对匹配的 Pod 进行统计，
 并更新了 PDB 的状态。
 
 用户可以通过以下命令获取更多 PDB 状态相关信息：
@@ -390,7 +393,8 @@ kubectl get poddisruptionbudgets zk-pdb -o yaml
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  anntation: {}
+  annotations:
+…
   creationTimestamp: "2020-03-04T04:22:56Z"
   generation: 1
   name: zk-pdb
@@ -402,6 +406,97 @@ status:
   expectedPods: 3
   observedGeneration: 1
 ```
+
+<!--
+### Healthiness of a Pod
+
+The current implementation considers healthy pods, as pods that have `.status.conditions` item with `type="Ready"` and `status="True"`.
+These pods are tracked via `.status.currentHealthy` field in the PDB status.
+-->
+### Pod 的健康  {#healthiness-of-a-pod}
+
+如果 Pod 的 `.status.conditions` 中包含 `type="Ready"` 和 `status="True"` 的项，
+则当前实现将其视为健康的 Pod。这些 Pod 通过 PDB 状态中的 `.status.currentHealthy` 字段被跟踪。
+
+<!--
+## Unhealthy Pod Eviction Policy
+-->
+## 不健康的 Pod 驱逐策略   {#unhealthy-pod-eviction-policy}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+{{< note >}}
+<!--
+In order to use this behavior, you must enable the `PDBUnhealthyPodEvictionPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
+-->
+为了使用此行为，你必须在
+[API 服务器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)上启用
+`PDBUnhealthyPodEvictionPolicy`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+{{< /note >}}
+
+<!--
+PodDisruptionBudget guarding an application ensures that `.status.currentHealthy` number of pods
+does not fall below the number specified in `.status.desiredHealthy` by disallowing eviction of healthy pods.
+By using `.spec.unhealthyPodEvictionPolicy`, you can also define the criteria when unhealthy pods 
+should be considered for eviction. The default behavior when no policy is specified corresponds 
+to the `IfHealthyBudget` policy.
+-->
+守护应用程序的 PodDisruptionBudget 通过不允许驱逐健康的 Pod 来确保 `.status.currentHealthy` 的 Pod
+数量不低于 `.status.desiredHealthy` 中指定的数量。通过使用 `.spec.unhealthyPodEvictionPolicy`，
+你还可以定义条件来判定何时应考虑驱逐不健康的 Pod。未指定策略时的默认行为对应于 `IfHealthyBudget` 策略。
+
+<!--
+Policies:
+-->
+策略包含：
+
+<!--
+`IfHealthyBudget`
+: Running pods (`.status.phase="Running"`), but not yet healthy can be evicted only if the guarded application is not
+disrupted (`.status.currentHealthy` is at least equal to `.status.desiredHealthy`).
+
+: This policy ensures that running pods of an already disrupted application have the best chance to become healthy.
+This has negative implications for draining nodes, which can be blocked by misbehaving applications that are guarded by a PDB.
+More specifically applications with pods in `CrashLoopBackOff` state (due to a bug or misconfiguration),
+or pods that are just failing to report the `Ready` condition.
+-->
+`IfHealthyBudget`
+: 对于运行中但还不健康的 Pod（`.status.phase="Running"`），只有所守护的应用程序不受干扰
+  （`.status.currentHealthy` 至少等于 `.status.desiredHealthy`）时才能被驱逐。
+
+: 此策略确保已受干扰的应用程序所运行的 Pod 会尽可能成为健康。
+  这对排空节点有负面影响，可能会因 PDB 守护的应用程序行为错误而阻止排空。
+  更具体地说，这些应用程序的 Pod 处于 `CrashLoopBackOff` 状态
+  （由于漏洞或错误配置）或其 Pod 只是未能报告 `Ready` 状况。
+
+<!--
+`AlwaysAllow`
+: Running pods (`.status.phase="Running"`), but not yet healthy are considered disrupted and can be evicted
+regardless of whether the criteria in a PDB is met.
+
+: This means prospective running pods of a disrupted application might not get a chance to become healthy.
+By using this policy, cluster managers can easily evict misbehaving applications that are guarded by a PDB.
+More specifically applications with pods in `CrashLoopBackOff` state (due to a bug or misconfiguration),
+or pods that are just failing to report the `Ready` condition.
+-->
+`AlwaysAllow`
+: 运行中但还不健康的 Pod（`.status.phase="Running"`）将被视为已受干扰且可以被驱逐，
+  与是否满足 PDB 中的判决条件无关。
+
+: 这意味着受干扰的应用程序所运行的 Pod 可能没有机会恢复健康。
+  通过使用此策略，集群管理器可以轻松驱逐由 PDB 所守护的行为错误的应用程序。
+  更具体地说，这些应用程序的 Pod 处于 `CrashLoopBackOff` 状态
+  （由于漏洞或错误配置）或其 Pod 只是未能报告 `Ready` 状况。
+
+{{< note >}}
+<!--
+Pods in `Pending`, `Succeeded` or `Failed` phase are always considered for eviction.
+-->
+处于`Pending`、`Succeeded` 或 `Failed` 阶段的 Pod 总是被考虑驱逐。
+{{< /note >}}
 
 <!--
 ## Arbitrary Controllers and Selectors
@@ -431,9 +526,10 @@ You can use a PDB with pods controlled by another type of controller, by an
 
 <!--
 You can use a selector which selects a subset or superset of the pods belonging to a built-in
-controller.  However, when there are multiple PDBs in a namespace, you must be careful not
-to create PDBs whose selectors overlap.
+controller.  The eviction API will disallow eviction of any pod covered by multiple PDBs,
+so most users will want to avoid overlapping selectors.  One reasonable use of overlapping
+PDBs is when pods are being transitioned from one PDB to another.
 -->
 你可以令选择算符选择一个内置控制器所控制 Pod 的子集或父集。
-然而，当名字空间下存在多个 PDB 时，用户必须小心，保证 PDB 的选择算符之间不重叠。
+驱逐 API 将不允许驱逐被多个 PDB 覆盖的任何 Pod，因此大多数用户都希望避免重叠的选择算符。重叠 PDB 的一种合理用途是当 Pod 从一个 PDB 过渡到另一个 PDB 时再使用。
 

@@ -52,8 +52,8 @@ The value must be one of &quot;Always&quot;, &quot;Never&quot; or &quot;IfNotPre
 &quot;IfNotPresent&quot; is the default, which has been the existing behavior prior to this addition.</li>
 <li>Add &quot;InitConfiguration.Patches.Directory&quot;, &quot;JoinConfiguration.Patches.Directory&quot; to allow
 the user to configure a directory from which to take patches for components deployed by kubeadm.</li>
-<li>Move the BootstrapToken&lowast; API and related utilities out of the &quot;kubeadm&quot; API group to a new group
-&quot;bootstraptoken&quot;. The kubeadm API version v1beta3 no longer contains the BootstrapToken&lowast; structures.</li>
+<li>Move the BootstrapToken* API and related utilities out of the &quot;kubeadm&quot; API group to a new group
+&quot;bootstraptoken&quot;. The kubeadm API version v1beta3 no longer contains the BootstrapToken* structures.</li>
 -->
 <li>添加了 &quot;InitConfiguration.nodeRegistration.imagePullPolicy&quot; 和
 &quot;JoinConfiguration.nodeRegistration.imagePullPolicy&quot;
@@ -63,9 +63,9 @@ the user to configure a directory from which to take patches for components depl
 <li>添加了 &quot;InitConfiguration.patches.directory&quot;,
 &quot;JoinConfiguration.patches.directory&quot; 以允许用户配置一个目录，
 kubeadm 将从该目录中提取组件的补丁包。</li>
-<li>BootstrapToken&lowast; API 和相关的工具被从 &quot;kubeadm&quot; API 组中移出，
+<li>BootstrapToken* API 和相关的工具被从 &quot;kubeadm&quot; API 组中移出，
 放到一个新的 &quot;bootstraptoken&quot; 组中。kubeadm API 版本 v1beta3 不再包含
-BootstrapToken&lowast; 结构。</li>
+BootstrapToken* 结构。</li>
 </ul>
 <!--
 <p>Migration from old kubeadm config versions</p>
@@ -165,8 +165,8 @@ between InitConfiguration and ClusterConfiguration is mandatory.</p>
 <h2>kubeadm init 配置类型</h2>
 
 <p>当带有 <code>--config</code> 选项来执行 kubeadm init 命令时，可以使用下面的配置类型：
-`InitConfiguration`、`ClusterConfiguration`、`KubeProxyConfiguration`、`KubeletConfiguration`，
-但 `InitConfiguration` 和 `ClusterConfiguration`
+<code>InitConfiguration</code>、<code>ClusterConfiguration</code>、<code>KubeProxyConfiguration</code>、<code>KubeletConfiguration</code>，
+但 <code>InitConfiguration</code> 和 <code>ClusterConfiguration</code>
 之间只有一个是必须提供的。</p>
 
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta3<span style="color:#bbb">
@@ -225,7 +225,7 @@ including settings for:</p>
 Pod subnet or services subnet.</p>
 </li>
 -->
-<p>类型 `ClusterConfiguration` 用来定制集群范围的设置，具体包括以下设置：</p>
+<p>类型 <code>ClusterConfiguration</code> 用来定制集群范围的设置，具体包括以下设置：</p>
 
 <ul>
 <li><p><code>networking</code>：其中包含集群的网络拓扑配置。使用这一部分可以定制 Pod 的
@@ -332,7 +332,7 @@ https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">etcd</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic"># one of local or external</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">local</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;k8s.gcr.io&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;registry.k8s.io&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">imageTag</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;3.2.24&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">dataDir</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/var/lib/etcd&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
@@ -386,7 +386,7 @@ https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">certificatesDir</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/kubernetes/pki&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;k8s.gcr.io&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;registry.k8s.io&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">clusterName</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;example-cluster&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span>---<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubelet.config.k8s.io/v1beta1<span style="color:#bbb">
@@ -584,16 +584,16 @@ be used for assigning a stable DNS to the control plane.</li>
 <td>
    <!--
    <p><code>imageRepository</code> sets the container registry to pull images from.
-If empty, <code>k8s.gcr.io</code> will be used by default.
+If empty, <code>registry.k8s.io</code> will be used by default.
 In case of kubernetes version is a CI build (kubernetes version starts with <code>ci/</code>)
 <code>gcr.io/k8s-staging-ci-images</code> will be used as a default for control plane components
-and for kube-proxy, while <code>k8s.gcr.io</code> will be used for all the other images.</p>
+and for kube-proxy, while <code>registry.k8s.io</code> will be used for all the other images.</p>
    -->
    <p><code>imageRepository</code> 设置用来拉取镜像的容器仓库。
-如果此字段为空，默认使用 <code>k8s.gcr.io</code>。
+如果此字段为空，默认使用 <code>registry.k8s.io</code>。
 当 Kubernetes 用来执行 CI 构造时（Kubernetes 版本以 <code>ci/</code> 开头），
 将默认使用 <code>gcr.io/k8s-staging-ci-images</code> 来拉取控制面组件镜像，
-而使用 <code>k8s.gcr.io</code> 来拉取所有其他镜像。</p>
+而使用 <code>registry.k8s.io</code> 来拉取所有其他镜像。</p>
 </td>
 </tr>
 <tr><td><code>featureGates</code><br/>
@@ -1656,13 +1656,13 @@ This information will be annotated to the Node API object, for later re-use</p--
 </td>
 <td>
 <!--
-   <p><code>tains</code> specifies the taints the Node API object should be registered with.
+   <p><code>taints</code> specifies the taints the Node API object should be registered with.
 If this field is unset, i.e. nil, in the <code>kubeadm init</code> process it will be defaulted
 with a control-plane taint for control-plane nodes.
 If you don't want to taint your control-plane node, set this field to an empty list,
 i.e. <code>taints: []</code> in the YAML file. This field is solely used for Node registration.</p>
 -->
-   <p><code>tains</code> 设定 Node API 对象被注册时要附带的污点。
+   <p><code>taints</code> 设定 Node API 对象被注册时要附带的污点。
 若未设置此字段（即字段值为 null），在 <code>kubeadm init</code> 期间，默认为控制平面节点添加控制平面污点。
 如果你不想污染你的控制平面节点，可以将此字段设置为空列表（即 YAML 文件中的 <code>taints: []</code>），
 这个字段只用于节点注册。</p>
@@ -1861,7 +1861,7 @@ of view and as an authentication method for the node in the bootstrap phase of
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
   
-<tr><td><code>id</code> <B><!--[Required]-->[必需]</B><br/>
+<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
@@ -1870,7 +1870,7 @@ of view and as an authentication method for the node in the bootstrap phase of
    
 </td>
 </tr>
-<tr><td><code>secret</code> <B><!--[Required]-->[必需]</B><br/>
+<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>

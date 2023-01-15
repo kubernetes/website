@@ -1,6 +1,7 @@
 ---
 title: Advertise Extended Resources for a Node
 content_type: task
+weight: 70
 ---
 
 
