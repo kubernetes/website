@@ -1,19 +1,19 @@
 ---
 title: 节点压力驱逐
 content_type: concept
-weight: 60
+weight: 100
 ---
 <!-- 
 title: Node-pressure Eviction
 content_type: concept
-weight: 60 
+weight: 100
 -->
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
 <!-- 
 The {{<glossary_tooltip term_id="kubelet" text="kubelet">}} monitors resources 
-like CPU, memory, disk space, and filesystem inodes on your cluster's nodes. 
+like memory, disk space, and filesystem inodes on your cluster's nodes. 
 When one or more of these resources reach specific consumption levels, the 
 kubelet can proactively fail one or more pods on the node to reclaim resources
 and prevent starvation. 
@@ -22,16 +22,16 @@ During a node-pressure eviction, the kubelet sets the `PodPhase` for the
 selected pods to `Failed`. This terminates the pods. 
 
 Node-pressure eviction is not the same as 
-[API-initiated eviction](/docs/reference/generated/kubernetes-api/v1.23/).
+[API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
 -->
 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}
-监控集群节点的 CPU、内存、磁盘空间和文件系统的 inode 等资源。
+监控集群节点的内存、磁盘空间和文件系统的 inode 等资源。
 当这些资源中的一个或者多个达到特定的消耗水平，
 kubelet 可以主动地使节点上一个或者多个 Pod 失效，以回收资源防止饥饿。
 
 在节点压力驱逐期间，kubelet 将所选 Pod 的 `PodPhase` 设置为 `Failed`。这将终止 Pod。
 
-节点压力驱逐不同于 [API 发起的驱逐](/docs/reference/generated/kubernetes-api/v1.23/)。
+节点压力驱逐不同于 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。
 
 <!-- 
 The kubelet does not respect your configured `PodDisruptionBudget` or the pod's
@@ -129,7 +129,7 @@ memory is reclaimable under pressure.
 `memory.available` 的值来自 cgroupfs，而不是像 `free -m` 这样的工具。
 这很重要，因为 `free -m` 在容器中不起作用，如果用户使用
 [节点可分配资源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-这一功能特性，资源不足的判定是基于 CGroup 层次结构中的用户 Pod 所处的局部及 CGroup 根节点作出的。
+这一功能特性，资源不足的判定是基于 cgroup 层次结构中的用户 Pod 所处的局部及 cgroup 根节点作出的。
 这个[脚本](/zh-cn/examples/admin/resource/memory-available.sh)
 重现了 kubelet 为计算 `memory.available` 而执行的相同步骤。
 kubelet 在其计算中排除了 inactive_file（即非活动 LRU 列表上基于文件来虚拟的内存的字节数），
@@ -154,15 +154,26 @@ kubelet 支持以下文件系统分区：
 
 kubelet 会自动发现这些文件系统并忽略其他文件系统。kubelet 不支持其他配置。
 
-{{<note>}}
-<!-- 
-Some kubelet garbage collection features are deprecated in favor of eviction.
-For a list of the deprecated features, see [kubelet garbage collection deprecation](/docs/concepts/cluster-administration/kubelet-garbage-collection/#deprecation).
+<!--
+Some kubelet garbage collection features are deprecated in favor of eviction:
+
+| Existing Flag | New Flag | Rationale |
+| ------------- | -------- | --------- |
+| `--image-gc-high-threshold` | `--eviction-hard` or `--eviction-soft` | existing eviction signals can trigger image garbage collection |
+| `--image-gc-low-threshold` | `--eviction-minimum-reclaim` | eviction reclaims achieve the same behavior |
+| `--maximum-dead-containers` | - | deprecated once old logs are stored outside of container's context |
+| `--maximum-dead-containers-per-container` | - | deprecated once old logs are stored outside of container's context |
+| `--minimum-container-ttl-duration` | - | deprecated once old logs are stored outside of container's context |
 -->
-一些 kubelet 垃圾收集功能已被弃用，以支持驱逐。
-有关已弃用功能的列表，请参阅
-[kubelet 垃圾收集弃用](/zh-cn/docs/concepts/cluster-administration/kubelet-garbage-collection/#deprecation)。
-{{</note>}}
+一些 kubelet 垃圾收集功能已被弃用，以鼓励使用驱逐机制。
+
+| 现有标志 | 新的标志 | 原因 |
+| ------------- | -------- | --------- |
+| `--image-gc-high-threshold` | `--eviction-hard` 或 `--eviction-soft` | 现有的驱逐信号可以触发镜像垃圾收集 |
+| `--image-gc-low-threshold` | `--eviction-minimum-reclaim` | 驱逐回收具有相同的行为 |
+| `--maximum-dead-containers` | - | 一旦旧的日志存储在容器的上下文之外就会被弃用 |
+| `--maximum-dead-containers-per-container` | - | 一旦旧的日志存储在容器的上下文之外就会被弃用 |
+| `--minimum-container-ttl-duration` | - | 一旦旧的日志存储在容器的上下文之外就会被弃用 |
 
 <!-- 
 ### Eviction thresholds
@@ -247,7 +258,7 @@ You can use the following flags to configure soft eviction thresholds:
   如果驱逐条件持续时长超过指定的宽限期，可以触发 Pod 驱逐。
 * `eviction-soft-grace-period`：一组驱逐宽限期，
   如 `memory.available=1m30s`，定义软驱逐条件在触发 Pod 驱逐之前必须保持多长时间。
-* `eviction-max-pod-grace-period`：在满足软驱逐条件而终止 Pod 时使用的最大允许宽限期（以秒为单位）。 
+* `eviction-max-pod-grace-period`：在满足软驱逐条件而终止 Pod 时使用的最大允许宽限期（以秒为单位）。
 
 <!-- 
 #### Hard eviction thresholds {#hard-eviction-thresholds}
@@ -281,6 +292,17 @@ kubelet 具有以下默认硬驱逐条件：
 * `nodefs.available<10%`
 * `imagefs.available<15%`
 * `nodefs.inodesFree<5%`（Linux 节点）
+
+<!--
+These default values of hard eviction thresholds will only be set if none 
+of the parameters is changed. If you changed the value of any parameter, 
+then the values of other parameters will not be inherited as the default 
+values and will be set to zero. In order to provide custom values, you 
+should provide all the thresholds respectively.
+-->
+只有在没有更改任何参数的情况下，硬驱逐阈值才会被设置成这些默认值。
+如果你更改了任何参数的值，则其他参数的取值不会继承其默认值设置，而将被设置为零。
+为了提供自定义值，你应该分别设置所有阈值。
 
 <!--  
 ### Eviction monitoring interval
@@ -320,7 +342,7 @@ kubelet 根据下表将驱逐信号映射为节点状况：
 | 节点条件 | 驱逐信号 | 描述 |
 |---------|--------|------|
 | `MemoryPressure` | `memory.available` | 节点上的可用内存已满足驱逐条件 |
-| `DiskPressure`   | `nodefs.available`、`nodefs.inodesFree`、`imagefs.available` 或 `imagefs.inodesFree` | 节点的根文件系统或映像文件系统上的可用磁盘空间和 inode 已满足驱逐条件 |
+| `DiskPressure`   | `nodefs.available`、`nodefs.inodesFree`、`imagefs.available` 或 `imagefs.inodesFree` | 节点的根文件系统或镜像文件系统上的可用磁盘空间和 inode 已满足驱逐条件 |
 | `PIDPressure`    | `pid.available` | (Linux) 节点上的可用进程标识符已低于驱逐条件 |
 
 kubelet 根据配置的 `--node-status-update-frequency` 更新节点条件，默认为 `10s`。
@@ -400,7 +422,7 @@ kubelet 按以下顺序释放磁盘空间：
 If the kubelet's attempts to reclaim node-level resources don't bring the eviction
 signal below the threshold, the kubelet begins to evict end-user pods. 
 
-The kubelet uses the following parameters to determine pod eviction order:
+The kubelet uses the following parameters to determine the pod eviction order:
 
 1. Whether the pod's resource usage exceeds requests
 1. [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
@@ -472,7 +494,7 @@ requests.
 The kubelet sorts pods differently based on whether the node has a dedicated
 `imagefs` filesystem:
 -->
-当 kubelet 因 inode 或 PID 不足而驱逐 pod 时，
+当 kubelet 因 inode 或 PID 不足而驱逐 Pod 时，
 它使用优先级来确定驱逐顺序，因为 inode 和 PID 没有请求。
 
 kubelet 根据节点是否具有专用的 `imagefs` 文件系统对 Pod 进行不同的排序：
@@ -587,7 +609,7 @@ kubelet 根据 Pod 的服务质量（QoS）为每个容器设置一个 `oom_scor
 {{<note>}}
 <!-- 
 The kubelet also sets an `oom_score_adj` value of `-997` for containers in Pods that have
-`system-node-critical` {{<glossary_tooltip text="Priority" term_id="pod-priority">}}
+`system-node-critical` {{<glossary_tooltip text="Priority" term_id="pod-priority">}}.
 -->
 kubelet 还将具有 `system-node-critical`
 {{<glossary_tooltip text="优先级" term_id="pod-priority">}}
@@ -648,7 +670,7 @@ Consider the following scenario:
 
 * 节点内存容量：`10Gi`
 * 操作员希望为系统守护进程（内核、`kubelet` 等）保留 10% 的内存容量
-* 操作员希望驱逐内存利用率为 95% 的Pod，以减少系统 OOM 的概率。
+* 操作员希望在节点内存利用率达到 95% 以上时驱逐 Pod，以减少系统 OOM 的概率。
 
 <!-- 
 For this to work, the kubelet is launched as follows:
@@ -751,13 +773,13 @@ kubelet 将 `active_file` 内存区域视为不可回收。
 kubelet 很容易将其视为资源用量过量并为节点设置内存压力污点，从而触发 Pod 驱逐。
 
 <!-- 
-For more more details, see [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)
+For more details, see [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)
 
 You can work around that behavior by setting the memory limit and memory request
 the same for containers likely to perform intensive I/O activity. You will need 
 to estimate or measure an optimal memory limit value for that container.
 -->
-更多细节请参见 [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)
+更多细节请参见 [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)。
 
 你可以通过为可能执行 I/O 密集型活动的容器设置相同的内存限制和内存请求来应对该行为。
 你将需要估计或测量该容器的最佳内存限制值。
@@ -765,14 +787,14 @@ to estimate or measure an optimal memory limit value for that container.
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-* Learn about [API-initiated Eviction](/docs/reference/generated/kubernetes-api/v1.23/)
+* Learn about [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
 * Learn about [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 * Learn about [PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
 * Learn about [Quality of Service](/docs/tasks/configure-pod-container/quality-service-pod/) (QoS)
 * Check out the [Eviction API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)
 -->
-* 了解 [API 发起的驱逐](/docs/reference/generated/kubernetes-api/v1.23/)
-* 了解 [Pod 优先级和驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-* 了解 [PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
+* 了解 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)
+* 了解 [Pod 优先级和抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* 了解 [PodDisruptionBudgets](/zh-cn/docs/tasks/run-application/configure-pdb/)
 * 了解[服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)（QoS）
 * 查看[驱逐 API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)

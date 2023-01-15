@@ -1,5 +1,6 @@
 ---
 reviewers:
+- alculquicondor
 - erictune
 - soltysh
 title: Jobs
@@ -53,25 +54,25 @@ Check on the status of the Job with `kubectl`:
 
 {{< tabs name="Check status of Job" >}}
 {{< tab name="kubectl describe job pi" codelang="bash" >}}
-Name:           pi
-Namespace:      default
-Selector:       controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-Labels:         controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-                job-name=pi
-Annotations:    kubectl.kubernetes.io/last-applied-configuration:
-                  {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":...
-Parallelism:    1
-Completions:    1
-Start Time:     Mon, 02 Dec 2019 15:20:11 +0200
-Completed At:   Mon, 02 Dec 2019 15:21:16 +0200
-Duration:       65s
-Pods Statuses:  0 Running / 1 Succeeded / 0 Failed
+Name:             pi
+Namespace:        default
+Selector:         controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
+Labels:           controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
+                  job-name=pi
+Annotations:      batch.kubernetes.io/job-tracking: 
+Parallelism:      1
+Completions:      1
+Completion Mode:  NonIndexed
+Start Time:       Fri, 28 Oct 2022 13:05:18 +0530
+Completed At:     Fri, 28 Oct 2022 13:05:21 +0530
+Duration:         3s
+Pods Statuses:    0 Active / 1 Succeeded / 0 Failed
 Pod Template:
-  Labels:  controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+  Labels:  controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
            job-name=pi
   Containers:
    pi:
-    Image:      perl
+    Image:      perl:5.34.0
     Port:       <none>
     Host Port:  <none>
     Command:
@@ -85,24 +86,26 @@ Pod Template:
 Events:
   Type    Reason            Age   From            Message
   ----    ------            ----  ----            -------
-  Normal  SuccessfulCreate  14m   job-controller  Created pod: pi-5rwd7
+  Normal  SuccessfulCreate  21s   job-controller  Created pod: pi-xf9p4
+  Normal  Completed         18s   job-controller  Job completed
 {{< /tab >}}
 {{< tab name="kubectl get job pi -o yaml" codelang="bash" >}}
 apiVersion: batch/v1
 kind: Job
 metadata:
   annotations:
+    batch.kubernetes.io/job-tracking: ""
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl","name":"pi"}],"restartPolicy":"Never"}}}}
-  creationTimestamp: "2022-06-15T08:40:15Z"
+      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl:5.34.0","name":"pi"}],"restartPolicy":"Never"}}}}
+  creationTimestamp: "2022-11-10T17:53:53Z"
   generation: 1
   labels:
-    controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+    controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
     job-name: pi
   name: pi
   namespace: default
-  resourceVersion: "987"
-  uid: 863452e6-270d-420e-9b94-53a54146c223
+  resourceVersion: "4751"
+  uid: 204fb678-040b-497f-9266-35ffa8716d14
 spec:
   backoffLimit: 4
   completionMode: NonIndexed
@@ -110,13 +113,13 @@ spec:
   parallelism: 1
   selector:
     matchLabels:
-      controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+      controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
   suspend: false
   template:
     metadata:
       creationTimestamp: null
       labels:
-        controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+        controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
         job-name: pi
     spec:
       containers:
@@ -125,8 +128,8 @@ spec:
         - -Mbignum=bpi
         - -wle
         - print bpi(2000)
-        image: perl
-        imagePullPolicy: Always
+        image: perl:5.34.0
+        imagePullPolicy: IfNotPresent
         name: pi
         resources: {}
         terminationMessagePath: /dev/termination-log
@@ -138,8 +141,9 @@ spec:
       terminationGracePeriodSeconds: 30
 status:
   active: 1
-  ready: 1
-  startTime: "2022-06-15T08:40:15Z"
+  ready: 0
+  startTime: "2022-11-10T17:53:57Z"
+  uncountedTerminatedPods: {}
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -176,7 +180,15 @@ The output is similar to this:
 ## Writing a Job spec
 
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.
-Its name must be a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
+When the control plane creates new Pods for a Job, the `.metadata.name` of the
+Job is part of the basis for naming those Pods.  The name of a Job must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
+Even when the name is a DNS subdomain, the name must be no longer than 63
+characters.
 
 A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -263,8 +275,9 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   - As part of the Pod hostname, following the pattern `$(job-name)-$(index)`.
     When you use an Indexed Job in combination with a
     {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
-    the deterministic hostnames to address each other via DNS.
-  - From the containarized task, in the environment variable `JOB_COMPLETION_INDEX`.
+    the deterministic hostnames to address each other via DNS. For more information about
+    how to configure this, see [Job with Pod-to-Pod Communication](/docs/tasks/job/job-with-pod-to-pod-communication/).
+  - From the containerized task, in the environment variable `JOB_COMPLETION_INDEX`.
   
   The Job is considered complete when there is one successfully completed Pod
   for each index. For more information about how to use this mode, see
@@ -289,12 +302,29 @@ starts a new Pod.  This means that your application needs to handle the case whe
 pod.  In particular, it needs to handle temporary files, locks, incomplete output and the like
 caused by previous runs.
 
+By default, each pod failure is counted towards the `.spec.backoffLimit` limit,
+see [pod backoff failure policy](#pod-backoff-failure-policy). However, you can
+customize handling of pod failures by setting the Job's [pod failure policy](#pod-failure-policy).
+
 Note that even if you specify `.spec.parallelism = 1` and `.spec.completions = 1` and
 `.spec.template.spec.restartPolicy = "Never"`, the same program may
 sometimes be started twice.
 
 If you do specify `.spec.parallelism` and `.spec.completions` both greater than 1, then there may be
 multiple pods running at once.  Therefore, your pods must also be tolerant of concurrency.
+
+When the [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDisruptionConditions` and `JobPodFailurePolicy` are both enabled,
+and the `.spec.podFailurePolicy` field is set, the Job controller does not consider a terminating
+Pod (a pod that has a `.metadata.deletionTimestamp` field set) as a failure until that Pod is
+terminal (its `.status.phase` is `Failed` or `Succeeded`). However, the Job controller
+creates a replacement Pod as soon as the termination becomes apparent. Once the
+pod terminates, the Job controller evaluates `.backoffLimit` and `.podFailurePolicy`
+for the relevant Job, taking this now-terminated Pod into consideration.
+
+If either of these requirements is not satisfied, the Job controller counts
+a terminating Pod as an immediate failure, even if that Pod later terminates
+with `phase: "Succeeded"`.
 
 ### Pod backoff failure policy
 
@@ -312,10 +342,6 @@ The number of retries is calculated in two ways:
 
 If either of the calculations reaches the `.spec.backoffLimit`, the Job is
 considered failed.
-
-When the [`JobTrackingWithFinalizers`](#job-tracking-with-finalizers) feature is
-disabled, the number of failed Pods is only based on Pods that are still present
-in the API.
 
 {{< note >}}
 If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
@@ -356,7 +382,7 @@ spec:
     spec:
       containers:
       - name: pi
-        image: perl
+        image: perl:5.34.0
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
@@ -402,7 +428,7 @@ spec:
     spec:
       containers:
       - name: pi
-        image: perl
+        image: perl:5.34.0
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
@@ -461,12 +487,13 @@ The tradeoffs are:
 The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
 The pattern names are also links to examples and more detailed description.
 
-|                  Pattern                  | Single Job object | Fewer pods than work items? | Use app unmodified? |
-| ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
-| [Queue with Pod Per Work Item]            |         ✓         |                             |      sometimes      |
-| [Queue with Variable Pod Count]           |         ✓         |             ✓               |                     |
-| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          |
-| [Job Template Expansion]                  |                   |                             |          ✓          |
+|                  Pattern                        | Single Job object | Fewer pods than work items? | Use app unmodified? |
+| ----------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
+| [Queue with Pod Per Work Item]                  |         ✓         |                             |      sometimes      |
+| [Queue with Variable Pod Count]                 |         ✓         |             ✓               |                     |
+| [Indexed Job with Static Work Assignment]       |         ✓         |                             |          ✓          |
+| [Job Template Expansion]                        |                   |                             |          ✓          |
+| [Job with Pod-to-Pod Communication]             |         ✓         |         sometimes           |      sometimes      | 
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
 has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
@@ -477,17 +504,19 @@ are different ways to arrange for pods to work on different things.
 This table shows the required settings for `.spec.parallelism` and `.spec.completions` for each of the patterns.
 Here, `W` is the number of work items.
 
-|             Pattern                       | `.spec.completions` |  `.spec.parallelism` |
-| ----------------------------------------- |:-------------------:|:--------------------:|
-| [Queue with Pod Per Work Item]            |          W          |        any           |
-| [Queue with Variable Pod Count]           |         null        |        any           |
-| [Indexed Job with Static Work Assignment] |          W          |        any           |
-| [Job Template Expansion]                  |          1          |     should be 1      |
+|             Pattern                             | `.spec.completions` |  `.spec.parallelism` |
+| ----------------------------------------------- |:-------------------:|:--------------------:|
+| [Queue with Pod Per Work Item]                  |          W          |        any           |
+| [Queue with Variable Pod Count]                 |         null        |        any           |
+| [Indexed Job with Static Work Assignment]       |          W          |        any           |
+| [Job Template Expansion]                        |          1          |     should be 1      |
+| [Job with Pod-to-Pod Communication]             |          W          |         W            |
 
 [Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
 [Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
 [Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
 [Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
+[Job with Pod-to-Pod Communication]: /docs/tasks/job/job-with-pod-to-pod-communication/
 
 ## Advanced usage
 
@@ -510,8 +539,7 @@ When a Job is resumed from suspension, its `.status.startTime` field will be
 reset to the current time. This means that the `.spec.activeDeadlineSeconds`
 timer will be stopped and reset when a Job is suspended and resumed.
 
-Remember that suspending a Job will delete all active Pods. When the Job is
-suspended, your [Pods will be terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+When you suspend a Job, any running Pods that don't have a status of `Completed` will be [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 with a SIGTERM signal. The Pod's graceful termination period will be honored and
 your Pod must handle this signal in this period. This may involve saving
 progress for later or undoing changes. Pods terminated this way will not count
@@ -535,6 +563,20 @@ spec:
   template:
     spec:
       ...
+```
+
+You can also toggle Job suspension by patching the Job using the command line.
+
+Suspend an active Job:
+
+```shell
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":true}}'
+```
+
+Resume a suspended Job:
+
+```shell
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":false}}'
 ```
 
 The Job's status can be used to determine if a Job is suspended or has been
@@ -682,45 +724,118 @@ The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010
 `manualSelector: true` tells the system that you know what you are doing and to allow this
 mismatch.
 
-### Job tracking with finalizers
+### Pod failure policy {#pod-failure-policy}
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
-In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
-and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-
-When enabled, the control plane tracks new Jobs using the behavior described
-below. Jobs created before the feature was enabled are unaffected. As a user,
-the only difference you would see is that the control plane tracking of Job
-completion is more accurate.
+You can only configure a Pod failure policy for a Job if you have the
+`JobPodFailurePolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled in your cluster. Additionally, it is recommended
+to enable the `PodDisruptionConditions` feature gate in order to be able to detect and handle
+Pod disruption conditions in the Pod failure policy (see also:
+[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)). Both feature gates are
+available in Kubernetes {{< skew currentVersion >}}.
 {{< /note >}}
 
-When this feature isn't enabled, the Job {{< glossary_tooltip term_id="controller" >}}
-relies on counting the Pods that exist in the cluster to track the Job status,
-that is, to keep the counters for `succeeded` and `failed` Pods.
-However, Pods can be removed for a number of reasons, including:
-- The garbage collector that removes orphan Pods when a Node goes down.
-- The garbage collector that removes finished Pods (in `Succeeded` or `Failed`
-  phase) after a threshold.
-- Human intervention to delete Pods belonging to a Job.
-- An external controller (not provided as part of Kubernetes) that removes or
-  replaces Pods.
+A Pod failure policy, defined with the `.spec.podFailurePolicy` field, enables
+your cluster to handle Pod failures based on the container exit codes and the
+Pod conditions.
 
-If you enable the `JobTrackingWithFinalizers` feature for your cluster, the
-control plane keeps track of the Pods that belong to any Job and notices if any
-such Pod is removed from the API server. To do that, the Job controller creates Pods with
-the finalizer `batch.kubernetes.io/job-tracking`. The controller removes the
-finalizer only after the Pod has been accounted for in the Job status, allowing
-the Pod to be removed by other controllers or users.
+In some situations, you  may want to have a better control when handling Pod
+failures than the control provided by the [Pod backoff failure policy](#pod-backoff-failure-policy),
+which is based on the Job's `.spec.backoffLimit`. These are some examples of use cases:
+* To optimize costs of running workloads by avoiding unnecessary Pod restarts,
+  you can terminate a Job as soon as one of its Pods fails with an exit code
+  indicating a software bug.
+* To guarantee that your Job finishes even if there are disruptions, you can
+  ignore Pod failures caused by disruptions  (such {{< glossary_tooltip text="preemption" term_id="preemption" >}},
+  {{< glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
+  or {{< glossary_tooltip text="taint" term_id="taint" >}}-based eviction) so
+  that they don't count towards the `.spec.backoffLimit` limit of retries.
 
-The Job controller uses the new algorithm for new Jobs only. Jobs created
-before the feature is enabled are unaffected. You can determine if the Job
-controller is tracking a Job using Pod finalizers by checking if the Job has the
-annotation `batch.kubernetes.io/job-tracking`. You should **not** manually add
-or remove this annotation from Jobs.
+You can configure a Pod failure policy, in the `.spec.podFailurePolicy` field,
+to meet the above use cases. This policy can handle Pod failures based on the
+container exit codes and the Pod conditions.
+
+Here is a manifest for a Job that defines a `podFailurePolicy`:
+
+{{< codenew file="/controllers/job-pod-failure-policy-example.yaml" >}}
+
+In the example above, the first rule of the Pod failure policy specifies that
+the Job should be marked failed if the `main` container fails with the 42 exit
+code. The following are the rules for the `main` container specifically:
+
+- an exit code of 0 means that the container succeeded
+- an exit code of 42 means that the **entire Job** failed
+- any other exit code represents that the container failed, and hence the entire
+  Pod. The Pod will be re-created if the total number of restarts is
+  below `backoffLimit`. If the `backoffLimit` is reached the **entire Job** failed.
+
+{{< note >}}
+Because the Pod template specifies a `restartPolicy: Never`,
+the kubelet does not restart the `main` container in that particular Pod.
+{{< /note >}}
+
+The second rule of the Pod failure policy, specifying the `Ignore` action for
+failed Pods with condition `DisruptionTarget` excludes Pod disruptions from
+being counted towards the `.spec.backoffLimit` limit of retries.
+
+{{< note >}}
+If the Job failed, either by the Pod failure policy or Pod backoff
+failure policy, and the Job is running multiple Pods, Kubernetes terminates all
+the Pods in that Job that are still Pending or Running.
+{{< /note >}}
+
+These are some requirements and semantics of the API:
+- if you want to use a `.spec.podFailurePolicy` field for a Job, you must
+  also define that Job's pod template with `.spec.restartPolicy` set to `Never`.
+- the Pod failure policy rules you specify under `spec.podFailurePolicy.rules`
+  are evaluated in order. Once a rule matches a Pod failure, the remaining rules
+  are ignored. When no rule matches the Pod failure, the default
+  handling applies.
+- you may want to restrict a rule to a specific container by specifing its name
+  in`spec.podFailurePolicy.rules[*].containerName`. When not specified the rule
+  applies to all containers. When specified, it should match one the container
+  or `initContainer` names in the Pod template.
+- you may specify the action taken when a Pod failure policy is matched by
+  `spec.podFailurePolicy.rules[*].action`. Possible values are:
+  - `FailJob`: use to indicate that the Pod's job should be marked as Failed and
+     all running Pods should be terminated.
+  - `Ignore`: use to indicate that the counter towards the `.spec.backoffLimit`
+     should not be incremented and a replacement Pod should be created.
+  - `Count`: use to indicate that the Pod should be handled in the default way.
+     The counter towards the `.spec.backoffLimit` should be incremented.
+
+### Job tracking with finalizers
+
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+
+{{< note >}}
+The control plane doesn't track Jobs using finalizers, if the Jobs were created
+when the feature gate `JobTrackingWithFinalizers` was disabled, even after you
+upgrade the control plane to 1.26.
+{{< /note >}}
+
+The control plane keeps track of the Pods that belong to any Job and notices if
+any such Pod is removed from the API server. To do that, the Job controller
+creates Pods with the finalizer `batch.kubernetes.io/job-tracking`. The
+controller removes the finalizer only after the Pod has been accounted for in
+the Job status, allowing the Pod to be removed by other controllers or users.
+
+Jobs created before upgrading to Kubernetes 1.26 or before the feature gate
+`JobTrackingWithFinalizers` is enabled are tracked without the use of Pod
+finalizers.
+The Job {{< glossary_tooltip term_id="controller" text="controller" >}} updates
+the status counters for `succeeded` and `failed` Pods based only on the Pods
+that exist in the cluster. The contol plane can lose track of the progress of
+the Job if Pods are deleted from the cluster.
+
+You can determine if the control plane is tracking a Job using Pod finalizers by
+checking if the Job has the annotation
+`batch.kubernetes.io/job-tracking`. You should **not** manually add or remove
+this annotation from Jobs. Instead, you can recreate the Jobs to ensure they
+are tracked using Pod finalizers.
 
 ## Alternatives
 
@@ -760,7 +875,7 @@ object, but maintains complete control over what Pods are created and how work i
 * Read about different ways of running Jobs:
    * [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
    * [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
-   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/) (beta)
+   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/)
    * Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
 * Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
   to learn more about how your cluster can clean up completed and / or failed tasks.
@@ -770,3 +885,5 @@ object, but maintains complete control over what Pods are created and how work i
 * Read about [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/), which you
   can use to define a series of Jobs that will run based on a schedule, similar to
   the UNIX tool `cron`.
+* Practice how to configure handling of retriable and non-retriable pod failures
+  using `podFailurePolicy`, based on the step-by-step [examples](/docs/tasks/job/pod-failure-policy/).

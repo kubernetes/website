@@ -208,7 +208,7 @@ The pod accessing Docker may have name containing:
 - `dynatrace-oneagent`
 -->
 如何迁移：
-[在 Dynatrace 上从 Docker-only 迁移到到通用容器指标](https://community.dynatrace.com/t5/Best-practices/Migrating-from-Docker-only-to-generic-container-metrics-in/m-p/167030#M49)
+[在 Dynatrace 上从 Docker-only 迁移到通用容器指标](https://community.dynatrace.com/t5/Best-practices/Migrating-from-Docker-only-to-generic-container-metrics-in/m-p/167030#M49)
 
 Containerd 支持公告：[在基于 containerd 的 Kubernetes 环境的获取容器的自动化全栈可见性](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-containerd-based-kubernetes-environments/)
 CRI-O 支持公告：[在基于 CRI-O 的 Kubernetes 环境获取容器的自动化全栈可见性（测试版）](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-your-cri-o-kubernetes-containers-beta/)
@@ -259,7 +259,7 @@ The `kubelet-stats` monitor was previously deprecated by the vendor, in favor of
 The `docker-container-stats` monitor is the one affected by dockershim removal.
 Do not use the `docker-container-stats` with container runtimes other than Docker Engine.
 
-How to migrate from dockershim-dependant agent:
+How to migrate from dockershim-dependent agent:
 1. Remove `docker-container-stats` from the list of [configured monitors](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitor-config.md).
    Note, keeping this monitor enabled with non-dockershim runtime will result in incorrect metrics
    being reported when docker is installed on node and no metrics when docker is not installed.

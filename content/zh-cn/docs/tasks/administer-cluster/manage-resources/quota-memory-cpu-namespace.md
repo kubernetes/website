@@ -23,9 +23,8 @@ You specify quotas in a
 [ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
 object.
 -->
-本文介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}下运行的所有 Pod 设置总的内存和 CPU 配额。
-你可以通过使用
-[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+本文介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}下运行的所有
+Pod 设置总的内存和 CPU 配额。你可以通过使用 [ResourceQuota](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
 对象设置配额.
 
 ## {{% heading "prerequisites" %}}
@@ -49,7 +48,6 @@ Each node in your cluster must have at least 1 GiB of memory.
 Create a namespace so that the resources you create in this exercise are
 isolated from the rest of your cluster.
 -->
-
 ## 创建命名空间
 
 创建一个命名空间，以便本练习中创建的资源和集群的其余部分相隔离。
@@ -72,7 +70,7 @@ Here is a manifest for an example ResourceQuota:
 <!--
 Create the ResourceQuota:
 -->
-创建 ResourceQuota
+创建 ResourceQuota：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu.yaml --namespace=quota-mem-cpu-example
@@ -237,7 +235,8 @@ individual Pods, or the containers in those Pods. To achieve that kind of limiti
 同样你也可以限制内存限制总量、CPU 请求总量、CPU 限制总量。
 
 除了可以管理命名空间资源使用的总和，如果你想限制单个 Pod，或者限制这些 Pod 中的容器资源，
-可以使用 [LimitRange](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/) 实现这类的功能。
+可以使用 [LimitRange](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+实现这类的功能。
 
 <!--
 ## Clean up
@@ -264,7 +263,6 @@ kubectl delete namespace quota-mem-cpu-example
 * [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 -->
-
 ### 集群管理员参考
 
 * [为命名空间配置默认内存请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)

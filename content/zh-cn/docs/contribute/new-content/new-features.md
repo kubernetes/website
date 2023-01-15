@@ -10,7 +10,7 @@ card:
   title: 为发行版本撰写功能特性文档 
 ---
 <!--
-title:  Documenting a feature for a release
+title: Documenting a feature for a release
 linktitle: Documenting for a release
 content_type: concept
 main_menu: true
@@ -18,14 +18,13 @@ weight: 20
 card:
   name: contribute
   weight: 45
-  title:  Documenting a feature for a release
+  title: Documenting a feature for a release
 -->
 
 <!-- overview -->
 
 <!--
-Each major Kubernetes release introduces new features that require documentation.
-New releases also bring updates to existing features and documentation (such as upgrading a feature from alpha to beta).
+Each major Kubernetes release introduces new features that require documentation. New releases also bring updates to existing features and documentation (such as upgrading a feature from alpha to beta).
 
 Generally, the SIG responsible for a feature submits draft documentation of the
 feature as a pull request to the appropriate development branch of the
@@ -34,8 +33,8 @@ editorial feedback or edits the draft directly. This section covers the branchin
 conventions and process used during a release by both groups.
 -->
 Kubernetes 的每个主要版本发布都会包含一些需要文档说明的新功能。
-新的发行版本也会对已有功能特性和文档（例如将某功能特性从 alpha 升级为
-beta）进行更新。
+新的发行版本也会对已有功能特性和文档（例如将某功能特性从 Alpha 升级为
+Beta）进行更新。
 
 通常，负责某功能特性的 SIG 要为功能特性的文档草拟文档，并针对 `kubernetes/website`
 仓库的合适的开发分支发起拉取请求。
@@ -53,35 +52,34 @@ After you've chosen a feature to document or assist, ask about it in the `#sig-d
 Slack channel, in a weekly SIG Docs meeting, or directly on the PR filed by the
 feature SIG. If you're given the go-ahead, you can edit into the PR using one of
 the techniques described in
-[Commit into another person's PR](/docs/contribute/review/for-approvers/#commit-into-another-persons-pr).
+[Commit into another person's PR](/docs/contribute/review/for-approvers/#commit-into-another-person-s-pr).
 -->
-## 对于文档贡献者
+## 对于文档贡献者   {#for-documentation-contributors}
 
 一般而言，文档贡献者不会为某个发行版本从头撰写文档。
 相反，他们会与开发该功能特性的 SIG 团队一起，对文档草稿进行润色，
 使之符合发布条件。
 
 在你选定了某个功能特性，为其撰写文档（主笔或辅助），请在 `#sig-docs` Slack 频道、SIG Docs 的每周例会上，
-或者在功能特性对应的 PR 上提出咨询。
-如果继续工作是没有问题的，你可以使用
-[向他人的 PR 中提交](/zh-cn/docs/contribute/review/for-approvers/#commit-into-another-persons-pr)
-中描述的技术之一，参与 PR 的编辑工作。
+或者在功能特性对应的 PR 上提出咨询。如果继续工作是没有问题的，
+你可以使用[提交到他人的 PR](/zh-cn/docs/contribute/review/for-approvers/#commit-into-another-person-s-pr)
+所述的某个技巧参与 PR 的编辑工作。
 
 <!--
 ### Find out about upcoming features
 
 To find out about upcoming features, attend the weekly SIG Release meeting (see
-the [community](https://kubernetes.io/community/) page for upcoming meetings)
+the [community](/community/) page for upcoming meetings)
 and monitor the release-specific documentation
 in the [kubernetes/sig-release](https://github.com/kubernetes/sig-release/)
 repository. Each release has a sub-directory in the [/sig-release/tree/master/releases/](https://github.com/kubernetes/sig-release/tree/master/releases)
 directory. The sub-directory contains a release schedule, a draft of the release
 notes, and a document listing each person on the release team.
 -->
-### 了解即将发布的功能特性
+### 了解即将发布的功能特性   {#find-out-about-upcoming-features}
 
 要了解即将发布的功能特性，可以参加每周的 SIG Release 例会
-（参考[社区](https://kubernetes.io/community/)页面，了解即将召开的会议），
+（参考[社区](/zh-cn/community/)页面，了解即将召开的会议），
 监视 [kubernetes/sig-release](https://github.com/kubernetes/sig-release/)
 中与发行相关的文档。
 每个发行版本在
@@ -141,8 +139,8 @@ merged. Keep the following in mind:
 针对[给定 Kubernetes 发行版本](https://github.com/kubernetes/sig-release/tree/master/releases)
 特性跟踪清单中列举的是计划包含于该版本中的每个功能特性。
 每一行中都包含特性的名称、特性对应的主要 GitHub Issue，其稳定性级别（ALpha、
-Beta 或 Stable）、负责实现该特性的 SIG 和个人、是否该特性需要文档、该特性的
-发行说明草稿以及该特性是否已经被合并等等。阅读此清单时请注意：
+Beta 或 Stable）、负责实现该特性的 SIG 和个人、是否该特性需要文档、
+该特性的发行说明草稿以及该特性是否已经被合并等等。阅读此清单时请注意：
 
 <!--
 - Beta and Stable features are generally a higher documentation priority than
@@ -171,15 +169,14 @@ release. Check the
 or check in the `#sig-release` Kubernetes Slack channel to verify scheduling details and
 deadlines.
 -->
-## 针对开发人员或其他 SIG 成员
+## 针对开发人员或其他 SIG 成员   {#for-developers-or-other-sig-members}
 
-本节中的信息是针对为发行版本中新功能特性撰写文档的来自其他 Kubernetes SIGs
-的成员。
+本节中的信息是针对为发行版本中新功能特性撰写文档的来自其他 Kubernetes SIG 的成员。
 
 如果你是某个 SIG 的成员，负责为 Kubernetes 开发某一项新的功能特性，你需要与
 SIG Docs 一起工作，确保这一新功能在发行之前已经为之撰写文档。
-请参考[特性跟踪清单](https://github.com/kubernetes/sig-release/tree/master/releases)
-或者 Kubernetes Slack 上的 `#sig-release` 频道，检查时间安排的细节以及截止日期。
+请参考[特性跟踪清单](https://github.com/kubernetes/sig-release/tree/master/releases)或者
+Kubernetes Slack 上的 `#sig-release` 频道，检查时间安排的细节以及截止日期。
 
 <!--
 ### Open a placeholder PR
@@ -199,8 +196,8 @@ the feature docs are coming and should be tracked for the release.
 
 1. 在 `kubernetes/website` 仓库上针对 `dev-{{< skew nextMinorVersion >}}`
    分支提交一个**draft** PR，其中包含较少的、待以后慢慢补齐的提交内容。
-   要创建一个草案（draft）状态的 PR，可以在 Create Pull Request 下拉菜单中
-   选择 **Create Draft Pull Request**，然后点击 **Draft Pull Request**。
+   要创建一个草案（draft）状态的 PR，可以在 Create Pull Request 下拉菜单中选择
+   **Create Draft Pull Request**，然后点击 **Draft Pull Request**。
 1. 编辑拉取请求描述以包括指向 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) PR
    和 [kubernetes/enhancements](https://github.com/kubernetes/enhancements) 问题的链接。  
 1. 在对应的 [kubernetes/enhancements](https://github.com/kubernetes/enhancements)
@@ -226,22 +223,20 @@ When ready, populate your placeholder PR with feature documentation and change
 the state of the PR from draft to **ready for review**. To mark a pull request
 as ready for review, navigate to the merge box and click **Ready for review**.
 
-Do your best to describe your feature and how to use it. If you need help
-structuring your documentation, ask in the `#sig-docs` slack channel.
+Do your best to describe your feature and how to use it. If you need help structuring your documentation, ask in the `#sig-docs` Slack channel.
 
-When you complete your content, the documentation person assigned to your
-feature reviews it. 
+When you complete your content, the documentation person assigned to your feature reviews it.
 To ensure technical accuracy, the content may also require a technical review from corresponding SIG(s).
 Use their suggestions to get the content to a release ready state.
 -->
 ### PR 准备好评阅  {#pr-ready-for-review}
 
-时机成熟时，你可以在你的占位 PR 中完成功能特性文档，并将 PR 的状态
-从草案状态更改为 **Ready for Review**。要将一个拉取请求标记为预备
-评阅，转到页面的 merge 框，点击 **Ready for review**。
+时机成熟时，你可以在你的占位 PR 中完成功能特性文档，并将 PR 的状态从草案状态更改为
+**Ready for Review**。要将一个拉取请求标记为已准备好评阅，
+转到页面的 merge 框，点击 **Ready for review**。
 
-尽可能为功能特性提供详尽文档以及使用说明。如果你需要文档组织方面的帮助，请
-在 `#sig-docs` Slack 频道中提问。
+尽可能为功能特性提供详尽文档以及使用说明。如果你需要文档组织方面的帮助，
+请在 `#sig-docs` Slack 频道中提问。
 
 当你已经完成内容撰写，指派给你的功能特性的文档贡献者会去评阅文档。
 为了确保技术准确性，内容可能还需要相应 SIG 的技术审核。
@@ -252,17 +247,26 @@ If your feature is an Alpha or Beta feature and is behind a feature gate,
 make sure you add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
 table as part of your pull request. With new feature gates, a description of
 the feature gate is also required. If your feature is GA'ed or deprecated,
-make sure to move it from that table to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+make sure to move it from the
+[Feature gates for Alpha/Feature](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
+to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
 table with Alpha and Beta history intact.
 -->
 如果你在处理的功能特性处于 Alpha 或 Beta 阶段并由某特性门控控制，
-请确保在你的 PR 中，该特性门控被添加到 
-[Alpha/Beta 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
-表格中。对于新的特性门控选项，需要为该特性门控提供一段描述。
+请确保在你的 PR 中，该特性门控被添加到
+[Alpha/Beta 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)表格中。
+对于新的特性门控选项，需要为该特性门控提供一段描述。
 如果所处理的功能特性已经进入正式发布（GA）状态或者被废弃，
-请确保将其从上述表格中迁移到
-[已毕业或废弃的特性](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
-表格中，并确保迁移后保留其 Alpha、Beta 版本变迁历史。
+请确保将其从
+[Alpha 和 Beta 状态的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)表格迁移到
+[已毕业和已废弃的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)，
+并确保迁移后保留其 Alpha、Beta 版本变迁历史。
+
+<!-- 
+If your feature needs documentation and the first draft
+content is not received, the feature may be removed from the milestone.
+-->
+如果你的功能特性需要文档，而你未提交初版文档，该特性可能会被从里程碑中删除。
 
 <!--
 ### All PRs reviewed and ready to merge

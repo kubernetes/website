@@ -105,7 +105,7 @@ You should be able to access the new `nginx` service from other Pods. To access 
 ## 通过从 Pod 访问服务对其进行测试
 
 你应该可以从其它的 Pod 访问这个新的 `nginx` 服务。
-要从 default 命名空间中的其它s Pod 来访问该服务。可以启动一个 busybox 容器：
+要从 default 命名空间中的其它 Pod 来访问该服务。可以启动一个 busybox 容器：
 
 ```shell
 kubectl run busybox --rm -ti --image=busybox:1.28 /bin/sh

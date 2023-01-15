@@ -24,11 +24,11 @@ This task shows you how to debug a StatefulSet.
 
 ## Debugging a StatefulSet
 
-In order to list all the pods which belong to a StatefulSet, which have a label `app=myapp` set on them,
+In order to list all the pods which belong to a StatefulSet, which have a label `app.kubernetes.io/name=MyApp` set on them,
 you can use the following:
 
 ```shell
-kubectl get pods -l app=myapp
+kubectl get pods -l app.kubernetes.io/name=MyApp
 ```
 
 If you find that any Pods listed are in `Unknown` or `Terminating` state for an extended period of time,

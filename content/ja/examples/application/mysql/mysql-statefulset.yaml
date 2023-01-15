@@ -22,7 +22,7 @@ spec:
         - |
           set -ex
           # Generate mysql server-id from pod ordinal index.
-          [[ `hostname` =~ -([0-9]+)$ ]] || exit 1
+          [[ $HOSTNAME =~ -([0-9]+)$ ]] || exit 1
           ordinal=${BASH_REMATCH[1]}
           echo [mysqld] > /mnt/conf.d/server-id.cnf
           # Add an offset to avoid reserved server-id=0 value.

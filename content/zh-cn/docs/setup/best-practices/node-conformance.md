@@ -83,7 +83,7 @@ To run the node conformance test, perform the following steps:
 # $LOG_DIR is the test output path.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 -->
 2. 使用以下命令运行节点一致性测试：
@@ -93,7 +93,7 @@ sudo docker run -it --rm --privileged --net=host \
    # $LOG_DIR 是测试的输出路径。
    sudo docker run -it --rm --privileged --net=host \
      -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-     k8s.gcr.io/node-test:0.2
+     registry.k8s.io/node-test:0.2
    ```
 
 <!--
@@ -135,7 +135,7 @@ regular expression of tests you want to run.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e FOCUS=MirrorPod \ # Only run MirrorPod test
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 
 <!--
@@ -149,14 +149,14 @@ regular expression of tests you want to skip.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e SKIP=MirrorPod \ # Run all conformance tests but skip MirrorPod test
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 -->
 ```shell
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e SKIP=MirrorPod \ # 运行除 MirrorPod 测试外的所有一致性测试内容
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 
 

@@ -47,7 +47,7 @@ If you must use an untrusted kubeconfig file, inspect it carefully first, much a
 By default, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
 You can specify other kubeconfig files by setting the `KUBECONFIG` environment
 variable or by setting the
-[`-kubeconfig`](/docs/reference/generated/kubectl/kubectl/) flag.
+[`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/) flag.
 -->
 默认情况下，`kubectl` 在 `$HOME/.kube` 目录下查找名为 `config` 的文件。
 你可以通过设置 `KUBECONFIG` 环境变量或者设置
@@ -163,7 +163,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 以下是 `kubectl` 在合并 kubeconfig 文件时使用的规则。
 
 <!--
-1. If the `-kubeconfig` flag is set, use only the specified file. Do not merge.
+1. If the `--kubeconfig` flag is set, use only the specified file. Do not merge.
    Only one instance of this flag is allowed.
 
    Otherwise, if the `KUBECONFIG` environment variable is set, use it as a
@@ -203,10 +203,10 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 <!--
 1. Determine the context to use based on the first hit in this chain:
 
-    1. Use the `-context` command-line flag if it exists.
+    1. Use the `--context` command-line flag if it exists.
     2. Use the `current-context` from the merged kubeconfig files.
 -->
-1. 根据此链中的第一个匹配确定要使用的上下文。
+2. 根据此链中的第一个匹配确定要使用的上下文。
 
     1. 如果存在，使用 `--context` 命令行参数。
     2. 使用合并的 kubeconfig 文件中的 `current-context`。
@@ -224,7 +224,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    1. Use a command-line flag if it exists: `--user` or `--cluster`.
    2. If the context is non-empty, take the user or cluster from the context.
 -->
-1. 确定集群和用户。此时，可能有也可能没有上下文。根据此链中的第一个匹配确定集群和用户，这将运行两次：一次用于用户，一次用于集群。
+3. 确定集群和用户。此时，可能有也可能没有上下文。根据此链中的第一个匹配确定集群和用户，这将运行两次：一次用于用户，一次用于集群。
 
    1. 如果存在，使用命令行参数：`--user` 或者 `--cluster`。
    2. 如果上下文非空，从上下文中获取用户或集群。
@@ -243,7 +243,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    2. If any cluster information attributes exist from the merged kubeconfig files, use them.
    3. If there is no server location, fail.
 -->
-1. 确定要使用的实际集群信息。此时，可能有也可能没有集群信息。基于此链构建每个集群信息；第一个匹配项会被采用：
+4. 确定要使用的实际集群信息。此时，可能有也可能没有集群信息。基于此链构建每个集群信息；第一个匹配项会被采用：
 
    1. 如果存在：`--server`、`--certificate-authority` 和 `--insecure-skip-tls-verify`，使用命令行参数。
    2. 如果合并的 kubeconfig 文件中存在集群信息属性，则使用它们。
@@ -258,7 +258,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    2. Use the `user` fields from the merged kubeconfig files.
    3. If there are two conflicting techniques, fail.
 -->
-2. 确定要使用的实际用户信息。使用与集群信息相同的规则构建用户信息，但每个用户只允许一种身份认证技术：
+5. 确定要使用的实际用户信息。使用与集群信息相同的规则构建用户信息，但每个用户只允许一种身份认证技术：
 
    1. 如果存在：`--client-certificate`、`--client-key`、`--username`、`--password` 和 `--token`，使用命令行参数。
    2. 使用合并的 kubeconfig 文件中的 `user` 字段。
@@ -268,7 +268,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 3. For any information still missing, use default values and potentially
    prompt for authentication information.
 -->
-3. 对于仍然缺失的任何信息，使用其对应的默认值，并可能提示输入身份认证信息。
+6. 对于仍然缺失的任何信息，使用其对应的默认值，并可能提示输入身份认证信息。
 
 <!--
 ## File references
@@ -288,20 +288,20 @@ kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位
 <!--
 ## Proxy
 
-You can configure `kubectl` to use proxy by setting `proxy-url` in the kubeconfig file, like:
+You can configure `kubectl` to use a proxy per cluster using `proxy-url` in your kubeconfig file, like this:
 -->
 ## 代理
 
-你可以在 `kubeconfig` 文件中设置 `proxy-url` 来为 `kubectl` 使用代理，例如:
+你可以在 `kubeconfig` 文件中，为每个集群配置 `proxy-url` 来让 `kubectl` 使用代理，例如：
 
 ```yaml
 apiVersion: v1
 kind: Config
 
-proxy-url: https://proxy.host:3128
-
 clusters:
 - cluster:
+    proxy-url: http://proxy.example.org:3128
+    server: https://k8s.example.org/k8s/clusters/c-xxyyzz
   name: development
 
 users:
@@ -310,7 +310,6 @@ users:
 contexts:
 - context:
   name: development
-
 ```
 
 ## {{% heading "whatsnext" %}}
@@ -318,6 +317,6 @@ contexts:
 <!--
 * [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
---->
+-->
 * [配置对多集群的访问](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)

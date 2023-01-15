@@ -173,7 +173,7 @@ for a volume.
   This field only applies to volume types that support `fsGroup` controlled ownership and permissions.
   This field has two possible values:
 
-* _OnRootMismatch_: Only change permissions and ownership if permission and ownership of
+* _OnRootMismatch_: Only change permissions and ownership if the permission and the ownership of
   root directory does not match with expected permissions of the volume.
   This could help shorten the time it takes to change ownership and permission of a volume.
 * _Always_: Always change permission and ownership of the volume when volume is mounted.
@@ -197,23 +197,17 @@ and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
 
 ## Delegating volume permission and ownership change to CSI driver
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 If you deploy a [Container Storage Interface (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)
 driver which supports the `VOLUME_MOUNT_GROUP` `NodeServiceCapability`, the
 process of setting file ownership and permissions based on the
 `fsGroup` specified in the `securityContext` will be performed by the CSI driver
-instead of Kubernetes, provided that the `DelegateFSGroupToCSIDriver` Kubernetes
-feature gate is enabled. In this case, since Kubernetes doesn't perform any
+instead of Kubernetes. In this case, since Kubernetes doesn't perform any
 ownership and permission change, `fsGroupChangePolicy` does not take effect, and
 as specified by CSI, the driver is expected to mount the volume with the
 provided `fsGroup`, resulting in a volume that is readable/writable by the
 `fsGroup`.
-
-Please refer to the [KEP](https://github.com/gnufied/enhancements/blob/master/keps/sig-storage/2317-fsgroup-on-mount/README.md)
-and the description of the `VolumeCapability.MountVolume.volume_mount_group`
-field in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume)
-for more information.
 
 ## Set the security context for a Container
 
@@ -444,6 +438,42 @@ securityContext:
 To assign SELinux labels, the SELinux security module must be loaded on the host operating system.
 {{< /note >}}
 
+### Efficient SELinux volume relabeling
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+By default, the contrainer runtime recursively assigns SELinux label to all
+files on all Pod volumes. To speed up this process, Kubernetes can change the
+SELinux label of a volume instantly by using a mount option
+`-o context=<label>`.
+
+To benefit from this speedup, all these conditions must be met:
+
+* Alpha feature gates `ReadWriteOncePod` and `SELinuxMountReadWriteOncePod` must
+  be enabled.
+* Pod must use PersistentVolumeClaim with `accessModes: ["ReadWriteOncePod"]`.
+* Pod (or all its Containers that use the PersistentVolumeClaim) must
+  have `seLinuxOptions` set.
+* The corresponding PersistentVolume must be either a volume that uses a
+  {{< glossary_tooltip text="CSI" term_id="csi" >}} driver, or a volume that uses the
+  legacy `iscsi` volume type.
+  * If you use a volume backed by a CSI driver, that CSI driver must announce that it
+    supports mounting with `-o context` by setting `spec.seLinuxMount: true` in
+    its CSIDriver instance.
+
+For any other volume types, SELinux relabelling happens another way: the container
+runtime  recursively changes the SELinux label for all inodes (files and directories)
+in the volume.
+The more files and directories in the volume, the longer that relabelling takes.
+
+{{< note >}}
+In Kubernetes 1.25, the kubelet loses track of volume labels after restart. In
+other words, then kubelet may refuse to start Pods with errors similar to  "conflicting
+SELinux labels of volume", while there are no conflicting labels in Pods. Make sure
+nodes are [fully drained](/docs/tasks/administer-cluster/safely-drain-node/)
+before restarting kubelet.
+{{< /note >}}
+
 ## Discussion
 
 The security context for a Pod applies to the Pod's Containers and also to
@@ -484,8 +514,9 @@ kubectl delete pod security-context-demo-4
 * [Tuning Docker with the newest security enhancements](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 * [Security Contexts design document](https://git.k8s.io/design-proposals-archive/auth/security_context.md)
 * [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
-* [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/)
+* [PodSecurity Admission](/docs/concepts/security/pod-security-admission/)
 * [AllowPrivilegeEscalation design
   document](https://git.k8s.io/design-proposals-archive/auth/no-new-privs.md)
 * For more information about security mechanisms in Linux, see
-[Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features) (Note: Some information is out of date)
+  [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
+  (Note: Some information is out of date)

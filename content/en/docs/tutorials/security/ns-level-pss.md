@@ -1,7 +1,7 @@
 ---
 title: Apply Pod Security Standards at the Namespace Level
 content_type: tutorial
-weight: 10
+weight: 20
 ---
 
 {{% alert title="Note" %}}
@@ -17,7 +17,7 @@ one namespace at a time.
 
 You can also apply Pod Security Standards to multiple namespaces at once at the cluster
 level. For instructions, refer to
-[Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss).
+[Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss/).
 
 ## {{% heading "prerequisites" %}}
 
@@ -155,7 +155,7 @@ with no warnings.
 
 ## Clean up
 
-Run `kind delete cluster -name psa-ns-level` to delete the cluster created.
+Run `kind delete cluster --name psa-ns-level` to delete the cluster created.
 
 ## {{% heading "whatsnext" %}}
 

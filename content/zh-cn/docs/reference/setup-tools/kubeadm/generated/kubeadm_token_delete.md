@@ -29,7 +29,7 @@ Token ID of the form "[a-z0-9]{6}" to delete.
 
 这个命令将为你删除指定的引导令牌列表。
 
-`[token-value]` 是要删除的 "[a-z0-9]{6}.[a-z0-9]{16}" 形式的完整令牌或者是 "[a-z0-9]{6}" 形式的的令牌 ID。
+`[token-value]` 是要删除的 "[a-z0-9]{6}.[a-z0-9]{16}" 形式的完整令牌或者是 "[a-z0-9]{6}" 形式的令牌 ID。
 
 ```
 kubeadm token delete [token-value] ...

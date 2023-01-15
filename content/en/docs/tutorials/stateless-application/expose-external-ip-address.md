@@ -175,4 +175,4 @@ kubectl delete deployment hello-world
 ## {{% heading "whatsnext" %}}
 
 Learn more about
-[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
+[connecting applications with services](/docs/tutorials/services/connect-applications-service/).

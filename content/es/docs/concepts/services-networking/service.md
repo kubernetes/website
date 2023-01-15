@@ -95,7 +95,7 @@ Los Services comúnmente abstraen el acceso a los Pods de Kubernetes, pero tambi
 
 Por ejemplo:
 
-- Quieres tener un clúster de base de datos externo en producción, pero en el ambiente de pruebas quieres usar tus propias bases de datos.
+- Quieres tener un clúster de base de datos externo en producción, pero en el entorno de pruebas quieres usar tus propias bases de datos.
 - Quieres apuntar tu Service a un Service en un {{< glossary_tooltip term_id="namespace" text="Namespace" >}} o en un clúster diferente.
 - Estás migrando tu carga de trabajo a Kubernetes. Mientras evalúas la aproximación, corres solo una porción de tus backends en Kubernetes.
 
@@ -418,7 +418,7 @@ Si quieres un número de puerto específico, puedes especificar un valor en el c
 Esto significa que necesitas prestar atención a posibles colisiones de puerto por tu cuenta.
 También tienes que usar un número de puerto válido, uno que esté dentro del rango configurado para uso del NodePort.
 
-Usar un NodePort te da libertad para configurar tu propia solución de balanceo de cargas, para configurar ambientes que no soportan Kubernetes del todo, o para exponer uno o más IPs del nodo directamente.
+Usar un NodePort te da libertad para configurar tu propia solución de balanceo de cargas, para configurar entornos que no soportan Kubernetes del todo, o para exponer uno o más IPs del nodo directamente.
 
 Ten en cuenta que este Service es visible como `<NodeIP>:spec.ports[*].nodePort` y `.spec.clusterIP:spec.ports[*].port`.
 Si la bandera `--nodeport-addresses` está configurada para el kube-proxy o para el campo equivalente en el fichero de configuración, `<NodeIP>` sería IP filtrada del nodo. Si
@@ -514,7 +514,7 @@ El valor de `spec.loadBalancerClass` debe ser un identificador de etiqueta, con 
 
 #### Balanceador de carga interno
 
-En un ambiente mixto algunas veces es necesario enrutar el tráfico desde Services dentro del mismo bloque (virtual) de direcciones de red.
+En un entorno mixto algunas veces es necesario enrutar el tráfico desde Services dentro del mismo bloque (virtual) de direcciones de red.
 
 En un entorno de split-horizon DNS necesitarías dos Services para ser capaz de enrutar tanto el tráfico externo como el interno a tus Endpoints.
 
@@ -646,7 +646,7 @@ HTTP y HTTPS seleccionan un proxy de capa 7: el ELB termina la conexión con el 
 
 TCP y SSL seleccionan un proxy de capa 4: el ELB reenvía el tráfico sin modificar los encabezados.
 
-En un ambiente mixto donde algunos puertos están asegurados y otros se dejan sin encriptar, puedes usar una de las siguientes anotaciones:
+En un entorno mixto donde algunos puertos están asegurados y otros se dejan sin encriptar, puedes usar una de las siguientes anotaciones:
 
 ```yaml
 metadata:

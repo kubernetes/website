@@ -9,13 +9,13 @@ type: docs
 
 <!-- 
 "Release Managers" is an umbrella term that encompasses the set of Kubernetes
-contributors responsible for maintaining release branches, tagging releases,
-and building/packaging Kubernetes.
+contributors responsible for maintaining release branches and creating releases
+by using the tools SIG Release provides.
 
 The responsibilities of each role are described below.
 -->
-“发布管理员（Release Managers）” 是一个总称，包括一批负责维护发布分支、标记发行版本以及构建/打包
-Kubernetes 的 Kubernetes 贡献者。
+“发布管理员（Release Managers）” 是一个总称，通过使用 SIG Release 提供的工具，
+负责维护发布分支、标记发行版本以及创建发行版本的贡献者。
 
 每个角色的职责如下所述。
 
@@ -74,7 +74,7 @@ Some information about releases is subject to embargo and we have defined policy
 <!-- 
 ## Handbooks
 
-**NOTE:** The Patch Release Team and Branch Manager handbooks will be de-duplicated at a later date.
+**NOTE: The Patch Release Team and Branch Manager handbooks will be de-duplicated at a later date.**
 
 - [Patch Release Team][handbook-patch-release]
 - [Branch Managers][handbook-branch-mgmt]
@@ -82,7 +82,7 @@ Some information about releases is subject to embargo and we have defined policy
 -->
 ## 手册  {#handbooks}
 
-**注意：**补丁发布团队和分支管理员手册以后将会删除重复数据。
+**注意：补丁发布团队和分支管理员手册以后将会删除重复数据。**
 
 - [补丁发布团队][handbook-patch-release]
 - [分支管理员][handbook-branch-mgmt]
@@ -130,7 +130,7 @@ Release Managers are responsible for:
   - Reviewing cherry picks
   - Ensuring the release branch stays healthy and that no unintended patch
     gets merged
-- Mentoring the [Release Manager Associates](#associates) group
+- Mentoring the [Release Manager Associates](#release-manager-associates) group
 - Actively developing features and maintaining the code in k/release
 - Supporting Release Manager Associates and contributors through actively
   participating in the Buddy program
@@ -150,7 +150,7 @@ Release Managers are responsible for:
 - 维护发布分支：
   - 审查 Cherry Pick
   - 确保发布分支保持健康并且没有合并意外的补丁
-- 指导[发布管理员助理](#associates)小组
+- 指导[发布管理员助理](#release-manager-associates)小组
 - 积极开发功能并维护 kubernetes/release 中的代码
 - 通过积极参与 Buddy 计划来支持发布管理员助理和贡献者
   - 每月与助理核对并委派任务，授权他们生成发行版本并指导工作
@@ -173,6 +173,7 @@ GitHub 提及：[@kubernetes/release-engineering](https://github.com/orgs/kubern
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Marko Mudrinić ([@xmudrii](https://github.com/xmudrii))
 - Nabarun Pal ([@palnabarun](https://github.com/palnabarun))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
@@ -246,12 +247,10 @@ GitHub Mentions: @kubernetes/release-engineering
 GitHub 提及：@kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
+- Cici Huang ([@cici37](https://github.com/cici37))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
-- Joyce Kung ([@thejoycekung](https://github.com/thejoycekung))
-- Max Körbächer ([@mkorbi](https://github.com/mkorbi))
-- Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
-- Taylor Dolezal ([@onlydole](https://github.com/onlydole))
-- Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
+- Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
+- Xander Grzywinski([@salaxander](https://github.com/salaxander))
 
 <!-- 
 ### Becoming a Release Manager Associate
@@ -303,9 +302,8 @@ GitHub team: [@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams
 GitHub 团队：[@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams/build-admins)
 
 - Aaron Crickenberger ([@spiffxp](https://github.com/spiffxp))
-- Benjamin Elder ([@BenTheElder](https://github.com/BenTheElder))
+- Ben Kazemi ([@BenjaminKazemi](https://github.com/BenjaminKazemi))
 - Grant McCloskey ([@MushuEE](https://github.com/MushuEE))
-- Juan Escobar ([@juanfescobar](https://github.com/juanfescobar))
 
 <!-- 
 ## SIG Release Leads
@@ -342,6 +340,7 @@ GitHub 团队：[@kubernetes/sig-release-leads](https://github.com/orgs/kubernet
 -->
 ### 主席  {#chairs}
 
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
 - Stephen Augustus ([@justaugustus](https://github.com/justaugustus))
 
@@ -352,7 +351,7 @@ GitHub 团队：[@kubernetes/sig-release-leads](https://github.com/orgs/kubernet
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
-- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
+- Verónica López ([@verolop](https://github.com/verolop))
 
 ---
 
@@ -369,9 +368,12 @@ Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.1
 
 [community-membership]: https://git.k8s.io/community/community-membership.md#member
 [handbook-branch-mgmt]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/branch-manager.md
-[handbook-packaging]: https://git.k8s.io/sig-release/release-engineering/packaging.md
+[handbook-packaging]: https://git.k8s.io/release/hack/rapture/README.md
 [handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [k-sig-release-releases]: https://git.k8s.io/sig-release/releases
+<!--
+[patches]: /releases/patch-releases/
+-->
 [patches]: /zh-cn/releases/patch-releases/
 [src]: https://git.k8s.io/community/committee-security-response/README.md
 [release-team]: https://git.k8s.io/sig-release/release-team/README.md

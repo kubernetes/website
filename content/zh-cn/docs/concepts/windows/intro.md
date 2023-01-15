@@ -133,6 +133,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   Linux containers in the same Pod. All containers in a Pod are scheduled onto a single
   Node where each Node represents a specific platform and architecture. The following
   Pod capabilities, properties and events are supported with Windows containers:
+
   * Single or multiple containers per Pod with process isolation and volume sharing
   * Pod `status` fields
   * Readiness, liveness, and startup probes
@@ -142,19 +143,19 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * Named pipe host mounts
   * Resource limits
   * OS field: 
+
     The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
-    The `IdentifyPodOS` feature gate needs to be enabled for this field to be recognized.
 
     {{< note >}}
-    Starting from 1.24, the `IdentifyPodOS` feature gate is in Beta stage and defaults to be enabled.
+    Starting from 1.25, the `IdentifyPodOS` feature gate is in GA stage and defaults to be enabled.
     {{< /note >}}
 
-    If the `IdentifyPodOS` feature gate is enabled and you set the `.spec.os.name` field to `windows`,
+    If you set the `.spec.os.name` field to `windows`,
     you must not set the following fields in the `.spec` of that Pod:  
     In the above list, wildcards (`*`) indicate all elements in a list.
     For example, `spec.containers[*].securityContext` refers to the SecurityContext object
     for all containers. If any of these fields is specified, the Pod will
-    not be admited by the API server.
+    not be admitted by the API server.
 -->
 * [Pod](/zh-cn/docs/concepts/workloads/pods/)
   
@@ -174,15 +175,14 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * 操作系统字段：
 
     `.spec.os.name` 字段应设置为 `windows` 以表明当前 Pod 使用 Windows 容器。
-    需要启用 `IdentifyPodOS` 特性门控才能让这个字段被识别。
-    
-    {{< note >}} 
-    从 1.24 开始，`IdentifyPodOS` 特性门控进入 Beta 阶段，默认启用。
+
+    {{< note >}}
+    从 1.25 开始，`IdentifyPodOS` 特性门控进入 GA 阶段，默认启用。
     {{< /note >}}
-    
-    如果 `IdentifyPodOS` 特性门控已启用并且你将 `.spec.os.name` 字段设置为 `windows`，
-    则你不得在对应 Pod 的 `.spec` 中设置以下字段：
-    
+
+    如果你将 `.spec.os.name` 字段设置为 `windows`，
+    则你必须不能在对应 Pod 的 `.spec` 中设置以下字段：
+
     * `spec.hostPID`
     * `spec.hostIPC`
     * `spec.securityContext.seLinuxOptions`
@@ -218,7 +218,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * CronJob
   * ReplicationController
 * {{< glossary_tooltip text="Services" term_id="service" >}}
-  See [Load balancing and Services](#load-balancing-and-services) for more details.
+  See [Load balancing and Services](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) for more details.
 -->
 * [工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)包括：
   
@@ -232,7 +232,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
 
 * {{< glossary_tooltip text="Services" term_id="service" >}}
 
-  有关更多详细信息，请参考[负载均衡和 Service](#load-balancing-and-services)。
+  有关更多详细信息，请参考[负载均衡和 Service](/zh-cn/docs/concepts/services-networking/windows-networking/#load-balancing-and-services)。
 
 <!--
 Pods, workload resources, and Services are critical elements to managing Windows
@@ -268,7 +268,7 @@ Some kubelet command line options behave differently on Windows, as described be
 <!--
 * The `--windows-priorityclass` lets you set the scheduling priority of the kubelet process
   (see [CPU resource management](/docs/concepts/configuration/windows-resource-management/#resource-management-cpu))
-* The `--kubelet-reserve`, `--system-reserve` , and `--eviction-hard` flags update
+* The `--kube-reserved`, `--system-reserved` , and `--eviction-hard` flags update
   [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 * Eviction by using `--enforce-node-allocable` is not implemented
 * Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
@@ -282,7 +282,7 @@ Some kubelet command line options behave differently on Windows, as described be
 -->
 * `--windows-priorityclass` 允许你设置 kubelet 进程的调度优先级
   （参考 [CPU 资源管理](/zh-cn/docs/concepts/configuration/windows-resource-management/#resource-management-cpu)）。
-* `--kubelet-reserve`、`--system-reserve` 和 `--eviction-hard` 标志更新
+* `--kube-reserved`、`--system-reserved` 和 `--eviction-hard` 标志更新
   [NodeAllocatable](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)。
 * 未实现使用 `--enforce-node-allocable` 驱逐。
 * 未实现使用 `--eviction-hard` 和 `--eviction-soft` 驱逐。
@@ -341,6 +341,7 @@ At a high level, these OS concepts are different:
   * Console apps handle Ctrl-C or Ctrl-break using a Control Handler.
   * Services register a Service Control Handler function that can accept
     `SERVICE_CONTROL_STOP` control codes.
+
 Container exit codes follow the same convention where 0 is success, and nonzero is failure.
 The specific error codes may differ across Windows and Linux. However, exit codes
 passed from the Kubernetes components (kubelet, kube-proxy) are unchanged.
@@ -386,7 +387,7 @@ work between Windows and Linux:
 * `securityContext.capabilities` -
    POSIX capabilities are not implemented on Windows
 * `securityContext.privileged` -
-   Windows doesn't support privileged containers
+   Windows doesn't support privileged containers, use [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) instead
 * `securityContext.procMount` -
    Windows doesn't have a `/proc` filesystem
 * `securityContext.readOnlyRootFilesystem` -
@@ -398,7 +399,8 @@ work between Windows and Linux:
 * `securityContext.allowPrivilegeEscalation` -
   不能在 Windows 上使用；所有权能字都无法生效。
 * `securityContext.capabilities` - POSIX 权能未在 Windows 上实现。
-* `securityContext.privileged` - Windows 不支持特权容器。
+* `securityContext.privileged` - Windows 不支持特权容器，
+  可使用 [HostProcess 容器](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)代替。
 * `securityContext.procMount` - Windows 没有 `/proc` 文件系统。
 * `securityContext.readOnlyRootFilesystem` -
   不能在 Windows 上使用；对于容器内运行的注册表和系统进程，写入权限是必需的。
@@ -430,11 +432,11 @@ work between Windows and Linux:
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
 * `hostIPC` and `hostpid` - host namespace sharing is not possible on Windows
-* `hostNetwork` - There is no Windows OS support to share the host network
+* `hostNetwork` - [see below](/docs/concepts/windows/intro#compatibility-v1-pod-spec-containers-hostnetwork)
 * `dnsPolicy` - setting the Pod `dnsPolicy` to `ClusterFirstWithHostNet` is
    not supported on Windows because host networking is not provided. Pods always
    run with a container network.
-* `podSecurityContext` (see below)
+* `podSecurityContext` [see below](/docs/concepts/windows/intro#compatibility-v1-pod-spec-containers-securitycontext)
 * `shareProcessNamespace` - this is a beta feature, and depends on Linux namespaces
   which are not implemented on Windows. Windows cannot share process namespaces or
   the container's root filesystem. Only the network can be shared.
@@ -444,10 +446,10 @@ The following list documents differences between how Pod specifications work bet
 以下列表记录了 Pod 规范在 Windows 和 Linux 之间的工作方式差异：
 
 * `hostIPC` 和 `hostpid` - 不能在 Windows 上共享主机命名空间。
-* `hostNetwork` - Windows 操作系统不支持共享主机网络。
+* `hostNetwork` - [参见下文](#compatibility-v1-pod-spec-containers-hostnetwork)
 * `dnsPolicy` - Windows 不支持将 Pod `dnsPolicy` 设为 `ClusterFirstWithHostNet`，
   因为未提供主机网络。Pod 始终用容器网络运行。
-* `podSecurityContext`（参见下文）
+* `podSecurityContext` [参见下文](#compatibility-v1-pod-spec-containers-securitycontext)
 * `shareProcessNamespace` - 这是一个 beta 版功能特性，依赖于 Windows 上未实现的 Linux 命名空间。
   Windows 无法共享进程命名空间或容器的根文件系统（root filesystem）。
   只能共享网络。
@@ -480,11 +482,33 @@ The following list documents differences between how Pod specifications work bet
 * 你无法为卷挂载启用 `mountPropagation`，因为这在 Windows 上不支持。
 
 <!--
-##### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
+#### Field compatibility for hostNetwork {#compatibility-v1-pod-spec-containers-hostnetwork}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+The kubelet can now request that pods running on Windows nodes use the host's network namespace instead
+of creating a new pod network namespace. To enable this functionality pass `--feature-gates=WindowsHostNetwork=true` to the kubelet.
+-->
+#### hostNetwork 的字段兼容性 {#compatibility-v1-pod-spec-containers-hostnetwork}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+现在，kubelet 可以请求在 Windows 节点上运行的 Pod 使用主机的网络命名空间，而不是创建新的 Pod 网络命名空间。
+要启用此功能，请将 `--feature-gates=WindowsHostNetwork=true` 传递给 kubelet。
+
+{{< note >}}
+<!-- 
+This functionality requires a container runtime that supports this functionality. 
+-->
+此功能需要支持该功能的容器运行时。
+{{< /note >}}
+
+<!--
+#### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
 
 None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
 -->
-##### Pod 安全上下文的字段兼容性 {#compatibility-v1-pod-spec-containers-securitycontext}
+#### Pod 安全上下文的字段兼容性 {#compatibility-v1-pod-spec-containers-securitycontext}
 
 Pod 的所有 [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
 字段都无法在 Windows 上生效。
@@ -524,7 +548,7 @@ Kubernetes 使用 pause 容器以允许工作容器崩溃或重启，而不会�
 
 <!--
 Kubernetes maintains a multi-architecture image that includes support for Windows.
-For Kubernetes v{{< skew currentVersion >}} the recommended pause image is `k8s.gcr.io/pause:3.6`.
+For Kubernetes v{{< skew currentVersion >}} the recommended pause image is `registry.k8s.io/pause:3.6`.
 The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
 is available on GitHub.
 
@@ -537,7 +561,7 @@ deploying to a production or production-like environment that requires signed
 binaries.
 -->
 Kubernetes 维护一个多体系结构的镜像，包括对 Windows 的支持。
-对于 Kubernetes v{{< skew currentVersion >}}，推荐的 pause 镜像为 `k8s.gcr.io/pause:3.6`。
+对于 Kubernetes v{{< skew currentVersion >}}，推荐的 pause 镜像为 `registry.k8s.io/pause:3.6`。
 可在 GitHub 上获得[源代码](https://github.com/kubernetes/kubernetes/tree/master/build/pause)。
 
 Microsoft 维护一个不同的多体系结构镜像，支持 Linux 和 Windows amd64，
@@ -598,7 +622,8 @@ kernel patch.
 <!--
 #### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is available as a container runtime for all Windows Server 2019 and later versions.
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
+is available as a container runtime for all Windows Server 2019 and later versions.
 
 See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
 -->
@@ -690,23 +715,20 @@ Kubernetes Slack 上的 SIG Windows 频道也是一个很好的途径，
 
 The kubeadm tool helps you to deploy a Kubernetes cluster, providing the control
 plane to manage the cluster it, and nodes to run your workloads.
-[Adding Windows nodes](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
-explains how to deploy Windows nodes to your cluster using kubeadm.
 
 The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also provides means to automate deployment of Windows nodes.
 -->
 ### 部署工具 {#deployment-tools}
 
 kubeadm 工具帮助你部署 Kubernetes 集群，提供管理集群的控制平面以及运行工作负载的节点。
-[添加 Windows 节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)阐述了如何使用
-kubeadm 将 Windows 节点部署到你的集群。
 
 Kubernetes [集群 API](https://cluster-api.sigs.k8s.io/) 项目也提供了自动部署 Windows 节点的方式。
 
 <!--
 ### Windows distribution channels
 
-For a detailed explanation of Windows distribution channels see the [Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
+For a detailed explanation of Windows distribution channels see the
+[Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
 
 Information on the different Windows Server servicing channels
 including their support models can be found at

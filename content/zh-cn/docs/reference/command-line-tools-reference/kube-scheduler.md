@@ -19,14 +19,14 @@ each Pod in the scheduling queue according to constraints and available
 resources. The scheduler then ranks each valid Node and binds the Pod to a
 suitable Node. Multiple different schedulers may be used within a cluster;
 kube-scheduler is the reference implementation.
-See [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/)
+See [scheduling](/docs/concepts/scheduling-eviction/)
 for more information about scheduling and the kube-scheduler component.
 -->
 Kubernetes 调度器是一个控制面进程，负责将 Pods 指派到节点上。
 调度器基于约束和可用资源为调度队列中每个 Pod 确定其可合法放置的节点。
 调度器之后对所有合法的节点进行排序，将 Pod 绑定到一个合适的节点。
 在同一个集群中可以使用多个不同的调度器；kube-scheduler 是其参考实现。
-参阅[调度](/zh/docs/concepts/scheduling-eviction/)以获得关于调度和
+参阅[调度](/zh-cn/docs/concepts/scheduling-eviction/)以获得关于调度和
 kube-scheduler 组件的更多信息。
 
 ```

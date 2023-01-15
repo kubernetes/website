@@ -1,7 +1,7 @@
 ---
 title: 卷快照类
 content_type: concept
-weight: 41 # 置于卷快照章节后
+weight: 61 # 置于卷快照章节后
 ---
 
 <!-- overview -->

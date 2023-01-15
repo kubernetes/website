@@ -1,6 +1,13 @@
 # i18n strings for the Chinese version of the site (https://kubernetes.io/zh-cn/)
 # 注意：修改此文件时请维持字符串名称的字母顺序并与英文版保持一致
 
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "和"
+
 [caution]
 other = "注意："
 
@@ -28,11 +35,38 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
+[cve_id]
+other = "CVE ID"
+
+[cve_issue_url]
+other = "CVE GitHub Issue URL"
+
+[cve_json_external_url]
+other = "external_url"
+
+[cve_json_id]
+other = "id"
+
+[cve_json_summary]
+other = "概要"
+
+[cve_json_url]
+other = "url"
+
+[cve_summary]
+other = "问题描述"
+
+[cve_table]
+other = "Kubernetes CVE 列表"
+
+[cve_url]
+other = "CVE URL"
+
 [deprecation_title]
-other = "您正在查看 Kubernetes 版本的文档："
+other = "你正在查看的文档所针对的是 Kubernetes 版本："
 
 [deprecation_warning]
-other = " 版本的文档已不再维护。您现在看到的版本来自于一份静态的快照。如需查阅最新文档，请点击"
+other = " 版本的文档已不再维护。你现在看到的版本来自于一份静态的快照。如需查阅最新文档，请点击"
 
 [deprecation_file_warning]
 other = "已过时"
@@ -83,7 +117,7 @@ other = "反馈"
 other = "否"
 
 [feedback_question]
-other = "此页是否对您有帮助？"
+other = "此页是否对你有帮助？"
 
 [feedback_yes]
 other = "是"
@@ -96,9 +130,6 @@ other = "电子邮件地址"
 
 [javascript_required]
 other = "必须[启用](https://www.enable-javascript.com/) JavaScript 才能查看此页内容"
-
-[katacoda_removal_warning]
-other = """本页面上的此在线教程在 <time datetime="2022-06-15">2022 年 6 月 15 日</time>后[无法继续使用](https://www.oreilly.com/online-learning/leveraging-katacoda-technology.html)。"""
 
 [latest_release]
 other = "最新发行版本："
@@ -113,7 +144,7 @@ other = "<< 前一篇"
 other = "后一篇 >>"
 
 [layouts_case_studies_list_tell]
-other = "分享您的故事"
+other = "分享你的故事"
 
 [layouts_docs_glossary_aka]
 other = "亦称作"
@@ -149,7 +180,7 @@ other = "或者"
 other = "报告问题"
 
 [layouts_docs_partials_feedback_thanks]
-other = "感谢反馈。如果您有一个关于如何使用 Kubernetes 的特定的、需要答案的问题，可以访问"
+other = "感谢反馈。如果你有一个关于如何使用 Kubernetes 的具体问题需要答案，可以访问"
 
 [layouts_docs_search_fetching]
 other = "检索结果中.."
@@ -218,6 +249,9 @@ other = "选项"
 [outdated_blog__message]
 other = "这篇文章已经一年多了，较旧的文章可能包含过时的内容。请检查从发表以来，页面中的信息是否变得不正确。"
 
+[post_create_issue]
+other = "登记一个问题"
+
 [prerequisites_heading]
 other = "准备开始"
 
@@ -234,6 +268,21 @@ other = "(发布日期: "
 # Use a suitable format for your locale
 [release_date_format]
 other = "2006-01-02"
+
+# Deprecated. Planned for removal in a future release.
+# Use [release_full_details_initial_text] instead.
+[release_complete]
+other = "完整的"
+
+# Replace [release_complete] with [release_full_details_initial_text]
+[release_full_details_initial_text]
+other = "完整的"
+
+[release_schedule]
+other = "排期表"
+
+[release_changelog]
+other = "变更记录"
 
 [seealso_heading]
 other = "另请参见"
@@ -261,10 +310,10 @@ other = """<p>本页面中的条目引用了第三方产品或项目，这些产
 other = "搜索"
 
 [version_check_mustbe]
-other = "您的 Kubernetes 服务器版本必须是 "
+other = "你的 Kubernetes 服务器版本必须是 "
 
 [version_check_mustbeorlater]
-other = "您的 Kubernetes 服务器版本必须不低于版本 "
+other = "你的 Kubernetes 服务器版本必须不低于版本 "
 
 [version_check_tocheck]
 other = "要获知版本信息，请输入 "

@@ -67,7 +67,7 @@ AppArmorを利用すれば、コンテナに許可することを制限したり
 KubeletのバージョンがAppArmorサポートに対応しているもの(>= v1.4)である限り、Kubeletは必要条件を1つでも満たさないAppArmorオプションが付けられたPodをリジェクトします。また、ノード上のAppArmorのサポートは、次のようにready conditionのメッセージで確認することもできます(ただし、この機能は将来のリリースで削除される可能性があります)。
 
 ```shell
-kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
+kubectl get nodes -o=jsonpath='{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}{"\n"}{end}'
 ```
 ```
 gke-test-default-pool-239f5d02-gyn2: kubelet is posting ready status. AppArmor enabled
@@ -111,7 +111,7 @@ kubectl get events | grep Created
 proc attrを調べることで、コンテナのルートプロセスが正しいプロファイルで実行されているかどうかを直接確認することもできます。
 
 ```shell
-kubectl exec <pod_name> cat /proc/1/attr/current
+kubectl exec <pod_name> -- cat /proc/1/attr/current
 ```
 ```
 k8s-apparmor-example-deny-write (enforce)

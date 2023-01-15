@@ -1,7 +1,7 @@
 ---
 title: 쿠버네티스 API 헬스(health) 엔드포인트
-
-
+# reviewers:
+# - logicalhan
 content_type: concept
 weight: 50
 ---

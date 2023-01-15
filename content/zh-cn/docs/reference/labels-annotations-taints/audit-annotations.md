@@ -15,6 +15,7 @@ namespace. These annotations apply to `Event` object from API group
 -->
 该页面作为 kubernetes.io 名字空间的审计注解的参考。这些注解适用于 API 组 `audit.k8s.io` 中的 `Event` 对象。
 
+{{< note >}}
 <!--
 The following annotations are not used within the Kubernetes API. When you
 [enable auditing](/docs/tasks/debug/debug-cluster/audit/) in your cluster,
@@ -23,10 +24,10 @@ The annotations apply to audit events. Audit events are different from objects i
 [Event API](/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API group
 `events.k8s.io`).
 -->
-{{< note >}}
 Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)时，
 审计事件数据将使用 API 组 `audit.k8s.io` 中的 `Event` 写入。
-注解适用于审计事件。审计事件不同于[事件 API ](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)
+注解适用于审计事件。
+审计事件不同于[事件 API](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)
 （API 组 `events.k8s.io`）中的对象。
 {{</note>}}
 
@@ -135,7 +136,7 @@ See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 
 有关详细信息，请参阅[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
 
-## missing-san.invalid-cert.kubernetes.io/$hostname
+## missing-san.invalid-cert.kubernetes.io/$hostname {##missing-san-invalid-cert-kubernetes-io-hostname}
 
 <!--
 Example: `missing-san.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "relies on a legacy Common Name field instead of the SAN extension for subject validation"`
@@ -170,7 +171,7 @@ There's more information about this in the Go documentation:
 Go 文档中有更多关于此的信息：
 [X.509 CommonName 弃用](https://go.dev/doc/go1.15#commonname)。
 
-## insecure-sha1.invalid-cert.kubernetes.io/$hostname
+## insecure-sha1.invalid-cert.kubernetes.io/$hostname {#insecure-sha1-invalid-cert-kubernetes-io-hostname}
 
 <!--
 Example: `insecure-sha1.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "uses an insecure SHA-1 signature"`
@@ -187,7 +188,7 @@ is using an insecure certificate signed with a SHA-1 hash.
 Support for these insecure certificates is disabled by default in Kubernetes 1.24,
 and will be removed in a future release.
 -->
-此注解表示 webhook 或聚合 API 服务器正在使用使用 SHA-1 签名的不安全证书。
+此注解表示 webhook 或聚合 API 服务器所使用的是使用 SHA-1 签名的不安全证书。
 Kubernetes 1.24 已经默认禁用，并将在未来的版本中删除对这些证书的支持。
 
 <!--
