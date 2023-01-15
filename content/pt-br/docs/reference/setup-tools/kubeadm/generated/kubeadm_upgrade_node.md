@@ -18,7 +18,7 @@ Comando para atualização de um nó no cluster
 O comando "node" executa as seguintes fases:
 
 ```
-preflight       Executa as verificações de atualização pre-flight do nó
+preflight       Executa as verificações de pré-atualização do nó
 control-plane   Atualiza a instância da camada de gerenciamento implantada neste nó, se houver
 kubelet-config  Atualiza a configuração do kubelet para este nó
 ```
@@ -82,14 +82,19 @@ kubeadm upgrade node [flags]
 <td colspan="2">--patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Caminho para um diretório que contém os arquivos chamados &quot;target[suffix][+patchtype].extension&quot;. Por exemplo, &quot;kube-apiserver0+merge.yaml&quot; ou apenas &quot;etcd.json&quot;. &quot;target&quot; pode ser um dos &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; pode ser um dos &quot;strategic&quot;, &quot;merge&quot; ou &quot;json&quot; e eles correspondem aos formatos de patch suportados pelo kubectl. O padrão &quot;patchtype&quot; é &quot;strategic&quot;. &quot;extension&quot; deve ser &quot;json&quot; ou &quot;yaml&quot;. &quot;suffix&quot; é uma string opcional que pode ser usada para determinar quais patches alpha-numerically serão aplicados primeiro.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+Caminho para um diretório contendo arquivos nomeados no padrão &quot;target[suffix][+patchtype].extension&quot;. Por exemplo, &quot;kube-apiserver0+merge.yaml&quot; ou somente &quot;etcd.json&quot;.
+&quot;target&quot; pode ser um dos seguintes valores: &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;.
+&quot;patchtype&quot; pode ser &quot;strategic&quot;, &quot;merge&quot; ou &quot;json&quot; e corresponde aos formatos de patch suportados pelo kubectl. O valor padrão para &quot;patchtype&quot; é &quot;strategic&quot;.
+&quot;extension&quot; deve ser &quot;json&quot; ou &quot;yaml&quot;. &quot;suffix&quot; é uma string opcional utilizada para determinar quais patches são aplicados primeiro em ordem alfanumérica.
+</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--skip-phases strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Exibe as fases a serem ignoradas</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Lista de fases a serem ignoradas</p></td>
 </tr>
 
 </tbody>
