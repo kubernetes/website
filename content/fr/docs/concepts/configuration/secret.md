@@ -563,7 +563,7 @@ Le programme dans un conteneur est responsable de la lecture des secrets des fic
 Lorsqu'un secret déjà consommé dans un volume est mis à jour, les clés projetées sont finalement mises à jour également.
 Kubelet vérifie si le secret monté est récent à chaque synchronisation périodique.
 Cependant, il utilise son cache local pour obtenir la valeur actuelle du Secret.
-Le type de cache est configurable à l'aide de le champ `ConfigMapAndSecretChangeDetectionStrategy` dans la structure [KubeletConfiguration](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
+Le type de cache est configurable à l'aide de le champ `ConfigMapAndSecretChangeDetectionStrategy` dans la structure [KubeletConfiguration](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
 Il peut être soit propagé via watch (par défaut), basé sur ttl, ou simplement redirigé toutes les requêtes vers directement kube-apiserver.
 Par conséquent, le délai total entre le moment où le secret est mis à jour et le moment où de nouvelles clés sont projetées sur le pod peut être aussi long que la période de synchronisation du kubelet + le délai de propagation du cache, où le délai de propagation du cache dépend du type de cache choisi (cela équivaut au delai de propagation du watch, ttl du cache, ou bien zéro).
 
