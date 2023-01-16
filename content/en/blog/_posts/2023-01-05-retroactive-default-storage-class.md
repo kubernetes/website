@@ -107,38 +107,42 @@ If you want to test the feature whilst it's alpha, you need to enable the releva
 If you would like to see the feature in action and verify it works fine in your cluster here's what you can try:
 
 1. Define a basic PersistentVolumeClaim:
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-1
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-```
+
+   ```yaml
+   apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+     name: pvc-1
+   spec:
+     accessModes:
+     - ReadWriteOnce
+     resources:
+       requests:
+         storage: 1Gi
+   ```
 
 2. Create the PersistentVolumeClaim when there is no default StorageClass. The PVC won't provision or bind (unless there is an existing, suitable PV already present) and will remain in <code>Pending</code> state.
-```
-$ kc get pvc
-NAME      STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-pvc-1     Pending   
-```
+
+   ```
+   $ kc get pvc
+   NAME      STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+   pvc-1     Pending   
+   ```
 
 3. Configure one StorageClass as default.
-```
-$ kc patch sc -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
-storageclass.storage.k8s.io/my-storageclass patched
-```
+
+   ```
+   $ kc patch sc -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+   storageclass.storage.k8s.io/my-storageclass patched
+   ```
 
 4. Verify that PersistentVolumeClaims is now provisioned correctly and was updated retroactively with new default StorageClass.
-```
-$ kc get pvc
-NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS      AGE
-pvc-1     Bound    pvc-06a964ca-f997-4780-8627-b5c3bf5a87d8   1Gi        RWO            my-storageclass   87m
-```
+
+   ```
+   $ kc get pvc
+   NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS      AGE
+   pvc-1     Bound    pvc-06a964ca-f997-4780-8627-b5c3bf5a87d8   1Gi        RWO            my-storageclass   87m
+   ```
 
 ### New metrics
 
