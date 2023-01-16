@@ -32,7 +32,7 @@ Borg has a similar abstraction, called an alloc (short for “resource allocatio
 
 
 
-Kubernetes supports more flexible collections than Borg by organizing pods using labels, which are arbitrary key/value pairs that users attach to pods (and in fact to any object in the system). Users can create groupings equivalent to Borg Jobs by using a “job:\<jobname\>” label on their pods, but they can also use additional labels to tag the service name, service instance (production, staging, test), and in general, any subset of their pods. A label query (called a “label selector”) is used to select which set of pods an operation should be applied to. Taken together, labels and [replication controllers](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/replication-controller.md) allow for very flexible update semantics, as well as for operations that span the equivalent of Borg Jobs.
+Kubernetes supports more flexible collections than Borg by organizing pods using labels, which are arbitrary key/value pairs that users attach to pods (and in fact to any object in the system). Users can create groupings equivalent to Borg Jobs by using a “job:\<jobname\>” label on their pods, but they can also use additional labels to tag the service name, service instance (production, staging, test), and in general, any subset of their pods. A label query (called a “label selector”) is used to select which set of pods an operation should be applied to. Taken together, labels and [replication controllers](/docs/concepts/workloads/controllers/replicationcontroller/) allow for very flexible update semantics, as well as for operations that span the equivalent of Borg Jobs.
 
 
 
