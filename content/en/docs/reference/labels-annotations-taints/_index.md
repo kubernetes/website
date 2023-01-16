@@ -325,6 +325,14 @@ Used on: PersistentVolumeClaim
 
 This annotation will be added to dynamic provisioning required PVC.
 
+### pv.kubernetes.io/bind-completed
+
+Example: `pv.kubernetes.io/bind-completed: "true"`
+
+Used on: PersistentVolumeClaim
+
+The value for this annotation must be true to take effect. This annotation indicates that {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} was successfully bound to a PersistentVolume.
+
 ### node.kubernetes.io/windows-build {#nodekubernetesiowindows-build}
 
 Example: `node.kubernetes.io/windows-build: "10.0.17763"`
