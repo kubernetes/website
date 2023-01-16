@@ -1,7 +1,7 @@
 ---
 title: Content organization
 content_type: concept
-weight: 40
+weight: 90
 ---
 
 

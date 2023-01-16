@@ -88,6 +88,10 @@ kubectl config --kubeconfig=config-demo set-cluster scratch --server=https://5.6
 
 Add user details to your configuration file:
 
+{{< caution >}}
+Storing passwords in Kubernetes client config is risky. A better alternative would be to use a credential plugin and store them separately. See: [client-go credential plugins](/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)
+{{< /caution >}}
+
 ```shell
 kubectl config --kubeconfig=config-demo set-credentials developer --client-certificate=fake-cert-file --client-key=fake-key-seefile
 kubectl config --kubeconfig=config-demo set-credentials experimenter --username=exp --password=some-password
@@ -153,6 +157,11 @@ users:
     client-key: fake-key-file
 - name: experimenter
   user:
+    # Documentation note (this comment is NOT part of the command output).
+    # Storing passwords in Kubernetes client config is risky.
+    # A better alternative would be to use a credential plugin
+    # and store the credentials separately.
+    # See https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
     password: some-password
     username: exp
 ```
@@ -388,6 +397,18 @@ export KUBECONFIG="$KUBECONFIG_SAVED"
 ```powershell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
+
+## Check the subject represented by the kubeconfig
+
+It is not always obvious what attributes (username, groups) you will get after authenticating to the cluster. 
+It can be even more challenging if you are managing more than one cluster at the same time.
+
+There is a `kubectl` alpha subcommand command to check subject attributes, such as username,
+for your selected Kubernetes client context: `kubectl alpha auth whoami`.
+
+Read [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
+to learn about this in more detail.
+
 
 ## {{% heading "whatsnext" %}}
 

@@ -3,10 +3,10 @@ reviewers:
 - maplain
 title: Service Internal Traffic Policy
 content_type: concept
-weight: 75
+weight: 120
 description: >-
   If two Pods in your cluster want to communicate, and both Pods are actually running on
-  the same node, _Service Internal Traffic Policy_ to keep network traffic within that node.
+  the same node, use _Service Internal Traffic Policy_ to keep network traffic within that node.
   Avoiding a round trip via the cluster network can help with reliability, performance
   (network latency and throughput), or cost.
 ---
@@ -14,7 +14,7 @@ description: >-
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 _Service Internal Traffic Policy_ enables internal traffic restrictions to only route
 internal traffic to endpoints within the node the traffic originated from. The
@@ -25,12 +25,10 @@ cluster. This can help to reduce costs and improve performance.
 
 ## Using Service Internal Traffic Policy
 
-The `ServiceInternalTrafficPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is a Beta feature and enabled by default.
-When the feature is enabled, you can enable the internal-only traffic policy for a
+You can enable the internal-only traffic policy for a
 {{< glossary_tooltip text="Service" term_id="service" >}}, by setting its
-`.spec.internalTrafficPolicy` to `Local`.
-This tells kube-proxy to only use node local endpoints for cluster internal traffic.
+`.spec.internalTrafficPolicy` to `Local`. This tells kube-proxy to only use node local
+endpoints for cluster internal traffic.
 
 {{< note >}}
 For pods on nodes with no endpoints for a given Service, the Service
@@ -60,13 +58,11 @@ spec:
 
 The kube-proxy filters the endpoints it routes to based on the
 `spec.internalTrafficPolicy` setting. When it's set to `Local`, only node local
-endpoints are considered. When it's `Cluster` or missing, all endpoints are
-considered.
-When the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`ServiceInternalTrafficPolicy` is enabled, `spec.internalTrafficPolicy` defaults to "Cluster".
+endpoints are considered. When it's `Cluster` (the default), or is not set,
+Kubernetes considers all endpoints.
 
 ## {{% heading "whatsnext" %}}
 
 * Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints)
 * Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial

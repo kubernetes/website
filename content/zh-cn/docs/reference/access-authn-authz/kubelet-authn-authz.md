@@ -1,10 +1,12 @@
 ---
 title: Kubelet 认证/鉴权
+weight: 110
 ---
 <!--
 reviewers:
 - liggitt
 title: Kubelet authentication/authorization
+weight: 110
 -->
 
 <!--

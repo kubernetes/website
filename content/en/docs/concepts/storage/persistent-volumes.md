@@ -297,18 +297,17 @@ the following types of volumes:
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume (deprecated)
 * gcePersistentDisk
-* glusterfs
 * rbd
 * portworxVolume
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
-``` yaml
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: gluster-vol-default
-provisioner: kubernetes.io/glusterfs
+  name: example-vol-default
+provisioner: vendor-name.example/magicstorage
 parameters:
   resturl: "http://192.168.10.100:8080"
   restuser: ""
@@ -438,8 +437,6 @@ The following types of PersistentVolume are deprecated. This means that support 
   (**deprecated** in v1.23)
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
   (**deprecated** in v1.17)
-* [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
-  (**deprecated** in v1.25)
 * [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
   (**deprecated** in v1.25)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
@@ -616,7 +613,6 @@ The following volume types support mount options:
 * `cephfs`
 * `cinder` (**deprecated** in v1.18)
 * `gcePersistentDisk`
-* `glusterfs`
 * `iscsi`
 * `nfs`
 * `rbd`
@@ -745,10 +741,9 @@ it won't be supported in a future Kubernetes release.
 
 #### Retroactive default StorageClass assignment
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 You can create a PersistentVolumeClaim without specifying a `storageClassName` for the new PVC, and you can do so even when no default StorageClass exists in your cluster. In this case, the new PVC creates as you defined it, and the `storageClassName` of that PVC remains unset until default becomes available.
-However, if you enable the [`RetroactiveDefaultStorageClass` feature gate](/docs/reference/command-line-tools-reference/feature-gates/) then Kubernetes behaves differently: existing PVCs without `storageClassName` update to use the new default StorageClass.
 
 When a default StorageClass becomes available, the control plane identifies any existing PVCs without `storageClassName`. For the PVCs that either have an empty value for `storageClassName` or do not have this key, the control plane then updates those PVCs to set `storageClassName` to match the new default StorageClass. If you have an existing PVC where the `storageClassName` is `""`, and you configure a default StorageClass, then this PVC will not get updated.
 
@@ -953,6 +948,25 @@ or to a VolumeSnapshot, the `dataSourceRef` field can contain a reference to any
 same namespace, except for core objects other than PVCs. For clusters that have the feature
 gate enabled, use of the `dataSourceRef` is preferred over `dataSource`.
 
+## Cross namespace data sources
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+Kubernetes supports cross namespace volume data sources.
+To use cross namespace volume data sources, you must enable the `AnyVolumeDataSource` and `CrossNamespaceVolumeDataSource`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) for
+the kube-apiserver, kube-controller-manager.
+Also, you must enable the `CrossNamespaceVolumeDataSource` feature gate for the csi-provisioner.
+
+Enabling the `CrossNamespaceVolumeDataSource` feature gate allow you to specify a namespace in the dataSourceRef field.
+{{< note >}}
+When you specify a namespace for a volume data source, Kubernetes checks for a
+ReferenceGrant in the other namespace before accepting the reference.
+ReferenceGrant is part of the `gateway.networking.k8s.io` extension APIs.
+See [ReferenceGrant](https://gateway-api.sigs.k8s.io/api-types/referencegrant/) in the Gateway API documentation for details.
+This means that you must extend your Kubernetes cluster with at least ReferenceGrant from the
+Gateway API before you can use this mechanism.
+{{< /note >}}
+
 ## Data source references
 
 The `dataSourceRef` field behaves almost the same as the `dataSource` field. If either one is
@@ -969,6 +983,11 @@ users should be aware of:
   used. Invalid values are any core object (objects with no apiGroup) except for PVCs.
 * The `dataSourceRef` field may contain different types of objects, while the `dataSource` field
   only allows PVCs and VolumeSnapshots.
+
+When the `CrossNamespaceVolumeDataSource` feature is enabled, there are additional differences:
+
+* The `dataSource` field only allows local objects, while the `dataSourceRef` field allows objects in any namespaces.  
+* When namespace is specified, `dataSource` and `dataSourceRef` are not synced.
 
 Users should always use `dataSourceRef` on clusters that have the feature gate enabled, and
 fall back to `dataSource` on clusters that do not. It is not necessary to look at both fields
@@ -1009,6 +1028,50 @@ controller into your cluster. That controller generates warning Events on a PVC 
 is registered to handle that kind of data source. When a suitable populator is installed for a PVC, it's the
 responsibility of that populator controller to report Events that relate to volume creation and issues during
 the process.
+
+### Using a cross-namespace volume data source
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+Create a ReferenceGrant to allow the namespace owner to accept the reference.
+You define a populated volume by specifying a cross namespace volume data source using the `dataSourceRef` field. You must already have a valid ReferenceGrant in the source namespace:
+
+   ```yaml
+   apiVersion: gateway.networking.k8s.io/v1beta1
+   kind: ReferenceGrant
+   metadata:
+     name: allow-ns1-pvc
+     namespace: default
+   spec:
+     from:
+     - group: ""
+       kind: PersistentVolumeClaim
+       namespace: ns1
+     to:
+     - group: snapshot.storage.k8s.io
+       kind: VolumeSnapshot
+       name: new-snapshot-demo
+   ```
+
+   ```yaml
+   apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+     name: foo-pvc
+     namespace: ns1
+   spec:
+     storageClassName: example
+     accessModes:
+     - ReadWriteOnce
+     resources:
+       requests:
+         storage: 1Gi
+     dataSourceRef:
+       apiGroup: snapshot.storage.k8s.io
+       kind: VolumeSnapshot
+       name: new-snapshot-demo
+       namespace: default
+     volumeMode: Filesystem
+   ```
 
 ## Writing Portable Configuration
 

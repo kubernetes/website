@@ -433,3 +433,20 @@ See the documentation on [node selection](/docs/concepts/scheduling-eviction/ass
 
 通过标签进行选择的一个用例是确定节点集，方便 Pod 调度。
 有关更多信息，请参阅[选择节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)文档。
+
+## {{% heading "whatsnext" %}}
+
+<!--
+- Learn how to [add a label to a node](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)
+- Find [Well-known labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
+- See [Recommended labels](/docs/concepts/overview/working-with-objects/common-labels/)
+- [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
+- [Use Labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively) to manage deployments.
+- Read a blog on [Writing a Controller for Pod Labels](/blog/2021/06/21/writing-a-controller-for-pod-labels/)
+-->
+- 学习如何[给节点添加标签](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)
+- 查阅[众所周知的标签、注解和污点](/zh-cn/docs/reference/labels-annotations-taints/)
+- 参见[推荐使用的标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/)
+- [使用名字空间标签来实施 Pod 安全性标准](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
+- [有效使用标签](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)管理 Deployment。
+- 阅读[为 Pod 标签编写控制器](/blog/2021/06/21/writing-a-controller-for-pod-labels/)的博文

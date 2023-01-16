@@ -2,8 +2,10 @@
 title: Encrypting Secret Data at Rest
 reviewers:
 - smarterclayton
+- enj
 content_type: task
 min-kubernetes-server-version: 1.13
+weight: 210
 ---
 
 <!-- overview -->
@@ -15,6 +17,9 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 * etcd v3.0 or later is required
 
+* To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
+
+
 <!-- steps -->
 
 ## Configuration and determining whether encryption at rest is already enabled
@@ -22,8 +27,7 @@ This page shows how to enable and configure encryption of secret data at rest.
 The `kube-apiserver` process accepts an argument `--encryption-provider-config`
 that controls how API data is encrypted in etcd.
 The configuration is provided as an API named
-[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/).
-An example configuration is provided below.
+[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/). `--encryption-provider-config-automatic-reload` boolean argument determines if the file set by `--encryption-provider-config` should be automatically reloaded if the disk contents change. This enables key rotation without API server restarts. An example configuration is provided below.
 
 {{< caution >}}
 **IMPORTANT:** For high-availability configurations (with two or more control plane nodes), the
@@ -31,7 +35,7 @@ encryption configuration file must be the same! Otherwise, the `kube-apiserver` 
 decrypt data stored in the etcd.
 {{< /caution >}}
 
-## Understanding the encryption at rest configuration.
+## Understanding the encryption at rest configuration
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -39,6 +43,8 @@ kind: EncryptionConfiguration
 resources:
   - resources:
       - secrets
+      - configmaps
+      - pandas.awesome.bears.example
     providers:
       - identity: {}
       - aesgcm:
@@ -60,9 +66,16 @@ resources:
 ```
 
 Each `resources` array item is a separate config and contains a complete configuration. The
-`resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
-that should be encrypted. The `providers` array is an ordered list of the possible encryption
-providers.
+`resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`
+that should be encrypted like Secrets, ConfigMaps, or other resources. 
+
+If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer, 
+any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted. 
+Any custom resources that existed in etcd prior to that version and configuration will be unencrypted
+until they are next written to storage. This is the same behavior as built-in resources.
+See the [Ensure all secrets are encrypted](#ensure-all-secrets-are-encrypted) section.
+
+The `providers` array is an ordered list of the possible encryption providers to use for the APIs that you listed.
 
 Only one provider type may be specified per entry (`identity` or `aescbc` may be provided,
 but not both in the same item).
@@ -80,7 +93,7 @@ the only recourse is to delete that key from the underlying etcd directly. Calls
 read that resource will fail until it is deleted or a valid decryption key is provided.
 {{< /caution >}}
 
-### Providers:
+### Providers
 
 {{< table caption="Providers for Kubernetes encryption at rest" >}}
 Name | Encryption | Strength | Speed | Key Length | Other Considerations
@@ -89,7 +102,7 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 `secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
 `aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
 `aescbc` | AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding | Weak | Fast | 32-byte | Not recommended due to CBC's vulnerability to padding oracle attacks.
-`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
+`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/).
 
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
@@ -100,11 +113,11 @@ Storing the raw encryption key in the EncryptionConfig only moderately improves 
 posture, compared to no encryption.  Please use `kms` provider for additional security.
 {{< /caution >}}
 
-By default, the `identity` provider is used to protect Secrets in etcd, which provides no
-encryption. `EncryptionConfiguration` was introduced to encrypt Secrets locally, with a locally
+By default, the `identity` provider is used to protect secret data in etcd, which provides no
+encryption. `EncryptionConfiguration` was introduced to encrypt secret data locally, with a locally
 managed key.
 
-Encrypting Secrets with a locally managed key protects against an etcd compromise, but it fails to
+Encrypting secret data with a locally managed key protects against an etcd compromise, but it fails to
 protect against a host compromise. Since the encryption keys are stored on the host in the
 EncryptionConfiguration YAML file, a skilled attacker can access that file and extract the encryption
 keys.
@@ -123,6 +136,8 @@ kind: EncryptionConfiguration
 resources:
   - resources:
       - secrets
+      - configmaps
+      - pandas.awesome.bears.example
     providers:
       - aescbc:
           keys:
@@ -191,8 +206,9 @@ permissions on your control-plane nodes so only the user who runs the `kube-apis
 ## Verifying that data is encrypted
 
 Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly created or
-updated Secret should be encrypted when stored. To check this, you can use the `etcdctl` command line
-program to retrieve the contents of your Secret.
+updated Secret or other resource types configured in `EncryptionConfiguration` should be encrypted
+when stored. To check this, you can use the `etcdctl` command line
+program to retrieve the contents of your secret data.
 
 1. Create a new Secret called `secret1` in the `default` namespace:
 
@@ -202,7 +218,9 @@ program to retrieve the contents of your Secret.
 
 1. Using the `etcdctl` command line, read that Secret out of etcd:
 
-   `ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C`
+   ```
+   ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
+   ```
 
    where `[...]` must be the additional arguments for connecting to the etcd server.
 
@@ -233,7 +251,9 @@ program to retrieve the contents of your Secret.
    ```
 
 1. Verify the stored Secret is prefixed with `k8s:enc:aescbc:v1:` which indicates
-   the `aescbc` provider has encrypted the resulting data.
+   the `aescbc` provider has encrypted the resulting data. Confirm that the key name shown in `etcd`
+   matches the key name specified in the `EncryptionConfiguration` mentioned above. In this example,
+   you can see that the encryption key named `key1` is used in `etcd` and in `EncryptionConfiguration`.
 
 1. Verify the Secret is correctly decrypted when retrieved via the API:
 
@@ -295,8 +315,7 @@ resources:
               secret: <BASE 64 ENCODED SECRET>
 ```
 
-Then run the following command to force decrypt
-all Secrets:
+Then run the following command to force decrypt all Secrets:
 
 ```shell
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
@@ -305,4 +324,3 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ## {{% heading "whatsnext" %}}
 
 * Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
-

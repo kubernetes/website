@@ -34,7 +34,7 @@ is defined by the
 [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 struct.
 -->
-## 创建配置文件
+## 创建配置文件   {#create-config-file}
 
 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 结构体定义了可以通过文件配置的 Kubelet 配置子集，
@@ -86,21 +86,22 @@ the threshold values respectively.
 
 <!--
 ## Start a Kubelet process configured via the config file
-
-If you use kubeadm to initialize your cluster, use the kubelet-config while creating your cluster with `kubeadmin init`.
-See [configuring kubelet using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/) for details.
-
-Start the Kubelet with the `--config` flag set to the path of the Kubelet's config file.
-The Kubelet will then load its config from this file.
 --->
-
-## 启动通过配置文件配置的 Kubelet 进程
+## 启动通过配置文件配置的 Kubelet 进程   {#start-kubelet-via-config-file}
 
 {{< note >}}
-如果你使用 kubeadm 初始化你的集群，在使用 `kubeadmin init` 创建你的集群的时候请使用 kubelet-config。
+<!--
+If you use kubeadm to initialize your cluster, use the kubelet-config while creating your cluster with `kubeadm init`.
+See [configuring kubelet using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/) for details.
+-->
+如果你使用 kubeadm 初始化你的集群，在使用 `kubeadm init` 创建你的集群的时候请使用 kubelet-config。
 更多细节请阅读[使用 kubeadm 配置 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)
 {{< /note >}}
 
+<!--
+Start the Kubelet with the `--config` flag set to the path of the Kubelet's config file.
+The Kubelet will then load its config from this file.
+-->
 启动 Kubelet 需要将 `--config` 参数设置为 Kubelet 配置文件的路径。Kubelet 将从此文件加载其配置。
 
 <!--
@@ -137,5 +138,5 @@ In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
   [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
   reference.
 --->
-- 参阅 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 
+- 参阅 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
   进一步学习 kubelet 的配置。

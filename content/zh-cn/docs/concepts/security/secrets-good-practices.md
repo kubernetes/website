@@ -15,18 +15,15 @@ weight: 70
 
 <!-- overview -->
 
-<!--
-{{<glossary_definition prepend="In Kubernetes, a Secret is an object that"
+{{<glossary_definition prepend="在 Kubernetes 中，Secret 是这样一个对象："
 term_id="secret" length="all">}}
 
+<!--
 The following good practices are intended for both cluster administrators and
 application developers. Use these guidelines to improve the security of your
 sensitive information in Secret objects, as well as to more effectively manage
 your Secrets.
 -->
-{{<glossary_definition prepend="在 Kubernetes 中，Secret 是这样一个对象："
-term_id="secret" length="all">}}
-
 以下良好实践适用于集群管理员和应用开发者。遵从这些指导方针有助于提高 Secret 对象中敏感信息的安全性，
 还可以更有效地管理你的 Secret。
 

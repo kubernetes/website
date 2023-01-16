@@ -9,6 +9,7 @@ reviewers:
 - davidopp
 - kevin-wangzefeng
 - bsalamat
+- alculquicondor
 title: Assigning Pods to Nodes
 content_type: concept
 weight: 20
@@ -278,20 +279,20 @@ for the Pod to be scheduled onto a node.
 才能将 Pod 调度到候选节点上。
 
 <!--
-If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity`
-types, then the Pod can be scheduled onto a node if one of the specified `nodeSelectorTerms` can be
-satisfied.
+If you specify multiple terms in `nodeSelectorTerms` associated with `nodeAffinity`
+types, then the Pod can be scheduled onto a node if one of the specified terms
+can be satisfied (terms are ORed).
 -->
-如果你指定了多个与 `nodeAffinity` 类型关联的 `nodeSelectorTerms`，
-只要其中一个 `nodeSelectorTerms` 满足的话，Pod 就可以被调度到节点上。
+如果你在与 nodeAffinity 类型关联的 nodeSelectorTerms 中指定多个条件，
+只要其中一个 `nodeSelectorTerms` 满足（各个条件按逻辑或操作组合）的话，Pod 就可以被调度到节点上。
 
 <!--
-If you specify multiple `matchExpressions` associated with a single `nodeSelectorTerms`,
-then the Pod can be scheduled onto a node only if all the `matchExpressions` are
-satisfied.
+If you specify multiple expressions in a single `matchExpressions` field associated with a
+term in `nodeSelectorTerms`, then the Pod can be scheduled onto a node only
+if all the expressions are satisfied (expressions are ANDed).
 -->
-如果你指定了多个与同一 `nodeSelectorTerms` 关联的 `matchExpressions`，
-则只有当所有 `matchExpressions` 都满足时 Pod 才可以被调度到节点上。
+如果你在与 `nodeSelectorTerms` 中的条件相关联的单个 `matchExpressions` 字段中指定多个表达式，
+则只有当所有表达式都满足（各表达式按逻辑与操作组合）时，Pod 才能被调度到节点上。
 {{< /note >}}
 
 <!--

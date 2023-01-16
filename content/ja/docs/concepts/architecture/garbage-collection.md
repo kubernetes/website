@@ -7,7 +7,7 @@ weight: 50
 <!-- overview -->
 ガベージコレクションは、Kubernetesがクラスターリソースをクリーンアップするために使用するさまざまなメカニズムの総称です。これにより、次のようなリソースのクリーンアップが可能になります:
 
-  * [失敗したPod](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+  * [終了したPod](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
   * [完了したJob](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)
   * [owner referenceのないオブジェクト](#owners-dependents)
   * [未使用のコンテナとコンテナイメージ](#containers-images)
@@ -86,10 +86,10 @@ Kubernetesがオーナーオブジェクトを削除すると、残された依�
 
 ## 未使用のコンテナとイメージのガベージコレクション {#containers-images}
 
-{{<glossary_tooltip text="kubelet" term_id="kubelet">}}は未使用のイメージに対して5分ごとに、未使用のコンテナーに対して1分ごとにガベージコレクションを実行します。
+{{<glossary_tooltip text="kubelet" term_id="kubelet">}}は未使用のイメージに対して5分ごとに、未使用のコンテナに対して1分ごとにガベージコレクションを実行します。
 外部のガベージコレクションツールは、kubeletの動作を壊し、存在するはずのコンテナを削除する可能性があるため、使用しないでください。
 
-未使用のコンテナーとイメージのガベージコレクションのオプションを設定するには、[設定ファイル](/docs/tasks/administer-cluster/kubelet-config-file/)を使用してkubeletを調整し、[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)リソースタイプを使用してガベージコレクションに関連するパラメーターを変更します。
+未使用のコンテナとイメージのガベージコレクションのオプションを設定するには、[設定ファイル](/docs/tasks/administer-cluster/kubelet-config-file/)を使用してkubeletを調整し、[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)リソースタイプを使用してガベージコレクションに関連するパラメーターを変更します。
 
 ### コンテナイメージのライフサイクル
 
@@ -102,18 +102,18 @@ Kubernetesは、kubeletの一部である*イメージマネージャー*を通�
 ガベージコレクションは、最後に使用された時間に基づいて、最も古いものから順にイメージを削除します。
 kubeletは、ディスク使用量が`LowThresholdPercent`値に達するまでイメージを削除します。
 
-### コンテナイメージのガベージコレクション {#container-image-garbage-collection}
+### コンテナのガベージコレクション {#container-image-garbage-collection}
 
 kubeletは、次の変数に基づいて未使用のコンテナをガベージコレクションします。
 
   * `MinAge`: kubeletがガベージコレクションできるコンテナの最低期間。`0`を設定すると無効化されます。
   * `MaxPerPodContainer`: 各Podのペアが持つことができるデッドコンテナの最大数。`0`未満に設定すると無効化されます。
-  * `MaxContainers`: クラスターが持つことができるデッドコンテナーの最大数。`0`未満に設定すると無効化されます。
+  * `MaxContainers`: クラスターが持つことができるデッドコンテナの最大数。`0`未満に設定すると無効化されます。
 
 これらの変数に加えて、kubeletは、通常、最も古いものから順に、定義されていない削除されたコンテナをガベージコレクションします。
 
-`MaxPerPodContainer`と`MaxContainer`は、Podごとのコンテナーの最大数(`MaxPerPodContainer`)を保持すると、グローバルなデッドコンテナの許容合計(`MaxContainers`)を超える状況で、互いに競合する可能性があります。
-この状況では、kubeletは`MaxPodPerContainer`を調整して競合に対処します。最悪のシナリオは、`MaxPerPodContainer`を1にダウングレードし、最も古いコンテナーを削除することです。
+`MaxPerPodContainer`と`MaxContainers`は、Podごとのコンテナの最大数(`MaxPerPodContainer`)を保持すると、グローバルなデッドコンテナの許容合計(`MaxContainers`)を超える状況で、互いに競合する可能性があります。
+この状況では、kubeletは`MaxPerPodContainer`を調整して競合に対処します。最悪のシナリオは、`MaxPerPodContainer`を1にダウングレードし、最も古いコンテナを削除することです。
 さらに、削除されたPodが所有するコンテナは、`MinAge`より古くなると削除されます。
 
 {{<note>}}

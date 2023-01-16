@@ -326,7 +326,7 @@ O recurso de [Discos persistentes regionais](https://cloud.google.com/compute/do
 
 #### Provisionar manualmente um PersistentVolume PD Regional
 
-O provisionamento dinâmico é possível usando [uma StorageClass para GCE PD](/docs/concepts/storage/storage-classes/#gce). Antes de criar um PersistentVolume, você deve criar o disco persistente:
+O provisionamento dinâmico é possível usando [uma StorageClass para GCE PD](/docs/concepts/storage/storage-classes/#gce-pd). Antes de criar um PersistentVolume, você deve criar o disco persistente:
 
 ```shell
 gcloud compute disks create --size=500GB my-data-disk

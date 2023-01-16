@@ -87,7 +87,7 @@ Pod 拓扑分布约束使你能够以声明的方式进行配置。
 The Pod API includes a field, `spec.topologySpreadConstraints`. The usage of this field looks like
 the following:
 -->
-## `topologySpreadConstraints` 字段
+## `topologySpreadConstraints` 字段   {#topologyspreadconstraints-field}
 
 Pod API 包括一个 `spec.topologySpreadConstraints` 字段。这个字段的用法如下所示：
 
@@ -106,8 +106,8 @@ spec:
       whenUnsatisfiable: <string>
       labelSelector: <object>
       matchLabelKeys: <list> # 可选；自从 v1.25 开始成为 Alpha
-      nodeAffinityPolicy: [Honor|Ignore] # 可选；自从 v1.25 开始成为 Alpha
-      nodeTaintsPolicy: [Honor|Ignore] # 可选；自从 v1.25 开始成为 Alpha
+      nodeAffinityPolicy: [Honor|Ignore] # 可选；自从 v1.26 开始成为 Beta
+      nodeTaintsPolicy: [Honor|Ignore] # 可选；自从 v1.26 开始成为 Beta
   ### 其他 Pod 字段置于此处
 ```
 
@@ -126,7 +126,7 @@ You can define one or multiple `topologySpreadConstraints` entries to instruct t
 kube-scheduler how to place each incoming Pod in relation to the existing Pods across
 your cluster. Those fields are:
 -->
-### 分布约束定义
+### 分布约束定义   {#spread-constraint-definition}
 
 你可以定义一个或多个 `topologySpreadConstraints` 条目以指导 kube-scheduler
 如何将每个新来的 Pod 与跨集群的现有 Pod 相关联。这些字段包括：
@@ -164,12 +164,12 @@ your cluster. Those fields are:
   
   {{< note >}}
   <!--
-  The `minDomains` field is a beta field and enabled by default in 1.25. You can disable it by disabling the
-  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  The `minDomains` field is a beta field and disabled by default in 1.25. You can enable it by enabling the
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `minDomains` 字段是一个 Alpha 字段，在 1.25 中默认被启用。
-  你可以通过禁用 `MinDomainsInPodToplogySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用该字段。
+  `minDomains` 字段是一个 Beta 字段，在 1.25 中默认被禁用。
+  你可以通过启用 `MinDomainsInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来启用该字段。
   {{< /note >}}
   
   <!--
@@ -276,13 +276,12 @@ your cluster. Those fields are:
 
   {{< note >}}
   <!--
-  The `nodeAffinityPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeAffinityPolicy` is an alpha-level field added in 1.25. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
   `nodeAffinityPolicy` 是 1.25 中新增的一个 Alpha 级别字段。
-  你必须启用 `NodeInclusionPolicyInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
+  你可以通过禁用 `NodeInclusionPolicyInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
   {{< /note >}}
 
 <!--
@@ -302,13 +301,12 @@ your cluster. Those fields are:
 
   {{< note >}}
   <!--
-  The `nodeTaintsPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeTaintsPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `nodeTaintsPolicy` 是 1.25 中新增的一个 Alpha 级别字段。
-  你必须启用 `NodeInclusionPolicyInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
+  `nodeTaintsPolicy` 是一个 Beta 级别字段，在 1.26 版本默认启用。
+  你可以通过禁用 `NodeInclusionPolicyInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
   {{< /note >}}
 
 <!--
@@ -328,13 +326,15 @@ For example, a node might have labels:
 -->
 ### 节点标签 {#node-labels}
 
-拓扑分布约束依赖于节点标签来标识每个{{< glossary_tooltip text="节点" term_id="node" >}}所在的拓扑域。例如，某节点可能具有标签：
+拓扑分布约束依赖于节点标签来标识每个{{< glossary_tooltip text="节点" term_id="node" >}}所在的拓扑域。
+例如，某节点可能具有标签：
 
 ```yaml
   region: us-east-1
   zone: us-east-1a
 ```
 
+{{< note >}}
 <!--
 For brevity, this example doesn't use the
 [well-known](/docs/reference/labels-annotations-taints/) label keys
@@ -345,7 +345,6 @@ those registered label keys are nonetheless recommended rather than the private
 You can't make a reliable assumption about the meaning of a private label key
 between different contexts.
 -->
-{{< note >}}
 为了简便，此示例未使用[众所周知](/zh-cn/docs/reference/labels-annotations-taints/)的标签键
 `topology.kubernetes.io/zone` 和 `topology.kubernetes.io/region`。
 但是，建议使用那些已注册的标签键，而不是此处使用的私有（不合格）标签键 `region` 和 `zone`。
@@ -762,7 +761,7 @@ topology spread constraints are applied to a Pod if, and only if:
 
 Default constraints can be set as part of the `PodTopologySpread` plugin
 arguments in a [scheduling profile](/docs/reference/scheduling/config/#profiles).
-The constraints are specified with the same [API above](#api), except that
+The constraints are specified with the same [API above](#topologyspreadconstraints-field), except that
 `labelSelector` must be empty. The selectors are calculated from the Services,
 ReplicaSets, StatefulSets or ReplicationControllers that the Pod belongs to.
 
@@ -776,7 +775,7 @@ An example configuration might look like follows:
 - Pod 隶属于某个 Service、ReplicaSet、StatefulSet 或 ReplicationController。
 
 默认约束可以设置为[调度方案](/zh-cn/docs/reference/scheduling/config/#profiles)中
-`PodTopologySpread` 插件参数的一部分。约束的设置采用[如前所述的 API](#api)，
+`PodTopologySpread` 插件参数的一部分。约束的设置采用[如前所述的 API](#topologyspreadconstraints-field)，
 只是 `labelSelector` 必须为空。
 选择算符是根据 Pod 所属的 Service、ReplicaSet、StatefulSet 或 ReplicationController 来设置的。
 
@@ -798,12 +797,12 @@ profiles:
           defaultingType: List
 ```
 
+{{< note >}}
 <!--
 The [`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
 is disabled by default. The Kubernetes project recommends using `PodTopologySpread`
 to achieve similar behavior.
 -->
-{{< note >}}
 默认配置下，[`SelectorSpread` 插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)是被禁用的。
 Kubernetes 项目建议使用 `PodTopologySpread` 以执行类似行为。
 {{< /note >}}
@@ -838,6 +837,7 @@ is disabled by default.
 -->
 此外，原来用于提供等同行为的 `SelectorSpread` 插件默认被禁用。
 
+{{< note >}}
 <!--
 The `PodTopologySpread` plugin does not score the nodes that don't have
 the topology keys specified in the spreading constraints. This might result
@@ -848,7 +848,6 @@ If your nodes are not expected to have **both** `kubernetes.io/hostname` and
 `topology.kubernetes.io/zone` labels set, define your own constraints
 instead of using the Kubernetes defaults.
 -->
-{{< note >}}
 对于分布约束中所指定的拓扑键而言，`PodTopologySpread` 插件不会为不包含这些拓扑键的节点评分。
 这可能导致在使用默认拓扑约束时，其行为与原来的 `SelectorSpread` 插件的默认行为不同。
 
@@ -886,7 +885,8 @@ or more scattered.
 
 `podAffinity`
 : attracts Pods; you can try to pack any number of Pods into qualifying
-  topology domain(s)
+  topology domain(s).
+
 `podAntiAffinity`
 : repels Pods. If you set this to `requiredDuringSchedulingIgnoredDuringExecution` mode then
   only a single Pod can be scheduled into a single topology domain; if you choose
@@ -895,12 +895,17 @@ or more scattered.
 -->
 ## 比较 podAffinity 和 podAntiAffinity {#comparison-with-podaffinity-podantiaffinity}
 
-在 Kubernetes 中，Pod 间亲和性和反亲和性控制 Pod 彼此的调度方式（更密集或更分散）。
+在 Kubernetes 中，
+[Pod 间亲和性和反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)控制
+Pod 彼此的调度方式（更密集或更分散）。
 
-对于 `podAffinity`：吸引 Pod；你可以尝试将任意数量的 Pod 集中到符合条件的拓扑域中。
-对于 `podAntiAffinity`：驱逐 Pod。如果将此设为 `requiredDuringSchedulingIgnoredDuringExecution` 模式，
-则只有单个 Pod 可以调度到单个拓扑域；如果你选择 `preferredDuringSchedulingIgnoredDuringExecution`，
-则你将丢失强制执行此约束的能力。
+`podAffinity`
+: 吸引 Pod；你可以尝试将任意数量的 Pod 集中到符合条件的拓扑域中。
+
+`podAntiAffinity`
+: 驱逐 Pod。如果将此设为 `requiredDuringSchedulingIgnoredDuringExecution` 模式，
+  则只有单个 Pod 可以调度到单个拓扑域；如果你选择 `preferredDuringSchedulingIgnoredDuringExecution`，
+  则你将丢失强制执行此约束的能力。
 
 <!--
 For finer control, you can specify topology spread constraints to distribute
@@ -967,5 +972,5 @@ section of the enhancement proposal about Pod topology spread constraints.
 -->
 - 博客：[PodTopologySpread 介绍](/blog/2020/05/introducing-podtopologyspread/)详细解释了 `maxSkew`，
   并给出了一些进阶的使用示例。
-- 阅读针对 Pod 的 API 参考的
-  [调度](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling)一节。
+- 阅读针对 Pod 的 API
+  参考的[调度](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling)一节。

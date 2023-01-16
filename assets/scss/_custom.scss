@@ -163,7 +163,7 @@ body.td-404 main .error-details {
     margin-top: 3.5rem !important;
   }
 
-  @media only screen and (min-width: 1075px) {
+  @media only screen and (min-width: 1170px) {
     margin-top: 1rem !important;
   }
 }
@@ -862,7 +862,6 @@ div.alert > em.javascript-required {
 // Consistent spacing for yaml code
 .language-yaml > span {
   height: 1.6em;
-  overflow: hidden;
 }
 
 .content__box

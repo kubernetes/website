@@ -44,7 +44,7 @@ share clusters.
 The other major form of multi-tenancy frequently involves a Software-as-a-Service (SaaS) vendor
 running multiple instances of a workload for customers. This business model is so strongly
 associated with this deployment style that many people call it "SaaS tenancy." However, a better
-term might be "multi-customer tenancy,” since SaaS vendors may also use other deployment models,
+term might be "multi-customer tenancy," since SaaS vendors may also use other deployment models,
 and this deployment model can also be used outside of SaaS.
 
 In this scenario, the customers do not have access to the cluster; Kubernetes is invisible from

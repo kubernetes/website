@@ -5,6 +5,7 @@ reviewers:
 - sftim
 title: Using NodeLocal DNSCache in Kubernetes Clusters
 content_type: task
+weight: 390
 ---
  
 <!-- overview -->
@@ -144,8 +145,7 @@ In those cases, the `kube-dns` ConfigMap can be updated.
 ## Setting memory limits
 
 The `node-local-dns` Pods use memory for storing cache entries and processing queries.
-Since they do not watch Kubernetes objects, the cluster size or the number of Services/Endpoints
-do not directly affect memory usage. Memory usage is influenced by the DNS query pattern.
+Since they do not watch Kubernetes objects, the cluster size or the number of Services / EndpointSlices do not directly affect memory usage. Memory usage is influenced by the DNS query pattern.
 From [CoreDNS docs](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md),
 > The default cache size is 10000 entries, which uses about 30 MB when completely filled.
 

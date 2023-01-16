@@ -140,7 +140,8 @@ JobSpec describes how the job execution will look like.
 
     - **podFailurePolicy.rules.action** (string), required
 
-      Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+      Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+      - FailJob: indicates that the pod's job is marked as Failed and all
         running pods are terminated.
       - Ignore: indicates that the counter towards the .backoffLimit is not
         incremented and a replacement pod is created.
@@ -176,7 +177,8 @@ JobSpec describes how the job execution will look like.
 
       - **podFailurePolicy.rules.onExitCodes.operator** (string), required
 
-        Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+        Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
+        - In: the requirement is satisfied if at least one container exit code
           (might be multiple if there are multiple containers not restricted
           by the 'containerName' field) is in the set of specified values.
         - NotIn: the requirement is satisfied if at least one container exit code
@@ -282,7 +284,7 @@ JobStatus represents the current state of a Job.
   The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
       counter.
   
-  This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+  Old jobs might not be tracked using this field, in which case the field remains null.
 
   <a name="UncountedTerminatedPods"></a>
   *UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.*

@@ -3648,6 +3648,185 @@ Node affinity is a group of node affinity scheduling rules.
 
       按节点字段列出的节点选择器要求列表。
 
+## PodAffinity {#PodAffinity}
+
+<!--
+Pod affinity is a group of inter pod affinity scheduling rules.
+-->
+Pod 亲和性是一组 Pod 间亲和性调度规则。
+
+<hr>
+
+<!--
+- **preferredDuringSchedulingIgnoredDuringExecution** ([]WeightedPodAffinityTerm)
+
+  The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+
+  <a name="WeightedPodAffinityTerm"></a>
+  *The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)*
+-->
+
+- **preferredDuringSchedulingIgnoredDuringExecution** ([]WeightedPodAffinityTerm)
+
+  调度器会更倾向于将 Pod 调度到满足该字段指定的亲和性表达式的节点，
+  但它可能会选择违反一个或多个表达式的节点。最优选择是权重总和最大的节点，
+  即对于满足所有调度要求（资源请求、`requiredDuringScheduling` 亲和表达式等）的每个节点，
+  通过迭代该字段的元素来计算总和，如果节点具有与相应 `podAffinityTerm`
+  匹配的 Pod，则将“权重”添加到总和中； 
+  具有最高总和的节点是最优选的。
+
+  <a name="WeightedPodAffinityTerm"></a>
+  **所有匹配的 WeightedPodAffinityTerm 字段的权重都是按节点累计的，以找到最优选的节点。**
+
+  <!--
+  - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm** (PodAffinityTerm), required
+
+    Required. A pod affinity term, associated with the corresponding weight.
+
+    <a name="PodAffinityTerm"></a>
+    *Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running*
+  -->
+
+  - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm** (PodAffinityTerm)，必需
+
+    必需的字段。一个 Pod 亲和性条件，对应一个与相应的权重值。
+
+    <a name="PodAffinityTerm"></a>
+    定义一组 Pod（即那些与给定名字空间相关的标签选择算符匹配的 Pod 集合），
+    当前 Pod 应该与所选 Pod 集合位于同一位置（亲和性）或位于不同位置（反亲和性），
+    其中“在同一位置”意味着运行在一个节点上，其键 `topologyKey` 的标签值与运行所选 Pod
+    集合中的某 Pod 的任何节点上的标签值匹配。
+
+    <!--
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.topologyKey** (string), required
+
+      This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
+    -->
+
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.topologyKey** (string)，必需
+
+      此 Pod 应与指定名字空间中与标签选择算符匹配的 Pod 集合位于同一位置（亲和性）
+      或位于不同位置（反亲和性），这里的“在同一位置”意味着运行在一个节点上，其键名为
+      `topologyKey` 的标签值与运行所选 Pod 集合中的某 Pod 的任何节点上的标签值匹配。
+      不允许使用空的 `topologyKey`。
+
+    <!--
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+      A label query over a set of resources, in this case pods.
+    -->
+
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.labelSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
+
+      对一组资源的标签查询，在这里资源为 Pod。
+
+    <!--
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+      A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
+    -->
+
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaceSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
+
+      对条件所适用的名字空间集合的标签查询。
+      此条件会被应用到此字段所选择的名字空间和 namespaces 字段中列出的名字空间的组合之上。
+      选择算符为 null 和 namespaces 列表为 null 值或空表示“此 Pod 的名字空间”。
+      空的选择算符 ({}) 可用来匹配所有名字空间。
+
+    <!--
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** ([]string)
+
+      namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
+    -->
+
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** （[]string）
+
+      namespaces 指定此条件所适用的名字空间，是一个静态列表。
+      此条件会被应用到 namespaces 字段中列出的名字空间和由 namespaceSelector 选中的名字空间上。
+      namespaces 列表为 null 或空，以及 namespaceSelector 值为 null 均表示“此 Pod 的名字空间”。
+
+  <!--
+  - **preferredDuringSchedulingIgnoredDuringExecution.weight** (int32), required
+
+    weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
+  -->
+
+  - **preferredDuringSchedulingIgnoredDuringExecution.weight** (int32)，必需
+
+    weight 是匹配相应 `podAffinityTerm` 条件的权重，范围为 1-100。
+
+<!--
+- **requiredDuringSchedulingIgnoredDuringExecution** ([]PodAffinityTerm)
+
+  If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
+
+  <a name="PodAffinityTerm"></a>
+  *Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running*
+-->
+
+- **requiredDuringSchedulingIgnoredDuringExecution** （[]PodAffinityTerm）
+
+  如果在调度时不满足该字段指定的亲和性要求，则该 Pod 不会被调度到该节点上。
+  如果在 Pod 执行期间的某个时间点不再满足此字段指定的亲和性要求（例如：由于 Pod 标签更新），
+  系统可能会也可能不会尝试最终将 Pod 从其节点中逐出。
+  当此列表中有多个元素时，每个 `podAffinityTerm` 对应的节点列表是取其交集的，即必须满足所有条件。
+
+  <a name="PodAffinityTerm"></a>
+  定义一组 Pod（即那些与给定名字空间相关的标签选择算符匹配的 Pod 集合），当前 Pod 应该与该
+  Pod 集合位于同一位置（亲和性）或不位于同一位置（反亲和性）。
+  这里的“位于同一位置”含义是运行在一个节点上。基于 `topologyKey` 字段所给的标签键名，
+  检查所选 Pod 集合中各个 Pod 所在的节点上的标签值，标签值相同则认作“位于同一位置”。
+
+  <!--
+  - **requiredDuringSchedulingIgnoredDuringExecution.topologyKey** (string), required
+
+    This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
+  -->
+
+  - **requiredDuringSchedulingIgnoredDuringExecution.topologyKey** (string)，必需
+
+    此 Pod 应与指定名字空间中与标签选择算符匹配的 Pod 集合位于同一位置（亲和性）
+    或不位于同一位置（反亲和性），
+    这里的“位于同一位置”含义是运行在一个节点上。基于 `topologyKey` 字段所给的标签键名，
+    检查所选 Pod 集合中各个 Pod 所在的节点上的标签值，标签值相同则认作“位于同一位置”。
+    不允许使用空的 `topologyKey`。
+
+  <!--
+  - **requiredDuringSchedulingIgnoredDuringExecution.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+    A label query over a set of resources, in this case pods.
+  -->
+
+  - **requiredDuringSchedulingIgnoredDuringExecution.labelSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
+
+    对一组资源的标签查询，在这里资源为 Pod。
+
+  <!--
+  - **requiredDuringSchedulingIgnoredDuringExecution.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+    A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
+  -->
+
+  - **requiredDuringSchedulingIgnoredDuringExecution.namespaceSelector** （<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
+
+    对条件所适用的名字空间集合的标签查询。
+    当前条件将应用于此字段选择的名字空间和 namespaces 字段中列出的名字空间。
+    选择算符为 null 和 namespaces 列表为 null 或空值表示“此 Pod 的名字空间”。
+    空选择算符 ({}) 能够匹配所有名字空间。
+
+
+  <!--
+  - **requiredDuringSchedulingIgnoredDuringExecution.namespaces** ([]string)
+
+    namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
+  -->
+
+  - **requiredDuringSchedulingIgnoredDuringExecution.namespaces** （[]string）
+
+    namespaces 指定当前条件所适用的名字空间名称的静态列表。
+    当前条件适用于此字段中列出的名字空间和由 namespaceSelector 选中的名字空间。
+    namespaces 列表为 null 或空，以及 namespaceSelector 为 null 表示“此 Pod 的名字空间”。
+
 ## PodAntiAffinity {#PodAntiAffinity}
 
 <!--

@@ -1,13 +1,13 @@
 ---
 title: 注解
 content_type: concept
-weight: 50
+weight: 60
 ---
 
 <!--
 title: Annotations
 content_type: concept
-weight: 50
+weight: 60
 -->
 
 <!-- overview -->
@@ -124,7 +124,7 @@ If the prefix is omitted, the annotation Key is presumed to be private to the us
 -->
 ## 语法和字符集
 
-_注解（Annotations）_ 存储的形式是键/值对。有效的注解键分为两部分：
+**注解（Annotations）** 存储的形式是键/值对。有效的注解键分为两部分：
 可选的前缀和名称，以斜杠（`/`）分隔。 
 名称段是必需项，并且必须在 63 个字符以内，以字母数字字符（`[a-z0-9A-Z]`）开头和结尾，
 并允许使用破折号（`-`），下划线（`_`），点（`.`）和字母数字。 

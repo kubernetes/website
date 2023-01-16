@@ -102,7 +102,7 @@ After submitting at least 5 substantial pull requests and meeting the other
 ## Reviewers
 
 Reviewers are responsible for reviewing open pull requests. Unlike member
-feedback, you must address reviewer feedback. Reviewers are members of the
+feedback, the PR author must address reviewer feedback. Reviewers are members of the
 [@kubernetes/sig-docs-{language}-reviews](https://github.com/orgs/kubernetes/teams?query=sig-docs)
 GitHub team.
 
@@ -146,7 +146,7 @@ separately for reviewer status in SIG Docs.
 
 To apply:
 
-1. Open a pull request that adds your GitHub user name to a section of the
+1. Open a pull request that adds your GitHub username to a section of the
    [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES) file
    in the `kubernetes/website` repository.
 
@@ -154,7 +154,7 @@ To apply:
    If you aren't sure where to add yourself, add yourself to `sig-docs-en-reviews`.
    {{< /note >}}
 
-1. Assign the PR to one or more SIG-Docs approvers (user names listed under
+1. Assign the PR to one or more SIG-Docs approvers (usernames listed under
    `sig-docs-{language}-owners`).
 
 If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added,
@@ -192,7 +192,7 @@ into the website repository. This comes with certain responsibilities.
   {{< /warning >}}
 
 - Make sure that proposed changes meet the
-  [contribution guidelines](/docs/contribute/style/content-guide/#contributing-content).
+  [documentation content guide](/docs/contribute/style/content-guide/).
 
   If you ever have a question, or you're not sure about something, feel free
   to call for additional review.

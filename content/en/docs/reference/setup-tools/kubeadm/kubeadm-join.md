@@ -244,7 +244,7 @@ it off regardless. Doing so will disable the ability to use the `--discovery-tok
 * Fetch the `cluster-info` file from the API Server:
 
 ```shell
-kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+kubectl -n kube-public get cm cluster-info -o jsonpath='{.data.kubeconfig}' | tee cluster-info.yaml
 ```
 
 The output is similar to this:

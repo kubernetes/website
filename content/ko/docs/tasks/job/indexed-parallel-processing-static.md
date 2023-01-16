@@ -19,7 +19,7 @@ weight: 30
 파드 인덱스는 10진수 값을 문자열로 표현한 {{< glossary_tooltip text="어노테이션" term_id="annotation" >}}
 `batch.kubernetes.io/job-completion-index` 를 통해
 사용할 수 있다. 컨테이너화된 태스크 프로세스가 이 인덱스 정보를 가져갈 수 있도록,
-[downward API](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
+[다운워드(downward) API](/ko/docs/concepts/workloads/pods/downward-api/)
 메커니즘을 사용하여 어노테이션의 값을 발행할 수 있다.
 편의상, 컨트롤 플레인은 downward API를 자동 설정하여
 `JOB_COMPLETION_INDEX` 환경변수에 인덱스를 노출할 수 있도록 한다.

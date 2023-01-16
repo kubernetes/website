@@ -5,7 +5,7 @@ min-kubernetes-server-version: v1.25
 weight: 60
 ---
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 <!-- overview -->
 
@@ -27,14 +27,6 @@ or {{<glossary_tooltip text="taint" term_id="taint" >}}-based eviction).
 You should already be familiar with the basic use of [Job](/docs/concepts/workloads/controllers/job/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-<!-- steps -->
-
-{{< note >}}
-As the features are in Alpha, prepare the Kubernetes cluster with the two
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled: `JobPodFailurePolicy` and `PodDisruptionConditions`.
-{{< /note >}}
 
 ## Using Pod failure policy to avoid unnecessary Pod retries
 

@@ -325,7 +325,7 @@ created.
   [shell script](/examples/security/kind-with-cluster-level-baseline-pod-security.sh)
   to perform all the preceding steps at once:
   1. Create a Pod Security Standards based cluster level Configuration
-  2. Create a file to let API server consumes this configuration
+  2. Create a file to let API server consume this configuration
   3. Create a cluster that creates an API server with this configuration
   4. Set kubectl context to this new cluster
   5. Create a minimal pod yaml file

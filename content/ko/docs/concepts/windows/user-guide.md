@@ -158,14 +158,13 @@ GMSA로 구성한 컨테이너는 GMSA로 구성된 신원을 들고 있는 동�
 아래는 권장되는 방식의 개요인데,
 이것의 주요 목표 중에 하나는 이 방식이 기존 리눅스 워크로드와 호환되어야 한다는 것이다.
 
-`IdentifyPodOS` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있으면, 
-파드의 컨테이너가 어떤 운영 체제용인지를 파드의 `.spec.os.name`에 설정할 수 있다(그리고 설정해야 한다). 
+1.25부터, 파드의 컨테이너가 어떤 운영체제 용인지를 파드의 `.spec.os.name`에 설정할 수 있다(그리고 설정해야 한다). 
 리눅스 컨테이너를 실행하는 파드에는 `.spec.os.name`을 `linux`로 설정한다. 
 윈도우 컨테이너를 실행하는 파드에는 `.spec.os.name`을 
 `windows`로 설정한다.
 
 {{< note >}}
-1.24부터, `IdentifyPodOS` 기능은 베타 단계이며 기본적으로 활성화되어 있다.
+1.25부터, `IdentifyPodOS` 기능은 GA 단계이며 기본적으로 활성화되어 있다.
 {{< /note >}}
 
 스케줄러는 파드를 노드에 할당할 때 

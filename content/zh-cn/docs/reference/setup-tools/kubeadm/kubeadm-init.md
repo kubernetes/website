@@ -522,16 +522,24 @@ The following phase command can be used to re-upload the certificates after expi
 以下阶段命令可用于证书到期后重新上传证书：
 
 ```shell
-kubeadm init phase upload-certs --upload-certs --certificate-key=SOME_VALUE --config=SOME_YAML_FILE
+kubeadm init phase upload-certs --upload-certs --config=SOME_YAML_FILE
 ```
+{{< note >}}
+<!--
+A predefined `certificateKey` can be provided in `InitConfiguration` when passing the [configuration file](https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/) with `--config`.
+-->
+在使用 `--config`
+传递[配置文件](https://kubernetes.io/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)时，
+可以在 `InitConfiguration` 中提供预定义的 `certificateKey`。
+{{< /note >}}
 
 <!--
-If the flag `--certificate-key` is not passed to `kubeadm init` and
+If a predefined certificate key is not passed to `kubeadm init` and
 `kubeadm init phase upload-certs` a new key will be generated automatically.
 
 The following command can be used to generate a new key on demand:
 -->
-如果未将参数 `--certificate-key` 传递给 `kubeadm init` 和 `kubeadm init phase upload-certs`，
+如果未将预定义的证书密钥传递给 `kubeadm init` 和 `kubeadm init phase upload-certs`，
 则会自动生成一个新密钥。
 
 以下命令可用于按需生成新密钥：

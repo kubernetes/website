@@ -204,11 +204,7 @@ IngressSpec 描述用户希望存在的 Ingress。
       - **rules.http.paths.pathType** (string)，必需
 
         <!--
-        PathType determines the interpretation of the Path matching. PathType can be one of the following values: 
-        
-        * Exact: Matches the URL path exactly.
-        
-        * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+        PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
           done on a path element by element basis. A path element refers is the
           list of labels in the path split by the '/' separator. A request is a
           match for path p if every p is an element-wise prefix of p of the
@@ -384,61 +380,68 @@ IngressStatus 描述 Ingress 的当前状态。
 
 <hr>
 
-- **loadBalancer** (LoadBalancerStatus)
+- **loadBalancer** (IngressLoadBalancerStatus)
 
   <!--
   LoadBalancer contains the current status of the load-balancer.
 
-  <a name="LoadBalancerStatus"></a>
-  *LoadBalancerStatus represents the status of a load-balancer.*
+  <a name="IngressLoadBalancerStatus"></a>
+  *IngressLoadBalancerStatus represents the status of a load-balancer.*
   -->
 
   loadBalancer 包含负载均衡器的当前状态。
 
-  <a name="LoadBalancerStatus"></a>
-  **LoadBalancerStatus 表示负载均衡器的状态。**
+  <a name="IngressLoadBalancerStatus"></a>
+  **IngressLoadBalancerStatus 表示负载均衡器的状态。**
 
-  - **loadBalancer.ingress** ([]LoadBalancerIngress)
+  - **loadBalancer.ingress** ([]IngressLoadBalancerIngress)
 
     <!--
-    Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
+    Ingress is a list containing ingress points for the load-balancer.
 
-    <a name="LoadBalancerIngress"></a>
-    *LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.*
+    <a name="IngressLoadBalancerIngress"></a>
+    *IngressLoadBalancerIngress represents the status of a load-balancer ingress point.*
     -->
 
-    ingress 是一个包含负载均衡器入口点的列表。用于服务的流量应发送到这些入口点。
+    ingress 是一个包含负载均衡器入口点的列表。
 
-    <a name="LoadBalancerIngress"></a>
-    **LoadBalancerIngress 表示负载均衡器入口点的状态：用于服务的流量应发送到入口点。**
+    <a name="IngressLoadBalancerIngress"></a>
+    **IngressLoadBalancerIngress 表示负载均衡器入口点的状态。**
 
     - **loadBalancer.ingress.hostname** (string)
 
       <!--
-      Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
+      Hostname is set for load-balancer ingress points that are DNS based.
       -->
 
-      hostname 是为基于 DNS 的负载平衡器（通常为 AWS 负载平衡器）入口点所设置的主机名。
+      hostname 是为基于 DNS 的负载平衡器入口点所设置的主机名。
 
     - **loadBalancer.ingress.ip** (string)
 
       <!--
-      IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+      IP is set for load-balancer ingress points that are IP based.
       -->
 
-      ip 是为基于 IP 的负载平衡器（通常为 GCE 或 OpenStack 负载平衡器）入口点设置的 IP。
+      ip 是为基于 IP 的负载平衡器入口点设置的 IP。
 
-    - **loadBalancer.ingress.ports** ([]PortStatus)
+    - **loadBalancer.ingress.ports** ([]IngressPortStatus)
 
       <!--
       *Atomic: will be replaced during a merge*
       
       Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+      Ports provides information about the ports exposed by this LoadBalancer.
+      
+      <a name="IngressPortStatus"></a>
+      *IngressPortStatus represents the error condition of a service port*
       -->
 
       **Atomic: 将在合并期间被替换**
-      
-      ports 是服务端口的记录列表。如果使用了此字段，服务中定义的每个端口中都应该有一个条目与之对应。
+    
+      ports 提供有关此 LoadBalancer 公开端口的信息。
+    
+      <a name="IngressPortStatus"></a>
+      **IngressPortStatus 表示服务端口的错误情况**
 
       <!--
       - **loadBalancer.ingress.ports.port** (int32), required
@@ -447,10 +450,10 @@ IngressStatus 描述 Ingress 的当前状态。
       - **loadBalancer.ingress.ports.port** (int32)，必需
         
         <!--
-        Port is the port number of the service port of which status is recorded here
+        Port is the port number of the ingress port.
         -->
 
-        port 在此是所记录状态对应的服务端口的端口号。
+        port 是入栈端口的端口号
 
       <!--  
       - **loadBalancer.ingress.ports.protocol** (string), required
@@ -459,10 +462,10 @@ IngressStatus 描述 Ingress 的当前状态。
       - **loadBalancer.ingress.ports.protocol** (string)，必需
         
         <!--
-        Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
         -->
 
-        protocol 是服务端口的协议，其状态记录在此。支持的值为：“TCP”、“UDP”、“SCTP”。
+        protocol 是入栈端口的协议。支持的值为：“TCP”、“UDP”、“SCTP”。
 
       - **loadBalancer.ingress.ports.error** (string)
 

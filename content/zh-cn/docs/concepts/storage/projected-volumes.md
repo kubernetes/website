@@ -51,8 +51,8 @@ Currently, the following types of volume sources can be projected:
 All sources are required to be in the same namespace as the Pod. For more details,
 see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
 -->
-所有的卷源都要求处于 Pod 所在的同一个名字空间内。进一步的详细信息，可参考
-[一体化卷](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md)设计文档。
+所有的卷源都要求处于 Pod 所在的同一个名字空间内。更多详细信息，
+可参考[一体化卷](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md)设计文档。
 
 <!--
 ### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
@@ -86,15 +86,13 @@ parameters are nearly the same with two exceptions:
 
 <!--
 ## serviceAccountToken projected volumes {#serviceaccounttoken}
-When the `TokenRequestProjection` feature is enabled, you can inject the token
-for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
+You can inject the token for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 into a Pod at a specified path. For example:
 -->
 ## serviceAccountToken 投射卷 {#serviceaccounttoken}
 
-当 `TokenRequestProjection` 特性被启用时，你可以将当前
-[服务账号](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)
-的令牌注入到 Pod 中特定路径下。例如：
+你可以将当前[服务账号](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)的令牌注入到
+Pod 中特定路径下。例如：
 
 {{< codenew file="pods/storage/projected-service-account-token.yaml" >}}
 
@@ -158,6 +156,39 @@ ownership.
 [`SecurityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
 中设置了 `RunAsUser` 属性的 Linux Pod 中，投射文件具有正确的属主属性设置，
 其中包含了容器用户属主。
+
+<!--
+When all containers in a pod have the same `runAsUser` set in their
+[`PodSecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+or container
+[`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1),
+then the kubelet ensures that the contents of the `serviceAccountToken` volume are owned by that user,
+and the token file has its permission mode set to `0600`.
+-->
+当 Pod 中的所有容器在其
+[`PodSecurityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+或容器
+[`SecurityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1)
+中设置了相同的 `runAsUser` 时，kubelet 将确保 `serviceAccountToken`
+卷的内容归该用户所有，并且令牌文件的权限模式会被设置为 `0600`。
+
+{{< note >}}
+<!--
+{{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
+added to a Pod after it is created do *not* change volume permissions that were
+set when the pod was created.
+
+If a Pod's `serviceAccountToken` volume permissions were set to `0600` because
+all other containers in the Pod have the same `runAsUser`, ephemeral
+containers must use the same `runAsUser` to be able to read the token.
+-->
+在某 Pod 被创建后为其添加的{{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}**不会**更改创建该
+Pod 时设置的卷权限。
+
+如果 Pod 的 `serviceAccountToken` 卷权限被设为 `0600`
+是因为 Pod 中的其他所有容器都具有相同的 `runAsUser`，
+则临时容器必须使用相同的 `runAsUser` 才能读取令牌。
+{{< /note >}}
 
 ### Windows
 

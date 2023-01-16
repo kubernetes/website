@@ -1,7 +1,7 @@
 ---
 title: 存储类
 content_type: concept
-weight: 30
+weight: 40
 ---
 <!--
 reviewers:
@@ -11,7 +11,7 @@ reviewers:
 - msau42
 title: Storage Classes
 content_type: concept
-weight: 30
+weight: 40
 -->
 
 <!-- overview -->
@@ -52,7 +52,7 @@ class needs to be dynamically provisioned.
 ## StorageClass 资源 {#the-storageclass-resource}
 
 每个 StorageClass 都包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
-这些字段会在 StorageClass 需要动态分配 PersistentVolume 时会使用到。
+这些字段会在 StorageClass 需要动态制备 PersistentVolume 时会使用到。
 
 <!--
 The name of a StorageClass object is significant, and is how users can
@@ -113,7 +113,6 @@ for provisioning PVs. This field must be specified.
 | FC                   |     -      |                   -                   |
 | FlexVolume           |     -      |                   -                   |
 | GCEPersistentDisk    |  &#x2713;  |           [GCE PD](#gce-pd)           |
-| Glusterfs            |  &#x2713;  |        [Glusterfs](#glusterfs)        |
 | iSCSI                |     -      |                   -                   |
 | NFS                  |     -      |              [NFS](#nfs)              |
 | RBD                  |  &#x2713;  |         [Ceph RBD](#ceph-rbd)         |
@@ -198,7 +197,6 @@ Volume type | Required Kubernetes version
 | gcePersistentDisk    | 1.11                      |
 | awsElasticBlockStore | 1.11                      |
 | Cinder               | 1.11                      |
-| glusterfs            | 1.11                      |
 | rbd                  | 1.11                      |
 | Azure File           | 1.11                      |
 | Azure Disk           | 1.11                      |
@@ -208,10 +206,10 @@ Volume type | Required Kubernetes version
 
 {{< /table >}}
 
+{{< note >}}
 <!--
 You can only use the volume expansion feature to grow a Volume, not to shrink it.
 -->
-{{< note >}}
 此功能仅可用于扩容卷，不能用于缩小卷。
 {{< /note >}}
 
@@ -317,8 +315,8 @@ to see its supported topology keys and examples.
 -->
    如果你选择使用 `WaitForFirstConsumer`，请不要在 Pod 规约中使用 `nodeName` 来指定节点亲和性。
    如果在这种情况下使用 `nodeName`，Pod 将会绕过调度程序，PVC 将停留在 `pending` 状态。
-   
-   相反，在这种情况下，你可以使用节点选择器作为主机名，如下所示
+
+   相反，在这种情况下，你可以使用节点选择器作为主机名，如下所示。
 
 {{< /note >}}
 
@@ -433,7 +431,7 @@ parameters:
 * `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS
   volume plugin multiplies this with size of requested volume to compute IOPS
   of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see
-  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
+  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)).
   A string is expected here, i.e. `"10"`, not `10`.
 * `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
 * `encrypted`: denotes whether the EBS volume should be encrypted or not.
@@ -454,7 +452,7 @@ parameters:
 * `iopsPerGB`：只适用于 `io1` 卷。每 GiB 每秒 I/O 操作。
   AWS 卷插件将其与请求卷的大小相乘以计算 IOPS 的容量，
   并将其限制在 20000 IOPS（AWS 支持的最高值，请参阅
-  [AWS 文档](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)。
+  [AWS 文档](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)）。
   这里需要输入一个字符串，即 `"10"`，而不是 `10`。
 * `fsType`：受 Kubernetes 支持的文件类型。默认值：`"ext4"`。
 * `encrypted`：指定 EBS 卷是否应该被加密。合法值为 `"true"` 或者 `"false"`。
@@ -467,7 +465,7 @@ parameters:
 `zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
 -->
-`zone` 和 `zones` 已被弃用并被 [允许的拓扑结构](#allowed-topologies) 取代。
+`zone` 和 `zones` 已被弃用并被[允许的拓扑结构](#allowed-topologies)取代。
 {{< /note >}}
 
 ### GCE PD  {#gce-pd}
@@ -503,7 +501,7 @@ parameters:
 * `zones`(弃用)：逗号分隔的 GCE 区域列表。如果没有指定 `zone` 和 `zones`，
   通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。
   `zone` 和 `zones` 参数不能同时使用。
-* `fstype`: `ext4` 或 `xfs`。 默认: `ext4`。宿主机操作系统必须支持所定义的文件系统类型。
+* `fstype`：`ext4` 或 `xfs`。 默认：`ext4`。宿主机操作系统必须支持所定义的文件系统类型。
 * `replication-type`：`none` 或者 `regional-pd`。默认值：`none`。
 
 <!--
@@ -530,149 +528,13 @@ using `allowedTopologies`.
 区域性持久化磁盘会在两个区域里制备。 其中一个区域是 Pod 所在区域。
 另一个区域是会在集群管理的区域中任意选择。磁盘区域可以通过 `allowedTopologies` 加以限制。
 
+{{< note >}}
 <!--
 `zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
 -->
-{{< note >}}
 `zone` 和 `zones` 已被弃用并被 [allowedTopologies](#allowed-topologies) 取代。
 {{< /note >}}
-
-### Glusterfs
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/glusterfs
-parameters:
-  resturl: "http://127.0.0.1:8081"
-  clusterid: "630372ccdc720a92c681fb928f27b53f"
-  restauthenabled: "true"
-  restuser: "admin"
-  secretNamespace: "default"
-  secretName: "heketi-secret"
-  gidMin: "40000"
-  gidMax: "50000"
-  volumetype: "replicate:3"
-```
-
-<!--
-* `resturl`: Gluster REST service/Heketi service url which provision gluster
-  volumes on demand. The general format should be `IPaddress:Port` and this is
-  a mandatory parameter for GlusterFS dynamic provisioner. If Heketi service is
-  exposed as a routable service in openshift/kubernetes setup, this can have a
-  format similar to `http://heketi-storage-project.cloudapps.mystorage.com`
-  where the fqdn is a resolvable Heketi service url.
-* `restauthenabled` : Gluster REST service authentication boolean that enables
-  authentication to the REST server. If this value is `"true"`, `restuser` and
-  `restuserkey` or `secretNamespace` + `secretName` have to be filled. This
-  option is deprecated, authentication is enabled when any of `restuser`,
-  `restuserkey`, `secretName` or `secretNamespace` is specified.
-* `restuser` : Gluster REST service/Heketi user who has access to create volumes
-  in the Gluster Trusted Pool.
-* `restuserkey` : Gluster REST service/Heketi user's password which will be used
-  for authentication to the REST server. This parameter is deprecated in favor
-  of `secretNamespace` + `secretName`.
--->
-* `resturl`：制备 gluster 卷的需求的 Gluster REST 服务/Heketi 服务 url。
-  通用格式应该是 `IPaddress:Port`，这是 GlusterFS 动态制备器的必需参数。
-  如果 Heketi 服务在 OpenShift/kubernetes 中安装并暴露为可路由服务，则可以使用类似于
-  `http://heketi-storage-project.cloudapps.mystorage.com` 的格式，其中 fqdn 是可解析的 heketi 服务网址。
-* `restauthenabled`：Gluster REST 服务身份验证布尔值，用于启用对 REST 服务器的身份验证。
-  如果此值为 'true'，则必须填写 `restuser` 和 `restuserkey` 或 `secretNamespace` + `secretName`。
-  此选项已弃用，当在指定 `restuser`、`restuserkey`、`secretName` 或  `secretNamespace` 时，身份验证被启用。
-* `restuser`：在 Gluster 可信池中有权创建卷的 Gluster REST服务/Heketi 用户。
-* `restuserkey`：Gluster REST 服务/Heketi 用户的密码将被用于对 REST 服务器进行身份验证。
-  此参数已弃用，取而代之的是 `secretNamespace` + `secretName`。
-
-<!--
-* `secretNamespace`, `secretName` : Identification of Secret instance that
-  contains user password to use when talking to Gluster REST service. These
-  parameters are optional, empty password will be used when both
-  `secretNamespace` and `secretName` are omitted. The provided secret must have
-  type `"kubernetes.io/glusterfs"`, for example created in this way:
-
-    ```
-    kubectl create secret generic heketi-secret \
-      --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
-      --namespace=default
-    ```
-
-    Example of a secret can be found in
-    [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
--->
-* `secretNamespace`，`secretName`：Secret 实例的标识，包含与 Gluster
-  REST 服务交互时使用的用户密码。
-  这些参数是可选的，`secretNamespace` 和 `secretName` 都省略时使用空密码。
-  所提供的 Secret 必须将类型设置为 "kubernetes.io/glusterfs"，例如以这种方式创建：
-
-  ```
-  kubectl create secret generic heketi-secret \
-    --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
-    --namespace=default
-  ```
-
-  Secret 的例子可以在
-  [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml) 中找到。
-
-<!--
-* `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster
-  which will be used by Heketi when provisioning the volume. It can also be a
-  list of clusterids, for example:
-  `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`. This
-  is an optional parameter.
-* `gidMin`, `gidMax` : The minimum and maximum value of GID range for the
-  StorageClass. A unique value (GID) in this range ( gidMin-gidMax ) will be
-  used for dynamically provisioned volumes. These are optional values. If not
-  specified, the volume will be provisioned with a value between 2000-2147483647
-  which are defaults for gidMin and gidMax respectively.
--->
-* `clusterid`：`630372ccdc720a92c681fb928f27b53f` 是集群的 ID，当制备卷时，
-  Heketi 将会使用这个文件。它也可以是一个 clusterid 列表，例如：
-  `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`。这个是可选参数。
-* `gidMin`，`gidMax`：StorageClass GID 范围的最小值和最大值。
-  在此范围（gidMin-gidMax）内的唯一值（GID）将用于动态制备卷。这些是可选的值。
-  如果不指定，所制备的卷为一个 2000-2147483647 之间的值，这是 gidMin 和
-  gidMax 的默认值。
-
-<!--
-* `volumetype` : The volume type and its parameters can be configured with this
-  optional value. If the volume type is not mentioned, it's up to the provisioner
-  to decide the volume type.
-
-    For example:
-    * Replica volume: `volumetype: replicate:3` where '3' is replica count.
-    * Disperse/EC volume: `volumetype: disperse:4:2` where '4' is data and '2' is the redundancy count.
-    * Distribute volume: `volumetype: none`
-
-    For available volume types and administration options, refer to the
-    [Administration Guide](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/).
-
-    For further reference information, see
-    [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
-
-    When persistent volumes are dynamically provisioned, the Gluster plugin
-    automatically creates an endpoint and a headless service in the name
-    `gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically
-    deleted when the persistent volume claim is deleted.
--->
-* `volumetype`：卷的类型及其参数可以用这个可选值进行配置。如果未声明卷类型，则由制备器决定卷的类型。
-  例如：
-
-  * 'Replica volume': `volumetype: replicate:3` 其中 '3' 是 replica 数量。
-  * 'Disperse/EC volume': `volumetype: disperse:4:2` 其中 '4' 是数据，'2' 是冗余数量。
-  * 'Distribute volume': `volumetype: none`
-
-  有关可用的卷类型和管理选项，
-  请参阅[管理指南](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/)。
-
-  更多相关的参考信息，
-  请参阅[如何配置 Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology)。
-
-  当动态制备持久卷时，Gluster 插件自动创建名为 `gluster-dynamic-<claimname>`
-  的端点和无头服务。在 PVC 被删除时动态端点和无头服务会自动被删除。
 
 ### NFS  {#nfs}
 
@@ -726,10 +588,10 @@ parameters:
 -->
 * `availability`：可用区域。如果没有指定，通常卷会在 Kubernetes 集群节点所在的活动区域中轮转调度。
 
+{{< note >}}
 <!--
 This internal provisioner of OpenStack is deprecated. Please use [the external cloud provider for OpenStack](https://github.com/kubernetes/cloud-provider-openstack).
 -->
-{{< note >}}
 {{< feature-state state="deprecated" for_k8s_version="1.11" >}}
 OpenStack 的内部驱动已经被弃用。请使用
 [OpenStack 的外部云驱动](https://github.com/kubernetes/cloud-provider-openstack)。
@@ -745,7 +607,7 @@ There are two types of provisioners for vSphere storage classes:
 
 In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
 -->
-vSphere 存储类有两种制备器
+vSphere 存储类有两种制备器：
 
 - [CSI 制备器](#vsphere-provisioner-csi)：`csi.vsphere.vmware.com`
 - [vCP 制备器](#vcp-provisioner)：`kubernetes.io/vsphere-volume`
@@ -773,7 +635,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
 -->
 #### vCP 制备器 {#vcp-provisioner}
 
-以下示例使用 VMware Cloud Provider (vCP) StorageClass 调度器。
+以下示例使用 VMware Cloud Provider (vCP) StorageClass 制备器。
 
 <!--
 1. Create a StorageClass with a user specified disk format.
@@ -793,7 +655,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
    <!--
    `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
    -->
-   `diskformat`: `thin`, `zeroedthick` 和 `eagerzeroedthick`。默认值: `"thin"`。
+   `diskformat`：`thin`、`zeroedthick` 和 `eagerzeroedthick`。默认值：`"thin"`。
 
 <!--
 2. Create a StorageClass with a disk format on a user specified datastore.
@@ -927,7 +789,7 @@ parameters:
 * `adminSecret`：`adminId` 的 Secret 名称。该参数是必需的。
   提供的 secret 必须有值为 "kubernetes.io/rbd" 的 type 参数。
 * `adminSecretNamespace`：`adminSecret` 的命名空间。默认是 "default"。
-* `pool`: Ceph RBD 池. 默认是 "rbd"。
+* `pool`：Ceph RBD 池。默认是 "rbd"。
 * `userId`：Ceph 客户端 ID，用于映射 RBD 镜像。默认与 `adminId` 相同。
 
 <!--
@@ -1029,7 +891,7 @@ parameters:
 * `kind`：可能的值是 `shared`、`dedicated` 和 `managed`（默认）。
   当 `kind` 的值是 `shared` 时，所有非托管磁盘都在集群的同一个资源组中的几个共享存储帐户中创建。
   当 `kind` 的值是 `dedicated` 时，将为在集群的同一个资源组中新的非托管磁盘创建新的专用存储帐户。
-* `resourceGroup`: 指定要创建 Azure 磁盘所属的资源组。必须是已存在的资源组名称。
+* `resourceGroup`：指定要创建 Azure 磁盘所属的资源组。必须是已存在的资源组名称。
   若未指定资源组，磁盘会默认放入与当前 Kubernetes 集群相同的资源组中。
 <!--
 - Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard

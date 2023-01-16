@@ -4,6 +4,7 @@ reviewers:
 - janetkuo
 title: Namespaces Walkthrough
 content_type: task
+weight: 260
 ---
 
 <!-- overview -->
@@ -70,24 +71,24 @@ One pattern this organization could follow is to partition the Kubernetes cluste
 
 Let's create two new namespaces to hold our work.
 
-Use the file [`namespace-dev.json`](/examples/admin/namespace-dev.json) which describes a `development` namespace:
+Use the file [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) which describes a `development` namespace:
 
-{{< codenew language="json" file="admin/namespace-dev.json" >}}
+{{< codenew language="yaml" file="admin/namespace-dev.yaml" >}}
 
 Create the `development` namespace using kubectl.
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
+kubectl create -f https://k8s.io/examples/admin/namespace-dev.yaml
 ```
 
-Save the following contents into file [`namespace-prod.json`](/examples/admin/namespace-prod.json) which describes a `production` namespace:
+Save the following contents into file [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) which describes a `production` namespace:
 
-{{< codenew language="json" file="admin/namespace-prod.json" >}}
+{{< codenew language="yaml" file="admin/namespace-prod.yaml" >}}
 
 And then let's create the `production` namespace using kubectl.
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
+kubectl create -f https://k8s.io/examples/admin/namespace-prod.yaml
 ```
 
 To be sure things are right, let's list all of the namespaces in our cluster.

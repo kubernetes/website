@@ -35,21 +35,20 @@ v{{< skew currentVersionAddMinor 0 >}} 和 v{{< skew currentVersionAddMinor 1 >}
 
 The following methods exist for installing kubectl on Windows:
 -->
-
 ## 在 Windows 上安装 kubectl {#install-kubectl-on-windows}
 
 在 Windows 系统中安装 kubectl 有如下几种方法：
+
 <!-- 
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
-- [Install on Windows using Chocolatey or Scoop](#install-on-windows-using-chocolatey-or-scoop)
+- [Install on Windows using Chocolatey, Scoop, or Winget](#install-nonstandard-package-tools)
  -->
 - [用 curl 在 Windows 上安装 kubectl](#install-kubectl-binary-with-curl-on-windows)
-- [在 Windows 上用 Chocolatey 或 Scoop 安装](#install-on-windows-using-chocolatey-or-scoop)
+- [在 Windows 上用 Chocolatey、Scoop 或 Winget 安装](#install-nonstandard-package-tools)
 
 <!--
 ### Install kubectl binary with curl on Windows
 -->
-
 ### 用 curl 在 Windows 上安装 kubectl {#install-kubectl-binary-with-curl-on-windows}
 
 <!--
@@ -63,7 +62,7 @@ The following methods exist for installing kubectl on Windows:
    如果你已安装了 `curl`，也可以使用此命令：
 
    ```powershell
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
+   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
    ```
 
    {{< note >}}
@@ -83,7 +82,7 @@ The following methods exist for installing kubectl on Windows:
    下载 `kubectl` 校验和文件：
 
    ```powershell
-   curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    <!--
@@ -123,17 +122,18 @@ The following methods exist for installing kubectl on Windows:
    ```cmd
    kubectl version --client
    ```
+
    或者使用下面命令来查看版本的详细信息：
 
    ```cmd
    kubectl version --client --output=yaml
    ```
 
+{{< note >}}
 <!-- 
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to `PATH`.
 If you have installed Docker Desktop before, you may need to place your `PATH` entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
 -->
-{{< note >}}
 [Windows 版的 Docker Desktop](https://docs.docker.com/docker-for-windows/#kubernetes) 
 将其自带版本的 `kubectl` 添加到 `PATH`。
 如果你之前安装过 Docker Desktop，可能需要把此 `PATH` 条目置于 Docker Desktop 安装的条目之前，
@@ -141,15 +141,15 @@ If you have installed Docker Desktop before, you may need to place your `PATH` e
 {{< /note >}}
 
 <!--
-### Install on Windows using Chocolatey or Scoop
+### Install on Windows using Chocolatey, Scoop, or Winget {#install-nonstandard-package-tools}
 -->
-### 在 Windows 上用 Chocolatey 或 Scoop 安装 {#install-on-windows-using-chocolatey-or-scoop}
+### 在 Windows 上用 Chocolatey、Scoop 或 Winget 安装 {#install-nonstandard-package-tools}
 
 <!--
-1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [Scoop](https://scoop.sh) command-line installer.
+1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager, [Scoop](https://scoop.sh) command-line installer, or [Winget](https://winget.run/) package manager.
 -->
-1. 要在 Windows 上安装 kubectl，你可以使用包管理器 [Chocolatey](https://chocolatey.org) 
-   或是命令行安装器 [Scoop](https://scoop.sh)。
+1. 要在 Windows 上安装 kubectl，你可以使用包管理器 [Chocolatey](https://chocolatey.org)、
+   命令行安装器 [Scoop](https://scoop.sh) 或包管理器 [Winget](https://winget.run/)。
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
@@ -162,8 +162,12 @@ If you have installed Docker Desktop before, you may need to place your `PATH` e
    scoop install kubectl
    ```
    {{% /tab %}}
+   {{% tab name="winget" %}}
+   ```powershell
+   winget install -e --id Kubernetes.kubectl
+   ```
+   {{% /tab %}}
    {{< /tabs >}}
-
 
 <!-- 
 1. Test to ensure the version you installed is up-to-date:
@@ -196,7 +200,7 @@ If you have installed Docker Desktop before, you may need to place your `PATH` e
 <!--
 1. Change to the `.kube` directory you just created:
 -->
-5. 切换到新创建的目录 `.kube` 
+5. 切换到新创建的目录 `.kube`：
 
    ```powershell
    cd .kube
@@ -211,10 +215,10 @@ If you have installed Docker Desktop before, you may need to place your `PATH` e
    New-Item config -type file
    ```
 
+{{< note >}}
 <!-- 
 Edit the config file with a text editor of your choice, such as Notepad.
 -->
-{{< note >}}
 编辑配置文件，你需要先选择一个文本编辑器，比如 Notepad。
 {{< /note >}}
 
@@ -248,7 +252,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 <!--
 ### Install `kubectl convert` plugin
 -->
-### 安装 `kubectl convert` 插件
+### 安装 `kubectl convert` 插件   {#install-kubectl-convert-plugin}
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
@@ -258,7 +262,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 1. 用以下命令下载最新发行版：
 
    ```powershell
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
+   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
 <!--
@@ -267,12 +271,12 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 2. 验证该可执行文件（可选步骤）
 
    <!--
-    Download the `kubectl-convert` checksum file:
+   Download the `kubectl-convert` checksum file:
    -->
    下载 `kubectl-convert` 校验和文件：
 
    ```powershell
-   curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    <!--
@@ -307,7 +311,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 -->
 3. 将 `kubectl-convert` 二进制文件夹附加或添加到你的 `PATH` 环境变量中。
 
-4. 验证插件是否安装成功
+4. 验证插件是否安装成功。
 
    ```shell
    kubectl convert --help

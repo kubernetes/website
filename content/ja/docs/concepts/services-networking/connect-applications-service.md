@@ -320,8 +320,12 @@ kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.ya
 この時点で、任意のノードからnginxサーバーに到達できます。
 
 ```shell
-kubectl get pods -o yaml | grep -i podip
-    podIP: 10.244.3.5
+kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
+    POD_IP
+    [map[ip:10.244.3.5]]
+```
+
+```shell
 node $ curl -k https://10.244.3.5
 ...
 <h1>Welcome to nginx!</h1>

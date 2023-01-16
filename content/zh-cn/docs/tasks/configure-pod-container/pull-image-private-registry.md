@@ -58,7 +58,7 @@ Use the `docker` tool to log in to Docker Hub. See the _log in_ section of
 -->
 使用 `docker` 命令工具来登录到 Docker Hub。
 更多详细信息，请查阅
-[Docker ID accounts](https://docs.docker.com/docker-id/#log-in) 中的 _log in_ 部分。
+[Docker ID accounts](https://docs.docker.com/docker-id/#log-in) 中的 **log in** 部分。
 
 ```shell
 docker login
@@ -99,11 +99,11 @@ The output contains a section similar to this:
 }
 ```
 
+{{< note >}}
 <!--
 If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
 In that case, you can create a secret directly. See [Create a Secret by providing credentials on the command line](#create-a-secret-by-providing-credentials-on-the-command-line).
 -->
-{{< note >}}
 如果使用 Docker 凭证仓库，则不会看到 `auth` 条目，看到的将是以仓库名称作为值的 `credsStore` 条目。
 在这种情况下，你可以直接创建一个 Secret。请参阅[在命令行上提供凭证来创建 Secret](#create-a-secret-by-providing-credentials-on-the-command-line)。
 {{< /note >}}
@@ -170,7 +170,7 @@ If you get an error message like `Secret "myregistrykey" is invalid: data[.docke
 the base64 encoded string in the data was successfully decoded, but could not be parsed as a `.docker/config.json` file.
 -->
 如果你收到错误消息：`error: no objects passed to create`，
-这可能意味着 base64 编码的字符串是无效的。 如果你收到类似
+这可能意味着 base64 编码的字符串是无效的。如果你收到类似
 `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`
 的错误消息，则表示数据中的 base64 编码字符串已成功解码，
 但无法解析为 `.docker/config.json` 文件。
@@ -326,13 +326,13 @@ Download the above file onto your computer:
 将上述文件下载到你的计算机中：
 
 ```shell
-curl -L -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
+curl -L -o my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
 ```
 
 <!--
 In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the path to an image in a private registry such as:
 -->
-在`my-private-reg-pod.yaml` 文件中，使用私有仓库的镜像路径替换 `<your-private-image>`，例如：
+在 `my-private-reg-pod.yaml` 文件中，使用私有仓库的镜像路径替换 `<your-private-image>`，例如：
 
 ```none
 your.private.registry.example.com/janedoe/jdoe-private:v1
@@ -366,9 +366,9 @@ kubectl get pod private-reg
 * See the `imagePullSecrets` field within the [container definitions](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers) of a Pod
 -->
 
-* 进一步了解 [Secrets](/zh-cn/docs/concepts/configuration/secret/)
+* 进一步了解 [Secret](/zh-cn/docs/concepts/configuration/secret/)
   * 或阅读 {{< api-reference page="config-and-storage-resources/secret-v1" >}} 的 API 参考
-* 进一步了解 [使用私有仓库](/zh-cn/docs/concepts/containers/images/#using-a-private-registry)
-* 进一步了解 [为服务账户添加拉取镜像凭证](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
+* 进一步了解[使用私有仓库](/zh-cn/docs/concepts/containers/images/#using-a-private-registry)
+* 进一步了解[为服务账户添加拉取镜像凭证](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
 * 查看 [kubectl 创建 docker-registry 凭证](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)
 * 查看 Pod [容器定义](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers)中的 `imagePullSecrets` 字段。

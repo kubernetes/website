@@ -218,7 +218,7 @@ with the extender. These extenders are shared by all scheduler profiles.</p>
     
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -317,7 +317,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
     
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <p>DefaultConstraints defines topology spread constraints to be applied to
@@ -803,6 +803,13 @@ be invoked before default plugins, default plugins must be disabled and re-enabl
 <tbody>
     
   
+<tr><td><code>preEnqueue</code> <B>[Required]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1beta2-PluginSet"><code>PluginSet</code></a>
+</td>
+<td>
+   <p>PreEnqueue is a list of plugins that should be invoked before adding pods to the scheduling queue.</p>
+</td>
+</tr>
 <tr><td><code>queueSort</code> <B>[Required]</B><br/>
 <a href="#kubescheduler-config-k8s-io-v1beta2-PluginSet"><code>PluginSet</code></a>
 </td>

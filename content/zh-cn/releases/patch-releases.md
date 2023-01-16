@@ -2,12 +2,12 @@
 title: 补丁版本
 type: docs
 ---
-<!-- 
+<!--
 title: Patch Releases
 type: docs
 -->
 
-<!-- 
+<!--
 Schedule and team contact information for Kubernetes patch releases.
 
 For general information about Kubernetes release cycle, see the
@@ -17,7 +17,7 @@ Kubernetes 补丁版本的发布时间表和团队联系信息。
 
 有关 Kubernetes 发布周期的常规信息，请参阅[发布流程说明](/zh-cn/releases/release)。
 
-<!-- 
+<!--
 ## Cadence
 
 Our typical patch release cadence is monthly. It is
@@ -31,17 +31,20 @@ releases during major holiday periods.
 我们的补丁发布节奏通常是每月一次。
 在 1.X 次要版本之后，最早的补丁版本通常要快一些（提前 1 到 2 周）。
 严重错误修复可能会导致超出正常节奏而更快速的发布。
-我们尽量避免在主假期期间发布。
+我们尽量避免在重要的节假日期间发布。
 
-<!-- 
+<!--
 ## Contact
 
 See the [Release Managers page][release-managers] for full contact details on the Patch Release Team.
 
 Please give us a business day to respond - we may be in a different timezone!
 
-In between releases the team is looking at incoming cherry pick requests on a weekly basis. The team will get in touch with submitters via GitHub PR, SIG channels in Slack, and direct messages
-in Slack and [email](mailto:release-managers-private@kubernetes.io) if there are questions on the PR.
+In between releases the team is looking at incoming cherry pick
+requests on a weekly basis. The team will get in touch with
+submitters via GitHub PR, SIG channels in Slack, and direct messages
+in Slack and [email](mailto:release-managers-private@kubernetes.io)
+if there are questions on the PR.
 -->
 ## 联系方式  {#contact}
 
@@ -54,7 +57,7 @@ in Slack and [email](mailto:release-managers-private@kubernetes.io) if there are
 如果对 PR 有任何问题，团队将通过 GitHub PR、Slack 中的 SIG 频道以及 Slack 中的直接消息和
 [email](mailto:release-managers-private@kubernetes.io) 与提交者取得联系。
 
-<!-- 
+<!--
 ## Cherry picks
 
 Please follow the [cherry pick process][cherry-picks].
@@ -69,7 +72,6 @@ of the actual release.
 Cherry pick PRs which miss merge criteria will be carried over and tracked
 for the next patch release.
 -->
-
 ## Cherry Picks
 
 请遵循 [Cherry Pick 流程](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md)。
@@ -80,7 +82,7 @@ PR 越早准备好越好，因为在实际发布之前，合并了你的 Cherry 
 
 不符合合并标准的 Cherry Pick PR 将被带入下一个补丁版本中跟踪。
 
-<!-- 
+<!--
 ## Support Period
 
 In accordance with the [yearly support KEP][yearly-support], the Kubernetes
@@ -132,7 +134,7 @@ dates for simplicity (every month has it).
 
 请注意，为简单起见，选择每月 28 日作为维护模式和 EOL 目标日期（每个月都有）。
 
-<!-- 
+<!--
 ## Upcoming Monthly Releases
 
 Timelines may vary with the severity of bug fixes, but for easier planning we
@@ -144,29 +146,30 @@ releases may also occur in between these.
 时间表可能会因错误修复的严重程度而有所不同，但为了便于规划，我们将针对以下每月发布点。
 计划外的关键版本也可能发生在这些版本之间。
 
-<!-- 
+<!--
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| September 2022        | 2022-09-09           | 2022-09-14  |
-| October 2022          | 2022-10-07           | 2022-10-12  |
-| November 2022         | 2022-11-11           | 2022-11-16  |
-| December 2022         | 2022-12-09           | 2022-12-14  |
+| January 2023          | 2023-01-13           | 2023-01-18  |
+| February 2023         | 2023-02-10           | 2023-02-15  |
+| March 2023            | 2023-03-10           | 2023-03-15  |
+| April 2023            | 2023-04-07           | 2023-04-12  |
 -->
+
 | 月度补丁发布    | Cherry Pick 截止日期 |   目标日期  |
 | -------------- | -------------------- | ----------- |
-| 2022 年 9 月   | 2022-09-09           | 2022-09-14  |
-| 2022 年 10 月  | 2022-10-07           | 2022-10-12  |
-| 2022 年 11 月  | 2022-11-11           | 2022-11-16  |
-| 2022 年 12 月  | 2022-12-09           | 2022-12-14  |
+| 2023 年 1 月   | 2023-01-13           | 2023-01-18  |
+| 2023 年 2 月   | 2023-02-10           | 2023-02-15  |
+| 2023 年 3 月   | 2023-03-10           | 2023-03-15  |
+| 2023 年 4 月   | 2023-04-07           | 2023-04-12  |
 
-<!-- 
+<!--
 ## Detailed Release History for Active Branches
 -->
 ## 活动分支的详细发布历史  {#detailed-release-history-for-active-branches}
 
 {{< release-branches >}}
 
-<!-- 
+<!--
 ## Non-Active Branch history
 
 These releases are no longer supported.
