@@ -1,5 +1,5 @@
 {{ $links := .Site.Params.links }}
-<footer class="d-print-none">
+<footer class="d-print-none background-pattern">
   <div class="footer__links">
     <nav>
       {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
