@@ -39,7 +39,7 @@ network proxying service on a computer.  Although the `kube-proxy` executable su
 to use as-is.
 
 <a id="example"></a>
-Some of the details in this reference refer to an example: the back end Pods for a stateless
+Some of the details in this reference refer to an example: the backend Pods for a stateless
 image-processing workload, running with three replicas. Those replicas are
 fungible&mdash;frontends do not care which backend they use.  While the actual Pods that
 compose the backend set may change, the frontend clients should not need to be aware of that,
