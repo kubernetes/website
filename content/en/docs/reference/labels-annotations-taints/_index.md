@@ -437,6 +437,19 @@ Used on: PersistentVolumeClaim
 
 This annotation will be added to dynamic provisioning required PVC.
 
+### pv.kubernetes.io/bound-by-controller
+
+Example: `pv.kubernetes.io/bound-by-controller: "true"`
+
+Used on: PersistentVolume or PersistentVolumeClaim
+
+This annotation applies to {{< glossary_tooltip text="PersistentVolumes" term_id="persistent-volume" >}}
+(PVs) and {{< glossary_tooltip text="PersistentVolumeClaims" term_id="persistent-volume-claim" >}} (PVCs).
+When this annotation is present, that indicates that the binding (either PV→PVC or PVC→PV) was installed
+by the control plane, or by a third-party storage controller. When this annotation is not present,
+that means the binding was done manually.
+The actual value of this annotation does not matter.
+
 ### volumes.kubernetes.io/controller-managed-attach-detach
 
 Used on: Node
