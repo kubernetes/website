@@ -4,6 +4,7 @@ reviewers:
 - dawnchen
 title: Set Kubelet parameters via a config file
 content_type: task
+weight: 330
 ---
 
 <!-- overview -->

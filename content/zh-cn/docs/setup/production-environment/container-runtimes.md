@@ -61,9 +61,8 @@ v1.24 之前的 Kubernetes 版本直接集成了 Docker Engine 的一个组件�
 
 <!--
 You can read
-[Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-to understand how this removal might
-affect you. To learn about migrating from using dockershim, see
+[Check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
+to understand how this removal might affect you. To learn about migrating from using dockershim, see
 [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
 -->
 你可以阅读[检查 Dockershim 移除是否会影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)以了解此删除可能会如何影响你。
@@ -329,7 +328,7 @@ Use the following commands to install Containerd on your system:
 使用以下命令在系统上安装 Containerd：
 
 <!-- 
-Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
+Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
  -->
 
 按照[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md) 的说明进行操作。 
@@ -337,11 +336,15 @@ Follow the instructions for [getting started with containerd](https://github.com
 
 {{< tabs name="找到 config.toml 文件" >}}
 {{% tab name="Linux" %}}
-<!-- You can find this file under the path `/etc/containerd/config.toml`. -->
+<!--
+You can find this file under the path `/etc/containerd/config.toml`.
+-->
 你可以在路径 `/etc/containerd/config.toml` 下找到此文件。
 {{% /tab %}}
 {{% tab name="Windows" %}}
-<!-- You can find this file under the path `C:\Program Files\containerd\config.toml`. -->
+<!--
+You can find this file under the path `C:\Program Files\containerd\config.toml`.
+-->
 你可以在路径 `C:\Program Files\containerd\config.toml` 下找到此文件。
 {{% /tab %}}
 {{< /tabs >}}
