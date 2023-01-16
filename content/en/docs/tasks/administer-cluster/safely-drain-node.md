@@ -70,7 +70,7 @@ kubectl drain --ignore-daemonsets <node name>
 ```
 
 If there are pods managed by a DaemonSet, you will need to specify
-`--ignore-daemonsets`. The `kubectl drain` subcommand on its own does not actually drain
+`--ignore-daemonsets` with `kubectl` to successfully drain the node. The `kubectl drain` subcommand on its own does not actually drain
 a node of its DaemonSet pods:
 the DaemonSet controller (part of the control plane) immediately replaces missing Pods with
 new equivalent Pods. The DaemonSet controller also creates Pods that ignore unschedulable
