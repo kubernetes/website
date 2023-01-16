@@ -173,6 +173,7 @@ GitHub 提及：[@kubernetes/release-engineering](https://github.com/orgs/kubern
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Marko Mudrinić ([@xmudrii](https://github.com/xmudrii))
 - Nabarun Pal ([@palnabarun](https://github.com/palnabarun))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
@@ -246,14 +247,10 @@ GitHub Mentions: @kubernetes/release-engineering
 GitHub 提及：@kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
-- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
+- Cici Huang ([@cici37](https://github.com/cici37))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
 - Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
-- Joyce Kung ([@thejoycekung](https://github.com/thejoycekung))
-- Max Körbächer ([@mkorbi](https://github.com/mkorbi))
-- Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
-- Taylor Dolezal ([@onlydole](https://github.com/onlydole))
-- Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
+- Xander Grzywinski([@salaxander](https://github.com/salaxander))
 
 <!-- 
 ### Becoming a Release Manager Associate
@@ -305,9 +302,8 @@ GitHub team: [@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams
 GitHub 团队：[@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams/build-admins)
 
 - Aaron Crickenberger ([@spiffxp](https://github.com/spiffxp))
-- Benjamin Elder ([@BenTheElder](https://github.com/BenTheElder))
+- Ben Kazemi ([@BenjaminKazemi](https://github.com/BenjaminKazemi))
 - Grant McCloskey ([@MushuEE](https://github.com/MushuEE))
-- Juan Escobar ([@juanfescobar](https://github.com/juanfescobar))
 
 <!-- 
 ## SIG Release Leads
@@ -344,6 +340,7 @@ GitHub 团队：[@kubernetes/sig-release-leads](https://github.com/orgs/kubernet
 -->
 ### 主席  {#chairs}
 
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
 - Stephen Augustus ([@justaugustus](https://github.com/justaugustus))
 
@@ -354,7 +351,7 @@ GitHub 团队：[@kubernetes/sig-release-leads](https://github.com/orgs/kubernet
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
-- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
+- Verónica López ([@verolop](https://github.com/verolop))
 
 ---
 

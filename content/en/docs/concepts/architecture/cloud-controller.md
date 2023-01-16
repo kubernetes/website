@@ -107,7 +107,7 @@ routes appropriately. It requires Get access to Node objects.
 
 ### Service controller {#authorization-service-controller}
 
-The service controller listens to Service object Create, Update and Delete events and then configures Endpoints for those Services appropriately.
+The service controller listens to Service object Create, Update and Delete events and then configures Endpoints for those Services appropriately (for EndpointSlices, the kube-controller-manager manages these on demand).
 
 To access Services, it requires List, and Watch access. To update Services, it requires Patch and Update access.
 

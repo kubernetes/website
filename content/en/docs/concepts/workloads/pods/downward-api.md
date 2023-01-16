@@ -1,6 +1,7 @@
 ---
 title: Downward API
 content_type: concept
+weight: 170
 description: >
   There are two ways to expose Pod and container fields to a running container:
   environment variables, and as files that are populated by a special volume type.

@@ -1,7 +1,7 @@
 ---
 title: Writing a new topic
 content_type: task
-weight: 20
+weight: 70
 ---
 
 <!-- overview -->
@@ -102,7 +102,7 @@ following cases (not an exhaustive list):
 - The code is not generic enough for users to try out. As an example, you can
   embed the YAML
   file for creating a Pod which depends on a specific
-  [FlexVolume](/docs/concepts/storage/volumes#flexvolume) implementation.
+  [FlexVolume](/docs/concepts/storage/volumes/#flexvolume-deprecated) implementation.
 - The code is an incomplete example because its purpose is to highlight a
   portion of a larger file. For example, when describing ways to
   customize a [RoleBinding](/docs/reference/access-authn-authz/rbac/#role-binding-examples),

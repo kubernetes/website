@@ -76,7 +76,7 @@ Before choosing a guide, here are some considerations:
   作为代替，你可以建立多个集群。
 - **如果你在本地配置 Kubernetes**，
   需要考虑哪种[网络模型](/zh-cn/docs/concepts/cluster-administration/networking/)最适合。
-- 你的 Kubernetes 在**裸金属硬件**上还是**虚拟机（VM）**上运行？
+- 你的 Kubernetes 在**裸机**上还是**虚拟机（VM）** 上运行？
 - 你是想**运行一个集群**，还是打算**参与开发 Kubernetes 项目代码**？
   如果是后者，请选择一个处于开发状态的发行版。
   某些发行版只提供二进制发布版，但提供更多的选择。
@@ -93,7 +93,7 @@ Before choosing a guide, here are some considerations:
 
 * 学习如何[管理节点](/zh-cn/docs/concepts/architecture/nodes/)。
 
-* 学习如何设定和管理集群共享的[资源配额](/zh-cn/docs/concepts/policy/resource-quotas/) 。
+* 学习如何设定和管理集群共享的[资源配额](/zh-cn/docs/concepts/policy/resource-quotas/)。
 
 <!--
 ## Securing a cluster

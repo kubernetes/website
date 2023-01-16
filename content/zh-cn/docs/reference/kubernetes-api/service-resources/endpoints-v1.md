@@ -28,33 +28,20 @@ auto_generated: true
 
 <!--
 Endpoints is a collection of endpoints that implement the actual service. Example:
-  Name: "mysvc",
-  Subsets: [
-    {
-      Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-      Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-    },
-    {
-      Addresses: [{"ip": "10.10.3.3"}],
-      Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-    },
- ]
 -->
 Endpoints 是实现实际服务的端点的集合。举例:
 
-```
-Name: "mysvc",
-Subsets: [
-  {
-    Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-    Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-  },
-  {
-    Addresses: [{"ip": "10.10.3.3"}],
-    Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-  },
-]
-```
+	 Name: "mysvc",
+	 Subsets: [
+	   {
+	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+	   },
+	   {
+	     Addresses: [{"ip": "10.10.3.3"}],
+	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+	   },
+	]
 
 <hr>
 
@@ -83,30 +70,24 @@ Subsets: [
   <!--
   <a name="EndpointSubset"></a>
   *EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-    {
-      Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-      Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-    }
-  The resulting set of endpoints can be viewed as:
-      a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-      b: [ 10.10.1.1:309, 10.10.2.2:309 ]*
   -->
   <a name="EndpointSubset"></a>
   **EndpointSubset 是一组具有公共端口集的地址。扩展的端点集是 addresses 和 ports 的笛卡尔乘积。例如假设：**
 
-  ```
-    {
-      Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-      Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-    }
-  ```
+  	{
+  	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+  	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+  	}
 
+  <!--
+  The resulting set of endpoints can be viewed as:
+  -->
   则最终的端点集可以看作:
 
-  ```
-      a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-      b: [ 10.10.1.1:309, 10.10.2.2:309 ]
-  ```
+
+  	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+  	b: [ 10.10.1.1:309, 10.10.2.2:309 ]*
+
 
   - **subsets.addresses** ([]EndpointAddress)
   

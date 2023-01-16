@@ -1,5 +1,14 @@
 # i18n strings for the English (main) site.
 # NOTE: Please keep the entries in alphabetical order when editing
+
+# For "and", see [conjunction_1]
+
+[auto_generated_edit_notice]
+other = "(auto-generated page)"
+
+[auto_generated_pageinfo]
+other = """<p>This page is automatically generated.</p><p>If you plan to report an issue with this page, mention that the page is auto-generated in your issue description. The fix may need to happen elsewhere in the Kubernetes project.</p>"""
+
 [caution]
 other = "Caution:"
 
@@ -27,6 +36,12 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "and"
 
 [cve_id]
 other = "CVE ID"
@@ -114,6 +129,9 @@ other = "Was this page helpful?"
 
 [feedback_yes]
 other = "Yes"
+
+[final_patch_release]
+other = "Final Patch Release"
 
 [inline_list_separator]
 other = ","
@@ -242,6 +260,9 @@ other = "Options"
 [outdated_blog__message]
 other = "This article is more than one year old. Older articles may contain outdated content. Check that the information in the page has not become incorrect since its publication."
 
+[patch_release]
+other = "Patch Release"
+
 [post_create_issue]
 other = "Create an issue"
 
@@ -261,6 +282,47 @@ other = "(released: "
 # Use a suitable format for your locale
 [release_date_format]
 other = "2006-01-02"
+
+[release_cherry_pick_deadline]
+other = "Cherry Pick Deadline"
+
+[release_end_of_life_date]
+other = "End Of Life Date"
+
+[release_full_details_initial_text]
+other = "Complete"
+
+[release_information_navbar]
+other = "Release Information"
+
+[release_minor_version]
+other = "Minor Version"
+
+[release_info_next_patch]
+other = "Next patch release is **%s**."
+
+# Localization note: You can use Markdown here.
+# The three placeholders (in order) are:
+#   Kubernetes minor version
+#   maintenance mode date
+#   end of life date
+#
+# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+# tense of the text so long as the meaning is clear.
+[release_info_eol]
+other = "**%s** enters maintenance mode on **%s** and End of Life is on **%s**."
+
+[release_note]
+other = "Note"
+
+[release_schedule]
+other = "Schedule"
+
+[release_target_date]
+other = "Target Date"
+
+[release_changelog]
+other = "Changelog"
 
 [seealso_heading]
 other = "See Also"
@@ -304,3 +366,75 @@ other = "Warning:"
 
 [whatsnext_heading]
 other = "What's next"
+
+[layout_docs_glossary_architecture_name]
+other = "Architecture"
+
+[layout_docs_glossary_architecture_description]
+other = "The inner components of Kubernetes."
+
+[layout_docs_glossary_community_name]
+other = "Community"
+
+[layout_docs_glossary_community_description]
+other = "Related to Kubernetes open-source development."
+
+[layout_docs_glossary_core-object_name]
+other = "Core Object"
+
+[layout_docs_glossary_core-object_description]
+other = "A resource type that Kubernetes supports by default."
+
+[layout_docs_glossary_extension_name]
+other = "Extension"
+
+[layout_docs_glossary_extension_description]
+other = "Supported customizations of Kubernetes."
+
+[layout_docs_glossary_fundamental_name]
+other = "Fundamental"
+
+[layout_docs_glossary_fundamental_description]
+other = "Relevant for a first-time user of Kubernetes."
+
+[layout_docs_glossary_networking_name]
+other = "Networking"
+
+[layout_docs_glossary_networking_description]
+other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
+
+[layout_docs_glossary_operation_name]
+other = "Operation"
+
+[layout_docs_glossary_operation_description]
+other = "Starting and maintaining Kubernetes."
+
+[layout_docs_glossary_security_name]
+other = "Security"
+
+[layout_docs_glossary_security_description]
+other = "Keeping Kubernetes applications safe and secure."
+
+[layout_docs_glossary_storage_name]
+other = "Storage"
+
+[layout_docs_glossary_storage_description]
+other = "How Kubernetes applications handle persistent data."
+
+[layout_docs_glossary_tool_name]
+other = "Tool"
+
+[layout_docs_glossary_tool_description]
+other = "Software that makes Kubernetes easier or better to use."
+
+[layout_docs_glossary_user-type_name]
+other = "User Type"
+
+[layout_docs_glossary_user-type_description]
+other = "Represents a common type of Kubernetes user."
+
+[layout_docs_glossary_workload_name]
+other = "Workload"
+
+[layout_docs_glossary_workload_description]
+other = "Applications running on Kubernetes."

@@ -52,7 +52,7 @@ User namespaces is a Linux feature that allows to map users in the container to
 different users in the host. Furthermore, the capabilities granted to a pod in
 a user namespace are valid only in the namespace and void outside of it.
 
-A pod can opt-in to use user nameapces by setting the `pod.spec.hostUsers` field
+A pod can opt-in to use user namespaces by setting the `pod.spec.hostUsers` field
 to `false`.
 
 The kubelet will pick host UIDs/GIDs a pod is mapped to, and will do so in a way
@@ -90,9 +90,9 @@ This means containers can run as root and be mapped to a non-root user on the
 host. Inside the container the process will think it is running as root (and
 therefore tools like `apt`, `yum`, etc. work fine), while in reality the process
 doesn't have privileges on the host. You can verify this, for example, if you
-check the user the container process is running `ps` from the host. The user
-`ps` shows is not the same as the user you see if you execute inside the
-container the command `id`.
+check which user the container process is running by executing `ps aux` from
+the host. The user `ps` shows is not the same as the user you see if you
+execute inside the container the command `id`.
 
 This abstraction limits what can happen, for example, if the container manages
 to escape to the host. Given that the container is running as a non-privileged

@@ -61,8 +61,10 @@ Install the following on your workstation:
    ```shell
    kind create cluster --name psa-ns-level --image kindest/node:v1.23.0
    ```
+
    <!-- The output is similar to this: -->
    输出类似于：
+
    ```
    Creating cluster "psa-ns-level" ...
     ✓ Ensuring node image (kindest/node:v1.23.0) 🖼 
@@ -81,11 +83,14 @@ Install the following on your workstation:
 
 <!-- 1. Set the kubectl context to the new cluster: -->
 1. 将 kubectl 上下文设置为新集群：
+
    ```shell
    kubectl cluster-info --context kind-psa-ns-level
    ```
-    <!-- The output is similar to this: -->
+
+   <!-- The output is similar to this: -->
    输出类似于：
+
    ```
    Kubernetes control plane is running at https://127.0.0.1:50996
    CoreDNS is running at https://127.0.0.1:50996/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
@@ -158,7 +163,7 @@ namespace/example created
 -->
 ## 验证 Pod 安全标准  {#verify-the-pod-security-standards}
 
-1. 在 `example` 名字空间中创建一个最小的 pod：
+1. 在 `example` 名字空间中创建一个最小的 Pod：
 
    ```shell
    cat <<EOF > /tmp/pss/nginx-pod.yaml
@@ -179,11 +184,14 @@ namespace/example created
 2. Apply the pod spec to the cluster in `example` namespace: 
 -->
 1. 将 Pod 规约应用到集群中的 `example` 名字空间中：
+
    ```shell
    kubectl apply -n example -f /tmp/pss/nginx-pod.yaml
    ```
+
    <!-- The output is similar to this: -->
    输出类似于：
+
    ```
    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext seccompProfile.type to "RuntimeDefault" or "Localhost")
    pod/nginx created
@@ -216,11 +224,11 @@ with no warnings.
 <!-- 
 ## Clean up
 
-Run `kind delete cluster -name psa-ns-level` to delete the cluster created.
+Run `kind delete cluster --name psa-ns-level` to delete the cluster created.
 -->
 ## 清理  {#clean-up}
 
-运行 `kind delete cluster -name psa-ns-level` 删除创建的集群。
+运行 `kind delete cluster --name psa-ns-level` 删除创建的集群。
 
 ## {{% heading "whatsnext" %}}
 

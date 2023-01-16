@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - erictune
+# - soltysh
+# - janetkuo
 title: 크론잡
 content_type: concept
 weight: 80
@@ -94,7 +94,7 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 ## 타임 존
 크론잡에 타임 존이 명시되어 있지 않으면, kube-controller-manager는 로컬 타임 존을 기준으로 스케줄을 해석한다.
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
 `CronJobTimeZone` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화하면, 
 크론잡에 대해 타임 존을 명시할 수 있다(기능 게이트를 활성화하지 않거나, 

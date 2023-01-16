@@ -1,7 +1,7 @@
 ---
 title: 调度器性能调优
 content_type: concept
-weight: 100
+weight: 70
 ---
 <!--
 ---
@@ -9,7 +9,7 @@ reviewers:
 - bsalamat
 title: Scheduler Performance Tuning
 content_type: concept
-weight: 100
+weight: 70
 ---
 -->
 

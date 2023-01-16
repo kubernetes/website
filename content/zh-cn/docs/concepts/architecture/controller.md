@@ -4,6 +4,12 @@ content_type: concept
 weight: 30
 ---
 
+<!-- 
+title: Controllers
+content_type: concept
+weight: 30
+-->
+
 <!-- overview -->
 <!--
 In robotics and automation, a _control loop_ is
@@ -127,7 +133,7 @@ indicate that your room is now at the temperature you set).
 <!--
 ### Direct control
 
-By contrast with Job, some controllers need to make changes to
+In contrast with Job, some controllers need to make changes to
 things outside of your cluster.
 
 For example, if you use a control loop to make sure there
@@ -158,11 +164,11 @@ that horizontally scales the nodes in your cluster.)
 可以水平地扩展集群中的节点。）
 
 <!--
-The important point here is that the controller makes some change to bring about
-your desired state, and then reports current state back to your cluster's API server.
+The important point here is that the controller makes some changes to bring about
+your desired state, and then reports the current state back to your cluster's API server.
 Other control loops can observe that reported data and take their own actions.
 -->
-这里，很重要的一点是，控制器做出了一些变更以使得事物更接近你的期望状态，
+这里的重点是，控制器做出了一些变更以使得事物更接近你的期望状态，
 之后将当前状态报告给集群的 API 服务器。
 其他控制回路可以观测到所汇报的数据的这种变化并采取其各自的行动。
 

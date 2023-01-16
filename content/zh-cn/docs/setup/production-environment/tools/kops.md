@@ -1,11 +1,12 @@
 ---
-title: 使用 Kops 安装 Kubernetes
-content_type: concept
+title: 使用 kOps 安装 Kubernetes
+content_type: task
 weight: 20
 ---
+
 <!--
-title: Installing Kubernetes with kops
-content_type: concept
+title: Installing Kubernetes with kOps
+content_type: task
 weight: 20
 -->
 
@@ -13,28 +14,28 @@ weight: 20
 
 <!--
 This quickstart shows you how to easily install a Kubernetes cluster on AWS.
-It uses a tool called [`kops`](https://github.com/kubernetes/kops).
+It uses a tool called [`kOps`](https://github.com/kubernetes/kops).
 -->
 本篇快速入门介绍了如何在 AWS 上轻松安装 Kubernetes 集群。
-本篇使用了一个名为 [`kops`](https://github.com/kubernetes/kops) 的工具。
+本篇使用了一个名为 [`kOps`](https://github.com/kubernetes/kops) 的工具。
 
 <!--
-kops is an automated provisioning system:
+`kOps` is an automated provisioning system:
 -->
-kops 是一个自动化的制备系统：
+`kOps` 是一个自动化的制备系统：
 
 <!--
 * Fully automated installation
 * Uses DNS to identify clusters
 * Self-healing: everything runs in Auto-Scaling Groups
-* Multiple OS support (Debian, Ubuntu 16.04 supported, CentOS & RHEL, Amazon Linux and CoreOS) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
+* Multiple OS support (Amazon Linux, Debian, Flatcar, RHEL, Rocky and Ubuntu) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
 * High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
 * Can directly provision, or generate terraform manifests - see the [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 -->
 * 全自动安装流程
 * 使用 DNS 识别集群
 * 自我修复：一切都在自动扩缩组中运行
-* 支持多种操作系统（如 Debian、Ubuntu 16.04、CentOS、RHEL、Amazon Linux 和 CoreOS），
+* 支持多种操作系统（Amazon Linux、Debian、Flatcar、RHEL、Rocky 和 Ubuntu），
   参考 [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)。
 * 支持高可用，参考 [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)。
 * 可以直接提供或者生成 terraform 清单，参考 [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)。
@@ -67,7 +68,7 @@ kops 是一个自动化的制备系统：
 
 Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also convenient to build from source):
 -->
-## 创建集群
+## 创建集群 {#creating-a-cluster}
 
 ### (1/5) 安装 kops
 
@@ -124,6 +125,9 @@ Move the kops binary in to your PATH.
 sudo mv kops-darwin-amd64 /usr/local/bin/kops
 ```
 
+<!--
+You can also install kops using [Homebrew](https://brew.sh/).
+-->
 你也可以使用 [Homebrew](https://brew.sh/) 安装 kops：
 
 ```shell
@@ -177,8 +181,10 @@ Move the kops binary in to your PATH.
 sudo mv kops-linux-amd64 /usr/local/bin/kops
 ```
 
-你也可以使用 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
-来安装 kops：
+<!--
+You can also install kops using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux).
+-->
+你也可以使用 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) 来安装 kops。
 
 ```shell
 brew update && brew install kops
@@ -250,9 +256,7 @@ your cluster is configured correctly if you have the dig tool by running:
 检查你的 route53 域已经被正确设置（这是导致问题的最常见原因！）。
 如果你安装了 dig 工具，则可以通过运行以下步骤再次检查集群是否配置正确：
 
-```shell
-dig DNS dev.example.com
-```
+`dig NS dev.example.com`
 
 <!--
 You should see the 4 NS records that Route53 assigned your hosted zone.
@@ -356,15 +360,13 @@ GPU and non-GPU instances.
 <!--
 ### (5/5) Create the cluster in AWS
 
-Run "kops update cluster" to create your cluster in AWS:
+Run `kops update cluster` to create your cluster in AWS:
 -->
 ### (5/5) 在 AWS 中创建集群
 
 运行 `kops update cluster` 以在 AWS 中创建集群：
 
-```shell
-kops update cluster useast1.dev.example.com --yes
-```
+`kops update cluster useast1.dev.example.com --yes`
 
 <!--
 That takes a few seconds to run, but then your cluster will likely take a few minutes to actually be ready.
@@ -403,7 +405,7 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 * To delete your cluster: `kops delete cluster useast1.dev.example.com --yes`
 -->
-## 清理
+## 清理 {#cleanup}
 
 * 删除集群：`kops delete cluster useast1.dev.example.com --yes`
 
@@ -411,16 +413,13 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 <!--
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
-* Learn more about `kops` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
-* Follow `kops` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
+* Learn more about `kOps` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
+* Follow `kOps` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors).
+* Contribute to `kOps` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues).
 -->
 * 了解有关 Kubernetes 的[概念](/zh-cn/docs/concepts/)和
   [`kubectl`](/zh-cn/docs/reference/kubectl/) 的更多信息。
-* 参阅 `kops` [进阶用法](https://kops.sigs.k8s.io/)获取教程、最佳实践和进阶配置选项。
+* 参阅 `kOps` [进阶用法](https://kops.sigs.k8s.io/) 获取教程、最佳实践和进阶配置选项。
 * 通过 Slack：[社区讨论](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
-  参与 `kops` 社区讨论。
-
-<!-- 
-* Contribute to `kops` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues)
--->
-* 通过解决或提出一个 [GitHub Issue](https://github.com/kubernetes/kops/issues) 来为 `kops` 做贡献。
+  参与 `kOps` 社区讨论。
+* 通过解决或提出一个 [GitHub Issue](https://github.com/kubernetes/kops/issues) 来为 `kOps` 做贡献。

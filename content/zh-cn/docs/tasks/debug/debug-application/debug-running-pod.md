@@ -525,7 +525,7 @@ https://github.com/GoogleContainerTools/distroless).
 -->
 ## 使用临时调试容器来进行调试 {#ephemeral-container}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 当由于容器崩溃或容器镜像不包含调试程序（例如[无发行版镜像](https://github.com/GoogleContainerTools/distroless)等）
 而导致 `kubectl exec` 无法运行时，{{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}对于排除交互式故障很有用。
@@ -537,7 +537,7 @@ You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
 
 ```shell
-kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
+kubectl run ephemeral-demo --image=registry.k8s.io/pause:3.1 --restart=Never
 ```
 
 The examples in this section use the `pause` container image because it does not
@@ -690,6 +690,7 @@ this scenario using `kubectl run`:
 ```shell
 kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 ```
+
 <!--
 Run this command to create a copy of `myapp` named `myapp-debug` that adds a
 new Ubuntu container for debugging:
@@ -706,6 +707,7 @@ Defaulting debug container name to debugger-w7xmf.
 If you don't see a command prompt, try pressing enter.
 root@myapp-debug:/#
 ```
+
 <!--
 * `kubectl debug` automatically generates a container name if you don't choose
   one using the `--container` flag.
@@ -822,6 +824,7 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 ```shell
 kubectl delete pod myapp myapp-debug
 ```
+
 <!--
 ### Copying a Pod while changing container images
 
@@ -840,6 +843,7 @@ As an example, create a Pod using `kubectl run`:
 ```
 kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 ```
+
 <!--
 Now use `kubectl debug` to make a copy and change its container image
 to `ubuntu`:

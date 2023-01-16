@@ -59,7 +59,7 @@ Here is an overview of the steps in this example:
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 <!--
 Be familiar with the basic,
@@ -195,12 +195,14 @@ Job 中每个 Pod 内的 “工作程序” 使用工作队列客户端库获取
 {{< codenew language="python" file="application/job/redis/worker.py" >}}
 
 <!--
-You could download [`worker.py`](/examples/application/job/redis/worker.py), [`rediswq.py`](/examples/application/job/redis/rediswq.py), and [`Dockerfile`](/examples/application/job/redis/Dockerfile)
-using above links. Then build the image:
+You could also download [`worker.py`](/examples/application/job/redis/worker.py),
+[`rediswq.py`](/examples/application/job/redis/rediswq.py), and
+[`Dockerfile`](/examples/application/job/redis/Dockerfile) files, then build
+the image:
 -->
 你也可以下载 [`worker.py`](/examples/application/job/redis/worker.py)、
 [`rediswq.py`](/examples/application/job/redis/rediswq.py) 和
-[`Dockerfile`](/examples/application/job/redis/Dockerfile)。然后构建镜像：
+[`Dockerfile`](/examples/application/job/redis/Dockerfile) 文件。然后构建镜像：
 
 ```shell
 docker build -t job-wq-2 .
@@ -334,6 +336,7 @@ kubectl logs pods/job-wq-2-7r7b2
 ```
 
 日志类似于：
+
 ```
 Worker with sessionID: bbd72d0a-9e5c-4dd6-abf6-416cc267991f
 Initial queue state: empty=False
@@ -356,7 +359,8 @@ As you can see, one of our pods worked on several work units.
 
 <!--
 If running a queue service or modifying your containers to use a work queue is inconvenient, you may
-want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns).
+want to consider one of the other
+[job patterns](/docs/concepts/workloads/controllers/job/#job-patterns).
 -->
 如果你不方便运行一个队列服务或者修改你的容器用于运行一个工作队列，你可以考虑其它的
 [Job 模式](/zh-cn/docs/concepts/workloads/controllers/job/#job-patterns)。

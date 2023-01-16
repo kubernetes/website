@@ -1,10 +1,12 @@
 ---
 title: 定制 Hugo 短代码
 content_type: concept
+weight: 120
 ---
 <!--
 title: Custom Hugo Shortcodes
 content_type: concept
+weight: 120
 -->
 
 <!-- overview -->

@@ -285,6 +285,28 @@ If you restrict `list` or `watch` by resourceName, clients must include a `metad
 For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
+Rather than referring to individual `resources` and `verbs` you can use the wildcard `*` symbol to refer to all such objects.
+For `nonResourceURLs` you can use the wildcard `*` symbol as a suffix glob match and for `apiGroups` and `resourceNames` an empty set means that everything is allowed.
+Here is an example that allows access to perform any current and future action on all current and future resources (note, this is similar to the built-in `cluster-admin` role).
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: example.com-superuser  # DO NOT USE THIS ROLE, IT IS JUST AN EXAMPLE
+rules:
+- apiGroups: ["example.com"]
+  resources: ["*"]
+  verbs: ["*"]
+```
+
+{{< caution >}}
+Using wildcards in resource and verb entries could result in overly permissive access being granted to sensitive resources.
+For instance, if a new resource type is added, or a new subresource is added, or a new custom verb is checked, the wildcard entry automatically grants access, which may be undesirable.
+The [principle of least privilege](/docs/concepts/security/rbac-good-practices/#least-privilege) should be employed, using specific resources and verbs to ensure only the permissions required for the workload to function correctly are applied. 
+{{< /caution >}}
+
 
 ### Aggregated ClusterRoles
 
@@ -294,6 +316,12 @@ objects with an `aggregationRule` set. The `aggregationRule` defines a label
 {{< glossary_tooltip text="selector" term_id="selector" >}} that the controller
 uses to match other ClusterRole objects that should be combined into the `rules`
 field of this one.
+
+{{< caution >}}
+The control plane overwrites any values that you manually specify in the `rules` field of an
+aggregate ClusterRole. If you want to change or add rules, do so in the `ClusterRole` objects
+that are selected by the `aggregationRule`.
+{{< /caution >}}
 
 Here is an example aggregated ClusterRole:
 
@@ -325,7 +353,7 @@ metadata:
 # the rules below will be added to the "monitoring" ClusterRole.
 rules:
 - apiGroups: [""]
-  resources: ["services", "endpoints", "pods"]
+  resources: ["services", "endpointslices", "pods"]
   verbs: ["get", "list", "watch"]
 ```
 
@@ -680,9 +708,9 @@ When used in a <b>RoleBinding</b>, it gives full control over every resource in 
 If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
 including the ability to create roles and role bindings within the namespace.
 This role does not allow write access to resource quota or to the namespace itself.
-This role also does not allow write access to Endpoints in clusters created
+This role also does not allow write access to EndpointSlices (or Endpoints) in clusters created
 using Kubernetes v1.22+. More information is available in the
-["Write Access for Endpoints" section](#write-access-for-endpoints).</td>
+["Write Access for EndpointSlices and Endpoints" section](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>edit</b></td>
@@ -692,9 +720,9 @@ using Kubernetes v1.22+. More information is available in the
 This role does not allow viewing or modifying roles or role bindings.
 However, this role allows accessing Secrets and running Pods as any ServiceAccount in
 the namespace, so it can be used to gain the API access levels of any ServiceAccount in
-the namespace. This role also does not allow write access to Endpoints in
+the namespace. This role also does not allow write access to EndpointSlices (or Endpoints) in
 clusters created using Kubernetes v1.22+. More information is available in the
-["Write Access for Endpoints" section](#write-access-for-endpoints).</td>
+["Write Access for EndpointSlices and Endpoints" section](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>view</b></td>
@@ -1183,12 +1211,12 @@ In order from most secure to least secure, the approaches are:
       --group=system:serviceaccounts
     ```
 
-## Write access for Endpoints
+## Write access for EndpointSlices and Endpoints {#write-access-for-endpoints}
 
 Kubernetes clusters created before Kubernetes v1.22 include write access to
-Endpoints in the aggregated "edit" and "admin" roles. As a mitigation for
-[CVE-2021-25740](https://github.com/kubernetes/kubernetes/issues/103675), this
-access is not part of the aggregated roles in clusters that you create using
+EndpointSlices (and Endpoints) in the aggregated "edit" and "admin" roles.
+As a mitigation for [CVE-2021-25740](https://github.com/kubernetes/kubernetes/issues/103675),
+this access is not part of the aggregated roles in clusters that you create using
 Kubernetes v1.22 or later.
 
 Existing clusters that have been upgraded to Kubernetes v1.22 will not be

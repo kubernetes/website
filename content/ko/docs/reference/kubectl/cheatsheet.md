@@ -1,9 +1,9 @@
 ---
 title: kubectl 치트 시트
-
-
-
-
+# reviewers:
+# - erictune
+# - krousey
+# - clove
 content_type: concept
 weight: 10 # highlight it
 card:
@@ -67,6 +67,11 @@ kubectl config view -o jsonpath='{.users[*].name}'    # 사용자 리스트 조�
 kubectl config get-contexts                           # 컨텍스트 리스트 출력
 kubectl config current-context                        # 현재 컨텍스트 출력
 kubectl config use-context my-cluster-name            # my-cluster-name를 기본 컨텍스트로 설정
+
+kubectl config set-cluster my-cluster-name            # kubeconfig에 클러스터 엔트리를 설정
+
+# kubeconfig에 이 클라이언트가 발생시킨 요청에 사용할 프록시 서버의 URL을 구성한다.
+kubectl config set-cluster my-cluster-name --proxy-url=my-proxy-url
 
 # 기본 인증을 지원하는 새로운 사용자를 kubeconf에 추가한다
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
@@ -181,6 +186,9 @@ kubectl get pods --selector=app=cassandra -o \
 # 예를 들어 'ca.crt'와 같이 점이 있는 키값을 검색한다
 kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
+
+# 밑줄(`_`) 대신 대시(`-`)를 사용하여 base64 인코딩된 값을 조회
+kubectl get secret my-secret --template='{{index .data "key-name-with-dashes"}}'
 
 # 모든 워커 노드 조회 (셀렉터를 사용하여 'node-role.kubernetes.io/control-plane'
 # 으로 명명된 라벨의 결과를 제외)
@@ -431,8 +439,8 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 # `default` 네임스페이스의 모든 이미지를 파드별로 그룹지어 출력
 kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
- # "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
-kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+ # "registry.k8s.io/coredns:1.6.2" 를 제외한 모든 이미지
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry.k8s.io/coredns:1.6.2")].image'
 
 # 이름에 관계없이 메타데이터 아래의 모든 필드
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'

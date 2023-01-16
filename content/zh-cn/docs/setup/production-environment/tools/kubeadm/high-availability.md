@@ -26,7 +26,7 @@ cluster using kubeadm:
 本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式：
 
 - 使用具有堆叠的控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平面节点位于同一位置。
-- 使用外部集群。这种方法所需基础设施较多。控制平面的节点和 etcd 成员是分开的。
+- 使用外部 etcd 集群。这种方法所需基础设施较多。控制平面的节点和 etcd 成员是分开的。
 
 <!--
 Before proceeding, you should carefully consider which approach best meets the needs of your applications
@@ -91,7 +91,7 @@ _See [Stacked etcd topology](/docs/setup/production-environment/tools/kubeadm/ha
 需要准备：
 
 - 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
-  的三台机器作为控制面节点。奇数台控制平面节点有利于机器故障或者网络分区时进行重新选主。
+  的三台机器作为控制面节点。控制平面节点为奇数有利于机器故障或者分区故障时重新选举。
   - 机器已经安装好{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}，并正常运行
 - 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
   的三台机器作为工作节点
@@ -131,7 +131,7 @@ You need:
 需要准备：
 
 - 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
-  的三台机器作为控制面节点。奇数台控制平面节点有利于机器故障或者网络分区时进行重新选主。
+  的三台机器作为控制面节点。控制平面节点为奇数有利于机器故障或者分区故障时重新选举。
   - 机器已经安装好{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}，并正常运行
 - 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
   的三台机器作为工作节点
@@ -152,7 +152,7 @@ And you also need:
   - These machines also require a container runtime, that is already set up and working.
 -->
 还需要准备：
-- 给 etcd 集群使用的另外三台及以上机器。为了分布式一致性算法达到更好的投票效果，集群必须由奇数个节点组成。
+- 给 etcd 集群使用的另外至少三台机器。为了分布式一致性算法达到更好的投票效果，集群必须由奇数个节点组成。
   - 机器上已经安装 `kubeadm` 和 `kubelet`。
   - 机器上同样需要安装好容器运行时，并能正常运行。
 
@@ -168,10 +168,10 @@ _See [External etcd topology](/docs/setup/production-environment/tools/kubeadm/h
 ### 容器镜像
 
 <!--
-Each host should have access read and fetch images from the Kubernetes container image registry, `k8s.gcr.io`.
+Each host should have access read and fetch images from the Kubernetes container image registry, `registry.k8s.io`.
 If you want to deploy a highly-available cluster where the hosts do not have access to pull images, this is possible. You must ensure by some other means that the correct container images are already available on the relevant hosts.
 -->
-每台主机需要能够从 Kubernetes 容器镜像仓库（`k8s.gcr.io`）读取和拉取镜像。
+每台主机需要能够从 Kubernetes 容器镜像仓库（`registry.k8s.io`）读取和拉取镜像。
 想要在无法拉取 Kubernetes 仓库镜像的机器上部署高可用集群也是可行的。通过其他的手段保证主机上已经有对应的容器镜像即可。
 
 <!-- ### Command line interface {#kubectl} -->
@@ -329,7 +329,7 @@ option. Your cluster requirements may need a different configuration.
    -->
    一些 CNI 网络插件需要更多配置，例如指定 Pod IP CIDR，而其他插件则不需要。参考
    [CNI 网络文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
-   通过传递 `--pod-network-cidr` 标志添加 pod CIDR，或者你可以使用 kubeadm
+   通过传递 `--pod-network-cidr` 标志添加 Pod CIDR，或者你可以使用 kubeadm
    配置文件，在 `ClusterConfiguration` 的 `networking` 对象下设置 `podSubnet` 字段。
    {{< /note >}}
 
@@ -392,7 +392,9 @@ option. Your cluster requirements may need a different configuration.
 
 <!--
 1. Apply the CNI plugin of your choice:
-   [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network) to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file (if applicable).
+   [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
+    to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the
+    kubeadm configuration file (if applicable).
 -->
 2. 应用你所选择的 CNI 插件：
    [请遵循以下指示](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
@@ -467,7 +469,7 @@ in the kubeadm config file.
 
 1. Follow these [instructions](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) to set up the etcd cluster.
 
-1. Setup SSH as described [here](#manual-certs).
+1. Set up SSH as described [here](#manual-certs).
 
 1. Copy the following files from any etcd node in the cluster to the first control plane node:
 
@@ -482,8 +484,7 @@ in the kubeadm config file.
 -->
 ### 设置 ectd 集群
 
-1. 按照这些[指示](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) 
-   去设置 etcd 集群。
+1. 按照[这里](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)的指示去设置。
 
 1. 根据[这里](#manual-certs) 的描述配置 SSH。
 

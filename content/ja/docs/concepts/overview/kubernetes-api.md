@@ -29,7 +29,9 @@ Kubernetes APIを利用してアプリケーションを書いているのであ
 
 完全なAPIの詳細は、[OpenAPI](https://www.openapis.org/)を使用して文書化されています。
 
-Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOpenAPI仕様を提供します。
+### OpenAPI V2
+
+Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOpenAPI v2仕様を提供します。
 次のように要求ヘッダーを使用して、応答フォーマットを要求できます。
 
 
@@ -37,9 +39,9 @@ Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOp
   <caption style="display:none">OpenAPI v2クエリの有効なリクエストヘッダー値</caption>
   <thead>
      <tr>
-        <th>Header</th>
-        <th style="min-width: 50%;">Possible values</th>
-        <th>Notes</th>
+        <th>ヘッダー</th>
+        <th style="min-width: 50%;">取りうる値</th>
+        <th>備考</th>
      </tr>
   </thead>
   <tbody>
@@ -66,6 +68,68 @@ Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOp
 
 
 Kubernetesは、他の手段として主にクラスター間の連携用途向けのAPIに、Protocol buffersをベースにしたシリアライズフォーマットを実装しています。このフォーマットに関しては、[Kubernetes Protobuf serialization](https://github.com/kubernetes/design-proposals-archive/blob/main/api-machinery/protobuf.md)デザイン提案を参照してください。また、各スキーマのInterface Definition Language（IDL）ファイルは、APIオブジェクトを定義しているGoパッケージ内に配置されています。
+
+### OpenAPI V3
+
+{{< feature-state state="beta"  for_k8s_version="v1.24" >}}
+
+Kubernetes {{< param "version" >}}では、OpenAPI v3によるAPI仕様をベータサポートとして提供しています。これは、デフォルトで有効化されているベータ機能です。kube-apiserverの`OpenAPIV3`という[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)を切ることにより、このベータ機能を無効化することができます。
+
+`/openapi/v3`が、全ての利用可能なグループやバージョンの一覧を閲覧するためのディスカバリーエンドポイントとして提供されています。このエンドポイントは、JSONのみを返却します。利用可能なグループやバージョンは、次のような形式で提供されます。
+
+```yaml
+{
+    "paths": {
+        ...,
+        "api/v1": {
+            "serverRelativeURL": "/openapi/v3/api/v1?hash=CC0E9BFD992D8C59AEC98A1E2336F899E8318D3CF4C68944C3DEC640AF5AB52D864AC50DAA8D145B3494F75FA3CFF939FCBDDA431DAD3CA79738B297795818CF"
+        },
+        "apis/admissionregistration.k8s.io/v1": {
+            "serverRelativeURL": "/openapi/v3/apis/admissionregistration.k8s.io/v1?hash=E19CC93A116982CE5422FC42B590A8AFAD92CDE9AE4D59B5CAAD568F083AD07946E6CB5817531680BCE6E215C16973CD39003B0425F3477CFD854E89A9DB6597"
+        },
+        ....
+    }
+}
+```
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
+
+クライアントサイドのキャッシングを改善するために、相対URLはイミュータブルな(不変の)OpenAPI記述を指しています。
+また、APIサーバーも、同様の目的で適切なHTTPキャッシュヘッダー(`Expires`には1年先の日付、`Cache-Control`には`immutable`)をセットします。廃止されたURLが使用された場合、APIサーバーは最新のURLへのリダイレクトを返します。
+
+Kubernetes APIサーバーは、`/openapi/v3/apis/<group>/<version>?hash=<hash>`のエンドポイントにて、KubernetesのグループバージョンごとにOpenAPI v3仕様を公開しています。
+
+受理されるリクエストヘッダーについては、以下の表の通りです。
+
+<table>
+  <caption style="display:none">OpenAPI v3において有効なリクエストヘッダー</caption>
+  <thead>
+     <tr>
+        <th>ヘッダー</th>
+        <th style="min-width: 50%;">取りうる値</th>
+        <th>備考</th>
+     </tr>
+  </thead>
+  <tbody>
+     <tr>
+        <td><code>Accept-Encoding</code></td>
+        <td><code>gzip</code></td>
+        <td><em>このヘッダーを使わないことも可能</em></td>
+     </tr>
+     <tr>
+        <td rowspan="3"><code>Accept</code></td>
+        <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
+        <td><em>主にクラスター内での使用</em></td>
+     </tr>
+     <tr>
+        <td><code>application/json</code></td>
+        <td><em>デフォルト</em></td>
+     </tr>
+     <tr>
+        <td><code>*</code></td>
+        <td><em></em><code>application/json</code>を提供</td>
+     </tr>
+  </tbody>
+</table>
 
 ## 永続性
 

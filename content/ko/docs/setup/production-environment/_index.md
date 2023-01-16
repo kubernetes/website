@@ -110,7 +110,7 @@ no_list: true
   상세 사항을 확인한다.
 - *apiserver를 위한 로드밸런서 구성*: 여러 노드에서 실행되는 apiserver 서비스 인스턴스에 
   외부 API 호출을 분산할 수 있도록 로드밸런서를 구성한다. 
-  [외부 로드밸런서 생성하기](/docs/tasks/access-application-cluster/create-external-load-balancer/)에서 
+  [외부 로드밸런서 생성하기](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/)에서 
   상세 사항을 확인한다.
 - *etcd 서비스 분리 및 백업*: etcd 서비스는 
   다른 컨트롤 플레인 서비스와 동일한 시스템에서 실행되거나, 
@@ -194,7 +194,7 @@ etcd 백업 계획을 세우려면
   스크립트를 구성할 수 있는 가상화 플랫폼이 있다.
 - *노드 헬스 체크 구성*: 중요한 워크로드의 경우, 
   해당 노드에서 실행 중인 노드와 파드의 상태가 정상인지 확인하고 싶을 것이다. 
-  [Node Problem Detector](/docs/tasks/debug/debug-cluster/monitor-node-health/) 
+  [Node Problem Detector](/ko/docs/tasks/debug/debug-cluster/monitor-node-health/) 
   데몬을 사용하면 노드가 정상인지 확인할 수 있다.
 
 ## 프로덕션 사용자 관리

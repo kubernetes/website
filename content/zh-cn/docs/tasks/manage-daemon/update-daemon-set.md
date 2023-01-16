@@ -46,9 +46,9 @@ DaemonSet 有两种更新策略：
 -->
 
 * `OnDelete`: 使用 `OnDelete` 更新策略时，在更新 DaemonSet 模板后，只有当你手动删除老的
-  DaemonSet pods 之后，新的 DaemonSet Pod *才会*被自动创建。跟 Kubernetes 1.6 以前的版本类似。
+  DaemonSet pods 之后，新的 DaemonSet Pod **才会**被自动创建。跟 Kubernetes 1.6 以前的版本类似。
 * `RollingUpdate`: 这是默认的更新策略。使用 `RollingUpdate` 更新策略时，在更新 DaemonSet 模板后，
-  老的 DaemonSet pods 将被终止，并且将以受控方式自动创建新的 DaemonSet pods。
+  老的 DaemonSet Pod 将被终止，并且将以受控方式自动创建新的 DaemonSet Pod。
   更新期间，最多只能有 DaemonSet 的一个 Pod 运行于每个节点上。
 
 <!--
@@ -68,14 +68,13 @@ You may want to set
 [`.spec.minReadySeconds`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 (default to 0) and
 [`.spec.updateStrategy.rollingUpdate.maxSurge`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
-(a beta feature and defaults to 0) as well.
-
+(defaults to 0) as well.
 -->
 你可能想设置
 [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh-cn/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) (默认为 1)，
 [`.spec.minReadySeconds`](/zh-cn/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec) (默认为 0) 和
 [`.spec.updateStrategy.rollingUpdate.maxSurge`](/zh-cn/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
-（一种 Beta 阶段的特性，默认为 0）。
+（默认为 0）。
 
 <!--
 ### Creating a DaemonSet with `RollingUpdate` update strategy
@@ -101,8 +100,8 @@ kubectl create -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml
 Alternatively, use `kubectl apply` to create the same DaemonSet if you plan to
 update the DaemonSet with `kubectl apply`.
 -->
-另一种方式是如果你希望使用 `kubectl apply` 来更新 DaemonSet 的话，也可以
-使用 `kubectl apply` 来创建 DaemonSet：
+另一种方式是如果你希望使用 `kubectl apply` 来更新 DaemonSet 的话，
+也可以使用 `kubectl apply` 来创建 DaemonSet：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml
@@ -169,9 +168,8 @@ use `kubectl apply`:
 -->
 #### 声明式命令    {#declarative-commands}
 
-如果你使用
-[配置文件](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
-来更新 DaemonSet，请使用 `kubectl apply`:
+如果你使用[配置文件](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)来更新
+DaemonSet，请使用 `kubectl apply`：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset-update.yaml
@@ -186,9 +184,8 @@ use `kubectl edit`:
 -->
 #### 指令式命令    {#imperative-commands}
 
-如果你使用
-[指令式命令](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
-来更新 DaemonSets，请使用 `kubectl edit`：
+如果你使用[指令式命令](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)来更新
+DaemonSets，请使用 `kubectl edit`：
 
 ```shell
 kubectl edit ds/fluentd-elasticsearch -n kube-system
@@ -227,7 +224,7 @@ When the rollout is complete, the output is similar to this:
 -->
 当滚动更新完成时，输出结果如下：
 
-```
+```shell
 daemonset "fluentd-elasticsearch" successfully rolled out
 ```
 
@@ -248,7 +245,6 @@ causes:
 -->
 有时，DaemonSet 滚动更新可能卡住，以下是一些可能的原因：
 
-
 #### 一些节点可用资源耗尽    {#some-nodes-run-out-of-resources}
 
 <!--
@@ -264,7 +260,7 @@ DaemonSet 滚动更新可能会卡住，其 Pod 至少在某个节点上无法�
 这是可能的。
 
 发生这种情况时，通过对 `kubectl get nodes` 和下面命令行的输出作比较，
-找出没有调度部署 DaemonSet Pods 的节点：
+找出没有调度 DaemonSet Pod 的节点：
 
 ```shell
 kubectl get pods -l name=fluentd-elasticsearch -o wide -n kube-system

@@ -210,65 +210,42 @@ Service account bearer tokens are perfectly valid to use outside the cluster and
 can be used to create identities for long standing jobs that wish to talk to the
 Kubernetes API. To manually create a service account, use the `kubectl create
 serviceaccount (NAME)` command. This creates a service account in the current
-namespace and an associated secret.
+namespace.
 
 ```bash
 kubectl create serviceaccount jenkins
 ```
 
 ```none
-serviceaccount "jenkins" created
+serviceaccount/jenkins created
 ```
 
-Check an associated secret:
+Create an associated token:
 
 ```bash
-kubectl get serviceaccounts jenkins -o yaml
+kubectl create token jenkins
 ```
 
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  # ...
-secrets:
-- name: jenkins-token-1yvwg
+```none
+eyJhbGciOiJSUzI1NiIsImtp...
 ```
 
-The created secret holds the public CA of the API server and a signed JSON Web
-Token (JWT).
-
-```bash
-kubectl get secret jenkins-token-1yvwg -o yaml
-```
-
-```yaml
-apiVersion: v1
-data:
-  ca.crt: (APISERVER'S CA BASE64 ENCODED)
-  namespace: ZGVmYXVsdA==
-  token: (BEARER TOKEN BASE64 ENCODED)
-kind: Secret
-metadata:
-  # ...
-type: kubernetes.io/service-account-token
-```
-
-{{< note >}}
-Values are base64 encoded because secrets are always base64 encoded.
-{{< /note >}}
+The created token is a signed JSON Web Token (JWT).
 
 The signed JWT can be used as a bearer token to authenticate as the given service
 account. See [above](#putting-a-bearer-token-in-a-request) for how the token is included
-in a request.  Normally these secrets are mounted into pods for in-cluster access to
+in a request.  Normally these tokens are mounted into pods for in-cluster access to
 the API server, but can be used from outside the cluster as well.
 
 Service accounts authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
 and are assigned to the groups `system:serviceaccounts` and `system:serviceaccounts:(NAMESPACE)`.
 
-WARNING: Because service account tokens are stored in secrets, any user with
-read access to those secrets can authenticate as the service account. Be cautious
-when granting permissions to service accounts and read capabilities for secrets.
+{{< warning >}}
+Because service account tokens can also be stored in Secret API objects, any user with
+write access to Secrets can request a token, and any user with read access to those 
+Secrets can authenticate as the service account. Be cautious when granting permissions
+to service accounts and read or write capabilities for Secrets.
+{{< /warning >}}
 
 ### OpenID Connect Tokens
 
@@ -344,6 +321,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
 | `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
+| `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
 configured to trust a single issuer. This allows the use of public providers,
@@ -1240,6 +1218,147 @@ The following `ExecCredential` manifest describes a cluster information sample.
 ```
 {{% /tab %}}
 {{< /tabs >}}
+
+## API access to authentication information for a client {#self-subject-review}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out how your Kubernetes cluster maps your authentication
+information to identify you as a client. This works whether you are authenticating as a user (typically representing
+a real person) or as a ServiceAccount.
+
+`SelfSubjectReview` objects do not have any configurable fields. On receiving a request, the Kubernetes API server fills the status with the user attributes and returns it to the user.
+
+Request example (the body would be a `SelfSubjectReview`):
+```
+POST /apis/authentication.k8s.io/v1alpha1/selfsubjectreviews
+```
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "kind": "SelfSubjectReview"
+}
+```
+Response example:
+
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "kind": "SelfSubjectReview",
+  "status": {
+    "userInfo": {
+      "name": "jane.doe",
+      "uid": "b6c7cfd4-f166-11ec-8ea0-0242ac120002",
+      "groups": [
+        "viewers",
+        "editors",
+        "system:authenticated"
+      ],
+      "extra": {
+        "provider_id": ["token.company.example"]
+      }
+    }
+  }
+}
+```
+
+For convenience, the `kubectl alpha auth whoami` command is present. Executing this command will produce the following output (yet different user attributes will be shown):
+
+* Simple output example
+    ```
+    ATTRIBUTE         VALUE
+    Username          jane.doe
+    Groups            [system:authenticated]
+    ```
+
+* Complex example including extra attributes
+    ```
+    ATTRIBUTE         VALUE
+    Username          jane.doe
+    UID               b79dbf30-0c6a-11ed-861d-0242ac120002
+    Groups            [students teachers system:authenticated]
+    Extra: skills     [reading learning]
+    Extra: subjects   [math sports]
+    ```
+By providing the output flag, it is also possible to print the JSON or YAML representation of the result:
+
+{{< tabs name="self_subject_attributes_review_Example_1" >}}
+{{% tab name="JSON" %}}
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "kind": "SelfSubjectReview",
+  "status": {
+    "userInfo": {
+      "username": "jane.doe",
+      "uid": "b79dbf30-0c6a-11ed-861d-0242ac120002",
+      "groups": [
+        "students",
+        "teachers",
+        "system:authenticated"
+      ],
+      "extra": {
+        "skills": [
+          "reading",
+          "learning"
+        ],
+        "subjects": [
+          "math",
+          "sports"
+        ]
+      }
+    }
+  }
+}
+```
+{{% /tab %}}
+
+{{% tab name="YAML" %}}
+```yaml
+apiVersion: authentication.k8s.io/v1alpha1
+kind: SelfSubjectReview
+status:
+  userInfo:
+    username: jane.doe
+    uid: b79dbf30-0c6a-11ed-861d-0242ac120002
+    groups:
+    - students
+    - teachers
+    - system:authenticated
+    extra:
+      skills:
+      - reading
+      - learning
+      subjects:
+      - math
+      - sports
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+This feature is extremely useful when a complicated authentication flow is used in a Kubernetes cluster, 
+for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) or [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
+
+{{< note >}}
+The Kubernetes API server fills the `userInfo` after all authentication mechanisms are applied,
+including [impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation).
+If you, or an authentication proxy, make a SelfSubjectReview using impersonation,
+you see the user details and properties for the user that was impersonated.
+{{< /note >}}
+
+By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview` feature is enabled. It is allowed by the `system:basic-user` cluster role. 
+
+{{< note >}}
+You can only make `SelfSubjectReview` requests if:
+* the `APISelfSubjectReview`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  is enabled for your cluster
+* the API server for your cluster has the `authentication.k8s.io/v1alpha1`
+  {{< glossary_tooltip term_id="api-group" text="API group" >}}
+  enabled.
+{{< /note >}}
+
+
 
 ## {{% heading "whatsnext" %}}
 

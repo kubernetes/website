@@ -1,9 +1,9 @@
 ---
 title: API 개요
-
-
-
-
+# reviewers:
+# - erictune
+# - lavalamp
+# - jbeda
 content_type: concept
 weight: 10
 no_list: true
@@ -39,7 +39,7 @@ JSON과 Protobuf 직렬화 스키마 모두 스키마 변경에 대해서
 동일한 가이드라인을 따른다. 이후 설명에서는 이 형식 모두를 다룬다.
 
 API 버전 규칙과 소프트웨어 버전 규칙은 간접적으로 연관된다.
-[API와 릴리스 버전 부여에 관한 제안](https://git.k8s.io/design-proposals-archive/release/versioning.md)에는
+[API와 릴리스 버전 부여에 관한 제안](https://git.k8s.io/sig-release/release-engineering/versioning.md)에는
 API 버전 규칙과 소프트웨어 버전 규칙 간의 관계가 기술되어 있다.
 
 API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.

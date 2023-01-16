@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding."
 title: "ClusterRole"
-weight: 5
+weight: 6
 auto_generated: true
 ---
 

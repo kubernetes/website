@@ -66,6 +66,27 @@ Resource quotas work like this:
   若想避免这类问题，请参考
   [演练](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)示例。
 
+{{< note >}}
+<!--
+- For `cpu` and `memory` resources, ResourceQuotas enforce that **every**
+(new) pod in that namespace sets a limit for that resource.
+If you enforce a resource quota in a namespace for either `cpu` or `memory`,
+you, and other clients, **must** specify either `requests` or `limits` for that resource,
+for every new Pod you submit. If you don't, the control plane may reject admission
+for that Pod.
+- For other resources: ResourceQuota works and will ignore pods in the namespace without setting a limit or request for that resource. It means that you can create a new pod without limit/request ephemeral storage if the resource quota limits the ephemeral storage of this namespace.
+You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically set
+a default request for these resources.
+-->
+- 对于 `cpu` 和 `memory` 资源：ResourceQuota 强制该命名空间中的每个（新）Pod 为该资源设置限制。
+  如果你在命名空间中为 `cpu` 和 `memory` 制实施资源配额，
+  你或其他客户端**必须**为你提交的每个新 Pod 指定该资源的 `requests` 或 `limits`。
+  否则，控制平面可能会拒绝接纳该 Pod。
+- 对于其他资源：ResourceQuota 可以工作，并且会忽略命名空间中的 Pod，而无需为该资源设置限制或请求。
+  这意味着，如果资源配额限制了此命名空间的临时存储，则可以创建没有限制/请求临时存储的新 Pod。
+  你可以使用[限制范围](/zh-cn/docs/concepts/policy/limit-range/)自动设置对这些资源的默认请求。
+{{< /note >}}
+
 <!--
 The name of a ResourceQuota object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -106,7 +127,7 @@ enabled when the {{< glossary_tooltip text="API server" term_id="kube-apiserver"
 `--enable-admission-plugins=` flag has `ResourceQuota` as
 one of its arguments.
 -->
-## 启用资源配额
+## 启用资源配额  {#enabling-resource-quota}
 
 资源配额的支持在很多 Kubernetes 版本中是默认启用的。
 当 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
@@ -126,7 +147,7 @@ You can limit the total sum of
 [compute resources](/docs/concepts/configuration/manage-resources-containers/)
 that can be requested in a given namespace.
 -->
-## 计算资源配额
+## 计算资源配额  {#compute-resource-quota}
 
 用户可以对给定命名空间下的可被请求的
 [计算资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
@@ -164,7 +185,7 @@ The following resource types are supported:
 In addition to the resources mentioned above, in release 1.10, quota support for
 [extended resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources) is added.
 -->
-### 扩展资源的资源配额
+### 扩展资源的资源配额  {#resource-quota-for-extended-resources}
 
 除上述资源外，在 Kubernetes 1.10 版本中，还添加了对
 [扩展资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)
@@ -199,7 +220,7 @@ You can limit the total sum of [storage resources](/docs/concepts/storage/persis
 
 In addition, you can limit consumption of storage resources based on associated storage-class.
 -->
-## 存储资源配额
+## 存储资源配额  {#storage-resource-quota}
 
 用户可以对给定命名空间下的[存储资源](/zh-cn/docs/concepts/storage/persistent-volumes/)
 总量进行限制。
@@ -270,7 +291,7 @@ namespaced resource types using the following syntax:
 * `count/<resource>.<group>` for resources from non-core groups
 * `count/<resource>` for resources from the core group
 -->
-## 对象数量配额
+## 对象数量配额  {#object-count-quota}
 
 你可以使用以下语法对所有标准的、命名空间域的资源类型进行配额设置：
 
@@ -472,7 +493,7 @@ specified.
 <!--
 ### Resource Quota Per PriorityClass
 -->
-### 基于优先级类（PriorityClass）来设置资源配额
+### 基于优先级类（PriorityClass）来设置资源配额  {#resource-quota-per-priorityclass}
 
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
@@ -979,7 +1000,7 @@ restrictions around nodes: pods from several namespaces may run on the same node
 It may be desired that pods at a particular priority, eg. "cluster-services",
 should be allowed in a namespace, if and only if, a matching quota object exists.
 -->
-## 默认情况下限制特定优先级的资源消耗
+## 默认情况下限制特定优先级的资源消耗  {#limit-priority-class-consumption-by-default}
 
 有时候可能希望当且仅当某名字空间中存在匹配的配额对象时，才可以创建特定优先级
 （例如 "cluster-services"）的 Pod。

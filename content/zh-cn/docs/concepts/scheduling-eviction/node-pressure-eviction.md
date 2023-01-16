@@ -1,19 +1,19 @@
 ---
 title: 节点压力驱逐
 content_type: concept
-weight: 60
+weight: 100
 ---
 <!-- 
 title: Node-pressure Eviction
 content_type: concept
-weight: 60 
+weight: 100
 -->
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
 <!-- 
 The {{<glossary_tooltip term_id="kubelet" text="kubelet">}} monitors resources 
-like CPU, memory, disk space, and filesystem inodes on your cluster's nodes. 
+like memory, disk space, and filesystem inodes on your cluster's nodes. 
 When one or more of these resources reach specific consumption levels, the 
 kubelet can proactively fail one or more pods on the node to reclaim resources
 and prevent starvation. 
@@ -25,7 +25,7 @@ Node-pressure eviction is not the same as
 [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
 -->
 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}
-监控集群节点的 CPU、内存、磁盘空间和文件系统的 inode 等资源。
+监控集群节点的内存、磁盘空间和文件系统的 inode 等资源。
 当这些资源中的一个或者多个达到特定的消耗水平，
 kubelet 可以主动地使节点上一个或者多个 Pod 失效，以回收资源防止饥饿。
 
@@ -292,6 +292,17 @@ kubelet 具有以下默认硬驱逐条件：
 * `nodefs.available<10%`
 * `imagefs.available<15%`
 * `nodefs.inodesFree<5%`（Linux 节点）
+
+<!--
+These default values of hard eviction thresholds will only be set if none 
+of the parameters is changed. If you changed the value of any parameter, 
+then the values of other parameters will not be inherited as the default 
+values and will be set to zero. In order to provide custom values, you 
+should provide all the thresholds respectively.
+-->
+只有在没有更改任何参数的情况下，硬驱逐阈值才会被设置成这些默认值。
+如果你更改了任何参数的值，则其他参数的取值不会继承其默认值设置，而将被设置为零。
+为了提供自定义值，你应该分别设置所有阈值。
 
 <!--  
 ### Eviction monitoring interval

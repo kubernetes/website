@@ -1,7 +1,7 @@
 ---
 title: 追踪 Kubernetes 系统组件
 content_type: concept
-weight: 60
+weight: 90
 ---
 <!-- 
 title: Traces For Kubernetes System Components
@@ -9,7 +9,7 @@ reviewers:
 - logicalhan
 - lilic
 content_type: concept
-weight: 60
+weight: 90
 -->
 
 <!-- overview -->

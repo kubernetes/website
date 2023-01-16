@@ -80,7 +80,7 @@ POST /checkpoint/{namespace}/{pod}/{container}
 
 401: Unauthorized
 
-404: Not Found (if the `CheckpointContainer` feature gate is disabled)
+404: Not Found (if the `ContainerCheckpoint` feature gate is disabled)
 
 404: Not Found (if the specified `namespace`, `pod` or `container` cannot be found)
 
@@ -91,6 +91,6 @@ POST /checkpoint/{namespace}/{pod}/{container}
 {{< comment >}}
 TODO: Add more information about return codes once CRI implementation have checkpoint/restore.
       This TODO cannot be fixed before the release, because the CRI implementation need
-      the Kubernetes changes to be merged to implement the new CheckpointContainer CRI API
+      the Kubernetes changes to be merged to implement the new ContainerCheckpoint CRI API
       call. We need to wait after the 1.25 release to fix this.
 {{< /comment >}}

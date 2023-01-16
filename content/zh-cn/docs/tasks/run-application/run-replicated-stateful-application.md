@@ -31,13 +31,12 @@ replication.
 的数据复制。
 
 <!--
-**this is not a production configuration**.
-In particular, MySQL settings remain on insecure defaults to keep the focus
+**This is not a production configuration**. MySQL settings remain on insecure defaults to keep the focus
 on general patterns for running stateful applications in Kubernetes.
 -->
 {{< note >}}
-**这不是生产环境下配置**。
-尤其注意，MySQL 设置都使用的是不安全的默认值，这是因为我们想把重点放在 Kubernetes
+**这一配置不适合生产环境。**
+MySQL 设置都使用的是不安全的默认值，这是因为我们想把重点放在 Kubernetes
 中运行有状态应用程序的一般模式上。
 {{< /note >}}
 
@@ -110,7 +109,7 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 This ConfigMap provides `my.cnf` overrides that let you independently control
 configuration on the primary MySQL server and its replicas.
 In this case, you want the primary server to be able to serve replication logs to replicas
-and you want repicas to reject any writes that don't come via replication. 
+and you want replicas to reject any writes that don't come via replication.
 -->
 这个 ConfigMap 提供 `my.cnf` 覆盖设置，使你可以独立控制 MySQL 主服务器和副本服务器的配置。
 在这里，你希望主服务器能够将复制日志提供给副本服务器，
@@ -217,7 +216,7 @@ Press **Ctrl+C** to cancel the watch.
 {{< note >}}
 <!--
 If you don't see any progress, make sure you have a dynamic PersistentVolume
-provisioner enabled as mentioned in the [prerequisites](#before-you-begin). 
+provisioner enabled, as mentioned in the [prerequisites](#before-you-begin).
 -->
 如果你看不到任何进度，确保已启用[前提条件](#准备开始)
 中提到的动态 PersistentVolume 制备程序。
@@ -359,7 +358,7 @@ MySQL 本身不提供执行此操作的机制，因此本示例使用了一种�
 After the init containers complete successfully, the regular containers run.
 The MySQL Pods consist of a `mysql` container that runs the actual `mysqld`
 server, and an `xtrabackup` container that acts as a
-[sidecar](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns). 
+[sidecar](/blog/2015/06/the-distributed-system-toolkit-patterns).
 -->
 ### 开始复制
 
@@ -701,13 +700,14 @@ kubectl uncordon <节点名称>
 <!--
 ## Scaling the number of replicas
 
-When you use MySQL replication, you can scale your read query capacity by adding replicas.
-With StatefulSet, you can do this with a single command: 
+When you use MySQL replication, you can scale your read query capacity by
+adding replicas.
+For a StatefulSet, you can achieve this with a single command:
 -->
 ## 扩展副本节点数量
 
 使用 MySQL 复制时，你可以通过添加副本节点来扩展读取查询的能力。
-使用 StatefulSet，你可以使用单个命令执行此操作：
+对于 StatefulSet，你可以使用单个命令实现此目的：
 
 ```shell
 kubectl scale statefulset mysql --replicas=5

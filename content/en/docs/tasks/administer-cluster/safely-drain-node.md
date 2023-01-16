@@ -7,6 +7,7 @@ reviewers:
 title: Safely Drain a Node
 content_type: task
 min-kubernetes-server-version: 1.5
+weight: 310
 ---
 
 <!-- overview -->
@@ -88,10 +89,11 @@ respect the PodDisruptionBudget you specify.
 For example, if you have a StatefulSet with three replicas and have
 set a PodDisruptionBudget for that set specifying `minAvailable: 2`,
 `kubectl drain` only evicts a pod from the StatefulSet if all three
-replicas pods are ready; if then you issue multiple drain commands in
-parallel, Kubernetes respects the PodDisruptionBudget and ensure
-that only 1 (calculated as `replicas - minAvailable`) Pod is unavailable
-at any given time. Any drains that would cause the number of ready
+replicas pods are [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod);
+if then you issue multiple drain commands in parallel,
+Kubernetes respects the PodDisruptionBudget and ensures that
+only 1 (calculated as `replicas - minAvailable`) Pod is unavailable
+at any given time. Any drains that would cause the number of [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
 replicas to fall below the specified budget are blocked.
 
 ## The Eviction API {#eviction-api}

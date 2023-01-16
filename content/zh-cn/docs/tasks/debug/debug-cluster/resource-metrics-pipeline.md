@@ -30,13 +30,13 @@ You can also view the resource metrics using the
 command.
 -->
 
-对于 Kubernetes，_Metrics API_ 提供了一组基本的指标，以支持自动伸缩和类似的用例。
+对于 Kubernetes，**Metrics API** 提供了一组基本的指标，以支持自动伸缩和类似的用例。
 该 API 提供有关节点和 Pod 的资源使用情况的信息，
 包括 CPU 和内存的指标。如果将 Metrics API 部署到集群中，
 那么 Kubernetes API 的客户端就可以查询这些信息，并且可以使用 Kubernetes 的访问控制机制来管理权限。
 
-[HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA) 和 
-[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA) 
+[HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA) 和
+[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA)
 使用 metrics API 中的数据调整工作负载副本和资源，以满足客户需求。
 
 你也可以通过 [`kubectl top`](/docs/reference/generated/kubectl/kubectl-commands#top) 命令来查看资源指标。
@@ -51,8 +51,9 @@ the simpler Metrics API by deploying a second
 that uses the _Custom Metrics API_.
 -->
 Metrics API 及其启用的指标管道仅提供最少的 CPU 和内存指标，以启用使用 HPA 和/或 VPA 的自动扩展。
-如果你想提供更完整的指标集，你可以通过部署使用 _Custom Metrics API_ 的第二个
-[指标管道](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/#full-metrics-pipeline)来作为简单的 Metrics API 的补充。
+如果你想提供更完整的指标集，你可以通过部署使用 **Custom Metrics API**
+的第二个[指标管道](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/#full-metrics-pipeline)来作为简单的
+Metrics API 的补充。
 {{< /note >}}
 
 <!--
@@ -62,18 +63,18 @@ Figure 1 illustrates the architecture of the resource metrics pipeline.
 
 {{< mermaid >}}
 flowchart RL
-subgraph cluster[Cluster]
+subgraph cluster[集群]
 direction RL
 S[ <br><br> ]
 A[Metrics-<br>Server]
-subgraph B[Nodes]
+subgraph B[节点]
 direction TB
 D[cAdvisor] --> C[kubelet]
-E[Container<br>runtime] --> D
-E1[Container<br>runtime] --> D
-P[pod data] -.- C
+E[容器<br>运行时] --> D
+E1[容器<br>运行时] --> D
+P[Pod 数据] -.- C
 end
-L[API<br>server]
+L[API<br>服务器]
 W[HPA]
 C ---->|Summary<br>API| A -->|metrics<br>API| L --> W
 end
@@ -143,9 +144,8 @@ autoscaler components.
 
 Here is an example of the Metrics API request for a `minikube` node piped through `jq` for easier
 reading:
-
 -->
-## Metrics API   {#the-metrics-api}
+## Metrics API   {#metrics-api}
 
 {{< feature-state for_k8s_version="1.8" state="beta" >}}
 
@@ -158,14 +158,18 @@ metrics-server 实现了 Metrics API。此 API 允许你访问集群中节点和
 kubectl get --raw "/apis/metrics.k8s.io/v1beta1/nodes/minikube" | jq '.'
 ```
 
-<!-- Here is the same API call using `curl`: -->
+<!--
+Here is the same API call using `curl`:
+-->
 这是使用 `curl` 来执行的相同 API 调用：
 
 ```shell
 curl http://localhost:8080/apis/metrics.k8s.io/v1beta1/nodes/minikube
 ```
 
-<!-- Sample response: -->
+<!--
+Sample response:
+-->
 响应示例：
 
 ```json
@@ -190,7 +194,6 @@ curl http://localhost:8080/apis/metrics.k8s.io/v1beta1/nodes/minikube
 Here is an example of the Metrics API request for a `kube-scheduler-minikube` pod contained in the
 `kube-system` namespace and piped through `jq` for easier reading:
 -->
-
 下面是一个 `kube-system` 命名空间中的 `kube-scheduler-minikube` Pod 的 Metrics API 请求示例，
 通过 `jq` 管道处理以便于阅读：
 
@@ -198,14 +201,18 @@ Here is an example of the Metrics API request for a `kube-scheduler-minikube` po
 kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/kube-scheduler-minikube" | jq '.'
 ```
 
-<!-- Here is the same API call using `curl`: -->
+<!--
+Here is the same API call using `curl`:
+-->
 这是使用 `curl` 来完成的相同 API 调用：
 
 ```shell
 curl http://localhost:8080/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/kube-scheduler-minikube
 ```
 
-<!-- Sample response: -->
+<!--
+Sample response:
+-->
 响应示例：
 
 ```json
@@ -238,30 +245,29 @@ repository. You must enable the [API aggregation layer](/docs/tasks/extend-kuber
 and register an [APIService](/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)
 for the `metrics.k8s.io` API.
 
-To learn more about the Metrics API, see [resource metrics API design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/resource-metrics-api.md),
+To learn more about the Metrics API, see [resource metrics API design](https://git.k8s.io/design-proposals-archive/instrumentation/resource-metrics-api.md),
 the [metrics-server repository](https://github.com/kubernetes-sigs/metrics-server) and the
 [resource metrics API](https://github.com/kubernetes/metrics#resource-metrics-api).
 -->
-
 Metrics API 在 [k8s.io/metrics](https://github.com/kubernetes/metrics) 代码库中定义。
 你必须启用 [API 聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)并为 
 `metrics.k8s.io` API 注册一个 [APIService](/zh-cn/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)。
 
 要了解有关 Metrics API 的更多信息，
-请参阅资源 [Resource Metrics API Design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/resource-metrics-api.md)、
+请参阅资源 [Resource Metrics API Design](https://git.k8s.io/design-proposals-archive/instrumentation/resource-metrics-api.md)、
 [metrics-server 代码库](https://github.com/kubernetes-sigs/metrics-server) 和
 [Resource Metrics API](https://github.com/kubernetes/metrics#resource-metrics-api)。
 
+{{< note >}}
 <!--
 You must deploy the metrics-server or alternative adapter that serves the Metrics API to be able
 to access it.
 -->
-{{< note >}}
 你必须部署提供 Metrics API 服务的 metrics-server 或其他适配器才能访问它。
 {{< /note >}}
 
 <!--
-## Measuring Resource Usage
+## Measuring resource usage
 
 ### CPU
 
@@ -356,64 +362,33 @@ metrics-server 调用 [kubelet](/zh-cn/docs/reference/command-line-tools-referen
 * 版本 v0.6.0+ 中，使用指标资源端点 `/metrics/resource`
 * 旧版本中使用 Summary  API 端点 `/stats/summary`
 
+## {{% heading "whatsnext" %}}
+
 <!--
 To learn more about the metrics-server, see the
 [metrics-server repository](https://github.com/kubernetes-sigs/metrics-server).
 
 You can also check out the following:
 
-* [metrics-server design](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/metrics-server.md)
+* [metrics-server design](https://git.k8s.io/design-proposals-archive/instrumentation/metrics-server.md)
 * [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
 * [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
 * [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
 * [Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/)
 -->
-
 了解更多 metrics-server，参阅 [metrics-server 代码库](https://github.com/kubernetes-sigs/metrics-server)。
 
 你还可以查看以下内容：
 
-* [metrics-server 设计](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/metrics-server.md)
+* [metrics-server 设计](https://git.k8s.io/design-proposals-archive/instrumentation/metrics-server.md)
 * [metrics-server FAQ](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md)
 * [metrics-server known issues](https://github.com/kubernetes-sigs/metrics-server/blob/master/KNOWN_ISSUES.md)
 * [metrics-server releases](https://github.com/kubernetes-sigs/metrics-server/releases)
-* [Horizontal Pod Autoscaling](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
+* [水平自动扩缩](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 
 <!--
-### Summary API Source
-
-The [Kubelet](/docs/reference/command-line-tools-reference/kubelet/) gathers stats at node, volume, pod and container level, and emits
-them in the [Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
-for consumers to read.
+To learn about how the kubelet serves node metrics, and how you can access those via
+the Kubernetes API, read [Node Metrics Data](/docs/reference/instrumentation/node-metrics).
 -->
-
-### Summary API 来源   {#summary-api-source}
-
-[Kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 在节点、卷、Pod 和容器级别收集统计信息，
-并在 [Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
-中提供它们的统计信息供消费者阅读。
-
-<!--
-Here is an example of a Summary API request for a `minikube` node:
--->
-
-下面是一个 `minikube` 节点的 Summary API 请求示例：
-
-```shell
-kubectl get --raw "/api/v1/nodes/minikube/proxy/stats/summary"
-```
-
-<!-- Here is the same API call using `curl`: -->
-这是使用 `curl` 来执行的相同 API 调用：
-
-```shell
-curl http://localhost:8080/api/v1/nodes/minikube/proxy/stats/summary
-```
-
-{{< note >}}
-<!--
-The summary API `/stats/summary` endpoint will be replaced by the `/metrics/resource` endpoint
-beginning with metrics-server 0.6.x.
--->
-从 metrics-server 0.6.x 开始，Summary API `/stats/summary` 端点被 `/metrics/resource` 端点替换。
-{{< /note >}}
+若要了解 kubelet 如何提供节点指标以及你可以如何通过 Kubernetes API 访问这些指标，
+请阅读[节点指标数据](/zh-cn/docs/reference/instrumentation/node-metrics)。

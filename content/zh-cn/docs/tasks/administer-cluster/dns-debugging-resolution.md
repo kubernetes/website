@@ -527,40 +527,19 @@ This should probably be implemented eventually.
 Kubernetes 的安装并不会默认配置节点的 `resolv.conf` 文件来使用集群的 DNS 服务，因为这个配置对于不同的发行版本是不一样的。这个问题应该迟早会被解决的。
 
 <!--
-Linux's libc (a.k.a. glibc) has a limit for the DNS `nameserver` records to 3
-by default. What's more, for the glibc versions which are older than
-glibc-2.17-222 ([the new versions update see this
-issue](https://access.redhat.com/solutions/58028)), the allowed number of DNS
-`search` records has been limited to 6 ([see this bug from
-2005](https://bugzilla.redhat.com/show_bug.cgi?id=168253)). Kubernetes needs
-to consume 1 `nameserver` record and 3 `search` records. This means that if a
-local installation already uses 3 `nameserver`s or uses more than 3 `search`es
-while your glibc version is in the affected list, some of those settings will
-be lost. To work around the DNS `nameserver` records limit, the node can run
-`dnsmasq`, which will provide more `nameserver` entries. You can also use
-kubelet's `--resolv-conf` flag. To fix the DNS `search` records limit,
-consider upgrading your linux distribution or upgrading to an unaffected
-version of glibc.
+Linux's libc (a.k.a. glibc) has a limit for the DNS `nameserver` records to 3 by
+default and Kubernetes needs to consume 1 `nameserver` record. This means that
+if a local installation already uses 3 `nameserver`s, some of those entries will
+be lost. To work around this limit, the node can run `dnsmasq`, which will
+provide more `nameserver` entries. You can also use kubelet's `--resolv-conf`
+flag.
 -->
-Linux 的 libc 限制 `nameserver` 只能有三个记录。不仅如此，对于 glibc-2.17-222
-之前的版本（[参见此 Issue 了解新版本的更新](https://access.redhat.com/solutions/58028)），`search` 的记录不能超过 6 个
-（ [详情请查阅这个 2005 年的 bug](https://bugzilla.redhat.com/show_bug.cgi?id=168253)）。
-Kubernetes 需要占用一个 `nameserver` 记录和三个`search`记录。
-这意味着如果一个本地的安装已经使用了三个 `nameserver` 或者使用了超过三个
-`search` 记录，而你的 glibc 版本也在有问题的版本列表中，那么有些配置很可能会丢失。
-为了绕过 DNS `nameserver` 个数限制，节点可以运行 `dnsmasq`，以提供更多的
-`nameserver` 记录。你也可以使用kubelet 的 `--resolv-conf` 标志来解决这个问题。
-要想修复 DNS `search` 记录个数限制问题，可以考虑升级你的 Linux 发行版本，或者
-升级 glibc 到一个不再受此困扰的版本。
+Linux 的 libc（又名 glibc）默认将 DNS `nameserver` 记录限制为 3，
+而 Kubernetes 需要使用 1 条 `nameserver` 记录。
+这意味着如果本地的安装已经使用了 3 个 `nameserver`，那么其中有些条目将会丢失。
+要解决此限制，节点可以运行 `dnsmasq`，以提供更多 `nameserver` 条目。
+你也可以使用 kubelet 的 `--resolv-conf` 标志来解决这个问题。
 
-{{< note >}}
-<!--
-With [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration),
-Kubernetes allows more DNS `search` records.
--->
-使用[扩展 DNS 设置](/zh-cn/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration)，
-Kubernetes 允许更多的 `search` 记录。
-{{< /note >}}
 <!--
 If you are using Alpine version 3.3 or earlier as your base image, DNS may not
 work properly owing to a known issue with Alpine.

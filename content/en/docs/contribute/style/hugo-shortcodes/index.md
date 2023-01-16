@@ -1,6 +1,7 @@
 ---
 title: Custom Hugo Shortcodes
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->
