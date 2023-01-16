@@ -3,6 +3,11 @@ title: 配置存活、就绪和启动探针
 content_type: task
 weight: 110
 ---
+<!--
+title: Configure Liveness, Readiness and Startup Probes
+content_type: task
+weight: 110
+-->
 
 <!-- overview -->
 <!--
@@ -608,9 +613,6 @@ to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be
 considered successful after having failed. Defaults to 1. Must be 1 for liveness
 and startup Probes. Minimum value is 1.
-* `failureThreshold`: When a probe fails, Kubernetes will
-try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
-Defaults to 3. Minimum value is 1.
 -->
 * `initialDelaySeconds`：容器启动后要等待多少秒后才启动启动、存活和就绪探针，
   默认是 0 秒，最小值是 0。
@@ -618,9 +620,40 @@ Defaults to 3. Minimum value is 1.
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探针在失败后，被视为成功的最小连续成功数。默认值是 1。
   存活和启动探测的这个值必须是 1。最小值是 1。
-* `failureThreshold`：当探测失败时，Kubernetes 的重试次数。
-  对存活探测而言，放弃就意味着重新启动容器。
-  对就绪探测而言，放弃意味着 Pod 会被打上未就绪的标签。默认值是 3。最小值是 1。
+<!--
+* `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
+  considers that the overall check has failed: the container is _not_ ready / healthy /
+  live.
+  For the case of a startup or liveness probe, if at least `failureThreshold` probes have
+  failed, Kubernetes treats the container as unhealthy and triggers a restart for that
+  specific container. The kubelet takes the setting of `terminationGracePeriodSeconds`
+  for that container into account.
+  For a failed readiness probe, the kubelet continues running the container that failed
+  checks, and also continues to run more probes; because the check failed, the kubelet
+  sets the `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+  on the Pod to `false`.
+-->
+* `failureThreshold`：探针连续失败了 `failureThreshold` 次之后，
+  Kubernetes 认为总体上检查已失败：容器状态未就绪、不健康、不活跃。
+  对于启动探针或存活探针而言，如果至少有 `failureThreshold` 个探针已失败，
+  Kubernetes 会将容器视为不健康并为这个特定的容器触发重启操作。
+  kubelet 会考虑该容器的 `terminationGracePeriodSeconds` 设置。
+  对于失败的就绪探针，kubelet 继续运行检查失败的容器，并继续运行更多探针；
+  因为检查失败，kubelet 将 Pod 的 `Ready`
+  [状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)设置为 `false`。
+<!--
+* `terminationGracePeriodSeconds`: configure a grace period for the kubelet to wait
+  between triggering a shut down of the failed container, and then forcing the
+  container runtime to stop that container.
+  The default is to inherit the Pod-level value for `terminationGracePeriodSeconds`
+  (30 seconds if not specified), and the minimum value is 1.
+  See [probe-level `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)
+  for more detail.
+-->
+* `terminationGracePeriodSeconds`：为 kubelet
+  配置从为失败的容器触发终止操作到强制容器运行时停止该容器之前等待的宽限时长。
+  默认值是继承 Pod 级别的 `terminationGracePeriodSeconds` 值（如果不设置则为 30 秒），最小值为 1。
+  更多细节请参见[探针级别 `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)。
 
 {{< note >}}
 <!--
