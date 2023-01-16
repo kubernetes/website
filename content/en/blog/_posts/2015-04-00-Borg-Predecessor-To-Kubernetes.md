@@ -16,7 +16,7 @@ To give you a flavor, here are four Kubernetes features that came from our exper
 
 
 
-1) [Pods](https://kubernetes.io/docs/concepts/workloads/pods/). A pod is the unit of scheduling in Kubernetes. It is a resource envelope in which one or more containers run. Containers that are part of the same pod are guaranteed to be scheduled together onto the same machine, and can share state via local volumes.
+1) [Pods](/docs/concepts/workloads/pods/). A pod is the unit of scheduling in Kubernetes. It is a resource envelope in which one or more containers run. Containers that are part of the same pod are guaranteed to be scheduled together onto the same machine, and can share state via local volumes.
 
 
 
