@@ -68,7 +68,7 @@ in almost 100% backwards-compatible ways.
 If you glance over at 
 [CNCF Landscape](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars)
 we can observe that Kubernetes project doesn't provide a recommendation 
-of projects to work upon as it is totally up to the users to find the 
+of any projects to work on, as it is totally up to the users to find the 
 project that suites them best. If someone is to make a full metrics pipeline,
 they need to design and deploy their own infrastructure platform, of which
 Kubernetes is only one part.
