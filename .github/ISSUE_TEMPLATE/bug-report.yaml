@@ -38,16 +38,18 @@ body:
        label: Which of these details apply?
        description: You may select more than one.
        options:
-         - label: The page doesn't render properly
+         - label: The page does not load
+         - label: The page does not render properly
+         - label: The page previously existing but is now gone
+         - label: The page is hard to find from elsewhere on the site
+         - label: The existing text is confusing
          - label: The existing text is factually incorrect
          - label: The existing text is no longer up to date
-         - label: The text on that page is confusing
          - label: The page explains something that is no longer relevant
          - label: There is a broken hyperlink
+         - label: There is a hyperlink to an irrelevant page
          - label: There is a missing diagram
-         - label: The page is hard to find from elsewhere on the site
-         - label: The page previously existing but is now gone
-         - label: The page does not load
+         - label: There is an incorrect diagram 
 
   - type: textarea
     id: additional
