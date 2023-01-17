@@ -437,6 +437,12 @@ Used on: PersistentVolumeClaim
 
 This annotation will be added to dynamic provisioning required PVC.
 
+### volume.kubernetes.io/selected-node
+
+Used on: PersistentVolumeClaim
+
+This annotation is added to a PVC that is triggered by a scheduler to be dynamically provisioned. Its value is the name of the selected node.
+
 ### volumes.kubernetes.io/controller-managed-attach-detach
 
 Used on: Node
