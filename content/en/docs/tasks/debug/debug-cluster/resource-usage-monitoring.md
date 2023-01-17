@@ -66,7 +66,7 @@ built upon and carefully extending [Prometheus exposition format](https://promet
 in almost 100% backwards-compatible ways.
 
 If you glance over at 
-[CNCF Landscape](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars)
+[CNCF Landscape](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars), 
 you can observe that the Kubernetes project doesn't provide a recommendation 
 of any projects to work on, as it is totally up to the users to find the 
 project that suites them the best. If someone is to make a full metrics pipeline,
