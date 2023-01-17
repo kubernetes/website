@@ -40,7 +40,7 @@ body:
        options:
          - label: The page does not load
          - label: The page does not render properly
-         - label: The page previously existing but is now gone
+         - label: The page previously existed but is now gone
          - label: The page is hard to find from elsewhere on the site
          - label: The existing text is confusing
          - label: The existing text is factually incorrect
