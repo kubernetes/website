@@ -29,7 +29,7 @@ para garantir que tenham impacto limitado em outras cargas de trabalho no mesmo 
 
 {{< note >}}
 Em certas instalações do Linux, o sistema operacional define o limite de PIDs para um padrão 
-como por exemplo `32768`. Considere aumentar o valor de  `/proc/sys/kernel/pid_max`.
+como por exemplo `32768`. Considere aumentar o valor de `/proc/sys/kernel/pid_max`.
 {{< /note >}}
 
 Você pode configurar um kubelet para limitar o número de PIDs que um determinado pod pode consumir.
