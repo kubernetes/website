@@ -720,9 +720,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
   See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)
   for more details.
-- `SELinuxMountReadWriteOncePod`: Speed up container startup by mounting volumes with the correct
-  SELinux label instead of changing each file on the volumes recursively. The initial implementation
-  focused on ReadWriteOncePod volumes.
+- `SELinuxMountReadWriteOncePod`: Speeds up container startup by allowing kubelet to mount volumes
+  for a Pod directly with the correct SELinux label instead of changing each file on the volumes
+  recursively. The initial implementation focused on ReadWriteOncePod volumes.
 - `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile
   for all workloads.
   The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
