@@ -63,7 +63,7 @@ In a microservice environment, each microservice is expected by design to offer 
 
 ## Security-Behavior monitoring on Kubernetes
 
-Kubernetes deployments seeking to add Security-Behavior may use [Guard](http://knative.dev/security-guard), developed under the CNCF project Knative. Guard is integrated into the full Knative automation suite that runs on top of Kubernetes. Alternatively, **Guard can be installed as a standalone tool to protect any HTTP-based Kubernetes service**.
+Kubernetes deployments seeking to add Security-Behavior may use [Guard](http://knative.dev/security-guard), developed under the CNCF project Knative. Guard is integrated into the full Knative automation suite that runs on top of Kubernetes. Alternatively, **you can deploy Guard as a standalone tool** to protect any HTTP-based workload on Kubernetes.
 
 See:
 
