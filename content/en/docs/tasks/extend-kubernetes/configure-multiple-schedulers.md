@@ -75,15 +75,6 @@ In the above manifest, you use a [KubeSchedulerConfiguration](/docs/reference/sc
 to customize the behavior of your scheduler implementation. This configuration has been passed to
 the `kube-scheduler` during initialization with the `--config` option. The `my-scheduler-config` ConfigMap stores the configuration file. The Pod of the`my-scheduler` Deployment mounts the `my-scheduler-config` ConfigMap as a volume.
 
-Grants a Role within a specific namespace. For example:
-
-```shell
-kubectl create rolebinding -n kube-system \
-    my-scheduler-extension-apiserver-authentication-reader \
-    --role=extension-apiserver-authentication-reader \
-    --serviceaccount=kube-system:my-scheduler
-```
-
 In the aforementioned Scheduler Configuration, your scheduler implementation is represented via
 a [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile).
 {{< note >}}
