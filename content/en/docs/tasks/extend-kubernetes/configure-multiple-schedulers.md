@@ -31,7 +31,7 @@ in the Kubernetes source directory for a canonical example.
 
 Package your scheduler binary into a container image. For the purposes of this example,
 you can use the default scheduler (kube-scheduler) as your second scheduler.
-Clone the [Kubernetes source code from GitHub](https://github.com/kubernetes/kubernetes) with the exact same branch as per the kubernetes cluster version in use and build the source.
+While cloning the [Kubernetes source code from GitHub](https://github.com/kubernetes/kubernetes), you need to specify the exact Kubernetes version in use with `--branch="version"` and then, build the source using the `make` command.
 
 ```shell
 git clone --branch="version" https://github.com/kubernetes/kubernetes.git
