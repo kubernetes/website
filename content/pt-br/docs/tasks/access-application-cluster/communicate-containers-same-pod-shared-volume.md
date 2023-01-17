@@ -136,4 +136,3 @@ a vida útil do pod. Se o pod for excluído e recriado, todos os dados armazenad
 * Veja [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
 
 * Veja [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
-
