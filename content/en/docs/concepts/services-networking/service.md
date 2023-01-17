@@ -483,7 +483,7 @@ Kubernetes `ServiceTypes` allow you to specify what kind of Service you want.
 * `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value
   makes the Service only reachable from within the cluster. This is the
   default that is used if you don't explicitly specify a `type` for a Service.
-  You can expose the service to the public with an Ingress or the
+  You can expose the service to the public with an [Ingress](docs/reference/kubernetes-api/service-resources/ingress-v1/) or the
   Gateway API.
 * [`NodePort`](#type-nodeport): Exposes the Service on each Node's IP at a static port
   (the `NodePort`).
