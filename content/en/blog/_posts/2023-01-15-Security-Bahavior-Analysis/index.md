@@ -53,7 +53,7 @@ Fortunately, microservice architecture is well suited to security-behavior monit
 
 ## Security-Behavior of microservices versus monoliths {#microservices-vs-monoliths}
 
-Kubernetes is often used to support workloads designed with microservice architecture. By design, microservices aim to follow the UNIX philosophy of "Do One Thing And Do It Well". Each microservice has a bounded context and a clear interface. In other words, we can expect the microservice clients to send relatively regular requests and the microservice to present a relatively regular behavior as a response to these requests. Consequently, microservice architecture is an excellent candidate for security-behavior monitoring.
+Kubernetes is often used to support workloads designed with microservice architecture. By design, microservices aim to follow the UNIX philosophy of "Do One Thing And Do It Well". Each microservice has a bounded context and a clear interface. In other words, you can expect the microservice clients to send relatively regular requests and the microservice to present a relatively regular behavior as a response to these requests. Consequently, a microservice architecture is an excellent candidate for security-behavior monitoring.
 
 {{< figure src="Microservices.png" alt="Image showing why microservices are well suited for security-behavior monitoring" class="diagram-large" caption="Figure 2. Microservices are well suited for security-behavior monitoring" >}}
 
