@@ -102,7 +102,9 @@ spec:
         - name: www
           mountPath: /usr/share/nginx/html
   volumeClaimTemplates:
-  - metadata:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
       name: www
     spec:
       accessModes: [ "ReadWriteOnce" ]
