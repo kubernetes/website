@@ -12,7 +12,7 @@ tags:
   - workload
 ---
 
-सुनिश्चित करता है {{<glossary_tooltip text="पॉड" term_id="pod" >}} की प्रतिकृति {{<glossary_tooltip text="क्लस्टर " term_id="cluster" >}} में नोड्स के एक सेट पर चल रही है।
+यह सुनिश्चित करता है कि {{< Glosary_tooltip text="क्लस्टर" term_id="cluster" >}} में नोड्स के सेट पर {{< Glosary_tooltip text="पॉड" term_id="pod" >}} की एक प्रतिलिपि चल रही है।
 
 <!--more-->
 
