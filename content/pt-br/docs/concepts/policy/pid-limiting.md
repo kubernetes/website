@@ -33,13 +33,13 @@ como por exemplo `32768`. Considere aumentar o valor de  `/proc/sys/kernel/pid_m
 {{< /note >}}
 
 Você pode configurar um kubelet para limitar o número de PIDs que um determinado pod pode consumir.
-Como por exemplo se o sistema operacional host do seu nó estiver configurado para usar um máximo de `262144` PIDs e
+Como por exemplo, se o sistema operacional do seu nó estiver configurado para usar um máximo de `262144` PIDs e
 estiver esperando hospedar menos de `250` Pods, pode-se dar a cada Pod uma quota de `1000`
 PIDs para evitar o uso do número geral de PIDs disponíveis desse nó. Se o
 administrador deseja sobrecarregar PIDs de forma semelhante à CPU ou memória, ele também pode fazer isso
-com alguns riscos adicionais. De qualquer forma, um único Pod não será capaz de trazer
-toda a máquina para baixo. Este tipo de limitação de recursos ajuda a evitar simples
-fork bombs de afetar uma operação de um cluster inteiro.
+com alguns riscos adicionais. De qualquer forma, um único Pod não será capaz de derrubar
+uma máquina para baixo. Este tipo de limitação de recursos ajuda a evitar que um simples
+fork bomb afeta a operação de todo um cluster.
 
 A limitação de PID por pod permite que os administradores protejam um pod de outro, mas
 não garante que todos os pods alocados nesse host não possam afetar o nó em geral.
@@ -50,7 +50,7 @@ alocação para os pods. Isso é semelhante a como você pode reservar uma CPU, 
 recursos para uso pelo sistema operacional e outras instalações fora dos Pods
 e seus contêineres.
 
-A limitação de PID   é um recurso importante relacionado a [recurso
+A limitação de PID é um recurso importante relacionado a [recurso
 computacional](/pt-br/docs/concepts/configuration/manage-resources-containers/), requerimentos
 e limites. No entanto, você o especifica de uma maneira diferente: em vez de definir um
 limite de recursos do pod no `.spec` para um pod, você configura o limite como uma
@@ -71,12 +71,6 @@ O valor especificado declara que o número especificado de IDs de processo será
 reservado para o sistema como um todo e para os daemons do sistema Kubernetes
 respectivamente.
 
-{{< note >}}
-Antes da versão 1.20 do Kubernetes, limitação de recursos PID com nível de nós
-reservas necessárias habilitando o [`feature-gates`
-](/docs/reference/command-line-tools-reference/feature-gates/)
-`SupportNodePidsLimit` para funcionar.
-{{< /note >}}
 
 ## Limites de PID do pod
 
@@ -87,11 +81,6 @@ Para configurar o limite, você pode especificar o parâmetro de linha de comand
 para o kubelet ou definir `PodPidsLimit` no arquivo de configuração do kubelet
 [arquivo de configuração](/docs/tasks/administer-cluster/kubelet-config-file/).
 
-{{< note >}}
-Antes da versão 1.20 do Kubernetes, era necessário habilitar a limitação de recursos PID para pods
-o [portão de recursos](/docs/reference/command-line-tools-reference/feature-gates/)
-`SupportPodPidsLimit` para funcionar.
-{{< /note >}}
 
 ## Remoção baseada em PID
 
@@ -100,14 +89,14 @@ Esse recurso é chamado de despejo. Você pode
 [Configurar fora da manipulação de recursos](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 para vários sinais de despejo.
 Use o sinal de remoção `pid.available` para configurar o limite para o número de PIDs usados pelo pod.
-Você pode definir políticas de despejo flexíveis e rígidos.
-Porém, mesmo com a política de despejo rígido, se o número de PIDs crescer muito rápido,
+Você pode definir políticas de despejo flexíveis e rígidas.
+Porém, mesmo com a política de despejo rígida, se o número de PIDs crescer muito rápido,
 o nó ainda pode entrar em estado instável ao atingir o limite de PIDs do nó.
 O valor do sinal de despejo é calculado periodicamente e NÃO impõe o limite.
 
 Limitação de PID - por pod e por nó define o limite rígido.
 Assim que o limite for atingido, a carga de trabalho começará a apresentar falhas ao tentar obter um novo PID.
-Pode ou não levar ao reagendamento de um Pod,
+Isso pode ou não levar ao reagendamento de um Pod,
 dependendo de como a carga de trabalho reage a essas falhas e como vivacidade e prontidão
 os probes são configurados para o pod. No entanto, se os limites forem definidos corretamente,
 você pode garantir que a carga de trabalho de outros pods e os processos do sistema não ficarão sem PIDs
