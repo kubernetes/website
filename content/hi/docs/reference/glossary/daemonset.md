@@ -4,7 +4,7 @@ id: daemonset
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/daemonset
 short_description: >
-  सुनिश्चित करें कि पॉड की प्रतिकृति क्लस्टर में नोड्स के एक सेट पर चल रही है।
+ यह सुनिश्चित करता है कि क्लस्टर में नोड्स के सेट पर पॉड की एक प्रतिलिपि चल रही है।
 aka:
 tags:
   - fundamental
