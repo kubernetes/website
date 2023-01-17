@@ -1,5 +1,5 @@
 ---
-title: डोकर (Docker)
+title: डॉकर (Docker)
 id: docker
 date: 2018-04-12
 full_link: https://docs.docker.com/engine/
