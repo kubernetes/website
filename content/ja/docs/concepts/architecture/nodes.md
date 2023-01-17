@@ -92,7 +92,7 @@ kubectl cordon $ノード名
 これは、再起動の準備中にアプリケーションからアプリケーションが削除されている場合でも、DaemonSetがマシンに属していることを前提としているためです。
 {{< /note >}}
 
-## ノードのステータス
+## ノードのステータス {#node-status}
 
 ノードのステータスは以下の情報を含みます:
 
@@ -176,7 +176,7 @@ CapacityとAllocatableについて深く知りたい場合は、ノード上で�
 この情報はノードからkubeletを通じて取得され、Kubernetes APIに公開されます。
 
 
-## ハートビート
+## ハートビート {#heartbeats}
 ハートビートは、Kubernetesノードから送信され、ノードが利用可能か判断するのに役立ちます。
 以下の２つのハートビートがあります：
 * Nodeの`.status`の更新
@@ -191,7 +191,7 @@ kubeletが`NodeStatus`とLeaseオブジェクトの作成および更新を担�
 
 
 
-## ノードコントローラー
+## ノードコントローラー {#node-controller}
 
 ノード{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は、ノードのさまざまな側面を管理するKubernetesのコントロールプレーンコンポーネントです。
 
@@ -206,7 +206,7 @@ kubeletが`NodeStatus`とLeaseオブジェクトの作成および更新を担�
 ノードコントローラーは、`--node-monitor-period`に設定された秒数ごとに各ノードの状態をチェックします。
 
 
-#### 信頼性
+#### 信頼性 {#rate-limits-on-eviction}
 
 ほとんどの場合、排除の速度は1秒あたり`--node-eviction-rate`に設定された数値（デフォルトは秒間0.1）です。つまり、10秒間に1つ以上のPodをノードから追い出すことはありません。
 
@@ -228,7 +228,7 @@ kubeletが`NodeStatus`とLeaseオブジェクトの作成および更新を担�
 サービスコントローラーの副次的な効果をもたらします。これにより、ロードバランサトラフィックの流入をcordonされたノードから効率的に除去する事ができます。
 {{< /caution >}}
 
-### ノードのキャパシティ
+### ノードのキャパシティ {#node-capacity}
 
 Nodeオブジェクトはノードのリソースキャパシティ（CPUの数とメモリの量）を監視します。
 [自己登録](#self-registration-of-nodes)したノードは、Nodeオブジェクトを作成するときにキャパシティを報告します。
@@ -241,7 +241,7 @@ Kubernetes{{< glossary_tooltip text="スケジューラー" term_id="kube-schedu
 Pod以外のプロセス用にリソースを明示的に予約したい場合は、[Systemデーモン用にリソースを予約](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved)を参照してください。
 {{< /note >}}
 
-## ノードのトポロジー
+## ノードのトポロジー {#node-topology}
 
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 `TopologyManager`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、
