@@ -61,7 +61,7 @@ The diagram above clarifies how dividing a monolithic service to a set of micros
 
 In a microservice environment, each microservice is expected by design to offer a more well-defined service and serve better defined type of requests. This makes it easier for an observer to identify irregular client behavior and irregular service behavior. Further, a microservice design exposes the internal requests and internal services which offer more security-behavior data to identify irregularities by an observer. Overall, this makes the microservice design pattern better suited for security-behavior monitoring and control.
 
-## Security-Behavior Under Kubernetes
+## Security-Behavior monitoring on Kubernetes
 
 Kubernetes deployments seeking to add Security-Behavior may use [Guard](http://knative.dev/security-guard), developed under the CNCF project Knative. Guard is integrated into the full Knative automation suite that runs on top of Kubernetes. Alternatively, **Guard can be installed as a standalone tool to protect any HTTP-based Kubernetes service**.
 
