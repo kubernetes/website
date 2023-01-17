@@ -549,7 +549,7 @@ spec:
 
 <!-- maintenance note: OK to remove all mention of glusterfs once the v1.25 release of
 Kubernetes has gone out of support -->
--
+
 Kubernetes {{< skew currentVersion >}} does not include a `glusterfs` volume type.
 
 The GlusterFS in-tree storage driver was deprecated in the Kubernetes v1.25 release
