@@ -133,8 +133,12 @@ Labels:              run=my-nginx
 Annotations:         <none>
 Selector:            run=my-nginx
 Type:                ClusterIP
+IP Family Policy:    SingleStack
+IP Families:         IPv4
 IP:                  10.0.162.149
+IPs:                 10.0.162.149
 Port:                <unset> 80/TCP
+TargetPort:          80/TCP
 Endpoints:           10.244.2.5:80,10.244.3.4:80
 Session Affinity:    None
 Events:              <none>
