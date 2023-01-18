@@ -144,7 +144,7 @@ which you can define:
 
   * `MinAge`: the minimum age at which the kubelet can garbage collect a
     container. Disable by setting to `0`.
-  * `MaxPerPodContainer`: the maximum number of dead containers each Pod pair (UID, container name) 
+  * `MaxPerPodContainer`: the maximum number of dead containers each Pod 
     can have. Disable by setting to less than `0`.
   * `MaxContainers`: the maximum number of dead containers the cluster can have.
     Disable by setting to less than `0`. 
